@@ -1,0 +1,10 @@
+#
+# General text editors backup files
+#
+*~
+#
+# Eclipse project files
+#
+.settings
+.buildpath
+.project
