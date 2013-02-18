@@ -2,6 +2,12 @@
 # General text editors backup files
 #
 *~
+
+#
+# Composer packages
+#
+vendor
+ 
 #
 # Eclipse project files
 #
