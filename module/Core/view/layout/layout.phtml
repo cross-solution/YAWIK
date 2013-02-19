@@ -1,0 +1,20 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('CAM')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+        
+        <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css') ?>
+
+    </head>
+    <body>
+            <?php echo $this->content; ?>
+            <hr>
+            <footer>
+                <p>&copy; 2013 by <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+    </body>
+</html>
