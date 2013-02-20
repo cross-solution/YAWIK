@@ -1,0 +1,21 @@
+#
+# General text editors backup files
+#
+*~
+
+#
+# config files
+#
+config/phpdoc.xml
+
+#
+# Composer packages
+#
+vendor
+ 
+#
+# Eclipse project files
+#
+.settings
+.buildpath
+.project
