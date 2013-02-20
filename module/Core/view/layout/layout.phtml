@@ -1,9 +1,19 @@
+<?php 
+/**
+ * Cross Applicant Management
+ * Layout template file
+ * 
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
+?>
+
 <?php echo $this->doctype(); ?>
 
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('CAM')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle($this->translate('Cross Applicant Management'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
@@ -11,6 +21,7 @@
 
     </head>
     <body>
+            <h1><?php echo $this->translate('Cross Applicant Management')?></h1>
             <?php echo $this->content; ?>
             <hr>
             <footer>

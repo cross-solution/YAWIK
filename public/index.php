@@ -2,10 +2,7 @@
 /**
  * Cross Applicant Management
  *
- * @category Cam
- * @package Public
- * @copyright 2013 Cross Solution <http://cross-solution.de>
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @copyright (c) 2013 Cross Solution <http://cross-solution.de>
  * @license GPLv3
  */
  

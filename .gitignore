@@ -4,6 +4,11 @@
 *~
 
 #
+# config files
+#
+config/phpdoc.xml
+
+#
 # Composer packages
 #
 vendor

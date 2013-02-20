@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-19 15:47+0100\n"
-"PO-Revision-Date: 2013-02-19 15:52+0100\n"
+"POT-Creation-Date: 2013-02-20 12:35+0100\n"
+"PO-Revision-Date: 2013-02-20 12:35+0100\n"
 "Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language: \n"
@@ -16,6 +16,14 @@ msgstr ""
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: ../view/core/index/index.phtml:1
+msgid "Home"
+msgstr "Start"
+
+#: ../view/core/index/index.phtml:3
+msgid "This text is displayed on the home site."
+msgstr "Dieser Text wird auf der Startseite angezeigt."
 
 #: ../view/error/index.phtml:2
 msgid "An error occurred"
@@ -90,7 +98,12 @@ msgstr "Controller"
 msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
-#: ../view/layout/layout.phtml:17
+#: ../view/layout/layout.phtml:6
+#: ../view/layout/layout.phtml:14
+msgid "Cross Applicant Management"
+msgstr "Cross Bewerberverwaltung"
+
+#: ../view/layout/layout.phtml:18
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
