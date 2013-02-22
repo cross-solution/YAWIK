@@ -25,7 +25,7 @@ class IndexControllerTest extends AbstractControllerTestCase
         $this->dispatch('/');
         $this->assertResponseStatusCode(200);
     }
-
+    
 }
 
 ?>
