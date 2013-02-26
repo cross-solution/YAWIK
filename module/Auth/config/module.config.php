@@ -31,6 +31,16 @@ return array(
         ),
     ),
     
+    // Navigation
+    'navigation' => array(
+        'default' => array( 
+            'login' => array(
+                'label' => 'Login',
+                'route' => 'auth',
+            ),
+        ),
+    ),
+    
     // Configure the view service manager
     'view_manager' => array(
         'template_path_stack' => array(
