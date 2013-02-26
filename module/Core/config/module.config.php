@@ -34,6 +34,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
         ),
     ),
     
@@ -45,6 +46,16 @@ return array(
                 'type'     => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern'  => '%s.mo',
+            ),
+        ),
+    ),
+    
+    // Navigation-Konfig für die main_navigation
+    'navigation' => array(
+        'default' => array(
+            'home' => array(
+                'label' => 'Home',
+                'route' => 'home'
             ),
         ),
     ),

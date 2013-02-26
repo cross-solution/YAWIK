@@ -67,11 +67,20 @@ nav#main-navigation {
 	background-color: #efeffe;
 	
 }
-nav ul {
+nav#main-navigation ul {
 	list-style: none inside;
 }
-nav ul li {
+nav#main-navigation ul li {
 	float: left;
+}
+nav#main-navigation ul li a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+nav#main-navigation ul li.active a,
+nav#main-navigation ul li a:hover {
+	font-style: italic;
 }
 div#container {
 	clear: both;

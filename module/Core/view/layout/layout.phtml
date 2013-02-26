@@ -26,9 +26,8 @@
             <h1><?php echo $this->translate('Cross Applicant Management')?></h1>
         </header>
         <nav id="main-navigation">
-            <ul>
-                <li><a href="/"><?php echo $this->translate('Home')?></a></li>
-            </ul>
+            <?php echo $this->navigation('main_navigation')->menu()?>
+            
         </nav>
         <div id="container">
             <?php echo $this->content; ?>
