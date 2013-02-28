@@ -36,6 +36,9 @@ return array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
         ),
+        'initializers' => array(
+            'MongoMapper' => 'Core\Service\MongoMapperInitializer',
+        ),
     ),
     
     // Translation settings consumed by the 'translator' factory above.
