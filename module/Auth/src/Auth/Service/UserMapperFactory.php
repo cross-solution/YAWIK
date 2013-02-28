@@ -8,23 +8,20 @@
 
 namespace Auth\Service;
 
-
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Auth\Adapter\HybridAuth as HybridAuthAdapter;
+use Auth\Mapper\Mongo\UserMapper;
+use Auth\Model\UserModel;
 
-/**
- *
- */
-class HybridAuthAdapterFactory implements FactoryInterface 
+class UserMapperFactory implements FactoryInterface
 {
-
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $adapter = new HybridAuthAdapter();
-        $adapter->setHybridAuth($serviceLocator->get('HybridAuth'));
-        $adapter->setMapper($serviceLocator->get('UserMapper'));
-        return $adapter;
+        $mapper = new UserMapper();
+        $mapper->setModelPrototype(new UserModel());
+        return $mapper;
     }
-    
 }
+
+
+    

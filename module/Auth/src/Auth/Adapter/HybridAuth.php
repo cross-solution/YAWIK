@@ -11,6 +11,7 @@ namespace Auth\Adapter;
 use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
+use Core\Mapper\MapperInterface;
 
 class HybridAuth implements AdapterInterface
 {
@@ -19,6 +20,7 @@ class HybridAuth implements AdapterInterface
      */
     protected $_hybridAuth;
 
+    protected $_mapper;
     /**
      * 
      * @var string
@@ -37,8 +39,19 @@ class HybridAuth implements AdapterInterface
        $hybridAuth = $this->getHybridAuth();
        $adapter = $hybridAuth->authenticate($this->_provider);
        $userProfile = $adapter->getUserProfile();
-
+       $email = isset($userProfile->emailVerified) && !empty($userProfile->emailVerified)
+              ? $userProfile->emailVerified
+              : $userProfile->email;
+       
+       $user = $this->getMapper()->findByEmail($email);
+       if (!$user) {
+           $user = $this->getMapper()->create();
+           $user->email = $email;
+           $this->getMapper()->save($user);
+       }
+       
        var_dump($userProfile);
+       exit;
        return new Result(Result::SUCCESS, $userProfile);
         if (!$userProfile) {
             $authEvent->setCode(Result::FAILURE_IDENTITY_NOT_FOUND)
@@ -117,9 +130,9 @@ class HybridAuth implements AdapterInterface
      * @param  UserProviderInterface $mapper
      * @return HybridAuth
      */
-    public function setMapper(UserProviderInterface $mapper)
+    public function setMapper(MapperInterface $mapper)
     {
-        $this->mapper = $mapper;
+        $this->_mapper = $mapper;
 
         return $this;
     }
@@ -131,11 +144,7 @@ class HybridAuth implements AdapterInterface
      */
     public function getMapper()
     {
-        if (!$this->mapper instanceof UserProviderInterface) {
-            $this->setMapper($this->getServiceLocator()->get('ScnSocialAuth-UserProviderMapper'));
-        }
-
-        return $this->mapper;
+        return $this->_mapper;
     }
 
     /**

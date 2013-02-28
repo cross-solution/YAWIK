@@ -7,7 +7,7 @@
 # config files
 #
 config/phpdoc.xml
-config/autoload/*.local.php
+config/autoload/*.php
 
 #
 # Composer packages

@@ -9,22 +9,23 @@
 namespace Core\Mapper\Mongo;
 
 use Core\Mapper\Mongo\MapperInterface;
+use Core\Mapper\AbstractMapper as CoreAbstractMapper;
 
 
 /**
  *
  * 
  */
-class AbstractMapper implements MapperInterface
+abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterface
 {
     protected $_db;
     protected $_collection;
     
-    public function setDatabase(\MongoDD $database)
+    public function setDatabase(\MongoDB $database)
     {
-        $this->_db = $db;
+        $this->_db = $database;
         if (null !== $this->_collection) {
-            $this->_collection = $db->{$this->_collection};
+            $this->_collection = $database->{$this->_collection};
         }
         return $this;
     }
@@ -36,7 +37,7 @@ class AbstractMapper implements MapperInterface
     
     public function setCollection($collection)
     {
-        $this->_collection=$db->{$collection};
+        $this->_collection=$this->_db->{$collection};
         return $this;
     }
 
@@ -45,4 +46,14 @@ class AbstractMapper implements MapperInterface
         return $this->_collection;
     }
     
+    public function find($id)
+    {
+        $mongoId = $this->_getMongoId($id);
+        
+    }
+    
+    protected function _getMongoId($id)
+    {
+        return new \MongoId($id);
+    }
 }

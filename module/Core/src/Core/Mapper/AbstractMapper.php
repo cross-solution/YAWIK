@@ -13,7 +13,7 @@ use \Core\Model\ModelInterface;
 /**
  *
  */
-class AbstractMapper implements MapperInterface
+abstract class AbstractMapper implements MapperInterface
 {
 
     protected $_modelPrototype;

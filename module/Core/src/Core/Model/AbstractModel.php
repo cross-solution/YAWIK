@@ -12,8 +12,9 @@ namespace Core\Model;
 /**
  *
  */
-class AbstractModel implements ModelInterface
+abstract class AbstractModel implements ModelInterface
 {
+    public $id;
     
     public function getId()
     {
