@@ -25,4 +25,18 @@ class IndexController extends AbstractActionController
     public function indexAction()
     { }
     
+    public function loginAction()
+    {
+        $provider = $this->params('provider', '--keiner--');
+        $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
+        $hauth->setProvider($provider);
+        $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $result = $auth->authenticate($hauth);
+        
+        
+        
+        
+        $this->redirect()->toRoute('home');
+    }
+    
 }

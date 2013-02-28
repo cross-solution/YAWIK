@@ -9,9 +9,29 @@
 
 return array(
     
+    'service_manager' => array(
+        'invokables' => array(
+            'SessionManager' => '\Zend\Session\SessionManager',
+            'AuthenticationService' => '\Zend\Authentication\AuthenticationService',
+        ),
+        'factories' => array(
+            'HybridAuth' => '\Auth\Service\HybridAuthFactory',
+            'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
+        ),
+    ),
+    
     'controllers' => array(
         'invokables' => array(
-            'Auth\Controller\Index' => 'Auth\Controller\IndexController'
+            'Auth\Controller\Index' => 'Auth\Controller\IndexController',
+            'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
+        ),
+    ),
+    
+    'hybridauth' => array(
+        "Facebook" => array (
+            "enabled" => true,
+            "keys"    => array ( "id" => "", "secret" => "" ),
+            "scope"	  => 'email, user_about_me, user_birthday, user_hometown, user_website',
         ),
     ),
     
@@ -27,6 +47,29 @@ return array(
                         'action'     => 'index',
                     ),
                 ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'auth-providers' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:provider',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Index',
+                                'action' => 'login'
+                             ),
+                        ),
+                    ),
+                    'hauth' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/hauth',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\HybridAuth',
+                                'action' => 'index'
+                             ),
+                        ),
+                    ),
+                ),
             ),
         ),
     ),
@@ -37,6 +80,15 @@ return array(
             'login' => array(
                 'label' => 'Login',
                 'route' => 'auth',
+                'pages' => array(
+                    'facebook' => array(
+                        'label' => 'Facebook',
+                        'route' => 'auth/auth-providers',
+                        'params' => array(
+                            'provider' => 'facebook'
+                        ),
+                     ),
+                ),
             ),
         ),
     ),
