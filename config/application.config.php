@@ -19,11 +19,12 @@ return array(
         'module_paths' => array(
             './module',
             './vendor'
-        )
-    ),
+        ),
     
-    // What configuration files should be autoloaded 
-    'config_glob_paths' => array(
-        'config/autoload/{,*.}{global,local}.php'
+    
+        // What configuration files should be autoloaded 
+        'config_glob_paths' => array(
+            'config/autoload/{,*.}{global,local}.php'
+        ),
     )
 );
