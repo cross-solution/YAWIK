@@ -1,0 +1,8 @@
+<?php
+return array(
+    'service_manager' => array(
+        'factories' => array(
+            'UserMapper' => '\Auth\Mapper\MongoDb\Service\UserMapperFactory',
+        ),
+    ),
+);

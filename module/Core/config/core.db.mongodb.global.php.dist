@@ -2,11 +2,7 @@
 return array(
     'service_manager' => array(
         'factories' => array(
-            'MongoDb' => '\Core\Service\MongoDbFactory',
-            'UserMapper' => '\Auth\Service\UserMapperFactory',
-        ),
-        'initializers' => array(
-            'MongoMapper' => '\Core\Service\MongoMapperInitializer',
+            'MongoDb' => '\Core\Mapper\MongoDb\Service\MongoDbFactory',
         ),
     ),
     

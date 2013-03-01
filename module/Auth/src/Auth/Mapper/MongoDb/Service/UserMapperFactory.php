@@ -6,11 +6,11 @@
  * @license   GPLv3
  */
 
-namespace Auth\Service;
+namespace Auth\Mapper\MongoDb\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Auth\Mapper\Mongo\UserMapper;
+use Auth\Mapper\MongoDb\UserMapper;
 use Auth\Model\UserModel;
 
 class UserMapperFactory implements FactoryInterface
@@ -19,6 +19,8 @@ class UserMapperFactory implements FactoryInterface
     {
         $mapper = new UserMapper();
         $mapper->setModelPrototype(new UserModel());
+        $db = $serviceLocator->get('MongoDb');
+        $mapper->setCollection($db->users);
         return $mapper;
     }
 }

@@ -6,9 +6,9 @@
  * @license   GPLv3
  */
 
-namespace Core\Mapper\Mongo;
+namespace Core\Mapper\MongoDb;
 
-use Core\Mapper\Mongo\MapperInterface;
+use Core\Mapper\MongoDb\MapperInterface;
 use Core\Mapper\AbstractMapper as CoreAbstractMapper;
 
 
@@ -18,26 +18,11 @@ use Core\Mapper\AbstractMapper as CoreAbstractMapper;
  */
 abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterface
 {
-    protected $_db;
     protected $_collection;
     
-    public function setDatabase(\MongoDB $database)
+    public function setCollection(\MongoCollection $collection)
     {
-        $this->_db = $database;
-        if (null !== $this->_collection) {
-            $this->_collection = $database->{$this->_collection};
-        }
-        return $this;
-    }
-    
-    public function getDatabase()
-    {
-        return $this->_db;
-    }
-    
-    public function setCollection($collection)
-    {
-        $this->_collection=$this->_db->{$collection};
+        $this->_collection = $collection;
         return $this;
     }
 
@@ -48,8 +33,10 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
     
     public function find($id)
     {
-        $mongoId = $this->_getMongoId($id);
-        
+        if (!$id instanceOf \MongoId) {
+            $id = $this->_getMongoId($id);
+        }
+        return $this->_collection->findOne(array('_id' => $id));
     }
     
     protected function _getMongoId($id)

@@ -6,24 +6,19 @@
  * @license   GPLv3
  */
 
-namespace Auth\Mapper\Mongo;
+namespace Auth\Mapper\MongoDb;
 
 
-use Core\Mapper\Mongo\AbstractMapper;
+use Core\Mapper\MongoDb\AbstractMapper;
 use Auth\Model\UserModel;
 use Core\Model\ModelInterface;
+use Auth\Mapper\UserMapperInterface;
 
 /**
  *
  */
-class UserMapper extends AbstractMapper
+class UserMapper extends AbstractMapper implements UserMapperInterface
 {
-    protected $_collection = 'users';
-    
-    public function find($id)
-    {
-        
-    }
     
     public function findByEmail($email)
     {

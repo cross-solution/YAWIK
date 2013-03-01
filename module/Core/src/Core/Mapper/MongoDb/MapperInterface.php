@@ -6,7 +6,7 @@
  * @license   GPLv3
  */
 
-namespace Core\Mapper\Mongo;
+namespace Core\Mapper\MongoDb;
 
 use Core\Mapper\MapperInterface as CoreMapperInterface;
 
@@ -16,8 +16,6 @@ use Core\Mapper\MapperInterface as CoreMapperInterface;
 interface MapperInterface extends CoreMapperInterface
 {
 
-    public function setDatabase(\MongoDb $database);
-    public function getDatabase();
-    public function setCollection($collection);
+    public function setCollection(\MongoCollection $collection);
     public function getCollection();
 }

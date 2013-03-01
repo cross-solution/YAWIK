@@ -6,7 +6,7 @@
  * @license   GPLv3
  */
 
-namespace Core\Service;
+namespace Core\Mapper\MongoDb\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
