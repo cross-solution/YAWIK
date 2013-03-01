@@ -33,6 +33,10 @@ return array(
             "keys"    => array ( "id" => "", "secret" => "" ),
             "scope"	  => 'email, user_about_me, user_birthday, user_hometown, user_website',
         ),
+        "LinkedIn" => array (
+            "enabled" => true,
+            "keys"    => array ( "key" => "", "secret" => "" ),
+        ),
     ),
     
     // Routes
@@ -49,7 +53,7 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'auth-providers' => array(
+                    'providers' => array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => '/:provider',
@@ -75,29 +79,35 @@ return array(
     ),
     
     // Navigation
-    'navigation' => array(
-        'default' => array( 
-            'login' => array(
-                'label' => 'Login',
-                'route' => 'auth',
-                'pages' => array(
-                    'facebook' => array(
-                        'label' => 'Facebook',
-                        'route' => 'auth/auth-providers',
-                        'params' => array(
-                            'provider' => 'facebook'
-                        ),
-                     ),
-                ),
-            ),
-        ),
-    ),
+//     'navigation' => array(
+//         'default' => array( 
+//             'login' => array(
+//                 'label' => 'Login',
+//                 'route' => 'auth',
+//                 'pages' => array(
+//                     'facebook' => array(
+//                         'label' => 'Facebook',
+//                         'route' => 'auth/auth-providers',
+//                         'params' => array(
+//                             'provider' => 'facebook'
+//                         ),
+//                      ),
+//                 ),
+//             ),
+//         ),
+//     ),
     
     // Configure the view service manager
     'view_manager' => array(
         'template_path_stack' => array(
             'Auth' => __DIR__ . '/../view',
         ),
+    ),
+    
+    'view_helpers' => array(
+        'factories' => array(
+            'auth' => '\Auth\Service\AuthViewHelperFactory',
+         ),
     ),
     
     

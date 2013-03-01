@@ -1,0 +1,14 @@
+<div id="login-info-box">
+
+<?php if ($this->auth()->isLoggedIn()):?>
+<p><?php echo $this->translate('Hello %s')?>.</p>
+<?php else: ?>
+<p><?php echo $this->translate('You are not logged in')?>.</p>
+<div id="social-links">
+    <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
+    <a title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth/providers', array('provider' => $provider))?>"><img src="/images/Auth/<?php echo $provider ?>.png" /></a>
+    <?php endforeach ?>
+</div>
+<?php endif ?>
+
+</div>

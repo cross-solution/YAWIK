@@ -9,6 +9,8 @@
 
 namespace Auth;
 
+use Zend\Mvc\MvcEvent;
+use Auth\View\InjectLoginInfoListener;
 /**
  * Bootstrap class of the Core module
  * 
@@ -39,6 +41,14 @@ class Module
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
+        );
+    }
+    
+    public function onBootstrap(MvcEvent $e)
+    {
+        $e->getApplication()->getEventManager()->attach(
+            MvcEvent::EVENT_RENDER,
+            array(new InjectLoginInfoListener(), 'injectLoginInfo')
         );
     }
     

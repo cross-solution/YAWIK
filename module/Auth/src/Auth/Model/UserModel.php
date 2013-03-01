@@ -16,4 +16,13 @@ use Core\Model\AbstractModel;
 class UserModel extends AbstractModel implements UserModelInterface
 {
     
+    protected $_email;
+    
+    public function setEmail($email) {
+        $this->_email = (String) $email;
+    }
+    
+    public function getEmail() {
+        return $this->_email;
+    }
 }

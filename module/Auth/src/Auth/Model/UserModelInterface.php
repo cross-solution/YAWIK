@@ -15,5 +15,6 @@ use Core\Model\ModelInterface;
  */
 interface UserModelInterface extends ModelInterface
 {
-
+    public function setEmail($email);
+    public function getEmail();
 }

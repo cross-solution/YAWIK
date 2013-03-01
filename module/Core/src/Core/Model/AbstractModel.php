@@ -27,4 +27,24 @@ abstract class AbstractModel implements ModelInterface
             $this->$name = $value;
         }
     }
+    
+    public function __set($name, $value)
+    {
+        $method = "set$name";
+        if (method_exists($this, $method)) {
+            return $this->$method($value);
+        }
+        
+        throw new \OutOfBoundsException("'$name' is not a valid property of '" . get_class($this). "'");
+    }
+    
+    public function __get($name)
+    {
+        $method = "get$name";
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        }
+        
+        throw new \OutOfBoundsException("'$name' is not a valid property if '" . get_class($this) . "'");
+    }
 }
