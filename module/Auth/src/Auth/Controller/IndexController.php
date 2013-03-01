@@ -41,4 +41,13 @@ class IndexController extends AbstractActionController
         $this->redirect()->toRoute('home');
     }
     
+    public function logoutAction()
+    {
+        $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $auth->clearIdentity();
+        unset($_SESSION['HA::STORE']);
+        
+        $this->redirect()->toRoute('home');
+    }
+    
 }

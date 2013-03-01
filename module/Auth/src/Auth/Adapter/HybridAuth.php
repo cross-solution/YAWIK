@@ -12,6 +12,7 @@ use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Core\Mapper\MapperInterface;
+use Auth\Adapter\ModelMapper\Facebook;
 
 class HybridAuth implements AdapterInterface
 {
@@ -46,13 +47,12 @@ class HybridAuth implements AdapterInterface
        $user = $this->getMapper()->findByEmail($email);
        if (!$user) {
            $user = $this->getMapper()->create();
-           $user->email = $email;
-           $this->getMapper()->save($user);
        }
+       $this->_getModelMapper()->map($userProfile, $user);
+       $this->getMapper()->save($user);
        
-       var_dump($userProfile);
-       exit;
-       return new Result(Result::SUCCESS, $userProfile);
+       
+       return new Result(Result::SUCCESS, $user);
         if (!$userProfile) {
             $authEvent->setCode(Result::FAILURE_IDENTITY_NOT_FOUND)
               ->setMessages(array('A record with the supplied identity could not be found.'));
@@ -147,155 +147,15 @@ class HybridAuth implements AdapterInterface
         return $this->_mapper;
     }
 
-    /**
-     * set zfcUserMapper
-     *
-     * @param  UserMapperInterface $zfcUserMapper
-     * @return HybridAuth
-     */
-    public function setZfcUserMapper(UserMapperInterface $zfcUserMapper)
+    protected function _getModelMapper()
     {
-        $this->zfcUserMapper = $zfcUserMapper;
-
-        return $this;
-    }
-
-    /**
-     * get zfcUserMapper
-     *
-     * @return UserMapperInterface
-     */
-    public function getZfcUserMapper()
-    {
-        if (!$this->zfcUserMapper instanceof UserMapperInterface) {
-            $this->setZfcUserMapper($this->getServiceLocator()->get('zfcuser_user_mapper'));
+        switch ($this->_provider) {
+            case 'facebook': return new Facebook(); break;
+            default:
+                throw new \RuntimeException('Could not load ModelMapper for provider "' . $this->_provider . '"');
+                break;
         }
-
-        return $this->zfcUserMapper;
     }
-
-    /**
-     * Utility function to instantiate a fresh local user object
-     *
-     * @return mixed
-     */
-    protected function instantiateLocalUser()
-    {
-        $userModelClass = $this->getZfcUserOptions()->getUserEntityClass();
-
-        return new $userModelClass;
-    }
-
-    // Provider specific methods
-
-    protected function facebookToLocalUser($userProfile)
-    {
-        if (!isset($userProfile->emailVerified)) {
-            throw new Exception\RuntimeException(
-                'Please verify your email with Facebook before attempting login',
-                Result::FAILURE_CREDENTIAL_INVALID
-            );
-        }
-        $mapper = $this->getZfcUserMapper();
-        if (false != ($localUser = $mapper->findByEmail($userProfile->emailVerified))) {
-            return $localUser;
-        }
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setEmail($userProfile->emailVerified)
-            ->setDisplayName($userProfile->displayName)
-            ->setPassword(__FUNCTION__);
-        $result = $this->insert($localUser, 'facebook', $userProfile);
-
-        return $localUser;
-    }
-
-    protected function foursquareToLocalUser($userProfile)
-    {
-        if (!isset($userProfile->emailVerified)) {
-            throw new Exception\RuntimeException(
-                'Please verify your email with Foursquare before attempting login',
-                Result::FAILURE_CREDENTIAL_INVALID
-            );
-        }
-        $mapper = $this->getZfcUserMapper();
-        if (false != ($localUser = $mapper->findByEmail($userProfile->emailVerified))) {
-            return $localUser;
-        }
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setEmail($userProfile->emailVerified)
-            ->setDisplayName($userProfile->displayName)
-            ->setPassword(__FUNCTION__);
-        $result = $this->insert($localUser, 'foursquare', $userProfile);
-
-        return $localUser;
-    }
-
-    protected function googleToLocalUser($userProfile)
-    {
-        if (!isset($userProfile->emailVerified)) {
-            throw new Exception\RuntimeException(
-                'Please verify your email with Google before attempting login',
-                Result::FAILURE_CREDENTIAL_INVALID
-            );
-        }
-        $mapper = $this->getZfcUserMapper();
-        if (false != ($localUser = $mapper->findByEmail($userProfile->emailVerified))) {
-            return $localUser;
-        }
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setEmail($userProfile->emailVerified)
-            ->setDisplayName($userProfile->displayName)
-            ->setPassword(__FUNCTION__);
-        $result = $this->insert($localUser, 'google', $userProfile);
-
-        return $localUser;
-    }
-
-    protected function linkedInToLocalUser($userProfile)
-    {
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setDisplayName($userProfile->displayName)
-            ->setPassword(__FUNCTION__);
-        $result = $this->insert($localUser, 'linkedIn', $userProfile);
-
-        return $localUser;
-    }
-
-    protected function twitterToLocalUser($userProfile)
-    {
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setUsername($userProfile->displayName)
-            ->setDisplayName($userProfile->firstName)
-            ->setPassword(__FUNCTION__);
-        $result = $this->insert($localUser, 'twitter', $userProfile);
-
-        return $localUser;
-    }
-
-    protected function yahooToLocalUser($userProfile)
-    {
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setDisplayName($userProfile->displayName)
-            ->setPassword(__FUNCTION__);
-        $result = $this->insert($localUser, 'yahoo', $userProfile);
-
-        return $localUser;
-    }
-
-    protected function githubToLocalUser($userProfile)
-    {
-        $localUser = $this->instantiateLocalUser();
-        $localUser->setDisplayName($userProfile->displayName)
-                  ->setPassword(__FUNCTION__)
-                  ->setEmail($userProfile->email);
-
-        $this->getEventManager()->trigger(__FUNCTION__, $localUser, array('userProfile' => $userProfile));
-
-        $result = $this->insert($localUser, 'github', $userProfile);
-
-        return $localUser;
-    }
-
    
    
 }

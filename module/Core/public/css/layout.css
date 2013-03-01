@@ -77,6 +77,16 @@ header #login-info-box #social-links {
 	text-align: center;
 	margin-top: 10px;
 }
+header #login-info-box #logged-in-text {
+	padding-top: 10px;
+}
+header #login-info-box #logged-in-text a {
+	color: #333;
+	font-size: 0.8em;
+}
+header #login-info-box #logged-in-text p {
+	text-align: right;
+}
 
 nav#main-navigation {
 	border-bottom: 1px solid #aaa;

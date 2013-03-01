@@ -11,14 +11,14 @@ namespace Auth\Mapper\MongoDb\Service;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Mapper\MongoDb\UserMapper;
-use Auth\Model\UserModel;
+use Auth\Model\User;
 
 class UserMapperFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $mapper = new UserMapper();
-        $mapper->setModelPrototype(new UserModel());
+        $mapper->setModelPrototype(new User());
         $db = $serviceLocator->get('MongoDb');
         $mapper->setCollection($db->users);
         return $mapper;

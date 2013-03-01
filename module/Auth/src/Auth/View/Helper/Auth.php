@@ -21,9 +21,21 @@ class Auth extends AbstractHelper
         return $this->_authService;
     }
     
-    public function __invoke()
+    public function __invoke($property=null)
     {
-        return $this;
+        if (null === $property) {
+            return $this;
+        }
+        
+        if (!$this->isLoggedIn()) {
+            return null;
+        }
+        
+        try {
+            return $this->getService()->getIdentity()->$property;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
     
     public function isLoggedIn()

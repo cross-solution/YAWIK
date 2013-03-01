@@ -1,7 +1,8 @@
 <div id="login-info-box">
 
 <?php if ($this->auth()->isLoggedIn()):?>
-<p><?php echo $this->translate('Hello %s')?>.</p>
+<div id="logged-in-text"><p><?php echo sprintf($this->translate('Hello %s'), '<strong>' . $this->auth('displayName') . '</strong>')?>.</p>
+<p>[<a href="<?php echo $this->url('logout')?>"><?php echo $this->translate('Logout')?></a>]</p></div>
 <?php else: ?>
 <p><?php echo $this->translate('You are not logged in')?>.</p>
 <div id="social-links">
