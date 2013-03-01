@@ -21,11 +21,24 @@
 
     </head>
     <body>
+        <div id="main">
+        <header>
             <h1><?php echo $this->translate('Cross Applicant Management')?></h1>
+            <?php echo $this->loginInfo ?>
+        </header>
+        <nav id="main-navigation">
+            <?php echo $this->navigation('main_navigation')->menu()?>
+            
+        </nav>
+        <div id="container">
             <?php echo $this->content; ?>
-            <hr>
+        </div>
+            
             <footer>
-                <p>&copy; 2013 by <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?></p>
+                <p class="float_left">&copy; 2013 by <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?></p>
+                <p class="float_right">
+                    Powered by <a href="http://framework.zend.com">Zend Framework <?php echo \Zend\Version\Version::VERSION ?></a></p>
             </footer>
+        </div>
     </body>
 </html>

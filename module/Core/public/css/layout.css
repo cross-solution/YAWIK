@@ -1,5 +1,141 @@
 @CHARSET "UTF-8";
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.float_left {
+	float: left;
+}
+
+.float_right {
+	float: right;
+}
+
+
 body {
-    background-color: #eeeeff;
+    background-color: #f6f6f6;
+	font-size: 1em;
+	font-family: Ubuntu, sans-serif;
+	color: #555555;
+}
+
+a, a:visited {
+	text-decoration: none;
+	color: #5656cc;
+}
+
+a:hover,
+a:active {
+	text-decoration: underline;
+	color: #6767dd;
+}
+
+p {
+	margin-bottom: 10px;
+}
+
+div#main {
+	min-width: 600px;
+	max-width: 1024px;
+	min-height: 600px;
+	margin: 20px auto;
+	background-color: #bbbbff;
+	box-shadow: 0 0 5px 1px #555;
+	border-radius: 15px;
+	
+}
+header {
+	height: 75px;
+	margin: 0 auto;
+	border-bottom: 1px solid #aaa;
+	background-color: #bbbbff;
+	border-radius: 15px 15px 0 0;
+	
+}
+
+header > h1 {
+	text-shadow: 0 0 5px white;
+	color: 555;
+	float: left;
+	padding: 20px 0 0 25px;
+}
+
+header #login-info-box {
+	text-shadow: 0 0 3px white;
+	float: right;
+	padding: 10px 25px 0 0;
+}
+header #login-info-box p {
+	margin: 0;
+}
+header #login-info-box a {
+	margin: 0 5px;
+}
+header #login-info-box #social-links {
+	text-align: center;
+	margin-top: 10px;
+}
+header #login-info-box #logged-in-text {
+	padding-top: 10px;
+}
+header #login-info-box #logged-in-text a {
+	color: #333;
+	font-size: 0.8em;
+}
+header #login-info-box #logged-in-text p {
+	text-align: right;
+}
+
+nav#main-navigation {
+	border-bottom: 1px solid #aaa;
+	height: 20px;
+	padding: 5px 10px;
+	background-color: #efeffe;
+	
+}
+nav#main-navigation ul {
+	list-style: none inside;
+}
+nav#main-navigation ul li {
+	float: left;
+}
+nav#main-navigation ul li a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+nav#main-navigation ul li.active a,
+nav#main-navigation ul li a:hover {
+	font-style: italic;
+}
+div#container {
+	clear: both;
+	padding: 10px;
+	background-color: white;
+	min-height: 500px;
+	
+}
+
+div#container > h2 {
+	font-size: 1.2em;
+	border-bottom: 1px dotted #aaa;
+	padding: 5px 0 2px;
+	margin: 0 0 5px;
+}
+
+footer {
+	height: 15px;
+	padding: 5px 15px;
+	font-size: 0.7em;
+	color: #555;
+	border-top: 1px solid #aaa;
+	text-shadow: 0 0 2px white;
+	
+}
+
+footer a {
+	color: #333 !important;
+	
 }

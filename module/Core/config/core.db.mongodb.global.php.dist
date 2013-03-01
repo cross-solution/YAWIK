@@ -1,0 +1,13 @@
+<?php
+return array(
+    'service_manager' => array(
+        'factories' => array(
+            'MongoDb' => '\Core\Mapper\MongoDb\Service\MongoDbFactory',
+        ),
+    ),
+    
+    'database' => array(
+        'connection' => '---connection_string---',
+        'databaseName' => 'CrossApplicantManagement',
+    ),
+);
