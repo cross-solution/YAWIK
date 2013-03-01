@@ -37,6 +37,14 @@ return array(
             "enabled" => true,
             "keys"    => array ( "key" => "", "secret" => "" ),
         ),
+        "XING" => array (
+            "enabled" => true,
+            "wrapper" => array ( 
+                'class' => 'Hybrid_Providers_XING',
+                'path' => realpath(__DIR__ . '/../src/Auth/HybridAuth/Provider/Xing.php'),
+            ),
+            "keys"    => array ( "key" => "", "secret" => "" ),
+        ),
     ),
     
     // Routes

@@ -13,6 +13,8 @@ use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Core\Mapper\MapperInterface;
 use Auth\Adapter\ModelMapper\Facebook;
+use Auth\Adapter\ModelMapper\LinkedIn;
+use Auth\Adapter\ModelMapper\Xing;
 
 class HybridAuth implements AdapterInterface
 {
@@ -151,6 +153,8 @@ class HybridAuth implements AdapterInterface
     {
         switch ($this->_provider) {
             case 'facebook': return new Facebook(); break;
+            case 'linkedin': return new LinkedIn(); break;
+            case 'xing': return new Xing(); break;
             default:
                 throw new \RuntimeException('Could not load ModelMapper for provider "' . $this->_provider . '"');
                 break;
