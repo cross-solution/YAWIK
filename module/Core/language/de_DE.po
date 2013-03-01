@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-20 12:35+0100\n"
-"PO-Revision-Date: 2013-02-20 12:35+0100\n"
+"POT-Creation-Date: 2013-03-01 13:11+0100\n"
+"PO-Revision-Date: 2013-03-01 13:13+0100\n"
 "Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language: \n"
@@ -17,93 +17,99 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/core/index/index.phtml:1
+#: ../view/core/index/index.phtml:11
 msgid "Home"
 msgstr "Start"
 
-#: ../view/core/index/index.phtml:3
-msgid "This text is displayed on the home site."
-msgstr "Dieser Text wird auf der Startseite angezeigt."
+#: ../view/core/index/index.phtml:13
+msgid "Welcome"
+msgstr "Willkommen"
 
-#: ../view/error/index.phtml:2
+#: ../view/core/index/index.phtml:14
+msgid "This is an early alpha version of the application. So there is not much to see at the moment. The only thing working is the login with social networks."
+msgstr "Dies ist eine frühe Alpha-Version der Anwendung, es gibt also noch nicht allzu viel zu sehen. Das einzige, das funktioniert, ist das Einloggen über soziale Netzwerke."
+
+#: ../view/error/index.phtml:11
 msgid "An error occurred"
 msgstr "Ein Fehler ist aufgetreten"
 
-#: ../view/error/index.phtml:9
-#: ../view/error/404.phtml:54
+#: ../view/error/index.phtml:18
+#: ../view/error/404.phtml:64
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
-#: ../view/error/index.phtml:12
-#: ../view/error/index.phtml:36
-#: ../view/error/404.phtml:57
-#: ../view/error/404.phtml:81
+#: ../view/error/index.phtml:21
+#: ../view/error/index.phtml:45
+#: ../view/error/404.phtml:67
+#: ../view/error/404.phtml:91
 msgid "File"
 msgstr "Datei"
 
-#: ../view/error/index.phtml:16
-#: ../view/error/index.phtml:40
-#: ../view/error/404.phtml:61
-#: ../view/error/404.phtml:85
+#: ../view/error/index.phtml:25
+#: ../view/error/index.phtml:49
+#: ../view/error/404.phtml:71
+#: ../view/error/404.phtml:95
 msgid "Message"
 msgstr "Nachricht"
 
-#: ../view/error/index.phtml:20
-#: ../view/error/index.phtml:44
-#: ../view/error/404.phtml:65
-#: ../view/error/404.phtml:89
+#: ../view/error/index.phtml:29
+#: ../view/error/index.phtml:53
+#: ../view/error/404.phtml:75
+#: ../view/error/404.phtml:99
 msgid "Stack trace"
 msgstr "Stapelverlauf"
 
-#: ../view/error/index.phtml:30
-#: ../view/error/404.phtml:75
+#: ../view/error/index.phtml:39
+#: ../view/error/404.phtml:85
 msgid "Previous exceptions"
 msgstr "Vorherige Exceptions"
 
-#: ../view/error/index.phtml:59
-#: ../view/error/404.phtml:104
+#: ../view/error/index.phtml:68
+#: ../view/error/404.phtml:114
 msgid "No Exception available"
 msgstr "Keine Exception verfügbar"
 
-#: ../view/error/404.phtml:2
+#: ../view/error/404.phtml:12
 msgid "A 404 error occurred"
 msgstr "Ein 404 Fehler ist aufgetreten"
 
-#: ../view/error/404.phtml:11
+#: ../view/error/404.phtml:21
 msgid "The requested controller was unable to dispatch the request."
 msgstr "Der angeforderte Controller konnte die Anfrage nicht abfertigen."
 
-#: ../view/error/404.phtml:14
+#: ../view/error/404.phtml:24
 msgid "The requested controller could not be mapped to an existing controller class."
 msgstr "Der angeforderte Controller konnte keiner existierenden Controller-Klasse zugeordnet werden."
 
-#: ../view/error/404.phtml:17
+#: ../view/error/404.phtml:27
 msgid "The requested controller was not dispatchable."
 msgstr "Der angeforderte Controller konnte nicht abgefertigt werden."
 
-#: ../view/error/404.phtml:20
+#: ../view/error/404.phtml:30
 msgid "The requested URL could not be matched by routing."
 msgstr "Die angeforderte URL konnte keiner Route zugeordnet werden."
 
-#: ../view/error/404.phtml:23
+#: ../view/error/404.phtml:33
 msgid "We cannot determine at this time why a 404 was generated."
 msgstr "Wir können momentan nicht feststellen, warum ein 404 Fehler aufgetreten ist."
 
-#: ../view/error/404.phtml:35
+#: ../view/error/404.phtml:45
 msgid "Controller"
 msgstr "Controller"
 
-#: ../view/error/404.phtml:42
+#: ../view/error/404.phtml:52
 #, php-format
 msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
-#: ../view/layout/layout.phtml:6
-#: ../view/layout/layout.phtml:14
+#: ../view/layout/layout.phtml:16
+#: ../view/layout/layout.phtml:26
 msgid "Cross Applicant Management"
 msgstr "Cross Bewerberverwaltung"
 
-#: ../view/layout/layout.phtml:18
+#: ../view/layout/layout.phtml:38
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
+#~ msgid "This text is displayed on the home site."
+#~ msgstr "Dieser Text wird auf der Startseite angezeigt."

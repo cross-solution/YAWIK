@@ -1,0 +1,124 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cross Applicant Management - Core\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-01 13:14+0100\n"
+"PO-Revision-Date: 2013-03-01 13:16+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../view/auth/index/index.phtml:11
+msgid "Login"
+msgstr "Einloggen"
+
+#: ../view/auth/index/index.phtml:12
+msgid "Choose your login method"
+msgstr "Wählen Sie Ihre Login-Methode"
+
+#: ../view/auth/index/index.phtml:14
+msgid "This text is displayed on the login site of the \"Auth\" module."
+msgstr "Dieser Text wird auf der Login-Seite des \"Auth\"-Moduls angezeigt."
+
+#: ../view/auth/index/index.phtml:15
+msgid "Sign in with facebook"
+msgstr "Mit Facebook einloggen"
+
+#: ../view/auth/index/login-info.phtml:4
+#, php-format
+msgid "Hello %s"
+msgstr "Hallo %s"
+
+#: ../view/auth/index/login-info.phtml:5
+msgid "Logout"
+msgstr "Abmelden"
+
+#: ../view/auth/index/login-info.phtml:7
+msgid "You are not logged in"
+msgstr "Sie sind nicht angemeldet"
+
+#: ../view/auth/index/login-info.phtml:10
+#, php-format
+msgid "Login with %s"
+msgstr "Mit %s anmelden"
+
+#~ msgid "Home"
+#~ msgstr "Start"
+
+#~ msgid "Welcome"
+#~ msgstr "Willkommen"
+
+#~ msgid ""
+#~ "This is an early alpha version of the application. So there is not much "
+#~ "to see at the moment. The only thing working is the login with social "
+#~ "networks."
+#~ msgstr ""
+#~ "Dies ist eine frühe Alpha-Version der Anwendung, es gibt also noch nicht "
+#~ "allzu viel zu sehen. Das einzige, das funktioniert, ist das Einloggen "
+#~ "über soziale Netzwerke."
+
+#~ msgid "An error occurred"
+#~ msgstr "Ein Fehler ist aufgetreten"
+
+#~ msgid "Additional information"
+#~ msgstr "Zusätzliche Informationen"
+
+#~ msgid "File"
+#~ msgstr "Datei"
+
+#~ msgid "Message"
+#~ msgstr "Nachricht"
+
+#~ msgid "Stack trace"
+#~ msgstr "Stapelverlauf"
+
+#~ msgid "Previous exceptions"
+#~ msgstr "Vorherige Exceptions"
+
+#~ msgid "No Exception available"
+#~ msgstr "Keine Exception verfügbar"
+
+#~ msgid "A 404 error occurred"
+#~ msgstr "Ein 404 Fehler ist aufgetreten"
+
+#~ msgid "The requested controller was unable to dispatch the request."
+#~ msgstr "Der angeforderte Controller konnte die Anfrage nicht abfertigen."
+
+#~ msgid ""
+#~ "The requested controller could not be mapped to an existing controller "
+#~ "class."
+#~ msgstr ""
+#~ "Der angeforderte Controller konnte keiner existierenden Controller-Klasse "
+#~ "zugeordnet werden."
+
+#~ msgid "The requested controller was not dispatchable."
+#~ msgstr "Der angeforderte Controller konnte nicht abgefertigt werden."
+
+#~ msgid "The requested URL could not be matched by routing."
+#~ msgstr "Die angeforderte URL konnte keiner Route zugeordnet werden."
+
+#~ msgid "We cannot determine at this time why a 404 was generated."
+#~ msgstr ""
+#~ "Wir können momentan nicht feststellen, warum ein 404 Fehler aufgetreten "
+#~ "ist."
+
+#~ msgid "Controller"
+#~ msgstr "Controller"
+
+#~ msgid "resolves to %s"
+#~ msgstr "löst auf nach %s"
+
+#~ msgid "Cross Applicant Management"
+#~ msgstr "Cross Bewerberverwaltung"
+
+#~ msgid "All rights reserved."
+#~ msgstr "Alle Rechte vorbehalten."
