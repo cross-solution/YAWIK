@@ -2,32 +2,77 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
+/** Core models */
 namespace Core\Model;
 
+use Core\Model\Exception\OutOfBoundsException;
 
 /**
- *
+ * Concrete implementation of \Core\Model\ModelInterface.
+ * 
+ * Provides some magic function for accessing properties
+ * as class members, mirroring these calls to the
+ * getter and setter methods.
+ * 
  */
 abstract class AbstractModel implements ModelInterface
 {
-    public $id;
     
+    /**
+     * Model id
+     * 
+     * @var mixed
+     */
+    protected $_id;
+    
+    /**
+     * {@inheritdoc}
+     * @see \Core\Model\ModelInterface::getId()
+     */
     public function getId()
     {
-        return $this->id;
+        return $this->_id;
     }
     
+    /**
+     * {@inheritdoc}
+     * @return \Core\Model\AbstractModel
+     * @see \Core\Model\ModelInterface::setId()
+     */
+    public function setId($id)
+    {
+        $this->_id = $id;
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Core\Model\AbstractModel
+     * @see \Core\Model\ModelInterface::setData()
+     */
     public function setData(array $data)
     {
         foreach ($data as $name => $value) {
             $this->$name = $value;
         }
+        return $this;
     }
     
+    /**
+     * Sets a property through the setter method.
+     * 
+     * An exception is raised, when no setter method exists.
+     * 
+     * @param string $name
+     * @param mixed $value
+     * @return mixed
+     * @throws OutOfBoundsException
+     */
     public function __set($name, $value)
     {
         $method = "set$name";
@@ -35,9 +80,18 @@ abstract class AbstractModel implements ModelInterface
             return $this->$method($value);
         }
         
-        throw new \OutOfBoundsException("'$name' is not a valid property of '" . get_class($this). "'");
+        throw new OutOfBoundsException("'$name' is not a valid property of '" . get_class($this). "'");
     }
     
+    /**
+     * Gets a property through the getter method.
+     * 
+     * An exception is raised, when no getter method exists.
+     * 
+     * @param string $name
+     * @return mixed
+     * @throws OutOfBoundsException
+     */
     public function __get($name)
     {
         $method = "get$name";
