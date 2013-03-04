@@ -2,12 +2,13 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
+/** Auth mapper mongodb */
 namespace Auth\Mapper\MongoDb;
-
 
 use Core\Mapper\MongoDb\AbstractMapper;
 use Auth\Model\UserModel;
@@ -15,11 +16,14 @@ use Core\Model\ModelInterface;
 use Auth\Mapper\UserMapperInterface;
 
 /**
- *
+ * User mapper factory
  */
 class UserMapper extends AbstractMapper implements UserMapperInterface
 {
-    
+    /**
+     * {@inheritdoc}
+     * @see \Auth\Mapper\UserMapperInterface::findByEmail()
+     */
     public function findByEmail($email)
     {
         $data = $this->_collection->findOne(array('email' => $email));
@@ -31,6 +35,11 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
         return $this->create($data);
     }
     
+    /**
+     * Saves a user
+     * 
+     * @param ModelInterface $model
+     */
     public function save(ModelInterface $model)
     { 
         $data = array(
@@ -51,8 +60,8 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
         if ($model->getId()) {
             $data['_id'] = $this->_getMongoId($model->getId());
             $this->_collection->update(array('_id' => $data['_id']), $data);
-            return;
+        } else {
+            $this->_collection->insert($data);
         }
-        $this->_collection->insert($data);
     }
 }

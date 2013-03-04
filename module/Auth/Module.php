@@ -35,7 +35,16 @@ class Module
      */
     public function getAutoloaderConfig()
     {
+        
         return array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                // This is an hack due to bad design of Hybridauth
+                // This ensures the class from "addtional-providers" is loaded.
+                array(
+                    'Hybrid_Providers_XING'
+                    => __DIR__ . '/../../vendor/hybridauth/hybridauth/additional-providers/hybridauth-xing/Providers/XING.php',
+                ),
+            ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,

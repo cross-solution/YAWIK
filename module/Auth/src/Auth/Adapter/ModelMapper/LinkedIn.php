@@ -2,17 +2,26 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
+/** Auth adapter modelmapper */
 namespace Auth\Adapter\ModelMapper;
 
 use Auth\Model\UserInterface;
 
+/**
+ * Mapper to map a Hybridauth LinkedIn user profile to an user model.
+ */
 class LinkedIn implements ModelMapperInterface
 {
     
+    /**
+     * {@inheritdoc}
+     * @see \Auth\Adapter\ModelMapper\ModelMapperInterface::map()
+     */
     public function map(\Hybrid_User_Profile $profile, UserInterface $user)
     {
         $email = isset($profile->emailVerified) && !empty($profile->emailVerified)

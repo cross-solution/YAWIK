@@ -39,9 +39,11 @@ return array(
         ),
         "XING" => array (
             "enabled" => true,
+            // This is a hack due to bad design of Hybridauth
+            // There's no simpler way to include "additional-providers"
             "wrapper" => array ( 
                 'class' => 'Hybrid_Providers_XING',
-                'path' => realpath(__DIR__ . '/../src/Auth/HybridAuth/Provider/Xing.php'),
+                'path' => __FILE__,
             ),
             "keys"    => array ( "key" => "", "secret" => "" ),
         ),
