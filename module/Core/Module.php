@@ -7,6 +7,7 @@
  * @license   GPLv3
  */
 
+/** Core */
 namespace Core;
 
 use Zend\Mvc\ModuleRouteListener;

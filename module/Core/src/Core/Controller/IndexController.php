@@ -2,10 +2,12 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
+/** ActionController of Core */
 namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
