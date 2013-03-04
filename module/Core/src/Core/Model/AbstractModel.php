@@ -45,6 +45,30 @@ abstract class AbstractModel implements ModelInterface
             return $this->$method();
         }
         
-        throw new \OutOfBoundsException("'$name' is not a valid property if '" . get_class($this) . "'");
+        throw new OutOfBoundsException("'$name' is not a valid property if '" . get_class($this) . "'");
+    }
+    
+    /**
+     * Checks if a property exists and has a non-empty value.
+     * 
+     * If the property is an array, the check will return, if this
+     * array has items or not.
+     * 
+     * @param string $name
+     * @return boolean
+     */
+    public function __isset($name)
+    {
+        try {
+            $value = $this->__get($name);
+        } catch (\OutOfBoundsException $e) {
+            return false;
+        }
+        
+        if (is_array($value) && !count($value)) {
+            return false;
+        }
+        
+        return true;
     }
 }
