@@ -39,6 +39,24 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
     }
 
     /**
+     * {@inheritdoc}
+     * 
+     * Maps an array entry with the key ['_id'] to ['id'] with
+     * casting to string. (To deal with MongoId-Objects.)
+     * If <code>$data['id']</code> is set, it has higher priority.
+     * 
+     * @param array $data
+     */
+    public function create(array $data=array())
+    {
+        if (isset($data['_id'])) {
+            $data['id'] = isset($data['id']) ? $data['id'] : (string) $data['_id'];
+            unset($data['_id']);
+        }
+        return parent::create($data);
+    }
+    
+    /**
      * {@inheritdoc} 
      * @see \Core\Mapper\MongoDb\MapperInterface::getCollection()
      */

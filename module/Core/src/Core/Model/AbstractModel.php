@@ -53,12 +53,14 @@ abstract class AbstractModel implements ModelInterface
     /**
      * {@inheritdoc}
      * @return \Core\Model\AbstractModel
+     * @uses __set()
+     * @throws OutOfBoundsException
      * @see \Core\Model\ModelInterface::setData()
      */
     public function setData(array $data)
     {
         foreach ($data as $name => $value) {
-            $this->$name = $value;
+            $this->__set($name, $value);
         }
         return $this;
     }
@@ -122,7 +124,9 @@ abstract class AbstractModel implements ModelInterface
         if (is_array($value) && !count($value)) {
             return false;
         }
-        
-        return true;
+        if (is_bool($value) || is_object($value)) {
+            return true;
+        }
+        return (bool) $value;
     }
 }
