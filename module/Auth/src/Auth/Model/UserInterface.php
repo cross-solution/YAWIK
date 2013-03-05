@@ -74,44 +74,17 @@ interface UserInterface extends ModelInterface
     public function getDisplayName();
     
     /**
-     * Sets the Facebook info from Hybridauth
+     * Sets the profile info from Hybridauth
      * 
-     * @param array $info
+     * @param array $profile
      */
-    public function setFacebookInfo(array $info);
+    public function setProfile(array $profile);
     
     /**
-     * Gets the Facebook info from Hybridauth
+     * Gets the profile info from Hybridauth
      * 
      * @return array
      */
-    public function getFacebookInfo();
+    public function getProfile();
     
-    /**
-     * Sets the LinkedIn info from Hybridauth
-     *
-     * @param array $info
-     */
-    public function setLinkedInInfo(array $info);
-    
-    /**
-     * Gets the LinkedIn info from Hybridauth
-     *
-     * @return array
-     */
-    public function getLinkedInInfo();
-    
-    /**
-     * Sets the Xing info from Hybridauth
-     * 
-     * @param array $info
-     */
-    public function setXingInfo(array $info);
-    
-    /**
-     * Gets the Xing info from Hybridauth
-     *
-     * @return array
-     */
-    public function getXingInfo();
 }

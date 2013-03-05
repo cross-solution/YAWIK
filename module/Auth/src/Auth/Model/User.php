@@ -29,13 +29,7 @@ class User extends AbstractModel implements UserInterface
     protected $_displayName;
     
     /** @var array */
-    protected $_facebookInfo = array();
-    
-    /** @var array */
-    protected $_linkedInInfo = array();
-    
-    /** @var array */
-    protected $_xingInfo = array();
+    protected $_profile = array();
     
     /**
      * {@inheritdoc}
@@ -101,7 +95,7 @@ class User extends AbstractModel implements UserInterface
             if ($name) {
                 $name .= ' ';
             }
-            return $name . $this->getLastName();
+            $this->setDisplayName($name . $this->getLastName());
         }
         return $this->_displayName;
     }
@@ -110,47 +104,17 @@ class User extends AbstractModel implements UserInterface
      * {@inheritdoc}
      * @return \Auth\Model\User
      */
-    public function setFacebookInfo(array $info)
+    public function setProfile(array $profile)
     {
-        $this->_facebookInfo = $info;
+        $this->_profile = $profile;
         return $this;
     }
     
     /** {@inheritdoc} */
-    public function getFacebookInfo()
+    public function getProfile()
     {
-        return $this->_facebookInfo;
+        return $this->_profile;
     }
     
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
-    public function setLinkedInInfo(array $info)
-    {
-        $this->_linkedInInfo = $info;
-        return $this;
-    }
     
-    /** {@inheritdoc} */
-    public function getLinkedInInfo()
-    {
-        return $this->_linkedInInfo;
-    }
-    
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
-    public function setXingInfo(array $info)
-    {
-        $this->_xingInfo = $info;
-        return $this;
-    }
-    
-    /** {@inheritdoc} */
-    public function getXingInfo()
-    {
-        return $this->_xingInfo;
-    }
 }

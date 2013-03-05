@@ -76,7 +76,22 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
             $id = $this->_getMongoId($id);
         }
         $data = $this->_collection->findOne(array('_id' => $id));
-        return $this->create($data);
+        return $data ? $this->create($data) : null;
+    }
+    
+    /**
+     * Creates a model from a Mongo-Query-Result.
+     * 
+     * If the result is NULL, no model will be created and 
+     * null is returned instead.
+     * 
+     * @param array|null $data
+     * @return \Core\Model\ModelInterface|null
+     * @uses create()
+     */
+    protected function _createFromResult($data)
+    {
+        return $data ? $this->create($data) : null;
     }
     
     /**

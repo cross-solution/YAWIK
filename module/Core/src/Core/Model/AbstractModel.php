@@ -22,7 +22,7 @@ use Core\Model\Exception\OutOfBoundsException;
  */
 abstract class AbstractModel implements ModelInterface
 {
-    
+       
     /**
      * Model id
      * 

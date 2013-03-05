@@ -27,18 +27,24 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
     public function findByEmail($email)
     {
         $data = $this->_collection->findOne(array('email' => $email));
-        if (null === $data) {
-            return null;
-        }
-        $data['id'] = (String) $data['_id'];
-        unset ($data['_id']);
-        return $this->create($data);
+        return $this->_createFromResult($data);
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @see \Auth\Mapper\UserMapperInterface::findByProfileIdentifier()
+     */
+    public function findByProfileIdentifier($identifier)
+    {
+        $data = $this->_collection->findOne(array('profile.identifier' => $identifier));
+        return $this->_createFromResult($data);
     }
     
     /**
      * Saves a user
      * 
      * @param ModelInterface $model
+     * @see \Core\Mapper\MapperInterface::save()
      */
     public function save(ModelInterface $model)
     { 
@@ -48,15 +54,10 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
             'lastName' => $model->lastName,
             'displayName' => $model->displayName,
         );
-        if (!empty($model->facebookInfo)) {
-            $data['facebookInfo'] = $model->facebookInfo;
+        if (!empty($model->profile)) {
+            $data['profile'] = $model->profile;
         }
-        if (!empty($model->linkedInInfo)) {
-            $data['linkedInInfo'] = $model->linkedInInfo;
-        }
-        if (!empty($model->xingInfo)) {
-            $data['xingInfo'] = $model->xingInfo;
-        }
+        
         if ($model->getId()) {
             $data['_id'] = $this->_getMongoId($model->getId());
             $this->_collection->update(array('_id' => $data['_id']), $data);

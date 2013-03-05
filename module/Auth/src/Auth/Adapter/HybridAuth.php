@@ -14,9 +14,7 @@ use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Auth\Mapper\UserMapperInterface;
-use Auth\Adapter\ModelMapper\Facebook;
-use Auth\Adapter\ModelMapper\LinkedIn;
-use Auth\Adapter\ModelMapper\Xing;
+
 
 /**
  * Hybridauth adapter for \Zend\Authentication
@@ -68,17 +66,34 @@ class HybridAuth implements AdapterInterface
         
        $hybridAuth = $this->getHybridAuth();
        $adapter = $hybridAuth->authenticate($this->_provider);
+       
        $userProfile = $adapter->getUserProfile();
        $email = isset($userProfile->emailVerified) && !empty($userProfile->emailVerified)
               ? $userProfile->emailVerified
               : $userProfile->email;
        
-       $user = $this->getMapper()->findByEmail($email);
+       
+       $forceSave = false;
+       $user = $this->getMapper()->findByProfileIdentifier($userProfile->identifier);
        if (!$user) {
+           $forceSave = true;
            $user = $this->getMapper()->create();
        }
-       $this->_getModelMapper()->map($userProfile, $user);
-       $this->getMapper()->save($user);
+       
+       
+       $currentInfo = $user->profile;
+       $newInfo = (array) $userProfile; 
+       
+       if ($forceSave || $currentInfo != $newInfo) {
+           $user->setData(array(
+               'email' => $email,
+               'firstName' => $userProfile->firstName,
+               'lastName' => $userProfile->lastName,
+               'displayName' => $userProfile->displayName,
+               'profile' => $newInfo
+           ));
+           $this->getMapper()->save($user);
+       }
        
        
        return new Result(Result::SUCCESS, $user);
