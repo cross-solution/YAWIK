@@ -11,7 +11,7 @@ return array(
     
     // Activated modules. (Use folder name)
     'modules' => array(
-        'Core', 'Auth',
+        'Core', 'Auth', 'Applications'
     ),
     
     // Where to search modules
