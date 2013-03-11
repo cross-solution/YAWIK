@@ -56,6 +56,16 @@ class HybridAuth implements AdapterInterface
     }
     
     /**
+     * Gets the provider identifier used by Hybridauth.
+     * 
+     * @return string|null
+     */
+    public function getProvider()
+    {
+        return $this->_provider;
+    }
+    
+    /**
      * {@inheritdoc}
      * 
      * 
@@ -147,23 +157,7 @@ class HybridAuth implements AdapterInterface
         return $this->_mapper;
     }
 
-    /**
-     * Gets a model mapper.
-     * 
-     * @throws \Auth\Adapter\Exception\InvalidArgumentException
-     * @return \Auth\Adapter\ModelMapper\ModelMapperInterface
-     */
-    protected function _getModelMapper()
-    {
-        switch ($this->_provider) {
-            case 'facebook': return new Facebook(); break;
-            case 'linkedin': return new LinkedIn(); break;
-            case 'xing': return new Xing(); break;
-            default:
-                throw new \Auth\Adapter\Exception\InvalidArgumentException('There is no Model mapper for provider: "' . $this->_provider . '"');
-                break;
-        }
-    }
+   
    
    
 }

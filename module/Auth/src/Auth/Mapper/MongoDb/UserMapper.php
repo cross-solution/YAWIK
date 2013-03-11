@@ -60,9 +60,9 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
         
         if ($model->getId()) {
             $data['_id'] = $this->_getMongoId($model->getId());
-            $this->_collection->update(array('_id' => $data['_id']), $data);
-        } else {
-            $this->_collection->insert($data);
         }
+        
+        $this->_collection->save($data);
+        $model->setId((string) $data['_id']);
     }
 }

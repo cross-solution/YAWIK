@@ -12,6 +12,8 @@ namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 
+// @codeCoverageIgnoreStart
+
 /**
  * Controller for the HybridAuth endpoint.
  *
@@ -26,3 +28,5 @@ class HybridAuthController extends AbstractActionController
         \Hybrid_Endpoint::process();
     }
 }
+
+// @codeCoverageIgnoreEnd

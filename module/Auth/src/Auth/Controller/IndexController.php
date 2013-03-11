@@ -13,6 +13,8 @@ namespace Auth\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+//@codeCoverageIgnoreStart 
+
 /**
  * Main Action Controller for Authentication module.
  *
@@ -64,3 +66,5 @@ class IndexController extends AbstractActionController
     }
     
 }
+
+// @codeCoverageIgnoreEnd 
