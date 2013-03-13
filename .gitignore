@@ -10,6 +10,11 @@ config/phpdoc.xml
 config/autoload/*.php
 
 #
+# Unit test code coverage reports
+#
+module/*/test/coverage
+
+#
 # Composer packages
 #
 vendor
