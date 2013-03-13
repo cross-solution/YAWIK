@@ -71,7 +71,7 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
             array(array(), false),
             array(array('some' => 'test'), true),
             array(true, true), array(false,true),
-            array(new \stdClass(), true)
+            array(new \stdClass(), true),
         );
     } 
     
@@ -81,5 +81,10 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
         $this->model->id = $value;
         $this->assertTrue($expect === isset($this->model->id));
            
+    }
+    
+    public function testIssetWithInvalidPropertyReturnsFalse()
+    {
+        $this->assertFalse(isset($this->model->__invalidProperty));
     }
 }

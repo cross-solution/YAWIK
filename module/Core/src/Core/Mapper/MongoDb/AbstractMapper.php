@@ -76,7 +76,7 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
             $id = $this->_getMongoId($id);
         }
         $data = $this->_collection->findOne(array('_id' => $id));
-        return $data ? $this->create($data) : null;
+        return $this->_createFromResult($data);
     }
     
     /**
