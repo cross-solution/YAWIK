@@ -2,12 +2,13 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
+/** Auth mapper mongodb */
 namespace Auth\Mapper\MongoDb;
-
 
 use Core\Mapper\MongoDb\AbstractMapper;
 use Auth\Model\UserModel;
@@ -15,22 +16,36 @@ use Core\Model\ModelInterface;
 use Auth\Mapper\UserMapperInterface;
 
 /**
- *
+ * User mapper factory
  */
 class UserMapper extends AbstractMapper implements UserMapperInterface
 {
-    
+    /**
+     * {@inheritdoc}
+     * @see \Auth\Mapper\UserMapperInterface::findByEmail()
+     */
     public function findByEmail($email)
     {
         $data = $this->_collection->findOne(array('email' => $email));
-        if (null === $data) {
-            return null;
-        }
-        $data['id'] = (String) $data['_id'];
-        unset ($data['_id']);
-        return $this->create($data);
+        return $this->_createFromResult($data);
     }
     
+    /**
+     * {@inheritdoc}
+     * @see \Auth\Mapper\UserMapperInterface::findByProfileIdentifier()
+     */
+    public function findByProfileIdentifier($identifier)
+    {
+        $data = $this->_collection->findOne(array('profile.identifier' => $identifier));
+        return $this->_createFromResult($data);
+    }
+    
+    /**
+     * Saves a user
+     * 
+     * @param ModelInterface $model
+     * @see \Core\Mapper\MapperInterface::save()
+     */
     public function save(ModelInterface $model)
     { 
         $data = array(
@@ -39,20 +54,15 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
             'lastName' => $model->lastName,
             'displayName' => $model->displayName,
         );
-        if (!empty($model->facebookInfo)) {
-            $data['facebookInfo'] = $model->facebookInfo;
+        if (!empty($model->profile)) {
+            $data['profile'] = $model->profile;
         }
-        if (!empty($model->linkedInInfo)) {
-            $data['linkedInInfo'] = $model->linkedInInfo;
-        }
-        if (!empty($model->xingInfo)) {
-            $data['xingInfo'] = $model->xingInfo;
-        }
+        
         if ($model->getId()) {
             $data['_id'] = $this->_getMongoId($model->getId());
-            $this->_collection->update(array('_id' => $data['_id']), $data);
-            return;
         }
-        $this->_collection->insert($data);
+        
+        $this->_collection->save($data);
+        $model->setId((string) $data['_id']);
     }
 }

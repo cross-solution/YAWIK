@@ -1,0 +1,67 @@
+#! /bin/bash
+##
+# git-crossflow : internal
+# 
+# LICENSE
+#
+# This source file is subject to the new BSD license that is bundled  
+# with this package in the file 'LICENSE'.   
+##    
+
+
+[ $# -gt 1 ] && {
+	echo "Ungültige Anzahl Argumente 
+	
+	$0 <version>
+	
+	" >&2
+	
+	exit 1
+}
+
+
+
+version="$1"
+if [ "" == "$version" ]; then
+	curBranch="$(git symbolic-ref HEAD | sed 's:^refs/heads/::')"
+	[[ "$curBranch" =~ ^(hotfix/|release/) ]] || {
+		echo "Version required" >&2
+		exit 3
+	}
+	version="${curBranch/${BASH_REMATCH[1]}/}"
+else
+	[ "OK" == "$(echo $version | sed 's/^[[:digit:]]\+\.[[:digit:]]\+\(\.[[:digit:]]\+\)\?$/OK/')" ] || {
+		echo "Ungültiges Versions-Format
+	
+	<major>.<minor>.<fix>
+	
+	" >&2
+	
+		exit 2
+	}
+fi
+build="$(git log --all -1 --format='%ci' | sed -e 's/\(-\|:\| +[[:digit:]]*$\)//g' -e 's/ /./' -e 's/\([[:digit:]][[:digit:]]\)$/.\1/')"
+
+oldversionline="$(cat VERSION | grep -1 VERSION | tail -1)"
+newversionline="#     $version #$build"
+echo "New Version: $version #$build"
+
+while read line; do
+	[ "$line" == "$oldversionline" ] && line="$newversionline"
+	echo "$line" >> VERSION.new
+done < VERSION
+
+rm VERSION && mv VERSION.new VERSION
+
+	if [ $(echo "$version" | grep -o "\." | wc -l) -eq 1 ]; then
+		message="[Release $version]"
+	else 
+		message="[Hotfix-Release $version]"
+	fi
+echo $message
+
+git add VERSION
+git ci -m "$message"
+exit 0
+
+

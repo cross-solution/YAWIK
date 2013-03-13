@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * Cross Applicant Management - Unit Tests
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
@@ -12,6 +12,9 @@ use Auth\Service\HybridAuthFactory;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+
+require_once(__DIR__ . '/../../../../../vendor/hybridauth/hybridauth/hybridauth/Hybrid/Provider_Model.php');
+
 
 class HybridAuthFactoryTest extends \PHPUnit_Framework_TestCase
 {

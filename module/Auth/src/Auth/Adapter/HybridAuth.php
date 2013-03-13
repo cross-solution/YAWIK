@@ -2,104 +2,112 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
+/** Auth adapter */
 namespace Auth\Adapter;
 
 use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
-use Core\Mapper\MapperInterface;
-use Auth\Adapter\ModelMapper\Facebook;
-use Auth\Adapter\ModelMapper\LinkedIn;
-use Auth\Adapter\ModelMapper\Xing;
+use Auth\Mapper\UserMapperInterface;
 
+
+/**
+ * Hybridauth adapter for \Zend\Authentication
+ */
 class HybridAuth implements AdapterInterface
 {
     /**
+     * Hybridauth instance.
+     * 
      * @var Hybrid_Auth
      */
     protected $_hybridAuth;
 
-    protected $_mapper;
     /**
+     * User mapper.
      * 
+     * @var \Auth\Mapper\MongoDb\UserMapper
+     */
+    protected $_mapper;
+    
+    /**
+     * Hybridauth provider identifier
+     *  
      * @var string
      */
     protected $_provider;
     
     
+    /**
+     * Sets the provider identifier used by Hybridauth.
+     * 
+     * @param string $provider
+     * @return HybridAuth
+     */
     public function setProvider($provider)
     {
         $this->_provider = $provider;
+        return $this;
     }
     
+    /**
+     * Gets the provider identifier used by Hybridauth.
+     * 
+     * @return string|null
+     */
+    public function getProvider()
+    {
+        return $this->_provider;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * 
+     * 
+     * @see \Zend\Authentication\Adapter\AdapterInterface::authenticate()
+     */
     public function authenticate()
     {
         
        $hybridAuth = $this->getHybridAuth();
        $adapter = $hybridAuth->authenticate($this->_provider);
+       
        $userProfile = $adapter->getUserProfile();
        $email = isset($userProfile->emailVerified) && !empty($userProfile->emailVerified)
               ? $userProfile->emailVerified
               : $userProfile->email;
        
-       $user = $this->getMapper()->findByEmail($email);
+       
+       $forceSave = false;
+       $user = $this->getMapper()->findByProfileIdentifier($userProfile->identifier);
        if (!$user) {
+           $forceSave = true;
            $user = $this->getMapper()->create();
        }
-       $this->_getModelMapper()->map($userProfile, $user);
-       $this->getMapper()->save($user);
+       
+       
+       $currentInfo = $user->profile;
+       $newInfo = (array) $userProfile; 
+       
+       if ($forceSave || $currentInfo != $newInfo) {
+           $user->setData(array(
+               'email' => $email,
+               'firstName' => $userProfile->firstName,
+               'lastName' => $userProfile->lastName,
+               'displayName' => $userProfile->displayName,
+               'profile' => $newInfo
+           ));
+           $this->getMapper()->save($user);
+       }
        
        
        return new Result(Result::SUCCESS, $user);
-        if (!$userProfile) {
-            $authEvent->setCode(Result::FAILURE_IDENTITY_NOT_FOUND)
-              ->setMessages(array('A record with the supplied identity could not be found.'));
-            $this->setSatisfied(false);
-
-            return false;
-        }
-
-        $localUserProvider = $this->getMapper()->findUserByProviderId($userProfile->identifier, $provider);
-        if (false == $localUserProvider) {
-            $method = $provider.'ToLocalUser';
-            if (method_exists($this, $method)) {
-                try {
-                    $localUser = $this->$method($userProfile);
-                } catch (Exception\RuntimeException $ex) {
-                    $authEvent->setCode($ex->getCode())
-                        ->setMessages(array($ex->getMessage()))
-                        ->stopPropagation();
-                    $this->setSatisfied(false);
-
-                    return false;
-                }
-            } else {
-                $localUser = $this->instantiateLocalUser();
-                $localUser->setDisplayName($userProfile->displayName)
-                          ->setPassword($provider);
-                if ($userProfile->emailVerified) $localUser->setEmail($userProfile->emailVerified);
-                $result = $this->insert($localUser, 'other', $userProfile);
-            }
-            $localUserProvider = clone($this->getMapper()->getEntityPrototype());
-            $localUserProvider->setUserId($localUser->getId())
-                ->setProviderId($userProfile->identifier)
-                ->setProvider($provider);
-            $this->getMapper()->insert($localUserProvider);
-        }
-
-        $authEvent->setIdentity($localUserProvider->getUserId());
-
-        $this->setSatisfied(true);
-        $storage = $this->getStorage()->read();
-        $storage['identity'] = $authEvent->getIdentity();
-        $this->getStorage()->write($storage);
-        $authEvent->setCode(Result::SUCCESS)
-          ->setMessages(array('Authentication successful.'))
-          ->stopPropagation();
+        
     }
 
     /**
@@ -127,12 +135,12 @@ class HybridAuth implements AdapterInterface
 
     
     /**
-     * set mapper
+     * Sets the user mapper
      *
-     * @param  UserProviderInterface $mapper
+     * @param  UserMapperInterface $mapper
      * @return HybridAuth
      */
-    public function setMapper(MapperInterface $mapper)
+    public function setMapper(UserMapperInterface $mapper)
     {
         $this->_mapper = $mapper;
 
@@ -140,26 +148,16 @@ class HybridAuth implements AdapterInterface
     }
 
     /**
-     * get mapper
+     * Gets the user mapper
      *
-     * @return UserProviderInterface
+     * @return UserMapperInterface
      */
     public function getMapper()
     {
         return $this->_mapper;
     }
 
-    protected function _getModelMapper()
-    {
-        switch ($this->_provider) {
-            case 'facebook': return new Facebook(); break;
-            case 'linkedin': return new LinkedIn(); break;
-            case 'xing': return new Xing(); break;
-            default:
-                throw new \RuntimeException('Could not load ModelMapper for provider "' . $this->_provider . '"');
-                break;
-        }
-    }
+   
    
    
 }

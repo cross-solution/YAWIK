@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * Cross Applicant Management - Unit Tests
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
