@@ -17,8 +17,19 @@
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
+        <?php //echo $this->jquery() ?>
+        <?php echo $this->headScript()
+                        ->prependFile($this->basePath('js/jquery-ui-1.10.2.custom.js'))
+                        ->prependFile($this->basePath('js/jquery-1.9.1.js')) 
+                        ->appendScript('$(function() { $("[title]").tooltip(); });'); ?>
+                        
         <?php echo $this->headLink()->prependStylesheet($this->basePath('css/Applications/layout.css'))
-                                    ->prependStylesheet($this->basePath() . '/css/Core/layout.css') ?>
+                                    ->prependStylesheet($this->basePath() . '/css/Core/layout.css')
+                                    ->appendStylesheet($this->basePath('css/smoothness/jquery-ui-1.10.2.custom.min.css')) ?>
+                                    
+        
+        
+        <?php echo $this->headStyle() ?>
 
     </head>
     <body>
@@ -35,9 +46,11 @@
             </div> <!-- /container -->
 
             <footer>
-                <p class="float_left">&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?></p>
-                <p class="float_right">
-                    Powered by <a href="http://framework.zend.com">Zend Framework <?php echo \Zend\Version\Version::VERSION ?></a></p>
+                <p class="float-left">&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?></p>
+                <p class="float-right">
+                    Powered by <a href="http://framework.zend.com">Zend Framework 2</a>,
+                                <a href="http://jquery.com">jQuery</a>,
+                                <a href="http://jqueryui.com">jQuery UI</a></p>
                 <div class="clear"></div>
             </footer>
         </div> <!-- /main -->

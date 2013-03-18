@@ -29,37 +29,41 @@ return array(
     // Routes
     'router' => array(
         'routes' => array(
-            'apply' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/apply',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Applications\Controller',
-                        'controller' => 'index',
-                        'action'     => 'index',
-                    ),
-                ),
-                'may_terminate' => false,
+            'main' => array(
                 'child_routes' => array(
-                    'form' => array(
-                        'type' => 'Segment',
+                    'apply' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
-                            'route' => '/:jobid',
+                            'route'    => '/apply',
                             'defaults' => array(
-                                //'__NAMESPACE__' => 'Applications\Controller',
-                                //'controller' => 'index',
-                                //'action' => 'apply',
-                             ),
+                                '__NAMESPACE__' => 'Applications\Controller',
+                                'controller' => 'index',
+                                'action'     => 'index',
+                            ),
                         ),
-                    ),
-                    'submit' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/submit',
-                            'defaults' => array(
-                                //'__NAMESPACE__' => 'Applications\Controller',
-                                //'controller' => 'index',
-                                'action' => 'submit',
+                        'may_terminate' => false,
+                        'child_routes' => array(
+                            'form' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/:jobid',
+                                    'defaults' => array(
+                                        //'__NAMESPACE__' => 'Applications\Controller',
+                                        //'controller' => 'index',
+                                        //'action' => 'apply',
+                                     ),
+                                ),
+                            ),
+                            'submit' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/submit',
+                                    'defaults' => array(
+                                        //'__NAMESPACE__' => 'Applications\Controller',
+                                        //'controller' => 'index',
+                                        'action' => 'submit',
+                                    ),
+                                ),
                             ),
                         ),
                     ),
@@ -104,6 +108,9 @@ return array(
         ),
         'template_map' => array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
+            
+            // Form partials
+            'form/application' => __DIR__ . '/../view/form/application.phtml',
         )
     ),
     

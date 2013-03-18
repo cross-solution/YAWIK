@@ -11,5 +11,9 @@
 <?php $this->headTitle($this->translate('Home'))?>
 
 <h2><?php echo $this->translate('Welcome'); ?></h2>
-<p><?php echo $this->translate('This is an early alpha version of the application. So there is not much to see at the moment. The only thing working is the login with social networks.')?></p>
+<p><?php echo $this->translate('This is an early alpha version of the application. So there is not much to see at the moment.')?></p>
+<p><?php echo $this->translate('Login via social networks is working. You can test it by clicking on one of the icons in the upper right corner.')?></p>
+<p><?php echo sprintf($this->translate('The next big feature which is worked on heavily at the moment is an %sapplication form%s.'), 
+                      '<a href="' . $this->url('main/apply/form', array('jobid' => 'some-nice-job'), true) . '">',
+                      '</a>') ?></p>
 

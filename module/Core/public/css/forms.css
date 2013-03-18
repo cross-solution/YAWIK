@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+form {
+	
+}
+
+.form-element {
+	margin: 0 0 0.5em 0;
+	
+}
+
+
+fieldset {
+	background-color: #F9F9F9;
+    border: 1px solid #D3D3D3;
+    border-radius: 4px 4px 4px 4px;
+	margin-top: 1em;
+	padding: 1em;
+}
+
+fieldset > legend {
+	cursor: pointer;
+    background-color: #e8e8e8;
+    border: 1px solid #D3D3D3;
+    border-radius: 4px 4px 4px 4px;
+    color: #777;
+    font-size: 1.1em;
+    font-weight: normal;
+    text-shadow: 0 0 3px #bbbbff;
+    padding: 0.2em 0.4em;
+	
+}
+
+
+
+input {
+	font-size: 1.1em;
+	font-weight: normal;
+	color: #555;
+	padding: 0.4em;
+	border-radius: 4px;
+	border: 1px solid #D3D3D3;
+	width: 620px;
+
+}
+
+
+fieldset.buttons input {
+	width: 100px;
+}
+
+input:hover,
+input:focus,
+.ui-state-hover
+{
+	border-color: #aaa;
+	color: #212121;
+	box-shadow: 0px 0px 5px #aaa;
+
+}
+
+

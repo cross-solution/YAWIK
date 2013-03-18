@@ -12,6 +12,7 @@ namespace Applications\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Applications\Form\Application as ApplicationForm;
 
 /**
  * Main Action Controller for Applications module.
@@ -35,7 +36,13 @@ class IndexController extends AbstractActionController
             'job' => (object) array(
                 'title' => 'Testjob'
             ),
+            'form' => new ApplicationForm()
         );
+        
+    }
+    
+    public function submitAction()
+    {
         
     }
     

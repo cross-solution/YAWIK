@@ -12,6 +12,7 @@ namespace Core;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Core\Service\LanguageRouteListener;
 
 /**
  * Bootstrap class of the Core module
@@ -29,10 +30,14 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
-        $e->getApplication()->getServiceManager()->get('translator');
+        $sm = $e->getApplication()->getServiceManager();
+        $sm->get('translator'); // initialise translator!
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+        $languageRouteListener = new LanguageRouteListener();
+        $languageRouteListener->attach($eventManager);
     }
 
     /**

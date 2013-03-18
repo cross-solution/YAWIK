@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cross Applicant Management - Applications\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-22 14:47+0100\n"
+"PO-Revision-Date: 2013-03-22 14:48+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"Language-Team: Cross Solution <info@cross-solution.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: Germany\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: view/applications/index/index.phtml:2
+#: view/layout/layout.phtml:37
+#: language/_annotated_strings.php:27
+msgid "Apply"
+msgstr "Bewerben"
+
+#: view/applications/index/index.phtml:20
+#, php-format
+msgid "Apply to \"%s\" from \"%s\""
+msgstr "Sie bewerben sich auf die Stelle \"%s\" der Firma \"%s\""
+
+#: view/applications/index/index.phtml:21
+msgid "Go to job advertisement"
+msgstr "Zur Stellenanzeige gehen"
+
+#: src/Applications/Form/Application.php:17
+msgid "Contact details"
+msgstr "Kontaktinformationen"
+
+#: language/_annotated_strings.php:3
+msgid "Mister"
+msgstr "Herr"
+
+#: language/_annotated_strings.php:6
+msgid "Miss"
+msgstr "Frau"
+
+#: language/_annotated_strings.php:9
+msgid "First name"
+msgstr "Vorname"
+
+#: language/_annotated_strings.php:12
+msgid "Last name"
+msgstr "Nachname"
+
+#: language/_annotated_strings.php:15
+msgid "Street"
+msgstr "Straße"
+
+#: language/_annotated_strings.php:18
+msgid "House number"
+msgstr "Hausnummer"
+
+#: language/_annotated_strings.php:21
+msgid "Zip code"
+msgstr "PLZ"
+
+#: language/_annotated_strings.php:24
+msgid "Location"
+msgstr "Ort"
+
+#~ msgid "City"
+#~ msgstr "Ort"
+
+#~ msgid "Submit"
+#~ msgstr "Bewerben"

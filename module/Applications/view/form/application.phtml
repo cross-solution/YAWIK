@@ -1,0 +1,112 @@
+<?php
+$this->headstyle()->captureStart()?>
+    #contact-firstname,
+    #contact-lastname {
+        width: 300px;
+    }
+    
+    #contact-lastname-wrapper,
+    #contact-number-wrapper,
+    #contact-location-wrapper {
+        margin-left: 5px;
+    }
+    
+    #contact-street,
+    #contact-location {
+        width: 495px;
+    }
+    
+    #contact-number,
+    #contact-zipcode {
+        width: 105px;
+    }
+    
+    
+<?php $this->headstyle()->captureEnd();
+
+$this->headScript()->captureStart()?>
+    $(function() {
+        
+        $("#contact-title-wrapper").buttonset();
+    });
+<?php $this->headScript()->captureEnd();
+
+// $this->jquery()->addOnLoad('
+//     $("fieldset > legend").click(function() {
+//         $("#" + $(this).parent().attr("id") + " .fieldset-content").slideToggle();
+//     });
+// ');
+$form->setAttributes(array(
+    'action' => '/apply/submit',
+    'method' => 'post',
+    'id' => 'application-form',
+));
+
+$form->prepare();
+echo $this->form()->openTag($form);
+
+$contact = $form->get('contact');
+
+?>
+<fieldset id="<?echo $contact->getName() ?>">
+<legend><?php echo $this->translate($contact->getLabel()) ?></legend>
+<div class="fieldset-content">
+
+<div class="form-element" id="contact-title-wrapper">
+<?php echo $this->formRow($contact->get('title')) ?>
+</div>
+
+<?php $el = $contact->get('firstname'); ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el); ?>
+</div>
+
+<?php $el = $contact->get('lastname'); ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+
+
+<div class="clear"></div>
+
+<?php $el = $contact->get('street') ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+<?php $el = $contact->get('number') ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+<div class="clear"></div>
+
+<?php $el = $contact->get('zipcode') ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+<?php $el = $contact->get('location') ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+<?php $el = $contact->get('email') ?>
+<div class="form-element" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+<div class="clear"></div>
+
+</div> <!--  /fieldset-content -->
+</fieldset>
+
+<?php $fs = $form->get('buttons') ?>
+<fieldset id="<?php echo $fs->getName() ?>" class="buttons">
+
+<?php echo $this->formsubmit($fs->get('submit')) ?>
+
+</fieldset>
+<?php echo $this->form()->closeTag() ?>
+
