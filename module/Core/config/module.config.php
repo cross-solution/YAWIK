@@ -17,33 +17,30 @@ return array(
     // Routes
     'router' => array(
         'routes' => array(
-            'main' => array(
+            'lang' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/:lang',
-                    'constraints' => array(
-                        'lang' => '[a-z]{2}',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Core\Controller\Index',
-                        'action' => 'index',
-                        'lang' => 'en',
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-                    
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
+                    'route'    => '/:lang',
                     'defaults' => array(
                         'controller' => 'Core\Controller\Index',
                         'action'     => 'index',
-                        'lang'       => 'en',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'home' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/test[/:logo]',
+                            'defaults' => array(
+                                'controller' => 'Core\Controller\Index',
+                                'action' => 'index',
+                            ),
+                        ),
                     ),
                 ),
             ),
+            
         ),
     ),
     
@@ -72,7 +69,10 @@ return array(
         'default' => array(
             'home' => array(
                 'label' => 'Home',
-                'route' => 'home'
+                'route' => 'lang',
+                'params' => array(
+                    'lang' => 'de',
+                ),
             ),
         ),
     ),
@@ -117,6 +117,9 @@ return array(
             'form_row' => 'Core\Form\View\Helper\FormRow',
             'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
             'form_radio' => 'Core\Form\View\Helper\FormRadio',
+        ),
+        'factories' => array(
+            'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
     ),
     

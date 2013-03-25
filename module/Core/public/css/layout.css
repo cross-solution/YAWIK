@@ -22,6 +22,7 @@ body {
 	font-size: 14px;
 	font-family: Ubuntu, sans-serif;
 	color: #555555;
+	position: relative;
 }
 
 a, a:visited {
@@ -117,7 +118,14 @@ nav#main-navigation ul li a:hover {
 	font-style: italic;
 }
 
+div#language-switcher {
+	position: absolute;
+	top: -1em;
+	right: 0;
+}
+
 div#container {
+	position: relative;
 	clear: both;
 	margin: 2em 2.5em;
 	background-color: white;

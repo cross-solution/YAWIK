@@ -52,40 +52,45 @@ return array(
     // Routes
     'router' => array(
         'routes' => array(
-            'auth' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/login',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
+            'lang' => array(
                 'child_routes' => array(
-                    'providers' => array(
-                        'type' => 'Segment',
+                    'auth' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
-                            'route' => '/:provider',
+                            'route'    => '/login',
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Index',
-                                'action' => 'login'
-                             ),
+                                'action'     => 'index',
+                            ),
                         ),
-                    ),
-                    'hauth' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/hauth',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\HybridAuth',
-                                'action' => 'index'
-                             ),
-                        ),
+                        'may_terminate' => true,
                     ),
                 ),
             ),
-            'logout' => array(
+            'auth-provider' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/login/:provider',
+                    'constraints' => array(
+                        'provider' => '.+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Index',
+                        'action' => 'login'
+                     ),
+                ),
+            ),
+            'auth-hauth' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/login/hauth',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\HybridAuth',
+                        'action' => 'index'
+                    ),
+                ),
+            ),
+            'auth-logout' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/logout',
