@@ -61,7 +61,7 @@ return array(
                                     'defaults' => array(
                                         //'__NAMESPACE__' => 'Applications\Controller',
                                         //'controller' => 'index',
-                                        'action' => 'submit',
+                                        //'action' => 'submit',
                                     ),
                                 ),
                             ),

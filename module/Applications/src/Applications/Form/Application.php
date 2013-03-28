@@ -5,22 +5,34 @@ namespace Applications\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Fieldset;
+use Zend\Stdlib\Hydrator\ClassMethods;
+use Applications\Model\Application as ApplicationModel;
 
 class Application extends Form
 {
     
-    public function __construct()
+    public function __construct(ApplicationModel $model)
     {
         parent::__construct('application');
         
+        $hydrator = new ClassMethods();
+        $this->setHydrator($hydrator);
+        $this->bind($model);
+        $this->add(array(
+            'type' => 'Hidden',
+            'name' => 'jobid',
+        ));
+        
         $contact = new Fieldset('contact');
         $contact->setLabel('Contact details');
+        $contact->setHydrator($hydrator)
+            ->setObject($model);
         
         $contact->add(array(
             'type' => 'Zend\Form\Element\Radio',
             'name' => 'title',
             'options' => array(
-                //'label' => 'Title',
+                'label' => 'Title',
                 'value_options' => array(
                     'mister' => /*@translate*/ 'Mister',
                     'miss' => /*@translate*/ 'Miss',
@@ -62,7 +74,7 @@ class Application extends Form
         ));
         
         $contact->add(array(
-            'name' => 'number',
+            'name' => 'houseNumber',
             'options' => array(
                 'label' => /* @translate */ 'House number'
             ),
@@ -72,7 +84,7 @@ class Application extends Form
         ));
         
         $contact->add(array(
-            'name' => 'zipcode',
+            'name' => 'zipCode',
             'options' => array(
                 'label' => /* @translate */ 'Zip code'
             ),
@@ -88,6 +100,26 @@ class Application extends Form
             ),
             'attributes' => array(
                 'id' => 'contact-location'
+            )
+        ));
+        
+        $contact->add(array(
+            'name' => 'phoneNumber',
+            'options' => array(
+                'label' => /*@translate*/ 'Phone number',
+            ),
+            'attributes' => array(
+                'id' => 'contact-phonenumber'
+            )
+        ));
+        
+        $contact->add(array(
+            'name' => 'mobileNumber',
+            'options' => array(
+                'label' => /*@translate*/ 'Mobile phone number',
+            ),
+            'attributes' => array(
+                'id' => 'contact-mobilenumber'
             )
         ));
         
@@ -114,5 +146,25 @@ class Application extends Form
         ));
         
         $this->add($buttons);
+    }
+    
+    public function getInputFilterToo()
+    {
+        if ($this->filter) {
+            return $this->filter;
+        }
+        
+        $filter = new \Zend\InputFilter\InputFilter();
+        
+        $filter->add(array(
+            'type' => 'Zend\InputFilter\InputFilter',
+            array(
+                'name' => 'firstname',
+                'required' => true,
+            ),
+        ), 'contact');
+        
+        $this->setInputFilter($filter);
+        return $filter;
     }
 }

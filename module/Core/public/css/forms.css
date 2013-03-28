@@ -44,6 +44,10 @@ input {
 
 }
 
+.form-error input,
+.form-error .ui-button {
+	border-color: #d3a0a0;
+}
 
 fieldset.buttons input {
 	width: 100px;
@@ -57,6 +61,19 @@ input:focus,
 	color: #212121;
 	box-shadow: 0px 0px 5px #aaa;
 
+}
+.form-error input:hover,
+.form-error input:focus,
+.form-error .ui-state-hover
+{
+	border-color: #c29090;
+	box-shadow: 0px 0px 5px #caa;
+}
+
+.form-element ul {
+	list-style: inside;
+	margin: 0.5em 0.5em 1em;
+	color: #aa0000;
 }
 
 
