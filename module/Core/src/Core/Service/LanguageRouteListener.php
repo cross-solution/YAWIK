@@ -153,7 +153,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
     public function getDefaultLanguage()
     {
         if (!$this->defaultLanguage) {
-            $this->defaultLanguage = array_shift(array_keys($this->availableLanguages));
+            $availableLanguages = array_keys($this->availableLanguages);
+            $this->defaultLanguage = array_shift($availableLanguages);
         }
         return $this->defaultLanguage;
     }

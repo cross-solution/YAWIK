@@ -78,7 +78,7 @@ class Params extends AbstractHelper
     public function fromPost($param = null, $default = null)
     {
         if ($param === null) {
-            return $this->event>getRequest()->getPost($param, $default)->toArray();
+            return $this->event->getRequest()->getPost($param, $default)->toArray();
         }
     
         return $this->event->getRequest()->getPost($param, $default);
