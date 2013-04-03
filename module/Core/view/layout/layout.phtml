@@ -23,12 +23,15 @@
                         ->appendScript('$(function() { 
     $("#language-switcher").buttonset();
     $("#language-switcher input").click(function(e) {
-        var newHref=location.protocol
-                   + "//" + location.host + "/"
-                   + location.pathname.replace(/^\/' . $this->params('lang') . '/, $(this).attr("id").replace(/^language-switcher-/, ""))
-                   + location.search;
+        var switchToLang = $(this).attr("id").replace(/^language-switcher-/, "");
+        if ("' . $this->params('lang') . '" != switchToLang) {                     
+            var newHref=location.protocol
+                       + "//" + location.host + "/"
+                       + location.pathname.replace(/^\/' . $this->params('lang') . '/, switchToLang)
+                       + location.search;
         
-        location.href=newHref;
+            location.href=newHref;
+        }
     });
 });'); ?>
         

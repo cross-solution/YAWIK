@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Service;
+namespace Core\Listener;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -71,34 +71,6 @@ class LanguageRouteListener implements ListenerAggregateInterface
             $e->getApplication()->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
             return;
         }
-        return;		
-        if (false) {
-            $headers = $e->getRequest()->getHeaders();
-            if ($headers->has('Accept-Language')) {
-                $locales = $headers->get('Accept-Language')->getPrioritized();
-                $localeFound=false;
-                foreach ($locales as $locale) {
-                    if (array_key_exists($locale->type, $this->availableLanguages)) {
-                        $lang = $locale->type;
-                        $localeFound = true;
-                        break;
-                    }
-                }
-                if (!$localeFound) {
-                    $lang = $this->getDefaultLanguage();
-                }
-            } else {
-                $lang = $this->getDefaultLanguage();
-            }
-            
-            $response = $e->getResponse();
-            $response->setStatusCode(302);
-
-            $url = "/$lang" . rtrim($e->getRequest()->getRequestUri(), '/');
-            $response->getHeaders()->addHeaderline('Location', $url);
-
-            return $response;
-        }		
     }
 
     public function onDispatchError(MvcEvent $e)

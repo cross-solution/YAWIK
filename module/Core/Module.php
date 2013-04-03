@@ -12,7 +12,7 @@ namespace Core;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use Core\Service\LanguageRouteListener;
+use Core\Listener\LanguageRouteListener;
 
 /**
  * Bootstrap class of the Core module
