@@ -13,7 +13,7 @@ namespace Core;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Core\Service\LanguageRouteListener;
-use Core\Listener\AttachJsonStrategyListener;
+use Core\Listener\JsonViewModelListener;
 
 /**
  * Bootstrap class of the Core module
@@ -40,7 +40,7 @@ class Module
         $languageRouteListener = new LanguageRouteListener();
         $languageRouteListener->attach($eventManager);
         
-        $attachJsonStrategyListener = new AttachJsonStrategyListener();
+        $attachJsonStrategyListener = new JsonViewModelListener();
         $attachJsonStrategyListener->attach($eventManager);
     }
 

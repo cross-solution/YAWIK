@@ -7,7 +7,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 
-class AttachJsonStrategyListener implements ListenerAggregateInterface
+class JsonViewModelListener implements ListenerAggregateInterface
 {
 
     
