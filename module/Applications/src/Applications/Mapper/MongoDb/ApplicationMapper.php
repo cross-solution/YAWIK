@@ -12,32 +12,29 @@ namespace Applications\Mapper\MongoDb;
 
 use Core\Mapper\MongoDb\AbstractMapper;
 use Core\Model\ModelInterface;
-
+use Applications\Model\Hydrator\ApplicationHydrator;
 
 /**
  * User mapper factory
  */
 class ApplicationMapper extends AbstractMapper
 {
+
+    public function fetchByJobid($jobId)
+    {
+        $query = array('jobId' => (string) $jobId);
+        $cursor = $this->_collection->find($query);
+        return $this->_createCollectionFromResult($cursor);    
+    }
     
-    
-    /**
-     * Saves an application
-     * 
-     * @param ModelInterface $model
-     * @see \Core\Mapper\MapperInterface::save()
-     */
-    public function save(ModelInterface $model)
-    { 
-        $hydrator = new \Zend\Stdlib\Hydrator\ClassMethods();
-        $data = $hydrator->extract($model);
-        unset($data['id']);
-        
-        if ( ($id = $model->getId()) ) {
-            $data['_id'] = $this->_getMongoId($id);
+    public function getModelHydrator()
+    {
+        if (!$this->modelHydrator) {
+            $hydrator = new ApplicationHydrator();
+            $this->addDefaultHydratorStrategies($hydrator);
+            $this->setModelHydrator($hydrator);
+            
         }
-        
-        $this->_collection->save($data);
-        $model->setId((string) $data['_id']);
+        return $this->modelHydrator;
     }
 }

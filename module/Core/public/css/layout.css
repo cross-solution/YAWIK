@@ -52,6 +52,7 @@ header {
 	margin: 1em 0 0;
 	box-shadow: 0px 0px 3px #555;
 	background-color: #bbbbff;
+	background-image: linear-gradient(to top, #DDDDFF 0%, #bbbbff 100%);
 }
 
 header > h1 {
@@ -151,4 +152,44 @@ footer p {
 
 footer a {
 	color: #333 !important;
+}
+
+table {
+	width: 100%;
+	*border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #d3d3d3;
+	border-radius: 4px;
+}
+
+table tr.even {
+	background-color: #f9f9ff;
+}
+
+table tr.odd {
+	background-color: #fefefe;
+}
+
+table tbody tr:hover {
+	box-shadow: 0px 0px 5px #aaa;
+}
+table tbody tr.active-row:hover {
+	box-shadow: none;
+}
+
+table td, table th {
+	padding: 0.5em;
+	border-top: 1px solid #d3d3d3;
+	border-left: 1px solid #d3d3d3;
+}
+table thead th {
+	border-top: none;
+	font-weight: bold;
+	text-align: left;
+	background-color: #efeffe;
+	background-image: linear-gradient(to bottom, #f6f6ff 0%, #e5e5f9 100%);
+}
+table thead th:first-child,
+table tbody td:first-child {
+	border-left: none;
 }

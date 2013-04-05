@@ -8,6 +8,9 @@
  
 ini_set('display_errors', true);
 ini_set('error_reporting', E_ALL | E_STRICT);
+
+date_default_timezone_set('Europe/Berlin');
+//date_default_timezone_set('America/New_York');
 /*
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.

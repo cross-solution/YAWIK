@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+
+table#applications-list tbody tr {
+	cursor: pointer;
+}
+
+table#applications-list tbody tr.applications-list-row td.date {
+	font-size: 0.6em;
+}
+
+table#applications-list tbody tr.action-bar {
+	box-shadow: none;
+	cursor: default;
+}
+table#applications-list tbody tr.action-bar td {
+	padding: 0;
+	border-top: none;
+}
+
+div.action-bar-wrapper {
+	padding: 0.5em;
+	border-top: 1px dashed #d3d3d3;
+}
+
+div.action-bar-loader img {
+	display: block;
+	margin: 0 auto;
+}
+
+div.action-bar-content div {
+	padding: 0.5em;
+}
+
+div.action-bar-content div.applicant-info {
+	float: left;
+	width: 15em;
+}
+div.application-actions-status {
+	float: right;
+}

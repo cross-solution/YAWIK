@@ -14,6 +14,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Applications\Mapper\MongoDb\ApplicationMapper;
 use Applications\Model\Application;
+use Applications\Model\Hydrator\ApplicationHydrator;
 
 /**
  * User mapper factory

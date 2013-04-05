@@ -15,7 +15,7 @@ class Application extends Form
     {
         parent::__construct('application');
         
-        $hydrator = new ClassMethods();
+        $hydrator = new ClassMethods(false);
         $this->setHydrator($hydrator);
         $this->bind($model);
         $this->add(array(

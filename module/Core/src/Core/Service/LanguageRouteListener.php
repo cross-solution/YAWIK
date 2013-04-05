@@ -18,7 +18,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
 
     
     protected $availableLanguages = array(
-			'de'	=> 'de_DE',
+			'de'	=> 'de_DE', 
             'at'    => 'de_AT',
 			'en'	=> 'en_EN',
             'us'    => 'en_US',
@@ -67,7 +67,24 @@ class LanguageRouteListener implements ListenerAggregateInterface
 		
 		if (array_key_exists($language, $this->availableLanguages)) {
 		    $lang = $this->availableLanguages[$language];
-			setlocale(LC_ALL, $lang);
+		    setlocale(LC_ALL, array(
+		        $lang . ".utf8",
+		        $lang . ".iso88591",
+		        $lang,
+		        substr($lang, 0, 2),
+		        'de_DE.utf8',
+		        'de_DE',
+		        'de'
+		    ));
+// 		    $sysLangsStr = shell_exec("locale -a");
+// 		    $sysLangs = explode(PHP_EOL, trim($sysLangsStr));
+// 		    foreach ($sysLangs as $loc) {
+// 	            if (strpos($loc, $lang) !== false) {
+// 	                setlocale(LC_ALL, $loc);
+// 	                break;
+// 	            }
+// 		    }
+            
 			$translator->setLocale($lang);
 		} else {
 			$response = $e->getResponse();

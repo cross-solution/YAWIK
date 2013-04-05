@@ -10,7 +10,9 @@
 /** Core mappers */
 namespace Core\Mapper;
 
-use \Core\Model\ModelInterface;
+use Core\Model\ModelInterface;
+use Zend\Stdlib\Hydrator\HydratorInterface;
+use Core\Model\Hydrator\ModelHydrator;
 
 /**
  * Partial implementation of \Core\Mapper\MapperInterface.
@@ -34,6 +36,15 @@ abstract class AbstractMapper implements MapperInterface
     protected $_modelPrototype;
     
     /**
+     * The model hydrator.
+     * 
+     * @var \Zend\Stdlib\Hydrator\HydratorInterface
+     */
+    protected $modelHydrator;
+     
+    protected $queryConverter;
+    
+    /**
      * {@inheritdoc}
      * 
      * @see \Core\Mapper\MapperInterface::setModelPrototype()
@@ -47,11 +58,44 @@ abstract class AbstractMapper implements MapperInterface
     
     /**
      * {@inheritdoc}
+     * 
+     * @see \Core\Mapper\MapperInterface::setModelHydrator()
+     * @return \Core\Mapper\AbstractMapper
+     */
+    public function setModelHydrator(HydratorInterface $hydrator)
+    {
+        $this->modelHydrator = $hydrator;
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * 
+     * @see \Core\Mapper\MapperInterface::getModelHydrator()
+     */
+    public function getModelHydrator()
+    {
+        if (!$this->modelHydrator) {
+            $this->setModelHydrator(new ModelHydrator());
+        }
+        return $this->modelHydrator;
+    }
+    
+    public function convertQuery(\Core\Mapper\Query\Query $query)
+    {
+        $converter = $query->getServiceManager()->get('query_converter');
+        return $converter->convert($query, $this);
+    }
+    
+	/**
+     * {@inheritdoc}
      */
     public function create(array $data=array())
     {
         $model = clone $this->_modelPrototype;
-        $model->setData($data);
+        $hydrator = $this->getModelHydrator();
+        $hydrator->hydrate($data, $model);
+        //$model->setData($data);
         return $model;
     }
 }

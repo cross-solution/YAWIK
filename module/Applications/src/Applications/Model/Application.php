@@ -2,16 +2,18 @@
 
 namespace Applications\Model;
 
-use Core\Model\AbstractModel;
+use Core\Model\AbstractDateFormatEnabledModel;
 
 /**
  * @todo write interface
  * @author mathias
  *
  */
-class Application extends AbstractModel
+class Application extends AbstractDateFormatEnabledModel implements ApplicationInterface
 {
     protected $jobId;
+    protected $dateCreated;
+    protected $dateModified;
     protected $title;
     protected $firstname;
     protected $lastname;
@@ -39,6 +41,52 @@ class Application extends AbstractModel
         $this->jobId = $jobId;
     }
 
+    public function getDateCreated ($format=null)
+    {
+        if (!$this->dateCreated) {
+            $this->setDateCreated('now');
+        }
+        return null !== $format
+            ? strftime($format, $this->dateCreated->getTimestamp())
+            : $this->dateCreated;
+    }
+    
+    public function setDateCreated ($dateCreated)
+    {
+        if (is_string($dateCreated)) {
+            $dateCreated = new \DateTime($dateCreated);
+        }
+        
+        if (!$dateCreated instanceOf \DateTime) {
+            $dateCreated = new \DateTime();
+        }
+        
+        $this->dateCreated = $dateCreated;
+    }
+    
+    public function getDateModified ($format=null)
+    {
+        if (!$this->dateModified) {
+            $this->setDateModified('now');
+        }
+        return null !== $format
+            ? $this->dateModified->format($format)
+            : $this->dateModified;
+    }
+    
+    public function setDateModified ($dateModified)
+    {
+        if (is_string($dateModified)) {
+            $dateCreated = new \DateTime($dateModified);
+        }
+    
+        if (!$dateModified instanceOf \DateTime) {
+            $dateModified = new \DateTime();
+        }
+    
+        $this->dateModified = $dateModified;
+    }
+    
 	/**
      * @return the $title
      */
@@ -87,6 +135,12 @@ class Application extends AbstractModel
         $this->lastname = $lastname;
     }
 
+    public function getName()
+    {
+        return ( ($firstname = $this->getFirstname()) ? "$firstname " : "")
+             . $this->getLastname();
+    } 
+    
 	/**
      * @return the $street
      */

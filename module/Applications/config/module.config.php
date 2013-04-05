@@ -21,6 +21,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
+            'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             
         ),
     ),
@@ -47,21 +48,36 @@ return array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => '/:jobid',
-                                    'defaults' => array(
-                                        //'__NAMESPACE__' => 'Applications\Controller',
-                                        //'controller' => 'index',
-                                        //'action' => 'apply',
-                                     ),
                                 ),
                             ),
                             'submit' => array(
                                 'type' => 'Literal',
                                 'options' => array(
                                     'route' => '/submit',
+                                ),
+                            ),
+                        ),
+                    ),
+                    'applications' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/applications',
+                            'defaults' => array(
+                                'controller' => '\Applications\Controller\Manage',
+                                'action' => 'index',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'detail' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/detail/:id',
+                                    'constraints' => array(
+                                        'id' => '.+'
+                                    ),
                                     'defaults' => array(
-                                        //'__NAMESPACE__' => 'Applications\Controller',
-                                        //'controller' => 'index',
-                                        //'action' => 'submit',
+                                        'action' => 'detail',
                                     ),
                                 ),
                             ),
@@ -73,11 +89,14 @@ return array(
     ),
     
     // Navigation
-//     'navigation' => array(
-//         'default' => array( 
-//             'login' => array(
-//                 'label' => 'Login',
-//                 'route' => 'auth',
+    'navigation' => array(
+        'default' => array( 
+            'apply' => array(
+                'label' => 'Applications',
+                'route' => 'main/applications',
+                'params' => array(
+                    'lang' => 'de'
+                ),
 //                 'pages' => array(
 //                     'facebook' => array(
 //                         'label' => 'Facebook',
@@ -87,9 +106,9 @@ return array(
 //                         ),
 //                      ),
 //                 ),
-//             ),
-//         ),
-//     ),
+            ),
+        ),
+    ),
     
     'translator' => array(
         'translation_file_patterns' => array(
@@ -108,6 +127,8 @@ return array(
         ),
         'template_map' => array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
+            
+            'applications/list-row' => __DIR__ . '/../view/partial/list-row.phtml',
             
             // Form partials
             'form/application' => __DIR__ . '/../view/form/application.phtml',

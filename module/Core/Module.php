@@ -14,6 +14,7 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Core\Service\LanguageRouteListener;
 use Core\Listener\JsonViewModelListener;
+use Core\Listener\AjaxRenderListener;
 
 /**
  * Bootstrap class of the Core module
@@ -42,6 +43,9 @@ class Module
         
         $attachJsonStrategyListener = new JsonViewModelListener();
         $attachJsonStrategyListener->attach($eventManager);
+        
+        $ajaxRenderListener = new AjaxRenderListener();
+        $ajaxRenderListener->attach($eventManager);
     }
 
     /**

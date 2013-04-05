@@ -40,6 +40,7 @@ class MongoDbFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $options = $serviceLocator->get('Config');
+//        var_dump($options['database']['connection']); exit;
         $conn = $this->getMongoClient($options['database']['connection']);
         $db = $conn->{$options['database']['databaseName']};
         return $db;
