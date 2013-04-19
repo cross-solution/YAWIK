@@ -16,22 +16,56 @@ class Query implements ServiceManagerAwareInterface
     public function __call($method, $params)
     {
         if (preg_match('~get(.*)$~', $method, $match)) {
-            return $this->__get($match[1]);
+            return $this->getOption($match[1]);
         }
-        $optionManager = $this->getOptionManager();
-        if ($optionManager->has($method)) {
-            $option = $optionManager->get($method);
-            $option->setParams($params);
-            $this->options[strtolower($method)] = $option; 
-            return $this;
+        
+        return $this->setOption($method, $params);
+    }
+    
+    public function getOption($name)
+    {
+        
+        $optionName = strtolower($name);
+        if (isset($this->options[$optionName])) {
+            return $this->options[$optionName];
         }
-        die ('Unsupported option: ' . $method);
+        
+        if ($this->getOptionManager()->has($name)) {
+            return null;
+        }
+        
+        //@todo Error-Handling!
+        die ('Invalid option "' . $name . '"');
+        
+    }
+
+    public function setOption($name, array $params=array())
+    {
+        
+        if ($name instanceOf Option\OptionInterface
+            || $name instanceOf Option\ArrayOptionInterface
+        ) {
+            $this->options[strtolower($name->getOptionName())] = $name;
+            return $this; 
+        }
+        
+        try {
+            $option = $this->getOptionManager()->get($name);
+        } catch (\Exception $e) {
+            die ('Unknown option: "' . $name. '"');
+        }
+        
+        $option->setFromParams($params);
+
+        $optionName = strtolower($option->getOptionName());
+        $this->options[$optionName] = $option;
+        
+        return $this;
     }
     
     public function __get($name)
     {
-        $option = strtolower($name);
-        return isset($this->options[$option]) ? $this->options[$option] : null;
+        return $this->getOption($name);
     }
     
     public function setServiceManager(\Zend\ServiceManager\ServiceManager $serviceManager) {

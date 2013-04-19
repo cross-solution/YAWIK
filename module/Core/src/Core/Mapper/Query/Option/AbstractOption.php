@@ -6,21 +6,36 @@ use Zend\Stdlib\AbstractOptions;
 
 abstract class AbstractOption extends AbstractOptions implements OptionInterface
 {
-    protected $paramsMap = array();
+    protected $optionName;
+    protected $paramNamesMap = array();
+
     
-    public function __construct(array $params=array())
+    public function setFromParams(array $params)
     {
-        parent::__construct();
-        $this->setParams($params);
+        $values = array();
+        foreach ($params as $key => $val) {
+            if (isset($this->paramNamesMap[$key])) {
+                $values[$this->paramNamesMap[$key]] = $val;
+            }
+        }
+        //$values = array_combine($this->paramNamesMap, $params);
+        return $this->setFromArray($values);
     }
     
-    public function setParams(array $params=array())
+    public function setOptionName($optionName)
     {
-        foreach ($params as $index => $value) {
-            if (isset($this->paramsMap[$index])) {
-                $this->__set($this->paramsMap[$index], $value);
-            }   
-        }
+        $this->optionName = $optionName;
         return $this;
+    }
+    
+    public function getOptionName()
+    {
+        if (!$this->optionName) {
+            $name = get_class($this);
+            $name = explode('\\', $name);
+            $name = array_pop($name);
+            $this->optionName = $name;
+        }
+        return $this->optionName;
     }
 }

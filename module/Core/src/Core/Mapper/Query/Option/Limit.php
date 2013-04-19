@@ -4,7 +4,7 @@ namespace Core\Mapper\Query\Option;
 
 class Limit extends AbstractOption
 {
-    protected $paramsMap = array(
+    protected $paramNamesMap = array(
         'count',
         'offset',
     );

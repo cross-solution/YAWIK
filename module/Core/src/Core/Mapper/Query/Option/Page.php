@@ -4,15 +4,16 @@ namespace Core\Mapper\Query\Option;
 
 class Page extends Limit
 {
+    protected $optionName = 'limit';
     
-    protected $paramsMap = array(
-        'page',
+    protected $paramNamesMap = array(
         'count',
+        'page',
     );
     
-    public function setParams(array $params=array()) 
+    public function setFromParams(array $params=array()) 
     {
-        return parent::setParams(array_reverse($params));
+        return parent::setFromParams(array_reverse($params));
     }
         
     public function setPage($page)

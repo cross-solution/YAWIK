@@ -65,6 +65,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         
         if ($this->isAvailableLanguage($language)) {
             $this->setTranslatorLocale($e, $language);
+            $this->setNavigationParams($e, $language);
         } else {
             $e->setError(Application::ERROR_ROUTER_NO_MATCH);
             $e->setTarget($this);
@@ -191,11 +192,21 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected function setNavigationParams(MvcEvent $e, $lang)
     {
         $nav = $e->getApplication()->getServiceManager()->get('main_navigation');
-        $page = $nav->findByRoute('lang');
-        $params = $page->getParams();
-        if ($lang != $params['lang']) {
-            $params['lang'] = $lang;
-            $page->setParams($params);
+        $this->setRecursiveNavigationParams($nav->getPages(), $lang);
+    }
+    
+    protected function setRecursiveNavigationParams($pages, $lang)
+    {
+        foreach ($pages as $page) {
+            $route = $page->getRoute();
+            if (0 === strpos($route, 'lang')) {
+                $params = $page->getParams();
+                if (!isset($params['lang']) || $lang != $params['lang']) {
+                    $params['lang'] = $lang;
+                    $page->setParams($params);
+                }
+            }
+            $this->setRecursiveNavigationParams($page->getPages(), $lang);
         }
     }
 }

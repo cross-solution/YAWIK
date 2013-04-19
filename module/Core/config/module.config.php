@@ -84,9 +84,6 @@ return array(
             'home' => array(
                 'label' => 'Home',
                 'route' => 'lang',
-                'params' => array(
-                    'lang' => 'de',
-                ),
             ),
         ),
     ),

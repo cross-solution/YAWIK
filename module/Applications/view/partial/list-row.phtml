@@ -1,6 +1,6 @@
 <tr id="info-bar-<?php echo $model->id?>" class="applications-list-row <?php echo $this->partialLoop()->getPartialCounter() % 2 ? 'odd' : 'even' ?>">
     <td><?php echo $model->jobId ?></td>
-    <td><a href="<?php echo $this->url('main/applications/detail', array('id' => $model->id))?>"><?php echo $model->name ?></a></td>
+    <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $model->id), true)?>"><?php echo $model->name ?></a></td>
     <td><?php echo $model->email ?></td>
     <td>Neu</td>
     <td title="Created: <?php echo $model->createdDate('%x %X');?>">

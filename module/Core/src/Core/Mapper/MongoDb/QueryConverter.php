@@ -10,10 +10,6 @@ use Core\Mapper\MapperInterface as CoreMapperInterface;
 class QueryConverter extends AbstractConverter
 {
     
-    protected $criterionConverterClasses = array(
-        'equals' => '\Core\Mapper\MongoDb\CriterionConverter\Equals',
-        'startsWith' => '\Core\Mapper\MongoDb\CriterionConverter\StartsWith'
-    );
     
     public function convert(Query $query, \Core\Mapper\MapperInterface $mapper)
     {
@@ -70,6 +66,7 @@ class QueryConverter extends AbstractConverter
         foreach ($sort->getCollection() as $option) {
             $result[$option->property] = $option->ascending ? 1 : -1;
         }
+        
         return $result;
     }
 }

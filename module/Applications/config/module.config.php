@@ -36,9 +36,6 @@ return array(
                         'type' => 'Segment',
                         'options' => array(
                             'route'    => '/apply',
-                            'constraints' => array(
-                                'lang' => '[a-z]{2}',
-                            ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Applications\Controller',
                                 'controller' => 'index',
@@ -96,10 +93,7 @@ return array(
         'default' => array( 
             'apply' => array(
                 'label' => 'Applications',
-                'route' => 'main/applications',
-                'params' => array(
-                    'lang' => 'de'
-                ),
+                'route' => 'lang/applications',
 //                 'pages' => array(
 //                     'facebook' => array(
 //                         'label' => 'Facebook',
