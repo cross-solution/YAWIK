@@ -3,11 +3,19 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'MongoDb' => '\Core\Mapper\MongoDb\Service\MongoDbFactory',
+            'query_converter' => '\Core\Mapper\MongoDb\Service\QueryConverterFactory',
         ),
     ),
     
     'database' => array(
         'connection' => '---connection_string---',
         'databaseName' => 'CrossApplicantManagement',
+    ),
+    
+    'query_criterion_converter_manager' => array(
+        'invokables' => array(
+            'equals' => 'Core\Mapper\MongoDb\CriterionConverter\Equals',
+            'starts_with' => 'Core\Mapper\MongoDb\CriterionConverter\StartsWith'
+        ),
     ),
 );

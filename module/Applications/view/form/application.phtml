@@ -1,13 +1,16 @@
 <?php
 $this->headstyle()->captureStart()?>
     #contact-firstname,
-    #contact-lastname {
+    #contact-lastname,
+    #contact-phone,
+    #contact-mobile {
         width: 300px;
     }
     
     #contact-lastname-wrapper,
     #contact-number-wrapper,
-    #contact-location-wrapper {
+    #contact-location-wrapper,
+    #contact-mobile-wrapper {
         margin-left: 5px;
     }
     
@@ -22,28 +25,29 @@ $this->headstyle()->captureStart()?>
     }
     
     
-<?php $this->headstyle()->captureEnd();
+<?php $this->headstyle()->captureEnd(); ?>
 
-$this->headScript()->captureStart()?>
-    $(function() {
-        
-        $("#contact-title-wrapper").buttonset();
-    });
-<?php $this->headScript()->captureEnd();
 
+<div id="application-saved-message" class="hidden">
+    <p><?php echo $this->translate('Your application has been saved successfully.'); ?></p>
+</div>
+
+<?php 
 // $this->jquery()->addOnLoad('
 //     $("fieldset > legend").click(function() {
 //         $("#" + $(this).parent().attr("id") + " .fieldset-content").slideToggle();
 //     });
 // ');
 $form->setAttributes(array(
-    'action' => '/apply/submit',
+    'action' => $this->url('main/apply/submit', array(), true),
     'method' => 'post',
     'id' => 'application-form',
 ));
 
 $form->prepare();
 echo $this->form()->openTag($form);
+
+echo $this->formHidden($form->get('jobid'));
 
 $contact = $form->get('contact');
 
@@ -52,9 +56,11 @@ $contact = $form->get('contact');
 <legend><?php echo $this->translate($contact->getLabel()) ?></legend>
 <div class="fieldset-content">
 
-<div class="form-element" id="contact-title-wrapper">
+<div class="form-element float-left" id="contact-title-wrapper">
 <?php echo $this->formRow($contact->get('title')) ?>
 </div>
+
+<div class="clear"></div>
 
 <?php $el = $contact->get('firstname'); ?>
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
@@ -75,14 +81,14 @@ $contact = $form->get('contact');
     <?php echo $this->formRow($el) ?>
 </div>
 
-<?php $el = $contact->get('number') ?>
+<?php $el = $contact->get('houseNumber') ?>
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
     <?php echo $this->formRow($el) ?>
 </div>
 
 <div class="clear"></div>
 
-<?php $el = $contact->get('zipcode') ?>
+<?php $el = $contact->get('zipCode') ?>
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
     <?php echo $this->formRow($el) ?>
 </div>
@@ -91,6 +97,19 @@ $contact = $form->get('contact');
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
     <?php echo $this->formRow($el) ?>
 </div>
+
+<div class="clear"></div>
+
+<?php $el = $contact->get('phoneNumber') ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+<?php $el = $contact->get('mobileNumber') ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formRow($el) ?>
+</div>
+
+<div class="clear"></div>
 
 <?php $el = $contact->get('email') ?>
 <div class="form-element" id="<?php echo $el->getAttribute('id') ?>-wrapper">

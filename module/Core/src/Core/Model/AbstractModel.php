@@ -28,7 +28,7 @@ abstract class AbstractModel implements ModelInterface
      * 
      * @var mixed
      */
-    protected $_id;
+    protected $id;
     
     /**
      * {@inheritdoc}
@@ -36,7 +36,7 @@ abstract class AbstractModel implements ModelInterface
      */
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
     
     /**
@@ -46,7 +46,7 @@ abstract class AbstractModel implements ModelInterface
      */
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->id = $id;
         return $this;
     }
     
@@ -64,6 +64,7 @@ abstract class AbstractModel implements ModelInterface
         }
         return $this;
     }
+    
     
     /**
      * Sets a property through the setter method.
@@ -101,7 +102,7 @@ abstract class AbstractModel implements ModelInterface
             return $this->$method();
         }
         
-        throw new OutOfBoundsException("'$name' is not a valid property if '" . get_class($this) . "'");
+        throw new OutOfBoundsException("'$name' is not a valid property of '" . get_class($this) . "'");
     }
     
     /**
@@ -129,4 +130,6 @@ abstract class AbstractModel implements ModelInterface
         }
         return (bool) $value;
     }
+    
+    
 }

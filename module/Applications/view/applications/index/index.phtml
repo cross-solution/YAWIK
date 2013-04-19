@@ -3,17 +3,9 @@
     
     $this->headLink()->appendStylesheet($this->basePath('/css/Core/forms.css'));
     
-    $this->headScript()->appendScript('
-        $(function () {
-            $("fieldset > legend").click(function() {
-                $("#" + $(this).parent().attr("id") + " .fieldset-content").slideToggle();
-            });
-        
-            $(":text").inlineLabel();
-        
-            $("input[type=\'submit\'], button").button();
-        });'
-    )->appendFile($this->basePath('js/jquery.inlineLabel.js'));
+    $this->headScript()->appendFile($this->basePath('js/jquery.inlineLabel.js'))
+                       ->appendFile($this->basepath('js/Applications/form.js'));
+    
     
 ?>
 <h2><?php printf(
@@ -22,4 +14,4 @@
     'TestCompany'
 ) ?></h2>
 
-<?php echo $this->partial('form/application', array('form' => $form)) ?>
+<?php echo $isApplicationSaved ? 'Yeehaw!' : $this->partial('form/application', array('form' => $form)) ?>

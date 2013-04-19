@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-22 14:47+0100\n"
-"PO-Revision-Date: 2013-03-22 14:48+0100\n"
+"POT-Creation-Date: 2013-03-28 13:01+0100\n"
+"PO-Revision-Date: 2013-03-28 13:03+0100\n"
 "Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: view/applications/index/index.phtml:2
-#: view/layout/layout.phtml:37
-#: language/_annotated_strings.php:27
+#: view/layout/layout.phtml:38
+#: language/_annotated_strings.php:36
 msgid "Apply"
 msgstr "Bewerben"
 
@@ -64,6 +64,18 @@ msgstr "PLZ"
 #: language/_annotated_strings.php:24
 msgid "Location"
 msgstr "Ort"
+
+#: language/_annotated_strings.php:27
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: language/_annotated_strings.php:30
+msgid "Mobile phone number"
+msgstr "Handynummer"
+
+#: language/_annotated_strings.php:33
+msgid "Email"
+msgstr "Email"
 
 #~ msgid "City"
 #~ msgstr "Ort"

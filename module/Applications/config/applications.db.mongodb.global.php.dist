@@ -1,0 +1,8 @@
+<?php
+return array(
+    'service_manager' => array(
+        'factories' => array(
+            'ApplicationMapper' => '\Applications\Mapper\MongoDb\Service\ApplicationMapperFactory',
+        ),
+    ),
+);

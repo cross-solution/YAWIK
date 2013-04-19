@@ -13,6 +13,11 @@ namespace Applications\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Applications\Form\Application as ApplicationForm;
+use Applications\Model\Application as ApplicationModel;
+use Applications\Form\ApplicationHydrator;
+use Zend\Stdlib\Hydrator\ClassMethods;
+use Applications\Model\Application;
+use Zend\View\Model\JsonModel;
 
 /**
  * Main Action Controller for Applications module.
@@ -31,19 +36,65 @@ class IndexController extends AbstractActionController
 //         $view->setTerminal(true);
 //         return $view;
         $this->layout('layout/apply');
+        $mapper = $this->getServiceLocator()->get('ApplicationMapper');
+        $applicationModel = $mapper->create();
         
-        return array(
+        $form = new ApplicationForm($applicationModel);
+        $viewModel = new ViewModel();
+        $viewModel->setVariables(array(
             'job' => (object) array(
                 'title' => 'Testjob'
             ),
-            'form' => new ApplicationForm()
-        );
+            'form' => $form,
+            'isApplicationSaved' => false,
+        ));
+        
+        $request = $this->getRequest();
+       
+        if ($request->isPost()) {
+            $data = $this->params()->fromPost();
+            $form->setData($data);
+            if (!$form->isValid()) {
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonModel(array(
+                        'ok' => false,
+                        'messages' => $form->getMessages()
+                    ));
+                }
+                //$form->populateValues($data);
+            } else {
+                $mapper->save($applicationModel);
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonModel(array(
+                        'ok' => true,
+                    ));
+                }
+                $viewModel->setVariable('isApplicationSaved', true);
+                var_dump($applicationModel);
+            }
+        } else {
+            $form->populateValues(array(
+                'jobid' => $this->params('jobid', 0),
+            ));
+            
+        }
+        return $viewModel;
         
     }
     
     public function submitAction()
     {
+        $model = new ApplicationModel();
+        $form = new ApplicationForm($model);
         
+        $form->setHydrator(new ClassMethods());
+        $form->bind($model);
+        
+        $form->setData($this->params()->fromPost());
+        
+        $form->isValid();
+        
+        var_dump($this->params()->fromPost(), $model, $form->getData());
     }
     
     

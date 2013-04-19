@@ -1,0 +1,33 @@
+<?php
+$tableRows = $this->partialLoop()->setObjectKey('model')->__invoke('applications/list-row', $applications);
+if (!$this->isAjaxRequest):
+?>
+
+<?php $this->headTitle($this->translate('Applications'));
+      $this->headLink()->appendStylesheet($this->basePath('css/Core/forms.css'))
+                       ->appendStylesheet($this->basepath('/css/Applications/manage.css'));
+      $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>
+
+<h2><?=$this->translate('List of all applications')?></h2>
+
+<table id="applications-list">
+<thead>
+<tr>
+    <th>JobId</th>
+    <th><?php echo $this->buildQuery(array('sort' => 'lastname'), true);?><a href="<?php echo $this->url('main/applications', array(), array('query' => array_merge($_GET, array('sort' => 'lastname'))), true)?>">Name</a></th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>Modified</th>
+</tr>
+</thead>
+
+<tbody>
+<?php echo $tableRows; ?>
+
+</tbody>
+
+</table>
+<?php else:
+    echo $tableRows;
+endif; // !$this->isAjaxRequest
+?>

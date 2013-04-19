@@ -49,9 +49,23 @@ return array(
     
     // Setup the service manager
     'service_manager' => array(
+        'invokables' => array(
+            'query' => 'Core\Mapper\Query\Query',
+            'criteria' => 'Core\Mapper\Query\Criteria\Criteria',
+        ),
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
-            'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
+            'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'query_criterion_manager' => 'Core\Mapper\Query\Service\CriterionManagerFactory',
+            'query_criterion_converter_manager' => 'Core\Mapper\Query\Service\CriterionConverterManagerFactory',
+            'query_option_manager' => 'Core\Mapper\Query\Service\OptionManagerFactory',
+        ),
+        'initializers' => array(
+            'criteria' => 'Core\Mapper\Query\Service\CriteriaInitializer',
+        ),
+        'shared' => array(
+            'query' => false,
+            'criteria' => false,
         ),
     ),
     
@@ -86,7 +100,9 @@ return array(
     
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
-    
+        'invokables' => array(
+            'listquery' => 'Core\Controller\Plugin\ListQuery'
+        )
     ),
     
     // Configure the view service manager
@@ -117,6 +133,7 @@ return array(
             'form_row' => 'Core\Form\View\Helper\FormRow',
             'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
             'form_radio' => 'Core\Form\View\Helper\FormRadio',
+            'build_query' => 'Core\View\Helper\BuildQuery',
         ),
     ),
     

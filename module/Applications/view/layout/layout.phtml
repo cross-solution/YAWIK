@@ -19,9 +19,9 @@
         
         <?php //echo $this->jquery() ?>
         <?php echo $this->headScript()
+                        ->prependFile($this->basepath('js/Core/core.js'))
                         ->prependFile($this->basePath('js/jquery-ui-1.10.2.custom.js'))
-                        ->prependFile($this->basePath('js/jquery-1.9.1.js')) 
-                        ->appendScript('$(function() { $("[title]").tooltip(); });'); ?>
+                        ->prependFile($this->basePath('js/jquery-1.9.1.js')); ?>
                         
         <?php echo $this->headLink()->prependStylesheet($this->basePath('css/Applications/layout.css'))
                                     ->prependStylesheet($this->basePath() . '/css/Core/layout.css')

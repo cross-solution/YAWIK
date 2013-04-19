@@ -23,6 +23,15 @@ translate('Zip code');
 //: ./src/Applications/Form/Application.php:87
 translate('Location');
 
-//: ./src/Applications/Form/Application.php:102
+//: ./src/Applications/Form/Application.php:97
+translate('Phone number');
+
+//: ./src/Applications/Form/Application.php:107
+translate('Mobile phone number');
+
+//: ./src/Applications/Form/Application.php:117
+translate('Email');
+
+//: ./src/Applications/Form/Application.php:132
 translate('Apply');
 

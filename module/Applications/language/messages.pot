@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-22 14:47+0100\n"
+"POT-Creation-Date: 2013-03-28 13:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/applications/index/index.phtml:2 view/layout/layout.phtml:37
-#: language/_annotated_strings.php:27
+#: view/applications/index/index.phtml:2 view/layout/layout.phtml:38
+#: language/_annotated_strings.php:36
 msgid "Apply"
 msgstr ""
 
@@ -65,4 +65,16 @@ msgstr ""
 
 #: language/_annotated_strings.php:24
 msgid "Location"
+msgstr ""
+
+#: language/_annotated_strings.php:27
+msgid "Phone number"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "Mobile phone number"
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "Email"
 msgstr ""

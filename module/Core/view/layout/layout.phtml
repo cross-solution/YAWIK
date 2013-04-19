@@ -17,7 +17,18 @@
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
-        <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css') ?>
+        <?php echo $this->headScript()
+                        ->prependFile($this->basepath('js/Core/core.js'))
+                        ->prependFile($this->basePath('js/jquery-ui-1.10.2.custom.js'))
+                        ->prependFile($this->basePath('js/jquery-1.9.1.js')); ?>
+                        
+        <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css')
+                                    ->prependStylesheet($this->basePath('css/smoothness/jquery-ui-1.10.2.custom.min.css')) ?>
+                                    
+        
+        
+        <?php echo $this->headStyle() ?>
+        
 
     </head>
     <body>
