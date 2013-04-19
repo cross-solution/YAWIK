@@ -30,12 +30,15 @@ return array(
     // Routes
     'router' => array(
         'routes' => array(
-            'main' => array(
+            'lang' => array(
                 'child_routes' => array(
                     'apply' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'    => '/apply',
+                            'constraints' => array(
+                                'lang' => '[a-z]{2}',
+                            ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Applications\Controller',
                                 'controller' => 'index',

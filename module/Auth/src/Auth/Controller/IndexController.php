@@ -28,7 +28,7 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
-        
+        //var_dump($this->getServiceLocator()->get('Config'));
     }
     
     /**

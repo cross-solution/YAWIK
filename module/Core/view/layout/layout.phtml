@@ -20,15 +20,25 @@
         <?php echo $this->headScript()
                         ->prependFile($this->basepath('js/Core/core.js'))
                         ->prependFile($this->basePath('js/jquery-ui-1.10.2.custom.js'))
-                        ->prependFile($this->basePath('js/jquery-1.9.1.js')); ?>
-                        
+                        ->prependFile($this->basePath('js/jquery-1.9.1.js')) 
+                        ->appendScript('$(function() { 
+    $("#language-switcher").buttonset();
+    $("#language-switcher input").click(function(e) {
+        var switchToLang = $(this).attr("id").replace(/^language-switcher-/, "");
+        if ("' . $this->params('lang') . '" != switchToLang) {                     
+            var newHref=location.protocol
+                       + "//" + location.host + "/"
+                       + location.pathname.replace(/^\/' . $this->params('lang') . '/, switchToLang)
+                       + location.search;
+        
+            location.href=newHref;
+        }
+    });
+});'); ?>
+        
         <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css')
-                                    ->prependStylesheet($this->basePath('css/smoothness/jquery-ui-1.10.2.custom.min.css')) ?>
-                                    
-        
-        
-        <?php echo $this->headStyle() ?>
-        
+                                    ->appendStylesheet($this->basePath('css/smoothness/jquery-ui-1.10.2.custom.min.css')) ?> 
+
 
     </head>
     <body>
@@ -38,11 +48,20 @@
                 <?php echo $this->loginInfo ?>
 
                 <nav id="main-navigation">
-                    <?php echo $this->navigation('main_navigation')->menu()?>
+                    <?php 
+                        echo $this->navigation('main_navigation')->menu()?>
 
                 </nav> <!-- /main-navigation -->
             </header>
+            
             <div id="container">
+                <div id="language-switcher">
+                    <?php $lang = $this->params('lang');
+                    foreach (array('en', 'de') as $availableLang): ?>
+                    <input type="radio" id="language-switcher-<?php echo $availableLang ?>" name="site-language"<?php echo $availableLang == $lang ? ' checked="checked"' : ''?> />
+                    <label for="language-switcher-<?php echo $availableLang ?>"><?php echo strtoupper($availableLang) ?></label>
+                    <?php endforeach ?>
+                </div>
                 <?php echo $this->content; ?>
 
             </div> <!-- /container -->
@@ -51,7 +70,9 @@
                 <p class="float-left">&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
                     | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</p>
                 <p class="float-right">
-                    Powered by <a href="http://framework.zend.com">Zend Framework <?php echo \Zend\Version\Version::VERSION ?></a></p>
+                    Powered by <a href="http://framework.zend.com">Zend Framework 2</a>,
+                                <a href="http://jquery.com">jQuery</a>,
+                                <a href="http://jqueryui.com">jQuery UI</a></p>
                 <div class="clear"></div>
             </footer>
         </div> <!-- /main -->
