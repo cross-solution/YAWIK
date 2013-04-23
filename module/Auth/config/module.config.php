@@ -72,7 +72,7 @@ return array(
                 'options' => array(
                     'route' => '/login/:provider',
                     'constraints' => array(
-                        'provider' => '.+',
+                       // 'provider' => '.+',
                     ),
                     'defaults' => array(
                         'controller' => 'Auth\Controller\Index',

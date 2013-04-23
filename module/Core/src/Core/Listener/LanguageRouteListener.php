@@ -61,6 +61,14 @@ class LanguageRouteListener implements ListenerAggregateInterface
     public function onRoute(MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
+        if (0 !== strpos($routeMatch->getMatchedRouteName(), 'lang/')) {
+            // We do not have a language enabled route here.
+            // but we need to provide a language to the navigation container
+            $lang = $this->detectLanguage($e->getRequest()->getHeaders());
+            $this->setTranslatorLocale($e, $lang);
+            $this->setNavigationParams($e, $lang);
+            return;
+        }
         $language = $routeMatch->getParam('lang', '__NOT_SET__');
         
         if ($this->isAvailableLanguage($language)) {
@@ -69,8 +77,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
         } else {
             $e->setError(Application::ERROR_ROUTER_NO_MATCH);
             $e->setTarget($this);
-            $e->getApplication()->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
-            return;
+            $result = $e->getApplication()->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
+            
+            return $result->last();
         }
     }
 
@@ -116,6 +125,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $langUri = rtrim("/$lang$origUri", '/');        
 
         if ($e->getRouter()->match($request->setUri($langUri)) instanceOf RouteMatch) {
+            //$e->stopPropagation(true);
+            //$e->setError(false);
             return $this->redirect($e->getResponse(), $langUri);
         }
         
