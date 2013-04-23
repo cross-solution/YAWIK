@@ -48,7 +48,7 @@ class IndexController extends AbstractActionController
         $auth = $this->getServiceLocator()->get('AuthenticationService');
         $result = $auth->authenticate($hauth);
         
-        $this->redirect()->toRoute('home');
+        $this->redirect()->toRoute('lang/home', array('lang' => $this->params('lang')));
     }
     
     /**
@@ -62,7 +62,7 @@ class IndexController extends AbstractActionController
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
         
-        $this->redirect()->toRoute('home');
+        $this->redirect()->toRoute('lang/home', array('lang' => $this->params('lang')));
     }
     
 }

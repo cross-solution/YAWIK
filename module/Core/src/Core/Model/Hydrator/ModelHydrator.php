@@ -6,7 +6,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 
-abstract class ModelHydrator extends AbstractHydrator
+class ModelHydrator extends AbstractHydrator
 {
     protected $modelInterface = '\Core\Model\ModelInterface';
 	
