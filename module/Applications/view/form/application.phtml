@@ -104,6 +104,9 @@ $contact = $form->get('contact');
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
     <?php echo $this->formRow($el) ?>
 </div>
+
+<div class="clear"></div>
+
 <?php $el = $contact->get('mobileNumber') ?>
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
     <?php echo $this->formRow($el) ?>
@@ -120,6 +123,73 @@ $contact = $form->get('contact');
 
 </div> <!--  /fieldset-content -->
 </fieldset>
+
+<?php 
+
+$work = $form->get('work');
+
+?>
+
+<fieldset id="<?echo $work->getName() ?>">
+<legend><?php echo $this->translate($work->getLabel()) ?></legend>
+zb. 
+<pre>
+OrganizationContact
+IndustryCode = 45678 (Branche)
+StartDate
+EndDate
+
+optional Position History
+StartDate 
+EndDate
+PositionTitle = Praktikant oder Chief Technical Officer
+</pre>
+</fieldset>
+
+<?php 
+
+$education = $form->get('education');
+
+?>
+
+<fieldset id="<?echo $education->getName() ?>">
+<legend><?php echo $this->translate($education->getLabel()) ?></legend>
+zb.
+<pre>
+OrganizationContact = Wo war die Ausbildung
+StartDate
+EndDate
+EducationDegree
+</pre>
+</fieldset>
+<?php 
+
+$skills = $form->get('skills');
+
+?>
+
+<fieldset id="<?echo $skills->getName() ?>">
+<legend><?php echo $this->translate($skills->getLabel()) ?></legend>
+zb:
+<pre>
+sprachkenttnisse: verstehen, sprechen, schreiben
+Computer Kenntnisse
+Sonstige Fähigkeiten
+Führerschein
+
+</pre>
+
+</fieldset>
+<?php 
+
+$attachment = $form->get('attachment');
+
+?>
+
+<fieldset id="<?echo $attachment->getName() ?>">
+<legend><?php echo $this->translate($attachment->getLabel()) ?></legend>
+</fieldset>
+
 
 <?php $fs = $form->get('buttons') ?>
 <fieldset id="<?php echo $fs->getName() ?>" class="buttons">

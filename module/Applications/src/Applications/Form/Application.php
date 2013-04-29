@@ -135,6 +135,35 @@ class Application extends Form
         
         $this->add($contact);
         
+        $education = new Fieldset('education');
+        $education->setLabel('Education history');
+        $education->setHydrator($hydrator)
+        ->setObject($model);
+        
+        $this->add($education);
+
+        $skills = new Fieldset('skills');
+        $skills->setLabel('Personal skills');
+        $skills->setHydrator($hydrator)
+        ->setObject($model);
+        
+        $this->add($skills);
+        
+        $work = new Fieldset('work');
+        $work->setLabel('Employment history');
+        $work->setHydrator($hydrator)
+        ->setObject($model);
+        
+        $this->add($work);
+        
+        $attachment = new Fieldset('attachment');
+        $attachment->setLabel('Attachment');
+        $attachment->setHydrator($hydrator)
+        ->setObject($model);
+        
+        $this->add($attachment);
+        
+        
         $buttons = new Fieldset('buttons');
         
         $buttons->add(array(
