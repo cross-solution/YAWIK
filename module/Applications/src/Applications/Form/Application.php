@@ -4,13 +4,17 @@
 namespace Applications\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
 use Zend\Form\Fieldset;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Applications\Model\Application as ApplicationModel;
+use Applications\Form\Element\Phone;
 
 class Application extends Form
 {
     
+	private $model;
+	
     public function __construct(ApplicationModel $model)
     {
         parent::__construct('application');
@@ -22,11 +26,20 @@ class Application extends Form
             'type' => 'Hidden',
             'name' => 'jobid',
         ));
+        $this->addElements();
         
+ #       $this->add(array(
+ #       		'type' => 'Applications\Form\ContactFieldset',
+ #       		'options' => array(
+ #       				'use_as_base_fieldset' => true
+ #       		)
+ #       ));
+        
+    }
+        
+    public function addElements(){
         $contact = new Fieldset('contact');
         $contact->setLabel('Contact details');
-        $contact->setHydrator($hydrator)
-            ->setObject($model);
         
         $contact->add(array(
             'type' => 'Zend\Form\Element\Radio',
@@ -125,6 +138,7 @@ class Application extends Form
         
         $contact->add(array(
             'name' => 'email',
+        	'type' => 'Zend\Form\Element\Email',
             'options' => array(
                 'label' => /* @translate */ 'Email'
             ),
@@ -136,33 +150,47 @@ class Application extends Form
         $this->add($contact);
         
         $education = new Fieldset('education');
-        $education->setLabel('Education history');
-        $education->setHydrator($hydrator)
-        ->setObject($model);
-        
+        $education->setLabel('Education history');        
         $this->add($education);
 
-        $skills = new Fieldset('skills');
-        $skills->setLabel('Personal skills');
-        $skills->setHydrator($hydrator)
-        ->setObject($model);
-        
-        $this->add($skills);
+        $skill = new Fieldset('skills');
+        $skill->setLabel('Personal skills');
+       
+        $skill->add(array(
+        		'name' => 'skills',
+        		'type' => 'Zend\Form\Element\Collection',
+        		'options' => array(
+        				'label' => /*@translate*/ 'native language',
+        				'allow_add' => true,
+        				'count' => 1,
+        				'should_create_template' => true,
+        				'target_element' => array(
+        	#					'type'=> 'Applications/Form/ContactFieldset'
+        						),
+        						
+        		),
+        		'attributes' => array(
+        				'id' => 'skills-nativeLanguage'
+        		)
+        ));
+                
+        $this->add($skill);
         
         $work = new Fieldset('work');
         $work->setLabel('Employment history');
-        $work->setHydrator($hydrator)
-        ->setObject($model);
         
         $this->add($work);
         
         $attachment = new Fieldset('attachment');
         $attachment->setLabel('Attachment');
-        $attachment->setHydrator($hydrator)
-        ->setObject($model);
         
         $this->add($attachment);
         
+            
+        $this->add(array(
+        		'type' => 'Zend\Form\Element\Csrf',
+        		'name' => 'csrf'
+        ));
         
         $buttons = new Fieldset('buttons');
         
@@ -197,3 +225,5 @@ class Application extends Form
         return $filter;
     }
 }
+
+

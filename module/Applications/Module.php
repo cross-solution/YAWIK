@@ -10,12 +10,14 @@
 namespace Applications;
 
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature\FormElementProviderInterface;
+
 
 /**
  * Bootstrap class of the applications module
  * 
  */
-class Module
+class Module implements FormElementProviderInterface
 {
 
     /**
@@ -48,6 +50,21 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         
+    }
+    
+    public function getFormElementConfig()
+    {
+    	return array(
+    			'invokables' => array(
+    					'phone' => 'Application\Form\Element\Phone'
+    			),
+    			'factories' => array(
+    					'Contact' => 'Applications\Form',
+    					'ContactFieldset' => 'Applications\Form'
+    			),
+ 
+    	);
+    	
     }
     
 }

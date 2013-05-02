@@ -132,18 +132,7 @@ $work = $form->get('work');
 
 <fieldset id="<?echo $work->getName() ?>">
 <legend><?php echo $this->translate($work->getLabel()) ?></legend>
-zb. 
-<pre>
-OrganizationContact
-IndustryCode = 45678 (Branche)
-StartDate
-EndDate
 
-optional Position History
-StartDate 
-EndDate
-PositionTitle = Praktikant oder Chief Technical Officer
-</pre>
 </fieldset>
 
 <?php 
@@ -164,22 +153,31 @@ EducationDegree
 </fieldset>
 <?php 
 
-$skills = $form->get('skills');
+$skill = $form->get('skills');
 
 ?>
 
-<fieldset id="<?echo $skills->getName() ?>">
-<legend><?php echo $this->translate($skills->getLabel()) ?></legend>
-zb:
-<pre>
-sprachkenttnisse: verstehen, sprechen, schreiben
-Computer Kenntnisse
-Sonstige Fähigkeiten
-Führerschein
-
-</pre>
-
+<fieldset id="<?echo $skill->getName() ?>">
+<legend><?php echo $this->translate($skill->getLabel()) ?></legend>
+<?php  $el = $skill->get('skills'); ?>
+<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
+    <?php echo $this->formCollection($skill->get('skills')); ?>
+</div>
 </fieldset>
+<button onclick="return add_skill()">Add a new Skill</button>
+
+<script>
+    function add_skill() {
+        var currentCount = $('form > fieldset#skills > div > fieldset > input').length;
+        var template = $('form > fieldset#skills > div > fieldset > span').data('template');
+        template = template.replace(/__index__/g, currentCount);
+        $('form > fieldset#skills > div > fieldset').append(template);
+        
+        return false;
+    }
+</script>
+<div class="clear"></div>
+
 <?php 
 
 $attachment = $form->get('attachment');
@@ -194,6 +192,12 @@ $attachment = $form->get('attachment');
 <?php $fs = $form->get('buttons') ?>
 <fieldset id="<?php echo $fs->getName() ?>" class="buttons">
 
+<?php 
+
+# https://zf2-docs.readthedocs.org/en/release-2.0.0rc2/modules/zend.form.element.csrf.html
+echo $this->formHidden($form->get('csrf')) 
+
+?>
 <?php echo $this->formsubmit($fs->get('submit')) ?>
 
 </fieldset>
