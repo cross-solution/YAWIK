@@ -23,7 +23,7 @@
 		return this.each(function() {
 			
 			var label = $('label[for="' + $(this).attr('id') + '"]');
-			
+			console.debug($(this).attr('id'), label);
 			if (label.length) {
 				var text = label.hide().text();
 				$(this).on(
@@ -32,6 +32,7 @@
 					inlineLabelListener
 				);
 				$(this).trigger('blur.inlineLabel');
+				console.debug(this);
 			}
 		});
 		

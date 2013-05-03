@@ -1,10 +1,18 @@
 
 $(function () {
 	$("fieldset > legend").click(function() {
-		$("#" + $(this).parent().attr("id") + " .fieldset-content").slideToggle();
+		var arrow = $(this).find('span');
+		var currentClass = arrow.attr('class').replace(/^.*(ui-icon-[^\s]+).*$/, '$1');
+		var newClass = currentClass.match(/n$/) 
+					 ? currentClass.replace(/n$/, 's') 
+				     : currentClass.replace(/.$/, 'n');
+					 
+		arrow.removeClass(currentClass).addClass(newClass);
+		
+		$(this).parent().find(".fieldset-content").slideToggle();
     });
         
-    $(":text").inlineLabel();
+    $(":text, [type='email']").inlineLabel();
         
     $("input[type=\'submit\'], button").button();
     

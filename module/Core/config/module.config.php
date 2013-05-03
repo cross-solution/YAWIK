@@ -116,6 +116,15 @@ return array(
             //'core/index/index'        => __DIR__ . '/../view/core/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            
+            // Form partials
+            'form'                    => __DIR__ . '/../view/form/form.phtml',
+            //'form/row'                => __DIR__ . '/../view/form/row.phtml',
+            'form/submit'         => __DIR__ . '/../view/form/button.phtml',
+            'form/button'         => __DIR__ . '/../view/form/button.phtml',
+            'form/radio'          => __DIR__ . '/../view/form/radio.phtml',
+            'form/collection'         => __DIR__ . '/../view/form/collection.phtml',
+            'form/element'            => __DIR__ . '/../view/form/element.phtml',
         ),
         
         // Where to look for view templates not mapped above

@@ -1,0 +1,35 @@
+<?php
+    $type = $element->getAttribute('type');
+    if ('' == $type) {
+        $type = 'text';
+    }
+    $partial = "form/$type";
+    if (!$this->resolver($partial)) {
+        $partial = "form/element";
+    }
+    
+    $id = $element->getAttribute('id');
+    if (!$id) {
+        $id = uniqid();
+    }
+    
+    
+?>
+<?if ($type == 'submit' || $type == 'button'):
+    echo $this->formButton($element);
+else:
+    if (!$element->hasAttribute('title') && !$element instanceOf MultiCheckbox && $element->getLabel()) :
+        $element->setAttribute('title', $this->translate($element->getLabel()));
+    endif?>
+
+<div id="<?php echo $id ?>-wrapper" class="form-element">
+<?php if ($label = $element->getLabel()): ?>
+    <label for="<?php echo $id ?>"><?php echo $this->translate($label) ?></label>
+<?php endif ?>
+    <?php echo $this->partial($partial, array('element' => $element)) ?>    
+</div>
+
+<?endif?>
+
+
+

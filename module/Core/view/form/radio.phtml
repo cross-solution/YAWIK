@@ -1,0 +1,16 @@
+<?php 
+
+$id = $element->getAttribute('id');
+if (!$id) {
+    $id = uniqid();
+}
+?>   
+
+<div id="<?php echo $id ?>-wrapper" class="form-element">
+<?php if ($label = $element->getLabel()): ?>
+    <div class="hidden label"><?php echo $this->translate($label) ?></div>
+<?php endif ?>
+    <?php echo $this->formRadio($element) ?>
+</div>
+
+    

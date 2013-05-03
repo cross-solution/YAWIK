@@ -16,7 +16,6 @@ use Applications\Form\Application as ApplicationForm;
 use Applications\Model\Application as ApplicationModel;
 use Applications\Form\ApplicationHydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Applications\Model\Application;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -36,10 +35,10 @@ class IndexController extends AbstractActionController
 //         $view->setTerminal(true);
 //         return $view;
         $this->layout('layout/apply');
-        $mapper = $this->getServiceLocator()->get('ApplicationMapper');
-        $applicationModel = $mapper->create();
+       
+        $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
         
-        $form = new ApplicationForm($applicationModel);
+        //$form = new ApplicationForm($applicationModel);
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
             'job' => (object) array(
@@ -48,7 +47,7 @@ class IndexController extends AbstractActionController
             'form' => $form,
             'isApplicationSaved' => false,
         ));
-        
+        return $viewModel;
         $request = $this->getRequest();
        
         if ($request->isPost()) {

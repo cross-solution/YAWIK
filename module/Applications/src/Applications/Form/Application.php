@@ -9,13 +9,11 @@ use Zend\Form\Fieldset;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Applications\Model\Application as ApplicationModel;
 use Applications\Form\Element\Phone;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
 class Application extends Form
 {
-    
-	private $model;
-	
-    public function __construct(ApplicationModel $model)
+    public function __construct()
     {
         parent::__construct('application');
         

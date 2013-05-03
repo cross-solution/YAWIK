@@ -14,7 +14,12 @@ class FormRow extends BaseFormRow
         if (!$element->hasAttribute('title') && !$element instanceOf MultiCheckbox && $element->getLabel()) {
             $element->setAttribute('title', $this->view->translate($element->getLabel()));
         }
-        $markup = parent::render($element);
+        $idAttr = ($id = $element->getAttribute('id'))
+                ? 'id="' . $id . '-wrapper" ' : '';
+        
+        $markup = '<div ' . $idAttr . 'class="form-element">'
+                . parent::render($element)
+                . '</div>';
         
         while (preg_match('~<fieldset><legend>(.*?)</legend>(.*?)</fieldset>~s', $markup, $match)) {
             $markup = str_replace(

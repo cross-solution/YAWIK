@@ -136,5 +136,17 @@ return array(
         
     ),
     
+    'form_elements' => array(
+        'invokables' => array(
+            'ApplicationFieldset' => '\Applications\Form\ApplicationFieldset',
+            'EducationFieldset' => '\Applications\Form\EducationFieldset',
+            'SkillFieldset' => '\Applications\Form\SkillFieldset',
+            'Application' => '\Applications\Form\CreateApplication',
+        ),
+        'factories' => array(
+            'Application' => '\Applications\Form\ApplicationFactory'
+        ),
+    ),
+    
     
 );

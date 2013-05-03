@@ -3,6 +3,7 @@
 namespace Applications\Model;
 
 use Core\Model\AbstractDateFormatEnabledModel;
+use Core\Model\CollectionInterface;
 
 /**
  * @todo write interface
@@ -25,6 +26,7 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     protected $mobileNumber;
     protected $email;
     protected $skills;
+    protected $educations;
 
     /**
      * @return the $jobId
@@ -266,102 +268,21 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
      * @param field_type $skills
      * @return Application
      */
-    public function setSkills($skills)
+    public function setSkills(CollectionInterface $skills)
     {
     	$this->skills = $skills;
     	return $this;
     }
     
-}
-
-
- class Contact {
-
- 	protected $gender;
-    protected $firstname;
-    protected $lastname;
-    protected $address;
-
-    /**
-     * @param string $gender
-     */
-    public function setGender($gender) {
-    	$this->gender=$gender;
-    }
-    public function getGender(){
-    	return $this->gender;
+    public function getEducations()
+    {
+        return $this->educations;
     }
     
-	/**
-	 * @param string $lastname
-	 */
-	public function setFirstname($lastname) {
-		$this->firstname=$lastname;
-	}
-	public function getFirstname(){
-		return $this->firstname;
-	}
-	/**
-	 * @return string
-	 */
-	public function getLastname(){
-		return $this->lastname;
-	}
-	public function setLastname($lastname){
-		$this->lastname=$lastname;
-	}
-	
-	/**
-	 * @param object Address
-	 * @return Contact
-	 */	
-	public function setAdress($address){
-	    $this->address=$address;
-	    return $this;	
-	}
-	/**
-	 * @return Address
-	 */
-	public function getAddress(){
-		return $this->address;
-	}
-}
-
-class Address {
-
-	protected $street;
-	protected $houseNumber;
-	protected $zipCode;
-	protected $location;
-
-	/**
-	 * @param string $street
-	 */
-	public function setStreet($street){
-		$this->street=$street;
-	}
-	public function getStreet($street){
-	    return $this->street;
-	}
-	
-	public function setHouseNumber($houseNumber){
-		$this->houseNumber=$houseNumber;
-	}
-	public function getHouseNumber(){
-		return $this->houseNumber;
-	}
-	
-	public function setZipCode($zipCode){
-		$this->zipCode=$zipCode;
-	}
-	public function getZipCode(){
-		return $this->zipCode;
-	}
-	
-	public function setLocation($location){
-		$this->location=$location;
-	}
-	public function getLocation(){
-		return $this->location;
-	}
+    public function setEducations(CollectionInterface $educations)
+    {
+        $this->educations = $educations;
+        return $this;
+    }
+    
 }

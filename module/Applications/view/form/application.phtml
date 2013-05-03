@@ -44,16 +44,22 @@ $form->setAttributes(array(
     'id' => 'application-form',
 ));
 
+echo $this->partial('form', array(
+    'form' => $form,
+    'splitFirstFieldset' => true
+));
+return;
 $form->prepare();
 echo $this->form()->openTag($form);
 
-echo $this->formHidden($form->get('jobid'));
+echo $this->formHidden($form->get('application')->get('jobid'));
 
-$contact = $form->get('contact');
+$contact = $form->get('application');
 
 ?>
 <fieldset id="<?echo $contact->getName() ?>">
-<legend><?php echo $this->translate($contact->getLabel()) ?></legend>
+<legend><?php echo $this->translate('Contact details') ?>
+    <span class="ui-icon ui-icon-triangle-1-n float-right"></span></legend>
 <div class="fieldset-content">
 
 <div class="form-element float-left" id="contact-title-wrapper">
@@ -108,6 +114,8 @@ $contact = $form->get('contact');
 <div class="clear"></div>
 
 <?php $el = $contact->get('mobileNumber') ?>
+<?php echo $this->partial('form/row', array('element' => $el))?>
+
 <div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
     <?php echo $this->formRow($el) ?>
 </div>
@@ -124,82 +132,14 @@ $contact = $form->get('contact');
 </div> <!--  /fieldset-content -->
 </fieldset>
 
-<?php 
 
-$work = $form->get('work');
+<?php echo $this->partial('form/collection', array('collection' => $contact->get('educations'))) ?>
 
-?>
 
-<fieldset id="<?echo $work->getName() ?>">
-<legend><?php echo $this->translate($work->getLabel()) ?></legend>
-
-</fieldset>
-
-<?php 
-
-$education = $form->get('education');
-
-?>
-
-<fieldset id="<?echo $education->getName() ?>">
-<legend><?php echo $this->translate($education->getLabel()) ?></legend>
-zb.
-<pre>
-OrganizationContact = Wo war die Ausbildung
-StartDate
-EndDate
-EducationDegree
-</pre>
-</fieldset>
-<?php 
-
-$skill = $form->get('skills');
-
-?>
-
-<fieldset id="<?echo $skill->getName() ?>">
-<legend><?php echo $this->translate($skill->getLabel()) ?></legend>
-<?php  $el = $skill->get('skills'); ?>
-<div class="form-element float-left" id="<?php echo $el->getAttribute('id') ?>-wrapper">
-    <?php echo $this->formCollection($skill->get('skills')); ?>
+<fieldset id="buttons">
+<div class="fieldset-content">
+<?php echo $this->formButton($form->get('submit'), $this->translate('Apply'))?>
 </div>
-</fieldset>
-<button onclick="return add_skill()">Add a new Skill</button>
-
-<script>
-    function add_skill() {
-        var currentCount = $('form > fieldset#skills > div > fieldset > input').length;
-        var template = $('form > fieldset#skills > div > fieldset > span').data('template');
-        template = template.replace(/__index__/g, currentCount);
-        $('form > fieldset#skills > div > fieldset').append(template);
-        
-        return false;
-    }
-</script>
-<div class="clear"></div>
-
-<?php 
-
-$attachment = $form->get('attachment');
-
-?>
-
-<fieldset id="<?echo $attachment->getName() ?>">
-<legend><?php echo $this->translate($attachment->getLabel()) ?></legend>
-</fieldset>
-
-
-<?php $fs = $form->get('buttons') ?>
-<fieldset id="<?php echo $fs->getName() ?>" class="buttons">
-
-<?php 
-
-# https://zf2-docs.readthedocs.org/en/release-2.0.0rc2/modules/zend.form.element.csrf.html
-echo $this->formHidden($form->get('csrf')) 
-
-?>
-<?php echo $this->formsubmit($fs->get('submit')) ?>
-
 </fieldset>
 <?php echo $this->form()->closeTag() ?>
 
