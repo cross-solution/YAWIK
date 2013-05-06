@@ -140,6 +140,9 @@ return array(
         'invokables' => array(
             'ApplicationFieldset' => '\Applications\Form\ApplicationFieldset',
             'EducationFieldset' => '\Applications\Form\EducationFieldset',
+            'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
+            'LanguageSkillFieldset' => '\Applications\Form\LanguageSkillFieldset',
+            'NativeLanguageFieldset' => '\Applications\Form\NativeLanguageFieldset',
             'SkillFieldset' => '\Applications\Form\SkillFieldset',
             'Application' => '\Applications\Form\CreateApplication',
         ),

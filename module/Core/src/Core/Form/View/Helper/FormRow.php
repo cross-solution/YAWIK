@@ -12,10 +12,12 @@ class FormRow extends BaseFormRow
     public function render(ElementInterface $element)
     {
         if (!$element->hasAttribute('title') && !$element instanceOf MultiCheckbox && $element->getLabel()) {
-            $element->setAttribute('title', $this->view->translate($element->getLabel()));
+            $element->setAttribute('title', $element->getLabel());
         }
         $idAttr = ($id = $element->getAttribute('id'))
                 ? 'id="' . $id . '-wrapper" ' : '';
+        
+        $elementPartial = 
         
         $markup = '<div ' . $idAttr . 'class="form-element">'
                 . parent::render($element)

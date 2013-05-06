@@ -13,7 +13,7 @@ class SkillFieldset extends Fieldset
         $this->setName('skill')
              ->setHydrator(new ModelHydrator())
              ->setObject(new SkillModel())
-             ->setLabel('Skill');
+             ->setLabel('Skills');
         
         $this->add(array(
             'type' => 'Hidden',
@@ -21,16 +21,41 @@ class SkillFieldset extends Fieldset
         ));
         
         $this->add(array(
-            'name' => 'name',
-            'options' => array(
-                'label' => 'Name'
-            )
+        		'type' => 'Collection',
+        		'name' => 'nativeLanguage',
+        		'options' => array(
+        				'label' => /*@translate */ 'Native Language',
+        				'count' => 1,
+        				'should_create_template' => true,
+        				'allow_add' => true,
+        				'target_element' => array(
+        						'type' => 'NativeLanguageFieldset'
+        				)
+        		),
+        		'attributes' => array(
+        				'id' => 'skill'
+        		),
         ));
         
+        
         $this->add(array(
-            'name' => 'value',
+        		'type' => 'Collection',
+        		'name' => 'languageskill',
+        		'options' => array(
+        				'label' => /*@translate */ 'LanguageSkills',
+        				'count' => 1,
+        				'should_create_template' => true,
+        				'allow_add' => true,
+        				'target_element' => array(
+        						'type' => 'LanguageSkillFieldset'
+        				)
+        		),
+        		'attributes' => array(
+        				'id' => 'skill'
+        		),
         ));
-               
+        
+              
     }
     
 }

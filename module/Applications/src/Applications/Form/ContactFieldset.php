@@ -28,7 +28,8 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface {
 						),
 				),
 				'attributes' => array(
-						'id' => 'contact-title'
+						'id' => 'contact-title',
+						'title' => /*@translate*/ 'please choose your title'
 				)
 		));
 
@@ -38,7 +39,8 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface {
 						'label' => /*@translate*/ 'First name'
 				),
 				'attributes' => array(
-						'id' => 'contact-firstname'
+						'id' => 'contact-firstname',
+						'title' => /*@translate*/ 'please enter your firstname'
 				)
 		));
 		
@@ -48,7 +50,8 @@ class ContactFieldset extends Fieldset implements InputFilterProviderInterface {
 						'label' => /*@translate */'Last name'
 				),
 				'attributes' => array(
-						'id' => 'contact-lastname'
+						'id' => 'contact-lastname',
+						'title' => /*@translate */ 'please enter your lastname'
 				)
 		));
 		

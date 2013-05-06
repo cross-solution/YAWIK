@@ -7,28 +7,40 @@ use Core\Model\AbstractModel;
 class Skill extends AbstractModel
 {
     
-    protected $name;
-    protected $value;
+    protected $nativeLanguages;
+    protected $languageSkills;
+    protected $computerSkills;
     
-    public function setName($name)
+    public function setNativeLanguages($nativeLanguages)
     {
-        $this->name = (string) $name;
+        $this->nativeLanguages = $nativeLanguages;
         return $this;
     }
     
-    public function getName()
+    public function getNativeLanguages()
     {
         return $this->name;
     }
     
-    public function setValue($value)
+    public function setLanguageSkills($languageSkills)
     {
-        $this->value = $value;
+        $this->languageSkills = $languageSkills;
         return $this;
     }
     
-    public function getValue()
+    public function getLanguageSkills()
     {
-        return $this->value;
+        return $this->languageSkills;
+    }
+    
+    public function setComputerSkills($computerSkills)
+    {
+    	$this->computerSkills = $computerSkills;
+    	return $this;
+    }
+    
+    public function getComputerSkills()
+    {
+    	return $this->computerSkills;
     }
 }

@@ -23,14 +23,15 @@ class ApplicationFieldset extends Fieldset
             'type' => 'Zend\Form\Element\Radio',
             'name' => 'title',
             'options' => array(
-                'label' => 'Title',
+                //'label' => 'Title',
                 'value_options' => array(
                     'mister' => /*@translate*/ 'Mister',
                     'miss' => /*@translate*/ 'Miss',
                 ),
             ),
             'attributes' => array(
-                'id' => 'contact-title'
+                'id' => 'contact-title',
+                'title' => 'Choose your title'
             )
         ));
         
@@ -116,12 +117,12 @@ class ApplicationFieldset extends Fieldset
         
         $this->add(array(
             'name' => 'email',
-            'type' => 'Zend\Form\Element\Email',
             'options' => array(
                 'label' => /* @translate */ 'Email'
             ),
             'attributes' => array(
-                'id' => 'contact-email'
+                'id' => 'contact-email',
+            	'title' => 'please enter a valid email address'
             )
         ));
         
@@ -129,7 +130,7 @@ class ApplicationFieldset extends Fieldset
             'type' => 'Collection',
             'name' => 'educations',
             'options' => array(
-                'label' => 'Education',
+                'label' => /*@translate */ 'education history',
                 'count' => 1,
                 'should_create_template' => true,
                 'allow_add' => true,
@@ -141,6 +142,43 @@ class ApplicationFieldset extends Fieldset
                 'id' => 'educations'
             ),
         ));
+        
+        $this->add(array(
+        		'type' => 'Collection',
+        		'name' => 'employments',
+        		'options' => array(
+        				'label' => /*@translate */ 'employment history',
+        				'count' => 1,
+        				'should_create_template' => true,
+        				'allow_add' => true,
+        				'target_element' => array(
+        						'type' => 'EmploymentFieldset'
+        				)
+        		),
+        		'attributes' => array(
+        				'id' => 'skill'
+        		),
+        ));
+        
+        
+        $this->add(array(
+        		'type' => 'Collection',
+        		'name' => 'skill',
+        		'options' => array(
+        				'label' => /*@translate */ 'Skills',
+        				'count' => 1,
+        				'should_create_template' => true,
+        				'allow_add' => true,
+        				'target_element' => array(
+        						'type' => 'SkillFieldset'
+        				)
+        		),
+        		'attributes' => array(
+        				'id' => 'skill',
+        				'title' => 'please enter your qualifications'
+        		),
+        ));
+        
         
     }
     

@@ -7,11 +7,8 @@
     $label = $element->getLabel();
     
 ?>
-<fieldset id="<?php echo $id?>">
-<?php if ($label):?>
-    <legend><?php echo $label ?></legend>
-<?php endif;
-    foreach ($element->getIterator() as $el): 
+<div id="<?php echo $id?>" class="div-fieldset">
+<? foreach ($element->getIterator() as $el): 
         echo $this->formPartial($el);
     endforeach ?>
-</fieldset>
+</div>

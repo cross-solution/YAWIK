@@ -19,6 +19,9 @@ class CreateApplication extends Form //implements ServiceLocatorAwareInterface
             'options' => array(
                 'use_as_base_fieldset' => true,
                 'label' => 'Contact details',
+            ),
+            'attributes' => array(
+                'id' => 'application'
             )
         ));
         

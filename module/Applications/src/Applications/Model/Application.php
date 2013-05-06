@@ -27,6 +27,7 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     protected $email;
     protected $skills;
     protected $educations;
+    protected $employments;
 
     /**
      * @return the $jobId
@@ -283,6 +284,17 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     {
         $this->educations = $educations;
         return $this;
+    }
+    
+    public function getEmployments()
+    {
+    	return $this->employments;
+    }
+    
+    public function setEmployments(CollectionInterface $employments)
+    {
+    	$this->employments = $employments;
+    	return $this;
     }
     
 }

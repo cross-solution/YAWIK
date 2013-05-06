@@ -4,13 +4,12 @@ namespace Applications\Model;
 
 use Core\Model\AbstractModel;
 
-class Education extends AbstractModel
+class Employment extends AbstractModel
 {
     protected $startDate;
     protected $endDate;
-    protected $competencyName;
+    protected $currentIndicator;
     protected $description;
-    protected $nationalClassification;
     
     public function setStartDate($startDate)
     {
@@ -29,21 +28,22 @@ class Education extends AbstractModel
         return $this;
     }
     
+    public function getCurrentIndicator()
+    {
+    	return $this->currentIndicator;
+    }
+    
+    public function setCurrentIndicator($currentIndicator)
+    {
+    	$this->currentIndicator = $currentIndicator;
+    	return $this;
+    }
+     
+    
     public function getEndDate()
     {
         return $this->endDate;
     }
-
-    public function setCompetencyName($competencyName)
-    {
-    	$this->competencyName = $competencyName;
-    	return $this;
-    }
-    
-    public function getCompetencyName()
-    {
-    	return $this->competencyName;
-    } 
     
     public function setDescription($value)
     {

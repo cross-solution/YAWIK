@@ -4,7 +4,7 @@ namespace Applications\Model;
 
 use Core\Model\ModelInterface;
 
-interface EducationInterface extends ModelInterface
+interface EmploymentInterface extends ModelInterface
 {
     public function setStartDate($date);
     public function getStartDate();
@@ -14,13 +14,7 @@ interface EducationInterface extends ModelInterface
     
     public function setCurrentIndicator($current);
     public function getCurrentIndicator();
-    
-    /*
-     * name of the qualification. 
-     */
-    public function setCompetencyName($name);
-    public function getCompetencyName();
-    
+        
     public function setDescription($description);
     public function getDescription();
     
@@ -33,11 +27,7 @@ interface EducationInterface extends ModelInterface
     public function setOrganizationCountry($country);
     public function getOrganizationCountry();
     
-    /*
-     * http://ec.europa.eu/eqf/home_de.htm
-     */
-    public function setNationalClassification($eqr);
-    public function getNationalClassification();
+
     
     
 }
