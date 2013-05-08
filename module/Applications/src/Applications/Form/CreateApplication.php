@@ -27,11 +27,13 @@ class CreateApplication extends Form //implements ServiceLocatorAwareInterface
         
         $buttons = new Fieldset('buttons');
         $buttons->add(array(
+            'type' => 'Button',
             'name' => 'submit',
             'options' => array(
                 'label' => 'Apply'
             ),
             'attributes' => array(
+                'id' => 'submit',
                 'type' => 'submit',
                 'value' => 'Save',
             )

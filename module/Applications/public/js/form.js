@@ -15,22 +15,25 @@ $(function () {
     });
         
 	
-    $(":text, [type='email']").inlineLabel();
+    $(":text, [type='email'], [type='date']").inlineLabel();
         
     $("input[type=\'submit\'], button").button();
     
     
-    $("#contact-title-wrapper")
+    $("#application-title-wrapper")
     	.buttonset()
-    	.attr('title', $("#contact-title-wrapper label[for='contact-title']").addClass('hidden').html())
+    	.attr('title', $("#application-title-wrapper label[for='application-title']").addClass('hidden').html())
     	.tooltip();
     
     
     $("#application-form [title]").tooltip('option', 'position', {
-    	my: 'center',
-    	at: 'center',
-    	of: $('#application')
+    	my: 'left',
+    	at: 'right+10 center'
+    	//of: $('#application')
     });
+    console.debug(lang);
+    $.datepicker.setDefaults($.datepicker.regional[lang]);
+    $('[type="date"]').datepicker();
     
     $("#application-form").submit(function() {
     	$.post(

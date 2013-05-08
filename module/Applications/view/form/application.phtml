@@ -2,50 +2,52 @@
 $this->headstyle()->captureStart()?>
 
     
-    #contact-firstname-wrapper,
-    #contact-street-wrapper,
-    #contact-zipcode-wrapper {
+    #application-firstname-wrapper,
+    #application-street-wrapper,
+    #application-zipcode-wrapper {
         float: left;
         margin-right: 5px;
     }
     
-    #contact-title-wrapper,
-    #contact-firstname-wrapper,
-    #contact-street-wrapper,
-    #contact-phone-wrapper,
-    #contact-mobile-wrapper,
-    #contact-email-wrapper {
+    #application-title-wrapper,
+    #application-firstname-wrapper,
+    #application-street-wrapper,
+    #application-phone-wrapper,
+    #application-mobile-wrapper,
+    #application-email-wrapper {
         clear: left !important;
     }
     
-    #contact-firstname,
-    #contact-lastname,
-    #contact-phone,
-    #contact-mobile {
+    #application-firstname,
+    #application-lastname,
+    #application-phone,
+    #application-mobile {
         width: 300px;
     }
     
-    #contact-lastname-wrapper,
-    #contact-number-wrapper,
-    #contact-location-wrapper,
-    #contact-mobile-wrapper {
+    #application-lastname-wrapper,
+    #application-number-wrapper,
+    #application-location-wrapper,
+    #application-mobile-wrapper {
         margin-left: 5px;
     }
     
-    #contact-street,
-    #contact-location {
+    #application-street,
+    #application-location {
         width: 495px;
     }
     
-    #contact-number,
-    #contact-zipcode {
+    #application-housenumber,
+    #application-zipcode {
         width: 105px;
     }
     
     
 <?php $this->headstyle()->captureEnd(); ?>
+<?php $this->headScript()->appendFile($this->basePath('js/jquery.ui.datepicker-' . $this->params('lang') . '.js'));
 
 
+?>
 <div id="application-saved-message" class="hidden">
     <p><?php echo $this->translate('Your application has been saved successfully.'); ?></p>
 </div>
@@ -61,11 +63,22 @@ $form->setAttributes(array(
     'method' => 'post',
     'id' => 'application-form',
 ));
+$form->prepare();
+$fs = array();
+$base = $form->get('application');
+foreach ($base->getIterator() as $elementOrFieldset):
+    if ($elementOrFieldset instanceOf \Zend\Form\FieldsetInterface) {
+        $fs[] = $elementOrFieldset;
+        $base->remove(substr($elementOrFieldset->getName(), 12, -1));
+    }
+endforeach;
+        
 
-echo $this->partial('form', array(
-    'form' => $form,
-    'splitFirstFieldset' => true
-));
+echo $this->form()->openTag($form);
+echo $this->formCollection($base);
+foreach ($fs as $collection): echo $this->formCollection($collection); endforeach;
+echo $this->formCollection($form->get('buttons'));
+echo $this->form()->closeTag();
 return;
 $form->prepare();
 echo $this->form()->openTag($form);

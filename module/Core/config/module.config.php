@@ -135,9 +135,10 @@ return array(
         'invokables' => array(
             'jquery' => 'Core\View\Helper\Jquery',
             'form_partial' => 'Core\Form\View\Helper\FormPartial',
+            'form_collection' => 'Core\Form\View\Helper\FormCollection',
             'form_row' => 'Core\Form\View\Helper\FormRow',
             'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
-            //'form_radio' => 'Core\Form\View\Helper\FormRadio',
+            'form_radio' => 'Core\Form\View\Helper\FormRadio',
             'build_query' => 'Core\View\Helper\BuildQuery',
         ),
         'factories' => array(

@@ -19,7 +19,7 @@ class EducationFieldset extends Fieldset
             'type' => 'Hidden',
             'name' => 'id',
             'attributes' => array(
-                'id' => 'education-id'
+                //'id' => 'education-id'
             ),
         ));
         
@@ -30,7 +30,7 @@ class EducationFieldset extends Fieldset
                 'label' => /*@translate */ 'Startdate'
             ),
             'attributes' => array(
-                'id' => 'education-startdate',
+                //'id' => 'education-startdate',
             	'title' => /*@translate */ 'please enter the startdate'
             )
         ));
@@ -41,7 +41,7 @@ class EducationFieldset extends Fieldset
         	'options' => array(
         		'label' => /*@translate */ 'Enddate'),
             'attributes' => array(
-                'id' => 'education-enddate',
+                //'id' => 'education-enddate',
             	'title' => /*@translate */ 'please enter the end date',
             ),
         ));
@@ -53,7 +53,7 @@ class EducationFieldset extends Fieldset
         				'label' => /*@translate */ 'Current'
         		),
         		'attributes' => array(
-        				'id' => 'education-currentindicator',
+        				//'id' => 'education-currentindicator',
         				'title' =>  /*@translate */ 'till now?'
         		)
         ));
@@ -64,7 +64,7 @@ class EducationFieldset extends Fieldset
         		'options' => array(
         				'label' => /*@translate */ 'Degree'),
         		'attributes' => array(
-        				'id' => 'education-competencyname',
+        				//'id' => 'education-competencyname',
         				'title' =>  /*@translate */ 'please enter the name of your qualification'
         		),
         ));
@@ -74,7 +74,7 @@ class EducationFieldset extends Fieldset
         		'options' => array(
         				'label' => /*@translate */ 'Organization Name'),
         		'attributes' => array(
-        				'id' => 'education-organizationname',
+        				//'id' => 'education-organizationname',
         				'title' =>  /*@translate */ 'please enter the name of the university or school'
         		),
         ));
@@ -84,7 +84,7 @@ class EducationFieldset extends Fieldset
         		'options' => array(
         				'label' => /*@translate */ 'Country'),
         		'attributes' => array(
-        				'id' => 'education-country',
+        				//'id' => 'education-country',
         				'title' => /*@translate */ 'please select the country'
         		),
         ));
@@ -94,7 +94,7 @@ class EducationFieldset extends Fieldset
         		'options' => array(
         				'label' => /*@translate */ 'City'),
         		'attributes' => array(
-        				'id' => 'education-city',
+        				//'id' => 'education-city',
         				'title' => /*@translate */ 'please enter the name of the city'
         		),
         ));
@@ -106,7 +106,7 @@ class EducationFieldset extends Fieldset
         				'label' => /*@translate */ 'Description',
         		),
         		'attributes' => array(
-        				'id' => 'education-description',
+        				//'id' => 'education-description',
         				'title' => /*@translate */ 'please enter a description',	
         		),
         ));

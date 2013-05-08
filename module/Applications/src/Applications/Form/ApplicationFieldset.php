@@ -23,15 +23,15 @@ class ApplicationFieldset extends Fieldset
             'type' => 'Zend\Form\Element\Radio',
             'name' => 'title',
             'options' => array(
-                //'label' => 'Title',
+                'label' => 'Choose your title',
                 'value_options' => array(
                     'mister' => /*@translate*/ 'Mister',
                     'miss' => /*@translate*/ 'Miss',
                 ),
             ),
             'attributes' => array(
-                'id' => 'contact-title',
-                'title' => 'Choose your title'
+                //'id' => 'contact-title',
+                
             )
         ));
         
@@ -41,7 +41,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /*@translate*/ 'First name'
             ),
             'attributes' => array(
-                'id' => 'contact-firstname'
+                //'id' => 'contact-firstname'
             )
         ));
         
@@ -51,7 +51,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /*@translate */'Last name'
             ),
             'attributes' => array(
-                'id' => 'contact-lastname'
+                //'id' => 'contact-lastname'
             )
         ));
         
@@ -61,7 +61,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /* @translate */ 'Street'
             ),
             'attributes' => array(
-                'id' => 'contact-street'
+                //'id' => 'contact-street'
             )
         ));
         
@@ -71,7 +71,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /* @translate */ 'House number'
             ),
             'attributes' => array(
-                'id' => 'contact-number'
+                //'id' => 'contact-number'
             )
         ));
         
@@ -81,7 +81,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /* @translate */ 'Zip code'
             ),
             'attributes' => array(
-                'id' => 'contact-zipcode'
+                //'id' => 'contact-zipcode'
             )
         ));
         
@@ -91,7 +91,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /* @translate */ 'Location'
             ),
             'attributes' => array(
-                'id' => 'contact-location'
+                //'id' => 'contact-location'
             )
         ));
         
@@ -101,7 +101,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /*@translate*/ 'Phone number',
             ),
             'attributes' => array(
-                'id' => 'contact-phonenumber'
+                //'id' => 'contact-phonenumber'
             )
         ));
         
@@ -111,7 +111,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /*@translate*/ 'Mobile phone number',
             ),
             'attributes' => array(
-                'id' => 'contact-mobilenumber'
+                //'id' => 'contact-mobilenumber'
             )
         ));
         
@@ -121,7 +121,7 @@ class ApplicationFieldset extends Fieldset
                 'label' => /* @translate */ 'Email'
             ),
             'attributes' => array(
-                'id' => 'contact-email',
+                //'id' => 'contact-email',
             	'title' => 'please enter a valid email address'
             )
         ));
@@ -133,13 +133,14 @@ class ApplicationFieldset extends Fieldset
                 'label' => /*@translate */ 'education history',
                 'count' => 1,
                 'should_create_template' => true,
+                'use_labeled_items' => false,
                 'allow_add' => true,
                 'target_element' => array(
                     'type' => 'EducationFieldset'
                 )
             ),
             'attributes' => array(
-                'id' => 'educations'
+                //'id' => 'educations'
             ),
         ));
         
@@ -156,7 +157,7 @@ class ApplicationFieldset extends Fieldset
         				)
         		),
         		'attributes' => array(
-        				'id' => 'skill'
+        				//'id' => 'skill'
         		),
         ));
         
