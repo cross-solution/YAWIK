@@ -4,10 +4,8 @@ form {
 	
 }
 
-.form-element {
-	margin: 0 0 0.5em 0;
-	
-}
+
+
 
 
 fieldset {
@@ -33,7 +31,8 @@ fieldset > legend {
 
 
 
-input {
+input, textarea,
+.form-element-daterange div.daterange-currenttext {
 	font-size: 1.1em;
 	font-weight: normal;
 	color: #555;
@@ -42,6 +41,9 @@ input {
 	border: 1px solid #D3D3D3;
 	width: 620px;
 
+}
+textarea {
+	height: 120px;
 }
 
 .form-error input,
@@ -55,6 +57,8 @@ fieldset.buttons input {
 
 input:hover,
 input:focus,
+textarea:hover,
+textarea:focus,
 .ui-state-hover
 {
 	border-color: #aaa;
@@ -74,6 +78,26 @@ input:focus,
 	list-style: inside;
 	margin: 0.5em 0.5em 1em;
 	color: #aa0000;
+}
+
+.form-element {
+	margin: 0 0 0.5em 0;
+	
+}
+
+.form-element-daterange {
+       
+       
+}
+
+.form-element-daterange .form-element {
+    float: left;
+}
+
+.form-element-daterange .form-element-date input,
+.form-element-daterange div.daterange-currenttext {
+    width: 255px;
+    margin-right: 5px;
 }
 
 

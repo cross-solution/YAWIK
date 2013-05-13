@@ -24,40 +24,28 @@ class EducationFieldset extends Fieldset
         ));
         
         $this->add(array(
-            'name' => 'startDate',
-       		'type' => 'Zend\Form\Element\Date',
+            'name' => 'range',
+            'type' => '\Core\Form\Element\DateRange',
             'options' => array(
-                'label' => /*@translate */ 'Startdate'
+                'startdate' => array(
+                    'options' => array(
+                        'label' => 'Startdate',
+                    ),
+                    'attributes' => array(
+                        'title' => 'Please enter the start date.'
+                    ),
+                ),
+                'enddate' => array(
+                    'options' => array(
+                        'label' => 'Enddate',
+                    ),
+                    'attributes' => array(
+                        'title' => 'Please enter the end date.'
+                    ),
+                ),
+                'current_text' => 'Until today',
             ),
-            'attributes' => array(
-                //'id' => 'education-startdate',
-            	'title' => /*@translate */ 'please enter the startdate'
-            )
         ));
-                
-        $this->add(array(
-            'name' => 'endDate',
-        	'type' => 'Zend\Form\Element\Date',
-        	'options' => array(
-        		'label' => /*@translate */ 'Enddate'),
-            'attributes' => array(
-                //'id' => 'education-enddate',
-            	'title' => /*@translate */ 'please enter the end date',
-            ),
-        ));
-
-        $this->add(array(
-        		'name' => 'currentIndicator',
-        		'type' => 'Zend\Form\Element\Checkbox',
-        		'options' => array(
-        				'label' => /*@translate */ 'Current'
-        		),
-        		'attributes' => array(
-        				//'id' => 'education-currentindicator',
-        				'title' =>  /*@translate */ 'till now?'
-        		)
-        ));
-        
         
         $this->add(array(
         		'name' => 'competencyName',

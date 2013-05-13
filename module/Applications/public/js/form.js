@@ -15,9 +15,11 @@ $(function () {
     });
         
 	
-    $(":text, [type='email'], [type='date']").inlineLabel();
+    $("#application-form").find(':text, [type="email"], [type="date"], textarea').inlineLabel();
         
     $("input[type=\'submit\'], button").button();
+    $("input[type='checkbox']").button();
+    $(".form-element-daterange").daterange();
     
     
     $("#application-title-wrapper")

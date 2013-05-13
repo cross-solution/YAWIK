@@ -13,16 +13,17 @@ class FormRow extends BaseFormRow
     public function render(ElementInterface $element)
     {
         
-        if (!$element->hasAttribute('id')) {
-            $element->setAttribute('id', strtolower(str_replace(array('[', ']'), array('-', ''), $element->getName())));
-        }
+        
         
         
         $markup = parent::render($element);
-        if (!in_array($element->getAttribute('type'), array('hidden', 'button', 'submit'))) {
+        if (!in_array($element->getAttribute('type'), array('hidden', 'button', 'submit'))
+            && false !== $element->getOption('use_div_wrapper')    
+        ) {
             $markup = sprintf(
-                '<div id="%s-wrapper" class="form-element">%s</div>',
+                '<div id="%s-wrapper" class="form-element form-element-%s">%s</div>',
                 $element->getAttribute('id'),
+                strtolower(substr(get_class($element), strrpos(get_class($element), '\\') + 1)),
                 $markup
             );
         } else {

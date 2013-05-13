@@ -41,10 +41,13 @@ $this->headstyle()->captureStart()?>
     #application-zipcode {
         width: 105px;
     }
+
+    
     
     
 <?php $this->headstyle()->captureEnd(); ?>
-<?php $this->headScript()->appendFile($this->basePath('js/jquery.ui.datepicker-' . $this->params('lang') . '.js'));
+<?php $this->headScript()->appendFile($this->basePath('js/Core/jquery.daterange.js'));
+      $this->headScript()->appendFile($this->basePath('js/jquery.ui.datepicker-' . $this->params('lang') . '.js'));
 
 
 ?>
@@ -63,6 +66,9 @@ $form->setAttributes(array(
     'method' => 'post',
     'id' => 'application-form',
 ));
+
+echo $this->form($form, 'application');
+return;
 $form->prepare();
 $fs = array();
 $base = $form->get('application');
