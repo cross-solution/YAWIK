@@ -18,14 +18,29 @@ class FormDateRange extends AbstractHelper
         
         $elementHelper = $this->getElementHelper();
         
-        $startDate = $elementHelper->render($element->getStartDateElement());
-        $endDate = $elementHelper->render($element->getEndDateElement());
+        $startDateElement = $element->getStartDateElement();
+        if ('' == $startDateElement->getLabel()) {
+            $startDateElement->setLabel('Startdate');
+        }
+        if (!$startDateElement->hasAttribute('title')) {
+            $startDateElement->setAttribute('title', 'Please enter the start date');
+        }
+        $startDate = $elementHelper->render($startDateElement);
+        
+        $endDateElement = $element->getEndDateElement();
+        if ('' == $endDateElement->getLabel()) {
+            $endDateElement->setLabel('Enddate');
+        }
+        if (!$endDateElement->hasAttribute('title')) {
+            $endDateElement->setAttribute('title', 'Please enter the end date');
+        }
+        $endDate = $elementHelper->render($endDateElement);
         $endDate = preg_replace(
             '~</div>$~', 
             sprintf('<div id="%s-currenttext" class="daterange-currenttext%s">%s</div></div>',
                     $element->getAttribute('id'), 
                     $element->getCurrentCheckbox()->isChecked() ? '' : ' hidden',
-                    $element->getOption('current_text')),
+                    ($text = $element->getOption('current_text')) ? $text : 'Until today'),
             $endDate
         );
         $current = $elementHelper->render($element->getCurrentCheckbox());

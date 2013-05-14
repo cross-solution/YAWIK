@@ -29,7 +29,21 @@ fieldset > legend {
 	
 }
 
+a.remove-collection-item-link {
+	
+}
 
+div.fieldset-wrapper {
+	position: relative;
+}
+
+div.fieldset-wrapper button.remove-collection-item-button {
+	display: block;
+	width: 16px;
+	position: absolute;
+	right: 1em;
+	top: 1em;
+}
 
 input, textarea,
 .form-element-daterange div.daterange-currenttext {
@@ -43,6 +57,7 @@ input, textarea,
 
 }
 textarea {
+	font-family: Ubuntu, sans-serif;
 	height: 120px;
 }
 
@@ -86,8 +101,9 @@ textarea:focus,
 }
 
 .form-element-daterange {
-       
-       
+	float: left;
+	margin: 0;
+	width: 100%;
 }
 
 .form-element-daterange .form-element {

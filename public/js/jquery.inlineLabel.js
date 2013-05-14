@@ -21,7 +21,6 @@
 		var opt = $.extend({labelColor: "#888"}, options);
 		
 		return this.each(function() {
-			console.debug(this);
 			var label = $('label[for="' + $(this).attr('id') + '"]');
 			if (label.length) {
 				var text = label.hide().text();

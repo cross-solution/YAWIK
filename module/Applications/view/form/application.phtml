@@ -46,7 +46,9 @@ $this->headstyle()->captureStart()?>
     
     
 <?php $this->headstyle()->captureEnd(); ?>
-<?php $this->headScript()->appendFile($this->basePath('js/Core/jquery.daterange.js'));
+<?php $this->headScript()->appendFile($this->basePath('js/Core/jquery.daterange.js'))
+                        ->appendFile($this->basePath('js/Core/jquery.initform.js'))
+                        ->appendFile($this->basePath('js/Core/jquery.formcollection.js'));
       $this->headScript()->appendFile($this->basePath('js/jquery.ui.datepicker-' . $this->params('lang') . '.js'));
 
 

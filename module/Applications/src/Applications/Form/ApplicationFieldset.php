@@ -134,6 +134,8 @@ class ApplicationFieldset extends Fieldset
                 'count' => 1,
                 'should_create_template' => true,
                 'use_labeled_items' => false,
+                'collapsable' => true,
+                'collapsed' => true,
                 'allow_add' => true,
                 'target_element' => array(
                     'type' => 'EducationFieldset'
@@ -151,6 +153,9 @@ class ApplicationFieldset extends Fieldset
         				'label' => /*@translate */ 'employment history',
         				'count' => 1,
         				'should_create_template' => true,
+        		        'use_labeled_items' => false,
+        		        'collapsable' => true,
+        		        'collapsed' => true,
         				'allow_add' => true,
         				'target_element' => array(
         						'type' => 'EmploymentFieldset'

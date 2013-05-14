@@ -2,16 +2,16 @@
 $(function () {
 	$("fieldset > legend").click(function() {
 		var arrow = $(this).find('span');
-		if (arrow.length) {
-			var currentClass = arrow.attr('class').replace(/^.*(ui-icon-[^\s]+).*$/, '$1');
-			var newClass = currentClass.match(/n$/) 
-					     ? currentClass.replace(/n$/, 's') 
-				         : currentClass.replace(/.$/, 'n');
-					 
-		    arrow.removeClass(currentClass).addClass(newClass);
-		}
 		
-		$(this).parent().find(".fieldset-content").slideToggle();
+		if (!arrow.length) { return false; }
+		var currentClass = arrow.attr('class').replace(/^.*(ui-icon-[^\s]+).*$/, '$1');
+		var newClass = currentClass.match(/s$/) 
+				     ? currentClass.replace(/s$/, 'n') 
+			         : currentClass.replace(/.$/, 's');
+					 
+		arrow.removeClass(currentClass).addClass(newClass);
+		
+		$(this).parent().find("> .fieldset-content").slideToggle();
     });
         
 	
@@ -33,9 +33,11 @@ $(function () {
     	at: 'right+10 center'
     	//of: $('#application')
     });
-    console.debug(lang);
+    
     $.datepicker.setDefaults($.datepicker.regional[lang]);
     $('[type="date"]').datepicker();
+    
+    $(".form-collection").formcollection();
     
     $("#application-form").submit(function() {
     	$.post(

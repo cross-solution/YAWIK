@@ -21,36 +21,13 @@ class EmploymentFieldset extends Fieldset
         ));
         
         $this->add(array(
-        		'name' => 'startDate',
-        		'type' => 'Zend\Form\Element\Date',
-        		'options' => array(
-        				'label' => /*@translate */ 'Startdate'
-        		),
-        		'attributes' => array(
-        				'id' => 'employment-startdate'
-        		)
+            'name' => 'range',
+            'type' => '\Core\Form\Element\DateRange',
+            'options' => array(
+                
+            ),
         ));
         
-        $this->add(array(
-        		'name' => 'endDate',
-        		'type' => 'Zend\Form\Element\Date',
-        		'options' => array(
-        				'label' => /*@translate */ 'Enddate'),
-        		'attributes' => array(
-        				'id' => 'employment-enddate',
-        		),
-        ));
-        
-        $this->add(array(
-        		'name' => 'currentIndicator',
-        		'type' => 'Zend\Form\Element\Checkbox',
-        		'options' => array(
-        				'label' => /*@translate */ 'Current'
-        		),
-        		'attributes' => array(
-        				'id' => 'employment-currentindicator'
-        		)
-        ));
                
     }
     
