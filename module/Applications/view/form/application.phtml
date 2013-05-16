@@ -41,14 +41,24 @@ $this->headstyle()->captureStart()?>
     #application-zipcode {
         width: 105px;
     }
+    
+    #application-languages .language-select {
+        width: 190x;
+    }
+    
+    #application-languages .level-select {
+        width: 620px;
+    }
 
     
     
     
-<?php $this->headstyle()->captureEnd(); ?>
+<?php $this->headstyle()->captureEnd();
+$this->headLink()->appendStylesheet($this->basePath('css/jquery.ui.selectmenu.css')); ?>
 <?php $this->headScript()->appendFile($this->basePath('js/Core/jquery.daterange.js'))
                         ->appendFile($this->basePath('js/Core/jquery.initform.js'))
-                        ->appendFile($this->basePath('js/Core/jquery.formcollection.js'));
+                        ->appendFile($this->basePath('js/Core/jquery.formcollection.js'))
+                        ->appendFile($this->basePath('js/jquery.ui.selectmenu.js'));
       $this->headScript()->appendFile($this->basePath('js/jquery.ui.datepicker-' . $this->params('lang') . '.js'));
 
 

@@ -131,11 +131,11 @@ class ApplicationFieldset extends Fieldset
             'name' => 'educations',
             'options' => array(
                 'label' => /*@translate */ 'education history',
-                'count' => 1,
+                'count' => 0,
                 'should_create_template' => true,
                 'use_labeled_items' => false,
                 'collapsable' => true,
-                'collapsed' => true,
+                'collapsed' => false,
                 'allow_add' => true,
                 'target_element' => array(
                     'type' => 'EducationFieldset'
@@ -151,37 +151,34 @@ class ApplicationFieldset extends Fieldset
         		'name' => 'employments',
         		'options' => array(
         				'label' => /*@translate */ 'employment history',
-        				'count' => 1,
+        				'count' => 0,
         				'should_create_template' => true,
         		        'use_labeled_items' => false,
         		        'collapsable' => true,
-        		        'collapsed' => true,
+        		        'collapsed' => false,
         				'allow_add' => true,
         				'target_element' => array(
         						'type' => 'EmploymentFieldset'
         				)
-        		),
-        		'attributes' => array(
-        				//'id' => 'skill'
         		),
         ));
         
         
         $this->add(array(
         		'type' => 'Collection',
-        		'name' => 'skill',
+        		'name' => 'languages',
         		'options' => array(
-        				'label' => /*@translate */ 'Skills',
-        				'count' => 1,
+        				'label' => /*@translate */ 'Languages',
+        				'count' => 0,
         				'should_create_template' => true,
+        		        'use_labeled_items' => false,
+        		        'collapsable' => true,
+        		        'collapsed' => false,
         				'allow_add' => true,
+        		        'allow_remove' => true,
         				'target_element' => array(
-        						'type' => 'SkillFieldset'
+        						'type' => 'LanguageFieldset'
         				)
-        		),
-        		'attributes' => array(
-        				'id' => 'skill',
-        				'title' => 'please enter your qualifications'
         		),
         ));
         

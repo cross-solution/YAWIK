@@ -47,10 +47,13 @@ class IndexController extends AbstractActionController
             'form' => $form,
             'isApplicationSaved' => false,
         ));
-        return $viewModel;
+        //return $viewModel;
         $request = $this->getRequest();
        
         if ($request->isPost()) {
+            $mapper = $this->getServiceLocator()->get('ApplicationMapper');
+            $applicationModel = $mapper->create();
+            $form->bind($applicationModel);
             $data = $this->params()->fromPost();
             $form->setData($data);
             if (!$form->isValid()) {
@@ -63,6 +66,7 @@ class IndexController extends AbstractActionController
                 //$form->populateValues($data);
             } else {
                 $mapper->save($applicationModel);
+                
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,
@@ -73,7 +77,7 @@ class IndexController extends AbstractActionController
             }
         } else {
             $form->populateValues(array(
-                'jobid' => $this->params('jobid', 0),
+                'application' => array('jobid' => $this->params('jobid', 0)),
             ));
             
         }

@@ -50,6 +50,7 @@ class FormCollection extends ZendFormCollection
                     $iconDir = $element->getOption('collapsed') ? 'n' : 's';
                     $label .= '<span class="float-right ui-icon ui-icon-triangle-1-' . $iconDir . '"></span>';
                 } 
+                
                 $label .= '</legend>';
             }
         }

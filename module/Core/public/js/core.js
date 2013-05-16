@@ -22,11 +22,11 @@ core.displayFormErrors = function(messages)
 	// clear all former errors:
 	$(".form-element ul").remove();
 	$(".form-element").removeClass('form-error');
-	$("[title]").tooltip('destroy').tooltip();
+	$("[title]").tooltip().tooltip('destroy').tooltip();
 	
 	var entries = {};
 	function mapFormErrors(index, value, prefix) {
-		if ($.isPlainObject(value)) {
+		if ($.isPlainObject(value) || $.isArray(value)) {
 			prefix = (prefix ? prefix + '-' : '') + index;
 			$.each(value, function(idx, val) { mapFormErrors(idx, val, prefix); });
 		} else {
@@ -38,6 +38,7 @@ core.displayFormErrors = function(messages)
 	};
 	
 	$.each(messages, function(index, value) { mapFormErrors(index, value, ""); });
+	console.debug(entries);
 	if ($.isEmptyObject(entries)) return;
 
 	$.each(entries, function(elementId, errors) {

@@ -46,7 +46,5 @@ interface ApplicationInterface extends ModelInterface
     public function setEmail($email);
     public function getEmail();
     
-
-    
     
 }

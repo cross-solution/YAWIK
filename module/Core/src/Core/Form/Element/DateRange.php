@@ -24,7 +24,7 @@ class DateRange extends Element implements ElementPrepareAwareInterface
         $this->endDateElement   = new Date('enddate');
         $this->currentCheckbox  = new Checkbox('current', array(
             'label' => 'Current',
-            'use_hidden_element' => false,
+            'use_hidden_element' => true,
             'value' => 0,
         )); 
         

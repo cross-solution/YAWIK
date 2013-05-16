@@ -45,7 +45,7 @@ div.fieldset-wrapper button.remove-collection-item-button {
 	top: 1em;
 }
 
-input, textarea,
+input, textarea, select,
 .form-element-daterange div.daterange-currenttext {
 	font-size: 1.1em;
 	font-weight: normal;
@@ -59,6 +59,9 @@ input, textarea,
 textarea {
 	font-family: Ubuntu, sans-serif;
 	height: 120px;
+}
+select {
+	width: 350px;
 }
 
 .form-error input,
@@ -74,13 +77,30 @@ input:hover,
 input:focus,
 textarea:hover,
 textarea:focus,
-.ui-state-hover
+.ui-state-hover,
+.ui-selectmenu .ui-state-active,
+.ui-selectmenu-menu
 {
 	border-color: #aaa;
 	color: #212121;
 	box-shadow: 0px 0px 5px #aaa;
 
 }
+.ui-buttonset .ui-button {
+	margin: 0 -1px 0 0;
+}
+.ui-buttonset .ui-state-hover
+{
+	/*border-right: 1px solid #aaa;*/
+	z-index: 100000;
+	
+}
+a.ui-selectmenu,
+a.ui-selectmenu:hover {
+	color: #555555;
+	text-decoration: none;
+}
+
 .form-error input:hover,
 .form-error input:focus,
 .form-error .ui-state-hover

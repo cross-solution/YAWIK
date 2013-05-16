@@ -13,6 +13,7 @@ namespace Applications\Mapper\MongoDb;
 use Core\Mapper\MongoDb\AbstractMapper;
 use Core\Model\ModelInterface;
 use Applications\Model\Hydrator\ApplicationHydrator;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
  * User mapper factory
@@ -27,14 +28,5 @@ class ApplicationMapper extends AbstractMapper
         return $this->_createCollectionFromResult($cursor);    
     }
     
-    public function getModelHydrator()
-    {
-        if (!$this->modelHydrator) {
-            $hydrator = new ApplicationHydrator();
-            $this->addDefaultHydratorStrategies($hydrator);
-            $this->setModelHydrator($hydrator);
-            
-        }
-        return $this->modelHydrator;
-    }
+   
 }

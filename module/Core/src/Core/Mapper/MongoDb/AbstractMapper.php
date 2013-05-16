@@ -124,6 +124,8 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
         $hydrator = $this->getModelHydrator();
         $data = $hydrator->extract($model);
   
+        print_r($data);
+        return;
         if ($data['id']) {
             $data['_id'] = $this->_getMongoId($data['id']);
         }

@@ -77,4 +77,23 @@ class ModelHydrator extends AbstractHydrator
         return $value;
     }
     
+    public function extractValue($name, $value)
+    {
+        if ($this->hasStrategy($name)) {
+            return parent::extractValue($name, $value);
+        }
+        if ($value instanceOf \Core\Model\CollectionInterface) {
+            $result = array();
+            foreach ($value as $model) {
+                $modelData = $this->extract($model);
+                if (!$modelData['id']) {
+                    $modelData['id'] = uniqid();
+                }
+                $result[] = $modelData;
+            }
+            return $result;
+        }
+        return $value;
+    }
+    
 }

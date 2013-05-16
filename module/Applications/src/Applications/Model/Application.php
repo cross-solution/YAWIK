@@ -25,9 +25,9 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     protected $phoneNumber;
     protected $mobileNumber;
     protected $email;
-    protected $skills;
     protected $educations;
     protected $employments;
+    protected $languages;
 
     /**
      * @return the $jobId
@@ -260,18 +260,18 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     /**
      * @return the $skills
      */
-    public function getSkills()
+    public function getLanguages()
     {
-    	return $this->skills;
+    	return $this->languages;
     }
     
     /**
      * @param field_type $skills
      * @return Application
      */
-    public function setSkills(CollectionInterface $skills)
+    public function setLanguages(CollectionInterface $languages)
     {
-    	$this->skills = $skills;
+    	$this->languages = $languages;
     	return $this;
     }
     

@@ -4,7 +4,7 @@ namespace Applications\Model;
 
 use Core\Model\ModelInterface;
 
-interface LanguageSkillInterface extends ModelInterface
+interface LanguageInterface extends ModelInterface
 {
 	/*
 	 * name of the language de,en,fr
@@ -18,11 +18,6 @@ interface LanguageSkillInterface extends ModelInterface
     public function setLevel($level);
     public function getLevel();
     
-    /*
-     * listening, speeking, writing
-     */
-    public function setType($level);
-    public function getType();
     
     
 }
