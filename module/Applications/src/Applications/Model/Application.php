@@ -29,6 +29,12 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     protected $employments;
     protected $languages;
 
+    
+    public function setId ($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
     /**
      * @return the $jobId
      */
@@ -277,11 +283,15 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     
     public function getEducations()
     {
+        if (!$this->educations) {
+            $this->educations = new \Core\Model\Collection();
+        }
         return $this->educations;
     }
     
     public function setEducations(CollectionInterface $educations)
     {
+        
         $this->educations = $educations;
         return $this;
     }

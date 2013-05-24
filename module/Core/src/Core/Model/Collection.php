@@ -18,6 +18,27 @@ class Collection implements CollectionInterface
         return $this;
     }
     
+    public function removeModel($modelOrId)
+    {
+        $id = $modelOrId instanceOf \Core\Model\ModelInterface
+            ? $modelOrId->getId()
+            : $modelOrId;
+        
+        foreach ($this->collection as $key => $model) {
+            if ($model->getId() == $id) {
+                unset($this->collection[$key]);
+                break;
+            }
+        }
+        return $this;
+    }
+        
+    public function removeModels()
+    {
+        $this->collection = array();
+        return $this;
+    } 
+    
     public function addModels(array $models)
     {
         foreach ($models as $model) {
@@ -26,32 +47,11 @@ class Collection implements CollectionInterface
         return $this;
     }
     
-    public function rewind()
+    public function getIterator()
     {
-        reset($this->collection);
-        return $this;
+        return new \ArrayIterator($this->collection);
     }
-    
-    public function current()
-    {
-        return current($this->collection);
-    }
-    
-    public function key()
-    {
-        return key($this->collection);
-    }
-    
-    public function next()
-    {
-        return next($this->collection);
-    }
-    
-    public function valid()
-    {
-        return null !== $this->key(); 
-    }
-    
+
     public function count()
     {
         return count($this->collection);

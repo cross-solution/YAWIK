@@ -21,6 +21,9 @@ class EducationFieldset extends Fieldset
             'attributes' => array(
                 //'id' => 'education-id'
             ),
+        ))->add(array(
+            'type' => 'Hidden',
+            'name' => 'applicationId',
         ));
         
         $this->add(array(

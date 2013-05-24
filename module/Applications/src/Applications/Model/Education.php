@@ -6,13 +6,34 @@ use Core\Model\AbstractModel;
 
 class Education extends AbstractModel
 {
+    protected $applicationId;
     protected $startDate;
     protected $endDate;
     protected $competencyName;
     protected $description;
     protected $nationalClassification;
     
-    public function setStartDate($startDate)
+    
+    
+    
+    /**
+     * @return the $applicationId
+     */
+    public function getApplicationId ()
+    {
+        return $this->applicationId;
+    }
+
+	/**
+     * @param field_type $applicationId
+     */
+    public function setApplicationId ($applicationId)
+    {
+        $this->applicationId = $applicationId;
+        return $this;
+    }
+
+	public function setStartDate($startDate)
     {
         $this->startDate = (string) $startDate;
         return $this;

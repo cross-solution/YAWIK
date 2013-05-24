@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Mapper\MongoDb\Hydrator;
+namespace Core\Repository\MongoDb\Hydrator;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;

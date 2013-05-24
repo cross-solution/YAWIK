@@ -37,8 +37,6 @@ class IndexController extends AbstractActionController
         $this->layout('layout/apply');
        
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
-        
-        //$form = new ApplicationForm($applicationModel);
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
             'job' => (object) array(
@@ -47,12 +45,13 @@ class IndexController extends AbstractActionController
             'form' => $form,
             'isApplicationSaved' => false,
         ));
-        //return $viewModel;
+        
         $request = $this->getRequest();
        
         if ($request->isPost()) {
-            $mapper = $this->getServiceLocator()->get('ApplicationMapper');
-            $applicationModel = $mapper->create();
+            $repository = $this->getServiceLocator()->get('ApplicationRepository');
+            
+            $applicationModel = $repository->getApplicationBuilder()->buildModel(); 
             $form->bind($applicationModel);
             $data = $this->params()->fromPost();
             $form->setData($data);
@@ -65,7 +64,7 @@ class IndexController extends AbstractActionController
                 }
                 //$form->populateValues($data);
             } else {
-                $mapper->save($applicationModel);
+                $repository->save($applicationModel);
                 
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
@@ -73,7 +72,6 @@ class IndexController extends AbstractActionController
                     ));
                 }
                 $viewModel->setVariable('isApplicationSaved', true);
-                var_dump($applicationModel);
             }
         } else {
             $form->populateValues(array(

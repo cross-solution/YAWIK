@@ -11,8 +11,8 @@ class CreateApplication extends Form //implements ServiceLocatorAwareInterface
     
 	public function init()
     {
-        $this->setName('create-application-form')
-             ->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
+        $this->setName('create-application-form');
+             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
         
         $this->add(array(
             'type' => 'ApplicationFieldset',

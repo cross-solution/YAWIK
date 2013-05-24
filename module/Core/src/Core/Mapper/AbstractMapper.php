@@ -11,6 +11,7 @@
 namespace Core\Mapper;
 
 use Core\Model\ModelInterface;
+use Core\Model\CollectionInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use Core\Model\Hydrator\ModelHydrator;
 
@@ -35,6 +36,8 @@ abstract class AbstractMapper implements MapperInterface
      */
     protected $_modelPrototype;
     
+    protected $modelCollectionPrototype;
+    
     /**
      * The model hydrator.
      * 
@@ -53,6 +56,12 @@ abstract class AbstractMapper implements MapperInterface
     public function setModelPrototype(ModelInterface $model)
     {
         $this->_modelPrototype = $model;
+        return $this;
+    }
+    
+    public function setModelCollectionProtoype(CollectionInterface $collection)
+    {
+        $this->modelCollectionPrototype = $collection;
         return $this;
     }
     
@@ -76,7 +85,8 @@ abstract class AbstractMapper implements MapperInterface
     public function getModelHydrator()
     {
         if (!$this->modelHydrator) {
-            $this->setModelHydrator(new ModelHydrator());
+            $hydrator = new ModelHydrator();
+            $this->setModelHydrator($hydrator);
         }
         return $this->modelHydrator;
     }
@@ -97,5 +107,19 @@ abstract class AbstractMapper implements MapperInterface
         $hydrator->hydrate($data, $model);
         //$model->setData($data);
         return $model;
+    }
+    
+    public function createCollection(array $data=array())
+    {
+        if (!$this->modelCollectionPrototype) {
+            $this->setModelCollectionProtoype(new \Core\Model\Collection());
+        }
+        $collection = clone $this->modelCollectionPrototype;
+        foreach ($data as $modelData) {
+            
+            $model = $modelData instanceOf \Core\Model\ModelInterface ? $modelData : $this->create($modelData);
+            $collection->addModel($model);
+        }
+        return $collection;
     }
 }

@@ -126,6 +126,7 @@ return array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             
             'applications/list-row' => __DIR__ . '/../view/partial/list-row.phtml',
+            'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             
             // Form partials
             'form/application' => __DIR__ . '/../view/form/application.phtml',

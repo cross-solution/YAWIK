@@ -13,13 +13,14 @@ namespace Applications\Mapper\MongoDb\Service;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Applications\Mapper\MongoDb\ApplicationMapper;
-use Applications\Model\Application;
-use Applications\Model\Hydrator\ApplicationHydrator;
+use Applications\Mapper\MongoDb\EducationMapper;
+use Applications\Model\Education;
+
 
 /**
  * User mapper factory
  */
-class ApplicationMapperFactory implements FactoryInterface
+class EducationMapperFactory implements FactoryInterface
 {
     /**
      * Creates an instance of \Auth\Mapper\MongoDb\UserMapper.
@@ -34,19 +35,12 @@ class ApplicationMapperFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $mapper = new ApplicationMapper();
-        $mapper->setModelPrototype(new Application());
+        $mapper = new EducationMapper();
+        $mapper->setModelPrototype(new Education());
         $db = $serviceLocator->get('MongoDb');
         $mapper->setCollection($db->applications);
-        
-//         $allowOverride = $serviceLocator->getAllowOverride();
-//         $serviceLocator->setAllowOverride(true);
-//         $serviceLocator->setService('ApplicationMapper', $mapper);
-//         $serviceLocator->setAllowOverride($allowOverride);
-//         $mapper->setEducationMapper($serviceLocator->get('EducationMapper'));
         return $mapper;
     }
-    
 }
 
 

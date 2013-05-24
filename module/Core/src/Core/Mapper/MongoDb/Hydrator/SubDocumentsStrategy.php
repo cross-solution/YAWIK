@@ -3,39 +3,32 @@
 namespace Core\Mapper\MongoDb\Hydrator;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Core\Mapper\MapperInterface;
 use Core\Model\ModelInterface;
 use Core\Model\CollectionInterface;
 
-class ModelCollectionStrategy implements StrategyInterface
+class SubDocumentsStrategy implements StrategyInterface
 {
+    protected $mapper;
     
-    protected $collectionPrototype;
-    
-    public function __construct(CollectionInterface $collectionPrototype = null)
+    public function __construct(MapperInterface $mapper)
     {
-        
-        if (null !== $collectionPrototype) {
-            $this->setCollectionPrototype($collectionPrototype);
-        } 
+        $this->setMapper($mapper);
+         
     }
     
-    
-    
-    public function setCollectionPrototype(CollectionInterface $collection)
+    public function setMapper(MapperInterface $mapper)
     {
-        $this->collectionPrototype = $collection;
+        $this->mapper = $mapper;
         return $this;
     }
     
-    public function createCollection()
+    public function getMapper()
     {
-        if (!$this->collectionPrototype) {
-            $this->setCollectionPrototype(new \Core\Model\Collection());
-        }
-        return clone $this->collectionPrototype;
+        return $this->mapper;
     }
-        
+    
+    
 	/* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\Strategy\StrategyInterface::extract()
      */
@@ -45,8 +38,8 @@ class ModelCollectionStrategy implements StrategyInterface
             return $value;
         }
         
-        $collection = $this->createCollection();
-        $collection->addModels($value);
+        $collection = $this->getMapper()->createCollection($value);
+        
         return $collection;
         
     }
@@ -56,13 +49,12 @@ class ModelCollectionStrategy implements StrategyInterface
      */
     public function extract ($value)
     {
-        return $value;
         if (!$value instanceOf \Core\Model\CollectionInterface) {
             // @todo Error Handling
             return $value;
         }
         
-        $hydrator = $this->getHydrator();
+        $hydrator = $this->getMapper()->getModelHydrator();
         
         $result = array();
         foreach ($value as $model) {

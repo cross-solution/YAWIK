@@ -8,10 +8,22 @@ use Core\Model\Hydrator\ModelHydrator;
 
 class ApplicationFieldset extends Fieldset
 {
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $hydrator = new ModelHydrator();
+            $arrayToModelCollectionStrategy = new \Core\Model\Hydrator\Strategy\ArrayToCollectionStrategy();
+            $hydrator->addStrategy('educations', $arrayToModelCollectionStrategy);
+            $this->setHydrator($hydrator);
+        }
+        return $this->hydrator;
+    }
+    
     public function init()
     {
+        
         $this->setName('application')
-             ->setHydrator(new ModelHydrator())
+             //->setHydrator(new ModelHydrator())
              ->setObject(new ApplicationModel());
         
         $this->add(array(

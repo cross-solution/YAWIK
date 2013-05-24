@@ -10,6 +10,15 @@ use Core\Model\ModelInterface;
 class ModelHydrator extends AbstractHydrator
 {
 	
+	public function __construct()
+	{
+	    parent::__construct();
+	    $this->init();
+	}
+	
+	protected function init()
+	{ } 
+	
 	/* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
      */
@@ -22,18 +31,17 @@ class ModelHydrator extends AbstractHydrator
         
         $getters = array_filter(
             get_class_methods($object),
-            function ($methodName) {
-                return "get" === substr($methodName, 0, 3);
+            function ($methodName) use ($object) {
+                return "get" === substr($methodName, 0, 3)
+                       && method_exists($object, 's' . substr($methodName, 1));
             }
         );
 
         $data = array();
         foreach ($getters as $getter) {
-            if (!method_exists($object, 's' . substr($getter, 1))) {
-                continue;
-            }
             $propertyValue = $object->$getter();
             $propertyName = lcfirst(substr($getter, 3));
+            
             $data[$propertyName] = $this->extractValue($propertyName, $propertyValue);
         }
         return $data;
@@ -70,10 +78,7 @@ class ModelHydrator extends AbstractHydrator
         if ($this->hasStrategy($name)) {
             return parent::hydrateValue($name, $value);
         }
-        if (is_array($value)) {
-            $collection = new \Core\Model\Collection($value);
-            return $collection;
-        }
+        
         return $value;
     }
     
@@ -82,17 +87,7 @@ class ModelHydrator extends AbstractHydrator
         if ($this->hasStrategy($name)) {
             return parent::extractValue($name, $value);
         }
-        if ($value instanceOf \Core\Model\CollectionInterface) {
-            $result = array();
-            foreach ($value as $model) {
-                $modelData = $this->extract($model);
-                if (!$modelData['id']) {
-                    $modelData['id'] = uniqid();
-                }
-                $result[] = $modelData;
-            }
-            return $result;
-        }
+        
         return $value;
     }
     
