@@ -27,6 +27,7 @@ if (!$this->isAjaxRequest):
 </tbody>
 
 </table>
+<?php echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
 <?php else:
     echo $tableRows;
 endif; // !$this->isAjaxRequest

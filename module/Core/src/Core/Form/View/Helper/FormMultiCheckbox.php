@@ -7,6 +7,7 @@ use Zend\Form\Element\MultiCheckbox as MultiCheckboxElement;
 
 class FormMultiCheckbox extends BaseFormMultiCheckbox
 {
+    
     /**
      * Render options
      *

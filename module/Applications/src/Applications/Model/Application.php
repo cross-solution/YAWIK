@@ -3,6 +3,7 @@
 namespace Applications\Model;
 
 use Core\Model\AbstractDateFormatEnabledModel;
+use Core\Model\CollectionInterface;
 
 /**
  * @todo write interface
@@ -24,7 +25,16 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
     protected $phoneNumber;
     protected $mobileNumber;
     protected $email;
+    protected $educations;
+    protected $employments;
+    protected $languages;
 
+    
+    public function setId ($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
     /**
      * @return the $jobId
      */
@@ -253,5 +263,48 @@ class Application extends AbstractDateFormatEnabledModel implements ApplicationI
         $this->email = $email;
     }
 
+    /**
+     * @return the $skills
+     */
+    public function getLanguages()
+    {
+    	return $this->languages;
+    }
+    
+    /**
+     * @param field_type $skills
+     * @return Application
+     */
+    public function setLanguages(CollectionInterface $languages)
+    {
+    	$this->languages = $languages;
+    	return $this;
+    }
+    
+    public function getEducations()
+    {
+        if (!$this->educations) {
+            $this->educations = new \Core\Model\Collection();
+        }
+        return $this->educations;
+    }
+    
+    public function setEducations(CollectionInterface $educations)
+    {
+        
+        $this->educations = $educations;
+        return $this;
+    }
+    
+    public function getEmployments()
+    {
+    	return $this->employments;
+    }
+    
+    public function setEmployments(CollectionInterface $employments)
+    {
+    	$this->employments = $employments;
+    	return $this;
+    }
     
 }

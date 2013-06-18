@@ -10,12 +10,14 @@
 namespace Applications;
 
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature\FormElementProviderInterface;
+
 
 /**
  * Bootstrap class of the applications module
  * 
  */
-class Module
+class Module 
 {
 
     /**

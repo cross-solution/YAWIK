@@ -1,0 +1,51 @@
+<fieldset id="<?php echo $element->getAttribute('id') ?>">
+<legend><?php echo $this->translate($element->getLabel())?>
+    <span class="ui-icon ui-icon-triangle-1-s float-right"></span></legend>
+<div class="fieldset-content hidden">
+<div id="<?php echo $element->getAttribute('id')?>-items">
+<?php foreach ($element as $i => $item): ?>
+    <div class="collection-item">
+    <?if ($i): ?>
+    <div class="float-right"><a href="#" class="ui-icon icon-close"></a></div>
+    <?endif?><fieldset>
+    <?php foreach ($item as $el): $el->setAttribute('id', $el->getAttribute('id') . '-' . $i)?>
+    <div class="form-element" id="<?php  echo $el->getAttribute('id') ?>-wrapper">
+        <?php echo $this->formRow($el); ?>
+    </div>
+    <?php endforeach ?>
+    </fieldset></div>
+    
+<?php endforeach ?>
+</div>
+<?php $template = '<div class="collection-item hidden"><div class="float-right"><a href="#" class="ui-icon ui-icon-close"></a></div><fieldset>';
+        foreach ($element->getTemplateElement() as $el):
+            $el->setAttribute('id', $el->getAttribute('id') . '-__index__');
+            $template.='<div class="form-element" id="' . $el->getAttribute('id') . '-wrapper">'
+                      . $this->formRow($el)
+                      . '</div>';
+        endforeach;
+        $template .= '</fieldset></div>';
+        ?><span data-template="<?php echo $this->escapehtmlattr($template) ?>"></span>
+
+        <fieldset>
+<button id="add-education">Hinzufügen</button>
+<script type="text/javascript">
+$('#add-education').click(function() {
+    var fieldset = $('#<?php echo $element->getAttribute('id')?>');
+    var template = fieldset.find('span[data-template]')
+                           .attr('data-template');
+    
+    var contentDiv = fieldset.find('.fieldset-content > div');
+    console.debug(contentDiv);
+    var index = contentDiv.find('.collection-item').length;
+    var content = $(template.replace(/__index__/g, index));
+    contentDiv.append(content);
+    content.tooltip().find(":text, [type='email']").inlineLabel();
+    content.slideDown();
+	return false;
+});
+</script>
+</fieldset>
+
+</div>
+</fieldset>

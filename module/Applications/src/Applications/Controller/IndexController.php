@@ -16,7 +16,6 @@ use Applications\Form\Application as ApplicationForm;
 use Applications\Model\Application as ApplicationModel;
 use Applications\Form\ApplicationHydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
-use Applications\Model\Application;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -36,10 +35,8 @@ class IndexController extends AbstractActionController
 //         $view->setTerminal(true);
 //         return $view;
         $this->layout('layout/apply');
-        $mapper = $this->getServiceLocator()->get('ApplicationMapper');
-        $applicationModel = $mapper->create();
-        
-        $form = new ApplicationForm($applicationModel);
+       
+        $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
             'job' => (object) array(
@@ -52,6 +49,10 @@ class IndexController extends AbstractActionController
         $request = $this->getRequest();
        
         if ($request->isPost()) {
+            $repository = $this->getServiceLocator()->get('ApplicationRepository');
+            
+            $applicationModel = $repository->getApplicationBuilder()->buildModel(); 
+            $form->bind($applicationModel);
             $data = $this->params()->fromPost();
             $form->setData($data);
             if (!$form->isValid()) {
@@ -63,18 +64,18 @@ class IndexController extends AbstractActionController
                 }
                 //$form->populateValues($data);
             } else {
-                $mapper->save($applicationModel);
+                $repository->save($applicationModel);
+                
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,
                     ));
                 }
                 $viewModel->setVariable('isApplicationSaved', true);
-                var_dump($applicationModel);
             }
         } else {
             $form->populateValues(array(
-                'jobid' => $this->params('jobid', 0),
+                'application' => array('jobid' => $this->params('jobid', 0)),
             ));
             
         }

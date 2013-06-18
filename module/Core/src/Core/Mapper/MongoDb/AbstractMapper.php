@@ -71,28 +71,18 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
         return $this->_collection;
     }
     
-    public function getModelHydrator()
-    {
-        if (!$this->modelHydrator) {
-            $hydrator = parent::getModelHydrator();
-            $this->addDefaultHydratorStrategies($hydrator);
-            $this->setModelHydrator($hydrator);
-        }
-        return $this->modelHydrator;
-    }
-    
-    
     /**
      * {@inheritdoc}
      * 
      * @param string|\MongoId $id Mongodb id
      */
-    public function find($id)
+    public function find($id, $fields = array())
     {
         if (!$id instanceOf \MongoId) {
             $id = $this->_getMongoId($id);
         }
-        $data = $this->_collection->findOne(array('_id' => $id));
+        $data = $this->_collection->findOne(array('_id' => $id), $fields);
+        return $data;
         return $this->_createFromResult($data);
     }
     
@@ -124,6 +114,8 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
         $hydrator = $this->getModelHydrator();
         $data = $hydrator->extract($model);
   
+        print_r($data);
+        return;
         if ($data['id']) {
             $data['_id'] = $this->_getMongoId($data['id']);
         }
@@ -152,9 +144,9 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
     {
         $models = array();
         foreach ($cursor as $data) {
-            $models[] = $this->create($data);
+            $models[] = $data; //$this->create($data);
         }
-        $collection = new ModelCollection($models);
+        $collection = $this->createCollection($models);
         return $collection;
     }
     
@@ -169,10 +161,6 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
         return new \MongoId($id);
     }
     
-    protected function addDefaultHydratorStrategies(HydratorInterface $hydrator)
-    {
-        $hydrator->addStrategy('dateCreated', new DatetimeStrategy());
-        $hydrator->addStrategy('dateModified', new DatetimeStrategy(/*extractResetDate*/ true));
-    }
+    
     
 }

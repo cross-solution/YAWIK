@@ -1,0 +1,25 @@
+<?php
+$form->prepare();
+echo $this->form()->openTag($form);
+
+foreach ($form->getIterator() as $el):
+
+    if ($el instanceOf \Zend\Form\FieldsetInterface):
+        $type = preg_replace('~^.*\\\\~', '', get_class($el));
+        $type = preg_replace_callback('~[A-Z]~', function($m) { return '-' . strtolower($m[0]); }, lcfirst($type));
+    
+        $partial = "form/$type";
+        if (!$this->resolver($partial)):
+            $partial = "form/fieldset";
+        endif;
+    
+    else:
+        $partial = 'form/row';
+    endif;
+    echo $this->partial($partial, array('element' => $el));
+       
+endforeach;
+
+
+echo $this->form()->closeTag();?>
+

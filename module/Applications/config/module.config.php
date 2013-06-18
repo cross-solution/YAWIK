@@ -126,6 +126,7 @@ return array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             
             'applications/list-row' => __DIR__ . '/../view/partial/list-row.phtml',
+            'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             
             // Form partials
             'form/application' => __DIR__ . '/../view/form/application.phtml',
@@ -134,6 +135,19 @@ return array(
     
     'view_helpers' => array(
         
+    ),
+    
+    'form_elements' => array(
+        'invokables' => array(
+            'ApplicationFieldset' => '\Applications\Form\ApplicationFieldset',
+            'EducationFieldset' => '\Applications\Form\EducationFieldset',
+            'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
+            'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
+            'Application' => '\Applications\Form\CreateApplication',
+        ),
+        'factories' => array(
+            'Application' => '\Applications\Form\ApplicationFactory'
+        ),
     ),
     
     

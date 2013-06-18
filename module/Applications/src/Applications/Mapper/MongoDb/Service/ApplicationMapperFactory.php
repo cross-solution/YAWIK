@@ -38,8 +38,15 @@ class ApplicationMapperFactory implements FactoryInterface
         $mapper->setModelPrototype(new Application());
         $db = $serviceLocator->get('MongoDb');
         $mapper->setCollection($db->applications);
+        
+//         $allowOverride = $serviceLocator->getAllowOverride();
+//         $serviceLocator->setAllowOverride(true);
+//         $serviceLocator->setService('ApplicationMapper', $mapper);
+//         $serviceLocator->setAllowOverride($allowOverride);
+//         $mapper->setEducationMapper($serviceLocator->get('EducationMapper'));
         return $mapper;
     }
+    
 }
 
 

@@ -1,24 +1,17 @@
 
 $(function () {
-	$("fieldset > legend").click(function() {
-		$("#" + $(this).parent().attr("id") + " .fieldset-content").slideToggle();
-    });
-        
-    $(":text").inlineLabel();
-        
-    $("input[type=\'submit\'], button").button();
-    
-    $("#contact-title-wrapper")
-    	.buttonset()
-    	.attr('title', $("#contact-title-wrapper div.label").html())
-    	.tooltip();
-    
-    
+	$('#application-form').initform();
+	
     $("#application-form").submit(function() {
+    	var $this = $(this);
+    	$this.find('*').inlineLabel('clear');
+    	
+    	
     	$.post(
     		'/' + lang + '/apply/submit',
-    		$(this).serialize(),
+    		$this.serialize(),
     		function(data) {
+    			$this.find(':text, [type="email"], [type="date"], textarea').inlineLabel();
     			if (data.ok) {
     				$("#application-form").hide();
     				$("#application-saved-message").show();

@@ -6,7 +6,12 @@ use Core\Model\Hydrator\ModelHydrator;
 
 class ApplicationHydrator extends ModelHydrator 
 {
-    protected $modelInterface = '\Applications\Model\ApplicationInterface';
-
+    protected $modelCollectionPropertyNames = array(
+        'educations',
+        'employments',
+        'languages',
+    );
+    
+    
     
 }

@@ -3,8 +3,9 @@
 namespace Applications\Model;
 
 use Core\Model\ModelInterface;
+use Core\Model\DateFormatEnabledInterface;
 
-interface ApplicationInterface extends ModelInterface 
+interface ApplicationInterface extends ModelInterface, DateFormatEnabledInterface 
 {
    
     public function setJobId($jobId);

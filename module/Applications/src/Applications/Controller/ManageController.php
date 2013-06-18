@@ -35,47 +35,31 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
+        $repository = $this->getServiceLocator()->get('ApplicationRepository');
         
-         
-        $query = $this->listQuery(array(
-            'properties_map' => array(
-                'jobId'
-             ),
-            'items_per_page' => 5
-        ));
+        $paginator = new \Zend\Paginator\Paginator(
+            $repository->getPaginatorAdapter(
+                $this->params()->fromQuery(),
+                array('lastname' => 1)
+            )
+        );
+        $paginator->setCurrentPageNumber($this->params()->fromQuery('page'))
+                  ->setItemCountPerPage(10);
+        
         
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
-        $mapper = $this->getServiceLocator()->get('ApplicationMapper');
-
-        $applicationsCollection = $mapper->fetchAll($query);
         
         if ($jsonFormat) {
             $viewModel = new JsonModel();
-            $hydrator = new ApplicationHydrator();
-            $dateStrategy = new ClosureStrategy(
-                /*extractFunc*/ 
-                function ($value) {
-                    if (!$value instanceOf \DateTime) {
-                        return null;
-                    }
-                    return $value->format('Y-m-d H:m:i T');
-                },
-                /* hydrateFunc */ function($value) { return $value; }
-            );
-            $hydrator->addStrategy('dateCreated', $dateStrategy)
-                     ->addStrategy('dateModified', $dateStrategy);
+            $items = iterator_to_array($paginator);
             
-            $items = array();
-            foreach ($applicationsCollection as $application) {
-                $items[] = $hydrator->extract($application);
-            }
-            $viewModel->setVariables(array('items' => $items, 'count' => count($items)));
+            $viewModel->setVariables(array('items' => $repository->getApplicationBuilder()->unbuildCollection($paginator->getCurrentItems()), 'count' => $paginator->getTotalItemCount()));
             return $viewModel;
             
         } 
         
         return array(
-            'applications' => $applicationsCollection
+            'applications' => $paginator
         );
         
     }
