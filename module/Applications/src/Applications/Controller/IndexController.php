@@ -34,7 +34,7 @@ class IndexController extends AbstractActionController
 //         $view = new ViewModel();
 //         $view->setTerminal(true);
 //         return $view;
-        $this->layout('layout/apply');
+        //$this->layout('layout/apply');
        
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
         $viewModel = new ViewModel();

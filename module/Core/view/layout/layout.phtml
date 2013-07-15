@@ -18,63 +18,59 @@
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
         <?php echo $this->headScript()
-                        ->prependFile($this->basepath('js/Core/core.js'))
-                        ->prependFile($this->basePath('js/jquery-ui-1.10.2.custom.js'))
+                        ->prependFile($this->basePath('bootstrap/js/bootstrap.js'))
                         ->prependFile($this->basePath('js/jquery-1.9.1.js')) 
-                        ->appendScript('$(function() { 
-    $("#language-switcher").buttonset();
-    $("#language-switcher input").click(function(e) {
-        var switchToLang = $(this).attr("id").replace(/^language-switcher-/, "");
-        if ("' . $this->params('lang') . '" != switchToLang) {                     
-            var newHref=location.protocol
-                       + "//" + location.host + "/"
-                       + location.pathname.replace(/^\/' . $this->params('lang') . '/, switchToLang)
-                       + location.search;
-        
-            location.href=newHref;
-        }
-    });
-});'); ?>
+                        ->appendFile($this->basepath('js/Core/core.init.js'))
+                        ->appendScript('var lang="' . $this->params('lang') . '";');
+        ?>
         
         <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css')
-                                    ->prependStylesheet($this->basePath('css/smoothness/jquery-ui-1.10.2.custom.min.css')) ?>
-                
-                                    
+                                    ->prependStylesheet($this->basePath('bootstrap/css/bootstrap.css'));?>
 
     </head>
     <body>
         <div id="main">
-            <header>
-                <h1><?php echo $this->translate('Cross Applicant Management')?></h1>
-                <?php echo $this->loginInfo ?>
+            <header id="topbar" class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                <div class="container">
+                <a class="brand" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('Cross Applicant Management')?></a>
+                
 
-                <nav id="main-navigation">
+                <div class="nav-collapse collapse" id="main-navigation">
                     <?php 
-                        echo $this->navigation('main_navigation')->menu()?>
+                        echo $this->navigation('main_navigation')->menu()->setUlClass('nav')?>
 
-                </nav> <!-- /main-navigation -->
+                    <?php echo $this->loginInfo ?>
+                </div> <!-- /main-navigation -->
+                </div>
+                </div>
+                
             </header>
             
-            <div id="container">
-                <div id="language-switcher">
+            <div id="container" class="container">
+                <div class="btn-group pull-right" data-toggle="buttons-radio" id="language-switcher">
                     <?php $lang = $this->params('lang');
                     foreach (array('en', 'de') as $availableLang): ?>
-                    <input type="radio" id="language-switcher-<?php echo $availableLang ?>" name="site-language"<?php echo $availableLang == $lang ? ' checked="checked"' : ''?> />
-                    <label for="language-switcher-<?php echo $availableLang ?>"><?php echo strtoupper($availableLang) ?></label>
+                    <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
+                    <?php echo strtoupper($availableLang) ?></button>
                     <?php endforeach ?>
                 </div>
                 <?php echo $this->content; ?>
 
             </div> <!-- /container -->
 
-            <footer>
-                <p class="float-left">&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
+            <footer class="modal-footer navbar">
+                <div class="container-fluid"><small>
+                <p class="pull-left">&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
                     | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</p>
-                <p class="float-right">
+                
+                <p class="pull-right">
                     Powered by <a href="http://framework.zend.com">Zend Framework 2</a>,
-                                <a href="http://jquery.com">jQuery</a>,
-                                <a href="http://jqueryui.com">jQuery UI</a></p>
-                <div class="clear"></div>
+                                <a href="http://getbootstrap.com/2.3.2/">Bootstrap</a>,
+                                <a href="http://jquery.com">jQuery</a>
+                                </p>
+                </small>
+                </div>
             </footer>
         </div> <!-- /main -->
     </body>

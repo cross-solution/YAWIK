@@ -37,8 +37,6 @@ class Module
         $sm = $e->getApplication()->getServiceManager();
         $sm->get('translator'); // initialise translator!
         $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
         
         $languageRouteListener = new LanguageRouteListener();
         $languageRouteListener->attach($eventManager);

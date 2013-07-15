@@ -37,8 +37,7 @@ return array(
                         'options' => array(
                             'route'    => '/apply',
                             'defaults' => array(
-                                '__NAMESPACE__' => 'Applications\Controller',
-                                'controller' => 'index',
+                                'controller' => 'Applications\Controller\Index',
                                 'action'     => 'index',
                             ),
                         ),

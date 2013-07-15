@@ -61,7 +61,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
     public function onRoute(MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
-        if (0 !== strpos($routeMatch->getMatchedRouteName(), 'lang/')) {
+        if (0 !== strpos($routeMatch->getMatchedRouteName(), 'lang')) {
             // We do not have a language enabled route here.
             // but we need to provide a language to the navigation container
             $lang = $this->detectLanguage($e->getRequest()->getHeaders());

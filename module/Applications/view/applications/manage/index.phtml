@@ -4,13 +4,13 @@ if (!$this->isAjaxRequest):
 ?>
 
 <?php $this->headTitle($this->translate('Applications'));
-      $this->headLink()->appendStylesheet($this->basePath('css/Core/forms.css'))
+      /*$this->headLink()->appendStylesheet($this->basePath('css/Core/forms.css'))
                        ->appendStylesheet($this->basepath('/css/Applications/manage.css'));
-      $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>
+      $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>*/?>
 
-<h2><?=$this->translate('List of all applications')?></h2>
+<h1><?=$this->translate('List of all applications')?></h1>
 
-<table id="applications-list">
+<table class="table table-striped table-bordered table-hover" id="applications-list">
 <thead>
 <tr>
     <th>JobId</th>
