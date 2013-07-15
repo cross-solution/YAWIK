@@ -33,7 +33,7 @@ class HybridAuth implements AdapterInterface
      * 
      * @var \Auth\Mapper\MongoDb\UserMapper
      */
-    protected $_mapper;
+    protected $repository;
     
     /**
      * Hybridauth provider identifier
@@ -84,10 +84,10 @@ class HybridAuth implements AdapterInterface
        
        
        $forceSave = false;
-       $user = $this->getMapper()->findByProfileIdentifier($userProfile->identifier);
+       $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
        if (!$user) {
            $forceSave = true;
-           $user = $this->getMapper()->create();
+           $user = $this->getRepository()->getUserBuilder()->build();
        }
        
        
@@ -102,7 +102,7 @@ class HybridAuth implements AdapterInterface
                'displayName' => $userProfile->displayName,
                'profile' => $newInfo
            ));
-           $this->getMapper()->save($user);
+           $this->getRepository()->save($user);
        }
        
        
@@ -140,9 +140,9 @@ class HybridAuth implements AdapterInterface
      * @param  UserMapperInterface $mapper
      * @return HybridAuth
      */
-    public function setMapper(UserMapperInterface $mapper)
+    public function setRepository($repository)
     {
-        $this->_mapper = $mapper;
+        $this->repository = $repository;
 
         return $this;
     }
@@ -152,9 +152,9 @@ class HybridAuth implements AdapterInterface
      *
      * @return UserMapperInterface
      */
-    public function getMapper()
+    public function getRepository()
     {
-        return $this->_mapper;
+        return $this->repository;
     }
 
    

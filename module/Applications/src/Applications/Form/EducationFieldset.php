@@ -3,16 +3,16 @@
 namespace Applications\Form;
 
 use Zend\Form\Fieldset;
-use Applications\Model\Education as EducationModel;
-use Core\Model\Hydrator\ModelHydrator;
+use Applications\Entity\Education as EducationEntity;
+use Core\Entity\Hydrator\EntityHydrator;
 
 class EducationFieldset extends Fieldset
 {
     public function init()
     {
         $this->setName('education')
-             ->setHydrator(new ModelHydrator())
-             ->setObject(new EducationModel())
+             ->setHydrator(new EntityHydrator())
+             ->setObject(new EducationEntity())
              ->setLabel('Education');
         
         $this->add(array(

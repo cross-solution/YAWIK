@@ -3,16 +3,16 @@
 namespace Applications\Form;
 
 use Zend\Form\Fieldset;
-use Applications\Model\Application as ApplicationModel;
-use Core\Model\Hydrator\ModelHydrator;
+use Applications\Entity\Application as ApplicationEntity;
+use Core\Entity\Hydrator\EntityHydrator;
 
 class ApplicationFieldset extends Fieldset
 {
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new ModelHydrator();
-            $arrayToModelCollectionStrategy = new \Core\Model\Hydrator\Strategy\ArrayToCollectionStrategy();
+            $hydrator = new EntityHydrator();
+            $arrayToModelCollectionStrategy = new \Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy();
             $hydrator->addStrategy('educations', $arrayToModelCollectionStrategy);
             $this->setHydrator($hydrator);
         }
@@ -24,7 +24,7 @@ class ApplicationFieldset extends Fieldset
         
         $this->setName('application')
              //->setHydrator(new ModelHydrator())
-             ->setObject(new ApplicationModel());
+             ->setObject(new ApplicationEntity());
         
         $this->add(array(
             'type' => 'Hidden',

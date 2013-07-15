@@ -51,7 +51,7 @@ class IndexController extends AbstractActionController
         if ($request->isPost()) {
             $repository = $this->getServiceLocator()->get('ApplicationRepository');
             
-            $applicationModel = $repository->getApplicationBuilder()->buildModel(); 
+            $applicationModel = $repository->getApplicationBuilder()->build(); 
             $form->bind($applicationModel);
             $data = $this->params()->fromPost();
             $form->setData($data);

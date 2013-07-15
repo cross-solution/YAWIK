@@ -1,7 +1,19 @@
 
 all:
-	@echo "Usage: make install     : Create directories and set permissions, run composer install"
-	@echo "       make uninstall   : Remove directories and all contents (inkl. \"vendor\" directory from composer"
+	@echo "Makefile for Cross Applicant Management."
+	@echo
+	@echo "Available Sections:"
+	@echo
+	@echo "    composer-install         Install composer dependencies"
+	@echo "    install-config           Copy *.global configuration files from modules to /config/autoload/"
+	@echo "    create-directories       Create directories needed for cache, log. etc. and set permissions."
+	@echo "    install                  Runs composer-install, install-config and create-directories."
+	@echo "    remove-config            Deletes all *.global.php config files from /config/autoload."
+	@echo "    remove-directories       Deleted directories created with create-directories and all content."
+	@echo "    composer-uninstall       Deleted the /vender directory and all contents."
+	@echo "    uninstall                Runs remove-directories, composer-uninstall and remove-config."
+	@echo 
+	
 	
 install: composer-install create-directories install-config
 

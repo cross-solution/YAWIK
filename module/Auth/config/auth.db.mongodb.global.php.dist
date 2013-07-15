@@ -2,7 +2,8 @@
 return array(
     'service_manager' => array(
         'factories' => array(
-            'UserMapper' => '\Auth\Mapper\MongoDb\Service\UserMapperFactory',
+        	'UserRepository' => '\Auth\Repository\Service\UserRepositoryFactory',
+            'UserMapper' => '\Auth\Repository\Service\UserMapperFactory',
         ),
     ),
 );

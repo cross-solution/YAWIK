@@ -3,16 +3,16 @@
 namespace Applications\Form;
 
 use Zend\Form\Fieldset;
-use Applications\Model\Language as LanguageModel;
-use Core\Model\Hydrator\ModelHydrator;
+use Applications\Entity\Language as LanguageEntity;
+use Core\Entity\Hydrator\EntityHydrator;
 
 class LanguageFieldset extends Fieldset
 {
     public function init()
     {
         $this->setName('language')
-             ->setHydrator(new ModelHydrator())
-             ->setObject(new LanguageModel())
+             ->setHydrator(new EntityHydrator())
+             ->setObject(new LanguageEntity())
              ->setLabel('Language');
         
         $this->add(array(

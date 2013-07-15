@@ -3,16 +3,16 @@
 namespace Applications\Form;
 
 use Zend\Form\Fieldset;
-use Applications\Model\Employment as EmploymentModel;
-use Core\Model\Hydrator\ModelHydrator;
+use Applications\Entity\Employment as EmploymentEntity;
+use Core\Entity\Hydrator\EntityHydrator;
 
 class EmploymentFieldset extends Fieldset
 {
     public function init()
     {
         $this->setName('employment')
-             ->setHydrator(new ModelHydrator())
-             ->setObject(new EmploymentModel())
+             ->setHydrator(new EntityHydrator())
+             ->setObject(new EmploymentEntity())
              ->setLabel('Employment');
         
         $this->add(array(
