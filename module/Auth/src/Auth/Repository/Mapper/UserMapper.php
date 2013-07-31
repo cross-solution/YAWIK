@@ -38,6 +38,10 @@ class UserMapper extends AbstractMapper
         return $data;
     }
     
-   
+    public function findByDisplayName($displayName)
+    {
+        $data = $this->getCollection()->findOne(array('displayName' => $displayName));
+        return $data;
+    }
     
 }

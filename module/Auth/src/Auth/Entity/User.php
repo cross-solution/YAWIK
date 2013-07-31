@@ -28,6 +28,8 @@ class User extends AbstractEntity implements UserInterface
     /** @var string */
     protected $_displayName;
     
+    protected $credential;
+    
     /** @var array */
     protected $_profile = array();
     
@@ -98,6 +100,24 @@ class User extends AbstractEntity implements UserInterface
             $this->setDisplayName($name . $this->getLastName());
         }
         return $this->_displayName;
+    }
+    
+    public function getCredential()
+    {
+        return $this->credential;
+    }
+    
+    public function setPassword($password)
+    {
+        $filter     = new Filter\CredentialFilter();
+        $credential = $filter->filter($password); 
+        return $this->setCredential($credential);
+    }
+    
+    public function setCredential($credential) 
+    {
+        $this->credential = $credential;
+        return $this;    
     }
     
     /**

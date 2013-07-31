@@ -23,7 +23,7 @@ class User
     {
         if (!$this->userBuilder) {
             $builder = new \Core\Repository\EntityBuilder(
-                new \Core\Entity\Hydrator\EntityHydrator(),
+                new \Core\Repository\Hydrator\EntityHydrator(),
                 new \Auth\Entity\User(),
                 new \Core\Entity\Collection()
             );
@@ -44,6 +44,16 @@ class User
         
         $entity = $this->getUserBuilder()->build($userData);
         return $entity;
+    }
+    
+    public function findByDisplayName($displayName) {
+        $userData = $this->userMapper->findByDisplayName($displayName);
+        
+        if (null !== $userData) {
+            $entity = $this->getUserBuilder()->build($userData);
+            return $entity;
+        }
+        
     }
     
 	public function find ($id)

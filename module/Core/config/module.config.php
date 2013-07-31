@@ -98,7 +98,8 @@ return array(
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
         'invokables' => array(
-            'listquery' => 'Core\Controller\Plugin\ListQuery'
+            'listquery' => 'Core\Controller\Plugin\ListQuery',
+            'config'    => 'Core\Controller\Plugin\Config',
         )
     ),
     

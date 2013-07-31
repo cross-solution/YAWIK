@@ -17,6 +17,7 @@ return array(
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
+            'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
         ),
     ),
     
@@ -46,6 +47,16 @@ return array(
                 'path' => __FILE__,
             ),
             "keys"    => array ( "key" => "", "secret" => "" ),
+        ),
+    ),
+    
+    // Module specific configuration
+    
+    'Auth' => array(
+        // Allowed external Applications
+        // applications[USERPOSTFIX] => AppKey
+        'external_applications' => array(
+            'ams' => 'AmsAppKey',
         ),
     ),
     
@@ -89,6 +100,22 @@ return array(
                         'action' => 'index'
                     ),
                 ),
+            ),
+            // This route must be after auth-provider for the
+            // last in first out order of the route stack!
+            // @TODO implement auth-provider and auth-extern as child routes
+            //       to a new auth-login route.
+            'auth-extern' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/login/extern',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Index',
+                        'action'     => 'login-extern',
+                        'forceJson'  => true,
+                    ),
+                ),
+                'may_terminate' => true,
             ),
             'auth-logout' => array(
                 'type' => 'Literal',

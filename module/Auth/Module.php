@@ -11,6 +11,7 @@ namespace Auth;
 
 use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
+use Auth\Listener\TokenListener;
 /**
  * Bootstrap class of the Core module
  * 
@@ -18,6 +19,12 @@ use Auth\View\InjectLoginInfoListener;
 class Module
 {
 
+    public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
+    {
+        $eventManager  = $moduleManager->getEventManager()->getSharedManager();
+        $tokenListener = new TokenListener();
+        $tokenListener->attachShared($eventManager);
+    }
     /**
      * Loads module specific configuration.
      * 
@@ -55,7 +62,9 @@ class Module
     
     public function onBootstrap(MvcEvent $e)
     {
-        $e->getApplication()->getEventManager()->attach(
+        $eventManager = $e->getApplication()->getEventManager();
+        
+        $eventManager->attach(
             MvcEvent::EVENT_RENDER,
             array(new InjectLoginInfoListener(), 'injectLoginInfo')
         );

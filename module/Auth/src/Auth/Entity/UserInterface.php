@@ -73,6 +73,12 @@ interface UserInterface extends EntityInterface
      */
     public function getDisplayName();
     
+    public function setPassword($password);
+    
+    public function setCredential($credential);
+    
+    public function getCredential();
+    
     /**
      * Sets the profile info from Hybridauth
      * 
