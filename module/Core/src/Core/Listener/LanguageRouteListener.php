@@ -34,7 +34,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onRoute'), $priority);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), -1000);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), $priority);
     }
 
     /**
@@ -125,7 +125,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $langUri = rtrim("/$lang$origUri", '/');        
 
         if ($e->getRouter()->match($request->setUri($langUri)) instanceOf RouteMatch) {
-            //$e->stopPropagation(true);
+            $e->stopPropagation(true);
             //$e->setError(false);
             return $this->redirect($e->getResponse(), $langUri);
         }

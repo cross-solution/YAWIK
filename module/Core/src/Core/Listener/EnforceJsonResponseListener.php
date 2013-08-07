@@ -58,8 +58,9 @@ class EnforceJsonResponseListener implements ListenerAggregateInterface
     {
         $viewModel = $e->getResult();
         $isJsonModel = $viewModel instanceOf JsonModel;
+        $routeMatch = $e->getRouteMatch();
         
-        if ($e->getRouteMatch()->getParam('forceJson', false) || $isJsonModel) {
+        if (($routeMatch && $routeMatch->getParam('forceJson', false)) || $isJsonModel) {
         
             
             if (!$isJsonModel) {
