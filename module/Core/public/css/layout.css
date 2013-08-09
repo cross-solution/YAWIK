@@ -40,9 +40,11 @@ footer.modal-footer .container-fluid {
 footer.modal-footer .container-fluid p {
 	margin: 0;
 }
-footer.modal-footer .container-fluid p a {
+footer.modal-footer .container-fluid p a,
+header #login-info-box a {
 	color: #555;
 }
-footer.modal-footer .container-fluid p a:hover {
+footer.modal-footer .container-fluid p a:hover,
+header #login-info-box a:hover {
 	color: #333;
 }
