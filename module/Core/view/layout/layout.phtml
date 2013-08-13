@@ -27,6 +27,7 @@
         <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css')
                                     ->prependStylesheet($this->basePath('bootstrap/css/bootstrap.css'));?>
 
+        
     </head>
     <body>
         <div id="main">
@@ -38,7 +39,7 @@
 
                 <div class="nav-collapse collapse" id="main-navigation">
                     <?php 
-                        echo $this->navigation('main_navigation')->menu()->setUlClass('nav')?>
+                        echo $this->navigation('main_navigation')->menu()->renderPartial(null, 'main-navigation')?>
 
                     <?php echo $this->loginInfo ?>
                 </div> <!-- /main-navigation -->

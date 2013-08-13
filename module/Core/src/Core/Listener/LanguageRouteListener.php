@@ -209,12 +209,15 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected function setRecursiveNavigationParams($pages, $lang)
     {
         foreach ($pages as $page) {
-            $route = $page->getRoute();
-            if (0 === strpos($route, 'lang')) {
-                $params = $page->getParams();
-                if (!isset($params['lang']) || $lang != $params['lang']) {
-                    $params['lang'] = $lang;
-                    $page->setParams($params);
+            if ($page instanceof \Zend\Navigation\Page\Mvc) {
+                $route = $page->getRoute();
+                if (0 === strpos($route, 'lang')) {
+            
+                    $params = $page->getParams();
+                    if (!isset($params['lang']) || $lang != $params['lang']) {
+                        $params['lang'] = $lang;
+                        $page->setParams($params);
+                    }
                 }
             }
             $this->setRecursiveNavigationParams($page->getPages(), $lang);

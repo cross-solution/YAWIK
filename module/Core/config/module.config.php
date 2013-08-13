@@ -118,6 +118,7 @@ return array(
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             
+            'main-navigation'         => __DIR__ . '/../view/partial/main-navigation.phtml',
             // Form partials
             'form'                    => __DIR__ . '/../view/form/form.phtml',
             'form/row'                => __DIR__ . '/../view/form/row.phtml',

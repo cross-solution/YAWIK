@@ -26,6 +26,11 @@ h1 {
 	height: 20px;
 	margin: 10px 0 0 10px;
 }
+.navbar .nav > .dropdown > a {
+	float: left;
+}
+
+
 footer.modal-footer {
 	color: #777;
 	position: fixed;
