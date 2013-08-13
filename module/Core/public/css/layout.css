@@ -29,7 +29,29 @@ h1 {
 .navbar .nav > .dropdown > a {
 	float: left;
 }
+header #login-info-box a:hover {
+	color: #333;
+}
 
+fieldset fieldset {
+  border: 1px solid #dddddd;
+  
+  
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	background-color: #fdfdfd;
+}
+fieldset legend > a {
+	margin-top: 5px;
+	margin-right: 5px;
+}
+fieldset fieldset a.remove-item {
+	margin-top: -15px;
+	margin-right: 5px;
+}
 
 footer.modal-footer {
 	color: #777;
@@ -50,6 +72,3 @@ header #login-info-box a {
 	color: #555;
 }
 footer.modal-footer .container-fluid p a:hover,
-header #login-info-box a:hover {
-	color: #333;
-}

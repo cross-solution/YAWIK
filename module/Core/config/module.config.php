@@ -119,12 +119,7 @@ return array(
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             
             'main-navigation'         => __DIR__ . '/../view/partial/main-navigation.phtml',
-            // Form partials
-            'form'                    => __DIR__ . '/../view/form/form.phtml',
-            'form/row'                => __DIR__ . '/../view/form/row.phtml',
-            'form/radio'          => __DIR__ . '/../view/form/radio.phtml',
-            'form/collection'         => __DIR__ . '/../view/form/collection.phtml',
-            'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
+            
         ),
         
         // Where to look for view templates not mapped above
@@ -136,20 +131,20 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'jquery' => 'Core\View\Helper\Jquery',
-            'form' => 'Core\Form\View\Helper\Form',
-            'form_element' => 'Core\Form\View\Helper\FormElement',
-            'form_partial' => 'Core\Form\View\Helper\FormPartial',
-            'form_collection' => 'Core\Form\View\Helper\FormCollection',
-            'form_row' => 'Core\Form\View\Helper\FormRow',
-            'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
-            'form_radio' => 'Core\Form\View\Helper\FormRadio',
-            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
             'build_query' => 'Core\View\Helper\BuildQuery',
+            'form' => 'Core\Form\View\Helper\Form',
+            'formcollection' => 'Core\Form\View\Helper\FormCollection',
+            'formrow'        => 'Core\Form\View\Helper\FormRow',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
     ),
     
+    'form_elements' => array(
+        'invokables' => array(
+            'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+        ),
+    ),
     
 );

@@ -11,7 +11,7 @@ return array(
     
     // Activated modules. (Use folder name)
     'modules' => array(
-        'Core', 'Auth', 'Applications'
+        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications'
     ),
     
     // Where to search modules
@@ -26,5 +26,39 @@ return array(
         'config_glob_paths' => array(
             'config/autoload/{,*.}{global,local}.php'
         ),
-    )
+    ),
+    
+    'service_listener_options' => array(
+        array(
+            'service_manager' => 'MapperManager',
+            'config_key'      => 'mappers',
+            'interface'       => '\Core\ModuleManager\Feature\MapperProviderInterface',
+            'method'          => 'getMapperConfig',      
+        ),
+        array(
+            'service_manager' => 'EntityBuilderManager',
+            'config_key'      => 'entity_builders',
+            'interface'       => '\Core\ModuleManager\Feature\EntityBuilderProviderInterface',
+            'method'          => 'getEntityBuilderConfig',
+        ),
+        array(
+            'service_manager' => 'RepositoryManager',
+            'config_key'      => 'repositories',
+            'interface'       => '\core\ModuleManager\Feature\RepositoryProviderInterface',
+            'method'          => 'getRepositoryConfig',
+        ),
+    ),
+    
+    'service_manager' => array(
+        'invokables' => array(
+            'MapperManager' => 'Core\Repository\Mapper\MapperManager',
+            'EntityBuilderManager' => 'Core\Repository\EntityBuilder\EntityBuilderManager',
+            'RepositoryManager' => 'Core\Repository\RepositoryManager',
+         ),
+         'aliases' => array(
+             'mappers' => 'MapperManager',
+             'builders' => 'EntityBuilderManager',
+             'repositories' => 'RepositoryManager',
+         ),
+    ),
 );

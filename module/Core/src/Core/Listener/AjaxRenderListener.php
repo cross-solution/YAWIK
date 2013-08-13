@@ -57,6 +57,7 @@ class AjaxRenderListener implements ListenerAggregateInterface
             } else {
                 $viewModel->setVariable('isAjaxRequest', true);
             } 
+            //$viewModel->setTerminal(true);
             $e->setViewModel($viewModel);
         }
                 

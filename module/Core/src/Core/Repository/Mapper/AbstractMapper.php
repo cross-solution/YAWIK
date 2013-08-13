@@ -10,14 +10,14 @@
 /** Core MongoDb Mappers */
 namespace Core\Repository\Mapper;
 
-use Core\Repository\Mapper\MapperInterface;
+use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 
 
 /**
  * Concrete implementation of \Core\Mapper\MongoDb\MapperInterface
  * 
  */
-abstract class AbstractMapper implements MapperInterface
+abstract class AbstractMapper implements MapperInterface, EntityBuilderAwareInterface
 {
     
     /**
@@ -87,7 +87,7 @@ abstract class AbstractMapper implements MapperInterface
      * @param ModelInterface $model
      * @see \Core\Mapper\MapperInterface::save()
      */
-    public function save(array $data)
+    protected function saveData(array $data)
     {
         if (isset($data['_id'])) {
             $query = array('_id' => $data['_id']);

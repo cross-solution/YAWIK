@@ -55,21 +55,6 @@ class CollectionHydrator extends AbstractHydrator
         return $object;
     }
     
-    public function hydrateValue($name, $value) {
-        if ($this->hasStrategy($name)) {
-            return parent::hydrateValue($name, $value);
-        }
-        
-        return $value;
-    }
-    
-    public function extractValue($name, $value)
-    {
-        if ($this->hasStrategy($name)) {
-            return parent::extractValue($name, $value);
-        }
-        
-        return $value;
-    }
+   
     
 }

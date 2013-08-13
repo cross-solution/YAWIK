@@ -2,111 +2,62 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\FormInterface;
 use Zend\Form\View\Helper\Form as ZendForm;
+use Zend\Form\FormInterface;
+use Zend\Form\FieldsetInterface;
 
 class Form extends ZendForm
 {
-    protected $extractFieldsets = true;
-    protected $baseFieldsetName;
-    protected $fieldsetOrder = array(
-        '__base__',
-        '__fieldsets__',
-        'buttons'
-    );
+    const LAYOUT_HORIZONTAL = 'form-horizontal';
+    const LAYOUT_INLINE     = 'form-inline';
+    const LAYOUT_VERTICAL   = '';
     
-    public function render(FormInterface $form)
+    
+    /**
+     * Invoke as function
+     *
+     * @param  null|FormInterface $form
+     * @return Form
+     */
+    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_HORIZONTAL)
     {
-        $baseFieldsetName = $this->getBaseFieldsetName();
-        if (!$this->extractFieldsets() || !$baseFieldsetName) {
-            return parent::render();
+        if (!$form) {
+            return $this;
         }
+    
+        return $this->render($form, $layout);
+    }
+    
+    /**
+     * Render a form from the provided $form,
+     *
+     * @param  FormInterface $form
+     * @return string
+     */
+    public function render(FormInterface $form, $layout=self::LAYOUT_HORIZONTAL)
+    {
         
+        $class = $form->getAttribute('class');
+        $class = preg_replace('~\bform-[^ ]+\b~', '', $class);
+        $class .= ' ' . $layout;
+        
+        $form->setAttribute('class', $class);
+
         if (method_exists($form, 'prepare')) {
             $form->prepare();
         }
-        
-        
-        $fieldsets = array();
-        
-        $baseFieldsetNameLength = strlen($baseFieldsetName);
-        $baseFieldset = $form->get($this->getBaseFieldsetName());
-        foreach ($baseFieldset->getIterator() as $elementOrFieldset):
-            if ($elementOrFieldset instanceOf \Zend\Form\FieldsetInterface) {
-                $fieldsetName = substr($elementOrFieldset->getName(), $baseFieldsetNameLength + 1, -1);
-                $fieldsets[$fieldsetName] = $elementOrFieldset;
-                $baseFieldset->remove($fieldsetName);
-        }
-        endforeach;
-        
-        $renderer = $this->getView()->plugin('formcollection');
-        $markup = '';
-        foreach ($this->getFieldsetOrder() as $fieldset) {
-            switch ($fieldset) {
-                case '__base__':
-                    $markup .= $renderer($baseFieldset);
-                    break;
-                
-                case '__fieldsets__':
-                    foreach ($fieldsets as $fs) {
-                        $markup .= $renderer($fs);
-                    }
-                    break;
-                
-                default:
-                    if ($form->has($fieldset)) {
-                        $markup .= $renderer($form->get($fieldset));
-                    } else if (isset ($fieldsets[$fieldsets])) {
-                        $markup .= $renderer($fieldsets[$fieldset]);
-                    
-                    }
-                    break;
-                    
+    
+        $formContent = '';
+    
+        foreach ($form as $element) {
+            if ($element instanceof FieldsetInterface) {
+                $formContent.= $this->getView()->formCollection($element, true, $layout);
+            } else {
+                $formContent.= $this->getView()->formRow($element);
             }
         }
-        return $this->openTag($form) . $markup . $this->closeTag();
+    
+        return $this->openTag($form) . $formContent . $this->closeTag();
     }
     
-    public function setFieldsetOrder(array $order)
-    {
-        $this->fieldsetOrder = $order;
-        return $this;
-    }
-    
-    public function getFieldsetOrder()
-    {
-        return $this->fieldsetOrder;
-    }
-    
-    public function setExtractFieldsets($flag)
-    {
-        $this->extractCollections = (bool) $flag;
-        return $this;
-    }
-    
-    public function extractFieldsets()
-    {
-        return $this->extractFieldsets;
-    }
-    
-    public function setBaseFieldsetName($name)
-    {
-        $this->baseFieldsetName = $name;
-        return $this;
-    }
-    
-    public function getBaseFieldsetName()
-    {
-        return $this->baseFieldsetName;
-    }
-    
-    public function __invoke(FormInterface $form=null, $baseFieldset=null)
-    {
-        if (null === $form) {
-            return $this;
-        }
-        
-        $this->setBaseFieldsetName($baseFieldset);
-        return $this->render($form);
-    }
 }

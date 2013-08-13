@@ -9,11 +9,17 @@ use Core\Entity\CollectionInterface;
 
 class SubDocumentsStrategy implements StrategyInterface
 {
-    protected $entityBuilder;
     
-    public function __construct($entityBuilder)
+    const AS_COLLECTION = 'AS_COLLECTION';
+    const AS_ENTITY     = 'AS_ENTITY';
+    
+    protected $entityBuilder;
+    protected $buildMode;
+    
+    public function __construct($entityBuilder, $buildMode=self::AS_COLLECTION)
     {
         $this->entityBuilder = $entityBuilder;
+        $this->buildMode = $buildMode;
     }
     
 	/* (non-PHPdoc)
@@ -25,7 +31,9 @@ class SubDocumentsStrategy implements StrategyInterface
             return $value;
         }
 
-        return $this->entityBuilder->buildCollection($value);
+        return self::AS_COLLECTION == $this->buildMode 
+            ? $this->entityBuilder->buildCollection($value)
+            : $this->entityBuilder->build($value);
     }
 
 	/* (non-PHPdoc)
@@ -38,13 +46,15 @@ class SubDocumentsStrategy implements StrategyInterface
             return $value;
         }
        
-        if ($value instanceOf \Core\Entity\RelationCollectionInterface
+        if (($value instanceOf \Core\Entity\RelationCollectionInterface && !$value->isCollectionLoaded())
             || !count($value)
         ) {
             return null;
         }
         
-        return $this->entityBuilder->unbuildCollection($value);
+        return self::AS_COLLECTION == $this->buildMode 
+            ? $this->entityBuilder->unbuildCollection($value)
+            : $this->entityBuilder->unbuild($value);
         
     }
     

@@ -2,6 +2,7 @@
 
 namespace Core\Repository\Mapper;
 
+use Core\Entity\EntityInterface;
 interface MapperInterface
 {
     public function setCollection(\MongoCollection $collection);
@@ -10,5 +11,5 @@ interface MapperInterface
     public function find($id, array $fields=array());
     public function fetchAll(array $query = array(), array $fields = array());
     
-    public function save(array $data);
+    public function save(EntityInterface $entity);
 }

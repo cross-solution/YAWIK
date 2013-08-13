@@ -2,7 +2,7 @@
 
 namespace Core\Entity;
 
-use Core\Entity\EntityInterface;
+
 
 interface RelationCollectionInterface 
 {

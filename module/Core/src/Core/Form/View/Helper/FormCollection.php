@@ -2,110 +2,124 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\ElementInterface;
 use Zend\Form\View\Helper\FormCollection as ZendFormCollection;
-use Zend\Form\Element\MultiCheckbox;
+use Zend\Form\ElementInterface;
+use Zend\Form\Element\Collection as CollectionElement;
+use Zend\Form\FieldsetInterface;
 
 class FormCollection extends ZendFormCollection
 {
+   
+    protected $layout;
+    protected $isWithinCollection = false;
     
-    protected $useLabeledItems = true;
-    protected $insideCollection = false;
-    
-    public function isInsideCollection($flag = null)
+    public function __invoke(ElementInterface $element = null, $wrap = true, $layout = null)
     {
-        if (null !== $flag) {
-            $this->insideCollection = (bool) $flag;
+        if (!$element) {
             return $this;
         }
-        return $this->insideCollection;
+        
+        if ($layout) {
+            $this->setLayout($layout);
+        }
+
+        $this->setShouldWrap($wrap);
+
+        return $this->render($element);
     }
     
-    public function useLabeledItems($flag=null)
+    public function setLayout($layout)
     {
-        if (null !== $flag) {
-            $this->useLabeledItems = (bool) $flag;
-            return $this;
-        }
-        return $this->useLabeledItems;
-    }
-    
-    public function render(ElementInterface $element)
-    {
-        $this->setShouldWrap(false);
-        
-        if (!$element->hasAttribute('id')) {
-            $element->setAttribute('id', str_replace(array('[', ']'), array('-', ''), $element->getName()));
-        }
-        
-        $label = '';
-        if ($this->useLabeledItems()) {
-            $label = $element->getLabel();
-
-            if (!empty($label)) {
-
-                $label = $this->getView()->translate($label);
-                $label = '<legend>' . $this->getEscapeHtmlHelper()->__invoke($label);
-                if ($element->getOption('collapsable')) {
-                    $iconDir = $element->getOption('collapsed') ? 'n' : 's';
-                    $label .= '<span class="float-right ui-icon ui-icon-triangle-1-' . $iconDir . '"></span>';
-                } 
-                
-                $label .= '</legend>';
-            }
-        }
-        $markup = parent::render($element);
-        $class = '';
-        if ($element instanceOf \Zend\Form\Element\Collection) {
-            
-            $useLabeledItems = $this->useLabeledItems();
-            $isInsideCollection = $this->isInsideCollection();
-            $this->useLabeledItems($element->getOption('use_labeled_items'));
-            $this->isInsideCollection(true);
-            $markup = parent::render($element);   
-            $this->useLabeledItems($useLabeledItems);
-            $this->isInsideCollection($isInsideCollection);
-            $class = ' class="form-collection"';
-            
-            $markup = sprintf(
-                '<div id="%1$s-items" class="form-collection-items">%3$s</div>'
-                . '<fieldset class="form-collection-add-item"><button id="add-%1$s">%2$s</button></fieldset>',
-                $element->getAttribute('id'),
-                $this->getView()->translate('Add item'),
-                $markup
-            );
-                
-        }
-        $removeIcon = $this->isInsideCollection()
-                    ? '<button id="remove-' . $element->getAttribute('id') . '"'
-                      . ' class="remove-collection-item-button"></button>'
-                      
-                    : '';
-        
-        $markup = sprintf(
-            '<div id="%1$s-wrapper" class="fieldset-wrapper">%2$s<fieldset id="%1$s"%3$s>%4$s<div class="fieldset-content%5$s">%6$s</div></fieldset></div>',
-            $element->getAttribute('id'),
-            $removeIcon,
-            $class,
-            $label,
-            $element->getOption('collapsed') ? ' hidden' : '',
-            $markup
-        );
-        return $markup;                
+        $this->layout = $layout;
+        return $this;
     }
     
     /**
-     * Only render a template
+     * Render a collection by iterating through all fieldsets and elements
      *
-     * @param  CollectionElement            $collection
+     * @param  ElementInterface $element
      * @return string
      */
-    public function renderTemplate(\Zend\Form\Element\Collection $collection)
+    public function render(ElementInterface $element)
     {
-        if (!$collection->getOption('use_labeled_items')) {
-            $collection->getTemplateElement()->setLabel('');
+        $renderer = $this->getView();
+        if (!method_exists($renderer, 'plugin')) {
+            // Bail early if renderer is not pluggable
+            return '';
         }
-        return parent::renderTemplate($collection);
+    
+        $markup           = '';
+        $templateMarkup   = '';
+        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+        $elementHelper    = $this->getElementHelper();
+        $fieldsetHelper   = $this->getFieldsetHelper();
+    
+        $isCollectionElement = $element instanceOf CollectionElement;
+        if ($isCollectionElement && $element->shouldCreateTemplate()) {
+            $this->isWithinCollection = true;
+            $templateMarkup = $this->renderTemplate($element);
+            $this->isWithinCollection = false;
+        }
+    
+        foreach ($element->getIterator() as $elementOrFieldset) {
+            if ($elementOrFieldset instanceof FieldsetInterface) {
+                if ($isCollectionElement) {
+                    $this->isWithinCollection = true;
+                }
+                $markup .= $fieldsetHelper($elementOrFieldset);
+                $this->isWithinCollection = false;
+            } elseif ($elementOrFieldset instanceof ElementInterface) {
+                $markup .= $elementHelper($elementOrFieldset, null, null, $this->layout);
+            }
+        }
+    
+        // If $templateMarkup is not empty, use it for simplify adding new element in JavaScript
+        if (!empty($templateMarkup)) {
+            $markup .= $templateMarkup;
+        }
+    
         
+        // Every collection is wrapped by a fieldset if needed
+        if ($this->shouldWrap) {
+            $elementId = preg_replace(
+                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                array('-'              , '-'    , ''       ),
+                $element->getName()
+            );
+            if ($this->isWithinCollection) {
+                $markup = sprintf('<fieldset id="%s"><a class="remove-item pull-right btn"><i class="icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
+            } else {
+                $label = $element->getLabel();
+        
+                if (!empty($label)) {
+        
+                    
+                    if (null !== ($translator = $this->getTranslator())) {
+                        $label = $translator->translate(
+                            $label, $this->getTranslatorTextDomain()
+                        );
+                    }
+    
+                    $label = $escapeHtmlHelper($label);
+                    
+                    if ($isCollectionElement) {
+                        $extraLegend = '<a href="#" class="add-item btn pull-right"><i class="icon-plus"></i></a>';
+                        $class  = ' class="form-collection"';
+                    } else {
+                        $extraLegend = $class = '';
+                    }
+                    
+                    $markup = sprintf(
+                        '<fieldset id="%s"%s><legend>%s%s</legend>%s</fieldset>',
+                        $elementId, $class, $label, $extraLegend,
+                        $markup
+                    );
+                }
+            }
+        }
+    
+        return $markup;
     }
+    
+    
 }
