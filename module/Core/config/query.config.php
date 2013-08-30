@@ -2,7 +2,5 @@
 
 
 return array(
-    'service_manager' => 
-    ),
 );
 

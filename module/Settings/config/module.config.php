@@ -73,5 +73,23 @@ return array(
         ),
     ),
     
+    'form_elements' => array(
+        'invokables' => array(
+            'Settings' => '\Settings\Form\Settings',
+        ),
+        'factories' => array(
+        ),
+    ),
     
+     'service_manager' => array(
+        'invokables' => array('aaa' => 'bbb'),
+        'factories' => array('SettingsRepository' => '\Settings\Repository\Service\SettingsFactory'),
+        'initializers' => array(),
+        'shared' => array(),
+        'aliases' => array(),
+    ),
+    
+    'controller_plugins' => array(
+        'factories' => array('settings' => '\Settings\Repository\Service\SettingsPluginFactory'),
+    ),
 );

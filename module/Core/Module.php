@@ -46,6 +46,11 @@ class Module
         
         $enforceJsonResponseListener = new EnforceJsonResponseListener();
         $enforceJsonResponseListener->attach($eventManager);
+        
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
+            $eventManager->trigger('postDispatch', $event);
+        }, -150);
+        
     }
 
     /**
@@ -73,5 +78,4 @@ class Module
             ),
         );
     }
-    
 }

@@ -11,11 +11,7 @@ return array(
     
     // Activated modules. (Use folder name)
     'modules' => array(
-<<<<<<< HEAD
-        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications'
-=======
-        'Core', 'Auth', 'Applications', 'Settings'
->>>>>>> (#4300) filestructure and config-files
+        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Settings'
     ),
     
     // Where to search modules

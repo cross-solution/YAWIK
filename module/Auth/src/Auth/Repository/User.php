@@ -56,11 +56,9 @@ class User
         
     }
     
-	public function find ($id)
+    public function find ($id)
     {
         $userData = $this->userMapper->find($id);
-        
-        
         $entity = $this->getUserBuilder()->build($userData);
         return $entity;
     }

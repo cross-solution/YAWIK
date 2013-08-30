@@ -131,6 +131,14 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'jquery' => 'Core\View\Helper\Jquery',
+//            'form' => 'Core\Form\View\Helper\Form',
+//            'form_element' => 'Core\Form\View\Helper\FormElement',
+//            'form_partial' => 'Core\Form\View\Helper\FormPartial',
+//            'form_collection' => 'Core\Form\View\Helper\FormCollection',
+//            'form_row' => 'Core\Form\View\Helper\FormRow',
+//            'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
+//            'form_radio' => 'Core\Form\View\Helper\FormRadio',
+//            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
             'build_query' => 'Core\View\Helper\BuildQuery',
             'form' => 'Core\Form\View\Helper\Form',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',

@@ -89,9 +89,9 @@ abstract class AbstractMapper implements MapperInterface, EntityBuilderAwareInte
      */
     protected function saveData(array $data)
     {
-        if (isset($data['_id'])) {
-            $query = array('_id' => $data['_id']);
-            unset($data['_id']);
+        if (isset($data['id'])) {
+            $query = array('_id' => $this->getMongoId($data['id']));
+            unset($data['id']);
             
             $this->getCollection()->update($query, array('$set' => $data));
             return (string) $query['_id'];

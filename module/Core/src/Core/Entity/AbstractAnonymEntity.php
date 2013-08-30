@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Cross Applicant Management
  *
@@ -20,15 +21,9 @@ use Core\Entity\Exception\OutOfBoundsException;
  * getter and setter methods.
  * 
  */
-abstract class AbstractEntity extends AbstractAnonymEntity implements EntityInterface
-{ 
-    /**
-     * Entity id
-     * 
-     * @var mixed
-     */
-    protected $id;
-    
+abstract class AbstractAnonymEntity implements AnonymEntityInterface
+{
+      
     /**
      * Sets a property through the setter method.
      * 
@@ -93,42 +88,4 @@ abstract class AbstractEntity extends AbstractAnonymEntity implements EntityInte
         }
         return (bool) $value;
     }
-    
-   
-    
-    /**
-     * {@inheritdoc}
-     * @see \Core\Entity\EntityInterface::getId()
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * {@inheritdoc}
-     * @return \Core\Entity\AbstractEntity
-     * @see \Core\Entity\EntityInterface::setId()
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-    
-    /**
-     * {@inheritdoc}
-     * @return \Core\Entity\AbstractEntity
-     * @uses __set()
-     * @throws OutOfBoundsException
-     * @see \Core\Entity\EntityInterface::setData()
-     */
-    public function setData(array $data)
-    {
-        foreach ($data as $name => $value) {
-            $this->__set($name, $value);
-        }
-        return $this;
-    }
-    
 }

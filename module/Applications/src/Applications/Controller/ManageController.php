@@ -35,6 +35,10 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
+        $settings = $this->settings();
+        $settings->test = 'Hello World';
+        $settings->something = 'Shout out';
+        
         $repository = $this->getServiceLocator()->get('ApplicationRepository');
         
         $paginator = new \Zend\Paginator\Paginator(

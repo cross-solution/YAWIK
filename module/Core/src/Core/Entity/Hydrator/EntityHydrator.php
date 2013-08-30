@@ -68,6 +68,13 @@ class EntityHydrator extends AbstractHydrator
             $propertyName = lcfirst(substr($setter, 3));
             if (isset($data[$propertyName])) {
                 $object->$setter($this->hydrateValue($propertyName, $data[$propertyName]));
+                unset($data[$propertyName]);
+            }
+        }
+        
+        foreach ($data as $key => $value) {
+            if ($value instanceOf \MongoId) {
+                $object->setId($value->__toString());
             }
         }
         

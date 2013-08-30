@@ -14,8 +14,7 @@ use Core\Entity\AbstractEntity;
  * The user model
  */
 class User extends AbstractEntity implements UserInterface
-{
-    
+{   
     /** @var string */
     protected $_email;
     
@@ -32,6 +31,9 @@ class User extends AbstractEntity implements UserInterface
     
     /** @var array */
     protected $_profile = array();
+    
+    /** @var array */
+    protected $_settings = array();
     
     /**
      * {@inheritdoc}
@@ -135,6 +137,23 @@ class User extends AbstractEntity implements UserInterface
     {
         return $this->_profile;
     }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setSettings(array $settings)
+    {
+        $this->_settings = $settings;
+        return $this;
+    }
+
+    /** {@inheritdoc} */
+    public function getSettings()
+    {
+        return $this->_settings;
+    }
+    
     
     
 }

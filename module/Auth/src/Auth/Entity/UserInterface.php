@@ -93,4 +93,7 @@ interface UserInterface extends EntityInterface
      */
     public function getProfile();
     
+    public function setSettings(array $settings);
+    public function getSettings();
+    
 }
