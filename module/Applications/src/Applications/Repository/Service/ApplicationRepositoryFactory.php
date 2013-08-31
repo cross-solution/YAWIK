@@ -12,10 +12,10 @@ class ApplicationRepositoryFactory implements FactoryInterface
      */
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $applicationMapper = $serviceLocator->get('ApplicationMapper');
-        $educationMapper   = $serviceLocator->get('EducationMapper');
+        //$applicationMapper = $serviceLocator->get('ApplicationMapper');
+        //$educationMapper   = $serviceLocator->get('EducationMapper');
 
-        $repository = new Application($applicationMapper, $educationMapper);
+        $repository = new Application();
         //$repository->setApplicationBuilder($serviceLocator->get('ApplicationBuilder'));
         return $repository;
     }

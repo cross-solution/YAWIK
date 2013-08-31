@@ -15,8 +15,8 @@ class CvFactory implements FactoryInterface
     {
         $form = new Form('create_cv');
         //$form->add($serviceLocator->get('ApplicationFieldset'));
-        $form->add($serviceLocator->get('EducationFieldset'));
-        $form->add($serviceLocator->get(''));
+        $form->add($serviceLocator->get('EducationCollection'));
+        
         $form->add($serviceLocator->get('DefaultButtonsFieldset'), array('name' => 'buttons'));
         return $form;
 

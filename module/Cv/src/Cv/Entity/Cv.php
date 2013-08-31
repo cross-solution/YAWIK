@@ -5,7 +5,7 @@ namespace Cv\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\CollectionInterface;
 
-class Cv extends AbstractIdentifiableEntity
+class Cv extends AbstractIdentifiableEntity implements CvInterface
 {
     
     protected $educations;

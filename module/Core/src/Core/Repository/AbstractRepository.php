@@ -7,6 +7,8 @@ use Core\Entity\EntityInterface;
 
 abstract class AbstractRepository implements RepositoryInterface, Mapper\MapperAwareInterface
 {
+    const LOAD_EAGER = 'EAGER';
+    const LOAD_LAZY  = 'LAZY';
     
     protected $mappers;
     
@@ -25,9 +27,11 @@ abstract class AbstractRepository implements RepositoryInterface, Mapper\MapperA
     {
         return $this->getMapperManager()->get($name);
     }
-    public function find($id) {}
-    public function fetchAll() {}
+    public function find($id, $mode=self::LOAD_LAZY) {}
+    public function fetch() {}
     public function create($data = null) {}
     public function save(EntityInterface $entity) {}
+    
+   
     
 }

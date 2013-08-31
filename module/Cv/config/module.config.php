@@ -115,12 +115,14 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'CvForm'            => '\Cv\Form\Cv',
+            'CvFieldset'        => '\Cv\Form\CvFieldset',
             'EducationFieldset' => '\Cv\Form\EducationFieldset',
             'EmploymentFieldset' => '\Cv\Form\EmploymentFieldset',
             
         ),
         'factories' => array(
-            'Cv' => '\Cv\Form\CvFactory'
+            'Cv' => '\Cv\Form\CvFactory',
+            'EducationCollection' => '\Cv\Form\EducationCollectionFactory',
         ),
     ),
     

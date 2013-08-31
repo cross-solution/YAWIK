@@ -8,7 +8,7 @@
  */
 
 /** Auth mapper mongodb service */
-namespace Applications\Repository\Service;
+namespace Applications\Repository\Mapper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -32,16 +32,12 @@ class ApplicationMapperFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $db = $serviceLocator->get('MongoDb');
+        $db = $serviceLocator->getServiceLocator()->get('MongoDb');
         $collection = $db->applications;
         
         $mapper = new ApplicationMapper($collection);
         
-//         $allowOverride = $serviceLocator->getAllowOverride();
-//         $serviceLocator->setAllowOverride(true);
-//         $serviceLocator->setService('ApplicationMapper', $mapper);
-//         $serviceLocator->setAllowOverride($allowOverride);
-//         $mapper->setEducationMapper($serviceLocator->get('EducationMapper'));
+
         return $mapper;
     }
     

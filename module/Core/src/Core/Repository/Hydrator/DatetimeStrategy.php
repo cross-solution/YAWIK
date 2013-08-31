@@ -7,22 +7,38 @@ use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
 class DatetimeStrategy implements StrategyInterface
 {
     
-    protected $extractResetDate;
+    const FORMAT_MONGO = 'MONGO';
+    const FORMAT_ISO   = 'ISO';
     
-    public function __construct($extractResetDate=false)
+    protected $extractFormat;
+    protected $hydrateFormat;
+    
+    public function __construct($hydrateFormat=self::FORMAT_MONGO, $extractFormat=self::FORMAT_MONGO)
     {
-        $this->setExtractResetDate($extractResetDate);
+        $this->setHydrateFormat($hydrateFormat);
+        $this->setExtractFormat($extractFormat);
     }
     
-    public function setExtractResetDate($flag)
+    public function setHydrateFormat($format)
     {
-        $this->extractResetDate = (bool) $flag;
+        $this->hydrateFormat = $format;
         return $this;
     }
     
-    public function extractResetDate()
+    public function getHydrateFormat()
     {
-        return $this->extractResetDate;
+        return $this->hydrateFormat;
+    }
+    
+    public function setExtractFormat($format)
+    {
+        $this->extractFormat = $format;
+        return $this;
+    }
+    
+    public function getExtractFormat()
+    {
+        return $this->extractFormat;
     }
     
 	/* (non-PHPdoc)
@@ -30,12 +46,35 @@ class DatetimeStrategy implements StrategyInterface
      */
     public function hydrate ($value)
     {
+        switch ($this->hydrateFormat) {
+            case self::FORMAT_MONGO:
+                return $this->hydrateFromMongoFormat($value);
+                break;
+                
+            case self::FORMAT_ISO:
+                return $this->hydrateFromIsoFormat($value);
+                break;
+                
+            default:
+                die (__METHOD__ . ': Unknown format.');
+                break;
+        }
+    }
+    
+    protected function hydrateFromMongoFormat($value)
+    {
         if (!is_array($value) || !isset($value['date']) || !isset($value['tz'])) {
             // @todo Error Handling.
             return "";
         }
         $date = new \DateTime("@".$value['date']->sec);
         $date->setTimezone(new \DateTimeZone($value['tz']));
+        return $date;
+    }
+    
+    protected function hydrateFromIsoFormat($value)
+    {
+        $date = \DateTime::createFromFormat('c', $value);
         return $date;
     }
 
@@ -48,15 +87,36 @@ class DatetimeStrategy implements StrategyInterface
             // @todo Error Handling
             return "";
         }
-        $date = $this->extractResetDate
-              ? new \MongoDate()
-              : new \MongoDate($value->getTimestamp());
+         
+        switch ($this->extractFormat) {
+            case self::FORMAT_MONGO:
+                return $this->extractToMongoFormat($value);
+                break;
+        
+            case self::FORMAT_ISO:
+                return $this->extractToIsoFormat($value);
+                break;
+        
+            default:
+                die (__METHOD__ . ': Unknown format.');
+                break;
+        }
+    }
+    
+    protected function extractToMongoFormat($value)
+    {
+        $date = new \MongoDate($value->getTimestamp());
         
         return array(
             'date' => $date,
             'tz' => $value->getTimezone()->getName(),
         );
         
+    }
+    
+    protected function extractToIsoFormat($value)
+    {
+        return $value->format('c');
     }
     
 }

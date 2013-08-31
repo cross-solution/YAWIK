@@ -12,9 +12,9 @@ class Cv extends AbstractRepository
 
 	
 
-	public function find($id, $mode = false)
+	public function find($id, $mode = self::LOAD_LAZY)
     {
-        $entity = $mode
+        $entity = $mode == self::LOAD_EAGER
                 ? $this->getMapper('cv')->find($id)
                 : $this->getMapper('cv')->find(
                       $id, 

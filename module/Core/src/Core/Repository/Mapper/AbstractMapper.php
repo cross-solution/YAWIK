@@ -10,14 +10,13 @@
 /** Core MongoDb Mappers */
 namespace Core\Repository\Mapper;
 
-use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
-
-
+use Core\Entity\EntityInterface;
+use Core\Repository\EntityBuilder\EntityBuilderInterface;
 /**
  * Concrete implementation of \Core\Mapper\MongoDb\MapperInterface
  * 
  */
-abstract class AbstractMapper implements MapperInterface, EntityBuilderAwareInterface
+abstract class AbstractMapper implements MapperInterface
 {
     
     /**
@@ -52,17 +51,20 @@ abstract class AbstractMapper implements MapperInterface, EntityBuilderAwareInte
         return $this->collection;
     }
     
+    
     /**
      * {@inheritdoc}
      * 
      * @param string|\MongoId $id Mongodb id
      */
-    public function find($id, array $fields = array(), $exclude = false)
+    protected function getData($query=array(), array $fields = array(), $exclude = false)
     {
-        $id = $this->getMongoId($id);
+        if (!is_array($query)) {
+            $query = array('_id' => $this->getMongoId($query));
+        }
         $mongoFields = $this->getMongoFields($fields, $exclude);
         
-        $data = $this->collection->findOne(array('_id' => $id), $mongoFields);
+        $data = $this->collection->findOne($query, $mongoFields);
         return $data;
     }
     
@@ -72,14 +74,16 @@ abstract class AbstractMapper implements MapperInterface, EntityBuilderAwareInte
      * @param CriteriaInterface|null $criteria
      * @return Collection
      */
-    public function fetchAll(array $query = array(), array $fields = array(), $exclude = false)
+    public function getCursor(array $query = array(), array $fields = array(), $exclude = false)
     {
         $mongoQuery = isset($query['query']) ? $query['query'] : $query;
         
         $mongoFields = $this->getMongoFields($fields, $exclude);
-        $cursor = $this->getCollection()->find($query);
+        $cursor = $this->getCollection()->find($query, $mongoFields);
         return $cursor;
     }
+    
+    
     
     /**
      * Saves an application

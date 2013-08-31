@@ -2,27 +2,13 @@
 
 namespace Cv\Repository\Mapper;
 
-use Core\Repository\Mapper\AbstractMapper;
-use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Repository\Mapper\AbstractBuilderAwareMapper as CoreMapper;
 use Core\Entity\EntityInterface;
 
-class CvMapper extends AbstractMapper implements EntityBuilderAwareInterface
+class CvMapper extends CoreMapper
 {
     
-    protected $builders;
-     
     
-    public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
-    {
-        $this->builders = $entityBuilderManager;
-        return $this;
-    }
-    
-    public function getEntityBuilderManager()
-    {
-        return $this->builders;
-    }
     
     /**
      * {@inheritdoc}
@@ -31,10 +17,7 @@ class CvMapper extends AbstractMapper implements EntityBuilderAwareInterface
      */
     public function find($id, array $fields = array(), $exclude = false)
     {
-        $id = $this->getMongoId($id);
-        $mongoFields = $this->getMongoFields($fields, $exclude);
-    
-        $data = $this->collection->findOne(array('_id' => $id), $mongoFields);
+        $data = $this->getData($id, $fields, $exclude);
         $builder = $this->builders->get('cv');
         $entity = $builder->build($data);
         return $entity;
@@ -46,42 +29,37 @@ class CvMapper extends AbstractMapper implements EntityBuilderAwareInterface
      * @param CriteriaInterface|null $criteria
      * @return Collection
      */
-    public function fetchAll(array $query = array(), array $fields = array(), $exclude = false)
+    public function fetch(array $query = array(), array $fields = array(), $exclude = false)
     {
-        $mongoQuery = isset($query['query']) ? $query['query'] : $query;
-    
-        $mongoFields = $this->getMongoFields($fields, $exclude);
-        $cursor = $this->getCollection()->find($query, $mongoFields);
-        $builder = $this->builders->get('cv');
+        $cursor     = $this->getCursor($query, $fields, $exclude);
+        $builder    = $this->builders->get('cv');
         $collection = $builder->buildCollection($cursor);
         return $collection;
     }
     
     public function fetchEducations($cvId)
     {
-        $query = array('_id' => $this->getMongoId($cvId));
         $fields = array('educations' => true, '_id' => false);
-        $data = $this->getCollection()->findOne($query, $fields);
-        
-        $collection = $this->builders->get('education')->buildCollection($data['educations']);
-        return $collection;
-        
+        $data = $this->getData($cvId, $fields);
+        return $this->getEntitiesCollection($data['educations'], 'education');
     }
     
     public function fetchEmployments($cvId)
     {
-        $query = array('_id' => $this->getMongoId($cvId));
         $fields = array('employments' => true, '_id' => false);
-        $data = $this->getCollection()->findOne($query, $fields);
-        
-        $collection = $this->builders->get('employments')->buildCollection($data['educations']);
-        return $collection;
+        $data = $this->getData($cvId, $fields);
+        return $this->getEntitiesCollection($data['employments'], 'employment');
     }
     
     public function save(EntityInterface $entity)
     {
-        $data = $this->builders->get('cv')->unbuild($entity);
-        return parent::saveData($data);
+        $builder = $this->builders->get('cv');
+        $data    = $builder->unbuild($entity);
+        $id      = $this->saveData($data);
+        if ($id) {
+            $entity->setId($id);
+        }
+        
     }
     
 } 

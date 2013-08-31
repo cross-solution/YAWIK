@@ -8,7 +8,7 @@ interface RepositoryInterface
 {
     
     public function find($id);
-    public function fetchAll();
+    public function fetch();
     public function create($data = null);
     public function save(EntityInterface $entity);
     

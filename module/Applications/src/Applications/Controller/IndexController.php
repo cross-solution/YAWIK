@@ -12,10 +12,6 @@ namespace Applications\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Applications\Form\Application as ApplicationForm;
-use Applications\Model\Application as ApplicationModel;
-use Applications\Form\ApplicationHydrator;
-use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -49,12 +45,15 @@ class IndexController extends AbstractActionController
         $request = $this->getRequest();
        
         if ($request->isPost()) {
-            $repository = $this->getServiceLocator()->get('ApplicationRepository');
+            $services = $this->getServiceLocator();
+            $repository = $services->get('repositories')->get('Application');
             
-            $applicationModel = $repository->getApplicationBuilder()->build(); 
-            $form->bind($applicationModel);
+            
+            $applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
+            $form->bind($applicationEntity);
             $data = $this->params()->fromPost();
             $form->setData($data);
+            
             if (!$form->isValid()) {
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
@@ -64,18 +63,22 @@ class IndexController extends AbstractActionController
                 }
                 //$form->populateValues($data);
             } else {
-                $repository->save($applicationModel);
+                $applicationEntity->setStatus('new');
+                //$repository->save($applicationEntity);
+                $applicationEntity->setId('test');
                 
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,
+                        'id' => $applicationEntity->id,
                     ));
                 }
                 $viewModel->setVariable('isApplicationSaved', true);
             }
         } else {
+            
             $form->populateValues(array(
-                'application' => array('jobid' => $this->params('jobid', 0)),
+                'jobId' => $this->params('jobid', 0),
             ));
             
         }
@@ -83,20 +86,7 @@ class IndexController extends AbstractActionController
         
     }
     
-    public function submitAction()
-    {
-        $model = new ApplicationModel();
-        $form = new ApplicationForm($model);
-        
-        $form->setHydrator(new ClassMethods());
-        $form->bind($model);
-        
-        $form->setData($this->params()->fromPost());
-        
-        $form->isValid();
-        
-        var_dump($this->params()->fromPost(), $model, $form->getData());
-    }
+    
     
     
 }

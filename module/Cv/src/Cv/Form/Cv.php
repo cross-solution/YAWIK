@@ -25,55 +25,18 @@ class Cv extends Form
     {
         $this->setName('cv-create');
         $this->setAttribute('id', 'cv-create');
-        
-        
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'id'
-        ));
+ 
         
         $this->add(array(
-            'type' => 'Collection',
-            'name' => 'educations',
+            'type' => 'CvFieldset',
             'options' => array(
-                'label' => /*@translate */ 'Education history',
-                'count' => 0,
-                'should_create_template' => true,
-                'use_labeled_items' => false,
-                'collapsable' => true,
-                'collapsed' => false,
-                'allow_add' => true,
-                'target_element' => array(
-                    'type' => 'EducationFieldset'
-                )
+                'use_as_base_fieldset' => true
             ),
-            'attributes' => array(
-                //'id' => 'educations'
-            ),
-        ));
-        
-        $this->add(array(
-            'type' => 'Collection',
-            'name' => 'employments',
-            'options' => array(
-                'label' => /*@translate */ 'Employment history',
-                'count' => 0,
-                'should_create_template' => true,
-                'use_labeled_items' => false,
-                'collapsable' => true,
-                'collapsed' => false,
-                'allow_add' => true,
-                'target_element' => array(
-                    'type' => 'EmploymentFieldset'
-                )
-            ),
-            'attributes' => array(
-                //'id' => 'educations'
-            ),
-        ));
+        ));       
         
         $this->add(array(
             'type' => 'DefaultButtonsFieldset'
         ));
+
     }
 }

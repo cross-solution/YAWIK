@@ -136,18 +136,36 @@ return array(
         
     ),
     
-//     'form_elements' => array(
-//         'invokables' => array(
+    'form_elements' => array(
+         'invokables' => array(
 //             'ApplicationFieldset' => '\Applications\Form\ApplicationFieldset',
 //             'EducationFieldset' => '\Applications\Form\EducationFieldset',
 //             'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
-//             'Application' => '\Applications\Form\CreateApplication',
-//         ),
+             'Application' => '\Applications\Form\CreateApplication',
+         ),
 //         'factories' => array(
 //             'Application' => '\Applications\Form\ApplicationFactory'
 //         ),
-//     ),
+     ),
+     
+     'repositories' => array(
+         'invokables' => array(
+             'Application' => 'Applications\Repository\Application',
+         ),
+     ),
+     
+     'mappers' => array(
+         'factories' => array(
+             'Application' => 'Applications\Repository\Mapper\ApplicationMapperFactory'
+         ),
+     ),
     
+     'entity_builders' => array(
+         'factories' => array(
+             'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
+             'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
+         ),
+     ),
     
 );

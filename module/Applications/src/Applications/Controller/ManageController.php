@@ -39,7 +39,7 @@ class ManageController extends AbstractActionController
         $settings->test = 'Hello World';
         $settings->something = 'Shout out';
         
-        $repository = $this->getServiceLocator()->get('ApplicationRepository');
+        $repository = $this->getServiceLocator()->get('repositories')->get('application');
         
         $paginator = new \Zend\Paginator\Paginator(
             $repository->getPaginatorAdapter(
@@ -55,9 +55,13 @@ class ManageController extends AbstractActionController
         
         if ($jsonFormat) {
             $viewModel = new JsonModel();
-            $items = iterator_to_array($paginator);
+            //$items = iterator_to_array($paginator);
             
-            $viewModel->setVariables(array('items' => $repository->getApplicationBuilder()->unbuildCollection($paginator->getCurrentItems()), 'count' => $paginator->getTotalItemCount()));
+            $viewModel->setVariables(array(
+                'items' => $this->getServiceLocator()->get('builders')->get('JsonApplication')
+                                ->unbuildCollection($paginator->getCurrentItems()),
+                'count' => $paginator->getTotalItemCount()
+            ));
             return $viewModel;
             
         } 

@@ -14,8 +14,6 @@ if (!$this->isAjaxRequest):
 <thead>
 <tr>
     <th>JobId</th>
-    <th><?php echo $this->buildQuery(array('sort' => 'lastname'), true);?><a href="<?php echo $this->url('lang/applications', array(), array('query' => array_merge($_GET, array('sort' => 'lastname'))), true)?>">Name</a></th>
-    <th>Email</th>
     <th>Status</th>
     <th>Modified</th>
 </tr>

@@ -2,124 +2,66 @@
 
 namespace Applications\Repository;
 
-use Core\Model\ModelInterface;
-use Core\Model\RelationCollection;
+use Core\Repository\AbstractRepository;
+use Core\Entity\EntityInterface;
+use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-
-class Application 
+class Application extends AbstractRepository implements EntityBuilderAwareInterface
 {
-    const LOAD_EAGER = true;
-    const LOAD_LAZY  = false;
+    protected $builders;
     
-    protected $applicationMapper;
-    protected $educationMapper;
-    
-    protected $applicationBuilder;
-    protected $educationBuilder;
-    
-    
-    
-    protected $applicationModelPrototype;
-    protected $educationModelPrototype;
-    
-    protected $applicationModelHydrator;
-    protected $educationModelHydrator;
-    
-    public function __construct($applicationMapper, $educationMapper)
+    public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
     {
-        $this->applicationMapper = $applicationMapper;
-        $this->educationMapper = $educationMapper;
-        
-    }
-    
-    public function getApplicationBuilder()
-    {
-        if (!$this->applicationBuilder) {
-            $builder = new EntityBuilder\ApplicationBuilder($this);
-            $this->setApplicationBuilder($builder);
-        }
-        return $this->applicationBuilder;
-    }
-    
-    public function setApplicationBuilder($modelBuilder)
-    {
-        $this->applicationBuilder = $modelBuilder;
+        $this->builders = $entityBuilderManager;
         return $this;
     }
-    
-    public function getEducationBuilder()
+   
+    public function getEntityBuilderManager()
     {
-        if (!$this->educationBuilder) {
-            $builder = new EntityBuilder\EducationBuilder();
-            $this->setEducationBuilder($builder);
-        }
-        return $this->educationBuilder;
+        return $this->builders;
     }
     
-    public function setEducationBuilder($modelBuilder)
+	public function find ($id, $mode=self::LOAD_LAZY)
     {
-        $this->educationBuilder = $modelBuilder;
-        return $this;
-    }
-    
-    
-	public function find ($id, $loadDependencies = self::LOAD_LAZY)
-    {
-        $applicationData = $loadDependencies
-              ? $this->applicationMapper->find($id)
-              : $this->applicationMapper->find($id, 
-                      array('educations'),
+        $entity = $mode == self::LOAD_EAGER
+              ? $this->getMapper('application')->find($id)
+              : $this->getMapper('application')->find($id, 
+                      array('cv'),
                       /*exclude*/ true
               );
         
         
-        $model = $this->getApplicationBuilder()->buildModel($applicationData);
-        return $model;
+        return $entity;
     }
     
-    public function fetchAll($loadDependencies = self::LOAD_LAZY)
+    public function fetch ($mode=self::LOAD_LAZY)
     {
-        $cursor = $this->applicationMapper->fetchAll(array(), array(
-            'educations'
-        ), true);
+        $fields = array('cv' => false);
         
-        $collection = $this->getApplicationBuilder()->buildCollection(iterator_to_array($cursor));
+        $collection = $this->getMapper('application')->fetch(array(), $fields);
         return $collection;
     }
     
     public function getPaginatorAdapter(array $propertyFilter, $sort)
     {
+        
         $query = array();
         foreach ($propertyFilter as $property => $value) {
             if (in_array($property, array('jobId'))) {
                 $query[$property] = new \MongoRegex('/^' . $value . '/');
             }
         }
-        $cursor = $this->applicationMapper->fetchAll($query, array('educations'), true);
+        $cursor = $this->getMapper('application')->getCursor($query); //, array('cv'), true);
         $cursor->sort($sort);
-        return new ApplicationPaginatorAdapter($cursor, $this->getApplicationBuilder());
+        return new ApplicationPaginatorAdapter($cursor, $this->builders->get('application'));
     }
     
-    public function fetchEducations($applicationModelOrId)
-    {
-        $id = $applicationModelOrId instanceOf \Applications\Model\Application
-            ? $applicationModelOrId->getId()
-            : $applicationModelOrId;
-        
-        $educationsData = $this->educationMapper->fetchByApplicationId($id);
-        
-        
-        $collection = $this->getEducationBuilder()->buildCollection((array) $educationsData);
-        return $collection;
-        
-    } 
     
-    public function save($application)
+    public function save(EntityInterface $entity)
     {
-        $data = $this->getApplicationBuilder()->unbuild($application);
-        
-        $id = $this->applicationMapper->save($data);
-        $application->setId($id);
+        $entity->setDateModified('now');
+        $this->getMapper('application')->save($entity);
     }
     
      

@@ -9,7 +9,7 @@ interface MapperInterface
     public function getCollection();
     
     public function find($id, array $fields=array());
-    public function fetchAll(array $query = array(), array $fields = array());
+    public function fetch(array $query = array(), array $fields = array());
     
     public function save(EntityInterface $entity);
 }
