@@ -9,13 +9,12 @@ if (!$this->isAjaxRequest):
       $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>*/?>
 
 <h1><?=$this->translate('List of all applications')?></h1>
-
 <table class="table table-striped table-bordered table-hover" id="applications-list">
 <thead>
 <tr>
-    <th>JobId</th>
-    <th>Status</th>
-    <th>Modified</th>
+    <th><?=$this->translate('Job')?></th>
+    <th><?=$this->translate('State')?></th>
+    <th><?=$this->translate('Modified')?></th>
 </tr>
 </thead>
 

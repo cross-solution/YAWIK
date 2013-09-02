@@ -80,17 +80,17 @@ return array(
         'default' => array(
             'resume' => array(
                 'type' => 'Uri',
-                'label' => 'Resumes',
+                'label' =>  /*@translate*/ 'Resumes',
                 'uri' => '#',
                 //'route' => 'lang/cvs',
                 'pages' => array(
                     'list' => array(
-                        'label' => 'Overview',
+                        'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/cvs',
                         'divider' => true,
                     ),
                     'create' => array(
-                        'label' => 'Create resume',
+                        'label' => /*@translate*/ 'Create resume',
                         'route' => 'lang/cvs/create',
                     ),
                 ),

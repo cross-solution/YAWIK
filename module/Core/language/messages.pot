@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-22 13:58+0100\n"
+"POT-Creation-Date: 2013-09-02 18:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,10 +109,18 @@ msgstr ""
 msgid "resolves to %s"
 msgstr ""
 
-#: view/layout/layout.phtml:16 view/layout/layout.phtml:26
+#: view/layout/layout.phtml:16 view/layout/layout.phtml:37
 msgid "Cross Applicant Management"
 msgstr ""
 
-#: view/layout/layout.phtml:40
+#: view/layout/layout.phtml:65
 msgid "All rights reserved."
+msgstr ""
+
+#: src/Core/Form/DefaultButtonsFieldset.php:13
+msgid "Actions"
+msgstr ""
+
+#: language/_annotated_strings.php:3
+msgid "Save"
 msgstr ""

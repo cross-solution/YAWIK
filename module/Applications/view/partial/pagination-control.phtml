@@ -1,46 +1,47 @@
 
 <?php if ($this->pageCount): 
 $query = $this->params()->fromQuery();?>
+<!--
 
-<div class="paginationControl">
+würde über dem Result besser passen. Geht das?
+
 <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
 of <?php echo $this->totalItemCount; ?>
-
+-->
 <!-- First page link -->
+<div class="pagination pagination-centered">
+<ul>
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->first)), true); ?>">
-    First
-  </a> |
+  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->first)), true); ?>">
+    <?= $this->translate('First')?>
+  </a></li>
 <?php else: ?>
-  <span class="disabled">First</span> |
+  <li class="disabled"><a><?= $this->translate('First');?></a></li>
 <?php endif; ?>
-
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->previous)), true); ?>">
-    &lt; Previous
-  </a> |
+  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->previous)), true); ?>">
+    <?= $this->translate('&lt; Previous')?>
+  </a></li>
 <?php else: ?>
-  <span class="disabled">&lt; Previous</span> |
+  <li class="disabled"><a><?= $this->translate('&lt; Previous')?></a></li>
 <?php endif; ?>
-
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->next)), true); ?>">
-    Next &gt;
-  </a> |
+  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->next)), true); ?>">
+    <?= $this->translate('Next &gt;')?>
+  </a></li>
 <?php else: ?>
-  <span class="disabled">Next &gt;</span> |
+  <li class="disabled"><a>Next &gt;</a></li>
 <?php endif; ?>
-
 <!-- Last page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->last)), true); ?>">
-    Last
-  </a>
+  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>array('page' => $this->last)), true); ?>">
+    <?= $this->translate('Last')?>
+  </a></li>
 <?php else: ?>
-  <span class="disabled">Last</span>
+  <li class="disabled"><a><?= $this->translate('Last')?></a></li>
 <?php endif; ?>
-
+</ul>
+<?php endif; ?>
 </div>
-<?php endif; ?>

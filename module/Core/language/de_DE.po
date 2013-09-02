@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-22 13:43+0100\n"
-"PO-Revision-Date: 2013-03-22 13:53+0100\n"
-"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"POT-Creation-Date: 2013-09-02 18:18+0200\n"
+"PO-Revision-Date: 2013-09-02 18:21+0100\n"
+"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -112,13 +112,21 @@ msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
 #: view/layout/layout.phtml:16
-#: view/layout/layout.phtml:26
+#: view/layout/layout.phtml:37
 msgid "Cross Applicant Management"
-msgstr "Cross Bewerberverwaltung"
+msgstr "CROSS Bewerberverwaltung"
 
-#: view/layout/layout.phtml:40
+#: view/layout/layout.phtml:65
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
+
+#: src/Core/Form/DefaultButtonsFieldset.php:13
+msgid "Actions"
+msgstr "Aktionen"
+
+#: language/_annotated_strings.php:3
+msgid "Save"
+msgstr "Speichern"
 
 #~ msgid "This text is displayed on the home site."
 #~ msgstr "Dieser Text wird auf der Startseite angezeigt."

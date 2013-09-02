@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-28 13:01+0100\n"
-"PO-Revision-Date: 2013-03-28 13:03+0100\n"
-"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"POT-Creation-Date: 2013-09-02 17:32+0200\n"
+"PO-Revision-Date: 2013-09-02 17:58+0100\n"
+"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -15,70 +15,286 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: view/applications/index/index.phtml:2
+#: view/form/application.phtml:190
 #: view/layout/layout.phtml:38
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:96
 msgid "Apply"
 msgstr "Bewerben"
 
-#: view/applications/index/index.phtml:20
+#: view/applications/index/index.phtml:11
+msgid "Application"
+msgstr "Bewerbung"
+
+#: view/applications/index/index.phtml:13
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr "Sie bewerben sich auf die Stelle \"%s\" der Firma \"%s\""
 
-#: view/applications/index/index.phtml:21
+#: view/applications/index/index.phtml:14
 msgid "Go to job advertisement"
 msgstr "Zur Stellenanzeige gehen"
 
-#: src/Applications/Form/Application.php:17
+#: view/applications/manage/index.phtml:6
+msgid "Applications"
+msgstr "Bewerbungen"
+
+#: view/applications/manage/index.phtml:11
+msgid "List of all applications"
+msgstr "Übersicht aller Bewerbungen"
+
+#: view/applications/manage/index.phtml:15
+msgid "Job"
+msgstr "Anzeige"
+
+#: view/applications/manage/index.phtml:16
+msgid "State"
+msgstr "Status"
+
+#: view/applications/manage/index.phtml:17
+msgid "Modified"
+msgstr "Geändert am"
+
+#: view/partial/pagination-control.phtml:16
+#: view/partial/pagination-control.phtml:19
+msgid "First"
+msgstr "Anfang"
+
+#: view/partial/pagination-control.phtml:24
+#: view/partial/pagination-control.phtml:27
+msgid "&lt; Previous"
+msgstr "&lt; Vor"
+
+#: view/partial/pagination-control.phtml:32
+msgid "Next &gt;"
+msgstr "Weiter &gt;"
+
+#: view/partial/pagination-control.phtml:40
+#: view/partial/pagination-control.phtml:43
+msgid "Last"
+msgstr "Ende"
+
+#: view/form/application.phtml:67
+msgid "Your application has been saved successfully."
+msgstr "Ihre Bewerbung wurde erfolgreich gespeichert"
+
+#: view/form/application.phtml:110
+#: src/Applications/Form/Application.php:40
 msgid "Contact details"
 msgstr "Kontaktinformationen"
 
+#: view/layout/layout.phtml:16
+#: view/layout/layout.phtml:38
+msgid "Cross Applicant Management"
+msgstr "CROSS Bewerberverwaltung"
+
+#: view/layout/layout.phtml:49
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten"
+
+#: src/Applications/Form/EducationFieldset.php:16
+msgid "Education"
+msgstr "Ausbildung"
+
+#: src/Applications/Form/EmploymentFieldset.php:16
+msgid "Employment"
+msgstr "Anstellung"
+
+#: src/Applications/Form/SkillFieldset.php:16
+msgid "Skills"
+msgstr "Fähigkeiten"
+
+#: src/Applications/Form/Application.php:151
+msgid "Education history"
+msgstr "Ausbildung"
+
+#: src/Applications/Form/Application.php:155
+msgid "Personal skills"
+msgstr "besondere Fähigkeiten"
+
+#: src/Applications/Form/Application.php:178
+msgid "Employment history"
+msgstr "beruflicher Werdegang"
+
+#: src/Applications/Form/Application.php:183
+msgid "Attachment"
+msgstr "Angang"
+
+#: src/Applications/Form/LanguageFieldset.php:16
+msgid "Language"
+msgstr "Sprache"
+
+#: src/Applications/Form/NativeLanguageFieldset.php:16
+#: language/_annotated_strings.php:33
+msgid "Native Language"
+msgstr "Muttersprache"
+
 #: language/_annotated_strings.php:3
+msgid "Degree"
+msgstr "Abschluss"
+
+#: language/_annotated_strings.php:6
+msgid "please enter the name of your qualification"
+msgstr "Bitte geben Sie die Bezeichnung ihrer Qualifikation ein"
+
+#: language/_annotated_strings.php:9
+msgid "Organization Name"
+msgstr "Name der Univerität"
+
+#: language/_annotated_strings.php:12
+msgid "please enter the name of the university or school"
+msgstr "Bitte geben Sie den Namen der Universität ein"
+
+#: language/_annotated_strings.php:15
+msgid "Country"
+msgstr "Land"
+
+#: language/_annotated_strings.php:18
+msgid "please select the country"
+msgstr "Bitte wählen Sie ein Land"
+
+#: language/_annotated_strings.php:21
+msgid "City"
+msgstr "Ort"
+
+#: language/_annotated_strings.php:24
+msgid "please enter the name of the city"
+msgstr "Bitte geben Sie den Namen der Stadt ein"
+
+#: language/_annotated_strings.php:27
+msgid "Description"
+msgstr "Beschreibung"
+
+#: language/_annotated_strings.php:30
+msgid "please enter a description"
+msgstr "Bitte geben Sie eine Beschreibung ein"
+
+#: language/_annotated_strings.php:36
+msgid "LanguageSkills"
+msgstr "Sprachkenntnisse"
+
+#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:99
 msgid "Mister"
 msgstr "Herr"
 
-#: language/_annotated_strings.php:6
+#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:102
 msgid "Miss"
 msgstr "Frau"
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:45
+msgid "please choose your title"
+msgstr "Bitte wählen Sie Ihre Anrede"
+
+#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:105
 msgid "First name"
 msgstr "Vorname"
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:51
+msgid "please enter your firstname"
+msgstr "Bitte geben Sie Ihren Vornamen ein"
+
+#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:108
 msgid "Last name"
 msgstr "Nachname"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:57
+msgid "please enter your lastname"
+msgstr "bitte geben Sie Ihren Nachnamen ein"
+
+#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:111
 msgid "Street"
 msgstr "Straße"
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:114
 msgid "House number"
 msgstr "Hausnummer"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:117
 msgid "Zip code"
 msgstr "PLZ"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:120
 msgid "Location"
 msgstr "Ort"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:123
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:126
 msgid "Mobile phone number"
 msgstr "Handynummer"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:129
 msgid "Email"
 msgstr "Email"
 
-#~ msgid "City"
-#~ msgstr "Ort"
+#: language/_annotated_strings.php:93
+msgid "native language"
+msgstr "Muttersprache"
+
+#: language/_annotated_strings.php:132
+msgid "education history"
+msgstr "Ausbildung"
+
+#: language/_annotated_strings.php:135
+msgid "employment history"
+msgstr "beruflicher Werdegang"
+
+#: language/_annotated_strings.php:138
+msgid "Languages"
+msgstr "Sprachen"
+
+#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:168
+msgid "which language are you speeking"
+msgstr "welche Sprachen sprechen Sie"
+
+#: language/_annotated_strings.php:144
+msgid "I am a native speaker"
+msgstr "das ist meine Muttersprache"
+
+#: language/_annotated_strings.php:147
+msgid "I can use simple phrases and sentences to describe where I live and people I know."
+msgstr "Ich kann vertraute Wörter und ganz einfache Sätze verstehen, die sich auf mich selbst, meine Familie oder auf konkrete Dinge um mich herum beziehen, vorausgesetzt es wird langsam und deutlich gesprochen."
+
+#: language/_annotated_strings.php:150
+msgid "I can use a series of phrases and sentences to describe in simple terms my family and other people, living conditions, my educational background and my present or  most recent job."
+msgstr "Ich kann einzelne Sätze und die gebräuchlichsten Wörter verstehen, wenn es um für mich wichtige Dinge geht (z. B. sehr einfache Informationen zur Person und zur Familie, Einkaufen, Arbeit, nähere Umgebung). Ich verstehe das Wesentliche von kurzen, klaren und einfachen Mitteilungen und Aussagen."
+
+#: language/_annotated_strings.php:153
+msgid "I can connect phrases in a simple way in order to describe experiences and events, my dreams, hopes and ambitions. I can briefly give reasons and explanations for opinions and plans. I can narrate a story or relate the plot of a book or film and describe my reactions."
+msgstr "Ich kann die Hauptpunkte verstehen, wenn klare Standardsprache verwendet wird und wenn es um vertraute Dinge aus Arbeit, Schule, Freizeit usw. geht. Ich kann vielen Radio- oder Fernsehsendungen über aktuelle Ereignisse und über Themen aus meinem Berufs- oder Interessengebiet die Hauptinformation entnehmen, wenn relativ langsam und deutlich gesprochen wird."
+
+#: language/_annotated_strings.php:156
+msgid "I can present clear, detailed descriptions on a wide range of subjects related to my field of interest. I can explain a viewpoint on a topical issue giving the advantages and disadvantages of various options."
+msgstr "Ich kann längere Redebeiträge und Vorträge verstehen und auch komplexer Argumentation folgen, wenn mir das Thema einigermaßen vertraut ist. Ich kann im Fernsehen die meisten Nachrichtensendungen und aktuellen Reportagen verstehen. Ich kann die meisten Spielfilme verstehen, sofern Standardsprache gesprochen wird."
+
+#: language/_annotated_strings.php:159
+msgid "I can present clear, detailed descriptions of complex subjects integrating sub-themes, developing particular points and rounding off with an appropriate conclusion."
+msgstr "Ich kann längeren Redebeiträgen folgen, auch wenn diese nicht klar strukturiert sind und wenn Zusammenhänge nicht explizit ausgedrückt sind. Ich kann ohne allzu große Mühe Fernsehsendungen und Spielfilme verstehen."
+
+#: language/_annotated_strings.php:162
+msgid "I can present a clear, smoothly-flowing description or argument in a style appropriate to the context and with an effective logical structure which helps the recipient to notice and remember significant points."
+msgstr "Ich habe keinerlei Schwierigkeit, gesprochene Sprache zu verstehen, gleichgültig ob \"live\" oder in den Medien, und zwar auch, wenn schnell gesprochen wird. Ich brauche nur etwas Zeit, mich an einen besonderen Akzent zu gewöhnen."
+
+#: language/_annotated_strings.php:165
+msgid "level"
+msgstr "Level"
 
 #~ msgid "Submit"
 #~ msgstr "Bewerben"
