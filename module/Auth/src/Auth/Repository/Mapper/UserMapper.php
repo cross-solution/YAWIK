@@ -10,13 +10,14 @@
 /** Auth mapper mongodb */
 namespace Auth\Repository\Mapper;
 
-use Core\Repository\Mapper\AbstractMapper;
+use Core\Repository\Mapper\AbstractBuilderAwareMapper as CoreMapper;
+use Core\Entity\EntityInterface;
 
 
 /**
  * User mapper factory
  */
-class UserMapper extends AbstractMapper
+class UserMapper extends CoreMapper
 {
     /**
      * {@inheritdoc}
@@ -28,20 +29,62 @@ class UserMapper extends AbstractMapper
         return $data;
     }
     
+/**
+     * {@inheritdoc}
+     *
+     * @param string|\MongoId $id Mongodb id
+     */
+    public function find($id, array $fields = array(), $exclude = false)
+    {
+        $data = $this->getData($id, $fields, $exclude);
+        $builder = $this->builders->get('user');
+        $entity = $builder->build($data);
+        return $entity;
+    }
+    
     /**
      * {@inheritdoc}
      * @see \Auth\Mapper\UserMapperInterface::findByProfileIdentifier()
      */
     public function findByProfileIdentifier($identifier)
     {
-        $data = $this->getCollection()->findOne(array('profile.identifier' => $identifier));
-        return $data;
+        $data = $this->getData(array('profile.identifier' => $identifier));
+        $builder = $this->getBuilder('user');
+        $entity = $builder->build($data);
+        return $entity;
     }
     
     public function findByDisplayName($displayName)
     {
-        $data = $this->getCollection()->findOne(array('displayName' => $displayName));
-        return $data;
+        $data = $this->getData(array('displayName' => $displayName));
+        $builder = $this->getBuilder('user');
+        $entity = $builder->build($data);
+        return $entity;
+    }
+    
+    /**
+     * {@inheritdoc}
+     *
+     * @param CriteriaInterface|null $criteria
+     * @return Collection
+     */
+    public function fetch(array $query = array(), array $fields = array(), $exclude = false)
+    {
+        $cursor     = $this->getCursor($query, $fields, $exclude);
+        $builder    = $this->builders->get('user');
+        $collection = $builder->buildCollection($cursor);
+        return $collection;
+    }
+    
+    public function save(EntityInterface $entity)
+    {
+        $builder = $this->builders->get('user');
+        $data    = $builder->unbuild($entity);
+        $id      = $this->saveData($data);
+        if ($id) {
+            $entity->setId($id);
+        }
+    
     }
     
 }

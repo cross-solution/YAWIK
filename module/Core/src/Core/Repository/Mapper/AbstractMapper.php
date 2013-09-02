@@ -10,8 +10,7 @@
 /** Core MongoDb Mappers */
 namespace Core\Repository\Mapper;
 
-use Core\Entity\EntityInterface;
-use Core\Repository\EntityBuilder\EntityBuilderInterface;
+
 /**
  * Concrete implementation of \Core\Mapper\MongoDb\MapperInterface
  * 

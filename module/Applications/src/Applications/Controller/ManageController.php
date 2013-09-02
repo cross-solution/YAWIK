@@ -35,9 +35,6 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
-        $settings = $this->settings();
-        $settings->test = 'Hello World';
-        $settings->something = 'Shout out';
         
         $repository = $this->getServiceLocator()->get('repositories')->get('application');
         

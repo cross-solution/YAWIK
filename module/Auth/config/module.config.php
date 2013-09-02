@@ -172,5 +172,22 @@ return array(
          ),
     ),
     
+    'repositories' => array(
+        'invokables' => array(
+            'user' => 'Auth\Repository\User',
+        ),
+    ),
+    
+    'mappers' => array(
+        'factories' => array(
+            'user' => 'Auth\Repository\Mapper\UserMapperFactory'
+         ),
+    ),
+    
+    'entity_builders' => array(
+        'factories' => array(
+            'user' => 'Auth\Repository\EntityBuilder\UserBuilderFactory'
+        ),
+    ),
     
 );

@@ -8,7 +8,7 @@
  */
 
 /** Auth mapper mongodb service */
-namespace Auth\Repository\Service;
+namespace Auth\Repository\Mapper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -32,7 +32,7 @@ class UserMapperFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $db = $serviceLocator->get('MongoDb');
+        $db = $serviceLocator->getServiceLocator()->get('MongoDb');
         $collection = $db->users;
         
         $mapper = new UserMapper($collection);

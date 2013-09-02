@@ -10,7 +10,6 @@
 /** Core MongoDb Mappers */
 namespace Core\Repository\Mapper;
 
-use Core\Entity\EntityInterface;
 use Core\Repository\EntityBuilder\EntityBuilderInterface;
 use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

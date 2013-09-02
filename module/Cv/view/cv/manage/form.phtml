@@ -19,8 +19,8 @@ $this->form->setAttributes(array(
 $this->formdateselect()->setLocale($this->params('lang'));
 
 if (!$this->id): 
-    $form->get('educations')->setCount(1)->prepareFieldset();
-    $form->get('employments')->setCount(1)->prepareFieldset();
+    $form->get('cv')->get('educations')->setCount(1)->prepareFieldset();
+    $form->get('cv')->get('employments')->setCount(1)->prepareFieldset();
 endif;
 
 echo $this->form($this->form);

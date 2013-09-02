@@ -29,6 +29,7 @@ class Cv extends Form
         
         $this->add(array(
             'type' => 'CvFieldset',
+            'name' => 'cv',
             'options' => array(
                 'use_as_base_fieldset' => true
             ),
