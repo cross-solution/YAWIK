@@ -13,7 +13,7 @@ class ApplicationBuilderFactory implements FactoryInterface
      */
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $cvBuilder = $serviceLocator->get('cv');
+        $cvBuilder = $serviceLocator->get('application-cv');
         
         $hydrator = $this->getHydrator();
 

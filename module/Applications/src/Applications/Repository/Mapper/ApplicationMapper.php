@@ -12,13 +12,28 @@ namespace Applications\Repository\Mapper;
 
 use Core\Repository\Mapper\AbstractBuilderAwareMapper as CoreMapper;
 use Core\Entity\EntityInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 
 /**
  *
  */
-class ApplicationMapper extends CoreMapper
+class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterface
 {
+    
+    protected $mappers;
+    
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->mappers = $serviceLocator;
+        return $this;
+    }
+    
+    public function getServiceLocator()
+    {
+        return $this->mappers;
+    }
 
     /**
      * {@inheritdoc}
@@ -55,6 +70,18 @@ class ApplicationMapper extends CoreMapper
         return $cursor;    
     }
     
+    public function fetchCv($applicationId)
+    {
+        $query  = array('_id' => $this->getMongoId($applicationId));
+        $fields = array(
+            'jobId', 'status', 'dateCreated', 'dateModified', 
+            'cv.educations', 'cv.employments'
+        );
+        $data   = $this->getData($query, $fields, /*exclude*/ true);
+        $entity = $this->buildEntity($data['cv'], 'application-cv');
+        return $entity; 
+    }
+
     public function save(EntityInterface $entity)
     {
         $builder = $this->builders->get('application');

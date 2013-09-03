@@ -43,5 +43,18 @@ abstract class AbstractBuilderAwareMapper extends AbstractMapper implements Enti
         return $builder;
     }
     
+    protected function buildEntity($data, $builder)
+    {
+        $builder = $this->getBuilder($builder);
+        $entity = $builder->build($data);
+        return $entity;
+    }
+    
+    protected function buildCollection($data, $builder)
+    {
+        $builder = $this->getBuilder($builder);
+        $collection = $builder->getCollection($data);
+        return $collection;
+    }
     
 }

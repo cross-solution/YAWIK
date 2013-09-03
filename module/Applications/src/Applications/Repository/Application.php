@@ -52,7 +52,7 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
                 $query[$property] = new \MongoRegex('/^' . $value . '/');
             }
         }
-        $cursor = $this->getMapper('application')->getCursor($query); //, array('cv'), true);
+        $cursor = $this->getMapper('application')->getCursor($query, array('cv'), true); //, array('cv'), true);
         $cursor->sort($sort);
         return new ApplicationPaginatorAdapter($cursor, $this->builders->get('application'));
     }

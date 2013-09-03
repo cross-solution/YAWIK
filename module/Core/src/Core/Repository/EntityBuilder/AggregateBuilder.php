@@ -4,7 +4,7 @@ namespace Core\Repository\EntityBuilder;
 
 
 use Core\Entity\EntityInterface;
-use Core\Entity\RelationCollectionInterface;
+use Core\Entity\RelationInterface;
 
 class AggregateBuilder extends EntityBuilder
 {
@@ -62,7 +62,7 @@ class AggregateBuilder extends EntityBuilder
         
         foreach ($this->builders as $property => $builderSpec) {
             if (isset($data[$property])) {
-                if ($data[$property] instanceOf RelationCollectionInterface && !$data[$property]->isCollectionLoaded()) {
+                if ($data[$property] instanceOf RelationInterface && !$data[$property]->isLoaded()) {
                     $data[$property] = null;
                     continue;
                 } 

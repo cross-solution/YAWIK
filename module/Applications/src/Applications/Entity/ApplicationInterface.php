@@ -20,7 +20,7 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function setDateModified($dateModified);
     public function getDateModified($format=null);
     
-    public function setCv(\Cv\Entity\CvInterface $cv);
+    public function setCv(EntityInterface $cv);
     public function getCv();
     
 }

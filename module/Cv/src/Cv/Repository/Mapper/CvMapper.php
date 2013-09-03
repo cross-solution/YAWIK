@@ -32,8 +32,7 @@ class CvMapper extends CoreMapper
     public function fetch(array $query = array(), array $fields = array(), $exclude = false)
     {
         $cursor     = $this->getCursor($query, $fields, $exclude);
-        $builder    = $this->builders->get('cv');
-        $collection = $builder->buildCollection($cursor);
+        $collection = $this->buildCollection($cursor, 'cv');
         return $collection;
     }
     
@@ -41,14 +40,17 @@ class CvMapper extends CoreMapper
     {
         $fields = array('educations' => true, '_id' => false);
         $data = $this->getData($cvId, $fields);
-        return $this->getEntitiesCollection($data['educations'], 'education');
+        $collection = $this->buildCollection($data['educations'], 'education');
+        return $collection;
+        
     }
     
     public function fetchEmployments($cvId)
     {
         $fields = array('employments' => true, '_id' => false);
         $data = $this->getData($cvId, $fields);
-        return $this->getEntitiesCollection($data['employments'], 'employment');
+        $collection = $this->buildCollection($data['employments'], 'employment');
+        return $collection;
     }
     
     public function save(EntityInterface $entity)

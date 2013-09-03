@@ -5,19 +5,22 @@ namespace Cv\Repository\EntityBuilder;
 use Zend\ServiceManager\FactoryInterface;
 use Core\Repository\EntityBuilder\AggregateBuilder as Builder;
 use Core\Repository\Hydrator;
+use Core\Repository\EntityBuilder\AbstractCopyableBuilderFactory;
 
-class CvBuilderFactory implements FactoryInterface
+class CvBuilderFactory extends AbstractCopyableBuilderFactory implements FactoryInterface
 {
+    
+    
 	/* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $educationsBuilder = $serviceLocator->get('education');
-        $employmentsBuilder = $serviceLocator->get('employment');
+        $educationsBuilder = $serviceLocator->get($this->getBuilderName('education'));
+        $employmentsBuilder = $serviceLocator->get($this->getBuilderName('employment'));
 //         $buildMode = Hydrator\SubDocumentsStrategy::AS_COLLECTION;
         
-        $hydrator = new Hydrator\EntityHydrator();
+        $hydrator = $this->getHydrator();
 //         $hydrator->addStrategy('educations', new Hydrator\SubDocumentsStrategy(
 //             $educationsBuilder, $buildMode
 //         ));
@@ -26,8 +29,8 @@ class CvBuilderFactory implements FactoryInterface
 //         ));
         
         
-        
-        $builder = new Builder(
+        $builderClass = $this->getBuilderClass();
+        $builder = new $builderClass(
             $hydrator, 
             new \Cv\Entity\Cv(),
             new \Core\Entity\Collection()
@@ -38,6 +41,11 @@ class CvBuilderFactory implements FactoryInterface
         
         return $builder;
         
+    }
+    
+    protected function getBuilderClass()
+    {
+        return '\\Core\\Repository\\EntityBuilder\\AggregateBuilder';
     }
 
     

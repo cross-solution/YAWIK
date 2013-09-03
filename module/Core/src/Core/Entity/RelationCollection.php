@@ -2,7 +2,7 @@
 
 namespace Core\Entity;
 
-class RelationCollection implements CollectionInterface, RelationCollectionInterface
+class RelationCollection implements CollectionInterface, RelationInterface
 {
     protected $collection = null;
     protected $callback;
@@ -69,14 +69,14 @@ class RelationCollection implements CollectionInterface, RelationCollectionInter
         return $this->collection->count();
     }
     
-    public function isCollectionLoaded()
+    public function isLoaded()
     {
         return null !== $this->collection;
     }
     
     protected function loadCollection()
     {
-        if ($this->isCollectionLoaded()) {
+        if ($this->isLoaded()) {
             return;
         }
         

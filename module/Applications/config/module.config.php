@@ -157,7 +157,10 @@ return array(
      
      'mappers' => array(
          'factories' => array(
-             'Application' => 'Applications\Repository\Mapper\ApplicationMapperFactory'
+             //'Application' => 'Applications\Repository\Mapper\ApplicationMapperFactory'
+         ),
+         'abstract_factories' => array(
+             'Applications\Repository\Mapper\AbstractMapperFactory'
          ),
      ),
     
@@ -165,6 +168,9 @@ return array(
          'factories' => array(
              'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
              'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
+             'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
+             'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
+             'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
          ),
      ),
     

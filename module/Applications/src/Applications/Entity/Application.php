@@ -3,7 +3,7 @@
 namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
-use Core\Entity\CollectionInterface;
+use Core\Entity\EntityInterface;
 
 /**
  * @todo write interface
@@ -93,7 +93,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         $this->dateModified = $dateModified;
     }
     
-	public function setCv(\Cv\Entity\CvInterface $cv)
+	public function setCv(EntityInterface $cv)
 	{
 	    $this->cv = $cv;
 	    return $this;

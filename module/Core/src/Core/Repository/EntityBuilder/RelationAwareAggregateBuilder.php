@@ -6,7 +6,7 @@ namespace Core\Repository\EntityBuilder;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationInterface;
 
-class RelationAwareBuilder extends EntityBuilder implements RelationAwareInterface
+class RelationAwareAggregateBuilder extends AggregateBuilder implements RelationAwareInterface
 {
     
     protected $relationCollection;

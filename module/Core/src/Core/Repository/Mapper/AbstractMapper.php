@@ -92,9 +92,9 @@ abstract class AbstractMapper implements MapperInterface
      */
     protected function saveData(array $data)
     {
-        if (isset($data['id'])) {
-            $query = array('_id' => $this->getMongoId($data['id']));
-            unset($data['id']);
+        if (isset($data['_id'])) {
+            $query = array('_id' => $this->getMongoId($data['_id']));
+            unset($data['_id']);
             
             $this->getCollection()->update($query, array('$set' => $data));
             return (string) $query['_id'];
