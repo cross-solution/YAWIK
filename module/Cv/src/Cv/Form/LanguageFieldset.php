@@ -1,9 +1,9 @@
 <?php
 
-namespace Applications\Form;
+namespace Cv\Form;
 
 use Zend\Form\Fieldset;
-use Applications\Entity\Language as LanguageEntity;
+use Cv\Entity\Language as LanguageEntity;
 use Core\Entity\Hydrator\EntityHydrator;
 
 class LanguageFieldset extends Fieldset

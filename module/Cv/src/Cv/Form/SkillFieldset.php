@@ -1,19 +1,19 @@
 <?php
 
-namespace Applications\Form;
+namespace Cv\Form;
 
 use Zend\Form\Fieldset;
-use Applications\Model\Skill as SkillModel;
-use Core\Model\Hydrator\ModelHydrator;
+use Cv\Entity\Skill as SkillEntity;
+use Core\Entity\Hydrator\EntityHydrator;
 
 class SkillFieldset extends Fieldset
 {
     public function init()
     {
-        $this->setName('skill')
-             ->setHydrator(new ModelHydrator())
-             ->setObject(new SkillModel())
-             ->setLabel('Skills');
+		$this->setName('skill')
+             ->setHydrator(new EntityHydrator())
+             ->setObject(new SkillEntity())
+             ->setLabel('Language');
         
         $this->add(array(
             'type' => 'Hidden',

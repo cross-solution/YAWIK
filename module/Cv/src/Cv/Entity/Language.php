@@ -1,6 +1,6 @@
 <?php
 
-namespace Applications\Entity;
+namespace Cv\Entity;
 
 use Core\Entity\AbstractEntity;
 

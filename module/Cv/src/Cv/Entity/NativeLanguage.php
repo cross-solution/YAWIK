@@ -1,10 +1,10 @@
 <?php
 
-namespace Applications\Entity;
+namespace Cv\Entity;
 
 use Core\Entity\AbstractEntity;
 
-class NativeLanguage extends AbstractModel
+class NativeLanguage extends AbstractEntity
 {
     
     protected $language;
