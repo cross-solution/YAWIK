@@ -45,6 +45,17 @@ class Employment extends AbstractEntity
         return $this->endDate;
     }
     
+    public function setOrganizationName($value)
+    {
+    	$this->description = $value;
+    	return $this;
+    }
+    
+    public function getOrganizationName()
+    {
+    	return $this->description;
+    }
+    
     public function setDescription($value)
     {
     	$this->description = $value;

@@ -29,6 +29,25 @@ class EmploymentFieldset extends Fieldset
                 'label' => 'End date'
             )
         ));
+        $this->add(array(
+        		'name' => 'organizationName',
+        		'options' => array(
+        				'label' => /*@translate */ 'Company Name'),
+        		'attributes' => array(
+        				'title' =>  /*@translate */ 'please enter the name of the company'
+        		),
+        ));
+        $this->add(array(
+        		'name' => 'description',
+        		'type' => 'Zend\Form\Element\Textarea',
+        		'options' => array(
+        				'label' => /*@translate */ 'Description',
+        		),
+        		'attributes' => array(
+        				'title' => /*@translate */ 'please describe your position',
+        		),
+        ));
+        
                
     }
     
