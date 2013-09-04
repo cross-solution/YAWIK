@@ -13,7 +13,7 @@ class CvMapper extends BaseMapper
     protected function getBuilder($builder)
     {
         if (!$builder instanceOf EntityBuilderInterface) {
-            $builder = $this->builders->get("application-$builder");
+            $builder = $this->builders->get("application-cv-$builder");
         }
         return $builder;
     }

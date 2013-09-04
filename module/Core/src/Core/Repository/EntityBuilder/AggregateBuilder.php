@@ -5,10 +5,12 @@ namespace Core\Repository\EntityBuilder;
 
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationInterface;
+use Core\Entity\RelationEntity;
 
 class AggregateBuilder extends EntityBuilder
 {
     protected $builders = array();
+    protected $extractRelations = false;
     
     public function addBuilder($property, $builder, $buildAsCollection = false)
     {
@@ -25,6 +27,22 @@ class AggregateBuilder extends EntityBuilder
             return $asSpec ? $this->builders[$property] : $this->builders[$property]['builder'];
         }
         return null;
+    }
+    
+    public function setExtractRelations($flag, $recursive = false)
+    {
+        $this->extractRelations = (bool) $flag;
+        if ($recursive) {
+            foreach ($this->builders as $builderSpec) {
+                $builderSpec['builder']->setExtractRelations($flag);
+            }
+        }
+        return $this;
+    }
+    
+    public function extractRelations() 
+    {
+        return $this->extractRelations;    
     }
     
     public function build($data = array())
@@ -62,8 +80,18 @@ class AggregateBuilder extends EntityBuilder
         
         foreach ($this->builders as $property => $builderSpec) {
             if (isset($data[$property])) {
-                if ($data[$property] instanceOf RelationInterface && !$data[$property]->isLoaded()) {
-                    $data[$property] = null;
+                if ($data[$property] instanceOf RelationInterface
+                    && ($this->extractRelations || $data[$property]->isLoaded())
+                ) {
+                    if ($data[$property] instanceOf RelationEntity) {
+                        $data[$property] = $data[$property]->getEntity();
+                        if (null == $data[$property]->getId()) {
+                            unset($data[$property]);
+                            continue;
+                        }
+                    }
+                } else {
+                    unset($data[$property]);
                     continue;
                 } 
                 $data[$property] = $builderSpec['asCollection']

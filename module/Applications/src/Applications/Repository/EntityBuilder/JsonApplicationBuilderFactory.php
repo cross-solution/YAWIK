@@ -6,10 +6,17 @@ namespace Applications\Repository\EntityBuilder;
 
 use Core\Repository\Hydrator\DatetimeStrategy;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class JsonApplicationBuilderFactory extends ApplicationBuilderFactory
 {
 	
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        $builder = parent::createService($serviceLocator);
+        $builder->setExtractRelations(true, /*recursive*/ true);
+        return $builder;
+    }
     
     protected function getHydrator()
     {
@@ -18,6 +25,11 @@ class JsonApplicationBuilderFactory extends ApplicationBuilderFactory
         $hydrator->addStrategy('dateCreated', $strategy)
                  ->addStrategy('dateModified', $strategy);
         return $hydrator;
+    }
+    
+    protected function getBuilderName($builderName)
+    {
+        return 'json-' . $builderName;
     }
 
     

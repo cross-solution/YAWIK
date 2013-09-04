@@ -29,6 +29,12 @@ class RelationEntity implements EntityInterface, RelationInterface
         return $this;
     }
 
+    public function getEntity()
+    {
+        $this->loadEntity();
+        return $this->entity;
+    }
+    
     public function __call($method, $params)
     {
         $this->loadEntity();

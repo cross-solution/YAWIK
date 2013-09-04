@@ -38,8 +38,11 @@ class CvMapper extends CoreMapper
     
     public function fetchEducations($cvId)
     {
-        $fields = array('educations' => true, '_id' => false);
+        $fields = array('educations' => true);
         $data = $this->getData($cvId, $fields);
+        if (!isset($data['educations'])) {
+            return $this->buildCollection(array(), 'education');
+        }
         $collection = $this->buildCollection($data['educations'], 'education');
         return $collection;
         
@@ -47,8 +50,12 @@ class CvMapper extends CoreMapper
     
     public function fetchEmployments($cvId)
     {
-        $fields = array('employments' => true, '_id' => false);
+        $fields = array('employments' => true);
         $data = $this->getData($cvId, $fields);
+        if (!isset($data['employments'])) {
+            return $this->buildCollection(array(), 'employment');
+        }
+        
         $collection = $this->buildCollection($data['employments'], 'employment');
         return $collection;
     }

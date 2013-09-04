@@ -53,7 +53,7 @@ abstract class AbstractBuilderAwareMapper extends AbstractMapper implements Enti
     protected function buildCollection($data, $builder)
     {
         $builder = $this->getBuilder($builder);
-        $collection = $builder->getCollection($data);
+        $collection = $builder->buildCollection($data);
         return $collection;
     }
     

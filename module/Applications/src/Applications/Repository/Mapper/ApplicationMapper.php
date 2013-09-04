@@ -78,6 +78,7 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
             'cv.educations', 'cv.employments'
         );
         $data   = $this->getData($query, $fields, /*exclude*/ true);
+        if (!isset($data['cv'])) { $data['cv'] = array(); }
         $entity = $this->buildEntity($data['cv'], 'application-cv');
         return $entity; 
     }

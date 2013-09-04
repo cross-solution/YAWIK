@@ -169,6 +169,7 @@ return array(
              'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
              'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
              'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
+             'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
              'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
              'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
          ),
