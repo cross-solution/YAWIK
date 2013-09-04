@@ -82,7 +82,13 @@ return array(
     ),
     
      'service_manager' => array(
-        'invokables' => array('aaa' => 'bbb'),
+        'factories' => array(),
+        'initializers' => array(),
+        'shared' => array(),
+        'aliases' => array(),
+    ),
+    
+    'repositories' => array(
         'factories' => array('SettingsRepository' => '\Settings\Repository\Service\SettingsFactory'),
         'initializers' => array(),
         'shared' => array(),

@@ -6,8 +6,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\MvcEvent;
 use Settings\Entity\Settings as SettingsEntity;
 use Core\Entity\EntityInterface;
+use Core\Repository\AbstractRepository;
 
-class Settings 
+class Settings extends AbstractRepository 
 {
     
     protected $userRepository;
@@ -30,6 +31,10 @@ class Settings
         return $this->userRepository;
     }
     
+    /**
+     * the $id for an entity 'setting' is the same as for the entity 'user'
+     * @param type $id
+     */
     public function getSettingsByUser($user)
     {
         if ($user instanceOf EntityInterface) {
@@ -62,6 +67,20 @@ class Settings
                 $id = $UserRepository->save($userEntity);
             }
         }
+    }
+    
+    public function find($id) {
+        return $this->getSettingsByUser($user);
+    }
+    
+    public function fetch() {
+    }
+    
+    public function create($data = null) {
+    }
+    
+    public function save(EntityInterface $entity) {
+        
     }
     
 }

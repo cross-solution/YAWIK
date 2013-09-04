@@ -23,7 +23,7 @@ class SettingsPluginFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $plugin = new SettingsPlugin;
-        $plugin->setRepository($serviceLocator->getServiceLocator()->get('SettingsRepository'));
+        $plugin->setRepository($serviceLocator->getServiceLocator()->get('RepositoryManager')->get('SettingsRepository'));
         $plugin->setAuth($serviceLocator->getServiceLocator()->get('AuthenticationService'));
         //$plugin->setLocator($serviceLocator);
         return $plugin;

@@ -20,11 +20,11 @@ class SettingsFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $settings = new Settings;
-        $settings->setUserRepository($serviceLocator->get('UserRepository'));
-        $config = $serviceLocator->get('Config');
+        $settings->setUserRepository($serviceLocator->getServiceLocator()->get('RepositoryManager')->get('User'));
+        $config = $serviceLocator->getServiceLocator()->get('Config');
         
         // put on the Listener for saving the entity
-        $application = $serviceLocator->get('Application');
+        $application = $serviceLocator->getServiceLocator()->get('Application');
         $events = $application->getEventManager();
         $events->attach('postDispatch', array($settings, 'onPostDispatch'));
         return $settings;

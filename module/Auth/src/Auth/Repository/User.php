@@ -32,7 +32,7 @@ class User extends AbstractRepository
     
     public function save(EntityInterface $user)
     {
-        $this->userMapper->save($user);
+        $this->getMapper('user')->save($user);
     }
     
      

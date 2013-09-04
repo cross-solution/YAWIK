@@ -27,7 +27,7 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {   
         $ServiceLocator = $this->getServiceLocator();
-        $aaa = $ServiceLocator->get('aaa');
+        //$aaa = $ServiceLocator->get('aaa');
         
         // Holen der der Entity
         $settings = $this->settings();
