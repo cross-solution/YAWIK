@@ -1,0 +1,8 @@
+<?php $this->headTitle($this->translate('Jobs'));
+      $this->headScript()->appendFile($this->basepath('/js/Jobs/jobs.index.js'))?>
+
+<h1><?=$this->translate('List of all jobs')?></h1>
+<div id="jobs-list-container">
+<?php echo $this->render('jobs/index/index.ajax.phtml')?>
+</div>
+
