@@ -46,7 +46,7 @@ return array(
                             'form' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/:jobid',
+                                    'route' => '/:jobId',
                                 ),
                             ),
                             'submit' => array(
@@ -93,6 +93,7 @@ return array(
             'apply' => array(
                 'label' => 'Applications',
                 'route' => 'lang/applications',
+                'order' => 20,
 //                 'pages' => array(
 //                     'facebook' => array(
 //                         'label' => 'Facebook',

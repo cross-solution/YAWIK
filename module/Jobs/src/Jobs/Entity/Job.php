@@ -11,6 +11,8 @@ class Job extends AbstractIdentifiableEntity implements JobInterface
 {
 
     protected $applyId;
+    protected $title;
+    protected $company;
     protected $userId;
     protected $user;
     protected $applications;
@@ -26,7 +28,43 @@ class Job extends AbstractIdentifiableEntity implements JobInterface
         return $this->applyId;
     }
     
-    public function setUserId($userId)
+    
+    
+    /**
+     * @return the $title
+     */
+    public function getTitle ()
+    {
+        return $this->title;
+    }
+
+	/**
+     * @param field_type $title
+     */
+    public function setTitle ($title)
+    {
+        $this->title = (string) $title;
+        return $this;
+    }
+
+	/**
+     * @return the $company
+     */
+    public function getCompany ()
+    {
+        return $this->company;
+    }
+
+	/**
+     * @param field_type $company
+     */
+    public function setCompany ($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+	public function setUserId($userId)
     {
         $this->userId = $userId;
         return $this;

@@ -43,6 +43,7 @@ return array(
             'settings' => array(
                 'label' => /*@translate*/ 'Settings',
                 'route' => 'lang/settings',
+                'order' => 40,
             ),
         ),
     ),

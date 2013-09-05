@@ -81,10 +81,10 @@ return array(
     // Navigation-Konfig für die main_navigation
     'navigation' => array(
         'default' => array(
-            'home' => array(
-                'label' => 'Home',
-                'route' => 'lang',
-            ),
+//             'home' => array(
+//                 'label' => 'Home',
+//                 'route' => 'lang',
+//             ),
         ),
     ),
     

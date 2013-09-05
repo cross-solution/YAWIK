@@ -5,25 +5,21 @@ namespace Core\Repository;
 use Zend\ServiceManager\AbstractPluginManager;
 use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 use Core\Repository\Mapper\MapperAwareInterface;
+use Zend\ServiceManager\ConfigInterface;
+use Core\Repository\EntityBuilder\EntityBuilderAwareInitializer;
+use Core\Repository\Mapper\MapperAwareInitializer;
 
 
 class RepositoryManager extends AbstractPluginManager
 {
     public function __construct(ConfigInterface $configuration = null)
     {
-        parent::__construct($configuration);
-        $self = $this;
-        $this->addInitializer(function ($instance) use ($self) {
-            if ($instance instanceof EntityBuilderAwareInterface) {
-                $instance->setEntityBuilderManager($self->getServiceLocator()->get('builders'));
-            }
-        });
         
-        $this->addInitializer(function ($instance) use ($self) {
-            if ($instance instanceOf MapperAwareInterface) {
-                $instance->setMapperManager($self->getServiceLocator()->get('mappers'));
-            }
-        });
+        parent::__construct($configuration);
+        $this->addInitializer(new RepositoryAwareInitializer())
+             ->addInitializer(new EntityBuilderAwareInitializer())
+             ->addInitializer(new MapperAwareInitializer());
+        
     }
     
     public function validatePlugin($plugin)

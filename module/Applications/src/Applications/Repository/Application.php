@@ -43,6 +43,16 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $collection;
     }
     
+    public function fetchByJobId($jobId)
+    {
+        $collection = $this->getMapper('application')->fetch(
+            array('jobId' => $jobId),
+            array('cv'),
+            true
+        );
+        return $collection;
+    }
+    
     public function getPaginatorAdapter(array $propertyFilter, $sort)
     {
         

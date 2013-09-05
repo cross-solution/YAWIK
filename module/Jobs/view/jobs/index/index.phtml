@@ -1,8 +1,8 @@
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/js/Jobs/jobs.index.js'))?>
+      $this->headScript()->appendFile($this->basepath('/js/Core/core.pagination.js'))?>
 
 <h1><?=$this->translate('List of all jobs')?></h1>
-<div id="jobs-list-container">
+<div id="jobs-list-container" class="pagination-container">
 <?php echo $this->render('jobs/index/index.ajax.phtml')?>
 </div>
 

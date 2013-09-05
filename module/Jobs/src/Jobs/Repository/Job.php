@@ -32,6 +32,12 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $entity;
     }
     
+    public function findByApplyId($applyId)
+    {
+        $collection = $this->getMapper('job')->fetch(array('applyId' => $applyId));
+        return $collection->getIterator()->current();
+    }
+    
     public function fetch()
     {
         $collection = $this->getMapper('job')->fetch();

@@ -9,7 +9,18 @@
 <p class="lead"><?php printf(
     $this->translate('Apply to "%s" from "%s"'), 
     '<a href="/job-url" title="' . $this->translate('Go to job advertisement') . '">' . $this->escapehtml($job->title) . '</a>',
-    'TestCompany'
+    $job->company
 ) ?></p>
 
-<?php echo $isApplicationSaved ? 'Yeehaw!' : $this->partial('form/application', array('form' => $form)) ?>
+<?php if ($isApplicationSaved):?>
+<p>Yeehaw!</p>
+<?php else: 
+    $form->setAttributes(array(
+        'action' => $this->url('lang/apply/submit', array(), true),
+        'method' => 'post',
+        'id' => 'application-form',
+    ));
+        
+    echo $this->form($form);
+endif; ?>
+ 

@@ -2,8 +2,7 @@
 
 namespace Core\Entity\Hydrator;
 
-use Zend\Stdlib\Hydrator\ClassMethods;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
 

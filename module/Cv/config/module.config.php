@@ -82,6 +82,7 @@ return array(
                 'type' => 'Uri',
                 'label' =>  /*@translate*/ 'Resumes',
                 'uri' => '#',
+                'order' => 10,
                 //'route' => 'lang/cvs',
                 'pages' => array(
                     'list' => array(

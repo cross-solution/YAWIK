@@ -31,13 +31,14 @@ class IndexController extends AbstractActionController
 //         $view->setTerminal(true);
 //         return $view;
         //$this->layout('layout/apply');
-       
+        $services = $this->getServiceLocator();
+        
+        $job = $services->get('repositories')->get('job')->findByApplyId($this->params('jobId'));
+        
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
-            'job' => (object) array(
-                'title' => 'Testjob'
-            ),
+            'job' => $job,
             'form' => $form,
             'isApplicationSaved' => false,
         ));
@@ -78,7 +79,7 @@ class IndexController extends AbstractActionController
         } else {
             
             $form->populateValues(array(
-                'jobId' => $this->params('jobid', 0),
+                'jobId' => $this->params('jobId', 0),
             ));
             
         }

@@ -11,7 +11,7 @@ return array(
     
     // Activated modules. (Use folder name)
     'modules' => array(
-        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Settings'
+        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings'
     ),
     
     // Where to search modules
@@ -44,7 +44,7 @@ return array(
         array(
             'service_manager' => 'RepositoryManager',
             'config_key'      => 'repositories',
-            'interface'       => '\core\ModuleManager\Feature\RepositoryProviderInterface',
+            'interface'       => '\Core\ModuleManager\Feature\RepositoryProviderInterface',
             'method'          => 'getRepositoryConfig',
         ),
     ),
