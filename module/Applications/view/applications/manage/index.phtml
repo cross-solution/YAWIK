@@ -1,31 +1,11 @@
-<?php
-$tableRows = $this->partialLoop()->setObjectKey('model')->__invoke('applications/list-row', $applications);
-if (!$this->isAjaxRequest):
-?>
 
 <?php $this->headTitle($this->translate('Applications'));
+      $this->headScript()->appendFile($this->basepath('/js/Core/core.pagination.js'));
       /*$this->headLink()->appendStylesheet($this->basePath('css/Core/forms.css'))
                        ->appendStylesheet($this->basepath('/css/Applications/manage.css'));
       $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>*/?>
 
 <h1><?=$this->translate('List of all applications')?></h1>
-<table class="table table-striped table-bordered table-hover" id="applications-list">
-<thead>
-<tr>
-    <th><?=$this->translate('Job')?></th>
-    <th><?=$this->translate('State')?></th>
-    <th><?=$this->translate('Modified')?></th>
-</tr>
-</thead>
-
-<tbody>
-<?php echo $tableRows; ?>
-
-</tbody>
-
-</table>
-<?php echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
-<?php else:
-    echo $tableRows;
-endif; // !$this->isAjaxRequest
-?>
+<div id="applications-list-container" class="pagination-container">
+<?php echo $this->render('applications/manage/index.ajax.phtml') ?>
+</div>
