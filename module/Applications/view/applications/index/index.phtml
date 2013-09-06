@@ -1,10 +1,7 @@
 <?php 
     $this->headTitle($this->translate('Apply'));
-    
-    $this->headLink()->appendStylesheet($this->basePath('/css/Core/forms.css'));
-    
-    $this->headScript()->appendFile($this->basePath('js/jquery.inlineLabel.js'))
-                       ->appendFile($this->basepath('js/Applications/form.js'));
+    $this->headscript()->appendFile($this->basepath('js/Core/jquery.formcollection.js'));
+    $this->headscript()->appendScript('$(function(){$(".form-collection").formcollection();});');
     
     
 ?>
