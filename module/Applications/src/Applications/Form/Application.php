@@ -22,7 +22,7 @@ class Application extends Form
         $this->bind($model);
         $this->add(array(
             'type' => 'Hidden',
-            'name' => 'jobid',
+            'name' => 'jobId',
         ));
         $this->addElements();
         

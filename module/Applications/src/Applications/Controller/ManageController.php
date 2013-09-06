@@ -39,12 +39,12 @@ class ManageController extends AbstractActionController
         $repository = $this->getServiceLocator()->get('repositories')->get('application');
         $params = $this->params()->fromQuery();
         if (isset($params["applyId"])) {
-            $job = $this->getServiceLocator()->get('repositories')->get('job')->findByApplyId($params["applyId"]);
-            if ($job) {
-                $params['jobId'] = $job->id;
-            } else {
-                $params['jobId'] = "xxxNOTHERExxx";
-            }
+//             $job = $this->getServiceLocator()->get('repositories')->get('job')->findByApplyId($params["applyId"]);
+//             if ($job) {
+                $params['jobId'] = $params['applyId'];
+//             } else {
+//                 $params['jobId'] = "xxxNOTHERExxx";
+//             }
         }
         
         $paginator = new \Zend\Paginator\Paginator(

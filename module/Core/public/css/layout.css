@@ -29,9 +29,12 @@ h1 {
 .navbar .nav > .dropdown > a {
 	float: left;
 }
-header #login-info-box a:hover {
+/*header #login-info-box a {
 	color: #333;
 }
+header #login-info-box a:hover {
+	color: #333;
+}*/
 
 fieldset fieldset {
   border: 1px solid #dddddd;
@@ -67,8 +70,7 @@ footer.modal-footer .container-fluid {
 footer.modal-footer .container-fluid p {
 	margin: 0;
 }
-footer.modal-footer .container-fluid p a,
-header #login-info-box a {
+footer.modal-footer .container-fluid p a {
 	color: #555;
 }
 footer.modal-footer .container-fluid p a:hover,

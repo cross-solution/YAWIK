@@ -65,13 +65,14 @@ class IndexController extends AbstractActionController
                 //$form->populateValues($data);
             } else {
                 $applicationEntity->setStatus('new');
-                //$repository->save($applicationEntity);
+                $repository->save($applicationEntity);
                 $applicationEntity->setId('test');
                 
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,
                         'id' => $applicationEntity->id,
+                        'jobId' => $applicationEntity->jobId,
                     ));
                 }
                 $viewModel->setVariable('isApplicationSaved', true);
