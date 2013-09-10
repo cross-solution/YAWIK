@@ -10,7 +10,7 @@ class DefaultButtonsFieldset extends Fieldset
     public function init()
     {
         $this->setName('buttons');
-        $this->setLabel('Actions');
+        //$this->setLabel('Actions');
         $this->add(array(
             'type' => 'Button',
             'name' => 'submit',

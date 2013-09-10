@@ -1,0 +1,17 @@
+<?php
+
+$this->headTitle($this->translate('My profile'));
+$this->headscript()->appendFile($this->basepath('js/Core/core.forms.js'));
+
+?>
+
+<h1><?php echo $this->translate('My profile')?></h1>
+
+<div id="user-profile-form-response" class="alert hide">
+
+</div>
+
+<?php 
+    $this->form->setAttribute('action', $this->url('lang/manage-profile', array(), true));
+    echo $this->form($this->form); ?>
+

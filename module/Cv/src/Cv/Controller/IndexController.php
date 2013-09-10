@@ -8,10 +8,10 @@
  */
 
 /** ActionController of Core */
-namespace Core\Controller;
+namespace Cv\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+
 
 /**
  * Main Action Controller for the application.

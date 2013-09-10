@@ -105,15 +105,19 @@ class FormCollection extends ZendFormCollection
                     if ($isCollectionElement) {
                         $extraLegend = '<a href="#" class="add-item btn pull-right"><i class="icon-plus"></i></a>';
                         $class  = ' class="form-collection"';
+                        $divWrapperOpen = $divWrapperClose = '';
                     } else {
                         $extraLegend = $class = '';
+                        $divWrapperOpen = '<div class="fieldset-content">';
+                        $divWrapperClose = '</div>';
                     }
                     
                     $markup = sprintf(
-                        '<fieldset id="%s"%s><legend>%s%s</legend>%s</fieldset>',
+                        '<fieldset id="%s"%s><legend>%s%s</legend>%s%s%s</fieldset>',
                         $elementId, $class, $label, $extraLegend,
-                        $markup
+                        $divWrapperOpen, $markup, $divWrapperClose
                     );
+                    
                 }
             }
         }

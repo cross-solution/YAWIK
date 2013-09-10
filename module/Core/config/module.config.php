@@ -64,6 +64,9 @@ return array(
             'query' => false,
             'criteria' => false,
         ),
+        'aliases' => array(
+            'forms' => 'FormElementManager'
+        ),
     ),
     
     // Translation settings consumed by the 'translator' factory above.
@@ -109,6 +112,7 @@ return array(
         'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
+        'unauthorized_template'    => 'error/403',
         'exception_template'       => 'error/index',
         
         // Map template to files. Speeds up the lookup through the template stack. 
@@ -116,6 +120,7 @@ return array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             //'core/index/index'        => __DIR__ . '/../view/core/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
+            'error/403'               => __DIR__ . '/../view/error/403.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             
             'main-navigation'         => __DIR__ . '/../view/partial/main-navigation.phtml',

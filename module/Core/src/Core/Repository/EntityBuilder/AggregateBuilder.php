@@ -80,19 +80,20 @@ class AggregateBuilder extends EntityBuilder
         
         foreach ($this->builders as $property => $builderSpec) {
             if (isset($data[$property])) {
-                if ($data[$property] instanceOf RelationInterface
-                    && ($this->extractRelations || $data[$property]->isLoaded())
-                ) {
-                    if ($data[$property] instanceOf RelationEntity) {
-                        $data[$property] = $data[$property]->getEntity();
-                        if (null == $data[$property]->getId()) {
-                            unset($data[$property]);
-                            continue;
+                if ($data[$property] instanceOf RelationInterface) {
+                    if ($this->extractRelations || $data[$property]->isLoaded()) {
+                
+                        if ($data[$property] instanceOf RelationEntity) {
+                            $data[$property] = $data[$property]->getEntity();
+                            if (method_exists($data[$property], 'getId') && null == $data[$property]->getId()) {
+                                unset($data[$property]);
+                                continue;
+                            }
                         }
+                    } else {
+                        unset($data[$property]);
+                        continue;
                     }
-                } else {
-                    unset($data[$property]);
-                    continue;
                 } 
                 $data[$property] = $builderSpec['asCollection']
                                  ? $builderSpec['builder']->unbuildCollection($data[$property])

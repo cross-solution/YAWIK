@@ -13,7 +13,8 @@ class User extends AbstractRepository
     
     public function create($data = array())
     {
-        return $this->getMapper('user')->create($data);
+        $entity = $this->getMapper('user')->create($data);
+        return $entity;
     }
     
     public function findByProfileIdentifier($identifier)
@@ -29,7 +30,7 @@ class User extends AbstractRepository
     
     public function find ($id)
     {
-        $entity = $this->getMapper('user')->find($id);
+        $entity = $this->getMapper('user')->find($id, array('info'), true);
         return $entity;
     }
     

@@ -3,11 +3,12 @@
 namespace Auth\Repository\EntityBuilder;
 
 use Zend\ServiceManager\FactoryInterface;
-use Core\Repository\EntityBuilder\AggregateBuilder as Builder;
+use Core\Repository\EntityBuilder\RelationAwareBuilder as Builder;
 use Core\Repository\Hydrator;
+use Core\Entity\RelationEntity;
 
 
-class UserBuilderFactory implements FactoryInterface
+class InfoBuilderFactory implements FactoryInterface
 {
 	/* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -19,11 +20,12 @@ class UserBuilderFactory implements FactoryInterface
         
         $builder = new Builder(
             $hydrator, 
-            new \Auth\Entity\User(),
-            new \Core\Entity\Collection()
+            new \Auth\Entity\Info()
         );
         
-        $builder->addBuilder('info', $serviceLocator->get('auth-info'));
+        $builder->setRelation(new RelationEntity(
+            array($serviceLocator->getServiceLocator()->get('mappers')->get('user'), 'findInfo')
+        ), 'id');
         
         
         return $builder;

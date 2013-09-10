@@ -87,7 +87,7 @@ class HybridAuth implements AdapterInterface
        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
        if (!$user) {
            $forceSave = true;
-           $user = $this->getRepository()->getUserBuilder()->build();
+           $user = $this->getRepository()->create();
        }
        
        
@@ -95,18 +95,18 @@ class HybridAuth implements AdapterInterface
        $newInfo = (array) $userProfile; 
        
        if ($forceSave || $currentInfo != $newInfo) {
-           $user->setData(array(
-               'email' => $email,
-               'firstName' => $userProfile->firstName,
-               'lastName' => $userProfile->lastName,
-               'displayName' => $userProfile->displayName,
-               'profile' => $newInfo
-           ));
+           
+           $user->info->email = $email;
+           $user->info->firstName = $userProfile->firstName;
+           $user->info->lastName = $userProfile->lastName;
+           //$user->login =  $userProfile->displayName;
+           $user->profile = $newInfo;
+           
            $this->getRepository()->save($user);
        }
        
        
-       return new Result(Result::SUCCESS, $user);
+       return new Result(Result::SUCCESS, $user->id);
         
     }
 

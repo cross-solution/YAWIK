@@ -36,7 +36,8 @@ header #login-info-box a:hover {
 	color: #333;
 }*/
 
-fieldset fieldset {
+fieldset fieldset,
+fieldset .fieldset-content {
   border: 1px solid #dddddd;
   
   

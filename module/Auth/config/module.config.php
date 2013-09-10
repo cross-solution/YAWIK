@@ -12,18 +12,21 @@ return array(
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
-            'AuthenticationService' => '\Zend\Authentication\AuthenticationService',
+            //'AuthenticationService' => '\Zend\Authentication\AuthenticationService',
         ),
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
+            'AuthenticationService' => '\Auth\Service\AuthenticationServiceFactory',
+            'UnauthorizedAccessListener' => '\Auth\Service\UnauthorizedAccessListenerFactory',
         ),
     ),
     
     'controllers' => array(
         'invokables' => array(
             'Auth\Controller\Index' => 'Auth\Controller\IndexController',
+            'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
         ),
     ),
@@ -72,6 +75,17 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Index',
                                 'action'     => 'index',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'manage-profile' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/my/profile',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Manage',
+                                'action' => 'my-profile',
                             ),
                         ),
                         'may_terminate' => true,
@@ -186,7 +200,16 @@ return array(
     
     'entity_builders' => array(
         'factories' => array(
-            'user' => 'Auth\Repository\EntityBuilder\UserBuilderFactory'
+            'user' => 'Auth\Repository\EntityBuilder\UserBuilderFactory',
+            'auth-info' => 'Auth\Repository\EntityBuilder\InfoBuilderFactory'
+                
+        ),
+    ),
+    
+    'form_elements' => array(
+        'invokables' => array( 
+            'user-profile' => 'Auth\Form\UserProfile',
+            'user-info-fieldset' => 'Auth\Form\UserInfoFieldset',
         ),
     ),
     

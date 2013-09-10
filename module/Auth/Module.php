@@ -12,6 +12,7 @@ namespace Auth;
 use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
+use Auth\Listener\UnauthorizedAccessListener;
 /**
  * Bootstrap class of the Core module
  * 
@@ -63,11 +64,15 @@ class Module
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();
+        $services     = $e->getApplication()->getServiceManager();
         
         $eventManager->attach(
-            MvcEvent::EVENT_RENDER,
-            array(new InjectLoginInfoListener(), 'injectLoginInfo')
+            array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
+            array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
         );
+        
+        $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
+        $unauthorizedAccessListener->attach($eventManager);
     }
     
 }

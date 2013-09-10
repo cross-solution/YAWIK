@@ -1,12 +1,16 @@
 <div id="login-info-box" class="nav-collapse collapse navbar-text pull-right">
 <ul class="nav">
     <li class="dropdown">
+    
 <?php if ($this->auth()->isLoggedIn()):?>
 
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf($this->translate('Hello %s'), '<strong>' . $this->auth('displayName') . '</strong>')?><b class="caret"></b></a>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf($this->translate('Hello %s'), '<strong>' . $this->auth('info')->displayName . '</strong>')?><b class="caret"></b></a>
         <ul class="dropdown-menu pull-right">
             <li>
-                <a href="<?php echo $this->url('auth-logout')?>"><?php echo $this->translate('Logout')?></a>
+                <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><i class="icon-user"></i> <?php echo $this->translate('My profile')?></a>
+            <li class="divider">
+            <li>
+                <a href="<?php echo $this->url('auth-logout')?>"><i class="icon-eject"></i> <?php echo $this->translate('Logout')?></a>
             </li>
         </ul>
 
@@ -32,7 +36,7 @@
         <li class="disabled"><a href="#"><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
         <li>
-            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider))?>"><img src="/images/Auth/<?php echo $provider ?>.png" /> <?php echo $name?></a>
+            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($_SERVER['REQUEST_URI']))))?>"><img src="/images/Auth/<?php echo $provider ?>.png" /> <?php echo $name?></a>
         </li>
     <?php endforeach ?>
     </ul>

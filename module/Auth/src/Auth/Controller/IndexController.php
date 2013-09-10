@@ -43,13 +43,14 @@ class IndexController extends AbstractActionController
     public function loginAction()
     {
         
+        $ref = urldecode($this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
         $auth = $this->getServiceLocator()->get('AuthenticationService');
         $result = $auth->authenticate($hauth);
         
-        $this->redirect()->toRoute('lang/home', array('lang' => $this->params('lang')));
+        $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
     }
     
     /**

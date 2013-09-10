@@ -20,14 +20,11 @@ use Core\Entity\EntityInterface;
 class UserMapper extends CoreMapper
 {
     
-    public function create($data = null)
+    public function create($data=null)
     {
-        if (null === $data) {
-            $data = Array();
-        }
-        return $this->buildEntity($data, 'user');
-        
+        return $this->builders->get('user')->build($data);
     }
+    
     /**
      * {@inheritdoc}
      * @see \Auth\Mapper\UserMapperInterface::findByEmail()
@@ -51,13 +48,27 @@ class UserMapper extends CoreMapper
         return $entity;
     }
     
+    public function findInfo($id)
+    {
+        $data = $this->getData($id, array('info'));
+        $data = (null === $data || !isset($data['info'])) 
+              ? array()
+              : $data['info'];
+        
+        $entity = $this->buildEntity($data, 'auth-info');
+        return $entity;
+    }
+    
     /**
      * {@inheritdoc}
      * @see \Auth\Mapper\UserMapperInterface::findByProfileIdentifier()
      */
     public function findByProfileIdentifier($identifier)
     {
-        $data = $this->getData(array('profile.identifier' => $identifier));
+        $data = $this->getData(array('profile.identifier' => $identifier), array('info'), true);
+        if (null === $data) {
+            return null;
+        }
         $builder = $this->getBuilder('user');
         $entity = $builder->build($data);
         return $entity;
