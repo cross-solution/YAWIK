@@ -8,24 +8,19 @@
 
 namespace Auth\Entity;
 
-use Core\Entity\AbstractEntity;
+use Core\Entity\AbstractIdentifiableEntity;
+use Core\Entity\EntityInterface;
+use Core\Entity\RelationEntity;
 
 /**
  * The user model
  */
-class User extends AbstractEntity implements UserInterface
+class User extends AbstractIdentifiableEntity implements UserInterface
 {   
+   
     /** @var string */
-    protected $_email;
-    
-    /** @var string */ 
-    protected $_firstName;
-    
-    /** @var string */
-    protected $_lastName;
-    
-    /** @var string */
-    protected $_displayName;
+    protected $login;
+    protected $info;
     
     protected $credential;
     
@@ -35,73 +30,32 @@ class User extends AbstractEntity implements UserInterface
     /** @var array */
     protected $_settings = array();
     
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
-    public function setEmail($email) {
-        $this->_email = (String) $email;
-        return $this;
-    }
-    
-    /** {@inheritdoc} */
-    public function getEmail() {
-        return $this->_email;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
-    public function setFirstName($name)
-    {
-        $this->_firstName = trim((String)$name);
-        return $this;
-    }
-    
-    /** {@inheritdoc} */
-    public function getFirstName()
-    {
-        return $this->_firstName;
-    }
     
     /**
      * {@inheritdoc}
      * @return \Auth\Model\User
      */
-    public function setLastName($name)
+    public function setLogin($login)
     {
-        $this->_lastName = trim((String) $name);
+        $this->login = trim((String) $login);
         return $this;
     }
     
     /** {@inheritdoc} */
-    public function getLastName()
+    public function getLogin()
     {
-        return $this->_lastName;
+        return $this->login;
     }
     
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
-    public function setDisplayName($name)
+    public function setInfo(EntityInterface $info)
     {
-        $this->_displayName = trim((String) $name);
+        $this->info = $info;
         return $this;
     }
     
-    /** {@inheritdoc} */
-    public function getDisplayName()
+    public function getInfo()
     {
-        if (!$this->_displayName) {
-            $name = $this->getFirstName();
-            if ($name) {
-                $name .= ' ';
-            }
-            $this->setDisplayName($name . $this->getLastName());
-        }
-        return $this->_displayName;
+        return $this->info;
     }
     
     public function getCredential()
@@ -153,7 +107,5 @@ class User extends AbstractEntity implements UserInterface
     {
         return $this->_settings;
     }
-    
-    
-    
+   
 }

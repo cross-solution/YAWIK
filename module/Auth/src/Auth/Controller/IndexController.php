@@ -66,11 +66,20 @@ class IndexController extends AbstractActionController
      */
     public function loginExternAction()
     {
+        $this->getServiceLocator()->get('ExternalApplicationAdapter');
+//         if (!$this->getRequest()->isPost()) {
+//             return new JsonModel(array(
+//                 'status' => 'failure',
+//                 'code'   => 1,
+//                 'messages' => 'Authentification requires a post request.',
+//             ));
+//         }
+        
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
-        $adapter->setIdentity($this->params()->fromQuery('user'))
-                ->setCredential($this->params()->fromQuery('pass'))
-                ->setApplicationKey($this->params()->fromQuery('appKey'));
+        $adapter->setIdentity($this->params()->fromPost('user'))
+                ->setCredential($this->params()->fromPost('pass'))
+                ->setApplicationKey($this->params()->fromPost('appKey'));
         
         $auth       = $services->get('AuthenticationService');
         $result     = $auth->authenticate($adapter);

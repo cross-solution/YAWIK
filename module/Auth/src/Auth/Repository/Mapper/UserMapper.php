@@ -19,6 +19,15 @@ use Core\Entity\EntityInterface;
  */
 class UserMapper extends CoreMapper
 {
+    
+    public function create($data = null)
+    {
+        if (null === $data) {
+            $data = Array();
+        }
+        return $this->buildEntity($data, 'user');
+        
+    }
     /**
      * {@inheritdoc}
      * @see \Auth\Mapper\UserMapperInterface::findByEmail()
@@ -57,6 +66,7 @@ class UserMapper extends CoreMapper
     public function findByLogin($login)
     {
         $data = $this->getData(array('login' => $login), array('info'), true);
+        if (null === $data) { return null; }
         $builder = $this->getBuilder('user');
         $entity = $builder->build($data);
         return $entity;

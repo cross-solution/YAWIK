@@ -30,7 +30,7 @@ class ExternalApplicationAdapterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $repository = $serviceLocator->get('UserRepository');
+        $repository = $serviceLocator->get('repositories')->get('user');
         $adapter = new ExternalApplication($repository);
         $config  = $serviceLocator->get('Config');
         if (isset($config['Auth']['external_applications']) && is_array($config['Auth']['external_applications'])) {

@@ -10,69 +10,31 @@
 /** Auth model */
 namespace Auth\Entity;
 
+use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\EntityInterface;
 
 /**
  * User model interface 
  */
-interface UserInterface extends EntityInterface
+interface UserInterface extends IdentifiableEntityInterface
 {
-    /**
-     * Sets the email.
-     * 
-     * @param string $email
-     */
-    public function setEmail($email);
-    
-    /**
-     * Gets the email
-     * 
-     * @return string
-     */
-    public function getEmail();
-    
-    /**
-     * Sets the first name
-     * 
-     * @param string $name
-     */
-    public function setFirstName($name);
-    
-    /**
-     * Gets the first name
-     *
-     * @return string
-     */
-    public function getFirstName();
-    
-    /**
-     * Sets the last name
-     *
-     * @param string $name
-     */
-    public function setLastName($name);
-    
-    /**
-     * Gets the last name
-     *
-     * @return string
-     */
-    public function getLastName();
     
     /**
      * Sets the display name
      *
      * @param string $name
      */
-    public function setDisplayName($name);
+    public function setLogin($login);
     
     /**
      * Gets the display name
      *
      * @return string
      */
-    public function getDisplayName();
+    public function getLogin();
     
+    public function setInfo(EntityInterface $info);
+    public function getInfo();    
     public function setPassword($password);
     
     public function setCredential($credential);
