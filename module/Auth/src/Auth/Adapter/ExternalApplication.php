@@ -64,15 +64,15 @@ class ExternalApplication extends AbstractAdapter
         }
         
         $identity    = $this->getIdentity();
-        $displayName = $identity . '@' . $this->getApplicationIdentifier();
+        $login       = $identity . '@' . $this->getApplicationIdentifier();
         $users       = $this->getRepository();
-        $user        = $users->findByDisplayName($displayName);
+        $user        = $users->findByLogin($login);
         $filter      = new CredentialFilter();
         $credential  = $this->getCredential();
         
         if (!$user) {
-            $user = $users->getUserBuilder()->build(array(
-                'displayName' => $displayName,
+            $user = $users->create(array(
+                'login' => $login,
                 'password' => $credential,
             ));
             $users->save($user);
@@ -82,6 +82,6 @@ class ExternalApplication extends AbstractAdapter
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
         }
         
-        return new Result(Result::SUCCESS, $user);
+        return new Result(Result::SUCCESS, $user->id);
     }
 }

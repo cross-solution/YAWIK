@@ -19,8 +19,8 @@ class User extends AbstractRepository
         return $entity;
     }
     
-    public function findByDisplayName($displayName) {
-        $entity = $this->getMapper('user')->findByDisplayName($displayName);
+    public function findByLogin($login) {
+        $entity = $this->getMapper('user')->findByLogin($displayName);
         return $entity;
     }
     

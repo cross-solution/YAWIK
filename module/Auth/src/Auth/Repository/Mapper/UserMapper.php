@@ -54,9 +54,9 @@ class UserMapper extends CoreMapper
         return $entity;
     }
     
-    public function findByDisplayName($displayName)
+    public function findByLogin($login)
     {
-        $data = $this->getData(array('displayName' => $displayName));
+        $data = $this->getData(array('login' => $login), array('info'), true);
         $builder = $this->getBuilder('user');
         $entity = $builder->build($data);
         return $entity;
