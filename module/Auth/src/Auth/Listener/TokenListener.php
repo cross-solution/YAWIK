@@ -47,10 +47,10 @@ class TokenListener implements SharedListenerAggregateInterface
     public function onBootstrap(MvcEvent $e)
     {
         $request = $e->getRequest();
-        $token = $request->getPost('token');
+        $token = $request->getPost('auth');
         
         if (!$token) {
-            $token = $request->getQuery('token');
+            $token = $request->getQuery('auth');
         }
         if (!$token) {
             return;
