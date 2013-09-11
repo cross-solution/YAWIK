@@ -78,9 +78,15 @@ class IndexController extends AbstractActionController
         
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
+        /*
+        $adapter->setIdentity('illert')
+                ->setCredential('a28d402326a5dda1c349fb849efc720a')
+                ->setApplicationKey('AmsAppKey');
+        */
         $adapter->setIdentity($this->params()->fromPost('user'))
                 ->setCredential($this->params()->fromPost('pass'))
                 ->setApplicationKey($this->params()->fromPost('appKey'));
+        
         
         $auth       = $services->get('AuthenticationService');
         $result     = $auth->authenticate($adapter);

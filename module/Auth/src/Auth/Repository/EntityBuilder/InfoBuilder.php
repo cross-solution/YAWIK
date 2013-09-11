@@ -16,6 +16,6 @@ class InfoBuilder extends RelationAwareBuilder implements MapperAwareInterface
     {
         $relation = new RelationEntity(array(
             
-        ))
+        ));
     }
 }

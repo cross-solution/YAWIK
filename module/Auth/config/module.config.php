@@ -20,6 +20,7 @@ return array(
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
             'AuthenticationService' => '\Auth\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Service\UnauthorizedAccessListenerFactory',
+            'Acl' => '\Acl\Service\AclFactory',
         ),
     ),
     

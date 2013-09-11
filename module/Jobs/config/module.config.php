@@ -18,6 +18,17 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'post' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/save',
+                                    'defaults' => array(
+                                        'controller' => 'Jobs\Controller\Manage',
+                                        'action' => 'save',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                            ),
                 ),
             ),
         ),
@@ -37,6 +48,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Jobs\Controller\Index' => 'Jobs\Controller\IndexController',
+            'Jobs\Controller\Manage' => 'Jobs\Controller\ManageController',
         ),
     ),
     
@@ -53,6 +65,13 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    
+       
+    'form_elements' => array(
+        'invokables' => array(
+            'JobForm'            => '\Job\Form\Job',
+    )),
+    
     
     'repositories' => array(
         'invokables' => array(

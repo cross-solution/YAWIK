@@ -56,6 +56,7 @@ class Module
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    'Acl' => __DIR__ . '/src/Acl'
                 ),
             ),
         );
@@ -73,6 +74,8 @@ class Module
         
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
+        $acl = $services->get('acl'); 
+        $eventManager->attach($acl);
     }
     
 }

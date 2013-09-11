@@ -84,7 +84,7 @@ class Settings extends Form {
             )
         ));
         
-
+/*
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'test',
@@ -95,7 +95,7 @@ class Settings extends Form {
             //'id' => 'contact-title',
             )
         ));
-
+*/
         $this->add(
                 array(
                     'name' => 'send',
