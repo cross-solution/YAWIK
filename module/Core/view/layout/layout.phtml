@@ -40,7 +40,10 @@
 
                 <div class="nav-collapse collapse" id="main-navigation">
                     <?php 
-                        echo $this->navigation('main_navigation')->menu()->renderPartial(null, 'main-navigation')?>
+                        echo $this->navigation('main_navigation')
+                                  ->menu()
+                                  ->setMaxDepth(0)
+                                  ->setUlClass('nav')//renderPartial(null, 'main-navigation')?>
 
                     <?php echo $this->loginInfo ?>
                 </div> <!-- /main-navigation -->
@@ -49,16 +52,33 @@
                 
             </header>
             
-            <div id="container" class="container">
-                <div class="btn-group pull-right" data-toggle="buttons-radio" id="language-switcher">
-                    <?php $lang = $this->params('lang');
-                    foreach (array('en', 'de') as $availableLang): ?>
-                    <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
-                    <?php echo strtoupper($availableLang) ?></button>
-                    <?php endforeach ?>
-                </div>
-                <?php echo $this->content; ?>
-
+            <div id="container" class="container-fluid">
+                <div class="row-fluid">
+                    <div id="sidebar" class="span2">
+<!-- SIDEBAR -->
+<?php
+    echo $this->navigation()->menu()
+              ->setOnlyActiveBranch()
+              ->setMaxDepth(null)
+              ->setMinDepth(1)
+              ->setUlClass('nav nav-tabs nav-stacked');
+?>
+<!-- /SIDEBAR -->
+                    </div>
+                    
+                    <div id="content" class="span10">
+<!-- CONTENT -->
+<div class="btn-group pull-right" data-toggle="buttons-radio" id="language-switcher">
+    <?php $lang = $this->params('lang');
+    foreach (array('en', 'de') as $availableLang): ?>
+    <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
+    <?php echo strtoupper($availableLang) ?></button>
+    <?php endforeach ?>
+</div>
+<?php echo $this->content; ?>
+<!-- /CONTENT -->
+                    </div> <!-- /span10 -->
+                </div> <!-- /row -->
             </div> <!-- /container -->
 
             <footer class="modal-footer navbar">

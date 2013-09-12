@@ -36,6 +36,21 @@ header #login-info-box a:hover {
 	color: #333;
 }*/
 
+#sidebar {
+	position: relative;
+}
+
+#sidebar ul {
+	width: 13.8936%;
+	position: fixed;
+}
+#sidebar ul li a {
+	border: 1px solid #ddd;
+}
+#sidebar ul li.active a {
+	background-color: #f5f5f5;
+}
+
 fieldset fieldset,
 fieldset .fieldset-content {
   border: 1px solid #dddddd;

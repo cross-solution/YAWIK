@@ -79,16 +79,14 @@ return array(
     'navigation' => array(
         'default' => array(
             'resume' => array(
-                'type' => 'Uri',
                 'label' =>  /*@translate*/ 'Resumes',
-                'uri' => '#',
+                'route' => 'lang/cvs',
                 'order' => 10,
                 //'route' => 'lang/cvs',
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/cvs',
-                        'divider' => true,
                     ),
                     'create' => array(
                         'label' => /*@translate*/ 'Create resume',
