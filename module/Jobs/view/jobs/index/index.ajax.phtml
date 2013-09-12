@@ -2,15 +2,22 @@
 <table class="table table-striped table-bordered table-hover" id="jobs-list">
 <thead>
 <tr>
-    <th><?=$this->translate('Id')?></th>
-    <th><?=$this->translate('ApplyId')?></th>
+    <!-- <th><?=$this->translate('Id')?></th>-->
+    <th><?=$this->translate('Jobtitle')?></th>
+    <th><?=$this->translate('Location')?></th> 
+    <th><?=$this->translate('Companyname')?></th>
+    <th><?=$this->translate('Reference')?></th>
 </tr>
 </thead>
 
 <tbody>
 <?foreach ($jobs as $job):?>
 <tr>
-    <td><?php echo $job->id?></td>
+    <!-- <td><?php echo $job->id?></td> -->
+    <td><?php echo $job->title?></td>
+    <td><?php echo $job->location?></td>
+    
+    <td><?php echo $job->company?></td>
     <td><?php echo $job->applyId?></td>
 </tr>
 <?endforeach?>

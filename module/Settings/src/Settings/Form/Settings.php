@@ -2,23 +2,37 @@
 
 namespace Settings\Form;
 
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Form;
 use Zend\Form\Element;
-use Zend\Form\Fieldset;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Settings\Entity\Settings as SettingsEntity;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Stdlib\Hydrator\ArraySerializable;
 
-class Settings extends Form {
+class Settings extends Form implements ServiceLocatorAwareInterface {
+	
+	protected $forms;
 
-    public function __construct($name = null) {
-        parent::__construct('settings');
-        $this->setAttribute('method', 'post');
-        
-        // 'action' => $this->url('lang/settings', array(), true),
-    }
-
+	public function __construct($name = null) {
+		parent::__construct('settings');
+		$this->setAttribute('method', 'post');
+	
+		// 'action' => $this->url('lang/settings', array(), true),
+	}
+	
+	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+	{
+		$this->forms = $serviceLocator;
+		return $this;
+	}
+	
+	public function getServiceLocator()
+	{
+		return $this->forms;
+	}
+    
     public function getHydrator() {
         if (!$this->hydrator) {
             $hydrator = new ArraySerializable();
@@ -43,69 +57,22 @@ class Settings extends Form {
 
     public function init() {
 
-        $this->setName('Settings');
+        $this->setName('setting-core');
+        
         $plugin = $this->getPlugin('url');
         $url = call_user_func_array($plugin, array(null, array('lang' => 'de')));
         $this->setAttribute('action', $url);
         
         //->setHydrator(new ModelHydrator())
         //->setObject(new SettingsEntity());
-
-        /*
-          $this->add(array(
-          'type' => 'Hidden',
-          'name' => 'jobid',
-          ));
-         */
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Radio',
-            'name' => 'language',
-            'options' => array(
-                'label' => 'Choose your Language',
-                'value_options' => array(
-                    'en' => /* @translate */ 'English',
-                    'de' => /* @translate */ 'German',
-                ),
-            ),
-            'attributes' => array(
-            //'id' => 'contact-title',
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Email',
-            'name' => 'email',
-            'options' => array(
-                'label' => 'Email-Adresse'
-            ),
-            'attributes' => array(
-            //'id' => 'contact-title',
-            )
-        ));
         
-/*
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'test',
-            'options' => array(
-                'label' => 'Test'
-            ),
-            'attributes' => array(
-            //'id' => 'contact-title',
-            )
-        ));
-*/
         $this->add(
-                array(
-                    'name' => 'send',
-                    'attributes' => array(
-                        'type' => 'submit',
-                        'value' => 'Submit',
-                    ),
-                )
+        		$this->forms->get('settings-core-fieldset')
+        		->setUseAsBaseFieldset(true)
         );
+                
+        $this->add($this->forms->get('DefaultButtonsFieldset'));
+
     }
 
 }
-

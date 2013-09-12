@@ -16,6 +16,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface
     protected $userId;
     protected $user;
     protected $applications;
+    protected $location;
     
     public function setApplyId($applyId)
     {
@@ -73,6 +74,17 @@ class Job extends AbstractIdentifiableEntity implements JobInterface
     public function getUserId()
     {
         return $this->userId;
+    }
+    
+    public function setLocation($location)
+    {
+    	$this->location = $location;
+    	return $this;
+    }
+    
+    public function getLocation()
+    {
+    	return $this->location;
     }
     
     public function injectUser(EntityInterface $user)
