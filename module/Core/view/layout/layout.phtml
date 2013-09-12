@@ -56,6 +56,15 @@
                 <div class="row-fluid">
                     <div id="sidebar" class="span2">
 <!-- SIDEBAR -->
+<div class="affix btn-group pull-right" data-toggle="buttons-radio" id="language-switcher">
+    <?php $lang = $this->params('lang');
+    foreach (array('en', 'de') as $availableLang): ?>
+    <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
+    <?php echo strtoupper($availableLang) ?></button>
+    <?php endforeach ?>
+</div>
+     
+<div id="sub-nav" class="affix">               
 <?php
     echo $this->navigation()->menu()
               ->setOnlyActiveBranch()
@@ -63,18 +72,13 @@
               ->setMinDepth(1)
               ->setUlClass('nav nav-tabs nav-stacked');
 ?>
+</div>
 <!-- /SIDEBAR -->
                     </div>
                     
                     <div id="content" class="span10">
 <!-- CONTENT -->
-<div class="btn-group pull-right" data-toggle="buttons-radio" id="language-switcher">
-    <?php $lang = $this->params('lang');
-    foreach (array('en', 'de') as $availableLang): ?>
-    <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
-    <?php echo strtoupper($availableLang) ?></button>
-    <?php endforeach ?>
-</div>
+
 <?php echo $this->content; ?>
 <!-- /CONTENT -->
                     </div> <!-- /span10 -->

@@ -35,17 +35,20 @@ h1 {
 header #login-info-box a:hover {
 	color: #333;
 }*/
-
 #sidebar {
-	position: relative;
+	padding-top: 15px;
+}
+#sidebar > div {
+	width: 13.8936%;
 }
 
-#sidebar ul {
-	width: 13.8936%;
-	position: fixed;
+#sidebar #language-switcher button
+{
+	width: 50%;
 }
-#sidebar ul li a {
-	border: 1px solid #ddd;
+#sidebar #sub-nav {
+	margin-top: 65px;
+
 }
 #sidebar ul li.active a {
 	background-color: #f5f5f5;
