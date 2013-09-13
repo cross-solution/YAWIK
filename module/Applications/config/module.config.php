@@ -73,7 +73,7 @@ return array(
                                 'options' => array(
                                     'route' => '/detail/:id',
                                     'constraints' => array(
-                                        'id' => '.+'
+                                        'id' => '[a-z0-9]+',
                                     ),
                                     'defaults' => array(
                                         'action' => 'detail',

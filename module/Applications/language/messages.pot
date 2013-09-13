@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-02 17:32+0200\n"
+"POT-Creation-Date: 2013-09-13 10:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,42 +17,73 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/applications/index/index.phtml:2 view/form/application.phtml:190
-#: view/layout/layout.phtml:38 language/_annotated_strings.php:96
+#: view/applications/index/index.phtml:2 language/_annotated_strings.php:90
 msgid "Apply"
 msgstr ""
 
-#: view/applications/index/index.phtml:11
+#: view/applications/index/index.phtml:8
 msgid "Application"
 msgstr ""
 
-#: view/applications/index/index.phtml:13
+#: view/applications/index/index.phtml:10
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
-#: view/applications/index/index.phtml:14
-msgid "Go to job advertisement"
+#: view/applications/index/index.phtml:11
+msgid "click to open the job ad"
 msgstr ""
 
-#: view/applications/manage/index.phtml:6
+#: view/applications/index/index.phtml:16
+msgid "your application was sent successfully"
+msgstr ""
+
+#: view/applications/manage/index.phtml:2
 msgid "Applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:11
+#: view/applications/manage/index.phtml:8
 msgid "List of all applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:15
+#: view/applications/manage/index.ajax.phtml:5
 msgid "Job"
 msgstr ""
 
-#: view/applications/manage/index.phtml:16
+#: view/applications/manage/index.ajax.phtml:6
+msgid "Applicant"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:7
+msgid "Status"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:8
+msgid "Modified"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:1
+msgid "Details"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:2
+msgid "application details"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:6
 msgid "State"
 msgstr ""
 
-#: view/applications/manage/index.phtml:17
-msgid "Modified"
+#: view/applications/manage/detail.phtml:10
+msgid "date of receipt"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:14
+msgid "last modification date"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:19
+msgid "employments"
 msgstr ""
 
 #: view/partial/pagination-control.phtml:16
@@ -74,22 +105,6 @@ msgstr ""
 msgid "Last"
 msgstr ""
 
-#: view/form/application.phtml:67
-msgid "Your application has been saved successfully."
-msgstr ""
-
-#: view/form/application.phtml:110 src/Applications/Form/Application.php:40
-msgid "Contact details"
-msgstr ""
-
-#: view/layout/layout.phtml:16 view/layout/layout.phtml:38
-msgid "Cross Applicant Management"
-msgstr ""
-
-#: view/layout/layout.phtml:49
-msgid "All rights reserved."
-msgstr ""
-
 #: src/Applications/Form/EducationFieldset.php:16
 msgid "Education"
 msgstr ""
@@ -98,8 +113,8 @@ msgstr ""
 msgid "Employment"
 msgstr ""
 
-#: src/Applications/Form/SkillFieldset.php:16
-msgid "Skills"
+#: src/Applications/Form/Application.php:40
+msgid "Contact details"
 msgstr ""
 
 #: src/Applications/Form/Application.php:151
@@ -116,15 +131,6 @@ msgstr ""
 
 #: src/Applications/Form/Application.php:183
 msgid "Attachment"
-msgstr ""
-
-#: src/Applications/Form/LanguageFieldset.php:16
-msgid "Language"
-msgstr ""
-
-#: src/Applications/Form/NativeLanguageFieldset.php:16
-#: language/_annotated_strings.php:33
-msgid "Native Language"
 msgstr ""
 
 #: language/_annotated_strings.php:3
@@ -167,136 +173,78 @@ msgstr ""
 msgid "please enter a description"
 msgstr ""
 
-#: language/_annotated_strings.php:36
-msgid "LanguageSkills"
-msgstr ""
-
-#: language/_annotated_strings.php:39 language/_annotated_strings.php:60
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:33 language/_annotated_strings.php:54
+#: language/_annotated_strings.php:93
 msgid "Mister"
 msgstr ""
 
-#: language/_annotated_strings.php:42 language/_annotated_strings.php:63
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:36 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:96
 msgid "Miss"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:39
 msgid "please choose your title"
 msgstr ""
 
-#: language/_annotated_strings.php:48 language/_annotated_strings.php:66
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:42 language/_annotated_strings.php:60
+#: language/_annotated_strings.php:99
 msgid "First name"
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid "please enter your firstname"
 msgstr ""
 
-#: language/_annotated_strings.php:54 language/_annotated_strings.php:69
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:48 language/_annotated_strings.php:63
+#: language/_annotated_strings.php:102
 msgid "Last name"
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:51
 msgid "please enter your lastname"
 msgstr ""
 
-#: language/_annotated_strings.php:72 language/_annotated_strings.php:111
+#: language/_annotated_strings.php:66 language/_annotated_strings.php:105
 msgid "Street"
 msgstr ""
 
-#: language/_annotated_strings.php:75 language/_annotated_strings.php:114
+#: language/_annotated_strings.php:69 language/_annotated_strings.php:108
 msgid "House number"
 msgstr ""
 
-#: language/_annotated_strings.php:78 language/_annotated_strings.php:117
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:111
 msgid "Zip code"
 msgstr ""
 
-#: language/_annotated_strings.php:81 language/_annotated_strings.php:120
+#: language/_annotated_strings.php:75 language/_annotated_strings.php:114
 msgid "Location"
 msgstr ""
 
-#: language/_annotated_strings.php:84 language/_annotated_strings.php:123
+#: language/_annotated_strings.php:78 language/_annotated_strings.php:117
 msgid "Phone number"
 msgstr ""
 
-#: language/_annotated_strings.php:87 language/_annotated_strings.php:126
+#: language/_annotated_strings.php:81 language/_annotated_strings.php:120
 msgid "Mobile phone number"
 msgstr ""
 
-#: language/_annotated_strings.php:90 language/_annotated_strings.php:129
+#: language/_annotated_strings.php:84 language/_annotated_strings.php:123
 msgid "Email"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:87
 msgid "native language"
 msgstr ""
 
-#: language/_annotated_strings.php:132
+#: language/_annotated_strings.php:126
 msgid "education history"
 msgstr ""
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:129
 msgid "employment history"
 msgstr ""
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:132
 msgid "Languages"
-msgstr ""
-
-#: language/_annotated_strings.php:141 language/_annotated_strings.php:168
-msgid "which language are you speeking"
-msgstr ""
-
-#: language/_annotated_strings.php:144
-msgid "I am a native speaker"
-msgstr ""
-
-#: language/_annotated_strings.php:147
-msgid ""
-"I can use simple phrases and sentences to describe where I live and people I "
-"know."
-msgstr ""
-
-#: language/_annotated_strings.php:150
-msgid ""
-"I can use a series of phrases and sentences to describe in simple terms my "
-"family and other people, living conditions, my educational background and my "
-"present or  most recent job."
-msgstr ""
-
-#: language/_annotated_strings.php:153
-msgid ""
-"I can connect phrases in a simple way in order to describe experiences and "
-"events, my dreams, hopes and ambitions. I can briefly give reasons and "
-"explanations for opinions and plans. I can narrate a story or relate the "
-"plot of a book or film and describe my reactions."
-msgstr ""
-
-#: language/_annotated_strings.php:156
-msgid ""
-"I can present clear, detailed descriptions on a wide range of subjects "
-"related to my field of interest. I can explain a viewpoint on a topical "
-"issue giving the advantages and disadvantages of various options."
-msgstr ""
-
-#: language/_annotated_strings.php:159
-msgid ""
-"I can present clear, detailed descriptions of complex subjects integrating "
-"sub-themes, developing particular points and rounding off with an "
-"appropriate conclusion."
-msgstr ""
-
-#: language/_annotated_strings.php:162
-msgid ""
-"I can present a clear, smoothly-flowing description or argument in a style "
-"appropriate to the context and with an effective logical structure which "
-"helps the recipient to notice and remember significant points."
-msgstr ""
-
-#: language/_annotated_strings.php:165
-msgid "level"
 msgstr ""

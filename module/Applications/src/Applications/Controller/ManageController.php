@@ -78,5 +78,20 @@ class ManageController extends AbstractActionController
         
     }
     
+    public function detailAction(){
+
+    	$application = $this->getServiceLocator()
+    						->get('repositories')
+    						->get('application')->find($this->params('id'), 'EAGER');
+    	
+    	$jsonFormat = 'json' == $this->params()->fromQuery('format');
+    	if ($jsonFormat) {
+    		$viewModel = new JsonModel();
+    		$viewModel->setVariables(array('application' => $application ));
+    		return $viewModel;
+    	}
+
+    	return array('application'=> $application);
+    }
     
 }

@@ -8,12 +8,12 @@
 <h1><?php echo $this->translate('Application')?></h1>
 <p class="lead"><?php printf(
     $this->translate('Apply to "%s" from "%s"'), 
-    '<a href="/job-url" title="' . $this->translate('Go to job advertisement') . '">' . $this->escapehtml($job->title) . '</a>',
+    '<a href="/job-url" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml($job->title) . '</a>',
     $job->company
 ) ?></p>
 
 <?php if ($isApplicationSaved):?>
-<p>Yeehaw!</p>
+<p><?php echo $this->translate('your application was sent successfully')?></p>
 <?php else: 
     $form->setAttributes(array(
         'action' => $this->url('lang/apply/submit', array(), true),

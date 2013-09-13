@@ -29,12 +29,6 @@ translate('Description');
 //: ./src/Applications/Form/EducationFieldset.php:101
 translate('please enter a description');
 
-//: ./src/Applications/Form/SkillFieldset.php:27
-translate('Native Language');
-
-//: ./src/Applications/Form/SkillFieldset.php:45
-translate('LanguageSkills');
-
 //: ./src/Applications/Form/ContactFieldset.php:26
 translate('Mister');
 
@@ -136,34 +130,4 @@ translate('employment history');
 
 //: ./src/Applications/Form/ApplicationFieldset.php:183
 translate('Languages');
-
-//: ./src/Applications/Form/LanguageFieldset.php:37
-translate('which language are you speeking');
-
-//: ./src/Applications/Form/LanguageFieldset.php:49
-translate('I am a native speaker');
-
-//: ./src/Applications/Form/LanguageFieldset.php:50
-translate('I can use simple phrases and sentences to describe where I live and people I know.');
-
-//: ./src/Applications/Form/LanguageFieldset.php:51
-translate('I can use a series of phrases and sentences to describe in simple terms my family and other people, living conditions, my educational background and my present or  most recent job.');
-
-//: ./src/Applications/Form/LanguageFieldset.php:52
-translate('I can connect phrases in a simple way in order to describe experiences and events, my dreams, hopes and ambitions. I can briefly give reasons and explanations for opinions and plans. I can narrate a story or relate the plot of a book or film and describe my reactions.');
-
-//: ./src/Applications/Form/LanguageFieldset.php:53
-translate('I can present clear, detailed descriptions on a wide range of subjects related to my field of interest. I can explain a viewpoint on a topical issue giving the advantages and disadvantages of various options.');
-
-//: ./src/Applications/Form/LanguageFieldset.php:54
-translate('I can present clear, detailed descriptions of complex subjects integrating sub-themes, developing particular points and rounding off with an appropriate conclusion.');
-
-//: ./src/Applications/Form/LanguageFieldset.php:55
-translate('I can present a clear, smoothly-flowing description or argument in a style appropriate to the context and with an effective logical structure which helps the recipient to notice and remember significant points.');
-
-//: ./src/Applications/Form/LanguageFieldset.php:59
-translate('level');
-
-//: ./src/Applications/Form/NativeLanguageFieldset.php:37
-translate('which language are you speeking');
 
