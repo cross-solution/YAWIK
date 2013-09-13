@@ -34,7 +34,9 @@ class AggregateBuilder extends EntityBuilder
         $this->extractRelations = (bool) $flag;
         if ($recursive) {
             foreach ($this->builders as $builderSpec) {
-                $builderSpec['builder']->setExtractRelations($flag);
+                if ($builderSpec['builder'] instanceOf AggregateBuilder) {
+                    $builderSpec['builder']->setExtractRelations($flag);
+                }    
             }
         }
         return $this;

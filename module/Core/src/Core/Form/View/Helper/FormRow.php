@@ -47,7 +47,7 @@ class FormRow extends ZendFormRow
             $elementId = $element->getAttribute('id');
         }
         $elementString = $elementHelper->render($element);
-        if ('form-horizontal' == $this->layout) {
+        if ('form-horizontal' == $this->layout && !$element instanceOf \Zend\Form\Element\Hidden) {
             $elementString = sprintf(
                 '<div class="controls">%s</div>',
                 $elementString
@@ -117,7 +117,7 @@ class FormRow extends ZendFormRow
                 $markup = $elementString;
             }
         }
-        if ('form-horizontal' == $this->layout) {
+        if ('form-horizontal' == $this->layout && !$element instanceOf \Zend\Form\Element\Hidden) {
             $markup = sprintf('<div class="control-group">%s</div>', $markup);
         }
     

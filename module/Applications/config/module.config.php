@@ -147,6 +147,12 @@ return array(
 //         ),
      ),
      
+     'filters' => array(
+         'factories'=> array(
+             'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
+         ),
+     ),
+     
      'repositories' => array(
          'invokables' => array(
              'Application' => 'Applications\Repository\Application',
@@ -168,6 +174,8 @@ return array(
              'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
              'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
              'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
+             'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
+             'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
              'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
              'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
          ),

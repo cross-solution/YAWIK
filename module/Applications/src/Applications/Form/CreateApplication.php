@@ -48,7 +48,10 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
             
         ));
         
-        
+        $this->add($this->forms->get('user-info-fieldset')
+                               ->setLabel('Contact')
+                               ->setName('contact')
+                               ->setObject($this->forms->getServiceLocator()->get('builders')->get('auth-info')->getEntity()));
         $this->add(
             $this->forms->get('CvFieldset')
                         ->setObject($this->forms->getServiceLocator()->get('builders')->get('Cv')->getEntity())

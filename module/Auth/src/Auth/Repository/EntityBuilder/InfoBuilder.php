@@ -8,14 +8,29 @@ use Core\Entity\EntityInterface;
 use Core\Repository\Mapper\MapperAwareInterface;
 use Core\Entity\RelationEntity;
 
-class InfoBuilder extends RelationAwareBuilder implements MapperAwareInterface
+class InfoBuilder extends RelationAwareBuilder 
 {
     
-    
-    public function getRelation(EntityInterface $entity)
+    public function __construct()
     {
-        $relation = new RelationEntity(array(
-            
-        ));
+        
     }
+    
+    public function getEntity()
+    {
+        if (!$this->entityPrototype) {
+            $this->setEntityPrototype(new \Auth\Entity\Info());
+        }
+        return clone $this->entityPrototype;
+    }
+    
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $this->setHydrator(new \Core\Repository\Hydrator\EntityHydrator());
+        }
+        return $this->hydrator;
+    }
+    
+    
 }

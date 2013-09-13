@@ -3,7 +3,7 @@
 namespace Applications\Repository\EntityBuilder;
 
 use Zend\ServiceManager\FactoryInterface;
-use Core\Repository\EntityBuilder\AggregateBuilder as Builder;
+
 use Core\Repository\Hydrator;
 use Core\Repository\EntityBuilder\AbstractCopyableBuilderFactory;
 
@@ -15,16 +15,18 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         $cvBuilder = $serviceLocator->get($this->getBuilderName('application-cv'));
+        $contactBuilder = $serviceLocator->get($this->getBuilderName('application-contact'));
         
         $hydrator = $this->getHydrator();
 
-        $builder = new Builder(
+        $builder = new ApplicationBuilder(
             $hydrator, 
             new \Applications\Entity\Application(),
             new \Core\Entity\Collection()
         );
         
-        $builder->addBuilder('cv', $cvBuilder);
+        $builder->addBuilder('cv', $cvBuilder)
+                ->addBuilder('contact', $contactBuilder);
         
         return $builder;
         

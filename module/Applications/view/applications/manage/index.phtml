@@ -1,11 +1,14 @@
 
 <?php $this->headTitle($this->translate('Applications'));
+        if ($this->byJobs): $this->headTitle("(" . $this->translate('to all of your jobs') . ')'); endif;
       $this->headScript()->appendFile($this->basepath('/js/Core/core.pagination.js'));
       /*$this->headLink()->appendStylesheet($this->basePath('css/Core/forms.css'))
                        ->appendStylesheet($this->basepath('/css/Applications/manage.css'));
       $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>*/?>
 
-<h1><?=$this->translate('List of all applications')?></h1>
+<h1><?=$this->translate('List of all applications')?><?
+    if ($this->byJobs): echo ' <small>(' . $this->translate('to all of your jobs') . ')</small>'; endif;
+    ?></h1>
 <div id="applications-list-container" class="pagination-container">
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>
 </div>

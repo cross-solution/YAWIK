@@ -32,6 +32,12 @@ return array(
         ),
     ),
     
+    'controller_plugins' => array(
+        'invokables' => array(
+            'Auth' => '\Auth\Controller\Plugin\Auth',
+        ),
+    ),
+    
     'hybridauth' => array(
         "Facebook" => array (
             "enabled" => true,

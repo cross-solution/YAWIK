@@ -56,12 +56,11 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
     public function getPaginatorAdapter(array $propertyFilter, $sort)
     {
         
-        $query = array();
-        foreach ($propertyFilter as $property => $value) {
-            if (in_array($property, array('jobId'))) {
-                $query[$property] = new \MongoRegex('/^' . $value . '/');
-            }
-        }
+        $query = $this->builders->getServiceLocator()->get('FilterManager')
+                           ->get('applications-params-to-properties')
+                           ->filter($propertyFilter);
+         
+        
         $cursor = $this->getMapper('application')->getCursor($query, array('cv'), true); //, array('cv'), true);
         $cursor->sort($sort);
         return new ApplicationPaginatorAdapter($cursor, $this->builders->get('application'));

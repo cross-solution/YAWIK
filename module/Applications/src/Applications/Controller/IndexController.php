@@ -32,8 +32,11 @@ class IndexController extends AbstractActionController
 //         return $view;
         //$this->layout('layout/apply');
         $services = $this->getServiceLocator();
+        $request = $this->getRequest();
         
-        $job = $services->get('repositories')->get('job')->findByApplyId($this->params('jobId'));
+        $job = ($request->isPost())
+             ? $services->get('repositories')->get('job')->find($this->params()->fromPost('jobId'))
+             : $services->get('repositories')->get('job')->findByApplyId($this->params('jobId'));
         
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
         $viewModel = new ViewModel();
@@ -43,7 +46,7 @@ class IndexController extends AbstractActionController
             'isApplicationSaved' => false,
         ));
         
-        $request = $this->getRequest();
+        
        
         if ($request->isPost()) {
             $services = $this->getServiceLocator();
@@ -80,8 +83,12 @@ class IndexController extends AbstractActionController
         } else {
             
             $form->populateValues(array(
-                'jobId' => $this->params('jobId', 0),
+                'jobId' => $job->id,
+                'contact' => $this->auth()->isLoggedIn()
+                            ?  $this->auth()->get('info')
+                            : array()
             ));
+           
             
         }
         return $viewModel;

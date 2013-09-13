@@ -18,6 +18,7 @@ class JobMapper extends CoreMapper
     public function find($id, array $fields = array(), $exclude = false)
     {
         $data = $this->getData($id, $fields, $exclude);
+        if (null === $data) { return $this->builders->get('job')->getEntity(); }
         $builder = $this->builders->get('job');
         $entity = $builder->build($data);
         return $entity;

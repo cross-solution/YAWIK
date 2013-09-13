@@ -13,9 +13,11 @@ use Core\Entity\EntityInterface;
 class Application extends AbstractIdentifiableEntity implements ApplicationInterface
 {
     protected $jobId;
+    protected $job;
     protected $status;
     protected $dateCreated;
     protected $dateModified;
+    protected $contact;
     protected $cv;
 
     
@@ -34,6 +36,17 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     public function setJobId ($jobId)
     {
         $this->jobId = $jobId;
+    }
+    
+    public function getJob()
+    {
+        return $this->job;
+    }
+    
+    public function injectJob(EntityInterface $job)
+    {
+        $this->job = $job;
+        return $this;
     }
 
     public function setStatus($status)
@@ -93,6 +106,23 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         $this->dateModified = $dateModified;
     }
     
+	/**
+     * @return the $contact
+     */
+    public function getContact ()
+    {
+        return $this->contact;
+    }
+
+	/**
+     * @param field_type $contact
+     */
+    public function setContact (EntityInterface $contact)
+    {
+        $this->contact = $contact;
+        return $this;
+    }
+
 	public function setCv(EntityInterface $cv)
 	{
 	    $this->cv = $cv;

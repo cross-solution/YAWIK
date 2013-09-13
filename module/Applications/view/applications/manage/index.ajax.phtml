@@ -13,7 +13,7 @@
 <?foreach ($applications as $application):?>
 <tr>
     <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>"><?php echo $application->id ?></a></td>
-    <td></td>
+    <td><?php echo $application->contact->displayName?></td>
     <td><?php echo $application->status ?></td>
     <td title="Created: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp());?>">
         <?php echo strftime('%x %X', $application->dateModified->getTimestamp());?>

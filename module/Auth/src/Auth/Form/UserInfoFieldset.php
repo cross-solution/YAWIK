@@ -4,6 +4,8 @@ namespace Auth\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Fieldset;
+use Core\Entity\EntityInterface;
+use Core\Entity\RelationEntity;
 //use Zend\InputFilter\InputFilterProviderInterface;
 
 class UserInfoFieldset extends Fieldset
@@ -45,10 +47,20 @@ class UserInfoFieldset extends Fieldset
                 'label' => /*translate*/ 'Last name',
             ),
         ));
+     
         
-        
-        
-        
+    }
+    
+    public function setValue($value)
+    {
+        if ($value instanceOf EntityInterface) {
+            if ($value instanceOf RelationEntity) {
+                $value = $value->getEntity();
+            }
+            $data = $this->getHydrator()->extract($value);
+            $this->populateValues($data);
+        }
+        return parent::setValue($value);
     }
     
     

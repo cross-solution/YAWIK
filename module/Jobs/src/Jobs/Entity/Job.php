@@ -3,6 +3,7 @@
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Core\Entity\EntityInterface;
 use Core\Repository\Mapper\MapperAwareInterface;
 use Core\Entity\CollectionInterface;
 

@@ -44,6 +44,18 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $collection;
     }
     
+    public function fetchByUser($userOrId)
+    {
+        if ($userOrId instanceOf \Auth\Entity\UserInterface) {
+            $userOrId = $userOrId->id;
+        }
+        
+        $collection = $this->getMapper('job')->fetch(
+            array('userId' => $userOrId)
+        );
+        return $collection;    
+    }
+    
     public function getPaginatorAdapter(array $propertyFilter, $sort)
     {
     
