@@ -1,0 +1,10 @@
+<?php $this->headTitle($this->translate('Resumes'));
+      $this->headScript()->appendFile($this->basepath('/js/Core/core.pagination.js'));
+      /*$this->headLink()->appendStylesheet($this->basePath('css/Core/forms.css'))
+                       ->appendStylesheet($this->basepath('/css/Applications/manage.css'));
+      $this->headScript()->appendFile($this->basepath('/js/Applications/manage.js'))?>*/?>
+
+<h1><?=$this->translate("list of all resumes")?></h1>
+<div id="applications-list-container" class="pagination-container">
+<?php echo $this->render('cv/index/index.ajax.phtml') ?>
+</div>
