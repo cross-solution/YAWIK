@@ -40,6 +40,9 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      */
     public function getJobId ()
     {
+        if (!$this->jobId && ($job = $this->getJob())) {
+            $this->setJobId($job->getId());
+        }
         return $this->jobId;
     }
 
@@ -59,6 +62,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     public function injectJob(EntityInterface $job)
     {
         $this->job = $job;
+        $this->setJobId($job->getId());
         return $this;
     }
 
