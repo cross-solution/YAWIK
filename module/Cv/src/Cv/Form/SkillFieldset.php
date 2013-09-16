@@ -16,11 +16,6 @@ class SkillFieldset extends Fieldset
              ->setLabel('Language');
         
         $this->add(array(
-            'type' => 'Hidden',
-            'name' => 'id',
-        ));
-        
-        $this->add(array(
         		'type' => 'Collection',
         		'name' => 'nativeLanguage',
         		'options' => array(

@@ -10,6 +10,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     
     protected $educations;
     protected $employments;
+    protected $skills;
     
 	/**
      * @return the $educations
@@ -43,6 +44,23 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     {
         $this->employments = $employments;
         return $this;
+    }
+    
+    /**
+     * @return the $skills
+     */
+    public function getSkills ()
+    {
+    	return $this->skills;
+    }
+    
+    /**
+     * @param field_type $employments
+     */
+    public function setSkills (CollectionInterface $skills)
+    {
+    	$this->skills = $skills;
+    	return $this;
     }
 
     

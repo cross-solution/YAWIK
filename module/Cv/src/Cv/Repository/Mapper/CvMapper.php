@@ -60,6 +60,19 @@ class CvMapper extends CoreMapper
         return $collection;
     }
     
+    public function fetchSkills($cvId)
+    {
+    	$fields = array('skills' => true);
+    	$data = $this->getData($cvId, $fields);
+    	if (!isset($data['skills'])) {
+    		return $this->buildCollection(array(), 'skill');
+    	}
+    
+    	$collection = $this->buildCollection($data['skills'], 'skill');
+    	return $collection;
+    }
+    
+    
     public function save(EntityInterface $entity)
     {
         $builder = $this->builders->get('cv');

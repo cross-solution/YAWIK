@@ -15,7 +15,9 @@ class CvFieldset extends Fieldset
             $hydrator = new EntityHydrator();
             $arrayToCollectionStrategy = new ArrayToCollectionStrategy();
             $hydrator->addStrategy('educations', $arrayToCollectionStrategy)
-                     ->addStrategy('employments', $arrayToCollectionStrategy);
+                     ->addStrategy('employments', $arrayToCollectionStrategy)
+                     ->addStrategy('skills', $arrayToCollectionStrategy);
+                      
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;

@@ -175,6 +175,7 @@ return array(
              'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
              'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
              'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
+             'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
              'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
              'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
              'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',

@@ -84,7 +84,7 @@ class ManageController extends AbstractActionController
     	$jsonFormat = 'json' == $this->params()->fromQuery('format');
     	if ($jsonFormat) {
     		$viewModel = new JsonModel();
-    		$viewModel->setVariables(array('application' => $application ));
+    		$viewModel->setVariables(array('educations' => $application->cv->educations));
     		return $viewModel;
     	}
 

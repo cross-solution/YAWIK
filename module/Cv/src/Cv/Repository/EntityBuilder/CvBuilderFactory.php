@@ -18,6 +18,8 @@ class CvBuilderFactory extends AbstractCopyableBuilderFactory implements Factory
     {
         $educationsBuilder = $serviceLocator->get($this->getBuilderName('education'));
         $employmentsBuilder = $serviceLocator->get($this->getBuilderName('employment'));
+        $skillsBuilder = $serviceLocator->get($this->getBuilderName('skill'));
+        
 //         $buildMode = Hydrator\SubDocumentsStrategy::AS_COLLECTION;
         
         $hydrator = $this->getHydrator();
@@ -37,7 +39,9 @@ class CvBuilderFactory extends AbstractCopyableBuilderFactory implements Factory
         );
         
         $builder->addBuilder('educations', $educationsBuilder, /*asCollection*/ true)
-                ->addBuilder('employments', $employmentsBuilder, true);
+                ->addBuilder('employments', $employmentsBuilder, true)
+                ->addBuilder('skills', $skillsBuilder, true);
+                
         
         return $builder;
         

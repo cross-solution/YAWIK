@@ -35,6 +35,29 @@ class UserInfoFieldset extends Fieldset
         ));
         
         $this->add(array(
+        		'name' => 'phone',
+        		'options' => array(
+        				'label' => /*translate*/ 'Phone'
+        		)
+        ));
+        
+        $this->add(array(
+        		'name' => 'postalcode',
+        		'options' => array(
+        				'label' => /*translate*/ 'Postalcode'
+        		)
+        ));
+        
+        $this->add(array(
+        		'name' => 'city',
+        		'options' => array(
+        				'label' => /*translate*/ 'City'
+        		)
+        ));
+        
+        
+        
+        $this->add(array(
             'name' => 'firstName',
             'options' => array(
                 'label' => /*translate*/ 'First name',

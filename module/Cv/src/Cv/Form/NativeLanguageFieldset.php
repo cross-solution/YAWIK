@@ -15,10 +15,6 @@ class NativeLanguageFieldset extends Fieldset
     		->setObject(new NativeLanguageEntity())
     		->setLabel('Native Language');
         
-        $this->add(array(
-            'type' => 'Hidden',
-            'name' => 'id',
-        ));
         
         $this->add(array(
             'name' => 'language',

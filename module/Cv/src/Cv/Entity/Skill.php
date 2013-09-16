@@ -19,7 +19,7 @@ class Skill extends AbstractEntity
     
     public function getNativeLanguages()
     {
-        return $this->name;
+        return $this->nativeLanguages;
     }
     
     public function setLanguageSkills($languageSkills)

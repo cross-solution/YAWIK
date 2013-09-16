@@ -14,10 +14,23 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 {
     protected $jobId;
     protected $job;
+    
+    /*
+     * new
+     */
     protected $status;
     protected $dateCreated;
     protected $dateModified;
+
+    /*
+     * personal informations, contains firstname, lastname, email, 
+     * phone etc.
+     */
     protected $contact;
+    
+    /*
+     * Resume, containing employments, educations and skills
+     */
     protected $cv;
 
     

@@ -24,6 +24,16 @@ class Info extends AbstractEntity implements InfoInterface
     /** @var string */
     protected $_lastName;
     
+    /** @var string */
+    protected $_phone;
+    
+    /** @var string */
+    protected $_postalcode;
+
+    /** @var string */
+    protected $_city;
+    
+    
     
     /**
      * {@inheritdoc}
@@ -78,6 +88,49 @@ class Info extends AbstractEntity implements InfoInterface
         }
         return ($this->firstName ? $this->firstName . ' ' : '') . $this->lastName;
     }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setPhone($phone) {
+    	$this->_phone = (String) $phone;
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getPhone() {
+    	return $this->_phone;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setPostalcode($postalcode) {
+    	$this->_postalcode = (String) $postalcode;
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getPostalcode() {
+    	return $this->_postalcode;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setCity($city) {
+    	$this->_city = (String) $city;
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getCity() {
+    	return $this->_city;
+    }
+    
     
     
 }

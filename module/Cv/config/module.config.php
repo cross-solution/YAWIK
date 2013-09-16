@@ -146,7 +146,8 @@ return array(
             'cv' => '\Cv\Repository\EntityBuilder\CvBuilderFactory',
             'education' => '\Cv\Repository\EntityBuilder\EducationBuilderFactory',
             'employment' => '\Cv\Repository\EntityBuilder\EmploymentBuilderFactory',
+        	'skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
+        		
         ),
     ),
-    
 );

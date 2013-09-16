@@ -26,6 +26,11 @@ class IndexController extends AbstractActionController
      *
      */
     public function indexAction()
-    { }
+    {
+    	$repository = $this->getServiceLocator()->get('repositories')->get('cv');
+    	return array(
+    			'resumes' => $repository
+    	);
+    }
     
 }

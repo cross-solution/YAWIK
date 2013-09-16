@@ -16,11 +16,6 @@ class LanguageFieldset extends Fieldset
              ->setLabel('Language');
         
         $this->add(array(
-            'type' => 'Hidden',
-            'name' => 'id',
-        ));
-        
-        $this->add(array(
             'name' => 'language',
         	'type' => 'Zend\Form\Element\Select',
             'options' => array(
