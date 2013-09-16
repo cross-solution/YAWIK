@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-13 10:42+0200\n"
+"POT-Creation-Date: 2013-09-16 18:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,12 @@ msgstr ""
 msgid "Applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:8
+#: view/applications/manage/index.phtml:3
+#: view/applications/manage/index.phtml:10
+msgid "to all of your jobs"
+msgstr ""
+
+#: view/applications/manage/index.phtml:9
 msgid "List of all applications"
 msgstr ""
 
@@ -82,8 +87,36 @@ msgstr ""
 msgid "last modification date"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:19
-msgid "employments"
+#: view/applications/manage/detail.phtml:18
+msgid "personal information"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:20
+msgid "name"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:24
+msgid "E-Mail"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:28
+msgid "Phone"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:33
+msgid "work experience"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:43
+msgid "education and training"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:54
+msgid "personal skills"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:57 language/_annotated_strings.php:87
+msgid "native language"
 msgstr ""
 
 #: view/partial/pagination-control.phtml:16
@@ -103,6 +136,10 @@ msgstr ""
 #: view/partial/pagination-control.phtml:40
 #: view/partial/pagination-control.phtml:43
 msgid "Last"
+msgstr ""
+
+#: view/sidebar/manage.phtml:11
+msgid "List filter"
 msgstr ""
 
 #: src/Applications/Form/EducationFieldset.php:16
@@ -131,6 +168,10 @@ msgstr ""
 
 #: src/Applications/Form/Application.php:183
 msgid "Attachment"
+msgstr ""
+
+#: src/Applications/Form/CreateApplication.php:52
+msgid "Contact"
 msgstr ""
 
 #: language/_annotated_strings.php:3
@@ -231,10 +272,6 @@ msgstr ""
 
 #: language/_annotated_strings.php:84 language/_annotated_strings.php:123
 msgid "Email"
-msgstr ""
-
-#: language/_annotated_strings.php:87
-msgid "native language"
 msgstr ""
 
 #: language/_annotated_strings.php:126

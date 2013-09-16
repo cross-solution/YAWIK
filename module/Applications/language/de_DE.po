@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-13 10:42+0200\n"
-"PO-Revision-Date: 2013-09-13 10:47+0100\n"
+"POT-Creation-Date: 2013-09-16 18:26+0200\n"
+"PO-Revision-Date: 2013-09-16 18:45+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -41,7 +41,12 @@ msgstr "Ihre Bewerbung wurde erfolgreich gespeichert"
 msgid "Applications"
 msgstr "Bewerbungen"
 
-#: view/applications/manage/index.phtml:8
+#: view/applications/manage/index.phtml:3
+#: view/applications/manage/index.phtml:10
+msgid "to all of your jobs"
+msgstr ""
+
+#: view/applications/manage/index.phtml:9
 msgid "List of all applications"
 msgstr "Übersicht aller Bewerbungen"
 
@@ -82,9 +87,39 @@ msgstr "Eingangsdatum"
 msgid "last modification date"
 msgstr "letztes Änderungsdatum"
 
-#: view/applications/manage/detail.phtml:19
-msgid "employments"
-msgstr "Anstellungen"
+#: view/applications/manage/detail.phtml:18
+msgid "personal information"
+msgstr "Angaben zur Person"
+
+#: view/applications/manage/detail.phtml:20
+#, fuzzy
+msgid "name"
+msgstr "Nachname"
+
+#: view/applications/manage/detail.phtml:24
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: view/applications/manage/detail.phtml:28
+msgid "Phone"
+msgstr "Telefon"
+
+#: view/applications/manage/detail.phtml:33
+msgid "work experience"
+msgstr "Berufserfahrung"
+
+#: view/applications/manage/detail.phtml:43
+msgid "education and training"
+msgstr "Schul- und Berufsbildung"
+
+#: view/applications/manage/detail.phtml:54
+msgid "personal skills"
+msgstr "persönliche Fähigkeiten"
+
+#: view/applications/manage/detail.phtml:57
+#: language/_annotated_strings.php:87
+msgid "native language"
+msgstr "Muttersprache"
 
 #: view/partial/pagination-control.phtml:16
 #: view/partial/pagination-control.phtml:19
@@ -104,6 +139,10 @@ msgstr "Weiter &gt;"
 #: view/partial/pagination-control.phtml:43
 msgid "Last"
 msgstr "Ende"
+
+#: view/sidebar/manage.phtml:11
+msgid "List filter"
+msgstr ""
 
 #: src/Applications/Form/EducationFieldset.php:16
 msgid "Education"
@@ -132,6 +171,11 @@ msgstr "beruflicher Werdegang"
 #: src/Applications/Form/Application.php:183
 msgid "Attachment"
 msgstr "Angang"
+
+#: src/Applications/Form/CreateApplication.php:52
+#, fuzzy
+msgid "Contact"
+msgstr "Kontaktinformationen"
 
 #: language/_annotated_strings.php:3
 msgid "Degree"
@@ -244,10 +288,6 @@ msgstr "Handynummer"
 msgid "Email"
 msgstr "Email"
 
-#: language/_annotated_strings.php:87
-msgid "native language"
-msgstr "Muttersprache"
-
 #: language/_annotated_strings.php:126
 msgid "education history"
 msgstr "Ausbildung"
@@ -259,6 +299,9 @@ msgstr "beruflicher Werdegang"
 #: language/_annotated_strings.php:132
 msgid "Languages"
 msgstr "Sprachen"
+
+#~ msgid "employments"
+#~ msgstr "Anstellungen"
 
 #~ msgid "Go to job advertisement"
 #~ msgstr "Zur Stellenanzeige gehen"

@@ -1,7 +1,7 @@
 <?php /*
 <div class="btn-group" data-toggle="buttons-radio" id="applications-list-switcher">
 <?php $lang = $this->params('lang');
-    foreach (array('me' => 'My applications', 'jobs' => 'Applications by jobs') as $byParam => $label): ?>
+    foreach (array('me' => 'My applications', 'job' => 'Applications by jobs') as $byParam => $label): ?>
     <button type="button" class="btn<?php echo $byParam == $this->by ? ' active' : ''?>" id="applications-list-switcher-<?php echo $byParam ?>">
     <?php echo $label ?></button>
     <?php endforeach ?>
@@ -11,7 +11,7 @@
 <h4><?php echo $this->translate('List filter')?>:</h4>
 <ul class="nav nav-tabs nav-stacked"><li>
 
-<?php foreach (array('me' => 'My applications', 'jobs' => 'Applications by jobs') as $byParam => $label): ?>
+<?php foreach (array('me' => 'My applications', 'job' => 'Applications by jobs') as $byParam => $label): ?>
     <li<?php echo $byParam == $this->by ? ' class="active"' : '' ?>>
         <a href="<?php echo $this->url('lang/applications', 
             array(), 

@@ -73,7 +73,7 @@ class ManageController extends AbstractActionController
         
         return array(
             'applications' => $paginator,
-            'byJobs' => isset($params['by']) && 'jobs' == $params['by'] 
+            'byJobs' => isset($params['by']) && 'job' == $params['by'] 
         );
         
         
