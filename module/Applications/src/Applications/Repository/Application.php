@@ -6,6 +6,8 @@ use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
 use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Stdlib\Parameters;
+use Core\Paginator\Adapter\EntityList;
 
 class Application extends AbstractRepository implements EntityBuilderAwareInterface
 {
@@ -55,15 +57,7 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
     
     public function getPaginatorAdapter(array $propertyFilter, $sort)
     {
-        
-        $query = $this->builders->getServiceLocator()->get('FilterManager')
-                           ->get('applications-params-to-properties')
-                           ->filter($propertyFilter);
-         
-        
-        $cursor = $this->getMapper('application')->getCursor($query, array('cv'), true); //, array('cv'), true);
-        $cursor->sort($sort);
-        return new ApplicationPaginatorAdapter($cursor, $this->builders->get('application'));
+        return $this->getMapper('application')->getPaginatorAdapter($propertyFilter, $sort);
     }
     
     

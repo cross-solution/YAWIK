@@ -1,14 +1,14 @@
 <?php
 
-namespace Applications\Repository;
+namespace Core\Paginator\Adapter;
 
 use Zend\Paginator\Adapter\AdapterInterface;
 
-class ApplicationPaginatorAdapter implements AdapterInterface
+class MongoCursor implements AdapterInterface
 {
-    public function __construct($cursor, $modelBuilder) {
+    public function __construct($cursor, $builder) {
         $this->cursor = $cursor;
-        $this->modelBuilder = $modelBuilder;
+        $this->builder = $builder;
     }
     
     public function count()
@@ -20,6 +20,6 @@ class ApplicationPaginatorAdapter implements AdapterInterface
     {
         $this->cursor->skip($offset);
         $this->cursor->limit($itemCountPerPage);
-        return $this->modelBuilder->buildCollection(iterator_to_array($this->cursor));
+        return $this->builder->buildCollection($this->cursor);
     }
 }

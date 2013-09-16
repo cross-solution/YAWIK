@@ -36,7 +36,11 @@ class ManageController extends AbstractActionController
     public function indexAction()
     { 
         
-        
+        $v = new ViewModel(array(
+            'by' => $this->params()->fromQuery('by', 'me')
+        ));
+        $v->setTemplate('applications/sidebar/manage');
+        $this->layout()->addChild($v, 'sidebar_applicationsFilter');
         $repository = $this->getServiceLocator()->get('repositories')->get('application');
         $params = $this->params()->fromQuery();
         

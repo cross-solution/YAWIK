@@ -124,7 +124,7 @@ return array(
         ),
         'template_map' => array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
-            
+            'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             
         )

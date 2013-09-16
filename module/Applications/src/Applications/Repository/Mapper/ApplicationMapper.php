@@ -12,6 +12,7 @@ namespace Applications\Repository\Mapper;
 
 use Core\Repository\Mapper\AbstractBuilderAwareMapper as CoreMapper;
 use Core\Entity\EntityInterface;
+use Core\Paginator\Adapter\MongoCursor as MongoCursorAdapter;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -35,6 +36,19 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         return $this->mappers;
     }
 
+    public function getPaginatorAdapter(array $propertyFilter, $sort)
+    {
+    
+        $query = $this->mappers->getServiceLocator()->get('FilterManager')
+                      ->get('applications-params-to-properties')
+                      ->filter($propertyFilter);
+         
+    
+        $cursor = $this->getCursor($query, array('cv'), true); //, array('cv'), true);
+        $cursor->sort($sort);
+        return new MongoCursorAdapter($cursor, $this->builders->get('application'));
+    }
+    
     /**
      * {@inheritdoc}
      *

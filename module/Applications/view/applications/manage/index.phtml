@@ -9,6 +9,9 @@
 <h1><?=$this->translate('List of all applications')?><?
     if ($this->byJobs): echo ' <small>(' . $this->translate('to all of your jobs') . ')</small>'; endif;
     ?></h1>
+
+  
 <div id="applications-list-container" class="pagination-container">
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>
 </div>
+

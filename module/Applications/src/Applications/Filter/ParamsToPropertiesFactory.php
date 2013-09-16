@@ -10,9 +10,9 @@ class ParamsToPropertiesFactory implements FactoryInterface
     
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $jobMapper = $serviceLocator->getServiceLocator()->get('mappers')->get('job');
+        $repository = $serviceLocator->getServiceLocator()->get('repositories')->get('job');
         $auth                   = $serviceLocator->getServiceLocator()->get('AuthenticationService');
-        $filter = new ParamsToProperties($jobMapper, $auth);
+        $filter = new ParamsToProperties($repository, $auth);
         return $filter;
     }
 }

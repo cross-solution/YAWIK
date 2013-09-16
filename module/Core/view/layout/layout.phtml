@@ -54,9 +54,10 @@
             
             <div id="container" class="container-fluid">
                 <div class="row-fluid">
-                    <div id="sidebar" class="span2">
+                    <div class="span2">
 <!-- SIDEBAR -->
-<div class="affix btn-group pull-right" data-toggle="buttons-radio" id="language-switcher">
+<div id="sidebar" class="affix">
+<div class="btn-group" data-toggle="buttons-radio" id="language-switcher">
     <?php $lang = $this->params('lang');
     foreach (array('en', 'de') as $availableLang): ?>
     <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
@@ -64,7 +65,7 @@
     <?php endforeach ?>
 </div>
      
-<div id="sub-nav" class="affix">               
+<div id="sub-nav">               
 <?php
     echo $this->navigation()->menu()
               ->setOnlyActiveBranch()
@@ -72,6 +73,14 @@
               ->setMinDepth(1)
               ->setUlClass('nav nav-tabs nav-stacked');
 ?>
+</div>
+
+<?foreach ($this->layout()->getChildren() as $child):
+    if (0 === strpos($child->captureTo(), "sidebar_")):
+        echo $this->{$child->captureTo()};
+    endif;
+endforeach;?>
+
 </div>
 <!-- /SIDEBAR -->
                     </div>

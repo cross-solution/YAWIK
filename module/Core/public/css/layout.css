@@ -36,18 +36,18 @@ header #login-info-box a:hover {
 	color: #333;
 }*/
 #sidebar {
-	padding-top: 15px;
-}
-#sidebar > div {
+	margin-top: -20px;
 	width: 13.8936%;
 }
-
+#sidebar #language-switcher {
+	width: 100%;
+}
 #sidebar #language-switcher button
 {
 	width: 50%;
 }
-#sidebar #sub-nav {
-	margin-top: 65px;
+#sidebar > div {
+	margin-top: 35px;
 
 }
 #sidebar ul li.active a {

@@ -7,9 +7,9 @@ use Zend\Filter\FilterInterface;
 class ParamsToProperties implements FilterInterface
 {
 
-    public function __construct($jobMapper, $auth)
+    public function __construct($jobRepository, $auth)
     {
-        $this->jobMapper = $jobMapper;
+        $this->jobRepository = $jobRepository;
         $this->auth = $auth;
     }
     
