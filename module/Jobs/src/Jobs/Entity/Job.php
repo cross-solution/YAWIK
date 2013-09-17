@@ -7,9 +7,7 @@ use Core\Entity\EntityInterface;
 use Core\Repository\Mapper\MapperAwareInterface;
 use Core\Entity\CollectionInterface;
 
-
-class Job extends AbstractIdentifiableEntity implements JobInterface
-{
+class Job extends AbstractIdentifiableEntity implements JobInterface {
 
     protected $applyId;
     protected $title;
@@ -18,62 +16,54 @@ class Job extends AbstractIdentifiableEntity implements JobInterface
     protected $user;
     protected $applications;
     protected $location;
+    protected $link;
+    protected $datePublishStart;
     
-    public function setApplyId($applyId)
-    {
+    public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
         return $this;
     }
-    
-    public function getApplyId()
-    {
+
+    public function getApplyId() {
         return $this->applyId;
     }
-    
-    
-    
+
     /**
      * @return the $title
      */
-    public function getTitle ()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
-	/**
+    /**
      * @param field_type $title
      */
-    public function setTitle ($title)
-    {
+    public function setTitle($title) {
         $this->title = (string) $title;
         return $this;
     }
 
-	/**
+    /**
      * @return the $company
      */
-    public function getCompany ()
-    {
+    public function getCompany() {
         return $this->company;
     }
 
-	/**
+    /**
      * @param field_type $company
      */
-    public function setCompany ($company)
-    {
+    public function setCompany($company) {
         $this->company = $company;
         return $this;
     }
 
-	public function setUserId($userId)
-    {
+    public function setUserId($userId) {
         $this->userId = $userId;
         return $this;
     }
-    
-    public function getUserId()
-    {
+
+    public function getUserId() {
         return $this->userId;
     }
     
@@ -88,25 +78,40 @@ class Job extends AbstractIdentifiableEntity implements JobInterface
     	return $this->location;
     }
     
-    public function injectUser(EntityInterface $user)
-    {
+    public function injectUser(EntityInterface $user) {
         $this->user = $user;
         return $this;
     }
-    
-    public function getUser()
-    {
+
+    public function getUser() {
         return $this->user;
     }
-    
-    public function injectApplications(CollectionInterface $applications)
-    {
+
+    public function injectApplications(CollectionInterface $applications) {
         $this->applications = $applications;
         return $this;
     }
-    
-    public function getApplications()
-    {
+
+    public function getApplications() {
         return $this->applications;
     }
+
+    public function getLink() {
+        return $this->link;
+    }
+
+    public function setLink($link) {
+        $this->link = $link;
+        return $this;
+    }
+
+    public function getDatePublishStart() {
+        return $this->datePublishStart;
+    }
+
+    public function setDatePublishStart($datePublishStart) {
+        $this->datePublishStart = $datePublishStart;
+        return $this;
+    }
+    
 }

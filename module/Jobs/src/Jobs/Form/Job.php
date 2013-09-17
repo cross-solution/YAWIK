@@ -1,6 +1,6 @@
 <?php
 
-namespace Job\Form;
+namespace Jobs\Form;
 
 use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
@@ -21,7 +21,7 @@ class Job extends Form
     public function init()
     {
         $this->setName('job-create');
-        $this->setAttribute('job', 'cv-create');
+        $this->setAttribute('id', 'job-create');
  
         
         $this->add(array(

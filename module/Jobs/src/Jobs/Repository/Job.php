@@ -32,10 +32,9 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $entity;
     }
     
-    public function findByApplyId($applyId)
+    public function findByApplyId($applyId, $mode = self::MODE_FORCE_ENTITY)
     {
-        $collection = $this->getMapper('job')->fetch(array('applyId' => $applyId));
-        return $collection->getIterator()->current();
+        return $this->getMapper('job')->findByApplyId((string) $applyId, $mode);
     }
     
     public function fetch()
@@ -83,6 +82,5 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
     {
         $this->getMapper('job')->save($entity);
     }
-    
     
 }

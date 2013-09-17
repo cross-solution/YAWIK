@@ -10,6 +10,9 @@ abstract class AbstractRepository implements RepositoryInterface, Mapper\MapperA
     const LOAD_EAGER = 'EAGER';
     const LOAD_LAZY  = 'LAZY';
     
+    const MODE_DEFAULT = 0;
+    const MODE_FORCE_ENTITY = 1;
+    
     protected $mappers;
     
     public function setMapperManager(ServiceLocatorInterface $mapperManager)
