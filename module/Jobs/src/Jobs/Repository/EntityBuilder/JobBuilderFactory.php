@@ -15,6 +15,7 @@ class JobBuilderFactory implements FactoryInterface
     {
         
         $hydrator = new Hydrator\EntityHydrator();
+        $hydrator->addStrategy('datePublishStart', new Hydrator\DatetimeStrategy());
         
         $builder = new JobBuilder(
             $hydrator, 

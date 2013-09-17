@@ -4,6 +4,7 @@ namespace Jobs\Repository\Mapper;
 
 use Core\Repository\Mapper\AbstractBuilderAwareMapper as CoreMapper;
 use Core\Entity\EntityInterface;
+use Core\Repository\AbstractRepository;
 
 class JobMapper extends CoreMapper
 {
@@ -22,6 +23,25 @@ class JobMapper extends CoreMapper
         $entity = $builder->build($data);
         return $entity;
     }
+    
+    public function findByApplyId($applyId, $mode = AbstractRepository::MODE_FORCE_ENTITY)
+    {
+        //$cursor     = $this->getCursor(array('applyId' => $applyId), $fields, $exclude);
+        //$collection = $this->buildCollection($cursor, 'job');
+        //return $collection;
+        
+        $data = $this->getData(array('applyId' => $applyId));
+        $builder = $this->builders->get('job');
+        if (empty($data)) {
+            $entity = $builder->getEntity();
+        }
+        else {
+            $entity = $builder->build($data);
+        }
+        
+        return $entity;
+    }
+    
     
     /**
      * {@inheritdoc}

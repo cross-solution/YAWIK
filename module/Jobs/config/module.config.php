@@ -18,10 +18,10 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
-                    'post' => array(
+                    'save' => array(
                                 'type' => 'Literal',
                                 'options' => array(
-                                    'route' => '/save',
+                                    'route' => '/saveJob',
                                     'defaults' => array(
                                         'controller' => 'Jobs\Controller\Manage',
                                         'action' => 'save',
@@ -69,7 +69,8 @@ return array(
        
     'form_elements' => array(
         'invokables' => array(
-            'JobForm'            => '\Job\Form\Job',
+            'JobForm'            => '\Jobs\Form\Job',
+            'JobFieldset'        => '\Jobs\Form\JobFieldset',
     )),
     
     
