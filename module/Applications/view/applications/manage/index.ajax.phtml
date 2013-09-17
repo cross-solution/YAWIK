@@ -1,18 +1,53 @@
+<?php
+
+$columns = array(
+        /*translate*/ 'Job' => false,
+        /*translate*/ 'Applicant' => false,
+        /*translate*/ 'Status' => 'status',
+        /*translate*/ 'Modified' => 'date',
+);
+
+if ('-' == $this->sort{0}) {
+    $sortBy  = substr($this->sort, 1);
+    $sortDir = false;
+} else {
+    $sortBy  = $this->sort;
+    $sortDir = true;
+}
+
+?>
 
 <table class="table table-striped table-bordered table-hover" id="jobs-list">
 <thead>
 <tr>
-    <th><?=$this->translate('Job')?></th>
-    <th><?=$this->translate('Applicant')?></th>
-    <th><?=$this->translate('Status')?></th>
-    <th><?=$this->translate('Modified')?></th>
+<?php foreach ($columns as $label => $sort):?>
+    <th>
+    <?php if (false === $sort): echo $this->translate($label); 
+          else:
+              if ($sort == $sortBy):
+                  $icon = ' <i class="pull-right icon-chevron-' . ($sortDir ? 'up' : 'down') . '"></i>';
+                  $dir = !$sortDir;
+              else:
+                  $dir = true;
+                  $icon = '';
+              endif;
+              $sortParam = array('sort' => ($dir ? '' : '-') . $sort);
+              $url = $this->url(
+                  'lang/applications', array(), 
+                  array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
+                  true
+              );
+            ?><a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>     
+    <?php endif; ?>
+    </th>
+<?php endforeach; ?>
 </tr>
 </thead>
 
 <tbody>
 <?foreach ($applications as $application):?>
 <tr>
-    <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>"><?php echo $application->id ?></a></td>
+    <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>"><?php echo $application->job->title ?></a></td>
     <td><?php echo $application->contact->displayName?></td>
     <td><?php echo $application->status ?></td>
     <td title="Created: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp());?>">

@@ -37,7 +37,11 @@ class ManageController extends AbstractActionController
     { 
         
         $v = new ViewModel(array(
-            'by' => $this->params()->fromQuery('by', 'me')
+            'by' => $this->params()->fromQuery('by', 'me'),
+            'hasJobs' => (bool) $this->getServiceLocator()
+                                     ->get('repositories')
+                                     ->get('job')
+                                     ->countByUser($this->auth('id'))
         ));
         $v->setTemplate('applications/sidebar/manage');
         $this->layout()->addChild($v, 'sidebar_applicationsFilter');
@@ -47,10 +51,7 @@ class ManageController extends AbstractActionController
             
         
         $paginator = new \Zend\Paginator\Paginator(
-            $repository->getPaginatorAdapter(
-                $params,
-                array('lastname' => 1)
-            )
+            $repository->getPaginatorAdapter($params)
         );
         $paginator->setCurrentPageNumber($this->params()->fromQuery('page'))
                   ->setItemCountPerPage(10);
@@ -73,7 +74,9 @@ class ManageController extends AbstractActionController
         
         return array(
             'applications' => $paginator,
-            'byJobs' => isset($params['by']) && 'job' == $params['by'] 
+            'byJobs' => isset($params['by']) && 'jobs' == $params['by'],
+            'sort' => isset($params['sort']) ? $params['sort'] : 'none',
+            
         );
         
         

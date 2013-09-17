@@ -3,7 +3,7 @@
 namespace Applications\Repository\EntityBuilder;
 
 use Zend\ServiceManager\FactoryInterface;
-
+use Applications\Repository\Hydrator\Strategy\StatusStrategy;
 use Core\Repository\Hydrator;
 use Core\Repository\EntityBuilder\AbstractCopyableBuilderFactory;
 
@@ -36,7 +36,8 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
     {
         $hydrator = new Hydrator\EntityHydrator();
         $hydrator->addStrategy('dateCreated', new Hydrator\DatetimeStrategy())
-                 ->addStrategy('dateModified', new Hydrator\DatetimeStrategy());
+                 ->addStrategy('dateModified', new Hydrator\DatetimeStrategy())
+                 ->addStrategy('status', new StatusStrategy());
         return $hydrator;
     }
 

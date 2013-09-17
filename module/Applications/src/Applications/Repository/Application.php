@@ -55,9 +55,9 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $collection;
     }
     
-    public function getPaginatorAdapter(array $propertyFilter, $sort)
+    public function getPaginatorAdapter(array $params)
     {
-        return $this->getMapper('application')->getPaginatorAdapter($propertyFilter, $sort);
+        return $this->getMapper('application')->getPaginatorAdapter($params);
     }
     
     

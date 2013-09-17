@@ -37,7 +37,11 @@ class JobMapper extends CoreMapper
         return $collection;
     }
     
-    
+    public function count(array $query = array())
+    {
+        $cursor = $this->getCursor($query);
+        return $cursor->count();
+    }
     
     public function save(EntityInterface $entity)
     {

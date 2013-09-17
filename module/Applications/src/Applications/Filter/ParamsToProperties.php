@@ -17,6 +17,11 @@ class ParamsToProperties implements FilterInterface
     {
         $properties = array();
         
+        if (isset($value['sort'])) {
+            $properties['sort'] = $this->filterSort($value['sort']);
+        }
+         
+        
         if (isset($value["applyId"])) {
             $job = $this->jobRepository->findByApplyId($value["applyId"]);
             if ($job) {
@@ -53,5 +58,27 @@ class ParamsToProperties implements FilterInterface
         
         
         return $properties;
+    }
+    
+    protected function filterSort($sort)
+    {
+        if ('-' == $sort{0}) {
+            $sortProp = substr($sort, 1);
+            $sortDir  = -1;
+        } else {
+            $sortProp = $sort;
+            $sortDir = 1;
+        }
+        switch ($sortProp) {
+            case "date":
+                $sortProp = "dateModified.date";
+                break;
+                
+            default:
+                break;
+        }
+        
+        return array($sortProp => $sortDir);
+        
     }
 }

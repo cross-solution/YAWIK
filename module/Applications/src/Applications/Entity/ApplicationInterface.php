@@ -14,7 +14,7 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function getJob();
     public function injectJob(EntityInterface $job);
     
-    public function setStatus($status);
+    public function setStatus(Status $status);
     public function getStatus();
     
     public function setDateCreated($dateCreated);

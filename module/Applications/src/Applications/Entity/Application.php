@@ -66,7 +66,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this;
     }
 
-    public function setStatus($status)
+    public function setStatus(Status $status)
     {
         $this->status = $status;
         return $this;

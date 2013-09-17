@@ -36,14 +36,19 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         return $this->mappers;
     }
 
-    public function getPaginatorAdapter(array $propertyFilter, $sort)
+    public function getPaginatorAdapter(array $params)
     {
     
         $query = $this->mappers->getServiceLocator()->get('FilterManager')
                       ->get('applications-params-to-properties')
-                      ->filter($propertyFilter);
+                      ->filter($params);
          
-    
+        if (isset($query['sort'])) {
+            $sort = $query['sort'];
+            unset($query['sort']);
+        } else {
+            $sort = array();
+        }
         $cursor = $this->getCursor($query, array('cv'), true); //, array('cv'), true);
         $cursor->sort($sort);
         return new MongoCursorAdapter($cursor, $this->builders->get('application'));

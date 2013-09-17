@@ -9,9 +9,10 @@
 
 <div id="applications-list-filter">
 <h4><?php echo $this->translate('List filter')?>:</h4>
+<?php if ($this->hasJobs):?>
 <ul class="nav nav-tabs nav-stacked"><li>
 
-<?php foreach (array('me' => 'My applications', 'job' => 'Applications by jobs') as $byParam => $label): ?>
+<?php foreach (array('me' => 'My applications', 'jobs' => 'Applications by jobs') as $byParam => $label): ?>
     <li<?php echo $byParam == $this->by ? ' class="active"' : '' ?>>
         <a href="<?php echo $this->url('lang/applications', 
             array(), 
@@ -20,4 +21,5 @@
     </li>
 <?php endforeach; ?>
 </ul>
+<?php endif; ?>
 </div>

@@ -9,9 +9,15 @@ h1 {
 	border-bottom: 1px solid #ccc;
 	
 }
-.container {
-	width: 1024px;
+th a {
+	display: block;
+	color: #333;
 }
+th a:hover {
+	color: #005580;
+	text-decoration: none;
+}
+
 #topbar .container {
 	width: auto;
 	margin: 0 20px;

@@ -25,9 +25,12 @@ class Auth extends AbstractPlugin
         return $this->auth;
     }
     
-    public function __invoke()
+    public function __invoke($property=null)
     {
-        return $this;
+        if (null === $property) {
+            return $this;
+        }
+        return $this->get($property);
     }
     
     public function isLoggedIn()
@@ -48,7 +51,7 @@ class Auth extends AbstractPlugin
     {
         $auth = $this->getAuthenticationService();
         if ($auth->hasIdentity()) {
-            return $auth->getUser()->$property;
+            return 'id' == $property ? $auth->getIdentity() : $auth->getUser()->$property;
         }
         return null;
         
