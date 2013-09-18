@@ -9,6 +9,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 use Auth\Exception\UnauthorizedAccessException;
+use Zend\Http\PhpEnvironment\Response;
 
 
 class UnauthorizedAccessListener extends ExceptionStrategy
@@ -46,10 +47,32 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             return;
         }
     
+        $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
+        
+        $response = $e->getResponse();
+        if (!$response) {
+            $response = new Response();
+            $e->setResponse($response);
+        }
+        
+        if (!$auth->hasIdentity()) {
+            $response->setStatusCode(Response::STATUS_CODE_302);
+            $lang = $e->getRouteMatch()->getParam('lang', 'de');
+            $ref = urlencode($e->getRequest()->getRequestUri());
+            $url = $e->getRouter()->assemble(array('lang' => $lang), array(
+                'name' => 'lang/auth',
+                'query' => array(
+                    'ref' => $ref,
+                    'req' => 1
+                )
+            ));
+            $response->getHeaders()->addHeaderLine('Location', $url);
+            return $response;
+        }
         $message = $exception->getMessage();
         $model = new ViewModel(array(
             'message'            => empty($message)
-                                    ? 'You are not permitted to access this resource.'
+                                    ? /*translate*/ 'You are not permitted to access this resource.'
                                     : $message,
             'exception'          => $e->getParam('exception'),
             'display_exceptions' => $this->displayExceptions(),
@@ -58,17 +81,11 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         $model->setTemplate($this->getExceptionTemplate());
         $e->setResult($model);
 
-        $response = $e->getResponse();
-        if (!$response) {
-            $response = new HttpResponse();
+        $statusCode = $response->getStatusCode();
+        if ($statusCode === 200) {
             $response->setStatusCode(403);
-            $e->setResponse($response);
-        } else {
-            $statusCode = $response->getStatusCode();
-            if ($statusCode === 200) {
-                $response->setStatusCode(403);
-            }
         }
+    
 
     }
     

@@ -18,6 +18,7 @@ return array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
+            'auth-login-adapter' => '\Auth\Service\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Service\UnauthorizedAccessListenerFactory',
             'Acl' => '\Acl\Service\AclFactory',
@@ -215,6 +216,7 @@ return array(
     
     'form_elements' => array(
         'invokables' => array( 
+            'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-info-fieldset' => 'Auth\Form\UserInfoFieldset',
         ),

@@ -46,13 +46,21 @@ class FormRow extends ZendFormRow
         } else {
             $elementId = $element->getAttribute('id');
         }
+        
         $elementString = $elementHelper->render($element);
+        if ($desc = $element->getOption('description', false)) {
+            $elementString .= sprintf(
+                '<div class="description">%s</div>', $desc
+            );
+        }
+        
         if ('form-horizontal' == $this->layout && !$element instanceOf \Zend\Form\Element\Hidden) {
             $elementString = sprintf(
                 '<div class="controls">%s</div>',
                 $elementString
             );
         }
+        
     
         if (isset($label) && '' !== $label && !$element instanceOf \Zend\Form\Element\Button) {
             // Translate the label

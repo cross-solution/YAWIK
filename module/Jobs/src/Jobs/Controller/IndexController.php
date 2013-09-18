@@ -34,7 +34,7 @@ class IndexController extends AbstractActionController
         $paginator = new \Zend\Paginator\Paginator(
             $repository->getPaginatorAdapter(
                 $this->params()->fromQuery(),
-                array('applyId' => 1)
+                array('datePublishStart.date' => 1)
             )
         );
         $paginator->setCurrentPageNumber($this->params()->fromQuery('page'))

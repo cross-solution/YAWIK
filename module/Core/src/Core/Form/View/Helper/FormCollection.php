@@ -91,7 +91,12 @@ class FormCollection extends ZendFormCollection
             } else {
                 $label = $element->getLabel();
         
-                if (!empty($label)) {
+                if (empty($label) && $element->getOption('renderFieldset')) {
+                    $markup = sprintf(
+                        '<fieldset id="%s"><div class="fieldset-content">%s</div></fieldset>',
+                        $elementId, $markup
+                    );
+                } else if (!empty($label)) {
         
                     
                     if (null !== ($translator = $this->getTranslator())) {

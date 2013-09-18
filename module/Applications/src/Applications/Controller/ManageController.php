@@ -19,6 +19,7 @@ use Zend\Stdlib\Hydrator\Strategy\ClosureStrategy;
 use Core\Mapper\Criteria\Criteria;
 use Core\Filter\ListQuery;
 use Core\Mapper\Query\Query;
+use Auth\Exception\UnauthorizedAccessException;
 
 
 

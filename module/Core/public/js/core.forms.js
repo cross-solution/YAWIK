@@ -5,12 +5,16 @@
 	{
 		processResponse = function(data)
 		{
-			if (true === data.ok) {
-				var $alert = $('#' + $form.attr('name') + '-response');
-				$alert.addClass('alert-' + data.status)
-				      .html(data.text)
-				      .removeClass('hide');
+			console.debug(data);
+			if (data.redirect) {
+				location.href = data.redirect;
+				return;
 			}
+			var $alert = $('#' + $form.attr('name') + '-response');
+			$alert.addClass('alert-' + data.status)
+			      .html(data.text)
+			      .removeClass('hide');
+
 		};
 		
 		var $form = $(event.target);

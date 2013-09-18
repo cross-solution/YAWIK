@@ -29,6 +29,71 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
+        $viewModel = new ViewModel();
+        $services = $this->getServiceLocator();
+        $form     = $services->get('FormElementManager')
+                             ->get('user-login');
+        
+        
+        if ($this->request->isPost()) {
+            
+            $form->setData($this->params()->fromPost());
+            $adapter    = $services->get('auth-login-adapter');
+            /*
+             $adapter->setIdentity('illert')
+            ->setCredential('a28d402326a5dda1c349fb849efc720a')
+            ->setApplicationKey('AmsAppKey');
+            */
+            $data = $this->params()->fromPost();
+            $adapter->setIdentity($data['credentials']['login'])
+                    ->setCredential($data['credentials']['credential']);
+            
+            
+            $auth       = $services->get('AuthenticationService');
+            $result     = $auth->authenticate($adapter);
+            
+            
+            if ($result->isValid()) {
+            
+                if ($ref = $this->params()->fromQuery('ref', false)) {
+                    $url = $ref;
+                } else {
+                    $urlHelper = $services->get('ViewHelperManager')->get('url');
+                    $url = $urlHelper('lang', array(), true);
+                }
+            
+                if ($this->request->isXmlHttpRequest()) {
+                    
+                
+                    return new JsonModel(array(
+                        'ok' => true,
+                        'redirect' => $url,
+                    ));
+                }
+                return $this->redirect()->toUrl($url);
+                
+            } else {
+                $translator = $services->get('translator');
+                $vars = array(
+                    'ok' => false,
+                    'status' => 'error',
+                    'text' => $translator->translate('Authentication failed.')
+                );
+                if ($this->request->isXmlHttpRequest()) {
+                    return new JsonModel($vars);
+                }
+                $viewModel->setVariables($vars);
+            }
+        }
+        
+        if ($ref = $this->params()->fromQuery('ref', false)) {
+            $this->getResponse()->setStatusCode(403);
+            $viewModel->setVariable('ref', $ref)
+                      ->setVariable('required', (bool) $this->params()->fromQuery('req', 0));
+        }
+        
+        $viewModel->setVariable('form', $form);
+        return $viewModel;
         //var_dump($this->getServiceLocator()->get('Config'));
     }
     
@@ -67,7 +132,7 @@ class IndexController extends AbstractActionController
      */
     public function loginExternAction()
     {
-        $this->getServiceLocator()->get('ExternalApplicationAdapter');
+       
 //         if (!$this->getRequest()->isPost()) {
 //             return new JsonModel(array(
 //                 'status' => 'failure',

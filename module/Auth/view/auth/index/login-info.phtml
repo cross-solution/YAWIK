@@ -14,18 +14,7 @@
             </li>
         </ul>
 
-<?php /*
-<div class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf($this->translate('Hello %s'), '<strong>' . $this->auth('displayName') . '</strong>')?><b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="#"><?php echo $this->translate('Profile')?></a>
-<li class="divider"></li>
-            <li>
-                <a href="<?php echo $this->url('auth-logout')?>"><?php echo $this->translate('Logout')?></a>
-            </li>
-        </ul>
-    </div>
-*/?>
+
 <?php else: ?>
     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf(
         $this->translate('Hello %s'),
@@ -33,6 +22,12 @@
     )?><b class="caret"></b></a>
 
     <ul class="dropdown-menu pull-right">
+        <li><a href="<?php echo $this->url('lang/auth', array(), array(
+                                                'query' => array(
+                                                    'ref' => urlencode($_SERVER['REQUEST_URI']),
+                                                 )), true)?>"
+             ><i class="icon-user"></i> <?php echo $this->translate('Login')?></a></li>
+        <li class="divider"></li>
         <li class="disabled"><a href="#"><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
         <li>
