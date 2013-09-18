@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Cross Applicant Management - Jobs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-18 11:28+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: view/jobs/index/index.phtml:1 language/_annotated_strings.php:3
+msgid "Jobs"
+msgstr ""
+
+#: view/jobs/index/index.phtml:4
+msgid "List of all jobs"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:5
+msgid "Date of receipt"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:6
+msgid "Title of the job"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:7
+msgid "Location"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:8
+msgid "Companyname"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:9
+msgid "Reference"
+msgstr ""
