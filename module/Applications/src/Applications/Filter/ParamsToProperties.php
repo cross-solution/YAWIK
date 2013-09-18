@@ -23,6 +23,10 @@ class ParamsToProperties implements FilterInterface
          
         
         if (isset($value["applyId"])) {
+            if (!isset($value['by']) || 'jobs' != $value['by']) {
+                $value['by'] = "jobs";
+            }
+            
             $job = $this->jobRepository->findByApplyId($value["applyId"]);
             if ($job) {
                 $properties['jobId'] = $job->id;
