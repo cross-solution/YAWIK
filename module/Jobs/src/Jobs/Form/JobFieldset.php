@@ -109,6 +109,16 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
        
        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
+            'name' => 'location',
+            'options' => array(
+                'label' => 'location'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'datePublishStart',
             'options' => array(
                 'label' => 'datePublishStart'

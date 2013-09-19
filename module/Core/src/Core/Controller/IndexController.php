@@ -28,4 +28,20 @@ class IndexController extends AbstractActionController
     public function indexAction()
     { }
     
+    public function mailAction() {
+        $mail = $this->mail();
+        
+        $newMail1 = $mail->newMail();
+        
+        //$newMail1->setTemplate('aaa');
+        //$newMail1->setSubject('Hallo');
+        //$newMail1->setAdress('mork@ork');
+        //$newMail1->setView(array('a' => 'b'));
+        
+        
+        $response = $this->getResponse();
+        
+        return "test";
+    }
+    
 }

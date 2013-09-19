@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Cross Applicant Management
  * Configuration file of the Core module
@@ -11,19 +12,17 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
-
 return array(
-    
     // Routes
     'router' => array(
         'routes' => array(
             'lang' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/:lang',
+                    'route' => '/:lang',
                     'defaults' => array(
                         'controller' => 'Core\Controller\Index',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ),
                 ),
                 'may_terminate' => true,
@@ -38,12 +37,21 @@ return array(
                             ),
                         ),
                     ),
+                    'mailtest' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/mail',
+                            'defaults' => array(
+                                'controller' => 'Core\Controller\Index',
+                                'action' => 'mail',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                 ),
             ),
-            
         ),
     ),
-    
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
@@ -68,19 +76,17 @@ return array(
             'forms' => 'FormElementManager'
         ),
     ),
-    
     // Translation settings consumed by the 'translator' factory above.
     'translator' => array(
         'locale' => 'de_DE',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern' => '%s.mo',
             ),
         ),
     ),
-    
     // Navigation-Konfig für die main_navigation
     'navigation' => array(
         'default' => array(
@@ -90,49 +96,44 @@ return array(
 //             ),
         ),
     ),
-    
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
             'Core\Controller\Index' => 'Core\Controller\IndexController'
         ),
     ),
-    
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
+        'factories' => array(
+            'mail' => 'Core\Controller\Plugin\Mailfactory'
+        ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
-            'config'    => 'Core\Controller\Plugin\Config',
+            'config' => 'Core\Controller\Plugin\Config',
         )
     ),
-    
     // Configure the view service manager
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'unauthorized_template'    => 'error/403',
-        'exception_template'       => 'error/index',
-        
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'unauthorized_template' => 'error/403',
+        'exception_template' => 'error/index',
         // Map template to files. Speeds up the lookup through the template stack. 
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             //'core/index/index'        => __DIR__ . '/../view/core/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/403'               => __DIR__ . '/../view/error/403.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
-            
-            'main-navigation'         => __DIR__ . '/../view/partial/main-navigation.phtml',
-            
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/403' => __DIR__ . '/../view/error/403.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
+            'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
         ),
-        
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
     ),
-    
     'view_helpers' => array(
         'invokables' => array(
             'jquery' => 'Core\View\Helper\Jquery',
@@ -147,17 +148,15 @@ return array(
             'build_query' => 'Core\View\Helper\BuildQuery',
             'form' => 'Core\Form\View\Helper\Form',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
-            'formrow'        => 'Core\Form\View\Helper\FormRow',
+            'formrow' => 'Core\Form\View\Helper\FormRow',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
     ),
-    
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
         ),
     ),
-    
 );

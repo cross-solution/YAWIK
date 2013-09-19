@@ -104,7 +104,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         $this->link = $link;
         return $this;
     }
-
+    
     public function getDatePublishStart() {
         return $this->datePublishStart;
     }

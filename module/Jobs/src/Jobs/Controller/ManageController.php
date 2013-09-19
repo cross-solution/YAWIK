@@ -28,21 +28,27 @@ class ManageController extends AbstractActionController
         $user = $services->get('AuthenticationService')->getUser();
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user)) {
+            $result['verbose'] = 'User';
             $form = $services->get('FormElementManager')->get('JobForm');
             $id = 0;
             $applyId = 0;
             $company = 0;
             $title = '';
             $link = '';
+            $location = '';
             $datePublishStart = '';
+            
             if ($this->request->isPost()) {
                 $id = $this->params()->fromPost('id');
                 $applyId = $this->params()->fromPost('applyId');
                 $company = $this->params()->fromPost('company');
                 $title = $this->params()->fromPost('title');
                 $link = $this->params()->fromPost('link');
-                $datePublishStart = $this->params()->fromPost('datePublishStart');
+                $location = $this->params()->fromPost('location');
+                $datePublishStart = \DateTime::createFromFormat('Y-m-d',$this->params()->fromPost('datePublishStart'));
+                $result['post'] = $_POST;
             }
+            $result['verbose'] = 'Post';
             if (empty($id)) {
                 if (empty($applyId)) {
                     $entity = $services->get('builders')->get('job')->getEntity();
@@ -52,8 +58,10 @@ class ManageController extends AbstractActionController
             } else {
                 $entity = $services->get('repositories')->get('job')->find($id);
             }
+            $result['verbose'] = 'Entity';
             if (isset($entity)) {
                 $form->bind($entity);
+                $result['verbose'] = 'Binding';
                 $form->setData(
                         array('job' =>
                             array(
@@ -62,15 +70,22 @@ class ManageController extends AbstractActionController
                                 'company' => $company,
                                 'title' => $title,
                                 'link' => $link,
+                                'location' => $location,
                                 'datePublishStart' => $datePublishStart,
                             )
                         )
                 );
+                $result['verbose'] = 'DataSetting';
                 if ($form->isValid()) {
+                    $result['verbose'] = 'Valid';
                     $entity->setUserId($user->id);
                     $services->get('repositories')->get('job')->save($entity);
                     $result['isSaved'] = true;
+                    $result['verbose'] = 'Saved';
                 }
+            }
+            else {
+                $result['message'] = 'no entity created';
             }
         } else {
             $result['message'] = 'session_id is lost';

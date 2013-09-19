@@ -17,6 +17,7 @@ use Core\Listener\LanguageRouteListener;
 use Core\Listener\JsonViewModelListener;
 use Core\Listener\AjaxRenderListener;
 use Core\Listener\EnforceJsonResponseListener;
+use Core\Listener\StringListener;
 
 /**
  * Bootstrap class of the Core module
@@ -46,6 +47,9 @@ class Module
         
         $enforceJsonResponseListener = new EnforceJsonResponseListener();
         $enforceJsonResponseListener->attach($eventManager);
+        
+        $stringListener = new StringListener();
+        $stringListener->attach($eventManager);
         
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
             $eventManager->trigger('postDispatch', $event);
