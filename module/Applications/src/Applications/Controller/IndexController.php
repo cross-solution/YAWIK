@@ -13,6 +13,7 @@ namespace Applications\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Application\Entity\Status;
 
 /**
  * Main Action Controller for Applications module.
@@ -67,7 +68,7 @@ class IndexController extends AbstractActionController
                 }
                 //$form->populateValues($data);
             } else {
-                $applicationEntity->setStatus('new');
+                $applicationEntity->setStatus(new Status(Status::STATUS_NEW));
                 $applicationEntity->injectJob($job);
                 $repository->save($applicationEntity);
                 
