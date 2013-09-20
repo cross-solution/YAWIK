@@ -71,7 +71,7 @@ return array(
                             'detail' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/detail/:id',
+                                    'route' => '/:id',
                                     'constraints' => array(
                                         'id' => '[a-z0-9]+',
                                     ),
