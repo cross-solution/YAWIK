@@ -12,7 +12,9 @@ config/autoload/*.php
 #
 # Unit test code coverage reports
 #
-module/*/test/coverage
+public/coverage
+public/docs
+log
 
 #
 # Composer packages

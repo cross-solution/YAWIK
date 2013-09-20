@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c12e66bb49ed5e73dedd04e87564db00",
+    "hash": "8e2cc721c64ef4ca233188b621a76ad7",
     "packages": [
         {
             "name": "hybridauth/hybridauth",
@@ -60,12 +60,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neilime/zf2-twb-bundle.git",
-                "reference": "068bf6bc393a247fca0a2ed3ebeb9d2654f7263d"
+                "reference": "1d86e4b98ef5290ecf1e2a7a2ca9b54b2fb878f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neilime/zf2-twb-bundle/zipball/068bf6bc393a247fca0a2ed3ebeb9d2654f7263d",
-                "reference": "068bf6bc393a247fca0a2ed3ebeb9d2654f7263d",
+                "url": "https://api.github.com/repos/neilime/zf2-twb-bundle/zipball/1d86e4b98ef5290ecf1e2a7a2ca9b54b2fb878f8",
+                "reference": "1d86e4b98ef5290ecf1e2a7a2ca9b54b2fb878f8",
                 "shasum": ""
             },
             "require": {
@@ -108,7 +108,7 @@
                 "twitter bootstrap",
                 "zend framework 2"
             ],
-            "time": "2013-07-01 13:57:41"
+            "time": "2013-09-11 22:00:03"
         },
         {
             "name": "zendframework/zendframework",
@@ -116,12 +116,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "release-2.1.5"
+                "reference": "1766cb203044591c5fcee7ab8f30980d9ec52c03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/release-2.1.5",
-                "reference": "release-2.1.5",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/1766cb203044591c5fcee7ab8f30980d9ec52c03",
+                "reference": "1766cb203044591c5fcee7ab8f30980d9ec52c03",
                 "shasum": ""
             },
             "require": {
@@ -234,7 +234,9 @@
         "neilime/zf2-twb-bundle": 20
     },
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "ext-mongo": "*",
+        "ext-intl": "*"
     },
     "platform-dev": [
 
