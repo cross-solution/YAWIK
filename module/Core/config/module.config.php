@@ -110,6 +110,10 @@ return array(
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
             'config' => 'Core\Controller\Plugin\Config',
+            'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
+        ),
+        'aliases' => array(
+            'filesender' => 'Core/FileSender',
         )
     ),
     // Configure the view service manager
@@ -128,6 +132,7 @@ return array(
             'error/403' => __DIR__ . '/../view/error/403.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
             'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
+            'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -147,8 +152,10 @@ return array(
 //            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
             'build_query' => 'Core\View\Helper\BuildQuery',
             'form' => 'Core\Form\View\Helper\Form',
+            'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
+            'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined'
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',

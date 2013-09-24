@@ -2,8 +2,9 @@
 /**
  * Cross Applicant Management
  *
+ * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   AGPLv3
  */
 
 namespace Auth\Entity;
@@ -32,6 +33,9 @@ class Info extends AbstractEntity implements InfoInterface
 
     /** @var string */
     protected $_city;
+    
+    /** @var \Core\Entity\FileEntityInterface */
+    protected $imageId;
     
     
     
@@ -131,6 +135,15 @@ class Info extends AbstractEntity implements InfoInterface
     	return $this->_city;
     }
     
+    public function setImageId($imageId)
+    {
+        $this->imageId = $imageId;
+        return $this;
+    }
     
+    public function getImageId()
+    {
+        return $this->imageId;
+    }
     
 }

@@ -29,6 +29,7 @@ return array(
         'invokables' => array(
             'Auth\Controller\Index' => 'Auth\Controller\IndexController',
             'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
+            'Auth\Controller\Image' => 'Auth\Controller\ImageController',
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
         ),
     ),
@@ -149,6 +150,17 @@ return array(
                     ),
                 ),
             ),
+            'user-image' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/user/image/:id',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Image',
+                        'action' => 'index',
+                        'id' => 0,
+                    ),
+                ),
+            ),
         ),
     ),
     
@@ -183,6 +195,10 @@ return array(
     
     // Configure the view service manager
     'view_manager' => array(
+        'template_map' => array(
+            'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
+        ),
+    
         'template_path_stack' => array(
             'Auth' => __DIR__ . '/../view',
         ),
@@ -197,19 +213,25 @@ return array(
     'repositories' => array(
         'invokables' => array(
             'user' => 'Auth\Repository\User',
+            
         ),
+        'factories' => array(
+            'user-file' => 'Auth\Repository\FileRepositoryFactory',
+        )
     ),
     
     'mappers' => array(
         'factories' => array(
-            'user' => 'Auth\Repository\Mapper\UserMapperFactory'
+            'user' => 'Auth\Repository\Mapper\UserMapperFactory',
+            'user-file' => 'Auth\Repository\Mapper\FileMapperFactory',
          ),
     ),
     
     'entity_builders' => array(
         'factories' => array(
             'user' => 'Auth\Repository\EntityBuilder\UserBuilderFactory',
-            'auth-info' => 'Auth\Repository\EntityBuilder\InfoBuilderFactory'
+            'auth-info' => 'Auth\Repository\EntityBuilder\InfoBuilderFactory',
+            'user-file' => 'Auth\Repository\EntityBuilder\FileBuilderFactory',
                 
         ),
     ),

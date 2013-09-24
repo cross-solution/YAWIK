@@ -2,11 +2,9 @@
 
 namespace Core\Form;
 
-use Zend\Form\Fieldset;
 
-class DefaultButtonsFieldset extends Fieldset
+class DefaultButtonsFieldset extends ButtonsFieldset
 {
-    
     public function init()
     {
         $this->setName('buttons');
@@ -22,6 +20,20 @@ class DefaultButtonsFieldset extends Fieldset
                 'type' => 'submit',
                 'value' => 'Save',
                 'class' => 'btn btn-primary'
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Button',
+            'name' => 'cancel',
+            'options' => array(
+                'label' => /*@translate*/ 'Cancel',
+            ),
+            'attributes' => array(
+                'id' => 'cancel',
+                'type' => 'reset',
+                'value' => 'Cancel',
+                'class' => 'btn btn-secondary'
             ),
         ));
     }

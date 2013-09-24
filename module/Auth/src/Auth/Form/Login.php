@@ -21,6 +21,8 @@ class Login extends Form
             'name' => 'login',
             'options' => array(
                 'label' => /*translate*/ 'Login name',
+                'labelWidth' => 4,
+                'inputSize' => 'xlarge' 
             ),
         ));
         
@@ -29,6 +31,8 @@ class Login extends Form
             'name' => 'credential',
             'options' => array(
                 'label' => /*translate*/ 'Password',
+                'labelWidth' => 4,
+                'inputSize' => 'xlarge'
             ),
         ));
         
@@ -36,7 +40,7 @@ class Login extends Form
         
         $this->add($fieldset);
             
-        $buttons = new Fieldset('buttons');
+        $buttons = new \Core\Form\ButtonsFieldset('buttons');
         $buttons->add(array(
             'type' => 'Button',
             'name' => 'submit',

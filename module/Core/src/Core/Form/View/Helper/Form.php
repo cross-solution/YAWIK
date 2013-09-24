@@ -5,6 +5,7 @@ namespace Core\Form\View\Helper;
 use Zend\Form\View\Helper\Form as ZendForm;
 use Zend\Form\FormInterface;
 use Zend\Form\FieldsetInterface;
+use Core\Form\ViewPartialProviderInterface;
 
 class Form extends ZendForm
 {
@@ -19,7 +20,7 @@ class Form extends ZendForm
      * @param  null|FormInterface $form
      * @return Form
      */
-    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_HORIZONTAL)
+    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_INLINE)
     {
         if (!$form) {
             return $this;
@@ -34,7 +35,7 @@ class Form extends ZendForm
      * @param  FormInterface $form
      * @return string
      */
-    public function render(FormInterface $form, $layout=self::LAYOUT_HORIZONTAL)
+    public function render(FormInterface $form, $layout=self::LAYOUT_INLINE)
     {
         
         $class = $form->getAttribute('class');
@@ -50,7 +51,12 @@ class Form extends ZendForm
         $formContent = '';
     
         foreach ($form as $element) {
-            if ($element instanceof FieldsetInterface) {
+            if ($element instanceOf ViewPartialProviderInterface) {
+                $formContent .= $this->getView()->partial(
+                    $element->getViewPartial(), array('element' => $element)
+                );
+                
+            } else if ($element instanceof FieldsetInterface) {
                 $formContent.= $this->getView()->formCollection($element, true, $layout);
             } else {
                 $formContent.= $this->getView()->formRow($element);

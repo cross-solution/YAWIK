@@ -6,10 +6,25 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Fieldset;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
-//use Zend\InputFilter\InputFilterProviderInterface;
+use Core\Form\ViewPartialProviderInterface;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-class UserInfoFieldset extends Fieldset
+class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
+                                                   InputFilterProviderInterface
 {
+    
+    protected $viewPartial = 'form/auth/my-profile';
+
+    public function setViewPartial($partial)
+    {
+        $this->viewPartial = $partial;
+        return $this;
+    }
+    
+    public function getViewPartial()
+    {
+        return $this->viewPartial;
+    }
     
     public function getHydrator()
     {
@@ -30,28 +45,30 @@ class UserInfoFieldset extends Fieldset
         $this->add(array(
             'name' => 'email',
             'options' => array(
-                'label' => /*translate*/ 'Email'
+                'label' => /*@translate*/ 'Email'
             )
         ));
         
         $this->add(array(
         		'name' => 'phone',
         		'options' => array(
-        				'label' => /*translate*/ 'Phone'
-        		)
+        				'label' => /*@translate*/ 'Phone',
+        		    'required' => true,
+        		),
+                'required' => true,
         ));
         
         $this->add(array(
         		'name' => 'postalcode',
         		'options' => array(
-        				'label' => /*translate*/ 'Postalcode'
+        				'label' => /*@translate*/ 'Postalcode'
         		)
         ));
         
         $this->add(array(
         		'name' => 'city',
         		'options' => array(
-        				'label' => /*translate*/ 'City'
+        				'label' => /*@translate*/ 'City'
         		)
         ));
         
@@ -60,15 +77,24 @@ class UserInfoFieldset extends Fieldset
         $this->add(array(
             'name' => 'firstName',
             'options' => array(
-                'label' => /*translate*/ 'First name',
+                'label' => /*@translate*/ 'First name',
             ),
         ));
         
         $this->add(array(
             'name' => 'lastName',
             'options' => array(
-                'label' => /*translate*/ 'Last name',
+                'label' => /*@translate*/ 'Last name',
             ),
+        ));
+        
+        $this->add(array(
+            'type' => 'file',
+            'name' => 'image',
+//             'options' => array(
+//                 'label' => /*@translate*/ 'Image',
+//             ),
+        
         ));
      
         
@@ -84,6 +110,14 @@ class UserInfoFieldset extends Fieldset
             $this->populateValues($data);
         }
         return parent::setValue($value);
+    }
+    
+    public function getInputFilterSpecification()
+    {
+        return array(
+            
+        );
+        
     }
     
     

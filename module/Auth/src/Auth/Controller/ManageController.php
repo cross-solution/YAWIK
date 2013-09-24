@@ -40,9 +40,27 @@ class ManageController extends AbstractActionController
         $form->bind($info);
              
         if ($this->request->isPost()) {
-            $form->setData($this->request->getPost());
+            $files = $this->request->getFiles()->toArray();
+            if (!empty($files)) {
+                $post = $this->request->getPost()->toArray();
+                $data = array_merge($this->request->getPost()->toArray(), $files);
+            } else {
+                $data = $this->request->getPost();
+            }
+            $form->setData($data);
             $form->isValid();
+            
+            
+                        
             $user->setInfo($info);
+            $data = $form->getInputFilter()->getValues();
+            $fileData = $data['user-info']['image'];
+            
+            if ($fileData['error'] == UPLOAD_ERR_OK) {
+                $fileData['field'] = 'image';
+                $imageId = $services->get('repositories')->get('user-file')->saveUploadedFile($fileData);
+                $user->info->setImageId($imageId);
+            }
             $services->get('repositories')->get('user')->save($user);
             $vars = array(
                     'ok' => true,

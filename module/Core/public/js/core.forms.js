@@ -1,11 +1,28 @@
 
-(function($) {
+;(function($) {
+	
+	displayMessages = function(messages, prefix)
+	{
+		$.each(messages, function(element, msgs) {
+			var $errorsDiv = $("#" + prefix + element + "-errors");
+			if ($errorsDiv.length) {
+				var errorList = '';
+				$.each(msgs, function(key, msg) {
+					errorList += "<li>" + msg + "</li>";
+				});
+				$errorsDiv.html('<ul>' + errorList + '</ul>');
+				$errorsDiv.parent().addClass('input-error');
+				
+			} else if ("object" == $.type(msgs)){
+				displayMessages(msgs, element + '-');
+			}
+		});
+	};
 	
 	formSubmit = function(event)
 	{
 		processResponse = function(data)
 		{
-			console.debug(data);
 			if (data.redirect) {
 				location.href = data.redirect;
 				return;
@@ -14,7 +31,10 @@
 			$alert.addClass('alert-' + data.status)
 			      .html(data.text)
 			      .removeClass('hide');
-
+			if (data.messages) {
+				data.messages.test = { huch : { kuchen : 'tütü'}};
+				displayMessages(data.messages, '');
+			}
 		};
 		
 		var $form = $(event.target);

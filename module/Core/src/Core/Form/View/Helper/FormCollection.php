@@ -62,7 +62,12 @@ class FormCollection extends ZendFormCollection
         }
     
         foreach ($element->getIterator() as $elementOrFieldset) {
-            if ($elementOrFieldset instanceof FieldsetInterface) {
+            if ($element instanceOf ViewPartialProviderInterface) {
+                $formContent .= $this->getView()->partial(
+                    $element->getViewPartial(), array('element' => $element)
+                );
+            
+            }else if ($elementOrFieldset instanceof FieldsetInterface) {
                 if ($isCollectionElement) {
                     $this->isWithinCollection = true;
                 }

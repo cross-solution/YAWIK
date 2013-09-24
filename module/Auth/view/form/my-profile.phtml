@@ -1,0 +1,37 @@
+
+<?$this->headstyle('img.user-image { max-width:150px; max-height: 250px; }'); ?>
+
+
+<fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-info'?>">
+    <legend><?php echo $element->getLabel()?></legend>
+    <div class="fieldset-content">
+       <div class="row-fluid">
+            
+            <div class="span9">
+                <?php echo $this->formRowCombined(
+                    array(4 => $element->get('firstName'), 5 => $element->get('lastName'))
+                );?>
+                <?php echo $this->formRowCombined(
+                    array(2 => $element->get('postalcode'), 7 => $element->get('city'))
+                );?>
+                <?php echo $this->formRow($element->get('phone'));
+                      echo $this->formRow($element->get('email'));?>
+            </div>
+            <div class="span3">
+                <div class="controls controls-row row-fluid">
+                    <?php if ($imageId = $element->getObject()->getImageId()): ?>
+                    <div class="span12 text-center">
+                        <img src="/user/image/<?php echo $element->getObject()->getImageId() ?>" class="user-image img-polaroid" />
+                    </div>
+                    <? endif ?>
+                </div>
+                <?php echo $this->formRow($element->get('image')) ?>
+                
+            </div>
+        </div>
+       
+    </div>
+    
+</fieldset>
+
+

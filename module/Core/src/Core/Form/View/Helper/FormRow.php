@@ -9,7 +9,15 @@ class FormRow extends ZendFormRow
 {
     
     protected $layout;
+    protected $shouldWrap = true;
+    protected $labelSpanWidth = 3;
     
+    
+    public function setShouldWrap($flag)
+    {
+        $this->shouldWrap = (bool) $flag;
+        return $this;
+    }
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
      *
@@ -46,20 +54,28 @@ class FormRow extends ZendFormRow
         } else {
             $elementId = $element->getAttribute('id');
         }
-        
+        if (! $element instanceOf \Zend\Form\Element\Button) {
+            $inputSize = $element->getOption('inputSize');
+            if (!$inputSize || 'block' == $inputSize) {
+                $inputSize = 'block-level';
+            }
+            $element->setAttribute('class', $element->getAttribute('class') . ' input-' . $inputSize);
+        }
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
             $elementString .= sprintf(
                 '<div class="description">%s</div>', $desc
             );
         }
-        
-        if ('form-horizontal' == $this->layout && !$element instanceOf \Zend\Form\Element\Hidden) {
-            $elementString = sprintf(
-                '<div class="controls">%s</div>',
-                $elementString
+        if (!$element instanceOf \Zend\Form\Element\Hidden
+            && !$element instanceOf \Zend\Form\Element\Button
+        ) {
+            $elementString .= sprintf(
+                '<div id="%s-errors">%s</div>',
+                $elementId, $elementErrors
             );
         }
+        
         
     
         if (isset($label) && '' !== $label && !$element instanceOf \Zend\Form\Element\Button) {
@@ -103,30 +119,45 @@ class FormRow extends ZendFormRow
                     $labelOpen = '';
                     $labelClose = '';
                     $label = $labelHelper($element);
+                    $labelWidth = $element->getOption('labelWidth');
+                    if (!$labelWidth) {
+                        $labelWidth = $this->labelSpanWidth;
+                    }
+                    if ($this->shouldWrap) {
+                        $spanWidth = 12 - $labelWidth;
+                        $elementString = sprintf(
+                            '<div class="span%d%s">%s</div>',
+                            $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
+                        );
+                        $label = sprintf(
+                            '<div class="span%d text-right">%s</div>',
+                            $labelWidth, $label
+                        );
+                        
+                    } 
+                    $markup = $label . $elementString;
+                    
+                     
                 
-                switch ($this->labelPosition) {
-                    case self::LABEL_PREPEND:
-                        $markup = $labelOpen . $label . $elementString . $labelClose;
-                        break;
-                    case self::LABEL_APPEND:
-                    default:
-                        $markup = $labelOpen . $elementString . $label . $labelClose;
-                        break;
-                }
             }
     
-            if ($this->renderErrors) {
-                $markup .= $elementErrors;
-            }
+            
         } else {
-            if ($this->renderErrors) {
-                $markup = $elementString . $elementErrors;
-            } else {
+            if ($this->shouldWrap 
+                && !$element instanceOf \Zend\Form\Element\Hidden
+                && !$element instanceOF \Zend\Form\Element\Button) {
+                $elementString = sprintf(
+                    '<div class="span12">%s</div>', $elementString
+                );
+            } 
+            
                 $markup = $elementString;
-            }
+            
         }
-        if ('form-horizontal' == $this->layout && !$element instanceOf \Zend\Form\Element\Hidden) {
-            $markup = sprintf('<div class="control-group">%s</div>', $markup);
+        if ($this->shouldWrap 
+            && !$element instanceOf \Zend\Form\Element\Hidden
+            && !$element instanceOf \Zend\Form\Element\Button) {
+            $markup = sprintf('<div class="controls controls-row row-fluid">%s</div>', $markup);
         }
     
         return $markup;
