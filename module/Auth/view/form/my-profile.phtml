@@ -22,6 +22,7 @@
                     <?php if ($imageId = $element->getObject()->getImageId()): ?>
                     <div class="span12 text-center">
                         <img src="/user/image/<?php echo $element->getObject()->getImageId() ?>" class="user-image img-polaroid" />
+                        <?php echo $this->formRow($element->get('imageId')) ?>
                     </div>
                     <? endif ?>
                 </div>
