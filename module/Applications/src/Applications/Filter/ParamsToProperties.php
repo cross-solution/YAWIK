@@ -57,7 +57,7 @@ class ParamsToProperties implements FilterInterface
                     break;
             }
         } else {
-            $properties['userId'] = $this->auth->getUser()->id;
+            $properties['refs.users.id'] = $this->auth->getUser()->id;
         }
         
         
