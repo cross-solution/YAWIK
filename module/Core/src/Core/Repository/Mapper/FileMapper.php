@@ -70,11 +70,35 @@ class FileMapper extends AbstractMapper
             'filename' => $fileName,
         );
         
-        $fileId = $this->collection->storeBytes(file_get_contents($fileData['tmp_name']), $meta); 
-            
+        $fileId = $this->collection->storeFile($fileData['tmp_name'], $meta); 
         
         return $fileId;
+    }
+    
+    public function saveCopy(EntityInterface $file)
+    {
+        $tmpName = tempnam(sys_get_temp_dir(), 'fileCopy-');
+        $target = fopen($tmpName, 'w');
+        $origin = $file->getResource();
         
+        while (!feof($origin)) {
+            fwrite($target, fread($origin, 1024));
+        }
+        
+        fclose($origin);
+        $now      = new \DateTime('now');
+        $meta = array(
+            'dateUploaded' => array(
+                'date' => new \MongoDate($now->getTimestamp()),
+                'tz' => $now->getTimezone()->getName(),
+            ),
+            'mimetype' => $file->type,
+            'filename' => $file->name,
+        );
+        $fileId = $this->collection->storeFile($tmpName, $meta);
+        fclose($target);
+        unlink($tmpName);
+        return $fileId; 
         
     }
 }

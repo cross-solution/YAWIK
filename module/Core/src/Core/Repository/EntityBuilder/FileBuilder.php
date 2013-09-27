@@ -35,6 +35,10 @@ class FileBuilder extends EntityBuilder
             return $data->getBytes();
         });
         
+        $entity->setResourceCallback(function() use ($data) {
+            return $data->getResource();
+        });
+        
         return $entity;
         
     }
