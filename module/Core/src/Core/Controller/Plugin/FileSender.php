@@ -33,8 +33,13 @@ class FileSender extends AbstractPlugin
         
         $response->getHeaders()->addHeaderline('Content-Type', $file->type)
                                ->addHeaderline('Content-Length', $file->size);
-        $response->setContent($file->getContent());
+        $response->sendHeaders();
         
+        $resource = $file->getResource();
+        while (!feof($resource)) {
+            echo fread($resource, 1024);
+        }
+        exit;
         return $response;
         
         

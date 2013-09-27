@@ -89,6 +89,10 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
+            'type' => 'hidden',
+            'name' => 'imageId',
+        ));
+        $this->add(array(
             'type' => 'file',
             'name' => 'image',
 //             'options' => array(

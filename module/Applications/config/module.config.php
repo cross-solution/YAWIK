@@ -22,6 +22,7 @@ return array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
+            'Applications\Controller\File' => 'Applications\Controller\FileController',
             
         ),
     ),
@@ -82,6 +83,17 @@ return array(
                             ),
                         ),
                     ),
+                ),
+            ),
+            'applications-file' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/applications/file/:id',
+                    'defaults' => array(
+                        'controller' => '\Applications\Controller\File',
+                        'action' => 'index',
+                    
+                    ),   
                 ),
             ),
         ),
@@ -157,11 +169,15 @@ return array(
          'invokables' => array(
              'Application' => 'Applications\Repository\Application',
          ),
+         'factories' => array(
+             'Applications/FileRepository' => '\Applications\Repository\FileRepositoryFactory',
+         )
      ),
      
      'mappers' => array(
          'factories' => array(
-             //'Application' => 'Applications\Repository\Mapper\ApplicationMapperFactory'
+             //'Application' => 'Applications\Repository\Mapper\ApplicationMapperFactory',
+             'applications-file' => '\Applications\Repository\Mapper\FileMapperFactory',
          ),
          'abstract_factories' => array(
              'Applications\Repository\Mapper\AbstractMapperFactory'
@@ -170,6 +186,7 @@ return array(
     
      'entity_builders' => array(
          'factories' => array(
+            'applications-file' => '\Applications\Repository\EntityBuilder\FileBuilderFactory',
              'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
              'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
              'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',

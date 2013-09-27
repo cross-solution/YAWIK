@@ -18,6 +18,8 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
     protected $dateUploaded;
     protected $content;
     protected $contentCallback;
+    protected $resource;
+    protected $resourceCallback;
 	
 	/**
      * @return the $name
@@ -110,9 +112,23 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
 	/**
      * @param field_type $contentCallback
      */
-    public function setContentCallback ($contentCallback)
+    public function setContentCallback ($callable)
     {
-        $this->contentCallback = $contentCallback;
+        $this->contentCallback = $callable;
+        return $this;
+    }
+    
+    public function getResource()
+    {
+        if (!$this->resource && is_callable($this->resourceCallback)) {
+            $this->resource = call_user_func($this->resourceCallback);
+        }
+        return $this->resource;
+    }
+    
+    public function setResourceCallback($callable)
+    {
+        $this->resourceCallback = $callable;
         return $this;
     }
 

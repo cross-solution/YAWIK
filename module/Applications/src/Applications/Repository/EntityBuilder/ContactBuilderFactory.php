@@ -17,6 +17,7 @@ class ContactBuilderFactory implements FactoryInterface
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         $builder = new InfoBuilder();
+       
         $builder->setRelation(new RelationEntity(
             array($serviceLocator->getServiceLocator()->get('mappers')->get('application'), 'findContact')
         ), 'id');

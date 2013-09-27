@@ -11,6 +11,7 @@
 namespace Core\Repository;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\FileEntityInterface;
 
 class FileRepository implements RepositoryInterface
 {
@@ -48,6 +49,12 @@ class FileRepository implements RepositoryInterface
     {
         $file = $this->mapper->saveUploadedFile($fileData);
         return $file;
+    }
+    
+    public function saveCopy(EntityInterface $file)
+    {
+        $newFile = $this->mapper->saveCopy($file);
+        return $newFile;
     }
 }
 

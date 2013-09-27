@@ -26,11 +26,13 @@ class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInte
     public function build($data = array())
     {
         $entity = parent::build($data);
-        $job = new RelationEntity(
-            array($this->repositories->get('job'), 'find'),
-            array($entity->jobId)
-        );
-        $entity->injectJob($job);
+        if (!$entity->job) {
+            $job = new RelationEntity(
+                array($this->repositories->get('job'), 'find'),
+                array($entity->jobId)
+            );
+            $entity->injectJob($job);
+        }
         return $entity;
     }
 }

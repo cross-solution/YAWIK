@@ -123,6 +123,10 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         if ($job = $entity->getJob()) {
             $data['refs']['jobs']['userId'] = $job->getUserId();
         }
+        $auth = $this->mappers->getServiceLocator()->get('AuthenticationService');
+        if ($auth->hasIdentity()) {
+            $data['refs']['users']['id'] = $auth->getIdentity();
+        }
         $id      = $this->saveData($data);
         if ($id) {
             $entity->setId($id);

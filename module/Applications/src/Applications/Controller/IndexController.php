@@ -13,7 +13,7 @@ namespace Applications\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Application\Entity\Status;
+use Applications\Entity\Status;
 
 /**
  * Main Action Controller for Applications module.
@@ -46,17 +46,25 @@ class IndexController extends AbstractActionController
             'form' => $form,
             'isApplicationSaved' => false,
         ));
-        
-        
+        $applicationEntity = $services->get('builders')->get('Application')->getEntity();
+        if ($this->auth()->isLoggedIn()) {
+            $applicationEntity->setContact(clone $this->auth()->get('info')->getEntity());
+            $applicationEntity->injectJob($job);
+        }
+        $form->bind($applicationEntity);
        
         if ($request->isPost()) {
             $services = $this->getServiceLocator();
             $repository = $services->get('repositories')->get('Application');
             
             
-            $applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
-            $form->bind($applicationEntity);
-            $data = $this->params()->fromPost();
+            //$applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
+            //$form->bind($applicationEntity);
+            $data = array_merge(
+                $this->request->getPost()->toArray(),
+                $this->request->getFiles()->toArray()
+            );
+            
             $form->setData($data);
             
             if (!$form->isValid()) {
@@ -69,9 +77,20 @@ class IndexController extends AbstractActionController
                 //$form->populateValues($data);
             } else {
                 $applicationEntity->setStatus(new Status(Status::STATUS_NEW));
-                $applicationEntity->injectJob($job);
-                $repository->save($applicationEntity);
+                //$applicationEntity->injectJob($job);
+                $imageData = $form->get('contact')->get('image')->getValue();
+                $fileRepository = $services->get('repositories')->get('Applications/FileRepository');
                 
+                if (UPLOAD_ERR_OK == $imageData['error']) {
+                    $applicationEntity->contact->setImageId(
+                        $fileRepository->saveUploadedFile($imageData)
+                    );    
+                } else if ($imageId = $applicationEntity->contact->imageId) {
+                    $userImageRepository = $services->get('repositories')->get('user-file');
+                    $userImage = $userImageRepository->find($imageId);
+                    $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
+                }
+                $repository->save($applicationEntity);
                 
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
@@ -84,12 +103,15 @@ class IndexController extends AbstractActionController
             }
         } else {
             
-            $form->populateValues(array(
-                'jobId' => $job->id,
-                'contact' => $this->auth()->isLoggedIn()
-                            ?  $this->auth()->get('info')
-                            : array()
-            ));
+//             if ($this->auth()->isLoggedIn()) {
+//                 $form->get('contact')->setObject($this->auth()->get('info'));
+//             }
+//             $form->populateValues(array(
+//                 'jobId' => $job->id,
+//                 'contact' => $this->auth()->isLoggedIn()
+//                             ?  $this->auth()->get('info')
+//                             : array()
+//             ));
            
             
         }
