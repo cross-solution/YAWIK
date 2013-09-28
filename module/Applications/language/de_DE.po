@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-16 18:26+0200\n"
-"PO-Revision-Date: 2013-09-16 18:45+0100\n"
+"POT-Creation-Date: 2013-09-28 14:48+0200\n"
+"PO-Revision-Date: 2013-09-28 14:52+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -15,7 +15,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: view/applications/index/index.phtml:2
-#: language/_annotated_strings.php:90
 msgid "Apply"
 msgstr "Bewerben"
 
@@ -50,23 +49,6 @@ msgstr ""
 msgid "List of all applications"
 msgstr "Übersicht aller Bewerbungen"
 
-#: view/applications/manage/index.ajax.phtml:5
-msgid "Job"
-msgstr "Anzeige"
-
-#: view/applications/manage/index.ajax.phtml:6
-msgid "Applicant"
-msgstr "Bewerber"
-
-#: view/applications/manage/index.ajax.phtml:7
-#, fuzzy
-msgid "Status"
-msgstr "Status"
-
-#: view/applications/manage/index.ajax.phtml:8
-msgid "Modified"
-msgstr "Geändert am"
-
 #: view/applications/manage/detail.phtml:1
 msgid "Details"
 msgstr "Details"
@@ -87,37 +69,37 @@ msgstr "Eingangsdatum"
 msgid "last modification date"
 msgstr "letztes Änderungsdatum"
 
+# obsolet
 #: view/applications/manage/detail.phtml:18
 msgid "personal information"
 msgstr "Angaben zur Person"
 
-#: view/applications/manage/detail.phtml:20
+#: view/applications/manage/detail.phtml:22
 #, fuzzy
 msgid "name"
 msgstr "Nachname"
 
-#: view/applications/manage/detail.phtml:24
+#: view/applications/manage/detail.phtml:26
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: view/applications/manage/detail.phtml:28
+#: view/applications/manage/detail.phtml:30
 msgid "Phone"
 msgstr "Telefon"
 
-#: view/applications/manage/detail.phtml:33
+#: view/applications/manage/detail.phtml:42
 msgid "work experience"
 msgstr "Berufserfahrung"
 
-#: view/applications/manage/detail.phtml:43
+#: view/applications/manage/detail.phtml:52
 msgid "education and training"
 msgstr "Schul- und Berufsbildung"
 
-#: view/applications/manage/detail.phtml:54
+#: view/applications/manage/detail.phtml:63
 msgid "personal skills"
 msgstr "persönliche Fähigkeiten"
 
-#: view/applications/manage/detail.phtml:57
-#: language/_annotated_strings.php:87
+#: view/applications/manage/detail.phtml:66
 msgid "native language"
 msgstr "Muttersprache"
 
@@ -152,30 +134,10 @@ msgstr "Ausbildung"
 msgid "Employment"
 msgstr "Anstellung"
 
-#: src/Applications/Form/Application.php:40
-msgid "Contact details"
-msgstr "Kontaktinformationen"
-
-#: src/Applications/Form/Application.php:151
-msgid "Education history"
-msgstr "Ausbildung"
-
-#: src/Applications/Form/Application.php:155
-msgid "Personal skills"
-msgstr "besondere Fähigkeiten"
-
-#: src/Applications/Form/Application.php:178
-msgid "Employment history"
-msgstr "beruflicher Werdegang"
-
-#: src/Applications/Form/Application.php:183
-msgid "Attachment"
-msgstr "Angang"
-
 #: src/Applications/Form/CreateApplication.php:52
 #, fuzzy
-msgid "Contact"
-msgstr "Kontaktinformationen"
+msgid "personal informations"
+msgstr "Angaben zur Person"
 
 #: language/_annotated_strings.php:3
 msgid "Degree"
@@ -218,14 +180,10 @@ msgid "please enter a description"
 msgstr "Bitte geben Sie eine Beschreibung ein"
 
 #: language/_annotated_strings.php:33
-#: language/_annotated_strings.php:54
-#: language/_annotated_strings.php:93
 msgid "Mister"
 msgstr "Herr"
 
 #: language/_annotated_strings.php:36
-#: language/_annotated_strings.php:57
-#: language/_annotated_strings.php:96
 msgid "Miss"
 msgstr "Frau"
 
@@ -234,8 +192,6 @@ msgid "please choose your title"
 msgstr "Bitte wählen Sie Ihre Anrede"
 
 #: language/_annotated_strings.php:42
-#: language/_annotated_strings.php:60
-#: language/_annotated_strings.php:99
 msgid "First name"
 msgstr "Vorname"
 
@@ -244,8 +200,6 @@ msgid "please enter your firstname"
 msgstr "Bitte geben Sie Ihren Vornamen ein"
 
 #: language/_annotated_strings.php:48
-#: language/_annotated_strings.php:63
-#: language/_annotated_strings.php:102
 msgid "Last name"
 msgstr "Nachname"
 
@@ -253,147 +207,3 @@ msgstr "Nachname"
 msgid "please enter your lastname"
 msgstr "bitte geben Sie Ihren Nachnamen ein"
 
-#: language/_annotated_strings.php:66
-#: language/_annotated_strings.php:105
-msgid "Street"
-msgstr "Straße"
-
-#: language/_annotated_strings.php:69
-#: language/_annotated_strings.php:108
-msgid "House number"
-msgstr "Hausnummer"
-
-#: language/_annotated_strings.php:72
-#: language/_annotated_strings.php:111
-msgid "Zip code"
-msgstr "PLZ"
-
-#: language/_annotated_strings.php:75
-#: language/_annotated_strings.php:114
-msgid "Location"
-msgstr "Ort"
-
-#: language/_annotated_strings.php:78
-#: language/_annotated_strings.php:117
-msgid "Phone number"
-msgstr "Telefonnummer"
-
-#: language/_annotated_strings.php:81
-#: language/_annotated_strings.php:120
-msgid "Mobile phone number"
-msgstr "Handynummer"
-
-#: language/_annotated_strings.php:84
-#: language/_annotated_strings.php:123
-msgid "Email"
-msgstr "Email"
-
-#: language/_annotated_strings.php:126
-msgid "education history"
-msgstr "Ausbildung"
-
-#: language/_annotated_strings.php:129
-msgid "employment history"
-msgstr "beruflicher Werdegang"
-
-#: language/_annotated_strings.php:132
-msgid "Languages"
-msgstr "Sprachen"
-
-#~ msgid "employments"
-#~ msgstr "Anstellungen"
-
-#~ msgid "Go to job advertisement"
-#~ msgstr "Zur Stellenanzeige gehen"
-
-#~ msgid "Cross Applicant Management"
-#~ msgstr "CROSS Bewerberverwaltung"
-
-#~ msgid "All rights reserved."
-#~ msgstr "Alle Rechte vorbehalten"
-
-#~ msgid "Skills"
-#~ msgstr "Fähigkeiten"
-
-#~ msgid "Language"
-#~ msgstr "Sprache"
-
-#~ msgid "Native Language"
-#~ msgstr "Muttersprache"
-
-#~ msgid "LanguageSkills"
-#~ msgstr "Sprachkenntnisse"
-
-#~ msgid "which language are you speeking"
-#~ msgstr "welche Sprachen sprechen Sie"
-
-#~ msgid "I am a native speaker"
-#~ msgstr "das ist meine Muttersprache"
-
-#~ msgid ""
-#~ "I can use simple phrases and sentences to describe where I live and "
-#~ "people I know."
-#~ msgstr ""
-#~ "Ich kann vertraute Wörter und ganz einfache Sätze verstehen, die sich auf "
-#~ "mich selbst, meine Familie oder auf konkrete Dinge um mich herum "
-#~ "beziehen, vorausgesetzt es wird langsam und deutlich gesprochen."
-
-#~ msgid ""
-#~ "I can use a series of phrases and sentences to describe in simple terms "
-#~ "my family and other people, living conditions, my educational background "
-#~ "and my present or  most recent job."
-#~ msgstr ""
-#~ "Ich kann einzelne Sätze und die gebräuchlichsten Wörter verstehen, wenn "
-#~ "es um für mich wichtige Dinge geht (z. B. sehr einfache Informationen zur "
-#~ "Person und zur Familie, Einkaufen, Arbeit, nähere Umgebung). Ich verstehe "
-#~ "das Wesentliche von kurzen, klaren und einfachen Mitteilungen und "
-#~ "Aussagen."
-
-#~ msgid ""
-#~ "I can connect phrases in a simple way in order to describe experiences "
-#~ "and events, my dreams, hopes and ambitions. I can briefly give reasons "
-#~ "and explanations for opinions and plans. I can narrate a story or relate "
-#~ "the plot of a book or film and describe my reactions."
-#~ msgstr ""
-#~ "Ich kann die Hauptpunkte verstehen, wenn klare Standardsprache verwendet "
-#~ "wird und wenn es um vertraute Dinge aus Arbeit, Schule, Freizeit usw. "
-#~ "geht. Ich kann vielen Radio- oder Fernsehsendungen über aktuelle "
-#~ "Ereignisse und über Themen aus meinem Berufs- oder Interessengebiet die "
-#~ "Hauptinformation entnehmen, wenn relativ langsam und deutlich gesprochen "
-#~ "wird."
-
-#~ msgid ""
-#~ "I can present clear, detailed descriptions on a wide range of subjects "
-#~ "related to my field of interest. I can explain a viewpoint on a topical "
-#~ "issue giving the advantages and disadvantages of various options."
-#~ msgstr ""
-#~ "Ich kann längere Redebeiträge und Vorträge verstehen und auch komplexer "
-#~ "Argumentation folgen, wenn mir das Thema einigermaßen vertraut ist. Ich "
-#~ "kann im Fernsehen die meisten Nachrichtensendungen und aktuellen "
-#~ "Reportagen verstehen. Ich kann die meisten Spielfilme verstehen, sofern "
-#~ "Standardsprache gesprochen wird."
-
-#~ msgid ""
-#~ "I can present clear, detailed descriptions of complex subjects "
-#~ "integrating sub-themes, developing particular points and rounding off "
-#~ "with an appropriate conclusion."
-#~ msgstr ""
-#~ "Ich kann längeren Redebeiträgen folgen, auch wenn diese nicht klar "
-#~ "strukturiert sind und wenn Zusammenhänge nicht explizit ausgedrückt sind. "
-#~ "Ich kann ohne allzu große Mühe Fernsehsendungen und Spielfilme verstehen."
-
-#~ msgid ""
-#~ "I can present a clear, smoothly-flowing description or argument in a "
-#~ "style appropriate to the context and with an effective logical structure "
-#~ "which helps the recipient to notice and remember significant points."
-#~ msgstr ""
-#~ "Ich habe keinerlei Schwierigkeit, gesprochene Sprache zu verstehen, "
-#~ "gleichgültig ob \"live\" oder in den Medien, und zwar auch, wenn schnell "
-#~ "gesprochen wird. Ich brauche nur etwas Zeit, mich an einen besonderen "
-#~ "Akzent zu gewöhnen."
-
-#~ msgid "level"
-#~ msgstr "Level"
-
-#~ msgid "Submit"
-#~ msgstr "Bewerben"

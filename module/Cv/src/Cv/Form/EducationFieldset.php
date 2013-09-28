@@ -21,7 +21,9 @@ class EducationFieldset extends Fieldset
             'type' => 'DateSelect',
             'name' => 'startDate',
             'options' => array(
-                'label' => /*@translate*/ 'Start date'
+                'label' => /*@translate*/ 'Start date',
+            	'data-width' => '50%',
+            	'class' => 'selectpicker'
             )
         ));
         $this->add(array(
@@ -30,6 +32,13 @@ class EducationFieldset extends Fieldset
             'options' => array(
                 'label' => /*@translate*/ 'End date'
             )
+        ));
+        $this->add(array(
+        		'type' => 'checkbox',
+        		'name' => 'currentIndicator',
+        		'options' => array(
+        				'label' => /*@translate */ 'ongoing'
+        		)
         ));
         
         $this->add(array(

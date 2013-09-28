@@ -45,7 +45,7 @@ class CvFieldset extends Fieldset
                 'should_create_template' => true,
                 'use_labeled_items' => false,
                 'collapsable' => true,
-                'collapsed' => false,
+                'collapsed' => true,
                 'allow_add' => true,
                 'target_element' => array(
                     'type' => 'EmploymentFieldset'
@@ -65,7 +65,7 @@ class CvFieldset extends Fieldset
         				'should_create_template' => true,
         				'use_labeled_items' => false,
         				'collapsable' => true,
-        				'collapsed' => false,
+        				'collapsed' => true,
         				'allow_add' => true,
         				'target_element' => array(
         						'type' => 'SkillFieldset'

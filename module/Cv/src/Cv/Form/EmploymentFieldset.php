@@ -19,15 +19,22 @@ class EmploymentFieldset extends Fieldset
             'type' => 'DateSelect',
             'name' => 'startDate',
             'options' => array(
-                'label' => 'Start date'
+                'label' => /*@translate */ 'Start date'
             )
         ));
         $this->add(array(
             'type' => 'DateSelect',
             'name' => 'endDate',
             'options' => array(
-                'label' => 'End date'
+                'label' => /*@translate */ 'End date'
             )
+        ));
+        $this->add(array(
+        		'type' => 'checkbox',
+        		'name' => 'currentIndicator',
+        		'options' => array(
+        				'label' => /*@translate */ 'ongoing'
+        		)
         ));
         $this->add(array(
         		'name' => 'organizationName',

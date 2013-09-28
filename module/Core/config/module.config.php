@@ -96,6 +96,11 @@ return array(
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => '%s.mo',
             ),
+            array(
+                'type'     => 'phparray',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => 'Zend_Validate.%s.php',
+            )
         ),
     ),
     // Navigation-Konfig für die main_navigation

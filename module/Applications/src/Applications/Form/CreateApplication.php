@@ -49,7 +49,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
         ));
         
         $this->add($this->forms->get('user-info-fieldset')
-                               ->setLabel('Contact')
+                               ->setLabel('personal informations')
                                ->setName('contact')
                                ->setObject($this->forms->getServiceLocator()->get('builders')->get('auth-info')->getEntity()));
         $this->add(

@@ -16,57 +16,156 @@ use Core\Entity\AbstractEntity;
  */
 class Info extends AbstractEntity implements InfoInterface
 {   
+	
+	/** @var string */
+	protected $birthDay;
+	
+	/** @var string */
+	protected $birthMonth;
+
+	/** @var string */
+	protected $birthYear;
+	
     /** @var string */
-    protected $_email;
+    protected $email;
     
     /** @var string */ 
-    protected $_firstName;
+    protected $firstName;
     
     /** @var string */
-    protected $_lastName;
+    protected $gender;
     
     /** @var string */
-    protected $_phone;
+    protected $houseNumber;
     
     /** @var string */
-    protected $_postalcode;
+    protected $lastName;
+    
+    /** @var string */
+    protected $phone;
+    
+    /** @var string */
+    protected $postalcode;
 
     /** @var string */
-    protected $_city;
+    protected $city;
     
     /** @var \Core\Entity\FileEntityInterface */
     protected $imageId;
     
-    
+    /** @var string */
+    protected $street;    
     
     /**
      * {@inheritdoc}
      * @return \Auth\Model\User
      */
-    public function setEmail($email) {
-        $this->_email = (String) $email;
-        return $this;
+    public function setBirthDay($birthDay)
+    {
+    	$this->birthDay=$birthDay;
+    	return $this;
     }
     
     /** {@inheritdoc} */
-    public function getEmail() {
-        return $this->_email;
+    public function getBirthDay()
+    {
+    	return $this->street;
     }
-
+    
     /**
      * {@inheritdoc}
      * @return \Auth\Model\User
      */
-    public function setFirstName($name)
+    public function setBirthMonth($birthMonth)
     {
-        $this->_firstName = trim((String)$name);
-        return $this;
+    	$this->birthDay=$birthMonth;
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getBirthMonth()
+    {
+    	return $this->birthMonth;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setBirthYear($birthYear)
+    {
+    	$this->birthYear=$birthYear;
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getBirthYear()
+    {
+    	return $this->birthYear;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setEmail($email)
+    {
+    	$this->email = trim((String)$email);
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getEmail()
+    {
+    	return $this->email;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setFirstName($firstName)
+    {
+    	$this->firstName = trim((String)$firstName);
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getGender()
+    {
+    	return $this->gender;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setGender($gender)
+    {
+    	$this->gender = trim((String)$gender);
+    	return $this;
     }
     
     /** {@inheritdoc} */
     public function getFirstName()
     {
-        return $this->_firstName;
+    	return $this->firstName;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setHouseNumber($houseNumber)
+    {
+    	$this->houseNumber=$houseNumber;
+    	return $this;
+    }
+    
+    /** {@inheritdoc} */
+    public function getHouseNumber()
+    {
+    	return $this->houseNumber;
     }
     
     /**
@@ -75,14 +174,14 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setLastName($name)
     {
-        $this->_lastName = trim((String) $name);
+        $this->lastName = trim((String) $name);
         return $this;
     }
     
     /** {@inheritdoc} */
     public function getLastName()
     {
-        return $this->_lastName;
+        return $this->lastName;
     }
     
     public function getDisplayName()
@@ -98,13 +197,13 @@ class Info extends AbstractEntity implements InfoInterface
      * @return \Auth\Model\User
      */
     public function setPhone($phone) {
-    	$this->_phone = (String) $phone;
+    	$this->phone = (String) $phone;
     	return $this;
     }
     
     /** {@inheritdoc} */
     public function getPhone() {
-    	return $this->_phone;
+    	return $this->phone;
     }
     
     /**
@@ -112,13 +211,13 @@ class Info extends AbstractEntity implements InfoInterface
      * @return \Auth\Model\User
      */
     public function setPostalcode($postalcode) {
-    	$this->_postalcode = (String) $postalcode;
+    	$this->postalcode = (String) $postalcode;
     	return $this;
     }
     
     /** {@inheritdoc} */
     public function getPostalcode() {
-    	return $this->_postalcode;
+    	return $this->postalcode;
     }
     
     /**
@@ -126,13 +225,13 @@ class Info extends AbstractEntity implements InfoInterface
      * @return \Auth\Model\User
      */
     public function setCity($city) {
-    	$this->_city = (String) $city;
+    	$this->city = (String) $city;
     	return $this;
     }
     
     /** {@inheritdoc} */
     public function getCity() {
-    	return $this->_city;
+    	return $this->city;
     }
     
     public function setImageId($imageId)
@@ -144,6 +243,22 @@ class Info extends AbstractEntity implements InfoInterface
     public function getImageId()
     {
         return $this->imageId;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @return \Auth\Model\User
+     */
+    public function setStreet($street)
+    {
+    	$this->street=$street;
+    	return $this;
+    }
+
+    /** {@inheritdoc} */
+    public function getStreet() 
+    {
+    	return $this->street;
     }
     
 }

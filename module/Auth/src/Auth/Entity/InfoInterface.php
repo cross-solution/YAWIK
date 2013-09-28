@@ -18,6 +18,48 @@ use Core\Entity\EntityInterface;
 interface InfoInterface extends EntityInterface
 {
     
+	/**
+	 * Sets the Day of the date of birth.
+	 *
+	 * @param string $birthDay
+	 */
+	public function setBirthDay($birthDay);
+	
+	/**
+	 * Gets the Day of the date of birth
+	 *
+	 * @return string
+	*/
+	public function getBirthDay();
+	
+	/**
+	 * Sets the month of the date of birth.
+	 *
+	 * @param string $birthMonath
+	 */
+	public function setBirthMonth($birthMonth);
+	
+	/**
+	 * Gets the month of the date of birth
+	 *
+	 * @return string
+	*/
+	public function getBirthMonth();
+
+	/**
+	 * Sets the year of the date of birth.
+	 *
+	 * @param string $email
+	 */
+	public function setBirthYear($email);
+	
+	/**
+	 * Gets the Year of the date of birth.
+	 *
+	 * @return string
+	*/
+	public function getBirthYear();
+	
     /**
      * Sets the email.
      * 
@@ -47,6 +89,21 @@ interface InfoInterface extends EntityInterface
     public function getFirstName();
     
     /**
+     * Sets the gender
+     *
+     * @param string $name
+     */
+    public function setGender($gender);
+    
+    /**
+     * Gets the gender
+     *
+     * @return string
+    */
+    public function getGender();
+    
+    
+    /**
      * Sets the last name
      *
      * @param string $name
@@ -60,5 +117,35 @@ interface InfoInterface extends EntityInterface
      */
     public function getLastName();
     
-   
-}
+    /**
+     * Sets the users street
+     *
+     * @param string $name
+     */
+    public function setStreet($name);
+    
+    /**
+     * Gets the users street
+     *
+     * @return string
+    */
+    public function getStreet();
+    
+    /**
+     * Sets the users house number
+     *
+     * @param string $houseNumber
+     */
+    public function setHouseNumber($houseNumber);
+    
+    /**
+     * Gets the users house number
+     *
+     * @@return string
+     */
+    public function getHouseNumber();
+    
+    
+    
+    
+}  
