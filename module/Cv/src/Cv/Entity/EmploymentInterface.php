@@ -7,22 +7,20 @@
  * @license   GPLv3
  */
 
-
 namespace Cv\Entity;
 
-use Core\Entity\IdentifiableEntityInterface;
+use Core\Entity\EntityInterface;
 
-interface EducationInterface extends IdentifiableEntityInterface
+interface EmploymentInterface extends EntityInterface
 {
-	
-	public function setStartDate($startDate);
+    public function setStartDate($startDate);
     public function getStartDate();
     public function setEndDate($endDate);
-    public function getEndDate();
+    public function getCurrentIndicator();
     public function setCurrentIndicator($currentIndicator);
-    public function getCurrectIndicator();
-    public function setCompetencyName($competencyName);
-    public function getCompetencyName();
+    public function getEndDate();
+    public function setOrganizationName($value);
+    public function getOrganizationName();
     public function setDescription($value);
     public function getDescription();
     

@@ -99,6 +99,15 @@ class HybridAuth implements AdapterInterface
            $user->info->email = $email;
            $user->info->firstName = $userProfile->firstName;
            $user->info->lastName = $userProfile->lastName;
+           $user->info->birthDay = $userProfile->birthDay;
+           $user->info->birthMonth = $userProfile->birthMonth;
+           $user->info->birthYear = $userProfile->birthYear;
+           $user->info->postalcode = $userProfile->zip;
+           $user->info->city = $userProfile->city;
+           $user->info->street = $userProfile->address;
+           $user->info->phone = $userProfile->phone;
+           $user->info->gender = $userProfile->gender;
+            
            //$user->login =  $userProfile->displayName;
            $user->profile = $newInfo;
            

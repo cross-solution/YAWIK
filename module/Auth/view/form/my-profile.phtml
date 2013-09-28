@@ -8,14 +8,20 @@
        <div class="row-fluid">
             
             <div class="span9">
+                <?php echo $this->formRow($element->get('gender')); ?>
                 <?php echo $this->formRowCombined(
                     array(4 => $element->get('firstName'), 5 => $element->get('lastName'))
                 );?>
+                <?php echo $this->formRowCombined(
+                		array(7 => $element->get('street'), 2 => $element->get('houseNumber'))
+                ); ?>
                 <?php echo $this->formRowCombined(
                     array(2 => $element->get('postalcode'), 7 => $element->get('city'))
                 );?>
                 <?php echo $this->formRow($element->get('phone'));
                       echo $this->formRow($element->get('email'));?>
+
+                      
             </div>
             <div class="span3">
                 <div class="controls controls-row row-fluid">

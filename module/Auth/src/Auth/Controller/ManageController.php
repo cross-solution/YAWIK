@@ -43,39 +43,43 @@ class ManageController extends AbstractActionController
             $files = $this->request->getFiles()->toArray();
             if (!empty($files)) {
                 $post = $this->request->getPost()->toArray();
-                $data = array_merge($this->request->getPost()->toArray(), $files);
+                $data = array_merge_recursive($post, $files);
             } else {
                 $data = $this->request->getPost();
             }
             $form->setData($data);
-            $form->isValid();
+            if ($form->isValid()) {
             
             
                         
-            $user->setInfo($info);
-            $data = $form->getInputFilter()->getValues();
-            $fileData = $data['user-info']['image'];
-            
-            if ($fileData['error'] == UPLOAD_ERR_OK) {
-                $filesRepository = $services->get('repositories')->get('Users/Files');
-                if ($user->info->imageId) {
-                    $filesRepository->delete($user->info->imageId);
-                } 
-                $fileData['field'] = 'image';
-                $imageId = $services->get('repositories')->get('Users/Files')->saveUploadedFile($fileData);
-                $user->info->setImageId($imageId);
-            }
-            $services->get('repositories')->get('user')->save($user);
-            $vars = array(
-                    'ok' => true,
-                    'status' => 'success',
-                    'text' => $translator->translate('Changes successfully saved') . '.',
+                $user->setInfo($info);
+                $data = $form->getInputFilter()->getValues();
+                $fileData = $data['user-info']['image'];
+                
+                if ($fileData['error'] == UPLOAD_ERR_OK) {
+                    $fileData['field'] = 'image';
+                    $imageId = $services->get('repositories')->get('user-file')->saveUploadedFile($fileData);
+                    $user->info->setImageId($imageId);
+                }
+                $services->get('repositories')->get('user')->save($user);
+                $vars = array(
+                        'ok' => true,
+                        'status' => 'success',
+                        'text' => $translator->translate('Changes successfully saved') . '.',
+                    );
+                if ($this->request->isXmlHttpRequest()) {
+                    return new JsonModel($vars);
+                }
+            } else { // form is invalid
+                
+                $vars = array(
+                        'ok' => false,
+                        'status' => 'error',
+                        'text' => $translator->translate('Saving changes failed. Please check the marked fields.')
                 );
-            if ($this->request->isXmlHttpRequest()) {
-                return new JsonModel($vars);
             }
-            $vars['form'] = $form;
-            return $vars;
+                $vars['form'] = $form;
+                return $vars;
             
         }
         

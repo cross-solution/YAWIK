@@ -38,7 +38,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
 	public function init()
     {
         $this->setName('user-info')
-             ->setLabel('Informations');
+             ->setLabel('personal informations');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         
@@ -72,7 +72,20 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         		)
         ));
         
-        
+        $this->add(array(
+        		'name' => 'gender',
+        		'type' => 'Zend\Form\Element\Select',
+        		'options' => array(
+        				'label' => /*@translate */ 'Title',
+        				'value_options' => array(
+        						'' => /*@translate */ 'please select',
+        						'male' => /*@translate */ 'Mr.',
+        						'female' => /*@translate */ 'Mrs.',
+        						'-' => /*@translate */ 'no comment'
+        				)
+        		),
+        		
+        ));
         
         $this->add(array(
             'name' => 'firstName',
@@ -89,6 +102,20 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
+        		'name' => 'street',
+        		'options' => array(
+        				'label' => /*@translate*/ 'street'
+        		)
+        ));
+        
+        $this->add(array(
+        		'name' => 'houseNumber',
+        		'options' => array(
+        				'label' => /*@translate*/ 'house number'
+        		)
+        ));
+        
+        $this->add(array(
             'type' => 'hidden',
             'name' => 'imageId',
         ));
@@ -96,7 +123,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
             'type' => 'file',
             'name' => 'image',
 //             'options' => array(
-//                 'label' => /*@translate*/ 'Image',
+//                 'label' => /*@translate*/ 'Application photo',
 //             ),
         
         ));
