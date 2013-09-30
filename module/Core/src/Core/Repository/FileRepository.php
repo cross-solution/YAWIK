@@ -56,5 +56,13 @@ class FileRepository implements RepositoryInterface
         $newFile = $this->mapper->saveCopy($file);
         return $newFile;
     }
+    
+    public function delete($fileOrId)
+    {
+        if ($fileOrId instanceOf EntityInterface) {
+            $fileOrId = $fileOrId->getId();
+        }
+        return $this->mapper->delete($fileOrId);
+    }
 }
 

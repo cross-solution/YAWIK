@@ -57,8 +57,12 @@ class ManageController extends AbstractActionController
             $fileData = $data['user-info']['image'];
             
             if ($fileData['error'] == UPLOAD_ERR_OK) {
+                $filesRepository = $services->get('repositories')->get('Users/Files');
+                if ($user->info->imageId) {
+                    $filesRepository->delete($user->info->imageId);
+                } 
                 $fileData['field'] = 'image';
-                $imageId = $services->get('repositories')->get('user-file')->saveUploadedFile($fileData);
+                $imageId = $services->get('repositories')->get('Users/Files')->saveUploadedFile($fileData);
                 $user->info->setImageId($imageId);
             }
             $services->get('repositories')->get('user')->save($user);

@@ -50,6 +50,17 @@ return array(
                     ),
                 ),
             ),
+            'file' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/file/:filestore/:fileId',
+                    'defaults' => array(
+                        'controller' => '\Core\Controller\File',
+                        'action' => 'index'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     // Setup the service manager
@@ -99,7 +110,8 @@ return array(
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
-            'Core\Controller\Index' => 'Core\Controller\IndexController'
+            'Core\Controller\Index' => 'Core\Controller\IndexController',
+            'Core\Controller\File'  => 'Core\Controller\FileController',
         ),
     ),
     // Configuration of the controller plugin service manager
@@ -164,6 +176,25 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+        ),
+    ),
+    
+   'repositories' => array(
+        
+        'abstract_factories' => array(
+            'Core\Repository\FileRepositoryAbstractFactory',
+        )
+    ),
+    
+    'mappers' => array(
+        'abstract_factories' => array(
+            'Core\Repository\Mapper\FileMapperAbstractFactory',
+         ),
+    ),
+    
+    'entity_builders' => array(
+        'factories' => array(
+            'Core/File' => 'Core\Repository\EntityBuilder\FileBuilderFactory',
         ),
     ),
 );

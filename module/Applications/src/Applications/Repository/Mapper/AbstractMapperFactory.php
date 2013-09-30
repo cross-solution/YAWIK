@@ -22,7 +22,7 @@ class AbstractMapperFactory implements AbstractFactoryInterface
     
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        return 0 === strpos($requestedName, 'application');
+        return 0 === strpos($requestedName, 'application') && !strpos($requestedName, '/Files');
     }
     
     

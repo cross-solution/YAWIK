@@ -215,9 +215,6 @@ return array(
             'user' => 'Auth\Repository\User',
             
         ),
-        'factories' => array(
-            'user-file' => 'Auth\Repository\FileRepositoryFactory',
-        )
     ),
     
     'mappers' => array(

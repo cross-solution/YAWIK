@@ -11,10 +11,17 @@
 namespace Core\Repository\Mapper;
 
 use \Core\Entity\EntityInterface;
+use Core\Repository\EntityBuilder\EntityBuilderInterface;
 
 class FileMapper extends AbstractMapper
 {
     protected $builder;
+    
+    public function __construct(\MongoCollection $collection, EntityBuilderInterface $fileBuilder)
+    {
+        parent::__construct($collection);
+        $this->setFileBuilder($fileBuilder);
+    }
     
     public function setCollection(\MongoCollection $collection)
     {
@@ -100,6 +107,12 @@ class FileMapper extends AbstractMapper
         unlink($tmpName);
         return $fileId; 
         
+    }
+    
+    public function delete($id)
+    {
+        $query = array('_id' => $this->getMongoId($id));
+        return $this->collection->remove($query);
     }
 }
 
