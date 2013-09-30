@@ -106,7 +106,7 @@ class HybridAuth implements AdapterInterface
        }
        
        
-       return new Result(Result::SUCCESS, $user->id, array('firstLogin' => $forceSave));
+       return new Result(Result::SUCCESS, $user->id, array('firstLogin' => $forceSave, 'user' => $user));
         
     }
 

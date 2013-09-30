@@ -116,10 +116,17 @@ class IndexController extends AbstractActionController
         $result = $auth->authenticate($hauth);
         $resultMessage = $result->getMessages();
         if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-            $mail = $this->mail();
-        }
-        else {
-            $mail = $this->mail();
+            // erstes Login
+            if (array_key_exists('user', $resultMessage)) {
+                $user = $resultMessage['user'];
+                $lastName = $user->info->getDisplayName();
+                $mail = $this->mail(array('Anrede'=>$lastName));
+                $mail->template('first-login');
+                $mail->addTo($user->info->getEmail());
+                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
+                $mail->setSubject('Anmeldung im Cross Applicant Management');
+                $resultMail = $mail->send();
+            }
         }
         
         $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));

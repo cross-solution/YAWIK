@@ -40,7 +40,9 @@ class mail extends Message implements PluginInterface
     }
     
     public function template($template) {
-        $controllerIdentifier = strtolower(substr(get_called_class(), 0, strpos(get_called_class(), '\\')));
+        $controller =  get_class($this->controller);
+        //get_called_class
+        $controllerIdentifier = strtolower(substr($controller, 0, strpos($controller, '\\')));
                 
         $viewResolver = $ServiceLocator = $this->getController()->getServiceLocator()->get('ViewResolver');
         $resource = $viewResolver->resolve($controllerIdentifier . '/mail/' . $template);
