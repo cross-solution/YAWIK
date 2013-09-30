@@ -39,6 +39,7 @@ class CvMapper extends BaseMapper
             $query = array('cv.id' => $query); 
         } 
         $data = parent::getData($query, $fields, $exclude);
+        if (!isset($data['cv'])) { return array(); }
         
 //         $result = $data;
 //         foreach (explode(".", $this->prefix) as $key) {
