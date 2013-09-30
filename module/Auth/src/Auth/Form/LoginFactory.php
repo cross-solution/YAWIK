@@ -26,7 +26,7 @@ class LoginFactory implements FactoryInterface
         $fieldset->add(array(
             'name' => 'login',
             'options' => array(
-                'label' => /*translate*/ 'Login name'
+                'label' => /*translate*/ 'Login name',
                 'description' => /*translate*/ 'Provide your login key (e.g. email adress)',
             ),
         ));

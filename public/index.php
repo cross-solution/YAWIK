@@ -21,6 +21,9 @@ chdir(dirname(__DIR__));
 // Composer autoloading
 if (file_exists('vendor/autoload.php')) {
     $loader = include 'vendor/autoload.php';
+    // Fallback
+    //$loader->set($namespace, $path);
+    $loader->set(Null, array('module'));
 } else {
     throw new \RuntimeException('Could not initialize autoloading.');
 }

@@ -112,9 +112,17 @@ return array(
     ),
     
     'form_elements' => array(
-    		'invokables' => array(
-    		        'settings' => 'Settings\Form\Settings',
-    				'settings-core-fieldset' => 'Settings\Form\SettingsFieldset',
-    		),
+        'invokables' => array(
+            'settings' => 'Settings\Form\Settings',
+            'settings-core-fieldset' => 'Settings\Form\SettingsFieldset',
+        ),
+    ),
+    
+    // all the Information for the Module Settings
+    'settings' => array(
+        'settings' => array(
+            'entity' => 'aaa',
+            'formular' => 'bbb',
+        ),
     ),
 );

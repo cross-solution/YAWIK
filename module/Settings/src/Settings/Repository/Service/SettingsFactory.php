@@ -20,6 +20,7 @@ class SettingsFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $settings = new Settings;
+        $settings->setServiceLocator($serviceLocator->getServiceLocator());
         $settings->setUserRepository($serviceLocator->getServiceLocator()->get('RepositoryManager')->get('User'));
         $config = $serviceLocator->getServiceLocator()->get('Config');
         

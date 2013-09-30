@@ -9,8 +9,9 @@
  */
 
 namespace Settings\Entity;
+use Core\Entity\EntityResolverStrategyInterface;
 
-class Settings extends AwareEntity implements SettingsInterface {
+class Settings extends AwareEntity implements SettingsInterface, EntityResolverStrategyInterface {
 
     /**
      * die Setting-Entity consists of Namespaces, which can 
@@ -24,7 +25,13 @@ class Settings extends AwareEntity implements SettingsInterface {
                 if ($this->spawnsAsEntities) {
                     if (!$this->data[$nameSpace] instanceof $this) {
                         // transform array into the Entity-Class
-                        $entity = new static($this);
+                        if ($this instanceOf EntityResolverStrategyInterface) {
+                            $entity = $this->getEntityByStrategy($nameSpace);
+                        }
+                        
+                        if (!isset($entity)) {
+                            $entity = new static($this);
+                        }
                         $entity->setData($this->data[$nameSpace]);
                         $this->data[$nameSpace] = $entity;
                     }
@@ -40,4 +47,11 @@ class Settings extends AwareEntity implements SettingsInterface {
         return Null;
     }
 
+    public function getEntityByStrategy($nameSpace) {
+        if ($this->getParent() instanceOf EntityResolverStrategyInterface) {
+            return $this->getParent()->getEntityByStrategy($nameSpace);
+        }
+        return Null;
+    }
+    
 }

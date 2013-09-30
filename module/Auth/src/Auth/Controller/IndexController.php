@@ -114,6 +114,13 @@ class IndexController extends AbstractActionController
         $hauth->setProvider($provider);
         $auth = $this->getServiceLocator()->get('AuthenticationService');
         $result = $auth->authenticate($hauth);
+        $resultMessage = $result->getMessages();
+        if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
+            $mail = $this->mail();
+        }
+        else {
+            $mail = $this->mail();
+        }
         
         $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
     }

@@ -241,4 +241,9 @@ return array(
         ),
     ),
     
+    'settings' => array(
+        __namespace__ => array(
+            'Settings/Entity' => 'abc'
+        ),
+    ),
 );

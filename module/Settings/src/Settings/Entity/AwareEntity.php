@@ -167,6 +167,10 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
         return $this->changed;
     }
     
+    public function getParent() {
+        return $this->parent;
+    }
+    
     public function __set($key, $value) {
         if ($this->accessWrite) {
             if (isset($this->data)) {

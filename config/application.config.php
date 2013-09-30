@@ -47,6 +47,12 @@ return array(
             'interface'       => '\Core\ModuleManager\Feature\RepositoryProviderInterface',
             'method'          => 'getRepositoryConfig',
         ),
+        array(
+            'service_manager' => 'SettingsManager',
+            'config_key'      => 'settings',
+            'interface'       => '\Core\ModuleManager\Feature\SettingsProviderInterface',
+            'method'          => 'getUserSettings',
+        ),
     ),
     
     'service_manager' => array(
@@ -54,7 +60,13 @@ return array(
             'MapperManager' => 'Core\Repository\Mapper\MapperManager',
             'EntityBuilderManager' => 'Core\Repository\EntityBuilder\EntityBuilderManager',
             'RepositoryManager' => 'Core\Repository\RepositoryManager',
+            'SettingsManager' => 'Core\ModuleManager\SettingsManager',
+            //'ServiceListenerInterface' => 'Core\mvc\Service\ServiceListener',
          ),
+        'factories' => array(
+            //'ServiceListener' => 'Zend\Mvc\Service\ServiceListenerFactory',
+            'ServiceListener' => 'Core\src\Core\mvc\Service\ServiceListenerFactory',
+            ),
          'aliases' => array(
              'mappers' => 'MapperManager',
              'builders' => 'EntityBuilderManager',

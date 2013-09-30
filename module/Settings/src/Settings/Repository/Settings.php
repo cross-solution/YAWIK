@@ -6,13 +6,15 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\MvcEvent;
 use Settings\Entity\Settings as SettingsEntity;
 use Core\Entity\EntityInterface;
+use Core\Entity\EntityResolverStrategyInterface;
 use Core\Repository\AbstractRepository;
 
-class Settings extends AbstractRepository 
+class Settings extends AbstractRepository implements EntityResolverStrategyInterface
 {
     
     protected $userRepository;
     protected $settingsByUser;
+    protected $serviceLocator;
     
     public function __construct() 
     {
@@ -20,6 +22,14 @@ class Settings extends AbstractRepository
         return $this;
     }
     
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator) {
+        $this->serviceLocator = $serviceLocator;
+    }
+    
+    protected function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
     
     public function setUserRepository($userRepository)
     {
@@ -81,6 +91,17 @@ class Settings extends AbstractRepository
     
     public function save(EntityInterface $entity) {
         
+    }
+    
+    public function getEntityByStrategy($namespace) {
+        $config = $this->getServiceLocator()->get('Config');
+        if (array_key_exists('settings', $config)) {
+            $settingsConfig = $config['settings'];
+            if (array_key_exists('Settings', $namespace)) {
+                
+            }
+        }
+        return Null;
     }
     
 }
