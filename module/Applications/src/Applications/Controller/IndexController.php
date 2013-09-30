@@ -79,14 +79,14 @@ class IndexController extends AbstractActionController
                 $applicationEntity->setStatus(new Status(Status::STATUS_NEW));
                 //$applicationEntity->injectJob($job);
                 $imageData = $form->get('contact')->get('image')->getValue();
-                $fileRepository = $services->get('repositories')->get('Applications/FileRepository');
+                $fileRepository = $services->get('repositories')->get('Applications/Files');
                 
                 if (UPLOAD_ERR_OK == $imageData['error']) {
                     $applicationEntity->contact->setImageId(
                         $fileRepository->saveUploadedFile($imageData)
                     );    
                 } else if ($imageId = $applicationEntity->contact->imageId) {
-                    $userImageRepository = $services->get('repositories')->get('user-file');
+                    $userImageRepository = $services->get('repositories')->get('Users/Files');
                     $userImage = $userImageRepository->find($imageId);
                     $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
                 }
