@@ -32,7 +32,7 @@ class EntityHydrator extends AbstractHydrator
             get_class_methods($object),
             function ($methodName) use ($object) {
                 return "get" === substr($methodName, 0, 3)
-                       && method_exists($object, 's' . substr($methodName, 1));
+                && method_exists($object, 's' . substr($methodName, 1));
             }
         );
 
@@ -79,5 +79,6 @@ class EntityHydrator extends AbstractHydrator
         
         return $object;
     }
+    
     
 }

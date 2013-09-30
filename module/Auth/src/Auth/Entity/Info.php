@@ -137,7 +137,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     public function setImageId($imageId)
     {
-        $this->imageId = $imageId;
+        $this->imageId = (string) $imageId;
         return $this;
     }
     

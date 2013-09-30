@@ -21,6 +21,7 @@ class ContactBuilderFactory implements FactoryInterface
         $builder->setRelation(new RelationEntity(
             array($serviceLocator->getServiceLocator()->get('mappers')->get('application'), 'findContact')
         ), 'id');
+        
         return $builder;        
     }
     
