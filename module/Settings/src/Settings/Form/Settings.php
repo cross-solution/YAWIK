@@ -18,10 +18,16 @@ class Settings extends Form implements ServiceLocatorAwareInterface {
 	public function __construct($name = null) {
 		parent::__construct('settings');
 		$this->setAttribute('method', 'post');
+                $this->setBindOnValidate(Form::BIND_ON_VALIDATE);
 	
 		// 'action' => $this->url('lang/settings', array(), true),
 	}
 	
+        /**
+         * 
+         * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
+         * @return \Settings\Form\Settings
+         */
 	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
 	{
 		$this->forms = $serviceLocator;

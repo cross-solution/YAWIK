@@ -30,7 +30,6 @@ class IndexController extends AbstractActionController
         $a = $this->config('settings');
         
         $ServiceLocator = $this->getServiceLocator();
-        //$aaa = $ServiceLocator->get('aaa');
         
         // Holen der der Entity
         $settings = $this->settings();

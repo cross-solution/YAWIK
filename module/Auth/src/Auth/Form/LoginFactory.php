@@ -13,7 +13,7 @@ class LoginFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         
-        $form = new Form();
+        $form = new Form(); 
         $form->setName('login-form');
 
         $form->add(array(

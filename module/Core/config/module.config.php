@@ -117,12 +117,13 @@ return array(
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
         'factories' => array(
-            'mail' => 'Core\Controller\Plugin\Mailfactory'
+            'mailer' => 'Core\Controller\Plugin\Mailfactory'
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
             'config' => 'Core\Controller\Plugin\Config',
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
+            'mail' => 'Core\Controller\Plugin\Mail',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',

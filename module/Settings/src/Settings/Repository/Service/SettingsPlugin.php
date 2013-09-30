@@ -21,6 +21,8 @@ class SettingsPlugin extends AbstractPlugin
      */
     protected $serviceManager;
     protected $settingsByUser;
+    protected $auth;
+    protected $repository;
     
     public function __construct() {
         $this->settingsByUser = array();

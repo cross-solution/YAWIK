@@ -18,7 +18,7 @@ class MailFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugin = new Mail();;
+        $plugin = new Mailer();;
         //$plugin->setLocator($serviceLocator);
         return $plugin;
     }

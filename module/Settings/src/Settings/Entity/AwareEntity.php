@@ -150,6 +150,11 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
         return $this;
     }
     
+    public function setParent($parent) {
+        $this->parent = $parent;
+        return $this;
+    }
+    
     /**
      * changing a subset should be marked up to the root
      * @param type $changed
@@ -199,7 +204,16 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
         if (isset($this->data)) {
             if (is_array($this->data)) {
                 // hier die Spawns as Entity einbauen
-                return isset($this->data[$key])?$this->data[$key]:Null;
+                // und die Eigenschaften wie writable vererben
+                $result = isset($this->data[$key])?$this->data[$key]:Null;
+                if (is_array($result) && $this->spawnsAsEntities) {
+                    $newResult = new static($this);
+                    $newResult->setData($result);
+                    $newResult->setParent($this);
+                    $this->data[$key] = $newResult;
+                    $result = $newResult;
+                }
+                return $result;
             }
         }
         return Null;
