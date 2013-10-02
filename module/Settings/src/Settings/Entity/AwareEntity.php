@@ -49,7 +49,7 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
      */
     protected $trimData;
     
-    public function __construct($parent) {
+    public function __construct($parent = Null) {
         $this->data = array();
         $this->parent = $parent;
         $this->accessWrite = True;
@@ -162,7 +162,7 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
      */
     public function setChanged($changed = True) {
         $this->changed = (bool) $changed;
-        if ($this->parent instanceof AwareEntity) {
+        if (isset($this->parent) && $this->parent instanceof AwareEntity) {
             $this->parent->setChanged($changed);
         }
         return $this;
@@ -222,7 +222,7 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
     public function toArray() {
         $return = array();
         foreach ($this->data as $key => $value) {
-            if ($value instanceOf $this) {
+            if ($value instanceOf self) {
                 $value = $value->toArray();
             }
             $return[$key] = $value;

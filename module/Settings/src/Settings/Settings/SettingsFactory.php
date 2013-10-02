@@ -3,17 +3,18 @@
 /**
  * 
  */
-
-namespace Settings\Repository\Service;
+namespace Settings\Settings;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Settings\Repository\Settings;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+//use Settings\Repository\Settings;
 use Zend\Mvc\MvcEvent;
 use Zend\EventManager\EventManager;
 
-class SettingsPluginFactory implements FactoryInterface
+class SettingsFactory implements FactoryInterface
 {
+    
     /**
      * Create the settings service
      * 
@@ -22,10 +23,10 @@ class SettingsPluginFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $plugin = new SettingsPlugin;
-        $plugin->setRepository($serviceLocator->getServiceLocator()->get('RepositoryManager')->get('SettingsRepository'));
-        $plugin->setAuth($serviceLocator->getServiceLocator()->get('AuthenticationService'));
+        $settings = new Settings;
+        $settings->setRepository($serviceLocator->get('RepositoryManager')->get('SettingsRepository'));
+        $settings->setAuth($serviceLocator->get('AuthenticationService'));
         //$plugin->setLocator($serviceLocator);
-        return $plugin;
+        return $settings;
     }
 }

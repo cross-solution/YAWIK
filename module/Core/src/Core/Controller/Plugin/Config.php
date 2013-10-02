@@ -9,10 +9,25 @@ class Config extends AbstractPlugin
 {
     protected $config;
     protected $map = array();
+    protected $applicationMap = array();
+    protected $configAccess;
 
-    public function __invoke($key = null)
+    public function __invoke($key = null, $all = False)
     {
-        return $this->get($key);
+        if (!isset($this->configAccess)) {
+            $controller = $this->getController();
+            $this->configAccess  = $controller->getServiceLocator()->get('configaccess');
+        }
+        
+        $erg = array();
+        if (isset($this->configAccess)) {
+            $this->configAccess->setController($this->getController());
+            $erg = $all?$this->configAccess->getByKey($key):$this->configAccess->get($key);
+        }
+        
+        return $erg;
+        
+        return $all?$this->getByKey($key):$this->get($key);
     }
     
     public function get($key = null)
@@ -26,6 +41,29 @@ class Config extends AbstractPlugin
             return isset($config[$key]) ? $config[$key] : null;
         }
         return $config;
+    }
+    
+    /**
+     * fetch the settings for a certain key of all Modules 
+     * @param string $key
+     * @return array
+     */
+    public function getByKey($key = null)
+    {
+        if (!array_key_exists($key, $this->applicationMap)) {
+            $this->applicationMap[$key] = array();
+            $controller      = $this->getController();
+            $config          = $controller->getServiceLocator()->get('Config');
+            $appConfig       = $controller->getServiceLocator()->get('applicationconfig');
+            foreach ($appConfig['modules'] as $module) {
+                if (array_key_exists($module, $config)) {
+                    if (array_key_exists($key, $config[$module])) {
+                        $this->applicationMap[$key][$module] = $config[$module][$key];
+                    }
+                }
+            }
+        }
+        return $this->applicationMap[$key];
     }
     
     protected function getConfig()

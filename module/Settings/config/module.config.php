@@ -15,17 +15,16 @@
 return array(
 		
 	// Translations
-	'translator' => array(
-			'translation_file_patterns' => array(
-					array(
-							'type'     => 'gettext',
-							'base_dir' => __DIR__ . '/../language',
-							'pattern'  => '%s.mo',
-					),
-			),
-	),
-    
-     // Routes
+    'translator' => array(
+        'translation_file_patterns' => array(
+            array(
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.mo',
+            ),
+        ),
+    ),
+    // Routes
     'router' => array(
         'routes' => array(
             'lang' => array(
@@ -94,7 +93,9 @@ return array(
     ),
     
      'service_manager' => array(
-        'factories' => array(),
+        'factories' => array(
+            'Settings' => '\Settings\Settings\SettingsFactory',
+        ),
         'initializers' => array(),
         'shared' => array(),
         'aliases' => array(),
@@ -108,21 +109,21 @@ return array(
     ),
     
     'controller_plugins' => array(
-        'factories' => array('settings' => '\Settings\Repository\Service\SettingsPluginFactory'),
+        'factories' => array('settings' => '\Settings\Controller\Plugins\SettingsPluginFactory'),
     ),
     
     'form_elements' => array(
         'invokables' => array(
-            'settings' => 'Settings\Form\Settings',
+            'settings\settings' => 'Settings\Form\Settings',
             'settings-core-fieldset' => 'Settings\Form\SettingsFieldset',
         ),
     ),
     
     // all the Information for the Module Settings
-    'settings' => array(
+    // der erste Teil ist der NameSpace, also der Modulname
+    'Settings' => array(
         'settings' => array(
-            'entity' => 'aaa',
-            'formular' => 'bbb',
+            'entity' => '\Settings\Entity\Settings',
         ),
     ),
 );
