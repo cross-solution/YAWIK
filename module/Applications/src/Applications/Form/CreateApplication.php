@@ -56,6 +56,9 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
             $this->forms->get('CvFieldset')
                         ->setObject($this->forms->getServiceLocator()->get('builders')->get('Cv')->getEntity())
         );
+        $this->add(
+            $this->forms->get('Applications/AttachmentsCollection')
+        );
         $this->add($this->forms->get('DefaultButtonsFieldset'));
         $this->get('cv')->get('educations')->setCount(1)->prepareFieldset();
        
