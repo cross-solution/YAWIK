@@ -47,7 +47,19 @@ class FileMapper extends AbstractMapper
     
     public function fetch(array $query = array(), array $fields = array())
     {
+        $cursor = $this->getCursor($query, $fields);
+        $count = $cursor->count();
         
+        $collection = $this->builder->buildCollection($cursor);
+        return $collection;
+    }
+    
+    public function fetchByIds(array $ids)
+    {
+        for ($i=0,$c=count($ids); $i<$c; $i+=1) {
+            $ids[$i] = $this->getMongoId($ids[$i]);
+        }
+        return $this->fetch(array('_id' => array('$in' => $ids)));
     }
     
     

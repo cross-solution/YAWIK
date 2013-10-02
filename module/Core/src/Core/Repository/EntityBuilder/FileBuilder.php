@@ -10,7 +10,7 @@
 /** FileBuilder.php */ 
 namespace Core\Repository\EntityBuilder;
 
-use Core\Repository\RepositoryAwareInterface;
+use Core\Entity\EntityInterface;
 
 class FileBuilder extends EntityBuilder 
 {
@@ -23,6 +23,7 @@ class FileBuilder extends EntityBuilder
         }
         
         $dataArray = array(
+            '_id' => $data->file['_id'],
             'name' => $data->getFilename(),
             'size' => $data->getSize(),
             'type' => $data->file['mimetype'],
@@ -42,5 +43,14 @@ class FileBuilder extends EntityBuilder
         return $entity;
         
     }
+    /**
+     * @todo Belongs in a strategy...
+     * @param EntityInterface $entity
+     */
+    public function unbuild(EntityInterface $entity)
+    {
+        return (string) $entity->getId();
+    }
+    
+    
 }
-
