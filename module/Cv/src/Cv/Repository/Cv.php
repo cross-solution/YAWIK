@@ -2,11 +2,13 @@
 
 namespace Cv\Repository;
 
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
-use Core\Repository\PaginatorAdapter;
+use Core\Paginator\Adapter\MongoCursor as MongoCursorAdapter;
+use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 
-class Cv extends AbstractRepository
+class Cv extends AbstractRepository implements EntityBuilderAwareInterface
 {
     
     
@@ -35,10 +37,16 @@ class Cv extends AbstractRepository
         return $entity;
     }
     
-    public function getPaginatorAdapter(array $propertyFilter, $sort)
+    public function getPaginatorAdapter(array $params)
     {
     
-    	$query = array();
+        if (isset($params['sort'])) {
+            $sort = $params['sort'];
+            unset($params['sort']);
+        } else {
+            $sort = array();
+        }
+    	$query = $params;
     	#foreach ($propertyFilter as $property => $value) {
     #		if (in_array($property, array('Id'))) {
    # 			$query[$property] = new \MongoRegex('/^' . $value . '/');
@@ -46,7 +54,7 @@ class Cv extends AbstractRepository
    # 	}
     	$cursor = $this->getMapper('cv')->getCursor($query); //, array('cv'), true);
     	$cursor->sort($sort);
-    	return new PaginatorAdapter($cursor, $this->builders->get('cv'));
+    	return new MongoCursorAdapter($cursor, $this->builders->get('cv'));
     }
     
     public function save(EntityInterface $entity)
