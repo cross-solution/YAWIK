@@ -22,9 +22,11 @@
     )?><b class="caret"></b></a>
 
     <ul class="dropdown-menu pull-right">
-        <li><a href="<?php echo $this->url('lang/auth', array(), array(
+        <li><a href="<?php 
+            $ref = $this->stripQueryParams($_SERVER['REQUEST_URI'], array('logout'));
+        echo $this->url('lang/auth', array(), array(
                                                 'query' => array(
-                                                    'ref' => urlencode($_SERVER['REQUEST_URI']),
+                                                    'ref' => $ref,
                                                  )), true)?>"
              ><i class="icon-user"></i> <?php echo $this->translate('Login')?></a></li>
         <li class="divider"></li>
