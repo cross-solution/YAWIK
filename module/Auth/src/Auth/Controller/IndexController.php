@@ -196,7 +196,11 @@ class IndexController extends AbstractActionController
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
         
-        $this->redirect()->toRoute('lang/home', array('lang' => $this->params('lang')));
+        $this->redirect()->toRoute(
+            'lang', 
+            array('lang' => $this->params('lang')),
+            array('query' => array('logout' => '1'))
+        );
     }
     
 }

@@ -204,7 +204,16 @@ return array(
         ),
     ),
     
+    'filters' => array(
+        'invokables' => array(
+            'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
+        ),
+    ),
+    
     'view_helpers' => array(
+        'invokables' => array(
+            'stripQueryParams' => '\Auth\View\Helper\StripQueryParams',
+        ),   
         'factories' => array(
             'auth' => '\Auth\Service\AuthViewHelperFactory',
          ),

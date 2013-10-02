@@ -27,16 +27,6 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'home' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/test[/:logo]',
-                            'defaults' => array(
-                                'controller' => 'Core\Controller\Index',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
                     'mailtest' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -159,7 +149,7 @@ return array(
     ),
     'view_helpers' => array(
         'invokables' => array(
-            'jquery' => 'Core\View\Helper\Jquery',
+            'services' => 'Core\View\Helper\Services',
 //            'form' => 'Core\Form\View\Helper\Form',
 //            'form_element' => 'Core\Form\View\Helper\FormElement',
 //            'form_partial' => 'Core\Form\View\Helper\FormPartial',
