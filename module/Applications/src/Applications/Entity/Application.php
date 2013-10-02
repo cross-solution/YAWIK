@@ -4,6 +4,7 @@ namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
+use Core\Entity\CollectionInterface;
 
 /**
  * @todo write interface
@@ -33,6 +34,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      */
     protected $cv;
 
+    protected $attachments;
     
     
     /**
@@ -149,5 +151,16 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	public function getCv()
 	{
 	    return $this->cv;
+	}
+	
+	public function setAttachments(CollectionInterface $attachments)
+	{
+	    $this->attachments = $attachments;
+	    return $this;
+	}
+	
+	public function getAttachments()
+	{
+	    return $this->attachments;
 	}
 }

@@ -90,6 +90,8 @@ class IndexController extends AbstractActionController
                     $userImage = $userImageRepository->find($imageId);
                     $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
                 }
+                
+                
                 $repository->save($applicationEntity);
                 
                 if ($request->isXmlHttpRequest()) {

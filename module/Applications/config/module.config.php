@@ -141,10 +141,11 @@ return array(
 //             'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
              'Application' => '\Applications\Form\CreateApplication',
-             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldset',
+             
          ),
         'factories' => array(
-            'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory'
+            'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
+            'Applications/AttachmentsFieldset'   => '\Applications\Form\AttachmentsFieldsetFactory',
         ),
      ),
      

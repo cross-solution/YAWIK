@@ -27,6 +27,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
+            $hydrator->addStrategy('attachments', new \Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy());
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;

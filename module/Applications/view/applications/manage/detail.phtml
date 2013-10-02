@@ -65,5 +65,18 @@
 <?php foreach( $this->application->cv->skills as $kill): ?>
   <div class="span3"><?=$this->translate('native language')?></div> 
   <div class="span3">TODO</div>
-<?php endforeach; // skills?>    
+<?php endforeach; // skills?>
+    
 </div>
+
+
+
+<h2><?= $this->translate('Attachments')?></h2>
+
+<?php foreach( $this->application->attachments as $attachment): ?>
+<div class="row-fluid show-grid">
+  <div class="span3"><?php echo $attachment->name ?></div>
+</div>
+<?php endforeach; // skills?>
+    
+
