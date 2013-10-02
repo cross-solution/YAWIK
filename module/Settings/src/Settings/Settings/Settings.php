@@ -3,9 +3,9 @@
  * 
  */
 
-namespace Settings\Repository\Service;
+namespace Settings\Settings;
 
-use Settings\Entity\Settings;
+//use Settings\Entity\Settings as SettingsEntity;
 use Settings\Repository\Settings as SettingsRepository;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\MvcEvent;
@@ -13,7 +13,7 @@ use Zend\Mvc\Exception;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SettingsPlugin extends AbstractPlugin
+class Settings extends AbstractPlugin
 {
     
     /**
@@ -43,14 +43,14 @@ class SettingsPlugin extends AbstractPlugin
         $namespace = strtolower($controller[0]);
         if (isset($settingsEntity)) {
             // Die Settings für diesen User existieren
-            if (!empty($module) && $module != $namespace) {
-                $settings = $settingsEntity->get($module);
+            if (!empty($module) && strcasecmp($module,$namespace) != 0) {
+                $settings = $settingsEntity->getByNamespace(strtolower($module));
                 if (isset($settings)) {
                     $settings->setAccessWrite(False);
                 }
             }
             else {
-                $settings = $settingsEntity->get($namespace);
+                $settings = $settingsEntity->getByNamespace($namespace);
             }
         }
         return $settings;

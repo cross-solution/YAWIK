@@ -238,12 +238,23 @@ return array(
             'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-info-fieldset' => 'Auth\Form\UserInfoFieldset',
+            'settings\auth' => 'Auth\Form\Settings',
+            'settings-auth-fieldset' => 'Auth\Form\SettingsFieldset',
         ),
     ),
     
     'settings' => array(
         __namespace__ => array(
             'Settings/Entity' => 'abc'
+        ),
+    ),
+    
+    
+    // all the Information for the Module Settings
+    // der erste Teil ist der NameSpace, also der Modulname
+    'Auth' => array(
+        'settings' => array(
+            'entity' => '\Auth\Entity\Settings',
         ),
     ),
 );

@@ -12,7 +12,7 @@ use Settings\Repository\Settings;
 class SettingsFactory implements FactoryInterface
 {
     /**
-     * Create the settings service
+     * Create the settings Repository service
      * 
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ControllerManager

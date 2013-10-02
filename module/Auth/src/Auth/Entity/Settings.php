@@ -8,21 +8,22 @@
  * @license   GPLv3
  */
 
-namespace Settings\Entity;
+namespace Auth\Entity;
+use Settings\Entity\SettingsAbstract;
 use Core\Entity\EntityResolverStrategyInterface;
 
 class Settings extends SettingsAbstract {
     
     /**
      * 
-     * @return date
+     * @return email
      */
-    public function getLanguage() {
-        return $this->language;
+    public function getMailAccess() {
+        return $this->mailAccess;
     }
     
-    public function setLanguage($name) {
-        $this->language = $name;
+    public function setMailAccess($option) {
+        $this->mailAccess = $option;
         return;
     }
 }

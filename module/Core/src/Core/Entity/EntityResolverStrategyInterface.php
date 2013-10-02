@@ -16,6 +16,9 @@ namespace Core\Entity;
  */
 interface EntityResolverStrategyInterface 
 {
+    /**
+     * returns an Entity-Object by a name
+     * @param string $nameSpace
+     */
     public function getEntityByStrategy($nameSpace);
-  
 }

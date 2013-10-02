@@ -94,14 +94,30 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
     }
     
     public function getEntityByStrategy($namespace) {
-        $config = $this->getServiceLocator()->get('Config');
-        if (array_key_exists('settings', $config)) {
-            $settingsConfig = $config['settings'];
-            if (array_key_exists('Settings', $namespace)) {
-                
-            }
+        $configAccess = $this->getServiceLocator()->get('ConfigAccess');
+        $settings = $configAccess->getByKey('settings');
+        if (array_key_exists($namespace, $settings) && array_key_exists('entity', $settings[$namespace])) {
+            $entity = new $settings[$namespace]['entity'];
+            $entity->setConfig($settings[$namespace]);
+            return $entity;
         }
         return Null;
+    }
+    
+    public function getFormular($formular = Null) {
+        $form = Null;
+        if (isset($formular) && is_string($formular)) {
+            $formElementManager = $this->getServiceLocator()->get('FormElementManager');
+            if ($formElementManager->has($formular)) {
+                $form = $formElementManager->get($formular);
+            }
+            if (!isset($form)) {
+                if ($this->getServiceLocator()->has($formular)) {
+                    $form = $this->getServiceLocator()->get($formular);
+                }
+            }
+        }
+        return $form;
     }
     
 }

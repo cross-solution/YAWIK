@@ -1,11 +1,12 @@
 <?php
 
-namespace Settings\Form;
+namespace Auth\Form;
+use Settings\Form\FormAbstract;
 
 class Settings extends FormAbstract {
 	
     public function getCoreFieldset() {
-        return 'settings-core-fieldset';
+        return 'settings-auth-fieldset';
     }
     
 }

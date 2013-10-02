@@ -68,6 +68,7 @@ return array(
         'invokables' => array(
             'query' => 'Core\Mapper\Query\Query',
             'criteria' => 'Core\Mapper\Query\Criteria\Criteria',
+            'configaccess' => 'Core\Service\Config',
         ),
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',

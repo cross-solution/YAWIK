@@ -26,15 +26,28 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {   
-        
-        $a = $this->config('settings');
-        
         $ServiceLocator = $this->getServiceLocator();
         
-        // Holen der der Entity
-        $settings = $this->settings();
+        $name = 'Settings';
+        $name = 'Auth';
+        $formName = 'Settings/' . $name;
+        
+        // Fetching an distinct Settings
+        $settings = $this->settings($name);
+        
+        // Write-Access is per default only granted to the own module - change that
+        $settings->setAccessWrite();
+
+        
+        //$settings = $this->settings();
+        //$settingsAuth = $this->settings('auth');
         // Holen des Formulars
-        $form = $this->getServiceLocator()->get('FormElementManager')->get('Settings');
+        // $form = $settings->getFormular();
+        
+        $form = $this->getServiceLocator()->get('FormElementManager')->get($formName);
+        
+        //$formAuth = $this->getServiceLocator()->get('FormElementManager')->get('Settings/Auth');
+        
         // Entity an das Formular binden
         $form->bind($settings);
         $data = $this->getRequest()->getPost();
