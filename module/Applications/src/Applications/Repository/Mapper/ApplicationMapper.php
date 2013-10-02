@@ -15,6 +15,7 @@ use Core\Entity\EntityInterface;
 use Core\Paginator\Adapter\MongoCursor as MongoCursorAdapter;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Entity\RelationEntity;
 
 
 /**
@@ -126,6 +127,9 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         $auth = $this->mappers->getServiceLocator()->get('AuthenticationService');
         if ($auth->hasIdentity()) {
             $data['refs']['users']['id'] = $auth->getIdentity();
+        }
+        if (isset($data['cv']) && empty($data['cv']['_id'])) {
+            $data['cv']['_id'] = new \MongoId();
         }
         $id      = $this->saveData($data);
         if ($id) {

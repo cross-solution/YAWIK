@@ -44,6 +44,7 @@ class ManageController extends AbstractActionController
             $form->setData($this->request->getPost());
             $valid = $form->isValid();
             if ($valid) {
+                $entity->setUserId($this->auth('id'));
                 $services->get('repositories')->get('cv')->save($entity);
                 return array(
                     'isSaved' => true,

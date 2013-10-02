@@ -8,9 +8,21 @@ use Core\Entity\CollectionInterface;
 class Cv extends AbstractIdentifiableEntity implements CvInterface
 {
     
+    protected $userId;
     protected $educations;
     protected $employments;
     protected $skills;
+    
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+    
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+        return $this;
+    }
     
 	/**
      * @return the $educations

@@ -49,8 +49,8 @@ class IndexController extends AbstractActionController
         $applicationEntity = $services->get('builders')->get('Application')->getEntity();
         if ($this->auth()->isLoggedIn()) {
             $applicationEntity->setContact(clone $this->auth()->get('info')->getEntity());
-            $applicationEntity->injectJob($job);
         }
+        $applicationEntity->injectJob($job);
         $form->bind($applicationEntity);
        
         if ($request->isPost()) {
@@ -60,7 +60,7 @@ class IndexController extends AbstractActionController
             
             //$applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
             //$form->bind($applicationEntity);
-            $data = array_merge(
+            $data = array_merge_recursive(
                 $this->request->getPost()->toArray(),
                 $this->request->getFiles()->toArray()
             );
