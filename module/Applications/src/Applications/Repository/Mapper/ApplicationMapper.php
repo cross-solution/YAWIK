@@ -68,7 +68,6 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         return $entity;
     }
     
-    
     public function findContact($id)
     {
         $query = array('_id' => $this->getMongoId($id));

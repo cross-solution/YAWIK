@@ -20,6 +20,7 @@ class AttachmentsCollectionFactory implements FactoryInterface
                    ->setShouldCreateTemplate(true)
                    ->setAllowAdd(true)
                    ->setTargetElement($serviceLocator->get('Applications/AttachmentsFieldset'));
+                   
         return $collection;
     }
     

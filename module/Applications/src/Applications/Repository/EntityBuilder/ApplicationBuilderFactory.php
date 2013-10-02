@@ -16,6 +16,7 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
     {
         $cvBuilder = $serviceLocator->get($this->getBuilderName('application-cv'));
         $contactBuilder = $serviceLocator->get($this->getBuilderName('application-contact'));
+        $attachmentsBuilder = $serviceLocator->get('Core/File');
         
         $hydrator = $this->getHydrator();
 
@@ -26,7 +27,8 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
         );
         
         $builder->addBuilder('cv', $cvBuilder)
-                ->addBuilder('contact', $contactBuilder);
+                ->addBuilder('contact', $contactBuilder)
+                ->addBuilder('attachments', $attachmentsBuilder, /*asCollection*/true);
         
         return $builder;
         
