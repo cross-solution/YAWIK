@@ -43,7 +43,7 @@ return array(
             'file' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/file/:filestore/:fileId',
+                    'route' => '/file/:filestore/:fileId[/:fileName]',
                     'defaults' => array(
                         'controller' => '\Core\Controller\File',
                         'action' => 'index'
@@ -191,6 +191,7 @@ return array(
     'entity_builders' => array(
         'factories' => array(
             'Core/File' => 'Core\Repository\EntityBuilder\FileBuilderFactory',
+            'Core/JsonFile' => 'Core\Repository\EntityBuilder\JsonFileBuilderFactory',
         ),
     ),
 );
