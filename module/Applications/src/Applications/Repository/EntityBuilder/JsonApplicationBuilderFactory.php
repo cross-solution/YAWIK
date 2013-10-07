@@ -6,7 +6,7 @@ namespace Applications\Repository\EntityBuilder;
 
 use Core\Repository\Hydrator\DatetimeStrategy;
 use Applications\Repository\Hydrator\Strategy\StatusStrategy;
-use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\Hydrator\InjectAwareEntityHydrator as EntityHydrator;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class JsonApplicationBuilderFactory extends ApplicationBuilderFactory
@@ -21,7 +21,7 @@ class JsonApplicationBuilderFactory extends ApplicationBuilderFactory
     
     protected function getHydrator()
     {
-        $hydrator = new EntityHydrator();
+        $hydrator = new EntityHydrator(array('attachments'));
         $strategy = new DatetimeStrategy(DatetimeStrategy::FORMAT_MONGO, DatetimeStrategy::FORMAT_ISO);
         $hydrator->addStrategy('dateCreated', $strategy)
                  ->addStrategy('dateModified', $strategy)
@@ -31,6 +31,9 @@ class JsonApplicationBuilderFactory extends ApplicationBuilderFactory
     
     protected function getBuilderName($builderName)
     {
+        if ('Core/File' == $builderName) {
+            return 'Core/JsonFile';
+        }
         return 'json-' . $builderName;
     }
 

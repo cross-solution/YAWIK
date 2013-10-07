@@ -127,6 +127,11 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         if ($auth->hasIdentity()) {
             $data['refs']['users']['id'] = $auth->getIdentity();
         }
+        if (count($entity->getAttachments())) {
+            $data['refs']['applications.files'] = $this->builders->get('Core/File')->unbuildCollection(
+                $entity->getAttachments()
+            );
+        }
         if (isset($data['cv']) && empty($data['cv']['_id'])) {
             $data['cv']['_id'] = new \MongoId();
         }

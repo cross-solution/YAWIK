@@ -52,12 +52,12 @@ class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInte
             );
             $entity->injectJob($job);
         }
-        if (false === $attachmentsIds) {
-            $entity->setAttachments($this->getCollection());
-        } else {
-            $entity->setAttachments(new RelationCollection(
+        if (isset($data['refs']['applications.files'])) {
+            $mapper = $this->mappers->get('Applications/Files');
+            
+            $entity->injectAttachments(new RelationCollection(
                 array($this->mappers->get('Applications/Files'), 'fetchByIds'),
-                array($attachmentsIds)
+                array($data['refs']['applications.files'])
             ));
         }
         return $entity;
