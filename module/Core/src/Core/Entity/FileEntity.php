@@ -45,6 +45,25 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
     {
         return $this->size;
     }
+    
+    public function getPrettySize()
+    {
+        // determine multiplier
+        $size = $this->getSize();
+        if (1024 > $size) {
+            return $size;
+        }
+        if (1048576 > $size) {
+            return round( $size / 1024, 2) . ' kB'; 
+        }
+        if (1073741824 > $size) {
+            return round( $size / 1048576, 2) . ' MB';
+        }
+        if (1.09951162778E+12 > $size) {
+            return round( $size / 1073741824, 2) . ' GB';
+        }
+        return round ($size / 1.09951162778E+12, 2) . ' TB';
+    }
 
 	/**
      * @param field_type $size
@@ -103,7 +122,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
 	/**
      * @param field_type $content
      */
-    public function setContent ($content)
+    public function putContent ($content)
     {
         $this->content = $content;
         return $this;
@@ -112,7 +131,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
 	/**
      * @param field_type $contentCallback
      */
-    public function setContentCallback ($callable)
+    public function injectContent ($callable)
     {
         $this->contentCallback = $callable;
         return $this;
@@ -126,7 +145,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
         return $this->resource;
     }
     
-    public function setResourceCallback($callable)
+    public function injectResource($callable)
     {
         $this->resourceCallback = $callable;
         return $this;
