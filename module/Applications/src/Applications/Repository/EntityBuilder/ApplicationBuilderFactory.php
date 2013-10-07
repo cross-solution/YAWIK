@@ -16,7 +16,7 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
     {
         $cvBuilder = $serviceLocator->get($this->getBuilderName('application-cv'));
         $contactBuilder = $serviceLocator->get($this->getBuilderName('application-contact'));
-        $attachmentsBuilder = $serviceLocator->get('Core/File');
+        $attachmentsBuilder = $serviceLocator->get($this->getBuilderName('Core/File'));
         
         $hydrator = $this->getHydrator();
 

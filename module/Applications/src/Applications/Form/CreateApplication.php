@@ -5,7 +5,7 @@ namespace Applications\Form;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\Hydrator\InjectAwareEntityHydrator as Hydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class CreateApplication extends Form implements ServiceLocatorAwareInterface, InputFilterProviderInterface
@@ -26,7 +26,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new EntityHydrator();
+            $hydrator = new Hydrator(array('attachments'));
             $hydrator->addStrategy('attachments', new \Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy());
             $this->setHydrator($hydrator);
         }

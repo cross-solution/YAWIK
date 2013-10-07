@@ -75,7 +75,14 @@
 
 <?php foreach( $this->application->attachments as $attachment): ?>
 <div class="row-fluid show-grid">
-  <div class="span3"><?php echo $attachment->name ?></div>
+  <div class="span3">
+    <a href="<?php echo $this->url('file', array(
+        'filestore' => 'applications', 
+        'fileId' => $attachment->id,
+        'fileName' => $attachment->name
+    ))?>"><?php echo $attachment->name ?></a></div>
+    <div class="span3"><?php echo $attachment->type?></div>
+    <div class="span3"><?php echo $attachment->prettySize ?></div>
 </div>
 <?php endforeach; // skills?>
     
