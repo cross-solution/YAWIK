@@ -50,7 +50,7 @@ class AggregateBuilder extends EntityBuilder
     public function build($data = array())
     {
         if (!is_array($data) && !$data instanceof \Traversable) {
-            die (__METHOD__.': Expects $data to be an array or implements Traversable.');
+            throw new \InvalidArgumentException('Expects $data to be an array or implements Traversable.');
         }
         
         $injectRelations = array();

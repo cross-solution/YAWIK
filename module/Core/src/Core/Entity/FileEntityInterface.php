@@ -4,7 +4,7 @@ namespace Core\Entity;
 
 
 
-interface FileEntityInterface
+interface FileEntityInterface extends IdentifiableEntityInterface
 {
     public function getName();
     public function setName($name);
@@ -19,8 +19,11 @@ interface FileEntityInterface
     public function setDateUploaded(\DateTime $date);
     
     public function getContent();
-    public function setContent($content);
-    public function setContentCallback($callable);
+    public function putContent($content);
+    public function injectContent($callable);
+    
+    public function getResource();
+    public function injectResource($callable);
     
      
 }

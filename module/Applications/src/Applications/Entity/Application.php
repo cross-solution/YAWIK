@@ -153,7 +153,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	    return $this->cv;
 	}
 	
-	public function setAttachments(CollectionInterface $attachments)
+	public function injectAttachments(CollectionInterface $attachments)
 	{
 	    $this->attachments = $attachments;
 	    return $this;
