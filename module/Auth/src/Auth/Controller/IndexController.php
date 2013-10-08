@@ -176,6 +176,7 @@ class IndexController extends AbstractActionController
                 'token' => session_id()
             ));
         } else {
+            $this->getResponse()->setStatusCode(403);
             return new JsonModel(array(
                 'status' => 'failure',
                 'code'   => $result->getCode(),

@@ -70,6 +70,11 @@ return array(
         'external_applications' => array(
             'ams' => 'AmsAppKey',
         ),
+        // all the Information for the Module Settings
+        // der erste Teil ist der NameSpace, also der Modulname
+        'settings' => array(
+            'entity' => '\Auth\Entity\Settings',
+        ),
     ),
     
     // Routes
@@ -258,12 +263,4 @@ return array(
         ),
     ),
     
-    
-    // all the Information for the Module Settings
-    // der erste Teil ist der NameSpace, also der Modulname
-    'Auth' => array(
-        'settings' => array(
-            'entity' => '\Auth\Entity\Settings',
-        ),
-    ),
 );
