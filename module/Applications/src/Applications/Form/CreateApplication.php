@@ -40,7 +40,8 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
 
         
         $this->add(array(
-            'type' => 'hidden',
+            //'type' => 'hidden',
+            'type' => 'text',
             'name' => 'jobId',
             'required' => true,
             'options' => array(

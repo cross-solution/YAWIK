@@ -75,10 +75,3 @@ class PreferredJob extends AbstractIdentifiableEntity
     	return $this->willingnessToTravel;
     }
 }
-
-    
- 
-    
-   
-   
-}
