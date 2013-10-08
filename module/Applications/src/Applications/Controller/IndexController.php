@@ -94,6 +94,11 @@ class IndexController extends AbstractActionController
                 
                 $repository->save($applicationEntity);
                 
+                $userRel = $job->getUser();
+                $userSettings = $userRel->getSettings();
+                $user = $userRel->getEntity();
+                $this->settings($user);
+                
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,
@@ -119,9 +124,6 @@ class IndexController extends AbstractActionController
         }
         return $viewModel;
         
-    }
-    
-    
-    
-    
+    }    
 }
+
