@@ -26,4 +26,13 @@ class Settings extends SettingsAbstract {
         $this->mailAccess = $option;
         return;
     }
+    
+    public function getMailText() {
+        return $this->mailText;
+    }
+    
+    public function setMailText($option) {
+        $this->mailText = $option;
+        return;
+    }
 }
