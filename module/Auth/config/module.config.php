@@ -104,6 +104,17 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'Save Application Confirmation' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/save/applicationconfirmation',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Manage',
+                                'action' => 'my-profile',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                 ),
             ),
             'auth-provider' => array(

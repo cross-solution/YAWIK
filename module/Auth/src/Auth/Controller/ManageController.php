@@ -88,7 +88,24 @@ class ManageController extends AbstractActionController
         );
          
     }
-    
+     public function saveApplicationConfirmationAction()
+    {
+        $services = $this->getServiceLocator();
+        $user = $services->get('AuthenticationService')->getUser();
+        $result = array('token' => session_id(), 'isSaved' => False);
+        if (isset($user)) {
+            if ($this->request->isPost()) {
+                $body = $this->params()->fromPost('body');
+                //$datePublishStart = \DateTime::createFromFormat('Y-m-d',$this->params()->fromPost('datePublishStart'));
+                $settings = $this->settings();
+                $settings->mailText = $body;
+                $result['post'] = $_POST;
+            }
+        } else {
+            $result['message'] = 'session_id is lost';
+        }
+        return new JsonModel($result);
+    }
 }
 
  
