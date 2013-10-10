@@ -30,12 +30,13 @@ return array(
             'lang' => array(
                 'child_routes' => array(
                     'settings' => array(
-                        'type' => 'Literal',
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/settings',
+                            'route' => '/settings[/:module]',
                             'defaults' => array(
                                 'controller' => 'Settings\Controller\Index',
                                 'action' => 'index',
+                                'module' => 'Settings',
                             ),
                         ),
                         'may_terminate' => true,

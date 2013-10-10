@@ -28,12 +28,18 @@ class IndexController extends AbstractActionController
     {   
         $ServiceLocator = $this->getServiceLocator();
         
-        $name = 'Settings';
-        $name = 'Auth';
-        $formName = 'Settings/' . $name;
+        $moduleName = $this->params('module');
+        $modulesWithSettings = $this->config("settings", True);
+        //$config = $ServiceLocator->get();
+        
+        $subMenu = array();
+        foreach($modulesWithSettings as $key => $param) {
+            $subMenu[] = ucfirst($key);
+        }
+        $formName = 'Settings/' . $moduleName;
         
         // Fetching an distinct Settings
-        $settings = $this->settings($name);
+        $settings = $this->settings($moduleName);
         
         // Write-Access is per default only granted to the own module - change that
         $settings->setAccessWrite();
@@ -65,7 +71,8 @@ class IndexController extends AbstractActionController
         // man könnte hier auch einfach nur ein Array zurückgeben
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
-            'form' => $form
+            'form' => $form,
+            'subMenu' => $subMenu
         ));
         return $viewModel;
     }
