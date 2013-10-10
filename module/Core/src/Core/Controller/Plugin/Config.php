@@ -27,7 +27,7 @@ class Config extends AbstractPlugin
         
         return $erg;
         
-        return $all?$this->getByKey($key):$this->get($key);
+        //return $all?$this->getByKey($key):$this->get($key);
     }
     
     public function get($key = null)
