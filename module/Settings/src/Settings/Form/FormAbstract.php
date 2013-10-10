@@ -66,7 +66,7 @@ abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
         $this->setName('setting-core');
         
         $pluginUrl = $this->getPlugin('url');
-        $url = call_user_func_array($pluginUrl, array(null, array('lang' => 'de')));
+        $url = call_user_func_array($pluginUrl, array(null, array(), null, true));
         $this->setAttribute('action', $url);
         
         //->setHydrator(new ModelHydrator())
