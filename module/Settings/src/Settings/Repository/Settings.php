@@ -47,20 +47,25 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
      */
     public function getSettingsByUser($user)
     {
+        $userId = $user;
+        $userEntity = Null;
         if ($user instanceOf EntityInterface) {
-            $user = $user->getId();
+            $userId = $user->getId();
+            $userEntity = $user;
         }
-        if (isset($this->settingsByUser[$user])) {
+        if (isset($this->settingsByUser[$userId])) {
             return $this->settingsByUser[$user];
         }
-        $UserRepository = $this->getUserRepository();
-        $userEntity = $UserRepository->find($user);
+        if (empty($userEntity)) {
+            $UserRepository = $this->getUserRepository();
+            $userEntity = $UserRepository->find($userId);
+        }
         
         if (isset($userEntity)) {
             $settingsData = $userEntity->getSettings();
-            $this->settingsByUser[$user] = new SettingsEntity($this);
-            $this->settingsByUser[$user]->setData($settingsData)->spawnAsEntities(); 
-            return $this->settingsByUser[$user];
+            $this->settingsByUser[$userId] = new SettingsEntity($this);
+            $this->settingsByUser[$userId]->setData($settingsData)->spawnAsEntities(); 
+            return $this->settingsByUser[$userId];
         }
         return Null;
     }

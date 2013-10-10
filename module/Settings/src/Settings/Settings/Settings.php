@@ -12,6 +12,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Exception;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Auth\Entity\UserInterface;
 
 class Settings extends AbstractPlugin
 {
@@ -31,6 +32,10 @@ class Settings extends AbstractPlugin
     
     public function __invoke($module = null, $user = null)
     {
+        if ($module instanceOf UserInterface) {
+            $user = $module;
+            $module = null;
+        }
         if (!isset($user)) {
             $auth = $this->auth;
             $user = $auth->getIdentity();
