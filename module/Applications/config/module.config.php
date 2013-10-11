@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Cross Applicant Management
  * Configuration file of the Applications module
@@ -6,27 +7,19 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
-
 return array(
-    
     'service_manager' => array(
         'invokables' => array(
-            
         ),
         'factories' => array(
-            
         ),
     ),
-    
     'controllers' => array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
-            
         ),
     ),
-    
-    
     // Routes
     'router' => array(
         'routes' => array(
@@ -35,10 +28,10 @@ return array(
                     'apply' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'    => '/apply',
+                            'route' => '/apply',
                             'defaults' => array(
                                 'controller' => 'Applications\Controller\Index',
-                                'action'     => 'index',
+                                'action' => 'index',
                             ),
                         ),
                         'may_terminate' => false,
@@ -82,6 +75,64 @@ return array(
                             ),
                         ),
                     ),
+                    'applicationsData' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/rest/applications/:method/:key',
+                            'constraints' => array(
+                                'method' => '(get|set)',
+                                'key' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => '\Applications\Controller\Manage',
+                                'action' => 'rest',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'detail' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/:id',
+                                    'constraints' => array(
+                                        'id' => '[a-z0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'detail',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'applicationsData' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/rest/applications/:method/:key',
+                    'constraints' => array(
+                        'method' => '(get|set)',
+                        'key' => '.+',
+                    ),
+                    'defaults' => array(
+                        'controller' => '\Applications\Controller\Manage',
+                        'action' => 'rest',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'detail' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/:id',
+                            'constraints' => array(
+                                'id' => '[a-z0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'detail',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
@@ -89,7 +140,7 @@ return array(
     
     // Navigation
     'navigation' => array(
-        'default' => array( 
+        'default' => array(
             'apply' => array(
                 'label' => 'Applications',
                 'route' => 'lang/applications',
@@ -106,17 +157,15 @@ return array(
             ),
         ),
     ),
-    
     'translator' => array(
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern' => '%s.mo',
             ),
         ),
     ),
-    
     // Configure the view service manager
     'view_manager' => array(
         'template_path_stack' => array(
@@ -126,60 +175,49 @@ return array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
-            
         )
     ),
-    
     'view_helpers' => array(
-        
     ),
-    
     'form_elements' => array(
-         'invokables' => array(
+        'invokables' => array(
 //             'ApplicationFieldset' => '\Applications\Form\ApplicationFieldset',
 //             'EducationFieldset' => '\Applications\Form\EducationFieldset',
 //             'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
-             'Application' => '\Applications\Form\CreateApplication',
-             
-         ),
+            'Application' => '\Applications\Form\CreateApplication',
+        ),
         'factories' => array(
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
-            'Applications/AttachmentsFieldset'   => '\Applications\Form\AttachmentsFieldsetFactory',
+            'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
         ),
-     ),
-     
-     'filters' => array(
-         'factories'=> array(
-             'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
-         ),
-     ),
-     
-     'repositories' => array(
-         'invokables' => array(
-             'Application' => 'Applications\Repository\Application',
-         ),
-     ),
-     
-     'mappers' => array(
-         
-         'abstract_factories' => array(
-             'Applications\Repository\Mapper\AbstractMapperFactory'
-         ),
-     ),
-    
-     'entity_builders' => array(
-         'factories' => array(
-             'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
-             'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
-             'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
-             'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
-             'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
-             'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
-             'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
-             'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
-             'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
-         ),
-     ),
-    
+    ),
+    'filters' => array(
+        'factories' => array(
+            'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
+        ),
+    ),
+    'repositories' => array(
+        'invokables' => array(
+            'Application' => 'Applications\Repository\Application',
+        ),
+    ),
+    'mappers' => array(
+        'abstract_factories' => array(
+            'Applications\Repository\Mapper\AbstractMapperFactory'
+        ),
+    ),
+    'entity_builders' => array(
+        'factories' => array(
+            'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
+            'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
+            'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
+            'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
+            'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
+            'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
+            'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
+            'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
+            'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
+        ),
+    ),
 );
