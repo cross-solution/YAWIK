@@ -104,4 +104,31 @@ class ManageController extends AbstractActionController
     	return array('application'=> $application);
     }
     
+    public function restAction() {
+        $method = $this->params('method');
+        $value = $this->params()->fromPost('value','');
+        $key = $this->params('key');
+        $user = $this->auth()->getUser();
+        $result = array();   
+        if (strcasecmp($key, 'mailtext') == 0) {
+            $settingsJobAuth = $this->settings('auth', $user);
+            if (strcasecmp($method, 'get') == 0) {
+                $result = array('result' => $settingsJobAuth->getMailText());
+            }
+            if (strcasecmp($method, 'set') == 0) {
+                $settingsJobAuth->setAccessWrite(True);
+                $settingsJobAuth->setMailText($value);
+                $result = array('result' => $settingsJobAuth->getMailText());
+                //$result['old'] = $value;
+                //$result['post'] = $_POST;
+                //$result['get'] = $_GET;
+                //$result['server'] = $_SERVER;
+                //$result['request'] = $_REQUEST;
+            }
+        }
+        $viewModel = new JsonModel();
+        $viewModel->setVariables($result);
+        return $viewModel;
+    }
+    
 }
