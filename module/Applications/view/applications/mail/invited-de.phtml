@@ -1,6 +1,6 @@
 <?php $contact = $application->contact; $job = $application->job; ?>
 <?php $this->setSubject('Einladung zum persönlichen Gespräch')?>
-Sehr geehrte<?php echo 'male' == $contact->gender ? 'r Herr' : 'Frau' ?> <?php echo $contact->firstname . ' ' . $contact->lastName ?>,
+Sehr geehrte<?php echo 'male' == $contact->gender ? 'r Herr' : ' Frau' ?> <?php echo $contact->firstname . ' ' . $contact->lastName ?>,
 
 Danke für Ihr Interesse an unserem Unternehmen und Ihre Bewerbung auf unsere freie Stelle
 "<?php echo $job->title ?>".
