@@ -1,0 +1,15 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$form->setAttributes(array(
+    'action' => $_SERVER['REQUEST_URI']
+));
+$form->get('mailText')->setAttribute('style', 'height: 250px');
+echo $this->form($form);
+

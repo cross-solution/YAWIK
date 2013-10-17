@@ -2,6 +2,7 @@ body{padding:60px 0 30px}
 h1{border-bottom:1px solid #ccc}
 th a{display:block;color:#f00}
 th a:hover{color:#005580;text-decoration:none}
+.modal-backdrop,.modal-backdrop.fade.in{opacity:.15}
 #topbar .container{width:auto;margin:0 20px}
 #topbar #login-info-box #login-links{line-height:0}
 #topbar #login-info-box #login-links .login-link{display:block;float:left;width:20px;height:20px;margin:10px 0 0 10px}

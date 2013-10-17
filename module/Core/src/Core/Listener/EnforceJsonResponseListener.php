@@ -60,7 +60,12 @@ class EnforceJsonResponseListener implements ListenerAggregateInterface
         $isJsonModel = $viewModel instanceOf JsonModel;
         $routeMatch = $e->getRouteMatch();
         
-        if (($routeMatch && $routeMatch->getParam('forceJson', false)) || $isJsonModel) {
+        if (
+            ($routeMatch && $routeMatch->getParam('forceJson', false)) 
+            || $isJsonModel
+            || "json" == $e->getRequest()->getQuery('format')
+            || "json" == $e->getRequest()->getPost('format')
+        ) {
         
             
             if (!$isJsonModel) {
@@ -77,6 +82,7 @@ class EnforceJsonResponseListener implements ListenerAggregateInterface
                 }
                 $viewModel = $model;
                 $e->setResult($model);
+                $e->setViewModel($model);
             }
             $viewModel->setTerminal(true);
             

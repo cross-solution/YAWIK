@@ -70,7 +70,8 @@
     echo $this->navigation()->menu()
               ->setOnlyActiveBranch()
               ->setMaxDepth(null)
-              ->setMinDepth(1)
+              //->setMinDepth(1)
+              ->setRenderParents(false)
               ->setUlClass('nav nav-tabs nav-stacked');
 ?>
 </div>

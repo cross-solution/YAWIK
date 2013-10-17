@@ -72,6 +72,20 @@ return array(
                                         'action' => 'detail',
                                     ),
                                 ),
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    
+                                    'status' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/:status',
+                                            'defaults' => array(
+                                                'action' => 'status',
+                                                'status' => 'bad',
+                                            ),
+                                        ),
+                                    ),
+                                ),
                             ),
                         ),
                     ),
@@ -135,6 +149,16 @@ return array(
                     ),
                 ),
             ),
+            'mailtest' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/applications/mailtest',
+                    'defaults' => array(
+                        'controller' => '\Applications\Controller\Manage',
+                        'action' => 'mail-test',
+                    ),
+                ),
+            ),
         ),
     ),
     
@@ -145,15 +169,12 @@ return array(
                 'label' => 'Applications',
                 'route' => 'lang/applications',
                 'order' => 20,
-//                 'pages' => array(
-//                     'facebook' => array(
-//                         'label' => 'Facebook',
-//                         'route' => 'auth/auth-providers',
-//                         'params' => array(
-//                             'provider' => 'facebook'
-//                         ),
-//                      ),
-//                 ),
+                'pages' => array(
+                    'list' => array(
+                        'label' => /*@translate*/ 'Overview',
+                        'route' => 'lang/applications',
+                    ),
+                ),
             ),
         ),
     ),
@@ -185,39 +206,50 @@ return array(
 //             'EducationFieldset' => '\Applications\Form\EducationFieldset',
 //             'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
-            'Application' => '\Applications\Form\CreateApplication',
-        ),
+             'Application' => '\Applications\Form\CreateApplication',
+             'Applications/Mail' => 'Applications\Form\Mail',
+         ),
         'factories' => array(
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
         ),
-    ),
+     ),
+     
     'filters' => array(
-        'factories' => array(
+        'invokables' => array(
+            'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
+        ),
+        'factories'=> array(
             'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
         ),
     ),
-    'repositories' => array(
-        'invokables' => array(
-            'Application' => 'Applications\Repository\Application',
-        ),
-    ),
-    'mappers' => array(
-        'abstract_factories' => array(
-            'Applications\Repository\Mapper\AbstractMapperFactory'
-        ),
-    ),
-    'entity_builders' => array(
-        'factories' => array(
-            'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
-            'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
-            'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
-            'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
-            'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
-            'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
-            'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
-            'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
-            'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
-        ),
-    ),
+     
+     'repositories' => array(
+         'invokables' => array(
+             'Application' => 'Applications\Repository\Application',
+         ),
+     ),
+     
+     'mappers' => array(
+         
+         'abstract_factories' => array(
+             'Applications\Repository\Mapper\AbstractMapperFactory'
+         ),
+     ),
+    
+     'entity_builders' => array(
+         'factories' => array(
+             'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
+             'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
+             'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
+             'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
+             'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
+             'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
+             'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
+             'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
+             'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
+             'Applications/History' => 'Applications\Repository\EntityBuilder\HistoryBuilderFactory',
+             'Applications/JsonHistory' => 'Applications\Repository\EntityBuilder\JsonHistoryBuilderFactory',
+         ),
+     ),
 );

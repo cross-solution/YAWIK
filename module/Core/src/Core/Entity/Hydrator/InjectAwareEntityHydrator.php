@@ -45,6 +45,8 @@ class InjectAwareEntityHydrator extends EntityHydrator
                 $object->$method($this->hydrateValue($property, $data[$property]));
             }
         }
+        
+        return $object;
     }
 }
 

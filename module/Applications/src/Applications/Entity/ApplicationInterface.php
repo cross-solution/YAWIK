@@ -3,18 +3,19 @@
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\CollectionInterface;
 use Core\Entity\IdentifiableEntityInterface;
 
 interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface 
 {
-   
+    
     public function setJobId($jobId);
     public function getJobId();
     
     public function getJob();
     public function injectJob(EntityInterface $job);
     
-    public function setStatus(Status $status);
+    public function setStatus($status);
     public function getStatus();
     
     public function setDateCreated($dateCreated);
@@ -28,5 +29,8 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     
     public function setCv(EntityInterface $cv);
     public function getCv();
+    
+    public function setHistory(HistoryCollectionInterface $history);
+    public function getHistory(); 
     
 }

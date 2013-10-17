@@ -16,6 +16,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
     protected $size;
     protected $type;
     protected $dateUploaded;
+    protected $uri;
     protected $content;
     protected $contentCallback;
     protected $resource;
@@ -108,6 +109,16 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
         return $this;
     }
 
+    public function getUri()
+    {
+        return $this->uri;
+    }
+    
+    public function injectUri($uri)
+    {
+        $this->uri = (string) $uri;
+        return $this;
+    }
 	/**
      * @return the $content
      */

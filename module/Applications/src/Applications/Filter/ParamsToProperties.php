@@ -78,6 +78,10 @@ class ParamsToProperties implements FilterInterface
                 $sortProp = "dateModified.date";
                 break;
                 
+            case "status":
+                $sortProp = "status.order";
+                break;
+                
             default:
                 break;
         }

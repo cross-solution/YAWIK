@@ -19,9 +19,11 @@ class JsonFileBuilder extends EntityBuilder
      * @todo Belongs in a strategy...
      * @param EntityInterface $entity
      */
-    public function unbuildd(EntityInterface $entity)
+    public function unbuild(EntityInterface $entity)
     {
-        return $entity->getId();
+        $data = parent::unbuild($entity);
+        $data['uri'] = $entity->getUri();
+        return $data;
     }
     
 }

@@ -36,6 +36,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 
     protected $attachments;
     
+    protected $history;
     
     /**
      * @return the $jobId
@@ -68,9 +69,21 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this;
     }
 
-    public function setStatus(Status $status)
+    public function setStatus($status)
     {
+        if (!$status instanceOf Status) {
+            $status = new Status($status);
+        } 
         $this->status = $status;
+        return $this;
+    }
+    
+    public function changeStatus($status)
+    {
+        $this->setStatus($status);
+        $status = $this->getStatus(); // ensure StatusEntity
+        
+        $this->getHistory()->addFromStatus($status);
         return $this;
     }
     
@@ -162,5 +175,16 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	public function getAttachments()
 	{
 	    return $this->attachments;
+	}
+	
+	public function setHistory(HistoryCollectionInterface $history)
+	{
+	    $this->history = $history;
+	    return $this;
+	}
+	
+	public function getHistory()
+	{
+	    return $this->history;
 	}
 }

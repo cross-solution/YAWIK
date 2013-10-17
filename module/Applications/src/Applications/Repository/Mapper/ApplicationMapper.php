@@ -50,7 +50,7 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         } else {
             $sort = array();
         }
-        $cursor = $this->getCursor($query, array('cv'), true); //, array('cv'), true);
+        $cursor = $this->getCursor($query, array('cv', 'history'), true); //, array('cv'), true);
         $cursor->sort($sort);
         return new MongoCursorAdapter($cursor, $this->builders->get('application'));
     }
@@ -60,8 +60,12 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
      *
      * @param string|\MongoId $id Mongodb id
      */
-    public function find($id, array $fields = array(), $exclude = false)
+    public function find($id, array $fields = null, $exclude = false)
     {
+        if (null === $fields) {
+            $fields = array('contact', 'history', 'cv');
+            $exclude = true;
+        }
         $data = $this->getData($id, $fields, $exclude);
         $builder = $this->builders->get('application');
         $entity = $builder->build($data);
@@ -73,7 +77,7 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         $query = array('_id' => $this->getMongoId($id));
         $fields = array(
             'jobId', 'status', 'dateCreated', 'dateModified',
-            'cv'
+            'cv', 'history'
         );
         $data = $this->getData($query, $fields, true);
         if (!isset($data['contact'])) {
@@ -116,6 +120,21 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         return $entity; 
     }
 
+    public function fetchHistory($applicationId)
+    {
+        $query = array(
+            '_id' => $this->getMongoId($applicationId),
+            'history' => array('$exists' => true)
+        );
+        $fields = array('history' => 1, '_id' => 0);
+        $data = $this->getData($query, $fields);
+        $data = isset($data['history']) ? $data['history'] : array();
+        
+        
+        $collection = $this->buildCollection($data, 'Applications/History');
+        return $collection;
+    }
+    
     public function save(EntityInterface $entity)
     {
         $builder = $this->builders->get('application');
@@ -123,23 +142,25 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         if ($job = $entity->getJob()) {
             $data['refs']['jobs']['userId'] = $job->getUserId();
         }
-        $auth = $this->mappers->getServiceLocator()->get('AuthenticationService');
-        if ($auth->hasIdentity()) {
-            $data['refs']['users']['id'] = $auth->getIdentity();
-        }
+        
         if (count($entity->getAttachments())) {
-            $data['refs']['applications.files'] = $this->builders->get('Core/File')->unbuildCollection(
+            $data['refs']['applications-files'] = $this->builders->get('Core/File')->unbuildCollection(
                 $entity->getAttachments()
             );
         }
         if (isset($data['cv']) && empty($data['cv']['_id'])) {
             $data['cv']['_id'] = new \MongoId();
         }
+//         if (isset($data['history']) && count($data['history'])) {
+//             $data['history'] = array_reverse($data['history']);
+//         }
         $id      = $this->saveData($data);
         if ($id) {
             $entity->setId($id);
         }
     }
+    
+    
     
     
 

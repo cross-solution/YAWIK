@@ -4,45 +4,45 @@ namespace Applications\Entity;
 
 use Core\Entity\AbstractEntity;
 
-class Status extends AbstractEntity
+class Status extends AbstractEntity implements StatusInterface
 {
-    
-    const STATUS_NEW = 0;
-    const STATUS_CONFIRMED = 10;
-    const STATUS_INVITED = 20;
-    
-    protected static $statusNames = array(
-        self::STATUS_NEW        => 'new',
-        self::STATUS_CONFIRMED  => 'confirmed',
-        self::STATUS_INVITED    => 'invited',
+    protected static $order = array(
+        self::INCOMING => 10,
+        self::CONFIRMED => 20,
+        self::INVITED => 30,
+        self::REJECTED => 40,
     );
     
     protected $status;
         
-    public function __construct($status = null)
+    public function __construct($status = self::INCOMING)
     {
-        if (null !== $status) {
-            $this->setStatus($status);
+        $constant = 'self::' . strtoupper($status);
+        if (!defined($constant)) {
+            throw new \DomainException('Unknown status: ' . $status);
         }
-    }
-    
-    public function setStatus($status = self::STATUS_NEW)
-    {
-        $this->status = $status;
-    }
-    
-    public function getStatus()
-    {
-        return $this->status;
+        $this->status = constant($constant);
     }
     
     public function getName()
     {
-        return self::$statusNames[$this->getStatus()];
+        return $this->status;
+    }
+
+    public function getOrder()
+    {
+        return self::$order[$this->getName()];
     }
     
     public function __toString()
     {
         return $this->getName();
+    }
+    
+    public function getStates()
+    {
+        $states = self::$order;
+        asort($states, SORT_NUMERIC);
+        return array_keys($states);
     }
 }

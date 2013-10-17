@@ -100,6 +100,7 @@ return array(
     'entity_builders' => array(
         'factories' => array(
             'job' => '\Jobs\Repository\EntityBuilder\JobBuilderFactory',
+            'jsonJob' => '\Jobs\Repository\EntityBuilder\JsonJobBuilderFactory'
         ),
     ),
 );

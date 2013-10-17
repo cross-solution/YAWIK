@@ -13,13 +13,10 @@ namespace Applications\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Applications\Model\Hydrator\ApplicationHydrator;
-use Applications\Model\JsonApplication;
-use Zend\Stdlib\Hydrator\Strategy\ClosureStrategy;
-use Core\Mapper\Criteria\Criteria;
-use Core\Filter\ListQuery;
-use Core\Mapper\Query\Query;
+use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
+use Applications\Entity\StatusInterface as Status;
+
 
 
 
@@ -36,9 +33,18 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
+        $params = $this->getRequest()->getQuery();
+        $session = new Session('Applications\Index');
+        if ($session->params) {
+            foreach ($session->params as $key => $value) {
+                if ('format' == $key) { continue; }
+                $params->set($key, $params->get($key, $value));
+            }
+        }
+        $session->params = $params->toArray();
         
         $v = new ViewModel(array(
-            'by' => $this->params()->fromQuery('by', 'me'),
+            'by' => $params->get('by', 'me'),
             'hasJobs' => (bool) $this->getServiceLocator()
                                      ->get('repositories')
                                      ->get('job')
@@ -47,14 +53,11 @@ class ManageController extends AbstractActionController
         $v->setTemplate('applications/sidebar/manage');
         $this->layout()->addChild($v, 'sidebar_applicationsFilter');
         $repository = $this->getServiceLocator()->get('repositories')->get('application');
-        $params = $this->params()->fromQuery();
-        
-            
         
         $paginator = new \Zend\Paginator\Paginator(
-            $repository->getPaginatorAdapter($params)
+            $repository->getPaginatorAdapter($params->toArray())
         );
-        $paginator->setCurrentPageNumber($this->params()->fromQuery('page'))
+        $paginator->setCurrentPageNumber($params->get('page', 1))
                   ->setItemCountPerPage(10);
         
         
@@ -75,9 +78,8 @@ class ManageController extends AbstractActionController
         
         return array(
             'applications' => $paginator,
-            'byJobs' => isset($params['by']) && 'jobs' == $params['by'],
-            'sort' => isset($params['sort']) ? $params['sort'] : 'none',
-            
+            'byJobs' => 'jobs' == $params->get('by', 'me'),
+            'sort' => $params->get('sort', 'none'),
         );
         
         
@@ -100,7 +102,11 @@ class ManageController extends AbstractActionController
     		);
     		return $viewModel;
     	}
-
+        
+    	$nav = $this->getServiceLocator()->get('main_navigation');
+    	$page = $nav->findByRoute('lang/applications');
+    	$page->setActive();
+    	
     	return array('application'=> $application);
     }
     
@@ -130,5 +136,77 @@ class ManageController extends AbstractActionController
         $viewModel->setVariables($result);
         return $viewModel;
     }
+
+    public function statusAction()
+    {
+        $applicationId = $this->params('id');
+        $repository    = $this->getServiceLocator()->get('repositories')->get('Application');
+        $application   = $repository->find($applicationId);
+        $jsonFormat    = 'json' == $this->params()->fromQuery('format');
+        $status        = $this->params('status', Status::CONFIRMED);
+        
+        if (in_array($status, array(Status::CONFIRMED, Status::INCOMING))) {
+            $application->changeStatus($status);
+            $repository->save($application);
+            if ($this->request->isXmlHttpRequest()) {
+                $response = $this->getResponse();
+                $response->setContent('ok');
+                return $response;
+            }
+            if ($jsonFormat) {
+                return array(
+                    'status' => 'success',
+                );
+            }
+            return $this->redirect()->toRoute('lang/applications/detail', array(), true);
+        }
+        
+        $mail          = $this->mail(array('application' => $application));
+        
+        if ($this->request->isPost()) {
+            // @todo must be in Mail-Controller-Plugin ::send()
+            //       or in Plugin-Factory "MailFactory"
+            $mail->setEncoding('UTF-8');
+            $mail->getHeaders()->addHeader(\Zend\Mail\Header\ContentType::fromString('Content-Type: text/plain; charset=utf-8'));
+            
+            $mail->setSubject($this->params()->fromPost('mailSubject'));
+            $mail->setBody($this->params()->fromPost('mailText'));
+            $mail->setFrom('no-reply@bewerbermanagement.cross-solution.de', $application->job->company);
+            $mail->addTo($application->contact->email, $application->contact->displayName);
+            $mail->send();
+            $application->changeStatus($status);
+            $repository->save($application);
+            
+            if ($jsonFormat) {
+                return array(
+                    'status' => 'success', 
+                );
+            }
+            return $this->redirect()->toRoute('lang/applications/detail', array(), true);
+        }
+        
+        $mail->template("$status-" . $this->params('lang'));
+        $mailText      = $mail->getBody();
+        $mailSubject   = $mail->getSubject();
+        
+        $params = array(
+                'applicationId' => $applicationId,
+                'status'        => $status,
+                'mailSubject'   => $mailSubject,
+                'mailText'      => $mailText        
+            ); 
+        if ($jsonFormat) {
+            return $params;
+        }
+        
+        $form = $this->getServiceLocator()->get('FormElementManager')->get('Applications/Mail');
+        $form->populateValues($params);
+        
+        
+        return array(
+            'form' => $form
+        );
+          
+    } 
     
 }

@@ -10,7 +10,7 @@
 <div id="applications-list-filter">
 <h4><?php echo $this->translate('List filter')?>:</h4>
 <?php if ($this->hasJobs):?>
-<ul class="nav nav-tabs nav-stacked"><li>
+<ul class="nav nav-tabs nav-stacked">
 
 <?php foreach (array('me' => 'My applications', 'jobs' => 'Applications by jobs') as $byParam => $label): ?>
     <li<?php echo $byParam == $this->by ? ' class="active"' : '' ?>>

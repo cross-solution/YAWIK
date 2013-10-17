@@ -29,11 +29,11 @@ class FileMapperAbstractFactory implements AbstractFactoryInterface
     */
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName) 
     {
-        list($fileStore,) = explode('/', $requestedName);
+        list($fileStore,) = explode('/', strtolower($requestedName));
         $db = $serviceLocator->getServiceLocator()->get('MongoDb');
-        $grid = new \MongoGridFS($db, strtolower($fileStore));
+        $grid = new \MongoGridFS($db, $fileStore);
         $builder = $serviceLocator->getServiceLocator()->get('builders')->get('Core/File');
-        
+        $builder->setFileStoreName($fileStore);
         $mapper = new FileMapper($grid, $builder);
         
         

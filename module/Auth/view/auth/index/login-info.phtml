@@ -26,14 +26,14 @@
             $ref = $this->stripQueryParams($_SERVER['REQUEST_URI'], array('logout'));
         echo $this->url('lang/auth', array(), array(
                                                 'query' => array(
-                                                    'ref' => $ref,
+                                                    'ref' => urlencode($ref),
                                                  )), true)?>"
              ><i class="icon-user"></i> <?php echo $this->translate('Login')?></a></li>
         <li class="divider"></li>
-        <li class="disabled"><a href="#"><?php echo $this->translate('Login via')?>...</a></li>
+        <li class="disabled"><a><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
         <li>
-            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($_SERVER['REQUEST_URI']))))?>"><img src="/images/Auth/<?php echo $provider ?>.png" /> <?php echo $name?></a>
+            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><img src="/images/Auth/<?php echo $provider ?>.png" /> <?php echo $name?></a>
         </li>
     <?php endforeach ?>
     </ul>

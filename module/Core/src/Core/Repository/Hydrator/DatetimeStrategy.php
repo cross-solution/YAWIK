@@ -46,6 +46,9 @@ class DatetimeStrategy implements StrategyInterface
      */
     public function hydrate ($value)
     {
+        if ($value instanceOf \DateTime) {
+            return $value;
+        }
         switch ($this->hydrateFormat) {
             case self::FORMAT_MONGO:
                 return $this->hydrateFromMongoFormat($value);

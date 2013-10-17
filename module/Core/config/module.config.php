@@ -164,7 +164,8 @@ return array(
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
-            'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined'
+            'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
+            'formatDate' => 'Core\View\Helper\FormatDate',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',

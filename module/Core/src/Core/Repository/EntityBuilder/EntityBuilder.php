@@ -63,7 +63,7 @@ class EntityBuilder implements EntityBuilderInterface
     public function getCollection ()
     {
         if (!$this->collectionPrototype) {
-            $this->setCollectionPrototype();
+            $this->setCollectionPrototype(new \Core\Entity\Collection());
         }
         return clone $this->collectionPrototype;
     }

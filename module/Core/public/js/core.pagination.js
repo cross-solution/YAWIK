@@ -13,7 +13,7 @@
 	$.fn.pagination = function()
 	{
 		return this.each(function() {
-			$(this).find('.pagination li[class!="disabled"] a')
+			$(this).find('.pagination li[class!="disabled"] a, th a')
 			       .click({"container": $(this)}, paginate);
 		});
 	};

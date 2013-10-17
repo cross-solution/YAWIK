@@ -32,12 +32,11 @@ class StripQueryParams implements FilterInterface
     
     public function filter($value, array $stripParams = array())
     {
-        $value_array = explode('?', $value, 2);
-        $uri = $value_array[0];
-        $query = '';
-        if (count($value_array) < 2 || empty($value_array[1])) {
-            return $uri;
+        if (false === strpos($value, '?')) {
+            return $value;
         }
+        
+        list($uri, $query) = explode('?', $value, 2);
         
         if (empty($stripParams)) {
             $stripParams = $this->getStripParams();

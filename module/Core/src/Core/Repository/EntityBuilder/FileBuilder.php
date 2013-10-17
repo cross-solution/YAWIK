@@ -15,8 +15,27 @@ use Core\Entity\EntityInterface;
 class FileBuilder extends EntityBuilder 
 {
     
+    protected $fileStoreName;
     
-    public function build($data = array())
+    
+    /**
+     * @return the $fileStoreName
+     */
+    public function getFileStoreName ()
+    {
+        return $this->fileStoreName;
+    }
+
+	/**
+     * @param field_type $fileStoreName
+     */
+    public function setFileStoreName ($fileStoreName)
+    {
+        $this->fileStoreName = $fileStoreName;
+        return $this;
+    }
+
+	public function build($data = array())
     {
         $dataArray = array(
             '_id' => $data->file['_id'],
@@ -24,8 +43,13 @@ class FileBuilder extends EntityBuilder
             'size' => $data->getSize(),
             'type' => $data->file['mimetype'],
             'dateUploaded' => $data->file['dateUploaded'],
+            //'uri' => $_SERVER['HTTP_HOST'] . '/file/' . $this->getFileStoreName() . '/' . $data->getFilename(),
         );
         $entity = parent::build($dataArray);
+        $entity->injectUri(
+            'http://' . $_SERVER['HTTP_HOST'] . '/file/' . $this->getFileStoreName() 
+            . '/' . $entity->getId() . '/' . $entity->getName()
+        );
         
         /*@todo needs better strategy!*/
         $entity->injectContent(function() use ($data) {

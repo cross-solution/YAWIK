@@ -38,13 +38,9 @@ class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInte
     
     public function build($data = array())
     {
-        if (isset($data['attachments'])) {
-            $attachmentsIds = $data['attachments'];
-            unset($data['attachments']);
-        } else {
-            $attachmentsIds = false;
-        }
+        
         $entity = parent::build($data);
+        
         if (!$entity->job) {
             $job = new RelationEntity(
                 array($this->repositories->get('job'), 'find'),
@@ -52,14 +48,16 @@ class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInte
             );
             $entity->injectJob($job);
         }
-        if (isset($data['refs']['applications.files'])) {
-            $mapper = $this->mappers->get('Applications/Files');
-            
-            $entity->injectAttachments(new RelationCollection(
+        
+        $attachments = isset($data['refs']['applications-files'])
+            ? new RelationCollection(
                 array($this->mappers->get('Applications/Files'), 'fetchByIds'),
-                array($data['refs']['applications.files'])
-            ));
-        }
+                array($data['refs']['applications-files'])
+              )
+            : $this->getCollection();
+        $entity->injectAttachments($attachments);
+        
         return $entity;
     }
+    
 }

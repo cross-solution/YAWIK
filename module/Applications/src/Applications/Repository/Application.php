@@ -27,7 +27,7 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
 	public function find ($id, $mode=self::LOAD_LAZY)
     {
         $entity = $mode == self::LOAD_EAGER
-              ? $this->getMapper('application')->find($id)
+              ? $this->getMapper('application')->find($id, array())
               : $this->getMapper('application')->find($id, 
                       array('cv'),
                       /*exclude*/ true
@@ -60,6 +60,18 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $this->getMapper('application')->getPaginatorAdapter($params);
     }
     
+    public function changeStatus($application, $status)
+    {
+        $application->setStatus($status);
+        $history = $this->builders->get('Applications/History')->build(array(
+            'date' => new \DateTime(),
+            'status' => $application->getStatus(),
+            'message' => '[System]'
+        ));
+        $application->getHistory()->add($history);
+        $this->save($application);
+        return $this;
+    }
     
     public function save(EntityInterface $entity)
     {
