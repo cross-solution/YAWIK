@@ -35,11 +35,13 @@ class IndexController extends AbstractActionController
         $services = $this->getServiceLocator();
         $request = $this->getRequest();
         
-        $job = ($request->isPost())
-             ? $services->get('repositories')->get('job')->find($this->params()->fromPost('jobId'))
-             : $services->get('repositories')->get('job')->findByApplyId($this->params('jobId'));
+        list($jobId,$applyId) = array($this->params()->fromPost('jobId',0), (int) $this->params()->fromPost('applyId',0));
+        $job = ($request->isPost() && !empty($jobId))
+             ? $services->get('repositories')->get('job')->find($jobId)
+             : $services->get('repositories')->get('job')->findByApplyId((0 == $applyId)?$this->params('jobId'):$applyId);
         
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
+        
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
             'job' => $job,

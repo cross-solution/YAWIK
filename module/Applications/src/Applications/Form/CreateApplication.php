@@ -8,9 +8,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Entity\Hydrator\InjectAwareEntityHydrator as Hydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class CreateApplication extends Form implements ServiceLocatorAwareInterface, InputFilterProviderInterface
+class CreateApplication extends Form implements ServiceLocatorAwareInterface
 {
     protected $forms;
+    protected $inputFilterSpecification;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -43,10 +44,8 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
             //'type' => 'hidden',
             'type' => 'text',
             'name' => 'jobId',
-            'required' => true,
-            'options' => array(
-                'required' => true
-            )
+            'required' => true
+           
             
         ));
         
@@ -66,13 +65,4 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface, In
        
     }
     
-    public function getInputFilterSpecification()
-    {
-        
-        return array(
-            'jobId' => array(
-                'required' => true
-            )
-        );
-    }
 }
