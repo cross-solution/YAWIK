@@ -32,6 +32,7 @@ class IndexController extends AbstractActionController
 //         $view->setTerminal(true);
 //         return $view;
         //$this->layout('layout/apply');
+        
         $services = $this->getServiceLocator();
         $request = $this->getRequest();
         
@@ -56,6 +57,9 @@ class IndexController extends AbstractActionController
         $form->bind($applicationEntity);
        
         if ($request->isPost()) {
+            if ($returnTo = $this->params()->fromPost('returnTo', false)) {
+                $returnTo = \Zend\Uri\UriFactory::factory($returnTo);
+            }
             $services = $this->getServiceLocator();
             $repository = $services->get('repositories')->get('Application');
             
@@ -75,6 +79,10 @@ class IndexController extends AbstractActionController
                         'ok' => false,
                         'messages' => $form->getMessages()
                     ));
+                }
+                if ($returnTo) {
+                    $returnTo->setQuery($returnTo->getQueryAsArray() + array('status' => 'failure'));
+                    return $this->redirect()->toUrl((string) $returnTo);
                 }
                 //$form->populateValues($data);
             } else {
@@ -124,6 +132,10 @@ class IndexController extends AbstractActionController
                         'id' => $applicationEntity->id,
                         'jobId' => $applicationEntity->jobId,
                     ));
+                }
+                if ($returnTo) {
+                    $returnTo->setQuery($returnTo->getQueryAsArray() + array('status' => 'success'));
+                    return $this->redirect()->toUrl((string) $returnTo);
                 }
                 $viewModel->setVariable('isApplicationSaved', true);
             }
