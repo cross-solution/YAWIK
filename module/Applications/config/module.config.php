@@ -208,6 +208,7 @@ return array(
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
              'Application' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
+             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset',
          ),
         'factories' => array(
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',

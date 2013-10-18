@@ -86,6 +86,7 @@ class IndexController extends AbstractActionController
                 }
                 //$form->populateValues($data);
             } else {
+                
                 $applicationEntity->setStatus(new Status());
                 //$applicationEntity->injectJob($job);
                 $imageData = $form->get('contact')->get('image')->getValue();

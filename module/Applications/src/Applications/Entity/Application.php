@@ -29,6 +29,8 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      */
     protected $contact;
     
+    protected $summary;
+    
     /*
      * Resume, containing employments, educations and skills
      */
@@ -155,6 +157,17 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this;
     }
 
+    public function setSummary($summary)
+    {
+        $this->summary = (string) $summary;
+        return $this;
+    }
+    
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+    
 	public function setCv(EntityInterface $cv)
 	{
 	    $this->cv = $cv;

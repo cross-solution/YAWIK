@@ -27,6 +27,9 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function setContact(EntityInterface $contact);
     public function getContact();
     
+    public function setSummary($summary);
+    public function getSummary();
+    
     public function setCv(EntityInterface $cv);
     public function getCv();
     

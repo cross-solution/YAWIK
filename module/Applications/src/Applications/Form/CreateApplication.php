@@ -34,6 +34,12 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         return $this->hydrator;
     }
     
+    public function setObject($object)
+    {
+        $this->get('base')->setObject($object);
+        return parent::setObject($object);
+    }
+    
 	public function init()
     {
         $this->setName('create-application-form');
@@ -52,6 +58,9 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
                                ->setLabel('personal informations')
                                ->setName('contact')
                                ->setObject($this->forms->getServiceLocator()->get('builders')->get('auth-info')->getEntity()));
+        
+        $this->add($this->forms->get('Applications/BaseFieldset'));
+        
         $this->add(
             $this->forms->get('CvFieldset')
                         ->setObject($this->forms->getServiceLocator()->get('builders')->get('Cv')->getEntity())
