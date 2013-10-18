@@ -28,8 +28,7 @@ class CvFieldset extends Fieldset
         $this->setName('cv');
         $this->setAttribute('id', 'cv');
         $this->add(array(
-            //'type' => 'hidden',
-            'type' => 'text',
+            'type' => 'hidden',
             'name' => 'id'
         ));
         

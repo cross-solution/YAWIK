@@ -41,8 +41,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
 
         
         $this->add(array(
-            //'type' => 'hidden',
-            'type' => 'text',
+            'type' => 'hidden',
             'name' => 'jobId',
             'required' => true
            
@@ -61,7 +60,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             $this->forms->get('Applications/AttachmentsCollection')
         );
         $this->add($this->forms->get('DefaultButtonsFieldset'));
-        $this->get('cv')->get('educations')->setCount(1)->prepareFieldset();
+       
        
     }
     

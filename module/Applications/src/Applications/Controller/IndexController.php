@@ -96,26 +96,28 @@ class IndexController extends AbstractActionController
                 
                 $repository->save($applicationEntity);
                 
-                $userInfo = $this->auth()->get('info')->getEntity();
-                if (isset($userInfo)) {
-                    // TODO: will dieser User eine Info haben (aus den Settings lesen)
-                    $email = $userInfo->getEmail();
-                    if (isset($email)) {
-                        $userRel = $job->getUser();
-                        //$user = $userRel->getEntity();
-                        //$settings = $this->settings('auth', $user);
-                        $settingsJobAuth = $this->settings('auth', $job->getUserid());
-                        if (isset($settingsJobAuth->mailText)) {
-                            $mail = $this->mail();
-                            $mail->addTo($email);
-                            $mail->setBody($settingsJobAuth->mailText);
-                            $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
-                            $mail->setSubject('Bestätigung Bewerbung');
-                            $result = $mail->send();
-                        }  
+                if ($this->auth()->isLoggedIn()) {
+                    $userInfo = $this->auth()->get('info')->getEntity();
+                    if (isset($userInfo)) {
+                        // TODO: will dieser User eine Info haben (aus den Settings lesen)
+                        $email = $userInfo->getEmail();
+                        if (isset($email)) {
+                            $userRel = $job->getUser();
+                            //$user = $userRel->getEntity();
+                            //$settings = $this->settings('auth', $user);
+                            $settingsJobAuth = $this->settings('auth', $job->getUserid());
+                            if (isset($settingsJobAuth->mailText)) {
+                                $mail = $this->mail();
+                                $mail->addTo($email);
+                                $mail->setBody($settingsJobAuth->mailText);
+                                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
+                                $mail->setSubject('Bestätigung Bewerbung');
+                                $result = $mail->send();
+                            }  
+                        }
                     }
                 }
-                
+                    
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,
