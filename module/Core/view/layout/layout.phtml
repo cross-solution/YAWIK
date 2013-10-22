@@ -41,6 +41,8 @@
                 <div class="nav-collapse collapse" id="main-navigation">
                     <?php 
                         echo $this->navigation('main_navigation')
+                                  ->setAcl($this->services('acl'))
+                                  ->setRole($this->auth('role'))
                                   ->menu()
                                   ->setMaxDepth(0)
                                   ->setUlClass('nav')//renderPartial(null, 'main-navigation')?>
@@ -70,7 +72,7 @@
     echo $this->navigation()->menu()
               ->setOnlyActiveBranch()
               ->setMaxDepth(null)
-              //->setMinDepth(1)
+              ->setMinDepth(1)
               ->setRenderParents(false)
               ->setUlClass('nav nav-tabs nav-stacked');
 ?>

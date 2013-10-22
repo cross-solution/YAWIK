@@ -12,11 +12,12 @@ namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\EntityInterface;
+use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
  * User model interface 
  */
-interface UserInterface extends IdentifiableEntityInterface
+interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
     
     /**
@@ -33,6 +34,8 @@ interface UserInterface extends IdentifiableEntityInterface
      */
     public function getLogin();
     
+    public function setRole($role);
+    public function getRole();
     public function setInfo(EntityInterface $info);
     public function getInfo();    
     public function setPassword($password);

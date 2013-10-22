@@ -12,7 +12,6 @@ return array(
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
-            //'AuthenticationService' => '\Zend\Authentication\AuthenticationService',
         ),
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
@@ -21,8 +20,13 @@ return array(
             'auth-login-adapter' => '\Auth\Service\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Service\UnauthorizedAccessListenerFactory',
+            'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
             'Acl' => '\Acl\Service\AclFactory',
+            'Acl/AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
         ),
+        'aliases' => array(
+            'assertions' => 'Acl/AssertionManager',
+        )
     ),
     
     'controllers' => array(
@@ -38,6 +42,9 @@ return array(
         'invokables' => array(
             'Auth' => '\Auth\Controller\Plugin\Auth',
         ),
+        'factories' => array(
+            'Acl' => '\Acl\Controller\Plugin\AclFactory',
+        )
     ),
     
     'hybridauth' => array(
@@ -175,6 +182,75 @@ return array(
                         'action' => 'index',
                         'id' => 0,
                     ),
+                ),
+            ),
+        ),
+    ),
+    
+    /*
+     * Acl definitions.
+     * Format
+     * array($ROLE[:$PARENT] => $RESOURCES);
+     * 
+     * $ROLE: Role name
+     * $PARENT: Coma separated list of roles to inherit from.
+     * $RESOURCES: array of resources
+     *      a resource is 
+     *      1. a string: taken as resource name
+     *                   (when prefixed with "!", a deny rule is created.)
+     *      1.1 the "null" value: allow on all resources.
+     *      2. a key => string pair:
+     *          key is the resource name (optionally prefixed with "!")
+     *          if key is "__ALL__" rule apply to all resources.
+     *          string is the privilege name
+     *      3. a key => array pair:
+     *              key is the resource name (optionally prefixed with "!")
+     *              array are the privileges which each of is
+     *              1. a string: Taken as privilege name
+     *              2. a key => string pair:
+     *                  key is the privilege name
+     *                  string is the name of the assertion class to instantiate and use with this rule.
+     *              3. a key => array pair:
+     *                  key is the privilege name
+     *                  array is:
+     *                      index 0: Name of the assertion class,
+     *                      index 1: array of parameters to pass to the constructor of the assertion.
+     *                  
+     */
+    'acl' => array(
+        'roles' => array(
+            'guest',
+            'user' => 'guest',
+            'admin'
+        ),
+        
+        'rules' => array(
+            'guest' => array(
+                'allow' => array(
+                    'route/lang/auth',
+                    'route/auth-provider',
+                    'route/auth-hauth',
+                    'route/auth-extern',
+                ),
+            ),
+            'user' => array(
+                'allow' => array(
+                    'route/auth-logout',
+                ),
+                'deny' => array( 
+                    'route/lang/auth',
+                    'route/auth-provider',
+                    'route/auth-hauth',
+                    'route/auth-extern',
+                ),
+            ),
+            'admin' => array(
+                'allow' => "__ALL__",
+                'deny' => array(
+                    'route/lang/auth',
+                    'route/auth-provider',
+                    'route/auth-hauth',
+                    'route/auth-extern',
                 ),
             ),
         ),

@@ -53,6 +53,25 @@ return array(
             ),
         ),
     ),
+    
+    'acl' => array(
+        'rules' => array(
+            'user' => array(
+                'allow' => array(
+                    //'route/file',
+                    'Entity/File' => array(
+                        '__ALL__' => 'Core/FileAccess'
+                    ),
+                ),
+            ), 
+        ),
+        'assertions' => array(
+            'invokables' => array(
+                'Core/FileAccess' => 'Core\Acl\FileAccessAssertion',
+            ),
+        ),
+    ),
+    
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
@@ -174,6 +193,7 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+            'Core\FileCollection' => 'Core\Form\FileCollection',
         ),
     ),
     

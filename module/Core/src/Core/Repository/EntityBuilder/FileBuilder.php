@@ -11,13 +11,14 @@
 namespace Core\Repository\EntityBuilder;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\RelationEntity;
+use Core\Repository\Mapper\MapperInterface;
 
 class FileBuilder extends EntityBuilder 
 {
     
     protected $fileStoreName;
-    
-    
+        
     /**
      * @return the $fileStoreName
      */
@@ -35,16 +36,13 @@ class FileBuilder extends EntityBuilder
         return $this;
     }
 
-	public function build($data = array())
+    public function build($data = array())
     {
-        $dataArray = array(
-            '_id' => $data->file['_id'],
-            'name' => $data->getFilename(),
-            'size' => $data->getSize(),
-            'type' => $data->file['mimetype'],
-            'dateUploaded' => $data->file['dateUploaded'],
-            //'uri' => $_SERVER['HTTP_HOST'] . '/file/' . $this->getFileStoreName() . '/' . $data->getFilename(),
-        );
+        $dataArray = $data->file;
+        $dataArray['name'] = $data->getFilename();
+        $dataArray['size'] = $data->getSize();
+        $dataArray['type'] = $data->file['mimetype'];
+
         $entity = parent::build($dataArray);
         $entity->injectUri(
             'http://' . $_SERVER['HTTP_HOST'] . '/file/' . $this->getFileStoreName() 
@@ -59,6 +57,7 @@ class FileBuilder extends EntityBuilder
         $entity->injectResource(function() use ($data) {
             return $data->getResource();
         });
+        
         
         return $entity;
         

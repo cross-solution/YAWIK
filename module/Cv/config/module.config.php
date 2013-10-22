@@ -67,6 +67,17 @@ return array(
         ),
     ),
     
+    'acl' => array(
+        'rules' => array(
+            'user' => array(
+                'allow' => array(
+                    'route/lang/cvs',
+                    'Cv\Controller\Manage',
+                ),
+            ),
+        ),
+    ),
+    
     // Configuration of the controller service manager (Which loads controllers)
     'controllers' => array(
         'invokables' => array(
@@ -81,8 +92,8 @@ return array(
             'resume' => array(
                 'label' =>  /*@translate*/ 'Resumes',
                 'route' => 'lang/cvs',
+                'resource' => 'route/lang/cvs',
                 'order' => 10,
-                //'route' => 'lang/cvs',
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',

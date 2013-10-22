@@ -2,8 +2,11 @@
 
 namespace Acl\Service;
 
+use Acl\Config;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Permissions\Acl\Acl; 
+
 //use Acl\Adapter\Acl;
 
 /**
@@ -23,7 +26,16 @@ class AclFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $acl = new Acl();
+        $assertions  = $serviceLocator->get('Acl\AssertionManager');
+        $configArray = $serviceLocator->get('Config');
+        
+        if (!isset($configArray['acl'])) {
+            throw new \OutOfRangeException('Missing index "acl" in config.');
+        }
+        
+        $config = new Config($configArray['acl'], $assertions);
+        $acl = $config->configureAcl(new Acl());
+        
         return $acl;
     }
 }

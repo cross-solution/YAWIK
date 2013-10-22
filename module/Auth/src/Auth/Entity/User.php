@@ -12,6 +12,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
 
+
 /**
  * The user model
  */
@@ -20,6 +21,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
    
     /** @var string */
     protected $login;
+    protected $role;
     protected $info;
     
     protected $credential;
@@ -45,6 +47,25 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     public function getLogin()
     {
         return $this->login;
+    }
+    
+    public function setRole($role)
+    {
+        $this->role = $role;
+        return $this;
+    }
+    
+    public function getRole()
+    {
+        if (!$this->role) {
+            $this->setRole('user');
+        }
+        return $this->role;
+    }
+    
+    public function getRoleId()
+    {
+        return $this->getRole();
     }
     
     public function setInfo(EntityInterface $info)

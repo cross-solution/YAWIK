@@ -28,7 +28,11 @@ class IndexController extends AbstractActionController
      *
      */
     public function indexAction()
-    { }
+    { 
+        $acl = $this->getServiceLocator()->get('Acl');
+        $check = $acl->isAllowed('user', 'route/auth-logout');
+        
+    }
     
     public function mailAction() {
         $ServiceLocator = $this->getServiceLocator();

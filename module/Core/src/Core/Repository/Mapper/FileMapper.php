@@ -12,6 +12,7 @@ namespace Core\Repository\Mapper;
 
 use \Core\Entity\EntityInterface;
 use Core\Repository\EntityBuilder\EntityBuilderInterface;
+use Core\Repository\Hydrator\EntityHydrator;
 
 class FileMapper extends AbstractMapper
 {
@@ -88,6 +89,9 @@ class FileMapper extends AbstractMapper
             'mimetype' => $fileData['type'],
             'filename' => $fileName,
         );
+        if (isset($fileData['meta'])) {
+            $meta = array_merge($meta, $fileData['meta']);
+        }
         
         $fileId = $this->collection->storeFile($fileData['tmp_name'], $meta); 
         
@@ -106,14 +110,16 @@ class FileMapper extends AbstractMapper
         
         fclose($origin);
         $now      = new \DateTime('now');
-        $meta = array(
-            'dateUploaded' => array(
-                'date' => new \MongoDate($now->getTimestamp()),
-                'tz' => $now->getTimezone()->getName(),
-            ),
-            'mimetype' => $file->type,
-            'filename' => $file->name,
+        $hydrator = new EntityHydrator();
+        $meta = $hydrator->extract($file);
+        unset($meta['type'], $meta['name'], $meta['dateUploaded']);
+        $meta['dateUploaded'] = array(
+            'date' => new \MongoDate($now->getTimestamp()),
+            'tz' => $now->getTimezone()->getName(),
         );
+        $meta['mimetype'] = $file->type;
+        $meta['filename'] = $file->name;
+        
         $fileId = $this->collection->storeFile($tmpName, $meta);
         fclose($target);
         unlink($tmpName);

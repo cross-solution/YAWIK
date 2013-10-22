@@ -5,11 +5,10 @@ namespace Auth\Listener;
 
 use Zend\Mvc\View\Http\ExceptionStrategy;
 use Zend\View\Model\ViewModel;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 use Auth\Exception\UnauthorizedAccessException;
 use Zend\Http\PhpEnvironment\Response;
+use Auth\Exception\UnauthorizedImageAccessException;
 
 
 class UnauthorizedAccessListener extends ExceptionStrategy
@@ -46,14 +45,23 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         if (!$exception instanceOf UnauthorizedAccessException) {
             return;
         }
-    
-        $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
-        
+      
         $response = $e->getResponse();
         if (!$response) {
             $response = new Response();
             $e->setResponse($response);
         }
+        
+        /*
+         * Return an image, if a image was requested.
+         */
+        if ($exception instanceOf UnauthorizedImageAccessException) {
+            $response->getHeaders()->addHeaderLine('Location', '/images/unauthorized-access.png');
+            $response->setStatusCode(302);
+            return $response;
+        }
+        
+        $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
         
         if (!$auth->hasIdentity()) {
             $response->setStatusCode(Response::STATUS_CODE_302);

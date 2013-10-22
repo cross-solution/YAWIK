@@ -46,7 +46,14 @@ return array(
         ),
     ),
     
-    
+    'acl' => array('rules' => array(
+        'user' => array(
+            'allow' => array(
+                'route/lang/settings',
+                'Settings\Controller\Index',
+            ),
+        ),
+    )),
     
     // Navigation-Konfig für die main_navigation
     'navigation' => array(
@@ -54,6 +61,7 @@ return array(
             'settings' => array(
                 'label' => /*@translate*/ 'Settings',
                 'route' => 'lang/settings',
+                'resource' => 'route/lang/settings',
                 'order' => 40,
             ),
         ),

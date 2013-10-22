@@ -76,6 +76,7 @@ class Auth extends AbstractHelper
         }
     }
     
+   
     /**
      * Checks if an user is authenticated.
      * 

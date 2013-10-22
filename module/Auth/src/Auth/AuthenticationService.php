@@ -36,18 +36,19 @@ class AuthenticationService extends ZendAuthService
 	public function getUser()
     {
         if (!$this->user) {
-            $id = $this->getIdentity();
-            if (null === $id) { return null; }
-        
-            $user = $this->getRepository()->find($id);
-            if (!$user) {
-                $this->clearIdentity();
-                return null;
+            if ($this->hasIdentity() && ($id = $this->getIdentity())) {
+                $user = $this->getRepository()->find($id);
+                if (!$user) {
+                    throw new \OutOfBoundsException('Unknown user id: ' . $id);
+                }
+                $this->user = $user;
+            } else {
+                $this->user = $this->getRepository()->create(array(
+                    'role' => 'guest'
+                ));
             }
-            $this->user = $user;
         }
         
         return $this->user;
-        
     }
 }

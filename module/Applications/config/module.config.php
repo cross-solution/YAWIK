@@ -149,19 +149,18 @@ return array(
                     ),
                 ),
             ),
-            'mailtest' => array(
-                'type' => 'literal',
-                'options' => array(
-                    'route' => '/applications/mailtest',
-                    'defaults' => array(
-                        'controller' => '\Applications\Controller\Manage',
-                        'action' => 'mail-test',
-                    ),
+        ),
+    ),
+    'acl' => array(
+        'rules' => array(
+            'user' => array(
+                'allow' => array(
+                    'route/lang/applications',
+                    'Applications\Controller\Manage',
                 ),
             ),
         ),
     ),
-    
     // Navigation
     'navigation' => array(
         'default' => array(
@@ -169,6 +168,7 @@ return array(
                 'label' => 'Applications',
                 'route' => 'lang/applications',
                 'order' => 20,
+                'resource' => 'route/lang/applications',
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',

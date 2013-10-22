@@ -45,6 +45,16 @@ return array(
         ),
     ),
     
+    'acl' => array(
+        'rules' => array(
+            'user' => array(
+                'allow' => array(
+                    'Jobs\Controller\Manage'
+                ),
+            ),                
+        ),
+    ),
+    
     'navigation' => array(
         'default' => array(
             'jobs' => array(

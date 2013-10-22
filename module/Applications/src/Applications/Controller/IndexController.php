@@ -105,6 +105,8 @@ class IndexController extends AbstractActionController
                 
                 $repository->save($applicationEntity);
                 
+                
+                
                 if ($this->auth()->isLoggedIn()) {
                     $userInfo = $this->auth()->get('info')->getEntity();
                     if (isset($userInfo)) {

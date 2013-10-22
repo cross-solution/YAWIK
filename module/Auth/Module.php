@@ -72,10 +72,12 @@ class Module
             array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
         );
         
+        $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+        $checkPermissionsListener->attach($eventManager);
+        
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
-        $acl = $services->get('acl'); 
-        $eventManager->attach($acl);
+        
     }
     
 }

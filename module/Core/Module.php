@@ -57,6 +57,8 @@ class Module
             $eventManager->trigger('postDispatch', $event);
         }, -150);
         
+        
+        
     }
 
     /**

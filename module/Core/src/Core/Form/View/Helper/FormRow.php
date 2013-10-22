@@ -46,7 +46,7 @@ class FormRow extends ZendFormRow
     
         if (!$element->hasAttribute('id')) {
             $elementId = preg_replace(
-                array('~[^A-Za-z0-9]~', '~--+~', '~^-|-$~'),
+                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
                 array('-'             , '-',     ''),
                 $element->getName()
             );

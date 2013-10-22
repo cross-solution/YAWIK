@@ -8,13 +8,15 @@
  */
 
 /** FileRepositoryAbstractFactory.php */ 
-namespace Core\Repository\EntityBuilder;
+namespace Applications\Repository\EntityBuilder;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\Hydrator\EntityHydrator;
+use Core\Repository\EntityBuilder\FileBuilderFactory as CoreFileBuilderFactory;
+use Applications\Entity\FileEntity;
 
-class FileBuilderFactory implements FactoryInterface
+class FileBuilderFactory extends CoreFileBuilderFactory
 {
     
     /* (non-PHPdoc)
@@ -22,16 +24,10 @@ class FileBuilderFactory implements FactoryInterface
     */
     public function createService(ServiceLocatorInterface $serviceLocator) 
     {
-        $hydrator = new EntityHydrator();
-        $hydrator->addStrategy('dateUploaded', new \Core\Repository\Hydrator\DatetimeStrategy());
-        
-        $builder = new FileBuilder(
-            $hydrator, 
-            new \Core\Entity\FileEntity(),
-            new \Core\Entity\Collection()
-        );
-        
+        $builder = parent::createService($serviceLocator);
+        $builder->setEntityPrototype(new FileEntity());
         return $builder;
+        
     }
     
     public function getHydrator()

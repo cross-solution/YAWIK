@@ -14,26 +14,28 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class FileUploadHydrator implements HydratorInterface
 {
+    protected $repository;    
     
-    
-    public function __construct($repository, $fieldName = 'file')
+    public function __construct($repository)
     {
-        $this->fieldName = $fieldName;
-        $this->strategy = new \Core\Repository\Hydrator\FileUploadStrategy($repository);
-        
+        $this->repository = $repository;
     }
+    
+    public function hydrate (array $data, $object)
+    {
+        $entityId = $this->repository->saveUploadedFile($data);
+        $entity = $this->repository->find((string) $entityId);
+        return $entity;
+    }
+    
+    /* (non-PHPdoc)
+     * @see \Zend\Stdlib\Hydrator\Strategy\StrategyInterface::hydrate()
+    */
     
     public function extract($object) 
     {
-       return $this->strategy->extract($object); 
+       return $object->getId();
     }
     
-    public function hydrate(array $data, $object)
-    {
-        if (!isset($data[$this->fieldName])) {
-            return $object;
-        }
-        return $this->strategy->hydrate($data[$this->fieldName]);
-    }
 }
 

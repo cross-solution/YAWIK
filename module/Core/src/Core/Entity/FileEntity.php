@@ -10,8 +10,12 @@
 /** FileEntity.php */ 
 namespace Core\Entity;
 
-class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterface
+use Auth\Entity\UserInterface;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
+
+class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterface, ResourceInterface
 {
+    protected $allowedUserIds;
     protected $name;
     protected $size;
     protected $type;
@@ -21,7 +25,32 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
     protected $contentCallback;
     protected $resource;
     protected $resourceCallback;
+
+    public function getResourceId()
+    {
+        return 'Entity/File';
+    }
 	
+    public function getAllowedUserIds()
+    {
+        return $this->allowedUserIds;
+    }
+    
+    public function setAllowedUserIds(array $ids)
+    {
+        $this->allowedUserIds = $ids;
+        return $this;
+    }
+    
+    public function addAllowedUser($user)
+    {
+        if ($user instanceOf UserInterface) {
+            $user = $user->getId();
+        }
+        $this->allowedUserIds[] = $user;
+        return $this;
+    }
+    
 	/**
      * @return the $name
      */

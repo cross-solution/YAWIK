@@ -11,6 +11,8 @@
 namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Auth\Exception\UnauthorizedImageAccessException;
+use Auth\Exception\UnauthorizedAccessException;
 
 class FileController extends AbstractActionController
 {
@@ -34,6 +36,8 @@ class FileController extends AbstractActionController
             $response->setStatusCode(404);
             return;
         }
+        
+        $this->acl($file);
         
         $response->getHeaders()->addHeaderline('Content-Type', $file->type)
                                ->addHeaderline('Content-Length', $file->size);

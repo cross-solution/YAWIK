@@ -32,7 +32,10 @@ class FileMapperAbstractFactory implements AbstractFactoryInterface
         list($fileStore,) = explode('/', strtolower($requestedName));
         $db = $serviceLocator->getServiceLocator()->get('MongoDb');
         $grid = new \MongoGridFS($db, $fileStore);
-        $builder = $serviceLocator->getServiceLocator()->get('builders')->get('Core/File');
+        $builders = $serviceLocator->getServiceLocator()->get('builders');
+        $builder = $builders->canCreate("$fileStore/File")
+                 ? $builders->get("$fileStore/File")
+                 : $builders->get('Core/File');
         $builder->setFileStoreName($fileStore);
         $mapper = new FileMapper($grid, $builder);
         
