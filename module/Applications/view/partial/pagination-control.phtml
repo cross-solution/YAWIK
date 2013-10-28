@@ -1,0 +1,48 @@
+
+<?php if ($this->pageCount): 
+$query = $this->params()->fromQuery();
+?>
+<!--
+
+würde über dem Result besser passen. Geht das?
+
+<?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
+of <?php echo $this->totalItemCount; ?>
+-->
+<!-- First page link -->
+<div class="pagination pagination-centered">
+<ul>
+<?php if (isset($this->previous)): ?>
+  <li><a href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+    <?= $this->translate('First')?>
+  </a></li>
+<?php else: ?>
+  <li class="disabled"><a><?= $this->translate('First');?></a></li>
+<?php endif; ?>
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <li><a href="<?php $query['page'] = $this->previous; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+    <?= $this->translate('&lt; Previous')?>
+  </a></li>
+<?php else: ?>
+  <li class="disabled"><a><?= $this->translate('&lt; Previous')?></a></li>
+<?php endif; ?>
+<!-- Next page link -->
+<?php if (isset($this->next)): $query['page'] = $this->next; ?>
+  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+    <?= $this->translate('Next &gt;')?>
+  </a></li>
+<?php else: ?>
+  <li class="disabled"><a>Next &gt;</a></li>
+<?php endif; ?>
+<!-- Last page link -->
+<?php if (isset($this->next)): $query['page'] = $this->last; ?>
+  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+    <?= $this->translate('Last')?>
+  </a></li>
+<?php else: ?>
+  <li class="disabled"><a><?= $this->translate('Last')?></a></li>
+<?php endif; ?>
+</ul>
+<?php endif; ?>
+</div>

@@ -1,0 +1,14 @@
+<?php
+$this->formRow()->setShouldWrap(false);
+
+
+?>
+<div class="controls control-row row-fluid">
+    <div class="span12 buttons-row text-center">    
+        <?php $first=true; foreach($this->element as $button):?>
+            <?php $button->setAttribute('class', $button->getAttribute('class') . ' btn-blsock');
+            echo $this->formRow($button);
+        endforeach;?>    
+    </div>
+</div>
+

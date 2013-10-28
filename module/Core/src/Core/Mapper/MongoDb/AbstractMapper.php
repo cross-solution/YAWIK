@@ -11,7 +11,12 @@
 namespace Core\Mapper\MongoDb;
 
 use Core\Mapper\MongoDb\MapperInterface;
+use Core\Mapper\MongoDb\Hydrator\DatetimeStrategy;
 use Core\Mapper\AbstractMapper as CoreAbstractMapper;
+use Core\Mapper\Criteria\CriteriaInterface;
+use Core\Model\Collection as ModelCollection;
+use Core\Model\ModelInterface;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
  * Concrete implementation of \Core\Mapper\MongoDb\MapperInterface
@@ -38,6 +43,7 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
         return $this;
     }
 
+    
     /**
      * {@inheritdoc}
      * 
@@ -70,13 +76,53 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
      * 
      * @param string|\MongoId $id Mongodb id
      */
-    public function find($id)
+    public function find($id, $fields = array())
     {
         if (!$id instanceOf \MongoId) {
             $id = $this->_getMongoId($id);
         }
-        $data = $this->_collection->findOne(array('_id' => $id));
+        $data = $this->_collection->findOne(array('_id' => $id), $fields);
+        return $data;
         return $this->_createFromResult($data);
+    }
+    
+    /**
+     * {@inheritdoc}
+     * 
+     * @param CriteriaInterface|null $criteria
+     * @return Collection
+     */
+    public function fetchAll($criteria=null)
+    {
+        if (null === $criteria) {
+            $criteria = new \Core\Mapper\Query\Query();
+        }
+        //$conv = new \Core\Mapper\MongoDb\QueryConverter($criteria);
+        $cursor = $this->convertQuery($criteria);
+        return $this->_createCollectionFromResult($cursor);
+    }
+    
+    /**
+     * Saves an application
+     *
+     * @param ModelInterface $model
+     * @see \Core\Mapper\MapperInterface::save()
+     */
+    public function save(ModelInterface $model)
+    {
+        
+        $hydrator = $this->getModelHydrator();
+        $data = $hydrator->extract($model);
+  
+        print_r($data);
+        return;
+        if ($data['id']) {
+            $data['_id'] = $this->_getMongoId($data['id']);
+        }
+        unset($data['id']);
+    
+        $this->_collection->save($data);
+        $model->setId((string) $data['_id']);
     }
     
     /**
@@ -94,6 +140,16 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
         return $data ? $this->create($data) : null;
     }
     
+    protected function _createCollectionFromResult($cursor)
+    {
+        $models = array();
+        foreach ($cursor as $data) {
+            $models[] = $data; //$this->create($data);
+        }
+        $collection = $this->createCollection($models);
+        return $collection;
+    }
+    
     /**
      * Creates a MongoId-Object from a string.
      * 
@@ -104,4 +160,7 @@ abstract class AbstractMapper extends CoreAbstractMapper implements MapperInterf
     {
         return new \MongoId($id);
     }
+    
+    
+    
 }

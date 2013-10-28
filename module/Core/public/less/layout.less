@@ -1,0 +1,146 @@
+
+// Color Definitions
+
+@colorError:               #B94A48;
+@colorErrorShadow:	   #D59392;
+@colorErrorBorder:         #953B39;
+@colorLink:                #ff0000;
+@colorLinkHover:           #005580;
+@backgroundFieldset:       #fdfdfd;
+@backgroundSidebarActive:  #f5f5f5;
+
+body {
+	padding: 60px 0 30px;	
+}
+
+h1 {
+	border-bottom: 1px solid #ccc;
+}
+
+th {
+	a {
+		display: block;
+		color: @colorLink;
+	}
+ 	a:hover {
+		color: @colorLinkHover;
+		text-decoration: none;
+        }
+}
+
+// Bootstrap Overrides
+.modal-backdrop,
+.modal-backdrop.fade.in {
+	opacity: 0.15;
+}
+
+// Top Navigation Bar
+
+#topbar {
+  .container {
+	width: auto;
+	margin: 0 20px;
+   }
+   #login-info-box #login-links {
+	line-height: 0px;
+   }
+   #login-info-box #login-links .login-link {
+	display: block;
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin: 10px 0 0 10px;
+  }
+}
+
+
+.navbar .nav > .dropdown > a {
+	float: left;
+}
+/*header #login-info-box a {
+	color: @colorLink;
+}
+header #login-info-box a:hover {
+	color: @colorLink;
+}*/
+
+// Sidebar
+
+#sidebar {
+	margin-top: -20px;
+	width: 13.8936%;
+
+	#language-switcher {
+		width: 100%;
+	}
+	#language-switcher button
+	{
+		width: 50%;
+	}
+	> div {
+		margin-top: 35px;
+
+ 	}
+  	ul li.active a {
+		background-color: @backgroundSidebarActive;
+	}
+} 
+
+label {
+	margin-top: 5px;
+}
+.buttons-row > * {
+	margin-right: 15px;
+}
+form .input-error {
+	color: @colorError;
+}
+form .input-error input {
+	border-color: @colorError;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+form .input-error input:focus {
+	border-color: @colorErrorBorder;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px @colorErrorShadow;
+}
+
+fieldset fieldset,
+fieldset .fieldset-content {
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: @backgroundFieldset;
+}
+.form-inline fieldset .fieldset-content .controls-row {
+	margin-bottom: 15px;
+}
+fieldset legend > a {
+	margin-top: 5px;
+	margin-right: 5px;
+}
+fieldset fieldset a.remove-item {
+	margin-top: -15px;
+	margin-right: 5px;
+}
+
+footer.modal-footer {
+	color: #777;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 0;
+}
+footer.modal-footer .container-fluid {
+	margin-top: 1px;
+}
+footer.modal-footer .container-fluid p {
+	margin: 0;
+}
+footer.modal-footer .container-fluid p a {
+	color: #555;
+}

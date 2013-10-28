@@ -33,7 +33,7 @@ class HybridAuthAdapterFactory implements FactoryInterface
     {
         $adapter = new HybridAuthAdapter();
         $adapter->setHybridAuth($serviceLocator->get('HybridAuth'));
-        $adapter->setMapper($serviceLocator->get('UserMapper'));
+        $adapter->setRepository($serviceLocator->get('repositories')->get('user'));
         return $adapter;
     }
     

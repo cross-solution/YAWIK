@@ -1,0 +1,26 @@
+<?php 
+    $this->headTitle($this->translate('Apply'));
+    $this->headscript()->appendFile($this->basepath('js/Core/jquery.formcollection.js'));
+    $this->headscript()->appendScript('$(function(){$(".form-collection").formcollection();});');
+    
+    
+?>
+<h1><?php echo $this->translate('Application')?></h1>
+<p class="lead"><?php printf(
+    $this->translate('Apply to "%s" from "%s"'), 
+    '<a href="/job-url" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->title)) . '</a>',
+    $job->company
+) ?></p>
+
+<?php if ($isApplicationSaved):?>
+<p><?php echo $this->translate('your application was sent successfully')?></p>
+<?php else: 
+    $form->setAttributes(array(
+        'action' => $this->url('lang/apply/submit', array(), true),
+        'method' => 'post',
+        'id' => 'application-form',
+    ));
+        
+    echo $this->form($form);
+endif; ?>
+ 

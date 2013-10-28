@@ -48,11 +48,16 @@ class UserMapper extends AbstractMapper implements UserMapperInterface
      */
     public function save(ModelInterface $model)
     { 
-        $data = array(
+    	$data = array(
             'email' => $model->email,
             'firstName' => $model->firstName,
             'lastName' => $model->lastName,
             'displayName' => $model->displayName,
+            'birthDay' => $model->birthDay,
+        	'birthMonth' => $model->birthMonth,
+        	'birthYear' => $model->birthYear,
+        	'gender' => $model->gender,	
+        	'street' => $model->street,
         );
         if (!empty($model->profile)) {
             $data['profile'] = $model->profile;

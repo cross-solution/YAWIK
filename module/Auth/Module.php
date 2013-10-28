@@ -11,6 +11,8 @@ namespace Auth;
 
 use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
+use Auth\Listener\TokenListener;
+use Auth\Listener\UnauthorizedAccessListener;
 /**
  * Bootstrap class of the Core module
  * 
@@ -18,6 +20,12 @@ use Auth\View\InjectLoginInfoListener;
 class Module
 {
 
+    public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
+    {
+        $eventManager  = $moduleManager->getEventManager()->getSharedManager();
+        $tokenListener = new TokenListener();
+        $tokenListener->attachShared($eventManager);
+    }
     /**
      * Loads module specific configuration.
      * 
@@ -48,6 +56,7 @@ class Module
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    'Acl' => __DIR__ . '/src/Acl'
                 ),
             ),
         );
@@ -55,10 +64,20 @@ class Module
     
     public function onBootstrap(MvcEvent $e)
     {
-        $e->getApplication()->getEventManager()->attach(
-            MvcEvent::EVENT_RENDER,
-            array(new InjectLoginInfoListener(), 'injectLoginInfo')
+        $eventManager = $e->getApplication()->getEventManager();
+        $services     = $e->getApplication()->getServiceManager();
+        
+        $eventManager->attach(
+            array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
+            array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
         );
+        
+        $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+        $checkPermissionsListener->attach($eventManager);
+        
+        $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
+        $unauthorizedAccessListener->attach($eventManager);
+        
     }
     
 }

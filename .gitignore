@@ -12,7 +12,10 @@ config/autoload/*.php
 #
 # Unit test code coverage reports
 #
-module/*/test/coverage
+public/coverage
+public/docs
+*/*/test/coverage
+log
 
 #
 # Composer packages
@@ -25,3 +28,4 @@ vendor
 .settings
 .buildpath
 .project
+nbproject

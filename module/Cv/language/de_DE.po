@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-02 18:29+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: view/cv/manage/form.phtml:2
+msgid "Edit resume"
+msgstr "Lebenslauf bearbeiten"
+
+#: view/cv/manage/form.phtml:2
+#: language/_annotated_strings.php:48
+msgid "Create resume"
+msgstr "Lebenslauf erstellen"
+
+#: view/cv/manage/form.phtml:7
+msgid "Create a new resume"
+msgstr "neuen Lebenslauf erstellen"
+
+#: view/cv/manage/form.phtml:11
+msgid "Your resume was saved successfully."
+msgstr "Ihr Lebenslauf wurde erfolgreich gespeichert"
+
+#: src/Cv/Form/EducationFieldset.php:18
+msgid "Education"
+msgstr "Ausbildung"
+
+#: src/Cv/Form/EmploymentFieldset.php:16
+msgid "Employment"
+msgstr "Anstellung"
+
+#: src/Cv/Form/EducationCollectionFactory.php:18
+msgid "Education history"
+msgstr "Ausbildungsverlauf"
+
+#: language/_annotated_strings.php:3
+msgid "Start date"
+msgstr "Beginn"
+
+#: language/_annotated_strings.php:6
+msgid "End date"
+msgstr "Ende"
+
+#: language/_annotated_strings.php:9
+msgid "Degree"
+msgstr "Abschluss"
+
+#: language/_annotated_strings.php:12
+msgid "please enter the name of your qualification"
+msgstr "Bitte nennen Sie den Namen Ihrer Qualifikation"
+
+#: language/_annotated_strings.php:15
+msgid "Organization Name"
+msgstr "Name des Universität"
+
+#: language/_annotated_strings.php:18
+msgid "please enter the name of the university or school"
+msgstr "Bitte nennen Sie den Namen der Universität, an der Sie studiert haben"
+
+#: language/_annotated_strings.php:21
+msgid "Country"
+msgstr "Land"
+
+#: language/_annotated_strings.php:24
+msgid "please select the country"
+msgstr "Bitte wählen Sie ein Land"
+
+#: language/_annotated_strings.php:27
+msgid "City"
+msgstr "Ort"
+
+#: language/_annotated_strings.php:30
+msgid "please enter the name of the city"
+msgstr "Bitte nennen Sie den Namen der Stadt"
+
+#: language/_annotated_strings.php:33
+msgid "Description"
+msgstr "Beschreibung"
+
+#: language/_annotated_strings.php:36
+msgid "please enter a description"
+msgstr "Bitte geben Sie eine Beschreibung ein"
+
+#: language/_annotated_strings.php:39
+msgid "Employment history"
+msgstr "beruflicher Werdegang"
+
+#: language/_annotated_strings.php:42
+msgid "Resumes"
+msgstr "Lebensläufe"
+
+#: language/_annotated_strings.php:45
+msgid "Overview"
+msgstr "Übersicht"
+

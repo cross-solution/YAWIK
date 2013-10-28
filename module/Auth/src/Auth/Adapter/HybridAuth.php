@@ -33,7 +33,7 @@ class HybridAuth implements AdapterInterface
      * 
      * @var \Auth\Mapper\MongoDb\UserMapper
      */
-    protected $_mapper;
+    protected $repository;
     
     /**
      * Hybridauth provider identifier
@@ -84,10 +84,10 @@ class HybridAuth implements AdapterInterface
        
        
        $forceSave = false;
-       $user = $this->getMapper()->findByProfileIdentifier($userProfile->identifier);
+       $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
        if (!$user) {
            $forceSave = true;
-           $user = $this->getMapper()->create();
+           $user = $this->getRepository()->create();
        }
        
        
@@ -95,18 +95,27 @@ class HybridAuth implements AdapterInterface
        $newInfo = (array) $userProfile; 
        
        if ($forceSave || $currentInfo != $newInfo) {
-           $user->setData(array(
-               'email' => $email,
-               'firstName' => $userProfile->firstName,
-               'lastName' => $userProfile->lastName,
-               'displayName' => $userProfile->displayName,
-               'profile' => $newInfo
-           ));
-           $this->getMapper()->save($user);
+           
+           $user->info->email = $email;
+           $user->info->firstName = $userProfile->firstName;
+           $user->info->lastName = $userProfile->lastName;
+           $user->info->birthDay = $userProfile->birthDay;
+           $user->info->birthMonth = $userProfile->birthMonth;
+           $user->info->birthYear = $userProfile->birthYear;
+           $user->info->postalcode = $userProfile->zip;
+           $user->info->city = $userProfile->city;
+           $user->info->street = $userProfile->address;
+           $user->info->phone = $userProfile->phone;
+           $user->info->gender = $userProfile->gender;
+            
+           //$user->login =  $userProfile->displayName;
+           $user->profile = $newInfo;
+           
+           $this->getRepository()->save($user);
        }
        
        
-       return new Result(Result::SUCCESS, $user);
+       return new Result(Result::SUCCESS, $user->id, array('firstLogin' => $forceSave, 'user' => $user));
         
     }
 
@@ -140,9 +149,9 @@ class HybridAuth implements AdapterInterface
      * @param  UserMapperInterface $mapper
      * @return HybridAuth
      */
-    public function setMapper(UserMapperInterface $mapper)
+    public function setRepository($repository)
     {
-        $this->_mapper = $mapper;
+        $this->repository = $repository;
 
         return $this;
     }
@@ -152,9 +161,9 @@ class HybridAuth implements AdapterInterface
      *
      * @return UserMapperInterface
      */
-    public function getMapper()
+    public function getRepository()
     {
-        return $this->_mapper;
+        return $this->repository;
     }
 
    

@@ -1,150 +1,26 @@
-@CHARSET "UTF-8";
-
-* {
-	margin: 0;
-	padding: 0;
-}
-
-.float_left {
-	float: left;
-}
-
-.float_right {
-	float: right;
-}
-
-.clear {
-	clear: both;
-}
-
-body {
-    background-color: #fff;
-	font-size: 14px;
-	font-family: Ubuntu, sans-serif;
-	color: #555555;
-}
-
-a, a:visited {
-	text-decoration: none;
-	color: #5656cc;
-}
-
-a:hover,
-a:active {
-	text-decoration: underline;
-	color: #6767dd;
-}
-
-p {
-	margin-bottom: 1em;
-}
-
-div#main {
-	width: 100%;
-	min-height: 600px;
-	
-}
-header {
-	margin: 1em 0 0;
-	box-shadow: 0px 0px 3px #555;
-	background-color: #bbbbff;
-}
-
-header > h1 {
-	text-shadow: 0 0 5px white;
-	color: 555;
-	float: left;
-	padding: 0.2em 0 0.2em 0.5em;
-	font-size: 3em;
-}
-
-header #login-info-box {
-	text-shadow: 0 0 3px white;
-	float: right;
-	padding: 0.5em 1em 0 0;
-}
-
-header #login-info-box p {
-	margin: 0;
-}
-
-header #login-info-box a {
-	margin: 0 5px;
-}
-
-header #login-info-box #social-links {
-	text-align: center;
-	margin-top: 10px;
-}
-
-header #login-info-box #logged-in-text {
-	padding-top: 10px;
-}
-
-header #login-info-box #logged-in-text a {
-	color: #333;
-	font-size: 0.8em;
-}
-
-header #login-info-box #logged-in-text p {
-	text-align: right;
-}
-
-nav#main-navigation {
-	height: 1.3em;
-	padding: 0.2em 1em;
-	background-color: #efeffe;
-	border-top: 1px solid #8888cc;
-	margin-bottom: 1em;
-	clear: both;
-}
-
-nav#main-navigation ul {
-	list-style: none inside;
-}
-
-nav#main-navigation ul li {
-	float: left;
-}
-
-nav#main-navigation ul li a {
-	text-decoration: none;
-	font-weight: bold;
-}
-
-nav#main-navigation ul li.active a,
-nav#main-navigation ul li a:hover {
-	font-style: italic;
-}
-
-div#container {
-	clear: both;
-	margin: 2em 2.5em;
-	background-color: white;
-	min-height: 500px;
-}
-
-div#container > h2 {
-	font-size: 1.2em;
-	border-bottom: 1px solid #aaa;
-	padding: 5px 0 2px;
-	margin: 0 0 5px;
-}
-
-footer {
-	margin: 0 0 1em;
-	padding: 0.2em 2em 0.4em;
-	font-size: 0.7em;
-	color: #555;
-	background-color: #bbbbff;
-	box-shadow: 0px 0px 3px #555;
-	text-shadow: 0 0 2px white;
-}
-
-footer p {
-	margin: 0;
-}
-
-footer a {
-	color: #333 !important;
-}
+body{padding:60px 0 30px}
+h1{border-bottom:1px solid #ccc}
+th a{display:block;color:#f00}
+th a:hover{color:#005580;text-decoration:none}
+.modal-backdrop,.modal-backdrop.fade.in{opacity:.15}
+#topbar .container{width:auto;margin:0 20px}
+#topbar #login-info-box #login-links{line-height:0}
+#topbar #login-info-box #login-links .login-link{display:block;float:left;width:20px;height:20px;margin:10px 0 0 10px}
+.navbar .nav>.dropdown>a{float:left}
+#sidebar{margin-top:-20px;width:13.8936%}#sidebar #language-switcher{width:100%}
+#sidebar #language-switcher button{width:50%}
+#sidebar>div{margin-top:35px}
+#sidebar ul li.active a{background-color:#f5f5f5}
+label{margin-top:5px}
+.buttons-row>*{margin-right:15px}
+form .input-error{color:#b94a48}
+form .input-error input{border-color:#b94a48;box-shadow:0 1px 1px rgba(0,0,0,0.075) inset}
+form .input-error input:focus{border-color:#953b39;box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 6px #d59392}
+fieldset fieldset,fieldset .fieldset-content{border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin-bottom:20px;padding:20px;background-color:#fdfdfd}
+.form-inline fieldset .fieldset-content .controls-row{margin-bottom:15px}
+fieldset legend>a{margin-top:5px;margin-right:5px}
+fieldset fieldset a.remove-item{margin-top:-15px;margin-right:5px}
+footer.modal-footer{color:#777;position:fixed;bottom:0;left:0;width:100%;padding:0}
+footer.modal-footer .container-fluid{margin-top:1px}
+footer.modal-footer .container-fluid p{margin:0}
+footer.modal-footer .container-fluid p a{color:#555}

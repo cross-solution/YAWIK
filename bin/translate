@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+if [ "-x" = "$1" ]; then
+	EXCLUDE_MODULES="${2//,/ }"
+	shift 2;
+fi
+
+
+if [ 1 -eq $# ]; then
+	if [ "/" = "${1:0:1}" ]; then
+		MODULE_DIR="${1%/}"
+	else 
+		MODULE_DIR="$(pwd)/${1%/}"
+	fi
+else
+	MODULE_DIR="$(pwd)"
+fi
+
+echo "=="
+echo "== Module: $MODULE_DIR"
+echo "=="
+cd $MODULE_DIR || exit 120;
+
+#
+# Parse files for annotations
+#
+echo "-- Create language/_annotated_strings.php"
+
+echo "<?php" > language/_annotated_strings.php
+for FILE in $(find . -type f | grep -E ".ph(p|tml)$"); do
+	cat $FILE \
+	| grep -rn -E "/\*[[:space:]]*@translate[[:space:]]*\*/" \
+	| sed "s=^\([[:digit:]]\+\).*@translate[[:space:]]*\*/[[:space:]]*\('\|\"\)\(.*\?\)\('\|\"\).*$=//: $FILE:\1\ntranslate('\3');\n=g" \
+	>> language/_annotated_strings.php
+done
+if [ 1 -eq $(cat language/_annotated_strings.php | wc -l) ]; then
+	rm language/_annotated_strings.php
+	echo "!! No annotated strings found. Remove language/_annotated_strings.php"
+fi
+
+EXCLUDE_OPTION=""
+for MODULE in $EXCLUDE_MODULES; do
+	EXCLUDE_OPTION+="-x ../$MODULE/language/messages.pot "
+done
+[ -n "$EXCLUDE_OPTION" ] && echo "-- Exclude modules: $EXCLUDE_MODULES"
+
+
+echo "-- Create language/messages.pot"
+find . -type f | grep -E ".ph(p|tml)$" > _translatable_files
+xgettext -L PHP --force-po $EXCLUDE_OPTION -o "language/messages.pot" --from-code=utf8 \
+	-k"translate" -k"setLabel" \
+	-f _translatable_files \
+	--package-name="Cross Applicant Management - $(basename $MODULE_DIR)"
+rm _translatable_files
+
+exit
+

@@ -1,7 +1,7 @@
 {
     "name": "cross/cross-applicant-management",
     "description": "An Application to manage applicants by human resources departments",
-    "license": "GPL 3",
+    "license": "GPL-3.0+",
     "keywords": [
         "human resource", "human relation", "applicant",
         "zf2"
@@ -9,7 +9,9 @@
     "homepage": "http://bewerbermanagement.cross-solution.de/",
     "require": {
         "php": ">=5.3.3",
+        "ext-mongo": "*",
+        "ext-intl": "*",
         "zendframework/zendframework": "2.1.*",
-        "hybridauth/hybridauth": "dev-master"
+        "hybridauth/hybridauth": "dev-master",
     }
 }

@@ -1,0 +1,36 @@
+<?php 
+
+    $this->headTitle($this->translate('Settings'));
+    
+    /*
+    $this->headLink()->appendStylesheet($this->basePath('/css/Core/forms.css'));
+    
+    $this->headScript()->appendFile($this->basePath('js/jquery.inlineLabel.js'))
+                       ->appendFile($this->basepath('js/Applications/form.js'));
+    
+    */
+?>
+<h1><?php echo $this->translate('Settings')?></h1>
+
+<div id="settings-form-response" class="alert hide"></div>
+<?php
+
+/*
+$form->setAttributes(array(
+    'action' => $this->url('lang/settings', array(), true),
+    'method' => 'post',
+    'id' => 'application-form',
+));
+ */
+
+echo '<ul id="settingsSubMenu">' .PHP_EOL;
+if (!empty($subMenu)) {
+    foreach ($subMenu as $subMenuItem) {
+        echo '<li><a href="/de/settings/'. $subMenuItem .'">' . $subMenuItem . '</a></li>'  .PHP_EOL;
+    }
+}
+echo '</ul>' .PHP_EOL .PHP_EOL;
+
+echo $this->form($form, 'settings');
+
+?>

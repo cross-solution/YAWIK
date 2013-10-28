@@ -1,4 +1,5 @@
 <?php
+
 namespace CoreTest;//Change this namespace for your test
 
 use Zend\Loader\AutoloaderFactory;
@@ -8,7 +9,7 @@ use Zend\Stdlib\ArrayUtils;
 use RuntimeException;
 
 error_reporting(E_ALL | E_STRICT);
-//chdir(__DIR__);
+chdir(__DIR__);
 
 class Bootstrap
 {
@@ -19,10 +20,10 @@ class Bootstrap
     public static function init()
     {
         // Load the user-defined test configuration file, if it exists; otherwise, load
-        if (is_readable(__DIR__ . '/TestConfig.php')) {
-            $testConfig = include __DIR__ . '/TestConfig.php';
+        if (is_readable(__DIR__ . '/CoreConfig.php')) {
+            $testConfig = include __DIR__ . '/CoreConfig.php';
         } else {
-            $testConfig = include __DIR__ . '/TestConfig.php.dist';
+            $testConfig = include __DIR__ . '/CoreConfig.php.dist';
         }
 
         $zf2ModulePaths = array();

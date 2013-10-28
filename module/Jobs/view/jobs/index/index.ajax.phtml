@@ -1,0 +1,28 @@
+
+<table class="table table-striped table-bordered table-hover" id="jobs-list">
+<thead>
+<tr>
+    <th><?=$this->translate('Date of receipt')?></th>
+    <th><?=$this->translate('Title of the job')?></th>
+    <th><?=$this->translate('Location')?></th> 
+    <th><?=$this->translate('Companyname')?></th>
+    <th><?=$this->translate('Reference')?></th>
+    <th><?=$this->translate('Action')?></th>
+</tr>
+</thead>
+
+<tbody>
+<?foreach ($jobs as $job):?>
+<tr>
+    <td><?php echo strftime('%x %X', $job->datePublishStart->getTimestamp());?></td>
+    <td><a href="<?php echo $job->link?>"><?php echo strip_tags($job->title)?></a></td>
+    <td><?php echo $job->location?></td>
+    <td><?php echo $job->company?></td>
+    <td><?php echo $job->applyId?></td>
+    <td><a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a></td>
+</tr>
+<?endforeach?>
+</tbody>
+
+</table>
+<?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobs'));?>

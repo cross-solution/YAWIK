@@ -1,0 +1,28 @@
+<?php
+$this->headtitle($this->id ? $this->translate('Edit resume') : $this->translate('Create resume'));
+$this->headscript()->appendFile($this->basepath('js/Core/jquery.formcollection.js'));
+$this->headscript()->appendScript('$(function(){$(".form-collection").formcollection();});');
+
+?>
+<h1><?php echo $this->translate('Create a new resume')?></h1>
+
+<?php
+if ($this->isSaved): ?>
+<p><?php echo $this->translate('Your resume was saved successfully.');?></p>
+<?else:
+$this->form->setAttributes(array(
+    'action' => $this->url('lang/cvs/create', array(), true),
+    'method' => 'post',
+    //'id' => 'cv-form',
+));
+
+$this->formdateselect()->setLocale($this->params('lang'));
+
+if (!$this->id): 
+    $form->get('cv')->get('educations')->setCount(1)->prepareFieldset();
+    $form->get('cv')->get('employments')->setCount(1)->prepareFieldset();
+endif;
+
+echo $this->form($this->form);
+endif;
+

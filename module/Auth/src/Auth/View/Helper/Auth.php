@@ -70,12 +70,13 @@ class Auth extends AbstractHelper
         }
         
         try {
-            return $this->getService()->getIdentity()->$property;
+            return $this->getService()->getUser()->$property;
         } catch (\Core\Model\Exception\OutOfBoundsException $e) {
             return null;
         }
     }
     
+   
     /**
      * Checks if an user is authenticated.
      * 
