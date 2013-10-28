@@ -47,7 +47,9 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
         if ($user instanceOf UserInterface) {
             $user = $user->getId();
         }
-        $this->allowedUserIds[] = $user;
+        if (!in_array($user, $this->allowedUserIds)) {
+            $this->allowedUserIds[] = $user;
+        }
         return $this;
     }
     

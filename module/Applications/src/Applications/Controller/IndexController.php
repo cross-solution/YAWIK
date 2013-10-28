@@ -93,12 +93,14 @@ class IndexController extends AbstractActionController
                 $fileRepository = $services->get('repositories')->get('Applications/Files');
                 
                 if (UPLOAD_ERR_OK == $imageData['error']) {
+                    $imageData['meta']['allowedUserIds'] = array($job->userId);
                     $applicationEntity->contact->setImageId(
                         $fileRepository->saveUploadedFile($imageData)
                     );    
                 } else if ($imageId = $applicationEntity->contact->imageId) {
                     $userImageRepository = $services->get('repositories')->get('Users/Files');
                     $userImage = $userImageRepository->find($imageId);
+                    $userImage->addAllowedUser($job->userId);
                     $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
                 }
                 

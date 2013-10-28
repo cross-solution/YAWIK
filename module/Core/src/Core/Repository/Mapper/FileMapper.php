@@ -119,6 +119,7 @@ class FileMapper extends AbstractMapper
         );
         $meta['mimetype'] = $file->type;
         $meta['filename'] = $file->name;
+        $meta['allowedUserIds'] = $file->allowedUserIds;
         
         $fileId = $this->collection->storeFile($tmpName, $meta);
         fclose($target);
