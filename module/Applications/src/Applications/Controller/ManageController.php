@@ -119,7 +119,8 @@ class ManageController extends AbstractActionController
         if (strcasecmp($key, 'mailtext') == 0) {
             $settingsJobAuth = $this->settings('auth', $user);
             if (strcasecmp($method, 'get') == 0) {
-                $result = array('result' => $settingsJobAuth->getMailText());
+                $mailtext = $settingsJobAuth->getMailText();
+                $result = array('result' => isset($mailtext)?$mailtext:'');
             }
             if (strcasecmp($method, 'set') == 0) {
                 $settingsJobAuth->setAccessWrite(True);
