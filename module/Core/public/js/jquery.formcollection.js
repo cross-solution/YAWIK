@@ -12,7 +12,7 @@
 	    var elementName = $fieldset.attr('id');
 	    var index = 0;
 	    
-	    while($fieldset.find('fieldset#'+elementName+'-'+index).length) {
+	    while($fieldset.find('#'+elementName+'-'+index).length) {
 			index += 1;
 		}
 	    
