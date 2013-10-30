@@ -99,7 +99,7 @@ class IndexController extends AbstractActionController
                     );    
                 } else if ($imageId = $applicationEntity->contact->imageId) {
                     $userImageRepository = $services->get('repositories')->get('Users/Files');
-                    $userImage = $userImageRepository->find($imageId);
+                    $userImage = clone $userImageRepository->find($imageId);
                     $userImage->addAllowedUser($job->userId);
                     $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
                 }
@@ -107,7 +107,21 @@ class IndexController extends AbstractActionController
                 
                 $repository->save($applicationEntity);
                 
-                
+                /*
+                 * New Application alert Mails to job owner
+                 */
+                if ($email = $job->getContactEmail()) {
+                    $confirmMail = $this->mail(array(
+                        'job' => $job,
+                    ));
+                    /* @todo make FROM configureable! */
+                    $confirmMail->setFrom('no-reply@bewerbermanagement.cross-solution.de', 'Applicant Management')
+                                ->addTo($email, $job->user->info->displayName)
+                                /* @todo Language must be taken from the jobs' user settings.
+                                 *       template() breaks fluent interface for no reason! */
+                                ->template('new-application-de');
+                   $confirmMail->send();
+                }
                 
                 if ($this->auth()->isLoggedIn()) {
                     $userInfo = $this->auth()->get('info')->getEntity();
@@ -144,22 +158,9 @@ class IndexController extends AbstractActionController
                 }
                 $viewModel->setVariable('isApplicationSaved', true);
             }
-        } else {
-            
-//             if ($this->auth()->isLoggedIn()) {
-//                 $form->get('contact')->setObject($this->auth()->get('info'));
-//             }
-//             $form->populateValues(array(
-//                 'jobId' => $job->id,
-//                 'contact' => $this->auth()->isLoggedIn()
-//                             ?  $this->auth()->get('info')
-//                             : array()
-//             ));
-           
-            
-        }
+        } 
         return $viewModel;
-        
-    }    
+
+    }
 }
 
