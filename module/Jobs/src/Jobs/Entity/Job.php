@@ -63,8 +63,12 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     public function getContactEmail() 
     {
         if (false !== $this->contactEmail && !$this->contactEmail) {
-            $email = $this->getUser()->getInfo()->getEmail();
-            $this->setContactEmail($email ? $email : false);
+            $user = $this->getUser();
+            $email = False;
+            if (isset($user)) {
+                $email = $user->getInfo()->getEmail();
+            }
+            $this->setContactEmail($email);
         }
         return $this->contactEmail;
     }
