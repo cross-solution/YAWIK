@@ -146,7 +146,7 @@ class ManageController extends AbstractActionController
         $jsonFormat    = 'json' == $this->params()->fromQuery('format');
         $status        = $this->params('status', Status::CONFIRMED);
         
-        if (in_array($status, array(Status::CONFIRMED, Status::INCOMING))) {
+        if (in_array($status, array(Status::INCOMING))) {
             $application->changeStatus($status);
             $repository->save($application);
             if ($this->request->isXmlHttpRequest()) {
