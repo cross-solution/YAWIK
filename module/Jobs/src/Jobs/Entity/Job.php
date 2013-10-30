@@ -12,6 +12,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     protected $applyId;
     protected $title;
     protected $company;
+    protected $contactEmail;
     protected $userId;
     protected $user;
     protected $applications;
@@ -53,8 +54,24 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     /**
      * @param field_type $company
      */
-    public function setCompany($company) {
+    public function setCompany($company) 
+    {
         $this->company = $company;
+        return $this;
+    }
+    
+    public function getContactEmail() 
+    {
+        if (false !== $this->contactEmail && !$this->contactEmail) {
+            $email = $this->getUser()->getInfo()->getEmail();
+            $this->setEmail($email ? $email : false);
+        }
+        return $this->contactEmail;
+    }
+    
+    public function setContactEmail($email)
+    {
+        $this->contactEmail = (string) $email;
         return $this;
     }
 
