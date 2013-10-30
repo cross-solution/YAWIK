@@ -172,7 +172,10 @@ class ManageController extends AbstractActionController
             
             $mail->setSubject($this->params()->fromPost('mailSubject'));
             $mail->setBody($this->params()->fromPost('mailText'));
-            $mail->setFrom('no-reply@bewerbermanagement.cross-solution.de', $application->job->company);
+            $from = $application->job->contactEmail
+                  ? $application->job->contactEmail
+                  : 'no-reply@bewerbermanagement.cross-solution.de';
+            $mail->setFrom($from, $application->job->company);
             $mail->addTo($application->contact->email, $application->contact->displayName);
             $mail->send();
             $application->changeStatus($status);
