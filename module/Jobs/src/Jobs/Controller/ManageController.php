@@ -36,6 +36,7 @@ class ManageController extends AbstractActionController
             $title = '';
             $link = '';
             $location = '';
+            $contactEmail = '';
             $datePublishStart = '';
             
             if ($this->request->isPost()) {
@@ -45,6 +46,7 @@ class ManageController extends AbstractActionController
                 $title = $this->params()->fromPost('title');
                 $link = $this->params()->fromPost('link');
                 $location = $this->params()->fromPost('location');
+                $contactEmail = $this->params()->fromPost('emailapply');
                 $datePublishStart = \DateTime::createFromFormat('Y-m-d',$this->params()->fromPost('datePublishStart'));
                 $result['post'] = $_POST;
             }
@@ -72,6 +74,7 @@ class ManageController extends AbstractActionController
                                 'link' => $link,
                                 'location' => $location,
                                 'datePublishStart' => $datePublishStart,
+                                'contactEmail' => $contactEmail,
                             )
                         )
                 );
@@ -82,6 +85,9 @@ class ManageController extends AbstractActionController
                     $services->get('repositories')->get('job')->save($entity);
                     $result['isSaved'] = true;
                     $result['verbose'] = 'Saved';
+                }
+                else {
+                    $result['valid Error'] = $form->getMessages();
                 }
             }
             else {
