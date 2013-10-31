@@ -308,6 +308,7 @@ return array(
         ),   
         'factories' => array(
             'auth' => '\Auth\Service\AuthViewHelperFactory',
+            'acl'  => '\Acl\View\Helper\AclFactory',
          ),
     ),
     

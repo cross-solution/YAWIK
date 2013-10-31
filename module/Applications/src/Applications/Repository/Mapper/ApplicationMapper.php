@@ -135,7 +135,7 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         return $collection;
     }
     
-    public function save(EntityInterface $entity)
+    public function save(EntityInterface $entity, $forceInsert=false)
     {
         $builder = $this->builders->get('application');
         $data    = $builder->unbuild($entity);
@@ -154,10 +154,16 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
 //         if (isset($data['history']) && count($data['history'])) {
 //             $data['history'] = array_reverse($data['history']);
 //         }
-        $id      = $this->saveData($data);
+
+        $id      = $this->saveData($data, $forceInsert);
         if ($id) {
             $entity->setId($id);
         }
+    }
+    
+    public function delete(EntityInterface $entity)
+    {
+        $this->getCollection()->remove(array('_id' => $this->getMongoId($entity->id)));
     }
     
     

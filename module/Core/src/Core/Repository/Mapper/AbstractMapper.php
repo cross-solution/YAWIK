@@ -90,9 +90,9 @@ abstract class AbstractMapper implements MapperInterface
      * @param ModelInterface $model
      * @see \Core\Mapper\MapperInterface::save()
      */
-    protected function saveData(array $data)
+    protected function saveData(array $data, $forceInsert=false)
     {
-        if (isset($data['_id'])) {
+        if (isset($data['_id']) && !$forceInsert) {
             $query = array('_id' => $this->getMongoId($data['_id']));
             unset($data['_id']);
             

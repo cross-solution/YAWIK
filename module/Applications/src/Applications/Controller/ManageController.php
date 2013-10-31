@@ -27,6 +27,18 @@ use Applications\Entity\StatusInterface as Status;
 class ManageController extends AbstractActionController
 {
     
+     public function onDispatch(\Zend\Mvc\MvcEvent $e)
+    {
+        $routeMatch = $e->getRouteMatch();
+        $action     = $this->params()->fromQuery('action');
+        
+        if ($routeMatch && $action) { 
+            $routeMatch->setParam('action', $action);
+        }
+
+        return parent::onDispatch($e);
+    }
+    
     /**
      * List applications
      *
@@ -212,5 +224,29 @@ class ManageController extends AbstractActionController
         );
           
     } 
+    
+    public function deleteAction()
+    {
+        $id          = $this->params('id');
+        $services    = $this->getServiceLocator();
+        $repository  = $services->get('repositories')->get('Application');
+        $application = $repository->find($id);
+        
+        if (!$application) {
+            throw new \DomainException('Application not found.');
+        }
+        
+        $this->acl($application, 'delete');
+        
+        $repository->delete($application);
+        
+        if ('json' == $this->params()->fromQuery('format')) {
+            return array(
+                'status' => 'success'
+            );
+        }
+        
+        $this->redirect()->toRoute('lang/applications', array(), true);
+    }
     
 }
