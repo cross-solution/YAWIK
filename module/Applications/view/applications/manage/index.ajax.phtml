@@ -5,6 +5,7 @@ $columns = array(
         /*translate*/ 'Applicant' => false,
         /*translate*/ 'Status' => 'status',
         /*translate*/ 'Modified' => 'date',
+        /*translate*/ 'Actions' => false,
 );
 
 if ('-' == $this->sort{0}) {
@@ -52,6 +53,14 @@ if ('-' == $this->sort{0}) {
     <td><?php echo $application->status ?></td>
     <td title="Created: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp());?>">
         <?php echo strftime('%x %X', $application->dateModified->getTimestamp());?>
+    </td>
+    <td>
+        <div class="btn-group">
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-success" title="<?php echo $this->translate('view')?>"><i class="icon-eye-open icon-white"></i></a>
+            <?php if ($this->acl($application, 'delete')):?>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-danger" title="<?php echo $this->translate('delete')?>"><i class="icon-remove icon-white"></i></a>
+            <?php endif ?>
+        </div>
     </td>
 </tr>
 

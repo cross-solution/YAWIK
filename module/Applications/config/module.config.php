@@ -157,10 +157,19 @@ return array(
                 'allow' => array(
                     'route/lang/applications',
                     'Applications\Controller\Manage',
+                    'Entity/Application' => array(
+                        'delete' => 'Applications/WriteAccess'
+                    ),
                 ),
             ),
         ),
+        'assertions' => array(
+            'invokables' => array(
+                'Applications/WriteAccess' => 'Applications\Acl\ApplicationWriteAccessAssertion',
+            ),
+        ),
     ),
+    
     // Navigation
     'navigation' => array(
         'default' => array(
@@ -232,7 +241,9 @@ return array(
      ),
      
      'mappers' => array(
-         
+         'factories' => array(
+            'application-trash' => 'Applications\Repository\Mapper\ApplicationTrashMapperFactory',
+        ),
          'abstract_factories' => array(
              'Applications\Repository\Mapper\AbstractMapperFactory'
          ),
