@@ -81,7 +81,7 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
     
     public function delete(EntityInterface $entity)
     {
-        //$this->getMapper('application')->delete($entity);
+        $this->getMapper('application')->delete($entity);
         $this->getMapper('application-trash')->save($entity, true);
 
         return $this;
