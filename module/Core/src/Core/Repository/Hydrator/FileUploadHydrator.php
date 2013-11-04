@@ -23,6 +23,7 @@ class FileUploadHydrator implements HydratorInterface
     
     public function hydrate (array $data, $object)
     {
+        $data['name'] = str_replace(' ', '_', $data['name']);
         $entityId = $this->repository->saveUploadedFile($data);
         $entity = $this->repository->find((string) $entityId);
         return $entity;
