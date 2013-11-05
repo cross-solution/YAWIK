@@ -115,7 +115,7 @@ class IndexController extends AbstractActionController
                         'job' => $job,
                     ));
                     /* @todo make FROM configureable! */
-                    $confirmMail->setFrom('no-reply@bewerbermanagement.cross-solution.de', 'Applicant Management')
+                    $confirmMail->setFrom('anzeigenmanagement@mediaintown.de', 'MediaInTown')
                                 ->addTo($email, $job->user->info->displayName)
                                 /* @todo Language must be taken from the jobs' user settings.
                                  *       template() breaks fluent interface for no reason! */
