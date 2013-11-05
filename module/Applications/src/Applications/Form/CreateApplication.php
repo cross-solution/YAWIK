@@ -12,6 +12,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
 {
     protected $forms;
     protected $inputFilterSpecification;
+    protected $preferFormInputFilter = true;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {

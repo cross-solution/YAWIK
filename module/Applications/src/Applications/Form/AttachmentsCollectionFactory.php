@@ -20,6 +20,7 @@ class AttachmentsCollectionFactory implements FactoryInterface
         $repository = $services->get('repositories')->get('Applications/Files');
         $hydrator   = new FileUploadHydrator($repository);
         $hydrator->setAuth($services->get('AuthenticationService'));
+
                    
         $collection = new FileCollection('attachments');
         $collection->setLabel('Attachments')
@@ -28,9 +29,16 @@ class AttachmentsCollectionFactory implements FactoryInterface
                    ->setShouldCreateTemplate(true)
                    ->setAllowAdd(true)
                    ->setTargetElement($serviceLocator->get('file'));
-                   
+        $config = $services->get('Config');
+        if (isset($config['Applications']['allowedMimeTypes'])) {
+            $validator = $services->get('validatorManager')->get(
+                'filemimetype',
+                $config['Applications']['allowedMimeTypes']
+            );
+            $collection->setFileValidator($validator);
+        }
+
         return $collection;
     }
-    
-    
+
 }

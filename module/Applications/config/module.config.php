@@ -8,6 +8,11 @@
  * @license   GPLv3
  */
 return array(
+    
+    'Applications' => array(
+        'allowedMimeTypes' => array('image', 'applications/pdf'),
+    ),
+    
     'service_manager' => array(
         'invokables' => array(
         ),
