@@ -57,6 +57,9 @@ class FileCollection extends Collection
         $collection = $this->getEntityCollection();
         
         foreach ($values as $name => $value) {
+            if (UPLOAD_ERR_OK != $value['error']) {
+                continue;
+            }
             $element = $this->get($name);
     
             $entity = $hydrator->hydrate($value, $this->getEntity());
