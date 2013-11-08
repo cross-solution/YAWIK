@@ -25,6 +25,15 @@ return array(
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
         ),
     ),
+    
+    'Applications' => array(
+        // all the Information for the Module Settings
+        // der erste Teil ist der NameSpace, also der Modulname
+        'settings' => array(
+            'entity' => '\Applications\Entity\Settings',
+        ),
+    ),
+    
     // Routes
     'router' => array(
         'routes' => array(
@@ -222,7 +231,9 @@ return array(
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
              'Application' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
-             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset',
+             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
+             'settings\applications' => 'Applications\Form\Settings',
+             'settings-applications-fieldset' => 'Applications\Form\SettingsFieldset',
          ),
         'factories' => array(
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',

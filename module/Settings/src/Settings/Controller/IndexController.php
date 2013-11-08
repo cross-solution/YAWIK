@@ -47,14 +47,11 @@ class IndexController extends AbstractActionController
         
         //$settings = $this->settings();
         //$settingsAuth = $this->settings('auth');
-        // Holen des Formulars
-        // $form = $settings->getFormular();
+        // Fetch the formular
         
         $form = $this->getServiceLocator()->get('FormElementManager')->get($formName);
         
-        //$formAuth = $this->getServiceLocator()->get('FormElementManager')->get('Settings/Auth');
-        
-        // Entity an das Formular binden
+        // Binding the Entity to the Formular
         $form->bind($settings);
         $data = $this->getRequest()->getPost();
         if (0 < count($data)) {

@@ -51,6 +51,9 @@ class SettingsAbstract extends AwareEntity implements SettingsInterface, EntityR
                 else {
                     $this->data[$nameSpace] = new static($this);
                 }
+                if (isset($this->data[$nameSpace])) {
+                    $this->data[$nameSpace]->setParent($this);
+                }
                 return $this->data[$nameSpace];
             }
         }

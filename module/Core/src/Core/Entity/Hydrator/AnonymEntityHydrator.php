@@ -4,6 +4,8 @@ namespace Core\Entity\Hydrator;
 
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
+use Core\Entity\AnonymEntityInterface;
+use Settings\Entity\AwareEntity;
 
 class AnonymEntityHydrator extends AbstractHydrator {
 
@@ -35,8 +37,18 @@ class AnonymEntityHydrator extends AbstractHydrator {
      */
 
     public function hydrate(array $data, $object) {
+        $setterMethods = array();
+        if ($object instanceof AwareEntity) {
+            $setterMethods = $object->getSetters();
+        }
         foreach ($data as $key=>$value) {
-            $object->$key = $value;
+            $setter = 'set' . ucfirst($key);
+            if (in_array($setter, $setterMethods)) {
+                $object->$setter($value);
+            }
+            else {
+                $object->$key = $value;
+            }
         }
         return $object;
     }
