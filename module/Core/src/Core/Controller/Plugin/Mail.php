@@ -70,6 +70,7 @@ class mail extends Message implements PluginInterface
     
     public function send()
     {
+        $this->getHeaders()->addHeaderLine('X-Mailer', 'php/Cross Applicant Management');
         $transport = new Sendmail();
         $erg = $transport->send($this);
         return $erg;

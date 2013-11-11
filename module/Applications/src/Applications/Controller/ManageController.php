@@ -27,6 +27,18 @@ use Applications\Entity\StatusInterface as Status;
 class ManageController extends AbstractActionController
 {
     
+     public function onDispatch(\Zend\Mvc\MvcEvent $e)
+    {
+        $routeMatch = $e->getRouteMatch();
+        $action     = $this->params()->fromQuery('action');
+        
+        if ($routeMatch && $action) { 
+            $routeMatch->setParam('action', $action);
+        }
+
+        return parent::onDispatch($e);
+    }
+    
     /**
      * List applications
      *
@@ -146,7 +158,7 @@ class ManageController extends AbstractActionController
         $jsonFormat    = 'json' == $this->params()->fromQuery('format');
         $status        = $this->params('status', Status::CONFIRMED);
         
-        if (in_array($status, array(Status::CONFIRMED, Status::INCOMING))) {
+        if (in_array($status, array(Status::INCOMING))) {
             $application->changeStatus($status);
             $repository->save($application);
             if ($this->request->isXmlHttpRequest()) {
@@ -172,7 +184,10 @@ class ManageController extends AbstractActionController
             
             $mail->setSubject($this->params()->fromPost('mailSubject'));
             $mail->setBody($this->params()->fromPost('mailText'));
-            $mail->setFrom('no-reply@bewerbermanagement.cross-solution.de', $application->job->company);
+            $from = $application->job->contactEmail
+                  ? $application->job->contactEmail
+                  : 'no-reply@bewerbermanagement.cross-solution.de';
+            $mail->setFrom($from, $application->job->company);
             $mail->addTo($application->contact->email, $application->contact->displayName);
             $mail->send();
             $application->changeStatus($status);
@@ -209,5 +224,29 @@ class ManageController extends AbstractActionController
         );
           
     } 
+    
+    public function deleteAction()
+    {
+        $id          = $this->params('id');
+        $services    = $this->getServiceLocator();
+        $repository  = $services->get('repositories')->get('Application');
+        $application = $repository->find($id);
+        
+        if (!$application) {
+            throw new \DomainException('Application not found.');
+        }
+        
+        $this->acl($application, 'delete');
+        
+        $repository->delete($application);
+        
+        if ('json' == $this->params()->fromQuery('format')) {
+            return array(
+                'status' => 'success'
+            );
+        }
+        
+        $this->redirect()->toRoute('lang/applications', array(), true);
+    }
     
 }

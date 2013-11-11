@@ -5,13 +5,14 @@ namespace Applications\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\CollectionInterface;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * @todo write interface
  * @author mathias
  *
  */
-class Application extends AbstractIdentifiableEntity implements ApplicationInterface
+class Application extends AbstractIdentifiableEntity implements ApplicationInterface, ResourceInterface
 {
     protected $jobId;
     protected $job;
@@ -39,6 +40,12 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $attachments;
     
     protected $history;
+    
+    
+    public function getResourceId()
+    {
+        return 'Entity/Application';
+    }
     
     /**
      * @return the $jobId

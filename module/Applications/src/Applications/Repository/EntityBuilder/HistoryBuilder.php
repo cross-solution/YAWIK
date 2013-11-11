@@ -17,6 +17,19 @@ use Core\Entity\CollectionInterface;
 class HistoryBuilder extends RelationAwareBuilder
 {
     
+    protected $reverseOrder = true;
+    
+    public function setReverseOrder($flag)
+    {
+        $this->reverseOrder = (bool) $flag;
+        return $this;
+    }
+    
+    public function reverseOrder()
+    {
+        return $this->reverseOrder();
+    }
+    
     public function getCollection()
     {
         $collection = parent::getCollection();
@@ -36,7 +49,9 @@ class HistoryBuilder extends RelationAwareBuilder
     public function unbuildCollection(CollectionInterface $collection)
     {
         $data = parent::unbuildCollection($collection);
-        $data = array_reverse($data);
+        if ($this->reverseOrder) {
+            $data = array_reverse($data);
+        }
         return $data;
     }
 }

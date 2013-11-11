@@ -49,6 +49,12 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
                     new StringLengthValidator(5),
                 ),
             ),
+            'contactEmail' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
             'datePublishStart' => array(
                 )
         );
@@ -112,6 +118,16 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
             'name' => 'location',
             'options' => array(
                 'label' => 'location'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'contactEmail',
+            'options' => array(
+                'label' => 'contactEmail'
             ),
             'attributes' => array(
             )

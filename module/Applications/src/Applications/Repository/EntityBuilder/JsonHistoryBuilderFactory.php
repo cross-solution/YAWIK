@@ -28,6 +28,7 @@ class JsonHistoryBuilderFactory implements FactoryInterface
         $builder->setRelation(new HistoryRelationCollection(
             array($serviceLocator->getServiceLocator()->get('mappers')->get('application'), 'fetchHistory')
         ), 'id');
+        $builder->setReverseOrder(false);
         
         return $builder;        
     }
