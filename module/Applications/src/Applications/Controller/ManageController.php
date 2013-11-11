@@ -45,6 +45,7 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
+        //echo $this->params()->getQuery('count'); exit;
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
         
@@ -73,7 +74,7 @@ class ManageController extends AbstractActionController
             $repository->getPaginatorAdapter($params->toArray())
         );
         $paginator->setCurrentPageNumber($params->get('page', 1))
-                  ->setItemCountPerPage(10);
+                  ->setItemCountPerPage($params->get('count', 10));
         
         if ($jsonFormat) {
             $viewModel = new JsonModel();
