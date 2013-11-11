@@ -24,25 +24,29 @@ use Zend\Stdlib\Parameters;
 class ManageController extends AbstractActionController {
 
     public function saveAction() {
-        if (True) {
+        if (False) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
                 'applyId' => 5678, 'company' => '5678_company', 'title' => '5678_title',
                 'link' => '5678_link', 'location' => '5678_location',
-                'datePublishStart' => '2013-11-11', 'contactEmail' => '5678_contactEmail@web.de',
+                'datePublishStart' => '2013-11-11', 'contactEmail' => '5678_contactEmail@web.de'
             ));
             $this->getRequest()->setPost($params);
         }
+        //$entity = $services->get('builders')->get('job')->getEntity();
+        
         $services = $this->getServiceLocator();
         $user = $services->get('AuthenticationService')->getUser();
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user)) {
             $form = $services->get('FormElementManager')->get('JobForm');
+            // determine Job from Database 
             $id = $this->params()->fromPost('id');
             if (empty($id)) {
                 $applyId = $this->params()->fromPost('applyId');
                 if (empty($applyId)) {
+                    // new Job
                     $entity = $services->get('builders')->get('job')->getEntity();
                 } else {
                     $entity = $services->get('repositories')->get('job')->findByApplyId((string) $applyId);
@@ -53,7 +57,6 @@ class ManageController extends AbstractActionController {
             $form->bind($entity);
             if ($this->request->isPost()) {
                 $form->setData($this->getRequest()->getPost());
-                $datePublishStart = \DateTime::createFromFormat('Y-m-d', $this->params()->fromPost('datePublishStart'));
                 $result['post'] = $_POST;
                 if ($form->isValid()) {
                     $entity->setUserId($user->id);
