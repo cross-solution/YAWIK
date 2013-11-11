@@ -124,7 +124,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $origUri = str_replace($basePath, '', $request->getRequestUri());
         $lang = $this->detectLanguage($request->getHeaders());
         $langUri = rtrim("$basePath/$lang$origUri", '/');        
-        if ($router()->match($request->setUri($langUri)) instanceOf RouteMatch) {
+        if ($router->match($request->setUri($langUri)) instanceOf RouteMatch) {
             $e->stopPropagation(true);
             //$e->setError(false);
             return $this->redirect($e->getResponse(), $langUri);
