@@ -70,7 +70,6 @@ class LanguageRouteListener implements ListenerAggregateInterface
             return;
         }
         $language = $routeMatch->getParam('lang', '__NOT_SET__');
-        
         if ($this->isAvailableLanguage($language)) {
             $this->setTranslatorLocale($e, $language);
             $this->setNavigationParams($e, $language);
@@ -120,16 +119,17 @@ class LanguageRouteListener implements ListenerAggregateInterface
          * to the ROUTE_NO_MATCH error renderer.
          */
         $request = clone $e->getRequest(); // clone the request, because maybe we
-        $origUri = $request->getRequestUri();
+        $router = $e->getRouter();
+        $basePath=$router->getBaseUrl();
+        $origUri = str_replace($basePath, '', $request->getRequestUri());
         $lang = $this->detectLanguage($request->getHeaders());
-        $langUri = rtrim("/$lang$origUri", '/');        
-
-        if ($e->getRouter()->match($request->setUri($langUri)) instanceOf RouteMatch) {
+        $langUri = rtrim("$basePath/$lang$origUri", '/');        
+        if ($router()->match($request->setUri($langUri)) instanceOf RouteMatch) {
             $e->stopPropagation(true);
             //$e->setError(false);
             return $this->redirect($e->getResponse(), $langUri);
         }
-        
+
         $this->setNavigationParams($e, $lang);
         $this->setTranslatorLocale($e, $lang);
     }
