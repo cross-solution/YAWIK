@@ -32,10 +32,30 @@ class IndexController extends AbstractActionController
         $modulesWithSettings = $this->config("settings", True);
         //$config = $ServiceLocator->get();
         
+        $MvcEvent = $this->getEvent();
+        $page = array(
+            'label' => 'Submenu1',
+            'order' => '10',
+            'resource' => 'route/lang/settings',
+            'route' => 'lang/settings/',
+            'routeMatch'  => $MvcEvent->getRouteMatch(),
+            'router'      => $MvcEvent->getRouter(),
+            'action' => 'index',
+            'controller' => 'index'
+        );
+        
+        $nav = $ServiceLocator->get('main_navigation');
+        $settingsMenu = $nav->findOneBy('route', 'lang/settings');
+        //$settingsMenu->addPage($page);
+        
+        
+        
         $subMenu = array();
         foreach($modulesWithSettings as $key => $param) {
             $subMenu[] = ucfirst($key);
         }
+        
+        
         $formName = 'Settings/' . $moduleName;
         
         // Fetching an distinct Settings
