@@ -71,6 +71,9 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         $this->add(
             $attachments
         );
+        $this->add(
+            $this->forms->get('Applications/Administration')
+        );
         $this->add($this->forms->get('DefaultButtonsFieldset'));
         //$this->setValidationGroup('jobId', 'contact', 'base', 'cv');
        

@@ -64,7 +64,7 @@ class FormRow extends ZendFormRow
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
             $elementString .= sprintf(
-                '<div class="description">%s</div>', $desc
+                '<div class="description help-block">%s</div>', $desc
             );
         }
         if (!$element instanceOf \Zend\Form\Element\Hidden
@@ -126,7 +126,7 @@ class FormRow extends ZendFormRow
                     if ($this->shouldWrap) {
                         $spanWidth = 12 - $labelWidth;
                         $elementString = sprintf(
-                            '<div class="span%d%s">%s</div>',
+                            '<div class="span%d%s" id="' . $elementId . '-span">%s</div>',
                             $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
                         );
                         $label = sprintf(
