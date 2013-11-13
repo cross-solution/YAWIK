@@ -46,14 +46,17 @@ class ManageController extends AbstractActionController
     public function indexAction()
     { 
         $params = $this->getRequest()->getQuery();
-        $session = new Session('Applications\Index');
-        if ($session->params) {
-            foreach ($session->params as $key => $value) {
-                if ('format' == $key) { continue; }
-                $params->set($key, $params->get($key, $value));
+        $jsonFormat = 'json' == $params->get('format');
+        
+        if (!$jsonFormat) {
+            $session = new Session('Applications\Index');
+            if ($session->params) {
+                foreach ($session->params as $key => $value) {
+                    $params->set($key, $params->get($key, $value));
+                }
             }
+            $session->params = $params->toArray();
         }
-        $session->params = $params->toArray();
         
         $v = new ViewModel(array(
             'by' => $params->get('by', 'me'),
@@ -71,9 +74,6 @@ class ManageController extends AbstractActionController
         );
         $paginator->setCurrentPageNumber($params->get('page', 1))
                   ->setItemCountPerPage(10);
-        
-        
-        $jsonFormat = 'json' == $this->params()->fromQuery('format');
         
         if ($jsonFormat) {
             $viewModel = new JsonModel();
