@@ -11,36 +11,34 @@ use Core\Mail\Mail;
 
 class Mailer extends AbstractPlugin 
 {
-    protected $mails;
+    protected $mailService;
     
-    public function setController(Dispatchable $controller) {
-        $issetController = $this->getController();
-        if (!isset($issetController)) {
-            $events = $controller->getEventManager();
-            $events->attach(MvcEvent::EVENT_RENDER, array($this,'renderMail'), 100);
-            parent::setController($controller); 
+    public function setMailService($mailService)
+    {
+        $this->mailService = $mailService;
+        return $this;
+    }
+    
+    public function getMailService()
+    {
+        if (!$this->mailService) {
+            $services    = $this->getController()->getServiceLocator();
+            $mailService = $services->get('Core/MailService');
+            $this->setMailService($mailService); 
         }
+        return $this->mailService;
     }
     
-    public function renderMail(MvcEvent $e) {
-    }
-    
-    public function sendMail($mail) {
-        $result = False;
-        if (($id = array_search($mail, $this->mails)) !== False) {
-            $transport = new Sendmail();
-            $transport->send($mail);
+    public function __invoke($method=null)
+    {
+        $mailService = $this->getMailService();
+        if (null !== $method && method_exists($mailService, $method)) {
+            $params = func_get_args();
+            array_shift($params); // Discard first param ($method)
             
-            // unsetting the mail reassures us, that we will not send the mail more than once
-            unset ($this->mails[$id]);
-            $result = True;
+            return call_user_func_array(array($mailService, $method), $params);
         }
-        return $result;
-    }
-    
-    public function newMail() {
-        $mail = new Mail($this);
-        $this->mails[] = $mail;
-        return $mail;
+        
+        return $mailService;
     }
 }
