@@ -21,7 +21,7 @@ class SettingsFieldset extends Fieldset
 public function init()
     {
         $this->setName('settings-core-fieldset')
-             ->setLabel('general settings');
+             ->setLabel(/* @translate */ 'E-Mail Notifications');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         $this->add(array('type' => 'Zend\Form\Element\Checkbox',

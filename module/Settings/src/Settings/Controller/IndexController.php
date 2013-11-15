@@ -33,26 +33,22 @@ class IndexController extends AbstractActionController
         //$config = $ServiceLocator->get();
         
         $MvcEvent = $this->getEvent();
-        $page = array(
-            'label' => 'Submenu1',
-            'order' => '10',
-            'resource' => 'route/lang/settings',
-            'route' => 'lang/settings/',
-            'routeMatch'  => $MvcEvent->getRouteMatch(),
-            'router'      => $MvcEvent->getRouter(),
-            'action' => 'index',
-            'controller' => 'index'
-        );
-        
         $nav = $ServiceLocator->get('main_navigation');
         $settingsMenu = $nav->findOneBy('route', 'lang/settings');
-        //$settingsMenu->addPage($page);
         
-        
-        
-        $subMenu = array();
         foreach($modulesWithSettings as $key => $param) {
-            $subMenu[] = ucfirst($key);
+            $page = array(
+                'label' => ucfirst($key),
+                'order' => '10',
+                'resource' => 'route/lang/settings',
+                'route' => 'lang/settings/',
+                'routeMatch' => $MvcEvent->getRouteMatch(),
+                'router' => $MvcEvent->getRouter(),
+                'action' => 'index',
+                'controller' => 'index',
+                'params' => array('lang' => 'de', 'module' => $key)
+            );
+            $settingsMenu->addPage($page);
         }
         
         
@@ -89,7 +85,6 @@ class IndexController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
             'form' => $form,
-            'subMenu' => $subMenu
         ));
         return $viewModel;
     }

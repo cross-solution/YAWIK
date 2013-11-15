@@ -23,14 +23,6 @@ $form->setAttributes(array(
 ));
  */
 
-echo '<ul id="settingsSubMenu">' .PHP_EOL;
-if (!empty($subMenu)) {
-    foreach ($subMenu as $subMenuItem) {
-        echo '<li><a href="/de/settings/'. $subMenuItem .'">' . $subMenuItem . '</a></li>'  .PHP_EOL;
-    }
-}
-echo '</ul>' .PHP_EOL .PHP_EOL;
-
 echo $this->form($form, 'settings');
 
 ?>
