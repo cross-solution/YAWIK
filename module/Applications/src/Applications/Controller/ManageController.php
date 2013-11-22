@@ -174,23 +174,30 @@ class ManageController extends AbstractActionController
             }
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
         }
-        
-        $mail          = $this->mail(array('application' => $application));
-        
-        if ($this->request->isPost()) {
+       $mailService = $this->getServiceLocator()->get('Core/MailService');
+       $mail = $mailService->get('Applications/StatusChange');
+       $mail->setApplication($application);
+       if ($this->request->isPost()) {
+           $mail->setSubject($this->params()->fromPost('mailSubject'));
+           $mail->setBody($this->params()->fromPost('mailText'));
+           if ($from = $application->job->contactEmail) {
+                $mail->setFrom($from, $application->job->company);
+           }
+           $mailService->send($mail);
+           
             // @todo must be in Mail-Controller-Plugin ::send()
             //       or in Plugin-Factory "MailFactory"
-            $mail->setEncoding('UTF-8');
-            $mail->getHeaders()->addHeader(\Zend\Mail\Header\ContentType::fromString('Content-Type: text/plain; charset=utf-8'));
+//             $mail->setEncoding('UTF-8');
+//             $mail->getHeaders()->addHeader(\Zend\Mail\Header\ContentType::fromString('Content-Type: text/plain; charset=utf-8'));
             
-            $mail->setSubject($this->params()->fromPost('mailSubject'));
-            $mail->setBody($this->params()->fromPost('mailText'));
-            $from = $application->job->contactEmail
-                  ? $application->job->contactEmail
-                  : 'no-reply@bewerbermanagement.cross-solution.de';
-            $mail->setFrom($from, $application->job->company);
-            $mail->addTo($application->contact->email, $application->contact->displayName);
-            $mail->send();
+//             $mail->setSubject($this->params()->fromPost('mailSubject'));
+//             $mail->setBody($this->params()->fromPost('mailText'));
+//             $from = $application->job->contactEmail
+//                   ? $application->job->contactEmail
+//                   : 'no-reply@bewerbermanagement.cross-solution.de';
+//             $mail->setFrom($from, $application->job->company);
+//             $mail->addTo($application->contact->email, $application->contact->displayName);
+//             $mail->send();
             $application->changeStatus($status);
             $repository->save($application);
             
@@ -202,9 +209,21 @@ class ManageController extends AbstractActionController
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
         }
         
-        $mail->template("$status-" . $this->params('lang'));
-        $mailText      = $mail->getBody();
-        $mailSubject   = $mail->getSubject();
+        $translator = $this->getServiceLocator()->get('translator');
+        $settings = $this->settings();
+        switch ($status) {
+            default:
+            case Status::CONFIRMED: $key = 'mailConfirmationText'; break;
+            case Status::INVITED  : $key = 'mailInvitationText'; break;
+            case Status::REJECTED : $key = 'mailReejectionText'; break;
+        }
+        $mailText      = $settings->$key ? $settings->$key : '';
+        $mail->setBody($mailText);
+        $mailText = $mail->getBodyText();
+        $mailSubject   = sprintf(
+            $translator->translate('Your application dated %s'),
+            strftime('%x', $application->dateCreated->getTimestamp())
+        );
         
         $params = array(
                 'applicationId' => $applicationId,

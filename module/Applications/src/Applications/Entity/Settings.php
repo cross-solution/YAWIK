@@ -42,33 +42,20 @@ class Settings extends SettingsAbstract {
         return $this;
     } 
     
-    public function setMailInvitation($option) {
-        $this->mailInvitation = $option;
-        return $this;
-    } 
-    
     public function setMailInvitationText($option) {
         $this->mailInvitationText = $option;
         return $this;
     } 
     
-    public function setMailAcknowledgement($option) {
-        $this->mailAcknowledgement = $option;
+    
+    public function setMailConfirmationText($option) {
+        $this->mailConfirmationText = $option;
         return $this;
     } 
     
-    public function setMailAcknowledgementText($option) {
-        $this->mailAcknowledgementText = $option;
-        return $this;
-    } 
     
-    public function setMailDecline($option) {
-        $this->mailDecline = $option;
-        return $this;
-    } 
-    
-    public function setMailDeclineText($option) {
-        $this->mailDeclineText = $option;
+    public function setMailRejectionText($option) {
+        $this->mailRejectionText = $option;
         return $this;
     }
     

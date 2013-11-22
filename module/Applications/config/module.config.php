@@ -251,11 +251,18 @@ return array(
         ),
     ),
      
-     'repositories' => array(
-         'invokables' => array(
-             'Application' => 'Applications\Repository\Application',
-         ),
-     ),
+    'mails' => array(
+        'invokables' => array(
+            'Applications/NewApplication' => 'Applications\Mail\NewApplication',
+            'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
+        ),
+    ),
+    
+    'repositories' => array(
+        'invokables' => array(
+            'Application' => 'Applications\Repository\Application',
+        ),
+    ),
      
      'mappers' => array(
          'factories' => array(
