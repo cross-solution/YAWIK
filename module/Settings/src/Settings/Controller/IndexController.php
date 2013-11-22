@@ -29,6 +29,13 @@ class IndexController extends AbstractActionController
         $ServiceLocator = $this->getServiceLocator();
         
         $moduleName = $this->params('module');
+        
+        $settings = $this->settings($moduleName);
+        $jsonFormat = 'json' == $this->params()->fromQuery('format');
+        if (!$this->getRequest()->isPost() && $jsonFormat) {
+            return $settings->toArray();
+        }
+        
         $modulesWithSettings = $this->config("settings", True);
         //$config = $ServiceLocator->get();
         
@@ -41,7 +48,7 @@ class IndexController extends AbstractActionController
                 'label' => ucfirst($key),
                 'order' => '10',
                 'resource' => 'route/lang/settings',
-                'route' => 'lang/settings/',
+                'route' => 'lang/settings',
                 'routeMatch' => $MvcEvent->getRouteMatch(),
                 'router' => $MvcEvent->getRouter(),
                 'action' => 'index',
@@ -55,7 +62,7 @@ class IndexController extends AbstractActionController
         $formName = 'Settings/' . $moduleName;
         
         // Fetching an distinct Settings
-        $settings = $this->settings($moduleName);
+        
         
         // Write-Access is per default only granted to the own module - change that
         $settings->setAccessWrite();
@@ -73,7 +80,7 @@ class IndexController extends AbstractActionController
         if (0 < count($data)) {
             $form->setData($data);
             //$form->bindValues($data);
-            if ($form->isValid()) {
+            if ($valid = $form->isValid()) {
                 // success
             }
             else {
@@ -81,6 +88,13 @@ class IndexController extends AbstractActionController
             }
         }
         
+        if ($jsonFormat) {
+            return array('status' => 'success',
+                         'settings' => $settings->toArray(),
+                        'data' => $data,
+                        'valid' => $valid,
+                        'errors' => $form->getMessages());
+        }
         // man könnte hier auch einfach nur ein Array zurückgeben
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(

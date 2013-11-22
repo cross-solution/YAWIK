@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-28 14:48+0200\n"
-"PO-Revision-Date: 2013-09-28 14:52+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"POT-Creation-Date: 2013-11-22 12:42+0100\n"
+"PO-Revision-Date: 2013-11-22 12:45+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,6 @@ msgid "click to open the job ad"
 msgstr "Klicken, um die Stellenanzeige zu öffnen"
 
 #: view/applications/index/index.phtml:16
-#, fuzzy
 msgid "your application was sent successfully"
 msgstr "Ihre Bewerbung wurde erfolgreich gespeichert"
 
@@ -43,167 +42,299 @@ msgstr "Bewerbungen"
 #: view/applications/manage/index.phtml:3
 #: view/applications/manage/index.phtml:10
 msgid "to all of your jobs"
-msgstr ""
+msgstr "für alle Ihre Anzeigen"
 
 #: view/applications/manage/index.phtml:9
 msgid "List of all applications"
 msgstr "Übersicht aller Bewerbungen"
 
-#: view/applications/manage/detail.phtml:1
+#: view/applications/manage/index.ajax.phtml:59
+msgid "view"
+msgstr "ansehen"
+
+#: view/applications/manage/index.ajax.phtml:61
+msgid "delete"
+msgstr "löschen"
+
+#: view/applications/manage/detail.phtml:4
 msgid "Details"
 msgstr "Details"
 
-#: view/applications/manage/detail.phtml:2
+#: view/applications/manage/detail.phtml:7
 msgid "application details"
 msgstr "Details der Bewerbung"
 
-#: view/applications/manage/detail.phtml:6
+#: view/applications/manage/detail.phtml:11
+#: view/applications/manage/detail.phtml:89
 msgid "State"
 msgstr "Status"
 
-#: view/applications/manage/detail.phtml:10
+#: view/applications/manage/detail.phtml:27
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: view/applications/manage/detail.phtml:28
+msgid "Confirm the receipt"
+msgstr "Dem Empfänger bestätigen"
+
+#: view/applications/manage/detail.phtml:36
+msgid "Invite"
+msgstr "Einladen"
+
+#: view/applications/manage/detail.phtml:37
+#: view/applications/manage/detail.phtml:72
+msgid "Invite the applicant"
+msgstr "Den Bewerber einladen"
+
+#: view/applications/manage/detail.phtml:45
+msgid "Reject"
+msgstr "Ablehnen"
+
+#: view/applications/manage/detail.phtml:46
+msgid "Reject the applicant"
+msgstr "Den Bewerber ablehnen"
+
+#: view/applications/manage/detail.phtml:76
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: view/applications/manage/detail.phtml:77
+msgid "Send mail"
+msgstr "Mail senden"
+
+#: view/applications/manage/detail.phtml:83
+msgid "State history"
+msgstr "Statusverlauf"
+
+#: view/applications/manage/detail.phtml:88
+msgid "Date"
+msgstr "Datum"
+
+#: view/applications/manage/detail.phtml:90
+msgid "Comment"
+msgstr "Kommentar"
+
+#: view/applications/manage/detail.phtml:106
 msgid "date of receipt"
 msgstr "Eingangsdatum"
 
-#: view/applications/manage/detail.phtml:14
+#: view/applications/manage/detail.phtml:110
 msgid "last modification date"
 msgstr "letztes Änderungsdatum"
 
 # obsolet
-#: view/applications/manage/detail.phtml:18
+#: view/applications/manage/detail.phtml:114
 msgid "personal information"
 msgstr "Angaben zur Person"
 
-#: view/applications/manage/detail.phtml:22
-#, fuzzy
+#: view/applications/manage/detail.phtml:118
 msgid "name"
 msgstr "Nachname"
 
-#: view/applications/manage/detail.phtml:26
+#: view/applications/manage/detail.phtml:122
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: view/applications/manage/detail.phtml:30
+#: view/applications/manage/detail.phtml:126
 msgid "Phone"
 msgstr "Telefon"
 
-#: view/applications/manage/detail.phtml:42
+#: view/applications/manage/detail.phtml:137
+#: src/Applications/Form/BaseFieldset.php:22
+#: language/_annotated_strings.php:24
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: view/applications/manage/detail.phtml:147
 msgid "work experience"
 msgstr "Berufserfahrung"
 
-#: view/applications/manage/detail.phtml:52
+#: view/applications/manage/detail.phtml:157
 msgid "education and training"
 msgstr "Schul- und Berufsbildung"
 
-#: view/applications/manage/detail.phtml:63
+#: view/applications/manage/detail.phtml:168
 msgid "personal skills"
 msgstr "persönliche Fähigkeiten"
 
-#: view/applications/manage/detail.phtml:66
+#: view/applications/manage/detail.phtml:171
 msgid "native language"
 msgstr "Muttersprache"
 
-#: view/partial/pagination-control.phtml:16
-#: view/partial/pagination-control.phtml:19
+#: view/applications/manage/detail.phtml:179
+#: src/Applications/Form/AttachmentsCollectionFactory.php:26
+msgid "Attachments"
+msgstr "Anhänge"
+
+#: view/partial/pagination-control.phtml:17
+#: view/partial/pagination-control.phtml:20
 msgid "First"
 msgstr "Anfang"
 
-#: view/partial/pagination-control.phtml:24
-#: view/partial/pagination-control.phtml:27
+#: view/partial/pagination-control.phtml:25
+#: view/partial/pagination-control.phtml:28
 msgid "&lt; Previous"
 msgstr "&lt; Vor"
 
-#: view/partial/pagination-control.phtml:32
+#: view/partial/pagination-control.phtml:33
 msgid "Next &gt;"
 msgstr "Weiter &gt;"
 
-#: view/partial/pagination-control.phtml:40
-#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:41
+#: view/partial/pagination-control.phtml:44
 msgid "Last"
 msgstr "Ende"
 
 #: view/sidebar/manage.phtml:11
 msgid "List filter"
-msgstr ""
+msgstr "Listenfilter"
 
-#: src/Applications/Form/EducationFieldset.php:16
-msgid "Education"
-msgstr "Ausbildung"
+#: src/Applications/Form/AdministrationFieldset.php:22
+msgid "Privacy Policies"
+msgstr "Datenschutzbestimmungen"
 
-#: src/Applications/Form/EmploymentFieldset.php:16
-msgid "Employment"
-msgstr "Anstellung"
+#: src/Applications/Form/SettingsFieldset.php:24
+#: language/_annotated_strings.php:6
+msgid "E-Mail Notifications"
+msgstr "E-Mail Benachrichtigungen"
 
-#: src/Applications/Form/CreateApplication.php:52
-#, fuzzy
+#: src/Applications/Form/CreateApplication.php:59
 msgid "personal informations"
 msgstr "Angaben zur Person"
 
-#: language/_annotated_strings.php:3
-msgid "Degree"
-msgstr "Abschluss"
+#: src/Applications/Form/AttachmentsFieldset.php:22
+msgid "Attachment"
+msgstr "Anhang"
 
-#: language/_annotated_strings.php:6
-msgid "please enter the name of your qualification"
-msgstr "Bitte geben Sie die Bezeichnung ihrer Qualifikation ein"
+#: src/Applications/Controller/ManageController.php:224
+#, php-format
+msgid "Your application dated %s"
+msgstr "Ihre Bewerbung vom %s"
+
+#: src/Applications/Mail/StatusChange.php:57
+#, php-format
+msgid "Dear Mr. %s"
+msgstr "Sehr geehrter Herr %s"
+
+#: src/Applications/Mail/StatusChange.php:58
+#, php-format
+msgid "Dear Ms. %s"
+msgstr "Sehr geehrte Frau %s"
+
+#: src/Applications/Mail/StatusChange.php:69
+#, php-format
+msgid "Hello %s"
+msgstr "Hallo %s"
+
+#: language/_annotated_strings.php:3
+msgid "Privacy Policy"
+msgstr "Datenschutzbestimmung"
 
 #: language/_annotated_strings.php:9
-msgid "Organization Name"
-msgstr "Name der Univerität"
+msgid "receive E-Mail alert"
+msgstr "E-Mail Benachrichtigungen erhalten"
 
 #: language/_annotated_strings.php:12
-msgid "please enter the name of the university or school"
-msgstr "Bitte geben Sie den Namen der Universität ein"
+msgid "Mailtext"
+msgstr "Mailtext"
 
 #: language/_annotated_strings.php:15
-msgid "Country"
-msgstr "Land"
+msgid "Confirmation mail text"
+msgstr "Text der Bestätigungs-E-Mail"
 
 #: language/_annotated_strings.php:18
-msgid "please select the country"
-msgstr "Bitte wählen Sie ein Land"
+msgid "Invitation mail text"
+msgstr "Text der Einladungs-E-Mail"
 
 #: language/_annotated_strings.php:21
-msgid "City"
-msgstr "Ort"
-
-#: language/_annotated_strings.php:24
-msgid "please enter the name of the city"
-msgstr "Bitte geben Sie den Namen der Stadt ein"
+msgid "Rejection mail text"
+msgstr "Text der Ablehnungs-E-Mail"
 
 #: language/_annotated_strings.php:27
-msgid "Description"
-msgstr "Beschreibung"
+#, php-format
+msgid "New application for your vacancy \"%s\""
+msgstr "Neue Bewerbung für Ihre Anzeige \"%s\""
 
 #: language/_annotated_strings.php:30
-msgid "please enter a description"
-msgstr "Bitte geben Sie eine Beschreibung ein"
+msgid ""
+"Hello ##name##,\\n"
+"\\n"
+"There is a new application for your vacancy:\\n"
+"\\\"##title##\\\"\\n"
+"\\n"
+msgstr ""
+"Hallo ##name##,\\n"
+"\\n"
+"Es gibt eine neue Bewerbung auf Ihre Anzeige:\\n"
+"\\\"##title##\\\"\\n"
+"\\n"
 
 #: language/_annotated_strings.php:33
-msgid "Mister"
-msgstr "Herr"
+msgid "Overview"
+msgstr "Überblick"
 
-#: language/_annotated_strings.php:36
-msgid "Miss"
-msgstr "Frau"
+#~ msgid "send Invitation"
+#~ msgstr "Einladung senden"
 
-#: language/_annotated_strings.php:39
-msgid "please choose your title"
-msgstr "Bitte wählen Sie Ihre Anrede"
+#~ msgid "acknowledgement of receipt"
+#~ msgstr "Eingangsbestätigung"
 
-#: language/_annotated_strings.php:42
-msgid "First name"
-msgstr "Vorname"
+#~ msgid "decline E-Mail"
+#~ msgstr "E-Mail ablehnen"
 
-#: language/_annotated_strings.php:45
-msgid "please enter your firstname"
-msgstr "Bitte geben Sie Ihren Vornamen ein"
+#~ msgid "Education"
+#~ msgstr "Ausbildung"
 
-#: language/_annotated_strings.php:48
-msgid "Last name"
-msgstr "Nachname"
+#~ msgid "Employment"
+#~ msgstr "Anstellung"
 
-#: language/_annotated_strings.php:51
-msgid "please enter your lastname"
-msgstr "bitte geben Sie Ihren Nachnamen ein"
+#~ msgid "Degree"
+#~ msgstr "Abschluss"
 
+#~ msgid "please enter the name of your qualification"
+#~ msgstr "Bitte geben Sie die Bezeichnung ihrer Qualifikation ein"
+
+#~ msgid "Organization Name"
+#~ msgstr "Name der Univerität"
+
+#~ msgid "please enter the name of the university or school"
+#~ msgstr "Bitte geben Sie den Namen der Universität ein"
+
+#~ msgid "Country"
+#~ msgstr "Land"
+
+#~ msgid "please select the country"
+#~ msgstr "Bitte wählen Sie ein Land"
+
+#~ msgid "City"
+#~ msgstr "Ort"
+
+#~ msgid "please enter the name of the city"
+#~ msgstr "Bitte geben Sie den Namen der Stadt ein"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "please enter a description"
+#~ msgstr "Bitte geben Sie eine Beschreibung ein"
+
+#~ msgid "Mister"
+#~ msgstr "Herr"
+
+#~ msgid "Miss"
+#~ msgstr "Frau"
+
+#~ msgid "please choose your title"
+#~ msgstr "Bitte wählen Sie Ihre Anrede"
+
+#~ msgid "First name"
+#~ msgstr "Vorname"
+
+#~ msgid "please enter your firstname"
+#~ msgstr "Bitte geben Sie Ihren Vornamen ein"
+
+#~ msgid "Last name"
+#~ msgstr "Nachname"
+
+#~ msgid "please enter your lastname"
+#~ msgstr "bitte geben Sie Ihren Nachnamen ein"

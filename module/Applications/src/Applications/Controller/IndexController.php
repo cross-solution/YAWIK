@@ -33,6 +33,7 @@ class IndexController extends AbstractActionController
 //         return $view;
         //$this->layout('layout/apply');
         
+        
         $services = $this->getServiceLocator();
         $request = $this->getRequest();
         
@@ -40,6 +41,7 @@ class IndexController extends AbstractActionController
         $job = ($request->isPost() && !empty($jobId))
              ? $services->get('repositories')->get('job')->find($jobId)
              : $services->get('repositories')->get('job')->findByApplyId((0 == $applyId)?$this->params('jobId'):$applyId);
+        
         
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
         
@@ -110,17 +112,12 @@ class IndexController extends AbstractActionController
                 /*
                  * New Application alert Mails to job owner
                  */
-                if ($email = $job->getContactEmail()) {
-                    $confirmMail = $this->mail(array(
-                        'job' => $job,
-                    ));
-                    /* @todo make FROM configureable! */
-                    $confirmMail->setFrom('anzeigenmanagement@mediaintown.de', 'MediaInTown')
-                                ->addTo($email, $job->user->info->displayName)
-                                /* @todo Language must be taken from the jobs' user settings.
-                                 *       template() breaks fluent interface for no reason! */
-                                ->template('new-application-de');
-                   $confirmMail->send();
+                $settings = $this->settings($job->user->getEntity()); 
+                if (($email = $job->getContactEmail()) && $settings->mailAccess) {
+                    $mailService = $services->get('Core\MailService');
+                    $mailService->send('Applications/NewApplication', array('job' => $job));
+                                 
+                    
                 }
                 
                 if ($this->auth()->isLoggedIn()) {

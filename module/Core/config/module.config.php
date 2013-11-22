@@ -80,6 +80,7 @@ return array(
             'configaccess' => 'Core\Service\Config',
         ),
         'factories' => array(
+            'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'query_criterion_manager' => 'Core\Mapper\Query\Service\CriterionManagerFactory',
@@ -132,7 +133,7 @@ return array(
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
         'factories' => array(
-            'mailer' => 'Core\Controller\Plugin\Mailfactory'
+            'mailstackmailer' => 'Core\Controller\Plugin\Mailfactory'
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
@@ -197,7 +198,11 @@ return array(
         ),
     ),
     
-   'repositories' => array(
+    'mails' => array(
+        'from' => array('no-reply@host.tld' => 'CrossApplicantManagement'),
+    ),
+    
+    'repositories' => array(
         
         'abstract_factories' => array(
             'Core\Repository\FileRepositoryAbstractFactory',
