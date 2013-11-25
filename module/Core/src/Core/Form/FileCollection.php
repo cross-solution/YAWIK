@@ -91,9 +91,9 @@ class FileCollection extends Collection implements InputFilterProviderInterface
             'type' => 'Zend\InputFilter\FileInput',
             'required' => false,
         );
-        if ($validator = $this->getFileValidator()) {
+        /*if ($validator = $this->getFileValidator()) {
             $input['validators'] = array($validator);
-        }
+        }*///Removed file validator due to possible bug.
         $spec = array();
         foreach ($this->getElements() as $element) {
             /*
