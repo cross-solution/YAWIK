@@ -180,7 +180,7 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
         if ($this->accessWrite) {
             if (isset($this->data)) {
                 if (is_array($this->data)) {
-                    if (isset($value) && (is_array($value) || !isset($this->data[$key]) || $value != $this->data[$key])) {
+                    if (isset($value) && (!isset($this->data[$key]) || $value != $this->data[$key])) {
                         $this->data[$key] = $value;
                         $this->setChanged();
                     }
@@ -217,6 +217,14 @@ class AwareEntity implements AnonymEntityInterface, \Iterator
             }
         }
         return Null;
+    }
+    
+    public function getSetters() {
+        $class = new \ReflectionClass($this);
+        $methods = $class->getMethods (\ReflectionMethod::IS_PUBLIC);
+        array_walk($methods, function(&$elem) { $elem = $elem->getName();});
+        $methods = array_filter($methods, function($elem) { return (0 === strpos($elem,'set'));} );
+        return $methods;
     }
     
     public function toArray() {

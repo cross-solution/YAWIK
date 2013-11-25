@@ -2,6 +2,8 @@
 
 namespace Jobs\Form;
 
+use Traversable;
+use Zend\Stdlib\ArrayUtils;
 use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
@@ -17,6 +19,20 @@ class Job extends Form
         }
         return $this->hydrator;
     }
+    
+     public function setData($data)
+    {
+        if ($data instanceof Traversable) {
+            $data = ArrayUtils::iteratorToArray($data);
+        }
+        if (!array_key_exists('job',$data)) {
+            $data = array('job' => $data);
+        }
+        
+        return parent::setData($data);
+    }
+    
+    
     
     public function init()
     {

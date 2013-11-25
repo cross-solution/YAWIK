@@ -12,6 +12,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
 {
     protected $forms;
     protected $inputFilterSpecification;
+    protected $preferFormInputFilter = true;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -69,6 +70,9 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         $attachments->getHydrator()->setForm($this); 
         $this->add(
             $attachments
+        );
+        $this->add(
+            $this->forms->get('Applications/Administration')
         );
         $this->add($this->forms->get('DefaultButtonsFieldset'));
         //$this->setValidationGroup('jobId', 'contact', 'base', 'cv');

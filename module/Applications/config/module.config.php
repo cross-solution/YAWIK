@@ -8,6 +8,11 @@
  * @license   GPLv3
  */
 return array(
+    
+    'Applications' => array(
+        'allowedMimeTypes' => array('image', 'applications/pdf'),
+    ),
+    
     'service_manager' => array(
         'invokables' => array(
         ),
@@ -20,6 +25,15 @@ return array(
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
         ),
     ),
+    
+    'Applications' => array(
+        // all the Information for the Module Settings
+        // der erste Teil ist der NameSpace, also der Modulname
+        'settings' => array(
+            'entity' => '\Applications\Entity\Settings',
+        ),
+    ),
+    
     // Routes
     'router' => array(
         'routes' => array(
@@ -217,7 +231,10 @@ return array(
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
              'Application' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
-             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset',
+             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
+             'Applications/Administration' => 'Applications\Form\AdministrationFieldset', 
+             'settings\applications' => 'Applications\Form\Settings',
+             'settings-applications-fieldset' => 'Applications\Form\SettingsFieldset',
          ),
         'factories' => array(
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
@@ -234,11 +251,18 @@ return array(
         ),
     ),
      
-     'repositories' => array(
-         'invokables' => array(
-             'Application' => 'Applications\Repository\Application',
-         ),
-     ),
+    'mails' => array(
+        'invokables' => array(
+            'Applications/NewApplication' => 'Applications\Mail\NewApplication',
+            'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
+        ),
+    ),
+    
+    'repositories' => array(
+        'invokables' => array(
+            'Application' => 'Applications\Repository\Application',
+        ),
+    ),
      
      'mappers' => array(
          'factories' => array(

@@ -24,7 +24,7 @@ class Form extends ZendForm
         $formFactory  = $this->getFormFactory();
         $inputFactory = $formFactory->getInputFilterFactory();
 
-        if ($fieldset instanceof InputFilterProviderInterface) {
+        if ($this === $fieldset && $fieldset instanceof InputFilterProviderInterface) {
             foreach ($fieldset->getInputFilterSpecification() as $name => $spec) {
                 $input = $inputFactory->createInput($spec);
                 $inputFilter->add($input, $name);

@@ -29,17 +29,40 @@ class IndexController extends AbstractActionController
         $ServiceLocator = $this->getServiceLocator();
         
         $moduleName = $this->params('module');
+        
+        $settings = $this->settings($moduleName);
+        $jsonFormat = 'json' == $this->params()->fromQuery('format');
+        if (!$this->getRequest()->isPost() && $jsonFormat) {
+            return $settings->toArray();
+        }
+        
         $modulesWithSettings = $this->config("settings", True);
         //$config = $ServiceLocator->get();
         
-        $subMenu = array();
+        $MvcEvent = $this->getEvent();
+        $nav = $ServiceLocator->get('main_navigation');
+        $settingsMenu = $nav->findOneBy('route', 'lang/settings');
+        
         foreach($modulesWithSettings as $key => $param) {
-            $subMenu[] = ucfirst($key);
+            $page = array(
+                'label' => ucfirst($key),
+                'order' => '10',
+                'resource' => 'route/lang/settings',
+                'route' => 'lang/settings',
+                'routeMatch' => $MvcEvent->getRouteMatch(),
+                'router' => $MvcEvent->getRouter(),
+                'action' => 'index',
+                'controller' => 'index',
+                'params' => array('lang' => 'de', 'module' => $key)
+            );
+            $settingsMenu->addPage($page);
         }
+        
+        
         $formName = 'Settings/' . $moduleName;
         
         // Fetching an distinct Settings
-        $settings = $this->settings($moduleName);
+        
         
         // Write-Access is per default only granted to the own module - change that
         $settings->setAccessWrite();
@@ -47,20 +70,17 @@ class IndexController extends AbstractActionController
         
         //$settings = $this->settings();
         //$settingsAuth = $this->settings('auth');
-        // Holen des Formulars
-        // $form = $settings->getFormular();
+        // Fetch the formular
         
         $form = $this->getServiceLocator()->get('FormElementManager')->get($formName);
         
-        //$formAuth = $this->getServiceLocator()->get('FormElementManager')->get('Settings/Auth');
-        
-        // Entity an das Formular binden
+        // Binding the Entity to the Formular
         $form->bind($settings);
         $data = $this->getRequest()->getPost();
         if (0 < count($data)) {
             $form->setData($data);
             //$form->bindValues($data);
-            if ($form->isValid()) {
+            if ($valid = $form->isValid()) {
                 // success
             }
             else {
@@ -68,11 +88,17 @@ class IndexController extends AbstractActionController
             }
         }
         
+        if ($jsonFormat) {
+            return array('status' => 'success',
+                         'settings' => $settings->toArray(),
+                        'data' => $data,
+                        'valid' => $valid,
+                        'errors' => $form->getMessages());
+        }
         // man könnte hier auch einfach nur ein Array zurückgeben
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
             'form' => $form,
-            'subMenu' => $subMenu
         ));
         return $viewModel;
     }

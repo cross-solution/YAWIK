@@ -7,8 +7,10 @@ use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
 class DatetimeStrategy implements StrategyInterface
 {
     
-    const FORMAT_MONGO = 'MONGO';
-    const FORMAT_ISO   = 'ISO';
+    const FORMAT_MONGO           = 'MONGO';
+    const FORMAT_ISO             = 'ISO';
+    const FORMAT_MYSQLDATE       = 'MYSQLDATE';
+    const FORMAT_MYSQLDATETIME   = 'MYSQLDATETIME';
     
     protected $extractFormat;
     protected $hydrateFormat;
@@ -57,6 +59,14 @@ class DatetimeStrategy implements StrategyInterface
             case self::FORMAT_ISO:
                 return $this->hydrateFromIsoFormat($value);
                 break;
+            
+            case self::FORMAT_MYSQLDATE:
+                return $this->hydrateFromMysqlDateFormat($value);
+                break;
+            
+            case self::FORMAT_MYSQLDATETIME:
+                return $this->hydrateFromMysqlDatetimeFormat($value);
+                break;
                 
             default:
                 die (__METHOD__ . ': Unknown format.');
@@ -78,6 +88,18 @@ class DatetimeStrategy implements StrategyInterface
     protected function hydrateFromIsoFormat($value)
     {
         $date = \DateTime::createFromFormat('c', $value);
+        return $date;
+    }
+    
+    protected function hydrateFromMysqlDateFormat($value)
+    {
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $value . ' 01:00:00');
+        return $date;
+    }
+    
+    protected function hydrateFromMysqlDatetimeFormat($value)
+    {
+        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
         return $date;
     }
 

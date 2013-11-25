@@ -3,12 +3,13 @@
 namespace Jobs\Form;
 
 use Zend\Form\Fieldset;
-use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 use Zend\Validator\StringLength as StringLengthValidator;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
 use Zend\Validator\ValidatorInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Core\Repository\Hydrator;
+use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 
 class JobFieldset extends Fieldset implements InputFilterProviderInterface
 {
@@ -17,6 +18,9 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
+            $datetimeStrategy = new Hydrator\DatetimeStrategy();
+            $datetimeStrategy->setHydrateFormat(Hydrator\DatetimeStrategy::FORMAT_MYSQLDATE);
+            $hydrator->addStrategy('datePublishStart', $datetimeStrategy);
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;

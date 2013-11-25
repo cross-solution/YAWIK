@@ -14,45 +14,39 @@ namespace Jobs\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Zend\Stdlib\Parameters;
 
 /**
  * Main Action Controller for the application.
  * Responsible for displaying the home site.  
  *
  */
-class ManageController extends AbstractActionController
-{
-    public function saveAction()
-    {
+class ManageController extends AbstractActionController {
+
+    public function saveAction() {
+        if (False) {
+            // Test
+            $this->request->setMethod('post');
+            $params = new Parameters(array(
+                'applyId' => 5678, 'company' => '5678_company', 'title' => '5678_title',
+                'link' => '5678_link', 'location' => '5678_location',
+                'datePublishStart' => '2013-11-11', 'contactEmail' => '5678_contactEmail@web.de'
+            ));
+            $this->getRequest()->setPost($params);
+        }
+        //$entity = $services->get('builders')->get('job')->getEntity();
+        
         $services = $this->getServiceLocator();
         $user = $services->get('AuthenticationService')->getUser();
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user)) {
-            $result['verbose'] = 'User';
             $form = $services->get('FormElementManager')->get('JobForm');
-            $id = 0;
-            $applyId = 0;
-            $company = 0;
-            $title = '';
-            $link = '';
-            $location = '';
-            $contactEmail = '';
-            $datePublishStart = '';
-            
-            if ($this->request->isPost()) {
-                $id = $this->params()->fromPost('id');
-                $applyId = $this->params()->fromPost('applyId');
-                $company = $this->params()->fromPost('company');
-                $title = $this->params()->fromPost('title');
-                $link = $this->params()->fromPost('link');
-                $location = $this->params()->fromPost('location');
-                $contactEmail = $this->params()->fromPost('emailapply');
-                $datePublishStart = \DateTime::createFromFormat('Y-m-d',$this->params()->fromPost('datePublishStart'));
-                $result['post'] = $_POST;
-            }
-            $result['verbose'] = 'Post';
+            // determine Job from Database 
+            $id = $this->params()->fromPost('id');
             if (empty($id)) {
+                $applyId = $this->params()->fromPost('applyId');
                 if (empty($applyId)) {
+                    // new Job
                     $entity = $services->get('builders')->get('job')->getEntity();
                 } else {
                     $entity = $services->get('repositories')->get('job')->findByApplyId((string) $applyId);
@@ -60,45 +54,23 @@ class ManageController extends AbstractActionController
             } else {
                 $entity = $services->get('repositories')->get('job')->find($id);
             }
-            $result['verbose'] = 'Entity';
-            if (isset($entity)) {
-                $form->bind($entity);
-                $result['verbose'] = 'Binding';
-                $form->setData(
-                        array('job' =>
-                            array(
-                                'applyId' => $applyId,
-                                //'source' => 'AMS',
-                                'company' => $company,
-                                'title' => $title,
-                                'link' => $link,
-                                'location' => $location,
-                                'datePublishStart' => $datePublishStart,
-                                'contactEmail' => $contactEmail,
-                            )
-                        )
-                );
-                $result['verbose'] = 'DataSetting';
+            $form->bind($entity);
+            if ($this->request->isPost()) {
+                $form->setData($this->getRequest()->getPost());
+                $result['post'] = $_POST;
                 if ($form->isValid()) {
-                    $result['verbose'] = 'Valid';
                     $entity->setUserId($user->id);
                     $services->get('repositories')->get('job')->save($entity);
                     $result['isSaved'] = true;
-                    $result['verbose'] = 'Saved';
-                }
-                else {
+                } else {
                     $result['valid Error'] = $form->getMessages();
                 }
-            }
-            else {
-                $result['message'] = 'no entity created';
             }
         } else {
             $result['message'] = 'session_id is lost';
         }
         return new JsonModel($result);
-        
-        
     }
+
 }
-    
+

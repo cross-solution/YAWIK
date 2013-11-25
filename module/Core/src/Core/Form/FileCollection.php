@@ -17,11 +17,14 @@ use Core\Entity\CollectionInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\Collection as EntityCollection;
 use Core\Entity\FileEntity;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator\ValidatorInterface;
 
-class FileCollection extends Collection
+class FileCollection extends Collection implements InputFilterProviderInterface
 {
     protected $entityCollectionPrototype;
     protected $entityPrototype;
+    protected $fileValidator;
     
     public function setEntityCollectionPrototype(CollectionInterface $collection)
     {
@@ -68,5 +71,45 @@ class FileCollection extends Collection
     
         return $collection;
     }
+    
+    public function setFileValidator(ValidatorInterface $validator)
+    {
+        $this->fileValidator = $validator;
+        return $this;
+    }
+    
+    public function getFileValidator()
+    {
+        return $this->fileValidator;
+    }
+     
+    /* (non-PHPdoc)
+     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     */
+    public function getInputFilterSpecification() {
+        $input = array(
+            'type' => 'Zend\InputFilter\FileInput',
+            'required' => false,
+        );
+        /*if ($validator = $this->getFileValidator()) {
+            $input['validators'] = array($validator);
+        }*///Removed file validator due to possible bug.
+        $spec = array();
+        foreach ($this->getElements() as $element) {
+            /*
+             * We need to explicitally set the element name due to code
+             * in Zend\InputFilter\BaseInputFilter::add.
+             * When element name is an integer, the input->getName() method is called
+             * to determine the name. And numeric array keys are automatically 
+             * transformed to integers. As this is a Collection of File-Inputs,
+             * the element names ARE numeric!
+             */
+            $name = (string) $element->getName();
+            $spec[$name] = $input + array('name' => $name);
+        }
+
+        return $spec;
+    }
+
 }
 

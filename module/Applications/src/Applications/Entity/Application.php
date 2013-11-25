@@ -41,6 +41,11 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     
     protected $history;
     
+    /*
+     * Administrative 
+     */
+    
+    protected $privacyPolicy;
     
     public function getResourceId()
     {
@@ -206,5 +211,16 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	public function getHistory()
 	{
 	    return $this->history;
+	}
+        
+	public function setPrivacyPolicyAccepted($privacyPolicy)
+	{
+	    $this->privacyPolicy = $privacyPolicy;
+	    return $this;
+	}
+        
+	public function getPrivacyPolicyAccepted()
+	{
+	    return $this->privacyPolicy;
 	}
 }

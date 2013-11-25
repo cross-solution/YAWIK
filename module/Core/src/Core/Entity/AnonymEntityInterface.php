@@ -16,5 +16,5 @@ namespace Core\Entity;
  */
 interface AnonymEntityInterface 
 {
-
+    //public function getSetters();
 }
