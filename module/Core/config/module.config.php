@@ -201,7 +201,10 @@ return array(
     ),
     
     'mails' => array(
-        'from' => array('no-reply@host.tld' => 'CrossApplicantManagement'),
+        'from' => array(
+            'email' => 'no-reply@host.tld',
+            'name'  => 'CrossApplicantManagement'
+        ),
     ),
     
     'repositories' => array(

@@ -24,9 +24,19 @@ class MailServiceConfig extends Config
     
     public function getFrom()
     {
-        return isset($this->config['from'])
-            ? $this->config['from']
-            : null;
+        if (isset($this->config['from'])) {
+            if (is_string($this->config['from'])) {
+                return $this->config['from'];
+            }
+            if (!is_array($this->config['from']) || !isset($this->config['from']['email'])) {
+                return null;
+            }
+            if (isset($this->config['from']['name'])) {
+                return array($this->config['from']['email'] => $this->config['from']['name']);
+            }
+            return $this->config['from']['email'];
+        }
+        return null;
     }
 
     public function getMailer()
