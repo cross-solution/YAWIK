@@ -113,11 +113,8 @@ class IndexController extends AbstractActionController
                  * New Application alert Mails to job owner
                  */
                 $settings = $this->settings($job->user->getEntity()); 
-                if (($email = $job->getContactEmail()) && $settings->mailAccess) {
-                    $mailService = $services->get('Core\MailService');
-                    $mailService->send('Applications/NewApplication', array('job' => $job));
-                                 
-                    
+                if ($email = $job->getContactEmail()) {
+                    $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
                 }
                 
                 if ($this->auth()->isLoggedIn()) {

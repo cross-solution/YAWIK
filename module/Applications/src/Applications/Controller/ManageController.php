@@ -215,7 +215,7 @@ class ManageController extends AbstractActionController
             default:
             case Status::CONFIRMED: $key = 'mailConfirmationText'; break;
             case Status::INVITED  : $key = 'mailInvitationText'; break;
-            case Status::REJECTED : $key = 'mailReejectionText'; break;
+            case Status::REJECTED : $key = 'mailRejectionText'; break;
         }
         $mailText      = $settings->$key ? $settings->$key : '';
         $mail->setBody($mailText);
