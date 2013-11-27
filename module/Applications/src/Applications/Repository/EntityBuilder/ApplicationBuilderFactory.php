@@ -39,8 +39,10 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
     protected function getHydrator()
     {
         $hydrator = new Hydrator\EntityHydrator();
+        $dateModifiedStrategy = new Hydrator\DatetimeStrategy();
+        $dateModifiedStrategy->setResetOnExtract(true);
         $hydrator->addStrategy('dateCreated', new Hydrator\DatetimeStrategy())
-                 ->addStrategy('dateModified', new Hydrator\DatetimeStrategy())
+                 ->addStrategy('dateModified', $dateModifiedStrategy)
                  ->addStrategy('status', new StatusStrategy());
         return $hydrator;
     }
