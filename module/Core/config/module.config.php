@@ -140,9 +140,11 @@ return array(
             'config' => 'Core\Controller\Plugin\Config',
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
             'mail' => 'Core\Controller\Plugin\Mail',
+            'Core/Mailer' => 'Core\Controller\Plugin\Mailer'
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
+            'mailer'     => 'Core/Mailer',
         )
     ),
     // Configure the view service manager

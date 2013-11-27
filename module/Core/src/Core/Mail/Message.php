@@ -14,9 +14,8 @@ use Zend\Mail\Message as ZfMessage;
 use Zend\Mail\Transport\TransportInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
-class Message extends ZfMessage implements ServiceLocatorAwareInterface 
+class Message extends ZfMessage
 {
-    protected $mailService;
     
     public function __construct(array $options=array()) {
         $this->setOptions($options);
@@ -40,26 +39,5 @@ class Message extends ZfMessage implements ServiceLocatorAwareInterface
         return $this;
     }
     
-    /* (non-PHPdoc)
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::getServiceLocator()
-     */
-    public function getServiceLocator ()
-    {
-        return $this->mailService;
-    }
-
-	/* (non-PHPdoc)
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
-     */
-    public function setServiceLocator (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
-    {
-        $this->mailService = $serviceLocator;
-        return $this;
-    }
-
-    public function send()
-    {
-        $this->getServiceLocator()->send($this);
-    }
 }
 

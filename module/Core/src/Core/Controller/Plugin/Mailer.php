@@ -3,11 +3,7 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Stdlib\DispatchableInterface as Dispatchable;
-use Zend\Mvc\MvcEvent;
 use Zend\Mail\Message;
-use Zend\Mail\Transport\Sendmail;
-use Core\Mail\Mail;
 
 class Mailer extends AbstractPlugin 
 {
@@ -29,16 +25,48 @@ class Mailer extends AbstractPlugin
         return $this->mailService;
     }
     
-    public function __invoke($method=null)
+    public function __call($method, $params)
     {
         $mailService = $this->getMailService();
-        if (null !== $method && method_exists($mailService, $method)) {
-            $params = func_get_args();
-            array_shift($params); // Discard first param ($method)
-            
-            return call_user_func_array(array($mailService, $method), $params);
+        $callback    = array($mailService, $method);
+        
+        if (is_callable($callback)) {
+            return call_user_func_array($callback, $params);
         }
         
-        return $mailService;
+        throw new \BadMethodCallException(sprintf(
+            'Neither proxied class "%s" nor this class knows of a method called "%s"',
+            get_class($mailService), $method
+        ));
+    }
+    
+    public function get($mailPluginName, array $options = array())
+    {
+        return $this->getMailService()->get($mailPluginName, $options);
+    }
+    
+    public function send(Message $mail)
+    {
+        return $this->getMailService()->send($mail);
+    }
+    
+    public function __invoke($mail = null, $options = array(), $sendMail = false)
+    {
+        if (null === $mail)  {
+            return $this;
+        }
+        
+        if (is_bool($options)) {
+            $sendMail = $options;
+            $options  = array();
+        }
+        
+        $mailService = $this->getMailService();
+        
+        if (!$mail instanceOf Message) {
+            $mail = $mailService->get($mail, $options);
+        }
+        
+        return $sendMail ? $mailService->send($mail) : $mail;
     }
 }
