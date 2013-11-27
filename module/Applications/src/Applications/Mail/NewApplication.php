@@ -31,14 +31,15 @@ class NewApplication extends StringTemplateMessage
         }
         $name = $this->job->user->info->displayName;
         if ('' == trim($name)) {
-            $name = $this->job->user->info->email;
+            $name = $this->job->contactEmail;
         }
         
         $variables = array(
             'name' => $name,
             'title' => $this->job->title
         );
-        $this->setTo($this->job->user->info->email, $name);
+        
+        $this->setTo($this->job->contactEmail, $name != $this->job->contactEmail ? $name : null);
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';
         if ($this->isTranslatorEnabled()) {
