@@ -38,7 +38,7 @@ class NewApplication extends StringTemplateMessage
             'name' => $name,
             'title' => $this->job->title
         );
-        $this->setTo($job->user->info->email, $name);
+        $this->setTo($this->job->user->info->email, $name);
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';
         if ($this->isTranslatorEnabled()) {

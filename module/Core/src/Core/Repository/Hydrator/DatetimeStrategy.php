@@ -14,8 +14,10 @@ class DatetimeStrategy implements StrategyInterface
     
     protected $extractFormat;
     protected $hydrateFormat;
+    protected $resetOnExtract = false;
     
-    public function __construct($hydrateFormat=self::FORMAT_MONGO, $extractFormat=self::FORMAT_MONGO)
+    
+	public function __construct($hydrateFormat=self::FORMAT_MONGO, $extractFormat=self::FORMAT_MONGO)
     {
         $this->setHydrateFormat($hydrateFormat);
         $this->setExtractFormat($extractFormat);
@@ -42,6 +44,24 @@ class DatetimeStrategy implements StrategyInterface
     {
         return $this->extractFormat;
     }
+    
+    /**
+     * @return the $resetOnExtract
+     */
+    public function getResetOnExtract ()
+    {
+        return $this->resetOnExtract;
+    }
+    
+    /**
+     * @param boolean $resetOnExtract
+     */
+    public function setResetOnExtract ($flag)
+    {
+        $this->resetOnExtract = (bool) $flag;
+        return $this;
+    }
+    
     
 	/* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\Strategy\StrategyInterface::extract()
@@ -108,10 +128,15 @@ class DatetimeStrategy implements StrategyInterface
      */
     public function extract ($value)
     {
+        if ($this->resetOnExtract) {
+            $value = new \DateTime();
+        }
+        
         if (!$value instanceOf \DateTime) {
             // @todo Error Handling
             return "";
         }
+        
          
         switch ($this->extractFormat) {
             case self::FORMAT_MONGO:
