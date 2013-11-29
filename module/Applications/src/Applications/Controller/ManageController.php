@@ -245,6 +245,47 @@ class ManageController extends AbstractActionController
           
     } 
     
+    public function forwardAction()
+    {
+        $services     = $this->getServiceLocator();
+        $emailAddress = $this->params()->fromQuery('email');
+        $application  = $services->get('repositories')->get('application')
+                                 ->find($this->params('id'), 'EAGER');
+        
+        $translator   = $services->get('translator');
+         
+        if (!$emailAddress) {
+            throw new \InvalidArgumentException('An email address must be supplied.');
+        }
+        
+        $params = array(
+            'ok' => true,
+            'text' => $translator->translate(sprintf(
+                'Forwarded application to %s', $emailAddress
+            ))
+        );
+        
+        try {
+            $userName    = $this->auth('info')->displayName;
+            $fromAddress = $application->job->contactEmail;
+            $mailOptions = array(
+                'application' => $application,
+                'to'          => $emailAddress,
+                'from'        => array($fromAddress => $userName)
+            );
+            $this->mailer('Applications/Forward', $mailOptions, true);
+        } catch (\Exception $ex) {
+            $params = array(
+                'ok' => false,
+                'text' => $translator->translate(sprintf(
+                     'Forward application to %s failed.', $emailAddress
+                )) . '<br><br>' . $ex->getMessage()
+            );
+        }
+        
+        return new JsonModel($params);
+    }
+    
     public function deleteAction()
     {
         $id          = $this->params('id');
