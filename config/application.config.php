@@ -7,18 +7,36 @@
  * @license   GPLv3
  */
 
+$modules = array(
+        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings',
+    );
+
+foreach (glob(__dir__ . '/autoload/*.module.php') as $moduleFile) {
+    $addModules = require $moduleFile;
+    foreach ($addModules as $addModule) {
+        if (strpos($addModule, '-') === 0) {
+            $remove = substr($addModule,1);
+            $modules = array_filter($modules, function ($elem) use ($remove) { return strcasecmp($elem,$remove); });
+        }
+        else {
+            if (!in_array($addModule, $modules)) {
+                $modules[] = $addModule;
+            }
+        }
+    }
+}
+
 return array(
     
     // Activated modules. (Use folder name)
-    'modules' => array(
-        'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings'
-    ),
+    'modules' => $modules,
     
     // Where to search modules
     'module_listener_options' => array(
         'module_paths' => array(
             './module',
-            './vendor'
+            './vendor',
+            'extern\*' => './vendor/extern'
         ),
     
     
@@ -66,6 +84,7 @@ return array(
         'factories' => array(
             //'ServiceListener' => 'Zend\Mvc\Service\ServiceListenerFactory',
             'ServiceListener' => 'Core\src\Core\mvc\Service\ServiceListenerFactory',
+            //'ModuleManager' => 'Core\src\Core\Service\ModuleManagerFactory',
             ),
          'aliases' => array(
              'mappers' => 'MapperManager',
