@@ -32,8 +32,38 @@
 		
 	};
 	
+	var forwardEmailHandler = function(event)
+	{
+		var displayResult = function(text, type)
+		{
+			$alert = $('#forward-email-result');
+			$alert.addClass('alert-' + type);
+			$alert.html(text);
+			$alert.slideDown();
+			window.setTimeout(function() { $alert.removeClass('alert-' + type); $alert.slideUp(); }, 5000);
+		};
+		
+		var $formular = $(event.target);
+		if ('' == $formular.find('#forward-email-input').val()) {
+			return false;
+		}
+		
+		var $alert = $('#forward-email-result');
+		
+		$.get($formular.attr('action') + '?' + $formular.serialize())
+		 .done(function (data) {
+			 displayResult(data.text, data.ok ? 'success' : 'error');
+		 })
+		 .fail(function (jqXHR, textStatus, errorThrown) {
+			 displayResult('Unexpected error: ' + jqXHR.status + ' ' + jqXHR.statusText, 'error');
+		 });
+		return false;
+	};
+	
 	$(function() {
 		$('#state-actions button').click(changeStatus);
+		$('#forward-email span').popover();
+		$('#forward-email-form').submit(forwardEmailHandler);
 	});
 	
 })(jQuery);

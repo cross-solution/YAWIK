@@ -6,6 +6,25 @@
 ?>
 <h1><?= $this->translate('application details') ?></h1>
 
+<div id="forward-email-result" class="hide alert"></div>
+<form class="row" id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
+    
+    <div id="forward-email" class="span12 text-right input-prepend input-append">
+        
+            <span class="add-on" 
+               data-toggle="popover" 
+               data-trigger="hover focus click"
+               data-placement="bottom" 
+               title="<?php echo $this->translate('Enter an email address')?>"
+               data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>"
+            >@</span>
+            <input type="hidden" name="action" value="forward">
+            <input class="span3" id="forward-email-input" name="email" type="email">
+            <button class="btn" type="submit"><i class="icon-share"></i> <?php echo $this->translate('Forward')?></button>
+        
+    </div>
+   
+</form>
 
 <div class="row-fluid">
     <div class="span3"><?= $this->translate('State')?>:</div>

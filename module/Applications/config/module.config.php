@@ -255,6 +255,7 @@ return array(
         'invokables' => array(
             'Applications/NewApplication' => 'Applications\Mail\NewApplication',
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
+            'Applications/Forward'        => 'Applications\Mail\Forward',
         ),
     ),
     
