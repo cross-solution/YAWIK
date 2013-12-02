@@ -49,6 +49,17 @@ class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInte
             $entity->injectJob($job);
         }
         
+        if (!$entity->user) {
+            $userId = $entity->getUserId();
+            if ($userId) {
+                $user = new RelationEntity(
+                    array($this->repositories->get('user'), 'find'),
+                    array($userId)
+                );
+                $entity->injectUser($user);
+            }
+        }
+        
         $attachments = isset($data['refs']['applications-files'])
             ? new RelationCollection(
                 array($this->mappers->get('Applications/Files'), 'fetchByIds'),

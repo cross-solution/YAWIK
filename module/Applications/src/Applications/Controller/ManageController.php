@@ -27,7 +27,7 @@ use Applications\Entity\StatusInterface as Status;
 class ManageController extends AbstractActionController
 {
     
-     public function onDispatch(\Zend\Mvc\MvcEvent $e)
+    public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
         $action     = $this->params()->fromQuery('action');
@@ -100,9 +100,15 @@ class ManageController extends AbstractActionController
     
     public function detailAction(){
 
+        $nav = $this->getServiceLocator()->get('main_navigation');
+        $page = $nav->findByRoute('lang/applications');
+        $page->setActive();
+        
     	$application = $this->getServiceLocator()
     						->get('repositories')
     						->get('application')->find($this->params('id'), 'EAGER');
+    	
+    	$this->acl($application, 'read');
     	
     	$jsonFormat = 'json' == $this->params()->fromQuery('format');
     	if ($jsonFormat) {
@@ -116,41 +122,11 @@ class ManageController extends AbstractActionController
     		return $viewModel;
     	}
         
-    	$nav = $this->getServiceLocator()->get('main_navigation');
-    	$page = $nav->findByRoute('lang/applications');
-    	$page->setActive();
+    	
     	
     	return array('application'=> $application);
     }
     
-    public function restAction() {
-        $method = $this->params('method');
-        $value = $this->params()->fromPost('value','');
-        $key = $this->params('key');
-        $user = $this->auth()->getUser();
-        $result = array();   
-        if (strcasecmp($key, 'mailtext') == 0) {
-            $settingsJobAuth = $this->settings('auth', $user);
-            if (strcasecmp($method, 'get') == 0) {
-                $mailtext = $settingsJobAuth->getMailText();
-                $result = array('result' => isset($mailtext)?$mailtext:'');
-            }
-            if (strcasecmp($method, 'set') == 0) {
-                $settingsJobAuth->setAccessWrite(True);
-                $settingsJobAuth->setMailText($value);
-                $result = array('result' => $settingsJobAuth->getMailText());
-                //$result['old'] = $value;
-                //$result['post'] = $_POST;
-                //$result['get'] = $_GET;
-                //$result['server'] = $_SERVER;
-                //$result['request'] = $_REQUEST;
-            }
-        }
-        $viewModel = new JsonModel();
-        $viewModel->setVariables($result);
-        return $viewModel;
-    }
-
     public function statusAction()
     {
         $applicationId = $this->params('id');
@@ -251,6 +227,8 @@ class ManageController extends AbstractActionController
         $emailAddress = $this->params()->fromQuery('email');
         $application  = $services->get('repositories')->get('application')
                                  ->find($this->params('id'), 'EAGER');
+        
+        $this->acl($application, 'forward');
         
         $translator   = $services->get('translator');
          

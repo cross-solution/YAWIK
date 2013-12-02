@@ -17,7 +17,7 @@ use Zend\Permissions\Acl\Role\RoleInterface;
 use Applications\Entity\ApplicationInterface;
 use Auth\Entity\UserInterface;
 
-class ApplicationWriteAccessAssertion implements AssertionInterface
+class ApplicationAccessAssertion implements AssertionInterface
 {
     /* (non-PHPdoc)
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
@@ -30,7 +30,26 @@ class ApplicationWriteAccessAssertion implements AssertionInterface
         if (!$role instanceOf UserInterface || !$resource instanceOf ApplicationInterface) {
             return false;
         }
+        
+        switch ($privilege) {
+            case 'read':
+                return $this->assertRead($role, $resource) 
+                       || $this->assertWrite($role, $resource);
+                break;
 
+            default:
+                return $this->assertWrite($role, $resource);
+                break;
+        }
+    }
+    
+    protected function assertRead($role, $resource)
+    {
+        return $resource->getUserId() == $role->getId();
+    }
+    
+    protected function assertWrite($role, $resource)
+    {
         $job = $resource->getJob();
         return ($job && $role->getId() == $job->getUserId());
     }

@@ -17,6 +17,9 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $jobId;
     protected $job;
     
+    protected $userId;
+    protected $user;
+    
     /*
      * new
      */
@@ -81,6 +84,28 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         $this->job = $job;
         $this->setJobId($job->getId());
         return $this;
+    }
+    
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+    
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+    
+    public function injectUser(EntityInterface $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+    
+    public function getUser()
+    {
+        return $this->user;
     }
 
     public function setStatus($status)

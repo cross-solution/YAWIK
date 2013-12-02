@@ -88,7 +88,11 @@ class IndexController extends AbstractActionController
                 }
                 //$form->populateValues($data);
             } else {
-                
+                $auth = $this->auth();
+            
+                if ($auth->isLoggedIn()) {
+                    $applicationEntity->setUserId($auth('id'));
+                }
                 $applicationEntity->setStatus(new Status());
                 //$applicationEntity->injectJob($job);
                 $imageData = $form->get('contact')->get('image')->getValue();

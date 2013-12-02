@@ -103,68 +103,12 @@ return array(
                             ),
                         ),
                     ),
-                    'applicationsData' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/rest/applications/:method/:key',
-                            'constraints' => array(
-                                'method' => '(get|set)',
-                                'key' => '.+',
-                            ),
-                            'defaults' => array(
-                                'controller' => '\Applications\Controller\Manage',
-                                'action' => 'rest',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'detail' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/:id',
-                                    'constraints' => array(
-                                        'id' => '[a-z0-9]+',
-                                    ),
-                                    'defaults' => array(
-                                        'action' => 'detail',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            'applicationsData' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/rest/applications/:method/:key',
-                    'constraints' => array(
-                        'method' => '(get|set)',
-                        'key' => '.+',
-                    ),
-                    'defaults' => array(
-                        'controller' => '\Applications\Controller\Manage',
-                        'action' => 'rest',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'detail' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/:id',
-                            'constraints' => array(
-                                'id' => '[a-z0-9]+',
-                            ),
-                            'defaults' => array(
-                                'action' => 'detail',
-                            ),
-                        ),
-                    ),
                 ),
             ),
         ),
     ),
+    
+    
     'acl' => array(
         'rules' => array(
             'user' => array(
@@ -172,14 +116,15 @@ return array(
                     'route/lang/applications',
                     'Applications\Controller\Manage',
                     'Entity/Application' => array(
-                        'delete' => 'Applications/WriteAccess'
+                        '__ALL__' => 'Applications/Access',
+                        
                     ),
                 ),
             ),
         ),
         'assertions' => array(
             'invokables' => array(
-                'Applications/WriteAccess' => 'Applications\Acl\ApplicationWriteAccessAssertion',
+                'Applications/Access'      => 'Applications\Acl\ApplicationAccessAssertion',
             ),
         ),
     ),
