@@ -75,10 +75,19 @@ class Acl extends AbstractPlugin
     public function check($resource, $privilege=null)
     {
         if (!$this->test($resource, $privilege)) {
+            
+            $msg = null === $privilege
+                 ? sprintf('You are not allowed to access resource "%s"',
+                           is_object($resource) ? $resource->getResourceId() : $resource
+                   )
+                 : sprintf('You are not allowed to execute operation "%s" on resource "%s"',
+                           $privilege, is_object($resource) ? $resource->getResourceId() : $resource
+                   );
+            
             if ($resource instanceOf FileEntityInterface && 0 == strpos($resource->type, 'image/')) {
-                throw new UnauthorizedImageAccessException('User access denied');
+                throw new UnauthorizedImageAccessException(str_replace('resource', 'image', $msg));
             }
-            throw new UnauthorizedAccessException('User access denied');
+            throw new UnauthorizedAccessException($msg);
         }
     }
     

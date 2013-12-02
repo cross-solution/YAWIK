@@ -30,6 +30,9 @@ class Auth extends AbstractPlugin
         if (null === $property) {
             return $this;
         }
+        if (true === $property) {
+            return $this->isLoggedIn();
+        }
         return $this->get($property);
     }
     

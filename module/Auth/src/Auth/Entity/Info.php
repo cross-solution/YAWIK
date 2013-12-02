@@ -10,6 +10,7 @@
 namespace Auth\Entity;
 
 use Core\Entity\AbstractEntity;
+use Core\Entity\EntityInterface;
 
 /**
  * The user model
@@ -52,6 +53,8 @@ class Info extends AbstractEntity implements InfoInterface
     
     /** @var \Core\Entity\FileEntityInterface */
     protected $imageId;
+    
+    protected $image;
     
     /** @var string */
     protected $street;    
@@ -192,6 +195,35 @@ class Info extends AbstractEntity implements InfoInterface
         return ($this->firstName ? $this->firstName . ' ' : '') . $this->lastName;
     }
     
+    public function getAddress($extended = false)
+    {
+        $address = array();
+        if ($this->lastName) {
+            $address[] = ("male" == $this->gender ? 'Herr' : 'Frau') . ' '
+                      . ($this->firstName ? $this->firstName . ' ' : '') 
+                      . $this->lastName;
+        }
+        if ($this->street) {
+            $address[] = $this->street . ($this->houseNumber ? ' ' . $this->houseNumber : '');
+        }
+        if ($this->city) {
+            $address[] = ($this->postalCode ? $this->postalCode . ' ' : '') . $this->city;
+        }
+        
+        if ($extended) {
+            $address[] = ''; // empty line
+        
+            if ($this->phone) {
+                $address[] = $this->phone;
+            }
+            if ($this->email) {
+                $address[] = $this->email;
+            }
+        }    
+        
+        return implode(PHP_EOL, $address);
+    }
+    
     /**
      * {@inheritdoc}
      * @return \Auth\Model\User
@@ -245,6 +277,16 @@ class Info extends AbstractEntity implements InfoInterface
         return $this->imageId;
     }
     
+    public function injectImage(EntityInterface $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+    
+    public function getImage()
+    {
+        return $this->image;
+    }
     /**
      * {@inheritdoc}
      * @return \Auth\Model\User
