@@ -36,7 +36,7 @@ return array(
         'module_paths' => array(
             './module',
             './vendor',
-            'extern\*' => './vendor/extern'
+            'Cam\*' => './vendor/extern'
         ),
     
     
