@@ -56,15 +56,34 @@ class UnauthorizedAccessListener extends ExceptionStrategy
          * Return an image, if a image was requested.
          */
         if ($exception instanceOf UnauthorizedImageAccessException) {
-            $response->getHeaders()->addHeaderLine('Location', '/images/unauthorized-access.png');
-            $response->setStatusCode(302);
+            
+            $image = __DIR__ . '/../../../../../public/images/unauthorized-access.png';
+            $response->setStatusCode(403)
+                     ->setContent(file_get_contents($image))
+                     ->getHeaders()
+                     ->addHeaderLine('Content-Type', 'image/png');
+            $e->stopPropagation();
+            $response->sendHeaders();
+            //echo file_get_contents($image);
+      
+            
+            //$response->stopped = true;
             return $response;
         }
         
         $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
         
         if (!$auth->hasIdentity()) {
-            $response->setStatusCode(Response::STATUS_CODE_302);
+            $response->setStatusCode(Response::STATUS_CODE_403);
+            $routeMatch = $e->getRouteMatch();
+            $routeMatch->setParam('controller', 'Auth\Controller\Index');
+            $routeMatch->setParam('action', 'index');
+            $query = $e->getRequest()->getQuery();
+            $query->set('ref', urlencode($e->getRequest()->getRequestUri()));
+            $query->set('req', 1);
+            $result = $e->getApplication()->getEventManager()->trigger('dispatch', $e);
+            $e->stopPropagation();
+            return $result;
             $lang = $e->getRouteMatch()->getParam('lang', 'de');
             $ref = urlencode($e->getRequest()->getRequestUri());
             $url = $e->getRouter()->assemble(array('lang' => $lang), array(
