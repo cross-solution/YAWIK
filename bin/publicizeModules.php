@@ -22,11 +22,14 @@ foreach ($dir as $fileinfo) {
 }
 
 // TODO: filtering the active-only-modules
+// $allModules ist dann wichtig, wenn man auf dem gleichen System unterschiedliche Konfigurationen hat
 $activeModules = array();
+$allModules = True;
 $config = require __dir__  . '/../config/application.config.php';
 if (!empty($config)) {
     $activeModules = $config['modules'];
 }
+//var_dump ($config);
 //var_dump ($activeModules);
  
 // adding all Softlinks

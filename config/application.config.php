@@ -11,6 +11,10 @@ $modules = array(
          'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings',
     );
 
+if (!isset($allModules)) {
+    // allModules existiert nur, damit man verschiedene Konfigurationen auf dem gleichen System laufen lassen kann und über Server-Variablen oder ähnlichen steuern kann
+    $allModules = False;
+}
 foreach (glob(__dir__ . '/autoload/*.module.php') as $moduleFile) {
     $addModules = require $moduleFile;
     foreach ($addModules as $addModule) {
