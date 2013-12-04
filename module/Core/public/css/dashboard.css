@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+.dashboard-widget .well {
+	background-color: white;
+	height: 300px;
+	overflow: hidden;
+}
+
+.dashboard-widget .well h2 {
+	background-color: #f5f5f5;
+	margin: -9px -9px 10px;
+	padding: 5px 9px;
+	font-size: 18px;
+	line-height: 24px;
+	border-bottom: 1px solid #e3e3e3;
+}
+
+.dashboard-widget .well .scrollbox {
+	max-height: 280px;
+	overflow: auto;
+}

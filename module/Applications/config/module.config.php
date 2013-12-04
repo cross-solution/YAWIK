@@ -10,7 +10,19 @@
 return array(
     
     'Applications' => array(
+        'dashboard' => array(
+            'enabled' => true,
+            'widgets' => array(
+                'recentApplications' => array(
+                    'script' => 'applications/dashboard/recent',
+                ),
+            ),
+        ),
+    
         'allowedMimeTypes' => array('image', 'applications/pdf'),
+        'settings' => array(
+            'entity' => '\Applications\Entity\Settings',
+        ),
     ),
     
     'service_manager' => array(
@@ -26,13 +38,6 @@ return array(
         ),
     ),
     
-    'Applications' => array(
-        // all the Information for the Module Settings
-        // der erste Teil ist der NameSpace, also der Modulname
-        'settings' => array(
-            'entity' => '\Applications\Entity\Settings',
-        ),
-    ),
     
     // Routes
     'router' => array(
@@ -163,6 +168,7 @@ return array(
         'template_map' => array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
+            'applications/dashboard/recent' => __DIR__ . '/../view/applications/index/dashboard.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
         )
     ),

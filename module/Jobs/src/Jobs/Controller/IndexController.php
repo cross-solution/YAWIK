@@ -63,5 +63,17 @@ class IndexController extends AbstractActionController
         
     
      }
+     
+     public function dashboardAction()
+     {
+         $services = $this->getServiceLocator();
+         $jobs = $services->get('repositories')->get('Job')->fetchRecent();
+         
+         return array(
+             'script' => 'jobs/index/dashboard',
+             'type' => $this->params('type'),
+             'jobs' => $jobs,
+         );
+     }
     
 }

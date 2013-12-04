@@ -37,6 +37,16 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         return $this->mappers;
     }
 
+    public function countBy($userId, $unread=false )
+    {
+        $query = array('refs.jobs.userId' => $userId);
+        if ($unread) {
+            $query['readBy'] = array('$ne' => $userId);
+        }
+        $cursor = $this->getCursor($query, array('_id'));
+        return $cursor->count();
+    }
+    
     public function getPaginatorAdapter(array $params)
     {
     
@@ -105,6 +115,14 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         $query = array('jobId' => (string) $jobId);
         $cursor = $this->getCollection()->find($query);
         return $cursor;    
+    }
+    
+    public function fetchRecent($limit=5)
+    {
+        $cursor = $this->getCursor(array(), array('cv'), true);
+        $cursor->sort(array('dateCreated.date' => -1))
+               ->limit($limit);
+        return $this->builders->get('application')->buildCollection($cursor);
     }
     
     public function fetchCv($applicationId)

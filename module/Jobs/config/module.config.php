@@ -1,7 +1,21 @@
 <?php
 
 return array(
-		
+
+    'Jobs' => array(
+        'dashboard' => array(
+            'enabled' => true,
+            'widgets' => array(
+                'recentJobs' => array(
+                    'controller' => 'Jobs\Controller\Index',
+                    'params' => array(
+                        'type' => 'recent'
+                    ),
+                ),
+            ),
+        ), 
+    ),
+
 	// Translations
 	'translator' => array(
 			'translation_file_patterns' => array(

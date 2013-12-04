@@ -36,12 +36,15 @@ class IndexController extends AbstractActionController
             return $settings->toArray();
         }
         
-        $modulesWithSettings = $this->config("settings", True);
+        $modules = $ServiceLocator->get('ModuleManager')->getLoadedModules();
+        $modulesWithSettings = $this->config("settings", array_keys($modules));
+        
         //$config = $ServiceLocator->get();
         
         $MvcEvent = $this->getEvent();
         $nav = $ServiceLocator->get('main_navigation');
         $settingsMenu = $nav->findOneBy('route', 'lang/settings');
+        $settingsMenu->setActive(true);
         
         foreach($modulesWithSettings as $key => $param) {
             $page = array(
@@ -53,7 +56,8 @@ class IndexController extends AbstractActionController
                 'router' => $MvcEvent->getRouter(),
                 'action' => 'index',
                 'controller' => 'index',
-                'params' => array('lang' => 'de', 'module' => $key)
+                'params' => array('lang' => 'de', 'module' => $key),
+                'active' => $key == $moduleName
             );
             $settingsMenu->addPage($page);
         }

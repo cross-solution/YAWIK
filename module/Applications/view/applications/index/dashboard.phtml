@@ -1,0 +1,45 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$linkQuery = array('sort' => '-dateCreated');
+$hasJobs = $this->services('repositories.job')->countByUser($this->auth('id')); 
+if ($hasJobs):
+    $linkQuery['by'] = 'jobs';
+endif;
+$appRepo = $this->services('repositories.application');
+?>
+
+<h2><a style="display: block; text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>"><?php echo $this->translate('Recent Applications')?></a></h2>
+
+<div class="scrollbox">
+<?php if ($hasJobs): ?>
+<div class="alert alert-info">
+<?php $countTmpl = '<span style="font-size:16px; font-weight:bold;">%s</span>';
+      $newCount = $appRepo->countBy($this->auth('id'), /* unread */ true);
+      $totalCount = $appRepo->countBy($this->auth('id'));
+      echo sprintf($this->translate('%1$s new from %2$s total applications'),
+                   sprintf($countTmpl, $newCount), sprintf($countTmpl, $totalCount))?>
+</div>
+<?php endif ?>
+
+<table class="table table-striped table-bordered table-hover">
+<?php 
+    $paginator = new \Zend\Paginator\Paginator(
+        $appRepo->getPaginatorAdapter($linkQuery)
+    );
+    $paginator->setCurrentPageNumber(1)->setItemCountPerPage(5);
+    foreach ($paginator as $app):?>
+    <tr>
+        <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $app->id), true)?>"><?php echo $app->contact->displayName ?></a></td>
+        <td><a style="display:block; width:100px; height:15px; overflow: hidden" href="<?php echo $app->job->link ?>"><?php echo $app->job->title?></a></td>
+        <td><?php echo $this->dateFormat($app->dateCreated, 'short', 'none') ?></td>
+    </tr>
+<?php endforeach ?>
+</table>
+</div>

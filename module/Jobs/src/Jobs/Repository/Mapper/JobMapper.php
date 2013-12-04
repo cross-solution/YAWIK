@@ -57,6 +57,13 @@ class JobMapper extends CoreMapper
         return $collection;
     }
     
+    public function fetchRecent($limit = 5)
+    {
+        $cursor     = $this->getCursor();
+        $cursor->sort(array('datePublishStart' => -1))->limit($limit);
+        $collection = $this->buildCollection($cursor, 'job');
+        return $collection;
+    }
     public function count(array $query = array())
     {
         $cursor = $this->getCursor($query);

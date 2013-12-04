@@ -43,6 +43,11 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $collection;
     }
     
+    public function fetchRecent()
+    {
+        $collection = $this->getMapper('job')->fetchRecent(5);
+        return $collection;
+    }
     public function fetchByUser($userOrId)
     {
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {
