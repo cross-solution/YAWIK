@@ -1,0 +1,40 @@
+
+*** These modified files were found in JOE when it aborted on Wed Dec  4 13:30:33 2013
+*** JOE was aborted by UNIX signal 1
+
+*** Datei '.gitignore'
+## General text editors backup files#*~## config files#config/phpdoc.xmlconfig/autoload/*.php## Unit test code coverage reports#public/coveragepublic/docs*/*/test/coveragelog## Composer packages#vendor ## Eclipse project files#.settings.buildpath.projectnbprojectpublic/Applicationspublic/Authpublic/CamMediaintownpublic/Core
+public/Cv
+public/Jobs
+public/Settings
+*** Datei '(Unbenannt)'
+qqq
+
+*** Datei '(Unbenannt)'
+cbleek
+radon.hq.cross
+
+*** Datei '(Unbenannt)'
+id
+activePo
+showAc
+mb
+mbstr
+java
+content
+region
+65339
+function reso
+
+*** Datei '(Unbenannt)'
+.git/COMMIT_EDITMSG
+weitz.cam.mediaintown.xenon
+/home/weitz/workspace/cam/vendor/zendframework/zendframework/library/Zend/View/Renderer/PhpRenderer.php
+weitz.cam.mediaintown.xenon
+weitz.cam.mediaintown.xenon
+weitz.cam.mediaintown.xenon
+.git/TAG_EDITMSG
+.git/COMMIT_EDITMSG
+.git/COMMIT_EDITMSG
+/etc/apache2/sites-available/weitz.cam.mediaintown.xenon
+.gitignore

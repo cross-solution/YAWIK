@@ -1,4 +1,7 @@
 RewriteEngine On
+# Trim off any trailing slashes
+RewriteRule ^(.*)/$ /$1 [R=301,L] 
+
 # The following rule tells Apache that if the requested filename
 # exists, simply serve it.
 RewriteCond %{REQUEST_FILENAME} -s [OR]

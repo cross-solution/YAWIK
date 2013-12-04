@@ -8,6 +8,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Application;
 use Zend\Mvc\Router\RouteMatch;
+use Locale;
 
 class LanguageRouteListener implements ListenerAggregateInterface
 {
@@ -191,6 +192,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
             'de_DE',
             'de'
         ));
+        Locale::setDefault($locale);
         $translator->setLocale($locale);
         
         if ($match = $e->getRouteMatch()) {
