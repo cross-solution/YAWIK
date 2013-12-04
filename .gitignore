@@ -29,3 +29,10 @@ vendor
 .buildpath
 .project
 nbproject
+public/Applications
+public/Auth
+public/CamMediaintown
+public/Core
+public/Cv
+public/Jobs
+public/Settings
