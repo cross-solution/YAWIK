@@ -14,12 +14,16 @@
 <tbody>
 <?foreach ($jobs as $job):?>
 <tr>
-    <td><?php echo strftime('%x %X', $job->datePublishStart->getTimestamp());?></td>
+    <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); endif?></td>
     <td><a href="<?php echo $job->link?>"><?php echo strip_tags($job->title)?></a></td>
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>
     <td><?php echo $job->applyId?></td>
-    <td><a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a></td>
+    <td><?php if ($this->by == 'all'):?>
+        <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a></td>
+        <?php else: ?>
+        <a href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>"><?php echo $this->translate('View applications') ?></a>
+        <?php endif ?>
 </tr>
 <?endforeach?>
 </tbody>
