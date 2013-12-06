@@ -1,0 +1,30 @@
+<?php 
+/**
+ * Cross Applicant Management
+ * View template of the Home site
+ * 
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
+?>
+
+
+<div class="dashboard-widget span6">
+<div class="well well-small">
+<?
+
+if ($this->script): 
+        try {
+            echo $this->render($this->script);
+        } catch (\Exception $e) {
+            ?><?php echo $this->translate('Error loading widget.')?>
+            <br><br>
+            <?php echo $e->getMessage() ?>
+        <?}
+
+elseif ($this->content): 
+    echo $this->content; 
+endif;
+?> 
+</div>
+</div>

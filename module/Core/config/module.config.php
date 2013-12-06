@@ -75,24 +75,12 @@ return array(
     // Setup the service manager
     'service_manager' => array(
         'invokables' => array(
-            'query' => 'Core\Mapper\Query\Query',
-            'criteria' => 'Core\Mapper\Query\Criteria\Criteria',
             'configaccess' => 'Core\Service\Config',
         ),
         'factories' => array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            'query_criterion_manager' => 'Core\Mapper\Query\Service\CriterionManagerFactory',
-            'query_criterion_converter_manager' => 'Core\Mapper\Query\Service\CriterionConverterManagerFactory',
-            'query_option_manager' => 'Core\Mapper\Query\Service\OptionManagerFactory',
-        ),
-        'initializers' => array(
-            'criteria' => 'Core\Mapper\Query\Service\CriteriaInitializer',
-        ),
-        'shared' => array(
-            'query' => false,
-            'criteria' => false,
         ),
         'aliases' => array(
             'forms' => 'FormElementManager'
@@ -133,11 +121,11 @@ return array(
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
         'factories' => array(
-            'mailstackmailer' => 'Core\Controller\Plugin\Mailfactory'
+            'mailstackmailer' => 'Core\Controller\Plugin\Mailfactory',
+            'config' => 'Core\Controller\Plugin\ConfigFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
-            'config' => 'Core\Controller\Plugin\Config',
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
             'mail' => 'Core\Controller\Plugin\Mail',
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer'

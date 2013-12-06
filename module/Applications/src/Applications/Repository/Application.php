@@ -55,9 +55,22 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $collection;
     }
     
+    public function fetchRecent($limit=5)
+    {
+        $collection = $this->getMapper('application')->fetchRecent($limit);
+        return $collection;
+    }
     public function getPaginatorAdapter(array $params)
     {
         return $this->getMapper('application')->getPaginatorAdapter($params);
+    }
+    
+    public function countBy($userOrId, $onlyUnread=false)
+    {
+        if ($userOrId instanceOf \Auth\Entity\UserInterface) {
+            $userOrId = $userOrId->getId();
+        }
+        return $this->getMapper('application')->countBy($userOrId, $onlyUnread);
     }
     
     public function changeStatus($application, $status)

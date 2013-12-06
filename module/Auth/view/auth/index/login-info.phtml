@@ -33,7 +33,7 @@
         <li class="disabled"><a><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
         <li>
-            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><img src="/images/Auth/<?php echo $provider ?>.png" /> <?php echo $name?></a>
+            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><img src="/Auth/images/<?php echo $provider ?>.png" /> <?php echo $name?></a>
         </li>
     <?php endforeach ?>
     </ul>

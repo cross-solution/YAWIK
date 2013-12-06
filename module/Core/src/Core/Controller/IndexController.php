@@ -29,8 +29,56 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
-        $acl = $this->getServiceLocator()->get('Acl');
-        $check = $acl->isAllowed('user', 'route/auth-logout');
+        $auth = $this->auth();
+        if (!$auth->isLoggedIn()) {
+            return;
+        }
+        
+        $model = new ViewModel();
+        $model->setTemplate('core/index/dashboard.phtml');
+        
+        $widgets = array();
+        $modules = $this->getServiceLocator()->get('ModuleManager')->getLoadedModules();
+        $widgets = array();
+        foreach ($this->config('dashboard', array_keys($modules)) as $module => $cfg) {
+            if (!isset($cfg['enabled']) || true !== $cfg['enabled']) {
+                continue;
+            }
+            foreach ($cfg['widgets'] as $captureTo => $spec) {
+                if (isset($spec['controller'])) {
+                    $params = array('action' => 'dashboard');
+                    if (isset($spec['params'])) {
+                        $params = array_merge($params, $spec['params']);
+                    }
+                    
+                    $viewModel = $this->forward()->dispatch($spec['controller'], $params);
+                    // we ignore all errors and simply continue with the error template as widget content
+                    $response = $this->getResponse();
+                    if (200 != $response->getStatusCode()) {
+                        $response->setStatusCode(200);
+                        $viewModel = array(
+                            'content' => 'Error loading widget.', 
+                        );
+                    }
+                    if (!$viewModel instanceOf ViewModel) {
+                        $viewModel = new ViewModel($viewModel);
+                    }
+                    if ($template = $viewModel->getTemplate()) {
+                        $viewModel->setVariable('script', $template);
+                    }
+                } else if (isset($spec['script'])) {
+                    $viewModel = new ViewModel(array('script' => $spec['script']));
+                } else if (isset($spec['content'])) {
+                    $viewModel = new ViewModel(array('content' => $spec['content']));
+                }
+            
+                $viewModel->setTemplate('core/index/dashboard-widget.phtml');
+                $model->addChild($viewModel, "dashboard_{$module}_{$captureTo}");
+                //$widgets[] = $viewModel;
+            }
+        }
+        //$model->setVariable('widgets', $widgets);
+        return $model;
         
     }
     

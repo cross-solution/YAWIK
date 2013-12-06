@@ -8,94 +8,92 @@ use Core\Mapper\Query\Query;
 class Config extends AbstractPlugin
 {
     protected $config;
-    protected $map = array();
-    protected $applicationMap = array();
-    protected $configAccess;
 
-    public function __invoke($key = null, $all = False)
+    public function __construct(array $config)
     {
-        if (!isset($this->configAccess)) {
-            $controller = $this->getController();
-            $this->configAccess  = $controller->getServiceLocator()->get('configaccess');
-        }
-        
-        $erg = array();
-        if (isset($this->configAccess)) {
-            $this->configAccess->setController($this->getController());
-            $erg = $all?$this->configAccess->getByKey($key):$this->configAccess->get($key);
-        }
-        
-        return $erg;
-        
-        //return $all?$this->getByKey($key):$this->get($key);
-    }
-    
-    public function get($key = null)
-    {
-        if (isset($this->map[$key])) {
-            $module          = $this->getNamespace();
-            return isset($this->map[$key][$module]) ? $this->map[$key][$module] : array();
-        }
-        $config = $this->getConfig();
-        if ($key) {
-            return isset($config[$key]) ? $config[$key] : null;
-        }
-        return $config;
+        $this->config = $config;
     }
     
     /**
-     * fetch the settings for a certain key of all Modules 
+     * 
+     * Call it with 
+     * (null, null): return array: all config for current module (auto-detect form controller class)
+     * (string, true) = (null, string): return array: all config for given module (1.param)
+     * (array, true) = (null, array): return array all config for given modules (1.param) modules w/o config are excluded.
+     * 
+     * (string): return value of config key of current module or null
+     * (string, string): return value of config key of given module or null
+     * (string, array): return all values of config key from given modules.
+     * 
+     * (array): return all values form given config keys from current module or empty array.
+     * (array, string): return all values from gioven config keys from gievn module or empty array.
+     * (array, array): return all values from given keys from all given modules.
+     *
      * @param string $key
-     * @return array
+     * @param string $module
+     * @return \Core\Controller\Plugin\Config|Ambigous <multitype:, multitype:Ambigous <NULL, multitype:> >|Ambigous <NULL, multitype:>
      */
-    public function getByKey($key = null)
+    public function __invoke($key = null, $module = null)
     {
-        if (!array_key_exists($key, $this->applicationMap)) {
-            $this->applicationMap[$key] = array();
-            $controller      = $this->getController();
-            $config          = $controller->getServiceLocator()->get('Config');
-            $appConfig       = $controller->getServiceLocator()->get('applicationconfig');
-            foreach ($appConfig['modules'] as $module) {
-                if (array_key_exists($module, $config)) {
-                    if (array_key_exists($key, $config[$module])) {
-                        $this->applicationMap[$key][$module] = $config[$module][$key];
-                    }
-                }
+        return $this->get($key, $module);
+    }
+    
+    protected function loop($array, $static, $asModule=false)
+    {
+        $result = array();
+        foreach ($array as $item) {
+            $value = $asModule ? $this->get($static, $item) : $this->get($item, $static);
+            if ((is_array($value) && !count($value)) || null === $value) {
+                continue;
             }
+            $result[$item] = $value;
         }
-        return $this->applicationMap[$key];
+        return $result;
     }
     
-    protected function getConfig()
+    public function get($key=null, $module=null, $filterEmpty=true)
     {
-        if (!$this->config) {
-            $controller      = $this->getController();
-            $module          = $this->getNamespace();
-            $config          = $controller->getServiceLocator()->get('Config');
-            $this->config    = isset($config[$module]) ? $config[$module] : array();
+        if (true === $module) {
+            $module = $key;
+            $key    = null;
         }
-        return $this->config;
+        
+        if (is_array($module)) {
+            return $this->loop($module, $key, true);
+        }
+        
+        if (is_array($key)) {
+            return $this->loop($key, $module);
+        }
+
+        if (null === $module) {
+            $module = $this->getCurrentModuleName();
+        }
+        
+        if (null === $key) {
+           return isset($this->config[$module])
+                  ? $this->config[$module]
+                  : array();
+        }
+        
+        return isset($this->config[$module][$key])
+               ? $this->config[$module][$key]
+               : null;
+        
     }
     
-    protected function getMapConfig($key)
+    public function __get($name)
     {
-        if (!isset($this->map[$key])) {
-            $controller      = $this->getController();
-            $config          = $controller->getServiceLocator()->get('Config');
-            $this->map[$key] = isset($config[$key]) ? $config[$key] : array();
-        }
-        if (!empty($this->map[$key])) {
-            $module          = $this->getNamespace();
-            return isset($this->map[$key][$module])?$this->map[$key][$module]:array();
-        }
-        return array();
+        return $this->get($name);
     }
     
-    protected function getNamespace() {
-            $controller      = $this->getController();
-            $controllerClass = get_class($controller);
-            $namespace       = substr($controllerClass, 0, strpos($controllerClass, '\\'));
-            return $namespace;
+    protected function getCurrentModuleName() 
+    {
+        $controller      = $this->getController();
+        $controllerClass = get_class($controller);
+        $moduleName      = substr($controllerClass, 0, strpos($controllerClass, '\\'));
+        
+        return $moduleName;
     }
     
 }

@@ -1,7 +1,21 @@
 <?php
 
 return array(
-		
+
+    'Jobs' => array(
+        'dashboard' => array(
+            'enabled' => true,
+            'widgets' => array(
+                'recentJobs' => array(
+                    'controller' => 'Jobs\Controller\Index',
+                    'params' => array(
+                        'type' => 'recent'
+                    ),
+                ),
+            ),
+        ), 
+    ),
+
 	// Translations
 	'translator' => array(
 			'translation_file_patterns' => array(
@@ -78,6 +92,7 @@ return array(
     
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
+            'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
             //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
         ),
     
@@ -94,6 +109,11 @@ return array(
             'JobFieldset'        => '\Jobs\Form\JobFieldset',
     )),
     
+    'filters' => array(
+        'factories'=> array(
+            'jobs-params-to-properties' => '\Jobs\Filter\ParamsToPropertiesFactory'
+        ),
+    ),
     
     'repositories' => array(
         'invokables' => array(

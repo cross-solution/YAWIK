@@ -5,10 +5,25 @@ namespace Jobs\Repository\Mapper;
 use Core\Repository\Mapper\AbstractBuilderAwareMapper as CoreMapper;
 use Core\Entity\EntityInterface;
 use Core\Repository\AbstractRepository;
+use Core\Paginator\Adapter\MongoCursor as MongoCursorAdapter;
 
 class JobMapper extends CoreMapper
 {
     
+    public function getPaginatorAdapter(array $query)
+    {
+    
+         
+        if (isset($query['sort'])) {
+            $sort = $query['sort'];
+            unset($query['sort']);
+        } else {
+            $sort = array();
+        }
+        $cursor = $this->getCursor($query);
+        $cursor->sort($sort);
+        return new MongoCursorAdapter($cursor, $this->builders->get('job'));
+    }
     
     
     /**
@@ -57,6 +72,14 @@ class JobMapper extends CoreMapper
         return $collection;
     }
     
+    public function fetchRecent($userId=null, $limit = 5)
+    {
+        $query = $userId ? array('userId' => $userId) : array();
+        $cursor     = $this->getCursor($query);
+        $cursor->sort(array('datePublishStart' => -1))->limit($limit);
+        $collection = $this->buildCollection($cursor, 'job');
+        return $collection;
+    }
     public function count(array $query = array())
     {
         $cursor = $this->getCursor($query);

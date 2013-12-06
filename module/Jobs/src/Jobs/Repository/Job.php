@@ -43,6 +43,12 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $collection;
     }
     
+    public function fetchRecent($userId=null)
+    {
+
+        $collection = $this->getMapper('job')->fetchRecent($userId, 5);
+        return $collection;
+    }
     public function fetchByUser($userOrId)
     {
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {
@@ -64,9 +70,11 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $this->getMapper('job')->count(array('userId' => $userOrId));
     }
     
-    public function getPaginatorAdapter(array $propertyFilter, $sort)
+    public function getPaginatorAdapter(array $params)
     {
-    
+        $filter = $this->mappers->getServiceLocator()->get('filtermanager')->get('jobs-params-to-properties');
+        $query = $filter->filter($params);
+        return $this->getMapper('job')->getPaginatorAdapter($query);
         $query = array();
         foreach ($propertyFilter as $property => $value) {
             if (in_array($property, array('applyId'))) {

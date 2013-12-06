@@ -17,15 +17,13 @@ $publicDir = __dir__ . '/../public';
 // es werden alle Softlinks entfernt
 // es ist eine genauere spezifikation möglich,
 //     siehe unten den regulären Ausdruck, das müsste dann hier schon passieren
-$subFolderSoftlinks = array('css', 'images', 'js');
-foreach ($subFolderSoftlinks as $subFolder) {
-    $dir = new DirectoryIterator($publicDir . '/' . $subFolder);
-    echo 'unlinking: ' . $publicDir . '/' . $subFolder . PHP_EOL;
-    foreach ($dir as $fileinfo) {
-        if ($fileinfo->isLink()) {
-            echo '> ' . basename($fileinfo->getPathName()) . $fileinfo->isDir() . PHP_EOL;
-            @unlink($fileinfo->getPathName());
-        }
+//$subFolderSoftlinks = array('css', 'images', 'js');
+$dir = new DirectoryIterator($publicDir);
+echo 'unlinking Files in: ' . $publicDir . PHP_EOL;
+foreach ($dir as $fileinfo) {
+    if ($fileinfo->isLink()) {
+        echo '> ' . basename($fileinfo->getPathName()) . $fileinfo->isDir() . PHP_EOL;
+        @unlink($fileinfo->getPathName());
     }
 }
 
@@ -42,20 +40,19 @@ $allModules = True;
  
 // adding all Softlinks
 
+
 $moduleNames = array();
-foreach ($subFolderSoftlinks as $subFolder) {
     foreach ($moduleFolders as $folder) {
         $link = substr($folder, strlen(__dir__));
         if (preg_match('~^/?(.*/([^/]*))/[^/]*$~', $link, $matches)) {
             if (in_array($matches[2], $activeModules) || empty($activeModules)) {
-                echo 'adding symlink ' . $subFolder . '/' . $matches[2] . PHP_EOL;
-                $moduleNames[] = $subFolder . '/' . $matches[2];
-                $link = $publicDir . '/' . $subFolder . '/' .$matches[2];
-                $target = '../' . $matches[1] . '/public/'  . $subFolder;
+                echo 'adding symlink ' .  $matches[2] . PHP_EOL;
+                $moduleNames[] = $matches[2];
+                $link = $publicDir  . '/' .$matches[2];
+                $target = $matches[1] . '/public';
                 @symlink($target, $link);
             }
         }
-    }
 }
  
 // writing the softlinks in the .gitIgnore

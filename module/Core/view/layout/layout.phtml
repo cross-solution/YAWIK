@@ -18,14 +18,14 @@
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
         <?php echo $this->headScript()
-                        ->prependFile($this->basepath('js/Core/core.init.js'))
+                        ->prependFile($this->basepath('Core/js/core.init.js'))
                         ->prependFile($this->basePath('bootstrap/js/bootstrap.js'))
                         ->prependFile($this->basePath('js/jquery-1.9.1.js')) 
                         
                         ->appendScript('var lang="' . $this->params('lang') . '";');
         ?>
         
-        <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/css/Core/layout.css')
+        <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/Core/css/layout.css')
                                     ->prependStylesheet($this->basePath('bootstrap/css/bootstrap.css'));?>
 
         <?php echo $this->headStyle() ?>
