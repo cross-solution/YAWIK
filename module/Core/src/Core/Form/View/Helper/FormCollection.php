@@ -6,6 +6,7 @@ use Zend\Form\View\Helper\FormCollection as ZendFormCollection;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Collection as CollectionElement;
 use Zend\Form\FieldsetInterface;
+use Core\Form\ViewPartialProviderInterface;
 
 class FormCollection extends ZendFormCollection
 {
@@ -62,9 +63,9 @@ class FormCollection extends ZendFormCollection
         }
     
         foreach ($element->getIterator() as $elementOrFieldset) {
-            if ($element instanceOf ViewPartialProviderInterface) {
-                $formContent .= $this->getView()->partial(
-                    $element->getViewPartial(), array('element' => $element)
+            if ($elementOrFieldset instanceOf ViewPartialProviderInterface) {
+                $markup .= $this->getView()->partial(
+                    $elementOrFieldset->getViewPartial(), array('element' => $elementOrFieldset)
                 );
             
             }else if ($elementOrFieldset instanceof FieldsetInterface) {

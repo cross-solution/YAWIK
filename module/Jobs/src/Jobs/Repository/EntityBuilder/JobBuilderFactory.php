@@ -14,7 +14,7 @@ class JobBuilderFactory implements FactoryInterface
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         
-        $hydrator = new Hydrator\EntityHydrator();
+        $hydrator = new Hydrator\KeywordsAwareEntityHydrator(array('title', 'company', 'location', 'applyId'));
         $hydrator->addStrategy('datePublishStart', new Hydrator\DatetimeStrategy());
         
         $builder = new JobBuilder(

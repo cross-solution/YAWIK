@@ -50,6 +50,9 @@ class Form extends ZendForm
     
         $formContent = '';
     
+        if ($form instanceOf ViewPartialProviderInterface) {
+            return $this->getView()->partial($form->getViewPartial(), array('element' => $form));
+        }
         foreach ($form as $element) {
             if ($element instanceOf ViewPartialProviderInterface) {
                 $formContent .= $this->getView()->partial(

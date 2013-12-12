@@ -93,6 +93,7 @@ return array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
             'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
+            'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
         ),
     
@@ -107,7 +108,13 @@ return array(
         'invokables' => array(
             'JobForm'            => '\Jobs\Form\Job',
             'JobFieldset'        => '\Jobs\Form\JobFieldset',
-    )),
+            'Jobs/ListFilter'    => '\Jobs\Form\ListFilter',
+            'Jobs/ListFilterFieldset' => 'Jobs\Form\ListFilterFieldset',
+        ),
+        'factories' => array(
+            'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',
+        )
+    ),
     
     'filters' => array(
         'factories'=> array(

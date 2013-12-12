@@ -185,6 +185,7 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+            'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core\FileCollection' => 'Core\Form\FileCollection',
         ),
     ),

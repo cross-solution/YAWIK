@@ -27,6 +27,16 @@ class ParamsToProperties implements FilterInterface
             $properties['userId'] = $this->auth->getUser()->id;
         } 
         
+        if (isset($value['search']) && !empty($value['search'])) {
+            $search = strtolower($value['search']);
+            $searchPatterns = array();
+
+            foreach (explode(' ', $search) as $searchItem) {
+                $searchPatterns[] = array('keywords' => new \MongoRegex('/^' . $searchItem . '/'));
+            }
+            $properties['$and'] = $searchPatterns;
+        }
+        
         
         return $properties;
     }

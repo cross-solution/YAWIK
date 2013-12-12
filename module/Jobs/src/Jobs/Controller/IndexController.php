@@ -30,31 +30,36 @@ class IndexController extends AbstractActionController
     public function indexAction()
     { 
         
+        
+        
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
-        $hasJobs = (bool) $this->getServiceLocator()
-                               ->get('repositories')
-                               ->get('job')
-                               ->countByUser($this->auth('id'));
+        $repository = $this->getServiceLocator()->get('repositories')->get('job');
+        $hasJobs = (bool) $repository->countByUser($this->auth('id'));
         
-        if (!$jsonFormat) {
+//         $jobs= $repository->fetch();
+//         foreach ($jobs as $job) {
+//             $repository->save($job);
+//         }
+//         exit;
+        
+        if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
-            if ($session->params) {
-                foreach ($session->params as $key => $value) {
+            $sessionParams = $this->auth()->isLoggedIn() ? $session->userParams : $session->guestParams;
+            if ($sessionParams) {
+                foreach ($sessionParams as $key => $value) {
                     $params->set($key, $params->get($key, $value));
                 }
             } else if ($hasJobs) {
                 $params->set('by', 'me');
             }
             $session->params = $params->toArray();
+            $filterForm = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $hasJobs);
+            $filterForm->bind($params);
+            //$filterForm->setData(array('params' => $params->toArray()));
+            //$filterForm->setData()
         }
         
-        $v = new ViewModel(array(
-            'by' => $params->get('by', false),
-            'hasJobs' => $hasJobs,
-        ));
-        $v->setTemplate('jobs/sidebar/index');
-        $this->layout()->addChild($v, 'sidebar_jobsFilter');
         $repository = $this->getServiceLocator()->get('repositories')->get('job');
         
         $paginator = new \Zend\Paginator\Paginator(
@@ -80,10 +85,14 @@ class IndexController extends AbstractActionController
             
 //         } 
         
-        return array(
+        $return = array(
             'by' => $params->get('by', 'all'),
-            'jobs' => $paginator
+            'jobs' => $paginator,
         );
+        if (isset($filterForm)) {
+            $return['filterForm'] = $filterForm;
+        }
+        return $return;
         
     
      }

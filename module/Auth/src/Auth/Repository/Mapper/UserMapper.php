@@ -22,7 +22,8 @@ class UserMapper extends CoreMapper
     
     public function create($data=null)
     {
-        return $this->builders->get('user')->build($data);
+        $builder = $this->builders->get('user');
+        return null === $data ? $builder->build(array()) : $builder->build($data);
     }
     
     /**
@@ -44,7 +45,7 @@ class UserMapper extends CoreMapper
     {
         $data = $this->getData($id, $fields, $exclude);
         $builder = $this->builders->get('user');
-        $entity = $builder->build($data);
+        $entity = is_array($data) ? $builder->build($data) : $this->create(); 
         return $entity;
     }
     
