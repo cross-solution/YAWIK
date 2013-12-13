@@ -6,7 +6,7 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
-$this->headScript()->appendFile($this->basePath('Jobs/js/jobs.index.js'));
+$this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
 
 
 $createRadioGroup = function ($element, $id) {
@@ -65,7 +65,7 @@ $statusElement = $params->get('status');
 <?php endif; ?>
 <div class="row-fluid">
 <div id="params-search-wrapper" class="btn-group input-prepend input-append span12   pull-right">
-    <span class="add-on"><?php echo $this->translate('Keywords') ?>: </span>
+    <span class="add-on"><?php echo $this->translate('Search') ?>: </span>
     <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'input-xxlarge'))) ?>
     <div class="btn-group">
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Go!') ?></button>

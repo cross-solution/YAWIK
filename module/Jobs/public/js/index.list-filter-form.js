@@ -5,10 +5,11 @@
 	
 	var onListFilterFormSubmit = function(event)
 	{
+		$.loadingPopup.show();
 		var $form = $(event.target);
 		var url = $form.attr('action') + '?' + $form.serialize(); 
 		var $container = $('#jobs-list-container');
-		$container.load(url, function () { $container.pagination(); });
+		$container.load(url, function () { $container.pagination(); $.loadingPopup.hide(); });
 		return false;
 	};
 	
@@ -47,6 +48,6 @@
 		$('#jobs-list-filter-reset').click(resetListFilter);
 	};
 	
-	$(function() { initListFilter(); });
+	$(function() { initListFilter();});
 	
 })(jQuery);
