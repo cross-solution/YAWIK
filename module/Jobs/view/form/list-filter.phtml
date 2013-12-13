@@ -7,9 +7,9 @@
  * @license   AGPLv3
  */
 $this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
+$translate = $this->plugin('translate');
 
-
-$createRadioGroup = function ($element, $id) {
+$createRadioGroup = function ($element, $id) use ($translate) {
     $input = '';
     ?><div id="params-<?php echo $id ?>-group" class="btn-group" data-toggle="buttons-radio">
     <?php foreach ($element->getValueOptions() as $value => $label):
@@ -19,7 +19,7 @@ $createRadioGroup = function ($element, $id) {
         else:
             $btnClass = "btn";
         endif;?>
-        <button id="params-<?php echo "$id-$value" ?>" type="button" class="btn-small <?php echo $btnClass ?>" value="<?php echo $value ?>"><?php echo $label ?></button>
+        <button id="params-<?php echo "$id-$value" ?>" type="button" class="btn-small <?php echo $btnClass ?>" value="<?php echo $value ?>"><?php echo $translate($label) ?></button>
     <?php endforeach; ?>
     
     </div><?php return $input;
