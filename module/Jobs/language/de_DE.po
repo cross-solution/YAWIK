@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 10:25+0100\n"
-"PO-Revision-Date: 2013-12-13 10:27+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"POT-Creation-Date: 2013-12-13 15:34+0100\n"
+"PO-Revision-Date: 2013-12-13 15:36+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: CROSS Solution\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,21 +19,30 @@ msgstr ""
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: view/sidebar/index.phtml:11
-msgid "List filter"
-msgstr "Listenfilter"
+#: view/form/list-filter.phtml:68
+msgid "Search"
+msgstr "Suche"
 
-#: view/sidebar/index.phtml:15
+#: view/form/list-filter.phtml:71
+msgid "Go!"
+msgstr "Los!"
+
+#: view/form/list-filter.phtml:76
+msgid "Reset filter"
+msgstr "Filter zurücksetzen"
+
+#: view/sidebar/index.phtml:14
 #: view/jobs/index/dashboard.phtml:5
 msgid "My jobs"
-msgstr "Meine Stellenanzeigen"
+msgstr "Meine Anzeigen"
 
-#: view/sidebar/index.phtml:15
-msgid "Team jobs"
-msgstr "Alle Stellenanzeigen"
+#: view/sidebar/index.phtml:14
+#: view/jobs/index/dashboard.phtml:15
+msgid "All jobs"
+msgstr "Alle Anzeigen"
 
 #: view/jobs/index/index.phtml:1
-#: language/_annotated_strings.php:3
+#: language/_annotated_strings.php:18
 msgid "Jobs"
 msgstr "Stellenanzeigen"
 
@@ -67,21 +76,37 @@ msgstr "Aktion"
 
 #: view/jobs/index/index.ajax.phtml:23
 msgid "Apply"
-msgstr "Bewerben"
+msgstr "Anwenden"
 
 #: view/jobs/index/index.ajax.phtml:25
 msgid "View applications"
-msgstr "Bewerbung ansehen"
+msgstr "Bewerbungen ansehen"
 
 #: view/jobs/index/dashboard.phtml:2
 msgid "Recent jobs"
-msgstr "aktuelle Stellenanzeigen"
+msgstr "Neueste Stellenanzeigen"
 
 #: view/jobs/index/dashboard.phtml:2
 msgid "Famous jobs"
-msgstr ""
+msgstr "Beliebteste Stellenanzeigen"
 
-#: view/jobs/index/dashboard.phtml:15
-msgid "All jobs"
-msgstr "Alle Stellenanzeigen"
+#: language/_annotated_strings.php:3
+msgid "Show all jobs"
+msgstr "Zeige alle Jobs"
+
+#: language/_annotated_strings.php:6
+msgid "Show my jobs"
+msgstr "Zeige meine Jobs"
+
+#: language/_annotated_strings.php:9
+msgid "Active"
+msgstr "Aktiv"
+
+#: language/_annotated_strings.php:12
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: language/_annotated_strings.php:15
+msgid "Job title"
+msgstr "Titel der Anzeige"
 

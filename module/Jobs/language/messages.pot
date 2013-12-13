@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 10:27+0100\n"
+"POT-Creation-Date: 2013-12-13 15:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/sidebar/index.phtml:11
-msgid "List filter"
+#: view/form/list-filter.phtml:68
+msgid "Search"
 msgstr ""
 
-#: view/sidebar/index.phtml:15 view/jobs/index/dashboard.phtml:5
+#: view/form/list-filter.phtml:71
+msgid "Go!"
+msgstr ""
+
+#: view/form/list-filter.phtml:76
+msgid "Reset filter"
+msgstr ""
+
+#: view/sidebar/index.phtml:14 view/jobs/index/dashboard.phtml:5
 msgid "My jobs"
 msgstr ""
 
-#: view/sidebar/index.phtml:15 view/jobs/index/dashboard.phtml:15
+#: view/sidebar/index.phtml:14 view/jobs/index/dashboard.phtml:15
 msgid "All jobs"
 msgstr ""
 
-#: view/jobs/index/index.phtml:1 language/_annotated_strings.php:3
+#: view/jobs/index/index.phtml:1 language/_annotated_strings.php:18
 msgid "Jobs"
 msgstr ""
 
@@ -75,4 +83,24 @@ msgstr ""
 
 #: view/jobs/index/dashboard.phtml:2
 msgid "Famous jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:3
+msgid "Show all jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:6
+msgid "Show my jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+msgid "Active"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+msgid "Inactive"
+msgstr ""
+
+#: language/_annotated_strings.php:15
+msgid "Job title"
 msgstr ""
