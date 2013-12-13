@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-28 14:28+0200\n"
-"PO-Revision-Date: 2013-09-28 14:28+0100\n"
+"POT-Creation-Date: 2013-12-13 09:36+0100\n"
+"PO-Revision-Date: 2013-12-13 09:38+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language: \n"
@@ -27,7 +27,7 @@ msgstr "Bitte melden Sie sich an, um weiter zu machen"
 
 #: view/auth/index/index.phtml:16
 #: view/auth/index/index.phtml:17
-#: view/auth/index/login-info.phtml:29
+#: view/auth/index/login-info.phtml:31
 #: language/_annotated_strings.php:45
 msgid "Login"
 msgstr "Einloggen"
@@ -52,12 +52,11 @@ msgstr "Abmelden"
 msgid "Guest"
 msgstr "Gast"
 
-#: view/auth/index/login-info.phtml:31
-#, fuzzy
+#: view/auth/index/login-info.phtml:33
 msgid "Login via"
-msgstr "Einloggen"
+msgstr "Einloggen über"
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:36
 #, php-format
 msgid "Login with %s"
 msgstr "Mit %s anmelden"
@@ -69,6 +68,10 @@ msgstr "Persönliche Angaben"
 #: src/Auth/Controller/ManageController.php:68
 msgid "Changes successfully saved"
 msgstr "Änderungen wurden erfolgreich gespeichert"
+
+#: src/Auth/Controller/ManageController.php:78
+msgid "Saving changes failed. Please check the marked fields."
+msgstr "Das Speichern der Daten schlug fehl. Bitte überprüfen Sie die markierten Felder."
 
 #: src/Auth/Controller/IndexController.php:80
 msgid "Authentication failed."

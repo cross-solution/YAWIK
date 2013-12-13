@@ -1,4 +1,4 @@
 <?php
-//: ./config/module.config.php:40
+//: ./config/module.config.php:75
 translate('Jobs');
 

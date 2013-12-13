@@ -38,21 +38,21 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
 	public function init()
     {
         $this->setName('user-info')
-             ->setLabel('personal informations');
+             ->setLabel( /* @translate */ 'personal informations');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         
         $this->add(array(
             'name' => 'email',
             'options' => array(
-                'label' => /*@translate*/ 'Email'
+                'label' => /* @translate */ 'Email'
             )
         ));
         
         $this->add(array(
         		'name' => 'phone',
         		'options' => array(
-        				'label' => /*@translate*/ 'Phone',
+        				'label' => /* @translate */ 'Phone',
         		    'required' => true,
         		),
                 'required' => true,
@@ -61,14 +61,14 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         $this->add(array(
         		'name' => 'postalcode',
         		'options' => array(
-        				'label' => /*@translate*/ 'Postalcode'
+        				'label' => /* @translate */ 'Postalcode'
         		)
         ));
         
         $this->add(array(
         		'name' => 'city',
         		'options' => array(
-        				'label' => /*@translate*/ 'City'
+        				'label' => /* @translate */ 'City'
         		)
         ));
         

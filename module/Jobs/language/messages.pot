@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 11:28+0200\n"
+"POT-Creation-Date: 2013-12-13 10:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,18 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: view/sidebar/index.phtml:11
+msgid "List filter"
+msgstr ""
+
+#: view/sidebar/index.phtml:15 view/jobs/index/dashboard.phtml:5
+msgid "My jobs"
+msgstr ""
+
+#: view/sidebar/index.phtml:15 view/jobs/index/dashboard.phtml:15
+msgid "All jobs"
+msgstr ""
 
 #: view/jobs/index/index.phtml:1 language/_annotated_strings.php:3
 msgid "Jobs"
@@ -43,4 +55,24 @@ msgstr ""
 
 #: view/jobs/index/index.ajax.phtml:9
 msgid "Reference"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:10
+msgid "Action"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:23
+msgid "Apply"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:25
+msgid "View applications"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:2
+msgid "Recent jobs"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:2
+msgid "Famous jobs"
 msgstr ""

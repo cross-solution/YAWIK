@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 11:28+0200\n"
-"PO-Revision-Date: 2013-09-18 11:31+0100\n"
+"POT-Creation-Date: 2013-12-13 10:25+0100\n"
+"PO-Revision-Date: 2013-12-13 10:27+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: CROSS Solution\n"
 "Language: \n"
@@ -18,6 +18,19 @@ msgstr ""
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: view/sidebar/index.phtml:11
+msgid "List filter"
+msgstr "Listenfilter"
+
+#: view/sidebar/index.phtml:15
+#: view/jobs/index/dashboard.phtml:5
+msgid "My jobs"
+msgstr "Meine Stellenanzeigen"
+
+#: view/sidebar/index.phtml:15
+msgid "Team jobs"
+msgstr "Alle Stellenanzeigen"
 
 #: view/jobs/index/index.phtml:1
 #: language/_annotated_strings.php:3
@@ -47,4 +60,28 @@ msgstr "Firmenname"
 #: view/jobs/index/index.ajax.phtml:9
 msgid "Reference"
 msgstr "Referenz"
+
+#: view/jobs/index/index.ajax.phtml:10
+msgid "Action"
+msgstr "Aktion"
+
+#: view/jobs/index/index.ajax.phtml:23
+msgid "Apply"
+msgstr "Bewerben"
+
+#: view/jobs/index/index.ajax.phtml:25
+msgid "View applications"
+msgstr "Bewerbung ansehen"
+
+#: view/jobs/index/dashboard.phtml:2
+msgid "Recent jobs"
+msgstr "aktuelle Stellenanzeigen"
+
+#: view/jobs/index/dashboard.phtml:2
+msgid "Famous jobs"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:15
+msgid "All jobs"
+msgstr "Alle Stellenanzeigen"
 

@@ -8,6 +8,6 @@ translate('English');
 //: ./src/Settings/Form/SettingsFieldset.php:35
 translate('German');
 
-//: ./config/module.config.php:44
+//: ./config/module.config.php:62
 translate('Settings');
 
