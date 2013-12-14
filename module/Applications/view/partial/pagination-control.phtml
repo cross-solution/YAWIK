@@ -10,8 +10,7 @@ würde über dem Result besser passen. Geht das?
 of <?php echo $this->totalItemCount; ?>
 -->
 <!-- First page link -->
-<div class="pagination pagination-centered">
-<ul>
+<ul class="pagination">
 <?php if (isset($this->previous)): ?>
   <li><a href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
     <?= $this->translate('First')?>
@@ -45,4 +44,3 @@ of <?php echo $this->totalItemCount; ?>
 <?php endif; ?>
 </ul>
 <?php endif; ?>
-</div>

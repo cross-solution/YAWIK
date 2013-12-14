@@ -9,7 +9,7 @@
 
 <div id="jobs-list-filter">
 <?php if ($this->hasJobs):?>
-<ul class="nav nav-tabs nav-stacked">
+<ul class="nav nav-pills nav-stacked">
 
 <?php foreach (array('me' => $this->translate('My jobs'), 'all' => $this->translate('All jobs')) as $byParam => $label): ?>
     <li<?php echo $byParam == $this->by ? ' class="active"' : '' ?>>

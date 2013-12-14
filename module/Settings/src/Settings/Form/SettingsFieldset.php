@@ -26,13 +26,14 @@ class SettingsFieldset extends Fieldset
 
         
         $this->add(array(
-        		'type' => 'Zend\Form\Element\Radio',
+        		'type' => 'Zend\Form\Element\Select',
         		'name' => 'language',
         		'options' => array(
         				'label' => /* @translate */ 'choose your language',
         				'value_options' => array(
         						'en' => /* @translate */ 'English',
         						'de' => /* @translate */ 'German',
+                                         'help' => 'hilfetext'
         				),
         		),
         ));

@@ -26,7 +26,7 @@ if ('-' == $this->sort{0}) {
     <?php if (false === $sort): echo $this->translate($label); 
           else:
               if ($sort == $sortBy):
-                  $icon = ' <i class="pull-right icon-chevron-' . ($sortDir ? 'up' : 'down') . '"></i>';
+                  $icon = ' <span class="pull-right glyphicon glyphicon-chevron-' . ($sortDir ? 'up' : 'down') . '"></span>';
                   $dir = !$sortDir;
               else:
                   $dir = true;
@@ -56,9 +56,9 @@ if ('-' == $this->sort{0}) {
     </td>
     <td>
         <div class="btn-group">
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-success" title="<?php echo $this->translate('view')?>"><i class="icon-eye-open icon-white"></i></a>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-success" title="<?php echo $this->translate('view')?>"><span class="glyphicon glyphicon-eye-open icon-white"></span></a>
             <?php if ($this->acl($application, 'delete')):?>
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-danger" title="<?php echo $this->translate('delete')?>"><i class="icon-remove icon-white"></i></a>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-danger" title="<?php echo $this->translate('delete')?>"><span class="glyphicon glyphicon-remove icon-white"></span></a>
             <?php endif ?>
         </div>
     </td>

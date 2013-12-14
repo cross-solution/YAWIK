@@ -38,7 +38,7 @@ class FormRowCombined extends AbstractHelper
                 //$labels[] = false;
             }
             $markups .= sprintf(
-                '<div class="span%d%s">%s</div>',
+                '<div class="col-md-%d%s">%s</div>',
                 $spanWidth, empty($elementErrors) ? '' : ' input-error', $markup
             );
             $totalSpanWidth += $spanWidth;
@@ -46,12 +46,12 @@ class FormRowCombined extends AbstractHelper
         $labelSpanWidth = 12 - $totalSpanWidth;
         
         $labelMarkup = sprintf(
-            '<div class="span%d text-right">%s</div>',
+            '<div class="col-md-%d text-right">%s</div>',
             $labelSpanWidth, implode(' / ', $labels)
         );
         
         return sprintf(
-            '<div class="controls controls-row row-fluid">%s%s</div>',
+            '<div class="controls controls-row row">%s%s</div>',
             $labelMarkup, $markups
         );
     }

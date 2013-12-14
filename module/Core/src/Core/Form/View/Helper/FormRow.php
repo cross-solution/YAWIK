@@ -59,7 +59,7 @@ class FormRow extends ZendFormRow
             if (!$inputSize || 'block' == $inputSize) {
                 $inputSize = 'block-level';
             }
-            $element->setAttribute('class', $element->getAttribute('class') . ' input-' . $inputSize);
+            $element->setAttribute('class', $element->getAttribute('class') . ' input-' . $inputSize .' form-control');
         }
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
@@ -126,11 +126,11 @@ class FormRow extends ZendFormRow
                     if ($this->shouldWrap) {
                         $spanWidth = 12 - $labelWidth;
                         $elementString = sprintf(
-                            '<div class="span%d%s" id="' . $elementId . '-span">%s</div>',
+                            '<div class="col-md-%d%s" id="' . $elementId . '-span">%s</div>',
                             $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
                         );
                         $label = sprintf(
-                            '<div class="span%d text-right">%s</div>',
+                            '<div class="col-md-%d text-right">%s</div>',
                             $labelWidth, $label
                         );
                         
@@ -147,7 +147,7 @@ class FormRow extends ZendFormRow
                 && !$element instanceOf \Zend\Form\Element\Hidden
                 && !$element instanceOF \Zend\Form\Element\Button) {
                 $elementString = sprintf(
-                    '<div class="span12">%s</div>', $elementString
+                    '<div class="col-md-12">%s</div>', $elementString
                 );
             } 
             
@@ -157,7 +157,7 @@ class FormRow extends ZendFormRow
         if ($this->shouldWrap 
             && !$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button) {
-            $markup = sprintf('<div class="controls controls-row row-fluid">%s</div>', $markup);
+            $markup = sprintf('<div class="controls controls-row row">%s</div>', $markup);
         }
     
         return $markup;

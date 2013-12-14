@@ -30,6 +30,7 @@ vendor
 .project
 nbproject
 
+module/Core/public/css/cam.css
 public/css/Applications
 public/css/Auth
 public/css/Core

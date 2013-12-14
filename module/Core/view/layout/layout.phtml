@@ -25,40 +25,40 @@
                         ->appendScript('var lang="' . $this->params('lang') . '";');
         ?>
         
-        <?php echo $this->headLink()->prependStylesheet($this->basePath() . '/Core/css/layout.css')
-                                    ->prependStylesheet($this->basePath('bootstrap/css/bootstrap.css'));?>
+        <?php echo $this->headLink() ->prependStylesheet($this->basePath() . '/Core/css/cam.css');?>
 
         <?php echo $this->headStyle() ?>
     </head>
     <body>
-        <div id="main">
-            <header id="topbar" class="navbar navbar-fixed-top">
-                <div class="navbar-inner">
-                <div class="container">
-                <a class="brand" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('Cross Applicant Management')?></a>
-                
-
-                <div class="nav-collapse collapse" id="main-navigation">
-                    <?php 
+	<a class="sr-only" href="#content">Skip to main content</a>
+	<header id="topbar" class="navbar navbar-inverse navbar-fixed-top cam-nav" role="banner">
+         <div class="container">
+   	       <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-target=".cam-navbar-collapse" data-toggle="collapse" type="button">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('Cross Applicant Management')?></a>
+                    <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('CAM')?></a>
+               </div>
+                  <nav class="navbar-collapse collapse cam-navbar-collapse" id="main-navigation" role="navigation">
+                     <?php 
                         echo $this->navigation('main_navigation')
                                   ->setAcl($this->services('acl'))
                                   ->setRole($this->auth('role'))
                                   ->menu()
                                   ->setMaxDepth(0)
-                                  ->setUlClass('nav')//renderPartial(null, 'main-navigation')?>
+                                  ->setUlClass('nav navbar-nav pull-left')//renderPartial(null, 'main-navigation')?>
 
-                    <?php echo $this->loginInfo ?>
-                </div> <!-- /main-navigation -->
-                </div>
-                </div>
-                
+                     <?php echo $this->loginInfo ?>
+                 </nav> <!-- /main-navigation -->
+		</div>
             </header>
-            
-            <div id="container" class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span2">
+          <div id="container" class="container row col-md-2">
 <!-- SIDEBAR -->
-<div id="sidebar" class="affix">
+<nav id="sidebar">
 <div class="btn-group" data-toggle="buttons-radio" id="language-switcher">
     <?php $lang = $this->params('lang');
     foreach (array('en', 'de') as $availableLang): ?>
@@ -74,9 +74,9 @@
               ->setMaxDepth(null)
               ->setMinDepth(1)
               ->setRenderParents(false)
-              ->setUlClass('nav nav-tabs nav-stacked');
+              ->setUlClass('nav nav-pills nav-stacked');
 ?>
-</div>
+
 
 <?foreach ($this->layout()->getChildren() as $child):
     if (0 === strpos($child->captureTo(), "sidebar_")):
@@ -85,28 +85,26 @@
 endforeach;?>
 
 </div>
+</nav>
 <!-- /SIDEBAR -->
                     </div>
                     
-                    <div id="content" class="span10">
+                    <main id="content" class="col-md-10">
 <!-- CONTENT -->
 
 <?php echo $this->content; ?>
 <!-- /CONTENT -->
-                    </div> <!-- /span10 -->
-                </div> <!-- /row -->
-            </div> <!-- /container -->
-
-            <footer class="modal-footer navbar">
-                <div class="container-fluid">
-                <p class="pull-left"><small>&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
-                    | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</small></p>
+            </main> <!-- /container -->
+            <footer id="cam-footer" class="navbar navbar-fixed-bottom">
+                <div class="container">
+                <span class="pull-left"><small>&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
+                    | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</small></span>
                 
-                <p class="pull-right"><small>
+                <span class="pull-right"><small>
                     Powered by <a href="http://framework.zend.com">Zend Framework 2</a>,
                                 <a href="http://getbootstrap.com/2.3.2/">Bootstrap</a>,
                                 <a href="http://jquery.com">jQuery</a>
-                               </small> </p>
+                               </small> </span>
                 
                 </div>
             </footer>
