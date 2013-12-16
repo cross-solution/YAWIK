@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 09:52+0100\n"
+"POT-Creation-Date: 2013-12-16 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,7 +166,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:156
 #: src/Applications/Form/BaseFieldset.php:22
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:54
 msgid "Summary"
 msgstr ""
 
@@ -191,22 +191,22 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:17
-#: view/partial/pagination-control.phtml:20
+#: view/partial/pagination-control.phtml:16
+#: view/partial/pagination-control.phtml:19
 msgid "First"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:25
-#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:24
+#: view/partial/pagination-control.phtml:27
 msgid "&lt; Previous"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:33
+#: view/partial/pagination-control.phtml:32
 msgid "Next &gt;"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:41
-#: view/partial/pagination-control.phtml:44
+#: view/partial/pagination-control.phtml:40
+#: view/partial/pagination-control.phtml:43
 msgid "Last"
 msgstr ""
 
@@ -288,37 +288,70 @@ msgid "receive E-Mail alert"
 msgstr ""
 
 #: language/_annotated_strings.php:27
-msgid "Mailtext"
+msgid "if checked, you'll be informed by mail about new applications."
 msgstr ""
 
 #: language/_annotated_strings.php:30
-msgid "Confirmation mail text"
+msgid "Mailtext"
 msgstr ""
 
 #: language/_annotated_strings.php:33
-msgid "Invitation mail text"
+msgid ""
+"default text of the notification mail about new applications. The following "
+"variables can be used:<ul><li>##name## = your name</li><li>##title## = title "
+"of the job</li></ul>"
 msgstr ""
 
 #: language/_annotated_strings.php:36
-msgid "Rejection mail text"
+msgid "Confirmation mail text"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid ""
+"default text of the acknowledgment of receipt mail to the applicant. The "
+"following variables can be used:<br><ul><li>##anrede_formell## = salutation. "
+"Includes gender, firstname and lastname.<li>##anrede_informell## = "
+"salutation. Includes fistname and lastname.</li><li>##job_title## = title of "
+"the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
+"of recipt of the application.</li></ul>"
 msgstr ""
 
 #: language/_annotated_strings.php:42
+msgid "Invitation mail text"
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid ""
+"default text of the invitation mail to the applicant. You can use all "
+"variables of the acknowledgment of receipt mail. "
+msgstr ""
+
+#: language/_annotated_strings.php:48
+msgid "Rejection mail text"
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid ""
+"default text of the refusal of an application to the applicant. You can use "
+"all variables of the acknowledgment of receipt mail."
+msgstr ""
+
+#: language/_annotated_strings.php:57
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:60
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:63
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
 "\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:66
 msgid "Overview"
 msgstr ""

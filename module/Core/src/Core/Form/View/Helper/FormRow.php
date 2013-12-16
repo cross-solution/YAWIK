@@ -63,6 +63,11 @@ class FormRow extends ZendFormRow
         }
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
+            if (null !== ($translator = $this->getTranslator())) {
+                             $desc = $translator->translate(
+                                $desc, $this->getTranslatorTextDomain()
+                                     );
+            }                                                                 
             $elementString .= sprintf(
                 '<div class="description help-block">%s</div>', $desc
             );

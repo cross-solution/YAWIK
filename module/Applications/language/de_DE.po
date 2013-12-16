@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 09:52+0100\n"
-"PO-Revision-Date: 2013-12-13 09:54+0100\n"
+"POT-Creation-Date: 2013-12-16 15:49+0100\n"
+"PO-Revision-Date: 2013-12-16 16:12+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -162,7 +162,7 @@ msgstr "Telefon"
 
 #: view/applications/manage/detail.phtml:156
 #: src/Applications/Form/BaseFieldset.php:22
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:54
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -187,22 +187,22 @@ msgstr "Muttersprache"
 msgid "Attachments"
 msgstr "Anhänge"
 
-#: view/partial/pagination-control.phtml:17
-#: view/partial/pagination-control.phtml:20
+#: view/partial/pagination-control.phtml:16
+#: view/partial/pagination-control.phtml:19
 msgid "First"
 msgstr "Anfang"
 
-#: view/partial/pagination-control.phtml:25
-#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:24
+#: view/partial/pagination-control.phtml:27
 msgid "&lt; Previous"
 msgstr "&lt; Vor"
 
-#: view/partial/pagination-control.phtml:33
+#: view/partial/pagination-control.phtml:32
 msgid "Next &gt;"
 msgstr "Weiter &gt;"
 
-#: view/partial/pagination-control.phtml:41
-#: view/partial/pagination-control.phtml:44
+#: view/partial/pagination-control.phtml:40
+#: view/partial/pagination-control.phtml:43
 msgid "Last"
 msgstr "Ende"
 
@@ -285,32 +285,52 @@ msgid "receive E-Mail alert"
 msgstr "E-Mail Benachrichtigungen erhalten"
 
 #: language/_annotated_strings.php:27
+msgid "if checked, you'll be informed by mail about new applications."
+msgstr "falls gewählt, werden Sie per E-Mail über neue Bewerbungen informiert."
+
+#: language/_annotated_strings.php:30
 msgid "Mailtext"
 msgstr "Mailtext"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:33
+msgid "default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>"
+msgstr "Standard-Text der Benachrichtigung über neu eingetroffene Bewerbungen. Die folgenden Variablen können verwendet werden: <br><ul><li>##name## = Ihr Name</li><li>##title## = Titel der Stellenanzeige</li></ul>"
+
+#: language/_annotated_strings.php:36
 msgid "Confirmation mail text"
 msgstr "Text der Bestätigungs-E-Mail"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:39
+msgid "default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li></ul>"
+msgstr "Standard-Text einer Eingangsbestätigung an den Bewerber. Folgende Variablen können verwendet werden. <br><ul><li>##anrede_formell## = Formelle Anrede.<li>##anrede_informell## = normale Anrede.</li><li>##job_title## = Tirel der Stellenanzeige</li><li>##name## = Name des Bewerbers</li><li>##date## = Eingangsdatum der Bewerbung.</li></ul>"
+
+#: language/_annotated_strings.php:42
 msgid "Invitation mail text"
 msgstr "Text der Einladungs-E-Mail"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
+msgid "default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. "
+msgstr "Standard-Text einer Einladungsmail an einen Bewerber. Die Variablen der Eingangsbestätigungsmail können auch verwendet werden."
+
+#: language/_annotated_strings.php:48
 msgid "Rejection mail text"
 msgstr "Text der Ablehnungs-E-Mail"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:51
+msgid "default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail."
+msgstr "Standard-Text einer Absage auf eine Bewerbung an den Bewerber. Die Variablen der Eingangsbestätigungsmail können auch verwendet werden."
+
+#: language/_annotated_strings.php:57
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Bewerbung auf \"%s\" vom %s"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:60
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Neue Bewerbung für Ihre Anzeige \"%s\""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:63
 msgid ""
 "Hello ##name##,\\n"
 "\\n"
@@ -324,7 +344,7 @@ msgstr ""
 "\\\"##title##\\\"\\n"
 "\\n"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:66
 msgid "Overview"
 msgstr "Überblick"
 

@@ -32,9 +32,10 @@ class SettingsFieldset extends Fieldset
         				'label' => /* @translate */ 'choose your language',
         				'value_options' => array(
         						'en' => /* @translate */ 'English',
+        						'fr' => /* @translate */ 'French',
         						'de' => /* @translate */ 'German',
-                                         'help' => 'hilfetext'
         				),
+                                        'description' => /* @translate */ 'defines the languages of this frontend.'
         		),
         ));
         
