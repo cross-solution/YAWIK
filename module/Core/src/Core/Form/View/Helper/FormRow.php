@@ -69,7 +69,7 @@ class FormRow extends ZendFormRow
                                      );
             }                                                                 
             $elementString .= sprintf(
-                '<div class="description help-block">%s</div>', $desc
+                '<span class="cam-description help-block">%s</span>', $desc
             );
         }
         if (!$element instanceOf \Zend\Form\Element\Hidden
