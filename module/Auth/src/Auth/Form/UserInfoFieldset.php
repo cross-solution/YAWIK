@@ -37,7 +37,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
     
 	public function init()
     {
-        $this->setName('user-info')
+        $this->setName('info')
              ->setLabel( /* @translate */ 'personal informations');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
@@ -139,6 +139,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
             }
             $data = $this->getHydrator()->extract($value);
             $this->populateValues($data);
+            $this->setObject($value);
         }
         return parent::setValue($value);
     }

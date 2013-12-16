@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 09:36+0100\n"
-"PO-Revision-Date: 2013-12-13 09:38+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"POT-Creation-Date: 2013-12-16 12:21+0100\n"
+"PO-Revision-Date: 2013-12-16 12:22+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Bitte melden Sie sich an, um weiter zu machen"
 #: view/auth/index/index.phtml:16
 #: view/auth/index/index.phtml:17
 #: view/auth/index/login-info.phtml:31
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:54
 msgid "Login"
 msgstr "Einloggen"
 
@@ -62,8 +62,14 @@ msgid "Login with %s"
 msgstr "Mit %s anmelden"
 
 #: src/Auth/Form/UserInfoFieldset.php:41
+#: language/_annotated_strings.php:3
 msgid "personal informations"
 msgstr "Persönliche Angaben"
+
+#: src/Auth/Form/UserBaseFieldset.php:23
+#: language/_annotated_strings.php:48
+msgid "General"
+msgstr "Sonstiges"
 
 #: src/Auth/Controller/ManageController.php:68
 msgid "Changes successfully saved"
@@ -77,61 +83,73 @@ msgstr "Das Speichern der Daten schlug fehl. Bitte überprüfen Sie die markiert
 msgid "Authentication failed."
 msgstr "Anmeldung fehlgeschlagen."
 
-#: language/_annotated_strings.php:3
+#: language/_annotated_strings.php:6
 msgid "Email"
 msgstr "E-Mail"
 
-#: language/_annotated_strings.php:6
+#: language/_annotated_strings.php:9
 msgid "Phone"
 msgstr "Telefon"
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:12
 msgid "Postalcode"
 msgstr "Postleitzahl"
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:15
 msgid "City"
 msgstr "Ort"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:18
 msgid "Title"
 msgstr "Anrede"
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:21
 msgid "please select"
 msgstr "bitte wählen"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:24
 msgid "Mr."
 msgstr "Herr"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:27
 msgid "Mrs."
 msgstr "Frau"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:30
 msgid "no comment"
 msgstr "keine Angaben"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:33
 msgid "First name"
 msgstr "Vorname"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:36
 msgid "Last name"
 msgstr "Nachname"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:39
 msgid "street"
 msgstr "Strasse"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:42
 msgid "house number"
 msgstr "Hausnummer"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:45
 msgid "Application photo"
 msgstr "Bewerbungsphoto"
+
+#: language/_annotated_strings.php:51
+msgid "I am"
+msgstr "Ich bin"
+
+#: language/_annotated_strings.php:57
+msgid "user"
+msgstr "Benutzer"
+
+#: language/_annotated_strings.php:60
+msgid "recruiter"
+msgstr "Personalberater"
 
 #~ msgid "Informations"
 #~ msgstr "Informationen"

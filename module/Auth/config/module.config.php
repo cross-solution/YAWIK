@@ -216,7 +216,13 @@ return array(
         'roles' => array(
             'guest',
             'user' => 'guest',
+            'recruiter' => 'user',
             'admin'
+        ),
+        
+        'public_roles' => array(
+            /*@translate*/ 'user', 
+            /*@translate*/ 'recruiter',
         ),
         
         'rules' => array(
@@ -335,6 +341,10 @@ return array(
             'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-info-fieldset' => 'Auth\Form\UserInfoFieldset',
+            'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
         ),
+        'factories' => array(
+            'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
+        )
     ),
 );

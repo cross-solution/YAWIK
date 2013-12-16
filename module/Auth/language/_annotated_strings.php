@@ -44,6 +44,18 @@ translate('house number');
 //: ./src/Auth/Form/UserInfoFieldset.php:126
 translate('Application photo');
 
+//: ./src/Auth/Form/UserBaseFieldset.php:23
+translate('General');
+
+//: ./src/Auth/Form/UserBaseFieldset.php:31
+translate('I am');
+
 //: ./src/Auth/Form/Login.php:48
 translate('Login');
+
+//: ./config/module.config.php:224
+translate('user');
+
+//: ./config/module.config.php:225
+translate('recruiter');
 

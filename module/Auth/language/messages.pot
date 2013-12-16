@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 10:38+0100\n"
+"POT-Creation-Date: 2013-12-16 12:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr ""
 
 #: view/auth/index/index.phtml:16 view/auth/index/index.phtml:17
-#: view/auth/index/login-info.phtml:31 language/_annotated_strings.php:48
+#: view/auth/index/login-info.phtml:31 language/_annotated_strings.php:54
 msgid "Login"
 msgstr ""
 
@@ -59,6 +59,10 @@ msgstr ""
 
 #: src/Auth/Form/UserInfoFieldset.php:41 language/_annotated_strings.php:3
 msgid "personal informations"
+msgstr ""
+
+#: src/Auth/Form/UserBaseFieldset.php:23 language/_annotated_strings.php:48
+msgid "General"
 msgstr ""
 
 #: src/Auth/Controller/ManageController.php:68
@@ -127,4 +131,16 @@ msgstr ""
 
 #: language/_annotated_strings.php:45
 msgid "Application photo"
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid "I am"
+msgstr ""
+
+#: language/_annotated_strings.php:57
+msgid "user"
+msgstr ""
+
+#: language/_annotated_strings.php:60
+msgid "recruiter"
 msgstr ""

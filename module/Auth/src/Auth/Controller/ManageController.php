@@ -37,7 +37,7 @@ class ManageController extends AbstractActionController
               ? $user->info->getEntity()
               : $user->info;
         
-        $form->bind($info);
+        $form->bind($user);
              
         if ($this->request->isPost()) {
             $files = $this->request->getFiles()->toArray();
@@ -54,7 +54,7 @@ class ManageController extends AbstractActionController
                         
                 $user->setInfo($info);
                 $data = $form->getInputFilter()->getValues();
-                $fileData = $data['user-info']['image'];
+                $fileData = $data['info']['image'];
                 
                 if ($fileData['error'] == UPLOAD_ERR_OK) {
                     $fileData['field'] = 'image';
