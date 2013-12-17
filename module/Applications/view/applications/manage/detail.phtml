@@ -7,33 +7,29 @@
 <h1><?= $this->translate('application details') ?></h1>
 
 <div id="forward-email-result" class="hide alert"></div>
-<form class="row" id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
-    
-    <div id="forward-email" class="col-md-12 text-right input-prepend input-append">
-        
-            <span class="add-on" 
-               data-toggle="popover" 
-               data-trigger="hover focus click"
-               data-placement="bottom" 
-               title="<?php echo $this->translate('Enter an email address')?>"
-               data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>"
-            >@</span>
-            <input type="hidden" name="action" value="forward">
-            <input class="col-md-3" id="forward-email-input" name="email" type="email">
-            <button class="btn" type="submit"><i class="icon-share"></i> <?php echo $this->translate('Forward')?></button>
-        
-    </div>
-   
-</form>
 
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('State')?>:</div>
-    <div class="col-md-9"><p><?php echo $this->translate($application->status->name) ?></p></div>
-</div>
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-9">
-        <div id="state-actions" class="btn-group">
+<nav class="navbar cam-toolbar"> 
+  <form class="navbar-form navbar-right" id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">  
+    <div id="forward-email" class="input-group btn-group">  
+      <span class="input-group-addon" 
+            data-toggle="popover" 
+            data-trigger="hover focus click"
+            data-placement="bottom" 
+            title="<?php echo $this->translate('Enter an email address')?>"
+            data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>">?</span>
+            <input type="hidden" name="action" value="forward">
+            <div class="col-md-6">
+            <input class="form-control" id="forward-email-input" name="email" type="email">
+            </div>
+            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-share-alt"></span><?php echo $this->translate('Forward')?></button>
+          </div>
+    </form>
+
+  <div class="navbar-text navbar-form">
+    <?= $this->translate('State')?>: <?php echo $this->translate($application->status->name) ?>
+  </div>
+    
+  <div id="state-actions" class="btn-group navbar-form">
         <?php $status = $application->status->getName();
         
             $actionButtons = array(
@@ -70,7 +66,7 @@
             foreach ($actionButtons as $targetStatus => $spec):
                 if ($status == $targetStatus): continue; endif?>
               
-            <button class="btn" 
+            <button class="btn btn-default" 
                     data-href="<?php echo $spec['href']?>"
                     <?php if (isset($spec['title'])):?>
                     data-title="<?php echo $spec['title']?>"
@@ -78,29 +74,45 @@
                     data-target="#mail-box"
                     <?php endif ?>
             ><?php echo $spec['label'] ?></button>
-                
-            <?php endforeach ?>
-        
-            
+            <?php endforeach ?>    
         </div>
-    </div>
-</div>
-<div id="mail-box" class="modal hide fade" tabindex="-1">
-                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="mail-box-label"><?php echo $this->translate('Invite the applicant') ?></h3>
-                </div>
-                <div id="mail-box-content" class="modal-body"></div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
-                    <button class="btn btn-primary" onclick="$('#applicant-mail').submit()"><?php echo $this->translate('Send mail') ?></button>
-                </div>
-            </div>
         
-<br />
-<div class="row">
-    <div class="col-md-3"><?php echo $this->translate('State history') ?>:</div>
-    <div class="col-md-9">
+        <div class="btn btn-group navbar-form">
+          <button class="btn btn-default"
+                    data-title="title"
+                    data-toggle="modal"
+                    data-target="#cam-application-history">
+          <span class="glyphicon glyphicon-list"></span>
+          </button>
+        </div>
+</nav>
+<div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="mail-box-label">
+            <?php echo $this->translate('Invite the applicant') ?>
+          </h3>
+      </div>
+        <div id="mail-box-content" class="modal-body"></div>
+        <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
+          <button class="btn btn-primary" onclick="$('#applicant-mail').submit()"><?php echo $this->translate('Send mail') ?></button>
+        </div>
+     </div>
+  </div>
+</div>
+<div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="history-box-label">
+          <?php echo $this->translate('State history') ?>:
+        </h3>
+      </div>
+      <div class="modal-body">
         <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -118,9 +130,12 @@
             </tr>
             <?php endforeach ?>
         </tbody>
-        </table>
+        </table>     
+      </div>
     </div>
+  </div>
 </div>
+
 <div class="row">
     <div class="col-md-3"><?= $this->translate('date of receipt')?>:</div>
     <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
@@ -148,55 +163,66 @@
 </div>
 <div class="col-md-3">
     <?if ($this->application->contact->imageId):?>
-    <img src="/file/applications/<?php echo $this->application->contact->imageId ?>" class="img-polaroid" />
+    <img src="/file/applications/<?php echo $this->application->contact->imageId ?>" class="img-thumbnail" />
     <?endif?>
 </div>
 </div>
 
 <h2><?=$this->translate('Summary')?></h2>
-<div class="row show-grid">
-<div class="col-md-12"><pre>
+<div class="row">
+<div class="col-md-12">
+<pre>
 <?php echo $this->application->summary ?>
 </pre>
 </div>
 </div>
 
-
-<div class="row show-grid">
+<?php if(count($this->application->cv->employments)>0):?>
 <h2><?= $this->translate('work experience')?></h2>
-      
+<table class="table  table-condensed table-bordered "> 
+<tr>
+ <th class="col-md-1"><?=$this->translate('Start')?></th>
+ <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th><?=$this->translate('Description')?></th>
+</tr>
 <?php foreach( $this->application->cv->employments as $employment): ?>
-<div class="col-md-3"><?= $employment->startDate ?></div> <div class="col-md-3"><?= $employment->endDate ?></div>
-<div><?=  $employment->description ?></div>
+<tr>
+ <td><?= $employment->startDate ?></td>
+ <td><?= $employment->endDate ?></td>
+ <td><?=  $employment->description ?></td>
+</tr>
+<?php endforeach; // employments?>
+</table>
+<?php endif;?> 
 
-<?php endforeach; // employments?>    
-</div>
-<div class="row show-grid">
-
+<?php if(count($this->application->cv->educations)>0):?>
 <h2><?= $this->translate('education and training')?></h2>
-
+<table class="table table-condensed table-bordered "> 
+<tr>
+ <th class="col-md-1"><?=$this->translate('Start')?></th>
+ <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th><?=$this->translate('Description')?></th>
+</tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
-  <div class="col-md-3"><?= $education->startDate ?></div> <div class="col-md-3"><?= $education->endDate ?></div>
-  <div><?=  $education->description ?></div>
+  <tr>
+   <td><?= $education->startDate ?></td>
+   <td><?= $education->endDate ?></td>
+   <td><?=  $education->description ?></td>
+  </tr>
 <?php endforeach; // eucations?>    
-</div>
+</table>
+<?php endif;?> 
 
-
-<div class="row show-grid">
-
+<?php if(count($this->application->cv->skills)>0):?>
 <h2><?= $this->translate('personal skills')?></h2>
-
 <?php foreach( $this->application->cv->skills as $kill): ?>
   <div class="col-md-3"><?=$this->translate('native language')?></div> 
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
-    
-</div>
+<?php endif;?>
 
-
-
+<?php if(count($this->application->attachments)>0):?>
 <h2><?= $this->translate('Attachments')?></h2>
-
 <?php foreach( $this->application->attachments as $attachment): ?>
 <div class="row show-grid">
   <div class="col-md-3">
@@ -209,5 +235,4 @@
     <div class="col-md-3"><?php echo $attachment->prettySize ?></div>
 </div>
 <?php endforeach; // skills?>
-    
-
+<?php endif;?>
