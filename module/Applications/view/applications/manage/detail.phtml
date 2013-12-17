@@ -11,7 +11,7 @@
 <nav class="navbar cam-toolbar"> 
   <form class="navbar-form navbar-right" id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">  
     <div id="forward-email" class="input-group btn-group">  
-      <span class="input-group-addon" 
+      <span class="input-group-addon"
             data-toggle="popover" 
             data-trigger="hover focus click"
             data-placement="bottom" 
@@ -124,7 +124,7 @@
         <tbody>
             <?php foreach ($this->application->history as $history): ?>
             <tr>
-                <td><?php echo $this->formatDate($history->date)?></td>
+                <td><?php echo $this->dateFormat($history->date)?></td>
                 <td><?php echo $history->status ?></td>
                 <td><?php echo $history->message ?></td>
             </tr>
@@ -205,9 +205,9 @@
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
-   <td><?= $education->startDate ?></td>
-   <td><?= $education->endDate ?></td>
-   <td><?=  $education->description ?></td>
+   <td><?php echo $education->startDate ?></td>
+   <td><?php echo $education->endDate ?></td>
+   <td><?php echo $education->description ?></td>
   </tr>
 <?php endforeach; // eucations?>    
 </table>

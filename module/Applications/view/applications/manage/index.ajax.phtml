@@ -1,8 +1,10 @@
 <?php
 
 $columns = array(
-        /*@translate*/ 'Job' => false,
         /*@translate*/ 'Applicant' => false,
+		/*@translate*/ 'Career' => false,
+		/*@translate*/ 'Attachments' => false,	
+        /*@translate*/ 'Job' => false,	
         /*@translate*/ 'Status' => 'status',
         /*@translate*/ 'Modified' => 'date',
         /*@translate*/ 'Actions' => false,
@@ -18,7 +20,7 @@ if ('-' == $this->sort{0}) {
 
 ?>
 
-<table class="table table-striped table-bordered table-hover" id="jobs-list">
+<table class="table table-striped table-bordered table-hover" id="application-list">
 <thead>
 <tr>
 <?php foreach ($columns as $label => $sort):?>
@@ -48,10 +50,39 @@ if ('-' == $this->sort{0}) {
 <tbody>
 <?foreach ($applications as $application):?>
 <tr>
-    <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>"><?php echo $application->job->title ?></a></td>
-    <td><?php echo $application->contact->displayName?></td>
+    <td>
+    <div class="col-md-3">
+    <?php if ($application->contact->imageId):?>
+    <img src="/file/applications/<?php echo $application->contact->imageId ?>" class="img-thumbnail cam-thumbnail" />
+    <?php else:?>
+    <span style="font-size:50px" class="glyphicon glyphicon-user"></span>
+    <?php endif?>
+    </div>    
+       <?php echo $this->translate($this->salutation($application->contact->gender))?>
+       <?php echo $application->contact->displayName?><br>
+       <?php echo $application->contact->city?>
+    </td>
+    <td>
+    <?php echo $this->translate('work experience')?>
+    </td>
+    <td>   
+     <?php if(count($application->attachments)>0):?>
+     <ul>
+     <?php foreach ($application->attachments as $attachment):?>
+       <li><a href="<?php echo $attachment->uri?>"><?php echo $attachment->name ?></a></li>
+     <?php endforeach;?>
+     </ul>
+     <?php else:?>
+     <?php echo $this->translate('no attachments')?>
+     <?php endif;?>
+    </td>
+    <td>
+         <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
+          <?php echo $application->job->title ?>
+         </a>         
+    </td>
     <td><?php echo $application->status ?></td>
-    <td title="Created: <?php echo $this->dateFormat($application->dateCreated);?>">
+    <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
         <?php echo $this->dateFormat($application->dateModified);?>
     </td>
     <td>

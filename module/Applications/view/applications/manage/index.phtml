@@ -5,13 +5,31 @@
       /*$this->headLink()->appendStylesheet($this->basePath('Core/css/forms.css'))
                        ->appendStylesheet($this->basepath('/Applications/css/manage.css'));
       $this->headScript()->appendFile($this->basepath('/Applications/js/manage.js'))?>*/?>
-
+      <?php $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));?>
+      
 <h1><?=$this->translate('List of all applications')?><?
     if ($this->byJobs): echo ' <small>(' . $this->translate('to all of your jobs') . ')</small>'; endif;
     ?></h1>
 
   
 <div id="applications-list-container" class="pagination-container">
+  <nav class="navbar cam-toolbar"> 
+    <form class="navbar-form" id="search-applications-form" action="" method="get">  
+      <div id="search-applications" class="input-group btn-group">  
+      <span class="input-group-addon" 
+            data-toggle="popover" 
+            data-trigger="hover focus click"
+            data-placement="bottom" 
+            title="<?php echo $this->translate('search applications')?>"
+            data-content="<?php echo $this->translate('... TODO not implemented yet ...')?>">?</span>
+            <input type="hidden" name="action" value="forward">
+            <div class="col-md-6">
+            <input class="form-control" id="search-applications-input" placeholder="... <?php echo $this->translate('search applications')?> ..." name="search" type="text">
+            </div>
+            <button class="btn btn-default" type="submit"><?php echo $this->translate('Search')?></button>
+          </div>
+      </form>
+</nav>
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>
 </div>
 

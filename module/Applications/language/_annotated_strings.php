@@ -1,17 +1,23 @@
 <?php
 //: ./view/applications/manage/index.ajax.phtml:4
-translate('Job');
-
-//: ./view/applications/manage/index.ajax.phtml:5
 translate('Applicant');
 
+//: ./view/applications/manage/index.ajax.phtml:5
+translate('Career');
+
 //: ./view/applications/manage/index.ajax.phtml:6
-translate('Status' => 'status');
+translate('Attachments');
 
 //: ./view/applications/manage/index.ajax.phtml:7
-translate('Modified' => 'date');
+translate('Job');
 
 //: ./view/applications/manage/index.ajax.phtml:8
+translate('Status' => 'status');
+
+//: ./view/applications/manage/index.ajax.phtml:9
+translate('Modified' => 'date');
+
+//: ./view/applications/manage/index.ajax.phtml:10
 translate('Actions');
 
 //: ./src/Applications/Form/AdministrationFieldset.php:26

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 15:34+0100\n"
-"PO-Revision-Date: 2013-12-13 15:36+0100\n"
-"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"POT-Creation-Date: 2013-12-17 18:41+0100\n"
+"PO-Revision-Date: 2013-12-17 18:44+0100\n"
+"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: CROSS Solution\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,15 +19,15 @@ msgstr ""
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: view/form/list-filter.phtml:68
+#: view/form/list-filter.phtml:67
 msgid "Search"
 msgstr "Suche"
 
-#: view/form/list-filter.phtml:71
+#: view/form/list-filter.phtml:72
 msgid "Go!"
 msgstr "Los!"
 
-#: view/form/list-filter.phtml:76
+#: view/form/list-filter.phtml:77
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
@@ -42,7 +42,7 @@ msgid "All jobs"
 msgstr "Alle Anzeigen"
 
 #: view/jobs/index/index.phtml:1
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:21
 msgid "Jobs"
 msgstr "Stellenanzeigen"
 
@@ -83,30 +83,34 @@ msgid "View applications"
 msgstr "Bewerbungen ansehen"
 
 #: view/jobs/index/dashboard.phtml:2
-msgid "Recent jobs"
-msgstr "Neueste Stellenanzeigen"
+msgid "Current Jobs"
+msgstr "Aktuelle Stellenanzeigen"
 
 #: view/jobs/index/dashboard.phtml:2
 msgid "Famous jobs"
 msgstr "Beliebteste Stellenanzeigen"
 
 #: language/_annotated_strings.php:3
+msgid "enter some words"
+msgstr ""
+
+#: language/_annotated_strings.php:6
 msgid "Show all jobs"
 msgstr "Zeige alle Jobs"
 
-#: language/_annotated_strings.php:6
+#: language/_annotated_strings.php:9
 msgid "Show my jobs"
 msgstr "Zeige meine Jobs"
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:12
 msgid "Active"
 msgstr "Aktiv"
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:15
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:18
 msgid "Job title"
 msgstr "Titel der Anzeige"
 

@@ -1,4 +1,7 @@
 <?php
+//: ./view/form/list-filter.phtml:69
+translate('enter some words');
+
 //: ./src/Jobs/Form/ListFilterFieldset.php:44
 translate('Show all jobs');
 

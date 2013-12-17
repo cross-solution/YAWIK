@@ -15,7 +15,11 @@ endif;
 $appRepo = $this->services('repositories.application');
 ?>
 
-<h2><a style="display: block; text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>"><?php echo $this->translate('Recent Applications')?></a></h2>
+<h2>
+ <a style="display: block; text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>">
+  <?php echo $this->translate('Current Applications')?>
+ </a>
+</h2>
 
 <div class="scrollbox">
 <?php if ($hasJobs): ?>

@@ -178,6 +178,7 @@ return array(
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formatDate' => 'Core\View\Helper\FormatDate',
             'dateFormat' => 'Core\View\Helper\DateFormat',
+            'salutation' => 'Core\View\Helper\Salutation',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
