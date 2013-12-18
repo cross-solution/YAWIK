@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-17 18:41+0100\n"
+"POT-Creation-Date: 2013-12-18 18:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/form/list-filter.phtml:67
+#: view/form/list-filter.phtml:65
 msgid "Search"
 msgstr ""
 
-#: view/form/list-filter.phtml:72
-msgid "Go!"
-msgstr ""
-
-#: view/form/list-filter.phtml:77
+#: view/form/list-filter.phtml:70
 msgid "Reset filter"
 msgstr ""
 
@@ -69,12 +65,12 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:23
-msgid "Apply"
+#: view/jobs/index/index.ajax.phtml:24
+msgid "View applications"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:25
-msgid "View applications"
+#: view/jobs/index/index.ajax.phtml:26
+msgid "Apply"
 msgstr ""
 
 #: view/jobs/index/dashboard.phtml:2
@@ -86,7 +82,7 @@ msgid "Famous jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:3
-msgid "enter some words"
+msgid "search for jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:6

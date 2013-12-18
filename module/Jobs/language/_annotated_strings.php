@@ -1,6 +1,6 @@
 <?php
-//: ./view/form/list-filter.phtml:69
-translate('enter some words');
+//: ./view/form/list-filter.phtml:62
+translate('search for jobs');
 
 //: ./src/Jobs/Form/ListFilterFieldset.php:44
 translate('Show all jobs');

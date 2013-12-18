@@ -26,8 +26,8 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {   
-        $ServiceLocator = $this->getServiceLocator();
-        
+        $services = $this->getServiceLocator();
+        $translator = $services->get('translator');
         $moduleName = $this->params('module');
         
         $settings = $this->settings($moduleName);
@@ -36,13 +36,13 @@ class IndexController extends AbstractActionController
             return $settings->toArray();
         }
         
-        $modules = $ServiceLocator->get('ModuleManager')->getLoadedModules();
+        $modules = $services->get('ModuleManager')->getLoadedModules();
         $modulesWithSettings = $this->config("settings", array_keys($modules));
         
         //$config = $ServiceLocator->get();
         
         $MvcEvent = $this->getEvent();
-        $nav = $ServiceLocator->get('main_navigation');
+        $nav = $services->get('main_navigation');
         $settingsMenu = $nav->findOneBy('route', 'lang/settings');
         $settingsMenu->setActive(true);
         
@@ -83,12 +83,15 @@ class IndexController extends AbstractActionController
         $data = $this->getRequest()->getPost();
         if (0 < count($data)) {
             $form->setData($data);
-            //$form->bindValues($data);
+            
             if ($valid = $form->isValid()) {
-                // success
-            }
-            else {
-                // fail: error-messages are in the form 
+                $vars = array(
+                   'status' => 'success',
+                   'text' => $translator->translate('Changes successfully saved') . '.');
+            } else {
+                $vars = array(
+                   'status' => 'danger',
+                   'text' => $translator->translate('Changes could not be saved') . '.');
             }
         }
         
@@ -99,11 +102,8 @@ class IndexController extends AbstractActionController
                         'valid' => $valid,
                         'errors' => $form->getMessages());
         }
-        // man könnte hier auch einfach nur ein Array zurückgeben
-        $viewModel = new ViewModel();
-        $viewModel->setVariables(array(
-            'form' => $form,
-        ));
-        return $viewModel;
+
+        $vars['form']=$form;
+        return $vars;
     }
 }

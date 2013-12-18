@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-16 12:21+0100\n"
+"POT-Creation-Date: 2013-12-18 18:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,33 +26,33 @@ msgid "Please authenticate yourself to proceed"
 msgstr ""
 
 #: view/auth/index/index.phtml:16 view/auth/index/index.phtml:17
-#: view/auth/index/login-info.phtml:31 language/_annotated_strings.php:54
+#: view/auth/index/login-info.phtml:34
 msgid "Login"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:7 view/auth/index/login-info.phtml:20
+#: view/auth/index/login-info.phtml:13 view/auth/manage/my-profile.phtml:3
+#: view/auth/manage/my-profile.phtml:9
+msgid "My profile"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:16
+msgid "Logout"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:23
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:10 view/auth/manage/my-profile.phtml:3
-#: view/auth/manage/my-profile.phtml:8
-msgid "My profile"
-msgstr ""
-
-#: view/auth/index/login-info.phtml:13
-msgid "Logout"
-msgstr ""
-
-#: view/auth/index/login-info.phtml:21
+#: view/auth/index/login-info.phtml:24
 msgid "Guest"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:33
+#: view/auth/index/login-info.phtml:36
 msgid "Login via"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:36
+#: view/auth/index/login-info.phtml:39
 #, php-format
 msgid "Login with %s"
 msgstr ""
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Saving changes failed. Please check the marked fields."
 msgstr ""
 
-#: src/Auth/Controller/IndexController.php:80
+#: src/Auth/Controller/IndexController.php:84
 msgid "Authentication failed."
 msgstr ""
 
@@ -137,10 +137,10 @@ msgstr ""
 msgid "I am"
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:54
 msgid "user"
 msgstr ""
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:57
 msgid "recruiter"
 msgstr ""

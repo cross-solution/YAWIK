@@ -23,37 +23,37 @@ translate('Actions');
 //: ./src/Applications/Form/AdministrationFieldset.php:26
 translate('Privacy Policy');
 
-//: ./src/Applications/Form/SettingsFieldset.php:24
+//: ./src/Applications/Form/SettingsFieldset.php:31
 translate('E-Mail Notifications');
 
-//: ./src/Applications/Form/SettingsFieldset.php:29
+//: ./src/Applications/Form/SettingsFieldset.php:36
 translate('receive E-Mail alert');
 
-//: ./src/Applications/Form/SettingsFieldset.php:30
+//: ./src/Applications/Form/SettingsFieldset.php:37
 translate('if checked, you\'ll be informed by mail about new applications.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:34
+//: ./src/Applications/Form/SettingsFieldset.php:41
 translate('Mailtext');
 
-//: ./src/Applications/Form/SettingsFieldset.php:35
+//: ./src/Applications/Form/SettingsFieldset.php:42
 translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>');
 
-//: ./src/Applications/Form/SettingsFieldset.php:38
+//: ./src/Applications/Form/SettingsFieldset.php:45
 translate('Confirmation mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:39
+//: ./src/Applications/Form/SettingsFieldset.php:46
 translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li></ul>');
 
-//: ./src/Applications/Form/SettingsFieldset.php:43
+//: ./src/Applications/Form/SettingsFieldset.php:50
 translate('Invitation mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:44
+//: ./src/Applications/Form/SettingsFieldset.php:51
 translate('default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. ');
 
-//: ./src/Applications/Form/SettingsFieldset.php:49
+//: ./src/Applications/Form/SettingsFieldset.php:56
 translate('Rejection mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:50
+//: ./src/Applications/Form/SettingsFieldset.php:57
 translate('default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.');
 
 //: ./src/Applications/Form/BaseFieldset.php:30

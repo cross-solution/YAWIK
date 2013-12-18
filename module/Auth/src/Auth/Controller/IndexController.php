@@ -55,7 +55,11 @@ class IndexController extends AbstractActionController
             
             if ($result->isValid()) {
             
-                if ($ref = $this->params()->fromQuery('ref', false)) {
+                $user = $auth->getUser();
+                $settings = $user->settings;
+                if (isset($settings['settings']['language'])) {
+                    $url = '/' . $settings['settings']['language'];
+                } elseif ($ref = $this->params()->fromQuery('ref', false)) {
                     $url = $ref;
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');

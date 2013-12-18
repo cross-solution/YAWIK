@@ -19,11 +19,13 @@
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>
     <td><?php echo $job->applyId?></td>
-    <td><?php if ($this->by == 'all'):?>
-        <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a></td>
-        <?php else: ?>
-        <a href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>"><?php echo $this->translate('View applications') ?></a>
-        <?php endif ?>
+    <td>
+      <?php if ($this->acl()->isRole('recruiter')):?>
+         <a href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>"><?php echo $this->translate('View applications') ?></a>
+      <?php else:?>
+         <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a>
+      <?php endif ?>
+     </td>
 </tr>
 <?endforeach?>
 </tbody>

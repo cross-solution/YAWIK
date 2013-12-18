@@ -50,9 +50,6 @@ translate('General');
 //: ./src/Auth/Form/UserBaseFieldset.php:31
 translate('I am');
 
-//: ./src/Auth/Form/Login.php:48
-translate('Login');
-
 //: ./config/module.config.php:224
 translate('user');
 

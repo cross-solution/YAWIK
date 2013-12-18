@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-12 12:24+0200\n"
-"PO-Revision-Date: 2013-09-12 12:34+0100\n"
+"POT-Creation-Date: 2013-12-18 18:57+0100\n"
+"PO-Revision-Date: 2013-12-18 19:02+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: CROSS Solution\n"
 "Language: \n"
@@ -21,13 +21,21 @@ msgstr ""
 
 #: view/settings/index/index.phtml:3
 #: view/settings/index/index.phtml:13
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:18
 msgid "Settings"
 msgstr "Einstellungen"
 
 #: src/Settings/Form/SettingsFieldset.php:24
 msgid "general settings"
 msgstr "allgemeine Einstellungen"
+
+#: src/Settings/Controller/IndexController.php:90
+msgid "Changes successfully saved"
+msgstr "Änderungen wurden erfolgreich gespeichert."
+
+#: src/Settings/Controller/IndexController.php:94
+msgid "Changes could not be saved"
+msgstr "Änderungen konnten nicht gespeichert werden"
 
 #: language/_annotated_strings.php:3
 msgid "choose your language"
@@ -38,6 +46,14 @@ msgid "English"
 msgstr "Englisch"
 
 #: language/_annotated_strings.php:9
+msgid "French"
+msgstr "Französisch"
+
+#: language/_annotated_strings.php:12
 msgid "German"
 msgstr "Deutsch"
+
+#: language/_annotated_strings.php:15
+msgid "defines the languages of this frontend."
+msgstr "stellt die Sprache dieses Webfrontendes ein."
 

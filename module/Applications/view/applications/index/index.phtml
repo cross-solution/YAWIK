@@ -1,9 +1,16 @@
 <?php 
-    $this->headTitle($this->translate('Apply'));
-    $this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
-    $this->headscript()->appendScript('$(function(){$(".form-collection").formcollection();});');
-    
-    
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->headTitle($this->translate('Apply'));
+$this->headscript()->appendFile($this->basepath('Core/js/jquery.formcollection.js'));
+$this->headscript()->appendScript('$(function(){$(".form-collection").formcollection();});');
+$this->headscript()->appendScript('$(".alert").alert();');
 ?>
 <h1><?php echo $this->translate('Application')?></h1>
 <p class="lead"><?php printf(
@@ -13,7 +20,10 @@
 ) ?></p>
 
 <?php if ($isApplicationSaved):?>
-<p><?php echo $this->translate('your application was sent successfully')?></p>
+<p class="alert alert-success">
+ <?php echo $this->translate('your application was sent successfully')?>
+ <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+</p>
 <?php else: 
     $form->setAttributes(array(
         'action' => $this->url('lang/apply/submit', array(), true),

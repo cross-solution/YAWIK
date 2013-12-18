@@ -3,7 +3,11 @@
     
 <?php if ($this->auth()->isLoggedIn()):?>
 
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf($this->translate('Hello %s'), '<strong>' . $this->auth('info')->displayName . '</strong>')?><b class="caret"></b></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+         (<?php echo $this->translate($this->Acl()->getUser()->role)?>) 
+           <strong><?php echo $this->auth('info')->displayName?></strong>
+           <b class="caret"></b>
+      </a>
         <ul class="dropdown-menu pull-right">
             <li>
                 <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('My profile')?></a>

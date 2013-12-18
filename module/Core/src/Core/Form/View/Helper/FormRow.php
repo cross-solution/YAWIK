@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
 namespace Core\Form\View\Helper;
 
@@ -54,13 +61,7 @@ class FormRow extends ZendFormRow
         } else {
             $elementId = $element->getAttribute('id');
         }
-        if (! $element instanceOf \Zend\Form\Element\Button) {
-            $inputSize = $element->getOption('inputSize');
-            if (!$inputSize || 'block' == $inputSize) {
-                $inputSize = 'block-level';
-            }
-            $element->setAttribute('class', $element->getAttribute('class') . ' input-' . $inputSize .' form-control');
-        }
+        $element->setAttribute('class', $element->getAttribute('class').' form-control');
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
             if (null !== ($translator = $this->getTranslator())) {

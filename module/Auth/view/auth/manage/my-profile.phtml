@@ -1,6 +1,7 @@
 <?php
 
 $this->headTitle($this->translate('My profile'));
+$this->headscript()->appendScript('$(".alert").alert();');
 //$this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
 
 ?>
@@ -10,6 +11,7 @@ $this->headTitle($this->translate('My profile'));
 <?if ($this->status): ?>
 <div id="user-profile-form-response" class="alert alert-<?php echo $this->status?>">
     <?php echo $this->text ?> 
+    <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
 </div>
 <?else:?>
 <div id="user-profile-form-response" class="alert hide">

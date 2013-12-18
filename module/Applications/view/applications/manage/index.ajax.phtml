@@ -28,11 +28,11 @@ if ('-' == $this->sort{0}) {
     <?php if (false === $sort): echo $this->translate($label); 
           else:
               if ($sort == $sortBy):
-                  $icon = ' <span class="pull-right glyphicon glyphicon-chevron-' . ($sortDir ? 'up' : 'down') . '"></span>';
+                  $icon = ' <span class="pull-right glyphicon glyphicon-sort-by-attributes' . ($sortDir ? '' : '-alt') . '"></span>';
                   $dir = !$sortDir;
               else:
                   $dir = true;
-                  $icon = '';
+                  $icon = '<span class="pull-right glyphicon glyphicon-sort"></span>';
               endif;
               $sortParam = array('sort' => ($dir ? '' : '-') . $sort);
               $url = $this->url(
@@ -40,7 +40,8 @@ if ('-' == $this->sort{0}) {
                   array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
                   true
               );
-            ?><a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>     
+            ?>
+            <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>     
     <?php endif; ?>
     </th>
 <?php endforeach; ?>
@@ -63,7 +64,13 @@ if ('-' == $this->sort{0}) {
        <?php echo $application->contact->city?>
     </td>
     <td>
-    <?php echo $this->translate('work experience')?>
+    
+    <?php if (count($application->cv->educations)>0):?>
+      <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
+    <?php endif;?>
+    <?php if (count($application->cv->employments)>0):?>
+      <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
+    <?php endif;?>
     </td>
     <td>   
      <?php if(count($application->attachments)>0):?>

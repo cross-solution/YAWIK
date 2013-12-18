@@ -20,12 +20,19 @@ class Period extends AbstractHelper {
 	 * @param string $obj
 	 * @return string
 	 */
-	public function __invoke($obj)
+	public function __invoke($array)
 	{
 		// calculate EndDate - StartDate = X Years. 
 		// eg. 4.2 Years
-		return "write this view Helper";
+		
+		$days=0;
+		foreach($array as $obj){
+			$date1 = new \DateTime($obj->endDate);
+			$date2 = new \DateTime($obj->startDate);
+			$interval = $date1->diff($date2);
+			$days+=abs($interval->format('%R%a'));
+		}
+		return round($days/365,1);
 	}
 }
-
 ?>

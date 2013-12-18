@@ -11,8 +11,16 @@
     */
 ?>
 <h1><?php echo $this->translate('Settings')?></h1>
+<?if ($this->status): ?>
+<div id="settings-form-response" class="alert alert-<?php echo $this->status?>">
+    <?php echo $this->text ?> 
+    <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+</div>
+<?else:?>
+<div id="settings-form-response" class="alert hide">
 
-<div id="settings-form-response" class="alert hide"></div>
+</div>
+<?endif?>
 <?php
 
 /*

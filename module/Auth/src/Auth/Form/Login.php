@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
 namespace Auth\Form;
 
@@ -21,8 +28,6 @@ class Login extends Form
             'name' => 'login',
             'options' => array(
                 'label' => /*translate*/ 'Login name',
-                'labelWidth' => 4,
-                'inputSize' => 'xlarge' 
             ),
         ));
         
@@ -31,8 +36,7 @@ class Login extends Form
             'name' => 'credential',
             'options' => array(
                 'label' => /*translate*/ 'Password',
-                'labelWidth' => 4,
-                'inputSize' => 'xlarge'
+                
             ),
         ));
         
@@ -42,11 +46,8 @@ class Login extends Form
             
         $buttons = new \Core\Form\ButtonsFieldset('buttons');
         $buttons->add(array(
-            'type' => 'Button',
-            'name' => 'submit',
-            'options' => array(
-                'label' => /*@translate*/ 'Login',
-            ),
+            'type' => 'submit',
+            'name' => 'button',
             'attributes' => array(
                 'id' => 'submit',
                 'type' => 'submit',

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-17 18:41+0100\n"
+"POT-Creation-Date: 2013-12-18 18:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/applications/index/index.phtml:2
+#: view/applications/index/index.phtml:10
 msgid "Apply"
 msgstr ""
 
-#: view/applications/index/index.phtml:8
+#: view/applications/index/index.phtml:15
 msgid "Application"
 msgstr ""
 
-#: view/applications/index/index.phtml:10
+#: view/applications/index/index.phtml:17
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
-#: view/applications/index/index.phtml:11
+#: view/applications/index/index.phtml:18
 msgid "click to open the job ad"
 msgstr ""
 
-#: view/applications/index/index.phtml:16
+#: view/applications/index/index.phtml:24
 msgid "your application was sent successfully"
 msgstr ""
 
@@ -73,20 +73,29 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:66
+#: view/applications/manage/index.ajax.phtml:69
+msgid "education"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:69
+#: view/applications/manage/index.ajax.phtml:72
+msgid "years"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:72
 #: view/applications/manage/detail.phtml:181
 msgid "work experience"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:76
+#: view/applications/manage/index.ajax.phtml:83
 msgid "no attachments"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:90
+#: view/applications/manage/index.ajax.phtml:97
 msgid "view"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:92
+#: view/applications/manage/index.ajax.phtml:99
 msgid "delete"
 msgstr ""
 
@@ -260,7 +269,7 @@ msgstr ""
 msgid "Privacy Policies"
 msgstr ""
 
-#: src/Applications/Form/SettingsFieldset.php:24
+#: src/Applications/Form/SettingsFieldset.php:31
 #: language/_annotated_strings.php:27
 msgid "E-Mail Notifications"
 msgstr ""
