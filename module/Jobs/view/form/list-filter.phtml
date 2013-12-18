@@ -11,18 +11,19 @@ $translate = $this->plugin('translate');
 
 $createRadioGroup = function ($element, $id) use ($translate) {
     $input = '';
-    ?><div id="params-<?php echo $id ?>-group" class="btn-group" data-toggle="buttons-radio">
+    ?><div id="params-<?php echo $id ?>-group" class="btn-group btn-group-sm" data-toggle="buttons">
     <?php foreach ($element->getValueOptions() as $value => $label):
-        if ($value == $element->getValue()):
-            $btnClass = "btn active"; 
-            $input = '<input class="form-control" id="params-' . $id . '-value" type="hidden" name="' . $element->getName() . '" value="' . $value .'" />';
-        else:
-            $btnClass = "btn";
-        endif;?>
-        <button id="params-<?php echo "$id-$value" ?>" type="button" class="btn-small <?php echo $btnClass ?>" value="<?php echo $value ?>"><?php echo $translate($label) ?></button>
+        $checked = $value == $element->getValue();?>
+        
+        <label class="btn btn-default<?php echo ($checked) ? ' active': ''?>">
+            <input id="params-<?php echo "$id-$value" ?>" type="radio" name="<?php echo $element->getName() ?>" value="<?php echo $value ?>"<?php echo $checked ? ' checked' : ''?>>
+            <?php echo $translate($label) ?>
+        </label>
+        
+        
     <?php endforeach; ?>
     
-    </div><?php return $input;
+    </div><?php //return $input;
 };
 /*$createDropdown = function ($element, $id) {
     

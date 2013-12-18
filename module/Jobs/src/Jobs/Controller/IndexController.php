@@ -35,8 +35,7 @@ class IndexController extends AbstractActionController
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
         $repository = $this->getServiceLocator()->get('repositories')->get('job');
-        $hasJobs = (bool) $repository->countByUser($this->auth('id'));
-        
+        $isRecruiter = $this->acl()->isRole('recruiter');
 //         $jobs= $repository->fetch();
 //         foreach ($jobs as $job) {
 //             $repository->save($job);
@@ -45,16 +44,17 @@ class IndexController extends AbstractActionController
         
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
-            $sessionParams = $this->auth()->isLoggedIn() ? $session->userParams : $session->guestParams;
+            $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
+            $sessionParams = $session[$sessionKey];
             if ($sessionParams) {
                 foreach ($sessionParams as $key => $value) {
                     $params->set($key, $params->get($key, $value));
                 }
-            } else if ($hasJobs) {
+            } else if ($isRecruiter) {
                 $params->set('by', 'me');
             }
-            $session->params = $params->toArray();
-            $filterForm = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $hasJobs);
+            $session[$sessionKey] = $params->toArray();
+            $filterForm = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
             $filterForm->bind($params);
             //$filterForm->setData(array('params' => $params->toArray()));
             //$filterForm->setData()

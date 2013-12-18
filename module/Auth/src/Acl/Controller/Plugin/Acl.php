@@ -16,6 +16,7 @@ use Auth\Entity\UserInterface;
 use Auth\Exception\UnauthorizedAccessException;
 use Core\Entity\FileEntityInterface;
 use Auth\Exception\UnauthorizedImageAccessException;
+use Zend\Permissions\Acl\Role\RoleInterface;
 
 class Acl extends AbstractPlugin
 {
@@ -67,6 +68,19 @@ class Acl extends AbstractPlugin
         return $this;
     }
     
+    public function isRole($role, $inherit=null)
+    {
+        if ($role instanceOf RoleInterface) {
+            $role = $role->getRoleId();
+        }
+
+        $isRole = $this->getUser()->getRole() == $role;
+        
+        return null === $inherit
+               ? $isRole
+               : $isRole || $this->getAcl()->inheritRole($role, $inherit);
+    }
+    
     public function test($resource, $privilege=null)
     {
         return $this->getAcl()->isAllowed($this->getUser(), $resource, $privilege);
@@ -91,11 +105,16 @@ class Acl extends AbstractPlugin
         }
     }
     
-    public function __invoke($resource, $privilege=null, $mode='check')
+    public function __invoke($resource=null, $privilege=null, $mode='check')
     {
+        if (null === $resource) {
+            return $this;
+        }
+        
         if ('test' == $mode) {
             return $this->test($resource, $privilege);
         }
+        
         $this->check($resource, $privilege);
     }
 

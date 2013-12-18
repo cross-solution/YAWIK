@@ -13,9 +13,10 @@
 		return false;
 	};
 	
-	var onRadioButtonClick = function(event)
+	var onRadioChange = function(event)
 	{
-		var $target  = $(event.target);
+		var $target  = $(this);
+		console.debug($target, this);
 		var idPrefix = $target.attr('id').replace(/-[^-]+$/, '');
 		var value    = $target.attr('value');
 		$('#' + idPrefix + '-value').val(value);
@@ -25,13 +26,21 @@
 	var resetListFilter = function(event)
 	{
 		var $form = $('#jobs-list-filter');
-		$form.find('.btn-toolbar button').removeClass('active');
+		console.debug(defaultParams, $form.find('.btn-toolbar label'));
+		$form.find('.btn-toolbar label').removeClass('active');
 		$.each(defaultParams, function(idx, val) {
-			var $elem = $form.find('[name="' + val.name + '"]').val(val.value);
-			var $button = $('#params-' + val.name + '-' + val.value);
-			if ($button.length) {
-				$button.addClass('active');
+			var $elem = $form.find('[name="' + val.name + '"]')
+			if ($elem.is(':radio')) {
+				$elem.each(function() { 
+					if ($(this).val() == val.value) {
+						$(this).prop('checked', true);
+						$(this).parent().addClass('active');
+					}
+				});
+			} else {
+				$elem.val(val.value);
 			}
+			
 		});
 		$form.submit();
 		$('#params-search-wrapper .dropdown-toggle').dropdown('toggle');
@@ -43,9 +52,9 @@
 		var $form = $('#jobs-list-filter')
 		defaultParams = $form.serializeArray();
 		$form.submit(onListFilterFormSubmit);
-		$('#jobs-list-filter #params-by-group button, #jobs-list-filter #params-status-group button')
-			.click(onRadioButtonClick);
-		$('#jobs-list-filter-reset').click(resetListFilter);
+		$form.find('.btn-toolbar input:radio')
+			.change(onRadioChange);
+		$form.find('#jobs-list-filter-reset').click(resetListFilter);
 	};
 	
 	$(function() { initListFilter();});

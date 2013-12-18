@@ -9,8 +9,13 @@
 
 $this->headScript()->appendFile($this->basePath('Core/js/loading-popup.js'));
 ?>
-<div class="modal hide" style="top: 50%; width: auto; margin-left: -19px;" id="loading-popup" data-backdrop="static" data-keyboard="false">
-    <div class="modal-body">
-        <img src="/images/loader.gif">
+<div class="modal" id="loading-popup" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="margin: 22% auto 0px; width: 170px;">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="text-muted lead"><?php echo $this->translate('Loading') ?></p>
+                <img src="/images/loader.gif">
+            </div> 
+        </div>
     </div>
 </div>

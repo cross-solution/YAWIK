@@ -3,9 +3,9 @@
 
 <h1><?=$this->translate('List of all jobs')?></h1>
 
-<div id="jobs-list-filter-wrapper">
+<nav class="navbar" id="jobs-list-filter-wrapper">
 <?php echo $this->form($this->filterForm)  ?>
-</div>
+</nav>
 <div id="jobs-list-container" class="pagination-container">
 <?php echo $this->render('jobs/index/index.ajax.phtml')?>
 </div>
