@@ -126,16 +126,6 @@ class MailService extends AbstractPluginManager
             $headers->addHeader($mailerHeader);
             $mailerHeader->setEncoding('ASCII'); // get rid of other encodings for this header!
         }
-        if (!$headers->has('Sender') && $this->from) {
-            if (is_array($this->from)) {
-                reset($this->from);
-                list($senderMail, $senderName) = each($this->from);
-            } else {
-                $senderMail = $this->from;
-                $senderName = null;
-            }
-            $mail->setSender($senderMail, $senderName);
-        }
         $transport->send($mail);
     }
 }
