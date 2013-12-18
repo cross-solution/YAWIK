@@ -36,7 +36,7 @@ class CvMapper extends BaseMapper
     protected function getData($query=array(), array $fields = array(), $exclude = false)
     {
         if (!is_array($query)) {
-            $query = array('cv.id' => $query); 
+            $query = array('cv._id' => $this->getMongoId($query)); 
         } 
         $data = parent::getData($query, $fields, $exclude);
         if (!isset($data['cv'])) { return array(); }
