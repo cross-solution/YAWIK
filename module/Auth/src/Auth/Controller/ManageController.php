@@ -33,9 +33,6 @@ class ManageController extends AbstractActionController
             throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
             //throw new \Exception('Test');
         }
-        $info = $user->info instanceOf RelationEntity
-              ? $user->info->getEntity()
-              : $user->info;
         
         $form->bind($user);
              
@@ -49,18 +46,6 @@ class ManageController extends AbstractActionController
             }
             $form->setData($data);
             if ($form->isValid()) {
-            
-            
-                        
-                $user->setInfo($info);
-                $data = $form->getInputFilter()->getValues();
-                $fileData = $data['info']['image'];
-                
-                if ($fileData['error'] == UPLOAD_ERR_OK) {
-                    $fileData['field'] = 'image';
-                    $imageId = $services->get('repositories')->get('user-file')->saveUploadedFile($fileData);
-                    $user->info->setImageId($imageId);
-                }
                 $services->get('repositories')->get('user')->save($user);
                 $vars = array(
                         'ok' => true,

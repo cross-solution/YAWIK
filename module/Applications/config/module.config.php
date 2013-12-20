@@ -188,6 +188,7 @@ return array(
              'settings-applications-fieldset' => 'Applications\Form\SettingsFieldset',
          ),
         'factories' => array(
+            'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
         ),

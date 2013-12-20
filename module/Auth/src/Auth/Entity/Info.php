@@ -11,6 +11,8 @@ namespace Auth\Entity;
 
 use Core\Entity\AbstractEntity;
 use Core\Entity\EntityInterface;
+use Core\Entity\FileEntity;
+use Core\Entity\FileEntityInterface;
 
 /**
  * The user model
@@ -266,18 +268,7 @@ class Info extends AbstractEntity implements InfoInterface
     	return $this->city;
     }
     
-    public function setImageId($imageId)
-    {
-        $this->imageId = (string) $imageId;
-        return $this;
-    }
-    
-    public function getImageId()
-    {
-        return $this->imageId;
-    }
-    
-    public function injectImage(EntityInterface $image)
+    public function setImage(EntityInterface $image)
     {
         $this->image = $image;
         return $this;

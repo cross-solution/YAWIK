@@ -45,7 +45,7 @@ class UserProfile extends Form implements ServiceLocatorAwareInterface//, InputF
         
         
         $this->add(
-            $this->forms->get('user-info-fieldset')
+            $this->forms->get('Auth/UserInfoFieldset')
                         //->setUseAsBaseFieldset(true)
         );
         $this->add(

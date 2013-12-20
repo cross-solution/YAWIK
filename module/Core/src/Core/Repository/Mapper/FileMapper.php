@@ -46,6 +46,20 @@ class FileMapper extends AbstractMapper
         return $entity;
     }
     
+    public function fetchIdsByUser($userOrId)
+    {
+        if ($userOrId instanceOf EntityInterface) {
+            $userOrId = $userOrId->getId();
+        }
+        
+        $cursor = $this->getCursor(array('user' => $userOrId), array('_id'));
+        $return = array();
+        foreach ($cursor as $file) {
+            $return[] = (string) $file->file['_id'];
+        }
+        return $return;
+    }
+    
     public function fetch(array $query = array(), array $fields = array())
     {
         $cursor = $this->getCursor($query, $fields);

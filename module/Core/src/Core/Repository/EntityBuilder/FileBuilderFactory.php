@@ -24,6 +24,9 @@ class FileBuilderFactory implements FactoryInterface
     {
         $hydrator = new EntityHydrator();
         $hydrator->addStrategy('dateUploaded', new \Core\Repository\Hydrator\DatetimeStrategy());
+        $hydrator->addStrategy('user', new \Core\Repository\Hydrator\EntityRelationStrategy(
+            $serviceLocator->getServiceLocator()->get('repositories')->get('user')
+        ));
         
         $builder = new FileBuilder(
             $hydrator, 

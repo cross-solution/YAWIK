@@ -318,6 +318,9 @@ return array(
             'user' => 'Auth\Repository\User',
             
         ),
+        'factories' => array(
+            'Users/Files' => 'Auth\Repository\FileRepositoryFactory',
+        ),
     ),
     
     'mappers' => array(
@@ -340,11 +343,11 @@ return array(
         'invokables' => array( 
             'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
-            'user-info-fieldset' => 'Auth\Form\UserInfoFieldset',
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
+            'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
         )
     ),
 );

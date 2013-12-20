@@ -11,10 +11,12 @@ class FileUploadStrategy implements StrategyInterface
 {
     
     protected $repository;
+    protected $metaData;
     
-    public function __construct($repository)
+    public function __construct($repository, array $metaData=array())
     {
         $this->repository = $repository;
+        $this->metaData   = $metaData;
     }
     
 	/* (non-PHPdoc)
@@ -22,8 +24,14 @@ class FileUploadStrategy implements StrategyInterface
      */
     public function hydrate ($value)
     {
+        if (UPLOAD_ERR_NO_FILE == $value['error']) {
+            return null;
+        }
+        if (count($this->metaData)) {
+            $value['meta'] = $this->metaData;
+        }
         $entityId = $this->repository->saveUploadedFile($value);
-        $entity = $this->repository->find((string) $entityId);
+        $entity   = $this->repository->find((string) $entityId);
         return $entity;
     }
 
@@ -32,6 +40,9 @@ class FileUploadStrategy implements StrategyInterface
      */
     public function extract ($value)
     {
+        if (null === $value) {
+            return null;
+        }
         return (string) $value->id;
     }
     

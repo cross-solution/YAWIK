@@ -14,10 +14,6 @@ class InfoBuilder extends RelationAwareBuilder implements MapperAwareInterface
     
     protected $mappers;
     
-    public function __construct()
-    {
-        
-    }
     
     public function setMapperManager(ServiceLocatorInterface $mapperManager)
     {
@@ -57,6 +53,5 @@ class InfoBuilder extends RelationAwareBuilder implements MapperAwareInterface
         }
         return $entity;
     }
-    
     
 }

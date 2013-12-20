@@ -53,7 +53,8 @@ class FileRepository implements RepositoryInterface
     
     public function saveCopy(EntityInterface $file)
     {
-        $newFile = $this->mapper->saveCopy($file);
+        $newFileId = $this->mapper->saveCopy($file);
+        $newFile   = $this->find($newFileId);
         return $newFile;
     }
     

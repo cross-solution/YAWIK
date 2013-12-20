@@ -95,19 +95,15 @@ class IndexController extends AbstractActionController
                 }
                 $applicationEntity->setStatus(new Status());
                 //$applicationEntity->injectJob($job);
-                $imageData = $form->get('contact')->get('image')->getValue();
-                $fileRepository = $services->get('repositories')->get('Applications/Files');
+                $image = $applicationEntity->getContact()->getImage();
                 
-                if (UPLOAD_ERR_OK == $imageData['error']) {
-                    $imageData['meta']['allowedUserIds'] = array($job->userId);
-                    $applicationEntity->contact->setImageId(
-                        $fileRepository->saveUploadedFile($imageData)
-                    );    
-                } else if ($imageId = $applicationEntity->contact->imageId) {
-                    $userImageRepository = $services->get('repositories')->get('Users/Files');
-                    $userImage = clone $userImageRepository->find($imageId);
+                
+                    
+                if (!$image && $this->auth()->isLoggedIn()) {
+                    $user = $this->auth()->getUser();
+                    $userImage = clone $user->info->image;
                     $userImage->addAllowedUser($job->userId);
-                    $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
+                    $applicationEntity->contact->setImage($fileRepository->saveCopy($userImage));
                 }
                 
                 

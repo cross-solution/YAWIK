@@ -13,6 +13,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
     protected $forms;
     protected $inputFilterSpecification;
     protected $preferFormInputFilter = true;
+    protected $isInitialized;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -37,11 +38,16 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
     
     public function setObject($object)
     {
+        parent::setObject($object);
+        if (!$this->isInitialized) {
+            $this->initLazy();
+            $this->isInitialized = true;
+        }
         $this->get('base')->setObject($object);
-        return parent::setObject($object);
+        return $this;
     }
     
-	public function init()
+	public function initLazy()
     {
         $this->setName('create-application-form');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
@@ -55,10 +61,17 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             
         ));
         
-        $this->add($this->forms->get('user-info-fieldset')
-                               ->setLabel('personal informations')
-                               ->setName('contact')
-                               ->setObject($this->forms->getServiceLocator()->get('builders')->get('auth-info')->getEntity()));
+        $this->add($this->forms
+                         ->get('Applications/ContactFieldset', array(
+                                'image_meta' => array(
+                                    'allowedUserIds' => array(
+                                        $this->getObject()->getJob()->userId
+                                    )
+                                )
+                           ))
+                         ->setLabel('personal informations')
+                         ->setName('contact')
+                         ->setObject($this->forms->getServiceLocator()->get('builders')->get('auth-info')->getEntity()));
         
         $this->add($this->forms->get('Applications/BaseFieldset'));
         

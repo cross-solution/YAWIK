@@ -25,10 +25,10 @@
             </div>
             <div class="col-md-3">
                 <div class="controls controls-row row">
-                    <?php if ($imageId = $element->getObject()->getImageId()): ?>
+                    <?php if ($image = $element->getObject()->getImage()): ?>
                     <div class="col-md-12 text-center">
-                        <img src="/file/users/<?php echo $element->getObject()->getImageId() ?>" class="user-image img-polaroid" />
-                        <?php echo $this->formRow($element->get('imageId')) ?>
+                        <img src="/file/users/<?php echo $image->getId() ?>" class="user-image img-polaroid" />
+                        <?php echo $this->formRow($element->get('imageId')->setValue($image->getId())) ?>
                     </div>
                     <? endif ?>
                 </div>

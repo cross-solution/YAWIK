@@ -3,11 +3,11 @@
 namespace Applications\Repository\EntityBuilder;
 
 use Zend\ServiceManager\FactoryInterface;
-use Core\Repository\EntityBuilder\AggregateBuilder as Builder;
-use Core\Repository\Hydrator;
-use Core\Repository\EntityBuilder\AbstractCopyableBuilderFactory;
-use Auth\Repository\EntityBuilder\InfoBuilder;
 use Core\Entity\RelationEntity;
+use Auth\Entity\Info;
+use Core\Repository\Hydrator\EntityRelationStrategy;
+use Core\Repository\Hydrator\EntityHydrator;
+use Core\Repository\EntityBuilder\RelationAwareBuilder;
 
 class ContactBuilderFactory implements FactoryInterface
 {
@@ -16,13 +16,18 @@ class ContactBuilderFactory implements FactoryInterface
      */
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $builder = new InfoBuilder();
+
+        $strategy = new EntityRelationStrategy($serviceLocator->getServiceLocator()->get('repositories')->get('Applications/Files'));
+        $hydrator = new EntityHydrator();
+        $hydrator->addStrategy('image', $strategy);
+
+        $builder = new RelationAwareBuilder($hydrator, new Info());
        
         $builder->setRelation(new RelationEntity(
             array($serviceLocator->getServiceLocator()->get('mappers')->get('application'), 'findContact')
         ), 'id');
         
-        return $builder;        
+        return $builder;
     }
     
         

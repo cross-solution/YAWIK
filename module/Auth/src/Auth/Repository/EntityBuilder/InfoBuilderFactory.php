@@ -3,8 +3,12 @@
 namespace Auth\Repository\EntityBuilder;
 
 use Zend\ServiceManager\FactoryInterface;
-use Core\Repository\Hydrator;
 use Core\Entity\RelationEntity;
+use Core\Repository\EntityBuilder\RelationAwareBuilder;
+use Core\Repository\Hydrator\EntityHydrator;
+use Core\Repository\Hydrator\FileStrategy;
+use Auth\Entity\Info;
+use Core\Repository\Hydrator\EntityRelationStrategy;
 
 
 class InfoBuilderFactory implements FactoryInterface
@@ -14,11 +18,15 @@ class InfoBuilderFactory implements FactoryInterface
      */
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        $builder = new InfoBuilder();
+        $strategy = new EntityRelationStrategy($serviceLocator->getServiceLocator()->get('repositories')->get('Users/Files'));
+        $hydrator = new EntityHydrator();
+        $hydrator->addStrategy('image', $strategy);
+        
+        $builder = new RelationAwareBuilder($hydrator, new Info());
         $builder->setRelation(new RelationEntity(
                     array($serviceLocator->getServiceLocator()->get('mappers')->get('user'), 'findInfo')
                   ),  'id');
-            
+        
         return $builder;
     }
     

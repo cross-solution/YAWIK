@@ -11,10 +11,12 @@
 namespace Core\Entity;
 
 use Auth\Entity\UserInterface;
+use Core\Entity\EntityInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterface, ResourceInterface
 {
+    protected $user;
     protected $allowedUserIds;
     protected $name;
     protected $size;
@@ -31,6 +33,17 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
         return 'Entity/File';
     }
 	
+    public function setUser(EntityInterface $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
+    
     public function getAllowedUserIds()
     {
         return $this->allowedUserIds;
@@ -44,12 +57,40 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
     
     public function addAllowedUser($user)
     {
-        if ($user instanceOf UserInterface) {
-            $user = $user->getId();
+        if (!is_array($user)) {
+            $user = array($user);
         }
-        if (!in_array($user, $this->allowedUserIds)) {
-            $this->allowedUserIds[] = $user;
+        
+        $user = array_map(function($u) { return $u instanceOf UserInterface ? $u->getId() : $u; }, $user);
+        
+        foreach ($user as $u) {
+            if (!in_array($user, $this->allowedUserIds)) {
+                $this->allowedUserIds[] = $user;
+            }
         }
+        return $this;
+    }
+    
+    public function removeAllowedUser($user=null)
+    {
+        if (null === $user) {
+            $this->allowedUserIds = array();
+            return $this;
+        }
+        
+        if (!is_array($user)) {
+            $user = array($user);
+        }
+
+        $user = array_map(function($u) { return $u instanceOf UserInterface ? $u->getId() : $u; }, $user);
+        
+        $this->allowedUserIds = array_filter(
+            function($u) use ($user) {
+                return !in_array($u, $user);
+            },
+            $this->allowedUserIds
+        );
+        
         return $this;
     }
     

@@ -53,8 +53,8 @@ if ('-' == $this->sort{0}) {
 <tr>
     <td>
     <div class="col-md-3">
-    <?php if ($application->contact->imageId):?>
-    <img src="/file/applications/<?php echo $application->contact->imageId ?>" class="img-thumbnail cam-thumbnail" />
+    <?php if ($application->contact->image):?>
+    <img src="/file/applications/<?php echo $application->contact->image->id ?>" class="img-thumbnail cam-thumbnail" />
     <?php else:?>
     <span style="font-size:50px" class="glyphicon glyphicon-user"></span>
     <?php endif?>
