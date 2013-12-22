@@ -30,8 +30,6 @@ class IndexController extends AbstractActionController
     public function indexAction()
     { 
         
-        
-        
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
         $repository = $this->getServiceLocator()->get('repositories')->get('job');

@@ -31,7 +31,7 @@
     </head>
     <body>
 	<a class="sr-only" href="#content">Skip to main content</a>
-	<header id="topbar" class="navbar navbar-inverse navbar-fixed-top cam-nav" role="banner">
+	<header id="cam-topbar" role="banner">
          <div class="container">
    	       <div class="navbar-header">
                     <button class="navbar-toggle collapsed" data-target=".cam-navbar-collapse" data-toggle="collapse" type="button">
@@ -43,7 +43,7 @@
                     <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('Cross Applicant Management')?></a>
                     <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('CAM')?></a>
                </div>
-                  <nav class="navbar-collapse collapse cam-navbar-collapse" id="main-navigation" role="navigation">
+                  <nav id="cam-main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
                      <?php 
                         echo $this->navigation('main_navigation')
                                   ->setAcl($this->services('acl'))
@@ -56,13 +56,13 @@
                  </nav> <!-- /main-navigation -->
 		</div>
             </header>
-          <div id="container" class="container row col-md-2">
+          <div class="container row col-md-2">
 <!-- SIDEBAR -->
 <nav id="sidebar">
 <div class="btn-group" data-toggle="buttons-radio" id="language-switcher">
     <?php $lang = $this->params('lang');
     foreach (array('en', 'de') as $availableLang): ?>
-    <button type="button" class="btn<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
+    <button type="button" class="btn btn-default<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
     <?php echo strtoupper($availableLang) ?></button>
     <?php endforeach ?>
 </div>
@@ -89,13 +89,11 @@ endforeach;?>
 <!-- /SIDEBAR -->
                     </div>
                     
-                    <main id="content" class="col-md-10">
-<!-- CONTENT -->
-
+<main id="content" class="col-md-10">
 <?php echo $this->content; ?>
-<!-- /CONTENT -->
-            </main> <!-- /container -->
-            <footer id="cam-footer" class="navbar navbar-fixed-bottom">
+</main> 
+<!-- /container -->
+            <footer id="cam-footer">
                 <div class="container">
                 <span class="pull-left"><small>&copy; 2013 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
                     | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</small></span>
@@ -108,6 +106,5 @@ endforeach;?>
                 
                 </div>
             </footer>
-        </div> <!-- /main -->
     </body>
 </html>

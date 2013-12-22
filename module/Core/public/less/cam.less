@@ -32,6 +32,13 @@ body {
 	position: relative;
 }
 
+#cam-topbar {
+  .navbar;
+  .navbar-inverse;
+  .navbar-fixed-top;
+  .cam-nav;
+}
+
 main {
 	margin-bottom: (@footer-height + 10px);
 }
@@ -55,19 +62,41 @@ h6 {
   font-size: 16px;
 }
 
+/**
+ * default Save/Reset Buttons
+ */
+.cam-btn-save {
+  .btn;
+  .btn-primary;
+}
+.cam-btn-reset {
+  .btn;
+  .btn-default;
+}
+
+/**
+ * toolbar on the main section
+ */
 .cam-toolbar {
   border: 1px solid @gray-lighter;
 }
+
 .cam-thumbnail {
   max-height: 50px;
 }
 
+/**
+ * footer on the page
+ */
 #cam-footer {
+        .hidden-xs;
+        .navbar;
+        .navbar-fixed-bottom;
 	height:	    @footer-height;
 	min-height: @footer-height;
 	max-height: @footer-height;
 	background-color: @gray-lighter;
-}
+}     
 
 #login-info-box {
 

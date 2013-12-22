@@ -19,7 +19,7 @@ class DefaultButtonsFieldset extends ButtonsFieldset
                 'id' => 'submit',
                 'type' => 'submit',
                 'value' => 'Save',
-                'class' => 'btn btn-default btn-primary'
+                'class' => 'cam-btn-save'
             ),
         ));
         
@@ -33,7 +33,7 @@ class DefaultButtonsFieldset extends ButtonsFieldset
                 'id' => 'cancel',
                 'type' => 'reset',
                 'value' => 'Cancel',
-                'class' => 'btn btn-default'
+                'class' => 'cam-btn-reset'
             ),
         ));
     }

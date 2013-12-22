@@ -4,8 +4,9 @@ $this->formRow()->setShouldWrap(false);
 
 ?>
 <nav class="navbar">   
-        <div class="col-md-12"><?php $first=true; foreach($this->element as $button):?>
-            <?php $button->setAttribute('class', $button->getAttribute('class'). ' btn btn-default');?>
+        <div class="col-md-12">
+        <?php $first=true; foreach($this->element as $button):?>
+            <?php $button->setAttribute('class', $button->getAttribute('class'));?>
             <?php echo $this->formRow($button);?>
         <?php endforeach;?>    
         </div>

@@ -39,11 +39,7 @@ class IndexController extends AbstractActionController
             
             $form->setData($this->params()->fromPost());
             $adapter    = $services->get('auth-login-adapter');
-            /*
-             $adapter->setIdentity('illert')
-            ->setCredential('a28d402326a5dda1c349fb849efc720a')
-            ->setApplicationKey('AmsAppKey');
-            */
+            
             $data = $this->params()->fromPost();
             $adapter->setIdentity($data['credentials']['login'])
                     ->setCredential($data['credentials']['credential']);
@@ -57,15 +53,14 @@ class IndexController extends AbstractActionController
             
                 $user = $auth->getUser();
                 $settings = $user->settings;
-                if (isset($settings['settings']['language'])) {
+                 if (isset($settings['settings']['language'])) {
                     $url = '/' . $settings['settings']['language'];
                 } elseif ($ref = $this->params()->fromQuery('ref', false)) {
                     $url = $ref;
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
                     $url = $urlHelper('lang', array(), true);
-                }
-            
+                }            
                 if ($this->request->isXmlHttpRequest()) {
                     
                 
