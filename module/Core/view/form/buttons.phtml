@@ -3,12 +3,11 @@ $this->formRow()->setShouldWrap(false);
 
 
 ?>
-<nav class="navbar navbar-form form-inline">   
-        <?php $first=true; foreach($this->element as $button):?>
-            <?php $button->setAttribute('class', $button->getAttribute('class'));?>
-            <div class="col-md-1">
+<nav class="navbar">   
+        <div class="col-md-12"><?php $first=true; foreach($this->element as $button):?>
+            <?php $button->setAttribute('class', $button->getAttribute('class'). ' btn btn-default');?>
             <?php echo $this->formRow($button);?>
-            </div>
         <?php endforeach;?>    
+        </div>
 </nav>
 

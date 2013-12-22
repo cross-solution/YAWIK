@@ -61,7 +61,12 @@ class FormRow extends ZendFormRow
         } else {
             $elementId = $element->getAttribute('id');
         }
-        $element->setAttribute('class', $element->getAttribute('class').' form-control');
+        /*
+         * add form-control class to all form elements, but "submit" or "reset"
+         */
+        if ($element->getAttribute('type') != 'submit' and $element->getAttribute('type') != 'reset') {
+            $element->setAttribute('class', $element->getAttribute('class').' form-control ');    
+        }
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
             if (null !== ($translator = $this->getTranslator())) {

@@ -1,13 +1,13 @@
 <?php
 
 $columns = array(
-        /*@translate*/ 'Applicant' => false,
-		/*@translate*/ 'Career' => false,
-		/*@translate*/ 'Attachments' => false,	
-        /*@translate*/ 'Job' => false,	
-        /*@translate*/ 'Status' => 'status',
-        /*@translate*/ 'Modified' => 'date',
-        /*@translate*/ 'Actions' => false,
+        /*@translate*/ 'Applicant' => array(),
+		/*@translate*/ 'Career' => array('class' => 'hidden-xs'),
+		/*@translate*/ 'Attachments' => array('class' => 'hidden-xs'),	
+        /*@translate*/ 'Job' => array('class' => 'hidden-xs'),	
+        /*@translate*/ 'Status' => array('sort' => 'status'),
+        /*@translate*/ 'Modified' => array('sort' => 'date'),
+        /*@translate*/ 'Actions'=> array(),
 );
 
 if ('-' == $this->sort{0}) {
@@ -23,18 +23,18 @@ if ('-' == $this->sort{0}) {
 <table class="table table-striped table-bordered table-hover" id="application-list">
 <thead>
 <tr>
-<?php foreach ($columns as $label => $sort):?>
-    <th>
-    <?php if (false === $sort): echo $this->translate($label); 
+<?php foreach ($columns as $label => $option):?>
+    <th <?php echo $option['class']?'class="'.$option['class'].'"':'';?>>
+    <?php if (! isset($option['sort'])): echo $this->translate($label); 
           else:
-              if ($sort == $sortBy):
+              if ($option['sort'] == $sortBy):
                   $icon = ' <span class="pull-right glyphicon glyphicon-sort-by-attributes' . ($sortDir ? '' : '-alt') . '"></span>';
                   $dir = !$sortDir;
               else:
                   $dir = true;
                   $icon = '<span class="pull-right glyphicon glyphicon-sort"></span>';
               endif;
-              $sortParam = array('sort' => ($dir ? '' : '-') . $sort);
+              $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
               $url = $this->url(
                   'lang/applications', array(), 
                   array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
@@ -63,8 +63,7 @@ if ('-' == $this->sort{0}) {
        <?php echo $application->contact->displayName?><br>
        <?php echo $application->contact->city?>
     </td>
-    <td>
-    
+    <td class="hidden-xs">
     <?php if (count($application->cv->educations)>0):?>
       <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
     <?php endif;?>
@@ -72,7 +71,7 @@ if ('-' == $this->sort{0}) {
       <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>
-    <td>   
+    <td class="hidden-xs">   
      <?php if(count($application->attachments)>0):?>
      <ul>
      <?php foreach ($application->attachments as $attachment):?>
@@ -83,7 +82,7 @@ if ('-' == $this->sort{0}) {
      <?php echo $this->translate('no attachments')?>
      <?php endif;?>
     </td>
-    <td>
+    <td class="hidden-xs">
          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
           <?php echo $application->job->title ?>
          </a>         
