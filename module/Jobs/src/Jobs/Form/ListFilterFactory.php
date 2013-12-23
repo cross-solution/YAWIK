@@ -15,7 +15,8 @@ class ListFilterFieldsetExtendedFactory implements FactoryInterface
     public function createService (ServiceLocatorInterface $serviceLocator)
     {
         $auth = $serviceLocator->getServiceLocator()->get('AuthenticationService');
-        if ($)
+        $fieldset = Null;
+        //if ($)
         return $fieldset;
     }
 

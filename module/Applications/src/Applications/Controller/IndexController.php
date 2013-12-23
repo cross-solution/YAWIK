@@ -154,7 +154,13 @@ class IndexController extends AbstractActionController
             }
         } 
         return $viewModel;
-
+    }
+    
+    public function disclaimerAction()
+    { 
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
+        return $viewModel;
     }
 }
 

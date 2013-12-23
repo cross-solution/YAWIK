@@ -26,8 +26,22 @@ public function init()
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
         
           $this->add(array('type' => 'Zend\Form\Element\Checkbox',
+        		'name' => 'formDisplaySummary',
+        		'options' => array('label' => /* @translate */ 'Hide Summary')));
+          
+          $this->add(array('type' => 'Zend\Form\Element\Checkbox',
+        		'name' => 'formDisplayEducationHistory',
+        		'options' => array('label' => /* @translate */ 'Hide Education history')));
+          
+          $this->add(array('type' => 'Zend\Form\Element\Checkbox',
+        		'name' => 'formDisplayEmploymentHistory',
+        		'options' => array('label' => /* @translate */ 'Hide Employment history')));
+          
+          $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		'name' => 'formDisplaySkills',
-        		'options' => array('label' => /* @translate */ 'display skills')));
+        		'options' => array('label' => /* @translate */ 'Hide Skills')));
+          
+          
         
     }
 }

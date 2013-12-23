@@ -67,6 +67,16 @@ return array(
                                     'route' => '/submit',
                                 ),
                             ),
+                    'disclaimer' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/disclaimer',
+                            'defaults' => array(
+                                'controller' => '\Applications\Controller\Index',
+                                'action' => 'disclaimer',
+                            ),
+                        ),
+                    ),
                         ),
                     ),
                     'applications' => array(
@@ -169,6 +179,7 @@ return array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'applications/dashboard/recent' => __DIR__ . '/../view/applications/index/dashboard.phtml',
+            'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
         )
     ),
