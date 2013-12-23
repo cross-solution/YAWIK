@@ -20,9 +20,11 @@ if ('-' == $this->sort{0}) {
 
 ?>
 
+
 <table class="table table-striped table-bordered table-hover" id="application-list">
 <thead>
 <tr>
+ <th>&nbsp;</th>
 <?php foreach ($columns as $label => $option):?>
     <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
     <?php if (! isset($option['sort'])): echo $this->translate($label); 
@@ -49,8 +51,10 @@ if ('-' == $this->sort{0}) {
 </thead>
 
 <tbody>
-<?foreach ($applications as $application):?>
+<?foreach ($applications as $application):
+$isUnread = $application->isUnreadBy($this->auth('id'));?>
 <tr>
+<td><?php if ($isUnread): ?><span class="glyphicon glyphicon-asterisk"></span><?php endif ?></td>
     <td>
     <div class="col-md-3">
     <?php if ($application->contact->image):?>

@@ -86,9 +86,11 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $this;
     }
     
-    public function save(EntityInterface $entity)
+    public function save(EntityInterface $entity, $resetModifiedDate=true)
     {
-        $entity->setDateModified('now');
+        if ($resetModifiedDate) {
+            $entity->setDateModified('now');
+        }
         $this->getMapper('application')->save($entity);
     }
     

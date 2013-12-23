@@ -104,11 +104,17 @@ class ManageController extends AbstractActionController
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
         
-    	$application = $this->getServiceLocator()
-    						->get('repositories')
-    						->get('application')->find($this->params('id'), 'EAGER');
+        $repository = $this->getServiceLocator()->get('repositories')->get('application');
+        $application = $repository->find($this->params('id'), 'EAGER');
     	
     	$this->acl($application, 'read');
+    	
+    	$applicationIsUnread = false;
+    	if ($application->isUnreadBy($this->auth('id'))) {
+    	    $application->addReadBy($this->auth('id'));
+    	    $repository->save($application, /*$resetModifiedDate*/ false);
+    	    $applicationIsUnread = true;
+    	}
     	
     	$jsonFormat = 'json' == $this->params()->fromQuery('format');
     	if ($jsonFormat) {
@@ -119,12 +125,13 @@ class ManageController extends AbstractActionController
     		                          ->get('JsonApplication')
     		                          ->unbuild($application)
     		);
+    		$viewModel->setVariable('isUnread', $applicationIsUnread);
     		return $viewModel;
     	}
         
     	
     	
-    	return array('application'=> $application);
+    	return array('application'=> $application, 'isUnread' => $applicationIsUnread);
     }
     
     public function statusAction()

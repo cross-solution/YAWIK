@@ -7,6 +7,7 @@ use Core\Repository\RepositoryAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Entity\RelationEntity;
 use Core\Entity\RelationCollection;
+use Applications\Entity\ApplicationRelationCollection;
 
 class JobBuilder extends EntityBuilder implements RepositoryAwareInterface
 {
@@ -26,7 +27,7 @@ class JobBuilder extends EntityBuilder implements RepositoryAwareInterface
     public function build($data = array())
     {
         $entity = parent::build($data);
-        $applications = new RelationCollection(
+        $applications = new ApplicationRelationCollection(
             array($this->repositories->get('application'), 'fetchByJobId'),
             array($entity->id)
         );

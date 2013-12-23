@@ -24,7 +24,7 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
         $builder = new ApplicationBuilder(
             $hydrator, 
             new \Applications\Entity\Application(),
-            new \Core\Entity\Collection()
+            new \Applications\Entity\ApplicationCollection()
         );
         
         $builder->addBuilder('cv', $cvBuilder)
@@ -40,7 +40,7 @@ class ApplicationBuilderFactory extends AbstractCopyableBuilderFactory implement
     {
         $hydrator = new Hydrator\EntityHydrator();
         $dateModifiedStrategy = new Hydrator\DatetimeStrategy();
-        $dateModifiedStrategy->setResetOnExtract(true);
+        //$dateModifiedStrategy->setResetOnExtract(true);
         $hydrator->addStrategy('dateCreated', new Hydrator\DatetimeStrategy())
                  ->addStrategy('dateModified', $dateModifiedStrategy)
                  ->addStrategy('status', new StatusStrategy());

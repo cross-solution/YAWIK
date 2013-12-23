@@ -42,4 +42,10 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function setHistory(HistoryCollectionInterface $history);
     public function getHistory(); 
     
+    public function setReadBy(array $userIds);
+    public function getReadBy();
+    public function addReadBy($userOrId);
+    public function isUnreadBy($userOrId);
+    public function isReadBy($userOrId);
+    
 }

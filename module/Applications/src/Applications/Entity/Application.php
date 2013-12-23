@@ -6,6 +6,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\CollectionInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Auth\Entity\UserInterface;
 
 /**
  * @todo write interface
@@ -49,6 +50,8 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      */
     
     protected $privacyPolicy;
+    
+    protected $readBy = array();
     
     public function getResourceId()
     {
@@ -248,4 +251,39 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	{
 	    return $this->privacyPolicy;
 	}
+	
+    public function setReadBy(array $userIds)
+    {
+        $this->readBy = $userIds;
+        return $this;
+    }
+    
+    public function getReadBy()
+    {
+        return $this->readBy;
+    }
+    
+    public function addReadBy($userOrId)
+    {
+        if ($userOrId instanceOf UserInterface) {
+            $userOrId = $userOrId->getId();
+        }
+        if (!in_array($userOrId, $this->readBy)) {
+            $this->readBy[] = $userOrId;
+        }
+    }
+    
+    public function isUnreadBy($userOrId) 
+    {
+        return !$this->isReadBy($userOrId);
+    }
+     
+    public function isReadBy($userOrId)
+    {
+        if ($userOrId instanceOf UserInterface) {
+            $userOrId = $userOrId->getId();
+        }
+        
+        return in_array($userOrId, $this->readBy);
+    }
 }
