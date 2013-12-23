@@ -12,6 +12,15 @@ use Settings\Form\FormAbstract;
 
 class Settings extends FormAbstract {
 	
+    
+    public function init()
+    {
+        parent::init();
+        $this->add(
+                $this->forms->get('settings-applicationsform-fieldset')
+        );  
+    }
+    
     public function getCoreFieldset() {
         return 'settings-applications-fieldset';
     }

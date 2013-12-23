@@ -36,7 +36,6 @@ class Settings extends SettingsAbstract {
         return $this;
     }
     
-   
     public function setMailAccessText($option) {
         $this->mailAccessText = $option;
         return $this;
@@ -47,16 +46,22 @@ class Settings extends SettingsAbstract {
         return $this;
     } 
     
-    
     public function setMailConfirmationText($option) {
         $this->mailConfirmationText = $option;
         return $this;
     } 
-    
     
     public function setMailRejectionText($option) {
         $this->mailRejectionText = $option;
         return $this;
     }
     
+    public function getFormDisplaySkills() {
+        return $this->formDisplaySkills;
+    }
+    
+    public function setFormDisplaySkills($option) {
+        $this->formDisplaySkills = $option;
+        return $this;
+    }
 }

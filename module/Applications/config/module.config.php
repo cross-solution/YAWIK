@@ -186,6 +186,7 @@ return array(
              'Applications/Administration' => 'Applications\Form\AdministrationFieldset', 
              'settings\applications' => 'Applications\Form\Settings',
              'settings-applications-fieldset' => 'Applications\Form\SettingsFieldset',
+             'settings-applicationsform-fieldset' => 'Applications\Form\SettingsApplicationformFieldset',
          ),
         'factories' => array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
