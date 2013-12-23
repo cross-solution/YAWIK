@@ -162,8 +162,8 @@
 </div>
 </div>
 <div class="col-md-3">
-    <?if ($this->application->contact->imageId):?>
-    <img src="/file/applications/<?php echo $this->application->contact->imageId ?>" class="img-thumbnail" />
+    <?php if ($this->application->contact->image):?>
+    <img src="<?php echo $this->url('file', array('filestore' => 'applications', 'fileId' => $this->application->contact->image->id)) ?>" class="img-thumbnail" />
     <?endif?>
 </div>
 </div>
