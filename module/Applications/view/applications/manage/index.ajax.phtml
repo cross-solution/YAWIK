@@ -24,7 +24,7 @@ if ('-' == $this->sort{0}) {
 <thead>
 <tr>
 <?php foreach ($columns as $label => $option):?>
-    <th <?php echo $option['class']?'class="'.$option['class'].'"':'';?>>
+    <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
     <?php if (! isset($option['sort'])): echo $this->translate($label); 
           else:
               if ($option['sort'] == $sortBy):
