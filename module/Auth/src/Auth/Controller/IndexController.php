@@ -50,17 +50,19 @@ class IndexController extends AbstractActionController
             
             
             if ($result->isValid()) {
-            
                 $user = $auth->getUser();
                 $settings = $user->settings;
-                 if (isset($settings['settings']['language'])) {
-                    $url = '/' . $settings['settings']['language'];
-                } elseif ($ref = $this->params()->fromQuery('ref', false)) {
+                if ($ref = $this->params()->fromQuery('ref', false)) {
+                    if (isset($settings['settings']['language'])) {
+                        $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
+                    }
                     $url = $ref;
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
-                    $url = $urlHelper('lang', array(), true);
-                }            
+                    $url = isset($settings['settings']['language'])
+                         ? $urlHelper('lang', array('lang' => $settings['settings']['language']))
+                         : $urlHelper('lang', array(), true);
+                }
                 if ($this->request->isXmlHttpRequest()) {
                     
                 
@@ -128,6 +130,11 @@ class IndexController extends AbstractActionController
             }
         }
         
+        $user = $auth->getUser();
+        $settings = $user->settings;
+        if (isset($settings['settings']['language'])) {
+            $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
+        } 
         $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
     }
     

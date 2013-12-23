@@ -3,6 +3,8 @@
 namespace Auth;
 
 use Zend\Authentication\AuthenticationService as ZendAuthService;
+use Zend\Authentication\Adapter\AdapterInterface;
+
 use Core\Repository\RepositoryInterface;
 
 class AuthenticationService extends ZendAuthService
@@ -50,5 +52,11 @@ class AuthenticationService extends ZendAuthService
         }
         
         return $this->user;
+    }
+    
+    public function authenticate(AdapterInterface $adapter = null)
+    {
+        $this->user = null; // clear user (especially guest user)
+        return parent::authenticate($adapter);
     }
 }
