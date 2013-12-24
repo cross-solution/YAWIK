@@ -34,8 +34,33 @@ class IndexController extends AbstractActionController
             return;
         }
         
+        $services = $this->getServiceLocator();
+        $config   = $services->get('Config');
+
+        $dashboardConfig = array(
+            'controller' => 'Core\Controller\Index',
+            'action'     => 'dashboard',
+            'params'     => array()
+        );
+        
+        if (isset($config['dashboard'])) {
+            $dashboardConfig = array_merge(
+                $dashboardConfig, 
+                array_intersect_key($config['dashboard'], $dashboardConfig)
+            );
+        }
+        
+        extract($dashboardConfig); // $controller, $action, $params;
+        $params['action'] = $action;
+        
+        return $this->forward()->dispatch($controller, $params);
+        
+    }
+    
+    public function dashboardAction()
+    {
         $model = new ViewModel();
-        $model->setTemplate('core/index/dashboard.phtml');
+        $model->setTemplate('core/index/dashboard');
         
         $widgets = array();
         $modules = $this->getServiceLocator()->get('ModuleManager')->getLoadedModules();
