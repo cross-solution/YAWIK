@@ -11,11 +11,14 @@
 namespace Applications\Form;
 
 use Zend\Form\Fieldset;
+use Core\Form\ViewPartialProviderInterface;
 
-class AdministrationFieldset extends Fieldset
+
+class AdministrationFieldset extends Fieldset implements ViewPartialProviderInterface
 {
     
-     
+    protected $viewPartial = 'form/core/privacy';
+    
     public function init()
     {
         $this->setName('privacypolicies')
@@ -23,13 +26,36 @@ class AdministrationFieldset extends Fieldset
                      
           $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		'name' => 'privacyPolicyAccepted',
-        		'options' => array('label' => /* @translate */ '<button href="disclaimer" data-target="#responsive" data-toggle="modal">Privacy Policy</button>',
-                            'description' => 
-                                '<div id="responsive" class="modal fade"><div class="modal-dialog"><div class="modal-content">
-                                    <div class="modal-body">Bitte warten ...
-                                    </div>
-                                </div></div></div>',
-                            )));
+                            ));
+          
+          
+    }
+    
+    public function getInputFilterSpecification()
+    {
+        return array(
+                'privacyPolicyAccepted' => array(
+                        'required' => true,
+                        'filters'  => array(
+                                array('name' => '\Zend\Filter\StringTrim'),
+                        ),
+                        'validators' => array(
+                                new \Zend\Validator\NotEmpty(),
+                        ),
+                ),
+        );
+    
+    }
+    
+    public function setViewPartial($partial)
+    {
+        $this->viewPartial = $partial;
+        return $this;
+    }
+    
+    public function getViewPartial()
+    {
+        return $this->viewPartial;
     }
 }
 

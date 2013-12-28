@@ -18,14 +18,12 @@ use Zend\View\Model\JsonModel;
 
 /**
  * Main Action Controller for Authentication module.
- *
  */
 class IndexController extends AbstractActionController
 {
     
     /**
-     * Main login site
-     *
+     * Login with username and password
      */
     public function indexAction()
     { 
@@ -52,7 +50,12 @@ class IndexController extends AbstractActionController
             if ($result->isValid()) {
                 $user = $auth->getUser();
                 $settings = $user->settings;
-                if ($ref = $this->params()->fromQuery('ref', false)) {
+                
+                $services->get('Log')->info('User ' . $user->login . ' logged in');
+                
+                $ref = $this->params()->fromQuery('ref', false);
+
+                if ($ref) {
                     if (isset($settings['settings']['language'])) {
                         $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
                     }
@@ -65,7 +68,6 @@ class IndexController extends AbstractActionController
                 }
                 if ($this->request->isXmlHttpRequest()) {
                     
-                
                     return new JsonModel(array(
                         'ok' => true,
                         'redirect' => $url,
@@ -74,6 +76,9 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toUrl($url);
                 
             } else {
+                
+                $services->get('Log')->info('Failed to authenticate User ' . $data['credentials']['login'] );
+                
                 $translator = $services->get('translator');
                 $vars = array(
                     'ok' => false,
@@ -87,7 +92,9 @@ class IndexController extends AbstractActionController
             }
         }
         
-        if ($ref = $this->params()->fromQuery('ref', false)) {
+        $ref = $this->params()->fromQuery('ref', false);
+        
+        if ($ref) {
             $this->getResponse()->setStatusCode(403);
             $viewModel->setVariable('ref', $ref)
                       ->setVariable('required', (bool) $this->params()->fromQuery('req', 0));
@@ -118,6 +125,8 @@ class IndexController extends AbstractActionController
         $resultMessage = $result->getMessages();
         if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
             // erstes Login
+            $this->getServiceLocator()->get('Log')->debug('first login via ' . $provider);
+            
             if (array_key_exists('user', $resultMessage)) {
                 $user = $resultMessage['user'];
                 $lastName = $user->info->getDisplayName();
@@ -126,11 +135,17 @@ class IndexController extends AbstractActionController
                 $mail->addTo($user->info->getEmail());
                 $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
                 $mail->setSubject('Anmeldung im Cross Applicant Management');
-                $resultMail = $mail->send();
             }
+            if (isset($mail) && $mail->send()) {
+                $this->getServiceLocator()->get('Log')->info('Mail first-login sent to ' . $user->info->getEmail());
+            } else {
+                $this->getServiceLocator()->get('Log')->warn('No Mail was sent');
+            }
+            
         }
         
         $user = $auth->getUser();
+        $this->getServiceLocator()->get('Log')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->settings;
         if (isset($settings['settings']['language'])) {
             $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
@@ -163,11 +178,7 @@ class IndexController extends AbstractActionController
         
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
-        /*
-        $adapter->setIdentity('illert')
-                ->setCredential('a28d402326a5dda1c349fb849efc720a')
-                ->setApplicationKey('AmsAppKey');
-        */
+
         $adapter->setIdentity($this->params()->fromPost('user'))
                 ->setCredential($this->params()->fromPost('pass'))
                 ->setApplicationKey($this->params()->fromPost('appKey'));
@@ -177,11 +188,17 @@ class IndexController extends AbstractActionController
         $result     = $auth->authenticate($adapter);
         
         if ($result->isValid()) {
+            $services->get('Log')->info('User ' . $this->params()->fromPost('user') . 
+                                        ' logged via ' . $this->params()->fromPost('appKey'));
+            
             return new JsonModel(array(
                 'status' => 'success',
                 'token' => session_id()
             ));
         } else {
+            $services->get('Log')->info('Failed to authenticate User ' . $this->params()->fromPost('user') .
+                                        ' via ' . $this->params()->fromPost('appKey'));
+            
             $this->getResponse()->setStatusCode(403);
             return new JsonModel(array(
                 'status' => 'failure',
@@ -200,6 +217,7 @@ class IndexController extends AbstractActionController
     public function logoutAction()
     {
         $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $this->getServiceLocator()->get('Log')->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
         

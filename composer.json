@@ -6,6 +6,12 @@
         "human resource", "human relation", "applicant",
         "zf2"
     ],
+    "repositories": [
+       {
+        "type": "composer",
+	"url": "https://packages.zendframework.com"
+       }
+    ],
     "homepage": "http://bewerbermanagement.cross-solution.de/",
     "require": {
         "php": ">=5.3.3",

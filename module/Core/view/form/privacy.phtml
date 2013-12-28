@@ -1,0 +1,23 @@
+<?php
+$this->formRow()->setShouldWrap(false);
+?>
+PRIVACY
+<nav class="navbar">   
+        <div class="col-md-1">
+        <?php $first=true; foreach($this->element as $button):?>
+            <?php $button->setAttribute('class', $button->getAttribute('class'));?>
+            <?php echo $this->formRow($button);?>
+        <?php endforeach;?>    
+        </div>
+          <div class="col-md-11">      
+        <?php echo  sprintf($this->translate('I have read the %s and accept it'), '<button href="disclaimer" data-target="#responsive" data-toggle="modal">'.$this->translate('Privacy Policy').'</button>') ?>                
+        </div>
+        <div id="responsive" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body"><?php echo $this->translate("please wait")?> ...</div>
+                </div>
+            </div>
+        </div>
+</nav>
+

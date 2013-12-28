@@ -57,6 +57,15 @@ class IndexController extends AbstractActionController
         }
         $applicationEntity->injectJob($job);
         $form->bind($applicationEntity);
+        
+        /*
+         * validate email. 
+         */
+        
+        $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
+                   ->attach(new \Zend\Validator\EmailAddress())
+                   ->attach(new \Zend\Validator\StringLength(array('max'=>100)));        
+        
        
         if ($request->isPost()) {
             if ($returnTo = $this->params()->fromPost('returnTo', false)) {

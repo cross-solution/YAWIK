@@ -10,12 +10,10 @@
 /** Core */
 namespace Core;
 
-use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
 use Core\Listener\LanguageRouteListener;
-use Core\Listener\JsonViewModelListener;
 use Core\Listener\AjaxRenderListener;
+use Core\Listener\LogListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
 
@@ -40,6 +38,9 @@ class Module
         $translator = $sm->get('translator'); // initialise translator!
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
+        
+ #       $LogListener = new LogListener();
+ #       $LogListener->attach($eventManager);
         
         $languageRouteListener = new LanguageRouteListener();
         $languageRouteListener->attach($eventManager);
