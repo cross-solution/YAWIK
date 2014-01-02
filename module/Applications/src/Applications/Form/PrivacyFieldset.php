@@ -14,7 +14,7 @@ use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 
 
-class AdministrationFieldset extends Fieldset implements ViewPartialProviderInterface
+class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface
 {
     
     protected $viewPartial = 'form/core/privacy';

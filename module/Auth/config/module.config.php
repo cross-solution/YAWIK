@@ -233,6 +233,9 @@ return array(
                     'route/auth-hauth',
                     'route/auth-extern',
                 ),
+                'deny' => array(
+                    '__ALL__'
+                 ),
             ),
             'user' => array(
                 'allow' => array(
