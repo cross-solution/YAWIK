@@ -44,18 +44,16 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         
         $this->add(array(
             'name' => 'email',
-            'options' => array(
-                'label' => /* @translate */ 'Email'
-            )
-        ));
-        
+            'options' => array( 'label' => /* @translate */ 'Email' ),
+         ));
+               
         $this->add(array(
         		'name' => 'phone',
+                'type' => '\Core\Form\Element\Phone',
         		'options' => array(
         				'label' => /* @translate */ 'Phone',
-        		    'required' => true,
         		),
-                'required' => true,
+                'maxlength' => 20,
         ));
         
         $this->add(array(
@@ -81,7 +79,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         						'' => /*@translate */ 'please select',
         						'male' => /*@translate */ 'Mr.',
         						'female' => /*@translate */ 'Mrs.',
-        						'-' => /*@translate */ 'no comment'
         				)
         		),
         		
@@ -91,6 +88,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
             'name' => 'firstName',
             'options' => array(
                 'label' => /*@translate*/ 'First name',
+                'maxlength' => 50,
             ),
         ));
         
@@ -98,7 +96,9 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
             'name' => 'lastName',
             'options' => array(
                 'label' => /*@translate*/ 'Last name',
+                'maxlength' => 50,    
             ),
+            'required' => true
         ));
         
         $this->add(array(
@@ -127,7 +127,8 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
 //             ),
         
         ));
-     
+        
+ 
         
     }
     
@@ -144,10 +145,33 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         return parent::setValue($value);
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     */
     public function getInputFilterSpecification()
     {
         return array(
-            
+            'firstName' => array(
+                'required' => true,
+                'filters'  => array(
+                    array('name' => '\Zend\Filter\StringTrim'),
+                ),
+                'validators' => array(
+                            new \Zend\Validator\NotEmpty(),
+                            new \Zend\Validator\StringLength(array('max' => 50))
+                ),
+            ),
+            'lastName' => array(
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),
+                'validators' => array(
+                    new \Zend\Validator\NotEmpty(),
+                    new \Zend\Validator\StringLength(array('max' => 50))
+                ),
+            ),
         );
         
     }

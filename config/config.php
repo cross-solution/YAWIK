@@ -31,7 +31,7 @@ foreach (glob(__dir__ . '/autoload/*.module.php') as $moduleFile) {
 }
 
 return array(
-    
+
     // Activated modules. (Use folder name)
     'modules' => $modules,
     
@@ -89,7 +89,8 @@ return array(
             //'ServiceListener' => 'Zend\Mvc\Service\ServiceListenerFactory',
             'ServiceListener' => 'Core\src\Core\mvc\Service\ServiceListenerFactory',
             //'ModuleManager' => 'Core\src\Core\Service\ModuleManagerFactory',
-            ),
+            'Log' => 'Core\src\Core\Service\Log'
+            ),            
          'aliases' => array(
              'mappers' => 'MapperManager',
              'builders' => 'EntityBuilderManager',

@@ -194,7 +194,7 @@ return array(
              'Application' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
-             'Applications/Administration' => 'Applications\Form\AdministrationFieldset', 
+             'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
              'settings\applications' => 'Applications\Form\Settings',
              'settings-applications-fieldset' => 'Applications\Form\SettingsFieldset',
              'settings-applicationsform-fieldset' => 'Applications\Form\SettingsApplicationformFieldset',

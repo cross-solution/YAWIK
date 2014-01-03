@@ -3,25 +3,25 @@
 translate('Applicant');
 
 //: ./view/applications/manage/index.ajax.phtml:5
-translate('Career');
+translate('Career' => array('class' => 'hidden-xs');
 
 //: ./view/applications/manage/index.ajax.phtml:6
-translate('Attachments');
+translate('Attachments' => array('class' => 'hidden-xs');
 
 //: ./view/applications/manage/index.ajax.phtml:7
-translate('Job');
+translate('Job' => array('class' => 'hidden-xs');
 
 //: ./view/applications/manage/index.ajax.phtml:8
-translate('Status' => 'status');
+translate('Status' => array('sort' => 'status');
 
 //: ./view/applications/manage/index.ajax.phtml:9
-translate('Modified' => 'date');
+translate('Modified' => array('sort' => 'date');
 
 //: ./view/applications/manage/index.ajax.phtml:10
 translate('Actions');
 
-//: ./src/Applications/Form/AdministrationFieldset.php:26
-translate('Privacy Policy');
+//: ./src/Applications/Form/PrivacyFieldset.php:49
+translate('please accept the privacy policy');
 
 //: ./src/Applications/Form/SettingsFieldset.php:31
 translate('E-Mail Notifications');
@@ -56,6 +56,21 @@ translate('Rejection mail text');
 //: ./src/Applications/Form/SettingsFieldset.php:57
 translate('default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.');
 
+//: ./src/Applications/Form/SettingsApplicationformFieldset.php:25
+translate('applicationform');
+
+//: ./src/Applications/Form/SettingsApplicationformFieldset.php:30
+translate('Hide Summary');
+
+//: ./src/Applications/Form/SettingsApplicationformFieldset.php:34
+translate('Hide Education history');
+
+//: ./src/Applications/Form/SettingsApplicationformFieldset.php:38
+translate('Hide Employment history');
+
+//: ./src/Applications/Form/SettingsApplicationformFieldset.php:42
+translate('Hide Skills');
+
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
@@ -68,6 +83,6 @@ translate('New application for your vacancy "%s"');
 //: ./src/Applications/Mail/NewApplication.php:59
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./config/module.config.php:147
+//: ./config/module.config.php:157
 translate('Overview');
 

@@ -12,7 +12,21 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
+
 return array(
+    // Logging
+    'log' => array(
+        'writers' => array(
+             array(
+                 'name' => 'stream',
+                 'priority' => 1000,
+                 'options' => array(
+                     'stream' => __DIR__ .'/../../../log/cam.log',
+                ),
+            ),
+        ),
+    ),
+           
     // Routes
     'router' => array(
         'routes' => array(
@@ -153,6 +167,8 @@ return array(
             'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
+            'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
+            
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(

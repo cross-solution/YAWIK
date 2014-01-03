@@ -1,9 +1,5 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
-    ],
-    "hash": "8e2cc721c64ef4ca233188b621a76ad7",
+    "hash": "c56fe3079ab5cac1dc7dab31a2047d0b",
     "packages": [
         {
             "name": "hybridauth/hybridauth",
@@ -55,62 +51,6 @@
             "time": "2013-02-21 06:45:16"
         },
         {
-            "name": "neilime/zf2-twb-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/neilime/zf2-twb-bundle.git",
-                "reference": "1d86e4b98ef5290ecf1e2a7a2ca9b54b2fb878f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/neilime/zf2-twb-bundle/zipball/1d86e4b98ef5290ecf1e2a7a2ca9b54b2fb878f8",
-                "reference": "1d86e4b98ef5290ecf1e2a7a2ca9b54b2fb878f8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zendframework": "2.*@stable"
-            },
-            "suggest": {
-                "neilime/zf2-assets-bundle": "Bundling & caching Twitter Bootstrap assets",
-                "twitter/bootstrap": "Twitter bootstrap assets"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "TwbBundle": "src"
-                },
-                "classmap": [
-                    "Module.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Neilime",
-                    "homepage": "https://github.com/neilime",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Zend Framework 2 module for easy integration of Twitter Bootstrap",
-            "homepage": "http://neilime.github.io/zf2-twb-bundle/",
-            "keywords": [
-                "bundle",
-                "twitter bootstrap",
-                "zend framework 2"
-            ],
-            "time": "2013-09-11 22:00:03"
-        },
-        {
             "name": "zendframework/zendframework",
             "version": "2.1.5",
             "source": {
@@ -120,9 +60,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/1766cb203044591c5fcee7ab8f30980d9ec52c03",
-                "reference": "1766cb203044591c5fcee7ab8f30980d9ec52c03",
-                "shasum": ""
+                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-1766cb203044591c5fcee7ab8f30980d9ec52c03-zip-7ae5d0.zip",
+                "reference": "2.1.5",
+                "shasum": "4cad28c52082897af95ebcd133ce690841d37fa8"
             },
             "require": {
                 "php": ">=5.3.3"
@@ -209,7 +149,6 @@
                     "ZendTest\\": "tests/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -219,26 +158,19 @@
                 "framework",
                 "zf2"
             ],
+            "support": {
+                "source": "https://github.com/zendframework/zf2/tree/release-2.1.5",
+                "issues": "https://github.com/zendframework/zf2/issues"
+            },
             "time": "2013-04-17 15:15:58"
         }
     ],
-    "packages-dev": [
-
-    ],
+    "packages-dev": null,
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "hybridauth/hybridauth": 20,
-        "neilime/zf2-twb-bundle": 20
-    },
-    "platform": {
-        "php": ">=5.3.3",
-        "ext-mongo": "*",
-        "ext-intl": "*"
-    },
-    "platform-dev": [
-
-    ]
+        "hybridauth/hybridauth": 20
+    }
 }

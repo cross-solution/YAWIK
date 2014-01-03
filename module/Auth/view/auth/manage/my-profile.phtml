@@ -9,7 +9,7 @@ $this->headscript()->appendScript('$(".alert").alert();');
 <h1><?php echo $this->translate('My profile')?></h1>
 
 <?if ($this->status): ?>
-<div id="user-profile-form-response" class="alert alert-<?php echo $this->status?>">
+<div id="user-profile-form-response" class="alert cam-<?php echo $this->status?>">
     <?php echo $this->text ?> 
     <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
 </div>
