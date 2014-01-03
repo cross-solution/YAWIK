@@ -12,9 +12,9 @@ namespace Applications\Form;
 
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-
-class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface
+class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface
 {
     
     protected $viewPartial = 'form/core/privacy';
@@ -25,8 +25,11 @@ class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface
              ->setLabel('Privacy Policies');
                      
           $this->add(array('type' => 'Zend\Form\Element\Checkbox',
-        		'name' => 'privacyPolicyAccepted',
-                            ));
+        		           'name' => 'privacyPolicyAccepted',
+                           'options' => array(
+                                            //  'checked_value' => "1",
+                                              )
+                           ));
           
           
     }
@@ -40,7 +43,12 @@ class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface
                                 array('name' => '\Zend\Filter\StringTrim'),
                         ),
                         'validators' => array(
-                                new \Zend\Validator\NotEmpty(),
+                                 array('name' => 'NotEmpty',
+                                                 'options' => array(
+                                                              'zero',
+                                                              'messages' => array('isEmpty' => /* @translate */ 'please accept the privacy policy')
+                                        )
+                                )
                         ),
                 ),
         );
