@@ -1,25 +1,16 @@
-<?php /*
-<div class="btn-group" data-toggle="buttons-radio" id="applications-list-switcher">
-<?php $lang = $this->params('lang');
-    foreach (array('me' => $this->translate('My applications'), 'job' => $this->translate('Applications by jobs')) as $byParam => $label): ?>
-    <button type="button" class="btn<?php echo $byParam == $this->by ? ' active' : ''?>" id="applications-list-switcher-<?php echo $byParam ?>">
-    <?php echo $label ?></button>
-    <?php endforeach ?>
-</div> */?>
-
-<div id="applications-list-filter">
-<h4><?php echo $this->translate('List filter')?>:</h4>
-<?php if ($this->hasJobs):?>
+<?php if ($hasJobs):?>
 <ul class="nav nav-pills nav-stacked">
 
-<?php foreach (array('me' => $this->translate('My applications'), 'jobs' => $this->translate('Applications by jobs')) as $byParam => $label): ?>
+<?php foreach (array('new' => $this->translate('new applications'),
+                    /* 'deleted' => $this->translate('deleted applications')*/) as $byParam => $label): ?>
     <li<?php echo $byParam == $this->by ? ' class="active"' : '' ?>>
         <a href="<?php echo $this->url('lang/applications', 
             array(), 
             array('query' => array_merge($this->params()->fromQuery(), array('by'=> $byParam))),
-            true)?>"><?php echo $label?></a>
+            true)?>"><?php echo $label?><span class="badge"><?php echo $newApplications; ?></span></a>
     </li>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
 </div>
+

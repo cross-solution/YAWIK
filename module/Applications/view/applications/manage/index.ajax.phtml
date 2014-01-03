@@ -2,9 +2,9 @@
 
 $columns = array(
         /*@translate*/ 'Applicant' => array(),
-		/*@translate*/ 'Career' => array('class' => 'hidden-xs'),
-		/*@translate*/ 'Attachments' => array('class' => 'hidden-xs'),	
-        /*@translate*/ 'Job' => array('class' => 'hidden-xs'),	
+		/*@translate*/ 'Career' => array('class' => 'cam-career'),
+		/*@translate*/ 'Attachments' => array('class' => 'cam-attachment'),	
+        /*@translate*/ 'Job' => array('class' => 'cam-job'),	
         /*@translate*/ 'Status' => array('sort' => 'status'),
         /*@translate*/ 'Modified' => array('sort' => 'date'),
         /*@translate*/ 'Actions'=> array(),
@@ -18,23 +18,21 @@ if ('-' == $this->sort{0}) {
     $sortDir = true;
 }
 
+echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
 ?>
-
-
-<table class="table table-striped table-bordered table-hover" id="application-list">
+<table class="cam-table" id="cam-application-list">
 <thead>
 <tr>
- <th>&nbsp;</th>
 <?php foreach ($columns as $label => $option):?>
     <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
     <?php if (! isset($option['sort'])): echo $this->translate($label); 
           else:
               if ($option['sort'] == $sortBy):
-                  $icon = ' <span class="pull-right glyphicon glyphicon-sort-by-attributes' . ($sortDir ? '' : '-alt') . '"></span>';
+                  $icon = '<span class="text-right cam-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
                   $dir = !$sortDir;
               else:
                   $dir = true;
-                  $icon = '<span class="pull-right glyphicon glyphicon-sort"></span>';
+                  $icon = '<span class="pull-right cam-icon-sort"></span>';
               endif;
               $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
               $url = $this->url(
@@ -53,21 +51,20 @@ if ('-' == $this->sort{0}) {
 <tbody>
 <?foreach ($applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
-<tr>
-<td><?php if ($isUnread): ?><span class="glyphicon glyphicon-asterisk"></span><?php endif ?></td>
+  <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
-    <div class="col-md-3">
+    <div class="portrait">
     <?php if ($application->contact->image):?>
-    <img src="/file/applications/<?php echo $application->contact->image->id ?>" class="img-thumbnail cam-thumbnail" />
+    <img src="/file/applications/<?php echo $application->contact->image->id ?>" />
     <?php else:?>
-    <span style="font-size:50px" class="glyphicon glyphicon-user"></span>
+    <span class="cam-icon-portrait"></span>
     <?php endif?>
     </div>    
        <?php echo $this->translate($this->salutation($application->contact->gender))?>
        <?php echo $application->contact->displayName?><br>
        <?php echo $application->contact->city?>
     </td>
-    <td class="hidden-xs">
+    <td class="cam-career">
     <?php if (count($application->cv->educations)>0):?>
       <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
     <?php endif;?>
@@ -75,7 +72,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
       <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>
-    <td class="hidden-xs">   
+    <td class="cam-attachment">   
      <?php if(count($application->attachments)>0):?>
      <ul>
      <?php foreach ($application->attachments as $attachment):?>
@@ -86,7 +83,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
      <?php echo $this->translate('no attachments')?>
      <?php endif;?>
     </td>
-    <td class="hidden-xs">
+    <td class="cam-job">
          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
           <?php echo $application->job->title ?>
          </a>         

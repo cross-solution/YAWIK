@@ -2,13 +2,8 @@
 <?php if ($this->pageCount): 
 $query = $this->params()->fromQuery();
 ?>
-<!--
-
-würde über dem Result besser passen. Geht das?
-
-<?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
-of <?php echo $this->totalItemCount; ?>
--->
+<div class="row" id="cam-pagination">
+<div class="col-md-6">
 <!-- First page link -->
 <ul class="pagination">
 <?php if (isset($this->previous)): ?>
@@ -43,4 +38,10 @@ of <?php echo $this->totalItemCount; ?>
   <li class="disabled"><a><?= $this->translate('Last')?></a></li>
 <?php endif; ?>
 </ul>
+</div>
+<div class="col-md-6 text-right">
+<?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
+ of <?php echo $this->totalItemCount; ?>
+</div>
+</div>
 <?php endif; ?>

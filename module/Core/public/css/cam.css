@@ -6165,6 +6165,357 @@ fieldset[disabled] .cam-btn-reset.active {
 .cam-error .alert-link {
   color: #843534;
 }
+.cam-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #dddddd;
+}
+.cam-table > thead > tr > th,
+.cam-table > tbody > tr > th,
+.cam-table > tfoot > tr > th,
+.cam-table > thead > tr > td,
+.cam-table > tbody > tr > td,
+.cam-table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.cam-table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dddddd;
+}
+.cam-table > caption + thead > tr:first-child > th,
+.cam-table > colgroup + thead > tr:first-child > th,
+.cam-table > thead:first-child > tr:first-child > th,
+.cam-table > caption + thead > tr:first-child > td,
+.cam-table > colgroup + thead > tr:first-child > td,
+.cam-table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.cam-table > tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.cam-table .table {
+  background-color: #ffffff;
+}
+.cam-table > thead > tr > .active,
+.cam-table > tbody > tr > .active,
+.cam-table > tfoot > tr > .active,
+.cam-table > thead > .active > td,
+.cam-table > tbody > .active > td,
+.cam-table > tfoot > .active > td,
+.cam-table > thead > .active > th,
+.cam-table > tbody > .active > th,
+.cam-table > tfoot > .active > th {
+  background-color: #f5f5f5;
+}
+.cam-table > thead > tr > .success,
+.cam-table > tbody > tr > .success,
+.cam-table > tfoot > tr > .success,
+.cam-table > thead > .success > td,
+.cam-table > tbody > .success > td,
+.cam-table > tfoot > .success > td,
+.cam-table > thead > .success > th,
+.cam-table > tbody > .success > th,
+.cam-table > tfoot > .success > th {
+  background-color: #dff0d8;
+}
+.cam-table > thead > tr > .danger,
+.cam-table > tbody > tr > .danger,
+.cam-table > tfoot > tr > .danger,
+.cam-table > thead > .danger > td,
+.cam-table > tbody > .danger > td,
+.cam-table > tfoot > .danger > td,
+.cam-table > thead > .danger > th,
+.cam-table > tbody > .danger > th,
+.cam-table > tfoot > .danger > th {
+  background-color: #f2dede;
+}
+.cam-table > thead > tr > .warning,
+.cam-table > tbody > tr > .warning,
+.cam-table > tfoot > tr > .warning,
+.cam-table > thead > .warning > td,
+.cam-table > tbody > .warning > td,
+.cam-table > tfoot > .warning > td,
+.cam-table > thead > .warning > th,
+.cam-table > tbody > .warning > th,
+.cam-table > tfoot > .warning > th {
+  background-color: #fcf8e3;
+}
+.cam-table > tbody > tr:nth-child(odd) > td,
+.cam-table > tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+.cam-table > thead > tr > th,
+.cam-table > tbody > tr > th,
+.cam-table > tfoot > tr > th,
+.cam-table > thead > tr > td,
+.cam-table > tbody > tr > td,
+.cam-table > tfoot > tr > td {
+  border: 1px solid #dddddd;
+}
+.cam-table > thead > tr > th,
+.cam-table > thead > tr > td {
+  border-bottom-width: 2px;
+}
+.cam-table > tbody > tr:hover > td,
+.cam-table > tbody > tr:hover > th {
+  background-color: #f5f5f5;
+}
+/**
+* Pagination
+*/
+#cam-pagination ul {
+  margin: 0 0 4px;
+}
+#cam-pagination ul > li > a,
+#cam-pagination ul > li > span {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+#cam-pagination ul > li:first-child > a,
+#cam-pagination ul > li:first-child > span {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+#cam-pagination ul > li:last-child > a,
+#cam-pagination ul > li:last-child > span {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+/**
+* list of applications
+*/
+#cam-application-list .portrait {
+  float: left;
+  margin-right: 5px;
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.428571429;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  max-width: 50px;
+}
+#cam-application-list .portrait > img,
+#cam-application-list .portrait a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+a#cam-application-list .portrait:hover,
+a#cam-application-list .portrait:focus,
+a#cam-application-list .portrait.active {
+  border-color: #5498d7;
+}
+#cam-application-list .portrait .caption {
+  padding: 9px;
+  color: #333333;
+}
+#cam-application-list .portrait .cam-icon-portrait {
+  font-size: 40px;
+}
+/**
+* hide some columns on small devices
+*/
+.cam-career,
+.cam-attachment,
+.cam-job {
+  display: block !important;
+}
+table.cam-career,
+table.cam-attachment,
+table.cam-job {
+  display: table;
+}
+tr.cam-career,
+tr.cam-attachment,
+tr.cam-job {
+  display: table-row !important;
+}
+th.cam-career,
+th.cam-attachment,
+th.cam-job,
+td.cam-career,
+td.cam-attachment,
+td.cam-job {
+  display: table-cell !important;
+}
+@media (max-width: 767px) {
+  .cam-career,
+  .cam-attachment,
+  .cam-job,
+  tr.cam-career,
+  tr.cam-attachment,
+  tr.cam-job,
+  th.cam-career,
+  th.cam-attachment,
+  th.cam-job,
+  td.cam-career,
+  td.cam-attachment,
+  td.cam-job {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .cam-career.hidden-sm,
+  .cam-attachment.hidden-sm,
+  .cam-job.hidden-sm,
+  tr.cam-career.hidden-sm,
+  tr.cam-attachment.hidden-sm,
+  tr.cam-job.hidden-sm,
+  th.cam-career.hidden-sm,
+  th.cam-attachment.hidden-sm,
+  th.cam-job.hidden-sm,
+  td.cam-career.hidden-sm,
+  td.cam-attachment.hidden-sm,
+  td.cam-job.hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .cam-career.hidden-md,
+  .cam-attachment.hidden-md,
+  .cam-job.hidden-md,
+  tr.cam-career.hidden-md,
+  tr.cam-attachment.hidden-md,
+  tr.cam-job.hidden-md,
+  th.cam-career.hidden-md,
+  th.cam-attachment.hidden-md,
+  th.cam-job.hidden-md,
+  td.cam-career.hidden-md,
+  td.cam-attachment.hidden-md,
+  td.cam-job.hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .cam-career.hidden-lg,
+  .cam-attachment.hidden-lg,
+  .cam-job.hidden-lg,
+  tr.cam-career.hidden-lg,
+  tr.cam-attachment.hidden-lg,
+  tr.cam-job.hidden-lg,
+  th.cam-career.hidden-lg,
+  th.cam-attachment.hidden-lg,
+  th.cam-job.hidden-lg,
+  td.cam-career.hidden-lg,
+  td.cam-attachment.hidden-lg,
+  td.cam-job.hidden-lg {
+    display: none !important;
+  }
+}
+.cam-attachment {
+  max-width: 130px;
+  overflow: hidden;
+}
+/**
+* new 
+**/
+.cam-new * {
+  font-weight: bold;
+}
+/**
+* Icons
+*/
+.cam-icon-portrait {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-portrait:empty {
+  width: 1em;
+}
+.cam-icon-portrait:before {
+  content: "\e008";
+}
+.cam-icon-new {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-new:empty {
+  width: 1em;
+}
+.cam-icon-new:before {
+  content: "\2a";
+}
+.cam-icon-sort {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-sort:empty {
+  width: 1em;
+}
+.cam-icon-sort:before {
+  content: "\e150";
+}
+.cam-icon-sort-desc {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-sort-desc:empty {
+  width: 1em;
+}
+.cam-icon-sort-desc:before {
+  content: "\e113";
+}
+.cam-icon-sort-asc {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-sort-asc:empty {
+  width: 1em;
+}
+.cam-icon-sort-asc:before {
+  content: "\e114";
+}
+.cam-icon {
+  font-size: 12px;
+}
 body {
   padding: 50px 0 25px;
   position: relative;
@@ -6332,6 +6683,7 @@ h6 {
  */
 .cam-toolbar {
   border: 1px solid #eeeeee;
+  margin: 0 0 8px;
 }
 .cam-thumbnail {
   max-height: 50px;

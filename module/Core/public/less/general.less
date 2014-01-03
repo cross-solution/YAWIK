@@ -33,3 +33,92 @@
     .alert-danger;
 }
 
+.cam-table {
+  .table;
+  .table-striped;
+  .table-bordered;
+  .table-hover;
+}
+
+/**
+* Pagination
+*/
+#cam-pagination {
+  ul {
+    margin: 0 0 4px;
+    .pagination-sm;
+  }
+}
+
+/**
+* list of applications
+*/
+#cam-application-list {
+  .portrait {
+    float: left;
+    margin-right: 5px;
+    .thumbnail;
+    max-width: 50px;
+    .cam-icon-portrait {
+      font-size: 40px;
+    }
+  }
+}
+
+/**
+* hide some columns on small devices
+*/
+.cam-career,
+.cam-attachment,
+.cam-job {
+    .hidden-xs;
+}
+.cam-attachment {
+  max-width: 130px;
+  overflow: hidden;
+}
+
+/**
+* new 
+**/
+
+.cam-new * {
+ font-weight: bold;
+}
+
+/**
+* Icons
+*/
+
+.cam-icon-portrait {
+  .glyphicon;
+  .glyphicon-user;
+}
+
+.cam-icon-new {
+  .cam-icon;
+  .glyphicon; 
+  .glyphicon-asterisk;
+}
+
+.cam-icon-sort {
+  .cam-icon;
+  .glyphicon;
+  .glyphicon-sort;
+}
+
+.cam-icon-sort-desc {
+  .cam-icon;
+  .glyphicon;
+  .glyphicon-chevron-up;
+}
+
+.cam-icon-sort-asc {
+  .cam-icon;
+  .glyphicon;
+  .glyphicon-chevron-down;
+}
+
+.cam-icon {
+  font-size: 12px;
+}

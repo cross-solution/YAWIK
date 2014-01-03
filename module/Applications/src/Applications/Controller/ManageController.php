@@ -18,8 +18,6 @@ use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
 
 
-
-
 /**
  * Action Controller for managing applications.
  *
@@ -64,7 +62,11 @@ class ManageController extends AbstractActionController
             'hasJobs' => (bool) $this->getServiceLocator()
                                      ->get('repositories')
                                      ->get('job')
-                                     ->countByUser($this->auth('id'))
+                                     ->countByUser($this->auth('id')),
+             'newApplications' => $this->getServiceLocator()
+                                     ->get('repositories')
+                                     ->get('application')
+                                     ->countBy($this->auth('id'),true)
         ));
         $v->setTemplate('applications/sidebar/manage');
         $this->layout()->addChild($v, 'sidebar_applicationsFilter');
