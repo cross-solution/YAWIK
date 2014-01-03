@@ -19,6 +19,8 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     protected $location;
     protected $link;
     protected $datePublishStart;
+    protected $status;
+    protected $reference;
     
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
@@ -132,6 +134,24 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
 
     public function setDatePublishStart($datePublishStart) {
         $this->datePublishStart = $datePublishStart;
+        return $this;
+    }
+    
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+        return $this;
+    }
+    
+    public function getReference() {
+        return $this->reference;
+    }
+
+    public function setReference($reference) {
+        $this->reference = $reference;
         return $this;
     }
     

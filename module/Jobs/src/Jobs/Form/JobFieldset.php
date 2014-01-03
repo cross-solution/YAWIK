@@ -60,7 +60,20 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             'datePublishStart' => array(
-                )
+                ),
+            'reference' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
+            
+            'status' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
         );
     }
     
@@ -142,6 +155,26 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
             'name' => 'datePublishStart',
             'options' => array(
                 'label' => 'datePublishStart'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'status',
+            'options' => array(
+                'label' => 'status'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'reference',
+            'options' => array(
+                'label' => 'reference'
             ),
             'attributes' => array(
             )

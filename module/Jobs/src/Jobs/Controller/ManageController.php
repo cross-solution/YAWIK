@@ -30,7 +30,8 @@ class ManageController extends AbstractActionController {
             $params = new Parameters(array(
                 'applyId' => 5678, 'company' => '5678_company', 'title' => '5678_title',
                 'link' => '5678_link', 'location' => '5678_location',
-                'datePublishStart' => '2013-11-11', 'contactEmail' => '5678_contactEmail@web.de'
+                'datePublishStart' => '2013-11-11', 'contactEmail' => '5678_contactEmail@web.de',
+                 'status' => 'active', 'reference' => 'test_reference',
             ));
             $this->getRequest()->setPost($params);
         }
