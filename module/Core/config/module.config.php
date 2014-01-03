@@ -195,6 +195,7 @@ return array(
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
+            'link'   => 'Core\View\Helper\Link',
             
         ),
         'factories' => array(
