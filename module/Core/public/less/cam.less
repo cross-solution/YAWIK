@@ -3,23 +3,42 @@
 @import "bootstrap/bootstrap.less";
 @import "general.less";
 
-// Color Definitions used in Bootstrap. See: http://getbootstrap.com/customize/
+// the default values of the bootstrap global variables are defined in bootstrap/variables.less.
+// you can overwrite them here. 
 
-@brand-primary:                     #5498D7;
-@link-hover-color:                  #FAA427;
 @navbar-height:                     50px;
 @footer-height:			    25px;
-@navbar-inverse-color:		    #FFFFFF;
+
 @navbar-default-link-color:         @brand-primary;
 @navbar-default-link-hover-color:   @link-hover-color;
-@navbar-inverse-link-color:         #FFFFFF;
-@navbar-inverse-link-hover-color:   @link-hover-color;
-@navbar-inverse-link-hover-bg:      darken(@brand-primary, 5%);
-@navbar-inverse-bg:                 @brand-primary;
+
+
+
+
 @navbar-default-link-active-color:  @brand-primary;  
 @nav-pills-active-link-hover-color: #FAA427;
 @nav-pills-active-link-hover-bg:    darken(@brand-primary, -80%);
 @input-border-focus:                darken(@brand-primary, -20%);
+
+// Brand colors
+// -------------------------
+@brand-primary:         #5498D7;
+
+// Links
+// -------------------------
+@link-color:            @brand-primary;
+@link-hover-color:      #FAA427;
+
+// Inverted navbar
+//
+// Reset inverted navbar basics
+@navbar-inverse-color:		            #FFFFFF;
+@navbar-inverse-bg:                         @brand-primary;
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 #FFFFFF;
+@navbar-inverse-link-hover-color:           @link-hover-color;
+@navbar-inverse-link-hover-bg:              darken(@brand-primary, 5%);
 
 // CAM Variables
 @colorError:               #B94A48;
@@ -212,4 +231,16 @@ fieldset fieldset a.remove-item {
  .navbar-toggle:hover {
   border-color: darken(@brand-primary, -30%);
  }
+}
+
+#login-info-box {
+  .dropdown-header {
+    a,
+    a:hover {
+      color: @text-color;
+      text-decoration: none;
+      cursor: default;
+      background: none;
+    } 
+  }
 }

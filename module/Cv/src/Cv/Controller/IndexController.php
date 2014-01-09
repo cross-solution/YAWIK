@@ -32,8 +32,8 @@ class IndexController extends AbstractActionController
         if (!$userId) $userId = 0;
         
         $params = array_merge(
-            $this->params()->fromQuery(),
-            array('userId' => $userId)
+            $this->params()->fromQuery()
+#            array('userId' => $userId)
         );
         
         
@@ -63,9 +63,6 @@ class IndexController extends AbstractActionController
         return array(
             'resumes' => $paginator,
             'sort' => isset($params['sort']) ? $params['sort'] : 'none',
-        );
-        
-    	
+        );	
     }
-    
 }

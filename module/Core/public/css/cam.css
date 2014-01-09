@@ -6873,3 +6873,10 @@ fieldset fieldset a.remove-item {
 .cam-nav .navbar-toggle:hover {
   border-color: #d0e3f4;
 }
+#login-info-box .dropdown-header a,
+#login-info-box .dropdown-header a:hover {
+  color: #333333;
+  text-decoration: none;
+  cursor: default;
+  background: none;
+}

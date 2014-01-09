@@ -1,5 +1,5 @@
 
-<table class="table table-striped table-bordered table-hover" id="jobs-list">
+<table class="cam-table" id="jobs-list">
 <thead>
 <tr>
     <th><?=$this->translate('Date of receipt')?></th>
@@ -7,7 +7,13 @@
     <th><?=$this->translate('Location')?></th> 
     <th><?=$this->translate('Companyname')?></th>
     <th><?=$this->translate('Reference')?></th>
-    <th><?=$this->translate('Action')?></th>
+    <th>
+     <?php if ($this->acl()->isRole('recruiter')):?>  
+       <?=$this->translate('Applications')?>
+     <?php else: ?>
+       <?=$this->translate('Action')?>
+     <?php endif;?>
+    </th>
 </tr>
 </thead>
 
@@ -21,9 +27,18 @@
     <td><?php echo $job->applyId?></td>
     <td>
       <?php if ($this->acl()->isRole('recruiter')):?>
-         <a href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>">
-            <?php echo $job->applications->countUnreadBy($this->auth('id')) . ' / ' . $job->applications->count() . ' ' . $this->translate('Applications') ?>
-         </a>
+         <?php if ($job->applications->count()>0):?>
+            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>">
+            <span class="badge"><?php echo $job->applications->count() ;?></span>
+            </a>
+         <?php endif;?>
+         <?php if ($job->applications->countUnreadBy($this->auth('id'))):?>       
+            / 
+            <a title="<?php echo $this->translate("unread")?>" 
+               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId . '&by=new'), true) ?>">
+            <span class="badge"> <?php echo $job->applications->countUnreadBy($this->auth('id'))?></span>
+            </a>
+         <?php endif;?>
       <?php else:?>
          <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a>
       <?php endif ?>
