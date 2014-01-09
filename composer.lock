@@ -1,5 +1,9 @@
 {
-    "hash": "c56fe3079ab5cac1dc7dab31a2047d0b",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "fe28524fd9161c8fbfe3ad4d7710161d",
     "packages": [
         {
             "name": "hybridauth/hybridauth",
@@ -49,6 +53,48 @@
                 "yahoo"
             ],
             "time": "2013-02-21 06:45:16"
+        },
+        {
+            "name": "mpdf/mpdf",
+            "version": "v5.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/finwe/mpdf.git",
+                "reference": "ca266f29a20ed00ee351aadee1934ddcfbbe4b53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/finwe/mpdf/zipball/ca266f29a20ed00ee351aadee1934ddcfbbe4b53",
+                "reference": "ca266f29a20ed00ee351aadee1934ddcfbbe4b53",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=4.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "mpdf.php",
+                    "classes"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-1.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Back"
+                }
+            ],
+            "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support",
+            "homepage": "http://www.mpdf1.com/mpdf/index.php",
+            "keywords": [
+                "pdf",
+                "php",
+                "utf-8"
+            ],
+            "time": "2013-09-02 12:16:35"
         },
         {
             "name": "zendframework/zendframework",
@@ -165,12 +211,22 @@
             "time": "2013-04-17 15:15:58"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "hybridauth/hybridauth": 20
-    }
+    },
+    "platform": {
+        "php": ">=5.3.3",
+        "ext-mongo": "*",
+        "ext-intl": "*"
+    },
+    "platform-dev": [
+
+    ]
 }

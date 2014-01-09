@@ -8,7 +8,7 @@
  */
 
 $modules = array(
-         'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings',
+         'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
     );
 
 if (!isset($allModules)) {

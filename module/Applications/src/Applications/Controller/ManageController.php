@@ -118,22 +118,27 @@ class ManageController extends AbstractActionController
     	    $applicationIsUnread = true;
     	}
     	
-    	$jsonFormat = 'json' == $this->params()->fromQuery('format');
-    	if ($jsonFormat) {
-    		$viewModel = new JsonModel();
-    		$viewModel->setVariables(/*array(
-    		    'application' => */$this->getServiceLocator()
-    		                          ->get('builders')
-    		                          ->get('JsonApplication')
-    		                          ->unbuild($application)
-    		);
-    		$viewModel->setVariable('isUnread', $applicationIsUnread);
-    		return $viewModel;
-    	}
-        
-    	
-    	
-    	return array('application'=> $application, 'isUnread' => $applicationIsUnread);
+        $format=$this->params()->fromQuery('format');
+
+        $return = array('application'=> $application, 'isUnread' => $applicationIsUnread);
+        switch ($format) {
+            case 'json':
+                        $viewModel = new JsonModel();
+                        $viewModel->setVariables(/*array(
+                    'application' => */$this->getServiceLocator()
+                                              ->get('builders')
+                                              ->get('JsonApplication')
+                                              ->unbuild($application)
+                        );
+                        $viewModel->setVariable('isUnread', $applicationIsUnread);
+                $return = $viewModel;
+            case 'pdf':
+                $pdf = $this->getServiceLocator()->get('Core/html2pdf');
+                 break;
+            default:
+                break;
+        }
+        return $return;
     }
     
     public function statusAction()

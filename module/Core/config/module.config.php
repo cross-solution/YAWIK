@@ -93,6 +93,7 @@ return array(
         ),
         'factories' => array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
+            'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),

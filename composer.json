@@ -18,6 +18,7 @@
         "ext-mongo": "*",
         "ext-intl": "*",
         "zendframework/zendframework": "2.1.*",
-        "hybridauth/hybridauth": "dev-master"
+        "hybridauth/hybridauth": "dev-master",
+	"mpdf/mpdf": "5.7.*"
     }
 }
