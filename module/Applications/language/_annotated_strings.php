@@ -3,13 +3,13 @@
 translate('Applicant');
 
 //: ./view/applications/manage/index.ajax.phtml:5
-translate('Career' => array('class' => 'hidden-xs');
+translate('Career' => array('class' => 'cam-career');
 
 //: ./view/applications/manage/index.ajax.phtml:6
-translate('Attachments' => array('class' => 'hidden-xs');
+translate('Attachments' => array('class' => 'cam-attachment');
 
 //: ./view/applications/manage/index.ajax.phtml:7
-translate('Job' => array('class' => 'hidden-xs');
+translate('Job' => array('class' => 'cam-job');
 
 //: ./view/applications/manage/index.ajax.phtml:8
 translate('Status' => array('sort' => 'status');

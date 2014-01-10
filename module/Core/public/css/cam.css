@@ -6513,8 +6513,74 @@ td.cam-job {
 .cam-icon-sort-asc:before {
   content: "\e114";
 }
+.cam-icon-forward {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-forward:empty {
+  width: 1em;
+}
+.cam-icon-forward:before {
+  content: "\e095";
+}
+.cam-icon-history {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-history:empty {
+  width: 1em;
+}
+.cam-icon-history:before {
+  content: "\e056";
+}
+.cam-icon-download {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-download:empty {
+  width: 1em;
+}
+.cam-icon-download:before {
+  content: "\e166";
+}
 .cam-icon {
   font-size: 12px;
+}
+/*
+* State Colors 
+*/
+.cam-color-incoming {
+  color: #5bc0de;
+}
+.cam-color-invited {
+  color: #f0ad4e;
+}
+.cam-color-rejected {
+  color: #d9534f;
 }
 body {
   padding: 50px 0 25px;

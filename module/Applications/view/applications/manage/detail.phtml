@@ -1,4 +1,12 @@
 <?php 
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
       use Applications\Entity\StatusInterface as Status;
       
       $this->headTitle($this->translate('Details'));
@@ -21,12 +29,12 @@
             <div class="col-md-6">
             <input class="form-control" id="forward-email-input" name="email" type="email">
             </div>
-            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-share-alt"></span><?php echo $this->translate('Forward')?></button>
+            <button class="btn btn-default" type="submit"><span class="cam-icon-forward"></span><?php echo $this->translate('Forward')?></button>
           </div>
     </form>
 
-  <div class="navbar-text navbar-form">
-    <?= $this->translate('State')?>: <?php echo $this->translate($application->status->name) ?>
+  <div class="navbar-text navbar-form cam-color-<?php echo $application->status->name?>">
+    <?php echo $this->translate($application->status->name) ?>
   </div>
     
   <div id="state-actions" class="btn-group navbar-form">
@@ -82,8 +90,12 @@
                     data-title="title"
                     data-toggle="modal"
                     data-target="#cam-application-history">
-          <span class="glyphicon glyphicon-list"></span>
+          <span class="cam-icon-history"></span>
           </button>
+          <a class="btn btn-default"
+                    href="?format=pdf">
+          <span class="cam-icon-download"></span>
+          </a>
         </div>
 </nav>
 <div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

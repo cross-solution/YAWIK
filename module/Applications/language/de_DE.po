@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-03 11:43+0100\n"
-"PO-Revision-Date: 2014-01-03 11:46+0100\n"
+"POT-Creation-Date: 2014-01-10 11:47+0100\n"
+"PO-Revision-Date: 2014-01-10 11:48+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -35,7 +35,7 @@ msgstr "Klicken, um die Stellenanzeige zu öffnen"
 msgid "your application was sent successfully"
 msgstr "Ihre Bewerbung wurde erfolgreich gespeichert"
 
-#: view/applications/index/disclaimer.phtml:5
+#: view/applications/index/disclaimer.phtml:14
 msgid "Privacy Policy"
 msgstr "Datenschutzbestimmung"
 
@@ -74,30 +74,30 @@ msgstr ""
 msgid "Search"
 msgstr "Suchen"
 
-#: view/applications/manage/index.ajax.phtml:72
+#: view/applications/manage/index.ajax.phtml:69
 #, fuzzy
 msgid "education"
 msgstr "Ausbildung"
 
+#: view/applications/manage/index.ajax.phtml:69
 #: view/applications/manage/index.ajax.phtml:72
-#: view/applications/manage/index.ajax.phtml:75
 msgid "years"
 msgstr "Jahre"
 
-#: view/applications/manage/index.ajax.phtml:75
+#: view/applications/manage/index.ajax.phtml:72
 #: view/applications/manage/detail.phtml:181
 msgid "work experience"
 msgstr "Berufserfahrung"
 
-#: view/applications/manage/index.ajax.phtml:86
+#: view/applications/manage/index.ajax.phtml:83
 msgid "no attachments"
 msgstr "keine Anhänge"
 
-#: view/applications/manage/index.ajax.phtml:100
+#: view/applications/manage/index.ajax.phtml:97
 msgid "view"
 msgstr "ansehen"
 
-#: view/applications/manage/index.ajax.phtml:102
+#: view/applications/manage/index.ajax.phtml:99
 msgid "delete"
 msgstr "löschen"
 
@@ -235,36 +235,28 @@ msgstr "Muttersprache"
 msgid "Attachments"
 msgstr "Anhänge"
 
-#: view/partial/pagination-control.phtml:16
-#: view/partial/pagination-control.phtml:19
+#: view/partial/pagination-control.phtml:11
+#: view/partial/pagination-control.phtml:14
 msgid "First"
 msgstr "Anfang"
 
-#: view/partial/pagination-control.phtml:24
-#: view/partial/pagination-control.phtml:27
+#: view/partial/pagination-control.phtml:19
+#: view/partial/pagination-control.phtml:22
 msgid "&lt; Previous"
 msgstr "&lt; Vor"
 
-#: view/partial/pagination-control.phtml:32
+#: view/partial/pagination-control.phtml:27
 msgid "Next &gt;"
 msgstr "Weiter &gt;"
 
-#: view/partial/pagination-control.phtml:40
-#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:35
+#: view/partial/pagination-control.phtml:38
 msgid "Last"
 msgstr "Ende"
 
-#: view/sidebar/manage.phtml:11
-msgid "List filter"
-msgstr "Listenfilter"
-
-#: view/sidebar/manage.phtml:15
-msgid "My applications"
-msgstr "Meine Bewerbungen"
-
-#: view/sidebar/manage.phtml:15
-msgid "Applications by jobs"
-msgstr "Bewerbungen nach Stellenanzeigen"
+#: view/sidebar/manage.phtml:4
+msgid "new applications"
+msgstr "Neue Bewerbungen"
 
 #: src/Applications/Form/PrivacyFieldset.php:25
 msgid "Privacy Policies"
@@ -288,7 +280,7 @@ msgstr "Bewerbungsformular"
 msgid "Attachment"
 msgstr "Anhang"
 
-#: src/Applications/Controller/ManageController.php:207
+#: src/Applications/Controller/ManageController.php:214
 #, php-format
 msgid "Your application dated %s"
 msgstr "Ihre Bewerbung vom %s"
@@ -420,6 +412,24 @@ msgstr "Stellenanzeige"
 #: language/_annotated_strings.php:6
 msgid "Career"
 msgstr "Karriere"
+
+#: language/additional_translation.phtml:3
+msgid "invited"
+msgstr "eingeladen"
+
+#: language/additional_translation.phtml:4
+msgid "incoming"
+msgstr "neu eingegangen"
+
+#: language/additional_translation.phtml:5
+msgid "rejected"
+msgstr "abgesagt"
+
+#~ msgid "List filter"
+#~ msgstr "Listenfilter"
+
+#~ msgid "Applications by jobs"
+#~ msgstr "Bewerbungen nach Stellenanzeigen"
 
 #~ msgid "send Invitation"
 #~ msgstr "Einladung senden"

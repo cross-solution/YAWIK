@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-03 11:43+0100\n"
+"POT-Creation-Date: 2014-01-10 11:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "your application was sent successfully"
 msgstr ""
 
-#: view/applications/index/disclaimer.phtml:5
+#: view/applications/index/disclaimer.phtml:14
 msgid "Privacy Policy"
 msgstr ""
 
@@ -77,29 +77,29 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:72
+#: view/applications/manage/index.ajax.phtml:69
 msgid "education"
 msgstr ""
 
+#: view/applications/manage/index.ajax.phtml:69
 #: view/applications/manage/index.ajax.phtml:72
-#: view/applications/manage/index.ajax.phtml:75
 msgid "years"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:75
+#: view/applications/manage/index.ajax.phtml:72
 #: view/applications/manage/detail.phtml:181
 msgid "work experience"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:86
+#: view/applications/manage/index.ajax.phtml:83
 msgid "no attachments"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:100
+#: view/applications/manage/index.ajax.phtml:97
 msgid "view"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:102
+#: view/applications/manage/index.ajax.phtml:99
 msgid "delete"
 msgstr ""
 
@@ -238,35 +238,27 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:16
-#: view/partial/pagination-control.phtml:19
+#: view/partial/pagination-control.phtml:11
+#: view/partial/pagination-control.phtml:14
 msgid "First"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:24
-#: view/partial/pagination-control.phtml:27
+#: view/partial/pagination-control.phtml:19
+#: view/partial/pagination-control.phtml:22
 msgid "&lt; Previous"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:32
+#: view/partial/pagination-control.phtml:27
 msgid "Next &gt;"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:40
-#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:35
+#: view/partial/pagination-control.phtml:38
 msgid "Last"
 msgstr ""
 
-#: view/sidebar/manage.phtml:11
-msgid "List filter"
-msgstr ""
-
-#: view/sidebar/manage.phtml:15
-msgid "My applications"
-msgstr ""
-
-#: view/sidebar/manage.phtml:15
-msgid "Applications by jobs"
+#: view/sidebar/manage.phtml:4
+msgid "new applications"
 msgstr ""
 
 #: src/Applications/Form/PrivacyFieldset.php:25
@@ -291,7 +283,7 @@ msgstr ""
 msgid "Attachment"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:207
+#: src/Applications/Controller/ManageController.php:214
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
@@ -426,4 +418,16 @@ msgstr ""
 
 #: language/_annotated_strings.php:6
 msgid "Career"
+msgstr ""
+
+#: language/additional_translation.phtml:3
+msgid "invited"
+msgstr ""
+
+#: language/additional_translation.phtml:4
+msgid "incoming"
+msgstr ""
+
+#: language/additional_translation.phtml:5
+msgid "rejected"
 msgstr ""
