@@ -164,6 +164,18 @@
 <div class="col-md-3"><?= $this->translate('name')?>:</div>
 <div class="col-md-3"><?=  $this->application->contact->firstName.' '.$this->application->contact->lastName ?></div>
 </div>
+<?php if (isset($this->application->contact->street)): ?>
+<div class="row"> 
+<div class="col-md-3"><?php echo $this->translate('Street')?>:</div>
+<div class="col-md-3"><?php echo $this->application->contact->street .' '.$this->application->contact->housenumber?></div>
+</div>
+<?php endif; ?>
+<?php if (isset($this->application->contact->city)): ?>
+<div class="row">
+<div class="col-md-3"><?php echo $this->translate('City')?>:</div>
+<div class="col-md-3"><?php echo $this->application->contact->postalcode.' '.$this->application->contact->city ?></div>
+</div>
+<?php endif; ?>
 <div class="row">
 <div class="col-md-3"><?= $this->translate('E-Mail')?>:</div>
 <div class="col-md-3"><?=  $this->application->contact->email ?></div>
@@ -183,9 +195,7 @@
 <h2><?=$this->translate('Summary')?></h2>
 <div class="row">
 <div class="col-md-12">
-<pre>
-<?php echo $this->application->summary ?>
-</pre>
+<?php echo nl2br($this->application->summary) ?>
 </div>
 </div>
 
