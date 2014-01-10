@@ -96,6 +96,8 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
             // create bookmark list in Acrobat Reader
             $pdf->h2bookmarks = array('H1'=>0, 'H2'=>1, 'H3'=>2);
             
+            
+            
             $pdf->WriteHTML($result);
             $result = $pdf->Output();
         } catch (Exception $e) {

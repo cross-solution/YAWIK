@@ -11,64 +11,107 @@ use Applications\Entity\StatusInterface as Status;
       
 $this->headTitle($this->translate('Details'));
 ?>
+<style>
+body {
+	font-family: Arial;
+}
+.header {
+	text-align: right; 
+	border-bottom: 1px solid #000000; 
+	font-size: 10pt;
+}
+.footer {
+	vertical-align: bottom; 
+	font-size: 8pt;
+    color: #000000; 
+}
+.address,
+.personal-information {
+	vertical-align: top;
+	width: 100%;
+	border-spacing: 0px;
+}
+table.list {
+	width: 100%;
+	border: 1px solid #e4e4e4;
+	border-spacing: 0px;
+}
+table.list tr td {
+	vertical-align: top;
+	border-bottom: 1px solid #f4f4f4;
+	padding: 3px;
+}
+th {
+	background-color: #f4f4f4;
+}
+</style>
 <sethtmlpageheader name="header" value="on" show-this-page="1"/>
 <htmlpageheader name="header">
-<div style="text-align: right; border-bottom: 1px solid #000000; font-weight: bold; font-size: 10pt;">My document</div>
+<div class="header">Bewerbung vom: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
 </htmlpageheader>
+<htmlpagefooter name="footer">
+<table width="100%" class="footer"><tr>
+    <td width="33%">{DATE d.m.Y}</td>
+    <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+    <td width="33%" style="text-align: right; ">Bewerbung</td>
+    </tr></table>
+</htmlpagefooter>
+<sethtmlpagefooter name="footer" value="on"/>
 
+<h1><?php echo $this->translate('application details') ?></h1>
 
-<h1><?= $this->translate('application details') ?></h1>
-
-<div id="forward-email-result" class="hide alert"></div>
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('date of receipt')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
-</div>
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('last modification date')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
-</div>
-
-<h2><?= $this->translate('personal information')?></h2>
-<div class="row">
-<div class="col-md-9">
-<div class="row">
-<div class="col-md-3"><?= $this->translate('name')?>:</div>
-<div class="col-md-3"><?=  $this->application->contact->firstName.' '.$this->application->contact->lastName ?></div>
-</div>
-<div class="row">
-<div class="col-md-3"><?= $this->translate('E-Mail')?>:</div>
-<div class="col-md-3"><?=  $this->application->contact->email ?></div>
-</div>
-<div class="row">
-<div class="col-md-3"><?= $this->translate('Phone')?>:</div>
-<div class="col-md-3"><?=  $this->application->contact->phone ?></div>
-</div>
-</div>
-<div class="col-md-3">
+<h2><?php echo $this->translate('personal information')?></h2>
+<table class="personal-information" width="100%">
+ <tr>
+  <td>
+   <table class="address">
+    <tr>
+     <td><?php echo $this->translate('name')?>:</td>
+     <td><?php echo $this->application->contact->firstName.' '.$this->application->contact->lastName ?></td>
+    </tr>
+    <?php if (isset($this->application->contact->street)): ?>
+    <tr>
+     <td><?php echo $this->translate('Street')?>:</td>
+     <td><?php echo $this->application->contact->street .' '.$this->application->contact->housenumber?></td>
+    </tr>
+    <?php endif; ?>
+    <?php if (isset($this->application->contact->city)): ?>
+    <tr>
+     <td><?php echo $this->translate('City')?>:</td>
+     <td><?php echo $this->application->contact->postalcode.' '.$this->application->contact->city ?></td>
+    </tr>
+    <?php endif; ?>
+    <tr>
+     <td><?php echo $this->translate('E-Mail')?>:</td>
+     <td><?php echo $this->application->contact->email ?></td>
+    </tr>
+    <tr>
+     <td><?= $this->translate('Phone')?>:</td>
+     <td><?=  $this->application->contact->phone ?></td>
+    </tr>
+   </table>
+  </td>
+  <td align="right">
     <img src="/tmp/ich.jpg" />
-
     <?php if ($this->application->contact->image):?>
-   <!-- <img src="<?php echo $this->url('file', array('filestore' => 'applications', 'fileId' => $this->application->contact->image->id)) ?>" class="img-thumbnail" />-->
+    <!-- <img src="<?php echo $this->url('file', array('filestore' => 'applications', 'fileId' => $this->application->contact->image->id)) ?>" class="img-thumbnail" />-->
     <?endif?>
-</div>
+  </td>
+ </tr>
+</table>
 </div>
 
 <h2><?=$this->translate('Summary')?></h2>
 <div class="row">
-<div class="col-md-12">
-<pre>
-<?php echo $this->application->summary ?>
-</pre>
-</div>
+<?php echo nl2br($this->application->summary) ?>
 </div>
 
 <?php if(count($this->application->cv->employments)>0):?>
 <h2><?= $this->translate('work experience')?></h2>
-<table class="table  table-condensed table-bordered "> 
+<table class="list"> 
 <tr>
- <th class="col-md-1"><?=$this->translate('Start')?></th>
- <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th align="left"><?=$this->translate('Start')?></th>
+ <th align="left"><?=$this->translate('End')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->employments as $employment): ?>
@@ -83,10 +126,10 @@ $this->headTitle($this->translate('Details'));
 
 <?php if(count($this->application->cv->educations)>0):?>
 <h2><?= $this->translate('education and training')?></h2>
-<table class="table table-condensed table-bordered "> 
+<table class="list"> 
 <tr>
- <th class="col-md-1"><?=$this->translate('Start')?></th>
- <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th align="left"><?=$this->translate('Start')?></th>
+ <th align="left"><?=$this->translate('End')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
@@ -108,7 +151,6 @@ $this->headTitle($this->translate('Details'));
 <?php endif;?>
 
 <?php if(count($this->application->attachments)>0):?>
-<bookmark content="<?= $this->translate('Attachments')?>" />
 <h2><?= $this->translate('Attachments')?></h2>
 <?php foreach( $this->application->attachments as $attachment): ?>
 <div class="row show-grid">
@@ -123,13 +165,4 @@ $this->headTitle($this->translate('Details'));
 </div>
 <?php endforeach; // skills?>
 <?php endif;?>
-<htmlpagefooter name="footer">
-<table width="100%" style="vertical-align: bottom; font-family: serif; font-size: 8pt;
-    color: #000000; font-weight: bold; font-style: italic;"><tr>
-    <td width="33%"><span style="font-weight: bold; font-style: italic;">{DATE j-m-Y}</span></td>
-    <td width="33%" align="center" style="font-weight: bold; font-style: italic;">{PAGENO}/{nbpg}</td>
-    <td width="33%" style="text-align: right; ">My document</td>
-    </tr></table>
-</htmlpagefooter>
-<sethtmlpagefooter name="footer" value="on"/>
 
