@@ -134,7 +134,8 @@ class ManageController extends AbstractActionController
                 $return = $viewModel;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
-                 break;
+                
+                break;
             default:
                 break;
         }
