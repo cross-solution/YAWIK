@@ -92,6 +92,10 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
         //error_reporting(0);
         try {
             $pdf = new \mPDF();
+            
+            // create bookmark list in Acrobat Reader
+            $pdf->h2bookmarks = array('H1'=>0, 'H2'=>1, 'H3'=>2);
+            
             $pdf->WriteHTML($result);
             $result = $pdf->Output();
         } catch (Exception $e) {

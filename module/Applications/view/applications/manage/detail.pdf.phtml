@@ -1,1 +1,135 @@
-Hello World
+<?php 
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+use Applications\Entity\StatusInterface as Status;
+      
+$this->headTitle($this->translate('Details'));
+?>
+<sethtmlpageheader name="header" value="on" show-this-page="1"/>
+<htmlpageheader name="header">
+<div style="text-align: right; border-bottom: 1px solid #000000; font-weight: bold; font-size: 10pt;">My document</div>
+</htmlpageheader>
+
+
+<h1><?= $this->translate('application details') ?></h1>
+
+<div id="forward-email-result" class="hide alert"></div>
+<div class="row">
+    <div class="col-md-3"><?= $this->translate('date of receipt')?>:</div>
+    <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
+</div>
+<div class="row">
+    <div class="col-md-3"><?= $this->translate('last modification date')?>:</div>
+    <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
+</div>
+
+<h2><?= $this->translate('personal information')?></h2>
+<div class="row">
+<div class="col-md-9">
+<div class="row">
+<div class="col-md-3"><?= $this->translate('name')?>:</div>
+<div class="col-md-3"><?=  $this->application->contact->firstName.' '.$this->application->contact->lastName ?></div>
+</div>
+<div class="row">
+<div class="col-md-3"><?= $this->translate('E-Mail')?>:</div>
+<div class="col-md-3"><?=  $this->application->contact->email ?></div>
+</div>
+<div class="row">
+<div class="col-md-3"><?= $this->translate('Phone')?>:</div>
+<div class="col-md-3"><?=  $this->application->contact->phone ?></div>
+</div>
+</div>
+<div class="col-md-3">
+    <img src="/tmp/ich.jpg" />
+
+    <?php if ($this->application->contact->image):?>
+   <!-- <img src="<?php echo $this->url('file', array('filestore' => 'applications', 'fileId' => $this->application->contact->image->id)) ?>" class="img-thumbnail" />-->
+    <?endif?>
+</div>
+</div>
+
+<h2><?=$this->translate('Summary')?></h2>
+<div class="row">
+<div class="col-md-12">
+<pre>
+<?php echo $this->application->summary ?>
+</pre>
+</div>
+</div>
+
+<?php if(count($this->application->cv->employments)>0):?>
+<h2><?= $this->translate('work experience')?></h2>
+<table class="table  table-condensed table-bordered "> 
+<tr>
+ <th class="col-md-1"><?=$this->translate('Start')?></th>
+ <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th><?=$this->translate('Description')?></th>
+</tr>
+<?php foreach( $this->application->cv->employments as $employment): ?>
+<tr>
+ <td><?= $employment->startDate ?></td>
+ <td><?= $employment->endDate ?></td>
+ <td><?=  $employment->description ?></td>
+</tr>
+<?php endforeach; // employments?>
+</table>
+<?php endif;?> 
+
+<?php if(count($this->application->cv->educations)>0):?>
+<h2><?= $this->translate('education and training')?></h2>
+<table class="table table-condensed table-bordered "> 
+<tr>
+ <th class="col-md-1"><?=$this->translate('Start')?></th>
+ <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th><?=$this->translate('Description')?></th>
+</tr>
+<?php foreach( $this->application->cv->educations as $education): ?>
+  <tr>
+   <td><?php echo $education->startDate ?></td>
+   <td><?php echo $education->endDate ?></td>
+   <td><?php echo $education->description ?></td>
+  </tr>
+<?php endforeach; // eucations?>    
+</table>
+<?php endif;?> 
+
+<?php if(count($this->application->cv->skills)>0):?>
+<h2><?= $this->translate('personal skills')?></h2>
+<?php foreach( $this->application->cv->skills as $kill): ?>
+  <div class="col-md-3"><?=$this->translate('native language')?></div> 
+  <div class="col-md-3">TODO</div>
+<?php endforeach; // skills?>
+<?php endif;?>
+
+<?php if(count($this->application->attachments)>0):?>
+<bookmark content="<?= $this->translate('Attachments')?>" />
+<h2><?= $this->translate('Attachments')?></h2>
+<?php foreach( $this->application->attachments as $attachment): ?>
+<div class="row show-grid">
+  <div class="col-md-3">
+    <a href="<?php echo $this->url('file', array(
+        'filestore' => 'applications', 
+        'fileId' => $attachment->id,
+        'fileName' => $attachment->name
+    ))?>"><?php echo $attachment->name ?></a></div>
+    <div class="col-md-3"><?php echo $attachment->type?></div>
+    <div class="col-md-3"><?php echo $attachment->prettySize ?></div>
+</div>
+<?php endforeach; // skills?>
+<?php endif;?>
+<htmlpagefooter name="footer">
+<table width="100%" style="vertical-align: bottom; font-family: serif; font-size: 8pt;
+    color: #000000; font-weight: bold; font-style: italic;"><tr>
+    <td width="33%"><span style="font-weight: bold; font-style: italic;">{DATE j-m-Y}</span></td>
+    <td width="33%" align="center" style="font-weight: bold; font-style: italic;">{PAGENO}/{nbpg}</td>
+    <td width="33%" style="text-align: right; ">My document</td>
+    </tr></table>
+</htmlpagefooter>
+<sethtmlpagefooter name="footer" value="on"/>
+
