@@ -21,7 +21,6 @@ log
 # Composer packages
 #
 vendor
-composer.lock
  
 #
 # Eclipse project files
