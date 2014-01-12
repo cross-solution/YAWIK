@@ -1,25 +1,45 @@
-
-<h2><?php echo 'recent' == $this->type ? $this->translate('Current Jobs'): $this->translate('Famous jobs')?></h2>
-
-<div class="scrollbox">
-<h3><?php echo $this->translate('My jobs');?>:</h3>
-<table class="table table-striped table-bordered table-hover">
-<?php foreach ($this->myJobs as $job):?>
-<tr>
-    <td><a style="display: block" href="<?php echo $job->link ?>"><?php echo $job->title ?></a></td>
-    <td><?php echo $this->dateFormat($job->datePublishStart, 'short', 'none')?></td>
-</tr>
-<?php endforeach ?>
-</table>
-
-<h3><?php echo $this->translate('All jobs')?>:</h3>
-<table class="table table-striped table-bordered table-hover">
-<?php foreach ($this->allJobs as $job):?>
-<tr>
-    <td><a style="display: block" href="<?php echo $job->link ?>"><?php echo $job->title ?></a></td>
-    <td><?php echo $this->dateFormat($job->datePublishStart, 'short', 'none')?></td>
-</tr>
-<?php endforeach ?>
-</table>
-
+<div class="cam-panel">
+  <div class="cam-panel-head">
+    <h2><?php echo 'recent' == $this->type ? $this->translate('Current Jobs'): $this->translate('Famous jobs')?></h2>
+  </div>
+  <div class="cam-panel-body">
+    <table class="cam-table">
+     <thead>
+       <tr>
+         <th><?php echo $this->translate('Job');?></th>
+         <th><?php echo $this->translate('Date');?></th>
+         <?php if ($this->acl()->isRole('recruiter')):?>
+           <th><?php echo $this->translate('Applications');?></th>
+         <?php endif;?>
+       </tr>
+     </thead>
+     <tbody>
+     <?php foreach ($jobs as $job):?>
+     <tr>
+       <td><a href="<?php echo $job->link ?>"><?php echo $job->title ?></a></td>
+       <td><?php echo $this->dateFormat($job->datePublishStart, 'short', 'none')?></td>
+       <?php if ($this->acl()->isRole('recruiter')):?>
+       <td>     
+         <?php if ($job->applications->count()>0):?>
+            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>">
+            <span class="badge"><?php echo $job->applications->count() ;?></span>
+            </a>
+         <?php endif;?>
+         <?php if ($job->applications->countUnreadBy($this->auth('id'))):?>       
+            / 
+            <a title="<?php echo $this->translate("unread")?>" 
+               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId . '&by=new'), true) ?>">
+            <span class="badge"> <?php echo $job->applications->countUnreadBy($this->auth('id'))?></span>
+            </a>
+         <?php endif;?>
+       </td>
+       <?php endif;?>
+     </tr>
+     <?php endforeach ?>
+     </tbody>
+   </table>
+  </div>
+  <div class="cam-panel-foot">
+  <?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobs'));?>
+  </div> 
 </div>

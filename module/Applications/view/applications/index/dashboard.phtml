@@ -15,24 +15,34 @@ endif;
 $appRepo = $this->services('repositories.application');
 ?>
 
+<div class="cam-panel">
+<div class="cam-panel-head">
 <h2>
- <a style="display: block; text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>">
+ <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>">
   <?php echo $this->translate('Current Applications')?>
  </a>
-</h2>
-
-<div class="scrollbox">
-<?php if ($hasJobs): ?>
-<div class="alert alert-info">
-<?php $countTmpl = '<span style="font-size:16px; font-weight:bold;">%s</span>';
+ <small>
+ <?php if ($hasJobs): ?>
+ <?php $countTmpl = '<span style="font-size:16px; font-weight:bold;">%s</span>';
       $newCount = $appRepo->countBy($this->auth('id'), /* unread */ true);
       $totalCount = $appRepo->countBy($this->auth('id'));
       echo sprintf($this->translate('%1$s new from %2$s total applications'),
-                   sprintf($countTmpl, $newCount), sprintf($countTmpl, $totalCount))?>
+                   sprintf('<span class="badge">'.$countTmpl.'</span>', $newCount), 
+                   sprintf('<span class="badge">'.$countTmpl.'</span>', $totalCount))?>
+ <?php endif ?>
+ </small>
+</h2>
 </div>
-<?php endif ?>
+<div class="cam-panel-body">
 
-<table class="table table-striped table-bordered table-hover">
+<table class="cam-table" id="cam-application-list">
+<thead>
+ <tr>
+  <th><?php echo $this->translate('Applicant')?></th>
+  <th><?php echo $this->translate('Job')?></th>
+  <th><?php echo $this->translate('Date')?></th>
+ </tr>
+</thead>
 <?php 
     $paginator = new \Zend\Paginator\Paginator(
         $appRepo->getPaginatorAdapter($linkQuery)
@@ -40,10 +50,29 @@ $appRepo = $this->services('repositories.application');
     $paginator->setCurrentPageNumber(1)->setItemCountPerPage(5);
     foreach ($paginator as $app):?>
     <tr>
-        <td><a href="<?php echo $this->url('lang/applications/detail', array('id' => $app->id), true)?>"><?php echo $app->contact->displayName ?></a></td>
-        <td><a style="display:block; width:100px; height:15px; overflow: hidden" href="<?php echo $app->job->link ?>"><?php echo $app->job->title?></a></td>
-        <td><?php echo $this->dateFormat($app->dateCreated, 'short', 'none') ?></td>
+      <td>
+        <div class="portrait">
+          <?php if ($app->contact->image):?>
+            <img src="/file/applications/<?php echo $appl->contact->image->id ?>" />
+          <?php else:?>
+            <span class="cam-icon-portrait"></span>
+          <?php endif?>
+        </div>
+        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $app->id), true)?>">
+          <?php echo $this->translate($this->salutation($app->contact->gender))?>
+          <?php echo $app->contact->displayName?><br>
+          <?php echo $app->contact->city?>      
+        </a>
+      </td>
+      <td><a href="<?php echo $app->job->link ?>"><?php echo $app->job->title?></a></td>
+      <td><?php echo $this->dateFormat($app->dateCreated, 'short', 'none') ?></td>
     </tr>
 <?php endforeach ?>
 </table>
+</div>
+<div class="cam-panel-foot">
+<?php
+echo $this->paginationControl($paginator, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
+?>
+</div>
 </div>

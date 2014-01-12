@@ -98,14 +98,24 @@ class IndexController extends AbstractActionController
      public function dashboardAction()
      {
          $services = $this->getServiceLocator();
-         $myJobs = $services->get('repositories')->get('Job')->fetchRecent($this->auth('id'));
-         $allJobs = $services->get('repositories')->get('Job')->fetchRecent();
+         $params = $this->getRequest()->getQuery();
+         $isRecruiter = $this->acl()->isRole('recruiter');
+         if ($isRecruiter) {
+             $params->set('by', 'me');
+         }
+         $myJobs = $services->get('repositories')->get('Job');
+         
+         $paginator = new \Zend\Paginator\Paginator(
+                 $myJobs->getPaginatorAdapter($params->toArray())
+         );
+         $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
+         ->setItemCountPerPage($params->get('count', 10));
          
          return array(
              'script' => 'jobs/index/dashboard',
              'type' => $this->params('type'),
              'myJobs' => $myJobs,
-             'allJobs' => $allJobs,
+             'jobs' => $paginator
          );
      }
     

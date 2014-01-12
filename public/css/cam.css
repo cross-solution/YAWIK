@@ -6300,6 +6300,7 @@ fieldset[disabled] .cam-btn-reset.active {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   max-width: 50px;
+  margin-bottom: 0px;
 }
 #cam-application-list .portrait > img,
 #cam-application-list .portrait a > img {
@@ -6415,11 +6416,23 @@ td.cam-job {
   max-width: 130px;
   overflow: hidden;
 }
-/**
+/*
 * new 
-**/
+*/
 .cam-new * {
   font-weight: bold;
+}
+/*
+* State Colors 
+*/
+.cam-color-incoming {
+  color: #5bc0de;
+}
+.cam-color-invited {
+  color: #f0ad4e;
+}
+.cam-color-rejected {
+  color: #d9534f;
 }
 /**
 * Icons
@@ -6567,20 +6580,187 @@ td.cam-job {
 .cam-icon-download:before {
   content: "\e166";
 }
+.cam-icon-pagination-start {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-pagination-start:empty {
+  width: 1em;
+}
+.cam-icon-pagination-start:before {
+  content: "\e069";
+}
+.cam-icon-pagination-end {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-pagination-end:empty {
+  width: 1em;
+}
+.cam-icon-pagination-end:before {
+  content: "\e077";
+}
 .cam-icon {
   font-size: 12px;
 }
-/*
-* State Colors 
-*/
-.cam-color-incoming {
-  color: #5bc0de;
+/**
+ * dashboard panels
+ */
+.cam-panel {
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  border-color: #dddddd;
 }
-.cam-color-invited {
-  color: #f0ad4e;
+.cam-panel > .list-group {
+  margin-bottom: 0;
 }
-.cam-color-rejected {
-  color: #d9534f;
+.cam-panel > .list-group .list-group-item {
+  border-width: 1px 0;
+}
+.cam-panel > .list-group .list-group-item:first-child {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+.cam-panel > .list-group .list-group-item:last-child {
+  border-bottom: 0;
+}
+.cam-panel > .table,
+.cam-panel > .table-responsive > .table {
+  margin-bottom: 0;
+}
+.cam-panel > .panel-body + .table,
+.cam-panel > .panel-body + .table-responsive {
+  border-top: 1px solid #dddddd;
+}
+.cam-panel > .table > tbody:first-child th,
+.cam-panel > .table > tbody:first-child td {
+  border-top: 0;
+}
+.cam-panel > .table-bordered,
+.cam-panel > .table-responsive > .table-bordered {
+  border: 0;
+}
+.cam-panel > .table-bordered > thead > tr > th:first-child,
+.cam-panel > .table-responsive > .table-bordered > thead > tr > th:first-child,
+.cam-panel > .table-bordered > tbody > tr > th:first-child,
+.cam-panel > .table-responsive > .table-bordered > tbody > tr > th:first-child,
+.cam-panel > .table-bordered > tfoot > tr > th:first-child,
+.cam-panel > .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+.cam-panel > .table-bordered > thead > tr > td:first-child,
+.cam-panel > .table-responsive > .table-bordered > thead > tr > td:first-child,
+.cam-panel > .table-bordered > tbody > tr > td:first-child,
+.cam-panel > .table-responsive > .table-bordered > tbody > tr > td:first-child,
+.cam-panel > .table-bordered > tfoot > tr > td:first-child,
+.cam-panel > .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+  border-left: 0;
+}
+.cam-panel > .table-bordered > thead > tr > th:last-child,
+.cam-panel > .table-responsive > .table-bordered > thead > tr > th:last-child,
+.cam-panel > .table-bordered > tbody > tr > th:last-child,
+.cam-panel > .table-responsive > .table-bordered > tbody > tr > th:last-child,
+.cam-panel > .table-bordered > tfoot > tr > th:last-child,
+.cam-panel > .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+.cam-panel > .table-bordered > thead > tr > td:last-child,
+.cam-panel > .table-responsive > .table-bordered > thead > tr > td:last-child,
+.cam-panel > .table-bordered > tbody > tr > td:last-child,
+.cam-panel > .table-responsive > .table-bordered > tbody > tr > td:last-child,
+.cam-panel > .table-bordered > tfoot > tr > td:last-child,
+.cam-panel > .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+  border-right: 0;
+}
+.cam-panel > .table-bordered > thead > tr:last-child > th,
+.cam-panel > .table-responsive > .table-bordered > thead > tr:last-child > th,
+.cam-panel > .table-bordered > tbody > tr:last-child > th,
+.cam-panel > .table-responsive > .table-bordered > tbody > tr:last-child > th,
+.cam-panel > .table-bordered > tfoot > tr:last-child > th,
+.cam-panel > .table-responsive > .table-bordered > tfoot > tr:last-child > th,
+.cam-panel > .table-bordered > thead > tr:last-child > td,
+.cam-panel > .table-responsive > .table-bordered > thead > tr:last-child > td,
+.cam-panel > .table-bordered > tbody > tr:last-child > td,
+.cam-panel > .table-responsive > .table-bordered > tbody > tr:last-child > td,
+.cam-panel > .table-bordered > tfoot > tr:last-child > td,
+.cam-panel > .table-responsive > .table-bordered > tfoot > tr:last-child > td {
+  border-bottom: 0;
+}
+.cam-panel > .table-responsive {
+  border: 0;
+  margin-bottom: 0;
+}
+.cam-panel > .panel-heading {
+  color: #333333;
+  background-color: #f5f5f5;
+  border-color: #dddddd;
+}
+.cam-panel > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #dddddd;
+}
+.cam-panel > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #dddddd;
+}
+.cam-panel-head {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  padding: 0 15px;
+}
+.cam-panel-head > .dropdown .dropdown-toggle {
+  color: inherit;
+}
+.cam-panel-head h2 {
+  margin-bottom: 6px;
+  margin-top: 8px;
+}
+.cam-panel-body {
+  padding: 15px;
+  padding: 0px;
+}
+.cam-panel-body:before,
+.cam-panel-body:after {
+  content: " ";
+  display: table;
+}
+.cam-panel-body:after {
+  clear: both;
+}
+.cam-panel-body:before,
+.cam-panel-body:after {
+  content: " ";
+  display: table;
+}
+.cam-panel-body:after {
+  clear: both;
+}
+.cam-panel-body table {
+  margin-bottom: 0px;
+}
+.cam-panel-foot {
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #dddddd;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 9px 10px 0;
 }
 body {
   padding: 50px 0 25px;
