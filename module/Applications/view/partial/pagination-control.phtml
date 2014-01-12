@@ -1,5 +1,13 @@
+<?php 
+/**
+ * Cross Applicant Management
+*
+* @filesource
+* @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+* @license   AGPLv3
+*/
 
-<?php if ($this->pageCount): 
+if ($this->pageCount): 
 $query = $this->params()->fromQuery();
 ?>
 <div class="row" id="cam-pagination">
@@ -7,11 +15,11 @@ $query = $this->params()->fromQuery();
 <!-- First page link -->
 <ul class="pagination">
 <?php if (isset($this->previous)): ?>
-  <li><a href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <?= $this->translate('First')?>
+  <li><a title="<?= $this->translate('First')?>" href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+    <i class="cam-icon-pagination-start"></i>
   </a></li>
 <?php else: ?>
-  <li class="disabled"><a><?= $this->translate('First');?></a></li>
+  <li class="disabled"><a title="<?php echo $this->translate('First');?>"><i class="cam-icon-pagination-start"></i></a></li>
 <?php endif; ?>
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
@@ -31,11 +39,11 @@ $query = $this->params()->fromQuery();
 <?php endif; ?>
 <!-- Last page link -->
 <?php if (isset($this->next)): $query['page'] = $this->last; ?>
-  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <?= $this->translate('Last')?>
+  <li><a title="<?= $this->translate('Last')?>" href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+    <i class="cam-icon-pagination-end"></i>
   </a></li>
 <?php else: ?>
-  <li class="disabled"><a><?= $this->translate('Last')?></a></li>
+  <li class="disabled"><a title="<?= $this->translate('Last')?>"><i class="cam-icon-pagination-end"></i></a></li>
 <?php endif; ?>
 </ul>
 </div>
