@@ -197,6 +197,7 @@ return array(
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
             'link'   => 'Core\View\Helper\Link',
+            'base64' => 'Core\View\Helper\Base64',
             
         ),
         'factories' => array(
