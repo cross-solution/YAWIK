@@ -42,16 +42,5 @@ class InfoBuilder extends RelationAwareBuilder implements MapperAwareInterface
         return $this->hydrator;
     }
     
-    public function build($data = array())
-    {
-        $entity = parent::build($data);
-        if (!empty($data) && isset($data['imageId'])) {
-            $entity->injectImage(new RelationEntity(
-                array($this->mappers->get('Applications/Files'), 'find'),
-                array($data['imageId'])
-            ));
-        }
-        return $entity;
-    }
     
 }

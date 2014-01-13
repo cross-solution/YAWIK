@@ -8,6 +8,7 @@ use Core\Repository\Mapper\MapperAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Entity\RelationEntity;
 use Core\Entity\RelationCollection;
+use Core\Entity\EntityInterface;
 
 class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInterface, MapperAwareInterface
 {
@@ -69,6 +70,21 @@ class ApplicationBuilder extends AggregateBuilder implements RepositoryAwareInte
         $entity->injectAttachments($attachments);
         
         return $entity;
+    }
+    
+    public function unbuild(EntityInterface $entity)
+    {
+        $data = parent::unbuild($entity);
+        /* This is a hack to prevent the "image" property from beeing unset
+         * We need to rework the whole repository -> builder -> mapper -> hydrator thing :(
+         */
+        if (isset($data['contact'])) {
+            foreach ($data['contact'] as $prop => $val) {
+                $data["contact.$prop"] = $val;
+            }
+            unset($data['contact']);
+        }
+        return $data;
     }
     
 }
