@@ -197,7 +197,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
     public function getContent ()
     {
         if (!$this->content && is_callable($this->contentCallback)) {
-            $this->setContent(call_user_func($this->contentCallback));
+            $this->putContent(call_user_func($this->contentCallback));
         }
         return $this->content;
     }
@@ -219,6 +219,14 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
         $this->contentCallback = $callable;
         return $this;
     }
+    
+    public function getInline ()
+    {
+        $content = $this->getContent();
+        $filetype = $this->getType ();
+        return 'data:image/' . $filetype . ';base64,' . base64_encode ($content);
+    }
+    
     
     public function getResource()
     {

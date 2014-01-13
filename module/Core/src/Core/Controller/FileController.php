@@ -29,14 +29,16 @@ class FileController extends AbstractActionController
             $this->getEvent()->setParam('exception', $e);
             return;
         }
-        
-        $file       = $repository->find($this->params('fileId', 0));
+        $fileId = $this->params('fileId', 0);
+        if (preg_match('/^(.*)\..*$/', $fileId, $baseFileName)) {
+            $fileId = $baseFileName[1];
+        }
+        $file       = $repository->find($fileId);
                 
         if (!$file) {
             $response->setStatusCode(404);
             return;
         }
-        
         $this->acl($file);
         
         $response->getHeaders()->addHeaderline('Content-Type', $file->type)
