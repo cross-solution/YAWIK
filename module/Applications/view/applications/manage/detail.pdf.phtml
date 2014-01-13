@@ -60,8 +60,6 @@ th {
 
 <h1><?php echo $this->translate('application details') ?></h1>
 
-<h1><?= $this->translate('application details') ?></h1>
-
 <div id="forward-email-result" class="hide alert"></div>
 <div class="row">
     <div class="col-md-3"><?= $this->translate('date of receipt')?>:</div>
@@ -71,6 +69,7 @@ th {
     <div class="col-md-3"><?= $this->translate('last modification date')?>:</div>
     <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
 </div>
+
 
 <h2><?php echo $this->translate('personal information')?></h2>
 <table class="personal-information" width="100%">
@@ -117,7 +116,6 @@ th {
   </td>
  </tr>
 </table>
-</div>
 
 <h2><?=$this->translate('Summary')?></h2>
 <div class="row">
