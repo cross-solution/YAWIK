@@ -126,6 +126,16 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      */
     protected $reference;
     
+    /**
+     * temporary just for MiT
+     * move to Modul MiT
+     * 
+     * @var Boolean
+     * 
+     * @ODM\Boolean 
+     */
+    protected $camEnabled;
+    
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
         return $this;
@@ -254,4 +264,13 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         return $this;
     }
     
+    
+    public function getCamEnabled() {
+        return $this->camEnabled;
+    }
+
+    public function setCamEnabled($camEnabled) {
+        $this->camEnabled = $camEnabled;
+        return $this;
+    }
 }

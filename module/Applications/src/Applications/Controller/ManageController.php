@@ -158,6 +158,7 @@ class ManageController extends AbstractActionController
         $application   = $repository->find($applicationId);
         $jsonFormat    = 'json' == $this->params()->fromQuery('format');
         $status        = $this->params('status', Status::CONFIRMED);
+        $settings = $this->settings();
         
         if (in_array($status, array(Status::INCOMING))) {
             $application->changeStatus($status);
@@ -210,7 +211,6 @@ class ManageController extends AbstractActionController
         }
         
         $translator = $this->getServiceLocator()->get('translator');
-        $settings = $this->settings();
         switch ($status) {
             default:
             case Status::CONFIRMED: $key = 'mailConfirmationText'; break;

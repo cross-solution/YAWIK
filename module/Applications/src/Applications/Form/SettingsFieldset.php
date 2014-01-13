@@ -54,6 +54,11 @@ public function init()
         		'name' => 'mailRejectionText',
         		'options' => array('label' => /* @translate */ 'Rejection mail text',
                                            'description' => /* @translate */ 'default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.')));
+        
+          $this->add(array('type' => 'Zend\Form\Element\Checkbox',
+        		'name' => 'mailBCC',
+        		'options' => array('label' => /* @translate */ 'get blind carbon copy of all own mails',
+        		                   'description' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.')));
     }
         
 }

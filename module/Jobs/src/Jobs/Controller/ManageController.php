@@ -15,6 +15,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
+use Jobs\Entity\Job;
 
 /**
  * Main Action Controller for the application.
@@ -28,16 +29,23 @@ class ManageController extends AbstractActionController {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
-                'applyId' => 5678, 'company' => '5678_company', 'title' => '5678_title',
-                'link' => '5678_link', 'location' => '5678_location',
-                'datePublishStart' => '2013-11-11', 'contactEmail' => '5678_contactEmail@web.de',
-                 'status' => 'active', 'reference' => 'test_reference',
+                'applyId' => '179161',
+                'company' => 'Kraft von Wantoch GmbH Personalberatung',
+                'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch.de',
+                'title' => 'Fuhrparkleiter/-in',
+                'location' => 'Bundesland, Bayern, DE',
+                'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',
+                'datePublishStart' => '2013-11-15',
+                'status' => 'aktiv',
+                'reference' => '2130010128',
+                'camEnabled' => '1',
             ));
             $this->getRequest()->setPost($params);
         }
-        //$entity = $services->get('builders')->get('job')->getEntity();
         
         $services = $this->getServiceLocator();
+        $p = $this->params()->fromPost();
+        $services->get('Log')->info('Jobs/manage/saveJob ' . var_export($p, True));
         $user = $services->get('AuthenticationService')->getUser();
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user)) {
@@ -47,21 +55,29 @@ class ManageController extends AbstractActionController {
             if (empty($id)) {
                 $applyId = $this->params()->fromPost('applyId');
                 if (empty($applyId)) {
-                    // new Job
-                    $entity = $services->get('builders')->get('job')->getEntity();
+                    // new Job (propably this branch is never used since all Jobs should have an apply-Id)
+                    $entity = $services->get('repositories')->get('Jobs/Job')->create();
                 } else {
-                    $entity = $services->get('repositories')->get('job')->findByApplyId((string) $applyId);
+                    $entity = $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId" => (string) $applyId));
+                    if (!isset($entity)) {
+                        // new Job (the more likely branch)
+                        $entity = $services->get('repositories')->get('Jobs/Job')->create(array("applyId" => (string) $applyId));
+                    }
                 }
             } else {
-                $entity = $services->get('repositories')->get('job')->find($id);
+                $entity = $services->get('repositories')->get('Jobs/Job')->find($id);
             }
+            //$services->get('repositories')->get('Jobs/Job')->store($entity);
+            
             $form->bind($entity);
             if ($this->request->isPost()) {
-                $form->setData($this->getRequest()->getPost());
+                $params = $this->getRequest()->getPost();
+                $params->datePublishStart = \Datetime::createFromFormat("Y-m-d",$params->datePublishStart);
+                $form->setData($params);
                 $result['post'] = $_POST;
                 if ($form->isValid()) {
-                    $entity->setUserId($user->id);
-                    $services->get('repositories')->get('job')->save($entity);
+                    $entity->setUser($user);
+                    $services->get('repositories')->get('Jobs/Job')->store($entity);
                     $result['isSaved'] = true;
                 } else {
                     $result['valid Error'] = $form->getMessages();
@@ -70,6 +86,7 @@ class ManageController extends AbstractActionController {
         } else {
             $result['message'] = 'session_id is lost';
         }
+        $services->get('Log')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
         return new JsonModel($result);
     }
 

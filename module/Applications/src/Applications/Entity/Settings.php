@@ -147,8 +147,14 @@ class Settings extends ModuleSettingsContainer {
         $this->mailRejectionText = $mailRejectionText;
         return $this;
     }
-
     
+    public function getMailBCC() {
+        return $this->mailBCC;
+    }
     
+    public function setMailBCC($option) {
+        $this->mailBCC = $option;
+        return $this;
+    }
     
 }
