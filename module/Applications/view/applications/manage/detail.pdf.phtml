@@ -57,19 +57,7 @@ th {
     </tr></table>
 </htmlpagefooter>
 <sethtmlpagefooter name="footer" value="on"/>
-
 <h1><?php echo $this->translate('application details') ?></h1>
-
-<div id="forward-email-result" class="hide alert"></div>
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('date of receipt')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
-</div>
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('last modification date')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
-</div>
-
 <h2><?php echo $this->translate('personal information')?></h2>
 <table class="personal-information" width="100%">
  <tr>
@@ -167,14 +155,14 @@ th {
 
 <?php if(count($this->application->attachments)>0):?>
 <h2><?= $this->translate('Attachments')?></h2>
-<?php foreach( $this->application->attachments as $attachment): ?>
+<?php $html=""; foreach( $this->application->attachments as $attachment): ?>
 <div class="row show-grid">
   <div class="col-md-3">
     <?php  
         $repository = $this->getHelperPluginManager()->getServiceLocator()->get('repositories')->get('applications/Files');
         $file       = $repository->find($attachment->id);
         if ($file && 0 === strpos($file->getType(), 'image')) {
-            echo ('<img src="' . $file->inline . '" ><br />');
+            $html .= ('<img src="' . $file->inline . '"  width="100%"><br />');
         }
     ?>
     <a href="<?php echo $this->url('file', array(
@@ -186,5 +174,6 @@ th {
     <div class="col-md-3"><?php echo $attachment->prettySize ?></div>
 </div>
 <?php endforeach; // skills?>
+<?php echo $html?>
 <?php endif;?>
 

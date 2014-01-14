@@ -53,7 +53,7 @@ $appRepo = $this->services('repositories.application');
       <td>
         <div class="portrait">
           <?php if ($app->contact->image):?>
-            <img src="/file/applications/<?php echo $appl->contact->image->id ?>" />
+            <img src="/file/applications/<?php echo $app->contact->image->id ?>" />
           <?php else:?>
             <span class="cam-icon-portrait"></span>
           <?php endif?>
