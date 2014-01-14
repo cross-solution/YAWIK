@@ -36,13 +36,11 @@ class EntityRelationStrategy implements StrategyInterface
      */
     public function extract ($value)
     {
-        if (!$value instanceOf IdentifiableEntityInterface
-            || ($value instanceOf RelationEntity && !$value->isLoaded())
-        ) {
+        try {
+            return (string) $value->id;
+        } catch (\Exception $e) {
             return null;
         }
-        
-        return (string) $value->id;
     }
     
 }

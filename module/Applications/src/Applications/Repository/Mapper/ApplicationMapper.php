@@ -169,6 +169,18 @@ class ApplicationMapper extends CoreMapper implements ServiceLocatorAwareInterfa
         if (isset($data['cv']) && empty($data['cv']['_id'])) {
             $data['cv']['_id'] = new \MongoId();
         }
+        
+        if (isset($data['_id']) && !$forceInsert) {
+            /* This is a hack to prevent the "image" property from beeing unset
+            * We need to rework the whole repository -> builder -> mapper -> hydrator thing :(
+                 */
+            if (isset($data['contact'])) {
+                foreach ($data['contact'] as $prop => $val) {
+                    $data["contact.$prop"] = $val;
+                }
+                unset($data['contact']);
+            }
+        }
 //         if (isset($data['history']) && count($data['history'])) {
 //             $data['history'] = array_reverse($data['history']);
 //         }

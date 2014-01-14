@@ -33,16 +33,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterfa
         return 'Entity/File';
     }
 	
-    public function setUser(EntityInterface $user)
-    {
-        $this->user = $user;
-        return $this;
-    }
     
-    public function getUser()
-    {
-        return $this->user;
-    }
     
     public function getAllowedUserIds()
     {

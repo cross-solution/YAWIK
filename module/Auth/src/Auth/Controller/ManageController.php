@@ -34,6 +34,7 @@ class ManageController extends AbstractActionController
             //throw new \Exception('Test');
         }
         
+        $oldImageId = $user->info->image->id; 
         $form->bind($user);
              
         if ($this->request->isPost()) {
@@ -46,6 +47,12 @@ class ManageController extends AbstractActionController
             }
             $form->setData($data);
             if ($form->isValid()) {
+                $userImageData = $form->get('info')->get('image')->getValue();
+                if (UPLOAD_ERR_OK == $userImageData['error']) {
+                    $fileRepository = $services->get('repositories')->get('Users/Files');
+                    $fileRepository->delete($oldImageId);
+                }
+                
                 $services->get('repositories')->get('user')->save($user);
                 $vars = array(
                         'ok' => true,

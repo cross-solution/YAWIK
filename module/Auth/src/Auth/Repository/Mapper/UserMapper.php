@@ -102,6 +102,13 @@ class UserMapper extends CoreMapper
     {
         $builder = $this->builders->get('user');
         $data    = $builder->unbuild($entity);
+        /* just a hack to prevent user image from beeing lost, if not submitted. */
+        if (isset($data['info'])) {
+            foreach ($data['info'] as $key => $val) {
+                $data["info.$key"] = $val;
+            }
+            unset($data['info']);
+        }
         $id      = $this->saveData($data);
         if ($id) {
             $entity->setId($id);

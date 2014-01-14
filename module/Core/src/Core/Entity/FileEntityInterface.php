@@ -6,9 +6,7 @@ namespace Core\Entity;
 
 interface FileEntityInterface extends IdentifiableEntityInterface
 {
-    public function setUser(EntityInterface $user);
-    public function getUser();
-    
+        
     public function getAllowedUserIds();
     public function setAllowedUserIds(array $ids);
     public function addAllowedUser($user);

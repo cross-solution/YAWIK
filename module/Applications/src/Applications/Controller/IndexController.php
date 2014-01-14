@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Applications\Entity\Status;
+use Core\Entity\RelationEntity;
 
 /**
  * Main Action Controller for Applications module.
@@ -56,6 +57,7 @@ class IndexController extends AbstractActionController
         $applicationEntity = $services->get('builders')->get('Application')->getEntity();
         if ($this->auth()->isLoggedIn()) {
             $applicationEntity->setContact(clone $this->auth()->get('info')->getEntity());
+            
         }
         $applicationEntity->injectJob($job);
         $form->bind($applicationEntity);
@@ -103,20 +105,21 @@ class IndexController extends AbstractActionController
             
                 if ($auth->isLoggedIn()) {
                     $applicationEntity->setUserId($auth('id'));
+                    $imageData = $form->get('contact')->get('image')->getValue();
+                    if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
+                        $image = $auth->getUser()->info->image->getEntity();
+                        
+                        if ($image) {
+                            $contactImage = $services->get('repositories')->get('Applications/Files')->saveCopy($image);
+                            $contactImage->addAllowedUser($job->userId);
+                            $applicationEntity->contact->setImage($contactImage);
+                        } else {
+                            $applicationEntity->contact->setImage(null); //explicitly remove image.
+                        }
+                    }
                 }
                 $applicationEntity->setStatus(new Status());
                 //$applicationEntity->injectJob($job);
-                $image = $applicationEntity->getContact()->getImage();
-                
-                
-                    
-                if (!$image && $this->auth()->isLoggedIn()) {
-                    $user = $this->auth()->getUser();
-                    $userImage = clone $user->info->image;
-                    $userImage->addAllowedUser($job->userId);
-                    $applicationEntity->contact->setImage($fileRepository->saveCopy($userImage));
-                }
-                
                 
                 $repository->save($applicationEntity);
                 
