@@ -7,6 +7,7 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
+ * provides access to the viewManager
  * @todo Write factory, configuration must be possible
  * @author mathias
  *

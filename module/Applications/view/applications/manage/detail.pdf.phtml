@@ -157,23 +157,12 @@ th {
 <h2><?= $this->translate('Attachments')?></h2>
 <?php $html=""; foreach( $this->application->attachments as $attachment): ?>
 <div class="row show-grid">
-  <div class="col-md-3">
-    <?php  
-        $repository = $this->getHelperPluginManager()->getServiceLocator()->get('repositories')->get('applications/Files');
-        $file       = $repository->find($attachment->id);
-        if ($file && 0 === strpos($file->getType(), 'image')) {
-            $html .= ('<img src="' . $file->inline . '"  width="100%"><br />');
-        }
-    ?>
-    <a href="<?php echo $this->url('file', array(
-        'filestore' => 'applications', 
-        'fileId' => $attachment->id,
-        'fileName' => $attachment->name
-    ))?>"><?php echo $attachment->name ?></a></div>
-    <div class="col-md-3"><?php echo $attachment->type?></div>
-    <div class="col-md-3"><?php echo $attachment->prettySize ?></div>
+    <?php 
+        // the displaying of the html is in charge of the PDF-Module
+        // look there at the file-rendering-method
+        echo $this->InsertFile($attachment) . '<br />';
+  ?>
 </div>
-<?php endforeach; // skills?>
-<?php echo $html?>
+<?php endforeach; // attachments ?>
 <?php endif;?>
 

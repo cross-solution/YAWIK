@@ -33,6 +33,10 @@ class PdfServiceFactory implements FactoryInterface
         $view = $viewManager->getView();
         $viewEvents = $view->getEventManager();
         $Html2PdfConverter->attach($viewEvents);
+        
+        $application = $serviceLocator->get('Application');
+        $MvcEvents = $application->getEventManager();
+        $Html2PdfConverter->attachMvc($MvcEvents);
         //$events->attach(ViewEvent::EVENT_RENDERER_POST, array($this, 'removeLayout'), 1);
         //$viewEvents->attach(ViewEvent::EVENT_RESPONSE, array($this, 'attachPDFtransformer'), 10);
 

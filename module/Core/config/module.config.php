@@ -198,6 +198,7 @@ return array(
             'period' => 'Core\View\Helper\Period',
             'link'   => 'Core\View\Helper\Link',
             'base64' => 'Core\View\Helper\Base64',
+            'insertFile' => 'Core\View\Helper\InsertFile',
             
         ),
         'factories' => array(

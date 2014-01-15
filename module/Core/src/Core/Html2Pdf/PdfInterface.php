@@ -12,4 +12,7 @@ use Zend\EventManager\EventManagerInterface;
 
 interface PdfInterface {
     public function attach(EventManagerInterface $events);
+    
+    public function attachMvc(EventManagerInterface $events);
+    
 }
