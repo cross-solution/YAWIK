@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 18:57+0100\n"
-"PO-Revision-Date: 2013-12-18 19:00+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"POT-Creation-Date: 2014-01-16 14:24+0100\n"
+"PO-Revision-Date: 2014-01-16 14:28+0100\n"
+"Last-Translator: Mathias Weitz <weitz@cross-solution.de>\n"
 "Language-Team: CROSS Solution\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -28,12 +28,10 @@ msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
 #: view/sidebar/index.phtml:14
-#: view/jobs/index/dashboard.phtml:5
 msgid "My jobs"
 msgstr "Meine Anzeigen"
 
 #: view/sidebar/index.phtml:14
-#: view/jobs/index/dashboard.phtml:15
 msgid "All jobs"
 msgstr "Alle Anzeigen"
 
@@ -67,24 +65,49 @@ msgid "Reference"
 msgstr "Referenz"
 
 #: view/jobs/index/index.ajax.phtml:10
+msgid "external Reference"
+msgstr "externe Referenz"
+
+#: view/jobs/index/index.ajax.phtml:13
+#: view/jobs/index/dashboard.phtml:12
+#, fuzzy
+msgid "Applications"
+msgstr "Bewerbungen ansehen"
+
+#: view/jobs/index/index.ajax.phtml:15
 msgid "Action"
 msgstr "Aktion"
 
-#: view/jobs/index/index.ajax.phtml:24
-msgid "View applications"
-msgstr "Bewerbungen ansehen"
+#: view/jobs/index/index.ajax.phtml:33
+#: view/jobs/index/dashboard.phtml:24
+msgid "total"
+msgstr "gesamt"
 
-#: view/jobs/index/index.ajax.phtml:26
+#: view/jobs/index/index.ajax.phtml:39
+#: view/jobs/index/dashboard.phtml:30
+msgid "unread"
+msgstr "ungelesen"
+
+#: view/jobs/index/index.ajax.phtml:45
 msgid "Apply"
 msgstr "Bewerben"
 
-#: view/jobs/index/dashboard.phtml:2
+#: view/jobs/index/dashboard.phtml:3
 msgid "Current Jobs"
 msgstr "Aktuelle Stellenanzeigen"
 
-#: view/jobs/index/dashboard.phtml:2
+#: view/jobs/index/dashboard.phtml:3
 msgid "Famous jobs"
 msgstr "Beliebteste Stellenanzeigen"
+
+#: view/jobs/index/dashboard.phtml:9
+#, fuzzy
+msgid "Job"
+msgstr "Stellenanzeigen"
+
+#: view/jobs/index/dashboard.phtml:10
+msgid "Date"
+msgstr "Datum"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"

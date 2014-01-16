@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-18 18:57+0100\n"
+"POT-Creation-Date: 2014-01-16 14:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Reset filter"
 msgstr ""
 
-#: view/sidebar/index.phtml:14 view/jobs/index/dashboard.phtml:5
+#: view/sidebar/index.phtml:14
 msgid "My jobs"
 msgstr ""
 
-#: view/sidebar/index.phtml:14 view/jobs/index/dashboard.phtml:15
+#: view/sidebar/index.phtml:14
 msgid "All jobs"
 msgstr ""
 
@@ -62,23 +62,43 @@ msgid "Reference"
 msgstr ""
 
 #: view/jobs/index/index.ajax.phtml:10
+msgid "external Reference"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:13 view/jobs/index/dashboard.phtml:12
+msgid "Applications"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:15
 msgid "Action"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:24
-msgid "View applications"
+#: view/jobs/index/index.ajax.phtml:33 view/jobs/index/dashboard.phtml:24
+msgid "total"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:26
+#: view/jobs/index/index.ajax.phtml:39 view/jobs/index/dashboard.phtml:30
+msgid "unread"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:45
 msgid "Apply"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:2
+#: view/jobs/index/dashboard.phtml:3
 msgid "Current Jobs"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:2
+#: view/jobs/index/dashboard.phtml:3
 msgid "Famous jobs"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:9
+msgid "Job"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:10
+msgid "Date"
 msgstr ""
 
 #: language/_annotated_strings.php:3

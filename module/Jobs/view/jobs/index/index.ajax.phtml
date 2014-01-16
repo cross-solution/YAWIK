@@ -24,7 +24,7 @@
     <td><a href="<?php echo $job->link?>"><?php echo strip_tags($job->title)?></a></td>
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>
-    <td><?php echo $job->applyId?></td>
+    <td><?php echo empty($job->reference)?'DB-Id:&nbsp' . $job->applyId:$job->reference ?></td>
     <td>
       <?php if ($this->acl()->isRole('recruiter')):?>
          <?php if ($job->applications->count()>0):?>
