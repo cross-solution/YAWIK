@@ -31,7 +31,7 @@ class RepositoryService
         $entityName  = $nameParts[1];
         $entityClass = "\\$namespace\\Entity\\$entityName";
         
-        $repository  = $this->getRepository($entityClass); 
+        $repository  = $this->dm->getRepository($entityClass); 
         $repository->setEntityPrototype(new $entityClass());
         
         return $repository;
