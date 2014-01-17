@@ -8,7 +8,7 @@
  */
 
 $modules = array(
-         'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
+         'DoctrineModule', 'DoctrineMongoODMModule', 'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
     );
 
 if (!isset($allModules)) {
@@ -52,24 +52,6 @@ return array(
     
     'service_listener_options' => array(
         array(
-            'service_manager' => 'MapperManager',
-            'config_key'      => 'mappers',
-            'interface'       => '\Core\ModuleManager\Feature\MapperProviderInterface',
-            'method'          => 'getMapperConfig',      
-        ),
-        array(
-            'service_manager' => 'EntityBuilderManager',
-            'config_key'      => 'entity_builders',
-            'interface'       => '\Core\ModuleManager\Feature\EntityBuilderProviderInterface',
-            'method'          => 'getEntityBuilderConfig',
-        ),
-        array(
-            'service_manager' => 'RepositoryManager',
-            'config_key'      => 'repositories',
-            'interface'       => '\Core\ModuleManager\Feature\RepositoryProviderInterface',
-            'method'          => 'getRepositoryConfig',
-        ),
-        array(
             'service_manager' => 'SettingsManager',
             'config_key'      => 'settings',
             'interface'       => '\Core\ModuleManager\Feature\SettingsProviderInterface',
@@ -79,19 +61,11 @@ return array(
     
     'service_manager' => array(
         'invokables' => array(
-            'MapperManager' => 'Core\Repository\Mapper\MapperManager',
-            'EntityBuilderManager' => 'Core\Repository\EntityBuilder\EntityBuilderManager',
-            'RepositoryManager' => 'Core\Repository\RepositoryManager',
             'SettingsManager' => 'Core\ModuleManager\SettingsManager',
             //'ServiceListenerInterface' => 'Core\mvc\Service\ServiceListener',
-         ),
+        ),
         'factories' => array(
             'Log' => 'Core\src\Core\Service\Log'
-            ),            
-         'aliases' => array(
-             'mappers' => 'MapperManager',
-             'builders' => 'EntityBuilderManager',
-             'repositories' => 'RepositoryManager',
-         ),
+        ),            
     ),
 );

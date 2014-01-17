@@ -98,13 +98,15 @@ return array(
             'configaccess' => 'Core\Service\Config',
         ),
         'factories' => array(
+            'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
         'aliases' => array(
-            'forms' => 'FormElementManager'
+            'forms' => 'FormElementManager',
+            'repositories' => 'Core/RepositoryService',
         ),
     ),
     // Translation settings consumed by the 'translator' factory above.

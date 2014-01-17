@@ -33,6 +33,12 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
+        // Register the TimezoneAwareDate type with DoctrineMongoODM
+        // Use it in Annotions ( @Field(type="tz_date") )
+        \Doctrine\ODM\MongoDB\Types\Type::addType(
+            'tz_date', 
+            '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
+        );
         
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialise translator!
