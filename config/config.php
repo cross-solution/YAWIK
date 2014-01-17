@@ -86,9 +86,6 @@ return array(
             //'ServiceListenerInterface' => 'Core\mvc\Service\ServiceListener',
          ),
         'factories' => array(
-            //'ServiceListener' => 'Zend\Mvc\Service\ServiceListenerFactory',
-            'ServiceListener' => 'Core\src\Core\mvc\Service\ServiceListenerFactory',
-            //'ModuleManager' => 'Core\src\Core\Service\ModuleManagerFactory',
             'Log' => 'Core\src\Core\Service\Log'
             ),            
          'aliases' => array(

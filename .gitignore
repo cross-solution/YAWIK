@@ -9,6 +9,7 @@
 config/phpdoc.xml
 config/autoload/*.php
 
+
 #
 # Unit test code coverage reports
 #
@@ -18,9 +19,10 @@ public/docs
 log
 
 #
-# Composer packages
+# Exclude directories
 #
 vendor
+cache
  
 #
 # Eclipse project files

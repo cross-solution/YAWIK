@@ -13,7 +13,13 @@
  * @license   GPLv3
  */
 
+$doctrineConfig = include __DIR__ . '/doctrine.config.php';
+
+
 return array(
+
+    'doctrine' => $doctrineConfig,
+
     // Logging
     'log' => array(
         'writers' => array(
