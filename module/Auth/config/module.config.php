@@ -9,6 +9,17 @@
 
 return array(
     
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Auth\Entity' => 'annotation',
+                ),
+            ),
+        ),
+    ),
+
+    
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',

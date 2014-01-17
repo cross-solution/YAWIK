@@ -13,52 +13,69 @@ use Core\Entity\AbstractEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\FileEntity;
 use Core\Entity\FileEntityInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * The user model
+ * 
+ * @ODM\EmbeddedDocument
  */
 class Info extends AbstractEntity implements InfoInterface
 {   
 	
-	/** @var string */
+	/** @var string 
+	 * @ODM\String */
 	protected $birthDay;
 	
-	/** @var string */
+	/** @var string 
+	 * @ODM\String */
 	protected $birthMonth;
 
-	/** @var string */
+	/** @var string 
+	 * @ODM\String */
 	protected $birthYear;
 	
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $email;
     
-    /** @var string */ 
+    /** @var string 
+     * ODM\String */ 
     protected $firstName;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $gender;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $houseNumber;
     
-    /** @var string */
+    /** @var string
+     * @ODM\String */
     protected $lastName;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $phone;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $postalcode;
 
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $city;
     
-    /** @var \Core\Entity\FileEntityInterface */
-    protected $imageId;
-    
+    /**
+     * 
+     * @var FileInterface
+     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist"}, simple=true) 
+     */
     protected $image;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $street;    
     
     /**

@@ -17,12 +17,20 @@ abstract class AbstractRepository extends DocumentRepository implements Reposito
         return $this;
     }
 
-    public function create() {
+    public function create(array $data=null) {
         if (null === $this->entityPrototype) {
             throw new \RuntimeException('Could not create an entity. No protoype is set!');
         }
 
-        return clone $this->entityPrototype;
+        $entity = clone $this->entityPrototype;
+        
+        if (null !== $data) {
+            foreach ($data as $property => $value) {
+                $entity->$property = $value;
+            }
+        }
+        
+        return $entity;
     }
 
 }

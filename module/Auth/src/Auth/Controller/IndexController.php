@@ -27,6 +27,7 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
+        
         $viewModel = new ViewModel();
         $services = $this->getServiceLocator();
         $form     = $services->get('FormElementManager')

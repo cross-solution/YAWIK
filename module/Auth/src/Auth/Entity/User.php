@@ -11,25 +11,35 @@ namespace Auth\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
-
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * The user model
+ * 
+ * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */
 class User extends AbstractIdentifiableEntity implements UserInterface
 {   
    
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $login;
+    
+    /** @ODM\String */
     protected $role;
+    
+    /** @ODM\EmbedOne(targetDocument="Info") */
     protected $info;
     
+    /** @ODM\String */
     protected $credential;
     
-    /** @var array */
+    /** @var array 
+     * @ODM\Hash*/
     protected $_profile = array();
     
-    /** @var array */
+    /** @var array 
+     * @ODM\Hash */
     protected $_settings = array();
     
     

@@ -29,10 +29,6 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
-        $services = $this->getServiceLocator();
-        $reps     = $services->get('repositories');
-        $rep      = $services->get('Auth/User');
-        
         $auth = $this->auth();
         if (!$auth->isLoggedIn()) {
             return;
