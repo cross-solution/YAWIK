@@ -40,7 +40,7 @@ class Info extends AbstractEntity implements InfoInterface
     protected $email;
     
     /** @var string 
-     * ODM\String */ 
+     * @ODM\String */ 
     protected $firstName;
     
     /** @var string 
@@ -151,6 +151,7 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->firstName = trim((String)$firstName);
     	return $this;
     }
+    
     
     /** {@inheritdoc} */
     public function getGender()

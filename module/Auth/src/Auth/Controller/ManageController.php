@@ -42,10 +42,12 @@ class ManageController extends AbstractActionController
             if (!empty($files)) {
                 $post = $this->request->getPost()->toArray();
                 $data = array_merge_recursive($post, $files);
-                $oldImage = $user->info->image;
-                if (null !== $oldImage) {
-                    $user->info->setImage(null);
-                    $services->get('repositories')->remove($oldImage);
+                if (isset($files['info']['image']['error']) && UPLOAD_ERR_OK == $files['info']['image']['error']) {
+                    $oldImage = $user->info->image;
+                    if (null !== $oldImage) {
+                        $user->info->setImage(null);
+                        $services->get('repositories')->remove($oldImage);
+                    }
                 }
             } else {
                 $data = $this->request->getPost();
