@@ -91,13 +91,13 @@ class TimezoneAwareDate extends Type
     {
         if (!is_array($value) 
             || !isset($value['date']) 
-            || !$value['date'] instanceOf \MongoDate)
+            || !$value['date'] instanceOf \MongoDate
             || !isset($value['tz'])
         ) {
             return null;
         }
         
-        $timestamp = $value['date']->sec
+        $timestamp = $value['date']->sec;
         $date = new \DateTime('@'.$timestamp);
         $date->setTimezone(new \DateTimeZone($value['tz']));
         return $date;
@@ -115,7 +115,7 @@ class TimezoneAwareDate extends Type
             /* CODE FROM: ' . __METHOD__ . ' */
             if (!is_array($value) 
                 || !isset($value["date"]) 
-                || !$value["date"] instanceOf \MongoDate)
+                || !$value["date"] instanceOf \MongoDate
                 || !isset($value["tz"])
             ) {
                 $return = null;

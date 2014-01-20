@@ -14,7 +14,7 @@ use Zend\Permissions\Acl\Assertion\AssertionInterface;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
-use Core\Entity\FileEntityInterface;
+use Core\Entity\FileInterface;
 use Auth\Entity\UserInterface;
 
 class FileAccessAssertion implements AssertionInterface
@@ -27,10 +27,9 @@ class FileAccessAssertion implements AssertionInterface
                            ResourceInterface $resource = null, 
                            $privilege = null) 
     {
-        return True;
-        if (!$role instanceOf UserInterface || !$resource instanceOf FileEntityInterface) {
+        if (!$role instanceOf UserInterface || !$resource instanceOf FileInterface) {
             return false;
         }
-        return in_array($role->getId(), $resource->getAllowedUserIds());
+        return $role->getId() == $resource->getUser()->getId();
     }
 }

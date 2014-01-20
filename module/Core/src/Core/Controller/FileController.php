@@ -20,10 +20,11 @@ class FileController extends AbstractActionController
     public function indexAction()
     {
         $fileStoreName = $this->params('filestore');
+        list($module, $entityName) = explode('.', $fileStoreName);
         $response      = $this->getResponse();
         
         try {
-            $repository = $this->getServiceLocator()->get('repositories')->get($fileStoreName . '/Files');
+            $repository = $this->getServiceLocator()->get('repositories')->get($module . '/' . $entityName);
         } catch (\Exception $e) {
             $response->setStatusCode(404);
             $this->getEvent()->setParam('exception', $e);
@@ -42,7 +43,7 @@ class FileController extends AbstractActionController
         $this->acl($file);
         
         $response->getHeaders()->addHeaderline('Content-Type', $file->type)
-                               ->addHeaderline('Content-Length', $file->size);
+                               ->addHeaderline('Content-Length', $file->length);
         $response->sendHeaders();
         
         $resource = $file->getResource();

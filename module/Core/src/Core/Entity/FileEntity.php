@@ -12,16 +12,23 @@ namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 /**
  * 
  * @ODM\Document(collection="files")
  * @InheritanceType("COLLECTION_PER_CLASS")
  */
-class FileEntity extends AbstractIdentifiableEntity implements FileInterface
+class FileEntity extends AbstractIdentifiableEntity implements FileInterface, ResourceInterface
 {
+    /** @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
+    protected $user;
+    
     /** @ODM\Field */
     protected $name;
+    
+    /** @ODM\String */
+    protected $mimeType;
     
     /** @ODM\File */
     protected $file;
@@ -47,12 +54,25 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     /** @ODM\Field */
     protected $md5;
     
-    /** @ODM\Collection */
-    protected $allowedUserIds;
-    
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getResourceId()
+    {
+        return 'Entity/File';
+    }
+    
+    public function setUser(UserInterface $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+    
+    public function getUser()
+    {
+        return $this->user;
     }
     
     public function setName($name)
@@ -66,42 +86,20 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         return $this->name;
     }
     
-    public function getAllowedUserIds()
+    public function getPrettySize()
     {
-        return $this->allowedUserIds;
+        return $this->length;
     }
     
-    public function setAllowedUserIds(array $ids)
+    public function setType($mime)
     {
-        $this->allowedUserIds = $ids;
+        $this->mimeType = $mime;
         return $this;
     }
     
-    public function addAllowedUser($userOrId)
+    public function getType()
     {
-        if ($userOrId instanceOf UserInterface) {
-            $userOrId = $userOrId->getId();
-        }
-        
-        if (!in_array($userOrId, $this->allowedUserIds)) {
-            $this->allowedUserIds[] = $userOrId;
-        }
-    }
-    
-    public function removeAllowedUser($userOrId)
-    {
-        if ($userOrId instanceOf UserInterface) {
-            $userOrId = $userOrId->getId();
-        }
-        
-        $allowedUserIds = array();
-        foreach ($this->allowedUserIds as $id) {
-            if ($id != $userOrId) {
-                $allowedUserIds[] = $id;
-            }
-        }
-        
-        return $this->setAllowedUserIds($allowedUserIds);
+        return $this->mimeType;
     }
     
     public function setDateUpload(\DateTime $date = null)
@@ -112,7 +110,10 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     
     public function getDateUpload()
     {
-        return $this->dateUpload();
+        if (!$this->dateUpload) {
+            $this->setDateUpload(new \DateTime());
+        }
+        return $this->dateUpload;
     }
     
     public function getFile()
@@ -122,18 +123,30 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     
     public function setFile($file)
     {
+        $this->setDateUpload(new \DateTime());
         $this->file = $file;
         return $this;
     }
     
+    public function getLength()
+    {
+        return $this->length;
+    }
+    
     public function getResource()
     {
-        return $this->getFile()->getResource();
+        if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
+            return $this->file->getMongoGridFSFile()->getResource();
+        }
+        return null;
     }
     
     public function getContent()
     {
-        return $this->getFile()->getContent();
+        if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
+            return $this->file->getMongoGridFSFile()->getContent();
+        }
+        return null;
     }
 }
 

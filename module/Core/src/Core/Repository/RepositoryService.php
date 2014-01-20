@@ -11,6 +11,8 @@
 namespace Core\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Core\Entity\EntityInterface;
+
 class RepositoryService
 {
     protected $dm;
@@ -32,7 +34,9 @@ class RepositoryService
         $entityClass = "\\$namespace\\Entity\\$entityName";
         
         $repository  = $this->dm->getRepository($entityClass); 
-        $repository->setEntityPrototype(new $entityClass());
+        if ($repository instanceOf RepositoryInterface) {
+            $repository->setEntityPrototype(new $entityClass());
+        }
         
         return $repository;
     }
@@ -40,6 +44,12 @@ class RepositoryService
     public function store(EntityInterface $entity)
     {
         $this->dm->persist($entity);
+        $this->dm->flush();
+    }
+    
+    public function remove(EntityInterface $entity)
+    {
+        $this->dm->remove($entity);
         $this->dm->flush();
     }
     
