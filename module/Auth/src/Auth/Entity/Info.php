@@ -70,7 +70,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * 
      * @var FileInterface
-     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist"}, simple=true) 
+     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist"}, simple=true, nullable=true) 
      */
     protected $image;
     
@@ -285,7 +285,7 @@ class Info extends AbstractEntity implements InfoInterface
     	return $this->city;
     }
     
-    public function setImage(EntityInterface $image)
+    public function setImage(EntityInterface $image = null)
     {
         $this->image = $image;
         return $this;

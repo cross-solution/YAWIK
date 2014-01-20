@@ -14,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\FileEntity;
 
 /**
- * @ODM\Document(collection="users.files")
+ * @ODM\Document(collection="users.images")
  */
 class UserImage extends FileEntity
 {

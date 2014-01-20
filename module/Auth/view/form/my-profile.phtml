@@ -27,7 +27,7 @@
                 <div class="controls controls-row row">
                     <?php if ($image = $element->getObject()->getImage()): ?>
                     <div class="col-md-12 text-center">
-                        <img src="/file/users/<?php echo $image->getId() ?>" class="user-image img-polaroid" />
+                        <img src="/file/Auth.UserImage/<?php echo $image->getId() ?>" class="user-image img-polaroid" />
                         <?php echo $this->formRow($element->get('imageId')->setValue($image->getId())) ?>
                     </div>
                     <? endif ?>

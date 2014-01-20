@@ -117,7 +117,7 @@ interface InfoInterface extends EntityInterface
      */
     public function getLastName();
     
-    public function setImage(EntityInterface $image);
+    public function setImage(EntityInterface $image=null);
     public function getImage();
     
     /**
