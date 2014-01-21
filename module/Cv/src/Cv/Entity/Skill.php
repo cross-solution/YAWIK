@@ -10,12 +10,31 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
+/**
+ * @ODM\EmbeddedDocument
+ */
 class Skill extends AbstractEntity
 {
     
+    /**
+     * @ODM\EmbedMany(targetDocument="NativeLanguage")
+     * @var unknown
+     */
     protected $nativeLanguages;
+    /**
+     * 
+     * @var unknown
+     * @ODM\EmbedMany(targetDocument="Language")
+     */
     protected $languageSkills;
+    
+    /**
+     * 
+     * @var unknown
+     * @ODM\EmbedMany(targetDocument="ComputerSkill")
+     */
     protected $computerSkills;
     
     public function setNativeLanguages($nativeLanguages)

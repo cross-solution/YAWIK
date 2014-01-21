@@ -1,14 +1,17 @@
 <?php
 return array(
     
-    // Service Manager
-    'service_manager' => array(
-        'factories' => array(
-            'CvRepository' => 'Cv\Repository\Service\CvRepositoryFactory',
-            'CvMapper'     => 'Cv\Repository\Service\CvMapperFactory',
-            'CvBuilder'    => 'Cv\Repository\Service\CvBuilderFactory',
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Cv\Entity' => 'annotation',
+                ),
+            ),
         ),
     ),
+    
+    
     
     // Translations
     'translator' => array(
@@ -119,6 +122,12 @@ return array(
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+    ),
+    'filters' => array(
+        'factories' => array(
+            'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
+            'Cv/JsonPaginationQuery' => 'Cv\Repository\Filter\JsonPaginationQueryFactory',
         ),
     ),
     

@@ -9,13 +9,37 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\AbstractEntity;
+use Core\Entity\AbstractIdentifiableEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-class Employment extends AbstractEntity
+/**
+ * @ODM\EmbeddedDocument
+ */
+class Employment extends AbstractIdentifiableEntity
 {
+    /**
+     * @ODM\String
+     * @var unknown
+     */
     protected $startDate;
+    /**
+     * 
+     * @var unknown
+     * @ODM\String
+     */
     protected $endDate;
+    
+    /**
+     * @ODM\Boolean
+     * @var unknown
+     */
     protected $currentIndicator;
+    
+    /**
+     * 
+     * @var unknown
+     * @ODM\String
+     */
     protected $description;
     
     public function setStartDate($startDate)

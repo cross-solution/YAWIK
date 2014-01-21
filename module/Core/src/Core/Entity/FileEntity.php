@@ -17,7 +17,7 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 /**
  * 
  * @ODM\Document(collection="files")
- * @InheritanceType("COLLECTION_PER_CLASS")
+ * @ODM\InheritanceType("COLLECTION_PER_CLASS")
  */
 class FileEntity extends AbstractIdentifiableEntity implements FileInterface, ResourceInterface
 {
