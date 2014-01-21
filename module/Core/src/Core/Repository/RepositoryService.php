@@ -41,6 +41,11 @@ class RepositoryService
         return $repository;
     }
     
+    public function createQueryBuilder()
+    {
+        return $this->dm->createQueryBuilder();
+    }
+    
     public function store(EntityInterface $entity)
     {
         $this->dm->persist($entity);

@@ -151,11 +151,13 @@ return array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
             'mail' => 'Core\Controller\Plugin\Mail',
-            'Core/Mailer' => 'Core\Controller\Plugin\Mailer'
+            'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
+            'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
             'mailer'     => 'Core/Mailer',
+            'paginator' => 'Core/CreatePaginator',
         )
     ),
     // Configure the view service manager
@@ -213,6 +215,11 @@ return array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
     ),
+    
+    'filters' => array(
+        
+    ),
+    
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
