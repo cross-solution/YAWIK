@@ -11,25 +11,35 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
+/**
+ * @ODM\EmbeddedDocument
+ */
 class Education extends AbstractIdentifiableEntity
 {
-	/** @var string */
+	/** @var string 
+	 * @ODM\String
+	 */
     protected $startDate;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $endDate;
     
-    /** @var bool */
+    /** @var bool 
+     * @ODM\Boolean*/
     protected $currentIndicator;
     
     /** @var string */
     protected $competencyName;
     
-    /** @var string */
+    /** @var string
+     * @ODM\String */
     protected $description;
     
-    /** needed for europass */
+    /** needed for europass 
+     * @ODM\String*/
     protected $nationalClassification;
     
     

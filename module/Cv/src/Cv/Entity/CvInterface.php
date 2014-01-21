@@ -2,7 +2,7 @@
 
 namespace Cv\Entity;
 
-use Core\Entity\CollectionInterface;
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 
