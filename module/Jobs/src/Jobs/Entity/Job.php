@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * The job model
  *
- * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ * @ODM\Document(collection="jobs")
  */
 class Job extends AbstractIdentifiableEntity implements JobInterface {
 
