@@ -66,6 +66,6 @@ return array(
         ),
         'factories' => array(
             'Log' => 'Core\src\Core\Service\Log'
-        ),            
+        ),
     ),
 );
