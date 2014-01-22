@@ -1,16 +1,20 @@
 <?php
+/**
+ * Cross Applicant Management
+ *
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
 
 namespace Jobs\Repository;
 
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
-use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 use Core\Repository\PaginatorAdapter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Job extends AbstractRepository implements EntityBuilderAwareInterface
+class Job extends AbstractRepository 
 {
-    
     
     protected $builders;
     
@@ -25,12 +29,6 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
         return $this->builders;
     }
 	
-
-	public function find($id, $mode = self::LOAD_LAZY)
-    {
-        $entity = $this->getMapper('job')->find($id);
-        return $entity;
-    }
     
     public function findByApplyId($applyId, $mode = self::MODE_FORCE_ENTITY)
     {
@@ -45,7 +43,6 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
     /* was used on dashbord panel */
     public function fetchRecent($userId=null)
     {
-
         $collection = $this->getMapper('job')->fetchRecent($userId, 5);
         return $collection;
     }
@@ -67,23 +64,7 @@ class Job extends AbstractRepository implements EntityBuilderAwareInterface
             $userOrId = $userOrId->id;
         }
         
-        return $this->getMapper('job')->count(array('userId' => $userOrId));
-    }
-    
-    public function getPaginatorAdapter(array $params)
-    {
-        $filter = $this->mappers->getServiceLocator()->get('filtermanager')->get('jobs-params-to-properties');
-        $query = $filter->filter($params);
-        return $this->getMapper('job')->getPaginatorAdapter($query);
-        $query = array();
-        foreach ($propertyFilter as $property => $value) {
-            if (in_array($property, array('applyId'))) {
-                $query[$property] = new \MongoRegex('/^' . $value . '/');
-            }
-        }
-        $cursor = $this->getMapper('job')->getCursor($query); //, array('cv'), true);
-        $cursor->sort($sort);
-        return new PaginatorAdapter($cursor, $this->builders->get('job'));
+        return $this->findBy(array('userId' => $userOrId))->count();
     }
     
     public function save(EntityInterface $entity)

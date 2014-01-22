@@ -61,11 +61,11 @@ class ManageController extends AbstractActionController
             'by' => $params->get('by', 'me'),
             'hasJobs' => (bool) $this->getServiceLocator()
                                      ->get('repositories')
-                                     ->get('job')
+                                     ->get('Jobs/Job')
                                      ->countByUser($this->auth('id')),
              'newApplications' => $this->getServiceLocator()
                                      ->get('repositories')
-                                     ->get('application')
+                                     ->get('Applications/Application')
                                      ->countBy($this->auth('id'),true)
         ));
         $v->setTemplate('applications/sidebar/manage');

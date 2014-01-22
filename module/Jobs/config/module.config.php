@@ -1,6 +1,16 @@
 <?php
 
 return array(
+        'doctrine' => array(
+                'driver' => array(
+                        'odm_default' => array(
+                                'drivers' => array(
+                                        'Jobs\Entity' => 'annotation',
+                                ),
+                        ),
+                ),
+        ),
+        
 
     'Jobs' => array(
         'dashboard' => array(
@@ -118,7 +128,7 @@ return array(
     
     'filters' => array(
         'factories'=> array(
-            'jobs-params-to-properties' => '\Jobs\Filter\ParamsToPropertiesFactory'
+            'Jobs/PaginationQuery' => '\Jobs\Repository\Filter\PaginationQueryFactory'
         ),
     ),
     

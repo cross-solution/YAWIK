@@ -7,25 +7,64 @@ use Core\Entity\EntityInterface;
 use Core\Entity\CollectionInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @todo write interface
+ * The application model
+ * 
  * @author mathias
  *
+ * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
 class Application extends AbstractIdentifiableEntity implements ApplicationInterface, ResourceInterface
 {
+    /**
+     * 
+     * @var unknown
+     */
     protected $jobId;
+    
+    /**
+     * 
+     * @var unknown
+     */
     protected $job;
     
+    /**
+     * 
+     * @var unknown
+     * 
+     * @ODM\String
+     */
     protected $userId;
+    
+    /**
+     * 
+     * @var unknown
+     */
     protected $user;
     
-    /*
-     * new
+    /**
+     * status of an application.
+     * 
+     * @var String 
+     * 
+     * @ODM\String
      */
     protected $status;
+    
+    /**
+     * 
+     * @var unknown
+     * 
+     * @ODM\Date
+     */
     protected $dateCreated;
+    
+    /**
+     * 
+     * @var unknown
+     */
     protected $dateModified;
 
     /*
@@ -34,23 +73,43 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      */
     protected $contact;
     
+    /**
+     * The summary of an application
+     * 
+     * @var String
+     */
     protected $summary;
     
-    /*
+    /**
      * Resume, containing employments, educations and skills
+     * 
+     * 
      */
     protected $cv;
 
+    /**
+     * 
+     * @var unknown
+     */
     protected $attachments;
     
-    protected $history;
-    
-    /*
-     * Administrative 
+    /**
+     * 
+     * @var unknown
      */
-    
+    protected $history;
+        
+    /**
+     * 
+     * @var unknown
+     */
     protected $privacyPolicy;
     
+    /**
+     * Who has read the application?.
+     * 
+     * @var unknown
+     */
     protected $readBy = array();
     
     public function getResourceId()

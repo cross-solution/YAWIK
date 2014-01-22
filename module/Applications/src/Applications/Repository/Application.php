@@ -37,6 +37,8 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $entity;
     }
     
+   
+    
     public function fetch ($mode=self::LOAD_LAZY)
     {
         $fields = array('cv' => false);

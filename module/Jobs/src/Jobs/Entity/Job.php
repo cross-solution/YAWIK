@@ -1,25 +1,132 @@
 <?php
+/**
+ * Cross Applicant Management
+ *
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
 
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
-use Core\Repository\Mapper\MapperAwareInterface;
+use Core\Entity\RelationEntity;
 use Core\Entity\CollectionInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
+/**
+ * The job model
+ *
+ * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ */
 class Job extends AbstractIdentifiableEntity implements JobInterface {
 
+    /**
+     * uniq ID of a job posting
+     *
+     * @var String
+     * 
+     * @ODM\String 
+     **/
     protected $applyId;
+    
+    /**
+     * title of a job posting
+     * 
+     * @var String 
+     *  
+     * @ODM\String */
     protected $title;
+    
+    /**
+     * name of the publishing company
+     * 
+     * @var String
+     * 
+     * @ODM\String
+     */
     protected $company;
+    
+    /**
+     * Email Adress, which is used to send notifications about e.g. new applications.
+     * 
+     * @ODM\String
+     **/
     protected $contactEmail;
+    
+    /**
+     * The owner of a Job Posting
+     */
     protected $userId;
+    
+    /**
+     * the owner of a Job Posting
+     *  
+     * @var unknown
+     */
     protected $user;
+    
+    /**
+     * all applications of a certain jobad 
+     * 
+     * @var array \Applications\Entity\Application
+     * 
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true)
+     */
     protected $applications;
+    
+    /**
+     * new applications
+     * 
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
+     *                    repositoryMethod="getUnreadApplications") 
+     * @var unknown
+     */
+    protected $unreadApplications;
+    
+    /**
+     * location of the job posting
+     * 
+     * @var unknown
+     * 
+     * @ODM\String
+     */
     protected $location;
+    
+    /**
+     * place of employment 
+     * 
+     * @var String
+     * 
+     * @ODM\String
+     **/
     protected $link;
+    
+    /**
+     * publishing date of a job posting
+     * 
+     * @var String
+     * 
+     * @ODM\String
+     */
     protected $datePublishStart;
+    
+    /**
+     * Status of the job posting
+     * 
+     * @var unknown
+     * 
+     * @ODM\String
+     */
     protected $status;
+    
+    /**
+     * Reference of a jobad, on which an applicant can refer to.
+     * 
+     * @var String
+     * 
+     * @ODM\String 
+     */
     protected $reference;
     
     public function setApplyId($applyId) {
