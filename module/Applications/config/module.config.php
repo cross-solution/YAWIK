@@ -17,6 +17,7 @@ return array(
             ),
         ),
     ),
+    
     'Applications' => array(
         'dashboard' => array(
             'enabled' => true,
