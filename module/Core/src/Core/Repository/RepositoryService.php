@@ -12,34 +12,15 @@ namespace Core\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Core\Entity\EntityInterface;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
-class RepositoryService extends ServiceManager implements ServiceLocatorAwareInterface
+class RepositoryService
 {
-    protected $services;
     protected $dm;
 
-    public function getServiceLocator()
+    public function __construct(DocumentManager $dm)
     {
-        return $this->services;
+        $this->dm = $dm;
     }
-    
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->services = $serviceLocator;
-        return $this;
-    }
-    
-    protected function getDocumentManager()
-    {
-        if (!$this->dm) {
-            $this->dm = $this->services->get('doctrine.documentmanager.odm_default');
-        }
-        return $this->dm;
-    }
-    
     
     public function get($name)
     {
@@ -48,44 +29,33 @@ class RepositoryService extends ServiceManager implements ServiceLocatorAwareInt
             throw new \InvalidArgumentException('Name must be in the format "Namespace/Entity")');
         }
         
-        $repository = $this->has($name) ? parent::get($name) : new GenericRepository();
-        
-        if (!$repository instanceOf AbstractRepository) {
-            throw new \DomainException('Repository must implement \Core\Repository\AbstractRepository');
-        } 
-        
         $namespace   = $nameParts[0];
         $entityName  = $nameParts[1];
         $entityClass = "\\$namespace\\Entity\\$entityName";
         
-        if (!class_exists($entityClass)) {
-            throw new \DomainException(sprintf('Entity %s does not exist.', $entityClass));
+        $repository  = $this->dm->getRepository($entityClass); 
+        if ($repository instanceOf RepositoryInterface) {
+            $repository->setEntityPrototype(new $entityClass());
         }
-        
-        $doctrineRepository = $this->getDocumentManager()->getRepository($entityClass);
-        $repository->setEntityPrototype(new $entityClass());
-        $repository->setDocumentRepository($doctrineRepository);
         
         return $repository;
     }
     
     public function createQueryBuilder()
     {
-        return $this->getDocumentManager()->createQueryBuilder();
+        return $this->dm->createQueryBuilder();
     }
     
     public function store(EntityInterface $entity)
     {
-        $dm = $this->getDocumentManager();
-        $dm->persist($entity);
-        $dm->flush();
+        $this->dm->persist($entity);
+        $this->dm->flush();
     }
     
     public function remove(EntityInterface $entity)
     {
-        $dm = $this->getDocumentManager();
-        $dm->remove($entity);
-        $dm->flush();
+        $this->dm->remove($entity);
+        $this->dm->flush();
     }
     
     

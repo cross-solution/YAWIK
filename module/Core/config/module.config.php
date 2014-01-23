@@ -237,7 +237,21 @@ return array(
     
     'repositories' => array(
         
+        'abstract_factories' => array(
+            'Core\Repository\FileRepositoryAbstractFactory',
+        )
     ),
     
+    'mappers' => array(
+        'abstract_factories' => array(
+            'Core\Repository\Mapper\FileMapperAbstractFactory',
+         ),
+    ),
     
+    'entity_builders' => array(
+        'factories' => array(
+            'Core/File' => 'Core\Repository\EntityBuilder\FileBuilderFactory',
+            'Core/JsonFile' => 'Core\Repository\EntityBuilder\JsonFileBuilderFactory',
+        ),
+    ),
 );
