@@ -340,7 +340,11 @@ return array(
     
     'repositories' => array(
         'invokables' => array(
-            'Auth/User' => 'Auth\Repository\User',
+            'user' => 'Auth\Repository\User',
+            
+        ),
+        'factories' => array(
+            'Users/Files' => 'Auth\Repository\FileRepositoryFactory',
         ),
     ),
     

@@ -16,7 +16,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * The user model
  * 
- * @ODM\Document(collection="users")
+ * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */
 class User extends AbstractIdentifiableEntity implements UserInterface
 {   
