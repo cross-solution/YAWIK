@@ -18,7 +18,7 @@ class RepositoryServiceFactory implements FactoryInterface
     
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $dm      = $serviceLocator->get('doctrine.documentmanager.odm_default');
+        $dm      = $serviceLocator->get('Core/DocumentManager');
         $service = new RepositoryService($dm);
         
         return $service;
