@@ -11,6 +11,11 @@ abstract class AbstractRepository extends DocumentRepository implements Reposito
 
     protected $entityPrototype;
 
+    public function getService($name)
+    {
+        return $this->dm->getConfiguration()->getServiceLocator()->get($name);
+    }
+    
     public function setEntityPrototype(EntityInterface $entity)
     {
         $this->entityPrototype = $entity;
