@@ -34,6 +34,10 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     /** @ODM\String */
     protected $credential;
     
+     /** @var array 
+     * @ODM\Hash*/
+    protected $credential_rest = array();
+    
     /** @var array 
      * @ODM\Hash*/
     protected $_profile = array();

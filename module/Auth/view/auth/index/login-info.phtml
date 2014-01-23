@@ -11,7 +11,11 @@
         <ul class="dropdown-menu pull-right">
             <li>
                 <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('My profile')?></a>
-            <li class="divider">
+            </li>
+            <li>
+                <a href="<?php echo $this->url('lang/manage-password', array('lang' => $this->params('lang')))?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('My password')?></a>
+            </li>
+            <li class="divider"/>
             <li>
                 <a href="<?php echo $this->url('auth-logout')?>"><span class="glyphicon glyphicon-log-out"></span><?php echo $this->translate('Logout')?></a>
             </li>
