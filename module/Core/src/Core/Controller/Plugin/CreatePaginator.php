@@ -10,8 +10,61 @@ use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 class CreatePaginator extends AbstractPlugin
 {
     
+    public function __invoke($repositoryName, $usePostParams = false)
+    {
+        $services   = $this->getController()->getServiceLocator();
+        $repository = $services->get('repositories')->get($repositoryName);
+        $params     = $usePostParams 
+                    ? $this->getController()->getRequest()->getPost()
+                    : $this->getController()->getRequest()->getQuery();
+        $this->filterSortParam($params);
+        $paginator = $this->createPaginator($repository, $params);
+        $paginator->setCurrentPageNumber($params->get('page', 1))
+                  ->setItemCountPerPage($params->get('count', 10));
+        
+        return $paginator;
+        
+    }
     
-    public function __invoke($filterName)
+    protected function filterSortParam($params)
+    {
+        $sort = $params->get('sort');
+        if (null === $sort) {
+            return;
+        }
+        
+        if (0 === strpos($sort, '-')) {
+            $dir = '-1';
+            $sort = substr($sort, 1);
+        } else {
+            $dir = '1';
+        }
+        
+        $params->set('sortField', $sort);
+        $params->set('sortDir', $dir);
+    }
+    
+    protected function createPaginator($repository, $params)
+    {
+        if (method_exists($repository, 'getPaginator')) {
+            return $repository->getPaginator($params);
+        }
+        
+        if (method_exists($repository, 'getPaginatorAdapter')) {
+            $adapter = $repository->getPaginatorAdapter($params);
+            
+        } else if (method_exists($repository, 'getPaginatorCursor')) {
+            $cursor = $repository->getPaginatorCursor($params);
+            $adapter = new \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator($cursor);
+            
+        } else {
+            throw new \RuntimeException('Could not create paginator for repository ' . $repositoryName);
+        }
+        $paginator = new \Zend\Paginator\Paginator($adapter);
+        return $paginator;
+    }
+    
+    public function __invokes($filterName)
     {
         $services     = $this->getController()->getServiceLocator();
         $queryFilter  = $services->get('filtermanager')->get($filterName);

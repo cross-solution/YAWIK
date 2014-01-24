@@ -4,12 +4,29 @@ namespace Core\Repository;
 
 
 use Core\Entity\EntityInterface;
-use \Doctrine\ODM\MongoDB\DocumentRepository;
+use \Doctrine\ODM\MongoDB as ODM;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractRepository extends DocumentRepository implements RepositoryInterface
+
+
+abstract class AbstractRepository extends ODM\DocumentRepository implements RepositoryInterface
 {
 
     protected $entityPrototype;
+    
+    public function __construct(ODM\DocumentManager $dm, ODM\UnitOfWork $uow, ODM\Mapping\ClassMetadata $class)
+    {
+        parent::__construct($dm, $uow, $class);
+        $eventArgs = new DoctrineMongoODM\Event\EventArgs(array(
+            'repository' => $this
+        ));
+        $dm->getEventManager()->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postConstruct, $eventArgs);
+    }
+    
+    public function init(ServiceLocatorInterface $serviceLocator)
+    {
+        
+    }
 
     public function getService($name)
     {
