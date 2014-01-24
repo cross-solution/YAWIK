@@ -1,19 +1,30 @@
 <?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
 
 namespace Applications\Form;
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Core\Entity\Hydrator\EntityHydrator;
+use Applications\Entity\Attachment;
+use Applications\Entity\Cv;
 use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Entity\Hydrator\InjectAwareEntityHydrator as Hydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
 
-class CreateApplication extends Form implements ServiceLocatorAwareInterface
+/**
+ * create an application form.
+ */
+class CreateApplication extends Form
 {
     protected $forms;
     protected $inputFilterSpecification;
     protected $preferFormInputFilter = true;
     protected $isInitialized;
+    
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -26,12 +37,13 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         return $this->forms;
     }
     
+    /*
+     * hydrating strategies are defined by doctrine annotations
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new Hydrator(array('attachments'));
-            $hydrator->addStrategy('attachments', new \Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy());
-            $this->setHydrator($hydrator);
+             $hydrator = new EntityHydrator();
         }
         return $this->hydrator;
     }
@@ -50,17 +62,17 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
 	public function initLazy()
     {
         $this->setName('create-application-form');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
-
         
         $this->add(array(
             'type' => 'hidden',
             'name' => 'jobId',
             'required' => true
-           
-            
         ));
         
+        /**
+         * @todo: das versteht kein Mensch
+         */
+   
         $this->add($this->forms
                          ->get('Applications/ContactFieldset', array(
                                 'image_meta' => array(
@@ -71,22 +83,32 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
                            ))
                          ->setLabel('personal informations')
                          ->setName('contact')
-                         ->setObject($this->forms->getServiceLocator()->get('builders')->get('auth-info')->getEntity()));
+                         ->setObject(new Attachment()));
+        
         
         $this->add($this->forms->get('Applications/BaseFieldset'));
+
+        /**
+         * ads a cv section to the application formular
+         */
         
         $this->add(
-            $this->forms->get('CvFieldset')
-                        ->setObject($this->forms->getServiceLocator()->get('builders')->get('Cv')->getEntity())
+            $this->forms->get('CvFieldset')->setObject(new Cv())
         );
+        
         $attachments = $this->forms->get('Applications/AttachmentsCollection');
         $attachments->getHydrator()->setForm($this); 
         $this->add(
             $attachments
         );
+        
+        /**
+         * ads the privacy policy to the application fomular
+         */
         $this->add(
             $this->forms->get('Applications/Privacy')
         );
+
         $this->add($this->forms->get('DefaultButtonsFieldset'));
         //$this->setValidationGroup('jobId', 'contact', 'base', 'cv');
        

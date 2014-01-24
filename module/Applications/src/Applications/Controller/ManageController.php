@@ -17,10 +17,8 @@ use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
 
-
 /**
  * Action Controller for managing applications.
- *
  */
 class ManageController extends AbstractActionController
 {
@@ -101,6 +99,11 @@ class ManageController extends AbstractActionController
         
     }
     
+    /**
+     * detail view of an application
+     * 
+     * @return Ambigous <\Zend\View\Model\JsonModel, multitype:boolean unknown >
+     */
     public function detailAction(){
 
         $nav = $this->getServiceLocator()->get('main_navigation');
@@ -143,6 +146,11 @@ class ManageController extends AbstractActionController
         return $return;
     }
     
+    /**
+     * change status of an application
+     * 
+     * @return unknown|multitype:string |multitype:string unknown |multitype:unknown
+     */
     public function statusAction()
     {
         $applicationId = $this->params('id');
@@ -237,6 +245,12 @@ class ManageController extends AbstractActionController
           
     } 
     
+    /**
+     * forward an application via Email
+     * 
+     * @throws \InvalidArgumentException
+     * @return \Zend\View\Model\JsonModel
+     */
     public function forwardAction()
     {
         $services     = $this->getServiceLocator();
@@ -280,6 +294,12 @@ class ManageController extends AbstractActionController
         return new JsonModel($params);
     }
     
+    /**
+     * delete an application
+     * 
+     * @throws \DomainException
+     * @return multitype:string
+     */
     public function deleteAction()
     {
         $id          = $this->params('id');

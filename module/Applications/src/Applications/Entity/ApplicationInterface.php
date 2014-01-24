@@ -13,7 +13,6 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function getJobId();
     
     public function getJob();
-    public function injectJob(EntityInterface $job);
     
     public function setUserId($userId);
     public function getUserId();

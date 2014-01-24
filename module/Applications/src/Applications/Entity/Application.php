@@ -37,7 +37,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * 
      * @var unknown
      * 
-     * 
+     * @ODM\String
      */
     protected $userId;
     
@@ -78,7 +78,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * personal informations, contains firstname, lastname, email, 
      * phone etc.
      *
-     * @ODM\EmbedOne(targetDocument="Auth\Entity\Info")
+     * @ODM\EmbedOne(targetDocument="Contact")
      */
     protected $contact;
     
@@ -99,8 +99,9 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $cv;
 
     /**
+     * multiple Attachments of an application
      * 
-     * @var unknown
+     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true")
      */
     protected $attachments;
     
@@ -153,12 +154,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this->job;
     }
     
-    public function injectJob(EntityInterface $job)
-    {
-        $this->job = $job;
-        $this->setJobId($job->getId());
-        return $this;
-    }
+   
     
     public function setUserId($userId)
     {

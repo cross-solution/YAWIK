@@ -10,6 +10,8 @@
 /** Applications controller */
 namespace Applications\Controller;
 
+use Auth\Entity\Info;
+use Applications\Entity\Application;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -18,22 +20,15 @@ use Core\Entity\RelationEntity;
 
 /**
  * Main Action Controller for Applications module.
- *
  */
 class IndexController extends AbstractActionController
 {
-    
     /**
      * handle the application form.
+     * @todo document
      */
     public function indexAction()
-    { 
-//         $view = new ViewModel();
-//         $view->setTerminal(true);
-//         return $view;
-        //$this->layout('layout/apply');
-        
-        
+    {           
         $services = $this->getServiceLocator();
         $request = $this->getRequest();
 
@@ -41,11 +36,11 @@ class IndexController extends AbstractActionController
         $applyId = (int) $this->params()->fromPost('applyId',0);
 
         $job = ($request->isPost() && !empty($jobId))
-             ? $services->get('repositories')->get('job')->find($jobId)
-             : $services->get('repositories')->get('job')->findByApplyId((0 == $applyId)?$this->params('jobId'):$applyId);
+             ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
+             : $services->get('repositories')->get('Jobs/Job')->findBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
         
-        $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
+        $form = $services->get('FormElementManager')->get('Application');
         
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
@@ -53,22 +48,30 @@ class IndexController extends AbstractActionController
             'form' => $form,
             'isApplicationSaved' => false,
         ));
-        $applicationEntity = $services->get('builders')->get('Application')->getEntity();
+        
+        $applicationEntity = new Application();
+        
         if ($this->auth()->isLoggedIn()) {
-            $applicationEntity->setContact(clone $this->auth()->get('info')->getEntity());
-            
+            // copy the contact info into the application
+            $contact = new Info();
+            $contact->fromArray(Info::toArray($this->auth()->get('info')));
+            $applicationEntity->setContact($contact);
         }
-        $applicationEntity->injectJob($job);
+        
         $form->bind($applicationEntity);
         
         /*
          * validate email. 
          */
-        
-        $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
+
+        /**
+         * 
+         * @todo has to be fixed  
+         
+           $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
                    ->attach(new \Zend\Validator\EmailAddress())
                    ->attach(new \Zend\Validator\StringLength(array('max'=>100)));        
-        
+         */
        
         if ($request->isPost()) {
             if ($returnTo = $this->params()->fromPost('returnTo', false)) {
@@ -118,7 +121,6 @@ class IndexController extends AbstractActionController
                     }
                 }
                 $applicationEntity->setStatus(new Status());
-                //$applicationEntity->injectJob($job);
                 
                 $repository->save($applicationEntity);
                 

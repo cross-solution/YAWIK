@@ -7,16 +7,13 @@ use Applications\Repository\Application;
 
 class ApplicationRepositoryFactory implements FactoryInterface
 {
-	/* (non-PHPdoc)
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+	/**
+	 * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @todo what happens here?
      */
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
-        //$applicationMapper = $serviceLocator->get('ApplicationMapper');
-        //$educationMapper   = $serviceLocator->get('EducationMapper');
-
         $repository = new Application();
-        //$repository->setApplicationBuilder($serviceLocator->get('ApplicationBuilder'));
         return $repository;
     }
 

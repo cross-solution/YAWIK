@@ -35,18 +35,7 @@ class Job extends AbstractRepository
     {
         return $this->builders;
     }
-	
     
-    public function findByApplyId($applyId, $mode = self::MODE_FORCE_ENTITY)
-    {
-        return $this->getMapper('job')->findByApplyId((string) $applyId, $mode);
-    }
-    
-    public function fetch()
-    {
-        $collection = $this->getMapper('job')->fetch();
-        return $collection;
-    }
     /* was used on dashbord panel */
     public function fetchRecent($userId=null)
     {

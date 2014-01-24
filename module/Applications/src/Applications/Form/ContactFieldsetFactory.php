@@ -22,17 +22,17 @@ class ContactFieldsetFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $services     = $serviceLocator->getServiceLocator();
-        $repositories = $services->get('repositories');
-        $repository   = $repositories->get('Applications/Files');
+       # $repositories = $services->get('repositories');
+        #$repository   = $repositories->get('Applications/Files');
         $meta         = $this->imageMetaData;
         $auth         = $services->get('AuthenticationService');
         if ($auth->hasIdentity()) {
             $meta['user'] = $auth->getIdentity();
         }
         $fieldset     = new UserInfoFieldset();
-        $strategy     = new FileUploadStrategy($repository, $meta);
+       # $strategy     = new FileUploadStrategy($repository, $meta);
         $hydrator     = new EntityHydrator();
-        $hydrator->addStrategy('image', $strategy);
+      #  $hydrator->addStrategy('image', $strategy);
         $fieldset->setHydrator($hydrator);
 
         return $fieldset;

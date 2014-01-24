@@ -60,7 +60,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
     <pre>
-    <?php echo var_export($application, true)?>
+    <?php echo get_class($application->attachments); ?>
     </pre>
     <div class="portrait">
     <?php if ($application->contact->image):?>

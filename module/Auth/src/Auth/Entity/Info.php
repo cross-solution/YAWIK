@@ -312,4 +312,48 @@ class Info extends AbstractEntity implements InfoInterface
     	return $this->street;
     }
     
+    /**
+     * convert an array into an Info Object
+     * @param Array $array
+     * @return \Auth\Entity\Info
+     */
+    public function fromArray($array) 
+    {
+        $this->birthDay=$array['birthDay'];
+        $this->birthMonth=$array['birthMonth'];
+        $this->birthYear=$array['birthYear'];
+        $this->firstName=$array['firstName'];
+        $this->lastName=$array['lastName'];
+        $this->email=$array['email'];        
+        $this->gender=$array['gender']; 
+        $this->street=$array['street'];
+        $this->houseNumber=$array['houseNumber'];
+        $this->phone=$array['phone'];
+        $this->postalcode=$array['postalcode'];
+        $this->city=$array['city'];        
+        return($this);   
+    }
+    
+    /**
+     * convert an Info object into an Array
+     * @param Info $info
+     * @return Array
+     */
+    static function toArray(Info $info) 
+    {
+        $array['birthDay']=$info->birthDay;
+        $array['birthMonth']=$info->birthMonth;
+        $array['birthYear']=$info->birthYear;
+        $array['firstName']=$info->firstName;
+        $array['lastName']=$info->lastName;
+        $array['email']=$info->email;
+        $array['gender']=$info->gender;
+        $array['street']=$info->street;
+        $array['houseNumber']=$info->houseNumber;
+        $array['phone']=$info->phone;
+        $array['postalcode']=$info->postalcode;
+        $array['city']=$info->city;
+        return $array;
+    }
+    
 }
