@@ -71,7 +71,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * 
      * @var array \Applications\Entity\Application
      * 
-     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true)
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job")
      */
     protected $applications;
     
@@ -79,7 +79,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * new applications
      * 
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
-     *                    repositoryMethod="getUnreadApplications") 
+     *                    repositoryMethod="getUnreadApplications", mappedBy="job") 
      * @var unknown
      */
     protected $unreadApplications;
@@ -107,7 +107,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * 
      * @var String
      * 
-     * @ODM\String
+     * @ODM\Field(type="tz_date")
      */
     protected $datePublishStart;
     
@@ -224,6 +224,10 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
 
     public function getApplications() {
         return $this->applications;
+    }
+    
+    public function getUnreadApplications() {
+        return $this->unreadApplications;
     }
 
     public function getLink() {

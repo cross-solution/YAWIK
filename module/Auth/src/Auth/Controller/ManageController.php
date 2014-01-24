@@ -34,7 +34,9 @@ class ManageController extends AbstractActionController
             //throw new \Exception('Test');
         }
         
-        $oldImageId = $user->info->image ? $user->info->image->id : null; 
+        if (isset($user->info->image)) {
+          $oldImageId = $user->info->image ? $user->info->image->id : null; 
+        }
         $form->bind($user);
              
         if ($this->request->isPost()) {

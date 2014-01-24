@@ -16,7 +16,7 @@ use Core\Entity\FileEntityInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * The user model
+ * peronal informations of a user.
  * 
  * @ODM\EmbeddedDocument
  */

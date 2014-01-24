@@ -24,8 +24,7 @@ class IndexController extends AbstractActionController
 {
     
     /**
-     * Main apply site
-     *
+     * handle the application form.
      */
     public function indexAction()
     { 
@@ -170,6 +169,11 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
     
+    /**
+     * handle the privacy policy used in an application form.
+     * 
+     * @return \Zend\View\Model\ViewModel
+     */
     public function disclaimerAction()
     { 
         $viewModel = new ViewModel();

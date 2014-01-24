@@ -14,27 +14,30 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * 
  * @author mathias
  *
- * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application")
  */
 class Application extends AbstractIdentifiableEntity implements ApplicationInterface, ResourceInterface
 {
     /**
-     * 
      * @var unknown
+     * @ODM\String
      */
     protected $jobId;
     
     /**
      * 
      * @var unknown
+     * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
      */
     protected $job;
     
     /**
+     * Ower of an Application. If an authenticated Candidate submit an application, this
+     * userId is set.
      * 
      * @var unknown
      * 
-     * @ODM\String
+     * 
      */
     protected $userId;
     
@@ -45,31 +48,37 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $user;
     
     /**
-     * status of an application.
+     * latest status of an application.
      * 
      * @var String 
      * 
-     * @ODM\String
+     * @ODM\EmbedOne(targetDocument="Status")
      */
     protected $status;
     
     /**
+     * Creation Date of an application
      * 
      * @var unknown
      * 
-     * @ODM\Date
+     * @ODM\Field(type="tz_date")
      */
     protected $dateCreated;
     
     /**
+     * Latest modification date of an application
      * 
      * @var unknown
+     * 
+     * @ODM\Field(type="tz_date")
      */
     protected $dateModified;
 
-    /*
+    /**
      * personal informations, contains firstname, lastname, email, 
      * phone etc.
+     *
+     * @ODM\EmbedOne(targetDocument="Auth\Entity\Info")
      */
     protected $contact;
     
@@ -77,13 +86,15 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * The summary of an application
      * 
      * @var String
+     * 
+     * @ODM\String
      */
     protected $summary;
     
     /**
      * Resume, containing employments, educations and skills
      * 
-     * 
+     * @ODM\EmbedOne(targetDocument="Cv")
      */
     protected $cv;
 
@@ -96,6 +107,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     /**
      * 
      * @var unknown
+     * @ODM\EmbedOne(targetDocument="History")
      */
     protected $history;
         

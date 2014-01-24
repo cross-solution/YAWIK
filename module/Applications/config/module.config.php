@@ -17,7 +17,6 @@ return array(
             ),
         ),
     ),
-    
     'Applications' => array(
         'dashboard' => array(
             'enabled' => true,
@@ -220,7 +219,8 @@ return array(
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
         ),
         'factories'=> array(
-            'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
+            /* deprecated*/ 'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory',
+            'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ),
     ),
      

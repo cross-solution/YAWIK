@@ -3,7 +3,14 @@
 namespace Applications\Entity;
 
 use Core\Entity\AbstractEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
+/**
+ * 
+ * @author cbleek
+ * 
+ * @ODM\EmbeddedDocument
+ */
 class Status extends AbstractEntity implements StatusInterface
 {
     protected static $order = array(
@@ -13,6 +20,11 @@ class Status extends AbstractEntity implements StatusInterface
         self::REJECTED => 40,
     );
     
+    /**
+     * 
+     * @var unknown
+     * @ODM\String
+     */
     protected $status;
         
     public function __construct($status = self::INCOMING)

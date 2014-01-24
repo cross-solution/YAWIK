@@ -24,8 +24,7 @@ class IndexController extends AbstractActionController
     
     
     /**
-     * List applications
-     *
+     * List jobs
      */
     public function indexAction()
     { 
