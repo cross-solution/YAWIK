@@ -26,7 +26,8 @@ class RepositoryService
     {
         $nameParts = explode('/', $name);
         if (2 > count($nameParts)) {
-            throw new \InvalidArgumentException('Name must be in the format "Namespace/Entity")');
+            $nameParts = array($name, $name);
+            //throw new \InvalidArgumentException('Name must be in the format "Namespace/Entity")');
         }
         
         $namespace   = $nameParts[0];
@@ -34,10 +35,6 @@ class RepositoryService
         $entityClass = "\\$namespace\\Entity\\$entityName";
         
         $repository  = $this->dm->getRepository($entityClass); 
-        if ($repository instanceOf RepositoryInterface) {
-            $repository->setEntityPrototype(new $entityClass());
-        }
-        
         return $repository;
     }
     

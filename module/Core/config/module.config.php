@@ -96,6 +96,7 @@ return array(
     'service_manager' => array(
         'invokables' => array(
             'configaccess' => 'Core\Service\Config',
+            'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber',
         ),
         'factories' => array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',

@@ -60,7 +60,9 @@ return array(
 
         'eventmanager' => array(
             'odm_default' => array(
-                'subscribers' => array()
-            )
+                'subscribers' => array(
+                    'Core/DoctrineMongoODM/RepositoryEvents',
+                ),
+            ),
         ),
 );
