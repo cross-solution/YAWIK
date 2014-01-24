@@ -117,6 +117,17 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'manage-password' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/my/password',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Manage',
+                                'action' => 'my-password',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                     'Save Application Confirmation' => array(
                         'type' => 'Literal',
                         'options' => array(
@@ -357,6 +368,8 @@ return array(
         'invokables' => array( 
             'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
+            'user-password' => 'Auth\Form\UserPassword',
+            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
         ),
         'factories' => array(

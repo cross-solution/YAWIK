@@ -75,7 +75,6 @@ class Application extends AbstractRepository
         return $collection;
     }
     
-    
     /*
      * counts the number of applications of 
      */    

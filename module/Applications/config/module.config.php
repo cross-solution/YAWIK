@@ -17,6 +17,15 @@ return array(
                         ),
                 ),
         ),
+    'doctrine' => array(
+       'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Applications\Entity' => 'annotation',
+                ),
+            ),
+        ),
+    ),
     
     'Applications' => array(
         'dashboard' => array(

@@ -83,8 +83,34 @@ class ManageController extends AbstractActionController
         return array(
             'form' => $form
         );
-         
     }
+
+    public function myPasswordAction()
+    {
+        $services = $this->getServiceLocator();
+        $form     = $services->get('forms')->get('user-password');
+        $user     = $services->get('AuthenticationService')->getUser();
+        $translator = $services->get('translator');
+        
+        if (!$user) {
+            throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
+            //throw new \Exception('Test');
+        }
+        $form->bind($user);
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+            $form->setData($data);
+            if ($form->isValid()) {
+                $services->get('repositories')->store($user);
+            } else { // form is invalid
+            }
+        }
+        
+        return array(
+            'form' => $form
+        );
+    }
+
      public function saveApplicationConfirmationAction()
     {
         $services = $this->getServiceLocator();
