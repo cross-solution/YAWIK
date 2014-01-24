@@ -58,7 +58,7 @@ class CreatePaginator extends AbstractPlugin
             $adapter = new \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator($cursor);
             
         } else {
-            throw new \RuntimeException('Could not create paginator for repository ' . $repositoryName);
+            throw new \RuntimeException('Could not create paginator for repository ' . get_class($repository));
         }
         $paginator = new \Zend\Paginator\Paginator($adapter);
         return $paginator;

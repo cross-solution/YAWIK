@@ -18,6 +18,13 @@ class Job extends AbstractRepository
     
     protected $builders;
     
+    public function getPaginatorCursor($params)
+    {
+        $filter = $this->getService('filterManager')->get('Jobs/PaginationQuery');
+        $qb = $filter->filter($params, $this->createQueryBuilder());
+        return $qb->getQuery()->execute();
+    }
+    
     public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
     {
         $this->builders = $entityBuilderManager;

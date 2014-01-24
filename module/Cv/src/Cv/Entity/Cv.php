@@ -21,7 +21,6 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
      * 
      * @var unknown
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
-     * @Jms\Type("Core\Repository\Jms\Types\MongoId")
      */
     protected $user;
     

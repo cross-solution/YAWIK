@@ -59,7 +59,7 @@ class IndexController extends AbstractActionController
         
         $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         
-        $paginator = $this->paginator('Jobs/PaginationQuery');
+        $paginator = $this->paginator('Jobs/Job');
         
 //         $jsonFormat = 'json' == $this->params()->fromQuery('format');
         

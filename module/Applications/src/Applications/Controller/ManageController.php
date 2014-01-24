@@ -71,7 +71,7 @@ class ManageController extends AbstractActionController
         
       #  $repository = $this->getServiceLocator()->get('repositories')->get('application');
         
-        $paginator = $this->paginator('Applications/PaginationQuery');
+        $paginator = $this->paginator('Applications/Application');
         
         #$paginator = new \Zend\Paginator\Paginator(
         #    $repository->getPaginatorAdapter($params->toArray())

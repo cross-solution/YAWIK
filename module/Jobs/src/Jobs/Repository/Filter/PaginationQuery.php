@@ -51,7 +51,7 @@ class PaginationQuery extends AbstractPaginationQuery
         }
     
     
-        return $queryBuilder->getQuery();
+        return $queryBuilder;
     }
     
     protected function filterSort($sort)

@@ -48,7 +48,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
     
-        return $queryBuilder->getQuery();
+        return $queryBuilder;
     }
     
     protected function filterSort($sort)

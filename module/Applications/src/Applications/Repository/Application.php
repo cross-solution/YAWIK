@@ -12,6 +12,12 @@ class Application extends AbstractRepository
 {
     protected $builders;
     
+    public function getPaginatorCursor($params)
+    {
+        $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
+        $qb = $filter->filter($params, $this->createQueryBuilder());
+        return $qb->getQuery()->execute();
+    }
     
     public function getUnreadApplications($job) {
         $auth=$this->getService('AuthenticationService');
@@ -68,10 +74,7 @@ class Application extends AbstractRepository
         $collection = $this->getMapper('application')->fetchRecent($limit);
         return $collection;
     }
-    public function getPaginatorAdapter(array $params)
-    {
-        return $this->getMapper('application')->getPaginatorAdapter($params);
-    }
+    
     
     /*
      * counts the number of applications of 
