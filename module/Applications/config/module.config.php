@@ -8,6 +8,15 @@
  * @license   GPLv3
  */
 return array(
+        'doctrine' => array(
+                'driver' => array(
+                        'odm_default' => array(
+                                'drivers' => array(
+                                        'Applications\Entity' => 'annotation',
+                                ),
+                        ),
+                ),
+        ),
     
     'Applications' => array(
         'dashboard' => array(
@@ -211,7 +220,8 @@ return array(
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
         ),
         'factories'=> array(
-            'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
+            /* deprecated*/ 'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory',
+            'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ),
     ),
      

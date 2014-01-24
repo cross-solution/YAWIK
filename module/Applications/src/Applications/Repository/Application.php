@@ -4,14 +4,20 @@ namespace Applications\Repository;
 
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
-use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
 
-class Application extends AbstractRepository implements EntityBuilderAwareInterface
+class Application extends AbstractRepository
 {
     protected $builders;
+    
+    
+    public function getUnreadApplications($job) {
+        $auth=$this->getService('AuthenticationService');
+        return $this->findBy(array("readBy"=>$auth->getUser()->id));    
+#       return $this->findBy(array("readBy"=>$auth->getIdentity()));
+    }
     
     public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
     {
@@ -24,28 +30,28 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $this->builders;
     }
     
-	public function find ($id, $mode=self::LOAD_LAZY)
-    {
-        $entity = $mode == self::LOAD_EAGER
-              ? $this->getMapper('application')->find($id, array())
-              : $this->getMapper('application')->find($id, 
-                      array('cv'),
-                      /*exclude*/ true
-              );
-        
-        
-        return $entity;
-    }
+#	public function find ($id, $mode=self::LOAD_LAZY)
+#    {
+#        $entity = $mode == self::LOAD_EAGER
+#              ? $this->getMapper('application')->find($id, array())
+#              : $this->getMapper('application')->find($id, 
+#                      array('cv'),
+#                      /*exclude*/ true
+#              );
+#        
+#        
+#        return $entity;
+#    }
     
    
     
-    public function fetch ($mode=self::LOAD_LAZY)
-    {
-        $fields = array('cv' => false);
-        
-        $collection = $this->getMapper('application')->fetch(array(), $fields);
-        return $collection;
-    }
+ #   public function fetch ($mode=self::LOAD_LAZY)
+ #   {
+ #       $fields = array('cv' => false);
+ #       
+ #       $collection = $this->getMapper('application')->fetch(array(), $fields);
+ #       return $collection;
+ #   }
     
     public function fetchByJobId($jobId)
     {
@@ -67,12 +73,19 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $this->getMapper('application')->getPaginatorAdapter($params);
     }
     
+    /*
+     * counts the number of applications of 
+     */    
     public function countBy($userOrId, $onlyUnread=false)
     {
+        $auth=$this->getService('AuthenticationService');
+        return $this->findBy(array("readBy"=>$auth->getUser()->id));
+        #
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {
             $userOrId = $userOrId->getId();
         }
-        return $this->getMapper('application')->countBy($userOrId, $onlyUnread);
+#        return $this->findBy(array->countBy($userOrId, $onlyUnread);
+      #  return $this->findBy(array("readBy"=>$auth->getUser()->id));
     }
     
     public function changeStatus($application, $status)

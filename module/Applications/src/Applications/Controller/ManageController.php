@@ -39,11 +39,9 @@ class ManageController extends AbstractActionController
     
     /**
      * List applications
-     *
      */
     public function indexAction()
     { 
-        //echo $this->params()->getQuery('count'); exit;
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
         
@@ -70,13 +68,16 @@ class ManageController extends AbstractActionController
         ));
         $v->setTemplate('applications/sidebar/manage');
         $this->layout()->addChild($v, 'sidebar_applicationsFilter');
-        $repository = $this->getServiceLocator()->get('repositories')->get('application');
         
-        $paginator = new \Zend\Paginator\Paginator(
-            $repository->getPaginatorAdapter($params->toArray())
-        );
-        $paginator->setCurrentPageNumber($params->get('page', 1))
-                  ->setItemCountPerPage($params->get('count', 10));
+      #  $repository = $this->getServiceLocator()->get('repositories')->get('application');
+        
+        $paginator = $this->paginator('Applications/PaginationQuery');
+        
+        #$paginator = new \Zend\Paginator\Paginator(
+        #    $repository->getPaginatorAdapter($params->toArray())
+        #);
+        #$paginator->setCurrentPageNumber($params->get('page', 1))
+        #          ->setItemCountPerPage($params->get('count', 10));
         
         if ($jsonFormat) {
             $viewModel = new JsonModel();
