@@ -17,7 +17,9 @@ class UserInfoFieldsetFactory implements FactoryInterface
         $services     = $serviceLocator->getServiceLocator();
         $user         = $services->get('AuthenticationService')->getUser();
         $fieldset     = new UserInfoFieldset();
-        $strategy     = new FileUploadStrategy($user, new UserImage());
+        $imageEntity  = new UserImage();
+        $imageEntity->setUser($user);
+        $strategy     = new FileUploadStrategy($imageEntity);
         $hydrator     = new EntityHydrator();
         $hydrator->addStrategy('image', $strategy);
         $fieldset->setHydrator($hydrator);

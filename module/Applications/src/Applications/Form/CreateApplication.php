@@ -12,13 +12,16 @@ namespace Applications\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Applications\Entity\Attachment;
 use Applications\Entity\Cv;
+use Applications\Entity\Contact;
 use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Core\Entity\Collection\ArrayCollection;
 
 /**
  * create an application form.
  */
-class CreateApplication extends Form
+class CreateApplication extends Form implements ServiceLocatorAwareInterface
 {
     protected $forms;
     protected $inputFilterSpecification;
@@ -43,7 +46,7 @@ class CreateApplication extends Form
     public function getHydrator()
     {
         if (!$this->hydrator) {
-             $hydrator = new EntityHydrator();
+             $this->setHydrator(new EntityHydrator());
         }
         return $this->hydrator;
     }
@@ -69,21 +72,17 @@ class CreateApplication extends Form
             'required' => true
         ));
         
-        /**
-         * @todo: das versteht kein Mensch
-         */
-   
+        $allowedUsers = array(
+            'allowedUsers' => new ArrayCollection(array(
+                $this->getObject()->getJob()->getUser()
+            ))
+        );
+        
         $this->add($this->forms
-                         ->get('Applications/ContactFieldset', array(
-                                'image_meta' => array(
-                                    'allowedUserIds' => array(
-                                        $this->getObject()->getJob()->userId
-                                    )
-                                )
-                           ))
+                         ->get('Applications/ContactFieldset', $allowedUsers)
                          ->setLabel('personal informations')
                          ->setName('contact')
-                         ->setObject(new Attachment()));
+                         ->setObject(new Contact()));
         
         
         $this->add($this->forms->get('Applications/BaseFieldset'));
@@ -96,8 +95,7 @@ class CreateApplication extends Form
             $this->forms->get('CvFieldset')->setObject(new Cv())
         );
         
-        $attachments = $this->forms->get('Applications/AttachmentsCollection');
-        $attachments->getHydrator()->setForm($this); 
+        $attachments = $this->forms->get('Applications/AttachmentsCollection', $allowedUsers);
         $this->add(
             $attachments
         );

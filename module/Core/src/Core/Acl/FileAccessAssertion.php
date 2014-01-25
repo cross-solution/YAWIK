@@ -30,6 +30,11 @@ class FileAccessAssertion implements AssertionInterface
         if (!$role instanceOf UserInterface || !$resource instanceOf FileInterface) {
             return false;
         }
-        return $role->getId() == $resource->getUser()->getId();
+        
+        $roleId = $role->getId();
+        $userId = null !== $resource->getUser() ? $resource->getUser()->getId() : null;
+        $allowedUsers = $resource->getAllowedUsers();
+        
+        return ($userId && $roleId == $userId) || $allowedUsers->contains($role);
     }
 }

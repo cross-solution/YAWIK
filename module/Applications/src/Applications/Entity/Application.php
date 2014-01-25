@@ -4,10 +4,11 @@ namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
-use Core\Entity\CollectionInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Jobs\Entity\JobInterface;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * The application model
@@ -101,7 +102,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     /**
      * multiple Attachments of an application
      * 
-     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true")
+     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist"})
      */
     protected $attachments;
     
@@ -154,6 +155,12 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this->job;
     }
     
+    public function setJob(JobInterface $job)
+    {
+        $this->job = $job;
+        return $this;
+    }
+    
    
     
     public function setUserId($userId)
@@ -167,7 +174,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this->userId;
     }
     
-    public function injectUser(EntityInterface $user)
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
         return $this;
@@ -286,7 +293,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	    return $this->cv;
 	}
 	
-	public function injectAttachments(CollectionInterface $attachments)
+	public function setAttachments(Collection $attachments)
 	{
 	    $this->attachments = $attachments;
 	    return $this;
@@ -297,7 +304,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	    return $this->attachments;
 	}
 	
-	public function setHistory(HistoryCollectionInterface $history)
+	public function setHistory(Collection $history)
 	{
 	    $this->history = $history;
 	    return $this;

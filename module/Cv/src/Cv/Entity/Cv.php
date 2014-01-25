@@ -27,21 +27,21 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     /**
      * 
      * @var unknown
-     * @ODM\EmbedMany(targetDocument="Education")
+     * @ODM\EmbedMany(targetDocument="\Cv\Entity\Education")
      */
     protected $educations;
     
     /**
      * 
      * @var unknown
-     * @ODM\EmbedMany(targetDocument="Employment")
+     * @ODM\EmbedMany(targetDocument="\Cv\Entity\Employment")
      */
     protected $employments;
     
     /**
      * 
      * @var unknown
-     * @ODM\EmbedMany(targetDocument="Skill")
+     * @ODM\EmbedMany(targetDocument="\Cv\Entity\Skill")
      */
     protected $skills;
     

@@ -110,8 +110,8 @@ class ManageController extends AbstractActionController
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
         
-        $repository = $this->getServiceLocator()->get('repositories')->get('application');
-        $application = $repository->find($this->params('id'), 'EAGER');
+        $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        $application = $repository->find($this->params('id'));
     	
     	$this->acl($application, 'read');
     	

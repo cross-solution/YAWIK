@@ -23,23 +23,9 @@ class FileUploadStrategy implements StrategyInterface
     protected $user;
     
     
-    public function __construct(UserInterface $user, FileInterface $file = null)
+    public function __construct(FileInterface $file)
     {
-        $this->setUser($user);
-        if (null !== $file) {
-            $this->setFileEntity($file);
-        }
-    }
-    
-    public function setUser(UserInterface $user)
-    {
-        $this->user = $user;
-        return $this;
-    }
-    
-    public function getUser()
-    {
-        return $this->user;
+        $this->setFileEntity($file);
     }
     
     public function setFileEntity(FileInterface $file)
@@ -74,8 +60,7 @@ class FileUploadStrategy implements StrategyInterface
         
         $file = $this->getFileEntity();
         
-        $file->setUser($this->getUser())
-             ->setName($value['name'])
+        $file->setName($value['name'])
              ->setType($value['type'])
              ->setFile($value['tmp_name']);
         

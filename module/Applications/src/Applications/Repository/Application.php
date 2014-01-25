@@ -7,6 +7,7 @@ use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
+use Applications\Entity\ApplicationInterface;
 
 class Application extends AbstractRepository
 {
@@ -103,12 +104,13 @@ class Application extends AbstractRepository
         return $this;
     }
     
-    public function save(EntityInterface $entity, $resetModifiedDate=true)
+    public function save(ApplicationInterface $application, $resetModifiedDate=true)
     {
         if ($resetModifiedDate) {
-            $entity->setDateModified('now');
+            $application->setDateModified('now');
         }
-        $this->getMapper('application')->save($entity);
+        $this->dm->persist($application);
+        $this->dm->flush();
     }
     
     public function delete(EntityInterface $entity)

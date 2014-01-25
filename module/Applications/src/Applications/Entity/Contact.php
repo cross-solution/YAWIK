@@ -15,7 +15,7 @@ class Contact extends Info {
     /**
      * 
      * @var unknown
-     * @ODM/ReferenceOne(targetDocument="Attachment")
+     * @ODM\ReferenceOne(targetDocument="Attachment", simple=true, cascade={"persist"})
      */
     protected $image;
     

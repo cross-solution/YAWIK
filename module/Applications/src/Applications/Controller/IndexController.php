@@ -37,7 +37,7 @@ class IndexController extends AbstractActionController
 
         $job = ($request->isPost() && !empty($jobId))
              ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
-             : $services->get('repositories')->get('Jobs/Job')->findBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
+             : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
         
         $form = $services->get('FormElementManager')->get('Application');
@@ -50,6 +50,7 @@ class IndexController extends AbstractActionController
         ));
         
         $applicationEntity = new Application();
+        $applicationEntity->setJob($job);
         
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
@@ -78,7 +79,7 @@ class IndexController extends AbstractActionController
                 $returnTo = \Zend\Uri\UriFactory::factory($returnTo);
             }
             $services = $this->getServiceLocator();
-            $repository = $services->get('repositories')->get('Application');
+            $repository = $services->get('repositories')->get('Applications/Application');
             
             
             //$applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
@@ -122,18 +123,19 @@ class IndexController extends AbstractActionController
                 }
                 $applicationEntity->setStatus(new Status());
                 
-                $repository->save($applicationEntity);
+                $services->get('repositories')->store($applicationEntity);
                 
                 /*
                  * New Application alert Mails to job owner
+                 * @todo disabled until settings is migrated to doctrine
                  */
-                $settings = $this->settings($job->user->getEntity()); 
-                if ($email = $job->getContactEmail()) {
-                    $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
-                }
+//                 $settings = $this->settings($job->user); 
+//                 if ($email = $job->getContactEmail()) {
+//                     $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
+//                 }
                 
                 if ($this->auth()->isLoggedIn()) {
-                    $userInfo = $this->auth()->get('info')->getEntity();
+                    $userInfo = $this->auth()->get('info');
                     if (isset($userInfo)) {
                         // TODO: will dieser User eine Info haben (aus den Settings lesen)
                         $email = $userInfo->getEmail();

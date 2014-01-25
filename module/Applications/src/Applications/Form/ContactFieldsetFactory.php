@@ -4,35 +4,40 @@ namespace Applications\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Repository\Hydrator\FileUploadStrategy;
+use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Core\Entity\Hydrator\EntityHydrator;
 use Auth\Form\UserInfoFieldset;
+use Applications\Entity\Attachment;
 
 class ContactFieldsetFactory implements FactoryInterface
 {
     
-    protected $imageMetaData = array();
+    protected $imageMeta = array();
     
-    public function __construct(array $options = array()) {
-        if (isset($options['image_meta'])) {
-            $this->imageMetaData = $options['image_meta'];
-        }
-        
+    public function __construct(array $imageMeta = array()) 
+    {
+        $this->imageMeta = $imageMeta;
     }
+    
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $services     = $serviceLocator->getServiceLocator();
        # $repositories = $services->get('repositories');
         #$repository   = $repositories->get('Applications/Files');
-        $meta         = $this->imageMetaData;
+        
         $auth         = $services->get('AuthenticationService');
+        $contactImage = new Attachment();
         if ($auth->hasIdentity()) {
-            $meta['user'] = $auth->getIdentity();
+            $contactImage->setUser($auth->getUser());
         }
+        foreach ($this->imageMeta as $key => $value) {
+            $contactImage->{"set$key"}($value);
+        }
+        
         $fieldset     = new UserInfoFieldset();
-       # $strategy     = new FileUploadStrategy($repository, $meta);
+        $strategy     = new FileUploadStrategy($contactImage);
         $hydrator     = new EntityHydrator();
-      #  $hydrator->addStrategy('image', $strategy);
+        $hydrator->addStrategy('image', $strategy);
         $fieldset->setHydrator($hydrator);
 
         return $fieldset;

@@ -13,6 +13,7 @@ namespace Core\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * 
@@ -23,6 +24,9 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
 {
     /** @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
     protected $user;
+    
+    /** @ODM\ReferenceMany(targetDocument="\Auth\Entity\User", simple=true) */
+    protected $allowedUsers;
     
     /** @ODM\Field */
     protected $name;
@@ -73,6 +77,17 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function setAllowedUsers(Collection $users)
+    {
+        $this->allowedUsers = $users;
+        return $this;
+    }
+    
+    public function getAllowedUsers()
+    {
+        return $this->allowedUsers;
     }
     
     public function setName($name)

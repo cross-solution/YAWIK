@@ -5,30 +5,41 @@ namespace Applications\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Form\FileCollection;
-use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\Hydrator\FileCollectionUploadHydrator;
+use Applications\Entity\Attachment;
 
 class AttachmentsCollectionFactory implements FactoryInterface
 {
     
+    protected $fileMeta = array();
+    
+    public function __construct(array $fileMeta=array())
+    {
+        $this->fileMeta = $fileMeta;
+    }
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
     */
     public function createService (ServiceLocatorInterface $serviceLocator)
     {
         $services   = $serviceLocator->getServiceLocator();
-       // $repository = $services->get('repositories')->get('Applications/Files');
-        $hydrator     = new EntityHydrator();
-        //$hydrator   = new FileUploadHydrator($repository);
-     #   $hydrator->setAuth($services->get('AuthenticationService'));
-
-                   
+        $auth       = $services->get('AuthenticationService');
+        $hydrator   = new FileCollectionUploadHydrator();
+        $fileEntity = new Attachment();
+        if ($auth->hasIdentity()) {
+            $fileEntity->setUser($auth->getUser());
+        }
+        foreach ($this->fileMeta as $key => $value) {
+            $fileEntity->{"set$key"}($value);
+        }
         $collection = new FileCollection('attachments');
         $collection->setLabel('Attachments')
                    ->setHydrator($hydrator)
                    ->setCount(0)
                    ->setShouldCreateTemplate(true)
                    ->setAllowAdd(true)
-                   ->setTargetElement($serviceLocator->get('file'));
+                   ->setTargetElement($serviceLocator->get('file'))
+                   ->setFileEntity($fileEntity);
         $config = $services->get('Config');
         if (isset($config['Applications']['allowedMimeTypes'])) {
             $validator = $services->get('validatorManager')->get(

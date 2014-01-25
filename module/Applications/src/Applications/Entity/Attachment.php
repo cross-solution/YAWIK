@@ -9,7 +9,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @author cbleek
  *
- * @ODM\Document(Collection="applications")
+ * @ODM\Document(collection="applications")
  */
 class Attachment extends FileEntity {
     

@@ -11,8 +11,9 @@ namespace Jobs\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
-use Core\Entity\CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Doctrine\Common\Collections\Collection;
+use Auth\Entity\UserInterface;
 
 /**
  * The job model
@@ -63,6 +64,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * the owner of a Job Posting
      *  
      * @var unknown
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
      */
     protected $user;
     
@@ -208,7 +210,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     	return $this->location;
     }
     
-    public function injectUser(EntityInterface $user) {
+    public function setUser(UserInterface $user) {
         $this->user = $user;
         return $this;
     }
@@ -217,7 +219,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         return $this->user;
     }
 
-    public function injectApplications(CollectionInterface $applications) {
+    public function setApplications(Collection $applications) {
         $this->applications = $applications;
         return $this;
     }
