@@ -98,8 +98,7 @@ class IndexController extends AbstractActionController
          }
          $myJobs = $services->get('repositories')->get('Jobs/Job');
          
-         
-         $paginator = $this->paginator('Jobs/PaginationQuery');
+         $paginator = $this->paginator('Jobs/Job');
 
          #$paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
          #->setItemCountPerPage($params->get('count', 10));

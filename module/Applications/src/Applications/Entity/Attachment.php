@@ -13,6 +13,16 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Attachment extends FileEntity {
     
+    protected $uri;
+    
+    /**
+     * get the URI of an attachment
+     * @return string
+     */
+    function getUri(){
+        return "/file/Applications.Attachment/" . $this->id . "/" . urlencode($this->name);
+    }
+    
 }
 
 ?>

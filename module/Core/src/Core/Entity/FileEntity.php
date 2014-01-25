@@ -32,7 +32,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     protected $name;
     
     /** @ODM\String */
-    protected $mimeType;
+    protected $mimetype;
     
     /** @ODM\File */
     protected $file;
@@ -47,7 +47,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
      * @var unknown
      * @ODM\Field(type="tz_date")
      */
-    protected $dateUpload;
+    protected $dateUploaded;
     
     /** @ODM\Field */
     protected $length;
@@ -108,27 +108,27 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     
     public function setType($mime)
     {
-        $this->mimeType = $mime;
+        $this->mimetype = $mime;
         return $this;
     }
     
     public function getType()
     {
-        return $this->mimeType;
+        return $this->mimetype;
     }
     
-    public function setDateUpload(\DateTime $date = null)
+    public function setDateUploaded(\DateTime $date = null)
     {
-        $this->dateUpload = $date;
+        $this->dateUploaded = $date;
         return $this;
     }
     
-    public function getDateUpload()
+    public function getDateUploaded()
     {
-        if (!$this->dateUpload) {
-            $this->setDateUpload(new \DateTime());
+        if (!$this->dateUploaded) {
+            $this->setDateUploaded(new \DateTime());
         }
-        return $this->dateUpload;
+        return $this->dateUploaded;
     }
     
     public function getFile()
@@ -138,7 +138,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     
     public function setFile($file)
     {
-        $this->setDateUpload(new \DateTime());
+        $this->setDateUploaded(new \DateTime());
         $this->file = $file;
         return $this;
     }

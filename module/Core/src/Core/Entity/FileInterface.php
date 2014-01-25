@@ -23,9 +23,9 @@ interface FileInterface extends IdentifiableEntityInterface
     
     public function getName();
     
-    public function setDateUpload(\DateTime $date = null);
+    public function setDateUploaded(\DateTime $date = null);
     
-    public function getDateUpload();
+    public function getDateUploaded();
     
     public function getFile();
     

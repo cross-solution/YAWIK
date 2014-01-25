@@ -59,12 +59,9 @@ echo $this->paginationControl($applications, 'Sliding', 'pagination-control', ar
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
-    <pre>
-    <?php echo get_class($application->attachments); ?>
-    </pre>
     <div class="portrait">
     <?php if ($application->contact->image):?>
-    <img src="/file/applications/<?php echo $application->contact->image->id ?>" />
+    <img src="/file/Applications.Attachment/<?php echo $application->contact->image->id ?>" />
     <?php else:?>
     <span class="cam-icon-portrait"></span>
     <?php endif?>
@@ -74,10 +71,10 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
        <?php echo $application->contact->city?>
     </td>
     <td class="cam-career">
-    <?php if (count($application->cv->educations)>0):?>
+    <?php if (isset($application->cv->educations)):?>
       <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
     <?php endif;?>
-    <?php if (count($application->cv->employments)>0):?>
+    <?php if (isset($application->cv->employments)):?>
       <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>
@@ -97,7 +94,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
           <?php echo $application->job->title ?>
          </a>         
     </td>
-    <td>Status geht noch nicht<?php #echo $application->status ?></td>
+    <td><?php echo $application->status->name ?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
         <?php echo $this->dateFormat($application->dateModified);?>
     </td>

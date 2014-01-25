@@ -8,7 +8,7 @@
  */
 
 $modules = array(
-         'DoctrineModule', 'DoctrineMongoODMModule', 'JMSSerializerModule', 'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
+         'DoctrineModule', 'DoctrineMongoODMModule', /* 'JMSSerializerModule', */ 'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
     );
 
 if (!isset($allModules)) {

@@ -47,6 +47,22 @@ class PaginationQuery extends AbstractPaginationQuery
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
+        
+        if ($this->auth->getUser()->getRole()=='recruiter') {
+            /*
+             * a recruiter can see applications, which are related to his jobs
+            */
+            if (isset($value['by']) && 'new' === $value['by']) {
+                $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
+            }
+            $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
+        
+        } else {
+            /*
+             * an applicant can see his own applications
+            */
+            $queryBuilder->field('refs.users.id')->equals($this->auth->getUser()->id);
+        }
     
         return $queryBuilder;
     }

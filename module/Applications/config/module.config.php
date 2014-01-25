@@ -8,15 +8,7 @@
  * @license   GPLv3
  */
 return array(
-        'doctrine' => array(
-                'driver' => array(
-                        'odm_default' => array(
-                                'drivers' => array(
-                                        'Applications\Entity' => 'annotation',
-                                ),
-                        ),
-                ),
-        ),
+
     'doctrine' => array(
        'driver' => array(
             'odm_default' => array(

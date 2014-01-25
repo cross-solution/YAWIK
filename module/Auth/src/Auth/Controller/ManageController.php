@@ -31,7 +31,6 @@ class ManageController extends AbstractActionController
         
         if (!$user) {
             throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
-            //throw new \Exception('Test');
         }
         
         if (isset($user->info->image)) {
@@ -94,7 +93,6 @@ class ManageController extends AbstractActionController
         
         if (!$user) {
             throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
-            //throw new \Exception('Test');
         }
         $form->bind($user);
         if ($this->request->isPost()) {
