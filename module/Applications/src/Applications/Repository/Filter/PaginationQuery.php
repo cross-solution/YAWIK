@@ -56,7 +56,8 @@ class PaginationQuery extends AbstractPaginationQuery
                 $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
             }
             $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
-        
+#           $queryBuilder->addor($queryBuilder->field('job.user')->equals($this->auth->getUser()->id));
+#           $queryBuilder->field('job.user')->equals($this->auth->getUser()->id);
         } else {
             /*
              * an applicant can see his own applications

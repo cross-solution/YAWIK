@@ -33,7 +33,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $job;
     
     /**
-     * Ower of an Application. If an authenticated Candidate submit an application, this
+     * Owner of an application. If an authenticated Candidate submit an application, this
      * userId is set.
      * 
      * @var unknown

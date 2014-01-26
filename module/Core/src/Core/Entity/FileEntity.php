@@ -16,24 +16,40 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
+ * stores files in MongoGridFS into the collection "files". You can override this.
  * 
  * @ODM\Document(collection="files")
  * @ODM\InheritanceType("COLLECTION_PER_CLASS")
  */
 class FileEntity extends AbstractIdentifiableEntity implements FileInterface, ResourceInterface
 {
-    /** @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
+    /**
+     * owner of an attachment. Typically this is the candidate who applies for a joboffer.
+     *
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
     protected $user;
     
-    /** @ODM\ReferenceMany(targetDocument="\Auth\Entity\User", simple=true) */
+    /**
+     * User, who may access the attachment. Typically this is the recruiter. 
+     *
+    /* @ODM\ReferenceMany(targetDocument="\Auth\Entity\User", simple=true) */
     protected $allowedUsers;
     
-    /** @ODM\Field */
+    /**
+     * Name of the attachment 
+     *
+     * @ODM\Field */
     protected $name;
     
-    /** @ODM\String */
+    /**
+     * mimetype of the attachment.
+     *
+     * @ODM\String */
     protected $mimetype;
-    
+
+    /**
+     * Binary data of the Attachment.
+     * 
     /** @ODM\File */
     protected $file;
     
@@ -43,8 +59,6 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     protected $uploadDate;
     
     /**
-     * 
-     * @var unknown
      * @ODM\Field(type="tz_date")
      */
     protected $dateUploaded;

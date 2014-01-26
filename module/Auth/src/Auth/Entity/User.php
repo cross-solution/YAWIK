@@ -46,6 +46,13 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @ODM\Hash */
     protected $_settings = array();
     
+    /**
+     * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
+     * It is recommended best practice to initialize any business collections in documents in the constructor.
+     */
+    public function __construct(){
+        $this->info = new Info();
+    }
     
     /**
      * {@inheritdoc}
@@ -90,6 +97,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     
     public function getInfo()
     {
+        if (is_null($this->info)){
+            $this->info=new Info();
+        }
         return $this->info;
     }
     
