@@ -8,6 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
 use Applications\Entity\ApplicationInterface;
+use Doctrine\ODM\MongoDB\Events;
 
 class Application extends AbstractRepository
 {

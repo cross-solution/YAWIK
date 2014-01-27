@@ -17,6 +17,13 @@ return array(
                 ),
             ),
         ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Applications\Repository\Event\JobReferencesUpdateListener',
+                ),
+            ),
+        ),
     ),
     
     'Applications' => array(

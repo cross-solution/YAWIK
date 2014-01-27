@@ -17,6 +17,7 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Applications\Entity\Status;
 use Core\Entity\RelationEntity;
+use Auth\Entity\User;
 
 /**
  * Main Action Controller for Applications module.

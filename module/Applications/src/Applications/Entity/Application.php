@@ -126,6 +126,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      */
     protected $readBy = array();
     
+    /**
+     * 
+     * @var 
+     * @ODM\EmbedOne(targetDocument="InternalReferences")
+     */
+    protected $refs;
+    
     public function getResourceId()
     {
         return 'Entity/Application';
@@ -158,6 +165,9 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     public function setJob(JobInterface $job)
     {
         $this->job = $job;
+        
+        $this->getRefs()->setJob($job);
+        
         return $this;
     }
     
@@ -360,4 +370,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         
         return in_array($userOrId, $this->readBy);
     }
+    
+    public function getRefs()
+    {
+        if (!$this->refs) {
+            $this->refs = new InternalReferences();
+        }
+        return $this->refs;
+    }
+    
 }

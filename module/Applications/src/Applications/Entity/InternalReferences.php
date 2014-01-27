@@ -1,0 +1,56 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+/** InternalReferences.php */ 
+namespace Applications\Entity;
+
+use Auth\Entity\UserInterface;
+use Jobs\Entity\JobInterface;
+use Core\Entity\AbstractEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
+/**
+ * @ODM\EmbeddedDocument
+ */
+class InternalReferences extends AbstractEntity
+{
+    
+    /** @ODM\Hash */
+    protected $jobs = array();
+    
+    public function setJob (JobInterface $job)
+    {
+        if (isset($this->jobs['__id__']) && $this->_jobs['__id__'] == $job->getId()) {
+            return $this;
+        }
+        
+        $this->jobs = array(
+            '__id__' => $job->getId(),
+            'userId' => $job->getUser()->getId(),
+        );
+        return $this;
+            
+    }
+    
+    public function setJobsId($id)
+    {
+        $this->jobs['__id__'] = $id;
+        return $this;
+    }
+    
+    public function setJobsUserId($userOrId)
+    {
+        if ($userOrId instanceOf UserInterface) {
+            $userOrId = $userOrId->getId();
+        }
+        $this->jobs['userId'] = $userOrId;
+        return $this;
+    }
+}
+
