@@ -55,4 +55,9 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         return $entity;
     }
 
+    public function store($entity) {
+        $this->dm->persist($entity);
+        $this->dm->flush($entity);
+    }
+    
 }

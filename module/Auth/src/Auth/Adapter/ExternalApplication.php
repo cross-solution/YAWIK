@@ -62,23 +62,49 @@ class ExternalApplication extends AbstractAdapter
         if (!in_array($this->getApplicationKey(), $this->getApplicationKeys())) {
             return new Result(Result::FAILURE, $this->getIdentity(), array('Invalid application key'));
         }
+                
+        $identity      = $this->getIdentity();
+        $applicationId = '@' . $this->getApplicationIdentifier();
+        $applicationIdIndex = strrpos($identity,$applicationId);
+        $login         = (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex)?substr($identity, 0, $applicationIdIndex):$identity;
+        $users         = $this->getRepository();
+        $user          = $users->findByLogin($login);
+        $filter        = new CredentialFilter();
+        $credential    = $this->getCredential();
         
-        $identity    = $this->getIdentity();
-        $login       = $identity . '@' . $this->getApplicationIdentifier();
-        $users       = $this->getRepository();
-        $user        = $users->findByLogin($login);
-        $filter      = new CredentialFilter();
-        $credential  = $this->getCredential();
+        $loginSuccess = False;
         
-        if (!$user) {
-            $user = $users->create(array(
-                'login' => $login,
-                'password' => $credential,
-            ));
-            $users->save($user);
+        if (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex) {
+            // the login ends with the applicationID, therefore use the secret key
+            // the external login must be the form 'xxxxx@yyyy' where yyyy is the matching suffix to the external application key
+            if (isset ($user) && $user->secret == $filter->filter($credential)) {
+                $loginSuccess = True;
+            }
+            else {
+                $user = $users->create(array(
+                    'login' => $login,
+                    'password' => $credential,
+                    'secret' => $filter->filter($credential),
+                ));
+                $users->store($user);
+                $loginSuccess = True;
+            }
+        }   
+        elseif (isset($user)) {
+            if ($user->credential == $filter->filter($credential)) {
+                $loginSuccess = True;
+            }
+            elseif (!empty($applicationId)) {
+                // TODO: remove this code as soon as the secret key has been fully established
+                // basically this does allow an external login with an applicationIndex match against the User-Password
+                // the way it had been used in the start
+                if ($user->credential == $filter->filter($credential)) {
+                    $loginSuccess = True;
+                }
+            }
         }
         
-        if ($user->credential != $filter->filter($credential)) {
+        if (!$loginSuccess) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
         }
         

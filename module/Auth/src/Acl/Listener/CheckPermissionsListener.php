@@ -78,6 +78,11 @@ class CheckPermissionsListener implements ListenerAggregateInterface
         }
     }
     
+    /**
+     * test acl on route
+     * @param \Zend\Mvc\MvcEvent $event
+     * @return type
+     */
     public function onRoute(MvcEvent $event)
     {
         $routeMatch = $event->getRouteMatch();
