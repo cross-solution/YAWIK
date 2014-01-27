@@ -18,6 +18,14 @@ use Core\Entity\FileEntity;
  */
 class UserImage extends FileEntity
 {
+    protected $uri;
     
+    /**
+     * get the URI of an attachment
+     * @return string
+     */
+    function getUri(){
+        return '/file/Applications.Attachment/' . $this->id . '/' ;
+    }
 }
 

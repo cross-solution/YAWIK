@@ -11,11 +11,18 @@
 namespace Settings\Entity;
 use Core\Entity\EntityResolverStrategyInterface;
 
+/**
+ * settings
+ *
+ * @ODM\EmbeddedDocument
+ */
 class Settings extends SettingsAbstract {
     
     /**
+     * language of the frontend
      * 
-     * @return date
+     * @return string
+     * @ODM\String
      */
     public function getLanguage() {
         return $this->language;

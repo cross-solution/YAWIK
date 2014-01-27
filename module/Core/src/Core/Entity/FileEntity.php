@@ -54,11 +54,13 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     protected $file;
     
     /** 
-     * Used by MongoGridFS
+     * Used by MongoGridFS. We don't use this. We use $dateUploaded instead.
      * @ODM\Field */
     protected $uploadDate;
     
     /**
+     * date of uploaded file
+     * 
      * @ODM\Field(type="tz_date")
      */
     protected $dateUploaded;
@@ -170,10 +172,15 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
         return null;
     }
     
+    /**
+     * return the binary data of an attachment
+     * 
+     * @see \Core\Entity\FileInterface::getContent()
+     */
     public function getContent()
     {
         if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
-            return $this->file->getMongoGridFSFile()->getContent();
+            return $this->file->getMongoGridFSFile()->getBytes();
         }
         return null;
     }

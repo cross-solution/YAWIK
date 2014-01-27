@@ -61,7 +61,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>
-    <img src="/file/Applications.Attachment/<?php echo $application->contact->image->id ?>" />
+    <img src="<?php echo $application->contact->image->uri ?>" />
     <?php else:?>
     <span class="cam-icon-portrait"></span>
     <?php endif?>

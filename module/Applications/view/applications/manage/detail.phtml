@@ -187,7 +187,7 @@
 </div>
 <div class="col-md-3">
     <?php if ($this->application->contact->image):?>
-    <img src="<?php echo $this->url('file', array('filestore' => 'Applications.Attachment', 'fileId' => $this->application->contact->image->id)) ?>" class="img-thumbnail" />
+    <img src="<?php echo $this->application->contact->image->uri; ?>" class="img-thumbnail" />
     <?endif?>
 </div>
 </div>
@@ -248,11 +248,7 @@
 <?php foreach( $this->application->attachments as $attachment): ?>
 <div class="row show-grid">
   <div class="col-md-3">
-    <a href="<?php echo $this->url('file', array(
-        'filestore' => 'Applications.Attachment', 
-        'fileId' => $attachment->id,
-        'fileName' => $attachment->name
-    ))?>"><?php echo $attachment->name ?></a></div>
+    <a href="<?php echo $attachment->uri ?>"><?php echo $attachment->name ?></a></div>
     <div class="col-md-3"><?php echo $attachment->type?></div>
     <div class="col-md-3"><?php echo $attachment->prettySize ?></div>
 </div>

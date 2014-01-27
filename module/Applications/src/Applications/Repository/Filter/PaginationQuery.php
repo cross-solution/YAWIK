@@ -55,7 +55,7 @@ class PaginationQuery extends AbstractPaginationQuery
             if (isset($value['by']) && 'new' === $value['by']) {
                 $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
             }
-            $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
+#            $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
 #           $queryBuilder->addor($queryBuilder->field('job.user')->equals($this->auth->getUser()->id));
 #           $queryBuilder->field('job.user')->equals($this->auth->getUser()->id);
         } else {

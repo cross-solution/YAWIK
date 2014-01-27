@@ -13,6 +13,16 @@
  */
 
 return array(
+        
+        'doctrine' => array(
+                'driver' => array(
+                        'odm_default' => array(
+                                'drivers' => array(
+                                        'Settings\Entity' => 'annotation',
+                                ),
+                        ),
+                ),
+        ),
 		
 	// Translations
     'translator' => array(
