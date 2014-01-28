@@ -7,13 +7,11 @@
         <a href="<?php echo $this->url('lang/applications', 
             array(), 
             array('query' => array_merge($this->params()->fromQuery(), array('by'=> $byParam))),
-            true)?>"><?php echo $label?><span class="badge">kaputt<?php #echo $newApplications; ?></span></a>
+            true)?>"><?php echo $label?><span class="badge">kaputt<?php echo $newApplications->unreadApplication; ?></span></a>
     </li>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
 </div>
 
-in der sidebar muss noch irgendwie der Zähler ein.....
-Neue Bewerbungen
 

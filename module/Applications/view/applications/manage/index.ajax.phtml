@@ -71,10 +71,10 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
        <?php echo $application->contact->city?>
     </td>
     <td class="cam-career">
-    <?php if (isset($application->cv->educations)):?>
+    <?php if (count($application->cv->educations)>0):?>
       <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
     <?php endif;?>
-    <?php if (isset($application->cv->employments)):?>
+    <?php if (count($application->cv->employments)>0):?>
       <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>

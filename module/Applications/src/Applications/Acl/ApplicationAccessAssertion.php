@@ -51,6 +51,6 @@ class ApplicationAccessAssertion implements AssertionInterface
     protected function assertWrite($role, $resource)
     {
         $job = $resource->getJob();
-        return ($job && $role->getId() == $job->getUserId());
+        return ($job && $role->getId() == $job->getUser()->getId());
     }
 }

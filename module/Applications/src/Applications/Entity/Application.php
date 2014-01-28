@@ -38,13 +38,14 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * 
      * @var unknown
      * 
-     * @ODM\String
+     * 
      */
-    protected $userId;
+     #  protected $userId;
     
     /**
      * 
      * @var unknown
+     * 
      */
     protected $user;
     
@@ -123,6 +124,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * Who has read the application?.
      * 
      * @var unknown
+     * @ODM\Collection
      */
     protected $readBy = array();
     

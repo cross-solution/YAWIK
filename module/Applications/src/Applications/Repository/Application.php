@@ -82,14 +82,14 @@ class Application extends AbstractRepository
      */    
     public function countBy($userOrId, $onlyUnread=false)
     {
-        $auth=$this->getService('AuthenticationService');
-        return $this->findBy(array("readBy"=>$auth->getUser()->id));
-        #
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {
             $userOrId = $userOrId->getId();
         }
-#        return $this->findBy(array->countBy($userOrId, $onlyUnread);
-      #  return $this->findBy(array("readBy"=>$auth->getUser()->id));
+        $criteria = array('user' => $userOrId);
+        if ($onlyUnread) {
+            $criteria['readBy'] = array ('$ne' => $userOrId);
+        }
+        return $this->findBy($criteria)->count();
     }
     
     public function changeStatus($application, $status)
