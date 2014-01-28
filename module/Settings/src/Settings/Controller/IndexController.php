@@ -69,7 +69,7 @@ class IndexController extends AbstractActionController
         
         
         // Write-Access is per default only granted to the own module - change that
-        $settings->setAccessWrite();
+        $settings->enableWriteAccess();
 
         
         //$settings = $this->settings();

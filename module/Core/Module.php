@@ -60,6 +60,10 @@ class Module
         $stringListener = new StringListener();
         $stringListener->attach($eventManager);
         
+        $eventManager->attach('postDispatch', function ($event) use ($sm) {
+            $sm->get('doctrine.documentmanager.odm_default')->flush();
+        }, -150);
+        
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
             $eventManager->trigger('postDispatch', $event);
         }, -150);

@@ -22,7 +22,15 @@ return array(
                                 ),
                         ),
                 ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    'Settings/InjectEntityResolverListener',
+                 ),
+            ),
         ),
+    ),
+    
 		
 	// Translations
     'translator' => array(
@@ -112,8 +120,12 @@ return array(
     ),
     
      'service_manager' => array(
+        'invokables' => array(
+            'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener',
+    ),
         'factories' => array(
             'Settings' => '\Settings\Settings\SettingsFactory',
+            'Settings/EntityResolver' => '\Settings\Repository\SettingsEntityResolverFactory',
         ),
         'initializers' => array(),
         'shared' => array(),
@@ -128,7 +140,7 @@ return array(
     ),
     
     'controller_plugins' => array(
-        'factories' => array('settings' => '\Settings\Controller\Plugins\SettingsPluginFactory'),
+        'factories' => array('settings' => '\Settings\Controller\Plugin\SettingsFactory'),
     ),
     
     'form_elements' => array(

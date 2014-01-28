@@ -12,6 +12,8 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Entity\Collection\ArrayCollection;
+use Settings\Repository\SettingsEntityResolver;
 
 /**
  * The user model
@@ -43,15 +45,21 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $_profile = array();
     
     /** @var array 
-     * @ODM\Hash */
-    protected $_settings = array();
+     * @ODM\EmbedMany(discriminatorField="_entity") */
+    protected $settings;
     
+    /**
+     * This is not a persistent property!
+     * @var SettingsEntityResolver
+     */
+    protected $settingsEntityResolver;
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
      * It is recommended best practice to initialize any business collections in documents in the constructor.
+     * {mg: What about lazy loading? Initialize the Collection in the getter, if none is set? Reduce overload.}
      */
     public function __construct(){
-        $this->info = new Info();
+        //$this->info = new Info(); // moved to getter {mg}
     }
     
     /**
@@ -89,7 +97,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         return $this->getRole();
     }
     
-    public function setInfo(EntityInterface $info)
+    public function setInfo(InfoInterface $info)
     {
         $this->info = $info;
         return $this;
@@ -97,8 +105,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     
     public function getInfo()
     {
-        if (is_null($this->info)){
-            $this->info=new Info();
+        if (null == $this->info) {
+            $this->setInfo(new Info());
         }
         return $this->info;
     }
@@ -151,20 +159,29 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         return $this->_profile;
     }
     
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
-    public function setSettings(array $settings)
+    
+    public function setSettingsEntityResolver($resolver)
     {
-        $this->_settings = $settings;
-        return $this;
+        $this->settingsEntityResolver = $resolver;
     }
-
-    /** {@inheritdoc} */
-    public function getSettings()
+    /** 
+     * 
+     * 
+     */
+    public function getSettings($module)
     {
-        return $this->_settings;
+        if (!$this->settings) {
+            $this->settings = new ArrayCollection();
+        }
+        foreach ($this->settings as $settings) {
+            if ($settings->moduleName == $module) {
+                return $settings;
+            }
+        }
+        
+        $settings = $this->settingsEntityResolver->getNewSettingsEntity($module);
+        $this->settings->add($settings);
+        return $settings;
     }
    
 }

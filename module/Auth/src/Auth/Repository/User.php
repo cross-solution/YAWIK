@@ -5,11 +5,24 @@ namespace Auth\Repository;
 use \Auth\Entity\Info;
 use Core\Entity\EntityInterface;
 use Core\Repository\AbstractRepository;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Events;
 
 
 
 class User extends AbstractRepository
 {
+    
+    public function create(array $data=null)
+    {
+        $entity = parent::create($data);
+        
+        $eventArgs = new LifecycleEventArgs($entity, $this->dm);
+        $this->dm->getEventManager()->dispatchEvent(
+            Events::postLoad, $eventArgs
+        );
+        return $entity;
+    }
     
     public function findByProfileIdentifier($identifier)
     {
