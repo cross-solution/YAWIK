@@ -29,8 +29,13 @@ class JobReferencesUpdateListener implements EventSubscriber
         if (!$document instanceOf JobInterface) {
             return;
         }
-
         $dm = $eventArgs->getDocumentManager();
+        $changeset = $dm->getUnitOfWork()->getDocumentChangeset($document);
+        
+        if (!isset($changeset['user'])) {
+            return;
+        }
+        
         $userId = $document->getUser()->getId();
 
         $dm->createQueryBuilder('Applications\Entity\Application')
