@@ -173,18 +173,6 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this;
     }
     
-   
-    
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-        return $this;
-    }
-    
-    public function getUserId()
-    {
-        return $this->userId;
-    }
     
     public function setUser(UserInterface $user)
     {
@@ -302,6 +290,9 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	
 	public function getCv()
 	{
+	    if (is_null($this->cv)){
+	        $this->cv= new Cv();
+	    }
 	    return $this->cv;
 	}
 	

@@ -38,29 +38,6 @@ class Application extends AbstractRepository
         return $this->builders;
     }
     
-#	public function find ($id, $mode=self::LOAD_LAZY)
-#    {
-#        $entity = $mode == self::LOAD_EAGER
-#              ? $this->getMapper('application')->find($id, array())
-#              : $this->getMapper('application')->find($id, 
-#                      array('cv'),
-#                      /*exclude*/ true
-#              );
-#        
-#        
-#        return $entity;
-#    }
-    
-   
-    
- #   public function fetch ($mode=self::LOAD_LAZY)
- #   {
- #       $fields = array('cv' => false);
- #       
- #       $collection = $this->getMapper('application')->fetch(array(), $fields);
- #       return $collection;
- #   }
-    
     public function fetchByJobId($jobId)
     {
         $collection = $this->getMapper('application')->fetch(
@@ -118,7 +95,6 @@ class Application extends AbstractRepository
     {
         $this->getMapper('application')->delete($entity);
         $this->getMapper('application-trash')->save($entity, true);
-
         return $this;
     }
     

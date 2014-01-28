@@ -304,7 +304,7 @@ class ManageController extends AbstractActionController
     {
         $id          = $this->params('id');
         $services    = $this->getServiceLocator();
-        $repository  = $services->get('repositories')->get('Application');
+        $repository  = $services->get('repositories')->get('Applications/Application');
         $application = $repository->find($id);
         
         if (!$application) {
