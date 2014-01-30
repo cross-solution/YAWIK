@@ -23,6 +23,10 @@ abstract class AbstractSettingsForm extends Form implements ServiceLocatorAwareI
     protected $isBuild = false;
     protected $forms;
     
+    public function __construct()
+    {
+        $this->setAttribute('method', 'post');
+    }
  
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
@@ -39,12 +43,6 @@ abstract class AbstractSettingsForm extends Form implements ServiceLocatorAwareI
     }
 
     
-    public function __construct()
-    {
-        $moduleName = $this->getModuleName();
-        parent::__construct($moduleName . "-settings");
-    }
-    
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -54,15 +52,34 @@ abstract class AbstractSettingsForm extends Form implements ServiceLocatorAwareI
         return $this->hydrator;
     }
     
+    public function init()
+    {
+        $baseFieldset = $this->forms->has('');
+    }
+    
     public function setObject($object)
     {
         if (!$object instanceOf ModuleSettingsContainerInterface) {
             throw new \InvalidArgumentException('Object must implement ModuleSettingsContainerInterface');
         }
         parent::setObject($object);
+        $moduleName = $object->getModuleName();
+        $this->setName($moduleName);
         $this->build();
         return $this;
     }
+    
+    public function setName($name)
+    {
+        parent::setName(strtolower($name) . '-settings');
+        $urlHelper = $this->forms->getServiceLocator()
+                     ->get('ViewHelperManager')
+                     ->get('url');
+        
+        $url = $urlHelper('lang/settings/form', array('module' => $name), true);
+        $this->setAttribute('action', $url);
+    }   
+
     
     public function bind($object)
     {

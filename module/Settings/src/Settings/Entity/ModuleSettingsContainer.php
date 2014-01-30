@@ -22,8 +22,6 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
     /** @ODM\String */
     protected $module;
     
-    protected $isWritable = false;
-    
     public function __construct($module = null)
     {
         if (null == $this->module) {
@@ -50,7 +48,7 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
     
     public function enableWriteAccess()
     {
-        $this->isWritable = true;
+        return parent::enableWriteAccess(true, array('module'));
     }
     
     protected function detectModuleName()
@@ -64,24 +62,6 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
                : null;
 
     }
-    
-    protected function checkWriteAccess()
-    {
-        if (!$this->isWritable) {
-            throw new \RuntimeException('Write access is forbidden on this settings container.');
-        }
-    }
-    
-    public function set($key, $value)
-    {
-        $this->checkWriteAccess();
-        return parent::set($key, $value);
-    }    
-    
-    public function __set($property, $value)
-    {
-        $this->checkWriteAccess();
-        return parent::__set($key, $value);
-    }
+
 }
 

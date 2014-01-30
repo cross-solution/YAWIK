@@ -20,20 +20,45 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
 {
     
     /** @ODM\Hash */
-    protected $settings = array();
+    protected $settings;
     
-    protected $someSpecialKey;
+    protected $isWritable = false;
     
-    public function get($key)
+    
+    public function enableWriteAccess($recursive = true, array $skipMembers=array())
     {
-        if (!isset($this->settings[$key])) {
-            throw new \OutOfBoundsException(sprintf('Unknown settings key "%s"', $key));
+        $this->isWritable = true;
+        
+        if ($recursive) {
+            $skipMembers = array_merge($skipMembers, array('settings', 'isWritable'));
+            foreach (get_object_vars($this) as $member) {
+        
+                if (in_array($member, $skipMembers)) {
+                    continue;
+                }
+                
+                if ($this->$member instanceOf SettingsContainerInterface) {
+                    $this->$member->enableWriteAccess(true);
+                }
+            }
         }
-        return $this->settings[$key];
+        return $this;
+    }
+    
+    public function get($key, $default = null, $set = false)
+    {
+        if (isset($this->settings[$key])) {
+            return $this->settings[$key];
+        }
+        if ($set) {
+            $this->set($key, $default);
+        }
+        return $default;
     }
     
     public function set($key, $value)
     {
+        $this->checkWriteAccess();
         $this->settings[$key] = $value;
         return $this;
     }
@@ -43,17 +68,13 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
         try {
             return parent::__get($property);
         } catch (\Core\Entity\Exception\OutOfBoundsException $e) {
-            try {
-                return $this->get($property);
-            } catch (\OutOfBoundsException $ex) {
-                $ex->setPrevious($e);
-                throw $ex;
-            }
+            return $this->get($property);
         }
     }
     
     public function __set($property, $value)
     {
+        $this->checkWriteAccess();
         try {
             parent::__set($property, $value);
         } catch (\Core\Entity\Exception\OutOfBoundsException $e) {
@@ -72,8 +93,13 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
         return $this->settings;
     }
     
-    public function setSettings(array $settings)
+    public function setSettings($settings = null)
     {
+        $this->checkWriteAccess();
+        if (null !== $settings && !is_array($settings)) {
+            throw new \InvalidArgumentException('Settings must be null or an array.');
+        }
+        
         $this->settings = $settings;
         return $this;
     }
@@ -81,6 +107,13 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
     public function toArray()
     {
         return $this->getSettings();
+    }
+    
+    protected function checkWriteAccess()
+    {
+        if (!$this->isWritable) {
+            throw new \RuntimeException('Write access is forbidden on this settings container.');
+        }
     }
 }
 

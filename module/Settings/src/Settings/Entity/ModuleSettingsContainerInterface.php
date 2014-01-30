@@ -17,6 +17,5 @@ namespace Settings\Entity;
 interface ModuleSettingsContainerInterface extends SettingsContainerInterface
 {
     public function getModuleName();
-    public function enableWriteAccess();
 }
 

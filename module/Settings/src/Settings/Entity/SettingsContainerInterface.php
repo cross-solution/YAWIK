@@ -18,6 +18,7 @@ interface SettingsContainerInterface extends EntityInterface
 {
     public function get($key);
     public function set($key, $value);
+    public function enableWriteAccess();
     public function toArray();
 }
 
