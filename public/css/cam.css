@@ -6434,6 +6434,12 @@ td.cam-job {
 .cam-color-rejected {
   color: #d9534f;
 }
+.cam-job-title {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
 /**
 * Icons
 */
@@ -6615,6 +6621,24 @@ td.cam-job {
 }
 .cam-icon-pagination-end:before {
   content: "\e077";
+}
+.cam-icon-delete {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-delete:empty {
+  width: 1em;
+}
+.cam-icon-delete:before {
+  content: "\e020";
 }
 .cam-icon {
   font-size: 12px;
@@ -7125,4 +7149,8 @@ fieldset fieldset a.remove-item {
   text-decoration: none;
   cursor: default;
   background: none;
+}
+.cam-portrait {
+  width: 100px;
+  font-size: 80px;
 }

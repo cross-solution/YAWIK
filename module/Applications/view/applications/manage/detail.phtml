@@ -32,10 +32,6 @@
             <button class="btn btn-default" type="submit"><span class="cam-icon-forward"></span><?php echo $this->translate('Forward')?></button>
           </div>
     </form>
-
-  <div class="navbar-text navbar-form cam-color-<?php echo $application->status->name?>">
-    <?php echo $this->translate($application->status->name) ?>
-  </div>
     
   <div id="state-actions" class="btn-group navbar-form">
         <?php $status = $application->status->name;
@@ -83,6 +79,7 @@
                     <?php endif ?>
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>    
+            <a class="btn btn-default" href="?action=delete"><i class="cam-icon-delete"></i> <?php echo $this->translate("delete")?></a>
         </div>
         
         <div class="btn btn-group navbar-form">
@@ -148,48 +145,62 @@
   </div>
 </div>
 
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('date of receipt')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
-</div>
-<div class="row">
-    <div class="col-md-3"><?= $this->translate('last modification date')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
-</div>
+<p class="cam-job-title"><?php echo $this->link($this->application->job->link, $this->application->job->title)?></p>
 
 <h2><?= $this->translate('personal information')?></h2>
 <div class="row">
-<div class="col-md-9">
-<div class="row">
-<div class="col-md-3"><?= $this->translate('name')?>:</div>
-<div class="col-md-3"><?=  $this->application->contact->firstName.' '.$this->application->contact->lastName ?></div>
-</div>
-<?php if (isset($this->application->contact->street)): ?>
-<div class="row"> 
-<div class="col-md-3"><?php echo $this->translate('Street')?>:</div>
-<div class="col-md-3"><?php echo $this->application->contact->street .' '.$this->application->contact->housenumber?></div>
-</div>
-<?php endif; ?>
-<?php if (isset($this->application->contact->city)): ?>
-<div class="row">
-<div class="col-md-3"><?php echo $this->translate('City')?>:</div>
-<div class="col-md-3"><?php echo $this->application->contact->postalcode.' '.$this->application->contact->city ?></div>
-</div>
-<?php endif; ?>
-<div class="row">
-<div class="col-md-3"><?= $this->translate('E-Mail')?>:</div>
-<div class="col-md-3"><?=  $this->application->contact->email ?></div>
-</div>
-<div class="row">
-<div class="col-md-3"><?= $this->translate('Phone')?>:</div>
-<div class="col-md-3"><?=  $this->application->contact->phone ?></div>
-</div>
-</div>
-<div class="col-md-3">
+<div class="col-md-2">
+    <div class="cam-portrait ">
     <?php if ($this->application->contact->image):?>
-    <img src="<?php echo $this->application->contact->image->uri; ?>" class="img-thumbnail" />
-    <?endif?>
+    <img src="<?php echo $this->application->contact->image->uri ?>" class="img-thumbnail"/>
+    <?php else:?>
+    <span class="cam-icon-portrait img-thumbnail"></span>
+    <?php endif?>
+    </div>    
 </div>
+<div class="col-md-6">
+
+<adress>
+    <strong><?php echo $this->application->contact->displayName ?></strong><br>
+    <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
+    <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
+    <br>
+    <?php if ($this->application->contact->phone):?>
+    Tel.: <?php echo $this->application->contact->phone; ?><br>
+    <?php endif?>
+    <?php if ($this->application->contact->email):?>
+    E-Mail: <?php echo $this->link($this->application->contact->email); ?><br>
+    <?php endif?>
+</adress>
+</div>
+
+<div class="col-md-4">
+<p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
+
+<div class="row">
+    <div class="col-md-6"><?= $this->translate('date of receipt')?>:</div>
+    <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
+</div>
+<?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp()):?>
+<div class="row">
+    <div class="col-md-6"><?= $this->translate('last modification date')?>:</div>
+    <?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp())?>
+    <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
+</div>
+<?php endif;?>
+
+<?php if(count($this->application->attachments)>0):?>
+<h2><?= $this->translate('Attachments')?></h2>
+<?php foreach( $this->application->attachments as $attachment): ?>
+<div class="row show-grid">
+  <div class="col-md-3">
+    <a href="<?php echo $attachment->uri ?> target="_new""><?php echo $attachment->name ?></a></div>
+  </div>
+<?php endforeach; // attachments?>
+<?php endif;?>
+</div>
+
+
 </div>
 
 <h2><?=$this->translate('Summary')?></h2>
@@ -243,14 +254,3 @@
 <?php endforeach; // skills?>
 <?php endif;?>
 
-<?php if(count($this->application->attachments)>0):?>
-<h2><?= $this->translate('Attachments')?></h2>
-<?php foreach( $this->application->attachments as $attachment): ?>
-<div class="row show-grid">
-  <div class="col-md-3">
-    <a href="<?php echo $attachment->uri ?>"><?php echo $attachment->name ?></a></div>
-    <div class="col-md-3"><?php echo $attachment->type?></div>
-    <div class="col-md-3"><?php echo $attachment->prettySize ?></div>
-</div>
-<?php endforeach; // skills?>
-<?php endif;?>

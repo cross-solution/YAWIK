@@ -44,6 +44,14 @@ class CreatePaginator extends AbstractPlugin
         $params->set('sortDir', $dir);
     }
     
+    /**
+     * returns a Paginator.
+     * 
+     * @param Repository $repository
+     * @param Params $params
+     * @throws \RuntimeException
+     * @return \Zend\Paginator\Paginator
+     */
     protected function createPaginator($repository, $params)
     {
         if (method_exists($repository, 'getPaginator')) {

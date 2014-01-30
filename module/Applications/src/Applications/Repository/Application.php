@@ -11,9 +11,7 @@ use Applications\Entity\ApplicationInterface;
 use Doctrine\ODM\MongoDB\Events;
 
 class Application extends AbstractRepository
-{
-    protected $builders;
-    
+{   
     public function getPaginatorCursor($params)
     {
         $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
@@ -21,23 +19,20 @@ class Application extends AbstractRepository
         return $qb->getQuery()->execute();
     }
     
-    public function getUnreadApplications($job) {
+    public function getUnreadApplications($job) 
+    {
         $auth=$this->getService('AuthenticationService');
-        return $this->findBy(array("readBy"=>$auth->getUser()->id));    
-#       return $this->findBy(array("readBy"=>$auth->getIdentity()));
+        $qb=$this->createQueryBuilder()
+                  ->field("readBy")->notIn($auth->getUser()->id)
+                  ->field("job")->equals( new \MongoId($job->id));
+        return $qb->getQuery()->execute();          
     }
     
-    public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
-    {
-        $this->builders = $entityBuilderManager;
-        return $this;
-    }
-   
-    public function getEntityBuilderManager()
-    {
-        return $this->builders;
-    }
-    
+    /**
+     * @deprecated
+     * @param unknown $jobId
+     * @return unknown
+     */
     public function fetchByJobId($jobId)
     {
         $collection = $this->getMapper('application')->fetch(
@@ -54,7 +49,8 @@ class Application extends AbstractRepository
         return $collection;
     }
     
-    /*
+    /**
+     * @deprecated
      * counts the number of applications of 
      */    
     public function countBy($userOrId, $onlyUnread=false)

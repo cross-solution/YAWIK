@@ -154,7 +154,7 @@ class ManageController extends AbstractActionController
     public function statusAction()
     {
         $applicationId = $this->params('id');
-        $repository    = $this->getServiceLocator()->get('repositories')->get('Application');
+        $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         $application   = $repository->find($applicationId);
         $jsonFormat    = 'json' == $this->params()->fromQuery('format');
         $status        = $this->params('status', Status::CONFIRMED);

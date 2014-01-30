@@ -36,7 +36,7 @@
             / 
             <a title="<?php echo $this->translate("unread")?>" 
                href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId . '&by=new'), true) ?>">
-            <span class="badge"> <?php echo $job->applications->countUnreadBy($this->auth('id'))?></span>
+            <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
             </a>
          <?php endif;?>
       <?php else:?>

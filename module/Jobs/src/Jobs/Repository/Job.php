@@ -25,23 +25,21 @@ class Job extends AbstractRepository
         return $qb->getQuery()->execute();
     }
     
-    public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
-    {
-        $this->builders = $entityBuilderManager;
-        return $this;
-    }
-     
-    public function getEntityBuilderManager()
-    {
-        return $this->builders;
-    }
-    
-    /* was used on dashbord panel */
+    /**
+     * @deprecated
+     * @param string $userId
+     * @return unknown
+     */
     public function fetchRecent($userId=null)
     {
         $collection = $this->getMapper('job')->fetchRecent($userId, 5);
         return $collection;
     }
+    /**
+     * @deprecated
+     * @param unknown $userOrId
+     * @return unknown
+     */
     public function fetchByUser($userOrId)
     {
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {
@@ -54,6 +52,11 @@ class Job extends AbstractRepository
         return $collection;    
     }
     
+    /**
+     * count jobs by user entity or user id
+     * @deprecated
+     * @param mixed $userOrId
+     */
     public function countByUser($userOrId = null)
     {
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {

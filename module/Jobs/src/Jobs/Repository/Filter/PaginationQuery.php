@@ -23,7 +23,6 @@ class PaginationQuery extends AbstractPaginationQuery
     
     public function __construct($auth)
     {
-    
         $this->auth = $auth;
     }
     
@@ -35,9 +34,21 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->sort($this->filterSort($value['sort']));
         }
          
+        
+        if ($this->auth->getUser()->getRole()=='recruiter') {
+            /*
+             * a recruiter can see his jobs
+             */
+            $queryBuilder->field('user')->equals(new \MongoId($this->auth->getUser()->id));
+        } else {
+            /*
+             * an applicant can see all aktive jobs
+            */
+            $queryBuilder->field('refs.users.id')->equals($this->auth->getUser()->id);
+        }
     
         if (isset($value['by']) && 'me' == $value['by']) {
-            $queryBuilder->field('userId')->equals($this->auth->getUser()->id);
+            $queryBuilder->field('user')->equals(new \MongoId($this->auth->getUser()->id));
         }
     
         if (isset($value['search']) && !empty($value['search'])) {

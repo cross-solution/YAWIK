@@ -108,7 +108,7 @@ class IndexController extends AbstractActionController
                 $auth = $this->auth();
             
                 if ($auth->isLoggedIn()) {
-                    $applicationEntity->setUserId($auth('id'));
+                    $applicationEntity->setUser($auth->getUser());
                     $imageData = $form->get('contact')->get('image')->getValue();
                     if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
                         $image = $auth->getUser()->info->image->getEntity();
