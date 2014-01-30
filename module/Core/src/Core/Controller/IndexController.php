@@ -34,6 +34,7 @@ class IndexController extends AbstractActionController
             return;
         }
         
+        $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
         $dashboardConfig = array(
