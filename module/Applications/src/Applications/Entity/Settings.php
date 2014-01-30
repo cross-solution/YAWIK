@@ -9,59 +9,146 @@
  */
 
 namespace Applications\Entity;
-use Settings\Entity\SettingsAbstract;
-use Core\Entity\EntityResolverStrategyInterface;
 
-class Settings extends SettingsAbstract {
+
+
+use Settings\Entity\ModuleSettingsContainer;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
+/**
+ * @ODM\EmbeddedDocument
+ */
+class Settings extends ModuleSettingsContainer {
     
     /**
      * 
-     * @return email
+     * @ODM\Boolean
+     * @formLabel Send mail
      */
-    public function getMailAccess() {
+    protected $mailAccess = false;
+    
+    /**
+     *
+     * @ODM\Boolean
+     * @formLabel Send mail
+     */
+    protected $formDisplaySkills = false;
+    
+
+    /**
+     *
+     * @ODM\String
+     * @formLabel Send mail
+     */
+    protected $mailText;
+    
+    /**
+     *
+     * @ODM\String
+     * @formLabel Send mail
+     */
+    protected $mailAccessText;
+    
+    /**
+     *
+     * @ODM\String
+     * @formLabel Send mail
+     */
+    protected $mailInvitationText;
+    
+    
+    /**
+     *
+     * @ODM\String
+     * @formLabel Send mail
+     */
+    protected $mailConfirmationText;
+    
+    /**
+     *
+     * @ODM\String
+     * @formLabel Send mail
+     */
+    protected $mailRejectionText;
+    
+	public function getMailAccess ()
+    {
         return $this->mailAccess;
     }
-    
-    public function setMailAccess($option) {
-        $this->mailAccess = $option;
+
+	public function setMailAccess ($mailAccess)
+    {
+        $this->mailAccess = $mailAccess;
         return $this;
     }
-    
-    public function getMailText() {
-        return $this->mailText;
-    }
-    
-    public function setMailText($option) {
-        $this->metMailText = $option;
-        return $this;
-    }
-    
-    public function setMailAccessText($option) {
-        $this->mailAccessText = $option;
-        return $this;
-    } 
-    
-    public function setMailInvitationText($option) {
-        $this->mailInvitationText = $option;
-        return $this;
-    } 
-    
-    public function setMailConfirmationText($option) {
-        $this->mailConfirmationText = $option;
-        return $this;
-    } 
-    
-    public function setMailRejectionText($option) {
-        $this->mailRejectionText = $option;
-        return $this;
-    }
-    
-    public function getFormDisplaySkills() {
+
+	public function getFormDisplaySkills ()
+    {
         return $this->formDisplaySkills;
     }
-    
-    public function setFormDisplaySkills($option) {
-        $this->formDisplaySkills = $option;
+
+	public function setFormDisplaySkills ($formDisplaySkills)
+    {
+        $this->formDisplaySkills = $formDisplaySkills;
         return $this;
     }
+
+	public function getMailText ()
+    {
+        return $this->mailText;
+    }
+
+	public function setMailText ($mailText)
+    {
+        $this->mailText = $mailText;
+        return $this;
+    }
+
+	public function getMailAccessText ()
+    {
+        return $this->mailAccessText;
+    }
+
+	public function setMailAccessText ($mailAccessText)
+    {
+        $this->mailAccessText = $mailAccessText;
+        return $this;
+    }
+
+	public function getMailInvitationText ()
+    {
+        return $this->mailInvitationText;
+    }
+
+	public function setMailInvitationText ($mailInvitationText)
+    {
+        $this->mailInvitationText = $mailInvitationText;
+        return $this;
+    }
+
+	public function getMailConfirmationText ()
+    {
+        return $this->mailConfirmationText;
+    }
+
+	public function setMailConfirmationText ($mailConfirmationText)
+    {
+        $this->mailConfirmationText = $mailConfirmationText;
+        return $this;
+    }
+
+	public function getMailRejectionText ()
+    {
+        return $this->mailRejectionText;
+    }
+
+	public function setMailRejectionText ($mailRejectionText)
+    {
+        $this->mailRejectionText = $mailRejectionText;
+        return $this;
+    }
+
+    
+    
+    
 }

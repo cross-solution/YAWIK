@@ -10,23 +10,19 @@
 /** AbstractSettingsForm.php */ 
 namespace Settings\Form;
 
-use Zend\Form\Form;
+use Core\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Settings\Entity\SettingsContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Form\FormInterface;
 
-abstract class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
+class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
 {
-    
     protected $isBuild = false;
     protected $forms;
     
-    public function __construct()
-    {
-        $this->setAttribute('method', 'post');
-    }
  
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
@@ -52,11 +48,30 @@ abstract class AbstractSettingsForm extends Form implements ServiceLocatorAwareI
         return $this->hydrator;
     }
     
-    public function init()
+    public function build()
     {
-        $baseFieldset = $this->forms->has('');
+        if ($this->isBuild) {
+            return;
+        }
+        $this->setAttribute('method', 'post');
+        $object = $this->getObject();
+        $fieldsetName = $object->getModuleName() . '/SettingsFieldset';
+        if (!$this->forms->has($fieldsetName)) {
+            $fieldsetName = 'Settings/Fieldset';
+        }
+        
+        $fieldset = $this->forms->get($fieldsetName)
+                                ->setUseAsBaseFieldset(true)
+                                ->setName('base')
+                                ->setLabel($object->getModuleName());
+        $fieldset->setObject($object);
+        $this->add($fieldset);
+        
+        $this->add($this->forms->get('DefaultButtonsFieldset'));
+        $this->isBuild=true;
     }
-    
+        
+
     public function setObject($object)
     {
         if (!$object instanceOf ModuleSettingsContainerInterface) {
@@ -76,26 +91,18 @@ abstract class AbstractSettingsForm extends Form implements ServiceLocatorAwareI
                      ->get('ViewHelperManager')
                      ->get('url');
         
-        $url = $urlHelper('lang/settings/form', array('module' => $name), true);
+        $url = $urlHelper('lang/settings', array('module' => $name), true);
         $this->setAttribute('action', $url);
     }   
 
     
-    public function bind($object)
+    public function bind($object, $flags = FormInterface::VALUES_NORMALIZED)
     {
         /** Ensure the form is build prior to binding */
         $this->setObject($object);
         return parent::bind($object);
     }
     
-    public function build()
-    {
-        $settings = $this->getObject();
-        $this->setAttribute('method', 'post');
-        
-        
-        
-    }
     
     protected function getModuleName()
     {

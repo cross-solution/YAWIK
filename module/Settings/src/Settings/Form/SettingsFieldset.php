@@ -4,10 +4,14 @@ namespace Settings\Form;
 
 use Core\Entity\Hydrator\AnonymEntityHydrator;
 use Zend\Form\Fieldset;
+use Settings\Entity\SettingsContainerInterface;
+use Settings\Entity\ModuleSettingsContainerInterface;
 //use Zend\InputFilter\InputFilterProviderInterface;
 
 class SettingsFieldset extends Fieldset
 {
+    
+    protected $isBuild = false;
     
     public function getHydrator()
     {
@@ -18,29 +22,56 @@ class SettingsFieldset extends Fieldset
         return $this->hydrator;
     }
     
-	public function init()
+    public function setObject($object)
     {
-        $this->setName('settings-core-fieldset')
-             ->setLabel('general settings');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
-
+        parent::setObject($object);
+        $this->build();
+        return $this;
+    }
+    
+	public function build()
+    {
         
-        $this->add(array(
-        		'type' => 'Zend\Form\Element\Select',
-        		'name' => 'language',
-        		'options' => array(
-        				'label' => /* @translate */ 'choose your language',
-        				'value_options' => array(
-        						'en' => /* @translate */ 'English',
-        						'fr' => /* @translate */ 'French',
-        						'de' => /* @translate */ 'German',
-        				),
-                                        'description' => /* @translate */ 'defines the languages of this frontend.'
-        		),
-        ));
+        if ($this->isBuild) {
+            return;
+        }
         
+        $settings = $this->getObject();
+        $reflection = new \ReflectionClass($settings);
+        $properties = $reflection->getProperties();
         
-        
+        $skipProperties = array('settings', 'isWritable');
+        if ($settings instanceOf ModuleSettingsContainerInterface) {
+            $skipProperties[] = 'module';
+        }
+        $children = array();
+        foreach ($properties as $property) {
+            if (in_array($property->getName(), $skipProperties)) {
+                continue;
+            }
+            $property->setAccessible(true);
+            $value = $property->getValue($settings);
+            if ($value instanceOf SettingsContainerInterface) {
+                $children[] = $value;
+                continue;
+            }
+            
+            $input = array(
+                    'name' => $property->getName(),
+                    'options' => array(
+                        'label' => $property->getName()
+                    ),
+            );
+            if (is_bool($value)) {
+                $input['type']= 'Checkbox';
+                $input['attributes']['checked'] = $value;
+            } else {
+                $input['attributes']['value'] = $value;
+            }
+            $this->add($input);
+            
+        }
+        $this->isBuild = true;
     }
     
     

@@ -62,8 +62,11 @@ class IndexController extends AbstractActionController
             $settingsMenu->addPage($page);
         }
         
-        
-        $formName = 'Settings/' . $moduleName;
+        $formManager = $this->getServiceLocator()->get('FormElementManager');
+        $formName = $moduleName . '/SettingsForm';
+        if (!$formManager->has($formName)) {
+            $formName = "Settings/Form";
+        }
         
         // Fetching an distinct Settings
         
@@ -76,7 +79,7 @@ class IndexController extends AbstractActionController
         //$settingsAuth = $this->settings('auth');
         // Fetch the formular
         
-        $form = $this->getServiceLocator()->get('FormElementManager')->get($formName);
+        $form = $formManager->get($formName);
         
         // Binding the Entity to the Formular
         $form->bind($settings);
@@ -85,6 +88,7 @@ class IndexController extends AbstractActionController
             $form->setData($data);
             
             if ($valid = $form->isValid()) {
+                $this->getServiceLocator()->get('repositories')->store($settings);
                 $vars = array(
                    'status' => 'success',
                    'text' => $translator->translate('Changes successfully saved') . '.');

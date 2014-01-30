@@ -31,14 +31,14 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
         
         if ($recursive) {
             $skipMembers = array_merge($skipMembers, array('settings', 'isWritable'));
-            foreach (get_object_vars($this) as $member) {
+            foreach (get_object_vars($this) as $member => $value) {
         
                 if (in_array($member, $skipMembers)) {
                     continue;
                 }
                 
-                if ($this->$member instanceOf SettingsContainerInterface) {
-                    $this->$member->enableWriteAccess(true);
+                if ($value instanceOf SettingsContainerInterface) {
+                    $value->enableWriteAccess(true);
                 }
             }
         }

@@ -19,12 +19,11 @@ class SettingsEntityResolverFactory implements FactoryInterface
     {
         $moduleManager = $serviceLocator->get('ModuleManager');
         $config        = $serviceLocator->get('Config');
-        $config        = isset($config['settings']) ? $config['settings'] : array();
         
         $map = array();
         foreach (array_keys($moduleManager->getLoadedModules()) as $module) {
-            $map[$module] = isset($cfg[$module]['entity'])
-                          ? $cfg[$module]['entity']
+            $map[$module] = isset($config[$module]['settings']['entity'])
+                          ? $config[$module]['settings']['entity']
                           : '\Settings\Entity\ModuleSettingsContainer';
         }
         

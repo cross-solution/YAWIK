@@ -9,7 +9,7 @@
 
 namespace Applications\Form;
 
-use Core\Entity\Hydrator\AnonymEntityHydrator;
+use Settings\Entity\Hydrator\SettingsEntityHydrator;
 use Zend\Form\Fieldset;
 //use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -19,8 +19,7 @@ class SettingsFieldset extends Fieldset
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new AnonymEntityHydrator();
-            $this->setHydrator($hydrator);
+            $this->setHydrator(new SettingsEntityHydrator());
         }
         return $this->hydrator;
     }

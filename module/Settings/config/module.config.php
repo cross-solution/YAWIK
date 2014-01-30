@@ -111,14 +111,6 @@ return array(
         ),
     ),
     
-    'form_elements' => array(
-        'invokables' => array(
-            'Settings' => '\Settings\Form\Settings',
-        ),
-        'factories' => array(
-        ),
-    ),
-    
      'service_manager' => array(
         'invokables' => array(
             'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener',
@@ -145,8 +137,8 @@ return array(
     
     'form_elements' => array(
         'invokables' => array(
-            'settings\settings' => 'Settings\Form\Settings',
-            'settings-core-fieldset' => 'Settings\Form\SettingsFieldset',
+            'Settings/Form' => '\Settings\Form\AbstractSettingsForm',
+            'Settings/Fieldset' => '\Settings\Form\SettingsFieldset',
         ),
     ),
     
