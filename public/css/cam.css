@@ -6478,6 +6478,24 @@ td.cam-job {
 .cam-icon-new:before {
   content: "\2a";
 }
+.cam-icon-edit {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-edit:empty {
+  width: 1em;
+}
+.cam-icon-edit:before {
+  content: "\270f";
+}
 .cam-icon-sort {
   font-size: 12px;
   position: relative;

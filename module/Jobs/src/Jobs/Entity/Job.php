@@ -56,11 +56,6 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     protected $contactEmail;
     
     /**
-     * The owner of a Job Posting
-     */
-    protected $userId;
-    
-    /**
      * the owner of a Job Posting
      *  
      * @var unknown
@@ -188,15 +183,6 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     {
         $this->contactEmail = (string) $email;
         return $this;
-    }
-
-    public function setUserId($userId) {
-        $this->userId = $userId;
-        return $this;
-    }
-
-    public function getUserId() {
-        return $this->userId;
     }
     
     public function setLocation($location)

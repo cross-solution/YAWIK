@@ -28,19 +28,19 @@
     <td>
       <?php if ($this->acl()->isRole('recruiter')):?>
          <?php if ($job->applications->count()>0):?>
-            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId), true) ?>">
+            <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id), true) ?>">
             <span class="badge"><?php echo $job->applications->count() ;?></span>
             </a>
          <?php endif;?>
          <?php if ($job->unreadApplications->count()):?>       
             / 
             <a title="<?php echo $this->translate("unread")?>" 
-               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'applyId=' . $job->applyId . '&by=new'), true) ?>">
+               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id . '&by=new'), true) ?>">
             <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
             </a>
          <?php endif;?>
       <?php else:?>
-         <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a>
+         <a href="<?php echo $this->url( 'lang/apply/form', array('job' => $job->id , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a>
       <?php endif ?>
      </td>
 </tr>

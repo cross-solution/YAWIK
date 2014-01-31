@@ -28,8 +28,6 @@ interface JobInterface extends EntityInterface, IdentifiableEntityInterface
     public function setContactEmail($email);
     public function getContactEmail();
     
-    public function setUserId($userId);
-    public function getUserId();
     public function setUser(UserInterface $user);
     public function getUser() ;
     
@@ -38,5 +36,11 @@ interface JobInterface extends EntityInterface, IdentifiableEntityInterface
         
     public function setApplications(Collection $applications);
     public function getApplications();
+    
+    public function setStatus($status);
+    public function getStatus();
+    
+    public function setReference($reference);
+    public function getReference();
     
 }

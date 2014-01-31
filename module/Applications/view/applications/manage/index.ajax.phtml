@@ -100,10 +100,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     </td>
     <td>
         <div class="btn-group">
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-success" title="<?php echo $this->translate('view')?>"><span class="glyphicon glyphicon-eye-open icon-white"></span></a>
-            <?php if ($this->acl($application, 'delete')):?>
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-danger" title="<?php echo $this->translate('delete')?>"><span class="glyphicon glyphicon-remove icon-white"></span></a>
-            <?php endif ?>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('edit')?>"><span class="cam-icon-edit"></span></a>
         </div>
     </td>
 </tr>

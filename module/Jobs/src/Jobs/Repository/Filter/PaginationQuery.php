@@ -29,17 +29,13 @@ class PaginationQuery extends AbstractPaginationQuery
     public function createQuery($params, $queryBuilder)
     {
         $value = $params->toArray();
-    
-        if (isset($value['sort'])) {
-            $queryBuilder->sort($this->filterSort($value['sort']));
-        }
          
         
         if ($this->auth->getUser()->getRole()=='recruiter') {
             /*
              * a recruiter can see his jobs
              */
-            $queryBuilder->field('user')->equals(new \MongoId($this->auth->getUser()->id));
+            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
         } else {
             /*
              * an applicant can see all aktive jobs
@@ -48,8 +44,13 @@ class PaginationQuery extends AbstractPaginationQuery
         }
     
         if (isset($value['by']) && 'me' == $value['by']) {
-            $queryBuilder->field('user')->equals(new \MongoId($this->auth->getUser()->id));
+            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
         }
+        
+        if (isset($value['status'])) {
+            $queryBuilder->field('status')->equals($value['status']);
+        }
+        
     
         if (isset($value['search']) && !empty($value['search'])) {
             $search = strtolower($value['search']);
@@ -60,7 +61,10 @@ class PaginationQuery extends AbstractPaginationQuery
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
-    
+
+        if (isset($value['sort'])) {
+            $queryBuilder->sort($this->filterSort($value['sort']));
+        }
     
         return $queryBuilder;
     }
@@ -77,6 +81,9 @@ class PaginationQuery extends AbstractPaginationQuery
         switch ($sortProp) {
             case "date":
                 $sortProp = "datePublishStart.date";
+                break;
+            case "title":
+                $sortProp = "title";
                 break;
     
             default:

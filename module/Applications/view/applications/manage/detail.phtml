@@ -78,8 +78,10 @@
                     data-target="#mail-box"
                     <?php endif ?>
             ><?php echo $spec['label'] ?></button>
-            <?php endforeach ?>    
-            <a class="btn btn-default" href="?action=delete"><i class="cam-icon-delete"></i> <?php echo $this->translate("delete")?></a>
+            <?php endforeach ?>
+            <?php if ($this->acl($application, 'delete')):?>            
+                        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('delete')?>"><i class="cam-icon-delete"></i> Löschen</a>
+            <?php endif ?>    
         </div>
         
         <div class="btn btn-group navbar-form">
@@ -147,60 +149,60 @@
 
 <p class="cam-job-title"><?php echo $this->link($this->application->job->link, $this->application->job->title)?></p>
 
-<h2><?= $this->translate('personal information')?></h2>
 <div class="row">
-<div class="col-md-2">
-    <div class="cam-portrait ">
-    <?php if ($this->application->contact->image):?>
-    <img src="<?php echo $this->application->contact->image->uri ?>" class="img-thumbnail"/>
-    <?php else:?>
-    <span class="cam-icon-portrait img-thumbnail"></span>
-    <?php endif?>
-    </div>    
-</div>
-<div class="col-md-6">
-
-<adress>
-    <strong><?php echo $this->application->contact->displayName ?></strong><br>
-    <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
-    <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
-    <br>
-    <?php if ($this->application->contact->phone):?>
-    Tel.: <?php echo $this->application->contact->phone; ?><br>
-    <?php endif?>
-    <?php if ($this->application->contact->email):?>
-    E-Mail: <?php echo $this->link($this->application->contact->email); ?><br>
-    <?php endif?>
-</adress>
-</div>
-
-<div class="col-md-4">
-<p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
-
-<div class="row">
-    <div class="col-md-6"><?= $this->translate('date of receipt')?>:</div>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
-</div>
-<?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp()):?>
-<div class="row">
-    <div class="col-md-6"><?= $this->translate('last modification date')?>:</div>
-    <?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp())?>
-    <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
-</div>
-<?php endif;?>
-
-<?php if(count($this->application->attachments)>0):?>
-<h2><?= $this->translate('Attachments')?></h2>
-<?php foreach( $this->application->attachments as $attachment): ?>
-<div class="row show-grid">
-  <div class="col-md-3">
-    <a href="<?php echo $attachment->uri ?> target="_new""><?php echo $attachment->name ?></a></div>
+  <div class="col-md-6">
+    <div class="col-md-12">
+      <h2><?= $this->translate('personal information')?></h2>
+        <div class="col-md-4">
+          <div class="cam-portrait ">
+          <?php if ($this->application->contact->image):?>
+          <img src="<?php echo $this->application->contact->image->uri ?>" class="img-thumbnail"/>
+          <?php else:?>
+          <span class="cam-icon-portrait img-thumbnail"></span>
+          <?php endif?>
+          </div>    
+        </div>
+        <div class="col-md-8">
+        <adress>
+        <strong><?php echo $this->application->contact->displayName ?></strong><br> 
+        <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
+        <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
+        <br>
+        <?php if ($this->application->contact->phone):?>
+        Tel.: <?php echo $this->application->contact->phone; ?><br>
+        <?php endif?>
+        <?php if ($this->application->contact->email):?>
+        E-Mail: <?php echo $this->link($this->application->contact->email); ?><br>
+        <?php endif?>
+        </adress>
+      </div>
+    </div>
   </div>
-<?php endforeach; // attachments?>
-<?php endif;?>
-</div>
-
-
+  <div class="col-md-6">
+    <div class="col-md-12">
+      <p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
+      <div class="row">
+        <div class="col-md-6"><?= $this->translate('date of receipt')?>:</div>
+        <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
+      </div>
+      <?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp()):?>
+      <div class="row">
+        <div class="col-md-6"><?= $this->translate('last modification date')?>:</div>
+        <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
+      </div>
+      <?php endif;?>
+      <?php if(count($this->application->attachments)>0):?>
+      <h2><?= $this->translate('Attachments')?></h2>
+      <?php foreach( $this->application->attachments as $attachment): ?>
+        <div class="row show-grid">
+          <div class="col-md-3">
+            <a href="<?php echo $attachment->uri ?>" target="_new"><?php echo $attachment->name ?></a>
+          </div>
+        </div>
+      <?php endforeach; // attachments?>
+      <?php endif;?>
+    </div>
+  </div>
 </div>
 
 <h2><?=$this->translate('Summary')?></h2>

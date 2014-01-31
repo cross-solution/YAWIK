@@ -30,18 +30,15 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $value = $params->toArray();
     
-        if (isset($value['sort'])) {
-            $queryBuilder->sort($this->filterSort($value['sort']));
-        }
          
         if (isset($value['by']) && 'me' == $value['by']) {
 #            $queryBuilder->field('user')->equals( new \MongoId($this->auth->getUser()->id));
         }
         if (isset($value['by']) && 'new' == $value['by']) {
-             $queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
+#             $queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
         }
-        if (isset($value['applyId'])) {
-#            $queryBuilder->field('applyId')->equals($value['applyId']);
+        if (isset($value['job'])) {
+            $queryBuilder->field('job')->equals($value['job']);
         }
         
         
@@ -72,6 +69,11 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('refs.users.id')->equals($this->auth->getUser()->id);
         }
     
+
+        if (isset($value['sort'])) {
+            $queryBuilder->sort($this->filterSort($value['sort']));
+        }
+        
         return $queryBuilder;
     }
     
@@ -86,9 +88,8 @@ class PaginationQuery extends AbstractPaginationQuery
         }
         switch ($sortProp) {
             case "date":
-                $sortProp = "datePublishStart.date";
+                $sortProp = "dateCreated.date";
                 break;
-    
             default:
                 break;
         }
