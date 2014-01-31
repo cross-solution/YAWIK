@@ -110,7 +110,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     /**
      * 
      * @var unknown
-     * @ODM\EmbedOne(targetDocument="History")
+     * @ODM\EmbedMany(targetDocument="History")
      */
     protected $history;
         
@@ -198,8 +198,10 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     {
         $this->setStatus($status);
         $status = $this->getStatus(); // ensure StatusEntity
-        
-        $this->getHistory()->addFromStatus($status);
+
+        $history = new History($status);
+
+        $this->getHistory()->add($history);
         return $this;
     }
     

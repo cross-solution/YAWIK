@@ -17,6 +17,7 @@ use Zend\View\Model\ViewModel;
 //use Applications\Form\ApplicationHydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\View\Model\JsonModel;
+use Zend\EventManager\Event;
 
 /**
  * Main Action Controller for Applications module.
@@ -28,7 +29,7 @@ class IndexController extends AbstractActionController
     {   
         $services = $this->getServiceLocator();
         $translator = $services->get('translator');
-        $moduleName = $this->params('module');
+        $moduleName = $this->params('module', 'Core');
         
         $settings = $this->settings($moduleName);
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
@@ -49,7 +50,7 @@ class IndexController extends AbstractActionController
         foreach($modulesWithSettings as $key => $param) {
             $page = array(
                 'label' => ucfirst($key),
-                'order' => '10',
+                'order' => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
                 'resource' => 'route/lang/settings',
                 'route' => 'lang/settings',
                 'routeMatch' => $MvcEvent->getRouteMatch(),
@@ -88,10 +89,16 @@ class IndexController extends AbstractActionController
             $form->setData($data);
             
             if ($valid = $form->isValid()) {
-                $this->getServiceLocator()->get('repositories')->store($settings);
+                //$this->getServiceLocator()->get('repositories')->detach($settings);
                 $vars = array(
                    'status' => 'success',
                    'text' => $translator->translate('Changes successfully saved') . '.');
+                $event = new Event(
+                    'SETTINGS_CHANGED',
+                    $this,
+                    array('settings' => $settings)
+                );
+                $this->getEventManager()->trigger($event);
             } else {
                 $vars = array(
                    'status' => 'danger',

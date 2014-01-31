@@ -14,75 +14,65 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use Settings\Entity\SettingsContainerInterface;
 use Zend\Stdlib\Hydrator\AbstractHydrator;
+use Zend\Stdlib\Hydrator\Reflection;
 
-class SettingsEntityHydrator extends AbstractHydrator
+class SettingsEntityHydrator extends Reflection
 {
-    public function extract ($object)
+    
+    public function __construct()
     {
-        if (!$object instanceOf SettingsContainerInterface) {
-            return array();
-            //@todo Error-Handling
-        }
-    
-        $getters = array_filter(
-            get_class_methods($object),
-            function ($methodName) use ($object) {
-                return "get" === substr($methodName, 0, 3)
-                && method_exists($object, 's' . substr($methodName, 1))
-                && "getSettings" != $methodName
-                && "get" !== $methodName;
-            }
-        );
-    
-        $data = array();
-        foreach ($getters as $getter) {
-            $propertyValue = $object->$getter();
-            $propertyName = lcfirst(substr($getter, 3));
-    
-            $data[$propertyName] = $this->extractValue($propertyName, $propertyValue);
-        }
-        return $data;
-    
+        parent::__construct();
+        $this->addFilter('ignoreInternalProperties', function($property) { return "_" != $property{0}; });
     }
     
-    /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::hydrate()
-    */
-    public function hydrate (array $data, $object)
+/**
+     * Extract values from an object
+     *
+     * @param  object $object
+     * @return array
+     */
+    public function extract($object)
     {
-        if (!$object instanceOf EntityInterface) {
-            return array();
-            //@todo Error-Handling
-        }
-        $setters = array_filter(
-            get_class_methods($object),
-            function ($methodName) {
-                return "set" === substr($methodName, 0, 3)
-                       && "setSettings" !== $methodName
-                       && "set" !== $methodName;
+        $result = array();
+        foreach (self::getReflProperties($object) as $property) {
+            $propertyName = $property->getName();
+            if (!$this->filterComposite->filter($propertyName)) {
+                continue;
             }
-        );
-    
-        foreach ($setters as $setter) {
-            $propertyName = lcfirst(substr($setter, 3));
-            if (isset($data[$propertyName])) {
-                $value = $this->hydrateValue($propertyName, $data[$propertyName]);
-                if (null !== $value) {
-                    $object->$setter($value);
-                }
-                unset($data[$propertyName]);
-            }
+            $getter = 'get' . ucfirst($propertyName);
+            $value = method_exists($object, $getter)
+                   ? $object->$getter()
+                   : $property->getValue($object);
+
+            $result[$propertyName] = $this->extractValue($propertyName, $value);
         }
-    
+
+        return $result;
+    }
+
+    /**
+     * Hydrate $object with the provided $data.
+     *
+     * @param  array $data
+     * @param  object $object
+     * @return object
+     */
+    public function hydrate(array $data, $object)
+    {
+        $reflProperties = self::getReflProperties($object);
         foreach ($data as $key => $value) {
-            if ($value instanceOf \MongoId) {
-                $object->setId($value->__toString());
+            if (isset($reflProperties[$key])) {
+                $value  = $this->hydrateValue($key, $value);
+                $setter = 'set' . ucfirst($key);
+                if (method_exists($object, $setter)) { 
+                    $object->$setter($value);
+                } else {
+                    $reflProperties[$key]->setValue($object, $this->hydrateValue($key, $value));
+                }
             }
         }
-    
         return $object;
     }
-    
     
 }
 

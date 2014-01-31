@@ -11,6 +11,7 @@
 namespace Settings\Repository;
 
 use Settings\Entity\SettingsContainer;
+use Settings\Entity\InitializeAwareSettingsContainerInterface;
 class SettingsEntityResolver
 {
     protected $entityMap;
@@ -35,7 +36,11 @@ class SettingsEntityResolver
             ));
         }
         
-        return $reflClass->newInstance($module);
+        $instance = $reflClass->newInstance($module);
+        if ($instance instanceOf InitializeAwareSettingsContainerInterface) {
+            $instance->init();
+        }
+        return $instance;
     }
 }
 

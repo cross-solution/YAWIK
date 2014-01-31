@@ -16,11 +16,11 @@ use Core\Entity\AbstractEntity;
 /**
  * @ODM\EmbeddedDocument
  */
-class SettingsContainer extends AbstractEntity implements SettingsContainerInterface
+class SettingsContainer implements SettingsContainerInterface
 {
     
     /** @ODM\Hash */
-    protected $settings;
+    protected $_settings;
     
     protected $isWritable = false;
     
@@ -45,10 +45,10 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
         return $this;
     }
     
-    public function get($key, $default = null, $set = false)
+    public function get($key = null, $default = null, $set = false)
     {
-        if (isset($this->settings[$key])) {
-            return $this->settings[$key];
+        if (isset($this->_settings[$key])) {
+            return $this->_settings[$key];
         }
         if ($set) {
             $this->set($key, $default);
@@ -56,63 +56,109 @@ class SettingsContainer extends AbstractEntity implements SettingsContainerInter
         return $default;
     }
     
+    public function getSettings()
+    {
+        return $this->_settings;
+    }
+    
     public function set($key, $value)
     {
         $this->checkWriteAccess();
-        $this->settings[$key] = $value;
+        $this->_settings[$key] = $value;
         return $this;
+    }
+    
+    public function setSettings(array $settings)
+    {
+        $this->_settings = $settings;
+        return $this;
+    }
+    
+    public function __call($method, $params)
+    {
+        if (preg_match('~^((?:g|s)et)(.*)$~', $method, $match)) {
+            $property = lcfirst($match[2]);
+            if (property_exists($this, $property)) {
+                if ('set' == $match[1]) {
+                    $this->$property = $params[0];
+                    return $this;
+                } else {
+                    return $this->$property;
+                }
+            } 
+            
+            return $this->{$match[1]}($property, $params[0]);
+        }
+        
+        throw new \BadMethodCallException(sprintf(
+            'Unknown method %s called on %s',
+            $method, get_class($this)
+        ));
     }
     
     public function __get($property)
     {
-        try {
-            return parent::__get($property);
-        } catch (\Core\Entity\Exception\OutOfBoundsException $e) {
-            return $this->get($property);
+        $getter = "get" . ucfirst($property);
+        if (method_exists($this, $getter)) {
+            return $this->$getter();
         }
+        
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+        
+        return $this->get($property);
+        
     }
     
     public function __set($property, $value)
     {
         $this->checkWriteAccess();
-        try {
-            parent::__set($property, $value);
-        } catch (\Core\Entity\Exception\OutOfBoundsException $e) {
-            $this->set($property, $value);
-        }
-    }
-    
-    public function __isset($property)
-    {
-        return parent::__isset($property) || isset($this->settings[$property]);
-    }
-    
-    
-    public function getSettings()
-    {
-        return $this->settings;
-    }
-    
-    public function setSettings($settings = null)
-    {
-        $this->checkWriteAccess();
-        if (null !== $settings && !is_array($settings)) {
-            throw new \InvalidArgumentException('Settings must be null or an array.');
+        
+        $setter = 'set' . ucfirst($property);
+        if (method_exists($this, $setter)) {
+            $this->$setter($value);
+            return;
         }
         
-        $this->settings = $settings;
-        return $this;
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+            return;
+        }
+        
+        $this->set($property, $value);
     }
     
-    public function toArray()
+
+    /**
+     * Checks if a property exists and has a non-empty value.
+     *
+     * If the property is an array, the check will return, if this
+     * array has items or not.
+     *
+     * @param string $name
+     * @return boolean
+     */
+    public function __isset($property)
     {
-        return $this->getSettings();
+        $value = $this->__get($property);
+        
+        if (is_array($value) && !count($value)) {
+            return false;
+        }
+        if (is_bool($value) || is_object($value)) {
+            return true;
+        }
+        return (bool) $value;
     }
     
     protected function checkWriteAccess()
     {
         if (!$this->isWritable) {
-            throw new \RuntimeException('Write access is forbidden on this settings container.');
+            throw new \RuntimeException(sprintf(
+                'Write access to %s is not allowed.',
+                get_class($this)
+            ));
         }
     }
 }

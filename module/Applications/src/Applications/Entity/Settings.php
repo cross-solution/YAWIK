@@ -40,13 +40,6 @@ class Settings extends ModuleSettingsContainer {
      * @ODM\String
      * @formLabel Send mail
      */
-    protected $mailText;
-    
-    /**
-     *
-     * @ODM\String
-     * @formLabel Send mail
-     */
     protected $mailAccessText;
     
     /**
@@ -71,90 +64,17 @@ class Settings extends ModuleSettingsContainer {
      */
     protected $mailRejectionText;
     
-	public function getMailAccess ()
+	
+    public function setMailAccess($mailAccess)
     {
-        return $this->mailAccess;
-    }
-
-	public function setMailAccess ($mailAccess)
-    {
-        $this->mailAccess = $mailAccess;
+        $this->mailAccess = (bool) $mailAccess;
         return $this;
     }
-
-	public function getFormDisplaySkills ()
-    {
-        return $this->formDisplaySkills;
-    }
-
+    
 	public function setFormDisplaySkills ($formDisplaySkills)
     {
-        $this->formDisplaySkills = $formDisplaySkills;
+        $this->formDisplaySkills = (bool) $formDisplaySkills;
         return $this;
     }
 
-	public function getMailText ()
-    {
-        return $this->mailText;
-    }
-
-	public function setMailText ($mailText)
-    {
-        $this->mailText = $mailText;
-        return $this;
-    }
-
-	public function getMailAccessText ()
-    {
-        return $this->mailAccessText;
-    }
-
-	public function setMailAccessText ($mailAccessText)
-    {
-        $this->mailAccessText = $mailAccessText;
-        return $this;
-    }
-
-	public function getMailInvitationText ()
-    {
-        return $this->mailInvitationText;
-    }
-
-	public function setMailInvitationText ($mailInvitationText)
-    {
-        $this->mailInvitationText = $mailInvitationText;
-        return $this;
-    }
-
-	public function getMailConfirmationText ()
-    {
-        return $this->mailConfirmationText;
-    }
-
-	public function setMailConfirmationText ($mailConfirmationText)
-    {
-        $this->mailConfirmationText = $mailConfirmationText;
-        return $this;
-    }
-
-	public function getMailRejectionText ()
-    {
-        return $this->mailRejectionText;
-    }
-
-	public function setMailRejectionText ($mailRejectionText)
-    {
-        $this->mailRejectionText = $mailRejectionText;
-        return $this;
-    }
-    
-    public function getMailBCC() {
-        return $this->mailBCC;
-    }
-    
-    public function setMailBCC($option) {
-        $this->mailBCC = $option;
-        return $this;
-    }
-    
 }

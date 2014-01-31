@@ -68,6 +68,20 @@ class Module
             $eventManager->trigger('postDispatch', $event);
         }, -150);
         
+        $sharedEvents = $eventManager->getSharedManager();
+        $sharedEvents->attach('Settings\Controller\IndexController', 'SETTINGS_CHANGED', function($e) use ($sm) {
+            $settings = $e->getParam('settings');
+            if (!$settings instanceOf \Core\Entity\SettingsContainer) {
+                return;
+            }
+            
+            $dm = $sm->get('doctrine.documentmanager.odm_default');
+            $class=$dm->getClassMetadata(get_class($settings));
+            $uow = $dm->getUnitOfWork();
+            $uow->recomputeSingleDocumentChangeSet($class, $settings);
+            $changeset = $uow->getDocumentChangeset($settings->localization);
+             
+        });
         
         
     }

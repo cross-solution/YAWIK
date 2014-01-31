@@ -41,6 +41,23 @@ class History extends AbstractEntity implements HistoryInterface
      */
     protected $message;
     
+    public function __construct($status, $message='[System]')
+    {
+        if (!$status instanceOf StatusInterface) {
+            $status = new Status($status);
+        }
+        $this->setStatus($status);
+        $this->setMessage($message);
+        $this->setDate(new \DateTime());
+    }
+    
+    public function preUpdate()
+    {
+        if (!$this->date) {
+            $this->setDate(new \DateTime());
+        }
+    }
+    
 	/**
      * @return the $date
      */

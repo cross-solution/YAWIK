@@ -19,6 +19,13 @@ $doctrineConfig = include __DIR__ . '/doctrine.config.php';
 return array(
 
     'doctrine' => $doctrineConfig,
+    
+    'Core' => array(
+        'settings' => array(
+            'entity' => '\\Core\\Entity\\SettingsContainer',
+        ),
+    ),
+
 
     // Logging
     'log' => array(
@@ -227,6 +234,7 @@ return array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core\FileCollection' => 'Core\Form\FileCollection',
+            'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
         ),
     ),
     

@@ -39,6 +39,7 @@ return array(
         'allowedMimeTypes' => array('image', 'applications/pdf'),
         'settings' => array(
             'entity' => '\Applications\Entity\Settings',
+            'navigation_order' => 30,
         ),
     ),
     

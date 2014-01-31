@@ -47,12 +47,20 @@ class RepositoryService
     {
         $this->dm->persist($entity);
         $this->dm->flush();
+        return $this;
     }
     
     public function remove(EntityInterface $entity)
     {
         $this->dm->remove($entity);
         $this->dm->flush();
+        return $this;
+    }
+    
+    public function detach(EntityInterface $entity)
+    {
+        $this->dm->detach($entity);
+        return $this;
     }
     
     

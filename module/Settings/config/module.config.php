@@ -54,7 +54,7 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Settings\Controller\Index',
                                 'action' => 'index',
-                                'module' => 'Settings',
+                                'module' => 'Core',
                             ),
                         ),
                         'may_terminate' => true,
@@ -81,6 +81,7 @@ return array(
                 'route' => 'lang/settings',
                 'resource' => 'route/lang/settings',
                 'order' => 40,
+                'params' => array('module' => null),
             ),
         ),
     ),
@@ -142,11 +143,5 @@ return array(
         ),
     ),
     
-    // all the Information for the Module Settings
-    // der erste Teil ist der NameSpace, also der Modulname
-    'Settings' => array(
-        'settings' => array(
-            'entity' => '\Settings\Entity\Settings',
-        ),
-    ),
+    
 );

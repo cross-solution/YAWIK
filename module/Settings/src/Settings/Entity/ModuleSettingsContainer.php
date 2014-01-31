@@ -20,7 +20,7 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
 {
     
     /** @ODM\String */
-    protected $module;
+    protected $_module;
     
     public function __construct($module = null)
     {
@@ -33,7 +33,7 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
                 }
             }
             
-            $this->module = $module;
+            $this->_module = $module;
         } else {
             
             throw new \InvalidArgumentException('Module name is immutable, once it is set.');
@@ -43,7 +43,7 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
     
     public function getModuleName()
     {
-        return $this->module;
+        return $this->_module;
     }
     
     public function enableWriteAccess()

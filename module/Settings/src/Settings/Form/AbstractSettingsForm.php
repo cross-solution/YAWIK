@@ -17,6 +17,7 @@ use Settings\Entity\ModuleSettingsContainerInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\FormInterface;
+use Settings\Entity\Hydrator\SettingsEntityHydrator;
 
 class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
 {
@@ -42,7 +43,7 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new EntityHydrator();
+            $hydrator = new SettingsEntityHydrator();
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
