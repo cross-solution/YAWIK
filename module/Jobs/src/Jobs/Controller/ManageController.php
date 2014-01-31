@@ -47,6 +47,9 @@ class ManageController extends AbstractActionController {
         $p = $this->params()->fromPost();
         $services->get('Log')->info('Jobs/manage/saveJob ' . var_export($p, True));
         $user = $services->get('AuthenticationService')->getUser();
+        //if (isset($user)) {
+        //    $services->get('Log')->info('Jobs/manage/saveJob ' . $user->login);
+        //}
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user)) {
             $form = $services->get('FormElementManager')->get('JobForm');
@@ -86,7 +89,7 @@ class ManageController extends AbstractActionController {
         } else {
             $result['message'] = 'session_id is lost';
         }
-        $services->get('Log')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
+        //$services->get('Log')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
         return new JsonModel($result);
     }
 

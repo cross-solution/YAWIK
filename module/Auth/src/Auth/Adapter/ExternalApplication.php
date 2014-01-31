@@ -66,7 +66,8 @@ class ExternalApplication extends AbstractAdapter
         $identity      = $this->getIdentity();
         $applicationId = '@' . $this->getApplicationIdentifier();
         $applicationIdIndex = strrpos($identity,$applicationId);
-        $login         = (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex)?substr($identity, 0, $applicationIdIndex):$identity;
+        //$login         = (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex)?substr($identity, 0, $applicationIdIndex):$identity;
+        $login         = $identity;
         $users         = $this->getRepository();
         $user          = $users->findByLogin($login);
         $filter        = new CredentialFilter();
