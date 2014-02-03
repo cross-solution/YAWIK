@@ -63,7 +63,7 @@ class CreatePaginator extends AbstractPlugin
             
         } else if (method_exists($repository, 'getPaginatorCursor')) {
             $cursor = $repository->getPaginatorCursor($params);
-            $adapter = new \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator($cursor);
+            $adapter = new \Core\Paginator\Adapter\DoctrineMongoCursor($cursor);
             
         } else {
             throw new \RuntimeException('Could not create paginator for repository ' . get_class($repository));

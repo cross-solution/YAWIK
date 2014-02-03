@@ -55,7 +55,8 @@ echo $this->paginationControl($applications, 'Sliding', 'pagination-control', ar
 </thead>
 
 <tbody>
-<?foreach ($applications as $application):
+<?php 
+foreach ($applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
