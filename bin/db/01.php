@@ -132,3 +132,33 @@ if (True) {
     }
     
 }
+
+
+if (True) {
+    // changing Application Attachements, the way how ownership is stored
+    
+    $cursor = $files->find(array('$and' => array( 
+        array('allowedUserIds' => array('$exists' => 1)), 
+        array('allowedUsers' => array('$exists' => 0)))), array('allowedUserIds'));
+    
+    var_dump ($cursor);
+    foreach ($cursor as $key => $value) {
+        $arrayOfMongoIds = array();
+        foreach ($value['allowedUserIds'] as $allowedUserId) {
+            //var_dump($allowedUserId);
+            if (!empty($allowedUserId)) {
+                $arrayOfMongoIds[] = new MongoId($allowedUserId);
+            }
+        }
+        if (empty($arrayOfMongoIds)) {
+            // if no one has access to an attachment, at least grand the owner an access
+            $arrayOfMongoIds[] = new MongoId($key);
+        }
+        //var_dump($key);
+        //var_dump($arrayOfMongoIds);
+        $files->update(array("_id" => new MongoId($key)), array('$set' => array("allowedUsers" => $arrayOfMongoIds)));
+        
+    }
+}
+
+//$files->update(array("_id" => new MongoId("5278bec6ae0259640d000001")), array('$unset' => array("allowedUsers" => "")));
