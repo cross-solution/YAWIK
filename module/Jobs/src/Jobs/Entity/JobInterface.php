@@ -6,8 +6,9 @@ use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
+use Core\Entity\SearchableEntityInterface;
 
-interface JobInterface extends EntityInterface, IdentifiableEntityInterface
+interface JobInterface extends EntityInterface, IdentifiableEntityInterface, SearchableEntityInterface
 {
 
     public function setApplyId($applyId);

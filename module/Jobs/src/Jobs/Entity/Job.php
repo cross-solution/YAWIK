@@ -12,6 +12,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 
@@ -36,7 +37,8 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * 
      * @var String 
      *  
-     * @ODM\String */
+     * @ODM\String 
+     * @Cam\Searchable */
     protected $title;
     
     /**
@@ -135,6 +137,12 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * @ODM\Boolean 
      */
     protected $camEnabled;
+    
+    /**
+     * 
+     * @ODM\Collection
+     */
+    protected $keywords;
     
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
@@ -271,6 +279,28 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
 
     public function setCamEnabled($camEnabled) {
         $this->camEnabled = $camEnabled;
+        return $this;
+    }
+    
+    public function getSearchableProperties()
+    {
+        return array('title', 'company', 'location', 'applyId');
+    }
+    
+    public function setKeywords(array $keywords)
+    {
+        $this->keywords = $keywords;
+        return $this;
+    }
+    
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+    
+    public function clearKeywords()
+    {
+        $this->keywords = array();
         return $this;
     }
 }

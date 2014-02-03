@@ -64,6 +64,7 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     'Core/DoctrineMongoODM/RepositoryEvents',
+                    '\Core\Repository\DoctrineMongoODM\Event\GenerateSearchKeywordsListener',
                 ),
             ),
         ),
