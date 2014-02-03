@@ -50,7 +50,8 @@ class DoctrineMongoCursor implements AdapterInterface
     {
         return $this->cursor
                     ->skip($offset)
-                    ->limit($itemCountPerPage);
+                    ->limit($itemCountPerPage)
+                    ->toArray();
         
     }
 }
