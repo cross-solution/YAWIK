@@ -27,7 +27,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      *
      * @var String
      * 
-     * @ODM\String 
+     * @ODM\String @ODM\Index
      **/
     protected $applyId;
     
@@ -59,7 +59,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      * the owner of a Job Posting
      *  
      * @var unknown
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) @ODM\Index
      */
     protected $user;
     

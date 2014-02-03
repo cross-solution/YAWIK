@@ -115,7 +115,7 @@ class IndexController extends AbstractActionController
                         
                         if ($image) {
                             $contactImage = $services->get('repositories')->get('Applications/Files')->saveCopy($image);
-                            $contactImage->addAllowedUser($job->userId);
+                            $contactImage->addAllowedUser($job->user->id);
                             $applicationEntity->contact->setImage($contactImage);
                         } else {
                             $applicationEntity->contact->setImage(null); //explicitly remove image.
@@ -144,7 +144,7 @@ class IndexController extends AbstractActionController
                             $userRel = $job->getUser();
                             //$user = $userRel->getEntity();
                             //$settings = $this->settings('auth', $user);
-                            $settingsJobAuth = $this->settings('auth', $job->getUserid());
+                            $settingsJobAuth = $this->settings('Auth', $job->getUser()->id);
                             if (isset($settingsJobAuth->mailText)) {
                                 $mail = $this->mail();
                                 $mail->addTo($email);
