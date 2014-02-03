@@ -10,13 +10,28 @@ use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 class CreatePaginator extends AbstractPlugin
 {
     
-    public function __invoke($repositoryName, $usePostParams = false)
+    public function __invoke($repositoryName, $defaultParams = array(), $usePostParams = false)
     {
+        if (is_bool($defaultParams)) {
+            $usePostParams = $defaultParams;
+            $defaultParams = array();
+        }
+        
+        if (!is_array($defaultParams || !$defaultParams instanceOf \Traversable)) {
+            throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
+        }
+        
+        
         $services   = $this->getController()->getServiceLocator();
         $repository = $services->get('repositories')->get($repositoryName);
         $params     = $usePostParams 
                     ? $this->getController()->getRequest()->getPost()
                     : $this->getController()->getRequest()->getQuery();
+        
+        foreach ($defaultParams as $name => $value) {
+            $params->set($name, $params->get($name, $value));
+        }
+        
         $this->filterSortParam($params);
         $paginator = $this->createPaginator($repository, $params);
         $paginator->setCurrentPageNumber($params->get('page', 1))
