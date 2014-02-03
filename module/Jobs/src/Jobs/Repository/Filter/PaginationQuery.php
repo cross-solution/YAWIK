@@ -48,7 +48,7 @@ class PaginationQuery extends AbstractPaginationQuery
         }
         
         if (isset($value['status'])) {
-            $queryBuilder->field('status')->equals($value['status']);
+            $queryBuilder->field('status')->equals((string) $value['status']);
         }
         
     

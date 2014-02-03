@@ -17,7 +17,7 @@ class CreatePaginator extends AbstractPlugin
             $defaultParams = array();
         }
         
-        if (!is_array($defaultParams || !$defaultParams instanceOf \Traversable)) {
+        if (!is_array($defaultParams) && !$defaultParams instanceOf \Traversable) {
             throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
         }
         

@@ -17,6 +17,6 @@ translate('Inactive');
 //: ./src/Jobs/Form/ListFilterFieldset.php:71
 translate('Job title');
 
-//: ./config/module.config.php:75
+//: ./config/module.config.php:85
 translate('Jobs');
 
