@@ -66,6 +66,7 @@ class IndexController extends AbstractActionController
                 $ref = $this->params()->fromQuery('ref', false);
 
                 if ($ref) {
+                    $ref = urldecode($ref);
                     $url = preg_replace('~^/[a-z]{2}(/)?~', '/' . $language . '$1', $ref);
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
@@ -100,9 +101,12 @@ class IndexController extends AbstractActionController
         $ref = $this->params()->fromQuery('ref', false);
         
         if ($ref) {
-            $this->getResponse()->setStatusCode(403);
-            $viewModel->setVariable('ref', $ref)
-                      ->setVariable('required', (bool) $this->params()->fromQuery('req', 0));
+            $req = $this->params()->fromQuery('req', false);
+            if ($req) {
+                $this->getResponse()->setStatusCode(403);
+                $viewModel->setVariable('required', true);
+            }
+            $viewModel->setVariable('ref', $ref);
         }
         
         $viewModel->setVariable('form', $form);

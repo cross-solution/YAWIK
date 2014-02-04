@@ -7,8 +7,6 @@
  * @license   GPLv3
  */
 ?>
-<?php $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'))?>
-
 <?php if ($this->required):?>
     <?php $this->headTitle($this->translate('Login required'));?>
     <h1><?php echo $this->translate('Please authenticate yourself to proceed')?></h1>
