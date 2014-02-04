@@ -113,18 +113,43 @@ if (True) {
         }
     }
     
-    $cursor = $users->find(array('settings' => array('$exists' => 1)), array('settings'));
+    $cursor = $users->find(array('settings_deprecated' => array('$exists' => 1)), array('settings_deprecated'));
     foreach ($cursor as $key => $value) {
         var_dump($key);
         $newSettings = array();
         //var_dump($value['settings_deprecated']);
         if (!empty($value['settings'])) {
             foreach($value['settings'] as $settingsKey => $settingsValue) {
-                $newSettings[] = array(
-                    "_entity" => "Settings\Entity\ModuleSettingsContainer",
-                    "settings" => $settingsValue,
-                    "module" => strtoupper($settingsKey),
-                );
+                $newSetting = array();
+                switch ($settingsKey) {
+                    case 'applications':
+                        $newSetting = array(
+                            '_entity' => "Applications\\Entity\\Settings",
+                            '_module' => 'Applications',
+                        );
+                        foreach ($settingsValue as $setKey => $setVal) {
+                            $newSetting[$setKey] = $setVal;
+                        }
+                        break;
+                        
+                    case 'settings':
+                        $newSettings = array(
+                            '_entity' => 'Core\\Entity\\SettingsContainer',
+                            '_module' => 'Core',
+                            'localization' => array('language' => $settingsValue['language'])
+                        );
+                        break;
+                        
+                    default:
+                
+                        $newSettings[] = array(
+                            "_entity" => "Settings\Entity\ModuleSettingsContainer",
+                            "settings" => $settingsValue,
+                            "module" => ucfirst(strtolower($settingsKey)),
+                        );
+                        break;
+                }
+                $newSettings[] = $newSetting;
             }
             $users->update(array("_id" => new MongoId($key)), array('$set' => array("settings" => $newSettings)));
             //var_dump($newSettings);
