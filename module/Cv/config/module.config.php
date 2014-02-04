@@ -149,25 +149,4 @@ return array(
         ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'cv' => '\Cv\Repository\Cv',
-        ),
-    ),
-    
-    'mappers' => array(
-        'factories' => array(
-            'cv' => '\Cv\Repository\Mapper\CvMapperFactory'
-        ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'cv' => '\Cv\Repository\EntityBuilder\CvBuilderFactory',
-            'education' => '\Cv\Repository\EntityBuilder\EducationBuilderFactory',
-            'employment' => '\Cv\Repository\EntityBuilder\EmploymentBuilderFactory',
-        	'skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
-        		
-        ),
-    ),
 );

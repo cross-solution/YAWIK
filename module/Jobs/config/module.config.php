@@ -132,22 +132,4 @@ return array(
         ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'job' => 'Jobs\Repository\Job'
-        ),
-    ),
-    
-    'mappers' => array(
-        'factories' => array(
-            'job' => 'Jobs\Repository\Mapper\JobMapperFactory',
-        ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'job' => '\Jobs\Repository\EntityBuilder\JobBuilderFactory',
-            'jsonJob' => '\Jobs\Repository\EntityBuilder\JsonJobBuilderFactory'
-        ),
-    ),
 );

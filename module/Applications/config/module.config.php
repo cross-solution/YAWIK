@@ -242,34 +242,4 @@ return array(
         ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'Application' => 'Applications\Repository\Application',
-        ),
-    ),
-     
-     'mappers' => array(
-         'factories' => array(
-            'application-trash' => 'Applications\Repository\Mapper\ApplicationTrashMapperFactory',
-        ),
-         'abstract_factories' => array(
-             'Applications\Repository\Mapper\AbstractMapperFactory'
-         ),
-     ),
-    
-     'entity_builders' => array(
-         'factories' => array(
-             'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
-             'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
-             'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
-             'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
-             'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
-             'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
-             'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
-             'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
-             'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
-             'Applications/History' => 'Applications\Repository\EntityBuilder\HistoryBuilderFactory',
-             'Applications/JsonHistory' => 'Applications\Repository\EntityBuilder\JsonHistoryBuilderFactory',
-         ),
-     ),
 );
