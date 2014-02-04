@@ -51,7 +51,7 @@ class IndexController extends AbstractActionController
             if ($result->isValid()) {
                 $user = $auth->getUser();
                 $settings = $user->getSettings('Core');
-                $language = $settings->language;
+                $language = $settings->localization->language;
                 if (!$language) {
                     $headers = $this->getRequest()->getHeaders();
                     if ($headers->has('Accept-Language')) {
