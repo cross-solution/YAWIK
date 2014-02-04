@@ -82,6 +82,13 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
                 ),          
                 'allow_empty' => True
             ),
+            
+             'logoRef' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
         );
     }
     
@@ -197,6 +204,17 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             ),
+        ));
+       
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'logoRef',
+            'options' => array(
+                'label' => 'logoRef'
+            ),
+            'attributes' => array(
+            )
         ));
     }
 }

@@ -25,7 +25,7 @@ use Jobs\Entity\Job;
 class ManageController extends AbstractActionController {
 
     public function saveAction() {
-        if (False) {
+        if (True) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
@@ -39,6 +39,7 @@ class ManageController extends AbstractActionController {
                 'status' => 'aktiv',
                 'reference' => '2130010128',
                 'camEnabled' => '1',
+                'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
             ));
             $this->getRequest()->setPost($params);
         }
