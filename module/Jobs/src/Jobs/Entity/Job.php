@@ -129,6 +129,15 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     protected $reference;
     
     /**
+     * Unified Resource Locator to the company-Logo
+     * 
+     * @var String
+     * 
+     * @ODM\String 
+     */
+    protected $logoRef;
+    
+    /**
      * temporary just for MiT
      * move to Modul MiT
      * 
@@ -279,6 +288,15 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
 
     public function setCamEnabled($camEnabled) {
         $this->camEnabled = $camEnabled;
+        return $this;
+    }
+    
+    public function getLogoRef() {
+        return $this->logoRef;
+    }
+
+    public function setLogoRef($logoRef) {
+        $this->logoRef = $logoRef;
         return $this;
     }
     
