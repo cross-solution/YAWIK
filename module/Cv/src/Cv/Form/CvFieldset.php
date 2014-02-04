@@ -4,7 +4,7 @@ namespace Cv\Form;
 
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
+use Core\Form\Hydrator\Strategy\CollectionStrategy;
 
 class CvFieldset extends Fieldset
 {
@@ -13,10 +13,10 @@ class CvFieldset extends Fieldset
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
-            $arrayToCollectionStrategy = new ArrayToCollectionStrategy();
-            $hydrator->addStrategy('educations', $arrayToCollectionStrategy)
-                     ->addStrategy('employments', $arrayToCollectionStrategy)
-                     ->addStrategy('skills', $arrayToCollectionStrategy);
+            $collectionStrategy = new CollectionStrategy();
+            $hydrator->addStrategy('educations', $collectionStrategy)
+                     ->addStrategy('employments', $collectionStrategy)
+                     ->addStrategy('skills', $collectionStrategy);
                       
             $this->setHydrator($hydrator);
         }

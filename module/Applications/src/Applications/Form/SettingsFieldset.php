@@ -9,7 +9,7 @@
 
 namespace Applications\Form;
 
-use Core\Entity\Hydrator\AnonymEntityHydrator;
+use Settings\Entity\Hydrator\SettingsEntityHydrator;
 use Zend\Form\Fieldset;
 //use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -19,8 +19,7 @@ class SettingsFieldset extends Fieldset
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new AnonymEntityHydrator();
-            $this->setHydrator($hydrator);
+            $this->setHydrator(new SettingsEntityHydrator());
         }
         return $this->hydrator;
     }
@@ -55,6 +54,11 @@ public function init()
         		'name' => 'mailRejectionText',
         		'options' => array('label' => /* @translate */ 'Rejection mail text',
                                            'description' => /* @translate */ 'default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.')));
+        
+          $this->add(array('type' => 'Zend\Form\Element\Checkbox',
+        		'name' => 'mailBCC',
+        		'options' => array('label' => /* @translate */ 'get blind carbon copy of all own mails',
+        		                   'description' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.')));
     }
         
 }

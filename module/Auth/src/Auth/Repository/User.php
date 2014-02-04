@@ -2,41 +2,46 @@
 
 namespace Auth\Repository;
 
+use \Auth\Entity\Info;
 use Core\Entity\EntityInterface;
 use Core\Repository\AbstractRepository;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Events;
 
 
 
 class User extends AbstractRepository
 {
     
-    
-    public function create($data = array())
+    public function create(array $data=null)
     {
-        $entity = $this->getMapper('user')->create($data);
+        $entity = parent::create($data);
+        
+        $eventArgs = new LifecycleEventArgs($entity, $this->dm);
+        $this->dm->getEventManager()->dispatchEvent(
+            Events::postLoad, $eventArgs
+        );
         return $entity;
     }
     
     public function findByProfileIdentifier($identifier)
     {
-        $entity = $this->getMapper('user')->findByProfileIdentifier($identifier);
+        $entity = $this->findOneBy(array('profile.identifier' => $identifier));
         return $entity;
     }
     
     public function findByLogin($login) {
-        $entity = $this->getMapper('user')->findByLogin($login);
+        $entity = $this->findOneBy(array('login' => $login));
         return $entity;
     }
     
-    public function find ($id)
-    {
-        $entity = $this->getMapper('user')->find($id, array('info'), true);
-        return $entity;
-    }
-    
-    public function save(EntityInterface $user)
-    {
-        $this->getMapper('user')->save($user);
+    /**
+     * 
+     * @param \Auth\Entity\Info $info
+     */
+    public function copyUserInfo(Info $info){
+        $contact = new Info();
+        $contact->fromArray(Info::toArray($info));
     }
     
      

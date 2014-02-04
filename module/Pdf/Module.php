@@ -94,7 +94,7 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
     public function getFile(FileEvent $e) {
         $lastFileName = $e->getLastFileName();
         if (is_string($lastFileName)) {
-            $repository = $this->serviceManager->get('repositories')->get('applications/Files');
+            $repository = $this->serviceManager->get('repositories')->get('Applications/Attachment');
             $file       = $repository->find($lastFileName);
             if (isset($file)) {
                 $e->setFileObject($lastFileName, $file);

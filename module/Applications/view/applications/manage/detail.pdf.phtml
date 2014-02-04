@@ -90,16 +90,9 @@ th {
    </table>
   </td>
   <td align="right">
-      <?php if ($this->application->contact->image) {
-     $fileId = $this->application->contact->image->id;   
-    //<!-- <img src="echo $this->url('file', array('filestore' => 'applications', 'fileId' => $this->application->contact->image->id))" class="img-thumbnail" />-->
-      $repository = $this->getHelperPluginManager()->getServiceLocator()->get('repositories')->get('applications/Files');
-      $file       = $repository->find($fileId);
-      if ($file && 0 === strpos($file->getType(), 'image')) {
-          echo ('<img src="' . $file->inline . '"  class="img-thumbnail" >');
-      }     
-    }
-    ?>
+   <?php if ($this->application->contact->image):?>
+   <img src="data:<?php echo $file->type ?>;base64,<?php echo base64_encode($this->application->contact->image->content) ?>"  class="img-thumbnail" >
+   <?php endif ?> 
   </td>
  </tr>
 </table>

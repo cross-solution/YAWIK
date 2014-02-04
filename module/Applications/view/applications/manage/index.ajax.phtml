@@ -2,12 +2,18 @@
 
 $columns = array(
         /*@translate*/ 'Applicant' => array(),
-        /*@translate*/ 'Career' => array('class' => 'cam-career'),
-        /*@translate*/ 'Attachments' => array('class' => 'cam-attachment'),	
-        /*@translate*/ 'Job' => array('class' => 'cam-job'),	
-        /*@translate*/ 'Status' => array('sort' => 'status'),
-        /*@translate*/ 'Modified' => array('sort' => 'date'),
-        /*@translate*/ 'Actions'=> array(),
+        /*@translate*/ 'Career' 
+    => array('class' => 'cam-career'),
+        /*@translate*/ 'Attachments' 
+    => array('class' => 'cam-attachment'),	
+        /*@translate*/ 'Job' 
+    => array('class' => 'cam-job'),	
+        /*@translate*/ 'Status' 
+    => array('sort' => 'status'),
+        /*@translate*/ 'Modified' 
+    => array('sort' => 'date'),
+        /*@translate*/ 'Actions' 
+    => array(),
 );
 
 if ('-' == $this->sort{0}) {
@@ -49,13 +55,14 @@ echo $this->paginationControl($applications, 'Sliding', 'pagination-control', ar
 </thead>
 
 <tbody>
-<?foreach ($applications as $application):
+<?php 
+foreach ($applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>
-    <img src="/file/applications/<?php echo $application->contact->image->id ?>" />
+    <img src="<?php echo $application->contact->image->uri ?>" />
     <?php else:?>
     <span class="cam-icon-portrait"></span>
     <?php endif?>
@@ -88,16 +95,13 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
           <?php echo $application->job->title ?>
          </a>         
     </td>
-    <td><?php echo $application->status ?></td>
+    <td><?php echo $application->status->name ?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
         <?php echo $this->dateFormat($application->dateModified);?>
     </td>
     <td>
         <div class="btn-group">
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-success" title="<?php echo $this->translate('view')?>"><span class="glyphicon glyphicon-eye-open icon-white"></span></a>
-            <?php if ($this->acl($application, 'delete')):?>
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-danger" title="<?php echo $this->translate('delete')?>"><span class="glyphicon glyphicon-remove icon-white"></span></a>
-            <?php endif ?>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('edit')?>"><span class="cam-icon-edit"></span></a>
         </div>
     </td>
 </tr>

@@ -4,237 +4,185 @@
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   AGPLv3
  */
 
 /** FileEntity.php */ 
 namespace Core\Entity;
 
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
-use Core\Entity\EntityInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Doctrine\Common\Collections\Collection;
 
-class FileEntity extends AbstractIdentifiableEntity implements FileEntityInterface, ResourceInterface
+/**
+ * stores files in MongoGridFS into the collection "files". You can override this.
+ * 
+ * @ODM\Document(collection="files")
+ * @ODM\InheritanceType("COLLECTION_PER_CLASS")
+ */
+class FileEntity extends AbstractIdentifiableEntity implements FileInterface, ResourceInterface
 {
+    /**
+     * owner of an attachment. Typically this is the candidate who applies for a joboffer.
+     *
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
     protected $user;
-    protected $allowedUserIds;
+    
+    /**
+     * User, who may access the attachment. Typically this is the recruiter. 
+     *
+    /* @ODM\ReferenceMany(targetDocument="\Auth\Entity\User", simple=true) */
+    protected $allowedUsers;
+    
+    /**
+     * Name of the attachment 
+     *
+     * @ODM\Field */
     protected $name;
-    protected $size;
-    protected $type;
-    protected $dateUploaded;
-    protected $uri;
-    protected $content;
-    protected $contentCallback;
-    protected $resource;
-    protected $resourceCallback;
+    
+    /**
+     * mimetype of the attachment.
+     *
+     * @ODM\String */
+    protected $mimetype;
 
+    /**
+     * Binary data of the Attachment.
+     * 
+    /** @ODM\File */
+    protected $file;
+    
+    /** 
+     * Used by MongoGridFS. We don't use this. We use $dateUploaded instead.
+     * @ODM\Field */
+    protected $uploadDate;
+    
+    /**
+     * date of uploaded file
+     * 
+     * @ODM\Field(type="tz_date")
+     */
+    protected $dateUploaded;
+    
+    /** @ODM\Field */
+    protected $length;
+    
+    /** @ODM\Field */
+    protected $chunkSize;
+    
+    /** @ODM\Field */
+    protected $md5;
+    
+    public function getId()
+    {
+        return $this->id;
+    }
+    
     public function getResourceId()
     {
         return 'Entity/File';
     }
-	
     
-    
-    public function getAllowedUserIds()
+    public function setUser(UserInterface $user)
     {
-        return $this->allowedUserIds;
-    }
-    
-    public function setAllowedUserIds(array $ids)
-    {
-        $this->allowedUserIds = $ids;
+        $this->user = $user;
         return $this;
     }
     
-    public function addAllowedUser($user)
+    public function getUser()
     {
-        if (!is_array($user)) {
-            $user = array($user);
-        }
-        
-        $user = array_map(function($u) { return $u instanceOf UserInterface ? $u->getId() : $u; }, $user);
-        
-        foreach ($user as $u) {
-            if (!in_array($user, $this->allowedUserIds)) {
-                $this->allowedUserIds[] = $user;
-            }
-        }
+        return $this->user;
+    }
+    
+    public function setAllowedUsers(Collection $users)
+    {
+        $this->allowedUsers = $users;
         return $this;
     }
     
-    public function removeAllowedUser($user=null)
+    public function getAllowedUsers()
     {
-        if (null === $user) {
-            $this->allowedUserIds = array();
-            return $this;
-        }
-        
-        if (!is_array($user)) {
-            $user = array($user);
-        }
-
-        $user = array_map(function($u) { return $u instanceOf UserInterface ? $u->getId() : $u; }, $user);
-        
-        $this->allowedUserIds = array_filter(
-            function($u) use ($user) {
-                return !in_array($u, $user);
-            },
-            $this->allowedUserIds
-        );
-        
-        return $this;
+        return $this->allowedUsers;
     }
     
-	/**
-     * @return the $name
-     */
-    public function getName ()
-    {
-        return $this->name;
-    }
-
-	/**
-     * @param field_type $name
-     */
-    public function setName ($name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
-
-	/**
-     * @return the $size
-     */
-    public function getSize ()
+    
+    public function getName()
     {
-        return $this->size;
+        return $this->name;
     }
     
     public function getPrettySize()
     {
-        // determine multiplier
-        $size = $this->getSize();
-        if (1024 > $size) {
-            return $size;
-        }
-        if (1048576 > $size) {
-            return round( $size / 1024, 2) . ' kB'; 
-        }
-        if (1073741824 > $size) {
-            return round( $size / 1048576, 2) . ' MB';
-        }
-        if (1.09951162778E+12 > $size) {
-            return round( $size / 1073741824, 2) . ' GB';
-        }
-        return round ($size / 1.09951162778E+12, 2) . ' TB';
+        return $this->length;
     }
-
-	/**
-     * @param field_type $size
-     */
-    public function setSize ($size)
+    
+    public function setType($mime)
     {
-        $this->size = $size;
+        $this->mimetype = $mime;
         return $this;
     }
-
-	/**
-     * @return the $type
-     */
-    public function getType ()
+    
+    public function getType()
     {
-        return $this->type;
+        return $this->mimetype;
     }
-
-	/**
-     * @param field_type $type
-     */
-    public function setType ($type)
+    
+    public function setDateUploaded(\DateTime $date = null)
     {
-        $this->type = $type;
+        $this->dateUploaded = $date;
         return $this;
     }
-
-	/**
-     * @return the $dateUploaded
-     */
-    public function getDateUploaded ()
+    
+    public function getDateUploaded()
     {
+        if (!$this->dateUploaded) {
+            $this->setDateUploaded(new \DateTime());
+        }
         return $this->dateUploaded;
     }
-
-	/**
-     * @param field_type $dateUploaded
-     */
-    public function setDateUploaded (\DateTime $dateUploaded)
+    
+    public function getFile()
     {
-        $this->dateUploaded = $dateUploaded;
-        return $this;
-    }
-
-    public function getUri()
-    {
-        return $this->uri;
+        return $this->file;
     }
     
-    public function injectUri($uri)
+    public function setFile($file)
     {
-        $this->uri = (string) $uri;
-        return $this;
-    }
-	/**
-     * @return the $content
-     */
-    public function getContent ()
-    {
-        if (!$this->content && is_callable($this->contentCallback)) {
-            $this->putContent(call_user_func($this->contentCallback));
-        }
-        return $this->content;
-    }
-
-	/**
-     * @param field_type $content
-     */
-    public function putContent ($content)
-    {
-        $this->content = $content;
-        return $this;
-    }
-
-	/**
-     * @param field_type $contentCallback
-     */
-    public function injectContent ($callable)
-    {
-        $this->contentCallback = $callable;
+        $this->setDateUploaded(new \DateTime());
+        $this->file = $file;
         return $this;
     }
     
-    public function getInline ()
+    public function getLength()
     {
-        $content = $this->getContent();
-        $filetype = $this->getType ();
-        return 'data:image/' . $filetype . ';base64,' . base64_encode ($content);
+        return $this->length;
     }
-    
     
     public function getResource()
     {
-        if (!$this->resource && is_callable($this->resourceCallback)) {
-            $this->resource = call_user_func($this->resourceCallback);
+        if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
+            return $this->file->getMongoGridFSFile()->getResource();
         }
-        return $this->resource;
+        return null;
     }
     
-    public function injectResource($callable)
+    /**
+     * return the binary data of an attachment
+     * 
+     * @see \Core\Entity\FileInterface::getContent()
+     */
+    public function getContent()
     {
-        $this->resourceCallback = $callable;
-        return $this;
+        if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
+            return $this->file->getMongoGridFSFile()->getBytes();
+        }
+        return null;
     }
-
-    
-   
-    
 }
 

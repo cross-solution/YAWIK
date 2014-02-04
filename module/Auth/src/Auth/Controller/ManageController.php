@@ -31,10 +31,11 @@ class ManageController extends AbstractActionController
         
         if (!$user) {
             throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
-            //throw new \Exception('Test');
         }
         
-        $oldImageId = $user->info->image->id; 
+        if (isset($user->info->image)) {
+          $oldImageId = $user->info->image ? $user->info->image->id : null; 
+        }
         $form->bind($user);
              
         if ($this->request->isPost()) {
@@ -42,18 +43,21 @@ class ManageController extends AbstractActionController
             if (!empty($files)) {
                 $post = $this->request->getPost()->toArray();
                 $data = array_merge_recursive($post, $files);
+                if (isset($files['info']['image']['error']) && UPLOAD_ERR_OK == $files['info']['image']['error']) {
+                    $oldImage = $user->info->image;
+                    if (null !== $oldImage) {
+                        $user->info->setImage(null);
+                        $services->get('repositories')->remove($oldImage);
+                    }
+                }
             } else {
                 $data = $this->request->getPost();
             }
             $form->setData($data);
             if ($form->isValid()) {
-                $userImageData = $form->get('info')->get('image')->getValue();
-                if (UPLOAD_ERR_OK == $userImageData['error']) {
-                    $fileRepository = $services->get('repositories')->get('Users/Files');
-                    $fileRepository->delete($oldImageId);
-                }
                 
-                $services->get('repositories')->get('user')->save($user);
+                
+                $services->get('repositories')->store($user);
                 $vars = array(
                         'ok' => true,
                         'status' => 'success',
@@ -78,8 +82,33 @@ class ManageController extends AbstractActionController
         return array(
             'form' => $form
         );
-         
     }
+
+    public function myPasswordAction()
+    {
+        $services = $this->getServiceLocator();
+        $form     = $services->get('forms')->get('user-password');
+        $user     = $services->get('AuthenticationService')->getUser();
+        $translator = $services->get('translator');
+        
+        if (!$user) {
+            throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
+        }
+        $form->bind($user);
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+            $form->setData($data);
+            if ($form->isValid()) {
+                $services->get('repositories')->store($user);
+            } else { // form is invalid
+            }
+        }
+        
+        return array(
+            'form' => $form
+        );
+    }
+
      public function saveApplicationConfirmationAction()
     {
         $services = $this->getServiceLocator();

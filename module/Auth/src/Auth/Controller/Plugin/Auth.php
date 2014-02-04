@@ -2,6 +2,8 @@
 
 namespace Auth\Controller\Plugin;
 
+use Auth\Entity\Info;
+
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Authentication\AuthenticationService;
 

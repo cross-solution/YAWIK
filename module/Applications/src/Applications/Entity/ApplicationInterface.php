@@ -3,8 +3,9 @@
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
-use Core\Entity\CollectionInterface;
 use Core\Entity\IdentifiableEntityInterface;
+use Auth\Entity\UserInterface;
+use Doctrine\Common\Collections\Collection;
 
 interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface 
 {
@@ -13,12 +14,8 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function getJobId();
     
     public function getJob();
-    public function injectJob(EntityInterface $job);
     
-    public function setUserId($userId);
-    public function getUserId();
-    
-    public function injectUser(EntityInterface $user);
+    public function setUser(UserInterface $user);
     public function getUser();
     
     public function setStatus($status);
@@ -39,7 +36,7 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function setCv(EntityInterface $cv);
     public function getCv();
     
-    public function setHistory(HistoryCollectionInterface $history);
+    public function setHistory(Collection $history);
     public function getHistory(); 
     
     public function setReadBy(array $userIds);

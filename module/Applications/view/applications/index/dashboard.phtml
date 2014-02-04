@@ -8,11 +8,11 @@
  */
 
 $linkQuery = array('sort' => '-dateCreated');
-$hasJobs = $this->services('repositories.job')->countByUser($this->auth('id')); 
+$hasJobs = $this->services('repositories')->get('Jobs/Job')->countByUser($this->auth('id')); 
 if ($hasJobs):
     $linkQuery['by'] = 'jobs';
 endif;
-$appRepo = $this->services('repositories.application');
+$appRepo = $this->services('repositories')->get('Applications/Application');
 ?>
 
 <div class="cam-panel">
@@ -44,11 +44,12 @@ $appRepo = $this->services('repositories.application');
  </tr>
 </thead>
 <?php 
-    $paginator = new \Zend\Paginator\Paginator(
-        $appRepo->getPaginatorAdapter($linkQuery)
-    );
-    $paginator->setCurrentPageNumber(1)->setItemCountPerPage(5);
-    foreach ($paginator as $app):?>
+#    $paginator = new \Zend\Paginator\Paginator(
+#        $appRepo->getPaginatorAdapter($linkQuery)
+#    );
+#    $paginator->setCurrentPageNumber(1)->setItemCountPerPage(5);
+#$paginator = $this->paginator('Applications/Application');
+    foreach ($this->paginator as $app):?>
     <tr>
       <td>
         <div class="portrait">

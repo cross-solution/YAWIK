@@ -4,54 +4,136 @@ namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
-use Core\Entity\CollectionInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Jobs\Entity\JobInterface;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @todo write interface
+ * The application model
+ * 
  * @author mathias
  *
+ * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application")
  */
 class Application extends AbstractIdentifiableEntity implements ApplicationInterface, ResourceInterface
 {
+    /**
+     * @var unknown
+     * @ODM\String
+     */
     protected $jobId;
+    
+    /**
+     * 
+     * @var unknown
+     * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
+     */
     protected $job;
     
-    protected $userId;
+    /**
+     * Owner of an application. If an authenticated Candidate submit an application, this
+     * userId is set.
+     * 
+     * @var unknown
+     * 
+     * 
+     */
+     #  protected $userId;
+    
+    /**
+     * 
+     * @var unknown
+     * 
+     */
     protected $user;
     
-    /*
-     * new
+    /**
+     * latest status of an application.
+     * 
+     * @var String 
+     * 
+     * @ODM\EmbedOne(targetDocument="Status")
      */
     protected $status;
+    
+    /**
+     * Creation Date of an application
+     * 
+     * @var unknown
+     * 
+     * @ODM\Field(type="tz_date")
+     */
     protected $dateCreated;
+    
+    /**
+     * Latest modification date of an application
+     * 
+     * @var unknown
+     * 
+     * @ODM\Field(type="tz_date")
+     */
     protected $dateModified;
 
-    /*
+    /**
      * personal informations, contains firstname, lastname, email, 
      * phone etc.
+     *
+     * @ODM\EmbedOne(targetDocument="Contact")
      */
     protected $contact;
     
+    /**
+     * The summary of an application
+     * 
+     * @var String
+     * 
+     * @ODM\String
+     */
     protected $summary;
     
-    /*
+    /**
      * Resume, containing employments, educations and skills
+     * 
+     * @ODM\EmbedOne(targetDocument="Cv")
      */
     protected $cv;
 
+    /**
+     * multiple Attachments of an application
+     * 
+     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist"})
+     */
     protected $attachments;
     
-    protected $history;
-    
-    /*
-     * Administrative 
+    /**
+     * 
+     * @var unknown
+     * @ODM\EmbedMany(targetDocument="History")
      */
-    
+    protected $history;
+        
+    /**
+     * 
+     * @var unknown
+     */
     protected $privacyPolicy;
     
+    /**
+     * Who has read the application?.
+     * 
+     * @var unknown
+     * @ODM\Collection
+     */
     protected $readBy = array();
+    
+    /**
+     * 
+     * @var 
+     * @ODM\EmbedOne(targetDocument="InternalReferences")
+     */
+    protected $refs;
     
     public function getResourceId()
     {
@@ -82,25 +164,17 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         return $this->job;
     }
     
-    public function injectJob(EntityInterface $job)
+    public function setJob(JobInterface $job)
     {
         $this->job = $job;
-        $this->setJobId($job->getId());
+        
+        $this->getRefs()->setJob($job);
+        
         return $this;
     }
     
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-        return $this;
-    }
     
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-    
-    public function injectUser(EntityInterface $user)
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
         return $this;
@@ -124,8 +198,10 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     {
         $this->setStatus($status);
         $status = $this->getStatus(); // ensure StatusEntity
-        
-        $this->getHistory()->addFromStatus($status);
+
+        $history = new History($status);
+
+        $this->getHistory()->add($history);
         return $this;
     }
     
@@ -216,10 +292,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	
 	public function getCv()
 	{
+	    if (is_null($this->cv)){
+	        $this->cv= new Cv();
+	    }
 	    return $this->cv;
 	}
 	
-	public function injectAttachments(CollectionInterface $attachments)
+	public function setAttachments(Collection $attachments)
 	{
 	    $this->attachments = $attachments;
 	    return $this;
@@ -230,7 +309,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
 	    return $this->attachments;
 	}
 	
-	public function setHistory(HistoryCollectionInterface $history)
+	public function setHistory(Collection $history)
 	{
 	    $this->history = $history;
 	    return $this;
@@ -286,4 +365,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         
         return in_array($userOrId, $this->readBy);
     }
+    
+    public function getRefs()
+    {
+        if (!$this->refs) {
+            $this->refs = new InternalReferences();
+        }
+        return $this->refs;
+    }
+    
 }

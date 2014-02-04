@@ -7,10 +7,11 @@
         <a href="<?php echo $this->url('lang/applications', 
             array(), 
             array('query' => array_merge($this->params()->fromQuery(), array('by'=> $byParam))),
-            true)?>"><?php echo $label?><span class="badge"><?php echo $newApplications; ?></span></a>
+            true)?>"><?php echo $label?><span class="badge"><?php echo $newApplications ?></span></a>
     </li>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
 </div>
+
 

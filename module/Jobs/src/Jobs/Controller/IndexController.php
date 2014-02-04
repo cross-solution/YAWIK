@@ -24,15 +24,14 @@ class IndexController extends AbstractActionController
     
     
     /**
-     * List applications
-     *
+     * List jobs
      */
     public function indexAction()
     { 
         
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
-        $repository = $this->getServiceLocator()->get('repositories')->get('job');
+        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         $isRecruiter = $this->acl()->isRole('recruiter');
 //         $jobs= $repository->fetch();
 //         foreach ($jobs as $job) {
@@ -58,15 +57,9 @@ class IndexController extends AbstractActionController
             //$filterForm->setData()
         }
         
-        $repository = $this->getServiceLocator()->get('repositories')->get('job');
+        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         
-        $paginator = new \Zend\Paginator\Paginator(
-            $repository->getPaginatorAdapter($params->toArray())
-        );
-        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
-                  ->setItemCountPerPage($params->get('count', 10));
-        
-        
+        $paginator = $this->paginator('Jobs/Job');
         
 //         $jsonFormat = 'json' == $this->params()->fromQuery('format');
         
@@ -103,13 +96,12 @@ class IndexController extends AbstractActionController
          if ($isRecruiter) {
              $params->set('by', 'me');
          }
-         $myJobs = $services->get('repositories')->get('Job');
+         $myJobs = $services->get('repositories')->get('Jobs/Job');
          
-         $paginator = new \Zend\Paginator\Paginator(
-                 $myJobs->getPaginatorAdapter($params->toArray())
-         );
-         $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
-         ->setItemCountPerPage($params->get('count', 10));
+         $paginator = $this->paginator('Jobs/Job');
+
+         #$paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
+         #->setItemCountPerPage($params->get('count', 10));
          
          return array(
              'script' => 'jobs/index/dashboard',

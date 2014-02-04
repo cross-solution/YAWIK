@@ -1,14 +1,17 @@
 <?php
 return array(
     
-    // Service Manager
-    'service_manager' => array(
-        'factories' => array(
-            'CvRepository' => 'Cv\Repository\Service\CvRepositoryFactory',
-            'CvMapper'     => 'Cv\Repository\Service\CvMapperFactory',
-            'CvBuilder'    => 'Cv\Repository\Service\CvBuilderFactory',
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Cv\Entity' => 'annotation',
+                ),
+            ),
         ),
     ),
+    
+    
     
     // Translations
     'translator' => array(
@@ -121,6 +124,12 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    'filters' => array(
+        'factories' => array(
+            'Cv/PaginationQuery' => 'Cv\Repository\Filter\PaginationQueryFactory',
+            'Cv/JsonPaginationQuery' => 'Cv\Repository\Filter\JsonPaginationQueryFactory',
+        ),
+    ),
     
     'form_elements' => array(
         'invokables' => array(
@@ -140,25 +149,4 @@ return array(
         ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'cv' => '\Cv\Repository\Cv',
-        ),
-    ),
-    
-    'mappers' => array(
-        'factories' => array(
-            'cv' => '\Cv\Repository\Mapper\CvMapperFactory'
-        ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'cv' => '\Cv\Repository\EntityBuilder\CvBuilderFactory',
-            'education' => '\Cv\Repository\EntityBuilder\EducationBuilderFactory',
-            'employment' => '\Cv\Repository\EntityBuilder\EmploymentBuilderFactory',
-        	'skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
-        		
-        ),
-    ),
 );

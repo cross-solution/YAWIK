@@ -1,6 +1,16 @@
 <?php
 
 return array(
+        'doctrine' => array(
+                'driver' => array(
+                        'odm_default' => array(
+                                'drivers' => array(
+                                        'Jobs\Entity' => 'annotation',
+                                ),
+                        ),
+                ),
+        ),
+        
 
     'Jobs' => array(
         'dashboard' => array(
@@ -118,26 +128,8 @@ return array(
     
     'filters' => array(
         'factories'=> array(
-            'jobs-params-to-properties' => '\Jobs\Filter\ParamsToPropertiesFactory'
+            'Jobs/PaginationQuery' => '\Jobs\Repository\Filter\PaginationQueryFactory'
         ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'job' => 'Jobs\Repository\Job'
-        ),
-    ),
-    
-    'mappers' => array(
-        'factories' => array(
-            'job' => 'Jobs\Repository\Mapper\JobMapperFactory',
-        ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'job' => '\Jobs\Repository\EntityBuilder\JobBuilderFactory',
-            'jsonJob' => '\Jobs\Repository\EntityBuilder\JsonJobBuilderFactory'
-        ),
-    ),
 );

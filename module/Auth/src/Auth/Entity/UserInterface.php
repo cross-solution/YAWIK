@@ -36,7 +36,7 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     
     public function setRole($role);
     public function getRole();
-    public function setInfo(EntityInterface $info);
+    public function setInfo(InfoInterface $info);
     public function getInfo();    
     public function setPassword($password);
     
@@ -58,7 +58,7 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      */
     public function getProfile();
     
-    public function setSettings(array $settings);
-    public function getSettings();
+    //public function setSettings(array $settings);
+    public function getSettings($module);
     
 }

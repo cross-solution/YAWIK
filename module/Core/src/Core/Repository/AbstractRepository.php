@@ -2,39 +2,62 @@
 
 namespace Core\Repository;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Entity\EntityInterface;
 
-abstract class AbstractRepository implements RepositoryInterface, Mapper\MapperAwareInterface
+use Core\Entity\EntityInterface;
+use \Doctrine\ODM\MongoDB as ODM;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
+
+
+abstract class AbstractRepository extends ODM\DocumentRepository implements RepositoryInterface
 {
-    const LOAD_EAGER = 'EAGER';
-    const LOAD_LAZY  = 'LAZY';
+
+    protected $entityPrototype;
     
-    const MODE_DEFAULT = 0;
-    const MODE_FORCE_ENTITY = 1;
-    
-    protected $mappers;
-    
-    public function setMapperManager(ServiceLocatorInterface $mapperManager)
+    public function __construct(ODM\DocumentManager $dm, ODM\UnitOfWork $uow, ODM\Mapping\ClassMetadata $class)
     {
-        $this->mappers = $mapperManager;
+        parent::__construct($dm, $uow, $class);
+        $eventArgs = new DoctrineMongoODM\Event\EventArgs(array(
+            'repository' => $this
+        ));
+        $dm->getEventManager()->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postConstruct, $eventArgs);
+    }
+    
+    public function init(ServiceLocatorInterface $serviceLocator)
+    {
+        
+    }
+
+    public function getService($name)
+    {
+        return $this->dm->getConfiguration()->getServiceLocator()->get($name);
+    }
+    
+    public function setEntityPrototype(EntityInterface $entity)
+    {
+        $this->entityPrototype = $entity;
         return $this;
     }
-    
-    public function getMapperManager()
-    {
-        return $this->mappers;
+
+    public function create(array $data=null) {
+        if (null === $this->entityPrototype) {
+            throw new \RuntimeException('Could not create an entity. No protoype is set!');
+        }
+
+        $entity = clone $this->entityPrototype;
+        
+        if (null !== $data) {
+            foreach ($data as $property => $value) {
+                $entity->$property = $value;
+            }
+        }
+        
+        return $entity;
     }
-    
-    protected function getMapper($name)
-    {
-        return $this->getMapperManager()->get($name);
+
+    public function store($entity) {
+        $this->dm->persist($entity);
+        $this->dm->flush($entity);
     }
-    public function find($id, $mode=self::LOAD_LAZY) {}
-    public function fetch() {}
-    public function create($data = null) {}
-    public function save(EntityInterface $entity) {}
-    
-   
     
 }

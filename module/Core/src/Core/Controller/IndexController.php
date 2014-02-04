@@ -46,6 +46,7 @@ class IndexController extends AbstractActionController
         if (isset($config['dashboard'])) {
             $dashboardConfig = array_merge(
                 $dashboardConfig, 
+                /** Intersect array to filter out invalid keys that might be in config */
                 array_intersect_key($config['dashboard'], $dashboardConfig)
             );
         }

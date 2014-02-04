@@ -155,9 +155,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
         if ($auth->hasIdentity()) {
             $user = $auth->getUser();
-            $settings = $user->settings;
-            if (isset($settings['settings']['language'])) {
-                return $settings['settings']['language'];
+            $settings = $user->getSettings('Core');
+            if ($lang = $settings->language) {
+                return $lang;
             }
         }
 

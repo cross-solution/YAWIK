@@ -27,6 +27,7 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
+        
         $viewModel = new ViewModel();
         $services = $this->getServiceLocator();
         $form     = $services->get('FormElementManager')
@@ -49,22 +50,27 @@ class IndexController extends AbstractActionController
             
             if ($result->isValid()) {
                 $user = $auth->getUser();
-                $settings = $user->settings;
-                
+                $settings = $user->getSettings('Core');
+                $language = $settings->localization->language;
+                if (!$language) {
+                    $headers = $this->getRequest()->getHeaders();
+                    if ($headers->has('Accept-Language')) {
+                        $locales = $headers->get('Accept-Language')->getPrioritized();
+                        $language  = $locales[0]->type;
+                    } else {
+                        $language = 'en';
+                    }
+                }
                 $services->get('Log')->info('User ' . $user->login . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
 
                 if ($ref) {
-                    if (isset($settings['settings']['language'])) {
-                        $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
-                    }
-                    $url = $ref;
+                    $ref = urldecode($ref);
+                    $url = preg_replace('~^/[a-z]{2}(/)?~', '/' . $language . '$1', $ref);
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
-                    $url = isset($settings['settings']['language'])
-                         ? $urlHelper('lang', array('lang' => $settings['settings']['language']))
-                         : $urlHelper('lang', array(), true);
+                    $url = $urlHelper('lang', array('lang' => $language));
                 }
                 if ($this->request->isXmlHttpRequest()) {
                     
@@ -95,9 +101,12 @@ class IndexController extends AbstractActionController
         $ref = $this->params()->fromQuery('ref', false);
         
         if ($ref) {
-            $this->getResponse()->setStatusCode(403);
-            $viewModel->setVariable('ref', $ref)
-                      ->setVariable('required', (bool) $this->params()->fromQuery('req', 0));
+            $req = $this->params()->fromQuery('req', false);
+            if ($req) {
+                $this->getResponse()->setStatusCode(403);
+                $viewModel->setVariable('required', true);
+            }
+            $viewModel->setVariable('ref', $ref);
         }
         
         $viewModel->setVariable('form', $form);

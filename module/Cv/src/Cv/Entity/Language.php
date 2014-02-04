@@ -3,11 +3,25 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
+/**
+ * @ODM\EmbeddedDocument
+ */
 class Language extends AbstractEntity implements LanguageInterface
 {
     
+    /**
+     * 
+     * @var unknown
+     * @ODM\String
+     */
     protected $language;
+    
+    /**
+     * @ODM\String
+     * @var unknown
+     */
     protected $level;
     
     public function setLanguage($language)

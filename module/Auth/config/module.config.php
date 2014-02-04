@@ -9,6 +9,17 @@
 
 return array(
     
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Auth\Entity' => 'annotation',
+                ),
+            ),
+        ),
+    ),
+
+    
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
@@ -102,6 +113,17 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Manage',
                                 'action' => 'my-profile',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'manage-password' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/my/password',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Manage',
+                                'action' => 'my-password',
                             ),
                         ),
                         'may_terminate' => true,
@@ -316,36 +338,12 @@ return array(
          ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'user' => 'Auth\Repository\User',
-            
-        ),
-        'factories' => array(
-            'Users/Files' => 'Auth\Repository\FileRepositoryFactory',
-        ),
-    ),
-    
-    'mappers' => array(
-        'factories' => array(
-            'user' => 'Auth\Repository\Mapper\UserMapperFactory',
-            'user-file' => 'Auth\Repository\Mapper\FileMapperFactory',
-         ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'user' => 'Auth\Repository\EntityBuilder\UserBuilderFactory',
-            'auth-info' => 'Auth\Repository\EntityBuilder\InfoBuilderFactory',
-            'user-file' => 'Auth\Repository\EntityBuilder\FileBuilderFactory',
-                
-        ),
-    ),
-    
     'form_elements' => array(
         'invokables' => array( 
             'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
+            'user-password' => 'Auth\Form\UserPassword',
+            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
         ),
         'factories' => array(

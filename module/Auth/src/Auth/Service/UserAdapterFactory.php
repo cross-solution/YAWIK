@@ -30,7 +30,7 @@ class UserAdapterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $repository = $serviceLocator->get('repositories')->get('user');
+        $repository = $serviceLocator->get('repositories')->get('Auth/User');
         $adapter = new User($repository);
         
         return $adapter;

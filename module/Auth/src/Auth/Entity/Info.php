@@ -13,52 +13,69 @@ use Core\Entity\AbstractEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\FileEntity;
 use Core\Entity\FileEntityInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * The user model
+ * peronal informations of a user.
+ * 
+ * @ODM\EmbeddedDocument
  */
 class Info extends AbstractEntity implements InfoInterface
 {   
 	
-	/** @var string */
+	/** @var string 
+	 * @ODM\String */
 	protected $birthDay;
 	
-	/** @var string */
+	/** @var string 
+	 * @ODM\String */
 	protected $birthMonth;
 
-	/** @var string */
+	/** @var string 
+	 * @ODM\String */
 	protected $birthYear;
 	
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $email;
     
-    /** @var string */ 
+    /** @var string 
+     * @ODM\String */ 
     protected $firstName;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $gender;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $houseNumber;
     
-    /** @var string */
+    /** @var string
+     * @ODM\String */
     protected $lastName;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $phone;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $postalcode;
 
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $city;
     
-    /** @var \Core\Entity\FileEntityInterface */
-    protected $imageId;
-    
+    /**
+     * 
+     * @var FileInterface
+     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist"}, simple=true, nullable=true) 
+     */
     protected $image;
     
-    /** @var string */
+    /** @var string 
+     * @ODM\String */
     protected $street;    
     
     /**
@@ -134,6 +151,7 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->firstName = trim((String)$firstName);
     	return $this;
     }
+    
     
     /** {@inheritdoc} */
     public function getGender()
@@ -268,7 +286,7 @@ class Info extends AbstractEntity implements InfoInterface
     	return $this->city;
     }
     
-    public function setImage(EntityInterface $image)
+    public function setImage(EntityInterface $image = null)
     {
         $this->image = $image;
         return $this;
@@ -292,6 +310,50 @@ class Info extends AbstractEntity implements InfoInterface
     public function getStreet() 
     {
     	return $this->street;
+    }
+    
+    /**
+     * convert an array into an Info Object
+     * @param Array $array
+     * @return \Auth\Entity\Info
+     */
+    public function fromArray($array) 
+    {
+        $this->birthDay=$array['birthDay'];
+        $this->birthMonth=$array['birthMonth'];
+        $this->birthYear=$array['birthYear'];
+        $this->firstName=$array['firstName'];
+        $this->lastName=$array['lastName'];
+        $this->email=$array['email'];        
+        $this->gender=$array['gender']; 
+        $this->street=$array['street'];
+        $this->houseNumber=$array['houseNumber'];
+        $this->phone=$array['phone'];
+        $this->postalcode=$array['postalcode'];
+        $this->city=$array['city'];        
+        return($this);   
+    }
+    
+    /**
+     * convert an Info object into an Array
+     * @param Info $info
+     * @return Array
+     */
+    static function toArray(Info $info) 
+    {
+        $array['birthDay']=$info->birthDay;
+        $array['birthMonth']=$info->birthMonth;
+        $array['birthYear']=$info->birthYear;
+        $array['firstName']=$info->firstName;
+        $array['lastName']=$info->lastName;
+        $array['email']=$info->email;
+        $array['gender']=$info->gender;
+        $array['street']=$info->street;
+        $array['houseNumber']=$info->houseNumber;
+        $array['phone']=$info->phone;
+        $array['postalcode']=$info->postalcode;
+        $array['city']=$info->city;
+        return $array;
     }
     
 }

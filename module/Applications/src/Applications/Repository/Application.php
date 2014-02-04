@@ -4,47 +4,35 @@ namespace Applications\Repository;
 
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
-use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
+use Applications\Entity\ApplicationInterface;
+use Doctrine\ODM\MongoDB\Events;
 
-class Application extends AbstractRepository implements EntityBuilderAwareInterface
-{
-    protected $builders;
-    
-    public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
+class Application extends AbstractRepository
+{   
+    public function getPaginatorCursor($params)
     {
-        $this->builders = $entityBuilderManager;
-        return $this;
-    }
-   
-    public function getEntityBuilderManager()
-    {
-        return $this->builders;
+        $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
+        $qb = $filter->filter($params, $this->createQueryBuilder());
+        return $qb->getQuery()->execute();
     }
     
-	public function find ($id, $mode=self::LOAD_LAZY)
+    public function getUnreadApplications($job) 
     {
-        $entity = $mode == self::LOAD_EAGER
-              ? $this->getMapper('application')->find($id, array())
-              : $this->getMapper('application')->find($id, 
-                      array('cv'),
-                      /*exclude*/ true
-              );
-        
-        
-        return $entity;
+        $auth=$this->getService('AuthenticationService');
+        $qb=$this->createQueryBuilder()
+                  ->field("readBy")->notIn($auth->getUser()->id)
+                  ->field("job")->equals( new \MongoId($job->id));
+        return $qb->getQuery()->execute();          
     }
     
-    public function fetch ($mode=self::LOAD_LAZY)
-    {
-        $fields = array('cv' => false);
-        
-        $collection = $this->getMapper('application')->fetch(array(), $fields);
-        return $collection;
-    }
-    
+    /**
+     * @deprecated
+     * @param unknown $jobId
+     * @return unknown
+     */
     public function fetchByJobId($jobId)
     {
         $collection = $this->getMapper('application')->fetch(
@@ -60,17 +48,21 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         $collection = $this->getMapper('application')->fetchRecent($limit);
         return $collection;
     }
-    public function getPaginatorAdapter(array $params)
-    {
-        return $this->getMapper('application')->getPaginatorAdapter($params);
-    }
     
+    /**
+     * @deprecated
+     * counts the number of applications of 
+     */    
     public function countBy($userOrId, $onlyUnread=false)
     {
         if ($userOrId instanceOf \Auth\Entity\UserInterface) {
             $userOrId = $userOrId->getId();
         }
-        return $this->getMapper('application')->countBy($userOrId, $onlyUnread);
+        $criteria = array('user' => $userOrId);
+        if ($onlyUnread) {
+            $criteria['readBy'] = array ('$ne' => $userOrId);
+        }
+        return $this->findBy($criteria)->count();
     }
     
     public function changeStatus($application, $status)
@@ -86,19 +78,19 @@ class Application extends AbstractRepository implements EntityBuilderAwareInterf
         return $this;
     }
     
-    public function save(EntityInterface $entity, $resetModifiedDate=true)
+    public function save(ApplicationInterface $application, $resetModifiedDate=true)
     {
         if ($resetModifiedDate) {
-            $entity->setDateModified('now');
+            $application->setDateModified('now');
         }
-        $this->getMapper('application')->save($entity);
+        $this->dm->persist($application);
+        $this->dm->flush();
     }
     
     public function delete(EntityInterface $entity)
     {
         $this->getMapper('application')->delete($entity);
         $this->getMapper('application-trash')->save($entity, true);
-
         return $this;
     }
     

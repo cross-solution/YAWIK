@@ -32,7 +32,7 @@ class AuthenticationServiceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $repository = $serviceLocator->get('repositories')->get('user');
+        $repository = $serviceLocator->get('repositories')->get('Auth/User');
         $auth       = new AuthenticationService($repository);
         return $auth;
     }

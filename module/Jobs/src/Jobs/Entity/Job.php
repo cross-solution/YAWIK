@@ -1,26 +1,157 @@
 <?php
+/**
+ * Cross Applicant Management
+ *
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
 
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
-use Core\Repository\Mapper\MapperAwareInterface;
-use Core\Entity\CollectionInterface;
+use Core\Entity\RelationEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Repository\DoctrineMongoODM\Annotation as Cam;
+use Doctrine\Common\Collections\Collection;
+use Auth\Entity\UserInterface;
 
+/**
+ * The job model
+ *
+ * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
+ */
 class Job extends AbstractIdentifiableEntity implements JobInterface {
 
+    /**
+     * uniq ID of a job posting
+     *
+     * @var String
+     * 
+     * @ODM\String @ODM\Index
+     **/
     protected $applyId;
+    
+    /**
+     * title of a job posting
+     * 
+     * @var String 
+     *  
+     * @ODM\String 
+     * @Cam\Searchable */
     protected $title;
+    
+    /**
+     * name of the publishing company
+     * 
+     * @var String
+     * 
+     * @ODM\String
+     */
     protected $company;
+    
+    /**
+     * Email Adress, which is used to send notifications about e.g. new applications.
+     * 
+     * @ODM\String
+     **/
     protected $contactEmail;
-    protected $userId;
+    
+    /**
+     * the owner of a Job Posting
+     *  
+     * @var unknown
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) @ODM\Index
+     */
     protected $user;
+    
+    /**
+     * all applications of a certain jobad 
+     * 
+     * @var array \Applications\Entity\Application
+     * 
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job")
+     */
     protected $applications;
+    
+    /**
+     * new applications
+     * 
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
+     *                    repositoryMethod="getUnreadApplications", mappedBy="job") 
+     * @var unknown
+     */
+    protected $unreadApplications;
+    
+    /**
+     * location of the job posting
+     * 
+     * @var unknown
+     * 
+     * @ODM\String
+     */
     protected $location;
+    
+    /**
+     * place of employment 
+     * 
+     * @var String
+     * 
+     * @ODM\String
+     **/
     protected $link;
+    
+    /**
+     * publishing date of a job posting
+     * 
+     * @var String
+     * 
+     * @ODM\Field(type="tz_date")
+     */
     protected $datePublishStart;
+    
+    /**
+     * Status of the job posting
+     * 
+     * @var unknown
+     * 
+     * @ODM\String
+     */
     protected $status;
+    
+    /**
+     * Reference of a jobad, on which an applicant can refer to.
+     * 
+     * @var String
+     * 
+     * @ODM\String 
+     */
     protected $reference;
+    
+    /**
+     * Unified Resource Locator to the company-Logo
+     * 
+     * @var String
+     * 
+     * @ODM\String 
+     */
+    protected $logoRef;
+    
+    /**
+     * temporary just for MiT
+     * move to Modul MiT
+     * 
+     * @var Boolean
+     * 
+     * @ODM\Boolean 
+     */
+    protected $camEnabled;
+    
+    /**
+     * 
+     * @ODM\Collection
+     */
+    protected $keywords;
     
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
@@ -80,15 +211,6 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         $this->contactEmail = (string) $email;
         return $this;
     }
-
-    public function setUserId($userId) {
-        $this->userId = $userId;
-        return $this;
-    }
-
-    public function getUserId() {
-        return $this->userId;
-    }
     
     public function setLocation($location)
     {
@@ -101,7 +223,7 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     	return $this->location;
     }
     
-    public function injectUser(EntityInterface $user) {
+    public function setUser(UserInterface $user) {
         $this->user = $user;
         return $this;
     }
@@ -110,13 +232,17 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         return $this->user;
     }
 
-    public function injectApplications(CollectionInterface $applications) {
+    public function setApplications(Collection $applications) {
         $this->applications = $applications;
         return $this;
     }
 
     public function getApplications() {
         return $this->applications;
+    }
+    
+    public function getUnreadApplications() {
+        return $this->unreadApplications;
     }
 
     public function getLink() {
@@ -155,4 +281,44 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         return $this;
     }
     
+    
+    public function getCamEnabled() {
+        return $this->camEnabled;
+    }
+
+    public function setCamEnabled($camEnabled) {
+        $this->camEnabled = $camEnabled;
+        return $this;
+    }
+    
+    public function getLogoRef() {
+        return $this->logoRef;
+    }
+
+    public function setLogoRef($logoRef) {
+        $this->logoRef = $logoRef;
+        return $this;
+    }
+    
+    public function getSearchableProperties()
+    {
+        return array('title', 'company', 'location', 'applyId');
+    }
+    
+    public function setKeywords(array $keywords)
+    {
+        $this->keywords = $keywords;
+        return $this;
+    }
+    
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+    
+    public function clearKeywords()
+    {
+        $this->keywords = array();
+        return $this;
+    }
 }
