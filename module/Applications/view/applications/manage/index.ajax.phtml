@@ -92,10 +92,10 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     </td>
     <td class="cam-job">
          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
-          <?php echo $application->job->title ?>
+          <?php echo strip_tags($application->job->title) ?>
          </a>         
     </td>
-    <td><?php echo $application->status->name ?></td>
+    <td><?php echo $this->translate($application->status->name) ?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
         <?php echo $this->dateFormat($application->dateModified);?>
     </td>

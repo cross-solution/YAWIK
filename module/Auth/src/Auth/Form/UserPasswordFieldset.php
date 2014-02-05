@@ -41,7 +41,7 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
         $this->add(array(
             'type' => 'Zend\Form\Element\Password',
             'name' => 'password2',
-            'options' => array( 'label' => /* @translate */ 'Password wiederholen' ),
+            'options' => array( 'label' => /* @translate */ 'Retype password' ),
          ));
                
     }

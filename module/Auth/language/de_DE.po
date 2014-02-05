@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-16 12:21+0100\n"
-"PO-Revision-Date: 2014-01-03 17:30+0100\n"
+"POT-Creation-Date: 2014-02-05 18:07+0100\n"
+"PO-Revision-Date: 2014-02-05 18:08+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language: \n"
@@ -17,69 +17,83 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: view/auth/index/index.phtml:13
+#: view/auth/index/index.phtml:11
 msgid "Login required"
 msgstr "Anmeldung erforderlich"
 
-#: view/auth/index/index.phtml:14
+#: view/auth/index/index.phtml:12
 msgid "Please authenticate yourself to proceed"
 msgstr "Bitte melden Sie sich an"
 
-#: view/auth/index/index.phtml:16
-#: view/auth/index/index.phtml:17
-#: view/auth/index/login-info.phtml:31
-#: language/_annotated_strings.php:54
+#: view/auth/index/index.phtml:14
+#: view/auth/index/index.phtml:15
+#: view/auth/index/login-info.phtml:38
 msgid "Login"
 msgstr "Einloggen"
 
-#: view/auth/index/login-info.phtml:7
+#: view/auth/index/login-info.phtml:13
+#: view/auth/manage/my-profile.phtml:3
+#: view/auth/manage/my-profile.phtml:9
+msgid "My profile"
+msgstr "Mein Profil"
+
+#: view/auth/index/login-info.phtml:16
+msgid "Change password"
+msgstr "Passwort ändern"
+
 #: view/auth/index/login-info.phtml:20
+msgid "Logout"
+msgstr "Abmelden"
+
+#: view/auth/index/login-info.phtml:27
 #, php-format
 msgid "Hello %s"
 msgstr "Hallo %s"
 
-#: view/auth/index/login-info.phtml:10
-#: view/auth/manage/my-profile.phtml:3
-#: view/auth/manage/my-profile.phtml:8
-msgid "My profile"
-msgstr "Mein Profil"
-
-#: view/auth/index/login-info.phtml:13
-msgid "Logout"
-msgstr "Abmelden"
-
-#: view/auth/index/login-info.phtml:21
+#: view/auth/index/login-info.phtml:28
 msgid "Guest"
 msgstr "Gast"
 
-#: view/auth/index/login-info.phtml:33
+#: view/auth/index/login-info.phtml:40
 msgid "Login via"
 msgstr "Einloggen über"
 
-#: view/auth/index/login-info.phtml:36
+#: view/auth/index/login-info.phtml:43
 #, php-format
 msgid "Login with %s"
 msgstr "Mit %s anmelden"
+
+#: view/auth/manage/my-password.phtml:3
+#: view/auth/manage/my-password.phtml:7
+msgid "My password"
+msgstr "Mein Passwort"
 
 #: src/Auth/Form/UserInfoFieldset.php:41
 #: language/_annotated_strings.php:3
 msgid "personal informations"
 msgstr "Persönliche Angaben"
 
-#: src/Auth/Form/UserBaseFieldset.php:23
+#: src/Auth/Form/UserPasswordFieldset.php:31
+#: language/_annotated_strings.php:45
 #: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:63
+msgid "Password"
+msgstr "Passwort"
+
+#: src/Auth/Form/UserBaseFieldset.php:23
+#: language/_annotated_strings.php:54
 msgid "General"
 msgstr "Sonstiges"
 
-#: src/Auth/Controller/ManageController.php:68
+#: src/Auth/Controller/ManageController.php:64
 msgid "Changes successfully saved"
 msgstr "Änderungen wurden erfolgreich gespeichert"
 
-#: src/Auth/Controller/ManageController.php:78
+#: src/Auth/Controller/ManageController.php:74
 msgid "Saving changes failed. Please check the marked fields."
 msgstr "Das Speichern der Daten schlug fehl. Bitte überprüfen Sie die markierten Felder."
 
-#: src/Auth/Controller/IndexController.php:80
+#: src/Auth/Controller/IndexController.php:92
 msgid "Authentication failed."
 msgstr "Anmeldung fehlgeschlagen."
 
@@ -116,40 +130,51 @@ msgid "Mrs."
 msgstr "Frau"
 
 #: language/_annotated_strings.php:30
-msgid "no comment"
-msgstr "keine Angaben"
-
-#: language/_annotated_strings.php:33
 msgid "First name"
 msgstr "Vorname"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:33
 msgid "Last name"
 msgstr "Nachname"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:36
 msgid "street"
 msgstr "Strasse"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:39
 msgid "house number"
 msgstr "Hausnummer"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:42
 msgid "Application photo"
 msgstr "Bewerbungsphoto"
 
 #: language/_annotated_strings.php:51
+msgid "Retype password"
+msgstr "Passwort wiederholen"
+
+#: language/_annotated_strings.php:57
 msgid "I am"
 msgstr "Ich bin"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:60
+msgid "Login name"
+msgstr "Benutzername"
+
+#: language/_annotated_strings.php:66
+msgid "login"
+msgstr "anmelden"
+
+#: language/_annotated_strings.php:69
 msgid "user"
 msgstr "Benutzer"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:72
 msgid "recruiter"
 msgstr "Personaler"
+
+#~ msgid "no comment"
+#~ msgstr "keine Angaben"
 
 #~ msgid "Informations"
 #~ msgstr "Informationen"
