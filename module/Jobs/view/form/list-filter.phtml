@@ -56,7 +56,7 @@ echo $this->formHidden($params->get('page'));
 $byElement = $params->get('by');
 $statusElement = $params->get('status');
 ?>
-<div id="params-search-wrapper" class="btn-group input-group navbar-form">
+<div id="params-search-wrapper" class="btn-group input-group">
     <span class="input-group-addon btn-default">?</span>
     <div class="col-xs-6">
     <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for jobs' ))) ?>

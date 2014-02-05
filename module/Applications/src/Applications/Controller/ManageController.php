@@ -73,13 +73,7 @@ class ManageController extends AbstractActionController
         }
         
         $paginator = $this->paginator('Applications/Application',$params);
-        
-        #$paginator = new \Zend\Paginator\Paginator(
-        #    $repository->getPaginatorAdapter($params->toArray())
-        #);
-        #$paginator->setCurrentPageNumber($params->get('page', 1))
-        #          ->setItemCountPerPage($params->get('count', 10));
-        
+                
         if ($jsonFormat) {
             $viewModel = new JsonModel();
             //$items = iterator_to_array($paginator);
