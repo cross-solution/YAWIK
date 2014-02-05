@@ -28,6 +28,14 @@ class Settings extends ModuleSettingsContainer {
     protected $mailAccess = false;
     
     /**
+     * 
+     * @ODM\Boolean
+     * @formLabel Send BlindCarbonCopy to owner
+     */
+    protected $mailBCC = false;
+    
+    
+    /**
      *
      * @ODM\Boolean
      * @formLabel Send mail

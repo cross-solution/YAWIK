@@ -67,6 +67,7 @@ class SettingsEntityHydrator extends Reflection
                 if (method_exists($object, $setter)) { 
                     $object->$setter($value);
                 } else {
+                    // the values of the entity have to be set explicitly
                     $reflProperties[$key]->setValue($object, $this->hydrateValue($key, $value));
                 }
             }
