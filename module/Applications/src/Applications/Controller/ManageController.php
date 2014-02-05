@@ -66,17 +66,14 @@ class ManageController extends AbstractActionController
         ));
         $v->setTemplate('applications/sidebar/manage');
         $this->layout()->addChild($v, 'sidebar_applicationsFilter');
+
+        //default sorting
+        if (!isset($params['sort'])) {
+            $params['sort']="-date";
+        }
         
-      #  $repository = $this->getServiceLocator()->get('repositories')->get('application');
-        
-        $paginator = $this->paginator('Applications/Application');
-        
-        #$paginator = new \Zend\Paginator\Paginator(
-        #    $repository->getPaginatorAdapter($params->toArray())
-        #);
-        #$paginator->setCurrentPageNumber($params->get('page', 1))
-        #          ->setItemCountPerPage($params->get('count', 10));
-        
+        $paginator = $this->paginator('Applications/Application',$params);
+                
         if ($jsonFormat) {
             $viewModel = new JsonModel();
             //$items = iterator_to_array($paginator);
@@ -255,8 +252,8 @@ class ManageController extends AbstractActionController
     {
         $services     = $this->getServiceLocator();
         $emailAddress = $this->params()->fromQuery('email');
-        $application  = $services->get('repositories')->get('application')
-                                 ->find($this->params('id'), 'EAGER');
+        $application  = $services->get('repositories')->get('Applications/Application')
+                                 ->find($this->params('id'));
         
         $this->acl($application, 'forward');
         

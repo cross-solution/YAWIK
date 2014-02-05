@@ -16,24 +16,9 @@
 
 <div id="forward-email-result" class="hide alert"></div>
 
-<nav class="navbar cam-toolbar"> 
-  <form class="navbar-form navbar-right" id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">  
-    <div id="forward-email" class="input-group btn-group">  
-      <span class="input-group-addon"
-            data-toggle="popover" 
-            data-trigger="hover focus click"
-            data-placement="bottom" 
-            title="<?php echo $this->translate('Enter an email address')?>"
-            data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>">?</span>
-            <input type="hidden" name="action" value="forward">
-            <div class="col-md-6">
-            <input class="form-control" id="forward-email-input" name="email" type="email">
-            </div>
-            <button class="btn btn-default" type="submit"><span class="cam-icon-forward"></span><?php echo $this->translate('Forward')?></button>
-          </div>
-    </form>
-    
-  <div id="state-actions" class="btn-group navbar-form">
+<nav class="navbar cam-toolbar">   
+  <div class="col-md-4">
+    <div id="state-actions" class="btn-group">
         <?php $status = $application->status->name;
         
             $actionButtons = array(
@@ -78,23 +63,48 @@
                     data-target="#mail-box"
                     <?php endif ?>
             ><?php echo $spec['label'] ?></button>
-            <?php endforeach ?>
-            <?php if ($this->acl($application, 'delete')):?>            
-                        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('delete')?>"><i class="cam-icon-delete"></i> Löschen</a>
-            <?php endif ?>    
-        </div>
-        
-        <div class="btn btn-group navbar-form">
+            <?php endforeach ?>  
+     </div>
+   </div>
+   <div class="col-md-4">     
+   <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
+   <div id="forward-email" class="input-group">
+            <span class="input-group-addon"
+            data-toggle="popover" 
+            data-trigger="hover focus click"
+            data-placement="bottom" 
+            title="<?php echo $this->translate('Enter an email address')?>"
+            data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>">?
+            </span>
+            <input type="hidden" name="action" value="forward">
+            <input class="form-control" id="forward-email-input" name="email" type="email">
+            <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+             <span class="cam-icon-forward"></span> <?php echo $this->translate('Forward')?>
+            </button>
+            </span>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4">
+        <div class="pull-right">
           <button class="btn btn-default"
                     data-title="title"
                     data-toggle="modal"
-                    data-target="#cam-application-history">
+                    data-target="#cam-application-history"
+                    title="<?php echo $this->translate('State history')?>">
           <span class="cam-icon-history"></span>
           </button>
           <a class="btn btn-default"
-                    href="?format=pdf">
+                    href="?format=pdf" title="<?php echo $this->translate('download as PDF')?>">
           <span class="cam-icon-download"></span>
           </a>
+          <?php if ($this->acl($application, 'delete')):?>            
+          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('delete this application')?>">
+            <i class="cam-icon-delete"></i> Löschen
+          </a>
+        <?php endif ?>
+        </div>
         </div>
 </nav>
 <div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

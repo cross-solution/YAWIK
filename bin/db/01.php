@@ -94,12 +94,8 @@ if (True) {
 
 
 if (True) {
-    // changing Application refs
-    // "refs" : {
-    //      "applications-files" : [
-    //        "52a84cad5246e17429000001",...]
-    //  }, array('filename')
-    //$cursor = $applications->find(array('refs'=>array('applications-files' => array('$exists'=>1))));
+    // changing Settings to new format.
+    
     $cursor = $users->find(array('settings' => array('$exists' => 1)), array('settings'));
     //$cursor = $users->find();
     foreach ($cursor as $key => $value) {
@@ -118,8 +114,8 @@ if (True) {
         var_dump($key);
         $newSettings = array();
         //var_dump($value['settings_deprecated']);
-        if (!empty($value['settings'])) {
-            foreach($value['settings'] as $settingsKey => $settingsValue) {
+        if (!empty($value['settings_deprecated'])) {
+            foreach($value['settings_deprecated'] as $settingsKey => $settingsValue) {
                 $newSetting = array();
                 switch ($settingsKey) {
                     case 'applications':
@@ -133,7 +129,7 @@ if (True) {
                         break;
                         
                     case 'settings':
-                        $newSettings = array(
+                        $newSetting = array(
                             '_entity' => 'Core\\Entity\\SettingsContainer',
                             '_module' => 'Core',
                             'localization' => array('language' => $settingsValue['language'])
@@ -142,7 +138,7 @@ if (True) {
                         
                     default:
                 
-                        $newSettings[] = array(
+                        $newSetting[] = array(
                             "_entity" => "Settings\Entity\ModuleSettingsContainer",
                             "settings" => $settingsValue,
                             "module" => ucfirst(strtolower($settingsKey)),

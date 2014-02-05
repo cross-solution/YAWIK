@@ -58,7 +58,8 @@ public function init()
           $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		'name' => 'mailBCC',
         		'options' => array('label' => /* @translate */ 'get blind carbon copy of all own mails',
-        		                   'description' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.')));
+        		                   'description' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.',
+                                           'value_options' => array(0,1, True, False))));
     }
         
 }

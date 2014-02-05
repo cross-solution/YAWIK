@@ -11,7 +11,8 @@ $translate = $this->plugin('translate');
 
 $createRadioGroup = function ($element, $id) use ($translate) {
     $input = '';
-    ?><div id="params-<?php echo $id ?>-group" class="btn-group btn-group-sm" data-toggle="buttons">
+    ?>
+    <div id="params-<?php echo $id ?>-group" class="btn-group btn-group-sm" data-toggle="buttons">
     <?php foreach ($element->getValueOptions() as $value => $label):
         $checked = $value == $element->getValue();?>
         
@@ -23,7 +24,8 @@ $createRadioGroup = function ($element, $id) use ($translate) {
         
     <?php endforeach; ?>
     
-    </div><?php //return $input;
+    </div>
+    <?php //return $input;
 };
 /*$createDropdown = function ($element, $id) {
     
@@ -56,20 +58,15 @@ echo $this->formHidden($params->get('page'));
 $byElement = $params->get('by');
 $statusElement = $params->get('status');
 ?>
-<div id="params-search-wrapper" class="btn-group input-group navbar-form">
-    <span class="input-group-addon btn-default">?</span>
-    <div class="col-xs-6">
+<div class="col-md-4">
+<div id="params-search-wrapper" class="input-group">
+    <span class="input-group-addon">?</span>
     <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for jobs' ))) ?>
-    </div>
-    <div class="btn-group">
+    <span class="input-group-btn">
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-target="#">
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a id="jobs-list-filter-reset" href="#"><?php echo $this->translate('Reset filter')?></a></li>
-        </ul>
-    </div>
+    </span>
+</div>
+</div>
 <?php if ($params->has('by') && $this->acl()->isRole('recruiter')):?>
 <div class="btn-toolbar navbar-right">
   <?php $hiddenBy = $createRadioGroup($params->get('by'), 'by') ?>
@@ -80,7 +77,6 @@ $statusElement = $params->get('status');
 <?php if ($params->has('by')):
 echo $hiddenBy.$hiddenStatus;
 endif;
-echo "</div>";
 echo $this->form()->closeTag();
 
 ?>

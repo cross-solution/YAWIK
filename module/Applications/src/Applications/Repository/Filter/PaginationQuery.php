@@ -32,12 +32,12 @@ class PaginationQuery extends AbstractPaginationQuery
     
          
         if (isset($value['by']) && 'me' == $value['by']) {
-#            $queryBuilder->field('user')->equals( new \MongoId($this->auth->getUser()->id));
+#            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
         }
         if (isset($value['by']) && 'new' == $value['by']) {
 #             $queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
         }
-        if (isset($value['job'])) {
+        if (isset($value['job']) && !empty($value['job'])) {
             $queryBuilder->field('job')->equals($value['job']);
         }
         

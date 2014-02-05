@@ -20,7 +20,7 @@ class Attachment extends FileEntity {
      * @return string
      */
     function getUri(){
-        return "/file/Applications.Attachment/" . $this->id . "/" ;
+        return "/file/Applications.Attachment/" . $this->id . "/" .$this->name;
     }
     
 }

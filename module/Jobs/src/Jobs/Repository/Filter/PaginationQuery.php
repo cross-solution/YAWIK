@@ -63,7 +63,9 @@ class PaginationQuery extends AbstractPaginationQuery
         }
 
         if (isset($value['sort'])) {
-            $queryBuilder->sort($this->filterSort($value['sort']));
+            foreach(explode(",",$value['sort']) as $sort) {
+                $queryBuilder->sort($this->filterSort($sort));
+            }
         }
     
         return $queryBuilder;
@@ -84,6 +86,9 @@ class PaginationQuery extends AbstractPaginationQuery
                 break;
             case "title":
                 $sortProp = "title";
+                break;
+            case "cam":
+                $sortProp = "camEnabled";
                 break;
     
             default:
