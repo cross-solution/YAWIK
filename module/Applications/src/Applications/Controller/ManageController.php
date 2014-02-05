@@ -252,8 +252,8 @@ class ManageController extends AbstractActionController
     {
         $services     = $this->getServiceLocator();
         $emailAddress = $this->params()->fromQuery('email');
-        $application  = $services->get('repositories')->get('application')
-                                 ->find($this->params('id'), 'EAGER');
+        $application  = $services->get('repositories')->get('Applications/Application')
+                                 ->find($this->params('id'));
         
         $this->acl($application, 'forward');
         

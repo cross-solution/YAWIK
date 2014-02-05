@@ -58,7 +58,7 @@ class Forward extends TranslatorAwareMessage
         $textPart->disposition = Mime\Mime::DISPOSITION_INLINE;
         $message->addPart($textPart);
 
-        if ($this->application->contact->imageId) {
+        if ($this->application->contact->image->id) {
             $image = $this->application->contact->image;
             $part = new Mime\Part($image->getResource());
             $part->type = $image->type;
@@ -132,7 +132,7 @@ class Forward extends TranslatorAwareMessage
         
         $text .= $delim('Attachments');
         
-        if ($this->application->contact->imageId) {
+        if ($this->application->contact->image->id) {
             $text .= ' * ' . $this->application->contact->image->name . PHP_EOL;
         }
         
