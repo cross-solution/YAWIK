@@ -66,10 +66,13 @@ class ManageController extends AbstractActionController
         ));
         $v->setTemplate('applications/sidebar/manage');
         $this->layout()->addChild($v, 'sidebar_applicationsFilter');
+
+        //default sorting
+        if (!isset($params['sort'])) {
+            $params['sort']="-date";
+        }
         
-      #  $repository = $this->getServiceLocator()->get('repositories')->get('application');
-        
-        $paginator = $this->paginator('Applications/Application');
+        $paginator = $this->paginator('Applications/Application',$params);
         
         #$paginator = new \Zend\Paginator\Paginator(
         #    $repository->getPaginatorAdapter($params->toArray())

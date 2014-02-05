@@ -6460,6 +6460,42 @@ td.cam-job {
 .cam-icon-portrait:before {
   content: "\e008";
 }
+.cam-icon-user {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-user:empty {
+  width: 1em;
+}
+.cam-icon-user:before {
+  content: "\e008";
+}
+.cam-icon-password {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-password:empty {
+  width: 1em;
+}
+.cam-icon-password:before {
+  content: "\e085";
+}
 .cam-icon-new {
   font-size: 12px;
   position: relative;
@@ -6972,6 +7008,7 @@ h6 {
 .cam-toolbar {
   border: 1px solid #eeeeee;
   margin: 0 0 8px;
+  padding: 0px;
 }
 .cam-thumbnail {
   max-height: 50px;
