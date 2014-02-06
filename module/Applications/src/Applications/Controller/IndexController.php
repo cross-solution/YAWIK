@@ -65,14 +65,14 @@ class IndexController extends AbstractActionController
         /*
          * validate email. 
          */
-
-        /**
+         /**
          * 
          * @todo has to be fixed  
-         
-           $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
-                   ->attach(new \Zend\Validator\EmailAddress())
-                   ->attach(new \Zend\Validator\StringLength(array('max'=>100)));        
+         * does not work. Validation is set in \Auth\Form\UserInfoFieldset.php
+         * 
+         *  $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
+                ->attach(new \Zend\Validator\EmailAddress())
+                ->attach(new \Zend\Validator\StringLength(array('max'=>100)));
          */
        
         if ($request->isPost()) {

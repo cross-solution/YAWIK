@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 18:29+0100\n"
+"POT-Creation-Date: 2014-02-06 18:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr ""
 #: view/applications/manage/detail.phtml:218
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
 msgid "Summary"
 msgstr ""
 
@@ -312,8 +312,13 @@ msgstr ""
 msgid "personal informations"
 msgstr ""
 
-#: src/Applications/Form/SettingsApplicationformFieldset.php:25
+#: src/Applications/Form/CreateApplication.php:111
 #: language/_annotated_strings.php:66
+msgid "send application"
+msgstr ""
+
+#: src/Applications/Form/SettingsApplicationformFieldset.php:25
+#: language/_annotated_strings.php:69
 msgid "applicationform"
 msgstr ""
 
@@ -422,39 +427,39 @@ msgstr ""
 msgid "if checked, you'll get a copy of all mails you send."
 msgstr ""
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:72
 msgid "Hide Summary"
 msgstr ""
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:75
 msgid "Hide Education history"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid "Hide Employment history"
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid "Hide Skills"
-msgstr ""
-
-#: language/_annotated_strings.php:84
-#, php-format
-msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
 #: language/_annotated_strings.php:87
 #, php-format
-msgid "New application for your vacancy \"%s\""
+msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
 #: language/_annotated_strings.php:90
+#, php-format
+msgid "New application for your vacancy \"%s\""
+msgstr ""
+
+#: language/_annotated_strings.php:93
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
 "\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:96
 msgid "Overview"
 msgstr ""
 

@@ -141,6 +141,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     }
     
     /**
+     * @deprecated
      * @return the $jobId
      */
     public function getJobId ()
@@ -152,6 +153,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     }
 
 	/**
+	 * @deprecated
      * @param field_type $jobId
      */
     public function setJobId ($jobId)

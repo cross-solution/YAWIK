@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 18:29+0100\n"
-"PO-Revision-Date: 2014-02-05 18:30+0100\n"
+"POT-Creation-Date: 2014-02-06 18:21+0100\n"
+"PO-Revision-Date: 2014-02-06 18:27+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -213,7 +213,7 @@ msgstr "Anhänge"
 #: view/applications/manage/detail.phtml:218
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -309,8 +309,13 @@ msgstr "E-Mail Benachrichtigungen"
 msgid "personal informations"
 msgstr "Angaben zur Person"
 
-#: src/Applications/Form/SettingsApplicationformFieldset.php:25
+#: src/Applications/Form/CreateApplication.php:111
 #: language/_annotated_strings.php:66
+msgid "send application"
+msgstr "Bewerbung versenden"
+
+#: src/Applications/Form/SettingsApplicationformFieldset.php:25
+#: language/_annotated_strings.php:69
 msgid "applicationform"
 msgstr "Bewerbungsformular"
 
@@ -407,33 +412,33 @@ msgstr "sende alle Mails in Kopie (BCC) an"
 msgid "if checked, you'll get a copy of all mails you send."
 msgstr "Klicken, um alle Mails in Kopie zu erhalten."
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:72
 msgid "Hide Summary"
 msgstr "Zusammenfassung ausblenden"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:75
 msgid "Hide Education history"
 msgstr "Ausbildungsverlauf ausblenden"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid "Hide Employment history"
 msgstr "Berufliche Erfahrung ausblenden"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid "Hide Skills"
 msgstr "Persönliche Fähigkeiten ausblenden"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:87
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Bewerbung auf \"%s\" vom %s"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:90
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Neue Bewerbung für Ihre Anzeige \"%s\""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:93
 msgid ""
 "Hello ##name##,\\n"
 "\\n"
@@ -447,7 +452,7 @@ msgstr ""
 "\\\"##title##\\\"\\n"
 "\\n"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:96
 msgid "Overview"
 msgstr "Überblick"
 

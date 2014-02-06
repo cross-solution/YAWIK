@@ -107,7 +107,10 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             $this->forms->get('Applications/Privacy')
         );
 
-        $this->add($this->forms->get('DefaultButtonsFieldset'));
+        $buttons = $this->forms->get('DefaultButtonsFieldset');
+        $buttons->get('submit')->setLabel( /* @translate */ 'send application');
+        $this->add($buttons);
+        
         //$this->setValidationGroup('jobId', 'contact', 'base', 'cv');
        
     }

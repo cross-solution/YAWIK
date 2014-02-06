@@ -93,7 +93,7 @@ class FormCollection extends ZendFormCollection
                 $element->getName()
             );
             if ($this->isWithinCollection) {
-                $markup = sprintf('<fieldset id="%s"><a class="remove-item pull-right btn"><i class="glyphicon glyphicon-minus"></i></a>%s</fieldset>', $elementId, $markup);
+                $markup = sprintf('<fieldset id="%s"><a class="remove-item cam-form-remove"><i class="cam-icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
             } else {
                 $label = $element->getLabel();
         

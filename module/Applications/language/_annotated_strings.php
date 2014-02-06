@@ -62,6 +62,9 @@ translate('get blind carbon copy of all own mails');
 //: ./src/Applications/Form/SettingsFieldset.php:61
 translate('if checked, you\'ll get a copy of all mails you send.');
 
+//: ./src/Applications/Form/CreateApplication.php:111
+translate('send application');
+
 //: ./src/Applications/Form/SettingsApplicationformFieldset.php:25
 translate('applicationform');
 
