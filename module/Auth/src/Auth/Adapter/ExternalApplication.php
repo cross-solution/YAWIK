@@ -74,6 +74,7 @@ class ExternalApplication extends AbstractAdapter
         $credential    = $this->getCredential();
         
         $loginSuccess = False;
+        $loginResult = array();
         
         if (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex) {
             // the login ends with the applicationID, therefore use the secret key
@@ -89,6 +90,7 @@ class ExternalApplication extends AbstractAdapter
                 ));
                 $users->store($user);
                 $loginSuccess = True;
+                $loginResult = array('firstLogin' => True);
             }
         }   
         elseif (isset($user)) {
@@ -108,7 +110,6 @@ class ExternalApplication extends AbstractAdapter
         if (!$loginSuccess) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
         }
-        
-        return new Result(Result::SUCCESS, $user->id);
+        return new Result(Result::SUCCESS, $user->id, $loginResult);
     }
 }
