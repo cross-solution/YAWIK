@@ -162,7 +162,6 @@ if (True) {
         array('allowedUserIds' => array('$exists' => 1)), 
         array('allowedUsers' => array('$exists' => 0)))), array('allowedUserIds'));
     
-    var_dump ($cursor);
     foreach ($cursor as $key => $value) {
         $arrayOfMongoIds = array();
         foreach ($value['allowedUserIds'] as $allowedUserId) {
@@ -179,6 +178,21 @@ if (True) {
         //var_dump($arrayOfMongoIds);
         $files->update(array("_id" => new MongoId($key)), array('$set' => array("allowedUsers" => $arrayOfMongoIds)));
         
+    }
+}
+
+if (True) {
+    // granding every citizen from AMS an secret key
+    $cursor = $users->find(array('$and' => array(
+        array('secret' => array('$exists' => 0)),
+        array('login' => array('$exists' => 1))
+        )), array('login', 'credential'));
+    foreach ($cursor as $key => $value) {
+        $login = $value['login'];
+        if (preg_match('/^.*@ams$/', $login)) {
+            echo "add secret to " . $login;
+            $users->update(array("_id" => new MongoId($key)), array('$set' => array("secret" => $value['credential'])));
+        }
     }
 }
 
