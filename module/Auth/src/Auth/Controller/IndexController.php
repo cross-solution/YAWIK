@@ -200,7 +200,7 @@ class IndexController extends AbstractActionController
 //             ));
 //         }
         
-         if (True) {
+         if (False) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
