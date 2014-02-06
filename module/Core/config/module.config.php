@@ -226,7 +226,9 @@ return array(
     ),
     
     'filters' => array(
-        
+        'invokables' => array(
+            'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
+        ),
     ),
     
     'form_elements' => array(

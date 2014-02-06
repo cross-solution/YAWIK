@@ -86,7 +86,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
 
     public function onDispatchError(MvcEvent $e)
     {
-        if (Application::ERROR_ROUTER_NO_MATCH != $e->getError()) {
+        if ($e->getRequest() instanceOf \Zend\Console\Request 
+            || Application::ERROR_ROUTER_NO_MATCH != $e->getError()
+        ) {
             return;
         } 
         

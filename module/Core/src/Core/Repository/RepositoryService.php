@@ -63,6 +63,14 @@ class RepositoryService
         return $this;
     }
     
+    public function __call($method, $params)
+    {
+        $callback = array($this->dm, $method);
+        if (is_callable($callback)) {
+            return call_user_func_array($callback, $params);
+        }
+    }
+    
     
 }
 

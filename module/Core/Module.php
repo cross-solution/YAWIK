@@ -16,13 +16,31 @@ use Core\Listener\AjaxRenderListener;
 use Core\Listener\LogListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
+use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
+use Zend\Console\Adapter\AdapterInterface as Console;
 
 /**
  * Bootstrap class of the Core module
  * 
  */
-class Module
+class Module implements ConsoleBannerProviderInterface
 {
+    
+    public function getConsoleBanner(Console $console) {
+        
+        $version = `git describe`;
+        $name = 'Cross Applicant Management ' . trim($version);
+        $width = $console->getWidth();
+        return sprintf(
+            "==%1\$s==\n%2\$s%3\$s\n**%1\$s**\n",
+            str_repeat('-', $width - 4),
+            str_repeat(' ', floor(($width - strlen($name)) / 2)),
+            $name
+       ); 
+             
+        
+    }
+    
     /**
      * Sets up services on the bootstrap event.
      * 
@@ -48,17 +66,20 @@ class Module
  #       $LogListener = new LogListener();
  #       $LogListener->attach($eventManager);
         
-        $languageRouteListener = new LanguageRouteListener();
-        $languageRouteListener->attach($eventManager);
+        if (!\Zend\Console\Console::isConsole()) {
+            $languageRouteListener = new LanguageRouteListener();
+            $languageRouteListener->attach($eventManager);
         
-        $ajaxRenderListener = new AjaxRenderListener();
-        $ajaxRenderListener->attach($eventManager);
         
-        $enforceJsonResponseListener = new EnforceJsonResponseListener();
-        $enforceJsonResponseListener->attach($eventManager);
+            $ajaxRenderListener = new AjaxRenderListener();
+            $ajaxRenderListener->attach($eventManager);
         
-        $stringListener = new StringListener();
-        $stringListener->attach($eventManager);
+            $enforceJsonResponseListener = new EnforceJsonResponseListener();
+            $enforceJsonResponseListener->attach($eventManager);
+        
+            $stringListener = new StringListener();
+            $stringListener->attach($eventManager);
+        }
         
         $eventManager->attach('postDispatch', function ($event) use ($sm) {
             $sm->get('doctrine.documentmanager.odm_default')->flush();
@@ -67,22 +88,6 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
             $eventManager->trigger('postDispatch', $event);
         }, -150);
-        
-        $sharedEvents = $eventManager->getSharedManager();
-        $sharedEvents->attach('Settings\Controller\IndexController', 'SETTINGS_CHANGED', function($e) use ($sm) {
-            $settings = $e->getParam('settings');
-            if (!$settings instanceOf \Core\Entity\SettingsContainer) {
-                return;
-            }
-            
-            $dm = $sm->get('doctrine.documentmanager.odm_default');
-            $class=$dm->getClassMetadata(get_class($settings));
-            $uow = $dm->getUnitOfWork();
-            $uow->recomputeSingleDocumentChangeSet($class, $settings);
-            $changeset = $uow->getDocumentChangeset($settings->localization);
-             
-        });
-        
         
     }
 
@@ -93,7 +98,13 @@ class Module
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        $config = include __DIR__ . '/config/module.config.php';
+        if (\Zend\Console\Console::isConsole()) {
+            $config['doctrine']['configuration']['odm_default']['generate_proxies'] = false;
+            $config['doctrine']['configuration']['odm_default']['generate_hydrators'] = false;
+            
+        }
+        return $config;
     }
 
     /**

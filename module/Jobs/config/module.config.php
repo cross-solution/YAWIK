@@ -1,5 +1,8 @@
 <?php
 
+
+$consoleConfig = include __DIR__ . '/console.config.php';
+
 return array(
         'doctrine' => array(
                 'driver' => array(
@@ -69,6 +72,8 @@ return array(
         ),
     ),
     
+    'console' => $consoleConfig,
+      
     'acl' => array(
         'rules' => array(
             'user' => array(
@@ -94,6 +99,7 @@ return array(
         'invokables' => array(
             'Jobs\Controller\Index' => 'Jobs\Controller\IndexController',
             'Jobs\Controller\Manage' => 'Jobs\Controller\ManageController',
+            'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),
     ),
     
