@@ -79,8 +79,13 @@ class ExternalApplication extends AbstractAdapter
         if (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex) {
             // the login ends with the applicationID, therefore use the secret key
             // the external login must be the form 'xxxxx@yyyy' where yyyy is the matching suffix to the external application key
-            if (isset ($user) && $user->secret == $filter->filter($credential)) {
-                $loginSuccess = True;
+            if (isset ($user)) {
+                if ($user->secret == $filter->filter($credential)) {
+                    $loginSuccess = True;
+                }
+                else {
+                    $loginSuccess = False;
+                }
             }
             else {
                 $user = $users->create(array(

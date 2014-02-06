@@ -205,7 +205,7 @@ class IndexController extends AbstractActionController
             $this->request->setMethod('post');
             $params = new Parameters(array(
                 'user' => 'dummy16@ams',
-                'pass' => 'passwordfromams',
+                'pass' => 'passwordfromams1',
                 'appKey' => 'AmsAppKey',
                 'email' => 'weitz@cross-solution.de',
             ));
