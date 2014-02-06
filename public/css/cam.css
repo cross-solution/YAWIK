@@ -6586,6 +6586,24 @@ td.cam-job {
 .cam-icon-sort-asc:before {
   content: "\e114";
 }
+.cam-icon-plus {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-plus:empty {
+  width: 1em;
+}
+.cam-icon-plus:before {
+  content: "\2b";
+}
 .cam-icon-forward {
   font-size: 12px;
   position: relative;
@@ -7208,4 +7226,55 @@ fieldset fieldset a.remove-item {
 .cam-portrait {
   width: 100px;
   font-size: 80px;
+}
+.cam-form-add {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  float: right !important;
+}
+.cam-form-add:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.cam-form-add:hover,
+.cam-form-add:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.cam-form-add:active,
+.cam-form-add.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.cam-form-add.disabled,
+.cam-form-add[disabled],
+fieldset[disabled] .cam-form-add {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#contact-image {
+  border: none;
 }

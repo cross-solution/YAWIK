@@ -114,7 +114,7 @@ class FormCollection extends ZendFormCollection
                     $label = $escapeHtmlHelper($label);
                     
                     if ($isCollectionElement) {
-                        $extraLegend = '<a href="#" class="add-item btn pull-right"><i class="glyphicon glyphicon-plus"></i></a>';
+                        $extraLegend = '<a href="#" class="add-item cam-form-add"><i class="cam-icon-plus"></i></a>';
                         $class  = ' class="form-collection"';
                         $divWrapperOpen = $divWrapperClose = '';
                     } else {
