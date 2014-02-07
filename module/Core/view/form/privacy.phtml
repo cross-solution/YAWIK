@@ -10,7 +10,7 @@ $this->formRow()->setShouldWrap(false);
         <?php endforeach;?>
   </div>
         <div class="col-md-11">      
-          <?php echo sprintf($this->translate("I have read the %s and accept it"), '<button href="disclaimer" data-target="#responsive" data-toggle="modal">'.$this->translate('Privacy Policy').'</button>') ?>
+          <?php echo sprintf($this->translate("I have read the %s and accept it"), '<a href="disclaimer" data-target="#responsive" data-toggle="modal">'.$this->translate('Privacy Policy').'</a>') ?>
         </div>
         <div id="responsive" class="modal fade">
             <div class="modal-dialog">

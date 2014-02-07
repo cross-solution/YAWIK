@@ -172,6 +172,17 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                     new \Zend\Validator\StringLength(array('max' => 50))
                 ),
             ),
+            'email' => array(
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),
+                'validators' => array(
+                        new \Zend\Validator\NotEmpty(),
+                        new \Zend\Validator\StringLength(array('max' => 100)),
+                        new \Zend\Validator\EmailAddress()
+                )
+            )
         );
         
     }

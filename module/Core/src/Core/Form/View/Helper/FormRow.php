@@ -67,6 +67,7 @@ class FormRow extends ZendFormRow
         if ($element->getAttribute('type') != 'submit' and $element->getAttribute('type') != 'reset') {
             $element->setAttribute('class', $element->getAttribute('class').' form-control ');    
         }
+        
         $elementString = $elementHelper->render($element);
         if ($desc = $element->getOption('description', false)) {
             if (null !== ($translator = $this->getTranslator())) {
@@ -78,6 +79,7 @@ class FormRow extends ZendFormRow
                 '<span class="cam-description help-block">%s</span>', $desc
             );
         }
+        
         if (!$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button
         ) {

@@ -36,6 +36,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     /** @ODM\String */
     protected $credential;
     
+    /** @ODM\String */
+    protected $email;
+    
      /** @var external password for AMS-Interface exclusively
      * @ODM\String*/
     protected $secret;
@@ -140,6 +143,17 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     public function setSecret($secret)
     {
         $this->secret = $secret;
+        return $this;
+    }
+    
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    
+    public function setEmail($email)
+    {
+        $this->email = $email;
         return $this;
     }
     

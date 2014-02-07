@@ -6586,6 +6586,42 @@ td.cam-job {
 .cam-icon-sort-asc:before {
   content: "\e114";
 }
+.cam-icon-plus {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-plus:empty {
+  width: 1em;
+}
+.cam-icon-plus:before {
+  content: "\2b";
+}
+.cam-icon-minus {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-minus:empty {
+  width: 1em;
+}
+.cam-icon-minus:before {
+  content: "\2212";
+}
 .cam-icon-forward {
   font-size: 12px;
   position: relative;
@@ -7208,4 +7244,188 @@ fieldset fieldset a.remove-item {
 .cam-portrait {
   width: 100px;
   font-size: 80px;
+}
+.cam-form-add {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  float: right !important;
+}
+.cam-form-add:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.cam-form-add:hover,
+.cam-form-add:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.cam-form-add:active,
+.cam-form-add.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.cam-form-add.disabled,
+.cam-form-add[disabled],
+fieldset[disabled] .cam-form-add {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.cam-form-add:hover,
+.cam-form-add:focus,
+.cam-form-add:active,
+.cam-form-add.active,
+.open .dropdown-toggle.cam-form-add {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.cam-form-add:active,
+.cam-form-add.active,
+.open .dropdown-toggle.cam-form-add {
+  background-image: none;
+}
+.cam-form-add.disabled,
+.cam-form-add[disabled],
+fieldset[disabled] .cam-form-add,
+.cam-form-add.disabled:hover,
+.cam-form-add[disabled]:hover,
+fieldset[disabled] .cam-form-add:hover,
+.cam-form-add.disabled:focus,
+.cam-form-add[disabled]:focus,
+fieldset[disabled] .cam-form-add:focus,
+.cam-form-add.disabled:active,
+.cam-form-add[disabled]:active,
+fieldset[disabled] .cam-form-add:active,
+.cam-form-add.disabled.active,
+.cam-form-add[disabled].active,
+fieldset[disabled] .cam-form-add.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.cam-form-add .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+.cam-form-remove {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  float: right !important;
+}
+.cam-form-remove:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.cam-form-remove:hover,
+.cam-form-remove:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.cam-form-remove:active,
+.cam-form-remove.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.cam-form-remove.disabled,
+.cam-form-remove[disabled],
+fieldset[disabled] .cam-form-remove {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.cam-form-remove:hover,
+.cam-form-remove:focus,
+.cam-form-remove:active,
+.cam-form-remove.active,
+.open .dropdown-toggle.cam-form-remove {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+.cam-form-remove:active,
+.cam-form-remove.active,
+.open .dropdown-toggle.cam-form-remove {
+  background-image: none;
+}
+.cam-form-remove.disabled,
+.cam-form-remove[disabled],
+fieldset[disabled] .cam-form-remove,
+.cam-form-remove.disabled:hover,
+.cam-form-remove[disabled]:hover,
+fieldset[disabled] .cam-form-remove:hover,
+.cam-form-remove.disabled:focus,
+.cam-form-remove[disabled]:focus,
+fieldset[disabled] .cam-form-remove:focus,
+.cam-form-remove.disabled:active,
+.cam-form-remove[disabled]:active,
+fieldset[disabled] .cam-form-remove:active,
+.cam-form-remove.disabled.active,
+.cam-form-remove[disabled].active,
+fieldset[disabled] .cam-form-remove.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.cam-form-remove .badge {
+  color: #ffffff;
+  background-color: #fff;
+}
+#contact-image {
+  border: none;
+  box-shadow: none;
+  padding: 0px 12px;
+}
+#attachments input {
+  border: none;
+  box-shadow: none;
+  padding: 0px 12px;
 }

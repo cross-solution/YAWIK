@@ -65,14 +65,14 @@ class IndexController extends AbstractActionController
         /*
          * validate email. 
          */
-
-        /**
+         /**
          * 
          * @todo has to be fixed  
-         
-           $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
-                   ->attach(new \Zend\Validator\EmailAddress())
-                   ->attach(new \Zend\Validator\StringLength(array('max'=>100)));        
+         * does not work. Validation is set in \Auth\Form\UserInfoFieldset.php
+         * 
+         *  $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
+                ->attach(new \Zend\Validator\EmailAddress())
+                ->attach(new \Zend\Validator\StringLength(array('max'=>100)));
          */
        
         if ($request->isPost()) {
@@ -111,7 +111,7 @@ class IndexController extends AbstractActionController
                     $applicationEntity->setUser($auth->getUser());
                     $imageData = $form->get('contact')->get('image')->getValue();
                     if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
-                        $image = $auth->getUser()->info->image->getEntity();
+                        $image = $auth->getUser()->info->image;
                         
                         if ($image) {
                             $contactImage = $services->get('repositories')->get('Applications/Files')->saveCopy($image);

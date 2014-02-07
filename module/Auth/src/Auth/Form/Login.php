@@ -27,7 +27,7 @@ class Login extends Form
         $fieldset->add(array(
             'name' => 'login',
             'options' => array(
-                'label' => /*translate*/ 'Login name',
+                'label' => /* @translate */ 'Login name',
             ),
         ));
         
@@ -35,7 +35,7 @@ class Login extends Form
             'type' => 'password',
             'name' => 'credential',
             'options' => array(
-                'label' => /*translate*/ 'Password',
+                'label' => /* @translate */ 'Password',
                 
             ),
         ));
@@ -51,7 +51,7 @@ class Login extends Form
             'attributes' => array(
                 'id' => 'submit',
                 'type' => 'submit',
-                'value' => 'login',
+                'value' => /* @translate */ 'login',
                 'class' => 'btn btn-primary'
             ),
         ));

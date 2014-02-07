@@ -15,7 +15,7 @@ $this->headscript()->appendScript('$(".alert").alert();');
 <h1><?php echo $this->translate('Application')?></h1>
 <p class="lead"><?php printf(
     $this->translate('Apply to "%s" from "%s"'), 
-    '<a href="/job-url" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->title)) . '</a>',
+    '<a href="'.$job->link.'" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->title)) . '</a>',
     $job->company
 ) ?></p>
 
