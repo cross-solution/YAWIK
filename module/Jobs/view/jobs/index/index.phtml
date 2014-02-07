@@ -2,7 +2,12 @@
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
 
 <h1><?=$this->translate('List of all jobs')?></h1>
+
+<nav class="navbar cam-toolbar" id="jobs-list-filter-wrapper">
+<?php echo $this->form($this->filterForm)  ?>
+</nav>
 <div id="jobs-list-container" class="pagination-container">
 <?php echo $this->render('jobs/index/index.ajax.phtml')?>
 </div>
 
+<?php echo $this->partial('core/loading-popup') ?>

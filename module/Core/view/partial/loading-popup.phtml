@@ -1,0 +1,21 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->headScript()->appendFile($this->basePath('Core/js/loading-popup.js'));
+?>
+<div class="modal" id="loading-popup" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="margin: 22% auto 0px; width: 170px;">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <p class="text-muted lead"><?php echo $this->translate('Loading') ?></p>
+                <img src="/images/loader.gif">
+            </div> 
+        </div>
+    </div>
+</div>

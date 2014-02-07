@@ -11,64 +11,40 @@
 namespace Acl\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
-use Zend\Permissions\Acl\AclInterface;
-use Auth\Entity\UserInterface;
+use Acl\Controller\Plugin\Acl as AclPlugin;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
+
 
 class Acl extends AbstractHelper
 {
     
-    protected $acl;
-    protected $user;
+    protected $aclPlugin;
 
-    
-    public function __construct(AclInterface $acl, UserInterface $user)
+    public function __construct(AclPlugin $aclPlugin)
     {
-        $this->setAcl($acl);
-        $this->setUser($user);
+        $this->setAclPlugin($aclPlugin);
     }
     
     /**
      * @return the $acl
      */
-    public function getAcl ()
+    public function getAclPlugin ()
     {
-        return $this->acl;
+        return $this->aclPlugin;
     }
 
     /**
      * @param field_type $acl
      */
-    public function setAcl (AclInterface $acl)
+    public function setAclPlugin (AclPlugin $aclPlugin)
     {
-        $this->acl = $acl;
+        $this->aclPlugin = $aclPlugin;
         return $this;
     }
 
-    /**
-     * @return the $user
-     */
-    public function getUser ()
+    public function __invoke($resource=null, $privilege=null, $mode='test')
     {
-        return $this->user;
-    }
-
-    /**
-     * @param field_type $user
-     */
-    public function setUser (UserInterface $user)
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    public function test($resource, $privilege=null)
-    {
-        return $this->getAcl()->isAllowed($this->getUser(), $resource, $privilege);
-    }
-    
-    public function __invoke($resource, $privilege=null)
-    {
-        return $this->test($resource, $privilege);
+        return $this->getAclPlugin()->__invoke($resource, $privilege, $mode);
     }
 }
 

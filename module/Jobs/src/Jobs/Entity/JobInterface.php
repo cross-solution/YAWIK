@@ -4,9 +4,11 @@ namespace Jobs\Entity;
 
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
-use Core\Entity\CollectionInterface;
+use Auth\Entity\UserInterface;
+use Doctrine\Common\Collections\Collection;
+use Core\Entity\SearchableEntityInterface;
 
-interface JobInterface extends EntityInterface, IdentifiableEntityInterface
+interface JobInterface extends EntityInterface, IdentifiableEntityInterface, SearchableEntityInterface
 {
 
     public function setApplyId($applyId);
@@ -27,15 +29,19 @@ interface JobInterface extends EntityInterface, IdentifiableEntityInterface
     public function setContactEmail($email);
     public function getContactEmail();
     
-    public function setUserId($userId);
-    public function getUserId();
-    public function injectUser(EntityInterface $user);
+    public function setUser(UserInterface $user);
     public function getUser() ;
     
     public function setLocation($location);
     public function getLocation();
         
-    public function injectApplications(CollectionInterface $applications);
+    public function setApplications(Collection $applications);
     public function getApplications();
+    
+    public function setStatus($status);
+    public function getStatus();
+    
+    public function setReference($reference);
+    public function getReference();
     
 }

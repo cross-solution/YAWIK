@@ -3,38 +3,34 @@
 namespace Auth;
 
 use Zend\Authentication\AuthenticationService as ZendAuthService;
+use Zend\Authentication\Adapter\AdapterInterface;
 use Core\Repository\RepositoryInterface;
 
-class AuthenticationService extends ZendAuthService
-{
-    
+class AuthenticationService extends ZendAuthService {
+
     protected $user;
     protected $repository;
-    
-    public function __construct(RepositoryInterface $repository)
-    {
+
+    public function __construct(RepositoryInterface $repository) {
         $this->setRepository($repository);
     }
-    
+
     /**
      * @return the $repository
      */
-    public function getRepository ()
-    {
+    public function getRepository() {
         return $this->repository;
     }
 
-	/**
+    /**
      * @param field_type $repository
      */
-    public function setRepository ($repository)
-    {
+    public function setRepository($repository) {
         $this->repository = $repository;
         return $this;
     }
 
-	public function getUser()
-    {
+    public function getUser() {
         if (!$this->user) {
             if ($this->hasIdentity() && ($id = $this->getIdentity())) {
                 $user = $this->getRepository()->find($id);
@@ -48,7 +44,13 @@ class AuthenticationService extends ZendAuthService
                 ));
             }
         }
-        
+
         return $this->user;
     }
+
+    public function authenticate(AdapterInterface $adapter = null) {
+        $this->user = null; // clear user (especially guest user)
+        return parent::authenticate($adapter);
+    }
+
 }

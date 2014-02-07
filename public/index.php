@@ -5,7 +5,9 @@
  * @copyright (c) 2013 Cross Solution <http://cross-solution.de>
  * @license GPLv3
  */
- 
+
+//phpinfo();
+//exit; 
 ini_set('display_errors', true);
 ini_set('error_reporting', E_ALL | E_STRICT);
 
@@ -29,4 +31,4 @@ if (file_exists('vendor/autoload.php')) {
 }
     
 // Run the application!
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+Zend\Mvc\Application::init(require 'config/config.php')->run();

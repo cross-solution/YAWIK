@@ -12,7 +12,34 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
+
+$doctrineConfig = include __DIR__ . '/doctrine.config.php';
+
+
 return array(
+
+    'doctrine' => $doctrineConfig,
+    
+    'Core' => array(
+        'settings' => array(
+            'entity' => '\\Core\\Entity\\SettingsContainer',
+        ),
+    ),
+
+
+    // Logging
+    'log' => array(
+        'writers' => array(
+             array(
+                 'name' => 'stream',
+                 'priority' => 1000,
+                 'options' => array(
+                     'stream' => __DIR__ .'/../../../log/cam.log',
+                ),
+            ),
+        ),
+    ),
+           
     // Routes
     'router' => array(
         'routes' => array(
@@ -76,14 +103,19 @@ return array(
     'service_manager' => array(
         'invokables' => array(
             'configaccess' => 'Core\Service\Config',
+            'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber',
         ),
         'factories' => array(
+            'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
+            'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
+            'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
         'aliases' => array(
-            'forms' => 'FormElementManager'
+            'forms' => 'FormElementManager',
+            'repositories' => 'Core/RepositoryService',
         ),
     ),
     // Translation settings consumed by the 'translator' factory above.
@@ -128,11 +160,13 @@ return array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
             'Core/FileSender' => 'Core\Controller\Plugin\FileSender',
             'mail' => 'Core\Controller\Plugin\Mail',
-            'Core/Mailer' => 'Core\Controller\Plugin\Mailer'
+            'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
+            'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
             'mailer'     => 'Core/Mailer',
+            'paginator' => 'Core/CreatePaginator',
         )
     ),
     // Configure the view service manager
@@ -151,7 +185,10 @@ return array(
             'error/403' => __DIR__ . '/../view/error/403.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
             'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
+            'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
+            'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
+            
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -175,17 +212,29 @@ return array(
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
-            'formatDate' => 'Core\View\Helper\FormatDate',
             'dateFormat' => 'Core\View\Helper\DateFormat',
+            'salutation' => 'Core\View\Helper\Salutation',
+            'period' => 'Core\View\Helper\Period',
+            'link'   => 'Core\View\Helper\Link',
+            'base64' => 'Core\View\Helper\Base64',
+            'insertFile' => 'Core\View\Helper\InsertFile',
+            
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
     ),
+    
+    'filters' => array(
+        
+    ),
+    
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+            'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core\FileCollection' => 'Core\Form\FileCollection',
+            'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
         ),
     ),
     
@@ -196,23 +245,4 @@ return array(
         ),
     ),
     
-    'repositories' => array(
-        
-        'abstract_factories' => array(
-            'Core\Repository\FileRepositoryAbstractFactory',
-        )
-    ),
-    
-    'mappers' => array(
-        'abstract_factories' => array(
-            'Core\Repository\Mapper\FileMapperAbstractFactory',
-         ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'Core/File' => 'Core\Repository\EntityBuilder\FileBuilderFactory',
-            'Core/JsonFile' => 'Core\Repository\EntityBuilder\JsonFileBuilderFactory',
-        ),
-    ),
 );

@@ -3,10 +3,11 @@
 	
 	paginate = function(event)
 	{
+		$.loadingPopup.show();
 		var url        = $(event.target).attr('href');
 		var $container = event.data.container;
 		
-		$container.load(url, function() { $container.pagination(); });
+		$container.load(url, function() { $container.pagination(); $.loadingPopup.hide(); });
 		return false;
 	};
 	

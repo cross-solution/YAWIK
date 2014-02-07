@@ -5,62 +5,32 @@ namespace Cv\Repository;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
-use Core\Paginator\Adapter\MongoCursor as MongoCursorAdapter;
-use Core\Repository\EntityBuilder\EntityBuilderAwareInterface;
 
-class Cv extends AbstractRepository implements EntityBuilderAwareInterface
+
+class Cv extends AbstractRepository
 {
     
-    
-	protected $builders;
-	
-	public function setEntityBuilderManager(ServiceLocatorInterface $entityBuilderManager)
-	{
-		$this->builders = $entityBuilderManager;
-		return $this;
-	}
-	 
-	public function getEntityBuilderManager()
-	{
-		return $this->builders;
-	}
-	
-	public function find($id, $mode = self::LOAD_LAZY)
+    public function getPaginatorCursor($params)
     {
-        $entity = $mode == self::LOAD_EAGER
-                ? $this->getMapper('cv')->find($id)
-                : $this->getMapper('cv')->find(
-                      $id, 
-                      array('educations', 'employments'),
-                      /*exclude*/ true
-                  );
-        return $entity;
-    }
-    
-    public function getPaginatorAdapter(array $params)
-    {
-    
-        if (isset($params['sort'])) {
-            $sort = $params['sort'];
-            unset($params['sort']);
-        } else {
-            $sort = array();
+        $criteria = array();
+        $by = $params->get('by', 'me');
+        if ('me' == $by) {
+            $user = $this->getService('AuthenticationService')->getUser();
+            $criteria['user'] = $user->id;
         }
-    	$query = $params;
-    	#foreach ($propertyFilter as $property => $value) {
-    #		if (in_array($property, array('Id'))) {
-   # 			$query[$property] = new \MongoRegex('/^' . $value . '/');
-   # 		}
-   # 	}
-    	$cursor = $this->getMapper('cv')->getCursor($query); //, array('cv'), true);
-    	$cursor->sort($sort);
-    	return new MongoCursorAdapter($cursor, $this->builders->get('cv'));
+
+        $sort = $params->get('sortField', 'date');
+        switch ($sort) {
+            case "date":
+            default:
+                $sort = 'dateCreated';
+                break;
+        }
+        
+        
+    	$cursor = $this->findBy($criteria);
+    	$cursor->sort(array($sort => $params->get('sortDir', 1)));
+    	return $cursor;
     }
-    
-    public function save(EntityInterface $entity)
-    {
-        $this->getMapper('cv')->save($entity);
-    }
-    
     
 }

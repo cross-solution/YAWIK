@@ -10,25 +10,33 @@
 namespace Cv\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
+/**
+ * @ODM\EmbeddedDocument
+ */
 class PreferredJob extends AbstractIdentifiableEntity
 {
 	/** 
 	 * @var string
+	 * @ODM\String
 	 */
     protected $typeOfApplication;
     
     /** 
      * @var string
+     * @ODM\String
      */
     protected $preferredJob;
     
     /**
      * @var string
+     * @ODM\String
      **/
     protected $preferredLocation;
     
-    /** willingness to travel, bool */
+    /** willingness to travel, bool
+     * @ODM\Boolean */
     protected $willingnessToTravel;
     
     /**

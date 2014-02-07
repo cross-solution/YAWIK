@@ -1,16 +1,23 @@
-<div id="login-info-box" class="nav-collapse collapse navbar-text pull-right">
-<ul class="nav">
+<ul id="login-info-box" class="nav navbar-nav cam-navbar-collapse navbar-collapse collapse navbar-right">
     <li class="dropdown">
     
 <?php if ($this->auth()->isLoggedIn()):?>
 
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf($this->translate('Hello %s'), '<strong>' . $this->auth('info')->displayName . '</strong>')?><b class="caret"></b></a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+         (<?php echo $this->translate($this->Acl()->getUser()->role)?>) 
+           <strong><?php echo $this->auth('info')->displayName?></strong>
+           <b class="caret"></b>
+      </a>
         <ul class="dropdown-menu pull-right">
             <li>
-                <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><i class="icon-user"></i> <?php echo $this->translate('My profile')?></a>
-            <li class="divider">
+                <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><span class="cam-icon-user"></span> <?php echo $this->translate('My profile')?></a>
+            </li>
             <li>
-                <a href="<?php echo $this->url('auth-logout')?>"><i class="icon-eject"></i> <?php echo $this->translate('Logout')?></a>
+                <a href="<?php echo $this->url('lang/manage-password', array('lang' => $this->params('lang')))?>"><span class="cam-icon-password"></span> <?php echo $this->translate('Change password')?></a>
+            </li>
+            <li class="divider"/>
+            <li>
+                <a href="<?php echo $this->url('auth-logout')?>"><span class="glyphicon glyphicon-log-out"></span><?php echo $this->translate('Logout')?></a>
             </li>
         </ul>
 
@@ -23,14 +30,14 @@
 
     <ul class="dropdown-menu pull-right">
         <li><a href="<?php 
-            $ref = $this->stripQueryParams($_SERVER['REQUEST_URI'], array('logout'));
+            $ref = $this->stripQueryParams($_SERVER['REQUEST_URI'], array('logout', 'ref'));
         echo $this->url('lang/auth', array(), array(
                                                 'query' => array(
                                                     'ref' => urlencode($ref),
                                                  )), true)?>"
-             ><i class="icon-user"></i> <?php echo $this->translate('Login')?></a></li>
+             ><span class="glyphicon glyphicon-log-in"></span> <?php echo $this->translate('Login')?></a></li>
         <li class="divider"></li>
-        <li class="disabled"><a><?php echo $this->translate('Login via')?>...</a></li>
+        <li class="disabled dropdown-header"><a><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
         <li>
             <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><img src="/Auth/images/<?php echo $provider ?>.png" /> <?php echo $name?></a>
@@ -41,4 +48,3 @@
 <?php endif ?>
     </li>
 </ul>
-</div>

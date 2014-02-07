@@ -10,12 +10,10 @@
 /** Core */
 namespace Core;
 
-use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
 use Core\Listener\LanguageRouteListener;
-use Core\Listener\JsonViewModelListener;
 use Core\Listener\AjaxRenderListener;
+use Core\Listener\LogListener;
 use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
 
@@ -35,11 +33,20 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
+        // Register the TimezoneAwareDate type with DoctrineMongoODM
+        // Use it in Annotions ( @Field(type="tz_date") )
+        \Doctrine\ODM\MongoDB\Types\Type::addType(
+            'tz_date', 
+            '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
+        );
         
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialise translator!
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
+        
+ #       $LogListener = new LogListener();
+ #       $LogListener->attach($eventManager);
         
         $languageRouteListener = new LanguageRouteListener();
         $languageRouteListener->attach($eventManager);
@@ -53,10 +60,28 @@ class Module
         $stringListener = new StringListener();
         $stringListener->attach($eventManager);
         
+        $eventManager->attach('postDispatch', function ($event) use ($sm) {
+            $sm->get('doctrine.documentmanager.odm_default')->flush();
+        }, -150);
+        
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
             $eventManager->trigger('postDispatch', $event);
         }, -150);
         
+        $sharedEvents = $eventManager->getSharedManager();
+        $sharedEvents->attach('Settings\Controller\IndexController', 'SETTINGS_CHANGED', function($e) use ($sm) {
+            $settings = $e->getParam('settings');
+            if (!$settings instanceOf \Core\Entity\SettingsContainer) {
+                return;
+            }
+            
+            $dm = $sm->get('doctrine.documentmanager.odm_default');
+            $class=$dm->getClassMetadata(get_class($settings));
+            $uow = $dm->getUnitOfWork();
+            $uow->recomputeSingleDocumentChangeSet($class, $settings);
+            $changeset = $uow->getDocumentChangeset($settings->localization);
+             
+        });
         
         
     }

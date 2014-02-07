@@ -13,6 +13,24 @@
  */
 
 return array(
+        
+        'doctrine' => array(
+                'driver' => array(
+                        'odm_default' => array(
+                                'drivers' => array(
+                                        'Settings\Entity' => 'annotation',
+                                ),
+                        ),
+                ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    'Settings/InjectEntityResolverListener',
+                 ),
+            ),
+        ),
+    ),
+    
 		
 	// Translations
     'translator' => array(
@@ -36,7 +54,7 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Settings\Controller\Index',
                                 'action' => 'index',
-                                'module' => 'Settings',
+                                'module' => 'Core',
                             ),
                         ),
                         'may_terminate' => true,
@@ -63,6 +81,7 @@ return array(
                 'route' => 'lang/settings',
                 'resource' => 'route/lang/settings',
                 'order' => 40,
+                'params' => array('module' => null),
             ),
         ),
     ),
@@ -93,46 +112,29 @@ return array(
         ),
     ),
     
-    'form_elements' => array(
-        'invokables' => array(
-            'Settings' => '\Settings\Form\Settings',
-        ),
-        'factories' => array(
-        ),
-    ),
-    
      'service_manager' => array(
+        'invokables' => array(
+            'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener',
+    ),
         'factories' => array(
             'Settings' => '\Settings\Settings\SettingsFactory',
+            'Settings/EntityResolver' => '\Settings\Repository\SettingsEntityResolverFactory',
         ),
-        'initializers' => array(),
-        'shared' => array(),
-        'aliases' => array(),
-    ),
-    
-    'repositories' => array(
-        'factories' => array('SettingsRepository' => '\Settings\Repository\Service\SettingsFactory'),
         'initializers' => array(),
         'shared' => array(),
         'aliases' => array(),
     ),
     
     'controller_plugins' => array(
-        'factories' => array('settings' => '\Settings\Controller\Plugins\SettingsPluginFactory'),
+        'factories' => array('settings' => '\Settings\Controller\Plugin\SettingsFactory'),
     ),
     
     'form_elements' => array(
         'invokables' => array(
-            'settings\settings' => 'Settings\Form\Settings',
-            'settings-core-fieldset' => 'Settings\Form\SettingsFieldset',
+            'Settings/Form' => '\Settings\Form\AbstractSettingsForm',
+            'Settings/Fieldset' => '\Settings\Form\SettingsFieldset',
         ),
     ),
     
-    // all the Information for the Module Settings
-    // der erste Teil ist der NameSpace, also der Modulname
-    'Settings' => array(
-        'settings' => array(
-            'entity' => '\Settings\Entity\Settings',
-        ),
-    ),
+    
 );

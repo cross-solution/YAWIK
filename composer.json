@@ -6,12 +6,23 @@
         "human resource", "human relation", "applicant",
         "zf2"
     ],
+    "repositories": [
+       {
+        "type": "composer",
+	"url": "https://packages.zendframework.com"
+       }
+    ],
     "homepage": "http://bewerbermanagement.cross-solution.de/",
+    "minimum-stability": "alpha",
     "require": {
         "php": ">=5.3.3",
         "ext-mongo": "*",
         "ext-intl": "*",
         "zendframework/zendframework": "2.1.*",
-        "hybridauth/hybridauth": "dev-master"
+        "doctrine/doctrine-mongo-odm-module": "dev-master",
+	"sp/jms-serializer-module": "dev-master",
+        "hybridauth/hybridauth": "dev-master",
+	"mpdf/mpdf": "5.7.*",
+        "twbs/bootstrap": "3.*"
     }
 }

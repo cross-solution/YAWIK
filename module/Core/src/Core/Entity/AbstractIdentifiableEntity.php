@@ -10,14 +10,12 @@
 /** Core Entitys */
 namespace Core\Entity;
 
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
 /**
- * Concrete implementation of \Core\Entity\EntityInterface.
  * 
- * Provides some magic function for accessing properties
- * as class members, mirroring these calls to the
- * getter and setter methods.
- * 
- */
+ * @ODM\MappedSuperclass
+  */
 abstract class AbstractIdentifiableEntity extends AbstractEntity implements IdentifiableEntityInterface
 {
        
@@ -25,6 +23,7 @@ abstract class AbstractIdentifiableEntity extends AbstractEntity implements Iden
      * Entity id
      * 
      * @var mixed
+     * @ODM\Id
      */
     protected $id;
     

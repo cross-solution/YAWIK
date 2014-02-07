@@ -24,46 +24,42 @@ class IndexController extends AbstractActionController
     
     
     /**
-     * List applications
-     *
+     * List jobs
      */
     public function indexAction()
     { 
         
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
-        $hasJobs = (bool) $this->getServiceLocator()
-                               ->get('repositories')
-                               ->get('job')
-                               ->countByUser($this->auth('id'));
+        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
+        $isRecruiter = $this->acl()->isRole('recruiter');
+//         $jobs= $repository->fetch();
+//         foreach ($jobs as $job) {
+//             $repository->save($job);
+//         }
+//         exit;
         
-        if (!$jsonFormat) {
+        if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
-            if ($session->params) {
-                foreach ($session->params as $key => $value) {
+            $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
+            $sessionParams = $session[$sessionKey];
+            if ($sessionParams) {
+                foreach ($sessionParams as $key => $value) {
                     $params->set($key, $params->get($key, $value));
                 }
-            } else if ($hasJobs) {
+            } else if ($isRecruiter) {
                 $params->set('by', 'me');
             }
-            $session->params = $params->toArray();
+            $session[$sessionKey] = $params->toArray();
+            $filterForm = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
+            $filterForm->bind($params);
+            //$filterForm->setData(array('params' => $params->toArray()));
+            //$filterForm->setData()
         }
         
-        $v = new ViewModel(array(
-            'by' => $params->get('by', false),
-            'hasJobs' => $hasJobs,
-        ));
-        $v->setTemplate('jobs/sidebar/index');
-        $this->layout()->addChild($v, 'sidebar_jobsFilter');
-        $repository = $this->getServiceLocator()->get('repositories')->get('job');
+        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         
-        $paginator = new \Zend\Paginator\Paginator(
-            $repository->getPaginatorAdapter($params->toArray())
-        );
-        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
-                  ->setItemCountPerPage($params->get('count', 10));
-        
-        
+        $paginator = $this->paginator('Jobs/Job');
         
 //         $jsonFormat = 'json' == $this->params()->fromQuery('format');
         
@@ -80,10 +76,14 @@ class IndexController extends AbstractActionController
             
 //         } 
         
-        return array(
+        $return = array(
             'by' => $params->get('by', 'all'),
-            'jobs' => $paginator
+            'jobs' => $paginator,
         );
+        if (isset($filterForm)) {
+            $return['filterForm'] = $filterForm;
+        }
+        return $return;
         
     
      }
@@ -91,14 +91,23 @@ class IndexController extends AbstractActionController
      public function dashboardAction()
      {
          $services = $this->getServiceLocator();
-         $myJobs = $services->get('repositories')->get('Job')->fetchRecent($this->auth('id'));
-         $allJobs = $services->get('repositories')->get('Job')->fetchRecent();
+         $params = $this->getRequest()->getQuery();
+         $isRecruiter = $this->acl()->isRole('recruiter');
+         if ($isRecruiter) {
+             $params->set('by', 'me');
+         }
+         $myJobs = $services->get('repositories')->get('Jobs/Job');
+         
+         $paginator = $this->paginator('Jobs/Job');
+
+         #$paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
+         #->setItemCountPerPage($params->get('count', 10));
          
          return array(
              'script' => 'jobs/index/dashboard',
              'type' => $this->params('type'),
              'myJobs' => $myJobs,
-             'allJobs' => $allJobs,
+             'jobs' => $paginator
          );
      }
     

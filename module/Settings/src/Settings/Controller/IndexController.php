@@ -17,6 +17,7 @@ use Zend\View\Model\ViewModel;
 //use Applications\Form\ApplicationHydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\View\Model\JsonModel;
+use Zend\EventManager\Event;
 
 /**
  * Main Action Controller for Applications module.
@@ -26,9 +27,9 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {   
-        $ServiceLocator = $this->getServiceLocator();
-        
-        $moduleName = $this->params('module');
+        $services = $this->getServiceLocator();
+        $translator = $services->get('translator');
+        $moduleName = $this->params('module', 'Core');
         
         $settings = $this->settings($moduleName);
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
@@ -36,20 +37,20 @@ class IndexController extends AbstractActionController
             return $settings->toArray();
         }
         
-        $modules = $ServiceLocator->get('ModuleManager')->getLoadedModules();
+        $modules = $services->get('ModuleManager')->getLoadedModules();
         $modulesWithSettings = $this->config("settings", array_keys($modules));
         
         //$config = $ServiceLocator->get();
         
         $MvcEvent = $this->getEvent();
-        $nav = $ServiceLocator->get('main_navigation');
+        $nav = $services->get('main_navigation');
         $settingsMenu = $nav->findOneBy('route', 'lang/settings');
         $settingsMenu->setActive(true);
         
         foreach($modulesWithSettings as $key => $param) {
             $page = array(
                 'label' => ucfirst($key),
-                'order' => '10',
+                'order' => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
                 'resource' => 'route/lang/settings',
                 'route' => 'lang/settings',
                 'routeMatch' => $MvcEvent->getRouteMatch(),
@@ -62,33 +63,46 @@ class IndexController extends AbstractActionController
             $settingsMenu->addPage($page);
         }
         
-        
-        $formName = 'Settings/' . $moduleName;
+        $formManager = $this->getServiceLocator()->get('FormElementManager');
+        $formName = $moduleName . '/SettingsForm';
+        if (!$formManager->has($formName)) {
+            $formName = "Settings/Form";
+        }
         
         // Fetching an distinct Settings
         
         
         // Write-Access is per default only granted to the own module - change that
-        $settings->setAccessWrite();
+        $settings->enableWriteAccess();
 
         
         //$settings = $this->settings();
         //$settingsAuth = $this->settings('auth');
         // Fetch the formular
         
-        $form = $this->getServiceLocator()->get('FormElementManager')->get($formName);
+        $form = $formManager->get($formName);
         
         // Binding the Entity to the Formular
         $form->bind($settings);
         $data = $this->getRequest()->getPost();
         if (0 < count($data)) {
             $form->setData($data);
-            //$form->bindValues($data);
+            
             if ($valid = $form->isValid()) {
-                // success
-            }
-            else {
-                // fail: error-messages are in the form 
+                //$this->getServiceLocator()->get('repositories')->detach($settings);
+                $vars = array(
+                   'status' => 'success',
+                   'text' => $translator->translate('Changes successfully saved') . '.');
+                $event = new Event(
+                    'SETTINGS_CHANGED',
+                    $this,
+                    array('settings' => $settings)
+                );
+                $this->getEventManager()->trigger($event);
+            } else {
+                $vars = array(
+                   'status' => 'danger',
+                   'text' => $translator->translate('Changes could not be saved') . '.');
             }
         }
         
@@ -99,11 +113,8 @@ class IndexController extends AbstractActionController
                         'valid' => $valid,
                         'errors' => $form->getMessages());
         }
-        // man könnte hier auch einfach nur ein Array zurückgeben
-        $viewModel = new ViewModel();
-        $viewModel->setVariables(array(
-            'form' => $form,
-        ));
-        return $viewModel;
+
+        $vars['form']=$form;
+        return $vars;
     }
 }

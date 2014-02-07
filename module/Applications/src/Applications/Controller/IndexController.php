@@ -10,40 +10,38 @@
 /** Applications controller */
 namespace Applications\Controller;
 
+use Auth\Entity\Info;
+use Applications\Entity\Application;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Applications\Entity\Status;
+use Core\Entity\RelationEntity;
+use Auth\Entity\User;
 
 /**
  * Main Action Controller for Applications module.
- *
  */
 class IndexController extends AbstractActionController
 {
-    
     /**
-     * Main apply site
-     *
+     * handle the application form.
+     * @todo document
      */
     public function indexAction()
-    { 
-//         $view = new ViewModel();
-//         $view->setTerminal(true);
-//         return $view;
-        //$this->layout('layout/apply');
-        
-        
+    {           
         $services = $this->getServiceLocator();
         $request = $this->getRequest();
-        
-        list($jobId,$applyId) = array($this->params()->fromPost('jobId',0), (int) $this->params()->fromPost('applyId',0));
+
+        $jobId = $this->params()->fromPost('jobId',0);
+        $applyId = (int) $this->params()->fromPost('applyId',0);
+
         $job = ($request->isPost() && !empty($jobId))
-             ? $services->get('repositories')->get('job')->find($jobId)
-             : $services->get('repositories')->get('job')->findByApplyId((0 == $applyId)?$this->params('jobId'):$applyId);
+             ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
+             : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
         
-        $form = $this->getServiceLocator()->get('FormElementManager')->get('Application');
+        $form = $services->get('FormElementManager')->get('Application');
         
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
@@ -51,19 +49,38 @@ class IndexController extends AbstractActionController
             'form' => $form,
             'isApplicationSaved' => false,
         ));
-        $applicationEntity = $services->get('builders')->get('Application')->getEntity();
+        
+        $applicationEntity = new Application();
+        $applicationEntity->setJob($job);
+        
         if ($this->auth()->isLoggedIn()) {
-            $applicationEntity->setContact(clone $this->auth()->get('info')->getEntity());
+            // copy the contact info into the application
+            $contact = new Info();
+            $contact->fromArray(Info::toArray($this->auth()->get('info')));
+            $applicationEntity->setContact($contact);
         }
-        $applicationEntity->injectJob($job);
+        
         $form->bind($applicationEntity);
+        
+        /*
+         * validate email. 
+         */
+         /**
+         * 
+         * @todo has to be fixed  
+         * does not work. Validation is set in \Auth\Form\UserInfoFieldset.php
+         * 
+         *  $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
+                ->attach(new \Zend\Validator\EmailAddress())
+                ->attach(new \Zend\Validator\StringLength(array('max'=>100)));
+         */
        
         if ($request->isPost()) {
             if ($returnTo = $this->params()->fromPost('returnTo', false)) {
                 $returnTo = \Zend\Uri\UriFactory::factory($returnTo);
             }
             $services = $this->getServiceLocator();
-            $repository = $services->get('repositories')->get('Application');
+            $repository = $services->get('repositories')->get('Applications/Application');
             
             
             //$applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
@@ -91,38 +108,35 @@ class IndexController extends AbstractActionController
                 $auth = $this->auth();
             
                 if ($auth->isLoggedIn()) {
-                    $applicationEntity->setUserId($auth('id'));
+                    $applicationEntity->setUser($auth->getUser());
+                    $imageData = $form->get('contact')->get('image')->getValue();
+                    if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
+                        $image = $auth->getUser()->info->image;
+                        
+                        if ($image) {
+                            $contactImage = $services->get('repositories')->get('Applications/Files')->saveCopy($image);
+                            $contactImage->addAllowedUser($job->user->id);
+                            $applicationEntity->contact->setImage($contactImage);
+                        } else {
+                            $applicationEntity->contact->setImage(null); //explicitly remove image.
+                        }
+                    }
                 }
                 $applicationEntity->setStatus(new Status());
-                //$applicationEntity->injectJob($job);
-                $imageData = $form->get('contact')->get('image')->getValue();
-                $fileRepository = $services->get('repositories')->get('Applications/Files');
                 
-                if (UPLOAD_ERR_OK == $imageData['error']) {
-                    $imageData['meta']['allowedUserIds'] = array($job->userId);
-                    $applicationEntity->contact->setImageId(
-                        $fileRepository->saveUploadedFile($imageData)
-                    );    
-                } else if ($imageId = $applicationEntity->contact->imageId) {
-                    $userImageRepository = $services->get('repositories')->get('Users/Files');
-                    $userImage = clone $userImageRepository->find($imageId);
-                    $userImage->addAllowedUser($job->userId);
-                    $applicationEntity->contact->setImageId($fileRepository->saveCopy($userImage));
-                }
-                
-                
-                $repository->save($applicationEntity);
+                $services->get('repositories')->store($applicationEntity);
                 
                 /*
                  * New Application alert Mails to job owner
+                 * @todo disabled until settings is migrated to doctrine
                  */
-                $settings = $this->settings($job->user->getEntity()); 
-                if ($email = $job->getContactEmail()) {
-                    $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
-                }
+//                 $settings = $this->settings($job->user); 
+//                 if ($email = $job->getContactEmail()) {
+//                     $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
+//                 }
                 
                 if ($this->auth()->isLoggedIn()) {
-                    $userInfo = $this->auth()->get('info')->getEntity();
+                    $userInfo = $this->auth()->get('info');
                     if (isset($userInfo)) {
                         // TODO: will dieser User eine Info haben (aus den Settings lesen)
                         $email = $userInfo->getEmail();
@@ -130,7 +144,7 @@ class IndexController extends AbstractActionController
                             $userRel = $job->getUser();
                             //$user = $userRel->getEntity();
                             //$settings = $this->settings('auth', $user);
-                            $settingsJobAuth = $this->settings('auth', $job->getUserid());
+                            $settingsJobAuth = $this->settings('Auth', $job->getUser()->id);
                             if (isset($settingsJobAuth->mailText)) {
                                 $mail = $this->mail();
                                 $mail->addTo($email);
@@ -158,7 +172,18 @@ class IndexController extends AbstractActionController
             }
         } 
         return $viewModel;
-
+    }
+    
+    /**
+     * handle the privacy policy used in an application form.
+     * 
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function disclaimerAction()
+    { 
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(true);
+        return $viewModel;
     }
 }
 

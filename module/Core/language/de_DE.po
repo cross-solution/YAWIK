@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-02 18:18+0200\n"
-"PO-Revision-Date: 2013-09-02 18:21+0100\n"
+"POT-Creation-Date: 2014-02-03 15:16+0100\n"
+"PO-Revision-Date: 2014-02-03 15:27+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -17,38 +17,72 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: view/partial/loading-popup.phtml:16
+msgid "Loading"
+msgstr ""
+
+#: view/form/privacy.phtml:4
+#: view/form/privacy.phtml:13
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
+
+#: view/form/privacy.phtml:13
+#, php-format
+msgid "I have read the %s and accept it"
+msgstr "Ich habe die %s gelesen und akzeptiere sie"
+
+#: view/form/privacy.phtml:18
+msgid "please wait"
+msgstr "bitte warten"
+
 #: view/core/index/index.phtml:11
 msgid "Home"
 msgstr "Start"
 
-#: view/core/index/index.phtml:13
+#: view/core/index/index.phtml:15
+msgid "You are now logged out"
+msgstr "Sie sind nun abgemeldet"
+
+#: view/core/index/index.phtml:18
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: view/core/index/index.phtml:14
+#: view/core/index/index.phtml:19
 msgid "This is an early alpha version of the application. So there is not much to see at the moment."
 msgstr "Dies ist eine frühe Alpha-Version der Anwendung, es gibt also noch nicht allzu viel zu sehen. "
 
-#: view/core/index/index.phtml:15
+#: view/core/index/index.phtml:20
 msgid "Login via social networks is working. You can test it by clicking on one of the icons in the upper right corner."
 msgstr "Das Einloggen über soziale Netzwerke funktioniert. Sie können es testen, indem Sie auf einen der Icons in der oberen rechten Ecke klicken."
 
-#: view/core/index/index.phtml:16
+#: view/core/index/index.phtml:21
 #, php-format
 msgid "The next big feature which is worked on heavily at the moment is an %sapplication form%s."
 msgstr "Das nächste große Feature, an dem momentan schwer gearbeitet wird, ist ein %sBewerbungsformular%s."
+
+#: view/core/index/dashboard.phtml:11
+#: view/core/index/dashboard.phtml:14
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: view/core/index/dashboard-widget.phtml:19
+msgid "Error loading widget."
+msgstr "Fehler beim Laden des Widget"
 
 #: view/error/index.phtml:11
 msgid "An error occurred"
 msgstr "Ein Fehler ist aufgetreten"
 
 #: view/error/index.phtml:18
+#: view/error/403.phtml:20
 #: view/error/404.phtml:64
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
 #: view/error/index.phtml:21
 #: view/error/index.phtml:45
+#: view/error/403.phtml:23
+#: view/error/403.phtml:47
 #: view/error/404.phtml:67
 #: view/error/404.phtml:91
 msgid "File"
@@ -56,6 +90,8 @@ msgstr "Datei"
 
 #: view/error/index.phtml:25
 #: view/error/index.phtml:49
+#: view/error/403.phtml:27
+#: view/error/403.phtml:51
 #: view/error/404.phtml:71
 #: view/error/404.phtml:95
 msgid "Message"
@@ -63,20 +99,29 @@ msgstr "Nachricht"
 
 #: view/error/index.phtml:29
 #: view/error/index.phtml:53
+#: view/error/403.phtml:31
+#: view/error/403.phtml:55
 #: view/error/404.phtml:75
 #: view/error/404.phtml:99
 msgid "Stack trace"
 msgstr "Stapelverlauf"
 
 #: view/error/index.phtml:39
+#: view/error/403.phtml:41
 #: view/error/404.phtml:85
 msgid "Previous exceptions"
 msgstr "Vorherige Exceptions"
 
 #: view/error/index.phtml:68
+#: view/error/403.phtml:70
 #: view/error/404.phtml:114
 msgid "No Exception available"
 msgstr "Keine Exception verfügbar"
+
+#: view/error/403.phtml:12
+#, fuzzy
+msgid "A 403 error occurred"
+msgstr "Ein 404 Fehler ist aufgetreten"
 
 #: view/error/404.phtml:12
 msgid "A 404 error occurred"
@@ -112,21 +157,64 @@ msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
 #: view/layout/layout.phtml:16
-#: view/layout/layout.phtml:37
+#: view/layout/layout.phtml:43
 msgid "Cross Applicant Management"
 msgstr "CROSS Bewerberverwaltung"
 
-#: view/layout/layout.phtml:65
+#: view/layout/layout.phtml:44
+msgid "CAM"
+msgstr ""
+
+#: view/layout/layout.phtml:98
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
-#: src/Core/Form/DefaultButtonsFieldset.php:13
-msgid "Actions"
-msgstr "Aktionen"
+#: src/Core/Form/LocalizationSettingsFieldset.php:15
+msgid "General"
+msgstr "Allgemein"
 
 #: language/_annotated_strings.php:3
 msgid "Save"
 msgstr "Speichern"
+
+#: language/_annotated_strings.php:6
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: language/_annotated_strings.php:9
+msgid "Apply filter"
+msgstr "Filter anwenden"
+
+#: language/_annotated_strings.php:12
+msgid "Reset filter"
+msgstr "Filter zurücksetzen"
+
+#: language/_annotated_strings.php:15
+msgid "Please enter a phone Number. You can use the intenational format. Only digits and '+'."
+msgstr "Bitte geben Die eine Telefonnummer ein. Sie können das internationale Format verwenden. Erlaubt sind Ziffern und \"+\"."
+
+#: language/_annotated_strings.php:18
+msgid "choose your language"
+msgstr "wählen Sie Ihre Sparche"
+
+#: language/_annotated_strings.php:21
+msgid "English"
+msgstr "Englisch"
+
+#: language/_annotated_strings.php:24
+msgid "French"
+msgstr "Französisch"
+
+#: language/_annotated_strings.php:27
+msgid "German"
+msgstr "Deutsch"
+
+#: language/_annotated_strings.php:30
+msgid "defines the languages of this frontend."
+msgstr "Sprache dieses Frontends"
+
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
 
 #~ msgid "This text is displayed on the home site."
 #~ msgstr "Dieser Text wird auf der Startseite angezeigt."

@@ -18,9 +18,11 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
+            /*
             $datetimeStrategy = new Hydrator\DatetimeStrategy();
             $datetimeStrategy->setHydrateFormat(Hydrator\DatetimeStrategy::FORMAT_MYSQLDATE);
             $hydrator->addStrategy('datePublishStart', $datetimeStrategy);
+             */
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
@@ -60,7 +62,33 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             'datePublishStart' => array(
-                )
+                ),
+            'reference' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
+            
+            'status' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
+            
+            'camEnabled' => array(
+                'filters'  => array(
+                ),          
+                'allow_empty' => True
+            ),
+            
+             'logoRef' => array(
+                'filters'  => array(
+                    array('name' => 'Zend\Filter\StringTrim'),
+                ),          
+                'allow_empty' => True
+            ),
         );
     }
     
@@ -142,6 +170,48 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
             'name' => 'datePublishStart',
             'options' => array(
                 'label' => 'datePublishStart'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'status',
+            'options' => array(
+                'label' => 'status'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'reference',
+            'options' => array(
+                'label' => 'reference'
+            ),
+            'attributes' => array(
+            )
+        ));
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Radio',
+            'name' => 'camEnabled',
+            'options' => array(
+                'label' => 'cam enabled',
+                'value_options' => array(0,1, True, False)
+            ),
+            'attributes' => array(
+            ),
+        ));
+       
+       
+       $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'logoRef',
+            'options' => array(
+                'label' => 'logoRef'
             ),
             'attributes' => array(
             )

@@ -117,6 +117,9 @@ interface InfoInterface extends EntityInterface
      */
     public function getLastName();
     
+    public function setImage(EntityInterface $image=null);
+    public function getImage();
+    
     /**
      * Sets the users street
      *

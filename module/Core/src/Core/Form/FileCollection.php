@@ -11,53 +11,36 @@
 namespace Core\Form;
 
 use Zend\Form\Element\Collection;
-use Core\Form\File;
-use Core\Repository\EntityBuilder\EntityBuilderInterface;
-use Core\Entity\CollectionInterface;
-use Core\Entity\EntityInterface;
-use Core\Entity\Collection as EntityCollection;
-use Core\Entity\FileEntity;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\ValidatorInterface;
+use Core\Entity\FileInterface;
+use Core\Entity\FileEntity;
+use Core\Entity\Collection\ArrayCollection;
 
 class FileCollection extends Collection implements InputFilterProviderInterface
 {
-    protected $entityCollectionPrototype;
-    protected $entityPrototype;
+   
+    protected $fileEntity;
     protected $fileValidator;
     
-    public function setEntityCollectionPrototype(CollectionInterface $collection)
+    public function setFileEntity(FileInterface $file)
     {
-        $this->entityCollectionPrototype = $collection;
+        $this->fileEntity = $file;
         return $this;
     }
     
-    public function getEntityCollection()
+    public function getFileEntity()
     {
-        if (!$this->entityCollectionPrototype) {
-            $this->setEntityCollectionPrototype(new EntityCollection());
+        if (!$this->fileEntity) {
+            $this->setFileEntity(new FileEntity());
         }
-        return clone $this->entityCollectionPrototype;
-    }
-    
-    public function setEntityPrototype(EntityInterface $entity)
-    {
-        $this->entityPrototype = $entity;
-        return $this;
-    }
-    
-    public function getEntity()
-    {
-        if (!$this->entityPrototype) {
-            $this->setEntityPrototype(new FileEntity());
-        }
-        return clone $this->entityPrototype;
+        return clone $this->fileEntity;
     }
     
     public function bindValues(array $values = array())
     {
         $hydrator = $this->getHydrator();
-        $collection = $this->getEntityCollection();
+        $collection = new ArrayCollection();
         
         foreach ($values as $name => $value) {
             if (UPLOAD_ERR_OK != $value['error']) {
@@ -65,7 +48,7 @@ class FileCollection extends Collection implements InputFilterProviderInterface
             }
             $element = $this->get($name);
     
-            $entity = $hydrator->hydrate($value, $this->getEntity());
+            $entity = $hydrator->hydrate($value, $this->getFileEntity());
             $collection->add($entity);
         }
     

@@ -9,6 +9,17 @@
 
 return array(
     
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Auth\Entity' => 'annotation',
+                ),
+            ),
+        ),
+    ),
+
+    
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
@@ -102,6 +113,17 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Manage',
                                 'action' => 'my-profile',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'manage-password' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/my/password',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Manage',
+                                'action' => 'my-password',
                             ),
                         ),
                         'may_terminate' => true,
@@ -216,7 +238,13 @@ return array(
         'roles' => array(
             'guest',
             'user' => 'guest',
+            'recruiter' => 'user',
             'admin'
+        ),
+        
+        'public_roles' => array(
+            /*@translate*/ 'user', 
+            /*@translate*/ 'recruiter',
         ),
         
         'rules' => array(
@@ -227,6 +255,9 @@ return array(
                     'route/auth-hauth',
                     'route/auth-extern',
                 ),
+                'deny' => array(
+                    '__ALL__'
+                 ),
             ),
             'user' => array(
                 'allow' => array(
@@ -307,34 +338,17 @@ return array(
          ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'user' => 'Auth\Repository\User',
-            
-        ),
-    ),
-    
-    'mappers' => array(
-        'factories' => array(
-            'user' => 'Auth\Repository\Mapper\UserMapperFactory',
-            'user-file' => 'Auth\Repository\Mapper\FileMapperFactory',
-         ),
-    ),
-    
-    'entity_builders' => array(
-        'factories' => array(
-            'user' => 'Auth\Repository\EntityBuilder\UserBuilderFactory',
-            'auth-info' => 'Auth\Repository\EntityBuilder\InfoBuilderFactory',
-            'user-file' => 'Auth\Repository\EntityBuilder\FileBuilderFactory',
-                
-        ),
-    ),
-    
     'form_elements' => array(
         'invokables' => array( 
             'user-login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
-            'user-info-fieldset' => 'Auth\Form\UserInfoFieldset',
+            'user-password' => 'Auth\Form\UserPassword',
+            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 
+            'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
         ),
+        'factories' => array(
+            'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
+            'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
+        )
     ),
 );

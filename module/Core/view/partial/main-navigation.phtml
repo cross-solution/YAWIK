@@ -1,4 +1,7 @@
 <?php
+/**
+* this file is not used.
+*/
 $navigation = $this->navigation('main_navigation')->menu();
 $html = '';
 
@@ -56,7 +59,7 @@ foreach ($iterator as $page) {
     if ($depth > $prevDepth) {
         // start new ul tag
         if ($depth ==  0) {
-            $ulClass = ' class="nav"';
+            $ulClass = ' class="nav nav-tabs"';
         } else {
             $ulClass = ' class="dropdown-menu"';
         }

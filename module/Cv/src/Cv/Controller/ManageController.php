@@ -31,21 +31,23 @@ class ManageController extends AbstractActionController
     public function formAction()
     {
         $services = $this->getServiceLocator();
+        $repositories = $services->get('repositories');
+        $cvs          = $repositories->get('Cv');
         $form = $services->get('FormElementManager')->get('CvForm');
         
         if ($this->request->isPost()) {
             $id = $this->params()->fromPost('id');
             if (empty($id)) {
-                $entity = $services->get('builders')->get('cv')->getEntity();
+                $entity = $cvs->create();
             } else {
-                $entity = $services->get('mappers')->get('cv')->find($id);
+                $entity = $cvs->find($id);
             }
             $form->bind($entity);
             $form->setData($this->request->getPost());
             $valid = $form->isValid();
             if ($valid) {
-                $entity->setUserId($this->auth('id'));
-                $services->get('repositories')->get('cv')->save($entity);
+                $entity->setUser($this->auth()->getUser());
+                $repositories->store($entity);
                 return array(
                     'isSaved' => true,
                 );

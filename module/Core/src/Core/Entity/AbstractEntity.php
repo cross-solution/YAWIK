@@ -20,7 +20,7 @@ use Core\Entity\Exception\OutOfBoundsException;
  * getter and setter methods.
  * 
  */
-abstract class AbstractEntity extends AbstractAnonymEntity implements EntityInterface
+abstract class AbstractEntity implements EntityInterface
 { 
     
     
@@ -29,19 +29,19 @@ abstract class AbstractEntity extends AbstractAnonymEntity implements EntityInte
      * 
      * An exception is raised, when no setter method exists.
      * 
-     * @param string $name
+     * @param string $property
      * @param mixed $value
      * @return mixed
      * @throws OutOfBoundsException
      */
-    public function __set($name, $value)
+    public function __set($property, $value)
     {
-        $method = "set$name";
+        $method = "set$property";
         if (method_exists($this, $method)) {
             return $this->$method($value);
         }
         
-        throw new OutOfBoundsException("'$name' is not a valid property of '" . get_class($this). "'");
+        throw new OutOfBoundsException("'$property' is not a valid property of '" . get_class($this). "'");
     }
     
     /**
@@ -49,18 +49,18 @@ abstract class AbstractEntity extends AbstractAnonymEntity implements EntityInte
      * 
      * An exception is raised, when no getter method exists.
      * 
-     * @param string $name
+     * @param string $property
      * @return mixed
      * @throws OutOfBoundsException
      */
-    public function __get($name)
+    public function __get($property)
     {
-        $method = "get$name";
+        $method = "get$property";
         if (method_exists($this, $method)) {
             return $this->$method();
         }
         
-        throw new OutOfBoundsException("'$name' is not a valid property of '" . get_class($this) . "'");
+        throw new OutOfBoundsException("'$property' is not a valid property of '" . get_class($this) . "'");
     }
     
     /**
@@ -72,10 +72,10 @@ abstract class AbstractEntity extends AbstractAnonymEntity implements EntityInte
      * @param string $name
      * @return boolean
      */
-    public function __isset($name)
+    public function __isset($property)
     {
         try {
-            $value = $this->__get($name);
+            $value = $this->__get($property);
         } catch (\OutOfBoundsException $e) {
             return false;
         }

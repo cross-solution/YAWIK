@@ -55,7 +55,7 @@ class Config implements ServiceManagerAwareInterface
         return $config;
     }
     
-       /**
+    /**
      * fetch the settings for a certain key of all Modules 
      * @param string $key
      * @return array
@@ -65,7 +65,7 @@ class Config implements ServiceManagerAwareInterface
         if (!array_key_exists($key, $this->applicationMap)) {
             $this->applicationMap[$key] = array();
             $config = $this->serviceManager->get('Config');
-            $appConfig = $this->serviceManager->get('applicationconfig');
+            $appConfig = $this->serviceManager->get('ApplicationConfig');
             foreach ($appConfig['modules'] as $module) {
                 if (array_key_exists($module, $config)) {
                     if (array_key_exists($key, $config[$module])) {
@@ -85,7 +85,7 @@ class Config implements ServiceManagerAwareInterface
         if (!$this->config) {
             $this->config = array();
             $config    = $this->serviceManager->get('Config');
-            $appConfig = $this->serviceManager->get('applicationconfig');
+            $appConfig = $this->serviceManager->get('ApplicationConfig');
             foreach ($appConfig['modules'] as $module) {
                 $this->config[$module] = array_key_exists($module, $config)?$config[$module]:array();
             }

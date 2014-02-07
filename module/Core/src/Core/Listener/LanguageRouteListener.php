@@ -22,8 +22,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected $defaultLanguage;
     
     protected $availableLanguages = array(
-			'en'	=> 'en_EN',
-            'de'    => 'de_DE',
+            'en' => 'en_EN',
+            'de' => 'de_DE',
+            'fr' => 'fr_FR'
 	);
 		
     /**
@@ -65,7 +66,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         if (0 !== strpos($routeMatch->getMatchedRouteName(), 'lang')) {
             // We do not have a language enabled route here.
             // but we need to provide a language to the navigation container
-            $lang = $this->detectLanguage($e->getRequest()->getHeaders());
+            $lang = $this->detectLanguage($e);
             $this->setTranslatorLocale($e, $lang);
             $this->setNavigationParams($e, $lang);
             return;
@@ -104,7 +105,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
             
             $lang = array_key_exists($match[1], $this->availableLanguages)
                   ? $match[1]
-                  : $this->detectLanguage($e->getRequest()->getHeaders());
+                  : $this->detectLanguage($e);
                 
             $this->setNavigationParams($e, $lang);
             $this->setTranslatorLocale($e, $lang);
@@ -123,7 +124,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $router = $e->getRouter();
         $basePath=$router->getBaseUrl();
         $origUri = str_replace($basePath, '', $request->getRequestUri());
-        $lang = $this->detectLanguage($request->getHeaders());
+        $lang = $this->detectLanguage($e);
         $langUri = rtrim("$basePath/$lang$origUri", '/');        
         if ($router->match($request->setUri($langUri)) instanceOf RouteMatch) {
             $e->stopPropagation(true);
@@ -134,7 +135,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $this->setNavigationParams($e, $lang);
         $this->setTranslatorLocale($e, $lang);
     }
-    
+
     public function getDefaultLanguage()
     {
         if (!$this->defaultLanguage) {
@@ -148,9 +149,19 @@ class LanguageRouteListener implements ListenerAggregateInterface
     {
         return array_key_exists($lang, $this->availableLanguages);
     }
-    
-    protected function detectLanguage($headers)
+
+    protected function detectLanguage(MvcEvent $e)
     {
+        $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
+        if ($auth->hasIdentity()) {
+            $user = $auth->getUser();
+            $settings = $user->getSettings('Core');
+            if ($lang = $settings->language) {
+                return $lang;
+            }
+        }
+
+        $headers = $e->getRequest()->getHeaders();
         if ($headers->has('Accept-Language')) {
             $locales = $headers->get('Accept-Language')->getPrioritized();
             $localeFound=false;

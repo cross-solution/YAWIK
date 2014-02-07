@@ -3,11 +3,11 @@
 
 
 <fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-info'?>">
-    <legend><?php echo $element->getLabel()?></legend>
+    <legend><?php echo $this->translate($element->getLabel())?></legend>
     <div class="fieldset-content">
-       <div class="row-fluid">
+       <div class="row">
             
-            <div class="span9">
+            <div class="col-md-9">
                 <?php echo $this->formRow($element->get('gender')); ?>
                 <?php echo $this->formRowCombined(
                     array(4 => $element->get('firstName'), 5 => $element->get('lastName'))
@@ -23,12 +23,12 @@
 
                       
             </div>
-            <div class="span3">
-                <div class="controls controls-row row-fluid">
-                    <?php if ($imageId = $element->getObject()->getImageId()): ?>
-                    <div class="span12 text-center">
-                        <img src="/file/users/<?php echo $element->getObject()->getImageId() ?>" class="user-image img-polaroid" />
-                        <?php echo $this->formRow($element->get('imageId')) ?>
+            <div class="col-md-3">
+                <div class="controls controls-row row">
+                    <?php if ($image = $element->getObject()->getImage()): ?>
+                    <div class="col-md-12 text-center">
+                        <img src="/file/Auth.UserImage/<?php echo $image->getId() ?>" class="user-image img-polaroid" />
+                        <?php echo $this->formRow($element->get('imageId')->setValue($image->getId())) ?>
                     </div>
                     <? endif ?>
                 </div>

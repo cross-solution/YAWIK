@@ -6,6 +6,7 @@ use Zend\Form\View\Helper\FormCollection as ZendFormCollection;
 use Zend\Form\ElementInterface;
 use Zend\Form\Element\Collection as CollectionElement;
 use Zend\Form\FieldsetInterface;
+use Core\Form\ViewPartialProviderInterface;
 
 class FormCollection extends ZendFormCollection
 {
@@ -62,9 +63,9 @@ class FormCollection extends ZendFormCollection
         }
     
         foreach ($element->getIterator() as $elementOrFieldset) {
-            if ($element instanceOf ViewPartialProviderInterface) {
-                $formContent .= $this->getView()->partial(
-                    $element->getViewPartial(), array('element' => $element)
+            if ($elementOrFieldset instanceOf ViewPartialProviderInterface) {
+                $markup .= $this->getView()->partial(
+                    $elementOrFieldset->getViewPartial(), array('element' => $elementOrFieldset)
                 );
             
             }else if ($elementOrFieldset instanceof FieldsetInterface) {
@@ -92,7 +93,7 @@ class FormCollection extends ZendFormCollection
                 $element->getName()
             );
             if ($this->isWithinCollection) {
-                $markup = sprintf('<fieldset id="%s"><a class="remove-item pull-right btn"><i class="icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
+                $markup = sprintf('<fieldset id="%s"><a class="remove-item cam-form-remove"><i class="cam-icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
             } else {
                 $label = $element->getLabel();
         
@@ -113,7 +114,7 @@ class FormCollection extends ZendFormCollection
                     $label = $escapeHtmlHelper($label);
                     
                     if ($isCollectionElement) {
-                        $extraLegend = '<a href="#" class="add-item btn pull-right"><i class="icon-plus"></i></a>';
+                        $extraLegend = '<a href="#" class="add-item cam-form-add"><i class="cam-icon-plus"></i></a>';
                         $class  = ' class="form-collection"';
                         $divWrapperOpen = $divWrapperClose = '';
                     } else {

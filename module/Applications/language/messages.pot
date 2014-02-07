@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-22 12:42+0100\n"
+"POT-Creation-Date: 2014-02-06 18:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,198 +17,316 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/applications/index/index.phtml:2
+#: view/applications/index/index.phtml:10
 msgid "Apply"
 msgstr ""
 
-#: view/applications/index/index.phtml:8
+#: view/applications/index/index.phtml:15
 msgid "Application"
 msgstr ""
 
-#: view/applications/index/index.phtml:10
+#: view/applications/index/index.phtml:17
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
-#: view/applications/index/index.phtml:11
+#: view/applications/index/index.phtml:18
 msgid "click to open the job ad"
 msgstr ""
 
-#: view/applications/index/index.phtml:16
+#: view/applications/index/index.phtml:24
 msgid "your application was sent successfully"
 msgstr ""
 
-#: view/applications/manage/index.phtml:2
+#: view/applications/index/disclaimer.phtml:14
+msgid "Privacy Policy"
+msgstr ""
+
+#: view/applications/index/dashboard.phtml:22
+msgid "Current Applications"
+msgstr ""
+
+#: view/applications/index/dashboard.phtml:29
+#, php-format
+msgid "%1$s new from %2$s total applications"
+msgstr ""
+
+#: view/applications/index/dashboard.phtml:41
+#: language/_annotated_strings.php:3
+msgid "Applicant"
+msgstr ""
+
+#: view/applications/index/dashboard.phtml:42
+#: language/_annotated_strings.php:12
+msgid "Job"
+msgstr ""
+
+#: view/applications/index/dashboard.phtml:43
+#: view/applications/manage/detail.phtml:140
+msgid "Date"
+msgstr ""
+
+#: view/applications/manage/index.phtml:10
 msgid "Applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:3
-#: view/applications/manage/index.phtml:10
+#: view/applications/manage/index.phtml:12
+#: view/applications/manage/index.phtml:21
 msgid "to all of your jobs"
 msgstr ""
 
-#: view/applications/manage/index.phtml:9
+#: view/applications/manage/index.phtml:19
 msgid "List of all applications"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:59
-msgid "view"
+#: view/applications/manage/index.phtml:33
+#: view/applications/manage/index.phtml:35
+msgid "search applications"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:61
-msgid "delete"
+#: view/applications/manage/index.phtml:34
+msgid "search forn names and locations"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:4
+#: view/applications/manage/index.phtml:37
+msgid "Search"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:76
+msgid "education"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:76
+#: view/applications/manage/index.ajax.phtml:79
+msgid "years"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:79
+#: view/applications/manage/detail.phtml:226
+#: view/applications/manage/detail.pdf.phtml:106
+msgid "work experience"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:90
+msgid "no attachments"
+msgstr ""
+
+#: view/applications/manage/index.ajax.phtml:104
+msgid "edit"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:12
+#: view/applications/manage/detail.pdf.phtml:12
 msgid "Details"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:7
+#: view/applications/manage/detail.phtml:15
+#: view/applications/manage/detail.pdf.phtml:60
 msgid "application details"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:11
-#: view/applications/manage/detail.phtml:89
-msgid "State"
-msgstr ""
-
-#: view/applications/manage/detail.phtml:27
+#: view/applications/manage/detail.phtml:31
 msgid "Confirm"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:28
+#: view/applications/manage/detail.phtml:32
 msgid "Confirm the receipt"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:36
+#: view/applications/manage/detail.phtml:40
 msgid "Invite"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:37
-#: view/applications/manage/detail.phtml:72
+#: view/applications/manage/detail.phtml:41
+#: view/applications/manage/detail.phtml:116
 msgid "Invite the applicant"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:45
+#: view/applications/manage/detail.phtml:49
 msgid "Reject"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:46
+#: view/applications/manage/detail.phtml:50
 msgid "Reject the applicant"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:76
-msgid "Cancel"
+msgid "Enter an email address"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:77
-msgid "Send mail"
+msgid ""
+"This application will be send as an email to the given address in a layout "
+"similar to that on this page with all attachments included."
 msgstr ""
 
 #: view/applications/manage/detail.phtml:83
+msgid "Forward"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:95
+#: view/applications/manage/detail.phtml:133
 msgid "State history"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:88
-msgid "Date"
+#: view/applications/manage/detail.phtml:99
+msgid "download as PDF"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:90
-msgid "Comment"
+#: view/applications/manage/detail.phtml:103
+msgid "delete this application"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:106
-msgid "date of receipt"
-msgstr ""
-
-#: view/applications/manage/detail.phtml:110
-msgid "last modification date"
-msgstr ""
-
-#: view/applications/manage/detail.phtml:114
-msgid "personal information"
-msgstr ""
-
-#: view/applications/manage/detail.phtml:118
-msgid "name"
+#: view/applications/manage/detail.phtml:121
+msgid "Cancel"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:122
-msgid "E-Mail"
+msgid "Send mail"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:126
-msgid "Phone"
+#: view/applications/manage/detail.phtml:141
+msgid "State"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:137
-#: src/Applications/Form/BaseFieldset.php:22
-#: language/_annotated_strings.php:24
-msgid "Summary"
+#: view/applications/manage/detail.phtml:142
+msgid "Comment"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:147
-msgid "work experience"
+#: view/applications/manage/detail.phtml:165
+#: view/applications/manage/detail.pdf.phtml:61
+msgid "personal information"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:157
-msgid "education and training"
+#: view/applications/manage/detail.phtml:195
+msgid "date of receipt"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:168
-msgid "personal skills"
+#: view/applications/manage/detail.phtml:200
+msgid "last modification date"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:171
-msgid "native language"
-msgstr ""
-
-#: view/applications/manage/detail.phtml:179
-#: src/Applications/Form/AttachmentsCollectionFactory.php:26
+#: view/applications/manage/detail.phtml:205
+#: view/applications/manage/detail.pdf.phtml:150
+#: src/Applications/Form/AttachmentsCollectionFactory.php:36
+#: language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:17
-#: view/partial/pagination-control.phtml:20
+#: view/applications/manage/detail.phtml:218
+#: view/applications/manage/detail.pdf.phtml:100
+#: src/Applications/Form/BaseFieldset.php:22
+#: language/_annotated_strings.php:84
+msgid "Summary"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:229
+#: view/applications/manage/detail.phtml:247
+#: view/applications/manage/detail.pdf.phtml:109
+#: view/applications/manage/detail.pdf.phtml:127
+msgid "Start"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:230
+#: view/applications/manage/detail.phtml:248
+#: view/applications/manage/detail.pdf.phtml:110
+#: view/applications/manage/detail.pdf.phtml:128
+msgid "End"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:231
+#: view/applications/manage/detail.phtml:249
+#: view/applications/manage/detail.pdf.phtml:111
+#: view/applications/manage/detail.pdf.phtml:129
+msgid "Description"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:244
+#: view/applications/manage/detail.pdf.phtml:124
+msgid "education and training"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:262
+#: view/applications/manage/detail.pdf.phtml:142
+msgid "personal skills"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:264
+#: view/applications/manage/detail.pdf.phtml:144
+msgid "native language"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:67
+msgid "name"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:72
+msgid "Street"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:78
+msgid "City"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:83
+msgid "E-Mail"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:87
+msgid "Phone"
+msgstr ""
+
+#: view/partial/pagination-control.phtml:18
+#: view/partial/pagination-control.phtml:22
 msgid "First"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:25
-#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:27
+#: view/partial/pagination-control.phtml:30
 msgid "&lt; Previous"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:33
+#: view/partial/pagination-control.phtml:35
 msgid "Next &gt;"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:41
-#: view/partial/pagination-control.phtml:44
+#: view/partial/pagination-control.phtml:42
+#: view/partial/pagination-control.phtml:46
 msgid "Last"
 msgstr ""
 
-#: view/sidebar/manage.phtml:11
-msgid "List filter"
+#: view/sidebar/manage.phtml:4
+msgid "new applications"
 msgstr ""
 
-#: src/Applications/Form/AdministrationFieldset.php:22
+#: src/Applications/Form/PrivacyFieldset.php:25
 msgid "Privacy Policies"
 msgstr ""
 
-#: src/Applications/Form/SettingsFieldset.php:24
-#: language/_annotated_strings.php:6
+#: src/Applications/Form/SettingsFieldset.php:30
+#: language/_annotated_strings.php:27
 msgid "E-Mail Notifications"
 msgstr ""
 
-#: src/Applications/Form/CreateApplication.php:59
+#: src/Applications/Form/CreateApplication.php:83
 msgid "personal informations"
+msgstr ""
+
+#: src/Applications/Form/CreateApplication.php:111
+#: language/_annotated_strings.php:66
+msgid "send application"
+msgstr ""
+
+#: src/Applications/Form/SettingsApplicationformFieldset.php:25
+#: language/_annotated_strings.php:69
+msgid "applicationform"
 msgstr ""
 
 #: src/Applications/Form/AttachmentsFieldset.php:22
 msgid "Attachment"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:224
+#: src/Applications/Controller/ManageController.php:221
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
@@ -228,41 +346,135 @@ msgstr ""
 msgid "Hello %s"
 msgstr ""
 
-#: language/_annotated_strings.php:3
-msgid "Privacy Policy"
-msgstr ""
-
-#: language/_annotated_strings.php:9
-msgid "receive E-Mail alert"
-msgstr ""
-
-#: language/_annotated_strings.php:12
-msgid "Mailtext"
+#: language/_annotated_strings.php:6
+msgid "Career"
 msgstr ""
 
 #: language/_annotated_strings.php:15
-msgid "Confirmation mail text"
+msgid "Status"
 msgstr ""
 
 #: language/_annotated_strings.php:18
-msgid "Invitation mail text"
+msgid "Modified"
 msgstr ""
 
 #: language/_annotated_strings.php:21
+msgid "Actions"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid "please accept the privacy policy"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "receive E-Mail alert"
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "if checked, you'll be informed by mail about new applications."
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Mailtext"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid ""
+"default text of the notification mail about new applications. The following "
+"variables can be used:<ul><li>##name## = your name</li><li>##title## = title "
+"of the job</li></ul>"
+msgstr ""
+
+#: language/_annotated_strings.php:42
+msgid "Confirmation mail text"
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid ""
+"default text of the acknowledgment of receipt mail to the applicant. The "
+"following variables can be used:<br><ul><li>##anrede_formell## = salutation. "
+"Includes gender, firstname and lastname.<li>##anrede_informell## = "
+"salutation. Includes fistname and lastname.</li><li>##job_title## = title of "
+"the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
+"of recipt of the application.</li></ul>"
+msgstr ""
+
+#: language/_annotated_strings.php:48
+msgid "Invitation mail text"
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid ""
+"default text of the invitation mail to the applicant. You can use all "
+"variables of the acknowledgment of receipt mail. "
+msgstr ""
+
+#: language/_annotated_strings.php:54
 msgid "Rejection mail text"
 msgstr ""
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:57
+msgid ""
+"default text of the refusal of an application to the applicant. You can use "
+"all variables of the acknowledgment of receipt mail."
+msgstr ""
+
+#: language/_annotated_strings.php:60
+msgid "get blind carbon copy of all own mails"
+msgstr ""
+
+#: language/_annotated_strings.php:63
+msgid "if checked, you'll get a copy of all mails you send."
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "Hide Summary"
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid "Hide Education history"
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid "Hide Employment history"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "Hide Skills"
+msgstr ""
+
+#: language/_annotated_strings.php:87
+#, php-format
+msgid "Fwd: Application to \"%s\" dated %s"
+msgstr ""
+
+#: language/_annotated_strings.php:90
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:93
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
 "\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:96
 msgid "Overview"
+msgstr ""
+
+#: language/additional_translation.phtml:3
+msgid "invited"
+msgstr ""
+
+#: language/additional_translation.phtml:4
+msgid "incoming"
+msgstr ""
+
+#: language/additional_translation.phtml:5
+msgid "rejected"
+msgstr ""
+
+#: language/additional_translation.phtml:6
+msgid "confirmed"
 msgstr ""

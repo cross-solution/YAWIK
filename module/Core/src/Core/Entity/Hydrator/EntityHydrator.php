@@ -66,7 +66,10 @@ class EntityHydrator extends AbstractHydrator
         foreach ($setters as $setter) {
             $propertyName = lcfirst(substr($setter, 3));
             if (isset($data[$propertyName])) {
-                $object->$setter($this->hydrateValue($propertyName, $data[$propertyName]));
+                $value = $this->hydrateValue($propertyName, $data[$propertyName]);
+                if (null !== $value) {
+                    $object->$setter($value);
+                }
                 unset($data[$propertyName]);
             }
         }

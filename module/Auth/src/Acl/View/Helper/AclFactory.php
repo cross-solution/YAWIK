@@ -20,10 +20,10 @@ class AclFactory implements FactoryInterface
     public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         $services = $serviceLocator->getServiceLocator();
-        $acl      = $services->get('acl');
-        $user     = $services->get('AuthenticationService')->getUser();
+        $plugins  = $services->get('controllerpluginmanager');
+        $acl      = $plugins->get('acl');
         
-        $helper = new Acl($acl, $user);
+        $helper = new Acl($acl);
         return $helper;
     }
 

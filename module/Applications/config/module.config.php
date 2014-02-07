@@ -8,6 +8,23 @@
  * @license   GPLv3
  */
 return array(
+
+    'doctrine' => array(
+       'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Applications\Entity' => 'annotation',
+                ),
+            ),
+        ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Applications\Repository\Event\JobReferencesUpdateListener',
+                ),
+            ),
+        ),
+    ),
     
     'Applications' => array(
         'dashboard' => array(
@@ -22,6 +39,7 @@ return array(
         'allowedMimeTypes' => array('image', 'applications/pdf'),
         'settings' => array(
             'entity' => '\Applications\Entity\Settings',
+            'navigation_order' => 30,
         ),
     ),
     
@@ -67,6 +85,16 @@ return array(
                                     'route' => '/submit',
                                 ),
                             ),
+                    'disclaimer' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/disclaimer',
+                            'defaults' => array(
+                                'controller' => '\Applications\Controller\Index',
+                                'action' => 'disclaimer',
+                            ),
+                        ),
+                    ),
                         ),
                     ),
                     'applications' => array(
@@ -169,6 +197,7 @@ return array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'applications/dashboard/recent' => __DIR__ . '/../view/applications/index/dashboard.phtml',
+            'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
         )
     ),
@@ -183,11 +212,13 @@ return array(
              'Application' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
-             'Applications/Administration' => 'Applications\Form\AdministrationFieldset', 
+             'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
              'settings\applications' => 'Applications\Form\Settings',
-             'settings-applications-fieldset' => 'Applications\Form\SettingsFieldset',
+             'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
+             'settings-applicationsform-fieldset' => 'Applications\Form\SettingsApplicationformFieldset',
          ),
         'factories' => array(
+            'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
         ),
@@ -198,7 +229,8 @@ return array(
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
         ),
         'factories'=> array(
-            'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory'
+            /* deprecated*/ 'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory',
+            'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ),
     ),
      
@@ -210,34 +242,4 @@ return array(
         ),
     ),
     
-    'repositories' => array(
-        'invokables' => array(
-            'Application' => 'Applications\Repository\Application',
-        ),
-    ),
-     
-     'mappers' => array(
-         'factories' => array(
-            'application-trash' => 'Applications\Repository\Mapper\ApplicationTrashMapperFactory',
-        ),
-         'abstract_factories' => array(
-             'Applications\Repository\Mapper\AbstractMapperFactory'
-         ),
-     ),
-    
-     'entity_builders' => array(
-         'factories' => array(
-             'Application' => '\Applications\Repository\EntityBuilder\ApplicationBuilderFactory',
-             'JsonApplication' => '\Applications\Repository\EntityBuilder\JsonApplicationBuilderFactory',
-             'Application-Cv' => '\Applications\Repository\EntityBuilder\CvBuilderFactory',
-             'JsonApplicationCv' => '\Applications\Repository\EntityBuilder\JsonCvBuilderFactory',
-             'application-contact' => '\Applications\Repository\EntityBuilder\ContactBuilderFactory',
-             'application-cv-skill' => '\Cv\Repository\EntityBuilder\SkillBuilderFactory',
-             'json-application-contact' => '\Applications\Repository\EntityBuilder\JsonContactBuilderFactory',
-             'Application-Cv-Education' => '\Applications\Repository\EntityBuilder\EducationBuilderFactory',
-             'Application-Cv-Employment' => '\Applications\Repository\EntityBuilder\EmploymentBuilderFactory',
-             'Applications/History' => 'Applications\Repository\EntityBuilder\HistoryBuilderFactory',
-             'Applications/JsonHistory' => 'Applications\Repository\EntityBuilder\JsonHistoryBuilderFactory',
-         ),
-     ),
 );

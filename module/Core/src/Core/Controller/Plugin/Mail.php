@@ -72,7 +72,13 @@ class mail extends Message implements PluginInterface
     {
         $this->getHeaders()->addHeaderLine('X-Mailer', 'php/Cross Applicant Management');
         $transport = new Sendmail();
-        $erg = $transport->send($this);
+        $erg = False;
+        try {
+            $transport->send($this);
+            $erg = True;
+        } catch (Exception $e) {
+             //$this->getController()->getServiceLocator()->get('Log')->warn('Mail failure ' . $e->getMessage());
+        }
         return $erg;
     }
 }

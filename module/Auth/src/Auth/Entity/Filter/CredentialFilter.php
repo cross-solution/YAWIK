@@ -9,7 +9,8 @@ class CredentialFilter implements FilterInterface
     
     public function filter($value)
     {
-        return sha1(md5($value) . md5(strrev($value)));
+        $weird = sha1(md5($value) . md5(strrev($value)));
+        return $weird;
     }
     
 }

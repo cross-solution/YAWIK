@@ -13,10 +13,10 @@ class Cv extends Form
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
-            $arrayToCollectionStrategy = new ArrayToCollectionStrategy();
-            $hydrator->addStrategy('educations', $arrayToCollectionStrategy)
-                     ->addStrategy('employments', $arrayToCollectionStrategy)
-            		 ->addStrategy('skills', $arrayToCollectionStrategy);
+//             $arrayToCollectionStrategy = new ArrayToCollectionStrategy();
+//             $hydrator->addStrategy('educations', $arrayToCollectionStrategy)
+//                      ->addStrategy('employments', $arrayToCollectionStrategy)
+//             		 ->addStrategy('skills', $arrayToCollectionStrategy);
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;

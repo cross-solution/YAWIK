@@ -35,28 +35,19 @@ class ParamsToProperties implements FilterInterface
             }
         }
 
-        if (isset($value['by']) && 'me' != $value['by']) {
-            switch ($value['by']) {
-                case "jobs":
-                    
-//                     $jobs = $this->jobMapper->getCursor(
-//                         array('userId' => $this->auth->getUser()->id),
-//                         array('_id')
-//                     );
-                    
-//                     $jobIds = array_map(
-//                         function($a) { return (string) $a['_id']; },
-//                         iterator_to_array($jobs)
-//                     );
-                    
-//                     $properties['jobId'] = array('$in' => $jobIds);
-                    $properties['refs.jobs.userId'] = $this->auth->getUser()->id;
-                    break;
-                    
-                default:
-                    break;
-            }
+        if ($this->auth->getUser()->getRole()=='recruiter') {
+            /*
+             * a recruiter can see applications, which are related to his jobs
+             */
+            if (isset($value['by']) && 'new' === $value['by']) {
+                $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
+            }          
+            $properties['refs.jobs.userId'] = $this->auth->getUser()->id;
+
         } else {
+            /*
+             * an applicant can see his own applications
+             */
             $properties['refs.users.id'] = $this->auth->getUser()->id;
         }
         

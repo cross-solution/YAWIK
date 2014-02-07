@@ -1,0 +1,114 @@
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
+
+/*
+ * general css classes
+ */
+
+@cam-color-confirmed: @brand-success;
+@cam-color-rejected: @brand-danger;
+@cam-color-incoming: @brand-info;
+@cam-color-invited: @brand-warning;
+
+/**
+ * default Save/Reset Buttons
+ */
+.cam-btn-save {
+  .btn;
+  .btn-primary;
+}
+.cam-btn-reset {
+  .btn;
+  .btn-default;
+}
+
+/**
+* Alert Boxes success and error
+*/
+.cam-success {
+    .alert-success;
+}
+
+.cam-error {
+    .alert-danger;
+}
+
+.cam-table {
+  .table;
+  .table-striped;
+  .table-bordered;
+  .table-hover;
+}
+
+/**
+* Pagination
+*/
+#cam-pagination {
+  ul {
+    margin: 0 0 4px;
+    .pagination-sm;
+  }
+}
+
+/**
+* list of applications
+*/
+#cam-application-list {
+  .portrait {
+    float: left;
+    margin-right: 5px;
+    .thumbnail;
+    max-width: 50px;
+    .cam-icon-portrait {
+      font-size: 40px;
+    }
+    margin-bottom: 0px;
+  }
+}
+
+/**
+* hide some columns on small devices
+*/
+.cam-career,
+.cam-attachment,
+.cam-job {
+    .hidden-xs;
+}
+.cam-attachment {
+  max-width: 130px;
+  overflow: hidden;
+}
+
+/*
+* new 
+*/
+.cam-new * {
+ font-weight: bold;
+}
+
+
+/*
+* State Colors 
+*/
+
+.cam-color-incoming {
+  color: @cam-color-incoming;
+}
+.cam-color-invited {
+  color: @cam-color-invited;
+}
+.cam-color-rejected {
+  color: @cam-color-rejected;
+}
+
+.cam-job-title {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f5f5f5;
+}
