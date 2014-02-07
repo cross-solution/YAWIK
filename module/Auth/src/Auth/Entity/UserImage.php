@@ -25,7 +25,7 @@ class UserImage extends FileEntity
      * @return string
      */
     function getUri(){
-        return '/file/Applications.Attachment/' . $this->id . '/' ;
+        return '/file/Auth.UserImage/' . $this->id;
     }
 }
 

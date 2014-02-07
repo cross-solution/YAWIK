@@ -78,6 +78,7 @@ class IndexController extends AbstractActionController
                 if ($ref) {
                     $ref = urldecode($ref);
                     $url = preg_replace('~^/[a-z]{2}(/)?~', '/' . $language . '$1', $ref);
+                    $url = $this->getRequest()->getBasePath() . $url;
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
                     $url = $urlHelper('lang', array('lang' => $language));
