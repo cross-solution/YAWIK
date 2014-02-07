@@ -190,8 +190,8 @@ if (True) {
     foreach ($cursor as $key => $value) {
         $login = $value['login'];
         if (preg_match('/^.*@ams$/', $login)) {
-            echo "add secret to " . $login;
-            $users->update(array("_id" => new MongoId($key)), array('$set' => array("secret" => $value['credential'])));
+            echo "add secret to " . $login . PHP_EOL;
+            $users->update(array("_id" => new MongoId($key)), array('$set' => array("secret" => $value['credential'], "role" => "recruiter")));
         }
     }
 }
