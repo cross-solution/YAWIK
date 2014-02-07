@@ -330,7 +330,7 @@ return array(
     
     'view_helpers' => array(
         'invokables' => array(
-            'stripQueryParams' => '\Auth\View\Helper\StripQueryParams',
+            'buildReferer' => '\Auth\View\Helper\BuildReferer',
         ),   
         'factories' => array(
             'auth' => '\Auth\Service\AuthViewHelperFactory',

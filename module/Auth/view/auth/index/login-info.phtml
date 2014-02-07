@@ -30,7 +30,7 @@
 
     <ul class="dropdown-menu pull-right">
         <li><a href="<?php 
-            $ref = $this->stripQueryParams($_SERVER['REQUEST_URI'], array('logout', 'ref'));
+            $ref = $this->buildReferer(array('logout', 'ref'));
         echo $this->url('lang/auth', array(), array(
                                                 'query' => array(
                                                     'ref' => urlencode($ref),
