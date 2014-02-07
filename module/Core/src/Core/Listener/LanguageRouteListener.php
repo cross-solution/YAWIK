@@ -90,7 +90,11 @@ class LanguageRouteListener implements ListenerAggregateInterface
             return;
         } 
         
-        if (preg_match('~^/([a-z]{2})(?:/|$)~', $e->getRequest()->getRequestUri(), $match)) {
+        $router = $e->getRouter();
+        $basePath=$router->getBaseUrl();
+        
+        
+        if (preg_match('~^' . $basePath . '/([a-z]{2})(?:/|$)~', $e->getRequest()->getRequestUri(), $match)) {
             /* It seems we have already a language in the URI
              * Now there are two possibilities:
              * 
@@ -121,8 +125,6 @@ class LanguageRouteListener implements ListenerAggregateInterface
          * to the ROUTE_NO_MATCH error renderer.
          */
         $request = clone $e->getRequest(); // clone the request, because maybe we
-        $router = $e->getRouter();
-        $basePath=$router->getBaseUrl();
         $origUri = str_replace($basePath, '', $request->getRequestUri());
         $lang = $this->detectLanguage($e);
         $langUri = rtrim("$basePath/$lang$origUri", '/');        

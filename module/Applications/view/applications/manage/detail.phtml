@@ -166,7 +166,7 @@
         <div class="col-md-4">
           <div class="cam-portrait ">
           <?php if ($this->application->contact->image):?>
-          <img src="<?php echo $this->application->contact->image->uri ?>" class="img-thumbnail"/>
+          <img src="<?php echo $this->basePath($this->application->contact->image->uri) ?>" class="img-thumbnail"/>
           <?php else:?>
           <span class="cam-icon-portrait img-thumbnail"></span>
           <?php endif?>

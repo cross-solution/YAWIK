@@ -6,7 +6,7 @@
         $("#language-switcher button").click(function(e) {
             var switchToLang = '/' + $(this).attr("id").replace(/^language-switcher-/, "");
 
-            if ("' . $this->params('lang') . '" != switchToLang) {
+            if (lang != switchToLang) {
                 var langRegex = new RegExp('/' + lang);
 
                 //console.log(location.pathname, location.pathname.replace(langRegex, switchToLang));
