@@ -65,7 +65,8 @@ return array(
             //'ServiceListenerInterface' => 'Core\mvc\Service\ServiceListener',
         ),
         'factories' => array(
-            'Log' => 'Core\src\Core\Service\Log'
-        ),            
+            //'Log' => 'Core\src\Core\Service\Log'
+        ),
+        
     ),
 );

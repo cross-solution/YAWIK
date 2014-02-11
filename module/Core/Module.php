@@ -18,6 +18,9 @@ use Core\Listener\EnforceJsonResponseListener;
 use Core\Listener\StringListener;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
+use Core\Listener\ErrorLoggerListener;
+use Core\Listener\ErrorHandlerListener;
+use Zend\Log\Formatter\ErrorHandler;
 
 /**
  * Bootstrap class of the Core module
@@ -67,6 +70,18 @@ class Module implements ConsoleBannerProviderInterface
  #       $LogListener->attach($eventManager);
         
         if (!\Zend\Console\Console::isConsole()) {
+            
+            $redirectCallback = function() use ($e) {
+                $routeMatch = $e->getRouteMatch();
+                $lang = $routeMatch ? $routeMatch->getParam('lang', 'en') : 'en';
+                $uri    = $e->getRouter()->getBaseUrl() . '/' . $lang . '/error';
+                
+                header('Location: ' . $uri);
+            };
+            
+            $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
+            $errorHandlerListener->attach($eventManager);
+            
             $languageRouteListener = new LanguageRouteListener();
             $languageRouteListener->attach($eventManager);
         

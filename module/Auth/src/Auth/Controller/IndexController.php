@@ -71,7 +71,7 @@ class IndexController extends AbstractActionController
                         $language = 'en';
                     }
                 }
-                $services->get('Log')->info('User ' . $user->login . ' logged in');
+                $services->get('Log/Core/Cam')->info('User ' . $user->login . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
 
@@ -94,7 +94,7 @@ class IndexController extends AbstractActionController
                 
             } else {
                 
-                $services->get('Log')->info('Failed to authenticate User ' . $data['credentials']['login'] );
+                $services->get('Log/Core/Cam')->info('Failed to authenticate User ' . $data['credentials']['login'] );
                 
                 $translator = $services->get('translator');
                 $vars = array(
@@ -145,7 +145,7 @@ class IndexController extends AbstractActionController
         $resultMessage = $result->getMessages();
         if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
             // erstes Login
-            $this->getServiceLocator()->get('Log')->debug('first login via ' . $provider);
+            $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login via ' . $provider);
             
             if (array_key_exists('user', $resultMessage)) {
                 $user = $resultMessage['user'];
@@ -162,15 +162,15 @@ class IndexController extends AbstractActionController
                 $mail->setSubject('Anmeldung im Cross Applicant Management');
             }
             if (isset($mail) && $mail->send()) {
-                $this->getServiceLocator()->get('Log')->info('Mail first-login sent to ' . $user->info->getEmail());
+                $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());
             } else {
-                $this->getServiceLocator()->get('Log')->warn('No Mail was sent');
+                $this->getServiceLocator()->get('Log/Core/Cam')->warn('No Mail was sent');
             }
             
         }
         
         $user = $auth->getUser();
-        $this->getServiceLocator()->get('Log')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->settings;
         if (isset($settings['settings']['language'])) {
             $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
@@ -225,7 +225,7 @@ class IndexController extends AbstractActionController
         $result     = $auth->authenticate($adapter);
         
         if ($result->isValid()) {
-            $services->get('Log')->info('User ' . $this->params()->fromPost('user') . 
+            $services->get('Log/Core/Cam')->info('User ' . $this->params()->fromPost('user') . 
                                         ' logged via ' . $this->params()->fromPost('appKey'));
             
             // the external login may include some parameters for an update
@@ -256,7 +256,7 @@ class IndexController extends AbstractActionController
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
                 // first external Login
                 $userName = $this->params()->fromPost('user');
-                $this->getServiceLocator()->get('Log')->debug('first login for User: ' .  $userName);
+                $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login for User: ' .  $userName);
                 // 
                 if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
                     $userName = $realUserName[1];
@@ -276,9 +276,9 @@ class IndexController extends AbstractActionController
                 $mail->informationComplete();
                 
                 if (isset($mail) && $mail->send()) {
-                    $this->getServiceLocator()->get('Log')->info('Mail first-login sent to ' . $userName);
+                    $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $userName);
                 } else {
-                    $this->getServiceLocator()->get('Log')->warn('No Mail was sent');
+                    $this->getServiceLocator()->get('Log/Core/Cam')->warn('No Mail was sent');
                 }
             }
             
@@ -287,7 +287,7 @@ class IndexController extends AbstractActionController
                 'token' => session_id()
             ));
         } else {
-            $services->get('Log')->info('Failed to authenticate User ' . $this->params()->fromPost('user') .
+            $services->get('Log/Core/Cam')->info('Failed to authenticate User ' . $this->params()->fromPost('user') .
                                         ' via ' . $this->params()->fromPost('appKey'));
             
             $this->getResponse()->setStatusCode(403);
@@ -308,7 +308,7 @@ class IndexController extends AbstractActionController
     public function logoutAction()
     {
         $auth = $this->getServiceLocator()->get('AuthenticationService');
-        $this->getServiceLocator()->get('Log')->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
         

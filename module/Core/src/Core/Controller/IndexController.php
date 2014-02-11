@@ -108,6 +108,14 @@ class IndexController extends AbstractActionController
         
     }
     
+    public function errorAction()
+    {
+        $viewModel = new ViewModel();
+        $viewModel->setTemplate('error/index')
+                  ->setVariable('message', 'An unexpected error had occured. Please try again later.');
+        return $viewModel;
+    }
+    
     public function mailAction() {
         $ServiceLocator = $this->getServiceLocator();
         $settingsRepository = $ServiceLocator->get('RepositoryManager')->get('SettingsRepository');

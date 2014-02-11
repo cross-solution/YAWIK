@@ -100,7 +100,7 @@ class mail extends Message implements PluginInterface
     }
     
     public function informationComplete() {
-        $log = $this->getController()->getServiceLocator()->get('Log');
+        $log = $this->getController()->getServiceLocator()->get('Log/Core/Cam');
         if (isset($this->config['templateFull'])) {
             $template = $this->config['templateFull'];
         }
@@ -144,7 +144,7 @@ class mail extends Message implements PluginInterface
             $transport->send($this);
             $erg = True;
         } catch (Exception $e) {
-             //$this->getController()->getServiceLocator()->get('Log')->warn('Mail failure ' . $e->getMessage());
+             //$this->getController()->getServiceLocator()->get('Log/Core/Cam')->warn('Mail failure ' . $e->getMessage());
         }
         return $erg;
     }
