@@ -12,6 +12,7 @@ namespace Jobs;
 
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Core\ModuleManager\ModuleConfigLoader;
 
 /**
  * Bootstrap class of the Core module
@@ -40,7 +41,7 @@ class Module implements ConsoleUsageProviderInterface
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return ModuleConfigLoader::load(__DIR__ . '/config');
     }
 
     /**

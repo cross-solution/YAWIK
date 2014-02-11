@@ -67,14 +67,13 @@ class LanguageRouteListener implements ListenerAggregateInterface
             // We do not have a language enabled route here.
             // but we need to provide a language to the navigation container
             $lang = $this->detectLanguage($e);
-            $this->setTranslatorLocale($e, $lang);
-            $this->setNavigationParams($e, $lang);
+            $this->setLocale($e, $lang);
             return;
         }
         $language = $routeMatch->getParam('lang', '__NOT_SET__');
         if ($this->isAvailableLanguage($language)) {
-            $this->setTranslatorLocale($e, $language);
-            $this->setNavigationParams($e, $language);
+            $this->setLocale($e, $language);
+            
         } else {
             $e->setError(Application::ERROR_ROUTER_NO_MATCH);
             $e->setTarget($this);
@@ -113,8 +112,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
                   ? $match[1]
                   : $this->detectLanguage($e);
                 
-            $this->setNavigationParams($e, $lang);
-            $this->setTranslatorLocale($e, $lang);
+            
+            $this->setLocale($e, $lang);
             return;
         }
         
@@ -136,8 +135,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
             return $this->redirect($e->getResponse(), $langUri);
         }
 
-        $this->setNavigationParams($e, $lang);
-        $this->setTranslatorLocale($e, $lang);
+        
+        $this->setLocale($e, $lang);
     }
 
     public function getDefaultLanguage()
@@ -193,7 +192,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
         return $response;
     }
     
-    protected function setTranslatorLocale(MvcEvent $e, $lang)
+    protected function setLocale(MvcEvent $e, $lang)
     {
         $translator = $e->getApplication()->getServiceManager()->get('translator');
         $locale = $this->availableLanguages[$lang];
@@ -209,35 +208,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
         ));
         Locale::setDefault($locale);
         $translator->setLocale($locale);
+        $e->getRouter()->setDefaultParam('lang', $lang);
         
-        if ($match = $e->getRouteMatch()) {
-            $match->setParam('lang', $lang);
-        } else {
-            $e->setParam('lang', $lang);
-        }
     }
     
-    protected function setNavigationParams(MvcEvent $e, $lang)
-    {
-        $nav = $e->getApplication()->getServiceManager()->get('main_navigation');
-        $this->setRecursiveNavigationParams($nav->getPages(), $lang);
-    }
     
-    protected function setRecursiveNavigationParams($pages, $lang)
-    {
-        foreach ($pages as $page) {
-            if ($page instanceof \Zend\Navigation\Page\Mvc) {
-                $route = $page->getRoute();
-                if (0 === strpos($route, 'lang')) {
-            
-                    $params = $page->getParams();
-                    if (!isset($params['lang']) || $lang != $params['lang']) {
-                        $params['lang'] = $lang;
-                        $page->setParams($params);
-                    }
-                }
-            }
-            $this->setRecursiveNavigationParams($page->getPages(), $lang);
-        }
-    }
 }
