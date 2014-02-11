@@ -205,7 +205,7 @@ class IndexController extends AbstractActionController
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
-                'user' => 'dummy16@ams',
+                'user' => 'dummy_' . uniqid() . '@ams',
                 'pass' => 'passwordfromams1',
                 'appKey' => 'AmsAppKey',
                 'email' => 'weitz@cross-solution.de',
@@ -215,11 +215,11 @@ class IndexController extends AbstractActionController
         
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
+        $config     = $services->get('config');
 
         $adapter->setIdentity($this->params()->fromPost('user'))
                 ->setCredential($this->params()->fromPost('pass'))
                 ->setApplicationKey($this->params()->fromPost('appKey'));
-        
         
         $auth       = $services->get('AuthenticationService');
         $result     = $auth->authenticate($adapter);
@@ -228,8 +228,15 @@ class IndexController extends AbstractActionController
             $services->get('Log')->info('User ' . $this->params()->fromPost('user') . 
                                         ' logged via ' . $this->params()->fromPost('appKey'));
             
+            // the external login may include some parameters for an update
             $updateParams = $this->params()->fromPost();
             unset ($updateParams['user'], $updateParams['pass'], $updateParams['appKey']);
+            $resultMessage = $result->getMessages();
+            $password = Null;
+            if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
+                $password = substr(uniqid(),0,6);
+                $updateParams['password'] = $password;
+            }
             if (!empty($updateParams)) {
                 $user = $auth->getUser();
                 try {
@@ -242,10 +249,15 @@ class IndexController extends AbstractActionController
             }
             
             $resultMessage = $result->getMessages();
+            // TODO: send a mail also when required (maybe first mail failed or email has changed)
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
                 // first external Login
                 $userName = $this->params()->fromPost('user');
                 $this->getServiceLocator()->get('Log')->debug('first login for User: ' .  $userName);
+                // 
+                if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
+                    $userName = $realUserName[1];
+                }
                 $domain = '';
                 $uri = $this->getRequest()->getUri();
                 if (isset($uri)) {
@@ -253,13 +265,12 @@ class IndexController extends AbstractActionController
                 }
                 $mail = $this->mail(array(
                     'Anrede'=>$userName, 
-                    'password' => $this->params()->fromPost('pass'),
+                    'password' => $password,
                     'domain' => $domain
                     ));
                 $mail->template('first-login');
-                $mail->addTo($user->getEmail());
-                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
-                $mail->setSubject('registration at the Cross Applicant Management');
+                $mail->addTo($user->getInfo()->getEmail());
+                $mail->informationComplete();
                 
                 if (isset($mail) && $mail->send()) {
                     $this->getServiceLocator()->get('Log')->info('Mail first-login sent to ' . $userName);
@@ -267,7 +278,6 @@ class IndexController extends AbstractActionController
                     $this->getServiceLocator()->get('Log')->warn('No Mail was sent');
                 }
             }
-            
             
             return new JsonModel(array(
                 'status' => 'success',
