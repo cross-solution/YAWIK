@@ -206,7 +206,7 @@
       <?php foreach( $this->application->attachments as $attachment): ?>
         <div class="row show-grid">
           <div class="col-md-3">
-            <a href="<?php echo $attachment->uri ?>" target="_new"><?php echo $attachment->name ?></a>
+            <a href="<?php echo $this->basePath($attachment->uri) ?>" target="_new"><?php echo $attachment->name ?></a>
           </div>
         </div>
       <?php endforeach; // attachments?>
