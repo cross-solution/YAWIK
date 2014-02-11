@@ -241,6 +241,9 @@ class IndexController extends AbstractActionController
                 $user = $auth->getUser();
                 try {
                     foreach ($updateParams as $updateKey => $updateValue) {
+                        if ('email' == $updateKey) {
+                            $user->info->email = $updateValue;
+                        }
                         $user->$updateKey = $updateValue;
                     }
                 } catch (Exception $e) {
