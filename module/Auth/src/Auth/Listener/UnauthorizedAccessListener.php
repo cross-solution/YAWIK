@@ -79,7 +79,9 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             $routeMatch->setParam('controller', 'Auth\Controller\Index');
             $routeMatch->setParam('action', 'index');
             $query = $e->getRequest()->getQuery();
-            $query->set('ref', urlencode($e->getRequest()->getRequestUri()));
+            $ref = $e->getRequest()->getRequestUri();
+            $ref = preg_replace('~^' . preg_quote($e->getRouter()->getBaseUrl()) . '~' , '', $ref);
+            $query->set('ref', urlencode($ref));
             $query->set('req', 1);
             $result = $e->getApplication()->getEventManager()->trigger('dispatch', $e);
             $e->stopPropagation();
