@@ -171,7 +171,7 @@
             <?php foreach ($this->application->history as $history): ?>
             <tr>
                 <td><?php echo $this->dateFormat($history->date)?></td>
-                <td><?php echo $history->status ?></td>
+                <td><?php echo $this->translate($history->status) ?></td>
                 <td><?php echo $history->message ?></td>
             </tr>
             <?php endforeach ?>

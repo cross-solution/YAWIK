@@ -311,7 +311,6 @@ class IndexController extends AbstractActionController
         $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
-        var_dump($this->params('lang'));
         $this->redirect()->toRoute(
             'lang', 
             array('lang' => $this->params('lang')),

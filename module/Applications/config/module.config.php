@@ -213,9 +213,7 @@ return array(
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
              'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
-             'settings\applications' => 'Applications\Form\Settings',
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
-             'settings-applicationsform-fieldset' => 'Applications\Form\SettingsApplicationformFieldset',
          ),
         'factories' => array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
