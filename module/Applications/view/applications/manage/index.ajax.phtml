@@ -62,7 +62,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>
-    <img src="<?php echo $application->contact->image->uri ?>" />
+    <img src="<?php echo $this->basePath($application->contact->image->uri) ?>" />
     <?php else:?>
     <span class="cam-icon-portrait"></span>
     <?php endif?>
@@ -83,7 +83,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
      <?php if(count($application->attachments)>0):?>
      <ul>
      <?php foreach ($application->attachments as $attachment):?>
-       <li><a href="<?php echo $attachment->uri?>"><?php echo $attachment->name ?></a></li>
+       <li><a href="<?php echo $this->basePath($attachment->uri)?>"><?php echo $attachment->name ?></a></li>
      <?php endforeach;?>
      </ul>
      <?php else:?>

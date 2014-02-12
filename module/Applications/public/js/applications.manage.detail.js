@@ -36,11 +36,11 @@
 	{
 		var displayResult = function(text, type)
 		{
-			$alert = $('#forward-email-result');
-			$alert.addClass('alert-' + type);
-			$alert.html(text);
-			$alert.slideDown();
-			window.setTimeout(function() { $alert.removeClass('alert-' + type); $alert.slideUp(); }, 5000);
+			alert = $('#forward-email-result');
+			alert.addClass('alert-' + type);
+			alert.html(text);
+			alert.slideDown();
+			window.setTimeout(function() { alert.removeClass('alert-' + type); alert.slideUp(); }, 3000);
 		};
 		
 		var $formular = $(event.target);

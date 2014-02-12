@@ -196,7 +196,7 @@ class ManageController extends AbstractActionController
 //             $mail->setFrom($from, $application->job->company);
 //             $mail->addTo($application->contact->email, $application->contact->displayName);
 //             $mail->send();
-            $application->changeStatus($status);
+            $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));
             $repository->save($application);
             
             if ($jsonFormat) {
@@ -265,9 +265,7 @@ class ManageController extends AbstractActionController
         
         $params = array(
             'ok' => true,
-            'text' => $translator->translate(sprintf(
-                'Forwarded application to %s', $emailAddress
-            ))
+            'text' => sprintf($translator->translate('Forwarded application to %s'), $emailAddress)
         );
         
         try {
@@ -282,12 +280,10 @@ class ManageController extends AbstractActionController
         } catch (\Exception $ex) {
             $params = array(
                 'ok' => false,
-                'text' => $translator->translate(sprintf(
-                     'Forward application to %s failed.', $emailAddress
-                )) . '<br><br>' . $ex->getMessage()
+                'text' => sprintf($translator->translate('Forward application to %s failed.'), $emailAddress)
             );
         }
-        
+        $application->changeStatus($application->status,$params['text']);
         return new JsonModel($params);
     }
     

@@ -65,19 +65,6 @@ class Application extends AbstractRepository
         return $this->findBy($criteria)->count();
     }
     
-    public function changeStatus($application, $status)
-    {
-        $application->setStatus($status);
-        $history = $this->builders->get('Applications/History')->build(array(
-            'date' => new \DateTime(),
-            'status' => $application->getStatus(),
-            'message' => '[System]'
-        ));
-        $application->getHistory()->add($history);
-        $this->save($application);
-        return $this;
-    }
-    
     public function save(ApplicationInterface $application, $resetModifiedDate=true)
     {
         if ($resetModifiedDate) {
@@ -89,8 +76,8 @@ class Application extends AbstractRepository
     
     public function delete(EntityInterface $entity)
     {
-        $this->getMapper('application')->delete($entity);
-        $this->getMapper('application-trash')->save($entity, true);
+        $this->dm->remove($entity);
+        $this->dm->flush();
         return $this;
     }
     

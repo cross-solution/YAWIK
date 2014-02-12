@@ -23,7 +23,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 </h1>
  <div id="applications-list-container" class="pagination-container">
   <nav class="navbar cam-toolbar"> 
-    <form class="navbar-form" id="search-applications-form" action="/de/applications" method="get">  
+    <form class="navbar-form" id="search-applications-form" action="<?php echo $this->basePath('/de/applications')?>" method="get">  
     <div class="col-md-4">
       <div id="search-applications" class="input-group">  
       <span class="input-group-addon" 

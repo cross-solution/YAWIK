@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-06 18:21+0100\n"
+"POT-Creation-Date: 2014-02-12 13:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgid "Job"
 msgstr ""
 
 #: view/applications/index/dashboard.phtml:43
-#: view/applications/manage/detail.phtml:140
+#: view/applications/manage/detail.phtml:165
 msgid "Date"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgid "years"
 msgstr ""
 
 #: view/applications/manage/index.ajax.phtml:79
-#: view/applications/manage/detail.phtml:226
+#: view/applications/manage/detail.phtml:251
 #: view/applications/manage/detail.pdf.phtml:106
 msgid "work experience"
 msgstr ""
@@ -138,7 +138,7 @@ msgid "Invite"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:41
-#: view/applications/manage/detail.phtml:116
+#: view/applications/manage/detail.phtml:119
 msgid "Invite the applicant"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgid "Forward"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:95
-#: view/applications/manage/detail.phtml:133
+#: view/applications/manage/detail.phtml:158
 msgid "State history"
 msgstr ""
 
@@ -173,85 +173,99 @@ msgstr ""
 msgid "download as PDF"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:103
-msgid "delete this application"
+#: view/applications/manage/detail.phtml:106
+#: view/applications/manage/detail.phtml:145
+msgid "Delete application"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:121
+#: view/applications/manage/detail.phtml:124
+#: view/applications/manage/detail.phtml:143
 msgid "Cancel"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:122
+#: view/applications/manage/detail.phtml:125
 msgid "Send mail"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:141
+#: view/applications/manage/detail.phtml:136
+msgid "Delete Application"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:140
+msgid "Are you sure you want to delete this application?"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:144
+msgid "delete this application"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:166
 msgid "State"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:142
+#: view/applications/manage/detail.phtml:167
 msgid "Comment"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:165
+#: view/applications/manage/detail.phtml:190
 #: view/applications/manage/detail.pdf.phtml:61
 msgid "personal information"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:195
+#: view/applications/manage/detail.phtml:220
 msgid "date of receipt"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:200
+#: view/applications/manage/detail.phtml:225
 msgid "last modification date"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:205
+#: view/applications/manage/detail.phtml:230
 #: view/applications/manage/detail.pdf.phtml:150
 #: src/Applications/Form/AttachmentsCollectionFactory.php:36
 #: language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:218
+#: view/applications/manage/detail.phtml:243
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:84
 msgid "Summary"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:229
-#: view/applications/manage/detail.phtml:247
+#: view/applications/manage/detail.phtml:254
+#: view/applications/manage/detail.phtml:272
 #: view/applications/manage/detail.pdf.phtml:109
 #: view/applications/manage/detail.pdf.phtml:127
 msgid "Start"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:230
-#: view/applications/manage/detail.phtml:248
+#: view/applications/manage/detail.phtml:255
+#: view/applications/manage/detail.phtml:273
 #: view/applications/manage/detail.pdf.phtml:110
 #: view/applications/manage/detail.pdf.phtml:128
 msgid "End"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:231
-#: view/applications/manage/detail.phtml:249
+#: view/applications/manage/detail.phtml:256
+#: view/applications/manage/detail.phtml:274
 #: view/applications/manage/detail.pdf.phtml:111
 #: view/applications/manage/detail.pdf.phtml:129
 msgid "Description"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:244
+#: view/applications/manage/detail.phtml:269
 #: view/applications/manage/detail.pdf.phtml:124
 msgid "education and training"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:262
+#: view/applications/manage/detail.phtml:287
 #: view/applications/manage/detail.pdf.phtml:142
 msgid "personal skills"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:264
+#: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:144
 msgid "native language"
 msgstr ""
@@ -329,6 +343,16 @@ msgstr ""
 #: src/Applications/Controller/ManageController.php:221
 #, php-format
 msgid "Your application dated %s"
+msgstr ""
+
+#: src/Applications/Controller/ManageController.php:268
+#, php-format
+msgid "Forwarded application to %s"
+msgstr ""
+
+#: src/Applications/Controller/ManageController.php:283
+#, php-format
+msgid "Forward application to %s failed."
 msgstr ""
 
 #: src/Applications/Mail/StatusChange.php:57

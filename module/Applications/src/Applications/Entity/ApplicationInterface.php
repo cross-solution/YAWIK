@@ -3,11 +3,12 @@
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 
-interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface 
+interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface, SearchableEntityInterface
 {
     
     public function setJobId($jobId);

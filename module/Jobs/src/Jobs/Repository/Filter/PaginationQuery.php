@@ -29,7 +29,6 @@ class PaginationQuery extends AbstractPaginationQuery
     public function createQuery($params, $queryBuilder)
     {
         $value = $params->toArray();
-         
         
         if ($this->auth->getUser()->getRole()=='recruiter') {
             /*
@@ -39,7 +38,7 @@ class PaginationQuery extends AbstractPaginationQuery
         } else {
             /*
              * an applicant can see all aktive jobs
-            */
+             */
             $queryBuilder->field('refs.users.id')->equals($this->auth->getUser()->id);
         }
     
@@ -47,11 +46,13 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('user')->equals($this->auth->getUser()->id);
         }
         
-        if (isset($value['status'])) {
+        if (isset($value['status']) && !empty($value['status'])) {
             $queryBuilder->field('status')->equals((string) $value['status']);
         }
         
-    
+        /*
+         * search jobs by keywords
+         */
         if (isset($value['search']) && !empty($value['search'])) {
             $search = strtolower($value['search']);
             $searchPatterns = array();
