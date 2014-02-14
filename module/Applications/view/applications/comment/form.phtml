@@ -1,0 +1,19 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->commentForm->setAttribute(
+    'action', 
+    $this->url('lang/applications/comments', array(), true) 
+    . '?mode=' . $this->mode . '&id=' . $this->identifier 
+);
+
+echo $this->form($this->commentForm)
+?>
+
+

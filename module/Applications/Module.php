@@ -12,6 +12,8 @@ namespace Applications;
 use Zend\Mvc\MvcEvent;
 use Zend\ModuleManager\Feature\FormElementProviderInterface;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Zend\View\ViewEvent;
+use Zend\View\Renderer\PhpRenderer;
 
 
 /**
@@ -48,7 +50,7 @@ class Module
         );
     }
     
-    public function onBootstrap(MvcEvent $e)
+    public function onBootstrap(MvcEvent $mvcEvent)
     {
         // Ignore the form annotations in setting entities
         AnnotationReader::addGlobalIgnoredName('formLabel');

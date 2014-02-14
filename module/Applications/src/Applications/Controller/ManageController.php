@@ -16,6 +16,8 @@ use Zend\View\Model\JsonModel;
 use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
+use Applications\Entity\Comment;
+use Applications\Entity\Rating;
 
 /**
  * Action Controller for managing applications.
@@ -140,6 +142,7 @@ class ManageController extends AbstractActionController
             default:
                 break;
         }
+        
         return $return;
     }
     

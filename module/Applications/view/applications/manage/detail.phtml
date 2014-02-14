@@ -11,8 +11,10 @@
       
       $this->headTitle($this->translate('Details'));
       $this->headScript()->appendFile($this->basePath('Applications/js/applications.manage.detail.js'));
+      $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 ?>
 <h1><?= $this->translate('application details') ?></h1>
+<?php echo $this->form($this->commentForm) ?>
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
@@ -215,6 +217,9 @@
   </div>
   <div class="col-md-6">
     <div class="col-md-12">
+      <div class="pull-right">
+      <?php echo $this->rating(2);//$this->application->getRating()) ?>
+      </div>
       <p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
       <div class="row">
         <div class="col-md-6"><?= $this->translate('date of receipt')?>:</div>

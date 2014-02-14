@@ -9,6 +9,7 @@ use Auth\Entity\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Jobs\Entity\JobInterface;
 use Doctrine\Common\Collections\Collection;
+use Core\Entity\Collection\ArrayCollection;
 
 /**
  * The application model
@@ -127,6 +128,14 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * @ODM\Collection
      */
     protected $readBy = array();
+    
+    /**
+     * Comments
+     * 
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="Rating")
+     */
+    protected $comments;
     
     /**
      * 
@@ -407,6 +416,21 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     {
         $this->keywords = array();
         return $this;
+    }
+    
+    public function getComments()
+    {
+        if (!$this->comments) {
+            $this->setComments(new ArrayCollection());
+        }
+        return $this->comments;
+    }
+    
+    public function setComments(Collection $comments)
+    {
+        $this->comments = $comments;
+        return $this;
+        
     }
     
 }
