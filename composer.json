@@ -22,6 +22,6 @@
         "doctrine/doctrine-mongo-odm-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
 	"mpdf/mpdf": "5.7.*",
-        "twbs/bootstrap": "3.*"
+        "twbs/bootstrap": "3.0.*"
     }
 }

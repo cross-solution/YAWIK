@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "54b517c4b6ab179d89f62f4b9b05d73f",
+    "hash": "f07a1456f2bae453910c759f3090244b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -729,7 +729,7 @@
                     "Hybrid": "hybridauth/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "(MIT or GPL-3.0+)"
             ],
@@ -838,9 +838,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 },
                 {
                     "name": "Symfony Community",
@@ -853,16 +851,16 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v3.1.0",
+            "version": "v3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "1409cde7e800ca83fd761f87e5ad8f0d259e38d1"
+                "reference": "6d03173a1aad98e75f7d33e65b411c519176c59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/1409cde7e800ca83fd761f87e5ad8f0d259e38d1",
-                "reference": "1409cde7e800ca83fd761f87e5ad8f0d259e38d1",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/6d03173a1aad98e75f7d33e65b411c519176c59a",
+                "reference": "6d03173a1aad98e75f7d33e65b411c519176c59a",
                 "shasum": ""
             },
             "type": "library",
@@ -873,7 +871,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -891,7 +889,7 @@
                 "bootstrap",
                 "css"
             ],
-            "time": "2014-01-30 16:30:37"
+            "time": "2013-12-05 16:09:10"
         },
         {
             "name": "zendframework/zendframework",
