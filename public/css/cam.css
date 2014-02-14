@@ -6876,6 +6876,31 @@ td.cam-job {
   border-bottom-left-radius: 3px;
   padding: 9px 10px 0;
 }
+.br-widget {
+  height: 25px;
+  padding: 5px 0 0;
+}
+.br-widget a {
+  background-color: #eeeeee;
+  width: 70px;
+  height: 16px;
+  display: block;
+  float: left;
+  margin: 1px;
+}
+.br-widget a.br-selected,
+.br-widget a.br-active {
+  background-color: #5498d7;
+}
+.br-widget .br-current-rating {
+  color: #333333;
+  float: left;
+  line-height: 1.1;
+  padding: 0 20px;
+}
+.br-widget.br-compact a {
+  width: 10px;
+}
 body {
   padding: 50px 0 25px;
   position: relative;
