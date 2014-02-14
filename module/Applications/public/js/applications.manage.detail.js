@@ -37,10 +37,10 @@
 		var displayResult = function(text, type)
 		{
 			alert = $('#forward-email-result');
-			alert.addClass('alert-' + type);
+			alert.addClass('cam-' + type);
 			alert.html(text);
 			alert.slideDown();
-			window.setTimeout(function() { alert.removeClass('alert-' + type); alert.slideUp(); }, 3000);
+			window.setTimeout(function() { alert.removeClass('cam-' + type); alert.slideUp(); }, 3000);
 		};
 		
 		var $formular = $(event.target);
@@ -48,7 +48,9 @@
 			return false;
 		}
 		
-		var $alert = $('#forward-email-result');
+		var alert = $('#forward-email-result');
+		
+		console.debug(alert);
 		
 		$.get($formular.attr('action') + '?' + $formular.serialize())
 		 .done(function (data) {

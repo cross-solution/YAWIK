@@ -35,11 +35,11 @@ class PaginationQuery extends AbstractPaginationQuery
              * a recruiter can see his jobs
              */
             $queryBuilder->field('user')->equals($this->auth->getUser()->id);
-        } else {
+        } else  {
             /*
-             * an applicant can see all aktive jobs
+             * an applicants or guests can see all aktive jobs
              */
-            $queryBuilder->field('refs.users.id')->equals($this->auth->getUser()->id);
+            $queryBuilder->field('status')->equals('active');
         }
     
         if (isset($value['by']) && 'me' == $value['by']) {
