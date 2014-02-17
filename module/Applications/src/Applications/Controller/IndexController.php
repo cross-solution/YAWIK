@@ -174,6 +174,27 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
     
+    public function dashboardAction()
+    {
+        $services = $this->getServiceLocator();
+        $params = $this->getRequest()->getQuery();
+        $isRecruiter = $this->acl()->isRole('recruiter');
+        if ($isRecruiter) {
+       #     $params->set('by', 'me');
+        }
+        
+        $appRepo = $services->get('repositories')->get('Applications/Application');
+         
+        $paginator = $this->paginator('Applications/Application');
+     
+        return array(
+            'script' => 'applications/index/dashboard',
+            #'type' => $this->params('type'),
+            'applications' => $paginator
+        );
+    }
+    
+    
     /**
      * handle the privacy policy used in an application form.
      * 

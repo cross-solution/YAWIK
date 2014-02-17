@@ -1,8 +1,5 @@
 <?php
 
-
-$consoleConfig = include __DIR__ . '/console.config.php';
-
 return array(
         'doctrine' => array(
                 'driver' => array(

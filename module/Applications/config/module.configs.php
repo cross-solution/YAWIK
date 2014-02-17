@@ -7,6 +7,7 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
+
 return array(
 
     'doctrine' => array(
@@ -54,6 +55,7 @@ return array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             'Applications/CommentController' => 'Applications\Controller\CommentController',
+            'Applications/Console' => 'Applications\Controller\ConsoleController'
         ),
     ),
     
