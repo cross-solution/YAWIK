@@ -39,7 +39,7 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
         $sum   = 0;
         $count = 0;
         foreach (get_class_methods($this) as $method) {
-            if (0 !== strpos($method, 'get')) {
+            if ('getAverage' == $method || 0 !== strpos($method, 'get')) {
                 continue;
             }
             

@@ -7,29 +7,41 @@
  * @license   AGPLv3
  */
 
-/** CommentForm.php */ 
+/** CommentFieldset.php */ 
 namespace Applications\Form;
 
+
+use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Form;
 
 class CommentForm extends Form
 {
     
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $this->setHydrator(new EntityHydrator());
+        }
+        return $this->hydrator;
+    }
+    
     public function init()
     {
-        $this->setName('applications-comment-form');
+        $this->setName('application-comment-form');
         
         $this->add(array(
-            'name' => 'comment',
-            'type' => 'Applications/CommentFieldset',
+            'type' => 'Core/RatingFieldset',
+            'name' => 'rating',
+        ));
+        
+        $this->add(array(
+            'type' => 'Textarea',
+            'name' => 'message',
             'options' => array(
-                'use_as_base_fieldset' => true,
+                'label' => /* @translate */ 'Comment message',
             )
         ));
         
-        $this->add(array(
-            'type' => 'DefaultButtonsFieldset'
-        ));
     }
 }
 

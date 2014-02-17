@@ -9,6 +9,7 @@ use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
 use Applications\Entity\ApplicationInterface;
 use Doctrine\ODM\MongoDB\Events;
+use Applications\Entity\Application as ApplicationEntity;
 
 class Application extends AbstractRepository
 {   
@@ -28,6 +29,7 @@ class Application extends AbstractRepository
         return $qb->getQuery()->execute();          
     }
     
+
     /**
      * @deprecated
      * @param unknown $jobId

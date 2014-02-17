@@ -1,0 +1,35 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+?>
+
+<?php if (count($this->comments)): ?>
+
+<?php foreach($this->comments as $comment):?>
+
+    <div class="panel panel-<?php echo $this->auth('id') == $comment->user->id ? 'primary' : 'default' ?>">
+        <div class="panel-heading">
+            <?php echo $comment->user->info->displayName ?>
+            <div class="pull-right" style="background-color: white; padding: 0px 5px 2px; margin-top: -3px; border-radius: 2px;">
+                <?php echo $this->rating($comment->rating->average, 'compact') ?>
+            </div>
+        </div>
+        <div class="panel-body">
+            <?php echo $comment->message ?>
+        </div>
+    </div>
+<?php endforeach ?>
+    
+<?php else: ?>
+
+    <div class="alert alert-info"><p>
+        <?php echo $this->translate('There are no comments for this application yet. Be the first to comment by clicking the "Add new comment" button below!')?>
+    </p></div>
+    
+<?php endif ?>

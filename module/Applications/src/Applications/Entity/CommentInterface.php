@@ -11,6 +11,7 @@
 namespace Applications\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
+use Auth\Entity\UserInterface;
 
 /**
  * Application comment interface
@@ -19,6 +20,21 @@ use Core\Entity\IdentifiableEntityInterface;
  */
 interface CommentInterface extends IdentifiableEntityInterface
 {
+    
+    /**
+     * Sets the user
+     * 
+     * @param UserInterface $user
+     * @return CommentInterface
+     */
+    public function setUser(UserInterface $user);
+    
+    /**
+     * Gets the user
+     * 
+     * @return UserInterface
+     */
+    public function getUser();
     
     /**
      * Gets the comment message

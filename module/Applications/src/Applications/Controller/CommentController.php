@@ -14,6 +14,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Http\PhpEnvironment\Request as HttpRequest;
 use Applications\Entity\Comment;
+use Applications\Entity\Application;
+use Zend\Http\PhpEnvironment\Response;
+use Zend\View\Model\ViewModel;
 
 class CommentController extends AbstractActionController
 {
@@ -27,6 +30,19 @@ class CommentController extends AbstractActionController
         return parent::onDispatch($event);
     }
     
+    public function listAction()
+    {
+        $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        $applicationId = $this->params()->fromQuery('applicationId', 0);
+        $application = $repository->find($applicationId);
+        
+        $this->acl($application, 'read');
+        
+        return array(
+            'comments' => $application->comments,
+        );
+    }
+    
     public function formAction()
     {
         $services = $this->getServiceLocator();
@@ -34,23 +50,44 @@ class CommentController extends AbstractActionController
         
         $mode  = $this->params()->fromQuery('mode', 'new');
         $appId = $this->params()->fromQuery('id');
+
+        $viewModel = new ViewModel();
         
         if ('edit' == $mode) {
-            $comment = $repository->findComment($appId);
+            $application = $repository->findByCommentId($appId);
+            $comment = $application->getComment($appId);
         } else {
+            $application = $repository->find($appId);
             $comment = new Comment();
+            $comment->setUser($this->auth()->getUser());
         }
+        
+        $this->acl($application, 'read');
         
         $form = $services->get('forms')->get('Applications/CommentForm');
         $form->bind($comment);
         
-        return array(
+        if ($this->getRequest()->isPost()) {
+            $form->setData($_POST);
+            
+            if ($form->isValid()) {
+                $application->comments->add($comment);
+                $viewModel->setVariable('isSaved', true);
+            }
+            
+            
+        }
+       
+        $viewModel->setVariables(array(
             'mode' => $mode,
             'identifier' => $appId,
             'commentForm' => $form,
-        );
+        ));
+        return $viewModel;
         
     }
+    
+    
     
 }
 

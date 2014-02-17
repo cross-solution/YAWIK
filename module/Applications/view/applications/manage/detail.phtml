@@ -90,6 +90,12 @@
   </div>
   <div class="col-md-4">
         <div class="pull-right">
+          <button id="cam-applications-comments-toggle" class="btn btn-default"
+                    data-title="title"
+                    data-toggle="modal"
+                    data-target="#cam-application-comments"
+                    title="<?php echo $this->translate('View comments') ?>">
+               <span class="cam-icon-comment"></span></button>
           <button class="btn btn-default"
                     data-title="title"
                     data-toggle="modal"
@@ -149,6 +155,44 @@
     </div>
     
   </div>
+</div>
+
+<div id="cam-application-comments" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+     data-list-errormessage="<?php echo $this->translate('Error while loading comments.')?>"
+     data-list-url="<?php echo $this->url(
+                        'lang/applications/comments', array('action' => 'list'), 
+                        array('query' => array(
+                            'applicationId' => $this->application->id
+                        )), true
+                    )?>"
+     data-form-errormessage=<?php echo $this->translate('Error while loading comment form.')?>"
+     data-form-url="<?php echo $this->url(
+                        'lang/applications/comments', array('action' => 'form'),
+                        array('query' => array(
+                            'mode' => 'new',
+                            'id' => $this->application->id
+                        )), true
+                    )?>"`
+     data-mode="list"
+>
+  <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+        <h3><?php echo $this->translate('Comments') ?> <img class="hide" src="/images/loader.gif" /></h3>
+     </div>
+     <div id="cam-application-comments-body" class="modal-body">
+        <div class="cam-error hide"><p></p></div>
+     </div>
+     <div class="modal-footer">
+         <button id="cam-application-comments-cancelbtn" class="btn btn-default hide"><?php echo $this->translate('Cancel') ?></button>
+         <button id="cam-application-comments-savebtn" class="btn btn-primary hide"><?php echo $this->translate('Save') ?></button>
+         
+         <button id="cam-application-comments-addbtn" class="btn btn-primary" ><?php echo $this->translate('Add new comment') ?></button>
+         <button id="cam-application-comments-closebtn" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Close') ?></button>
+       
+     </div>
+   </div>
+ </div>
 </div>
 
 <div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -295,4 +339,6 @@
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
 <?php endif;?>
+
+
 

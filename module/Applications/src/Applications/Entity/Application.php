@@ -133,7 +133,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * Comments
      * 
      * @var Collection
-     * @ODM\EmbedMany(targetDocument="Rating")
+     * @ODM\EmbedMany(targetDocument="Comment")
      */
     protected $comments;
     

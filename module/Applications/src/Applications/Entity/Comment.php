@@ -11,6 +11,7 @@
 namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
+use Auth\Entity\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -21,6 +22,14 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Comment extends AbstractIdentifiableEntity implements CommentInterface
 {
+    
+    /**
+     * User this comment belongs to
+     * 
+     * @var UserInterface
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) 
+     */
+    protected $user;
     
     /**
      * Comment message
@@ -39,6 +48,27 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     protected $rating;
     
     /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\CommentInterface::getUser()
+     */
+    public function getUser ()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @{inheritDoc}
+     * 
+     * @return Comment
+     * @see \Applications\Entity\CommentInterface::setUser()
+     */
+	public function setUser (UserInterface $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+	/**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::getMessage()
      */

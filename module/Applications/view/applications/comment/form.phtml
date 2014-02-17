@@ -6,14 +6,17 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
-
+if ($this->isSaved) {
+    echo 'ok';
+    return;
+} 
 $this->commentForm->setAttribute(
     'action', 
     $this->url('lang/applications/comments', array(), true) 
     . '?mode=' . $this->mode . '&id=' . $this->identifier 
 );
 
-echo $this->form($this->commentForm)
+echo $this->form($this->commentForm);
 ?>
 
 
