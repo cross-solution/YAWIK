@@ -261,15 +261,20 @@ class IndexController extends AbstractActionController
                 if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
                     $userName = $realUserName[1];
                 }
+                $scheme = '';
                 $domain = '';
                 $uri = $this->getRequest()->getUri();
                 if (isset($uri)) {
+                    $scheme = $uri->getScheme();
                     $domain = $uri->getHost();
                 }
+                $viewHelperManager = $services->get('ViewHelperManager');
+                $basePath = $viewHelperManager->get('basePath')->__invoke();
                 $mail = $this->mail(array(
                     'Anrede'=>$userName, 
                     'password' => $password,
-                    'domain' => $domain
+                    'uri' => $scheme . '://' . $domain . $basePath
+                    //'url' => 
                     ));
                 $mail->template('first-login');
                 $mail->addTo($user->getInfo()->getEmail());
