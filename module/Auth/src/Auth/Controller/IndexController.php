@@ -209,6 +209,7 @@ class IndexController extends AbstractActionController
                 'pass' => 'passwordfromams1',
                 'appKey' => 'AmsAppKey',
                 'email' => 'weitz@cross-solution.de',
+                'role' => 'recruiter'
             ));
             $this->getRequest()->setPost($params);
         }
@@ -234,7 +235,7 @@ class IndexController extends AbstractActionController
             $resultMessage = $result->getMessages();
             $password = Null;
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-                $password = substr(uniqid(),0,6);
+                $password = substr(md5(uniqid()),0,6);
                 $updateParams['password'] = $password;
             }
             if (!empty($updateParams)) {
