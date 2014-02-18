@@ -257,10 +257,11 @@
   </div>
   <div class="col-md-6">
     <div class="col-md-12">
-      <div id="application-rating" class="pull-right">
+      <h2 class="text-right cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?>
+      <span id="application-rating" class="pull-right">
       <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
-      </div>
-      <h2 class="text-right cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></h2> 
+      </span>
+      </h2> 
       <div class="cam-callout-info col-md-12">
       <div class="row">
         <div class="col-md-6"><?= $this->translate('application for')?>:</div>

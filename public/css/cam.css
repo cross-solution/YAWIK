@@ -6088,6 +6088,9 @@ td.visible-print {
 .cam-table > tbody > tr:hover > th {
   background-color: #f5f5f5;
 }
+.cam-table th {
+  background-color: #efefef;
+}
 /**
 * Pagination
 */
@@ -6259,11 +6262,37 @@ td.cam-job {
 .cam-color-rejected {
   color: #d9534f;
 }
-.cam-job-title {
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  padding: 10px;
+.cam-callout-info {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
   background-color: #f5f5f5;
+  border-color: #e5e5e5;
+  color: #000000;
+}
+.cam-callout-info h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.cam-callout-info .alert-link {
+  font-weight: bold;
+}
+.cam-callout-info > p,
+.cam-callout-info > ul {
+  margin-bottom: 0;
+}
+.cam-callout-info > p + p {
+  margin-top: 5px;
+}
+.cam-callout-info hr {
+  border-top-color: #f7e1b5;
+}
+.cam-callout-info .alert-link {
+  color: #66512c;
 }
 /**
  * Cross Applicant Management
@@ -6466,6 +6495,9 @@ fieldset[disabled] .cam-btn-reset.active {
 }
 .cam-icon-portrait:before {
   content: "\e008";
+}
+.cam-icon-portrait:empty {
+  width: 1.12em;
 }
 .cam-icon-user {
   font-size: 12px;
@@ -6978,7 +7010,6 @@ fieldset[disabled] .cam-btn-reset.active {
   color: #333333;
   float: left;
   line-height: 1.1;
-  padding: 0 20px;
 }
 .br-widget.br-compact a {
   width: 10px;
@@ -7152,13 +7183,38 @@ h6 {
   max-height: 450px;
   overflow-y: auto;
 }
+.cam-input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.cam-input-group[class*="col-"] {
+  float: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.cam-input-group .form-control {
+  width: 100%;
+  margin-bottom: 0;
+}
 /**
  * toolbar on the main section
  */
 .cam-toolbar {
-  border: 1px solid #eeeeee;
   margin: 0 0 8px;
   padding: 0px;
+  min-height: 0px;
+}
+.cam-toolbar .cam-input-group {
+  max-width: 400px;
+  min-width: 250px;
+  float: left;
+}
+.cam-toolbar .cam-action-states {
+  max-width: 400px;
+  min-width: 100px;
+  margin-right: 4px;
+  float: left;
 }
 .cam-thumbnail {
   max-height: 50px;
