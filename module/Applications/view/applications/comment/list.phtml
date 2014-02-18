@@ -15,33 +15,39 @@
     $isOwnComment = $comment->user->id == $this->auth('id');
 ?>
 
-    <div class="panel panel-<?php echo $isOwnComment ? 'primary' : 'default' ?>">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-6">
-            <?php echo $comment->user->info->displayName ?><br>
-                <small><?php echo $this->dateFormat($comment->dateCreated); 
-                             if ($comment->dateModified) : echo ' (' . $this->dateFormat($comment->dateModified) . ')'; endif ?></small>
+                <div class="col-md-9">
+                <h4 style="margin: 2px 0 0;"><?php echo $comment->user->info->displayName ?></h4>
+                <div style="line-height: 10px; font-size: 10px">
+                <span class="cam-icon-new" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateCreated);?>
+                
+                <?php if ($comment->dateModified) : ?><span class="cam-icon-edit" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateModified); endif ?>
+                
+                </div> 
                 </div>
                 <div class="col-md-3">
-            
-                <?php if ($isOwnComment):?>
-                <button class="comment-edit pull-left btn btn-default" data-comment-id="<?php echo $comment->id ?>">
-                    <span class="cam-icon-edit"></span>
-                </button>
-                <?php endif?>
-                </div>
-                <div class="col-md-3">
-                <div style="background-color: white; padding: 4px 20px 5px; border-radius: 2px;">
-                <?php echo $this->rating($comment->rating->average, 'compact') ?>
+                <div class="pull-right panel panel-default" style="margin: 0">
+                    <div class="panel-body" style="padding: 5px 10px;">
+                
+                        <?php echo $this->rating($comment->rating->average, 'compact') ?>
+                    </div>
                 </div>
                 </div>
             </div>
             
         </div>
         <div class="panel-body">
+        <?php if ($isOwnComment):?>
+                <button class="pull-right comment-edit btn btn-default btn-xs" data-comment-id="<?php echo $comment->id ?>">
+                    <span class="cam-icon-edit"></span>
+                </button>
+                <?php endif?>
             <?php echo nl2br($comment->message) ?>
+            
         </div>
+        
     </div>
 <?php endforeach ?>
     
