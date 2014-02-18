@@ -13,6 +13,7 @@ namespace Applications\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Auth\Entity\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Entity\PreUpdateAwareInterface;
 
 /**
  * Application comment entity.
@@ -20,7 +21,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\EmbeddedDocument
  */
-class Comment extends AbstractIdentifiableEntity implements CommentInterface
+class Comment extends AbstractIdentifiableEntity implements CommentInterface, PreUpdateAwareInterface
 {
     
     /**
@@ -30,6 +31,22 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) 
      */
     protected $user;
+    
+    /**
+     * Created date
+     * 
+     * @var \DateTime
+     * @ODM\Field(type="tz_date")
+     */
+    protected $dateCreated;
+    
+    /**
+     * Modification date
+     * 
+     * @var \DateTime
+     * @ODM\Field(type="tz_date")
+     */
+    protected $dateModified;
     
     /**
      * Comment message
@@ -65,6 +82,28 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
 	public function setUser (UserInterface $user)
     {
         $this->user = $user;
+        return $this;
+    }
+
+	public function getDateCreated ()
+    {
+        return $this->dateCreated;
+    }
+
+	public function setDateCreated (\DateTime $date)
+    {
+        $this->dateCreated = $date;
+        return $this;
+    }
+
+	public function getDateModified ()
+    {
+        return $this->dateModified;
+    }
+
+	public function setDateModified (\DateTime $date)
+    {
+        $this->dateModified = $date;
         return $this;
     }
 
@@ -110,6 +149,14 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
         return $this;
     }
 
+    public function preUpdate($isNew = false)
+    {
+        if ($isNew) {
+            $this->setDateCreated(new \DateTime());
+        } else {
+            $this->setDateModified(new \DateTime());
+        }
+    }
     
     
 }

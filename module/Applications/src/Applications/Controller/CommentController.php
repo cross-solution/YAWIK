@@ -52,12 +52,10 @@ class CommentController extends AbstractActionController
         $appId = $this->params()->fromQuery('id');
 
         $viewModel = new ViewModel();
-        
         if ('edit' == $mode) {
-            $application = $repository->findByCommentId($appId);
-            $comment = $application->getComment($appId);
+            //$application = $repository->findByCommentId($appId);
+            $comment = $repository->findComment($appId);
         } else {
-            $application = $repository->find($appId);
             $comment = new Comment();
             $comment->setUser($this->auth()->getUser());
         }
@@ -71,7 +69,10 @@ class CommentController extends AbstractActionController
             $form->setData($_POST);
             
             if ($form->isValid()) {
-                $application->comments->add($comment);
+                if ('new' == $mode) {
+                    $application = $repository->find($appId);
+                    $application->comments->add($comment);
+                }
                 $viewModel->setVariable('isSaved', true);
             }
             

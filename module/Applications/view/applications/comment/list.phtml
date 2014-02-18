@@ -11,17 +11,36 @@
 
 <?php if (count($this->comments)): ?>
 
-<?php foreach($this->comments as $comment):?>
+<?php foreach($this->comments as $comment):
+    $isOwnComment = $comment->user->id == $this->auth('id');
+?>
 
-    <div class="panel panel-<?php echo $this->auth('id') == $comment->user->id ? 'primary' : 'default' ?>">
+    <div class="panel panel-<?php echo $isOwnComment ? 'primary' : 'default' ?>">
         <div class="panel-heading">
-            <?php echo $comment->user->info->displayName ?>
-            <div class="pull-right" style="background-color: white; padding: 0px 5px 2px; margin-top: -3px; border-radius: 2px;">
+            <div class="row">
+                <div class="col-md-6">
+            <?php echo $comment->user->info->displayName ?><br>
+                <small><?php echo $this->dateFormat($comment->dateCreated); 
+                             if ($comment->dateModified) : echo ' (' . $this->dateFormat($comment->dateModified) . ')'; endif ?></small>
+                </div>
+                <div class="col-md-3">
+            
+                <?php if ($isOwnComment):?>
+                <button class="comment-edit pull-left btn btn-default" data-comment-id="<?php echo $comment->id ?>">
+                    <span class="cam-icon-edit"></span>
+                </button>
+                <?php endif?>
+                </div>
+                <div class="col-md-3">
+                <div style="background-color: white; padding: 4px 20px 5px; border-radius: 2px;">
                 <?php echo $this->rating($comment->rating->average, 'compact') ?>
+                </div>
+                </div>
             </div>
+            
         </div>
         <div class="panel-body">
-            <?php echo $comment->message ?>
+            <?php echo nl2br($comment->message) ?>
         </div>
     </div>
 <?php endforeach ?>

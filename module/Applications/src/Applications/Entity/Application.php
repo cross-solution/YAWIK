@@ -138,6 +138,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $comments;
     
     /**
+     * Average rating from all comments.
+     * 
+     * @var int
+     */
+    protected $rating;
+    
+    /**
      * 
      * @var 
      * @ODM\EmbedOne(targetDocument="InternalReferences")
@@ -431,6 +438,20 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         $this->comments = $comments;
         return $this;
         
+    }
+    
+    public function getRating()
+    {
+        if (null === $this->rating) {
+            $sum = 0;
+            $count = 0;
+            foreach ($this->getComments() as $comment) {
+                $sum += $comment->getRating()->getAverage();
+                $count += 1;
+            }
+            $this->rating = 0 == $count ? 0 : round($sum / $count);
+        }
+        return $this->rating;
     }
     
 }

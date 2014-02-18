@@ -10,6 +10,7 @@ use Core\Paginator\Adapter\EntityList;
 use Applications\Entity\ApplicationInterface;
 use Doctrine\ODM\MongoDB\Events;
 use Applications\Entity\Application as ApplicationEntity;
+use Applications\Entity\CommentInterface;
 
 class Application extends AbstractRepository
 {   
@@ -30,6 +31,21 @@ class Application extends AbstractRepository
     }
     
 
+    public function findComment($commentOrId)
+    {
+        if ($commentOrId instanceOf CommentInterface) {
+            $commentOrId = $commentOrId->getId();
+        }
+        
+        $application = $this->findOneBy(array('comments.id' => $commentOrId));
+        foreach ($application->getComments() as $comment) {
+            if ($comment->getId() == $commentOrId) {
+                return $comment;
+            }
+        }
+        return null;
+            
+    }
     /**
      * @deprecated
      * @param unknown $jobId

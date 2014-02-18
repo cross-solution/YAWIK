@@ -90,12 +90,18 @@
   </div>
   <div class="col-md-4">
         <div class="pull-right">
+        <div class="btn-group">
           <button id="cam-applications-comments-toggle" class="btn btn-default"
                     data-title="title"
                     data-toggle="modal"
                     data-target="#cam-application-comments"
                     title="<?php echo $this->translate('View comments') ?>">
                <span class="cam-icon-comment"></span></button>
+          <button id="cam-applications-comments-quickadd" class="btn btn-default"
+                    data-title="title"
+                    title="<?php echo $this->translate('Add comment') ?>">
+           <span class="cam-icon-plus"></span></button>
+          </div>
           <button class="btn btn-default"
                     data-title="title"
                     data-toggle="modal"
@@ -157,7 +163,7 @@
   </div>
 </div>
 
-<div id="cam-application-comments" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+<div id="cam-application-comments" class="modal fade modal-scrollable" tabindex="-1" role="dialog" aria-hidden="true"
      data-list-errormessage="<?php echo $this->translate('Error while loading comments.')?>"
      data-list-url="<?php echo $this->url(
                         'lang/applications/comments', array('action' => 'list'), 
@@ -168,16 +174,14 @@
      data-form-errormessage=<?php echo $this->translate('Error while loading comment form.')?>"
      data-form-url="<?php echo $this->url(
                         'lang/applications/comments', array('action' => 'form'),
-                        array('query' => array(
-                            'mode' => 'new',
-                            'id' => $this->application->id
-                        )), true
-                    )?>"`
+                         true)?>"
+     data-application-id="<?php echo $this->application->id ?>"`
      data-mode="list"
 >
   <div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3><?php echo $this->translate('Comments') ?> <img class="hide" src="/images/loader.gif" /></h3>
      </div>
      <div id="cam-application-comments-body" class="modal-body">
@@ -261,8 +265,8 @@
   </div>
   <div class="col-md-6">
     <div class="col-md-12">
-      <div class="pull-right">
-      <?php echo $this->rating(2);//$this->application->getRating()) ?>
+      <div id="application-rating" class="pull-right">
+      <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
       </div>
       <p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
       <div class="row">

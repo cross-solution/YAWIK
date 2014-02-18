@@ -77,9 +77,10 @@
 				$dialog.find('#cam-application-comments-addbtn').addClass('hide');
 				//$dialog.find('#cam-application-comments-closebtn').addClass('hide');
 			}
-			
+			console.debug(!$dialog.data('modal'));
 			if (!$dialog.data('modal') || !$dialog.data('modal').isShown) {
-				$dialog.show();
+				console.debug('Hier');
+				$dialog.modal('show');
 			}
 		};
 		
@@ -107,7 +108,11 @@
 			
 			
 			$.get(href)
-			 .done(function(data) { replaceContent(data); forceListReload=false; })
+			 .done(function(data) { 
+				 replaceContent(data); 
+				 forceListReload=false; 
+				 $dialog.find('.modal-body button.comment-edit').click(loadForm);
+			 })
 			 .fail(function() { 
 				 replaceContent($dialog.data('list-errormessage'), true);
 			 });
@@ -123,6 +128,12 @@
 			$loader.removeClass('hide');
 			
 			var href = $dialog.data('form-url');
+			var $target = $(event.target);
+			if ($target.data('comment-id')) {
+				href += '?mode=edit&id=' + $target.data('comment-id');
+			} else {
+				href += '?mode=new&id=' + $dialog.data('application-id');
+			}
 			
 			$.get(href)
 			 .done(function(data) {
@@ -138,7 +149,17 @@
 			$form = $('#application-comment-form');
 			console.debug($form.attr('action'));
 			$.post($form.attr('action'), $form.serialize())
-			 .done(function(data) { if ('ok' == data) { loadList(); } else { replaceContent(data);$dialog.find('.modal-body .rating').barrating(); }})
+			 .done(function(data) { 
+				 if ('ok' == data) { 
+					 loadList();
+					 $('#application-rating').load(basePath + '/' + lang + '/applications/'
+							                       + $dialog.data('application-id') 
+							                       + '?do=refresh-rating');
+				 } else { 
+					 replaceContent(data);
+					 $dialog.find('.modal-body .rating').barrating(); 
+				 }
+			 })
 			 .fail(function() { replaceContent($dialog.data('form-errormessage'), true); });
 			
 		}
@@ -147,7 +168,7 @@
 		$loader = $dialog.find('.modal-header h3 img');
 		
 		$('#cam-applications-comments-toggle, #cam-application-comments-cancelbtn').click(loadList);
-		$('#cam-application-comments-addbtn').click(loadForm);
+		$('#cam-application-comments-addbtn, #cam-applications-comments-quickadd' ).click(loadForm);
 		$('#cam-application-comments-savebtn').click(submitForm);
 		
 	};
