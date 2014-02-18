@@ -30,7 +30,7 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
      * {@inheritDoc}
      * @see \Core\Entity\RatingInterface::getAverage()
      */
-    public function getAverage($recalculate = false)
+    public function getAverage($includeNoneRating = false, $recalculate = false)
     {
         if ($this->_average && !$recalculate) {
             return $this->_average;
@@ -44,7 +44,8 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
             }
             
             $rating = $this->$method();
-            if (!$this->checkRatingValue($rating, /*throwException*/ false)) {
+            if (!$this->checkRatingValue($rating, /*throwException*/ false)
+                || (!$includeNoneRating && $rating == static::RATING_NONE)) {
                 continue;
             }
             
@@ -52,7 +53,7 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
             $count += 1;
         }
         
-        $average = round($sum / $count);
+        $average = 0 == $count ? 0 : round($sum / $count);
         $this->_average = $average;
         
         return $average; 
