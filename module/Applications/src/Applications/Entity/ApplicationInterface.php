@@ -46,4 +46,19 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function isUnreadBy($userOrId);
     public function isReadBy($userOrId);
     
+    /**
+     * Gets all comments for the application.
+     * 
+     * @return Collection
+     */
+    public function getComments();
+    
+    /**
+     * Sets comment collection for the application.
+     * 
+     * @param Collection $comments
+     * @return ApplicationInterface
+     */
+    public function setComments(Collection $comments);
+    
 }

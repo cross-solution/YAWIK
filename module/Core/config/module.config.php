@@ -258,12 +258,16 @@ return array(
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
             'link'   => 'Core\View\Helper\Link',
+            'rating' => 'Core\View\Helper\Rating',
             'base64' => 'Core\View\Helper\Base64',
             'insertFile' => 'Core\View\Helper\InsertFile',
             
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
+        ),
+        'initializers' => array(
+            '\Core\View\Helper\Service\HeadScriptInitializer',
         ),
     ),
     
@@ -279,6 +283,8 @@ return array(
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core\FileCollection' => 'Core\Form\FileCollection',
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
+            'Core/RatingFieldset' => 'Core\Form\RatingFieldset',
+            'Core/Rating' => 'Core\Form\Element\Rating',
         ),
     ),
     

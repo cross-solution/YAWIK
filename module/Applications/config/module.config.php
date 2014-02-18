@@ -53,6 +53,7 @@ return array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
+            'Applications/CommentController' => 'Applications\Controller\CommentController',
         ),
     ),
     
@@ -134,6 +135,15 @@ return array(
                                     ),
                                 ),
                             ),
+                            'comments' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/comments/:action',
+                                    'defaults' => array(
+                                        'controller' => 'Applications/CommentController',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                 ),
@@ -202,6 +212,12 @@ return array(
         )
     ),
     'view_helpers' => array(
+        
+    ),
+    
+    
+    'view_inject_headscript' => array(
+        'lang/applications' => 'Core/js/jquery.barrating.min.js',
     ),
     'form_elements' => array(
         'invokables' => array(
@@ -214,6 +230,8 @@ return array(
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
              'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
+             'Applications/CommentForm' => 'Applications\Form\CommentForm',
+             'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
          ),
         'factories' => array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',

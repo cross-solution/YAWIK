@@ -16,6 +16,8 @@ use Zend\View\Model\JsonModel;
 use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
+use Applications\Entity\Comment;
+use Applications\Entity\Rating;
 
 /**
  * Action Controller for managing applications.
@@ -103,6 +105,10 @@ class ManageController extends AbstractActionController
      */
     public function detailAction(){
 
+        if ('refresh-rating' == $this->params()->fromQuery('do')) {
+            return $this->refreshRatingAction();
+        }
+        
         $nav = $this->getServiceLocator()->get('main_navigation');
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
@@ -140,9 +146,26 @@ class ManageController extends AbstractActionController
             default:
                 break;
         }
+        
         return $return;
     }
     
+    public function refreshRatingAction()
+    {
+        $model = new ViewModel();
+        $model->setTemplate('applications/manage/_rating');
+        
+        $application = $this->getServiceLocator()->get('repositories')->get('Applications/Application')
+                        ->find($this->params('id', 0));
+        
+        if (!$application) {
+            throw new \DomainException('Invalid application id.');
+        }
+        
+        $model->setVariable('application', $application);
+        return $model;
+    }
+
     /**
      * change status of an application
      * 

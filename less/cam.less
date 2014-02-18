@@ -4,6 +4,7 @@
 @import "general.less";
 @import "include/icons.less";
 @import "include/panel.less";
+@import "include/rating.less";
 
 // the default values of the bootstrap global variables are defined in bootstrap/variables.less.
 // you can overwrite them here. 
@@ -82,6 +83,16 @@ h5 {
 }
 h6 {
   font-size: 16px;
+}
+
+/*
+ * Scrollable modal
+ */
+.modal-scrollable {
+	.modal-body {
+		max-height: 450px;
+		overflow-y: auto;
+	}
 }
 
 /**
