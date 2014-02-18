@@ -82,8 +82,7 @@ class ConsoleController extends AbstractActionController {
         foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
             $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
         }
-        
-        
+                
         echo "Generate keywords for $count applications ...\n";
         
         $progress     = new ProgressBar(

@@ -11,7 +11,7 @@
 <div class="cam-panel">
 <div class="cam-panel-head">
 <h2>
- <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>">
+ <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
   <?php echo $this->translate('Current Applications')?>
  </a>
  <small>
@@ -42,7 +42,7 @@
       <td>
         <div class="portrait">
           <?php if ($app->contact->image):?>
-            <img src="/file/applications/<?php echo $app->contact->image->id ?>" />
+            <img src="<?php echo $this->basePath($app->contact->image->uri) ?>" />
           <?php else:?>
             <span class="cam-icon-portrait"></span>
           <?php endif?>

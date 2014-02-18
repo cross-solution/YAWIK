@@ -185,7 +185,12 @@ class IndexController extends AbstractActionController
         
         $appRepo = $services->get('repositories')->get('Applications/Application');
          
-        $paginator = $this->paginator('Applications/Application');
+         //default sorting
+        if (!isset($params['sort'])) {
+            $params['sort']="-date";
+        }
+        
+        $paginator = $this->paginator('Applications/Application',$params);
      
         return array(
             'script' => 'applications/index/dashboard',

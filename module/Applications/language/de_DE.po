@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-12 13:41+0100\n"
-"PO-Revision-Date: 2014-02-12 13:43+0100\n"
+"POT-Creation-Date: 2014-02-18 09:49+0100\n"
+"PO-Revision-Date: 2014-02-18 09:50+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
@@ -13,6 +13,10 @@ msgstr ""
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: Germany\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+#: view/applications/comment/list.phtml:32
+msgid "There are no comments for this application yet. Be the first to comment by clicking the \"Add new comment\" button below!"
+msgstr "Für diese Bewerbung gint es noch keine Notizen. Um eine neue Notiz anzulegen, klicken Sie auf den Button \"Notiz hinzufügen\"."
 
 #: view/applications/index/index.phtml:10
 msgid "Apply"
@@ -39,27 +43,22 @@ msgstr "Ihre Bewerbung wurde erfolgreich gespeichert"
 msgid "Privacy Policy"
 msgstr "Datenschutzbestimmung"
 
-#: view/applications/index/dashboard.phtml:22
+#: view/applications/index/dashboard.phtml:15
 msgid "Current Applications"
 msgstr "Aktuelle Bewerbungen"
 
-#: view/applications/index/dashboard.phtml:29
-#, php-format
-msgid "%1$s new from %2$s total applications"
-msgstr "%1$s neue von insgesamt %2$s  Bewerbungen"
-
-#: view/applications/index/dashboard.phtml:41
+#: view/applications/index/dashboard.phtml:35
 #: language/_annotated_strings.php:3
 msgid "Applicant"
 msgstr "Bewerber"
 
-#: view/applications/index/dashboard.phtml:42
+#: view/applications/index/dashboard.phtml:36
 #: language/_annotated_strings.php:12
 msgid "Job"
 msgstr "Stellenanzeige"
 
-#: view/applications/index/dashboard.phtml:43
-#: view/applications/manage/detail.phtml:165
+#: view/applications/index/dashboard.phtml:37
+#: view/applications/manage/detail.phtml:206
 msgid "Date"
 msgstr "Datum"
 
@@ -76,21 +75,20 @@ msgstr "für alle Ihre Anzeigen"
 msgid "List of all applications"
 msgstr "Übersicht aller Bewerbungen"
 
+#: view/applications/manage/index.phtml:31
 #: view/applications/manage/index.phtml:33
-#: view/applications/manage/index.phtml:35
 msgid "search applications"
 msgstr "Bewerbungen durchsuchen"
 
-#: view/applications/manage/index.phtml:34
+#: view/applications/manage/index.phtml:32
 msgid "search forn names and locations"
 msgstr "nach Namen und Städten suchen"
 
-#: view/applications/manage/index.phtml:37
+#: view/applications/manage/index.phtml:35
 msgid "Search"
 msgstr "Suchen"
 
 #: view/applications/manage/index.ajax.phtml:76
-#, fuzzy
 msgid "education"
 msgstr "Ausbildung"
 
@@ -100,7 +98,7 @@ msgid "years"
 msgstr "Jahre"
 
 #: view/applications/manage/index.ajax.phtml:79
-#: view/applications/manage/detail.phtml:251
+#: view/applications/manage/detail.phtml:296
 #: view/applications/manage/detail.pdf.phtml:106
 msgid "work experience"
 msgstr "Berufserfahrung"
@@ -118,33 +116,33 @@ msgstr "bearbeiten"
 msgid "Details"
 msgstr "Details"
 
-#: view/applications/manage/detail.phtml:15
+#: view/applications/manage/detail.phtml:16
 #: view/applications/manage/detail.pdf.phtml:60
 msgid "application details"
 msgstr "Details der Bewerbung"
 
-#: view/applications/manage/detail.phtml:31
+#: view/applications/manage/detail.phtml:32
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: view/applications/manage/detail.phtml:32
+#: view/applications/manage/detail.phtml:33
 msgid "Confirm the receipt"
 msgstr "Den Empfang bestätigen"
 
-#: view/applications/manage/detail.phtml:40
+#: view/applications/manage/detail.phtml:41
 msgid "Invite"
 msgstr "Einladen"
 
-#: view/applications/manage/detail.phtml:41
-#: view/applications/manage/detail.phtml:119
+#: view/applications/manage/detail.phtml:42
+#: view/applications/manage/detail.phtml:122
 msgid "Invite the applicant"
 msgstr "Den Bewerber einladen"
 
-#: view/applications/manage/detail.phtml:49
+#: view/applications/manage/detail.phtml:50
 msgid "Reject"
 msgstr "Ablehnen"
 
-#: view/applications/manage/detail.phtml:50
+#: view/applications/manage/detail.phtml:51
 msgid "Reject the applicant"
 msgstr "Den Bewerber ablehnen"
 
@@ -160,109 +158,142 @@ msgstr "Diese Bewerbung wird an die eingegebene E-Mail Adresse inclusive dere An
 msgid "Forward"
 msgstr "Weiterleiten"
 
-#: view/applications/manage/detail.phtml:95
-#: view/applications/manage/detail.phtml:158
+#: view/applications/manage/detail.phtml:93
+msgid "View comments"
+msgstr "Notizen ansehen"
+
+#: view/applications/manage/detail.phtml:99
+#: view/applications/manage/detail.phtml:199
 msgid "State history"
 msgstr "Statusverlauf"
 
-#: view/applications/manage/detail.phtml:99
+#: view/applications/manage/detail.phtml:103
 msgid "download as PDF"
 msgstr "als PDF runterladen"
 
-#: view/applications/manage/detail.phtml:106
-#: view/applications/manage/detail.phtml:145
+#: view/applications/manage/detail.phtml:110
+#: view/applications/manage/detail.phtml:148
 msgid "Delete application"
 msgstr "Bewerbung löschen"
 
-#: view/applications/manage/detail.phtml:124
-#: view/applications/manage/detail.phtml:143
+#: view/applications/manage/detail.phtml:127
+#: view/applications/manage/detail.phtml:146
+#: view/applications/manage/detail.phtml:182
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: view/applications/manage/detail.phtml:125
+#: view/applications/manage/detail.phtml:128
 msgid "Send mail"
 msgstr "Mail senden"
 
-#: view/applications/manage/detail.phtml:136
+#: view/applications/manage/detail.phtml:139
 msgid "Delete Application"
 msgstr "Bewerbung löschen"
 
-#: view/applications/manage/detail.phtml:140
+#: view/applications/manage/detail.phtml:143
 msgid "Are you sure you want to delete this application?"
 msgstr "Sind Sie sicher, dass Sie diese Bewerbung löschen wollen?"
 
-#: view/applications/manage/detail.phtml:144
+#: view/applications/manage/detail.phtml:147
 msgid "delete this application"
 msgstr "diese Bewerbung löschen"
 
-#: view/applications/manage/detail.phtml:166
+#: view/applications/manage/detail.phtml:156
+msgid "Error while loading comments."
+msgstr "Fehler beim Laden der Notiz."
+
+#: view/applications/manage/detail.phtml:163
+msgid "Error while loading comment form."
+msgstr "Fehler beim Laden des Notiz Formulars"
+
+#: view/applications/manage/detail.phtml:176
+msgid "Comments"
+msgstr "Notizen"
+
+#: view/applications/manage/detail.phtml:183
+msgid "Save"
+msgstr "Speichern"
+
+#: view/applications/manage/detail.phtml:185
+msgid "Add new comment"
+msgstr "Notiz hinzufügen"
+
+#: view/applications/manage/detail.phtml:186
+msgid "Close"
+msgstr "Schießen"
+
+#: view/applications/manage/detail.phtml:207
 msgid "State"
 msgstr "Status"
 
-#: view/applications/manage/detail.phtml:167
+#: view/applications/manage/detail.phtml:208
 msgid "Comment"
 msgstr "Kommentar"
 
 # obsolet
-#: view/applications/manage/detail.phtml:190
+#: view/applications/manage/detail.phtml:227
 #: view/applications/manage/detail.pdf.phtml:61
 msgid "personal information"
 msgstr "Angaben zur Person"
 
-#: view/applications/manage/detail.phtml:220
+#: view/applications/manage/detail.phtml:261
+msgid "application for"
+msgstr "Bewerbung auf"
+
+#: view/applications/manage/detail.phtml:265
 msgid "date of receipt"
 msgstr "Eingangsdatum"
 
-#: view/applications/manage/detail.phtml:225
+#: view/applications/manage/detail.phtml:271
 msgid "last modification date"
 msgstr "letztes Änderungsdatum"
 
-#: view/applications/manage/detail.phtml:230
+#: view/applications/manage/detail.phtml:277
 #: view/applications/manage/detail.pdf.phtml:150
 #: src/Applications/Form/AttachmentsCollectionFactory.php:36
 #: language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr "Anhänge"
 
-#: view/applications/manage/detail.phtml:243
+#: view/applications/manage/detail.phtml:291
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:72
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: view/applications/manage/detail.phtml:254
-#: view/applications/manage/detail.phtml:272
+#: view/applications/manage/detail.phtml:299
+#: view/applications/manage/detail.phtml:317
 #: view/applications/manage/detail.pdf.phtml:109
 #: view/applications/manage/detail.pdf.phtml:127
 msgid "Start"
 msgstr "Beginn"
 
-#: view/applications/manage/detail.phtml:255
-#: view/applications/manage/detail.phtml:273
+#: view/applications/manage/detail.phtml:300
+#: view/applications/manage/detail.phtml:318
 #: view/applications/manage/detail.pdf.phtml:110
 #: view/applications/manage/detail.pdf.phtml:128
 msgid "End"
 msgstr "Ende"
 
-#: view/applications/manage/detail.phtml:256
-#: view/applications/manage/detail.phtml:274
+#: view/applications/manage/detail.phtml:301
+#: view/applications/manage/detail.phtml:319
 #: view/applications/manage/detail.pdf.phtml:111
 #: view/applications/manage/detail.pdf.phtml:129
 msgid "Description"
 msgstr "Beschreibung"
 
-#: view/applications/manage/detail.phtml:269
+#: view/applications/manage/detail.phtml:314
 #: view/applications/manage/detail.pdf.phtml:124
 msgid "education and training"
 msgstr "Schul- und Berufsbildung"
 
-#: view/applications/manage/detail.phtml:287
+#: view/applications/manage/detail.phtml:332
 #: view/applications/manage/detail.pdf.phtml:142
 msgid "personal skills"
 msgstr "persönliche Fähigkeiten"
 
-#: view/applications/manage/detail.phtml:289
+#: view/applications/manage/detail.phtml:334
 #: view/applications/manage/detail.pdf.phtml:144
 msgid "native language"
 msgstr "Muttersprache"
@@ -324,30 +355,25 @@ msgid "personal informations"
 msgstr "Angaben zur Person"
 
 #: src/Applications/Form/CreateApplication.php:111
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:69
 msgid "send application"
 msgstr "Bewerbung versenden"
-
-#: src/Applications/Form/SettingsApplicationformFieldset.php:25
-#: language/_annotated_strings.php:69
-msgid "applicationform"
-msgstr "Bewerbungsformular"
 
 #: src/Applications/Form/AttachmentsFieldset.php:22
 msgid "Attachment"
 msgstr "Anhang"
 
-#: src/Applications/Controller/ManageController.php:221
+#: src/Applications/Controller/ManageController.php:224
 #, php-format
 msgid "Your application dated %s"
 msgstr "Ihre Bewerbung vom %s"
 
-#: src/Applications/Controller/ManageController.php:268
+#: src/Applications/Controller/ManageController.php:271
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Bewerbung wurde weitergeleitet an %s"
 
-#: src/Applications/Controller/ManageController.php:283
+#: src/Applications/Controller/ManageController.php:286
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Weiterleitung der Bewerbung an  %s fehlgeschlagen."
@@ -372,7 +398,6 @@ msgid "Career"
 msgstr "Karriere"
 
 #: language/_annotated_strings.php:15
-#, fuzzy
 msgid "Status"
 msgstr "Status"
 
@@ -436,33 +461,21 @@ msgstr "sende alle Mails in Kopie (BCC) an"
 msgid "if checked, you'll get a copy of all mails you send."
 msgstr "Klicken, um alle Mails in Kopie zu erhalten."
 
-#: language/_annotated_strings.php:72
-msgid "Hide Summary"
-msgstr "Zusammenfassung ausblenden"
+#: language/_annotated_strings.php:66
+msgid "Comment message"
+msgstr "Bemerkung"
 
 #: language/_annotated_strings.php:75
-msgid "Hide Education history"
-msgstr "Ausbildungsverlauf ausblenden"
-
-#: language/_annotated_strings.php:78
-msgid "Hide Employment history"
-msgstr "Berufliche Erfahrung ausblenden"
-
-#: language/_annotated_strings.php:81
-msgid "Hide Skills"
-msgstr "Persönliche Fähigkeiten ausblenden"
-
-#: language/_annotated_strings.php:87
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Bewerbung auf \"%s\" vom %s"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:78
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Neue Bewerbung für Ihre Anzeige \"%s\""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:81
 msgid ""
 "Hello ##name##,\\n"
 "\\n"
@@ -476,7 +489,7 @@ msgstr ""
 "\\\"##title##\\\"\\n"
 "\\n"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:84
 msgid "Overview"
 msgstr "Überblick"
 
@@ -495,6 +508,21 @@ msgstr "abgesagt"
 #: language/additional_translation.phtml:6
 msgid "confirmed"
 msgstr "bestätigt"
+
+#~ msgid "%1$s new from %2$s total applications"
+#~ msgstr "%1$s neue von insgesamt %2$s  Bewerbungen"
+
+#~ msgid "Hide Summary"
+#~ msgstr "Zusammenfassung ausblenden"
+
+#~ msgid "Hide Education history"
+#~ msgstr "Ausbildungsverlauf ausblenden"
+
+#~ msgid "Hide Employment history"
+#~ msgstr "Berufliche Erfahrung ausblenden"
+
+#~ msgid "Hide Skills"
+#~ msgstr "Persönliche Fähigkeiten ausblenden"
 
 #~ msgid "delete"
 #~ msgstr "löschen"

@@ -24,7 +24,7 @@ if ('-' == $this->sort{0}) {
     $sortDir = true;
 }
 
-echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
+echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
 ?>
 <table class="cam-table" id="cam-application-list">
 <thead>
@@ -56,7 +56,7 @@ echo $this->paginationControl($applications, 'Sliding', 'pagination-control', ar
 
 <tbody>
 <?php 
-foreach ($applications as $application):
+foreach ($this->applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
@@ -110,4 +110,4 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
 </tbody>
 
 </table>
-<?php echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
+<?php echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>

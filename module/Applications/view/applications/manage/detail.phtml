@@ -14,7 +14,7 @@
       $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 ?>
 <h1><?= $this->translate('application details') ?></h1>
-<?php echo $this->form($this->commentForm) ?>
+<?php #echo $this->form($this->commentForm) ?>
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
@@ -226,14 +226,11 @@
     </div>
   </div>
 </div>
-
-<p class="cam-job-title"><?php echo $this->link($this->application->job->link, $this->application->job->title)?></p>
-
 <div class="row">
   <div class="col-md-6">
-    <div class="col-md-12">
       <h2><?= $this->translate('personal information')?></h2>
-        <div class="col-md-4">
+      <div class="cam-callout-info col-md-12">
+        <div class="col-md-3">
           <div class="cam-portrait ">
           <?php if ($this->application->contact->image):?>
           <img src="<?php echo $this->basePath($this->application->contact->image->uri) ?>" class="img-thumbnail"/>
@@ -242,7 +239,7 @@
           <?php endif?>
           </div>    
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
         <adress>
         <strong><?php echo $this->application->contact->displayName ?></strong><br> 
         <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
@@ -256,22 +253,29 @@
         <?php endif?>
         </adress>
       </div>
-    </div>
+      </div>
   </div>
   <div class="col-md-6">
     <div class="col-md-12">
       <div id="application-rating" class="pull-right">
       <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
       </div>
-      <p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
+      <h2 class="text-right cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></h2> 
+      <div class="cam-callout-info col-md-12">
+      <div class="row">
+        <div class="col-md-6"><?= $this->translate('application for')?>:</div>
+        <div class="col-md-6"><?php echo $this->link($this->application->job->link, $this->application->job->title)?></div>
+      </div>
       <div class="row">
         <div class="col-md-6"><?= $this->translate('date of receipt')?>:</div>
         <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
       </div>
+      
       <?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp()):?>
       <div class="row">
         <div class="col-md-6"><?= $this->translate('last modification date')?>:</div>
         <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
+      </div>
       </div>
       <?php endif;?>
       <?php if(count($this->application->attachments)>0):?>
@@ -284,20 +288,18 @@
         </div>
       <?php endforeach; // attachments?>
       <?php endif;?>
-    </div>
+    
   </div>
 </div>
 
-<h2><?=$this->translate('Summary')?></h2>
-<div class="row">
-<div class="col-md-12">
-<?php echo nl2br($this->application->summary) ?>
-</div>
-</div>
+ <div class="col-md-12">
+  <h2><?=$this->translate('Summary')?></h2>
+  <?php echo nl2br($this->application->summary) ?>
+ </div>
 
 <?php if(count($this->application->cv->employments)>0):?>
 <h2><?= $this->translate('work experience')?></h2>
-<table class="table  table-condensed table-bordered "> 
+<table class="table table-condensed table-bordered "> 
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
  <th class="col-md-1"><?=$this->translate('End')?></th>
