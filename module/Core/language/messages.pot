@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 15:16+0100\n"
+"POT-Creation-Date: 2014-02-19 09:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,27 +175,51 @@ msgid "Reset filter"
 msgstr ""
 
 #: language/_annotated_strings.php:15
+msgid "Not Rated"
+msgstr ""
+
+#: language/_annotated_strings.php:18
+msgid "Poor"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Bad"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid "Average"
+msgstr ""
+
+#: language/_annotated_strings.php:27
+msgid "Good"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "Excellent"
+msgstr ""
+
+#: language/_annotated_strings.php:33
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr ""
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:36
 msgid "choose your language"
 msgstr ""
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:39
 msgid "English"
 msgstr ""
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:42
 msgid "French"
 msgstr ""
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:45
 msgid "German"
 msgstr ""
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:48
 msgid "defines the languages of this frontend."
 msgstr ""
