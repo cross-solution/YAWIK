@@ -85,7 +85,7 @@ class Employment extends AbstractIdentifiableEntity
     
     public function setOrganizationName($value)
     {
-    	$this->description = $value;
+    	$this->organizationName = $value;
     	return $this;
     }
     
