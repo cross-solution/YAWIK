@@ -23,7 +23,7 @@ class Rating extends AbstractHelper {
      * @var array
      */
     protected static $ratingValueMap = array(
-        RatingInterface::RATING_NONE      => 'Not rated',
+        RatingInterface::RATING_NONE      => 'Not Rated',
         RatingInterface::RATING_POOR      => 'Poor',
         RatingInterface::RATING_BAD       => 'Bad',
         RatingInterface::RATING_AVERAGE   => 'Average',

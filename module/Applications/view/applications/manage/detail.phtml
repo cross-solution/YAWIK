@@ -204,7 +204,7 @@
         </h3>
       </div>
       <div class="modal-body">
-        <table class="table table-striped table-bordered">
+        <table class="cam-table">
         <thead>
             <tr>
                 <th><?php echo $this->translate('Date') ?></th>
@@ -256,7 +256,6 @@
       </div>
   </div>
   <div class="col-md-6">
-    <div class="col-md-12">
       <h2 class="text-right cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?>
       <span id="application-rating" class="pull-right">
       <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
@@ -277,7 +276,6 @@
         <div class="col-md-6"><?= $this->translate('last modification date')?>:</div>
         <div class="col-md-6"><?=  strftime('%x %X', $application->dateModified->getTimestamp()); ?></div>
       </div>
-      </div>
       <?php endif;?>
       <?php if(count($this->application->attachments)>0):?>
       <h2><?= $this->translate('Attachments')?></h2>
@@ -289,7 +287,7 @@
         </div>
       <?php endforeach; // attachments?>
       <?php endif;?>
-    
+      </div>
   </div>
 </div>
 
@@ -299,29 +297,37 @@
  </div>
 
 <?php if(count($this->application->cv->employments)>0):?>
+<div class="col-md-12">
 <h2><?= $this->translate('work experience')?></h2>
-<table class="table table-condensed table-bordered "> 
+<table class="cam-table">
+<thead>
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
  <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th class="col-md-3"><?=$this->translate('Company')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
+</thead>
 <?php foreach( $this->application->cv->employments as $employment): ?>
 <tr>
  <td><?= $employment->startDate ?></td>
  <td><?= $employment->endDate ?></td>
+ <td><?= $employment->organizationName ?></td>
  <td><?=  $employment->description ?></td>
 </tr>
 <?php endforeach; // employments?>
 </table>
+</div>
 <?php endif;?> 
 
 <?php if(count($this->application->cv->educations)>0):?>
+<div class="col-md-12">
 <h2><?= $this->translate('education and training')?></h2>
-<table class="table table-condensed table-bordered "> 
+<table class="cam-table"> 
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
  <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th class="col-md-1"><?=$this->translate('University')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
@@ -332,6 +338,7 @@
   </tr>
 <?php endforeach; // eucations?>    
 </table>
+</div>
 <?php endif;?> 
 
 <?php if(count($this->application->cv->skills)>0):?>

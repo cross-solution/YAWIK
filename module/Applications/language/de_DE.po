@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-18 09:49+0100\n"
-"PO-Revision-Date: 2014-02-18 09:50+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"PO-Revision-Date: 2014-02-19 09:26+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: view/applications/comment/list.phtml:32
 msgid "There are no comments for this application yet. Be the first to comment by clicking the \"Add new comment\" button below!"
-msgstr "Für diese Bewerbung gint es noch keine Notizen. Um eine neue Notiz anzulegen, klicken Sie auf den Button \"Notiz hinzufügen\"."
+msgstr "Für diese Bewerbung gibt es noch keine Notizen. Um eine neue Notiz anzulegen, klicken Sie auf den Button \"Notiz hinzufügen\"."
 
 #: view/applications/index/index.phtml:10
 msgid "Apply"
@@ -220,7 +220,7 @@ msgstr "Notiz hinzufügen"
 
 #: view/applications/manage/detail.phtml:186
 msgid "Close"
-msgstr "Schießen"
+msgstr "Schließen"
 
 #: view/applications/manage/detail.phtml:207
 msgid "State"

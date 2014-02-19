@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 15:16+0100\n"
-"PO-Revision-Date: 2014-02-03 15:27+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
+"POT-Creation-Date: 2014-02-19 09:27+0100\n"
+"PO-Revision-Date: 2014-02-19 09:32+0100\n"
+"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
-msgstr ""
+msgstr "Wird geladen"
 
 #: view/form/privacy.phtml:4
 #: view/form/privacy.phtml:13
@@ -190,26 +190,50 @@ msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
 #: language/_annotated_strings.php:15
+msgid "Not Rated"
+msgstr "Nicht bewertet"
+
+#: language/_annotated_strings.php:18
+msgid "Poor"
+msgstr "Miserabel"
+
+#: language/_annotated_strings.php:21
+msgid "Bad"
+msgstr "Schlecht"
+
+#: language/_annotated_strings.php:24
+msgid "Average"
+msgstr "Durchschnittlich"
+
+#: language/_annotated_strings.php:27
+msgid "Good"
+msgstr "Gut"
+
+#: language/_annotated_strings.php:30
+msgid "Excellent"
+msgstr "Überragend"
+
+#: language/_annotated_strings.php:33
 msgid "Please enter a phone Number. You can use the intenational format. Only digits and '+'."
 msgstr "Bitte geben Die eine Telefonnummer ein. Sie können das internationale Format verwenden. Erlaubt sind Ziffern und \"+\"."
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:36
 msgid "choose your language"
 msgstr "wählen Sie Ihre Sparche"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:39
 msgid "English"
 msgstr "Englisch"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:42
 msgid "French"
 msgstr "Französisch"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:45
 msgid "German"
 msgstr "Deutsch"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:48
 msgid "defines the languages of this frontend."
 msgstr "Sprache dieses Frontends"
 

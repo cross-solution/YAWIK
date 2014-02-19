@@ -28,7 +28,9 @@ class PreUpdateDocumentsSubscriber implements EventSubscriber
             return;
         }
         
-        if (false !== $document->preUpdate($prePersist) && !$prePersist) {
+        $document->preUpdate($prePersist);
+        
+        if (!$prePersist) {
             $dm         = $eventArgs->getDocumentManager();
             $uow       = $dm->getUnitOfWork();
             $uow->recomputeSingleDocumentChangeSet($dm->getClassMetadata(get_class($document)), $document);
