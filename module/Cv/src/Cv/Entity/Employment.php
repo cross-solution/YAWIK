@@ -42,6 +42,13 @@ class Employment extends AbstractIdentifiableEntity
      */
     protected $description;
     
+    /**
+     *
+     * @var string Organisation Name
+     * @ODM\String
+     */
+    protected $organizationName;
+    
     public function setStartDate($startDate)
     {
         $this->startDate = (string) $startDate;
@@ -84,7 +91,7 @@ class Employment extends AbstractIdentifiableEntity
     
     public function getOrganizationName()
     {
-    	return $this->description;
+    	return $this->organizationName;
     }
     
     public function setDescription($value)
