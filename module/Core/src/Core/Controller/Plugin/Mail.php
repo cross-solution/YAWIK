@@ -50,18 +50,6 @@ class mail extends Message implements PluginInterface
         //get_called_class
         $controllerIdentifier = strtolower(substr($controller, 0, strpos($controller, '\\')));
         $viewResolver = $this->getController()->getServiceLocator()->get('ViewResolver');
-        /*
-        $addModules = array();
-        foreach ($loadedModules as $loadedModule) {
-            $moduleName = strtolower($loadedModule);
-            if ($moduleName != $controllerIdentifier) {
-                $templateFull = $loadedModule . '/view/mail/' . $template;
-                $resource = $viewResolver->resolve($templateFull);
-                $templateFull = $loadedModule . '/mail/' . $template;
-                $resource = $viewResolver->resolve($templateFull);
-            }
-        }
-        */
                 
         $templateHalf = 'mail/' . $template;
         $resource = $viewResolver->resolve($templateHalf);
@@ -100,7 +88,7 @@ class mail extends Message implements PluginInterface
     }
     
     public function informationComplete() {
-        $log = $this->getController()->getServiceLocator()->get('Log');
+        $log = $this->getController()->getServiceLocator()->get('Log/Core/Cam');
         if (isset($this->config['templateFull'])) {
             $template = $this->config['templateFull'];
         }
@@ -138,14 +126,20 @@ class mail extends Message implements PluginInterface
     public function send()
     {
         $this->getHeaders()->addHeaderLine('X-Mailer', 'php/Cross Applicant Management');
+        //foreach (array('ASCII', 'UTF-8', 'ISO-8859-1', 'ISO-8859-15', 'ISO-8859-7') as $encoding) {
+        $encoding = 'UTF-8';
+        //$this->getHeaders()->addHeaderLine('charset', $encoding);
+        $this->getHeaders()->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
+        //$this->getHeaders()->setEncoding($encoding);
         $transport = new Sendmail();
         $erg = False;
         try {
             $transport->send($this);
             $erg = True;
         } catch (Exception $e) {
-             //$this->getController()->getServiceLocator()->get('Log')->warn('Mail failure ' . $e->getMessage());
+            //$this->getController()->getServiceLocator()->get('Log/Core/Cam')->warn('Mail failure ' . $e->getMessage());
         }
+        //}
         return $erg;
     }
 }

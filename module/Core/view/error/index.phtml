@@ -9,7 +9,7 @@
 ?>
 <?php $this->headTitle('500') ?>
 <h1><?php echo $this->translate('An error occurred') ?></h1>
-<h2><?php echo $this->message ?></h2>
+<h2><?php echo $this->translate($this->message) ?></h2>
 
 <?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
 

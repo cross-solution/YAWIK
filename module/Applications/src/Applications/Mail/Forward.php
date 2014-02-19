@@ -7,7 +7,10 @@
  * @license   AGPLv3
  */
 
-/** Forward.php */ 
+/** Forward.php 
+ *
+ * generates an email containing an applications
+ */ 
 namespace Applications\Mail;
 
 use Core\Mail\TranslatorAwareMessage;
@@ -34,7 +37,7 @@ class Forward extends TranslatorAwareMessage
             return;
         }
         $this->setEncoding('UTF-8');
-        $subject = /*@translate*/ 'Fwd: Application to "%s" dated %s';
+        $subject = /* @translate */ 'Fwd: Application to "%s" dated %s';
         if ($this->isTranslatorEnabled()) {
             $subject = $this->getTranslator()->translate($subject);
         } 
@@ -58,7 +61,7 @@ class Forward extends TranslatorAwareMessage
         $textPart->disposition = Mime\Mime::DISPOSITION_INLINE;
         $message->addPart($textPart);
 
-        if ($this->application->contact->image->id) {
+        if (isset($this->application->contact->image) && $this->application->contact->image->id) {
             $image = $this->application->contact->image;
             $part = new Mime\Part($image->getResource());
             $part->type = $image->type;

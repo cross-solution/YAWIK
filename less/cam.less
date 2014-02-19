@@ -2,8 +2,10 @@
 
 @import "bootstrap/bootstrap.less";
 @import "general.less";
+@import "include/buttons.less";
 @import "include/icons.less";
 @import "include/panel.less";
+@import "include/rating.less";
 
 // the default values of the bootstrap global variables are defined in bootstrap/variables.less.
 // you can overwrite them here. 
@@ -84,14 +86,39 @@ h6 {
   font-size: 16px;
 }
 
+/*
+ * Scrollable modal
+ */
+.modal-scrollable {
+	.modal-body {
+		max-height: 450px;
+		overflow-y: auto;
+	}
+}
+.cam-input-group {
+  .input-group;
+}
+
+
 /**
  * toolbar on the main section
  */
 .cam-toolbar {
-  border: 1px solid @gray-lighter;
   margin: 0 0 8px;
   padding: 0px;
+  min-height: 0px;
 
+  .cam-input-group {
+    max-width: 400px;
+    min-width: 250px;
+    float: left;
+  }
+  .cam-action-states {
+    max-width: 400px;
+    min-width: 100px;
+    margin-right: 4px;
+    float:left;
+  }
 }
 
 .cam-thumbnail {

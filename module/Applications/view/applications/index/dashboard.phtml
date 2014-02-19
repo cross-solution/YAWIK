@@ -7,29 +7,23 @@
  * @license   AGPLv3
  */
 
-$linkQuery = array('sort' => '-dateCreated');
-$hasJobs = $this->services('repositories')->get('Jobs/Job')->countByUser($this->auth('id')); 
-if ($hasJobs):
-    $linkQuery['by'] = 'jobs';
-endif;
-$appRepo = $this->services('repositories')->get('Applications/Application');
 ?>
-
 <div class="cam-panel">
 <div class="cam-panel-head">
 <h2>
- <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => $linkQuery), true)?>">
+ <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
   <?php echo $this->translate('Current Applications')?>
  </a>
  <small>
- <?php if ($hasJobs): ?>
- <?php $countTmpl = '<span style="font-size:16px; font-weight:bold;">%s</span>';
-      $newCount = $appRepo->countBy($this->auth('id'), /* unread */ true);
-      $totalCount = $appRepo->countBy($this->auth('id'));
-      echo sprintf($this->translate('%1$s new from %2$s total applications'),
-                   sprintf('<span class="badge">'.$countTmpl.'</span>', $newCount), 
-                   sprintf('<span class="badge">'.$countTmpl.'</span>', $totalCount))?>
- <?php endif ?>
+ <?php #if ($hasJobs): ?>
+ <?php 
+      #$countTmpl = '<span style="font-size:16px; font-weight:bold;">%s</span>';
+      #$newCount = $appRepo->countBy($this->auth('id'), /* unread */ true);
+      #$totalCount = $appRepo->countBy($this->auth('id'));
+      #echo sprintf($this->translate('%1$s new from %2$s total applications'),
+      #             sprintf('<span class="badge">'.$countTmpl.'</span>', $newCount), 
+      #             sprintf('<span class="badge">'.$countTmpl.'</span>', $totalCount))?>
+ <?php #endif ?>
  </small>
 </h2>
 </div>
@@ -43,18 +37,12 @@ $appRepo = $this->services('repositories')->get('Applications/Application');
   <th><?php echo $this->translate('Date')?></th>
  </tr>
 </thead>
-<?php 
-#    $paginator = new \Zend\Paginator\Paginator(
-#        $appRepo->getPaginatorAdapter($linkQuery)
-#    );
-#    $paginator->setCurrentPageNumber(1)->setItemCountPerPage(5);
-#$paginator = $this->paginator('Applications/Application');
-    foreach ($this->paginator as $app):?>
+<?php foreach ($this->applications as $app):?>
     <tr>
       <td>
         <div class="portrait">
           <?php if ($app->contact->image):?>
-            <img src="/file/applications/<?php echo $app->contact->image->id ?>" />
+            <img src="<?php echo $this->basePath($app->contact->image->uri) ?>" />
           <?php else:?>
             <span class="cam-icon-portrait"></span>
           <?php endif?>
@@ -73,7 +61,7 @@ $appRepo = $this->services('repositories')->get('Applications/Application');
 </div>
 <div class="cam-panel-foot">
 <?php
-echo $this->paginationControl($paginator, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
+#echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
 ?>
 </div>
 </div>

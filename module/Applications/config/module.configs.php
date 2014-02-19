@@ -7,6 +7,7 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
+
 return array(
 
     'doctrine' => array(
@@ -53,6 +54,8 @@ return array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
+            'Applications/CommentController' => 'Applications\Controller\CommentController',
+            'Applications/Console' => 'Applications\Controller\ConsoleController'
         ),
     ),
     
@@ -134,6 +137,15 @@ return array(
                                     ),
                                 ),
                             ),
+                            'comments' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/comments/:action',
+                                    'defaults' => array(
+                                        'controller' => 'Applications/CommentController',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                 ),
@@ -202,6 +214,12 @@ return array(
         )
     ),
     'view_helpers' => array(
+        
+    ),
+    
+    
+    'view_inject_headscript' => array(
+        'lang/applications' => 'Core/js/jquery.barrating.min.js',
     ),
     'form_elements' => array(
         'invokables' => array(
@@ -213,9 +231,9 @@ return array(
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
              'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
-             'settings\applications' => 'Applications\Form\Settings',
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
-             'settings-applicationsform-fieldset' => 'Applications\Form\SettingsApplicationformFieldset',
+             'Applications/CommentForm' => 'Applications\Form\CommentForm',
+             'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
          ),
         'factories' => array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
@@ -229,7 +247,6 @@ return array(
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
         ),
         'factories'=> array(
-            /* deprecated*/ 'applications-params-to-properties' => '\Applications\Filter\ParamsToPropertiesFactory',
             'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ),
     ),

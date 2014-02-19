@@ -65,6 +65,7 @@ return array(
                 'subscribers' => array(
                     'Core/DoctrineMongoODM/RepositoryEvents',
                     '\Core\Repository\DoctrineMongoODM\Event\GenerateSearchKeywordsListener',
+                    '\Core\Repository\DoctrineMongoODM\Event\PreUpdateDocumentsSubscriber',
                 ),
             ),
         ),

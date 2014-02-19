@@ -24,7 +24,7 @@ if ('-' == $this->sort{0}) {
     $sortDir = true;
 }
 
-echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
+echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
 ?>
 <table class="cam-table" id="cam-application-list">
 <thead>
@@ -56,13 +56,13 @@ echo $this->paginationControl($applications, 'Sliding', 'pagination-control', ar
 
 <tbody>
 <?php 
-foreach ($applications as $application):
+foreach ($this->applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>
-    <img src="<?php echo $application->contact->image->uri ?>" />
+    <img src="<?php echo $this->basePath($application->contact->image->uri) ?>" />
     <?php else:?>
     <span class="cam-icon-portrait"></span>
     <?php endif?>
@@ -83,7 +83,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
      <?php if(count($application->attachments)>0):?>
      <ul>
      <?php foreach ($application->attachments as $attachment):?>
-       <li><a href="<?php echo $attachment->uri?>"><?php echo $attachment->name ?></a></li>
+       <li><a href="<?php echo $this->basePath($attachment->uri)?>"><?php echo $attachment->name ?></a></li>
      <?php endforeach;?>
      </ul>
      <?php else:?>
@@ -110,4 +110,4 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
 </tbody>
 
 </table>
-<?php echo $this->paginationControl($applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
+<?php echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>

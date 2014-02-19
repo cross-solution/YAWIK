@@ -11,14 +11,15 @@
       
       $this->headTitle($this->translate('Details'));
       $this->headScript()->appendFile($this->basePath('Applications/js/applications.manage.detail.js'));
+      $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 ?>
 <h1><?= $this->translate('application details') ?></h1>
+<?php #echo $this->form($this->commentForm) ?>
 
-<div id="forward-email-result" class="hide alert"></div>
+<div id="forward-email-result" class="alert" style="display:none"></div>
 
 <nav class="navbar cam-toolbar">   
-  <div class="col-md-4">
-    <div id="state-actions" class="btn-group">
+    <div id="state-actions" class="btn-group cam-action-states">
         <?php $status = $application->status->name;
         
             $actionButtons = array(
@@ -65,10 +66,9 @@
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>  
      </div>
-   </div>
-   <div class="col-md-4">     
+   </div>  
    <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
-   <div id="forward-email" class="input-group">
+   <div id="forward-email" class="cam-input-group input-group">
             <span class="input-group-addon"
             data-toggle="popover" 
             data-trigger="hover focus click"
@@ -85,9 +85,19 @@
             </span>
       </div>
     </form>
-  </div>
-  <div class="col-md-4">
         <div class="pull-right">
+        <div class="btn-group">
+          <button id="cam-applications-comments-toggle" class="btn btn-default"
+                    data-title="title"
+                    data-toggle="modal"
+                    data-target="#cam-application-comments"
+                    title="<?php echo $this->translate('View comments') ?>">
+               <span class="cam-icon-comment"></span></button>
+          <button id="cam-applications-comments-quickadd" class="btn btn-default"
+                    data-title="title"
+                    title="<?php echo $this->translate('Add comment') ?>">
+           <span class="cam-icon-plus"></span></button>
+          </div>
           <button class="btn btn-default"
                     data-title="title"
                     data-toggle="modal"
@@ -100,11 +110,13 @@
           <span class="cam-icon-download"></span>
           </a>
           <?php if ($this->acl($application, 'delete')):?>            
-          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('delete this application')?>">
+          <button class="btn btn-default" data-title="delete Application"
+                    data-toggle="modal"
+                    data-target="#cam-delete-application"
+                    title="<?php echo $this->translate('Delete application')?>"> 
             <i class="cam-icon-delete"></i> Löschen
-          </a>
+          </button>
         <?php endif ?>
-        </div>
         </div>
 </nav>
 <div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -124,6 +136,64 @@
      </div>
   </div>
 </div>
+<div id="cam-delete-application" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete Application" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="history-box-label">
+          <?php echo $this->translate('Delete Application') ?>:
+        </h3>
+      </div>
+      <div class="modal-body">
+      <?php echo $this->translate('Are you sure you want to delete this application?')?>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
+          <a class="btn btn-primary" href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('delete this application')?>">
+          <?php echo $this->translate('Delete application') ?></a>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div id="cam-application-comments" class="modal fade modal-scrollable" tabindex="-1" role="dialog" aria-hidden="true"
+     data-list-errormessage="<?php echo $this->translate('Error while loading comments.')?>"
+     data-list-url="<?php echo $this->url(
+                        'lang/applications/comments', array('action' => 'list'), 
+                        array('query' => array(
+                            'applicationId' => $this->application->id
+                        )), true
+                    )?>"
+     data-form-errormessage=<?php echo $this->translate('Error while loading comment form.')?>"
+     data-form-url="<?php echo $this->url(
+                        'lang/applications/comments', array('action' => 'form'),
+                         true)?>"
+     data-application-id="<?php echo $this->application->id ?>"`
+     data-mode="list"
+>
+  <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><?php echo $this->translate('Comments') ?> <img class="hide" src="/images/loader.gif" /></h3>
+     </div>
+     <div id="cam-application-comments-body" class="modal-body">
+        <div class="cam-error hide"><p></p></div>
+     </div>
+     <div class="modal-footer">
+         <button id="cam-application-comments-cancelbtn" class="btn btn-default hide"><?php echo $this->translate('Cancel') ?></button>
+         <button id="cam-application-comments-savebtn" class="btn btn-primary hide"><?php echo $this->translate('Save') ?></button>
+         
+         <button id="cam-application-comments-addbtn" class="btn btn-primary" ><?php echo $this->translate('Add new comment') ?></button>
+         <button id="cam-application-comments-closebtn" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Close') ?></button>
+       
+     </div>
+   </div>
+ </div>
+</div>
+
 <div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
@@ -134,7 +204,7 @@
         </h3>
       </div>
       <div class="modal-body">
-        <table class="table table-striped table-bordered">
+        <table class="cam-table">
         <thead>
             <tr>
                 <th><?php echo $this->translate('Date') ?></th>
@@ -146,7 +216,7 @@
             <?php foreach ($this->application->history as $history): ?>
             <tr>
                 <td><?php echo $this->dateFormat($history->date)?></td>
-                <td><?php echo $history->status ?></td>
+                <td><?php echo $this->translate($history->status) ?></td>
                 <td><?php echo $history->message ?></td>
             </tr>
             <?php endforeach ?>
@@ -156,14 +226,11 @@
     </div>
   </div>
 </div>
-
-<p class="cam-job-title"><?php echo $this->link($this->application->job->link, $this->application->job->title)?></p>
-
 <div class="row">
   <div class="col-md-6">
-    <div class="col-md-12">
       <h2><?= $this->translate('personal information')?></h2>
-        <div class="col-md-4">
+      <div class="cam-callout-info col-md-12">
+        <div class="col-md-3">
           <div class="cam-portrait ">
           <?php if ($this->application->contact->image):?>
           <img src="<?php echo $this->basePath($this->application->contact->image->uri) ?>" class="img-thumbnail"/>
@@ -172,7 +239,7 @@
           <?php endif?>
           </div>    
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
         <adress>
         <strong><?php echo $this->application->contact->displayName ?></strong><br> 
         <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
@@ -186,15 +253,24 @@
         <?php endif?>
         </adress>
       </div>
-    </div>
+      </div>
   </div>
   <div class="col-md-6">
-    <div class="col-md-12">
-      <p class="text-right lead cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?></p> 
+      <h2 class="text-right cam-color-<?php echo $this->application->status ?>"><?php echo $this->translate((string) $this->application->status) ?>
+      <span id="application-rating" class="pull-right">
+      <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
+      </span>
+      </h2> 
+      <div class="cam-callout-info col-md-12">
+      <div class="row">
+        <div class="col-md-6"><?= $this->translate('application for')?>:</div>
+        <div class="col-md-6"><?php echo $this->link($this->application->job->link, $this->application->job->title)?></div>
+      </div>
       <div class="row">
         <div class="col-md-6"><?= $this->translate('date of receipt')?>:</div>
         <div class="col-md-6"><?=  strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
       </div>
+      
       <?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp()):?>
       <div class="row">
         <div class="col-md-6"><?= $this->translate('last modification date')?>:</div>
@@ -211,41 +287,47 @@
         </div>
       <?php endforeach; // attachments?>
       <?php endif;?>
-    </div>
+      </div>
   </div>
 </div>
 
-<h2><?=$this->translate('Summary')?></h2>
-<div class="row">
-<div class="col-md-12">
-<?php echo nl2br($this->application->summary) ?>
-</div>
-</div>
+ <div class="col-md-12">
+  <h2><?=$this->translate('Summary')?></h2>
+  <?php echo nl2br($this->application->summary) ?>
+ </div>
 
 <?php if(count($this->application->cv->employments)>0):?>
+<div class="col-md-12">
 <h2><?= $this->translate('work experience')?></h2>
-<table class="table  table-condensed table-bordered "> 
+<table class="cam-table">
+<thead>
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
  <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th class="col-md-3"><?=$this->translate('Company')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
+</thead>
 <?php foreach( $this->application->cv->employments as $employment): ?>
 <tr>
  <td><?= $employment->startDate ?></td>
  <td><?= $employment->endDate ?></td>
+ <td><?= $employment->organizationName ?></td>
  <td><?=  $employment->description ?></td>
 </tr>
 <?php endforeach; // employments?>
 </table>
+</div>
 <?php endif;?> 
 
 <?php if(count($this->application->cv->educations)>0):?>
+<div class="col-md-12">
 <h2><?= $this->translate('education and training')?></h2>
-<table class="table table-condensed table-bordered "> 
+<table class="cam-table"> 
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
  <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th class="col-md-1"><?=$this->translate('University')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
@@ -256,6 +338,7 @@
   </tr>
 <?php endforeach; // eucations?>    
 </table>
+</div>
 <?php endif;?> 
 
 <?php if(count($this->application->cv->skills)>0):?>
@@ -265,4 +348,6 @@
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
 <?php endif;?>
+
+
 

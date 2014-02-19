@@ -5966,6 +5966,342 @@ td.visible-print {
  * general css classes
  */
 /**
+* Alert Boxes success and error
+*/
+.cam-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.cam-success hr {
+  border-top-color: #c9e2b3;
+}
+.cam-success .alert-link {
+  color: #2b542c;
+}
+.cam-error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.cam-error hr {
+  border-top-color: #e4b9c0;
+}
+.cam-error .alert-link {
+  color: #843534;
+}
+.cam-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #dddddd;
+}
+.cam-table > thead > tr > th,
+.cam-table > tbody > tr > th,
+.cam-table > tfoot > tr > th,
+.cam-table > thead > tr > td,
+.cam-table > tbody > tr > td,
+.cam-table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.cam-table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dddddd;
+}
+.cam-table > caption + thead > tr:first-child > th,
+.cam-table > colgroup + thead > tr:first-child > th,
+.cam-table > thead:first-child > tr:first-child > th,
+.cam-table > caption + thead > tr:first-child > td,
+.cam-table > colgroup + thead > tr:first-child > td,
+.cam-table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.cam-table > tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.cam-table .table {
+  background-color: #ffffff;
+}
+.cam-table > thead > tr > .active,
+.cam-table > tbody > tr > .active,
+.cam-table > tfoot > tr > .active,
+.cam-table > thead > .active > td,
+.cam-table > tbody > .active > td,
+.cam-table > tfoot > .active > td,
+.cam-table > thead > .active > th,
+.cam-table > tbody > .active > th,
+.cam-table > tfoot > .active > th {
+  background-color: #f5f5f5;
+}
+.cam-table > thead > tr > .success,
+.cam-table > tbody > tr > .success,
+.cam-table > tfoot > tr > .success,
+.cam-table > thead > .success > td,
+.cam-table > tbody > .success > td,
+.cam-table > tfoot > .success > td,
+.cam-table > thead > .success > th,
+.cam-table > tbody > .success > th,
+.cam-table > tfoot > .success > th {
+  background-color: #dff0d8;
+}
+.cam-table > thead > tr > .danger,
+.cam-table > tbody > tr > .danger,
+.cam-table > tfoot > tr > .danger,
+.cam-table > thead > .danger > td,
+.cam-table > tbody > .danger > td,
+.cam-table > tfoot > .danger > td,
+.cam-table > thead > .danger > th,
+.cam-table > tbody > .danger > th,
+.cam-table > tfoot > .danger > th {
+  background-color: #f2dede;
+}
+.cam-table > thead > tr > .warning,
+.cam-table > tbody > tr > .warning,
+.cam-table > tfoot > tr > .warning,
+.cam-table > thead > .warning > td,
+.cam-table > tbody > .warning > td,
+.cam-table > tfoot > .warning > td,
+.cam-table > thead > .warning > th,
+.cam-table > tbody > .warning > th,
+.cam-table > tfoot > .warning > th {
+  background-color: #fcf8e3;
+}
+.cam-table > tbody > tr:nth-child(odd) > td,
+.cam-table > tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+.cam-table > thead > tr > th,
+.cam-table > tbody > tr > th,
+.cam-table > tfoot > tr > th,
+.cam-table > thead > tr > td,
+.cam-table > tbody > tr > td,
+.cam-table > tfoot > tr > td {
+  border: 1px solid #dddddd;
+}
+.cam-table > thead > tr > th,
+.cam-table > thead > tr > td {
+  border-bottom-width: 2px;
+}
+.cam-table > tbody > tr:hover > td,
+.cam-table > tbody > tr:hover > th {
+  background-color: #f5f5f5;
+}
+.cam-table th {
+  background-color: #efefef;
+}
+/**
+* Pagination
+*/
+#cam-pagination ul {
+  margin: 0 0 4px;
+}
+#cam-pagination ul > li > a,
+#cam-pagination ul > li > span {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+#cam-pagination ul > li:first-child > a,
+#cam-pagination ul > li:first-child > span {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+#cam-pagination ul > li:last-child > a,
+#cam-pagination ul > li:last-child > span {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+/**
+* list of applications
+*/
+#cam-application-list .portrait {
+  float: left;
+  margin-right: 5px;
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.428571429;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  max-width: 50px;
+  margin-bottom: 0px;
+}
+#cam-application-list .portrait > img,
+#cam-application-list .portrait a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+a#cam-application-list .portrait:hover,
+a#cam-application-list .portrait:focus,
+a#cam-application-list .portrait.active {
+  border-color: #5498d7;
+}
+#cam-application-list .portrait .caption {
+  padding: 9px;
+  color: #333333;
+}
+#cam-application-list .portrait .cam-icon-portrait {
+  font-size: 40px;
+}
+/**
+* hide some columns on small devices
+*/
+.cam-career,
+.cam-attachment,
+.cam-job {
+  display: block !important;
+}
+table.cam-career,
+table.cam-attachment,
+table.cam-job {
+  display: table;
+}
+tr.cam-career,
+tr.cam-attachment,
+tr.cam-job {
+  display: table-row !important;
+}
+th.cam-career,
+th.cam-attachment,
+th.cam-job,
+td.cam-career,
+td.cam-attachment,
+td.cam-job {
+  display: table-cell !important;
+}
+@media (max-width: 767px) {
+  .cam-career,
+  .cam-attachment,
+  .cam-job,
+  tr.cam-career,
+  tr.cam-attachment,
+  tr.cam-job,
+  th.cam-career,
+  th.cam-attachment,
+  th.cam-job,
+  td.cam-career,
+  td.cam-attachment,
+  td.cam-job {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .cam-career.hidden-sm,
+  .cam-attachment.hidden-sm,
+  .cam-job.hidden-sm,
+  tr.cam-career.hidden-sm,
+  tr.cam-attachment.hidden-sm,
+  tr.cam-job.hidden-sm,
+  th.cam-career.hidden-sm,
+  th.cam-attachment.hidden-sm,
+  th.cam-job.hidden-sm,
+  td.cam-career.hidden-sm,
+  td.cam-attachment.hidden-sm,
+  td.cam-job.hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .cam-career.hidden-md,
+  .cam-attachment.hidden-md,
+  .cam-job.hidden-md,
+  tr.cam-career.hidden-md,
+  tr.cam-attachment.hidden-md,
+  tr.cam-job.hidden-md,
+  th.cam-career.hidden-md,
+  th.cam-attachment.hidden-md,
+  th.cam-job.hidden-md,
+  td.cam-career.hidden-md,
+  td.cam-attachment.hidden-md,
+  td.cam-job.hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .cam-career.hidden-lg,
+  .cam-attachment.hidden-lg,
+  .cam-job.hidden-lg,
+  tr.cam-career.hidden-lg,
+  tr.cam-attachment.hidden-lg,
+  tr.cam-job.hidden-lg,
+  th.cam-career.hidden-lg,
+  th.cam-attachment.hidden-lg,
+  th.cam-job.hidden-lg,
+  td.cam-career.hidden-lg,
+  td.cam-attachment.hidden-lg,
+  td.cam-job.hidden-lg {
+    display: none !important;
+  }
+}
+.cam-attachment {
+  max-width: 130px;
+  overflow: hidden;
+}
+/*
+* new 
+*/
+.cam-new * {
+  font-weight: bold;
+}
+/*
+* State Colors 
+*/
+.cam-color-incoming {
+  color: #5bc0de;
+}
+.cam-color-invited {
+  color: #f0ad4e;
+}
+.cam-color-rejected {
+  color: #d9534f;
+}
+.cam-callout-info {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+  background-color: #f5f5f5;
+  border-color: #e5e5e5;
+  color: #000000;
+}
+.cam-callout-info h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.cam-callout-info .alert-link {
+  font-weight: bold;
+}
+.cam-callout-info > p,
+.cam-callout-info > ul {
+  margin-bottom: 0;
+}
+.cam-callout-info > p + p {
+  margin-top: 5px;
+}
+.cam-callout-info hr {
+  border-top-color: #f7e1b5;
+}
+.cam-callout-info .alert-link {
+  color: #66512c;
+}
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
+/**
  * default Save/Reset Buttons
  */
 .cam-btn-save {
@@ -6141,306 +6477,6 @@ fieldset[disabled] .cam-btn-reset.active {
   background-color: #fff;
 }
 /**
-* Alert Boxes success and error
-*/
-.cam-success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #3c763d;
-}
-.cam-success hr {
-  border-top-color: #c9e2b3;
-}
-.cam-success .alert-link {
-  color: #2b542c;
-}
-.cam-error {
-  background-color: #f2dede;
-  border-color: #ebccd1;
-  color: #a94442;
-}
-.cam-error hr {
-  border-top-color: #e4b9c0;
-}
-.cam-error .alert-link {
-  color: #843534;
-}
-.cam-table {
-  width: 100%;
-  margin-bottom: 20px;
-  border: 1px solid #dddddd;
-}
-.cam-table > thead > tr > th,
-.cam-table > tbody > tr > th,
-.cam-table > tfoot > tr > th,
-.cam-table > thead > tr > td,
-.cam-table > tbody > tr > td,
-.cam-table > tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.428571429;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
-}
-.cam-table > thead > tr > th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dddddd;
-}
-.cam-table > caption + thead > tr:first-child > th,
-.cam-table > colgroup + thead > tr:first-child > th,
-.cam-table > thead:first-child > tr:first-child > th,
-.cam-table > caption + thead > tr:first-child > td,
-.cam-table > colgroup + thead > tr:first-child > td,
-.cam-table > thead:first-child > tr:first-child > td {
-  border-top: 0;
-}
-.cam-table > tbody + tbody {
-  border-top: 2px solid #dddddd;
-}
-.cam-table .table {
-  background-color: #ffffff;
-}
-.cam-table > thead > tr > .active,
-.cam-table > tbody > tr > .active,
-.cam-table > tfoot > tr > .active,
-.cam-table > thead > .active > td,
-.cam-table > tbody > .active > td,
-.cam-table > tfoot > .active > td,
-.cam-table > thead > .active > th,
-.cam-table > tbody > .active > th,
-.cam-table > tfoot > .active > th {
-  background-color: #f5f5f5;
-}
-.cam-table > thead > tr > .success,
-.cam-table > tbody > tr > .success,
-.cam-table > tfoot > tr > .success,
-.cam-table > thead > .success > td,
-.cam-table > tbody > .success > td,
-.cam-table > tfoot > .success > td,
-.cam-table > thead > .success > th,
-.cam-table > tbody > .success > th,
-.cam-table > tfoot > .success > th {
-  background-color: #dff0d8;
-}
-.cam-table > thead > tr > .danger,
-.cam-table > tbody > tr > .danger,
-.cam-table > tfoot > tr > .danger,
-.cam-table > thead > .danger > td,
-.cam-table > tbody > .danger > td,
-.cam-table > tfoot > .danger > td,
-.cam-table > thead > .danger > th,
-.cam-table > tbody > .danger > th,
-.cam-table > tfoot > .danger > th {
-  background-color: #f2dede;
-}
-.cam-table > thead > tr > .warning,
-.cam-table > tbody > tr > .warning,
-.cam-table > tfoot > tr > .warning,
-.cam-table > thead > .warning > td,
-.cam-table > tbody > .warning > td,
-.cam-table > tfoot > .warning > td,
-.cam-table > thead > .warning > th,
-.cam-table > tbody > .warning > th,
-.cam-table > tfoot > .warning > th {
-  background-color: #fcf8e3;
-}
-.cam-table > tbody > tr:nth-child(odd) > td,
-.cam-table > tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
-}
-.cam-table > thead > tr > th,
-.cam-table > tbody > tr > th,
-.cam-table > tfoot > tr > th,
-.cam-table > thead > tr > td,
-.cam-table > tbody > tr > td,
-.cam-table > tfoot > tr > td {
-  border: 1px solid #dddddd;
-}
-.cam-table > thead > tr > th,
-.cam-table > thead > tr > td {
-  border-bottom-width: 2px;
-}
-.cam-table > tbody > tr:hover > td,
-.cam-table > tbody > tr:hover > th {
-  background-color: #f5f5f5;
-}
-/**
-* Pagination
-*/
-#cam-pagination ul {
-  margin: 0 0 4px;
-}
-#cam-pagination ul > li > a,
-#cam-pagination ul > li > span {
-  padding: 5px 10px;
-  font-size: 12px;
-}
-#cam-pagination ul > li:first-child > a,
-#cam-pagination ul > li:first-child > span {
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-}
-#cam-pagination ul > li:last-child > a,
-#cam-pagination ul > li:last-child > span {
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-}
-/**
-* list of applications
-*/
-#cam-application-list .portrait {
-  float: left;
-  margin-right: 5px;
-  display: block;
-  padding: 4px;
-  margin-bottom: 20px;
-  line-height: 1.428571429;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  max-width: 50px;
-  margin-bottom: 0px;
-}
-#cam-application-list .portrait > img,
-#cam-application-list .portrait a > img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
-}
-a#cam-application-list .portrait:hover,
-a#cam-application-list .portrait:focus,
-a#cam-application-list .portrait.active {
-  border-color: #5498d7;
-}
-#cam-application-list .portrait .caption {
-  padding: 9px;
-  color: #333333;
-}
-#cam-application-list .portrait .cam-icon-portrait {
-  font-size: 40px;
-}
-/**
-* hide some columns on small devices
-*/
-.cam-career,
-.cam-attachment,
-.cam-job {
-  display: block !important;
-}
-table.cam-career,
-table.cam-attachment,
-table.cam-job {
-  display: table;
-}
-tr.cam-career,
-tr.cam-attachment,
-tr.cam-job {
-  display: table-row !important;
-}
-th.cam-career,
-th.cam-attachment,
-th.cam-job,
-td.cam-career,
-td.cam-attachment,
-td.cam-job {
-  display: table-cell !important;
-}
-@media (max-width: 767px) {
-  .cam-career,
-  .cam-attachment,
-  .cam-job,
-  tr.cam-career,
-  tr.cam-attachment,
-  tr.cam-job,
-  th.cam-career,
-  th.cam-attachment,
-  th.cam-job,
-  td.cam-career,
-  td.cam-attachment,
-  td.cam-job {
-    display: none !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .cam-career.hidden-sm,
-  .cam-attachment.hidden-sm,
-  .cam-job.hidden-sm,
-  tr.cam-career.hidden-sm,
-  tr.cam-attachment.hidden-sm,
-  tr.cam-job.hidden-sm,
-  th.cam-career.hidden-sm,
-  th.cam-attachment.hidden-sm,
-  th.cam-job.hidden-sm,
-  td.cam-career.hidden-sm,
-  td.cam-attachment.hidden-sm,
-  td.cam-job.hidden-sm {
-    display: none !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .cam-career.hidden-md,
-  .cam-attachment.hidden-md,
-  .cam-job.hidden-md,
-  tr.cam-career.hidden-md,
-  tr.cam-attachment.hidden-md,
-  tr.cam-job.hidden-md,
-  th.cam-career.hidden-md,
-  th.cam-attachment.hidden-md,
-  th.cam-job.hidden-md,
-  td.cam-career.hidden-md,
-  td.cam-attachment.hidden-md,
-  td.cam-job.hidden-md {
-    display: none !important;
-  }
-}
-@media (min-width: 1200px) {
-  .cam-career.hidden-lg,
-  .cam-attachment.hidden-lg,
-  .cam-job.hidden-lg,
-  tr.cam-career.hidden-lg,
-  tr.cam-attachment.hidden-lg,
-  tr.cam-job.hidden-lg,
-  th.cam-career.hidden-lg,
-  th.cam-attachment.hidden-lg,
-  th.cam-job.hidden-lg,
-  td.cam-career.hidden-lg,
-  td.cam-attachment.hidden-lg,
-  td.cam-job.hidden-lg {
-    display: none !important;
-  }
-}
-.cam-attachment {
-  max-width: 130px;
-  overflow: hidden;
-}
-/*
-* new 
-*/
-.cam-new * {
-  font-weight: bold;
-}
-/*
-* State Colors 
-*/
-.cam-color-incoming {
-  color: #5bc0de;
-}
-.cam-color-invited {
-  color: #f0ad4e;
-}
-.cam-color-rejected {
-  color: #d9534f;
-}
-.cam-job-title {
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #f5f5f5;
-}
-/**
 * Icons
 */
 .cam-icon-portrait {
@@ -6460,6 +6496,9 @@ td.cam-job {
 .cam-icon-portrait:before {
   content: "\e008";
 }
+.cam-icon-portrait:empty {
+  width: 1.12em;
+}
 .cam-icon-user {
   font-size: 12px;
   position: relative;
@@ -6471,6 +6510,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-user:empty {
+  width: 1em;
 }
 .cam-icon-user:empty {
   width: 1em;
@@ -6493,6 +6535,9 @@ td.cam-job {
 .cam-icon-password:empty {
   width: 1em;
 }
+.cam-icon-password:empty {
+  width: 1em;
+}
 .cam-icon-password:before {
   content: "\e085";
 }
@@ -6507,6 +6552,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-new:empty {
+  width: 1em;
 }
 .cam-icon-new:empty {
   width: 1em;
@@ -6529,6 +6577,9 @@ td.cam-job {
 .cam-icon-edit:empty {
   width: 1em;
 }
+.cam-icon-edit:empty {
+  width: 1em;
+}
 .cam-icon-edit:before {
   content: "\270f";
 }
@@ -6543,6 +6594,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-sort:empty {
+  width: 1em;
 }
 .cam-icon-sort:empty {
   width: 1em;
@@ -6565,6 +6619,9 @@ td.cam-job {
 .cam-icon-sort-desc:empty {
   width: 1em;
 }
+.cam-icon-sort-desc:empty {
+  width: 1em;
+}
 .cam-icon-sort-desc:before {
   content: "\e113";
 }
@@ -6579,6 +6636,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-sort-asc:empty {
+  width: 1em;
 }
 .cam-icon-sort-asc:empty {
   width: 1em;
@@ -6601,6 +6661,9 @@ td.cam-job {
 .cam-icon-plus:empty {
   width: 1em;
 }
+.cam-icon-plus:empty {
+  width: 1em;
+}
 .cam-icon-plus:before {
   content: "\2b";
 }
@@ -6615,6 +6678,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-minus:empty {
+  width: 1em;
 }
 .cam-icon-minus:empty {
   width: 1em;
@@ -6637,6 +6703,9 @@ td.cam-job {
 .cam-icon-forward:empty {
   width: 1em;
 }
+.cam-icon-forward:empty {
+  width: 1em;
+}
 .cam-icon-forward:before {
   content: "\e095";
 }
@@ -6651,6 +6720,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-history:empty {
+  width: 1em;
 }
 .cam-icon-history:empty {
   width: 1em;
@@ -6673,6 +6745,9 @@ td.cam-job {
 .cam-icon-download:empty {
   width: 1em;
 }
+.cam-icon-download:empty {
+  width: 1em;
+}
 .cam-icon-download:before {
   content: "\e166";
 }
@@ -6687,6 +6762,9 @@ td.cam-job {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-pagination-start:empty {
+  width: 1em;
 }
 .cam-icon-pagination-start:empty {
   width: 1em;
@@ -6709,6 +6787,9 @@ td.cam-job {
 .cam-icon-pagination-end:empty {
   width: 1em;
 }
+.cam-icon-pagination-end:empty {
+  width: 1em;
+}
 .cam-icon-pagination-end:before {
   content: "\e077";
 }
@@ -6727,11 +6808,44 @@ td.cam-job {
 .cam-icon-delete:empty {
   width: 1em;
 }
+.cam-icon-delete:empty {
+  width: 1em;
+}
 .cam-icon-delete:before {
   content: "\e020";
 }
+.cam-icon-comment {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-comment:empty {
+  width: 1em;
+}
+.cam-icon-comment:before {
+  content: "\e111";
+}
 .cam-icon {
   font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon:empty {
+  width: 1em;
 }
 /**
  * dashboard panels
@@ -6875,6 +6989,30 @@ td.cam-job {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
   padding: 9px 10px 0;
+}
+.br-widget {
+  height: 25px;
+  padding: 5px 0 0;
+}
+.br-widget a {
+  background-color: #eeeeee;
+  width: 40px;
+  height: 16px;
+  display: block;
+  float: left;
+  margin: 1px;
+}
+.br-widget a.br-selected,
+.br-widget a.br-active {
+  background-color: #5498d7;
+}
+.br-widget .br-current-rating {
+  color: #333333;
+  float: left;
+  line-height: 1.1;
+}
+.br-widget.br-compact a {
+  width: 10px;
 }
 body {
   padding: 50px 0 25px;
@@ -7038,13 +7176,45 @@ h5 {
 h6 {
   font-size: 16px;
 }
+/*
+ * Scrollable modal
+ */
+.modal-scrollable .modal-body {
+  max-height: 450px;
+  overflow-y: auto;
+}
+.cam-input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.cam-input-group[class*="col-"] {
+  float: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.cam-input-group .form-control {
+  width: 100%;
+  margin-bottom: 0;
+}
 /**
  * toolbar on the main section
  */
 .cam-toolbar {
-  border: 1px solid #eeeeee;
   margin: 0 0 8px;
   padding: 0px;
+  min-height: 0px;
+}
+.cam-toolbar .cam-input-group {
+  max-width: 400px;
+  min-width: 250px;
+  float: left;
+}
+.cam-toolbar .cam-action-states {
+  max-width: 400px;
+  min-width: 100px;
+  margin-right: 4px;
+  float: left;
 }
 .cam-thumbnail {
   max-height: 50px;

@@ -20,9 +20,8 @@
         "ext-intl": "*",
         "zendframework/zendframework": "2.1.*",
         "doctrine/doctrine-mongo-odm-module": "dev-master",
-	"sp/jms-serializer-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
 	"mpdf/mpdf": "5.7.*",
-        "twbs/bootstrap": "3.*"
+        "twbs/bootstrap": "3.0.*"
     }
 }

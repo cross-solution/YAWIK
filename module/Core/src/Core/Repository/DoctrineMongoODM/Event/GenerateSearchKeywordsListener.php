@@ -38,6 +38,18 @@ class GenerateSearchKeywordsListener implements EventSubscriber
         return $this;
     }
     
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+        if (!$document instanceOf SearchableEntityInterface) {
+            return;
+        }
+        
+        $filter   = $this->getKeywordsFilter();
+        $keywords = $filter->filter($document);
+        $document->setKeywords($keywords);
+    }
+    
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
@@ -50,11 +62,10 @@ class GenerateSearchKeywordsListener implements EventSubscriber
         $uow       = $dm->getUnitOfWork();
         $changeset = $uow->getDocumentChangeset($document);
         $filter    = $this->getKeywordsFilter();
-        $properties= $document->getSearchableProperties();
         $keywords  = array();
 
         $mustUpdate = false;
-        foreach ($properties as $name) {
+        foreach ($document->getSearchableProperties() as $name) {
             if (isset($changeset[$name])) {
                 $mustUpdate = true;
                 break;
@@ -65,11 +76,7 @@ class GenerateSearchKeywordsListener implements EventSubscriber
             return;
         }
         
-        foreach ($properties as $name) {
-            $keywords = array_merge($keywords, $filter->filter($document->$name));
-        }
-        
-        $keywords = array_unique($keywords);
+        $keywords = $filter->filter($document);
         $document->setKeywords($keywords);
         $uow->recomputeSingleDocumentChangeSet($dm->getClassMetadata(get_class($document)), $document);
         
@@ -77,7 +84,7 @@ class GenerateSearchKeywordsListener implements EventSubscriber
     
     public function getSubscribedEvents()
     {
-        return array(Events::preUpdate);
+        return array(Events::preUpdate, Events::prePersist);
     }
 	
 

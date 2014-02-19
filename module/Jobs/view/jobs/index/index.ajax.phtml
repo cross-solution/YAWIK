@@ -1,17 +1,25 @@
-
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+?>
 <table class="cam-table" id="jobs-list">
 <thead>
 <tr>
-    <th><?=$this->translate('Date of receipt')?></th>
-    <th><?=$this->translate('Title of the job')?></th>
-    <th><?=$this->translate('Location')?></th> 
-    <th><?=$this->translate('Companyname')?></th>
-    <th><?=$this->translate('Reference')?></th>
+    <th><?php echo $this->translate('Date of receipt')?></th>
+    <th><?php echo $this->translate('Title of the job')?></th>
+    <th><?php echo $this->translate('Location')?></th> 
+    <th><?php echo $this->translate('Companyname')?></th>
+    <th><?php echo $this->translate('Reference')?></th>
     <th>
      <?php if ($this->acl()->isRole('recruiter')):?>  
-       <?=$this->translate('Applications')?>
+       <?php echo $this->translate('Applications')?>
      <?php else: ?>
-       <?=$this->translate('Action')?>
+       <?php echo $this->translate('Action')?>
      <?php endif;?>
     </th>
 </tr>
@@ -40,7 +48,9 @@
             </a>
          <?php endif;?>
       <?php else:?>
-         <a href="<?php echo $this->url( 'lang/apply/form', array('job' => $job->id , 'lang' => $this->params('lang')));?>"><?=$this->translate('Apply')?></a>
+         <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>">
+          <?php echo $this->translate('Apply')?>
+         </a>
       <?php endif ?>
      </td>
 </tr>

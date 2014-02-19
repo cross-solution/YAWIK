@@ -22,6 +22,10 @@ class Module
 
     public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
     {
+        if (\Zend\Console\Console::isConsole()) {
+            return;
+        }
+        
         $eventManager  = $moduleManager->getEventManager()->getSharedManager();
         $tokenListener = new TokenListener();
         $tokenListener->attachShared($eventManager);
@@ -64,6 +68,9 @@ class Module
     
     public function onBootstrap(MvcEvent $e)
     {
+        if (\Zend\Console\Console::isConsole()) {
+            return;
+        }
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
         

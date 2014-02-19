@@ -11,17 +11,42 @@
 namespace Core\Repository\Filter;
 
 use Zend\Filter\FilterInterface;
+use Core\Entity\SearchableEntityInterface;
+use Zend\Stdlib\StringUtils;
 
 class PropertyToKeywords implements FilterInterface
 {
     
     public function filter($value)
     {
-        $innerPattern = '[^a-z0-9ßäöü ]';
-        $pattern      = '~' . $innerPattern . '~is';
-        $stripPattern = '~^' . $innerPattern . '+|' . $innerPattern . '+$~is';
+        if ($value instanceOf SearchableEntityInterface) {
+            $entity = $value;
+            $value = array();
+            foreach ($entity->getSearchableProperties() as $name) {
+                $value[] = $entity->$name;
+            }
+        } else if (!is_array($value)) {
+            $value = array($value);
+        }
+        
+        $keywords = array();
+        
+        foreach ($value as $val) {
+            $keywords = array_merge($keywords, $this->getKeywords($val));
+        }
+        $keywords = array_unique($keywords);
+        return $keywords;
+    }
+    
+    protected function getKeywords($string)
+    {
+        $innerPattern = StringUtils::hasPcreUnicodeSupport()
+                      ? '[^\p{L}]'
+                      : '[^a-z0-9ßäöü ]';
+        $pattern      = '~' . $innerPattern . '~isu';
+        $stripPattern = '~^' . $innerPattern . '+|' . $innerPattern . '+$~isu';
         $parts     = array();
-        $textParts = explode(' ', $value);
+        $textParts = explode(' ', $string);
         foreach ($textParts as $part) {
             $part = strtolower(trim($part));
             $part = preg_replace($stripPattern, '', $part);
@@ -30,10 +55,7 @@ class PropertyToKeywords implements FilterInterface
         
             $parts[] = $part;
         
-            $tmpPart = $part;
-            while (preg_match($pattern, $tmpPart, $match)) {
-                $tmpPart = str_replace($match[0], ' ', $tmpPart);
-            }
+            $tmpPart = preg_replace($pattern, ' ', $part);
              
             if ($part != $tmpPart) {
                 $tmpParts = explode(' ', $tmpPart);
@@ -42,7 +64,6 @@ class PropertyToKeywords implements FilterInterface
             }
         }
         return $parts;
-        
     }
 }
 

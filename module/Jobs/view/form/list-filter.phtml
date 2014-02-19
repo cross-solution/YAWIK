@@ -58,14 +58,12 @@ echo $this->formHidden($params->get('page'));
 $byElement = $params->get('by');
 $statusElement = $params->get('status');
 ?>
-<div class="col-md-4">
-<div id="params-search-wrapper" class="input-group">
+<div id="params-search-wrapper" class="cam-input-group input-group">
     <span class="input-group-addon">?</span>
     <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for jobs' ))) ?>
     <span class="input-group-btn">
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
     </span>
-</div>
 </div>
 <?php if ($params->has('by') && $this->acl()->isRole('recruiter')):?>
 <div class="btn-toolbar navbar-right">

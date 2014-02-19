@@ -29,15 +29,42 @@ return array(
 
     // Logging
     'log' => array(
-        'writers' => array(
-             array(
-                 'name' => 'stream',
-                 'priority' => 1000,
-                 'options' => array(
-                     'stream' => __DIR__ .'/../../../log/cam.log',
+        'Log/Core/Cam' => array(
+            'writers' => array(
+                 array(
+                     'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                         'stream' => __DIR__ .'/../../../log/cam.log',
+                    ),
                 ),
             ),
         ),
+        'ErrorLogger' => array(
+            'service' => 'Core/ErrorLogger',
+            'config'  => array(
+                'stream' => __DIR__ . '/../../../log/error.log',
+                'log_errors' => true,
+                'log_exceptions' => true,
+            ),
+        ),
+//         array(
+//             'writers' => array(
+//                 array(
+//                     'name' => 'stream',
+//                     'priority' => 1000,
+//                     'options' => array(
+//                         'stream' => __DIR__ . '/../../../log/error.log',
+//                         'formatter' => 'ErrorHandler',
+//                         'filters' => array(
+//                             'Core\Log\Filter\PhpError'
+//                         ),
+//                     ),
+//                 ),
+//             ),
+//             'exceptionhandler' => true,
+//             'errorhandler' => true,
+//         ),
     ),
            
     // Routes
@@ -54,6 +81,17 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'error' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/error',
+                            'defaults' => array(
+                                'controller' => 'Core\Controller\Index',
+                                'action' => 'error',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                     'mailtest' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -112,6 +150,10 @@ return array(
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
+        ),
+        'abstract_factories' => array(
+            'Core\Log\LoggerAbstractFactory',
         ),
         'aliases' => array(
             'forms' => 'FormElementManager',
@@ -216,6 +258,7 @@ return array(
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
             'link'   => 'Core\View\Helper\Link',
+            'rating' => 'Core\View\Helper\Rating',
             'base64' => 'Core\View\Helper\Base64',
             'insertFile' => 'Core\View\Helper\InsertFile',
             
@@ -223,10 +266,15 @@ return array(
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
+        'initializers' => array(
+            '\Core\View\Helper\Service\HeadScriptInitializer',
+        ),
     ),
     
     'filters' => array(
-        
+        'invokables' => array(
+            'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
+        ),
     ),
     
     'form_elements' => array(
@@ -235,6 +283,8 @@ return array(
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core\FileCollection' => 'Core\Form\FileCollection',
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
+            'Core/RatingFieldset' => 'Core\Form\RatingFieldset',
+            'Core/Rating' => 'Core\Form\Element\Rating',
         ),
     ),
     

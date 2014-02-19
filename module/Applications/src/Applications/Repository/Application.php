@@ -9,6 +9,8 @@ use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
 use Applications\Entity\ApplicationInterface;
 use Doctrine\ODM\MongoDB\Events;
+use Applications\Entity\Application as ApplicationEntity;
+use Applications\Entity\CommentInterface;
 
 class Application extends AbstractRepository
 {   
@@ -28,6 +30,22 @@ class Application extends AbstractRepository
         return $qb->getQuery()->execute();          
     }
     
+
+    public function findComment($commentOrId)
+    {
+        if ($commentOrId instanceOf CommentInterface) {
+            $commentOrId = $commentOrId->getId();
+        }
+        
+        $application = $this->findOneBy(array('comments.id' => $commentOrId));
+        foreach ($application->getComments() as $comment) {
+            if ($comment->getId() == $commentOrId) {
+                return $comment;
+            }
+        }
+        return null;
+            
+    }
     /**
      * @deprecated
      * @param unknown $jobId
@@ -65,19 +83,6 @@ class Application extends AbstractRepository
         return $this->findBy($criteria)->count();
     }
     
-    public function changeStatus($application, $status)
-    {
-        $application->setStatus($status);
-        $history = $this->builders->get('Applications/History')->build(array(
-            'date' => new \DateTime(),
-            'status' => $application->getStatus(),
-            'message' => '[System]'
-        ));
-        $application->getHistory()->add($history);
-        $this->save($application);
-        return $this;
-    }
-    
     public function save(ApplicationInterface $application, $resetModifiedDate=true)
     {
         if ($resetModifiedDate) {
@@ -89,8 +94,8 @@ class Application extends AbstractRepository
     
     public function delete(EntityInterface $entity)
     {
-        $this->getMapper('application')->delete($entity);
-        $this->getMapper('application-trash')->save($entity, true);
+        $this->dm->remove($entity);
+        $this->dm->flush();
         return $this;
     }
     

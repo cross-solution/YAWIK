@@ -62,28 +62,16 @@ translate('get blind carbon copy of all own mails');
 //: ./src/Applications/Form/SettingsFieldset.php:61
 translate('if checked, you\'ll get a copy of all mails you send.');
 
+//: ./src/Applications/Form/CommentForm.php:41
+translate('Comment message');
+
 //: ./src/Applications/Form/CreateApplication.php:111
 translate('send application');
-
-//: ./src/Applications/Form/SettingsApplicationformFieldset.php:25
-translate('applicationform');
-
-//: ./src/Applications/Form/SettingsApplicationformFieldset.php:30
-translate('Hide Summary');
-
-//: ./src/Applications/Form/SettingsApplicationformFieldset.php:34
-translate('Hide Education history');
-
-//: ./src/Applications/Form/SettingsApplicationformFieldset.php:38
-translate('Hide Employment history');
-
-//: ./src/Applications/Form/SettingsApplicationformFieldset.php:42
-translate('Hide Skills');
 
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
-//: ./src/Applications/Mail/Forward.php:37
+//: ./src/Applications/Mail/Forward.php:40
 translate('Fwd: Application to "%s" dated %s');
 
 //: ./src/Applications/Mail/NewApplication.php:44
@@ -92,6 +80,6 @@ translate('New application for your vacancy "%s"');
 //: ./src/Applications/Mail/NewApplication.php:59
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./config/module.config.php:175
+//: ./config/module.configs.php:187
 translate('Overview');
 

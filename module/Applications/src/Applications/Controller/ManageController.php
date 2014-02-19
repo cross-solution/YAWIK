@@ -16,6 +16,8 @@ use Zend\View\Model\JsonModel;
 use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
+use Applications\Entity\Comment;
+use Applications\Entity\Rating;
 
 /**
  * Action Controller for managing applications.
@@ -103,6 +105,10 @@ class ManageController extends AbstractActionController
      */
     public function detailAction(){
 
+        if ('refresh-rating' == $this->params()->fromQuery('do')) {
+            return $this->refreshRatingAction();
+        }
+        
         $nav = $this->getServiceLocator()->get('main_navigation');
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
@@ -135,14 +141,31 @@ class ManageController extends AbstractActionController
                 $return = $viewModel;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
-                
+           
                 break;
             default:
                 break;
         }
+        
         return $return;
     }
     
+    public function refreshRatingAction()
+    {
+        $model = new ViewModel();
+        $model->setTemplate('applications/manage/_rating');
+        
+        $application = $this->getServiceLocator()->get('repositories')->get('Applications/Application')
+                        ->find($this->params('id', 0));
+        
+        if (!$application) {
+            throw new \DomainException('Invalid application id.');
+        }
+        
+        $model->setVariable('application', $application);
+        return $model;
+    }
+
     /**
      * change status of an application
      * 
@@ -196,7 +219,7 @@ class ManageController extends AbstractActionController
 //             $mail->setFrom($from, $application->job->company);
 //             $mail->addTo($application->contact->email, $application->contact->displayName);
 //             $mail->send();
-            $application->changeStatus($status);
+            $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));
             $repository->save($application);
             
             if ($jsonFormat) {
@@ -265,9 +288,7 @@ class ManageController extends AbstractActionController
         
         $params = array(
             'ok' => true,
-            'text' => $translator->translate(sprintf(
-                'Forwarded application to %s', $emailAddress
-            ))
+            'text' => sprintf($translator->translate('Forwarded application to %s'), $emailAddress)
         );
         
         try {
@@ -282,12 +303,10 @@ class ManageController extends AbstractActionController
         } catch (\Exception $ex) {
             $params = array(
                 'ok' => false,
-                'text' => $translator->translate(sprintf(
-                     'Forward application to %s failed.', $emailAddress
-                )) . '<br><br>' . $ex->getMessage()
+                'text' => sprintf($translator->translate('Forward application to %s failed.'), $emailAddress)
             );
         }
-        
+        $application->changeStatus($application->status,$params['text']);
         return new JsonModel($params);
     }
     

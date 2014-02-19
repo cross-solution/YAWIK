@@ -8,7 +8,7 @@
  */
 
 $modules = array(
-         'DoctrineModule', 'DoctrineMongoODMModule', /* 'JMSSerializerModule', */ 'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
+         'DoctrineModule', 'DoctrineMongoODMModule', 'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf',
     );
 
 if (!isset($allModules)) {
@@ -65,7 +65,8 @@ return array(
             //'ServiceListenerInterface' => 'Core\mvc\Service\ServiceListener',
         ),
         'factories' => array(
-            'Log' => 'Core\src\Core\Service\Log'
-        ),            
+            //'Log' => 'Core\src\Core\Service\Log'
+        ),
+        
     ),
 );

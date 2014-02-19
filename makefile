@@ -19,7 +19,7 @@ install: composer-install create-directories install-config
 
 composer-install:
 	@echo "=="; echo "== Install composer dependencies"; echo "==" 
-	php composer.phar self-update
+	curl -sS https://getcomposer.org/installer | php
 	php composer.phar install
 	@echo
 	

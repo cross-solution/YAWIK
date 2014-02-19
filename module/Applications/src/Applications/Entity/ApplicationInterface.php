@@ -3,11 +3,12 @@
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
+use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 
-interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface 
+interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface, SearchableEntityInterface
 {
     
     public function setJobId($jobId);
@@ -44,5 +45,20 @@ interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterf
     public function addReadBy($userOrId);
     public function isUnreadBy($userOrId);
     public function isReadBy($userOrId);
+    
+    /**
+     * Gets all comments for the application.
+     * 
+     * @return Collection
+     */
+    public function getComments();
+    
+    /**
+     * Sets comment collection for the application.
+     * 
+     * @param Collection $comments
+     * @return ApplicationInterface
+     */
+    public function setComments(Collection $comments);
     
 }
