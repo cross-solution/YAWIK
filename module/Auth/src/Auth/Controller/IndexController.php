@@ -171,11 +171,12 @@ class IndexController extends AbstractActionController
         
         $user = $auth->getUser();
         $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
-        $settings = $user->settings;
-        if (isset($settings['settings']['language'])) {
-            $ref = preg_replace('~^/[a-z]{2}(/)?~', '/' . $settings['settings']['language'] . '$1', $ref);
+        $settings = $user->getSettings('Core');
+        if (null !== $settings->localization->language) {
+            $basePath = $this->getEvent()->getRouter()->getBaseUrl();
+            $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
         } 
-        $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
+        return $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
     }
     
     /**
