@@ -32,7 +32,7 @@ return array(
             'enabled' => true,
             'widgets' => array(
                 'recentApplications' => array(
-                    'script' => 'applications/dashboard/recent',
+                    'controller' => 'Applications\Controller\Index',
                 ),
             ),
         ),
@@ -58,101 +58,6 @@ return array(
             'Applications/Console' => 'Applications\Controller\ConsoleController'
         ),
     ),
-    
-    
-    // Routes
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'apply' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/apply',
-                            'defaults' => array(
-                                'controller' => 'Applications\Controller\Index',
-                                'action' => 'index',
-                            ),
-                        ),
-                        'may_terminate' => false,
-                        'child_routes' => array(
-                            'form' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/:jobId',
-                                ),
-                            ),
-                            'submit' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/submit',
-                                ),
-                            ),
-                    'disclaimer' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/disclaimer',
-                            'defaults' => array(
-                                'controller' => '\Applications\Controller\Index',
-                                'action' => 'disclaimer',
-                            ),
-                        ),
-                    ),
-                        ),
-                    ),
-                    'applications' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/applications',
-                            'defaults' => array(
-                                'controller' => '\Applications\Controller\Manage',
-                                'action' => 'index',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'detail' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/:id',
-                                    'constraints' => array(
-                                        'id' => '[a-z0-9]+',
-                                    ),
-                                    'defaults' => array(
-                                        'action' => 'detail',
-                                    ),
-                                ),
-                                'may_terminate' => true,
-                                'child_routes' => array(
-                                    
-                                    'status' => array(
-                                        'type' => 'Segment',
-                                        'options' => array(
-                                            'route' => '/:status',
-                                            'defaults' => array(
-                                                'action' => 'status',
-                                                'status' => 'bad',
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            ),
-                            'comments' => array(
-                                'type' => 'Segment',
-                                'options' => array(
-                                    'route' => '/comments/:action',
-                                    'defaults' => array(
-                                        'controller' => 'Applications/CommentController',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-    
     
     'acl' => array(
         'rules' => array(
@@ -208,7 +113,6 @@ return array(
         'template_map' => array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
-            'applications/dashboard/recent' => __DIR__ . '/../view/applications/index/dashboard.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
         )
