@@ -48,16 +48,22 @@
 	    			 var $html = $(html);
 	    			 var $element = $this.$element;
 	    			 var found = false;
-	    			 $.each(['header', 'title', 'body', 'footer'], function(i, name) {
-	    				 var className = '.modal-' + name;
-	    				 var $elem = $html.find(className);
-	    				 if ($elem.length) {
-	    					 found = true;
-	    					 var $orig = $element.find(className);
-	    					 if ($orig.length) {
-	    						 $orig.html($elem.html());
+	    			 $html.each(function() {
+	    				 var $htmlElement = $(this);
+	    				 $.each(['header', 'title', 'body', 'footer'], function(i, name) {
+	    					 var className = '.modal-' + name;
+	    					 var $elem = $htmlElement.hasClass(className.substr(1))
+	    					           ? $htmlElement
+	    					           : $htmlElement.find(className);
+	    					 
+	    					 if ($elem.length) {
+	    						 found = true;
+	    						 var $orig = $element.find(className);
+	    						 if ($orig.length) {
+	    							 $orig.html($elem.html());
+	    						 }
 	    					 }
-	    				 }
+	    				 });
 	    			 });
 	    			 
 	    			 if (!found && $element.find('.modal-' + $this.options.reloadable).length) {
