@@ -114,7 +114,7 @@
 	    		           : $(_relatedTarget).attr('href').replace(/.*(?=#[^\s]+$)/, '');
 	    		  
 	    		  if (!/#/.test(href)) {
-	    			  data.load(options.remote);
+	    			  data.load(href);
 	    		  }
 	    	  }
 	      } else {
