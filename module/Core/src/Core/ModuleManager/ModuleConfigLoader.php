@@ -42,12 +42,22 @@ class ModuleConfigLoader
             if (isset($handlers[$handler]) && is_callable($handlers[$handler])) {
                 $cfg = call_user_func($handlers[$handler], $match[1], $cfg);
             } else if ('config' == $handler) {
-                $cfg = array($match[1] => $cfg);
+                $cfg = static::handleConfig($match[1], $cfg);
             }
                 
             $config = array_merge($config, $cfg);
         }
         return $config;
-    } 
+    }
+
+    protected static function handleConfig($key, $cfg)
+    {
+        if (false === strstr($key, '.')) {
+            return array($key => $cfg);
+        } else {
+            list($newKey, $key) = explode('.', $key, 2);
+            return array($newKey => static::handleConfig($key, $cfg));
+        }
+    }
 }
 

@@ -3,19 +3,27 @@
 	
 	paginate = function(event)
 	{
-		$.loadingPopup.show();
+		event.data.loadingIndicator.show();
 		var url        = $(event.target).attr('href');
 		var $container = event.data.container;
 		
-		$container.load(url, function() { $container.pagination(); $.loadingPopup.hide(); });
+		$container.load(url, function() { $container.pagination(); event.data.loadingIndicator.hide(); });
 		return false;
 	};
 	
 	$.fn.pagination = function()
 	{
 		return this.each(function() {
+			
+			var eventData = {
+				"container": $(this),
+				"loadingIndicator": $(this).find('.pagination-loading')
+			};
+			
+			eventData.loadingIndicator.hide();
+			
 			$(this).find('.pagination li[class!="disabled"] a, th a')
-			       .click({"container": $(this)}, paginate);
+			       .click(eventData, paginate);
 		});
 	};
 	
