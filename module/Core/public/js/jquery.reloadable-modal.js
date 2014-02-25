@@ -111,7 +111,7 @@
 	    	  } else {
 	    		  var href = options.remote 
 	    		           ? options.remote
-	    		           : $(_relatedTarget).replace(/.*(?=#[^\s]+$)/, '');
+	    		           : $(_relatedTarget).attr('href').replace(/.*(?=#[^\s]+$)/, '');
 	    		  
 	    		  if (!/#/.test(href)) {
 	    			  data.load(options.remote);
