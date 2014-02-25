@@ -107,13 +107,21 @@
 	      if (options['reloadable']) {
 	    	  if (!data) {
 	    		  data = new ReloadableModal(this, options);
+	    		  $this.data('bs.modal', data);
 	    	  } else {
-	    		  data.load(options.remote);
+	    		  var href = options.remote 
+	    		           ? options.remote
+	    		           : $(_relatedTarget).replace(/.*(?=#[^\s]+$)/, '');
+	    		  
+	    		  if (!/#/.test(href)) {
+	    			  data.load(options.remote);
+	    		  }
 	    	  }
 	      } else {
 	    	  data = new Modal(this, options);
+	    	  $this.data('bs.modal', data);
 	      }
-    	$this.data('bs.modal', data);
+    	
     	if (typeof option == 'string') data[option](_relatedTarget)
     	else if (options.show) data.show(_relatedTarget)
 	  });
