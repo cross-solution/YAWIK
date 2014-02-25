@@ -4,7 +4,7 @@
 	paginate = function(event)
 	{
 		event.data.loadingIndicator.show();
-		var url        = $(event.target).attr('href');
+		var url        = $(event.currentTarget).attr('href');
 		var $container = event.data.container;
 		
 		$container.load(url, function() { $container.pagination(); event.data.loadingIndicator.hide(); });
