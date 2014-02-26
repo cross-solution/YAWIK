@@ -9,7 +9,9 @@
 
 $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 ?>
+<?php if (!$this->isAjaxRequest): ?>
 <div class="cam-panel pagination-container">
+<?php endif ?>
 <div class="cam-panel-head">
 <h2>
  <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
@@ -67,4 +69,6 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications-dashboard'));
 ?>
 </div>
+<?php if (!$this->isAjaxRequest): ?>
 </div>
+<?php endif ?>
