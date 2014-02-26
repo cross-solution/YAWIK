@@ -2,11 +2,8 @@
 
 namespace Jobs\Form;
 
-use Traversable;
-use Zend\Stdlib\ArrayUtils;
 use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 
 class Job extends Form
 {
@@ -20,28 +17,14 @@ class Job extends Form
         return $this->hydrator;
     }
     
-     public function setData($data)
-    {
-        if ($data instanceof Traversable) {
-            $data = ArrayUtils::iteratorToArray($data);
-        }
-        if (!array_key_exists('job',$data)) {
-            $data = array('job' => $data);
-        }
-        
-        return parent::setData($data);
-    }
-    
-    
-    
     public function init()
     {
-        $this->setName('job-create');
-        $this->setAttribute('id', 'job-create');
+        $this->setName('jobs-form');
+        $this->setAttribute('id', 'jobs-form');
  
         
         $this->add(array(
-            'type' => 'JobFieldset',
+            'type' => 'Jobs/JobFieldset',
             'name' => 'job',
             'options' => array(
                 'use_as_base_fieldset' => true
@@ -49,8 +32,12 @@ class Job extends Form
         ));       
         
         $this->add(array(
-            'type' => 'DefaultButtonsFieldset'
+            'type' => 'DefaultButtonsFieldset',
+            'options' => array(
+                'save_label' => /*@translate*/ 'Publish job',
+            ),
         ));
+        
 
     }
 }

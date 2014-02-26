@@ -20,18 +20,30 @@ return array(
                     'options' => array(
                         'route'    => '/jobs',
                         'defaults' => array(
-                            'controller' => 'Jobs\Controller\Index',
+                            'controller' => 'Jobs/Index',
                             'action'     => 'index',
                         ),
                     ),
                     'may_terminate' => true,
+                    'child_routes' => array(
+                        'manage' => array(
+                            'type' => 'Segment',
+                            'options' => array(
+                                'route' => '/:action',
+                                'defaults' => array(
+                                    'controller' => 'Jobs/Manage',
+                                ),
+                            ),
+                            'may_terminate' => true,
+                        ),
+                    ),
                 ),
                 'save' => array(
                     'type' => 'Literal',
                     'options' => array(
                         'route' => '/saveJob',
                         'defaults' => array(
-                            'controller' => 'Jobs\Controller\Manage',
+                            'controller' => 'Jobs/Import',
                             'action' => 'save',
                         ),
                     ),

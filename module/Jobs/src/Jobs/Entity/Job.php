@@ -8,20 +8,21 @@
 
 namespace Jobs\Entity;
 
-use Core\Entity\AbstractIdentifiableEntity;
+use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
+use Core\Entity\PreUpdateAwareInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends AbstractIdentifiableEntity implements JobInterface {
+class Job extends BaseEntity implements JobInterface {
 
     /**
      * uniq ID of a job posting
@@ -41,6 +42,12 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      */ 
     protected $title;
     
+    /**
+     * Description (Free text)
+     * @var String
+     * @ODM\String
+     */
+    protected $description;
     /**
      * name of the publishing company
      * 
@@ -179,6 +186,25 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Jobs\Entity\JobInterface::setDescription()
+     */
+    public function setDescription($text)
+    {
+        $this->description = (string) $text;
+        return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Jobs\Entity\JobInterface::setDescription()
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
     /**
      * @return the $company
      */
