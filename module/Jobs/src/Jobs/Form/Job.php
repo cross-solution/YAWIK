@@ -4,9 +4,11 @@ namespace Jobs\Form;
 
 use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\InputFilter\InputFilterProviderInterface;
 
-class Job extends Form
+class Job extends Form implements InputFilterProviderInterface
 {
+
     
     public function getHydrator()
     {
@@ -27,9 +29,9 @@ class Job extends Form
             'type' => 'Jobs/JobFieldset',
             'name' => 'job',
             'options' => array(
-                'use_as_base_fieldset' => true
+                'use_as_base_fieldset' => true,
             ),
-        ));       
+        ));
         
         $this->add(array(
             'type' => 'DefaultButtonsFieldset',
@@ -39,5 +41,12 @@ class Job extends Form
         ));
         
 
+    }
+    
+    public function getInputFilterSpecification()
+    {
+        return array(
+            'job' => array('type' => 'new' == $this->getOption('mode') ? 'Jobs/New' : 'Jobs/Edit')
+        );
     }
 }

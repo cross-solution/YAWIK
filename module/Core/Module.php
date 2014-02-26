@@ -21,6 +21,7 @@ use Zend\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorLoggerListener;
 use Core\Listener\ErrorHandlerListener;
 use Zend\Log\Formatter\ErrorHandler;
+use Core\Repository\DoctrineMongoODM\PersistenceListener;
 
 /**
  * Bootstrap class of the Core module
@@ -96,10 +97,19 @@ class Module implements ConsoleBannerProviderInterface
             $stringListener->attach($eventManager);
         }
         
-        $eventManager->attach('postDispatch', function ($event) use ($sm) {
-            $sm->get('doctrine.documentmanager.odm_default')->flush();
-        }, -150);
+        $persistenceListener = new PersistenceListener();
+        $persistenceListener->attach($eventManager);
         
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function ($event) {
+            $application = $event->getApplication();
+            if ($application::ERROR_EXCEPTION == $event->getError()) {
+                $ex = $event->getParam('exception');
+                if (404 == $ex->getCode()) {
+                    $event->setError($application::ERROR_CONTROLLER_NOT_FOUND);
+                }
+            }
+            
+        }, 500);
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
             $eventManager->trigger('postDispatch', $event);
         }, -150);

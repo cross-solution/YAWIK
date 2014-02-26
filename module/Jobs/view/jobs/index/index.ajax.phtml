@@ -28,8 +28,11 @@
 <tbody>
 <?foreach ($jobs as $job):?>
 <tr>
-    <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); endif?></td>
-    <td><a href="<?php echo $job->link?>"><?php echo strip_tags($job->title)?></a></td>
+    <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
+              elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?></td>
+    <td>
+        <a href="<?php echo $job->link?>"><?php echo strip_tags($job->title)?></a>
+        </td>
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>
     <td><?php echo empty($job->reference)? $job->applyId:$job->reference ?></td>
@@ -51,6 +54,9 @@
          <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>">
           <?php echo $this->translate('Apply')?>
          </a>
+      <?php endif ?>
+      <?php if ($this->auth('id') == $job->user->id): ?>
+      <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="cam-icon-edit"></span></a>
       <?php endif ?>
      </td>
 </tr>

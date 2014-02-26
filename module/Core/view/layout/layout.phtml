@@ -70,7 +70,7 @@
 <div id="sub-nav">               
 <?php
     echo $this->navigation()->menu()
-              ->setOnlyActiveBranch()
+              ->setOnlyActiveBranch(true)
               ->setMaxDepth(null)
               ->setMinDepth(1)
               ->setRenderParents(false)

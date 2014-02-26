@@ -51,7 +51,11 @@ class AjaxRenderListener implements ListenerAggregateInterface
                 return;
             }
             $resolver = $e->getApplication()->getServiceManager()->get('ViewResolver');
-            $template = $viewModel->getTemplate() . '.ajax';
+            /*
+             * Due to a bug in TemplatePathStackResolver we have to set the suffix here
+             * Maybe we should write a own ajax template resolver or just not use a dot here.
+             */
+            $template = $viewModel->getTemplate() . '.ajax.phtml';
             if ($resolver->resolve($template)) {
                 $viewModel->setTemplate($template);
             } else {

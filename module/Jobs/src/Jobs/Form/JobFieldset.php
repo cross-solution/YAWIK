@@ -3,16 +3,11 @@
 namespace Jobs\Form;
 
 use Zend\Form\Fieldset;
-use Zend\Validator\StringLength as StringLengthValidator;
-use Zend\Validator\EmailAddress as EmailAddressValidator;
-use Zend\Validator\ValidatorInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Core\Repository\Hydrator;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 
-class JobFieldset extends Fieldset implements InputFilterProviderInterface
+class JobFieldset extends Fieldset 
 {
+    
     
     public function getHydrator()
     {
@@ -98,24 +93,4 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
         ));
        
     }
-    
-    public function getInputFilterSpecification() 
-    {
-//         return array(
-//             'applyId' => array(
-//                 'required' => true,
-//                 'filters' => array(
-//                     'name' => 'StringTrim'
-//                 ),
-//                 'validators' => array(
-//                     new 
-//         )
-//             ),
-//             'company' => array(
-//                 'required' => true,
-//             ),
-//             ''
-//         );
-    }
-
 }

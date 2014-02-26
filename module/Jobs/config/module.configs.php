@@ -56,6 +56,26 @@ return array(
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
                 'order' => '30',
+                'pages' => array(
+                    'list' => array(
+                        'label' => /*@translate*/ 'Overview',
+                        'route' => 'lang/jobs',
+                    ),
+                    'new' => array(
+                        'label' => /*@translate*/ 'Create job',
+                        'route' => 'lang/jobs/manage',
+                        'params' => array(
+                            'action' => 'new'
+                        ),
+                    ),
+                    'edit' => array(
+                        'route' => 'lang/jobs/manage',
+                        'params' => array(
+                            'action' => 'edit'
+                        ),
+                        'visible' => false,
+                    ),
+                ),
             ),
         ),
     ),
@@ -101,9 +121,22 @@ return array(
         )
     ),
     
+    'input_filters' => array(
+        'invokables' => array(
+            'Jobs/New'  => 'Jobs\Form\InputFilter\NewJob',
+            'Jobs/Edit' => 'Jobs\Form\InputFilter\EditJob', 
+        ),
+    ),
+    
     'filters' => array(
         'factories'=> array(
             'Jobs/PaginationQuery' => '\Jobs\Repository\Filter\PaginationQueryFactory'
+        ),
+    ),
+    
+    'validators' => array(
+        'factories' => array(
+            'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
     

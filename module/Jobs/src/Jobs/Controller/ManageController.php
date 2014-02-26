@@ -25,11 +25,16 @@ use Zend\Mvc\MvcEvent;
  */
 class ManageController extends AbstractActionController {
 
-    public function setEventManager(EventManagerInterface $eventManager)
+    public function attachDefaultListeners()
     {
-        parent::setEventManager($eventManager);
+        parent::attachDefaultListeners();
+        $events = $this->getEventManager();
         
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkAcl'));
+        
+        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkAcl'));
+        /* This must run before onDispatch, because we could alter the action param */
+        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
+        
         return $this;
     }
     
@@ -40,17 +45,41 @@ class ManageController extends AbstractActionController {
         }
     }
     
+    public function checkPostRequest(MvcEvent $e)
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $routeMatch = $e->getRouteMatch();
+            if (!$routeMatch) {
+                return; // Let parent::onDispatch handle failure
+            }
+            /* All POST requests are handled by the saveAction! */
+            $routeMatch->setParam('action', 'save');
+        }
+    }
+    
     /**
      * Action called, when a new job should be created.
      * 
      */
     public function newAction()
     {
-       $form = $this->getFormular($this->getJob());
-       return $this->getViewModel('form', array(
-           'form' => $form,
-           'action' => 'new',
-       ));
+        $job = $this->getJob();
+        $job->contactEmail = $this->auth('info.email');
+        $form = $this->getFormular($job); 
+        return $this->getViewModel('form', array(
+            'form' => $form,
+            'action' => 'new',
+        ));
+    }
+    
+    public function editAction()
+    {
+        $form = $this->getFormular($this->getJob());
+        return $this->getViewModel('form', array(
+            'form' => $form,
+            'action' => 'edit',
+        ));
     }
     
     public function saveAction()
@@ -61,7 +90,7 @@ class ManageController extends AbstractActionController {
             $this->flashMessenger()->addMessage(/*@translate*/ 'Job published.');
             if (!$job->id) {
                 $job->setUser($this->auth()->getUser());
-                $this->getServiceLocator()->get('repositories')->persist($job);
+                $this->getServiceLocator()->get('repositories')->store($job);
             }
             return $this->redirect()->toRoute('lang/jobs');
         }
@@ -77,8 +106,14 @@ class ManageController extends AbstractActionController {
     {
         $services = $this->getServiceLocator();
         $forms    = $services->get('FormElementManager');
-        $form     = $forms->get('Jobs/Job');
+        $form     = $forms->get('Jobs/Job', array(
+            'mode' => $job->id ? 'edit' : 'new'
+        ));
         $form->bind($job);
+        
+        if ($this->getRequest()->isPost()) {
+            $form->setData($_POST);
+        }
 
         return $form;
     }
