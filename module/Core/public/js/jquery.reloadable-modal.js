@@ -45,6 +45,7 @@
 	    		var $this = this;
 	    		$.get(href)
 	    		 .done(function(html) {
+                                html = '<div>' + html + '</div>';
 	    			 var $html = $(html);
 	    			 var $element = $this.$element;
 	    			 var found = false;
