@@ -148,7 +148,7 @@ return array(
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
         ),
@@ -158,6 +158,7 @@ return array(
         'aliases' => array(
             'forms' => 'FormElementManager',
             'repositories' => 'Core/RepositoryService',
+            'translator' => 'mvctranslator',
         ),
     ),
     // Translation settings consumed by the 'translator' factory above.
