@@ -158,6 +158,7 @@ class IndexController extends AbstractActionController
                         );
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
+                $groupSettings = $this->getServiceLocator()->get('Usergroup')->getSettings();
                 $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
                 $mail->setSubject('Anmeldung im Cross Applicant Management');
             }
