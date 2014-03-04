@@ -228,10 +228,10 @@ return array(
             'error/403' => __DIR__ . '/../view/error/403.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
             'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
+            'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
-            'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
-            
+            'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',            
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
