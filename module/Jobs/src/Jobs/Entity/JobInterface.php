@@ -7,8 +7,14 @@ use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 use Core\Entity\SearchableEntityInterface;
+use Core\Entity\ModificationDateAwareEntityInterface;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
 
-interface JobInterface extends EntityInterface, IdentifiableEntityInterface, SearchableEntityInterface
+interface JobInterface extends EntityInterface, 
+                               IdentifiableEntityInterface,
+                               ModificationDateAwareEntityInterface, 
+                               SearchableEntityInterface,
+                               ResourceInterface
 {
 
     public function setApplyId($applyId);
@@ -22,6 +28,9 @@ interface JobInterface extends EntityInterface, IdentifiableEntityInterface, Sea
     
     public function getTitle();
     public function setTitle($title);
+    
+    public function getDescription();
+    public function setDescription($text);
     
     public function getCompany();
     public function setCompany($company);

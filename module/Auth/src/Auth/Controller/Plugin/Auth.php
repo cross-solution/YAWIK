@@ -56,6 +56,13 @@ class Auth extends AbstractPlugin
     {
         $auth = $this->getAuthenticationService();
         if ($auth->hasIdentity()) {
+            if (false !== strpos($property, '.')) {
+                $value = $auth->getUser();
+                foreach (explode('.', $property) as $prop) {
+                    $value = $value->$prop;
+                }
+                return $value;
+            }
             return 'id' == $property ? $auth->getIdentity() : $auth->getUser()->$property;
         }
         return null;

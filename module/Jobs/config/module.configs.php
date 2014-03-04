@@ -17,7 +17,7 @@ return array(
             'enabled' => true,
             'widgets' => array(
                 'recentJobs' => array(
-                    'controller' => 'Jobs\Controller\Index',
+                    'controller' => 'Jobs/Index',
                     'params' => array(
                         'type' => 'recent'
                     ),
@@ -42,11 +42,21 @@ return array(
       
     'acl' => array(
         'rules' => array(
-            'user' => array(
+            'recruiter' => array(
                 'allow' => array(
-                    'Jobs\Controller\Manage'
+                    'Jobs/Manage',
+                    'route/lang/jobs/manage',
+                    'Entity/Jobs/Job' => array(
+                        'new',
+                        'edit' => 'Jobs/Write',
+                    ),
                 ),
-            ),                
+            ),
+        ),
+        'assertions' => array(
+            'invokables' => array(
+                'Jobs/Write' => 'Jobs\Acl\WriteAssertion'
+            ),
         ),
     ),
     
@@ -56,6 +66,27 @@ return array(
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
                 'order' => '30',
+                'pages' => array(
+                    'list' => array(
+                        'label' => /*@translate*/ 'Overview',
+                        'route' => 'lang/jobs',
+                    ),
+                    'new' => array(
+                        'label' => /*@translate*/ 'Create job',
+                        'route' => 'lang/jobs/manage',
+                        'resource' => 'route/lang/jobs/manage',
+                        'params' => array(
+                            'action' => 'new'
+                        ),
+                    ),
+                    'edit' => array(
+                        'label' => /*@translate*/ 'Edit job',
+                        'resource' => 'route/lang/jobs/manage',
+                        'uri' => '#',
+                        'visible' => false,
+                        'id' => 'Jobs/Edit'
+                    ),
+                ),
             ),
         ),
     ),
@@ -63,8 +94,9 @@ return array(
     
     'controllers' => array(
         'invokables' => array(
-            'Jobs\Controller\Index' => 'Jobs\Controller\IndexController',
-            'Jobs\Controller\Manage' => 'Jobs\Controller\ManageController',
+            'Jobs/Index' => 'Jobs\Controller\IndexController',
+            'Jobs/Manage' => 'Jobs\Controller\ManageController',
+            'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),
     ),
@@ -88,8 +120,10 @@ return array(
        
     'form_elements' => array(
         'invokables' => array(
-            'JobForm'            => '\Jobs\Form\Job',
-            'JobFieldset'        => '\Jobs\Form\JobFieldset',
+            'Jobs/Job'             => 'Jobs\Form\Job',
+            'Jobs/JobFieldset'     => 'Jobs\Form\JobFieldset',
+            'Jobs/Import'            => '\Jobs\Form\Import',
+            'Jobs/ImportFieldset'        => '\Jobs\Form\ImportFieldset',
             'Jobs/ListFilter'    => '\Jobs\Form\ListFilter',
             'Jobs/ListFilterFieldset' => 'Jobs\Form\ListFilterFieldset',
         ),
@@ -98,9 +132,22 @@ return array(
         )
     ),
     
+    'input_filters' => array(
+        'invokables' => array(
+            'Jobs/New'  => 'Jobs\Form\InputFilter\NewJob',
+            'Jobs/Edit' => 'Jobs\Form\InputFilter\EditJob', 
+        ),
+    ),
+    
     'filters' => array(
         'factories'=> array(
             'Jobs/PaginationQuery' => '\Jobs\Repository\Filter\PaginationQueryFactory'
+        ),
+    ),
+    
+    'validators' => array(
+        'factories' => array(
+            'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
     

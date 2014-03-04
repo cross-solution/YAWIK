@@ -13,85 +13,152 @@ namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
-use Jobs\Entity\Job;
+use Auth\Exception\UnauthorizedAccessException;
+use Zend\EventManager\EventManagerInterface;
+use Zend\Mvc\MvcEvent;
+
 
 /**
- * Main Action Controller for the application.
- * Responsible for displaying the home site.  
- *
+ * This Controller handles management actions for jobs.
+ *    
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ManageController extends AbstractActionController {
 
-    public function saveAction() {
-        if (False) {
-            // Test
-            $this->request->setMethod('post');
-            $params = new Parameters(array(
-                'applyId' => '179161',
-                'company' => 'Kraft von Wantoch GmbH Personalberatung',
-                'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch.de',
-                'title' => 'Fuhrparkleiter/-in',
-                'location' => 'Bundesland, Bayern, DE',
-                'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',
-                'datePublishStart' => '2013-11-15',
-                'status' => 'aktiv',
-                'reference' => '2130010128',
-                'camEnabled' => '1',
-                'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
-            ));
-            $this->getRequest()->setPost($params);
+    public function attachDefaultListeners()
+    {
+        parent::attachDefaultListeners();
+        $events = $this->getEventManager();
+        
+        
+        /* This must run before onDispatch, because we could alter the action param */
+        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
+        
+        return $this;
+    }
+    
+    public function checkPostRequest(MvcEvent $e)
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $routeMatch = $e->getRouteMatch();
+            if (!$routeMatch) {
+                return; // Let parent::onDispatch handle failure
+            }
+            /* All POST requests are handled by the saveAction! */
+            $action = $routeMatch->getParam('action');
+            $routeMatch->setParam('action', 'save');
+            $routeMatch->setParam('origAction', $action);
+        }
+    }
+    
+    /**
+     * Action called, when a new job should be created.
+     * 
+     */
+    public function newAction()
+    {
+        $job = $this->getJob(/* create */ true);
+        $this->acl($job, 'new');
+        $job->contactEmail = $this->auth('info.email');
+        $form = $this->getFormular($job); 
+        return $this->getViewModel('form', array(
+            'form' => $form,
+            'action' => 'new',
+        ));
+    }
+    
+    public function editAction()
+    {
+        $job = $this->getJob();
+        $this->acl($job, 'edit');
+        $form = $this->getFormular($job);
+        return $this->getViewModel('form', array(
+            'form' => $form,
+            'action' => 'edit',
+            'job' => $job
+        ));
+    }
+    
+    public function saveAction()
+    {
+        $origAction = $this->params('origAction');
+        $create     = 'new' == $origAction;
+        $job        = $this->getJob($create);
+        $this->acl($job, $origAction);
+        $form       = $this->getFormular($job);
+        
+        if ($form->isValid()) {
+            if ($create) {
+                $this->flashMessenger()->addMessage(/*@translate*/ 'Job published.');
+                $job->setUser($this->auth()->getUser());
+                $this->getServiceLocator()->get('repositories')->persist($job);
+            } else {
+                $this->flashMessenger()->addMessage(/*@translate*/ 'Job saved.');
+            }
+            return $this->redirect()->toRoute('lang/jobs');
         }
         
+        return $this->getViewModel('form', array(
+            'form' => $form,
+            'action' => $origAction,
+            'hasErrors' => true
+        ));
+    }
+    
+    protected function getFormular($job)
+    {
         $services = $this->getServiceLocator();
-        $p = $this->params()->fromPost();
-        $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
-        $user = $services->get('AuthenticationService')->getUser();
-        //if (isset($user)) {
-        //    $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . $user->login);
-        //}
-        $result = array('token' => session_id(), 'isSaved' => False);
-        if (isset($user)) {
-            $form = $services->get('FormElementManager')->get('JobForm');
-            // determine Job from Database 
-            $id = $this->params()->fromPost('id');
-            if (empty($id)) {
-                $applyId = $this->params()->fromPost('applyId');
-                if (empty($applyId)) {
-                    // new Job (propably this branch is never used since all Jobs should have an apply-Id)
-                    $entity = $services->get('repositories')->get('Jobs/Job')->create();
-                } else {
-                    $entity = $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId" => (string) $applyId));
-                    if (!isset($entity)) {
-                        // new Job (the more likely branch)
-                        $entity = $services->get('repositories')->get('Jobs/Job')->create(array("applyId" => (string) $applyId));
-                    }
-                }
-            } else {
-                $entity = $services->get('repositories')->get('Jobs/Job')->find($id);
-            }
-            //$services->get('repositories')->get('Jobs/Job')->store($entity);
-            
-            $form->bind($entity);
-            if ($this->request->isPost()) {
-                $params = $this->getRequest()->getPost();
-                $params->datePublishStart = \Datetime::createFromFormat("Y-m-d",$params->datePublishStart);
-                $form->setData($params);
-                $result['post'] = $_POST;
-                if ($form->isValid()) {
-                    $entity->setUser($user);
-                    $services->get('repositories')->get('Jobs/Job')->store($entity);
-                    $result['isSaved'] = true;
-                } else {
-                    $result['valid Error'] = $form->getMessages();
-                }
-            }
-        } else {
-            $result['message'] = 'session_id is lost';
+        $forms    = $services->get('FormElementManager');
+        $form     = $forms->get('Jobs/Job', array(
+            'mode' => $job->id ? 'edit' : 'new'
+        ));
+        $form->bind($job);
+        
+        if ($this->getRequest()->isPost()) {
+            $form->setData($_POST);
         }
-        //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
-        return new JsonModel($result);
+
+        return $form;
+    }
+    
+    protected function getJob($create = false)
+    {
+        $services     = $this->getServiceLocator();
+        $repositories = $services->get('repositories');
+        $repository   = $repositories->get('Jobs/Job');
+        
+        if ($create) {
+            $job = $repository->create();
+            return $job;
+        }
+        
+        if ($this->getRequest()->isPost()) {
+            $jobData = $this->params()->fromPost('job');
+            $id      = isset($jobData['id']) ? $jobData['id'] : null;
+        } else {
+            $id = $this->params()->fromQuery('id');
+        }
+
+        if (!$id) {
+            throw new \RuntimeException('Missing job id.');
+        }
+
+        $job = $repository->find($id);
+
+        if (!$job) {
+            throw new \RuntimeException('No job found with id "' . $id . '"');
+        }
+
+        return $job;
+    }
+    
+    protected function getViewModel($template, array $variables = array())
+    {
+        $model = new ViewModel($variables);
+        $model->setTemplate("jobs/manage/$template");
+        
+        return $model;
     }
 
 }

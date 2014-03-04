@@ -92,6 +92,24 @@ class IndexController extends AbstractActionController
     
      }
      
+     public function viewAction()
+     {
+         $id = $this->params()->fromQuery('id');
+         if (!$id) {
+             throw new \RuntimeException('Missing job id.', 404);
+         }
+         
+         $job = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
+         if (!$job) {
+             throw new \RuntimeException('Job not found.', 404);
+         }
+         
+         return array(
+             'job' => $job
+         );
+         
+     }
+     
      public function dashboardAction()
      {
          $services = $this->getServiceLocator();

@@ -16,13 +16,24 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class Job extends AbstractRepository 
 {
     
-    protected $builders;
-    
     public function getPaginatorCursor($params)
     {
         $filter = $this->getService('filterManager')->get('Jobs/PaginationQuery');
         $qb = $filter->filter($params, $this->createQueryBuilder());
         return $qb->getQuery()->execute();
+    }
+    
+    public function existsApplyId($applyId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->hydrate(false)
+           ->select('applyId')
+           ->field('applyId')->equals($applyId);
+           
+       $result = $qb->getQuery()->execute();
+       $count = $result->count();
+       return (bool) $count;
+        
     }
     
     /**
@@ -66,9 +77,6 @@ class Job extends AbstractRepository
         return $this->findBy(array('userId' => $userOrId))->count();
     }
     
-    public function save(EntityInterface $entity)
-    {
-        $this->getMapper('job')->save($entity);
-    }
+    
     
 }

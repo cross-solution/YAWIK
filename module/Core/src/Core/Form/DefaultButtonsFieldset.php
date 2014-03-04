@@ -37,4 +37,21 @@ class DefaultButtonsFieldset extends ButtonsFieldset
             ),
         ));
     }
+    
+    public function setOptions($options) 
+    {
+        parent::setOptions($options);
+        
+        if (isset($options['save_label'])) {
+            $this->setSaveButtonLabel($options['save_label']);
+        }
+        
+        return $this;
+    }
+    
+    public function setSaveButtonLabel($label)
+    {
+        $this->get('submit')->setLabel($label);
+        return $this;
+    }
 }

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->headTitle()->append($this->escapeHtml($this->job->title))->append($this->translate('Jobs'))
+?>
+
+<h2><?php echo $this->job->title?><br><small><?php echo $this->job->company ?> - <?php echo $this->job->location ?></small></h2>
+
+<p><?php echo $this->translate('Online since') ?>: <?php echo $this->dateFormat($this->job->dateCreated, 'short') ?></p>
+<p><?php echo nl2br($job->description) ?></p>
+<p><?php echo $this->translate('Contact') ?>: <?php echo $this->link($this->job->contactEmail) ?></p>
