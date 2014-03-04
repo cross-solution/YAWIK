@@ -257,6 +257,15 @@ class IndexController extends AbstractActionController
             $resultMessage = $result->getMessages();
             // TODO: send a mail also when required (maybe first mail failed or email has changed)
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
+                $groupSettingsMail = array();
+                $groupSettings = $this->getPluginManager()->get('Usergroup')->getSettings();
+                /* 
+                 * group settings via config are preliminary until we have the ability for group-administration
+                 */
+                if (!empty($groupSettings) && array_key_exists('mail', $groupSettings)) {
+                    $groupSettingsMail = $groupSettings['mail'];
+                }
+                
                 // first external Login
                 $userName = $this->params()->fromPost('user');
                 $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login for User: ' .  $userName);
@@ -276,7 +285,8 @@ class IndexController extends AbstractActionController
                 $mail = $this->mail(array(
                     'Anrede'=>$userName, 
                     'password' => $password,
-                    'uri' => $scheme . '://' . $domain . $basePath
+                    'uri' => $scheme . '://' . $domain . $basePath,
+                    'groupSettings' => $groupSettingsMail
                     //'url' => 
                     ));
                 $mail->template('first-login');

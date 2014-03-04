@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\Plugin\PluginInterface;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
+use Zend\EventManager\Event;
+use Zend\Stdlib\Parameters;
 
 class mail extends Message implements PluginInterface
 {
@@ -44,6 +46,14 @@ class mail extends Message implements PluginInterface
     public function template($template) {
         $controller =  get_class($this->controller);
         $services = $this->getController()->getServiceLocator();
+        
+        $event = new Event();
+        $eventManager = $services->get('EventManager');
+        $eventManager->setIdentifiers('Mail');
+        $p = new Parameters(array('mail' => $this, 'template' => $template));
+        $event->setParams($p);         
+        $eventManager->trigger('template.pre', $event);
+        
         // get all loaded modules
         $moduleManager = $services->get('ModuleManager');
         $loadedModules = $moduleManager->getModules();
