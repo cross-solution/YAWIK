@@ -36,6 +36,16 @@ return array(
                             ),
                             'may_terminate' => true,
                         ),
+                        'view'   => array(
+                            'type' => 'Literal',
+                            'options' => array(
+                                'route' => '/view',
+                                'defaults' => array(
+                                    'action' => 'view'
+                                ),
+                            ),
+                            'may_terminate' => true,
+                        ),
                     ),
                 ),
                 'save' => array(

@@ -7,11 +7,18 @@
  * @license   AGPLv3
  */
 $this->form->setAttribute('action', $this->url('lang/jobs/manage', array('action' => $this->action), true));
+$this->form->get('buttons')->get('cancel')->setAttribute(
+    'onclick', 'location.href="' . $this->url('lang/jobs', array(), true) . '"; return false;'
+);
 ?>
 <h1><?php if ('new' == $this->action): 
             echo $this->translate('Publish a job');
           else:
             echo $this->translate('Edit a job');
+            $container = $this->navigation('main_navigation')->getContainer();
+            $container->findOneBy('route', 'lang/jobs')->setActive(true);
+            $container->findOneBy('id',    'Jobs/Edit')->setActive(true)->setVisible(true);
+            
           endif ?></h1>
           
 <?php if ($this->hasErrors): ?>

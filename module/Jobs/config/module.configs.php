@@ -42,11 +42,21 @@ return array(
       
     'acl' => array(
         'rules' => array(
-            'user' => array(
+            'recruiter' => array(
                 'allow' => array(
-                    'Jobs\Controller\Manage'
+                    'Jobs/Manage',
+                    'route/lang/jobs/manage',
+                    'Entity/Jobs/Job' => array(
+                        'new',
+                        'edit' => 'Jobs/Write',
+                    ),
                 ),
-            ),                
+            ),
+        ),
+        'assertions' => array(
+            'invokables' => array(
+                'Jobs/Write' => 'Jobs\Acl\WriteAssertion'
+            ),
         ),
     ),
     
@@ -64,16 +74,17 @@ return array(
                     'new' => array(
                         'label' => /*@translate*/ 'Create job',
                         'route' => 'lang/jobs/manage',
+                        'resource' => 'route/lang/jobs/manage',
                         'params' => array(
                             'action' => 'new'
                         ),
                     ),
                     'edit' => array(
-                        'route' => 'lang/jobs/manage',
-                        'params' => array(
-                            'action' => 'edit'
-                        ),
+                        'label' => /*@translate*/ 'Edit job',
+                        'resource' => 'route/lang/jobs/manage',
+                        'uri' => '#',
                         'visible' => false,
+                        'id' => 'Jobs/Edit'
                     ),
                 ),
             ),

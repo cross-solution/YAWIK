@@ -24,7 +24,6 @@ class Job extends Form implements InputFilterProviderInterface
         $this->setName('jobs-form');
         $this->setAttribute('id', 'jobs-form');
  
-        
         $this->add(array(
             'type' => 'Jobs/JobFieldset',
             'name' => 'job',
@@ -36,7 +35,9 @@ class Job extends Form implements InputFilterProviderInterface
         $this->add(array(
             'type' => 'DefaultButtonsFieldset',
             'options' => array(
-                'save_label' => /*@translate*/ 'Publish job',
+                'save_label' => 'new' == $this->getOption('mode')
+                                ? /*@translate*/ 'Publish job'
+                                : 'Save',
             ),
         ));
         

@@ -162,6 +162,11 @@ class Job extends BaseEntity implements JobInterface {
      */
     protected $keywords;
     
+    public function getResourceId()
+    {
+        return 'Entity/Jobs/Job';
+    }
+    
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
         return $this;

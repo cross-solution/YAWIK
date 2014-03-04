@@ -31,18 +31,10 @@ class ManageController extends AbstractActionController {
         $events = $this->getEventManager();
         
         
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkAcl'));
         /* This must run before onDispatch, because we could alter the action param */
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
         
         return $this;
-    }
-    
-    public function checkAcl()
-    {
-        if (!$this->acl()->isRole('recruiter')) {
-            throw new UnauthorizedAccessException('Only recruiter are allowed to manage jobs.');
-        }
     }
     
     public function checkPostRequest(MvcEvent $e)
@@ -54,7 +46,9 @@ class ManageController extends AbstractActionController {
                 return; // Let parent::onDispatch handle failure
             }
             /* All POST requests are handled by the saveAction! */
+            $action = $routeMatch->getParam('action');
             $routeMatch->setParam('action', 'save');
+            $routeMatch->setParam('origAction', $action);
         }
     }
     
@@ -64,7 +58,8 @@ class ManageController extends AbstractActionController {
      */
     public function newAction()
     {
-        $job = $this->getJob();
+        $job = $this->getJob(/* create */ true);
+        $this->acl($job, 'new');
         $job->contactEmail = $this->auth('info.email');
         $form = $this->getFormular($job); 
         return $this->getViewModel('form', array(
@@ -75,29 +70,38 @@ class ManageController extends AbstractActionController {
     
     public function editAction()
     {
-        $form = $this->getFormular($this->getJob());
+        $job = $this->getJob();
+        $this->acl($job, 'edit');
+        $form = $this->getFormular($job);
         return $this->getViewModel('form', array(
             'form' => $form,
             'action' => 'edit',
+            'job' => $job
         ));
     }
     
     public function saveAction()
     {
-        $job  = $this->getJob();
-        $form = $this->getFormular($job);
+        $origAction = $this->params('origAction');
+        $create     = 'new' == $origAction;
+        $job        = $this->getJob($create);
+        $this->acl($job, $origAction);
+        $form       = $this->getFormular($job);
+        
         if ($form->isValid()) {
-            $this->flashMessenger()->addMessage(/*@translate*/ 'Job published.');
-            if (!$job->id) {
+            if ($create) {
+                $this->flashMessenger()->addMessage(/*@translate*/ 'Job published.');
                 $job->setUser($this->auth()->getUser());
-                $this->getServiceLocator()->get('repositories')->store($job);
+                $this->getServiceLocator()->get('repositories')->persist($job);
+            } else {
+                $this->flashMessenger()->addMessage(/*@translate*/ 'Job saved.');
             }
             return $this->redirect()->toRoute('lang/jobs');
         }
         
         return $this->getViewModel('form', array(
             'form' => $form,
-            'action' => $job->id ? 'edit' : 'new',
+            'action' => $origAction,
             'hasErrors' => true
         ));
     }
@@ -118,19 +122,34 @@ class ManageController extends AbstractActionController {
         return $form;
     }
     
-    protected function getJob($id=null)
+    protected function getJob($create = false)
     {
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Jobs/Job');
-        $id           = $this->getRequest()->isPost()
-                      ? $this->params()->fromPost('id')
-                      : $this->params()->fromQuery('id');
-
-        $job          = $id
-                      ? $repository->find($id)
-                      : $repository->create();
         
+        if ($create) {
+            $job = $repository->create();
+            return $job;
+        }
+        
+        if ($this->getRequest()->isPost()) {
+            $jobData = $this->params()->fromPost('job');
+            $id      = isset($jobData['id']) ? $jobData['id'] : null;
+        } else {
+            $id = $this->params()->fromQuery('id');
+        }
+
+        if (!$id) {
+            throw new \RuntimeException('Missing job id.');
+        }
+
+        $job = $repository->find($id);
+
+        if (!$job) {
+            throw new \RuntimeException('No job found with id "' . $id . '"');
+        }
+
         return $job;
     }
     

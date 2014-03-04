@@ -67,14 +67,12 @@ $statusElement = $params->get('status');
 </div>
 <?php if ($params->has('by') && $this->acl()->isRole('recruiter')):?>
 <div class="btn-toolbar navbar-right">
-  <?php $hiddenBy = $createRadioGroup($params->get('by'), 'by') ?>
-  <?php $hiddenStatus = $createRadioGroup($params->get('status'), 'status') ?>
+  <?php $createRadioGroup($params->get('by'), 'by') ?>
+  <?php $createRadioGroup($params->get('status'), 'status') ?>
 </div>
 <?php endif; ?>
 
-<?php if ($params->has('by')):
-echo $hiddenBy.$hiddenStatus;
-endif;
+<?php 
 echo $this->form()->closeTag();
 
 ?>
