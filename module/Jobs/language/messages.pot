@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 15:16+0100\n"
+"POT-Creation-Date: 2014-03-05 09:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,10 +21,6 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: view/form/list-filter.phtml:70
-msgid "Reset filter"
-msgstr ""
-
 #: view/sidebar/index.phtml:14
 msgid "My jobs"
 msgstr ""
@@ -33,7 +29,8 @@ msgstr ""
 msgid "All jobs"
 msgstr ""
 
-#: view/jobs/index/index.phtml:1 language/_annotated_strings.php:21
+#: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:54
 msgid "Jobs"
 msgstr ""
 
@@ -41,43 +38,43 @@ msgstr ""
 msgid "List of all jobs"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:5
+#: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:6
+#: view/jobs/index/index.ajax.phtml:14
 msgid "Title of the job"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:7
+#: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:18
 msgid "Location"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:8
+#: view/jobs/index/index.ajax.phtml:16
 msgid "Companyname"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:9
+#: view/jobs/index/index.ajax.phtml:17
 msgid "Reference"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:12 view/jobs/index/dashboard.phtml:12
+#: view/jobs/index/index.ajax.phtml:20 view/jobs/index/dashboard.phtml:12
 msgid "Applications"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:22
 msgid "Action"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:31 view/jobs/index/dashboard.phtml:24
+#: view/jobs/index/index.ajax.phtml:44 view/jobs/index/dashboard.phtml:24
 msgid "total"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:37 view/jobs/index/dashboard.phtml:30
+#: view/jobs/index/index.ajax.phtml:50 view/jobs/index/dashboard.phtml:30
 msgid "unread"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:43
+#: view/jobs/index/index.ajax.phtml:57
 msgid "Apply"
 msgstr ""
 
@@ -97,26 +94,98 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: view/jobs/index/view.phtml:15
+msgid "Online since"
+msgstr ""
+
+#: view/jobs/index/view.phtml:17
+msgid "Contact"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:15
+msgid "Publish a job"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:17
+msgid "Edit a job"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:27
+msgid "There were some errors in the form."
+msgstr ""
+
+#: src/Jobs/Form/JobFieldset.php:29
+msgid "Job details"
+msgstr ""
+
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:6
-msgid "Show all jobs"
+msgid "Apply Identifier"
 msgstr ""
 
 #: language/_annotated_strings.php:9
-msgid "Show my jobs"
+msgid "Company"
 msgstr ""
 
-#: language/_annotated_strings.php:12
-msgid "Active"
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:45
+msgid "Job title"
 msgstr ""
 
 #: language/_annotated_strings.php:15
+msgid "Job description"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Contact email"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid "Reference number"
+msgstr ""
+
+#: language/_annotated_strings.php:27
+msgid "Publish job"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "Show all jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Show my jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid "Active"
+msgstr ""
+
+#: language/_annotated_strings.php:42
 msgid "Inactive"
 msgstr ""
 
-#: language/_annotated_strings.php:18
-msgid "Job title"
+#: language/_annotated_strings.php:48
+msgid "Job published."
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid "Job saved."
+msgstr ""
+
+#: language/_annotated_strings.php:57
+msgid "Overview"
+msgstr ""
+
+#: language/_annotated_strings.php:60
+msgid "Create job"
+msgstr ""
+
+#: language/_annotated_strings.php:63
+msgid "Edit job"
 msgstr ""

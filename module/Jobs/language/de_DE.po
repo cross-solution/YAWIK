@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-16 14:24+0100\n"
-"PO-Revision-Date: 2014-01-16 14:28+0100\n"
-"Last-Translator: Mathias Weitz <weitz@cross-solution.de>\n"
+"POT-Creation-Date: 2014-03-05 09:03+0100\n"
+"PO-Revision-Date: 2014-03-05 09:10+0100\n"
+"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: CROSS Solution\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -23,10 +23,6 @@ msgstr ""
 msgid "Search"
 msgstr "Suche"
 
-#: view/form/list-filter.phtml:70
-msgid "Reset filter"
-msgstr "Filter zurücksetzen"
-
 #: view/sidebar/index.phtml:14
 msgid "My jobs"
 msgstr "Meine Anzeigen"
@@ -36,7 +32,8 @@ msgid "All jobs"
 msgstr "Alle Anzeigen"
 
 #: view/jobs/index/index.phtml:1
-#: language/_annotated_strings.php:21
+#: view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:54
 msgid "Jobs"
 msgstr "Stellenanzeigen"
 
@@ -44,51 +41,47 @@ msgstr "Stellenanzeigen"
 msgid "List of all jobs"
 msgstr "Übersicht aller Stellenanzeigen"
 
-#: view/jobs/index/index.ajax.phtml:5
+#: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"
 msgstr "Eingangsdatum"
 
-#: view/jobs/index/index.ajax.phtml:6
+#: view/jobs/index/index.ajax.phtml:14
 msgid "Title of the job"
 msgstr "Titel der Anzeige"
 
-#: view/jobs/index/index.ajax.phtml:7
+#: view/jobs/index/index.ajax.phtml:15
+#: language/_annotated_strings.php:18
 msgid "Location"
 msgstr "Ort"
 
-#: view/jobs/index/index.ajax.phtml:8
+#: view/jobs/index/index.ajax.phtml:16
 msgid "Companyname"
 msgstr "Firmenname"
 
-#: view/jobs/index/index.ajax.phtml:9
+#: view/jobs/index/index.ajax.phtml:17
 msgid "Reference"
 msgstr "Referenz"
 
-#: view/jobs/index/index.ajax.phtml:10
-msgid "external Reference"
-msgstr "externe Referenz"
-
-#: view/jobs/index/index.ajax.phtml:13
+#: view/jobs/index/index.ajax.phtml:20
 #: view/jobs/index/dashboard.phtml:12
-#, fuzzy
 msgid "Applications"
-msgstr "Bewerbungen ansehen"
+msgstr "Bewerbungen"
 
-#: view/jobs/index/index.ajax.phtml:15
+#: view/jobs/index/index.ajax.phtml:22
 msgid "Action"
 msgstr "Aktion"
 
-#: view/jobs/index/index.ajax.phtml:33
+#: view/jobs/index/index.ajax.phtml:44
 #: view/jobs/index/dashboard.phtml:24
 msgid "total"
 msgstr "gesamt"
 
-#: view/jobs/index/index.ajax.phtml:39
+#: view/jobs/index/index.ajax.phtml:50
 #: view/jobs/index/dashboard.phtml:30
 msgid "unread"
 msgstr "ungelesen"
 
-#: view/jobs/index/index.ajax.phtml:45
+#: view/jobs/index/index.ajax.phtml:57
 msgid "Apply"
 msgstr "Bewerben"
 
@@ -101,37 +94,115 @@ msgid "Famous jobs"
 msgstr "Beliebteste Stellenanzeigen"
 
 #: view/jobs/index/dashboard.phtml:9
-#, fuzzy
 msgid "Job"
-msgstr "Stellenanzeigen"
+msgstr "Stellenanzeige"
 
 #: view/jobs/index/dashboard.phtml:10
 msgid "Date"
 msgstr "Datum"
+
+#: view/jobs/index/view.phtml:15
+msgid "Online since"
+msgstr "Online seit"
+
+#: view/jobs/index/view.phtml:17
+msgid "Contact"
+msgstr "Ansprechpartner"
+
+#: view/jobs/manage/form.phtml:15
+msgid "Publish a job"
+msgstr "Eine Stellenanzeige veröffentlichen"
+
+#: view/jobs/manage/form.phtml:17
+msgid "Edit a job"
+msgstr "eine  Stellenanzeige bearbeiten"
+
+#: view/jobs/manage/form.phtml:27
+msgid "There were some errors in the form."
+msgstr "Beim Ausfüllen des Formulars sind Fehler aufgetreten."
+
+#: src/Jobs/Form/JobFieldset.php:29
+msgid "Job details"
+msgstr "Beschreibung der Stellenanzeige"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
 msgstr "nach Stellenanzeigen suchen"
 
 #: language/_annotated_strings.php:6
+msgid "Apply Identifier"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+msgid "Company"
+msgstr "Firmenname"
+
+#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:45
+msgid "Job title"
+msgstr "Titel der Anzeige"
+
+#: language/_annotated_strings.php:15
+msgid "Job description"
+msgstr "Beschreibung der Stellenanzeige"
+
+#: language/_annotated_strings.php:21
+msgid "Contact email"
+msgstr "E-Mail für Bewerbungen"
+
+#: language/_annotated_strings.php:24
+msgid "Reference number"
+msgstr "Referenz"
+
+#: language/_annotated_strings.php:27
+msgid "Publish job"
+msgstr "Stellenanzeige veröffentlichen"
+
+#: language/_annotated_strings.php:30
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:33
 msgid "Show all jobs"
 msgstr "Zeige alle Jobs"
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:36
 msgid "Show my jobs"
 msgstr "Zeige meine Jobs"
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:39
 msgid "Active"
 msgstr "Aktiv"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:42
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: language/_annotated_strings.php:18
-msgid "Job title"
-msgstr "Titel der Anzeige"
+#: language/_annotated_strings.php:48
+msgid "Job published."
+msgstr "Stellenanzeige wurde veröffentlicht."
+
+#: language/_annotated_strings.php:51
+msgid "Job saved."
+msgstr "Stellenanzeige wurde gespeichert."
+
+#: language/_annotated_strings.php:57
+msgid "Overview"
+msgstr "Übersicht"
+
+#: language/_annotated_strings.php:60
+msgid "Create job"
+msgstr "Stellenanzeige anlegen"
+
+#: language/_annotated_strings.php:63
+msgid "Edit job"
+msgstr "Stellenanzeige bearbeiten"
+
+#~ msgid "Reset filter"
+#~ msgstr "Filter zurücksetzen"
+
+#~ msgid "external Reference"
+#~ msgstr "externe Referenz"
 
 #~ msgid "Go!"
 #~ msgstr "Los!"
