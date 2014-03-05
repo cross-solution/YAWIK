@@ -15,13 +15,13 @@
     <th><?php echo $this->translate('Location')?></th> 
     <th><?php echo $this->translate('Companyname')?></th>
     <th><?php echo $this->translate('Reference')?></th>
-    <th>
-     <?php if ($this->acl()->isRole('recruiter')):?>  
-       <?php echo $this->translate('Applications')?>
-     <?php else: ?>
-       <?php echo $this->translate('Action')?>
-     <?php endif;?>
-    </th>
+    <?php if ($this->acl()->isRole('recruiter')):?>  
+       <th><?php echo $this->translate('Applications')?></th>
+       <th><?php echo $this->translate('Status')?></th>
+       <th><?php echo $this->translate('Action')?></th>
+    <?php else: ?>
+       <th><?php echo $this->translate('Action')?></th>
+    <?php endif;?>
 </tr>
 </thead>
 
@@ -52,13 +52,18 @@
             <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
             </a>
          <?php endif;?>
+         <td>
+         <?php echo $job->status?>
+         </td>
+         <td>
+         <?php if ($this->acl($job, 'edit')): ?>
+           <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="cam-icon-edit"></span></a>
+         <?php endif ?>     
+         </td>
       <?php else:?>
          <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>">
           <?php echo $this->translate('Apply')?>
          </a>
-      <?php endif ?>
-      <?php if ($this->acl($job, 'edit')): ?>
-      <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="cam-icon-edit"></span></a>
       <?php endif ?>
      </td>
 </tr>

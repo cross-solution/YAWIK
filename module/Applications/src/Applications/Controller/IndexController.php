@@ -180,7 +180,7 @@ class IndexController extends AbstractActionController
         $params = $this->getRequest()->getQuery();
         $isRecruiter = $this->acl()->isRole('recruiter');
         if ($isRecruiter) {
-       #     $params->set('by', 'me');
+            $params->set('by', 'me');
         }
         
         $appRepo = $services->get('repositories')->get('Applications/Application');

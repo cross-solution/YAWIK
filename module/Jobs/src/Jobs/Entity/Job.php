@@ -25,7 +25,7 @@ use Core\Entity\PreUpdateAwareInterface;
 class Job extends BaseEntity implements JobInterface {
 
     /**
-     * uniq ID of a job posting
+     * uniq ID of a job posting.
      *
      * @var String
      * 

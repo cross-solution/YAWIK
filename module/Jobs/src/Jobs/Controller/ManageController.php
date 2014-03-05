@@ -91,6 +91,7 @@ class ManageController extends AbstractActionController {
         if ($form->isValid()) {
             if ($create) {
                 $this->flashMessenger()->addMessage(/*@translate*/ 'Job published.');
+                $job->setStatus('active');
                 $job->setUser($this->auth()->getUser());
                 $this->getServiceLocator()->get('repositories')->persist($job);
             } else {
