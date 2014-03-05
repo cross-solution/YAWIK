@@ -227,7 +227,7 @@ return array(
 //             'EducationFieldset' => '\Applications\Form\EducationFieldset',
 //             'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
 //             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
-             'Application' => '\Applications\Form\CreateApplication',
+             'Application/Create' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
              'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 

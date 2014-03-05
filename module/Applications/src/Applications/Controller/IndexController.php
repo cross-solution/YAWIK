@@ -41,7 +41,7 @@ class IndexController extends AbstractActionController
              : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
         
-        $form = $services->get('FormElementManager')->get('Application');
+        $form = $services->get('FormElementManager')->get('Application/Create');
         
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
