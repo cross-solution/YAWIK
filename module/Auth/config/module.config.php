@@ -331,6 +331,7 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'buildReferer' => '\Auth\View\Helper\BuildReferer',
+            'loginInfo' => '\Auth\View\Helper\LoginInfo',
         ),   
         'factories' => array(
             'auth' => '\Auth\Service\AuthViewHelperFactory',

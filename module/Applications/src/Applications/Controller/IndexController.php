@@ -189,7 +189,7 @@ class IndexController extends AbstractActionController
         if (!isset($params['sort'])) {
             $params['sort']="-date";
         }
-        
+        $params->count = 5;
         $paginator = $this->paginator('Applications/Application',$params);
      
         return array(

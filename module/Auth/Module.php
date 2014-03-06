@@ -74,10 +74,11 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
         
-        $eventManager->attach(
-            array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
-            array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
-        );
+        // TODO: Löschen sobald die Lösung mit der LoginBox klappt
+        //$eventManager->attach(
+        //    array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
+        //    array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
+        //);
         
         $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
         $checkPermissionsListener->attach($eventManager);

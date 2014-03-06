@@ -14,6 +14,8 @@ use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Auth\Mapper\UserMapperInterface;
+use Doctrine\MongoDB\GridFSFile;
+use Auth\Entity\UserImage;
 
 
 /**
@@ -95,7 +97,7 @@ class HybridAuth implements AdapterInterface
        $newInfo = (array) $userProfile; 
        
        if ($forceSave || $currentInfo != $newInfo) {
-           
+           $dm = $this->getRepository()->getDocumentManager();
            $user->info->email = $email;
            $user->info->firstName = $userProfile->firstName;
            $user->info->lastName = $userProfile->lastName;
@@ -108,10 +110,30 @@ class HybridAuth implements AdapterInterface
            $user->info->phone = $userProfile->phone;
            $user->info->gender = $userProfile->gender;
             
-           //$user->login =  $userProfile->displayName;
-           $user->profile = $newInfo;
+           $user->login =  $email;
            
-           $this->getRepository()->save($user);
+           if ($forceSave || (!$user->info->image && $userProfile->photoURL)) {
+               // get user image
+               if ('' != $userProfile->photoURL) {
+                   $client = new \Zend\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
+                   $response = $client->send();
+                   $file = new GridFSFile();
+                   $file->setBytes($response->getBody());
+                   
+                   $userImage = new UserImage();
+                   $userImage->setName($userProfile->lastName.$userProfile->firstName);
+                   $userImage->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
+                   $userImage->setUser($user);
+                   $userImage->setFile($file);
+                   $user->info->setImage($userImage); 
+                   $dm->persist($userImage);
+                   //$this->getRepository()->store($user->info);
+               }
+           }
+           $user->profile = $newInfo;
+           $dm->persist($user);
+           // make sure all ids are generated and user exists in database.
+           $dm->flush();
        }
        
        

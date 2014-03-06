@@ -45,7 +45,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     
     /** @var array 
      * @ODM\Hash*/
-    protected $_profile = array();
+    protected $profile = array();
     
     /** @var array 
      * @ODM\EmbedMany(discriminatorField="_entity") */
@@ -163,14 +163,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      */
     public function setProfile(array $profile)
     {
-        $this->_profile = $profile;
+        $this->profile = $profile;
         return $this;
     }
     
     /** {@inheritdoc} */
     public function getProfile()
     {
-        return $this->_profile;
+        return $this->profile;
     }
     
     
@@ -184,9 +184,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      */
     public function getSettings($module)
     {
+        if (!isset($module)) {
+            throw new \InvalidArgumentException('$module must not be null.');
+        }
+        
         if (!$this->settings) {
             $this->settings = new ArrayCollection();
         }
+        
         foreach ($this->settings as $settings) {
             if ($settings->moduleName == $module) {
                 return $settings;
