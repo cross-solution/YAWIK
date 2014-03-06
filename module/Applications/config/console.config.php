@@ -7,18 +7,14 @@
  * @license   AGPLv3
  */
 
-return array(
-        'router' => array(
-            'routes' => array(
-                'applications' => array(
-                    'options' => array(
-                        'route' => 'applications generatekeywords [--filter=]',
-                        'defaults' => array(
-                            'controller' => 'Applications/Console',
-                            'action' => 'generatekeywords',
-                        ),
-                    ),
-                ),
+return array('console' => array('router' => array('routes' => array(
+    'applications' => array(
+        'options' => array(
+            'route' => 'applications generatekeywords [--filter=]',
+            'defaults' => array(
+                'controller' => 'Applications/Console',
+                'action' => 'generatekeywords',
             ),
         ),
-);
+    ),
+))));
