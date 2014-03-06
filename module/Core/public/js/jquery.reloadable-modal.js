@@ -45,19 +45,26 @@
 	    		var $this = this;
 	    		$.get(href)
 	    		 .done(function(html) {
+                                html = '<div>' + html + '</div>';
 	    			 var $html = $(html);
 	    			 var $element = $this.$element;
 	    			 var found = false;
-	    			 $.each(['header', 'title', 'body', 'footer'], function(i, name) {
-	    				 var className = '.modal-' + name;
-	    				 var $elem = $html.find(className);
-	    				 if ($elem.length) {
-	    					 found = true;
-	    					 var $orig = $element.find(className);
-	    					 if ($orig.length) {
-	    						 $orig.html($elem.html());
+	    			 $html.each(function() {
+	    				 var $htmlElement = $(this);
+	    				 $.each(['header', 'title', 'body', 'footer'], function(i, name) {
+	    					 var className = '.modal-' + name;
+	    					 var $elem = $htmlElement.hasClass(className.substr(1))
+	    					           ? $htmlElement
+	    					           : $htmlElement.find(className);
+	    					 
+	    					 if ($elem.length) {
+	    						 found = true;
+	    						 var $orig = $element.find(className);
+	    						 if ($orig.length) {
+	    							 $orig.html($elem.html());
+	    						 }
 	    					 }
-	    				 }
+	    				 });
 	    			 });
 	    			 
 	    			 if (!found && $element.find('.modal-' + $this.options.reloadable).length) {
@@ -101,13 +108,21 @@
 	      if (options['reloadable']) {
 	    	  if (!data) {
 	    		  data = new ReloadableModal(this, options);
+	    		  $this.data('bs.modal', data);
 	    	  } else {
-	    		  data.load(options.remote);
+	    		  var href = options.remote 
+	    		           ? options.remote
+	    		           : $(_relatedTarget).attr('href').replace(/.*(?=#[^\s]+$)/, '');
+	    		  
+	    		  if (!/#/.test(href)) {
+	    			  data.load(href);
+	    		  }
 	    	  }
 	      } else {
 	    	  data = new Modal(this, options);
+	    	  $this.data('bs.modal', data);
 	      }
-    	$this.data('bs.modal', data);
+    	
     	if (typeof option == 'string') data[option](_relatedTarget)
     	else if (options.show) data.show(_relatedTarget)
 	  });

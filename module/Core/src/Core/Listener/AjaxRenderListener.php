@@ -16,6 +16,11 @@ class AjaxRenderListener implements ListenerAggregateInterface
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
+    
+    /**
+     * @var \Zend\Stdlib\CallbackHandler[]
+     */
+    protected $sharedListeners = array();
 
     /**
      * Attach to an event manager
@@ -23,9 +28,20 @@ class AjaxRenderListener implements ListenerAggregateInterface
      * @param  EventManagerInterface $events
      * @param  integer $priority
      */
-    public function attach(EventManagerInterface $events, $priority = -100)
+    public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER, array($this, 'onRender'), $priority);
+        $callback = array($this, 'injectAjaxTemplate');
+        /*
+         * We need to hack a little, because injectViewModelListener is attached to the
+         * shared event manager and triggered in Controller, we need to attach to the 
+         * EVENT_DISPATCH event in the shared manager, to be sure that this listener is 
+         * run before injectViewModelListener
+         */
+        $this->sharedListeners[] = $events->getSharedManager()->attach(
+            'Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, $callback, -95
+        );
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, $callback, -95);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, $callback, -95);
     }
 
     /**
@@ -41,9 +57,15 @@ class AjaxRenderListener implements ListenerAggregateInterface
                 unset($this->listeners[$index]);
             }
         }
+        $sharedEvents = $events->getSharedManager();
+        foreach ($this->sharedListeners as $index => $listener) {
+            if ($sharedEvents->detach($listener)) {
+                unset($this->sharedListeners[$index]);
+            }
+        }
     } 
     
-    public function onRender(MvcEvent $e)
+    public function injectAjaxTemplate(MvcEvent $e)
     {
         if ($e->getRequest()->isXmlHttpRequest()) {
             $viewModel = $e->getResult();
@@ -61,8 +83,10 @@ class AjaxRenderListener implements ListenerAggregateInterface
             } else {
                 $viewModel->setVariable('isAjaxRequest', true);
             } 
-            //$viewModel->setTerminal(true);
-            $e->setViewModel($viewModel);
+            /*
+             * Disable layout. This works because InjectViewModelListener is executed after us.
+             */
+            $viewModel->setTerminal(true);
         }
                 
     }

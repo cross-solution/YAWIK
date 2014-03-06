@@ -7,12 +7,16 @@
  * @license   AGPLv3
  */
 
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 ?>
-<div class="cam-panel">
+<?php if (!$this->isAjaxRequest): ?>
+<div class="cam-panel pagination-container">
+<?php endif ?>
 <div class="cam-panel-head">
 <h2>
  <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
   <?php echo $this->translate('Current Applications')?>
+  
  </a>
  <small>
  <?php #if ($hasJobs): ?>
@@ -25,6 +29,7 @@
       #             sprintf('<span class="badge">'.$countTmpl.'</span>', $totalCount))?>
  <?php #endif ?>
  </small>
+ <img class="pagination-loading pull-right" src="/images/loader.gif">
 </h2>
 </div>
 <div class="cam-panel-body">
@@ -61,7 +66,9 @@
 </div>
 <div class="cam-panel-foot">
 <?php
-#echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
+echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications-dashboard'));
 ?>
 </div>
+<?php if (!$this->isAjaxRequest): ?>
 </div>
+<?php endif ?>
