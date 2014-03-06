@@ -10,6 +10,9 @@
 /** */ 
 namespace Core\ModuleManager;
 
+use Zend\Stdlib\Glob;
+use Zend\Stdlib\ArrayUtils;
+
 /**
  * Simple module configuration file loader and merger.
  * 
@@ -20,44 +23,33 @@ namespace Core\ModuleManager;
  */
 class ModuleConfigLoader
 {
+    
+    protected $directory;
+    protected $config;
+    
     /**
-     * Static class
+     *
      */
     private function __construct()
     { }
     
-    
-    public static function load($directory, array $handlers = array())
+    public static function load($directory)
     {
         $directory = rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        $config = array();
-        foreach (new \DirectoryIterator($directory) as $file) {
-            if ($file->isDir() || $file->isDot() || !$file->isReadable()
-                || !preg_match('~^(.*)\.([^\.]+)\.php$~', $file->getFilename(), $match)) {
+        $env       = getenv('APPLICATION_ENV') ?: 'production';
+        $pattern   = sprintf('%s{,*.}{config,%s}.php', $directory, $env);
+        $config    = array();
+        
+        foreach (Glob::glob($pattern, Glob::GLOB_BRACE) as $file) {
+            if (!is_readable($file)) {
                 continue;
             }
             
-            $handler = $match[2];
-            $cfg = include $directory . $file->getFilename();
-            if (isset($handlers[$handler]) && is_callable($handlers[$handler])) {
-                $cfg = call_user_func($handlers[$handler], $match[1], $cfg);
-            } else if ('config' == $handler) {
-                $cfg = static::handleConfig($match[1], $cfg);
-            }
-                
-            $config = array_merge($config, $cfg);
+            $cfg    = include $file;
+            $config = ArrayUtils::merge($config, $cfg);
         }
         return $config;
     }
 
-    protected static function handleConfig($key, $cfg)
-    {
-        if (false === strstr($key, '.')) {
-            return array($key => $cfg);
-        } else {
-            list($newKey, $key) = explode('.', $key, 2);
-            return array($newKey => static::handleConfig($key, $cfg));
-        }
-    }
 }
 
