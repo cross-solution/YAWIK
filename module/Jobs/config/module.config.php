@@ -78,13 +78,14 @@ return array(
                         'params' => array(
                             'action' => 'new'
                         ),
+                        'id' => 'Jobs/new',
                     ),
                     'edit' => array(
                         'label' => /*@translate*/ 'Edit job',
                         'resource' => 'route/lang/jobs/manage',
                         'uri' => '#',
                         'visible' => false,
-                        'id' => 'Jobs/Edit'
+                        'id' => 'Jobs/edit'
                     ),
                 ),
             ),
@@ -108,6 +109,7 @@ return array(
         'template_map' => array(
             'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
+            'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
             //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
         ),
     
@@ -122,6 +124,7 @@ return array(
         'invokables' => array(
             'Jobs/Job'             => 'Jobs\Form\Job',
             'Jobs/JobFieldset'     => 'Jobs\Form\JobFieldset',
+            'Jobs/ApplyId'         => 'Jobs\Form\ApplyIdentifierElement',
             'Jobs/Import'            => '\Jobs\Form\Import',
             'Jobs/ImportFieldset'        => '\Jobs\Form\ImportFieldset',
             'Jobs/ListFilter'    => '\Jobs\Form\ListFilter',

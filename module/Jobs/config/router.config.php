@@ -32,6 +32,19 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'check_apply_id' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/check-apply-id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action'     => 'check-apply-id',
+                        'forceJson' => true, 
+                    ),
+                    
+                ),
+                'may_terminate' => true,
+            ),
             'view'   => array(
                 'type' => 'Literal',
                 'options' => array(

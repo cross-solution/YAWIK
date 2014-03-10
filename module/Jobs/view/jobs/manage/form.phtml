@@ -10,14 +10,17 @@ $this->form->setAttribute('action', $this->url('lang/jobs/manage', array('action
 $this->form->get('buttons')->get('cancel')->setAttribute(
     'onclick', 'location.href="' . $this->url('lang/jobs', array(), true) . '"; return false;'
 );
+// Tweak navigation
+$navigation = $this->navigation('main_navigation')->getContainer();
+$navigation->findOneBy('route', 'lang/jobs')->setActive(true);
+$subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
+$subPage->setActive(true);
 ?>
 <h1><?php if ('new' == $this->action): 
             echo $this->translate('Publish a job');
           else:
             echo $this->translate('Edit a job');
-            $container = $this->navigation('main_navigation')->getContainer();
-            $container->findOneBy('route', 'lang/jobs')->setActive(true);
-            $container->findOneBy('id',    'Jobs/Edit')->setActive(true)->setVisible(true);
+            $subPage->setVisible(true);
             
           endif ?></h1>
           

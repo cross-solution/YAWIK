@@ -35,14 +35,6 @@ class JobFieldset extends Fieldset
         
        $this->add(array(
             'type' => 'Text',
-            'name' => 'applyId',
-            'options' => array(
-                'label' => /*@translate*/ 'Apply Identifier'
-            ),
-        ));
-        
-       $this->add(array(
-            'type' => 'Text',
             'name' => 'company',
             'options' => array(
                 'label' => /*@translate*/ 'Company'
@@ -56,6 +48,14 @@ class JobFieldset extends Fieldset
                 'label' => /*@translate*/ 'Job title'
             ),
         ));
+       
+       $this->add(array(
+           'type' => 'Jobs/ApplyId',
+           'name' => 'applyId',
+           'options' => array(
+               'label' => /*@translate*/ 'Apply Identifier'
+           ),
+       ));
        
        $this->add(array(
            'type' => 'Textarea',

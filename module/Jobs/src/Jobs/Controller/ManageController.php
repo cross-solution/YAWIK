@@ -60,24 +60,25 @@ class ManageController extends AbstractActionController {
     {
         $job = $this->getJob(/* create */ true);
         $this->acl($job, 'new');
-        $job->contactEmail = $this->auth('info.email');
-        $form = $this->getFormular($job); 
-        return $this->getViewModel('form', array(
-            'form' => $form,
-            'action' => 'new',
-        ));
+        $user = $this->auth()->getUser();
+        $job->setContactEmail($user->info->email);
+        $job->setApplyId(
+            uniqid(substr(md5($user->login, 0, 3)))
+        );
+        $form  = $this->getFormular($job); 
+        $model = $this->getViewModel($form, 'new');
+        
+        return $model;
     }
     
     public function editAction()
     {
         $job = $this->getJob();
         $this->acl($job, 'edit');
-        $form = $this->getFormular($job);
-        return $this->getViewModel('form', array(
-            'form' => $form,
-            'action' => 'edit',
-            'job' => $job
-        ));
+        $form  = $this->getFormular($job);
+        $model = $this->getViewModel($form, 'edit'); 
+        
+        return $model;
     }
     
     public function saveAction()
@@ -100,11 +101,20 @@ class ManageController extends AbstractActionController {
             return $this->redirect()->toRoute('lang/jobs');
         }
         
-        return $this->getViewModel('form', array(
-            'form' => $form,
-            'action' => $origAction,
-            'hasErrors' => true
-        ));
+        return $this->getViewModel($form, $origAction, /* hasErrors */ true);
+    }
+    
+    public function checkApplyIdAction()
+    {
+        $services = $this->getServiceLocator();
+        $validator = $services->get('validatormanager')->get('Jobs/Form/UniqueApplyId');
+        if (!$validator->isValid($this->params()->fromQuery('applyId'))) {
+            return array(
+                'ok' => false,
+                'messages' => $validator->getMessages(),
+            );
+        }
+        return array('ok' => true);
     }
     
     protected function getFormular($job)
@@ -154,10 +164,17 @@ class ManageController extends AbstractActionController {
         return $job;
     }
     
-    protected function getViewModel($template, array $variables = array())
+    protected function getViewModel($form, $action, $params = false)
     {
-        $model = new ViewModel($variables);
-        $model->setTemplate("jobs/manage/$template");
+        $params    = is_array($params) ? $params : array('hasErrors' => (bool) $params);
+        $variables = array(
+            'form' => $form,
+            'action' => $action,
+        );
+        $viewVars  = array_merge($variables, $params);
+        
+        $model = new ViewModel($viewVars);
+        $model->setTemplate("jobs/manage/form");
         
         return $model;
     }
