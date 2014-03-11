@@ -6520,6 +6520,48 @@ fieldset[disabled] .cam-btn-reset.active {
 .cam-icon-user:before {
   content: "\e008";
 }
+.cam-icon-login {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-login:empty {
+  width: 1em;
+}
+.cam-icon-login:empty {
+  width: 1em;
+}
+.cam-icon-login:before {
+  content: "\e161";
+}
+.cam-icon-logout {
+  font-size: 12px;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cam-icon-logout:empty {
+  width: 1em;
+}
+.cam-icon-logout:empty {
+  width: 1em;
+}
+.cam-icon-logout:before {
+  content: "\e163";
+}
 .cam-icon-password {
   font-size: 12px;
   position: relative;

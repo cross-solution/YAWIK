@@ -17,6 +17,11 @@ use Zend\Permissions\Acl\Role\RoleInterface;
 use Core\Entity\FileInterface;
 use Auth\Entity\UserInterface;
 
+/**
+* ensures that attachments can be viewed only by persons who have access to the application.
+* eg. a recruiter may only see an attached file of an application, if he owns the application.
+*/
+
 class FileAccessAssertion implements AssertionInterface
 {
     /* (non-PHPdoc)
