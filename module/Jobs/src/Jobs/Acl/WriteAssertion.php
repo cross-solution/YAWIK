@@ -16,6 +16,7 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 use Jobs\Entity\JobInterface;
 use Auth\Entity\UserInterface;
+use Core\Entity\Permissions;
 
 class WriteAssertion implements AssertionInterface
 {
@@ -31,6 +32,6 @@ class WriteAssertion implements AssertionInterface
             return false;
         }
 
-        return $resource->getUser()->getId() == $role->getId();
+        return $resource->getPermissions()->isGranted($role->getId(), Permissions::PERMISSION_CHANGE);
     }
 }

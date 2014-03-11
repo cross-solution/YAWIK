@@ -32,9 +32,9 @@ class PaginationQuery extends AbstractPaginationQuery
         
         if ($this->auth->getUser()->getRole()=='recruiter') {
             /*
-             * a recruiter can see his jobs
+             * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
+            $queryBuilder->field('permissions.view')->equals($this->auth->getUser()->id);
         } else  {
             /*
              * an applicants or guests can see all aktive jobs

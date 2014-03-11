@@ -8,12 +8,14 @@ use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 use Core\Entity\SearchableEntityInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
+use Core\Entity\PermissionsAwareInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 interface JobInterface extends EntityInterface, 
                                IdentifiableEntityInterface,
                                ModificationDateAwareEntityInterface, 
                                SearchableEntityInterface,
+                               PermissionsAwareInterface,
                                ResourceInterface
 {
 
