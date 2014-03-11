@@ -33,7 +33,7 @@
             $ref = $this->buildReferer(array('logout', 'ref'));
         echo $this->url('lang/auth', array(), array(
                                                 'query' => array(
-                                                    'ref' => urlencode($ref),
+                                                    'ref' => urlencode($this->basepath($ref)),
                                                  )), true)?>"
              ><span class="cam-icon-login"></span> <?php echo $this->translate('Login')?></a></li>
         <li class="divider"></li>
