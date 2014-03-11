@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * 
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -149,7 +149,7 @@ class IndexController extends AbstractActionController
                                 $mail = $this->mail();
                                 $mail->addTo($email);
                                 $mail->setBody($settingsJobAuth->mailText);
-                                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
+                                $mail->setFrom('cross@cross-solution.de', 'YAWIK');
                                 $mail->setSubject('Bestätigung Bewerbung');
                                 $result = $mail->send();
                             }  

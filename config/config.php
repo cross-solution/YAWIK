@@ -3,7 +3,7 @@
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * Cross Applicant Management
+ * YAWIK
  * Application configuration
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * Configuration file of the Core module
  * 
  * This file intents to provide the configuration for all other modules

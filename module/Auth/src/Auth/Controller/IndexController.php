@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * 
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -159,8 +159,8 @@ class IndexController extends AbstractActionController
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
                 $groupSettings = $this->getServiceLocator()->get('Usergroup')->getSettings();
-                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
-                $mail->setSubject('Anmeldung im Cross Applicant Management');
+                $mail->setFrom('cross@cross-solution.de', 'YAWIK');
+                $mail->setSubject('Anmeldung im YAWIK');
             }
             if (isset($mail) && $mail->send()) {
                 $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());

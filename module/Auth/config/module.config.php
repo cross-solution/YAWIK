@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * Configuration file of the Auth module
  * 
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)

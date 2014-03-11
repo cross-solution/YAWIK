@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)

@@ -135,7 +135,7 @@ class mail extends Message implements PluginInterface
     
     public function send()
     {
-        $this->getHeaders()->addHeaderLine('X-Mailer', 'php/Cross Applicant Management');
+        $this->getHeaders()->addHeaderLine('X-Mailer', 'php/YAWIK');
         //foreach (array('ASCII', 'UTF-8', 'ISO-8859-1', 'ISO-8859-15', 'ISO-8859-7') as $encoding) {
         $encoding = 'UTF-8';
         //$this->getHeaders()->addHeaderLine('charset', $encoding);

@@ -9,6 +9,7 @@ composer.phar
 # config files
 #
 config/phpdoc.xml
+config/autoload
 config/autoload/*.php
 
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * Core Module Bootstrap
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -33,7 +33,7 @@ class Module implements ConsoleBannerProviderInterface
     public function getConsoleBanner(Console $console) {
         
         $version = `git describe`;
-        $name = 'Cross Applicant Management ' . trim($version);
+        $name = 'YAWIK ' . trim($version);
         $width = $console->getWidth();
         return sprintf(
             "==%1\$s==\n%2\$s%3\$s\n**%1\$s**\n",

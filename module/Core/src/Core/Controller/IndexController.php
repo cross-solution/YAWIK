@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -139,8 +139,8 @@ class IndexController extends AbstractActionController
         
         //$mail = $mailer->newMail();
         $mail->addTo('weitz@cross-solution.de');
-        $mail->setBody('Sie sind jetzt im Cross Applicant Management angemeldet.');
-        $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
+        $mail->setBody('Sie sind jetzt im YAWIK angemeldet.');
+        $mail->setFrom('cross@cross-solution.de', 'YAWIK');
         $mail->setSubject('Anmeldung');
         $result = $mail->send();
         
