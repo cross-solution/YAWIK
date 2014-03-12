@@ -144,6 +144,12 @@ class ManageController extends AbstractActionController
            
                 break;
             default:
+                $contentCollector = $this->getPluginManager()->get('Core/ContentCollector'); 
+                $contentCollector->setTemplate('applications/manage/details/action-buttons');
+                $actionButtons = $contentCollector->trigger('application.detail.actionbuttons', $application);
+                
+                $return = new ViewModel($return);
+                $return->addChild($actionButtons, 'externActionButtons');
                 break;
         }
         
@@ -206,19 +212,6 @@ class ManageController extends AbstractActionController
            }
            $mailService->send($mail);
            
-            // @todo must be in Mail-Controller-Plugin ::send()
-            //       or in Plugin-Factory "MailFactory"
-//             $mail->setEncoding('UTF-8');
-//             $mail->getHeaders()->addHeader(\Zend\Mail\Header\ContentType::fromString('Content-Type: text/plain; charset=utf-8'));
-            
-//             $mail->setSubject($this->params()->fromPost('mailSubject'));
-//             $mail->setBody($this->params()->fromPost('mailText'));
-//             $from = $application->job->contactEmail
-//                   ? $application->job->contactEmail
-//                   : 'no-reply@bewerbermanagement.cross-solution.de';
-//             $mail->setFrom($from, $application->job->company);
-//             $mail->addTo($application->contact->email, $application->contact->displayName);
-//             $mail->send();
             $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));
             $repository->save($application);
             

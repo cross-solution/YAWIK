@@ -16,11 +16,13 @@ use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\Mvc\MvcEvent;
 use Zend\View\ViewEvent;
+use Zend\View\Model\ViewModel;
 use Zend\EventManager\EventManagerInterface;
 use Core\Html2Pdf\PdfInterface;
 //use Core\View\Helper\InsertFile;
 use Core\View\Helper\InsertFile\FileEvent;
 use Core\Entity\FileEntity;
+use Core\ModuleManager\ModuleConfigLoader;
 
 /**
  * Make HTML to PDF
@@ -35,19 +37,27 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
     protected $appendPDF = array();
     protected $appendImage = array();
     
-    public function getConfig() {
-        return array(
-            'service_manager' => array(
-                'invokables' => array(
-                    'Html2PdfConverter' => __NAMESPACE__ . '\Module',
-                )
-            )
-        );
-    }   
+    
+     /**
+     * Loads module specific configuration.
+     * 
+     * @return array
+     */
+    public function getConfig()
+    {
+        return ModuleConfigLoader::load(__DIR__ . '/config');
+    }
     
     public function setServiceManager(ServiceManager $serviceManager) {
         $this->serviceManager = $serviceManager;
         return $this;
+    }
+    
+    public function onBootstrap(MvcEvent $e) {
+        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager->getSharedManager()->attach('Applications', 'application.detail.actionbuttons', function ($event) {
+            return 'pdf/application/details/button';
+        });
     }
     
     /**

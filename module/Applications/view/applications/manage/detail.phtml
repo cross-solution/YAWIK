@@ -105,10 +105,9 @@
                     title="<?php echo $this->translate('State history')?>">
           <span class="cam-icon-history"></span>
           </button>
-          <a class="btn btn-default"
-                    href="?format=pdf" title="<?php echo $this->translate('download as PDF')?>">
-          <span class="cam-icon-download"></span>
-          </a>
+          <?php if (isset($externActionButtons)) {
+           echo $externActionButtons;
+          } ?>
           <?php if ($this->acl($application, 'delete')):?>            
           <button class="btn btn-default" data-title="delete Application"
                     data-toggle="modal"

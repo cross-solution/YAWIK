@@ -205,6 +205,7 @@ return array(
             'mail' => 'Core\Controller\Plugin\Mail',
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
+            'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
