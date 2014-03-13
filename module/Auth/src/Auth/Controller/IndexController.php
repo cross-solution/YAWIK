@@ -136,7 +136,7 @@ class IndexController extends AbstractActionController
     public function loginAction()
     {
         
-        $ref = urldecode($this->params()->fromQuery('ref'));
+        $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
@@ -159,7 +159,7 @@ class IndexController extends AbstractActionController
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
                 $groupSettings = $this->getServiceLocator()->get('Usergroup')->getSettings();
-                $mail->setFrom('cross@cross-solution.de', 'YAWIK');
+                $mail->setFrom('contact@yawik.org', 'YAWIK');
                 $mail->setSubject('Anmeldung im YAWIK');
             }
             if (isset($mail) && $mail->send()) {
@@ -174,7 +174,7 @@ class IndexController extends AbstractActionController
         $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
-            $basePath = $this->getEvent()->getRouter()->getBaseUrl();
+            $basePath = $this->getRequest()->getBasePath();
             $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
         } 
         return $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
