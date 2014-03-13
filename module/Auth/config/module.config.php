@@ -52,7 +52,6 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'Auth' => '\Auth\Controller\Plugin\Auth',
-            'Usergroup' => '\Auth\Controller\Plugin\Usergroup',
         ),
         'factories' => array(
             'Acl' => '\Acl\Controller\Plugin\AclFactory',

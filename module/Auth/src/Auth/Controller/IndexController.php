@@ -148,19 +148,35 @@ class IndexController extends AbstractActionController
             $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login via ' . $provider);
             
             if (array_key_exists('user', $resultMessage)) {
-                $user = $resultMessage['user'];
-                $lastName = $user->info->getDisplayName();
-                // TODO
+                $user=$auth->getUser();
+//                $user = $resultMessage['user'];
+                $password = substr(md5(uniqid()),0,6);
+                $login = uniqid() . '@yawik-demo';
+                $scheme = '';
+                $domain = '';
+                $uri = $this->getRequest()->getUri();
+                if (isset($uri)) {
+                    $scheme = $uri->getScheme();
+                    $domain = $uri->getHost();
+                }
+                $viewHelperManager = $this->getServiceLocator()->get('ViewHelperManager');
+                $basePath = $viewHelperManager->get('basePath')->__invoke();
+                
+                $user->login=$login;
+                $user->setPassword($password);
+                $user->role='recruiter';
+                             
                 $mail = $this->mail(
-                        array('Anrede'=>$lastName,
-                             'password' => '***',
-                             'domain' => '***')
+                        array('displayName'=>$user->info->getDisplayName(),
+                              'provider' => $provider,
+                              'user' => $login,
+                              'password' => $password,
+                              'uri' =>  $scheme . '://' . $domain . $basePath)
                         );
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
-                $groupSettings = $this->getServiceLocator()->get('Usergroup')->getSettings();
                 $mail->setFrom('contact@yawik.org', 'YAWIK');
-                $mail->setSubject('Anmeldung im YAWIK');
+                $mail->setSubject(/* @translate */ 'welcom to YAWIK');
             }
             if (isset($mail) && $mail->send()) {
                 $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());
@@ -181,7 +197,7 @@ class IndexController extends AbstractActionController
     }
     
     /**
-     * Login via an external Application.
+     * Login via an external Application. This will get obsolet as soon we'll have a full featured Rest API.
      * 
      * Passed in params:
      * - appKey: Application identifier key
@@ -257,15 +273,6 @@ class IndexController extends AbstractActionController
             $resultMessage = $result->getMessages();
             // TODO: send a mail also when required (maybe first mail failed or email has changed)
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-                $groupSettingsMail = array();
-                $groupSettings = $this->getPluginManager()->get('Usergroup')->getSettings();
-                /* 
-                 * group settings via config are preliminary until we have the ability for group-administration
-                 */
-                if (!empty($groupSettings) && array_key_exists('mail', $groupSettings)) {
-                    $groupSettingsMail = $groupSettings['mail'];
-                }
-                
                 // first external Login
                 $userName = $this->params()->fromPost('user');
                 $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login for User: ' .  $userName);
@@ -283,11 +290,10 @@ class IndexController extends AbstractActionController
                 $viewHelperManager = $services->get('ViewHelperManager');
                 $basePath = $viewHelperManager->get('basePath')->__invoke();
                 $mail = $this->mail(array(
-                    'Anrede'=>$userName, 
+                    'displayName'=>$userName, 
                     'password' => $password,
                     'uri' => $scheme . '://' . $domain . $basePath,
-                    'groupSettings' => $groupSettingsMail
-                    //'url' => 
+                        
                     ));
                 $mail->template('first-login');
                 $mail->addTo($user->getInfo()->getEmail());
