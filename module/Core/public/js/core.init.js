@@ -7,9 +7,9 @@
             var switchToLang = '/' + $(this).attr("id").replace(/^language-switcher-/, "");
 
             if (lang != switchToLang) {
-                var langRegex = new RegExp('/' + lang);
+                var langRegex = new RegExp('/' + lang + '($|\/)');
 
-                //console.log(location.pathname, location.pathname.replace(langRegex, switchToLang));
+                //console.log(location.pathname, location.pathname.replace(langRegex, switchToLang + '$1'));
                 var newHref = location.protocol
                         + "//" + location.host
                         + location.pathname.replace(langRegex, switchToLang)
