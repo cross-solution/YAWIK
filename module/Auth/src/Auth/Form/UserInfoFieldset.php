@@ -188,10 +188,11 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                 )
             ),
             'image' => array(
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                 ),
                 'validators' => array(
+                    new \Zend\Validator\File\Exists(),
                     new \Zend\Validator\File\Extension(array('extension' => array('jpg', 'png', 'jpeg', 'gif'))),
                 ),
             ),
