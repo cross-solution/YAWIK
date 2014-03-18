@@ -3,7 +3,7 @@
 return array(
     'service_manager' => array(
         'invokables' => array(
-            'Html2PdfConverter' => __NAMESPACE__ . '\Module',
+            'Html2PdfConverter' => 'Pdf\Module',
         )
     ),
     'view_manager' => array(

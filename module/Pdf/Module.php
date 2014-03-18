@@ -30,6 +30,10 @@ use Core\ModuleManager\ModuleConfigLoader;
  */
 class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInterface
 {
+    CONST RENDER_FULL = 0;
+    CONST RENDER_WITHOUT_PDF = 1;
+    CONST RENDER_WITHOUT_ATTACHMENTS = 2;
+    
     protected $serviceManager;
     
     protected $viewResolverAttached = False;
@@ -220,64 +224,72 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
      * @param \Zend\View\ViewEvent $e
      */
     public function attachPDFtransformer(ViewEvent $e) {
+        
         //$renderer = $e->getRenderer();
         $result   = $e->getResult();
         $response = $e->getResponse();
         
         // the handles are for temporary files
-        $handles = array();
         error_reporting(0);
-        try {
-            $pdf = new \mPDF();
-            $pdf->SetImportUse();
-            // create bookmark list in Acrobat Reader
-            $pdf->h2bookmarks = array('H1'=>0, 'H2'=>1, 'H3'=>2);
-            $pdf->WriteHTML($result);
+        foreach (array(self::RENDER_FULL, self::RENDER_WITHOUT_PDF, self::RENDER_WITHOUT_ATTACHMENTS ) as $render ) {
+            $handles = array();
+            try {
+                $pdf = new extern\mPDFderive();
+                $pdf->SetImportUse();
+                // create bookmark list in Acrobat Reader
+                $pdf->h2bookmarks = array('H1' => 0, 'H2' => 1, 'H3' => 2);
+                $pdf->WriteHTML($result);
 
-            // Output of the Images
-            if (is_array($this->appendImage) && !empty($this->appendImage)) {
-                foreach ($this->appendImage as $imageAttachment) {
-                    $content = $imageAttachment->getContent();
-                    $url = 'data:image/' . $imageAttachment->getType() . ';base64,' . base64_encode ($content);
-                    $html = '<a name="attachment_' . $imageAttachment->getId() . '"><img src="' . $url . '" /><br /></a>';
-                    $pdf->WriteHTML($html);
+                // Output of the Images
+                if (self::RENDER_FULL == $render || self::RENDER_WITHOUT_PDF == $render) {
+                    if (is_array($this->appendImage) && !empty($this->appendImage)) {
+                        foreach ($this->appendImage as $imageAttachment) {
+                            $content = $imageAttachment->getContent();
+                            $url = 'data:image/' . $imageAttachment->getType() . ';base64,' . base64_encode($content);
+                            $html = '<a name="attachment_' . $imageAttachment->getId() . '"><img src="' . $url . '" /><br /></a>';
+                            $pdf->WriteHTML($html);
+                        }
+                    }
                 }
-            }
-            
-            // Temp Files PDF
-            if (is_array($this->appendPDF) && !empty($this->appendPDF)) {
-                foreach ($this->appendPDF as $pdfAttachment) {
-                    $content = $pdfAttachment->getContent();
-                    $tmpHandle = tmpfile();
-                    $handles[] = $tmpHandle;
-                    fwrite($tmpHandle, $content);
-                    fseek($tmpHandle, 0);
+
+                // Temp Files PDF
+                if (self::RENDER_FULL == $render) {
+                    if (is_array($this->appendPDF) && !empty($this->appendPDF)) {
+                        foreach ($this->appendPDF as $pdfAttachment) {
+                            $content = $pdfAttachment->getContent();
+                            $tmpHandle = tmpfile();
+                            $handles[] = $tmpHandle;
+                            fwrite($tmpHandle, $content);
+                            fseek($tmpHandle, 0);
+                        }
+                    }
                 }
+
+                // Output of the PDF
+                foreach ($handles as $handle) {
+                    $meta_data = stream_get_meta_data($handle);
+                    $filename = $meta_data["uri"];
+                    $pdf->WriteHTML($filename);
+                    $pagecount = $pdf->SetSourceFile($filename);
+                    for ($pages = 0; $pages < $pagecount; $pages++) {
+                        $pdf->AddPage();
+                        $pdf->WriteHTML(' pages: ' . $pagecount);
+                        $tx = $pdf->ImportPage($pages + 1);
+                        $pdf->UseTemplate($tx);
+                    }
+                }
+
+                $pdf_result = $pdf->Output();
+                $e->setResult($pdf_result);
+
+                // delete all temporary Files again
+                foreach ($handles as $handle) {
+                    fclose($handle);
+                }
+                break;
+            } catch (\Exception $e) {
+                
             }
-                    
-            // Output of the PDF
-            foreach ($handles as $handle) {
-                $meta_data = stream_get_meta_data($handle);
-                $filename = $meta_data["uri"];
-                $pdf->WriteHTML($filename);
-                 $pagecount = $pdf->SetSourceFile($filename);
-                 for ($pages=0; $pages < $pagecount; $pages++) {
-                    $pdf->AddPage();
-                    $pdf->WriteHTML(' pages: ' .  $pagecount);
-                    $tx = $pdf->ImportPage($pages+1);
-                    $pdf->UseTemplate($tx);
-                 }
-            }
-        
-            $pdf_result = $pdf->Output();
-            $e->setResult($pdf_result);
-            
-            // delete all temporary Files again
-            foreach ($handles as $handle) {
-                fclose($handle);
-            }
-            
-        } catch (Exception $e) {
         }
         error_reporting(E_ALL);
     }
