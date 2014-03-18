@@ -21,9 +21,9 @@
                 <div class="col-md-9">
                 <h4 style="margin: 2px 0 0;"><?php echo $comment->user->info->displayName ?></h4>
                 <div style="line-height: 10px; font-size: 10px">
-                <span class="cam-icon-new" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateCreated);?>
+                <span class="yk-icon yk-icon-new" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateCreated);?>
                 
-                <?php if ($comment->dateModified) : ?><span class="cam-icon-edit" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateModified); endif ?>
+                <?php if ($comment->dateModified) : ?><span class="yk-icon yk-icon-edit" style="font-size: 10px;"></span> <?php echo $this->dateFormat($comment->dateModified); endif ?>
                 
                 </div> 
                 </div>
@@ -41,7 +41,7 @@
         <div class="panel-body">
         <?php if ($isOwnComment):?>
                 <button class="pull-right comment-edit btn btn-default btn-xs" data-comment-id="<?php echo $comment->id ?>">
-                    <span class="cam-icon-edit"></span>
+                    <span class="yk-icon yk-icon-edit"></span>
                 </button>
                 <?php endif?>
             <?php echo nl2br($comment->message) ?>

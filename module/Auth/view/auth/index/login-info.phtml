@@ -10,14 +10,14 @@
       </a>
         <ul class="dropdown-menu pull-right">
             <li>
-                <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><span class="cam-icon-user"></span> <?php echo $this->translate('My profile')?></a>
+                <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><span class="yk-icon yk-icon-user"></span> <?php echo $this->translate('My profile')?></a>
             </li>
             <li>
-                <a href="<?php echo $this->url('lang/manage-password', array('lang' => $this->params('lang')))?>"><span class="cam-icon-password"></span> <?php echo $this->translate('Change password')?></a>
+                <a href="<?php echo $this->url('lang/manage-password', array('lang' => $this->params('lang')))?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
             </li>
             <li class="divider"/>
             <li>
-                <a href="<?php echo $this->url('auth-logout')?>"><span class="cam-icon-logout"></span><?php echo $this->translate('Logout')?></a>
+                <a href="<?php echo $this->url('auth-logout')?>"><span class="yk-icon yk-icon-logout"></span><?php echo $this->translate('Logout')?></a>
             </li>
         </ul>
 
@@ -35,12 +35,12 @@
                                                 'query' => array(
                                                     'ref' => urlencode($ref),
                                                  )), true)?>"
-             ><span class="cam-icon-login"></span> <?php echo $this->translate('Login')?></a></li>
+             ><span class="yk-icon yk-icon-login"></span> <?php echo $this->translate('Login')?></a></li>
         <li class="divider"></li>
         <li class="disabled dropdown-header"><a><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
         <li>
-            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><img src="<?php echo $this->basepath('/Auth/images/'.$provider.'.png') ?>" /> <?php echo $name?></a>
+            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="yk-icon yk-icon-<?php echo $provider?>"></i> <?php echo $name?></a>
         </li>
     <?php endforeach ?>
     </ul>

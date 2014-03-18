@@ -34,11 +34,11 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
     <?php if (! isset($option['sort'])): echo $this->translate($label); 
           else:
               if ($option['sort'] == $sortBy):
-                  $icon = '<span class="text-right cam-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
+                  $icon = '<span class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
                   $dir = !$sortDir;
               else:
                   $dir = true;
-                  $icon = '<span class="pull-right cam-icon-sort"></span>';
+                  $icon = '<span class="pull-right yk-icon yk-icon-sort"></span>';
               endif;
               $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
               $url = $this->url(
@@ -64,7 +64,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     <?php if ($application->contact->image):?>
     <img src="<?php echo $this->basePath($application->contact->image->uri) ?>" />
     <?php else:?>
-    <span class="cam-icon-portrait"></span>
+    <span class="yk-icon yk-icon-portrait fa-3x"></span>
     <?php endif?>
     </div>    
        <?php echo $this->translate($this->salutation($application->contact->gender))?>
@@ -101,7 +101,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     </td>
     <td>
         <div class="btn-group">
-            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('edit')?>"><span class="cam-icon-edit"></span></a>
+            <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('edit')?>"><span class="yk-icon yk-icon-edit"></span></a>
         </div>
     </td>
 </tr>

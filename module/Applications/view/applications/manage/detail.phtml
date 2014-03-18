@@ -1,6 +1,6 @@
 <?php 
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -80,7 +80,7 @@
             <input class="form-control" id="forward-email-input" name="email" type="email">
             <span class="input-group-btn">
             <button class="btn btn-default" type="submit">
-             <span class="cam-icon-forward"></span> <?php echo $this->translate('Forward')?>
+             <span class="yk-icon yk-icon-forward"></span> <?php echo $this->translate('Forward')?>
             </button>
             </span>
       </div>
@@ -92,18 +92,18 @@
                     data-toggle="modal"
                     data-target="#cam-application-comments"
                     title="<?php echo $this->translate('View comments') ?>">
-               <span class="cam-icon-comment"></span></button>
+               <span class="yk-icon yk-icon-comment"></span></button>
           <button id="cam-applications-comments-quickadd" class="btn btn-default"
                     data-title="title"
                     title="<?php echo $this->translate('Add comment') ?>">
-           <span class="cam-icon-plus"></span></button>
+           <span class="yk-icon yk-icon-plus"></span></button>
           </div>
           <button class="btn btn-default"
                     data-title="title"
                     data-toggle="modal"
                     data-target="#cam-application-history"
                     title="<?php echo $this->translate('State history')?>">
-          <span class="cam-icon-history"></span>
+          <span class="yk-icon yk-icon-history"></span>
           </button>
           <?php if (isset($externActionButtons)) {
            echo $externActionButtons;
@@ -113,7 +113,7 @@
                     data-toggle="modal"
                     data-target="#cam-delete-application"
                     title="<?php echo $this->translate('Delete application')?>"> 
-            <i class="cam-icon-delete"></i> Löschen
+            <i class="yk-icon yk-icon-delete"></i> Löschen
           </button>
         <?php endif ?>
         </div>
@@ -234,7 +234,7 @@
           <?php if ($this->application->contact->image):?>
           <img src="<?php echo $this->basePath($this->application->contact->image->uri) ?>" class="img-thumbnail"/>
           <?php else:?>
-          <span class="cam-icon-portrait img-thumbnail"></span>
+          <span class="yk-icon yk-icon-portrait fa-fg img-thumbnail"></span>
           <?php endif?>
           </div>    
         </div>

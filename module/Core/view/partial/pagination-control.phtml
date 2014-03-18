@@ -16,10 +16,10 @@ $query = $this->params()->fromQuery();
 <ul class="pagination">
 <?php if (isset($this->previous)): ?>
   <li><a title="<?= $this->translate('First')?>" href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <i class="cam-icon-pagination-start"></i>
+    <i class="yk-icon yk-icon-pagination-start"></i>
   </a></li>
 <?php else: ?>
-  <li class="disabled"><a title="<?php echo $this->translate('First');?>"><i class="cam-icon-pagination-start"></i></a></li>
+  <li class="disabled"><a title="<?php echo $this->translate('First');?>"><i class="yk-icon yk-icon-pagination-start"></i></a></li>
 <?php endif; ?>
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
@@ -40,10 +40,10 @@ $query = $this->params()->fromQuery();
 <!-- Last page link -->
 <?php if (isset($this->next)): $query['page'] = $this->last; ?>
   <li><a title="<?= $this->translate('Last')?>" href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <i class="cam-icon-pagination-end"></i>
+    <i class="yk-icon yk-icon-pagination-end"></i>
   </a></li>
 <?php else: ?>
-  <li class="disabled"><a title="<?= $this->translate('Last')?>"><i class="cam-icon-pagination-end"></i></a></li>
+  <li class="disabled"><a title="<?= $this->translate('Last')?>"><i class="yk-icon yk-icon-pagination-end"></i></a></li>
 <?php endif; ?>
 </ul>
 </div>

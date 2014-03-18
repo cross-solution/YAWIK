@@ -1,11 +1,25 @@
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
 
+/**
+ * we've replaced glyphicons with font-awesome. therefore bootstrap/bootstrap.less from 
+ * the bootstrap dist was copied to the local bootstrap.less. 
+ * include "glyphicons.less" was replaces by "font-awesome/font-awesome.less"
+ **/
+@import "bootstrap.less";
 
-@import "bootstrap/bootstrap.less";
 @import "general.less";
+
 @import "include/buttons.less";
 @import "include/icons.less";
 @import "include/panel.less";
 @import "include/rating.less";
+@yawik-css-prefix:    yk;
 
 // the default values of the bootstrap global variables are defined in bootstrap/variables.less.
 // you can overwrite them here. 
