@@ -8,6 +8,7 @@
            <strong><?php echo $this->auth('info')->displayName?></strong>
            <b class="caret"></b>
       </a>
+      
         <ul class="dropdown-menu pull-right">
             <li>
                 <a href="<?php echo $this->url('lang/manage-profile', array('lang' => $this->params('lang')))?>"><span class="yk-icon yk-icon-user"></span> <?php echo $this->translate('My profile')?></a>
@@ -15,6 +16,11 @@
             <li>
                 <a href="<?php echo $this->url('lang/manage-password', array('lang' => $this->params('lang')))?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
             </li>
+            <?php if ($this->auth('role') == 'recruiter'): ?>
+            <li>
+                <a href="<?php echo $this->url('lang/my-groups', array('lang' => $this->params('lang')))?>"><span class="glyphicon glyphicon-th-large"></span> <?php echo $this->translate('Manage groups') ?></a>
+            </li>
+            <?php endif ?>
             <li class="divider"/>
             <li>
                 <a href="<?php echo $this->url('auth-logout')?>"><span class="yk-icon yk-icon-logout"></span><?php echo $this->translate('Logout')?></a>
@@ -28,7 +34,7 @@
         '<strong>' . $this->translate('Guest') . '</strong>'
     )?><b class="caret"></b></a>
 
-    <ul class="dropdown-menu pull-right">
+   <ul class="dropdown-menu pull-right">
         <li><a href="<?php 
             $ref = $this->buildReferer(array('logout', 'ref'));
         echo $this->url('lang/auth', array(), array(

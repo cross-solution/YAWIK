@@ -62,5 +62,7 @@
 		});
 	};
 	
+	$(function() { $('.form-collection').formcollection(); });
+	
 	
 })(jQuery);

@@ -1,0 +1,64 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+$this->headTitle('My')->prepend($this->isNew ? 'Create group' : 'Edit group');
+$this->headScript()->appendFile($this->basePath('Core/js/jquery.formcollection.js'));
+echo $this->form($this->form);
+?>
+
+<div id="search-users-modal" class="modal modal-lg modal-scrollable fade" tabindex="-1" role="dialog" aria-labelledby="search users" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+    <div class="row">
+        
+        <form name="search-users" class="col-xs-11">
+            <div class="row">
+            <div class="col-xs-2 text-right">
+                <label for="search-users-query"><?php echo $this->translate('Search') ?></label>
+            </div>
+            <div class="col-xs-10">
+                <input class="form-control" type="text" name="query" id="search-users-query" value="Dummy Company">
+            </div>
+            </div>
+            </form>
+        <button type="button" class="close col-xs-1" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      </div>
+      <div class="modal-body">
+            <span data-template="<?php echo $this->escapeHtmlAttr('
+                <div id="search-users-result-__user_id__" 
+                    data-id="__user_id__" 
+                    data-name="__name__" 
+                    data-company="__company_name__"
+                    data-position="__company_position__"
+                    data-image="__image_uri__"
+                    class="panel panel-default panel-body"
+                >
+                    <button data-user-id="__user_id__" class="btn btn-default pull-right"><span class="cam-icon-plus"></span></button>
+                    <div class="portrait">
+                        ##IMAGE:<img src="__image_uri__">##
+                        ##ICON:<span class="cam-icon-portrait"></span>##
+                    </div>
+                    <div>
+                        <strong>__name__</strong>
+                        (__company_name__)
+                    </div>
+                </div>
+                
+             ') ?>"></span>
+            
+            <div id="search-users-result"></div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Ok') ?></button>
+      </div>
+    </div>
+    
+  </div>
+</div>

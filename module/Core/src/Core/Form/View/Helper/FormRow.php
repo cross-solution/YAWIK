@@ -11,6 +11,7 @@ namespace Core\Form\View\Helper;
 
 use Zend\Form\View\Helper\FormRow as ZendFormRow;
 use Zend\Form\ElementInterface;
+use Core\Form\ViewPartialProviderInterface;
 
 class FormRow extends ZendFormRow
 {
@@ -34,6 +35,9 @@ class FormRow extends ZendFormRow
      */
     public function render(ElementInterface $element)
     {
+        if ($element instanceOf ViewPartialProviderInterface) {
+            return $this->getView()->partial($element->getViewPartial(), array('element' => $element));
+        }
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();

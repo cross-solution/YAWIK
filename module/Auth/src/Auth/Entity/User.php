@@ -56,6 +56,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @var SettingsEntityResolver
      */
     protected $settingsEntityResolver;
+    
+    /**
+     * 
+     * @var Collection|array
+     * @ODM\EmbedMany(targetDocument="Group")
+     */
+    protected $groups;
+    
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
      * It is recommended best practice to initialize any business collections in documents in the constructor.
@@ -202,5 +210,25 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->settings->add($settings);
         return $settings;
     }
+    
+    public function getGroups()
+    {
+        if (!$this->groups) {
+            $this->groups = new ArrayCollection();
+        }
+        return $this->groups;
+    }
+    
+    public function getGroup($name)
+    {
+        foreach ($this->getGroups() as $group) {
+            if ($group->name == $name) {
+                return $group;
+            }
+        }
+        return null;
+    }
+    
+    
    
 }

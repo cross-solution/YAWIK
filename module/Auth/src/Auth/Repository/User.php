@@ -35,6 +35,30 @@ class User extends AbstractRepository
         return $entity;
     }
     
+    public function findByIds(array $ids)
+    {
+        return $this->findBy(array(
+            '_id' => array('$in' => $ids)
+        ));
+    }
+    
+    public function findByQuery($query)
+    {
+        $qb = $this->createQueryBuilder();
+        $parts  = explode(' ', trim($query));
+        
+        foreach ($parts as $q) {
+            $regex = new \MongoRegex('/^' . $query . '/i');
+            $qb->addOr($qb->expr()->field('info.firstName')->equals($regex));
+            $qb->addOr($qb->expr()->field('info.lastName')->equals($regex));
+            $qb->addOr($qb->expr()->field('info.email')->equals($regex));
+        } 
+        $qb->sort(array('info.lastName' => 1))
+           ->sort(array('info.email' => 1));
+        
+        return $qb->getQuery()->execute();
+    }
+    
     /**
      * 
      * @param \Auth\Entity\Info $info
