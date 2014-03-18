@@ -269,7 +269,7 @@ return array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
         'initializers' => array(
-            '\Core\View\Helper\Service\HeadScriptInitializer',
+//            '\Core\View\Helper\Service\HeadScriptInitializer',
         ),
     ),
     
@@ -295,6 +295,7 @@ return array(
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
             'Core/RatingFieldset' => 'Core\Form\RatingFieldset',
             'Core/Rating' => 'Core\Form\Element\Rating',
+            'Location' => 'Zend\Form\Element\Text',
         ),
     ),
     

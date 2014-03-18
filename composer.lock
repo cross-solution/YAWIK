@@ -88,7 +88,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -341,29 +341,34 @@
         },
         {
             "name": "doctrine/doctrine-module",
-            "version": "0.7.2",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineModule.git",
-                "reference": "78018ef568c52e65a0b17e7bd5a4c90fe6673e84"
+                "reference": "a1be11c78d62b880f4e21ff9a107d6e37bed3133"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/78018ef568c52e65a0b17e7bd5a4c90fe6673e84",
-                "reference": "78018ef568c52e65a0b17e7bd5a4c90fe6673e84",
+                "url": "https://api.github.com/repos/doctrine/DoctrineModule/zipball/a1be11c78d62b880f4e21ff9a107d6e37bed3133",
+                "reference": "a1be11c78d62b880f4e21ff9a107d6e37bed3133",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">=2.3-dev,<2.5-dev",
+                "doctrine/common": ">=2.4,<2.6-dev",
                 "php": ">=5.3.3",
-                "symfony/console": ">=2.0.13",
-                "zendframework/zend-authentication": "2.*",
-                "zendframework/zend-cache": "2.*",
-                "zendframework/zend-mvc": "2.*",
-                "zendframework/zend-paginator": "2.*",
-                "zendframework/zend-servicemanager": "2.*",
-                "zendframework/zend-stdlib": "2.*",
-                "zendframework/zend-validator": "2.*"
+                "symfony/console": "~2.2",
+                "zendframework/zend-authentication": "~2.2",
+                "zendframework/zend-cache": "~2.2",
+                "zendframework/zend-mvc": "~2.2",
+                "zendframework/zend-paginator": "~2.2",
+                "zendframework/zend-servicemanager": "~2.2",
+                "zendframework/zend-stdlib": "~2.2",
+                "zendframework/zend-validator": "~2.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7",
+                "squizlabs/php_codesniffer": "1.4.*",
+                "zendframework/zendframework": "~2.2"
             },
             "suggest": {
                 "doctrine/data-fixtures": "Data Fixtures if you want to generate test data or bootstrap data for your deployments"
@@ -400,11 +405,6 @@
                     "role": "Developer"
                 },
                 {
-                    "name": "Evan Coury",
-                    "email": "me@evancoury.com",
-                    "homepage": "http://blog.evan.pro/"
-                },
-                {
                     "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@hotmail.com"
                 },
@@ -421,7 +421,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2013-05-16 18:27:30"
+            "time": "2014-01-24 17:30:36"
         },
         {
             "name": "doctrine/doctrine-mongo-odm-module",
@@ -429,16 +429,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMongoODMModule.git",
-                "reference": "558042e196dabd74fba6c122025107431ca3af3a"
+                "reference": "7a01131a231396169549d8d329f849943791e95e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMongoODMModule/zipball/558042e196dabd74fba6c122025107431ca3af3a",
-                "reference": "558042e196dabd74fba6c122025107431ca3af3a",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMongoODMModule/zipball/7a01131a231396169549d8d329f849943791e95e",
+                "reference": "7a01131a231396169549d8d329f849943791e95e",
                 "shasum": ""
             },
             "require": {
-                "doctrine/doctrine-module": "0.7.*",
+                "doctrine/doctrine-module": "0.8.*",
                 "doctrine/mongodb-odm": "~1.0.0-beta9@dev",
                 "php": ">=5.3.3",
                 "zendframework/zend-mvc": "2.*",
@@ -448,7 +448,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.8.x-dev"
+                    "dev-master": "0.9.x-dev"
                 }
             },
             "autoload": {
@@ -497,7 +497,7 @@
                 "odm",
                 "zf2"
             ],
-            "time": "2014-01-22 20:59:27"
+            "time": "2014-02-26 03:01:48"
         },
         {
             "name": "doctrine/inflector",
@@ -651,7 +651,7 @@
                     "homepage": "http://avalanche123.com"
                 },
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -804,12 +804,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "6d89473b379fc7a904e69ee63f548af3308bd4d9"
+                "reference": "a6f00729b99f0b2e6903e4cc6cf5099941d319e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/6d89473b379fc7a904e69ee63f548af3308bd4d9",
-                "reference": "6d89473b379fc7a904e69ee63f548af3308bd4d9",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/a6f00729b99f0b2e6903e4cc6cf5099941d319e6",
+                "reference": "a6f00729b99f0b2e6903e4cc6cf5099941d319e6",
                 "shasum": ""
             },
             "require": {
@@ -822,7 +822,7 @@
                     "Hybrid": "hybridauth/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "(MIT or GPL-3.0+)"
             ],
@@ -845,7 +845,7 @@
                 "twitter",
                 "yahoo"
             ],
-            "time": "2013-02-21 06:45:16"
+            "time": "2014-03-06 12:41:08"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1006,17 +1006,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "4c1ed2ff514bd85ee186eebb010ccbdeeab05af7"
+                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/4c1ed2ff514bd85ee186eebb010ccbdeeab05af7",
-                "reference": "4c1ed2ff514bd85ee186eebb010ccbdeeab05af7",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/940f217cbc3c8a33e5403e7c595495c4884400fe",
+                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe",
                 "shasum": ""
             },
             "require": {
@@ -1046,7 +1046,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -1055,7 +1057,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-01-01 08:14:50"
+            "time": "2014-02-11 13:52:09"
         },
         {
             "name": "symfony/process",
@@ -1149,21 +1151,55 @@
             "time": "2013-12-05 16:09:10"
         },
         {
-            "name": "zendframework/zendframework",
-            "version": "2.2.5",
+            "name": "twitter/typeahead.js",
+            "version": "v0.10.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/zf2.git",
-                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202"
+                "url": "https://github.com/twitter/typeahead.js.git",
+                "reference": "5ac126185a5d762407ae77cad3a21dc0e60ad0e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-4a7cf6a4cf791244e14aa0ca49d1f06916b63202-zip-2661de.zip",
-                "reference": "2.2.5",
-                "shasum": "3c699626517e16aa7b3d9a0c811fe41a2586179d"
+                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/5ac126185a5d762407ae77cad3a21dc0e60ad0e6",
+                "reference": "5ac126185a5d762407ae77cad3a21dc0e60ad0e6",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twitter Inc.",
+                    "homepage": "https://twitter.com/twitteross"
+                }
+            ],
+            "description": "fast and fully-featured autocomplete library",
+            "homepage": "http://twitter.github.com/typeahead.js",
+            "keywords": [
+                "autocomplete",
+                "typeahead"
+            ],
+            "time": "2014-03-12 07:04:12"
+        },
+        {
+            "name": "zendframework/zendframework",
+            "version": "2.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zf2.git",
+                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-5eae447d46b00a280573b94c398b2f46f45a6903-zip-cbc7a8.zip",
+                "reference": "2.2.6",
+                "shasum": "fd15c9f720744a28ea2a93dda737ca37bd3c40b2"
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.3",
+                "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
                 "zendframework/zend-authentication": "self.version",
@@ -1261,10 +1297,58 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/zf2/tree/release-2.2.5",
+                "source": "https://github.com/zendframework/zf2/tree/release-2.2.6",
                 "issues": "https://github.com/zendframework/zf2/issues"
             },
-            "time": "2013-10-31 15:48:16"
+            "time": "2014-03-06 17:27:03"
+        },
+        {
+            "name": "zendframework/zendxml",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendXml.git",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.zendframework.com/composer/zendframework-zendxml-559b34f426d33a11c3db118e00ce14bb8dc64e5f-zip-6cf7a2.zip",
+                "reference": "1.0.0",
+                "shasum": "39abc614b5c26bcbf8102e203c52dee73c4460a8"
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "*@dev",
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendXml": "library/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Utility library for XML usage, best practices, and security in PHP",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "security",
+                "xml",
+                "zf2"
+            ],
+            "support": {
+                "source": "https://github.com/zendframework/ZendXml/tree/master",
+                "issues": "https://github.com/zendframework/ZendXml/issues"
+            },
+            "time": "2014-03-05 22:25:44"
         }
     ],
     "packages-dev": [

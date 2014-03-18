@@ -66,7 +66,7 @@ class JobFieldset extends Fieldset
        ));
        
        $this->add(array(
-            'type' => 'Text',
+            'type' => 'Location',
             'name' => 'location',
             'options' => array(
                 'label' => /*@translate*/ 'Location'
