@@ -13,16 +13,42 @@ namespace Auth\Entity;
 use Core\Entity\EntityInterface;
 use Core\Entity\PermissionsInterface;
 
+/**
+ * Defines an user group
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 interface GroupInterface extends EntityInterface
 {
+    /**
+     * Gets the name of the group.
+     * 
+     * @return string
+     */
     public function getName();
+    
+    /**
+     * Sets the name of the group.
+     * 
+     * @param string $name
+     * @return GroupInterface
+     */
     public function setName($name);
     
-    /*public function getUsers();
-    public function setUsers($users);
+    /**
+     * Gets the array of user ids assigned to this group.
+     * 
+     * @return array
+     */
+    public function getUsers();
     
-    public function addUser($user);
-    public function removeUser($user);
-    */
+    /**
+     * Sets the array of user ids assigned to this group.
+     * 
+     * @param array $users
+     * @return GroupInterface
+     */
+    public function setUsers(array $users);
+    
 }
 

@@ -6,10 +6,24 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
-$this->headTitle('My')->prepend($this->isNew ? 'Create group' : 'Edit group');
-$this->headScript()->appendFile($this->basePath('Core/js/jquery.formcollection.js'));
+$headline = $this->isNew 
+          ? /*@translate*/ 'Create group' 
+          : /*@translate*/ 'Edit group';
+
+$this->headTitle('My')->prepend($headline);
+?>
+<h1><?php echo $this->translate($headline) ?></h1>
+
+<?php 
+$this->form->setAttributes(array(
+    'id' => 'auth-form-group',
+));
+$this->form->get('buttons')->get('cancel')->setAttribute(
+    'onclick', 'location.href="' . $this->url('lang/my-groups') . '"; return false;'
+);
 echo $this->form($this->form);
 ?>
+
 
 <div id="search-users-modal" class="modal modal-lg modal-scrollable fade" tabindex="-1" role="dialog" aria-labelledby="search users" aria-hidden="true">
 <div class="modal-dialog modal-lg">
@@ -18,15 +32,13 @@ echo $this->form($this->form);
     <div class="row">
         
         <form name="search-users" class="col-xs-11">
-            <div class="row">
-            <div class="col-xs-2 text-right">
-                <label for="search-users-query"><?php echo $this->translate('Search') ?></label>
-            </div>
-            <div class="col-xs-10">
+            <div class="input-group">
                 <input class="form-control" type="text" name="query" id="search-users-query" value="Dummy Company">
+                <span class="input-group-btn">
+                    <button id="search-users-clear" class="btn btn-default type="button">X</button>
+                </span>
             </div>
-            </div>
-            </form>
+        </form>
         <button type="button" class="close col-xs-1" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
       </div>
@@ -40,10 +52,10 @@ echo $this->form($this->form);
                     data-image="__image_uri__"
                     class="panel panel-default panel-body"
                 >
-                    <button data-user-id="__user_id__" class="btn btn-default pull-right"><span class="cam-icon-plus"></span></button>
+                    <button data-user-id="__user_id__" class="btn btn-default pull-right"><span class="yk-icon yk-icon-plus"></span></button>
                     <div class="portrait">
                         ##IMAGE:<img src="__image_uri__">##
-                        ##ICON:<span class="cam-icon-portrait"></span>##
+                        ##ICON:<span class="yk-icon yk-icon-portrait fa-2x"></span>##
                     </div>
                     <div>
                         <strong>__name__</strong>

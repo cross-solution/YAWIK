@@ -14,8 +14,17 @@ use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 
+/**
+ * Fieldset to manage user groups.
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 class GroupFieldset extends Fieldset implements InputFilterProviderInterface
 {
+    /**
+     * Initialises the fieldset
+     * @see \Zend\Form\Element::init()
+     */
     public function init()
     {
         $this->setName('data')
@@ -37,6 +46,10 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
         
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
+     */
     public function getInputFilterSpecification()
     {
         return array(

@@ -322,7 +322,7 @@ return array(
     'filters' => array(
         'invokables' => array(
             'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
-            'Auth/Entity/JsonSearchResult' => '\Auth\Entity\Filter\JsonSearchResult',
+            'Auth/Entity/UserToSearchResult' => '\Auth\Entity\Filter\UserToSearchResult',
         ),
     ),
     

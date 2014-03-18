@@ -16,20 +16,37 @@ use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 /**
- * Main Action Controller for Authentication module.
- *
+ * Controller for group management.
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ManageGroupsController extends AbstractActionController
 {
 
+    /**
+     * Event identifier for the shared manager.
+     * @var string
+     */
     protected $eventIdentifier = 'Auth/ManageGroups';
     
+    /**
+     * Register the default events for this controller
+     * 
+     * @internal
+     *      Registers two hooks on "onDispatch":
+     *      - change action to form and set mode parameter
+     *      - inject sidebar navigation
+     */
     protected function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         
-        /* This must run before onDispatch, because we could alter the action param */
+        /* 
+         * "Redirect" action 'new' and 'edit' to 'form' and set the 
+         * route parameter 'mode' to the original action.
+         * This must run before onDispatch, because we alter the action param 
+         */
         $events->attach(MvcEvent::EVENT_DISPATCH, function($event) {
             $routeMatch = $event->getRouteMatch();
             $action     = $routeMatch->getParam('action');
@@ -40,22 +57,51 @@ class ManageGroupsController extends AbstractActionController
             }
         }, 10);
         
+        /*
+         * Inject a sidebar view model in the Layout-Model, if 
+         * the result in the event is not terminal.
+         * This must run after "InjectViewModelListener", which runs with
+         * a priority of -100.
+         */
         $events->attach(MvcEvent::EVENT_DISPATCH, function($event) {
             $model = $event->getResult();
             if (!$model instanceOf ViewModel || $model->terminate()) {
                 return;
             }
             
+            $routeMatch = $event->getRouteMatch();
+            $action = $routeMatch->getParam('action');
+            if ('form' == $action) {
+                $action = $routeMatch->getParam('mode');
+            }
+            
             $layout  = $event->getViewModel();
             $sidebar = new ViewModel(); 
+            $sidebar->setVariable('action', $action);
             $sidebar->setTemplate('auth/sidebar/groups-menu');
             $layout->addChild($sidebar, 'sidebar_auth_groups-menu');
         }, -110);
     }
     
+    /**
+     * Index-Action (Group overview)
+     */
     public function indexAction()
     { }
     
+    /**
+     * Handles the form.
+     * 
+     * Redirects to index on save success.
+     * 
+     * Expected route parameters:
+     * - 'mode': string Either 'new' or 'edit'.
+     * 
+     * Expected query parameters:
+     * - 'name' string Name of the group (if mode == 'edit')
+     * 
+     * @return Zend\Stdlib\ResponseInterface|array
+     */
     public function formAction()
     {
         $isNew     = 'new' == $this->params('mode');
@@ -102,8 +148,17 @@ class ManageGroupsController extends AbstractActionController
         );
     }
     
+    /**
+     * Helper action for userselect form element.
+     * 
+     * @return \Zend\View\Model\JsonModel
+     */
     public function searchUsersAction()
     {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            throw new \RuntimeException('This action must be called via ajax request');
+        }
+        
         $model = new JsonModel();
         $query = $this->params()->fromPost('query', false);
         if (false === $query) {
@@ -115,8 +170,9 @@ class ManageGroupsController extends AbstractActionController
             
             $users = $repository->findByQuery($query);
         
-            $filter = $services->get('filtermanager')->get('Auth/Entity/JsonSearchResult');
-            $result = array_values(array_map(function($user) use ($filter) { return $filter->filter($user); }, $users->toArray()));
+            $userFilter = $services->get('filtermanager')->get('Auth/Entity/UserToSearchResult');
+            $filterFunc = function($user) use ($userFilter) { return $userFilter->filter($user); };
+            $result     = array_values(array_map($filterFunc, $users->toArray()));
         }
         
         $model->setVariable('users', $result);

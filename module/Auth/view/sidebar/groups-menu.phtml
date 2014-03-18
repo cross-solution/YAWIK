@@ -6,9 +6,12 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
+$action = $this->action;
+$class  = 'index' == $this->action ? 'active' : '';
+
 ?>
 <ul class="nav nav-pills nav-stacked">
-<li>
-    <a href="<?php echo $this->url('lang/my-groups', array('lang' => $this->params('lang')))?>"><span class="glyphicon glyphicon-th-large"></span> <?php echo $this->translate('My groups') ?></a>
+<li class="<?php echo 'index' == $this->action ? 'active' : '' ?>">
+    <a href="<?php echo $this->url('lang/my-groups', array('lang' => $this->params('lang')))?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('My groups') ?></a>
 </li>
 </ul>

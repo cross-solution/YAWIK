@@ -11,7 +11,9 @@ $this->headTitle('Manage groups')->append('My');
 <h1><?php echo $this->translate('Manage groups') ?></h1>
 
 <nav class="navbar cam-toolbar">  
-<a href="<?php echo $this->url('lang/my-groups', array('action' => 'new')) ?>" class="btn btn-default"><span class="cam-icon-plus"></span> <?php echo $this->translate('Add group') ?></a>
+<a href="<?php echo $this->url('lang/my-groups', array('action' => 'new')) ?>" class="btn btn-default">
+    <span class="yk-icon yk-icon-plus"></span> <?php echo $this->translate('Add group') ?>
+</a>
 </nav>
 <?php $groups = $this->auth('groups');
     if (count($groups)): ?>
@@ -31,7 +33,7 @@ $this->headTitle('Manage groups')->append('My');
             <a class="btn btn-default" href="<?php echo $this->url(
                 'lang/my-groups', array('action' => 'edit'),
                 array('query' => array('name' => $group->name)), true) ?>">
-                <span class="cam-icon-edit"></span>
+                <span class="yk-icon yk-icon-edit"></span>
             </a>
         </td>
     </tr>

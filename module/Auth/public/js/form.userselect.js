@@ -20,8 +20,7 @@
 			var query = $query.val();
 			console.debug(query);
 			$.post(basePath + '/' + lang + '/my/groups/search-users', {query: query})
-			.done(searchUsersResult)
-			.fail(searchUsersFail);
+			.done(searchUsersResult);
 		}, 1000);
 		//return false;
 	};
@@ -71,9 +70,7 @@
 				var input = $('.userselect span[data-template]').data('template');
 				var $parent = $(this).parent();
 				var data = $parent.data();
-				console.debug(input, findNextIndex());
 				data.input = input.replace(/__index__/g, findNextIndex());
-				console.debug(data.input);
 				tmpl = replaceVars(tmpl, data);
 				var $tmpl = $(tmpl.trim());
 				$tmpl.find('button').click(removeUser);
@@ -101,6 +98,10 @@
 		$('#search-users-modal')
 		.on('show.bs.modal', function() { $(this).find('form input').trigger('keyup'); })
 		.find('form input').keyup(searchUsers);
+		$('#search-users-clear').click(function() {
+			$('#search-users-modal form input').val('').keyup().focus();
+			return false;
+		});
 		
 	};
 	
