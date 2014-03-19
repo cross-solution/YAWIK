@@ -110,10 +110,10 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         $model->setTemplate($this->getExceptionTemplate());
         $e->setResult($model);
 
-        $statusCode = $response->getStatusCode();
-        if ($statusCode === 200) {
+       // $statusCode = $response->getStatusCode();
+       // if ($statusCode === 200) {
             $response->setStatusCode(403);
-        }
+       // }
     
 
     }

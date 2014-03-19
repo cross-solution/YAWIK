@@ -1,0 +1,44 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+$this->headTitle('Manage groups')->append('My');
+?>
+<h1><?php echo $this->translate('Manage groups') ?></h1>
+
+<nav class="navbar cam-toolbar">  
+<a href="<?php echo $this->url('lang/my-groups', array('action' => 'new')) ?>" class="btn btn-default">
+    <span class="yk-icon yk-icon-plus"></span> <?php echo $this->translate('Add group') ?>
+</a>
+</nav>
+<?php $groups = $this->auth('groups');
+    if (count($groups)): ?>
+    
+<table class="cam-table" id="my-groups-list">
+<thead>
+    <tr>
+        <th><?php echo $this->translate('Group name') ?></th>
+        <th><?php echo $this->translate('Actions') ?></th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach ($this->auth('groups') as $group):?>
+    <tr>
+        <td><?php echo $group->name ?> [<?php echo count($group->users) ?>]</td>
+        <td>
+            <a class="btn btn-default" href="<?php echo $this->url(
+                'lang/my-groups', array('action' => 'edit'),
+                array('query' => array('name' => $group->name)), true) ?>">
+                <span class="yk-icon yk-icon-edit"></span>
+            </a>
+        </td>
+    </tr>
+<?php endforeach ?>
+</tbody>
+</table>
+
+<?php endif ?>

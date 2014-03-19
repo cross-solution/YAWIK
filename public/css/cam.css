@@ -6850,9 +6850,9 @@ td.visible-print {
   border-top-right-radius: 3px;
 }
 /**
-* list of applications
+* User images
 */
-#cam-application-list .portrait {
+.portrait {
   float: left;
   margin-right: 5px;
   display: block;
@@ -6867,24 +6867,24 @@ td.visible-print {
   max-width: 50px;
   margin-bottom: 0px;
 }
-#cam-application-list .portrait > img,
-#cam-application-list .portrait a > img {
+.portrait > img,
+.portrait a > img {
   display: block;
   max-width: 100%;
   height: auto;
   margin-left: auto;
   margin-right: auto;
 }
-a#cam-application-list .portrait:hover,
-a#cam-application-list .portrait:focus,
-a#cam-application-list .portrait.active {
+a.portrait:hover,
+a.portrait:focus,
+a.portrait.active {
   border-color: #5498d7;
 }
-#cam-application-list .portrait .caption {
+.portrait .caption {
   padding: 9px;
   color: #333333;
 }
-#cam-application-list .portrait .cam-icon-portrait {
+.portrait .cam-icon-portrait {
   font-size: 40px;
 }
 /**
@@ -7284,6 +7284,9 @@ fieldset[disabled] .cam-btn-reset.active {
 }
 .yk-icon-xing:before {
   content: "\f168";
+}
+.yk-icon-group:before {
+  content: "\f0c0";
 }
 .yk-icon {
   display: inline-block;

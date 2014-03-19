@@ -61,4 +61,7 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     //public function setSettings(array $settings);
     public function getSettings($module);
     
+    public function getGroups();
+    
+    
 }

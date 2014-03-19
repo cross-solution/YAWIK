@@ -14,7 +14,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Permissions\Acl\AclInterface;
 use Auth\Entity\UserInterface;
 use Auth\Exception\UnauthorizedAccessException;
-use Core\Entity\FileEntityInterface;
+use Core\Entity\FileInterface;
 use Auth\Exception\UnauthorizedImageAccessException;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
@@ -98,7 +98,7 @@ class Acl extends AbstractPlugin
                            $privilege, is_object($resource) ? $resource->getResourceId() : $resource
                    );
             
-            if ($resource instanceOf FileEntityInterface && 0 == strpos($resource->type, 'image/')) {
+            if ($resource instanceOf FileInterface && 0 == strpos($resource->type, 'image/')) {
                 throw new UnauthorizedImageAccessException(str_replace('resource', 'image', $msg));
             }
             throw new UnauthorizedAccessException($msg);

@@ -65,9 +65,9 @@ class Auth extends AbstractHelper
             return $this;
         }
         
-        if (!$this->isLoggedIn()) {
-            return null;
-        }
+//         if (!$this->isLoggedIn()) {
+//             return null;
+//         }
         
         try {
             return $this->getService()->getUser()->$property;

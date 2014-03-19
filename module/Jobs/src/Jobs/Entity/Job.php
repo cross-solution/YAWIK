@@ -16,6 +16,8 @@ use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\PreUpdateAwareInterface;
+use Core\Entity\Permissions;
+use Core\Entity\PermissionsInterface;
 
 /**
  * The job model
@@ -162,6 +164,15 @@ class Job extends BaseEntity implements JobInterface {
      */
     protected $keywords;
     
+    
+    /**
+     * Permissions
+     * 
+     * @var PermissionsInterface
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
+     */
+    protected $permissions;
+    
     public function getResourceId()
     {
         return 'Entity/Jobs/Job';
@@ -257,7 +268,11 @@ class Job extends BaseEntity implements JobInterface {
     }
     
     public function setUser(UserInterface $user) {
+        if ($this->user) {
+            $this->getPermissions()->revokeFrom($this->user, Permissions::PERMISSION_ALL);
+        }
         $this->user = $user;
+        $this->getPermissions()->grantTo($user, Permissions::PERMISSION_ALL);
         return $this;
     }
 
@@ -355,6 +370,23 @@ class Job extends BaseEntity implements JobInterface {
     public function clearKeywords()
     {
         $this->keywords = array();
+        return $this;
+    }
+    
+    public function getPermissions()
+    {
+        if (!$this->permissions) {
+            $permissions = new Permissions();
+            if ($this->user) {
+                $permissions->grantTo($this->user, Permissions::PERMISSION_ALL);
+            }
+            $this->setPermissions($permissions);
+        }
+        return $this->permissions;
+    }
+    
+    public function setPermissions(PermissionsInterface $permissions) {
+        $this->permissions = $permissions;
         return $this;
     }
 }
