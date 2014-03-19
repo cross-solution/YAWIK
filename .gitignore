@@ -23,7 +23,8 @@ log
 
 #
 # Exclude directories
-#
+# 
+components
 vendor
 cache
  
