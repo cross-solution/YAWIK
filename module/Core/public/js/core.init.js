@@ -9,10 +9,9 @@
             if (lang != switchToLang) {
                 var langRegex = new RegExp('/' + lang + '($|\/)');
 
-                //console.log(location.pathname, location.pathname.replace(langRegex, switchToLang + '$1'));
                 var newHref = location.protocol
                         + "//" + location.host
-                        + location.pathname.replace(langRegex, switchToLang)
+                        + location.pathname.replace(langRegex, switchToLang + '$1')
                         + location.search;
                 //console.log(newHref);
                 location.href = newHref;
