@@ -176,7 +176,7 @@ class IndexController extends AbstractActionController
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
                 $mail->setFrom('contact@yawik.org', 'YAWIK');
-                $mail->setSubject(/* @translate */ 'welcom to YAWIK');
+                $mail->setSubject(/* @translate */ 'Welcome to YAWIK!');
             }
             if (isset($mail) && $mail->send()) {
                 $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());

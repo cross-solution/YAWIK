@@ -7031,6 +7031,9 @@ td.cam-job {
 .cam-callout-info .alert-link {
   color: #66512c;
 }
+.yk-padding {
+  margin: 5px;
+}
 /**
  * Cross Applicant Management
  *
@@ -7226,13 +7229,16 @@ fieldset[disabled] .cam-btn-reset.active {
   content: "\f019";
 }
 .yk-icon-edit:before {
-  content: "\f044";
+  content: "\f040";
+}
+.yk-icon-envelope:before {
+  content: "\f0e0";
 }
 .yk-icon-facebook:before {
   content: "\f09a";
 }
 .yk-icon-forward:before {
-  content: "\f04e";
+  content: "\f064";
 }
 .yk-icon-history:before {
   content: "\f03a";
@@ -7278,6 +7284,9 @@ fieldset[disabled] .cam-btn-reset.active {
 }
 .yk-icon-sort-asc:before {
   content: "\f0dd";
+}
+.yk-icon-spinner:before {
+  content: "\f110";
 }
 .yk-icon-user:before {
   content: "\f007";

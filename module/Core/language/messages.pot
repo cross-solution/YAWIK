@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 09:27+0100\n"
+"POT-Creation-Date: 2014-03-20 12:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,25 @@ msgstr ""
 
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
+msgstr ""
+
+#: view/partial/pagination-control.phtml:18
+#: view/partial/pagination-control.phtml:22
+msgid "First"
+msgstr ""
+
+#: view/partial/pagination-control.phtml:27
+#: view/partial/pagination-control.phtml:30
+msgid "&lt; Previous"
+msgstr ""
+
+#: view/partial/pagination-control.phtml:35
+msgid "Next &gt;"
+msgstr ""
+
+#: view/partial/pagination-control.phtml:42
+#: view/partial/pagination-control.phtml:46
+msgid "Last"
 msgstr ""
 
 #: view/form/privacy.phtml:4 view/form/privacy.phtml:13
@@ -42,27 +61,60 @@ msgstr ""
 msgid "You are now logged out"
 msgstr ""
 
-#: view/core/index/index.phtml:18
-msgid "Welcome"
-msgstr ""
-
-#: view/core/index/index.phtml:19
-msgid ""
-"This is an early alpha version of the application. So there is not much to "
-"see at the moment."
-msgstr ""
-
 #: view/core/index/index.phtml:20
-msgid ""
-"Login via social networks is working. You can test it by clicking on one of "
-"the icons in the upper right corner."
+msgid "Welcome to YAWIK!"
 msgstr ""
 
 #: view/core/index/index.phtml:21
-#, php-format
+msgid "we're connecting recruiters and applicants"
+msgstr ""
+
+#: view/core/index/index.phtml:22
 msgid ""
-"The next big feature which is worked on heavily at the moment is an "
-"%sapplication form%s."
+"Login to an open source applicant tracking system using your favorit social "
+"network"
+msgstr ""
+
+#: view/core/index/index.phtml:26
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/core/index/index.phtml:35
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr ""
+
+#: view/core/index/index.phtml:36
+msgid "multilingual"
+msgstr ""
+
+#: view/core/index/index.phtml:37
+msgid "ready for social recruiting"
+msgstr ""
+
+#: view/core/index/index.phtml:38
+msgid "enter job ads"
+msgstr ""
+
+#: view/core/index/index.phtml:39
+#, php-format
+msgid "%sapplication forms%s."
+msgstr ""
+
+#: view/core/index/index.phtml:43
+msgid "manage applications"
+msgstr ""
+
+#: view/core/index/index.phtml:44
+msgid "open and free software"
+msgstr ""
+
+#: view/core/index/index.phtml:51
+msgid "Developer News"
+msgstr ""
+
+#: view/core/index/index.phtml:67
+msgid "Recruiter News"
 msgstr ""
 
 #: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
@@ -142,15 +194,11 @@ msgstr ""
 msgid "resolves to %s"
 msgstr ""
 
-#: view/layout/layout.phtml:16 view/layout/layout.phtml:43
-msgid "Cross Applicant Management"
+#: view/layout/layout.phtml:16
+msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:44
-msgid "CAM"
-msgstr ""
-
-#: view/layout/layout.phtml:98
+#: view/layout/layout.phtml:99
 msgid "All rights reserved."
 msgstr ""
 

@@ -74,7 +74,8 @@
             data-trigger="hover focus click"
             data-placement="bottom" 
             title="<?php echo $this->translate('Enter an email address')?>"
-            data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>">?
+            data-content="<?php echo $this->translate('This application will be send as an email to the given address in a layout similar to that on this page with all attachments included.')?>">
+            <i class="yk-icon yk-icon-envelope"></i>
             </span>
             <input type="hidden" name="action" value="forward">
             <input class="form-control" id="forward-email-input" name="email" type="email">
@@ -176,7 +177,7 @@
    <div class="modal-content">
      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3><?php echo $this->translate('Comments') ?> <img class="hide" src="/images/loader.gif" /></h3>
+        <h3><?php echo $this->translate('Comments') ?> <i class="yk-icon yk-icon-spinner fa-spin"></i> </h3>
      </div>
      <div id="cam-application-comments-body" class="modal-body">
         <div class="cam-error hide"><p></p></div>

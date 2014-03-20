@@ -36,7 +36,7 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
             'type' => 'Text',
             'name' => 'name',
             'options' => array(
-                'label' => /*@translate*/ 'Name',
+                'label' => /*@translate*/ 'User',
             ),
         ));
         
