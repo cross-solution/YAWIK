@@ -12,7 +12,7 @@ $value = $this->element->getValue();
 ?>
 <div class="apply-identifier-wrapper">
 <?php 
- echo str_replace('class="controls', 'class="apply-identifier-input controls', $this->formRow($this->element));
+ echo str_replace('class="controls', 'class="apply-identifier-input controls', $this->formRow()->render($this->element, /*ignoreViewPartial*/ true));
 ?>
 
 <div class="controls controls-row row apply-identifier-display hidden" id="<?php echo $this->element->getAttribute('id') ?>-display">

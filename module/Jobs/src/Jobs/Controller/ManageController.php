@@ -63,7 +63,7 @@ class ManageController extends AbstractActionController {
         $user = $this->auth()->getUser();
         $job->setContactEmail($user->info->email);
         $job->setApplyId(
-            uniqid(substr(md5($user->login, 0, 3)))
+            uniqid(substr(md5($user->login), 0, 3))
         );
         $form  = $this->getFormular($job); 
         $model = $this->getViewModel($form, 'new');

@@ -33,9 +33,9 @@ class FormRow extends ZendFormRow
      * @return string
      * @throws \Zend\Form\Exception\DomainException
      */
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
-        if ($element instanceOf ViewPartialProviderInterface) {
+        if ($element instanceOf ViewPartialProviderInterface && !$ignoreViewPartial) {
             return $this->getView()->partial($element->getViewPartial(), array('element' => $element));
         }
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
