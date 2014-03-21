@@ -36,7 +36,9 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
             'type' => 'Text',
             'name' => 'name',
             'options' => array(
-                'label' => /*@translate*/ 'User',
+                'label' => /*@translate*/ 'Group name',
+                'description' => /* @translate */ 'Select a group name. You can add users to your group and then work together on jobs and job applications.',
+                    
             ),
         ));
         

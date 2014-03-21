@@ -81,7 +81,6 @@
 			}
 			console.debug(!$dialog.data('modal'));
 			if (!$dialog.data('modal') || !$dialog.data('modal').isShown) {
-				console.debug('Hier');
 				$dialog.modal('show');
 			}
 		};
@@ -167,7 +166,7 @@
 		}
 		
 		$dialog = $('#cam-application-comments');
-		$loader = $dialog.find('.modal-header h3 img');
+		$loader = $dialog.find('.modal-header h3 i');
 		
 		$('#cam-applications-comments-toggle, #cam-application-comments-cancelbtn').click(loadList);
 		$('#cam-application-comments-addbtn, #cam-applications-comments-quickadd' ).click(loadForm);

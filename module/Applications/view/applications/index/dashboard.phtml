@@ -49,7 +49,7 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
           <?php if ($app->contact->image):?>
             <img src="<?php echo $this->basePath($app->contact->image->uri) ?>" />
           <?php else:?>
-            <span class="yk-icon yk-icon-portrait"></span>
+            <span class="yk-icon yk-icon-portrait fa-3x"></span>
           <?php endif?>
         </div>
         <a href="<?php echo $this->url('lang/applications/detail', array('id' => $app->id), true)?>">

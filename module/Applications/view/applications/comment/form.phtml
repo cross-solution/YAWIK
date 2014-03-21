@@ -16,7 +16,7 @@ $this->commentForm->setAttribute(
     . '?mode=' . $this->mode . '&id=' . $this->identifier 
 );
 
-echo $this->form($this->commentForm);
+echo $this->form($this->commentForm, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
 ?>
 
 

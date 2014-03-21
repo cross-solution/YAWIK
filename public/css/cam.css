@@ -6941,6 +6941,9 @@ fieldset[disabled] .cam-btn-reset.active {
 .yk-icon-facebook:before {
   content: "\f09a";
 }
+.yk-icon-folder-open-o:before {
+  content: "\f115";
+}
 .yk-icon-forward:before {
   content: "\f064";
 }
@@ -7743,9 +7746,11 @@ fieldset[disabled] .cam-form-remove.active {
   box-shadow: none;
   padding: 0px 12px;
 }
+#job input,
 #user-info input {
   width: 100%;
 }
+#job input[type="file"],
 #user-info input[type="file"] {
   border: none;
   box-shadow: none;
