@@ -11,6 +11,7 @@
 namespace Settings;
 
 use Zend\Mvc\MvcEvent;
+use Settings\Listener\InjectSubNavigationListener;
 
 /**
  * Bootstrap class of the Settings module
@@ -28,6 +29,12 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
+        $events = $e->getApplication()->getEventManager();
+        $events->attach(
+            array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
+            new InjectSubNavigationListener(),
+            10
+        );
     }
 
     /**

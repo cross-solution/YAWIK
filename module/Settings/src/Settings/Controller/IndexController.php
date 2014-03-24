@@ -37,31 +37,8 @@ class IndexController extends AbstractActionController
             return $settings->toArray();
         }
         
-        $modules = $services->get('ModuleManager')->getLoadedModules();
-        $modulesWithSettings = $this->config("settings", array_keys($modules));
-        
-        //$config = $ServiceLocator->get();
-        
-        $MvcEvent = $this->getEvent();
-        $nav = $services->get('main_navigation');
-        $settingsMenu = $nav->findOneBy('route', 'lang/settings');
-        $settingsMenu->setActive(true);
-        
-        foreach($modulesWithSettings as $key => $param) {
-            $page = array(
-                'label' => ucfirst($key),
-                'order' => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
-                'resource' => 'route/lang/settings',
-                'route' => 'lang/settings',
-                'routeMatch' => $MvcEvent->getRouteMatch(),
-                'router' => $MvcEvent->getRouter(),
-                'action' => 'index',
-                'controller' => 'index',
-                'params' => array('lang' => 'de', 'module' => $key),
-                'active' => $key == $moduleName
-            );
-            $settingsMenu->addPage($page);
-        }
+        $mvcEvent = $this->getEvent();
+        $mvcEvent->setParam('__settings_active_module', $moduleName);
         
         $formManager = $this->getServiceLocator()->get('FormElementManager');
         $formName = $moduleName . '/SettingsForm';
