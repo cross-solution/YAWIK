@@ -24,6 +24,7 @@ log
 #
 # Exclude directories
 # 
+build
 components
 vendor
 cache

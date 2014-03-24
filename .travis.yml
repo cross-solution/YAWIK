@@ -5,3 +5,5 @@ php:
   - "5.3"
 services:
   - mongodb
+script:
+  - phpunit --configuration travis.phpunit.xml
