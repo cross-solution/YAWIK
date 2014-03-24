@@ -219,7 +219,7 @@ class IndexController extends AbstractActionController
 //             ));
 //         }
         
-         if (False) {
+         if (True) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
@@ -322,6 +322,14 @@ class IndexController extends AbstractActionController
             ));
         }
         
+    }
+    
+    public function groupAction()
+    {
+        $adapter    = $services->get('ExternalApplicationAdapter');
+        
+        return new JsonModel(array(
+        ));
     }
     
     /**

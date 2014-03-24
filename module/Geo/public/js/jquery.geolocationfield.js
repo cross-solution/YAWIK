@@ -6,7 +6,7 @@ var geolocation_appendTrigger = function (target) {
             return $.parseJSON(d);},
         limit: 8,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: '/de/geo?q=%QUERY'
+        remote: basePath + '/' + lang + '/geo?q=%QUERY'
     });
  
     geolocation.initialize();
