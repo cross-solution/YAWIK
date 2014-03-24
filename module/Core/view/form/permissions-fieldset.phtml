@@ -1,0 +1,55 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+?>
+<?php $id = $this->element->get('id')->getValue();
+        $type = $this->element->get('type')->getValue(); ?>
+<div id="permissions-item-<?php echo $id ?>" class="permissions-item-display col-md-4 pull-left">
+    
+        <?php if ('user' == $type) {
+            $user = $this->services('repositories.Auth/User')->find($id);
+        }
+        echo $this->formHidden($this->element->get('id')); 
+        echo $this->formHidden($this->element->get('type'));?>
+    
+     <div class="panel panel-default panel-body">
+        
+        <div class="pull-right">
+            <button data-div-id="<?php echo $id ?>" class="btn btn-default btn-xs"><span class="yk-icon yk-icon-minus"></span></button>
+        </div>    
+        <div class="portrait">
+            <?php if ('__template__' == $type):?>
+                **GROUP:<span class="yk-icon yk-icon-group fa-3x"></span>**
+                **IMAGE:<img src="__image_uri__">**
+                **ICON:<span class="yk-icon yk-icon-user fa-3x"></span>**
+            <?php elseif ('group' == $type): ?>
+                <span class="yk-icon yk-icon-group fa-3x"></span>
+            <?php else:
+                if ($user->info->image): ?>
+                    <img src="<?php echo $this->basePath($user->info->image->uri) ?>">
+                
+                <?php else:?>
+                    <span class="yk-icon yk-icon-user fa-3x"></span>
+                <?php endif?>
+            <?php endif ?>
+        </div>
+        <address>
+        <?php if ('__template__' == $type):?>
+            <strong>__name__</strong>
+            **USER:<br>Dummy Company<br><small>Dummy Position</small>**
+        <?php elseif ('group' == $type):?>
+            <strong><?php echo $id ?></strong>
+        <?php else: ?>
+            <strong><?php echo $user->info->displayName ?></strong><br>
+        Dummy Company<br>
+        <small>Dummy Position</small>
+        <?php endif ?>
+        </address>
+    </div>
+</div>
+

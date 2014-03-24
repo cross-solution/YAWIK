@@ -13,6 +13,8 @@ namespace Jobs;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
+use Zend\Mvc\MvcEvent;
+use Jobs\Listener\UpdateJobsPermissionsListener;
 
 /**
  * Bootstrap class of the Core module
@@ -20,6 +22,7 @@ use Core\ModuleManager\ModuleConfigLoader;
  */
 class Module implements ConsoleUsageProviderInterface
 {
+    
 
     public function getConsoleUsage(Console $console)
     {

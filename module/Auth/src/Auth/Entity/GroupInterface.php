@@ -10,16 +10,31 @@
 /** GroupInterface.php */ 
 namespace Auth\Entity;
 
-use Core\Entity\EntityInterface;
-use Core\Entity\PermissionsInterface;
+use Core\Entity\IdentifiableEntityInterface;
 
 /**
  * Defines an user group
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-interface GroupInterface extends EntityInterface
+interface GroupInterface extends IdentifiableEntityInterface
 {
+    
+    /**
+     * Gets the owner of this group.
+     * 
+     * @return UserInterface
+     */
+    public function getOwner();
+    
+    /**
+     * Sets the owner of this group.
+     * 
+     * @param UserInterface $user
+     * @return GroupInterface
+     */
+    public function setOwner(UserInterface $user);
+    
     /**
      * Gets the name of the group.
      * 

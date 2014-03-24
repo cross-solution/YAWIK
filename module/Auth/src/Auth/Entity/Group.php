@@ -10,11 +10,12 @@
 /** Group.php */ 
 namespace Auth\Entity;
 
-use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\Permissions;
 use Doctrine\Common\Collections\Collection;
+use Core\Entity\PermissionsResourceInterface;
+use Core\Entity\AbstractIdentifiableEntity;
 
 /**
  * User Group Entity.
@@ -23,10 +24,20 @@ use Doctrine\Common\Collections\Collection;
  * to assign permissions to other entities for this group of users at once.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @ODM\EmbeddedDocument
+ * @ODM\Document(collection="users.groups")
  */
-class Group extends AbstractEntity implements GroupInterface
+class Group extends AbstractIdentifiableEntity
+            implements GroupInterface,
+                       PermissionsResourceInterface
 {
+    
+    /**
+     * 
+     * @var UserInterface
+     * @ODM\ReferenceOne(targetDocument="User", inversedBy="groups", simple=true)
+     */
+    protected $owner;
+    
     /**
      * Name of the Group.
      * 
@@ -42,6 +53,23 @@ class Group extends AbstractEntity implements GroupInterface
      * @ODM\Collection
      */
     protected $users;
+    
+    public function __construct($name, UserInterface $owner)
+    {
+        $this->setName($name);
+        $this->setOwner($owner);
+    }
+    
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+    
+    public function setOwner(UserInterface $user)
+    {
+        $this->owner = $user;
+        return $this;
+    }
     
     /**
      * {@inheritDoc}
@@ -63,6 +91,12 @@ class Group extends AbstractEntity implements GroupInterface
         return $this;
     }
     
+    
+    public function getPermissionsResourceId()
+    {
+        return 'group:' . $this->getId();
+    }
+    
     /**
      * {inheritDoc}
      * @return Group
@@ -81,6 +115,11 @@ class Group extends AbstractEntity implements GroupInterface
     public function getUsers()
     {
         return $this->users;
+    }
+    
+    public function getPermissionsUserIds()
+    {
+        return $this->getUsers();
     }
 }
 

@@ -1,17 +1,23 @@
 <?php
 
 return array(
-        'doctrine' => array(
-                'driver' => array(
-                        'odm_default' => array(
-                                'drivers' => array(
-                                        'Jobs\Entity' => 'annotation',
-                                ),
-                        ),
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Jobs\Entity' => 'annotation',
                 ),
+            ),
         ),
-        
-
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Jobs\Repository\Event\UpdatePermissionsSubscriber',
+                ),
+            ),
+        ),
+    ),
+    
     'Jobs' => array(
         'dashboard' => array(
             'enabled' => true,

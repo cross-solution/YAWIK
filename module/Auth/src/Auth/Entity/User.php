@@ -59,8 +59,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     
     /**
      * 
-     * @var Collection|array
-     * @ODM\EmbedMany(targetDocument="Group")
+     * @var Collection
+     * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", simple=true, cascade="all")
      */
     protected $groups;
     
@@ -219,12 +219,18 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         return $this->groups;
     }
     
-    public function getGroup($name)
+    public function getGroup($name, $create = false)
     {
-        foreach ($this->getGroups() as $group) {
-            if ($group->name == $name) {
+        $groups = $this->getGroups();
+        foreach ($groups as $group) {
+            if ($group->getName() == $name) {
                 return $group;
             }
+        }
+        if ($create) {
+            $group = new Group($name, $this);
+            $groups->add($group);
+            return $group;
         }
         return null;
     }

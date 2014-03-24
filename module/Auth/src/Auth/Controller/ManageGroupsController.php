@@ -112,7 +112,6 @@ class ManageGroupsController extends AbstractActionController
         $group = $isNew 
                ? new \Auth\Entity\Group()
                : $this->auth()->getUser()->getGroup($this->params()->fromQuery('name'));
-        
         $form->bind($group);
         if ($this->getRequest()->isPost()) {
             $form->setData($_POST);
@@ -130,7 +129,17 @@ class ManageGroupsController extends AbstractActionController
                         $groups->add($group);
                     } else {
                         $message = /*@translate*/ 'Group updated';
+                        /* We must store the changed group immediatly, so we can ensure
+                         * the group is persisted before triggering the change event.
+                        */
+                        $services->get('repositories')->store($this->auth()->getUser());
+                        
+                        /*
+                         * Trigger the group change event.
+                         */
+                        $this->getEventManager()->trigger('change', $this, array('group' => $group));
                     }
+                    
                     $this->flashMessenger()->addMessage($message);
                     return $this->redirect()->toRoute('lang/my-groups');
                 }

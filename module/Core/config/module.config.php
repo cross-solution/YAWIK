@@ -232,7 +232,9 @@ return array(
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
-            'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',            
+            'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
+            'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
+            'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -295,6 +297,8 @@ return array(
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
             'Core/RatingFieldset' => 'Core\Form\RatingFieldset',
             'Core/Rating' => 'Core\Form\Element\Rating',
+            'Core/PermissionsFieldset' => 'Core\Form\PermissionsFieldset',
+            'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
         ),
     ),

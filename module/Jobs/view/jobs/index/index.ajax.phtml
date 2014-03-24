@@ -29,7 +29,11 @@
 <?foreach ($jobs as $job):?>
 <tr>
     <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
-              elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?></td>
+              elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
+        <?php if ($this->auth('role') == 'recruiter'):?>
+        <br>(<?php echo $job->getUser()->getInfo()->getDisplayName() ?>)
+        <?php endif ?></td>
+              
     <td>
     <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
         <a href="<?php echo $href ?>"><?php echo strip_tags($job->title)?></a>

@@ -12,6 +12,8 @@ namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
+use Auth\Entity\GroupInterface;
+use Core\Entity\Collection\ArrayCollection;
 
 /**
  * 
@@ -35,11 +37,24 @@ class Permissions implements PermissionsInterface
      */
     protected $change = array();
     
+    /**
+     * @var array
+     * @ODM\Hash
+     */
+    protected $assigned = array();
+    
+    /**
+     * 
+     * @var unknown
+     * @ODM\ReferenceMany(discriminatorField="_resource")
+     */
+    protected $resources;
+    
     
     public function __call($method, $params)
     {
         if (1 < count($params)) {
-            throw new \InvalidArgumentException('Missing user entity or user id.');
+            throw new \InvalidArgumentException('Missing required parameter.');
         }
         
         if (preg_match('~^is(View|Change|None|All)Granted$~', $method, $match)) {
@@ -47,70 +62,103 @@ class Permissions implements PermissionsInterface
             return $this->isGranted($params[0], $permission);
         }
         
-        if (preg_match('~^grant(View|Change|None|All)To$~', $method, $match)) {
+        if (preg_match('~^grant(View|Change|None|All)$~', $method, $match)) {
             $permission = constant('self::PERMISSION_' . strtoupper($match[1]));
-            return $this->grantTo($params[0], $permission);
+            return $this->grant($params[0], $permission);
         }
         
-        if (preg_match('~^revoke(View|Change|None|All)From$~', $method, $match)) {
+        if (preg_match('~^revoke(View|Change|None|All)$~', $method, $match)) {
             $permission = constant('self::PERMISSION_' . strtoupper($match[1]));
-            return $this->revokeFrom($params[0], $permission);
+            return $this->revoke($params[0], $permission);
         }
         
         throw new \BadMethodCallException('Unknown method "' . $method . '"');
     }
-    /** 
-     * {@inheritDoc}
-     * @see \Core\Entity\PermissionsInterface::getFrom()
-     */
-    public function getFrom ($userOrId)
-    {
-        $userId = $this->getUserId($userOrId);
-        
-        if ($this->isGranted($userId, self::PERMISSION_CHANGE)) {
-            return self::PERMISSION_CHANGE;
-        }
-        
-        if ($this->isGranted($userId, self::PERMISSION_VIEW)) {
-            return self::PERMISSION_VIEW;
-        }
-        
-        return self::PERMISSION_NONE;
-    }
-
+    
     /**
      * {@inheritDoc}
      * @see \Core\Entity\PermissionsInterface::grantTo()
      */
-    public function grantTo ($userOrId, $permission)
+    public function grant ($resource, $permission, $build = true)
     {
-        $userId = $this->getUserId($userOrId);
-        $this->checkPermission($permission);
-        
-        if (self::PERMISSION_NONE == $permission) {
-            return $this->revokeFrom($userOrId, self::PERMISSION_ALL);
-        }
-        
-        if (self::PERMISSION_CHANGE == $permission || self::PERMISSION_ALL == $permission) {
-            if (!in_array($userId, $this->view)) {
-                $this->view[] = $userId;
+        if (is_array($resource)) {
+            foreach ($resource as $r) {
+                $this->grant($r, $permission, false);
             }
-            if (!in_array($userId, $this->change)) {
-                $this->change[] = $userId;
+            if ($build) {
+                $this->build();
             }
             return $this;
         }
         
-        if (self::PERMISSION_VIEW == $permission) {
-            $this->revokeFrom($userId, self::PERMISSION_CHANGE);
-            if (!in_array($userId, $this->view)) {
-                $this->view[] = $userId;
+        //new \Doctrine\ODM\MongoDB\
+        true === $permission || $this->checkPermission($permission);
+        
+        list ($resourceId, $userIds) = $this->getResourceId($resource, true);
+        
+        if (true === $permission) {
+            $permission = isset($this->assigned[$resourceId])
+                        ? $this->assigned[$resourceId]['permission']
+                        : self::PERMISSION_NONE;
+        }
+        
+        if (self::PERMISSION_NONE == $permission) {
+            if ($resource instanceOf PermissionsResourceInterface) {
+                $refs = $this->getResources();
+                if ($refs->contains($resource)) {
+                    $refs->removeElement($resource);
+                }
+            }
+            unset($this->assigned[$resourceId]);
+        } else {
+            $this->assigned[$resourceId] = array(
+                'users'      => $userIds,
+                'permission' => $permission,
+            );
+            if ($resource instanceOf PermissionsResourceInterface) {
+                $refs = $this->getResources();
+                if (!$refs->contains($resource)) {
+                    $refs->add($resource);
+                }
             }
         }
         
+        if ($build) {
+            $this->build();
+        }
         return $this;
     }
-
+    
+    public function revoke ($resource, $permission)
+    {
+        
+        if (self::PERMISSION_NONE == $permission || !$this->isAssigned($resource)) {
+            return $this;
+        }
+        
+        if (self::PERMISSION_CHANGE == $permission) {
+            return $this->grant($resource, self::PERMISSION_VIEW);
+        }
+        
+        return $this->grant($resource, self::PERMISSION_NONE);
+        
+    }
+    
+    public function build()
+    {
+        $view = $change = array();
+        foreach ($this->assigned as $spec) {
+            if (self::PERMISSION_ALL == $spec['permission'] || self::PERMISSION_CHANGE == $spec['permission']) {
+                $change = array_merge($change, $spec['users']);
+            }
+            $view = array_merge($view, $spec['users']);
+        }
+        
+        $this->change = $change;
+        $this->view   = $view;
+        return $this;
+    }
+    
     /** 
      * {@inheritDoc}
      * @see \Core\Entity\PermissionsInterface::isGranted()
@@ -121,51 +169,70 @@ class Permissions implements PermissionsInterface
         $this->checkPermission($permission);
         
         if (self::PERMISSION_NONE == $permission) {
-            return !in_array($userId, $this->view) && !in_array($userId, $this->change);
+            return !in_array($userId, $this->view);
         }
         
         if (self::PERMISSION_ALL == $permission || self::PERMISSION_CHANGE == $permission) {
-            return in_array($userId, $this->view) && in_array($userId, $this->change);
+            return in_array($userId, $this->change);
         }
         
         if (self::PERMISSION_VIEW == $permission) {
-            return in_array($userId, $this->view) && !in_array($userId, $this->change);
+            return in_array($userId, $this->view);
         }
         
     }
-
-    /**
-     * {@inheritDoc}
-     * @see \Core\Entity\PermissionsInterface::revokeFrom()
-     */
-    public function revokeFrom ($userOrId, $permission)
+    
+    public function isAssigned($resource)
     {
-        $userId = $this->getUserId($userOrId);
-        $this->checkPermission($permission);
-        
-        if (self::PERMISSION_NONE == $permission) {
-            return $this;
-        }
-        
-        $filter = function($item) use ($userId) {
-            return $item !== $userId;
-        };
-        
-        if (self::PERMISSION_ALL == $permission || self::PERMISSION_VIEW == $permission) {
-            $this->view = array_filter($this->view, $filter);
-        }
-        
-        if (self::PERMISSION_ALL == $permission || self::PERMISSION_CHANGE == $permission) {
-            $this->change = array_filter($this->change, $filter);
-        }
-        return $this;
+        $resourceId = $this->getResourceId($resource);
+        return isset($this->assigned[$resourceId]);
     }
-
+    
+    public function getAssigned()
+    {
+        return $this->assigned;
+    }
+    
+    public function getResources()
+    {
+        if (!$this->resources) {
+            $this->resources = new ArrayCollection();
+        }
+        return $this->resources;
+    }
+    
+    public function getFrom($resource)
+    {
+        $resourceId = $this->getResourceId($resource);
+        return isset($this->assigned[$resourceId])
+               ? $this->assigned[$resourceId]['permission']
+               : self::PERMISSION_NONE;
+    }
+    
     protected function getUserId($userOrId)
     {
         return $userOrId instanceOf UserInterface
                ? $userOrId->getId()
                : (string) $userOrId;
+    }
+    
+    protected function getResourceId($resource, $includeUsers = false)
+    {
+        if ($resource instanceOf PermissionsResourceInterface) {
+            return $includeUsers
+                   ? array($resource->getPermissionsResourceId(), $resource->getPermissionsUserIds())
+                   : $resource->getPermissionsResourceId();
+        }
+        
+        if ($resource instanceOf UserInterface) {
+            return $includeUsers
+                   ? array('user:' . $resource->getId(), array($resource->getId()))
+                   : $resource->getId();
+        }
+        
+        return $includeUsers
+               ? array('user:' . $resource, array($resource))
+               : $resource;
     }
     
     protected function checkPermission($permission)
@@ -182,5 +249,7 @@ class Permissions implements PermissionsInterface
             );
         }
     }
+    
+    
 }
 

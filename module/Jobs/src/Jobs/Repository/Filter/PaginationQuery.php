@@ -29,12 +29,28 @@ class PaginationQuery extends AbstractPaginationQuery
     public function createQuery($params, $queryBuilder)
     {
         $value = $params->toArray();
-        
-        if ($this->auth->getUser()->getRole()=='recruiter') {
+        $user = $this->auth->getUser();
+        if ($user->getRole()=='recruiter') {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            $queryBuilder->field('permissions.view')->equals($this->auth->getUser()->id);
+            $user = $this->auth->getUser();
+            if (isset($value['by'])) {
+                switch ($value['by']) {
+                    case 'me':
+                    default:
+                        $queryBuilder->field('user')->equals($user->id);
+                        break;
+                        
+                    case 'all':
+                        $queryBuilder->field('permissions.view')->equals($user->id);
+                        break;
+                }
+            }
+            if (isset($value['status']) && !empty($value['status'])) {
+                $queryBuilder->field('status')->equals((string) $value['status']);
+            }
+            
         } else  {
             /*
              * an applicants or guests can see all aktive jobs
@@ -42,13 +58,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('status')->equals('active');
         }
     
-        if (isset($value['by']) && 'me' == $value['by']) {
-            $queryBuilder->field('user')->equals($this->auth->getUser()->id);
-        }
         
-        if (isset($value['status']) && !empty($value['status'])) {
-            $queryBuilder->field('status')->equals((string) $value['status']);
-        }
         
         /*
          * search jobs by keywords

@@ -92,5 +92,9 @@ class JobFieldset extends Fieldset
             
         ));
        
+       $this->add(array(
+           'type' => 'Core/PermissionsCollection'
+       ));
+       
     }
 }

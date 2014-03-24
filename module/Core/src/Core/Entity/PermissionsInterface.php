@@ -10,17 +10,18 @@
 /** PermissionsInterface.php */ 
 namespace Core\Entity;
 
-interface PermissionsInterface
+interface PermissionsInterface 
 {
     const PERMISSION_NONE   = 'none';
     const PERMISSION_VIEW   = 'view';
     const PERMISSION_CHANGE = 'change';
     const PERMISSION_ALL    = 'all';
     
-    public function grantTo($userOrId, $permission);
-    public function revokeFrom($userOrId, $permission);
-    public function getFrom($userOrId);
+    public function grant($resource, $permission);
+    public function revoke($resource, $permission);
     public function isGranted($userOrId, $permission);
+    public function isAssigned($resource);
+    public function getFrom($resource);
     
 }
 

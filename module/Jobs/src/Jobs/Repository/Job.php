@@ -36,6 +36,15 @@ class Job extends AbstractRepository
         
     }
     
+    public function findByAssignedPermissionsResourceId($resourceId)
+    {
+        return $this->findBy(array(
+            'permissions.assigned.' . $resourceId => array(
+                '$exists' => true
+            )
+        ));
+    }
+    
     /**
      * @deprecated
      * @param string $userId

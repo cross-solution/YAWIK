@@ -32,12 +32,23 @@ class IndexController extends AbstractActionController
         $params = $this->getRequest()->getQuery();
         $jsonFormat = 'json' == $params->get('format');
         $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
+        
+        $user = $this->auth()->getUser();
+        $group = $user->getGroup('Meine Kollegen');
+        $group->setUsers(array(
+            "528634815246e11465000000",
+            //"53073cc281896e095e8b456a",
+            "5142eb66ae02591d54000000"
+            
+        ));
+        
+//         $job = $repository->findOneByApplyId('71022');
+//         $perm = $job->getPermissions();
+//         $perm->grant($group, true);
+        
+        
+        
         $isRecruiter = $this->acl()->isRole('recruiter');
-//         $jobs= $repository->fetch();
-//         foreach ($jobs as $job) {
-//             $repository->save($job);
-//         }
-//         exit;
         
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');

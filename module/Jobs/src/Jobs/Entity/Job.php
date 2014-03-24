@@ -378,7 +378,7 @@ class Job extends BaseEntity implements JobInterface {
         if (!$this->permissions) {
             $permissions = new Permissions();
             if ($this->user) {
-                $permissions->grantTo($this->user, Permissions::PERMISSION_ALL);
+                $permissions->grant($this->user, Permissions::PERMISSION_ALL);
             }
             $this->setPermissions($permissions);
         }
