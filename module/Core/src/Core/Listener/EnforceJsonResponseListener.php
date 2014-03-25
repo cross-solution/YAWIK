@@ -75,7 +75,9 @@ class EnforceJsonResponseListener implements ListenerAggregateInterface
                     $model->status = 'error';
                     $model->message = $viewModel->message;
                     if ($viewModel->display_exceptions) {
-                        $model->exception = $viewModel->exception->getMessage();
+                        if (isset($viewModel->exception)) {
+                            $model->exception = $viewModel->exception->getMessage();
+                        }
                     }      
                 } else {
                     $model->setVariables($viewModel->getVariables());

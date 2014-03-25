@@ -219,7 +219,7 @@ class IndexController extends AbstractActionController
 //             ));
 //         }
         
-         if (True) {
+         if (False) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
@@ -326,7 +326,13 @@ class IndexController extends AbstractActionController
     
     public function groupAction()
     {
-        $adapter    = $services->get('ExternalApplicationAdapter');
+        //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
+        $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $user = $auth->getUser();
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
+        $grp = $this->params()->fromQuery('group');
+      
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('Get ' . var_export($_GET, true));
         
         return new JsonModel(array(
         ));

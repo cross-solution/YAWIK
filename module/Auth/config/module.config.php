@@ -169,6 +169,18 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'auth-group' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/auth/groups',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Index',
+                        'action'     => 'group',
+                        'forceJson'  => true,
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'auth-logout' => array(
                 'type' => 'Literal',
                 'options' => array(

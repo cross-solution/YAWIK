@@ -52,7 +52,7 @@ class ImportController extends AbstractActionController {
         //}
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user)) {
-            $form = $services->get('FormElementManager')->get('Job/Import');
+            $form = $services->get('FormElementManager')->get('Jobs/Import');
             // determine Job from Database 
             $id = $this->params()->fromPost('id');
             if (empty($id)) {
