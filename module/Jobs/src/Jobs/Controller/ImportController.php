@@ -16,6 +16,7 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
 use Jobs\Entity\Job;
+use Core\Entity\PermissionsInterface;
 
 /**
  * 
@@ -28,8 +29,8 @@ class ImportController extends AbstractActionController {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
-                'applyId' => '179161',
-                'company' => 'Kraft von Wantoch GmbH Personalberatung',
+                'applyId' => '71022',
+                'company' => 'Meine Kollegen',
                 'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch.de',
                 'title' => 'Fuhrparkleiter/-in',
                 'location' => 'Bundesland, Bayern, DE',
@@ -80,6 +81,10 @@ class ImportController extends AbstractActionController {
                 $result['post'] = $_POST;
                 if ($form->isValid()) {
                     $entity->setUser($user);
+                    $group = $user->getGroup($entity->getCompany());
+                    if ($group) {
+                        $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
+                    }
                     $services->get('repositories')->get('Jobs/Job')->store($entity);
                     $result['isSaved'] = true;
                 } else {
