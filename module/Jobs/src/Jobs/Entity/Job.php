@@ -269,10 +269,10 @@ class Job extends BaseEntity implements JobInterface {
     
     public function setUser(UserInterface $user) {
         if ($this->user) {
-            $this->getPermissions()->revokeFrom($this->user, Permissions::PERMISSION_ALL);
+            $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
         }
         $this->user = $user;
-        $this->getPermissions()->grantTo($user, Permissions::PERMISSION_ALL);
+        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
         return $this;
     }
 
