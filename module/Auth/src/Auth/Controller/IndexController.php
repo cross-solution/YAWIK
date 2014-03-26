@@ -327,12 +327,64 @@ class IndexController extends AbstractActionController
     public function groupAction()
     {
         //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
+        if (false) {
+             $this->request->setMethod('get');
+            $params = new Parameters(array(
+             'format' => 'json',
+                    'group' => array (
+                        0 => 'testuser4711', 1 => 'flatscreen', 2 => 'flatscreen1', 3 => 'flatscreen2', 4 => 'flatscreen3',  5 => 'flatscreen4',
+                        6 => 'flatscreen5', 7 => 'flatscreen6', 8 => 'flatscreen7',  9 => 'flatscreen8', 10 => 'flatscreen9'
+                    ),
+                    'name' => '(die) Rauscher – Unternehmensberatung & Consulting',
+            ));
+            $this->getRequest()->setQuery($params);
+             
+        }
         $auth = $this->getServiceLocator()->get('AuthenticationService');
-        $user = $auth->getUser();
+        $userGrpAdmin = $auth->getUser();
         $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
         $grp = $this->params()->fromQuery('group');
       
-        $this->getServiceLocator()->get('Log/Core/Cam')->info('Get ' . var_export($_GET, true));
+        //$this->getServiceLocator()->get('Log/Core/Cam')->info('Get ' . var_export($_GET, true));
+        
+        // if the request is made by an external host, add his identification-key to the name
+        $loginSuffix = '';
+        $e = $this->getEvent();
+        $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
+        if (!$loginSuffixResponseCollection->isEmpty()) {
+            $loginSuffix = $loginSuffixResponseCollection->last();
+        }
+        // make out of the names a list of Ids
+        $params = $this->getRequest()->getQuery();
+        $groupUserId = array();
+        $notFoundUsers = array();
+        //$users = $this->getRepository();
+        $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
+        if (!empty($params->group)) {
+            foreach ($params->group as $grp_member) {
+                $user = $users->findByLogin($grp_member . $loginSuffix);
+                if (!empty($user)) {
+                    $groupUserId[] = $user->id;
+                }
+                else {
+                    $notFoundUsers[] = $grp_member . $loginSuffix;
+                }
+            }
+        }
+        $name = $params->name;
+        if (!empty($params->name)) {
+            $group = $this->auth()->getUser()->getGroup($params->name);
+            if (empty($group)) {
+                $group = new \Auth\Entity\Group();
+                $group->setName($name);
+                $groups  = $userGrpAdmin->getGroups();
+                $groups->add($group);
+            }
+            $group->setUsers($groupUserId);
+        }
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('Update Group Name: ' . $name . PHP_EOL . str_repeat(' ',36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL . 
+                str_repeat(' ',36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
+                str_repeat(' ',36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ',36) . 'Group Members not found: ' . implode(',', $notFoundUsers));
         
         return new JsonModel(array(
         ));
