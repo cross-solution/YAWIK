@@ -31,7 +31,7 @@ class NewApplication extends StringTemplateMessage
         }
         $name = $this->job->user->info->displayName;
         if ('' == trim($name)) {
-            $name = $this->job->contactEmail;
+            $name = $this->job->user->info->email;
         }
         
         $variables = array(
@@ -39,7 +39,7 @@ class NewApplication extends StringTemplateMessage
             'title' => $this->job->title
         );
         
-        $this->setTo($this->job->contactEmail, $name != $this->job->contactEmail ? $name : null);
+        $this->setTo($this->job->user->info->email, $name != $this->job->user->info->email ? $name : null);
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';
         if ($this->isTranslatorEnabled()) {
@@ -50,12 +50,9 @@ class NewApplication extends StringTemplateMessage
         /* @todo settings retrieved from user entity is an array
          *       not an entity.
          */
-        $settings = $this->job->user->settings['applications'];
-        if (isset($settings['mailAccess']) && $settings['mailAccess']
-            && isset($settings['mailAccessText']) && '' != trim($settings['mailAccessText'])
-        ) {
-            $body = $settings['mailAccessText'];
-        } else {
+        $settings = $this->job->user->getSettings('Applications');
+        $body = $settings->getMailAccessText();
+        if ('' == $body) {
             $body = /*@translate*/ "Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n";
             if ($this->isTranslatorEnabled()) {
                 $body = $this->getTranslator()->translate($body);
