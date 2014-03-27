@@ -23,6 +23,8 @@ return array(
     'Core' => array(
         'settings' => array(
             'entity' => '\\Core\\Entity\\SettingsContainer',
+            'navigation_label' => /* @translate */ 'general settings',
+            'navigation_class' => 'yk-icon yk-icon-settings'
         ),
     ),
 

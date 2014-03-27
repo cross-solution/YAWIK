@@ -57,14 +57,17 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
         $this->setAttribute('method', 'post');
         $object = $this->getObject();
         $fieldsetName = $object->getModuleName() . '/SettingsFieldset';
-        if (!$this->forms->has($fieldsetName)) {
-            $fieldsetName = 'Settings/Fieldset';
+        
+        if ($this->forms->has($fieldsetName)) {
+            $fieldset = $this->forms->get($fieldsetName);
+        } else {
+            $fieldset = $this->forms->get('Settings/Fieldset');
+            $fieldset->setLabel($object->getModuleName());
         }
         
-        $fieldset = $this->forms->get($fieldsetName)
-                                ->setUseAsBaseFieldset(true)
-                                ->setName('base')
-                                ->setLabel($object->getModuleName());
+        $fieldset->setUseAsBaseFieldset(true)
+                 ->setName('base');
+        
         $fieldset->setObject($object);
         $this->add($fieldset);
         

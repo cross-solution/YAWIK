@@ -147,7 +147,7 @@ class FormRow extends ZendFormRow
                             $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
                         );
                         $label = sprintf(
-                            '<div class="col-md-%d text-right">%s</div>',
+                            '<div class="col-md-%d yk-label">%s</div>',
                             $labelWidth, $label
                         );
                         

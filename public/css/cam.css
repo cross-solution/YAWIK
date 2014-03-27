@@ -6736,6 +6736,14 @@ a.portrait.active {
 .cam-callout-info .alert-link {
   color: #66512c;
 }
+.yk-portrait {
+  width: 100px;
+  font-size: 80px;
+  margin-right: 10px;
+}
+.yk-label {
+  text-align: right;
+}
 /**
  * Cross Applicant Management
  *
@@ -6983,6 +6991,9 @@ fieldset[disabled] .cam-btn-reset.active {
 .yk-icon-portrait:empty {
   width: 1.12em;
 }
+.yk-icon-settings:before {
+  content: "\f0ad";
+}
 .yk-icon-sort:before {
   content: "\f0dc";
 }
@@ -7012,6 +7023,9 @@ fieldset[disabled] .cam-btn-reset.active {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+a.yk-icon {
+  margin-right: 4px;
 }
 /**
  * dashboard panels
@@ -7576,10 +7590,6 @@ fieldset fieldset a.remove-item {
   text-decoration: none;
   cursor: default;
   background: none;
-}
-.cam-portrait {
-  width: 100px;
-  font-size: 80px;
 }
 .cam-form-add {
   display: inline-block;

@@ -40,7 +40,9 @@ return array(
         'allowedMimeTypes' => array('image', 'applications/pdf'),
         'settings' => array(
             'entity' => '\Applications\Entity\Settings',
-            'navigation_order' => 30,
+            'navigation_order' => 1, 
+            'navigation_label' => /*@translate*/ "E-Mail Templates",
+            'navigation_class' => 'yk-icon yk-icon-envelope'
         ),
     ),
     

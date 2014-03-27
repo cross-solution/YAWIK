@@ -230,8 +230,8 @@
   <div class="col-md-6">
       <h2><?= $this->translate('personal information')?></h2>
       <div class="cam-callout-info col-md-12">
-        <div class="col-md-3">
-          <div class="cam-portrait ">
+        <div class="pull-left">
+          <div class="yk-portrait">
           <?php if ($this->application->contact->image):?>
           <img src="<?php echo $this->basePath($this->application->contact->image->uri) ?>" class="img-thumbnail"/>
           <?php else:?>
@@ -239,7 +239,7 @@
           <?php endif?>
           </div>    
         </div>
-        <div class="col-md-9">
+        <div>
         <adress>
         <strong><?php echo $this->application->contact->displayName ?></strong><br> 
         <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>

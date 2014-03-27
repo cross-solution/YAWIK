@@ -48,8 +48,9 @@ class InjectSubNavigationListener
 
         foreach($modulesWithSettings as $key => $param) {
             $page = array(
-                'label' => ucfirst($key),
+                'label' => isset($param['navigation_label']) ? $param['navigation_label'] : ucfirst($key),
                 'order' => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
+                'class' => isset($param['navigation_class']) ? $param['navigation_class'] : null,
                 'resource' => 'route/lang/settings',
                 'route' => 'lang/settings',
                 'routeMatch' => $routeMatch,

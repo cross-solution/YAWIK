@@ -46,7 +46,7 @@ class FormRowCombined extends AbstractHelper
         $labelSpanWidth = 12 - $totalSpanWidth;
         
         $labelMarkup = sprintf(
-            '<div class="col-md-%d text-right">%s</div>',
+            '<div class="col-md-%d yk-label">%s</div>',
             $labelSpanWidth, implode(' / ', $labels)
         );
         
