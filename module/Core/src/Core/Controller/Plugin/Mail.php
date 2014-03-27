@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\Plugin\PluginInterface;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
+use Zend\Mail\AddressList;
 use Zend\EventManager\Event;
 use Zend\Stdlib\Parameters;
 use Zend\Stdlib\ArrayUtils;
@@ -42,6 +43,37 @@ class mail extends Message implements PluginInterface
         $this->param = $param;
         $this->config = array();
         return $this;
+    }
+    
+    protected function stringFromMailHeader($header) {
+        $erg = '';
+        if ($header instanceof AddressList) {
+            $A = ArrayUtils::iteratorToArray($header);
+            $AA = array();
+            while (!empty($A)) {
+                $AA[] = array_shift($A)->toString();
+            }
+            $erg = implode(',', $AA);
+        }
+        return $erg;
+    }
+    
+    public function __toString() {
+        $template = $this->getTemplate();
+        $to = $this->stringFromMailHeader($this->getTo());
+        $cc = $this->stringFromMailHeader($this->getCc());
+        $bcc = $this->stringFromMailHeader($this->getBcc());
+        $from = $this->stringFromMailHeader($this->getFrom());
+        $replyTo = $this->stringFromMailHeader($this->getReplyTo());
+        
+        return str_pad($template,30) 
+                . 'to: ' . str_pad($to,50) 
+                . 'cc: ' . str_pad($cc,50) 
+                . 'bcc: ' . str_pad($bcc,50) 
+                . 'from: ' . str_pad($from,50) 
+                . 'replyTo: ' . str_pad($replyTo,50) 
+                //. str_pad(implode(',', ArrayUtils::iteratorToArray($this->getSender())),50) 
+                . 'subject: ' . str_pad($this->getSubject(),50);
     }
     
     public function template($template) {
@@ -98,8 +130,8 @@ class mail extends Message implements PluginInterface
         }
     }
     
-    public function informationComplete() {
-        $log = $this->getController()->getServiceLocator()->get('Log/Core/Mail');
+    protected function getTemplate() {
+        $template = Null;
         if (isset($this->config['templateFull'])) {
             $template = $this->config['templateFull'];
         }
@@ -109,6 +141,12 @@ class mail extends Message implements PluginInterface
         else {
               throw new \InvalidArgumentException('Not template provided for Mail.');
         }
+        return $template;
+    }
+    
+    public function informationComplete() {
+        $log = $this->getController()->getServiceLocator()->get('Log/Core/Mail');
+        $template = $this->getTemplate();
         if (isset($this->config['from'])) {
             $from = $this->config['from'];
         }
@@ -132,47 +170,13 @@ class mail extends Message implements PluginInterface
         }
         $this->setFrom($from, $fromName);
         $this->setSubject($subject);
-        
-        $toA = ArrayUtils::iteratorToArray($this->getTo());
-        $to = '';
-        if (!empty($toA)) {
-            $to = array_shift($toA)->toString();
-        }
-        $ccA = ArrayUtils::iteratorToArray($this->getCc());
-        $cc = '';
-        if (!empty($CcA)) {
-            $Cc = array_shift($CcA)->toString();
-        }
-        $bccA = ArrayUtils::iteratorToArray($this->getBcc());
-        $bcc = '';
-        if (!empty($bccA)) {
-            $bcc = array_shift($bccA)->toString();
-        }
-        $fromA = ArrayUtils::iteratorToArray($this->getFrom());
-        $from = '';
-        if (!empty($fromA)) {
-            $from = array_shift($fromA)->toString();
-        }
-        $replyToA = ArrayUtils::iteratorToArray($this->getReplyTo());
-        $replyTo = '';
-        if (!empty($replyToA)) {
-            $replyTo = array_shift($replyToA)->toString();
-        }
-        //ArrayUtils::iteratorToArray($this->getSender());
-        $log->info(str_pad($template,30) 
-                . 'to: ' . str_pad($to,50) 
-                . 'cc: ' . str_pad($bc,50) 
-                . 'bcc: ' . str_pad($bcc,50) 
-                . 'from: ' . str_pad($from,50) 
-                . 'replyTo: ' . str_pad($replyTo,50) 
-                //. str_pad(implode(',', ArrayUtils::iteratorToArray($this->getSender())),50) 
-                . 'subject: ' . str_pad($this->getSubject(),50));
         return $this;
     }
     
     
     public function send()
     {
+        $log = $this->getController()->getServiceLocator()->get('Log/Core/Mail');
         $this->getHeaders()->addHeaderLine('X-Mailer', 'php/YAWIK');
         //foreach (array('ASCII', 'UTF-8', 'ISO-8859-1', 'ISO-8859-15', 'ISO-8859-7') as $encoding) {
         $encoding = 'UTF-8';
@@ -184,7 +188,9 @@ class mail extends Message implements PluginInterface
         try {
             $transport->send($this);
             $erg = True;
+            $log->info($this);
         } catch (Exception $e) {
+            $log->err('Mail failure ' . $e->getMessage());
             //$this->getController()->getServiceLocator()->get('Log/Core/Cam')->warn('Mail failure ' . $e->getMessage());
         }
         //}
