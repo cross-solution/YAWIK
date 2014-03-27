@@ -204,15 +204,20 @@ class IndexController extends AbstractActionController
 //             ));
 //         }
         
-         if (False) {
+         if (True) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
-                'user' => 'dummy_' . uniqid() . '@ams',
-                'pass' => 'passwordfromams1',
-                'appKey' => 'AmsAppKey',
+                //'user' => 'dummy_' . uniqid() . '@ams',
+                //'pass' => 'passwordfromams1',
+                //'appKey' => 'AmsAppKey',
+                //'email' => 'weitz@cross-solution.de',
+                //'role' => 'recruiter',
+                'user' => 'weitz',
+                'pass' => 'weitz',
+                'appKey' => '',
                 'email' => 'weitz@cross-solution.de',
-                'role' => 'recruiter'
+                'role' => 'user'
             ));
             $this->getRequest()->setPost($params);
         }
