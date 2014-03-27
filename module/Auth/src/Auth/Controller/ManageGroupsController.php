@@ -108,10 +108,23 @@ class ManageGroupsController extends AbstractActionController
         $hasErrors = false;
         $services  = $this->getServiceLocator();
         $form      = $services->get('formelementmanager')->get('Auth/Group', array('mode' => $this->params('mode')));
+        $repository = $services->get('repositories')->get('Auth/Group');
         
-        $group = $isNew 
-               ? new \Auth\Entity\Group()
-               : $this->auth()->getUser()->getGroup($this->params()->fromQuery('name'));
+        if ($isNew) {
+            $group = new \Auth\Entity\Group();
+        } else {
+            if ($this->getRequest()->isPost()) {
+                $data = $this->params()->fromPost('data');
+                $id   = isset($data['id']) ? $data['id'] : false;
+            } else {
+                $id   = $this->params()->fromQuery('id', false);
+            }
+            if (!$id) {
+                throw new \RuntimeException('No id.');
+            }
+            $group = $repository->find($id);
+        }
+        
         $form->bind($group);
         if ($this->getRequest()->isPost()) {
             $form->setData($_POST);
@@ -129,15 +142,6 @@ class ManageGroupsController extends AbstractActionController
                         $groups->add($group);
                     } else {
                         $message = /*@translate*/ 'Group updated';
-                        /* We must store the changed group immediatly, so we can ensure
-                         * the group is persisted before triggering the change event.
-                        */
-                        $services->get('repositories')->store($this->auth()->getUser());
-                        
-                        /*
-                         * Trigger the group change event.
-                         */
-                        $this->getEventManager()->trigger('change', $this, array('group' => $group));
                     }
                     
                     $this->flashMessenger()->addMessage($message);

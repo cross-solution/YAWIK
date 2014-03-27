@@ -33,6 +33,11 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
              ->setHydrator(new EntityHydrator());
         
         $this->add(array(
+            'type' => 'Hidden',
+            'name' => 'id',
+        ));
+        
+        $this->add(array(
             'type' => 'Text',
             'name' => 'name',
             'options' => array(
