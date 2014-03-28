@@ -373,13 +373,7 @@ class IndexController extends AbstractActionController
         }
         $name = $params->name;
         if (!empty($params->name)) {
-            $group = $this->auth()->getUser()->getGroup($params->name);
-            if (empty($group)) {
-                $group = new \Auth\Entity\Group();
-                $group->setName($name);
-                $groups  = $userGrpAdmin->getGroups();
-                $groups->add($group);
-            }
+            $group = $this->auth()->getUser()->getGroup($params->name, /*create*/ true);
             $group->setUsers($groupUserId);
         }
         $this->getServiceLocator()->get('Log/Core/Cam')->info('Update Group Name: ' . $name . PHP_EOL . str_repeat(' ',36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL . 

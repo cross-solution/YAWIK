@@ -6704,6 +6704,9 @@ a.portrait.active {
 .cam-color-rejected {
   color: #d9534f;
 }
+.yk-color-success {
+  color: #5cb85c;
+}
 .cam-callout-info {
   padding: 15px;
   margin-bottom: 20px;

@@ -14,7 +14,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Core\Entity\PermissionsResourceInterface;
-use Core\Entity\PermissionInterface;
+use Core\Entity\PermissionsInterface;
 use Core\Entity\PermissionsAwareInterface;
 
 abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
@@ -32,7 +32,7 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
     
     public function postRemove(LifecycleEventArgs $args)
     {
-        $this->updatePermissions($args, PermissionInterface::PERMISSION_NONE);
+        $this->updatePermissions($args, PermissionsInterface::PERMISSION_NONE);
     }
     
     protected function updatePermissions(LifecycleEventArgs $args, $permission)

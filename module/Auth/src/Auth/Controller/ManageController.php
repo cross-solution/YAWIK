@@ -100,13 +100,22 @@ class ManageController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $services->get('repositories')->store($user);
+                $vars = array(
+                        'ok' => true,
+                        'status' => 'success',
+                        'text' => $translator->translate('Password successfully changed') . '.',
+                );
             } else { // form is invalid
+                $vars = array(
+                        'ok' => false,
+                        'status' => 'error',
+                        'text' => $translator->translate('Password could not be changed') . '.',
+                );
             }
         }
         
-        return array(
-            'form' => $form
-        );
+        $vars['form']=$form;
+        return $vars;
     }
     
 }

@@ -42,6 +42,17 @@ return array(
                 ),
             ),
         ),
+        'Log/Core/Mail' => array(
+            'writers' => array(
+                 array(
+                     'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                         'stream' => __DIR__ .'/../../../log/mails.log',
+                    ),
+                ),
+            ),
+        ),
         'ErrorLogger' => array(
             'service' => 'Core/ErrorLogger',
             'config'  => array(

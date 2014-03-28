@@ -128,12 +128,12 @@ class IndexController extends AbstractActionController
                 
                 /*
                  * New Application alert Mails to job owner
-                 * @todo disabled until settings is migrated to doctrine
                  */
-//                 $settings = $this->settings($job->user); 
-//                 if ($email = $job->getContactEmail()) {
-//                     $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
-//                 }
+                if ($job->user->getSettings('Applications')->getMailAccess()
+                    && $job->user->info->email
+                ) {
+                    $this->mailer('Applications/NewApplication', array('job' => $job), /*send*/ true);
+                }
                 
                 if ($this->auth()->isLoggedIn()) {
                     $userInfo = $this->auth()->get('info');

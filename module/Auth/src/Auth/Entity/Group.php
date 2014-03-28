@@ -54,10 +54,14 @@ class Group extends AbstractIdentifiableEntity
      */
     protected $users;
     
-    public function __construct($name, UserInterface $owner)
+    public function __construct($name=null, UserInterface $owner=null)
     {
-        $this->setName($name);
-        $this->setOwner($owner);
+        if (null !== $name) { 
+            $this->setName($name); 
+        }
+        if (null !== $owner) {
+            $this->setOwner($owner);
+        }
     }
     
     public function getOwner()
