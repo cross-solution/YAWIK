@@ -13,14 +13,14 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle($this->translate('Cross Applicant Management'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle($this->translate('YAWIK'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
         <?php echo $this->headScript()
                         ->prependFile($this->basepath('Core/js/core.init.js'))
                         ->prependFile($this->basePath('js/bootstrap.min.js'))
-                        ->prependFile($this->basePath('js/jquery-1.9.1.js')) 
+                        ->prependFile($this->basePath('js/jquery.js')) 
                         ->appendScript('var lang="' . $this->params('lang') . '";'
                                      . 'var basePath="' . $this->basePath() . '";');
         ?>
@@ -40,8 +40,8 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('Cross Applicant Management')?></a>
-                    <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>"><?php echo $this->translate('CAM')?></a>
+                    <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>">YAWIK</a>
+                    <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>">Y</a>
                </div>
                   <nav id="cam-main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
                      <?php 
@@ -70,7 +70,7 @@
 <div id="sub-nav">               
 <?php
     echo $this->navigation()->menu()
-              ->setOnlyActiveBranch()
+              ->setOnlyActiveBranch(true)
               ->setMaxDepth(null)
               ->setMinDepth(1)
               ->setRenderParents(false)
@@ -97,11 +97,8 @@ endforeach;?>
                 <div class="container">
                 <span class="pull-left"><small>&copy; 2013-2014 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
                     | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</small></span>
-                
                 <span class="pull-right"><small>
-                    Powered by <a href="http://framework.zend.com">Zend Framework 2</a>,
-                                <a href="http://getbootstrap.com/2.3.2/">Bootstrap</a>,
-                                <a href="http://jquery.com">jQuery</a>
+                    Powered by <a href="http://yawik.org">YAWIK</a>
                                </small> </span>
                 
                 </div>

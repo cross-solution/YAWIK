@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-19 09:27+0100\n"
-"PO-Revision-Date: 2014-02-19 09:32+0100\n"
-"Last-Translator: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
+"POT-Creation-Date: 2014-03-20 12:13+0100\n"
+"PO-Revision-Date: 2014-03-20 12:19+0100\n"
+"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Cross Solution <info@cross-solution.de>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,25 @@ msgstr ""
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
 msgstr "Wird geladen"
+
+#: view/partial/pagination-control.phtml:18
+#: view/partial/pagination-control.phtml:22
+msgid "First"
+msgstr "Anfang"
+
+#: view/partial/pagination-control.phtml:27
+#: view/partial/pagination-control.phtml:30
+msgid "&lt; Previous"
+msgstr "&lt; Zurück"
+
+#: view/partial/pagination-control.phtml:35
+msgid "Next &gt;"
+msgstr "Weiter &gt;"
+
+#: view/partial/pagination-control.phtml:42
+#: view/partial/pagination-control.phtml:46
+msgid "Last"
+msgstr "Ende"
 
 #: view/form/privacy.phtml:4
 #: view/form/privacy.phtml:13
@@ -43,22 +62,59 @@ msgstr "Start"
 msgid "You are now logged out"
 msgstr "Sie sind nun abgemeldet"
 
-#: view/core/index/index.phtml:18
-msgid "Welcome"
-msgstr "Willkommen"
-
-#: view/core/index/index.phtml:19
-msgid "This is an early alpha version of the application. So there is not much to see at the moment."
-msgstr "Dies ist eine frühe Alpha-Version der Anwendung, es gibt also noch nicht allzu viel zu sehen. "
-
 #: view/core/index/index.phtml:20
-msgid "Login via social networks is working. You can test it by clicking on one of the icons in the upper right corner."
-msgstr "Das Einloggen über soziale Netzwerke funktioniert. Sie können es testen, indem Sie auf einen der Icons in der oberen rechten Ecke klicken."
+msgid "Welcome to YAWIK!"
+msgstr "Willkommen bei YAWIK!"
 
 #: view/core/index/index.phtml:21
+msgid "we're connecting recruiters and applicants"
+msgstr "wir verbinden Personaler und Bewerber"
+
+#: view/core/index/index.phtml:22
+msgid "Login to an open source applicant tracking system using your favorit social network"
+msgstr "Melde Dich mit Deinen Sozialen Netzwerk am Open Source Bewerbermanagement System an"
+
+#: view/core/index/index.phtml:26
 #, php-format
-msgid "The next big feature which is worked on heavily at the moment is an %sapplication form%s."
-msgstr "Das nächste große Feature, an dem momentan schwer gearbeitet wird, ist ein %sBewerbungsformular%s."
+msgid "Login with %s"
+msgstr "Anmelden mit %s"
+
+#: view/core/index/index.phtml:35
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr "Responsive Designe (nutzt Bootstrap3 und Awesome Fonts)"
+
+#: view/core/index/index.phtml:36
+msgid "multilingual"
+msgstr "mehrsprachig"
+
+#: view/core/index/index.phtml:37
+msgid "ready for social recruiting"
+msgstr "bereit für Social Recruiting"
+
+#: view/core/index/index.phtml:38
+msgid "enter job ads"
+msgstr "Stellenanzeigen eingeben"
+
+#: view/core/index/index.phtml:39
+#, php-format
+msgid "%sapplication forms%s."
+msgstr "%sBewerbungsformulare%s."
+
+#: view/core/index/index.phtml:43
+msgid "manage applications"
+msgstr "Bewerbungen verwalten"
+
+#: view/core/index/index.phtml:44
+msgid "open and free software"
+msgstr "Open Source im Sinne von freier Software"
+
+#: view/core/index/index.phtml:51
+msgid "Developer News"
+msgstr "Neuigkeiten für Entwickler"
+
+#: view/core/index/index.phtml:67
+msgid "Recruiter News"
+msgstr "Neuigkeiten für Personaler"
 
 #: view/core/index/dashboard.phtml:11
 #: view/core/index/dashboard.phtml:14
@@ -157,15 +213,10 @@ msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
 #: view/layout/layout.phtml:16
-#: view/layout/layout.phtml:43
-msgid "Cross Applicant Management"
-msgstr "CROSS Bewerberverwaltung"
+msgid "YAWIK"
+msgstr "YAWIK"
 
-#: view/layout/layout.phtml:44
-msgid "CAM"
-msgstr ""
-
-#: view/layout/layout.phtml:98
+#: view/layout/layout.phtml:99
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
@@ -236,6 +287,33 @@ msgstr "Deutsch"
 #: language/_annotated_strings.php:48
 msgid "defines the languages of this frontend."
 msgstr "Sprache dieses Frontends"
+
+#~ msgid "Welcome"
+#~ msgstr "Willkommen"
+
+#~ msgid ""
+#~ "This is an early alpha version of the application. So there is not much "
+#~ "to see at the moment."
+#~ msgstr ""
+#~ "Dies ist eine frühe Alpha-Version der Anwendung, es gibt also noch nicht "
+#~ "allzu viel zu sehen. "
+
+#~ msgid ""
+#~ "Login via social networks is working. You can test it by clicking on one "
+#~ "of the icons in the upper right corner."
+#~ msgstr ""
+#~ "Das Einloggen über soziale Netzwerke funktioniert. Sie können es testen, "
+#~ "indem Sie auf einen der Icons in der oberen rechten Ecke klicken."
+
+#~ msgid ""
+#~ "The next big feature which is worked on heavily at the moment is an "
+#~ "%sapplication form%s."
+#~ msgstr ""
+#~ "Das nächste große Feature, an dem momentan schwer gearbeitet wird, ist "
+#~ "ein %sBewerbungsformular%s."
+
+#~ msgid "Cross Applicant Management"
+#~ msgstr "CROSS Bewerberverwaltung"
 
 #~ msgid "Actions"
 #~ msgstr "Aktionen"

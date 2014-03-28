@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
@@ -16,13 +16,33 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class Job extends AbstractRepository 
 {
     
-    protected $builders;
-    
     public function getPaginatorCursor($params)
     {
         $filter = $this->getService('filterManager')->get('Jobs/PaginationQuery');
         $qb = $filter->filter($params, $this->createQueryBuilder());
         return $qb->getQuery()->execute();
+    }
+    
+    public function existsApplyId($applyId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->hydrate(false)
+           ->select('applyId')
+           ->field('applyId')->equals($applyId);
+           
+       $result = $qb->getQuery()->execute();
+       $count = $result->count();
+       return (bool) $count;
+        
+    }
+    
+    public function findByAssignedPermissionsResourceId($resourceId)
+    {
+        return $this->findBy(array(
+            'permissions.assigned.' . $resourceId => array(
+                '$exists' => true
+            )
+        ));
     }
     
     /**
@@ -66,9 +86,6 @@ class Job extends AbstractRepository
         return $this->findBy(array('userId' => $userOrId))->count();
     }
     
-    public function save(EntityInterface $entity)
-    {
-        $this->getMapper('job')->save($entity);
-    }
+    
     
 }

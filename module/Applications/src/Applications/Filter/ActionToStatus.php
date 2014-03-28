@@ -5,7 +5,7 @@ namespace Applications\Filter;
 use Zend\Filter\FilterInterface;
 use Applications\Entity\StatusInterface as Status;
 
-class #ActionToStatus implements FilterInterface
+class ActionToStatus implements FilterInterface
 {
 
     protected $actionToStatusMap = array(

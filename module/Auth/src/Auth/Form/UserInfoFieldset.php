@@ -122,9 +122,13 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         $this->add(array(
             'type' => 'file',
             'name' => 'image',
-//             'options' => array(
+            'options' => array(
 //                 'label' => /*@translate*/ 'Application photo',
-//             ),
+                    
+             ),
+            'attributes' => array(
+                   'accept' => 'image/*',
+             ),
         
         ));
         
@@ -182,7 +186,16 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                         new \Zend\Validator\StringLength(array('max' => 100)),
                         new \Zend\Validator\EmailAddress()
                 )
-            )
+            ),
+            'image' => array(
+                'required' => false,
+                'filters'  => array(
+                ),
+                'validators' => array(
+                    new \Zend\Validator\File\Exists(),
+                    new \Zend\Validator\File\Extension(array('extension' => array('jpg', 'png', 'jpeg', 'gif'))),
+                ),
+            ),
         );
         
     }

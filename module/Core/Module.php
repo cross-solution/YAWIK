@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * Core Module Bootstrap
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -21,6 +21,7 @@ use Zend\Console\Adapter\AdapterInterface as Console;
 use Core\Listener\ErrorLoggerListener;
 use Core\Listener\ErrorHandlerListener;
 use Zend\Log\Formatter\ErrorHandler;
+use Core\Repository\DoctrineMongoODM\PersistenceListener;
 
 /**
  * Bootstrap class of the Core module
@@ -32,7 +33,7 @@ class Module implements ConsoleBannerProviderInterface
     public function getConsoleBanner(Console $console) {
         
         $version = `git describe`;
-        $name = 'Cross Applicant Management ' . trim($version);
+        $name = 'YAWIK ' . trim($version);
         $width = $console->getWidth();
         return sprintf(
             "==%1\$s==\n%2\$s%3\$s\n**%1\$s**\n",
@@ -96,14 +97,24 @@ class Module implements ConsoleBannerProviderInterface
             $stringListener->attach($eventManager);
         }
         
-        $eventManager->attach('postDispatch', function ($event) use ($sm) {
-            $sm->get('doctrine.documentmanager.odm_default')->flush();
-        }, -150);
+        $persistenceListener = new PersistenceListener();
+        $persistenceListener->attach($eventManager);
         
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function ($event) {
+            $application = $event->getApplication();
+            if ($application::ERROR_EXCEPTION == $event->getError()) {
+                $ex = $event->getParam('exception');
+                if (404 == $ex->getCode()) {
+                    $event->setError($application::ERROR_CONTROLLER_NOT_FOUND);
+                }
+            }
+            
+        }, 500);
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
             $eventManager->trigger('postDispatch', $event);
         }, -150);
         
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'appendGlobalHeadScripts'), -100);
     }
 
     /**
@@ -136,5 +147,33 @@ class Module implements ConsoleBannerProviderInterface
                 ),
             ),
         );
+    }
+    
+    public function appendGlobalHeadScripts(MvcEvent $e) {
+        $services = $e->getApplication()->getServiceManager();
+        
+        $config   = $services->get('Config');
+        if (!isset($config['view_inject_headscript'])) {
+            return;
+        }
+        $helperManager = $services->get('viewHelperManager');
+        $config     = $config['view_inject_headscript'];
+        $routeMatch = $services->get('Application')->getMvcEvent()->getRouteMatch();
+        $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : ''; 
+        
+        $basepath = $helperManager->get('basepath');
+        $headScript = $helperManager->get('headScript');
+        foreach ($config as $routeStart => $scripts) {
+            if (is_int($routeStart) || 0 === strpos($routeName, $routeStart)) {
+                if (!is_array($scripts)) {
+                    $scripts = array($scripts);
+                }
+                foreach ($scripts as $script) {
+                    $headScript->appendFile($basepath($script));
+                }
+            }
+        }
+         
+        return;
     }
 }

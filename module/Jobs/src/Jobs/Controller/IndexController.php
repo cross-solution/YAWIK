@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -29,15 +29,10 @@ class IndexController extends AbstractActionController
     public function indexAction()
     { 
         
-        $params = $this->getRequest()->getQuery();
-        $jsonFormat = 'json' == $params->get('format');
-        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
+        $params      = $this->getRequest()->getQuery();
+        $jsonFormat  = 'json' == $params->get('format');
+        $repository  = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         $isRecruiter = $this->acl()->isRole('recruiter');
-//         $jobs= $repository->fetch();
-//         foreach ($jobs as $job) {
-//             $repository->save($job);
-//         }
-//         exit;
         
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
@@ -90,6 +85,24 @@ class IndexController extends AbstractActionController
         return $return;
         
     
+     }
+     
+     public function viewAction()
+     {
+         $id = $this->params()->fromQuery('id');
+         if (!$id) {
+             throw new \RuntimeException('Missing job id.', 404);
+         }
+         
+         $job = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
+         if (!$job) {
+             throw new \RuntimeException('Job not found.', 404);
+         }
+         
+         return array(
+             'job' => $job
+         );
+         
      }
      
      public function dashboardAction()

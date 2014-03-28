@@ -1,0 +1,37 @@
+[main]
+host = https://www.transifex.com
+
+[yawik.applications]
+file_filter = module/Applications/language/<lang>.po
+source_file = module/Applications/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+
+[yawik.core]
+file_filter = module/Core/language/<lang>.po
+source_file = module/Core/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+
+[yawik.jobs]
+file_filter = module/Jobs/language/<lang>.po
+source_file = module/Jobs/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+
+[yawik.cv]
+file_filter = module/CV/language/<lang>.po
+source_file = module/Cv/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+
+[yawik.auth]
+file_filter = module/Auth/language/<lang>.po
+source_file = module/Auth/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US

@@ -1,6 +1,20 @@
 {
     "name": "cross/cross-applicant-management",
     "description": "An Application to manage applicants by human resources departments",
+    "authors": [
+	{
+		"name": "Mathias Gelhausen",
+		"email": "gelhausen@cross-solution.de"
+	},
+	{
+		"name": "Carsten Bleek",
+		"email": "bleek@cross-solution.de"
+	},
+	{
+		"name": "Mathias Weitz",
+		"email": "weitz@cross-solution.de"
+	}
+    ],
     "license": "AGPL-3.0+",
     "keywords": [
         "human resource", "human relation", "applicant",
@@ -18,10 +32,16 @@
         "php": ">=5.3.3",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "2.1.*",
+        "zendframework/zendframework": "2.2.5",
         "doctrine/doctrine-mongo-odm-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
 	"mpdf/mpdf": "5.7.*",
-        "twbs/bootstrap": "3.0.*"
+        "twbs/bootstrap": "3.1.*",
+        "components/jquery": "1.9.1",
+        "fortawesome/font-awesome": "*",
+        "twitter/typeahead.js": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
     }
 }

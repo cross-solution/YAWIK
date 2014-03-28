@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * 
  * (this file is taken from ZF 2.2)
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * Configuration file of the Auth module
  * 
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -44,6 +44,7 @@ return array(
         'invokables' => array(
             'Auth\Controller\Index' => 'Auth\Controller\IndexController',
             'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
+            'Auth/ManageGroups' => 'Auth\Controller\ManageGroupsController',
             'Auth\Controller\Image' => 'Auth\Controller\ImageController',
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
         ),
@@ -106,35 +107,23 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
-                    'manage-profile' => array(
-                        'type' => 'Literal',
+                    'my' => array(
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/my/profile',
+                            'route' => '/my/:action',
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Manage',
-                                'action' => 'my-profile',
                             ),
                         ),
                         'may_terminate' => true,
                     ),
-                    'manage-password' => array(
-                        'type' => 'Literal',
+                    'my-groups' => array(
+                        'type' => 'Segment',
                         'options' => array(
-                            'route' => '/my/password',
+                            'route' => '/my/groups[/:action]',
                             'defaults' => array(
-                                'controller' => 'Auth\Controller\Manage',
-                                'action' => 'my-password',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'Save Application Confirmation' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/save/applicationconfirmation',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Manage',
-                                'action' => 'my-profile',
+                                'controller' => 'Auth/ManageGroups',
+                                'action' => 'index'
                             ),
                         ),
                         'may_terminate' => true,
@@ -175,6 +164,18 @@ return array(
                     'defaults' => array(
                         'controller' => 'Auth\Controller\Index',
                         'action'     => 'login-extern',
+                        'forceJson'  => true,
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'auth-group' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/auth/groups',
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\Index',
+                        'action'     => 'group',
                         'forceJson'  => true,
                     ),
                 ),
@@ -270,6 +271,11 @@ return array(
                     'route/auth-extern',
                 ),
             ),
+            'recruiter' => array(
+                'allow' => array(
+                    'route/lang/my-groups'
+                ),
+            ),
             'admin' => array(
                 'allow' => "__ALL__",
                 'deny' => array(
@@ -301,6 +307,7 @@ return array(
 //         ),
 //     ),
     
+   
     'translator' => array(
         'translation_file_patterns' => array(
             array(
@@ -315,6 +322,8 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
+            'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
+            'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
         ),
     
         'template_path_stack' => array(
@@ -325,6 +334,13 @@ return array(
     'filters' => array(
         'invokables' => array(
             'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
+            'Auth/Entity/UserToSearchResult' => '\Auth\Entity\Filter\UserToSearchResult',
+        ),
+    ),
+    
+    'validators' => array(
+        'factories' => array(
+            'Auth/Form/UniqueGroupName' => 'Auth\Form\Validator\UniqueGroupNameFactory',
         ),
     ),
     
@@ -346,6 +362,10 @@ return array(
             'user-password' => 'Auth\Form\UserPassword',
             'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
+            'Auth/Group' => 'Auth\Form\Group',
+            'Auth/Group/Data' => 'Auth\Form\GroupFieldset',
+            'Auth/Group/Users' => 'Auth\Form\GroupUsersCollection',
+            'Auth/Group/User'  => 'Auth\Form\GroupUserElement',
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',

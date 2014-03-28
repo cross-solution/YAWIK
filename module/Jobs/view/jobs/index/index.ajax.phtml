@@ -15,21 +15,30 @@
     <th><?php echo $this->translate('Location')?></th> 
     <th><?php echo $this->translate('Companyname')?></th>
     <th><?php echo $this->translate('Reference')?></th>
-    <th>
-     <?php if ($this->acl()->isRole('recruiter')):?>  
-       <?php echo $this->translate('Applications')?>
-     <?php else: ?>
-       <?php echo $this->translate('Action')?>
-     <?php endif;?>
-    </th>
+    <?php if ($this->acl()->isRole('recruiter')):?>  
+       <th><?php echo $this->translate('Applications')?></th>
+       <th><?php echo $this->translate('Status')?></th>
+       <th><?php echo $this->translate('Action')?></th>
+    <?php else: ?>
+       <th><?php echo $this->translate('Action')?></th>
+    <?php endif;?>
 </tr>
 </thead>
 
 <tbody>
 <?foreach ($jobs as $job):?>
 <tr>
-    <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); endif?></td>
-    <td><a href="<?php echo $job->link?>"><?php echo strip_tags($job->title)?></a></td>
+    <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
+              elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
+        <?php if ($this->auth('role') == 'recruiter'):?>
+        <br>(<?php echo $job->getUser()->getInfo()->getDisplayName() ?>)
+        <?php endif ?></td>
+              
+    <td>
+    <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
+        <a href="<?php echo $href ?>"><?php echo strip_tags($job->title)?></a>
+    
+        </td>
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>
     <td><?php echo empty($job->reference)? $job->applyId:$job->reference ?></td>
@@ -47,6 +56,14 @@
             <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
             </a>
          <?php endif;?>
+         <td>
+         <?php echo $job->status?>
+         </td>
+         <td>
+         <?php if ($this->acl($job, 'edit')): ?>
+           <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="yk-icon yk-icon-edit"></span></a>
+         <?php endif ?>     
+         </td>
       <?php else:?>
          <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>">
           <?php echo $this->translate('Apply')?>

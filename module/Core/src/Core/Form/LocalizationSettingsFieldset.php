@@ -12,9 +12,7 @@ class LocalizationSettingsFieldset extends Fieldset
     
 	public function init()
     {
-        $this->setLabel('General');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
-
+        $this->setLabel('general settings');
         
         $this->add(array(
         		'type' => 'Zend\Form\Element\Select',

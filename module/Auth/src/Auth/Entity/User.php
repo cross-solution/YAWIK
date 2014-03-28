@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
@@ -56,6 +56,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @var SettingsEntityResolver
      */
     protected $settingsEntityResolver;
+    
+    /**
+     * 
+     * @var Collection
+     * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", simple=true, cascade="all")
+     */
+    protected $groups;
+    
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
      * It is recommended best practice to initialize any business collections in documents in the constructor.
@@ -202,5 +210,31 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->settings->add($settings);
         return $settings;
     }
+    
+    public function getGroups()
+    {
+        if (!$this->groups) {
+            $this->groups = new ArrayCollection();
+        }
+        return $this->groups;
+    }
+    
+    public function getGroup($name, $create = false)
+    {
+        $groups = $this->getGroups();
+        foreach ($groups as $group) {
+            if ($group->getName() == $name) {
+                return $group;
+            }
+        }
+        if ($create) {
+            $group = new Group($name, $this);
+            $groups->add($group);
+            return $group;
+        }
+        return null;
+    }
+    
+    
    
 }

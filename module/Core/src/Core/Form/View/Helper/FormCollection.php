@@ -93,7 +93,7 @@ class FormCollection extends ZendFormCollection
                 $element->getName()
             );
             if ($this->isWithinCollection) {
-                $markup = sprintf('<fieldset id="%s"><a class="remove-item cam-form-remove"><i class="cam-icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
+                $markup = sprintf('<fieldset id="%s"><a class="remove-item cam-form-remove"><i class="yk-icon yk-icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
             } else {
                 $label = $element->getLabel();
         
@@ -114,7 +114,7 @@ class FormCollection extends ZendFormCollection
                     $label = $escapeHtmlHelper($label);
                     
                     if ($isCollectionElement) {
-                        $extraLegend = '<a href="#" class="add-item cam-form-add"><i class="cam-icon-plus"></i></a>';
+                        $extraLegend = '<a href="#" class="add-item cam-form-add"><i class="yk-icon yk-icon-plus"></i></a>';
                         $class  = ' class="form-collection"';
                         $divWrapperOpen = $divWrapperClose = '';
                     } else {

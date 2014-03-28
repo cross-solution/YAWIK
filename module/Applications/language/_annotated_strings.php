@@ -80,6 +80,6 @@ translate('New application for your vacancy "%s"');
 //: ./src/Applications/Mail/NewApplication.php:59
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./config/module.configs.php:187
+//: ./config/module.config.php:92
 translate('Overview');
 

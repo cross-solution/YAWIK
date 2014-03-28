@@ -3,16 +3,11 @@
 namespace Jobs\Form;
 
 use Zend\Form\Fieldset;
-use Zend\Validator\StringLength as StringLengthValidator;
-use Zend\Validator\EmailAddress as EmailAddressValidator;
-use Zend\Validator\ValidatorInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Core\Repository\Hydrator;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 
-class JobFieldset extends Fieldset implements InputFilterProviderInterface
+class JobFieldset extends Fieldset 
 {
+    
     
     public function getHydrator()
     {
@@ -28,193 +23,78 @@ class JobFieldset extends Fieldset implements InputFilterProviderInterface
         return $this->hydrator;
     }
     
-    public function getInputFilterSpecification()
-    { 
-        return array(
-            'company' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-                'validators' => array(
-                    new StringLengthValidator(1),
-                ),
-            ),
-            'title' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-                'validators' => array(
-                    new StringLengthValidator(5),
-                ),
-            ),
-            'link' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-                'validators' => array(
-                    new StringLengthValidator(5),
-                ),
-            ),
-            'contactEmail' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
-            'datePublishStart' => array(
-                ),
-            'reference' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
-            
-            'status' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
-            
-            'camEnabled' => array(
-                'filters'  => array(
-                ),          
-                'allow_empty' => True
-            ),
-            
-             'logoRef' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
-        );
-    }
-    
     public function init()
     {
-        $this->setName('job');
-        $this->setAttribute('id', 'job');
+        $this->setAttribute('id', 'job-fieldset');
+        $this->setLabel('Job details');
+
         $this->add(array(
             'type' => 'hidden',
             'name' => 'id'
         ));
         
        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'applyId',
+            'type' => 'Text',
+            'name' => 'company',
             'options' => array(
-                'label' => 'applyId'
+                'label' => /*@translate*/ 'Company'
             ),
-            'attributes' => array(
-            //'id' => 'contact-title',
-            )
         ));
         
        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'company',
+            'type' => 'Text',
+            'name' => 'title',
             'options' => array(
-                'label' => 'company'
+                'label' => /*@translate*/ 'Job title'
             ),
-            'attributes' => array(
-            //'id' => 'contact-title',
+        ));
+       
+       $this->add(array(
+           'type' => 'Jobs/ApplyId',
+           'name' => 'applyId',
+           'options' => array(
+               'label' => /*@translate*/ 'Apply Identifier'
+           ),
+       ));
+       
+       $this->add(array(
+           'type' => 'Textarea',
+           'name' => 'description',
+           'options' => array(
+                'label' => /*@translate*/ 'Job description'
+           ),
+       ));
+       
+       $this->add(array(
+            'type' => 'Location',
+            'name' => 'location',
+            'options' => array(
+                'label' => /*@translate*/ 'Location'
+            ),
+        ));
+       
+       $this->add(array(
+            'type' => 'Text',
+            'name' => 'contactEmail',
+            'options' => array(
+                'label' => /*@translate*/ 'Contact email'
             ),
            
         ));
-        
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'title',
-            'options' => array(
-                'label' => 'title'
-            ),
-            'attributes' => array(
-            //'id' => 'contact-title',
-            )
-        ));
+       
        
        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'link',
-            'options' => array(
-                'label' => 'link'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'location',
-            'options' => array(
-                'label' => 'location'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'contactEmail',
-            'options' => array(
-                'label' => 'contactEmail'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'datePublishStart',
-            'options' => array(
-                'label' => 'datePublishStart'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'status',
-            'options' => array(
-                'label' => 'status'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
+            'type' => 'Text',
             'name' => 'reference',
             'options' => array(
-                'label' => 'reference'
+                'label' => /*@translate*/ 'Reference number'
             ),
-            'attributes' => array(
-            )
+            
         ));
        
        $this->add(array(
-            'type' => 'Zend\Form\Element\Radio',
-            'name' => 'camEnabled',
-            'options' => array(
-                'label' => 'cam enabled',
-                'value_options' => array(0,1, True, False)
-            ),
-            'attributes' => array(
-            ),
-        ));
+           'type' => 'Core/PermissionsCollection'
+       ));
        
-       
-       $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'logoRef',
-            'options' => array(
-                'label' => 'logoRef'
-            ),
-            'attributes' => array(
-            )
-        ));
     }
 }

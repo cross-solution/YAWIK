@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * 
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -41,7 +41,7 @@ class IndexController extends AbstractActionController
              : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
         
-        $form = $services->get('FormElementManager')->get('Application');
+        $form = $services->get('FormElementManager')->get('Application/Create');
         
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(
@@ -128,12 +128,12 @@ class IndexController extends AbstractActionController
                 
                 /*
                  * New Application alert Mails to job owner
-                 * @todo disabled until settings is migrated to doctrine
                  */
-//                 $settings = $this->settings($job->user); 
-//                 if ($email = $job->getContactEmail()) {
-//                     $this->mailer('Applications/NewApplication', array('job' => $job), /*sendMail*/ true);
-//                 }
+                if ($job->user->getSettings('Applications')->getMailAccess()
+                    && $job->user->info->email
+                ) {
+                    $this->mailer('Applications/NewApplication', array('job' => $job), /*send*/ true);
+                }
                 
                 if ($this->auth()->isLoggedIn()) {
                     $userInfo = $this->auth()->get('info');
@@ -149,7 +149,7 @@ class IndexController extends AbstractActionController
                                 $mail = $this->mail();
                                 $mail->addTo($email);
                                 $mail->setBody($settingsJobAuth->mailText);
-                                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
+                                $mail->setFrom('cross@cross-solution.de', 'YAWIK');
                                 $mail->setSubject('Bestätigung Bewerbung');
                                 $result = $mail->send();
                             }  
@@ -180,7 +180,7 @@ class IndexController extends AbstractActionController
         $params = $this->getRequest()->getQuery();
         $isRecruiter = $this->acl()->isRole('recruiter');
         if ($isRecruiter) {
-       #     $params->set('by', 'me');
+            $params->set('by', 'me');
         }
         
         $appRepo = $services->get('repositories')->get('Applications/Application');

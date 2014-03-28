@@ -1,0 +1,24 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+//$this->headScript()->appendFile($this->basePath('Jobs/js/form.apply-identifier.js'));
+$value = $this->element->getValue();
+$label = $this->element->getLabel();
+?>
+
+<div class="controls controls-row row">
+    <div class="col-md-3 text-right">
+        <label for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate('Location') ?></label>
+    </div>
+    <div id="job-location-span" class="col-md-9">
+        <input type="text" value="" class=" form-control geolocation" id="job-location" name="job[location]" data-provide="typeahead" >
+        <div id="job-location-errors">
+        </div>     
+    </div>
+</div>

@@ -1,4 +1,10 @@
 <?php
+//: ./view/auth/manage-groups/form.phtml:10
+translate('Create group');
+
+//: ./view/auth/manage-groups/form.phtml:11
+translate('Edit group');
+
 //: ./src/Auth/Form/UserInfoFieldset.php:41
 translate('personal informations');
 
@@ -50,11 +56,17 @@ translate('Password');
 //: ./src/Auth/Form/UserPasswordFieldset.php:44
 translate('Retype password');
 
+//: ./src/Auth/Form/GroupFieldset.php:39
+translate('Name');
+
 //: ./src/Auth/Form/UserBaseFieldset.php:23
 translate('General');
 
 //: ./src/Auth/Form/UserBaseFieldset.php:31
 translate('I am');
+
+//: ./src/Auth/Form/Validator/UniqueGroupName.php:46
+translate('The group name "%value%" is already in use.');
 
 //: ./src/Auth/Form/Login.php:30
 translate('Login name');
@@ -65,9 +77,18 @@ translate('Password');
 //: ./src/Auth/Form/Login.php:54
 translate('login');
 
-//: ./config/module.config.php:246
+//: ./src/Auth/Controller/ManageGroupsController.php:129
+translate('Group created');
+
+//: ./src/Auth/Controller/ManageGroupsController.php:132
+translate('Group updated');
+
+//: ./src/Auth/Controller/IndexController.php:179
+translate('Welcome to YAWIK!');
+
+//: ./config/module.config.php:235
 translate('user');
 
-//: ./config/module.config.php:247
+//: ./config/module.config.php:236
 translate('recruiter');
 

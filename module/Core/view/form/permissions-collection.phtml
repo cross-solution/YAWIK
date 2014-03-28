@@ -1,0 +1,28 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+?>
+<fieldset id="<?php echo $this->element->getAttribute('id') ?>" class="form-collection permissions-collection">
+<legend><?php echo $this->translate($this->element->getLabel()) ?>
+<button id="permissions-add-button" class="btn btn-default pull-right"><span class="yk-icon yk-icon-plus"></span> <?php echo $this->translate('Add permission') ?></button>
+</legend>
+
+<div class="permissions-wrapper">
+    <?php foreach ($this->element->getElements() as $elem):
+        echo $this->formCollection($elem);
+    endforeach;
+    $templateElement = $this->element->getTemplateElement(); ?>
+    
+    <span data-template="<?php echo $this->escapeHtmlAttr(
+        $this->partial('core/form/permissions-fieldset', array('element' => $this->element->getTargetElement()))
+    )?>"></span>
+   
+    
+</div>
+
+

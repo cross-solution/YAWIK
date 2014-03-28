@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * 
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -22,7 +22,7 @@ use Core\Entity\RelationEntity;
 class ManageController extends AbstractActionController
 {
 
-    public function myProfileAction()
+    public function profileAction()
     {
         $services = $this->getServiceLocator();
         $form     = $services->get('forms')->get('user-profile');
@@ -84,7 +84,7 @@ class ManageController extends AbstractActionController
         );
     }
 
-    public function myPasswordAction()
+    public function passwordAction()
     {
         $services = $this->getServiceLocator();
         $form     = $services->get('forms')->get('user-password');
@@ -100,33 +100,24 @@ class ManageController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $services->get('repositories')->store($user);
+                $vars = array(
+                        'ok' => true,
+                        'status' => 'success',
+                        'text' => $translator->translate('Password successfully changed') . '.',
+                );
             } else { // form is invalid
+                $vars = array(
+                        'ok' => false,
+                        'status' => 'error',
+                        'text' => $translator->translate('Password could not be changed') . '.',
+                );
             }
         }
         
-        return array(
-            'form' => $form
-        );
+        $vars['form']=$form;
+        return $vars;
     }
-
-     public function saveApplicationConfirmationAction()
-    {
-        $services = $this->getServiceLocator();
-        $user = $services->get('AuthenticationService')->getUser();
-        $result = array('token' => session_id(), 'isSaved' => False);
-        if (isset($user)) {
-            if ($this->request->isPost()) {
-                $body = $this->params()->fromPost('body');
-                //$datePublishStart = \DateTime::createFromFormat('Y-m-d',$this->params()->fromPost('datePublishStart'));
-                $settings = $this->settings();
-                $settings->mailText = $body;
-                $result['post'] = $_POST;
-            }
-        } else {
-            $result['message'] = 'session_id is lost';
-        }
-        return new JsonModel($result);
-    }
+    
 }
 
  

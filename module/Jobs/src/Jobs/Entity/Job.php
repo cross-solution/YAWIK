@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
@@ -8,23 +8,26 @@
 
 namespace Jobs\Entity;
 
-use Core\Entity\AbstractIdentifiableEntity;
+use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
+use Core\Entity\PreUpdateAwareInterface;
+use Core\Entity\Permissions;
+use Core\Entity\PermissionsInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends AbstractIdentifiableEntity implements JobInterface {
+class Job extends BaseEntity implements JobInterface {
 
     /**
-     * uniq ID of a job posting
+     * uniq ID of a job posting.
      *
      * @var String
      * 
@@ -41,6 +44,12 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      */ 
     protected $title;
     
+    /**
+     * Description (Free text)
+     * @var String
+     * @ODM\String
+     */
+    protected $description;
     /**
      * name of the publishing company
      * 
@@ -155,6 +164,20 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
      */
     protected $keywords;
     
+    
+    /**
+     * Permissions
+     * 
+     * @var PermissionsInterface
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
+     */
+    protected $permissions;
+    
+    public function getResourceId()
+    {
+        return 'Entity/Jobs/Job';
+    }
+    
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
         return $this;
@@ -179,6 +202,25 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
         return $this;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Jobs\Entity\JobInterface::setDescription()
+     */
+    public function setDescription($text)
+    {
+        $this->description = (string) $text;
+        return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Jobs\Entity\JobInterface::setDescription()
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
     /**
      * @return the $company
      */
@@ -226,7 +268,11 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     }
     
     public function setUser(UserInterface $user) {
+        if ($this->user) {
+            $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
+        }
         $this->user = $user;
+        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
         return $this;
     }
 
@@ -324,6 +370,23 @@ class Job extends AbstractIdentifiableEntity implements JobInterface {
     public function clearKeywords()
     {
         $this->keywords = array();
+        return $this;
+    }
+    
+    public function getPermissions()
+    {
+        if (!$this->permissions) {
+            $permissions = new Permissions();
+            if ($this->user) {
+                $permissions->grant($this->user, Permissions::PERMISSION_ALL);
+            }
+            $this->setPermissions($permissions);
+        }
+        return $this->permissions;
+    }
+    
+    public function setPermissions(PermissionsInterface $permissions) {
+        $this->permissions = $permissions;
         return $this;
     }
 }

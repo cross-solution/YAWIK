@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * Applications Module Bootstrap
  *
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 18:07+0100\n"
-"PO-Revision-Date: 2014-02-05 18:08+0100\n"
+"POT-Creation-Date: 2014-03-20 11:05+0100\n"
+"PO-Revision-Date: 2014-03-20 12:11+0100\n"
 "Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
 "Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
 "Language: \n"
@@ -17,6 +17,39 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: view/form/userselect.phtml:25
+msgid "Add users"
+msgstr "Benutzer hinzufügen"
+
+#: view/form/userselect.phtml:29
+msgid "At least one user has to be assigned"
+msgstr "Es muss mindestens ein Benutzer zugeordnet werden"
+
+#: view/sidebar/groups-menu.phtml:15
+msgid "My groups"
+msgstr "Meine Gruppen"
+
+#: view/auth/manage-groups/index.phtml:11
+#: view/auth/index/login-info.phtml:21
+msgid "Manage groups"
+msgstr "Gruppenverwaltung"
+
+#: view/auth/manage-groups/index.phtml:15
+msgid "Add group"
+msgstr "Gruppe hinzufügen"
+
+#: view/auth/manage-groups/index.phtml:24
+msgid "Group name"
+msgstr "Gruppenname"
+
+#: view/auth/manage-groups/index.phtml:25
+msgid "Actions"
+msgstr "Aktion"
+
+#: view/auth/manage-groups/form.phtml:71
+msgid "Ok"
+msgstr "Ok"
+
 #: view/auth/index/index.phtml:11
 msgid "Login required"
 msgstr "Anmeldung erforderlich"
@@ -27,61 +60,69 @@ msgstr "Bitte melden Sie sich an"
 
 #: view/auth/index/index.phtml:14
 #: view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:38
+#: view/auth/index/login-info.phtml:44
 msgid "Login"
 msgstr "Einloggen"
 
-#: view/auth/index/login-info.phtml:13
-#: view/auth/manage/my-profile.phtml:3
-#: view/auth/manage/my-profile.phtml:9
+#: view/auth/index/login-info.phtml:14
+#: view/auth/manage/profile.phtml:3
+#: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Mein Profil"
 
-#: view/auth/index/login-info.phtml:16
+#: view/auth/index/login-info.phtml:17
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: view/auth/index/login-info.phtml:20
+#: view/auth/index/login-info.phtml:26
 msgid "Logout"
 msgstr "Abmelden"
 
-#: view/auth/index/login-info.phtml:27
+#: view/auth/index/login-info.phtml:33
 #, php-format
 msgid "Hello %s"
 msgstr "Hallo %s"
 
-#: view/auth/index/login-info.phtml:28
+#: view/auth/index/login-info.phtml:34
 msgid "Guest"
 msgstr "Gast"
 
-#: view/auth/index/login-info.phtml:40
+#: view/auth/index/login-info.phtml:46
 msgid "Login via"
 msgstr "Einloggen über"
 
-#: view/auth/index/login-info.phtml:43
+#: view/auth/index/login-info.phtml:49
 #, php-format
 msgid "Login with %s"
 msgstr "Mit %s anmelden"
 
-#: view/auth/manage/my-password.phtml:3
-#: view/auth/manage/my-password.phtml:7
+#: view/auth/manage/password.phtml:3
+#: view/auth/manage/password.phtml:7
 msgid "My password"
 msgstr "Mein Passwort"
 
 #: src/Auth/Form/UserInfoFieldset.php:41
-#: language/_annotated_strings.php:3
+#: language/_annotated_strings.php:9
 msgid "personal informations"
 msgstr "Persönliche Angaben"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
-#: language/_annotated_strings.php:45
-#: language/_annotated_strings.php:48
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:75
 msgid "Password"
 msgstr "Passwort"
 
+#: src/Auth/Form/GroupFieldset.php:31
+msgid "Group data"
+msgstr "Gruppen Daten"
+
+#: src/Auth/Form/GroupUsersCollection.php:88
+msgid "Users"
+msgstr "Benutzer"
+
 #: src/Auth/Form/UserBaseFieldset.php:23
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:63
 msgid "General"
 msgstr "Sonstiges"
 
@@ -93,83 +134,111 @@ msgstr "Änderungen wurden erfolgreich gespeichert"
 msgid "Saving changes failed. Please check the marked fields."
 msgstr "Das Speichern der Daten schlug fehl. Bitte überprüfen Sie die markierten Felder."
 
-#: src/Auth/Controller/IndexController.php:92
+#: src/Auth/Controller/IndexController.php:103
 msgid "Authentication failed."
 msgstr "Anmeldung fehlgeschlagen."
 
+#: language/_annotated_strings.php:3
+msgid "Create group"
+msgstr "Neue Gruppe erstellen"
+
 #: language/_annotated_strings.php:6
+msgid "Edit group"
+msgstr "Gruppe bearbeiten"
+
+#: language/_annotated_strings.php:12
 msgid "Email"
 msgstr "E-Mail"
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:15
 msgid "Phone"
 msgstr "Telefon"
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:18
 msgid "Postalcode"
 msgstr "Postleitzahl"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:21
 msgid "City"
 msgstr "Ort"
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:24
 msgid "Title"
 msgstr "Anrede"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:27
 msgid "please select"
 msgstr "bitte wählen"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:30
 msgid "Mr."
 msgstr "Herr"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:33
 msgid "Mrs."
 msgstr "Frau"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:36
 msgid "First name"
 msgstr "Vorname"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:39
 msgid "Last name"
 msgstr "Nachname"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:42
 msgid "street"
 msgstr "Strasse"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:45
 msgid "house number"
 msgstr "Hausnummer"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:48
 msgid "Application photo"
 msgstr "Bewerbungsphoto"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:57
 msgid "Retype password"
 msgstr "Passwort wiederholen"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:60
+msgid "Name"
+msgstr "Name"
+
+#: language/_annotated_strings.php:66
 msgid "I am"
 msgstr "Ich bin"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:69
+msgid "The group name \"%value%\" is already in use."
+msgstr "Der Gruppenname  \"%value%\" esistiert bereits."
+
+#: language/_annotated_strings.php:72
 msgid "Login name"
 msgstr "Benutzername"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:78
 msgid "login"
 msgstr "anmelden"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:81
+msgid "Group created"
+msgstr "Gruppe wurde angelegt"
+
+#: language/_annotated_strings.php:84
+msgid "Group updated"
+msgstr "Gruppe wurde aktualisiert"
+
+#: language/_annotated_strings.php:87
+msgid "Welcome to YAWIK!"
+msgstr "Herzlich willkommen bei YAWIK!"
+
+#: language/_annotated_strings.php:90
 msgid "user"
 msgstr "Benutzer"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:93
 msgid "recruiter"
 msgstr "Personaler"
 

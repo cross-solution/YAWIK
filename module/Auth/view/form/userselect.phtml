@@ -1,0 +1,81 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->headScript()->appendFile($this->basePath('Auth/js/form.userselect.js'));
+
+$elements   = $this->element->getElements();
+
+if (count($elements)) {
+    $repository = $this->services('repositories.Auth/User');
+    $userIds = array_map(function ($item) { return $item->getValue(); }, $this->element->getElements());
+    $users = array();
+    foreach ($repository->findByIds($userIds) as $user) {
+        $users[$user->id] = $user;
+    }
+}
+?>
+<fieldset id="<?php echo $this->element->getAttribute('id') ?>" class="form-collection userselect">
+<legend><?php echo $this->translate($this->element->getLabel()) ?>
+<button id="userselect-add-button" class="btn btn-default pull-right"><span class="yk-icon yk-icon-plus"></span> <?php echo $this->translate('Add users') ?></button>
+</legend>
+<?php if ($this->element->isNoUsersError()): ?>
+<div id="userselect-error" class="input-error">
+    <ul><li><?php echo $this->translate('At least one user has to be assigned') ?>.</li></ul>
+</div>
+<?php endif ?>
+
+<div class="userselect-wrapper">
+    <?php foreach ($elements as $elem): $user = $users[$elem->getValue()]; ?>
+    <div id="userselect-<?php echo $elem->getValue()?>" class="userselect-display col-md-4 pull-left">
+        <?php echo $this->formRow($elem) ?>
+        <div class="panel panel-default panel-body">
+        
+        <div class="pull-right">
+            <button data-div-id="<?php echo $elem->getValue() ?>" class="btn btn-default btn-xs"><span class="yk-icon yk-icon-minus"></span></button>
+        </div>    
+        <div class="portrait">
+            <?php if ($user->info->image): ?>
+            <img src="<?php echo $this->basePath($user->info->image->uri) ?>">
+            <?php else:?>
+            <span class="yk-icon yk-icon-user fa-3x"></span>
+            <?php endif?>
+        </div>
+        <address>
+        <strong><?php echo $user->info->displayName ?></strong><br>
+        Dummy Company<br>
+        <small>Dummy Position</small>
+        </address>
+        </div>
+    </div>
+    <?php endforeach ?>
+
+</div>
+<?php echo $this->formCollection()->renderTemplate($this->element) ?>
+<div class="userselect-template hidden" data-template="<?php echo $this->escapeHtmlAttr('
+<div id="userselect-__user_id__" class="userselect-display col-md-4 pull-left">
+        __input__
+        <div class="panel panel-default panel-body">
+        <div class="pull-right">
+            <button data-div-id="__user_id__" class="btn btn-default btn-xs"><span class="yk-icon yk-icon-minus"></span></button>
+        </div>    
+        <div class="portrait">
+                ##IMAGE:<img src="__image_uri__">##
+                ##ICON:<span class="yk-icon yk-icon-user fa-3x"></span>##
+        </div>
+        <address>
+        <strong>__name__</strong><br>
+        __company_name__<br>
+        <small>__company_position__</small>
+        </address>
+        </div>
+    </div>') ?>"></div>
+
+
+</fieldset>
+<?php //echo $this->formCollection($element) ?>

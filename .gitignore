@@ -9,6 +9,7 @@ composer.phar
 # config files
 #
 config/phpdoc.xml
+config/autoload
 config/autoload/*.php
 
 
@@ -22,7 +23,9 @@ log
 
 #
 # Exclude directories
-#
+# 
+build
+components
 vendor
 cache
  

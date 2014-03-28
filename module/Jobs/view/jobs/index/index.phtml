@@ -3,6 +3,8 @@
 
 <h1><?=$this->translate('List of all jobs')?></h1>
 
+<?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
+
 <nav class="navbar cam-toolbar" id="jobs-list-filter-wrapper">
 <?php echo $this->form($this->filterForm)  ?>
 </nav>
@@ -10,4 +12,3 @@
 <?php echo $this->render('jobs/index/index.ajax.phtml')?>
 </div>
 
-<?php echo $this->partial('core/loading-popup') ?>

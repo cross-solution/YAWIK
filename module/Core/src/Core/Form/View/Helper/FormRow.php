@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -11,6 +11,7 @@ namespace Core\Form\View\Helper;
 
 use Zend\Form\View\Helper\FormRow as ZendFormRow;
 use Zend\Form\ElementInterface;
+use Core\Form\ViewPartialProviderInterface;
 
 class FormRow extends ZendFormRow
 {
@@ -32,8 +33,11 @@ class FormRow extends ZendFormRow
      * @return string
      * @throws \Zend\Form\Exception\DomainException
      */
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
+        if ($element instanceOf ViewPartialProviderInterface && !$ignoreViewPartial) {
+            return $this->getView()->partial($element->getViewPartial(), array('element' => $element));
+        }
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
@@ -143,7 +147,7 @@ class FormRow extends ZendFormRow
                             $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
                         );
                         $label = sprintf(
-                            '<div class="col-md-%d text-right">%s</div>',
+                            '<div class="col-md-%d yk-label">%s</div>',
                             $labelWidth, $label
                         );
                         

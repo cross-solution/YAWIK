@@ -11,5 +11,4 @@ $form->setAttributes(array(
     'action' => $_SERVER['REQUEST_URI']
 ));
 $form->get('mailText')->setAttribute('style', 'height: 250px');
-echo $this->form($form);
-
+echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -60,5 +60,8 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     
     //public function setSettings(array $settings);
     public function getSettings($module);
+    
+    public function getGroups();
+    
     
 }

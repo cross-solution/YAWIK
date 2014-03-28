@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Cross Applicant Management
+ * YAWIK
  * Configuration file of the Core module
  * 
  * This file intents to provide the configuration for all other modules
@@ -23,6 +23,8 @@ return array(
     'Core' => array(
         'settings' => array(
             'entity' => '\\Core\\Entity\\SettingsContainer',
+            'navigation_label' => /* @translate */ 'general settings',
+            'navigation_class' => 'yk-icon yk-icon-settings'
         ),
     ),
 
@@ -36,6 +38,17 @@ return array(
                     'priority' => 1000,
                     'options' => array(
                          'stream' => __DIR__ .'/../../../log/cam.log',
+                    ),
+                ),
+            ),
+        ),
+        'Log/Core/Mail' => array(
+            'writers' => array(
+                 array(
+                     'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                         'stream' => __DIR__ .'/../../../log/mails.log',
                     ),
                 ),
             ),
@@ -148,7 +161,7 @@ return array(
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
         ),
@@ -158,6 +171,7 @@ return array(
         'aliases' => array(
             'forms' => 'FormElementManager',
             'repositories' => 'Core/RepositoryService',
+            'translator' => 'mvctranslator',
         ),
     ),
     // Translation settings consumed by the 'translator' factory above.
@@ -204,6 +218,7 @@ return array(
             'mail' => 'Core\Controller\Plugin\Mail',
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
+            'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
@@ -227,10 +242,12 @@ return array(
             'error/403' => __DIR__ . '/../view/error/403.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
             'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
+            'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
-            
+            'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
+            'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -267,7 +284,15 @@ return array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
         ),
         'initializers' => array(
-            '\Core\View\Helper\Service\HeadScriptInitializer',
+//            '\Core\View\Helper\Service\HeadScriptInitializer',
+        ),
+    ),
+    
+    'view_helper_config' => array(
+        'flashmessenger' => array(
+            'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
+            'message_separator_string' => '</li><li>',
+            'message_close_string'     => '</li></ul></div>',
         ),
     ),
     
@@ -285,6 +310,9 @@ return array(
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
             'Core/RatingFieldset' => 'Core\Form\RatingFieldset',
             'Core/Rating' => 'Core\Form\Element\Rating',
+            'Core/PermissionsFieldset' => 'Core\Form\PermissionsFieldset',
+            'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
+            'Location' => 'Zend\Form\Element\Text',
         ),
     ),
     

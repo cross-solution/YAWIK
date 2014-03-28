@@ -1,0 +1,26 @@
+<?php
+
+$this->headTitle($this->translate('My profile'));
+$this->headscript()->appendScript('$(".alert").alert();');
+//$this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
+
+?>
+
+<h1><?php echo $this->translate('My profile')?></h1>
+
+<?if ($this->status): ?>
+<div id="user-profile-form-response" class="alert cam-<?php echo $this->status?>">
+    <?php echo $this->text ?> 
+    <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+</div>
+<?else:?>
+<div id="user-profile-form-response" class="alert hide">
+
+</div>
+<?endif?>
+
+<?php 
+    $this->form->setAttribute('action', $this->url('lang/my', array('action' => 'profile'), true));
+    echo $this->form($this->form, 'form-inline'); 
+    
+    //echo $this->formPartial($this->form, 'auth/my-profile')?>

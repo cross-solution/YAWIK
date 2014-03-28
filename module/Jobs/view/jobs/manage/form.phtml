@@ -1,0 +1,34 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+$this->form->setAttribute('action', $this->url('lang/jobs/manage', array('action' => $this->action), true));
+$this->form->get('buttons')->get('cancel')->setAttribute(
+    'onclick', 'location.href="' . $this->url('lang/jobs', array(), true) . '"; return false;'
+);
+// Tweak navigation
+$navigation = $this->navigation('main_navigation')->getContainer();
+$navigation->findOneBy('route', 'lang/jobs')->setActive(true);
+$subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
+$subPage->setActive(true);
+?>
+<h1><?php if ('new' == $this->action): 
+            echo $this->translate('Publish a job');
+          else:
+            echo $this->translate('Edit a job');
+            $subPage->setVisible(true);
+            
+          endif ?></h1>
+          
+<?php if ($this->hasErrors): ?>
+<div class="alert alert-danger">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<p><?php echo $this->translate('There were some errors in the form.') ?></p>
+</div>
+<?php endif ?>
+          
+<?php echo $this->form($this->form); ?>

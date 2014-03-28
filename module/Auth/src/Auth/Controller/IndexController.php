@@ -1,6 +1,6 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  * 
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
@@ -136,7 +136,7 @@ class IndexController extends AbstractActionController
     public function loginAction()
     {
         
-        $ref = urldecode($this->params()->fromQuery('ref'));
+        $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
@@ -148,18 +148,35 @@ class IndexController extends AbstractActionController
             $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login via ' . $provider);
             
             if (array_key_exists('user', $resultMessage)) {
-                $user = $resultMessage['user'];
-                $lastName = $user->info->getDisplayName();
-                // TODO
+                $user=$auth->getUser();
+//                $user = $resultMessage['user'];
+                $password = substr(md5(uniqid()),0,6);
+                $login = uniqid() . '@yawik-demo';
+                $scheme = '';
+                $domain = '';
+                $uri = $this->getRequest()->getUri();
+                if (isset($uri)) {
+                    $scheme = $uri->getScheme();
+                    $domain = $uri->getHost();
+                }
+                $viewHelperManager = $this->getServiceLocator()->get('ViewHelperManager');
+                $basePath = $viewHelperManager->get('basePath')->__invoke();
+                
+                $user->login=$login;
+                $user->setPassword($password);
+                $user->role='recruiter';
+                             
                 $mail = $this->mail(
-                        array('Anrede'=>$lastName,
-                             'password' => '***',
-                             'domain' => '***')
+                        array('displayName'=>$user->info->getDisplayName(),
+                              'provider' => $provider,
+                              'user' => $login,
+                              'password' => $password,
+                              'uri' =>  $scheme . '://' . $domain . $basePath)
                         );
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
-                $mail->setFrom('cross@cross-solution.de', 'Cross Applicant Management');
-                $mail->setSubject('Anmeldung im Cross Applicant Management');
+                $mail->setFrom('contact@yawik.org', 'YAWIK');
+                $mail->setSubject(/* @translate */ 'Welcome to YAWIK!');
             }
             if (isset($mail) && $mail->send()) {
                 $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());
@@ -173,14 +190,14 @@ class IndexController extends AbstractActionController
         $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
-            $basePath = $this->getEvent()->getRouter()->getBaseUrl();
+            $basePath = $this->getRequest()->getBasePath();
             $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
         } 
         return $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
     }
     
     /**
-     * Login via an external Application.
+     * Login via an external Application. This will get obsolet as soon we'll have a full featured Rest API.
      * 
      * Passed in params:
      * - appKey: Application identifier key
@@ -273,10 +290,10 @@ class IndexController extends AbstractActionController
                 $viewHelperManager = $services->get('ViewHelperManager');
                 $basePath = $viewHelperManager->get('basePath')->__invoke();
                 $mail = $this->mail(array(
-                    'Anrede'=>$userName, 
+                    'displayName'=>$userName, 
                     'password' => $password,
-                    'uri' => $scheme . '://' . $domain . $basePath
-                    //'url' => 
+                    'uri' => $scheme . '://' . $domain . $basePath,
+                        
                     ));
                 $mail->template('first-login');
                 $mail->addTo($user->getInfo()->getEmail());
@@ -305,6 +322,66 @@ class IndexController extends AbstractActionController
             ));
         }
         
+    }
+    
+    public function groupAction()
+    {
+        //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
+        if (false) {
+             $this->request->setMethod('get');
+            $params = new Parameters(array(
+             'format' => 'json',
+                    'group' => array (
+                        0 => 'testuser4711', 1 => 'flatscreen', 2 => 'flatscreen1', 3 => 'flatscreen2', 4 => 'flatscreen3',  5 => 'flatscreen4',
+                        6 => 'flatscreen5', 7 => 'flatscreen6', 8 => 'flatscreen7',  9 => 'flatscreen8', 10 => 'flatscreen9'
+                    ),
+                    'name' => '(die) Rauscher – Unternehmensberatung & Consulting',
+            ));
+            $this->getRequest()->setQuery($params);
+             
+        }
+        $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $userGrpAdmin = $auth->getUser();
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
+        $grp = $this->params()->fromQuery('group');
+      
+        //$this->getServiceLocator()->get('Log/Core/Cam')->info('Get ' . var_export($_GET, true));
+        
+        // if the request is made by an external host, add his identification-key to the name
+        $loginSuffix = '';
+        $e = $this->getEvent();
+        $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
+        if (!$loginSuffixResponseCollection->isEmpty()) {
+            $loginSuffix = $loginSuffixResponseCollection->last();
+        }
+        // make out of the names a list of Ids
+        $params = $this->getRequest()->getQuery();
+        $groupUserId = array();
+        $notFoundUsers = array();
+        //$users = $this->getRepository();
+        $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
+        if (!empty($params->group)) {
+            foreach ($params->group as $grp_member) {
+                $user = $users->findByLogin($grp_member . $loginSuffix);
+                if (!empty($user)) {
+                    $groupUserId[] = $user->id;
+                }
+                else {
+                    $notFoundUsers[] = $grp_member . $loginSuffix;
+                }
+            }
+        }
+        $name = $params->name;
+        if (!empty($params->name)) {
+            $group = $this->auth()->getUser()->getGroup($params->name, /*create*/ true);
+            $group->setUsers($groupUserId);
+        }
+        $this->getServiceLocator()->get('Log/Core/Cam')->info('Update Group Name: ' . $name . PHP_EOL . str_repeat(' ',36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL . 
+                str_repeat(' ',36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
+                str_repeat(' ',36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ',36) . 'Group Members not found: ' . implode(',', $notFoundUsers));
+        
+        return new JsonModel(array(
+        ));
     }
     
     /**
