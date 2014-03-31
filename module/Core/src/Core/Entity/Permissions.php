@@ -51,6 +51,15 @@ class Permissions implements PermissionsInterface
     protected $resources;
     
     
+    public function __clone()
+    {
+        $resources = new ArrayCollection();
+        foreach ($this->resources as $r) {
+            $resources->add($r);
+        }
+        $this->resources = $resources;
+    }
+    
     public function __call($method, $params)
     {
         if (1 < count($params)) {
@@ -142,6 +151,29 @@ class Permissions implements PermissionsInterface
         
         return $this->grant($resource, self::PERMISSION_NONE);
         
+    }
+    
+    public function inherit(PermissionsInterface $permissions, $build=true)
+    {
+        $assigned  = $permissions->getAssigned();
+        $resources = $permissions->getResources();
+    
+        /*
+         * Grant resource references permissions.
+        */
+        foreach ($resources as $resource) {
+            $permission = $permissions->getFrom($resource);
+            $this->grant($resource, $permission, false);
+            unset($assigned[$resource->getPermissionsResourceId()]);
+        }
+        /*
+         * Merge remaining user permissions (w/o resource references)
+        */
+        $this->assigned = array_merge($this->assigned, $assigned);
+        if ($build) {
+            $this->build();
+        }
+        return $this;
     }
     
     public function build()

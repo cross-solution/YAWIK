@@ -19,6 +19,7 @@ interface PermissionsInterface
     
     public function grant($resource, $permission);
     public function revoke($resource, $permission);
+    public function inherit(PermissionsInterface $permissions);
     public function isGranted($userOrId, $permission);
     public function isAssigned($resource);
     public function getFrom($resource);
