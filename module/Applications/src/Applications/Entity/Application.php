@@ -10,6 +10,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Jobs\Entity\JobInterface;
 use Doctrine\Common\Collections\Collection;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\Permissions;
+use Core\Entity\PermissionsInterface;
 
 /**
  * The application model
@@ -145,6 +147,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     protected $rating;
     
     /**
+     * Assigned permissions.
+     * 
+     * @var PermissionsInterface
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
+     */
+    protected $permissions;
+    /**
      * 
      * @var 
      * @ODM\EmbedOne(targetDocument="InternalReferences")
@@ -202,7 +211,11 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
     
     public function setUser(UserInterface $user)
     {
+        if ($this->user) {
+            $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
+        }
         $this->user = $user;
+        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
         return $this;
     }
     
@@ -390,6 +403,23 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
         }
         
         return in_array($userOrId, $this->readBy);
+    }
+    
+    public function getPermissions()
+    {
+        if (!$this->permissions) {
+            $permissions = new Permissions();
+            if ($this->user) {
+                $permissions->grant($this->user, Permissions::PERMISSION_ALL);
+            }
+            $this->setPermissions($permissions);
+        }
+        return $this->permissions;
+    }
+    
+    public function setPermissions(PermissionsInterface $permissions) {
+        $this->permissions = $permissions;
+        return $this;
     }
     
     public function getRefs()

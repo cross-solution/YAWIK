@@ -123,6 +123,8 @@ class IndexController extends AbstractActionController
                     }
                 }
                 $applicationEntity->setStatus(new Status());
+                $permissions = $applicationEntity->getPermissions();
+                $permissions->inherit($job->getPermissions());
                 
                 $services->get('repositories')->store($applicationEntity);
                 
