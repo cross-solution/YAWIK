@@ -7,8 +7,13 @@ use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
+use Core\Entity\PermissionsAwareInterface;
 
-interface ApplicationInterface extends EntityInterface, IdentifiableEntityInterface, SearchableEntityInterface
+interface ApplicationInterface 
+    extends EntityInterface, 
+            IdentifiableEntityInterface, 
+            SearchableEntityInterface,
+            PermissionsAwareInterface
 {
     
     public function setJobId($jobId);
