@@ -32,7 +32,31 @@ class ApplicationAccessAssertion implements AssertionInterface
             return false;
         }
         
-        $permission = 'read' == $privilege ? PermissionsInterface::PERMISSION_VIEW : PermissionsInterface::PERMISSION_CHANGE;
-        return $resource->getPermissions()->isGranted($role, $permission);
+        if ($resource->dateCreated->getTimestamp() < 1396216800) { // 1396216800 = strtotime('2014-03-31');
+            switch ($privilege) {
+                case 'read':
+                    return $this->assertRead($role, $resource)
+                    || $this->assertWrite($role, $resource);
+                    break;
+            
+                default:
+                    return $this->assertWrite($role, $resource);
+                    break;
+            }
+        } else {
+            $permission = 'read' == $privilege ? PermissionsInterface::PERMISSION_VIEW : PermissionsInterface::PERMISSION_CHANGE;
+            return $resource->getPermissions()->isGranted($role, $permission);
+        }
+    }
+    
+    protected function assertRead($role, $resource)
+    {
+        return $resource->getJob()->getUser()->getId() == $role->getId();
+    }
+    
+    protected function assertWrite($role, $resource)
+    {
+        $job = $resource->getJob();
+        return ($job && $role->getId() == $job->getUser()->getId());
     }
 }
