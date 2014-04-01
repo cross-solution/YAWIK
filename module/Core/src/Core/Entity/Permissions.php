@@ -160,7 +160,7 @@ class Permissions implements PermissionsInterface
     
         /*
          * Grant resource references permissions.
-        */
+         */
         foreach ($resources as $resource) {
             $permission = $permissions->getFrom($resource);
             $this->grant($resource, $permission, false);
@@ -168,7 +168,7 @@ class Permissions implements PermissionsInterface
         }
         /*
          * Merge remaining user permissions (w/o resource references)
-        */
+         */
         $this->assigned = array_merge($this->assigned, $assigned);
         if ($build) {
             $this->build();
@@ -186,8 +186,8 @@ class Permissions implements PermissionsInterface
             $view = array_merge($view, $spec['users']);
         }
         
-        $this->change = $change;
-        $this->view   = $view;
+        $this->change = array_unique($change);
+        $this->view   = array_unique($view);
         return $this;
     }
     
