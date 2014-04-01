@@ -34,24 +34,36 @@ class HeadScriptFactory implements FactoryInterface
         $services = $serviceLocator->getServiceLocator();
         $config   = $services->get('Config');
         
-        if (!isset($config['view_inject_headscript'])) {
+        if (!isset($config['view_helper_config']['headscript'])) {
             return $helper;
         }
         
-        $config     = $config['view_inject_headscript'];
+        $config     = $config['view_helper_config']['headscript'];
+        
         $routeMatch = $services->get('Application')->getMvcEvent()->getRouteMatch();
         $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : '';
-        
         $basepath = $serviceLocator->get('basepath');
-
-        foreach ($config as $routeStart => $scripts) {
-            if (is_int($routeStart) || 0 === strpos($routeName, $routeStart)) {
-                if (!is_array($scripts)) {
-                    $scripts = array($scripts);
+        
+        foreach ($config as $routeStart => $specs) {
+            if (!is_int($routeStart)) {
+                if (0 !== strpos($routeName, $routeStart)) {
+                    continue;
                 }
-                foreach ($scripts as $script) {
-                    $helper->appendFile($basepath($script));
+            } else {
+                $specs = array($specs);
+            }
+            
+            foreach ($specs as $spec) {
+                if (is_string($spec)) {
+                    $helper->appendFile($basepath($spec));
+                    continue;
                 }
+                
+                if ($helper::SCRIPT != $spec[0]) {
+                    $spec[1] = $basepath($spec[1]);
+                }
+                
+                call_user_func_array($helper, $spec);
             }
         }
          
