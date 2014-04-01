@@ -57,10 +57,16 @@ class PaginationQuery extends AbstractPaginationQuery
             /*
              * a recruiter can see applications, which are related to his jobs
             */
-            if (isset($value['by']) && 'new' === $value['by']) {
-                $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
-            }
-            $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
+//             if (isset($value['by']) && 'new' === $value['by']) {
+//                 $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
+//             }
+//             $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
+
+            /*
+             * Recruiter sees all application to which he has view permission.
+             * 
+             */
+            $queryBuilder->field('permissions.view')->equals($this->auth->getUser()->getId());
 
         } else {
             /*

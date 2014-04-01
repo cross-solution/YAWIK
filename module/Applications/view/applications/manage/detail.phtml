@@ -19,6 +19,7 @@
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
 <nav class="navbar cam-toolbar">   
+    <?php if ($application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
     <div id="state-actions" class="btn-group cam-action-states">
         <?php $status = $application->status->name;
         
@@ -66,6 +67,7 @@
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>  
      </div>
+     <?php endif ?>
    </div>  
    <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
    <div id="forward-email" class="cam-input-group input-group">
