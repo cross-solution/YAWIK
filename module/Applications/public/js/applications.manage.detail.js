@@ -79,7 +79,6 @@
 				$dialog.find('#cam-application-comments-addbtn').addClass('hide');
 				//$dialog.find('#cam-application-comments-closebtn').addClass('hide');
 			}
-			console.debug(!$dialog.data('modal'));
 			if (!$dialog.data('modal') || !$dialog.data('modal').isShown) {
 				$dialog.modal('show');
 			}
@@ -106,7 +105,6 @@
 			$loader.removeClass('hide');
 			
 			var href    = $dialog.data('list-url');
-			
 			
 			$.get(href)
 			 .done(function(data) { 
