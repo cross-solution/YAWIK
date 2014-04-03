@@ -4,41 +4,46 @@
  *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   GPLv3
  */
 
-/** HeadScriptInitializer.php */ 
 namespace Core\View\Helper\Service;
 
-use Zend\ServiceManager\InitializerInterface;
+use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\HeadScript;
 
-class HeadScriptInitializer implements InitializerInterface
+/**
+ * 
+ */
+class HeadScriptFactory implements FactoryInterface 
 {
-    
-    protected $isInitialized = false;
-    
-    public function initialize ($instance, ServiceLocatorInterface $serviceLocator)
+
+    /**
+     * Creates an instance of \Zend\View\Helper\Headscript
+     * 
+     * - injects the MvcEvent instance
+     * 
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return HeadScript
+     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        if ($instance instanceOf HeadScript && !$this->isInitialized) {
-            $this->initializeHeadscriptHelper($instance, $serviceLocator);
-        }
-    }
-    
-    public function initializeHeadscriptHelper($helper, $helperManager)
-    {
-        $this->isInitialized = true;
-        $services = $helperManager->getServiceLocator();
+        $helper   = new HeadScript();
+        $services = $serviceLocator->getServiceLocator();
         $config   = $services->get('Config');
+        
         if (!isset($config['view_inject_headscript'])) {
-            return;
+            return $helper;
         }
+        
         $config     = $config['view_inject_headscript'];
         $routeMatch = $services->get('Application')->getMvcEvent()->getRouteMatch();
-        $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : ''; 
+        $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : '';
         
-        $basepath = $helperManager->get('basepath');
+        $basepath = $serviceLocator->get('basepath');
+
         foreach ($config as $routeStart => $scripts) {
             if (is_int($routeStart) || 0 === strpos($routeName, $routeStart)) {
                 if (!is_array($scripts)) {
@@ -49,8 +54,9 @@ class HeadScriptInitializer implements InitializerInterface
                 }
             }
         }
+         
+        return $helper;
+        
     }
-
     
 }
-
