@@ -114,7 +114,6 @@ class Module implements ConsoleBannerProviderInterface
             $eventManager->trigger('postDispatch', $event);
         }, -150);
         
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'appendGlobalHeadScripts'), -100);
     }
 
     /**
@@ -147,33 +146,5 @@ class Module implements ConsoleBannerProviderInterface
                 ),
             ),
         );
-    }
-    
-    public function appendGlobalHeadScripts(MvcEvent $e) {
-        $services = $e->getApplication()->getServiceManager();
-        
-        $config   = $services->get('Config');
-        if (!isset($config['view_inject_headscript'])) {
-            return;
-        }
-        $helperManager = $services->get('viewHelperManager');
-        $config     = $config['view_inject_headscript'];
-        $routeMatch = $services->get('Application')->getMvcEvent()->getRouteMatch();
-        $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : ''; 
-        
-        $basepath = $helperManager->get('basepath');
-        $headScript = $helperManager->get('headScript');
-        foreach ($config as $routeStart => $scripts) {
-            if (is_int($routeStart) || 0 === strpos($routeName, $routeStart)) {
-                if (!is_array($scripts)) {
-                    $scripts = array($scripts);
-                }
-                foreach ($scripts as $script) {
-                    $headScript->appendFile($basepath($script));
-                }
-            }
-        }
-         
-        return;
     }
 }

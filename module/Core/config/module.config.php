@@ -282,6 +282,7 @@ return array(
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
+            'headscript' => 'Core\View\Helper\Service\HeadScriptFactory',
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',

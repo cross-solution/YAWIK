@@ -54,8 +54,10 @@ class Permissions implements PermissionsInterface
     public function __clone()
     {
         $resources = new ArrayCollection();
-        foreach ($this->resources as $r) {
-            $resources->add($r);
+        if ($this->resources) {
+            foreach ($this->resources as $r) {
+                $resources->add($r);
+            }
         }
         $this->resources = $resources;
     }

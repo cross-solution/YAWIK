@@ -19,7 +19,9 @@ use Jobs\Entity\Job;
 use Zend\Mvc\MvcEvent;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\ProgressBar\ProgressBar;
+use Core\Console\ProgressBar as CoreProgressBar;
 use Zend\ProgressBar\Adapter\Console as ConsoleAdapter;
+use Auth\Entity\UserInterface;
 
 /**
  * Main Action Controller for the application.
@@ -132,6 +134,50 @@ class ConsoleController extends AbstractActionController {
         return PHP_EOL;
         
     }
-
+    
+    public function setpermissionsAction()
+    {
+        $services     = $this->getServiceLocator();
+        $repositories = $services->get('repositories');
+        $repository   = $repositories->get('Jobs/Job');
+        $userRep      = $repositories->get('Auth/User');
+        $jobs         = $repository->findAll();
+        $count        = count($jobs);
+        $progress     = new CoreProgressBar($count);
+        $i            = 0;
+        foreach ($jobs as $job) {
+            $progress->update($i++, 'Job ' . $i . ' / ' . $count);
+            
+            $permissions = $job->getPermissions();
+            $user        = $job->getUser();
+            if (!$user instanceof UserInterface) { continue; }
+            try {
+                $group       = $user->getGroup($job->getCompany());
+            } catch (\Exception $e) {
+                continue;
+            }
+            if ($group) {
+                $permissions->grant($group, 'view');
+            }
+            foreach ($job->getApplications() as $application) {
+                $progress->update($i, 'set app perms...');
+                $perms = $application->getPermissions();
+                $perms->inherit($permissions);
+                $jobUser = $userRep->findOneByEmail($job->getContactEmail());
+                if ($jobUser) {
+                    $perms->grant($jobUser, 'change');
+                }
+            }
+            if (0 == $i % 500) {
+                $progress->update($i, 'write to database...');
+                $repositories->flush();
+            }
+        }
+        $progress->update($i, 'write to database...');
+        $repositories->flush();
+        $progress->finish();
+        return PHP_EOL;
+    }
+    
 }
 
