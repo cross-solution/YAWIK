@@ -260,7 +260,7 @@ return array(
         'invokables' => array(
             'services' => 'Core\View\Helper\Services',
 //            'form' => 'Core\Form\View\Helper\Form',
-//            'form_element' => 'Core\Form\View\Helper\FormElement',
+            'form_element' => 'Core\Form\View\Helper\FormElement',
 //            'form_partial' => 'Core\Form\View\Helper\FormPartial',
 //            'form_collection' => 'Core\Form\View\Helper\FormCollection',
 //            'form_row' => 'Core\Form\View\Helper\FormRow',
@@ -281,6 +281,7 @@ return array(
             'base64' => 'Core\View\Helper\Base64',
             'insertFile' => 'Core\View\Helper\InsertFile',
             'alert' => 'Core\View\Helper\Alert',
+            'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
@@ -319,6 +320,7 @@ return array(
             'Core/PermissionsFieldset' => 'Core\Form\PermissionsFieldset',
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
+            'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
         ),
     ),
     
