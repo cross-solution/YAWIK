@@ -91,17 +91,18 @@ class ManageController extends AbstractActionController {
         
         if ($form->isValid()) {
             if ($create) {
-                $this->flashMessenger()->addMessage(/*@translate*/ 'Job published.');
+                $this->notification()->success(/*@translate*/ 'Job published.');
                 $job->setStatus('active');
                 $job->setUser($this->auth()->getUser());
                 $this->getServiceLocator()->get('repositories')->persist($job);
             } else {
-                $this->flashMessenger()->addMessage(/*@translate*/ 'Job saved.');
+                $this->notification()->success(/*@translate*/ 'Job saved.');
             }
             return $this->redirect()->toRoute('lang/jobs');
         }
         
-        return $this->getViewModel($form, $origAction, /* hasErrors */ true);
+        $this->notification()->error(/*@translate*/ 'There were errors in the form');
+        return $this->getViewModel($form, $origAction);
     }
     
     public function checkApplyIdAction()
@@ -164,9 +165,8 @@ class ManageController extends AbstractActionController {
         return $job;
     }
     
-    protected function getViewModel($form, $action, $params = false)
+    protected function getViewModel($form, $action, array $params = array())
     {
-        $params    = is_array($params) ? $params : array('hasErrors' => (bool) $params);
         $variables = array(
             'form' => $form,
             'action' => $action,

@@ -103,6 +103,7 @@ class IndexController extends AbstractActionController
                     $returnTo->setQuery($returnTo->getQueryAsArray() + array('status' => 'failure'));
                     return $this->redirect()->toUrl((string) $returnTo);
                 }
+                $this->notification()->error(/*@translate*/ 'There were errors in the form.');
                 //$form->populateValues($data);
             } else {
                 $auth = $this->auth();
@@ -170,6 +171,7 @@ class IndexController extends AbstractActionController
                     $returnTo->setQuery($returnTo->getQueryAsArray() + array('status' => 'success'));
                     return $this->redirect()->toUrl((string) $returnTo);
                 }
+                $this->notification()->success(/*@translate*/ 'your application was sent successfully');
                 $viewModel->setVariable('isApplicationSaved', true);
             }
         } 

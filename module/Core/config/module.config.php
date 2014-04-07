@@ -211,6 +211,7 @@ return array(
         'factories' => array(
             'mailstackmailer' => 'Core\Controller\Plugin\Mailfactory',
             'config' => 'Core\Controller\Plugin\ConfigFactory',
+            'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
@@ -244,6 +245,7 @@ return array(
             'main-navigation' => __DIR__ . '/../view/partial/main-navigation.phtml',
             'pagination-control' => __DIR__ . '/../view/partial/pagination-control.phtml',
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
+            'core/notifications' => __DIR__ . '/../view/partial/notifications.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
@@ -278,7 +280,7 @@ return array(
             'rating' => 'Core\View\Helper\Rating',
             'base64' => 'Core\View\Helper\Base64',
             'insertFile' => 'Core\View\Helper\InsertFile',
-            
+            'alert' => 'Core\View\Helper\Alert',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
@@ -294,6 +296,9 @@ return array(
             'message_open_format'      => '<div%s><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><ul><li>',
             'message_separator_string' => '</li><li>',
             'message_close_string'     => '</li></ul></div>',
+        ),
+        'headscript' => array(
+            'Core/js/notification.js',
         ),
     ),
     

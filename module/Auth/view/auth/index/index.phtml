@@ -15,15 +15,6 @@
     <h1><?php echo $this->translate('Login');?></h1>
 <?php endif; ?>
 
-<?php if ($this->status): ?>
-<div id="login-form-response" class="alert alert-<?php echo $this->status ?>">
-<?php echo $this->text ?>
-</div>
-<?php else: ?>
-<div id="login-form-response" class="alert hide">
-</div>
-<?php endif; ?>
-
 <p><?php 
 $this->form->setAttributes(array(
     'action' => $this->url('lang/auth', array(), array('query' => array_map('urlencode', $this->params()->fromQuery())), true),

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->headScript()->appendFile($this->basePath('Core/js/notification.js'));
+$messenger = $this->flashMessenger();
+$alert     = $this->plugin('alert');
+$translate = $this->plugin('translate');
+?>
+
+<div class="yk-notifications">
+<?php foreach (array('danger', 'warning', 'success', 'info') as $ns):
+    $messages = array_merge(
+        $messenger->getMessagesFromNamespace($ns),
+        $messenger->getCurrentMessagesFromNamespace($ns)
+    );
+
+    $messenger->clearCurrentMessagesFromNamespace($ns);
+    
+    foreach ($messages as $message):
+        echo $alert->render($ns, $translate($message));
+    endforeach;
+endforeach ?>        
+</div>
