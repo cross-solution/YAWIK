@@ -55,28 +55,13 @@ class ManageController extends AbstractActionController
             }
             $form->setData($data);
             if ($form->isValid()) {
-                
-                
-                $services->get('repositories')->store($user);
-                $vars = array(
-                        'ok' => true,
-                        'status' => 'success',
-                        'text' => $translator->translate('Changes successfully saved') . '.',
-                    );
-                if ($this->request->isXmlHttpRequest()) {
-                    return new JsonModel($vars);
-                }
+                $text = /*@translate*/ 'Changes successfully saved';
+                $this->notification()->success($text);
+
             } else { // form is invalid
-                
-                $vars = array(
-                        'ok' => false,
-                        'status' => 'error',
-                        'text' => $translator->translate('Saving changes failed. Please check the marked fields.')
-                );
+                $text = /*@translate*/ 'Saving changes failed. Please check the marked fields.';
+                $this->notification()->error($text);
             }
-                $vars['form'] = $form;
-                return $vars;
-            
         }
         
         return array(
