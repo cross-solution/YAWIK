@@ -3,7 +3,7 @@
 var semaphor_formvalidation = false;
 // this is for initial triggering after the site is loaded
 $(document).ready(function() {
-    $('form').bind('submit', function(event) {
+    $('form.validate').bind('submit', function(event) {
         //var form = $(event.target).parents('form').eq(0);
         if (!semaphor_formvalidation) {
             semaphor_formvalidation = true;

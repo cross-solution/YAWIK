@@ -71,7 +71,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             'name' => 'jobId',
             'required' => true
         ));
-        
+      
         $allowedUsers = array(
             'allowedUsers' => new ArrayCollection(array(
                 $this->getObject()->getJob()->getUser()

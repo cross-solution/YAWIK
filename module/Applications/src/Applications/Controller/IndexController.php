@@ -42,6 +42,7 @@ class IndexController extends AbstractActionController
         
         
         $form = $services->get('FormElementManager')->get('Application/Create');
+        $form->setValidate();
         
         $viewModel = new ViewModel();
         $viewModel->setVariables(array(

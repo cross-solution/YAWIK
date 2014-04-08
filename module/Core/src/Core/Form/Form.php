@@ -32,4 +32,23 @@ class Form extends ZendForm
     protected function addHydratorStrategies($hydrator)
     { }
     
+    public function addClass($spec) {
+        $class = array();
+        if ($this->hasAttribute('class')) {
+            $class = $this->getAttribute('class');
+        }
+        if (!is_array($class)) {
+            $class = explode( ' ', $class);
+        }
+        if (!in_array($spec, $class)) {
+            $class[] = $spec;
+        }
+        $this->setAttribute('class', implode(' ',$class));
+        return $this;
+    }
+    
+    public function setValidate() {
+        return $this->addClass('validate');
+    }
+    
 }
