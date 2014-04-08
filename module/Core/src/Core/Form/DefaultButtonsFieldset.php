@@ -10,13 +10,14 @@ class DefaultButtonsFieldset extends ButtonsFieldset
         $this->setName('buttons');
         //$this->setLabel('Actions');
         $this->add(array(
-            'type' => 'Button',
+            //'type' => 'Button',
+            'type' => 'Core/Spinner-Submit',
             'name' => 'submit',
             'options' => array(
                 'label' => /*@translate*/ 'Save',
             ),
             'attributes' => array(
-                'id' => 'submit',
+                'id' => 'buttons-submit',
                 'type' => 'submit',
                 'value' => 'Save',
                 'class' => 'cam-btn-save'
@@ -30,7 +31,7 @@ class DefaultButtonsFieldset extends ButtonsFieldset
                 'label' => /*@translate*/ 'Cancel',
             ),
             'attributes' => array(
-                'id' => 'cancel',
+                'id' => 'buttons-cancel',
                 'type' => 'reset',
                 'value' => 'Cancel',
                 'class' => 'cam-btn-reset'
