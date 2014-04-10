@@ -21,7 +21,7 @@ use Doctrine\Common\Collections\Collection;
  * @ODM\Document(collection="files")
  * @ODM\InheritanceType("COLLECTION_PER_CLASS")
  */
-class FileEntity extends AbstractIdentifiableEntity implements FileInterface, ResourceInterface
+class FileEntity extends AbstractIdentifiableEntity implements FileInterface
 {
     /**
      * owner of an attachment. Typically this is the candidate who applies for a joboffer.
@@ -29,11 +29,6 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) */
     protected $user;
     
-    /**
-     * User, who may access the attachment. Typically this is the recruiter. 
-     *
-    /* @ODM\ReferenceMany(targetDocument="\Auth\Entity\User", simple=true) */
-    protected $allowedUsers;
     
     /**
      * Name of the attachment 
@@ -74,10 +69,11 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     /** @ODM\Field */
     protected $md5;
     
-    public function getId()
-    {
-        return $this->id;
-    }
+    /** 
+     * @var PermissionsInterface
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions") 
+     */
+    protected $permissions;
     
     public function getResourceId()
     {
@@ -86,24 +82,18 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
     
     public function setUser(UserInterface $user)
     {
+        if ($this->user) {
+            $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
+        }
         $this->user = $user;
+        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
+        
         return $this;
     }
     
     public function getUser()
     {
         return $this->user;
-    }
-    
-    public function setAllowedUsers(Collection $users)
-    {
-        $this->allowedUsers = $users;
-        return $this;
-    }
-    
-    public function getAllowedUsers()
-    {
-        return $this->allowedUsers;
     }
     
     public function setName($name)
@@ -183,6 +173,24 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface, Re
             return $this->file->getMongoGridFSFile()->getBytes();
         }
         return null;
+    }
+    
+    public function setPermissions(PermissionsInterface $permissions)
+    {
+        $this->permissions = $permissions;
+        return $this;
+    }
+    
+    public function getPermissions()
+    {
+        if (!$this->permissions) {
+            $perms = new Permissions();
+            if ($this->user instanceOf UserInterface) {
+                $perms->grant($this->user, PermissionsInterface::PERMISSION_ALL);
+            }
+            $this->setPermissions($perms);
+        }
+        return $this->permissions;
     }
 }
 
