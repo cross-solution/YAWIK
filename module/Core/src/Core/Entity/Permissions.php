@@ -50,7 +50,6 @@ class Permissions implements PermissionsInterface
      */
     protected $resources;
     
-    
     public function __clone()
     {
         $resources = new ArrayCollection();
@@ -137,6 +136,7 @@ class Permissions implements PermissionsInterface
         if ($build) {
             $this->build();
         }
+        $this->hasChanged = true;
         return $this;
     }
     
@@ -153,6 +153,16 @@ class Permissions implements PermissionsInterface
         
         return $this->grant($resource, self::PERMISSION_NONE);
         
+    }
+    
+    public function clear()
+    {
+        $this->view      = array();
+        $this->change    = array();
+        $this->assigned  = array();
+        $this->resources = null;
+        
+        return $this;
     }
     
     public function inherit(PermissionsInterface $permissions, $build=true)
@@ -261,12 +271,12 @@ class Permissions implements PermissionsInterface
         if ($resource instanceOf UserInterface) {
             return $includeUsers
                    ? array('user:' . $resource->getId(), array($resource->getId()))
-                   : $resource->getId();
+                   : 'user:' . $resource->getId();
         }
         
         return $includeUsers
                ? array('user:' . $resource, array($resource))
-               : $resource;
+               : 'user:' . $resource;
     }
     
     protected function checkPermission($permission)

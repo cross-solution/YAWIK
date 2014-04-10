@@ -10,18 +10,33 @@
 /** FileEntity.php */ 
 namespace Core\Entity;
 
-
+use Zend\Permissions\Acl\Resource\ResourceInterface;
+use Auth\Entity\UserInterface;
 
 /**
  * 
  
  */
-interface FileInterface extends IdentifiableEntityInterface
+interface FileInterface extends IdentifiableEntityInterface, 
+                                ResourceInterface,
+                                PermissionsAwareInterface
 {
+    
+    public function getResourceId();
+    
+    public function setUser(UserInterface $user);
+    
+    public function getUser();
     
     public function setName($name);
     
     public function getName();
+    
+    public function getPrettySize();
+    
+    public function setType($mime);
+    
+    public function getType();
     
     public function setDateUploaded(\DateTime $date = null);
     
@@ -30,6 +45,8 @@ interface FileInterface extends IdentifiableEntityInterface
     public function getFile();
     
     public function setFile($file);
+    
+    public function getLength();
     
     public function getResource();
     
