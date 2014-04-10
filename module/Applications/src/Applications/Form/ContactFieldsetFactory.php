@@ -12,13 +12,6 @@ use Applications\Entity\Attachment;
 class ContactFieldsetFactory implements FactoryInterface
 {
     
-    protected $imageMeta = array();
-    
-    public function __construct(array $imageMeta = array()) 
-    {
-        $this->imageMeta = $imageMeta;
-    }
-    
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $services     = $serviceLocator->getServiceLocator();
@@ -30,10 +23,7 @@ class ContactFieldsetFactory implements FactoryInterface
         if ($auth->hasIdentity()) {
             $contactImage->setUser($auth->getUser());
         }
-        foreach ($this->imageMeta as $key => $value) {
-            $contactImage->{"set$key"}($value);
-        }
-        
+
         $fieldset     = new UserInfoFieldset();
         $strategy     = new FileUploadStrategy($contactImage);
         $hydrator     = new EntityHydrator();

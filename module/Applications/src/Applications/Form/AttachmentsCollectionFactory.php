@@ -11,12 +11,7 @@ use Applications\Entity\Attachment;
 class AttachmentsCollectionFactory implements FactoryInterface
 {
     
-    protected $fileMeta = array();
     
-    public function __construct(array $fileMeta=array())
-    {
-        $this->fileMeta = $fileMeta;
-    }
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
     */
@@ -29,9 +24,7 @@ class AttachmentsCollectionFactory implements FactoryInterface
         if ($auth->hasIdentity()) {
             $fileEntity->setUser($auth->getUser());
         }
-        foreach ($this->fileMeta as $key => $value) {
-            $fileEntity->{"set$key"}($value);
-        }
+        
         $collection = new FileCollection('attachments');
         $collection->setLabel('Attachments')
                    ->setHydrator($hydrator)

@@ -22,6 +22,7 @@ return array(
             'odm_default' => array(
                 'subscribers' => array(
                     '\Applications\Repository\Event\JobReferencesUpdateListener',
+                    '\Applications\Repository\Event\UpdatePermissionsSubscriber',
                 ),
             ),
         ),

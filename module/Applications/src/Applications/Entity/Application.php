@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
+use Core\Entity\PreUpdateAwareInterface;
 
 /**
  * The application model
@@ -20,7 +21,10 @@ use Core\Entity\PermissionsInterface;
  *
  * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application")
  */
-class Application extends AbstractIdentifiableEntity implements ApplicationInterface, ResourceInterface
+class Application extends AbstractIdentifiableEntity 
+                  implements ApplicationInterface, 
+                             ResourceInterface,
+                             PreUpdateAwareInterface
 {
     /**
      * @var unknown
@@ -34,16 +38,6 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
      */
     protected $job;
-    
-    /**
-     * Owner of an application. If an authenticated Candidate submit an application, this
-     * userId is set.
-     * 
-     * @var unknown
-     * 
-     * 
-     */
-     #  protected $userId;
     
     /**
      * 
@@ -153,12 +147,32 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
     protected $permissions;
+    
+    protected $permissionsChanged = false;
+    
     /**
      * 
      * @var 
      * @ODM\EmbedOne(targetDocument="InternalReferences")
      */
     protected $refs;
+    
+    public function preUpdate($isNew = false)
+    {
+        if ($isNew || $this->permissionsChanged) {
+            $permissions = $this->getPermissions();
+            foreach ($this->attachments as $attachment) {
+                $attachment->getPermissions()
+                           ->clear()
+                           ->inherit($permissions);
+            }
+            if ($image = $this->contact->image) {
+                $image->getPermissions()
+                      ->clear()
+                      ->inherit($permissions);
+            }
+        }
+    }
     
     public function getResourceId()
     {
@@ -172,6 +186,7 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
      * @ODM\Collection
      */
     protected $keywords;
+    
     
     /**
      * @deprecated
@@ -414,11 +429,13 @@ class Application extends AbstractIdentifiableEntity implements ApplicationInter
             }
             $this->setPermissions($permissions);
         }
+        $this->permissionsChanged = true;
         return $this->permissions;
     }
     
     public function setPermissions(PermissionsInterface $permissions) {
         $this->permissions = $permissions;
+        $this->permissionsChanged = true;
         return $this;
     }
     
