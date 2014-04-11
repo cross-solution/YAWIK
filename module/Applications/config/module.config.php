@@ -161,6 +161,7 @@ return array(
     'mails' => array(
         'invokables' => array(
             'Applications/NewApplication' => 'Applications\Mail\NewApplication',
+            'Applications/Confirmation'   => 'Applications\Mail\Confirmation',
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
             'Applications/Forward'        => 'Applications\Mail\Forward',
         ),

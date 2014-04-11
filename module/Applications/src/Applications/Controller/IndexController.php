@@ -128,39 +128,39 @@ class IndexController extends AbstractActionController
                 $permissions = $applicationEntity->getPermissions();
                 $permissions->inherit($job->getPermissions());
                 
-                $services->get('repositories')->store($applicationEntity);
+                //$services->get('repositories')->store($applicationEntity);
                 
                 /*
-                 * New Application alert Mails to job owner
+                 * New Application alert Mails to job recruiter
+                 * This is temporarly until Companies are implemented.
                  */
-                if ($job->user->getSettings('Applications')->getMailAccess()
-                    && $job->user->info->email
-                ) {
-                    $this->mailer('Applications/NewApplication', array('job' => $job), /*send*/ true);
+                $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
+                if (!$recruiter) {
+                    $recruiter = $job->user;
+                    $admin     = false;
+                } else {
+                    $admin     = $job->user;
                 }
                 
-                if ($this->auth()->isLoggedIn()) {
-                    $userInfo = $this->auth()->get('info');
-                    if (isset($userInfo)) {
-                        // TODO: will dieser User eine Info haben (aus den Settings lesen)
-                        $email = $userInfo->getEmail();
-                        if (isset($email)) {
-                            $userRel = $job->getUser();
-                            //$user = $userRel->getEntity();
-                            //$settings = $this->settings('auth', $user);
-                            $settingsJobAuth = $this->settings('Auth', $job->getUser()->id);
-                            if (isset($settingsJobAuth->mailText)) {
-                                $mail = $this->mail();
-                                $mail->addTo($email);
-                                $mail->setBody($settingsJobAuth->mailText);
-                                $mail->setFrom('cross@cross-solution.de', 'YAWIK');
-                                $mail->setSubject('Bestätigung Bewerbung');
-                                $result = $mail->send();
-                            }  
-                        }
-                    }
+                if ($recruiter->getSettings('Applications')->getMailAccess()) {
+                    $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
                 }
-                    
+                $ackBody = $recruiter->getSettings('Applications')->getMailConfirmationText();
+                if (empty($ackBody)) {
+                    $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
+                }
+                if (!empty($ackBody)) {
+                
+                    /* Acknowledge mail to applier */
+                    $ackMail = $this->mailer('Applications/Confirmation', 
+                                    array('application' => $applicationEntity,
+                                          'body' => $ackBody,
+                                    ));
+                    // Must be called after initializers in creation
+                    $ackMail->setSubject(/*@translate*/ 'Application confirmation');
+                    $this->mailer($ackMail);
+                }
+
                 if ($request->isXmlHttpRequest()) {
                     return new JsonModel(array(
                         'ok' => true,

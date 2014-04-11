@@ -324,7 +324,7 @@ return array(
         ),
     ),
     
-    'mails' => array(
+    'mails_config' => array(
         'from' => array(
             'email' => 'no-reply@host.tld',
             'name'  => 'CrossApplicantManagement'

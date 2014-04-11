@@ -55,18 +55,17 @@ class Mailer extends AbstractPlugin
         if (null === $mail)  {
             return $this;
         }
+        if ($mail instanceOf Message) {
+            return $this->send($mail);
+        }
         
         if (is_bool($options)) {
             $sendMail = $options;
             $options  = array();
         }
         
-        $mailService = $this->getMailService();
+        $mail = $this->get($mail, $options);
         
-        if (!$mail instanceOf Message) {
-            $mail = $mailService->get($mail, $options);
-        }
-        
-        return $sendMail ? $mailService->send($mail) : $mail;
+        return $sendMail ? $this->send($mail) : $mail;
     }
 }

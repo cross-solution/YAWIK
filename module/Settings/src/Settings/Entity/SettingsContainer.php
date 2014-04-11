@@ -86,8 +86,8 @@ class SettingsContainer implements SettingsContainerInterface
                     return $this->$property;
                 }
             } 
-            
-            return $this->{$match[1]}($property, $params[0]);
+            $value = isset($params[0]) ? $params[0] : null;
+            return $this->{$match[1]}($property, $value);
         }
         
         throw new \BadMethodCallException(sprintf(

@@ -65,21 +65,33 @@ translate('if checked, you\'ll get a copy of all mails you send.');
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
-//: ./src/Applications/Form/CreateApplication.php:111
+//: ./src/Applications/Form/CreateApplication.php:105
 translate('send application');
 
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
+//: ./src/Applications/Controller/IndexController.php:107
+translate('There were errors in the form.');
+
+//: ./src/Applications/Controller/IndexController.php:158
+translate('Application confirmation');
+
+//: ./src/Applications/Controller/IndexController.php:174
+translate('your application was sent successfully');
+
 //: ./src/Applications/Mail/Forward.php:40
 translate('Fwd: Application to "%s" dated %s');
 
-//: ./src/Applications/Mail/NewApplication.php:44
+//: ./src/Applications/Mail/NewApplication.php:50
 translate('New application for your vacancy "%s"');
 
-//: ./src/Applications/Mail/NewApplication.php:59
+//: ./src/Applications/Mail/NewApplication.php:62
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./config/module.config.php:92
+//: ./config/module.config.php:45
+translate('E-Mail Templates');
+
+//: ./config/module.config.php:95
 translate('Overview');
 
