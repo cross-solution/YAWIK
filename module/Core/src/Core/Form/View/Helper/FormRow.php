@@ -13,6 +13,7 @@ use Zend\Form\View\Helper\FormRow as ZendFormRow;
 use Zend\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewhelperProviderInterface;
+use Zend\Form\Element\Button;
 
 class FormRow extends ZendFormRow
 {
@@ -72,9 +73,13 @@ class FormRow extends ZendFormRow
             $elementId = $element->getAttribute('id');
         }
         /*
-         * add form-control class to all form elements, but "submit" or "reset"
+         * add form-control class to all form elements, but "submit" or "reset" and Buttons!
          */
-        if ($element->getAttribute('type') != 'submit' && $element->getAttribute('type') != 'reset' && $element->getAttribute('type') != 'checkbox') {
+        if ($element->getAttribute('type') != 'submit' 
+            && $element->getAttribute('type') != 'reset'
+            && $element->getAttribute('type') != 'checkbox'
+            && !$element instanceOf Button
+        ) {
             $element->setAttribute('class', $element->getAttribute('class').' form-control ');    
         }
         
@@ -92,7 +97,6 @@ class FormRow extends ZendFormRow
         
         if (!$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button
-            && (!$element instanceOf ViewhelperProviderInterface || $element->allowErrorMessages())
         ) {
             $elementString .= sprintf(
                 '<div id="%s-errors">%s</div>',
