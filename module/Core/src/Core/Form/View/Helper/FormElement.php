@@ -27,7 +27,7 @@ class FormElement extends ZendFormElement
 
         if ($element instanceof CoreElementInterface) {
             $helper = $element->getViewHelper();
-            if (!is_string()) {
+            if (is_string($helper)) {
                 $helper = $renderer->plugin($helper);
             }
             return $helper($element);

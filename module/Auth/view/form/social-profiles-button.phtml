@@ -1,0 +1,45 @@
+<?php
+/**
+ * Cross Applicant Management
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$name = $element->getName();
+$value = $element->getValue();
+$icon = $element->getOption('icon');
+$element->setName(null)->setValue(null);
+$id = $element->getAttribute('id');
+if (!$id) {
+    $id = preg_replace(
+        array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+        array('-'             , '-',     ''),
+        $name
+    );
+}
+// $attributes = array_merge(
+//     $element->getAttributes(), array('class' => 'btn btn-default social-profiles-button')
+//);
+//$attrStr = $this->formInput()->createAttributesString($attributes);
+?>
+
+<div class="btn-group social-profiles-button" id="<?php echo $id ?>">
+    <button type="button" class="btn btn-default" data-fetch-url="<?php echo $element->getFetchUrl() ?>">
+        <span class="spb-icon-normal yk-icon fa-<?php echo $element->getOption('icon') ?>"></span>
+        <span class="spb-icon-processing yk-icon yk-icon-spinner fa-spin"></span>
+        <?php echo $this->translate($element->getLabel()) ?>
+    </button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li class="spb-action-attach"><a href="#attach"><?php echo $this->translate('Attach profile') ?></a></li>
+        <li class="spb-action-detach"><a href="#detach"><?php echo $this->translate('Detach profile') ?></a></li>
+        <li class="spb-action-preview"><a href="#view"><?php echo $this->translate('View profile data') ?></a></li>
+    </ul>
+</div>
+<textarea id="<?php echo $id ?>-data" class="hide" name="<?php echo $name ?>"><?php 
+echo $element->getValue();
+?></textarea>

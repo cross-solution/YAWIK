@@ -19,6 +19,7 @@ use Applications\Entity\Status;
 use Core\Entity\RelationEntity;
 use Auth\Entity\User;
 use Applications\Entity\StatusInterface;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Main Action Controller for Applications module.
@@ -57,6 +58,15 @@ class IndexController extends AbstractActionController
              ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
              : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
+        
+        if (!$job) {
+            $this->response->setStatusCode(410);
+            $model = new ViewModel(array(
+                'content' => /*@translate*/ 'Invalid apply id'
+            ));
+            $model->setTemplate('auth/index/job-not-found.phtml');
+            return $model;
+        }
         
         $form = $services->get('FormElementManager')->get('Application/Create');
         $form->setValidate();

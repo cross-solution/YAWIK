@@ -152,6 +152,17 @@ class ManageController extends AbstractActionController
         $model->setVariable('application', $application);
         return $model;
     }
+    
+    public function socialProfileAction()
+    {
+        $repositories = $this->getServiceLocator()->get('repositories');
+        $repo = $repositories->get('Applications/Application');
+        $profile = $repo->findProfile($this->params()->fromQuery('spId'));
+        
+        return array(
+            'profile' => $profile
+        );
+    }
 
     /**
      * change status of an application

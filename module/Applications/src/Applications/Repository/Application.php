@@ -67,6 +67,18 @@ class Application extends AbstractRepository
         return null;
             
     }
+    
+    public function findProfile($profileId)
+    {
+        $application = $this->findOneBy(array('profiles._id' => new \MongoId($profileId)));
+        foreach ($application->getProfiles() as $profile) {
+            if ($profile->getId() == $profileId) {
+                return $profile;
+            }
+        }
+        
+        return null;
+    }
     /**
      * @deprecated
      * @param unknown $jobId

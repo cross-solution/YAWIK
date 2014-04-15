@@ -275,6 +275,34 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
     <?php else:?>
      <?php echo $this->translate("no attachments available");?>
     <?php endif;?>
+    <?php if (count($this->application->profiles)): ?>
+    <hr>
+    <?php foreach ($this->application->profiles as $profile): ?>
+        
+            <a data-toggle="modal" data-target="#sp-modal" class="btn-sp btn btn-default" href="?action=social-profile&spId=<?php echo $profile->id ?>">
+                <span class="fa fa-<?php echo strtolower($profile->name) ?>"></span>
+                <?php echo $profile->name ?>
+            </a>
+        
+    <?php endforeach; 
+    $this->headScript()->appendFile($this->basePath('Core/js/jquery.reloadable-modal.js'))?>
+    <div class="modal fade modal-scrollable" id="sp-modal" data-reloadable="body" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php  endif; ?>
     </div>
   </div>
   </div>
