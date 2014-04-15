@@ -12,6 +12,7 @@ namespace Core\Form\View\Helper;
 use Zend\Form\View\Helper\FormRow as ZendFormRow;
 use Zend\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
+use Core\Form\Element\ViewhelperProviderInterface;
 
 class FormRow extends ZendFormRow
 {
@@ -43,7 +44,6 @@ class FormRow extends ZendFormRow
         $elementHelper       = $this->getElementHelper();
         $elementErrorsHelper = $this->getElementErrorsHelper();
     
-        $label           = $element->getLabel();
         $inputErrorClass = $this->getInputErrorClass();
         $elementErrors   = $elementErrorsHelper->render($element);
     
@@ -86,6 +86,7 @@ class FormRow extends ZendFormRow
         
         if (!$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button
+            && (!$element instanceOf ViewhelperProviderInterface || $element->allowErrorMessages())
         ) {
             $elementString .= sprintf(
                 '<div id="%s-errors">%s</div>',
@@ -93,8 +94,8 @@ class FormRow extends ZendFormRow
             );
         }
         
-        
-    
+        // moved label here so we can change it in the ElementViewHelper
+        $label           = $element->getLabel();
         if (isset($label) && '' !== $label && !$element instanceOf \Zend\Form\Element\Button) {
             // Translate the label
             if (null !== ($translator = $this->getTranslator())) {

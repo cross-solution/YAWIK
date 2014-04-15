@@ -28,6 +28,11 @@
         <?php echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/cam.css');?>
 
         <?php echo $this->headStyle() ?>
+        <style type="text/css">
+        .yk-notifications {
+            margin-top: 10px;
+        	padding: 0 15px;
+    }</style>
     </head>
     <body>
 	<a class="sr-only" href="#content">Skip to main content</a>
@@ -90,6 +95,7 @@ endforeach;?>
                     </div>
                     
 <main id="content" class="col-md-10">
+<?php echo $this->notifications?>
 <?php echo $this->content; ?>
 </main> 
 <!-- /container -->

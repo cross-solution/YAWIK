@@ -117,7 +117,7 @@ class Config
             }
             
             foreach ($this->getRules($roleId, 'deny') as $spec) {
-                if (!$acl->hasResource($spec['resource'])) {
+                if (null !== $spec['resource'] && !$acl->hasResource($spec['resource'])) {
                     $acl->addResource(new GenericResource($spec['resource']));
                 }
                 $acl->deny($roleId, $spec['resource'], $spec['privilege'], $spec['assertion']);

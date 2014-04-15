@@ -24,11 +24,4 @@ $subPage->setActive(true);
             
           endif ?></h1>
           
-<?php if ($this->hasErrors): ?>
-<div class="alert alert-danger">
-<button type="button" class="close" data-dismiss="alert">&times;</button>
-<p><?php echo $this->translate('There were some errors in the form.') ?></p>
-</div>
-<?php endif ?>
-          
 <?php echo $this->form($this->form); ?>

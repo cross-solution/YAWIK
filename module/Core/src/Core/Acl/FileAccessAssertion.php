@@ -16,6 +16,7 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 use Core\Entity\FileInterface;
 use Auth\Entity\UserInterface;
+use Core\Entity\PermissionsInterface;
 
 /**
 * ensures that attachments can be viewed only by persons who have access to the application.
@@ -36,10 +37,6 @@ class FileAccessAssertion implements AssertionInterface
             return false;
         }
         
-        $roleId = $role->getId();
-        $userId = null !== $resource->getUser() ? $resource->getUser()->getId() : null;
-        $allowedUsers = $resource->getAllowedUsers();
-        
-        return ($userId && $roleId == $userId) || $allowedUsers->contains($role);
+        return $resource->getPermissions()->isGranted($role, PermissionsInterface::PERMISSION_VIEW);
     }
 }

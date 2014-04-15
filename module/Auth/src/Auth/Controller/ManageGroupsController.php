@@ -105,7 +105,6 @@ class ManageGroupsController extends AbstractActionController
     public function formAction()
     {
         $isNew     = 'new' == $this->params('mode');
-        $hasErrors = false;
         $services  = $this->getServiceLocator();
         $form      = $services->get('formelementmanager')->get('Auth/Group', array('mode' => $this->params('mode')));
         $repository = $services->get('repositories')->get('Auth/Group');
@@ -137,6 +136,7 @@ class ManageGroupsController extends AbstractActionController
                 if ($isUsersOk) {
                     if ($isNew) {
                         $user    = $this->auth()->getUser();
+                        $group->setOwner($user);
                         $groups  = $user->getGroups();
                         $message = /*@translate*/ 'Group created'; 
                         $groups->add($group);
@@ -144,20 +144,19 @@ class ManageGroupsController extends AbstractActionController
                         $message = /*@translate*/ 'Group updated';
                     }
                     
-                    $this->flashMessenger()->addMessage($message);
+                    $this->notification()->success($message);
                     return $this->redirect()->toRoute('lang/my-groups');
                 }
             }
             if (!$isUsersOk) {
                 $form->get('data')->get('users')->setNoUsersError(true);
             }
-            $hasErrors = true;
+            $this->notification()->error(/*@translate*/ 'Changes not saved.');
         }
         
         return array(
             'form' => $form,
             'isNew' => $isNew,
-            'hasErrors' => $hasErrors, 
         );
     }
     

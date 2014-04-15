@@ -213,6 +213,10 @@ class ManageController extends AbstractActionController
            if ($from = $application->job->contactEmail) {
                 $mail->setFrom($from, $application->job->company);
            }
+           if ($this->settings()->mailBCC) {
+               $user = $this->auth()->getUser();
+               $mail->addBcc($user->info->email, $user->info->displayName);
+           }
            $mailService->send($mail);
            
             $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));

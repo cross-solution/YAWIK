@@ -71,15 +71,9 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             'name' => 'jobId',
             'required' => true
         ));
-        
-        $allowedUsers = array(
-            'allowedUsers' => new ArrayCollection(array(
-                $this->getObject()->getJob()->getUser()
-            ))
-        );
-        
+      
         $this->add($this->forms
-                         ->get('Applications/ContactFieldset', $allowedUsers)
+                         ->get('Applications/ContactFieldset')
                          ->setLabel('personal informations')
                          ->setName('contact')
                          ->setObject(new Contact()));
@@ -95,7 +89,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             $this->forms->get('CvFieldset')->setObject(new Cv())
         );
         
-        $attachments = $this->forms->get('Applications/AttachmentsCollection', $allowedUsers);
+        $attachments = $this->forms->get('Applications/AttachmentsCollection');
         $this->add(
             $attachments
         );

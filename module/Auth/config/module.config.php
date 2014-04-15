@@ -28,7 +28,7 @@ return array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
-            'auth-login-adapter' => '\Auth\Service\UserAdapterFactory',
+            'Auth/Adapter/UserLogin' => '\Auth\Service\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Service\UnauthorizedAccessListenerFactory',
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
@@ -256,13 +256,11 @@ return array(
                     'route/auth-hauth',
                     'route/auth-extern',
                 ),
-                'deny' => array(
-                    '__ALL__'
-                 ),
             ),
             'user' => array(
                 'allow' => array(
                     'route/auth-logout',
+                    'route/lang/my',
                 ),
                 'deny' => array( 
                     'route/lang/auth',
@@ -357,7 +355,7 @@ return array(
     
     'form_elements' => array(
         'invokables' => array( 
-            'user-login' => 'Auth\Form\Login',
+            'Auth/Login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-password' => 'Auth\Form\UserPassword',
             'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 

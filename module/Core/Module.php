@@ -22,6 +22,7 @@ use Core\Listener\ErrorLoggerListener;
 use Core\Listener\ErrorHandlerListener;
 use Zend\Log\Formatter\ErrorHandler;
 use Core\Repository\DoctrineMongoODM\PersistenceListener;
+use Core\Listener\InjectNotificationsViewModelListener;
 
 /**
  * Bootstrap class of the Core module
@@ -95,6 +96,8 @@ class Module implements ConsoleBannerProviderInterface
         
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
+            
+            $eventManager->attach(new InjectNotificationsViewModelListener());
         }
         
         $persistenceListener = new PersistenceListener();

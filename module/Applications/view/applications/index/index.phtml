@@ -19,12 +19,7 @@ $this->headscript()->appendScript('$(".alert").alert();');
     $job->company
 ) ?></p>
 
-<?php if ($isApplicationSaved):?>
-<p class="alert alert-success">
- <?php echo $this->translate('your application was sent successfully')?>
- <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-</p>
-<?php else: 
+<?php if (!$isApplicationSaved):
     $form->setAttributes(array(
         'action' => $this->url('lang/apply/submit', array(), true),
         'method' => 'post',

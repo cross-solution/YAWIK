@@ -16,6 +16,8 @@ use Core\Mail\StringTemplateMessage;
 class NewApplication extends StringTemplateMessage
 {
     protected $job;
+    protected $user;
+    protected $admin;
     private $callInitOnSetJob = false;
     
     public function __construct(array $options=array())
@@ -29,9 +31,10 @@ class NewApplication extends StringTemplateMessage
         if (!$this->job) {
             return;
         }
-        $name = $this->job->user->info->displayName;
+        
+        $name = $this->user->info->displayName;
         if ('' == trim($name)) {
-            $name = $this->job->user->info->email;
+            $name = $this->user->info->email;
         }
         
         $variables = array(
@@ -39,7 +42,10 @@ class NewApplication extends StringTemplateMessage
             'title' => $this->job->title
         );
         
-        $this->setTo($this->job->user->info->email, $name != $this->job->user->info->email ? $name : null);
+        $this->setTo($this->user->info->email, $name != $this->user->info->email ? $name : null);
+        if ($this->admin && $this->admin->getSettings('Applications')->getMailBCC()) {
+            $this->addBcc($this->admin->info->email, $this->admin->info->displayName);
+        }
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';
         if ($this->isTranslatorEnabled()) {
@@ -50,7 +56,7 @@ class NewApplication extends StringTemplateMessage
         /* @todo settings retrieved from user entity is an array
          *       not an entity.
          */
-        $settings = $this->job->user->getSettings('Applications');
+        $settings = $this->user->getSettings('Applications');
         $body = $settings->getMailAccessText();
         if ('' == $body) {
             $body = /*@translate*/ "Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n";
@@ -69,6 +75,18 @@ class NewApplication extends StringTemplateMessage
         if ($this->callInitOnSetJob) { 
             $this->init(); 
         }
+        return $this;
+    }
+    
+    public function setUser($user)
+    {
+        $this->user=$user;
+        return $this;
+    }
+    
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
         return $this;
     }
     

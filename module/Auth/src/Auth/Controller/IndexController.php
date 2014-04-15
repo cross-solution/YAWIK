@@ -32,13 +32,13 @@ class IndexController extends AbstractActionController
         $viewModel = new ViewModel();
         $services = $this->getServiceLocator();
         $form     = $services->get('FormElementManager')
-                             ->get('user-login');
+                             ->get('Auth/Login');
         
         
         if ($this->request->isPost()) {
             
             $form->setData($this->params()->fromPost());
-            $adapter     = $services->get('auth-login-adapter');
+            $adapter     = $services->get('Auth/Adapter/UserLogin');
             
             // inject suffixes via shared Events
             $loginSuffix = '';
@@ -83,29 +83,14 @@ class IndexController extends AbstractActionController
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
                     $url = $urlHelper('lang', array('lang' => $language));
                 }
-                if ($this->request->isXmlHttpRequest()) {
-                    
-                    return new JsonModel(array(
-                        'ok' => true,
-                        'redirect' => $url,
-                    ));
-                }
+                $this->notification()->success(/*@translate*/ 'You are now logged in.');
                 return $this->redirect()->toUrl($url);
                 
             } else {
                 
                 $services->get('Log/Core/Cam')->info('Failed to authenticate User ' . $data['credentials']['login'] );
                 
-                $translator = $services->get('translator');
-                $vars = array(
-                    'ok' => false,
-                    'status' => 'error',
-                    'text' => $translator->translate('Authentication failed.')
-                );
-                if ($this->request->isXmlHttpRequest()) {
-                    return new JsonModel($vars);
-                }
-                $viewModel->setVariables($vars);
+                $this->notification()->error(/*@translate*/ 'Authentication failed.');
             }
         }
         
@@ -219,15 +204,20 @@ class IndexController extends AbstractActionController
 //             ));
 //         }
         
-         if (False) {
+         if (false) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
-                'user' => 'dummy_' . uniqid() . '@ams',
-                'pass' => 'passwordfromams1',
-                'appKey' => 'AmsAppKey',
+                //'user' => 'dummy_' . uniqid() . '@ams',
+                //'pass' => 'passwordfromams1',
+                //'appKey' => 'AmsAppKey',
+                //'email' => 'weitz@cross-solution.de',
+                //'role' => 'recruiter',
+                'user' => 'weitz',
+                'pass' => 'weitz',
+                'appKey' => '',
                 'email' => 'weitz@cross-solution.de',
-                'role' => 'recruiter'
+                'role' => 'user'
             ));
             $this->getRequest()->setPost($params);
         }
@@ -395,10 +385,11 @@ class IndexController extends AbstractActionController
         $this->getServiceLocator()->get('Log/Core/Cam')->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
-        $this->redirect()->toRoute(
+
+        $this->notification()->success(/*@translate*/ 'You are now logged out');
+        return $this->redirect()->toRoute(
             'lang', 
-            array('lang' => $this->params('lang')),
-            array('query' => array('logout' => '1'))
+            array('lang' => $this->params('lang'))
         );
     }
     
