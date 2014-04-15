@@ -136,6 +136,7 @@ class ManageGroupsController extends AbstractActionController
                 if ($isUsersOk) {
                     if ($isNew) {
                         $user    = $this->auth()->getUser();
+                        $group->setOwner($user);
                         $groups  = $user->getGroups();
                         $message = /*@translate*/ 'Group created'; 
                         $groups->add($group);
@@ -143,7 +144,7 @@ class ManageGroupsController extends AbstractActionController
                         $message = /*@translate*/ 'Group updated';
                     }
                     
-                    $this->notifiation->success($message);
+                    $this->notification()->success($message);
                     return $this->redirect()->toRoute('lang/my-groups');
                 }
             }
