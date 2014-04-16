@@ -128,7 +128,7 @@ class IndexController extends AbstractActionController
                 $permissions = $applicationEntity->getPermissions();
                 $permissions->inherit($job->getPermissions());
                 
-                //$services->get('repositories')->store($applicationEntity);
+                $services->get('repositories')->store($applicationEntity);
                 
                 /*
                  * New Application alert Mails to job recruiter
