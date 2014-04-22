@@ -125,8 +125,10 @@ return array(
     ),
     
     
-    'view_inject_headscript' => array(
-        'lang/applications' => 'Core/js/jquery.barrating.min.js',
+    'view_helper_config' => array(
+        'headscript' => array(
+            'lang/applications' => array('Core/js/jquery.barrating.min.js'),
+        ),
     ),
     'form_elements' => array(
         'invokables' => array(

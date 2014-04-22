@@ -3,6 +3,7 @@
 var semaphor_formvalidation = false;
 // this is for initial triggering after the site is loaded
 $(document).ready(function() {
+    //console.log('form.validate', $('form.validate'));
     $('form.validate').bind('submit', function(event) {
         //var form = $(event.target).parents('form').eq(0);
         if (!semaphor_formvalidation) {
@@ -22,11 +23,11 @@ $(document).ready(function() {
                 if ($(this).attr('type') == 'checkbox') {
                     erg[$(this).prop('name')] = $(this).prop('checked');
                 }
-                else {
+                else if ($(this).attr('type') != 'file') {
                     erg[$(this).prop('name')] = $(this).val();
                 }
             });
-            console.log(erg);
+            //console.log(erg);
 
             // set process-icon
             var submits = form.find('button[type=submit]');
