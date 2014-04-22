@@ -56,13 +56,13 @@ class Form extends ZendForm
         foreach ($form as $element) {
             if ($element instanceOf ViewPartialProviderInterface) {
                 $formContent .= $this->getView()->partial(
-                    $element->getViewPartial(), array('element' => $element)
+                    $element->getViewPartial(), array('element' => $element, 'layout' => $layout)
                 );
                 
             } else if ($element instanceof FieldsetInterface) {
                 $formContent.= $this->getView()->formCollection($element, true, $layout);
             } else {
-                $formContent.= $this->getView()->formRow($element);
+                $formContent.= $this->getView()->formRow($element, null, null, $layout);
             }
         }
     

@@ -26,6 +26,6 @@ $this->headscript()->appendScript('$(".alert").alert();');
         'id' => 'application-form',
     ));
         
-    echo $this->form($form);
+    echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
 endif; ?>
  

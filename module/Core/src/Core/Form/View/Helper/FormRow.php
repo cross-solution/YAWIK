@@ -46,7 +46,13 @@ class FormRow extends ZendFormRow
     
         $inputErrorClass = $this->getInputErrorClass();
         $elementErrors   = $elementErrorsHelper->render($element);
-    
+        
+        // generall Class
+        $form_row_class = 'row';
+        if ($this->layout == 'form-horizontal') {
+            $form_row_class = 'form-group';
+        }
+        
         // Does this element have errors ?
         if (!empty($elementErrors) && !empty($inputErrorClass)) {
             $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
@@ -68,7 +74,7 @@ class FormRow extends ZendFormRow
         /*
          * add form-control class to all form elements, but "submit" or "reset"
          */
-        if ($element->getAttribute('type') != 'submit' and $element->getAttribute('type') != 'reset') {
+        if ($element->getAttribute('type') != 'submit' && $element->getAttribute('type') != 'reset' && $element->getAttribute('type') != 'checkbox') {
             $element->setAttribute('class', $element->getAttribute('class').' form-control ');    
         }
         
@@ -175,7 +181,7 @@ class FormRow extends ZendFormRow
         if ($this->shouldWrap 
             && !$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button) {
-            $markup = sprintf('<div class="controls controls-row row">%s</div>', $markup);
+            $markup = sprintf('<div class="controls controls-row ' . $form_row_class . '">%s</div>', $markup);
         }
     
         return $markup;
