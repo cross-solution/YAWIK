@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-23 11:25+0200\n"
+"POT-Creation-Date: 2014-04-23 15:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,10 @@ msgstr ""
 
 #: view/applications/index/index.phtml:18
 msgid "click to open the job ad"
+msgstr ""
+
+#: view/applications/index/disclaimer.phtml:14
+msgid "Privacy Policy"
 msgstr ""
 
 #: view/applications/index/dashboard.phtml:18
@@ -175,6 +179,12 @@ msgstr ""
 msgid "Delete application"
 msgstr ""
 
+#: view/applications/manage/detail.phtml:135
+#: view/applications/manage/detail.phtml:154
+#: view/applications/manage/detail.phtml:188
+msgid "Cancel"
+msgstr ""
+
 #: view/applications/manage/detail.phtml:136
 msgid "Send mail"
 msgstr ""
@@ -201,6 +211,10 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:182
 msgid "Comments"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:189
+msgid "Save"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:191

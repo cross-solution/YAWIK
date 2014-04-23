@@ -1,21 +1,23 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# yawik <cbleek@yawik.org>, 2014
+# yawik <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Core\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 11:05+0100\n"
-"PO-Revision-Date: 2014-03-20 12:11+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
-"Language-Team: Mathias Gelhausen <gelhausen@cross-solution.de>\n"
-"Language: \n"
+"POT-Creation-Date: 2014-04-23 14:42+0200\n"
+"PO-Revision-Date: 2014-04-23 12:54+0000\n"
+"Last-Translator: yawik <cbleek@yawik.org>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: ..\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/form/userselect.phtml:25
 msgid "Add users"
@@ -29,8 +31,7 @@ msgstr "Es muss mindestens ein Benutzer zugeordnet werden"
 msgid "My groups"
 msgstr "Meine Gruppen"
 
-#: view/auth/manage-groups/index.phtml:11
-#: view/auth/index/login-info.phtml:21
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:21
 msgid "Manage groups"
 msgstr "Gruppenverwaltung"
 
@@ -38,7 +39,7 @@ msgstr "Gruppenverwaltung"
 msgid "Add group"
 msgstr "Gruppe hinzufügen"
 
-#: view/auth/manage-groups/index.phtml:24
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:60
 msgid "Group name"
 msgstr "Gruppenname"
 
@@ -58,14 +59,12 @@ msgstr "Anmeldung erforderlich"
 msgid "Please authenticate yourself to proceed"
 msgstr "Bitte melden Sie sich an"
 
-#: view/auth/index/index.phtml:14
-#: view/auth/index/index.phtml:15
+#: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
 #: view/auth/index/login-info.phtml:44
 msgid "Login"
 msgstr "Einloggen"
 
-#: view/auth/index/login-info.phtml:14
-#: view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:14 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Mein Profil"
@@ -96,20 +95,17 @@ msgstr "Einloggen über"
 msgid "Login with %s"
 msgstr "Mit %s anmelden"
 
-#: view/auth/manage/password.phtml:3
-#: view/auth/manage/password.phtml:7
+#: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
 msgid "My password"
 msgstr "Mein Passwort"
 
-#: src/Auth/Form/UserInfoFieldset.php:41
-#: language/_annotated_strings.php:9
+#: src/Auth/Form/UserInfoFieldset.php:41 language/_annotated_strings.php:9
 msgid "personal informations"
 msgstr "Persönliche Angaben"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
-#: language/_annotated_strings.php:51
-#: language/_annotated_strings.php:54
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:51 language/_annotated_strings.php:54
+#: language/_annotated_strings.php:78
 msgid "Password"
 msgstr "Passwort"
 
@@ -121,22 +117,17 @@ msgstr "Gruppen Daten"
 msgid "Users"
 msgstr "Benutzer"
 
-#: src/Auth/Form/UserBaseFieldset.php:23
-#: language/_annotated_strings.php:63
+#: src/Auth/Form/UserBaseFieldset.php:23 language/_annotated_strings.php:66
 msgid "General"
 msgstr "Sonstiges"
 
-#: src/Auth/Controller/ManageController.php:64
-msgid "Changes successfully saved"
-msgstr "Änderungen wurden erfolgreich gespeichert"
+#: src/Auth/Controller/ManageController.php:91
+msgid "Password successfully changed"
+msgstr "Kennwort wurde erfolgreich geändert"
 
-#: src/Auth/Controller/ManageController.php:74
-msgid "Saving changes failed. Please check the marked fields."
-msgstr "Das Speichern der Daten schlug fehl. Bitte überprüfen Sie die markierten Felder."
-
-#: src/Auth/Controller/IndexController.php:103
-msgid "Authentication failed."
-msgstr "Anmeldung fehlgeschlagen."
+#: src/Auth/Controller/ManageController.php:97
+msgid "Password could not be changed"
+msgstr "Kennwort konnte nicht geändert werden"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
@@ -202,129 +193,68 @@ msgstr "Bewerbungsphoto"
 msgid "Retype password"
 msgstr "Passwort wiederholen"
 
-#: language/_annotated_strings.php:60
-msgid "Name"
-msgstr "Name"
+#: language/_annotated_strings.php:63
+msgid ""
+"Select a group name. You can add users to your group and then work together "
+"on jobs and job applications."
+msgstr "Wählen Sie einen Namen für Ihre Gruppe. Ihrer Gruppe können Sie Benutzer hinzufügen. Gemeinsam können Sie dann Stellenanzeigen und Bewerbungen bearbeiten"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:69
 msgid "I am"
 msgstr "Ich bin"
 
-#: language/_annotated_strings.php:69
-msgid "The group name \"%value%\" is already in use."
-msgstr "Der Gruppenname  \"%value%\" esistiert bereits."
-
 #: language/_annotated_strings.php:72
+msgid "The group name \"%value%\" is already in use."
+msgstr "Der Gruppenname  \"%value%\" existiert bereits."
+
+#: language/_annotated_strings.php:75
 msgid "Login name"
 msgstr "Benutzername"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid "login"
 msgstr "anmelden"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
+msgid "Changes successfully saved"
+msgstr "Änderungen wurden erfolgreich gespeichert"
+
+#: language/_annotated_strings.php:87
+msgid "Saving changes failed. Please check the marked fields."
+msgstr "Das Speichern der Daten schlug fehl. Bitte überprüfen Sie die markierten Felder."
+
+#: language/_annotated_strings.php:90
 msgid "Group created"
 msgstr "Gruppe wurde angelegt"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:93
 msgid "Group updated"
 msgstr "Gruppe wurde aktualisiert"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:96
+msgid "Changes not saved."
+msgstr "Änderungen wurden gespeichert"
+
+#: language/_annotated_strings.php:99
+msgid "You are now logged in."
+msgstr "Sie sind nun angemeldet"
+
+#: language/_annotated_strings.php:102
+msgid "Authentication failed."
+msgstr "Anmeldung fehlgeschlagen."
+
+#: language/_annotated_strings.php:105
 msgid "Welcome to YAWIK!"
 msgstr "Herzlich willkommen bei YAWIK!"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:108
+msgid "You are now logged out"
+msgstr "Sie sind nun abgemeldet"
+
+#: language/_annotated_strings.php:111
 msgid "user"
 msgstr "Benutzer"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:114
 msgid "recruiter"
 msgstr "Personaler"
-
-#~ msgid "no comment"
-#~ msgstr "keine Angaben"
-
-#~ msgid "Informations"
-#~ msgstr "Informationen"
-
-#~ msgid "Choose your login method"
-#~ msgstr "Wählen Sie Ihre Login-Methode"
-
-#~ msgid "This text is displayed on the login site of the \"Auth\" module."
-#~ msgstr "Dieser Text wird auf der Login-Seite des \"Auth\"-Moduls angezeigt."
-
-#~ msgid "Sign in with facebook"
-#~ msgstr "Mit Facebook einloggen"
-
-#~ msgid "You are not logged in"
-#~ msgstr "Sie sind nicht angemeldet"
-
-#~ msgid "Home"
-#~ msgstr "Start"
-
-#~ msgid "Welcome"
-#~ msgstr "Willkommen"
-
-#~ msgid ""
-#~ "This is an early alpha version of the application. So there is not much "
-#~ "to see at the moment. The only thing working is the login with social "
-#~ "networks."
-#~ msgstr ""
-#~ "Dies ist eine frühe Alpha-Version der Anwendung, es gibt also noch nicht "
-#~ "allzu viel zu sehen. Das einzige, das funktioniert, ist das Einloggen "
-#~ "über soziale Netzwerke."
-
-#~ msgid "An error occurred"
-#~ msgstr "Ein Fehler ist aufgetreten"
-
-#~ msgid "File"
-#~ msgstr "Datei"
-
-#~ msgid "Message"
-#~ msgstr "Nachricht"
-
-#~ msgid "Stack trace"
-#~ msgstr "Stapelverlauf"
-
-#~ msgid "Previous exceptions"
-#~ msgstr "Vorherige Exceptions"
-
-#~ msgid "No Exception available"
-#~ msgstr "Keine Exception verfügbar"
-
-#~ msgid "A 404 error occurred"
-#~ msgstr "Ein 404 Fehler ist aufgetreten"
-
-#~ msgid "The requested controller was unable to dispatch the request."
-#~ msgstr "Der angeforderte Controller konnte die Anfrage nicht abfertigen."
-
-#~ msgid ""
-#~ "The requested controller could not be mapped to an existing controller "
-#~ "class."
-#~ msgstr ""
-#~ "Der angeforderte Controller konnte keiner existierenden Controller-Klasse "
-#~ "zugeordnet werden."
-
-#~ msgid "The requested controller was not dispatchable."
-#~ msgstr "Der angeforderte Controller konnte nicht abgefertigt werden."
-
-#~ msgid "The requested URL could not be matched by routing."
-#~ msgstr "Die angeforderte URL konnte keiner Route zugeordnet werden."
-
-#~ msgid "We cannot determine at this time why a 404 was generated."
-#~ msgstr ""
-#~ "Wir können momentan nicht feststellen, warum ein 404 Fehler aufgetreten "
-#~ "ist."
-
-#~ msgid "Controller"
-#~ msgstr "Controller"
-
-#~ msgid "resolves to %s"
-#~ msgstr "löst auf nach %s"
-
-#~ msgid "Cross Applicant Management"
-#~ msgstr "Cross Bewerberverwaltung"
-
-#~ msgid "All rights reserved."
-#~ msgstr "Alle Rechte vorbehalten."

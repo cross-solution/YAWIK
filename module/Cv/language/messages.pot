@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Cv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-02 18:29+0200\n"
+"POT-Creation-Date: 2014-04-23 15:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: view/cv/index/index.phtml:1 language/_annotated_strings.php:105
+msgid "Resumes"
+msgstr ""
+
+#: view/cv/index/index.phtml:7
+msgid "list of all resumes"
+msgstr ""
+
+#: view/cv/index/index.ajax.phtml:5
+msgid "Id"
+msgstr ""
+
 #: view/cv/manage/form.phtml:2
 msgid "Edit resume"
 msgstr ""
 
-#: view/cv/manage/form.phtml:2 language/_annotated_strings.php:48
+#: view/cv/manage/form.phtml:2 language/_annotated_strings.php:111
 msgid "Create resume"
 msgstr ""
 
@@ -41,66 +53,149 @@ msgstr ""
 msgid "Employment"
 msgstr ""
 
+#: src/Cv/Form/SkillFieldset.php:16 src/Cv/Form/LanguageFieldset.php:16
+msgid "Language"
+msgstr ""
+
+#: src/Cv/Form/NativeLanguageFieldset.php:16
+#: language/_annotated_strings.php:63
+msgid "Native Language"
+msgstr ""
+
 #: src/Cv/Form/EducationCollectionFactory.php:18
 msgid "Education history"
 msgstr ""
 
-#: language/_annotated_strings.php:3
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:42
 msgid "Start date"
 msgstr ""
 
-#: language/_annotated_strings.php:6
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:45
 msgid "End date"
 msgstr ""
 
-#: language/_annotated_strings.php:9
-msgid "Degree"
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:48
+msgid "ongoing"
 msgstr ""
 
 #: language/_annotated_strings.php:12
-msgid "please enter the name of your qualification"
+msgid "Degree"
 msgstr ""
 
 #: language/_annotated_strings.php:15
-msgid "Organization Name"
+msgid "please enter the name of your qualification"
 msgstr ""
 
 #: language/_annotated_strings.php:18
-msgid "please enter the name of the university or school"
+msgid "Organization Name"
 msgstr ""
 
 #: language/_annotated_strings.php:21
-msgid "Country"
+msgid "please enter the name of the university or school"
 msgstr ""
 
 #: language/_annotated_strings.php:24
-msgid "please select the country"
+msgid "Country"
 msgstr ""
 
 #: language/_annotated_strings.php:27
-msgid "City"
+msgid "please select the country"
 msgstr ""
 
 #: language/_annotated_strings.php:30
-msgid "please enter the name of the city"
+msgid "City"
 msgstr ""
 
 #: language/_annotated_strings.php:33
+msgid "please enter the name of the city"
+msgstr ""
+
+#: language/_annotated_strings.php:36 language/_annotated_strings.php:57
 msgid "Description"
 msgstr ""
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:39
 msgid "please enter a description"
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:51
+msgid "Company Name"
+msgstr ""
+
+#: language/_annotated_strings.php:54
+msgid "please enter the name of the company"
+msgstr ""
+
+#: language/_annotated_strings.php:60
+msgid "please describe your position"
+msgstr ""
+
+#: language/_annotated_strings.php:66
+msgid "LanguageSkills"
+msgstr ""
+
+#: language/_annotated_strings.php:69 language/_annotated_strings.php:102
+msgid "which language are you speeking"
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "I am a native speaker"
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid ""
+"I can use simple phrases and sentences to describe where I live and people I "
+"know."
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid ""
+"I can use a series of phrases and sentences to describe in simple terms my "
+"family and other people, living conditions, my educational background and my "
+"present or  most recent job."
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid ""
+"I can connect phrases in a simple way in order to describe experiences and "
+"events, my dreams, hopes and ambitions. I can briefly give reasons and "
+"explanations for opinions and plans. I can narrate a story or relate the "
+"plot of a book or film and describe my reactions."
+msgstr ""
+
+#: language/_annotated_strings.php:84
+msgid ""
+"I can present clear, detailed descriptions on a wide range of subjects "
+"related to my field of interest. I can explain a viewpoint on a topical "
+"issue giving the advantages and disadvantages of various options."
+msgstr ""
+
+#: language/_annotated_strings.php:87
+msgid ""
+"I can present clear, detailed descriptions of complex subjects integrating "
+"sub-themes, developing particular points and rounding off with an "
+"appropriate conclusion."
+msgstr ""
+
+#: language/_annotated_strings.php:90
+msgid ""
+"I can present a clear, smoothly-flowing description or argument in a style "
+"appropriate to the context and with an effective logical structure which "
+"helps the recipient to notice and remember significant points."
+msgstr ""
+
+#: language/_annotated_strings.php:93
+msgid "level"
+msgstr ""
+
+#: language/_annotated_strings.php:96
 msgid "Employment history"
 msgstr ""
 
-#: language/_annotated_strings.php:42
-msgid "Resumes"
+#: language/_annotated_strings.php:99
+msgid "Skills"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:108
 msgid "Overview"
 msgstr ""

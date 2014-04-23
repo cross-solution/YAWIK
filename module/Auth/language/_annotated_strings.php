@@ -56,8 +56,11 @@ translate('Password');
 //: ./src/Auth/Form/UserPasswordFieldset.php:44
 translate('Retype password');
 
-//: ./src/Auth/Form/GroupFieldset.php:39
-translate('Name');
+//: ./src/Auth/Form/GroupFieldset.php:44
+translate('Group name');
+
+//: ./src/Auth/Form/GroupFieldset.php:45
+translate('Select a group name. You can add users to your group and then work together on jobs and job applications.');
 
 //: ./src/Auth/Form/UserBaseFieldset.php:23
 translate('General');
@@ -77,18 +80,36 @@ translate('Password');
 //: ./src/Auth/Form/Login.php:54
 translate('login');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:129
+//: ./src/Auth/Controller/ManageController.php:58
+translate('Changes successfully saved');
+
+//: ./src/Auth/Controller/ManageController.php:62
+translate('Saving changes failed. Please check the marked fields.');
+
+//: ./src/Auth/Controller/ManageGroupsController.php:141
 translate('Group created');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:132
+//: ./src/Auth/Controller/ManageGroupsController.php:144
 translate('Group updated');
 
-//: ./src/Auth/Controller/IndexController.php:179
+//: ./src/Auth/Controller/ManageGroupsController.php:154
+translate('Changes not saved.');
+
+//: ./src/Auth/Controller/IndexController.php:86
+translate('You are now logged in.');
+
+//: ./src/Auth/Controller/IndexController.php:93
+translate('Authentication failed.');
+
+//: ./src/Auth/Controller/IndexController.php:164
 translate('Welcome to YAWIK!');
 
-//: ./config/module.config.php:235
+//: ./src/Auth/Controller/IndexController.php:389
+translate('You are now logged out');
+
+//: ./config/module.config.php:247
 translate('user');
 
-//: ./config/module.config.php:236
+//: ./config/module.config.php:248
 translate('recruiter');
 

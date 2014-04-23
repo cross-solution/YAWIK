@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# MathiasG <gelhausen@cross-solution.de>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Jobs\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-05 09:03+0100\n"
-"PO-Revision-Date: 2014-03-05 09:10+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
-"Language-Team: CROSS Solution\n"
-"Language: \n"
+"PO-Revision-Date: 2014-04-23 11:37+0000\n"
+"Last-Translator: MathiasG <gelhausen@cross-solution.de>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/form/list-filter.phtml:65
 msgid "Search"
@@ -31,8 +30,7 @@ msgstr "Meine Anzeigen"
 msgid "All jobs"
 msgstr "Alle Anzeigen"
 
-#: view/jobs/index/index.phtml:1
-#: view/jobs/index/view.phtml:10
+#: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
 #: language/_annotated_strings.php:54
 msgid "Jobs"
 msgstr "Stellenanzeigen"
@@ -49,8 +47,7 @@ msgstr "Eingangsdatum"
 msgid "Title of the job"
 msgstr "Titel der Anzeige"
 
-#: view/jobs/index/index.ajax.phtml:15
-#: language/_annotated_strings.php:18
+#: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:18
 msgid "Location"
 msgstr "Ort"
 
@@ -62,8 +59,7 @@ msgstr "Firmenname"
 msgid "Reference"
 msgstr "Referenz"
 
-#: view/jobs/index/index.ajax.phtml:20
-#: view/jobs/index/dashboard.phtml:12
+#: view/jobs/index/index.ajax.phtml:20 view/jobs/index/dashboard.phtml:12
 msgid "Applications"
 msgstr "Bewerbungen"
 
@@ -71,13 +67,11 @@ msgstr "Bewerbungen"
 msgid "Action"
 msgstr "Aktion"
 
-#: view/jobs/index/index.ajax.phtml:44
-#: view/jobs/index/dashboard.phtml:24
+#: view/jobs/index/index.ajax.phtml:44 view/jobs/index/dashboard.phtml:24
 msgid "total"
 msgstr "gesamt"
 
-#: view/jobs/index/index.ajax.phtml:50
-#: view/jobs/index/dashboard.phtml:30
+#: view/jobs/index/index.ajax.phtml:50 view/jobs/index/dashboard.phtml:30
 msgid "unread"
 msgstr "ungelesen"
 
@@ -131,14 +125,13 @@ msgstr "nach Stellenanzeigen suchen"
 
 #: language/_annotated_strings.php:6
 msgid "Apply Identifier"
-msgstr ""
+msgstr "Bewerbungsschlüssel"
 
 #: language/_annotated_strings.php:9
 msgid "Company"
 msgstr "Firmenname"
 
-#: language/_annotated_strings.php:12
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:45
 msgid "Job title"
 msgstr "Titel der Anzeige"
 
@@ -160,7 +153,7 @@ msgstr "Stellenanzeige veröffentlichen"
 
 #: language/_annotated_strings.php:30
 msgid "The apply identifier \"%value%\" is already in use."
-msgstr ""
+msgstr "Der Berwerbungsschlüssel \"%value%\" wird schon benutzt."
 
 #: language/_annotated_strings.php:33
 msgid "Show all jobs"
@@ -197,12 +190,3 @@ msgstr "Stellenanzeige anlegen"
 #: language/_annotated_strings.php:63
 msgid "Edit job"
 msgstr "Stellenanzeige bearbeiten"
-
-#~ msgid "Reset filter"
-#~ msgstr "Filter zurücksetzen"
-
-#~ msgid "external Reference"
-#~ msgstr "externe Referenz"
-
-#~ msgid "Go!"
-#~ msgstr "Los!"
