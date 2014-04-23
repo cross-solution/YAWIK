@@ -15,9 +15,12 @@ translate('Job');
 translate('Status');
 
 //: ./view/applications/manage/index.ajax.phtml:13
-translate('Modified');
+translate('Rating');
 
 //: ./view/applications/manage/index.ajax.phtml:15
+translate('Modified');
+
+//: ./view/applications/manage/index.ajax.phtml:17
 translate('Actions');
 
 //: ./src/Applications/Form/PrivacyFieldset.php:49
@@ -74,10 +77,10 @@ translate('Summary');
 //: ./src/Applications/Controller/IndexController.php:107
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:158
+//: ./src/Applications/Controller/IndexController.php:160
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:174
+//: ./src/Applications/Controller/IndexController.php:175
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40
