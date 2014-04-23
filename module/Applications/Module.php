@@ -35,6 +35,11 @@ class Module implements ConsoleUsageProviderInterface
                                   ."- 'before:ISODate' -> only applications before the given date\n"
                                   ."- 'after':ISODate' -> only applications after the given date\n"
                                   ."- 'limit':INT -> Limit result."),
+            'applications calculate-rating [--filter=]' => '(Re-)Calculates average rating for all applications.',
+            array('--filter=JSON', "available keys:\n"
+                                  ."- 'before:ISODate' -> only applications before the given date\n"
+                                  ."- 'after':ISODate' -> only applications after the given date\n"
+                                  ."- 'limit':INT -> Limit result."),
         );
     }
     

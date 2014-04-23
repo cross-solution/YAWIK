@@ -20,6 +20,9 @@ class PaginationQuery extends AbstractPaginationQuery
 {
     
     protected $repositoryName="Applications/Application";
+    protected $sortPropertiesMap = array(
+        'date' => 'dateCreated.date',
+    );
     
     public function __construct($auth)
     {
@@ -83,25 +86,7 @@ class PaginationQuery extends AbstractPaginationQuery
         return $queryBuilder;
     }
     
-    protected function filterSort($sort)
-    {
-        if ('-' == $sort{0}) {
-            $sortProp = substr($sort, 1);
-            $sortDir  = -1;
-        } else {
-            $sortProp = $sort;
-            $sortDir = 1;
-        }
-        switch ($sortProp) {
-            case "date":
-                $sortProp = "dateCreated.date";
-                break;
-            default:
-                break;
-        }
     
-        return array($sortProp => $sortDir);
-    }
 }
 
 ?>

@@ -137,6 +137,7 @@ class Application extends AbstractIdentifiableEntity
      * Average rating from all comments.
      * 
      * @var int
+     * @ODM\Int
      */
     protected $rating;
     
@@ -172,6 +173,23 @@ class Application extends AbstractIdentifiableEntity
                       ->inherit($permissions);
             }
         }
+        
+        // Compute rating value.
+        // @todo Need to know wether comments has changed or not.
+        // Unfortunately, persistent collection gets no dirty flag,
+        // if existing entries are changed....
+        // We limit recalculates to the cases where comments gets loaded from
+        // the database (which still does not neccessarly mean, there are changes...
+        
+        $comments = $this->getComments();
+        if ($isNew 
+            || $comments instanceOf ArrayCollection // new Comments
+            || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)
+            || $comments->isDirty() // new Comments added w/o initializing
+        ) {
+            $this->getRating(/*recalculate*/ true);
+        }
+
     }
     
     public function getResourceId()
@@ -487,9 +505,9 @@ class Application extends AbstractIdentifiableEntity
         
     }
     
-    public function getRating()
+    public function getRating($recalculate = false)
     {
-        if (null === $this->rating) {
+        if ($recalculate || null === $this->rating) {
             $sum = 0;
             $count = 0;
             foreach ($this->getComments() as $comment) {

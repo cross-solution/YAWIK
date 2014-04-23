@@ -44,7 +44,7 @@ class Rating extends AbstractRatingEntity implements RatingInterface
      */
 	public function setRating ($rating)
     {
-        $this->rating = $rating;
+        $this->rating = (int) $rating;
         return $this;
     }
 
