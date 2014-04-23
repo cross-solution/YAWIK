@@ -140,6 +140,7 @@ return array(
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
              'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
+             'Applications/CarbonCopy' => 'Applications\Form\CarbonCopyFieldset',  
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
              'Applications/CommentForm' => 'Applications\Form\CommentForm',
              'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
@@ -166,6 +167,7 @@ return array(
             'Applications/Confirmation'   => 'Applications\Mail\Confirmation',
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
             'Applications/Forward'        => 'Applications\Mail\Forward',
+            'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ),
     ),
     

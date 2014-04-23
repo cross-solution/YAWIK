@@ -142,23 +142,39 @@ class IndexController extends AbstractActionController
                     $admin     = $job->user;
                 }
                 
-                if ($recruiter->getSettings('Applications')->getMailAccess()) {
-                    $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
-                }
-                $ackBody = $recruiter->getSettings('Applications')->getMailConfirmationText();
-                if (empty($ackBody)) {
-                    $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
-                }
-                if (!empty($ackBody)) {
-                
-                    /* Acknowledge mail to applier */
-                    $ackMail = $this->mailer('Applications/Confirmation', 
-                                    array('application' => $applicationEntity,
-                                          'body' => $ackBody,
-                                    ));
-                    // Must be called after initializers in creation
-                    $ackMail->setSubject(/*@translate*/ 'Application confirmation');
-                    $this->mailer($ackMail);
+                if (!$request->isXmlHttpRequest()) {
+                    if ($recruiter->getSettings('Applications')->getMailAccess()) {
+                        $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
+                    }
+                    $ackBody = $recruiter->getSettings('Applications')->getMailConfirmationText();
+                    if (empty($ackBody)) {
+                        $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
+                    }
+                    if (!empty($ackBody)) {
+
+                        /* Acknowledge mail to applier */
+                        $ackMail = $this->mailer('Applications/Confirmation', 
+                                        array('application' => $applicationEntity,
+                                              'body' => $ackBody,
+                                        ));
+                        // Must be called after initializers in creation
+                        $ackMail->setSubject(/*@translate*/ 'Application confirmation');
+                        $this->mailer($ackMail);
+                    }
+
+                    // send carbon copy of the application
+                    $user = $auth->getUser();
+                    $paramsCC = $this->getRequest()->getPost('carboncopy',0);
+                    if (isset($paramsCC) && array_key_exists('carboncopy',$paramsCC)) {
+                        $wantCarbonCopy = (int) $paramsCC['carboncopy'];
+                        if ($wantCarbonCopy) {
+                             $mail = $this->mailer('Applications/CarbonCopy', array(
+                                    'application' => $applicationEntity,
+                                    'to'          => $applicationEntity->contact->email,
+                                    //'from'        => array($admin->info->email => $admin->info->displayName)
+                                 ), /*send*/ true);
+                        }
+                    }
                 }
 
                 if ($request->isXmlHttpRequest()) {

@@ -95,7 +95,14 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         );
         
         /**
-         * ads the privacy policy to the application fomular
+         * sends a Carbon-Copy to the Applicant
+         */
+        $this->add(
+            $this->forms->get('Applications/CarbonCopy')
+        );
+        
+        /**
+         * adds the privacy policy to the application fomular
          */
         $this->add(
             $this->forms->get('Applications/Privacy')
