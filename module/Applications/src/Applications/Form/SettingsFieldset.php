@@ -39,6 +39,12 @@ public function init()
         		'name' => 'mailAccessText',
         		'options' => array('label' => /* @translate */ 'Mailtext',
                                             'description' => /* @translate */ 'default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>')));
+        
+        $this->add(array('type' => 'Zend\Form\Element\Checkbox',
+        		'name' => 'autoConfirmMail',
+        		'options' => array('label' => /* @translate */ 'confirm application immidiatly after submit',
+        		                   'description' => /* @translate */ 'if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.'),
+        		));
         $this->add(array('type' => 'Zend\Form\Element\Textarea',
                         'name' => 'mailConfirmationText',
                          'options' => array('label' => /* @translate */ 'Confirmation mail text',

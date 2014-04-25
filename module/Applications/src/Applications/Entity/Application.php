@@ -377,6 +377,9 @@ class Application extends AbstractIdentifiableEntity
 	
 	public function getHistory()
 	{
+            if (Null == $this->history) {
+                $this->setHistory(new ArrayCollection());
+            }
 	    return $this->history;
 	}
         
