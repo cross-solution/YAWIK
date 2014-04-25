@@ -100,7 +100,7 @@ class Application extends AbstractIdentifiableEntity
     /**
      * multiple Attachments of an application
      * 
-     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist"})
+     * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist", "remove"})
      */
     protected $attachments;
     
@@ -160,19 +160,7 @@ class Application extends AbstractIdentifiableEntity
     
     public function preUpdate($isNew = false)
     {
-        if ($isNew || $this->permissionsChanged) {
-            $permissions = $this->getPermissions();
-            foreach ($this->attachments as $attachment) {
-                $attachment->getPermissions()
-                           ->clear()
-                           ->inherit($permissions);
-            }
-            if ($image = $this->contact->image) {
-                $image->getPermissions()
-                      ->clear()
-                      ->inherit($permissions);
-            }
-        }
+        
         
         // Compute rating value.
         // @todo Need to know wether comments has changed or not.
