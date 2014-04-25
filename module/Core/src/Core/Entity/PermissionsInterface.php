@@ -24,6 +24,7 @@ interface PermissionsInterface
     public function isGranted($userOrId, $permission);
     public function isAssigned($resource);
     public function getFrom($resource);
+    public function hasChanged();
     
 }
 

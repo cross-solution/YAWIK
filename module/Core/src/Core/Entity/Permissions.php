@@ -50,6 +50,8 @@ class Permissions implements PermissionsInterface
      */
     protected $resources;
     
+    protected $hasChanged = false;
+    
     public function __clone()
     {
         $resources = new ArrayCollection();
@@ -230,6 +232,11 @@ class Permissions implements PermissionsInterface
     {
         $resourceId = $this->getResourceId($resource);
         return isset($this->assigned[$resourceId]);
+    }
+    
+    public function hasChanged()
+    {
+        return $this->hasChanged;
     }
     
     public function getAssigned()
