@@ -29,15 +29,21 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
         $dm  = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
         
-        $filter    = function($element) { 
+        $filter = function($element) { 
             return $element instanceOf ApplicationInterface
                    && $element->getPermissions()->hasChanged(); 
         };
         
-        $inserts   = $uow->getScheduledDocumentInsertions();
-        $updates   = $uow->getScheduledDocumentUpdates();
-        $documents = array_merge(array_filter($inserts, $filter), array_filter($updates, $filter));
+        $inserts = array_filter($uow->getScheduledDocumentInsertions(), $filter);
+        $updates = array_filter($uow->getScheduledDocumentUpdates(), $filter);
         
+        $this->updateFilesPermissions($inserts, /* isUpdate */ false);
+        $this->updateFilesPermissions($updates, /* isUpdate */ true);
+        
+    }
+    
+    protected function updateFilesPermissions($documents, $isUpdate = false)
+    {
         foreach ($documents as $document) {
             $permissions = $document->getPermissions();
            
@@ -45,18 +51,22 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                 $attachment->getPermissions()
                            ->clear()
                            ->inherit($permissions);
-                $uow->recomputeSingleDocumentChangeSet(
-                    $dm->getClassMetadata(get_class($attachment)), $attachment
-                );
+                if ($isUpdate) {
+                    $uow->computeChangeSet(
+                        $dm->getClassMetadata(get_class($attachment)), $attachment
+                    );
+                }
             }
             
             if ($image = $document->contact->image) {
                 $image->getPermissions()
                       ->clear()
                       ->inherit($permissions);
-                $uow->recomputeSingleDocumentChangeSet(
-                    $dm->getClassMetadata(get_class($image)), $image
-                );
+                if ($isUpdate) {
+                    $uow->computeChangeSet(
+                        $dm->getClassMetadata(get_class($image)), $image
+                    );
+                }
             }
         }
     }
