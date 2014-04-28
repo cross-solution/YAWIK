@@ -37,35 +37,30 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
         $inserts = array_filter($uow->getScheduledDocumentInsertions(), $filter);
         $updates = array_filter($uow->getScheduledDocumentUpdates(), $filter);
         
-        $this->updateFilesPermissions($inserts, /* isUpdate */ false);
-        $this->updateFilesPermissions($updates, /* isUpdate */ true);
-        
-    }
-    
-    protected function updateFilesPermissions($documents, $isUpdate = false)
-    {
-        foreach ($documents as $document) {
-            $permissions = $document->getPermissions();
-           
-            foreach ($document->getAttachments() as $attachment) {
-                $attachment->getPermissions()
-                           ->clear()
-                           ->inherit($permissions);
-                if ($isUpdate) {
-                    $uow->computeChangeSet(
-                        $dm->getClassMetadata(get_class($attachment)), $attachment
-                    );
+        foreach (array($inserts, $updates) as $isUpdate => $documents) {
+            foreach ($documents as $document) {
+                $permissions = $document->getPermissions();
+               
+                foreach ($document->getAttachments() as $attachment) {
+                    $attachment->getPermissions()
+                               ->clear()
+                               ->inherit($permissions);
+                    if ($isUpdate) {
+                        $uow->computeChangeSet(
+                            $dm->getClassMetadata(get_class($attachment)), $attachment
+                        );
+                    }
                 }
-            }
-            
-            if ($image = $document->contact->image) {
-                $image->getPermissions()
-                      ->clear()
-                      ->inherit($permissions);
-                if ($isUpdate) {
-                    $uow->computeChangeSet(
-                        $dm->getClassMetadata(get_class($image)), $image
-                    );
+                
+                if ($image = $document->contact->image) {
+                    $image->getPermissions()
+                          ->clear()
+                          ->inherit($permissions);
+                    if ($isUpdate) {
+                        $uow->computeChangeSet(
+                            $dm->getClassMetadata(get_class($image)), $image
+                        );
+                    }
                 }
             }
         }
