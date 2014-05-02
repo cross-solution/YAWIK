@@ -156,6 +156,12 @@ class IndexController extends AbstractActionController
                             //$contactImage = $services->get('repositories')->get('Applications/Application')->saveCopy($image);
                             //$contactImage->addAllowedUser($job->user->id);
                             //$applicationEntity->contact->setImage($contactImage);
+
+                            $repositoryAttachment = $services->get('repositories')->get('Applications/Attachment');
+                                    //->saveCopy($image);
+                            $contactImage = $repositoryAttachment->copy($image);
+                            //$contactImage->addAllowedUser($job->user->id);
+                            $applicationEntity->contact->setImage($contactImage);
                         } else {
                             $applicationEntity->contact->setImage(null); //explicitly remove image.
                         }
@@ -164,6 +170,20 @@ class IndexController extends AbstractActionController
                 $applicationEntity->setStatus(new Status());
                 $permissions = $applicationEntity->getPermissions();
                 $permissions->inherit($job->getPermissions());
+
+                $services->get('repositories')->store($applicationEntity);
+                
+                /*
+                 * New Application alert Mails to job recruiter
+                 * This is temporarly until Companies are implemented.
+                 */
+                $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
+                if (!$recruiter) {
+                    $recruiter = $job->user;
+                    $admin     = false;
+                } else {
+                    $admin     = $job->user;
+                }
                 
                 if (!$request->isXmlHttpRequest()) {
                     $services->get('repositories')->store($applicationEntity);
