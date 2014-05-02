@@ -9,6 +9,7 @@
 namespace Applications\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
+use Zend\Stdlib\Parameters;
 
 /**
  * maps query parameters to entity attributes
@@ -31,7 +32,11 @@ class PaginationQuery extends AbstractPaginationQuery
     
     public function createQuery($params, $queryBuilder)
     {
-        $value = $params->toArray();
+        if ($params instanceOf Parameters) {
+            $value = $params->toArray();
+        } else {
+            $value = $params;
+        }
     
          
         if (isset($value['by']) && 'me' == $value['by']) {
@@ -79,9 +84,10 @@ class PaginationQuery extends AbstractPaginationQuery
         }
     
 
-        if (isset($value['sort'])) {
-            $queryBuilder->sort($this->filterSort($value['sort']));
+        if (!isset($value['sort'])) {
+            $value['sort'] = '-date';
         }
+        $queryBuilder->sort($this->filterSort($value['sort']));
         
         return $queryBuilder;
     }

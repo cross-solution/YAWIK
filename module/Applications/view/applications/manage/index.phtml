@@ -6,10 +6,12 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
+if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
+elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
+else:                   $subTitle = false;
+endif;
 
-$this->headTitle($this->translate('Applications'));
-
-if ($this->byJobs): $this->headTitle("(" . $this->translate('to all of your jobs') . ')'); endif;
+$this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
@@ -17,8 +19,8 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 ?>      
 <h1>
   <?=$this->translate('List of all applications')?>
-  <? if ($this->byJobs): ?>
-    <small>(<?php echo $this->translate('to all of your jobs')?>)</small>
+  <? if ($subTitle): ?>
+    <small><?php echo $subTitle ?></small>
   <?php endif;?>
 </h1>
 <nav class="navbar cam-toolbar"> 
@@ -30,7 +32,11 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
             data-placement="bottom" 
             title="<?php echo $this->translate('search applications')?>"
             data-content="<?php echo $this->translate('search forn names and locations')?>">?</span>
-        <input class="form-control" id="search-applications-input" placeholder="... <?php echo $this->translate('search applications')?> ..." name="search" type="text">
+        <input class="form-control" id="search-applications-input" 
+               placeholder="... <?php echo $this->translate('search applications')?> ..." 
+               name="search" 
+               type="text"
+               <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
         <span class="input-group-btn">
            <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
         </span>

@@ -11,14 +11,35 @@ use Applications\Entity\ApplicationInterface;
 use Doctrine\ODM\MongoDB\Events;
 use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
+use Zend\Stdlib\ArrayUtils;
 
 class Application extends AbstractRepository
 {   
     public function getPaginatorCursor($params)
     {
+        return $this->getPaginationQueryBuilder($params)
+                    ->getQuery()
+                    ->execute();
+    }
+    
+    protected function getPaginationQueryBuilder($params)
+    {
         $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
         $qb = $filter->filter($params, $this->createQueryBuilder());
-        return $qb->getQuery()->execute();
+        
+        return $qb;
+    }
+    
+    public function getPaginationList($params)
+    {
+        $qb = $this->getPaginationQueryBuilder($params);
+        $cursor = $qb->hydrate(false)
+                     ->select('_id')
+                     ->getQuery()
+                     ->execute();
+        
+        $list = new PaginationList(array_keys(ArrayUtils::iteratorToArray($cursor)));
+        return $list;
     }
     
     public function getUnreadApplications($job) 

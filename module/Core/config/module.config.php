@@ -220,11 +220,13 @@ return array(
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
+            'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
             'mailer'     => 'Core/Mailer',
             'paginator' => 'Core/CreatePaginator',
+            'paginationparams' => 'Core/PaginationParams',
         )
     ),
     // Configure the view service manager

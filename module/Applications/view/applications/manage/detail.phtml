@@ -121,6 +121,27 @@
         <?php endif ?>
         </div>
 </nav>
+
+<nav class="navbar cam-toolbar">
+<?php 
+    $prevId = $this->list->getPrevious();
+    $nextId = $this->list->getNext();
+    
+    $prevHref = $prevId ? $this->url('lang/applications/detail', array('id' => $prevId), true) : '#';
+    $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $nextId), true) : '#';
+?>
+<div class="btn-group pull-left">
+<a href="<?php echo $prevHref ?>" class="btn btn-mini btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
+<a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
+<a href="<?php echo $nextHref ?>" class="btn btn-mini btn-default<?php if (!$nextId): echo " disabled"; endif; ?>"" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
+</div>
+        
+<div class="pull-left" style="padding-left: 10px; padding-top:7px;"><p>
+    <?php echo sprintf($this->translate('Position %d of %d'),
+                       $this->list->getPosition(), $this->list->getCount()
+                )?></p></div>
+
+</nav>
 <div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

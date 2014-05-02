@@ -91,6 +91,9 @@ return array(
                 'route' => 'lang/applications',
                 'order' => 20,
                 'resource' => 'route/lang/applications',
+                'query' => array(
+                    'clear' => '1'
+                ),
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
