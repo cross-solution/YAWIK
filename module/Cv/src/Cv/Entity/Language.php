@@ -22,7 +22,31 @@ class Language extends AbstractEntity implements LanguageInterface
      * @ODM\String
      * @var unknown
      */
-    protected $level;
+    protected $levelListening;
+    
+    /**
+     * @ODM\String
+     * @var unknown
+     */
+    protected $levelReading;
+
+    /**
+     * @ODM\String
+     * @var unknown
+     */
+    protected $levelSpokenInteraction;
+
+    /**
+     * @ODM\String
+     * @var unknown
+     */
+    protected $levelSpokenProduction;
+    
+    /**
+     * @ODM\String
+     * @var unknown
+     */
+    protected $levelWriting; 
     
     public function setLanguage($language)
     {
@@ -35,14 +59,58 @@ class Language extends AbstractEntity implements LanguageInterface
         return $this->language;
     }
     
-    public function setLevel($level)
+    public function setLevelListening($level)
     {
-        $this->level = $level;
+        $this->levelListening = $level;
         return $this;
     }
     
-    public function getLevel()
+    public function getLevelListening()
     {
-        return $this->level;
+        return $this->levelListening;
+    }
+
+    public function setLevelReading($level)
+    {
+        $this->levelReading = $level;
+        return $this;
+    }
+    
+    public function getLevelReading()
+    {
+        return $this->levelReading;
+    }
+    
+    public function setLevelSpokenInteraction($level)
+    {
+        $this->levelSpokenInteraction = $level;
+        return $this;
+    }
+    
+    public function getLevelSpokenInteraction()
+    {
+        return $this->levelSpokenInteraction;
+    }
+    
+    public function setLevelSpokenProduction($level)
+    {
+        $this->levelReading = $level;
+        return $this;
+    }
+    
+    public function getLevelSpokenProduction()
+    {
+        return $this->levelSpokenProduction;
+    }
+    
+    public function setLevelWriting($level)
+    {
+        $this->levelWriting = $level;
+        return $this;
+    }
+    
+    public function getLevelWriting()
+    {
+        return $this->levelWriting;
     }
 }
