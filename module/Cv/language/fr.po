@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-09-02 18:29+0200\n"
-"PO-Revision-Date: 2014-03-23 17:32+0000\n"
+"PO-Revision-Date: 2014-05-03 09:31+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:27
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 #: language/_annotated_strings.php:30
 msgid "please enter the name of the city"

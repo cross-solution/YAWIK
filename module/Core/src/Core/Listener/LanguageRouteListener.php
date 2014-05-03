@@ -24,7 +24,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected $availableLanguages = array(
             'en' => 'en_EN',
             'de' => 'de_DE',
-            'fr' => 'fr_FR'
+            'es' => 'es',
+            'fr' => 'fr'
 	);
 		
     /**

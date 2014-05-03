@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# yawik <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Applications\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 13:54+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2014-05-02 19:15+0200\n"
+"PO-Revision-Date: 2014-05-03 10:00+0000\n"
+"Last-Translator: yawik <cbleek@yawik.org>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/applications/comment/list.phtml:57
 msgid ""
@@ -25,7 +26,7 @@ msgstr ""
 
 #: view/applications/index/index.phtml:10
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: view/applications/index/index.phtml:15
 msgid "Application"
@@ -61,7 +62,7 @@ msgstr ""
 #: view/applications/index/dashboard.phtml:42
 #: view/applications/manage/detail.phtml:213
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #: view/applications/manage/index.phtml:9
 #, php-format
@@ -91,16 +92,16 @@ msgstr ""
 
 #: view/applications/manage/index.phtml:41
 msgid "Search"
-msgstr ""
+msgstr "Búsqueda"
 
 #: view/applications/manage/index.ajax.phtml:79
 msgid "education"
-msgstr ""
+msgstr "educación"
 
 #: view/applications/manage/index.ajax.phtml:79
 #: view/applications/manage/index.ajax.phtml:82
 msgid "years"
-msgstr ""
+msgstr "año"
 
 #: view/applications/manage/index.ajax.phtml:82
 #: view/applications/manage/detail.phtml:334
@@ -114,7 +115,7 @@ msgstr ""
 
 #: view/applications/manage/index.ajax.phtml:108
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: view/applications/manage/detail.phtml:12
 #: view/applications/manage/detail.pdf.phtml:12
@@ -132,7 +133,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:46
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmar"
 
 #: view/applications/manage/detail.phtml:47
 msgid "Confirm the receipt"
@@ -140,7 +141,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:55
 msgid "Invite"
-msgstr ""
+msgstr "Invitar"
 
 #: view/applications/manage/detail.phtml:56
 #: view/applications/manage/detail.phtml:134
@@ -149,7 +150,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:64
 msgid "Reject"
-msgstr ""
+msgstr " Rechazar"
 
 #: view/applications/manage/detail.phtml:65
 msgid "Reject the applicant"
@@ -171,7 +172,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:106
 msgid "previous"
-msgstr ""
+msgstr "anterior"
 
 #: view/applications/manage/detail.phtml:107
 msgid "Back to list"
@@ -183,7 +184,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:108
 msgid "next"
-msgstr ""
+msgstr "próximo"
 
 #: view/applications/manage/detail.phtml:121
 #: view/applications/manage/detail.phtml:160
@@ -194,7 +195,7 @@ msgstr ""
 #: view/applications/manage/detail.phtml:158
 #: view/applications/manage/detail.phtml:191
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: view/applications/manage/detail.phtml:140
 msgid "Send mail"
@@ -222,7 +223,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:185
 msgid "Comments"
-msgstr ""
+msgstr "Comentarios"
 
 #: view/applications/manage/detail.phtml:192
 msgid "Save"
@@ -230,11 +231,11 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:193
 msgid "Add new comment"
-msgstr ""
+msgstr "Añadir nuevo comentario"
 
 #: view/applications/manage/detail.phtml:194
 msgid "Close"
-msgstr ""
+msgstr "Cerca"
 
 #: view/applications/manage/detail.phtml:206
 #: view/applications/manage/detail.phtml:312
@@ -244,11 +245,11 @@ msgstr ""
 #: view/applications/manage/detail.phtml:214
 #: view/applications/manage/detail.phtml:278
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #: view/applications/manage/detail.phtml:215
 msgid "Comment"
-msgstr ""
+msgstr "Comentario"
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.pdf.phtml:61
@@ -276,7 +277,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:292
 msgid "rating"
-msgstr ""
+msgstr "clasificación"
 
 #: view/applications/manage/detail.phtml:299
 msgid "View comments"
@@ -284,7 +285,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:299
 msgid "Add comment"
-msgstr ""
+msgstr "Añadir comentario"
 
 #: view/applications/manage/detail.phtml:307
 msgid "last modification date"
@@ -299,7 +300,7 @@ msgstr ""
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:81
 msgid "Summary"
-msgstr ""
+msgstr "Resumen"
 
 #: view/applications/manage/detail.phtml:338
 #: view/applications/manage/detail.phtml:361
@@ -317,7 +318,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:340
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #: view/applications/manage/detail.phtml:341
 #: view/applications/manage/detail.phtml:364
@@ -333,7 +334,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:363
 msgid "University"
-msgstr ""
+msgstr "Universidad"
 
 #: view/applications/manage/detail.phtml:378
 #: view/applications/manage/detail.pdf.phtml:142
@@ -351,23 +352,23 @@ msgstr ""
 
 #: view/applications/manage/detail.pdf.phtml:67
 msgid "name"
-msgstr ""
+msgstr "nombre"
 
 #: view/applications/manage/detail.pdf.phtml:72
 msgid "Street"
-msgstr ""
+msgstr "Calle"
 
 #: view/applications/manage/detail.pdf.phtml:78
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: view/applications/manage/detail.pdf.phtml:83
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: view/applications/manage/detail.pdf.phtml:87
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
 #: view/sidebar/manage.phtml:4
 msgid "new applications"
@@ -380,7 +381,7 @@ msgstr ""
 #: src/Applications/Form/SettingsFieldset.php:30
 #: language/_annotated_strings.php:30
 msgid "E-Mail Notifications"
-msgstr ""
+msgstr "E-Mail Notificaciones"
 
 #: src/Applications/Form/CarbonCopyFieldset.php:22
 msgid "Options"
@@ -434,19 +435,19 @@ msgstr ""
 
 #: language/_annotated_strings.php:6
 msgid "Career"
-msgstr ""
+msgstr "Carrera"
 
 #: language/_annotated_strings.php:15
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: language/_annotated_strings.php:18
 msgid "Rating"
-msgstr ""
+msgstr "Clasificación"
 
 #: language/_annotated_strings.php:21
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: language/_annotated_strings.php:24
 msgid "Actions"
@@ -471,8 +472,8 @@ msgstr ""
 #: language/_annotated_strings.php:42
 msgid ""
 "default text of the notification mail about new applications. The following "
-"variables can be used:<ul><li>##name## = your name</li><li>##title## = title "
-"of the job</li></ul>"
+"variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
+" of the job</li></ul>"
 msgstr ""
 
 #: language/_annotated_strings.php:45
@@ -492,10 +493,10 @@ msgstr ""
 #: language/_annotated_strings.php:54
 msgid ""
 "default text of the acknowledgment of receipt mail to the applicant. The "
-"following variables can be used:<br><ul><li>##anrede_formell## = salutation. "
-"Includes gender, firstname and lastname.<li>##anrede_informell## = "
-"salutation. Includes fistname and lastname.</li><li>##job_title## = title of "
-"the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
+"following variables can be used:<br><ul><li>##anrede_formell## = salutation."
+" Includes gender, firstname and lastname.<li>##anrede_informell## = "
+"salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
+" the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
 "of recipt of the application.</li></ul>"
 msgstr ""
 
@@ -555,8 +556,8 @@ msgstr ""
 
 #: language/_annotated_strings.php:99
 msgid ""
-"Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
-"\"##title##\\\"\\n\\n"
+"Hello ##name##,\\n\\nThere is a new application for your "
+"vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
 #: language/_annotated_strings.php:102
@@ -566,7 +567,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:105
 msgid "E-Mail Templates"
-msgstr ""
+msgstr "Plantillas E-Mail "
 
 #: language/_annotated_strings.php:108
 msgid "Overview"
@@ -574,16 +575,16 @@ msgstr ""
 
 #: language/additional_translation.phtml:3
 msgid "invited"
-msgstr ""
+msgstr "invitado"
 
 #: language/additional_translation.phtml:4
 msgid "incoming"
-msgstr ""
+msgstr " entrante"
 
 #: language/additional_translation.phtml:5
 msgid "rejected"
-msgstr ""
+msgstr "rechazado"
 
 #: language/additional_translation.phtml:6
 msgid "confirmed"
-msgstr ""
+msgstr "confirmado"

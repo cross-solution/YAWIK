@@ -7515,11 +7515,8 @@ h6 {
 #sidebar #language-switcher {
   width: 100%;
 }
-#sidebar #language-switcher button {
-  width: 50%;
-}
 #sidebar > div {
-  margin-top: 35px;
+  margin-top: 20px;
 }
 #sidebar ul li.active a {
   background-color: #f5f5f5;

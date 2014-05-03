@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-02 19:15+0200\n"
-"PO-Revision-Date: 2014-05-02 17:16+0000\n"
+"PO-Revision-Date: 2014-05-03 09:31+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -93,16 +93,16 @@ msgstr ""
 
 #: view/applications/manage/index.phtml:41
 msgid "Search"
-msgstr ""
+msgstr "Recherche "
 
 #: view/applications/manage/index.ajax.phtml:79
 msgid "education"
-msgstr ""
+msgstr "éducation"
 
 #: view/applications/manage/index.ajax.phtml:79
 #: view/applications/manage/index.ajax.phtml:82
 msgid "years"
-msgstr ""
+msgstr "ans "
 
 #: view/applications/manage/index.ajax.phtml:82
 #: view/applications/manage/detail.phtml:334
@@ -134,7 +134,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:46
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #: view/applications/manage/detail.phtml:47
 msgid "Confirm the receipt"
@@ -159,7 +159,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:91
 msgid "Enter an email address"
-msgstr ""
+msgstr "Saisissez une adresse e-mail "
 
 #: view/applications/manage/detail.phtml:92
 msgid ""
@@ -169,11 +169,11 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:99
 msgid "Forward"
-msgstr ""
+msgstr "Avant"
 
 #: view/applications/manage/detail.phtml:106
 msgid "previous"
-msgstr ""
+msgstr "précédent"
 
 #: view/applications/manage/detail.phtml:107
 msgid "Back to list"
@@ -185,7 +185,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:108
 msgid "next"
-msgstr ""
+msgstr "suivant"
 
 #: view/applications/manage/detail.phtml:121
 #: view/applications/manage/detail.phtml:160
@@ -224,11 +224,11 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:185
 msgid "Comments"
-msgstr ""
+msgstr "Commentaires"
 
 #: view/applications/manage/detail.phtml:192
 msgid "Save"
-msgstr ""
+msgstr "Sauver"
 
 #: view/applications/manage/detail.phtml:193
 msgid "Add new comment"
@@ -262,7 +262,7 @@ msgstr ""
 #: src/Applications/Form/AttachmentsCollectionFactory.php:29
 #: language/_annotated_strings.php:9
 msgid "Attachments"
-msgstr ""
+msgstr "Annexes "
 
 #: view/applications/manage/detail.phtml:273
 msgid "no attachments available"
@@ -270,7 +270,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:282
 msgid "date of receipt"
-msgstr ""
+msgstr "date de réception"
 
 #: view/applications/manage/detail.phtml:286
 msgid "application state"
@@ -290,7 +290,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:307
 msgid "last modification date"
-msgstr ""
+msgstr "date de dernière modification"
 
 #: view/applications/manage/detail.phtml:319
 msgid "agent"
@@ -301,7 +301,7 @@ msgstr ""
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:81
 msgid "Summary"
-msgstr ""
+msgstr "Résumé"
 
 #: view/applications/manage/detail.phtml:338
 #: view/applications/manage/detail.phtml:361
@@ -319,7 +319,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:340
 msgid "Company"
-msgstr ""
+msgstr " Entreprise"
 
 #: view/applications/manage/detail.phtml:341
 #: view/applications/manage/detail.phtml:364
@@ -331,16 +331,16 @@ msgstr ""
 #: view/applications/manage/detail.phtml:358
 #: view/applications/manage/detail.pdf.phtml:124
 msgid "education and training"
-msgstr ""
+msgstr "l'éducation et la formation"
 
 #: view/applications/manage/detail.phtml:363
 msgid "University"
-msgstr ""
+msgstr "Université"
 
 #: view/applications/manage/detail.phtml:378
 #: view/applications/manage/detail.pdf.phtml:142
 msgid "personal skills"
-msgstr ""
+msgstr "compétences personnelles"
 
 #: view/applications/manage/detail.phtml:380
 #: view/applications/manage/detail.pdf.phtml:144
@@ -353,15 +353,15 @@ msgstr ""
 
 #: view/applications/manage/detail.pdf.phtml:67
 msgid "name"
-msgstr ""
+msgstr "nom"
 
 #: view/applications/manage/detail.pdf.phtml:72
 msgid "Street"
-msgstr ""
+msgstr "Rue"
 
 #: view/applications/manage/detail.pdf.phtml:78
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 #: view/applications/manage/detail.pdf.phtml:83
 msgid "E-Mail"
@@ -369,7 +369,7 @@ msgstr ""
 
 #: view/applications/manage/detail.pdf.phtml:87
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: view/sidebar/manage.phtml:4
 msgid "new applications"
@@ -390,7 +390,7 @@ msgstr ""
 
 #: src/Applications/Form/CreateApplication.php:77
 msgid "personal informations"
-msgstr ""
+msgstr "Informations personnelles"
 
 #: src/Applications/Form/CreateApplication.php:112
 #: language/_annotated_strings.php:78
@@ -420,19 +420,19 @@ msgstr ""
 #: src/Applications/Mail/StatusChange.php:57
 #, php-format
 msgid "Dear Mr. %s"
-msgstr ""
+msgstr "Monsieur %s "
 
 #: src/Applications/Mail/Confirmation.php:64
 #: src/Applications/Mail/StatusChange.php:58
 #, php-format
 msgid "Dear Ms. %s"
-msgstr ""
+msgstr "Madame %s "
 
 #: src/Applications/Mail/Confirmation.php:75
 #: src/Applications/Mail/StatusChange.php:69
 #, php-format
 msgid "Hello %s"
-msgstr ""
+msgstr "Bonjour %s "
 
 #: language/_annotated_strings.php:6
 msgid "Career"
@@ -448,7 +448,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:21
 msgid "Modified"
-msgstr ""
+msgstr "Modifié"
 
 #: language/_annotated_strings.php:24
 msgid "Actions"
@@ -531,7 +531,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:75
 msgid "Comment message"
-msgstr ""
+msgstr "Message commentaire"
 
 #: language/_annotated_strings.php:84
 msgid "There were errors in the form."
@@ -576,16 +576,16 @@ msgstr ""
 
 #: language/additional_translation.phtml:3
 msgid "invited"
-msgstr ""
+msgstr "invité"
 
 #: language/additional_translation.phtml:4
 msgid "incoming"
-msgstr ""
+msgstr "nouveau"
 
 #: language/additional_translation.phtml:5
 msgid "rejected"
-msgstr ""
+msgstr "rejeté"
 
 #: language/additional_translation.phtml:6
 msgid "confirmed"
-msgstr ""
+msgstr "confirmé"
