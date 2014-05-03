@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Cv\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 22:15+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2014-05-03 18:58+0200\n"
+"PO-Revision-Date: 2014-05-03 19:21+0000\n"
+"Last-Translator: yawik <cbleek@yawik.org>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: view/cv/index/index.phtml:1 language/_annotated_strings.php:846
 msgid "Resumes"
@@ -576,8 +576,8 @@ msgstr ""
 
 #: language/_annotated_strings.php:399
 msgid ""
-"I can understand familiar words and very basic phrases concerning myself, my "
-"family and immediate concrete surroundings when people speak slowly and "
+"I can understand familiar words and very basic phrases concerning myself, my"
+" family and immediate concrete surroundings when people speak slowly and "
 "clearly."
 msgstr ""
 
@@ -601,8 +601,8 @@ msgstr ""
 #: language/_annotated_strings.php:408
 msgid ""
 "I can understand extended speech and lectures and follow even complex lines "
-"of argument provided the topic is reasonably familiar. I can understand most "
-"TV news and current affairs programmes. I can understand the majority of "
+"of argument provided the topic is reasonably familiar. I can understand most"
+" TV news and current affairs programmes. I can understand the majority of "
 "films in standard dialect."
 msgstr ""
 
@@ -616,8 +616,8 @@ msgstr ""
 #: language/_annotated_strings.php:414
 msgid ""
 "I have no difficulty in understanding any kind of spoken language, whether "
-"live or broadcast, even when delivered at fast native speed, provided I have "
-"some time to get familiar with the accent."
+"live or broadcast, even when delivered at fast native speed, provided I have"
+" some time to get familiar with the accent."
 msgstr ""
 
 #: language/_annotated_strings.php:417 language/_annotated_strings.php:441
@@ -646,16 +646,16 @@ msgstr ""
 
 #: language/_annotated_strings.php:429
 msgid ""
-"I can understand texts that consist mainly of high frequency everyday or job-"
-"related language. I can understand the description of events, feelings and "
-"wishes in personal letters."
+"I can understand texts that consist mainly of high frequency everyday or "
+"job-related language. I can understand the description of events, feelings "
+"and wishes in personal letters."
 msgstr ""
 
 #: language/_annotated_strings.php:432
 msgid ""
 "I can read articles and reports concerned with contemporary problems in "
-"which the writers adopt particular attitudes or viewpoints. I can understand "
-"contemporary literary prose."
+"which the writers adopt particular attitudes or viewpoints. I can understand"
+" contemporary literary prose."
 msgstr ""
 
 #: language/_annotated_strings.php:435
@@ -687,17 +687,17 @@ msgstr ""
 #: language/_annotated_strings.php:450
 msgid ""
 "I can communicate in simple and routine tasks requiring a simple and direct "
-"exchange of information on familiar topics and activities. I can handle very "
-"short social exchanges, even though I can't usually understand enough to "
+"exchange of information on familiar topics and activities. I can handle very"
+" short social exchanges, even though I can't usually understand enough to "
 "keep the conversation going myself."
 msgstr ""
 
 #: language/_annotated_strings.php:453
 msgid ""
-"I can deal with most situations likely to arise whilst travelling in an area "
-"where the language is spoken. I can enter unprepared into conversation on "
-"topics that are familiar, of personal interest or pertinent to everyday life "
-"(e.g. family, hobbies, work, travel and current events)."
+"I can deal with most situations likely to arise whilst travelling in an area"
+" where the language is spoken. I can enter unprepared into conversation on "
+"topics that are familiar, of personal interest or pertinent to everyday life"
+" (e.g. family, hobbies, work, travel and current events)."
 msgstr ""
 
 #: language/_annotated_strings.php:456
@@ -730,15 +730,15 @@ msgstr ""
 
 #: language/_annotated_strings.php:471
 msgid ""
-"I can use simple phrases and sentences to describe where I live and people I "
-"know."
+"I can use simple phrases and sentences to describe where I live and people I"
+" know."
 msgstr ""
 
 #: language/_annotated_strings.php:474
 msgid ""
 "I can use a series of phrases and sentences to describe in simple terms my "
-"family and other people, living conditions, my educational background and my "
-"present or most recent job."
+"family and other people, living conditions, my educational background and my"
+" present or most recent job."
 msgstr ""
 
 #: language/_annotated_strings.php:477
@@ -776,8 +776,8 @@ msgstr ""
 
 #: language/_annotated_strings.php:495
 msgid ""
-"I can write a short, simple postcard, for example sending holiday greetings. "
-"I can fill in forms with personal details, for example entering my name, "
+"I can write a short, simple postcard, for example sending holiday greetings."
+" I can fill in forms with personal details, for example entering my name, "
 "nationality and address on a hotel registration form."
 msgstr ""
 
@@ -814,8 +814,8 @@ msgstr ""
 msgid ""
 "I can write clear, smoothly-flowing  text in an appropriate style. I can "
 "write complex letters, reports or articles which present a case with an "
-"effective logical structure which helps the recipient to notice and remember "
-"significant points. I can write summaries and reviews of professional or "
+"effective logical structure which helps the recipient to notice and remember"
+" significant points. I can write summaries and reviews of professional or "
 "literary works."
 msgstr ""
 

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-03 13:54+0200\n"
-"PO-Revision-Date: 2014-05-03 11:55+0000\n"
+"PO-Revision-Date: 2014-05-03 19:04+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
-msgstr ""
+msgstr "Chargement"
 
 #: view/partial/pagination-control.phtml:18
 #: view/partial/pagination-control.phtml:22
@@ -44,11 +44,11 @@ msgstr "Dernier"
 
 #: view/form/permissions-collection.phtml:12
 msgid "Add permission"
-msgstr ""
+msgstr "Ajouter permission"
 
 #: view/form/privacy.phtml:4 view/form/privacy.phtml:13
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Politique de confidentialité"
 
 #: view/form/privacy.phtml:13
 #, php-format
@@ -57,11 +57,11 @@ msgstr ""
 
 #: view/form/privacy.phtml:18
 msgid "please wait"
-msgstr ""
+msgstr "S'il vous plaît attendre"
 
 #: view/core/index/index.phtml:11
 msgid "Home"
-msgstr ""
+msgstr "Maison"
 
 #: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
@@ -69,7 +69,7 @@ msgstr "Bienvenue à YAWIK!"
 
 #: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
-msgstr ""
+msgstr "nous les recruteurs et les demandeurs de raccordement"
 
 #: view/core/index/index.phtml:18
 msgid ""
@@ -84,7 +84,7 @@ msgstr ""
 
 #: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
-msgstr ""
+msgstr "conception adaptée (utilise bootstrap3 et la police génial)"
 
 #: view/core/index/index.phtml:32
 msgid "multilingual"
@@ -92,11 +92,11 @@ msgstr "multilingue"
 
 #: view/core/index/index.phtml:33
 msgid "ready for social recruiting"
-msgstr ""
+msgstr "prêt pour le recrutement sociale"
 
 #: view/core/index/index.phtml:34
 msgid "enter job ads"
-msgstr ""
+msgstr "entrer les annonces d'emploi"
 
 #: view/core/index/index.phtml:35
 #, php-format
@@ -105,15 +105,15 @@ msgstr "%sFormulaire de demande%s"
 
 #: view/core/index/index.phtml:39
 msgid "manage applications"
-msgstr ""
+msgstr "gérer les applications"
 
 #: view/core/index/index.phtml:40
 msgid "open and free software"
-msgstr ""
+msgstr "logiciel libre et gratuit"
 
 #: view/core/index/index.phtml:48
 msgid "Developer News"
-msgstr ""
+msgstr "Développeur Nouvelles"
 
 #: view/core/index/index.phtml:65
 msgid "Recruiter News"
@@ -121,76 +121,76 @@ msgstr "Nouvelles pour les recruteurs"
 
 #: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
 msgid "Dashboard"
-msgstr ""
+msgstr "Tableau de bord"
 
 #: view/core/index/dashboard-widget.phtml:19
 msgid "Error loading widget."
-msgstr ""
+msgstr "Le widget erreur de chargement."
 
 #: view/error/index.phtml:11
 msgid "An error occurred"
-msgstr ""
+msgstr "Une erreur s'est produite"
 
 #: view/error/index.phtml:18 view/error/403.phtml:20 view/error/404.phtml:64
 msgid "Additional information"
-msgstr ""
+msgstr "Informations complémentaires"
 
 #: view/error/index.phtml:21 view/error/index.phtml:45 view/error/403.phtml:23
 #: view/error/403.phtml:47 view/error/404.phtml:67 view/error/404.phtml:91
 msgid "File"
-msgstr ""
+msgstr "Dossier"
 
 #: view/error/index.phtml:25 view/error/index.phtml:49 view/error/403.phtml:27
 #: view/error/403.phtml:51 view/error/404.phtml:71 view/error/404.phtml:95
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: view/error/index.phtml:29 view/error/index.phtml:53 view/error/403.phtml:31
 #: view/error/403.phtml:55 view/error/404.phtml:75 view/error/404.phtml:99
 msgid "Stack trace"
-msgstr ""
+msgstr "Trace de la pile"
 
 #: view/error/index.phtml:39 view/error/403.phtml:41 view/error/404.phtml:85
 msgid "Previous exceptions"
-msgstr ""
+msgstr "Exceptions précédentes"
 
 #: view/error/index.phtml:68 view/error/403.phtml:70 view/error/404.phtml:114
 msgid "No Exception available"
-msgstr ""
+msgstr "Aucune exception disponible"
 
 #: view/error/403.phtml:12
 msgid "A 403 error occurred"
-msgstr ""
+msgstr "Une erreur s'est produite 403"
 
 #: view/error/404.phtml:12
 msgid "A 404 error occurred"
-msgstr ""
+msgstr "Une erreur s'est produite 404"
 
 #: view/error/404.phtml:21
 msgid "The requested controller was unable to dispatch the request."
-msgstr ""
+msgstr "Le contrôleur n'a pas demandé d'envoyer la requête."
 
 #: view/error/404.phtml:24
 msgid ""
 "The requested controller could not be mapped to an existing controller "
 "class."
-msgstr ""
+msgstr "Le contrôleur demandée n'a pas pu être mis en correspondance avec une classe de contrôleur existant."
 
 #: view/error/404.phtml:27
 msgid "The requested controller was not dispatchable."
-msgstr ""
+msgstr "Le contrôleur demande n'était pas dispatchable."
 
 #: view/error/404.phtml:30
 msgid "The requested URL could not be matched by routing."
-msgstr ""
+msgstr "L'URL demandée n'a pas pu être compensée par de routage."
 
 #: view/error/404.phtml:33
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr ""
+msgstr "Nous ne pouvons pas déterminer à ce moment pourquoi un 404 ont été générés."
 
 #: view/error/404.phtml:45
 msgid "Controller"
-msgstr ""
+msgstr "Contrôleur"
 
 #: view/error/404.phtml:52
 #, php-format
@@ -199,24 +199,24 @@ msgstr ""
 
 #: view/layout/layout.phtml:16
 msgid "YAWIK"
-msgstr ""
+msgstr "YAWIK"
 
 #: view/layout/layout.phtml:104
 msgid "All rights reserved."
-msgstr ""
+msgstr "Tous droits réservés."
 
 #: src/Core/Form/PermissionsCollection.php:36
 msgid "Permissions"
-msgstr ""
+msgstr "Autorisations"
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:45
 msgid "processing"
-msgstr ""
+msgstr "traitement"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:15
 #: language/_annotated_strings.php:60
 msgid "general settings"
-msgstr ""
+msgstr "paramètres généraux"
 
 #: language/_annotated_strings.php:3
 msgid "Save"
@@ -224,74 +224,74 @@ msgstr "Sauver"
 
 #: language/_annotated_strings.php:6
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: language/_annotated_strings.php:9
 msgid "Apply filter"
-msgstr ""
+msgstr "Appliquer le filtre"
 
 #: language/_annotated_strings.php:12
 msgid "Reset filter"
-msgstr ""
+msgstr "Reset filter"
 
 #: language/_annotated_strings.php:15
 msgid "Rights"
-msgstr ""
+msgstr "Droits"
 
 #: language/_annotated_strings.php:18
 msgid "View"
-msgstr ""
+msgstr "Voir"
 
 #: language/_annotated_strings.php:21
 msgid "Write"
-msgstr ""
+msgstr "Écrire"
 
 #: language/_annotated_strings.php:24
 msgid "Not Rated"
-msgstr ""
+msgstr "Pas de note"
 
 #: language/_annotated_strings.php:27
 msgid "Poor"
-msgstr ""
+msgstr "Pauvres"
 
 #: language/_annotated_strings.php:30
 msgid "Bad"
-msgstr ""
+msgstr "Mauvais"
 
 #: language/_annotated_strings.php:33
 msgid "Average"
-msgstr ""
+msgstr "Moyenne"
 
 #: language/_annotated_strings.php:36
 msgid "Good"
-msgstr ""
+msgstr "Bon"
 
 #: language/_annotated_strings.php:39
 msgid "Excellent"
-msgstr ""
+msgstr "Excellent"
 
 #: language/_annotated_strings.php:42
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr ""
+msgstr "S'il vous plaît entrer un numéro de téléphone. Vous pouvez utiliser le format intenational. Seuls les chiffres et «+»."
 
 #: language/_annotated_strings.php:45
 msgid "choose your language"
-msgstr ""
+msgstr "choisissez la langue"
 
 #: language/_annotated_strings.php:48
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: language/_annotated_strings.php:51
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: language/_annotated_strings.php:54
 msgid "German"
-msgstr ""
+msgstr "Allemand"
 
 #: language/_annotated_strings.php:57
 msgid "defines the languages of this frontend."
-msgstr ""
+msgstr "définit les langues de cette interface."

@@ -25,7 +25,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
             'en' => 'en_EN',
             'de' => 'de_DE',
             'es' => 'es',
-            'fr' => 'fr'
+            'fr' => 'fr',
+            'it' => 'it',
+            'ru' => 'ru'
 	);
 		
     /**

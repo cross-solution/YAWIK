@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 13:54+0200\n"
+"POT-Creation-Date: 2014-05-03 22:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -199,7 +199,7 @@ msgstr ""
 msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:104
+#: view/layout/layout.phtml:107
 msgid "All rights reserved."
 msgstr ""
 

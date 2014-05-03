@@ -10,7 +10,7 @@
 
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="<?php echo $this->params('lang')?>">
     <head>
         <meta charset="utf-8">
         <?php echo $this->headTitle($this->translate('YAWIK'))->setSeparator(' - ')->setAutoEscape(false) ?>
@@ -66,10 +66,13 @@
 <nav id="sidebar">
 <div class="btn-group" data-toggle="buttons-radio" id="language-switcher">
     <?php $lang = $this->params('lang');
-    foreach (array('en', 'de', 'fr', 'es') as $availableLang): ?>
-    <button type="button" class="btn btn-default<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
+    foreach (array('en', 'de', 'fr', 'es', 'it', 'ru') as $availableLang): ?>
+    <button type="button" class="btn btn-xs btn-default<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
     <?php echo strtoupper($availableLang) ?></button>
     <?php endforeach ?>
+<p>
+<a href="https://www.transifex.com/projects/p/yawik/"><?php echo "Help translating"?></a>
+</p>
 </div>
      
 <div id="sub-nav">               

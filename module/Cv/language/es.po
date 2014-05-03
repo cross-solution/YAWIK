@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-03 18:58+0200\n"
-"PO-Revision-Date: 2014-05-03 17:07+0000\n"
+"PO-Revision-Date: 2014-05-03 18:47+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -142,115 +142,115 @@ msgstr ""
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:522
 msgid "Abkhazian"
-msgstr ""
+msgstr "Abjasia"
 
 #: language/_annotated_strings.php:75 language/_annotated_strings.php:525
 msgid "Afrikaans"
-msgstr ""
+msgstr "Africaans"
 
 #: language/_annotated_strings.php:78 language/_annotated_strings.php:528
 msgid "Albanian"
-msgstr ""
+msgstr "Albanés"
 
 #: language/_annotated_strings.php:81 language/_annotated_strings.php:531
 msgid "Amharic"
-msgstr ""
+msgstr "Amárico"
 
 #: language/_annotated_strings.php:84 language/_annotated_strings.php:534
 msgid "Arabic"
-msgstr ""
+msgstr "Árabe"
 
 #: language/_annotated_strings.php:87 language/_annotated_strings.php:537
 msgid "Armenian"
-msgstr ""
+msgstr "Armenio"
 
 #: language/_annotated_strings.php:90 language/_annotated_strings.php:540
 msgid "Assamese"
-msgstr ""
+msgstr "Asamés"
 
 #: language/_annotated_strings.php:93 language/_annotated_strings.php:543
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azerbaiyán"
 
 #: language/_annotated_strings.php:96 language/_annotated_strings.php:546
 msgid "Basque"
-msgstr ""
+msgstr "Vasco"
 
 #: language/_annotated_strings.php:99 language/_annotated_strings.php:549
 msgid "Belarusian"
-msgstr ""
+msgstr "Bielorruso"
 
 #: language/_annotated_strings.php:102 language/_annotated_strings.php:552
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalí"
 
 #: language/_annotated_strings.php:105 language/_annotated_strings.php:555
 msgid "Bosnian"
-msgstr ""
+msgstr "Bosnio"
 
 #: language/_annotated_strings.php:108 language/_annotated_strings.php:558
 msgid "Breton"
-msgstr ""
+msgstr "Breton"
 
 #: language/_annotated_strings.php:111 language/_annotated_strings.php:561
 msgid "Bulgarian"
-msgstr ""
+msgstr "Búlgaro"
 
 #: language/_annotated_strings.php:114 language/_annotated_strings.php:564
 msgid "Burmese"
-msgstr ""
+msgstr "Birmano"
 
 #: language/_annotated_strings.php:117 language/_annotated_strings.php:567
 msgid "Catalan/Valencian"
-msgstr ""
+msgstr "Catalán / valenciano"
 
 #: language/_annotated_strings.php:120 language/_annotated_strings.php:570
 msgid "Chechen"
-msgstr ""
+msgstr "Chechenia"
 
 #: language/_annotated_strings.php:123 language/_annotated_strings.php:573
 msgid "Chinese"
-msgstr ""
+msgstr "Chino"
 
 #: language/_annotated_strings.php:126 language/_annotated_strings.php:576
 msgid "Cornish"
-msgstr ""
+msgstr "De Cornualles"
 
 #: language/_annotated_strings.php:129 language/_annotated_strings.php:579
 msgid "Corsican"
-msgstr ""
+msgstr "Corso"
 
 #: language/_annotated_strings.php:132 language/_annotated_strings.php:582
 msgid "Croatian"
-msgstr ""
+msgstr "Croata"
 
 #: language/_annotated_strings.php:135 language/_annotated_strings.php:585
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: language/_annotated_strings.php:138 language/_annotated_strings.php:588
 msgid "Danish"
-msgstr ""
+msgstr "Danés"
 
 #: language/_annotated_strings.php:141 language/_annotated_strings.php:591
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés"
 
 #: language/_annotated_strings.php:144 language/_annotated_strings.php:594
 msgid "Estonian"
-msgstr ""
+msgstr "Estonia"
 
 #: language/_annotated_strings.php:147 language/_annotated_strings.php:597
 msgid "Faroese"
-msgstr ""
+msgstr "Las Islas Feroe"
 
 #: language/_annotated_strings.php:150 language/_annotated_strings.php:600
 msgid "Fijian"
-msgstr ""
+msgstr "Fiji"
 
 #: language/_annotated_strings.php:153 language/_annotated_strings.php:603
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandés"
 
 #: language/_annotated_strings.php:156 language/_annotated_strings.php:606
 msgid "French"
@@ -258,11 +258,11 @@ msgstr "Francés"
 
 #: language/_annotated_strings.php:159 language/_annotated_strings.php:609
 msgid "Gaelic/Scottish Gaelic"
-msgstr ""
+msgstr "Gaélico / gaélico escocés"
 
 #: language/_annotated_strings.php:162 language/_annotated_strings.php:612
 msgid "Galician"
-msgstr ""
+msgstr "Gallego"
 
 #: language/_annotated_strings.php:165 language/_annotated_strings.php:615
 msgid "Georgian"
@@ -290,15 +290,15 @@ msgstr "Hebreo"
 
 #: language/_annotated_strings.php:183 language/_annotated_strings.php:633
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: language/_annotated_strings.php:186 language/_annotated_strings.php:636
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: language/_annotated_strings.php:189 language/_annotated_strings.php:639
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #: language/_annotated_strings.php:192 language/_annotated_strings.php:642
 msgid "Indonesian"
@@ -334,7 +334,7 @@ msgstr "Kirguises"
 
 #: language/_annotated_strings.php:216 language/_annotated_strings.php:666
 msgid "Kongo/Kikongo"
-msgstr ""
+msgstr "Kongo / kikongo"
 
 #: language/_annotated_strings.php:219 language/_annotated_strings.php:669
 msgid "Korean"
@@ -354,7 +354,7 @@ msgstr "Letón"
 
 #: language/_annotated_strings.php:231 language/_annotated_strings.php:681
 msgid "Limburgish/Limburgian/Limburgic"
-msgstr ""
+msgstr "Limburgués / Limburg / Limburgic"
 
 #: language/_annotated_strings.php:234 language/_annotated_strings.php:684
 msgid "Lingala"
@@ -362,211 +362,211 @@ msgstr "Lingala"
 
 #: language/_annotated_strings.php:237 language/_annotated_strings.php:687
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituano"
 
 #: language/_annotated_strings.php:240 language/_annotated_strings.php:690
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luxemburgués"
 
 #: language/_annotated_strings.php:243 language/_annotated_strings.php:693
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio"
 
 #: language/_annotated_strings.php:246 language/_annotated_strings.php:696
 msgid "Malagasy"
-msgstr ""
+msgstr "Malagasy"
 
 #: language/_annotated_strings.php:249 language/_annotated_strings.php:699
 msgid "Malay"
-msgstr ""
+msgstr "Malayo"
 
 #: language/_annotated_strings.php:252 language/_annotated_strings.php:702
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #: language/_annotated_strings.php:255 language/_annotated_strings.php:705
 msgid "Maltese"
-msgstr ""
+msgstr "Maltés"
 
 #: language/_annotated_strings.php:258 language/_annotated_strings.php:708
 msgid "Manx"
-msgstr ""
+msgstr "La Isla de Man"
 
 #: language/_annotated_strings.php:261 language/_annotated_strings.php:711
 msgid "Marathi"
-msgstr ""
+msgstr "Marathi"
 
 #: language/_annotated_strings.php:264 language/_annotated_strings.php:714
 msgid "Moldavian"
-msgstr ""
+msgstr "Moldavo"
 
 #: language/_annotated_strings.php:267 language/_annotated_strings.php:717
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongol"
 
 #: language/_annotated_strings.php:270 language/_annotated_strings.php:720
 msgid "Nepali"
-msgstr ""
+msgstr "Nepali"
 
 #: language/_annotated_strings.php:273 language/_annotated_strings.php:723
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruego"
 
 #: language/_annotated_strings.php:276 language/_annotated_strings.php:726
 msgid "Norwegian (Bokmal)"
-msgstr ""
+msgstr "Noruego (Bokmal)"
 
 #: language/_annotated_strings.php:279 language/_annotated_strings.php:729
 msgid "Norwegian (Nynorsk)"
-msgstr ""
+msgstr "Norwegian (Nynorsk)"
 
 #: language/_annotated_strings.php:282 language/_annotated_strings.php:732
 msgid "Pashto"
-msgstr ""
+msgstr "Pashto"
 
 #: language/_annotated_strings.php:285 language/_annotated_strings.php:735
 msgid "Persian"
-msgstr ""
+msgstr "Persa"
 
 #: language/_annotated_strings.php:288 language/_annotated_strings.php:738
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #: language/_annotated_strings.php:291 language/_annotated_strings.php:741
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugués"
 
 #: language/_annotated_strings.php:294 language/_annotated_strings.php:744
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #: language/_annotated_strings.php:297 language/_annotated_strings.php:747
 msgid "Raeto-Romance"
-msgstr ""
+msgstr "Raeto-Romance"
 
 #: language/_annotated_strings.php:300 language/_annotated_strings.php:750
 msgid "Romani"
-msgstr ""
+msgstr "Romani"
 
 #: language/_annotated_strings.php:303 language/_annotated_strings.php:753
 msgid "Romanian"
-msgstr ""
+msgstr "Rumano"
 
 #: language/_annotated_strings.php:306 language/_annotated_strings.php:756
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #: language/_annotated_strings.php:309 language/_annotated_strings.php:759
 msgid "Sami"
-msgstr ""
+msgstr "Sami"
 
 #: language/_annotated_strings.php:312 language/_annotated_strings.php:762
 msgid "Sardinian"
-msgstr ""
+msgstr "Sardo"
 
 #: language/_annotated_strings.php:315 language/_annotated_strings.php:765
 msgid "Serbian"
-msgstr ""
+msgstr "Serbio"
 
 #: language/_annotated_strings.php:318 language/_annotated_strings.php:768
 msgid "Sindhi"
-msgstr ""
+msgstr "Sindhi"
 
 #: language/_annotated_strings.php:321 language/_annotated_strings.php:771
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #: language/_annotated_strings.php:324 language/_annotated_strings.php:774
 msgid "Slovenian"
-msgstr ""
+msgstr "Esloveno"
 
 #: language/_annotated_strings.php:327 language/_annotated_strings.php:777
 msgid "Somali"
-msgstr ""
+msgstr "Somalí"
 
 #: language/_annotated_strings.php:330 language/_annotated_strings.php:780
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: language/_annotated_strings.php:333 language/_annotated_strings.php:783
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: language/_annotated_strings.php:336 language/_annotated_strings.php:786
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #: language/_annotated_strings.php:339 language/_annotated_strings.php:789
 msgid "Tagalog"
-msgstr ""
+msgstr "Tagalog"
 
 #: language/_annotated_strings.php:342 language/_annotated_strings.php:792
 msgid "Tahitian"
-msgstr ""
+msgstr "Tahitian"
 
 #: language/_annotated_strings.php:345 language/_annotated_strings.php:795
 msgid "Tajik"
-msgstr ""
+msgstr "Tajik"
 
 #: language/_annotated_strings.php:348 language/_annotated_strings.php:798
 msgid "Tamil"
-msgstr ""
+msgstr "Tamil"
 
 #: language/_annotated_strings.php:351 language/_annotated_strings.php:801
 msgid "Tatar"
-msgstr ""
+msgstr "Tártaro"
 
 #: language/_annotated_strings.php:354 language/_annotated_strings.php:804
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #: language/_annotated_strings.php:357 language/_annotated_strings.php:807
 msgid "Thai"
-msgstr ""
+msgstr "Tailandés"
 
 #: language/_annotated_strings.php:360 language/_annotated_strings.php:810
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetano"
 
 #: language/_annotated_strings.php:363 language/_annotated_strings.php:813
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 #: language/_annotated_strings.php:366 language/_annotated_strings.php:816
 msgid "Turkmen"
-msgstr ""
+msgstr "Turkmenistán"
 
 #: language/_annotated_strings.php:369 language/_annotated_strings.php:819
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucranio"
 
 #: language/_annotated_strings.php:372 language/_annotated_strings.php:822
 msgid "Urdu"
-msgstr ""
+msgstr "Urdu"
 
 #: language/_annotated_strings.php:375 language/_annotated_strings.php:825
 msgid "Uzbek"
-msgstr ""
+msgstr "Uzbeco"
 
 #: language/_annotated_strings.php:378 language/_annotated_strings.php:828
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #: language/_annotated_strings.php:381 language/_annotated_strings.php:831
 msgid "Welsh"
-msgstr ""
+msgstr "Galés"
 
 #: language/_annotated_strings.php:384 language/_annotated_strings.php:834
 msgid "Western Frisian"
-msgstr ""
+msgstr "Frisón"
 
 #: language/_annotated_strings.php:387 language/_annotated_strings.php:837
 msgid "Yiddish"
-msgstr ""
+msgstr "Yídish"
 
 #: language/_annotated_strings.php:390 language/_annotated_strings.php:840
 msgid "Yoruba"
-msgstr ""
+msgstr "Yoruba"
 
 #: language/_annotated_strings.php:393
 msgid "which language are you speeking"
