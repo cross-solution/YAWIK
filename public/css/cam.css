@@ -7246,8 +7246,8 @@ a.yk-icon {
 .br-widget.br-compact a {
   width: 10px;
 }
-.twitter-typeahead {
-  width: 100%;
+#search-applications-form .tt-input {
+  vertical-align: middle !important;
 }
 .tt-dropdown-menu {
   background-color: #FFFFFF;

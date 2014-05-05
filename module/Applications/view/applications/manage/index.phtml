@@ -25,22 +25,24 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     <small><?php echo $subTitle ?></small>
   <?php endif;?>
 </h1>
+<div class="container">
 <nav class="navbar cam-toolbar"> 
-    <form id="search-applications-form" action="<?php echo $this->basePath('/de/applications')?>" method="get">
-          
-      <div id="search-applications" class="row">  
-        <input class="form-control col-md-5" id="search-applications-input" 
-               placeholder="... <?php echo $this->translate('search applications')?> ..." 
+    <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
+      <div id="search-applications form-group has-feedback" class="row">
+        <input class="form-control" id="search-applications-input" 
+               placeholder="<?php echo $this->translate('search applications')?> ..." 
                name="search" 
                type="text"
                <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
-        <input class="form-control col-md-5" type="text" id="job-filter" name="job_title" placeholder="Enter job title"
+               
+        <input class="form-control" type="text" id="job-filter" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
         <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
         <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>
-        <button class="btn btn-primary col-md-1" type="submit"><?php echo $this->translate('Search')?></button>
+        <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
         <a href="<?php echo $this->url('lang/applications', array(), array('query' => array('clear' => 1)), true) ?>"
            class="btn btn-danger"><?php echo $this->translate('Clear') ?></a>
       </div>
     </form>
   </nav>
+</div>
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>
