@@ -74,7 +74,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         		'name' => 'gender',
         		'type' => 'Zend\Form\Element\Select',
         		'options' => array(
-        				'label' => /*@translate */ 'Title',
+        				'label' => /*@translate */ 'Salutation',
         				'value_options' => array(
         						'' => /*@translate */ 'please select',
         						'male' => /*@translate */ 'Mr.',

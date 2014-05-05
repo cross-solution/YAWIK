@@ -21,7 +21,7 @@ translate('Postalcode');
 translate('City');
 
 //: ./src/Auth/Form/UserInfoFieldset.php:77
-translate('Title');
+translate('Salutation');
 
 //: ./src/Auth/Form/UserInfoFieldset.php:79
 translate('please select');

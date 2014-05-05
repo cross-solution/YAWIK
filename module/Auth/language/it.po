@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# yawik <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 13:54+0200\n"
-"PO-Revision-Date: 2014-05-03 19:20+0000\n"
+"POT-Creation-Date: 2014-05-03 22:29+0200\n"
+"PO-Revision-Date: 2014-05-03 20:34+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -19,61 +20,61 @@ msgstr ""
 
 #: view/form/userselect.phtml:25
 msgid "Add users"
-msgstr ""
+msgstr "Aggiungere utenti"
 
 #: view/form/userselect.phtml:29
 msgid "At least one user has to be assigned"
-msgstr ""
+msgstr "Almeno un utente deve essere assegnato"
 
 #: view/sidebar/groups-menu.phtml:15
 msgid "My groups"
-msgstr ""
+msgstr "I miei gruppi"
 
 #: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:21
 msgid "Manage groups"
-msgstr ""
+msgstr "Gestire i gruppi"
 
 #: view/auth/manage-groups/index.phtml:15
 msgid "Add group"
-msgstr ""
+msgstr "Aggiungi gruppo"
 
 #: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:60
 msgid "Group name"
-msgstr ""
+msgstr "Nome del gruppo"
 
 #: view/auth/manage-groups/index.phtml:25
 msgid "Actions"
-msgstr ""
+msgstr "Azioni"
 
 #: view/auth/manage-groups/form.phtml:71
 msgid "Ok"
-msgstr ""
+msgstr "Bene"
 
 #: view/auth/index/index.phtml:11
 msgid "Login required"
-msgstr ""
+msgstr "Entra richiesta"
 
 #: view/auth/index/index.phtml:12
 msgid "Please authenticate yourself to proceed"
-msgstr ""
+msgstr "Si prega di autenticarsi per procedere"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
 #: view/auth/index/login-info.phtml:44
 msgid "Login"
-msgstr ""
+msgstr "Entra"
 
 #: view/auth/index/login-info.phtml:14 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
-msgstr ""
+msgstr "Il mio profilo"
 
 #: view/auth/index/login-info.phtml:17
 msgid "Change password"
-msgstr ""
+msgstr "Cambia password"
 
 #: view/auth/index/login-info.phtml:26
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: view/auth/index/login-info.phtml:33
 #, php-format
@@ -82,11 +83,11 @@ msgstr ""
 
 #: view/auth/index/login-info.phtml:34
 msgid "Guest"
-msgstr ""
+msgstr "Ospite"
 
 #: view/auth/index/login-info.phtml:46
 msgid "Login via"
-msgstr ""
+msgstr "Accedi via"
 
 #: view/auth/index/login-info.phtml:49
 #, php-format
@@ -95,111 +96,111 @@ msgstr ""
 
 #: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
 msgid "My password"
-msgstr ""
+msgstr "La mia password"
 
 #: src/Auth/Form/UserInfoFieldset.php:41 language/_annotated_strings.php:9
 msgid "personal informations"
-msgstr ""
+msgstr "Informazioni personali"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
 #: language/_annotated_strings.php:51 language/_annotated_strings.php:54
 #: language/_annotated_strings.php:78
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: src/Auth/Form/GroupFieldset.php:31
 msgid "Group data"
-msgstr ""
+msgstr "Dati Group"
 
 #: src/Auth/Form/GroupUsersCollection.php:88
 msgid "Users"
-msgstr ""
+msgstr "Utenti"
 
 #: src/Auth/Form/UserBaseFieldset.php:23 language/_annotated_strings.php:66
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: src/Auth/Controller/ManageController.php:91
 msgid "Password successfully changed"
-msgstr ""
+msgstr "Password modificata con successo"
 
 #: src/Auth/Controller/ManageController.php:97
 msgid "Password could not be changed"
-msgstr ""
+msgstr "La password non può essere modificata"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
-msgstr ""
+msgstr "Crea gruppo"
 
 #: language/_annotated_strings.php:6
 msgid "Edit group"
-msgstr ""
+msgstr "Modifica gruppo"
 
 #: language/_annotated_strings.php:12
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: language/_annotated_strings.php:15
 msgid "Phone"
-msgstr ""
+msgstr "Telefono"
 
 #: language/_annotated_strings.php:18
 msgid "Postalcode"
-msgstr ""
+msgstr "Postale"
 
 #: language/_annotated_strings.php:21
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 #: language/_annotated_strings.php:24
-msgid "Title"
-msgstr ""
+msgid "Salutation"
+msgstr "Saluto"
 
 #: language/_annotated_strings.php:27
 msgid "please select"
-msgstr ""
+msgstr "Si prega di selezionare"
 
 #: language/_annotated_strings.php:30
 msgid "Mr."
-msgstr ""
+msgstr "Mr."
 
 #: language/_annotated_strings.php:33
 msgid "Mrs."
-msgstr ""
+msgstr "Mrs."
 
 #: language/_annotated_strings.php:36
 msgid "First name"
-msgstr ""
+msgstr "Nome"
 
 #: language/_annotated_strings.php:39
 msgid "Last name"
-msgstr ""
+msgstr "Cognome"
 
 #: language/_annotated_strings.php:42
 msgid "street"
-msgstr ""
+msgstr "strada"
 
 #: language/_annotated_strings.php:45
 msgid "house number"
-msgstr ""
+msgstr "numero civico"
 
 #: language/_annotated_strings.php:48
 msgid "Application photo"
-msgstr ""
+msgstr "Applicazione photo"
 
 #: language/_annotated_strings.php:57
 msgid "Retype password"
-msgstr ""
+msgstr "Ripeti password"
 
 #: language/_annotated_strings.php:63
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
-msgstr ""
+msgstr "Selezionare un nome di gruppo. È possibile aggiungere utenti al gruppo e poi lavorare insieme sui posti di lavoro e domande di lavoro."
 
 #: language/_annotated_strings.php:69
 msgid "I am"
-msgstr ""
+msgstr "Sono"
 
 #: language/_annotated_strings.php:72
 msgid "The group name \"%value%\" is already in use."
@@ -207,52 +208,52 @@ msgstr ""
 
 #: language/_annotated_strings.php:75
 msgid "Login name"
-msgstr ""
+msgstr "Login name"
 
 #: language/_annotated_strings.php:81
 msgid "login"
-msgstr ""
+msgstr "login"
 
 #: language/_annotated_strings.php:84
 msgid "Changes successfully saved"
-msgstr ""
+msgstr "Modifiche salvate con successo"
 
 #: language/_annotated_strings.php:87
 msgid "Saving changes failed. Please check the marked fields."
-msgstr ""
+msgstr "Salvare le modifiche fallito. Si prega di controllare i campi contrassegnati."
 
 #: language/_annotated_strings.php:90
 msgid "Group created"
-msgstr ""
+msgstr "Data creazione"
 
 #: language/_annotated_strings.php:93
 msgid "Group updated"
-msgstr ""
+msgstr "Gruppo aggiornato"
 
 #: language/_annotated_strings.php:96
 msgid "Changes not saved."
-msgstr ""
+msgstr "Le modifiche non salvate."
 
 #: language/_annotated_strings.php:99
 msgid "You are now logged in."
-msgstr ""
+msgstr "Si è ora loggato"
 
 #: language/_annotated_strings.php:102
 msgid "Authentication failed."
-msgstr ""
+msgstr "Autenticazione non riuscita."
 
 #: language/_annotated_strings.php:105
 msgid "Welcome to YAWIK!"
-msgstr ""
+msgstr "Benvenuti a YAWIK!"
 
 #: language/_annotated_strings.php:108
 msgid "You are now logged out"
-msgstr ""
+msgstr "Si è ora disconnesso"
 
 #: language/_annotated_strings.php:111
 msgid "user"
-msgstr ""
+msgstr "utente"
 
 #: language/_annotated_strings.php:114
 msgid "recruiter"
-msgstr ""
+msgstr "recruiter"
