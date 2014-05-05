@@ -70,11 +70,9 @@
     <button type="button" class="btn btn-xs btn-default<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
     <?php echo strtoupper($availableLang) ?></button>
     <?php endforeach ?>
-<p>
-<a href="https://www.transifex.com/projects/p/yawik/"><?php echo "Help translating"?></a>
-</p>
 </div>
-     
+<p><a href="https://www.transifex.com/projects/p/yawik/">
+<?php echo $this->translate('Help to translate YAWIK');?></a></p>  
 <div id="sub-nav">               
 <?php
     echo $this->navigation()->menu()

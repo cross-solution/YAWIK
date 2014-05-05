@@ -231,8 +231,9 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 </div>
 <div class="row">
   <div class="col-md-4">
-    <h2><?= $this->translate('personal information')?></h2>
-    <div class="cam-callout-info col-md-12">
+    <div class="panel panel-default">
+    <div class="panel-heading"><?php echo $this->translate('personal information')?></div>
+    <div class="panel-body">
       <div class="pull-left">
         <div class="yk-portrait">
           <?php if ($this->application->contact->image):?>
@@ -249,18 +250,20 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
         <br>
         <?php if ($this->application->contact->phone):?>
-        Tel.: <?php echo $this->application->contact->phone; ?><br>
+        <i>class="yk-icon yk-icon-phone"></i> <?php echo $this->application->contact->phone; ?><br>
         <?php endif?>
         <?php if ($this->application->contact->email):?>
-        E-Mail: <?php echo $this->link($this->application->contact->email); ?><br>
+        <i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->application->contact->email); ?><br>
         <?php endif?>
         </adress>
       </div>
     </div>
+    </div>
   </div>
   <div class="col-md-4">
-    <h2><?php echo $this->translate('Attachments')?></h2> 
-    <div class="cam-callout-info">
+  <div class="panel panel-default">
+    <div class="panel-heading"><?php echo $this->translate('Attachments')?></div> 
+    <div class="panel-body">
     <?php if(count($this->application->attachments)>0):?>
       <?php foreach( $this->application->attachments as $attachment): ?>
         <div class="row show-grid">
@@ -274,9 +277,10 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
     <?php endif;?>
     </div>
   </div>
+  </div>
   <div class="col-md-4">
-    <h2><?php echo $this->translate('State')?></h2>
-    <div class="cam-callout-info table-responsive">
+    <div class="panel panel-default">
+    <div class="panel-heading"><?php echo $this->translate('State')?></div>
     <table class="table">
       <tr>
         <td><?php echo $this->translate('date of receipt')?>:</td>
