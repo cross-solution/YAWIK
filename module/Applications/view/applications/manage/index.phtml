@@ -13,6 +13,8 @@ endif;
 
 $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
+$this->headScript()->appendFile($this->basePath('js/bloodhound.min.js'))
+                   ->appendFile($this->basePath('js/typeahead.jquery.min.js'));
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
 
@@ -24,22 +26,20 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
   <?php endif;?>
 </h1>
 <nav class="navbar cam-toolbar"> 
-    <form id="search-applications-form" action="<?php echo $this->basePath('/de/applications')?>" method="get">  
-      <div id="search-applications" class="cam-input-group input-group">  
-        <span class="input-group-addon"
-            data-toggle="popover" 
-            data-trigger="hover focus click"
-            data-placement="bottom" 
-            title="<?php echo $this->translate('search applications')?>"
-            data-content="<?php echo $this->translate('search forn names and locations')?>">?</span>
-        <input class="form-control" id="search-applications-input" 
+    <form id="search-applications-form" action="<?php echo $this->basePath('/de/applications')?>" method="get">
+          
+      <div id="search-applications" class="row">  
+        <input class="form-control col-md-5" id="search-applications-input" 
                placeholder="... <?php echo $this->translate('search applications')?> ..." 
                name="search" 
                type="text"
                <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
-        <span class="input-group-btn">
-           <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
-        </span>
+        <input class="form-control col-md-5" type="text" id="job-filter" name="job_title" placeholder="Enter job title"
+        <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
+        <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>
+        <button class="btn btn-primary col-md-1" type="submit"><?php echo $this->translate('Search')?></button>
+        <a href="<?php echo $this->url('lang/applications', array(), array('query' => array('clear' => 1)), true) ?>"
+           class="btn btn-danger"><?php echo $this->translate('Clear') ?></a>
       </div>
     </form>
   </nav>
