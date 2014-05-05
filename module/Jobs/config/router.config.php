@@ -50,7 +50,20 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'options' => array(
                     'route' => '/view',
                     'defaults' => array(
+                        'controller' => 'Jobs/Index',
                         'action' => 'view'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'typeahead' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/typeahead',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Index',
+                        'action' => 'typeahead',
+                        'forceJson' => true,
                     ),
                 ),
                 'may_terminate' => true,
