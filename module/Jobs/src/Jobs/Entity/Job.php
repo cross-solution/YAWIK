@@ -147,6 +147,15 @@ class Job extends BaseEntity implements JobInterface {
     protected $logoRef;
     
     /**
+     * Unified Resource Locator the Yawik, which handled this job first - so does know who is the one who has commited this job.
+     * 
+     * @var String
+     * 
+     * @ODM\String 
+     */
+    protected $uriPublisher;
+    
+    /**
      * this must be enabled to use applications forms etc. for this job or
      * to see number of applications in the list of applications
      * 
@@ -345,6 +354,15 @@ class Job extends BaseEntity implements JobInterface {
 
     public function setLogoRef($logoRef) {
         $this->logoRef = $logoRef;
+        return $this;
+    }
+    
+    public function getUriPublisher() {
+        return $this->uriPublisher;
+    }
+    
+    public function setUriPublisher($uriPublisher) {
+        $this->uriPublisher = $uriPublisher;
         return $this;
     }
     

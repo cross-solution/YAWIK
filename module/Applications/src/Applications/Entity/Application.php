@@ -124,6 +124,15 @@ class Application extends AbstractIdentifiableEntity
      * @ODM\Collection
      */
     protected $readBy = array();
+     
+    /**
+     * Where did the applicant get the to know the Job.
+     * 
+     * @var String
+     * @ODM\String
+     */
+    protected $subscriberUri;
+    
     
     /**
      * Comments
@@ -403,6 +412,16 @@ class Application extends AbstractIdentifiableEntity
     public function getReadBy()
     {
         return $this->readBy;
+    }
+    
+        
+    public function getSubscriberUri() {
+        return $this->subscriberUri;
+    }
+    
+    public function setSubscriberUri($subscriberUri) {
+        $this->subscriberUri = $subscriberUri;
+        return $this;
     }
     
     public function addReadBy($userOrId)

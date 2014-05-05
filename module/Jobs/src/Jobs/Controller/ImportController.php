@@ -25,7 +25,7 @@ use Core\Entity\PermissionsInterface;
 class ImportController extends AbstractActionController {
 
     public function saveAction() {
-        if (False) {
+        if (True) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
@@ -40,6 +40,7 @@ class ImportController extends AbstractActionController {
                 'reference' => '2130010128',
                 'camEnabled' => '1',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
+                'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
             ));
             $this->getRequest()->setPost($params);
         }

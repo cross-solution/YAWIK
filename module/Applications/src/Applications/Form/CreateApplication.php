@@ -62,15 +62,11 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         return $this;
     }
     
-	public function initLazy()
+    public function initLazy()
     {
         $this->setName('create-application-form');
         
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'jobId',
-            'required' => true
-        ));
+        $this->initDispositive();
       
         $this->add($this->forms
                          ->get('Applications/ContactFieldset')
@@ -114,6 +110,20 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         
         //$this->setValidationGroup('jobId', 'contact', 'base', 'cv');
        
+    }
+    
+    public function initDispositive()
+    {
+         $this->add(array(
+            'type' => 'hidden',
+            'name' => 'jobId',
+            'required' => true
+        ));
+        
+        $this->add(array(
+            'type' => 'hidden',
+            'name' => 'subscriberUri'
+        ));
     }
     
 }
