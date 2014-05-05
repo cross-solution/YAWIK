@@ -7,20 +7,26 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    margin-top: 4px;
-    padding: 12px 0;
-    width: 360px;
+    
+    
 }
 
 .tt-suggestion {
       font-size: 14px;
-    line-height: 24px;
-    padding: 0px 20px;
+    
+    padding: 10px 20px;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    cursor: pointer;
     p {
       margin: 0px 0px;
     }
+    
+}
+.tt-suggestion:first-child {
+	border-top: none;
 }
 
 .tt-cursor {
-    background-color: #C8C8FF;
+	color: #fff;
+   background-color: @brand-primary;
 }
