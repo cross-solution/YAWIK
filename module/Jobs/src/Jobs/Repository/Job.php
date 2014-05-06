@@ -86,6 +86,21 @@ class Job extends AbstractRepository
         return $this->findBy(array('userId' => $userOrId))->count();
     }
     
+    public function getTypeAheadResults($query, $userId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->hydrate(false)
+           ->select('title', 'applyId')
+           ->field('permissions.view')->equals($userId)
+           ->field('title')->equals(new \MongoRegex('/' . $query . '/i'))
+           ->sort('title');
+        
+        $result = $qb->getQuery()->execute();
+        
+        return $result;
+        
+    }
+    
     
     
 }
