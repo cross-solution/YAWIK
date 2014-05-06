@@ -250,7 +250,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
         <br>
         <?php if ($this->application->contact->phone):?>
-        <i>class="yk-icon yk-icon-phone"></i> <?php echo $this->application->contact->phone; ?><br>
+        <i class="yk-icon yk-icon-phone"></i> <?php echo $this->application->contact->phone; ?><br>
         <?php endif?>
         <?php if ($this->application->contact->email):?>
         <i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->application->contact->email); ?><br>
