@@ -268,7 +268,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
       <?php foreach( $this->application->attachments as $attachment): ?>
         <div class="row show-grid">
           <div class="col-md-12">
-            <a href="<?php echo $this->basePath($attachment->uri) ?>" target="_new"><?php echo $attachment->name ?></a>
+            <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->uri) ?>" target="_new"><?php echo $attachment->name ?></a>
           </div>
         </div>
       <?php endforeach; // attachments?>

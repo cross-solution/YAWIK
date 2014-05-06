@@ -6619,21 +6619,21 @@ button.close {
 /**
 * Pagination
 */
-#cam-pagination ul {
+.yk-pagination ul {
   margin: 0 0 4px;
 }
-#cam-pagination ul > li > a,
-#cam-pagination ul > li > span {
+.yk-pagination ul > li > a,
+.yk-pagination ul > li > span {
   padding: 5px 10px;
   font-size: 12px;
 }
-#cam-pagination ul > li:first-child > a,
-#cam-pagination ul > li:first-child > span {
+.yk-pagination ul > li:first-child > a,
+.yk-pagination ul > li:first-child > span {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
 }
-#cam-pagination ul > li:last-child > a,
-#cam-pagination ul > li:last-child > span {
+.yk-pagination ul > li:last-child > a,
+.yk-pagination ul > li:last-child > span {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
@@ -6689,7 +6689,7 @@ a.portrait.active {
 /*
 * new 
 */
-.cam-new * {
+.yk-new * {
   font-weight: bold;
 }
 /*
@@ -6954,6 +6954,9 @@ fieldset[disabled] .cam-btn-reset.active {
 }
 .yk-icon-pagination-start:before {
   content: "\f048";
+}
+.yk-icon-paperclip:before {
+  content: "\f0c6";
 }
 .yk-icon-password:before {
   content: "\f084";
