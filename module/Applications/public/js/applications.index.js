@@ -29,7 +29,7 @@
 				source: jobs.ttAdapter(),
 				templates: {
 					suggestion: function(d) {
-						return '<p>' + d.title + '<br><small>' + d.applyId + ' | ' + d.id + '</small></p>';
+						return '<p>' + d.title + '<br><small style="white-space:nowrap;">' + d.applyId + ' | ' + d.id + '</small></p>';
 					}
 
 				}

@@ -13,8 +13,8 @@ endif;
 
 $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
-$this->headScript()->appendFile($this->basePath('js/bloodhound.min.js'))
-                   ->appendFile($this->basePath('js/typeahead.jquery.min.js'));
+$this->headScript()->appendFile($this->basePath('js/bloodhound.js'))
+                   ->appendFile($this->basePath('js/typeahead.jquery.js'));
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
 
@@ -40,7 +40,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
         <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
         <a href="<?php echo $this->url('lang/applications', array(), array('query' => array('clear' => 1)), true) ?>"
-           class="btn btn-danger"><?php echo $this->translate('Clear') ?></a>
+           class="btn btn-default"><?php echo $this->translate('Clear') ?></a>
       </div>
     </form>
   </nav>
