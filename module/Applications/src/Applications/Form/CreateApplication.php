@@ -108,6 +108,10 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         $this->add(
             $applicationsPrivacy
         );
+        $applicationsPrivacy = $this->forms->get('Core/PolicyCheck');
+        $this->add(
+            $applicationsPrivacy
+        );
 
         $buttons = $this->forms->get('DefaultButtonsFieldset');
         $buttons->get('submit')->setLabel( /* @translate */ 'send application');
