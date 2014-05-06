@@ -6,12 +6,13 @@
 # yawik <cbleek@yawik.org>, 2014
 # MathiasG <gelhausen@cross-solution.de>, 2014
 # MathiasG <gelhausen@cross-solution.de>, 2014
+# yawik <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 13:39+0200\n"
-"PO-Revision-Date: 2014-05-03 13:51+0000\n"
+"POT-Creation-Date: 2014-05-06 13:31+0200\n"
+"PO-Revision-Date: 2014-05-06 11:37+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +66,7 @@ msgstr "Firmenname"
 msgid "Reference"
 msgstr "Referenz"
 
-#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:12
+#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
 msgid "Applications"
 msgstr "Bewerbungen"
 
@@ -77,11 +78,11 @@ msgstr "Status"
 msgid "Action"
 msgstr "Aktion"
 
-#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:24
+#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:23
 msgid "total"
 msgstr "gesamt"
 
-#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:30
+#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:29
 msgid "unread"
 msgstr "ungelesen"
 
@@ -97,11 +98,11 @@ msgstr "Aktuelle Stellenanzeigen"
 msgid "Famous jobs"
 msgstr "Beliebteste Stellenanzeigen"
 
-#: view/jobs/index/dashboard.phtml:9
+#: view/jobs/index/dashboard.phtml:8
 msgid "Job"
 msgstr "Stellenanzeige"
 
-#: view/jobs/index/dashboard.phtml:10
+#: view/jobs/index/dashboard.phtml:9
 msgid "Date"
 msgstr "Datum"
 

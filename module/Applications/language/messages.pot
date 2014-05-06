@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 22:39+0200\n"
+"POT-Creation-Date: 2014-05-06 13:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,21 +44,21 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: view/applications/index/dashboard.phtml:18
+#: view/applications/index/dashboard.phtml:17
 msgid "Current Applications"
 msgstr ""
 
-#: view/applications/index/dashboard.phtml:40
+#: view/applications/index/dashboard.phtml:35
 #: language/_annotated_strings.php:3
 msgid "Applicant"
 msgstr ""
 
-#: view/applications/index/dashboard.phtml:41
+#: view/applications/index/dashboard.phtml:36
 #: language/_annotated_strings.php:12
 msgid "Job"
 msgstr ""
 
-#: view/applications/index/dashboard.phtml:42
+#: view/applications/index/dashboard.phtml:37
 #: view/applications/manage/detail.phtml:213
 msgid "Date"
 msgstr ""
@@ -76,21 +76,24 @@ msgstr ""
 msgid "Applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:21
+#: view/applications/manage/index.phtml:23
 msgid "List of all applications"
 msgstr ""
 
 #: view/applications/manage/index.phtml:33
-#: view/applications/manage/index.phtml:36
 msgid "search applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:34
-msgid "search forn names and locations"
+#: view/applications/manage/index.phtml:38
+msgid "Enter job title"
 msgstr ""
 
 #: view/applications/manage/index.phtml:41
 msgid "Search"
+msgstr ""
+
+#: view/applications/manage/index.phtml:43
+msgid "Clear"
 msgstr ""
 
 #: view/applications/manage/index.ajax.phtml:79
@@ -103,16 +106,16 @@ msgid "years"
 msgstr ""
 
 #: view/applications/manage/index.ajax.phtml:82
-#: view/applications/manage/detail.phtml:334
+#: view/applications/manage/detail.phtml:338
 #: view/applications/manage/detail.pdf.phtml:106
 msgid "work experience"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:93
+#: view/applications/manage/index.ajax.phtml:100
 msgid "no attachments"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:108
+#: view/applications/manage/index.ajax.phtml:115
 msgid "edit"
 msgstr ""
 
@@ -237,12 +240,12 @@ msgid "Close"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:206
-#: view/applications/manage/detail.phtml:312
+#: view/applications/manage/detail.phtml:316
 msgid "State history"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:214
-#: view/applications/manage/detail.phtml:278
+#: view/applications/manage/detail.phtml:283
 msgid "State"
 msgstr ""
 
@@ -250,97 +253,97 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:234
+#: view/applications/manage/detail.phtml:235
 #: view/applications/manage/detail.pdf.phtml:61
 msgid "personal information"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:262
+#: view/applications/manage/detail.phtml:265
 #: view/applications/manage/detail.pdf.phtml:150
 #: src/Applications/Form/AttachmentsCollectionFactory.php:29
 #: language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:273
+#: view/applications/manage/detail.phtml:276
 msgid "no attachments available"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:282
+#: view/applications/manage/detail.phtml:286
 msgid "date of receipt"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:286
+#: view/applications/manage/detail.phtml:290
 msgid "application state"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:292
+#: view/applications/manage/detail.phtml:296
 msgid "rating"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:299
+#: view/applications/manage/detail.phtml:303
 msgid "View comments"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:299
+#: view/applications/manage/detail.phtml:303
 msgid "Add comment"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:307
+#: view/applications/manage/detail.phtml:311
 msgid "last modification date"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:319
+#: view/applications/manage/detail.phtml:323
 msgid "agent"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:328
+#: view/applications/manage/detail.phtml:332
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:81
 msgid "Summary"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:338
-#: view/applications/manage/detail.phtml:361
+#: view/applications/manage/detail.phtml:342
+#: view/applications/manage/detail.phtml:365
 #: view/applications/manage/detail.pdf.phtml:109
 #: view/applications/manage/detail.pdf.phtml:127
 msgid "Start"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:339
-#: view/applications/manage/detail.phtml:362
+#: view/applications/manage/detail.phtml:343
+#: view/applications/manage/detail.phtml:366
 #: view/applications/manage/detail.pdf.phtml:110
 #: view/applications/manage/detail.pdf.phtml:128
 msgid "End"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:340
+#: view/applications/manage/detail.phtml:344
 msgid "Company"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:341
-#: view/applications/manage/detail.phtml:364
+#: view/applications/manage/detail.phtml:345
+#: view/applications/manage/detail.phtml:368
 #: view/applications/manage/detail.pdf.phtml:111
 #: view/applications/manage/detail.pdf.phtml:129
 msgid "Description"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:358
+#: view/applications/manage/detail.phtml:362
 #: view/applications/manage/detail.pdf.phtml:124
 msgid "education and training"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:363
+#: view/applications/manage/detail.phtml:367
 msgid "University"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:378
+#: view/applications/manage/detail.phtml:382
 #: view/applications/manage/detail.pdf.phtml:142
 msgid "personal skills"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:380
+#: view/applications/manage/detail.phtml:384
 #: view/applications/manage/detail.pdf.phtml:144
 msgid "native language"
 msgstr ""

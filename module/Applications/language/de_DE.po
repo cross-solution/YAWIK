@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 13:54+0200\n"
-"PO-Revision-Date: 2014-05-03 12:12+0000\n"
+"POT-Creation-Date: 2014-05-06 13:31+0200\n"
+"PO-Revision-Date: 2014-05-06 11:34+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -46,21 +46,21 @@ msgstr "Klicken, um die Stellenanzeige zu öffnen"
 msgid "Privacy Policy"
 msgstr "Datenschutzbestimmung"
 
-#: view/applications/index/dashboard.phtml:18
+#: view/applications/index/dashboard.phtml:17
 msgid "Current Applications"
 msgstr "Aktuelle Bewerbungen"
 
-#: view/applications/index/dashboard.phtml:40
+#: view/applications/index/dashboard.phtml:35
 #: language/_annotated_strings.php:3
 msgid "Applicant"
 msgstr "Bewerber"
 
-#: view/applications/index/dashboard.phtml:41
+#: view/applications/index/dashboard.phtml:36
 #: language/_annotated_strings.php:12
 msgid "Job"
 msgstr "Stellenanzeige"
 
-#: view/applications/index/dashboard.phtml:42
+#: view/applications/index/dashboard.phtml:37
 #: view/applications/manage/detail.phtml:213
 msgid "Date"
 msgstr "Datum"
@@ -78,22 +78,25 @@ msgstr "für alle Ihre Anzeigen"
 msgid "Applications"
 msgstr "Bewerbungen"
 
-#: view/applications/manage/index.phtml:21
+#: view/applications/manage/index.phtml:23
 msgid "List of all applications"
 msgstr "Übersicht aller Bewerbungen"
 
 #: view/applications/manage/index.phtml:33
-#: view/applications/manage/index.phtml:36
 msgid "search applications"
 msgstr "Bewerbungen durchsuchen"
 
-#: view/applications/manage/index.phtml:34
-msgid "search forn names and locations"
-msgstr "nach Namen und Städten suchen"
+#: view/applications/manage/index.phtml:38
+msgid "Enter job title"
+msgstr "Anzeigentitel eingeben"
 
 #: view/applications/manage/index.phtml:41
 msgid "Search"
 msgstr "Suchen"
+
+#: view/applications/manage/index.phtml:43
+msgid "Clear"
+msgstr "Filter löschen"
 
 #: view/applications/manage/index.ajax.phtml:79
 msgid "education"
@@ -105,16 +108,16 @@ msgid "years"
 msgstr "Jahre"
 
 #: view/applications/manage/index.ajax.phtml:82
-#: view/applications/manage/detail.phtml:334
+#: view/applications/manage/detail.phtml:338
 #: view/applications/manage/detail.pdf.phtml:106
 msgid "work experience"
 msgstr "Berufserfahrung"
 
-#: view/applications/manage/index.ajax.phtml:93
+#: view/applications/manage/index.ajax.phtml:100
 msgid "no attachments"
 msgstr "keine Anlagen"
 
-#: view/applications/manage/index.ajax.phtml:108
+#: view/applications/manage/index.ajax.phtml:115
 msgid "edit"
 msgstr "bearbeiten"
 
@@ -239,12 +242,12 @@ msgid "Close"
 msgstr "Schließen"
 
 #: view/applications/manage/detail.phtml:206
-#: view/applications/manage/detail.phtml:312
+#: view/applications/manage/detail.phtml:316
 msgid "State history"
 msgstr "Statusverlauf"
 
 #: view/applications/manage/detail.phtml:214
-#: view/applications/manage/detail.phtml:278
+#: view/applications/manage/detail.phtml:283
 msgid "State"
 msgstr "Status"
 
@@ -252,97 +255,97 @@ msgstr "Status"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: view/applications/manage/detail.phtml:234
+#: view/applications/manage/detail.phtml:235
 #: view/applications/manage/detail.pdf.phtml:61
 msgid "personal information"
 msgstr "Angaben zur Person"
 
-#: view/applications/manage/detail.phtml:262
+#: view/applications/manage/detail.phtml:265
 #: view/applications/manage/detail.pdf.phtml:150
 #: src/Applications/Form/AttachmentsCollectionFactory.php:29
 #: language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr "Anlagen"
 
-#: view/applications/manage/detail.phtml:273
+#: view/applications/manage/detail.phtml:276
 msgid "no attachments available"
 msgstr "keine Anlagen vorhanden"
 
-#: view/applications/manage/detail.phtml:282
+#: view/applications/manage/detail.phtml:286
 msgid "date of receipt"
 msgstr "Eingangsdatum"
 
-#: view/applications/manage/detail.phtml:286
+#: view/applications/manage/detail.phtml:290
 msgid "application state"
 msgstr "Bewerbungsstand"
 
-#: view/applications/manage/detail.phtml:292
+#: view/applications/manage/detail.phtml:296
 msgid "rating"
 msgstr "Bewertung"
 
-#: view/applications/manage/detail.phtml:299
+#: view/applications/manage/detail.phtml:303
 msgid "View comments"
 msgstr "Notizen ansehen"
 
-#: view/applications/manage/detail.phtml:299
+#: view/applications/manage/detail.phtml:303
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"
 
-#: view/applications/manage/detail.phtml:307
+#: view/applications/manage/detail.phtml:311
 msgid "last modification date"
 msgstr "letztes Änderungsdatum"
 
-#: view/applications/manage/detail.phtml:319
+#: view/applications/manage/detail.phtml:323
 msgid "agent"
 msgstr "Sachbearbeiter"
 
-#: view/applications/manage/detail.phtml:328
+#: view/applications/manage/detail.phtml:332
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:81
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: view/applications/manage/detail.phtml:338
-#: view/applications/manage/detail.phtml:361
+#: view/applications/manage/detail.phtml:342
+#: view/applications/manage/detail.phtml:365
 #: view/applications/manage/detail.pdf.phtml:109
 #: view/applications/manage/detail.pdf.phtml:127
 msgid "Start"
 msgstr "Beginn"
 
-#: view/applications/manage/detail.phtml:339
-#: view/applications/manage/detail.phtml:362
+#: view/applications/manage/detail.phtml:343
+#: view/applications/manage/detail.phtml:366
 #: view/applications/manage/detail.pdf.phtml:110
 #: view/applications/manage/detail.pdf.phtml:128
 msgid "End"
 msgstr "Ende"
 
-#: view/applications/manage/detail.phtml:340
+#: view/applications/manage/detail.phtml:344
 msgid "Company"
 msgstr "Firma"
 
-#: view/applications/manage/detail.phtml:341
-#: view/applications/manage/detail.phtml:364
+#: view/applications/manage/detail.phtml:345
+#: view/applications/manage/detail.phtml:368
 #: view/applications/manage/detail.pdf.phtml:111
 #: view/applications/manage/detail.pdf.phtml:129
 msgid "Description"
 msgstr "Beschreibung"
 
-#: view/applications/manage/detail.phtml:358
+#: view/applications/manage/detail.phtml:362
 #: view/applications/manage/detail.pdf.phtml:124
 msgid "education and training"
 msgstr "Schul- und Berufsbildung"
 
-#: view/applications/manage/detail.phtml:363
+#: view/applications/manage/detail.phtml:367
 msgid "University"
 msgstr "Universität"
 
-#: view/applications/manage/detail.phtml:378
+#: view/applications/manage/detail.phtml:382
 #: view/applications/manage/detail.pdf.phtml:142
 msgid "personal skills"
 msgstr "persönliche Fähigkeiten"
 
-#: view/applications/manage/detail.phtml:380
+#: view/applications/manage/detail.phtml:384
 #: view/applications/manage/detail.pdf.phtml:144
 msgid "native language"
 msgstr "Muttersprache"
