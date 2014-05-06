@@ -12,23 +12,32 @@ namespace Applications\Form;
 
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ExplicitParameterProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface
-{
-    
+class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface, ExplicitParameterProviderInterface
+{    
     protected $viewPartial = 'form/core/privacy';
     
     public function init()
     {
+        $uniq = md5(uniqid( '' , true ));
         $this->setName('privacypolicies')
-             ->setLabel('Privacy Policies');
+             ->setLabel('Privacy Policies')
+             ->setAttribute('title', 'Privacy Policy')
+             //->setAttribute('comment', sprintf($this->translate("I have read the %s and accept it"), '<a href="disclaimer" data-target="#' . $modalboxid . '" data-toggle="modal">'.$this->translate('Privacy Policy').'</a>'))
+             ->setAttribute('modalboxid', 'responsive-' . $uniq)
+                  ;
                      
           $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		           'name' => 'privacyPolicyAccepted',
+                           'attributes' => array(
+                                            'title1' => 'anuisance'
+                                             ),
                            'options' => array(
                                             //  'checked_value' => "1",
-                                              )
+                                            'title2' => 'tilted and bailed'
+                                             )
                            ));
           
           
@@ -64,6 +73,13 @@ class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface, 
     public function getViewPartial()
     {
         return $this->viewPartial;
+    }
+    
+    public function getParams()
+    {
+        return array(
+            
+        );
     }
 }
 

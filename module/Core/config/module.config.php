@@ -324,6 +324,9 @@ return array(
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
         ),
+        'factories' => array(
+            'Core/PolicyCheck' => 'Core\Form\Element\PolicyCheckFactory',
+        ),
     ),
     
     'mails_config' => array(

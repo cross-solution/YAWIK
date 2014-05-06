@@ -144,7 +144,6 @@ return array(
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
              'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
-             'Applications/CarbonCopy' => 'Applications\Form\CarbonCopyFieldset',  
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
              'Applications/CommentForm' => 'Applications\Form\CommentForm',
              'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
@@ -153,6 +152,9 @@ return array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
+            'Applications/PrivacyPolicy' => '\Applications\Form\Element\PrivacyPolicyFactory',
+            //'Applications/CarbonCopy' => 'Applications\Form\CarbonCopyFieldset',  
+            'Applications/CarbonCopy' => '\Applications\Form\Element\CarbonCopyFactory',  
         ),
      ),
      
