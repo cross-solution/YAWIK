@@ -6,6 +6,7 @@ use Zend\Form\View\Helper\Form as ZendForm;
 use Zend\Form\FormInterface;
 use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ExplicitParameterProviderInterface;
 
 class Form extends ZendForm
 {
@@ -20,13 +21,13 @@ class Form extends ZendForm
      * @param  null|FormInterface $form
      * @return Form
      */
-    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_INLINE)
+    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
         if (!$form) {
             return $this;
         }
     
-        return $this->render($form, $layout);
+        return $this->render($form, $layout, $parameter);
     }
     
     /**
@@ -35,7 +36,7 @@ class Form extends ZendForm
      * @param  FormInterface $form
      * @return string
      */
-    public function render(FormInterface $form, $layout=self::LAYOUT_INLINE)
+    public function render(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
         
         $class = $form->getAttribute('class');
@@ -54,9 +55,14 @@ class Form extends ZendForm
             return $this->getView()->partial($form->getViewPartial(), array('element' => $form));
         }
         foreach ($form as $element) {
+            $parameterPartial = $parameter;
+            if ($element instanceOf ExplicitParameterProviderInterface) {
+                $parameterPartial = array_merge($element->getParams(), $parameterPartial);
+            }
             if ($element instanceOf ViewPartialProviderInterface) {
+                $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
                 $formContent .= $this->getView()->partial(
-                    $element->getViewPartial(), array('element' => $element, 'layout' => $layout)
+                    $element->getViewPartial(), $parameterPartial 
                 );
                 
             } else if ($element instanceof FieldsetInterface) {

@@ -65,7 +65,10 @@
          <?php endif ?>     
          </td>
       <?php else:?>
-         <a href="<?php echo $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));?>">
+         <a href="<?php 
+            $url = $this->url( 'lang/apply/form', array('jobId' => $job->applyId , 'lang' => $this->params('lang')));
+            $query = http_build_query(array('subscriberUri' => $this->serverUrl() . '/subscriber/' . 1));
+            echo $url . '?' . $query; ?>">
           <?php echo $this->translate('Apply')?>
          </a>
       <?php endif ?>

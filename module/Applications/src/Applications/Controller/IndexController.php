@@ -36,6 +36,22 @@ class IndexController extends AbstractActionController
 
         $jobId = $this->params()->fromPost('jobId',0);
         $applyId = (int) $this->params()->fromPost('applyId',0);
+        
+        // subsriber comes from the form
+        $subscriberUri = $this->params()->fromPost('subscriberUri','');
+        if (empty($subscriberUri)) {
+            // subscriber comes with the request of the form
+            // which implies that the backlink in the job-offer had such an link in the query
+            $subscriberUri = $this->params()->fromQuery('subscriberUri','');
+        }
+        if (empty($subscriberUri)) {
+            // the subscriber comes from an external module, maybe after interpreting the backlink, or the referer
+            $e = $this->getEvent();
+            $subscriberResponseCollection = $this->getEventManager()->trigger('subscriber.getUri', $e);
+            if (!$subscriberResponseCollection->isEmpty()) {
+                $subscriberUri = $subscriberResponseCollection->last();
+            }
+        }
 
         $job = ($request->isPost() && !empty($jobId))
              ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
@@ -50,10 +66,14 @@ class IndexController extends AbstractActionController
             'job' => $job,
             'form' => $form,
             'isApplicationSaved' => false,
+            'subscriberUri' => $subscriberUri,
         ));
         
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
+        if (!empty($subscriberUri)) {
+            $applicationEntity->setSubscriberUri($subscriberUri);
+        }
         
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
