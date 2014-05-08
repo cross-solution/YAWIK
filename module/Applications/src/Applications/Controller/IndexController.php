@@ -71,8 +71,10 @@ class IndexController extends AbstractActionController
         
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
+        //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
         if (!empty($subscriberUri)) {
-            $applicationEntity->setSubscriberUri($subscriberUri);
+            $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
+            $applicationEntity->subscriber = $subscriber;
         }
         
         if ($this->auth()->isLoggedIn()) {
@@ -137,9 +139,9 @@ class IndexController extends AbstractActionController
                         $image = $auth->getUser()->info->image;
                         
                         if ($image) {
-                            $contactImage = $services->get('repositories')->get('Applications/Files')->saveCopy($image);
-                            $contactImage->addAllowedUser($job->user->id);
-                            $applicationEntity->contact->setImage($contactImage);
+                            //$contactImage = $services->get('repositories')->get('Applications/Application')->saveCopy($image);
+                            //$contactImage->addAllowedUser($job->user->id);
+                            //$applicationEntity->contact->setImage($contactImage);
                         } else {
                             $applicationEntity->contact->setImage(null); //explicitly remove image.
                         }

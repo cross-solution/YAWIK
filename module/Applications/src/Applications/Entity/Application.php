@@ -128,10 +128,9 @@ class Application extends AbstractIdentifiableEntity
     /**
      * Where did the applicant get the to know the Job.
      * 
-     * @var String
-     * @ODM\String
+     * @ODM\ReferenceOne(targetDocument="Subscriber", simple=True)
      */
-    protected $subscriberUri;
+    protected $subscriber;
     
     
     /**
@@ -415,12 +414,16 @@ class Application extends AbstractIdentifiableEntity
     }
     
         
-    public function getSubscriberUri() {
-        return $this->subscriberUri;
+    public function getSubscriber() {
+        if (!isset($this->subscriber)) {
+            $this->subscriber = new Subscriber();
+            $this->subscriber->name = 'not available';
+        }
+        return $this->subscriber;
     }
     
-    public function setSubscriberUri($subscriberUri) {
-        $this->subscriberUri = $subscriberUri;
+    public function setSubscriber($subscriber) {
+        $this->subscriber = $subscriber;
         return $this;
     }
     

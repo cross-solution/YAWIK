@@ -11,6 +11,8 @@ $columns = array(
     => array('class' => 'cam-job'),	
         /*@translate*/ 'Status' 
     => array('sort' => 'status'),
+        /*@translate*/ 'Subscriber'
+    => array('sort' => 'subscriberUri'),
         /*@translate*/ 'Rating'
     => array('sort' => 'rating'),
         /*@translate*/ 'Modified' 
@@ -106,6 +108,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
          </a>         
     </td>
     <td><?php echo $this->translate($application->status->name) ?></td>
+    <td><?php echo isset($application->subscriber)?$application->subscriber->name:'' ?></td>
     <td><?php echo $this->rating($application->rating)?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
         <?php echo $this->dateFormat($application->dateModified);?>

@@ -37,6 +37,9 @@ class RepositoryEventsSubscriber implements EventSubscriber, ServiceLocatorAware
         if ($repo instanceOf RepositoryInterface) {
             $documentName = $repo->getDocumentName();
             $entity = new $documentName();
+            //if ($entity instanceof ) {
+            //    $entity->setRepository($repo);
+            //}
             $repo->setEntityPrototype($entity);
             $repo->init($this->services);
         }
