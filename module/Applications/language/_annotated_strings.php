@@ -15,15 +15,24 @@ translate('Job');
 translate('Status');
 
 //: ./view/applications/manage/index.ajax.phtml:14
-translate('Rating');
+translate('Subscriber');
 
 //: ./view/applications/manage/index.ajax.phtml:16
-translate('Modified');
+translate('Rating');
 
 //: ./view/applications/manage/index.ajax.phtml:18
+translate('Modified');
+
+//: ./view/applications/manage/index.ajax.phtml:20
 translate('Actions');
 
-//: ./src/Applications/Form/PrivacyFieldset.php:49
+//: ./src/Applications/Form/PrivacyFieldset.php:58
+translate('please accept the privacy policy');
+
+//: ./src/Applications/Form/Element/CarbonCopy.php:42
+translate('please accept the privacy policy');
+
+//: ./src/Applications/Form/Element/PrivacyPolicy.php:44
 translate('please accept the privacy policy');
 
 //: ./src/Applications/Form/SettingsFieldset.php:30
@@ -74,19 +83,22 @@ translate('if checked, you\'ll get a copy of all mails you send.');
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
-//: ./src/Applications/Form/CreateApplication.php:112
+//: ./src/Applications/Form/CreateApplication.php:124
 translate('send application');
 
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
-//: ./src/Applications/Controller/IndexController.php:108
+//: ./src/Applications/Controller/IndexController.php:65
+translate('Invalid apply id');
+
+//: ./src/Applications/Controller/IndexController.php:140
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:163
+//: ./src/Applications/Controller/IndexController.php:195
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:195
+//: ./src/Applications/Controller/IndexController.php:227
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40

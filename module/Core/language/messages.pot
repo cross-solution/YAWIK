@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-06 13:38+0200\n"
+"POT-Creation-Date: 2014-05-08 17:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,16 +45,7 @@ msgstr ""
 msgid "Add permission"
 msgstr ""
 
-#: view/form/privacy.phtml:4 view/form/privacy.phtml:13
-msgid "Privacy Policy"
-msgstr ""
-
-#: view/form/privacy.phtml:13
-#, php-format
-msgid "I have read the %s and accept it"
-msgstr ""
-
-#: view/form/privacy.phtml:18
+#: view/form/privacy.phtml:22
 msgid "please wait"
 msgstr ""
 

@@ -5,6 +5,9 @@ translate('Create group');
 //: ./view/auth/manage-groups/form.phtml:11
 translate('Edit group');
 
+//: ./src/Auth/Form/SocialProfilesFieldset.php:128
+translate('Social Profiles');
+
 //: ./src/Auth/Form/UserInfoFieldset.php:41
 translate('personal informations');
 
@@ -107,9 +110,9 @@ translate('Welcome to YAWIK!');
 //: ./src/Auth/Controller/IndexController.php:389
 translate('You are now logged out');
 
-//: ./config/module.config.php:247
+//: ./config/module.config.php:260
 translate('user');
 
-//: ./config/module.config.php:248
+//: ./config/module.config.php:261
 translate('recruiter');
 
