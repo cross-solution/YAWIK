@@ -7,6 +7,7 @@ use Zend\Form\FormInterface;
 use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ExplicitParameterProviderInterface;
+use Core\Form\Element\ViewHelperProviderInterface;
 
 class Form extends ZendForm
 {
@@ -65,6 +66,12 @@ class Form extends ZendForm
                     $element->getViewPartial(), $parameterPartial 
                 );
                 
+            } else if ($element instanceOf ViewHelperProviderInterface) {
+                $helper = $element->getViewHelper();
+                if (is_string($helper)) {
+                    $helper = $this->getView()->plugin($helper);
+                }
+                $formContent .= $helper($element);
             } else if ($element instanceof FieldsetInterface) {
                 $formContent.= $this->getView()->formCollection($element, true, $layout);
             } else {

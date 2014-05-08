@@ -85,6 +85,17 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             $this->forms->get('CvFieldset')->setObject(new Cv())
         );
         
+        $this->add(array(
+            'type' => 'Auth/SocialProfilesFieldset',
+            'name' => 'profiles',
+            'options' => array(
+                'profiles' => array(
+                    'facebook' => 'Facebook',
+                    'xing'     => 'Xing',
+                ),
+            ),
+        ));
+        
         $attachments = $this->forms->get('Applications/AttachmentsCollection');
         $this->add(
             $attachments

@@ -166,6 +166,13 @@ class Application extends AbstractIdentifiableEntity
      */
     protected $refs;
     
+    /**
+     * 
+     * @var unknown
+     * @ODM\EmbedMany(discriminatorField="_entity")
+     */
+    protected $profiles;
+    
     public function preUpdate($isNew = false)
     {
         
@@ -374,7 +381,24 @@ class Application extends AbstractIdentifiableEntity
 	
 	public function getAttachments()
 	{
+	    if (!$this->attachments) {
+	        $this->setAttachments(new ArrayCollection());
+	    }
 	    return $this->attachments;
+	}
+	
+	public function setProfiles(Collection $profiles)
+	{
+	    $this->profiles = $profiles;
+	    return $this;
+	}
+	
+	public function getProfiles()
+	{
+	    if (!$this->profiles) {
+	        $this->setProfiles(new ArrayCollection());
+	    }
+	    return $this->profiles;
 	}
 	
 	public function setHistory(Collection $history)

@@ -34,6 +34,11 @@ class Education extends AbstractIdentifiableEntity
     /** @var string */
     protected $competencyName;
     
+    /** @ODM\String
+     * 
+     */
+    protected $organizationName;
+    
     /** @var string
      * @ODM\String */
     protected $description;
@@ -97,7 +102,24 @@ class Education extends AbstractIdentifiableEntity
     	return $this->competencyName;
     } 
     
-    public function setDescription($value)
+    /**
+     * @return the $organizationName
+     */
+    public function getOrganizationName ()
+    {
+        return $this->organizationName;
+    }
+
+	/**
+     * @param field_type $organizationName
+     */
+    public function setOrganizationName ($organizationName)
+    {
+        $this->organizationName = $organizationName;
+        return $this;
+    }
+
+	public function setDescription($value)
     {
     	$this->description = $value;
     	return $this;
