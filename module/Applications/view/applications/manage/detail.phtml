@@ -291,10 +291,12 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
+        <h4 class="modal-title" id="myModalLabel">
+            <span class="fa-spin yk-icon yk-icon-spinner"></span>
+            <?php echo $this->translate('Loading')?> ...</h4>
       </div>
       <div class="modal-body">
-        ...
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

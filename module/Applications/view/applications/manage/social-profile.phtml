@@ -8,4 +8,86 @@
  */
 ?>
 <div class="modal-title"><?php echo $this->profile->name ?></div>
-<div class="modal-body">... Insert profile info here ...</div>
+<div class="modal-body">
+<div class="row">
+<?php if (count($this->profile->educations)):?>
+<div class="col-md-12">
+<h5><?= $this->translate('education and training')?></h5>
+<table class="cam-table"> 
+
+<?php foreach( $this->profile->educations as $education): ?>
+  <tr>
+    <?php 
+        $date = ($education->startDate ? $education->startDate . ' - ' : '')
+              . $education->endDate;
+        $desc = trim($education->description);
+        $tmpl = $desc
+              ? '<td>%s<br>%s</td><td>%s</td>'
+              : '<td colspan="2">%s<br>%s</td>';
+        
+        echo sprintf($tmpl, $date, $education->organizationName, $desc);
+    ?>
+  </tr>
+<?php endforeach; // eucations?>    
+</table>
+</div>
+<?php endif;?> 
+
+<?php if(count($this->profile->employments)>0):?>
+<div class="col-md-12">
+<h5><?= $this->translate('work experience')?></h2>
+<table class="cam-table">
+<thead>
+<tr>
+ <th class="col-md-1"><?=$this->translate('Start')?></th>
+ <th class="col-md-1"><?=$this->translate('End')?></th>
+ <th class="col-md-3"><?=$this->translate('Company')?></th>
+ <th><?=$this->translate('Description')?></th>
+</tr>
+</thead>
+<?php foreach( $this->profile->employments as $employment): ?>
+<tr>
+ <td><?php echo $employment->startDate ?></td>
+ <td><?php echo $employment->endDate ?></td>
+ <td><?php echo $employment->organizationName ?></td>
+ <td><?php echo $employment->description ?></td>
+</tr>
+<?php endforeach; // employments?>
+</table>
+</div>
+<?php endif;?> 
+
+
+<div class="col-md-12 sp-raw-data-<?php echo $this->profile->id ?>">
+<h5 style="cursor:pointer"><?php echo $this->translate('Profile data') ?>.
+<span class="pull-right fa fa-chevron-up"></span></h2>
+<pre>
+<?php var_export($this->profile->getData()); ?>
+</pre>
+</div>
+
+<script type="text/javascript">
+;(function($) {
+	$(function() {
+		var $rawDataDiv = $('.sp-raw-data-<?php echo $this->profile->id ?>');
+		var $toggle     = $rawDataDiv.find('h5');
+		var $display    = $rawDataDiv.find('pre');
+		
+		$display.hide();
+		$toggle.click(function() { 
+			$display.slideToggle(); 
+			var $icon = $toggle.find('span');
+			if ($icon.hasClass('fa-chevron-up')) {
+				$icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+			} else {
+				$icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+			}
+			return false; 
+		});
+	});
+})(jQuery);
+
+</script>
+
+</div>
+</div>
