@@ -17,6 +17,7 @@ use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\EntityInterface;
 
 /**
  * create an application form.
@@ -136,10 +137,9 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             'required' => true
         ));
         
-        $this->add(array(
+        $subscriber = $this->add(array(
             'type' => 'hidden',
             'name' => 'subscriberUri'
         ));
     }
-    
 }

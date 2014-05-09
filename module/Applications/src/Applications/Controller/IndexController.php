@@ -82,7 +82,7 @@ class IndexController extends AbstractActionController
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
         //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
-        if (!empty($subscriberUri)) {
+        if (!empty($subscriberUri) && $request->isPost()) {
             $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
             $applicationEntity->subscriber = $subscriber;
         }
@@ -95,6 +95,7 @@ class IndexController extends AbstractActionController
         }
         
         $form->bind($applicationEntity);
+        $form->get('subscriberUri')->setValue($subscriberUri);
         
         /*
          * validate email. 
@@ -161,21 +162,20 @@ class IndexController extends AbstractActionController
                 $permissions = $applicationEntity->getPermissions();
                 $permissions->inherit($job->getPermissions());
                 
-                $services->get('repositories')->store($applicationEntity);
-                
-                /*
-                 * New Application alert Mails to job recruiter
-                 * This is temporarly until Companies are implemented.
-                 */
-                $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
-                if (!$recruiter) {
-                    $recruiter = $job->user;
-                    $admin     = false;
-                } else {
-                    $admin     = $job->user;
-                }
-                
                 if (!$request->isXmlHttpRequest()) {
+                    $services->get('repositories')->store($applicationEntity);
+                    /*
+                     * New Application alert Mails to job recruiter
+                     * This is temporarly until Companies are implemented.
+                     */
+                    $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
+                    if (!$recruiter) {
+                        $recruiter = $job->user;
+                        $admin     = false;
+                    } else {
+                        $admin     = $job->user;
+                    }
+                
                     if ($recruiter->getSettings('Applications')->getMailAccess()) {
                         $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
                     }

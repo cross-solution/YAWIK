@@ -51,7 +51,9 @@ $(document).ready(function() {
                      // - has no ok-flag
                      // - ok-flag is true
                     form.unbind('submit'); 
+                    submits.attr('disabled','disabled');
                     form.submit();
+                    
                     return true;
                 }
                 semaphor_formvalidation = false;
