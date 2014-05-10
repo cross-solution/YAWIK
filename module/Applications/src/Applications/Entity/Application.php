@@ -441,7 +441,7 @@ class Application extends AbstractIdentifiableEntity
     public function getSubscriber() {
         if (!isset($this->subscriber)) {
             $this->subscriber = new Subscriber();
-            $this->subscriber->name = 'not available';
+            $this->subscriber->name = '';
         }
         return $this->subscriber;
     }

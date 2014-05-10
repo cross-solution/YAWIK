@@ -107,7 +107,11 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
           <?php echo strip_tags($application->job->title) ?>
          </a>         
     </td>
-    <td><?php echo $this->translate($application->status->name) ?></td>
+    <td>
+     <?php echo $this->translate($application->status->name) ?>
+     <br/>
+     <?php echo isset($application->subscriber)?$application->subscriber->name:'' ?>
+    </td>
     <td><?php echo isset($application->subscriber)?$application->subscriber->name:'' ?></td>
     <td><?php echo $this->rating($application->rating)?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">

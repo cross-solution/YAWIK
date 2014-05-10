@@ -40,7 +40,7 @@ class Subscriber extends AbstractIdentifiableEntity
     {
         if (empty($this->name)) {
             // TODO: jede Menge
-            $this->name = 'xyz';
+            $this->name = '';
             $this->getRepository();
             
         }
