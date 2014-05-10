@@ -2,9 +2,8 @@
 return array(
     'mails' => array(
         'from' => array(
-            'email' => 'no-reply@host.tld',
-            'name'  => 'CrossApplicantManagement'
+            'email' => '%%mail.from.email%%',
+            'name'  => '%%mail.from.name%%'
         ),
     ),
 );
-

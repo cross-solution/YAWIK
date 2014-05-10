@@ -42,6 +42,7 @@
         "twitter/typeahead.js": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+	"phing/phing": "*"
     }
 }

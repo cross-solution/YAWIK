@@ -35,6 +35,7 @@ install-config:
 create-directories:
 	@echo "+ create directories logs, docs and coverage:"
 	mkdir -p ./log
+	chmod 777 ./log
 	mkdir -p ./public/docs
 	mkdir -p ./public/coverage
 	
@@ -63,4 +64,7 @@ doc: create-directories
 test: create-directories
 	@echo "=="; echo "== dun tests"; echo "=="
 	cd module/Core/test && phpunit -c phpunit-coverage.xml && cd ../../..
+	
+build:
+	vendor/bin/phing
 	
