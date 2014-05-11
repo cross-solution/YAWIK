@@ -1,4 +1,9 @@
 ;
+; enviroment
+;
+app.env=production
+
+;
 ; Database (module/Core/config/module.core.doctrine.config.local.php.dist)
 ;
 mongo.host=localhost
@@ -12,24 +17,15 @@ mail.from.email=demo@yawik.org
 mail.from.name=YAWIK
 
 ;
-; Facebook
+; Facebook, Xing and Linkedin credentials
 ;
 
-facebook.appkey=
+facebook.appid=
+facebook.secret=
 
-;
-; Xing
-;
+xing.appid=
+xing.secret=
 
-xing.appkey=
+linkedin.appid=
+linkedin.secret=
 
-;
-; LinkedIn
-;
-
-linkedin.appkey=
-
-;
-; Building
-;
-#pkg.name=YAWIK
