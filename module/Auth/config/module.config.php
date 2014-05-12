@@ -333,6 +333,7 @@ return array(
         'template_map' => array(
             'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
+            'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
             'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
         ),
@@ -359,8 +360,6 @@ return array(
         'invokables' => array(
             'buildReferer' => '\Auth\View\Helper\BuildReferer',
             'loginInfo' => '\Auth\View\Helper\LoginInfo',
-            'Auth/Form/SocialProfilesFieldset' => 'Auth\Form\ViewHelper\SocialProfilesFieldset',
-            'Auth/Form/SocialProfilesButton'   => 'Auth\Form\ViewHelper\SocialProfilesButton',
         ),   
         'factories' => array(
             'auth' => '\Auth\Service\AuthViewHelperFactory',

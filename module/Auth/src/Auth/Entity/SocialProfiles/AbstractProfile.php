@@ -33,6 +33,13 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
      */
     protected $name;
     
+    
+    /**
+     * 
+     * @var unknown
+     * @ODM\String
+     */
+    protected $link;
     /**
      * 
      * 
@@ -61,6 +68,9 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         'employments' => array(
             'key' => 'employment'
         ),
+        'properties_map' => array(
+            'link' => 'permalink',
+        ),
     );
     
     public function preUpdate($isNew = false)
@@ -70,6 +80,9 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         }
         if (null === $this->employments) {
             $this->getEmployments();
+        }
+        if (null === $this->link) {
+            $this->getLink();
         }
     }
     
@@ -96,9 +109,21 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     /* (non-PHPdoc)
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getData()
      */
-    public function getData ()
+    public function getData ($key = null)
     {
-        return $this->data;
+        if (null === $key) {
+            return $this->data;
+        }
+        
+        $return = $this->data;
+        foreach (explode('.', $key) as $subKey) {
+            if (isset($return[$subKey])) {
+                $return = $return[$subKey];
+            } else {
+                return null;
+            }
+        }
+        return $return;
     }
     
     /* (non-PHPdoc)
@@ -108,11 +133,20 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     {
         $this->data = $data;
         
-        // Force recreation of collections.
+        // Force recreation of collections and properties.
         $this->educations = null;
         $this->employments = null;
+        $this->link = null;
         
         return $this;
+    }
+    
+    public function getLink()
+    {
+        if (!$this->link) {
+            $this->link = $this->getData($this->config['properties_map']['link']);
+        }
+        return $this->link;
     }
 
     public function getEducations()
@@ -143,9 +177,10 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         $hydrator   = $this->getHydrator($type);
         $filter     = 'filter' . rtrim($type, 's');
         $entity     = $this->getEntity($type);
-    
-        if (isset($this->data[$key])) {
-            foreach ($this->data[$key] as $data) {
+        $dataArray  = $this->getData($key);
+        
+        if ($dataArray) {
+            foreach ($dataArray as $data) {
                 $data    = $this->$filter($data);
                 if (!count($data)) { continue; }
                 $current = $hydrator->hydrate($data, clone $entity);
@@ -153,11 +188,6 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
             }
         }
         return $collection;
-    }
-    
-    protected function getDataKey($type)
-    {
-        return $this->config[$type . 's_key'];
     }
     
     protected function getHydrator($type)
@@ -180,7 +210,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     {
         $entity = isset($this->config[$type]['entity'])
                 ? $this->config[$type]['entity']
-                : '\Cv\Entity\\'. rtrim($type, 's');
+                : '\Cv\Entity\\'. ucfirst(rtrim($type, 's'));
         
         if (is_string($entity)) {
             $this->config[$type]['entity'] = $entity = new $entity();

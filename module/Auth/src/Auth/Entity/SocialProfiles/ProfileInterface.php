@@ -22,6 +22,8 @@ interface ProfileInterface extends EntityInterface
     public function setData(array $data);
     public function getData();
     
+    public function getLink();
+    
     public function getEducations();
     
     public function getEmployments();

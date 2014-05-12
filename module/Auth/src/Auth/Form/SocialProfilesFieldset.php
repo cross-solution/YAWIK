@@ -12,27 +12,28 @@ namespace Auth\Form;
 
 use Core\Form\ButtonsFieldset;
 use Zend\Form\Fieldset;
-use Core\Form\Element\ViewHelperProviderInterface;
+use Core\Form\ViewPartialProviderInterface;
 use Auth\Form\Hydrator\SocialProfilesHydrator;
 use Doctrine\Common\Collections\Collection;
 
-class SocialProfilesFieldset extends Fieldset implements ViewHelperProviderInterface
+class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInterface
 {
     
-    protected $viewHelper = 'Auth/Form/SocialProfilesFieldset';
+    protected $partial = 'auth/form/social-profiles-fieldset';
     
     protected $fetchUrl;
+    protected $previewUrl;
     
     protected $isInitialized = false;
     
-    public function getViewHelper()
+    public function getViewPartial()
     {
-        return $this->viewHelper;
+        return $this->partial;
     }
     
-    public function setViewHelper($helper)
+    public function setViewPartial($partial)
     {
-        $this->viewHelper = $helper;
+        $this->partial = $partial;
         return $this;
     }
     
@@ -45,7 +46,7 @@ class SocialProfilesFieldset extends Fieldset implements ViewHelperProviderInter
     {
         return $this->fetchUrl;
     }
-
+    
     /**
      * @param field_type $fetchUrl
      */
@@ -54,6 +55,25 @@ class SocialProfilesFieldset extends Fieldset implements ViewHelperProviderInter
         $this->fetchUrl = $url;
         return $this;
     }
+    
+
+    /**
+     * @param field_type $fetchUrl
+     */
+    public function setPreviewUrl ($url)
+    {
+        $this->previewUrl = $url;
+        return $this;
+    }
+    /**
+     * @return the $fetchUrl
+     */
+    public function getPreviewUrl ()
+    {
+        return $this->previewhUrl;
+    }
+    
+   
 
     public function getHydrator()
     {
@@ -90,6 +110,10 @@ class SocialProfilesFieldset extends Fieldset implements ViewHelperProviderInter
             $this->setFetchUrl($options['fetch_url']);
         }
         
+        if (isset($options['preview_url'])) {
+            $this->setPreviewUrl($options['preview_url']);
+        }
+        
         if (isset($options['profiles'])) {
             foreach ($options['profiles'] as $name => $options) {
                 $this->addProfileButton($name, $options);
@@ -109,6 +133,10 @@ class SocialProfilesFieldset extends Fieldset implements ViewHelperProviderInter
         
         if (!isset($options['fetch_url'])) {
             $options['fetch_url'] = sprintf($this->fetchUrl, $name);
+        }
+        
+        if (!isset($options['preview_url']) && $this->previewUrl) {
+            $options['preview_url'] = sprintf($this->previewUrl, $options['label']);
         }
         
         if (!isset($options['icon'])) {

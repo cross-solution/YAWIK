@@ -30,9 +30,11 @@
 	    this.isShown   = null;
 	    this.origHtml  = this.$element.html();
 	    
-	    this.load = function(href)
+	    
+	    this.load = function(href, options)
 	    {
 	    	if (!this.cache[href]) {
+	    		options = undefined === options ? this.options : options; 
 	    		this.$element.html(this.origHtml);
 	    		if (true === this.options.reloadable) {
 	    			var $this = this;
@@ -43,8 +45,16 @@
 	    		}
 	    		
 	    		var $this = this;
-	    		$.get(href)
-	    		 .done(function(html) {
+	    		if (options.usePost) {
+	    			var data = options.postData ? options.postData : {};
+	    			var promise = $.post(href, data);
+	    			this.options.data = null;
+	    		} else {
+	    			var promise = $.get(href);
+	    		}
+	    		//$.get(href)
+	    		promise
+	    		.done(function(html) {
                                 html = '<div>' + html + '</div>';
 	    			 var $html = $(html);
 	    			 var $element = $this.$element;
@@ -115,7 +125,7 @@
 	    		           : $(_relatedTarget).attr('href').replace(/.*(?=#[^\s]+$)/, '');
 	    		  
 	    		  if (!/#/.test(href)) {
-	    			  data.load(href);
+	    			  data.load(href, options);
 	    		  }
 	    	  }
 	      } else {

@@ -53,7 +53,8 @@ class ManageController extends AbstractActionController
         ));
         
         $job = $params->job
-             ? $this->getServiceLocator()
+				
+        ? $this->getServiceLocator()
                     ->get('repositories')
                     ->get('Jobs/Job')
                     ->find($params->job)
@@ -73,7 +74,8 @@ class ManageController extends AbstractActionController
     }
     
     /**
-     * detail view of an application
+     * d				
+etail view of an application
      * 
      * @return Ambigous <\Zend\View\Model\JsonModel, multitype:boolean unknown >
      */
@@ -97,6 +99,7 @@ class ManageController extends AbstractActionController
     	    $application->addReadBy($this->auth('id'));
     	    $applicationIsUnread = true;
     	}
+    					
     	
         $format=$this->params()->fromQuery('format');
 
@@ -155,9 +158,26 @@ class ManageController extends AbstractActionController
     
     public function socialProfileAction()
     {
-        $repositories = $this->getServiceLocator()->get('repositories');
-        $repo = $repositories->get('Applications/Application');
-        $profile = $repo->findProfile($this->params()->fromQuery('spId'));
+        if ($spId = $this->params()->fromQuery('spId')) {
+            $repositories = $this->getServiceLocator()->get('repositories');
+            $repo = $repositories->get('Applications/Application');
+            $profile = $repo->findProfile($this->params()->fromQuery('spId'));
+            if (!$profile) {
+                throw new \InvalidArgumentException('Could not find profile.');
+            }
+            
+        } else if ($this->getRequest()->isPost()
+                   && ($network = $this->params()->fromQuery('network'))
+                   && ($data    = $this->params()->fromPost('data'))
+        ) {
+            $profileClass = '\\Auth\\Entity\\SocialProfiles\\' . $network;
+            $profile      = new $profileClass();
+            $profile->setData(\Zend\Json\Json::decode($data, \Zend\Json\Json::TYPE_ARRAY));
+        } else {
+            throw new \RuntimeException(
+                'Missing arguments. Either provide "spId" as Get or "network" and "data" as Post.'
+            );
+        }
         
         return array(
             'profile' => $profile

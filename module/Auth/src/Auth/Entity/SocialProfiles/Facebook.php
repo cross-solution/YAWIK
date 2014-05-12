@@ -30,6 +30,9 @@ class Facebook extends AbstractProfile
         'employments' => array(
             'key' => 'work',
         ),
+        'properties_map' => array(
+            'link' => 'link',
+        ),
     );
     
     protected function filterEducation($data)

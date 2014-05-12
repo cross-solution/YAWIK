@@ -18,6 +18,7 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
     protected $partial = 'auth/form/social-profiles-button';
     
     protected $fetchUrl;
+    protected $previewUrl;
     
     public function getViewPartial()
     {
@@ -37,13 +38,29 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
         return $this;
     }
     
-    public function getFetchUrl($url)
+    public function getFetchUrl()
     {
         if (!$this->fetchUrl) {
             $url = $this->getAttribute('data-fetch-url');
             $this->fetchUrl = $url;
         }
         return $this->fetchUrl;
+    }
+    
+    public function setPreviewUrl($url)
+    {
+        $this->previewUrl = $url;
+        $this->setAttribute('data-preview-url', $url);
+        return $this;
+    }
+    
+    public function getPreviewUrl()
+    {
+        if (!$this->previewUrl) {
+            $url = $this->getAttribute('data-preview-url');
+            $this->previewUrl = $url;
+        }
+        return $this->previewUrl;
     }
     
     public function setValue($value)
@@ -73,6 +90,10 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
     
         if (isset($options['fetch_url'])) {
             $this->setFetchUrl($options['fetch_url']);
+        }
+        
+        if (isset($options['preview_url'])) {
+            $this->setPreviewUrl($options['preview_url']);
         }
         
         return $this;

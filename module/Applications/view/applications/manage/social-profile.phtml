@@ -7,8 +7,11 @@
  * @license   AGPLv3
  */
 ?>
-<div class="modal-title"><?php echo $this->profile->name ?></div>
+<div class="modal-title">
+<?php echo $this->profile->name ?>
+</div>
 <div class="modal-body">
+<div class="row"><div class="col-md-12 text-right"><?php echo $this->link($this->profile->link, $this->translate('View online')) ?></div></div>
 <div class="row">
 <?php if (count($this->profile->educations)):?>
 <div class="col-md-12">
@@ -22,8 +25,8 @@
               . $education->endDate;
         $desc = trim($education->description);
         $tmpl = $desc
-              ? '<td>%s<br>%s</td><td>%s</td>'
-              : '<td colspan="2">%s<br>%s</td>';
+              ? '<td>%s<br><strong>%s</strong></td><td>%s</td>'
+              : '<td colspan="2">%s<br><strong>%s</strong></td>';
         
         echo sprintf($tmpl, $date, $education->organizationName, $desc);
     ?>
@@ -37,21 +40,21 @@
 <div class="col-md-12">
 <h5><?= $this->translate('work experience')?></h2>
 <table class="cam-table">
-<thead>
-<tr>
- <th class="col-md-1"><?=$this->translate('Start')?></th>
- <th class="col-md-1"><?=$this->translate('End')?></th>
- <th class="col-md-3"><?=$this->translate('Company')?></th>
- <th><?=$this->translate('Description')?></th>
-</tr>
-</thead>
+
 <?php foreach( $this->profile->employments as $employment): ?>
-<tr>
- <td><?php echo $employment->startDate ?></td>
- <td><?php echo $employment->endDate ?></td>
- <td><?php echo $employment->organizationName ?></td>
- <td><?php echo $employment->description ?></td>
-</tr>
+    <tr>
+    <?php $date = $employment->endDate ? $employment->startDate . ' - ' . $employment->endDate 
+                                        : '<span style="white-space:nowrap;">' 
+                                          . $this->translate('Since') . ' ' . $employment->startDate
+                                          . '</span>';
+          $desc = trim($employment->description);
+          $tmpl = $desc
+                ? '<td>%s<br><strong>%s</strong></td><td>%s</td>'
+                : '<td colspan="2">%s<br><strong>%s</strong></td>';
+        
+          echo sprintf($tmpl, $date, $employment->organizationName, $desc);
+    ?>
+    </tr>
 <?php endforeach; // employments?>
 </table>
 </div>
@@ -62,7 +65,24 @@
 <h5 style="cursor:pointer"><?php echo $this->translate('Profile data') ?>.
 <span class="pull-right fa fa-chevron-up"></span></h2>
 <pre>
-<?php var_export($this->profile->getData()); ?>
+<?php //var_export($this->profile->getData());
+    function sp_export_data($data, $level=0)
+    {
+        foreach ($data as $key => $value) {
+            $indent = str_pad(' ', $level * 4);
+            if (is_array($value)) {
+                echo $indent . $key . ": {\n";
+                sp_export_data($value, $level+1);
+                echo $indent . "}\n";
+                continue;
+            }
+            
+            echo $indent . $key . ': ' . $value . "\n";
+        }
+    } 
+    sp_export_data($this->profile->getData());
+    
+    ?>
 </pre>
 </div>
 

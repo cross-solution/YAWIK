@@ -30,6 +30,11 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
                 $router->assemble(array('action' => 'fetch'), array('name' => 'auth-social-profiles'))
                 . '?network=%s';
         }
+        if (!isset($options['preview_url'])) {
+            $options['preview_url'] = 
+                $router->assemble(array('id' => 'null'), array('name' => 'lang/applications/detail'), true)
+                . '?action=social-profile&network=%s';
+        }
         if (isset($options['name'])) {
             $name = $options['name'];
             unset($options['name']);

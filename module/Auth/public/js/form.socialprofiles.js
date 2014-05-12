@@ -65,6 +65,11 @@
 	{
 		var $link  = $(event.currentTarget);
 		var action = $link.attr('href').substr(1);
+		if (action.match(/\|/)) {
+			var parts = action.split('|');
+			action = parts[0];
+			var actionData = parts[1];
+		}
 		var $button = $link.parent().parent().parent();
 		
 		switch (action) {
@@ -85,13 +90,24 @@
 			
 			case 'view':
 				var $modal = $('#' + $button.parent().parent().attr('id') + '-preview-box');
-				$modal.find('.modal-body').html('<pre style="max-height: 350px; overflow:auto">' +
-						JSON.stringify(JSON.parse($('#' + $button.attr('id') + '-data').text()), null, " ")
+				var profileData = $('#' + $button.attr('id') + '-data').text();
+				if (actionData !== undefined) {
+					$modal.modal({
+						remote: actionData,
+						show: true,
+						'usePost': true,
+						'postData': {data: profileData}
+					});
+				} else {
+					$modal.find('.modal-body').html('<pre style="max-height: 350px; overflow:auto">' +
+						JSON.stringify(JSON.parse(profileData), null, " ")
 						//.replace(/\n/, '<br>').replace(/\s/, '&nbsp;')
 						+ '</pre>'
-				);
-				$modal.modal('show');
+					);
+					$modal.modal('show');
+				}
 				break;
+
 		}
 		
 		$link.parent().parent().dropdown('toggle');

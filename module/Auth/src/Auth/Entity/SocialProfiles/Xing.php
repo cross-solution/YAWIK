@@ -30,6 +30,9 @@ class Xing extends AbstractProfile
         'employments' => array(
             'key' => 'professional_experience.merged',
         ),
+        'properties_map' => array(
+            'link' => 'permalink'
+        )
     );
     
     protected function getCollection($type)
@@ -43,14 +46,8 @@ class Xing extends AbstractProfile
         } else {
             $key = $this->config['employments']['key'];
             $employments = array();
-            if (isset($data['professional_experience']['primary_company'])) {
-                $employments[] = $data['professional_experience']['primary_company'];
-            }
-            if (isset($data['professional_experience']['non_primary_companies'])) {
-                $employments = array_merge($employments, $data['professional_experience']['non_primary_companies']);
-            }
-            if (count($employments)) {
-                $this->data[$key] = $employments;
+            if (isset($data['professional_experience']['companies'])) {
+                $this->data[$key] = $data['professional_experience']['companies'];
             }
         }
         $collection = parent::getCollection($type);

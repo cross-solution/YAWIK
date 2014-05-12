@@ -65,6 +65,11 @@ return array(
     
     'acl' => array(
         'rules' => array(
+            'guest' => array(
+                'allow' => array(
+                    'Applications\Controller\Manage' => 'detail',
+                ),
+            ),
             'user' => array(
                 'allow' => array(
                     'route/lang/applications',
