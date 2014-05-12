@@ -36,6 +36,7 @@ class Application extends AbstractIdentifiableEntity
     protected $jobId;
     
     /**
+     * refering job
      * 
      * @var unknown
      * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
@@ -43,9 +44,9 @@ class Application extends AbstractIdentifiableEntity
     protected $job;
     
     /**
-     * 
-     * @var unknown
-     * 
+     * user, who owns the application
+     *
+     * @var unknown 
      */
     protected $user;
     
@@ -108,6 +109,7 @@ class Application extends AbstractIdentifiableEntity
     protected $attachments;
     
     /**
+     * History on an application
      * 
      * @var unknown
      * @ODM\EmbedMany(targetDocument="History")
@@ -115,6 +117,7 @@ class Application extends AbstractIdentifiableEntity
     protected $history;
         
     /**
+     * was the privacy policy accepted?
      * 
      * @var unknown
      */
@@ -160,6 +163,9 @@ class Application extends AbstractIdentifiableEntity
      */
     protected $permissions;
     
+    /**
+     * @var unknown
+     */
     protected $permissionsChanged = false;
     
     /**
@@ -236,11 +242,22 @@ class Application extends AbstractIdentifiableEntity
         $this->jobId = $jobId;
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @see \Applications\Entity\ApplicationInterface::getJob()
+     */
     public function getJob()
     {
         return $this->job;
     }
     
+    /**
+     * Set the reference to the job posting
+     * 
+     * @param JobInterface $job
+     * @return \Applications\Entity\Application
+     */
     public function setJob(JobInterface $job)
     {
         $this->job = $job;
@@ -250,7 +267,12 @@ class Application extends AbstractIdentifiableEntity
         return $this;
     }
     
-    
+    /**
+     * {@inheritDoc}
+     * 
+     * @see \Applications\Entity\ApplicationInterface::setUser()
+     * @param UserInterface $user
+     */
     public function setUser(UserInterface $user)
     {
         if ($this->user) {
@@ -261,11 +283,21 @@ class Application extends AbstractIdentifiableEntity
         return $this;
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @see \Applications\Entity\ApplicationInterface::getUser()
+     * @return 
+     */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Applications\Entity\ApplicationInterface::setStatus()
+     */
     public function setStatus($status)
     {
         if (!$status instanceOf Status) {
@@ -275,6 +307,9 @@ class Application extends AbstractIdentifiableEntity
         return $this;
     }
     
+    /**
+     * Modifies the state of an application
+     */
     public function changeStatus($status, $message = '[System]')
     {
         $this->setStatus($status);
@@ -286,11 +321,19 @@ class Application extends AbstractIdentifiableEntity
         return $this;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getStatus()
+     */
     public function getStatus()
     {
         return $this->status;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getDateCreated()
+     */
     public function getDateCreated ($format=null)
     {
         if (!$this->dateCreated) {
@@ -301,6 +344,10 @@ class Application extends AbstractIdentifiableEntity
             : $this->dateCreated;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setDateCreated()
+     */
     public function setDateCreated ($dateCreated)
     {
         if (is_string($dateCreated)) {
@@ -314,6 +361,10 @@ class Application extends AbstractIdentifiableEntity
         $this->dateCreated = $dateCreated;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getDateModified()
+     */
     public function getDateModified ($format=null)
     {
         if (!$this->dateModified) {
@@ -324,6 +375,10 @@ class Application extends AbstractIdentifiableEntity
             : $this->dateModified;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setDateModified()
+     */
     public function setDateModified ($dateModified)
     {
         if (is_string($dateModified)) {
@@ -338,7 +393,9 @@ class Application extends AbstractIdentifiableEntity
     }
     
 	/**
-     * @return the $contact
+	 * Gets contact data (address, profile image) of the applicant
+	 * 
+     * @return $contact
      */
     public function getContact ()
     {
@@ -346,14 +403,20 @@ class Application extends AbstractIdentifiableEntity
     }
 
 	/**
-     * @param field_type $contact
+	 * Sets contact data (address, profile image) of the applicant
+	 * 
+     * @param EntityInterface $contact
      */
     public function setContact (EntityInterface $contact)
     {
         $this->contact = $contact;
         return $this;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setSummary()
+     */
     public function setSummary($summary)
     {
         $this->summary = (string) $summary;
@@ -432,18 +495,32 @@ class Application extends AbstractIdentifiableEntity
 	    return $this->privacyPolicy;
 	}
 	
+	/**
+	 * Set, who has seen the application
+	 * 
+	 * @see \Applications\Entity\ApplicationInterface::setReadBy()
+	 */
     public function setReadBy(array $userIds)
     {
         $this->readBy = $userIds;
         return $this;
     }
     
+    /**
+     * Who has seen the application
+     * 
+     * @see \Applications\Entity\ApplicationInterface::getReadBy()
+     */
     public function getReadBy()
     {
         return $this->readBy;
     }
     
-        
+    /**
+     * Gets the Subscriber.
+     * 
+     * @return Ambigous <unknown, \Applications\Entity\Subscriber>
+     */    
     public function getSubscriber() {
         if (!isset($this->subscriber)) {
             $this->subscriber = new Subscriber();
@@ -548,6 +625,12 @@ class Application extends AbstractIdentifiableEntity
         
     }
     
+    /**
+     * Gets the rating of the application
+     * 
+     * @param boolean $recalculate
+     * @return number
+     */
     public function getRating($recalculate = false)
     {
         if ($recalculate || null === $this->rating) {

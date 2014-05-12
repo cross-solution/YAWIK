@@ -16,7 +16,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Settings\Repository\SettingsEntityResolver;
 
 /**
- * The user model
+ * Defines an user model
  * 
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */

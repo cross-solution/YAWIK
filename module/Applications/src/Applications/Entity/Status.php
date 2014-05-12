@@ -1,18 +1,29 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
+/** RatingInterface.php */
+    
 namespace Applications\Entity;
 
 use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- *
- * @author cbleek
+ * Application status entity 
  *
  * @ODM\EmbeddedDocument
  */
 class Status extends AbstractEntity implements StatusInterface
 {
+    /**
+     * status values
+     */
     protected static $orderMap = array(
         self::INCOMING => 10,
         self::CONFIRMED => 20,
@@ -22,12 +33,14 @@ class Status extends AbstractEntity implements StatusInterface
 
     /**
      * name of the status
+     * 
      * @var string
      * @ODM\String
      */
     protected $name;
 
     /**
+     * integer for ordering states.
      * 
      * @var string
      * @ODM\String
@@ -44,11 +57,19 @@ class Status extends AbstractEntity implements StatusInterface
         $this->order=$this->getOrder();
     }
 
+    /**
+     * @see \Applications\Entity\StatusInterface::getName()
+     * @return String
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @see \Applications\Entity\StatusInterface::getOrder()
+     * @return Int
+     */
     public function getOrder()
     {
         return self::$orderMap[$this->getName()];

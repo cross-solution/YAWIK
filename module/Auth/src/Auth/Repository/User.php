@@ -1,4 +1,11 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
 namespace Auth\Repository;
 
@@ -8,11 +15,16 @@ use Core\Repository\AbstractRepository;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 
-
-
+/**
+ * class for accessing a user 
+ */
 class User extends AbstractRepository
 {
-    
+    /**
+     * Creates a User
+     * 
+     * @see \Core\Repository\AbstractRepository::create()
+     */
     public function create(array $data=null)
     {
         $entity = parent::create($data);
@@ -24,17 +36,34 @@ class User extends AbstractRepository
         return $entity;
     }
     
+    /**
+     * Finds user by profile identifier
+     * 
+     * @param unknown $identifier
+     * @return unknown
+     */
     public function findByProfileIdentifier($identifier)
     {
         $entity = $this->findOneBy(array('profile.identifier' => $identifier));
         return $entity;
     }
     
+    /**
+     * Finds user by login name
+     * 
+     * @param unknown $login
+     * @return unknown
+     */
     public function findByLogin($login) {
         $entity = $this->findOneBy(array('login' => $login));
         return $entity;
     }
     
+    /**
+     * Finds user by internal id
+     * 
+     * @param array $ids
+     */
     public function findByIds(array $ids)
     {
         return $this->findBy(array(
@@ -42,6 +71,11 @@ class User extends AbstractRepository
         ));
     }
     
+    /**
+     * Find user by query
+     * 
+     * @param unknown $query
+     */
     public function findByQuery($query)
     {
         $qb = $this->createQueryBuilder();
@@ -60,6 +94,7 @@ class User extends AbstractRepository
     }
     
     /**
+     * Copy user info into the applications info Entity
      * 
      * @param \Auth\Entity\Info $info
      */
@@ -67,6 +102,4 @@ class User extends AbstractRepository
         $contact = new Info();
         $contact->fromArray(Info::toArray($info));
     }
-    
-     
 }

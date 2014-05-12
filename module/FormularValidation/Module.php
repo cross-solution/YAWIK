@@ -13,8 +13,7 @@ namespace FormularValidation;
 use Zend\Mvc\MvcEvent;
 
 /**
- * Bootstrap class of the Core module
- * 
+ * Bootstrap class of the FormularValidation module
  */
 class Module 
 {  
@@ -26,9 +25,6 @@ class Module
      *      
      * @param MvcEvent $e
      */
-    //public function onBootstrap(MvcEvent $e)
-    //{ 
-    //}
 
     /**
      * Loads module specific configuration.

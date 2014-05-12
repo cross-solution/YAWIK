@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -19,52 +19,97 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Subscriber extends AbstractIdentifiableEntity 
 {  
-    /** @ODM\String */
+    /**
+     * name of the instance (other YAWIK, or jobboard etc.) who has
+     * published the job posting. Technicaly it's a name of a referer 
+     * of an application
+     * 
+     * @ODM\String 
+     */
     protected $name;
     
-    /** @ODM\String */
+    /**
+     * Referer of a job posting. This referer must be submitted within the
+     * application form
+     * 
+     * @ODM\String 
+     **/
     protected $uri;
    
+    /**
+     * Name of the repository, which stores uri=>name
+     * 
+     * @var unknown
+     */
     protected $repository;
     
+    /**
+     * Injects a repository
+     * 
+     * @param \Applications\Repository\Subscriber $repository
+     * @return \Applications\Entity\Subscriber
+     */
     public function injectRepository($repository) {
         $this->repository = $repository;
         return $this;
     }
     
+    /**
+     * Gets the repository for subscribers 
+     * 
+     * @param \Applications\Repository\Subscriber $repository
+     * @return \Applications\Entity\unknown
+     */
     protected function getRepository($repository) {
         return $this->repository;
     }
     
+    /**
+     * Gets the name of the instance, who has published the job ad.
+     * 
+     * @return String
+     */
     public function getName()
     {
         if (empty($this->name)) {
-            // TODO: jede Menge
+            /* TODO try to fetch name from other YAWIK */
             $this->name = '';
-            $this->getRepository();
-            
+            $this->getRepository();            
         }
         return $this->name;
     }
     
+    /**
+     * Sets a name of the Instance, who has published the job
+     * 
+     * @param String $name
+     * @return \Applications\Entity\Subscriber
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
    
+    /**
+     * Gets the job publishers URI
+     * 
+     * @return String
+     */
     public function getUri()
     {
         return $this->uri;
     }
     
+    /**
+     * Sets the job publishers URI
+     * 
+     * @param String $uri
+     * @return \Applications\Entity\Subscriber
+     */
     public function setUri($uri)
     {
         $this->uri = $uri;
         return $this;
     }
-    
 }
-    
-    
-   
