@@ -4,8 +4,8 @@ return array(
     'doctrine' => array(
         'connection' => array(
             'odm_default' => array(
-//                'server'           => 'localhost',
-//                'port'             => '27017',
+                  'server'           => '%%mongo.host%%',
+                  'port'             => '%%mongo.port%%',
 //                'connectionString' => null,
 //                'user'             => null,
 //                'password'         => null,  
@@ -28,7 +28,7 @@ return array(
 //                'hydrator_dir'       => 'cache/DoctrineMongoODMModule/Hydrator',
 //                'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 //
-//                'default_db'         => null,
+                  'default_db'         => '%%mongo.db%%',
 //
 //                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class'),
 //

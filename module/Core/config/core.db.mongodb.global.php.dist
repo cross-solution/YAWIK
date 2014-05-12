@@ -1,0 +1,7 @@
+<?php
+return array(
+    'database' => array(
+        'databaseName' => '%%mongo.db%%',
+        'connection' => '%%mongo.host%%',
+    )
+);

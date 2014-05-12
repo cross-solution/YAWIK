@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="YAWIK" default="dist">
+  <property file="./build.properties"/>
+  <property name="version" value="0.12" override="true"/>
+  <property name="builddir" value="./build/${phing.project.name}-${version}" override="false"/>
+  <property name="vendordir" value="./vendor" override="false"/>
+  <property file="./build.properties"/>
+  <fileset id="core" dir="${project.basedir}">
+    <include name="module/**"/>
+    <include name="public/**"/>
+    <include name="bin/console"/>
+    <include name="config/config.php"/>
+    <include name="vendor/autoload.php"/>
+    <include name="vendor/composer/**"/>
+    <include name="vendor/zendframework/**"/>
+    <include name="vendor/hybridauth/**"/>
+    <include name="vendor/doctrine/**"/>
+    <include name="vendor/kriswallsmith/assetic/src/**"/>
+    <include name="LICENCE"/>
+    <include name="README"/>
+    <exclude name="public/js/*"/>
+    <exclude name="**/YawikDemoSkin/**"/>
+    <exclude name="**/*.po"/>
+    <exclude name="**/*.pot"/>
+    <exclude name="**/language/_annotated_strings.php"/>
+    <exclude name="public/fonts"/>
+  </fileset>
+  <fileset id="languages" dir="${project.basedir}/module">
+    <include name="**/**.po"/>
+  </fileset>
+  <fileset id="bootstrap" dir="${vendordir}/twbs/bootstrap/dist">
+    <include name="js/bootstrap.min.js"/>
+  </fileset>
+  <fileset id="awesomefonts" dir="${vendordir}/fortawesome/font-awesome">
+    <include name="fonts/*"/>
+  </fileset>
+  <!-- ============================================  -->
+  <!-- Target: prepare                               -->
+  <!-- ============================================  -->
+  <target name="prepare">
+    <echo msg="Making directory ${builddir} "/>
+    <mkdir dir="${builddir}"/>
+    <mkdir dir="${builddir}/log"/>
+    <chmod file="${builddir}/log" mode="0777"/>
+    <mkdir dir="${builddir}/cache"/>
+    <chmod file="${builddir}/cache" mode="0777"/>
+  </target>
+  <!-- ============================================  -->
+  <!-- Target: build                                 -->
+  <!-- ============================================  -->
+  <target name="build" depends="prepare,translate,generate-autoload-config">
+    <echo msg="Copying core YAWIK to ${builddir} ..."/>
+    <copy todir="${builddir}">
+      <fileset refid="core"/>
+    </copy>
+    <echo msg="Copying Bootstrap to ${builddir} ..."/>
+    <copy todir="${builddir}/public">
+      <fileset refid="bootstrap"/>
+    </copy>
+    <echo msg="Copying Awesome Fonts to ${builddir} ..."/>
+    <copy todir="${builddir}/public">
+      <fileset refid="awesomefonts"/>
+    </copy>
+    <echo msg="Generate Configuration ..."/>
+  </target>
+  <!-- ============================================  -->
+  <!-- Target: translate                             -->
+  <!-- ============================================  -->
+  <target name="generate-autoload-config" description="reads build.properties and creates config files">
+    <property name="target" value="${builddir}/config/autoload" override="true"/>
+    <if>
+      <isset property="overwrite"/>
+      <then>
+        <property name="target" value="config/autoload" override="true"/>
+      </then>
+    </if>
+    <if>
+      <isset property="${facebook.appid}"/>
+      <then>
+        <input message="Please enter your facebook App ID:" propertyName="facebook.appid"/>
+        <input message="Please enter your facebook App Secret:" propertyName="facebook.secret"/>
+      </then>
+    </if>
+    <if>
+      <isset property="${xing.appid}"/>
+      <then>
+        <input message="Please enter your XING App ID:" propertyName="xing.appid"/>
+        <input message="Please enter your XING App Secret:" propertyName="xing.secret"/>
+      </then>
+    </if>
+    <if>
+      <isset property="${linkedin.appid}"/>
+      <then>
+        <input message="Please enter your LinkedIn App ID:" propertyName="linkedin.appid"/>
+        <input message="Please enter your LinkedIn App Secret:" propertyName="linkedin.secret"/>
+      </then>
+    </if>
+    
+    <echo msg="generate config files in: ${target}"/>
+    <copy todir="${target}" overwrite="true">
+      <fileset dir="${project.basedir}">
+        <include name="**/**.dist"/>
+        <exclude name="vendor/**"/>
+      </fileset>
+      <mapper type="regexp" from="^(.*?)/([^/]+)\.dist" to="\2"/>
+      <filterchain>
+        <replacetokens begintoken="%%" endtoken="%%">
+          <token key="mongo.host" value="${mongo.host}"/>
+          <token key="mongo.db" value="${mongo.db}"/>
+          <token key="mongo.port" value="${mongo.port}"/>
+          <token key="mail.from.name" value="${mail.from.name}"/>
+          <token key="mail.from.email" value="${mail.from.email}"/>
+          <token key="facebook.appid" value="${facebook.appid}"/>
+          <token key="facebook.secret" value="${facebook.secret}"/>
+          <token key="linkedin.appid" value="${linkedin.appid}"/>
+          <token key="linkedin.secret" value="${linkedin.secret}"/>
+          <token key="xing.appid" value="${xing.appid}"/>
+          <token key="xing.secret" value="${xing.secret}"/>
+
+        </replacetokens>
+      </filterchain>
+    </copy>
+  </target>
+  <!-- ============================================  -->
+  <!-- Target: translate                             -->
+  <!-- ============================================  -->
+  <target name="translate" depends="prepare" description="compiles all languages *.po files">
+    <echo msg="Compile locales ${locales} ..."/>
+    <foreach param="filename" absparam="absfilename" target="compile-po-file">
+      <mapper type="regexp" from="^(.*)\.po" to="\1"/>
+      <fileset refid="languages"/>
+    </foreach>
+  </target>
+  <!-- ============================================  -->
+  <!-- (DEFAULT)  Target: dist                       -->
+  <!-- ============================================  -->
+  <target name="dist" depends="build" description="create a distribution package">
+    <echo msg="Creating archive..."/>
+    <tar destfile="./build/${phing.project.name}-${version}.tar.gz" compression="gzip">
+      <fileset dir="./build">
+        <include name="*"/>
+      </fileset>
+    </tar>
+    <echo msg="Files copied and compressed in build directory OK!"/>
+  </target>
+  <target name="compile-po-file">
+    <echo msg="Translate ${filename}"/>
+    <exec command="msgfmt -cv -o ${project.basedir}/module/${filename}.mo ${absfilename}" logoutput="true" dir="."/>
+  </target>
+  <target name="xing-credentials">
+    <input message="Please enter your XING App ID:" propertyName="xing.appid"/>
+    <input message="Please enter your XING App Secret:" propertyName="xing.secret"/>
+  </target>
+  <target name="linkedin-credentials">
+    <input message="Please enter your LinkedIn App ID:" propertyName="linkedin.appid"/>
+    <input message="Please enter your LinkedIn App Secret:" propertyName="linkedin.secret"/>
+  </target>
+</project>

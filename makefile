@@ -5,6 +5,7 @@ all:
 	@echo "Available Sections:"
 	@echo
 	@echo "    composer-install         Install composer dependencies"
+	@echo "    install-phing            download latest phing"
 	@echo "    install-config           Copy *.global configuration files from modules to /config/autoload/"
 	@echo "    create-directories       Create directories needed for logs, docs etc. and set permissions."
 	@echo "    install                  Runs composer-install, install-config and create-directories."
@@ -20,8 +21,13 @@ install: composer-install create-directories install-config
 composer-install:
 	@echo "=="; echo "== Install composer dependencies"; echo "==" 
 	curl -sS https://getcomposer.org/installer | php
-	php composer.phar install
+	php composer.phar install --no-dev
 	@echo
+	
+install-phing:
+	@echo "=="; echo "== download phing"; echo "=="
+	curl -sS http://www.phing.info/get/phing-latest.phar > phing.phar
+	chmod +x phing.phar
 	
 install-config:
 	@echo "=="; echo "== Copy configuration files"; echo "=="
@@ -35,6 +41,7 @@ install-config:
 create-directories:
 	@echo "+ create directories logs, docs and coverage:"
 	mkdir -p ./log
+	chmod 777 ./log
 	mkdir -p ./public/docs
 	mkdir -p ./public/coverage
 	
@@ -63,4 +70,5 @@ doc: create-directories
 test: create-directories
 	@echo "=="; echo "== dun tests"; echo "=="
 	cd module/Core/test && phpunit -c phpunit-coverage.xml && cd ../../..
+	
 	

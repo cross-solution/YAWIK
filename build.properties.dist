@@ -1,0 +1,31 @@
+;
+; enviroment
+;
+app.env=production
+
+;
+; Database (module/Core/config/module.core.doctrine.config.local.php.dist)
+;
+mongo.host=localhost
+mongo.port=27017
+mongo.db=yawik
+
+;
+; Email (module/Core/config/core.mails.global.php.dist)
+;
+mail.from.email=demo@yawik.org
+mail.from.name=YAWIK
+
+;
+; Facebook, Xing and Linkedin credentials
+;
+
+facebook.appid=
+facebook.secret=
+
+xing.appid=
+xing.secret=
+
+linkedin.appid=
+linkedin.secret=
+

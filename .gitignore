@@ -4,6 +4,7 @@
 *~
 
 composer.phar
+phing.phar
 
 #
 # config files
@@ -11,13 +12,13 @@ composer.phar
 config/phpdoc.xml
 config/autoload
 config/autoload/*.php
-
+build.properties
 
 #
 # Unit test code coverage reports
 #
-public/coverage
-public/docs
+tmp
+docs
 */*/test/coverage
 log
 
