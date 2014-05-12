@@ -26,8 +26,11 @@
 		});
 		
 		if ('' != data) {
+			console.debug($buttons, $buttons[0]);
 			$buttons.addClass('btn-success');
+			$currentFetchButton.data('is_attached', true);
 			toggleDropdown($currentFetchButton, 'attach');
+			$buttons[0].blur();
 		} else {
 			$buttons.addClass('btn-danger')
 			toggleDropDown($currentFetchButton, 'detach');
@@ -50,6 +53,11 @@
 		}
 		
 		var $button = $(event.currentTarget);
+		
+		if ($button.parent().data('is_attached')) {
+			$button.blur();
+			return false;
+		}
 		$button.find('.spb-icon-normal').hide();
 		$button.find('.spb-icon-processing').show();
 		
@@ -63,6 +71,7 @@
 	
 	function actionClicked(event)
 	{
+		console.debug('actionClicked');
 		var $link  = $(event.currentTarget);
 		var action = $link.attr('href').substr(1);
 		if (action.match(/\|/)) {
@@ -78,6 +87,7 @@
 				break;
 			case 'detach':
 				toggleDropdown($button, 'detach');
+				$button.data('is_attached', false);
 				$('#' + $button.attr('id') + '-data').text('');
 				var $buttons = $button.find('button');
 				$.each(['btn-default', 'btn-success', 'btn-danger'], function(idx, className) {
@@ -120,11 +130,11 @@
 		var $detachActions = $button.find('.spb-action-detach, .spb-action-preview');
 		
 		if ('attach' == action) {
-			$attachActions.hide();
-			$detachActions.show();
+			$attachActions.addClass('disabled');
+			$detachActions.removeClass('disabled');
 		} else {
-			$attachActions.show();
-			$detachActions.hide();
+			$attachActions.removeClass('disabled');
+			$detachActions.addClass('disabled');
 		}
 	}
 	

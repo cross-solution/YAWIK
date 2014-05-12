@@ -36,8 +36,8 @@ if (!$id) {
     </button>
     <ul class="dropdown-menu">
         <li class="spb-action-attach"><a href="#attach"><?php echo $this->translate('Attach profile') ?></a></li>
-        <li class="spb-action-detach"><a href="#detach"><?php echo $this->translate('Detach profile') ?></a></li>
-        <li class="spb-action-preview"><a href="#view<?php 
+        <li class="spb-action-detach disabled"><a href="#detach"><?php echo $this->translate('Detach profile') ?></a></li>
+        <li class="spb-action-preview disabled"><a href="#view<?php 
             echo ($url = $element->getPreviewUrl()) ? "|$url" : '';
             ?>"><?php echo $this->translate('View profile data') ?></a></li>
     </ul>
