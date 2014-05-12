@@ -54,5 +54,11 @@ xgettext -L PHP --force-po $EXCLUDE_OPTION -o "language/messages.pot" --from-cod
 	--package-name="Cross Applicant Management - $(basename $MODULE_DIR)"
 rm _translatable_files
 
+
+for language in de_DE fr es it ru; do
+  echo "-- build ${language}.mo file"
+  msgfmt -cv -o language/${language}.mo language/${language}.po
+done;
+
 exit
 

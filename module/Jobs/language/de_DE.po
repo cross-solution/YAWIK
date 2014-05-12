@@ -1,23 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# yawik <cbleek@yawik.org>, 2014
+# MathiasG <gelhausen@cross-solution.de>, 2014
+# MathiasG <gelhausen@cross-solution.de>, 2014
+# yawik <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Jobs\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-05 09:03+0100\n"
-"PO-Revision-Date: 2014-03-05 09:10+0100\n"
-"Last-Translator: Carsten Bleek <bleek@cross-solution.de>\n"
-"Language-Team: CROSS Solution\n"
-"Language: \n"
+"POT-Creation-Date: 2014-05-06 13:31+0200\n"
+"PO-Revision-Date: 2014-05-06 11:37+0000\n"
+"Last-Translator: yawik <cbleek@yawik.org>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/form/apply-identifier.phtml:19
+msgid "Apply link"
+msgstr "Bewerbungslink"
 
 #: view/form/list-filter.phtml:65
 msgid "Search"
@@ -31,9 +37,8 @@ msgstr "Meine Anzeigen"
 msgid "All jobs"
 msgstr "Alle Anzeigen"
 
-#: view/jobs/index/index.phtml:1
-#: view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:54
+#: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:57
 msgid "Jobs"
 msgstr "Stellenanzeigen"
 
@@ -49,8 +54,7 @@ msgstr "Eingangsdatum"
 msgid "Title of the job"
 msgstr "Titel der Anzeige"
 
-#: view/jobs/index/index.ajax.phtml:15
-#: language/_annotated_strings.php:18
+#: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:18
 msgid "Location"
 msgstr "Ort"
 
@@ -62,26 +66,27 @@ msgstr "Firmenname"
 msgid "Reference"
 msgstr "Referenz"
 
-#: view/jobs/index/index.ajax.phtml:20
-#: view/jobs/index/dashboard.phtml:12
+#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
 msgid "Applications"
 msgstr "Bewerbungen"
 
-#: view/jobs/index/index.ajax.phtml:22
+#: view/jobs/index/index.ajax.phtml:20
+msgid "Status"
+msgstr "Status"
+
+#: view/jobs/index/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
 msgid "Action"
 msgstr "Aktion"
 
-#: view/jobs/index/index.ajax.phtml:44
-#: view/jobs/index/dashboard.phtml:24
+#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:23
 msgid "total"
 msgstr "gesamt"
 
-#: view/jobs/index/index.ajax.phtml:50
-#: view/jobs/index/dashboard.phtml:30
+#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:29
 msgid "unread"
 msgstr "ungelesen"
 
-#: view/jobs/index/index.ajax.phtml:57
+#: view/jobs/index/index.ajax.phtml:69 view/jobs/index/view.phtml:18
 msgid "Apply"
 msgstr "Bewerben"
 
@@ -93,11 +98,11 @@ msgstr "Aktuelle Stellenanzeigen"
 msgid "Famous jobs"
 msgstr "Beliebteste Stellenanzeigen"
 
-#: view/jobs/index/dashboard.phtml:9
+#: view/jobs/index/dashboard.phtml:8
 msgid "Job"
 msgstr "Stellenanzeige"
 
-#: view/jobs/index/dashboard.phtml:10
+#: view/jobs/index/dashboard.phtml:9
 msgid "Date"
 msgstr "Datum"
 
@@ -105,21 +110,13 @@ msgstr "Datum"
 msgid "Online since"
 msgstr "Online seit"
 
-#: view/jobs/index/view.phtml:17
-msgid "Contact"
-msgstr "Ansprechpartner"
-
-#: view/jobs/manage/form.phtml:15
+#: view/jobs/manage/form.phtml:20
 msgid "Publish a job"
 msgstr "Eine Stellenanzeige veröffentlichen"
 
-#: view/jobs/manage/form.phtml:17
+#: view/jobs/manage/form.phtml:22
 msgid "Edit a job"
 msgstr "eine  Stellenanzeige bearbeiten"
-
-#: view/jobs/manage/form.phtml:27
-msgid "There were some errors in the form."
-msgstr "Beim Ausfüllen des Formulars sind Fehler aufgetreten."
 
 #: src/Jobs/Form/JobFieldset.php:29
 msgid "Job details"
@@ -130,17 +127,16 @@ msgid "search for jobs"
 msgstr "nach Stellenanzeigen suchen"
 
 #: language/_annotated_strings.php:6
-msgid "Apply Identifier"
-msgstr ""
-
-#: language/_annotated_strings.php:9
 msgid "Company"
 msgstr "Firmenname"
 
-#: language/_annotated_strings.php:12
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:45
 msgid "Job title"
 msgstr "Titel der Anzeige"
+
+#: language/_annotated_strings.php:12
+msgid "Apply Identifier"
+msgstr "Bewerbungsschlüssel"
 
 #: language/_annotated_strings.php:15
 msgid "Job description"
@@ -160,7 +156,7 @@ msgstr "Stellenanzeige veröffentlichen"
 
 #: language/_annotated_strings.php:30
 msgid "The apply identifier \"%value%\" is already in use."
-msgstr ""
+msgstr "Der Berwerbungsschlüssel \"%value%\" wird schon benutzt."
 
 #: language/_annotated_strings.php:33
 msgid "Show all jobs"
@@ -186,23 +182,18 @@ msgstr "Stellenanzeige wurde veröffentlicht."
 msgid "Job saved."
 msgstr "Stellenanzeige wurde gespeichert."
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:54
+msgid "There were errors in the form"
+msgstr "Beim Ausfüllen des Formulars sind Fehler aufgetreten."
+
+#: language/_annotated_strings.php:60
 msgid "Overview"
 msgstr "Übersicht"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:63
 msgid "Create job"
 msgstr "Stellenanzeige anlegen"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:66
 msgid "Edit job"
 msgstr "Stellenanzeige bearbeiten"
-
-#~ msgid "Reset filter"
-#~ msgstr "Filter zurücksetzen"
-
-#~ msgid "external Reference"
-#~ msgstr "externe Referenz"
-
-#~ msgid "Go!"
-#~ msgstr "Los!"

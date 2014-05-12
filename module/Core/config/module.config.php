@@ -220,11 +220,13 @@ return array(
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
+            'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
         ),
         'aliases' => array(
             'filesender' => 'Core/FileSender',
             'mailer'     => 'Core/Mailer',
             'paginator' => 'Core/CreatePaginator',
+            'paginationparams' => 'Core/PaginationParams',
         )
     ),
     // Configure the view service manager
@@ -321,6 +323,9 @@ return array(
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
+        ),
+        'factories' => array(
+            'Core/PolicyCheck' => 'Core\Form\Element\PolicyCheckFactory',
         ),
     ),
     

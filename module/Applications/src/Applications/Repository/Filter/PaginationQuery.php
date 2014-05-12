@@ -2,33 +2,61 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
 namespace Applications\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
+use Zend\Stdlib\Parameters;
 
 /**
  * maps query parameters to entity attributes
  * 
- * @author cbleek
- *
+ * @package Applications
  */
 class PaginationQuery extends AbstractPaginationQuery 
 {
-    
+    /**
+     * Repository to query
+     * 
+     * @var String
+     */
     protected $repositoryName="Applications/Application";
     
+    /**
+     * Sortable fields
+     * 
+     * @var array
+     */
+    protected $sortPropertiesMap = array(
+        'date' => 'dateCreated.date',
+    );
+    
+    /**
+     * Constructs pagination query
+     * 
+     * @param unknown $auth
+     */
     public function __construct($auth)
     {
         $this->auth = $auth;
     }
     
+    /**
+     * Creates a query for filtering applications
+     * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
+     * @param array $params
+     * @param $queryBuilder
+     */
     public function createQuery($params, $queryBuilder)
     {
-        $value = $params->toArray();
+        if ($params instanceOf Parameters) {
+            $value = $params->toArray();
+        } else {
+            $value = $params;
+        }
     
          
         if (isset($value['by']) && 'me' == $value['by']) {
@@ -76,32 +104,12 @@ class PaginationQuery extends AbstractPaginationQuery
         }
     
 
-        if (isset($value['sort'])) {
-            $queryBuilder->sort($this->filterSort($value['sort']));
+        if (!isset($value['sort'])) {
+            $value['sort'] = '-date';
         }
+        $queryBuilder->sort($this->filterSort($value['sort']));
         
         return $queryBuilder;
-    }
-    
-    protected function filterSort($sort)
-    {
-        if ('-' == $sort{0}) {
-            $sortProp = substr($sort, 1);
-            $sortDir  = -1;
-        } else {
-            $sortProp = $sort;
-            $sortDir = 1;
-        }
-        switch ($sortProp) {
-            case "date":
-                $sortProp = "dateCreated.date";
-                break;
-            default:
-                break;
-        }
-    
-        return array($sortProp => $sortDir);
-    }
+    }   
 }
-
 ?>

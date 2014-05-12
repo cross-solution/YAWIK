@@ -27,6 +27,7 @@ class CreatePaginator extends AbstractPlugin
         $params     = $usePostParams 
                     ? $this->getController()->getRequest()->getPost()
                     : $this->getController()->getRequest()->getQuery();
+        $params     = clone $params; // prevent param changes to original object.
         
         foreach ($defaultParams as $name => $value) {
             $params->set($name, $params->get($name, $value));
@@ -87,33 +88,5 @@ class CreatePaginator extends AbstractPlugin
         return $paginator;
     }
     
-    public function __invokes($filterName)
-    {
-        $services     = $this->getController()->getServiceLocator();
-        $queryFilter  = $services->get('filtermanager')->get($filterName);
-        $params       = $this->getController()->getRequest()->getQuery();
-        $queryBuilder = $services->get('repositories')->createQueryBuilder();
-        $query        = $queryFilter->filter($params, $queryBuilder);
-        $cursor       = $query->execute();
-        
-        $adapterClass = method_exists($queryFilter, 'getPaginatorAdapterClass')
-                        ? $queryFilter->getPaginatorAdapterClass()
-                        : '\DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator';
-        $adapter      = new $adapterClass($cursor);
-        $paginatorClass = method_exists($queryFilter, 'getPaginatorClass')
-                          ? $queryFilter->getPaginatorClass()
-                          : '\Zend\Paginator\Paginator';
-        
-        $paginator    = new $paginatorClass($adapter);
-        
-        $page  = $params->get('page', 1);
-        $count = $params->get('count', 10);
-        
-        $paginator->setCurrentPageNumber($page)
-                  ->setItemCountPerPage($count);
-        
-        return $paginator;
-    }
     
-	
 }

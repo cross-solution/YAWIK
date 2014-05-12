@@ -1,0 +1,289 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# yawik <cbleek@yawik.org>, 2014
+# yawik <cbleek@yawik.org>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-08 17:44+0200\n"
+"PO-Revision-Date: 2014-05-08 15:46+0000\n"
+"Last-Translator: yawik <cbleek@yawik.org>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/form/social-profiles-button.phtml:38
+msgid "Attach profile"
+msgstr ""
+
+#: view/form/social-profiles-button.phtml:39
+msgid "Detach profile"
+msgstr ""
+
+#: view/form/social-profiles-button.phtml:40
+msgid "View profile data"
+msgstr ""
+
+#: view/form/userselect.phtml:25
+msgid "Add users"
+msgstr "Añadir usuarios"
+
+#: view/form/userselect.phtml:29
+msgid "At least one user has to be assigned"
+msgstr "Por lo menos un usuario debe ser asignado"
+
+#: view/sidebar/groups-menu.phtml:15
+msgid "My groups"
+msgstr " Mis grupos"
+
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:21
+msgid "Manage groups"
+msgstr "Gestión de grupos de"
+
+#: view/auth/manage-groups/index.phtml:15
+msgid "Add group"
+msgstr "Añadir grupo"
+
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:63
+msgid "Group name"
+msgstr "Nombre del grupo"
+
+#: view/auth/manage-groups/index.phtml:25
+msgid "Actions"
+msgstr "Acciones"
+
+#: view/auth/manage-groups/form.phtml:71
+msgid "Ok"
+msgstr "Bueno"
+
+#: view/auth/index/index.phtml:11
+msgid "Login required"
+msgstr "Se requiere ingresar"
+
+#: view/auth/index/index.phtml:12
+msgid "Please authenticate yourself to proceed"
+msgstr "Por favor, identifíquese a sí mismo para continuar"
+
+#: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
+#: view/auth/index/login-info.phtml:44
+msgid "Login"
+msgstr "Login"
+
+#: view/auth/index/job-not-found.phtml:11
+msgid "A 410 error occured"
+msgstr ""
+
+#: view/auth/index/job-not-found.phtml:13
+msgid "Unknown apply identifier"
+msgstr ""
+
+#: view/auth/index/job-not-found.phtml:14
+msgid "A job ad with the provided apply identifier could not be found."
+msgstr ""
+
+#: view/auth/index/login-info.phtml:14 view/auth/manage/profile.phtml:3
+#: view/auth/manage/profile.phtml:9
+msgid "My profile"
+msgstr "Mi perfil"
+
+#: view/auth/index/login-info.phtml:17
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: view/auth/index/login-info.phtml:26
+msgid "Logout"
+msgstr "Salir"
+
+#: view/auth/index/login-info.phtml:33
+#, php-format
+msgid "Hello %s"
+msgstr "Hola %s"
+
+#: view/auth/index/login-info.phtml:34
+msgid "Guest"
+msgstr "Invitado"
+
+#: view/auth/index/login-info.phtml:46
+msgid "Login via"
+msgstr "Ingresar a través de"
+
+#: view/auth/index/login-info.phtml:49
+#, php-format
+msgid "Login with %s"
+msgstr "Ingresar con %s"
+
+#: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
+msgid "My password"
+msgstr "Mi contraseña"
+
+#: src/Auth/Form/SocialProfilesFieldset.php:128
+#: language/_annotated_strings.php:9
+msgid "Social Profiles"
+msgstr ""
+
+#: src/Auth/Form/UserInfoFieldset.php:41 language/_annotated_strings.php:12
+msgid "personal informations"
+msgstr "datos personales"
+
+#: src/Auth/Form/UserPasswordFieldset.php:31
+#: language/_annotated_strings.php:54 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:81
+msgid "Password"
+msgstr "Contraseña"
+
+#: src/Auth/Form/GroupFieldset.php:31
+msgid "Group data"
+msgstr "Datos de Grupo"
+
+#: src/Auth/Form/GroupUsersCollection.php:88
+msgid "Users"
+msgstr "Usuarios"
+
+#: src/Auth/Form/UserBaseFieldset.php:23 language/_annotated_strings.php:69
+msgid "General"
+msgstr "General"
+
+#: src/Auth/Controller/ManageController.php:91
+msgid "Password successfully changed"
+msgstr "Contraseña cambiada con éxito"
+
+#: src/Auth/Controller/ManageController.php:97
+msgid "Password could not be changed"
+msgstr "La contraseña no se podía cambiar"
+
+#: language/_annotated_strings.php:3
+msgid "Create group"
+msgstr "Crear grupo"
+
+#: language/_annotated_strings.php:6
+msgid "Edit group"
+msgstr "Editar grupo"
+
+#: language/_annotated_strings.php:15
+msgid "Email"
+msgstr "Email"
+
+#: language/_annotated_strings.php:18
+msgid "Phone"
+msgstr "Teléfono"
+
+#: language/_annotated_strings.php:21
+msgid "Postalcode"
+msgstr "Postalcode"
+
+#: language/_annotated_strings.php:24
+msgid "City"
+msgstr "Ciudad"
+
+#: language/_annotated_strings.php:27
+msgid "Salutation"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "please select"
+msgstr "por favor seleccione"
+
+#: language/_annotated_strings.php:33
+msgid "Mr."
+msgstr "Sr."
+
+#: language/_annotated_strings.php:36
+msgid "Mrs."
+msgstr "Sra."
+
+#: language/_annotated_strings.php:39
+msgid "First name"
+msgstr "Nombre de pila"
+
+#: language/_annotated_strings.php:42
+msgid "Last name"
+msgstr "Apellido"
+
+#: language/_annotated_strings.php:45
+msgid "street"
+msgstr "calle"
+
+#: language/_annotated_strings.php:48
+msgid "house number"
+msgstr "número de casa"
+
+#: language/_annotated_strings.php:51
+msgid "Application photo"
+msgstr "Foto de la aplicación"
+
+#: language/_annotated_strings.php:60
+msgid "Retype password"
+msgstr "Vuelva a escribir la contraseña"
+
+#: language/_annotated_strings.php:66
+msgid ""
+"Select a group name. You can add users to your group and then work together "
+"on jobs and job applications."
+msgstr "Seleccione un nombre de grupo. Puede añadir usuarios a su grupo y luego trabajar en conjunto sobre el empleo y las solicitudes de empleo."
+
+#: language/_annotated_strings.php:72
+msgid "I am"
+msgstr "Estoy"
+
+#: language/_annotated_strings.php:75
+msgid "The group name \"%value%\" is already in use."
+msgstr "El nombre del grupo \"%value%\" ya está en uso."
+
+#: language/_annotated_strings.php:78
+msgid "Login name"
+msgstr "Nombre de acceso"
+
+#: language/_annotated_strings.php:84
+msgid "login"
+msgstr "login"
+
+#: language/_annotated_strings.php:87
+msgid "Changes successfully saved"
+msgstr "Cambios guardado correctamente:"
+
+#: language/_annotated_strings.php:90
+msgid "Saving changes failed. Please check the marked fields."
+msgstr "Guardar los cambios fallaron. Por favor revise los campos marcados."
+
+#: language/_annotated_strings.php:93
+msgid "Group created"
+msgstr "Fecha de creación"
+
+#: language/_annotated_strings.php:96
+msgid "Group updated"
+msgstr "Grupo actualizado"
+
+#: language/_annotated_strings.php:99
+msgid "Changes not saved."
+msgstr "Los cambios no guardados."
+
+#: language/_annotated_strings.php:102
+msgid "You are now logged in."
+msgstr "Ahora está conectado pulg"
+
+#: language/_annotated_strings.php:105
+msgid "Authentication failed."
+msgstr "Error de autenticación."
+
+#: language/_annotated_strings.php:108
+msgid "Welcome to YAWIK!"
+msgstr "Bienvenido a YAWIK! "
+
+#: language/_annotated_strings.php:111
+msgid "You are now logged out"
+msgstr "Ahora está conectado a"
+
+#: language/_annotated_strings.php:114
+msgid "user"
+msgstr "usuario"
+
+#: language/_annotated_strings.php:117
+msgid "recruiter"
+msgstr "reclutador"

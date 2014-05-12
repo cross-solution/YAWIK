@@ -47,6 +47,7 @@ return array(
             'Auth/ManageGroups' => 'Auth\Controller\ManageGroupsController',
             'Auth\Controller\Image' => 'Auth\Controller\ImageController',
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
+            'Auth/SocialProfiles' => 'Auth\Controller\SocialProfilesController',
         ),
     ),
     
@@ -55,6 +56,7 @@ return array(
             'Auth' => '\Auth\Controller\Plugin\Auth',
         ),
         'factories' => array(
+            'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
         )
     ),
@@ -169,6 +171,17 @@ return array(
                 ),
                 'may_terminate' => true,
             ),
+            'auth-social-profiles' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/auth/social-profiles',
+                    'defaults' => array(
+                        'controller' => 'Auth/SocialProfiles',
+                        'action'     => 'fetch',
+                    ),
+                ),
+            ),
+            
             'auth-group' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -265,7 +278,6 @@ return array(
                 'deny' => array( 
                     'route/lang/auth',
                     'route/auth-provider',
-                    'route/auth-hauth',
                     'route/auth-extern',
                 ),
             ),
@@ -321,6 +333,8 @@ return array(
         'template_map' => array(
             'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
+            'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
+            'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
             'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
         ),
     
@@ -364,10 +378,13 @@ return array(
             'Auth/Group/Data' => 'Auth\Form\GroupFieldset',
             'Auth/Group/Users' => 'Auth\Form\GroupUsersCollection',
             'Auth/Group/User'  => 'Auth\Form\GroupUserElement',
+            'Auth/SocialProfilesButton' => 'Auth\Form\Element\SocialProfilesButton',
+            
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
+            'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
         )
     ),
 );

@@ -6,35 +6,43 @@
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
+if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
+elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
+else:                   $subTitle = false;
+endif;
 
-$this->headTitle($this->translate('Applications'));
+$this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
-if ($this->byJobs): $this->headTitle("(" . $this->translate('to all of your jobs') . ')'); endif;
-
+$this->headScript()->appendFile($this->basePath('js/bloodhound.js'))
+                   ->appendFile($this->basePath('js/typeahead.jquery.js'));
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
 
 ?>      
 <h1>
   <?=$this->translate('List of all applications')?>
-  <? if ($this->byJobs): ?>
-    <small>(<?php echo $this->translate('to all of your jobs')?>)</small>
+  <? if ($subTitle): ?>
+    <small><?php echo $subTitle ?></small>
   <?php endif;?>
 </h1>
+<div class="container col-md-12">
 <nav class="navbar cam-toolbar"> 
-    <form id="search-applications-form" action="<?php echo $this->basePath('/de/applications')?>" method="get">  
-      <div id="search-applications" class="cam-input-group input-group">  
-        <span class="input-group-addon"
-            data-toggle="popover" 
-            data-trigger="hover focus click"
-            data-placement="bottom" 
-            title="<?php echo $this->translate('search applications')?>"
-            data-content="<?php echo $this->translate('search forn names and locations')?>">?</span>
-        <input class="form-control" id="search-applications-input" placeholder="... <?php echo $this->translate('search applications')?> ..." name="search" type="text">
-        <span class="input-group-btn">
-           <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
-        </span>
+    <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
+      <div id="search-applications form-group has-feedback" class="row">
+        <input class="form-control" id="search-applications-input" 
+               placeholder="<?php echo $this->translate('search applications')?> ..." 
+               name="search" 
+               type="text"
+               <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
+               
+        <input class="form-control" type="text" id="job-filter" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
+        <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
+        <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>
+        <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
+        <a href="<?php echo $this->url('lang/applications', array(), array('query' => array('clear' => 1)), true) ?>"
+           class="btn btn-default"><?php echo $this->translate('Clear') ?></a>
       </div>
     </form>
   </nav>
+</div>
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>

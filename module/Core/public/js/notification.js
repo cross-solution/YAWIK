@@ -5,7 +5,7 @@
 	{
 		setTimeout(
 			function() { $('.yk-notifications .alert').slideUp(250); },
-			20000
+			3000
 		);
 		$('.yk-notifications .alert button').click(function(event) {
 			$(event.target).parent().slideUp(250);

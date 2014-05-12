@@ -3,6 +3,7 @@
 var semaphor_formvalidation = false;
 // this is for initial triggering after the site is loaded
 $(document).ready(function() {
+    //console.log('form.validate', $('form.validate'));
     $('form.validate').bind('submit', function(event) {
         //var form = $(event.target).parents('form').eq(0);
         if (!semaphor_formvalidation) {
@@ -16,17 +17,24 @@ $(document).ready(function() {
                 return true;
             }
             // collect all inputs into erg
+            var checkboxes = {};
             var erg = {};
             form.find(":input").each(function () {
                 //console.log($(this).prop('name'), $(this).attr('type'));
                 if ($(this).attr('type') == 'checkbox') {
-                    erg[$(this).prop('name')] = $(this).prop('checked');
+                    //console.log($(this).prop('name'), $(this).prop('checked'), $(this).val(), $(this).attr('type'));
+                    if ($(this).prop('checked') == true) {
+                        erg[$(this).prop('name')] = $(this).val();
+                        checkboxes[$(this).prop('name')] = $(this).val();
+                    }
                 }
-                else {
+                else if ($(this).attr('type') != 'file') {
                     erg[$(this).prop('name')] = $(this).val();
                 }
             });
-            console.log(erg);
+            for (i in checkboxes) {
+                erg[i] = checkboxes[i];
+            }
 
             // set process-icon
             var submits = form.find('button[type=submit]');
@@ -43,7 +51,9 @@ $(document).ready(function() {
                      // - has no ok-flag
                      // - ok-flag is true
                     form.unbind('submit'); 
+                    submits.attr('disabled','disabled');
                     form.submit();
+                    
                     return true;
                 }
                 semaphor_formvalidation = false;

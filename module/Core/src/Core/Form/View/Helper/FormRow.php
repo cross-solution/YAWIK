@@ -13,6 +13,7 @@ use Zend\Form\View\Helper\FormRow as ZendFormRow;
 use Zend\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewhelperProviderInterface;
+use Zend\Form\Element\Button;
 
 class FormRow extends ZendFormRow
 {
@@ -46,7 +47,13 @@ class FormRow extends ZendFormRow
     
         $inputErrorClass = $this->getInputErrorClass();
         $elementErrors   = $elementErrorsHelper->render($element);
-    
+        
+        // generall Class
+        $form_row_class = 'row';
+        if ($this->layout == 'form-horizontal') {
+            $form_row_class = 'form-group';
+        }
+        
         // Does this element have errors ?
         if (!empty($elementErrors) && !empty($inputErrorClass)) {
             $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
@@ -66,9 +73,13 @@ class FormRow extends ZendFormRow
             $elementId = $element->getAttribute('id');
         }
         /*
-         * add form-control class to all form elements, but "submit" or "reset"
+         * add form-control class to all form elements, but "submit" or "reset" and Buttons!
          */
-        if ($element->getAttribute('type') != 'submit' and $element->getAttribute('type') != 'reset') {
+        if ($element->getAttribute('type') != 'submit' 
+            && $element->getAttribute('type') != 'reset'
+            && $element->getAttribute('type') != 'checkbox'
+            && !$element instanceOf Button
+        ) {
             $element->setAttribute('class', $element->getAttribute('class').' form-control ');    
         }
         
@@ -86,7 +97,6 @@ class FormRow extends ZendFormRow
         
         if (!$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button
-            && (!$element instanceOf ViewhelperProviderInterface || $element->allowErrorMessages())
         ) {
             $elementString .= sprintf(
                 '<div id="%s-errors">%s</div>',
@@ -175,7 +185,7 @@ class FormRow extends ZendFormRow
         if ($this->shouldWrap 
             && !$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button) {
-            $markup = sprintf('<div class="controls controls-row row">%s</div>', $markup);
+            $markup = sprintf('<div class="controls controls-row ' . $form_row_class . '">%s</div>', $markup);
         }
     
         return $markup;

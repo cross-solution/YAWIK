@@ -1,5 +1,8 @@
 
 <?$this->headstyle('img.user-image { max-width:150px; max-height: 250px; }'); ?>
+<?php
+    $layout = !empty($this->layout)?$this->layout:null;
+?>
 
 
 <fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-info'?>">
@@ -10,16 +13,16 @@
             <div class="col-md-9">
                 <?php echo $this->formRow($element->get('gender')); ?>
                 <?php echo $this->formRowCombined(
-                    array(4 => $element->get('firstName'), 5 => $element->get('lastName'))
+                    array(4 => $element->get('firstName'), 5 => $element->get('lastName')), null, null, $layout
                 );?>
                 <?php echo $this->formRowCombined(
-                		array(7 => $element->get('street'), 2 => $element->get('houseNumber'))
+                		array(7 => $element->get('street'), 2 => $element->get('houseNumber')), null, null, $layout
                 ); ?>
                 <?php echo $this->formRowCombined(
-                    array(2 => $element->get('postalcode'), 7 => $element->get('city'))
+                    array(2 => $element->get('postalcode'), 7 => $element->get('city')), null, null, $layout
                 );?>
-                <?php echo $this->formRow($element->get('phone'));
-                      echo $this->formRow($element->get('email'));?>
+                <?php echo $this->formRow($element->get('phone'), null, null, $layout);
+                      echo $this->formRow($element->get('email'), null, null, $layout);?>
 
                       
             </div>

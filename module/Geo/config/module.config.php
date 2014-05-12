@@ -61,11 +61,13 @@ return array(
     // spezifische Daten
     'cross_geoapi_url' => 'http://api.cross-solution.de/geo',
     
-    'view_inject_headscript' => array(
-        'Geo/js/jquery.geolocationfield.js',
-        //'js/typeahead.jquery.min.js',
-        //'js/bloodhound.min.js',
-        'js/typeahead.jquery.js',
-        'js/bloodhound.js',
+     'view_helper_config' => array(
+        'headscript' => array(
+            'Geo/js/jquery.geolocationfield.js',
+            //'js/typeahead.jquery.min.js',
+            //'js/bloodhound.min.js',
+            'js/typeahead.jquery.js',
+            'js/bloodhound.js',
+        ),
     ),
 );

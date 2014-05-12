@@ -53,6 +53,11 @@ class HeadScriptFactory implements FactoryInterface
                 $specs = array($specs);
             }
             
+            if (is_string($specs)) {
+                  $helper->appendScript('// if you are missing the script ' . $specs . ' look up your config and enclose it in an array');
+                  continue;
+            }
+            
             foreach ($specs as $spec) {
                 if (is_string($spec)) {
                     $helper->appendFile($basepath($spec));

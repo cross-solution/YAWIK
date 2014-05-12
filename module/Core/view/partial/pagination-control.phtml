@@ -10,7 +10,7 @@
 if ($this->pageCount): 
 $query = $this->params()->fromQuery();
 ?>
-<div class="row" id="cam-pagination">
+<div class="row yk-pagination">
 <div class="col-md-6">
 <!-- First page link -->
 <ul class="pagination">
@@ -51,6 +51,6 @@ $query = $this->params()->fromQuery();
 <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
  of <?php echo $this->totalItemCount; ?>
 </div>
-<i class="yk-icon yk-icon-spinner fa-spin hide pagination-loading"></i> 
+<i class="yk-icon yk-icon-spinner fa-spin pagination-loading"></i> 
 </div>
 <?php endif; ?>

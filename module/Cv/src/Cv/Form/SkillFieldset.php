@@ -37,7 +37,7 @@ class SkillFieldset extends Fieldset
         		'type' => 'Collection',
         		'name' => 'languageskill',
         		'options' => array(
-        				'label' => /*@translate */ 'LanguageSkills',
+        				'label' => /*@translate */ 'Other languages',
         				'count' => 1,
         				'should_create_template' => true,
         				'allow_add' => true,

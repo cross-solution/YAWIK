@@ -3,13 +3,13 @@
 translate('search for jobs');
 
 //: ./src/Jobs/Form/JobFieldset.php:40
-translate('Apply Identifier');
-
-//: ./src/Jobs/Form/JobFieldset.php:48
 translate('Company');
 
-//: ./src/Jobs/Form/JobFieldset.php:56
+//: ./src/Jobs/Form/JobFieldset.php:48
 translate('Job title');
+
+//: ./src/Jobs/Form/JobFieldset.php:56
+translate('Apply Identifier');
 
 //: ./src/Jobs/Form/JobFieldset.php:64
 translate('Job description');
@@ -44,21 +44,24 @@ translate('Inactive');
 //: ./src/Jobs/Form/ListFilterFieldset.php:71
 translate('Job title');
 
-//: ./src/Jobs/Controller/ManageController.php:93
+//: ./src/Jobs/Controller/ManageController.php:94
 translate('Job published.');
 
-//: ./src/Jobs/Controller/ManageController.php:97
+//: ./src/Jobs/Controller/ManageController.php:99
 translate('Job saved.');
 
-//: ./config/module.configs.php:66
+//: ./src/Jobs/Controller/ManageController.php:104
+translate('There were errors in the form');
+
+//: ./config/module.config.php:72
 translate('Jobs');
 
-//: ./config/module.configs.php:71
+//: ./config/module.config.php:77
 translate('Overview');
 
-//: ./config/module.configs.php:75
+//: ./config/module.config.php:81
 translate('Create job');
 
-//: ./config/module.configs.php:83
+//: ./config/module.config.php:90
 translate('Edit job');
 

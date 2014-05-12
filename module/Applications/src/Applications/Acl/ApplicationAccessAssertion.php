@@ -2,8 +2,7 @@
 /**
  * YAWIK
  *
- * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
 
@@ -18,10 +17,15 @@ use Applications\Entity\ApplicationInterface;
 use Auth\Entity\UserInterface;
 use Core\Entity\PermissionsInterface;
 
+/**
+ * Checks permission on attachments
+ */
 class ApplicationAccessAssertion implements AssertionInterface
 {
-    /* (non-PHPdoc)
+    /**
+     * (non-PHPdoc)
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
+     * @param string $privilege
      */
     public function assert(Acl $acl, 
                            RoleInterface $role = null, 
@@ -36,11 +40,25 @@ class ApplicationAccessAssertion implements AssertionInterface
         return $resource->getPermissions()->isGranted($role, $permission);
     }
     
+    /**
+     * Checks read access on attachments
+     * 
+     * @param RoleInterface $role
+     * @param ResourceInterface $resource
+     * @return boolean
+     */
     protected function assertRead($role, $resource)
     {
         return $resource->getJob()->getUser()->getId() == $role->getId();
     }
     
+    /**
+     * Checks write Access on attachments
+     * 
+     * @param RoleInterface $role
+     * @param ResourceInterface $resource
+     * @return boolean
+     */
     protected function assertWrite($role, $resource)
     {
         $job = $resource->getJob();

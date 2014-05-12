@@ -18,13 +18,17 @@ use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
 use Applications\Entity\Comment;
 use Applications\Entity\Rating;
+use Zend\Stdlib\Parameters;
 
 /**
- * Action Controller for managing applications.
+ * Handles managing actions on applications
  */
 class ManageController extends AbstractActionController
 {
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
+     */
     public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
@@ -42,64 +46,36 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
-        $params = $this->getRequest()->getQuery();
-        $jsonFormat = 'json' == $params->get('format');
         
-        if (!$jsonFormat) {
-            $session = new Session('Applications\Index');
-            if ($session->params) {
-                foreach ($session->params as $key => $value) {
-                    $params->set($key, $params->get($key, $value));
-                }
-            }
-            $session->params = $params->toArray();
-        }
-        
-        $v = new ViewModel(array(
-            'by' => $params->get('by', 'me'),
-            'hasJobs' => (bool) $this->getServiceLocator()
-                                     ->get('repositories')
-                                     ->get('Jobs/Job')
-                                     ->countByUser($this->auth('id')),
-             'newApplications' => $this->getServiceLocator()
-                                     ->get('repositories')
-                                     ->get('Applications/Application')
-                                     ->countBy($this->auth('id'),true)
+        $params = $this->paginationParams('Applications\Index', array(
+            'page' => 1,
+            'sort' => '-date',
+            'search',
+            'by',
+            'job',
         ));
-        $v->setTemplate('applications/sidebar/manage');
-        $this->layout()->addChild($v, 'sidebar_applicationsFilter');
-
-        //default sorting
-        if (!isset($params['sort'])) {
-            $params['sort']="-date";
-        }
+        
+        $job = $params->job
+				
+        ? $this->getServiceLocator()
+                    ->get('repositories')
+                    ->get('Jobs/Job')
+                    ->find($params->job)
+             : null;
         
         $paginator = $this->paginator('Applications/Application',$params);
                 
-        if ($jsonFormat) {
-            $viewModel = new JsonModel();
-            //$items = iterator_to_array($paginator);
-            
-            $viewModel->setVariables(array(
-                'items' => $this->getServiceLocator()->get('builders')->get('JsonApplication')
-                                ->unbuildCollection($paginator->getCurrentItems()),
-                'count' => $paginator->getTotalItemCount()
-            ));
-            return $viewModel;
-            
-        } 
-        
         return array(
             'applications' => $paginator,
             'byJobs' => 'jobs' == $params->get('by', 'me'),
             'sort' => $params->get('sort', 'none'),
+            'search' => $params->get('search', ''),
+            'job' => $job,
         );
-        
-        
     }
     
     /**
-     * detail view of an application
+     * Detail view of an application
      * 
      * @return Ambigous <\Zend\View\Model\JsonModel, multitype:boolean unknown >
      */
@@ -115,19 +91,27 @@ class ManageController extends AbstractActionController
         
         $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         $application = $repository->find($this->params('id'));
-    	
+        
     	$this->acl($application, 'read');
     	
     	$applicationIsUnread = false;
     	if ($application->isUnreadBy($this->auth('id'))) {
     	    $application->addReadBy($this->auth('id'));
-    	    $repository->save($application, /*$resetModifiedDate*/ false);
     	    $applicationIsUnread = true;
     	}
+    					
     	
         $format=$this->params()->fromQuery('format');
 
-        $return = array('application'=> $application, 'isUnread' => $applicationIsUnread);
+        
+        $list = $this->paginationParams('Applications\Index', $repository);
+        $list->setCurrent($application->id);
+
+        $return = array(
+            'application'=> $application, 
+            'list' => $list,
+            'isUnread' => $applicationIsUnread
+        );
         switch ($format) {
             case 'json':
                         $viewModel = new JsonModel();
@@ -156,6 +140,12 @@ class ManageController extends AbstractActionController
         return $return;
     }
     
+    /**
+     * Refreshes the rating of an application
+     * 
+     * @throws \DomainException
+     * @return \Zend\View\Model\ViewModel
+     */
     public function refreshRatingAction()
     {
         $model = new ViewModel();
@@ -171,9 +161,42 @@ class ManageController extends AbstractActionController
         $model->setVariable('application', $application);
         return $model;
     }
+    
+    /**
+     * Attaches a social profile to an application
+     * 
+     * @return multitype:unknown
+     */
+    public function socialProfileAction()
+    {
+        if ($spId = $this->params()->fromQuery('spId')) {
+            $repositories = $this->getServiceLocator()->get('repositories');
+            $repo = $repositories->get('Applications/Application');
+            $profile = $repo->findProfile($this->params()->fromQuery('spId'));
+            if (!$profile) {
+                throw new \InvalidArgumentException('Could not find profile.');
+            }
+            
+        } else if ($this->getRequest()->isPost()
+                   && ($network = $this->params()->fromQuery('network'))
+                   && ($data    = $this->params()->fromPost('data'))
+        ) {
+            $profileClass = '\\Auth\\Entity\\SocialProfiles\\' . $network;
+            $profile      = new $profileClass();
+            $profile->setData(\Zend\Json\Json::decode($data, \Zend\Json\Json::TYPE_ARRAY));
+        } else {
+            throw new \RuntimeException(
+                'Missing arguments. Either provide "spId" as Get or "network" and "data" as Post.'
+            );
+        }
+        
+        return array(
+            'profile' => $profile
+        );
+    }
 
     /**
-     * change status of an application
+     * Changes the status of an application
      * 
      * @return unknown|multitype:string |multitype:string unknown |multitype:unknown
      */
@@ -266,7 +289,7 @@ class ManageController extends AbstractActionController
     } 
     
     /**
-     * forward an application via Email
+     * Forwards an application via Email
      * 
      * @throws \InvalidArgumentException
      * @return \Zend\View\Model\JsonModel
@@ -311,7 +334,7 @@ class ManageController extends AbstractActionController
     }
     
     /**
-     * delete an application
+     * Deletes an application
      * 
      * @throws \DomainException
      * @return multitype:string
@@ -338,6 +361,5 @@ class ManageController extends AbstractActionController
         }
         
         $this->redirect()->toRoute('lang/applications', array(), true);
-    }
-    
+    }   
 }

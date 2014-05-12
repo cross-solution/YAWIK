@@ -18,9 +18,16 @@ use Applications\Entity\Application;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Controls comment handling on applications
+ */
 class CommentController extends AbstractActionController
 {
     
+    /**
+     * (non-PHPdoc)
+     * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
+     */
     public function onDispatch(MvcEvent $event)
     {
         $request = $event->getRequest();
@@ -30,6 +37,11 @@ class CommentController extends AbstractActionController
         return parent::onDispatch($event);
     }
     
+    /**
+     * Lists comments of an application
+     * 
+     * @return multitype:NULL
+     */
     public function listAction()
     {
         $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
@@ -43,6 +55,11 @@ class CommentController extends AbstractActionController
         );
     }
     
+    /**
+     * Processes formular data
+     * 
+     * @return \Zend\View\Model\ViewModel
+     */
     public function formAction()
     {
         $services = $this->getServiceLocator();
@@ -87,8 +104,4 @@ class CommentController extends AbstractActionController
         return $viewModel;
         
     }
-    
-    
-    
 }
-

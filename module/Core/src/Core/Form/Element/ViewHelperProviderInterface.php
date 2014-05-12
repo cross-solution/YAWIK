@@ -2,8 +2,8 @@
 
 namespace Core\Form\Element;
 
-interface ViewhelperProviderInterface 
+interface ViewHelperProviderInterface 
 {
-    public function getViewhelper();
-    public function allowErrorMessages();
+    public function getViewHelper();
+    public function setViewHelper($helper);
 }

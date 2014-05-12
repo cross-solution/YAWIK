@@ -8,7 +8,8 @@ use Zend\Form\ElementInterface;
 
 class FormRowCombined extends AbstractHelper
 {
-    
+    protected $layout;
+     
     public function getFormRowHelper()
     {
         $helper = clone $this->view->plugin('formrow');
@@ -50,8 +51,14 @@ class FormRowCombined extends AbstractHelper
             $labelSpanWidth, implode(' / ', $labels)
         );
         
+        $form_row_class = 'row';
+        if ($this->layout == 'form-horizontal') {
+            $form_row_class = 'form-group';
+        }
+        
+        
         return sprintf(
-            '<div class="controls controls-row row">%s%s</div>',
+            '<div class="controls controls-row ' . $form_row_class . '">%s%s</div>',
             $labelMarkup, $markups
         );
     }
@@ -66,12 +73,15 @@ class FormRowCombined extends AbstractHelper
      * @param bool                  $renderErrors
      * @return string|FormRow
      */
-    public function __invoke(array $elements = array(), $labelPosition=null, $renderErrors = null)
+    public function __invoke(array $elements = array(), $labelPosition=null, $renderErrors = null, $layout=null)
     {
         if (empty($elements)) {
             return $this;
         }
         
+        if (null !== $layout) {
+            $this->layout = $layout;
+        }
         
         return $this->render($elements);
     }

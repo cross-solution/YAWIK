@@ -16,14 +16,27 @@ use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Applications\Entity\ApplicationInterface;
 
+/**
+ * class for updating file permissions
+ */
 class UpdateFilesPermissionsSubscriber implements EventSubscriber
 {
-    
+    /**
+     * Gets events
+     * 
+     * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
+     */
     public function getSubscribedEvents()
     {
         return array(Events::onFlush);
     }
     
+    /**
+     * Updates fiile permissions on Flush
+     * 
+     * @param OnFlushEventArgs $eventArgs
+     * @return boolean
+     */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
         $dm  = $eventArgs->getDocumentManager();

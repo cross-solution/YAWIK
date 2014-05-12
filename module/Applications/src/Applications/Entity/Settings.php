@@ -45,6 +45,13 @@ class Settings extends ModuleSettingsContainer {
 
     /**
      *
+     * @ODM\Boolean
+     * @formLabel Confirm application immidiatly after submitting
+     */
+    protected $autoConfirmMail = false;
+    
+    /**
+     *
      * @ODM\String
      * @formLabel Send mail
      */

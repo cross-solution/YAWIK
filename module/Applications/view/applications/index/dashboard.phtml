@@ -10,13 +10,11 @@
 $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 ?>
 <?php if (!$this->isAjaxRequest): ?>
-<div class="cam-panel pagination-container">
+<div class="panel panel-default pagination-container">
 <?php endif ?>
-<div class="cam-panel-head">
-<h2>
+<div class="panel-heading">
  <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
   <?php echo $this->translate('Current Applications')?>
-  
  </a>
  <small>
  <?php #if ($hasJobs): ?>
@@ -30,11 +28,8 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
  <?php #endif ?>
  </small>
  <i class="pagination-loading yk-icon yk-icon-spinner pull-right"></i>
-</h2>
 </div>
-<div class="cam-panel-body">
-
-<table class="cam-table" id="cam-application-list">
+<table class="table table-striped table-bordered table-hover" id="cam-application-list">
 <thead>
  <tr>
   <th><?php echo $this->translate('Applicant')?></th>
@@ -63,7 +58,6 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
     </tr>
 <?php endforeach ?>
 </table>
-</div>
 <div class="cam-panel-foot">
 <?php
 echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications-dashboard'));

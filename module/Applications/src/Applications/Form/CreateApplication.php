@@ -17,6 +17,7 @@ use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\EntityInterface;
 
 /**
  * create an application form.
@@ -62,15 +63,11 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         return $this;
     }
     
-	public function initLazy()
+    public function initLazy()
     {
         $this->setName('create-application-form');
         
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'jobId',
-            'required' => true
-        ));
+        $this->initDispositive();
       
         $this->add($this->forms
                          ->get('Applications/ContactFieldset')
@@ -89,18 +86,41 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
             $this->forms->get('CvFieldset')->setObject(new Cv())
         );
         
+        $this->add(array(
+            'type' => 'Auth/SocialProfilesFieldset',
+            'name' => 'profiles',
+            'options' => array(
+                'profiles' => array(
+                    'facebook' => 'Facebook',
+                    'xing'     => 'Xing',
+                ),
+            ),
+        ));
+        
         $attachments = $this->forms->get('Applications/AttachmentsCollection');
         $this->add(
             $attachments
         );
         
         /**
-         * ads the privacy policy to the application fomular
+         * sends a Carbon-Copy to the Applicant
          */
         $this->add(
-            $this->forms->get('Applications/Privacy')
+            $this->forms->get('Applications/CarbonCopy')
         );
-
+        
+        /**
+         * adds the privacy policy to the application fomular
+         */
+        //$this->add(
+        //    $this->forms->get('Applications/Privacy')
+        //);
+        $applicationsPrivacy = $this->forms->get('Applications/PrivacyPolicy');
+        
+        $this->add(
+            $applicationsPrivacy
+        );
+        
         $buttons = $this->forms->get('DefaultButtonsFieldset');
         $buttons->get('submit')->setLabel( /* @translate */ 'send application');
         $this->add($buttons);
@@ -109,4 +129,17 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
        
     }
     
+    public function initDispositive()
+    {
+         $this->add(array(
+            'type' => 'hidden',
+            'name' => 'jobId',
+            'required' => true
+        ));
+        
+        $subscriber = $this->add(array(
+            'type' => 'hidden',
+            'name' => 'subscriberUri'
+        ));
+    }
 }

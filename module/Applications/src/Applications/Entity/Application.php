@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Applications
+ */
 namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
@@ -27,7 +29,8 @@ class Application extends AbstractIdentifiableEntity
                              PreUpdateAwareInterface
 {
     /**
-     * @var unknown
+     * @var String
+     * @deprecated
      * @ODM\String
      */
     protected $jobId;
@@ -124,6 +127,14 @@ class Application extends AbstractIdentifiableEntity
      * @ODM\Collection
      */
     protected $readBy = array();
+     
+    /**
+     * Where did the applicant get the to know the Job.
+     * 
+     * @ODM\ReferenceOne(targetDocument="Subscriber", simple=True)
+     */
+    protected $subscriber;
+    
     
     /**
      * Comments
@@ -137,6 +148,7 @@ class Application extends AbstractIdentifiableEntity
      * Average rating from all comments.
      * 
      * @var int
+     * @ODM\Int
      */
     protected $rating;
     
@@ -157,9 +169,36 @@ class Application extends AbstractIdentifiableEntity
      */
     protected $refs;
     
+    /**
+     * Collection of social network profiles.
+     * 
+     * @var Collection
+     * @see \Auth\Entity\SocialProfiles\ProfileInterface
+     * 
+     * @ODM\EmbedMany(discriminatorField="_entity")
+     */
+    protected $profiles;
+    
     public function preUpdate($isNew = false)
     {
         
+        
+        // Compute rating value.
+        // @todo Need to know wether comments has changed or not.
+        // Unfortunately, persistent collection gets no dirty flag,
+        // if existing entries are changed....
+        // We limit recalculates to the cases where comments gets loaded from
+        // the database (which still does not neccessarly mean, there are changes...
+        
+        $comments = $this->getComments();
+        if ($isNew 
+            || $comments instanceOf ArrayCollection // new Comments
+            || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)
+            || $comments->isDirty() // new Comments added w/o initializing
+        ) {
+            $this->getRating(/*recalculate*/ true);
+        }
+
     }
     
     public function getResourceId()
@@ -348,7 +387,24 @@ class Application extends AbstractIdentifiableEntity
 	
 	public function getAttachments()
 	{
+	    if (!$this->attachments) {
+	        $this->setAttachments(new ArrayCollection());
+	    }
 	    return $this->attachments;
+	}
+	
+	public function setProfiles(Collection $profiles)
+	{
+	    $this->profiles = $profiles;
+	    return $this;
+	}
+	
+	public function getProfiles()
+	{
+	    if (!$this->profiles) {
+	        $this->setProfiles(new ArrayCollection());
+	    }
+	    return $this->profiles;
 	}
 	
 	public function setHistory(Collection $history)
@@ -359,6 +415,9 @@ class Application extends AbstractIdentifiableEntity
 	
 	public function getHistory()
 	{
+            if (Null == $this->history) {
+                $this->setHistory(new ArrayCollection());
+            }
 	    return $this->history;
 	}
         
@@ -382,6 +441,20 @@ class Application extends AbstractIdentifiableEntity
     public function getReadBy()
     {
         return $this->readBy;
+    }
+    
+        
+    public function getSubscriber() {
+        if (!isset($this->subscriber)) {
+            $this->subscriber = new Subscriber();
+            $this->subscriber->name = '';
+        }
+        return $this->subscriber;
+    }
+    
+    public function setSubscriber($subscriber) {
+        $this->subscriber = $subscriber;
+        return $this;
     }
     
     public function addReadBy($userOrId)
@@ -475,9 +548,9 @@ class Application extends AbstractIdentifiableEntity
         
     }
     
-    public function getRating()
+    public function getRating($recalculate = false)
     {
-        if (null === $this->rating) {
+        if ($recalculate || null === $this->rating) {
             $sum = 0;
             $count = 0;
             foreach ($this->getComments() as $comment) {

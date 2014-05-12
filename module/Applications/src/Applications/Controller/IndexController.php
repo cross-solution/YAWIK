@@ -18,6 +18,8 @@ use Zend\View\Model\JsonModel;
 use Applications\Entity\Status;
 use Core\Entity\RelationEntity;
 use Auth\Entity\User;
+use Applications\Entity\StatusInterface;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Main Action Controller for Applications module.
@@ -25,8 +27,9 @@ use Auth\Entity\User;
 class IndexController extends AbstractActionController
 {
     /**
-     * handle the application form.
-     * @todo document
+     * Processes formular data of the application form
+     * 
+     * @return \Zend\View\Model\ViewModel
      */
     public function indexAction()
     {           
@@ -35,11 +38,36 @@ class IndexController extends AbstractActionController
 
         $jobId = $this->params()->fromPost('jobId',0);
         $applyId = (int) $this->params()->fromPost('applyId',0);
+        
+        // subsriber comes from the form
+        $subscriberUri = $this->params()->fromPost('subscriberUri','');
+        if (empty($subscriberUri)) {
+            // subscriber comes with the request of the form
+            // which implies that the backlink in the job-offer had such an link in the query
+            $subscriberUri = $this->params()->fromQuery('subscriberUri','');
+        }
+        if (empty($subscriberUri)) {
+            // the subscriber comes from an external module, maybe after interpreting the backlink, or the referer
+            $e = $this->getEvent();
+            $subscriberResponseCollection = $this->getEventManager()->trigger('subscriber.getUri', $e);
+            if (!$subscriberResponseCollection->isEmpty()) {
+                $subscriberUri = $subscriberResponseCollection->last();
+            }
+        }
 
         $job = ($request->isPost() && !empty($jobId))
              ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
              : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
         
+        
+        if (!$job) {
+            $this->response->setStatusCode(410);
+            $model = new ViewModel(array(
+                'content' => /*@translate*/ 'Invalid apply id'
+            ));
+            $model->setTemplate('auth/index/job-not-found.phtml');
+            return $model;
+        }
         
         $form = $services->get('FormElementManager')->get('Application/Create');
         $form->setValidate();
@@ -49,10 +77,16 @@ class IndexController extends AbstractActionController
             'job' => $job,
             'form' => $form,
             'isApplicationSaved' => false,
+            'subscriberUri' => $subscriberUri,
         ));
         
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
+        //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
+        if (!empty($subscriberUri) && $request->isPost()) {
+            $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
+            $applicationEntity->subscriber = $subscriber;
+        }
         
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
@@ -62,6 +96,7 @@ class IndexController extends AbstractActionController
         }
         
         $form->bind($applicationEntity);
+        $form->get('subscriberUri')->setValue($subscriberUri);
         
         /*
          * validate email. 
@@ -116,9 +151,9 @@ class IndexController extends AbstractActionController
                         $image = $auth->getUser()->info->image;
                         
                         if ($image) {
-                            $contactImage = $services->get('repositories')->get('Applications/Files')->saveCopy($image);
-                            $contactImage->addAllowedUser($job->user->id);
-                            $applicationEntity->contact->setImage($contactImage);
+                            //$contactImage = $services->get('repositories')->get('Applications/Application')->saveCopy($image);
+                            //$contactImage->addAllowedUser($job->user->id);
+                            //$applicationEntity->contact->setImage($contactImage);
                         } else {
                             $applicationEntity->contact->setImage(null); //explicitly remove image.
                         }
@@ -128,37 +163,55 @@ class IndexController extends AbstractActionController
                 $permissions = $applicationEntity->getPermissions();
                 $permissions->inherit($job->getPermissions());
                 
-                $services->get('repositories')->store($applicationEntity);
+                if (!$request->isXmlHttpRequest()) {
+                    $services->get('repositories')->store($applicationEntity);
+                    /*
+                     * New Application alert Mails to job recruiter
+                     * This is temporarly until Companies are implemented.
+                     */
+                    $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
+                    if (!$recruiter) {
+                        $recruiter = $job->user;
+                        $admin     = false;
+                    } else {
+                        $admin     = $job->user;
+                    }
                 
-                /*
-                 * New Application alert Mails to job recruiter
-                 * This is temporarly until Companies are implemented.
-                 */
-                $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
-                if (!$recruiter) {
-                    $recruiter = $job->user;
-                    $admin     = false;
-                } else {
-                    $admin     = $job->user;
-                }
-                
-                if ($recruiter->getSettings('Applications')->getMailAccess()) {
-                    $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
-                }
-                $ackBody = $recruiter->getSettings('Applications')->getMailConfirmationText();
-                if (empty($ackBody)) {
-                    $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
-                }
-                if (!empty($ackBody)) {
-                
-                    /* Acknowledge mail to applier */
-                    $ackMail = $this->mailer('Applications/Confirmation', 
-                                    array('application' => $applicationEntity,
-                                          'body' => $ackBody,
-                                    ));
-                    // Must be called after initializers in creation
-                    $ackMail->setSubject(/*@translate*/ 'Application confirmation');
-                    $this->mailer($ackMail);
+                    if ($recruiter->getSettings('Applications')->getMailAccess()) {
+                        $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
+                    }
+                    if ($recruiter->getSettings('Applications')->getAutoConfirmMail()) {
+                        $ackBody = $recruiter->getSettings('Applications')->getMailConfirmationText();
+                        if (empty($ackBody)) {
+                            $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
+                        }
+                        if (!empty($ackBody)) {
+
+                            /* Acknowledge mail to applier */
+                            $ackMail = $this->mailer('Applications/Confirmation', 
+                                            array('application' => $applicationEntity,
+                                                  'body' => $ackBody,
+                                            ));
+                            // Must be called after initializers in creation
+                            $ackMail->setSubject(/*@translate*/ 'Application confirmation');
+                            $this->mailer($ackMail);
+                            $applicationEntity->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s' , $applicationEntity->contact->email));
+                        }
+                    }
+
+                    // send carbon copy of the application
+                    //$user = $auth->getUser();
+                    $paramsCC = $this->getRequest()->getPost('carboncopy',0);
+                    if (isset($paramsCC) && array_key_exists('carboncopy',$paramsCC)) {
+                        $wantCarbonCopy = (int) $paramsCC['carboncopy'];
+                        if ($wantCarbonCopy) {
+                             $mail = $this->mailer('Applications/CarbonCopy', array(
+                                    'application' => $applicationEntity,
+                                    'to'          => $applicationEntity->contact->email,
+                                    //'from'        => array($admin->info->email => $admin->info->displayName)
+                                 ), /*send*/ true);
+                        }
+                    }
                 }
 
                 if ($request->isXmlHttpRequest()) {
@@ -179,6 +232,11 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
     
+    /**
+     * Handles dashboard listings of applications
+     *
+     * @return multitype:string unknown
+     */
     public function dashboardAction()
     {
         $services = $this->getServiceLocator();
@@ -195,6 +253,7 @@ class IndexController extends AbstractActionController
             $params['sort']="-date";
         }
         $params->count = 5;
+        $this->paginationParams()->setParams('Applications\Index', $params);
         $paginator = $this->paginator('Applications/Application',$params);
      
         return array(
@@ -206,7 +265,7 @@ class IndexController extends AbstractActionController
     
     
     /**
-     * handle the privacy policy used in an application form.
+     * Handles the privacy policy used in an application form.
      * 
      * @return \Zend\View\Model\ViewModel
      */

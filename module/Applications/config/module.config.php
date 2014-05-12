@@ -65,6 +65,11 @@ return array(
     
     'acl' => array(
         'rules' => array(
+            'guest' => array(
+                'allow' => array(
+                    'Applications\Controller\Manage' => 'detail',
+                ),
+            ),
             'user' => array(
                 'allow' => array(
                     'route/lang/applications',
@@ -91,6 +96,9 @@ return array(
                 'route' => 'lang/applications',
                 'order' => 20,
                 'resource' => 'route/lang/applications',
+                'query' => array(
+                    'clear' => '1'
+                ),
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
@@ -126,8 +134,10 @@ return array(
     ),
     
     
-    'view_inject_headscript' => array(
-        'lang/applications' => 'Core/js/jquery.barrating.min.js',
+    'view_helper_config' => array(
+        'headscript' => array(
+            'lang/applications' => array('Core/js/jquery.barrating.min.js'),
+        ),
     ),
     'form_elements' => array(
         'invokables' => array(
@@ -147,6 +157,9 @@ return array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
+            'Applications/PrivacyPolicy' => '\Applications\Form\Element\PrivacyPolicyFactory',
+            //'Applications/CarbonCopy' => 'Applications\Form\CarbonCopyFieldset',  
+            'Applications/CarbonCopy' => '\Applications\Form\Element\CarbonCopyFactory',  
         ),
      ),
      
@@ -165,6 +178,7 @@ return array(
             'Applications/Confirmation'   => 'Applications\Mail\Confirmation',
             'Applications/StatusChange'   => 'Applications\Mail\StatusChange',
             'Applications/Forward'        => 'Applications\Mail\Forward',
+            'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ),
     ),
     

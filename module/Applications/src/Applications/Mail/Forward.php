@@ -135,7 +135,7 @@ class Forward extends TranslatorAwareMessage
         
         $text .= $delim('Attachments');
         
-        if ($this->application->contact->image->id) {
+        if ($this->application->contact->image && $this->application->contact->image->id) {
             $text .= ' * ' . $this->application->contact->image->name . PHP_EOL;
         }
         

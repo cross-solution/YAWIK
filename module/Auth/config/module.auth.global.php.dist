@@ -1,0 +1,18 @@
+<?php
+
+return array(
+	'hybridauth' => array(
+        "Facebook" => array ( 
+            "keys"    => array ( "id" => "%%facebook.appid%%", "secret" => "%%facebook.secret%%" ), 
+        ),
+        "LinkedIn" => array (
+            "keys"    => array ( "key" => "%%linkedin.appid%%", "secret" => "%%linkedin.secret%%" )
+        ),
+        "XING" => array(
+            'keys'    => array ( "key" => '%%xing.appid%%', 'secret' => '%%xing.secret%%')
+        ),
+        "OpenID" => array(
+            'enabled' => true
+        )
+    )    
+);

@@ -21,6 +21,6 @@ $this->headscript()->appendScript('$(".alert").alert();');
 
 <?php 
     $this->form->setAttribute('action', $this->url('lang/my', array('action' => 'profile'), true));
-    echo $this->form($this->form, 'form-inline'); 
+    echo $this->form($this->form, 'form-horizontal'); 
     
     //echo $this->formPartial($this->form, 'auth/my-profile')?>

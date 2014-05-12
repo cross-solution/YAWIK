@@ -7,6 +7,7 @@ use Zend\Form\ElementInterface;
 use Zend\Form\Element\Collection as CollectionElement;
 use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
+use Core\Form\Element\ViewHelperProviderInterface;
 
 class FormCollection extends ZendFormCollection
 {
@@ -68,11 +69,20 @@ class FormCollection extends ZendFormCollection
                     $elementOrFieldset->getViewPartial(), array('element' => $elementOrFieldset)
                 );
             
-            }else if ($elementOrFieldset instanceof FieldsetInterface) {
+            }  else if ($elementOrFieldset instanceof FieldsetInterface) {
+            
                 if ($isCollectionElement) {
                     $this->isWithinCollection = true;
                 }
-                $markup .= $fieldsetHelper($elementOrFieldset);
+                if ($elementOrFieldset instanceOf ViewHelperProviderInterface) {
+                    $helper = $elementOrFieldset->getViewHelper();
+                    if (is_string($helper)) {
+                        $helper = $renderer->plugin($helper);
+                    }
+                    $markup .= $helper($element);
+                } else {
+                    $markup .= $fieldsetHelper($elementOrFieldset);
+                }
                 $this->isWithinCollection = false;
             } elseif ($elementOrFieldset instanceof ElementInterface) {
                 $markup .= $elementHelper($elementOrFieldset, null, null, $this->layout);
@@ -87,20 +97,27 @@ class FormCollection extends ZendFormCollection
         
         // Every collection is wrapped by a fieldset if needed
         if ($this->shouldWrap) {
-            $elementId = preg_replace(
-                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
-                array('-'              , '-'    , ''       ),
-                $element->getName()
-            );
+            $elementId = $element->getAttribute('id');
+            if (!$elementId) {
+                $elementId = preg_replace(
+                    array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                    array('-'              , '-'    , ''       ),
+                    $element->getName()
+                );
+                $element->setAttribute('id', $elementId);
+            }
+            
             if ($this->isWithinCollection) {
-                $markup = sprintf('<fieldset id="%s"><a class="remove-item cam-form-remove"><i class="yk-icon yk-icon-minus"></i></a>%s</fieldset>', $elementId, $markup);
+                $attrStr = $this->createAttributesString($element->getAttributes());
+                $markup = sprintf('<fieldset %s><a class="remove-item cam-form-remove"><i class="yk-icon yk-icon-minus"></i></a>%s</fieldset>', $attrStr, $markup);
             } else {
                 $label = $element->getLabel();
-        
+
                 if (empty($label) && $element->getOption('renderFieldset')) {
+                    $attrStr = $this->createAttributesString($element->getAttributes());
                     $markup = sprintf(
-                        '<fieldset id="%s"><div class="fieldset-content">%s</div></fieldset>',
-                        $elementId, $markup
+                        '<fieldset %s><div class="fieldset-content">%s</div></fieldset>',
+                        $attrStr, $markup
                     );
                 } else if (!empty($label)) {
         
@@ -115,17 +132,20 @@ class FormCollection extends ZendFormCollection
                     
                     if ($isCollectionElement) {
                         $extraLegend = '<a href="#" class="add-item cam-form-add"><i class="yk-icon yk-icon-plus"></i></a>';
-                        $class  = ' class="form-collection"';
+                        $class  = $element->getAttribute('class');
+                        $class .= " form-collection";
+                        $element->setAttribute('class', $class);
                         $divWrapperOpen = $divWrapperClose = '';
                     } else {
                         $extraLegend = $class = '';
                         $divWrapperOpen = '<div class="fieldset-content">';
                         $divWrapperClose = '</div>';
                     }
+                    $attrStr = $this->createAttributesString($element->getAttributes());
                     
                     $markup = sprintf(
-                        '<fieldset id="%s"%s><legend>%s%s</legend>%s%s%s</fieldset>',
-                        $elementId, $class, $label, $extraLegend,
+                        '<fieldset %s><legend>%s%s</legend>%s%s%s</fieldset>',
+                        $attrStr, $label, $extraLegend,
                         $divWrapperOpen, $markup, $divWrapperClose
                     );
                     

@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:40
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 12:13+0100\n"
+"POT-Creation-Date: 2014-05-08 18:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,16 +41,11 @@ msgstr ""
 msgid "Last"
 msgstr ""
 
-#: view/form/privacy.phtml:4 view/form/privacy.phtml:13
-msgid "Privacy Policy"
+#: view/form/permissions-collection.phtml:12
+msgid "Add permission"
 msgstr ""
 
-#: view/form/privacy.phtml:13
-#, php-format
-msgid "I have read the %s and accept it"
-msgstr ""
-
-#: view/form/privacy.phtml:18
+#: view/form/privacy.phtml:22
 msgid "please wait"
 msgstr ""
 
@@ -57,63 +53,59 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: view/core/index/index.phtml:15
-msgid "You are now logged out"
-msgstr ""
-
-#: view/core/index/index.phtml:20
+#: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
 msgstr ""
 
-#: view/core/index/index.phtml:21
+#: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
 msgstr ""
 
-#: view/core/index/index.phtml:22
+#: view/core/index/index.phtml:18
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
 msgstr ""
 
-#: view/core/index/index.phtml:26
+#: view/core/index/index.phtml:22
 #, php-format
 msgid "Login with %s"
 msgstr ""
 
-#: view/core/index/index.phtml:35
+#: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
 msgstr ""
 
-#: view/core/index/index.phtml:36
+#: view/core/index/index.phtml:32
 msgid "multilingual"
 msgstr ""
 
-#: view/core/index/index.phtml:37
+#: view/core/index/index.phtml:33
 msgid "ready for social recruiting"
 msgstr ""
 
-#: view/core/index/index.phtml:38
+#: view/core/index/index.phtml:34
 msgid "enter job ads"
 msgstr ""
 
-#: view/core/index/index.phtml:39
+#: view/core/index/index.phtml:35
 #, php-format
 msgid "%sapplication forms%s."
 msgstr ""
 
-#: view/core/index/index.phtml:43
+#: view/core/index/index.phtml:39
 msgid "manage applications"
 msgstr ""
 
-#: view/core/index/index.phtml:44
+#: view/core/index/index.phtml:40
 msgid "open and free software"
 msgstr ""
 
-#: view/core/index/index.phtml:51
+#: view/core/index/index.phtml:48
 msgid "Developer News"
 msgstr ""
 
-#: view/core/index/index.phtml:67
+#: view/core/index/index.phtml:65
 msgid "Recruiter News"
 msgstr ""
 
@@ -198,12 +190,25 @@ msgstr ""
 msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:99
+#: view/layout/layout.phtml:75
+msgid "Help to translate YAWIK"
+msgstr ""
+
+#: view/layout/layout.phtml:105
 msgid "All rights reserved."
 msgstr ""
 
+#: src/Core/Form/PermissionsCollection.php:36
+msgid "Permissions"
+msgstr ""
+
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:45
+msgid "processing"
+msgstr ""
+
 #: src/Core/Form/LocalizationSettingsFieldset.php:15
-msgid "General"
+#: language/_annotated_strings.php:60
+msgid "general settings"
 msgstr ""
 
 #: language/_annotated_strings.php:3
@@ -223,51 +228,63 @@ msgid "Reset filter"
 msgstr ""
 
 #: language/_annotated_strings.php:15
-msgid "Not Rated"
+msgid "Rights"
 msgstr ""
 
 #: language/_annotated_strings.php:18
-msgid "Poor"
+msgid "View"
 msgstr ""
 
 #: language/_annotated_strings.php:21
-msgid "Bad"
+msgid "Write"
 msgstr ""
 
 #: language/_annotated_strings.php:24
-msgid "Average"
+msgid "Not Rated"
 msgstr ""
 
 #: language/_annotated_strings.php:27
-msgid "Good"
+msgid "Poor"
 msgstr ""
 
 #: language/_annotated_strings.php:30
-msgid "Excellent"
+msgid "Bad"
 msgstr ""
 
 #: language/_annotated_strings.php:33
+msgid "Average"
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Good"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid "Excellent"
+msgstr ""
+
+#: language/_annotated_strings.php:42
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr ""
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "choose your language"
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:48
 msgid "English"
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:51
 msgid "French"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:54
 msgid "German"
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:57
 msgid "defines the languages of this frontend."
 msgstr ""

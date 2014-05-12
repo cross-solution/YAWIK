@@ -1,3 +1,4 @@
+<div class="pagination-container">
 <?php
 
 $columns = array(
@@ -10,6 +11,10 @@ $columns = array(
     => array('class' => 'cam-job'),	
         /*@translate*/ 'Status' 
     => array('sort' => 'status'),
+#        /*@translate*/ 'Subscriber'
+#    => array('sort' => 'subscriberUri'),
+        /*@translate*/ 'Rating'
+    => array('sort' => 'rating'),
         /*@translate*/ 'Modified' 
     => array('sort' => 'date'),
         /*@translate*/ 'Actions' 
@@ -26,7 +31,7 @@ if ('-' == $this->sort{0}) {
 
 echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));
 ?>
-<table class="cam-table" id="cam-application-list">
+<table class="table table-striped table-bordered table-hover" id="cam-application-list">
 <thead>
 <tr>
 <?php foreach ($columns as $label => $option):?>
@@ -58,7 +63,7 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
 <?php 
 foreach ($this->applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
-  <tr<?php echo ($isUnread?' class="cam-new"':"")?>>
+  <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>
@@ -81,9 +86,16 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     </td>
     <td class="cam-attachment">   
      <?php if(count($application->attachments)>0):?>
-     <ul>
+     <ul class="media-list">
      <?php foreach ($application->attachments as $attachment):?>
-       <li><a href="<?php echo $this->basePath($attachment->uri)?>"><?php echo $attachment->name ?></a></li>
+       <li class="media">
+        <i class="yk-icon yk-icon-paperclip pull-left"></i>
+        <div class="media-body">
+         <a href="<?php echo $this->basePath($attachment->uri)?>">
+         <?php echo $attachment->name ?>
+         </a>
+        </div>
+       </li>
      <?php endforeach;?>
      </ul>
      <?php else:?>
@@ -95,7 +107,12 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
           <?php echo strip_tags($application->job->title) ?>
          </a>         
     </td>
-    <td><?php echo $this->translate($application->status->name) ?></td>
+    <td>
+     <?php echo $this->translate($application->status->name) ?>
+     <br/>
+     <?php echo isset($application->subscriber)?$application->subscriber->name:'' ?>
+    </td>
+    <td><?php echo $this->rating($application->rating)?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">
         <?php echo $this->dateFormat($application->dateModified);?>
     </td>
@@ -111,3 +128,4 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
 
 </table>
 <?php echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
+</div>

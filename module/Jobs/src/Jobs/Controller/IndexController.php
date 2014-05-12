@@ -13,6 +13,7 @@ namespace Jobs\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as Session;
+use Zend\View\Model\JsonModel;
 
 /**
  * Main Action Controller for the application.
@@ -126,6 +127,25 @@ class IndexController extends AbstractActionController
              'myJobs' => $myJobs,
              'jobs' => $paginator
          );
+     }
+     
+     public function typeaheadAction()
+     {
+         $query = $this->params()->fromQuery('q', '*');
+         $repository = $this->getServiceLocator()
+                            ->get('repositories')
+                            ->get('Jobs/Job');
+
+         $return = array();
+         foreach ($repository->getTypeaheadResults($query,$this->auth('id')) as $id => $item) {
+             $return[] = array(
+                 'id' => $id,
+                 'title' => $item['title'],
+                 'applyId' => $item['applyId'],
+             );
+         }
+         
+         return new JsonModel($return);
      }
     
 }

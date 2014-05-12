@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-08 17:45+0200\n"
+"PO-Revision-Date: 2014-05-03 11:55+0000\n"
+"Last-Translator: yawik <cbleek@yawik.org>\n"
+"Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/form/apply-identifier.phtml:19
+msgid "Apply link"
+msgstr "Apply link"
+
+#: view/form/list-filter.phtml:65
+msgid "Search"
+msgstr "Search"
+
+#: view/sidebar/index.phtml:14
+msgid "My jobs"
+msgstr "My jobs"
+
+#: view/sidebar/index.phtml:14
+msgid "All jobs"
+msgstr "All jobs"
+
+#: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:57
+msgid "Jobs"
+msgstr "Jobs"
+
+#: view/jobs/index/index.phtml:4
+msgid "List of all jobs"
+msgstr "List of all jobs"
+
+#: view/jobs/index/index.ajax.phtml:13
+msgid "Date of receipt"
+msgstr "Date of receipt"
+
+#: view/jobs/index/index.ajax.phtml:14
+msgid "Title of the job"
+msgstr "Title of the job"
+
+#: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:18
+msgid "Location"
+msgstr "Location"
+
+#: view/jobs/index/index.ajax.phtml:16
+msgid "Companyname"
+msgstr "Companyname"
+
+#: view/jobs/index/index.ajax.phtml:17
+msgid "Reference"
+msgstr "Reference"
+
+#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
+msgid "Applications"
+msgstr "Applications"
+
+#: view/jobs/index/index.ajax.phtml:20
+msgid "Status"
+msgstr "Status"
+
+#: view/jobs/index/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
+msgid "Action"
+msgstr "Action"
+
+#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:23
+msgid "total"
+msgstr "total"
+
+#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:29
+msgid "unread"
+msgstr "unread"
+
+#: view/jobs/index/index.ajax.phtml:72 view/jobs/index/view.phtml:18
+msgid "Apply"
+msgstr "Apply"
+
+#: view/jobs/index/dashboard.phtml:3
+msgid "Current Jobs"
+msgstr "Current Jobs"
+
+#: view/jobs/index/dashboard.phtml:3
+msgid "Famous jobs"
+msgstr "Famous jobs"
+
+#: view/jobs/index/dashboard.phtml:8
+msgid "Job"
+msgstr "Job"
+
+#: view/jobs/index/dashboard.phtml:9
+msgid "Date"
+msgstr "Date"
+
+#: view/jobs/index/view.phtml:15
+msgid "Online since"
+msgstr "Online since"
+
+#: view/jobs/manage/form.phtml:20
+msgid "Publish a job"
+msgstr "Publish a job"
+
+#: view/jobs/manage/form.phtml:22
+msgid "Edit a job"
+msgstr "Edit a job"
+
+#: src/Jobs/Form/JobFieldset.php:29
+msgid "Job details"
+msgstr "Job details"
+
+#: language/_annotated_strings.php:3
+msgid "search for jobs"
+msgstr "search for jobs"
+
+#: language/_annotated_strings.php:6
+msgid "Company"
+msgstr "Company"
+
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:45
+msgid "Job title"
+msgstr "Job title"
+
+#: language/_annotated_strings.php:12
+msgid "Apply Identifier"
+msgstr "Apply Identifier"
+
+#: language/_annotated_strings.php:15
+msgid "Job description"
+msgstr "Job description"
+
+#: language/_annotated_strings.php:21
+msgid "Contact email"
+msgstr "Contact email"
+
+#: language/_annotated_strings.php:24
+msgid "Reference number"
+msgstr "Reference number"
+
+#: language/_annotated_strings.php:27
+msgid "Publish job"
+msgstr "Publish job"
+
+#: language/_annotated_strings.php:30
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr "The apply identifier \"%value%\" is already in use."
+
+#: language/_annotated_strings.php:33
+msgid "Show all jobs"
+msgstr "Show all jobs"
+
+#: language/_annotated_strings.php:36
+msgid "Show my jobs"
+msgstr "Show my jobs"
+
+#: language/_annotated_strings.php:39
+msgid "Active"
+msgstr "Active"
+
+#: language/_annotated_strings.php:42
+msgid "Inactive"
+msgstr "Inactive"
+
+#: language/_annotated_strings.php:48
+msgid "Job published."
+msgstr "Job published."
+
+#: language/_annotated_strings.php:51
+msgid "Job saved."
+msgstr "Job saved."
+
+#: language/_annotated_strings.php:54
+msgid "There were errors in the form"
+msgstr "There were errors in the form"
+
+#: language/_annotated_strings.php:60
+msgid "Overview"
+msgstr "Overview"
+
+#: language/_annotated_strings.php:63
+msgid "Create job"
+msgstr "Create job"
+
+#: language/_annotated_strings.php:66
+msgid "Edit job"
+msgstr "Edit job"
