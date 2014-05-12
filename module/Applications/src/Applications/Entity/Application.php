@@ -167,8 +167,11 @@ class Application extends AbstractIdentifiableEntity
     protected $refs;
     
     /**
+     * Collection of social network profiles.
      * 
-     * @var unknown
+     * @var Collection
+     * @see \Auth\Entity\SocialProfiles\ProfileInterface
+     * 
      * @ODM\EmbedMany(discriminatorField="_entity")
      */
     protected $profiles;

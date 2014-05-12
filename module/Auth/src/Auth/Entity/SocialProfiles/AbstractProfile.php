@@ -18,7 +18,11 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\PreUpdateAwareInterface;
 
 /**
+ * Social Profile Entity
  * 
+ * Provides methods to normalize profile data.
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\MappedSuperclass
  */
 abstract class AbstractProfile extends AbstractIdentifiableEntity 
@@ -27,7 +31,9 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
 {
     
     /**
-     * 
+     * Name of the profile.
+     * Should be the name of the social network.
+     *  
      * @var String
      * @ODM\String
      */
@@ -35,32 +41,53 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     
     
     /**
+     * URL to the profile page.
      * 
-     * @var unknown
+     * @var String
      * @ODM\String
      */
     protected $link;
+    
     /**
+     * Raw profile data (API result) 
      * 
-     * 
+     * @var array
      * @ODM\Hash
      */
     protected $data = array();
     
     /**
+     * Normalized educations collection.
      * 
-     * @var unknown
+     * @var Collection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Education")
      */
     protected $educations;
     
     /**
+     * Normalized employments collection.
      * 
-     * @var unknown
+     * @var Collection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Employment")
      */
     protected $employments;
     
+    /**
+     * Internal configuration.
+     * Available keys are
+     * - 'educations'
+     *   - 'key': key name in the raw data.
+     *   - 'entity': Concrete implementation of an EntityInterface or
+     *               class name of the entity to be used as education entity
+     *   - 'hydrator': Concrete hydrator instance or class name of a hydrator
+     *                 to be used to hydrate entity.
+     * - 'employments': view 'educations'
+     * - 'properties_map': Array in the format
+     *          'property': 'data-key',
+     *          used to map simple entity properties to data values.
+     *           
+     * @var array
+     */
     protected $config = array(
         'educations' => array(
             'key' => 'education'
@@ -73,6 +100,10 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         ),
     );
     
+    /**
+     * {@inheritDoc}
+     * @see \Core\Entity\PreUpdateAwareInterface::preUpdate()
+     */
     public function preUpdate($isNew = false)
     {
         if (null === $this->educations) {
@@ -86,9 +117,10 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         }
     }
     
-    /* (non-PHPdoc)
+    /**
+     * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getName()
-    */
+     */
     public function getName ()
     {
         return $this->name;
@@ -96,17 +128,18 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     
 
 
-    /* (non-PHPdoc)
+    /**
+     * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::setName()
      */
     public function setName ($name)
     {
        $this->name = (string) $name;
        return $this;
-    
     }
     
-    /* (non-PHPdoc)
+    /**
+     * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getData()
      */
     public function getData ($key = null)
@@ -126,7 +159,8 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         return $return;
     }
     
-    /* (non-PHPdoc)
+    /**
+     * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::setData()
      */
     public function setData (array $data)
@@ -141,6 +175,10 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         return $this;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Auth\Entity\SocialProfiles\ProfileInterface::getLink()
+     */
     public function getLink()
     {
         if (!$this->link) {
@@ -149,6 +187,10 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         return $this->link;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Auth\Entity\SocialProfiles\ProfileInterface::getEducations()
+     */
     public function getEducations()
     {
         if (!$this->educations) {
@@ -157,7 +199,8 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         return $this->educations;
     }
 
-	/* (non-PHPdoc)
+	/**
+	 * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getEmployments()
      */
     public function getEmployments ()
@@ -170,6 +213,13 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     }
 
     
+    /**
+     * Creates a collection of normalized embedded documents.
+     *  
+     * @param string $type
+     * @uses getHydrator(), getEntity(), getData()
+     * @return \Core\Entity\Collection\ArrayCollection
+     */
     protected function getCollection($type)
     {
         $collection = new ArrayCollection();
@@ -190,6 +240,11 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         return $collection;
     }
     
+    /**
+     * Gets a hydrator
+     * @param string $type
+     * @return \Core\Entity\Hydrator\EntityHydrator
+     */
     protected function getHydrator($type)
     {
         $hydrator = isset($this->config[$type]['hydrator'])
@@ -203,9 +258,29 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         
     }
     
+    /**
+     * filters one entry of the educations collection for use in the 
+     * configured entity hydrator.
+     * @param array $data
+     * @return array
+     */
     abstract protected function filterEducation($data);
+    
+    /**
+     * filters one entry of the employments collection for use in the
+     * configured entity hydrator.
+     * 
+     * @param array $data
+     * @return array
+     */
     abstract protected function filterEmployment($data);
 
+    /**
+     * Gets an entity for education or employment.
+     * 
+     * @param string $type
+     * @return \Core\Entity\EntityInterface
+     */
     protected function getEntity($type)
     {
         $entity = isset($this->config[$type]['entity'])
