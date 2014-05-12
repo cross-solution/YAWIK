@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>CROSS Applicant Manager</title>
+    <title>YAWIK</title>
     <parser>
-        <target>public/docs</target>
-        <markers>
-            <item>TODO</item>
-            <item>FIXME</item>
-        </markers>
-        <extensions>
-            <extension>php</extension>
-            <extension>phtml</extension>
-        </extensions>
-        <visibility></visibility>
+        <target>tmp</target>
     </parser>
     <transformer>
-        <target>public/docs</target>
+        <target>docs</target>
     </transformer>
-    <logging>
-        <level>warn</level>
-        <paths>
-            <default>log/{DATE}.log</default>
-            <errors>log/{DATE}.errors.log</errors>
-        </paths>
-    </logging>
-    <transformations>
-<!--        <template name="zend" />-->
-    </transformations>
     <files>
-        <file>test.php</file>
-        <file>bin/*</file>
-        <directory>.</directory>
+        <directory>module/*</directory>
         <ignore>vendor/*</ignore>
+        <ignore>module/YawikDemoSkin/*</ignore>
+        <ignore>*/language/*</ignore>
+        <ignore>config/*</ignore>
+        <ignore>bin/*</ignore>
         <ignore>test/*</ignore>
     </files>
 </phpdoc>

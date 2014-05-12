@@ -26,7 +26,7 @@
 	"url": "https://packages.zendframework.com"
        }
     ],
-    "homepage": "http://bewerbermanagement.cross-solution.de/",
+    "homepage": "http://yawik.org/",
     "minimum-stability": "alpha",
     "require": {
         "php": ">=5.3.3",
@@ -42,7 +42,5 @@
         "twitter/typeahead.js": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-	"phing/phing": "*"
     }
 }

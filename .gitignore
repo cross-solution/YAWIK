@@ -17,8 +17,8 @@ build.properties
 #
 # Unit test code coverage reports
 #
-public/coverage
-public/docs
+tmp
+docs
 */*/test/coverage
 log
 
