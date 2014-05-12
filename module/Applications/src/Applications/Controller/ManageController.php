@@ -21,11 +21,14 @@ use Applications\Entity\Rating;
 use Zend\Stdlib\Parameters;
 
 /**
- * Action Controller for managing applications.
+ * Handles managing actions on applications
  */
 class ManageController extends AbstractActionController
 {
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Zend\Mvc\Controller\AbstractActionController::onDispatch()
+     */
     public function onDispatch(\Zend\Mvc\MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
@@ -69,13 +72,10 @@ class ManageController extends AbstractActionController
             'search' => $params->get('search', ''),
             'job' => $job,
         );
-        
-        
     }
     
     /**
-     * d				
-etail view of an application
+     * Detail view of an application
      * 
      * @return Ambigous <\Zend\View\Model\JsonModel, multitype:boolean unknown >
      */
@@ -140,6 +140,12 @@ etail view of an application
         return $return;
     }
     
+    /**
+     * Refreshes the rating of an application
+     * 
+     * @throws \DomainException
+     * @return \Zend\View\Model\ViewModel
+     */
     public function refreshRatingAction()
     {
         $model = new ViewModel();
@@ -156,6 +162,11 @@ etail view of an application
         return $model;
     }
     
+    /**
+     * Attaches a social profile to an application
+     * 
+     * @return multitype:unknown
+     */
     public function socialProfileAction()
     {
         if ($spId = $this->params()->fromQuery('spId')) {
@@ -185,7 +196,7 @@ etail view of an application
     }
 
     /**
-     * change status of an application
+     * Changes the status of an application
      * 
      * @return unknown|multitype:string |multitype:string unknown |multitype:unknown
      */
@@ -278,7 +289,7 @@ etail view of an application
     } 
     
     /**
-     * forward an application via Email
+     * Forwards an application via Email
      * 
      * @throws \InvalidArgumentException
      * @return \Zend\View\Model\JsonModel
@@ -323,7 +334,7 @@ etail view of an application
     }
     
     /**
-     * delete an application
+     * Deletes an application
      * 
      * @throws \DomainException
      * @return multitype:string
@@ -350,6 +361,5 @@ etail view of an application
         }
         
         $this->redirect()->toRoute('lang/applications', array(), true);
-    }
-    
+    }   
 }

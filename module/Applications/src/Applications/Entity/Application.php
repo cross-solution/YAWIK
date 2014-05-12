@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Applications
+ */
 namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
@@ -27,7 +29,8 @@ class Application extends AbstractIdentifiableEntity
                              PreUpdateAwareInterface
 {
     /**
-     * @var unknown
+     * @var String
+     * @deprecated
      * @ODM\String
      */
     protected $jobId;

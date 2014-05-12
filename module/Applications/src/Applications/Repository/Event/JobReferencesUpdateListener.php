@@ -15,14 +15,25 @@ use Jobs\Entity\JobInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 
+/**
+ * class for updating references 
+ */
 class JobReferencesUpdateListener implements EventSubscriber
 {
-    
+    /**
+     * Gets list of subscribers
+     * @return array
+     */
     public function getSubscribedEvents()
     {
         return array(Events::preUpdate);
     }
     
+    /**
+     * updates references
+     * 
+     * @param LifecycleEventArgs $eventArgs
+     */
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();

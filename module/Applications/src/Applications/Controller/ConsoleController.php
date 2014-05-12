@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -20,12 +20,15 @@ use Zend\Console\Request as ConsoleRequest;
 use Core\Console\ProgressBar;
 
 /**
- * Main Action Controller for the application.
- * Responsible for displaying the home site.  
- *
+ * Handles cli actions for applications 
  */
 class ConsoleController extends AbstractActionController {
 
+    /**
+     * regenarate keywords for applications
+     * 
+     * @return string
+     */
     public function generateKeywordsAction() {
         
         $services     = $this->getServiceLocator();
@@ -65,6 +68,11 @@ class ConsoleController extends AbstractActionController {
         return PHP_EOL;   
     }
     
+    /**
+     * Recalculates ratings for applications
+     * 
+     * @return string
+     */
     public function calculateRatingAction()
     {
         $applications = $this->fetchApplications();
@@ -84,6 +92,11 @@ class ConsoleController extends AbstractActionController {
         return PHP_EOL;
     }
     
+    /**
+     * Fetches applications
+     * 
+     * @return unknown
+     */
     protected function fetchApplications()
     {
         $services     = $this->getServiceLocator();

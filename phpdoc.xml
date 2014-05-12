@@ -12,6 +12,7 @@
         <ignore>vendor/*</ignore>
         <ignore>module/YawikDemoSkin/*</ignore>
         <ignore>*/language/*</ignore>
+        <ignore>*/view/*</ignore>
         <ignore>config/*</ignore>
         <ignore>bin/*</ignore>
         <ignore>test/*</ignore>

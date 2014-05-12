@@ -3,7 +3,7 @@
  * YAWIK
  * Applications Module Bootstrap
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -21,10 +21,14 @@ use Core\ModuleManager\ModuleConfigLoader;
 
 /**
  * Bootstrap class of the applications module
- * 
  */
 class Module implements ConsoleUsageProviderInterface
 {
+    /**
+     * Displays console options
+     * 
+     * @param Console $console
+     */
 
     public function getConsoleUsage(Console $console)
     {
@@ -70,6 +74,11 @@ class Module implements ConsoleUsageProviderInterface
         );
     }
     
+    /**
+     * Bootraps the application module
+     * 
+     * @param MvcEvent $mvcEvent
+     */
     public function onBootstrap(MvcEvent $mvcEvent)
     {
         // Ignore the form annotations in setting entities

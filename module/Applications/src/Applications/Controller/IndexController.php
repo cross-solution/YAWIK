@@ -27,8 +27,9 @@ use Zend\Mvc\MvcEvent;
 class IndexController extends AbstractActionController
 {
     /**
-     * handle the application form.
-     * @todo document
+     * Processes formular data of the application form
+     * 
+     * @return \Zend\View\Model\ViewModel
      */
     public function indexAction()
     {           
@@ -231,6 +232,11 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
     
+    /**
+     * Handles dashboard listings of applications
+     *
+     * @return multitype:string unknown
+     */
     public function dashboardAction()
     {
         $services = $this->getServiceLocator();
@@ -259,7 +265,7 @@ class IndexController extends AbstractActionController
     
     
     /**
-     * handle the privacy policy used in an application form.
+     * Handles the privacy policy used in an application form.
      * 
      * @return \Zend\View\Model\ViewModel
      */

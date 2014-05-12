@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -14,22 +14,42 @@ use Zend\Stdlib\Parameters;
 /**
  * maps query parameters to entity attributes
  * 
- * @author cbleek
- *
+ * @package Applications
  */
 class PaginationQuery extends AbstractPaginationQuery 
 {
-    
+    /**
+     * Repository to query
+     * 
+     * @var String
+     */
     protected $repositoryName="Applications/Application";
+    
+    /**
+     * Sortable fields
+     * 
+     * @var array
+     */
     protected $sortPropertiesMap = array(
         'date' => 'dateCreated.date',
     );
     
+    /**
+     * Constructs pagination query
+     * 
+     * @param unknown $auth
+     */
     public function __construct($auth)
     {
         $this->auth = $auth;
     }
     
+    /**
+     * Creates a query for filtering applications
+     * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
+     * @param array $params
+     * @param $queryBuilder
+     */
     public function createQuery($params, $queryBuilder)
     {
         if ($params instanceOf Parameters) {
@@ -90,9 +110,6 @@ class PaginationQuery extends AbstractPaginationQuery
         $queryBuilder->sort($this->filterSort($value['sort']));
         
         return $queryBuilder;
-    }
-    
-    
+    }   
 }
-
 ?>

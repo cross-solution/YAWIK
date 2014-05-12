@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -27,10 +27,10 @@ use Core\Entity\PermissionsInterface;
 class Job extends BaseEntity implements JobInterface {
 
     /**
-     * uniq ID of a job posting.
+     * uniq ID of a job posting used by applications to reference
+     * a job
      *
      * @var String
-     * 
      * @ODM\String @ODM\Index
      **/
     protected $applyId;
@@ -39,13 +39,13 @@ class Job extends BaseEntity implements JobInterface {
      * title of a job posting
      * 
      * @var String 
-     *  
      * @ODM\String 
      */ 
     protected $title;
     
     /**
      * Description (Free text)
+     * 
      * @var String
      * @ODM\String
      */
@@ -54,7 +54,6 @@ class Job extends BaseEntity implements JobInterface {
      * name of the publishing company
      * 
      * @var String
-     * 
      * @ODM\String
      */
     protected $company;
@@ -62,6 +61,7 @@ class Job extends BaseEntity implements JobInterface {
     /**
      * Email Adress, which is used to send notifications about e.g. new applications.
      * 
+     * @var String
      * @ODM\String
      **/
     protected $contactEmail;
@@ -69,7 +69,7 @@ class Job extends BaseEntity implements JobInterface {
     /**
      * the owner of a Job Posting
      *  
-     * @var unknown
+     * @var UserInterface $user
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) @ODM\Index
      */
     protected $user;
@@ -77,8 +77,7 @@ class Job extends BaseEntity implements JobInterface {
     /**
      * all applications of a certain jobad 
      * 
-     * @var array \Applications\Entity\Application
-     * 
+     * @var Collection \Applications\Entity\Application
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job")
      */
     protected $applications;
@@ -88,24 +87,22 @@ class Job extends BaseEntity implements JobInterface {
      * 
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
      *                    repositoryMethod="getUnreadApplications", mappedBy="job") 
-     * @var unknown
+     * @var Int
      */
     protected $unreadApplications;
     
     /**
      * location of the job posting
      * 
-     * @var unknown
-     * 
+     * @var String
      * @ODM\String
      */
     protected $location;
     
     /**
-     * place of employment 
+     * Link which points to the job posting 
      * 
      * @var String
-     * 
      * @ODM\String
      **/
     protected $link;
@@ -114,7 +111,6 @@ class Job extends BaseEntity implements JobInterface {
      * publishing date of a job posting
      * 
      * @var String
-     * 
      * @ODM\Field(type="tz_date")
      */
     protected $datePublishStart;
@@ -122,8 +118,7 @@ class Job extends BaseEntity implements JobInterface {
     /**
      * Status of the job posting
      * 
-     * @var unknown
-     * 
+     * @var String
      * @ODM\String
      */
     protected $status;
@@ -132,7 +127,6 @@ class Job extends BaseEntity implements JobInterface {
      * Reference of a jobad, on which an applicant can refer to.
      * 
      * @var String
-     * 
      * @ODM\String 
      */
     protected $reference;
@@ -141,16 +135,15 @@ class Job extends BaseEntity implements JobInterface {
      * Unified Resource Locator to the company-Logo
      * 
      * @var String
-     * 
      * @ODM\String 
      */
     protected $logoRef;
     
     /**
-     * Unified Resource Locator the Yawik, which handled this job first - so does know who is the one who has commited this job.
+     * Unified Resource Locator the Yawik, which handled this job first - so 
+     * does know who is the one who has commited this job.
      * 
-     * @var String
-     * 
+     * @var String 
      * @ODM\String 
      */
     protected $uriPublisher;
@@ -182,29 +175,40 @@ class Job extends BaseEntity implements JobInterface {
      */
     protected $permissions;
     
+    /**
+     * Is this needed?
+     * 
+     * @return string
+     */
     public function getResourceId()
     {
         return 'Entity/Jobs/Job';
     }
-    
+    /**
+     * @see \Jobs\Entity\JobInterface::setApplyId()
+     * @param String $applyId
+     * @return \Jobs\Entity\JobInterface $jo
+     */
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
         return $this;
     }
-
+    /**
+     * @see \Jobs\Entity\JobInterface::getApplyId()
+     * @return String
+     */
     public function getApplyId() {
         return $this->applyId;
     }
 
-    /**
-     * @return the $title
-     */
     public function getTitle() {
         return $this->title;
     }
 
     /**
-     * @param field_type $title
+     * @see \Jobs\Entity\JobInterface::setTitle()
+     * @param String $title
+     * @return \Jobs\Entity\JobInterface $job
      */
     public function setTitle($title) {
         $this->title = (string) $title;
@@ -212,8 +216,9 @@ class Job extends BaseEntity implements JobInterface {
     }
 
     /**
-     * {@inheritDoc}
      * @see \Jobs\Entity\JobInterface::setDescription()
+     * @param String $text
+     * @return \Jobs\Entity\JobInterface $job
      */
     public function setDescription($text)
     {
@@ -222,8 +227,8 @@ class Job extends BaseEntity implements JobInterface {
     }
     
     /**
-     * {@inheritDoc}
-     * @see \Jobs\Entity\JobInterface::setDescription()
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getDescription()
      */
     public function getDescription()
     {
@@ -231,14 +236,16 @@ class Job extends BaseEntity implements JobInterface {
     }
     
     /**
-     * @return the $company
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getCompany()
      */
     public function getCompany() {
         return $this->company;
     }
 
     /**
-     * @param field_type $company
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setCompany()
      */
     public function setCompany($company) 
     {
@@ -246,6 +253,10 @@ class Job extends BaseEntity implements JobInterface {
         return $this;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getContactEmail()
+     */
     public function getContactEmail() 
     {
         if (false !== $this->contactEmail && !$this->contactEmail) {
@@ -258,24 +269,36 @@ class Job extends BaseEntity implements JobInterface {
         }
         return $this->contactEmail;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setContactEmail()
+     */
     public function setContactEmail($email)
     {
         $this->contactEmail = (string) $email;
         return $this;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setLocation()
+     */
     public function setLocation($location)
     {
     	$this->location = $location;
     	return $this;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getLocation()
+     */
     public function getLocation()
     {
     	return $this->location;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setUser()
+     */
     public function setUser(UserInterface $user) {
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
@@ -284,83 +307,143 @@ class Job extends BaseEntity implements JobInterface {
         $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
         return $this;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getUser()
+     */
     public function getUser() {
         return $this->user;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setApplications()
+     */
     public function setApplications(Collection $applications) {
         $this->applications = $applications;
         return $this;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getApplications()
+     */
     public function getApplications() {
         return $this->applications;
     }
-    
+    /**
+     * Gets the number of unread applications
+     * @return \Jobs\Entity\unknown
+     */
     public function getUnreadApplications() {
         return $this->unreadApplications;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getLink()
+     */
     public function getLink() {
         return $this->link;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setLink()
+     */
     public function setLink($link) {
         $this->link = $link;
         return $this;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getDatePublishStart()
+     */
     public function getDatePublishStart() {
         return $this->datePublishStart;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @param string $link
+     * @see \Jobs\Entity\JobInterface::setDatePublishStart()
+     */
     public function setDatePublishStart($datePublishStart) {
         $this->datePublishStart = $datePublishStart;
         return $this;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getStatus()
+     */
     public function getStatus() {
         return $this->status;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setStatus()
+     */
     public function setStatus($status) {
         $this->status = $status;
         return $this;
     }
-    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getReference()
+     */
     public function getReference() {
         return $this->reference;
     }
-
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setReference()
+     */
     public function setReference($reference) {
         $this->reference = $reference;
         return $this;
     }
-    
-    
+    /**
+     * checks, wether a job is enabled for getting applications
+     * @return boolean
+     */
     public function getCamEnabled() {
         return $this->camEnabled;
     }
-
+    /**
+     * enables a job add to receive applications
+     * 
+     * @param boolean $camEnabled
+     * @return \Jobs\Entity\Job
+     */
     public function setCamEnabled($camEnabled) {
         $this->camEnabled = $camEnabled;
         return $this;
     }
-    
+    /**
+     * returns an uri to the organisations logo
+     * 
+     * @return string
+     */
     public function getLogoRef() {
         return $this->logoRef;
     }
-
+    /**
+     * Set the uri to the organisations logo
+     * 
+     * @param string $logoRef
+     * @return \Jobs\Entity\Job
+     */
     public function setLogoRef($logoRef) {
         $this->logoRef = $logoRef;
         return $this;
     }
-    
+    /**
+     * 
+     * @return string
+     */
     public function getUriPublisher() {
         return $this->uriPublisher;
     }
-    
+    /**
+     * 
+     * @param unknown $uriPublisher
+     * @return \Jobs\Entity\Job
+     */
     public function setUriPublisher($uriPublisher) {
         $this->uriPublisher = $uriPublisher;
         return $this;
@@ -374,23 +457,39 @@ class Job extends BaseEntity implements JobInterface {
         return array('title', 'company', 'location', 'applyId', 'reference');
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Core\Entity\SearchableEntityInterface::setKeywords()
+     */
     public function setKeywords(array $keywords)
     {
         $this->keywords = $keywords;
         return $this;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Core\Entity\SearchableEntityInterface::getKeywords()
+     */
     public function getKeywords()
     {
         return $this->keywords;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Core\Entity\SearchableEntityInterface::clearKeywords()
+     */
     public function clearKeywords()
     {
         $this->keywords = array();
         return $this;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Core\Entity\PermissionsAwareInterface::getPermissions()
+     */
     public function getPermissions()
     {
         if (!$this->permissions) {
@@ -403,6 +502,10 @@ class Job extends BaseEntity implements JobInterface {
         return $this->permissions;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
+     */
     public function setPermissions(PermissionsInterface $permissions) {
         $this->permissions = $permissions;
         return $this;

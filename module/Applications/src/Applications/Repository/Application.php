@@ -13,8 +13,18 @@ use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
 use Zend\Stdlib\ArrayUtils;
 
+/**
+ * class for accessing applications
+ * 
+ * @package Applications
+ */
 class Application extends AbstractRepository
 {   
+    /**
+     * Gets a pointer to an application
+     * 
+     * @param array $params
+     */
     public function getPaginatorCursor($params)
     {
         return $this->getPaginationQueryBuilder($params)
@@ -22,6 +32,12 @@ class Application extends AbstractRepository
                     ->execute();
     }
     
+    /**
+     * Gets a query builder to search for applications
+     * 
+     * @param array $params
+     * @return unknown
+     */
     protected function getPaginationQueryBuilder($params)
     {
         $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
@@ -30,6 +46,12 @@ class Application extends AbstractRepository
         return $qb;
     }
     
+    /**
+     * Gets a result list of applications
+     * 
+     * @param array $params
+     * @return \Applications\Repository\PaginationList
+     */
     public function getPaginationList($params)
     {
         $qb = $this->getPaginationQueryBuilder($params);
@@ -42,6 +64,11 @@ class Application extends AbstractRepository
         return $list;
     }
     
+    /**
+     * Get unread applications
+     *
+     * @param unknown $job
+     */
     public function getUnreadApplications($job) 
     {
         $auth=$this->getService('AuthenticationService');
@@ -51,7 +78,12 @@ class Application extends AbstractRepository
         return $qb->getQuery()->execute();          
     }
     
-
+    /**
+     * Get comments of an applications
+     * 
+     * @param unknown $commentOrId
+     * @return unknown|NULL
+     */
     public function findComment($commentOrId)
     {
         if ($commentOrId instanceOf CommentInterface) {
@@ -68,6 +100,12 @@ class Application extends AbstractRepository
             
     }
     
+    /**
+     * Gets social profiles of an application
+     * 
+     * @param String $profileId
+     * @return unknown|NULL
+     */
     public function findProfile($profileId)
     {
         $application = $this->findOneBy(array('profiles._id' => new \MongoId($profileId)));
@@ -76,9 +114,9 @@ class Application extends AbstractRepository
                 return $profile;
             }
         }
-        
         return null;
     }
+    
     /**
      * @deprecated
      * @param unknown $jobId
@@ -116,6 +154,12 @@ class Application extends AbstractRepository
         return $this->findBy($criteria)->count();
     }
     
+    /**
+     * Save an application
+     * 
+     * @param ApplicationInterface $application
+     * @param string $resetModifiedDate
+     */
     public function save(ApplicationInterface $application, $resetModifiedDate=true)
     {
         if ($resetModifiedDate) {
@@ -125,6 +169,12 @@ class Application extends AbstractRepository
         $this->dm->flush();
     }
     
+    /**
+     * delete an application
+     * 
+     * @param EntityInterface $entity
+     * @return \Applications\Repository\Application
+     */
     public function delete(EntityInterface $entity)
     {
         $this->dm->remove($entity);
