@@ -342,6 +342,13 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         <td>
         <a data-title="title"
                     data-toggle="modal"
+                    class="btn btn-default btn-xs"
+                    data-target="#cam-application-history"
+                    title="<?php echo $this->translate('State history')?>">
+                    <i class="yk-icon yk-icon-history"></i>
+        </a>
+        <a data-title="title"
+                    data-toggle="modal"
                     data-target="#cam-application-history"
                     title="<?php echo $this->translate('State history')?>">
         <?php echo strftime('%x %X', $application->dateModified->getTimestamp()); ?>
