@@ -25,7 +25,12 @@ use Core\Entity\PermissionsInterface;
 class ImportController extends AbstractActionController {
 
     public function saveAction() {
-        if (False) {
+
+        $services = $this->getServiceLocator();
+        $config = $services->get('Config');
+        
+        if (False && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
+
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
@@ -45,7 +50,7 @@ class ImportController extends AbstractActionController {
             $this->getRequest()->setPost($params);
         }
         
-        $services = $this->getServiceLocator();
+        
         $p = $this->params()->fromPost();
         $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
         $user = $services->get('AuthenticationService')->getUser();

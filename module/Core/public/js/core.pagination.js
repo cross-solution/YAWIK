@@ -7,7 +7,12 @@
 		var url        = $(event.currentTarget).attr('href');
 		var $container = event.data.container;
 		
-		$container.load(url, function() { $container.pagination(); event.data.loadingIndicator.hide(); });
+		$container.load(url, function() { 
+                    $container.pagination(); 
+                    event.data.loadingIndicator.hide();
+                    $container.trigger('ajax.ready');
+                    
+                });
 		return false;
 	};
 	

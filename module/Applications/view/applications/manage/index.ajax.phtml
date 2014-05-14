@@ -1,7 +1,35 @@
 <div class="pagination-container">
 <?php
 
+$renderedFormCheckBox = '';
+
+ $formCheckBox = $this->services("FormElementManager.checkBox");
+$formCheckBox->setAttributes(array('name' => 'cb_all'));
+$renderedFormCheckBox = $this->formCheckBox($formCheckBox);
+
+$test = '
+<div class="dropdown" id="action" style="color: black;">
+             <a class="dropdown-toggle table-action" data-toggle="dropdown" style="color: black;" href="#">
+Action
+             </a>
+             <ul class="dropdown-menu">
+             <li>
+               test1
+               </li>
+             <li>
+               test2
+               </li>
+             <li>
+               test3
+               </li>
+             </ul>
+           </div>
+';
+
+
+
 $columns = array(
+        $renderedFormCheckBox . $test => array(),
         /*@translate*/ 'Applicant' => array(),
         /*@translate*/ 'Career' 
     => array('class' => 'cam-career'),
@@ -64,6 +92,13 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
 foreach ($this->applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
+    <td>
+        <?php 
+        $formCheckBox = $this->services("FormElementManager.checkBox");
+        $formCheckBox->setAttributes(array('id' => $application->id, 'name' => 'cb_' . $application->id ));
+        echo $this->formCheckBox($formCheckBox); 
+        ?>
+    </td>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>

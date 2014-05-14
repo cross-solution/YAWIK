@@ -14,7 +14,8 @@ endif;
 $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
 $this->headScript()->appendFile($this->basePath('js/bloodhound.js'))
-                   ->appendFile($this->basePath('js/typeahead.jquery.js'));
+                   ->appendFile($this->basePath('js/typeahead.jquery.js'))
+                   ->appendFile($this->basePath('/Core/js/multiCheckbox.js'));
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
 
