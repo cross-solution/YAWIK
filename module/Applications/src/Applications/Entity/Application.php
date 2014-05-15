@@ -16,6 +16,8 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\PreUpdateAwareInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
+use Auth\Entity\InfoInterface;
+use Cv\Entity\CvInterface;
 
 /**
  * The application model
@@ -308,7 +310,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
 	 * @see ApplicationInterface::setContact()
 	 * @return Application
      */
-    public function setContact (EntityInterface $contact)
+    public function setContact (InfoInterface $contact)
     {
         $this->contact = $contact;
         return $this;
@@ -340,7 +342,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @see \Applications\Entity\ApplicationInterface::setCv()
      * @return Application
      */
-	public function setCv(EntityInterface $cv)
+	public function setCv(CvInterface $cv)
 	{
 	    $this->cv = $cv;
 	    return $this;
@@ -522,7 +524,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @see \Applications\Entity\ApplicationInterface::setSubscriber()
      * @return Application
      */
-    public function setSubscriber($subscriber) {
+    public function setSubscriber(EntityInterface $subscriber) {
         $this->subscriber = $subscriber;
         return $this;
     }
@@ -540,7 +542,6 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
             }
             $this->setPermissions($permissions);
         }
-        $this->permissionsChanged = true;
         return $this->permissions;
     }
     
