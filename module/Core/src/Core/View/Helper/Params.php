@@ -1,26 +1,72 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
+/** Core view helpers */
 namespace Core\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Zend\Mvc\MvcEvent;
 
 /**
- * @todo Write factory, configuration must be possible
- * @author mathias
- *
+ * This helper exposes request params to view scripts.
+ * 
+ * <code>
+ *      // Gets route match param or event param or null.
+ *      $param = $this->params('routeoreventparam');
+ *      
+ *      // Gets route match param or event param or returns the default
+ *      $param = $this->param('routeoreventparam', 'defaultValue');
+ *      
+ *      // access helper methods:
+ *      $this->params()->fromRoute('routeParam');
+ *      $this->params()->fromQuery('queryParam', 'default');
+ *      
+ *      // All methods:
+ *      // - fromEvent() : Gets event parameters.
+ *      // - fromFiles() : Gets uploaded files.
+ *      // - fromHeader(): Gets request headers.
+ *      // - fromPost()  : Gets post parameters.
+ *      // - fromQuery() : Gets query parameters (e.g. ?param=value&param_two=VAL)
+ *      // - fromRoute() : Gets route match parameters
+ * </code>
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Params extends AbstractHelper
 {
-    
+
+    /**
+     * The Mvc Event
+     * @var MvcEvent
+     */
     protected $event;
     
+    /**
+     * Creates an instance.
+     * 
+     * @param MvcEvent $e
+     */
     public function __construct(MvcEvent $e) {
         $this->event = $e;
     }
     
     /**
-     * Grabs a param from route match by default.
+     * Grabs a param from route match or event by default.
+     * 
+     * If <b>$param</b> is <i>NULL</i> returns itself.
+     * 
+     * Tries to grab a param from route match first.
+     * If route match does not have a param called <b>$param</b>, 
+     * it tries to grab this param from the event.
+     * 
+     * If the event does not have the param, it returns <b>$default</b>
+     * 
      *
      * @param string $param
      * @param mixed $default
@@ -33,7 +79,7 @@ class Params extends AbstractHelper
         }
 
         $value = $this->fromRoute($param, null);
-        return $value ? $value : $this->event->getParam($param, $default);
+        return $value ? $value : $this->fromEvent($param, $default);
     }
     
     /**
@@ -118,5 +164,21 @@ class Params extends AbstractHelper
             return $this->event->getRouteMatch()->getParams();
         }
         return $this->event->getRouteMatch()->getParam($param, $default);
+    }
+    
+    /**
+     * Return all event parameters or a single event parameter.
+     * 
+     * @param string $param Parameter name to retrieve, or null to get all.
+     * @param mixed $efault Default value to use when the parameter is missing.
+     * @return mixed
+     * @throws RuntimeException
+     */
+    public function fromEvent($param = null, $default = null)
+    {
+        if (null === $param) {
+            return $this->event->getParams();
+        }
+        return $this->event->getParam($param, $default);
     }
 }
