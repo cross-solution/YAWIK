@@ -19,6 +19,7 @@ interface ApplicationInterface
             SearchableEntityInterface,
             ModificationDateAwareEntityInterface,
             PermissionsAwareInterface
+            
 {
     
     /**

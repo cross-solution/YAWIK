@@ -18,17 +18,20 @@ use Core\Entity\PreUpdateAwareInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use Auth\Entity\InfoInterface;
 use Cv\Entity\CvInterface;
+use Core\Entity\DraftableEntityInterface;
 
 /**
  * The application model
  * 
  * @author mathias
  *
- * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application") @ODM\HasLifecycleCallbacks
+ * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application") 
+ * @ODM\HasLifecycleCallbacks
  */
 class Application extends AbstractIdentifiableModificationDateAwareEntity 
                   implements ApplicationInterface, 
-                             ResourceInterface
+                             ResourceInterface,
+                             DraftableEntityInterface
 {
    
     /**
@@ -166,6 +169,15 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     protected $profiles;
     
+    
+    /**
+     * Flag indicating draft state of this application.
+     * 
+     * @var bool
+     * @ODM\Boolean
+     */    
+    protected $isDraft = false;
+    
     /**
      * {@inheritDoc}
      * @ODM\PreUpdate
@@ -199,7 +211,25 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         return 'Entity/Application';
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @see \Core\Entity\DraftableEntityInterface::isDraft()
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
     
+    /**
+     * {@inheritDoc}
+     * @return \Applications\Entity\Application
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+        return $this;
+    }
     
     /**
      * {@inheritDoc}

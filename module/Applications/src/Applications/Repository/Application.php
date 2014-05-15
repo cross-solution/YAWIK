@@ -27,6 +27,38 @@ use Zend\Stdlib\ArrayUtils;
 class Application extends AbstractRepository
 {   
     /**
+     * {@inheritDoc}
+     */
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    {
+        if (!isset($criteria['isDraft'])) {
+            $criteria['isDraft'] = false;
+        }
+        return parent::findBy($criteria, $sort, $limit, $skip);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneBy(array $criteria)
+    {
+        if (!isset($criteria['isDraft'])) {
+            $criteria['isDraft'] = false;
+        }
+        return parent::findOneBy($criteria);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function createQueryBuilder($findDrafts = false)
+    {
+        $qb = parent::createQueryBuilder();
+        $qb->field('isDraft')->equals($findDrafts);
+        return $qb;
+    }
+    
+    /**
      * Gets a pointer to an application
      * 
      * @param array $params
@@ -121,34 +153,6 @@ class Application extends AbstractRepository
             }
         }
         return null;
-    }
-    
-    /**
-     * Save an application
-     * 
-     * @param ApplicationInterface $application
-     * @param string $resetModifiedDate
-     */
-    public function save(ApplicationInterface $application, $resetModifiedDate=true)
-    {
-        if ($resetModifiedDate) {
-            $application->setDateModified('now');
-        }
-        $this->dm->persist($application);
-        $this->dm->flush();
-    }
-    
-    /**
-     * delete an application
-     * 
-     * @param EntityInterface $entity
-     * @return \Applications\Repository\Application
-     */
-    public function delete(EntityInterface $entity)
-    {
-        $this->dm->remove($entity);
-        $this->dm->flush();
-        return $this;
     }
     
     public function getStates()
