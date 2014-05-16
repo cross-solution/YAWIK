@@ -40,9 +40,16 @@
   </fileset>
   
   <!-- ============================================  -->
+  <!-- Target: install                               -->
+  <!-- ============================================  -->
+  <target name="install" depends="prepare,generate-autoload-config" description="reads build.properties and generates config files">
+    <property name="target" value="config/autoload" override="true"/>
+  </target>
+  
+  <!-- ============================================  -->
   <!-- Target: Cleanup all                           -->
   <!-- ============================================  -->
-  <target name="clean" description="Cleanup build artifacts">
+  <target name="clean" description="removes build, log, cache, tmp and vendor dir">
       <delete dir="${project.basedir}/build"/>
       <delete dir="${project.basedir}/log"/>
       <delete dir="${project.basedir}/cache"/>
@@ -87,12 +94,7 @@
     </if>
   </target>
   
-  <!-- ============================================  -->
-  <!-- Target: install                               -->
-  <!-- ============================================  -->
-  <target name="install" depends="prepare,generate-autoload-config">
-    <property name="target" value="config/autoload" override="true"/>
-  </target>
+
   
   <!-- ============================================  -->
   <!-- Target: build                                 -->
@@ -112,21 +114,8 @@
   <!-- ============================================  -->
   <!-- Target: generate autoload config files        -->
   <!-- ============================================  -->
-  <target name="generate-autoload-config" description="reads build.properties and creates config files">
-    <if>
-      <not>
-        <isset property="target"/>
-      </not>
-      <then>
-        <property name="target" value="${builddir}/config/autoload" override="true"/>
-      </then>
-    </if>
-    <if>
-      <isset property="overwrite"/>
-      <then>
-        <property name="target" value="config/autoload" override="true"/>
-      </then>
-    </if>
+  <target name="generate-autoload-config">
+    <property name="target" value="config/autoload" override="true"/>
     <if>
       <isset property="${facebook.appid}"/>
       <then>
@@ -198,14 +187,6 @@
   <target name="compile-po-file">
     <echo msg="Translate ${filename}"/>
     <exec command="msgfmt -cv -o ${project.basedir}/module/${filename}.mo ${absfilename}" logoutput="true" dir="."/>
-  </target>
-  <target name="xing-credentials">
-    <input message="Please enter your XING App ID:" propertyName="xing.appid"/>
-    <input message="Please enter your XING App Secret:" propertyName="xing.secret"/>
-  </target>
-  <target name="linkedin-credentials">
-    <input message="Please enter your LinkedIn App ID:" propertyName="linkedin.appid"/>
-    <input message="Please enter your LinkedIn App Secret:" propertyName="linkedin.secret"/>
   </target>
   <!-- ============================================  -->
   <!-- Target: docs                                  -->
