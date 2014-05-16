@@ -269,7 +269,6 @@ return array(
 //            'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
 //            'form_radio' => 'Core\Form\View\Helper\FormRadio',
 //            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
-            'build_query' => 'Core\View\Helper\BuildQuery',
             'form' => 'Core\Form\View\Helper\Form',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
