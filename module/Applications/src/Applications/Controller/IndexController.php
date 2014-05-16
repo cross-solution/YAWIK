@@ -96,6 +96,7 @@ class IndexController extends AbstractActionController
         }
         
         $form->bind($applicationEntity);
+        $form->get('jobId')->setValue($job->id);
         $form->get('subscriberUri')->setValue($subscriberUri);
         
         /*
