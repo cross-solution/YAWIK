@@ -79,7 +79,7 @@ class Application extends AbstractRepository
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()
-                  ->field("readBy")->notIn($auth->getUser()->id)
+                  ->field("readBy")->notIn(array($auth->getUser()->id))
                   ->field("job")->equals( new \MongoId($job->id));
         return $qb->getQuery()->execute();          
     }
