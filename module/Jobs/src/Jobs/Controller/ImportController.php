@@ -25,7 +25,7 @@ use Core\Entity\PermissionsInterface;
 class ImportController extends AbstractActionController {
 
     public function saveAction() {
-        if (True) {
+        if (False) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
