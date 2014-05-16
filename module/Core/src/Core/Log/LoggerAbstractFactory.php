@@ -5,7 +5,7 @@
  * (this file is taken from ZF 2.2)
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
 
