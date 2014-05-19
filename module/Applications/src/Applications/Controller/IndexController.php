@@ -219,7 +219,7 @@ class IndexController extends AbstractActionController
                     return new JsonModel(array(
                         'ok' => true,
                         'id' => $applicationEntity->id,
-                        'jobId' => $applicationEntity->jobId,
+                        'jobId' => $applicationEntity->job->id,
                     ));
                 }
                 if ($returnTo) {
