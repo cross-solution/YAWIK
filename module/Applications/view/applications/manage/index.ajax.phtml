@@ -1,4 +1,3 @@
-<div class="pagination-container">
 <?php
 
 $renderedFormCheckBox = '';
@@ -9,18 +8,25 @@ $renderedFormCheckBox = $this->formCheckBox($formCheckBox);
 
 $test = '
 <div class="dropdown" id="action" style="color: black;">
-             <a class="dropdown-toggle table-action" data-toggle="dropdown" style="color: black;" href="#">
+             <a class="dropdown-toggle table-action" data-toggle="dropdown" style="color: black;" >
+             <i class="yk-icon yk-icon-spinner fa-spin action-loading" style="display: none;"></i>
 Action
              </a>
-             <ul class="dropdown-menu">
+             <ul id="applicationTableAction" class="dropdown-menu">
              <li>
-               test1
+               <a href="#confirm">' . 
+        $this->translate('Confirm') . 
+               '</a>
                </li>
              <li>
-               test2
+               <a href="#Invite">' . 
+         $this->translate('Invite') . 
+               '</a>
                </li>
              <li>
-               test3
+               <a href="#Reject">' . 
+        $this->translate('Reject') . 
+               '</a>
                </li>
              </ul>
            </div>
@@ -29,7 +35,7 @@ Action
 
 
 $columns = array(
-        $renderedFormCheckBox . $test => array(),
+        $renderedFormCheckBox . $test => array('class' => 'cam-list-action'),
         /*@translate*/ 'Applicant' => array(),
         /*@translate*/ 'Career' 
     => array('class' => 'cam-career'),
@@ -163,4 +169,3 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
 
 </table>
 <?php echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
-</div>

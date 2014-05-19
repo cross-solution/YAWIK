@@ -3,13 +3,33 @@
 	
 	paginate = function(event)
 	{
-		event.data.loadingIndicator.show();
-		var url        = $(event.currentTarget).attr('href');
-		var $container = event.data.container;
+                //c/onsole.log('paginate-event2', event); 
+                if (typeof event.data.loadingIndicator != 'undefined') {
+                    event.data.loadingIndicator.show();
+                }
+                
+                var url        = event.data.href;
+                var $container;
+                if (typeof event.data.container != 'undefined') {
+                    $container = event.data.container;
+                }
+                else {
+                    $container = $(event.currentTarget);
+                }
+                
+                if (typeof url ==  'undefined' || 0 == url.length) {
+                    //c/onsole.log('test.data-uri', $container, $container.data(), $container.data('uri'));
+                    url = $container.data('uri');
+                }
+                else {
+                    $container.data('uri', url);
+                }
 		
 		$container.load(url, function() { 
                     $container.pagination(); 
-                    event.data.loadingIndicator.hide();
+                    if (typeof event.data.loadingIndicator != 'undefined') {
+                        event.data.loadingIndicator.hide();
+                    }
                     $container.trigger('ajax.ready');
                     
                 });
@@ -18,7 +38,18 @@
 	
 	$.fn.pagination = function()
 	{
+                this.each(function() {
+                    //
+                    $(this).unbind('paginate');
+                    $(this).bind('paginate', function(event, data) {
+                        //c/onsole.log('paginate-data', event, data);
+                        //data
+                        event.data = data;
+                        paginate(event);
+                    });
+                });
 		return this.each(function() {
+                    // default trigger
 			
 			var eventData = {
 				"container": $(this),
@@ -27,11 +58,20 @@
 			
 			eventData.loadingIndicator.hide();
 			
-			$(this).find('.pagination li[class!="disabled"] a, th a')
-			       .click(eventData, paginate);
+			$(this).find('.pagination li[class!="disabled"] a, th > a')
+			       .click(eventData, function(e) {
+                                    //c/onsole.log('paginate-event', e, eventData);
+                                    var data = {};
+                                    data.href = $(e.currentTarget).attr('href');
+                                    data.container = eventData.container;
+                                    data.container.trigger('paginate', [data]);
+                                    //paginate(e);
+                                    return false;
+                                });
 		});
 	};
 	
+        // start with the default class
 	$(function() {
 		$(".pagination-container").pagination();
 	});

@@ -15,9 +15,34 @@ $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle
 
 $this->headScript()->appendFile($this->basePath('js/bloodhound.js'))
                    ->appendFile($this->basePath('js/typeahead.jquery.js'))
+                   ->appendFile($this->basePath('/Core/js/core.js'))
                    ->appendFile($this->basePath('/Core/js/multiCheckbox.js'));
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
+
+$this->headScript()->captureStart();
+print <<<HEADSCRIPT
+(function ($) {
+    $('document').ready(function() {
+
+    //$('#apps-modal').modal({'show': false});
+$('#apps-modal').modal('show');
+// this is for Bootstrap 3.1
+//$('#apps-modal').modal({'show': false});
+$('#apps-modal').modal('hide');
+/*
+        setTableMultiCheckbox('div.pagination-container');
+        $('.table-action').dropdown();
+        $('div.pagination-container').on('ajax.ready', function() {
+            setTableMultiCheckbox($(this));
+            $('.table-action').dropdown();
+        });
+
+    */
+    });
+}) (jQuery);
+HEADSCRIPT;
+$this->headScript()->captureEnd();
 
 ?>      
 <h1>
@@ -26,6 +51,25 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     <small><?php echo $subTitle ?></small>
   <?php endif;?>
 </h1>
+
+<div id="apps-modal" class="modal fade in" style="" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                header ...
+            </div>
+            <div class="modal-body">
+                body ...
+            </div>
+            <div class="modal-footer">
+                <button id="modal-submit" class="btn btn-primary"><? echo $this->translate('submit'); ?></button>
+                <button data-dismiss="modal" class="btn btn-default" type="button"><? echo $this->translate('cancel'); ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="container col-md-12">
 <nav class="navbar cam-toolbar"> 
     <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
@@ -46,4 +90,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     </form>
   </nav>
 </div>
+<div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(), 
+                  array('query' => $this->params()->fromQuery()), true) ?>">
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>
+</div>
