@@ -6,13 +6,6 @@ var lang;
 	
 })();
 
-
-$(function() {
-	
-	// Activate tooltips for all elements with a title attribute
-	$("[title]").tooltip(); 
-});
-
 if (typeof(core) === "undefined") {
 	core = {};
 }

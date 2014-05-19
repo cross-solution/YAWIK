@@ -1,16 +1,34 @@
 <?php
-
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+/**
+ * generates the list of applications.
+ */
 $renderedFormCheckBox = '';
 
- $formCheckBox = $this->services("FormElementManager.checkBox");
-$formCheckBox->setAttributes(array('name' => 'cb_all'));
+
+/**
+ * @todo: should we write a view helper? Or should we move some code into the contoller?
+ */
+
+$formCheckBox = $this->services("FormElementManager.checkBox");
+/**
+ * FormCheckbox::render requires the attribute "name". The value of the attribute
+ * is currently unused
+ */
+$formCheckBox->setAttributes(array('name' => 'unused'));
 $renderedFormCheckBox = $this->formCheckBox($formCheckBox);
 
-$test = '
-<div class="dropdown" id="action" style="color: black;">
-             <a class="dropdown-toggle table-action" data-toggle="dropdown" style="color: black;" >
+$columnLabel = $renderedFormCheckBox.'
+<span class="dropdown btn-group" id="action">
+             <a class="btn btn-default dropdown-toggle table-action" data-toggle="dropdown">
              <i class="yk-icon yk-icon-spinner fa-spin action-loading" style="display: none;"></i>
-Action
+			 <b class="caret"></b>
              </a>
              <ul id="applicationTableAction" class="dropdown-menu">
              <li>
@@ -29,30 +47,20 @@ Action
                '</a>
                </li>
              </ul>
-           </div>
+           </span>
 ';
 
 
-
 $columns = array(
-        $renderedFormCheckBox . $test => array('class' => 'cam-list-action'),
-        /*@translate*/ 'Applicant' => array(),
-        /*@translate*/ 'Career' 
-    => array('class' => 'cam-career'),
-        /*@translate*/ 'Attachments' 
-    => array('class' => 'cam-attachment'),	
-        /*@translate*/ 'Job' 
-    => array('class' => 'cam-job'),	
-        /*@translate*/ 'Status' 
-    => array('sort' => 'status'),
-#        /*@translate*/ 'Subscriber'
-#    => array('sort' => 'subscriberUri'),
-        /*@translate*/ 'Rating'
-    => array('sort' => 'rating'),
-        /*@translate*/ 'Modified' 
-    => array('sort' => 'date'),
-        /*@translate*/ 'Actions' 
-    => array(),
+        $columnLabel                  => array('class' => 'yk-list-action'),
+        /*@translate*/ 'Applicant'    => array(),
+        /*@translate*/ 'Career'       => array('class' => 'cam-career'),
+        /*@translate*/ 'Attachments'  => array('class' => 'cam-attachment'),	
+        /*@translate*/ 'Job'          => array('class' => 'cam-job'),	
+        /*@translate*/ 'Status'       => array('sort' => 'status'),
+        /*@translate*/ 'Rating'       => array('sort' => 'rating'),
+        /*@translate*/ 'Modified'     => array('sort' => 'date'),
+        /*@translate*/ 'Actions'      => array(),
 );
 
 if ('-' == $this->sort{0}) {

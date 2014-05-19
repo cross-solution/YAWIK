@@ -1,0 +1,108 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+/**
+ * render a facebook profile
+ */
+ ?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate('personal information'); ?></div>
+<div class="panel-body">
+<div class="pull-left">
+<img class="yk-portrait" src="<?php echo $this->photo_urls['large'];?>"/>
+</div>
+<div>
+<b><?php echo $this->display_name;?></b>
+<br/><?php echo $this->business_address['street'];?>
+<br/><?php echo $this->business_address['zip_code'];?> <?php echo $this->business_address['city'];?>
+<br/>
+<?php 
+if(isset($this->birth_date['day'])):
+  echo $this->translate("Birthday").':'; 
+  echo $this->birth_date['year'].'-';
+  echo $this->birth_date['month'].'-';
+  echo $this->birth_date['day'];
+elseif(isset($this->birth_date['month'])):
+  echo $this->translate("Year of birth");
+  echo $this->birth_date['month'].'/';
+  echo $this->birth_date['year'];
+elseif(isset($this->birth_date['year'])):
+  echo $this->translate("Year of birth").':'; 
+  echo $this->birth_date['year'];
+endif;
+?>
+
+<br/><i class="yk-icon yk-icon-phone"></i><?php echo $this->business_address['phone']; ?>
+<br/><i class="yk-icon yk-icon-envelope"></i><?php echo $this->link($this->active_email); ?>
+
+</div>
+</div>
+</div>
+
+<?php if(isset($this->education)):?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate("education")?></div>
+<table class="table table-bordered table-condensed">
+<tr>
+<th><?php echo $this->translate("Date")?></th>
+<th><?php echo $this->translate("School or university")?></th>
+<th><?php echo $this->translate("Type")?></th>
+</tr>
+<?php foreach($this->education as $edu):?>
+<tr>
+ <td><?php echo isset($edu['year']['name'])?$edu['year']['name']:'';?></td>
+ <td>
+   <?php echo isset($edu['school']['name'])?$edu['school']['name']:'';?>
+   <ul>
+   <?php foreach($edu['classes'] as $classes):?>
+     <li><?php echo $classes['name'];?></li>
+   <?php endforeach;?>
+   </ul>
+ </td> 
+ <td>
+   <?php echo isset($edu['type'])?$edu['type']:'';?>
+ </td>
+</tr>
+<?php endforeach;?>
+</table>
+</div>
+<?php endif;?>
+
+<?php if(isset($this->work)):?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate("work experience");?></div>
+<table class="table table-bordered table-condensed">
+<tr>
+<th><?php echo $this->translate("Date")?></th>
+<th><?php echo $this->translate("Employer")?></th>
+<th><?php echo $this->translate("Position")?></th>
+<th><?php echo $this->translate("Description")?></th>
+</tr>
+<?php foreach($this->work as $work_experience):?>
+<tr>
+ <td><?php echo isset($work_experience['start_date'])?$work_experience['start_date']:'';?></td>
+ <td>
+   <?php echo isset($work_experience['employer']['name'])?$work_experience['employer']['name']:'';?>
+   <?php echo isset($work_experience['location']['name'])?'<br/>'.$work_experience['location']['name']:'';?>
+ </td>
+ <td><?php echo isset($work_experience['position']['name'])?$work_experience['position']['name']:'';?></td>
+ <td><?php echo isset($work_experience['description'])?$work_experience['description']:'';?></td>
+</tr>
+<?php endforeach;?>
+</table>
+</div>
+<?php endif;?>
+
+<?php if(isset($this->languages)):?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate("language skills"); ?></div>
+<div class="panel-body">
+ <br/><?php echo join(", ",array_keys($this->languages))?>
+</div>
+</div>
+<?php endif;?>

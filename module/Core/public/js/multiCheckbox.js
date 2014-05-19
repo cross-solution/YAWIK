@@ -124,14 +124,14 @@ var setApplicationListActions = function() {
     $('document').ready(function() {
         
         setTableMultiCheckbox('div.pagination-container');
-        $('.cam-list-action').waitAction('.action-loading');
+        $('.yk-list-action').waitAction('.action-loading');
         $('.table-action').dropdown();
         setApplicationListActions();
         
         $('div.pagination-container').on('ajax.ready', function() {
             setTableMultiCheckbox($(this));
             $('.table-action').dropdown();
-            $('.cam-list-action').waitAction('.action-loading');
+            $('.yk-list-action').waitAction('.action-loading');
             setApplicationListActions();
         });
 

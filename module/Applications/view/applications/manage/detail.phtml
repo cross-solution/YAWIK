@@ -32,7 +32,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
 <nav class="navbar cam-toolbar">   
-    <?php if ($application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
+    <?php if ($this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
     <div id="state-actions" class="btn-group cam-action-states">
         <?php $status = $application->status->name;
         
@@ -80,8 +80,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>  
      </div>
-     <?php endif ?>
-   </div>  
+     <?php endif ?> 
    <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
      <div id="forward-email" class="cam-input-group input-group">
             <span class="input-group-addon"
@@ -105,16 +104,21 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
     <div class="btn-group xpull-left">
       <a href="<?php echo $prevHref ?>" class="btn btn-mini btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
       <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
-      <a href="<?php echo $nextHref ?>" class="btn btn-mini btn-default<?php if (!$nextId): echo " disabled"; endif; ?>"" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
+      <a href="<?php echo $nextHref ?>" class="btn btn-mini btn-default<?php if (!$nextId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
     </div>    
     <div class="pull-left" style="padding-left: 10px; padding-top:7px;">
     <p>
     </p>
     </div>
-          <?php if (isset($externActionButtons)) {
+          <?php 
+          /**
+           * this variable is currently set by the PDF module.
+           */
+          if (isset($externActionButtons)) {
            echo $externActionButtons;
-          } ?>
-          <?php if ($this->acl($application, 'delete')):?>            
+          } 
+          ?>
+          <?php if ($this->acl($this->application, 'delete')):?>            
           <button class="btn btn-default" data-title="delete Application"
                     data-toggle="modal"
                     data-target="#cam-delete-application"
@@ -125,7 +129,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         </div>
 </nav>
 
-<div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="mail-box" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mail-box-label" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -142,12 +146,12 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
      </div>
   </div>
 </div>
-<div id="cam-delete-application" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete Application" aria-hidden="true">
+<div id="cam-delete-application" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete-application-label" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="history-box-label">
+        <h3 id="delete-application-label">
           <?php echo $this->translate('Delete Application') ?>:
         </h3>
       </div>
@@ -156,7 +160,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
       </div>
       <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
-          <a class="btn btn-primary" href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('delete this application')?>">
+          <a class="btn btn-primary" href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" title="<?php echo $this->translate('delete this application')?>">
           <?php echo $this->translate('Delete application') ?></a>
       </div>
     </div>
@@ -171,13 +175,12 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
                             'applicationId' => $this->application->id
                         )), true
                     )?>"
-     data-form-errormessage=<?php echo $this->translate('Error while loading comment form.')?>"
+     data-form-errormessage="<?php echo $this->translate('Error while loading comment form.')?>"
      data-form-url="<?php echo $this->url(
                         'lang/applications/comments', array('action' => 'form'),
                          true)?>"
-     data-application-id="<?php echo $this->application->id ?>"`
-     data-mode="list"
->
+     data-application-id="<?php echo $this->application->id ?>"
+     data-mode="list">
   <div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
@@ -197,7 +200,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
  </div>
 </div>
 
-<div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="history-box-label" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
      <div class="modal-header">
@@ -286,12 +289,12 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         
     <?php endforeach; 
     $this->headScript()->appendFile($this->basePath('Core/js/jquery.reloadable-modal.js'))?>
-    <div class="modal fade modal-scrollable" id="sp-modal" data-reloadable="body" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade modal-scrollable" id="sp-modal" data-reloadable="body" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">
+        <h4 class="modal-title">
             <span class="fa-spin yk-icon yk-icon-spinner"></span>
             <?php echo $this->translate('Loading')?> ...</h4>
       </div>
@@ -365,15 +368,23 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
   </div>
 </div>
 
+<div class="row">
  <div class="col-md-12">
-  <h2><?=$this->translate('Summary')?></h2>
-  <?php echo nl2br($this->application->summary) ?>
+   <div class="panel panel-default">
+     <div class="panel-heading"><?php echo $this->translate('Summary')?></div>
+     <div class="panel-body">
+     <?php echo nl2br($this->application->summary) ?>
+     </div>
+   </div>
  </div>
+</div>
 
 <?php if(count($this->application->cv->employments)>0):?>
+<div class="row">
 <div class="col-md-12">
-<h2><?= $this->translate('work experience')?></h2>
-<table class="cam-table">
+<div class="panel panel-default">
+<div class="panel-heading"><?= $this->translate('work experience')?></div>
+<table class="table table-condensed table-bordered">
 <thead>
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
@@ -392,26 +403,33 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <?php endforeach; // employments?>
 </table>
 </div>
+</div>
+</div>
 <?php endif;?> 
 
 <?php if(count($this->application->cv->educations)>0):?>
+<div class="row">
 <div class="col-md-12">
-<h2><?= $this->translate('education and training')?></h2>
-<table class="cam-table"> 
+<div class="panel panel-default">
+<div class="panel-heading"><?echo $this->translate('education and training')?></div>
+<table class="table table-condensed table-bordered"> 
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
  <th class="col-md-1"><?=$this->translate('End')?></th>
- <th class="col-md-1"><?=$this->translate('University')?></th>
+ <th class="col-md-3"><?=$this->translate('University')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
    <td><?php echo $education->startDate ?></td>
    <td><?php echo $education->endDate ?></td>
+   <td><?php echo $education->organizationName ?></td>
    <td><?php echo $education->description ?></td>
   </tr>
 <?php endforeach; // eucations?>    
 </table>
+</div>
+</div>
 </div>
 <?php endif;?> 
 
