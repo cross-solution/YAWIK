@@ -60,7 +60,7 @@
   <!-- ============================================  -->
   <!-- Target: prepare, creates log and cache dir    -->
   <!-- ============================================  -->
-  <target name="prepare">
+  <target name="prepare" depends="symlinks">
     <if>
       <not>
         <available file='${project.basedir}/log' type='dir' />
@@ -200,6 +200,17 @@
     <exec command="scp ./build/${phing.project.name}-docs-${version}.tar.gz ${deploy.ssh.host}@${deploy.ssh.host}"/>
     <echo msg="Files copied and compressed in build directory OK!"/>
   </target>  
+  <!-- ============================================  -->
+  <!-- Target: symlinks                              -->
+  <!-- ============================================  -->
+  <target name="symlinks" description="build api docs">
+    <symlink link="${project.basedir}/public/Core" target="${project.basedir}/module/Core/public" />
+    <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" />
+    <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
+    <symlink link="${project.basedir}/public/FormularValidation" target="${project.basedir}/module/FormularValidation/public" />
+    <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
+  </target>  
+  
   <!-- ============================================  -->
   <!-- Target: phpdoc                                -->
   <!-- ============================================  -->
