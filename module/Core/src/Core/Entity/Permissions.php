@@ -187,6 +187,7 @@ class Permissions implements PermissionsInterface
         if ($build) {
             $this->build();
         }
+        $this->hasChanged= true;
         return $this;
     }
     
