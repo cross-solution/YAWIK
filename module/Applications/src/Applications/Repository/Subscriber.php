@@ -9,7 +9,7 @@
 
 namespace Applications\Repository;
 
-use Applications\Entity\Subscriber;
+use Applications\Entity\Subscriber as SubscriberEntity;
 use Core\Repository\AbstractProviderRepository;
 
 /**

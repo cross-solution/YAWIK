@@ -206,6 +206,7 @@
   <target name="symlinks" description="build api docs">
     <symlink link="${project.basedir}/public/Core" target="${project.basedir}/module/Core/public" />
     <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" />
+    <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" />
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
     <symlink link="${project.basedir}/public/FormularValidation" target="${project.basedir}/module/FormularValidation/public" />
     <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
