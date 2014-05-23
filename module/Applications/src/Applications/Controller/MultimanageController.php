@@ -36,10 +36,19 @@ class MultimanageController extends AbstractActionController {
         $translator = $this->getServiceLocator()->get('translator');
         $viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
         $actionUrl = $viewHelperManager->get('url')->__invoke('lang/applications/applications-list', array('action' => 'reject2'));
+        $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        
+        // re-inject the Application-ids to the formular
         $elements = $this->params()->fromPost('elements',array());
         $hidden = '';
+        $displayNames = array();
+        foreach ($elements as $element) {
+             $hidden .= '<input type="hidden" name="elements[]" value="' . $element. '">';
+             $application = $repository->find($element);
+             $contact = $application->contact;
+             $displayNames[] = $contact->displayName;
+        }
         
-        //$application   = $repository->find($applicationId);
         $settings = $this->settings();
         $mailService = $this->getServiceLocator()->get('Core/MailService');
         $mail = $mailService->get('Applications/StatusChange');
@@ -47,17 +56,16 @@ class MultimanageController extends AbstractActionController {
         $mailText      = $settings->mailRejectionText ? $settings->mailRejectionText : '';
         //$mail->setBody($mailText);
         //$mailText = $mail->getBodyText();
-       
-        foreach ($elements as $element) {
-             $hidden .= '<input type="hidden" name="elements[]" value="' . $element. '">';
-        }
         
+        $mailSubject   = $translator->translate('Your application dated %s');
+       
         
         return new JsonModel(array(
             'ok' => true,
             'header' => $translator->translate('confirm you want to delete following Applications'),
             'content' => 'content created ' . date('H:i:s') . '<br /><form action="' . $actionUrl . '">'. 
                     $hidden . 
+                    '<input name="mail-subject" value="' . $mailSubject. '"><br /><br />' . 
                     '<textarea class=" form-control " id="mail-content" name="mail-content">' . $mailText . '</textarea></form>'
         ));
     }
