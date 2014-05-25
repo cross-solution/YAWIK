@@ -20,22 +20,6 @@ $this->headScript()->appendFile($this->basePath('js/bloodhound.js'))
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
 
-$this->headScript()->captureStart();
-print <<<HEADSCRIPT
-(function ($) {
-    $('document').ready(function() {
-
-    //$('#apps-modal').modal({'show': false});
-$('#apps-modal').modal('show');
-// this is for Bootstrap 3.1
-//$('#apps-modal').modal({'show': false});
-$('#apps-modal').modal('hide');
-
-    });
-}) (jQuery);
-HEADSCRIPT;
-$this->headScript()->captureEnd();
-
 ?>      
 <h1>
   <?=$this->translate('List of all applications')?>
@@ -43,19 +27,19 @@ $this->headScript()->captureEnd();
     <small><?php echo $subTitle ?></small>
   <?php endif;?>
 </h1>
-
-<div id="apps-modal" class="modal fade in" style="" aria-hidden="false">
+<div id="apps-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                header ...
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>header ...</h3>
             </div>
             <div class="modal-body">
                 body ...
             </div>
             <div class="modal-footer">
-                <button id="modal-submit" class="btn btn-primary"><? echo $this->translate('submit'); ?></button>
-                <button data-dismiss="modal" class="btn btn-default" type="button"><? echo $this->translate('cancel'); ?></button>
+                <button data-dismiss="modal" class="btn btn-default" type="button"><? echo $this->translate('Cancel'); ?></button>
+                <button id="modal-submit" class="btn btn-primary"><? echo $this->translate('Send mail'); ?></button>
             </div>
         </div>
     </div>

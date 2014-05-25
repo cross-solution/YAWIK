@@ -169,7 +169,7 @@ var setApplicationListActions = function() {
                 $modalbox.find('.modal-body').empty().append(data.content);
             }
             if (typeof data.header != 'undefined') {
-                $modalbox.find('.modal-header').empty().append(data.header);
+                $modalbox.find('.modal-header h3').empty().append(data.header);
             }
             
             $modalbox.modal('show');

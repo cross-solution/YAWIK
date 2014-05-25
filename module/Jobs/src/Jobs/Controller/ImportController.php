@@ -48,9 +48,8 @@ class ImportController extends AbstractActionController {
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
             ));
             $this->getRequest()->setPost($params);
-        }
-        
-        
+        }        
+    
         $p = $this->params()->fromPost();
         $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
         $user = $services->get('AuthenticationService')->getUser();
