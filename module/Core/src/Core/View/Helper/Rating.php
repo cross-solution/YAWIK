@@ -4,19 +4,36 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   AGPLv3
  */
 
+/** Core view helpers */
 namespace Core\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Core\Entity\RatingInterface;
 
-
+/**
+ * Renders a visual representation of a rating value.
+ * 
+ * <code>
+ *      
+ *      // Renders a compact rating bar representation:
+ *      echo $this->rating(3);
+ *      
+ *      // Renders a wide rating bar representation:
+ *      echo $this->rating(4, 'wider');
+ *      
+ *      // Pass an rating interface
+ *      $rating = $entity->getRating();
+ *      echo $this->rating($rating);
+ * </code>
+ * 
+ * @see \Core\Entity\Rating
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 class Rating extends AbstractHelper {
 
-    
-    
     /**
      * Maps rating values to text.
      *
@@ -35,7 +52,10 @@ class Rating extends AbstractHelper {
     /**
      * generates a rating bar from a rating value
      *
-     * @param string $gender
+     * @param int|RatingInterface $rating
+     * @param string $mode Rendering mode:
+     *                     - "compact": renders a densed rating presentation.
+     *                     - ANY STRING: renders a wide rating presentation.
      * @return string
      */
     public function __invoke($rating, $mode = 'compact')
