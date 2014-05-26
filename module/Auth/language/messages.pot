@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-08 18:15+0200\n"
+"POT-Creation-Date: 2014-05-26 18:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: view/form/social-profiles-fieldset.phtml:22
+msgid "Formatting"
+msgstr ""
+
+#: view/form/social-profiles-fieldset.phtml:28
+msgid "Close"
+msgstr ""
 
 #: view/form/social-profiles-button.phtml:38
 msgid "Attach profile"
@@ -25,7 +33,7 @@ msgstr ""
 msgid "Detach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:40
+#: view/form/social-profiles-button.phtml:42
 msgid "View profile data"
 msgstr ""
 
@@ -121,7 +129,7 @@ msgstr ""
 msgid "My password"
 msgstr ""
 
-#: src/Auth/Form/SocialProfilesFieldset.php:128
+#: src/Auth/Form/SocialProfilesFieldset.php:156
 #: language/_annotated_strings.php:9
 msgid "Social Profiles"
 msgstr ""

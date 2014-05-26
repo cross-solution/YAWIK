@@ -5,7 +5,7 @@ translate('Create group');
 //: ./view/auth/manage-groups/form.phtml:11
 translate('Edit group');
 
-//: ./src/Auth/Form/SocialProfilesFieldset.php:128
+//: ./src/Auth/Form/SocialProfilesFieldset.php:156
 translate('Social Profiles');
 
 //: ./src/Auth/Form/UserInfoFieldset.php:41

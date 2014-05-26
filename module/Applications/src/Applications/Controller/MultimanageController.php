@@ -71,7 +71,7 @@ class MultimanageController extends AbstractActionController {
         // @TODO transfer into form class
         return new JsonModel(array(
             'ok' => true,
-            'header' => '<button class="close" aria-hidden="true" data-dismiss="modal" type="button">×</button><h3>' . $translator->translate('reject the applicants') . '</h3>',
+            'header' => $translator->translate('reject the applicants'),
             'content' => '<form action="' . $actionUrl . '">'. 
                     $hidden . 
                     '<input class=" form-control " name="mail-subject" value="' . $mailSubject. '"><br /><br />' . 

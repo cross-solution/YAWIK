@@ -1,29 +1,26 @@
 <?php
-//: ./view/applications/manage/index.ajax.phtml:5
+//: ./view/applications/manage/index.ajax.phtml:46
 translate('Applicant');
 
-//: ./view/applications/manage/index.ajax.phtml:6
-translate('Career');
+//: ./view/applications/manage/index.ajax.phtml:47
+translate('Career'       => array('class' => 'cam-career');
 
-//: ./view/applications/manage/index.ajax.phtml:8
-translate('Attachments');
+//: ./view/applications/manage/index.ajax.phtml:48
+translate('Attachments'  => array('class' => 'cam-attachment');
 
-//: ./view/applications/manage/index.ajax.phtml:10
-translate('Job');
+//: ./view/applications/manage/index.ajax.phtml:49
+translate('Job'          => array('class' => 'cam-job');
 
-//: ./view/applications/manage/index.ajax.phtml:12
-translate('Status');
+//: ./view/applications/manage/index.ajax.phtml:50
+translate('Status'       => array('sort' => 'status');
 
-//: ./view/applications/manage/index.ajax.phtml:14
-translate('Subscriber');
+//: ./view/applications/manage/index.ajax.phtml:51
+translate('Rating'       => array('sort' => 'rating');
 
-//: ./view/applications/manage/index.ajax.phtml:16
-translate('Rating');
+//: ./view/applications/manage/index.ajax.phtml:52
+translate('Modified'     => array('sort' => 'date');
 
-//: ./view/applications/manage/index.ajax.phtml:18
-translate('Modified');
-
-//: ./view/applications/manage/index.ajax.phtml:20
+//: ./view/applications/manage/index.ajax.phtml:53
 translate('Actions');
 
 //: ./src/Applications/Form/PrivacyFieldset.php:58
@@ -83,22 +80,22 @@ translate('if checked, you\'ll get a copy of all mails you send.');
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
-//: ./src/Applications/Form/CreateApplication.php:124
+//: ./src/Applications/Form/CreateApplication.php:125
 translate('send application');
 
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
-//: ./src/Applications/Controller/IndexController.php:65
+//: ./src/Applications/Controller/IndexController.php:66
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:140
+//: ./src/Applications/Controller/IndexController.php:143
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:195
+//: ./src/Applications/Controller/IndexController.php:197
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:227
+//: ./src/Applications/Controller/IndexController.php:230
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40
@@ -116,6 +113,6 @@ translate('Application to "%s" dated %s');
 //: ./config/module.config.php:46
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:99
+//: ./config/module.config.php:105
 translate('Overview');
 
