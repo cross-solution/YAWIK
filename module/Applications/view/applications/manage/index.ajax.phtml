@@ -1,24 +1,56 @@
-<div class="pagination-container">
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+/**
+ * generates the list of applications.
+ */
+$renderedFormCheckBox = '';
+
+
+/**
+ * @todo: should we write a view helper? Or should we move some code into the contoller?
+ */
+
+$formCheckBox = $this->services("FormElementManager.checkBox");
+/**
+ * FormCheckbox::render requires the attribute "name". The value of the attribute
+ * is currently unused
+ */
+$formCheckBox->setAttributes(array('name' => 'unused'));
+$renderedFormCheckBox = $this->formCheckBox($formCheckBox);
+
+$columnLabel = $renderedFormCheckBox.'
+<span class="dropdown btn-group" id="action">
+             <a class="btn btn-default dropdown-toggle table-action" data-toggle="dropdown">
+             <i class="yk-icon yk-icon-spinner fa-spin action-loading" style="display: none;"></i>
+			 <b class="caret"></b>
+             </a>
+             <ul id="applicationTableAction" class="dropdown-menu">
+             <li>
+               <a href="#Reject">' . 
+        $this->translate('Reject') . 
+               '</a>
+               </li>
+             </ul>
+           </span>
+';
+
 
 $columns = array(
-        /*@translate*/ 'Applicant' => array(),
-        /*@translate*/ 'Career' 
-    => array('class' => 'cam-career'),
-        /*@translate*/ 'Attachments' 
-    => array('class' => 'cam-attachment'),	
-        /*@translate*/ 'Job' 
-    => array('class' => 'cam-job'),	
-        /*@translate*/ 'Status' 
-    => array('sort' => 'status'),
-#        /*@translate*/ 'Subscriber'
-#    => array('sort' => 'subscriberUri'),
-        /*@translate*/ 'Rating'
-    => array('sort' => 'rating'),
-        /*@translate*/ 'Modified' 
-    => array('sort' => 'date'),
-        /*@translate*/ 'Actions' 
-    => array(),
+        $columnLabel                  => array('class' => 'yk-list-action'),
+        /*@translate*/ 'Applicant'    => array(),
+        /*@translate*/ 'Career'       => array('class' => 'cam-career'),
+        /*@translate*/ 'Attachments'  => array('class' => 'cam-attachment'),	
+        /*@translate*/ 'Job'          => array('class' => 'cam-job'),	
+        /*@translate*/ 'Status'       => array('sort' => 'status'),
+        /*@translate*/ 'Rating'       => array('sort' => 'rating'),
+        /*@translate*/ 'Modified'     => array('sort' => 'date'),
+        /*@translate*/ 'Actions'      => array(),
 );
 
 if ('-' == $this->sort{0}) {
@@ -64,6 +96,13 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
 foreach ($this->applications as $application):
 $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
+    <td>
+        <?php 
+        $formCheckBox = $this->services("FormElementManager.checkBox");
+        $formCheckBox->setAttributes(array('id' => $application->id, 'name' => 'cb_' . $application->id ));
+        echo $this->formCheckBox($formCheckBox); 
+        ?>
+    </td>
     <td>
     <div class="portrait">
     <?php if ($application->contact->image):?>
@@ -128,4 +167,3 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
 
 </table>
 <?php echo $this->paginationControl($this->applications, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/applications'));?>
-</div>

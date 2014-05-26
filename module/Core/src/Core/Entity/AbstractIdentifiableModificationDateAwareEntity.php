@@ -68,8 +68,11 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
     /**
      * {@inheritDoc}
      */
-    public function setDateModified (DateTime $dateModified)
+    public function setDateModified ($dateModified)
     {
+        if (is_string($dateModified)) {
+            $dateModified = new DateTime($dateModified);
+        }
         $this->dateModified = $dateModified;
         return $this;
     }

@@ -59,7 +59,8 @@ return array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             'Applications/CommentController' => 'Applications\Controller\CommentController',
-            'Applications/Console' => 'Applications\Controller\ConsoleController'
+            'Applications/Console' => 'Applications\Controller\ConsoleController',
+            'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
         ),
     ),
     

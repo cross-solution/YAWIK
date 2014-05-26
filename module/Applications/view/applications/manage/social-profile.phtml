@@ -10,56 +10,10 @@
 <div class="modal-title">
 <?php echo $this->profile->name ?>
 </div>
+
 <div class="modal-body">
+<?php echo $this->partial('applications/manage/social-profile.'.strtolower($this->profile->name).'.phtml',$this->profile->getData()) ?>
 <div class="row"><div class="col-md-12 text-right"><?php echo $this->link($this->profile->link, $this->translate('View online')) ?></div></div>
-<div class="row">
-<?php if (count($this->profile->educations)):?>
-<div class="col-md-12">
-<h5><?= $this->translate('education and training')?></h5>
-<table class="cam-table"> 
-
-<?php foreach( $this->profile->educations as $education): ?>
-  <tr>
-    <?php 
-        $date = ($education->startDate ? $education->startDate . ' - ' : '')
-              . $education->endDate;
-        $desc = trim($education->description);
-        $tmpl = $desc
-              ? '<td>%s<br><strong>%s</strong></td><td>%s</td>'
-              : '<td colspan="2">%s<br><strong>%s</strong></td>';
-        
-        echo sprintf($tmpl, $date, $education->organizationName, $desc);
-    ?>
-  </tr>
-<?php endforeach; // eucations?>    
-</table>
-</div>
-<?php endif;?> 
-
-<?php if(count($this->profile->employments)>0):?>
-<div class="col-md-12">
-<h5><?= $this->translate('work experience')?></h2>
-<table class="cam-table">
-
-<?php foreach( $this->profile->employments as $employment): ?>
-    <tr>
-    <?php $date = $employment->endDate ? $employment->startDate . ' - ' . $employment->endDate 
-                                        : '<span style="white-space:nowrap;">' 
-                                          . $this->translate('Since') . ' ' . $employment->startDate
-                                          . '</span>';
-          $desc = trim($employment->description);
-          $tmpl = $desc
-                ? '<td>%s<br><strong>%s</strong></td><td>%s</td>'
-                : '<td colspan="2">%s<br><strong>%s</strong></td>';
-        
-          echo sprintf($tmpl, $date, $employment->organizationName, $desc);
-    ?>
-    </tr>
-<?php endforeach; // employments?>
-</table>
-</div>
-<?php endif;?> 
-
 
 <div class="col-md-12 sp-raw-data-<?php echo $this->profile->id ?>">
 <h5 style="cursor:pointer"><?php echo $this->translate('Profile data') ?>.

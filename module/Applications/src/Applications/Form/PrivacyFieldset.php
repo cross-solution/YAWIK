@@ -16,7 +16,7 @@ use Core\Form\ExplicitParameterProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface, ExplicitParameterProviderInterface
-{    
+{ 
     protected $viewPartial = 'form/core/privacy';
     
     public function init()

@@ -54,51 +54,60 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
         ),
     ),
     'applications' => array(
-        'type' => 'Literal',
-        'options' => array(
-            'route' => '/applications',
-            'defaults' => array(
-                'controller' => '\Applications\Controller\Manage',
-                'action' => 'index',
-            ),
-        ),
-        'may_terminate' => true,
-        'child_routes' => array(
-            'detail' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/:id',
-                    'constraints' => array(
-                        'id' => '[a-z0-9]+',
-                    ),
-                    'defaults' => array(
-                        'action' => 'detail',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    
-                    'status' => array(
-                        'type' => 'Segment',
+                        'type' => 'Literal',
                         'options' => array(
-                            'route' => '/:status',
+                            'route' => '/applications',
                             'defaults' => array(
-                                'action' => 'status',
-                                'status' => 'bad',
+                                'controller' => '\Applications\Controller\Manage',
+                                'action' => 'index',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'detail' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/:id',
+                                    'constraints' => array(
+                                        'id' => '[a-z0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'detail',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    'status' => array(
+                                        'type' => 'Segment',
+                                        'options' => array(
+                                            'route' => '/:status',
+                                            'defaults' => array(
+                                                'action' => 'status',
+                                                'status' => 'bad',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'comments' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/comments/:action',
+                                    'defaults' => array(
+                                        'controller' => 'Applications/CommentController',
+                                    ),
+                                ),
+                            ),
+                            'applications-list' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/multi/:action',
+                                    'defaults' => array(
+                                        'controller' => 'Applications\Controller\MultiManage',
+                                        'action' => 'multimodal'
+                                    ),
+                                ),
                             ),
                         ),
                     ),
-                ),
-            ),
-            'comments' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/comments/:action',
-                    'defaults' => array(
-                        'controller' => 'Applications/CommentController',
-                    ),
-                ),
-            ),
-        ),
-    ),
 )))));
