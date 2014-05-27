@@ -21,12 +21,12 @@ $formCheckBox = $this->services("FormElementManager.checkBox");
  * FormCheckbox::render requires the attribute "name". The value of the attribute
  * is currently unused
  */
-$formCheckBox->setAttributes(array('name' => 'unused'));
+$formCheckBox->setAttributes(array('name' => 'unused','style'=>'margin-top:-4px'));
 $renderedFormCheckBox = $this->formCheckBox($formCheckBox);
 
 $columnLabel = $renderedFormCheckBox.'
 <span class="dropdown btn-group" id="action">
-             <a class="btn btn-default dropdown-toggle table-action" data-toggle="dropdown">
+             <a class="btn btn-default btn-xs dropdown-toggle table-action" data-toggle="dropdown" style="margin-top: -8px;">
              <i class="yk-icon yk-icon-spinner fa-spin action-loading" style="display: none;"></i>
 			 <b class="caret"></b>
              </a>

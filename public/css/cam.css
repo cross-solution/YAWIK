@@ -6559,63 +6559,6 @@ button.close {
 .cam-error .alert-link {
   color: #843534;
 }
-.cam-table {
-  width: 100%;
-  margin-bottom: 20px;
-  border: 1px solid #dddddd;
-}
-.cam-table > thead > tr > th,
-.cam-table > tbody > tr > th,
-.cam-table > tfoot > tr > th,
-.cam-table > thead > tr > td,
-.cam-table > tbody > tr > td,
-.cam-table > tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.428571429;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
-}
-.cam-table > thead > tr > th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dddddd;
-}
-.cam-table > caption + thead > tr:first-child > th,
-.cam-table > colgroup + thead > tr:first-child > th,
-.cam-table > thead:first-child > tr:first-child > th,
-.cam-table > caption + thead > tr:first-child > td,
-.cam-table > colgroup + thead > tr:first-child > td,
-.cam-table > thead:first-child > tr:first-child > td {
-  border-top: 0;
-}
-.cam-table > tbody + tbody {
-  border-top: 2px solid #dddddd;
-}
-.cam-table .table {
-  background-color: #ffffff;
-}
-.cam-table > tbody > tr:nth-child(odd) > td,
-.cam-table > tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
-}
-.cam-table > thead > tr > th,
-.cam-table > tbody > tr > th,
-.cam-table > tfoot > tr > th,
-.cam-table > thead > tr > td,
-.cam-table > tbody > tr > td,
-.cam-table > tfoot > tr > td {
-  border: 1px solid #dddddd;
-}
-.cam-table > thead > tr > th,
-.cam-table > thead > tr > td {
-  border-bottom-width: 2px;
-}
-.cam-table > tbody > tr:hover > td,
-.cam-table > tbody > tr:hover > th {
-  background-color: #f5f5f5;
-}
-.cam-table th {
-  background-color: #efefef;
-}
 /**
 * Pagination
 */
@@ -7243,6 +7186,9 @@ a.yk-icon {
 body {
   padding: 50px 0 25px;
   position: relative;
+}
+th {
+  background-color: #efefef;
 }
 #cam-topbar {
   position: relative;
