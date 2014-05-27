@@ -35,9 +35,9 @@ class PaginationQuery extends AbstractPaginationQuery
     );
     
     /**
-     * Constructs pagination query
+     * Constructs pagination query. 
      * 
-     * @param unknown $auth
+     * @param \Auth\AuthenticationService $auth
      */
     public function __construct($auth)
     {

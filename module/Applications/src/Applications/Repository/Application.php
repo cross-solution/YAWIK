@@ -73,7 +73,7 @@ class Application extends AbstractRepository
     /**
      * Get unread applications
      *
-     * @param unknown $job
+     * @param \Jobs\Entity\JobInterface $job
      */
     public function getUnreadApplications($job) 
     {
@@ -87,8 +87,8 @@ class Application extends AbstractRepository
     /**
      * Get comments of an applications
      * 
-     * @param unknown $commentOrId
-     * @return unknown|NULL
+     * @param \Application\Entity\Comment $comment | Id
+     * @return $comment|NULL
      */
     public function findComment($commentOrId)
     {
@@ -110,7 +110,7 @@ class Application extends AbstractRepository
      * Gets social profiles of an application
      * 
      * @param String $profileId
-     * @return unknown|NULL
+     * @return $profile|NULL
      */
     public function findProfile($profileId)
     {
@@ -121,43 +121,6 @@ class Application extends AbstractRepository
             }
         }
         return null;
-    }
-    
-    /**
-     * @deprecated
-     * @param unknown $jobId
-     * @return unknown
-     */
-    public function fetchByJobId($jobId)
-    {
-        $collection = $this->getMapper('application')->fetch(
-            array('jobId' => $jobId),
-            array('cv'),
-            true
-        );
-        return $collection;
-    }
-    
-    public function fetchRecent($limit=5)
-    {
-        $collection = $this->getMapper('application')->fetchRecent($limit);
-        return $collection;
-    }
-    
-    /**
-     * @deprecated
-     * counts the number of applications of 
-     */    
-    public function countBy($userOrId, $onlyUnread=false)
-    {
-        if ($userOrId instanceOf \Auth\Entity\UserInterface) {
-            $userOrId = $userOrId->getId();
-        }
-        $criteria = array('user' => $userOrId);
-        if ($onlyUnread) {
-            $criteria['readBy'] = array ('$ne' => $userOrId);
-        }
-        return $this->findBy($criteria)->count();
     }
     
     /**
@@ -186,7 +149,5 @@ class Application extends AbstractRepository
         $this->dm->remove($entity);
         $this->dm->flush();
         return $this;
-    }
-    
-     
+    } 
 }
