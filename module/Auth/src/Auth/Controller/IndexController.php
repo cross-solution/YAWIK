@@ -30,15 +30,14 @@ class IndexController extends AbstractActionController
     { 
         
         $viewModel = new ViewModel();
-        $services = $this->getServiceLocator();
-        $form     = $services->get('FormElementManager')
-                             ->get('Auth/Login');
-        
+        $services  = $this->getServiceLocator();
+        $form      = $services->get('FormElementManager')
+                              ->get('Auth/Login');
         
         if ($this->request->isPost()) {
             
             $form->setData($this->params()->fromPost());
-            $adapter     = $services->get('Auth/Adapter/UserLogin');
+            $adapter    = $services->get('Auth/Adapter/UserLogin');
             
             // inject suffixes via shared Events
             $loginSuffix = '';
@@ -49,10 +48,9 @@ class IndexController extends AbstractActionController
                 $loginSuffix = $loginSuffixResponseCollection->last();
             }
             
-            $data = $this->params()->fromPost();
+            $data       = $this->params()->fromPost();
             $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
-            
             
             $auth       = $services->get('AuthenticationService');
             $result     = $auth->authenticate($adapter);
@@ -87,10 +85,14 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toUrl($url);
                 
             } else {
+                $databaseName = '';
+                $config = $services->get('config');
+                if (array_key_exists('database', $config) && array_key_exists('databaseName', $config['database'])) {
+                    $databaseName = $config['database']['databaseName'];
+                }
+                $services->get('Log/Core/Cam')->info('Failed to authenticate User ' . $data['credentials']['login'] . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
                 
-                $services->get('Log/Core/Cam')->info('Failed to authenticate User ' . $data['credentials']['login'] );
-                
-                $this->notification()->error(/*@translate*/ 'Authentication failed.');
+                $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
         
