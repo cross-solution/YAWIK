@@ -58,6 +58,11 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
                
         <input class="form-control" type="text" id="job-filter" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
         <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
+        <select class="form-control" name="job_status">
+<?php foreach ($this->applicationStates as $applicationStatus): ?>
+    <option value="<?php echo $applicationStatus; ?>" <?php echo isset($_GET['job_status'])&&$_GET['job_status']==$applicationStatus?'selected="selected"':'' ?>><?php echo $this->translate($applicationStatus); ?></option>
+<?php endforeach; ?>
+        </select>
         <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
         <a href="<?php echo $this->url('lang/applications', array(), array('query' => array('clear' => 1)), true) ?>"

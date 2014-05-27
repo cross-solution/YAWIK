@@ -17,101 +17,109 @@ use Zend\Stdlib\Parameters;
 use Applications\Entity\StatusInterface as Status;
 
 /**
- * Handles managing actions on applications
+ * Handles multiple actions on applications
  */
-class MultimanageController extends AbstractActionController {
-    
-    
+class MultimanageController extends AbstractActionController
+{
+
     /**
      * some Action on a set of applications,
      * as there are invite, decline, postpone, confirm
+     * 
+     * @return \Zend\View\Model\JsonModel
      */
-    public function multimodalAction() {
+    public function multimodalAction()
+    {
         return new JsonModel(array(
             'ok' => true,
             'action' => 'multimodal'
         ));
     }
-    
+
     /**
      * 
-     * @TODO consolidate with Manage::status
+     * @TODO consolidate with Manage::status - a lot of shared code
      * @return \Zend\View\Model\JsonModel
      */
-    public function rejectAction() {
-        $translator = $this->getServiceLocator()->get('translator');
+    public function rejectApplicationAction()
+    {
+        $translator        = $this->getServiceLocator()->get('translator');
         $viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
-        $actionUrl = $viewHelperManager->get('url')->__invoke('lang/applications/applications-list', array('action' => 'reject2'));
-        $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
-        
+        $actionUrl         = $viewHelperManager->get('url')
+                            ->__invoke('lang/applications/applications-list', array('action' => 'rejectApproval'));
+        $repository        = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        $settings          = $this->settings();
+        $mailService       = $this->getServiceLocator()->get('Core/MailService');
+
         // re-inject the Application-ids to the formular
-        $elements = $this->params()->fromPost('elements',array());
+        $elements = $this->params()->fromPost('elements', array());
         $hidden = '';
         $displayNames = array();
         foreach ($elements as $element) {
-             $hidden .= '<input type="hidden" name="elements[]" value="' . $element. '">';
-             $application = $repository->find($element);
-             $isAllowed = $this->acl()->test($application, 'change');
-             if ($isAllowed) {
+            $hidden .= '<input type="hidden" name="elements[]" value="' . $element . '">';
+            $application = $repository->find($element);
+            $isAllowed = $this->acl()->test($application, 'change');
+            if ($isAllowed) {
                 $contact = $application->contact;
                 $displayNames[] = $contact->displayName;
-             }
+            }
         }
-        
-        $settings = $this->settings();
-        $mailService = $this->getServiceLocator()->get('Core/MailService');
+
         $mail = $mailService->get('Applications/StatusChange');
-        //$mail->setApplication($application);
-        $mailText      = $settings->mailRejectionText ? $settings->mailRejectionText : '';
-        //$mail->setBody($mailText);
-        //$mailText = $mail->getBodyText();
-        
-        $mailSubject   = $translator->translate('Your application dated %s');
-       
+        $mailText = $settings->mailRejectionText ? $settings->mailRejectionText : '';
+        $mailSubject = $translator->translate('Your application dated %s');
+
         // @TODO transfer into form class
         return new JsonModel(array(
             'ok' => true,
             'header' => $translator->translate('reject the applicants'),
-            'content' => '<form action="' . $actionUrl . '">'. 
-                    $hidden . 
-                    '<input class=" form-control " name="mail-subject" value="' . $mailSubject. '"><br /><br />' . 
-                    '<textarea class=" form-control " id="mail-content" name="mail-content">' . $mailText . '</textarea></form>'
+            'content' => '<form action="' . $actionUrl . '">' .
+            $hidden .
+            '<input class=" form-control " name="mail-subject" value="' 
+                . $mailSubject . '"><br /><br />' .
+            '<textarea class=" form-control " id="mail-content" name="mail-content">' 
+                . $mailText . '</textarea></form>'
         ));
     }
-    
-    public function reject2Action() {
+
+    /**
+     * 
+     * @return \Zend\View\Model\JsonModel
+     */
+    public function rejectApprovalAction()
+    {
         $translator        = $this->getServiceLocator()->get('translator');
         $repositoryService = $this->getServiceLocator()->get('repositories');
         $repository        = $repositoryService->get('Applications/Application');
         $mailService       = $this->getServiceLocator()->get('Core/MailService');
-        $elements          = $this->params()->fromPost('elements',array());
+        $elements          = $this->params()->fromPost('elements', array());
         foreach ($elements as $element) {
-            $mail        = $mailService->get('Applications/StatusChange');
+            $mail = $mailService->get('Applications/StatusChange');
             $application = $repository->find($element);
             $mail->setApplication($application);
             $mail->setBody($this->params()->fromPost('mail-content'));
             $mailSubject = sprintf(
-                $translator->translate($this->params()->fromPost('mail-subject')),
-                strftime('%x', $application->dateCreated->getTimestamp())
+                    $translator->translate($this->params()->fromPost('mail-subject')), 
+                        strftime('%x', $application->dateCreated->getTimestamp())
             );
             $mail->setSubject($mailSubject);
-             
+
             if ($from = $application->job->contactEmail) {
                 $mail->setFrom($from, $application->job->company);
             }
             if ($this->settings()->mailBCC) {
-               $user = $this->auth()->getUser();
-               $mail->addBcc($user->info->email, $user->info->displayName);
+                $user = $this->auth()->getUser();
+                $mail->addBcc($user->info->email, $user->info->displayName);
             }
             $mailService->send($mail);
-            
+
             // update the Application-History
-            $application->changeStatus(Status::REJECTED, sprintf('Mail was sent to %s' , $application->contact->email));
-            //$repository->save($application);
+            $application->changeStatus(Status::REJECTED, 
+                    sprintf('Mail was sent to %s', $application->contact->email));
             $repositoryService->store($application);
-            unset ($mail);
+            unset($mail);
         }
-        return new JsonModel(array( 'ok' => true,));
+        return new JsonModel(array('ok' => true,));
     }
-    
+
 }

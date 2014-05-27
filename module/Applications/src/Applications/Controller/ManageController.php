@@ -46,23 +46,22 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     { 
-        
+        $translator = $this->getServiceLocator()->get('translator');
         $params = $this->paginationParams('Applications\Index', array(
             'page' => 1,
             'sort' => '-date',
             'search',
             'by',
             'job',
+            'job_status',
         ));
         
-        $job = $params->job
-				
-        ? $this->getServiceLocator()
-                    ->get('repositories')
-                    ->get('Jobs/Job')
-                    ->find($params->job)
-             : null;
+        $jobRepository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
+        $applicationRepository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         
+        $states = $applicationRepository->getStates()->toArray();
+        $states = array_merge(array(/*@translate*/ 'all states'), $states);
+        $job = $params->job ? $jobRepository->find($params->job)  : null;
         $paginator = $this->paginator('Applications/Application',$params);
                 
         return array(
@@ -71,6 +70,7 @@ class ManageController extends AbstractActionController
             'sort' => $params->get('sort', 'none'),
             'search' => $params->get('search', ''),
             'job' => $job,
+            'applicationStates' => $states
         );
     }
     

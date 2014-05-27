@@ -149,5 +149,13 @@ class Application extends AbstractRepository
         $this->dm->remove($entity);
         $this->dm->flush();
         return $this;
-    } 
+    }
+    
+    public function getStates()
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->hydrate(false)->distinct('status.name');
+        $result = $qb->getQuery()->execute();
+        return $result;
+    }
 }

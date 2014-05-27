@@ -101,6 +101,4 @@ class Job extends AbstractRepository
         
     }
     
-    
-    
 }
