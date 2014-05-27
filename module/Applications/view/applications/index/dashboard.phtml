@@ -38,7 +38,7 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
  </tr>
 </thead>
 <?php foreach ($this->applications as $app):?>
-    <tr>
+    <tr<?php echo ($app->isUnreadBy($this->auth('id'))?' class="yk-new"':'')?>>
       <td>
         <div class="portrait">
           <?php if ($app->contact->image):?>

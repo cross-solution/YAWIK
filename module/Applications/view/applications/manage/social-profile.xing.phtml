@@ -22,11 +22,14 @@
 <br/><?php echo $this->business_address['zip_code'];?> <?php echo $this->business_address['city'];?>
 <br/>
 <?php 
+
+
 if(isset($this->birth_date['day'])):
-  echo $this->translate("Birthday").':'; 
-  echo $this->birth_date['year'].'-';
-  echo $this->birth_date['month'].'-';
-  echo $this->birth_date['day'];
+  $date=DateTime::createFromFormat('Y-m-d', $this->birth_date['year'] . '-' . 
+                                            $this->birth_date['month'] . '-'.
+                                            $this->birth_date['day']);
+  echo $this->translate('Birthday').': '; 
+  echo $this->DateFormat($date,'short','none');
 elseif(isset($this->birth_date['month'])):
   echo $this->translate("Year of birth");
   echo $this->birth_date['month'].'/';
