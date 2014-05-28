@@ -86,7 +86,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
 
         if ($config['Applications/Settings']['Form']['showCv']) {
         	$this->add(
-            	$this->forms->get('CvFieldset')->setObject(new Cv())
+            	$this->serviceLocator->get('CvFieldset')->setObject(new Cv())
         	);
         }        
         
