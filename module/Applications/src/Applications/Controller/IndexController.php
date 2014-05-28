@@ -194,6 +194,7 @@ class IndexController extends AbstractActionController
                                             ));
                             // Must be called after initializers in creation
                             $ackMail->setSubject(/*@translate*/ 'Application confirmation');
+                            $ackMail->setFrom($recruiter->getInfo()->getEmail());
                             $this->mailer($ackMail);
                             $applicationEntity->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s' , $applicationEntity->contact->email));
                         }
