@@ -512,10 +512,6 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @see \Applications\Entity\ApplicationInterface::getSubscriber()
      */
     public function getSubscriber() {
-        if (!isset($this->subscriber)) {
-            $this->subscriber = new Subscriber();
-            $this->subscriber->name = '';
-        }
         return $this->subscriber;
     }
     

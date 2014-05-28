@@ -83,10 +83,6 @@ class IndexController extends AbstractActionController
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
         //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
-        if (!empty($subscriberUri) && $request->isPost()) {
-            $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
-            $applicationEntity->subscriber = $subscriber;
-        }
         
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
@@ -126,6 +122,11 @@ class IndexController extends AbstractActionController
                 $this->request->getPost()->toArray(),
                 $this->request->getFiles()->toArray()
             );
+            
+            if (!empty($subscriberUri) && $request->isPost()) {
+                $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
+                $applicationEntity->subscriber = $subscriber;
+            }
             
             $form->setData($data);
             

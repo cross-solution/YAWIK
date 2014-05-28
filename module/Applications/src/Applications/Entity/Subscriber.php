@@ -35,6 +35,13 @@ class Subscriber extends AbstractIdentifiableEntity
      * @ODM\String 
      **/
     protected $uri;
+    
+    /**
+     * date of the last update
+     * 
+     * @ODM\Field(type="tz_date")
+     */
+    protected $date;
    
     /**
      * Name of the repository, which stores uri=>name
@@ -71,10 +78,12 @@ class Subscriber extends AbstractIdentifiableEntity
      */
     public function getName()
     {
-        if (empty($this->name)) {
+        if (empty($this->name) || True) {
             /* TODO try to fetch name from other YAWIK */
-            $this->name = '';
-#            $this->getRepository();            
+            $repository = $this->getRepository();
+            $name = $repository->getSubscriberName($this->uri);
+            $this->name = $name;
+            $repository->store($this);
         }
         return $this->name;
     }

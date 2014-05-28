@@ -122,7 +122,6 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         /**
          * adds the privacy policy to the application fomular
          */
-        
         $applicationsPrivacy = $this->serviceLocator->get('Applications/PrivacyPolicy');
         
         $this->add(
