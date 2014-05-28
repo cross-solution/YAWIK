@@ -7701,3 +7701,6 @@ fieldset[disabled] .cam-form-remove.active {
   box-shadow: none;
   padding: 0px 12px;
 }
+#profiles {
+  margin-bottom: 10px;
+}

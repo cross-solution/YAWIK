@@ -24,7 +24,7 @@ use Core\Entity\EntityInterface;
  */
 class CreateApplication extends Form implements ServiceLocatorAwareInterface
 {
-    protected $forms;
+    protected $serviceLocator;
     protected $inputFilterSpecification;
     protected $preferFormInputFilter = true;
     protected $isInitialized;
@@ -32,13 +32,13 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
-        $this->forms = $serviceLocator;
+        $this->serviceLocator = $serviceLocator;
         return $this;
     }
     
     public function getServiceLocator()
     {
-        return $this->forms;
+        return $this->serviceLocator;
     }
     
     /*
@@ -69,59 +69,67 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         
         $this->initDispositive();
       
-        $this->add($this->forms
+        $this->add($this->serviceLocator
                          ->get('Applications/ContactFieldset')
                          ->setLabel('personal informations')
                          ->setName('contact')
                          ->setObject(new Contact()));
         
         
-        $this->add($this->forms->get('Applications/BaseFieldset'));
+        $this->add($this->serviceLocator->get('Applications/BaseFieldset'));
 
         /**
-         * ads a cv section to the application formular
+         * adds a cv section to the application formular
          */
         
-        $this->add(
-            $this->forms->get('CvFieldset')->setObject(new Cv())
-        );
+        $config = $this->serviceLocator->getServiceLocator()->get('config');
+
+        if ($config['Applications/Settings']['Form']['showCv']) {
+        	$this->add(
+            	$this->forms->get('CvFieldset')->setObject(new Cv())
+        	);
+        }        
         
-        $this->add(array(
-            'type' => 'Auth/SocialProfilesFieldset',
-            'name' => 'profiles',
-            'options' => array(
-                'profiles' => array(
-                    'facebook' => 'Facebook',
-                    'xing'     => 'Xing',
-                ),
-            ),
-        ));
+        if ($config['Applications/Settings']['Form']['showSocialProfiles']) {
+	        $this->add(array(
+    	        'type' => 'Auth/SocialProfilesFieldset',
+        	    'name' => 'profiles',
+            	'options' => array(
+                	'profiles' => array(
+                 	  	'facebook' => 'Facebook',
+                 		'xing'     => 'Xing',
+                	),
+            	),
+        	));
+        }
         
-        $attachments = $this->forms->get('Applications/AttachmentsCollection');
-        $this->add(
-            $attachments
-        );
+        if ($config['Applications/Settings']['Form']['showAttachments']) {
+	        $attachments = $this->serviceLocator->get('Applications/AttachmentsCollection');
+    	    $this->add(
+        	    $attachments
+        	);
+        }
         
         /**
          * sends a Carbon-Copy to the Applicant
          */
-        $this->add(
-            $this->forms->get('Applications/CarbonCopy')
-        );
+        if ($config['Applications/Settings']['Form']['showCarbonCopy']) {
+        	$this->add(
+	            $this->serviceLocator->get('Applications/CarbonCopy')
+    	    );
+        }
         
         /**
          * adds the privacy policy to the application fomular
          */
-        //$this->add(
-        //    $this->forms->get('Applications/Privacy')
-        //);
-        $applicationsPrivacy = $this->forms->get('Applications/PrivacyPolicy');
+        
+        $applicationsPrivacy = $this->serviceLocator->get('Applications/PrivacyPolicy');
         
         $this->add(
             $applicationsPrivacy
         );
         
-        $buttons = $this->forms->get('DefaultButtonsFieldset');
+        $buttons = $this->serviceLocator->get('DefaultButtonsFieldset');
         $buttons->get('submit')->setLabel( /* @translate */ 'send application');
         $this->add($buttons);
         

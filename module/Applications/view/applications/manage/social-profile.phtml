@@ -13,11 +13,12 @@
 
 <div class="modal-body">
 <?php echo $this->partial('applications/manage/social-profile.'.strtolower($this->profile->name).'.phtml',$this->profile->getData()) ?>
-<div class="row"><div class="col-md-12 text-right"><?php echo $this->link($this->profile->link, $this->translate('View online')) ?></div></div>
 
 <div class="col-md-12 sp-raw-data-<?php echo $this->profile->id ?>">
-<h5 style="cursor:pointer"><?php echo $this->translate('Profile data') ?>.
-<span class="pull-right fa fa-chevron-up"></span></h2>
+<h2 style="cursor:pointer">
+<?php echo $this->translate('Profile data') ?>
+<span class="pull-right fa fa-chevron-up"></span>
+</h2>
 <pre>
 <?php //var_export($this->profile->getData());
     function sp_export_data($data, $level=0)
@@ -44,7 +45,7 @@
 ;(function($) {
 	$(function() {
 		var $rawDataDiv = $('.sp-raw-data-<?php echo $this->profile->id ?>');
-		var $toggle     = $rawDataDiv.find('h5');
+		var $toggle     = $rawDataDiv.find('h2');
 		var $display    = $rawDataDiv.find('pre');
 		
 		$display.hide();
@@ -62,6 +63,5 @@
 })(jQuery);
 
 </script>
-
 </div>
 </div>
