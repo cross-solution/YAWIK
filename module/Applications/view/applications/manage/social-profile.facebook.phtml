@@ -20,7 +20,8 @@
 <b><?php echo $this->name;?></b>
 <br/><?php echo $this->location['name'];?>
 <br/><?php echo $this->translate("Birthday");?>: <?php echo $this->birthday;?>
-<br/><i class="yk-icon yk-icon-envelope"></i><?php echo $this->link($this->email); ?>
+<br/><i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->email); ?>
+<br/><i class="yk-icon yk-icon-facebook"></i> <?php echo $this->link($this->link); ?>
 </div>
 </div>
 </div>
@@ -40,9 +41,11 @@
  <td>
    <?php echo isset($edu['school']['name'])?$edu['school']['name']:'';?>
    <ul>
+   <?php if(isset($edu['classes'])):?>
    <?php foreach($edu['classes'] as $classes):?>
      <li><?php echo $classes['name'];?></li>
    <?php endforeach;?>
+   <?php endif;?>
    </ul>
  </td> 
  <td>

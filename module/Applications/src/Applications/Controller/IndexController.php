@@ -274,7 +274,9 @@ class IndexController extends AbstractActionController
     public function disclaimerAction()
     { 
         $viewModel = new ViewModel();
-        $viewModel->setTerminal(true);
+        if ($this->request->isXmlHttpRequest()) {
+          $viewModel->setTerminal(true);
+        }
         return $viewModel;
     }
 }
