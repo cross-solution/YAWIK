@@ -18,7 +18,7 @@ $this->headTitle('Manage groups')->append('My');
 <?php $groups = $this->auth('groups');
     if (count($groups)): ?>
     
-<table class="cam-table" id="my-groups-list">
+<table class="table table-striped table-bordered table-hover" id="my-groups-list">
 <thead>
     <tr>
         <th><?php echo $this->translate('Group name') ?></th>
