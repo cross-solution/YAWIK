@@ -25,15 +25,14 @@ echo $this->form($this->form);
 ?>
 
 
-<div id="search-users-modal" class="modal modal-lg modal-scrollable fade" tabindex="-1" role="dialog" aria-labelledby="search users" aria-hidden="true">
+<div id="search-users-modal" class="modal modal-scrollable fade" tabindex="-1" role="dialog" aria-labelledby="label-search-user" aria-hidden="true">
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
     <div class="modal-header">
-    <div class="row">
-        
+      <div class="row" id="label-search-user"> 
         <form name="search-users" class="col-xs-11">
             <div class="input-group">
-                <input class="form-control" type="text" name="query" id="search-users-query" value="Dummy Company">
+                <input class="form-control" type="text" name="query" id="search-users-query" value="" placeholder="<?php echo $this->translate("search for users");?>">
                 <span class="input-group-btn">
                     <button id="search-users-clear" class="btn btn-default type="button">X</button>
                 </span>
@@ -71,6 +70,5 @@ echo $this->form($this->form);
           <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Ok') ?></button>
       </div>
     </div>
-    
   </div>
 </div>

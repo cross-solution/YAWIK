@@ -63,7 +63,7 @@
 		
 		var url     = $button.data('fetch-url');
 		
-		popup = window.open(url, 'fetch social profile', 'width=380,height=450');
+		popup = window.open(url, 'fetch social profile', 'width=480,height=550');
 		$currentFetchButton = $button.parent();
 		
 		return false;
