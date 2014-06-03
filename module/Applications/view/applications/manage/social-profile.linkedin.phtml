@@ -19,7 +19,6 @@
 </div>
 <div>
 <b><?php echo $this->{'first-name'};?> <?php echo $this->{'last-name'};?></b>
-
 <br/><?php echo $this->location['name'];?>
 <br/>
 <?php 
@@ -41,8 +40,6 @@ elseif(isset($this->birth_date['year'])):
 endif;
 ?>
 
-<br/><i class="yk-icon yk-icon-phone"></i> <?php echo preg_replace('/([0-9]+)\|([0-9]+)\|([0-9]+)/','+\1-\2-\3',$this->business_address['phone']); ?>
-<br/><i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->active_email); ?>
 <br/><i class="yk-icon yk-icon-linkedin"></i> <?php echo $this->link($this->{'public-profile-url'}); ?>
 </div>
 </div>
@@ -87,20 +84,28 @@ endif;
 <th><?php echo $this->translate("Position")?></th>
 <th><?php echo $this->translate("Description")?></th>
 </tr>
-<?php foreach($this->positions['position'] as $work_experience):?>
+<?php foreach($this->positions as $work_experience):?>
+<?php if(isset($work_experience['id'])):?>
 <tr>
- <td><?php echo isset($work_experience['begin_date'])?$work_experience['begin_date']:'';?></td>
  <td>
-   <?php echo isset($work_experience['name'])?$work_experience['name']:'';?>
-   <?php echo isset($work_experience['company_size'])?'<br/>'.$work_experience['company_size'].' '.$this->translate('employes'):'';?>
-   <?php echo isset($work_experience['industry'])?'<br/>'.$this->translate('Industry'). ': ' .$work_experience['industry']:'';?>
+ <?php echo isset($work_experience['start-date']['year'])?$work_experience['start-date']['year']:'';?>
+ <?php echo (isset($work_experience['is-current']) and $work_experience['is-current'])?$this->translate('ongoing'):'';?>
+ </td>
+ <td>
+   <?php echo isset($work_experience['company']['name'])?$work_experience['company']['name']:'';?>
+   <?php echo isset($work_experience['company']['size'])?'<br/>'.$this->translate('Size'). ': '. $work_experience['company']['size']:'';?>
+   <?php echo isset($work_experience['company']['type'])?'<br/>'.$this->translate('Type'). ': '.$work_experience['company']['type']:'';?>
+  
  </td>
  <td>
    <?php echo isset($work_experience['title'])?$work_experience['title']:'';?>
-   <?php echo isset($work_experience['career_level'])?'<br/>'.$this->translate('Level') . ': ' .$work_experience['career_level']:'';?>
  </td>
- <td><?php echo isset($work_experience['description'])?$work_experience['description']:'';?></td>
+ <td>
+  <?php echo isset($work_experience['company']['industry'])?'<br/>'.$this->translate('Industry'). ': ' .$work_experience['company']['industry']:'';?>
+ <?php echo isset($work_experience['description'])?$work_experience['description']:'';?>
+ </td>
 </tr>
+<?php endif;?>
 <?php endforeach;?>
 </table>
 </div>
