@@ -13,7 +13,7 @@ use Core\Entity\EntityInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Personal informations of a subscriber
+ * Personal informations of a subscriber.
  * 
  * @ODM\Document (collection="applications.subscribers", repositoryClass="Applications\Repository\Subscriber")
  */
@@ -78,7 +78,7 @@ class Subscriber extends AbstractIdentifiableEntity
      */
     public function getName()
     {
-        if (empty($this->name) || True) {
+        if (empty($this->name)) {
             /* TODO try to fetch name from other YAWIK */
             $repository = $this->getRepository();
             $name = $repository->getSubscriberName($this->uri);

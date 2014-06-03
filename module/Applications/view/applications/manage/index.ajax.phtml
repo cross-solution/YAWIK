@@ -148,8 +148,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
     </td>
     <td>
      <?php echo $this->translate($application->status->name) ?>
-     <br/>
-     <?php echo isset($application->subscriber)?$application->subscriber->name:'' ?>
+     <br/><small><?php echo isset($application->subscriber)?$application->subscriber->name:'' ?></small>
     </td>
     <td><?php echo $this->rating($application->rating)?></td>
     <td title="Created: <?php echo $this->dateFormat($application->dateCreated,'short');?>">

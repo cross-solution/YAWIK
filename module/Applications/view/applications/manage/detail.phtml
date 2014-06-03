@@ -317,8 +317,11 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
     <table class="table">
       <tr>
         <td><?php echo $this->translate('date of receipt')?>:</td>
-        <td><?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></td>
-      </tr> 
+        <td>
+        <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?>
+        <?php echo isset($application->subscriber)? '<br/>' . $this->translate("via"). ': '. $application->subscriber->name:'';?>
+        </td>
+      </tr>       
       <tr>
         <td style="width:50%"><?php echo $this->translate('application state')?>:</td>
         <td class="cam-color-<?php echo $this->application->status ?>">
