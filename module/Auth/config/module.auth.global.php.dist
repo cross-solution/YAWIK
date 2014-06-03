@@ -3,18 +3,23 @@
 return array(
 	'hybridauth' => array(
         "Facebook" => array ( 
+            "enabled" => %%facebook.enabled%%,
             "keys"    => array ( "id" => "%%facebook.appid%%", "secret" => "%%facebook.secret%%" ), 
-            "scope" => "email, user_about_me, user_birthday, user_hometown", "user_work_history", "user_education_history",// optional
+            "scope"   => "%%facebook.scope%%",// optional
             "display" => "popup"
         ),
         "LinkedIn" => array (
-            "keys"    => array ( "key" => "%%linkedin.appid%%", "secret" => "%%linkedin.secret%%" )
+            "enabled" => %%linkedin.enabled%%,
+            "keys"    => array ( "key" => "%%linkedin.appid%%", "secret" => "%%linkedin.secret%%" ),
+            "scope"   => "%%linkedin.scope%%"
         ),
         "XING" => array(
-            'keys'    => array ( "key" => '%%xing.appid%%', 'secret' => '%%xing.secret%%')
+            "enabled" => %%xing.enabled%%,
+            'keys'    => array ( "key" => '%%xing.appid%%', 'secret' => '%%xing.secret%%'),
+            "scope"   => '%%xing.scope%%'
         ),
-        "OpenID" => array(
-            'enabled' => true
-        )
+//        "OpenID" => array(
+//            'enabled' => true
+//        )
     )    
 );

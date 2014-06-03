@@ -18,6 +18,8 @@ class SocialProfiles extends AbstractPlugin
     protected $adapterMap = array(
         'facebook' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\Facebook',
         'xing'     => '\\Auth\\Controller\\Plugin\\SocialProfiles\\Xing',
+    	'linkedin' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\LinkedIn',
+    		
     );
     
     public function __construct($hybridAuth, array $adapters = array())

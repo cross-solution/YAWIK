@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 18:46+0200\n"
-"PO-Revision-Date: 2014-05-26 17:01+0000\n"
+"POT-Creation-Date: 2014-06-03 11:07+0200\n"
+"PO-Revision-Date: 2014-06-03 09:08+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -62,11 +62,13 @@ msgid "Job"
 msgstr ""
 
 #: view/applications/index/dashboard.phtml:37
-#: view/applications/manage/social-profile.facebook.phtml:33
-#: view/applications/manage/social-profile.facebook.phtml:62
+#: view/applications/manage/social-profile.linkedin.phtml:56
+#: view/applications/manage/social-profile.linkedin.phtml:85
+#: view/applications/manage/social-profile.facebook.phtml:34
+#: view/applications/manage/social-profile.facebook.phtml:65
 #: view/applications/manage/detail.phtml:216
-#: view/applications/manage/social-profile.xing.phtml:51
-#: view/applications/manage/social-profile.xing.phtml:80
+#: view/applications/manage/social-profile.xing.phtml:55
+#: view/applications/manage/social-profile.xing.phtml:84
 msgid "Date"
 msgstr "Fecha"
 
@@ -107,12 +109,103 @@ msgstr ""
 msgid "Enter job title"
 msgstr ""
 
-#: view/applications/manage/index.phtml:62
+#: view/applications/manage/index.phtml:67
 msgid "Search"
 msgstr "Búsqueda"
 
-#: view/applications/manage/index.phtml:64
+#: view/applications/manage/index.phtml:69
 msgid "Clear"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:14
+#: view/applications/manage/social-profile.facebook.phtml:14
+#: view/applications/manage/detail.phtml:238
+#: view/applications/manage/social-profile.xing.phtml:14
+#: view/applications/manage/detail.pdf.phtml:61
+msgid "personal information"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:32
+#: view/applications/manage/social-profile.facebook.phtml:22
+#: view/applications/manage/social-profile.xing.phtml:31
+msgid "Birthday"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:35
+#: view/applications/manage/social-profile.linkedin.phtml:39
+#: view/applications/manage/social-profile.xing.phtml:34
+#: view/applications/manage/social-profile.xing.phtml:38
+msgid "Year of birth"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:53
+#: view/applications/manage/index.ajax.phtml:120
+#: view/applications/manage/social-profile.facebook.phtml:31
+#: view/applications/manage/social-profile.xing.phtml:52
+msgid "education"
+msgstr "educación"
+
+#: view/applications/manage/social-profile.linkedin.phtml:57
+#: view/applications/manage/social-profile.facebook.phtml:35
+#: view/applications/manage/social-profile.xing.phtml:56
+msgid "School or university"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:58
+#: view/applications/manage/social-profile.xing.phtml:57
+msgid "Notes"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:82
+#: view/applications/manage/index.ajax.phtml:123
+#: view/applications/manage/social-profile.facebook.phtml:62
+#: view/applications/manage/detail.phtml:386
+#: view/applications/manage/social-profile.xing.phtml:81
+#: view/applications/manage/detail.pdf.phtml:106
+msgid "work experience"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:86
+#: view/applications/manage/social-profile.facebook.phtml:66
+#: view/applications/manage/social-profile.xing.phtml:85
+msgid "Employer"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:87
+#: view/applications/manage/social-profile.facebook.phtml:67
+#: view/applications/manage/social-profile.xing.phtml:86
+msgid "Position"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:88
+#: view/applications/manage/social-profile.facebook.phtml:68
+#: view/applications/manage/detail.phtml:393
+#: view/applications/manage/detail.phtml:420
+#: view/applications/manage/social-profile.xing.phtml:87
+#: view/applications/manage/detail.pdf.phtml:111
+#: view/applications/manage/detail.pdf.phtml:129
+msgid "Description"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:95
+#: view/applications/manage/social-profile.xing.phtml:94
+msgid "employes"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:96
+#: view/applications/manage/social-profile.xing.phtml:95
+msgid "Industry"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:100
+#: view/applications/manage/social-profile.xing.phtml:99
+msgid "Level"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:111
+#: view/applications/manage/social-profile.facebook.phtml:87
+#: view/applications/manage/social-profile.xing.phtml:110
+msgid "language skills"
 msgstr ""
 
 #: view/applications/manage/index.ajax.phtml:36
@@ -121,23 +214,9 @@ msgid "Reject"
 msgstr " Rechazar"
 
 #: view/applications/manage/index.ajax.phtml:120
-#: view/applications/manage/social-profile.facebook.phtml:30
-#: view/applications/manage/social-profile.xing.phtml:48
-msgid "education"
-msgstr "educación"
-
-#: view/applications/manage/index.ajax.phtml:120
 #: view/applications/manage/index.ajax.phtml:123
 msgid "years"
 msgstr "año"
-
-#: view/applications/manage/index.ajax.phtml:123
-#: view/applications/manage/social-profile.facebook.phtml:59
-#: view/applications/manage/detail.phtml:386
-#: view/applications/manage/social-profile.xing.phtml:77
-#: view/applications/manage/detail.pdf.phtml:106
-msgid "work experience"
-msgstr ""
 
 #: view/applications/manage/index.ajax.phtml:141
 msgid "no attachments"
@@ -147,53 +226,8 @@ msgstr ""
 msgid "edit"
 msgstr "editar"
 
-#: view/applications/manage/social-profile.facebook.phtml:14
-#: view/applications/manage/detail.phtml:238
-#: view/applications/manage/social-profile.xing.phtml:14
-#: view/applications/manage/detail.pdf.phtml:61
-msgid "personal information"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:22
-#: view/applications/manage/social-profile.xing.phtml:26
-msgid "Birthday"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:34
-#: view/applications/manage/social-profile.xing.phtml:52
-msgid "School or university"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:35
+#: view/applications/manage/social-profile.facebook.phtml:36
 msgid "Type"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:63
-#: view/applications/manage/social-profile.xing.phtml:81
-msgid "Employer"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:64
-#: view/applications/manage/social-profile.xing.phtml:82
-msgid "Position"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:65
-#: view/applications/manage/detail.phtml:393
-#: view/applications/manage/detail.phtml:420
-#: view/applications/manage/social-profile.xing.phtml:83
-#: view/applications/manage/detail.pdf.phtml:111
-#: view/applications/manage/detail.pdf.phtml:129
-msgid "Description"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:84
-#: view/applications/manage/social-profile.xing.phtml:106
-msgid "language skills"
-msgstr ""
-
-#: view/applications/manage/social-profile.phtml:16
-msgid "View online"
 msgstr ""
 
 #: view/applications/manage/social-profile.phtml:19
@@ -409,27 +443,6 @@ msgstr ""
 msgid "native language"
 msgstr ""
 
-#: view/applications/manage/social-profile.xing.phtml:31
-#: view/applications/manage/social-profile.xing.phtml:35
-msgid "Year of birth"
-msgstr ""
-
-#: view/applications/manage/social-profile.xing.phtml:53
-msgid "Notes"
-msgstr ""
-
-#: view/applications/manage/social-profile.xing.phtml:90
-msgid "employes"
-msgstr ""
-
-#: view/applications/manage/social-profile.xing.phtml:91
-msgid "Industry"
-msgstr ""
-
-#: view/applications/manage/social-profile.xing.phtml:95
-msgid "Level"
-msgstr ""
-
 #: view/applications/manage/detail.pdf.phtml:60
 msgid "application details"
 msgstr ""
@@ -489,7 +502,7 @@ msgstr ""
 msgid "personal informations"
 msgstr ""
 
-#: src/Applications/Form/CreateApplication.php:125
+#: src/Applications/Form/CreateApplication.php:133
 #: language/_annotated_strings.php:84
 msgid "send application"
 msgstr ""
@@ -499,7 +512,7 @@ msgid "Attachment"
 msgstr ""
 
 #: src/Applications/Controller/ManageController.php:267
-#: src/Applications/Controller/MultimanageController.php:69
+#: src/Applications/Controller/MultimanageController.php:70
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
@@ -514,7 +527,7 @@ msgstr ""
 msgid "Forward application to %s failed."
 msgstr ""
 
-#: src/Applications/Controller/MultimanageController.php:74
+#: src/Applications/Controller/MultimanageController.php:75
 msgid "reject the applicants"
 msgstr ""
 
@@ -621,47 +634,51 @@ msgid "Comment message"
 msgstr ""
 
 #: language/_annotated_strings.php:90
-msgid "Invalid apply id"
+msgid "all states"
 msgstr ""
 
 #: language/_annotated_strings.php:93
-msgid "There were errors in the form."
+msgid "Invalid apply id"
 msgstr ""
 
 #: language/_annotated_strings.php:96
-msgid "Application confirmation"
+msgid "There were errors in the form."
 msgstr ""
 
 #: language/_annotated_strings.php:99
-msgid "your application was sent successfully"
+msgid "Application confirmation"
 msgstr ""
 
 #: language/_annotated_strings.php:102
-#, php-format
-msgid "Fwd: Application to \"%s\" dated %s"
+msgid "your application was sent successfully"
 msgstr ""
 
 #: language/_annotated_strings.php:105
 #, php-format
-msgid "New application for your vacancy \"%s\""
+msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
 #: language/_annotated_strings.php:108
+#, php-format
+msgid "New application for your vacancy \"%s\""
+msgstr ""
+
+#: language/_annotated_strings.php:111
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:114
 #, php-format
 msgid "Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:117
 msgid "E-Mail Templates"
 msgstr "Plantillas E-Mail "
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:120
 msgid "Overview"
 msgstr ""
 

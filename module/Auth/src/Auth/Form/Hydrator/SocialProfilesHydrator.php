@@ -19,6 +19,7 @@ class SocialProfilesHydrator extends AbstractHydrator
     protected $profileClassMap = array(
         'facebook' => '\Auth\Entity\SocialProfiles\Facebook',
         'xing'     => '\Auth\Entity\SocialProfiles\Xing',
+    	'linkedin' => '\Auth\Entity\SocialProfiles\LinkedIn',
     );
     
     public function __construct(array $profileClassMap = array())

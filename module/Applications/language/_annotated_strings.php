@@ -80,22 +80,25 @@ translate('if checked, you\'ll get a copy of all mails you send.');
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
-//: ./src/Applications/Form/CreateApplication.php:125
+//: ./src/Applications/Form/CreateApplication.php:133
 translate('send application');
 
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
+//: ./src/Applications/Controller/ManageController.php:63
+translate('all states');
+
 //: ./src/Applications/Controller/IndexController.php:66
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:143
+//: ./src/Applications/Controller/IndexController.php:144
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:197
+//: ./src/Applications/Controller/IndexController.php:198
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:230
+//: ./src/Applications/Controller/IndexController.php:231
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40

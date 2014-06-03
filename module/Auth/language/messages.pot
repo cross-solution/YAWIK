@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 18:46+0200\n"
+"POT-Creation-Date: 2014-06-03 11:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,29 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/form/social-profiles-fieldset.phtml:22
+#: view/form/social-profiles-fieldset.phtml:16
+msgid ""
+"you can add your social profile to your application. You can preview and "
+"remove the attached profile before submitting the application."
+msgstr ""
+
+#: view/form/social-profiles-fieldset.phtml:25
 msgid "Formatting"
 msgstr ""
 
-#: view/form/social-profiles-fieldset.phtml:28
+#: view/form/social-profiles-fieldset.phtml:31
 msgid "Close"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:38
+#: view/form/social-profiles-button.phtml:37
 msgid "Attach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:39
+#: view/form/social-profiles-button.phtml:38
 msgid "Detach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:42
+#: view/form/social-profiles-button.phtml:41
 msgid "View profile data"
 msgstr ""
 
@@ -65,7 +71,11 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: view/auth/manage-groups/form.phtml:71
+#: view/auth/manage-groups/form.phtml:35
+msgid "search for users"
+msgstr ""
+
+#: view/auth/manage-groups/form.phtml:70
 msgid "Ok"
 msgstr ""
 
