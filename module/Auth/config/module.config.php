@@ -60,7 +60,6 @@ return array(
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
         )
     ),
-    
     'hybridauth' => array(
         "Facebook" => array (
             "enabled" => true,

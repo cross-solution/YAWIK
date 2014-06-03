@@ -1,0 +1,116 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+/**
+ * render a linkedin profile
+ */
+ ?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate('personal information'); ?></div>
+<div class="panel-body">
+<div class="pull-left">
+<img class="yk-portrait" src="<?php echo $this->{'picture-url'};?>"/>
+
+</div>
+<div>
+<b><?php echo $this->{'first-name'};?> <?php echo $this->{'last-name'};?></b>
+
+<br/><?php echo $this->location['name'];?>
+<br/>
+<?php 
+
+
+if(isset($this->birth_date['day'])):
+  $date=DateTime::createFromFormat('Y-m-d', $this->birth_date['year'] . '-' . 
+                                            $this->birth_date['month'] . '-'.
+                                            $this->birth_date['day']);
+  echo $this->translate('Birthday').': '; 
+  echo $this->DateFormat($date,'short','none');
+elseif(isset($this->birth_date['month'])):
+  echo $this->translate("Year of birth");
+  echo $this->birth_date['month'].'/';
+  echo $this->birth_date['year'];
+elseif(isset($this->birth_date['year'])):
+  echo $this->translate("Year of birth").':'; 
+  echo $this->birth_date['year'];
+endif;
+?>
+
+<br/><i class="yk-icon yk-icon-phone"></i> <?php echo preg_replace('/([0-9]+)\|([0-9]+)\|([0-9]+)/','+\1-\2-\3',$this->business_address['phone']); ?>
+<br/><i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->active_email); ?>
+<br/><i class="yk-icon yk-icon-linkedin"></i> <?php echo $this->link($this->{'public-profile-url'}); ?>
+</div>
+</div>
+</div>
+
+<?php if(isset($this->educational_background)):?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate("education")?></div>
+<table class="table table-bordered table-condensed">
+<tr>
+<th><?php echo $this->translate("Date")?></th>
+<th><?php echo $this->translate("School or university")?></th>
+<th><?php echo $this->translate("Notes")?></th>
+</tr>
+<?php foreach($this->educational_background['schools'] as $edu):?>
+<tr>
+ <td>
+   <?php echo isset($edu['begin_date'])?$edu['begin_date']:'';?>
+   <?php echo isset($edu['end_date'])?' - '.$edu['end_date']:'';?>
+ </td>
+ <td>
+   <?php echo isset($edu['name'])?$edu['name']:'';?>
+   <?php echo isset($edu['subject'])?'<br/>'.$edu['subject']:'';?>
+   <?php echo isset($edu['degree'])?'<br/>'.$edu['degree']:'';?>
+ </td> 
+ <td>
+   <?php echo isset($edu['notes'])?$edu['notes']:'';?>
+ </td>
+</tr>
+<?php endforeach;?>
+</table>
+</div>
+<?php endif;?>
+
+<?php if(isset($this->positions)):?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate("work experience");?></div>
+<table class="table table-bordered table-condensed">
+<tr>
+<th><?php echo $this->translate("Date")?></th>
+<th><?php echo $this->translate("Employer")?></th>
+<th><?php echo $this->translate("Position")?></th>
+<th><?php echo $this->translate("Description")?></th>
+</tr>
+<?php foreach($this->positions['position'] as $work_experience):?>
+<tr>
+ <td><?php echo isset($work_experience['begin_date'])?$work_experience['begin_date']:'';?></td>
+ <td>
+   <?php echo isset($work_experience['name'])?$work_experience['name']:'';?>
+   <?php echo isset($work_experience['company_size'])?'<br/>'.$work_experience['company_size'].' '.$this->translate('employes'):'';?>
+   <?php echo isset($work_experience['industry'])?'<br/>'.$this->translate('Industry'). ': ' .$work_experience['industry']:'';?>
+ </td>
+ <td>
+   <?php echo isset($work_experience['title'])?$work_experience['title']:'';?>
+   <?php echo isset($work_experience['career_level'])?'<br/>'.$this->translate('Level') . ': ' .$work_experience['career_level']:'';?>
+ </td>
+ <td><?php echo isset($work_experience['description'])?$work_experience['description']:'';?></td>
+</tr>
+<?php endforeach;?>
+</table>
+</div>
+<?php endif;?>
+
+<?php if(isset($this->languages)):?>
+<div class="panel panel-default">
+<div class="panel-heading"><?php echo $this->translate("language skills"); ?></div>
+<div class="panel-body">
+ <br/><?php echo join(", ",array_keys($this->languages))?>
+</div>
+</div>
+<?php endif;?>

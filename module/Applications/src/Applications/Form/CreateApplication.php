@@ -98,6 +98,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
                 	'profiles' => array(
                  	  	'facebook' => 'Facebook',
                  		'xing'     => 'Xing',
+                	    'linkedin' => 'LinkedIn'
                 	),
             	),
         	));
