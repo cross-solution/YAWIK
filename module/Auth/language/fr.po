@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 18:46+0200\n"
-"PO-Revision-Date: 2014-05-26 16:50+0000\n"
+"POT-Creation-Date: 2014-06-03 11:16+0200\n"
+"PO-Revision-Date: 2014-06-03 09:16+0000\n"
 "Last-Translator: yawik <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +19,29 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: view/form/social-profiles-fieldset.phtml:22
+#: view/form/social-profiles-fieldset.phtml:16
+msgid ""
+"you can add your social profile to your application. You can preview and "
+"remove the attached profile before submitting the application."
+msgstr ""
+
+#: view/form/social-profiles-fieldset.phtml:25
 msgid "Formatting"
 msgstr ""
 
-#: view/form/social-profiles-fieldset.phtml:28
+#: view/form/social-profiles-fieldset.phtml:31
 msgid "Close"
 msgstr "Proche"
 
-#: view/form/social-profiles-button.phtml:38
+#: view/form/social-profiles-button.phtml:37
 msgid "Attach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:39
+#: view/form/social-profiles-button.phtml:38
 msgid "Detach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:42
+#: view/form/social-profiles-button.phtml:41
 msgid "View profile data"
 msgstr ""
 
@@ -67,7 +73,11 @@ msgstr "Nom du groupe"
 msgid "Actions"
 msgstr ""
 
-#: view/auth/manage-groups/form.phtml:71
+#: view/auth/manage-groups/form.phtml:35
+msgid "search for users"
+msgstr ""
+
+#: view/auth/manage-groups/form.phtml:70
 msgid "Ok"
 msgstr "Bien"
 

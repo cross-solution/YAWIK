@@ -10,8 +10,11 @@
 $this->headScript()->appendFile($this->basePath('Auth/js/form.socialprofiles.js'))
                    ->appendFile($this->basePath('Core/js/jquery.reloadable-modal.js'));
 
-echo $this->formCollection($this->element);
 ?>
+<?php echo $this->formCollection($this->element);?>
+<div class="alert alert-info">
+<?php echo $this->translate("you can add your social profile to your application. You can preview and remove the attached profile before submitting the application.")?>
+</div>
 <div class="modal fade modal-scrollable" id="<?php echo $this->element->getAttribute('id') ?>-preview-box" data-reloadable="body" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
