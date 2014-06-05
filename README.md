@@ -25,3 +25,12 @@ Demo
 
 http://yawik.org/demo
 
+Documentation
+-------------
+
+http://crossapplicantmanager.readthedocs.org/en/latest/
+
+Forum
+-----
+
+https://groups.google.com/forum/?hl=de#!forum/yawik
