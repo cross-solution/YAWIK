@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-03 11:07+0200\n"
+"POT-Creation-Date: 2014-06-05 18:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,8 +60,8 @@ msgid "Job"
 msgstr ""
 
 #: view/applications/index/dashboard.phtml:37
-#: view/applications/manage/social-profile.linkedin.phtml:56
-#: view/applications/manage/social-profile.linkedin.phtml:85
+#: view/applications/manage/social-profile.linkedin.phtml:53
+#: view/applications/manage/social-profile.linkedin.phtml:82
 #: view/applications/manage/social-profile.facebook.phtml:34
 #: view/applications/manage/social-profile.facebook.phtml:65
 #: view/applications/manage/detail.phtml:216
@@ -123,84 +123,87 @@ msgstr ""
 msgid "personal information"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:32
+#: view/applications/manage/social-profile.linkedin.phtml:31
 #: view/applications/manage/social-profile.facebook.phtml:22
 #: view/applications/manage/social-profile.xing.phtml:31
 msgid "Birthday"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:35
-#: view/applications/manage/social-profile.linkedin.phtml:39
+#: view/applications/manage/social-profile.linkedin.phtml:34
+#: view/applications/manage/social-profile.linkedin.phtml:38
 #: view/applications/manage/social-profile.xing.phtml:34
 #: view/applications/manage/social-profile.xing.phtml:38
 msgid "Year of birth"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:53
+#: view/applications/manage/social-profile.linkedin.phtml:50
 #: view/applications/manage/index.ajax.phtml:120
 #: view/applications/manage/social-profile.facebook.phtml:31
 #: view/applications/manage/social-profile.xing.phtml:52
 msgid "education"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:57
+#: view/applications/manage/social-profile.linkedin.phtml:54
 #: view/applications/manage/social-profile.facebook.phtml:35
 #: view/applications/manage/social-profile.xing.phtml:56
 msgid "School or university"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:58
+#: view/applications/manage/social-profile.linkedin.phtml:55
 #: view/applications/manage/social-profile.xing.phtml:57
 msgid "Notes"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:82
+#: view/applications/manage/social-profile.linkedin.phtml:79
 #: view/applications/manage/index.ajax.phtml:123
 #: view/applications/manage/social-profile.facebook.phtml:62
-#: view/applications/manage/detail.phtml:386
+#: view/applications/manage/detail.phtml:389
 #: view/applications/manage/social-profile.xing.phtml:81
 #: view/applications/manage/detail.pdf.phtml:106
 msgid "work experience"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:86
+#: view/applications/manage/social-profile.linkedin.phtml:83
 #: view/applications/manage/social-profile.facebook.phtml:66
 #: view/applications/manage/social-profile.xing.phtml:85
 msgid "Employer"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:87
+#: view/applications/manage/social-profile.linkedin.phtml:84
 #: view/applications/manage/social-profile.facebook.phtml:67
 #: view/applications/manage/social-profile.xing.phtml:86
 msgid "Position"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:88
+#: view/applications/manage/social-profile.linkedin.phtml:85
 #: view/applications/manage/social-profile.facebook.phtml:68
-#: view/applications/manage/detail.phtml:393
-#: view/applications/manage/detail.phtml:420
+#: view/applications/manage/detail.phtml:396
+#: view/applications/manage/detail.phtml:423
 #: view/applications/manage/social-profile.xing.phtml:87
 #: view/applications/manage/detail.pdf.phtml:111
 #: view/applications/manage/detail.pdf.phtml:129
 msgid "Description"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:95
-#: view/applications/manage/social-profile.xing.phtml:94
-msgid "employes"
+#: view/applications/manage/social-profile.linkedin.phtml:92
+msgid "ongoing"
 msgstr ""
 
 #: view/applications/manage/social-profile.linkedin.phtml:96
+msgid "Size"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:97
+#: view/applications/manage/social-profile.facebook.phtml:36
+msgid "Type"
+msgstr ""
+
+#: view/applications/manage/social-profile.linkedin.phtml:104
 #: view/applications/manage/social-profile.xing.phtml:95
 msgid "Industry"
 msgstr ""
 
-#: view/applications/manage/social-profile.linkedin.phtml:100
-#: view/applications/manage/social-profile.xing.phtml:99
-msgid "Level"
-msgstr ""
-
-#: view/applications/manage/social-profile.linkedin.phtml:111
+#: view/applications/manage/social-profile.linkedin.phtml:116
 #: view/applications/manage/social-profile.facebook.phtml:87
 #: view/applications/manage/social-profile.xing.phtml:110
 msgid "language skills"
@@ -220,12 +223,8 @@ msgstr ""
 msgid "no attachments"
 msgstr ""
 
-#: view/applications/manage/index.ajax.phtml:160
+#: view/applications/manage/index.ajax.phtml:159
 msgid "edit"
-msgstr ""
-
-#: view/applications/manage/social-profile.facebook.phtml:36
-msgid "Type"
 msgstr ""
 
 #: view/applications/manage/social-profile.phtml:19
@@ -340,8 +339,8 @@ msgid "Close"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:209
-#: view/applications/manage/detail.phtml:350
-#: view/applications/manage/detail.phtml:356
+#: view/applications/manage/detail.phtml:353
+#: view/applications/manage/detail.phtml:359
 msgid "State history"
 msgstr ""
 
@@ -373,72 +372,84 @@ msgstr ""
 msgid "date of receipt"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:323
+#: view/applications/manage/detail.phtml:322
+msgid "via"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:326
 msgid "application state"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:329
+#: view/applications/manage/detail.phtml:332
 msgid "rating"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:336
+#: view/applications/manage/detail.phtml:339
 msgid "View comments"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:336
+#: view/applications/manage/detail.phtml:339
 msgid "Add comment"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:344
+#: view/applications/manage/detail.phtml:347
 msgid "last modification date"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:363
+#: view/applications/manage/detail.phtml:366
 msgid "agent"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:374
+#: view/applications/manage/detail.phtml:377
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:87
 msgid "Summary"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:390
-#: view/applications/manage/detail.phtml:417
+#: view/applications/manage/detail.phtml:393
+#: view/applications/manage/detail.phtml:420
 #: view/applications/manage/detail.pdf.phtml:109
 #: view/applications/manage/detail.pdf.phtml:127
 msgid "Start"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:391
-#: view/applications/manage/detail.phtml:418
+#: view/applications/manage/detail.phtml:394
+#: view/applications/manage/detail.phtml:421
 #: view/applications/manage/detail.pdf.phtml:110
 #: view/applications/manage/detail.pdf.phtml:128
 msgid "End"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:392
+#: view/applications/manage/detail.phtml:395
 msgid "Company"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:414
+#: view/applications/manage/detail.phtml:417
 #: view/applications/manage/detail.pdf.phtml:124
 msgid "education and training"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:419
+#: view/applications/manage/detail.phtml:422
 msgid "University"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:437
+#: view/applications/manage/detail.phtml:440
 #: view/applications/manage/detail.pdf.phtml:142
 msgid "personal skills"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:439
+#: view/applications/manage/detail.phtml:442
 #: view/applications/manage/detail.pdf.phtml:144
 msgid "native language"
+msgstr ""
+
+#: view/applications/manage/social-profile.xing.phtml:94
+msgid "employes"
+msgstr ""
+
+#: view/applications/manage/social-profile.xing.phtml:99
+msgid "Level"
 msgstr ""
 
 #: view/applications/manage/detail.pdf.phtml:60

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# yawik <cbleek@yawik.org>, 2014
-# yawik <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-03 11:07+0200\n"
-"PO-Revision-Date: 2014-06-03 09:15+0000\n"
-"Last-Translator: yawik <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2014-06-03 09:53+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -200,7 +200,7 @@ msgstr "Branche"
 #: view/applications/manage/social-profile.linkedin.phtml:100
 #: view/applications/manage/social-profile.xing.phtml:99
 msgid "Level"
-msgstr "Level"
+msgstr "Position"
 
 #: view/applications/manage/social-profile.linkedin.phtml:111
 #: view/applications/manage/social-profile.facebook.phtml:87
