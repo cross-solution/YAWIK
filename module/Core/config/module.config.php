@@ -9,7 +9,7 @@
  * Having said that, you may always overwrite or extend the configuration
  * in your own modules configuration file(s) (or via the config autoloading).
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -269,7 +269,6 @@ return array(
 //            'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
 //            'form_radio' => 'Core\Form\View\Helper\FormRadio',
 //            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
-            'build_query' => 'Core\View\Helper\BuildQuery',
             'form' => 'Core\Form\View\Helper\Form',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',

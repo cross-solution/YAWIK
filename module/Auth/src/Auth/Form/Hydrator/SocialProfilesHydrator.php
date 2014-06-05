@@ -1,9 +1,9 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
 
@@ -19,6 +19,7 @@ class SocialProfilesHydrator extends AbstractHydrator
     protected $profileClassMap = array(
         'facebook' => '\Auth\Entity\SocialProfiles\Facebook',
         'xing'     => '\Auth\Entity\SocialProfiles\Xing',
+    	'linkedin' => '\Auth\Entity\SocialProfiles\LinkedIn',
     );
     
     public function __construct(array $profileClassMap = array())

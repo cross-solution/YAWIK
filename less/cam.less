@@ -60,6 +60,8 @@
 @navbar-inverse-link-hover-color:           @link-hover-color;
 @navbar-inverse-link-hover-bg:              darken(@brand-primary, 5%);
 
+@table-bg-header:  #EFEFEF;
+
 // CAM Variables
 @colorError:               #B94A48;
 @colorErrorShadow:         #D59392;
@@ -70,6 +72,10 @@
 body {
 	padding: @navbar-height 0 25px;	
 	position: relative;
+}
+
+th {
+  background-color: @table-bg-header;
 }
 
 #cam-topbar {
@@ -307,13 +313,6 @@ fieldset fieldset a.remove-item {
   padding: 0px 12px;
 }
 
-#job,
-#user-info {
-//  input {
-//    width: 100%;
-//  }
-//  input[type="file"] {
-//    border: none;   
-//    box-shadow: none;
-//  }  
+#profiles {
+  margin-bottom:20px;
 }

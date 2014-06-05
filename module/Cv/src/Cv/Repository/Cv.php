@@ -6,31 +6,33 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
 
-
+/**
+ * class for accessing CVs
+ */
 class Cv extends AbstractRepository
 {
-    
+    /**
+     * Gets a pointer to access a CV
+     * 
+     * @param array $params
+     */
     public function getPaginatorCursor($params)
     {
-        $criteria = array();
-        $by = $params->get('by', 'me');
-        if ('me' == $by) {
-            $user = $this->getService('AuthenticationService')->getUser();
-            $criteria['user'] = $user->id;
-        }
-
-        $sort = $params->get('sortField', 'date');
-        switch ($sort) {
-            case "date":
-            default:
-                $sort = 'dateCreated';
-                break;
-        }
-        
-        
-    	$cursor = $this->findBy($criteria);
-    	$cursor->sort(array($sort => $params->get('sortDir', 1)));
-    	return $cursor;
+        return $this->getPaginationQueryBuilder($params)
+                    ->getQuery()
+                    ->execute();
     }
+    /**
+     * Gets a query builder to search for CVs
+     *
+     * @param array $params
+     * @return unknown
+     */
+    protected function getPaginationQueryBuilder($params)
+    {
+        $filter = $this->getService('filterManager')->get('Applications/PaginationQuery');
+        $qb = $filter->filter($params, $this->createQueryBuilder());
     
+        return $qb;
+    }
 }

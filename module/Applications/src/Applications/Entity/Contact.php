@@ -13,6 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Contact extends Info {
     /**
+     * profile image of an application
      * 
      * @var unknown
      * @ODM\ReferenceOne(targetDocument="Attachment", simple=true, cascade={"persist", "remove"})

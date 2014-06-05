@@ -28,9 +28,9 @@ cd $MODULE_DIR || exit 120;
 echo "-- Create language/_annotated_strings.php"
 
 echo "<?php" > language/_annotated_strings.php
-for FILE in $(find . -type f | grep -E ".ph(p|tml)$"); do
+for FILE in $(find . -type f -not -name '_annotated_strings.php' | grep -E ".ph(p|tml)$"); do
 	cat $FILE \
-	| grep -rn -E "/\*[[:space:]]*@translate[[:space:]]*\*/" \
+	| grep -rn -E "/\*[[:space:]]*@translate[[:space:]]*\*/" - \
 	| sed "s=^\([[:digit:]]\+\).*@translate[[:space:]]*\*/[[:space:]]*\('\|\"\)\(.*\?\)\('\|\"\).*$=//: $FILE:\1\ntranslate('\3');\n=g" \
 	>> language/_annotated_strings.php
 done

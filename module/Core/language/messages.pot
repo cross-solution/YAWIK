@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-08 18:16+0200\n"
+"POT-Creation-Date: 2014-06-05 22:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,7 @@ msgid "&lt; Previous"
 msgstr ""
 
 #: view/partial/pagination-control.phtml:35
+#: view/partial/pagination-control.phtml:38
 msgid "Next &gt;"
 msgstr ""
 

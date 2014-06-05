@@ -5,7 +5,7 @@ translate('Create group');
 //: ./view/auth/manage-groups/form.phtml:11
 translate('Edit group');
 
-//: ./src/Auth/Form/SocialProfilesFieldset.php:128
+//: ./src/Auth/Form/SocialProfilesFieldset.php:156
 translate('Social Profiles');
 
 //: ./src/Auth/Form/UserInfoFieldset.php:41
@@ -98,21 +98,21 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:154
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:86
+//: ./src/Auth/Controller/IndexController.php:84
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:93
+//: ./src/Auth/Controller/IndexController.php:95
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:164
+//: ./src/Auth/Controller/IndexController.php:166
 translate('Welcome to YAWIK!');
 
-//: ./src/Auth/Controller/IndexController.php:389
+//: ./src/Auth/Controller/IndexController.php:391
 translate('You are now logged out');
 
-//: ./config/module.config.php:260
+//: ./config/module.config.php:259
 translate('user');
 
-//: ./config/module.config.php:261
+//: ./config/module.config.php:260
 translate('recruiter');
 

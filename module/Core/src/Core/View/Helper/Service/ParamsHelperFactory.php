@@ -3,10 +3,11 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
- */
+ */ 
 
+/** Core view helper factories*/
 namespace Core\View\Helper\Service;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -14,7 +15,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\View\Helper\Params;
 
 /**
- * Hybridauth authentication adapter factory
+ * Factors a params helper instance.
+ * @see \Core\View\Helper\Params
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ParamsHelperFactory implements FactoryInterface 
 {

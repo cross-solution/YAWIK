@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -15,33 +15,66 @@ use Core\Entity\EntityInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
- * User model interface 
+ * Defines an user model interface 
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
     
     /**
-     * Sets the display name
+     * Sets the users login name
      *
      * @param string $name
      */
     public function setLogin($login);
     
     /**
-     * Gets the display name
+     * Gets the users login name
      *
      * @return string
      */
     public function getLogin();
     
+    /**
+     * Sets the role of the users
+     * 
+     * @param unknown $role
+     */
     public function setRole($role);
+
+    /**
+     * Gets the role of the user
+     */
     public function getRole();
+    
+    /**
+     * Set contact data, user image etc. of a user.
+     * 
+     * @param InfoInterface $info
+     */
     public function setInfo(InfoInterface $info);
+    
+    /**
+     * Get contact data, user image etc. of a user.
+     */
     public function getInfo();    
+    
+    /**
+     * Set the API password of the user.
+     * 
+     * @param String $password
+     */
     public function setPassword($password);
     
+    /**
+     * get the Webfrontend password of the user
+     * 
+     * @param String $credential
+     */
     public function setCredential($credential);
     
+    /**
+     * get the Webfrontend password of the user
+     */
     public function getCredential();
     
     /**
@@ -58,9 +91,16 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      */
     public function getProfile();
     
-    //public function setSettings(array $settings);
+    /**
+     * get user settings of a certain Module.
+     * 
+     * @param String $module
+     */
     public function getSettings($module);
-    
+
+    /**
+     * get groups of the user
+     */
     public function getGroups();
     
     

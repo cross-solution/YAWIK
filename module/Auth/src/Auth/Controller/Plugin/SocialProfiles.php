@@ -1,9 +1,9 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
 
@@ -18,6 +18,8 @@ class SocialProfiles extends AbstractPlugin
     protected $adapterMap = array(
         'facebook' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\Facebook',
         'xing'     => '\\Auth\\Controller\\Plugin\\SocialProfiles\\Xing',
+    	'linkedin' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\LinkedIn',
+    		
     );
     
     public function __construct($hybridAuth, array $adapters = array())

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -115,38 +115,4 @@ class IndexController extends AbstractActionController
                   ->setVariable('message', 'An unexpected error had occured. Please try again later.');
         return $viewModel;
     }
-    
-    public function mailAction() {
-        $ServiceLocator = $this->getServiceLocator();
-        $settingsRepository = $ServiceLocator->get('RepositoryManager')->get('SettingsRepository');
-        $userIdentity = $ServiceLocator->get('AuthenticationService')->getIdentity();
-        $settingsEntity = $settingsRepository->getSettingsByUser($userIdentity);
-        $settingsEntity->spawnAsEntities();
-        
-        $userRepository = $ServiceLocator->get('RepositoryManager')->get('user');
-        
-        $userEntity = $userRepository->find($userIdentity);
-        $email = $userEntity->info->email;
-        
-        //$settingsEntity->application = array('mail' => 'TestMail');
-        //$application = $settingsEntity->application->mail;
-        
-        $mail = $this->mail(array('Anrede'=>'Herr Sowieso'));
-        
-        //$mailer = $this->mailer();
-        
-        $mail->template('test');
-        
-        //$mail = $mailer->newMail();
-        $mail->addTo('weitz@cross-solution.de');
-        $mail->setBody('Sie sind jetzt im YAWIK angemeldet.');
-        $mail->setFrom('cross@cross-solution.de', 'YAWIK');
-        $mail->setSubject('Anmeldung');
-        $result = $mail->send();
-        
-        $response = $this->getResponse();
-        
-        return "test";
-    }
-    
 }

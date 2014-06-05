@@ -35,9 +35,9 @@ class PaginationQuery extends AbstractPaginationQuery
     );
     
     /**
-     * Constructs pagination query
+     * Constructs pagination query. 
      * 
-     * @param unknown $auth
+     * @param \Auth\AuthenticationService $auth
      */
     public function __construct($auth)
     {
@@ -106,6 +106,10 @@ class PaginationQuery extends AbstractPaginationQuery
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
+        }
+        // includes the job-status if the job-status has no blanks
+        if (!empty($value['job_status']) && False === strpos($value['job_status'], ' ')) {
+            $queryBuilder->field('status.name')->equals($value['job_status']);
         }
         $queryBuilder->sort($this->filterSort($value['sort']));
         

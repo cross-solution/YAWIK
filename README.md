@@ -23,4 +23,14 @@ Build status: [![Build Status](https://api.travis-ci.org/cross-solution/CrossApp
 Demo
 ----
 
-http://bewerbermanagement.cross-solution.de
+http://yawik.org/demo
+
+Documentation
+-------------
+
+http://crossapplicantmanager.readthedocs.org/en/latest/
+
+Forum
+-----
+
+https://groups.google.com/forum/?hl=de#!forum/yawik

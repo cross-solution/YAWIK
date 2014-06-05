@@ -3,7 +3,7 @@
  * YAWIK
  * Core Module Bootstrap
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -13,8 +13,7 @@ namespace FormularValidation;
 use Zend\Mvc\MvcEvent;
 
 /**
- * Bootstrap class of the Core module
- * 
+ * Bootstrap class of the FormularValidation module
  */
 class Module 
 {  
@@ -26,9 +25,6 @@ class Module
      *      
      * @param MvcEvent $e
      */
-    //public function onBootstrap(MvcEvent $e)
-    //{ 
-    //}
 
     /**
      * Loads module specific configuration.

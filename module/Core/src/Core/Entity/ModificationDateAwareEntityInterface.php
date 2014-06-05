@@ -37,10 +37,10 @@ interface ModificationDateAwareEntityInterface
     /**
      * Sets the modification date.
      * 
-     * @param DateTime $date
+     * @param DateTime|String $date
      * @return self
      */
-    public function setDateModified(DateTime $date);
+    public function setDateModified($date);
     
     /**
      * Gets the modification date.

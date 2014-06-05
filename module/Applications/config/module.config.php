@@ -4,12 +4,11 @@
  * YAWIK
  * Configuration file of the Applications module
  * 
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
 return array(
-
     'doctrine' => array(
        'driver' => array(
             'odm_default' => array(
@@ -24,12 +23,22 @@ return array(
                     '\Applications\Repository\Event\JobReferencesUpdateListener',
                     '\Applications\Repository\Event\UpdatePermissionsSubscriber',
                     '\Applications\Repository\Event\UpdateFilesPermissionsSubscriber',
+                    '\Applications\Repository\Event\PostLoadSubscriber',
                 ),
             ),
         ),
     ),
     
     'Applications' => array(
+        /*
+         * Settings for the application form.
+         */
+        'form' =>array(
+            'showCv' => true,              // show educations and work experiences in application form
+            'showCarbonCopy' => true,      // show 'send me my data in CC' in application form
+            'showSocialProfiles' => true,  // enables attaching social profiles to an application
+            'showAttachments' => true,     // enables file uploads for an application
+        ),
         'dashboard' => array(
             'enabled' => true,
             'widgets' => array(
@@ -59,7 +68,8 @@ return array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             'Applications/CommentController' => 'Applications\Controller\CommentController',
-            'Applications/Console' => 'Applications\Controller\ConsoleController'
+            'Applications/Console' => 'Applications\Controller\ConsoleController',
+            'Applications\Controller\MultiManage' => 'Applications\Controller\MultimanageController',
         ),
     ),
     
@@ -181,5 +191,5 @@ return array(
             'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ),
     ),
-    
+
 );

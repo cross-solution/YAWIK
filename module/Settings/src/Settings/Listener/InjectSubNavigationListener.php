@@ -1,17 +1,18 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
 
 /** InjectSubNavigationConfigListener.php */ 
 namespace Settings\Listener;
 
-
+use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\MvcEvent;
+
 class InjectSubNavigationListener
 {
     
@@ -53,13 +54,15 @@ class InjectSubNavigationListener
                 'class' => isset($param['navigation_class']) ? $param['navigation_class'] : null,
                 'resource' => 'route/lang/settings',
                 'route' => 'lang/settings',
-                'routeMatch' => $routeMatch,
                 'router' => $router,
                 'action' => 'index',
                 'controller' => 'index',
                 'params' => array('lang' => 'de', 'module' => $key),
                 'active' => $key == $activeModule,
             );
+            if ($routeMatch instanceof RouteMatch) {
+                $page['routeMatch'] = $routeMatch;
+            }
             $settingsMenu->addPage($page);
         }
         

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -16,7 +16,7 @@ use Core\Form\ExplicitParameterProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class PrivacyFieldset extends Fieldset implements ViewPartialProviderInterface, InputFilterProviderInterface, ExplicitParameterProviderInterface
-{    
+{ 
     protected $viewPartial = 'form/core/privacy';
     
     public function init()

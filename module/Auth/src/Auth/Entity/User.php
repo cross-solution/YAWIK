@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -16,7 +16,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Settings\Repository\SettingsEntityResolver;
 
 /**
- * The user model
+ * Defines an user model
  * 
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */

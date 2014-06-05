@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -13,7 +13,8 @@ namespace Auth\Entity;
 use Core\Entity\EntityInterface;
 
 /**
- * User model interface 
+ * Defines an users Info model interface. The Info model holds contact
+ * data. 
  */
 interface InfoInterface extends EntityInterface
 {
@@ -117,7 +118,16 @@ interface InfoInterface extends EntityInterface
      */
     public function getLastName();
     
+    /**
+     * Sets the profile Image of an user
+     * 
+     * @param EntityInterface $image
+     */
     public function setImage(EntityInterface $image=null);
+    
+    /**
+     * Gets the profile Image of an user
+     */
     public function getImage();
     
     /**
@@ -147,8 +157,5 @@ interface InfoInterface extends EntityInterface
      * @@return string
      */
     public function getHouseNumber();
-    
-    
-    
     
 }  

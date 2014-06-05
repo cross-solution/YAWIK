@@ -1,9 +1,9 @@
 <?php
 /**
- * Cross Applicant Management
+ * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
 
@@ -11,7 +11,7 @@
 namespace Applications\Repository;
 
 /**
- * Manages a list of application ids for pagination
+ * class for accessing a pagination list.
  */
 class PaginationList
 {

@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
@@ -83,10 +83,6 @@ class IndexController extends AbstractActionController
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
         //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
-        if (!empty($subscriberUri) && $request->isPost()) {
-            $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
-            $applicationEntity->subscriber = $subscriber;
-        }
         
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
@@ -96,6 +92,7 @@ class IndexController extends AbstractActionController
         }
         
         $form->bind($applicationEntity);
+        $form->get('jobId')->setValue($job->id);
         $form->get('subscriberUri')->setValue($subscriberUri);
         
         /*
@@ -125,6 +122,11 @@ class IndexController extends AbstractActionController
                 $this->request->getPost()->toArray(),
                 $this->request->getFiles()->toArray()
             );
+            
+            if (!empty($subscriberUri) && $request->isPost()) {
+                $subscriber = $services->get('repositories')->get('Applications/Subscriber')->findbyUriOrCreate($subscriberUri);
+                $applicationEntity->subscriber = $subscriber;
+            }
             
             $form->setData($data);
             
@@ -219,7 +221,7 @@ class IndexController extends AbstractActionController
                     return new JsonModel(array(
                         'ok' => true,
                         'id' => $applicationEntity->id,
-                        'jobId' => $applicationEntity->jobId,
+                        'jobId' => $applicationEntity->job->id,
                     ));
                 }
                 if ($returnTo) {
@@ -273,7 +275,9 @@ class IndexController extends AbstractActionController
     public function disclaimerAction()
     { 
         $viewModel = new ViewModel();
-        $viewModel->setTerminal(true);
+        if ($this->request->isXmlHttpRequest()) {
+          $viewModel->setTerminal(true);
+        }
         return $viewModel;
     }
 }

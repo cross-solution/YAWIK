@@ -6,13 +6,6 @@ var lang;
 	
 })();
 
-
-$(function() {
-	
-	// Activate tooltips for all elements with a title attribute
-	$("[title]").tooltip(); 
-});
-
 if (typeof(core) === "undefined") {
 	core = {};
 }
@@ -38,7 +31,7 @@ core.displayFormErrors = function(messages)
 	};
 	
 	$.each(messages, function(index, value) { mapFormErrors(index, value, ""); });
-	console.debug(entries);
+	//c/onsole.debug(entries);
 	if ($.isEmptyObject(entries)) return;
 
 	$.each(entries, function(elementId, errors) {
@@ -62,4 +55,56 @@ core.displayFormErrors = function(messages)
 	});
 	
 };
+
+
+/**
+ * find elements in the surrounding DOM of the Object
+ * stops either when an occurence has been found or when the Body-Tag is reached
+ */
+$.fn.findBrethren = function(selector) {
+    var target = $(this);
+    var b = true;
+    var result = $();
+    while (b) {
+        b = false;
+        if (target.get(0).nodeName != 'BODY') {
+            result = target.find(selector);
+            if (0 < result.length) {
+                // found it
+            }
+            else {
+                // go another node up
+                target = target.parent();
+                //c/onsole.log('target', target);
+                if (0 < target.length) {
+                        b = true;
+                }
+            }
+        }
+    }
+    //c/onsole.log('findBrethren', $(this), result);
+    return result;
+}
+
+/**
+ * triggers the wait-Actions
+ * wait Actions answer to 
+ */
+
+$.fn.waitAction = function(selector) {
+    //c/onsole.log('waitAction', this);
+    $(this).bind('wait.start', function(event) {
+        var target = $(event.target);
+        target.findBrethren(selector).show();
+        return false;
+    });
+    $(this).bind('wait.stop', function(event) {
+        var target = $(event.target);
+        target.findBrethren(selector).hide();
+        return false;
+    });
+    return this;
+}
+
+
 		
