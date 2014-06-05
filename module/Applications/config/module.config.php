@@ -30,6 +30,15 @@ return array(
     ),
     
     'Applications' => array(
+        /*
+         * Settings for the application form.
+         */
+        'form' =>array(
+            'showCv' => true,              // show educations and work experiences in application form
+            'showCarbonCopy' => true,      // show 'send me my data in CC' in application form
+            'showSocialProfiles' => true,  // enables attaching social profiles to an application
+            'showAttachments' => true,     // enables file uploads for an application
+        ),
         'dashboard' => array(
             'enabled' => true,
             'widgets' => array(
@@ -182,15 +191,5 @@ return array(
             'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ),
     ),
-    /*
-     * Settings for the application form.
-     */
-    'Applications/Settings' => array(
-    		'Form' =>array(
-    				'showCv' => true,              // show educations and work experiences in application form
-    				'showCarbonCopy' => true,      // show 'send me my data in CC' in application form
-    				'showSocialProfiles' => true,  // enables attaching social profiles to an application
-    				'showAttachments' => true,     // enables file uploads for an application
-    		)
-    ),   
+
 );

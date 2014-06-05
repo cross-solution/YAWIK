@@ -84,13 +84,13 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         
         $config = $this->serviceLocator->getServiceLocator()->get('config');
 
-        if ($config['Applications/Settings']['Form']['showCv']) {
+        if ($config['Applications']['form']['showCv']) {
         	$this->add(
             	$this->serviceLocator->get('CvFieldset')->setObject(new Cv())
         	);
         }        
         
-        if ($config['Applications/Settings']['Form']['showSocialProfiles']) {
+        if ($config['Applications']['form']['showSocialProfiles']) {
 	        $this->add(array(
     	        'type' => 'Auth/SocialProfilesFieldset',
         	    'name' => 'profiles',
@@ -104,7 +104,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         	));
         }
         
-        if ($config['Applications/Settings']['Form']['showAttachments']) {
+        if ($config['Applications']['form']['showAttachments']) {
 	        $attachments = $this->serviceLocator->get('Applications/AttachmentsCollection');
     	    $this->add(
         	    $attachments
@@ -114,7 +114,7 @@ class CreateApplication extends Form implements ServiceLocatorAwareInterface
         /**
          * sends a Carbon-Copy to the Applicant
          */
-        if ($config['Applications/Settings']['Form']['showCarbonCopy']) {
+        if ($config['Applications']['form']['showCarbonCopy']) {
         	$this->add(
 	            $this->serviceLocator->get('Applications/CarbonCopy')
     	    );
