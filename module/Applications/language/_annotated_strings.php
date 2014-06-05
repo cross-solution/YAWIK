@@ -113,9 +113,9 @@ translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##
 //: ./src/Applications/Mail/ApplicationCarbonCopy.php:24
 translate('Application to "%s" dated %s');
 
-//: ./config/module.config.php:46
+//: ./config/module.config.php:55
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:105
+//: ./config/module.config.php:114
 translate('Overview');
 

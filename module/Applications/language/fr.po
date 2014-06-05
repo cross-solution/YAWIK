@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# yawik <cbleek@yawik.org>, 2014
-# yawik <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-03 11:07+0200\n"
-"PO-Revision-Date: 2014-06-03 09:08+0000\n"
-"Last-Translator: yawik <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2014-06-03 17:12+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -107,7 +107,7 @@ msgstr "applications de recherche"
 
 #: view/applications/manage/index.phtml:59
 msgid "Enter job title"
-msgstr ""
+msgstr "Entrez le titre du poste"
 
 #: view/applications/manage/index.phtml:67
 msgid "Search"
@@ -115,7 +115,7 @@ msgstr "Recherche "
 
 #: view/applications/manage/index.phtml:69
 msgid "Clear"
-msgstr ""
+msgstr "Supprimer"
 
 #: view/applications/manage/social-profile.linkedin.phtml:14
 #: view/applications/manage/social-profile.facebook.phtml:14
@@ -129,14 +129,14 @@ msgstr "renseignements personnels"
 #: view/applications/manage/social-profile.facebook.phtml:22
 #: view/applications/manage/social-profile.xing.phtml:31
 msgid "Birthday"
-msgstr ""
+msgstr "Anniversaire"
 
 #: view/applications/manage/social-profile.linkedin.phtml:35
 #: view/applications/manage/social-profile.linkedin.phtml:39
 #: view/applications/manage/social-profile.xing.phtml:34
 #: view/applications/manage/social-profile.xing.phtml:38
 msgid "Year of birth"
-msgstr ""
+msgstr "Année de naissance"
 
 #: view/applications/manage/social-profile.linkedin.phtml:53
 #: view/applications/manage/index.ajax.phtml:120
@@ -149,12 +149,12 @@ msgstr "éducation"
 #: view/applications/manage/social-profile.facebook.phtml:35
 #: view/applications/manage/social-profile.xing.phtml:56
 msgid "School or university"
-msgstr ""
+msgstr "École ou d'université"
 
 #: view/applications/manage/social-profile.linkedin.phtml:58
 #: view/applications/manage/social-profile.xing.phtml:57
 msgid "Notes"
-msgstr ""
+msgstr "Remarques"
 
 #: view/applications/manage/social-profile.linkedin.phtml:82
 #: view/applications/manage/index.ajax.phtml:123
@@ -169,13 +169,13 @@ msgstr "expérience de travail"
 #: view/applications/manage/social-profile.facebook.phtml:66
 #: view/applications/manage/social-profile.xing.phtml:85
 msgid "Employer"
-msgstr ""
+msgstr "Employeur"
 
 #: view/applications/manage/social-profile.linkedin.phtml:87
 #: view/applications/manage/social-profile.facebook.phtml:67
 #: view/applications/manage/social-profile.xing.phtml:86
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: view/applications/manage/social-profile.linkedin.phtml:88
 #: view/applications/manage/social-profile.facebook.phtml:68
@@ -190,23 +190,23 @@ msgstr "Description"
 #: view/applications/manage/social-profile.linkedin.phtml:95
 #: view/applications/manage/social-profile.xing.phtml:94
 msgid "employes"
-msgstr ""
+msgstr "employes"
 
 #: view/applications/manage/social-profile.linkedin.phtml:96
 #: view/applications/manage/social-profile.xing.phtml:95
 msgid "Industry"
-msgstr ""
+msgstr "Industrie"
 
 #: view/applications/manage/social-profile.linkedin.phtml:100
 #: view/applications/manage/social-profile.xing.phtml:99
 msgid "Level"
-msgstr ""
+msgstr "Niveau"
 
 #: view/applications/manage/social-profile.linkedin.phtml:111
 #: view/applications/manage/social-profile.facebook.phtml:87
 #: view/applications/manage/social-profile.xing.phtml:110
 msgid "language skills"
-msgstr ""
+msgstr "compétences linguistiques"
 
 #: view/applications/manage/index.ajax.phtml:36
 #: view/applications/manage/detail.phtml:64
@@ -228,11 +228,11 @@ msgstr "modifier"
 
 #: view/applications/manage/social-profile.facebook.phtml:36
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
-msgstr ""
+msgstr "Profil données"
 
 #: view/applications/manage/detail.phtml:12
 #: view/applications/manage/detail.pdf.phtml:12
@@ -339,7 +339,7 @@ msgstr "Ajouter un commentaire"
 #: view/applications/manage/detail.phtml:197
 #: view/applications/manage/detail.phtml:305
 msgid "Close"
-msgstr "Proche"
+msgstr "Fermer"
 
 #: view/applications/manage/detail.phtml:209
 #: view/applications/manage/detail.phtml:350
@@ -478,11 +478,11 @@ msgstr "Politique de confidentialité"
 
 #: src/Applications/Form/Element/CarbonCopy.php:17
 msgid "Carbon Copy"
-msgstr ""
+msgstr "Carbon Copy"
 
 #: src/Applications/Form/Element/CarbonCopy.php:19
 msgid "send me a carbon copy of my application"
-msgstr ""
+msgstr "envoyez-moi une copie de ma demande"
 
 #: src/Applications/Form/Element/PrivacyPolicy.php:21
 #, php-format
@@ -529,7 +529,7 @@ msgstr ""
 
 #: src/Applications/Controller/MultimanageController.php:75
 msgid "reject the applicants"
-msgstr ""
+msgstr "rejeter les candidats"
 
 #: src/Applications/Mail/Confirmation.php:63
 #: src/Applications/Mail/StatusChange.php:57
@@ -635,7 +635,7 @@ msgstr "Message commentaire"
 
 #: language/_annotated_strings.php:90
 msgid "all states"
-msgstr ""
+msgstr "tous les Etats"
 
 #: language/_annotated_strings.php:93
 msgid "Invalid apply id"
