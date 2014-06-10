@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * stores files in MongoGridFS into the collection "files". You can override this.
  * 
- * @ODM\Document(collection="files")
+ * @ODM\Document(collection="files", repositoryClass="Core\Repository\File")
  * @ODM\InheritanceType("COLLECTION_PER_CLASS")
  */
 class FileEntity extends AbstractIdentifiableEntity implements FileInterface

@@ -42,7 +42,7 @@ class FileController extends AbstractActionController
         }
         $this->acl($file);
         
-        $response->getHeaders()->addHeaderline('Content-Type', $file->type)
+        $response->getHeaders()//->addHeaderline('Content-Type', $file->type)
                                ->addHeaderline('Content-Length', $file->length);
         $response->sendHeaders();
         
