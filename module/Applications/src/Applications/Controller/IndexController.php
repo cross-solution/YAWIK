@@ -147,11 +147,14 @@ class IndexController extends AbstractActionController
                 $auth = $this->auth();
             
                 if ($auth->isLoggedIn()) {
+                    // in instance user is logged in,
+                    // and no image is uploaded
+                    // take his profil-image as copy
                     $applicationEntity->setUser($auth->getUser());
                     $imageData = $form->get('contact')->get('image')->getValue();
                     if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
+                        // has the user an image
                         $image = $auth->getUser()->info->image;
-                        
                         if ($image) {
                             //$contactImage = $services->get('repositories')->get('Applications/Application')->saveCopy($image);
                             //$contactImage->addAllowedUser($job->user->id);
@@ -159,6 +162,7 @@ class IndexController extends AbstractActionController
 
                             $repositoryAttachment = $services->get('repositories')->get('Applications/Attachment');
                                     //->saveCopy($image);
+                            // this should provide a real copy, not just a reference
                             $contactImage = $repositoryAttachment->copy($image);
                             //$contactImage->addAllowedUser($job->user->id);
                             $applicationEntity->contact->setImage($contactImage);
