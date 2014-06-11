@@ -17,7 +17,7 @@
 
 <p><?php 
 $this->form->setAttributes(array(
-    'action' => $this->url('lang/auth', array(), array('query' => array_map('urlencode', $this->params()->fromQuery())), true),
+    'action' => $this->url('lang/auth', array(), array('query' => $this->params()->fromQuery()), true),
     'method' => 'post',
     'id' => 'login-form',
 ));
