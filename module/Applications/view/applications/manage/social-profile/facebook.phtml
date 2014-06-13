@@ -19,7 +19,7 @@
 <div>
 <b><?php echo $this->name;?></b>
 <br/><?php echo $this->location['name'];?>
-<br/><?php echo $this->translate("Birthday");?>: <?php echo $this->birthday;?>
+<br/><?php echo $this->translate("Birthday");?>: <?php echo $this->DateFormat($this->birthday,'short','null');?>
 <br/><i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->email); ?>
 <br/><i class="yk-icon yk-icon-facebook"></i> <?php echo $this->link($this->link,'Facebook'); ?>
 </div>
@@ -31,9 +31,9 @@
 <div class="panel-heading"><?php echo $this->translate("education")?></div>
 <table class="table table-bordered table-condensed">
 <tr>
-<th><?php echo $this->translate("Date")?></th>
-<th><?php echo $this->translate("School or university")?></th>
-<th><?php echo $this->translate("Type")?></th>
+<th class="col1"><?php echo $this->translate("Date")?></th>
+<th class="col2"><?php echo $this->translate("School or university")?></th>
+<th class="col3"><?php echo $this->translate("Type")?></th>
 </tr>
 <?php foreach($this->education as $edu):?>
 <tr>
@@ -62,14 +62,17 @@
 <div class="panel-heading"><?php echo $this->translate("work experience");?></div>
 <table class="table table-bordered table-condensed">
 <tr>
-<th><?php echo $this->translate("Date")?></th>
-<th><?php echo $this->translate("Employer")?></th>
-<th><?php echo $this->translate("Position")?></th>
+<th class="col1"><?php echo $this->translate("Date")?></th>
+<th class="col2"><?php echo $this->translate("Employer")?></th>
+<th class="col3"><?php echo $this->translate("Position")?></th>
 <th><?php echo $this->translate("Description")?></th>
 </tr>
 <?php foreach($this->work as $work_experience):?>
 <tr>
- <td><?php echo isset($work_experience['start_date'])?$this->dateFormat($work_experience['start_date'],'medium', 'null'):'';?></td>
+ <td>
+   <?php echo isset($work_experience['start_date'])?$this->dateFormat($work_experience['start_date'],'medium', 'null'):'';?>
+   <?php echo isset($work_experience['end_date'])?' - '.$this->dateFormat($work_experience['end_date'],'medium', 'null'):'';?>
+ </td>
  <td>
    <?php echo isset($work_experience['employer']['name'])?$work_experience['employer']['name']:'';?>
    <?php echo isset($work_experience['location']['name'])?'<br/>'.$work_experience['location']['name']:'';?>

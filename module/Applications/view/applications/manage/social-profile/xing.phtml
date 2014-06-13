@@ -25,11 +25,8 @@
 
 
 if(isset($this->birth_date['day'])):
-  $date=DateTime::createFromFormat('Y-m-d', $this->birth_date['year'] . '-' . 
-                                            $this->birth_date['month'] . '-'.
-                                            $this->birth_date['day']);
   echo $this->translate('Birthday').': '; 
-  echo $this->DateFormat($date,'short','none');
+  echo $this->DateFormat($this->birth_date['year'] . '-' .$this->birth_date['month'] . '-'.$this->birth_date['day'],'short','none');
 elseif(isset($this->birth_date['month'])):
   echo $this->translate("Year of birth");
   echo $this->birth_date['month'].'/';
@@ -88,7 +85,12 @@ endif;
 </tr>
 <?php foreach($this->professional_experience['companies'] as $work_experience):?>
 <tr>
- <td><?php echo isset($work_experience['begin_date'])?$work_experience['begin_date']:'';?></td>
+ <td>
+ <?php echo isset($work_experience['begin_date'])?$this->DateFormat($work_experience['begin_date'],'middle','null',$this->lang,'MMM Y'):'';?>
+ <?php echo isset($work_experience['end_date'])?' - '.$this->DateFormat($work_experience['end_date'],'middle','null',$this->lang,'MMM Y'):'';?>
+ <?php echo isset($work_experience['until_now']) && $work_experience['until_now'] == '1'?$this->translate('ongoing'):'';?>
+ 
+ </td>
  <td>
    <?php echo isset($work_experience['name'])?$work_experience['name']:'';?>
    <?php echo isset($work_experience['company_size'])?'<br/>'.$work_experience['company_size'].' '.$this->translate('employes'):'';?>
