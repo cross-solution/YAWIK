@@ -60,7 +60,9 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
         <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
         <select class="form-control" name="job_status">
 <?php foreach ($this->applicationStates as $applicationStatus): ?>
-    <option value="<?php echo $applicationStatus; ?>" <?php echo isset($_GET['job_status'])&&$_GET['job_status']==$applicationStatus?'selected="selected"':'' ?>><?php echo $this->translate($applicationStatus); ?></option>
+    <option <?php echo $applicationStatus=='all'?'class="yk-icon yk-icon-filter"':'';?>value="<?php echo $applicationStatus; ?>" <?php echo isset($_GET['job_status'])&&$_GET['job_status']==$applicationStatus?'selected="selected" ':''?>>
+    <?php echo $this->translate($applicationStatus); ?>
+    </option>
 <?php endforeach; ?>
         </select>
         <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>

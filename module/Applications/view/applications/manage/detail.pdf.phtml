@@ -6,7 +6,10 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
-
+/**
+ * render the application as an PDF file
+ * @see http://mpdf1.com/manual/index.php
+ */
 use Applications\Entity\StatusInterface as Status;
       
 $this->headTitle($this->translate('Details'));
@@ -43,6 +46,9 @@ table.list tr td {
 }
 th {
 	background-color: #f4f4f4;
+}
+.photo {
+ 	width: 150px;
 }
 </style>
 <sethtmlpageheader name="header" value="on" show-this-page="1"/>
@@ -91,13 +97,13 @@ th {
   </td>
   <td align="right">
    <?php if ($this->application->contact->image):?>
-   <img src="data:<?php echo $file->type ?>;base64,<?php echo base64_encode($this->application->contact->image->content) ?>"  class="img-thumbnail" >
+   <img src="data:;base64,<?php echo base64_encode($this->application->contact->image->content) ?>"  class="photo">
    <?php endif ?> 
   </td>
  </tr>
 </table>
 
-<h2><?=$this->translate('Summary')?></h2>
+<h2><?php echo $this->translate('Summary')?></h2>
 <div class="row">
 <?php echo nl2br($this->application->summary) ?>
 </div>
@@ -106,15 +112,15 @@ th {
 <h2><?= $this->translate('work experience')?></h2>
 <table class="list"> 
 <tr>
- <th align="left"><?=$this->translate('Start')?></th>
- <th align="left"><?=$this->translate('End')?></th>
- <th><?=$this->translate('Description')?></th>
+ <th align="left"><?php echo $this->translate('Start')?></th>
+ <th align="left"><?php echo $this->translate('End')?></th>
+ <th><?php echo $this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->employments as $employment): ?>
 <tr>
- <td><?= $employment->startDate ?></td>
- <td><?= $employment->endDate ?></td>
- <td><?=  $employment->description ?></td>
+ <td><?php echo $this->DateFormat($employment->startDate,'middle','null',$this->lang,'MMM Y') ?></td>
+ <td><?php echo $this->DateFormat($employment->endDate,'middle','null',$this->lang,'MMM Y') ?></td>
+ <td><?php echo $employment->description ?></td>
 </tr>
 <?php endforeach; // employments?>
 </table>
@@ -130,8 +136,8 @@ th {
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
-   <td><?php echo $education->startDate ?></td>
-   <td><?php echo $education->endDate ?></td>
+   <td><?php echo $this->DateFormat($education->startDate,'middle','null',$this->lang,'MMM Y') ?></td>
+   <td><?php echo $this->DateFormat($education->endDate,'middle','null',$this->lang,'MMM Y') ?></td>
    <td><?php echo $education->description ?></td>
   </tr>
 <?php endforeach; // eucations?>    
@@ -146,8 +152,42 @@ th {
 <?php endforeach; // skills?>
 <?php endif;?>
 
+<?php if(count($this->application->profiles)>0):?>
+<style>
+.panel-heading {
+    background-color: #F5F5F5;
+    border-color: #DDDDDD;
+    color: #333333;
+}
+tr {
+     border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+.panel-heading {
+    margin-top: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    padding: 10px 15px;
+}
+.yk-portrait {
+    font-size: 80px;
+    margin-right: 10px;
+    width: 100px;
+}
+.pull-left {
+    float: left;
+    width: 20%; // needed by mpdf
+}
+.table {
+    width: 100%;
+}
+</style>
+  <?php foreach ($this->application->profiles as $profile): ?>
+    <pagebreak />
+    <?php echo $this->partial('applications/manage/social-profile/'.strtolower($profile->name).'.pdf.phtml',$profile->getData()) ?>
+  <?php endforeach;?> 
+<?php endif ?>
+
 <?php if(count($this->application->attachments)>0):?>
-<h2><?= $this->translate('Attachments')?></h2>
+<h2><?php echo $this->translate('Attachments')?></h2>
 <?php $html=""; foreach( $this->application->attachments as $attachment): ?>
 <div class="row show-grid">
     <?php 

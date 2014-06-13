@@ -374,7 +374,10 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div class="row">
  <div class="col-md-12">
    <div class="panel panel-default">
-     <div class="panel-heading"><?php echo $this->translate('Summary')?></div>
+     <div class="panel-heading">
+     <i class="yk-icon yk-icon-summary"></i>
+     <?php echo $this->translate('Summary')?>
+     </div>
      <div class="panel-body">
      <?php echo nl2br($this->application->summary) ?>
      </div>
@@ -386,20 +389,23 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div class="row">
 <div class="col-md-12">
 <div class="panel panel-default">
-<div class="panel-heading"><?= $this->translate('work experience')?></div>
+<div class="panel-heading">
+  <i class="yk-icon yk-icon-work-experience"></i>
+  <?php echo $this->translate('work experience')?>
+</div>
 <table class="table table-condensed table-bordered">
 <thead>
 <tr>
- <th class="col-md-1"><?=$this->translate('Start')?></th>
- <th class="col-md-1"><?=$this->translate('End')?></th>
- <th class="col-md-3"><?=$this->translate('Company')?></th>
+ <th class="col-md-1"><?php echo $this->translate('Start')?></th>
+ <th class="col-md-1"><?php echo $this->translate('End')?></th>
+ <th class="col-md-3"><?php echo $this->translate('Company')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 </thead>
 <?php foreach( $this->application->cv->employments as $employment): ?>
 <tr>
- <td><?php echo $employment->startDate ?></td>
- <td><?php echo $employment->endDate ?></td>
+ <td><?php echo $this->dateFormat($employment->startDate,'medium', 'null')?></td>
+ <td><?php echo $this->dateFormat($employment->endDate,'medium', 'null')?></td>
  <td><?php echo $employment->organizationName ?></td>
  <td><?php echo $employment->description ?></td>
 </tr>
@@ -414,7 +420,10 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div class="row">
 <div class="col-md-12">
 <div class="panel panel-default">
-<div class="panel-heading"><?echo $this->translate('education and training')?></div>
+<div class="panel-heading">
+  <i class="yk-icon yk-icon-university"></i>
+  <?echo $this->translate('education and training')?>
+</div>
 <table class="table table-condensed table-bordered"> 
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
@@ -424,8 +433,8 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
-   <td><?php echo $education->startDate ?></td>
-   <td><?php echo $education->endDate ?></td>
+   <td><?php echo $this->dateFormat($education->startDate,'medium', 'null') ?></td>
+   <td><?php echo $this->dateFormat($education->endDate,'medium', 'null') ?></td>
    <td><?php echo $education->organizationName ?></td>
    <td><?php echo $education->description ?></td>
   </tr>
