@@ -171,25 +171,24 @@ class IndexController extends AbstractActionController
                         }
                     }
                 }
-                $applicationEntity->setStatus(new Status());
-                $permissions = $applicationEntity->getPermissions();
-                $permissions->inherit($job->getPermissions());
-
-                $services->get('repositories')->store($applicationEntity);
-                
-                /*
-                 * New Application alert Mails to job recruiter
-                 * This is temporarly until Companies are implemented.
-                 */
-                $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
-                if (!$recruiter) {
-                    $recruiter = $job->user;
-                    $admin     = false;
-                } else {
-                    $admin     = $job->user;
-                }
                 
                 if (!$request->isXmlHttpRequest()) {
+                    $applicationEntity->setStatus(new Status());
+                    $permissions = $applicationEntity->getPermissions();
+                    $permissions->inherit($job->getPermissions());
+
+                    /*
+                     * New Application alert Mails to job recruiter
+                     * This is temporarly until Companies are implemented.
+                     */
+                    $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
+                    if (!$recruiter) {
+                        $recruiter = $job->user;
+                        $admin     = false;
+                    } else {
+                        $admin     = $job->user;
+                    }
+                
                     $services->get('repositories')->store($applicationEntity);
                     /*
                      * New Application alert Mails to job recruiter

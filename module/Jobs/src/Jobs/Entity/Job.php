@@ -15,7 +15,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
-use Core\Entity\PreUpdateAwareInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 

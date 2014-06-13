@@ -17,12 +17,11 @@ use DateTime;
  * Abstract Identifiable Modification Date Aware Entity
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @ODM\MappedSuperclass
+ * @ODM\MappedSuperclass @ODM\HasLifecycleCallbacks
  */
 abstract class AbstractIdentifiableModificationDateAwareEntity 
     extends    AbstractIdentifiableEntity 
-    implements ModificationDateAwareEntityInterface,
-               PreUpdateAwareInterface
+    implements ModificationDateAwareEntityInterface
 {
     /**
      * Creation date.
@@ -78,15 +77,19 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
     }
 
     /**
-     * {@inheritDoc}
+     * @ODM\PreUpdate
      */
-    public function preUpdate($isNew=false)
+    public function preUpdate()
     {
-        if ($isNew) {
-            $this->setDateCreated(new DateTime());
-        } else {
-            $this->setDateModified(new DateTime());
-        }
+        $this->setDateModified(new DateTime());
+    }
+    
+    /**
+     * @ODM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setDateCreated(new DateTime());
     }
     
 }
