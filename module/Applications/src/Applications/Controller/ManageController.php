@@ -60,7 +60,7 @@ class ManageController extends AbstractActionController
         $applicationRepository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         
         $states = $applicationRepository->getStates()->toArray();
-        $states = array_merge(array(/*@translate*/ 'all states'), $states);
+        $states = array_merge(array(/*@translate*/ 'all'), $states);
         $job = $params->job ? $jobRepository->find($params->job)  : null;
         $paginator = $this->paginator('Applications/Application',$params);
                 

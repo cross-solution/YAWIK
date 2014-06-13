@@ -69,7 +69,7 @@
 </tr>
 <?php foreach($this->work as $work_experience):?>
 <tr>
- <td><?php echo isset($work_experience['start_date'])?$work_experience['start_date']:'';?></td>
+ <td><?php echo isset($work_experience['start_date'])?$this->dateFormat($work_experience['start_date'],'medium', 'null'):'';?></td>
  <td>
    <?php echo isset($work_experience['employer']['name'])?$work_experience['employer']['name']:'';?>
    <?php echo isset($work_experience['location']['name'])?'<br/>'.$work_experience['location']['name']:'';?>

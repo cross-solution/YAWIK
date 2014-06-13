@@ -7096,6 +7096,9 @@ fieldset[disabled] .cam-btn-reset.active {
 .yk-icon-facebook:before {
   content: "\f09a";
 }
+.yk-icon-filter:before {
+  content: "\f0b0";
+}
 .yk-icon-folder-open-o:before {
   content: "\f115";
 }
@@ -7159,8 +7162,17 @@ fieldset[disabled] .cam-btn-reset.active {
 .yk-icon-spinner:before {
   content: "\f110";
 }
+.yk-icon-summary:before {
+  content: "\f0f6";
+}
+.yk-icon-university:before {
+  content: "\f19c";
+}
 .yk-icon-user:before {
   content: "\f007";
+}
+.yk-icon-work-experience:before {
+  content: "\f1ad";
 }
 .yk-icon-xing:before {
   content: "\f168";

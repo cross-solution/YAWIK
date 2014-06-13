@@ -140,6 +140,12 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
      <?php else:?>
      <?php echo $this->translate('no attachments')?>
      <?php endif;?>
+     <?php if(count($application->profiles)>0):?>
+     <?php foreach ($application->profiles as $profile):?>
+         <i class="btn btn-default btn-xs yk-icon yk-icon-<?php echo strtolower($profile->name); ?>"></i>
+     <?php endforeach;?>
+     </ul>
+     <?php endif;?>     
     </td>
     <td class="cam-job">
          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
