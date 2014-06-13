@@ -24,12 +24,11 @@ use Cv\Entity\CvInterface;
  * 
  * @author mathias
  *
- * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application")
+ * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application") @ODM\HasLifecycleCallbacks
  */
 class Application extends AbstractIdentifiableModificationDateAwareEntity 
                   implements ApplicationInterface, 
-                             ResourceInterface,
-                             PreUpdateAwareInterface
+                             ResourceInterface
 {
    
     /**
@@ -167,10 +166,22 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     protected $profiles;
     
+    /** @ODM\PreUpdate */
+    public function preUpdate() {
+        $this->recalculateRatings(false);
+        return $this;
+    }
+    
+    /** @ODM\PrePersist */
+    public function prePersist() {   
+        $this->recalculateRatings(true);
+        return $this;
+    }
+    
     /**
      * {@inheritDoc}
      */
-    public function preUpdate($isNew = false)
+    public function recalculateRatings($isNew = false)
     {
         parent::preUpdate($isNew);
         

@@ -16,11 +16,22 @@ use Doctrine\ODM\MongoDB\Events;
 
 class PreUpdateDocumentsSubscriber implements EventSubscriber
 {
+    /**
+     * is just called in case of a new Entity
+     * 
+     * @param Doctrine\ODM\MongoDB\Event\LifecycleEventArgs $eventArgs
+     */
     public function prePersist($eventArgs) 
     {
         $this->preUpdate($eventArgs, true);
     }
     
+    /**
+     * 
+     * @param Doctrine\ODM\MongoDB\Event\LifecycleEventArgs $eventArgs 
+     * @param boole $prePersist
+     * @return type
+     */
     public function preUpdate($eventArgs, $prePersist = false)
     {
         $document = $eventArgs->getDocument();

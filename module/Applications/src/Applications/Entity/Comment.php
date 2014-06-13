@@ -19,9 +19,10 @@ use Core\Entity\PreUpdateAwareInterface;
  * Application comment entity.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @ODM\EmbeddedDocument
+ * @ODM\EmbeddedDocument @ODM\HasLifecycleCallbacks
+ * 
  */
-class Comment extends AbstractIdentifiableEntity implements CommentInterface, PreUpdateAwareInterface
+class Comment extends AbstractIdentifiableEntity implements CommentInterface
 {
     
     /**
@@ -149,14 +150,18 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface, Pr
         return $this;
     }
 
-    public function preUpdate($isNew = false)
+    /** @ODM\PreUpdate */
+    public function preUpdate()
     {
-        if ($isNew) {
-            $this->setDateCreated(new \DateTime());
-        } else {
-            $this->setDateModified(new \DateTime());
-        }
+        $this->setDateModified(new \DateTime());
     }
+    
+    /** @ODM\PrePersist */
+    public function prePersist()
+    {
+        $this->setDateCreated(new \DateTime());
+    }
+    
     
     
 }

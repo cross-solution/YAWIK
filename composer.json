@@ -35,7 +35,7 @@
         "zendframework/zendframework": "*",
         "doctrine/doctrine-mongo-odm-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
-	"mpdf/mpdf": "5.7.*",
+	"mpdf/mpdf": "5.7.1",
         "twbs/bootstrap": "3.1.*",
         "components/jquery": "1.9.1",
         "fortawesome/font-awesome": "*",
