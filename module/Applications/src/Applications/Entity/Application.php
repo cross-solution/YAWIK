@@ -167,14 +167,17 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $profiles;
     
     /** @ODM\PreUpdate */
-    public function preUpdate() {
+    public function preUpdate()
+    {
         $this->recalculateRatings(false);
         return $this;
     }
     
     /** @ODM\PrePersist */
-    public function prePersist() {   
+    public function prePersist()
+    {  
         $this->recalculateRatings(true);
+        $this->setDateCreated(new \DateTime());
         return $this;
     }
     
