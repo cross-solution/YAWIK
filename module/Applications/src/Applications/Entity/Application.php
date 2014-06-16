@@ -166,28 +166,13 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     protected $profiles;
     
-    /** @ODM\PreUpdate */
-    public function preUpdate()
-    {
-        $this->recalculateRatings(false);
-        return $this;
-    }
-    
-    /** @ODM\PrePersist */
-    public function prePersist()
-    {  
-        $this->recalculateRatings(true);
-        $this->setDateCreated(new \DateTime());
-        return $this;
-    }
-    
     /**
      * {@inheritDoc}
+     * @ODM\PreUpdate
+     * @ODM\PrePersist
      */
-    public function recalculateRatings($isNew = false)
-    {
-        parent::preUpdate($isNew);
-        
+    public function recalculateRatings()
+    { 
         // Compute rating value.
         // @todo Need to know wether comments has changed or not.
         // Unfortunately, persistent collection gets no dirty flag,
@@ -196,8 +181,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         // the database (which still does not neccessarly mean, there are changes...
         
         $comments = $this->getComments();
-        if ($isNew 
-            || $comments instanceOf ArrayCollection // new Comments
+        if ( $comments instanceOf ArrayCollection // new Comments
             || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)
             || $comments->isDirty() // new Comments added w/o initializing
         ) {

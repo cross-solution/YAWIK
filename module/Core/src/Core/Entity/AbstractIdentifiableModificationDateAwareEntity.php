@@ -49,9 +49,13 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
 
     /**
      * {@inheritDoc}
+     * @ODM\PrePersist
      */
-    public function setDateCreated (DateTime $dateCreated)
+    public function setDateCreated (DateTime $dateCreated = Null)
     {
+        if (!isset($dateCreated)) {
+            $dateCreated = new DateTime();
+        }
         $this->dateCreated = $dateCreated;
         return $this;
     }
@@ -66,30 +70,17 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
 
     /**
      * {@inheritDoc}
+     *  @ODM\PreUpdate
      */
-    public function setDateModified ($dateModified)
+    public function setDateModified ($dateModified = Null)
     {
+        if (!isset($dateModified)) {
+            $dateModified = new DateTime();
+        }
         if (is_string($dateModified)) {
             $dateModified = new DateTime($dateModified);
         }
         $this->dateModified = $dateModified;
         return $this;
     }
-
-    /**
-     * @ODM\PreUpdate
-     */
-    public function preUpdate()
-    {
-        $this->setDateModified(new DateTime());
-    }
-    
-    /**
-     * @ODM\PrePersist
-     */
-    public function prePersist()
-    {
-        $this->setDateCreated(new DateTime());
-    }
-    
 }
