@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "519081a025b976bb324d9099e22246bf",
+    "hash": "b4d77eb0769d25805db3864233e3eb2a",
     "packages": [
         {
             "name": "components/jquery",
@@ -88,7 +88,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -933,19 +933,20 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v5.7.1",
+            "version": "v5.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/finwe/mpdf.git",
-                "reference": "ca266f29a20ed00ee351aadee1934ddcfbbe4b53"
+                "reference": "1627f9e7d2ef0f635a886f611079216ed2929717"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/finwe/mpdf/zipball/ca266f29a20ed00ee351aadee1934ddcfbbe4b53",
-                "reference": "ca266f29a20ed00ee351aadee1934ddcfbbe4b53",
+                "url": "https://api.github.com/repos/finwe/mpdf/zipball/1627f9e7d2ef0f635a886f611079216ed2929717",
+                "reference": "1627f9e7d2ef0f635a886f611079216ed2929717",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=4.3.10"
             },
             "type": "library",
@@ -971,7 +972,7 @@
                 "php",
                 "utf-8"
             ],
-            "time": "2013-09-02 12:16:35"
+            "time": "2014-05-16 07:18:10"
         },
         {
             "name": "robloach/component-installer",
