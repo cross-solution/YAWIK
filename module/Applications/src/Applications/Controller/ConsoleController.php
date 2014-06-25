@@ -33,12 +33,14 @@ class ConsoleController extends AbstractActionController {
         
         $services     = $this->getServiceLocator();
         $applications = $this->fetchApplications();
-        $count        = $applications->count(true);
+        $count        = count($applications);
+        $repositories = $services->get('repositories'); //->get('Applications/Application');
 
         if (0 === $count) {
             return 'No applications found.';
         }
         
+        // preUpdate includes a modified date, and we don't want that
         foreach ($repositories->getEventManager()->getListeners('preUpdate') as $listener) {
             $repositories->getEventManager()->removeEventListener('preUpdate', $listener);
         }
@@ -97,12 +99,12 @@ class ConsoleController extends AbstractActionController {
      * 
      * @return unknown
      */
-    protected function fetchApplications()
+    protected function fetchApplications($defaultFilter = '{}')
     {
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
         $appRepo      = $repositories->get('Applications/Application');
-        $filter       = \Zend\Json\Json::decode($this->params('filter', '{}'));
+        $filter       = \Zend\Json\Json::decode($this->params('filter', $defaultFilter));
         $query        = array();
         $limit        = 0;
         foreach ($filter as $key => $value) {
@@ -134,6 +136,11 @@ class ConsoleController extends AbstractActionController {
                         $query['dateCreated.date'] = $q;
                     }
                     break;
+
+               case "id":
+                    $query['_id'] = new \MongoId($value);
+                    //$query['id'] = $value;
+                    break;
         
                 default:
                     $query[$key] = $value;
@@ -142,7 +149,7 @@ class ConsoleController extends AbstractActionController {
         }
         
         $applications = $appRepo->findBy($query);
-        $applications->limit($limit);
+        //$applications->limit($limit);
         
         return $applications;
     }

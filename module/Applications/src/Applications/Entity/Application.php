@@ -567,7 +567,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function getSearchableProperties()
     {
-        return array('summary');
+        return array('summary', 'commentsMessage');
     }
     
     /**
@@ -623,6 +623,21 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         $this->comments = $comments;
         return $this;
         
+    }
+    
+    /**
+     * 
+     * @return String
+     */
+    public function getCommentsMessage()
+    {
+        $comments = array();
+        if ($this->comments) {
+            foreach ($this->getComments() as $comment) {
+                $comments[] = $comment->getMessage();
+            }
+        }
+        return $comments;
     }
     
     /**
