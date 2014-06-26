@@ -7,7 +7,7 @@
  * @license   GPLv3
  */
 
-namespace Companies;
+namespace Organizations;
 
 use Zend\Mvc\MvcEvent;
 
