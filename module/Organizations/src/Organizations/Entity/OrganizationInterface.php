@@ -1,0 +1,59 @@
+<?php
+/**
+ * YAWIK
+ * Application configuration
+ *
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
+
+namespace Organizations\Entity;
+
+use Core\Entity\EntityInterface;
+use Core\Entity\AddressInterface;
+use Core\Entity\SearchableEntityInterface;
+use Core\Entity\IdentifiableEntityInterface;
+use Core\Entity\PermissionsAwareInterface;
+use Core\Entity\ModificationDateAwareEntityInterface;
+
+interface OrganizationInterface 
+    extends EntityInterface, 
+            IdentifiableEntityInterface, 
+            SearchableEntityInterface,
+            ModificationDateAwareEntityInterface,
+            PermissionsAwareInterface
+{
+    
+    
+    
+   /**
+    * Sets the name of the organization
+    * 
+    * @param string organizationName
+    * @return OrganizationInterface
+    */
+   public function setOrganizationName($organizationName){}
+
+   /**
+    * Gets the name of the organization
+    *
+    * @return OrganizationInterface
+    */
+   public function getOrganizationName(){}
+   
+   /**
+    * Address provides the information about the address or semantic address 
+    * of an associated entity.Definition: Based on OAGIS AddressBaseType. 
+    * Exception:CountryCode uses the HR country code list.
+    * 
+    * @param \Core\Entity\AddressInterface
+    * @return OrganizationInterface
+    */
+   public function setAddress(AddressInterface $address){}
+   
+   /**
+    * @return AddressInterface
+    */
+   public function getAddress(){}
+    
+}
