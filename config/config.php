@@ -13,7 +13,18 @@ use Zend\Stdlib\ArrayUtils;
 $env = getenv('APPLICATION_ENV') ?: 'production';
 
 $modules = array(
-         'DoctrineModule', 'DoctrineMongoODMModule', 'Core', /*'TwbBundle', */'Auth', 'Cv', 'Applications', 'Jobs', 'Settings', 'Pdf', 'Geo', 'FormularValidation',
+         'DoctrineModule', 
+         'DoctrineMongoODMModule', 
+         'Core', 
+         'Auth', 
+         'Cv', 
+         'Applications', 
+         'Jobs', 
+         'Settings', 
+         'Pdf', 
+         'Geo', 
+         'FormularValidation',
+         'Organizations'
     );
 
 if (!isset($allModules)) {

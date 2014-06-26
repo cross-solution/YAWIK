@@ -5,7 +5,7 @@ return array(
         'driver' => array(
             'odm_default' => array(
                 'drivers' => array(
-                    'Companies\Entity' => 'annotation',
+                    'Organizations\Entity' => 'annotation',
                 ),
             ),
         ),
@@ -16,7 +16,7 @@ return array(
             ),
         ),
     ),
-    'Companies' => array(
+    'Organizations' => array(
         'form' => array(
         ),
         'dashboard' => array(
