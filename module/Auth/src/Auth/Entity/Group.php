@@ -103,6 +103,7 @@ class Group extends AbstractIdentifiableEntity
     
     /**
      * {inheritDoc}
+     * @param array $users
      * @return Group
      * @see \Auth\Entity\GroupInterface::setUsers()
      */

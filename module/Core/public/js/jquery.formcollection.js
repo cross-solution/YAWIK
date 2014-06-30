@@ -37,19 +37,18 @@
 	};
 	
 	
-	var initButtons = function(parent)
-	{
-		parent.find('a.add-item').on(
-				'click.formcollection',
-				{ fieldset: parent },
-				addButtonClickListener
-		);
-		parent.find('a.remove-item').on(
-				'click.formcollection', 
-				{ fieldset: parent },
-				removeButtonClickListener
-		);
-	}
+	var initButtons = function (parent) {
+        parent.find('a.add-item').on(
+            'click.formcollection',
+            { fieldset: parent },
+            addButtonClickListener
+        );
+        parent.find('a.remove-item').on(
+            'click.formcollection',
+            { fieldset: parent },
+            removeButtonClickListener
+        );
+    };
 	
 	$.fn.formcollection = function( ) {
 

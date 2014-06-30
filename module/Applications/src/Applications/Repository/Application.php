@@ -69,11 +69,12 @@ class Application extends AbstractRepository
         $list = new PaginationList(array_keys(ArrayUtils::iteratorToArray($cursor)));
         return $list;
     }
-    
+
     /**
      * Get unread applications
      *
      * @param \Jobs\Entity\JobInterface $job
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
      */
     public function getUnreadApplications($job) 
     {
@@ -83,12 +84,13 @@ class Application extends AbstractRepository
                   ->field("job")->equals( new \MongoId($job->id));
         return $qb->getQuery()->execute();          
     }
-    
+
     /**
      * Get comments of an applications
-     * 
-     * @param \Application\Entity\Comment $comment | Id
-     * @return $comment|NULL
+     *
+     * @param $commentOrId
+     * @internal param \Application\Entity\Comment $comment | Id
+     * @return null $comment|NULL
      */
     public function findComment($commentOrId)
     {
@@ -122,12 +124,12 @@ class Application extends AbstractRepository
         }
         return null;
     }
-    
+
     /**
      * Save an application
-     * 
+     *
      * @param ApplicationInterface $application
-     * @param string $resetModifiedDate
+     * @param bool|string $resetModifiedDate
      */
     public function save(ApplicationInterface $application, $resetModifiedDate=true)
     {

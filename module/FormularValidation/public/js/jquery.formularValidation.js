@@ -58,7 +58,7 @@ $(document).ready(function() {
                 }
                 semaphor_formvalidation = false;
                 var messages = data['messages'] == 'undefined' || data['messages'];
-                validationFormRek(form, messages)
+                validationFormRek(form, messages);
                 // scrollTo still doesn't work, but we shouldn't be bothered
                 //$('.error').parents('fieldset').eq(0).scrollTo({duration:400, offsetTop : '250'});
             }).fail(function() {

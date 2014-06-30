@@ -51,7 +51,7 @@ class User extends AbstractRepository
     /**
      * Finds user by login name
      * 
-     * @param unknown $login
+     * @param string $login
      * @return unknown
      */
     public function findByLogin($login) {

@@ -21,17 +21,17 @@ mail.from.name=YAWIK
 ;
 
 facebook.enabled=false
-facebook.appid=
-facebook.secret=
+facebook.appid=<put your facebook app ID here>
+facebook.secret=<put you facebook app secret here>
 facebook.scope="email, user_about_me, user_birthday, user_hometown", "user_work_history", "user_education_history"
 
 xing.enabled=false
-xing.appid=
-xing.secret=
+xing.appid=<put your xing app ID here>
+xing.secret=<put your xing app secret here>
 xing.scope=
 
 linkedin.enabled=false
-linkedin.appid=
-linkedin.secret=
+linkedin.appid=<put your linkedin app ID here>
+linkedin.secret=<put your linkedin app secret here>
 linkedin.scope="r_fullprofile"
 

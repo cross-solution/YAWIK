@@ -46,6 +46,5 @@ class EducationMapper extends AbstractMapper
         
         $data = $this->getCollection()->findOne(array('_id' => $id), array('educations' => true));
         return $data['educations'];
-        return $this->_createCollectionFromResult($cursor);
     }
 }

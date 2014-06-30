@@ -22,8 +22,9 @@ class MailHistory extends History implements MailHistoryInterface
         return $this->subject;
     }
 
-	/**
+    /**
      * @param field_type $subject
+     * @return $this
      */
     public function setSubject ($subject)
     {

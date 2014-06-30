@@ -30,6 +30,7 @@ class AuthenticationService extends ZendAuthService {
 
     /**
      * @param field_type $repository
+     * @return $this
      */
     public function setRepository($repository) {
         $this->repository = $repository;

@@ -142,26 +142,27 @@
 			 .fail(function() { replaceContent($dialog.data('form-errormessage'), true); });
 		};
 		
-		var submitForm = function(event)
-		{
-			$loader.removeClass('hide');
-			$form = $('#application-comment-form');
-			console.debug($form.attr('action'));
-			$.post($form.attr('action'), $form.serialize())
-			 .done(function(data) { 
-				 if ('ok' == data) { 
-					 loadList();
-					 $('#application-rating').load(basePath + '/' + lang + '/applications/'
-							                       + $dialog.data('application-id') 
-							                       + '?do=refresh-rating');
-				 } else { 
-					 replaceContent(data);
-					 $dialog.find('.modal-body .rating').barrating(); 
-				 }
-			 })
-			 .fail(function() { replaceContent($dialog.data('form-errormessage'), true); });
-			
-		}
+		var submitForm = function (event) {
+            $loader.removeClass('hide');
+            $form = $('#application-comment-form');
+            console.debug($form.attr('action'));
+            $.post($form.attr('action'), $form.serialize())
+                .done(function (data) {
+                    if ('ok' == data) {
+                        loadList();
+                        $('#application-rating').load(basePath + '/' + lang + '/applications/'
+                            + $dialog.data('application-id')
+                            + '?do=refresh-rating');
+                    } else {
+                        replaceContent(data);
+                        $dialog.find('.modal-body .rating').barrating();
+                    }
+                })
+                .fail(function () {
+                    replaceContent($dialog.data('form-errormessage'), true);
+                });
+
+        };
 		
 		$dialog = $('#cam-application-comments');
 		$loader = $dialog.find('.modal-header h3 i');

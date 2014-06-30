@@ -6,6 +6,8 @@
 composer.phar
 phing.phar
 
+.idea
+
 #
 # config files
 #

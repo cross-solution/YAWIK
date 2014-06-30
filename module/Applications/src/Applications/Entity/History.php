@@ -66,8 +66,9 @@ class History extends AbstractEntity implements HistoryInterface
         return $this->date;
     }
 
-	/**
+    /**
      * @param field_type $date
+     * @return $this
      */
     public function setDate (\DateTime $date)
     {

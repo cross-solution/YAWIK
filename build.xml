@@ -49,12 +49,13 @@
   <!-- ============================================  -->
   <!-- Target: Cleanup all                           -->
   <!-- ============================================  -->
-  <target name="clean" description="removes build, log, cache, tmp and vendor dir">
+  <target name="clean" description="removes build, log, cache, tmp, components and vendor dir">
       <delete dir="${project.basedir}/build"/>
       <delete dir="${project.basedir}/log"/>
       <delete dir="${project.basedir}/cache"/>
       <delete dir="${project.basedir}/tmp"/>
       <delete dir="${project.basedir}/vendor"/>
+      <delete dir="${project.basedir}/components"/>
   </target>
   
   <!-- ============================================  -->
@@ -73,13 +74,22 @@
     </if>
     <if>
       <not>
-        <available file='${project.basedir}/cache' type='dir' />
+        <available file='${project.basedir}/cache/DoctrineMongoODMModule/Hydrator' type='dir' />
       </not>
       <then>
-        <mkdir dir="${project.basedir}/cache"/>
-        <chmod file="${project.basedir}/cache" mode="0777"/>
+        <mkdir dir="${project.basedir}/cache/DoctrineMongoODMModule/Hydrator"/>
+        <chmod file="${project.basedir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
       </then>
     </if>
+    <if>
+      <not>
+        <available file='${project.basedir}/cache/DoctrineMongoODMModule/Proxy' type='dir' />
+      </not>
+      <then>
+        <mkdir dir="${project.basedir}/cache/DoctrineMongoODMModule/Proxy"/>
+        <chmod file="${project.basedir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
+      </then>
+    </if>    
     <if>
       <not>
         <available file='${project.basedir}/build' type='dir' />
@@ -163,10 +173,16 @@
           <token key="mail.from.email" value="${mail.from.email}"/>
           <token key="facebook.appid" value="${facebook.appid}"/>
           <token key="facebook.secret" value="${facebook.secret}"/>
+          <token key="facebook.scope" value="${facebook.scope}"/>
+          <token key="facebook.enabled" value="${facebook.enabled}"/>
           <token key="linkedin.appid" value="${linkedin.appid}"/>
           <token key="linkedin.secret" value="${linkedin.secret}"/>
+          <token key="linkedin.enabled" value="${linkedin.enabled}"/>
+          <token key="linkedin.scope" value="${linkedin.scope}"/>
           <token key="xing.appid" value="${xing.appid}"/>
           <token key="xing.secret" value="${xing.secret}"/>
+          <token key="xing.scope" value="${xing.scope}"/>
+          <token key="xing.enabled" value="${xing.enabled}"/>
         </replacetokens>
       </filterchain>
     </copy>

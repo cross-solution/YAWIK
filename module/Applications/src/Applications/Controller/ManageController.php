@@ -123,6 +123,7 @@ class ManageController extends AbstractActionController
                         );
                         $viewModel->setVariable('isUnread', $applicationIsUnread);
                 $return = $viewModel;
+                break;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
            

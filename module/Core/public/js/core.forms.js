@@ -19,30 +19,28 @@
 		});
 	};
 	
-	formSubmit = function(event)
-	{
-		processResponse = function(data)
-		{
-			if (data.redirect) {
-				location.href = data.redirect;
-				return;
-			}
-			var $alert = $('#' + $form.attr('name') + '-response');
-			$alert.addClass('alert-' + data.status)
-			      .html(data.text)
-			      .removeClass('hide');
-			if (data.messages) {
-				data.messages.test = { huch : { kuchen : 'tütü'}};
-				displayMessages(data.messages, '');
-			}
-		};
-		
-		var $form = $(event.target);
-		var data  = $form.serialize();
-		
-		$.post($form.attr('action'), data, processResponse, 'json');
-		return false;
-	}
+	formSubmit = function (event) {
+        processResponse = function (data) {
+            if (data.redirect) {
+                location.href = data.redirect;
+                return;
+            }
+            var $alert = $('#' + $form.attr('name') + '-response');
+            $alert.addClass('alert-' + data.status)
+                .html(data.text)
+                .removeClass('hide');
+            if (data.messages) {
+                data.messages.test = { huch: { kuchen: 'tütü'}};
+                displayMessages(data.messages, '');
+            }
+        };
+
+        var $form = $(event.target);
+        var data = $form.serialize();
+
+        $.post($form.attr('action'), data, processResponse, 'json');
+        return false;
+    };
 	
 	
 	$.fn.forms = function()

@@ -247,7 +247,8 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         </div>    
       </div>
       <div>
-        <adress>
+        <!--suppress HtmlUnknownTag -->
+          <adress>
         <strong><?php echo $this->application->contact->displayName ?></strong><br> 
         <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
         <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>

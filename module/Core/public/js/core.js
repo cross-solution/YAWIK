@@ -28,7 +28,7 @@ core.displayFormErrors = function(messages)
 			}
 			entries[prefix].push(value);
 		}
-	};
+	}
 	
 	$.each(messages, function(index, value) { mapFormErrors(index, value, ""); });
 	//c/onsole.debug(entries);
@@ -61,7 +61,7 @@ core.displayFormErrors = function(messages)
  * find elements in the surrounding DOM of the Object
  * stops either when an occurence has been found or when the Body-Tag is reached
  */
-$.fn.findBrethren = function(selector) {
+$.fn.findBrethren = function (selector) {
     var target = $(this);
     var b = true;
     var result = $();
@@ -77,34 +77,34 @@ $.fn.findBrethren = function(selector) {
                 target = target.parent();
                 //c/onsole.log('target', target);
                 if (0 < target.length) {
-                        b = true;
+                    b = true;
                 }
             }
         }
     }
     //c/onsole.log('findBrethren', $(this), result);
     return result;
-}
+};
 
 /**
  * triggers the wait-Actions
- * wait Actions answer to 
+ * wait Actions answer to
  */
 
-$.fn.waitAction = function(selector) {
+$.fn.waitAction = function (selector) {
     //c/onsole.log('waitAction', this);
-    $(this).bind('wait.start', function(event) {
+    $(this).bind('wait.start', function (event) {
         var target = $(event.target);
         target.findBrethren(selector).show();
         return false;
     });
-    $(this).bind('wait.stop', function(event) {
+    $(this).bind('wait.stop', function (event) {
         var target = $(event.target);
         target.findBrethren(selector).hide();
         return false;
     });
     return this;
-}
+};
 
 
 		

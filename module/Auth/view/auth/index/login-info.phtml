@@ -11,19 +11,19 @@
       
         <ul class="dropdown-menu pull-right">
             <li>
-                <a href="<?php echo $this->url('lang/my', array('action' => 'profile'), true)?>"><span class="yk-icon yk-icon-user"></span> <?php echo $this->translate('My profile')?></a>
+                <a href="<?php echo $this->url('lang/my', array('action' => 'profile', 'lang' => $this->params('lang')), true)?>"><span class="yk-icon yk-icon-user"></span> <?php echo $this->translate('My profile')?></a>
             </li>
             <li>
-                <a href="<?php echo $this->url('lang/my', array('action' => 'password'), true)?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
+                <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $this->params('lang')), true)?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
             </li>
             <?php if ($this->auth('role') == 'recruiter'): ?>
             <li>
                 <a href="<?php echo $this->url('lang/my-groups', array('lang' => $this->params('lang')))?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('Manage groups') ?></a>
             </li>
             <?php endif ?>
-            <li class="divider"/>
+            <li class="divider"></li>
             <li>
-                <a href="<?php echo $this->url('auth-logout')?>"><span class="yk-icon yk-icon-logout"></span><?php echo $this->translate('Logout')?></a>
+                <a href="<?php echo $this->url('auth-logout',array('lang' => $this->params('lang')) )?>"><span class="yk-icon yk-icon-logout"></span><?php echo $this->translate('Logout')?></a>
             </li>
         </ul>
 

@@ -32,7 +32,7 @@
 			toggleDropdown($currentFetchButton, 'attach');
 			$buttons[0].blur();
 		} else {
-			$buttons.addClass('btn-danger')
+			$buttons.addClass('btn-danger');
 			toggleDropDown($currentFetchButton, 'detach');
 		}
 		$currentFetchButton.find('.spb-icon-normal').show();
@@ -67,7 +67,7 @@
 		$currentFetchButton = $button.parent();
 		
 		return false;
-	};
+	}
 	
 	function actionClicked(event)
 	{
@@ -147,7 +147,7 @@
 			    .on('click.socialprofiles', actionClicked);
 		$buttons.find('.spb-icon-processing').hide();
 		toggleDropdown($buttons, 'detach');
-	};
+	}
 	
 	$.fn.socialprofiles = function()
 	{

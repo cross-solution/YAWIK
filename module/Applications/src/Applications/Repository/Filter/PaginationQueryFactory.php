@@ -21,10 +21,11 @@ use \Zend\ServiceManager\ServiceLocatorInterface;
 class PaginationQueryFactory implements FactoryInterface
 {
     /**
-     * Creates pagination Service 
-     * 
+     * Creates pagination Service
+     *
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      * @param ServiceLocatorInterface $serviceLocator
+     * @return \Applications\Repository\Filter\PaginationQuery|mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

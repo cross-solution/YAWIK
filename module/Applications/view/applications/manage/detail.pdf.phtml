@@ -51,10 +51,13 @@ th {
  	width: 150px;
 }
 </style>
+<!--suppress HtmlUnknownTag -->
 <sethtmlpageheader name="header" value="on" show-this-page="1"/>
+<!--suppress HtmlUnknownTag -->
 <htmlpageheader name="header">
 <div class="header">Bewerbung vom: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
 </htmlpageheader>
+<!--suppress HtmlUnknownTag -->
 <htmlpagefooter name="footer">
 <table width="100%" class="footer"><tr>
     <td width="33%">{DATE d.m.Y}</td>
@@ -62,6 +65,7 @@ th {
     <td width="33%" style="text-align: right; ">Bewerbung</td>
     </tr></table>
 </htmlpagefooter>
+<!--suppress HtmlUnknownTag -->
 <sethtmlpagefooter name="footer" value="on"/>
 <h1><?php echo $this->translate('application details') ?></h1>
 <h2><?php echo $this->translate('personal information')?></h2>
@@ -181,7 +185,8 @@ tr {
 }
 </style>
   <?php foreach ($this->application->profiles as $profile): ?>
-    <pagebreak />
+    <!--suppress HtmlUnknownTag -->
+        <pagebreak />
     <?php echo $this->partial('applications/manage/social-profile/'.strtolower($profile->name).'.pdf.phtml',$profile->getData()) ?>
   <?php endforeach;?> 
 <?php endif ?>

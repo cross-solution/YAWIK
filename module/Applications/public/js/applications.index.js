@@ -21,7 +21,7 @@
 		$('#search-applications-form #job-filter').typeahead(
 			{
 				highlight: true,
-				minLength: 4,
+				minLength: 4
 			},
 			{
 				name: 'jobs',

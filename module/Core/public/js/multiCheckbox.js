@@ -28,7 +28,7 @@ var setTableMultiCheckbox = function(target) {
                     }
                 });
             });
-        };
+        }
     })
 };
 
@@ -86,7 +86,7 @@ var setApplicationListActions = function() {
             //c/onsole.log('getTableMultiCheckbox result', target, result);
             if (0 < result.length) {
                 // hier der AJAX-Call
-                var matchActionRef = /^.*?(\w+)$/gi
+                var matchActionRef = /^.*?(\w+)$/gi;
                 var matchAction = matchActionRef.exec(href);
                 if (matchAction != null && 0 < matchAction.length) {
                     var command = matchAction[1].toLowerCase();

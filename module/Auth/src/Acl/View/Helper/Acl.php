@@ -35,6 +35,7 @@ class Acl extends AbstractHelper
 
     /**
      * @param field_type $acl
+     * @return $this
      */
     public function setAclPlugin (AclPlugin $aclPlugin)
     {

@@ -26,8 +26,9 @@ class Module implements ConsoleUsageProviderInterface
 {
     /**
      * Displays console options
-     * 
+     *
      * @param Console $console
+     * @return array|null|string
      */
 
     public function getConsoleUsage(Console $console)
