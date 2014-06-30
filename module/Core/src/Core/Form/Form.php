@@ -20,6 +20,10 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 class Form extends ZendForm
 {
+    
+    protected $baseFieldset;
+    protected $params;
+    
     public function getHydrator() {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
@@ -27,6 +31,49 @@ class Form extends ZendForm
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
+    }
+    
+    public function init()
+    {
+        //$this->addParameterFields();
+        $this->addBaseFieldset();
+        $this->addButtonsFieldset();
+    }
+    
+    protected function addParametersFields()
+    {
+        foreach ($this->params as $name => $value) {
+            $this->add(array(
+                'type' => 'Hidden',
+                'name' => $name,
+                'value' => $value,
+            ));
+        }
+    }
+    
+    protected function addBaseFieldset()
+    {
+        if (null === $this->baseFieldset) {
+            return;
+        }
+        
+        $fs = $this->baseFieldset;
+        if (!is_array($fs)) {
+            $fs = array(
+                'type' => $fs,
+            );
+        }
+        if (!isset($fs['options']['use_as_base_fieldset'])) {
+            $fs['options']['use_as_base_fieldset'] = true;
+        }
+        $this->add($fs);
+    }
+    
+    protected function addButtonsFieldset()
+    {
+        $this->add(array(
+            'type' => 'DefaultButtonsFieldset'
+        ));
     }
     
     protected function addHydratorStrategies($hydrator)
