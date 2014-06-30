@@ -39,7 +39,8 @@
         "twbs/bootstrap": "3.1.*",
         "components/jquery": "1.9.1",
         "fortawesome/font-awesome": "*",
-        "twitter/typeahead.js": "*"
+        "twitter/typeahead.js": "*",
+        "blueimp/jquery-file-upload": "dev-master"
     },
     "require-dev": {
     }
