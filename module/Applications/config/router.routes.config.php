@@ -11,14 +11,14 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
     'apply' => array(
         'type' => 'Segment',
         'options' => array(
-            'route' => '/apply',
+            'route' => '/apply/:applyId',
             'defaults' => array(
-                'controller' => 'Applications\Controller\Index',
+                'controller' => 'Applications\Controller\Apply',
                 'action' => 'index',
             ),
         ),
-        'may_terminate' => false,
-        'child_routes' => array(
+        'may_terminate' => true,
+        /*'child_routes' => array(
             'form' => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -41,7 +41,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                     ),
                 ),
             ),
-        ),
+        ),*/
     ),
     'applications-dashboard' => array(
         'type' => 'Literal',

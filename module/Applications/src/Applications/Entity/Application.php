@@ -266,8 +266,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
         }
-        $this->user = $user;
         $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
+        $this->user = $user;
         return $this;
     }
     

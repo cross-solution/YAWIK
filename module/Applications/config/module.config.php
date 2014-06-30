@@ -66,6 +66,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
+            'Applications\Controller\Apply' => 'Applications\Controller\ApplyController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             'Applications/CommentController' => 'Applications\Controller\CommentController',
             'Applications/Console' => 'Applications\Controller\ConsoleController',
@@ -162,6 +163,7 @@ return array(
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
              'Applications/CommentForm' => 'Applications\Form\CommentForm',
              'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
+             'Applications/Apply' => 'Applications\Form\Apply',
          ),
         'factories' => array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
