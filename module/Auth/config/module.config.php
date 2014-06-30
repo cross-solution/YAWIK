@@ -378,6 +378,9 @@ return array(
             'Auth/Group/Users' => 'Auth\Form\GroupUsersCollection',
             'Auth/Group/User'  => 'Auth\Form\GroupUserElement',
             'Auth/SocialProfilesButton' => 'Auth\Form\Element\SocialProfilesButton',
+            'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
+            'Auth/UserInfo' => 'Auth\Form\UserInfo',
+            
             
         ),
         'factories' => array(
