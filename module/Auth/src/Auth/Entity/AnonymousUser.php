@@ -21,7 +21,7 @@ use Zend\Session\Container as Session;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * 
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
- * @ODM\HasLifecyceCallbacks
+ * @ODM\HasLifecycleCallbacks
  */
 class AnonymousUser extends User
 {   
@@ -38,6 +38,7 @@ class AnonymousUser extends User
      * 
      * @throws \RuntimeException
      * @ODM\PrePersist
+     * @ODM\PreUpdate
      */
     public function preventPersistence()
     {
@@ -79,16 +80,13 @@ class AnonymousUser extends User
     /**
      * {@inheritDoc}
      * 
-     * Sets the default role to "guest".
+     * Always returns "guest"
      * 
      * @see \Auth\Entity\User::getRole()
      */
     public function getRole()
     {
-        if (!$this->role) {
-            $this->setRole('guest');
-        }
-        return $this->role;
+        return "guest";
     }
     
     /**
