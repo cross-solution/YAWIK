@@ -19,16 +19,11 @@ use Zend\Form\FormInterface;
  */
 class UserInfoContainer extends Container
 {
-    
-    public function bind($object, $flags = FormInterface::VALUES_NORMALIZED)
-    {
-        $this->get('info')->bind($object);
-        return $this;
-    }
-    
-    public function init()
-    {
-        $this->setName('user');
-        $this->addLazy('Auth/UserInfo', 'info');
-    }
+    protected $forms = array(
+        'info' => array(
+            'type' => 'Auth/UserInfo',
+            'property' => true,
+        ),
+    );
+      
 }
