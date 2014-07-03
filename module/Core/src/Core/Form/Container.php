@@ -14,21 +14,67 @@ use Zend\Form\Element;
 use Zend\Form\FormInterface;
 use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Core\Entity\EntityInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  *
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Container extends Form
+class Container extends Element implements ServiceLocatorAwareInterface,
+                                           \IteratorAggregate,
+                                           \Countable
 {
-    protected $wrapElements = true;
-    protected $deferredItems = array();
-    protected $areDeferredItemsAdded = false;
+    protected $forms = array();
+    protected $activeForms = array();
+    protected $formElementManager;
+    protected $entity;
     protected $params = array();
+    
+    public function __construct($name = null, $options = array())
+    {
+        // Normalize forms array.
+        $this->setForms($this->forms);
+        
+        parent::__construct($name, $options);
+    }
+    
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->formElementManager = $serviceLocator;
+        return $this;
+    }
+    
+    public function getServiceLocator()
+    {
+        return $this->formElementManager;
+    }
+    
+    public function getIterator()
+    {
+        $self = $this;
+        $forms = array_map(function($key) use ($self) {
+            return $self->getForm($key);
+        }, $this->activeForms);
+        
+        return new \ArrayIterator($forms);
+    }
+    
+    public function count()
+    {
+        return count($this->activeForms);
+    }
     
     public function setParams(array $params)
     {
         $this->params = $params;
+        
+        foreach ($this->forms as $form) {
+            if (is_object($form)) {
+                $form->setParams($params);
+            }
+        }
         return $this;
     }
     
@@ -37,103 +83,168 @@ class Container extends Form
         return $this->params;
     }
     
-    public function getHydrator() {
-        if (!$this->hydrator) {
-            $hydrator = new EntityHydrator();
-            //$this->addHydratorStrategies($hydrator);
-            $this->setHydrator($hydrator);
-        }
-        return $this->hydrator;
-    }
-    
-    public function addLazy($formOrContainer, $flags = array())
+    public function setParam($key, $value)
     {
-        if (!is_array($flags)) {
-            $flags = array('name' => $flags);
-        }
-        if (!isset($flags['name'])) {
-            throw new \InvalidArgumentException('No name provided.');
-        }
-        if (!is_array($formOrContainer)) {
-            $formOrContainer = array ('type' => $formOrContainer);
-        }
+        $this->params[$key] = $value;
         
-        $this->deferredItems[$flags['name']] = array($formOrContainer, $flags);
-        return $this; 
-    }
-    
-    public function add($formOrContainer, array $flags = array())
-    {
-        if (is_array($formOrContainer)
-        || ($formOrContainer instanceof Traversable && !$formOrContainer instanceof ElementInterface)
-        ) {
-            $factory = $this->getFormFactory();
-            $formOrContainer = $factory->create($formOrContainer);
-        }
-        
-        if (!$formOrContainer instanceOf FormInterface) {
-            throw new \InvalidArgumentException('Container must only contain other Containers or Forms.');
-        }
-        
-        parent::add($formOrContainer, $flags);
-        return $this;
-    }
-    
-    public function setName($name)
-    {
-        parent::setName($name);
-        $name = str_replace(array('[', ']'), array('.', ''), $name);
-        $this->setAttribute('data-container', $name);
-        return $this;
-    }
-    
-    public function get($elementOrFieldset)
-    {
-        if (false !== strpos($elementOrFieldset, '.')) {
-            list($child, $name) = explode('.', $elementOrFieldset, 2);
-            $container = $this->get($child);
-            return $container->get($name);
-        } 
-        
-        if (!$this->has($elementOrFieldset)) {
-            if (isset($this->deferredItems[$elementOrFieldset])) {
-                $item = $this->deferredItems[$elementOrFieldset];
-                $this->add($item[0], $item[1]);
+        foreach ($this->forms as $form) {
+            if (is_object($form)) {
+                $form->setParam($key, $value);
             }
         }
-        return parent::get($elementOrFieldset);
+        return $this;
     }
     
-    public function count()
+    public function getParam($key, $default = null)
     {
-        $this->addDeferredItems();
-        return $this->count();
+        return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
     
-    public function getIterator()
+    public function getForm($key)
     {
-        $this->addDeferredItems();
-        return parent::getIterator();
-    }
-    
-    protected function addDeferredItems()
-    {
-        foreach ($this->deferredItems as $name => $spec) {
-            if (!$this->has($name)) {
-                $this->add($spec[0], $spec[1]);
-                if (null !== $this->object) {
-                    try {
-                        $value = $this->object->$name;
-                        $this->get($name)->bind($value);
-                    } catch (\OutOfBoundsException $e) {}
+        if (!isset($this->forms[$key])) {
+            return null;
+        }
+        
+        $form = $this->forms[$key];
+        if (is_object($form)) {
+            return $form;
+        } 
+        $formInstance = $this->formElementManager->get($form['type']);
+        $formName     = (($name = $this->getName())
+                         ? $name . '.' : '')
+                        . $form['name'];
+        $formInstance->setName($formName);
+        
+        if ($entity = $this->getEntity()) {
+            $mapProperty = isset($form['property']) ? $form['property'] : $key;
+            if (true === $mapProperty) {
+                $mapEntity = $entity;
+            } else if (isset($entity->$mapProperty)) {
+                $mapEntity = $entity->$mapProperty;
+            } else {
+                $mapEntity = null;
+            }
+            
+            if ($mapEntity) {
+                if ($formInstance instanceOf Container) {
+                    $formInstance->setEntity($mapEntity); 
+                } else {
+                    $formInstance->bind($mapEntity);
                 }
             }
         }
+        
+        $formInstance->setParams($this->getParams());
+        $this->forms[$key] = $formInstance;
+        return $formInstance;
     }
     
-    public function prepareElement(FormInterface $form)
+    public function setForm($key, $spec, $enabled = true)
     {
-        $this->addDeferredItems();
-        return parent::prepareElement($form);
+        if (!is_array($spec)) {
+            $spec = array('type' => $spec, 'name' => $key);
+        }
+        if (!isset($spec['name'])) {
+            $spec['name'] = $key;
+        }
+        
+        $this->forms[$key] = $spec;
+        if ($enabled) {
+            $this->enableForm($key);
+        } else if (true === $this->activeForms) {
+            $this->activeForms = false;
+        }
+        return $this;
+    }
+    
+    public function setForms(array $forms, $enabled = true)
+    {
+        foreach ($forms as $key => $spec) {
+            if (is_array($spec) && isset($spec['enabled'])) {
+                $currentEnabled = $spec['enabled'];
+                unset($spec['enabled']);
+            } else {
+                $currentEnabled = $enabled;
+            }
+            $this->setForm($key, $spec, $currentEnabled);
+        }
+        return $this;
+    }
+    
+    public function enableForm($key = null)
+    {
+        if (null === $key) {
+            $this->activeForms = array_keys($this->forms);
+            return $this;
+        } 
+        
+        if (!is_array($key)) {
+            $key = array($key);
+        }
+        
+        foreach ($key as $k) {
+            if (false !== strpos($k, '.')) {
+                list($childKey, $childForm) = explode('.', $k, 2);
+                $child = $this->getForm($childKey);
+                $child->enableForm($childForm);
+            } else {
+                if (isset($this->forms[$k]) && !in_array($k, $this->activeForms)) {
+                    $this->activeForms[] = $k;
+                }
+            }
+        }
+        
+        return $this;
+    }
+    
+    public function disableForm($key = null)
+    {
+        if (null === $key) {
+            $this->activeForms = array();
+            return $this;
+        } 
+        
+        if (!is_array($key)) {
+            $key = array($key);
+        }
+        
+        foreach ($key as $k) {
+            if (false !== strpos($k, '.')) {
+                list($childKey, $childForm) = explode('.', $k, 2);
+                $child = $this->getForm($childKey);
+                $child->disableForm($childForm);
+            } else {
+                
+            }
+        }
+        $this->activeForms = array_filter($this->activeForms, function ($item) use ($key) {
+            return !in_array($item, $key);
+        });
+        
+        return $this;
+    }
+    
+    public function validateForm($key, $data)
+    {
+        if (false !== strpos($key, '.'))
+        $form = $this->getForm($key);
+        $form->setData($data);
+        if ($form->isValid()) {
+            return true;
+        } else {
+            return $form->getMessages();
+        }
+    }
+    
+    public function setEntity(EntityInterface $entity)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+    
+    public function getEntity()
+    {
+        return $this->entity;
     }
 }

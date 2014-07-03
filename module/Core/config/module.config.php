@@ -270,6 +270,8 @@ return array(
 //            'form_radio' => 'Core\Form\View\Helper\FormRadio',
 //            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
             'form' => 'Core\Form\View\Helper\Form',
+            'formContainer' => 'Core\Form\View\Helper\FormContainer',
+            'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
@@ -313,6 +315,7 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+            'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core\FileCollection' => 'Core\Form\FileCollection',
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',

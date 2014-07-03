@@ -33,22 +33,41 @@ class Form extends ZendForm
         return $this->hydrator;
     }
     
+    public function setName($name)
+    {
+        $this->setAttribute('action', '?form=' . $name);
+        return parent::setName($name);
+    }
+    
     public function init()
     {
-        //$this->addParameterFields();
         $this->addBaseFieldset();
         $this->addButtonsFieldset();
     }
     
-    protected function addParametersFields()
+    public function setParams(array $params)
     {
-        foreach ($this->params as $name => $value) {
+        foreach ($params as $key => $value) {
+            $this->setParam($key, $value);
+        }
+        return $this;
+    }
+    
+    public function setParam($key, $value)
+    {
+
+        if ($this->has($key)) {
+            $this->get($key)->setValue($value);
+        } else {
             $this->add(array(
-                'type' => 'Hidden',
-                'name' => $name,
-                'value' => $value,
+                'type' => 'hidden', 
+                'name' => $key, 
+                'attributes' => array(
+                    'value' => $value
+                )
             ));
         }
+        return $this;
     }
     
     protected function addBaseFieldset()
