@@ -164,6 +164,7 @@ return array(
              'Applications/CommentForm' => 'Applications\Form\CommentForm',
              'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
              'Applications/Apply' => 'Applications\Form\Apply',
+             'Applications/Base'  => 'Applications\Form\Base',
          ),
         'factories' => array(
             'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',

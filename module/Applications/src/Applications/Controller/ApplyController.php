@@ -92,6 +92,11 @@ class ApplyController extends AbstractActionController
         $application = new Application();
         $application->setIsDraft(true);
         $application->setJob($job);
+        $user->info->setFirstName('Test');
+        $user->info->setLastName('Benutzer');
+        $user->info->email = 'no@no.mail';
+        $user->info->street = 'HiernixStr';
+        $application->setSummary('Das ist ein Test.');
         $application->setContact($user->info);
         $application->setUser($user);
         
@@ -99,7 +104,7 @@ class ApplyController extends AbstractActionController
         $form = $services->get('forms')->get('Applications/Apply');
         
         //$form = $this->getServiceLocator()->get('forms')->get('Application/Create');
-        $form->bind($application);
+        $form->setEntity($application);
         return array(
             'form' => $form
         );
