@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="YAWIK" default="install">
+  
   <property file="./build.properties"/>
-  <property name="version" value="0.12" override="true"/>
+  <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
   <property name="builddir" value="./build/${phing.project.name}-${version}" override="false"/>
   <property name="vendordir" value="./vendor" override="false"/>
-  
+  <if>
+    <not>
+      <os family="unix" />
+    </not>
+    <then>
+      <echo message="This build.xml is only tested on unix. Please give feedback, if this build.xml is not working on your OS" level="warning"/>
+    </then>
+  </if>
   <!-- ============================================  -->
   <!-- defines various filesets                      -->
   <!-- ============================================  -->
@@ -32,9 +40,7 @@
   <fileset id="languages" dir="${project.basedir}/module">
     <include name="**/**.po"/>
   </fileset>
-  <fileset id="bootstrap" dir="${vendordir}/twbs/bootstrap/dist">
-    <include name="js/bootstrap.min.js"/>
-  </fileset>
+
   <fileset id="awesomefonts" dir="${vendordir}/fortawesome/font-awesome">
     <include name="fonts/*"/>
   </fileset>
@@ -67,7 +73,6 @@
         <available file='${project.basedir}/log' type='dir' />
       </not>
       <then>
-
        <mkdir dir="${project.basedir}/log"/>
        <chmod file="${project.basedir}/log" mode="0777"/>
       </then>
@@ -89,7 +94,7 @@
         <mkdir dir="${project.basedir}/cache/DoctrineMongoODMModule/Proxy"/>
         <chmod file="${project.basedir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
       </then>
-    </if>    
+    </if>
     <if>
       <not>
         <available file='${project.basedir}/build' type='dir' />
@@ -118,16 +123,42 @@
   <!-- ============================================  -->
   <!-- Target: build                                 -->
   <!-- ============================================  -->
-  <target name="build" depends="prepare,translate">
+  <target name="build" depends="prepare,translate" 
+          description="build tgz and zip packages">
+    <delete dir="${project.basedir}/build"/>      
+          
     <copy todir="${builddir}">
       <fileset refid="core"/>
     </copy>
-    <copy todir="${builddir}/public">
-      <fileset refid="bootstrap"/>
-    </copy>
+
     <copy todir="${builddir}/public">
       <fileset refid="awesomefonts"/>
     </copy>
+    
+    <copy file="${vendordir}/components/jquery/jquery.js" tofile="${builddir}/public/js/jquery.js"/>
+    <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/js/bloodhound.js"/>
+    <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/js/typeahead.jquery.js"/>   
+    <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
+    <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/js/jquery.geolocationfield.js"/>
+    <copy file="${project.basedir}/module/FormularValidation/public/js/jquery.formularValidation.js" tofile="${builddir}/public/js/jquery.formularValidation.js"/>
+ 
+    <mkdir dir="${builddir}/log"/>
+    <chmod file="${builddir}/log" mode="0777"/>
+    <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Hydrator"/>
+    <chmod file="${builddir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
+    <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
+    <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
+    
+    <echo file="${builddir}/VERSION" append="false">${version}</echo>
+       
+    <tar destfile="build/YAWIK-${version}.tgz"
+         basedir="${builddir}"
+         compression="gzip" /> 
+    <echo msg="exec: zip -r  build/YAWIK-${version}.zip ${builddir}"/>
+    <exec command="zip -r  build/YAWIK-${version}.zip ${builddir}" logoutput="false"/>
+    
+    <symlink link="build/latest.zip" target="YAWIK-${version}.zip" />
+    <symlink link="build/latest.tgz" target="YAWIK-${version}.tgz" />
   </target>
   
   <!-- ============================================  -->
@@ -197,38 +228,24 @@
       <fileset refid="languages"/>
     </foreach>
   </target>
-  <!-- ============================================  -->
-  <!-- (DEFAULT)  Target: dist                       -->
-  <!-- ============================================  -->
-  <target name="dist" depends="build" description="create a distribution package">
-    <echo msg="Creating archive..."/>
-    <tar destfile="./build/${phing.project.name}-${version}.tar.gz" compression="gzip">
-      <fileset dir="./build">
-        <include name="*"/>
-      </fileset>
-    </tar>
-    <echo msg="Files copied and compressed in build directory OK!"/>
-  </target>
   <target name="compile-po-file">
     <echo msg="Translate ${filename}"/>
-    <exec command="msgfmt -cv -o ${project.basedir}/module/${filename}.mo ${absfilename}" logoutput="true" dir="."/>
+    <exec command="msgfmt -cv -o ${project.basedir}/module/${filename}.mo ${absfilename}"
+          logoutput="true" dir="."/>
   </target>
+          
   <!-- ============================================  -->
   <!-- Target: docs                                  -->
   <!-- ============================================  -->
+
   <target name="docs" depends="phpdoc" description="build api docs">
-    <tar destfile="./build/${phing.project.name}-docs-${version}.tar.gz" compression="gzip">
-      <fileset dir="./docs">
-        <include name="*"/>
-      </fileset>
-    </tar>
     <exec command="scp ./build/${phing.project.name}-docs-${version}.tar.gz ${deploy.ssh.host}@${deploy.ssh.host}"/>
     <echo msg="Files copied and compressed in build directory OK!"/>
   </target>  
   <!-- ============================================  -->
   <!-- Target: symlinks                              -->
   <!-- ============================================  -->
-  <target name="symlinks" description="build api docs">
+  <target name="symlinks">
     <symlink link="${project.basedir}/public/Core" target="${project.basedir}/module/Core/public" />
     <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" />
     <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" />
@@ -240,7 +257,7 @@
   <!-- ============================================  -->
   <!-- Target: phpdoc                                -->
   <!-- ============================================  -->
-  <target name="phpdoc" depends="prepare" description="build api docs">
+  <target name="phpdoc" depends="prepare" description="build api docs using phpdoc">
     <exec command="rm -R ./tmp" dir="."/>
     <exec command="phpdoc" dir="." passthru="true"/>
   </target>  
