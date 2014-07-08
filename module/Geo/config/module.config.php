@@ -63,11 +63,11 @@ return array(
     
      'view_helper_config' => array(
         'headscript' => array(
-            'js/jquery.geolocationfield.js',
+            'Geo/js/jquery.geolocationfield.js',
             //'js/typeahead.jquery.min.js',
             //'js/bloodhound.min.js',
-            'js/typeahead.jquery.js',
-            'js/bloodhound.js',
+            'Geo/js/typeahead.jquery.min.js',
+            'Geo/js/bloodhound.min.js',
         ),
     ),
 );

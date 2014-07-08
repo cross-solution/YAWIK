@@ -135,12 +135,12 @@
       <fileset refid="awesomefonts"/>
     </copy>
     
-    <copy file="${vendordir}/components/jquery/jquery.js" tofile="${builddir}/public/js/jquery.js"/>
-    <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/js/bloodhound.js"/>
-    <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/js/typeahead.jquery.js"/>   
+    <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
+    <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
+    <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>   
     <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
-    <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/js/jquery.geolocationfield.js"/>
-    <copy file="${project.basedir}/module/FormularValidation/public/js/jquery.formularValidation.js" tofile="${builddir}/public/js/jquery.formularValidation.js"/>
+    <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.js"/>
+    <copy file="${project.basedir}/module/FormularValidation/public/js/jquery.formularValidation.js" tofile="${builddir}/public/FormularValidation/js/jquery.formularValidation.js"/>
  
     <mkdir dir="${builddir}/log"/>
     <chmod file="${builddir}/log" mode="0777"/>

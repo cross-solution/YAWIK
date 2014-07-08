@@ -3,7 +3,7 @@
 return array(
     'view_helper_config' => array(
         'headscript' => array(
-            'js/jquery.formularValidation.js',
+            'FormularValidation/js/jquery.formularValidation.js',
         ),
     ),
 );
