@@ -239,8 +239,12 @@
   <!-- ============================================  -->
 
   <target name="docs" depends="phpdoc" description="build api docs">
-    <exec command="scp ./build/${phing.project.name}-docs-${version}.tar.gz ${deploy.ssh.host}@${deploy.ssh.host}"/>
-    <echo msg="Files copied and compressed in build directory OK!"/>
+    <tar destfile="build/YAWIK-docs-${version}.tgz"
+         basedir="${project.basedir}/docs"
+         compression="gzip" /> 
+    <echo msg="exec: zip -r  build/YAWIK-${version}.zip ${project.basedir}/module"/>
+    <exec command="zip -r  build/YAWIK-${version}.zip ${builddir}" logoutput="false"/>
+
   </target>  
   <!-- ============================================  -->
   <!-- Target: symlinks                              -->
@@ -261,4 +265,10 @@
     <exec command="rm -R ./tmp" dir="."/>
     <exec command="phpdoc" dir="." passthru="true"/>
   </target>  
+  
+  <target name="deploy-docs" description="build api docs">
+    <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
+    <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
+  </target>
+            
 </project>

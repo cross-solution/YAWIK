@@ -35,3 +35,12 @@ linkedin.appid=<put your linkedin app ID here>
 linkedin.secret=<put your linkedin app secret here>
 linkedin.scope="r_fullprofile"
 
+;
+; For Developers: If you plan to contribute to the development, you can define some deployment variables. 
+;
+
+; where to deploy the api docs generated via phpdoc 
+deploy.ssh.host =
+deploy.ssh.user =
+deploy.docs.target =
+
