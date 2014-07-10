@@ -39,7 +39,9 @@ class Form extends ZendForm
      */
     public function render(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
-        
+        $this->getView()->headscript()->appendFile(
+            $this->getView()->basepath('Core/js/core.spinnerbutton.js')
+        );
         $class = $form->getAttribute('class');
         $class = preg_replace('~\bform-[^ ]+\b~', '', $class);
         $class .= ' ' . $layout;
@@ -57,6 +59,15 @@ class Form extends ZendForm
         }
         foreach ($form as $element) {
             $parameterPartial = $parameter;
+            if (!$element->hasAttribute('id')) {
+                
+                $elementId = preg_replace(
+                    array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                    array('-'             , '-',     ''),
+                    $form->getName() . '-' . $element->getName()
+                );
+                $element->setAttribute('id', $elementId);
+            }
             if ($element instanceOf ExplicitParameterProviderInterface) {
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);
             }

@@ -21,7 +21,6 @@ use Core\Entity\Hydrator\EntityHydrator;
 class Form extends ZendForm
 {
     
-    protected $baseFieldset;
     protected $params;
     
     public function getHydrator() {
@@ -37,12 +36,6 @@ class Form extends ZendForm
     {
         $this->setAttribute('action', '?form=' . $name);
         return parent::setName($name);
-    }
-    
-    public function init()
-    {
-        $this->addBaseFieldset();
-        $this->addButtonsFieldset();
     }
     
     public function setParams(array $params)
@@ -68,31 +61,6 @@ class Form extends ZendForm
             ));
         }
         return $this;
-    }
-    
-    protected function addBaseFieldset()
-    {
-        if (null === $this->baseFieldset) {
-            return;
-        }
-        
-        $fs = $this->baseFieldset;
-        if (!is_array($fs)) {
-            $fs = array(
-                'type' => $fs,
-            );
-        }
-        if (!isset($fs['options']['use_as_base_fieldset'])) {
-            $fs['options']['use_as_base_fieldset'] = true;
-        }
-        $this->add($fs);
-    }
-    
-    protected function addButtonsFieldset()
-    {
-        $this->add(array(
-            'type' => 'DefaultButtonsFieldset'
-        ));
     }
     
     protected function addHydratorStrategies($hydrator)

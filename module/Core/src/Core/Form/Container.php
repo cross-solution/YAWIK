@@ -7,18 +7,22 @@
  * @license   AGPLv3
  */
 
-/**  */ 
+/** Core forms */ 
 namespace Core\Form;
 
 use Zend\Form\Element;
-use Zend\Form\FormInterface;
-use Zend\Form\Form;
-use Core\Entity\Hydrator\EntityHydrator;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+
 /**
- *
+ * Manages a group of formulars.
+ * 
+ * The container is responsible for creating, populating and binding the formulars from or to
+ * the corresponding entities.
+ * 
+ * Formulars are lazy loaded. So it is possible to only retrieve one formular from the container
+ * for asynchronous saving using ajax calls.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -26,31 +30,67 @@ class Container extends Element implements ServiceLocatorAwareInterface,
                                            \IteratorAggregate,
                                            \Countable
 {
+    /**
+     * Available/Loaded forms or specification.
+     * @var array
+     */
     protected $forms = array();
+    
+    /**
+     * Active formulars keys.
+     * 
+     * Formulars which key is herein are included in the iterator.
+     * @see getIterator()
+     * @var array
+     */
     protected $activeForms = array();
+    
+    /**
+     * The form element manager.
+     * @var \Zend\Form\FormElementManager
+     */
     protected $formElementManager;
+    
+    /**
+     * Entity to bind to the formulars.
+     * 
+     * @var \Core\Entity\EntityInterface
+     */
     protected $entity;
+    
+    /**
+     * Parameters to pass to the formulars.
+     * 
+     * @var array
+     */
     protected $params = array();
-    
-    public function __construct($name = null, $options = array())
-    {
-        // Normalize forms array.
-        $this->setForms($this->forms);
-        
-        parent::__construct($name, $options);
-    }
-    
+
+    /**
+     * {@inheritDoc}
+     * @return Container
+     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
+     */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->formElementManager = $serviceLocator;
         return $this;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::getServiceLocator()
+     */
     public function getServiceLocator()
     {
         return $this->formElementManager;
     }
     
+    /**
+     * Gets an iterator to iterate over the enabled formulars.
+     * 
+     * @return \ArrayIterator
+     * @see IteratorAggregate::getIterator()
+     */
     public function getIterator()
     {
         $self = $this;
@@ -61,11 +101,23 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return new \ArrayIterator($forms);
     }
     
+    /**
+     * Gets the count of enabled formulars
+     * 
+     * @return int
+     * @see Countable::count()
+     */
     public function count()
     {
         return count($this->activeForms);
     }
     
+    /**
+     * Sets formular parameters.
+     * 
+     * @param array $params
+     * @return \Core\Form\Container
+     */
     public function setParams(array $params)
     {
         $this->params = $params;
@@ -78,11 +130,23 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
+    /**
+     * Gets the formular parameters.
+     * 
+     * @return array:
+     */
     public function getParams()
     {
         return $this->params;
     }
     
+    /**
+     * Sets a formular parameter.
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @return \Core\Form\Container
+     */
     public function setParam($key, $value)
     {
         $this->params[$key] = $value;
@@ -95,13 +159,38 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
+    /**
+     * Gets the value of a formular parameter.
+     * 
+     * Returns the provided <b>$default</b> value or null, if parameter does
+     * not  exist.
+     * 
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
     public function getParam($key, $default = null)
     {
         return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
     
+    /**
+     * Gets a specific formular.
+     * 
+     * This formular will be created upon the first retrievement.
+     * If created, the formular gets passed the formular parameters set in this container.
+     * 
+     * @param string $key
+     * @return null|\Core\Form\ContainerInterface|\Zend\Form\FormInterface
+     */
     public function getForm($key)
     {
+        if (false !== strpos($key, '.')) {
+            list($key, $childKey) = explode('.', $key, 2);
+            $container = $this->getForm($key);
+            return $container->getForm($childKey);
+        }
+        
         if (!isset($this->forms[$key])) {
             return null;
         }
@@ -110,7 +199,16 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         if (is_object($form)) {
             return $form;
         } 
-        $formInstance = $this->formElementManager->get($form['type']);
+        
+        $usePostArray  = isset($form['use_post_array']) ? $form['use_post_array'] : true;
+        $useFilesArray = isset($form['use_files_array']) ? $form['use_files_array'] : false;
+        
+        $options = array(
+            'use_post_array' => $usePostArray,
+            'use_files_array' => $useFilesArray,
+        );
+        
+        $formInstance = $this->formElementManager->get($form['type'], $options);
         $formName     = (($name = $this->getName())
                          ? $name . '.' : '')
                         . $form['name'];
@@ -140,6 +238,16 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $formInstance;
     }
     
+    /**
+     * Sets a form or form specification.
+     * 
+     * if <b>$spec</b> is a string, it is used as form type, name is set to <b>$key</b>
+     * 
+     * @param string $key
+     * @param string|array $spec
+     * @param string $enabled Should the formular be enabled or not 
+     * @return \Core\Form\Container
+     */
     public function setForm($key, $spec, $enabled = true)
     {
         if (!is_array($spec)) {
@@ -158,6 +266,22 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
+    /**
+     * Sets formulars or specifications.
+     * 
+     * <b>$forms</b> must be in the format:
+     * <pre>
+     *    'name' => [spec]
+     * </pre>
+     * 
+     * <b>$spec</b> must be compatible with {@link setForm}.
+     * Additionally you can include a key 'enabled' in the spec, which will override 
+     * <b>$enabled</b> only for the current formular.
+     * 
+     * @param array $forms
+     * @param boolean $enabled
+     * @return \Core\Form\Container
+     */
     public function setForms(array $forms, $enabled = true)
     {
         foreach ($forms as $key => $spec) {
@@ -172,6 +296,16 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
+    /**
+     * Enables a formular.
+     * 
+     * Enabled formulars are included in the {@link getIterator()}
+     * 
+     * Traverses in child containers through .dot-Notation.
+     * 
+     * @param string $key
+     * @return \Core\Form\Container
+     */
     public function enableForm($key = null)
     {
         if (null === $key) {
@@ -198,6 +332,12 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
+    /**
+     * Disables a formular.
+     * 
+     * @param string $key
+     * @return \Core\Form\Container|boolean
+     */
     public function disableForm($key = null)
     {
         if (null === $key) {
@@ -225,24 +365,23 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
-    public function validateForm($key, $data)
-    {
-        if (false !== strpos($key, '.'))
-        $form = $this->getForm($key);
-        $form->setData($data);
-        if ($form->isValid()) {
-            return true;
-        } else {
-            return $form->getMessages();
-        }
-    }
-    
+    /**
+     * Sets the entity for formular binding.
+     * 
+     * @param EntityInterface $entity
+     * @return \Core\Form\Container
+     */
     public function setEntity(EntityInterface $entity)
     {
         $this->entity = $entity;
         return $this;
     }
     
+    /**
+     * Gets the entity.
+     * 
+     * @return \Core\Entity\EntityInterface
+     */
     public function getEntity()
     {
         return $this->entity;

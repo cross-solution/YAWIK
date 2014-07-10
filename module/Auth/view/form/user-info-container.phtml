@@ -1,0 +1,25 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+
+use \Core\Form\View\Helper\Form;
+
+    $iterator = $this->element->getIterator();
+?>
+<div class="row">
+    <div class="col-md-8">
+    <?php echo $this->summaryForm($iterator->current(), Form::LAYOUT_HORIZONTAL) ?>
+    </div>
+    
+    <div class="col-md-4">
+    <h3><?php echo $this->translate('Image') ?></h3>
+    <?php $iterator->next(); echo $this->form($iterator->current()) ?>
+    </div>
+
+</div>

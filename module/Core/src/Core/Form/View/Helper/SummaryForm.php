@@ -53,16 +53,12 @@ class SummaryForm extends AbstractHelper
         $markup = '<div id="sf-%s" class="sf-container" data-display-mode="%s">'
                 . '%s'
                 . '<div class="sf-form">%s</div>'
-                . '<div class="sf-summary">'
-                . '<button type="button" class="pull-right btn btn-default sf-edit">'
-                . '<span class="yk-icon yk-icon-edit"></span> '
-                . $renderer->translate('Edit')
-                . '</button>'
-                . '%s</div></div>';
+                . '<div class="sf-summary">%s</div>'
+                . '</div>';
         
         $content = sprintf(
             $markup,
-            $form->getAttribute('id'), $form->getDisplayMode(), $labelContent, $formContent, $summaryContent
+            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent, $summaryContent
         );
         
         
@@ -77,7 +73,11 @@ class SummaryForm extends AbstractHelper
     
     public function renderSummary(SummaryFormInterface $form)
     {
-        return $this->renderSummaryElement($form->getBaseFieldset());
+        return  '<button type="button" class="pull-right btn btn-default sf-edit">'
+              . '<span class="yk-icon yk-icon-edit"></span> '
+              . $this->getView()->translate('Edit')
+              . '</button>'
+              . $this->renderSummaryElement($form->getBaseFieldset());
     }
     
     protected function renderSummaryElement(ElementInterface $element)
