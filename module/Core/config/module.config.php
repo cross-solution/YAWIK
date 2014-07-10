@@ -134,7 +134,7 @@ return array(
     
     'acl' => array(
         'rules' => array(
-            'user' => array(
+            'guest' => array(
                 'allow' => array(
                     //'route/file',
                     'Entity/File' => array(
@@ -276,6 +276,7 @@ return array(
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
+            'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
@@ -317,6 +318,7 @@ return array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
             'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
+            'Core/FileUpload' => '\Core\Form\Element\FileUpload',
             'Core\FileCollection' => 'Core\Form\FileCollection',
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
             'Core/RatingFieldset' => 'Core\Form\RatingFieldset',

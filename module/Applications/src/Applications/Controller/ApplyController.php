@@ -15,6 +15,9 @@ use Zend\Mvc\MvcEvent;
 use Applications\Entity\Application;
 use Zend\View\Model\ViewModel;
 use Auth\Entity\AnonymousUser;
+use Zend\View\Model\JsonModel;
+use Core\Form\Container;
+use Core\Form\SummaryForm;
 
 /**
  *
@@ -23,6 +26,8 @@ use Auth\Entity\AnonymousUser;
  */
 class ApplyController extends AbstractActionController
 {
+    
+    protected $container;
     
     public function attachDefaultListeners()
     {
@@ -37,10 +42,10 @@ class ApplyController extends AbstractActionController
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
-        $action       = false;
+        $container    = $services->get('forms')->get('Applications/Apply');
         
         if ($request->isPost()) {
-            $appId = $this->params()->fromPost('id');
+            $appId = $this->params()->fromPost('applicationId');
             if (!$appId) {
                 throw new \RuntimeException('Missing application id.');
             }
@@ -48,18 +53,16 @@ class ApplyController extends AbstractActionController
             if (!$application) {
                 throw new \RuntimeException('Invalid application id.');
             }
-            
-            $action     = 'process' . ($request->isXmlHttpRequest() ? 'part' : 'form');
+            $action     = 'process';
             $routeMatch = $e->getRouteMatch();
             $routeMatch->setParam('action', $action);
             
         } else {
-            
-        }
+            $application = $repository->create();
+        } 
         
-        if (false !== $action) {
-            
-        }
+        $container->setEntity($application);
+        $this->container = $container;
     }
     
     protected function createJobNotFoundModel()
@@ -88,25 +91,53 @@ class ApplyController extends AbstractActionController
             return $this->createJobNotFoundModel();
         }
 
+        $form = $this->container;
+        $application = $form->getEntity();
         $user = $this->auth()->getUser();
-        $application = new Application();
         $application->setIsDraft(true);
         $application->setJob($job);
-        $user->info->setFirstName('Test');
-        $user->info->setLastName('Benutzer');
-        $user->info->email = 'no@no.mail';
-        $user->info->street = 'HiernixStr';
-        $application->setSummary('Das ist ein Test.');
         $application->setContact($user->info);
-        $application->setUser($user);
+        if ($user instanceOf AnonymousUser) {
+            $application->getPermissions()->grant($user, 'all');
+        } else {
+            $application->setUser($user);
+        }
         
-        //$repositories->store($application);
-        $form = $services->get('forms')->get('Applications/Apply');
-        
-        //$form = $this->getServiceLocator()->get('forms')->get('Application/Create');
-        $form->setEntity($application);
+        $repositories->store($application);
+        $this->container->setParam('applicationId', $application->id);
         return array(
             'form' => $form
         );
+    }
+    
+    public function processAction()
+    {
+        $formName  = $this->params()->fromQuery('form');
+        $form      = $this->container->getForm($formName);
+        $postData  = $form->getOption('use_post_array') ? $_POST : array();
+        $filesData = $form->getOption('use_files_array') ? $_FILES : array();
+        $data      = array_merge($postData, $filesData);
+
+        $form->setData($data);
+        
+        if (!$form->isValid()) {
+            return new JsonModel(array(
+                'valid' => false,
+                'errors' => $form->getMessages(),
+            ));
+        }
+        
+        if ($form instanceOf SummaryForm) {
+            $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+            $viewHelper = 'summaryform';
+        } else {
+            $viewHelper = 'form';
+        }
+        
+        $this->getServiceLocator()->get('repositories')->store($this->container->getEntity());
+        return new JsonModel(array(
+            'valid' => $form->isValid(),
+            'content' => $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form),
+        ));
     }
 }

@@ -332,6 +332,7 @@ return array(
         'template_map' => array(
             'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
             'form/auth/my-profile.summary' => __DIR__ . '/../view/form/my-profile.summary.phtml',
+            'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',

@@ -22,6 +22,8 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * class for accessing applications
  * 
+ * @todo find better mechanism for loading drafts or applications or both states.
+ * 
  * @package Applications
  */
 class Application extends AbstractRepository
@@ -33,6 +35,8 @@ class Application extends AbstractRepository
     {
         if (!isset($criteria['isDraft'])) {
             $criteria['isDraft'] = false;
+        } else if (!is_bool($criteria['isDraft'])) {
+            unset($criteria['isDraft']);
         }
         return parent::findBy($criteria, $sort, $limit, $skip);
     }
@@ -54,7 +58,9 @@ class Application extends AbstractRepository
     public function createQueryBuilder($findDrafts = false)
     {
         $qb = parent::createQueryBuilder();
-        $qb->field('isDraft')->equals($findDrafts);
+        if (null !== $findDrafts) {
+            $qb->field('isDraft')->equals($findDrafts);
+        }
         return $qb;
     }
     

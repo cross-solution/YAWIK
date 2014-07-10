@@ -7423,6 +7423,30 @@ a.yk-icon {
   color: #fff;
   background-color: #5498d7;
 }
+.single-file-upload .fu-dropzone {
+  width: 120px;
+  height: 180px;
+  border: 1px dashed grey;
+  position: relative;
+}
+.single-file-upload .fu-progress {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  display: none;
+}
+.single-file-upload .fu-select-button {
+  position: absolute;
+  top: 65px;
+  left: 50px;
+  display: block;
+}
+.single-file-upload .fu-delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+}
 body {
   padding: 50px 0 25px;
   position: relative;

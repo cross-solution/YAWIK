@@ -20,22 +20,16 @@ use Core\Entity\EntityInterface;
 
 class Apply extends Container
 {
-    protected $forms = array(
-        'contact' => 'Auth/UserInfoContainer',
-        'base'    => array(
-            'type' => 'Applications/Base',
-            'property' => true,
-        ),
-    );
     
     public function init()
     {
-        //$this->setName('application');
+        $this->setForms(array(
+            'contact' => 'Applications/Contact',
+            'base'    => array(
+                'type' => 'Applications/Base',
+                'property' => true,
+            ),
+        ));
     }
     
-    public function setEntity(EntityInterface $entity)
-    {
-        $this->setParam('applicationId', $entity->id);
-        return parent::setEntity($entity);
-    }
 }

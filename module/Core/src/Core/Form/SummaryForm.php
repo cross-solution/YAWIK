@@ -15,7 +15,7 @@ namespace Core\Form;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class SummaryForm extends Form implements SummaryFormInterface
+class SummaryForm extends BaseForm implements SummaryFormInterface
 {
     
     protected $renderMode = 'all';
@@ -48,5 +48,15 @@ class SummaryForm extends Form implements SummaryFormInterface
         $this->add(array(
             'type' => 'SummaryFormButtonsFieldset'
         ));
+    }
+    
+    public function isValid()
+    {
+        $isValid = parent::isValid();
+        if ($isValid) {
+            $this->setRenderMode(self::RENDER_SUMMARY);
+        }
+        
+        return $isValid;
     }
 }

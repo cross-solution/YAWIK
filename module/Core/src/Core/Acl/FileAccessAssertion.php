@@ -37,6 +37,7 @@ class FileAccessAssertion implements AssertionInterface
             return false;
         }
         
-        return $resource->getPermissions()->isGranted($role, PermissionsInterface::PERMISSION_VIEW);
+        $privilege = $privilege ?: PermissionsInterface::PERMISSION_VIEW;
+        return $resource->getPermissions()->isGranted($role, $privilege);
     }
 }
