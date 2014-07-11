@@ -65,6 +65,7 @@ return array(
             "enabled" => true,
             "keys"    => array ( "id" => "", "secret" => "" ),
             "scope"	  => 'email, user_about_me, user_birthday, user_hometown, user_website',
+            "display" => 'popup',
         ),
         "LinkedIn" => array (
             "enabled" => true,
@@ -380,6 +381,7 @@ return array(
             'Auth/Group/Users' => 'Auth\Form\GroupUsersCollection',
             'Auth/Group/User'  => 'Auth\Form\GroupUserElement',
             'Auth/SocialProfilesButton' => 'Auth\Form\Element\SocialProfilesButton',
+            'Auth/SocialProfiles' => 'Auth\Form\SocialProfiles',
             'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldset',

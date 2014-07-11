@@ -1,5 +1,13 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
+/** Core forms view helpers */
 namespace Core\Form\View\Helper;
 
 use Core\Form\ViewPartialProviderInterface;
@@ -9,14 +17,23 @@ use Core\Form\Container;
 use Zend\Form\View\Helper\AbstractHelper;
 use Core\Form\SummaryForm;
 
+/**
+ * Helper for rendering form containers
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 class FormContainer extends AbstractHelper
 {
     
     /**
-     * Invoke as function
+     * Invoke as function.
+     * 
+     * Proxies to {@link render()} or returns self.
      *
-     * @param  null|FormInterface $form
-     * @return Form
+     * @param  null|Container $container
+     * @param string $layout
+     * @param array $parameter
+     * @return FormContainer|string
      */
     public function __invoke(Container $container = null, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
@@ -28,9 +45,11 @@ class FormContainer extends AbstractHelper
     }
     
     /**
-     * Render a form from the provided $form,
+     * Renders the forms of a container.
      *
-     * @param  FormInterface $form
+     * @param Container $container
+     * @param string $layout
+     * @param array $parameter
      * @return string
      */
     public function render(Container $container, $layout=self::LAYOUT_INLINE, $parameter = array())

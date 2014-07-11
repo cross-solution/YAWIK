@@ -1,5 +1,13 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
+/** Core forms view helpers */
 namespace Core\Form\View\Helper;
 
 use Zend\Form\View\Helper\Form as ZendForm;
@@ -9,18 +17,30 @@ use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ExplicitParameterProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
 
+/**
+ * Helper to render a formular.
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 class Form extends ZendForm
 {
+    /**#@+
+     * Layout constants.
+     * @var string
+     */
     const LAYOUT_HORIZONTAL = 'form-horizontal';
     const LAYOUT_INLINE     = 'form-inline';
     const LAYOUT_VERTICAL   = '';
+    /**#@-*/
     
     
     /**
      * Invoke as function
      *
      * @param  null|FormInterface $form
-     * @return Form
+     * @param string $layout
+     * @param array $parameter
+     * @return string
      */
     public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
@@ -34,10 +54,12 @@ class Form extends ZendForm
     /**
      * Render a form from the provided $form,
      *
-     * @param  FormInterface $form
+     * @param FormInterface $form
+     * @param string $layout
+     * @param array $parameter
      * @return string
      */
-    public function render(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
+    public function renderBare(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
         $this->getView()->headscript()->appendFile(
             $this->getView()->basepath('Core/js/core.spinnerbutton.js')
@@ -89,8 +111,40 @@ class Form extends ZendForm
                 $formContent.= $this->getView()->formRow($element, null, null, $layout);
             }
         }
-    
+        
         return $this->openTag($form) . $formContent . $this->closeTag();
     }
     
+    /**
+     * Renders a form from the provided form.
+     * Wraps this form in a div-container and renders the label,
+     * if any.
+     * 
+     * @param FormInterface $form
+     * @param string $layout
+     * @param array $parameter
+     * @uses renderBare()
+     * @see \Zend\Form\View\Helper\Form::render()
+     * @return string
+     */
+    public function render(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
+    {
+        $formContent = $this->renderBare($form, $layout, $parameter);
+        
+        $markup = '<div id="form-%s" class="form-container">'
+                . '%s'
+                . '<div class="form-content">%s</div>'
+                . '</div>';
+        
+        if ($label = $form->getLabel()) {
+            $label = '<div class="form-headline"><h3>' . $this->getView()->translate($label) . '</h3></div>';
+        }
+        
+        return sprintf(
+            $markup,
+            $form->getAttribute('id') ?: $form->getName(),
+            $label,
+            $formContent
+        );
+    }
 }

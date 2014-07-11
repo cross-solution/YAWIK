@@ -15,14 +15,23 @@ use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
 use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
+
 /**
- *
+ * Helper to render a summary form container.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class SummaryForm extends AbstractHelper
 {
     
+    /**
+     * Invoke as function.
+     * 
+     * @param null|SummaryFormInterface $form
+     * @param string $layout
+     * @param array $parameter
+     * @return \Core\Form\View\Helper\SummaryForm|string
+     */
     public function __invoke(SummaryFormInterface $form = null, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         if (null === $form) {
@@ -40,6 +49,14 @@ class SummaryForm extends AbstractHelper
         return $this->render($form, $layout, $parameter);
     }
     
+    /**
+     * Renders a summary form container.
+     * 
+     * @param SummaryFormInterface $form
+     * @param string $layout
+     * @param array $parameter
+     * @return string
+     */
     public function render(SummaryFormInterface $form, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         $renderer = $this->getView();
@@ -65,12 +82,25 @@ class SummaryForm extends AbstractHelper
         return $content;
     }
     
+    /**
+     * Only renders the form representation of a summary form.
+     * 
+     * @param SummaryFormInterface $form
+     * @param string $layout
+     * @param array $parameter
+     */
     public function renderForm(SummaryFormInterface $form, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         $formHelper = $this->getView()->plugin('form');
-        return $formHelper($form, $layout, $parameter);
+        return $formHelper->renderBare($form, $layout, $parameter);
     }
     
+    /**
+     * Only renders the summary representation of a summary form
+     * 
+     * @param SummaryFormInterface $form
+     * @return string
+     */
     public function renderSummary(SummaryFormInterface $form)
     {
         return  '<button type="button" class="pull-right btn btn-default sf-edit">'
@@ -80,6 +110,12 @@ class SummaryForm extends AbstractHelper
               . $this->renderSummaryElement($form->getBaseFieldset());
     }
     
+    /**
+     * Helper function to recurse into form elements when rendering summary.
+     * 
+     * @param ElementInterface $element
+     * @return string
+     */
     protected function renderSummaryElement(ElementInterface $element)
     {
         if ($element instanceOf Hidden || false === $element->getOption('render_summary')) {
