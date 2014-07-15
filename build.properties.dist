@@ -23,7 +23,7 @@ mail.from.name=YAWIK
 facebook.enabled=false
 facebook.appid=<put your facebook app ID here>
 facebook.secret=<put you facebook app secret here>
-facebook.scope="email, user_about_me, user_birthday, user_hometown", "user_work_history", "user_education_history"
+facebook.scope=email,user_about_me,user_birthday,user_hometown,user_work_history,user_education_history
 
 xing.enabled=false
 xing.appid=<put your xing app ID here>
@@ -33,7 +33,7 @@ xing.scope=
 linkedin.enabled=false
 linkedin.appid=<put your linkedin app ID here>
 linkedin.secret=<put your linkedin app secret here>
-linkedin.scope="r_fullprofile"
+linkedin.scope=r_fullprofile
 
 ;
 ; For Developers: If you plan to contribute to the development, you can define some deployment variables. 

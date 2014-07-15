@@ -1,3 +1,3 @@
 #!/bin/sh
 
-lessc cam.less ../public/css/cam.css
+lessc yawik.less ../public/css/yawik.css

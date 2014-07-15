@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "edf6d805c384b08880f03a21ec284aff",
+    "hash": "320c383b8a8027b125b456c3c40392cd",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vkhramtsov/jQuery-File-Upload.git",
-                "reference": "b9c0a449f1b8e9274870b8d1173bb0a6849eab6b"
+                "reference": "496d9ab9d93568823e612a2265919f34ae714fa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vkhramtsov/jQuery-File-Upload/zipball/b9c0a449f1b8e9274870b8d1173bb0a6849eab6b",
-                "reference": "b9c0a449f1b8e9274870b8d1173bb0a6849eab6b",
+                "url": "https://api.github.com/repos/vkhramtsov/jQuery-File-Upload/zipball/496d9ab9d93568823e612a2265919f34ae714fa4",
+                "reference": "496d9ab9d93568823e612a2265919f34ae714fa4",
                 "shasum": ""
             },
             "type": "library",
@@ -28,8 +28,7 @@
             "authors": [
                 {
                     "name": "Sebastian Tschan",
-                    "homepage": "https://blueimp.net",
-                    "role": "Developer"
+                    "homepage": "https://blueimp.net"
                 }
             ],
             "description": "File Upload widget for jQuery.",
@@ -55,7 +54,7 @@
                 "upload",
                 "widget"
             ],
-            "time": "2014-05-15 05:27:33"
+            "time": "2014-07-22 08:26:16"
         },
         {
             "name": "components/jquery",
@@ -140,7 +139,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -1178,22 +1177,25 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v3.1.1",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d"
+                "reference": "c068162161154a4b85110ea1e7dd3d7897ce2b72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a365d8689c3f3cee7f1acf86b61270ecca8e106d",
-                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/c068162161154a4b85110ea1e7dd3d7897ce2b72",
+                "reference": "c068162161154a4b85110ea1e7dd3d7897ce2b72",
                 "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "3.2.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1210,13 +1212,19 @@
                     "email": "markdotto@gmail.com"
                 }
             ],
-            "description": "Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.",
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "homepage": "http://getbootstrap.com",
             "keywords": [
-                "bootstrap",
-                "css"
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
             ],
-            "time": "2014-02-13 17:24:59"
+            "time": "2014-06-26 16:36:48"
         },
         {
             "name": "twitter/typeahead.js",
