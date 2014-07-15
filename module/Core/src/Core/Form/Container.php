@@ -120,7 +120,7 @@ class Container extends Element implements ServiceLocatorAwareInterface,
      */
     public function setParams(array $params)
     {
-        $this->params = $params;
+        $this->params = array_merge($this->params, $params);
         
         foreach ($this->forms as $form) {
             if (is_object($form)) {

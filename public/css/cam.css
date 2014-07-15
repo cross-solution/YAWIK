@@ -7423,29 +7423,33 @@ a.yk-icon {
   color: #fff;
   background-color: #5498d7;
 }
-.single-file-upload .fu-dropzone {
+.single-file-upload .iu-dropzone {
   width: 120px;
   height: 180px;
   border: 1px dashed grey;
   position: relative;
 }
-.single-file-upload .fu-progress {
+.single-file-upload .iu-progress {
   position: absolute;
   top: 60px;
   left: 10px;
   display: none;
 }
-.single-file-upload .fu-select-button {
+.single-file-upload .iu-select-button {
   position: absolute;
   top: 65px;
   left: 50px;
   display: block;
 }
-.single-file-upload .fu-delete-button {
+.single-file-upload .iu-delete-button {
   position: absolute;
   top: 10px;
   right: 10px;
   display: block;
+}
+.fu-dropzone {
+  min-height: 100px;
+  border: 1px dashed grey;
 }
 body {
   padding: 50px 0 25px;

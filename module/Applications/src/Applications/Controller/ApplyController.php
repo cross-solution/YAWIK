@@ -126,18 +126,23 @@ class ApplyController extends AbstractActionController
                 'errors' => $form->getMessages(),
             ));
         }
+        $this->getServiceLocator()->get('repositories')->store($this->container->getEntity());
         
-        if ($form instanceOf SummaryForm) {
-            $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-            $viewHelper = 'summaryform';
+        if ('file-uri' === $this->params()->fromPost('return')) {
+            $content = $form->getHydrator()->getLastUploadedFile()->getUri();
         } else {
-            $viewHelper = 'form';
+            if ($form instanceOf SummaryForm) {
+                $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                $viewHelper = 'summaryform';
+            } else {
+                $viewHelper = 'form';
+            }
+            $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
         }
         
-        $this->getServiceLocator()->get('repositories')->store($this->container->getEntity());
         return new JsonModel(array(
             'valid' => $form->isValid(),
-            'content' => $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form),
+            'content' => $content,
         ));
     }
 }

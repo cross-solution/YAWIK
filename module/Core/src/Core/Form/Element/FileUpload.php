@@ -21,6 +21,7 @@ use Zend\Form\FormInterface;
 class FileUpload extends File implements ViewHelperProviderInterface
 {
     protected $helper = 'formFileUpload';
+    protected $isMultiple = false;
     protected $form;
     
     public function setViewHelper($helper)
@@ -38,9 +39,26 @@ class FileUpload extends File implements ViewHelperProviderInterface
         return $this->helper;
     }
     
+    public function setIsMultiple($flag)
+    {
+        $this->isMultiple = (bool) $flag;
+        if ($flag) {
+            $this->setAttribute('multiple', true);
+        } else {
+            $this->removeAttribute('multiple');
+        }
+        
+        return $this;
+    }
+    
+    public function isMultiple()
+    {
+        return $this->isMultiple;
+    }
+    
     public function prepareElement(FormInterface $form)
     {
-        $form->setAttribute('class', 'single-file-upload');
+        $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single') . '-file-upload');
         $form->setAttribute('data-is-empty', null === $this->getValue());
         $this->form = $form;
         parent::prepareElement($form);

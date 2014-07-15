@@ -20,10 +20,20 @@ use Core\Form\Element\FileUpload;
  */
 class FormFileUpload extends FormFile
 {
+    protected $scriptFile = 'Core/js/forms.file-upload.js';
+    
     public function render(ElementInterface $element)
     {
         if (!$element instanceOf FileUpload) { 
             throw new \InvalidArgumentException('Expects element of type "Core\Form\Element\FileUpload"');
+        }
+        
+        $name = $element->getName();
+        if ($name === null || $name === '') {
+            throw new Exception\DomainException(sprintf(
+                '%s requires that the element has an assigned name; none discovered',
+                __METHOD__
+            ));
         }
         
         $renderer   = $this->getView();
@@ -32,36 +42,82 @@ class FormFileUpload extends FormFile
                  ->appendFile($basepath('js/blueimp/vendor/jquery.ui.widget.js'))
                  ->appendFile($basepath('js/blueimp/jquery.iframe-transport.js'))
                  ->appendFile($basepath('js/blueimp/jquery.fileupload.js'))
-                 ->appendFile($basepath('Core/js/forms.file-upload.js'));
+                 ->appendFile($basepath($this->scriptFile));
         
-        $file      = $element->getFileEntity();
-        $preview   = '';
-        if ($file) {
-            $element->setAttribute('data-is-empty', false);
-            if (0 === strpos($file->getType(), 'image/')) {
-                $preview = '<img src="' . $file->getUri() . '" class="img-ploraid" />';
-            } else {
-                $preview = '<span>' . $file->getName() . '(' . $file->getPrettySize() . ')</span>';
-            }
-        }
-        $fileInput = parent::render($element);
-        $markup = '
-<div class="fu-dropzone" id="%1$s-dropzone">
-    <a class="fu-delete-button btn btn-default btn-xs" id="%1$s-delete">
+        $markup    = $this->renderMarkup($element);
+        // $fileInput = parent::render($element);
+        
+        
+        $attributes          = $element->getAttributes();
+        $attributes['type']  = $this->getType($element);
+        $attributes['name']  = $name;
+        
+        $fileInput = sprintf(
+            '<input %s%s',
+            $this->createAttributesString($attributes),
+            $this->getInlineClosingBracket()
+        );
+        
+        $markup    = str_replace('__input__', $fileInput, $markup);
+        
+        return $markup;
+    }
+    
+    protected function renderMarkup($element)
+    {
+        $file = $element->getFileEntity();
+        $preview = '';
+        
+        $template = '
+<li class="fu-file fu-working">
+    <a href="#abort" class="fu-delete-button btn btn-default btn-xs">
         <span class="yk-icon yk-icon-minus"></span>
     </a>
-    <div class="fu-preview">
-    %2$s
+    <div class="fu-progress">
+        <span class="yk-icon yk-icon-spinner fa-spin"></span>
+        <span class="fu-progress-text">0</span> %
     </div>
-   <div class="fu-progress">
-       <span class="yk-icon yk-icon-spinner fa-spin"></span>
-       <span class="fu-progress-percent">0</span>%
-   </div>
+    <a class="fu-file-info" href="__file-uri__" target="_blank">
+        <span class="yk-icon fa-file fa-4x"></span>
+        __file-name__ (__file-size__)
+    </a>
+</li>';
+        $createFileDisplay = function($uri, $name, $size) use ($template) {
+            return str_replace(
+                array('#abort', '__file-uri__', '__file-name__', '__file-size__', 
+                      'fu-working', 'yk-icon-spinner fa-spin'),
+                array("$uri?do=delete", $uri, $name, $size, '', 'fa-doc'),
+                $template 
+            );
+        };
+        
+        if ($element->isMultiple()) {
+            foreach ($file as $f) {
+                $preview .= $createFileDisplay($f->getUri(), $f->getName(), $f->getPrettySize());
+            }
+            $class = 'fu-multiple';
+        } else {
+            $preview = $createFileDisplay($file->getUri(), $file->getName(), $file->getPrettySize());
+            $class = 'fu-single';
+        }
+        
+        $markup = '
+<div class="fu-dropzone %1$s" id="%2$s-dropzone">
+    <span class="fu-template" data-template="%4$s"></span>
+    <ul class="fu-files">
+    %3$s
+    </ul>
 
-   %3$s
+   __input__
 </div>';
         
-        $markup = sprintf($markup, $element->getAttribute('id'), $preview, $fileInput);
+        $markup = sprintf(
+            $markup, 
+            $class, 
+            $element->getAttribute('id'), 
+            $preview, 
+            $this->getView()->escapeHtmlAttr(trim($template))
+        );
         return $markup;
     }
 }

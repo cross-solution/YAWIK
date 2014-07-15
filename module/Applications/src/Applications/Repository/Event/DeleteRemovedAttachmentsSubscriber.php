@@ -46,16 +46,20 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         }
         
         $dm     = $eventArgs->getDocumentManager();
-        $repo   = $dm->getRepository('Applications\Entity\Application');
+        //$repo   = $dm->getRepository('Applications\Entity\Application');
+        
         $fileId = new \MongoId($file->id); 
         
-        foreach ($repo->findBy(array('attachments' => $fileId)) as $document) {
-            $attachments = $document->getAttachments();
-            $attachments->removeElement($file);
-        }
-        foreach ($repo->findBy(array('contact.image' => $fileId)) as $document) {
-            $document->contact->image = null;
-        }
+        $dm->createQueryBuilder('Applications\Entity\Application')
+           ->update()->multiple(true)
+           ->field('attachments')->equals($fileId)->pull($fileId)
+           ->getQuery()->execute();
+        
+        
+        $dm->createQueryBuilder('Applications\Entity\Application')
+           ->update()->multiple(true)
+           ->field('contact.image')->equals($fileId)->set(null)
+           ->getQuery()->execute();
     }
     
 }

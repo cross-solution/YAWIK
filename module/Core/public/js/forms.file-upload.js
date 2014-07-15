@@ -1,9 +1,27 @@
 
 ;(function ($) {
 	
+	function formatFileSize(bytes) 
+	 {
+	        if (typeof bytes !== 'number') {
+	            return '';
+	        }
+
+	        if (bytes >= 1000000000) {
+	            return (bytes / 1000000000).toFixed(2) + ' GB';
+	        }
+
+	        if (bytes >= 1000000) {
+	            return (bytes / 1000000).toFixed(2) + ' MB';
+	        }
+
+	        return (bytes / 1000).toFixed(2) + ' kB';
+	};
+
+	
 	$(function() {
-		$(document).on("drop dragover", function(e) { e.preventDefault(); e.stopPropagation(); });
-		$('.single-file-upload .fu-dropzone').click(function(e) {
+		//$(document).on("drop dragover", function(e) { e.preventDefault(); e.stopPropagation(); });
+		$('.fu-dropzone').click(function(e) {
 			if (1 == e.target.nodeType && 'DIV' == e.target.nodeName) {
 				$(this).find('input').click();
 				return false;
@@ -14,20 +32,15 @@
 			//return false;
 		});
 		
-		$('.single-file-upload').each(function() {
+		
+		$('.multi-file-upload').each(function() {
 			var $form = $(this);
 			
-			$form.find('.fu-delete-button').click(function(e) {
-				$.get($form.find('img').attr('src') + '?do=delete')
-				 .always(function() {
-					 $form.find('img').attr('src', '').hide();
-					$form.find('.fu-delete-button').hide();
-				 });
+			$form.find('.fu-remove-all').click(function() {
+				$form.find('.fu-dropzone .fu-files .fu-delete-button').click();
+				
+				return false;
 			});
-			if ($form.data('is-empty')) {
-				$form.find('.fu-preview').hide();
-				$form.find('.fu-delete-button').hide();
-			}
 			
 			$form.fileupload({
 				dataType: 'json',
@@ -35,34 +48,54 @@
 				
 				add: function(e, data)
 				{
-					$form.find('.fu-progress').show();
-					data.submit();
+					console.debug(e, data);
+					var iconType = "fa-file";
+					var fileType = data.files[0].type;
+					
+					if (fileType.match(/^image\//)) {
+						iconType += '-image-o';
+					} else {
+						iconType += '-o';
+					}
+					
+					var tpl = $form.find('.fu-template').data('template')
+					               .replace(/__file-name__/, data.files[0].name)
+					               .replace(/__file-size__/, formatFileSize(data.files[0].size))
+					               .replace(/fa-file/, iconType);
+					               
+					
+					var $tpl = $(tpl);
+					console.debug($tpl, $form.find('.fu-files'));
+					data.context = $tpl.appendTo($form.find('.fu-files'));
+					
+					$tpl.find('.fu-delete-button').click(function() {
+						if ($tpl.hasClass('fu-working')) {
+							jqXHR.abort();
+							$tpl.fadeOut(function() { $tpl.remove(); });
+						} else {
+							$.get($tpl.find('.fu-file-info').attr('href') + '?do=delete')
+							 .always(function() {
+								 $tpl.fadeOut(function() { $tpl.remove(); });
+							 });
+						}
+					});
+					
+					var jqXHR = data.submit();
 				},
 				
 				progress: function(e, data)
 				{
 					var $form = $(data.form);
+					var progress = parseInt(data.loaded / data.total * 100, 10);
 					
-					$form.find('.fu-progress-percent').text(
-						parseInt(data.loaded / data.total * 100, 10)
-					);
+					$form.find('.fu-progress-text').text(progress);
 				},
 				
-				done: function(e, data)
+				done: function (e, data)
 				{
-					$form = $(data.form);
-					
-					if (!data.result.content) {
-						$form.find('.fu-preview').html('').hide();
-						$form.find('.fu-delete-button').hide();
-					} else {
-						var $content = $(data.result.content);
-						var preview  = $content.find('.fu-preview').html();
-						$form.find('.fu-preview').html(preview).show();
-						$form.find('.fu-delete-button').show();
-					}
-					$form.find('.fu-progress').hide().find('.fu-progress-percent').text("0");
-					$form.find('.fu-delete-button').show();
+					data.context.removeClass('fu-working');
+					data.context.find('.fu-progress').addClass('hide');
+					data.context.find('.fu-file-info').attr('href', data.result.content);
 				},
 				
 				fail: function(e, data) 

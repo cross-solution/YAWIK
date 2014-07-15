@@ -36,6 +36,7 @@ class Apply extends Container
                 'property' => true,
             ),
             'profiles' => 'Auth/SocialProfiles',
+            'attachments' => 'Applications/Attachments'
         ));
     }
     

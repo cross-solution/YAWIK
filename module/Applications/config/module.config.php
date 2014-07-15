@@ -173,6 +173,7 @@ return array(
             'Applications/ContactImage' => 'Applications\Form\ContactImageFactory',
             'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
             'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
+            'Applications/Attachments' => 'Applications\Form\AttachmentsFactory',
             'Applications/PrivacyPolicy' => '\Applications\Form\Element\PrivacyPolicyFactory',
             //'Applications/CarbonCopy' => 'Applications\Form\CarbonCopyFieldset',  
             'Applications/CarbonCopy' => '\Applications\Form\Element\CarbonCopyFactory',  

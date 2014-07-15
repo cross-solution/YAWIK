@@ -21,4 +21,9 @@ class UserImageFactory extends FileUploadFactory
 {
     protected $fileName = 'image';
     protected $fileEntityClass = '\Auth\Entity\UserImage';
+    
+    protected function configureForm($form)
+    {
+        $form->get($this->fileName)->setViewHelper('FormImageUpload');
+    }
 } 

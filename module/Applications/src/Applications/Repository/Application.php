@@ -33,9 +33,9 @@ class Application extends AbstractRepository
      */
     public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
     {
-        if (!isset($criteria['isDraft'])) {
+        if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
-        } else if (!is_bool($criteria['isDraft'])) {
+        } else if (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
         return parent::findBy($criteria, $sort, $limit, $skip);

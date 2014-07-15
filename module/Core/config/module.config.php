@@ -277,6 +277,7 @@ return array(
             'formrow' => 'Core\Form\View\Helper\FormRow',
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
+            'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
