@@ -6,5 +6,27 @@
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   AGPLv3
  */
-
+$this->headscript()->appendFile($this->basePath('Applications/js/apply.index.js'));
 echo $this->formContainer($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
+
+?>
+
+<div id="send-application-buttons">
+    <h3><?php echo $this->translate('Send application') ?></h3>
+    <nav class="navbar">
+        <div class="col-md-12">
+        <button id="send-application" class="btn btn-lg btn-primary<?php echo $this->isApplicationValid ? '' : ' disabled' ?>">
+            <?php echo $this->translate('Send application') ?>
+        </button>
+        
+        <button id="send-application" class="btn btn-lg btn-default">
+            <?php echo $this->translate('Preview application') ?>
+        </button>
+        
+        <button id="abort-application" class="btn btn-lg btn-danger">
+            <?php echo $this->translate('Abort application') ?>
+        </button>
+        </div>
+    
+    </nav>
+</div>

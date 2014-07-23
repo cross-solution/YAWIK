@@ -19,6 +19,7 @@ use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use Auth\Entity\InfoInterface;
 use Cv\Entity\CvInterface;
 use Core\Entity\DraftableEntityInterface;
+use Auth\Entity\AnonymousUser;
 
 /**
  * The application model
@@ -49,6 +50,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", simple=true)
      */
     protected $user;
+    
+    protected $__anonymousUser__;
     
     /**
      * Status of an application.
@@ -179,6 +182,13 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $isDraft = false;
     
     /**
+     * 
+     * @var unknown
+     * @ODM\EmbedOne(targetDocument="Attributes")
+     */
+    protected $attributes;
+    
+    /**
      * {@inheritDoc}
      * @ODM\PreUpdate
      * @ODM\PrePersist
@@ -279,6 +289,32 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * 
+     * @ODM\PrePersist
+     * @ODM\PreUpdate
+     */
+    public function prependPersistingAnonymousUser()
+    {
+        if ($this->user instanceOf AnonymousUser) {
+            $this->__anonymousUser__ = $this->user;
+            $this->user = null;
+        }
+    }
+    
+    /**
+     * 
+     * @ODM\PostPersist
+     * @ODM\PostUpdate
+     */
+    public function restoreAnonymousUser()
+    {
+        if ($this->__anonymousUser__) {
+            $this->user = $this->__anonymousUser__;
+            $this->__anonymousUser__ = null;
+        }
     }
 
     /**
@@ -671,6 +707,20 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
             $this->rating = 0 == $count ? 0 : round($sum / $count);
         }
         return $this->rating;
+    }
+    
+    public function setAttributes(Attributes $attributes)
+    {
+        $this->attributes = $attributes;
+        return $this;
+    }
+    
+    public function getAttributes()
+    {
+        if (!$this->attributes) {
+            $this->setAttributes(new Attributes());
+        }
+        return $this->attributes;
     }
     
 }

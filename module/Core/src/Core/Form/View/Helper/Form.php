@@ -61,9 +61,22 @@ class Form extends ZendForm
      */
     public function renderBare(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
-        $this->getView()->headscript()->appendFile(
-            $this->getView()->basepath('Core/js/core.spinnerbutton.js')
-        );
+        $renderer   = $this->getView();
+        $headscript = $renderer->plugin('headscript');
+        $basepath   = $renderer->plugin('basepath');
+        
+        $headscript->appendFile($basepath('Core/js/core.spinnerbutton.js'))
+                   ->appendFile($basepath('Core/js/core.forms.js'));
+        
+        if ($scripts = $form->getOption('headscript')) {
+            if (!is_array($scripts)) {
+                $scripts = Array($scripts);
+            }
+            foreach ($scripts as $script) {
+                $headscript->appendFile($basepath($script));
+            }
+        }
+        
         $class = $form->getAttribute('class');
         $class = preg_replace('~\bform-[^ ]+\b~', '', $class);
         $class .= ' ' . $layout;

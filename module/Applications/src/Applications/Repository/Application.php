@@ -18,6 +18,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
 use Zend\Stdlib\ArrayUtils;
+use Auth\Entity\UserInterface;
 
 /**
  * class for accessing applications
@@ -46,8 +47,10 @@ class Application extends AbstractRepository
      */
     public function findOneBy(array $criteria)
     {
-        if (!isset($criteria['isDraft'])) {
+        if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
+        } else if (null === $criteria['isDraft']) {
+            unset($criteria['isDraft']);
         }
         return parent::findOneBy($criteria);
     }
@@ -167,5 +170,38 @@ class Application extends AbstractRepository
         $qb->hydrate(false)->distinct('status.name');
         $result = $qb->getQuery()->execute();
         return $result;
+    }
+    
+    public function findDraft($user, $applyId)
+    {
+        if ($user instanceOf UserInterface) {
+            $user = $user->getId();
+        }
+        
+//         $qb = $this->createQueryBuilder();
+//         $qb->addOr(
+//                 $qb->expr()
+//                    ->field('user')->equals($user)
+//             )
+//            ->addOr(
+//                 $qb->expr()
+//                    ->field('permissions.change')
+//                    ->equals($user)
+//             );
+        
+        $documents = $this->findBy(array(
+            'isDraft' => true,
+            '$or' => array(
+                array('user' => $user),
+                array('permissions.change' => $user)
+            )
+        ));
+        foreach ($documents as $document) {
+            if ($applyId == $document->getJob()->getApplyId()) {
+                return $document;
+            }
+        }
+        
+        return null;
     }
 }

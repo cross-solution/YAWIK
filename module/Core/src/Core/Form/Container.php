@@ -123,8 +123,8 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $this->params = array_merge($this->params, $params);
         
         foreach ($this->forms as $form) {
-            if (is_object($form)) {
-                $form->setParams($params);
+            if (isset($form['__instance__']) && is_object($form['__instance__'])) {
+                $form['__instance__']->setParams($params);
             }
         }
         return $this;
@@ -152,8 +152,8 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $this->params[$key] = $value;
         
         foreach ($this->forms as $form) {
-            if (is_object($form)) {
-                $form->setParam($key, $value);
+            if (isset($form['__instance__']) && is_object($form['__instance__'])) {
+                $form['__instance__']->setParam($key, $value);
             }
         }
         return $this;
@@ -196,8 +196,8 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         }
         
         $form = $this->forms[$key];
-        if (is_object($form)) {
-            return $form;
+        if (isset($form['__instance__']) && is_object($form['__instance__'])) {
+            return $form['__instance__'];
         } 
         
         $usePostArray  = isset($form['use_post_array']) ? $form['use_post_array'] : true;
@@ -215,26 +215,11 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $formInstance->setName($formName);
         
         if ($entity = $this->getEntity()) {
-            $mapProperty = isset($form['property']) ? $form['property'] : $key;
-            if (true === $mapProperty) {
-                $mapEntity = $entity;
-            } else if (isset($entity->$mapProperty)) {
-                $mapEntity = $entity->$mapProperty;
-            } else {
-                $mapEntity = null;
-            }
-            
-            if ($mapEntity) {
-                if ($formInstance instanceOf Container) {
-                    $formInstance->setEntity($mapEntity); 
-                } else {
-                    $formInstance->bind($mapEntity);
-                }
-            }
+            $this->mapEntity($formInstance, isset($form['property']) ? $form['property'] : $key, $entity);
         }
         
         $formInstance->setParams($this->getParams());
-        $this->forms[$key] = $formInstance;
+        $this->forms[$key]['__instance__'] = $formInstance;
         return $formInstance;
     }
     
@@ -374,6 +359,12 @@ class Container extends Element implements ServiceLocatorAwareInterface,
     public function setEntity(EntityInterface $entity)
     {
         $this->entity = $entity;
+        
+        foreach ($this->forms as $key => $form) {
+            if (isset($form['__instance__']) && is_object($form['__instance__'])) {
+                $this->mapEntity($form['__instance__'], isset($form['property']) ? $form['property'] : $key, $entity);
+            }
+        }
         return $this;
     }
     
@@ -385,5 +376,24 @@ class Container extends Element implements ServiceLocatorAwareInterface,
     public function getEntity()
     {
         return $this->entity;
+    }
+    
+    protected function mapEntity($form, $key, $entity)
+    {
+        
+        if (true === $key) {
+            $mapEntity = $entity;
+        } else if (isset($entity->$key)) {
+            $mapEntity = $entity->$key;
+        } else {
+            return;
+        }
+        
+        if ($form instanceOf Container) {
+            $form->setEntity($mapEntity);
+        } else {
+            $form->bind($mapEntity);
+        }
+        
     }
 }

@@ -278,6 +278,7 @@ return array(
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
+            'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
@@ -318,6 +319,7 @@ return array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
             'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
+            'Checkbox' => 'Core\Form\Element\Checkbox',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
             'Core/FileUpload' => '\Core\Form\Element\FileUpload',
             'Core\FileCollection' => 'Core\Form\FileCollection',
@@ -328,9 +330,6 @@ return array(
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
-        ),
-        'factories' => array(
-            'Core/PolicyCheck' => 'Core\Form\Element\PolicyCheckFactory',
         ),
     ),
     

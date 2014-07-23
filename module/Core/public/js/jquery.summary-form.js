@@ -8,60 +8,19 @@
 	
 	$.extend(Container.prototype, {
 		
-		_displayErrors: function(errors, prefix)
+		submit: function(e, args)
 		{
 			var _this = this;
-			$.each(errors, function(idx, error) {
-				var $errorsDiv = _this.$formContainer.find('#' + prefix + idx + '-errors'); 
-				if ($errorsDiv.length) {
-					var html = '<ul class="error">'
-					$.each(error, function(i, err) {
-						html += '<li>' + err + '</li>';
-					});
-					html += '</ul>';
-					$errorsDiv.html(html);
-					$errorsDiv.parent().addClass('input-error');
-				} else {
-					_this._displayErrors(error, idx + '-');
-				}
-			});
-		},
-		
-		_clearErrors: function()
-		{
-			this.$formContainer.find('.errors').each(function() {
-				$(this).html('');
-				$(this).parent().removeClass('input-error');
-			});
-		},
-		
-		submit: function(event)
-		{
-			var _this = this;
-			var $form = this.$formContainer.find('form');
-			this._clearErrors();
-			$.post(
-				$form.attr('action'),
-				$form.serializeArray(),
-				null,
-				'json'
-			  )
-			 .done(function(result) {
-				if ($.fn.spinnerbutton) {
-					_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
-				}
-				if (result.valid) {
-					_this.$summaryContainer.html(result.content);
-					_this.cancel();
-				} else {
-					_this._displayErrors(result.errors);
-				}
-			  })
-			 .fail(function() {
-				if ($.fn.spinnerbutton) {
-					_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
-				}
-			});
+			var result = args.data;
+			
+			if ($.fn.spinnerbutton) {
+				_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
+			}	
+			if (result.valid) {
+				_this.$summaryContainer.html(result.content)
+				                       .find('.sf-edit').click($.proxy(_this.edit, _this));
+				_this.cancel();
+			}
 			
 			return false;
 		},
@@ -95,7 +54,7 @@
 				this.$summaryContainer.hide().css('opacity', 0);
 			}
 			
-			this.$formContainer.find('.sf-submit').click($.proxy(this.submit, this));
+			this.$formContainer.find('form').on('yk.forms.done', $.proxy(this.submit, this));
 			this.$formContainer.find('.sf-cancel').click($.proxy(this.cancel, this));
 			this.$summaryContainer.find('.sf-edit').click($.proxy(this.edit, this));
 		}

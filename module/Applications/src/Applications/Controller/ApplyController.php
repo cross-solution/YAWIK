@@ -58,14 +58,37 @@ class ApplyController extends AbstractActionController
             $routeMatch->setParam('action', $action);
             
         } else {
-            $application = $repository->create();
+            $user  = $this->auth()->getUser();
+            $appId = $this->params('applyId');
+            if (!$appId) {
+                throw new \RuntimeException('Missing apply id');
+            }
+            $application = $repository->findDraft($user, $appId);
+            if ($application) {
+               $form = $container->getForm('contact.contact');
+               $form->setDisplayMode('summary');
+            } else {
+                $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
+                
+                if (!$job) {
+                    $e->getRouteMatch()->setParam('action', 'job-not-found');
+                    return;
+                }
+                
+                $application = $repository->create();
+                $application->setIsDraft(true)
+                            ->setContact($user->info)
+                            ->setUser($user)
+                            ->setJob($job);
+                $repositories->store($application);
+            }
         } 
         
         $container->setEntity($application);
         $this->container = $container;
     }
     
-    protected function createJobNotFoundModel()
+    public function jobNotFoundAction()
     {
         $this->response->setStatusCode(410);
         $model = new ViewModel(array(
@@ -77,36 +100,14 @@ class ApplyController extends AbstractActionController
     
     public function indexAction()
     {
-        $appId = $this->params('applyId');
-        if (!$appId) {
-            throw new \RuntimeException('Missing apply id');
-        }
-        
-        $services     = $this->getServiceLocator();
-        $repositories = $services->get('repositories');
-        
-        $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
-        
-        if (!$job) {
-            return $this->createJobNotFoundModel();
-        }
-
-        $form = $this->container;
+        $form        = $this->container;
         $application = $form->getEntity();
-        $user = $this->auth()->getUser();
-        $application->setIsDraft(true);
-        $application->setJob($job);
-        $application->setContact($user->info);
-        if ($user instanceOf AnonymousUser) {
-            $application->getPermissions()->grant($user, 'all');
-        } else {
-            $application->setUser($user);
-        }
         
-        $repositories->store($application);
         $this->container->setParam('applicationId', $application->id);
+
         return array(
-            'form' => $form
+            'form' => $form,
+            'isApplicationValid' => $this->checkApplication($application),
         );
     }
     
@@ -126,7 +127,8 @@ class ApplyController extends AbstractActionController
                 'errors' => $form->getMessages(),
             ));
         }
-        $this->getServiceLocator()->get('repositories')->store($this->container->getEntity());
+        $application = $this->container->getEntity();
+        $this->getServiceLocator()->get('repositories')->store($application);
         
         if ('file-uri' === $this->params()->fromPost('return')) {
             $content = $form->getHydrator()->getLastUploadedFile()->getUri();
@@ -143,6 +145,13 @@ class ApplyController extends AbstractActionController
         return new JsonModel(array(
             'valid' => $form->isValid(),
             'content' => $content,
+            'isApplicationValid' => $this->checkApplication($application)
         ));
+    }
+    
+    protected function checkApplication($application)
+    {
+        return '' != $application->contact->email 
+               && $application->attributes->acceptedPrivacyPolice;
     }
 }

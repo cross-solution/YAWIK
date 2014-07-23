@@ -70,6 +70,10 @@ class FileUpload extends File implements ViewHelperProviderInterface
             return;
         }
         
+        if ($this->isMultiple()) {
+            return $object;
+        }
+        
         $entityName = $this->getName();
         
         try {
