@@ -155,7 +155,7 @@ class Application extends AbstractRepository
      */
     public function findProfile($profileId)
     {
-        $application = $this->findOneBy(array('profiles._id' => new \MongoId($profileId)));
+        $application = $this->findOneBy(array('isDraft' => null, 'profiles._id' => new \MongoId($profileId)));
         foreach ($application->getProfiles() as $profile) {
             if ($profile->getId() == $profileId) {
                 return $profile;

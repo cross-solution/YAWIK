@@ -19,9 +19,9 @@ echo $this->formContainer($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
             <?php echo $this->translate('Send application') ?>
         </button>
         
-        <button id="send-application" class="btn btn-lg btn-default">
+        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
             <?php echo $this->translate('Preview application') ?>
-        </button>
+        </a>
         
         <button id="abort-application" class="btn btn-lg btn-danger">
             <?php echo $this->translate('Abort application') ?>

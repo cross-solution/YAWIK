@@ -108,6 +108,7 @@ class ApplyController extends AbstractActionController
         return array(
             'form' => $form,
             'isApplicationValid' => $this->checkApplication($application),
+            'application' => $application,
         );
     }
     

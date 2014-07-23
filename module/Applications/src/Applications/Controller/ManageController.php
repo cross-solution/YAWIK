@@ -99,13 +99,16 @@ class ManageController extends AbstractActionController
     	    $application->addReadBy($this->auth('id'));
     	    $applicationIsUnread = true;
     	}
-    					
+    	
     	
         $format=$this->params()->fromQuery('format');
 
-        
-        $list = $this->paginationParams('Applications\Index', $repository);
-        $list->setCurrent($application->id);
+        if ($application->isDraft()) {
+            $list = false;
+        } else {
+            $list = $this->paginationParams('Applications\Index', $repository);
+            $list->setCurrent($application->id);
+        }
 
         $return = array(
             'application'=> $application, 
@@ -114,6 +117,7 @@ class ManageController extends AbstractActionController
         );
         switch ($format) {
             case 'json':
+                /*@deprecated - must be refactored */
                         $viewModel = new JsonModel();
                         $viewModel->setVariables(/*array(
                     'application' => */$this->getServiceLocator()

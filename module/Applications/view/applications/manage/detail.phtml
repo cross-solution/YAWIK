@@ -13,26 +13,31 @@ $this->headTitle($this->translate('Details'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.manage.detail.js'));
 $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 
+if (!$this->application->isDraft()):
 /* variables needed for the pagination*/
 $prevId = $this->list->getPrevious();
 $nextId = $this->list->getNext();
 $prevHref = $prevId ? $this->url('lang/applications/detail', array('id' => $prevId), true) : '#';
 $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $nextId), true) : '#';
+endif;
             
 ?>
 <h1>
 <?php echo $this->translate('application for')?>: <?php echo $this->link($this->application->job->link, $this->application->job->title)?>
+<?php if (!$this->application->isDraft()):?>
 <small class="pull-right">
     <?php echo sprintf($this->translate('Application %d of %d'),
                        $this->list->getPosition(), $this->list->getCount()
                 )?>
 </small>
+<?php endif ?>
 </h1>
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
 <nav class="navbar cam-toolbar">   
-    <?php if ($this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
+    <?php if (!$this->application->isDraft() 
+              && $this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
     <div id="state-actions" class="btn-group cam-action-states">
         <?php $status = $application->status->name;
         
@@ -80,7 +85,8 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>  
      </div>
-     <?php endif ?> 
+     <?php endif ?>
+     <?php if (!$this->application->isDraft()):?> 
    <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
      <div id="forward-email" class="cam-input-group input-group">
             <span class="input-group-addon"
@@ -100,12 +106,15 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
             </span>
       </div>
     </form>
+    <?php endif ?>
     <div class="pull-right">
+    <?php if (!$this->application->isDraft()):?>
     <div class="btn-group xpull-left">
       <a href="<?php echo $prevHref ?>" class="btn btn-mini btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
       <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
       <a href="<?php echo $nextHref ?>" class="btn btn-mini btn-default<?php if (!$nextId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
     </div>    
+    <?php endif ?>
     <div class="pull-left" style="padding-left: 10px; padding-top:7px;">
     <p>
     </p>
@@ -332,6 +341,9 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         <td><?php echo $this->translate('rating')?>:</td> 
         <td class="col-md-6">
           <span id="application-rating">
+          <?php $rating = $this->rating($this->application->getRating()); 
+          if ($this->application->isDraft()): echo $rating;
+          else:?>
             <button id="<?php echo $this->application->rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>" 
                     data-title="title"
                     <?php echo $this->application->rating?'data-toggle="modal"':''?>
@@ -339,6 +351,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
                     title="<?php echo $this->application->rating?$this->translate('View comments'):$this->translate('Add comment') ?>">
               <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
             </button>
+         <?php endif ?>
           </span>
         </td>
       </tr>

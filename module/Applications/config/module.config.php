@@ -80,6 +80,9 @@ return array(
             'guest' => array(
                 'allow' => array(
                     'Applications\Controller\Manage' => 'detail',
+                    'Entity/Application' => array(
+                        'read' => 'Applications/Access',
+                    ),
                 ),
             ),
             'user' => array(
