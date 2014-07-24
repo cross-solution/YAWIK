@@ -141,7 +141,6 @@ return array(
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
-   //         'pagination-control' => __DIR__ . '/../../Core/view/partial/pagination-control.phtml',
         )
     ),
     'view_helpers' => array(

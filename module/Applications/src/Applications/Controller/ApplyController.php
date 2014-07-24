@@ -18,6 +18,8 @@ use Auth\Entity\AnonymousUser;
 use Zend\View\Model\JsonModel;
 use Core\Form\Container;
 use Core\Form\SummaryForm;
+use Core\Entity\PermissionsInterface;
+use Applications\Entity\Status;
 
 /**
  *
@@ -38,6 +40,11 @@ class ApplyController extends AbstractActionController
     
     public function preDispatch(MvcEvent $e)
     {
+        if ($this->params()->fromQuery('do')) {
+            $e->getRouteMatch()->setParam('action', 'do');
+            return;
+        }
+        
         $request      = $this->getRequest();
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
@@ -150,9 +157,100 @@ class ApplyController extends AbstractActionController
         ));
     }
     
+    public function doAction()
+    {
+        $services     = $this->getServiceLocator();
+        $repositories = $services->get('repositories');
+        $repository   = $repositories->get('Applications/Application');
+        $application  = $repository->findDraft(
+                            $this->auth()->getUser(),
+                            $this->params('applyId')
+                        );
+        
+        if (!$application) {
+            throw new \Exception('No application draft found.');
+        }
+        
+        if ('abort' == $this->params()->fromQuery('do')) {
+            $repositories->remove($application);
+            return $this->redirect()->toRoute('lang/apply', array('applyId' => $this->params('applyId')));
+        }
+        
+        if (!$this->checkApplication($application)) {
+            $this->notification()->error(/*@translate*/ 'There are missing required informations. Your application cannot be send.');
+            return $this->redirect()->toRoute('lang/apply', array('applyId' => $this->params('applyId')));
+        }
+        
+        $application->setIsDraft(false)
+                    ->setStatus(new Status())
+                    ->getPermissions()
+                        ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
+                        ->inherit($application->getJob()->getPermissions());
+        
+        $this->sendRecruiterMails($application);
+        $this->sendUserMails($application);
+        
+        $model = new ViewModel(array(
+            'success' => true,
+            'application' => $application,
+        ));
+        $model->setTemplate('applications/apply/index');
+        return $model;
+    }
+    
+    
+    
     protected function checkApplication($application)
     {
         return '' != $application->contact->email 
                && $application->attributes->acceptedPrivacyPolice;
+    }
+    
+    protected function sendRecruiterMails($application)
+    {
+        $recruiter = $this->getServiceLocator()
+                          ->get('repositories')
+                          ->get('Auth/User')->findOneByEmail($job->contactEmail);
+        
+        if (!$recruiter) {
+            $recruiter = $job->user;
+            $admin     = false;
+        } else {
+            $admin     = $job->user;
+        }
+        
+        $settings = $recruiter->getSettings('Applications');
+        if ($settings->getMailAccess()) {
+            $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
+        }
+        if ($settings->getAutoConfirmMail()) {
+            $ackBody = $settings->getMailConfirmationText();
+            if (empty($ackBody)) {
+                $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
+            }
+            if (!empty($ackBody)) {
+        
+                /* Acknowledge mail to applier */
+                $ackMail = $this->mailer('Applications/Confirmation',
+                    array('application' => $application,
+                        'body' => $ackBody,
+                    ));
+                // Must be called after initializers in creation
+                $ackMail->setSubject(/*@translate*/ 'Application confirmation');
+                $ackMail->setFrom($recruiter->getInfo()->getEmail());
+                $this->mailer($ackMail);
+                $application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s' , $application->contact->email));
+            }
+        }
+        
+    }
+    
+    protected function sendUserMails($application)
+    {
+        if ($application->getAttributes()->getSendCarbonCopy()) {
+            $mail = $this->mailer('Applications/CarbonCopy', array(
+                'application' => $application,
+            ), /*send*/ true);
+        }
     }
 }
