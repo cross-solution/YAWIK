@@ -89,6 +89,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                     ),
                                 ),
                             ),
+                            'disclaimer' => array(
+                                'type' => 'Literal',
+                                'options' => array(
+                                    'route' => '/disclaimer',
+                                    'defaults' => array(
+                                        'controller' => 'Applications\Controller\Index',
+                                        'action' => 'disclaimer',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                            ),
                             'comments' => array(
                                 'type' => 'Segment',
                                 'options' => array(

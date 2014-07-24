@@ -35,13 +35,13 @@ class Attributes extends AbstractEntity
      */
     protected $carbonCopy;
     
-    public function setAcceptedPrivacyPolice($flag)
+    public function setAcceptedPrivacyPolicy($flag)
     {
         $this->privacyPolicy = (bool) $flag;
         return $this;
     }
     
-    public function getAcceptedPrivacyPolice()
+    public function getAcceptedPrivacyPolicy()
     {
         return $this->privacyPolicy;
     }

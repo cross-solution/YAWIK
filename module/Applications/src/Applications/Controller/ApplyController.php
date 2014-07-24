@@ -203,11 +203,12 @@ class ApplyController extends AbstractActionController
     protected function checkApplication($application)
     {
         return '' != $application->contact->email 
-               && $application->attributes->acceptedPrivacyPolice;
+               && $application->attributes->acceptedPrivacyPolicy;
     }
     
     protected function sendRecruiterMails($application)
     {
+        $job = $application->getJob();
         $recruiter = $this->getServiceLocator()
                           ->get('repositories')
                           ->get('Auth/User')->findOneByEmail($job->contactEmail);

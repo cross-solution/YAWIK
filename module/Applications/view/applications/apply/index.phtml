@@ -18,7 +18,7 @@ $job = $this->application->job;
 ) ?></p>
 
 
-<?php if ($this->success):
+<?php if (!$this->success):
     /*
      * Application was successfully completed. 
      */
@@ -26,6 +26,29 @@ $job = $this->application->job;
 ?>
 <div class="alert alert-success">
     <p><?php echo $this->translate('your application was sent successfully') ?></p> 
+</div>
+<div class="alert alert-info">
+    <?php if ($this->auth()->isLoggedIn()):?>
+    <p>
+        <?php echo sprintf(
+            $this->translate('The application was added to your %slist%s, so you can keep up-to-date with the process.'),
+            '<a class="alert-link" href="' . $this->url('lang/applications', array(), true) . '">',
+            '</a>'
+        )?>
+    </p>
+    <?php else: ?>
+    <p>
+        <?php echo $this->translate('Keep up-to-date with the process of your application by bookmarking this link:')?>
+    </p>
+    <p>
+        <?php 
+            $href = $this->url('lang/applications/detail', array('id' => $this->application->id), array('force_canonical' => true), true)
+                  . '?token=' . $this->auth('token');
+            
+            echo $this->link($href, array('class' => 'alert-link'));
+        ?>
+    </p>
+    <?php endif ?>
 </div>
 <?php 
 

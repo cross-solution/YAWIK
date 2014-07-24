@@ -39,14 +39,16 @@ class Attributes extends Form
         ));
         
         $this->add(array(
-            'type' => 'checkbox',
-            'name' => 'acceptedPrivacyPolice',
+            'type' => 'infocheckbox',
+            'name' => 'acceptedPrivacyPolicy',
             'options' => array(
-                'label' => /*@translate*/ 'Privacy Police',
-                'description' => /*@translate*/ 'I have read the privacy police and accept it'
+                'label' => /*@translate*/ 'Privacy Policy',
+                'description' => /*@translate*/ 'I have read the %s and accept it',
+                'linktext' => /*@translate*/ 'Privacy Policy',
+                'route' => 'lang/applications/disclaimer',
             ),
             'attributes' => array(
-                'data-validate' => 'acceptedPrivacyPolice',
+                'data-validate' => 'acceptedPrivacyPolicy',
                 'data-trigger' => 'submit',
             ),
         ));
