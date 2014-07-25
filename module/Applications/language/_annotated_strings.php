@@ -23,14 +23,11 @@ translate('Modified'     => array('sort' => 'date');
 //: ./view/applications/manage/index.ajax.phtml:53
 translate('Actions');
 
-//: ./src/Applications/Form/PrivacyFieldset.php:58
-translate('please accept the privacy policy');
+//: ./src/Applications/Form/AttachmentsFactory.php:29
+translate('Attachments');
 
-//: ./src/Applications/Form/Element/CarbonCopy.php:42
-translate('please accept the privacy policy');
-
-//: ./src/Applications/Form/Element/PrivacyPolicy.php:44
-translate('please accept the privacy policy');
+//: ./src/Applications/Form/Base.php:26
+translate('Summary');
 
 //: ./src/Applications/Form/SettingsFieldset.php:30
 translate('E-Mail Notifications');
@@ -80,14 +77,38 @@ translate('if checked, you\'ll get a copy of all mails you send.');
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
-//: ./src/Applications/Form/CreateApplication.php:133
-translate('send application');
+//: ./src/Applications/Form/Attributes.php:24
+translate('Attributes');
+
+//: ./src/Applications/Form/Attributes.php:32
+translate('Carbon Copy');
+
+//: ./src/Applications/Form/Attributes.php:33
+translate('send me a carbon copy of my application');
+
+//: ./src/Applications/Form/Attributes.php:45
+translate('Privacy Policy');
+
+//: ./src/Applications/Form/Attributes.php:46
+translate('I have read the %s and accept it');
+
+//: ./src/Applications/Form/Attributes.php:47
+translate('Privacy Policy');
 
 //: ./src/Applications/Form/BaseFieldset.php:30
 translate('Summary');
 
 //: ./src/Applications/Controller/ManageController.php:63
-translate('all states');
+translate('all');
+
+//: ./src/Applications/Controller/ApplyController.php:109
+translate('Invalid apply id');
+
+//: ./src/Applications/Controller/ApplyController.php:187
+translate('There are missing required informations. Your application cannot be send.');
+
+//: ./src/Applications/Controller/ApplyController.php:247
+translate('Application confirmation');
 
 //: ./src/Applications/Controller/IndexController.php:66
 translate('Invalid apply id');
@@ -95,10 +116,10 @@ translate('Invalid apply id');
 //: ./src/Applications/Controller/IndexController.php:144
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:198
+//: ./src/Applications/Controller/IndexController.php:221
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:231
+//: ./src/Applications/Controller/IndexController.php:254
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40
@@ -110,12 +131,9 @@ translate('New application for your vacancy "%s"');
 //: ./src/Applications/Mail/NewApplication.php:62
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./src/Applications/Mail/ApplicationCarbonCopy.php:24
-translate('Application to "%s" dated %s');
-
-//: ./config/module.config.php:55
+//: ./config/module.config.php:56
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:114
+//: ./config/module.config.php:119
 translate('Overview');
 
