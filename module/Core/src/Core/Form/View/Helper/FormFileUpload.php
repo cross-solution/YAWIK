@@ -78,26 +78,34 @@ class FormFileUpload extends FormFile
         <span class="fu-progress-text">0</span> %
     </div>
     <a class="fu-file-info" href="__file-uri__" target="_blank">
-        <span class="yk-icon fa-file fa-4x"></span>
+        <span class="yk-icon fa-file-o fa-4x"></span>
         __file-name__ (__file-size__)
     </a>
 </li>';
-        $createFileDisplay = function($uri, $name, $size) use ($template) {
+        $basepath = $this->getView()->plugin('basepath');
+        $createFileDisplay = function($file) use ($template, $basepath) {
+            $uri = $basepath($file->getUri());
+            $name = $file->getName();
+            $size = $file->getPrettySize();
+            $icon = 0 === strpos($file->getType(), 'image/')
+                  ? 'fa-file-image-o' : 'fa-file-o';
+            
             return str_replace(
                 array('#abort', '__file-uri__', '__file-name__', '__file-size__', 
-                      'fu-working', 'yk-icon-spinner fa-spin'),
-                array("$uri?do=delete", $uri, $name, $size, '', 'fa-doc'),
+                      'fu-working', 'fa-file-o'),
+                array("$uri?do=delete", $uri, $name, $size, '', $icon),
                 $template 
             );
+            
         };
         
         if ($element->isMultiple()) {
             foreach ($file as $f) {
-                $preview .= $createFileDisplay($f->getUri(), $f->getName(), $f->getPrettySize());
+                $preview .= $createFileDisplay($f);
             }
             $class = 'fu-multiple';
         } else {
-            $preview = $createFileDisplay($file->getUri(), $file->getName(), $file->getPrettySize());
+            $preview = $createFileDisplay($f);
             $class = 'fu-single';
         }
         
