@@ -20,6 +20,7 @@ use Core\Form\Container;
 use Core\Form\SummaryForm;
 use Core\Entity\PermissionsInterface;
 use Applications\Entity\Status;
+use Applications\Entity\StatusInterface;
 
 /**
  *
