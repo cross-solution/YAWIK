@@ -22,7 +22,10 @@ class Job extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setName('jobs-form');
-        $this->setAttribute('id', 'jobs-form');
+        $this->setAttributes(array(
+            'id' => 'jobs-form',
+            'data-handle-by' => 'native'
+        ));
  
         $this->add(array(
             'type' => 'Jobs/JobFieldset',

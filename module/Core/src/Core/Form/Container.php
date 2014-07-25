@@ -212,7 +212,12 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $formName     = (($name = $this->getName())
                          ? $name . '.' : '')
                         . $form['name'];
-        $formInstance->setName($formName);
+        $formInstance->setName($formName)
+                     ->setAttribute('action', '?form=' . $formName);
+        
+        if (isset($form['label'])) {
+            $formInstance->setLabel($form['label']);
+        }
         
         if ($entity = $this->getEntity()) {
             $this->mapEntity($formInstance, isset($form['property']) ? $form['property'] : $key, $entity);

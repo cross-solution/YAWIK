@@ -58,7 +58,7 @@ class FormContainer extends AbstractHelper
         $content = '';
     
         if ($container instanceOf ViewPartialProviderInterface) {
-            return $this->getView()->partial($form->getViewPartial(), array('element' => $container));
+            return $this->getView()->partial($container->getViewPartial(), array('element' => $container));
         }
         foreach ($container as $element) {
             $parameterPartial = $parameter;

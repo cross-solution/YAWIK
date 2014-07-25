@@ -32,12 +32,6 @@ class Form extends ZendForm
         return $this->hydrator;
     }
     
-    public function setName($name)
-    {
-        $this->setAttribute('action', '?form=' . $name);
-        return parent::setName($name);
-    }
-    
     public function setParams(array $params)
     {
         foreach ($params as $key => $value) {

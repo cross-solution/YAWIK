@@ -374,7 +374,8 @@ return array(
             'Auth/Login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-password' => 'Auth\Form\UserPassword',
-            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 
+            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset',
+            'Auth/UserBase' => 'Auth\Form\UserBase', 
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
             'Auth/Group' => 'Auth\Form\Group',
             'Auth/Group/Data' => 'Auth\Form\GroupFieldset',
@@ -385,6 +386,7 @@ return array(
             'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldset',
+            'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
             
             
         ),
@@ -392,6 +394,7 @@ return array(
             'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
 //             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
+            'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
 );

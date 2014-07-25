@@ -19,6 +19,7 @@ class Login extends Form
 	public function init()
     {
         $this->setName('login-form');
+        $this->setAttribute('data-handle-by', 'native');
              
         
         $fieldset = new Fieldset('credentials');

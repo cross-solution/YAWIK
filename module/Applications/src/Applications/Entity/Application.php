@@ -376,6 +376,9 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function setContact (InfoInterface $contact)
     {
+        if (!$contact instanceOf Contact) {
+            $contact = new Contact($contact);
+        }
         $this->contact = $contact;
         return $this;
     }

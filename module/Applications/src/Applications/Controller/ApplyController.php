@@ -88,6 +88,13 @@ class ApplyController extends AbstractActionController
                             ->setUser($user)
                             ->setJob($job);
                 $repositories->store($application);
+                /*
+                 * If we had copy an user image, we need to refresh its data
+                 * to populate the length property.
+                 */
+                if ($image = $application->contact->image) {
+                    $repositories->refresh($image);
+                }
             }
         } 
         

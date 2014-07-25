@@ -12,6 +12,9 @@ namespace Applications\Entity;
 
 use Auth\Entity\Info;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Auth\Entity\InfoInterface;
+use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\Hydrator\Strategy\FileCopyStrategy;
 
 /**
  * Contact informations. 
@@ -32,6 +35,40 @@ class Contact extends Info {
      * @ODM\ReferenceOne(targetDocument="Attachment", simple=true, nullable=true, cascade={"persist", "update", "remove"})
      */
     protected $image;
+    
+    /**
+     * Creates a Contact
+     * 
+     * @param InfoInterface|null $userInfo
+     * @uses inherit()
+     */
+    public function __construct(InfoInterface $userInfo = null)
+    {
+        if ($userInfo) {
+            $this->inherit($userInfo);
+        }
+    }
+    
+    /**
+     * Inherit data from an {@link UserInfoInterface}.
+     * 
+     * Copies the user image to an application attachment.
+     * 
+     * @param UserInfoInterface $info
+     * @return \Applications\Entity\Contact
+     */
+    public function inherit(UserInfoInterface $info)
+    {
+        $hydrator      = new EntityHydrator();
+        $imageStrategy = new FileCopyStrategy(new Attachment());
+        
+        $hydrator->addStrategy('image', $imageStrategy);
+        
+        $data = $hydrator->extract($info);
+        $hydrator->hydrate($data, $this);
+        
+        return $this;
+    }
     
 }
 

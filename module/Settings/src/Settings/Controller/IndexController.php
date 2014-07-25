@@ -65,11 +65,20 @@ class IndexController extends AbstractActionController
         if (0 < count($data)) {
             $form->setData($data);
             
-            if ($valid = $form->isValid()) {
-                //$this->getServiceLocator()->get('repositories')->detach($settings);
-                $vars = array(
-                   'status' => 'success',
-                   'text' => $translator->translate('Changes successfully saved') . '.');
+            $valid   = $form->isValid();
+            $partial = $services->get('viewhelpermanager')->get('partial');
+            $text    = $valid
+                     ?  /*@translate*/'Changes successfully saved'
+                     :  /*@translate*/'Changes could not be saved';
+            
+            $vars = array(
+                'valid' => true,
+                'content' => $partial('settings/index/_notification.phtml', 
+                                       array('status' => 'success', 'text' => $text)
+                             ),
+            );
+            if ($valid) {
+                
                 $event = new Event(
                     'SETTINGS_CHANGED',
                     $this,
@@ -77,18 +86,10 @@ class IndexController extends AbstractActionController
                 );
                 $this->getEventManager()->trigger($event);
             } else {
-                $vars = array(
-                   'status' => 'danger',
-                   'text' => $translator->translate('Changes could not be saved') . '.');
+                $vars['error'] = $form->getMessages();
             }
-        }
-        
-        if ($jsonFormat) {
-            return array('status' => 'success',
-                         'settings' => $settings->toArray(),
-                        'data' => $data,
-                        'valid' => $valid,
-                        'errors' => $form->getMessages());
+            
+            return new JsonModel($vars);
         }
 
         $vars['form']=$form;
