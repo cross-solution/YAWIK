@@ -11,9 +11,9 @@
 namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Core\Entity\RelationEntity;
+use Core\Form\SummaryFormInterface;
+
 
 /**
  * Main Action Controller for Authentication module.
@@ -25,10 +25,55 @@ class ManageController extends AbstractActionController
     public function profileAction()
     {
         $services = $this->getServiceLocator();
+        $container= $services->get('forms')->get('Auth/userprofilecontainer');
+        $user     = $services->get('AuthenticationService')->getUser();
+        
+        $container->setEntity($user);
+        
+        if ($this->request->isPost()) {
+            $formName  = $this->params()->fromQuery('form');
+            $form      = $container->getForm($formName);
+            $postData  = $form->getOption('use_post_array') ? $_POST : array();
+            $filesData = $form->getOption('use_files_array') ? $_FILES : array();
+            $data      = array_merge($postData, $filesData);
+            $form->setData($data);
+            
+            if (!$form->isValid()) {
+                return new JsonModel(array(
+                    'valid' => false,
+                    'errors' => $form->getMessages(),
+                ));
+            }
+            
+            $this->getServiceLocator()->get('repositories')->store($user);
+            
+            if ('file-uri' === $this->params()->fromPost('return')) {
+                $content = $form->getHydrator()->getLastUploadedFile()->getUri();
+            } else {
+                if ($form instanceOf SummaryFormInterface) {
+                    $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
+                    $viewHelper = 'summaryform';
+                } else {
+                    $viewHelper = 'form';
+                }
+                $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+            }
+            
+            return new JsonModel(array(
+                'valid' => $form->isValid(),
+                'content' => $content,
+            ));
+        }
+       return array('form' => $container);
+    }
+    
+    public function profileActionOld()
+    {
+        $services = $this->getServiceLocator();
         $form     = $services->get('forms')->get('user-profile');
         $user     = $services->get('AuthenticationService')->getUser();
         $translator = $services->get('translator');
-        
+        return array('form' => false);
         if (!$user) {
             throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
         }

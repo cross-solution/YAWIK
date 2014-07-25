@@ -26,7 +26,7 @@ class InternalReferences extends AbstractEntity
     
     public function setJob (JobInterface $job)
     {
-        if (isset($this->jobs['__id__']) && $this->_jobs['__id__'] == $job->getId()) {
+        if (isset($this->jobs['__id__']) && $this->jobs['__id__'] == $job->getId()) {
             return $this;
         }
         

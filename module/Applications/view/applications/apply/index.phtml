@@ -1,0 +1,85 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
+
+$this->headTitle($this->translate('Apply'));
+$job = $this->application->job;
+?>
+<h1><?php echo $this->translate('Application')?></h1>
+<p class="lead"><?php printf(
+    $this->translate('Apply to "%s" from "%s"'), 
+    '<a href="'.$job->link.'" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->title)) . '</a>',
+    $job->company
+) ?></p>
+
+
+<?php if ($this->success):
+    /*
+     * Application was successfully completed. 
+     */
+
+?>
+<div class="alert alert-success">
+    <p><?php echo $this->translate('your application was sent successfully') ?></p> 
+</div>
+<div class="alert alert-info">
+    <?php if ($this->auth()->isLoggedIn()):?>
+    <p>
+        <?php echo sprintf(
+            $this->translate('The application was added to your %slist%s, so you can keep up-to-date with the process.'),
+            '<a class="alert-link" href="' . $this->url('lang/applications', array(), true) . '">',
+            '</a>'
+        )?>
+    </p>
+    <?php else: ?>
+    <p>
+        <?php echo $this->translate('Keep up-to-date with the process of your application by bookmarking this link:')?>
+    </p>
+    <p>
+        <?php 
+            $href = $this->url('lang/applications/detail', array('id' => $this->application->id), array('force_canonical' => true), true)
+                  . '?token=' . $this->auth('token');
+            
+            echo $this->link($href, array('class' => 'alert-link'));
+        ?>
+    </p>
+    <?php endif ?>
+</div>
+<?php 
+
+else:
+
+    /*
+     * Display application form container and action buttons.
+     */
+
+$this->headscript()->appendFile($this->basePath('Applications/js/apply.index.js'));
+echo $this->formContainer($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
+
+?>
+
+<div id="send-application-buttons">
+    <h3><?php echo $this->translate('Send application') ?></h3>
+    <nav class="navbar">
+        <div class="col-md-12">
+        <button id="send-application" class="btn btn-lg btn-primary<?php echo $this->isApplicationValid ? '' : ' disabled' ?>">
+            <?php echo $this->translate('Send application') ?>
+        </button>
+        
+        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
+            <?php echo $this->translate('Preview application') ?>
+        </a>
+        
+        <button id="abort-application" class="btn btn-lg btn-danger">
+            <?php echo $this->translate('Abort application') ?>
+        </button>
+        </div>
+    
+    </nav>
+</div>
+<?php endif ?>

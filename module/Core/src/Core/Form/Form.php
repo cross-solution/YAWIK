@@ -20,6 +20,9 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 class Form extends ZendForm
 {
+    
+    protected $params;
+    
     public function getHydrator() {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
@@ -27,6 +30,31 @@ class Form extends ZendForm
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
+    }
+    
+    public function setParams(array $params)
+    {
+        foreach ($params as $key => $value) {
+            $this->setParam($key, $value);
+        }
+        return $this;
+    }
+    
+    public function setParam($key, $value)
+    {
+
+        if ($this->has($key)) {
+            $this->get($key)->setValue($value);
+        } else {
+            $this->add(array(
+                'type' => 'hidden', 
+                'name' => $key, 
+                'attributes' => array(
+                    'value' => $value
+                )
+            ));
+        }
+        return $this;
     }
     
     protected function addHydratorStrategies($hydrator)

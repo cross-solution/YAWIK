@@ -7,10 +7,9 @@
  * @license   AGPLv3
  */
 
-/** AttachSocialProfilesFieldset.php */ 
+/** Auth forms */ 
 namespace Auth\Form;
 
-use Core\Form\ButtonsFieldset;
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 use Auth\Form\Hydrator\SocialProfilesHydrator;
@@ -19,28 +18,48 @@ use Doctrine\Common\Collections\Collection;
 class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInterface
 {
     
+    /**
+     * View partial name.
+     * @var string
+     */
     protected $partial = 'auth/form/social-profiles-fieldset';
     
+    /**
+     * Url spec to fetch profiles from.
+     * @var string
+     */
     protected $fetchUrl;
+    
+    /**
+     * Url spec to render the profile preview.
+     * @var string
+     */
     protected $previewUrl;
     
-    protected $isInitialized = false;
-    
+
+    /**
+     * {@inheritDoc}
+     * @see \Core\Form\ViewPartialProviderInterface::getViewPartial()
+     */
     public function getViewPartial()
     {
         return $this->partial;
     }
     
+    /**
+     * {@inheritDoc}
+     * @see \Core\Form\ViewPartialProviderInterface::setViewPartial()
+     */
     public function setViewPartial($partial)
     {
         $this->partial = $partial;
         return $this;
     }
-    
-
 
     /**
-     * @return the $fetchUrl
+     * Gets the fetch url specification.
+     * 
+     * @return string
      */
     public function getFetchUrl ()
     {
@@ -48,7 +67,10 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
     }
     
     /**
-     * @param field_type $fetchUrl
+     * Sets the fetch url specification.
+     * 
+     * @param string $url
+     * @return self
      */
     public function setFetchUrl ($url)
     {
@@ -58,23 +80,35 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
     
 
     /**
-     * @param field_type $fetchUrl
+     * Sets the preview url specification.
+     * 
+     * @param string $url
+     * @return self
      */
     public function setPreviewUrl ($url)
     {
         $this->previewUrl = $url;
         return $this;
     }
+    
     /**
-     * @return the $fetchUrl
+     * Gets the preview url specification.
+     * 
+     * @return string
      */
     public function getPreviewUrl ()
     {
         return $this->previewhUrl;
     }
     
-   
-
+    /**
+     * Get the hydrator.
+     * 
+     * If no hydrator is set, it sets a {@link SocialProfilesHydrator}.
+     * 
+     * @return HydratorInterface
+     * @see \Zend\Form\Fieldset::getHydrator()
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -96,11 +130,13 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
     
     /**
      * Set options for a fieldset. Accepted options are:
-     * - 
-     *
+     * - 'fetch_url': Fetch url specification
+     * - 'preview_url': Preview url specification
+     * - 'profiles': Array of profiles specification for use in 
+     *               {@link addProfileButton()}
+     * {@inheritDoc}
      * @param  array|Traversable $options
-     * @return Element|ElementInterface
-     * @throws Exception\InvalidArgumentException
+     * @return self
      */
     public function setOptions($options)
     {
@@ -123,6 +159,17 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         return $this;
     }
     
+    /**
+     * Adds a profile button.
+     * 
+     * if <b>$options</b> is null, the <b>$name</b> will be used as label.
+     * if <b>$options</b> is a string, this string will be used as label.
+     * if <b>$options</b> is an array, it must provide a key 'label'.
+     * 
+     * @param string $name
+     * @param null|string|array $options
+     * @return self
+     */
     public function addProfileButton($name, $options = null)
     {
         if (null === $options) {
@@ -151,9 +198,12 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         return $this;
     }
     
+    /**
+     * {@inheritDoc} 
+     * @see \Zend\Form\Element::init()
+     */
     public function init()
     {
-        $this->setLabel(/*@translate*/ 'Social Profiles');
         $this->setAttribute('class', 'social-profiles-fieldset');
     }
 }

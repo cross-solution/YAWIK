@@ -19,7 +19,7 @@ class BaseFieldset extends Fieldset
     public function init()
     {
         $this->setName('base')
-             ->setLabel('Summary')
+             //->setLabel('Summary')
              ->setHydrator(new \Core\Entity\Hydrator\EntityHydrator());
              
                      

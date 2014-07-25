@@ -29,6 +29,7 @@ class Group extends Form
     public function init()
     {
 
+        $this->setAttribute('data-handle-by', 'native');
         $this->add(array(
             'type' => 'Auth/Group/Data',
             'options' => array(

@@ -99,7 +99,7 @@ class FormRow extends ZendFormRow
             && !$element instanceOf \Zend\Form\Element\Button
         ) {
             $elementString .= sprintf(
-                '<div id="%s-errors">%s</div>',
+                '<div id="%s-errors" class="errors">%s</div>',
                 $elementId, $elementErrors
             );
         }

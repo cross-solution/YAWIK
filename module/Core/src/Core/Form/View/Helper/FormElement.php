@@ -33,6 +33,13 @@ class FormElement extends ZendFormElement
             return $helper($element);
         }
         
+//         $type = $element->getAttribute('type');
+        
+//         if ('checkbox' == $type) {
+//             $helper = $renderer->plugin('formcheckbox');
+//             return $helper($element);
+//         }
+        
         return parent::render($element);
     }
 }

@@ -19,8 +19,8 @@ class UserBaseFieldset extends Fieldset
     
 	public function init()
     {
-        $this->setName('base')
-             ->setLabel( /* @translate */ 'General');
+        $this->setName('base');
+             //->setLabel( /* @translate */ 'General');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         
@@ -29,6 +29,9 @@ class UserBaseFieldset extends Fieldset
             'name' => 'role',
             'options' => array(
                 'label' => /* @translate */ 'I am',
+            ),
+            'attributes' => array(
+                'data-trigger' => 'submit'
             ),
         ));
         

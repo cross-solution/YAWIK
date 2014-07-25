@@ -6,6 +6,7 @@ namespace Auth\Listener;
 use Zend\EventManager\SharedEventManagerInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\Container as Session;
 
 
 class TokenListener implements SharedListenerAggregateInterface
@@ -47,16 +48,26 @@ class TokenListener implements SharedListenerAggregateInterface
     public function onBootstrap(MvcEvent $e)
     {
         $request = $e->getRequest();
-        $token = $request->getPost('auth');
         
-        if (!$token) {
-            $token = $request->getQuery('auth');
-        }
-        if (!$token) {
+        /*
+         * Check "auth" param, restore session, if found.
+         */
+        $token = $request->getPost('auth') ?: $request->getQuery('auth');
+        
+        if ($token) {
+            session_id($token);
             return;
         }
         
-        session_id($token);
+        /*
+         * Check "token" param, set Session Container for AnonymousUser
+         */
+        $token = $request->getPost('token') ?: $request->getQuery('token');
+        
+        if ($token) {
+            $session = new Session('Auth');
+            $session->token = $token;
+        }
         
     }
 }

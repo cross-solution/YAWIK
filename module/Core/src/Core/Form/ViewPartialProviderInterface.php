@@ -1,9 +1,34 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ */
 
+/** Core forms */
 namespace Core\Form;
 
+/**
+ * Enables form elements to provide a view partial when being rendered.
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 interface ViewPartialProviderInterface
 {
+    /**
+     * Sets the view partial name.
+     * 
+     * @param String $partial
+     * @return Zend\Form\ElementInterface fluent interface
+     */
     public function setViewPartial($partial);
+    
+    /**
+     * Gets the view partial name.
+     * 
+     * @return string
+     */
     public function getViewPartial();
 }

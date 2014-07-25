@@ -65,6 +65,7 @@ return array(
             "enabled" => true,
             "keys"    => array ( "id" => "", "secret" => "" ),
             "scope"	  => 'email, user_about_me, user_birthday, user_hometown, user_website',
+            "display" => 'popup',
         ),
         "LinkedIn" => array (
             "enabled" => true,
@@ -331,6 +332,8 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
+            'form/auth/my-profile.summary' => __DIR__ . '/../view/form/my-profile.summary.phtml',
+            'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
@@ -371,19 +374,27 @@ return array(
             'Auth/Login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-password' => 'Auth\Form\UserPassword',
-            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset', 
+            'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset',
+            'Auth/UserBase' => 'Auth\Form\UserBase', 
             'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
             'Auth/Group' => 'Auth\Form\Group',
             'Auth/Group/Data' => 'Auth\Form\GroupFieldset',
             'Auth/Group/Users' => 'Auth\Form\GroupUsersCollection',
             'Auth/Group/User'  => 'Auth\Form\GroupUserElement',
             'Auth/SocialProfilesButton' => 'Auth\Form\Element\SocialProfilesButton',
+            'Auth/SocialProfiles' => 'Auth\Form\SocialProfiles',
+            'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
+            'Auth/UserInfo' => 'Auth\Form\UserInfo',
+            'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldset',
+            'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
+            
             
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
-            'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
+//             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
+            'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
 );

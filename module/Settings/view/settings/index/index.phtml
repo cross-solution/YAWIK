@@ -2,35 +2,11 @@
 
     $this->headTitle($this->translate('Settings'));
     
-    /*
-    $this->headLink()->appendStylesheet($this->basePath('/Core/css/forms.css'));
-    
-    $this->headScript()->appendFile($this->basePath('js/jquery.inlineLabel.js'))
-                       ->appendFile($this->basepath('js/Applications/form.js'));
-    
-    */
+    $this->headScript()->appendFile($this->basePath('Settings/js/index.index.js'))
+
 ?>
+
 <h1><?php echo $this->translate('Settings')?></h1>
-<?if ($this->status): ?>
-<div id="settings-form-response" class="alert alert-<?php echo $this->status?>">
-    <?php echo $this->text ?> 
-    <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-</div>
-<?else:?>
-<div id="settings-form-response" class="alert hide">
+<div id="settings-form-response"></div>
+<?php echo $this->form($this->form, 'settings') ?>
 
-</div>
-<?endif?>
-<?php
-
-/*
-$form->setAttributes(array(
-    'action' => $this->url('lang/settings', array(), true),
-    'method' => 'post',
-    'id' => 'application-form',
-));
- */
-
-echo $this->form($form, 'settings');
-
-?>

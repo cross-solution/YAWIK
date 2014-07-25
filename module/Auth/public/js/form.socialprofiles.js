@@ -31,6 +31,12 @@
 			$currentFetchButton.data('is_attached', true);
 			toggleDropdown($currentFetchButton, 'attach');
 			$buttons[0].blur();
+			
+			$form = $currentFetchButton.parent().parent().parent();
+			
+			$.post($form.attr('action'), $form.serialize());
+			
+			
 		} else {
 			$buttons.addClass('btn-danger');
 			toggleDropDown($currentFetchButton, 'detach');
@@ -96,6 +102,8 @@
 					}
 				});
 				$buttons.addClass('btn-default');
+				var $form = $button.parent().parent().parent();
+				$.post($form.attr('action'), $form.serialize());
 				break;
 			
 			case 'view':
@@ -141,6 +149,7 @@
 	function initFieldset($fieldset)
 	{
 		var $buttons = $fieldset.find('.social-profiles-button');
+		console.debug($buttons);
 		$buttons.find('button:first-child')
 		         .on('click.socialprofiles', buttonClicked);
 		$buttons.find('.dropdown-menu a')

@@ -42,18 +42,44 @@ class Link extends AbstractHelper {
      * @param string $label
      * @return string
      */
-    public function __invoke($urlOrEmail, $label=null)
+    public function __invoke($urlOrEmail, $label=null, array $attributes = array())
     {
+        if (is_array($urlOrEmail)) {
+            return $this->generateLinkBySpec($urlOrEmail);
+        }
+        
         if (null === $label) {
             $label = $urlOrEmail;
+            
+        } else if (is_array($label)) {
+            $attributes = $label;
+            $label      = $urlOrEmail;
         }
+        
+        $attributesStr = count($attributes) 
+                       ? $this->createAttributesString($attributes)
+                       : '';
         
         if (false !== strpos($urlOrEmail, '@')) {
             $urlOrEmail = 'mailto:' . $urlOrEmail;
         }
         
-        return sprintf('<a href="%s">%s</a>', $urlOrEmail, $label);
+        return sprintf('<a %s href="%s">%s</a>', $attributesStr, $urlOrEmail, $label);
         
+    }
+    
+    protected function createAttributesString(array $attributes)
+    {
+        $renderer   = $this->getView();
+        $escape     = $renderer->plugin('escapehtml');
+        $escapeAttr = $renderer->plugin('escapehtmlattr');
+        $attr       = array();
+        
+        foreach ($attributes as $name => $value) {
+            $attr[] = $escape($name) . '="' . $escapeAttr($value) . '"';
+        }
+        
+        return implode(' ', $attr);
     }
 }
 

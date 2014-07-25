@@ -1,10 +1,62 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "b4d77eb0769d25805db3864233e3eb2a",
+    "hash": "edf6d805c384b08880f03a21ec284aff",
     "packages": [
+        {
+            "name": "blueimp/jquery-file-upload",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vkhramtsov/jQuery-File-Upload.git",
+                "reference": "b9c0a449f1b8e9274870b8d1173bb0a6849eab6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vkhramtsov/jQuery-File-Upload/zipball/b9c0a449f1b8e9274870b8d1173bb0a6849eab6b",
+                "reference": "b9c0a449f1b8e9274870b8d1173bb0a6849eab6b",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Tschan",
+                    "homepage": "https://blueimp.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "File Upload widget for jQuery.",
+            "homepage": "https://github.com/blueimp/jQuery-File-Upload",
+            "keywords": [
+                "bootstrap",
+                "chunk",
+                "cross-domain",
+                "cross-site",
+                "drag",
+                "drop",
+                "file",
+                "gae",
+                "go",
+                "jquery",
+                "multiple",
+                "php",
+                "preview",
+                "progress",
+                "python",
+                "resume",
+                "selection",
+                "upload",
+                "widget"
+            ],
+            "time": "2014-05-15 05:27:33"
+        },
         {
             "name": "components/jquery",
             "version": "1.9.1",
@@ -88,7 +140,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -1376,7 +1428,8 @@
     "minimum-stability": "alpha",
     "stability-flags": {
         "doctrine/doctrine-mongo-odm-module": 20,
-        "hybridauth/hybridauth": 20
+        "hybridauth/hybridauth": 20,
+        "blueimp/jquery-file-upload": 20
     },
     "platform": {
         "php": ">=5.3.3",

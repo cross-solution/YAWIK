@@ -11,6 +11,7 @@ namespace Auth;
 use Zend\Authentication\AuthenticationService as ZendAuthService;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Core\Repository\RepositoryInterface;
+use Auth\Entity\AnonymousUser;
 
 class AuthenticationService extends ZendAuthService {
 
@@ -46,9 +47,7 @@ class AuthenticationService extends ZendAuthService {
                 }
                 $this->user = $user;
             } else {
-                $this->user = $this->getRepository()->create(array(
-                    'role' => 'guest'
-                ));
+                $this->user = new AnonymousUser();
             }
         }
 
