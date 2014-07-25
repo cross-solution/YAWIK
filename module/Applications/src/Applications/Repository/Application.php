@@ -114,7 +114,7 @@ class Application extends AbstractRepository
     public function loadApplicationsForJob($job)
     {
         return $this->createQueryBuilder()
-                    ->field("job")->equals($job)
+                    ->field("job")->equals(new \MongoId($job->id))
                     ->getQuery()
                     ->execute();
     }
