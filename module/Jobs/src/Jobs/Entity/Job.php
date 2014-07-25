@@ -77,7 +77,8 @@ class Job extends BaseEntity implements JobInterface {
      * all applications of a certain jobad 
      * 
      * @var Collection \Applications\Entity\Application
-     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job")
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job",
+     *                    repositoryMethod="loadApplicationsForJob")
      */
     protected $applications;
     
@@ -85,7 +86,7 @@ class Job extends BaseEntity implements JobInterface {
      * new applications
      * 
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
-     *                    repositoryMethod="getUnreadApplications", mappedBy="job") 
+     *                    repositoryMethod="loadUnreadApplicationsForJob", mappedBy="job") 
      * @var Int
      */
     protected $unreadApplications;

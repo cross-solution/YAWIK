@@ -111,13 +111,21 @@ class Application extends AbstractRepository
         return $list;
     }
 
+    public function loadApplicationsForJob($job)
+    {
+        return $this->createQueryBuilder()
+                    ->field("job")->equals($job)
+                    ->getQuery()
+                    ->execute();
+    }
+    
     /**
      * Get unread applications
      *
      * @param \Jobs\Entity\JobInterface $job
      * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
      */
-    public function getUnreadApplications($job) 
+    public function loadUnreadApplicationsForJob($job) 
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()

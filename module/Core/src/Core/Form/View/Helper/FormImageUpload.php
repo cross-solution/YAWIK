@@ -24,10 +24,12 @@ class FormImageUpload extends FormFileUpload
     {
         $file      = $element->getFileEntity();
         $preview   = '';
+
         if ($file) {
             $element->setAttribute('data-is-empty', false);
             if (0 === strpos($file->getType(), 'image/')) {
-                $preview = '<img src="' . $file->getUri() . '" class="img-ploraid" />';
+                $basepath  = $this->getView()->plugin('basepath');
+                $preview = '<img src="' . $basepath($file->getUri()) . '" class="img-ploraid" />';
             } else {
                 $preview = '<span>' . $file->getName() . '(' . $file->getPrettySize() . ')</span>';
             }
