@@ -10,6 +10,9 @@ use Zend\Stdlib\Parameters;
 use Core\Paginator\Adapter\EntityList;
 use Doctrine\ODM\MongoDB\Events;
 
+/**
+ * @deprecated
+ */
 class File extends AbstractRepository
 {   
     
