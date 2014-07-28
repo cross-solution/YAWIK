@@ -32,7 +32,7 @@ class Contact extends Info {
      * redeclared here.
      * 
      * @var \Core\Entity\FileInterface
-     * @ODM\ReferenceOne(targetDocument="Attachment", simple=true, nullable=true, cascade={"persist", "update", "remove"})
+     * @ODM\ReferenceOne(targetDocument="Attachment", simple=true, nullable=true, cascade={"persist", "update", "remove"}, orphanRemoval=true)
      */
     protected $image;
     
@@ -57,7 +57,7 @@ class Contact extends Info {
      * @param UserInfoInterface $info
      * @return \Applications\Entity\Contact
      */
-    public function inherit(UserInfoInterface $info)
+    public function inherit(InfoInterface $info)
     {
         $hydrator      = new EntityHydrator();
         $imageStrategy = new FileCopyStrategy(new Attachment());

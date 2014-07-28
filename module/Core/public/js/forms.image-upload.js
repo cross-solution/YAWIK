@@ -4,14 +4,13 @@
 	$(function() {
 		$(document).on("drop dragover", function(e) { e.preventDefault(); e.stopPropagation(); });
 		$('.single-file-upload .iu-dropzone').click(function(e) {
-			if (1 == e.target.nodeType && 'DIV' == e.target.nodeName) {
+			var $target = $(e.target);
+			if ('file' == $target.attr('type') || $target.hasClass('fu-delete-button') || $target.parents('a.fu-delete-button').length) {
+				e.stopPropagation();
+			} else {
 				$(this).find('input').click();
 				return false;
-			} else {
-				e.stopPropagation();
 			}
-			
-			//return false;
 		});
 		
 		$('.single-file-upload').each(function() {

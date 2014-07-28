@@ -35,14 +35,17 @@
 	$(function() {
 		//$(document).on("drop dragover", function(e) { e.preventDefault(); e.stopPropagation(); });
 		$('.fu-dropzone').click(function(e) {
-			if (1 == e.target.nodeType && 'A' != e.target.nodeName && 'INPUT' != e.target.nodeName) {
+			var $target = $(e.target);
+			if ('file' == $target.attr('type') 
+				|| $target.hasClass('fu-delete-button') 
+				|| $target.hasClass('fu-file-info')
+				|| $target.parents('a.fu-delete-button, a.fu-file-info').length
+			) {
+				e.stopPropagation();
+			} else {
 				$(this).find('input').click();
 				return false;
-			} else {
-				e.stopPropagation();
 			}
-			
-			//return false;
 		});
 		
 		$('.multi-file-upload').each(function() {

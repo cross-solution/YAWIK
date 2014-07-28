@@ -5,6 +5,26 @@
 	
 	var $currentFetchButton;
 	
+	function _toggleButtonState($button, error)
+	{
+		var $buttons = $button.find('button');
+		$.each(['btn-default', 'btn-success', 'btn-danger'], function(idx, className) {
+			if ($buttons.hasClass(className)) {
+				$buttons.removeClass(className);
+			}
+		});
+		
+		if (!error) {
+			$buttons.addClass('btn-success');
+			$button.data('is_attached', true);
+			toggleDropdown($button, 'attach');
+			$buttons[0].blur();
+		} else {
+			$buttons.addClass('btn-danger');
+			toggleDropDown($button, 'detach');
+		}
+	}
+	
 	function fetchCompleted(event)
 	{
 		if (!popup || !$currentFetchButton) {
@@ -16,31 +36,13 @@
 		popup = null;
 		
 		var id = '#' + $currentFetchButton.attr('id') + '-data';
-		
 		$(id).text(data);
-		var $buttons = $currentFetchButton.find('button');
-		$.each(['btn-default', 'btn-success', 'btn-danger'], function(idx, className) {
-			if ($buttons.hasClass(className)) {
-				$buttons.removeClass(className);
-			}
-		});
+		$form = $currentFetchButton.parents('form');
+
+		$.post($form.attr('action'), $form.serialize());
 		
-		if ('' != data) {
-			console.debug($buttons, $buttons[0]);
-			$buttons.addClass('btn-success');
-			$currentFetchButton.data('is_attached', true);
-			toggleDropdown($currentFetchButton, 'attach');
-			$buttons[0].blur();
-			
-			$form = $currentFetchButton.parent().parent().parent();
-			
-			$.post($form.attr('action'), $form.serialize());
-			
-			
-		} else {
-			$buttons.addClass('btn-danger');
-			toggleDropDown($currentFetchButton, 'detach');
-		}
+		_toggleButtonState($currentFetchButton, '' == data);
+		
 		$currentFetchButton.find('.spb-icon-normal').show();
 		$currentFetchButton.find('.spb-icon-processing').hide();
 		$currentFetchButton = null;
@@ -77,7 +79,6 @@
 	
 	function actionClicked(event)
 	{
-		console.debug('actionClicked');
 		var $link  = $(event.currentTarget);
 		var action = $link.attr('href').substr(1);
 		if (action.match(/\|/)) {
@@ -149,13 +150,23 @@
 	function initFieldset($fieldset)
 	{
 		var $buttons = $fieldset.find('.social-profiles-button');
-		console.debug($buttons);
 		$buttons.find('button:first-child')
 		         .on('click.socialprofiles', buttonClicked);
 		$buttons.find('.dropdown-menu a')
 			    .on('click.socialprofiles', actionClicked);
 		$buttons.find('.spb-icon-processing').hide();
-		toggleDropdown($buttons, 'detach');
+		
+		$buttons.each(function () {
+			var $button = $(this);
+			var $area = $('#' + $button.attr('id') + '-data');
+			var data  = $area.val();
+			if ('' != data) {
+				_toggleButtonState($button, false);
+				toggleDropdown($button, 'attach');
+			} else {
+				toggleDropdown($button, 'detach');
+			}
+		});
 	}
 	
 	$.fn.socialprofiles = function()

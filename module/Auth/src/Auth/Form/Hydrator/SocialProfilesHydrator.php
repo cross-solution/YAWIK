@@ -105,7 +105,7 @@ class SocialProfilesHydrator extends AbstractHydrator
     {
         $return = array();
         foreach ($object as $profile) {
-            $return[$profile->getName()] = $profile->getData();
+            $return[strtolower($profile->getName())] = $profile->getData();
         }
         return $return;
     }

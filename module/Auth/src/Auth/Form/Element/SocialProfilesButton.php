@@ -70,10 +70,13 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
         );
     }
     
-    public function getValue()
+    public function getValue($raw = false)
     {
         $value = parent::getValue();
-        return \Zend\Json\Json::decode($value);
+        if (!$raw) {
+            $value = \Zend\Json\Json::decode($value);
+        }
+        return $value;
     }
     
     /**
