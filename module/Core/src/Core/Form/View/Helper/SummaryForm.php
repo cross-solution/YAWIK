@@ -75,7 +75,7 @@ class SummaryForm extends AbstractHelper
         
         $content = sprintf(
             $markup,
-            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent, nl2br($summaryContent)
+            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent, $summaryContent
         );
         
         
@@ -147,12 +147,16 @@ class SummaryForm extends AbstractHelper
             return $markup;
         }
     
+        $elementValue = $element instanceOf \Zend\Form\Element\Textarea 
+                      ? nl2br($element->getValue()) 
+                      : $element->getValue();
+                      
         $markup .= '<div class="row">'; $col = 12;
         if ($label) {
             $markup .= '<div class="col-md-3"><strong>' . $label . '</strong></div>';
             $col = 9;
         }
-        $markup .= '<div class="col-md-' . $col . '">' . $element->getValue() . '</div>'
+        $markup .= '<div class="col-md-' . $col . '">' . $elementValue . '</div>'
             . '</div>';
         return $markup;
     }
