@@ -75,7 +75,7 @@ class SummaryForm extends AbstractHelper
         
         $content = sprintf(
             $markup,
-            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent, $summaryContent
+            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent, nl2br($summaryContent)
         );
         
         

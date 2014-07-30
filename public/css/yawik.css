@@ -7257,6 +7257,10 @@ a.portrait.active {
   line-height: 0px;
   overflow: hidden;
 }
+.img-ploraid {
+  width: 120px;
+  hight: 180px;
+}
 /**
  * Cross Applicant Management
  *
