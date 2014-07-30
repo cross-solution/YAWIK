@@ -466,3 +466,7 @@ endif;
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
 <?php endif;?>
+
+<?php if ($this->application->isDraft()): 
+    echo $this->partial('applications/apply/_buttons', array('application' => $this->application, 'isPreview' => true));
+endif ?>

@@ -210,8 +210,8 @@ class ApplyController extends AbstractActionController
     
     protected function checkApplication($application)
     {
-        return '' != $application->contact->email 
-               && $application->attributes->acceptedPrivacyPolicy;
+        return $this->getServiceLocator()->get('validatormanager')->get('Applications/Application')
+                    ->isValid($application);
     }
     
     protected function sendRecruiterMails($application)

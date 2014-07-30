@@ -179,6 +179,12 @@ return array(
             'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ),
     ),
+    
+    'validators' => array(
+        'invokables' => array(
+            'Applications/Application' => 'Applications\Entity\Validator\Application',
+        ),
+    ),
      
     'mails' => array(
         'invokables' => array(

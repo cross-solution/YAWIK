@@ -1,0 +1,43 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   AGPLv3
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+?>
+
+<div id="send-application-buttons">
+    <nav class="navbar">
+        <div class="col-md-12">
+        <?php if ($this->isPreview):?>
+        <a href="<?php echo $this->url('lang/apply', array('applyId' => $this->application->job->applyId), true) ?>" id="back-to-application" class="btn btn-lg btn-default">
+            <?php echo $this->translate('Back to the formular') ?>
+        </a>
+        <?php else: ?>
+        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
+            <?php echo $this->translate('Preview application') ?>
+        </a>
+        <?php endif ?>
+        
+        <button id="send-application" class="btn btn-lg btn-primary<?php 
+        
+        echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
+             ? '' : ' disabled' 
+        
+        ?>">
+            <?php echo $this->translate('Send application') ?>
+        </button>
+        
+        
+        
+        <button id="abort-application" class="btn btn-lg btn-danger">
+            <?php echo $this->translate('Abort application') ?>
+        </button>
+        </div>
+    
+    </nav>
+</div>
+

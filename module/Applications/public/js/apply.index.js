@@ -40,7 +40,7 @@
 		
 		$sendButton.click(function() { doAction('send'); });
 		$abortButton.click(function() { doAction('abort'); });
-		$previewButton.click(openPreview);
+		//$previewButton.click(openPreview);
 		
 		$('form').on('yk.forms.done', function(e, result) {
 			if (result.data.isApplicationValid) {
