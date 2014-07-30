@@ -3,18 +3,18 @@
 return array(
 	'hybridauth' => array(
         "Facebook" => array ( 
-            "enabled" => %%facebook.enabled%%,
+            "enabled" => "%%facebook.enabled%%",
             "keys"    => array ( "id" => "%%facebook.appid%%", "secret" => "%%facebook.secret%%" ), 
             "scope"   => "%%facebook.scope%%",// optional
             "display" => "popup"
         ),
         "LinkedIn" => array (
-            "enabled" => %%linkedin.enabled%%,
+            "enabled" => "%%linkedin.enabled%%",
             "keys"    => array ( "key" => "%%linkedin.appid%%", "secret" => "%%linkedin.secret%%" ),
             "scope"   => "%%linkedin.scope%%"
         ),
         "XING" => array(
-            "enabled" => %%xing.enabled%%,
+            "enabled" => "%%xing.enabled%%",
             'keys'    => array ( "key" => '%%xing.appid%%', 'secret' => '%%xing.secret%%'),
             "scope"   => '%%xing.scope%%'
         ),
