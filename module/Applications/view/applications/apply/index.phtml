@@ -58,7 +58,6 @@ else:
      * Display application form container and action buttons.
      */
 
-$this->headscript()->appendFile($this->basePath('Applications/js/apply.index.js'));
 echo $this->formContainer($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
 
 echo $this->partial('applications/apply/_buttons', 

@@ -7,13 +7,15 @@
  * @license   AGPLv3
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
+
+$applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job->applyId), true);
 ?>
 
 <div id="send-application-buttons">
     <nav class="navbar">
         <div class="col-md-12">
         <?php if ($this->isPreview):?>
-        <a href="<?php echo $this->url('lang/apply', array('applyId' => $this->application->job->applyId), true) ?>" id="back-to-application" class="btn btn-lg btn-default">
+        <a href="<?php echo $applyUrl ?>" id="back-to-application" class="btn btn-lg btn-default">
             <?php echo $this->translate('Back to the formular') ?>
         </a>
         <?php else: ?>
@@ -22,20 +24,20 @@
         </a>
         <?php endif ?>
         
-        <button id="send-application" class="btn btn-lg btn-primary<?php 
+        <a href="<?php echo $applyUrl ?>?do=send" id="send-application" class="btn btn-lg btn-primary<?php 
         
         echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
              ? '' : ' disabled' 
         
         ?>">
             <?php echo $this->translate('Send application') ?>
-        </button>
+        </a>
         
         
         
-        <button id="abort-application" class="btn btn-lg btn-danger">
+        <a href="<?php echo $applyUrl ?>?do=abort" id="abort-application" class="btn btn-lg btn-danger">
             <?php echo $this->translate('Abort application') ?>
-        </button>
+        </a>
         </div>
     
     </nav>

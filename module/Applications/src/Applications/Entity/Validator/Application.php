@@ -30,7 +30,7 @@ class Application extends AbstractValidator
         
         $error = false;
         
-        if ('' !=  $value->contact->email) {
+        if ('' ==  $value->contact->email) {
             $error = true;
             $this->error('NO_EMAIL');
         }
