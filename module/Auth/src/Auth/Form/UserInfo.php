@@ -21,6 +21,11 @@ class UserInfo extends SummaryForm
     protected $wrapElements = false;
     protected $baseFieldset = 'Auth/UserInfoFieldset';
     
+    /**
+     * {@inheritDoc}
+     */
+    protected $displayMode = 'summary';
+    
     public function init()
     {
         $this->setLabel(/*@translate*/ 'personal informations');

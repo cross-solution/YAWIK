@@ -9,7 +9,24 @@
  */
 
 
- $info = $element->getObject();?>
+ $info = $element->getObject();
+ if (!$info->getDisplayName()) : ?>
+ <div id="<?php echo $element->getAttribute('id') ?>-empty-alert" class="alert alert-info">
+    <p><?php echo $this->translate('Click here to enter contact informations.') ?></p>
+ </div>
+        
+    <?php $this->headscript()->captureStart()?>
+    ;(function($) { 
+        $(function() { 
+            $('#<?php echo $element->getAttribute('id') ?>-empty-alert')
+            .click(function() {
+                console.debug($(this), $(this).parent());
+                $(this).parent().find('.sf-edit').click();
+            });
+        });
+    })(jQuery);
+    <?php $this->headscript()->captureEnd();?>
+ <?php else: ?>
     <div class="row">
         <div class="col-md-6">
             <?php echo $this->translate($this->salutation($info->gender))?><br>
@@ -31,4 +48,5 @@
             </div>
         </div>
     </div>
+<?php endif ?>
 
