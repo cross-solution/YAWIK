@@ -21,7 +21,7 @@ class Attributes extends Form
 {
     public function init()
     {
-        $this->setLabel(/*@translate*/ 'Attributes')
+        $this//->setLabel(/*@translate*/ 'Attributes')
              ->setAttribute('data-submit-on', 'checkbox');
         
         
