@@ -67,6 +67,8 @@ class FormFileUpload extends FormFile
     {
         $file = $element->getFileEntity();
         $preview = '';
+        $translator = $this->getTranslator();
+        $textDomain = $this->getTranslatorTextDomain();
         
         $template = '
 <li class="fu-file fu-working">
@@ -81,6 +83,12 @@ class FormFileUpload extends FormFile
         <span class="yk-icon fa-file-o fa-4x"></span>
         __file-name__ (__file-size__)
     </a>
+    <div class="fu-errors input-error">
+        <ul class="errors">
+            <li class="fu-error-size">' . $translator->translate('The file is too big', $textDomain) . '</li>
+            <li class="fu-error-type">' . $translator->translate('The file type is not supported', $textDomain) . '</li>
+        </ul>
+   </div>
 </li>';
         $basepath = $this->getView()->plugin('basepath');
         $createFileDisplay = function($file) use ($template, $basepath) {
@@ -105,7 +113,7 @@ class FormFileUpload extends FormFile
             }
             $class = 'fu-multiple';
         } else {
-            $preview = $createFileDisplay($f);
+            $preview = $createFileDisplay($file);
             $class = 'fu-single';
         }
         

@@ -39,6 +39,20 @@ class FileUpload extends File implements ViewHelperProviderInterface
         return $this->helper;
     }
     
+    public function setMaxSize($bytes)
+    {
+        return $this->setAttribute('data-maxsize', $bytes);
+    }
+    
+    public function setAllowedTypes($types)
+    {
+        if (is_array($types)) {
+            $types = implode(',', $types);
+        }
+        
+        return $this->setAttribute('data-allowedtypes', $types);
+    }
+    
     public function setIsMultiple($flag)
     {
         $this->isMultiple = (bool) $flag;

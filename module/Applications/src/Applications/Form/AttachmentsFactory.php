@@ -28,5 +28,10 @@ class AttachmentsFactory extends FileUploadFactory
     {
         $form->setLabel(/*@translate*/ 'Attachments');
         $form->setParam('return', 'file-uri');
+        $form->get($this->fileName)->setMaxSize(5000000)
+                                   ->setAllowedTypes(array(
+                                       'image/',
+                                       'application/pdf'
+                                   ));
     }
 }

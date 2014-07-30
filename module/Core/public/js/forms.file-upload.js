@@ -21,7 +21,7 @@
 	function deleteFile(event){
 		$tpl = $(event.currentTarget).parent();
 		if ($tpl.hasClass('fu-working')) {
-			jqXHR.abort();
+			e.data.jqXHR.abort();
 			$tpl.fadeOut(function() { $tpl.remove(); });
 		} else {
 			$.get($tpl.find('.fu-file-info').attr('href') + '?do=delete')
@@ -58,7 +58,7 @@
 			});
 			
 			$form.find('.fu-file .fu-delete-button').click(deleteFile);
-			$form.find('.fu-file .fu-progress').hide();
+			$form.find('.fu-file .fu-progress, .fu-file .fu-errors').hide();
 			
 			$form.fileupload({
 				dataType: 'json',
@@ -66,7 +66,6 @@
 				
 				add: function(e, data)
 				{
-					console.debug(e, data);
 					var iconType = "fa-file";
 					var fileType = data.files[0].type;
 					
@@ -83,12 +82,58 @@
 					               
 					
 					var $tpl = $(tpl);
-					console.debug($tpl, $form.find('.fu-files'));
+					
+					var options = $form.find('.fu-dropzone input[type="file"]').data();
+					
+					var errors = {
+						size: false,
+						type: false
+					};
+					
+					if (options.maxsize && data.files[0].size > options.maxsize) {
+						errors.size = true;
+					}
+					if (options.allowedtypes) {
+						var types = options.allowedtypes.split(',');
+						var found = false;
+						
+						for (var i = 0; i < types.length; i++) {
+							if (0 === data.files[0].type.indexOf(types[i])) {
+								found = true;
+								break;
+							}
+						}
+						
+						if (!found) {
+							errors.type = true
+						}
+					}
+
 					data.context = $tpl.appendTo($form.find('.fu-files'));
 					
-					$tpl.find('.fu-delete-button').click(deleteFile);
+					if (errors.size || errors.type) {
+						$tpl.removeClass('fu-working').addClass('fu-error')
+						    .find('.fu-progress').hide();
+						
+						if (!errors.size) {
+							$tpl.find('.fu-error-size').hide();
+						}
+						if (!errors.type) {
+							$tpl.find('.fu-error-type').hide();
+						}
+						$tpl.find('.fu-delete-button').click(function (event) {
+							$(event.currentTarget).parent().fadeOut(function() { $tpl.remove(); });
+							return false;
+						});
+						return;
+					}
+					
+					$tpl.find('.fu-errors, .fu-errors li').hide();
 					
 					var jqXHR = data.submit();
+					$tpl.find('.fu-delete-button').click(deleteFile, {jqXHR: jqXHR});
+					
+					
 				},
 				
 				progress: function(e, data)

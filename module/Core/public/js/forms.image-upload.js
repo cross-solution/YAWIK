@@ -15,6 +15,7 @@
 		
 		$('.single-file-upload').each(function() {
 			var $form = $(this);
+			var $dropzone = $form.find('.iu-dropzone');
 			
 			$form.find('.iu-delete-button').click(function(e) {
 				$.get($form.find('img').attr('src') + '?do=delete')
@@ -28,13 +29,47 @@
 				$form.find('.iu-delete-button').hide();
 			}
 			
+			$form.find('.iu-errors, .iu-errors li').hide();
+			
 			$form.fileupload({
 				dataType: 'json',
-				dropZone: $form.find('.iu-dropzone'),
+				dropZone: $dropzone,
 				
 				add: function(e, data)
 				{
+					$form.find('.iu-errors, .iu-errors li').hide();
 					$form.find('.iu-progress').show();
+					
+					var options = $dropzone.find('input[type="file"]').data();
+					var hasErrors  = false;
+					
+					if (options.maxsize && options.maxsize < data.files[0].size) {
+						hasErrors = true;
+						$form.find('.iu-error-size').show();
+					}
+					if (options.allowedtypes) {
+						var types = options.allowedtypes.split(',');
+						var found = false;
+						
+						for (var i = 0; i < types.length; i++) {
+							if (0 === data.files[0].type.indexOf(types[i])) {
+								found = true;
+								break;
+							}
+						}
+						
+						if (!found) {
+							hasErrors = true;
+							$form.find('.iu-error-type').show();
+						}
+					}
+					
+					if (hasErrors) {
+						$form.find('.iu-errors').show();
+						$form.find('.iu-progress').hide();
+						return;
+					}
+					
 					data.submit();
 				},
 				

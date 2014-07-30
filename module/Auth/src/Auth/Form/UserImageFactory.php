@@ -24,6 +24,9 @@ class UserImageFactory extends FileUploadFactory
     
     protected function configureForm($form)
     {
-        $form->get($this->fileName)->setViewHelper('FormImageUpload');
+        $form->get($this->fileName)->setViewHelper('FormImageUpload')
+                                   ->setMaxSize(1000000)
+                                   ->setAllowedTypes('image/');
+                                   
     }
 } 

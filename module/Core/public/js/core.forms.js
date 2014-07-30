@@ -80,10 +80,17 @@
 		}
 	};
 	
-	$.fn.form = function () 
+	$.fn.form = function (method) 
 	{
 		return this.each(function() {
 			var $form = $(this);
+			
+			if (method && method in methods) {
+				var args = [].slice.call(arguments);
+				args.unshift($form);
+				return methods[method].apply(this, args);
+			}
+			
 			$form.submit(handlers.onSubmit);
 			$form.find('[data-trigger="submit"]').change(handlers.onChange);
 		});
