@@ -53,7 +53,7 @@ class ManageController extends AbstractActionController
             'search',
             'by',
             'job',
-            'job_status',
+            'status',
         ));
         
         $jobRepository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');

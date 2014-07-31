@@ -52,7 +52,8 @@ class Job extends AbstractRepository
            ->select('title', 'applyId')
            ->field('permissions.view')->equals($userId)
            ->field('title')->equals(new \MongoRegex('/' . $query . '/i'))
-           ->sort('title');
+           ->sort('title')
+           ->limit(5);
         
         $result = $qb->getQuery()->execute();
         

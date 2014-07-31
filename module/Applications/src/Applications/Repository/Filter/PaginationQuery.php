@@ -81,35 +81,17 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
         
-        if ($this->auth->getUser()->getRole()=='recruiter') {
-            /*
-             * a recruiter can see applications, which are related to his jobs
-            */
-//             if (isset($value['by']) && 'new' === $value['by']) {
-//                 $properties['readBy'] = array('$ne' => $this->auth->getUser()->id);
-//             }
-//             $queryBuilder->field('refs.jobs.userId')->equals($this->auth->getUser()->id);
-
-            /*
-             * Recruiter sees all application to which he has view permission.
-             * 
-             */
-            $queryBuilder->field('permissions.view')->equals($this->auth->getUser()->getId());
-
-        } else {
-            /*
-             * an applicant can see his own applications
-            */
-            $queryBuilder->field('refs.users.id')->equals($this->auth->getUser()->id);
-        }
-    
+        /*
+         * We only show applications to which the user has view permissions.
+         */
+        $queryBuilder->field('permissions.view')->equals($this->auth->getUser()->getId());
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
         }
-        // includes the job-status if the job-status has no blanks
-        if (!empty($value['job_status']) && False === strpos($value['job_status'], ' ')) {
-            $queryBuilder->field('status.name')->equals($value['job_status']);
+        
+        if (isset($value['status']) && 'all' != $value['status']) {
+            $queryBuilder->field('status.name')->equals($value['status']);
         }
         $queryBuilder->sort($this->filterSort($value['sort']));
         
