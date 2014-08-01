@@ -147,7 +147,8 @@ class ApplyController extends AbstractActionController
         $this->getServiceLocator()->get('repositories')->store($application);
         
         if ('file-uri' === $this->params()->fromPost('return')) {
-            $content = $form->getHydrator()->getLastUploadedFile()->getUri();
+            $basepath = $this->getServiceLocator()->get('ViewHelperManager')->get('basepath');
+            $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
         } else {
             if ($form instanceOf SummaryForm) {
                 $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
