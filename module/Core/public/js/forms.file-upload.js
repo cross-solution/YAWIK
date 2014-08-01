@@ -19,7 +19,7 @@
 	};
 
 	function deleteFile(event){
-		$tpl = $(event.currentTarget).parent();
+		var $tpl = $(event.currentTarget).parent();
 		if ($tpl.hasClass('fu-working')) {
 			e.data.jqXHR.abort();
 			$tpl.fadeOut(function() { $tpl.remove(); });
@@ -131,7 +131,7 @@
 					$tpl.find('.fu-errors, .fu-errors li').hide();
 					
 					var jqXHR = data.submit();
-					$tpl.find('.fu-delete-button').click(deleteFile, {jqXHR: jqXHR});
+					$tpl.find('.fu-delete-button').click({jqXHR: jqXHR}, deleteFile);
 					
 					
 				},
