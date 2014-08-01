@@ -36,7 +36,7 @@ class AttachmentsFactory extends FileUploadFactory
     {
         $form->setLabel(/*@translate*/ 'Attachments')
              ->setIsDescriptionsEnabled(true)
-             ->setDescription(/*@translate*/ 'This description can be edited in \Applications\Form\AttachmentsFactory')
+             ->setDescription(/*@translate*/ 'Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB')
              ->setParam('return', 'file-uri')
              ->get($this->fileName)->setMaxSize(5000000)
                                    ->setAllowedTypes(array(
