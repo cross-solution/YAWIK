@@ -16,6 +16,7 @@ use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ExplicitParameterProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
+use Core\Form\DescriptionAwareFormInterface;
 
 /**
  * Helper to render a formular.
@@ -144,9 +145,34 @@ class Form extends ZendForm
     {
         $formContent = $this->renderBare($form, $layout, $parameter);
         
+        if ($form instanceOf DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
+                $this->getView()->headscript()->appendFile(
+                    $this->getView()->basepath('Core/js/forms.descriptions.js')
+                );
+                
+                if ($desc = $form->getOption('description', '')) {
+                    $translator = $this->getTranslator();
+                    $textDomain = $this->getTranslatorTextDomain();
+                    
+                    $desc = $translator->translate($desc, $textDomain);
+                }
+                
+                $formContent = sprintf(
+                    '<div class="daf-form-container row">
+                        <div class="daf-form col-md-8">%s</div>
+                        <div class="daf-desc col-md-4">
+                            <div class="daf-desc-content alert alert-info">%s</div>
+                        </div>
+                    </div>',
+                    $formContent, $desc
+                );
+        } else {
+            $formContent = '<div class="form-content">' . $formContent . '</div>';
+        }
+        
         $markup = '<div id="form-%s" class="form-container">'
                 . '%s'
-                . '<div class="form-content">%s</div>'
+                . '%s'
                 . '</div>';
         
         if ($label = $form->getLabel()) {

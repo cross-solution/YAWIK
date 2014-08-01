@@ -10,7 +10,6 @@
 	
 	function toggleState($button)
 	{
-		console.log('toggleState', $button.data('state'));
 		if ('default' == $button.data('state')) {
 			$button.find('.processing').removeClass('yk-hidden');
 			$button.find('.default').addClass('yk-hidden');

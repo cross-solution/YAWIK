@@ -91,7 +91,7 @@ class FormRow extends ZendFormRow
                                      );
             }                                                                 
             $elementString .= sprintf(
-                '<span class="cam-description help-block">%s</span>', $desc
+                '<div id="%s-desc" class="cam-description alert alert-info">%s</div>', $elementId, $desc
             );
         }
         

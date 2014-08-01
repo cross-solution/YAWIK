@@ -34,6 +34,10 @@ class Apply extends Container
             'base'    => array(
                 'type' => 'Applications/Base',
                 'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/ 'Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.',
+                ),
             ),
             'profiles' => 'Auth/SocialProfiles',
             'attachments' => 'Applications/Attachments',

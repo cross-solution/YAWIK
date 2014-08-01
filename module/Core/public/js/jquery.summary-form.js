@@ -17,8 +17,9 @@
 				_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
 			}	
 			if (result.valid) {
-				_this.$summaryContainer.html(result.content)
-				                       .find('.sf-edit').click($.proxy(_this.edit, _this));
+				_this.$summaryContainer.html(result.content);
+				_this._initSummaryContainer();
+									   
 				_this.cancel();
 			}
 			
@@ -37,11 +38,27 @@
 			this.$summaryContainer.animate({opacity: 0, height: 'toggle'});
 		},
 		
+		_initSummaryContainer: function ()
+		{
+			var $editButton = this.$summaryContainer.find('.sf-edit')
+			                      .hide().click($.proxy(this.edit, this));
+			
+			this.$summaryContainer.hover(
+					function() {
+						$editButton.show();
+					},
+					function() {
+						$editButton.hide();
+					}
+			);
+		},
+		
 		_init: function($container)
 		{
 			this.$mainContainer = $container;
 			this.$formContainer = $container.find('.sf-form');
 			this.$summaryContainer = $container.find('.sf-summary');
+			this._initSummaryContainer();
 			
 			this.displayMode = 'form';
 			if ($container.data('display-mode')) {
@@ -56,7 +73,7 @@
 			
 			this.$formContainer.find('form').on('yk.forms.done', $.proxy(this.submit, this));
 			this.$formContainer.find('.sf-cancel').click($.proxy(this.cancel, this));
-			this.$summaryContainer.find('.sf-edit').click($.proxy(this.edit, this));
+			
 		}
 	});
 	

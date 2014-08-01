@@ -199,14 +199,14 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         if (isset($form['__instance__']) && is_object($form['__instance__'])) {
             return $form['__instance__'];
         } 
-        
-        $usePostArray  = isset($form['use_post_array']) ? $form['use_post_array'] : true;
-        $useFilesArray = isset($form['use_files_array']) ? $form['use_files_array'] : false;
-        
-        $options = array(
-            'use_post_array' => $usePostArray,
-            'use_files_array' => $useFilesArray,
-        );
+
+        $options = isset($form['options']) ? $form['options'] : array();
+        if (!isset($options['use_post_array'])) {
+            $options['use_post_array'] = true;
+        }
+        if (!isset($options['use_files_array'])) {
+            $options['use_files_array'] = false;
+        }
         
         $formInstance = $this->formElementManager->get($form['type'], $options);
         $formName     = (($name = $this->getName())
@@ -225,6 +225,7 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         
         $formInstance->setParams($this->getParams());
         $this->forms[$key]['__instance__'] = $formInstance;
+        $this->forms[$key]['options'] = $options;
         return $formInstance;
     }
     
@@ -383,6 +384,14 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this->entity;
     }
     
+    /**
+     * Maps entity property to forms or child containers.
+     * 
+     * @param unknown $form
+     * @param unknown $key
+     * @param unknown $entity
+     * @return void
+     */
     protected function mapEntity($form, $key, $entity)
     {
         

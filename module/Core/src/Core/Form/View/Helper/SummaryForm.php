@@ -15,6 +15,7 @@ use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
 use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
+use Core\Form\DescriptionAwareFormInterface;
 
 /**
  * Helper to render a summary form container.
@@ -67,15 +68,44 @@ class SummaryForm extends AbstractHelper
         $formContent  = $this->renderForm($form, $layout, $parameter);
         $summaryContent = $this->renderSummary($form);  
         
+        $formContent = sprintf(
+                '<div class="sf-form"><div class="panel panel-info"><div class="panel-body">%s</div></div></div>
+                 <div class="sf-summary">%s</div>
+                ',
+                $formContent, $summaryContent
+        );
+        
+        if ($form instanceOf DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
+            $this->getView()->headscript()->appendFile(
+                $this->getView()->basepath('Core/js/forms.descriptions.js')
+            );
+        
+            if ($desc = $form->getOption('description', '')) {
+                $translator = $this->getTranslator();
+                $textDomain = $this->getTranslatorTextDomain();
+        
+                $desc = $translator->translate($desc, $textDomain);
+            }
+        
+            $formContent = sprintf(
+                '<div class="daf-form-container row">
+                        <div class="daf-form col-md-8">%s</div>
+                        <div class="daf-desc col-md-4">
+                            <div class="daf-desc-content alert alert-info">%s</div>
+                        </div>
+                    </div>',
+                $formContent, $desc
+            );
+        } 
+        
         $markup = '<div id="sf-%s" class="sf-container" data-display-mode="%s">'
                 . '%s'
-                . '<div class="sf-form">%s</div>'
-                . '<div class="sf-summary">%s</div>'
+                . '%s'
                 . '</div>';
         
         $content = sprintf(
             $markup,
-            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent, $summaryContent
+            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent
         );
         
         
@@ -103,11 +133,13 @@ class SummaryForm extends AbstractHelper
      */
     public function renderSummary(SummaryFormInterface $form)
     {
-        return  '<button type="button" class="pull-right btn btn-default sf-edit">'
+        return  '<div class="panel panel-default" style="min-height: 100px;">
+                    <div class="panel-body"><button type="button" class="pull-right btn btn-default sf-edit">'
               . '<span class="yk-icon yk-icon-edit"></span> '
               . $this->getView()->translate('Edit')
               . '</button>'
-              . $this->renderSummaryElement($form->getBaseFieldset());
+              . $this->renderSummaryElement($form->getBaseFieldset())
+              . '</div></div>';
     }
     
     /**
