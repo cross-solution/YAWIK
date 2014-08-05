@@ -50,7 +50,7 @@ translate('house number');
 //: ./src/Auth/Form/UserInfoFieldset.php:126
 translate('Application photo');
 
-//: ./src/Auth/Form/UserInfo.php:26
+//: ./src/Auth/Form/UserInfo.php:31
 translate('personal informations');
 
 //: ./src/Auth/Form/UserPasswordFieldset.php:31

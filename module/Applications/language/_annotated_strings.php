@@ -23,11 +23,17 @@ translate('Modified'     => array('sort' => 'date');
 //: ./view/applications/manage/index.ajax.phtml:53
 translate('Actions');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:29
+//: ./src/Applications/Form/AttachmentsFactory.php:37
 translate('Attachments');
+
+//: ./src/Applications/Form/AttachmentsFactory.php:39
+translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
 
 //: ./src/Applications/Form/Base.php:26
 translate('Summary');
+
+//: ./src/Applications/Form/Apply.php:39
+translate('Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.');
 
 //: ./src/Applications/Form/SettingsFieldset.php:30
 translate('E-Mail Notifications');
@@ -95,19 +101,19 @@ translate('I have read the %s and accept it');
 //: ./src/Applications/Form/Attributes.php:47
 translate('Privacy Policy');
 
-//: ./src/Applications/Form/BaseFieldset.php:30
+//: ./src/Applications/Form/BaseFieldset.php:42
 translate('Summary');
 
 //: ./src/Applications/Controller/ManageController.php:63
 translate('all');
 
-//: ./src/Applications/Controller/ApplyController.php:109
+//: ./src/Applications/Controller/ApplyController.php:110
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:187
+//: ./src/Applications/Controller/ApplyController.php:189
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:247
+//: ./src/Applications/Controller/ApplyController.php:249
 translate('Application confirmation');
 
 //: ./src/Applications/Controller/IndexController.php:66
