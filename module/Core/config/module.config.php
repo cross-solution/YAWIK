@@ -10,7 +10,7 @@
  * in your own modules configuration file(s) (or via the config autoloading).
  *
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';

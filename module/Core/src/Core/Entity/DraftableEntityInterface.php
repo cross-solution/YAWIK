@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** Core models */

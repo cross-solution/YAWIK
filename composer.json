@@ -15,7 +15,7 @@
 		"email": "weitz@cross-solution.de"
 	}
     ],
-    "license": "AGPL-3.0+",
+    "license": "MIT",
     "keywords": [
         "human resource", "human relation", "applicant",
         "zf2"
