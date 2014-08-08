@@ -32,14 +32,14 @@ interface OrganizationInterface
     * @param string organizationName
     * @return OrganizationInterface
     */
-   public function setOrganizationName($organizationName){}
+   public function setOrganizationName($organizationName);
 
    /**
     * Gets the name of the organization
     *
     * @return OrganizationInterface
     */
-   public function getOrganizationName(){}
+   public function getOrganizationName();
    
    /**
     * Address provides the information about the address or semantic address 
@@ -49,11 +49,11 @@ interface OrganizationInterface
     * @param \Core\Entity\AddressInterface
     * @return OrganizationInterface
     */
-   public function setAddress(AddressInterface $address){}
+   public function setAddress(AddressInterface $address);
    
    /**
     * @return AddressInterface
     */
-   public function getAddress(){}
+   public function getAddress();
     
 }

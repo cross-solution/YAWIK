@@ -110,7 +110,9 @@ interface JobInterface extends EntityInterface,
      * 
      * @return OrganisationInterface
      */
-    public function getOrganization(){}
+
+    public function getOrganization();
+
     
     /**
      * Sets the organization, which offers the job
@@ -118,7 +120,7 @@ interface JobInterface extends EntityInterface,
      * @param OrganizationInterface $organization
      * @return JobInterface
      */
-    public function setOrganization(OrganizationInterface $organization){}
+    public function setOrganization(OrganizationInterface $organization);
 
     /**
      * Sets the contact email of a job posting
