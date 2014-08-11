@@ -23,14 +23,13 @@ return array(
                             ),
                         ),
                         'may_terminate' => true,
-                        /*
                         'child_routes' => array(
                             'detail' => array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => '/:id',
                                     'constraints' => array(
-                                        'id' => '[a-z0-9]+',
+                                        'id' => '\w+',
                                     ),
                                     'defaults' => array(
                                         'action' => 'detail',
@@ -38,7 +37,18 @@ return array(
                                 ),
                             ),
                         ),
-                        */
+                    ),
+                    'organizationsTestfill' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/organizationstest',
+                            'defaults' => array(
+                                'controller' => 'Organizations/Index',
+                                'action' => 'testfill',
+                                'module' => 'Organizations',
+                            ),
+                        ),
+                        'may_terminate' => true,
                     ),
                 )
             )
