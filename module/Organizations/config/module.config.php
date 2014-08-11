@@ -53,22 +53,21 @@ return array(
             'organizations' => array(
                 'label' =>  /*@translate*/ 'Organizations',
                 'route' => 'lang/organizations',
-//                'uri' => '#',
                 'order' => '40',
-//                'pages' => array(
-//                    'list' => array(
-//                        'label' => /*@translate*/ 'Overview',
-//                        'route' => 'lang/organisations',
-//                    ),
-//                    'new' => array(
-//                        'label' => /*@translate*/ 'Create Organisation',
-//                        'route' => 'lang/organisations/manage',
-//                        'resource' => 'route/lang/organisations/manage',
-//                        'params' => array(
-//                            'action' => 'new'
-//                        ),
+                'pages' => array(
+                    'list' => array(
+                        'label' => /*@translate*/ 'Overview',
+                        'route' => 'lang/organizations',
+                    ),
+                    'test' => array(
+                        'label' => /*@translate*/ 'Test',
+                        'route' => 'lang/organizationsTestfill',
+//                        'resource' => 'route/lang/organizations/manage',
+                        'params' => array(
+                            'action' => 'testfill'
+                        ),
 //                        'id' => 'Organisation/new',
-//                    ),
+                    ),
 //                    'edit' => array(
 //                        'label' => /*@translate*/ 'Edit Organisations',
 //                        'resource' => 'route/lang/organisations/manage',
@@ -76,7 +75,7 @@ return array(
 //                        'visible' => false,
 //                        'id' => 'Organisations/edit'
 //                    ),
-//                ),
+                ),
             ),
         ),
     ),

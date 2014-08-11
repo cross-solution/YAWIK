@@ -6,7 +6,7 @@
  * @license   GPLv3
  */
 
-namespace Organization\Entity;
+namespace Organizations\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\EntityInterface;
@@ -17,11 +17,12 @@ use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
+use Core\Entity\AddressInterface;
 
 /**
  * The job model
  *
- * @ODM\Document(collection="organization", repositoryClass="Organization\Repository\Organization")
+ * @ODM\Document(collection="organization", repositoryClass="Organizations\Repository\Organization")
  */
 class Organization extends BaseEntity implements OrganizationInterface {
     
@@ -52,4 +53,47 @@ class Organization extends BaseEntity implements OrganizationInterface {
    public function getAddress() 
    {
    }
+   
+   
+   /**
+    * @inheritDoc
+    */
+    public function getSearchableProperties()
+    {
+    }
+    
+   /**
+    * @inheritDoc
+    */
+    public function setKeywords(array $keywords)
+    {
+    }
+    
+   /**
+    * @inheritDoc
+    */
+    public function clearKeywords()
+    {
+    }
+    
+   /**
+    * @inheritDoc
+    */
+    public function getKeywords()
+    {
+    }
+    
+   /**
+    * @inheritDoc
+    */
+    public function getPermissions()
+    {
+    }
+    
+   /**
+    * @inheritDoc
+    */
+    public function setPermissions(PermissionsInterface $permissions) 
+    {
+    }
 }

@@ -6,7 +6,7 @@
  * @license   GPLv3
  */
 
-namespace Organization\Repository;
+namespace Organizations\Repository;
 
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
