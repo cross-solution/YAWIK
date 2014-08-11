@@ -47,14 +47,43 @@ return array(
             ),
         ),
     ),
+    
     'navigation' => array(
         'default' => array(
-            'companies' => array(
+            'organizations' => array(
+                'label' =>  /*@translate*/ 'Organizations',
+                'route' => 'lang/organizations',
+//                'uri' => '#',
+                'order' => '40',
+//                'pages' => array(
+//                    'list' => array(
+//                        'label' => /*@translate*/ 'Overview',
+//                        'route' => 'lang/organisations',
+//                    ),
+//                    'new' => array(
+//                        'label' => /*@translate*/ 'Create Organisation',
+//                        'route' => 'lang/organisations/manage',
+//                        'resource' => 'route/lang/organisations/manage',
+//                        'params' => array(
+//                            'action' => 'new'
+//                        ),
+//                        'id' => 'Organisation/new',
+//                    ),
+//                    'edit' => array(
+//                        'label' => /*@translate*/ 'Edit Organisations',
+//                        'resource' => 'route/lang/organisations/manage',
+//                        'uri' => '#',
+//                        'visible' => false,
+//                        'id' => 'Organisations/edit'
+//                    ),
+//                ),
             ),
         ),
     ),
+    
     'controllers' => array(
         'invokables' => array(
+            'Organizations/Index' => 'Organizations\Controller\IndexController', 
         ),
     ),
     'view_manager' => array(

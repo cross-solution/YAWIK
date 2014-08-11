@@ -12,6 +12,34 @@ return array(
         'routes' => array(
             'lang' => array(
                 'child_routes' => array(
+                    'organizations' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/organizations',
+                            'defaults' => array(
+                                'controller' => 'Organizations/Index',
+                                'action' => 'index',
+                                'module' => 'Organizations',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                        /*
+                        'child_routes' => array(
+                            'detail' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/:id',
+                                    'constraints' => array(
+                                        'id' => '[a-z0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'detail',
+                                    ),
+                                ),
+                            ),
+                        ),
+                        */
+                    ),
                 )
             )
         )

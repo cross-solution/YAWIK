@@ -80,7 +80,7 @@ return array(
                 'label' => /*@translate*/ 'Settings',
                 'route' => 'lang/settings',
                 'resource' => 'route/lang/settings',
-                'order' => 40,
+                'order' => 100,
                 'params' => array('module' => null),
             ),
         ),

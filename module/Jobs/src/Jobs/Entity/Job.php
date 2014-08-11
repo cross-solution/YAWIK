@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
+use Organizations\Entity\OrganizationInterface;
 
 /**
  * The job model
@@ -274,7 +275,7 @@ class Job extends BaseEntity implements JobInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setOrganization()
      */
-    public function setOrganization($organization)
+    public function setOrganization(OrganizationInterface $organization)
     {
         $this->organization = $organization;
         return $this;
