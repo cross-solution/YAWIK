@@ -108,22 +108,34 @@ class FormFileUpload extends FormFile
         };
         
         if ($element->isMultiple()) {
-            foreach ($file as $f) {
-                $preview .= $createFileDisplay($f);
+            if (count($file)) {
+                foreach ($file as $f) {
+                    $preview .= $createFileDisplay($f);
+                }
             }
             $class = 'fu-multiple';
         } else {
-            $preview = $createFileDisplay($file);
+            if ($file) { $preview = $createFileDisplay($file); }
             $class = 'fu-single';
         }
         
+        if ('' == trim($preview)) {
+            $notice = '<div class="fu-empty-notice" style="padding: 5px 20px; color: lightgrey;">
+                            <div class="pull-left">
+                                <span class="yk-icon fa-files-o fa-5x"></span>
+                            </div>
+                            <small style="display:block; padding: 25px 80px 0px;">' . $translator->translate('Click here to add files or use drag and drop.') . '</small>
+                        </div>';
+        } else {
+            $notice = '';
+        }
         $markup = '
 <div class="fu-dropzone %1$s" id="%2$s-dropzone">
     <span class="fu-template" data-template="%4$s"></span>
     <ul class="fu-files">
     %3$s
     </ul>
-
+    %5$s
    __input__
 </div>';
         
@@ -132,7 +144,8 @@ class FormFileUpload extends FormFile
             $class, 
             $element->getAttribute('id'), 
             $preview, 
-            $this->getView()->escapeHtmlAttr(trim($template))
+            $this->getView()->escapeHtmlAttr(trim($template)),
+            $notice
         );
         return $markup;
     }

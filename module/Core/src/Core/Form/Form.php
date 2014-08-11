@@ -113,4 +113,19 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
         return $this->addClass('validate');
     }
     
+    public function isValid()
+    {
+        $isValid = parent::isValid();
+        if ($isValid) {
+            if (is_object($this->object)) {
+                $this->bind($this->object);
+            } else {
+                $filter = $this->getInputFilter();
+                $this->setData($filter->getValues());
+            }
+        }
+        
+        return $isValid;
+    }
+    
 }

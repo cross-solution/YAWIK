@@ -60,7 +60,7 @@ class FileUploadFactory implements FactoryInterface
                     'label' => /*@translate*/ 'Remove all',
                 ),
                 'attributes' => array(
-                    'class' => 'fu-remove-all btn btn-danger'
+                    'class' => 'fu-remove-all btn btn-danger btn-xs pull-right'
                 ),
             ));
         } else {

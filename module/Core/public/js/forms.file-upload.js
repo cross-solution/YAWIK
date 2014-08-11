@@ -20,13 +20,23 @@
 
 	function deleteFile(event){
 		var $tpl = $(event.currentTarget).parent();
-		if ($tpl.hasClass('fu-working')) {
+		var $ul  = $tpl.parent();
+		function removeLi($tpl) {
+			$tpl.remove();
+			if (!$ul.find('li').length) {
+				$ul.parent().find('.fu-empty-notice').show();
+			}
+		};
+		
+		if ($tpl.hasClass('fu-error')) {
+			$tpl.fadeOut(function() { removeLi($tpl); });
+		} else 	if ($tpl.hasClass('fu-working')) {
 			e.data.jqXHR.abort();
-			$tpl.fadeOut(function() { $tpl.remove(); });
+			$tpl.fadeOut(function() { removeLi($tpl); });
 		} else {
 			$.get($tpl.find('.fu-file-info').attr('href') + '?do=delete')
 			 .always(function() {
-				 $tpl.fadeOut(function() { $tpl.remove(); });
+				 $tpl.fadeOut(function() { removeLi($tpl); });
 			 });
 		}
 		return false;
@@ -66,6 +76,8 @@
 				
 				add: function(e, data)
 				{
+					$form.find('.fu-empty-notice').hide();
+					
 					var iconType = "fa-file";
 					var fileType = data.files[0].type;
 					
@@ -121,10 +133,7 @@
 						if (!errors.type) {
 							$tpl.find('.fu-error-type').hide();
 						}
-						$tpl.find('.fu-delete-button').click(function (event) {
-							$(event.currentTarget).parent().fadeOut(function() { $tpl.remove(); });
-							return false;
-						});
+						$tpl.find('.fu-delete-button').click(deleteFile);
 						return;
 					}
 					

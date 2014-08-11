@@ -17,6 +17,7 @@
 				_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
 			}	
 			if (result.valid) {
+				console.debug(result);
 				_this.$summaryContainer.html(result.content);
 				_this._initSummaryContainer();
 									   
@@ -30,6 +31,7 @@
 		{
 			this.$formContainer.animate({opacity: 0, height: 'toggle'});
 			this.$summaryContainer.animate({opacity:1, height: 'toggle'});
+			return false;
 		},
 		
 		edit: function(event)
@@ -50,7 +52,8 @@
 					function() {
 						$editButton.hide();
 					}
-			);
+			)
+			    .find('.empty-summary-notice').click(function() { $editButton.click(); });
 		},
 		
 		_init: function($container)
