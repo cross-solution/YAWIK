@@ -24,7 +24,7 @@ $modules = array(
          'Pdf', 
          'Geo', 
          'FormularValidation',
-         'Organizations'
+         'Organizations',
     );
 
 if (!isset($allModules)) {
