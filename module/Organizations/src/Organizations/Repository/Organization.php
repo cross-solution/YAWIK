@@ -14,5 +14,4 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Organization extends AbstractRepository 
 {
-    
 }

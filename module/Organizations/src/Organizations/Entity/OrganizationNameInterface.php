@@ -1,6 +1,6 @@
 <?php
 
-namespace Jobs\Entity;
+namespace Organizations\Entity;
 
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\EntityInterface;

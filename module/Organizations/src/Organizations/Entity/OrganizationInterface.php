@@ -15,6 +15,7 @@ use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
+use Doctrine\Common\Collections\Collection;
 
 interface OrganizationInterface 
     extends EntityInterface, 
@@ -32,14 +33,14 @@ interface OrganizationInterface
     * @param string organizationName
     * @return OrganizationInterface
     */
-   public function setOrganizationName($organizationName);
+   public function setOrganizationNames(Collection $organizationNames);
 
    /**
     * Gets the name of the organization
     *
     * @return OrganizationInterface
     */
-   public function getOrganizationName();
+   public function getOrganizationNames();
    
    /**
     * Address provides the information about the address or semantic address 
@@ -49,11 +50,11 @@ interface OrganizationInterface
     * @param \Core\Entity\AddressInterface
     * @return OrganizationInterface
     */
-   public function setAddress(AddressInterface $address);
+   public function setAddresses(AddressInterface $addresses);
    
    /**
     * @return AddressInterface
     */
-   public function getAddress();
+   public function getAddresses();
     
 }
