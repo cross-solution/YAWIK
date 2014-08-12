@@ -9,15 +9,13 @@
 namespace Organizations\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
-use Core\Entity\EntityInterface;
-use Core\Entity\RelationEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
-use Auth\Entity\UserInterface;
+use Core\Entity\AddressInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
-use Core\Entity\AddressInterface;
+use Core\Entity\Collection\ArrayCollection;
 
 /**
  * The job model
@@ -26,31 +24,58 @@ use Core\Entity\AddressInterface;
  */
 class Organization extends BaseEntity implements OrganizationInterface {
     
+    /**
+     * name
+     * 
+     * @var Collection \Organizations\Entity\OrganizationName
+     * @ODM\EmbedMany(targetDocument="Organizations\Entity\OrganizationName") 
+     */
+    protected $organizationNames; 
+    
+    public function __construct()
+    {
+        //parent::__construct();
+        $this->setOrganizationNames(new ArrayCollection());
+    }
+    
+    
    /**
     * @inheritDoc
     */
-    public function setOrganizationName($organizationName) 
+    public function setOrganizationNames(Collection $organizationNames) 
     {
+        $this->organizationNames = $organizationNames;
+        return $this;
+    }
+    
+    public function addOrganizationName($organizationName) {
+        $name = new OrganizationName($organizationName);
+        $this->getOrganizationNames()->add($name);
+        return $this;
     }
 
    /**
     * @inheritDoc
     */
-   public function getOrganizationName() 
+   public function getOrganizationNames() 
+   {
+       if (!isset($this->organizationNames)) {
+           $this->setOrganizationNames(new ArrayCollection());
+       }
+       return $this->organizationNames;
+   }
+   
+   /**
+    * @inheritDoc
+    */
+   public function setAddresses(AddressInterface $addresses)
    {
    }
    
    /**
     * @inheritDoc
     */
-   public function setAddress(AddressInterface $address)
-   {
-   }
-   
-   /**
-    * @inheritDoc
-    */
-   public function getAddress() 
+   public function getAddresses() 
    {
    }
    

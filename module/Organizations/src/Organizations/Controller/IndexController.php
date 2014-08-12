@@ -57,11 +57,16 @@ class IndexController extends AbstractActionController
         //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
         $user = $services->get('AuthenticationService')->getUser();
         
-        $entity = $services->get('repositories')->get('Organizations/Organization')->create();
+        $rep = $services->get('repositories')->get('Organizations/Organization');
+        $entity = $rep->create();
+        //$rep->store($entity);
+        //$entity = $rep->createNew();
+        $entity->addOrganizationName('Cross-Solution');
         //$entity = $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId" => (string) $applyId));
         //if (!isset($entity)) {
         //$entity = $services->get('repositories')->get('Jobs/Job')->create(array("applyId" => (string) $applyId))
         //$entity->setUser($user);
         //$services->get('repositories')->get('Organizations/Organization')->store($entity);
+        $rep->store($entity);
     }
 }
