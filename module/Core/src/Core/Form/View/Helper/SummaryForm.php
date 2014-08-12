@@ -170,9 +170,13 @@ class SummaryForm extends AbstractHelper
         }
         
         if ($element instanceOf EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
+            $emptySummaryNotice = $this->getTranslator()->translate(
+                $element->getEmptySummaryNotice(), $this->getTranslatorTextDomain()
+            );
+            
             $markup = sprintf(
                 '<div id="%s-empty-alert" class="empty-summary-notice alert alert-info"><p>%s</p></div>',
-                $element->getAttribute('id'), $element->getEmptySummaryNotice()
+                $element->getAttribute('id'), $emptySummaryNotice
             );
             return $markup;
         }

@@ -27,6 +27,7 @@ class BaseFieldset extends Fieldset implements EmptySummaryAwareInterface,
     
     protected $emptySummaryNotice = /*@translate*/ 'Click here to enter a summary.';
     
+    
     /**
      * {@inheritDoc}
      * @see \Zend\Form\Element::init()
@@ -37,7 +38,6 @@ class BaseFieldset extends Fieldset implements EmptySummaryAwareInterface,
              //->setLabel('Summary')
              ->setHydrator(new \Core\Entity\Hydrator\EntityHydrator());
              
-                     
         $this->add(array(
             'type' => 'textarea',
             'name' => 'summary',

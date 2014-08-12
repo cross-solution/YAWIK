@@ -42,18 +42,12 @@
 		
 		_initSummaryContainer: function ()
 		{
-			var $editButton = this.$summaryContainer.find('.sf-edit')
-			                      .hide().click($.proxy(this.edit, this));
+			var $editButton = this.$summaryContainer.find('.sf-edit');
+			$editButton.click($.proxy(this.edit, this));
 			
-			this.$summaryContainer.hover(
-					function() {
-						$editButton.show();
-					},
-					function() {
-						$editButton.hide();
-					}
-			)
-			    .find('.empty-summary-notice').click(function() { $editButton.click(); });
+			this.$summaryContainer
+			    .find('.empty-summary-notice')
+			    .click(function() { $editButton.click(); });
 		},
 		
 		_init: function($container)

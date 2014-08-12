@@ -1,14 +1,24 @@
 <?php
-$this->formRow()->setShouldWrap(false);
+$fr = $this->formRow();
+$shouldWrap = $fr->shouldWrap();
+$fr->setShouldWrap(false);
 
+$attribs = $this->element->getAttributes();
+unset($attribs['name']);
+
+$class            = isset($attribs['class']) ? ' ' . $attribs['class'] : '';
+$attribs['class'] = 'buttons-bar form-group' . $class;
+
+$attrStr = $this->formInput()->createAttributesString($attribs);
 
 ?>
-<nav class="navbar">   
+<div <?php echo $attrStr ?>>   
         <div class="col-md-12">
         <?php $first=true; foreach($this->element as $button):?>
             <?php $button->setAttribute('class', $button->getAttribute('class'));?>
             <?php echo $this->formRow($button);?>
         <?php endforeach;?>    
         </div>
-</nav>
+</div>
 
+<?php $fr->setShouldWrap($shouldWrap); ?>

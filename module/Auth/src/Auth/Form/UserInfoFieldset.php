@@ -76,12 +76,15 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         		'options' => array(
         				'label' => /*@translate */ 'Salutation',
         				'value_options' => array(
-        						'' => /*@translate */ 'please select',
+        						'' => '', // => /*@translate */ 'please select',
         						'male' => /*@translate */ 'Mr.',
         						'female' => /*@translate */ 'Mrs.',
         				)
         		),
-        		
+                'attributes' => array(
+                    'data-placeholder' => /*@translate*/ 'please select',
+                    'data-allowclear' => 'true',
+                ),
         ));
         
         $this->add(array(

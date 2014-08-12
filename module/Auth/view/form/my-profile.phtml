@@ -10,7 +10,7 @@
       
             
       
-                <?php echo $this->formRow($element->get('gender')); ?>
+                <?php echo $this->formRow($element->get('gender'), null, null, $layout); ?>
                 <?php echo $this->formRowCombined(
                     array(4 => $element->get('firstName'), 5 => $element->get('lastName')), null, null, $layout
                 );?>

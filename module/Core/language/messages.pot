@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-05 17:02+0200\n"
+"POT-Creation-Date: 2014-08-12 16:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,20 +200,28 @@ msgid "Permissions"
 msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:88
-#: src/Core/Form/View/Helper/FormImageUpload.php:71
+#: src/Core/Form/View/Helper/FormImageUpload.php:78
 msgid "The file is too big"
 msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:89
-#: src/Core/Form/View/Helper/FormImageUpload.php:72
+#: src/Core/Form/View/Helper/FormImageUpload.php:79
 msgid "The file type is not supported"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:127
+msgid "Click here to add files or use drag and drop."
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormImageUpload.php:40
+msgid "Click here to add an image or use drag and drop."
 msgstr ""
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:45
 msgid "processing"
 msgstr ""
 
-#: src/Core/Form/View/Helper/SummaryForm.php:139
+#: src/Core/Form/View/Helper/SummaryForm.php:140
 msgid "Edit"
 msgstr ""
 

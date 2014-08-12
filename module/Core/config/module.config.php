@@ -280,6 +280,7 @@ return array(
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
             'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
             'formInfoCheckbox' => 'Core\Form\View\Helper\FormInfoCheckbox',
+            'formselect' => 'Core\Form\View\Helper\FormSelect',
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',

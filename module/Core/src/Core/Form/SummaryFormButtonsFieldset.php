@@ -12,8 +12,9 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
     {
         $this->setName('buttons');
         if (!isset($this->options['render_summary'])) {
-            $this->setOptions(array('render_summary' => false));
+            $this->options['render_summary'] = false;
         }
+        $this->setAttribute('class', 'text-right');
         
         $this->add(array(
             //'type' => 'Button',
@@ -26,7 +27,7 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'id' => $this->formId . 'submit',
                 'type' => 'submit',
                 'value' => 'Save',
-                'class' => 'sf-submit cam-btn-save'
+                'class' => 'sf-submit btn btn-primary btn-xs'
             ),
         ));
         
@@ -40,7 +41,7 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'id' => $this->formId . 'cancel',
                 'type' => 'reset',
                 'value' => 'Cancel',
-                'class' => 'sf-cancel cam-btn-reset'
+                'class' => 'sf-cancel btn btn-default btn-xs'
             ),
         ));
     }

@@ -14,6 +14,7 @@ use Zend\Form\ElementInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewhelperProviderInterface;
 use Zend\Form\Element\Button;
+use Zend\Form\Element\Select;
 
 class FormRow extends ZendFormRow
 {
@@ -28,6 +29,12 @@ class FormRow extends ZendFormRow
         $this->shouldWrap = (bool) $flag;
         return $this;
     }
+    
+    public function shouldWrap()
+    {
+        return $this->shouldWrap;
+    }
+    
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
      *

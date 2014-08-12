@@ -11,10 +11,10 @@ translate('Apply filter');
 //: ./src/Core/Form/ListFilterButtonsFieldset.php:30
 translate('Reset filter');
 
-//: ./src/Core/Form/SummaryFormButtonsFieldset.php:23
+//: ./src/Core/Form/SummaryFormButtonsFieldset.php:24
 translate('Save');
 
-//: ./src/Core/Form/SummaryFormButtonsFieldset.php:37
+//: ./src/Core/Form/SummaryFormButtonsFieldset.php:38
 translate('Cancel');
 
 //: ./src/Core/Form/PermissionsFieldset.php:65

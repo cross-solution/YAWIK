@@ -80,6 +80,32 @@
 		}
 	};
 	
+	var helpers = {
+		
+		initSelect: function() 
+		{
+			var $select = $(this);
+			var options = {};
+			
+			$.each($select.data(), function(idx, val) {
+				
+				switch (idx) {
+					case "allowclear":
+						idx = "allowClear";
+						val = '1' == val || 'true' == val;
+						break;
+						
+					default:
+						break;
+				}
+				
+				options[idx] = val;
+			});
+			
+			$select.select2(options);
+		}
+	};
+	
 	$.fn.form = function (method) 
 	{
 		return this.each(function() {
@@ -94,10 +120,20 @@
 			$form.submit(handlers.onSubmit);
 			$form.find('[data-trigger="submit"]').change(handlers.onChange);
 		});
-	}
+	};
 
+	if ($.fn.select2) {
+		$.extend(
+			$.fn.select2.defaults, 
+			{
+				minimumResultsForSearch: -1
+			}
+		);
+	}
+	
 	$(function() {
 		$('form:not([data-handle-by]), form[data-handle-by="yk-form"]').form();
+		$('select').each(helpers.initSelect);
 	});
 	
 })(jQuery);
