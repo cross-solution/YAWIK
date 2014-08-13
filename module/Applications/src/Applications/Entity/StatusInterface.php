@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** StatusInterface.php */ 

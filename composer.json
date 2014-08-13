@@ -15,7 +15,7 @@
 		"email": "weitz@cross-solution.de"
 	}
     ],
-    "license": "AGPL-3.0+",
+    "license": "MIT",
     "keywords": [
         "human resource", "human relation", "applicant",
         "zf2"
@@ -40,7 +40,8 @@
         "components/jquery": "1.9.1",
         "fortawesome/font-awesome": "*",
         "twitter/typeahead.js": "*",
-        "blueimp/jquery-file-upload": "dev-master"
+        "blueimp/jquery-file-upload": "dev-master",
+	"ivaynberg/select2": "3.5.*"
     },
     "require-dev": {
     }

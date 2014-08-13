@@ -10,7 +10,7 @@
  * in your own modules configuration file(s) (or via the config autoloading).
  *
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
@@ -280,6 +280,7 @@ return array(
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
             'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
             'formInfoCheckbox' => 'Core\Form\View\Helper\FormInfoCheckbox',
+            'formselect' => 'Core\Form\View\Helper\FormSelect',
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',

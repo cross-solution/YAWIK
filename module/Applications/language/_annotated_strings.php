@@ -101,7 +101,13 @@ translate('I have read the %s and accept it');
 //: ./src/Applications/Form/Attributes.php:47
 translate('Privacy Policy');
 
-//: ./src/Applications/Form/BaseFieldset.php:42
+//: ./src/Applications/Form/BaseFieldset.php:28
+translate('Click here to enter a summary.');
+
+//: ./src/Applications/Form/BaseFieldset.php:45
+translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
+
+//: ./src/Applications/Form/BaseFieldset.php:46
 translate('Summary');
 
 //: ./src/Applications/Controller/ManageController.php:63

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 namespace Core\Form;
@@ -111,6 +111,21 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
     
     public function setValidate() {
         return $this->addClass('validate');
+    }
+    
+    public function isValid()
+    {
+        $isValid = parent::isValid();
+        if ($isValid) {
+            if (is_object($this->object)) {
+                $this->bind($this->object);
+            } else {
+                $filter = $this->getInputFilter();
+                $this->setData($filter->getValues());
+            }
+        }
+        
+        return $isValid;
     }
     
 }

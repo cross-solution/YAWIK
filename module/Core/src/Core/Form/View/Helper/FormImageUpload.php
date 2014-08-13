@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /**  */ 
@@ -35,6 +35,12 @@ class FormImageUpload extends FormFileUpload
                 $preview = '<span>' . $file->getName() . '(' . $file->getPrettySize() . ')</span>';
             }
         }
+        $notice = '<div class="iu-empty-notice" style="padding: 10px; color: lightgrey;">
+                            <div style="padding: 0px 20px 5px;"><span class="yk-icon fa-file-image-o fa-5x"></span></div>
+                            <small>' . $translator->translate('Click here to add an image or use drag and drop.') . '</small>
+                            
+                        </div>';
+        
 
         $markup = '
 <div class="iu-wrapper" data-errors="">
@@ -45,6 +51,7 @@ class FormImageUpload extends FormFileUpload
     <div class="iu-preview">
     %2$s
     </div>
+    %5$s
    <div class="iu-progress">
        <span class="yk-icon yk-icon-spinner fa-spin"></span>
        <span class="iu-progress-percent">0</span>%%
@@ -69,7 +76,8 @@ class FormImageUpload extends FormFileUpload
             $markup, 
             $element->getAttribute('id'), $preview,
             $translator->translate('The file is too big', $textDomain),
-            $translator->translate('The file type is not supported', $textDomain)
+            $translator->translate('The file type is not supported', $textDomain),
+            $notice
             
         );
         return $markup;

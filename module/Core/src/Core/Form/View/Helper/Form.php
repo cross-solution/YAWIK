@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** Core forms view helpers */
@@ -67,7 +67,11 @@ class Form extends ZendForm
         $basepath   = $renderer->plugin('basepath');
         
         $headscript->appendFile($basepath('Core/js/core.spinnerbutton.js'))
+                   ->appendFile($basepath('js/select2.min.js'))
                    ->appendFile($basepath('Core/js/core.forms.js'));
+        
+        $renderer->headLink()->appendStylesheet($basepath('css/select2.css'))
+                             ->appendStylesheet($basepath('css/select2-bootstrap.css'));
         
         if ($scripts = $form->getOption('headscript')) {
             if (!is_array($scripts)) {

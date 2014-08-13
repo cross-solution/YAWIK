@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /**  */ 
@@ -60,7 +60,7 @@ class FileUploadFactory implements FactoryInterface
                     'label' => /*@translate*/ 'Remove all',
                 ),
                 'attributes' => array(
-                    'class' => 'fu-remove-all btn btn-danger'
+                    'class' => 'fu-remove-all btn btn-danger btn-xs pull-right'
                 ),
             ));
         } else {

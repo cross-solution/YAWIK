@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /**  */ 
@@ -16,6 +16,7 @@ use Zend\Form\ElementInterface;
 use Zend\Form\FieldsetInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\DescriptionAwareFormInterface;
+use Core\Form\EmptySummaryAwareInterface;
 
 /**
  * Helper to render a summary form container.
@@ -134,7 +135,7 @@ class SummaryForm extends AbstractHelper
     public function renderSummary(SummaryFormInterface $form)
     {
         return  '<div class="panel panel-default" style="min-height: 100px;">
-                    <div class="panel-body"><button type="button" class="pull-right btn btn-default sf-edit">'
+                    <div class="panel-body"><button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
               . '<span class="yk-icon yk-icon-edit"></span> '
               . $this->getView()->translate('Edit')
               . '</button>'
@@ -153,6 +154,7 @@ class SummaryForm extends AbstractHelper
         if ($element instanceOf Hidden || false === $element->getOption('render_summary')) {
             return '';
         }
+        
         if ($element instanceOf ViewPartialProviderInterface) {
             $partial        = $element->getViewPartial();
             $summaryPartial = $partial . '.summary';
@@ -166,9 +168,22 @@ class SummaryForm extends AbstractHelper
     
             return $this->getView()->partial($summaryPartial, $partialParams);
         }
+        
+        if ($element instanceOf EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
+            $emptySummaryNotice = $this->getTranslator()->translate(
+                $element->getEmptySummaryNotice(), $this->getTranslatorTextDomain()
+            );
+            
+            $markup = sprintf(
+                '<div id="%s-empty-alert" class="empty-summary-notice alert alert-info"><p>%s</p></div>',
+                $element->getAttribute('id'), $emptySummaryNotice
+            );
+            return $markup;
+        }
     
         $label  = $element->getLabel();
         $markup = '';
+        
         if ($element instanceOf FieldsetInterface) {
             if (!$element instanceOf FormInterface && $label) {
                 $markup .= '<h4>' . $label . '</h4>';
