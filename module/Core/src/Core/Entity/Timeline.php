@@ -16,6 +16,37 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * 
  * @ODM\EmbeddedDocument
  */
-class Timeline extends AbstractEntity
+class Timeline extends AbstractEntity 
 {
+    /**
+     * @ODM\Field(type="tz_date")
+     */
+    protected $date;
+    
+    public function __construct()
+    {
+        $this->getDate();
+    }
+    
+    /**
+     * @return the $date
+     */
+    public function getDate ()
+    {
+        if (!$this->date) {
+            $this->setDate(new \DateTime());
+        }
+        return $this->date;
+    }
+
+    /**
+     * @param field_type $date
+     * @return $this
+     */
+    public function setDate (\DateTime $date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+   
 }
