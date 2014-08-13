@@ -32,6 +32,7 @@ class OrganizationName extends Timeline implements OrganizationNameInterface {
         if (!empty($name)) {
             $this->name = $name;
         }
+        parent::__construct();
     }
     
     /**
