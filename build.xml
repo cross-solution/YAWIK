@@ -147,6 +147,9 @@
     <copy file="${vendordir}/ivaynberg/select2/select2x2.png" tofile="${builddir}/public/css/select2x2.png"/>
     <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.js"/>
     <copy file="${project.basedir}/module/FormularValidation/public/js/jquery.formularValidation.js" tofile="${builddir}/public/FormularValidation/js/jquery.formularValidation.js"/>
+    <copy file="${project.basedir}/install.sh" tofile="${builddir}/install.sh"/>
+    <copy file="${project.basedir}/build.xml" tofile="${builddir}/build.xml"/>
+    <copy file="${project.basedir}/build.properties.dist" tofile="${builddir}/build.properties"/>
  
     <mkdir dir="${builddir}/log"/>
     <chmod file="${builddir}/log" mode="0777"/>
@@ -174,34 +177,49 @@
   <target name="generate-autoload-config">
     <property name="target" value="config/autoload" override="true"/>
     <if>
-      <isset property="${facebook.appid}"/>
+      <istrue value="${facebook.enabled}"/>
       <then>
-        <input message="Please enter your facebook App ID:" propertyName="facebook.appid"/>
-        <input message="Please enter your facebook App Secret:" propertyName="facebook.secret"/>
+        <if>
+          <equals arg1="${facebook.appid}" arg2="" trim="true"/>
+          <then>
+            <input message="Please enter your facebook App ID:" propertyName="facebook.appid"/>
+            <input message="Please enter your facebook App Secret:" propertyName="facebook.secret"/>
+          </then>
+        </if>
       </then>
     </if>
     <if>
-      <isset property="${xing.appid}"/>
+      <istrue value="${xing.enabled}"/>
       <then>
-        <input message="Please enter your XING App ID:" propertyName="xing.appid"/>
-        <input message="Please enter your XING App Secret:" propertyName="xing.secret"/>
+        <if>
+          <isset property="${xing.appid}"/>
+          <then>
+            <input message="Please enter your XING App ID:" propertyName="xing.appid"/>
+            <input message="Please enter your XING App Secret:" propertyName="xing.secret"/>
+          </then>
+        </if>
       </then>
     </if>
     <if>
-      <isset property="${linkedin.appid}"/>
-      <then>
-        <input message="Please enter your LinkedIn App ID:" propertyName="linkedin.appid"/>
-        <input message="Please enter your LinkedIn App Secret:" propertyName="linkedin.secret"/>
+      <istrue value="${linkedin.enabled}"/>
+      <then>   
+        <if>
+          <isset property="${linkedin.appid}"/>
+          <then>
+            <input message="Please enter your LinkedIn App ID:" propertyName="linkedin.appid"/>
+            <input message="Please enter your LinkedIn App Secret:" propertyName="linkedin.secret"/>
+          </then>
+        </if>
       </then>
     </if>
-    
     <echo msg="generate config files in: ${target}"/>
     <copy todir="${target}" overwrite="true">
       <fileset dir="${project.basedir}">
         <include name="**/**.dist"/>
         <exclude name="vendor/**"/>
+        <exclude name="build/**"/>
       </fileset>
-      <mapper type="regexp" from="^(.*?)/([^/]+)\.dist" to="\2"/>
+      <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
       <filterchain>
         <replacetokens begintoken="%%" endtoken="%%">
           <token key="mongo.host" value="${mongo.host}"/>

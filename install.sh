@@ -4,6 +4,14 @@
 PHING=phing.phar
 COMPOSER=composer.phar
 
+#
+# assume, the script is running within a development enviroment, if ".git"
+# directory exists
+#
+if [ -d .git ] 
+then
+  DEVENV=1
+fi;
 
 #
 # Download Phing
@@ -19,11 +27,17 @@ fi;
 # Download Composer
 #
 
-if [ ! -f $COMPOSER ]
+if [ $DEVENV ]
 then
-	echo "Download Composer"
-	curl -sS https://getcomposer.org/installer | php
+
+	if [ ! -f $COMPOSER ]
+	then
+		echo "Download Composer"
+		curl -sS https://getcomposer.org/installer | php
+	fi;
+
+	./$PHING
+	
+else
+	./$PHING generate-autoload-config
 fi;
-
-
-./$PHING
