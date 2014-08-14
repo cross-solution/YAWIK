@@ -33,14 +33,14 @@ interface OrganizationInterface
     * @param string organizationName
     * @return OrganizationInterface
     */
-   public function setOrganizationNames(Collection $organizationNames);
+   public function setOrganizationName($organizationNames);
 
    /**
     * Gets the name of the organization
     *
     * @return OrganizationInterface
     */
-   public function getOrganizationNames();
+   public function getOrganizationName();
    
    /**
     * Address provides the information about the address or semantic address 

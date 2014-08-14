@@ -20,49 +20,34 @@ use Core\Entity\Collection\ArrayCollection;
 /**
  * The job model
  *
- * @ODM\Document(collection="organization", repositoryClass="Organizations\Repository\Organization")
+ * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  */
 class Organization extends BaseEntity implements OrganizationInterface {
     
     /**
      * name
      * 
-     * @var Collection \Organizations\Entity\OrganizationName
-     * @ODM\EmbedMany(targetDocument="Organizations\Entity\OrganizationName") 
+     * @var \Organizations\Entity\OrganizationName
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
-    protected $organizationNames; 
-    
-    public function __construct()
-    {
-        //parent::__construct();
-        $this->setOrganizationNames(new ArrayCollection());
-    }
-    
+    protected $organizationName; 
     
    /**
     * @inheritDoc
     */
-    public function setOrganizationNames(Collection $organizationNames) 
+    public function setOrganizationName($organizationName) 
     {
-        $this->organizationNames = $organizationNames;
+        $this->organizationName = $organizationName;
         return $this;
     }
     
-    public function addOrganizationName($organizationName) {
-        $name = new OrganizationName($organizationName);
-        $this->getOrganizationNames()->add($name);
-        return $this;
-    }
-
+ 
    /**
     * @inheritDoc
     */
-   public function getOrganizationNames() 
+   public function getOrganizationName() 
    {
-       if (!isset($this->organizationNames)) {
-           $this->setOrganizationNames(new ArrayCollection());
-       }
-       return $this->organizationNames;
+       return $this->organizationName;
    }
    
    /**
