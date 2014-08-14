@@ -14,4 +14,25 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Organization extends AbstractRepository 
 {
+    /**
+     * Find a organizations.name by an name
+     * 
+     * @param String $uri
+     * @param boolean $create
+     * @return Applications\Entity\Subscriber
+     */
+    public function findbyName($name, $create = false) {
+        $organization = $this->findOneBy(array( "name" => $name ));
+        /*
+        if (!isset($subScriber) && $create) {
+            $subScriber = $this->create();
+            $subScriber->uri = $uri;
+            $this->dm->persist($subScriber);
+            $this->dm->flush();
+        }
+        */
+        return $subScriber; 
+    }
+    
+    
 }

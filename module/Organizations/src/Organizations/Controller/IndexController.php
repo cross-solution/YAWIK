@@ -57,16 +57,29 @@ class IndexController extends AbstractActionController
         //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
         $user = $services->get('AuthenticationService')->getUser();
         
+        $repName = $services->get('repositories')->get('Organizations/OrganizationName');
         $rep = $services->get('repositories')->get('Organizations/Organization');
-        $entity = $rep->create();
         //$rep->store($entity);
         //$entity = $rep->createNew();
-        $entity->addOrganizationName('Cross-Solution');
+        //$entity->addOrganizationName('Cross-Solution');
         //$entity = $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId" => (string) $applyId));
         //if (!isset($entity)) {
         //$entity = $services->get('repositories')->get('Jobs/Job')->create(array("applyId" => (string) $applyId))
         //$entity->setUser($user);
         //$services->get('repositories')->get('Organizations/Organization')->store($entity);
-        $rep->store($entity);
+        
+        $entityName = $rep->findbyName("Nevada");
+        
+        if (False) {
+            $entityName = $repName->create();
+            $entityName->setName('Utah');
+            //$repName->store($entityName);
+        
+        
+            $rep = $services->get('repositories')->get('Organizations/Organization');
+            $entity = $rep->create();
+            $entity->setOrganizationName($entityName);
+            $rep->store($entity);
+        }
     }
 }
