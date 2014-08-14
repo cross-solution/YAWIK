@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="YAWIK" default="install">
-  
+  <if>
+    <not>
+      <available file="./build.properties"/>
+    </not>
+    <then>
+      <echo level="warning">
+
+      the build.properties file does not exists. 
+      
+      Use the build.properties.dist file as template 
+      
+      and adjust the configuration
+
+      </echo>
+      <php expression="exit();"/>
+    </then>
+  </if>
   <property file="./build.properties"/>
   <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
   <property name="builddir" value="./build/${phing.project.name}-${version}" override="false"/>
@@ -291,7 +307,7 @@
     <exec command="phpdoc" dir="." passthru="true"/>
   </target>  
   
-  <target name="deploy-docs" description="build api docs">
+  <target name="deploy-docs" description="publish API docs via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
   </target>
