@@ -36,6 +36,7 @@
     <exclude name="**/*.pot"/>
     <exclude name="**/language/_annotated_strings.php"/>
     <exclude name="public/fonts"/>
+    <exclude name="public/css/select2*"/>
   </fileset>
   <fileset id="languages" dir="${project.basedir}/module">
     <include name="**/**.po"/>
@@ -139,6 +140,11 @@
     <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>   
     <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
+    <copy file="${vendordir}/ivaynberg/select2/select2.min.js" tofile="${builddir}/public/js/select.min.js"/>
+    <copy file="${vendordir}/ivaynberg/select2/select2.css" tofile="${builddir}/public/css/select2.css"/>
+    <copy file="${vendordir}/ivaynberg/select2/select2.png" tofile="${builddir}/public/css/select2.png"/>
+    <copy file="${vendordir}/ivaynberg/select2/select2-spinner.gif" tofile="${builddir}/public/css/select2-spinner.gif"/>
+    <copy file="${vendordir}/ivaynberg/select2/select2x2.png" tofile="${builddir}/public/css/select2x2.png"/>
     <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.js"/>
     <copy file="${project.basedir}/module/FormularValidation/public/js/jquery.formularValidation.js" tofile="${builddir}/public/FormularValidation/js/jquery.formularValidation.js"/>
  
@@ -148,6 +154,7 @@
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
+    <mkdir dir="${builddir}/config/autoload"/>
     
     <echo file="${builddir}/VERSION" append="false">${version}</echo>
        

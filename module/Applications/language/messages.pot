@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 16:35+0200\n"
+"POT-Creation-Date: 2014-08-13 16:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,6 +122,13 @@ msgstr ""
 
 #: view/applications/manage/index.phtml:25
 msgid "List of all applications"
+msgstr ""
+
+#: view/applications/manage/index.phtml:41
+#: view/applications/manage/detail.phtml:152
+#: view/applications/manage/detail.phtml:171
+#: view/applications/manage/detail.phtml:203
+msgid "Cancel"
 msgstr ""
 
 #: view/applications/manage/index.phtml:42
@@ -277,6 +284,10 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
+#: view/applications/manage/detail.phtml:204
+msgid "Save"
+msgstr ""
+
 #: view/applications/manage/detail.phtml:205
 msgid "Add new comment"
 msgstr ""
@@ -318,6 +329,10 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:289
 msgid "no attachments available"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:309
+msgid "Loading"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:329

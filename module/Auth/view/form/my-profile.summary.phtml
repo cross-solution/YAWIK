@@ -6,8 +6,11 @@
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @TODO rename this file into contact.view.phtml
  */
-
+/**
+ * renders the contact informations within the application form and the personal profile.
+ */
 
  $info = $element->getObject();
  if (!$info->getDisplayName()) : ?>
@@ -24,17 +27,10 @@
                 <?php echo $info->street?> <?php echo $info->houseNumber?><br>
                 <?php echo $info->postalCode?> <?php echo $info->city?>
             </adress>
-            
         </div>
         <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-2"><i class="yk-icon yk-icon-phone"></i></div>
-                <div class="col-md-10"><?php echo $info->phone?></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"><i class="yk-icon yk-icon-envelope"></i></div>
-                <div class="col-md-10"><?php echo $info->email?></div>
-            </div>
+            <i class="yk-icon yk-icon-phone"></i> <?php echo $info->phone?><br>
+            <i class="yk-icon yk-icon-envelope"></i> <?php echo $info->email?><br>
         </div>
     </div>
 <?php endif ?>

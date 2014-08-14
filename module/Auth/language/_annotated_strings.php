@@ -35,19 +35,22 @@ translate('Mr.');
 //: ./src/Auth/Form/UserInfoFieldset.php:81
 translate('Mrs.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:90
+//: ./src/Auth/Form/UserInfoFieldset.php:85
+translate('please select');
+
+//: ./src/Auth/Form/UserInfoFieldset.php:93
 translate('First name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:98
+//: ./src/Auth/Form/UserInfoFieldset.php:101
 translate('Last name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:107
+//: ./src/Auth/Form/UserInfoFieldset.php:110
 translate('street');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:114
+//: ./src/Auth/Form/UserInfoFieldset.php:117
 translate('house number');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:126
+//: ./src/Auth/Form/UserInfoFieldset.php:129
 translate('Application photo');
 
 //: ./src/Auth/Form/UserInfo.php:31
