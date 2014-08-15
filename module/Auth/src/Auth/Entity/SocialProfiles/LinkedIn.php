@@ -25,24 +25,27 @@ class LinkedIn extends AbstractProfile
     
     protected $config = array(
         'educations' => array(
-            'key' => 'education',
+            'key' => 'educations',
         ),
         'employments' => array(
-            'key' => 'work',
+            'key' => 'positions',
         ),
         'properties_map' => array(
-            'link' => 'link',
+            'link' => 'public-profile-url',
         ),
     );
     
     protected function filterEducation($data)
     {
         $return = array();
-        if (isset($data['year']['name'])) {
-            $return['endDate'] = $data['year']['name'];
+        if (isset($data['start-date'])) {
+            $return['startDate'] = $data['start-date']['year'] . '-' . $data['start-date']['month'] . '-' . $data['start-date']['day'];
         }
-        if (isset($data['school']['name'])) {
-            $return['organizationName'] = $data['school']['name'];
+        if (isset($data['end-date'])) {
+            $return['endDate'] = $data['end_date']['year'] . '-' . $data['end_date']['month'] . '-' . $data['end_date']['day'];
+        }
+        if (isset($data['school-name'])) {
+            $return['organizationName'] = $data['school-name'];
         }
         
         return $return;
@@ -51,20 +54,21 @@ class LinkedIn extends AbstractProfile
     protected function filterEmployment($data)
     {
         $return = array();
+        $data   = $data['position'][0];
         
-        if (isset($data['start_date'])) {
-            $return['startDate'] = $data['start_date'];
+        if (isset($data['start-date'])) {
+            $return['startDate'] = $data['start-date']['year'] . '-' . $data['start-date']['month'] . '-' . $data['start-date']['day'];
         }
-        if (isset($data['end_date'])) {
-            $return['endDate'] = $data['end_date'];
-        } else {
+        if (isset($data['end-date'])) {
+            $return['endDate'] = $data['end_date']['year'] . '-' . $data['end_date']['month'] . '-' . $data['end_date']['day'];
+        } else if (isset($data['is-current']) && 'true' == $data['is-current'] ) {
             $return['currentIndicator'] = true;
         }
-        if (isset($data['employer']['name'])) {
-            $return['organizationName'] = $data['employer']['name'];
+        if (isset($data['company'])) {
+            $return['organizationName'] = $data['company'];
         }
-        if (isset($data['description'])) {
-            $return['description'] = $data['description'];
+        if (isset($data['summary'])) {
+            $return['description'] = $data['summary'];
         }
         
         return $return;

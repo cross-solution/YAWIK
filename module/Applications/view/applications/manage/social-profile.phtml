@@ -12,7 +12,7 @@
 </div>
 
 <div class="modal-body">
-<?php echo $this->partial('applications/manage/social-profile/'.strtolower($this->profile->name).'.phtml',$this->profile->getData()) ?>
+<?php $this->profile->getEmployments(); echo $this->partial('applications/manage/social-profile/'.strtolower($this->profile->name).'.phtml',$this->profile->getData()) ?>
 
 <div class="col-md-12 sp-raw-data-<?php echo $this->profile->id ?>">
 <h2 style="cursor:pointer">
