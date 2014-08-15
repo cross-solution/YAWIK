@@ -6,6 +6,9 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+/**
+ * reders the detail view of an application.
+ */
 
 use Applications\Entity\StatusInterface as Status;
       
@@ -209,6 +212,7 @@ endif;
  </div>
 </div>
 
+<?php if ($this->auth('role') == 'recruiter'):?>
 <div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="history-box-label" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
@@ -241,6 +245,7 @@ endif;
     </div>
   </div>
 </div>
+<?php endif; ?>
 <div class="row">
   <div class="col-md-4">
     <div class="panel panel-default">
@@ -338,6 +343,7 @@ endif;
           <?php echo $this->translate((string) $this->application->status) ?>
         </td>
       </tr>
+      <?php if ($this->auth('role') == 'recruiter'):?>
       <tr>
         <td><?php echo $this->translate('rating')?>:</td> 
         <td class="col-md-6">
@@ -380,6 +386,7 @@ endif;
         <td><?php echo $this->translate('agent')?>:</td>
         <td><?php echo $this->link($this->application->job->contactEmail)?></td>
       </tr>
+      <?php endif; # allowed only for recruiters ?>
     </table>
     </div>
   </div>
