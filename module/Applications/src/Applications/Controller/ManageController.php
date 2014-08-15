@@ -92,6 +92,16 @@ class ManageController extends AbstractActionController
         $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         $application = $repository->find($this->params('id'));
         
+        if (!$application) {
+            
+            $this->response->setStatusCode(410);
+            $model = new ViewModel(array(
+                'content' => /*@translate*/ 'Invalid apply id'
+            ));
+            $model->setTemplate('applications/error/not-found');
+            return $model;
+        }
+        
     	$this->acl($application, 'read');
     	
     	$applicationIsUnread = false;

@@ -138,6 +138,7 @@ return array(
             'Applications' => __DIR__ . '/../view',
         ),
         'template_map' => array(
+            'applications/error/not-found' => __DIR__ . '/../view/error/not-found.phtml', 
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
