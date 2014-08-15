@@ -348,7 +348,8 @@ class ManageController extends AbstractActionController
     {
         $id          = $this->params('id');
         $services    = $this->getServiceLocator();
-        $repository  = $services->get('repositories')->get('Applications/Application');
+        $repositories= $services->get('repositories');
+        $repository  = $repositories->get('Applications/Application');
         $application = $repository->find($id);
         
         if (!$application) {
@@ -357,7 +358,7 @@ class ManageController extends AbstractActionController
         
         $this->acl($application, 'delete');
         
-        $repository->delete($application);
+        $repositories->remove($application);
         
         if ('json' == $this->params()->fromQuery('format')) {
             return array(
