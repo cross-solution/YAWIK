@@ -19,7 +19,7 @@
   </if>
   <property file="./build.properties"/>
   <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
-  <property name="builddir" value="./build/${phing.project.name}-${version}" override="false"/>
+  <property name="builddir" value="./build/${phing.project.name}" override="false"/>
   <property name="vendordir" value="./vendor" override="false"/>
   <if>
     <not>
@@ -60,6 +60,12 @@
 
   <fileset id="awesomefonts" dir="${vendordir}/fortawesome/font-awesome">
     <include name="fonts/*"/>
+  </fileset>
+
+  <fileset id="blueimp" dir="${vendordir}/blueimp/jquery-file-upload/js">
+    <include name="jquery.iframe-transport.js"/>
+    <include name="jquery.fileupload.js"/>
+    <include name="vendor/jquery.ui.widget.js"/>
   </fileset>
   
   <!-- ============================================  -->
@@ -152,6 +158,10 @@
       <fileset refid="awesomefonts"/>
     </copy>
     
+    <copy todir="${builddir}/public/js/jquery-file-upload">
+      <fileset refid="blueimp"/>
+    </copy>
+    
     <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>   
@@ -178,10 +188,10 @@
     <echo file="${builddir}/VERSION" append="false">${version}</echo>
        
     <tar destfile="build/YAWIK-${version}.tgz"
-         basedir="${builddir}"
+         basedir="${builddir}/.."
          compression="gzip" /> 
-    <echo msg="exec: zip -r  build/YAWIK-${version}.zip ${builddir}"/>
-    <exec command="zip -r  build/YAWIK-${version}.zip ${builddir}" logoutput="false"/>
+    <echo msg="exec: zip -r YAWIK-${version}.zip YAWIK"/>
+    <exec dir="${builddir}/.." command="zip -r YAWIK-${version}.zip YAWIK" logoutput="false"/>
     
     <symlink link="build/latest.zip" target="YAWIK-${version}.zip" />
     <symlink link="build/latest.tgz" target="YAWIK-${version}.tgz" />
@@ -283,8 +293,8 @@
     <tar destfile="build/YAWIK-docs-${version}.tgz"
          basedir="${project.basedir}/docs"
          compression="gzip" /> 
-    <echo msg="exec: zip -r  build/YAWIK-${version}.zip ${project.basedir}/module"/>
-    <exec command="zip -r  build/YAWIK-${version}.zip ${builddir}" logoutput="false"/>
+    <echo msg="exec: zip -r  YAWIK-${version}.zip YAWIK"/>
+    <exec dir="${builddir}/.." command="zip -r  YAWIK-${version}.zip YAWIK" logoutput="false"/>
 
   </target>  
   <!-- ============================================  -->
@@ -310,6 +320,11 @@
   <target name="deploy-docs" description="publish API docs via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
+  </target>
+  
+  <target name="deploy-builds" description="publish TGZ and ZIP packages via rsync">
+    <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.build.target}"/>
+    <exec command="rsync -rv ${project.basedir}/build/ -l --exclude=YAWIK   ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.build.target}" passthru="true"/>
   </target>
             
 </project>
