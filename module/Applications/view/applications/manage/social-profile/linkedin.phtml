@@ -14,7 +14,7 @@
 <div class="panel-heading"><?php echo $this->translate('personal information'); ?></div>
 <div class="panel-body">
 <div class="pull-left">
-<img class="yk-portrait" src="<?php echo $this->{'picture-url'};?>"/>
+<?php if (null !== $this->{'picture-url'}): ?><img class="yk-portrait" src="<?php echo $this->{'picture-url'};?>"/><?php endif ?>
 
 </div>
 <div>
@@ -45,28 +45,36 @@ endif;
 </div>
 </div>
 
-<?php if(isset($this->educational_background)):?>
+<?php if(isset($this->educations)):?>
 <div class="panel panel-default">
 <div class="panel-heading"><?php echo $this->translate("education")?></div>
 <table class="table table-bordered table-condensed">
 <tr>
 <th><?php echo $this->translate("Date")?></th>
 <th><?php echo $this->translate("School or university")?></th>
-<th><?php echo $this->translate("Notes")?></th>
+<th><?php echo $this->translate("Degree")?></th>
 </tr>
-<?php foreach($this->educational_background['schools'] as $edu):?>
+<?php foreach($this->educations as $edu):?>
 <tr>
  <td>
-   <?php echo isset($edu['begin_date'])?$edu['begin_date']:'';?>
-   <?php echo isset($edu['end_date'])?' - '.$edu['end_date']:'';?>
+    <?php if (isset($edu['start-date'])):
+        $date=DateTime::createFromFormat('Y-m-d', $edu['start-date']['year'] . '-' . 
+                                            $edu['start-date']['month'] . '-'.
+                                            $edu['start-date']['day']);
+        echo $this->dateFormat($date, 'short', 'none');
+    endif;?>
+    <?php if (isset($edu['end-date'])):?> - <?php 
+        $date=DateTime::createFromFormat('Y-m-d', $edu['end-date']['year'] . '-' . 
+                                            $edu['end-date']['month'] . '-'.
+                                            $edu['end-date']['day']);
+        echo $this->dateFormat($date, 'short', 'none');
+    endif;?>
  </td>
  <td>
-   <?php echo isset($edu['name'])?$edu['name']:'';?>
-   <?php echo isset($edu['subject'])?'<br/>'.$edu['subject']:'';?>
-   <?php echo isset($edu['degree'])?'<br/>'.$edu['degree']:'';?>
+   <?php echo isset($edu['school-name'])?$edu['school-name']:'';?>
  </td> 
  <td>
-   <?php echo isset($edu['notes'])?$edu['notes']:'';?>
+   <?php echo isset($edu['degree'])?$edu['degree']:'';?>
  </td>
 </tr>
 <?php endforeach;?>
@@ -88,21 +96,27 @@ endif;
 <?php if(isset($work_experience['id'])):?>
 <tr>
  <td>
- <?php echo isset($work_experience['start-date']['year'])?$work_experience['start-date']['year']:'';?>
- <?php echo (isset($work_experience['is-current']) and $work_experience['is-current'])?$this->translate('ongoing'):'';?>
+ <?php if (isset($work_experience['start-date'])):
+        $date=DateTime::createFromFormat('Y-m-d', $work_experience['start-date']['year'] . '-' . 
+                                            $work_experience['start-date']['month'] . '-'.
+                                            $work_experience['start-date']['day']);
+        echo $this->dateFormat($date, 'short', 'none');
+    endif;?>
+    <?php if (isset($work_experience['end-date'])):?> - <?php 
+        $date=DateTime::createFromFormat('Y-m-d', $work_experience['end-date']['year'] . '-' . 
+                                            $work_experience['end-date']['month'] . '-'.
+                                            $work_experience['end-date']['day']);
+        echo $this->dateFormat($date, 'short', 'none');
+    endif;?>
  </td>
  <td>
-   <?php echo isset($work_experience['company']['name'])?$work_experience['company']['name']:'';?>
-   <?php echo isset($work_experience['company']['size'])?'<br/>'.$this->translate('Size'). ': '. $work_experience['company']['size']:'';?>
-   <?php echo isset($work_experience['company']['type'])?'<br/>'.$this->translate('Type'). ': '.$work_experience['company']['type']:'';?>
-  
+   <?php echo isset($work_experience['company'])?$work_experience['company']:'';?>
  </td>
  <td>
    <?php echo isset($work_experience['title'])?$work_experience['title']:'';?>
  </td>
  <td>
-  <?php echo isset($work_experience['company']['industry'])?'<br/>'.$this->translate('Industry'). ': ' .$work_experience['company']['industry']:'';?>
- <?php echo isset($work_experience['description'])?$work_experience['description']:'';?>
+ <?php echo isset($work_experience['summary'])?$work_experience['summary']:'';?>
  </td>
 </tr>
 <?php endif;?>
@@ -111,11 +125,3 @@ endif;
 </div>
 <?php endif;?>
 
-<?php if(isset($this->languages)):?>
-<div class="panel panel-default">
-<div class="panel-heading"><?php echo $this->translate("language skills"); ?></div>
-<div class="panel-body">
- <br/><?php echo join(", ",array_keys($this->languages))?>
-</div>
-</div>
-<?php endif;?>
