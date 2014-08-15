@@ -25,6 +25,7 @@
 			$tpl.remove();
 			if (!$ul.find('li').length) {
 				$ul.parent().find('.fu-empty-notice').show();
+				$ul.parent().find('.fu-nonempty-notice').hide();
 			}
 		};
 		
@@ -77,6 +78,7 @@
 				add: function(e, data)
 				{
 					$form.find('.fu-empty-notice').hide();
+					$form.find('.fu-nonempty-notice').show();
 					
 					var iconType = "fa-file";
 					var fileType = data.files[0].type;

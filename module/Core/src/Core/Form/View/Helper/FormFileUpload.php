@@ -81,7 +81,7 @@ class FormFileUpload extends FormFile
     </div>
     <a class="fu-file-info" href="__file-uri__" target="_blank">
         <span class="yk-icon fa-file-o fa-4x"></span>
-        __file-name__ (__file-size__)
+        __file-name__ <br> (__file-size__)
     </a>
     <div class="fu-errors input-error">
         <ul class="errors">
@@ -119,19 +119,20 @@ class FormFileUpload extends FormFile
             $class = 'fu-single';
         }
         
-        if ('' == trim($preview)) {
-            $notice = '<div class="fu-empty-notice" style="padding: 5px 20px; color: lightgrey;">
-                            <div class="pull-left">
-                                <span class="yk-icon fa-files-o fa-5x"></span>
-                            </div>
-                            <small style="display:block; padding: 25px 80px 0px;">' . $translator->translate('Click here to add files or use drag and drop.') . '</small>
-                        </div>';
-        } else {
-            $notice = '';
-        }
+       $notice = '<small>' . $translator->translate('Click here to add files or use drag and drop.') . '</small>';
+       $nonemptynotice = '<div class="fu-nonempty-notice"' . ('' == trim($preview) ? ' style="display:none;"' : '') . '>'
+                       . $notice . '</div>' ;
+       $emptynotice = '<div class="fu-empty-notice"'
+                        . ('' == trim($preview) ? '' : ' style="display: none;"') . '>
+                       <div class="pull-left">
+                            <span class="yk-icon fa-files-o fa-5x"></span>
+                        </div>' . $notice . '
+                  </div>';
+
         $markup = '
 <div class="fu-dropzone %1$s" id="%2$s-dropzone">
     <span class="fu-template" data-template="%4$s"></span>
+    %6$s
     <ul class="fu-files">
     %3$s
     </ul>
@@ -145,7 +146,7 @@ class FormFileUpload extends FormFile
             $element->getAttribute('id'), 
             $preview, 
             $this->getView()->escapeHtmlAttr(trim($template)),
-            $notice
+            $emptynotice, $nonemptynotice
         );
         return $markup;
     }
