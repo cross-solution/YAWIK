@@ -22,7 +22,7 @@ $formCheckBox = $this->services("FormElementManager.checkBox");
  * is currently unused
  */
 $formCheckBox->setAttributes(array('name' => 'unused','style'=>'margin-top:-4px'));
-$renderedFormCheckBox = $this->formCheckBox($formCheckBox);
+$renderedFormCheckBox = $this->formCheckBox()->renderBare($formCheckBox);
 
 $columnLabel = $renderedFormCheckBox.'
 <span class="dropdown btn-group" id="action">

@@ -17,14 +17,23 @@ mongo.db=Yawik
 ; initial user login. The useraccount will be added to the mongodb if not exist.
 ;
 
-username=demo
-password=demo
+username=
+password=
 
 ;
 ; Email (module/Core/config/core.mails.global.php.dist).
 ;
 mail.from.email=demo@yawik.org
 mail.from.name=YAWIK
+
+;
+; Email development system settings
+; (module/Core/config/core.mails.development.php.dist).
+;
+; Override recipient for every mail send. (including CC and BCC)
+; Use comma to separate multiple addresses.
+;
+mail.develop.override_recipient=false
 
 ;
 ; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)
