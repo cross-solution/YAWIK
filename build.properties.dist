@@ -17,8 +17,8 @@ mongo.db=Yawik
 ; initial user login. The useraccount will be added to the mongodb if not exist.
 ;
 
-username=demo
-password=demo
+username=
+password=
 
 ;
 ; Email (module/Core/config/core.mails.global.php.dist).

@@ -9,6 +9,7 @@ use Auth\Entity\Filter\CredentialFilter;
 class User extends AbstractAdapter
 {
     protected $repository;
+    protected $defaultUser;
     
     public function __construct($repository, $identity=null, $credential=null)
     {
@@ -22,6 +23,11 @@ class User extends AbstractAdapter
         return $this->repository;
     }
     
+    public function setDefaultUser($login, $password = null)
+    {
+        $this->defaultUser = array($login, $password);
+        return $this;
+    }
     
     public function authenticate()
     {
@@ -32,7 +38,16 @@ class User extends AbstractAdapter
         $credential  = $this->getCredential();
         
         if (!$user) {
-            return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, $identity, array('User not known or invalid credential'));
+            if (!$this->defaultUser || $identity != $this->defaultUser[0]) {
+                return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, $identity, array('User not known or invalid credential'));
+            }
+            $password = $this->defaultUser[1];
+            $user = $users->create(array(
+                'login' => $identity,
+                'password' => $password
+            ));
+            
+            $users->getDocumentManager()->persist($user);
         }
         
         if ($user->credential != $filter->filter($credential)) {
