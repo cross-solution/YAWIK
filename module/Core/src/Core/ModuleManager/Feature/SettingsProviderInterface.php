@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\ModuelManager\Feature;
+namespace Core\ModuleManager\Feature;
 
 interface SettingsProviderInterface
 {
