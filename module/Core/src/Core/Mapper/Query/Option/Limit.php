@@ -21,8 +21,9 @@ class Limit extends AbstractOption
         return $this->count;
     }
 
-	/**
+    /**
      * @param field_type $count
+     * @return $this
      */
     public function setCount ($count)
     {

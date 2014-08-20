@@ -1,17 +1,26 @@
-
-<?$this->headstyle('img.user-image { max-width:150px; max-height: 250px; }'); ?>
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @TODO rename this file into contact.form.phtml
+ */
+/**
+ * renders the contact formular within the application form and the personal profile.
+ */
+
     $layout = !empty($this->layout)?$this->layout:null;
 ?>
-
-
 <fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-info'?>">
-    <legend><?php echo $this->translate($element->getLabel())?></legend>
+    <?php /*<legend><?php echo $this->translate($element->getLabel())?></legend>*/?>
     <div class="fieldset-content">
-       <div class="row">
+      
             
-            <div class="col-md-9">
-                <?php echo $this->formRow($element->get('gender')); ?>
+      
+                <?php echo $this->formRow($element->get('gender'), null, null, $layout); ?>
                 <?php echo $this->formRowCombined(
                     array(4 => $element->get('firstName'), 5 => $element->get('lastName')), null, null, $layout
                 );?>
@@ -25,20 +34,6 @@
                       echo $this->formRow($element->get('email'), null, null, $layout);?>
 
                       
-            </div>
-            <div class="col-md-3">
-                <div class="controls controls-row row">
-                    <?php if ($image = $element->getObject()->getImage()): ?>
-                    <div class="col-md-12 text-center">
-                        <img src="<?php echo $this->basePath($image->getUri()) ?>" class="user-image img-polaroid" />
-                        <?php echo $this->formRow($element->get('imageId')->setValue($image->getId())) ?>
-                    </div>
-                    <? endif ?>
-                </div>
-                <?php echo $this->formRow($element->get('image')) ?>
-                
-            </div>
-        </div>
        
     </div>
     

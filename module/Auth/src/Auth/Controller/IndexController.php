@@ -4,7 +4,7 @@
  * 
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** Auth controller */
@@ -165,7 +165,7 @@ class IndexController extends AbstractActionController
                 $mail->setFrom('contact@yawik.org', 'YAWIK');
                 $mail->setSubject(/* @translate */ 'Welcome to YAWIK!');
             }
-            if (isset($mail) && $mail->send()) {
+            if (isset($mail) && $this->mailer($mail)) {
                 $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());
             } else {
                 $this->getServiceLocator()->get('Log/Core/Cam')->warn('No Mail was sent');
@@ -291,7 +291,7 @@ class IndexController extends AbstractActionController
                 $mail->addTo($user->getInfo()->getEmail());
                 $mail->informationComplete();
                 
-                if (isset($mail) && $mail->send()) {
+                if (isset($mail) && $this->mailer($mail)) {
                     $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $userName);
                 } else {
                     $this->getServiceLocator()->get('Log/Core/Cam')->warn('No Mail was sent');

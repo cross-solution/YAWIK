@@ -8,7 +8,7 @@
 		var divId = '#userselect-' + $(this).data('div-id');
 		$(divId).remove();
 		return false;
-	};
+	}
 	
 	function searchUsers(event)
 	{
@@ -23,7 +23,7 @@
 			.done(searchUsersResult);
 		}, 1000);
 		//return false;
-	};
+	}
 	
 	function findNextIndex()
 	{
@@ -103,7 +103,7 @@
 			return false;
 		});
 		
-	};
+	}
 	
 	$(function() { init(); });
 })(jQuery);

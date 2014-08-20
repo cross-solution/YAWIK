@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** Acl.php */ 
@@ -35,6 +35,7 @@ class Acl extends AbstractHelper
 
     /**
      * @param field_type $acl
+     * @return $this
      */
     public function setAclPlugin (AclPlugin $aclPlugin)
     {

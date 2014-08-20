@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 namespace Applications\Repository;
 
@@ -18,14 +18,55 @@ use Doctrine\ODM\MongoDB\Events;
 use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
 use Zend\Stdlib\ArrayUtils;
+use Auth\Entity\UserInterface;
 
 /**
  * class for accessing applications
+ * 
+ * @todo find better mechanism for loading drafts or applications or both states.
  * 
  * @package Applications
  */
 class Application extends AbstractRepository
 {   
+    /**
+     * {@inheritDoc}
+     */
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    {
+        if (!array_key_exists('isDraft', $criteria)) {
+            $criteria['isDraft'] = false;
+        } else if (null === $criteria['isDraft']) {
+            unset($criteria['isDraft']);
+        }
+        return parent::findBy($criteria, $sort, $limit, $skip);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneBy(array $criteria)
+    {
+        if (!array_key_exists('isDraft', $criteria)) {
+            $criteria['isDraft'] = false;
+        } else if (null === $criteria['isDraft']) {
+            unset($criteria['isDraft']);
+        }
+        return parent::findOneBy($criteria);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function createQueryBuilder($findDrafts = false)
+    {
+        $qb = parent::createQueryBuilder();
+        if (null !== $findDrafts) {
+            $qb->field('isDraft')->equals($findDrafts);
+        }
+        return $qb;
+    }
+    
     /**
      * Gets a pointer to an application
      * 
@@ -69,13 +110,22 @@ class Application extends AbstractRepository
         $list = new PaginationList(array_keys(ArrayUtils::iteratorToArray($cursor)));
         return $list;
     }
+
+    public function loadApplicationsForJob($job)
+    {
+        return $this->createQueryBuilder()
+                    ->field("job")->equals(new \MongoId($job->id))
+                    ->getQuery()
+                    ->execute();
+    }
     
     /**
      * Get unread applications
      *
      * @param \Jobs\Entity\JobInterface $job
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
      */
-    public function getUnreadApplications($job) 
+    public function loadUnreadApplicationsForJob($job) 
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()
@@ -83,12 +133,13 @@ class Application extends AbstractRepository
                   ->field("job")->equals( new \MongoId($job->id));
         return $qb->getQuery()->execute();          
     }
-    
+
     /**
      * Get comments of an applications
-     * 
-     * @param \Application\Entity\Comment $comment | Id
-     * @return $comment|NULL
+     *
+     * @param $commentOrId
+     * @internal param \Application\Entity\Comment $comment | Id
+     * @return null $comment|NULL
      */
     public function findComment($commentOrId)
     {
@@ -114,7 +165,7 @@ class Application extends AbstractRepository
      */
     public function findProfile($profileId)
     {
-        $application = $this->findOneBy(array('profiles._id' => new \MongoId($profileId)));
+        $application = $this->findOneBy(array('isDraft' => null, 'profiles._id' => new \MongoId($profileId)));
         foreach ($application->getProfiles() as $profile) {
             if ($profile->getId() == $profileId) {
                 return $profile;
@@ -123,39 +174,44 @@ class Application extends AbstractRepository
         return null;
     }
     
-    /**
-     * Save an application
-     * 
-     * @param ApplicationInterface $application
-     * @param string $resetModifiedDate
-     */
-    public function save(ApplicationInterface $application, $resetModifiedDate=true)
-    {
-        if ($resetModifiedDate) {
-            $application->setDateModified('now');
-        }
-        $this->dm->persist($application);
-        $this->dm->flush();
-    }
-    
-    /**
-     * delete an application
-     * 
-     * @param EntityInterface $entity
-     * @return \Applications\Repository\Application
-     */
-    public function delete(EntityInterface $entity)
-    {
-        $this->dm->remove($entity);
-        $this->dm->flush();
-        return $this;
-    }
-    
     public function getStates()
     {
         $qb = $this->createQueryBuilder();
         $qb->hydrate(false)->distinct('status.name');
         $result = $qb->getQuery()->execute();
         return $result;
+    }
+    
+    public function findDraft($user, $applyId)
+    {
+        if ($user instanceOf UserInterface) {
+            $user = $user->getId();
+        }
+        
+//         $qb = $this->createQueryBuilder();
+//         $qb->addOr(
+//                 $qb->expr()
+//                    ->field('user')->equals($user)
+//             )
+//            ->addOr(
+//                 $qb->expr()
+//                    ->field('permissions.change')
+//                    ->equals($user)
+//             );
+        
+        $documents = $this->findBy(array(
+            'isDraft' => true,
+            '$or' => array(
+                array('user' => $user),
+                array('permissions.change' => $user)
+            )
+        ));
+        foreach ($documents as $document) {
+            if ($applyId == $document->getJob()->getApplyId()) {
+                return $document;
+            }
+        }
+        
+        return null;
     }
 }

@@ -1,0 +1,37 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @TODO rename this file into contact.view.phtml
+ */
+/**
+ * renders the contact informations within the application form and the personal profile.
+ */
+
+ $info = $element->getObject();
+ if (!$info->getDisplayName()) : ?>
+ <div id="<?php echo $element->getAttribute('id') ?>-empty-alert" class="empty-summary-notice alert alert-info">
+    <p><?php echo $this->translate('Click here to enter contact informations.') ?></p>
+ </div>
+        
+ <?php else: ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?php echo $this->translate($this->salutation($info->gender))?><br>
+            <strong><?php echo $info->displayName?></strong><br><br>
+            <adress>
+                <?php echo $info->street?> <?php echo $info->houseNumber?><br>
+                <?php echo $info->postalCode?> <?php echo $info->city?>
+            </adress>
+        </div>
+        <div class="col-md-6">
+            <i class="yk-icon yk-icon-phone"></i> <?php echo $info->phone?><br>
+            <i class="yk-icon yk-icon-envelope"></i> <?php echo $info->email?><br>
+        </div>
+    </div>
+<?php endif ?>
+

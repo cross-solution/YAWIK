@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 namespace Auth\Form;
@@ -19,6 +19,7 @@ class Login extends Form
 	public function init()
     {
         $this->setName('login-form');
+        $this->setAttribute('data-handle-by', 'native');
              
         
         $fieldset = new Fieldset('credentials');

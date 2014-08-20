@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** FileAccessAssertion.php */ 
@@ -26,6 +26,7 @@ class ApplicationAccessAssertion implements AssertionInterface
      * (non-PHPdoc)
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
      * @param string $privilege
+     * @return bool
      */
     public function assert(Acl $acl, 
                            RoleInterface $role = null, 

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** Group.php */ 
@@ -103,6 +103,7 @@ class Group extends AbstractIdentifiableEntity
     
     /**
      * {inheritDoc}
+     * @param array $users
      * @return Group
      * @see \Auth\Entity\GroupInterface::setUsers()
      */

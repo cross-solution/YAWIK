@@ -1,0 +1,319 @@
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
+ * @license   GPLv3
+ */
+
+/**
+ * we've replaced glyphicons with font-awesome. therefore bootstrap/bootstrap.less from 
+ * the bootstrap dist was copied to the local bootstrap.less. 
+ * include "glyphicons.less" was replaces by "font-awesome/font-awesome.less"
+ **/
+@import "bootstrap.less";
+
+@import "general.less";
+
+@import "include/buttons.less";
+@import "include/icons.less";
+@import "include/panel.less";
+@import "include/rating.less";
+@import "include/typeahead.less";
+@import "include/forms.less";
+
+@yawik-css-prefix:    yk;
+
+// the default values of the bootstrap global variables are defined in bootstrap/variables.less.
+// you can overwrite them here. 
+
+@navbar-height:                     50px;
+@footer-height:			    25px;
+
+@navbar-default-link-color:         @brand-primary;
+@navbar-default-link-hover-color:   @link-hover-color;
+
+
+
+
+@navbar-default-link-active-color:  @brand-primary;  
+@nav-pills-active-link-hover-color: #FAA427;
+@nav-pills-active-link-hover-bg:    darken(@brand-primary, -80%);
+@input-border-focus:                darken(@brand-primary, -20%);
+
+// Brand colors
+// -------------------------
+@brand-primary:         #5498D7;
+
+// Links
+// -------------------------
+@link-color:            @brand-primary;
+@link-hover-color:      #FAA427;
+
+// Inverted navbar
+//
+// Reset inverted navbar basics
+@navbar-inverse-color:		            #FFFFFF;
+@navbar-inverse-bg:                         @brand-primary;
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 #FFFFFF;
+@navbar-inverse-link-hover-color:           @link-hover-color;
+@navbar-inverse-link-hover-bg:              darken(@brand-primary, 5%);
+
+@table-bg-header:  #EFEFEF;
+
+// CAM Variables
+@colorError:               #B94A48;
+@colorErrorShadow:         #D59392;
+@colorErrorBorder:         #953B39;
+@backgroundFieldset:       #fdfdfd;
+@backgroundSidebarActive:  #f5f5f5;
+
+body {
+	padding: @navbar-height 0 25px;	
+	position: relative;
+}
+
+th {
+  background-color: @table-bg-header;
+}
+
+#cam-topbar {
+  .navbar;
+  .navbar-inverse;
+  .navbar-fixed-top;
+  .cam-nav;
+}
+
+main {
+	margin-bottom: (@footer-height + 10px);
+}
+
+h1 {
+  font-size: 28px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 22px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 18px;
+}
+h6 {
+  font-size: 16px;
+}
+
+/*
+ * Scrollable modal
+ */
+.modal-scrollable {
+	.modal-body {
+		max-height: 450px;
+		overflow-y: auto;
+	}
+}
+.cam-input-group {
+  .input-group;
+}
+
+
+/**
+ * toolbar on the main section
+ */
+.cam-toolbar {
+  margin: 0 0 8px;
+  padding: 0px;
+  min-height: 0px;
+
+  .cam-input-group {
+    max-width: 400px;
+    min-width: 250px;
+    float: left;
+  }
+  .cam-action-states {
+    max-width: 400px;
+    min-width: 100px;
+    margin-right: 4px;
+    float:left;
+  }
+}
+
+.cam-thumbnail {
+  max-height: 50px;
+}
+
+/**
+ * footer on the page
+ */
+#cam-footer {
+        .hidden-xs;
+        .navbar;
+        .navbar-fixed-bottom;
+	height:	    @footer-height;
+	min-height: @footer-height;
+	max-height: @footer-height;
+	background-color: @gray-lighter;
+}     
+
+#login-info-box {
+
+  a {
+	color: @navbar-inverse-link-color;
+	background-color:@brand-primary;
+  }
+  a:hover {
+	color: @navbar-inverse-link-hover-color;
+	backbround-color: @brand-primary;
+  }
+
+  li li {
+    a {
+ 	color: @navbar-default-link-color;
+	background-color: @dropdown-bg;
+    }
+    a:hover {
+	color: @navbar-default-link-hover-color;
+	background-color: @dropdown-link-hover-bg;
+    }
+  }
+}
+
+// Sidebar
+
+#sidebar {
+	#language-switcher {
+		width: 100%;
+	}
+	> div {
+		margin-top: 20px;
+
+ 	}
+  	ul li.active a {
+		background-color: @backgroundSidebarActive;
+	}
+} 
+
+label {
+	margin-top: 5px;
+}
+.buttons-row > * {
+	margin-right: 15px;
+}
+form .input-error {
+	color: @colorError;
+}
+form .input-error input {
+	border-color: @colorError;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+form .input-error input:focus {
+	border-color: @colorErrorBorder;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px @colorErrorShadow;
+}
+/*
+fieldset fieldset,
+fieldset .fieldset-content {
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: @backgroundFieldset;
+}
+*/
+.form-inline fieldset .fieldset-content .controls-row {
+	margin-bottom: 15px;
+}
+fieldset legend > a {
+	margin-top: 5px;
+	margin-right: 5px;
+}
+fieldset fieldset a.remove-item {
+	margin-top: -15px;
+	margin-right: 5px;
+}
+
+
+#params-search-wrapper {
+  .col-xs-6 {
+  padding-left: 0px;
+  padding-right: 0px;
+  }
+}
+
+
+.btn-group {
+ .col-md-3,
+ .col-md-6 {
+    padding-left: 0px;
+    padding-right: 0px;
+ }
+}
+
+
+/*
+ * Main navigation
+ *
+ * Turn the `.navbar` at the top of the docs purple.
+ */
+
+.cam-nav {
+  text-shadow: 0 -1px 0 rgba(0,0,0,.15);
+  border-color: darken(@brand-primary, -20%);
+  box-shadow: 0 1px 0 rgba(255,255,255,.1);
+
+ .navbar-collapse {
+   border-color: darken(@brand-primary, -20%);
+ }
+ .navbar-toggle {
+  border-color: darken(@brand-primary, -20%);
+ }
+ .navbar-toggle:hover {
+  border-color: darken(@brand-primary, -30%);
+ }
+}
+
+#login-info-box {
+  .dropdown-header {
+    a,
+    a:hover {
+      color: @text-color;
+      text-decoration: none;
+      cursor: default;
+      background: none;
+    } 
+  }
+}
+
+.cam-form-add {
+  .btn;
+  .btn-default;
+  .pull-right;
+}
+.cam-form-remove {
+  .btn;
+  .btn-default;
+  .pull-right;
+}
+#contact-image {
+  border: none;
+  box-shadow: none;
+  padding: 0px 12px;
+}
+#attachments input {
+  border: none;
+  box-shadow: none;
+  padding: 0px 12px;
+}
+
+#profiles {
+  margin-bottom:20px;
+}

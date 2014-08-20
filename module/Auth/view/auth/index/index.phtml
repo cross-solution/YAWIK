@@ -4,7 +4,7 @@
  * View template of the Login site
  * 
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 ?>
 <?php if ($this->required):?>
@@ -17,7 +17,7 @@
 
 <p><?php 
 $this->form->setAttributes(array(
-    'action' => $this->url('lang/auth', array(), array('query' => array_map('urlencode', $this->params()->fromQuery())), true),
+    'action' => $this->url('lang/auth', array(), array('query' => $this->params()->fromQuery()), true),
     'method' => 'post',
     'id' => 'login-form',
 ));

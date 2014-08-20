@@ -28,7 +28,7 @@
 		console.debug(defaultParams, $form.find('.btn-toolbar label'));
 		$form.find('.btn-toolbar label').removeClass('active');
 		$.each(defaultParams, function(idx, val) {
-			var $elem = $form.find('[name="' + val.name + '"]')
+			var $elem = $form.find('[name="' + val.name + '"]');
 			if ($elem.is(':radio')) {
 				$elem.each(function() { 
 					if ($(this).val() == val.value) {
@@ -48,7 +48,7 @@
 	
 	var initListFilter = function()
 	{
-		var $form = $('#jobs-list-filter')
+		var $form = $('#jobs-list-filter');
 		defaultParams = $form.serializeArray();
 		$form.submit(onListFilterFormSubmit);
 		$form.find('.btn-toolbar input:radio')

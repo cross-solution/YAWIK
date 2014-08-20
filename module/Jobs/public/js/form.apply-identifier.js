@@ -23,7 +23,7 @@
 			state = 'input';
 		}
 		return false;
-	};
+	}
 	
 	function checkInput()
 	{
@@ -54,15 +54,15 @@
 		
 		$input.find('input').keypress(function(e) { if (13 == e.which) { return checkInput(); }});
 		$display.click(toggleInput)
-		        .removeClass('hidden').hide()
-		        .find('.panel').css('margin-bottom', '0px')
+            .removeClass('hidden').hide()
+            .find('.panel').css('margin-bottom', '0px');
          
 		if (!$input.find('#job-applyId-span').hasClass('input-error')) {
 			$input.hide();
 			$display.show();
 			state="display";
 		}
-	};
+	}
 	
 	$(init);
 	

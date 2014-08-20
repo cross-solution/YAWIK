@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 $this->headScript()->appendFile($this->basePath('Jobs/js/form.apply-identifier.js'));
@@ -18,7 +18,7 @@ $value = $this->element->getValue();
 <div class="controls controls-row row apply-identifier-display hidden" id="<?php echo $this->element->getAttribute('id') ?>-display">
     <div class="col-md-3 text-right"><label class="text-muted"><?php echo $this->translate('Apply link') ?></label></div>
     <div class="col-md-9"><div class="panel panel-default form-control">
-        <span class="text-muted apply-identifier-link"><?php echo $this->serverurl($this->url('lang/apply/form', array('jobId' => $value), true)) ?>
+        <span class="text-muted apply-identifier-link"><?php echo $this->serverurl($this->url('lang/apply', array('applyId' => $value), true)) ?>
         </span>
     </div></div>
 </div>

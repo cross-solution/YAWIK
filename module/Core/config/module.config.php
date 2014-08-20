@@ -10,7 +10,7 @@
  * in your own modules configuration file(s) (or via the config autoloading).
  *
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 $doctrineConfig = include __DIR__ . '/doctrine.config.php';
@@ -134,7 +134,7 @@ return array(
     
     'acl' => array(
         'rules' => array(
-            'user' => array(
+            'guest' => array(
                 'allow' => array(
                     //'route/file',
                     'Entity/File' => array(
@@ -209,7 +209,6 @@ return array(
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
         'factories' => array(
-            'mailstackmailer' => 'Core\Controller\Plugin\Mailfactory',
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
         ),
@@ -270,10 +269,17 @@ return array(
 //            'form_radio' => 'Core\Form\View\Helper\FormRadio',
 //            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
             'form' => 'Core\Form\View\Helper\Form',
+            'formContainer' => 'Core\Form\View\Helper\FormContainer',
+            'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
+            'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
+            'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
+            'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
+            'formInfoCheckbox' => 'Core\Form\View\Helper\FormInfoCheckbox',
+            'formselect' => 'Core\Form\View\Helper\FormSelect',
             'dateFormat' => 'Core\View\Helper\DateFormat',
             'salutation' => 'Core\View\Helper\Salutation',
             'period' => 'Core\View\Helper\Period',
@@ -313,7 +319,11 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+            'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
+            'Checkbox' => 'Core\Form\Element\Checkbox',
+            'InfoCheckbox' => 'Core\Form\Element\InfoCheckbox',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
+            'Core/FileUpload' => '\Core\Form\Element\FileUpload',
             'Core\FileCollection' => 'Core\Form\FileCollection',
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
             'Core/RatingFieldset' => 'Core\Form\RatingFieldset',
@@ -322,9 +332,6 @@ return array(
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
-        ),
-        'factories' => array(
-            'Core/PolicyCheck' => 'Core\Form\Element\PolicyCheckFactory',
         ),
     ),
     

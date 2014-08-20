@@ -66,8 +66,8 @@ return array(
             'Geo/js/jquery.geolocationfield.js',
             //'js/typeahead.jquery.min.js',
             //'js/bloodhound.min.js',
-            'js/typeahead.jquery.js',
-            'js/bloodhound.js',
+            'Geo/js/typeahead.jquery.min.js',
+            'Geo/js/bloodhound.min.js',
         ),
     ),
 );

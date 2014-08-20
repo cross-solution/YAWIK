@@ -18,18 +18,21 @@ use Core\Entity\PreUpdateAwareInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use Auth\Entity\InfoInterface;
 use Cv\Entity\CvInterface;
+use Core\Entity\DraftableEntityInterface;
+use Auth\Entity\AnonymousUser;
 
 /**
  * The application model
  * 
  * @author mathias
  *
- * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application")
+ * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application") 
+ * @ODM\HasLifecycleCallbacks
  */
 class Application extends AbstractIdentifiableModificationDateAwareEntity 
                   implements ApplicationInterface, 
                              ResourceInterface,
-                             PreUpdateAwareInterface
+                             DraftableEntityInterface
 {
    
     /**
@@ -47,6 +50,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", simple=true)
      */
     protected $user;
+    
+    protected $__anonymousUser__;
     
     /**
      * Status of an application.
@@ -167,13 +172,29 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     protected $profiles;
     
+    
+    /**
+     * Flag indicating draft state of this application.
+     * 
+     * @var bool
+     * @ODM\Boolean
+     */    
+    protected $isDraft = false;
+    
+    /**
+     * 
+     * @var unknown
+     * @ODM\EmbedOne(targetDocument="Attributes")
+     */
+    protected $attributes;
+    
     /**
      * {@inheritDoc}
+     * @ODM\PreUpdate
+     * @ODM\PrePersist
      */
-    public function preUpdate($isNew = false)
-    {
-        parent::preUpdate($isNew);
-        
+    public function recalculateRatings()
+    { 
         // Compute rating value.
         // @todo Need to know wether comments has changed or not.
         // Unfortunately, persistent collection gets no dirty flag,
@@ -182,8 +203,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         // the database (which still does not neccessarly mean, there are changes...
         
         $comments = $this->getComments();
-        if ($isNew 
-            || $comments instanceOf ArrayCollection // new Comments
+        if ( $comments instanceOf ArrayCollection // new Comments
             || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)
             || $comments->isDirty() // new Comments added w/o initializing
         ) {
@@ -201,7 +221,25 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         return 'Entity/Application';
     }
     
+    /**
+     * {@inheritDoc}
+     * 
+     * @see \Core\Entity\DraftableEntityInterface::isDraft()
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
     
+    /**
+     * {@inheritDoc}
+     * @return \Applications\Entity\Application
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+        return $this;
+    }
     
     /**
      * {@inheritDoc}
@@ -238,8 +276,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
         }
-        $this->user = $user;
         $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
+        $this->user = $user;
         return $this;
     }
     
@@ -251,6 +289,32 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * 
+     * @ODM\PrePersist
+     * @ODM\PreUpdate
+     */
+    public function prependPersistingAnonymousUser()
+    {
+        if ($this->user instanceOf AnonymousUser) {
+            $this->__anonymousUser__ = $this->user;
+            $this->user = null;
+        }
+    }
+    
+    /**
+     * 
+     * @ODM\PostPersist
+     * @ODM\PostUpdate
+     */
+    public function restoreAnonymousUser()
+    {
+        if ($this->__anonymousUser__) {
+            $this->user = $this->__anonymousUser__;
+            $this->__anonymousUser__ = null;
+        }
     }
 
     /**
@@ -312,6 +376,9 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function setContact (InfoInterface $contact)
     {
+        if (!$contact instanceOf Contact) {
+            $contact = new Contact($contact);
+        }
         $this->contact = $contact;
         return $this;
     }
@@ -569,7 +636,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function getSearchableProperties()
     {
-        return array('summary');
+        return array('summary', 'commentsMessage');
     }
     
     /**
@@ -628,6 +695,21 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     }
     
     /**
+     * 
+     * @return String
+     */
+    public function getCommentsMessage()
+    {
+        $comments = array();
+        if ($this->comments) {
+            foreach ($this->getComments() as $comment) {
+                $comments[] = $comment->getMessage();
+            }
+        }
+        return $comments;
+    }
+    
+    /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getRating()
      */
@@ -643,6 +725,20 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
             $this->rating = 0 == $count ? 0 : round($sum / $count);
         }
         return $this->rating;
+    }
+    
+    public function setAttributes(Attributes $attributes)
+    {
+        $this->attributes = $attributes;
+        return $this;
+    }
+    
+    public function getAttributes()
+    {
+        if (!$this->attributes) {
+            $this->setAttributes(new Attributes());
+        }
+        return $this->attributes;
     }
     
 }

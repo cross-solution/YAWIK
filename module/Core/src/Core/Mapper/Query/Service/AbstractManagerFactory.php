@@ -34,8 +34,9 @@ abstract class AbstractManagerFactory implements FactoryInterface
         return $this->managerClass;
     }
 
-	/**
+    /**
      * @param field_type $managerClass
+     * @return $this
      */
     public function setManagerClass ($managerClass)
     {

@@ -11,7 +11,7 @@ class CriteriaInitializer implements InitializerInterface
      * Initialize
      *
      * @param $instance
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
      * @return mixed
      */
     public function initialize($instance, \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)

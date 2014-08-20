@@ -4,7 +4,10 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
+ */
+/**
+ * reders the detail view of an application.
  */
 
 use Applications\Entity\StatusInterface as Status;
@@ -13,26 +16,31 @@ $this->headTitle($this->translate('Details'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.manage.detail.js'));
 $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 
+if (!$this->application->isDraft() && $this->list->getCount()):
 /* variables needed for the pagination*/
 $prevId = $this->list->getPrevious();
 $nextId = $this->list->getNext();
 $prevHref = $prevId ? $this->url('lang/applications/detail', array('id' => $prevId), true) : '#';
 $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $nextId), true) : '#';
+endif;
             
 ?>
 <h1>
 <?php echo $this->translate('application for')?>: <?php echo $this->link($this->application->job->link, $this->application->job->title)?>
+<?php if (!$this->application->isDraft() && $this->list->getCount()):?>
 <small class="pull-right">
     <?php echo sprintf($this->translate('Application %d of %d'),
                        $this->list->getPosition(), $this->list->getCount()
                 )?>
 </small>
+<?php endif ?>
 </h1>
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
 <nav class="navbar cam-toolbar">   
-    <?php if ($this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
+    <?php if (!$this->application->isDraft() 
+              && $this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
     <div id="state-actions" class="btn-group cam-action-states">
         <?php $status = $application->status->name;
         
@@ -80,7 +88,8 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>  
      </div>
-     <?php endif ?> 
+     <?php endif ?>
+     <?php if (!$this->application->isDraft() && 'recruiter' == $this->auth('role')):?> 
    <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
      <div id="forward-email" class="cam-input-group input-group">
             <span class="input-group-addon"
@@ -100,12 +109,15 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
             </span>
       </div>
     </form>
+    <?php endif ?>
     <div class="pull-right">
+    <?php if (!$this->application->isDraft() && $this->list->getCount()):?>
     <div class="btn-group xpull-left">
       <a href="<?php echo $prevHref ?>" class="btn btn-mini btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
       <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
       <a href="<?php echo $nextHref ?>" class="btn btn-mini btn-default<?php if (!$nextId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
     </div>    
+    <?php endif ?>
     <div class="pull-left" style="padding-left: 10px; padding-top:7px;">
     <p>
     </p>
@@ -200,6 +212,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
  </div>
 </div>
 
+<?php if ($this->auth('role') == 'recruiter'):?>
 <div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="history-box-label" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
@@ -232,6 +245,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
     </div>
   </div>
 </div>
+<?php endif; ?>
 <div class="row">
   <div class="col-md-4">
     <div class="panel panel-default">
@@ -247,7 +261,8 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
         </div>    
       </div>
       <div>
-        <adress>
+        <!--suppress HtmlUnknownTag -->
+          <adress>
         <strong><?php echo $this->application->contact->displayName ?></strong><br> 
         <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
         <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
@@ -328,10 +343,14 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
           <?php echo $this->translate((string) $this->application->status) ?>
         </td>
       </tr>
+      <?php if ($this->auth('role') == 'recruiter'):?>
       <tr>
         <td><?php echo $this->translate('rating')?>:</td> 
         <td class="col-md-6">
           <span id="application-rating">
+          <?php $rating = $this->rating($this->application->getRating()); 
+          if ($this->application->isDraft() || 'recruiter' != $this->auth('role')): echo $rating;
+          else:?>
             <button id="<?php echo $this->application->rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>" 
                     data-title="title"
                     <?php echo $this->application->rating?'data-toggle="modal"':''?>
@@ -339,6 +358,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
                     title="<?php echo $this->application->rating?$this->translate('View comments'):$this->translate('Add comment') ?>">
               <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
             </button>
+         <?php endif ?>
           </span>
         </td>
       </tr>
@@ -364,8 +384,9 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
       <?php endif;?>
       <tr>
         <td><?php echo $this->translate('agent')?>:</td>
-        <td><?php echo $this->application->job->contactEmail?></td>
+        <td><?php echo $this->link($this->application->job->contactEmail)?></td>
       </tr>
+      <?php endif; # allowed only for recruiters ?>
     </table>
     </div>
   </div>
@@ -374,7 +395,10 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div class="row">
  <div class="col-md-12">
    <div class="panel panel-default">
-     <div class="panel-heading"><?php echo $this->translate('Summary')?></div>
+     <div class="panel-heading">
+     <i class="yk-icon yk-icon-summary"></i>
+     <?php echo $this->translate('Summary')?>
+     </div>
      <div class="panel-body">
      <?php echo nl2br($this->application->summary) ?>
      </div>
@@ -386,20 +410,23 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div class="row">
 <div class="col-md-12">
 <div class="panel panel-default">
-<div class="panel-heading"><?= $this->translate('work experience')?></div>
+<div class="panel-heading">
+  <i class="yk-icon yk-icon-work-experience"></i>
+  <?php echo $this->translate('work experience')?>
+</div>
 <table class="table table-condensed table-bordered">
 <thead>
 <tr>
- <th class="col-md-1"><?=$this->translate('Start')?></th>
- <th class="col-md-1"><?=$this->translate('End')?></th>
- <th class="col-md-3"><?=$this->translate('Company')?></th>
+ <th class="col-md-1"><?php echo $this->translate('Start')?></th>
+ <th class="col-md-1"><?php echo $this->translate('End')?></th>
+ <th class="col-md-3"><?php echo $this->translate('Company')?></th>
  <th><?=$this->translate('Description')?></th>
 </tr>
 </thead>
 <?php foreach( $this->application->cv->employments as $employment): ?>
 <tr>
- <td><?php echo $employment->startDate ?></td>
- <td><?php echo $employment->endDate ?></td>
+ <td><?php echo $this->dateFormat($employment->startDate,'medium', 'null')?></td>
+ <td><?php echo $this->dateFormat($employment->endDate,'medium', 'null')?></td>
  <td><?php echo $employment->organizationName ?></td>
  <td><?php echo $employment->description ?></td>
 </tr>
@@ -414,7 +441,10 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 <div class="row">
 <div class="col-md-12">
 <div class="panel panel-default">
-<div class="panel-heading"><?echo $this->translate('education and training')?></div>
+<div class="panel-heading">
+  <i class="yk-icon yk-icon-university"></i>
+  <?echo $this->translate('education and training')?>
+</div>
 <table class="table table-condensed table-bordered"> 
 <tr>
  <th class="col-md-1"><?=$this->translate('Start')?></th>
@@ -424,8 +454,8 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
-   <td><?php echo $education->startDate ?></td>
-   <td><?php echo $education->endDate ?></td>
+   <td><?php echo $this->dateFormat($education->startDate,'medium', 'null') ?></td>
+   <td><?php echo $this->dateFormat($education->endDate,'medium', 'null') ?></td>
    <td><?php echo $education->organizationName ?></td>
    <td><?php echo $education->description ?></td>
   </tr>
@@ -443,3 +473,7 @@ $nextHref = $nextId ? $this->url('lang/applications/detail', array('id' => $next
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
 <?php endif;?>
+
+<?php if ($this->application->isDraft()): 
+    echo $this->partial('applications/apply/_buttons', array('application' => $this->application, 'isPreview' => true));
+endif ?>

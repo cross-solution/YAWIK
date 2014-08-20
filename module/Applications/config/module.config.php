@@ -5,7 +5,7 @@
  * Configuration file of the Applications module
  * 
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 return array(
@@ -24,6 +24,7 @@ return array(
                     '\Applications\Repository\Event\UpdatePermissionsSubscriber',
                     '\Applications\Repository\Event\UpdateFilesPermissionsSubscriber',
                     '\Applications\Repository\Event\PostLoadSubscriber',
+                    '\Applications\Repository\Event\DeleteRemovedAttachmentsSubscriber',
                 ),
             ),
         ),
@@ -66,6 +67,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
+            'Applications\Controller\Apply' => 'Applications\Controller\ApplyController',
             'Applications\Controller\Manage' => 'Applications\Controller\ManageController',
             'Applications/CommentController' => 'Applications\Controller\CommentController',
             'Applications/Console' => 'Applications\Controller\ConsoleController',
@@ -78,6 +80,9 @@ return array(
             'guest' => array(
                 'allow' => array(
                     'Applications\Controller\Manage' => 'detail',
+                    'Entity/Application' => array(
+                        'read' => 'Applications/Access',
+                    ),
                 ),
             ),
             'user' => array(
@@ -133,10 +138,10 @@ return array(
             'Applications' => __DIR__ . '/../view',
         ),
         'template_map' => array(
+            'applications/error/not-found' => __DIR__ . '/../view/error/not-found.phtml', 
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
-   //         'pagination-control' => __DIR__ . '/../../Core/view/partial/pagination-control.phtml',
         )
     ),
     'view_helpers' => array(
@@ -151,25 +156,19 @@ return array(
     ),
     'form_elements' => array(
         'invokables' => array(
-//             'ApplicationFieldset' => '\Applications\Form\ApplicationFieldset',
-//             'EducationFieldset' => '\Applications\Form\EducationFieldset',
-//             'EmploymentFieldset' => '\Applications\Form\EmploymentFieldset',
-//             'LanguageFieldset' => '\Applications\Form\LanguageFieldset',
-             'Application/Create' => '\Applications\Form\CreateApplication',
              'Applications/Mail' => 'Applications\Form\Mail',
              'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
-             'Applications/Privacy' => 'Applications\Form\PrivacyFieldset', 
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
              'Applications/CommentForm' => 'Applications\Form\CommentForm',
              'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',
+             'Applications/Apply' => 'Applications\Form\Apply',
+             'Applications/Contact' => 'Applications\Form\ContactContainer',
+             'Applications/Base'  => 'Applications\Form\Base',
+             'Applications/Attributes' => 'Applications\Form\Attributes',
          ),
         'factories' => array(
-            'Applications/ContactFieldset' => 'Applications\Form\ContactFieldsetFactory',
-            'Applications/AttachmentsCollection' => '\Applications\Form\AttachmentsCollectionFactory',
-            'Applications/AttachmentsFieldset' => '\Applications\Form\AttachmentsFieldsetFactory',
-            'Applications/PrivacyPolicy' => '\Applications\Form\Element\PrivacyPolicyFactory',
-            //'Applications/CarbonCopy' => 'Applications\Form\CarbonCopyFieldset',  
-            'Applications/CarbonCopy' => '\Applications\Form\Element\CarbonCopyFactory',  
+            'Applications/ContactImage' => 'Applications\Form\ContactImageFactory',
+            'Applications/Attachments' => 'Applications\Form\AttachmentsFactory',
         ),
      ),
      
@@ -179,6 +178,12 @@ return array(
         ),
         'factories'=> array(
             'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
+        ),
+    ),
+    
+    'validators' => array(
+        'invokables' => array(
+            'Applications/Application' => 'Applications\Entity\Validator\Application',
         ),
     ),
      

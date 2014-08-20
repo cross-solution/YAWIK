@@ -8,6 +8,7 @@
 		var jobs = new Bloodhound({
 			name: 'jobs',
 			remote: basePath + '/' + lang + '/jobs/typeahead?q=%QUERY',
+			valueKey: 'id',
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
 			queryTokenizer: Bloodhound.tokenizers.whitespace
 		});
@@ -21,7 +22,7 @@
 		$('#search-applications-form #job-filter').typeahead(
 			{
 				highlight: true,
-				minLength: 4,
+				minLength: 4
 			},
 			{
 				name: 'jobs',

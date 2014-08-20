@@ -23,7 +23,7 @@ translate('Contact email');
 //: ./src/Jobs/Form/JobFieldset.php:90
 translate('Reference number');
 
-//: ./src/Jobs/Form/Job.php:39
+//: ./src/Jobs/Form/Job.php:42
 translate('Publish job');
 
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21

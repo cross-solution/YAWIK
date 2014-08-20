@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** MailHistory.php */ 
@@ -22,8 +22,9 @@ class MailHistory extends History implements MailHistoryInterface
         return $this->subject;
     }
 
-	/**
+    /**
      * @param field_type $subject
+     * @return $this
      */
     public function setSubject ($subject)
     {

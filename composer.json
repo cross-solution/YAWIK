@@ -15,7 +15,7 @@
 		"email": "weitz@cross-solution.de"
 	}
     ],
-    "license": "AGPL-3.0+",
+    "license": "MIT",
     "keywords": [
         "human resource", "human relation", "applicant",
         "zf2"
@@ -32,14 +32,16 @@
         "php": ">=5.3.3",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "2.2.5",
+        "zendframework/zendframework": "*",
         "doctrine/doctrine-mongo-odm-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
 	"mpdf/mpdf": "5.7.*",
-        "twbs/bootstrap": "3.1.*",
+        "twbs/bootstrap": "3.1.1",
         "components/jquery": "1.9.1",
         "fortawesome/font-awesome": "*",
-        "twitter/typeahead.js": "*"
+        "twitter/typeahead.js": "*",
+        "blueimp/jquery-file-upload": "dev-master",
+	"ivaynberg/select2": "3.5.*"
     },
     "require-dev": {
     }

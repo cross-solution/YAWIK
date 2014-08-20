@@ -81,22 +81,11 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             $query = $e->getRequest()->getQuery();
             $ref = $e->getRequest()->getRequestUri();
             $ref = preg_replace('~^' . preg_quote($e->getRouter()->getBaseUrl()) . '~' , '', $ref);
-            $query->set('ref', urlencode($ref));
+            $query->set('ref', $ref);
             $query->set('req', 1);
             $result = $e->getApplication()->getEventManager()->trigger('dispatch', $e);
             $e->stopPropagation();
             return $result;
-            $lang = $e->getRouteMatch()->getParam('lang', 'de');
-            $ref = urlencode($e->getRequest()->getRequestUri());
-            $url = $e->getRouter()->assemble(array('lang' => $lang), array(
-                'name' => 'lang/auth',
-                'query' => array(
-                    'ref' => $ref,
-                    'req' => 1
-                )
-            ));
-            $response->getHeaders()->addHeaderLine('Location', $url);
-            return $response;
         }
         $message = $exception->getMessage();
         $model = new ViewModel(array(

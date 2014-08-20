@@ -4,7 +4,7 @@
  * Applications Module Bootstrap
  *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 namespace Applications;
@@ -26,8 +26,9 @@ class Module implements ConsoleUsageProviderInterface
 {
     /**
      * Displays console options
-     * 
+     *
      * @param Console $console
+     * @return array|null|string
      */
 
     public function getConsoleUsage(Console $console)

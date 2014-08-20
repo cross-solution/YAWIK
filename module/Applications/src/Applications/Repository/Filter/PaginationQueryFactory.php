@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** PaginationQueryFactory.php */
@@ -21,10 +21,11 @@ use \Zend\ServiceManager\ServiceLocatorInterface;
 class PaginationQueryFactory implements FactoryInterface
 {
     /**
-     * Creates pagination Service 
-     * 
+     * Creates pagination Service
+     *
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      * @param ServiceLocatorInterface $serviceLocator
+     * @return \Applications\Repository\Filter\PaginationQuery|mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

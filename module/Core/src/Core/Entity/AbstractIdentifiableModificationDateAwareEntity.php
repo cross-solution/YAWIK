@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** Core Entities */
@@ -17,12 +17,11 @@ use DateTime;
  * Abstract Identifiable Modification Date Aware Entity
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @ODM\MappedSuperclass
+ * @ODM\MappedSuperclass @ODM\HasLifecycleCallbacks
  */
 abstract class AbstractIdentifiableModificationDateAwareEntity 
     extends    AbstractIdentifiableEntity 
-    implements ModificationDateAwareEntityInterface,
-               PreUpdateAwareInterface
+    implements ModificationDateAwareEntityInterface
 {
     /**
      * Creation date.
@@ -50,9 +49,13 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
 
     /**
      * {@inheritDoc}
+     * @ODM\PrePersist
      */
-    public function setDateCreated (DateTime $dateCreated)
+    public function setDateCreated (DateTime $dateCreated = Null)
     {
+        if (!isset($dateCreated)) {
+            $dateCreated = new DateTime();
+        }
         $this->dateCreated = $dateCreated;
         return $this;
     }
@@ -67,26 +70,17 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
 
     /**
      * {@inheritDoc}
+     *  @ODM\PreUpdate
      */
-    public function setDateModified ($dateModified)
+    public function setDateModified ($dateModified = Null)
     {
+        if (!isset($dateModified)) {
+            $dateModified = new DateTime();
+        }
         if (is_string($dateModified)) {
             $dateModified = new DateTime($dateModified);
         }
         $this->dateModified = $dateModified;
         return $this;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function preUpdate($isNew=false)
-    {
-        if ($isNew) {
-            $this->setDateCreated(new DateTime());
-        } else {
-            $this->setDateModified(new DateTime());
-        }
-    }
-    
 }

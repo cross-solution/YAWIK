@@ -1,0 +1,113 @@
+.sf-container {
+	.sf-summary {
+		position: relative;
+		
+		.sf-edit {
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: none;
+		}
+	}
+	.sf-summary:hover .sf-edit {
+		display: block;
+	}
+}
+
+.single-file-upload {
+	.iu-dropzone {
+        width: 120px;
+        height: 180px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        position: relative;
+	}
+	.iu-progress {
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        display: none;
+	}
+	.iu-select-button {
+        position:absolute;
+        top: 65px;
+        left: 50px;
+        display: block;
+	}
+
+	.iu-delete-button {
+        position:absolute;
+        top: 10px;
+        right: 10px;
+        display: block;
+	}
+}
+
+.fu-dropzone {
+	min-height: 100px;
+	border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	
+	.fu-empty-notice, .fu-nonempty-notice {
+		padding: 5px 20px; 
+		color: lightgrey;
+	}
+	
+	.fu-empty-notice small {
+		display:block; 
+		padding: 25px 80px 0px;
+	}
+	
+	.fu-files {
+		list-style: none outside none;
+		margin: 0;
+		padding: 0;
+		
+		.fu-file {
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			margin: 5px;
+			padding: 5px;
+			position: relative;
+			
+			.fu-delete-button {
+				margin: 0;
+				position: absolute;
+				top: 5px;
+				right: 5px;
+			}
+			
+			.fu-progress {
+				border-left: 1px solid #ddd;
+				border-top: 1px solid #ddd;
+				border-top-left-radius: 4px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				margin: 0;
+				padding: 5px 10px;
+			}
+			
+			.fu-file-info {
+				display: block;
+				padding-top: 10px;
+				min-height: 55px;
+				
+				span {
+					display: block;
+					margin: -10px 10px 0 0;
+					float: left;
+				} 
+				
+			}
+			
+			.fu-errors {
+				clear: left;
+			}
+		}
+		
+	}
+}
+

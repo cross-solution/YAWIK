@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** FileEntity.php */ 
@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * stores files in MongoGridFS into the collection "files". You can override this.
  * 
- * @ODM\Document(collection="files")
+ * @ODM\Document(collection="files", repositoryClass="Core\Repository\File")
  * @ODM\InheritanceType("COLLECTION_PER_CLASS")
  */
 class FileEntity extends AbstractIdentifiableEntity implements FileInterface
@@ -109,7 +109,21 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     
     public function getPrettySize()
     {
-        return $this->length;
+        $size = $this->getLength();
+        
+        if ($size >= 1073741824) {
+            return round($size / 1073741824, 2) . ' GB';
+        }
+        
+        if ($size >= 1048576) {
+            return round($size / 1048576, 2) . ' MB';
+        }
+        
+        if ($size >= 1024) {
+            return round($size / 1024, 2) . ' kB';
+        }
+        
+        return $size;
     }
     
     public function setType($mime)

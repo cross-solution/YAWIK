@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** Auth view helper */
@@ -27,6 +27,17 @@ class Auth extends AbstractHelper
      */
     protected $_authService;
     
+    
+    public function __call($method, $params)
+    {
+        $callback = array($this->getService(), $method);
+        if (is_callable($callback)) {
+            return call_user_func_array($callback, $params);
+        }
+        
+        throw new \DomainException(sprintf('Could not proxy "%s" to Authentication Service. Method does not exist', $method));
+    }
+
     /**
      * Sets the authentication service
      * 

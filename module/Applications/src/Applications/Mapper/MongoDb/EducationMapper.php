@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** Auth mapper mongodb */
@@ -46,6 +46,5 @@ class EducationMapper extends AbstractMapper
         
         $data = $this->getCollection()->findOne(array('_id' => $id), array('educations' => true));
         return $data['educations'];
-        return $this->_createCollectionFromResult($cursor);
     }
 }

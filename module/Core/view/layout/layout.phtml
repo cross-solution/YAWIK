@@ -4,7 +4,7 @@
  * Layout template file
  * 
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 ?>
 
@@ -20,12 +20,12 @@
         <?php echo $this->headScript()
                         ->prependFile($this->basepath('Core/js/core.init.js'))
                         ->prependFile($this->basePath('js/bootstrap.min.js'))
-                        ->prependFile($this->basePath('js/jquery.js')) 
+                        ->prependFile($this->basePath('js/jquery.min.js')) 
                         ->appendScript('var lang="' . $this->params('lang') . '";'
                                      . 'var basePath="' . $this->basePath() . '";');
         ?>
         
-        <?php echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/cam.css');?>
+        <?php echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/yawik.css');?>
 
         <?php echo $this->headStyle() ?>
         <style type="text/css">

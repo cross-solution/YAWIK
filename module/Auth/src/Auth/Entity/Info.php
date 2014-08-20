@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 namespace Auth\Entity;
@@ -70,7 +70,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * 
      * @var FileInterface
-     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist"}, simple=true, nullable=true) 
+     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist,update,remove"}, orphanRemoval=true, simple=true, nullable=true) 
      */
     protected $image;
     

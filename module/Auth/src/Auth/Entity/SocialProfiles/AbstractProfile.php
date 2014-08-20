@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** AbstractProfile.php */ 
@@ -15,7 +15,6 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Cv\Entity\Education;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Entity\PreUpdateAwareInterface;
 
 /**
  * Social Profile Entity
@@ -23,11 +22,10 @@ use Core\Entity\PreUpdateAwareInterface;
  * Provides methods to normalize profile data.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @ODM\MappedSuperclass
+ * @ODM\MappedSuperclass @ODM\HasLifecycleCallbacks
  */
 abstract class AbstractProfile extends AbstractIdentifiableEntity 
-                      implements ProfileInterface,
-                                 PreUpdateAwareInterface
+                      implements ProfileInterface
 {
     
     /**
@@ -103,6 +101,8 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     /**
      * {@inheritDoc}
      * @see \Core\Entity\PreUpdateAwareInterface::preUpdate()
+     * @ODM\PreUpdate
+     * @ODM\PrePersist
      */
     public function preUpdate($isNew = false)
     {

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** FileAccessAssertion.php */ 
@@ -37,6 +37,7 @@ class FileAccessAssertion implements AssertionInterface
             return false;
         }
         
-        return $resource->getPermissions()->isGranted($role, PermissionsInterface::PERMISSION_VIEW);
+        $privilege = $privilege ?: PermissionsInterface::PERMISSION_VIEW;
+        return $resource->getPermissions()->isGranted($role, $privilege);
     }
 }

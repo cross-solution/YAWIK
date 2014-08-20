@@ -37,8 +37,8 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
     
 	public function init()
     {
-        $this->setName('info')
-             ->setLabel( /* @translate */ 'personal informations');
+        $this->setName('info');
+             //->setLabel( /* @translate */ 'personal informations');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         
@@ -76,12 +76,15 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         		'options' => array(
         				'label' => /*@translate */ 'Salutation',
         				'value_options' => array(
-        						'' => /*@translate */ 'please select',
+        						'' => '', // => /*@translate */ 'please select',
         						'male' => /*@translate */ 'Mr.',
         						'female' => /*@translate */ 'Mrs.',
         				)
         		),
-        		
+                'attributes' => array(
+                    'data-placeholder' => /*@translate*/ 'please select',
+                    'data-allowclear' => 'true',
+                ),
         ));
         
         $this->add(array(
@@ -115,39 +118,39 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         		)
         ));
         
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'imageId',
-        ));
-        $this->add(array(
-            'type' => 'file',
-            'name' => 'image',
-            'options' => array(
-//                 'label' => /*@translate*/ 'Application photo',
+//         $this->add(array(
+//             'type' => 'hidden',
+//             'name' => 'imageId',
+//         ));
+//         $this->add(array(
+//             'type' => 'file',
+//             'name' => 'image',
+//             'options' => array(
+// //                 'label' => /*@translate*/ 'Application photo',
                     
-             ),
-            'attributes' => array(
-                   'accept' => 'image/*',
-             ),
+//              ),
+//             'attributes' => array(
+//                    'accept' => 'image/*',
+//              ),
         
-        ));
+//         ));
         
  
         
     }
     
-    public function setValue($value)
-    {
-        if ($value instanceOf EntityInterface) {
-            if ($value instanceOf RelationEntity) {
-                $value = $value->getEntity();
-            }
-            $data = $this->getHydrator()->extract($value);
-            $this->populateValues($data);
-            $this->setObject($value);
-        }
-        return parent::setValue($value);
-    }
+//     public function setValue($value)
+//     {
+//         if ($value instanceOf EntityInterface) {
+//             if ($value instanceOf RelationEntity) {
+//                 $value = $value->getEntity();
+//             }
+//             $data = $this->getHydrator()->extract($value);
+//             $this->populateValues($data);
+//             $this->setObject($value);
+//         }
+//         return parent::setValue($value);
+//     }
     
     /**
      * (non-PHPdoc)

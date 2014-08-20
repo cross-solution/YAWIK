@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** PropertyToKeywords.php */ 
@@ -23,7 +23,13 @@ class PropertyToKeywords implements FilterInterface
             $entity = $value;
             $value = array();
             foreach ($entity->getSearchableProperties() as $name) {
-                $value[] = $entity->$name;
+                $result = $entity->$name;
+                if (is_array($result)) {
+                    $value = array_merge($value, $result);
+                }
+                else {
+                    $value[] = $result;
+                }
             }
         } else if (!is_array($value)) {
             $value = array($value);

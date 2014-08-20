@@ -5,7 +5,7 @@ translate('Create group');
 //: ./view/auth/manage-groups/form.phtml:11
 translate('Edit group');
 
-//: ./src/Auth/Form/SocialProfilesFieldset.php:156
+//: ./src/Auth/Form/SocialProfiles.php:26
 translate('Social Profiles');
 
 //: ./src/Auth/Form/UserInfoFieldset.php:41
@@ -35,20 +35,26 @@ translate('Mr.');
 //: ./src/Auth/Form/UserInfoFieldset.php:81
 translate('Mrs.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:90
+//: ./src/Auth/Form/UserInfoFieldset.php:85
+translate('please select');
+
+//: ./src/Auth/Form/UserInfoFieldset.php:93
 translate('First name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:98
+//: ./src/Auth/Form/UserInfoFieldset.php:101
 translate('Last name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:107
+//: ./src/Auth/Form/UserInfoFieldset.php:110
 translate('street');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:114
+//: ./src/Auth/Form/UserInfoFieldset.php:117
 translate('house number');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:126
+//: ./src/Auth/Form/UserInfoFieldset.php:129
 translate('Application photo');
+
+//: ./src/Auth/Form/UserInfo.php:31
+translate('personal informations');
 
 //: ./src/Auth/Form/UserPasswordFieldset.php:31
 translate('Password');
@@ -65,6 +71,9 @@ translate('Group name');
 //: ./src/Auth/Form/GroupFieldset.php:45
 translate('Select a group name. You can add users to your group and then work together on jobs and job applications.');
 
+//: ./src/Auth/Form/UserProfileContainer.php:27
+translate('General settings');
+
 //: ./src/Auth/Form/UserBaseFieldset.php:23
 translate('General');
 
@@ -74,19 +83,19 @@ translate('I am');
 //: ./src/Auth/Form/Validator/UniqueGroupName.php:46
 translate('The group name "%value%" is already in use.');
 
-//: ./src/Auth/Form/Login.php:30
+//: ./src/Auth/Form/Login.php:31
 translate('Login name');
 
-//: ./src/Auth/Form/Login.php:38
+//: ./src/Auth/Form/Login.php:39
 translate('Password');
 
-//: ./src/Auth/Form/Login.php:54
+//: ./src/Auth/Form/Login.php:55
 translate('login');
 
-//: ./src/Auth/Controller/ManageController.php:58
+//: ./src/Auth/Controller/ManageController.php:103
 translate('Changes successfully saved');
 
-//: ./src/Auth/Controller/ManageController.php:62
+//: ./src/Auth/Controller/ManageController.php:107
 translate('Saving changes failed. Please check the marked fields.');
 
 //: ./src/Auth/Controller/ManageGroupsController.php:141
@@ -110,9 +119,9 @@ translate('Welcome to YAWIK!');
 //: ./src/Auth/Controller/IndexController.php:391
 translate('You are now logged out');
 
-//: ./config/module.config.php:259
+//: ./config/module.config.php:260
 translate('user');
 
-//: ./config/module.config.php:260
+//: ./config/module.config.php:261
 translate('recruiter');
 

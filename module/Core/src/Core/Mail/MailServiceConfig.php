@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** MailManagerConfig.php */ 
@@ -12,6 +12,7 @@ namespace Core\Mail;
 
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Mail\AddressList;
 
 class MailServiceConfig extends Config
 {
@@ -43,7 +44,35 @@ class MailServiceConfig extends Config
     {
         return isset($this->config['mailer'])
             ? $this->config['mailer']
-            : 'php/CrossApplicantManagement';
+            : 'php/YAWIK';
+    }
+    
+    public function getOverrideRecipient()
+    {
+        if (!isset($this->config['develop']['override_recipient'])
+            || '' == trim($this->config['develop']['override_recipient'])
+        ) {
+            return false;
+        }
+        $recipientsStr = $this->config['develop']['override_recipient'];
+        $recipientsArr = false !== strpos($recipientsStr, ',')
+                       ? explode(',', $recipientsStr)
+                       : array($recipientsStr);
+        
+        $recipientsArr = array_map('trim', $recipientsArr);
+        $recipients    = new AddressList(); 
+        foreach ($recipientsArr as $recipient) {
+            if (preg_match('~^([^<]+)(?:<([^>]+)>)?$~', $recipient, $match)) {
+                if (isset($match[2])) {
+                    $recipients->add($match[2], $match[1]);
+                } else {
+                    $recipients->add($match[1]);
+                }
+            } else {
+                trigger_error('invalid address format ("' . $recipient . '") in mails.develop.override_recipient', E_USER_WARNING);
+            }
+        }
+        return $recipients;
     }
     
     public function configureServiceManager(ServiceManager $serviceManager)
@@ -57,6 +86,14 @@ class MailServiceConfig extends Config
         $serviceManager->setTransport($this->getTransport());
         $serviceManager->setFrom($this->getFrom());
         $serviceManager->setMailer($this->getMailer());
+        
+        /*
+         * Development configuration
+         */
+        if ($recipients = $this->getOverrideRecipient()) {
+            $serviceManager->setOverrideRecipient($recipients);
+        }
+        
     }
 
 

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** Core view helpers */
@@ -54,7 +54,7 @@ class DateFormat extends ZfDateFormat
      * 
      * @see \Zend\I18n\View\Helper\DateFormat::__invoke()
      * 
-     * @param \DateTime $data
+     * @param \DateTime $data|string
      * @param string $dateType
      * @return string
      */
@@ -70,6 +70,9 @@ class DateFormat extends ZfDateFormat
             if (null === $timeType) {
                 $timeType = $dateType;
             }
+        }
+        if (is_string($date)){
+        	$date = date_create($date);
         }
         if (is_string($timeType)) {
             $timeType = $this->detectType($timeType);

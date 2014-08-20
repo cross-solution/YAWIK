@@ -11,6 +11,12 @@ translate('Apply filter');
 //: ./src/Core/Form/ListFilterButtonsFieldset.php:30
 translate('Reset filter');
 
+//: ./src/Core/Form/SummaryFormButtonsFieldset.php:24
+translate('Save');
+
+//: ./src/Core/Form/SummaryFormButtonsFieldset.php:38
+translate('Cancel');
+
 //: ./src/Core/Form/PermissionsFieldset.php:65
 translate('Rights');
 
@@ -40,6 +46,9 @@ translate('Excellent');
 
 //: ./src/Core/Form/Element/Phone.php:25
 translate('Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.');
+
+//: ./src/Core/Form/FileUploadFactory.php:60
+translate('Remove all');
 
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:21
 translate('choose your language');

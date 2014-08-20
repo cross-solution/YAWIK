@@ -4,11 +4,11 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 $name = $element->getName();
-$value = $element->getValue();
+$value = $element->getValue(/*raw*/ true);
 $icon = $element->getOption('icon');
 $element->setName(null)->setValue(null);
 $id = $element->getAttribute('id');
@@ -43,5 +43,5 @@ if (!$id) {
     </ul>
 </div>
 <textarea id="<?php echo $id ?>-data" class="hide" name="<?php echo $name ?>"><?php 
-echo $element->getValue();
+echo $value;
 ?></textarea>

@@ -1,5 +1,5 @@
-CrossApplicantManager
-=====================
+YAWIK
+=====
 
 YAWIK offers a Web based solution for managing job applications. Jobs ads can
 be entered or pushed to the system. The sytem assigns application forms to job
@@ -8,7 +8,7 @@ Currently it is possible to integrate YAWIK into a corporate Web site by
 extending it with a module. It is intended to become a distributed system for 
 connecting recruiters and applicants.
 
-Currect state
+Current state
 -------------
 
 alpha
@@ -30,7 +30,14 @@ Documentation
 
 http://crossapplicantmanager.readthedocs.org/en/latest/
 
+API Documentation
+-----------------
+
+http://yawik.org/docs
+
 Forum
 -----
 
 https://groups.google.com/forum/?hl=de#!forum/yawik
+
+

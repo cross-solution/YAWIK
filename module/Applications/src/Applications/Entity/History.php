@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** History.php */ 
@@ -66,8 +66,9 @@ class History extends AbstractEntity implements HistoryInterface
         return $this->date;
     }
 
-	/**
+    /**
      * @param field_type $date
+     * @return $this
      */
     public function setDate (\DateTime $date)
     {

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
 elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
@@ -13,9 +13,7 @@ endif;
 
 $this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
 
-$this->headScript()->appendFile($this->basePath('js/bloodhound.js'))
-                   ->appendFile($this->basePath('js/typeahead.jquery.js'))
-                   ->appendFile($this->basePath('/Core/js/core.js'))
+$this->headScript()->appendFile($this->basePath('/Core/js/core.js'))
                    ->appendFile($this->basePath('/Core/js/multiCheckbox.js'));
 $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
@@ -58,9 +56,11 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
                
         <input class="form-control" type="text" id="job-filter" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
         <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
-        <select class="form-control" name="job_status">
+        <select class="form-control" name="status">
 <?php foreach ($this->applicationStates as $applicationStatus): ?>
-    <option value="<?php echo $applicationStatus; ?>" <?php echo isset($_GET['job_status'])&&$_GET['job_status']==$applicationStatus?'selected="selected"':'' ?>><?php echo $this->translate($applicationStatus); ?></option>
+    <option <?php echo $applicationStatus=='all'?'class="yk-icon yk-icon-filter"':'';?>value="<?php echo $applicationStatus; ?>" <?php echo isset($_GET['job_status'])&&$_GET['job_status']==$applicationStatus?'selected="selected" ':''?>>
+    <?php echo $this->translate($applicationStatus); ?>
+    </option>
 <?php endforeach; ?>
         </select>
         <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>

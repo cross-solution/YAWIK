@@ -4,7 +4,7 @@
  * 
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** Applications controller */
@@ -53,14 +53,14 @@ class ManageController extends AbstractActionController
             'search',
             'by',
             'job',
-            'job_status',
+            'status',
         ));
         
         $jobRepository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         $applicationRepository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         
         $states = $applicationRepository->getStates()->toArray();
-        $states = array_merge(array(/*@translate*/ 'all states'), $states);
+        $states = array_merge(array(/*@translate*/ 'all'), $states);
         $job = $params->job ? $jobRepository->find($params->job)  : null;
         $paginator = $this->paginator('Applications/Application',$params);
                 
@@ -92,6 +92,16 @@ class ManageController extends AbstractActionController
         $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         $application = $repository->find($this->params('id'));
         
+        if (!$application) {
+            
+            $this->response->setStatusCode(410);
+            $model = new ViewModel(array(
+                'content' => /*@translate*/ 'Invalid apply id'
+            ));
+            $model->setTemplate('applications/error/not-found');
+            return $model;
+        }
+        
     	$this->acl($application, 'read');
     	
     	$applicationIsUnread = false;
@@ -99,13 +109,16 @@ class ManageController extends AbstractActionController
     	    $application->addReadBy($this->auth('id'));
     	    $applicationIsUnread = true;
     	}
-    					
+    	
     	
         $format=$this->params()->fromQuery('format');
 
-        
-        $list = $this->paginationParams('Applications\Index', $repository);
-        $list->setCurrent($application->id);
+        if ($application->isDraft()) {
+            $list = false;
+        } else {
+            $list = $this->paginationParams('Applications\Index', $repository);
+            $list->setCurrent($application->id);
+        }
 
         $return = array(
             'application'=> $application, 
@@ -114,6 +127,7 @@ class ManageController extends AbstractActionController
         );
         switch ($format) {
             case 'json':
+                /*@deprecated - must be refactored */
                         $viewModel = new JsonModel();
                         $viewModel->setVariables(/*array(
                     'application' => */$this->getServiceLocator()
@@ -123,6 +137,7 @@ class ManageController extends AbstractActionController
                         );
                         $viewModel->setVariable('isUnread', $applicationIsUnread);
                 $return = $viewModel;
+                break;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
            
@@ -343,7 +358,8 @@ class ManageController extends AbstractActionController
     {
         $id          = $this->params('id');
         $services    = $this->getServiceLocator();
-        $repository  = $services->get('repositories')->get('Applications/Application');
+        $repositories= $services->get('repositories');
+        $repository  = $repositories->get('Applications/Application');
         $application = $repository->find($id);
         
         if (!$application) {
@@ -352,7 +368,7 @@ class ManageController extends AbstractActionController
         
         $this->acl($application, 'delete');
         
-        $repository->delete($application);
+        $repositories->remove($application);
         
         if ('json' == $this->params()->fromQuery('format')) {
             return array(

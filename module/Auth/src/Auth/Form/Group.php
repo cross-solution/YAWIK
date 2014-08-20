@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** Group.php */ 
@@ -29,6 +29,7 @@ class Group extends Form
     public function init()
     {
 
+        $this->setAttribute('data-handle-by', 'native');
         $this->add(array(
             'type' => 'Auth/Group/Data',
             'options' => array(

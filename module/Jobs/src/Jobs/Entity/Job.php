@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 namespace Jobs\Entity;
@@ -15,7 +15,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
-use Core\Entity\PreUpdateAwareInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 
@@ -78,7 +77,8 @@ class Job extends BaseEntity implements JobInterface {
      * all applications of a certain jobad 
      * 
      * @var Collection \Applications\Entity\Application
-     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job")
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job",
+     *                    repositoryMethod="loadApplicationsForJob")
      */
     protected $applications;
     
@@ -86,7 +86,7 @@ class Job extends BaseEntity implements JobInterface {
      * new applications
      * 
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
-     *                    repositoryMethod="getUnreadApplications", mappedBy="job") 
+     *                    repositoryMethod="loadUnreadApplicationsForJob", mappedBy="job") 
      * @var Int
      */
     protected $unreadApplications;

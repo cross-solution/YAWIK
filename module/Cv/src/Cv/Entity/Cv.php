@@ -87,8 +87,9 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
         return $this->employments;
     }
 
-	/**
+    /**
      * @param field_type $employments
+     * @return $this
      */
     public function setEmployments (CollectionInterface $employments)
     {

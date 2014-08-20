@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>YAWIK</title>
+    <title>YAWIK - Applicant Tracking System</title>
     <parser>
         <target>tmp</target>
     </parser>

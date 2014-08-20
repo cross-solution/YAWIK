@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-05 22:33+0200\n"
+"POT-Creation-Date: 2014-08-13 16:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/form/social-profiles-fieldset.phtml:16
+#: view/form/user-info-container.phtml:21
+msgid "Image"
+msgstr ""
+
+#: view/form/social-profiles-fieldset.phtml:22
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
 msgstr ""
 
-#: view/form/social-profiles-fieldset.phtml:25
+#: view/form/social-profiles-fieldset.phtml:33
 msgid "Formatting"
 msgstr ""
 
-#: view/form/social-profiles-fieldset.phtml:31
+#: view/form/social-profiles-fieldset.phtml:39
 msgid "Close"
+msgstr ""
+
+#: view/form/my-profile.summary.phtml:15
+msgid "Click here to enter contact informations."
 msgstr ""
 
 #: view/form/social-profiles-button.phtml:38
@@ -63,7 +71,7 @@ msgstr ""
 msgid "Add group"
 msgstr ""
 
-#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:63
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:69
 msgid "Group name"
 msgstr ""
 
@@ -139,18 +147,14 @@ msgstr ""
 msgid "My password"
 msgstr ""
 
-#: src/Auth/Form/SocialProfilesFieldset.php:156
-#: language/_annotated_strings.php:9
-msgid "Social Profiles"
-msgstr ""
-
-#: src/Auth/Form/UserInfoFieldset.php:41 language/_annotated_strings.php:12
+#: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:12
+#: language/_annotated_strings.php:57
 msgid "personal informations"
 msgstr ""
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
-#: language/_annotated_strings.php:54 language/_annotated_strings.php:57
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:60 language/_annotated_strings.php:63
+#: language/_annotated_strings.php:90
 msgid "Password"
 msgstr ""
 
@@ -162,15 +166,11 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: src/Auth/Form/UserBaseFieldset.php:23 language/_annotated_strings.php:69
-msgid "General"
-msgstr ""
-
-#: src/Auth/Controller/ManageController.php:91
+#: src/Auth/Controller/ManageController.php:136
 msgid "Password successfully changed"
 msgstr ""
 
-#: src/Auth/Controller/ManageController.php:97
+#: src/Auth/Controller/ManageController.php:142
 msgid "Password could not be changed"
 msgstr ""
 
@@ -180,6 +180,10 @@ msgstr ""
 
 #: language/_annotated_strings.php:6
 msgid "Edit group"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+msgid "Social Profiles"
 msgstr ""
 
 #: language/_annotated_strings.php:15
@@ -202,7 +206,7 @@ msgstr ""
 msgid "Salutation"
 msgstr ""
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:30 language/_annotated_strings.php:39
 msgid "please select"
 msgstr ""
 
@@ -214,92 +218,100 @@ msgstr ""
 msgid "Mrs."
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:42
 msgid "First name"
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:45
 msgid "Last name"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:48
 msgid "street"
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:51
 msgid "house number"
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:54
 msgid "Application photo"
 msgstr ""
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:66
 msgid "Retype password"
 msgstr ""
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:72
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
 msgstr ""
 
-#: language/_annotated_strings.php:72
-msgid "I am"
-msgstr ""
-
 #: language/_annotated_strings.php:75
-msgid "The group name \"%value%\" is already in use."
+msgid "General settings"
 msgstr ""
 
 #: language/_annotated_strings.php:78
-msgid "Login name"
+msgid "General"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "I am"
 msgstr ""
 
 #: language/_annotated_strings.php:84
-msgid "login"
+msgid "The group name \"%value%\" is already in use."
 msgstr ""
 
 #: language/_annotated_strings.php:87
-msgid "Changes successfully saved"
-msgstr ""
-
-#: language/_annotated_strings.php:90
-msgid "Saving changes failed. Please check the marked fields."
+msgid "Login name"
 msgstr ""
 
 #: language/_annotated_strings.php:93
-msgid "Group created"
+msgid "login"
 msgstr ""
 
 #: language/_annotated_strings.php:96
-msgid "Group updated"
+msgid "Changes successfully saved"
 msgstr ""
 
 #: language/_annotated_strings.php:99
-msgid "Changes not saved."
+msgid "Saving changes failed. Please check the marked fields."
 msgstr ""
 
 #: language/_annotated_strings.php:102
-msgid "You are now logged in."
+msgid "Group created"
 msgstr ""
 
 #: language/_annotated_strings.php:105
-msgid "Authentication failed."
+msgid "Group updated"
 msgstr ""
 
 #: language/_annotated_strings.php:108
-msgid "Welcome to YAWIK!"
+msgid "Changes not saved."
 msgstr ""
 
 #: language/_annotated_strings.php:111
-msgid "You are now logged out"
+msgid "You are now logged in."
 msgstr ""
 
 #: language/_annotated_strings.php:114
-msgid "user"
+msgid "Authentication failed."
 msgstr ""
 
 #: language/_annotated_strings.php:117
+msgid "Welcome to YAWIK!"
+msgstr ""
+
+#: language/_annotated_strings.php:120
+msgid "You are now logged out"
+msgstr ""
+
+#: language/_annotated_strings.php:123
+msgid "user"
+msgstr ""
+
+#: language/_annotated_strings.php:126
 msgid "recruiter"
 msgstr ""

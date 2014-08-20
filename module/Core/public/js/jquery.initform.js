@@ -2,18 +2,17 @@
 
 (function($) {
 	
-	var initRadioButtonSet = function()
-	{
-		$this = $(this);
-		var id = $this.attr('id').replace(/-wrapper$/, '');
-		var title = $this.find('label[for="' + id + '"]').addClass('hidden').html();
-		
-		$this.buttonset();
-		if (title) {
-			$this.attr('title', title);
-		}
-    	
-	}
+	var initRadioButtonSet = function () {
+        $this = $(this);
+        var id = $this.attr('id').replace(/-wrapper$/, '');
+        var title = $this.find('label[for="' + id + '"]').addClass('hidden').html();
+
+        $this.buttonset();
+        if (title) {
+            $this.attr('title', title);
+        }
+
+    };
 	
 	var toggleFieldsetListener = function() 
 	{

@@ -4,7 +4,7 @@
  * 
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 /** Applications controller */
@@ -147,25 +147,48 @@ class IndexController extends AbstractActionController
                 $auth = $this->auth();
             
                 if ($auth->isLoggedIn()) {
+                    // in instance user is logged in,
+                    // and no image is uploaded
+                    // take his profil-image as copy
                     $applicationEntity->setUser($auth->getUser());
                     $imageData = $form->get('contact')->get('image')->getValue();
                     if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
+                        // has the user an image
                         $image = $auth->getUser()->info->image;
-                        
                         if ($image) {
                             //$contactImage = $services->get('repositories')->get('Applications/Application')->saveCopy($image);
                             //$contactImage->addAllowedUser($job->user->id);
                             //$applicationEntity->contact->setImage($contactImage);
+
+                            $repositoryAttachment = $services->get('repositories')->get('Applications/Attachment');
+                                    //->saveCopy($image);
+                            // this should provide a real copy, not just a reference
+                            $contactImage = $repositoryAttachment->copy($image);
+                            //$contactImage->addAllowedUser($job->user->id);
+                            $applicationEntity->contact->setImage($contactImage);
                         } else {
                             $applicationEntity->contact->setImage(null); //explicitly remove image.
                         }
                     }
                 }
-                $applicationEntity->setStatus(new Status());
-                $permissions = $applicationEntity->getPermissions();
-                $permissions->inherit($job->getPermissions());
                 
                 if (!$request->isXmlHttpRequest()) {
+                    $applicationEntity->setStatus(new Status());
+                    $permissions = $applicationEntity->getPermissions();
+                    $permissions->inherit($job->getPermissions());
+
+                    /*
+                     * New Application alert Mails to job recruiter
+                     * This is temporarly until Companies are implemented.
+                     */
+                    $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
+                    if (!$recruiter) {
+                        $recruiter = $job->user;
+                        $admin     = false;
+                    } else {
+                        $admin     = $job->user;
+                    }
+                
                     $services->get('repositories')->store($applicationEntity);
                     /*
                      * New Application alert Mails to job recruiter

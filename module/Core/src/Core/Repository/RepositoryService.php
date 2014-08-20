@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 /** RepositoryService.php */ 
@@ -12,6 +12,7 @@ namespace Core\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Core\Entity\EntityInterface;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 
 class RepositoryService
 {
@@ -52,8 +53,16 @@ class RepositoryService
     
     public function remove(EntityInterface $entity)
     {
-        $this->dm->remove($entity);
-        $this->dm->flush();
+        $dm     = $this->dm;
+        $events = $dm->getEventManager();
+        
+        $dm->remove($entity);
+        
+        $events->hasListeners('postRemoveEntity') 
+        && $events->dispatchEvent('postRemoveEntity', new LifecycleEventArgs($entity, $dm));
+
+        $dm->flush();
+        
         return $this;
     }
     

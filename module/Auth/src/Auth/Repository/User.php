@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @license   MIT
  */
 
 namespace Auth\Repository;
@@ -51,7 +51,7 @@ class User extends AbstractRepository
     /**
      * Finds user by login name
      * 
-     * @param unknown $login
+     * @param string $login
      * @return unknown
      */
     public function findByLogin($login) {
