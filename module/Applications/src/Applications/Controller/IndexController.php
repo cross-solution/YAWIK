@@ -16,13 +16,13 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Applications\Entity\Status;
-use Core\Entity\RelationEntity;
-use Auth\Entity\User;
 use Applications\Entity\StatusInterface;
-use Zend\Mvc\MvcEvent;
 
 /**
  * Main Action Controller for Applications module.
+ *
+ *
+ * @method \Auth\Controller\Plugin\Auth auth
  */
 class IndexController extends AbstractActionController
 {
@@ -39,7 +39,7 @@ class IndexController extends AbstractActionController
         $jobId = $this->params()->fromPost('jobId',0);
         $applyId = (int) $this->params()->fromPost('applyId',0);
         
-        // subsriber comes from the form
+        // subscriber comes from the form
         $subscriberUri = $this->params()->fromPost('subscriberUri','');
         if (empty($subscriberUri)) {
             // subscriber comes with the request of the form
@@ -55,6 +55,7 @@ class IndexController extends AbstractActionController
             }
         }
 
+
         $job = ($request->isPost() && !empty($jobId))
              ? $services->get('repositories')->get('Jobs/Job')->find($jobId)
              : $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId"=>(0 == $applyId)?$this->params('jobId'):$applyId));
@@ -68,7 +69,8 @@ class IndexController extends AbstractActionController
             $model->setTemplate('auth/index/job-not-found.phtml');
             return $model;
         }
-        
+
+        /* @var $form \Zend\Form\Form */
         $form = $services->get('FormElementManager')->get('Application/Create');
         $form->setValidate();
         
@@ -83,7 +85,7 @@ class IndexController extends AbstractActionController
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
         //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
-        
+
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
             $contact = new Info();

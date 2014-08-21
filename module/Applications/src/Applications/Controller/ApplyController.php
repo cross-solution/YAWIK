@@ -24,7 +24,7 @@ use Applications\Entity\StatusInterface;
 
 /**
  *
- *
+ * @method \Auth\Controller\Plugin\Auth auth
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ApplyController extends AbstractActionController
@@ -41,11 +41,15 @@ class ApplyController extends AbstractActionController
     
     public function preDispatch(MvcEvent $e)
     {
+        /* @var $application \Applications\Entity\Application */
         if ($this->params()->fromQuery('do')) {
             $e->getRouteMatch()->setParam('action', 'do');
             return;
         }
-        
+
+        /* @var $request    \Zend\Http\Request */
+        /* @var $repository \Applications\Repository\Application */
+        /* @var $container  \Applications\Form\Apply */
         $request      = $this->getRequest();
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
@@ -71,10 +75,25 @@ class ApplyController extends AbstractActionController
             if (!$appId) {
                 throw new \RuntimeException('Missing apply id');
             }
-            $application = $repository->findDraft($user, $appId);
+
+
+            $subscriberUri = $this->params()->fromQuery('subscriber');
+            $application   = $repository->findDraft($user, $appId);
+
             if ($application) {
-               $form = $container->getForm('contact.contact');
-               $form->setDisplayMode('summary');
+                /* @var $form \Auth\Form\UserInfo */
+                $form = $container->getForm('contact.contact');
+                $form->setDisplayMode('summary');
+
+                if ($subscriberUri) {
+                    $subscriber = $application->getSubscriber();
+                    if (!$subscriber || $subscriber->uri != $subscriberUri) {
+                        $subscriber = $repositories->get('Applications/Subscriber')->findbyUri($subscriberUri, /*create*/ true);
+                        $application->setSubscriber($subscriber);
+                        $subscriber->getname();
+                    }
+                }
+
             } else {
                 $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
                 
@@ -82,12 +101,19 @@ class ApplyController extends AbstractActionController
                     $e->getRouteMatch()->setParam('action', 'job-not-found');
                     return;
                 }
-                
+
+                /* @var $application \Applications\Entity\Application */
                 $application = $repository->create();
                 $application->setIsDraft(true)
                             ->setContact($user->info)
                             ->setUser($user)
                             ->setJob($job);
+
+                if ($subscriberUri) {
+                    $subscriber = $repositories->get('Applications/Subscriber')->findbyUri($subscriberUri, /*create*/ true);
+                    $application->setSubscriber($subscriber);
+                }
+
                 $repositories->store($application);
                 /*
                  * If we had copy an user image, we need to refresh its data
