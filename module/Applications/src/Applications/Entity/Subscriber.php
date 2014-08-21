@@ -9,7 +9,6 @@
 namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
-use Core\Entity\EntityInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -29,7 +28,7 @@ class Subscriber extends AbstractIdentifiableEntity
     protected $name;
     
     /**
-     * Referer of a job posting. This referer must be submitted within the
+     * Referer of a job posting. This referrer must be submitted within the
      * application form
      * 
      * @ODM\String 
@@ -44,34 +43,6 @@ class Subscriber extends AbstractIdentifiableEntity
     protected $date;
    
     /**
-     * Name of the repository, which stores uri=>name
-     * 
-     * @var unknown
-     */
-    protected $repository;
-    
-    /**
-     * Injects a repository
-     * 
-     * @param \Applications\Repository\Subscriber $repository
-     * @return \Applications\Entity\Subscriber
-     */
-    public function injectRepository($repository) {
-        $this->repository = $repository;
-        return $this;
-    }
-    
-    /**
-     * Gets the repository for subscribers 
-     * 
-     * @param \Applications\Repository\Subscriber $repository
-     * @return \Applications\Entity\unknown
-     */
-    protected function getRepository($repository) {
-        return $this->repository;
-    }
-    
-    /**
      * Gets the name of the instance, who has published the job ad.
      * 
      * @return String
@@ -79,12 +50,9 @@ class Subscriber extends AbstractIdentifiableEntity
     public function getName()
     {
         if (empty($this->name)) {
-            /* TODO try to fetch name from other YAWIK */
-            $repository = $this->getRepository();
-            $name = $repository->getSubscriberName($this->uri);
-            $this->name = $name;
-            $repository->store($this);
+            $this->fetchData();
         }
+
         return $this->name;
     }
     
@@ -120,5 +88,36 @@ class Subscriber extends AbstractIdentifiableEntity
     {
         $this->uri = $uri;
         return $this;
+    }
+
+    /**
+     * Fetches and sets data from the remote system via {@link $this->uri}.
+     *
+     */
+    protected function fetchData()
+    {
+        $uri = $this->getUri();
+        if (!$uri) {
+            return;
+        }
+
+        $client = new \Zend\Http\Client($this->getUri());
+        $client->setMethod('GET');
+
+        try {
+            $response = $client->send();
+        } catch (\Exception $e) {
+            return;
+        }
+
+        $status = $response->getStatusCode();
+        if ($status == 200) {
+            $result = $response->getBody();
+            $result = (array) json_decode($result);
+            if (0 < count($result)) {
+                $name = array_pop($result);
+                $this->setName($name);
+            }
+        }
     }
 }
