@@ -23,7 +23,6 @@ return array(
                     '\Applications\Repository\Event\JobReferencesUpdateListener',
                     '\Applications\Repository\Event\UpdatePermissionsSubscriber',
                     '\Applications\Repository\Event\UpdateFilesPermissionsSubscriber',
-                    '\Applications\Repository\Event\PostLoadSubscriber',
                     '\Applications\Repository\Event\DeleteRemovedAttachmentsSubscriber',
                 ),
             ),
