@@ -16,6 +16,7 @@ use Core\Entity\AddressInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\EntityInterface;
 
 /**
  * The job model
@@ -24,24 +25,62 @@ use Core\Entity\Collection\ArrayCollection;
  */
 class Organization extends BaseEntity implements OrganizationInterface {
     
+    
+    const postConstruct = 'postRepositoryConstruct';
+    
     /**
-     * name
+     * externalId
+     * 
+     * @var string
+     * @ODM\String
+     */
+    protected $externalId; 
+    
+    /**
+     * OrganizationName
      * 
      * @var \Organizations\Entity\OrganizationName
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
     protected $organizationName; 
     
+    /**
+     * 
+     * @var \Organizations\Entity\OrganizationImage
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
+     */
+    protected $image; 
+    
    /**
     * @inheritDoc
     */
-    public function setOrganizationName($organizationName) 
+    public function setExternalId($externalId) 
     {
-        $this->organizationName = $organizationName;
+        $this->externalId = $externalId;
         return $this;
     }
     
- 
+   /**
+    * @inheritDoc
+    */
+    public function getExternalId() 
+    {
+        return $this->externalId;
+    }
+    
+   /**
+    * @inheritDoc
+    */
+    public function setOrganizationName(OrganizationName $organizationName) 
+    {
+        if (isset($this->organizationName)) {
+            $this->organizationName->refCounterDec()->refCompanyCounterDec();
+        }
+        $this->organizationName = $organizationName;
+        $this->organizationName->refCounterInc()->refCompanyCounterInc();
+        return $this;
+    }
+    
    /**
     * @inheritDoc
     */
@@ -63,7 +102,6 @@ class Organization extends BaseEntity implements OrganizationInterface {
    public function getAddresses() 
    {
    }
-   
    
    /**
     * @inheritDoc
@@ -105,5 +143,20 @@ class Organization extends BaseEntity implements OrganizationInterface {
     */
     public function setPermissions(PermissionsInterface $permissions) 
     {
+        // @TODO: set Permissions
     }
+    
+    public function setImage(EntityInterface $image = null)
+    {
+        $this->image = $image;
+        return $this;
+    }
+    
+    public function getImage()
+    {
+        return $this->image;
+    }
+    
 }
+
+

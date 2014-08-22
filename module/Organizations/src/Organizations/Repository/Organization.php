@@ -12,27 +12,41 @@ use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Organization extends AbstractRepository 
+class Organization extends AbstractRepository
 {
     /**
-     * Find a organizations.name by an name
+     * Find a organizations by an name
      * 
-     * @param String $uri
-     * @param boolean $create
-     * @return Applications\Entity\Subscriber
+     * @param String $name
+     * @return Organization\Entity\Organization
      */
     public function findbyName($name, $create = false) {
-        $organization = $this->findOneBy(array( "name" => $name ));
-        /*
-        if (!isset($subScriber) && $create) {
-            $subScriber = $this->create();
-            $subScriber->uri = $uri;
-            $this->dm->persist($subScriber);
-            $this->dm->flush();
+        $organizations = array();
+        $query = $this->dm->createQueryBuilder("Organizations\Entity\OrganizationName")->hydrate(false)->field('name')->equals($name)->select("_id");
+        $result = $query->getQuery()->execute()->toArray(false);
+        if (empty($result)) {
+            // create
+            $repositoryNames = $this->dm->getRepository("Organizations\Entity\OrganizationName");
+            $entityName = $repositoryNames->create();
+            $entityName->setName($name);
+            $entity = $this->create();
+            $entity->setOrganizationName($entityName);
+            $this->store($entity);
+            $organizations = array($entity);
         }
-        */
-        return $subScriber; 
+        else {
+            $idName = $result[0]['_id'];
+            $organizations = $this->findBy(array('organizationName' => $idName));
+        }
+        return $organizations; 
     }
     
-    
+    public function findbyRef($ref, $create = true) {
+        $entity = $this->findOneBy(array('externalId' => $ref));
+        if (empty($entity)) {
+            $entity = $this->create();
+            $entity->setExternalId($ref);
+        }
+        return $entity;
+    }
 }

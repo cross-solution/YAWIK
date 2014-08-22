@@ -44,6 +44,7 @@ class IndexController extends AbstractActionController
      */
     public function testfillAction()
     {
+        /*
         $services = $this->getServiceLocator();
         $config = $services->get('Config');
         
@@ -59,27 +60,57 @@ class IndexController extends AbstractActionController
         
         $repName = $services->get('repositories')->get('Organizations/OrganizationName');
         $rep = $services->get('repositories')->get('Organizations/Organization');
-        //$rep->store($entity);
-        //$entity = $rep->createNew();
-        //$entity->addOrganizationName('Cross-Solution');
-        //$entity = $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId" => (string) $applyId));
-        //if (!isset($entity)) {
-        //$entity = $services->get('repositories')->get('Jobs/Job')->create(array("applyId" => (string) $applyId))
-        //$entity->setUser($user);
-        //$services->get('repositories')->get('Organizations/Organization')->store($entity);
         
-        $entityName = $rep->findbyName("Nevada");
+        // Create a new Entry in 3 Steps
+        $entity = $rep->findbyRef('abcdef');
+        $name = $repName->findbyName("Bonn");
+        $entity->setOrganizationName($name3);
+        */
         
-        if (False) {
-            $entityName = $repName->create();
-            $entityName->setName('Utah');
-            //$repName->store($entityName);
+    }
+    
+    /** 
+     * companyLogo
+     */
+    public function logoAction()
+    {
+        $response = $this->getResponse();
+        $file     = $this->getFile();
         
-        
-            $rep = $services->get('repositories')->get('Organizations/Organization');
-            $entity = $rep->create();
-            $entity->setOrganizationName($entityName);
-            $rep->store($entity);
+        if (!$file) {
+            return $response;
         }
+        
+        //$this->acl($file);
+        
+        $response->getHeaders()->addHeaderline('Content-Type', $file->type)
+                               ->addHeaderline('Content-Length', $file->length);
+        $response->sendHeaders();
+        $resource = $file->getResource();
+        while (!feof($resource)) {
+            echo fread($resource, 1024);
+        }
+        return $response;
+    }
+    
+    protected function getFile()
+    {
+        $imageId = $this->params('id');
+        $response = $this->getResponse();
+        
+        try {
+            $repository = $this->getServiceLocator()->get('repositories')->get('Organizations/OrganizationImage');
+            
+            $file       = $repository->find($imageId);                
+            if ($file) {
+                return $file;
+            }
+            $response->setStatusCode(404);
+        } catch (\Exception $e) {
+            $response->setStatusCode(404);
+            $this->getEvent()->setParam('exception', $e);
+            return;
+        }
+        return;
     }
 }

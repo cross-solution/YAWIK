@@ -112,4 +112,9 @@ return array(
         'factories' => array(
         ),
     ),
+    'hydrators' => array(
+        'factories' => array(
+            'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
+        ),
+    ),
 );

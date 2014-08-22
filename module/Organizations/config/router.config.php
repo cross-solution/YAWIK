@@ -36,6 +36,18 @@ return array(
                                     ),
                                 ),
                             ),
+                            'logo' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/logo/:id',
+                                    'constraints' => array(
+                                        'id' => '\w+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'logo',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                     'organizationsTestfill' => array(

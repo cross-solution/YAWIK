@@ -14,4 +14,12 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class OrganizationName extends AbstractRepository 
 {
+    public function findbyName($name, $create = true) {
+        $entity = $this->findOneBy(array('name' => $name));
+        if (empty($entity)) {
+            $entity = $this->create();
+            $entity->setName($name);
+        }
+        return $entity;
+    }
 }
