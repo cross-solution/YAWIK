@@ -29,13 +29,14 @@ class ImportController extends AbstractActionController {
         $services = $this->getServiceLocator();
         $config = $services->get('Config');
         
-        if (False && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
+        if (True && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
 
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(array(
                 'applyId' => '71022',
-                'company' => 'Meine Kollegen',
+                'company' => 'Holsten 4',
+                'companyId' => '1745',
                 'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch.de',
                 'title' => 'Fuhrparkleiter/-in',
                 'location' => 'Bundesland, Bayern, DE',
@@ -46,6 +47,7 @@ class ImportController extends AbstractActionController {
                 'camEnabled' => '1',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
+                'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg'
             ));
             $this->getRequest()->setPost($params);
         }        
@@ -57,7 +59,7 @@ class ImportController extends AbstractActionController {
         //    $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . $user->login);
         //}
         $result = array('token' => session_id(), 'isSaved' => False);
-        if (isset($user)) {
+        if (isset($user) && !empty($user->login)) {
             $form = $services->get('FormElementManager')->get('Jobs/Import');
             // determine Job from Database 
             $id = $this->params()->fromPost('id');
@@ -80,6 +82,13 @@ class ImportController extends AbstractActionController {
             
             $form->bind($entity);
             if ($this->request->isPost()) {
+                $loginSuffix = '';
+                $e = $this->getEvent();
+                $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
+                if (!$loginSuffixResponseCollection->isEmpty()) {
+                    $loginSuffix = $loginSuffixResponseCollection->last();
+                }
+            
                 $params = $this->getRequest()->getPost();
                 $params->datePublishStart = \Datetime::createFromFormat("Y-m-d",$params->datePublishStart);
                 $form->setData($params);
@@ -92,6 +101,20 @@ class ImportController extends AbstractActionController {
                     }
                     $services->get('repositories')->get('Jobs/Job')->store($entity);
                     $result['isSaved'] = true;
+                    
+                    if (!empty($params->companyId)) {
+                        $companyId = $params->companyId . $loginSuffix;
+                        $repOrganization = $services->get('repositories')->get('Organizations/Organization');
+                        $hydrator = $this->getServiceLocator()->get('hydratorManager')->get('Hydrator/Organization');
+                        $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
+                        $data = array(
+                            'externsalId' => $params->companyId,
+                            'organizationName' => $params->company,
+                            'image' => $params->logoRef    
+                        );
+                        $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
+                        $services->get('repositories')->store($entityOrganization);
+                    }
                 } else {
                     $result['valid Error'] = $form->getMessages();
                 }

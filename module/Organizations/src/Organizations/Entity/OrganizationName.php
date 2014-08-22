@@ -30,13 +30,13 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     /**
      * Flag, if the nane is used
      * 
-     * @var bool
-     * @ODM\Boolean
+     * @var int
+     * @ODM\Int
      */
-    protected $used;
+    protected $rankingByCompany;
     
     /**
-     * Ranking
+     * Overall numbers of use
      * 
      * @var int
      * @ODM\Int
@@ -45,6 +45,8 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     
     public function __construct($name = Null) 
     {
+        $this->ranking = 0;
+        $this->rankingByCompany = 0;
         if (!empty($name)) {
             $this->name = $name;
         }
@@ -72,21 +74,20 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     /**
      * @return the $name
      */
-    public function getUsed ()
+    public function getRankingByCompany ()
     {
-        return $this->used;
+        return $this->rankingByCompany;
     }
 
     /**
      * @param string $name
      * @return $this
      */
-    public function setUsed ($used)
+    public function setRankingByCompany ($used)
     {
-        $this->used = $used;
+        $this->rankingByCompany = $rankingByCompany;
         return $this;
     }
-    
     
     /**
      * Sets the id.
@@ -95,6 +96,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      */
     public function setId($id) 
     {
+        $this->id = $id;
         return $this;
     }
     
@@ -105,8 +107,31 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      */
     public function getId()
     {
-        return;
+        return $this->id;
     }
     
+    public function refCounterDec()
+    {
+        $this->ranking -= 1;
+        return $this;
+    }
+    
+    public function refCounterInc()
+    {
+        $this->ranking += 1;
+        return $this;
+    }
+    
+    public function refCompanyCounterDec()
+    {
+        $this->rankingByCompany -= 1;
+        return $this;
+    }
+    
+    public function refCompanyCounterInc()
+    {
+        $this->rankingByCompany += 1;
+        return $this;
+    }
     
 }

@@ -33,7 +33,7 @@ interface OrganizationInterface
     * @param string organizationName
     * @return OrganizationInterface
     */
-   public function setOrganizationName($organizationNames);
+   public function setOrganizationName(OrganizationName $organizationNames);
 
    /**
     * Gets the name of the organization
