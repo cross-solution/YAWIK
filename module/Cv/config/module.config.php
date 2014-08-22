@@ -25,50 +25,52 @@ return array(
     ),
     
     // Routes
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'cvs' => array(
-                        'type' => 'Literal',
-                        'options' => array(
-                            'route'    => '/cvs',
-                            'defaults' => array(
-                                'controller' => 'Cv\Controller\Index',
-                                'action'     => 'index',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'create' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/create',
-                                    'defaults' => array(
-                                        'controller' => 'Cv\Controller\Manage',
-                                        'action' => 'form',
-                                        'id' => false,
-                                    ),
-                                ),
-                                'may_terminate' => true,
-                            ),
-                            'save' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/save',
-                                    'defaults' => array(
-                                        'controller' => 'Cv\Controller\Manage',
-                                        'action' => 'save',
-                                    ),
-                                ),
-                                'may_terminate' => true,
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
+    /* DISABLED until module is fixed */
+    // TODO: Remove comments when module is fixed.
+//    'router' => array(
+//        'routes' => array(
+//            'lang' => array(
+//                'child_routes' => array(
+//                    'cvs' => array(
+//                        'type' => 'Literal',
+//                        'options' => array(
+//                            'route'    => '/cvs',
+//                            'defaults' => array(
+//                                'controller' => 'Cv\Controller\Index',
+//                                'action'     => 'index',
+//                            ),
+//                        ),
+//                        'may_terminate' => true,
+//                        'child_routes' => array(
+//                            'create' => array(
+//                                'type' => 'Literal',
+//                                'options' => array(
+//                                    'route' => '/create',
+//                                    'defaults' => array(
+//                                        'controller' => 'Cv\Controller\Manage',
+//                                        'action' => 'form',
+//                                        'id' => false,
+//                                    ),
+//                                ),
+//                                'may_terminate' => true,
+//                            ),
+//                            'save' => array(
+//                                'type' => 'Literal',
+//                                'options' => array(
+//                                    'route' => '/save',
+//                                    'defaults' => array(
+//                                        'controller' => 'Cv\Controller\Manage',
+//                                        'action' => 'save',
+//                                    ),
+//                                ),
+//                                'may_terminate' => true,
+//                            ),
+//                        ),
+//                    ),
+//                ),
+//            ),
+//        ),
+//    ),
     
     'acl' => array(
         'rules' => array(
@@ -90,26 +92,28 @@ return array(
     ),
     
     // Navigation
-    'navigation' => array(
-        'default' => array(
-            'resume' => array(
-                'label' =>  /*@translate*/ 'Resumes',
-                'route' => 'lang/cvs',
-                'resource' => 'route/lang/cvs',
-                'order' => 10,
-                'pages' => array(
-                    'list' => array(
-                        'label' => /*@translate*/ 'Overview',
-                        'route' => 'lang/cvs',
-                    ),
-                    'create' => array(
-                        'label' => /*@translate*/ 'Create resume',
-                        'route' => 'lang/cvs/create',
-                    ),
-                ),
-            ),
-        ),
-    ),
+    // Disabled until module is fixed
+    // TODO: Remove comments when module is fixed
+//    'navigation' => array(
+//        'default' => array(
+//            'resume' => array(
+//                'label' =>  /*@translate*/ 'Resumes',
+//                'route' => 'lang/cvs',
+//                'resource' => 'route/lang/cvs',
+//                'order' => 10,
+//                'pages' => array(
+//                    'list' => array(
+//                        'label' => /*@translate*/ 'Overview',
+//                        'route' => 'lang/cvs',
+//                    ),
+//                    'create' => array(
+//                        'label' => /*@translate*/ 'Create resume',
+//                        'route' => 'lang/cvs/create',
+//                    ),
+//                ),
+//            ),
+//        ),
+//    ),
     
     'view_manager' => array(
         
