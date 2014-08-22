@@ -92,6 +92,16 @@ class ManageController extends AbstractActionController
         $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         $application = $repository->find($this->params('id'));
         
+        if (!$application) {
+            
+            $this->response->setStatusCode(410);
+            $model = new ViewModel(array(
+                'content' => /*@translate*/ 'Invalid apply id'
+            ));
+            $model->setTemplate('applications/error/not-found');
+            return $model;
+        }
+        
     	$this->acl($application, 'read');
     	
     	$applicationIsUnread = false;
@@ -348,7 +358,8 @@ class ManageController extends AbstractActionController
     {
         $id          = $this->params('id');
         $services    = $this->getServiceLocator();
-        $repository  = $services->get('repositories')->get('Applications/Application');
+        $repositories= $services->get('repositories');
+        $repository  = $repositories->get('Applications/Application');
         $application = $repository->find($id);
         
         if (!$application) {
@@ -357,7 +368,7 @@ class ManageController extends AbstractActionController
         
         $this->acl($application, 'delete');
         
-        $repository->delete($application);
+        $repositories->remove($application);
         
         if ('json' == $this->params()->fromQuery('format')) {
             return array(

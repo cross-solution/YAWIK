@@ -54,4 +54,9 @@ class FormCheckbox extends ZfFormCheckbox
         
         return $label . $markup;
     }
+    
+    public function renderBare(ElementInterface $element)
+    {
+        return parent::render($element);
+    }
 }

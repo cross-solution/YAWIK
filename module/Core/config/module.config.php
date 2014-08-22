@@ -209,7 +209,6 @@ return array(
     // Configuration of the controller plugin service manager
     'controller_plugins' => array(
         'factories' => array(
-            'mailstackmailer' => 'Core\Controller\Plugin\Mailfactory',
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
         ),

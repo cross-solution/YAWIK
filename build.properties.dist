@@ -1,8 +1,11 @@
+; This file contains configuration options. By executing:
 ;
-; enviroment
+; ./phing.phar generate-autoload-config
 ;
-app.env=production
+; The values are written to configuration files located in config/autoload
+; 
 
+;
 ;
 ; Database Settings (module/Core/config/module.core.doctrine.config.local.php.dist)
 ;
@@ -11,25 +14,44 @@ mongo.port=27017
 mongo.db=Yawik
 
 ;
-; Email (module/Core/config/core.mails.global.php.dist)
+; initial user login. The useraccount will be added to the mongodb if not exist.
+;
+
+username=
+password=
+
+;
+; Email (module/Core/config/core.mails.global.php.dist).
 ;
 mail.from.email=demo@yawik.org
 mail.from.name=YAWIK
 
 ;
-; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)
+; Email development system settings
+; (module/Core/config/core.mails.development.php.dist).
 ;
+; Override recipient for every mail send. (including CC and BCC)
+; Use comma to separate multiple addresses.
+;
+mail.develop.override_recipient=false
+
+;
+; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)
+; You'll het an facebook app ID by creating a Facebook app. 
+; more info: https://developers.facebook.com/ 
 
 facebook.enabled=false
 facebook.appid=<put your facebook app ID here>
 facebook.secret=<put you facebook app secret here>
 facebook.scope=email,user_about_me,user_birthday,user_hometown,user_work_history,user_education_history
 
+; more info: https://dev.xing.com/
 xing.enabled=false
 xing.appid=<put your xing app ID here>
 xing.secret=<put your xing app secret here>
 xing.scope=
 
+; more info: https://developer.linkedin.com/
 linkedin.enabled=false
 linkedin.appid=<put your linkedin app ID here>
 linkedin.secret=<put your linkedin app secret here>
@@ -44,3 +66,9 @@ deploy.ssh.host =
 deploy.ssh.user =
 deploy.docs.target =
 
+;
+; enviroment. 
+; production: enables caching, disables error_reportings.
+; development: no caching, debugging enabled.
+;
+app.env=production

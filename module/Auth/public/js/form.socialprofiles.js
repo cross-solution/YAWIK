@@ -103,11 +103,12 @@
 					}
 				});
 				$buttons.addClass('btn-default');
-				var $form = $button.parent().parent().parent();
+				var $form = $button.parents('form');
 				$.post($form.attr('action'), $form.serialize());
 				break;
 			
 			case 'view':
+				console.debug($button.parent().parent());
 				var $modal = $('#' + $button.parent().parent().attr('id') + '-preview-box');
 				var profileData = $('#' + $button.attr('id') + '-data').text();
 				if (actionData !== undefined) {

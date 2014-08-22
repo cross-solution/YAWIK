@@ -126,7 +126,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     /**
      * Refering subscriber (Where did the application origin from).
      * 
-     * @ODM\ReferenceOne(targetDocument="Subscriber", simple=true)
+     * @ODM\ReferenceOne(targetDocument="Subscriber", cascade={"persist"}, simple=true)
      */
     protected $subscriber;
     
