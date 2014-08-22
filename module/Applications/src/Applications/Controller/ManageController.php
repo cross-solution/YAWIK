@@ -229,7 +229,7 @@ class ManageController extends AbstractActionController
         
         if (in_array($status, array(Status::INCOMING))) {
             $application->changeStatus($status);
-            $repository->save($application);
+            $repository->store($application);
             if ($this->request->isXmlHttpRequest()) {
                 $response = $this->getResponse();
                 $response->setContent('ok');
@@ -258,7 +258,7 @@ class ManageController extends AbstractActionController
            $mailService->send($mail);
            
             $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));
-            $repository->save($application);
+            $repository->store($application);
             
             if ($jsonFormat) {
                 return array(
