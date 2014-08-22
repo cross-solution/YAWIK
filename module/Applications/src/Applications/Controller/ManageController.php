@@ -70,7 +70,8 @@ class ManageController extends AbstractActionController
             'sort' => $params->get('sort', 'none'),
             'search' => $params->get('search', ''),
             'job' => $job,
-            'applicationStates' => $states
+            'applicationStates' => $states,
+            'applicationState' => $params->get('status', '')
         );
     }
     
