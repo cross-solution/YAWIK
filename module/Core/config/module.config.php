@@ -271,6 +271,7 @@ return array(
             'form' => 'Core\Form\View\Helper\Form',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
+            'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
@@ -289,6 +290,7 @@ return array(
             'insertFile' => 'Core\View\Helper\InsertFile',
             'alert' => 'Core\View\Helper\Alert',
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
+            'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
@@ -332,6 +334,7 @@ return array(
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
+            'togglebutton' => 'Core\Form\Element\ToggleButton',
         ),
     ),
     
