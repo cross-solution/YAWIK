@@ -105,6 +105,7 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
                     'login' => $login,
                     'password' => $credential,
                     'secret' => $filter->filter($credential),
+                    'role' => 'recruiter'
                 ));
                 $users->store($user);
                 $loginSuccess = True;
