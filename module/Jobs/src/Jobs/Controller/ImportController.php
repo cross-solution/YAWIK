@@ -36,7 +36,7 @@ class ImportController extends AbstractActionController {
             $params = new Parameters(array(
                 'applyId' => '71022',
                 'company' => 'Meine Kollegen',
-                'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch.de',
+                'contactEmail' => 'stephanie.roghmans2@aaa.de',
                 'title' => 'Fuhrparkleiter/-in',
                 'location' => 'Bundesland, Bayern, DE',
                 'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',
