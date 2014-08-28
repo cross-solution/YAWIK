@@ -56,15 +56,27 @@ class ManageController extends AbstractActionController
             'status',
         ));
         
-        $jobRepository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
+        $jobRepository         = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         $applicationRepository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         
-        $states = $applicationRepository->getStates()->toArray();
-        $states = array_merge(array(/*@translate*/ 'all'), $states);
+        $services              = $this->getServiceLocator();
+        $services_form         = $services->get('forms');
+        $form                  = $services_form->get('Applications/Filter');
+        $params                = $this->getRequest()->getQuery();
+        $statusElement         = $form->get('status');
+        //$form->bind($params);
+        
+        
+        $states                = $applicationRepository->getStates()->toArray();
+        $states                = array_merge(array(/*@translate*/ 'all'), $states);
+        
+        $statusElement->setValueOptions($states);
+        
         $job = $params->job ? $jobRepository->find($params->job)  : null;
         $paginator = $this->paginator('Applications/Application',$params);
                 
         return array(
+            'form' => $form,
             'applications' => $paginator,
             'byJobs' => 'jobs' == $params->get('by', 'me'),
             'sort' => $params->get('sort', 'none'),
@@ -296,8 +308,7 @@ class ManageController extends AbstractActionController
         
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Applications/Mail');
         $form->populateValues($params);
-        
-        
+                
         return array(
             'form' => $form
         );

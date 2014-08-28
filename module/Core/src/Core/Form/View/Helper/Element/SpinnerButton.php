@@ -27,9 +27,10 @@ class SpinnerButton extends FormButton
             if (null === $buttonContent) {
                 throw new Exception\DomainException(sprintf(
                     '%s expects either button content as the second argument, ' .
-                        'or that the element provided has a label value; neither found',
+                    'or that the element provided has a label value; neither found',
                     __METHOD__
-                ));
+                )
+                );
             }
 
             if (null !== ($translator = $this->getTranslator())) {
