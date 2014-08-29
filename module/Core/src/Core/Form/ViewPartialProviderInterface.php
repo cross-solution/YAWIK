@@ -21,7 +21,7 @@ interface ViewPartialProviderInterface
      * Sets the view partial name.
      * 
      * @param String $partial
-     * @return Zend\Form\ElementInterface fluent interface
+     * @return self
      */
     public function setViewPartial($partial);
     

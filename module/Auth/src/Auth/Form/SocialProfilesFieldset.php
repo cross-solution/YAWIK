@@ -10,12 +10,15 @@
 /** Auth forms */ 
 namespace Auth\Form;
 
+
+use Core\Form\DisableElementsCapableInterface;
 use Zend\Form\Fieldset;
 use Core\Form\ViewPartialProviderInterface;
 use Auth\Form\Hydrator\SocialProfilesHydrator;
 use Doctrine\Common\Collections\Collection;
+use Zend\Form\FieldsetInterface;
 
-class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInterface
+class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInterface, DisableElementsCapableInterface
 {
     
     /**
@@ -35,26 +38,80 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
      * @var string
      */
     protected $previewUrl;
-    
 
-    /**
-     * {@inheritDoc}
-     * @see \Core\Form\ViewPartialProviderInterface::getViewPartial()
-     */
     public function getViewPartial()
     {
         return $this->partial;
     }
-    
-    /**
-     * {@inheritDoc}
-     * @see \Core\Form\ViewPartialProviderInterface::setViewPartial()
-     */
+
     public function setViewPartial($partial)
     {
         $this->partial = $partial;
         return $this;
     }
+
+    public function setIsDisableCapable($flag)
+    {
+        $this->options['is_disable_capable'] = $flag;
+
+        return $this;
+    }
+
+    public function isDisableCapable()
+    {
+        return isset($this->options['is_disable_capable'])
+               ? $this->options['is_disable_capable'] : false;
+    }
+
+    public function setIsDisableElementsCapable($flag)
+    {
+        $this->options['is_disable_elements_capable'] = $flag;
+
+        return $this;
+    }
+
+    public function isDisableElementsCapable()
+    {
+        return isset($this->options['is_disable_elements_capable'])
+               ? $this->options['is_disable_elements_capable'] : true;
+    }
+
+    public function disableElements(array $map)
+    {
+        if (!$this->isDisableElementsCapable()) {
+            return $this;
+        }
+
+        foreach ($map as $key => $name) {
+
+            if (is_numeric($key)) {
+                $key = $name;
+                $name = null;
+            }
+
+            if (!$this->has($key)) {
+                continue;
+            }
+
+            $element = $this->get($key);
+
+            if (null === $name) {
+                if (false !== $element->getOption('is_disable_capable')) {
+                    $this->remove($key);
+                }
+                continue;
+            }
+
+            if ($element instanceOf FieldsetInterface
+                && $element instanceOf DisableElementsCapableInterface
+                && $element->isDisableElementsCapable()
+            ) {
+                $element->disableElements($name);
+            }
+        }
+        return $this;
+    }
+
 
     /**
      * Gets the fetch url specification.
@@ -98,17 +155,9 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
      */
     public function getPreviewUrl ()
     {
-        return $this->previewhUrl;
+        return $this->previewUrl;
     }
     
-    /**
-     * Get the hydrator.
-     * 
-     * If no hydrator is set, it sets a {@link SocialProfilesHydrator}.
-     * 
-     * @return HydratorInterface
-     * @see \Zend\Form\Fieldset::getHydrator()
-     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -116,28 +165,12 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         }
         return $this->hydrator;
     }
-    
-    /**
-     * Checks if the object can be set in this fieldset
-     *
-     * @param object $object
-     * @return bool
-     */
+
     public function allowObjectBinding($object)
     {
         return ($object instanceOf Collection);
     }
     
-    /**
-     * Set options for a fieldset. Accepted options are:
-     * - 'fetch_url': Fetch url specification
-     * - 'preview_url': Preview url specification
-     * - 'profiles': Array of profiles specification for use in 
-     *               {@link addProfileButton()}
-     * {@inheritDoc}
-     * @param  array|Traversable $options
-     * @return self
-     */
     public function setOptions($options)
     {
         parent::setOptions($options);
@@ -189,6 +222,11 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         if (!isset($options['icon'])) {
             $options['icon'] = $name;
         }
+
+        $options['disable_capable']['description'] = sprintf(
+            /*@translate*/ 'Allow users to attach their %s profile.',
+            $options['label']
+        );
         
         $this->add(array(
             'type' => 'Auth/SocialProfilesButton',
@@ -197,11 +235,7 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         ));
         return $this;
     }
-    
-    /**
-     * {@inheritDoc} 
-     * @see \Zend\Form\Element::init()
-     */
+
     public function init()
     {
         $this->setAttribute('class', 'social-profiles-fieldset');

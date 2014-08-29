@@ -11,20 +11,30 @@ namespace Core\Form;
 
 use Zend\Form\Form as ZendForm;
 use Zend\Form\FieldsetInterface;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\InputFilter\InputProviderInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 
-class Form extends ZendForm implements DescriptionAwareFormInterface
+/**
+ * Core form.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+class Form extends ZendForm implements DescriptionAwareFormInterface, DisableElementsCapableInterface
 {
-    
+    /**
+     * Form parameters.
+     * An array of key  => value pairs which are rendered as hidden fields.
+     *
+     * @var array
+     */
     protected $params;
-    
+
+    /**
+     * Flag, if descriptions handling is enabled or not.
+     *
+     * @var bool
+     */
     protected $isDescriptionsEnabled = false;
-    
+
     public function setIsDescriptionsEnabled($flag)
     {
         $this->isDescriptionsEnabled = (bool) $flag;
@@ -39,6 +49,71 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
     public function setDescription($description)
     {
         $this->options['description'] = $description;
+        return $this;
+    }
+
+    public function setIsDisableCapable($flag)
+    {
+        $this->options['is_disable_capable'] = $flag;
+
+        return $this;
+    }
+
+    public function isDisableCapable()
+    {
+        return isset($this->options['is_disable_capable'])
+               ? $this->options['is_disable_capable']
+               : true;
+    }
+
+    public function setIsDisableElementsCapable($flag)
+    {
+        $this->options['is_disable_elements_capable'] = $flag;
+
+        return $this;
+    }
+
+    public function isDisableElementsCapable()
+    {
+        return isset($this->options['is_disable_elements_capable'])
+               ? $this->options['is_disable_elements_capable']
+               : true;
+    }
+
+    public function disableElements(array $map)
+    {
+        if (!$this->isDisableElementsCapable()) {
+            return $this;
+        }
+
+        foreach ($map as $key => $name) {
+
+            if (is_numeric($key)) {
+                $key = $name;
+                $name = null;
+            }
+
+            if (!$this->has($key)) {
+                continue;
+            }
+
+            $element = $this->get($key);
+
+            if (null === $name) {
+                if (($element instanceOf DisableCapableInterface && $element->isDisableCapable())
+                    || false !== $element->getOption('is_disable_capable')) {
+                    $this->remove($element);
+                }
+                continue;
+            }
+
+            if ($element instanceOf FieldsetInterface
+                && $element instanceOf DisableElementsCapableInterface
+                && $element->isDisableElementsCapable()
+            ) {
+                $element->disableElements($name);
+            }
+        }
         return $this;
     }
     
@@ -65,7 +140,14 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
             $this->options['description'] = $desc;
         }
     }
-    
+
+    /**
+     * Sets many form parameters at once.
+     *
+     * @param array $params
+     *
+     * @return self
+     */
     public function setParams(array $params)
     {
         foreach ($params as $key => $value) {
@@ -73,7 +155,15 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
         }
         return $this;
     }
-    
+
+    /**
+     * Sets a form parameter.
+     *
+     * @param string $key
+     * @param string $value
+     *
+     * @return self
+     */
     public function setParam($key, $value)
     {
 
@@ -90,10 +180,16 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
         }
         return $this;
     }
-    
+
+    /**
+     * Adds hydrator strategies to the default hydrator upon instanciation.
+     *
+     * @param \Zend\Stdlib\Hydrator\HydratorInterface $hydrator
+     */
     protected function addHydratorStrategies($hydrator)
     { }
     
+
     public function addClass($spec) {
         $class = array();
         if ($this->hasAttribute('class')) {
@@ -108,11 +204,15 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
         $this->setAttribute('class', implode(' ',$class));
         return $this;
     }
-    
+
     public function setValidate() {
         return $this->addClass('validate');
     }
-    
+
+    /**
+     * {@inheritDoc}
+     * Rebinds the bound object or sets data to the filtered values.
+     */
     public function isValid()
     {
         $isValid = parent::isValid();
@@ -127,5 +227,5 @@ class Form extends ZendForm implements DescriptionAwareFormInterface
         
         return $isValid;
     }
-    
+
 }

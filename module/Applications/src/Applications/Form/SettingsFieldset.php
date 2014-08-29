@@ -24,7 +24,16 @@ class SettingsFieldset extends Fieldset
         return $this->hydrator;
     }
 
-public function init()
+    public function setObject($object)
+    {
+        parent::setObject($object);
+        /* @var $applyFormSettings \Settings\Form\DisableElementsCapableFormSettingsFieldset */
+        $applyFormSettings = $this->get('applyFormSettings');
+        $applyFormSettings->setObject($object->applyFormSettings);
+        return $this;
+    }
+
+    public function init()
     {
         $this->setName('emails')
              ->setLabel(/* @translate */ 'E-Mail Notifications');
@@ -33,7 +42,7 @@ public function init()
         $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		'name' => 'mailAccess',
         		'options' => array('label' => /* @translate */ 'receive E-Mail alert',
-        		                   'description' => /* @translate */ 'if checked, you\'ll be informed by mail about new applications.'),
+        		                   'long_label' => /* @translate */ 'if checked, you\'ll be informed by mail about new applications.'),
         		));
         $this->add(array('type' => 'Zend\Form\Element\Textarea',
         		'name' => 'mailAccessText',
@@ -43,7 +52,7 @@ public function init()
         $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		'name' => 'autoConfirmMail',
         		'options' => array('label' => /* @translate */ 'confirm application immidiatly after submit',
-        		                   'description' => /* @translate */ 'if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.'),
+        		                   'long_label' => /* @translate */ 'if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.'),
         		));
         $this->add(array('type' => 'Zend\Form\Element\Textarea',
                         'name' => 'mailConfirmationText',
@@ -64,8 +73,16 @@ public function init()
           $this->add(array('type' => 'Zend\Form\Element\Checkbox',
         		'name' => 'mailBCC',
         		'options' => array('label' => /* @translate */ 'get blind carbon copy of all own mails',
-        		                   'description' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.',
+        		                   'long_label' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.',
                                            'value_options' => array(0,1, True, False))));
+
+        $this->add(array(
+            'type' => 'Settings/DisableElementsCapableFormSettingsFieldset',
+            'name' => 'applyFormSettings',
+            'options' => array(
+
+            )
+        ));
     }
         
 }

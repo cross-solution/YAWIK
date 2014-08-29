@@ -28,7 +28,16 @@ class Base extends SummaryForm
     /**
      * {@inheritDoc}
      */
-    protected $baseFieldset = 'Applications/BaseFieldset';
+    protected $baseFieldset = array(
+        'type' => 'Applications/BaseFieldset',
+        'options' => array(
+            'disable_capable' => array(
+                'label' => 'Test label base form',
+            ),
+            'is_disable_capable' => false,
+            'is_disable_elements_capable' => true,
+        ),
+    );
     
     /**
      * {@inheritDoc}

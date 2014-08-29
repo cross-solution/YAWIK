@@ -12,6 +12,7 @@ namespace Applications\Entity;
 
 
 
+use Settings\Entity\DisableElementsCapableFormSettings;
 use Settings\Entity\ModuleSettingsContainer;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
@@ -80,8 +81,15 @@ class Settings extends ModuleSettingsContainer {
      * formLabel Send mail
      */
     protected $mailRejectionText;
-    
-	
+
+    /**
+     * Disabled elements of the apply form.
+     *
+     * @ODM\EmbedOne(targetDocument="\Settings\Entity\DisableElementsCapableFormSettings")
+     * @var \Settings\Entity\DisableElementsCapableFormSettings
+     */
+    protected $applyFormSettings;
+
     public function setMailAccess($mailAccess)
     {
         $this->mailAccess = (bool) $mailAccess;
@@ -92,6 +100,22 @@ class Settings extends ModuleSettingsContainer {
     {
         $this->formDisplaySkills = (bool) $formDisplaySkills;
         return $this;
+    }
+
+    /**
+     * Gets the disabled apply form elements settings.
+     *
+     * @return DisableElementsCapableFormSettings
+     */
+    public function getApplyFormSettings()
+    {
+        if (!$this->applyFormSettings) {
+            $settings = new DisableElementsCapableFormSettings();
+            $settings->setForm('Applications/Apply');
+            $this->applyFormSettings = $settings;
+        }
+
+        return $this->applyFormSettings;
     }
 
 }

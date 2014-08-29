@@ -107,6 +107,7 @@ return array(
     
     'view_helpers' => array(
         'invokables' => array(
+            'Settings/FormDisableElementsCapableFormSettings' => 'Settings\Form\View\Helper\FormDisableElementsCapableFormSettings',
         ),
         'factories' => array(
         ),
@@ -133,8 +134,16 @@ return array(
         'invokables' => array(
             'Settings/Form' => '\Settings\Form\AbstractSettingsForm',
             'Settings/Fieldset' => '\Settings\Form\SettingsFieldset',
+            'Settings/DisableElementsCapableFormSettingsFieldset' =>
+                '\Settings\Form\DisableElementsCapableFormSettingsFieldset',
         ),
     ),
+
+    'filters' => array(
+        'invokables' => array(
+            'Settings/DisableElementsCapableFormSettings' => '\Settings\Form\Filter\DisableElementsCapableFormSettings',
+        )
+    )
     
     
 );

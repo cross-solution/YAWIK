@@ -13,7 +13,7 @@ $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job-
 
 <div id="send-application-buttons">
     <nav class="navbar">
-        <div class="col-md-12">
+
         <?php if ($this->isPreview):?>
         <a href="<?php echo $applyUrl ?>" id="back-to-application" class="btn btn-lg btn-default">
             <?php echo $this->translate('Back to the formular') ?>
@@ -38,7 +38,7 @@ $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job-
         <a href="<?php echo $applyUrl ?>?do=abort" id="abort-application" class="btn btn-lg btn-danger">
             <?php echo $this->translate('Abort application') ?>
         </a>
-        </div>
+
     
     </nav>
 </div>

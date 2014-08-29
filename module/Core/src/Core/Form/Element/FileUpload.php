@@ -10,6 +10,7 @@
 /**  */ 
 namespace Core\Form\Element;
 
+use Doctrine\Common\Collections\Collection;
 use Zend\Form\Element\File;
 use Zend\View\Helper\HelperInterface;
 use Zend\Form\FormInterface;
@@ -20,8 +21,25 @@ use Zend\Form\FormInterface;
  */
 class FileUpload extends File implements ViewHelperProviderInterface
 {
+    /**
+     * The view helper name.
+     *
+     * @var string
+     */
     protected $helper = 'formFileUpload';
+
+    /**
+     * Is this element a multiple file upload
+     *
+     * @var bool
+     */
     protected $isMultiple = false;
+
+    /**
+     * The form which contains this element,
+     *
+     * @var FormInterface
+     */
     protected $form;
     
     public function setViewHelper($helper)
@@ -38,12 +56,28 @@ class FileUpload extends File implements ViewHelperProviderInterface
     {
         return $this->helper;
     }
-    
+
+    /**
+     * Sets the maximum file size.
+     *
+     * @param int $bytes
+     *
+     * @return self
+     */
     public function setMaxSize($bytes)
     {
         return $this->setAttribute('data-maxsize', $bytes);
     }
-    
+
+    /**
+     * Sets the allowed mime types.
+     *
+     * The types can be passed either as an array or a comma separated list.
+     *
+     * @param array|string $types
+     *
+     * @return self
+     */
     public function setAllowedTypes($types)
     {
         if (is_array($types)) {
@@ -52,7 +86,14 @@ class FileUpload extends File implements ViewHelperProviderInterface
         
         return $this->setAttribute('data-allowedtypes', $types);
     }
-    
+
+    /**
+     * Sets if this element allows multiple files to be selected.
+     *
+     * @param boolean $flag
+     *
+     * @return self
+     */
     public function setIsMultiple($flag)
     {
         $this->isMultiple = (bool) $flag;
@@ -64,12 +105,22 @@ class FileUpload extends File implements ViewHelperProviderInterface
         
         return $this;
     }
-    
+
+    /**
+     * Gets if this element allows multiple files to be selected.
+     *
+     * @return boolean
+     */
     public function isMultiple()
     {
         return $this->isMultiple;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     *
+     * Sets {@link form}.
+     */
     public function prepareElement(FormInterface $form)
     {
         $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single') . '-file-upload');
@@ -77,7 +128,14 @@ class FileUpload extends File implements ViewHelperProviderInterface
         $this->form = $form;
         parent::prepareElement($form);
     }
-    
+
+    /**
+     * Gets the file entity bound to the containing form,
+     *
+     * Returns <i>NULL</i>, if the entity cannot be retrieved or is not set in the form.
+     *
+     * @return null|Collection|\Core\Entity\FileInterface
+     */
     public function getFileEntity()
     {
         if (!$this->form || !($object = $this->form->getObject())) {

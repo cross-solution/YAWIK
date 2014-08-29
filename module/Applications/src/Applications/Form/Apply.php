@@ -37,12 +37,23 @@ class Apply extends Container
                 'options' => array(
                     'enable_descriptions' => true,
                     'description' => /*@translate*/ 'Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.',
+                    'is_disable_elements_capable' => true,
+                    'is_disable_capable' => false,
                 ),
             ),
-            'profiles' => 'Auth/SocialProfiles',
+            'profiles' => array(
+                'type' => 'Auth/SocialProfiles',
+                'options' => array(
+                    'is_disable_capable' => false,
+                    'is_disable_elements_capable' => true,
+                ),
+            ),
             'attachments' => 'Applications/Attachments',
             'attributes' => 'Applications/Attributes',
         ));
+
+        /* This label is used on the Settings page */
+        $this->options['settings_label'] = /*@translate*/ 'Customize apply form';
     }
     
 }

@@ -182,6 +182,12 @@ return array(
             'Applications/Attachments' => 'Applications\Form\AttachmentsFactory',
         ),
      ),
+
+    'form_elements_config' => array(
+        'Applications/Apply' => array(
+            'disable_elements' => array('base' => array('base' => array('salary'))),
+        ),
+    ),
      
     'filters' => array(
         'invokables' => array(

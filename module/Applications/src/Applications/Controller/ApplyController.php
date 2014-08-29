@@ -126,6 +126,7 @@ class ApplyController extends AbstractActionController
         } 
         
         $container->setEntity($application);
+        $this->configureContainer($container);
         $this->container = $container;
     }
     
@@ -287,6 +288,54 @@ class ApplyController extends AbstractActionController
             $mail = $this->mailer('Applications/CarbonCopy', array(
                 'application' => $application,
             ), /*send*/ true);
+        }
+    }
+
+    /**
+     * Configures the apply form container.
+     *
+     * Currently only disables elements.
+     *
+     * @param Container $container
+     */
+    protected function configureContainer(Container $container)
+    {
+        /* @var $application Application */
+        $application = $container->getEntity();
+        $job         = $application->getJob();
+
+        /*
+         * TODO: Implement disable elements logic in entities, etc.
+         *
+
+
+        $config = $job->getApplyFormElementsConfig();
+        if ($config) {
+            $container->disableElements($config);
+            return;
+        }
+
+        $config = $job->getOrganization()->getApplyFormElementsConfig();
+        if ($config) {
+            $container->disableElements($config);
+            return;
+        }
+        */
+
+        /** @var $settings \Applications\Entity\Settings */
+        $settings = $job->getUser()->getSettings('Applications');
+        $config = $settings->getApplyFormSettings()->getDisableElements();
+        if (is_array($config)) {
+            $container->disableElements($config);
+            return;
+        }
+
+        $config = $this->getServiceLocator()->get('Config');
+        $config = isset($config['form_elements_config']['Applications/Apply']['disable_elements'])
+                ? $config['form_elements_config']['Applications/Apply']['disable_elements']
+                : null;
+        if ($config) {
+            $container->disableElements($config);
         }
     }
 }

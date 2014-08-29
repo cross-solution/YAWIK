@@ -63,6 +63,9 @@ class Form extends ZendForm
      */
     public function renderBare(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
+        /* @var $renderer \Zend\View\Renderer\PhpRenderer
+         * @var $headscript \Zend\View\Helper\HeadScript
+         * @var $basepath \Zend\View\Helper\BasePath */
         $renderer   = $this->getView();
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
@@ -70,7 +73,8 @@ class Form extends ZendForm
         $headscript->appendFile($basepath('Core/js/core.spinnerbutton.js'))
                    ->appendFile($basepath('js/select2.min.js'))
                    ->appendFile($basepath('Core/js/core.forms.js'));
-        
+
+        /* @noinspection PhpParamsInspection */
         $renderer->headLink()->appendStylesheet($basepath('css/select2.css'))
                              ->appendStylesheet($basepath('css/select2-bootstrap.css'));
         
@@ -96,8 +100,9 @@ class Form extends ZendForm
         $formContent = '';
     
         if ($form instanceOf ViewPartialProviderInterface) {
-            return $this->getView()->partial($form->getViewPartial(), array('element' => $form));
+            return $renderer->partial($form->getViewPartial(), array('element' => $form));
         }
+        /* @var $element \Zend\Form\ElementInterface */
         foreach ($form as $element) {
             $parameterPartial = $parameter;
             if (!$element->hasAttribute('id')) {
@@ -110,24 +115,32 @@ class Form extends ZendForm
                 $element->setAttribute('id', $elementId);
             }
             if ($element instanceOf ExplicitParameterProviderInterface) {
+                /* @var $element ExplicitParameterProviderInterface */
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);
             }
             if ($element instanceOf ViewPartialProviderInterface) {
+                /* @var $element ViewPartialProviderInterface */
                 $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
-                $formContent .= $this->getView()->partial(
+                /** @noinspection PhpToStringImplementationInspection */
+                $formContent .= $renderer->partial(
                     $element->getViewPartial(), $parameterPartial 
                 );
                 
-            } else if ($element instanceOf ViewHelperProviderInterface) {
-                $helper = $element->getViewHelper();
-                if (is_string($helper)) {
-                    $helper = $this->getView()->plugin($helper);
-                }
-                $formContent .= $helper($element);
-            } else if ($element instanceof FieldsetInterface) {
-                $formContent.= $this->getView()->formCollection($element, true, $layout);
+            } else if ($element instanceof FieldsetInterface)
+                if ($element instanceOf ViewHelperProviderInterface) {
+                    /* @var $element ViewHelperProviderInterface */
+                    $helper = $element->getViewHelper();
+                    if (is_string($helper)) {
+                        $helper = $renderer->plugin($helper);
+                    }
+
+                    $formContent .= $helper($element);
+                } else {
+                    $formContent .= $renderer->formCollection($element, true, $layout);
+            } else if (false !== $element->getOption('use_formrow_helper')) {
+                $formContent.= $renderer->formRow($element, null, null, $layout);
             } else {
-                $formContent.= $this->getView()->formRow($element, null, null, $layout);
+                $formContent.= $renderer->formElement($element);
             }
         }
         
@@ -148,11 +161,14 @@ class Form extends ZendForm
      */
     public function render(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
     {
+        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $formContent = $this->renderBare($form, $layout, $parameter);
+        $renderer    = $this->getView();
         
         if ($form instanceOf DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
-                $this->getView()->headscript()->appendFile(
-                    $this->getView()->basepath('Core/js/forms.descriptions.js')
+                /* @var $form DescriptionAwareFormInterface|FormInterface */
+                $renderer->headscript()->appendFile(
+                    $renderer->basepath('Core/js/forms.descriptions.js')
                 );
                 
                 if ($desc = $form->getOption('description', '')) {
@@ -181,7 +197,7 @@ class Form extends ZendForm
                 . '</div>';
         
         if ($label = $form->getLabel()) {
-            $label = '<div class="form-headline"><h3>' . $this->getView()->translate($label) . '</h3></div>';
+            $label = '<div class="form-headline"><h3>' . $renderer->translate($label) . '</h3></div>';
         }
         
         return sprintf(
