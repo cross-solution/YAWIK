@@ -34,9 +34,12 @@ class FilterApplication extends Form
 
     public function init()
     {
-        $this->setName('filterApplication')
+        $options = $this->getOptions();
+        $this->setName('search-applications-form')
                 ->setLabel('OptionsFA')
-                ->setAttributes(array('class' => 'form-inline'));
+                ->setAttributes(array(
+                    'class' => 'form-inline',
+                    'method' => 'get'));
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
@@ -48,10 +51,15 @@ class FilterApplication extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
+            'id' => 'job-filter',
             'name' => 'job_title',
             'options' => array(
-                'label' => /* @translate */ 'Search Job Title'
+                'label' => /* @translate */ 'Enter job title',
             ),
+            'attributes' => array(
+                
+                'id' => 'job-filter',
+            )
         ));
 
         $this->add(array(
@@ -64,15 +72,15 @@ class FilterApplication extends Form
 
         
         $this->add(array('type' => 'ToggleButton',
-            'name' => 'unread1',
+            'name' => 'unread',
             'options' => array(
                 'checked_value' => '1',
                 'unchecked_value' => '0',
-                'label' => 'unread only',
+                'label' => 'unread',
             )
         ));
         
-        
+        /*
         $this->add(array('type' => 'Zend\Form\Element\Checkbox',
             'name' => 'unread',
             'options' => array(
@@ -81,16 +89,18 @@ class FilterApplication extends Form
                 'label' => 'unread only',
             )
         ));
+        */
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Button',
-            'name' => 'submit',
+            'name' => 'clear',
             'attributes' => array(
+                'value' => "1",
                 'type' => 'submit', 
                 'class' => 'btn btn-primary'
                 ),
             'options' => array(
-                'label' => /* @translate */ 'Suche'
+                'label' => /* @translate */ 'Search'
             ),
         ));
         
@@ -98,10 +108,15 @@ class FilterApplication extends Form
             'type' => 'href',
             'name' => 'clear',
             'options' => array(
-                'label' => /* @translate */ 'ref1'
+                'label' => /* @translate */ 'Clear'
+            ),
+            'attributes' => array(
+                'class' => 'btn btn-default',
+                //'onClick' => 'window.location.href=\'' . $options['clearRef'] . '\''
+                'onClick' => 'window.location.href=\'?clear=1\''
             ),
         ));
-              
+             
     }
 
 }

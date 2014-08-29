@@ -1,12 +1,12 @@
 <?php
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Button;
+use Zend\Form\Element\Checkbox;
 
 /**
  * 
  */
-class ToggleButton extends Button implements ViewHelperProviderInterface
+class ToggleButton extends Checkbox implements ViewHelperProviderInterface
 {
     protected $viewHelper = 'toggleButton';
     

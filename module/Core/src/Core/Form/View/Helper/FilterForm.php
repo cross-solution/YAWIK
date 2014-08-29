@@ -36,11 +36,14 @@ class FilterForm extends ZendForm
                 $label = $element->getLabel();
                 if ($element instanceOf Text) {
                     $element->setLabel('');
+                    $element->setAttribute('placeholder', $label);
                 }
-                $formContent .= $this->getView()->formRow($element, null, null, Form::LAYOUT_BARE);
+                $formContent .= $this->getView()->formRow($element, null, null, Form::LAYOUT_BARE) . ' ';
             }
         }
-
+        
+        //$formContent = '<div id="search-applications form-group has-feedback" class="row">' . $formContent . '</div>';
+        
         return $this->openTag($form) . $formContent . $this->closeTag();
     }
 }

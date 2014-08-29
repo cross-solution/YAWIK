@@ -43,10 +43,15 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     </div>
 </div>
 
+<nav class="navbar cam-toolbar">
 <?php
     echo $this->filterform($this->form);
 ?>
-
+</nav>
+    
+<?php
+if (False):
+?>
 <div class="container col-md-12">
 <nav class="navbar cam-toolbar"> 
     <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
@@ -57,7 +62,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
                type="text"
                <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
                
-        <input class="form-control" type="text" id="job-filter" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
+        <input class="form-control" type="text" id="job-filteraa" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
         <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
         <select class="form-control" name="status">
 <?php foreach ($this->applicationStates as $applicationStatus): ?>
@@ -74,6 +79,11 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     </form>
   </nav>
 </div>
+<?php
+endif;
+?>
+
+
 <div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(), 
                   array('query' => $this->params()->fromQuery()), true) ?>">
 <?php echo $this->render('applications/manage/index.ajax.phtml') ?>
