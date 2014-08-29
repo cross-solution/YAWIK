@@ -164,6 +164,8 @@ return array(
              'Applications/Contact' => 'Applications\Form\ContactContainer',
              'Applications/Base'  => 'Applications\Form\Base',
              'Applications/Attributes' => 'Applications\Form\Attributes',
+             'Applications/Filter' => 'Applications\Form\FilterApplication',
+             'href' => 'Applications\Form\Element\Ref',
          ),
         'factories' => array(
             'Applications/ContactImage' => 'Applications\Form\ContactImageFactory',

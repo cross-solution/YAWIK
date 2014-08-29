@@ -8,5 +8,5 @@
  */
 
 /** generate_jobs_keywords.php */ 
-namespace ;
+
 

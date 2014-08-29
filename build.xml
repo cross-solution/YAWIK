@@ -295,7 +295,7 @@
           <token key="xing.enabled" value="${xing.enabled}"/>
           <token key="username" value="${username}"/>
           <token key="password" value="${password}"/>
-          <token key="mail.develop.override_recipient" value="" />
+          <token key="mail.develop.override_recipient" value="${mail.develop.override_recipient}" />
         </replacetokens>
       </filterchain>
     </copy>

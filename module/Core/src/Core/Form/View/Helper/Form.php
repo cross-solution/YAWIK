@@ -32,6 +32,7 @@ class Form extends ZendForm
     const LAYOUT_HORIZONTAL = 'form-horizontal';
     const LAYOUT_INLINE     = 'form-inline';
     const LAYOUT_VERTICAL   = '';
+    const LAYOUT_BARE       = 'form-bare';
     /**#@-*/
     
     
