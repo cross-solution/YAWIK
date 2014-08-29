@@ -48,38 +48,6 @@ return array(
         ),
     ),
     
-    'navigation' => array(
-        'default' => array(
-            'organizations' => array(
-                'label' =>  /*@translate*/ 'Organizations',
-                'route' => 'lang/organizations',
-                'order' => '40',
-                'pages' => array(
-                    'list' => array(
-                        'label' => /*@translate*/ 'Overview',
-                        'route' => 'lang/organizations',
-                    ),
-                    'test' => array(
-                        'label' => /*@translate*/ 'Test',
-                        'route' => 'lang/organizationsTestfill',
-//                        'resource' => 'route/lang/organizations/manage',
-                        'params' => array(
-                            'action' => 'testfill'
-                        ),
-//                        'id' => 'Organisation/new',
-                    ),
-//                    'edit' => array(
-//                        'label' => /*@translate*/ 'Edit Organisations',
-//                        'resource' => 'route/lang/organisations/manage',
-//                        'uri' => '#',
-//                        'visible' => false,
-//                        'id' => 'Organisations/edit'
-//                    ),
-                ),
-            ),
-        ),
-    ),
-    
     'controllers' => array(
         'invokables' => array(
             'Organizations/Index' => 'Organizations\Controller\IndexController', 
