@@ -15,11 +15,14 @@ $this->headTitle('My')->prepend($headline);
 <h1><?php echo $this->translate($headline) ?></h1>
 
 <?php 
-$this->form->setAttributes(array(
-    'id' => 'auth-form-group',
-));
+$this->form->setAttributes(
+    array(
+        'id' => 'auth-form-group',
+    )
+);
 $this->form->get('buttons')->get('cancel')->setAttribute(
-    'onclick', 'location.href="' . $this->url('lang/my-groups') . '"; return false;'
+    'onclick', 
+    'location.href="' . $this->url('lang/my-groups') . '"; return false;'
 );
 echo $this->form($this->form);
 ?>

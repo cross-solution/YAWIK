@@ -112,7 +112,6 @@ interface JobInterface extends EntityInterface,
      */
 
     public function getOrganization();
-
     
     /**
      * Sets the organization, which offers the job

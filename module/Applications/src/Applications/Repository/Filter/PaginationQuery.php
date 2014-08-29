@@ -52,6 +52,7 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
+        $userID = $this->auth->getUser()->getId();
         if ($params instanceOf Parameters) {
             $value = $params->toArray();
         } else {
@@ -70,6 +71,10 @@ class PaginationQuery extends AbstractPaginationQuery
         }
         
         
+        if (isset($value['unread']) && !empty($value['unread'])) {
+            $queryBuilder->field('readBy')->notEqual($userID);
+        }
+        
     
         if (isset($value['search']) && !empty($value['search'])) {
             $search = strtolower($value['search']);
@@ -84,7 +89,7 @@ class PaginationQuery extends AbstractPaginationQuery
         /*
          * We only show applications to which the user has view permissions.
          */
-        $queryBuilder->field('permissions.view')->equals($this->auth->getUser()->getId());
+        $queryBuilder->field('permissions.view')->equals($userID);
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
