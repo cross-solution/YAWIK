@@ -16,10 +16,18 @@ return array(
                     'Auth\Entity' => 'annotation',
                 ),
             ),
+            'annotation' => array(
+                /*
+                 * All drivers (except DriverChain) require paths to work on. You
+                 * may set this value as a string (for a single path) or an array
+                 * for multiple paths.
+                 * example https://github.com/doctrine/DoctrineORMModule
+                 */
+                'paths' => array( __DIR__ . '/../src/Auth/Entity'),
+            ),  
         ),
     ),
 
-    
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',

@@ -23,14 +23,14 @@ class Settings extends ModuleSettingsContainer {
     /**
      * 
      * @ODM\Boolean
-     * @formLabel Send mail
+     * formLabel Send mail
      */
     protected $mailAccess = false;
     
     /**
      * 
      * @ODM\Boolean
-     * @formLabel Send BlindCarbonCopy to owner
+     * formLabel Send BlindCarbonCopy to owner
      */
     protected $mailBCC = false;
     
@@ -38,7 +38,7 @@ class Settings extends ModuleSettingsContainer {
     /**
      *
      * @ODM\Boolean
-     * @formLabel Send mail
+     * formLabel Send mail
      */
     protected $formDisplaySkills = false;
     
@@ -46,21 +46,21 @@ class Settings extends ModuleSettingsContainer {
     /**
      *
      * @ODM\Boolean
-     * @formLabel Confirm application immidiatly after submitting
+     * formLabel Confirm application immidiatly after submitting
      */
     protected $autoConfirmMail = false;
     
     /**
      *
      * @ODM\String
-     * @formLabel Send mail
+     * formLabel Send mail
      */
     protected $mailAccessText;
     
     /**
      *
      * @ODM\String
-     * @formLabel Send mail
+     * formLabel Send mail
      */
     protected $mailInvitationText;
     
@@ -68,14 +68,14 @@ class Settings extends ModuleSettingsContainer {
     /**
      *
      * @ODM\String
-     * @formLabel Send mail
+     * formLabel Send mail
      */
     protected $mailConfirmationText;
     
     /**
      *
      * @ODM\String
-     * @formLabel Send mail
+     * formLabel Send mail
      */
     protected $mailRejectionText;
     

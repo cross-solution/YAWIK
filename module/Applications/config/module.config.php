@@ -16,6 +16,16 @@ return array(
                     'Applications\Entity' => 'annotation',
                 ),
             ),
+            'annotation' => array(
+               /*
+                * All drivers (except DriverChain) require paths to work on. You
+                * may set this value as a string (for a single path) or an array
+                * for multiple paths.
+                * example https://github.com/doctrine/DoctrineORMModule
+                */
+               'paths' => array( __DIR__ . '/../src/Applications/Entity',
+                                 __DIR__ . '/../../../module/Cv/src/Cv/Entity'),
+           ),
         ),
         'eventmanager' => array(
             'odm_default' => array(

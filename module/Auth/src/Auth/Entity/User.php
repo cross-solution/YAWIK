@@ -24,7 +24,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
 {   
    
     /** @var string 
-     * @ODM\String */
+     * @ODM\String @ODM\Index */
     protected $login;
     
     /** @ODM\String */

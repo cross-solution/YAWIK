@@ -461,16 +461,16 @@ class Job extends BaseEntity implements JobInterface {
         $this->logoRef = $logoRef;
         return $this;
     }
+
     /**
-     * 
-     * @return string
+     * @return String
      */
     public function getUriPublisher() {
         return $this->uriPublisher;
     }
     /**
      * 
-     * @param unknown $uriPublisher
+     * @param String $uriPublisher
      * @return \Jobs\Entity\Job
      */
     public function setUriPublisher($uriPublisher) {

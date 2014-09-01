@@ -40,6 +40,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * 
      * @var JobInterface
      * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
+     * @ODM\Index
      */
     protected $job;
     
@@ -48,6 +49,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      *
      * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", simple=true)
+     * @ODM\Index
      */
     protected $user;
     
@@ -70,7 +72,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $contact;
     
     /**
-     * The summary of an application
+     * The cover letter of an application
      * 
      * @var String
      * @ODM\String
