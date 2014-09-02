@@ -26,4 +26,17 @@ return array('console' => array('router' => array('routes' => array(
             ),
         ),
     ),
+    /*
+     * the application form creates temporary applications, as soon as a user opens the form.
+     * This cli actions will cleanup unfinished applications.
+     */
+    'applications-cleanup' => array(
+        'options' => array(
+            'route' => 'applications cleanup [--limit=]',
+            'defaults' => array(
+                'controller' => 'Applications/Console',
+                'action'     => 'cleanup'
+            ),
+        ),
+    ),
 ))));
