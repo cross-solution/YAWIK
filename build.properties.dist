@@ -12,6 +12,8 @@
 mongo.host=localhost
 mongo.port=27017
 mongo.db=Yawik
+mongo.user=
+mongo.pass=
 
 ;
 ; initial user login. The useraccount will be added to the mongodb if not exist.

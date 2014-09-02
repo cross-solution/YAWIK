@@ -36,7 +36,7 @@ interface InfoInterface extends EntityInterface
 	/**
 	 * Sets the month of the date of birth.
 	 *
-	 * @param string $birthMonath
+	 * @param string $birthMonth
 	 */
 	public function setBirthMonth($birthMonth);
 	
@@ -92,7 +92,7 @@ interface InfoInterface extends EntityInterface
     /**
      * Sets the gender
      *
-     * @param string $name
+     * @param string $gender
      */
     public function setGender($gender);
     

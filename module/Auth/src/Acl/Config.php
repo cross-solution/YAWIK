@@ -19,13 +19,20 @@ class Config
     
     protected $config;
     protected $assertions;
-    
+
+    /**
+     * @param array $config
+     * @param AssertionManager $assertionManager
+     */
     public function __construct($config = array(), AssertionManager $assertionManager)
     {
         $this->config = $config;
         $this->assertions = $assertionManager;
     }
-    
+
+    /**
+     * @return array
+     */
     public function getRoles()
     {
         $roles = array();
@@ -46,8 +53,12 @@ class Config
         
         return $roles;
     }
-    
-    
+
+    /**
+     * @param $roleId
+     * @param $type
+     * @return array
+     */
     public function getRules($roleId, $type)
     {
         
@@ -104,6 +115,10 @@ class Config
         return $rules;
     }
 
+    /**
+     * @param AclInterface $acl
+     * @return AclInterface
+     */
     public function configureAcl(AclInterface $acl)
     {
         foreach ($this->getRoles()as $roleId => $parents) {

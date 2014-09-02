@@ -29,7 +29,7 @@ class Organization extends BaseEntity implements OrganizationInterface {
     const postConstruct = 'postRepositoryConstruct';
     
     /**
-     * externalId
+     * externalId. Allows external applications to reference their primary key.
      * 
      * @var string
      * @ODM\String
@@ -37,7 +37,7 @@ class Organization extends BaseEntity implements OrganizationInterface {
     protected $externalId; 
     
     /**
-     * OrganizationName
+     * The actual name of the organization.
      * 
      * @var \Organizations\Entity\OrganizationName
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
@@ -45,32 +45,27 @@ class Organization extends BaseEntity implements OrganizationInterface {
     protected $organizationName; 
     
     /**
+     * primary logo of an organization
      * 
      * @var \Organizations\Entity\OrganizationImage
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
      */
-    protected $image; 
-    
-   /**
-    * @inheritDoc
-    */
+    protected $image;
+
+    /** {@inheritdoc} */
     public function setExternalId($externalId) 
     {
         $this->externalId = $externalId;
         return $this;
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function getExternalId() 
     {
         return $this->externalId;
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function setOrganizationName(OrganizationName $organizationName) 
     {
         if (isset($this->organizationName)) {
@@ -80,78 +75,62 @@ class Organization extends BaseEntity implements OrganizationInterface {
         $this->organizationName->refCounterInc()->refCompanyCounterInc();
         return $this;
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
    public function getOrganizationName() 
    {
        return $this->organizationName;
    }
-   
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
    public function setAddresses(AddressInterface $addresses)
    {
    }
-   
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
    public function getAddresses() 
    {
    }
-   
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function getSearchableProperties()
     {
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function setKeywords(array $keywords)
     {
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function clearKeywords()
     {
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function getKeywords()
     {
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function getPermissions()
     {
     }
-    
-   /**
-    * @inheritDoc
-    */
+
+    /** {@inheritdoc} */
     public function setPermissions(PermissionsInterface $permissions) 
     {
         // @TODO: set Permissions
     }
-    
+
+    /** {@inheritdoc} */
     public function setImage(EntityInterface $image = null)
     {
         $this->image = $image;
         return $this;
     }
-    
+
+    /** {@inheritdoc} */
     public function getImage()
     {
         return $this->image;

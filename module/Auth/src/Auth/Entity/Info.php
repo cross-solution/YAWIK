@@ -68,7 +68,8 @@ class Info extends AbstractEntity implements InfoInterface
     protected $city;
     
     /**
-     * 
+     * the photo of an users profile
+     *
      * @var FileInterface
      * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
      */
@@ -80,7 +81,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setBirthDay($birthDay)
     {
@@ -96,7 +97,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setBirthMonth($birthMonth)
     {
@@ -112,7 +113,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setBirthYear($birthYear)
     {
@@ -128,7 +129,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setEmail($email)
     {
@@ -144,7 +145,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setFirstName($firstName)
     {
@@ -161,7 +162,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setGender($gender)
     {
@@ -177,7 +178,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setHouseNumber($houseNumber)
     {
@@ -193,7 +194,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setLastName($name)
     {
@@ -246,7 +247,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setPhone($phone) {
     	$this->phone = (String) $phone;
@@ -260,7 +261,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setPostalcode($postalcode) {
     	$this->postalcode = (String) $postalcode;
@@ -274,7 +275,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setCity($city) {
     	$this->city = (String) $city;
@@ -298,7 +299,7 @@ class Info extends AbstractEntity implements InfoInterface
     }
     /**
      * {@inheritdoc}
-     * @return \Auth\Model\User
+     * @return \Auth\Entity\User
      */
     public function setStreet($street)
     {

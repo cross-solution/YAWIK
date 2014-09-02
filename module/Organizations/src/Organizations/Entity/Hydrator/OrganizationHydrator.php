@@ -16,9 +16,13 @@ use Settings\Entity\SettingsContainerInterface;
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Zend\Stdlib\Hydrator\Reflection;
 
+/**
+ * Class OrganizationHydrator
+ * @package Organizations\Entity\Hydrator
+ */
 class OrganizationHydrator extends Reflection
 {
-    protected $repOrganization; 
+    protected $repOrganization;
     protected $repOrganizationName;
     protected $repOrganizationImage;
     protected $data;
@@ -106,7 +110,10 @@ class OrganizationHydrator extends Reflection
         }
         return $value;
     }
-    
+
+    /**
+     *
+     */
     protected function hydrateSkimData() {
         if (!empty($this->data['image']) && is_string($this->data['image'])) {
             // image uri is given, decide if image should be downloaded

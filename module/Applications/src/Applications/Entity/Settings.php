@@ -16,6 +16,8 @@ use Settings\Entity\ModuleSettingsContainer;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
+ * General Settings for the application module.
+ *
  * @ODM\EmbeddedDocument
  */
 class Settings extends ModuleSettingsContainer {

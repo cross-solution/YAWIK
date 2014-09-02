@@ -278,6 +278,8 @@
         <replacetokens begintoken="%%" endtoken="%%">
           <token key="mongo.host" value="${mongo.host}"/>
           <token key="mongo.db" value="${mongo.db}"/>
+          <token key="mongo.user" value="${mongo.user}"/>
+          <token key="mongo.pass" value="${mongo.pass}"/>
           <token key="mongo.port" value="${mongo.port}"/>
           <token key="mail.from.name" value="${mail.from.name}"/>
           <token key="mail.from.email" value="${mail.from.email}"/>

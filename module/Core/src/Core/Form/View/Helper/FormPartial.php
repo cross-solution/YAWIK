@@ -13,6 +13,7 @@ class FormPartial extends AbstractHelper
      * Invoke as function
      *
      * @param  null|FormInterface $form
+     * @param  null|boolean $partial
      * @return string
      */
     public function __invoke(FormInterface $form = null, $partial=null)

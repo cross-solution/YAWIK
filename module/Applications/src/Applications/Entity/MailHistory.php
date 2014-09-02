@@ -10,12 +10,18 @@
 /** MailHistory.php */ 
 namespace Applications\Entity;
 
+/**
+ * Holds a history of sent mails.
+ *
+ * Class MailHistory
+ * @package Applications\Entity
+ */
 class MailHistory extends History implements MailHistoryInterface
 {
     protected $subject;
     protected $mailText;
 	/**
-     * @return the $subject
+     * @return String $subject
      */
     public function getSubject ()
     {
@@ -23,7 +29,7 @@ class MailHistory extends History implements MailHistoryInterface
     }
 
     /**
-     * @param field_type $subject
+     * @param String $subject
      * @return $this
      */
     public function setSubject ($subject)
@@ -33,7 +39,7 @@ class MailHistory extends History implements MailHistoryInterface
     }
 
 	/**
-     * @return the $mailText
+     * @return String $mailText
      */
     public function getMailText ()
     {
@@ -41,7 +47,7 @@ class MailHistory extends History implements MailHistoryInterface
     }
 
 	/**
-     * @param field_type $mailText
+     * @param String $mailText
      */
     public function setMailText ($mailText)
     {

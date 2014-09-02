@@ -16,6 +16,9 @@ use Acl\Assertion\AssertionManager;
 
 /**
  * Factory for creating the Auth view helper.
+ *
+ * Class AssertionManagerFactory
+ * @package Acl\Assertion
  */
 class AssertionManagerFactory implements FactoryInterface
 {

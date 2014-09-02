@@ -17,9 +17,9 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileCopyStrategy;
 
 /**
- * Contact informations. 
+ * Holds the contact informations including the optional photo of the applicant.
  * 
- * @author cbleek
+ * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\EmbeddedDocument
  */

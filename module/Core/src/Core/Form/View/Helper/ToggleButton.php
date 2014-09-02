@@ -15,12 +15,13 @@ class ToggleButton extends FormCheckbox
      * Render a form <input> element from the provided $element
      *
      * @param  ElementInterface $element
+     * @param String $buttonContent
      * @throws Exception\DomainException
      * @return string
      */
     public function render(ElementInterface $element, $buttonContent = null)
     {
-        $view = $this->getView();
+        //$view = $this->getView();
         //$view->headScript()->appendFile($view->basePath('/Core/js/bootstrap-switch.js'));
         
         
@@ -42,13 +43,13 @@ class ToggleButton extends FormCheckbox
             $element->setLabel('');
         }
 
-        $escape         = $this->getEscapeHtmlHelper();
-        $translator     = $this->getTranslator();
-        $name           = $element->getName();
+        //$escape         = $this->getEscapeHtmlHelper();
+        //$translator     = $this->getTranslator();
+        //$name           = $element->getName();
         $value          = $element->getValue();
         $checkedBoole   = ($value == 1 || $value == 'on');
         
-        $checked        = $checkedBoole?'checked="checked"':'';
+        //$checked        = $checkedBoole?'checked="checked"':'';
         $checkedClass   = $checkedBoole?'active"':'';
         
         $buttonContent = '
@@ -58,7 +59,8 @@ class ToggleButton extends FormCheckbox
             </span>' . PHP_EOL . '
         </div>' . PHP_EOL;
         
-        //$buttonContent = '<div><div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span> ' . $translator->translate('processing', $this->getTranslatorTextDomain()) . '</div><div class="default">' . $escape($buttonContent) . '</div></div>';
+        //$buttonContent = '<div><div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span> ' .
+        //    $translator->translate('processing', $this->getTranslatorTextDomain()) . '</div><div class="default">' . $escape($buttonContent) . '</div></div>';
 
         return $buttonContent;
     }

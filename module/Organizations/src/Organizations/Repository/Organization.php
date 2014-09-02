@@ -18,7 +18,7 @@ class Organization extends AbstractRepository
      * Find a organizations by an name
      * 
      * @param String $name
-     * @return Organization\Entity\Organization
+     * @return \Organizations\Entity\Organization
      */
     public function findbyName($name, $create = false) {
         $organizations = array();

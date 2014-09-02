@@ -22,7 +22,8 @@ use Core\Entity\DraftableEntityInterface;
 use Auth\Entity\AnonymousUser;
 
 /**
- * The application model
+ * The application. This document holds the complete application. It references all attached data like
+ * attachments, ratings, status changes. etc.
  * 
  * @author mathias
  *

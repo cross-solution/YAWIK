@@ -18,11 +18,19 @@ use Core\Entity\FileInterface;
 use Auth\Exception\UnauthorizedImageAccessException;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
+/**
+ * Class Acl
+ * @package Acl\Controller\Plugin
+ */
 class Acl extends AbstractPlugin
 {
     protected $acl;
     protected $user;
-    
+
+    /**
+     * @param AclInterface $acl
+     * @param UserInterface $user
+     */
     public function __construct(AclInterface $acl, UserInterface $user = null)
     {
         $this->setAcl($acl);
@@ -30,16 +38,18 @@ class Acl extends AbstractPlugin
             $this->setUser($user);
         }
     }
-	/**
-     * @return the $acl
+
+    /**
+     * @return AclInterface
      */
     public function getAcl ()
     {
         return $this->acl;
     }
 
-	/**
-     * @param field_type $acl
+    /**
+     * @param AclInterface $acl
+     * @return $this
      */
     public function setAcl (AclInterface $acl)
     {
@@ -47,8 +57,8 @@ class Acl extends AbstractPlugin
         return $this;
     }
 
-	/**
-     * @return the $user
+    /**
+     * @return \Auth\Entity\User
      */
     public function getUser ()
     {
@@ -59,15 +69,21 @@ class Acl extends AbstractPlugin
         return $this->user;
     }
 
-	/**
-     * @param field_type $user
+    /**
+     * @param UserInterface $user
+     * @return $this
      */
     public function setUser (UserInterface $user)
     {
         $this->user = $user;
         return $this;
     }
-    
+
+    /**
+     * @param $role
+     * @param null $inherit
+     * @return bool
+     */
     public function isRole($role, $inherit=null)
     {
         if ($role instanceOf RoleInterface) {
@@ -80,12 +96,23 @@ class Acl extends AbstractPlugin
                ? $isRole
                : $isRole || $this->getAcl()->inheritRole($role, $inherit);
     }
-    
+
+    /**
+     * @param $resource
+     * @param null $privilege
+     * @return bool
+     */
     public function test($resource, $privilege=null)
     {
         return $this->getAcl()->isAllowed($this->getUser(), $resource, $privilege);
     }
-    
+
+    /**
+     * @param $resource
+     * @param null $privilege
+     * @throws \Auth\Exception\UnauthorizedImageAccessException
+     * @throws \Auth\Exception\UnauthorizedAccessException
+     */
     public function check($resource, $privilege=null)
     {
         if (!$this->test($resource, $privilege)) {
@@ -104,7 +131,13 @@ class Acl extends AbstractPlugin
             throw new UnauthorizedAccessException($msg);
         }
     }
-    
+
+    /**
+     * @param null $resource
+     * @param null $privilege
+     * @param string $mode
+     * @return $this|bool
+     */
     public function __invoke($resource=null, $privilege=null, $mode='check')
     {
         if (null === $resource) {

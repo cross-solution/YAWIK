@@ -18,15 +18,32 @@ use Zend\Mail\AddressList;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 
+/**
+ * Class MailService
+ * @package Core\Mail
+ */
 class MailService extends AbstractPluginManager
 {
-    
+    /**
+     * @var TransportInterface
+     */
     protected $transport;
+
+    /**
+     * @var String From Mail Header
+     */
     protected $from;
+
     protected $mailer;
-    
+
+    /**
+     * @var boolean The recipient can be overwritten. This helps developers...
+     */
     protected $overrideRecipient;
 
+    /**
+     * @var bool
+     */
     protected $shareByDefault = false;
     
     protected $invokableClasses = array(
@@ -37,7 +54,10 @@ class MailService extends AbstractPluginManager
     protected $factories = array(
     
     );
-     
+
+    /**
+     * @param ConfigInterface $configuration
+     */
     public function __construct(ConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
@@ -57,8 +77,11 @@ class MailService extends AbstractPluginManager
         }, false);
         
     }
-    
-    
+
+    /**
+     * @param mixed $plugin
+     * @throws \InvalidArgumentException
+     */
     public function validatePlugin($plugin)
     {
         if (!$plugin instanceOf Message) {
@@ -68,11 +91,9 @@ class MailService extends AbstractPluginManager
             ));
         }
     }
-    
-    
 
 	/**
-     * @return the $transport
+     * @return TransportInterface $transport
      */
     public function getTransport ()
     {
@@ -80,7 +101,7 @@ class MailService extends AbstractPluginManager
     }
 
 	/**
-     * @param field_type $transport
+     * @param TransportInterface $transport
      */
     public function setTransport (TransportInterface $transport)
     {
@@ -88,11 +109,19 @@ class MailService extends AbstractPluginManager
         return $this;
     }
 
+    /**
+     * @return String
+     */
     public function getFrom()
     {
         return $this->from;
     }
-    
+
+    /**
+     * @param $email
+     * @param String|null $name
+     * @return $this
+     */
     public function setFrom($email, $name=null)
     {
         $this->from = is_object($email) || null === $name 
@@ -101,24 +130,39 @@ class MailService extends AbstractPluginManager
         
         return $this;
     }
-    
+
+    /**
+     * @param $mailer
+     * @return $this
+     */
     public function setMailer($mailer)
     {
         $this->mailer = $mailer;
         return $this;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getMailer()
     {
         return $this->mailer;
     }
-    
+
+    /**
+     * @param AddressList $recipients
+     * @return $this
+     */
     public function setOverrideRecipient(AddressList $recipients)
     {
         $this->overrideRecipient = $recipients;
         return $this;
     }
-    
+
+    /**
+     * @param $mail
+     * @param array $options
+     */
     public function send($mail, array $options=array())
     {
         if (!$mail instanceOf Message) {

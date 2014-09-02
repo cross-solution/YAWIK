@@ -7,8 +7,8 @@ return array(
                   'server'           => '%%mongo.host%%',
                   'port'             => '%%mongo.port%%',
 //                'connectionString' => null,
-//                'user'             => null,
-//                'password'         => null,  
+                  'user'             => '%%mongo.user%%',
+                  'password'         => '%%mongo.pass%%',  
 //                'dbname'           => null,
 //                'options'          => array()
             ),

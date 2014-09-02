@@ -22,6 +22,9 @@ use Core\Form\SummaryFormInterface;
 class ManageController extends AbstractActionController
 {
 
+    /**
+     * @return array|JsonModel
+     */
     public function profileAction()
     {
         $services = $this->getServiceLocator();

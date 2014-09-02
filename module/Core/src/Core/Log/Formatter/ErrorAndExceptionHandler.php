@@ -45,45 +45,59 @@ class ErrorAndExceptionHandler implements FormatterInterface
         }
     }
     
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritdoc} */
     public function getDateTimeFormat()
     {
         return $this->dateTimeFormat;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
+    /** {@inheritdoc} */
     public function setDateTimeFormat($dateTimeFormat)
     {
         $this->dateTimeFormat = (string) $dateTimeFormat;
         return $this;
     }
-    
+
+    /**
+     * @return String
+     */
     public function getErrorFormat ()
     {
         return $this->errorFormat;
     }
 
-	public function setErrorFormat ($errorFormat)
+    /**
+     * @param $errorFormat
+     * @return $this
+     */
+    public function setErrorFormat ($errorFormat)
     {
         $this->errorFormat = $errorFormat;
         return $this;
     }
 
-	public function getExceptionFormat ()
+    /**
+     * @return mixed
+     */
+    public function getExceptionFormat ()
     {
         return $this->exceptionFormat;
     }
 
-	public function setExceptionFormat ($exceptionFormat)
+    /**
+     * @param $exceptionFormat
+     * @return $this
+     */
+    public function setExceptionFormat ($exceptionFormat)
     {
         $this->exceptionFormat = $exceptionFormat;
         return $this;
     }
 
+    /**
+     * @param array $event
+     * @return mixed|string
+     */
     public function format($event)
     {
         if (isset($event['timestamp']) && $event['timestamp'] instanceof \DateTime) {
@@ -94,7 +108,11 @@ class ErrorAndExceptionHandler implements FormatterInterface
                ? $this->formatError($event)
                : $this->formatException($event);
     }
-    
+
+    /**
+     * @param array $event
+     * @return mixed
+     */
     protected function formatError(array $event)
     {
         $output = $this->errorFormat;

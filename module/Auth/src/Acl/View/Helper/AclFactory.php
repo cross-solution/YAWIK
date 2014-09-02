@@ -12,6 +12,10 @@ namespace Acl\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
 
+/**
+ * Class AclFactory
+ * @package Acl\View\Helper
+ */
 class AclFactory implements FactoryInterface
 {
 	/* (non-PHPdoc)

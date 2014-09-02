@@ -196,7 +196,7 @@ class ManageController extends AbstractActionController
     
     /**
      * Attaches a social profile to an application
-     * 
+     * @throws \InvalidArgumentException
      * @return multitype:unknown
      */
     public function socialProfileAction()

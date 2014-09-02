@@ -11,11 +11,13 @@
 namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
-use Core\Entity\EntityInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
- * Defines an user model interface 
+ * Defines an user model interface
+ *
+ * Interface UserInterface
+ * @package Auth\Entity
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
@@ -23,7 +25,7 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     /**
      * Sets the users login name
      *
-     * @param string $name
+     * @param string $login
      */
     public function setLogin($login);
     
@@ -35,14 +37,16 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     public function getLogin();
     
     /**
-     * Sets the role of the users
+     * Sets the role of the users. Currently "user" or "recruiter"
      * 
-     * @param unknown $role
+     * @param String $role
      */
     public function setRole($role);
 
     /**
      * Gets the role of the user
+     *
+     * @return String
      */
     public function getRole();
     
@@ -55,6 +59,8 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     
     /**
      * Get contact data, user image etc. of a user.
+     *
+     * @return InfoInterface
      */
     public function getInfo();    
     
@@ -66,26 +72,26 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     public function setPassword($password);
     
     /**
-     * get the Webfrontend password of the user
+     * get the Web frontend password of the user
      * 
      * @param String $credential
      */
     public function setCredential($credential);
     
     /**
-     * get the Webfrontend password of the user
+     * get the web frontend password of the user
      */
     public function getCredential();
     
     /**
-     * Sets the profile info from Hybridauth
+     * Sets the profile info from HybridAuth
      * 
      * @param array $profile
      */
     public function setProfile(array $profile);
     
     /**
-     * Gets the profile info from Hybridauth
+     * Gets the profile info from HybridAuth
      * 
      * @return array
      */
@@ -100,6 +106,8 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 
     /**
      * get groups of the user
+     *
+     * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getGroups();
     

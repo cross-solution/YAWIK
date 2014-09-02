@@ -13,7 +13,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Name 
+ * Name of an Organization.
  *
  * @ODM\Document(collection="organizations.names", repositoryClass="Organizations\Repository\OrganizationName")
  */
@@ -54,36 +54,36 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
     
     /**
-     * @return the $name
+     * @return String $name
      */
-    public function getName ()
+    public function getName()
     {
         return $this->name;
     }
 
     /**
      * @param string $name
-     * @return $this
+     * @return
      */
-    public function setName ($name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
     
     /**
-     * @return the $name
+     * @return String $name
      */
-    public function getRankingByCompany ()
+    public function getRankingByCompany()
     {
         return $this->rankingByCompany;
     }
 
     /**
-     * @param string $name
-     * @return $this
+     * @param string $rankingByCompany
+     * @return OrganizationName
      */
-    public function setRankingByCompany ($used)
+    public function setRankingByCompany($rankingByCompany)
     {
         $this->rankingByCompany = $rankingByCompany;
         return $this;
@@ -92,7 +92,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     /**
      * Sets the id.
      * 
-     * @param mixed $id
+     * @param String $id
      */
     public function setId($id) 
     {
@@ -103,31 +103,43 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     /**
      * Gets the id.
      * 
-     * @return mixed
+     * @return String id of the OrganizationName
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
+    /**
+     * @return OrganizationName
+     */
     public function refCounterDec()
     {
         $this->ranking -= 1;
         return $this;
     }
-    
+
+    /**
+     * @return OrganizationName
+     */
     public function refCounterInc()
     {
         $this->ranking += 1;
         return $this;
     }
-    
+
+    /**
+     * @return OrganizationName
+     */
     public function refCompanyCounterDec()
     {
         $this->rankingByCompany -= 1;
         return $this;
     }
-    
+
+    /**
+     * @return OrganizationName
+     */
     public function refCompanyCounterInc()
     {
         $this->rankingByCompany += 1;

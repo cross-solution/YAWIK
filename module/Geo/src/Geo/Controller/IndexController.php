@@ -15,7 +15,8 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
 /**
- * 
+ * Class IndexController
+ * @package Geo\Controller
  */
 class IndexController extends AbstractActionController
 {

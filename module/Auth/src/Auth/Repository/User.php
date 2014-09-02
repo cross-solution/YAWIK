@@ -39,7 +39,7 @@ class User extends AbstractRepository
     /**
      * Finds user by profile identifier
      * 
-     * @param unknown $identifier
+     * @param String $identifier
      * @return unknown
      */
     public function findByProfileIdentifier($identifier)
@@ -74,7 +74,7 @@ class User extends AbstractRepository
     /**
      * Find user by query
      * 
-     * @param unknown $query
+     * @param String $query
      */
     public function findByQuery($query)
     {

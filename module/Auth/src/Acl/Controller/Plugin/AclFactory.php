@@ -12,6 +12,10 @@ namespace Acl\Controller\Plugin;
 
 use Zend\ServiceManager\FactoryInterface;
 
+/**
+ * Class AclFactory
+ * @package Acl\Controller\Plugin
+ */
 class AclFactory implements FactoryInterface
 {
 	/* (non-PHPdoc)

@@ -27,7 +27,7 @@
          <?php if ($job->unreadApplications->count()):?>       
             / 
             <a title="<?php echo $this->translate("unread")?>" 
-               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id . '&by=new'), true) ?>">
+               href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id . '&unread=1'), true) ?>">
             <span class="badge"> <?php echo $job->unreadApplications->count()?></span>
             </a>
          <?php endif;?>

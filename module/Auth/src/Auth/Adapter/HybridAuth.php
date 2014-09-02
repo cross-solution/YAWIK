@@ -19,12 +19,17 @@ use Auth\Entity\UserImage;
 
 
 /**
- * Hybridauth adapter for \Zend\Authentication
+ * This class allows to authenticate with HybridAuth
+ *
+ * HybridAuth adapter for \Zend\Authentication
+ *
+ * Class HybridAuth
+ * @package Auth\Adapter
  */
 class HybridAuth implements AdapterInterface
 {
     /**
-     * Hybridauth instance.
+     * HybridAuth instance.
      * 
      * @var Hybrid_Auth
      */
@@ -38,7 +43,7 @@ class HybridAuth implements AdapterInterface
     protected $repository;
     
     /**
-     * Hybridauth provider identifier
+     * HybridAuth provider identifier
      *  
      * @var string
      */
@@ -46,7 +51,7 @@ class HybridAuth implements AdapterInterface
     
     
     /**
-     * Sets the provider identifier used by Hybridauth.
+     * Sets the provider identifier used by HybridAuth.
      * 
      * @param string $provider
      * @return HybridAuth
@@ -58,7 +63,7 @@ class HybridAuth implements AdapterInterface
     }
     
     /**
-     * Gets the provider identifier used by Hybridauth.
+     * Gets the provider identifier used by HybriAauth.
      * 
      * @return string|null
      */
@@ -187,8 +192,4 @@ class HybridAuth implements AdapterInterface
     {
         return $this->repository;
     }
-
-   
-   
-   
 }
