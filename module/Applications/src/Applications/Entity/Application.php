@@ -119,7 +119,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $privacyPolicy;
     
     /**
-     * User ids of users which has read this application.
+     * Who has opened the detail view of the application. Contains an array of user ids, which has read this
+     * application.
      * 
      * @var array
      * @ODM\Collection
@@ -135,7 +136,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     
     /**
-     * Comments
+     * Recruiters can comment an application.
      * 
      * @var Collection
      * @ODM\EmbedMany(targetDocument="Comment")
@@ -185,8 +186,9 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $isDraft = false;
     
     /**
-     * 
-     * @var unknown
+     * Attributes like "privacy policy accepted" or "send by data as an CC".
+     *
+     * @var \Applications\Entity\Attributes
      * @ODM\EmbedOne(targetDocument="Attributes")
      */
     protected $attributes;

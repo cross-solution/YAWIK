@@ -1,9 +1,0 @@
-<?php
-return array(
-    'service_manager' => array(
-        'factories' => array(
-            'UserRepository' => '\Auth\Repository\Service\UserRepositoryFactory',
-            'UserMapper' => '\Auth\Repository\Mapper\UserMapperFactory',
-        ),
-    ),
-);
