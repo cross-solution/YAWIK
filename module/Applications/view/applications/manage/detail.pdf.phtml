@@ -94,8 +94,8 @@ th {
      <td><?php echo $this->application->contact->email ?></td>
     </tr>
     <tr>
-     <td><?= $this->translate('Phone')?>:</td>
-     <td><?=  $this->application->contact->phone ?></td>
+     <td><?php echo  $this->translate('Phone')?>:</td>
+     <td><?php echo   $this->application->contact->phone ?></td>
     </tr>
    </table>
   </td>
@@ -113,7 +113,7 @@ th {
 </div>
 
 <?php if(count($this->application->cv->employments)>0):?>
-<h2><?= $this->translate('work experience')?></h2>
+<h2><?php echo  $this->translate('work experience')?></h2>
 <table class="list"> 
 <tr>
  <th align="left"><?php echo $this->translate('Start')?></th>
@@ -131,12 +131,12 @@ th {
 <?php endif;?> 
 
 <?php if(count($this->application->cv->educations)>0):?>
-<h2><?= $this->translate('education and training')?></h2>
+<h2><?php echo  $this->translate('education and training')?></h2>
 <table class="list"> 
 <tr>
- <th align="left"><?=$this->translate('Start')?></th>
- <th align="left"><?=$this->translate('End')?></th>
- <th><?=$this->translate('Description')?></th>
+ <th align="left"><?php echo $this->translate('Start')?></th>
+ <th align="left"><?php echo $this->translate('End')?></th>
+ <th><?php echo $this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
@@ -149,9 +149,9 @@ th {
 <?php endif;?> 
 
 <?php if(count($this->application->cv->skills)>0):?>
-<h2><?= $this->translate('personal skills')?></h2>
+<h2><?php echo  $this->translate('personal skills')?></h2>
 <?php foreach( $this->application->cv->skills as $kill): ?>
-  <div class="col-md-3"><?=$this->translate('native language')?></div> 
+  <div class="col-md-3"><?php echo $this->translate('native language')?></div> 
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
 <?php endif;?>

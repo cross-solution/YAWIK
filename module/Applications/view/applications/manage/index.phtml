@@ -20,8 +20,8 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 
 ?>      
 <h1>
-  <?=$this->translate('List of all applications')?>
-  <? if ($subTitle): ?>
+  <?php echo $this->translate('List of all applications')?>
+  <?php if ($subTitle): ?>
     <small><?php echo $subTitle ?></small>
   <?php endif;?>
 </h1>
@@ -36,8 +36,8 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
                 body ...
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button"><? echo $this->translate('Cancel'); ?></button>
-                <button id="modal-submit" class="btn btn-primary"><? echo $this->translate('Send mail'); ?></button>
+                <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo $this->translate('Cancel'); ?></button>
+                <button id="modal-submit" class="btn btn-primary"><?php echo $this->translate('Send mail'); ?></button>
             </div>
         </div>
     </div>

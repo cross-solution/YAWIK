@@ -1,7 +1,7 @@
 <?php $this->headTitle($this->translate('Jobs'));
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
 
-<h1><?=$this->translate('List of all jobs')?></h1>
+<h1><?php echo $this->translate('List of all jobs')?></h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 

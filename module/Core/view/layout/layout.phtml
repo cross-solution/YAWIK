@@ -84,7 +84,7 @@
 ?>
 
 
-<?foreach ($this->layout()->getChildren() as $child):
+<?php foreach ($this->layout()->getChildren() as $child):
     if (0 === strpos($child->captureTo(), "sidebar_")):
         echo $this->{$child->captureTo()};
     endif;

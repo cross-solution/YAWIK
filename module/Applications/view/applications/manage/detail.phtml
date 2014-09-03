@@ -420,7 +420,7 @@ endif;
  <th class="col-md-1"><?php echo $this->translate('Start')?></th>
  <th class="col-md-1"><?php echo $this->translate('End')?></th>
  <th class="col-md-3"><?php echo $this->translate('Company')?></th>
- <th><?=$this->translate('Description')?></th>
+ <th><?php echo $this->translate('Description')?></th>
 </tr>
 </thead>
 <?php foreach( $this->application->cv->employments as $employment): ?>
@@ -443,14 +443,14 @@ endif;
 <div class="panel panel-default">
 <div class="panel-heading">
   <i class="yk-icon yk-icon-university"></i>
-  <?echo $this->translate('education and training')?>
+  <?php echo $this->translate('education and training')?>
 </div>
 <table class="table table-condensed table-bordered"> 
 <tr>
- <th class="col-md-1"><?=$this->translate('Start')?></th>
- <th class="col-md-1"><?=$this->translate('End')?></th>
- <th class="col-md-3"><?=$this->translate('University')?></th>
- <th><?=$this->translate('Description')?></th>
+ <th class="col-md-1"><?php echo $this->translate('Start')?></th>
+ <th class="col-md-1"><?php echo $this->translate('End')?></th>
+ <th class="col-md-3"><?php echo $this->translate('University')?></th>
+ <th><?php echo $this->translate('Description')?></th>
 </tr>
 <?php foreach( $this->application->cv->educations as $education): ?>
   <tr>
@@ -459,7 +459,7 @@ endif;
    <td><?php echo $education->organizationName ?></td>
    <td><?php echo $education->description ?></td>
   </tr>
-<?php endforeach; // eucations?>    
+<?php endforeach; // educations?>
 </table>
 </div>
 </div>
@@ -467,9 +467,9 @@ endif;
 <?php endif;?> 
 
 <?php if(count($this->application->cv->skills)>0):?>
-<h2><?= $this->translate('personal skills')?></h2>
+<h2><?php echo  $this->translate('personal skills')?></h2>
 <?php foreach( $this->application->cv->skills as $kill): ?>
-  <div class="col-md-3"><?=$this->translate('native language')?></div> 
+  <div class="col-md-3"><?php echo $this->translate('native language')?></div> 
   <div class="col-md-3">TODO</div>
 <?php endforeach; // skills?>
 <?php endif;?>
