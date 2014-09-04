@@ -189,6 +189,7 @@
  
     <mkdir dir="${builddir}/log"/>
     <chmod file="${builddir}/log" mode="0777"/>
+    <mkdir dir="${builddir}/cache"/>
     <chmod file="${builddir}/cache" mode="0777"/>
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Hydrator"/>
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
@@ -201,6 +202,15 @@
     <symlink link="build/YAWIK/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK/public/Core" target="../module/Core/public" />
+    
+    <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
+      <filterchain>
+        <replaceregexp>
+          <regexp pattern='&lt;version>.*?&lt;/version>' replace="${version}" multiline="true" />
+        </replaceregexp>
+      </filterchain>
+    </copy>
+    
 
     <tar destfile="build/YAWIK-${version}.tgz"
          basedir="${builddir}/.."
