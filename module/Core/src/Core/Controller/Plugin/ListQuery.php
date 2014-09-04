@@ -3,15 +3,28 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Core\Mapper\Query\Query;
 
 class ListQuery extends AbstractPlugin
 {
-    
+    /**
+     * @var array
+     */
     protected $propertiesMap = array();
+    /**
+     * @var string
+     */
     protected $pageParamName = 'page';
+    /**
+     * @var int
+     */
     protected $itemsPerPage = 25;
+    /**
+     * @var bool
+     */
     protected $queryKeysLowercased = true;
+    /**
+     * @var string
+     */
     protected $sortParamName = 'sort';
     
     public function __invoke($options=null)
@@ -46,7 +59,7 @@ class ListQuery extends AbstractPlugin
     }
     
 	/**
-     * @return the $propertiesMap
+     * @return Array $propertiesMap
      */
     public function getPropertiesMap ()
     {
@@ -54,7 +67,7 @@ class ListQuery extends AbstractPlugin
     }
 
 	/**
-     * @param multitype: $propertiesMap
+     * @param Array $propertiesMap
      */
     public function setPropertiesMap ($propertiesMap)
     {
@@ -62,7 +75,7 @@ class ListQuery extends AbstractPlugin
     }
 
 	/**
-     * @return the $pageParamName
+     * @return String $pageParamName
      */
     public function getPageParamName ()
     {
@@ -78,7 +91,7 @@ class ListQuery extends AbstractPlugin
     }
 
     /**
-     * @return the $sortParam
+     * @return String $sortParam
      */
     public function getSortParamName ()
     {
@@ -86,14 +99,17 @@ class ListQuery extends AbstractPlugin
     }
 
 	/**
-     * @param field_type $sortParam
+     * @param String $sortParam
      */
     public function setSortParamName ($sortParam)
     {
         $this->sortParamName = $sortParam;
     }
 
-	public function getQueryKeysLowercased()
+    /**
+     * @return bool
+     */
+    public function getQueryKeysLowercased()
     {
         return $this->queryKeysLowercased;
     }
@@ -104,7 +120,7 @@ class ListQuery extends AbstractPlugin
     }
     
 	/**
-     * @return the $itemsPerPage
+     * @return number $itemsPerPage
      */
     public function getItemsPerPage ()
     {

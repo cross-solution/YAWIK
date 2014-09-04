@@ -189,6 +189,7 @@
  
     <mkdir dir="${builddir}/log"/>
     <chmod file="${builddir}/log" mode="0777"/>
+    <chmod file="${builddir}/cache" mode="0777"/>
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Hydrator"/>
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>

@@ -3,7 +3,6 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Core\Mapper\Query\Query;
 
 class Config extends AbstractPlugin
 {

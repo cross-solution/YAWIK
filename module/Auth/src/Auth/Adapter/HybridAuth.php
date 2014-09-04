@@ -13,7 +13,6 @@ namespace Auth\Adapter;
 use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
-use Auth\Mapper\UserMapperInterface;
 use Doctrine\MongoDB\GridFSFile;
 use Auth\Entity\UserImage;
 

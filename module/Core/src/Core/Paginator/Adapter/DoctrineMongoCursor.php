@@ -21,7 +21,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 class DoctrineMongoCursor implements AdapterInterface
 {
     /**
-     * @var Doctrine\ODM\MongoDB\Cursor
+     * @var \Doctrine\ODM\MongoDB\Cursor
      */
     protected $cursor;
 
