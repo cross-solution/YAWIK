@@ -2,8 +2,8 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 Cross Solution <http://cross-solution.de>
- * @license GPLv3
+ * @copyright (c) 2013-2014 Cross Solution <http://cross-solution.de>
+ * @license MIT
  */
  
 ini_set('display_errors', true);

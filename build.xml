@@ -19,7 +19,8 @@
   </if>
   <property file="./build.properties"/>
   <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
-  <property name="builddir" value="./build/${phing.project.name}" override="false"/>
+  <exec outputProperty="version-short" command="git describe --tags | sed -n 's/v\([0-9]\+.[0-9]\+\(.[0-9]\+\)\?\)-[a-z0-9-]\+/\1/p'" dir="${project.basedir}"/>
+  <property name="builddir" value="./build/${phing.project.name}-${version-short}" override="false"/>
   <property name="vendordir" value="./vendor" override="false"/>
   <if>
     <not>
@@ -199,9 +200,9 @@
     
     <echo file="${builddir}/VERSION" append="false">${version}</echo>
 
-    <symlink link="build/YAWIK/public/Applications" target="../module/Applications/public" />
-    <symlink link="build/YAWIK/public/Auth" target="../module/Auth/public" />
-    <symlink link="build/YAWIK/public/Core" target="../module/Core/public" />
+    <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
+    <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
+    <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
     
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
@@ -210,18 +211,13 @@
         </replaceregexp>
       </filterchain>
     </copy>
-    
 
-    <tar destfile="build/YAWIK-${version}.tgz"
+    <tar destfile="build/YAWIK-${version-short}.tgz"
          basedir="${builddir}/.."
          compression="gzip" /> 
-    <echo msg="exec: zip -r YAWIK-${version}.zip YAWIK"/>
-    <exec dir="${builddir}/.." command="zip -r YAWIK-${version}.zip YAWIK" logoutput="false"/>
+    <echo msg="exec: zip -r YAWIK-${version-short}.zip YAWIK-${version-short}"/>
+    <exec dir="${builddir}/.." command="zip -r YAWIK-${version-short}.zip YAWIK-${version-short}" logoutput="false"/>
     
-
-    
-    <symlink link="build/latest.zip" target="YAWIK-${version}.zip" />
-    <symlink link="build/latest.tgz" target="YAWIK-${version}.tgz" />
   </target>
   
   <!-- ============================================  -->
@@ -334,11 +330,11 @@
   <!-- ============================================  -->
 
   <target name="docs" depends="phpdoc" description="build api docs">
-    <tar destfile="build/YAWIK-docs-${version}.tgz"
+    <tar destfile="build/YAWIK-docs-${version-short}.tgz"
          basedir="${project.basedir}/docs"
          compression="gzip" /> 
-    <echo msg="exec: zip -r  YAWIK-${version}.zip YAWIK"/>
-    <exec dir="${builddir}/.." command="zip -r  YAWIK-${version}.zip YAWIK" logoutput="false"/>
+    <echo msg="exec: zip -r  YAWIK-${version-short}.zip YAWIK"/>
+    <exec dir="${builddir}/.." command="zip -r  YAWIK-${version-short}.zip YAWIK" logoutput="false"/>
 
   </target>  
   <!-- ============================================  -->
@@ -367,8 +363,8 @@
   </target>
   
   <target name="deploy-builds" description="publish TGZ and ZIP packages via rsync">
-    <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.build.target}"/>
-    <exec command="rsync -rv ${project.basedir}/build/ -l --exclude=YAWIK   ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.build.target}" passthru="true"/>
+    <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}"/>
+    <exec command="rsync -rv ${project.basedir}/build/ -l --exclude=YAWIK --exclude=YAWIK-${version-short} ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
   </target>
             
 </project>
