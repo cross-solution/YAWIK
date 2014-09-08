@@ -110,6 +110,7 @@ interface JobInterface extends EntityInterface,
      * 
      * @return OrganisationInterface
      */
+
     public function getOrganization();
     
     /**

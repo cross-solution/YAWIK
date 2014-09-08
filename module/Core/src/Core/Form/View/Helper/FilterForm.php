@@ -42,7 +42,6 @@ class FilterForm extends ZendForm
             }
         }
         
-        //$formContent = '<div id="search-applications form-group has-feedback" class="row">' . $formContent . '</div>';
         
         return $this->openTag($form) . $formContent . $this->closeTag();
     }

@@ -21,10 +21,15 @@ class ToggleButton extends FormCheckbox
      */
     public function render(ElementInterface $element, $buttonContent = null)
     {
+<<<<<<< HEAD
         //$view = $this->getView();
         //$view->headScript()->appendFile($view->basePath('/Core/js/bootstrap-switch.js'));
         
         
+=======
+        $view = $this->getView();
+
+>>>>>>> tmp3
         if (null === $buttonContent) {
             $buttonContent = $element->getLabel();
             if (null === $buttonContent) {
@@ -52,12 +57,10 @@ class ToggleButton extends FormCheckbox
         //$checked        = $checkedBoole?'checked="checked"':'';
         $checkedClass   = $checkedBoole?'active"':'';
         
-        $buttonContent = '
-        <div class="btn-group" data-toggle="buttons">' . PHP_EOL . '
-            <span class="btn btn-default ' . $checkedClass . '">' . PHP_EOL . '
-                ' . parent::render($element) . $buttonContent . PHP_EOL . '
-            </span>' . PHP_EOL . '
-        </div>' . PHP_EOL;
+        $buttonContent = '<div class="btn-group" data-toggle="buttons">' . PHP_EOL 
+                . '<span class="btn btn-default ' . $checkedClass . '">' . PHP_EOL 
+                . parent::render($element) . $buttonContent . PHP_EOL . '</span>' . PHP_EOL 
+                . '</div>' . PHP_EOL;
         
         //$buttonContent = '<div><div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span> ' .
         //    $translator->translate('processing', $this->getTranslatorTextDomain()) . '</div><div class="default">' . $escape($buttonContent) . '</div></div>';
