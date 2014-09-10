@@ -48,6 +48,36 @@ return array(
                                     ),
                                 ),
                             ),
+                            'form' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/form',
+                                    'defaults' => array(
+                                        'action' => 'form',
+                                    ),
+                                ),
+                            ),
+                            'list' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/list',
+                                    'defaults' => array(
+                                        'action' => 'list',
+                                    ),
+                                ),
+                            ),
+                            'update' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/change/:id',
+                                    'constraints' => array(
+                                        'id' => '\w+',
+                                    ),
+                                    'defaults' => array(
+                                        'action' => 'change',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                     'organizationsTestfill' => array(

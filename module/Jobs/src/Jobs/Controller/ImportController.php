@@ -37,7 +37,7 @@ class ImportController extends AbstractActionController {
                 'applyId' => '71022',
                 'company' => 'Holsten 4',
                 'companyId' => '1745',
-                'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch.de',
+                'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch_test.de',
                 'title' => 'Fuhrparkleiter/-in',
                 'location' => 'Bundesland, Bayern, DE',
                 'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',

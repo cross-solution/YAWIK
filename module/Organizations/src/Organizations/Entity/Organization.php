@@ -51,6 +51,12 @@ class Organization extends BaseEntity implements OrganizationInterface {
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
      */
     protected $image;
+    
+    /**
+     * Organization contact data.
+     *
+     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\OrganizationContact") */
+    protected $contact;
 
     /** {@inheritdoc} */
     public function setExternalId($externalId) 
@@ -136,6 +142,22 @@ class Organization extends BaseEntity implements OrganizationInterface {
         return $this->image;
     }
     
+    /** 
+     * {@inheritdoc} 
+     */
+    public function setContact(EntityInterface $contact = null)
+    {
+        $this->contact = $contact;
+        return $this;
+    }
+
+    /** 
+     * {@inheritdoc} 
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
 }
 
 
