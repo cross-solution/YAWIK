@@ -347,6 +347,7 @@
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
     <symlink link="${project.basedir}/public/FormularValidation" target="${project.basedir}/module/FormularValidation/public" />
     <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
+    <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" />
   </target>  
   
   <!-- ============================================  -->
