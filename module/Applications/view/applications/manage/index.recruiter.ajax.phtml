@@ -7,7 +7,7 @@
  * @license   MIT
  */
 /**
- * generates the list of applications.
+ * generates the list of applications, received by a recruiter
  */
 $renderedFormCheckBox = '';
 
@@ -123,7 +123,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
       <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>
-    <td class="cam-attachment">   
+    <td class="cam-attachment">
      <?php if(count($application->attachments)>0):?>
      <ul class="media-list">
      <?php foreach ($application->attachments as $attachment):?>

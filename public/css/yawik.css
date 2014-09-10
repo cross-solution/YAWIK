@@ -7175,6 +7175,9 @@ fieldset[disabled] .cam-btn-reset.active {
 .yk-icon-user:before {
   content: "\f007";
 }
+.yk-icon-view:before {
+  content: "\f06e";
+}
 .yk-icon-work-experience:before {
   content: "\f1ad";
 }

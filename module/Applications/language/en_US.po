@@ -46,8 +46,8 @@ msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
 #: view/applications/index/dashboard.phtml:17
-msgid "Current Applications"
-msgstr "Current Applications"
+msgid "Received Applications"
+msgstr "Received Applications"
 
 #: view/applications/index/dashboard.phtml:35
 #: language/_annotated_strings.php:3
@@ -82,8 +82,8 @@ msgid "Applications"
 msgstr "Applications"
 
 #: view/applications/manage/index.phtml:25
-msgid "List of all applications"
-msgstr "List of all applications"
+msgid "List of received applications"
+msgstr "List of received applications"
 
 #: view/applications/manage/index.phtml:41
 #: view/applications/manage/detail.phtml:143

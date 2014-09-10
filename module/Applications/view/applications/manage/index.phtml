@@ -20,9 +20,13 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 
 ?>      
 <h1>
-  <?php echo $this->translate('List of all applications')?>
-  <?php if ($subTitle): ?>
-    <small><?php echo $subTitle ?></small>
+  <?php if ($this->acl()->isRole('recruiter')):?>
+    <?php echo $this->translate('List of received applications')?>
+    <?php if ($subTitle): ?>
+      <small><?php echo $subTitle ?></small>
+    <?php endif;?>
+  <?php else: ?>
+    <?php echo $this->translate('Overview of your sent applications')?>
   <?php endif;?>
 </h1>
 <div id="apps-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -43,12 +47,12 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     </div>
 </div>
 
-<nav class="navbar cam-toolbar">
-<?php
-    echo $this->filterform($this->form);
-?>
-</nav>
-    
+<?php if ($this->acl()->isRole('recruiter')):?>
+  <nav class="navbar cam-toolbar">
+    <?php echo $this->filterform($this->form); ?>
+  </nav>
+<?php endif;?>
+
 <?php
 if (False):
 ?>
@@ -86,5 +90,9 @@ endif;
 
 <div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(), 
                   array('query' => $this->params()->fromQuery()), true) ?>">
-<?php echo $this->render('applications/manage/index.ajax.phtml') ?>
+<?php if ($this->acl()->isRole('recruiter')):?>
+  <?php echo $this->render('applications/manage/index.recruiter.ajax.phtml') ?>
+<?php else: ?>
+  <?php echo $this->render('applications/manage/index.applicant.ajax.phtml') ?>
+<?php endif?>
 </div>

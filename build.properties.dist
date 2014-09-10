@@ -68,9 +68,3 @@ deploy.ssh.host =
 deploy.ssh.user =
 deploy.docs.target =
 
-;
-; enviroment. 
-; production: enables caching, disables error_reportings.
-; development: no caching, debugging enabled.
-;
-app.env=production

@@ -1,26 +1,41 @@
 <?php
-//: ./view/applications/manage/index.ajax.phtml:46
+//: ./view/applications/manage/index.recruiter.ajax.phtml:46
 translate('Applicant');
 
-//: ./view/applications/manage/index.ajax.phtml:47
+//: ./view/applications/manage/index.recruiter.ajax.phtml:47
 translate('Career'       => array('class' => 'cam-career');
 
-//: ./view/applications/manage/index.ajax.phtml:48
+//: ./view/applications/manage/index.recruiter.ajax.phtml:48
 translate('Attachments'  => array('class' => 'cam-attachment');
 
-//: ./view/applications/manage/index.ajax.phtml:49
+//: ./view/applications/manage/index.recruiter.ajax.phtml:49
 translate('Job'          => array('class' => 'cam-job');
 
-//: ./view/applications/manage/index.ajax.phtml:50
+//: ./view/applications/manage/index.recruiter.ajax.phtml:50
 translate('Status'       => array('sort' => 'status');
 
-//: ./view/applications/manage/index.ajax.phtml:51
+//: ./view/applications/manage/index.recruiter.ajax.phtml:51
 translate('Rating'       => array('sort' => 'rating');
 
-//: ./view/applications/manage/index.ajax.phtml:52
+//: ./view/applications/manage/index.recruiter.ajax.phtml:52
 translate('Modified'     => array('sort' => 'date');
 
-//: ./view/applications/manage/index.ajax.phtml:53
+//: ./view/applications/manage/index.recruiter.ajax.phtml:53
+translate('Actions');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:14
+translate('Sent on'      => array('sort' => 'date');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:15
+translate('Company');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:16
+translate('Job'          => array('class' => 'cam-job');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:17
+translate('Status'       => array('sort' => 'status');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:18
 translate('Actions');
 
 //: ./src/Applications/Form/AttachmentsFactory.php:37
@@ -80,6 +95,21 @@ translate('get blind carbon copy of all own mails');
 //: ./src/Applications/Form/SettingsFieldset.php:67
 translate('if checked, you\'ll get a copy of all mails you send.');
 
+//: ./src/Applications/Form/FilterApplication.php:48
+translate('Search');
+
+//: ./src/Applications/Form/FilterApplication.php:57
+translate('Enter job title');
+
+//: ./src/Applications/Form/FilterApplication.php:69
+translate('Status');
+
+//: ./src/Applications/Form/FilterApplication.php:103
+translate('Search');
+
+//: ./src/Applications/Form/FilterApplication.php:111
+translate('Clear');
+
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
@@ -110,28 +140,31 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 //: ./src/Applications/Form/BaseFieldset.php:46
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:63
+//: ./src/Applications/Controller/ManageController.php:71
 translate('all');
 
-//: ./src/Applications/Controller/ApplyController.php:110
+//: ./src/Applications/Controller/ManageController.php:116
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:189
+//: ./src/Applications/Controller/ApplyController.php:136
+translate('Invalid apply id');
+
+//: ./src/Applications/Controller/ApplyController.php:215
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:249
+//: ./src/Applications/Controller/ApplyController.php:275
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:66
+//: ./src/Applications/Controller/IndexController.php:67
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:144
+//: ./src/Applications/Controller/IndexController.php:146
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:221
+//: ./src/Applications/Controller/IndexController.php:223
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:254
+//: ./src/Applications/Controller/IndexController.php:256
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40
@@ -143,9 +176,9 @@ translate('New application for your vacancy "%s"');
 //: ./src/Applications/Mail/NewApplication.php:62
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./config/module.config.php:56
+//: ./config/module.config.php:65
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:119
+//: ./config/module.config.php:128
 translate('Overview');
 
