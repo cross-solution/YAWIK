@@ -64,6 +64,8 @@ return array(
     ),
     'form_elements' => array(
         'invokables' => array(
+             'organizations/form' => 'Organizations\Form\Organizations',
+             'Organizations/ContactForm' => 'Organizations\Form\ContactFieldset',
         ),
         'factories' => array(
         )
@@ -74,6 +76,7 @@ return array(
     ),
     'filters' => array(
         'factories' => array(
+            'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory'
         ),
     ),
     'validators' => array(
@@ -83,6 +86,39 @@ return array(
     'hydrators' => array(
         'factories' => array(
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
+        ),
+    ),
+    
+    'acl' => array(
+        'rules' => array(
+            'guest' => array(
+                'allow' => array(
+//                    'route/lang/organizations',
+                ),
+                'deny' => array(
+//                    'route/lang/organizations',
+                ),
+            ),
+    )),
+    
+    'navigation' => array(
+        'default' => array(
+            'organizations' => array(
+                'label' => 'Organizations',
+                'route' => 'lang/organizations',
+                'order' => 65,
+                'resource' => 'route/lang/organizations',
+                'pages' => array(
+                    'list' => array(
+                        'label' => /*@translate*/ 'Overview',
+                        'route' => 'lang/organizations/list',
+                    ),
+                    'add' => array(
+                        'label' => /*@translate*/ 'Insert',
+                        'route' => 'lang/organizations/add',
+                    ),
+                ),
+            ),
         ),
     ),
 );

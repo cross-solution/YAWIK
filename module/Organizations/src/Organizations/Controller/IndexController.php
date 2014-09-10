@@ -28,14 +28,56 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
-        
+        $services     = $this->getServiceLocator();
         $params      = $this->getRequest()->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
-        $repository  = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
+        $repository  = $services->get('repositories')->get('Organizations/Organization');
         $isRecruiter = $this->acl()->isRole('recruiter');
         
-        // @TODO: look at Jobs/IndexController
-        $return = array();
+        
+        $params = $this->getRequest()->getQuery();
+        $isRecruiter = $this->acl()->isRole('recruiter');
+        if ($isRecruiter) {
+            $params->set('by', 'me');
+        }
+         
+         //default sorting
+        if (!isset($params['sort'])) {
+            $params['sort']="-date";
+        }
+        $params->count = 25;
+        // save the Params in the Session-Container
+        $this->paginationParams()->setParams('Organizations\Index', $params);
+        $paginator = $this->paginator('Organizations/Organization',$params);
+     
+        return array(
+            'script' => 'organizations/index/list',
+            'organizations' => $paginator
+        );
+        
+        
+        return $return;
+     }
+     
+     
+    /**
+     * Change (Upsert) organisations
+     */
+    public function formAction()
+    { 
+        $services     = $this->getServiceLocator();
+        $params      = $this->getRequest()->getQuery();
+        $jsonFormat  = 'json' == $params->get('format');
+        $repository  = $services->get('repositories')->get('Organizations/Organization');
+        $isRecruiter = $this->acl()->isRole('recruiter');
+        
+        $org = $repository->find("53f1f1188dc1b3bd1b149fef");
+        $form    = $services->get('forms')->get('organizations/form');
+        $form->bind($org);
+        
+        $return = array(
+            'form' => $form
+        );
         return $return;
      }
      

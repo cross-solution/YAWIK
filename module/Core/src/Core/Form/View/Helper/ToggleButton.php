@@ -21,15 +21,8 @@ class ToggleButton extends FormCheckbox
      */
     public function render(ElementInterface $element, $buttonContent = null)
     {
-<<<<<<< HEAD
         //$view = $this->getView();
         //$view->headScript()->appendFile($view->basePath('/Core/js/bootstrap-switch.js'));
-        
-        
-=======
-        $view = $this->getView();
-
->>>>>>> tmp3
         if (null === $buttonContent) {
             $buttonContent = $element->getLabel();
             if (null === $buttonContent) {

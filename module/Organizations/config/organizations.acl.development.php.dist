@@ -1,0 +1,12 @@
+<?php
+
+return array(
+ 'acl' => array(
+        'rules' => array(
+            'guest' => array(
+                'allow' => array(
+                    'route/lang/organizations',
+                ),
+            ),
+    )),
+);

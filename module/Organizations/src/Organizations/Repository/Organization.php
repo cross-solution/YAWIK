@@ -15,6 +15,32 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class Organization extends AbstractRepository
 {
     /**
+     * Gets a cursor to a set of organizations
+     * 
+     * @param array $params
+     */
+    public function getPaginatorCursor($params)
+    {
+        return $this->getPaginationQueryBuilder($params)
+                    ->getQuery()
+                    ->execute();
+    }
+    
+    /**
+     * Gets a query builder to search for organizations
+     * 
+     * @param array $params
+     * @return unknown
+     */
+    protected function getPaginationQueryBuilder($params)
+    {
+        $filter = $this->getService('filterManager')->get('Organizations/PaginationQuery');
+        $qb = $filter->filter($params, $this->createQueryBuilder());
+        
+        return $qb;
+    }
+    
+    /**
      * Find a organizations by an name
      * 
      * @param String $name

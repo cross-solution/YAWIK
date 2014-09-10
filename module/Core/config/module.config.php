@@ -251,6 +251,7 @@ return array(
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
+            'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml'
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(

@@ -6,6 +6,7 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+
 if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
 elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
 else:                   $subTitle = false;
@@ -20,7 +21,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 
 ?>      
 <h1>
-  <?php echo $this->translate('List of all applications')?>
+  <?php echo $this->translate('List of all Organizations')?>
   <?php if ($subTitle): ?>
     <small><?php echo $subTitle ?></small>
   <?php endif;?>
