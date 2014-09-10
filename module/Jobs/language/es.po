@@ -40,7 +40,7 @@ msgid "Jobs"
 msgstr "Empleos"
 
 #: view/jobs/index/index.phtml:4
-msgid "List of all jobs"
+msgid "Public Job Opportunities"
 msgstr "Lista de todos los puestos de trabajo"
 
 #: view/jobs/index/index.ajax.phtml:13

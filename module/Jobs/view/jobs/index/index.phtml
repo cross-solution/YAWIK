@@ -1,7 +1,13 @@
 <?php $this->headTitle($this->translate('Jobs'));
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
 
-<h1><?php echo $this->translate('List of all jobs')?></h1>
+<h1>
+  <?php if ($this->acl()->isRole('recruiter')):?>
+    <?php echo $this->translate('List of all jobs');?>
+  <?php else:?>
+    <?php echo $this->translate('Public Job Opportunities')?>
+  <?php endif?>
+</h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 

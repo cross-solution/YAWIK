@@ -52,7 +52,7 @@ msgid "Privacy Policy"
 msgstr "Datenschutzbestimmung"
 
 #: view/applications/index/dashboard.phtml:17
-msgid "Current Applications"
+msgid "Received Applications"
 msgstr "Aktuelle Bewerbungen"
 
 #: view/applications/index/dashboard.phtml:35
@@ -123,8 +123,8 @@ msgid "Applications"
 msgstr "Bewerbungen"
 
 #: view/applications/manage/index.phtml:25
-msgid "List of all applications"
-msgstr "Übersicht aller Bewerbungen"
+msgid "List of received applications"
+msgstr "Übersicht aller eingegangener Bewerbungen"
 
 #: view/applications/manage/index.phtml:41
 #: view/applications/manage/detail.phtml:152

@@ -7,52 +7,10 @@
  * @license   MIT
  */
 
-/*
-if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
-elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
-else:                   $subTitle = false;
-endif;
-
-$this->headTitle($this->translate('Applications') . ($subTitle ? ' ('. $subTitle . ')' : ''));
-
-$this->headScript()->appendFile($this->basePath('/Core/js/core.js'))
-                   ->appendFile($this->basePath('/Core/js/multiCheckbox.js'));
-$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
-$this->headScript()->appendFile($this->basePath('Applications/js/applications.index.js'));
-*/
-
-$subTitle = 'subTitle';
 ?>      
 <h1>
-  <?php echo $this->translate('List of all applications')?>
-  <?php if ($subTitle): ?>
-    <small><?php echo $subTitle ?></small>
-  <?php endif;?>
+  <?php echo $this->translate('Organizations')?>
 </h1>
-<div id="apps-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3>header ...</h3>
-            </div>
-            <div class="modal-body">
-                body ...
-            </div>
-            <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo $this->translate('Cancel'); ?></button>
-                <button id="modal-submit" class="btn btn-primary"><?php echo $this->translate('Send mail'); ?></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<nav class="navbar cam-toolbar">
-<?php
-    //echo $this->filterform($this->form);
-?>
-</nav>
-  
 <div class="pagination-container" data-uri="<?php echo $this->url('lang/organizations', array(), 
                   array('query' => $this->params()->fromQuery()), true) ?>">
 <?php echo $this->render('organizations/index/index.ajax.phtml') ?>

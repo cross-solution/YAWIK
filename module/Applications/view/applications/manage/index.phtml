@@ -21,9 +21,13 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 
 ?>      
 <h1>
-  <?php echo $this->translate('List of all Organizations')?>
-  <?php if ($subTitle): ?>
-    <small><?php echo $subTitle ?></small>
+  <?php if ($this->acl()->isRole('recruiter')):?>
+    <?php echo $this->translate('List of received applications')?>
+    <?php if ($subTitle): ?>
+      <small><?php echo $subTitle ?></small>
+    <?php endif;?>
+  <?php else: ?>
+    <?php echo $this->translate('Overview of your sent applications')?>
   <?php endif;?>
 </h1>
 <div id="apps-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -44,13 +48,50 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     </div>
 </div>
 
-<nav class="navbar cam-toolbar">
+<?php if ($this->acl()->isRole('recruiter')):?>
+  <nav class="navbar cam-toolbar">
+    <?php echo $this->filterform($this->form); ?>
+  </nav>
+<?php endif;?>
+
 <?php
-    echo $this->filterform($this->form);
+if (False):
 ?>
-</nav>
-  
+<div class="container col-md-12">
+<nav class="navbar cam-toolbar"> 
+    <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
+      <div id="search-applications form-group has-feedback" class="row">
+        <input class="form-control" id="search-applications-input" 
+               placeholder="<?php echo $this->translate('search applications')?> ..." 
+               name="search" 
+               type="text"
+               <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
+               
+        <input class="form-control" type="text" id="job-filteraa" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
+        <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
+        <select class="form-control" name="status">
+<?php foreach ($this->applicationStates as $applicationStatus): ?>
+    <option <?php echo $applicationStatus=='all'?'class="yk-icon yk-icon-filter"':'';?>value="<?php echo $applicationStatus; ?>" <?php echo isset($this->applicationState)&&$this->applicationState==$applicationStatus?'selected="selected" ':''?>>
+    <?php echo $this->translate($applicationStatus); ?>
+    </option>
+<?php endforeach; ?>
+        </select>
+        <input id="job-filter-value" type="hidden" name="job" <?php if ($this->job):?> value="<?php echo $this->job->id ?>"<?php endif?>>
+        <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search')?></button>
+        <a href="<?php echo $this->url('lang/applications', array(), array('query' => array('clear' => 1)), true) ?>"
+           class="btn btn-default"><?php echo $this->translate('Clear') ?></a>
+      </div>
+    </form>
+  </nav>
+</div>
+<?php
+endif;
+?>
 <div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(), 
                   array('query' => $this->params()->fromQuery()), true) ?>">
-<?php echo $this->render('applications/manage/index.ajax.phtml') ?>
+<?php if ($this->acl()->isRole('recruiter')):?>
+  <?php echo $this->render('applications/manage/index.recruiter.ajax.phtml') ?>
+<?php else: ?>
+  <?php echo $this->render('applications/manage/index.applicant.ajax.phtml') ?>
+<?php endif?>
 </div>

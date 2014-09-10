@@ -39,8 +39,8 @@ msgid "Jobs"
 msgstr "Jobs"
 
 #: view/jobs/index/index.phtml:4
-msgid "List of all jobs"
-msgstr "List of all jobs"
+msgid "Public Job Opportunities"
+msgstr "Public Job Opportunities"
 
 #: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"

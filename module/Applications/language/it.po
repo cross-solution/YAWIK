@@ -47,7 +47,7 @@ msgid "Privacy Policy"
 msgstr "Informativa sulla privacy"
 
 #: view/applications/index/dashboard.phtml:17
-msgid "Current Applications"
+msgid "Received Applications"
 msgstr "Applicazioni correnti"
 
 #: view/applications/index/dashboard.phtml:35
@@ -85,8 +85,8 @@ msgid "Applications"
 msgstr "Applicazioni"
 
 #: view/applications/manage/index.phtml:25
-msgid "List of all applications"
-msgstr "Elenco di tutte le applicazioni"
+msgid "List of received applications"
+msgstr "Domande ricevute"
 
 #: view/applications/manage/index.phtml:41
 #: view/applications/manage/detail.phtml:143
