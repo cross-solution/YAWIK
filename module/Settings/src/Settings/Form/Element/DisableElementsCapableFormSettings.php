@@ -111,6 +111,10 @@ class DisableElementsCapableFormSettings extends Element
     {
 
         foreach ($value as $name => $spec) {
+            if (is_numeric($spec)) {
+                $spec = $name;
+                $name = 0;
+            }
             if (is_numeric($name)) {
                 if (isset($checkboxes[$spec])) {
                     /* @var $box Checkbox */
