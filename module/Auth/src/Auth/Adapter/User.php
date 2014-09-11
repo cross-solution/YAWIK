@@ -9,18 +9,31 @@ use Auth\Entity\Filter\CredentialFilter;
 /**
  * This class allow to authenticate with a user/password account.
  *
- * Class User
- * @package Auth\Adapter
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek     <bleek@cross-solution.de>
  */
 class User extends AbstractAdapter
 {
+    /**
+     * User entity repository
+     *
+     * @var \Core\Repository\RepositoryInterface
+     */
     protected $repository;
+
+    /**
+     * Initial user.
+     *
+     * @var null|\Auth\Entity\UserInterface
+     */
     protected $defaultUser;
 
     /**
-     * @param $repository
-     * @param null $identity
-     * @param null $credential
+     * Creates a new user authentication adapter
+     *
+     * @param \Core\Repository\RepositoryInterface $repository User entity repository
+     * @param null|string $identity
+     * @param null|string $credential
      */
     public function __construct($repository, $identity=null, $credential=null)
     {
@@ -30,7 +43,9 @@ class User extends AbstractAdapter
     }
 
     /**
-     * @return mixed
+     * Gets the user repository
+     *
+     * @return \Core\Repository\RepositoryInterface
      */
     public function getRepository()
     {
@@ -38,21 +53,34 @@ class User extends AbstractAdapter
     }
 
     /**
-     * @param $login
-     * @param null $password
-     * @return $this
+     * Sets default user login and password.
+     *
+     * If no password is provided,
+     *
+     * @param string     $login
+     * @param string $password
+     *
+     * @return self
      */
-    public function setDefaultUser($login, $password = null)
+    public function setDefaultUser($login, $password)
     {
         $this->defaultUser = array($login, $password);
         return $this;
     }
 
     /**
-     * @return Result
+     * Performs an authentication attempt
+     *
+     * {@inheritDoc}
+     *
+     * If the user login does not exists in the database, but the login matches the
+     * login of the default user (see {@link setDefaultUser}), the default user will be
+     * created and logged in.
+     *
      */
     public function authenticate()
     {
+        /* @var $users \Auth\Repository\User */
         $identity    = $this->getIdentity();
         $users       = $this->getRepository();
         $user        = $users->findByLogin($identity);
@@ -66,16 +94,17 @@ class User extends AbstractAdapter
             $password = $this->defaultUser[1];
             $user = $users->create(array(
                 'login' => $identity,
-                'password' => $password
+                'password' => $password,
+                'role' => 'recruiter',
             ));
             
             $users->getDocumentManager()->persist($user);
         }
         
-        if ($user->credential != $filter->filter($credential)) {
+        if ($user->getCredential() != $filter->filter($credential)) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
         }
         
-        return new Result(Result::SUCCESS, $user->id);
+        return new Result(Result::SUCCESS, $user->getId());
     }
 }

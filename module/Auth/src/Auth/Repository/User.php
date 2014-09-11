@@ -10,7 +10,7 @@
 namespace Auth\Repository;
 
 use \Auth\Entity\Info;
-use Core\Entity\EntityInterface;
+use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
@@ -52,7 +52,7 @@ class User extends AbstractRepository
      * Finds user by login name
      * 
      * @param string $login
-     * @return unknown
+     * @return UserInterface
      */
     public function findByLogin($login) {
         $entity = $this->findOneBy(array('login' => $login));
