@@ -94,5 +94,4 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset implements Ser
 
         $this->isBuild = true;
     }
-
 }
