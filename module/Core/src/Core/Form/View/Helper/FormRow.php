@@ -91,7 +91,8 @@ class FormRow extends ZendFormRow
         }
         
         $elementString = $elementHelper->render($element);
-        if ($desc = $element->getOption('description', false) && $this->layout != Form::LAYOUT_BARE) {
+        $desc = $element->getOption('description', false);
+        if ($desc && $this->layout != Form::LAYOUT_BARE) {
             if (null !== ($translator = $this->getTranslator())) {
                              $desc = $translator->translate(
                                 $desc, $this->getTranslatorTextDomain()
