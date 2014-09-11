@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-10 15:54+0200\n"
+"POT-Creation-Date: 2014-09-11 19:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: view/applications/apply/index.phtml:28 language/_annotated_strings.php:168
+#: view/applications/apply/index.phtml:28 language/_annotated_strings.php:177
 msgid "your application was sent successfully"
 msgstr ""
 
@@ -111,53 +111,53 @@ msgstr ""
 msgid "Abort application"
 msgstr ""
 
-#: view/applications/manage/index.phtml:9
+#: view/applications/manage/index.phtml:10
 #, php-format
 msgid "for the job \"%s\""
 msgstr ""
 
-#: view/applications/manage/index.phtml:10
+#: view/applications/manage/index.phtml:11
 msgid "to all of your jobs"
 msgstr ""
 
-#: view/applications/manage/index.phtml:14
+#: view/applications/manage/index.phtml:15
 msgid "Applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:24
+#: view/applications/manage/index.phtml:25
 msgid "List of received applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:29
+#: view/applications/manage/index.phtml:30
 msgid "Overview of your sent applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:43
+#: view/applications/manage/index.phtml:44
 #: view/applications/manage/detail.phtml:155
 #: view/applications/manage/detail.phtml:174
 #: view/applications/manage/detail.phtml:206
 msgid "Cancel"
 msgstr ""
 
-#: view/applications/manage/index.phtml:44
+#: view/applications/manage/index.phtml:45
 #: view/applications/manage/detail.phtml:156
 msgid "Send mail"
 msgstr ""
 
-#: view/applications/manage/index.phtml:64
+#: view/applications/manage/index.phtml:65
 msgid "search applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:69 language/_annotated_strings.php:102
+#: view/applications/manage/index.phtml:70 language/_annotated_strings.php:105
 msgid "Enter job title"
 msgstr ""
 
-#: view/applications/manage/index.phtml:79 language/_annotated_strings.php:99
-#: language/_annotated_strings.php:108
+#: view/applications/manage/index.phtml:80 language/_annotated_strings.php:102
+#: language/_annotated_strings.php:111
 msgid "Search"
 msgstr ""
 
-#: view/applications/manage/index.phtml:81 language/_annotated_strings.php:111
+#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:114
 msgid "Clear"
 msgstr ""
 
@@ -302,8 +302,8 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:283
 #: view/applications/manage/detail.pdf.phtml:195
-#: src/Applications/Form/AttachmentsFactory.php:37
-#: language/_annotated_strings.php:42 language/_annotated_strings.php:9
+#: src/Applications/Form/AttachmentsFactory.php:43
+#: language/_annotated_strings.php:45 language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr ""
 
@@ -349,8 +349,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:400
 #: view/applications/manage/detail.pdf.phtml:110
-#: language/_annotated_strings.php:48 language/_annotated_strings.php:141
-msgid "Summary"
+msgid "Cover Letter"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:415
@@ -544,8 +543,8 @@ msgstr ""
 msgid "An application with the provided identifier could not be found."
 msgstr ""
 
-#: src/Applications/Form/SettingsFieldset.php:30
-#: language/_annotated_strings.php:54
+#: src/Applications/Form/SettingsFieldset.php:39
+#: language/_annotated_strings.php:57
 msgid "E-Mail Notifications"
 msgstr ""
 
@@ -599,10 +598,14 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:42
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click "
 "into the attachement area. You can upload up to 5MB"
+msgstr ""
+
+#: language/_annotated_strings.php:48 language/_annotated_strings.php:141
+msgid "Summary"
 msgstr ""
 
 #: language/_annotated_strings.php:51
@@ -611,40 +614,44 @@ msgid ""
 "some informations you think helps the recruiter to pick you for this job."
 msgstr ""
 
-#: language/_annotated_strings.php:57
-msgid "receive E-Mail alert"
+#: language/_annotated_strings.php:54
+msgid "Customize apply form"
 msgstr ""
 
 #: language/_annotated_strings.php:60
-msgid "if checked, you'll be informed by mail about new applications."
+msgid "receive E-Mail alert"
 msgstr ""
 
 #: language/_annotated_strings.php:63
-msgid "Mailtext"
+msgid "if checked, you'll be informed by mail about new applications."
 msgstr ""
 
 #: language/_annotated_strings.php:66
+msgid "Mailtext"
+msgstr ""
+
+#: language/_annotated_strings.php:69
 msgid ""
 "default text of the notification mail about new applications. The following "
 "variables can be used:<ul><li>##name## = your name</li><li>##title## = title "
 "of the job</li></ul>"
 msgstr ""
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:72
 msgid "confirm application immidiatly after submit"
 msgstr ""
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:75
 msgid ""
 "if checked, an application is immediatly confirmed. If unchecked "
 "confirmation is the duty of the recruiter."
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid "Confirmation mail text"
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid ""
 "default text of the acknowledgment of receipt mail to the applicant. The "
 "following variables can be used:<br><ul><li>##anrede_formell## = salutation. "
@@ -654,45 +661,41 @@ msgid ""
 "of recipt of the application.</li></ul>"
 msgstr ""
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
 msgid "Invitation mail text"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:87
 msgid ""
 "default text of the invitation mail to the applicant. You can use all "
 "variables of the acknowledgment of receipt mail. "
 msgstr ""
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:90
 msgid "Rejection mail text"
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:93
 msgid ""
 "default text of the refusal of an application to the applicant. You can use "
 "all variables of the acknowledgment of receipt mail."
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:96
 msgid "get blind carbon copy of all own mails"
 msgstr ""
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:99
 msgid "if checked, you'll get a copy of all mails you send."
 msgstr ""
 
-#: language/_annotated_strings.php:105 language/_annotated_strings.php:36
+#: language/_annotated_strings.php:108 language/_annotated_strings.php:36
 #: language/_annotated_strings.php:15
 msgid "Status"
 msgstr ""
 
-#: language/_annotated_strings.php:114
-msgid "Comment message"
-msgstr ""
-
 #: language/_annotated_strings.php:117
-msgid "Attributes"
+msgid "Comment message"
 msgstr ""
 
 #: language/_annotated_strings.php:120
@@ -719,48 +722,62 @@ msgid ""
 msgstr ""
 
 #: language/_annotated_strings.php:144
-msgid "all"
+msgid "Expected salary"
 msgstr ""
 
-#: language/_annotated_strings.php:147 language/_annotated_strings.php:150
-#: language/_annotated_strings.php:159
-msgid "Invalid apply id"
+#: language/_annotated_strings.php:147
+msgid ""
+"Your salary requirements should be the annual amount before taxes. Do not "
+"forget to provide the currency sign."
+msgstr ""
+
+#: language/_annotated_strings.php:150
+msgid "Ask users about their expected salary."
 msgstr ""
 
 #: language/_annotated_strings.php:153
+msgid "all"
+msgstr ""
+
+#: language/_annotated_strings.php:156 language/_annotated_strings.php:159
+#: language/_annotated_strings.php:168
+msgid "Invalid apply id"
+msgstr ""
+
+#: language/_annotated_strings.php:162
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr ""
 
-#: language/_annotated_strings.php:156 language/_annotated_strings.php:165
+#: language/_annotated_strings.php:165 language/_annotated_strings.php:174
 msgid "Application confirmation"
 msgstr ""
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:171
 msgid "There were errors in the form."
 msgstr ""
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:180
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:174
+#: language/_annotated_strings.php:183
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:186
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
 "\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:189
 msgid "E-Mail Templates"
 msgstr ""
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:192
 msgid "Overview"
 msgstr ""
 

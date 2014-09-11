@@ -36,9 +36,17 @@ source_lang = en_US
 type = PO
 lang_map = de: de_DE, en: en_US
 
+[yawik.organizations]
+file_filter = module/Organizations/language/<lang>.po
+source_file = module/Organizations/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+
 [yawik.demo]
 file_filter = module/YawikDemoSkin/language/<lang>.po
 source_file = module/YawikDemoSkin/language/messages.pot
 source_lang = en_US
 type = PO
 lang_map = de: de_DE, en: en_US
+

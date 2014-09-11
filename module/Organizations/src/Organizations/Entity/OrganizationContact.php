@@ -16,7 +16,7 @@ use Core\Entity\FileEntityInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * contact information 
+ * Defines the contact address of an Organization
  * 
  * @ODM\EmbeddedDocument
  */
@@ -42,17 +42,20 @@ class OrganizationContact extends AbstractEntity
     
  
     /**
-     * 
-     * @return \Organizations\Entity\Contact
+     * Sets the House Number of an Organization Address
+     *
+     * @return \Organizations\Entity\OrganizationContact
      */
-    public function setHouseNumber($houseNumber)
+    public function setHouseNumber($houseNumber = "")
     {
     	$this->houseNumber=$houseNumber;
     	return $this;
     }
     
     /** 
-     * 
+     * Gets the House Number of an Organization Address
+     *
+     * @return string
      */
     public function getHouseNumber()
     {
@@ -61,15 +64,15 @@ class OrganizationContact extends AbstractEntity
     
     /**
      * 
-     * @return \Organizations\Entity\Contact
+     * @return \Organizations\Entity\OrganizationContact
      */
     public function setPostalcode($postalcode) {
     	$this->postalcode = (String) $postalcode;
     	return $this;
     }
-    
+
     /**
-     * 
+     * @return string
      */
     public function getPostalcode() {
     	return $this->postalcode;
@@ -77,15 +80,15 @@ class OrganizationContact extends AbstractEntity
     
     /**
      * 
-     * @return \Organizations\Entity\Contact
+     * @return \Organizations\Entity\OrganizationContact
      */
-    public function setCity($city) {
+    public function setCity($city = "") {
     	$this->city = (String) $city;
     	return $this;
     }
-    
+
     /**
-     * 
+     * @return string
      */
     public function getCity() {
     	return $this->city;
@@ -93,18 +96,18 @@ class OrganizationContact extends AbstractEntity
     
     /**
      * 
-     * @return \Organizations\Entity\Contact
+     * @return \Organizations\Entity\OrganizationContact
      */
-    public function setStreet($street)
+    public function setStreet($street = "")
     {
     	$this->street=$street;
     	return $this;
     }
 
     /**
-     * 
+     * @return string
      */
-    public function getStreet() 
+    public function getStreet()
     {
     	return $this->street;
     }

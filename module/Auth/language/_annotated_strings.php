@@ -8,6 +8,9 @@ translate('Edit group');
 //: ./src/Auth/Form/SocialProfiles.php:26
 translate('Social Profiles');
 
+//: ./src/Auth/Form/SocialProfilesFieldset.php:227
+translate('Allow users to attach their %s profile.');
+
 //: ./src/Auth/Form/UserInfoFieldset.php:41
 translate('personal informations');
 
@@ -92,10 +95,10 @@ translate('Password');
 //: ./src/Auth/Form/Login.php:55
 translate('login');
 
-//: ./src/Auth/Controller/ManageController.php:103
+//: ./src/Auth/Controller/ManageController.php:106
 translate('Changes successfully saved');
 
-//: ./src/Auth/Controller/ManageController.php:107
+//: ./src/Auth/Controller/ManageController.php:110
 translate('Saving changes failed. Please check the marked fields.');
 
 //: ./src/Auth/Controller/ManageGroupsController.php:141
@@ -119,9 +122,9 @@ translate('Welcome to YAWIK!');
 //: ./src/Auth/Controller/IndexController.php:391
 translate('You are now logged out');
 
-//: ./config/module.config.php:260
+//: ./config/module.config.php:268
 translate('user');
 
-//: ./config/module.config.php:261
+//: ./config/module.config.php:269
 translate('recruiter');
 

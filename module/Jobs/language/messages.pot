@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-05 17:02+0200\n"
+"POT-Creation-Date: 2014-09-11 19:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,12 @@ msgstr ""
 msgid "Jobs"
 msgstr ""
 
-#: view/jobs/index/index.phtml:4
+#: view/jobs/index/index.phtml:6
 msgid "List of all jobs"
+msgstr ""
+
+#: view/jobs/index/index.phtml:8
+msgid "Public Job Opportunities"
 msgstr ""
 
 #: view/jobs/index/index.ajax.phtml:13

@@ -367,8 +367,8 @@ msgstr "agent"
 #: view/applications/manage/detail.pdf.phtml:100
 #: src/Applications/Form/BaseFieldset.php:22
 #: language/_annotated_strings.php:87
-msgid "Summary"
-msgstr "Summary"
+msgid "Cover Letter"
+msgstr "Cover Letter"
 
 #: view/applications/manage/detail.phtml:390
 #: view/applications/manage/detail.phtml:417

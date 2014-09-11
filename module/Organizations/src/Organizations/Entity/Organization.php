@@ -147,6 +147,9 @@ class Organization extends BaseEntity implements OrganizationInterface {
      */
     public function setContact(EntityInterface $contact = null)
     {
+        if (!$contact instanceOf OrganizationContact) {
+            $contact = new OrganizationContact($contact);
+        }
         $this->contact = $contact;
         return $this;
     }
@@ -156,6 +159,9 @@ class Organization extends BaseEntity implements OrganizationInterface {
      */
     public function getContact()
     {
+        if (!$this->contact instanceOf OrganizationContact) {
+            $this->contact = new OrganizationContact();
+        }
         return $this->contact;
     }
 }

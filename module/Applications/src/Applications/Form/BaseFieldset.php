@@ -50,10 +50,10 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
         $this->add(array(
             'name' => 'salary',
             'options' => array(
-                'label' => 'Expected salary',
+                'label' => /*@translate*/ 'Expected salary',
                 'description' => /*@translate*/ 'Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.',
                 'disable_capable' => array(
-                    'description' => 'Huh!',
+                    'description' => /*@translate*/ 'Ask users about their expected salary.',
                 ),
             ),
         ));
