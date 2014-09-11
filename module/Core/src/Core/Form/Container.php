@@ -123,7 +123,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
 
     public function setIsDisableElementsCapable($flag)
     {
-        $this->options['ais_disable_elements_capable'] = $flag;
+        $this->options['is_disable_elements_capable'] = $flag;
 
         return $this;
     }
