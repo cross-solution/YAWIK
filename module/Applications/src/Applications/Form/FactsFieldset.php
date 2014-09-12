@@ -7,30 +7,26 @@
  * @license   MIT
  */
 
-/** AttachmentsFieldset.php */ 
+/**  */
 namespace Applications\Form;
 
 use Core\Form\DisableElementsCapableInterface;
 use Zend\Form\Fieldset;
 use Core\Form\EmptySummaryAwareInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
- * Fieldset for base informations of an application.
- * 
- * Currently, this is only the freetext summary.
+ * Facts fieldset.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, EmptySummaryAwareInterface,
-                                               InputFilterProviderInterface
+class FactsFieldset extends Fieldset implements DisableElementsCapableInterface, EmptySummaryAwareInterface
 {
     /**
      * The empty summary notice.
      *
      * @var string
      */
-    protected $emptySummaryNotice = /*@translate*/ 'Click here to enter a summary.';
+    protected $emptySummaryNotice = /*@translate*/ 'Click here to enter facts.';
     
     public function init()
     {
@@ -38,19 +34,21 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
              ->setName('base');
              
         $this->add(array(
-            'type' => 'textarea',
-            'name' => 'summary',
+            'name' => 'expectedSalary',
             'options' => array(
-                'description' => /*@translate*/ '<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.',
-                //'label' => /*@translate*/ 'Summary',
-                'is_disable_capable' => false,
+                'label' => /*@translate*/ 'Expected salary',
+                'description' => /*@translate*/ 'Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.',
+                'disable_capable' => array(
+                    'description' => /*@translate*/ 'Ask users about their expected salary.',
+                ),
             ),
         ));
     }
     
     public function isSummaryEmpty()
     {
-        return '' == $this->get('summary')->getValue();
+        // expectedSalary might be disabled, so we need to check that first.
+        return !$this->has('expectedSalary') || '' == $this->get('expectedSalary')->getValue();
     }
     
     public function setEmptySummaryNotice($message)
@@ -62,18 +60,6 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
     public function getEmptySummaryNotice()
     {
         return $this->emptySummaryNotice;
-    }
-    
-    public function getInputFilterSpecification()
-    {
-        return array(
-            'summary' => array(
-                'filters' => array(
-                    array('name' => 'StringTrim'),
-                    array('name' => 'StripTags'),
-                ),
-            ),
-        );
     }
 
     public function setIsDisableCapable($flag)
@@ -103,15 +89,10 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
             : true;
     }
 
-
-    /**
-     * {@inheritDoc}
-     * @see \Core\Form\DisableElementsCapableInterface::disableElements()
-     */
     public function disableElements(array $map)
     {
-        if (in_array('summary', $map)) {
-            $this->remove('summary');
+        if (in_array('expectedSalary', $map)) {
+            $this->remove('expectedSalary');
         }
 
         return $this;
