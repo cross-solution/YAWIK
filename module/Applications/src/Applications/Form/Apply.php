@@ -41,10 +41,11 @@ class Apply extends Container
                     'is_disable_capable' => false,
                 ),
             ),
+            'facts' => 'Applications\Facts',
             'profiles' => array(
                 'type' => 'Auth/SocialProfiles',
                 'options' => array(
-                    'is_disable_capable' => false,
+                    'is_disable_capable' => true,
                     'is_disable_elements_capable' => true,
                 ),
             ),

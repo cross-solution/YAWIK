@@ -173,6 +173,8 @@ return array(
              'Applications/Apply' => 'Applications\Form\Apply',
              'Applications/Contact' => 'Applications\Form\ContactContainer',
              'Applications/Base'  => 'Applications\Form\Base',
+             'Applications/Facts' => 'Applications\Form\Facts',
+             'Applications/FactsFieldset' => 'Applications\Form\FactsFieldset',
              'Applications/Attributes' => 'Applications\Form\Attributes',
              'Applications/Filter' => 'Applications\Form\FilterApplication',
              'href' => 'Applications\Form\Element\Ref',
@@ -185,7 +187,7 @@ return array(
 
     'form_elements_config' => array(
         'Applications/Apply' => array(
-            'disable_elements' => array('base' => array('base' => array('salary'))),
+            'disable_elements' => array('facts'),
         ),
     ),
      
