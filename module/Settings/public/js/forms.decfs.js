@@ -34,9 +34,29 @@
         });
     }
 
+    function toggleFieldset(e)
+    {
+        var $box = $(e.currentTarget);
+        var $div = e.data.div;
+
+        if ($box.prop('checked')) {
+            $div.animate({height: 'toggle'});
+        } else {
+            $div.animate({height: 'toggle'});
+        }
+    }
+
     $(function() {
         $('.disable-elements-list').each(function() {
             init($(this));
+        });
+        $('.decfs-active-toggle').each(function() {
+            var $box = $(this);
+            var $div = $box.parents('fieldset').find('.disable-elements-list').parent().parent();
+            $box.click({div: $div}, toggleFieldset);
+            if (!$box.prop('checked')) {
+                $div.hide();
+            }
         });
     });
 

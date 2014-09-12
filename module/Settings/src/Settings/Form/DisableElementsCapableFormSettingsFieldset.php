@@ -88,6 +88,17 @@ class DisableElementsCapableFormSettingsFieldset extends Fieldset implements Ser
             get_class($form)
         ));
 
+        $this->add(array(
+            'type' => 'Checkbox',
+            'name' => 'isActive',
+            'options' => array(
+                'label' => /*@translate*/ 'Activate',
+                'long_label' => /*@translate*/ 'Enables the form element customization.',
+            ),
+            'attributes' => array(
+                'class' => 'decfs-active-toggle',
+            ),
+        ));
         $element = new \Settings\Form\Element\DisableElementsCapableFormSettings('disableElements');
         $element->setForm($form);
         $this->add($element);
