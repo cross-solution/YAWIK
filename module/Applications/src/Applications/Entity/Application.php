@@ -79,7 +79,15 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @ODM\String
      */
     protected $summary;
-    
+
+    /**
+     * The facts of this application.
+     *
+     * @ODM\EmbedOne(targetDocument="\Applications\Entity\Facts")
+     * @var FactsInterface
+     */
+    protected $facts;
+
     /**
      * Resume, containing employments, educations and skills
      *
@@ -408,7 +416,24 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     {
         return $this->summary;
     }
-    
+
+    public function setFacts(FactsInterface $facts)
+    {
+        $this->facts = $facts;
+
+        return $this;
+    }
+
+    public function getFacts()
+    {
+        if (!$this->facts) {
+            $this->setFacts(new Facts());
+        }
+
+        return $this->facts;
+    }
+
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setCv()
