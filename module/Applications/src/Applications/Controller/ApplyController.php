@@ -324,9 +324,10 @@ class ApplyController extends AbstractActionController
 
         /** @var $settings \Applications\Entity\Settings */
         $settings = $job->getUser()->getSettings('Applications');
-        $config = $settings->getApplyFormSettings()->getDisableElements();
-        if (is_array($config)) {
-            $container->disableElements($config);
+        $formSettings = $settings->getApplyFormSettings();
+
+        if ($formSettings && $formSettings->isActive()) {
+            $container->disableElements($formSettings->getDisableElements());
             return;
         }
 
