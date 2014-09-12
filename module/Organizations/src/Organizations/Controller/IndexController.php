@@ -63,7 +63,7 @@ class IndexController extends AbstractActionController
     /**
      * Change (Upsert) organisations
      */
-    public function formAction()
+    public function editAction()
     { 
         $services     = $this->getServiceLocator();
         $params      = $this->getRequest()->getQuery();
@@ -71,6 +71,7 @@ class IndexController extends AbstractActionController
         $repository  = $services->get('repositories')->get('Organizations/Organization');
         $isRecruiter = $this->acl()->isRole('recruiter');
         
+        //$org = $repository->find("53f1f1188dc1b3bd1b149fef");
         $org = $repository->find("53f1f1188dc1b3bd1b149fef");
         $form    = $services->get('forms')->get('organizations/form');
         $form->bind($org);

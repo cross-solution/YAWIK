@@ -56,6 +56,7 @@ return array(
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
+             'organizations/index/edit' => __DIR__ . '/../view/organizations/index/form.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -88,18 +89,20 @@ return array(
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
         ),
     ),
-    
+
+    /*
     'acl' => array(
         'rules' => array(
             'guest' => array(
                 'allow' => array(
-//                    'route/lang/organizations',
+                    'route/lang/organizations',
                 ),
                 'deny' => array(
 //                    'route/lang/organizations',
                 ),
             ),
     )),
+    */
     
     'navigation' => array(
         'default' => array(
@@ -107,18 +110,20 @@ return array(
                 'label' => 'Organizations',
                 'route' => 'lang/organizations',
                 'order' => 65,
-                'resource' => 'route/lang/organizations',
+                //'resource' => 'route/lang/organizations',
+
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
-                        'route' => 'lang/organizations/list',
+                        'route' => 'lang/organizations',
                     ),
-                    'add' => array(
+                    'edit' => array(
                         'label' => /*@translate*/ 'Insert',
-                        'route' => 'lang/organizations/add',
+                        'route' => 'lang/organizations/edit',
                     ),
                 ),
             ),
+
         ),
     ),
 );

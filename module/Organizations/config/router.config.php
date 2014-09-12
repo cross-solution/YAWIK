@@ -27,12 +27,13 @@ return array(
                             'detail' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/:id',
+                                    'route' => '/detail/:id',
                                     'constraints' => array(
-                                        'id' => '\w+',
+                                        'id' => '\w*',
                                     ),
                                     'defaults' => array(
                                         'action' => 'detail',
+                                        'id' => '0',
                                     ),
                                 ),
                             ),
@@ -66,15 +67,15 @@ return array(
                                     ),
                                 ),
                             ),
-                            'update' => array(
+                            'edit' => array(
                                 'type' => 'Segment',
                                 'options' => array(
-                                    'route' => '/change/:id',
+                                    'route' => '/edit[/:id]',
                                     'constraints' => array(
                                         'id' => '\w+',
                                     ),
                                     'defaults' => array(
-                                        'action' => 'change',
+                                        'action' => 'edit',
                                     ),
                                 ),
                             ),
