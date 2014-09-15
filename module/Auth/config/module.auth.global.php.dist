@@ -28,5 +28,13 @@ return array(
     		'login' => '%%username%%',
     		'password' => '%%password%%',
     	),
-    ),    
+    	array(
+    	     // this allows an external application to use the YAWIK API
+    	     // applications[USERPOSTFIX] => AppKey
+             'external_applications' => array(
+
+                '%%external.app.prefix%%' => '%%external.app.key%%',
+              ),
+        ),
+    ),
 );

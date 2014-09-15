@@ -20,6 +20,7 @@
   <property file="./build.properties"/>
   <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
   <exec outputProperty="version-short" command="git describe --tags | sed -E -n 's/v([0-9]+.[0-9]+(.[0-9]+)?)-[a-z0-9-]+/\1/p'" dir="${project.basedir}"/>
+  <exec outputProperty="external.app.key" command="php -r 'echo uniqid(md5(microtime()));'" dir="${project.basedir}"/>
   <property name="builddir" value="./build/${phing.project.name}-${version-short}" override="false"/>
   <property name="vendordir" value="./vendor" override="false"/>
   <if>
@@ -296,6 +297,8 @@
           <token key="facebook.enabled" value="${facebook.enabled}"/>
           <token key="linkedin.appid" value="${linkedin.appid}"/>
           <token key="linkedin.secret" value="${linkedin.secret}"/>
+          <token key="external.app.key" value="${external.app.key}"/>
+          <token key="external.app.prefix" value="${external.app.prefix}"/>
           <token key="linkedin.enabled" value="${linkedin.enabled}"/>
           <token key="linkedin.scope" value="${linkedin.scope}"/>
           <token key="xing.appid" value="${xing.appid}"/>

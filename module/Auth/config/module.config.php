@@ -91,15 +91,7 @@ return array(
         ),
     ),
     
-    // Module specific configuration
-    
-    'Auth' => array(
-        // Allowed external Applications
-        // applications[USERPOSTFIX] => AppKey
-        'external_applications' => array(
-            'ams' => 'AmsAppKey',
-        ),
-    ),
+
     
     // Routes
     'router' => array(
