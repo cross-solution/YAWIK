@@ -157,7 +157,7 @@ class SummaryForm extends AbstractHelper
         
         if ($element instanceOf ViewPartialProviderInterface) {
             $partial        = $element->getViewPartial();
-            $summaryPartial = $partial . '.summary';
+            $summaryPartial = str_replace('.form', '.view', $partial);
             $partialParams  = array(
                 'element' => $element
             );

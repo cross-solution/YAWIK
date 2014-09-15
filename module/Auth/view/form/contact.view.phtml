@@ -6,12 +6,10 @@
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @TODO rename this file into contact.view.phtml
  */
 /**
- * renders the contact informations within the application form and the personal profile.
+ * renders the contact information within the application form and the personal profile.
  */
-
  $info = $element->getObject();
  if (!$info->getDisplayName()) : ?>
  <div id="<?php echo $element->getAttribute('id') ?>-empty-alert" class="empty-summary-notice alert alert-info">

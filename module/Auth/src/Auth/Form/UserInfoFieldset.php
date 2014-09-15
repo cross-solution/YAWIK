@@ -13,7 +13,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                                                    InputFilterProviderInterface
 {
     
-    protected $viewPartial = 'form/auth/my-profile';
+    protected $viewPartial = 'form/auth/contact.form';
 
     public function setViewPartial($partial)
     {

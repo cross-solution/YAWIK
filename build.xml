@@ -19,7 +19,7 @@
   </if>
   <property file="./build.properties"/>
   <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
-  <exec outputProperty="version-short" command="git describe --tags | sed -n 's/v\([0-9]\+.[0-9]\+\(.[0-9]\+\)\?\)-[a-z0-9-]\+/\1/p'" dir="${project.basedir}"/>
+  <exec outputProperty="version-short" command="git describe --tags | sed -E -n 's/v([0-9]+.[0-9]+(.[0-9]+)?)-[a-z0-9-]+/\1/p'" dir="${project.basedir}"/>
   <property name="builddir" value="./build/${phing.project.name}-${version-short}" override="false"/>
   <property name="vendordir" value="./vendor" override="false"/>
   <if>
