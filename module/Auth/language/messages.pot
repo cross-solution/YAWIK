@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:19+0200\n"
+"POT-Creation-Date: 2014-09-16 15:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,10 @@ msgstr ""
 
 #: view/form/user-info-container.phtml:21
 msgid "Image"
+msgstr ""
+
+#: view/form/contact.view.phtml:16
+msgid "Click here to enter contact informations."
 msgstr ""
 
 #: view/form/social-profiles-fieldset.phtml:22
@@ -33,10 +37,6 @@ msgstr ""
 
 #: view/form/social-profiles-fieldset.phtml:39
 msgid "Close"
-msgstr ""
-
-#: view/form/my-profile.summary.phtml:18
-msgid "Click here to enter contact informations."
 msgstr ""
 
 #: view/form/social-profiles-button.phtml:38
@@ -63,7 +63,7 @@ msgstr ""
 msgid "My groups"
 msgstr ""
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:21
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
 msgid "Manage groups"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr ""
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:44
+#: view/auth/index/login-info.phtml:45
 msgid "Login"
 msgstr ""
 
@@ -112,33 +112,33 @@ msgstr ""
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr ""
 
-#: view/auth/index/login-info.phtml:14 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:17
+#: view/auth/index/login-info.phtml:18
 msgid "Change password"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:26
+#: view/auth/index/login-info.phtml:27
 msgid "Logout"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:33
+#: view/auth/index/login-info.phtml:34
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:35
 msgid "Guest"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:46
+#: view/auth/index/login-info.phtml:47
 msgid "Login via"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:49
+#: view/auth/index/login-info.phtml:50
 #, php-format
 msgid "Login with %s"
 msgstr ""
@@ -166,11 +166,11 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: src/Auth/Controller/ManageController.php:139
+#: src/Auth/Controller/ManageController.php:92
 msgid "Password successfully changed"
 msgstr ""
 
-#: src/Auth/Controller/ManageController.php:145
+#: src/Auth/Controller/ManageController.php:98
 msgid "Password could not be changed"
 msgstr ""
 
@@ -278,45 +278,37 @@ msgid "login"
 msgstr ""
 
 #: language/_annotated_strings.php:99
-msgid "Changes successfully saved"
-msgstr ""
-
-#: language/_annotated_strings.php:102
-msgid "Saving changes failed. Please check the marked fields."
-msgstr ""
-
-#: language/_annotated_strings.php:105
 msgid "Group created"
 msgstr ""
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:102
 msgid "Group updated"
 msgstr ""
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:105
 msgid "Changes not saved."
 msgstr ""
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:108
 msgid "You are now logged in."
 msgstr ""
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:111
 msgid "Authentication failed."
 msgstr ""
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:114
 msgid "Welcome to YAWIK!"
 msgstr ""
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:117
 msgid "You are now logged out"
 msgstr ""
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:120
 msgid "user"
 msgstr ""
 
-#: language/_annotated_strings.php:129
+#: language/_annotated_strings.php:123
 msgid "recruiter"
 msgstr ""

@@ -45,12 +45,12 @@ translate('Attach images or PDF Documents to your application. Drag&drop them, o
 translate('Attachments');
 
 //: ./src/Applications/Form/Base.php:26
-translate('Summary');
+translate('Cover Letter');
 
 //: ./src/Applications/Form/Apply.php:39
 translate('Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.');
 
-//: ./src/Applications/Form/Apply.php:56
+//: ./src/Applications/Form/Apply.php:57
 translate('Customize apply form');
 
 //: ./src/Applications/Form/SettingsFieldset.php:39
@@ -116,6 +116,54 @@ translate('Clear');
 //: ./src/Applications/Form/CommentForm.php:41
 translate('Comment message');
 
+//: ./src/Applications/Form/Facts.php:35
+translate('Request additional facts from the Applicant. Selected Fields will be added to the application Form.');
+
+//: ./src/Applications/Form/Facts.php:39
+translate('Please provide som additional facts for this job opening.');
+
+//: ./src/Applications/Form/FactsFieldset.php:29
+translate('Click here to enter facts.');
+
+//: ./src/Applications/Form/FactsFieldset.php:41
+translate('Please select');
+
+//: ./src/Applications/Form/FactsFieldset.php:42
+translate('Yes');
+
+//: ./src/Applications/Form/FactsFieldset.php:43
+translate('conditioned');
+
+//: ./src/Applications/Form/FactsFieldset.php:44
+translate('No');
+
+//: ./src/Applications/Form/FactsFieldset.php:45
+translate('Willingness to travel');
+
+//: ./src/Applications/Form/FactsFieldset.php:46
+translate('Enter your willingness to travel.');
+
+//: ./src/Applications/Form/FactsFieldset.php:48
+translate('Ask the applicant about the willingness to travel');
+
+//: ./src/Applications/Form/FactsFieldset.php:57
+translate('Earliest starting date');
+
+//: ./src/Applications/Form/FactsFieldset.php:58
+translate('Enter the earliest starting date.');
+
+//: ./src/Applications/Form/FactsFieldset.php:60
+translate('Ask the applicant about the earliest starting date.');
+
+//: ./src/Applications/Form/FactsFieldset.php:68
+translate('Expected salary');
+
+//: ./src/Applications/Form/FactsFieldset.php:69
+translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
+
+//: ./src/Applications/Form/FactsFieldset.php:71
+translate('Ask users about their expected salary.');
+
 //: ./src/Applications/Form/Attributes.php:34
 translate('Carbon Copy');
 
@@ -139,15 +187,6 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 
 //: ./src/Applications/Form/BaseFieldset.php:45
 translate('Summary');
-
-//: ./src/Applications/Form/BaseFieldset.php:53
-translate('Expected salary');
-
-//: ./src/Applications/Form/BaseFieldset.php:54
-translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
-
-//: ./src/Applications/Form/BaseFieldset.php:56
-translate('Ask users about their expected salary.');
 
 //: ./src/Applications/Controller/ManageController.php:71
 translate('all');

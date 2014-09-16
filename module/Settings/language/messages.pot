@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 15:17+0100\n"
+"POT-Creation-Date: 2014-09-16 16:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,21 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/settings/index/index.phtml:3 view/settings/index/index.phtml:13
-#: language/_annotated_strings.php:18
+#: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
+#: language/_annotated_strings.php:33
 msgid "Settings"
 msgstr ""
 
 #: src/Settings/Form/LanguageSettingsFieldset.php:24
 msgid "general settings"
-msgstr ""
-
-#: src/Settings/Controller/IndexController.php:95
-msgid "Changes successfully saved"
-msgstr ""
-
-#: src/Settings/Controller/IndexController.php:105
-msgid "Changes could not be saved"
 msgstr ""
 
 #: language/_annotated_strings.php:3
@@ -52,4 +44,25 @@ msgstr ""
 
 #: language/_annotated_strings.php:15
 msgid "defines the languages of this frontend."
+msgstr ""
+
+#: language/_annotated_strings.php:18
+#, php-format
+msgid "Customize enabled elements for %s"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Activate"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid "Enables the form element customization."
+msgstr ""
+
+#: language/_annotated_strings.php:27
+msgid "Changes successfully saved"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "Changes could not be saved"
 msgstr ""
