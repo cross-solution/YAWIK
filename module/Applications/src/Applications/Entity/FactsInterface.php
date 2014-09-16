@@ -10,12 +10,14 @@
 /** */
 namespace Applications\Entity;
 
+use Core\Entity\EntityInterface;
+
 /**
  * Interface of applications facts entity
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
  */
-interface FactsInterface 
+interface FactsInterface extends EntityInterface
 {
 
     /**

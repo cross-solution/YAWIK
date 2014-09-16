@@ -10,6 +10,7 @@
 /** */
 namespace Applications\Entity;
 
+use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -18,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @ODM\EmbeddedDocument
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Facts implements FactsInterface
+class Facts extends AbstractEntity implements FactsInterface
 {
     /**
      * The expected salary.
