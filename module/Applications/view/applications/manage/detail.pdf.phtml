@@ -34,6 +34,11 @@ body {
 	width: 100%;
 	border-spacing: 0px;
 }
+.col1 {
+    width:150px;
+    margin-right: 10px;
+    border-right: 1px solid #dedede;
+}
 table.list {
 	width: 100%;
 	border: 1px solid #e4e4e4;
@@ -74,27 +79,27 @@ th {
   <td>
    <table class="address">
     <tr>
-     <td><?php echo $this->translate('name')?>:</td>
+     <td class="col1"><?php echo $this->translate('name')?>:</td>
      <td><?php echo $this->application->contact->firstName.' '.$this->application->contact->lastName ?></td>
     </tr>
     <?php if (isset($this->application->contact->street)): ?>
     <tr>
-     <td><?php echo $this->translate('Street')?>:</td>
+     <td class="col1"><?php echo $this->translate('Street')?>:</td>
      <td><?php echo $this->application->contact->street .' '.$this->application->contact->housenumber?></td>
     </tr>
     <?php endif; ?>
     <?php if (isset($this->application->contact->city)): ?>
     <tr>
-     <td><?php echo $this->translate('City')?>:</td>
+     <td class="col1"><?php echo $this->translate('City')?>:</td>
      <td><?php echo $this->application->contact->postalcode.' '.$this->application->contact->city ?></td>
     </tr>
     <?php endif; ?>
     <tr>
-     <td><?php echo $this->translate('E-Mail')?>:</td>
+     <td class="col1"><?php echo $this->translate('E-Mail')?>:</td>
      <td><?php echo $this->application->contact->email ?></td>
     </tr>
     <tr>
-     <td><?php echo  $this->translate('Phone')?>:</td>
+     <td class="col1"><?php echo  $this->translate('Phone')?>:</td>
      <td><?php echo   $this->application->contact->phone ?></td>
     </tr>
    </table>
@@ -106,6 +111,33 @@ th {
   </td>
  </tr>
 </table>
+
+<?php if (isset($this->application->facts->expectedSalery) or
+          isset($this->application->facts->willingnessToTravel) or
+          isset($this->application->facts->earliestStartingDate)):?>
+
+    <h2><?php echo $this->translate('Facts')?></h2>
+    <table width="100%">
+    <?php if(isset($this->application->facts->willingnessToTravel)):?>
+        <tr>
+            <td class="col1"><?php echo $this->translate('Willingness to travel')?>:</td>
+            <td><?php echo $this->application->facts->willingnessToTravel ?></td>
+        </tr>
+    <?php endif?>
+    <?php if(isset($this->application->facts->earliestStartingDate)):?>
+        <tr>
+            <td class="col1"><?php echo $this->translate('Earliest starting date')?>:</td>
+            <td><?php echo $this->application->facts->earliestStartingDate ?></td>
+        </tr>
+    <?php endif?>
+    <?php if(isset($this->application->facts->expectedSalary)):?>
+        <tr>
+            <td class="col1"><?php echo $this->translate('Expected salary')?>:</td>
+            <td><?php echo $this->application->facts->expectedSalary ?></td>
+        </tr>
+    <?php endif?>
+</table>
+<?php endif?>
 
 <h2><?php echo $this->translate('Cover Letter')?></h2>
 <div class="row">

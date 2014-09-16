@@ -387,6 +387,24 @@ endif;
         <td><?php echo $this->link($this->application->job->contactEmail)?></td>
       </tr>
       <?php endif; # allowed only for recruiters ?>
+      <?php if(isset($this->application->facts->willingnessToTravel)):?>
+      <tr>
+         <td><?php echo $this->translate('Willingness to travel')?>:</td>
+         <td><?php echo $this->application->facts->willingnessToTravel ?></td>
+      </tr>
+      <?php endif?>
+      <?php if(isset($this->application->facts->earliestStartingDate)):?>
+        <tr>
+            <td><?php echo $this->translate('Earliest starting date')?>:</td>
+            <td><?php echo $this->application->facts->earliestStartingDate ?></td>
+        </tr>
+        <?php endif?>
+      <?php if(isset($this->application->facts->expectedSalary)):?>
+         <tr>
+             <td><?php echo $this->translate('Expected salary')?>:</td>
+             <td><?php echo $this->application->facts->expectedSalary ?></td>
+         </tr>
+      <?php endif?>
     </table>
     </div>
   </div>

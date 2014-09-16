@@ -95,12 +95,6 @@ translate('Password');
 //: ./src/Auth/Form/Login.php:55
 translate('login');
 
-//: ./src/Auth/Controller/ManageController.php:106
-translate('Changes successfully saved');
-
-//: ./src/Auth/Controller/ManageController.php:110
-translate('Saving changes failed. Please check the marked fields.');
-
 //: ./src/Auth/Controller/ManageGroupsController.php:141
 translate('Group created');
 
@@ -122,9 +116,9 @@ translate('Welcome to YAWIK!');
 //: ./src/Auth/Controller/IndexController.php:391
 translate('You are now logged out');
 
-//: ./config/module.config.php:268
+//: ./config/module.config.php:260
 translate('user');
 
-//: ./config/module.config.php:269
+//: ./config/module.config.php:261
 translate('recruiter');
 

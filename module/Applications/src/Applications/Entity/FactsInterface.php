@@ -35,5 +35,36 @@ interface FactsInterface extends EntityInterface
      * @return string
      */
     public function getExpectedSalary();
-    
+
+    /**
+     * Sets the willingness to travel
+     *
+     * @param $willingnessToTravel
+     * @return $this|FactsInterface
+     */
+    public function setWillingnessToTravel($willingnessToTravel);
+
+
+    /**
+     * Gets the willingness to travel
+     *
+     * @return string
+     */
+    public function getWillingnessToTravel();
+
+
+    /**
+     * sets the earliest starting date
+     *
+     * @param $earliestStartingDate
+     * @return $this|FactsInterface
+     */
+    public function setEarliestStartingDate($earliestStartingDate);
+
+    /**
+     * Gets the earliest starting date.
+     *
+     * @return string
+     */
+    public function getEarliestStartingDate();
 }

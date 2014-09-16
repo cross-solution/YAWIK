@@ -18,14 +18,24 @@ use Zend\Form\Element\Checkbox as ZfCheckbox;
  */
 class Checkbox extends ZfCheckbox implements ViewHelperProviderInterface
 {
+    /**
+     * @var string
+     */
     protected $helper = 'formcheckbox';
-    
+
+    /**
+     * @param string|\Zend\View\Helper\HelperInterface $helper
+     * @return $this|ViewHelperProviderInterface
+     */
     public function setViewHelper($helper)
     {
         $this->helper = $helper;
         return $this;
     }
-    
+
+    /**
+     * @return string|\Zend\View\Helper\HelperInterface
+     */
     public function getViewHelper()
     {
         return $this->helper;

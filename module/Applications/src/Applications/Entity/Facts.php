@@ -29,7 +29,27 @@ class Facts extends AbstractEntity implements FactsInterface
      */
     protected $expectedSalary;
 
+    /**
+     * The willingness to travel
+     *
+     * @ODM\String
+     * @var string
+     */
+    protected $willingnessToTravel;
 
+    /**
+     * The earliestStartingDate
+     *
+     * @ODM\String
+     * @var string
+     */
+    protected $earliestStartingDate;
+
+
+    /**
+     * @param string $salary
+     * @return $this|FactsInterface
+     */
     public function setExpectedSalary($salary)
     {
         $this->expectedSalary = $salary;
@@ -37,9 +57,47 @@ class Facts extends AbstractEntity implements FactsInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getExpectedSalary()
     {
         return $this->expectedSalary;
     }
-    
+
+    /**
+     * @param $willingnessToTravel
+     * @return $this|FactsInterface
+     */
+    public function setWillingnessToTravel($willingnessToTravel)
+    {
+        $this->willingnessToTravel = $willingnessToTravel;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWillingnessToTravel()
+    {
+        return $this->willingnessToTravel;
+    }
+
+    /**
+     * @param $earliestStartingDate
+     * @return $this|FactsInterface
+     */
+    public function setEarliestStartingDate($earliestStartingDate)
+    {
+        $this->earliestStartingDate = $earliestStartingDate;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEarliestStartingDate()
+    {
+        return $this->earliestStartingDate;
+    }
 }

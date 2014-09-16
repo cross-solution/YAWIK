@@ -32,11 +32,11 @@ class Facts extends SummaryForm
     public function init()
     {
         $this->options['disable_capable'] = array(
-            'description' => /*@translate*/ 'Allow the user to provide some facts. Currently this will be only the expected salary.',
+            'description' => /*@translate*/ 'Request additional facts from the Applicant. Selected Fields will be added to the application Form.',
         );
         $this->setLabel('Facts');
         $this->setIsDescriptionsEnabled(true);
-        $this->setDescription(/*@translate*/ 'Provide some facts the recruiter might want to know.');
+        $this->setDescription(/*@translate*/ 'Please provide som additional facts for this job opening.');
         $this->setIsDisableCapable(true);
         $this->setIsDisableElementsCapable(false);
 

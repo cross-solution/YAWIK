@@ -32,7 +32,36 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
     {
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
              ->setName('base');
-             
+
+        $this->add(array(
+            'name' => 'willingnessToTravel',
+            'type' => 'select',
+            'options' => array(
+                'value_options' => array(
+                    ""=>/*@translate*/ "Please select",
+                    "yes"=>/*@translate*/ "Yes",
+                    "condioned" => /*@translate*/ "conditioned",
+                    "no"=>/*@translate*/ "No"),
+                'label' => /*@translate*/ 'Willingness to travel',
+                'description' => /*@translate*/ 'Enter your willingness to travel.',
+                'disable_capable' => array(
+                    'description' => /*@translate*/ 'Ask the applicant about the willingness to travel',
+                ),
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'earliestStartingDate',
+            'type' => "text",
+            'options' => array(
+                'label' => /*@translate*/ 'Earliest starting date',
+                'description' => /*@translate*/ 'Enter the earliest starting date.',
+                'disable_capable' => array(
+                    'description' => /*@translate*/ 'Ask the applicant about the earliest starting date.',
+                ),
+            ),
+        ));
+
         $this->add(array(
             'name' => 'expectedSalary',
             'options' => array(
@@ -43,6 +72,8 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                 ),
             ),
         ));
+
+
     }
     
     public function isSummaryEmpty()
