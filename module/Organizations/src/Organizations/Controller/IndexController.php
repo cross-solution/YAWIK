@@ -11,13 +11,12 @@
 namespace Organizations\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
+use Core\Entity\PermissionsInterface;
 
 /**
- * Main Action Controller for the application.
+ * Main Action Controller for the Organization.
  * Responsible for displaying the home site.  
  *
  */
@@ -25,38 +24,27 @@ class IndexController extends AbstractActionController
 {
     /**
      * List organisations
+     * @return array
      */
     public function indexAction()
     { 
-        $services     = $this->getServiceLocator();
-        $params      = $this->getRequest()->getQuery();
-        $jsonFormat  = 'json' == $params->get('format');
-        $repository  = $services->get('repositories')->get('Organizations/Organization');
-        $isRecruiter = $this->acl()->isRole('recruiter');
-        
-        
-        $params = $this->getRequest()->getQuery();
-        $isRecruiter = $this->acl()->isRole('recruiter');
+        $params        = $this->getRequest()->getQuery();
+        $isRecruiter   = $this->acl()->isRole('recruiter');
+        $params->count = 25;
         if ($isRecruiter) {
             $params->set('by', 'me');
         }
-         
          //default sorting
         if (!isset($params['sort'])) {
             $params['sort']="-date";
         }
-        $params->count = 25;
         // save the Params in the Session-Container
         $this->paginationParams()->setParams('Organizations\Index', $params);
         $paginator = $this->paginator('Organizations/Organization',$params);
-     
         return array(
             'script' => 'organizations/index/list',
             'organizations' => $paginator
         );
-        
-        
-        return $return;
      }
      
      
@@ -64,21 +52,51 @@ class IndexController extends AbstractActionController
      * Change (Upsert) organisations
      */
     public function editAction()
-    { 
-        $services     = $this->getServiceLocator();
-        $params      = $this->getRequest()->getQuery();
-        $jsonFormat  = 'json' == $params->get('format');
-        $repository  = $services->get('repositories')->get('Organizations/Organization');
-        $isRecruiter = $this->acl()->isRole('recruiter');
-        
-        //$org = $repository->find("53f1f1188dc1b3bd1b149fef");
-        $org = $repository->find("53f1f1188dc1b3bd1b149fef");
-        $form    = $services->get('forms')->get('organizations/form');
-        $form->bind($org);
-        
-        $return = array(
-            'form' => $form
-        );
+    {
+        $return          = Null;
+        $services        = $this->getServiceLocator();
+        $request         = $this->getRequest();
+        $ajaxRequest     = $request->isXmlHttpRequest();
+        $organization_id = $this->params('id', 0);
+        $repositories    = $services->get('repositories');
+        $repository      = $repositories->get('Organizations/Organization');
+        $form            = $services->get('forms')->get('organizations/form');
+        $viewHelper      = $services->get('ViewHelperManager');
+        $org             = $repository->find($organization_id);
+        if (isset($org)) {
+            $form->bind($org);
+            if ($request->isPost()) {
+                $postData = $this->params()->fromPost();
+                $form->setData($postData);
+                $isValid = $form->isValid() || True;
+                if ($isValid) {
+                    //$org = $hydrator->hydrate($postData, $org);
+                    //$org = $hydrator->hydrate($org, $entityOrganizationFromDB);
+                    //$services->get('repositories')->store($entityOrganization);
+                    $user  = $this->auth()->getUser();
+                    $permissions = $org->getPermissions();
+                    $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
+                    //->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
+                    //->inherit($application->getJob()->getPermissions());
+                    $repositories->store($org);
+                }
+                if ($ajaxRequest) {
+                    $summeryFormViewHelper = $viewHelper->get('summaryform');
+                    //$form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                    $content = $summeryFormViewHelper->__invoke($form);
+                    $return =  new JsonModel(array(
+                        'valid' => True,
+                        'content' => $content
+                    ));
+                }
+            }
+        }
+
+        if (!isset($return)) {
+            $return = array(
+                'form' => $form
+            );
+        }
         return $return;
      }
      
@@ -114,6 +132,7 @@ class IndexController extends AbstractActionController
     
     /** 
      * companyLogo
+     * @return \Zend\Stdlib\ResponseInterface
      */
     public function logoAction()
     {
@@ -135,7 +154,11 @@ class IndexController extends AbstractActionController
         }
         return $response;
     }
-    
+
+    /**
+     * deprecated: gets a image-logo from the database, use the core-action instead
+     * @return mixed
+     */
     protected function getFile()
     {
         $imageId = $this->params('id');
@@ -152,8 +175,8 @@ class IndexController extends AbstractActionController
         } catch (\Exception $e) {
             $response->setStatusCode(404);
             $this->getEvent()->setParam('exception', $e);
-            return;
+            return Null;
         }
-        return;
+        return Null;
     }
 }

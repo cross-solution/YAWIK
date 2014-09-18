@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * Applications Module Bootstrap
+ * Organizations Module Bootstrap
  *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
@@ -9,12 +9,11 @@
 
 namespace Organizations;
 
-use Zend\Mvc\MvcEvent;
 use Core\ModuleManager\ModuleConfigLoader;
 
 
 /**
- * Bootstrap class of the applications module
+ * Bootstrap class of the organizations module
  */
 class Module 
 {
@@ -28,7 +27,7 @@ class Module
          return ModuleConfigLoader::load(__DIR__ . '/config');
     }
     
-        /**
+    /**
      * Loads module specific autoloader configuration.
      * 
      * @return array

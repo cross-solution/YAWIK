@@ -22,8 +22,7 @@ use Core\Entity\Exception\OutOfBoundsException;
  */
 abstract class AbstractEntity implements EntityInterface
 { 
-    
-    
+
     /**
      * Sets a property through the setter method.
      * 
@@ -88,7 +87,4 @@ abstract class AbstractEntity implements EntityInterface
         }
         return (bool) $value;
     }
-    
-   
-   
 }

@@ -9,10 +9,7 @@
 
 namespace Organizations\Entity;
 
-use Core\Entity\AbstractEntity;
-use Core\Entity\EntityInterface;
-use Core\Entity\FileEntity;
-use Core\Entity\FileEntityInterface;
+use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -20,7 +17,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * 
  * @ODM\EmbeddedDocument
  */
-class OrganizationContact extends AbstractEntity
+class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
 {   
 	
     /** @var string 
@@ -37,14 +34,12 @@ class OrganizationContact extends AbstractEntity
     
     /** @var string 
      * @ODM\String */
-    protected $street;    
-    
-    
- 
+    protected $street;
+
     /**
      * Sets the House Number of an Organization Address
-     *
-     * @return \Organizations\Entity\OrganizationContact
+     * @param string $houseNumber
+     * @return $this
      */
     public function setHouseNumber($houseNumber = "")
     {
@@ -54,17 +49,17 @@ class OrganizationContact extends AbstractEntity
     
     /** 
      * Gets the House Number of an Organization Address
-     *
      * @return string
      */
     public function getHouseNumber()
     {
     	return $this->houseNumber;
     }
-    
+
     /**
-     * 
-     * @return \Organizations\Entity\OrganizationContact
+     * Sets a postal code
+     * @param $postalcode
+     * @return $this
      */
     public function setPostalcode($postalcode) {
     	$this->postalcode = (String) $postalcode;
@@ -72,6 +67,7 @@ class OrganizationContact extends AbstractEntity
     }
 
     /**
+     * Gets a postal code
      * @return string
      */
     public function getPostalcode() {
@@ -79,8 +75,9 @@ class OrganizationContact extends AbstractEntity
     }
     
     /**
-     * 
-     * @return \Organizations\Entity\OrganizationContact
+     * Sets a city (name)
+     * @param string $city
+     * @return $this
      */
     public function setCity($city = "") {
     	$this->city = (String) $city;
@@ -88,6 +85,7 @@ class OrganizationContact extends AbstractEntity
     }
 
     /**
+     * Gets a city (name)
      * @return string
      */
     public function getCity() {
@@ -95,8 +93,9 @@ class OrganizationContact extends AbstractEntity
     }
     
     /**
-     * 
-     * @return \Organizations\Entity\OrganizationContact
+     * Sets a street name
+     * @param string $street
+     * @return $this
      */
     public function setStreet($street = "")
     {
@@ -105,6 +104,7 @@ class OrganizationContact extends AbstractEntity
     }
 
     /**
+     * Gets a street name
      * @return string
      */
     public function getStreet()

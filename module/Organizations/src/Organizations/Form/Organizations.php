@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Applications forms */ 
+/** Organizations forms */
 namespace Organizations\Form;
 
 use Core\Form\SummaryForm;
@@ -20,7 +20,7 @@ use Core\Form\SummaryForm;
 
 class Organizations extends SummaryForm {
     
-    protected $baseFieldset = 'Organizations/ContactForm';
+    protected $baseFieldset = 'Organizations/OrganizationFieldset';
     protected $displayMode = self::DISPLAY_SUMMARY;
     
 }

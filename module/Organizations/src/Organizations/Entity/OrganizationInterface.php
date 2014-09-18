@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * Application configuration
+ * Organization configuration
  *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
@@ -15,14 +15,19 @@ use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
-use Doctrine\Common\Collections\Collection;
+use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 
+/**
+ * Interface OrganizationInterface
+ * @package Organizations\Entity
+ */
 interface OrganizationInterface 
     extends EntityInterface, 
             IdentifiableEntityInterface, 
             SearchableEntityInterface,
             ModificationDateAwareEntityInterface,
-            PermissionsAwareInterface
+            PermissionsAwareInterface,
+            HydratorAwareInterface
 {
     
     

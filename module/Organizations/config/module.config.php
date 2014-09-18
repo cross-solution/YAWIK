@@ -37,6 +37,14 @@ return array(
     ),
     'acl' => array(
         'rules' => array(
+            'guest' => array(
+                'allow' => array(
+//                    'route/lang/organizations',
+                ),
+                'deny' => array(
+                    'route/lang/organizations',
+                ),
+            ),
             'recruiter' => array(
                 'allow' => array(
                 ),
@@ -47,7 +55,7 @@ return array(
             ),
         ),
     ),
-    
+
     'controllers' => array(
         'invokables' => array(
             'Organizations/Index' => 'Organizations\Controller\IndexController', 
@@ -66,7 +74,8 @@ return array(
     'form_elements' => array(
         'invokables' => array(
              'organizations/form' => 'Organizations\Form\Organizations',
-             'Organizations/ContactForm' => 'Organizations\Form\ContactFieldset',
+             'Organizations/ContactFieldset' => 'Organizations\Form\ContactFieldset',
+             'Organizations/OrganizationFieldset' => 'Organizations\Form\OrganizationsFieldset',
         ),
         'factories' => array(
         )
@@ -90,20 +99,6 @@ return array(
         ),
     ),
 
-    /*
-    'acl' => array(
-        'rules' => array(
-            'guest' => array(
-                'allow' => array(
-                    'route/lang/organizations',
-                ),
-                'deny' => array(
-//                    'route/lang/organizations',
-                ),
-            ),
-    )),
-    */
-    
     'navigation' => array(
         'default' => array(
             'organizations' => array(

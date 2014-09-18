@@ -12,10 +12,8 @@
 namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
-use Jobs\Entity\Job;
 use Core\Entity\PermissionsInterface;
 
 /**
@@ -24,10 +22,14 @@ use Core\Entity\PermissionsInterface;
  */
 class ImportController extends AbstractActionController {
 
+    /**
+     * api-interface for transferring jobs
+     * @return JsonModel
+     */
     public function saveAction() {
 
         $services = $this->getServiceLocator();
-        $config = $services->get('Config');
+        $config   = $services->get('Config');
         
         if (False && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
 
@@ -47,73 +49,81 @@ class ImportController extends AbstractActionController {
                 'camEnabled' => '1',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
-                'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg'
+                'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',
             ));
             $this->getRequest()->setPost($params);
         }        
-    
-        $p = $this->params()->fromPost();
-        $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
-        $user = $services->get('AuthenticationService')->getUser();
+
+        $params          = $this->params();
+        $p               = $params->fromPost();
+        $user            = $services->get('AuthenticationService')->getUser();
+        $repositories    = $services->get('repositories');
+        $repositoriesJob = $repositories->get('Jobs/Job');
+        $log             = $services->get('Log/Core/Cam');
+        $log->info('Jobs/manage/saveJob ' . var_export($p, True));
         //if (isset($user)) {
         //    $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . $user->login);
         //}
         $result = array('token' => session_id(), 'isSaved' => False);
         if (isset($user) && !empty($user->login)) {
-            $form = $services->get('FormElementManager')->get('Jobs/Import');
-            // determine Job from Database 
-            $id = $this->params()->fromPost('id');
+            $formElementManager = $services->get('FormElementManager');
+            $form               = $formElementManager->get('Jobs/Import');
+            $id                 = $params->fromPost('id'); // determine Job from Database
+            $entity             = Null;
+
             if (empty($id)) {
-                $applyId = $this->params()->fromPost('applyId');
+                $applyId = $params->fromPost('applyId');
                 if (empty($applyId)) {
                     // new Job (propably this branch is never used since all Jobs should have an apply-Id)
-                    $entity = $services->get('repositories')->get('Jobs/Job')->create();
+                    $entity = $repositoriesJob->create();
                 } else {
-                    $entity = $services->get('repositories')->get('Jobs/Job')->findOneBy(array("applyId" => (string) $applyId));
+                    $entity = $repositoriesJob->findOneBy(array("applyId" => (string) $applyId));
                     if (!isset($entity)) {
                         // new Job (the more likely branch)
-                        $entity = $services->get('repositories')->get('Jobs/Job')->create(array("applyId" => (string) $applyId));
+                        $entity =$repositoriesJob->create(array("applyId" => (string) $applyId));
                     }
                 }
             } else {
-                $entity = $services->get('repositories')->get('Jobs/Job')->find($id);
+                $repositoriesJob->find($id);
             }
             //$services->get('repositories')->get('Jobs/Job')->store($entity);
-            
+
             $form->bind($entity);
             if ($this->request->isPost()) {
-                $loginSuffix = '';
-                $e = $this->getEvent();
-                $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
+                $loginSuffix                   = '';
+                $event                         = $this->getEvent();
+                $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $event);
                 if (!$loginSuffixResponseCollection->isEmpty()) {
                     $loginSuffix = $loginSuffixResponseCollection->last();
                 }
-            
-                $params = $this->getRequest()->getPost();
-                $params->datePublishStart = \Datetime::createFromFormat("Y-m-d",$params->datePublishStart);
+                $params                        = $this->getRequest()->getPost();
+                $params->datePublishStart      = \Datetime::createFromFormat("Y-m-d",$params->datePublishStart);
+                $result['post']                = $_POST;
                 $form->setData($params);
-                $result['post'] = $_POST;
                 if ($form->isValid()) {
                     $entity->setUser($user);
                     $group = $user->getGroup($entity->getCompany());
                     if ($group) {
                         $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
                     }
-                    $services->get('repositories')->get('Jobs/Job')->store($entity);
+                    $repositoriesJob->store($entity);
                     $result['isSaved'] = true;
                     
                     if (!empty($params->companyId)) {
-                        $companyId = $params->companyId . $loginSuffix;
-                        $repOrganization = $services->get('repositories')->get('Organizations/Organization');
-                        $hydrator = $this->getServiceLocator()->get('hydratorManager')->get('Hydrator/Organization');
+                        $companyId                = $params->companyId . $loginSuffix;
+                        $repOrganization          = $repositories->get('Organizations/Organization');
+                        $hydratorManager          = $services->get('hydratorManager');
+                        $hydrator                 = $hydratorManager->get('Hydrator/Organization');
                         $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
+                        $permissions              = $entityOrganizationFromDB->getPermissions();
                         $data = array(
-                            'externsalId' => $params->companyId,
+                            'externsalId'      => $params->companyId,
                             'organizationName' => $params->company,
-                            'image' => $params->logoRef    
+                            'image'            => $params->logoRef
                         );
+                        $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                         $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
-                        $services->get('repositories')->store($entityOrganization);
+                        $repositories->store($entityOrganization);
                     }
                 } else {
                     $result['valid Error'] = $form->getMessages();

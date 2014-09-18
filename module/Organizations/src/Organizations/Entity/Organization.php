@@ -11,12 +11,13 @@ namespace Organizations\Entity;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
-use Doctrine\Common\Collections\Collection;
 use Core\Entity\AddressInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
-use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\EntityInterface;
+use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Stdlib\Hydrator\HydratorAwareInterface;
+use Core\Entity\Hydrator\EntityHydrator;
 
 /**
  * The job model
@@ -33,6 +34,7 @@ class Organization extends BaseEntity implements OrganizationInterface {
      * 
      * @var string
      * @ODM\String
+     * @ODM\Index
      */
     protected $externalId; 
     
@@ -42,7 +44,15 @@ class Organization extends BaseEntity implements OrganizationInterface {
      * @var \Organizations\Entity\OrganizationName
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
-    protected $organizationName; 
+    protected $organizationName;
+
+    /**
+     * Assigned permissions.
+     *
+     * @var PermissionsInterface
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
+     */
+    protected $permissions;
     
     /**
      * primary logo of an organization
@@ -69,6 +79,25 @@ class Organization extends BaseEntity implements OrganizationInterface {
     public function getExternalId() 
     {
         return $this->externalId;
+    }
+
+    /**
+     * Set hydrator
+     *
+     * @param  HydratorInterface $hydrator
+     * @return HydratorAwareInterface
+     */
+    public function setHydrator(HydratorInterface $hydrator) {
+        return $this;
+    }
+
+    /**
+     * Retrieve hydrator
+     *
+     * @return HydratorInterface
+     */
+    public function getHydrator() {
+        return new EntityHydrator();
     }
 
     /** {@inheritdoc} */
@@ -118,15 +147,30 @@ class Organization extends BaseEntity implements OrganizationInterface {
     {
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritDoc}
+     * @see \Core\Entity\PermissionsAwareInterface::getPermissions()
+     */
     public function getPermissions()
     {
+        if (!$this->permissions) {
+            $permissions = new Permissions();
+            //if ($this->user) {
+            //    $permissions->grant($this->user, Permissions::PERMISSION_ALL);
+            //}
+            $this->setPermissions($permissions);
+        }
+        return $this->permissions;
     }
 
-    /** {@inheritdoc} */
-    public function setPermissions(PermissionsInterface $permissions) 
-    {
-        // @TODO: set Permissions
+    /**
+     * {@inheritDoc}
+     * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
+     * @return $this
+     */
+    public function setPermissions(PermissionsInterface $permissions) {
+        $this->permissions = $permissions;
+        return $this;
     }
 
     /** {@inheritdoc} */

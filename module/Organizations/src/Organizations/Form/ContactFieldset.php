@@ -1,71 +1,78 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    Mathias Weitz <weitz@cross-solution.de>
+ */
 
 namespace Organizations\Form;
 
 use Zend\Form\Fieldset;
-use Core\Entity\Hydrator\EntityHydrator;
+use Organizations\Entity\OrganizationContact;
 
+/**
+ * Class ContactFieldset
+ * @package Organizations\Form
+ */
 class ContactFieldset extends Fieldset 
 {
-    public function getHydrator()
-    {
-        if (!$this->hydrator) {
-            $hydrator = new EntityHydrator();
-            $this->setHydrator($hydrator);
-        }
-        return $this->hydrator;
-    }
-    
+    /**
+     * set the elements for the form
+     */
     public function init()
     {
-        $fieldset = new Fieldset('contact');
-        $fieldset->setHydrator(new EntityHydrator());
+        $this->setName('contact');
         
-        $this->setName('organization');
-        
-        $fieldset->add(array(
+        $this->add(array(
         		'name' => 'street',
         		'options' => array(
         				'label' => /* @translate */ 'street'
         		)
         ));
         
-        $fieldset->add(array(
-        		'name' => 'housenumber',
+        $this->add(array(
+        		'name' => 'houseNumber',
         		'options' => array(
         				'label' => /* @translate */ 'house number'
         		)
         ));
         
-        $fieldset->add(array(
+        $this->add(array(
         		'name' => 'postalcode',
         		'options' => array(
         				'label' => /* @translate */ 'Postalcode'
         		)
         ));
         
-        $fieldset->add(array(
+        $this->add(array(
         		'name' => 'city',
         		'options' => array(
         				'label' => /* @translate */ 'City'
         		)
         ));
         
-        $this->add($fieldset);
+        //$this->add($fieldset);
         
     }
-    
+
+    /**
+     * for later use - all the mandatory fields
+     * @return array
+     */
     public function getInputFilterSpecification()
     {
         return array();
     }
-    
-    /*
-    public function setObject($object)
-    {
-        parent::setObject($object->contact);
-        $this->populateValues($this->extract());
-        return $this;
-    }
+
+    /**
+     * a required method to overwrite the generic method to make the binding of the entity work
+     * @param object $object
+     * @return bool
      */
+    public function allowObjectBinding($object) {
+        return $object instanceof OrganizationContact;
+    }
 }

@@ -46,7 +46,7 @@ class PaginationQuery extends AbstractPaginationQuery
     }
     
     /**
-     * Creates a query for filtering applications
+     * Creates a query for filtering organizations
      * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
      * @param array $params
      * @param $queryBuilder
@@ -82,7 +82,7 @@ class PaginationQuery extends AbstractPaginationQuery
         /*
          * We only show organizations to which the user has view permissions.
          */
-        //$queryBuilder->field('permissions.view')->equals($userID);
+        $queryBuilder->field('permissions.view')->equals($userID);
 
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
