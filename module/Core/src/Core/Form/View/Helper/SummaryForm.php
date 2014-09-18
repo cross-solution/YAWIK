@@ -11,6 +11,8 @@
 namespace Core\Form\View\Helper;
 
 use Core\Form\SummaryFormInterface;
+use Zend\Form\Element\Hidden;
+use Zend\Form\FormInterface;
 use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
 use Zend\Form\FieldsetInterface;
@@ -122,8 +124,29 @@ class SummaryForm extends AbstractHelper
      */
     public function renderForm(SummaryFormInterface $form, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
-        $formHelper = $this->getView()->plugin('form');
-        return $formHelper->renderBare($form, $layout, $parameter);
+                                                    /* @var $form SummaryFormInterface|\Core\Form\SummaryForm */
+        $renderer     = $this->getView();           /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+        $formHelper   = $renderer->plugin('form');  /* @var $formHelper \Core\Form\View\Helper\Form */
+        $fieldset     = $form->getBaseFieldset();
+        $resetPartial = false;
+
+        if ($fieldset instanceOf ViewPartialProviderInterface) {
+            $origPartial = $fieldset->getViewPartial();
+            $partial     = "$origPartial.form";
+            if ($renderer->resolver($partial)) {
+                $fieldset->setViewPartial($partial);
+                $resetPartial = true;
+            }
+        }
+
+        $markup = $formHelper->renderBare($form, $layout, $parameter);
+
+        if ($resetPartial) {
+            /** @noinspection PhpUndefinedVariableInspection */
+            $fieldset->setViewPartial($origPartial);
+        }
+
+        return $markup;
     }
     
     /**
@@ -156,20 +179,22 @@ class SummaryForm extends AbstractHelper
         }
         
         if ($element instanceOf ViewPartialProviderInterface) {
-            $partial        = $element->getViewPartial();
-            $summaryPartial = str_replace('.form', '.view', $partial);
+            $renderer    = $this->getView();                 /* @var $renderer \Zend\View\Renderer\PhpRenderer */
+            $origPartial = $element->getViewPartial();
+            $partial     = "$origPartial.view";
             $partialParams  = array(
                 'element' => $element
             );
-            if (!$this->getView()->resolver($summaryPartial)) {
-                $summaryPartial = $partial;
+            if (!$renderer->resolver($partial)) {
+                $partial = $origPartial;
                 $partialParams['renderSummary'] = true;
             }
     
-            return $this->getView()->partial($summaryPartial, $partialParams);
+            return $renderer->partial($partial, $partialParams);
         }
         
         if ($element instanceOf EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
+            /* @var $element EmptySummaryAwareInterface|ElementInterface */
             $emptySummaryNotice = $this->getTranslator()->translate(
                 $element->getEmptySummaryNotice(), $this->getTranslatorTextDomain()
             );
