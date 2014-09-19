@@ -162,7 +162,7 @@ return array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-            'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
         ),
         'abstract_factories' => array(
@@ -190,7 +190,7 @@ return array(
             )
         ),
     ),
-    // Navigation-Konfig für die main_navigation
+    // Defines the Core/Navigation. 
     'navigation' => array(
         'default' => array(
 //             'home' => array(

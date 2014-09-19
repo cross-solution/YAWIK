@@ -50,7 +50,7 @@
                </div>
                   <nav id="cam-main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
                      <?php 
-                        echo $this->navigation('main_navigation')
+                        echo $this->navigation('Core/Navigation')
                                   ->setAcl($this->services('acl'))
                                   ->setRole($this->auth('role'))
                                   ->menu()

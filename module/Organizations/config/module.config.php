@@ -73,7 +73,7 @@ return array(
     ),
     'form_elements' => array(
         'invokables' => array(
-             'organizations/form' => 'Organizations\Form\Organizations',
+             'Organizations/form' => 'Organizations\Form\Organizations',
              'Organizations/ContactFieldset' => 'Organizations\Form\ContactFieldset',
              'Organizations/OrganizationFieldset' => 'Organizations\Form\OrganizationsFieldset',
         ),

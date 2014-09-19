@@ -26,7 +26,7 @@ class InjectSubNavigationListener
         }
         
         $services     = $event->getApplication()->getServiceManager();
-        $navigation   = $services->get('main_navigation');
+        $navigation   = $services->get('Core/Navigation');
         $settingsMenu = $navigation->findOneBy('route', 'lang/settings');
         
         if ($settingsMenu->hasChildren()) {
