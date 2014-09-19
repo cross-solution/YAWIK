@@ -1,5 +1,4 @@
 <?php
-
 /**
  * YAWIK
  * Configuration file of the Core module
@@ -37,7 +36,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/cam.log',
+                         'stream' => __DIR__ .'/../../../log/yawik.log',
                     ),
                 ),
             ),
@@ -61,23 +60,6 @@ return array(
                 'log_exceptions' => true,
             ),
         ),
-//         array(
-//             'writers' => array(
-//                 array(
-//                     'name' => 'stream',
-//                     'priority' => 1000,
-//                     'options' => array(
-//                         'stream' => __DIR__ . '/../../../log/error.log',
-//                         'formatter' => 'ErrorHandler',
-//                         'filters' => array(
-//                             'Core\Log\Filter\PhpError'
-//                         ),
-//                     ),
-//                 ),
-//             ),
-//             'exceptionhandler' => true,
-//             'errorhandler' => true,
-//         ),
     ),
            
     // Routes
