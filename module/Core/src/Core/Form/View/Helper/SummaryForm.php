@@ -225,7 +225,7 @@ class SummaryForm extends AbstractHelper
                       
         $markup .= '<div class="row">'; $col = 12;
         if ($label) {
-            $markup .= '<div class="col-md-3"><strong>' . $label . '</strong></div>';
+            $markup .= '<div class="col-md-3 yk-label"><label>' . $label . '</label></div>';
             $col = 9;
         }
         $markup .= '<div class="col-md-' . $col . '">' . $elementValue . '</div>'
