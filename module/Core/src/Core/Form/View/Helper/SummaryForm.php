@@ -206,7 +206,7 @@ class SummaryForm extends AbstractHelper
             return $markup;
         }
     
-        $label  = $element->getLabel();
+        $label  = $this->getTranslator()->translate($element->getLabel());
         $markup = '';
         
         if ($element instanceOf FieldsetInterface) {
