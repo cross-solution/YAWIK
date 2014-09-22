@@ -222,6 +222,11 @@ class SummaryForm extends AbstractHelper
         $elementValue = $element instanceOf \Zend\Form\Element\Textarea 
                       ? nl2br($element->getValue()) 
                       : $element->getValue();
+
+        if ('' != $elementValue && $element instanceOf \Zend\Form\Element\Select) {
+            $options = $element->getValueOptions();
+            $elementValue = $this->getTranslator()->translate($options[$elementValue]);
+        }
                       
         $markup .= '<div class="row">'; $col = 12;
         if ($label) {

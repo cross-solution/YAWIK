@@ -101,7 +101,7 @@
 				
 				options[idx] = val;
 			});
-			
+			console.debug($select, options);
 			$select.select2(options);
 		}
 	};
