@@ -125,20 +125,23 @@ class IndexController extends AbstractActionController
         
         $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
+        $config = $this->config();
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
         $auth = $this->getServiceLocator()->get('AuthenticationService');
         $result = $auth->authenticate($hauth);
         $resultMessage = $result->getMessages();
+
         if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-            // erstes Login
             $this->getServiceLocator()->get('Log/Core/Cam')->debug('first login via ' . $provider);
             
             if (array_key_exists('user', $resultMessage)) {
                 $user=$auth->getUser();
 //                $user = $resultMessage['user'];
                 $password = substr(md5(uniqid()),0,6);
-                $login = uniqid() . '@yawik-demo';
+
+                $login = uniqid() . ($config['auth']['suffix']!=""?'@'.$config['auth']['suffix']:'');
+
                 $scheme = '';
                 $domain = '';
                 $uri = $this->getRequest()->getUri();
@@ -151,7 +154,7 @@ class IndexController extends AbstractActionController
                 
                 $user->login=$login;
                 $user->setPassword($password);
-                $user->role='recruiter';
+                $user->role=$config['first_login']['role'];
                              
                 $mail = $this->mail(
                         array('displayName'=>$user->info->getDisplayName(),
@@ -162,8 +165,8 @@ class IndexController extends AbstractActionController
                         );
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
-                $mail->setFrom('contact@yawik.org', 'YAWIK');
-                $mail->setSubject(/* @translate */ 'Welcome to YAWIK!');
+                $mail->setFrom('contact@yawik.org', $config['first_login']['mail_name']);
+                $mail->setSubject($config['first_login']['mail_subject']);
             }
             if (isset($mail) && $this->mailer($mail)) {
                 $this->getServiceLocator()->get('Log/Core/Cam')->info('Mail first-login sent to ' . $user->info->getEmail());
@@ -226,7 +229,6 @@ class IndexController extends AbstractActionController
         
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
-        $config     = $services->get('config');
 
         $adapter->setIdentity($this->params()->fromPost('user'))
                 ->setCredential($this->params()->fromPost('pass'))

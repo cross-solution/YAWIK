@@ -21,6 +21,7 @@ mongo.pass=
 
 username=
 password=
+role=recuiter
 
 ;
 ; external appKey. You can add jobs and users by using a simple API. This 
@@ -36,6 +37,11 @@ external.app.prefix=myapp
 ;
 mail.from.email=demo@yawik.org
 mail.from.name=YAWIK
+
+; subject of the initial email, if somebody logs into via a social network
+mail.first_login.subject=Welcome to the YAWIK demo
+
+auth.suffix=
 
 ;
 ; Email development system settings
@@ -76,4 +82,8 @@ linkedin.scope=r_fullprofile
 deploy.ssh.host =
 deploy.ssh.user =
 deploy.docs.target =
+
+; als long there is no mechanism to read properties files from modules, we
+; put this config option here
+yawik.demoskin.piwik=/../../module/YawikDemoSkin/view/.piwik.phtml
 

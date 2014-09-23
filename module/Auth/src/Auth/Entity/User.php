@@ -21,8 +21,17 @@ use Settings\Repository\SettingsEntityResolver;
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */
 class User extends AbstractIdentifiableEntity implements UserInterface
-{   
-   
+{
+
+    /**
+     * defines the role of a recruiter
+     */
+    const ROLE_RECRUITER='recruiter';
+    /*
+     * defines the role of an authenticated user
+     */
+    const ROLE_USER='user';
+
     /**
      * Users login name
      *

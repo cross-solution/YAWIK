@@ -24,6 +24,7 @@ class User extends AbstractRepository
      * Creates a User
      * 
      * @see \Core\Repository\AbstractRepository::create()
+     * @return UserInterface
      */
     public function create(array $data=null)
     {
@@ -40,7 +41,7 @@ class User extends AbstractRepository
      * Finds user by profile identifier
      * 
      * @param String $identifier
-     * @return unknown
+     * @return UserInterface
      */
     public function findByProfileIdentifier($identifier)
     {
