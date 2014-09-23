@@ -50,14 +50,14 @@
                </div>
                   <nav id="cam-main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
                      <?php 
-                        echo $this->navigation('main_navigation')
+                        echo $this->navigation('Core/Navigation')
                                   ->setAcl($this->services('acl'))
                                   ->setRole($this->auth('role'))
                                   ->menu()
                                   ->setMaxDepth(0)
                                   ->setUlClass('nav navbar-nav pull-left')//renderPartial(null, 'main-navigation')?>
 
-                     <?php echo $this->loginInfo() ?>
+                     <?php echo $this->loginInfo(array('lang' => 'de')) ?>
                  </nav> <!-- /main-navigation -->
 		</div>
             </header>
@@ -84,7 +84,7 @@
 ?>
 
 
-<?foreach ($this->layout()->getChildren() as $child):
+<?php foreach ($this->layout()->getChildren() as $child):
     if (0 === strpos($child->captureTo(), "sidebar_")):
         echo $this->{$child->captureTo()};
     endif;
@@ -102,8 +102,8 @@ endforeach;?>
 <!-- /container -->
             <footer id="cam-footer">
                 <div class="container">
-                <span class="pull-left"><small>&copy; 2013-2014 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
-                    | <?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</small></span>
+		<span class="pull-left"><small>&copy; 2013-2014 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
+                    | <version><?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</version></small></span>
                 <span class="pull-right"><small>
                     Powered by <a href="http://yawik.org">YAWIK</a>
                                </small> </span>

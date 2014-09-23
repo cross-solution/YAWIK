@@ -1,0 +1,41 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+/**
+ * renders the contact form within the application form and the personal profile.
+ */
+
+    $layout = !empty($this->layout)?$this->layout:null;
+?>
+<fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-info'?>">
+    <?php /*<legend><?php echo $this->translate($element->getLabel())?></legend>*/?>
+    <div class="fieldset-content">
+      
+            
+      
+                <?php echo $this->formRow($element->get('gender'), null, null, $layout); ?>
+                <?php echo $this->formRowCombined(
+                    array(4 => $element->get('firstName'), 5 => $element->get('lastName')), null, null, $layout
+                );?>
+                <?php echo $this->formRowCombined(
+                		array(7 => $element->get('street'), 2 => $element->get('houseNumber')), null, null, $layout
+                ); ?>
+                <?php echo $this->formRowCombined(
+                    array(2 => $element->get('postalcode'), 7 => $element->get('city')), null, null, $layout
+                );?>
+                <?php echo $this->formRow($element->get('phone'), null, null, $layout);
+                      echo $this->formRow($element->get('email'), null, null, $layout);?>
+
+                      
+       
+    </div>
+    
+</fieldset>
+
+

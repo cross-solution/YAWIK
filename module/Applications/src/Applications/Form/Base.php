@@ -23,12 +23,21 @@ class Base extends SummaryForm
      * Label for the form.
      * @var string
      */
-    protected $label        = /*@translate*/ 'Summary';
+    protected $label        = /*@translate*/ 'Cover Letter';
     
     /**
      * {@inheritDoc}
      */
-    protected $baseFieldset = 'Applications/BaseFieldset';
+    protected $baseFieldset = array(
+        'type' => 'Applications/BaseFieldset',
+        'options' => array(
+            'disable_capable' => array(
+                'label' => 'Test label base form',
+            ),
+            'is_disable_capable' => false,
+            'is_disable_elements_capable' => true,
+        ),
+    );
     
     /**
      * {@inheritDoc}

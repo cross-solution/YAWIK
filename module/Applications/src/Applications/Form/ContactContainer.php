@@ -20,6 +20,9 @@ class ContactContainer extends UserInfoContainer
 {
         
     public function init() {
+        $this->setIsDisableCapable(false)
+             ->setIsDisableElementsCapable(false);
+
         $this->setForms(array(
             'contact' => array(
                 'type' => 'Auth/UserInfo',

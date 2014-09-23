@@ -103,7 +103,23 @@ interface ApplicationInterface
      * @return string
      */
     public function getSummary();
-    
+
+    /**
+     * Sets the facts entity.
+     *
+     * @param FactsInterface $facts
+     *
+     * @return self
+     */
+    public function setFacts(FactsInterface $facts);
+
+    /**
+     * Gets the facts.
+     *
+     * @return FactsInterface
+     */
+    public function getFacts();
+
     /**
      * Sets the CV 
      * 

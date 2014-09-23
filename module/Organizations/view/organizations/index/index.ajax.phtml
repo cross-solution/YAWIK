@@ -1,0 +1,72 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * generates the list of organizations.
+ */
+?>
+<?php
+$columns = array(
+/*@translate*/ 'Organization' => array(),
+/*@translate*/ 'City'         => array('class' => 'cam-job'),
+/*@translate*/ 'Street'       => array(),
+);
+
+if ('-' == $this->sort{0}) {
+    $sortBy  = substr($this->sort, 1);
+    $sortDir = false;
+} else {
+    $sortBy  = $this->sort;
+    $sortDir = true;
+}
+?>
+<table class="table table-striped table-bordered table-hover" id="cam-organization-list">
+    <thead>
+    <tr>
+        <?php foreach ($columns as $label => $option):?>
+            <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
+                <?php if (! isset($option['sort'])): echo $this->translate($label);
+                else:
+                    if ($option['sort'] == $sortBy):
+                        $icon = '<span class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
+                        $dir = !$sortDir;
+                    else:
+                        $dir = true;
+                        $icon = '<span class="pull-right yk-icon yk-icon-sort"></span>';
+                    endif;
+                    $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
+                    $url = $this->url(
+                        'lang/organizations', array(),
+                        array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
+                        true
+                    );
+                    ?>
+                    <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>
+                <?php endif; ?>
+            </th>
+        <?php endforeach; ?>
+    </tr>
+    </thead>
+<?php foreach ($this->organizations as $organization):?>
+ <tr>
+  <td>
+      <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->id)); ?>">
+    <?php echo $organization->organizationName->name;?>
+      </a>
+  </td>
+  <td>
+      <?php echo $organization->contact->postalcode;?>
+      <?php echo $organization->contact->city;?>
+  </td>
+  <td>
+      <?php echo $organization->contact->street;?>
+      <?php echo $organization->contact->houseNumber;?>
+  </td>
+ </tr>
+<?php endforeach?>
+</table>

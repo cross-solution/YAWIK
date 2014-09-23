@@ -35,7 +35,7 @@ class Phone extends Element implements InputProviderInterface
      * Sets the validator to use for this element
      *
      * @param  ValidatorInterface $validator
-     * @return Application\Form\Element\Phone
+     * @return Phone
      */
     public function setValidator(ValidatorInterface $validator)
     {

@@ -36,6 +36,8 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var $serviceLocator \Zend\Form\FormElementManager
+         * @var $router         \Zend\Mvc\Router\RouteStackInterface */
         $services = $serviceLocator->getServiceLocator();
         $router = $services->get('Router');
         $config = $services->get('Config');
@@ -59,6 +61,9 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
         } else {
             $name = 'social_profiles';
         }
+        $options['is_disable_capable'] = false;
+        $options['is_disable_elements_capable'] = false;
+
         
         $fieldset = new SocialProfilesFieldset($name, $options);
         

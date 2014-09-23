@@ -14,7 +14,11 @@ $this->headScript()->appendFile($this->basePath('Core/js/core.pagination.js'));
 <?php endif ?>
 <div class="panel-heading">
  <a style="text-decoration: none;" href="<?php echo $this->url('lang/applications', array(), array('query' => ""), true)?>">
-  <?php echo $this->translate('Current Applications')?>
+  <?php if ($this->acl()->isRole('recruiter')):?>
+    <?php echo $this->translate('Received Applications')?>
+  <?php else:?>
+    <?php echo $this->translate('Sent Applications')?>
+  <?php endif;?>
  </a>
  <small>
  <?php #if ($hasJobs): ?>

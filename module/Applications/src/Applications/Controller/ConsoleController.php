@@ -93,43 +93,56 @@ class ConsoleController extends AbstractActionController {
         
         return PHP_EOL;
     }
+
+    /**
+     * removes unfinished applications. Applications, which are in Draft Mode for
+     * more than 24 hours.
+     */
+    protected function cleanupAction() {
+        $days = 6;
+        $date = new \DateTime();
+        $date->modify("-$days day");
+
+        $filter = array("before" => $date->format("Y-m-d"),
+                        "isDraft" => 1);
+
+        $services     = $this->getServiceLocator();
+        $repositories = $services->get('repositories');
+        $applications = $this->fetchApplications($filter);
+
+        $count = count($applications); $i=0;
+
+        echo  $count . " applications in Draft Mode and older than " . $days . " days will be deleted\n";
+
+        $progress = new ProgressBar($count);
+
+        foreach ($applications as $application) {
+            $progress->update($i++, 'Application ' . $i . ' / ' . $count);
+            $repositories->remove($application);
+        }
+        $progress->finish();
+    }
     
     /**
      * Fetches applications
      * 
-     * @return unknown
+     * @param Array $filter
+     * @return $applications
      */
-    protected function fetchApplications($defaultFilter = '{}')
+    protected function fetchApplications($filter = array())
     {
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
         $appRepo      = $repositories->get('Applications/Application');
-        $filter       = \Zend\Json\Json::decode($this->params('filter', $defaultFilter));
         $query        = array();
         $limit        = 0;
         foreach ($filter as $key => $value) {
             switch ($key) {
-                case "limit":
-                    $limit = $value;
-                    break;
-        
                 case "before":
                     $date = new \DateTime($value);
                     $q = array('$lt' => $date);
                     if (isset($query['dateCreated.date'])) {
-                        $query['dateCreated.date']= array_merge(
-                            $query['dateCreated.date'], $q
-                        );
-                    } else {
-                        $query['dateCreated.date'] = $q;
-                    }
-                    break;
-        
-                case "after":
-                    $date = new \DateTime($value);
-                    $q = array('$gt' => $date);
-                    if (isset($query['dateCreated.date'])) {
-                        $query['dateCreated.date']= array_merge(
+                        $query['dateCreated.date'] = array_merge(
                             $query['dateCreated.date'], $q
                         );
                     } else {
@@ -137,11 +150,25 @@ class ConsoleController extends AbstractActionController {
                     }
                     break;
 
-               case "id":
+                case "after":
+                    $date = new \DateTime($value);
+                    $q = array('$gt' => $date);
+                    if (isset($query['dateCreated.date'])) {
+                        $query['dateCreated.date'] = array_merge(
+                            $query['dateCreated.date'], $q
+                        );
+                    } else {
+                        $query['dateCreated.date'] = $q;
+                    }
+                    break;
+
+                case "id":
                     $query['_id'] = new \MongoId($value);
                     //$query['id'] = $value;
                     break;
-        
+                case "isDraft":
+                    $query['isDraft'] = true;
+                    break;
                 default:
                     $query[$key] = $value;
                     break;
@@ -149,9 +176,9 @@ class ConsoleController extends AbstractActionController {
         }
         
         $applications = $appRepo->findBy($query);
-        //$applications->limit($limit);
-        
+
         return $applications;
     }
+
 }
 

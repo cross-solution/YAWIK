@@ -15,11 +15,14 @@ $this->headTitle('My')->prepend($headline);
 <h1><?php echo $this->translate($headline) ?></h1>
 
 <?php 
-$this->form->setAttributes(array(
-    'id' => 'auth-form-group',
-));
+$this->form->setAttributes(
+    array(
+        'id' => 'auth-form-group',
+    )
+);
 $this->form->get('buttons')->get('cancel')->setAttribute(
-    'onclick', 'location.href="' . $this->url('lang/my-groups') . '"; return false;'
+    'onclick', 
+    'location.href="' . $this->url('lang/my-groups') . '"; return false;'
 );
 echo $this->form($this->form);
 ?>
@@ -35,7 +38,7 @@ echo $this->form($this->form);
             <div class="input-group">
                 <input class="form-control" type="text" name="query" id="search-users-query" value="" placeholder="<?php echo $this->translate("search for users");?>">
                 <span class="input-group-btn">
-                    <button id="search-users-clear" class="btn btn-default type="button">X</button>
+                    <button id="search-users-clear" class="btn btn-default" type="button" >X</button>
                 </span>
             </div>
         </form>

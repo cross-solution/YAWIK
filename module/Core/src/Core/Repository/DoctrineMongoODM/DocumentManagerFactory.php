@@ -25,7 +25,7 @@ class DocumentManagerFactory implements FactoryInterface
         $serviceLocator->setFactory('doctrine.configuration.odm_default', new ConfigurationFactory('odm_default'));
         $serviceLocator->setAllowOverride(false);
         $dm = $serviceLocator->get('doctrine.documentmanager.odm_default');
-#        $dm->getSchemaManager()->ensureIndexes();
+        $dm->getSchemaManager()->ensureIndexes();
         return $dm;
     }
 }

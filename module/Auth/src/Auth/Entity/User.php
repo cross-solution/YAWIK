@@ -23,27 +23,48 @@ use Settings\Repository\SettingsEntityResolver;
 class User extends AbstractIdentifiableEntity implements UserInterface
 {   
    
-    /** @var string 
-     * @ODM\String */
+    /**
+     * Users login name
+     *
+     * @var string
+     * @ODM\String @ODM\Index */
     protected $login;
     
-    /** @ODM\String */
+    /**
+     * Role of an user. Currently "user" or "recruiter"
+     *
+     * @ODM\String */
     protected $role;
     
-    /** @ODM\EmbedOne(targetDocument="Info") */
+    /**
+     * Users contact data.
+     *
+     * @ODM\EmbedOne(targetDocument="Info") */
     protected $info;
     
-    /** @ODM\String */
+    /**
+     * Users login password
+     *
+     * @ODM\String */
     protected $credential;
     
-    /** @ODM\String */
+    /**
+     * Users primary email address
+     *
+     * @ODM\String */
     protected $email;
     
-     /** @var external password for AMS-Interface exclusively
-     * @ODM\String*/
+     /**
+      * pre-shared key, which allows an external application to authenticate
+      *
+      * @var String
+      * @ODM\String*/
     protected $secret;
     
-    /** @var array 
+    /**
+     * Can contain various HybridAuth profiles.
+     *
+     * @var array
      * @ODM\Hash*/
     protected $profile = array();
     
@@ -53,11 +74,13 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     
     /**
      * This is not a persistent property!
+     *
      * @var SettingsEntityResolver
      */
     protected $settingsEntityResolver;
     
     /**
+     * User groups.
      * 
      * @var Collection
      * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", simple=true, cascade="all")
@@ -72,11 +95,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     public function __construct(){
         //$this->info = new Info(); // moved to getter {mg}
     }
-    
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
+
+    /** {@inheritdoc} */
     public function setLogin($login)
     {
         $this->login = trim((String) $login);
@@ -88,13 +108,19 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     {
         return $this->login;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function setRole($role)
     {
         $this->role = $role;
         return $this;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function getRole()
     {
         if (!$this->role) {
@@ -102,18 +128,25 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         }
         return $this->role;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function getRoleId()
     {
         return $this->getRole();
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function setInfo(InfoInterface $info)
     {
         $this->info = $info;
         return $this;
     }
-    
+
+    /** {@inheritdoc} */
     public function getInfo()
     {
         if (null == $this->info) {
@@ -121,25 +154,29 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         }
         return $this->info;
     }
-    
+
+    /** {@inheritdoc} */
     public function getCredential()
     {
         return $this->credential;
     }
-    
+
+    /** {@inheritdoc} */
     public function setPassword($password)
     {
         $filter     = new Filter\CredentialFilter();
         $credential = $filter->filter($password); 
         return $this->setCredential($credential);
     }
-    
+
+    /** {@inheritdoc} */
     public function setCredential($credential) 
     {
         $this->credential = $credential;
         return $this;    
     }
-    
+
+    /** {@inheritdoc} */
     public function getSecret()
     {
         if (isset($this->secret)) {
@@ -147,28 +184,28 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         }
         return $this->credential;
     }
-    
+
+    /** {@inheritdoc} */
     public function setSecret($secret)
     {
         $this->secret = $secret;
         return $this;
     }
-    
+
+    /** {@inheritdoc} */
     public function getEmail()
     {
         return $this->email;
     }
-    
+
+    /** {@inheritdoc} */
     public function setEmail($email)
     {
         $this->email = $email;
         return $this;
     }
-    
-    /**
-     * {@inheritdoc}
-     * @return \Auth\Model\User
-     */
+
+    /** {@inheritdoc} */
     public function setProfile(array $profile)
     {
         $this->profile = $profile;
@@ -180,16 +217,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     {
         return $this->profile;
     }
-    
-    
+
+    /** {@inheritdoc} */
     public function setSettingsEntityResolver($resolver)
     {
         $this->settingsEntityResolver = $resolver;
     }
-    /** 
-     * 
-     * 
-     */
+
+    /** {@inheritdoc} */
     public function getSettings($module)
     {
         if (!isset($module)) {
@@ -210,7 +245,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->settings->add($settings);
         return $settings;
     }
-    
+
+    /** {@inheritdoc} */
     public function getGroups()
     {
         if (!$this->groups) {
@@ -218,7 +254,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         }
         return $this->groups;
     }
-    
+
+    /** {@inheritdoc} */
     public function getGroup($name, $create = false)
     {
         $groups = $this->getGroups();
@@ -234,7 +271,4 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         }
         return null;
     }
-    
-    
-   
 }

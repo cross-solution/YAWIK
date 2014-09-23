@@ -11,7 +11,7 @@ $this->form->get('buttons')->get('cancel')->setAttribute(
     'onclick', 'location.href="' . $this->url('lang/jobs', array(), true) . '"; return false;'
 );
 // Tweak navigation
-$navigation = $this->navigation('main_navigation')->getContainer();
+$navigation = $this->navigation('Core/Navigation')->getContainer();
 $navigation->findOneBy('route', 'lang/jobs')->setActive(true);
 $subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
 $subPage->setActive(true);

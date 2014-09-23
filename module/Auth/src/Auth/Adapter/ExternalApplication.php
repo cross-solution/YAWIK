@@ -8,6 +8,12 @@ use Auth\Entity\Filter\CredentialFilter;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * This class allows an external application to authenticate via a pre-shared application key.
+ *
+ * Class ExternalApplication
+ * @package Auth\Adapter
+ */
 class ExternalApplication extends AbstractAdapter implements ServiceLocatorAwareInterface
 {
     
@@ -15,7 +21,13 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
     protected $repository;
     protected $applicationKeys = array();
     protected $serviceManager;
-    
+
+    /**
+     * @param $repository
+     * @param null $identity
+     * @param null $credential
+     * @param null $applicationKey
+     */
     public function __construct($repository, $identity=null, $credential=null, $applicationKey=null)
     {
         $this->repository = $repository;
@@ -23,31 +35,50 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
         $this->setCredential($credential);
         $this->setApplicationKey($applicationKey);
     }
-    
+
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
     public function setServiceLocator(ServiceLocatorInterface $serviceManager) {
         $this->serviceManager = $serviceManager;
-    }       
-    
+    }
+
+    /**
+     * @return ServiceLocatorInterface
+     */
     public function getServiceLocator() {
         return $this->serviceManager;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getRepository()
     {
         return $this->repository;
     }
-    
+
+    /**
+     * @param $applicationKey
+     * @return $this
+     */
     public function setApplicationKey($applicationKey)
     {
         $this->applicationKey = $applicationKey;
         return $this;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getApplicationKey()
     {
         return $this->applicationKey;
-    } 
-    
+    }
+
+    /**
+     * @return null
+     */
     public function getApplicationIdentifier()
     {
         $keys = $this->getApplicationKeys();
@@ -56,18 +87,28 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
         
         return isset($ids[$key]) ? $ids[$key] : null;
     }
-    
+
+    /**
+     * @param array $applicationKeys
+     * @return $this
+     */
     public function setApplicationKeys(array $applicationKeys)
     {
         $this->applicationKeys = $applicationKeys;
         return $this;
     }
-    
+
+    /**
+     * @return array
+     */
     public function getApplicationKeys()
     {
         return $this->applicationKeys;
     }
-    
+
+    /**
+     * @return Result
+     */
     public function authenticate()
     {
         if (!in_array($this->getApplicationKey(), $this->getApplicationKeys())) {

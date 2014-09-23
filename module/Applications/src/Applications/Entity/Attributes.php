@@ -14,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\AbstractEntity;
 
 /**
- *
+ * Holds various attributes like "send me a carbon copy" or "i accept the privacy policy".
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\EmbeddedDocument

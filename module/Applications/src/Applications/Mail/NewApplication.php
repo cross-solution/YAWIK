@@ -68,7 +68,12 @@ class NewApplication extends StringTemplateMessage
         $this->setBody($body);
         return $this;
     }
-    
+
+    /**
+     * @param JobInterface $job
+     * @param bool $init
+     * @return $this
+     */
     public function setJob(JobInterface $job, $init = true)
     {
         $this->job = $job;
@@ -77,13 +82,21 @@ class NewApplication extends StringTemplateMessage
         }
         return $this;
     }
-    
+
+    /**
+     * @param $user
+     * @return $this
+     */
     public function setUser($user)
     {
         $this->user=$user;
         return $this;
     }
-    
+
+    /**
+     * @param $admin
+     * @return $this
+     */
     public function setAdmin($admin)
     {
         $this->admin = $admin;

@@ -57,12 +57,12 @@ class FormRow extends ZendFormRow
         
         // generall Class
         $form_row_class = 'row';
-        if ($this->layout == 'form-horizontal') {
+        if ($this->layout == Form::LAYOUT_HORIZONTAL) {
             $form_row_class = 'form-group';
         }
         
         // Does this element have errors ?
-        if (!empty($elementErrors) && !empty($inputErrorClass)) {
+        if (!empty($elementErrors) && !empty($inputErrorClass) && $this->layout != Form::LAYOUT_BARE) {
             $classAttributes = ($element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '');
             $classAttributes = $classAttributes . $inputErrorClass;
     
@@ -91,7 +91,8 @@ class FormRow extends ZendFormRow
         }
         
         $elementString = $elementHelper->render($element);
-        if ($desc = $element->getOption('description', false)) {
+        $desc = $element->getOption('description', false);
+        if ($desc && $this->layout != Form::LAYOUT_BARE) {
             if (null !== ($translator = $this->getTranslator())) {
                              $desc = $translator->translate(
                                 $desc, $this->getTranslatorTextDomain()
@@ -104,6 +105,7 @@ class FormRow extends ZendFormRow
         
         if (!$element instanceOf \Zend\Form\Element\Hidden
             && !$element instanceOf \Zend\Form\Element\Button
+            && $this->layout != Form::LAYOUT_BARE
         ) {
             $elementString .= sprintf(
                 '<div id="%s-errors" class="errors">%s</div>',
@@ -138,60 +140,64 @@ class FormRow extends ZendFormRow
                     $elementString);
             } else {
                 
-                $labelAttributes = $element->getLabelAttributes();
-                if (!isset($labelAttributes['for'])) {
-                    $labelAttributes['for'] = $elementId;
+                if ($this->layout == Form::LAYOUT_BARE) {
+                    $markup = $elementString;
                 }
-                if ('form-horizontal' == $this->layout) {
-                    if (!isset($labelAttributes['class'])) {
-                        $labelAttributes['class'] = '';
+                else {
+                    $labelAttributes = $element->getLabelAttributes();
+                    if (!isset($labelAttributes['for'])) {
+                        $labelAttributes['for'] = $elementId;
                     }
-                    $labelAttributes['class'] .= ' control-label';
+                    if (Form::LAYOUT_HORIZONTAL == $this->layout) {
+                        if (!isset($labelAttributes['class'])) {
+                            $labelAttributes['class'] = '';
+                        }
+                        $labelAttributes['class'] .= ' control-label';
+                    }
+                    $element->setLabelAttributes($labelAttributes);
+
+
+                        $labelOpen = '';
+                        $labelClose = '';
+                        $label = $labelHelper($element);
+                        $labelWidth = $element->getOption('labelWidth');
+                        if (!$labelWidth) {
+                            $labelWidth = $this->labelSpanWidth;
+                        }
+                        if ($this->shouldWrap) {
+                            $spanWidth = 12 - $labelWidth;
+                            $elementString = sprintf(
+                                '<div class="col-md-%d%s" id="' . $elementId . '-span">%s</div>',
+                                $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
+                            );
+                            $label = sprintf(
+                                '<div class="col-md-%d yk-label">%s</div>',
+                                $labelWidth, $label
+                            );
+
+                        } 
+                        $markup = $label . $elementString;
                 }
-                $element->setLabelAttributes($labelAttributes);
-                
-                
-                    $labelOpen = '';
-                    $labelClose = '';
-                    $label = $labelHelper($element);
-                    $labelWidth = $element->getOption('labelWidth');
-                    if (!$labelWidth) {
-                        $labelWidth = $this->labelSpanWidth;
-                    }
-                    if ($this->shouldWrap) {
-                        $spanWidth = 12 - $labelWidth;
-                        $elementString = sprintf(
-                            '<div class="col-md-%d%s" id="' . $elementId . '-span">%s</div>',
-                            $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
-                        );
-                        $label = sprintf(
-                            '<div class="col-md-%d yk-label">%s</div>',
-                            $labelWidth, $label
-                        );
-                        
-                    } 
-                    $markup = $label . $elementString;
-                    
-                     
-                
             }
     
             
         } else {
             if ($this->shouldWrap 
                 && !$element instanceOf \Zend\Form\Element\Hidden
-                && !$element instanceOF \Zend\Form\Element\Button) {
+                && !$element instanceOF \Zend\Form\Element\Button
+                && $this->layout != Form::LAYOUT_BARE    
+                ) {
                 $elementString = sprintf(
                     '<div class="col-md-12">%s</div>', $elementString
                 );
-            } 
-            
-                $markup = $elementString;
-            
+            }
+            $markup = $elementString;
         }
         if ($this->shouldWrap 
             && !$element instanceOf \Zend\Form\Element\Hidden
-            && !$element instanceOf \Zend\Form\Element\Button) {
+            && !$element instanceOf \Zend\Form\Element\Button
+            && $this->layout != Form::LAYOUT_BARE
+            ) {
             $markup = sprintf('<div class="controls controls-row ' . $form_row_class . '">%s</div>', $markup);
         }
     

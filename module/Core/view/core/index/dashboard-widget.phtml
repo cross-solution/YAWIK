@@ -10,7 +10,7 @@
 
 
 <div class="col-md-6">
-<?
+<?php
 
 if ($this->script): 
         try {
@@ -19,7 +19,7 @@ if ($this->script):
             ?><?php echo $this->translate('Error loading widget.')?>
             <br><br>
             <?php echo $e->getMessage() ?>
-        <?}
+        <?php }
 
 elseif ($this->content): 
     echo $this->content; 

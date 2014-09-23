@@ -6,6 +6,7 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+
 if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
 elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
 else:                   $subTitle = false;
@@ -20,9 +21,13 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 
 ?>      
 <h1>
-  <?=$this->translate('List of all applications')?>
-  <? if ($subTitle): ?>
-    <small><?php echo $subTitle ?></small>
+  <?php if ($this->acl()->isRole('recruiter')):?>
+    <?php echo $this->translate('List of received applications')?>
+    <?php if ($subTitle): ?>
+      <small><?php echo $subTitle ?></small>
+    <?php endif;?>
+  <?php else: ?>
+    <?php echo $this->translate('Overview of your sent applications')?>
   <?php endif;?>
 </h1>
 <div id="apps-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -36,14 +41,22 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
                 body ...
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button"><? echo $this->translate('Cancel'); ?></button>
-                <button id="modal-submit" class="btn btn-primary"><? echo $this->translate('Send mail'); ?></button>
+                <button data-dismiss="modal" class="btn btn-default" type="button"><?php echo $this->translate('Cancel'); ?></button>
+                <button id="modal-submit" class="btn btn-primary"><?php echo $this->translate('Send mail'); ?></button>
             </div>
         </div>
     </div>
 </div>
 
+<?php if ($this->acl()->isRole('recruiter')):?>
+  <nav class="navbar cam-toolbar">
+    <?php echo $this->filterform($this->form); ?>
+  </nav>
+<?php endif;?>
 
+<?php
+if (False):
+?>
 <div class="container col-md-12">
 <nav class="navbar cam-toolbar"> 
     <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
@@ -54,11 +67,11 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
                type="text"
                <?php if ($this->search): ?>value="<?php echo $this->search ?>" <?php endif ?>>
                
-        <input class="form-control" type="text" id="job-filter" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
+        <input class="form-control" type="text" id="job-filteraa" name="job_title" placeholder="<?php echo $this->translate('Enter job title')?> ..."
         <?php if ($this->job): ?> value="[<?php echo $this->job->applyId ?>] <?php echo $this->job->title ?>"<?php endif ?>>
         <select class="form-control" name="status">
 <?php foreach ($this->applicationStates as $applicationStatus): ?>
-    <option <?php echo $applicationStatus=='all'?'class="yk-icon yk-icon-filter"':'';?>value="<?php echo $applicationStatus; ?>" <?php echo isset($_GET['job_status'])&&$_GET['job_status']==$applicationStatus?'selected="selected" ':''?>>
+    <option <?php echo $applicationStatus=='all'?'class="yk-icon yk-icon-filter"':'';?>value="<?php echo $applicationStatus; ?>" <?php echo isset($this->applicationState)&&$this->applicationState==$applicationStatus?'selected="selected" ':''?>>
     <?php echo $this->translate($applicationStatus); ?>
     </option>
 <?php endforeach; ?>
@@ -71,7 +84,14 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
     </form>
   </nav>
 </div>
+<?php
+endif;
+?>
 <div class="pagination-container" data-uri="<?php echo $this->url('lang/applications', array(), 
                   array('query' => $this->params()->fromQuery()), true) ?>">
-<?php echo $this->render('applications/manage/index.ajax.phtml') ?>
+<?php if ($this->acl()->isRole('recruiter')):?>
+  <?php echo $this->render('applications/manage/index.recruiter.ajax.phtml') ?>
+<?php else: ?>
+  <?php echo $this->render('applications/manage/index.applicant.ajax.phtml') ?>
+<?php endif?>
 </div>

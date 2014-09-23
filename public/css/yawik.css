@@ -7175,6 +7175,9 @@ fieldset[disabled] .cam-btn-reset.active {
 .yk-icon-user:before {
   content: "\f007";
 }
+.yk-icon-view:before {
+  content: "\f06e";
+}
 .yk-icon-work-experience:before {
   content: "\f1ad";
 }
@@ -7402,7 +7405,8 @@ a.yk-icon {
 .br-widget.br-compact a {
   width: 10px;
 }
-#search-applications-form .tt-input {
+#search-applications-form .tt-input,
+#search-applications-form .btn-group {
   vertical-align: middle !important;
 }
 .tt-dropdown-menu {
@@ -7520,6 +7524,21 @@ a.yk-icon {
 }
 .fu-dropzone .fu-files .fu-file .fu-errors {
   clear: left;
+}
+.fu-remove-all {
+  margin-right: 15px;
+}
+/*
+ * Styles for \Settings\Form\Element\DisableElementsCapableFormSettings
+ */
+ul.disable-elements-list,
+ul.disable-elements-list ul {
+  list-style: none inside none;
+}
+ul.disable-elements li ul:first-child,
+ul.disable-elements-list ul:first-child,
+ul.disable-elements-list {
+  padding: 0;
 }
 body {
   padding: 50px 0 25px;

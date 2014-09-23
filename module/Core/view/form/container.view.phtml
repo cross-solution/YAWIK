@@ -1,0 +1,19 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ */
+
+use \Core\Form\View\Helper\Form;
+
+    $iterator = $this->element->getIterator();
+?>
+<div class="row">
+    <div class="col-md-12">
+    <?php echo $this->summaryForm($iterator->current(), Form::LAYOUT_HORIZONTAL) ?>
+    </div>
+</div>

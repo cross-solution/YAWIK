@@ -22,7 +22,8 @@ use Core\Entity\DraftableEntityInterface;
 use Auth\Entity\AnonymousUser;
 
 /**
- * The application model
+ * The application. This document holds the complete application. It references all attached data like
+ * attachments, ratings, status changes. etc.
  * 
  * @author mathias
  *
@@ -40,6 +41,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * 
      * @var JobInterface
      * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
+     * @ODM\Index
      */
     protected $job;
     
@@ -48,6 +50,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      *
      * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="Auth\Entity\User", simple=true)
+     * @ODM\Index
      */
     protected $user;
     
@@ -70,13 +73,21 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $contact;
     
     /**
-     * The summary of an application
+     * The cover letter of an application
      * 
      * @var String
      * @ODM\String
      */
     protected $summary;
-    
+
+    /**
+     * The facts of this application.
+     *
+     * @ODM\EmbedOne(targetDocument="\Applications\Entity\Facts")
+     * @var FactsInterface
+     */
+    protected $facts;
+
     /**
      * Resume, containing employments, educations and skills
      *
@@ -116,7 +127,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $privacyPolicy;
     
     /**
-     * User ids of users which has read this application.
+     * Who has opened the detail view of the application. Contains an array of user ids, which has read this
+     * application.
      * 
      * @var array
      * @ODM\Collection
@@ -132,7 +144,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     
     /**
-     * Comments
+     * Recruiters can comment an application.
      * 
      * @var Collection
      * @ODM\EmbedMany(targetDocument="Comment")
@@ -182,8 +194,9 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     protected $isDraft = false;
     
     /**
-     * 
-     * @var unknown
+     * Attributes like "privacy policy accepted" or "send by data as an CC".
+     *
+     * @var \Applications\Entity\Attributes
      * @ODM\EmbedOne(targetDocument="Attributes")
      */
     protected $attributes;
@@ -403,7 +416,24 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     {
         return $this->summary;
     }
-    
+
+    public function setFacts(FactsInterface $facts)
+    {
+        $this->facts = $facts;
+
+        return $this;
+    }
+
+    public function getFacts()
+    {
+        if (!$this->facts) {
+            $this->setFacts(new Facts());
+        }
+
+        return $this->facts;
+    }
+
+
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setCv()

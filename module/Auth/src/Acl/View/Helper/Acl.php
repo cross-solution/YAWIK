@@ -17,16 +17,21 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 
 class Acl extends AbstractHelper
 {
-    
+    /**
+     * @var AclPlugin
+     */
     protected $aclPlugin;
 
+    /**
+     * @param AclPlugin $aclPlugin
+     */
     public function __construct(AclPlugin $aclPlugin)
     {
         $this->setAclPlugin($aclPlugin);
     }
     
     /**
-     * @return the $acl
+     * @return AclPlugin $acl
      */
     public function getAclPlugin ()
     {
@@ -34,7 +39,7 @@ class Acl extends AbstractHelper
     }
 
     /**
-     * @param field_type $acl
+     * @param AclPlugin $aclPlugin
      * @return $this
      */
     public function setAclPlugin (AclPlugin $aclPlugin)
@@ -43,6 +48,12 @@ class Acl extends AbstractHelper
         return $this;
     }
 
+    /**
+     * @param null $resource
+     * @param null $privilege
+     * @param string $mode
+     * @return $this
+     */
     public function __invoke($resource=null, $privilege=null, $mode='test')
     {
         return $this->getAclPlugin()->__invoke($resource, $privilege, $mode);

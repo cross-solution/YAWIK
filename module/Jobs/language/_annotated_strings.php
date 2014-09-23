@@ -53,15 +53,15 @@ translate('Job saved.');
 //: ./src/Jobs/Controller/ManageController.php:104
 translate('There were errors in the form');
 
-//: ./config/module.config.php:72
+//: ./config/module.config.php:81
 translate('Jobs');
 
-//: ./config/module.config.php:77
+//: ./config/module.config.php:86
 translate('Overview');
 
-//: ./config/module.config.php:81
+//: ./config/module.config.php:90
 translate('Create job');
 
-//: ./config/module.config.php:90
+//: ./config/module.config.php:99
 translate('Edit job');
 

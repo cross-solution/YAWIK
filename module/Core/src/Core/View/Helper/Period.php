@@ -17,7 +17,7 @@ class Period extends AbstractHelper {
 	/**
 	 * returns the number of years of the education or work experience
 	 *
-	 * @param string $obj
+	 * @param array $obj
 	 * @return string
 	 */
 	public function __invoke($array)

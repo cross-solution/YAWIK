@@ -16,10 +16,18 @@ return array(
                     'Auth\Entity' => 'annotation',
                 ),
             ),
+            'annotation' => array(
+                /*
+                 * All drivers (except DriverChain) require paths to work on. You
+                 * may set this value as a string (for a single path) or an array
+                 * for multiple paths.
+                 * example https://github.com/doctrine/DoctrineORMModule
+                 */
+                'paths' => array( __DIR__ . '/../src/Auth/Entity'),
+            ),  
         ),
     ),
 
-    
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
@@ -83,15 +91,7 @@ return array(
         ),
     ),
     
-    // Module specific configuration
-    
-    'Auth' => array(
-        // Allowed external Applications
-        // applications[USERPOSTFIX] => AppKey
-        'external_applications' => array(
-            'ams' => 'AmsAppKey',
-        ),
-    ),
+
     
     // Routes
     'router' => array(
@@ -331,8 +331,8 @@ return array(
     // Configure the view service manager
     'view_manager' => array(
         'template_map' => array(
-            'form/auth/my-profile' => __DIR__ . '/../view/form/my-profile.phtml',
-            'form/auth/my-profile.summary' => __DIR__ . '/../view/form/my-profile.summary.phtml',
+            'form/auth/contact.form' => __DIR__ . '/../view/form/contact.form.phtml',
+            'form/auth/contact.view' => __DIR__ . '/../view/form/contact.view.phtml',
             'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',

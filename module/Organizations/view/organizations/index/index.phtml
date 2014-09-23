@@ -1,0 +1,19 @@
+<?php 
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * renders the list of organizations
+ */
+?>      
+<h1>
+  <?php echo $this->translate('Organizations')?>
+</h1>
+<div class="pagination-container" data-uri="<?php echo $this->url('lang/organizations', array(), 
+                  array('query' => $this->params()->fromQuery()), true) ?>">
+<?php echo $this->render('organizations/index/index.ajax.phtml') ?>
+</div>

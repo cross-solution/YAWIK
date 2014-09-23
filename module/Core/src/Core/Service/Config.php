@@ -4,7 +4,6 @@ namespace Core\Service;
 
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
-use Core\Mapper\Query\Query;
 
 class Config implements ServiceManagerAwareInterface
 {

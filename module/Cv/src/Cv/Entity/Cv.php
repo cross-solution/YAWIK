@@ -5,7 +5,6 @@ namespace Cv\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use JMS\Serializer\Annotation as Jms;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -19,28 +18,28 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     
     /**
      * 
-     * @var unknown
+     * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
      */
     protected $user;
     
     /**
      * 
-     * @var unknown
+     * @var EducationInterface
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Education")
      */
     protected $educations;
     
     /**
      * 
-     * @var unknown
+     * @var EmploymentInterface
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Employment")
      */
     protected $employments;
     
     /**
      * 
-     * @var unknown
+     * @var SkillInterface
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Skill")
      */
     protected $skills;
@@ -49,7 +48,11 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     {
         return $this->user;
     }
-    
+
+    /**
+     * @param UserInterface $user
+     * @return $this
+     */
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
@@ -57,7 +60,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     }
     
 	/**
-     * @return the $educations
+     * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getEducations ()
     {
@@ -67,8 +70,9 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
         return $this->educations;
     }
 
-	/**
-     * @param field_type $educations
+    /**
+     * @param CollectionInterface $educations
+     * @return $this
      */
     public function setEducations (CollectionInterface $educations)
     {
@@ -76,8 +80,8 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
         return $this;
     }
 
-	/**
-     * @return the $employments
+    /**
+     * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getEmployments ()
     {
@@ -88,7 +92,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     }
 
     /**
-     * @param field_type $employments
+     * @param CollectionInterface $employments
      * @return $this
      */
     public function setEmployments (CollectionInterface $employments)
@@ -98,7 +102,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     }
     
     /**
-     * @return the $skills
+     * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getSkills ()
     {
@@ -107,16 +111,14 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
         }
     	return $this->skills;
     }
-    
+
     /**
-     * @param field_type $employments
+     * @param CollectionInterface $skills
+     * @return $this
      */
     public function setSkills (CollectionInterface $skills)
     {
     	$this->skills = $skills;
     	return $this;
     }
-
-    
-    
 }

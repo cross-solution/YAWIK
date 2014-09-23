@@ -8,20 +8,30 @@ $this->headscript()->appendScript('$(".alert").alert();');
 
 <h1><?php echo $this->translate('My profile')?></h1>
 
-<?if ($this->status): ?>
+<?php if ($this->status): ?>
 <div id="user-profile-form-response" class="alert cam-<?php echo $this->status?>">
     <?php echo $this->text ?> 
     <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
 </div>
-<?else:?>
+<?php else:?>
 <div id="user-profile-form-response" class="alert hide">
 
 </div>
-<?endif?>
+<?php endif?>
 
-<?php 
-    $this->form->setAttribute('action', $this->url('lang/my', array('action' => 'profile'), true));
-    $this->form->getForm('info.info')->setDisplayMode('summary');
-    echo $this->formContainer($this->form, 'form-horizontal'); 
-    
-    //echo $this->formPartial($this->form, 'auth/my-profile')?>
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+/**
+ * renders the user profile
+ */
+
+$this->form->setAttribute('action', $this->url('lang/my', array('action' => 'profile'), true));
+$this->form->getForm('info.info')->setDisplayMode('summary');
+echo $this->formContainer($this->form, 'form-horizontal');

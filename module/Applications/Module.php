@@ -35,16 +35,9 @@ class Module implements ConsoleUsageProviderInterface
     {
         return array(
             'Manipulation of applications database',
-            'applications generatekeywords [--filter=]' => '(Re-)Generates keywords for all applications.',
-            array('--filter=JSON', "available keys:\n"
-                                  ."- 'before:ISODate' -> only applications before the given date\n"
-                                  ."- 'after':ISODate' -> only applications after the given date\n"
-                                  ."- 'limit':INT -> Limit result."),
-            'applications calculate-rating [--filter=]' => '(Re-)Calculates average rating for all applications.',
-            array('--filter=JSON', "available keys:\n"
-                                  ."- 'before:ISODate' -> only applications before the given date\n"
-                                  ."- 'after':ISODate' -> only applications after the given date\n"
-                                  ."- 'limit':INT -> Limit result."),
+            'applications generatekeywords' => '(Re-)Generates keywords for all applications.',
+            'applications calculate-rating' => '(Re-)Calculates average rating for all applications.',
+            'applications cleanup'          => 'removes applications drafts.',
         );
     }
     

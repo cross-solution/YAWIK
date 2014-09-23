@@ -26,7 +26,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Container extends Element implements ServiceLocatorAwareInterface,
+class Container extends Element implements DisableElementsCapableInterface, ServiceLocatorAwareInterface,
                                            \IteratorAggregate,
                                            \Countable
 {
@@ -76,10 +76,6 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         return $this;
     }
     
-    /**
-     * {@inheritDoc}
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::getServiceLocator()
-     */
     public function getServiceLocator()
     {
         return $this->formElementManager;
@@ -111,7 +107,64 @@ class Container extends Element implements ServiceLocatorAwareInterface,
     {
         return count($this->activeForms);
     }
-    
+
+    public function setIsDisableCapable($flag)
+    {
+        $this->options['is_disable_capable'] = $flag;
+
+        return $this;
+    }
+
+    public function isDisableCapable()
+    {
+        return isset($this->options['is_disable_capable'])
+               ? $this->options['is_disable_capable'] : true;
+    }
+
+    public function setIsDisableElementsCapable($flag)
+    {
+        $this->options['is_disable_elements_capable'] = $flag;
+
+        return $this;
+    }
+
+    public function isDisableElementsCapable()
+    {
+        return isset($this->options['is_disable_elements_capable'])
+               ? $this->options['is_disable_elements_capable'] : true;
+    }
+
+    public function disableElements(array $map)
+    {
+        foreach ($map as $key => $name) {
+
+            if (is_numeric($key)) {
+                if (isset($this->forms[$name])) {
+                    $form = $this->getForm($name);
+                    if (false !== $form->getOption('is_disable_capable')) {
+                        $this->disableForm($name);
+                    }
+                }
+                continue;
+            }
+
+            if (!isset($this->forms[$key])) {
+                continue;
+            }
+
+            if (isset($this->forms[$key]['__instance__'])) {
+                $form = $this->forms[$key]['__instance__'];
+
+                if ($form instanceOf DisableElementsCapableInterface
+                    && $form->isDisableElementsCapable()
+                ) {
+                    $form->disableElements($name);
+                }
+            }
+            $this->forms[$key]['disable_elements'] = $name;
+        }
+    }
+
     /**
      * Sets formular parameters.
      * 
@@ -123,7 +176,10 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $this->params = array_merge($this->params, $params);
         
         foreach ($this->forms as $form) {
-            if (isset($form['__instance__']) && is_object($form['__instance__'])) {
+            if (isset($form['__instance__'])
+                && is_object($form['__instance__'])
+                && method_exists($form['__instance__'], 'setParams')
+            ) {
                 $form['__instance__']->setParams($params);
             }
         }
@@ -152,7 +208,10 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $this->params[$key] = $value;
         
         foreach ($this->forms as $form) {
-            if (isset($form['__instance__']) && is_object($form['__instance__'])) {
+            if (isset($form['__instance__'])
+                && is_object($form['__instance__'])
+                && method_exists($form['__instance__'], 'setParam')
+            ) {
                 $form['__instance__']->setParam($key, $value);
             }
         }
@@ -181,7 +240,7 @@ class Container extends Element implements ServiceLocatorAwareInterface,
      * If created, the formular gets passed the formular parameters set in this container.
      * 
      * @param string $key
-     * @return null|\Core\Form\ContainerInterface|\Zend\Form\FormInterface
+     * @return null|\Core\Form\Container|\Zend\Form\FormInterface
      */
     public function getForm($key)
     {
@@ -218,7 +277,14 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         if (isset($form['label'])) {
             $formInstance->setLabel($form['label']);
         }
-        
+
+        if (isset($form['disable_elements'])
+            && $formInstance instanceOf DisableElementsCapableInterface
+            && $formInstance->isDisableElementsCapable()
+        ) {
+            $formInstance->disableElements($form['disable_elements']);
+        }
+
         if ($entity = $this->getEntity()) {
             $this->mapEntity($formInstance, isset($form['property']) ? $form['property'] : $key, $entity);
         }
@@ -228,16 +294,17 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         $this->forms[$key]['options'] = $options;
         return $formInstance;
     }
-    
+
     /**
      * Sets a form or form specification.
-     * 
+     *
      * if <b>$spec</b> is a string, it is used as form type, name is set to <b>$key</b>
-     * 
-     * @param string $key
+     *
+     * @param string       $key
      * @param string|array $spec
-     * @param string $enabled Should the formular be enabled or not 
-     * @return \Core\Form\Container
+     * @param boolean      $enabled Should the formular be enabled or not
+     *
+     * @return self
      */
     public function setForm($key, $spec, $enabled = true)
     {
@@ -322,12 +389,13 @@ class Container extends Element implements ServiceLocatorAwareInterface,
         
         return $this;
     }
-    
+
     /**
      * Disables a formular.
-     * 
+     *
      * @param string $key
-     * @return \Core\Form\Container|boolean
+     *
+     * @return self
      */
     public function disableForm($key = null)
     {
@@ -345,8 +413,8 @@ class Container extends Element implements ServiceLocatorAwareInterface,
                 list($childKey, $childForm) = explode('.', $k, 2);
                 $child = $this->getForm($childKey);
                 $child->disableForm($childForm);
-            } else {
-                
+            } else if (isset($this->forms[$k]['__instance__'])) {
+                unset($this->forms[$k]['__instance__']);
             }
         }
         $this->activeForms = array_filter($this->activeForms, function ($item) use ($key) {
@@ -360,7 +428,7 @@ class Container extends Element implements ServiceLocatorAwareInterface,
      * Sets the entity for formular binding.
      * 
      * @param EntityInterface $entity
-     * @return \Core\Form\Container
+     * @return self
      */
     public function setEntity(EntityInterface $entity)
     {
@@ -387,9 +455,9 @@ class Container extends Element implements ServiceLocatorAwareInterface,
     /**
      * Maps entity property to forms or child containers.
      * 
-     * @param unknown $form
-     * @param unknown $key
-     * @param unknown $entity
+     * @param \Zend\Form\FormInterface $form
+     * @param string $key
+     * @param \Core\Entity\EntityInterface $entity
      * @return void
      */
     protected function mapEntity($form, $key, $entity)

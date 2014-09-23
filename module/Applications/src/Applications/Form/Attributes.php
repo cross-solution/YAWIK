@@ -12,25 +12,27 @@ namespace Applications\Form;
 
 use Core\Form\Form;
 /**
- *
+ * Form holds some application specific attributes.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- *
  */
 class Attributes extends Form
 {
+    /**
+     * {@inheritDoc}
+     */
     public function init()
     {
-        $this//->setLabel(/*@translate*/ 'Attributes')
+        $this->setIsDisableCapable(false)
+             ->setIsDisableElementsCapable(false)
              ->setAttribute('data-submit-on', 'checkbox');
-        
-        
+
         $this->add(array(
             'type' => 'checkbox',
             'name' => 'sendCarbonCopy',
             'options' => array(
-                'label' => /*@translate*/ 'Carbon Copy',
-                'description' => /*@translate*/ 'send me a carbon copy of my application'
+                'headline' => /*@translate*/ 'Carbon Copy',
+                'long_label' => /*@translate*/ 'send me a carbon copy of my application'
             ),
             'attributes' => array(
                 'data-validate' => 'sendCarbonCopy',
@@ -42,8 +44,8 @@ class Attributes extends Form
             'type' => 'infocheckbox',
             'name' => 'acceptedPrivacyPolicy',
             'options' => array(
-                'label' => /*@translate*/ 'Privacy Policy',
-                'description' => /*@translate*/ 'I have read the %s and accept it',
+                'headline' => /*@translate*/ 'Privacy Policy',
+                'long_label' => /*@translate*/ 'I have read the %s and accept it',
                 'linktext' => /*@translate*/ 'Privacy Policy',
                 'route' => 'lang/applications/disclaimer',
             ),

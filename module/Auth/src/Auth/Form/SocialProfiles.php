@@ -25,9 +25,6 @@ class SocialProfiles extends BaseForm
      */
     protected $label = /*@translate*/ 'Social Profiles';
     
-    /**
-     * {@inheritDoc}
-     */
     protected $baseFieldset = array(
         'type' => 'Auth/SocialProfilesFieldset',
         'options' => array(
@@ -37,6 +34,7 @@ class SocialProfiles extends BaseForm
                 'linkedin' => 'LinkedIn'
             ),
             'renderFieldset' => true,
+
         ),
     );
     

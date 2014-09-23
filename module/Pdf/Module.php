@@ -149,11 +149,12 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
          */
         return $return;
     }
-    
+
     /**
      * give a summary of all inserted Files,
      * this is for having access to those files in the post-process
-     * @param \Zend\View\ViewEvent $e
+     * @param \Core\View\Helper\InsertFile\FileEvent|\Zend\View\ViewEvent $e
+     * @return NULL
      */
     public function collectFiles(FileEvent $e) {
         $this->appendPDF = array();

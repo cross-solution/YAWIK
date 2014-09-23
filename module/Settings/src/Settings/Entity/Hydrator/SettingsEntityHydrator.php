@@ -10,31 +10,30 @@
 /** SettingsEntityHydrator.php */ 
 namespace Settings\Entity\Hydrator;
 
-use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Stdlib\Hydrator\HydratorInterface;
-use Settings\Entity\SettingsContainerInterface;
-use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Zend\Stdlib\Hydrator\Reflection;
 
 class SettingsEntityHydrator extends Reflection
 {
-    
+
+    /**
+     * Creates a SettingsEntityHydrator
+     */
     public function __construct()
     {
         parent::__construct();
         $this->addFilter('ignoreInternalProperties', function($property) { return "_" != $property{0}; });
     }
-    
-/**
-     * Extract values from an object
+
+    /**
+     * {@inheritDoc}
      *
-     * @param  object $object
-     * @return array
+     * Uses a getter method for each property if one exists.
      */
     public function extract($object)
     {
         $result = array();
         foreach (self::getReflProperties($object) as $property) {
+            /* @var $property \ReflectionProperty */
             $propertyName = $property->getName();
             if (!$this->filterComposite->filter($propertyName)) {
                 continue;
@@ -51,11 +50,9 @@ class SettingsEntityHydrator extends Reflection
     }
 
     /**
-     * Hydrate $object with the provided $data.
+     * {@inheritDoc}
      *
-     * @param  array $data
-     * @param  object $object
-     * @return object
+     * Uses the setter method if one exists.
      */
     public function hydrate(array $data, $object)
     {
@@ -68,7 +65,9 @@ class SettingsEntityHydrator extends Reflection
                     $object->$setter($value);
                 } else {
                     // the values of the entity have to be set explicitly
-                    $reflProperties[$key]->setValue($object, $this->hydrateValue($key, $value));
+                    /* @var $property \ReflectionProperty */
+                    $property = $reflProperties[$key];
+                    $property->setValue($object, $value);
                 }
             }
         }

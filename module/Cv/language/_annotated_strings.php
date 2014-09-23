@@ -842,12 +842,12 @@ translate('Yoruba');
 //: ./src/Cv/Form/NativeLanguageFieldset.php:135
 translate('what is your native language');
 
-//: ./config/module.config.php:96
+//: ./config/module.config.php:109
 translate('Resumes');
 
-//: ./config/module.config.php:102
+//: ./config/module.config.php:115
 translate('Overview');
 
-//: ./config/module.config.php:106
+//: ./config/module.config.php:119
 translate('Create resume');
 

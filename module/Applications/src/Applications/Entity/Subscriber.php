@@ -12,7 +12,8 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Personal informations of a subscriber.
+ * Personal informations of a subscriber. This class can translate a subscriber ID into an subscriber name
+ * by calling an API of another YAWIK
  * 
  * @ODM\Document (collection="applications.subscribers", repositoryClass="Applications\Repository\Subscriber")
  */

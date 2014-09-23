@@ -36,20 +36,16 @@ class FormCollection extends ZendFormCollection
         return $this;
     }
     
-    /**
-     * Render a collection by iterating through all fieldsets and elements
-     *
-     * @param  ElementInterface $element
-     * @return string
-     */
     public function render(ElementInterface $element)
     {
+        /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $renderer = $this->getView();
         if (!method_exists($renderer, 'plugin')) {
             // Bail early if renderer is not pluggable
             return '';
         }
-    
+
+        /* @var $elementHelper \Zend\Form\View\Helper\FormRow */
         $markup           = '';
         $templateMarkup   = '';
         $escapeHtmlHelper = $this->getEscapeHtmlHelper();
@@ -57,6 +53,7 @@ class FormCollection extends ZendFormCollection
         $fieldsetHelper   = $this->getFieldsetHelper();
     
         $isCollectionElement = $element instanceOf CollectionElement;
+        /* @var $element ElementInterface|CollectionElement */
         if ($isCollectionElement && $element->shouldCreateTemplate()) {
             $this->isWithinCollection = true;
             $templateMarkup = $this->renderTemplate($element);
@@ -64,8 +61,11 @@ class FormCollection extends ZendFormCollection
         }
     
         foreach ($element->getIterator() as $elementOrFieldset) {
+            /* @var $elementOrFieldset ElementInterface|ViewPartialProviderInterface|ViewHelperProviderInterface */
             if ($elementOrFieldset instanceOf ViewPartialProviderInterface) {
-                $markup .= $this->getView()->partial(
+                /* @var $partial \Zend\View\Helper\Partial */
+                $partial = $renderer->plugin('partial');
+                $markup .= $partial(
                     $elementOrFieldset->getViewPartial(), array('element' => $elementOrFieldset)
                 );
             
@@ -84,9 +84,14 @@ class FormCollection extends ZendFormCollection
                     $markup .= $fieldsetHelper($elementOrFieldset);
                 }
                 $this->isWithinCollection = false;
-            } elseif ($elementOrFieldset instanceof ElementInterface) {
+            } elseif (false !== $elementOrFieldset->getOption('use_formrow_helper')) {
                 $markup .= $elementHelper($elementOrFieldset, null, null, $this->layout);
+            } else {
+                /* @var $formElement \Zend\Form\View\Helper\FormElement */
+                $formElement = $renderer->plugin('formelement');
+                $formElement->render($elementOrFieldset);
             }
+
         }
     
         // If $templateMarkup is not empty, use it for simplify adding new element in JavaScript

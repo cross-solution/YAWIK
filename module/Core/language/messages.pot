@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:40
+#: src/Core/Form/View/Helper/FilterForm.php:38
+#: src/Core/Form/View/Helper/ToggleButton.php:41
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:41
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-13 16:13+0200\n"
+"POT-Creation-Date: 2014-09-16 15:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,7 +211,7 @@ msgstr ""
 msgid "The file type is not supported"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:127
+#: src/Core/Form/View/Helper/FormFileUpload.php:122
 msgid "Click here to add files or use drag and drop."
 msgstr ""
 
@@ -217,7 +219,7 @@ msgstr ""
 msgid "Click here to add an image or use drag and drop."
 msgstr ""
 
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:45
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
 msgid "processing"
 msgstr ""
 

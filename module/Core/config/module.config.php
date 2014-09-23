@@ -1,5 +1,4 @@
 <?php
-
 /**
  * YAWIK
  * Configuration file of the Core module
@@ -37,7 +36,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/cam.log',
+                         'stream' => __DIR__ .'/../../../log/yawik.log',
                     ),
                 ),
             ),
@@ -61,23 +60,6 @@ return array(
                 'log_exceptions' => true,
             ),
         ),
-//         array(
-//             'writers' => array(
-//                 array(
-//                     'name' => 'stream',
-//                     'priority' => 1000,
-//                     'options' => array(
-//                         'stream' => __DIR__ . '/../../../log/error.log',
-//                         'formatter' => 'ErrorHandler',
-//                         'filters' => array(
-//                             'Core\Log\Filter\PhpError'
-//                         ),
-//                     ),
-//                 ),
-//             ),
-//             'exceptionhandler' => true,
-//             'errorhandler' => true,
-//         ),
     ),
            
     // Routes
@@ -162,7 +144,7 @@ return array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-            'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
         ),
         'abstract_factories' => array(
@@ -190,7 +172,7 @@ return array(
             )
         ),
     ),
-    // Navigation-Konfig für die main_navigation
+    // Defines the Core/Navigation. 
     'navigation' => array(
         'default' => array(
 //             'home' => array(
@@ -251,6 +233,7 @@ return array(
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
+            'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml'
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -271,6 +254,7 @@ return array(
             'form' => 'Core\Form\View\Helper\Form',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
+            'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
@@ -289,6 +273,7 @@ return array(
             'insertFile' => 'Core\View\Helper\InsertFile',
             'alert' => 'Core\View\Helper\Alert',
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
+            'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
@@ -332,6 +317,7 @@ return array(
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
+            'togglebutton' => 'Core\Form\Element\ToggleButton',
         ),
     ),
     

@@ -26,20 +26,12 @@ class FormInfoCheckbox extends ZfFormCheckbox
         $input      = parent::render($element);
         $translator = $this->getTranslator();
         $textDomain = $this->getTranslatorTextDomain();
-        $label      = $element->getLabel();
-        $desc       = $element->getOption('description');
-        
+        $label      = $element->getOption('long_label');
+        $headline   = $element->getOption('headline');
+
+
         if ($label) {
             $label = $translator->translate($label, $textDomain);
-        }
-        /*
-         * 'label' => *@translate* 'Privacy Police',
-                'description' => /*@translate* 'I have read the %s and accept it',
-                'linktext' => /*@translate* 'privacy police',
-                'route' => 'lang/applications/disclaimer',
-         */
-        if ($desc) {
-            $desc = $translator->translate($desc, $textDomain);
             $linktext = $element->getOption('linktext');
             $route = $element->getOption('route');
             $params = $element->getOption('params');
@@ -48,6 +40,7 @@ class FormInfoCheckbox extends ZfFormCheckbox
                     if (!$params) {
                         $params = array();
                     }
+                    /** @noinspection PhpUndefinedMethodInspection */
                     $href = $this->getView()->url($route, $params, true);
                 } else {
                     /*@todo add more options like providing url... */
@@ -58,12 +51,12 @@ class FormInfoCheckbox extends ZfFormCheckbox
                       . 'data-target="#modal-' . $element->getAttribute('id') . '">'
                       . $linktext . '</a>';
                 
-                $desc = sprintf($desc, $link);
+                $label = sprintf($label, $link);
             }
-            $label = '<h6>' . $label . '</h6>';
-        } else {
-            $desc = $label;
-            $label = '';
+        }
+
+        if ($headline) {
+            $headline = '<h6>' . $translator->translate($headline, $textDomain) . '</h6>';
         }
         
         $markup = '
@@ -81,9 +74,9 @@ class FormInfoCheckbox extends ZfFormCheckbox
         
         $markup = sprintf(
             $markup,
-            $input, $element->getAttribute('id'), $desc
+            $input, $element->getAttribute('id'), $label
         );
         
-        return $label . $markup;
+        return $headline . $markup;
     }
 }

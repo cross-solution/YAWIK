@@ -72,15 +72,14 @@ return array(
             ),
         ),
     )),
-    
-    // Navigation-Konfig für die main_navigation
+
     'navigation' => array(
         'default' => array(
             'settings' => array(
                 'label' => /*@translate*/ 'Settings',
                 'route' => 'lang/settings',
                 'resource' => 'route/lang/settings',
-                'order' => 40,
+                'order' => 100,
                 'params' => array('module' => null),
             ),
         ),
@@ -107,6 +106,7 @@ return array(
     
     'view_helpers' => array(
         'invokables' => array(
+            'Settings/FormDisableElementsCapableFormSettings' => 'Settings\Form\View\Helper\FormDisableElementsCapableFormSettings',
         ),
         'factories' => array(
         ),
@@ -133,8 +133,16 @@ return array(
         'invokables' => array(
             'Settings/Form' => '\Settings\Form\AbstractSettingsForm',
             'Settings/Fieldset' => '\Settings\Form\SettingsFieldset',
+            'Settings/DisableElementsCapableFormSettingsFieldset' =>
+                '\Settings\Form\DisableElementsCapableFormSettingsFieldset',
         ),
     ),
+
+    'filters' => array(
+        'invokables' => array(
+            'Settings/DisableElementsCapableFormSettings' => '\Settings\Form\Filter\DisableElementsCapableFormSettings',
+        )
+    )
     
     
 );

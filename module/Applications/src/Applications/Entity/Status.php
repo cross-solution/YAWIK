@@ -15,7 +15,7 @@ use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Application status entity 
+ * Application status entity
  *
  * @ODM\EmbeddedDocument
  */

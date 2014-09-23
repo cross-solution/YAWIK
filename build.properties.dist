@@ -12,6 +12,8 @@
 mongo.host=localhost
 mongo.port=27017
 mongo.db=Yawik
+mongo.user=
+mongo.pass=
 
 ;
 ; initial user login. The useraccount will be added to the mongodb if not exist.
@@ -19,6 +21,15 @@ mongo.db=Yawik
 
 username=
 password=
+
+;
+; external appKey. You can add jobs and users by using a simple API. This 
+; external.appkey is a pre-shared key, which allows your external application
+; to authenticate. An empty value disables this feature.
+;
+
+external.app.key=will-be-overwritten-during-build-process
+external.app.prefix=myapp
 
 ;
 ; Email (module/Core/config/core.mails.global.php.dist).
@@ -66,9 +77,3 @@ deploy.ssh.host =
 deploy.ssh.user =
 deploy.docs.target =
 
-;
-; enviroment. 
-; production: enables caching, disables error_reportings.
-; development: no caching, debugging enabled.
-;
-app.env=production

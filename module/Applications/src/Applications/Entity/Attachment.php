@@ -6,8 +6,9 @@ use Core\Entity\FileEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
+ * Holds all attachments of an application.
  *
- * @author cbleek
+ * @author bleek@cross-solution.de
  *
  * @ODM\Document(collection="applications")
  */

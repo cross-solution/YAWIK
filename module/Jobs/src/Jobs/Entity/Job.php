@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\Collection;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
+use Organizations\Entity\OrganizationInterface;
 
 /**
  * The job model
@@ -56,6 +57,15 @@ class Job extends BaseEntity implements JobInterface {
      * @ODM\String
      */
     protected $company;
+    
+    /**
+     * publishing company
+     *
+     * @var OrganizationInterface
+     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true) @ODM\Index
+     */
+    protected $organization;
+    
     
     /**
      * Email Adress, which is used to send notifications about e.g. new applications.
@@ -120,6 +130,7 @@ class Job extends BaseEntity implements JobInterface {
      * 
      * @var String
      * @ODM\String
+     * @ODM\Index
      */
     protected $status;
     
@@ -187,7 +198,7 @@ class Job extends BaseEntity implements JobInterface {
     /**
      * @see \Jobs\Entity\JobInterface::setApplyId()
      * @param String $applyId
-     * @return \Jobs\Entity\JobInterface $jo
+     * @return \Jobs\Entity\JobInterface $job
      */
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
@@ -252,6 +263,25 @@ class Job extends BaseEntity implements JobInterface {
         $this->company = $company;
         return $this;
     }
+    
+     /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getOrganization()
+     */
+    public function getOrganization() {
+        return $this->organization;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setOrganization()
+     */
+    public function setOrganization(OrganizationInterface $organization)
+    {
+        $this->organization = $organization;
+        return $this;
+    }
+    
     
     /**
      * (non-PHPdoc)
@@ -432,16 +462,16 @@ class Job extends BaseEntity implements JobInterface {
         $this->logoRef = $logoRef;
         return $this;
     }
+
     /**
-     * 
-     * @return string
+     * @return String
      */
     public function getUriPublisher() {
         return $this->uriPublisher;
     }
     /**
      * 
-     * @param unknown $uriPublisher
+     * @param String $uriPublisher
      * @return \Jobs\Entity\Job
      */
     public function setUriPublisher($uriPublisher) {

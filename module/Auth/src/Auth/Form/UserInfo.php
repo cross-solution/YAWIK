@@ -24,7 +24,7 @@ class UserInfo extends SummaryForm
     /**
      * {@inheritDoc}
      */
-    protected $displayMode = 'summary';
+    protected $displayMode = self::DISPLAY_SUMMARY;
     
     public function init()
     {

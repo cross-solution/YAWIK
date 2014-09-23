@@ -14,7 +14,7 @@ use Core\Entity\AbstractRatingEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Application rating entity
+ * Holds all ratings for an application
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\EmbeddedDocument

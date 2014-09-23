@@ -3,18 +3,18 @@
 return array(
 	'hybridauth' => array(
         "Facebook" => array ( 
-            "enabled" => %%facebook.enabled%%,
+            "enabled" => "%%facebook.enabled%%",
             "keys"    => array ( "id" => "%%facebook.appid%%", "secret" => "%%facebook.secret%%" ), 
             "scope"   => "%%facebook.scope%%",// optional
             "display" => "popup"
         ),
         "LinkedIn" => array (
-            "enabled" => %%linkedin.enabled%%,
+            "enabled" => "%%linkedin.enabled%%",
             "keys"    => array ( "key" => "%%linkedin.appid%%", "secret" => "%%linkedin.secret%%" ),
             "scope"   => "%%linkedin.scope%%"
         ),
         "XING" => array(
-            "enabled" => %%xing.enabled%%,
+            "enabled" => "%%xing.enabled%%",
             'keys'    => array ( "key" => '%%xing.appid%%', 'secret' => '%%xing.secret%%'),
             "scope"   => '%%xing.scope%%'
         ),
@@ -28,5 +28,13 @@ return array(
     		'login' => '%%username%%',
     		'password' => '%%password%%',
     	),
-    ),    
+    	array(
+    	     // this allows an external application to use the YAWIK API
+    	     // applications[USERPOSTFIX] => AppKey
+             'external_applications' => array(
+
+                '%%external.app.prefix%%' => '%%external.app.key%%',
+              ),
+        ),
+    ),
 );

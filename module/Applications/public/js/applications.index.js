@@ -19,7 +19,8 @@
 			return '[' + d.applyId + '] ' + d.title; 
 		};
 		
-		$('#search-applications-form #job-filter').typeahead(
+		$('#search-applications-form #job-filter').
+                add('#filterApplication #job-filter').typeahead(
 			{
 				highlight: true,
 				minLength: 4

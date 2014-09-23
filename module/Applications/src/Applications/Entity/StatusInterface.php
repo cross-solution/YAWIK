@@ -17,9 +17,24 @@ use Core\Entity\EntityInterface;
  */
 interface StatusInterface extends EntityInterface
 {
+    /**
+     * A new application has been received
+     */
     const INCOMING  = 'incoming';
+
+    /**
+     * An acknowledgement of receipt has been sent
+     */
     const CONFIRMED = 'confirmed';
+
+    /**
+     * An applicant ist invited to in interview
+     */
     const INVITED   = 'invited';
+
+    /**
+     * The applicant has been canceled
+     */
     const REJECTED  = 'rejected';
     
     public function __construct($status = self::INCOMING);

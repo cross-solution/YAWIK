@@ -20,7 +20,7 @@ class FormRowCombined extends AbstractHelper
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
      *
-     * @param ElementInterface $element
+     * @param ElementInterface $elements
      * @return string
      * @throws \Zend\Form\Exception\DomainException
      */
@@ -64,7 +64,7 @@ class FormRowCombined extends AbstractHelper
     }
     
     /**
-     * Invoke helper as functor
+     * Invoke helper as function
      *
      * Proxies to {@link render()}.
      *

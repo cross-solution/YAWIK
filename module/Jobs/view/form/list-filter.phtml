@@ -34,7 +34,7 @@ $createRadioGroup = function ($element, $id) use ($translate) {
         <?php echo $element->getLabel() ?>: <?php echo $element->getValue() ?> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-        <?foreach ($element->getValueOptions() as $value => $label):?>
+        <?php foreach ($element->getValueOptions() as $value => $label):?>
         <li id="params-<?php echo "$id-$value" ?>" class="<?php $value == $element->getValue() ? "inactive" : "" ?>">
             <a href="#"><?php echo $label ?></a>
         </li>

@@ -26,21 +26,17 @@ class FormCheckbox extends ZfFormCheckbox
         $input      = parent::render($element);
         $translator = $this->getTranslator();
         $textDomain = $this->getTranslatorTextDomain();
-        $label      = $element->getLabel();
-        $desc       = $element->getOption('description');
-        
+        $label      = $element->getOption('long_label');
+        $headline   = $element->getOption('headline');
+
         if ($label) {
             $label = $translator->translate($label, $textDomain);
         }
-        
-        if ($desc) {
-            $desc = $translator->translate($desc, $textDomain);
-            $label = '<h6>' . $label . '</h6>';
-        } else {
-            $desc = $label;
-            $label = '';
+
+        if ($headline) {
+            $headline = '<h6>' . $translator->translate($headline, $textDomain) . '</h6>';
         }
-        
+
         $markup = '
         <div class="form-checkbox-wrapper">
             <div class="pull-left">%s</div>
@@ -49,12 +45,19 @@ class FormCheckbox extends ZfFormCheckbox
         
         $markup = sprintf(
             $markup,
-            $input, $element->getAttribute('id'), $desc
+            $input, $element->getAttribute('id'), $label
         );
         
-        return $label . $markup;
+        return $headline . $markup;
     }
-    
+
+    /**
+     * Renders a checkbox with the parent render method.
+     *
+     * @param ElementInterface $element
+     *
+     * @return string
+     */
     public function renderBare(ElementInterface $element)
     {
         return parent::render($element);
