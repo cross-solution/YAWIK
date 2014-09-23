@@ -49,7 +49,7 @@
     <include name="LICENCE"/>
     <include name="README"/>
     <exclude name="public/js/*"/>
-    <exclude name="**/YawikDemoSkin/**"/>
+    <exclude name="**/YawikDemo*/**"/>
     <exclude name="**/CamMediaintown/**"/>
     <exclude name="public/Applications"/>
     <exclude name="public/Auth"/>
@@ -369,7 +369,8 @@
   
   <target name="deploy-builds" description="publish TGZ and ZIP packages via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}"/>
-    <exec command="rsync -rv ${project.basedir}/build/ -l --exclude=YAWIK --exclude=YAWIK-${version-short} ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
+    <exec command="rsync -rv
+    ${project.basedir}/build/YAWIK-${version-short}.* -l --exclude=YAWIK ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
   </target>
             
 </project>
