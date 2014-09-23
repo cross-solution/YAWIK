@@ -72,8 +72,7 @@ return array(
             ),
         ),
     )),
-    
-    // Navigation-Konfig für die main_navigation
+
     'navigation' => array(
         'default' => array(
             'settings' => array(

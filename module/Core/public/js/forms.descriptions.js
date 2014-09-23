@@ -9,7 +9,7 @@
 		this.focus         = false; 
 		this.blurTimeout   = null;
 		this._init();
-	};
+	}
 	
 	$.extend(Container.prototype, {
 		
@@ -19,14 +19,15 @@
 			var _this = this;
 			
 			$form.find('.cam-description').hide().appendTo(this.$descDiv);
-			$form.find(':input')
+            $form.find(':input:not([id^="s2id_"]):not(select), .select2-container')
 			     .on('mouseover mouseout', $.proxy(this.eventToggle, this))
 			     .focus($.proxy(function(event) {
+                    console.debug('focus');
 			    	 if (this.blurTimeout) {
-			    		 var $elem = $(event.target);
-			    		 if (this.$descDiv.find('#' + $(event.target).attr('id') + '-desc').length) {
-			    			 clearTimeout(_this.blurTimeout);
-			    			 this._blurTimeout = null;
+			    		 var $desc = this._getDescription($(event.target).attr('id'));
+			    		 if ($desc) {
+			    			 clearTimeout(this.blurTimeout);
+			    			 this.blurTimeout = null;
 			    		 }
 			    	 }
 			    	 this.eventToggle(event);
@@ -36,13 +37,22 @@
 			    		 _this.eventToggle(event);
 			    	 }, this), 200);
 			     }, this));
-			     
+
+            $form.find('label').on("mouseover mouseout", function(event) {
+                var id = "mouseover" == event.type ? $(event.target).attr('for') : null;
+                _this.toggle(id);
+            });
+
+            $form.find('select').on('focus select2-focus blur select2-blur',
+                                    $.proxy(this.select2Toggle, this));
 		},
 		
-		_getDescription: function(event)
+		_getDescription: function(id)
 		{
-			var $element = $(event.target);
-			var $desc    = this.$descDiv.find('#' + $element.attr('id') + '-desc');
+            id = id.replace(/^s2id_/, '');
+            id = "__initial__" == id ? '.daf-desc-content' : '#' + id + '-desc';
+
+            var $desc = this.$descDiv.find(id);
 			
 			if ($desc.length) {
 				return $desc;
@@ -52,14 +62,14 @@
 		
 		toggle: function(id, focus) 
 		{
+            console.debug(id);
 			if (!id) {
 				id = this.focus || '__initial__';
 			}
 			
-			var target  = '__initial__' == id ? '.daf-desc-content' : '#' + id + '-desc';
-			var $target = this.$descDiv.find(target);
+			var $target = this._getDescription(id);
 			
-			if (!$target.length) {
+			if (!$target) {
 				return;
 			}
 			
@@ -77,7 +87,7 @@
 			if ('mouseout' == event.type) {
 				var id = null;
 			} else {
-				var $element = $(event.target);
+				var $element = $(event.currentTarget);
 				var id       = $element.attr('id');
 				if ('blur' == event.type) {
 					id = '__initial__';
@@ -88,6 +98,9 @@
 				this.toggle(id);
 			} else {
 				if ('focus' === event.type) {
+                    if (id.match(/^s2id_/)) {
+                        id = $element.parent().attr('id');
+                    }
 					this.focus = id;
 				} else {
 					this.focus = false;
@@ -96,15 +109,27 @@
 				this.toggle(id, 'focus' == event.type);
 			}
 		},
-		
-		onMouseOver: function(event)
-		{
-			var $desc = this._retrieveDescription(event);
-			if (!$desc) { return; }
-			
-			var $element = $(event.target);
-			
-		}
+
+        select2Toggle: function(event)
+        {
+            console.debug(event);
+
+            var $select  = $(event.target);
+            var id       = $select.attr('id');
+            var $select2 = $('#s2id_' + id);
+
+            if (event.type.match(/focus/)) {
+                this.focus = id;
+                $select2.addClass('select2-container-active');
+            } else {
+                this.focus = false;
+                id         = "__initial__";
+                $select2.removeClass('select2-container-active');
+            }
+
+            this.toggle(id);
+        }
+
 	});
 	
 	$.fn.formdesc = function()

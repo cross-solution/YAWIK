@@ -35,18 +35,22 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
 
         $this->add(array(
             'name' => 'willingnessToTravel',
-            'type' => 'select',
+            'type' => '\Zend\Form\Element\Select',
             'options' => array(
                 'value_options' => array(
-                    ""=>/*@translate*/ "Please select",
+                    '' => '', // needed for jquery select2 to render the placeholder
                     "yes"=>/*@translate*/ "Yes",
-                    "condioned" => /*@translate*/ "conditioned",
+                    "conditioned" => /*@translate*/ "conditioned",
                     "no"=>/*@translate*/ "No"),
                 'label' => /*@translate*/ 'Willingness to travel',
                 'description' => /*@translate*/ 'Enter your willingness to travel.',
                 'disable_capable' => array(
                     'description' => /*@translate*/ 'Ask the applicant about the willingness to travel',
                 ),
+            ),
+            'attributes' => array(
+                'data-placeholder' => /*@translate*/ 'please select',
+                'data-allowclear' => 'true',
             ),
         ));
 
@@ -78,8 +82,13 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
     
     public function isSummaryEmpty()
     {
-        // expectedSalary might be disabled, so we need to check that first.
-        return !$this->has('expectedSalary') || '' == $this->get('expectedSalary')->getValue();
+        foreach ($this as $element) { /* @var $element \Zend\Form\ElementInterface */
+            if ('' != $element->getValue()) {
+                return false;
+            }
+        }
+
+        return true;
     }
     
     public function setEmptySummaryNotice($message)

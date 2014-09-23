@@ -206,7 +206,7 @@ class SummaryForm extends AbstractHelper
             return $markup;
         }
     
-        $label  = $element->getLabel();
+        $label  = $this->getTranslator()->translate($element->getLabel());
         $markup = '';
         
         if ($element instanceOf FieldsetInterface) {
@@ -222,10 +222,15 @@ class SummaryForm extends AbstractHelper
         $elementValue = $element instanceOf \Zend\Form\Element\Textarea 
                       ? nl2br($element->getValue()) 
                       : $element->getValue();
+
+        if ('' != $elementValue && $element instanceOf \Zend\Form\Element\Select) {
+            $options = $element->getValueOptions();
+            $elementValue = $this->getTranslator()->translate($options[$elementValue]);
+        }
                       
         $markup .= '<div class="row">'; $col = 12;
         if ($label) {
-            $markup .= '<div class="col-md-3"><strong>' . $label . '</strong></div>';
+            $markup .= '<div class="col-md-3 yk-label"><label>' . $label . '</label></div>';
             $col = 9;
         }
         $markup .= '<div class="col-md-' . $col . '">' . $elementValue . '</div>'

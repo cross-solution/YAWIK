@@ -1,5 +1,4 @@
 <?php
-
 /**
  * YAWIK
  * Configuration file of the Core module
@@ -37,7 +36,7 @@ return array(
                      'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                         'stream' => __DIR__ .'/../../../log/cam.log',
+                         'stream' => __DIR__ .'/../../../log/yawik.log',
                     ),
                 ),
             ),
@@ -61,23 +60,6 @@ return array(
                 'log_exceptions' => true,
             ),
         ),
-//         array(
-//             'writers' => array(
-//                 array(
-//                     'name' => 'stream',
-//                     'priority' => 1000,
-//                     'options' => array(
-//                         'stream' => __DIR__ . '/../../../log/error.log',
-//                         'formatter' => 'ErrorHandler',
-//                         'filters' => array(
-//                             'Core\Log\Filter\PhpError'
-//                         ),
-//                     ),
-//                 ),
-//             ),
-//             'exceptionhandler' => true,
-//             'errorhandler' => true,
-//         ),
     ),
            
     // Routes
@@ -162,7 +144,7 @@ return array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
             //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-            'main_navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
         ),
         'abstract_factories' => array(
@@ -190,7 +172,7 @@ return array(
             )
         ),
     ),
-    // Navigation-Konfig für die main_navigation
+    // Defines the Core/Navigation. 
     'navigation' => array(
         'default' => array(
 //             'home' => array(

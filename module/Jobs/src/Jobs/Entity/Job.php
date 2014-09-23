@@ -130,6 +130,7 @@ class Job extends BaseEntity implements JobInterface {
      * 
      * @var String
      * @ODM\String
+     * @ODM\Index
      */
     protected $status;
     

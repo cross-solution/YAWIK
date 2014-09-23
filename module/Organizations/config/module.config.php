@@ -73,7 +73,7 @@ return array(
     ),
     'form_elements' => array(
         'invokables' => array(
-             'organizations/form' => 'Organizations\Form\Organizations',
+             'Organizations/form' => 'Organizations\Form\Organizations',
              'Organizations/ContactFieldset' => 'Organizations\Form\ContactFieldset',
              'Organizations/OrganizationFieldset' => 'Organizations\Form\OrganizationsFieldset',
         ),
@@ -98,14 +98,31 @@ return array(
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
         ),
     ),
+    'acl' => array(
+        'rules' => array(
+            // guests are not allowed to see a list of companies
+            'guest' => array(
+                'deny' => array(
+                    'route/lang/organizations',
+                ),
+            ),
+            // recruiters are allowed to view their companies
+            'recruiter' => array(
+                'allow' => array(
+                    'route/lang/organizations',
+                ),
+            ),
+
+        )
+    ),
 
     'navigation' => array(
         'default' => array(
             'organizations' => array(
                 'label' => 'Organizations',
                 'route' => 'lang/organizations',
-                'order' => 65,
-                //'resource' => 'route/lang/organizations',
+                'order' => 65,                             // allows to order the menu items
+                'resource' => 'route/lang/organizations',  // if a resource is defined, the acl will be applied.
 
                 'pages' => array(
                     'list' => array(

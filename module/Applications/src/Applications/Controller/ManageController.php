@@ -102,7 +102,7 @@ class ManageController extends AbstractActionController
             return $this->refreshRatingAction();
         }
         
-        $nav = $this->getServiceLocator()->get('main_navigation');
+        $nav = $this->getServiceLocator()->get('Core/Navigation');
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
         
