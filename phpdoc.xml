@@ -10,7 +10,7 @@
     <files>
         <directory>module/*</directory>
         <ignore>vendor/*</ignore>
-        <ignore>module/YawikDemoSkin/*</ignore>
+        <ignore>module/YawikDemo*</ignore>
         <ignore>*/language/*</ignore>
         <ignore>*/view/*</ignore>
         <ignore>config/*</ignore>

@@ -149,7 +149,15 @@ class Job extends BaseEntity implements JobInterface {
      * @ODM\String 
      */
     protected $logoRef;
-    
+
+    /**
+     * Application link.
+     *
+     * @var String
+     * @ODM\String
+     */
+    protected $uriApply;
+
     /**
      * Unified Resource Locator the Yawik, which handled this job first - so 
      * does know who is the one who has commited this job.
@@ -462,6 +470,23 @@ class Job extends BaseEntity implements JobInterface {
         $this->logoRef = $logoRef;
         return $this;
     }
+
+    /**
+     * @return String
+     */
+    public function getUriApply() {
+        return $this->uriApply;
+    }
+    /**
+     *
+     * @param String $uriApply
+     * @return \Jobs\Entity\Job
+     */
+    public function setUriApply($uriApply) {
+        $this->uriApply = $uriApply;
+        return $this;
+    }
+
 
     /**
      * @return String
