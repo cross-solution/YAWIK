@@ -16,21 +16,27 @@ use Auth\Entity\AnonymousUser;
 class AuthenticationService extends ZendAuthService {
 
     protected $user;
+    /**
+     * @var RepositoryInterface;
+     */
     protected $repository;
 
+    /**
+     * @param RepositoryInterface $repository
+     */
     public function __construct(RepositoryInterface $repository) {
         $this->setRepository($repository);
     }
 
     /**
-     * @return the $repository
+     * @return RepositoryInterface
      */
     public function getRepository() {
         return $this->repository;
     }
 
     /**
-     * @param field_type $repository
+     * @param RepositoryInterface $repository
      * @return $this
      */
     public function setRepository($repository) {
@@ -38,6 +44,10 @@ class AuthenticationService extends ZendAuthService {
         return $this;
     }
 
+    /**
+     * @return AnonymousUser
+     * @throws \OutOfBoundsException
+     */
     public function getUser() {
         if (!$this->user) {
             if ($this->hasIdentity() && ($id = $this->getIdentity())) {
@@ -54,6 +64,10 @@ class AuthenticationService extends ZendAuthService {
         return $this->user;
     }
 
+    /**
+     * @param AdapterInterface $adapter
+     * @return \Zend\Authentication\Result
+     */
     public function authenticate(AdapterInterface $adapter = null) {
         $this->user = null; // clear user (especially guest user)
         return parent::authenticate($adapter);

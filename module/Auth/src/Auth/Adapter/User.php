@@ -57,14 +57,15 @@ class User extends AbstractAdapter
      *
      * If no password is provided,
      *
-     * @param string     $login
+     * @param string $login
      * @param string $password
+     * @param string $role (default='recruiter')
      *
      * @return self
      */
-    public function setDefaultUser($login, $password)
+    public function setDefaultUser($login, $password, $role=\Auth\Entity\User::ROLE_RECRUITER)
     {
-        $this->defaultUser = array($login, $password);
+        $this->defaultUser = array($login, $password, $role);
         return $this;
     }
 
@@ -95,7 +96,7 @@ class User extends AbstractAdapter
             $user = $users->create(array(
                 'login' => $identity,
                 'password' => $password,
-                'role' => 'recruiter',
+                'role' => $this->defaultUser[2],
             ));
             
             $users->getDocumentManager()->persist($user);

@@ -154,6 +154,7 @@ return array(
             'forms' => 'FormElementManager',
             'repositories' => 'Core/RepositoryService',
             'translator' => 'mvctranslator',
+            'Core/Navigation' => 'main_navigation'
         ),
     ),
     // Translation settings consumed by the 'translator' factory above.
