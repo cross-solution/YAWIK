@@ -82,6 +82,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 ),          
                 'allow_empty' => True
             ),
+            'uriApply' => array(
+                'filters'  => array(
+                ),
+                'allow_empty' => True
+            ),
             
              'logoRef' => array(
                 'filters'  => array(
@@ -164,7 +169,18 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             'attributes' => array(
             )
         ));
-       
+
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'uriApply',
+            'options' => array(
+                'label' => 'uriApply'
+            ),
+            'attributes' => array(
+            )
+        ));
+
        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'datePublishStart',
