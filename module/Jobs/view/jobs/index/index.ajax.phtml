@@ -65,10 +65,17 @@
          <?php endif ?>     
          </td>
       <?php else:?>
-         <a href="<?php 
-            $url = $this->url( 'lang/apply', array('applyId' => $job->applyId , 'lang' => $this->params('lang')));
-            $query = http_build_query(array('subscriberUri' => $this->serverUrl() . '/subscriber/' . 1));
-            echo $url . '?' . $query; ?>">
+         <a href="<?php
+            if (empty($job->uriApply)) {
+                // @TODO: unriddle this logic to somewhere else
+                $url = $this->url( 'lang/apply', array('applyId' => $job->applyId , 'lang' => $this->params('lang')));
+                $query = http_build_query(array('subscriberUri' => $this->serverUrl() . '/subscriber/' . 1));
+                echo $url . '?' . $query;
+            }
+            else {
+                echo $job->uriApply;
+            }
+         ?>">
           <?php echo $this->translate('Apply')?>
          </a>
       <?php endif ?>
