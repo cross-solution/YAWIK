@@ -37,8 +37,9 @@ class LinkedIn extends AbstractAdapter
                 default: 
                     if (count($child->children())) {
                         $return[$name][] = $this->getDataArray($child);
+                    } else {
+                        $return[$name] = strval($child);
                     }
-                    $return[$name] = strval($child);
                     break;
                     
                 case "location":
@@ -114,12 +115,12 @@ class LinkedIn extends AbstractAdapter
                 $n = $e->getName();
                 switch ($n) {
                     default:
-                        $position[$n] = strval($e);
+                        $education[$n] = strval($e);
                         break;
 
                     case 'start-date':
                     case 'end-date':
-                        $position[$n] = $this->parseDate($e);
+                        $education[$n] = $this->parseDate($e);
                         break;
                 }
             }
