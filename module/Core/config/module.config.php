@@ -304,6 +304,7 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'DefaultButtonsFieldset' => '\Core\Form\DefaultButtonsFieldset',
+            'FormSubmitButtonsFieldset' => '\Core\Form\FormSubmitButtonsFieldset',
             'SummaryFormButtonsFieldset' => 'Core\Form\SummaryFormButtonsFieldset',
             'Checkbox' => 'Core\Form\Element\Checkbox',
             'InfoCheckbox' => 'Core\Form\Element\InfoCheckbox',
@@ -319,6 +320,9 @@ return array(
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
             'togglebutton' => 'Core\Form\Element\ToggleButton',
         ),
+        'aliases' => array(
+            'submitField' => 'FormSubmitButtonsFieldset'
+        )
     ),
     
     'mails_config' => array(

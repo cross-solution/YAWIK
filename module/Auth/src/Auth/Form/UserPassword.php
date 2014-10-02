@@ -47,7 +47,7 @@ class UserPassword extends Form implements ServiceLocatorAwareInterface//, Input
                         //->setUseAsBaseFieldset(true)
         );
         
-        $this->add($this->forms->get('DefaultButtonsFieldset'));
+        $this->add($this->forms->get('submitField'));
     }
     
 }
