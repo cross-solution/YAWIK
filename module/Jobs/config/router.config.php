@@ -56,6 +56,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'dashboardjobs'   => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/dashboard',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Index',
+                        'action' => 'dashboard'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'typeahead' => array(
                 'type' => 'Literal',
                 'options' => array(
