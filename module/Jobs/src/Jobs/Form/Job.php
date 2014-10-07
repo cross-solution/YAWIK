@@ -1,56 +1,59 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
+/** Jobs forms */
 namespace Jobs\Form;
 
-use Zend\Form\Form;
-use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Core\Form\Container;
 
-class Job extends Form implements InputFilterProviderInterface
+/**
+ * Jobs forms container
+ *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ */
+class Job extends Container
 {
 
-    
-    public function getHydrator()
-    {
-        if (!$this->hydrator) {
-            $hydrator = new EntityHydrator();
-            $this->setHydrator($hydrator);
-        }
-        return $this->hydrator;
-    }
-    
+    /**
+     * {@inheritDoc}
+     *
+     * Adds the standard forms and child containers.
+     *
+     * @see \Zend\Form\Element::init()
+     */
     public function init()
     {
-        $this->setName('jobs-form');
-        $this->setAttributes(array(
-            'id' => 'jobs-form',
-            'data-handle-by' => 'native'
+        $this->setForms(array(
+            'locationForm' => array(
+                'type' => 'Jobs/TitleLocation',
+                'property' => true,
+            )
         ));
- 
-        $this->add(array(
-            'type' => 'Jobs/JobFieldset',
-            'name' => 'job',
-            'options' => array(
-                'use_as_base_fieldset' => true,
-            ),
-        ));
-        
-        $this->add(array(
-            'type' => 'DefaultButtonsFieldset',
-            'options' => array(
-                'save_label' => 'new' == $this->getOption('mode')
-                                ? /*@translate*/ 'Publish job'
-                                : 'Save',
-            ),
-        ));
-        
 
+        /*
+        $this->setForms(array(
+            'employersForm' => array(
+                'type' => 'Jobs/Employers',
+                'property' => true,
+            )
+        ));
+        */
+
+        $this->setForms(array(
+            'descriptionForm' => array(
+                'type' => 'Jobs/Description',
+                'property' => true,
+            )
+        ));
+
+        // This label is used on the Settings page
+        //$this->options['settings_label'] = /*@translate*/ 'Customize apply form';
     }
-    
-    public function getInputFilterSpecification()
-    {
-        return array(
-            'job' => array('type' => 'new' == $this->getOption('mode') ? 'Jobs/New' : 'Jobs/Edit')
-        );
-    }
+
 }

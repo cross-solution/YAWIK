@@ -137,13 +137,18 @@ return array(
        
     'form_elements' => array(
         'invokables' => array(
-            'Jobs/Job'             => 'Jobs\Form\Job',
-            'Jobs/JobFieldset'     => 'Jobs\Form\JobFieldset',
-            'Jobs/ApplyId'         => 'Jobs\Form\ApplyIdentifierElement',
-            'Jobs/Import'            => '\Jobs\Form\Import',
-            'Jobs/ImportFieldset'        => '\Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'    => '\Jobs\Form\ListFilter',
-            'Jobs/ListFilterFieldset' => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/Job'                    => 'Jobs\Form\Job',
+            'Jobs/TitleLocation'          => 'Jobs\Form\JobTitleLocation',
+            'Jobs/JobFieldset'            => 'Jobs\Form\JobFieldset',
+            'Jobs/Employers'              => 'Jobs\Form\JobEmployers',
+            'Jobs/JobEmployersFieldset'   => 'Jobs\Form\JobEmployersFieldset',
+            'Jobs/Description'            => 'Jobs\Form\JobDescription',
+            'Jobs/JobDescriptionFieldset' => 'Jobs\Form\JobDescriptionFieldset',
+            'Jobs/ApplyId'                => 'Jobs\Form\ApplyIdentifierElement',
+            'Jobs/Import'                 => '\Jobs\Form\Import',
+            'Jobs/ImportFieldset'         => '\Jobs\Form\ImportFieldset',
+            'Jobs/ListFilter'             => '\Jobs\Form\ListFilter',
+            'Jobs/ListFilterFieldset'     => 'Jobs\Form\ListFilterFieldset',
         ),
         'factories' => array(
             'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',

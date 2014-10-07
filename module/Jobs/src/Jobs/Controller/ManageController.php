@@ -122,16 +122,21 @@ class ManageController extends AbstractActionController {
     {
         $services = $this->getServiceLocator();
         $forms    = $services->get('FormElementManager');
-        $form     = $forms->get('Jobs/Job', array(
+        $container = $forms->get('Jobs/Job', array(
             'mode' => $job->id ? 'edit' : 'new'
         ));
-        $form->bind($job);
+        $container->setEntity($job);
+        return $container;
+        /*
+        $formTitleLocation = $form->getForm->get('location');
+        $formTitleLocation->bind($job);
         
         if ($this->getRequest()->isPost()) {
-            $form->setData($_POST);
+            $formTitleLocation->setData($_POST);
         }
 
-        return $form;
+        return $formTitleLocation;
+        */
     }
     
     protected function getJob($create = false)
@@ -177,6 +182,10 @@ class ManageController extends AbstractActionController {
         $model->setTemplate("jobs/manage/form");
         
         return $model;
+    }
+
+    protected function get($key) {
+        return;
     }
 
 }
