@@ -41,7 +41,8 @@
         "fortawesome/font-awesome": "*",
         "twitter/typeahead.js": "*",
         "blueimp/jquery-file-upload": "dev-master",
-	"ivaynberg/select2": "3.5.*"
+	"ivaynberg/select2": "3.5.*",
+        "tinymce/tinymce": "*"
     },
     "require-dev": {
     }

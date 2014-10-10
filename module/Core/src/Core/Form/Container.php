@@ -292,6 +292,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
 
         if ($formInstance instanceOf Form) {
             $formInstance->setParams($this->getParams());
+            $formInstance->setParam('formName', $key);
         }
         $this->forms[$key]['__instance__'] = $formInstance;
         $this->forms[$key]['options'] = $options;
@@ -544,6 +545,31 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
             $return = $searchIn;
         }
         return $return;
+    }
+
+    public function setData($data) {
+        $filteredData = array();
+        foreach ($data as $key => $elem) {
+            if (!array_key_exists($key, $this->params) && $key != 'formName') {
+                $filteredData[$key] = $elem;
+            }
+            if ($key == 'formName' && is_string($elem)) {
+                // you can activate a specific form with postData
+                foreach ($this->activeForms as $activeFormKey) {
+                    if ($activeFormKey == $elem) {
+                        $this->enableForm($activeFormKey);
+                    }
+                    else {
+                        $this->disableForm($activeFormKey);
+                    }
+                }
+            }
+        }
+        foreach ($this->activeForms as $activeFormKey) {
+            $activeForm = $this->getForm($activeFormKey);
+            $activeForm->setData($filteredData);
+        }
+        return $this;
     }
 
 }

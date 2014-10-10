@@ -228,4 +228,12 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $isValid;
     }
 
+    public function getFormName() {
+        $name = $this->getBaseFieldset()->getAttribute('name');
+        if (empty($name)) {
+            throw new \RuntimeException('missing name for form');
+        }
+        return $name;
+    }
+
 }

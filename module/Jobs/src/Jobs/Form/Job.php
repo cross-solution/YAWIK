@@ -54,6 +54,8 @@ class Job extends Container
 
         // This label is used on the Settings page
         //$this->options['settings_label'] = /*@translate*/ 'Customize apply form';
+
+
     }
 
 }

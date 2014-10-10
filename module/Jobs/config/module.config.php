@@ -157,8 +157,8 @@ return array(
     
     'input_filters' => array(
         'invokables' => array(
-            'Jobs/New'  => 'Jobs\Form\InputFilter\NewJob',
-            'Jobs/Edit' => 'Jobs\Form\InputFilter\EditJob', 
+            'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
+            'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
         ),
     ),
     

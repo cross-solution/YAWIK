@@ -2,7 +2,7 @@
 
 namespace Jobs\Form;
 
-use Zend\Form\Form;
+use Core\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -29,7 +29,7 @@ class JobTitleLocation extends Form implements InputFilterProviderInterface
  
         $this->add(array(
             'type' => 'Jobs/JobFieldset',
-            'name' => 'job',
+            'name' => 'jobTitleLocation',
             'options' => array(
                 'use_as_base_fieldset' => true,
             ),
@@ -49,8 +49,9 @@ class JobTitleLocation extends Form implements InputFilterProviderInterface
     
     public function getInputFilterSpecification()
     {
+        $formName = $this->getFormName();
         return array(
-            'job' => array('type' => 'new' == $this->getOption('mode') ? 'Jobs/New' : 'Jobs/Edit')
+            $formName => array('type' => 'new' == $this->getOption('mode') ? 'Jobs/Location/New' : 'Jobs/Location/Edit')
         );
     }
 }

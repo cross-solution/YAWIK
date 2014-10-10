@@ -319,7 +319,7 @@ return array(
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
             'togglebutton' => 'Core\Form\Element\ToggleButton',
-            'TextEditor' => 'Zend\Form\Element\Textarea', // austauschbarer Service, Wird in der Naming Convention noch beschrieben.
+            'TextEditor' => 'Core\Form\Element\Editor',
 
         ),
         'aliases' => array(

@@ -88,7 +88,7 @@ class ManageController extends AbstractActionController {
         $job        = $this->getJob($create);
         $this->acl($job, $origAction);
         $form       = $this->getFormular($job);
-        
+        $form->setData($_POST);
         if ($form->isValid()) {
             if ($create) {
                 $this->notification()->success(/*@translate*/ 'Job published.');
@@ -126,6 +126,7 @@ class ManageController extends AbstractActionController {
             'mode' => $job->id ? 'edit' : 'new'
         ));
         $container->setEntity($job);
+        $container->setParam('job',$job->id);
         return $container;
         /*
         $formTitleLocation = $form->getForm->get('location');
@@ -152,7 +153,12 @@ class ManageController extends AbstractActionController {
         
         if ($this->getRequest()->isPost()) {
             $jobData = $this->params()->fromPost('job');
-            $id      = isset($jobData['id']) ? $jobData['id'] : null;
+            if (is_array($jobData)) {
+                $id      = isset($jobData['id']) ? $jobData['id'] : null;
+            }
+            elseif (is_string($jobData)) {
+                $id = $jobData;
+            }
         } else {
             $id = $this->params()->fromQuery('id');
         }

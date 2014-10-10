@@ -2,7 +2,7 @@
 
 namespace Jobs\Form;
 
-use Zend\Form\Form;
+use Core\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -52,4 +52,5 @@ class JobDescription extends Form implements InputFilterProviderInterface
         return array(
         );
     }
+
 }
