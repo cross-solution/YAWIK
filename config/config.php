@@ -58,7 +58,6 @@ $config = array(
         'module_paths' => array(
             './module',
             './vendor',
-            'Cam\*' => './vendor/extern'
         ),
     
     
