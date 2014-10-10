@@ -9,6 +9,9 @@
 
 $this->headScript()->appendFile($this->basePath('Jobs/js/form.apply-identifier.js'));
 $value = $this->element->getValue();
+if (empty($value)) {
+    throw new \RuntimeException('Missing application id in Element "' . $this->element->getLabel() . '"');
+}
 ?>
 <div class="apply-identifier-wrapper">
 <?php 

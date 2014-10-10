@@ -88,7 +88,7 @@ class ManageController extends AbstractActionController {
         $job        = $this->getJob($create);
         $this->acl($job, $origAction);
         $form       = $this->getFormular($job);
-        
+        $form->setData($_POST);
         if ($form->isValid()) {
             if ($create) {
                 $this->notification()->success(/*@translate*/ 'Job published.');
@@ -122,16 +122,22 @@ class ManageController extends AbstractActionController {
     {
         $services = $this->getServiceLocator();
         $forms    = $services->get('FormElementManager');
-        $form     = $forms->get('Jobs/Job', array(
+        $container = $forms->get('Jobs/Job', array(
             'mode' => $job->id ? 'edit' : 'new'
         ));
-        $form->bind($job);
+        $container->setEntity($job);
+        $container->setParam('job',$job->id);
+        return $container;
+        /*
+        $formTitleLocation = $form->getForm->get('location');
+        $formTitleLocation->bind($job);
         
         if ($this->getRequest()->isPost()) {
-            $form->setData($_POST);
+            $formTitleLocation->setData($_POST);
         }
 
-        return $form;
+        return $formTitleLocation;
+        */
     }
     
     protected function getJob($create = false)
@@ -147,7 +153,12 @@ class ManageController extends AbstractActionController {
         
         if ($this->getRequest()->isPost()) {
             $jobData = $this->params()->fromPost('job');
-            $id      = isset($jobData['id']) ? $jobData['id'] : null;
+            if (is_array($jobData)) {
+                $id      = isset($jobData['id']) ? $jobData['id'] : null;
+            }
+            elseif (is_string($jobData)) {
+                $id = $jobData;
+            }
         } else {
             $id = $this->params()->fromQuery('id');
         }
@@ -177,6 +188,10 @@ class ManageController extends AbstractActionController {
         $model->setTemplate("jobs/manage/form");
         
         return $model;
+    }
+
+    protected function get($key) {
+        return;
     }
 
 }

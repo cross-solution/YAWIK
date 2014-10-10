@@ -6,10 +6,12 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+/*
 $this->form->setAttribute('action', $this->url('lang/jobs/manage', array('action' => $this->action), true));
 $this->form->get('buttons')->get('cancel')->setAttribute(
     'onclick', 'location.href="' . $this->url('lang/jobs', array(), true) . '"; return false;'
 );
+*/
 // Tweak navigation
 $navigation = $this->navigation('Core/Navigation')->getContainer();
 $navigation->findOneBy('route', 'lang/jobs')->setActive(true);
@@ -24,4 +26,4 @@ $subPage->setActive(true);
             
           endif ?></h1>
           
-<?php echo $this->form($this->form,'form-horizontal'); ?>
+<?php echo $this->formContainer($this->form,'form-horizontal'); ?>

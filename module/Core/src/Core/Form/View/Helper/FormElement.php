@@ -9,6 +9,7 @@ use Zend\Form\View\Helper\FormElement as ZendFormElement;
 use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Core\Form\Element\ViewHelperProviderInterface as CoreElementInterface;
+use Zend\View\Helper\HelperInterface;
 
 class FormElement extends ZendFormElement
 {
@@ -29,6 +30,9 @@ class FormElement extends ZendFormElement
             $helper = $element->getViewHelper();
             if (is_string($helper)) {
                 $helper = $renderer->plugin($helper);
+            }
+            if ($helper instanceof HelperInterface) {
+                $helper->setView($renderer);
             }
             return $helper($element);
         }

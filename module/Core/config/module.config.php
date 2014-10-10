@@ -319,6 +319,8 @@ return array(
             'Location' => 'Zend\Form\Element\Text',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
             'togglebutton' => 'Core\Form\Element\ToggleButton',
+            'TextEditor' => 'Core\Form\Element\Editor',
+
         ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'
