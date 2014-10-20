@@ -1,4 +1,10 @@
 <?php
+//: ./src/Core/Form/FormSubmitButtonsFieldset.php:25
+translate('Save');
+
+//: ./src/Core/Form/FormSubmitButtonsFieldset.php:39
+translate('Cancel');
+
 //: ./src/Core/Form/DefaultButtonsFieldset.php:17
 translate('Save');
 
@@ -65,6 +71,6 @@ translate('German');
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:27
 translate('defines the languages of this frontend.');
 
-//: ./config/module.config.php:26
+//: ./config/module.config.php:25
 translate('general settings');
 

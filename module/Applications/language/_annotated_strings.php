@@ -125,9 +125,6 @@ translate('Please provide som additional facts for this job opening.');
 //: ./src/Applications/Form/FactsFieldset.php:29
 translate('Click here to enter facts.');
 
-//: ./src/Applications/Form/FactsFieldset.php:41
-translate('Please select');
-
 //: ./src/Applications/Form/FactsFieldset.php:42
 translate('Yes');
 
@@ -146,22 +143,25 @@ translate('Enter your willingness to travel.');
 //: ./src/Applications/Form/FactsFieldset.php:48
 translate('Ask the applicant about the willingness to travel');
 
-//: ./src/Applications/Form/FactsFieldset.php:57
+//: ./src/Applications/Form/FactsFieldset.php:52
+translate('please select');
+
+//: ./src/Applications/Form/FactsFieldset.php:61
 translate('Earliest starting date');
 
-//: ./src/Applications/Form/FactsFieldset.php:58
+//: ./src/Applications/Form/FactsFieldset.php:62
 translate('Enter the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:60
+//: ./src/Applications/Form/FactsFieldset.php:64
 translate('Ask the applicant about the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:68
+//: ./src/Applications/Form/FactsFieldset.php:72
 translate('Expected salary');
 
-//: ./src/Applications/Form/FactsFieldset.php:69
+//: ./src/Applications/Form/FactsFieldset.php:73
 translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
 
-//: ./src/Applications/Form/FactsFieldset.php:71
+//: ./src/Applications/Form/FactsFieldset.php:75
 translate('Ask users about their expected salary.');
 
 //: ./src/Applications/Form/Attributes.php:34

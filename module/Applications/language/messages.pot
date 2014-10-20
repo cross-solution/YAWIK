@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:51+0200\n"
+"POT-Creation-Date: 2014-10-20 08:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -349,7 +349,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:392
 #: view/applications/manage/detail.pdf.phtml:123
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:138
 msgid "Willingness to travel"
 msgstr ""
 
@@ -733,27 +733,27 @@ msgid "Click here to enter facts."
 msgstr ""
 
 #: language/_annotated_strings.php:129
-msgid "Please select"
-msgstr ""
-
-#: language/_annotated_strings.php:132
 msgid "Yes"
 msgstr ""
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:132
 msgid "conditioned"
 msgstr ""
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:135
 msgid "No"
 msgstr ""
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:141
 msgid "Enter your willingness to travel."
 msgstr ""
 
-#: language/_annotated_strings.php:147
+#: language/_annotated_strings.php:144
 msgid "Ask the applicant about the willingness to travel"
+msgstr ""
+
+#: language/_annotated_strings.php:147
+msgid "please select"
 msgstr ""
 
 #: language/_annotated_strings.php:153

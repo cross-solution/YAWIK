@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Carsten Bleek <cbleek@yawik.org>, 2014
+# Vladimir <dvy2k@yahoo.com>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-09-16 13:32+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2014-10-16 10:31+0000\n"
+"Last-Translator: Vladimir <dvy2k@yahoo.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgstr "Применять"
 #: view/applications/index/index.phtml:15
 #: view/applications/apply/index.phtml:13
 msgid "Application"
-msgstr "Применение"
+msgstr "Заявления"
 
 #: view/applications/index/index.phtml:17
 #: view/applications/apply/index.phtml:15
@@ -53,11 +54,11 @@ msgstr "Политика конфиденциальности"
 
 #: view/applications/index/dashboard.phtml:18
 msgid "Received Applications"
-msgstr "Текущие приложения"
+msgstr "Полученные заявления"
 
 #: view/applications/index/dashboard.phtml:20
 msgid "Sent Applications"
-msgstr ""
+msgstr "Отправленные заявления"
 
 #: view/applications/index/dashboard.phtml:39
 #: language/_annotated_strings.php:3
@@ -67,7 +68,7 @@ msgstr "Заявитель"
 #: view/applications/index/dashboard.phtml:40
 #: language/_annotated_strings.php:33 language/_annotated_strings.php:12
 msgid "Job"
-msgstr "Иов"
+msgstr "Работа"
 
 #: view/applications/index/dashboard.phtml:41
 #: view/applications/manage/detail.phtml:229
@@ -82,7 +83,7 @@ msgstr "Дата"
 
 #: view/applications/apply/index.phtml:28 language/_annotated_strings.php:216
 msgid "your application was sent successfully"
-msgstr "ваше приложение было успешно отправлено"
+msgstr "ваше заявление было успешно отправлено"
 
 #: view/applications/apply/index.phtml:34
 #, php-format
@@ -99,7 +100,7 @@ msgstr ""
 
 #: view/applications/apply/_buttons.phtml:19
 msgid "Back to the formular"
-msgstr ""
+msgstr "Обратно к формуляру"
 
 #: view/applications/apply/_buttons.phtml:23
 msgid "Preview application"
@@ -107,7 +108,7 @@ msgstr ""
 
 #: view/applications/apply/_buttons.phtml:33
 msgid "Send application"
-msgstr ""
+msgstr "Послать заявление"
 
 #: view/applications/apply/_buttons.phtml:39
 msgid "Abort application"
@@ -124,7 +125,7 @@ msgstr "чтобы все ваши рабочие места"
 
 #: view/applications/manage/index.phtml:15
 msgid "Applications"
-msgstr "Применения"
+msgstr "Заявления"
 
 #: view/applications/manage/index.phtml:25
 msgid "List of received applications"
@@ -148,7 +149,7 @@ msgstr "Написать письмо"
 
 #: view/applications/manage/index.phtml:65
 msgid "search applications"
-msgstr "Поиск приложений"
+msgstr "Поиск заявлений"
 
 #: view/applications/manage/index.phtml:70 language/_annotated_strings.php:105
 msgid "Enter job title"
@@ -323,7 +324,7 @@ msgstr "дата получения"
 
 #: view/applications/manage/detail.phtml:337
 msgid "via"
-msgstr ""
+msgstr "через"
 
 #: view/applications/manage/detail.phtml:341
 msgid "application state"
@@ -353,19 +354,19 @@ msgstr "агент"
 #: view/applications/manage/detail.pdf.phtml:123
 #: language/_annotated_strings.php:141
 msgid "Willingness to travel"
-msgstr ""
+msgstr "возможность командировок"
 
 #: view/applications/manage/detail.phtml:398
 #: view/applications/manage/detail.pdf.phtml:129
 #: language/_annotated_strings.php:150
 msgid "Earliest starting date"
-msgstr ""
+msgstr "Когда Вы можете начать работать"
 
 #: view/applications/manage/detail.phtml:404
 #: view/applications/manage/detail.pdf.phtml:135
 #: language/_annotated_strings.php:159
 msgid "Expected salary"
-msgstr ""
+msgstr "Предполагаемая заработная плата"
 
 #: view/applications/manage/detail.phtml:418
 #: view/applications/manage/detail.pdf.phtml:142
@@ -454,13 +455,13 @@ msgstr "редактировать"
 #: view/applications/manage/social-profile/linkedin.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:28
 msgid "Birthday"
-msgstr ""
+msgstr "День рождения"
 
 #: view/applications/manage/social-profile/facebook.phtml:35
 #: view/applications/manage/social-profile/linkedin.phtml:54
 #: view/applications/manage/social-profile/xing.phtml:53
 msgid "School or university"
-msgstr ""
+msgstr "Школа или ВУЗ"
 
 #: view/applications/manage/social-profile/facebook.phtml:36
 msgid "Type"
@@ -481,7 +482,7 @@ msgstr ""
 #: view/applications/manage/social-profile/facebook.phtml:90
 #: view/applications/manage/social-profile/xing.phtml:112
 msgid "language skills"
-msgstr ""
+msgstr "знание языков"
 
 #: view/applications/manage/social-profile/xing.pdf.phtml:13
 #: view/applications/manage/social-profile/facebook.pdf.phtml:13
@@ -494,7 +495,7 @@ msgstr "Привязанность"
 #: view/applications/manage/social-profile/xing.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:35
 msgid "Year of birth"
-msgstr ""
+msgstr "Год рождения"
 
 #: view/applications/manage/social-profile/linkedin.phtml:55
 msgid "Degree"
@@ -502,7 +503,7 @@ msgstr ""
 
 #: view/applications/manage/social-profile/xing.phtml:54
 msgid "Notes"
-msgstr ""
+msgstr "Оценки"
 
 #: view/applications/manage/social-profile/xing.phtml:91
 msgid "ongoing"
@@ -510,7 +511,7 @@ msgstr ""
 
 #: view/applications/manage/social-profile/xing.phtml:96
 msgid "employes"
-msgstr ""
+msgstr "сотрудники"
 
 #: view/applications/manage/social-profile/xing.phtml:97
 msgid "Industry"
@@ -518,7 +519,7 @@ msgstr ""
 
 #: view/applications/manage/social-profile/xing.phtml:101
 msgid "Level"
-msgstr ""
+msgstr "Уровень"
 
 #: view/applications/manage/index.applicant.ajax.phtml:78
 msgid "view"
@@ -551,7 +552,7 @@ msgstr "Телефон"
 #: view/applications/manage/detail.pdf.phtml:119
 #: src/Applications/Form/Facts.php:37
 msgid "Facts"
-msgstr ""
+msgstr "Факты"
 
 #: view/sidebar/manage.phtml:4
 msgid "new applications"
@@ -606,19 +607,19 @@ msgstr ""
 #: src/Applications/Mail/StatusChange.php:57
 #, php-format
 msgid "Dear Mr. %s"
-msgstr ""
+msgstr "Уважаемый господин %s"
 
 #: src/Applications/Mail/Confirmation.php:64
 #: src/Applications/Mail/StatusChange.php:58
 #, php-format
 msgid "Dear Ms. %s"
-msgstr ""
+msgstr "Уважаемая госпожа %s"
 
 #: src/Applications/Mail/Confirmation.php:75
 #: src/Applications/Mail/StatusChange.php:69
 #, php-format
 msgid "Hello %s"
-msgstr ""
+msgstr "Привет %s"
 
 #: language/_annotated_strings.php:24 language/_annotated_strings.php:39
 msgid "Actions"
@@ -855,7 +856,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:21
 msgid "Modified"
-msgstr "Модифицированный"
+msgstr "Изменено"
 
 #: language/_annotated_strings.php:18
 msgid "Rating"

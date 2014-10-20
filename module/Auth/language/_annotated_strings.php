@@ -110,10 +110,7 @@ translate('You are now logged in.');
 //: ./src/Auth/Controller/IndexController.php:95
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:166
-translate('Welcome to YAWIK!');
-
-//: ./src/Auth/Controller/IndexController.php:391
+//: ./src/Auth/Controller/IndexController.php:393
 translate('You are now logged out');
 
 //: ./config/module.config.php:260
