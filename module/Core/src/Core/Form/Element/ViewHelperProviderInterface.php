@@ -11,13 +11,4 @@ interface ViewHelperProviderInterface
      */
     public function getViewHelper();
 
-    /**
-     * Sets the view helper instance or service name.
-     *
-     * @param \Zend\View\Helper\HelperInterface|string $helper
-     *
-     * @return self
-     * @throws \InvalidArgumentException if $helper is neiter a string nor a HelperInterface.
-     */
-    public function setViewHelper($helper);
 }
