@@ -12,6 +12,7 @@ namespace Core\Form;
 use Zend\Form\Form as ZendForm;
 use Zend\Form\FieldsetInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\InputFilter\InputFilterInterface;
 
 /**
  * Core form.
@@ -236,4 +237,28 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $name;
     }
 
+    /**
+     * reassurance, that no required inputfilter is set on a non-existing field, this mistake is otherwise hard to detect
+     * there is still a lot to do on this issue
+     * @param InputFilterInterface $inputFilter
+     * @param FieldsetInterface $fieldset
+     * @throws \RuntimeException
+     */
+    public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
+    {
+        parent::attachInputFilterDefaults($inputFilter, $fieldset);
+        foreach ($inputFilter->getInputs() as $name =>$input) {
+            if (!$input instanceof InputFilterInterface) {
+                $required = $input->isRequired();
+                $inputExists = $fieldset->has($name);
+                if (!$inputExists && $required) {
+                    $fieldsetName = '';
+                    if ($fieldset->hasAttribute('name')) {
+                        $fieldsetName = 'in Fieldset "' . $fieldset->getAttribute('name') . '" ';
+                    }
+                    throw new \RuntimeException('input for "' . $name . '" ' . $fieldsetName . 'is required but a input-field with this name is not defined');
+                }
+            }
+        }
+    }
 }

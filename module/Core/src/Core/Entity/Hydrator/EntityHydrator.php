@@ -41,7 +41,7 @@ class EntityHydrator extends AbstractHydrator
             $propertyValue = $object->$getter();
             $propertyName = lcfirst(substr($getter, 3));
             
-            $data[$propertyName] = $this->extractValue($propertyName, $propertyValue);
+            $data[$propertyName] = $this->extractValue($propertyName, $propertyValue, $object);
         }
         return $data;
         

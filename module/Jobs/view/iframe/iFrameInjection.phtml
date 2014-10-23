@@ -1,0 +1,29 @@
+<?php
+
+
+$docType = (string) $this->doctype();
+
+//<html lang="echo $this->params('lang')">
+
+$headTitle = (string) $this->headTitle()->setAutoEscape(false);
+
+$viewPort = (string) $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0');
+
+$basePath = $this->basePath();
+$headLink = (string) $this->headLink();
+$headScript = (string) $this->headScript();
+$headStyle = (string) $this->headStyle();
+
+$content = $this->content;
+if (preg_match("/^(.*)(<\/head>[^\w]*<body>.*)$/ms", $this->content, $matches)) {
+    $head = $matches[1];
+    $body = $matches[2];
+    $content = $head . PHP_EOL . $headLink . PHP_EOL . $headScript . PHP_EOL .  $headStyle . PHP_EOL . $body;
+}
+else {
+
+}
+
+echo $content;
+
+?>

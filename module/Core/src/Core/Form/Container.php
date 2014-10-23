@@ -514,9 +514,9 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
             $lastKey = array_shift($keySplit);
             foreach ($searchIn as $activeFormKey) {
                 if ($lastKey == $activeFormKey) {
-                        $searchIn = $this->getForm($activeFormKey);
-                        unset($lastKey);
-                        break;
+                    $searchIn = $this->getForm($activeFormKey);
+                    unset($lastKey);
+                    break;
                 }
             }
         }

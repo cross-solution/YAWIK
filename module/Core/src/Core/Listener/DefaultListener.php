@@ -42,6 +42,9 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
             $eventsApplication->attach($this->notificationListener);
         }
 
+        $postDispatch = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'postDispatch'), 1000);
+        //$events->detach($postDispatch);
+
         return $this;
     }
 
@@ -56,6 +59,11 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
             $eventsApplication->detach($this->notificationListener);
             unset($this->notificationListener);
         }
+    }
+
+    public function postDispatch(MvcEvent $e) {
+        $view = $this->getServiceManager()->get('view');
+
     }
 
 }

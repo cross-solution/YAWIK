@@ -17,7 +17,7 @@ use Core\Form\Container;
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  */
-class Job extends Container
+class JobDescriptionTemplate extends Container
 {
 
     /**
@@ -29,34 +29,19 @@ class Job extends Container
      */
     public function init()
     {
-        /*
         $this->setForms(array(
-            'locationForm' => array(
-                'type' => 'Jobs/TitleLocation',
-                'property' => true,
-            )
-        ));
-        */
-
-        /*
-        $this->setForms(array(
-            'employersForm' => array(
-                'type' => 'Jobs/Employers',
-                'property' => true,
-            )
-        ));
-        */
-
-        $this->setForms(array(
-            'descriptionForm' => array(
-                'type' => 'Jobs/Description',
+            'descriptionFormBenefits' => array(
+                'type' => 'Jobs/JobDescriptionBenefits',
                 'property' => true,
             )
         ));
 
-        // This label is used on the Settings page
-        //$this->options['settings_label'] = /*@translate*/ 'Customize apply form';
-
+        $this->setForms(array(
+            'descriptionFormTitle' => array(
+                'type' => 'Jobs/JobDescriptionTitle',
+                'property' => true,
+            )
+        ));
 
     }
 

@@ -193,7 +193,15 @@ class Job extends BaseEntity implements JobInterface {
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
     protected $permissions;
-    
+
+    /**
+     * The actual name of the organization.
+     *
+     * @var TemplateValues
+     * @ODM\EmbedOne(targetDocument="\Jobs\Entity\TemplateValues")
+     */
+    protected $templateValues;
+
     /**
      * Is this needed?
      * 
@@ -565,4 +573,24 @@ class Job extends BaseEntity implements JobInterface {
         $this->permissions = $permissions;
         return $this;
     }
+
+    public function getTemplateValues() {
+        if (!$this->templateValues instanceOf TemplateValues) {
+            $this->templateValues = new TemplateValues();
+        }
+        return $this->templateValues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTemplateValues(EntityInterface $templateValues = null)
+    {
+        if (!$templateValues instanceOf TemplateValues) {
+            $templateValues = new TemplateValues($templateValues);
+        }
+        $this->templateValues = $templateValues;
+        return $this;
+    }
+
 }
