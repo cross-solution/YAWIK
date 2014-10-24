@@ -76,6 +76,9 @@ class ManageController extends AbstractActionController {
     
     public function editAction()
     {
+        //$serviceLocator = $this->getServiceLocator();
+        //$defaultServices = $serviceLocator->get('DefaultListeners');
+        //$defaultServices->disableNotifications();
         $job = $this->getJob();
         $this->acl($job, 'edit');
         $form  = $this->getFormular($job);

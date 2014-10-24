@@ -21,6 +21,7 @@ use Core\Listener\InjectNotificationsViewModelListener;
 class DefaultListener implements ListenerAggregateInterface, ServiceManagerAwareInterface
 {
     protected $serviceLocator;
+    protected $notificationListener;
 
     public function setServiceManager(ServiceManager $serviceManager) {
         $this->serviceLocator = $serviceManager;
@@ -36,7 +37,10 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
     {
         $eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
         //$events->attach(new InjectNotificationsViewModelListener());
-        $eventsApplication->attach(new InjectNotificationsViewModelListener());
+        if (!isset($this->notificationListener)) {
+            $this->notificationListener = new InjectNotificationsViewModelListener();
+            $eventsApplication->attach($this->notificationListener);
+        }
 
         return $this;
     }
@@ -45,4 +49,13 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
     {
         return $this;
     }
+
+    public function disableNotifications() {
+        if (isset($this->notificationListener)) {
+            $eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
+            $eventsApplication->detach($this->notificationListener);
+            unset($this->notificationListener);
+        }
+    }
+
 }
