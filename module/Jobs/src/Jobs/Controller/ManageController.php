@@ -28,8 +28,11 @@ class ManageController extends AbstractActionController {
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
+        $serviceLocator = $this->getServiceLocator();
+        $defaultServices = $serviceLocator->get('DefaultListeners');
+
         $events = $this->getEventManager();
-        
+        $events->attach($defaultServices);
         
         /* This must run before onDispatch, because we could alter the action param */
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
