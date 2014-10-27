@@ -290,10 +290,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
             $this->mapEntity($formInstance, isset($form['property']) ? $form['property'] : $key, $entity);
         }
 
-        if ($formInstance instanceOf Form) {
-            $formInstance->setParams($this->getParams());
-            $formInstance->setParam('formName', $key);
-        }
+        $formInstance->setParams($this->getParams());
+
         $this->forms[$key]['__instance__'] = $formInstance;
         $this->forms[$key]['options'] = $options;
         return $formInstance;
