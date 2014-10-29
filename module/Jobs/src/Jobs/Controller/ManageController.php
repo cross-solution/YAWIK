@@ -243,6 +243,12 @@ class ManageController extends AbstractActionController {
         $descriptionFormBenefits = $formTemplate->get('descriptionFormBenefits');
         $renderedDescriptionFormBenefits = $viewHelperForm->render($descriptionFormBenefits);
 
+        $descriptionFormRequirements = $formTemplate->get('descriptionFormRequirements');
+        $renderedDescriptionFormRequirements = $viewHelperForm->render($descriptionFormRequirements);
+
+        $descriptionFormQualifications = $formTemplate->get('descriptionFormQualifications');
+        $renderedDescriptionFormQualifications = $viewHelperForm->render($descriptionFormQualifications);
+
         $descriptionFormTitle = $formTemplate->get('descriptionFormTitle');
         $renderedDescriptionFormTitle = $viewHelperForm->render($descriptionFormTitle);
 
@@ -250,6 +256,8 @@ class ManageController extends AbstractActionController {
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         $model->setVariables(array(
             'benefits' => $renderedDescriptionFormBenefits,
+            'requirements' => $renderedDescriptionFormRequirements,
+            'qualifications' => $renderedDescriptionFormQualifications,
             'title' => $renderedDescriptionFormTitle
         ));
 

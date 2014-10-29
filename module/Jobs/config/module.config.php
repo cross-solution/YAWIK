@@ -150,6 +150,8 @@ return array(
             'Jobs/ListFilter'                 => '\Jobs\Form\ListFilter',
             'Jobs/ListFilterFieldset'         => 'Jobs\Form\ListFilterFieldset',
             'Jobs/JobDescriptionBenefits'     => '\Jobs\Form\JobDescriptionBenefits',
+            'Jobs/JobDescriptionRequirements' => '\Jobs\Form\JobDescriptionRequirements',
+            'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',
             'Jobs/JobDescriptionTitle'        => '\Jobs\Form\JobDescriptionTitle',
             'Jobs/Description/Template'       => '\Jobs\Form\JobDescriptionTemplate',
 
