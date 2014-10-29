@@ -37,6 +37,10 @@ class ApplyController extends AbstractActionController
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
+        $serviceLocator  = $this->getServiceLocator();
+        $defaultServices = $serviceLocator->get('DefaultListeners');
+        $events->attach($defaultServices);
+        return $this;
     }
     
     public function preDispatch(MvcEvent $e)

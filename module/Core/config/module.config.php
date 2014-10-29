@@ -137,6 +137,9 @@ return array(
         'invokables' => array(
             'configaccess' => 'Core\Service\Config',
             'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber',
+            'defaultListeners' => 'Core\Listener\DefaultListener',
+            'templateProvider' => 'Core\Service\TemplateProvider',
+            'templateProviderStrategy' => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
         ),
         'factories' => array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
@@ -252,12 +255,14 @@ return array(
 //            'form_radio' => 'Core\Form\View\Helper\FormRadio',
 //            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
             'form' => 'Core\Form\View\Helper\Form',
+            'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
             'formrow' => 'Core\Form\View\Helper\FormRow',
+            'formrowsimple' => 'Core\Form\View\Helper\FormSimpleRow',
             'formrowcombined' => 'Core\Form\View\Helper\FormRowCombined',
             'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
@@ -277,7 +282,7 @@ return array(
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
-            'headscript' => 'Core\View\Helper\Service\HeadScriptFactory',
+            'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
         ),
         'initializers' => array(
 //            '\Core\View\Helper\Service\HeadScriptInitializer',

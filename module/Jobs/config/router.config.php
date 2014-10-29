@@ -79,6 +79,24 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+
+            'editTemplate' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/editTemplate/:id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'edittemplate',
+                        'defaults' => array(
+                            'id' => 0
+                        ),
+                        'constraints' => array(
+                            'id' => '[a-f0-9]+',
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'save' => array(

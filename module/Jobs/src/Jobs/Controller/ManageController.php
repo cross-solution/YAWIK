@@ -28,15 +28,19 @@ class ManageController extends AbstractActionController {
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
+        $serviceLocator = $this->getServiceLocator();
+        $defaultServices = $serviceLocator->get('DefaultListeners');
         $events = $this->getEventManager();
-        
+        $events->attach($defaultServices);
         
         /* This must run before onDispatch, because we could alter the action param */
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
-        
+        //$events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
+
         return $this;
     }
-    
+
+
+/* was soll das ?, Wieso wird hier einfach das Routing geändert, da fallen mir auf Anhieb mindestend drei bessere Lösungen ein - ohne Seiteneffekte */
     public function checkPostRequest(MvcEvent $e)
     {
         $request = $this->getRequest();
@@ -73,11 +77,13 @@ class ManageController extends AbstractActionController {
     
     public function editAction()
     {
+        //$serviceLocator = $this->getServiceLocator();
+        //$defaultServices = $serviceLocator->get('DefaultListeners');
+        //$defaultServices->disableNotifications();
         $job = $this->getJob();
         $this->acl($job, 'edit');
         $form  = $this->getFormular($job);
-        $model = $this->getViewModel($form, 'edit'); 
-        
+        $model = $this->getViewModel($form, 'edit');
         return $model;
     }
     
@@ -90,6 +96,9 @@ class ManageController extends AbstractActionController {
         $form       = $this->getFormular($job);
         $form->setData($_POST);
         if ($form->isValid()) {
+            $templateValues = $job->getTemplateValues();
+            $templateValues->testtesttest = array('a1' => 'test1','a2' => 'test2');
+            $test = $templateValues->testtesttest;
             if ($create) {
                 $this->notification()->success(/*@translate*/ 'Job published.');
                 $job->setStatus('active');
@@ -193,6 +202,60 @@ class ManageController extends AbstractActionController {
     protected function get($key) {
         return;
     }
+
+
+    protected function edittemplateAction()
+    {
+        $request              = $this->getRequest();
+        $params               = $this->params();
+        $formIdentifier       = $params->fromQuery('form');
+        $services             = $this->getServiceLocator();
+        $viewHelperManager    = $services->get('ViewHelperManager');
+        $viewHelperForm       = $viewHelperManager->get('formsimple');
+        $mvcEvent             = $this->getEvent();
+        $id                   = $this->params('id');
+        $applicationViewModel = $mvcEvent->getViewModel();
+        $repositories         = $services->get('repositories');
+        $repositoryJob        = $repositories->get('Jobs/Job');
+        $jobEntity            = $repositoryJob->find($id);
+        $model                = new ViewModel();
+        $forms                = $services->get('FormElementManager');
+        $formTemplate         = $forms->get('Jobs/Description/Template', array(
+                                    'mode' => $jobEntity->id ? 'edit' : 'new'
+                                ));
+        $defaultServices      = $services->get('DefaultListeners');
+        $defaultServices->disableNotifications();
+
+        $formTemplate->setParam('id', $jobEntity->id);
+        $formTemplate->setEntity($jobEntity);
+
+        if (isset($formIdentifier) &&  $request->isPost()) {
+            $instanceForm = $formTemplate->get($formIdentifier);
+            if (!isset($instanceForm)) {
+                throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
+            }
+            $instanceForm->setData($request->getPost());
+            if ($instanceForm->isValid()) {
+                $this->getServiceLocator()->get('repositories')->persist($jobEntity);
+            }
+        }
+
+        $descriptionFormBenefits = $formTemplate->get('descriptionFormBenefits');
+        $renderedDescriptionFormBenefits = $viewHelperForm->render($descriptionFormBenefits);
+
+        $descriptionFormTitle = $formTemplate->get('descriptionFormTitle');
+        $renderedDescriptionFormTitle = $viewHelperForm->render($descriptionFormTitle);
+
+        $model->setTemplate('templates/default/test.phtml');
+        $applicationViewModel->setTemplate('iframe/iFrameInjection');
+        $model->setVariables(array(
+            'benefits' => $renderedDescriptionFormBenefits,
+            'title' => $renderedDescriptionFormTitle
+        ));
+
+        return $model;
+    }
+
 
 }
 

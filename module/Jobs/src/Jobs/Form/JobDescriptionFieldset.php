@@ -3,21 +3,16 @@
 namespace Jobs\Form;
 
 use Zend\Form\Fieldset;
-use Core\Entity\Hydrator\EntityHydrator;
+//use Core\Entity\Hydrator\EntityHydrator;
+use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
 class JobDescriptionFieldset extends Fieldset
 {
 
-
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new EntityHydrator();
-            /*
-            $datetimeStrategy = new Hydrator\DatetimeStrategy();
-            $datetimeStrategy->setHydrateFormat(Hydrator\DatetimeStrategy::FORMAT_MYSQLDATE);
-            $hydrator->addStrategy('datePublishStart', $datetimeStrategy);
-             */
+            $hydrator = new JobDescriptionHydrator();
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
@@ -28,13 +23,40 @@ class JobDescriptionFieldset extends Fieldset
         $this->setAttribute('id', 'description-fieldset');
         $this->setLabel('Description');
 
+
         $this->add(array(
             'type' => 'Texteditor',
-            'name' => 'description',
+            'name' => 'descriptionqualification',
             'options' => array(
-                'label' => /*@translate*/ 'Job description'
+                'label' => /*@translate*/ 'Job qualification'
             ),
         ));
+
+        $this->add(array(
+            'type' => 'Texteditor',
+            'name' => 'descriptionbenefits',
+            'options' => array(
+                'label' => /*@translate*/ 'Job benefits'
+            ),
+        ));
+
+
+        $this->add(array(
+            'type' => 'Texteditor',
+            'name' => 'descriptionrequirements',
+            'options' => array(
+                'label' => /*@translate*/ 'Job requirements'
+            ),
+        ));
+
+        //$this->add(array(
+        //    'type' => 'Texteditor',
+        //    'name' => 'description',
+        //    'options' => array(
+        //        'label' => /*@translate*/ 'Job description'
+        //    ),
+        //));
+
 
     }
 }

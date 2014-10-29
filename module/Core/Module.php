@@ -97,7 +97,7 @@ class Module implements ConsoleBannerProviderInterface
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
             
-            $eventManager->attach(new InjectNotificationsViewModelListener());
+            //$eventManager->attach(new InjectNotificationsViewModelListener());
         }
         
         $persistenceListener = new PersistenceListener();

@@ -22,7 +22,6 @@ use Zend\View\Model\ViewModel;
  */
 class ManageGroupsController extends AbstractActionController
 {
-
     /**
      * Event identifier for the shared manager.
      * @var string
@@ -81,6 +80,10 @@ class ManageGroupsController extends AbstractActionController
             $sidebar->setTemplate('auth/sidebar/groups-menu');
             $layout->addChild($sidebar, 'sidebar_auth_groups-menu');
         }, -110);
+
+        $serviceLocator  = $this->getServiceLocator();
+        $defaultServices = $serviceLocator->get('DefaultListeners');
+        $events->attach($defaultServices);
     }
     
     /**

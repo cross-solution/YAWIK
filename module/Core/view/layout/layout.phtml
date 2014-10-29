@@ -17,7 +17,7 @@
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
-        <?php echo $this->headScript()
+        <?php echo $this->configheadScript()
                         ->prependFile($this->basepath('Core/js/core.init.js'))
                         ->prependFile($this->basePath('js/bootstrap.min.js'))
                         ->prependFile($this->basePath('js/jquery.min.js')) 

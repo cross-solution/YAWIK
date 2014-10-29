@@ -24,8 +24,12 @@ class FileController extends AbstractActionController
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
+
+        $serviceLocator  = $this->getServiceLocator();
+        $defaultServices = $serviceLocator->get('DefaultListeners');
+        $events->attach($defaultServices);
     }
-    
+
     public function preDispatch(MvcEvent $e)
     {
         if ('delete' == $this->params()->fromQuery('do') && $this->getRequest()->isXmlHttpRequest()) {
