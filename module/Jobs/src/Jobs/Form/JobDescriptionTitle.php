@@ -38,7 +38,7 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
         ));
 
         $this->add(array(
-            'type' => 'TextEditor',
+            'type' => 'TextEditorLight',
             'name' => 'description-title',
             'options' => array(
                 'use_as_base_fieldset' => true,
