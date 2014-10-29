@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="de-DE">
+<head>
+<title><?php echo $this->title ?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/Jobs/templates/default/style.css" type="text/css" media="screen">
+<style>
+form {
+  border:1px solid rgb(84, 152, 215);
+}
+</style>
+</head>
+<body>
+<div id="page">
+ <div id="header">
+  <div id="headerimg">
+    <a href="http://cross-solution.de/"><img src="/Jobs/templates/default/logo.gif" class="logo" border="0"></a>
+    <div class="description">This is a demo Template of a job opening</div>
+  </div>
+ </div>
+<div id="content">
+<h1><?php echo $this->title ?></h1>
+<p>
+This is a demo Template of a jobad. Templates are quite easy to create. Just put <code>&lt;?php echo->requirements?&gt</code>
+into your jobad and yawik will create an inline editor into your jobad. Details you can read at ...
+</p>
+<p>Click on the area blow "Aufga</p>
+<h1>TITEL: <?echo $this->title?></h1>
+<table style="color: rgb(84, 152, 215); padding: 4px; margin-top: 8px;" border="0" cellpadding="0" cellspacing="0" width="0%">
+<tbody>
+<tr>
+<td style="padding: 3px 0pt 0pt 0px;"><strong>Anfangsdatum</strong></td>
+<td style="padding: 3px 0pt 0pt 3px;">ab sofort</td>
+</tr>
+<tr>
+<td style="padding: 3px 0pt 0pt 0px;"><strong>Standort</strong></td>
+<td style="padding: 3px 0pt 0pt 3px;">Frankfurt am Main (Bockenheim)</td>
+</tr>
+</tbody>
+</table>
+<h4>Requirements:</h4>
+<?php echo $this->requirements;?>
+<h4>Qualifications:</h4>
+<?php echo $this->qualifications;?>
+<h4>Benefits:</h4>
+<?php echo $this->benefits;?>
+
+<h2><a target="_new" href="http://yawik.org/demo/de/apply/software-developer?subscriberUri=http%3A%2F%2Fcross-solution.de%2Fsubscriber%2F2"><strong>Zum Online Bewerbungsformular</strong></a></h2>
+
+
+<address>
+<strong>CROSS Solution<br>
+</strong>Diemelstraße 2-4<br>
+60486 Frankfurt am Main (Bockenheim)<br><br>
+
+Tel: 069-71910361<br>
+Fax: 069-71910369
+</address>
+</div>
+</div>
+</body>
+</html>

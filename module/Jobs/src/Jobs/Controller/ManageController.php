@@ -246,7 +246,7 @@ class ManageController extends AbstractActionController {
         $descriptionFormTitle = $formTemplate->get('descriptionFormTitle');
         $renderedDescriptionFormTitle = $viewHelperForm->render($descriptionFormTitle);
 
-        $model->setTemplate('templates/default/test.phtml');
+        $model->setTemplate('templates/default/index.phtml');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         $model->setVariables(array(
             'benefits' => $renderedDescriptionFormBenefits,
