@@ -258,7 +258,7 @@ class ManageController extends AbstractActionController {
             'benefits' => $renderedDescriptionFormBenefits,
             'requirements' => $renderedDescriptionFormRequirements,
             'qualifications' => $renderedDescriptionFormQualifications,
-            'title' => $renderedDescriptionFormTitle
+            'title' => $renderedDescriptionFormTitle,
         ));
 
         return $model;

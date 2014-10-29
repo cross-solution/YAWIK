@@ -16,6 +16,7 @@ use Zend\Form\ElementInterface;
 class FormEditor extends FormTextarea
 {
 
+    protected $theme = 'modern';
     /*
     public function __invoke(ElementInterface $element = null)
     {
@@ -49,15 +50,16 @@ class FormEditor extends FormTextarea
         $headscript->appendFile($basepath('js/tinymce/tinymce.jquery.min.js'));
         $headscript->prependFile($basepath('js/jquery.min.js'));
 
-        $headscript->offsetSetScript('1000_tinymce', '
+        $headscript->offsetSetScript('1000_tinymce_' . $this->getTheme() , '
         $(document).ready(function() {
             tinyMCE.init({
                 //mode : "textareas",
-                selector : "div.tinymce",
+                selector : "div.tinymce_' . $this->getTheme() . '",
                 inline : true,
                 theme : "modern",
-                //editor_selector : "tinymce",
-                setup: function(editor) {
+                //editor_selector : "tinymce",' . PHP_EOL
+                . $this->additionalOptions() .
+                'setup: function(editor) {
                     editor.on("blur", function(e) {
                     //console.log("blur event", e);
                     var container = e.target.bodyElement;
@@ -85,11 +87,11 @@ class FormEditor extends FormTextarea
             $escapeHtml         = $this->getEscapeHtmlHelper();
 
             $class = array_key_exists('class',$attributes)?$attributes['class']:'';
-            $class .= (empty($class)?:' ') . ' tinymce';
+            $class .= (empty($class)?:' ') . ' tinymce_' . $this->getTheme() ;
             $attributes['class'] = $class;
 
             return sprintf(
-                '<div %s id="abracadabra">%s</div>',
+                '<div %s >%s</div>',
                 $this->createAttributesString($attributes),
                 $escapeHtml($content)
             );
@@ -105,4 +107,13 @@ class FormEditor extends FormTextarea
             return (string) $content;
         }
     }
+
+    protected function getTheme() {
+        return $this->theme;
+    }
+
+    protected function additionalOptions() {
+        return '';
+    }
+
 }

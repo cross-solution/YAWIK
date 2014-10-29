@@ -325,6 +325,7 @@ return array(
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
             'togglebutton' => 'Core\Form\Element\ToggleButton',
             'TextEditor' => 'Core\Form\Element\Editor',
+            'TextEditorLight' => 'Core\Form\Element\EditorLight',
 
         ),
         'aliases' => array(
