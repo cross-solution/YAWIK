@@ -257,7 +257,7 @@ class ManageController extends AbstractActionController {
         $model->setVariables(array(
             'benefits' => $renderedDescriptionFormBenefits,
             'requirements' => $renderedDescriptionFormRequirements,
-            'qualifications' => $renderedDescriptionFormQualifications,
+            'qualifications' => $renderedDescriptionFormQualifications, 
             'title' => $renderedDescriptionFormTitle,
         ));
 
