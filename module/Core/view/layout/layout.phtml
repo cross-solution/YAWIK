@@ -7,9 +7,14 @@
  * @license   MIT
  */
 ?>
+<?php 
 
+// See: http://yawik.readthedocs.org/en/latest/modules/core/notifications.html
+
+$notifications = $this->partial('core/notifications'); 
+
+?>
 <?php echo $this->doctype(); ?>
-
 <html lang="<?php echo $this->params('lang')?>">
     <head>
         <meta charset="utf-8">
@@ -96,7 +101,7 @@ endforeach;?>
                     </div>
                     
 <main id="content" class="col-md-10">
-<?php echo $this->notifications?>
+<?php echo $notifications?>
 <?php echo $this->content; ?>
 </main> 
 <!-- /container -->
