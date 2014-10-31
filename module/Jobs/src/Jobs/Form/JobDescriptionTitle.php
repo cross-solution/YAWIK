@@ -23,7 +23,6 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
     {
         if (!$this->hydrator) {
             $hydrator = new JobDescriptionHydrator();
-            //$hydrator->addStrategy('descriptionbenefits', new Hydrator\Strategy\JobDescriptionBenefitsStrategy());
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;

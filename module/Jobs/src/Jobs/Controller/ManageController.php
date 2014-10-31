@@ -32,30 +32,10 @@ class ManageController extends AbstractActionController {
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events = $this->getEventManager();
         $events->attach($defaultServices);
-        
-        /* This must run before onDispatch, because we could alter the action param */
-        //$events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'checkPostRequest'), 10);
 
         return $this;
     }
 
-
-/* was soll das ?, Wieso wird hier einfach das Routing geändert, da fallen mir auf Anhieb mindestend drei bessere Lösungen ein - ohne Seiteneffekte */
-    public function checkPostRequest(MvcEvent $e)
-    {
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $routeMatch = $e->getRouteMatch();
-            if (!$routeMatch) {
-                return; // Let parent::onDispatch handle failure
-            }
-            /* All POST requests are handled by the saveAction! */
-            $action = $routeMatch->getParam('action');
-            $routeMatch->setParam('action', 'save');
-            $routeMatch->setParam('origAction', $action);
-        }
-    }
-    
     /**
      * Action called, when a new job should be created.
      * 
@@ -70,48 +50,50 @@ class ManageController extends AbstractActionController {
             uniqid(substr(md5($user->login), 0, 3))
         );
         $form  = $this->getFormular($job); 
-        $model = $this->getViewModel($form, 'new');
+        $model = $this->getViewModel($form);
         
         return $model;
     }
-    
+
+    // @TODO edit-Action and save-Action are doing the same, one of them has to quit
     public function editAction()
     {
-        //$serviceLocator = $this->getServiceLocator();
-        //$defaultServices = $serviceLocator->get('DefaultListeners');
-        //$defaultServices->disableNotifications();
-        $job = $this->getJob();
-        $this->acl($job, 'edit');
-        $form  = $this->getFormular($job);
-        $model = $this->getViewModel($form, 'edit');
-        return $model;
+        return $this->save();
     }
     
     public function saveAction()
     {
-        $origAction = $this->params('origAction');
-        $create     = 'new' == $origAction;
-        $job        = $this->getJob($create);
-        $this->acl($job, $origAction);
-        $form       = $this->getFormular($job);
-        $form->setData($_POST);
-        if ($form->isValid()) {
-            $templateValues = $job->getTemplateValues();
-            $templateValues->testtesttest = array('a1' => 'test1','a2' => 'test2');
-            $test = $templateValues->testtesttest;
-            if ($create) {
-                $this->notification()->success(/*@translate*/ 'Job published.');
-                $job->setStatus('active');
-                $job->setUser($this->auth()->getUser());
-                $this->getServiceLocator()->get('repositories')->persist($job);
-            } else {
-                $this->notification()->success(/*@translate*/ 'Job saved.');
+        return $this->save();
+    }
+
+    protected function save()
+    {
+        $request            = $this->getRequest();
+        $params             = $this->params();
+        $formIdentifier     = $params->fromQuery('form');
+        $jobEntity          = $this->getJob();
+        //$this->acl($job, $origAction);
+        $form       = $this->getFormular($jobEntity);
+        if (isset($formIdentifier) &&  $request->isPost()) {
+            // at this point the form get instanciated and immediately accumulated
+            $instanceForm = $form->get($formIdentifier);
+            if (!isset($instanceForm)) {
+                throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
-            return $this->redirect()->toRoute('lang/jobs');
+            // the id is part of the postData, but it never should be altered
+            $postData = $request->getPost();
+            unset($postData['id']);
+            $instanceForm->setData($postData);
+            if ($instanceForm->isValid()) {
+                $this->getServiceLocator()->get('repositories')->persist($jobEntity);
+                $this->notification()->success(/*@translate*/ 'Job saved');
+            }
+            else {
+                $this->notification()->error(/*@translate*/ 'There were errors in the form');
+            }
         }
-        
-        $this->notification()->error(/*@translate*/ 'There were errors in the form');
-        return $this->getViewModel($form, $origAction);
+
+        return $this->getViewModel($form);
     }
     
     public function checkApplyIdAction()
@@ -149,47 +131,33 @@ class ManageController extends AbstractActionController {
         */
     }
     
-    protected function getJob($create = false)
+    protected function getJob()
     {
-        $services     = $this->getServiceLocator();
-        $repositories = $services->get('repositories');
-        $repository   = $repositories->get('Jobs/Job');
+        $services       = $this->getServiceLocator();
+        $repositories   = $services->get('repositories');
+        $repository     = $repositories->get('Jobs/Job');
+        // @TODO three different method to obtain the job-id ?, simplify this
+        $id_fromRoute   = $this->params('id',0);
+        $id_fromQuery   = $this->params()->fromQuery('id',0);
+        $id_fromSubForm = $this->params()->fromPost('job',0);
+        $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
         
-        if ($create) {
+        if (empty($id)) {
             $job = $repository->create();
             return $job;
         }
-        
-        if ($this->getRequest()->isPost()) {
-            $jobData = $this->params()->fromPost('job');
-            if (is_array($jobData)) {
-                $id      = isset($jobData['id']) ? $jobData['id'] : null;
-            }
-            elseif (is_string($jobData)) {
-                $id = $jobData;
-            }
-        } else {
-            $id = $this->params()->fromQuery('id');
-        }
 
-        if (!$id) {
-            throw new \RuntimeException('Missing job id.');
-        }
-
-        $job = $repository->find($id);
-
-        if (!$job) {
+        $jobEntity      = $repository->find($id);
+        if (!$jobEntity) {
             throw new \RuntimeException('No job found with id "' . $id . '"');
         }
-
-        return $job;
+        return $jobEntity;
     }
     
-    protected function getViewModel($form, $action, array $params = array())
+    protected function getViewModel($form, array $params = array())
     {
         $variables = array(
             'form' => $form,
-            'action' => $action,
         );
         $viewVars  = array_merge($variables, $params);
         
@@ -230,11 +198,15 @@ class ManageController extends AbstractActionController {
         $formTemplate->setEntity($jobEntity);
 
         if (isset($formIdentifier) &&  $request->isPost()) {
+            // at this point the form get instanciated and immediately accumulated
             $instanceForm = $formTemplate->get($formIdentifier);
             if (!isset($instanceForm)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
-            $instanceForm->setData($request->getPost());
+            // the id is part of the postData, but it never should be altered
+            $postData = $request->getPost();
+            unset($postData['id']);
+            $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
                 $this->getServiceLocator()->get('repositories')->persist($jobEntity);
             }

@@ -22,29 +22,35 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
 {
 
     /**
-     * @var array
-     * @ODM\Collection
+     * @var String
+     * @ODM\String
      */
     protected $qualifications;
 
     /**
-     * @var array
-     * @ODM\Collection
+     * @var String
+     * @ODM\String
      */
     protected $requirements;
 
     /**
-     * @var array
-     * @ODM\Collection
+     * @var String
+     * @ODM\String
      */
     protected $benefits;
+
+    /**
+     * @var String
+     * @ODM\String
+     */
+    protected $title;
 
     /**
      * @ODM\Hash
      */
     protected $_freeValues;
 
-    public function setQualifications(array $qualifications)
+    public function setQualifications(\string $qualifications)
     {
         $this->qualifications=$qualifications;
         return $this;
@@ -56,7 +62,7 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
     }
 
 
-    public function setRequirements(array $requirements)
+    public function setRequirements(\string $requirements)
     {
         $this->requirements=$requirements;
         return $this;
@@ -67,8 +73,7 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
         return $this->requirements;
     }
 
-
-    public function setBenefits(array $benefits)
+    public function setBenefits(\string $benefits)
     {
         $this->benefits=$benefits;
         return $this;
@@ -77,6 +82,17 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
     public function getBenefits()
     {
         return $this->benefits;
+    }
+
+    public function setTitle(\string $title)
+    {
+        $this->title=$title;
+        return $this;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     public function get($key = null, $default = null, $set = false)

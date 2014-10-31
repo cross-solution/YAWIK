@@ -15,6 +15,8 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
 
+// @TODO The JobdescriptionHydrator is used for every Form in the Description, this produces some overhead,
+// @TODO correctly their should be one Hydrator for every Form
 class JobDescriptionHydrator extends EntityHydrator
 {
 
@@ -29,6 +31,7 @@ class JobDescriptionHydrator extends EntityHydrator
         $this->addStrategy('descriptionrequirements', new Strategy\JobDescriptionRequirementsStrategy());
         $this->addStrategy('descriptionbenefits', new Strategy\JobDescriptionBenefitsStrategy());
         $this->addStrategy('descriptionqualification', new Strategy\JobDescriptionQualificationsStrategy());
+        $this->addStrategy('descriptiontitle', new Strategy\JobDescriptionTitleStrategy());
     }
 
     /* (non-PHPdoc)
@@ -37,14 +40,20 @@ class JobDescriptionHydrator extends EntityHydrator
     public function extract ($object)
     {
         $data = parent::extract($object);
-        $data['descriptionrequirements']  = $this->extractValue('descriptionrequirements', $object);
-        $data['descriptionbenefits']      = $this->extractValue('descriptionbenefits', $object);
-        $data['descriptionqualification'] = $this->extractValue('descriptionqualification', $object);
+        $data['description-requirements']  = $this->extractValue('descriptionrequirements', $object);
+        $data['description-benefits']      = $this->extractValue('descriptionbenefits', $object);
+        $data['description-qualification'] = $this->extractValue('descriptionqualification', $object);
+        $data['description-title']         = $this->extractValue('descriptiontitle', $object);
         return $data;
     }
 
     public function hydrate (array $data, $object)
     {
+        $object = parent::hydrate($data, $object);
+        $this->hydrateValue('descriptionrequirements', $data, $object);
+        $this->hydrateValue('descriptionbenefits', $data, $object);
+        $this->hydrateValue('descriptionqualification', $data, $object);
+        $this->hydrateValue('descriptiontitle', $data, $object);
         return $object;
     }
 }
