@@ -77,9 +77,6 @@ class ManageController extends AbstractActionController {
     
     public function editAction()
     {
-        //$serviceLocator = $this->getServiceLocator();
-        //$defaultServices = $serviceLocator->get('DefaultListeners');
-        //$defaultServices->disableNotifications();
         $job = $this->getJob();
         $this->acl($job, 'edit');
         $form  = $this->getFormular($job);
@@ -223,8 +220,6 @@ class ManageController extends AbstractActionController {
         $formTemplate         = $forms->get('Jobs/Description/Template', array(
                                     'mode' => $jobEntity->id ? 'edit' : 'new'
                                 ));
-        $defaultServices      = $services->get('DefaultListeners');
-        $defaultServices->disableNotifications();
 
         $formTemplate->setParam('id', $jobEntity->id);
         $formTemplate->setEntity($jobEntity);
