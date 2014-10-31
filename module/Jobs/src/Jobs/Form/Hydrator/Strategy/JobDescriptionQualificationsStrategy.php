@@ -17,13 +17,15 @@ class JobDescriptionQualificationsStrategy implements StrategyInterface
     public function extract($value) {
         $result = Null;
         if (isset($value->description)) {
-            $result = $value->description["qualifications"];
+            $result = $value->templateValues->qualifications;
         }
         return $result;
     }
 
-
-    public function hydrate($value) {
+    public function hydrate($value, $object = Null) {
+        if (isset($value['description-qualification'])) {
+            $object->templateValues->qualifications = $value['description-qualification'];
+        }
         return;
     }
 }

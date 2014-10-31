@@ -16,13 +16,8 @@ class FormEditorLight extends FormEditor
 
     protected function additionalOptions() {
         return '
-        plugins: [
-            "advlist autolink lists charmap anchor",
-            "searchreplace visualblocks code fullscreen",
-            "contextmenu paste"
-        ],
         toolbar: "undo redo ",
-        removed_menuitems: "newdocument",
+        menubar: false,
         ';
 
         //     | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent

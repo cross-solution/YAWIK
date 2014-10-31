@@ -13,17 +13,20 @@ $this->form->get('buttons')->get('cancel')->setAttribute(
 );
 */
 // Tweak navigation
+// @TODO move this navigation-processing to the controller
 $navigation = $this->navigation('Core/Navigation')->getContainer();
 $navigation->findOneBy('route', 'lang/jobs')->setActive(true);
-$subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
-$subPage->setActive(true);
+//$subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
+//$subPage->setActive(true);
 ?>
-<h1><?php if ('new' == $this->action): 
-            echo $this->translate('Publish a job');
-          else:
-            echo $this->translate('Edit a job');
-            $subPage->setVisible(true);
-            
-          endif ?></h1>
+<h1><?php
+//    if ('new' == $this->action):
+//            echo $this->translate('Publish a job');
+//          else:
+//            echo $this->translate('Edit a job');
+//            $subPage->setVisible(true);
+//
+//          endif
+?></h1>
           
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
