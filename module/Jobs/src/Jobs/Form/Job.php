@@ -29,14 +29,12 @@ class Job extends Container
      */
     public function init()
     {
-        /*
         $this->setForms(array(
             'locationForm' => array(
                 'type' => 'Jobs/TitleLocation',
                 'property' => true,
             )
         ));
-        */
 
         /*
         $this->setForms(array(

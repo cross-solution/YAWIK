@@ -23,7 +23,6 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
     {
         if (!$this->hydrator) {
             $hydrator = new JobDescriptionHydrator();
-            //$hydrator->addStrategy('descriptionbenefits', new Hydrator\Strategy\JobDescriptionBenefitsStrategy());
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
@@ -39,7 +38,7 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
 
         $this->add(array(
             'type' => 'TextEditor',
-            'name' => 'description-benefit',
+            'name' => 'description-benefits',
             'options' => array(
                 'use_as_base_fieldset' => true,
             ),
