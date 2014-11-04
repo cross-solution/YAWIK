@@ -29,9 +29,13 @@ $notifications = $this->partial('core/notifications');
                         ->appendScript('var lang="' . $this->params('lang') . '";'
                                      . 'var basePath="' . $this->basePath() . '";');
         ?>
-        
-        <?php echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/yawik.css');?>
+        <?php
 
+        // See: http://yawik.readthedocs.org/en/latest/customize.html#css
+
+        echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/yawik.css');
+
+        ?>
         <?php echo $this->headStyle() ?>
         <style type="text/css">
         .yk-notifications {
