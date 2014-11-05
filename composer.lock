@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "01235aeaa41c58af1657ed563d518932",
+    "hash": "65d03c3351c98a7faf1a06c8027362dc",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -1251,22 +1251,25 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v3.1.1",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d"
+                "reference": "16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a365d8689c3f3cee7f1acf86b61270ecca8e106d",
-                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a",
+                "reference": "16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a",
                 "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "3.3.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1283,13 +1286,19 @@
                     "email": "markdotto@gmail.com"
                 }
             ],
-            "description": "Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.",
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "homepage": "http://getbootstrap.com",
             "keywords": [
-                "bootstrap",
-                "css"
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
             ],
-            "time": "2014-02-13 17:24:59"
+            "time": "2014-10-29 18:56:48"
         },
         {
             "name": "twitter/typeahead.js",
