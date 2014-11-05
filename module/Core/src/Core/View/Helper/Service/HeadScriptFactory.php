@@ -30,7 +30,10 @@ class HeadScriptFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $helper   = new HeadScript();
+        /* @var $helper \Zend\View\Helper\Headscript|\Callable */
+        /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
+        /* @var $services \Zend\ServiceManager\ServiceLocatorInterface */
+        $helper   = $serviceLocator->get('headscript'); //new HeadScript();
         $services = $serviceLocator->getServiceLocator();
         $config   = $services->get('Config');
         
@@ -39,10 +42,11 @@ class HeadScriptFactory implements FactoryInterface
         }
         
         $config     = $config['view_helper_config']['headscript'];
-        
+
+        /* @var $routeMatch \Zend\Mvc\Router\RouteMatch */
         $routeMatch = $services->get('Application')->getMvcEvent()->getRouteMatch();
         $routeName  = $routeMatch ? $routeMatch->getMatchedRouteName() : '';
-        $basepath = $serviceLocator->get('basepath');
+        $basepath = $serviceLocator->get('basepath'); /* @var $basepath \Zend\View\Helper\BasePath */
         
         foreach ($config as $routeStart => $specs) {
             if (!is_int($routeStart)) {
