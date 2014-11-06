@@ -79,9 +79,6 @@
 				$dialog.find('#cam-application-comments-addbtn').addClass('hide');
 				//$dialog.find('#cam-application-comments-closebtn').addClass('hide');
 			}
-			if (!$dialog.data('modal') || !$dialog.data('modal').isShown) {
-				$dialog.modal('show');
-			}
 		};
 		
 		var replaceContent = function(html, err)
@@ -100,7 +97,7 @@
 			if (!forceListReload) {
 				return;
 			}
-			
+
 			replaceContent('');
 			$loader.removeClass('hide');
 			
