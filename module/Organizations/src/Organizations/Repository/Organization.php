@@ -75,4 +75,11 @@ class Organization extends AbstractRepository
         }
         return $entity;
     }
+
+    public function create(array $data=null) {
+        $entity = parent::create($data);
+        $entity->isDraft(True);
+        return $entity;
+
+    }
 }

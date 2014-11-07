@@ -18,13 +18,14 @@ use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
+use Core\Entity\DraftableEntityInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends BaseEntity implements JobInterface {
+class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
      * uniq ID of a job posting used by applications to reference
@@ -203,6 +204,14 @@ class Job extends BaseEntity implements JobInterface {
     protected $templateValues;
 
     /**
+     * Flag indicating draft state of this job.
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $isDraft = false;
+
+    /**
      * Is this needed?
      * 
      * @return string
@@ -211,6 +220,7 @@ class Job extends BaseEntity implements JobInterface {
     {
         return 'Entity/Jobs/Job';
     }
+
     /**
      * @see \Jobs\Entity\JobInterface::setApplyId()
      * @param String $applyId
@@ -593,4 +603,25 @@ class Job extends BaseEntity implements JobInterface {
         return $this;
     }
 
+    /**
+     * Gets the flag indicating the draft state.
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
+
+    /**
+     * Sets the flag indicating the draft state.
+     *
+     * @param boolean $flag
+     * @return DraftableEntityInterface
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+        return $this;
+    }
 }

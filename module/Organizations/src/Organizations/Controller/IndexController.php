@@ -71,28 +71,44 @@ class IndexController extends AbstractActionController
         $services        = $this->getServiceLocator();
         $request         = $this->getRequest();
         $ajaxRequest     = $request->isXmlHttpRequest();
-        $organization_id = $this->params('id', 0);
+        $params          = $this->params();
+        $formIdentifier  = $params->fromQuery('form');
+        $id_fromRoute    = $this->params('id', 0);
+        $id_fromSubForm  = $this->params()->fromPost('id',0);
+        $organization_id = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
         $repositories    = $services->get('repositories');
         $repository      = $repositories->get('Organizations/Organization');
-        $form            = $services->get('forms')->get('organizations/form');
+        $container            = $services->get('forms')->get('organizations/form');
         $viewHelper      = $services->get('ViewHelperManager');
         $org             = $repository->find($organization_id);
+        if (!isset($org) && !$request->isPost()) {
+            // create a new Organization
+            $org =  $repository->create();
+            $org->setIsDraft(true);
+            $user  = $this->auth()->getUser();
+            $permissions = $org->getPermissions();
+            $permissions->grant($user, PermissionsInterface::PERMISSION_ALL);
+            $repositories->persist($org);
+        }
         if (isset($org)) {
-            $form->bind($org);
-            if ($request->isPost()) {
+            if (isset($org->org) && !empty($org->organizationName->name)) {
+                $org->setIsDraft(false);
+            }
+            $container->setEntity($org);
+            $container->setParam('id', $org->id);
+            if (isset($formIdentifier) && $request->isPost()) {
                 $postData = $this->params()->fromPost();
+                $form = $container->get($formIdentifier);
                 $form->setData($postData);
-                $isValid = $form->isValid() || True;
+                if (!isset($form)) {
+                    throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
+                }
+                $isValid = $form->isValid();
                 if ($isValid) {
-                    //$org = $hydrator->hydrate($postData, $org);
-                    //$org = $hydrator->hydrate($org, $entityOrganizationFromDB);
-                    //$services->get('repositories')->store($entityOrganization);
-                    $user  = $this->auth()->getUser();
-                    $permissions = $org->getPermissions();
-                    $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
-                    //->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
-                    //->inherit($application->getJob()->getPermissions());
-                    $repositories->store($org);
+                    //$user  = $this->auth()->getUser();
+                    //$permissions = $org->getPermissions();
+                    //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
+                    //$repositories->persist($org);
                 }
                 if ($ajaxRequest) {
                     $summeryFormViewHelper = $viewHelper->get('summaryform');
@@ -108,7 +124,7 @@ class IndexController extends AbstractActionController
 
         if (!isset($return)) {
             $return = array(
-                'form' => $form
+                'form' => $container
             );
         }
         return $return;

@@ -25,18 +25,24 @@ class OrganizationNameStrategy implements StrategyInterface
     
     public function extract ($value)
     {
-        return $value;
+        $name = '';
+        if (isset($value->name)) {
+            $name = $value->name;
+        }
+        return $name;
     }
     
     public function hydrate ($value)
     {
         $organizationNameEntity = $value;
         if (is_string($value)) {
-            $organizationNameEntity = $this->repository->findOneBy(array('name' => $value));
-            if (empty($organizationNameEntity)) {
-                $organizationNameEntity = $this->repository->create();
-                $organizationNameEntity->setName($value);
+            if (!isset($this->repository)) {
+                throw new \InvalidArgumentException('OrganizationNameStrategy needs to access to the Repository');
             }
+            if (!$this->repository instanceof OrganizationNameRepository) {
+                throw new \InvalidArgumentException('OrganizationNameStrategy repository needs to be of the class Organizations\Repository\OrganizationName');
+            }
+            $organizationNameEntity = $this->repository->findbyName($value);
         }
         return $organizationNameEntity;
     }

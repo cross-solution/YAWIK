@@ -57,7 +57,16 @@
             </a>
          <?php endif;?>
          <td>
-         <?php echo $job->status?>
+         <?php
+            $status = array();
+            if (!empty($job->status)) {
+                $status[] = $job->status;
+            }
+            if ($job->isDraft()) {
+                $status[] = $this->translate('draft');
+            }
+            echo implode('<br />', $status);
+         ?>
          </td>
          <td>
          <?php if ($this->acl($job, 'edit')): ?>

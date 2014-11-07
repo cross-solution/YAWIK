@@ -131,7 +131,7 @@ class ManageController extends AbstractActionController {
         */
     }
     
-    protected function getJob()
+    protected function getJob($allowDraft = true)
     {
         $services       = $this->getServiceLocator();
         $repositories   = $services->get('repositories');
@@ -142,8 +142,12 @@ class ManageController extends AbstractActionController {
         $id_fromSubForm = $this->params()->fromPost('job',0);
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
         
-        if (empty($id)) {
-            $job = $repository->create();
+        if (empty($id) && $allowDraft) {
+            $job        = $repository->create();
+            $user       = $this->auth()->getUser();
+            $job->setIsDraft(true);
+            $job->setUser($user);
+            $repositories->store($job);
             return $job;
         }
 
@@ -195,7 +199,7 @@ class ManageController extends AbstractActionController {
         $formTemplate->setParam('id', $jobEntity->id);
         $formTemplate->setEntity($jobEntity);
 
-        if (isset($formIdentifier) &&  $request->isPost()) {
+        if (isset($formIdentifier) && $request->isPost()) {
             // at this point the form get instanciated and immediately accumulated
             $instanceForm = $formTemplate->get($formIdentifier);
             if (!isset($instanceForm)) {

@@ -18,16 +18,17 @@ namespace Core\Form;
  */
 class BaseForm extends Form
 {
-    
+
     /**
      * Base fieldset
      * Can be a string representing a FormElementManager key (aka element type),
      * an array holding specification according to {@add()}.
-     * 
+     *
      * @var string|array
      */
-    protected $baseFieldset;
-    
+    // @TODO: delete this property, it is already defined in some parent class
+    //protected $baseFieldset;
+
     /**
      * {@inheritDoc}
      * @see \Zend\Form\Element::init()
@@ -36,6 +37,9 @@ class BaseForm extends Form
      */
     public function init()
     {
+        if (empty($this->baseFieldset)) {
+            throw new \InvalidArgumentException('For the Form ' . get_class($this) . ' there is no Basefieldset');
+        }
         $this->addBaseFieldset();
         $this->addButtonsFieldset();
     }

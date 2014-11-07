@@ -91,7 +91,7 @@ return array(
                         'route' => 'lang/jobs/manage',
                         'resource' => 'route/lang/jobs/manage',
                         'params' => array(
-                            'action' => 'new'
+                            'action' => 'edit'
                         ),
                         'id' => 'Jobs/new',
                     ),

@@ -74,8 +74,11 @@ return array(
     'form_elements' => array(
         'invokables' => array(
              'Organizations/form' => 'Organizations\Form\Organizations',
-             'Organizations/ContactFieldset' => 'Organizations\Form\ContactFieldset',
-             'Organizations/OrganizationFieldset' => 'Organizations\Form\OrganizationsFieldset',
+             'Organizations/OrganizationsContactForm'     => 'Organizations\Form\OrganizationsContactForm',
+             'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
+             'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
+             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+            //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
         ),
         'factories' => array(
         )
