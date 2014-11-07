@@ -25,12 +25,12 @@ class Organization extends AbstractRepository
                     ->getQuery()
                     ->execute();
     }
-    
+
     /**
      * Gets a query builder to search for organizations
-     * 
+     *
      * @param array $params
-     * @return unknown
+     * @return mixed
      */
     protected function getPaginationQueryBuilder($params)
     {
