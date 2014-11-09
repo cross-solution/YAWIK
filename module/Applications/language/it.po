@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-09-16 13:32+0000\n"
+"PO-Revision-Date: 2014-11-08 16:58+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Applicazioni correnti"
 
 #: view/applications/index/dashboard.phtml:20
 msgid "Sent Applications"
-msgstr ""
+msgstr "Le domande inviate"
 
 #: view/applications/index/dashboard.phtml:39
 #: language/_annotated_strings.php:3
@@ -95,23 +95,23 @@ msgstr ""
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
-msgstr ""
+msgstr "Tieniti aggiornato con il processo della vostra applicazione di bookmarking questo link:"
 
 #: view/applications/apply/_buttons.phtml:19
 msgid "Back to the formular"
-msgstr ""
+msgstr "Torna alla formulario"
 
 #: view/applications/apply/_buttons.phtml:23
 msgid "Preview application"
-msgstr ""
+msgstr "Applicazione Anteprima"
 
 #: view/applications/apply/_buttons.phtml:33
 msgid "Send application"
-msgstr ""
+msgstr "Invia domanda"
 
 #: view/applications/apply/_buttons.phtml:39
 msgid "Abort application"
-msgstr ""
+msgstr "Interrompi applicazione"
 
 #: view/applications/manage/index.phtml:10
 #, php-format
@@ -132,7 +132,7 @@ msgstr "Domande ricevute"
 
 #: view/applications/manage/index.phtml:30
 msgid "Overview of your sent applications"
-msgstr ""
+msgstr "Panoramica delle applicazioni inviate"
 
 #: view/applications/manage/index.phtml:44
 #: view/applications/manage/detail.phtml:155
@@ -165,7 +165,7 @@ msgstr "Chiaro"
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
-msgstr ""
+msgstr "Dati del profilo"
 
 #: view/applications/manage/detail.phtml:15
 #: view/applications/manage/detail.pdf.phtml:15
@@ -323,7 +323,7 @@ msgstr "data di ricevimento"
 
 #: view/applications/manage/detail.phtml:337
 msgid "via"
-msgstr ""
+msgstr "via"
 
 #: view/applications/manage/detail.phtml:341
 msgid "application state"
@@ -353,19 +353,19 @@ msgstr "agente"
 #: view/applications/manage/detail.pdf.phtml:123
 #: language/_annotated_strings.php:141
 msgid "Willingness to travel"
-msgstr ""
+msgstr "Disponibilità a viaggiare"
 
 #: view/applications/manage/detail.phtml:398
 #: view/applications/manage/detail.pdf.phtml:129
 #: language/_annotated_strings.php:150
 msgid "Earliest starting date"
-msgstr ""
+msgstr "Prima data di partenza"
 
 #: view/applications/manage/detail.phtml:404
 #: view/applications/manage/detail.pdf.phtml:135
 #: language/_annotated_strings.php:159
 msgid "Expected salary"
-msgstr ""
+msgstr "Retribuzione prevista"
 
 #: view/applications/manage/detail.phtml:418
 #: view/applications/manage/detail.pdf.phtml:142
@@ -454,34 +454,34 @@ msgstr "modifica"
 #: view/applications/manage/social-profile/linkedin.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:28
 msgid "Birthday"
-msgstr ""
+msgstr "Compleanno"
 
 #: view/applications/manage/social-profile/facebook.phtml:35
 #: view/applications/manage/social-profile/linkedin.phtml:54
 #: view/applications/manage/social-profile/xing.phtml:53
 msgid "School or university"
-msgstr ""
+msgstr "Scuola o all'università"
 
 #: view/applications/manage/social-profile/facebook.phtml:36
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: view/applications/manage/social-profile/facebook.phtml:66
 #: view/applications/manage/social-profile/linkedin.phtml:91
 #: view/applications/manage/social-profile/xing.phtml:82
 msgid "Employer"
-msgstr ""
+msgstr "Datore di lavoro"
 
 #: view/applications/manage/social-profile/facebook.phtml:67
 #: view/applications/manage/social-profile/linkedin.phtml:92
 #: view/applications/manage/social-profile/xing.phtml:83
 msgid "Position"
-msgstr ""
+msgstr "Posizione"
 
 #: view/applications/manage/social-profile/facebook.phtml:90
 #: view/applications/manage/social-profile/xing.phtml:112
 msgid "language skills"
-msgstr ""
+msgstr "competenze linguistiche"
 
 #: view/applications/manage/social-profile/xing.pdf.phtml:13
 #: view/applications/manage/social-profile/facebook.pdf.phtml:13
@@ -494,35 +494,35 @@ msgstr "Attaccamento"
 #: view/applications/manage/social-profile/xing.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:35
 msgid "Year of birth"
-msgstr ""
+msgstr "Anno di nascita"
 
 #: view/applications/manage/social-profile/linkedin.phtml:55
 msgid "Degree"
-msgstr ""
+msgstr "Laurea"
 
 #: view/applications/manage/social-profile/xing.phtml:54
 msgid "Notes"
-msgstr ""
+msgstr "Note"
 
 #: view/applications/manage/social-profile/xing.phtml:91
 msgid "ongoing"
-msgstr ""
+msgstr "in corso"
 
 #: view/applications/manage/social-profile/xing.phtml:96
 msgid "employes"
-msgstr ""
+msgstr "impiegati"
 
 #: view/applications/manage/social-profile/xing.phtml:97
 msgid "Industry"
-msgstr ""
+msgstr "Industria"
 
 #: view/applications/manage/social-profile/xing.phtml:101
 msgid "Level"
-msgstr ""
+msgstr "Livello"
 
 #: view/applications/manage/index.applicant.ajax.phtml:78
 msgid "view"
-msgstr ""
+msgstr "vista"
 
 #: view/applications/manage/detail.pdf.phtml:75
 msgid "application details"
@@ -551,7 +551,7 @@ msgstr "Telefono"
 #: view/applications/manage/detail.pdf.phtml:119
 #: src/Applications/Form/Facts.php:37
 msgid "Facts"
-msgstr ""
+msgstr "Fatti"
 
 #: view/sidebar/manage.phtml:4
 msgid "new applications"
@@ -559,15 +559,15 @@ msgstr "nuove applicazioni"
 
 #: view/error/not-found.phtml:11
 msgid "A 410 error occured"
-msgstr ""
+msgstr "Un errore 410 si è verificato"
 
 #: view/error/not-found.phtml:13
 msgid "Unknown application identifier"
-msgstr ""
+msgstr "Identificatore un'applicazione sconosciuta"
 
 #: view/error/not-found.phtml:14
 msgid "An application with the provided identifier could not be found."
-msgstr ""
+msgstr "Un'applicazione con l'identificativo fornito non è stato trovato."
 
 #: src/Applications/Form/SettingsFieldset.php:39
 #: language/_annotated_strings.php:57
@@ -580,7 +580,7 @@ msgstr "Opzioni"
 
 #: src/Applications/Form/FilterApplication.php:39
 msgid "OptionsFA"
-msgstr ""
+msgstr "OptionsFA"
 
 #: src/Applications/Controller/ManageController.php:297
 #: src/Applications/Controller/MultimanageController.php:70
@@ -600,7 +600,7 @@ msgstr ""
 
 #: src/Applications/Controller/MultimanageController.php:75
 msgid "reject the applicants"
-msgstr ""
+msgstr "respingere i richiedenti"
 
 #: src/Applications/Mail/Confirmation.php:63
 #: src/Applications/Mail/StatusChange.php:57
@@ -628,17 +628,17 @@ msgstr "Azioni"
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
-msgstr ""
+msgstr "Allegare immagini o documenti PDF alla vostra applicazione. Trascinare e rilasciarli, oppure fare clic nell'area attachement. È possibile caricare fino a 5 MB"
 
 #: language/_annotated_strings.php:51
 msgid ""
 "Summary is meant as a general free text area. Click on \"edit\" to fill in "
 "some informations you think helps the recruiter to pick you for this job."
-msgstr ""
+msgstr "Sintesi è inteso come un'area di testo libero in generale. Clicca su \"modifica\" per riempire alcune informazioni che si pensa aiuta il reclutatore a prendervi per questo lavoro."
 
 #: language/_annotated_strings.php:54
 msgid "Customize apply form"
-msgstr ""
+msgstr "Personalizzare applicano forma"
 
 #: language/_annotated_strings.php:60
 msgid "receive E-Mail alert"
@@ -657,7 +657,7 @@ msgid ""
 "default text of the notification mail about new applications. The following "
 "variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
 " of the job</li></ul>"
-msgstr ""
+msgstr "testo predefinito dell'e-mail di notifica sulle nuove applicazioni. Le seguenti variabili possono essere utilizzate: <ul><li> ## Nome ## = Il tuo nome </li><li> ## ## Title = titolo del lavoro </li></ul>"
 
 #: language/_annotated_strings.php:72
 msgid "confirm application immidiatly after submit"
@@ -681,7 +681,7 @@ msgid ""
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
 "of recipt of the application.</li></ul>"
-msgstr ""
+msgstr "testo predefinito della ricevuta della posta ricevuta al richiedente. Le seguenti variabili possono essere utilizzate: <br><ul><li> ## Anrede_formell ## = saluto. Include genere, nome e cognome. <li> ## Anrede_informell ## = saluto. Include fistname e cognome. </li><li> ## Job_title ## = titolo dei posti di lavoro </li><li> ## Nome ## = nome del richiedente. </li><li> ## Data ## = data di recipt della domanda. </li></ul>"
 
 #: language/_annotated_strings.php:84
 msgid "Invitation mail text"
@@ -724,57 +724,57 @@ msgstr "Commento messaggio"
 msgid ""
 "Allow the user to provide some facts. Currently this will be only the "
 "expected salary."
-msgstr ""
+msgstr "Consente all'utente di fornire alcuni fatti. Attualmente questo sarà solo lo stipendio previsto."
 
 #: language/_annotated_strings.php:123
 msgid "Provide some facts the recruiter might want to know."
-msgstr ""
+msgstr "Fornire alcuni fatti il ​​reclutatore potrebbe desiderare di sapere."
 
 #: language/_annotated_strings.php:126
 msgid "Click here to enter facts."
-msgstr ""
+msgstr "Clicca qui per entrare in fatti."
 
 #: language/_annotated_strings.php:129
 msgid "Please select"
-msgstr ""
+msgstr "Si prega di selezionare"
 
 #: language/_annotated_strings.php:132
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: language/_annotated_strings.php:135
 msgid "conditioned"
-msgstr ""
+msgstr "condizionato"
 
 #: language/_annotated_strings.php:138
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: language/_annotated_strings.php:144
 msgid "Enter your willingness to travel."
-msgstr ""
+msgstr "Inserisci la tua disponibilità a viaggiare."
 
 #: language/_annotated_strings.php:147
 msgid "Ask the applicant about the willingness to travel"
-msgstr ""
+msgstr "Chiedi il richiedente circa la disponibilità a viaggiare"
 
 #: language/_annotated_strings.php:153
 msgid "Enter the earliest starting date."
-msgstr ""
+msgstr "Inserire la prima data di inizio."
 
 #: language/_annotated_strings.php:156
 msgid "Ask the applicant about the earliest starting date."
-msgstr ""
+msgstr "Chiedi il richiedente in merito alla prima data di inizio."
 
 #: language/_annotated_strings.php:162
 msgid ""
 "Your salary requirements should be the annual amount before taxes. Do not "
 "forget to provide the currency sign."
-msgstr ""
+msgstr "I vostri requisiti di stipendio dovrebbe essere l'importo annuo al lordo delle imposte. Non dimenticare di fornire il simbolo della valuta."
 
 #: language/_annotated_strings.php:165
 msgid "Ask users about their expected salary."
-msgstr ""
+msgstr "Chiedi utenti sui loro stipendio previsto."
 
 #: language/_annotated_strings.php:168
 msgid "Carbon Copy"
@@ -791,13 +791,13 @@ msgstr ""
 
 #: language/_annotated_strings.php:183
 msgid "Click here to enter a summary."
-msgstr ""
+msgstr "Clicca qui per entrare in una sintesi."
 
 #: language/_annotated_strings.php:186
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
-msgstr ""
+msgstr "<strong>Si prega di notare:</strong> i tag HTML vengono rimosse. Le interruzioni di riga sono conservati."
 
 #: language/_annotated_strings.php:189
 msgid "Summary"
@@ -805,7 +805,7 @@ msgstr "Riassunto"
 
 #: language/_annotated_strings.php:192
 msgid "all"
-msgstr ""
+msgstr "tutto"
 
 #: language/_annotated_strings.php:195 language/_annotated_strings.php:198
 #: language/_annotated_strings.php:207
@@ -815,7 +815,7 @@ msgstr "Valido applica id"
 #: language/_annotated_strings.php:201
 msgid ""
 "There are missing required informations. Your application cannot be send."
-msgstr ""
+msgstr "Ci sono mancanti informazioni richieste. L'applicazione non potranno esserci inviati."
 
 #: language/_annotated_strings.php:204 language/_annotated_strings.php:213
 msgid "Application confirmation"

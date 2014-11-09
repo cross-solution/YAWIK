@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 16:44+0200\n"
-"PO-Revision-Date: 2014-08-13 13:51+0000\n"
+"POT-Creation-Date: 2014-09-16 15:32+0200\n"
+"PO-Revision-Date: 2014-09-16 14:11+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgstr "Die Datei ist zu groß"
 msgid "The file type is not supported"
 msgstr "Der Dateityp wird nicht unterstützt"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:127
+#: src/Core/Form/View/Helper/FormFileUpload.php:122
 msgid "Click here to add files or use drag and drop."
 msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
 
@@ -222,7 +222,7 @@ msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
 msgid "Click here to add an image or use drag and drop."
 msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
 
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:45
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
 msgid "processing"
 msgstr "bearbeiten"
 

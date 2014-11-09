@@ -95,22 +95,22 @@ translate('Password');
 //: ./src/Auth/Form/Login.php:55
 translate('login');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:141
+//: ./src/Auth/Controller/ManageGroupsController.php:144
 translate('Group created');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:144
+//: ./src/Auth/Controller/ManageGroupsController.php:147
 translate('Group updated');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:154
+//: ./src/Auth/Controller/ManageGroupsController.php:157
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:84
+//: ./src/Auth/Controller/IndexController.php:97
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:95
+//: ./src/Auth/Controller/IndexController.php:108
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:393
+//: ./src/Auth/Controller/IndexController.php:406
 translate('You are now logged out');
 
 //: ./config/module.config.php:260

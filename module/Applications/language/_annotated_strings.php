@@ -120,7 +120,7 @@ translate('Comment message');
 translate('Request additional facts from the Applicant. Selected Fields will be added to the application Form.');
 
 //: ./src/Applications/Form/Facts.php:39
-translate('Please provide som additional facts for this job opening.');
+translate('Please provide some additional facts for this job opening.');
 
 //: ./src/Applications/Form/FactsFieldset.php:29
 translate('Click here to enter facts.');
@@ -188,31 +188,31 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 //: ./src/Applications/Form/BaseFieldset.php:45
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:71
+//: ./src/Applications/Controller/ManageController.php:85
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:116
+//: ./src/Applications/Controller/ManageController.php:130
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:137
+//: ./src/Applications/Controller/ApplyController.php:141
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:216
+//: ./src/Applications/Controller/ApplyController.php:220
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:276
+//: ./src/Applications/Controller/ApplyController.php:280
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:67
+//: ./src/Applications/Controller/IndexController.php:82
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:146
+//: ./src/Applications/Controller/IndexController.php:161
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:223
+//: ./src/Applications/Controller/IndexController.php:238
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:256
+//: ./src/Applications/Controller/IndexController.php:271
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40

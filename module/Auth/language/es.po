@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# yawik <cbleek@yawik.org>, 2014
-# yawik <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-03 11:16+0200\n"
-"PO-Revision-Date: 2014-06-03 09:16+0000\n"
-"Last-Translator: yawik <cbleek@yawik.org>\n"
+"POT-Creation-Date: 2014-09-16 15:32+0200\n"
+"PO-Revision-Date: 2014-09-16 13:51+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,29 +19,37 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/form/social-profiles-fieldset.phtml:16
+#: view/form/user-info-container.phtml:21
+msgid "Image"
+msgstr ""
+
+#: view/form/contact.view.phtml:16
+msgid "Click here to enter contact informations."
+msgstr ""
+
+#: view/form/social-profiles-fieldset.phtml:22
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
 msgstr ""
 
-#: view/form/social-profiles-fieldset.phtml:25
-msgid "Formatting"
-msgstr ""
+#: view/form/social-profiles-fieldset.phtml:33
+msgid "Loading"
+msgstr "Loading"
 
-#: view/form/social-profiles-fieldset.phtml:31
+#: view/form/social-profiles-fieldset.phtml:39
 msgid "Close"
 msgstr "Cerca"
 
-#: view/form/social-profiles-button.phtml:37
+#: view/form/social-profiles-button.phtml:38
 msgid "Attach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:38
+#: view/form/social-profiles-button.phtml:39
 msgid "Detach profile"
 msgstr ""
 
-#: view/form/social-profiles-button.phtml:41
+#: view/form/social-profiles-button.phtml:42
 msgid "View profile data"
 msgstr ""
 
@@ -57,7 +65,7 @@ msgstr "Por lo menos un usuario debe ser asignado"
 msgid "My groups"
 msgstr " Mis grupos"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:21
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
 msgid "Manage groups"
 msgstr "Gestión de grupos de"
 
@@ -65,7 +73,7 @@ msgstr "Gestión de grupos de"
 msgid "Add group"
 msgstr "Añadir grupo"
 
-#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:63
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:72
 msgid "Group name"
 msgstr "Nombre del grupo"
 
@@ -73,11 +81,11 @@ msgstr "Nombre del grupo"
 msgid "Actions"
 msgstr "Acciones"
 
-#: view/auth/manage-groups/form.phtml:35
+#: view/auth/manage-groups/form.phtml:39
 msgid "search for users"
 msgstr ""
 
-#: view/auth/manage-groups/form.phtml:70
+#: view/auth/manage-groups/form.phtml:74
 msgid "Ok"
 msgstr "Bueno"
 
@@ -90,7 +98,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr "Por favor, identifíquese a sí mismo para continuar"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:44
+#: view/auth/index/login-info.phtml:45
 msgid "Login"
 msgstr "Login"
 
@@ -106,33 +114,33 @@ msgstr ""
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr ""
 
-#: view/auth/index/login-info.phtml:14 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Mi perfil"
 
-#: view/auth/index/login-info.phtml:17
+#: view/auth/index/login-info.phtml:18
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
-#: view/auth/index/login-info.phtml:26
+#: view/auth/index/login-info.phtml:27
 msgid "Logout"
 msgstr "Salir"
 
-#: view/auth/index/login-info.phtml:33
+#: view/auth/index/login-info.phtml:34
 #, php-format
 msgid "Hello %s"
 msgstr "Hola %s"
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:35
 msgid "Guest"
 msgstr "Invitado"
 
-#: view/auth/index/login-info.phtml:46
+#: view/auth/index/login-info.phtml:47
 msgid "Login via"
 msgstr "Ingresar a través de"
 
-#: view/auth/index/login-info.phtml:49
+#: view/auth/index/login-info.phtml:50
 #, php-format
 msgid "Login with %s"
 msgstr "Ingresar con %s"
@@ -141,18 +149,14 @@ msgstr "Ingresar con %s"
 msgid "My password"
 msgstr "Mi contraseña"
 
-#: src/Auth/Form/SocialProfilesFieldset.php:156
-#: language/_annotated_strings.php:9
-msgid "Social Profiles"
-msgstr ""
-
-#: src/Auth/Form/UserInfoFieldset.php:41 language/_annotated_strings.php:12
+#: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:60
 msgid "personal informations"
 msgstr "datos personales"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
-#: language/_annotated_strings.php:54 language/_annotated_strings.php:57
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:63 language/_annotated_strings.php:66
+#: language/_annotated_strings.php:93
 msgid "Password"
 msgstr "Contraseña"
 
@@ -164,15 +168,11 @@ msgstr "Datos de Grupo"
 msgid "Users"
 msgstr "Usuarios"
 
-#: src/Auth/Form/UserBaseFieldset.php:23 language/_annotated_strings.php:69
-msgid "General"
-msgstr "General"
-
-#: src/Auth/Controller/ManageController.php:91
+#: src/Auth/Controller/ManageController.php:92
 msgid "Password successfully changed"
 msgstr "Contraseña cambiada con éxito"
 
-#: src/Auth/Controller/ManageController.php:97
+#: src/Auth/Controller/ManageController.php:98
 msgid "Password could not be changed"
 msgstr "La contraseña no se podía cambiar"
 
@@ -184,124 +184,133 @@ msgstr "Crear grupo"
 msgid "Edit group"
 msgstr "Editar grupo"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:9
+msgid "Social Profiles"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Allow users to attach their %s profile."
+msgstr ""
+
+#: language/_annotated_strings.php:18
 msgid "Email"
 msgstr "Email"
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:21
 msgid "Phone"
 msgstr "Teléfono"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:24
 msgid "Postalcode"
 msgstr "Postalcode"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:27
 msgid "City"
 msgstr "Ciudad"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:30
 msgid "Salutation"
 msgstr ""
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:33 language/_annotated_strings.php:42
 msgid "please select"
 msgstr "por favor seleccione"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:36
 msgid "Mr."
 msgstr "Sr."
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:39
 msgid "Mrs."
 msgstr "Sra."
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:45
 msgid "First name"
 msgstr "Nombre de pila"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:48
 msgid "Last name"
 msgstr "Apellido"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:51
 msgid "street"
 msgstr "calle"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:54
 msgid "house number"
 msgstr "número de casa"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:57
 msgid "Application photo"
 msgstr "Foto de la aplicación"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:69
 msgid "Retype password"
 msgstr "Vuelva a escribir la contraseña"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:75
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
 msgstr "Seleccione un nombre de grupo. Puede añadir usuarios a su grupo y luego trabajar en conjunto sobre el empleo y las solicitudes de empleo."
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:78
+msgid "General settings"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "General"
+msgstr "General"
+
+#: language/_annotated_strings.php:84
 msgid "I am"
 msgstr "Estoy"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:87
 msgid "The group name \"%value%\" is already in use."
 msgstr "El nombre del grupo \"%value%\" ya está en uso."
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:90
 msgid "Login name"
 msgstr "Nombre de acceso"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:96
 msgid "login"
 msgstr "login"
 
-#: language/_annotated_strings.php:87
-msgid "Changes successfully saved"
-msgstr "Cambios guardado correctamente:"
-
-#: language/_annotated_strings.php:90
-msgid "Saving changes failed. Please check the marked fields."
-msgstr "Guardar los cambios fallaron. Por favor revise los campos marcados."
-
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:99
 msgid "Group created"
 msgstr "Fecha de creación"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:102
 msgid "Group updated"
 msgstr "Grupo actualizado"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:105
 msgid "Changes not saved."
 msgstr "Los cambios no guardados."
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:108
 msgid "You are now logged in."
 msgstr "Ahora está conectado pulg"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:111
 msgid "Authentication failed."
 msgstr "Error de autenticación."
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:114
 msgid "Welcome to YAWIK!"
 msgstr "Bienvenido a YAWIK! "
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:117
 msgid "You are now logged out"
 msgstr "Ahora está conectado a"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:120
 msgid "user"
 msgstr "usuario"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:123
 msgid "recruiter"
 msgstr "reclutador"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-20 08:30+0200\n"
+"POT-Creation-Date: 2014-11-09 14:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -580,23 +580,23 @@ msgstr ""
 msgid "OptionsFA"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:297
-#: src/Applications/Controller/MultimanageController.php:70
+#: src/Applications/Controller/ManageController.php:311
+#: src/Applications/Controller/MultimanageController.php:84
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:343
+#: src/Applications/Controller/ManageController.php:357
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:358
+#: src/Applications/Controller/ManageController.php:372
 #, php-format
 msgid "Forward application to %s failed."
 msgstr ""
 
-#: src/Applications/Controller/MultimanageController.php:75
+#: src/Applications/Controller/MultimanageController.php:89
 msgid "reject the applicants"
 msgstr ""
 
@@ -725,7 +725,7 @@ msgid ""
 msgstr ""
 
 #: language/_annotated_strings.php:123
-msgid "Please provide som additional facts for this job opening."
+msgid "Please provide some additional facts for this job opening."
 msgstr ""
 
 #: language/_annotated_strings.php:126
