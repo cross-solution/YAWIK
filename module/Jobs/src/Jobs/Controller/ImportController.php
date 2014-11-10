@@ -45,7 +45,7 @@ class ImportController extends AbstractActionController {
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
-        if (False && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
+        if (True && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
 
             // Test
             $this->request->setMethod('post');
