@@ -54,7 +54,6 @@
     <exclude name="public/Applications"/>
     <exclude name="public/Auth"/>
     <exclude name="public/Core"/>
-    <exclude name="public/FormularValidation"/>
     <exclude name="public/Geo"/>
     <exclude name="public/Jobs"/>
     <exclude name="**/*.po"/>
@@ -203,7 +202,6 @@
     <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
-    <symlink link="build/YAWIK-${version-short}/public/FormularValidation" target="../module/FormularValidation/public" />
     
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
@@ -353,7 +351,6 @@
     <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" />
     <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" />
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
-    <symlink link="${project.basedir}/public/FormularValidation" target="${project.basedir}/module/FormularValidation/public" />
     <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
     <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" />
   </target>  

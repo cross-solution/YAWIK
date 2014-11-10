@@ -22,8 +22,7 @@ $modules = array(
          'Jobs', 
          'Settings', 
          'Pdf', 
-         'Geo', 
-         'FormularValidation',
+         'Geo',
          'Organizations',
     );
 
