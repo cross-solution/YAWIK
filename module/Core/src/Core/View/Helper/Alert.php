@@ -22,8 +22,16 @@ use Zend\View\Helper\AbstractHelper;
  * 
  *      // render string using __invoke 
  *      echo $this->alert('info', 'This is an info message');
- *      
- *      // render string using explicit type methods
+ *      // if you want to additional parameter like classes or id, you can put them into an array
+ *      // there are several options available
+ *      // (1) you can provide the type in an array along with the parameter
+ *      echo $this->alert(array($type => 'info'. 'par1' => '...'), 'This is an info message');
+ *      // (2) you can put everything in an array
+ *      echo $this->alert(array($type => 'info', 'content' => 'This is an info message', 'par1' => '...'));
+ *      // (3) you can put the content into an array
+ *      echo $this->alert('info', array('content' => 'This is an info message', 'par1' => '...'));
+ *      // (4) you can use a subsequent method (recommended)
+ *      echo $this->alert(array('par1' => '...'))->warning('content');
  *      echo $this->alert()->info('This is an info message');
  *      echo $this->alert()->danger('This is an error message');
  *      
@@ -45,6 +53,7 @@ use Zend\View\Helper\AbstractHelper;
  * </code>
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Gelhausen <weitz@cross-solution.de>
  */
 class Alert extends AbstractHelper
 {
@@ -68,10 +77,13 @@ class Alert extends AbstractHelper
     
     /**
      * The type of the alert box which is currently captured.
-     * 
+     *
      * @var string
      */
     protected $captureType = self::TYPE_INFO;
+
+
+    protected $options=array();
     
     /**
      * Starts content capturing.
@@ -118,16 +130,48 @@ class Alert extends AbstractHelper
      */
     public function render($type, $content)
     {
+        if (is_array($content)) {
+            $options = $content;
+        }
+        else {
+            $options = $this->options;
+        }
+        if (!empty($options)) {
+            if (array_key_exists ('content', $options)) {
+                $content = $options['content'];
+                unset($options['content']);
+            }
+        }
         if (true === $content) {
+            if (!empty($options)) {
+                throw new \InvalidArgumentException('alert with content-value true does not take additional arguments');
+            }
             return $this->start($type);
         }
-        
+
+        $classes = array('alert', 'alert-' . $type, 'alert-dismissable');
+        $id = '';
+        // additional arguments
+        if (is_array($options)) {
+            if (array_key_exists('classes', $options)) {
+                $classes = array_merge($classes, (array) $options['classes']);
+                unset($options['classes']);
+            }
+            if (array_key_exists('id', $options)) {
+                $id = 'id="' . $options['id'] . '"';
+                unset($options['id']);
+            }
+        }
+
+        $classAttr = implode (' ', $classes);
+
         $markup = <<<MARKUP
-    <div class="alert alert-$type alert-dismissable">
+    <div $id class="$classAttr">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         $content
     </div>
 MARKUP;
+        $this->options = array();
         return $markup;
     }
     
@@ -193,15 +237,49 @@ MARKUP;
      * if <b>$type</b> is null, return this instance.
      * if <b>$content</b> is true or not passed, starts a capture process.
      * 
-     * @param string|null $type
-     * @param string $content|null
+     * @param string|array|null $type
+     * @param string $content|array|null
      * @return \Core\View\Helper\Alert|string|null
      * @uses render()
      */
-    public function __invoke($type = null, $content = true)
+    public function __invoke($type = null, $content = null)
     {
         if (null === $type) {
             return $this;
+        }
+        if (is_array($type)) {
+            $options = $type;
+            $type = null;
+            if (array_key_exists('content', $options)) {
+                if (!isset ($content)) {
+                    $content = $options['content'];
+                    unset ($options['content']);
+                }
+                else {
+                    throw new \InvalidArgumentException('alert content was already given by parameter, overwriting is not intended');
+                }
+            }
+            if (array_key_exists('type', $options)) {
+                $type = $options['type'];
+                unset ($options['type']);
+                if (!empty($options)) {
+                    if (isset($content) && !empty($options)) {
+                        $options['content'] = $content;
+                        $content = $options;
+                    }
+                }
+            }
+            $this->options = $options;
+        }
+        if (!isset($type)) {
+            if (isset($content)) {
+                // on the rather rare occassion, that we already have provided the content, but not how to display it
+                $this->options['content'] = $content;
+            }
+            return $this;
+        }
+        if (!isset($content)) {
+            $content = true;
         }
         
         return $this->render($type, $content);

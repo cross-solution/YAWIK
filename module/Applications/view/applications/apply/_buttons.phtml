@@ -7,12 +7,16 @@
  * @license   MIT
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-
+$this->headScript()->appendFile($this->basePath('Applications/js/application.form.js'));
 $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job->applyId), true);
 ?>
 
 <div id="send-application-buttons">
     <nav class="navbar">
+
+        <?php
+        echo $this->alert(array('id' => 'application_incomplete'))->warning($this->translate('Application incomplete'));
+        ?>
 
         <?php if ($this->isPreview):?>
         <a href="<?php echo $applyUrl ?>" id="back-to-application" class="btn btn-lg btn-default">
@@ -23,14 +27,14 @@ $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job-
             <?php echo $this->translate('Preview application') ?>
         </a>
         <?php endif ?>
-        
+
         <a href="<?php echo $applyUrl ?>?do=send" id="send-application" class="btn btn-lg btn-primary<?php 
         
         echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
-             ? '' : ' disabled' 
+             ? '' : ' hidden'
         
         ?>">
-            <?php echo $this->translate('Send application') ?>
+            <div class="application complete"><?php echo $this->translate('Send application') ?></div
         </a>
         
         
