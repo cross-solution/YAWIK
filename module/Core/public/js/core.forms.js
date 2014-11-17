@@ -58,6 +58,7 @@
 				if (!data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
+                    console.log('$form',$form);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
@@ -74,7 +75,7 @@
 			if (validate) {
 				data.validationGroup = validate;
 			}
-			
+
 			$element.parents('form').trigger('submit', data);
 			return false;
 		}

@@ -17,14 +17,17 @@
 				_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
 			}	
 			if (result.valid) {
-				console.debug(result);
+				console.debug('catch submit', e, result);
 				_this.$summaryContainer.html(result.content);
 				_this._initSummaryContainer();
 									   
 				_this.cancel();
 			}
-			
-			return false;
+
+            // if we put in a false as return, the bubbling will stop here
+            // and no higher JS will know the result of the submit
+            // that includes hidden submits like AJAX for Container-Forms
+			return true;
 		},
 		
 		cancel: function(event)
