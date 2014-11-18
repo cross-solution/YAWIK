@@ -21,12 +21,16 @@ class UserImageFactory extends FileUploadFactory
 {
     protected $fileName = 'image';
     protected $fileEntityClass = '\Auth\Entity\UserImage';
+    protected $configKey = 'user_image';
     
     protected function configureForm($form)
     {
+        $size = isset($this->config['max_size']) ? $this->config['max_size'] : 100000;
+        $type = isset($this->config['mimetype']) ? $this->config['mimetype'] : 'image';
+
         $form->get($this->fileName)->setViewHelper('FormImageUpload')
-                                   ->setMaxSize(1000000)
-                                   ->setAllowedTypes('image/');
+                                   ->setMaxSize($size)
+                                   ->setAllowedTypes($type);
                                    
     }
 } 

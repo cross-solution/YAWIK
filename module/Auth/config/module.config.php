@@ -397,4 +397,13 @@ return array(
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
+
+    'form_elements_config' => array(
+        'file_upload_factories' => array(
+            'user_image' => array(
+                'max_size' => 100000,
+                'mimetype' => 'image',
+            ),
+        ),
+    ),
 );
