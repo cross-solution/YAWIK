@@ -12,8 +12,9 @@ namespace Applications\Form;
 
 
 use Auth\Form\UserImageFactory;
+
 /**
- *
+ * Service factory for the contact image formular element in the application form.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
