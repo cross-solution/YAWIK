@@ -12,14 +12,19 @@ namespace Core\Form\Element;
 
 use Doctrine\Common\Collections\Collection;
 use Zend\Form\Element\File;
+use Zend\InputFilter\InputProviderInterface;
+use Zend\Validator\File\MimeType;
+use Zend\Validator\File\Size;
 use Zend\View\Helper\HelperInterface;
 use Zend\Form\FormInterface;
+
 /**
- *
+ * File upload formular element.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class FileUpload extends File implements ViewHelperProviderInterface
+class FileUpload extends File implements ViewHelperProviderInterface,
+                                         InputProviderInterface
 {
     /**
      * The view helper name.
@@ -69,6 +74,11 @@ class FileUpload extends File implements ViewHelperProviderInterface
         return $this->setAttribute('data-maxsize', $bytes);
     }
 
+    public function getMaxSize()
+    {
+        return $this->getAttribute('data-maxsize');
+    }
+
     /**
      * Sets the allowed mime types.
      *
@@ -85,6 +95,13 @@ class FileUpload extends File implements ViewHelperProviderInterface
         }
         
         return $this->setAttribute('data-allowedtypes', $types);
+    }
+
+    public function getAllowedTypes()
+    {
+        $types = $this->getAttribute('data-allowedtypes');
+
+        return $types;
     }
 
     /**
@@ -155,6 +172,25 @@ class FileUpload extends File implements ViewHelperProviderInterface
         }
         
         return $fileEntity;
+    }
+
+    public function getInputSpecification()
+    {
+        $mimeTypeValidator = new MimeType();
+        $mimeTypeValidator->setMagicFile(false)
+                          ->disableMagicFile(true)
+                          ->setMimeType($this->getAllowedTypes());
+
+        $sizeValidator = new Size($this->getMaxSize());
+
+        return array(
+            'name' => $this->getName(),
+            'required' => false,
+            'validators' => array(
+                $mimeTypeValidator,
+                $sizeValidator,
+            ),
+        );
     }
     
 }

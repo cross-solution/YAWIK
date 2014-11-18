@@ -18,7 +18,7 @@ use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
 
 /**
- *
+ * Factory for creating file upload formular elements.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -51,10 +51,39 @@ class FileUploadFactory implements FactoryInterface
      * @var bool
      */
     protected $multiple = false;
-    
+
+    /**
+     * The config key in the FileUploadFactory configuration entry.
+     * @var string
+     */
+    protected $configKey;
+
+    /**
+     * The configuration stored in the FileUploadFactory configuration entry under {@link $configKey}.
+     *
+     * @var array|null
+     */
+    protected $config;
+
+    /**
+     * The configuration from the FileUploadFactory configuration
+     */
+
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Form\FormElementManager */
+
+        // Retrieve configuration.
+        if ($this->configKey) {
+            $services = $serviceLocator->getServiceLocator();
+            $config   = $services->get('config');
+            $config   = isset($config['form_elements_config']['file_upload_factories'][$this->configKey])
+                      ? $config['form_elements_config']['file_upload_factories'][$this->configKey]
+                      : array();
+            $this->config = $config;
+        }
+
+
         $form = new Form();
         $serviceLocator->injectFactory($form);
         $form->add(array(

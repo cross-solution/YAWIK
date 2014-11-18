@@ -92,7 +92,25 @@
 				done: function(e, data)
 				{
 					$form = $(data.form);
-					
+
+                    if (!data.result.valid) {
+                        for (errorKey in data.result.errors.image) {
+                            switch (errorKey) {
+                                case 'fileMimeTypeFalse':
+                                    $form.find('.iu-error-type').show();
+                                    break;
+
+                                case 'fileSizeTooBig':
+                                    $form.find('.iu-error-size').show();
+                                    break;
+                            }
+                        }
+                        $form.find('.iu-errors').show();
+                        $form.find('.iu-progress').hide();
+                        $form.find('.iu-preview').hide();
+                        $form.find('.iu-empty-notice').show();
+                        return;
+                    }
 					if (!data.result.content) {
 						$form.find('.iu-preview').html('').hide();
 						$form.find('.iu-empty-notice').show();
@@ -111,6 +129,7 @@
 				fail: function(e, data) 
 				{
 					console.debug(e, data);
+                    console.debug(data.files[0].error);
 				}
 			});
 		});
