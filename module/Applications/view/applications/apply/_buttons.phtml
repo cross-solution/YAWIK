@@ -15,7 +15,7 @@ $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job-
     <nav class="navbar">
 
         <?php
-        echo $this->alert(array('id' => 'application_incomplete'))->warning($this->translate('Application incomplete'));
+        echo $this->alert(array('id' => 'application_incomplete'))->warning($this->translate('Your application is incomplete. You have to add your contact data and accept the privacy policy to be able to submit the application. You can always preview or abort your application.'));
         ?>
 
         <?php if ($this->isPreview):?>
