@@ -7,8 +7,8 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 class JobFieldset extends Fieldset 
 {
-    
-    
+
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -92,6 +92,15 @@ class JobFieldset extends Fieldset
        //$this->add(array(
        //    'type' => 'Core/PermissionsCollection'
        //));
-       
+
+       // @TODO: insert editable hidden field
+       //$this->add(array(
+       //     'type'    => 'Jobs/ApplyId',
+       //     'name'    => 'applyId',
+       //     'options' => array(
+       //         'label' => /*@translate*/
+       //             'Apply Identifier'
+       //     ),
+       //));
     }
 }

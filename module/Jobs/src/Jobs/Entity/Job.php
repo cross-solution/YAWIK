@@ -236,6 +236,10 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @return String
      */
     public function getApplyId() {
+        if (!isset($this->applyId)) {
+            // take the entity-id as a default
+            $this->applyId = $this->id;
+        }
         return $this->applyId;
     }
 

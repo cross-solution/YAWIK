@@ -118,6 +118,7 @@ class ManageController extends AbstractActionController {
         ));
         $container->setEntity($job);
         $container->setParam('job',$job->id);
+        $container->setParam('applyId',$job->applyId);
         return $container;
         /*
         $formTitleLocation = $form->getForm->get('location');
@@ -197,6 +198,7 @@ class ManageController extends AbstractActionController {
                                 ));
 
         $formTemplate->setParam('id', $jobEntity->id);
+        $formTemplate->setParam('applyId', $jobEntity->applyId);
         $formTemplate->setEntity($jobEntity);
 
         if (isset($formIdentifier) && $request->isPost()) {
