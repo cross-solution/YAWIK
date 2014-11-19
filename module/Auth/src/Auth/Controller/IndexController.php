@@ -221,25 +221,7 @@ class IndexController extends AbstractActionController
 //                 'messages' => 'Authentification requires a post request.',
 //             ));
 //         }
-        
-         if (false) {
-            // Test
-            $this->request->setMethod('post');
-            $params = new Parameters(array(
-                //'user' => 'dummy_' . uniqid() . '@ams',
-                //'pass' => 'passwordfromams1',
-                //'appKey' => 'AmsAppKey',
-                //'email' => 'weitz@cross-solution.de',
-                //'role' => 'recruiter',
-                'user' => 'weitz',
-                'pass' => 'weitz',
-                'appKey' => '',
-                'email' => 'weitz@cross-solution.de',
-                'role' => 'user'
-            ));
-            $this->getRequest()->setPost($params);
-        }
-        
+
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
 
@@ -324,6 +306,8 @@ class IndexController extends AbstractActionController
             $this->getResponse()->setStatusCode(403);
             return new JsonModel(array(
                 'status' => 'failure',
+                'user' => $this->params()->fromPost('user'),
+                'appKey' => $this->params()->fromPost('appKey'),
                 'code'   => $result->getCode(),
                 'messages' => $result->getMessages(),
             ));

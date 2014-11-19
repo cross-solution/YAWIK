@@ -44,13 +44,13 @@ class IndexController extends AbstractActionController
     { 
         $params        = $this->getRequest()->getQuery();
         $isRecruiter   = $this->acl()->isRole('recruiter');
-        $params->count = 25;
+        $params->count = 10;
         if ($isRecruiter) {
             $params->set('by', 'me');
         }
          //default sorting
         if (!isset($params['sort'])) {
-            $params['sort']="-date";
+            $params->set('sort', "-name");
         }
         // save the Params in the Session-Container
         $this->paginationParams()->setParams('Organizations\Index', $params);

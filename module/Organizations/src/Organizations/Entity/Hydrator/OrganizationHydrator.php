@@ -76,6 +76,7 @@ class OrganizationHydrator extends Reflection
     {
         $this->data = $data;
         $this->object = $object;
+        // download Image
         $this->hydrateSkimData();
         $reflProperties = self::getReflProperties($object);
         foreach ($this->data as $key => $value) {
