@@ -11,7 +11,7 @@
         <directory>module/*</directory>
         <ignore>vendor/*</ignore>
         <ignore>module/YawikDemo*</ignore>
-        <ignore>module/CamMediaintown</ignore>
+        <ignore>module/Cam*</ignore>
         <ignore>*/language/*</ignore>
         <ignore>*/view/*</ignore>
         <ignore>config/*</ignore>
