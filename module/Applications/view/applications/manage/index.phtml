@@ -7,6 +7,18 @@
  * @license   MIT
  */
 
+/*
+ * If called via ajax (which means paginate or sort), we only need to render the table
+ */
+if ($this->isAjaxRequest) {
+    $template = sprintf(
+        'applications/manage/index.%s.ajax.phtml',
+        $this->acl()->isRole('recruiter') ? 'recruiter' : 'applicant'
+    );
+    echo $this->render($template);
+    return;
+}
+
 if ($this->job):        $subTitle = sprintf($this->translate('for the job "%s"'), $this->job->title);
 elseif ($this->byJobs): $subTitle = $this->translate('to all of your jobs');
 else:                   $subTitle = false;
