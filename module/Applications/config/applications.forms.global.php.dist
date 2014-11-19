@@ -1,0 +1,16 @@
+<?php
+return array(
+    'form_elements_config' => array(
+        'file_upload_factories' => array(
+            'application_attachments' => array(
+                'max_size' => '%%applications.forms.attachments.maxsize%%',
+                'mimetype' => '%%applications.forms.attachments.mimetype%%',
+                'count'    => '%%applications.forms.attachments.count%%',
+            ),
+            'application_contact_image' => array(
+                'max_size' => '%%applications.forms.contactimage.maxsize%%',
+                'mimetype' => '%%applications.forms.contactimage.mimetype%%',
+            ),
+        ),
+    ),
+);

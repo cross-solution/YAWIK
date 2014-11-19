@@ -19,19 +19,12 @@ use Core\Form\FileUploadFactory;
  */
 class AttachmentsFactory extends FileUploadFactory
 {
-    /**@#+
-     * {@inheritDoc}
-     */
     protected $fileElement = 'Core/FileUpload';
     protected $fileName = 'attachments';
     protected $fileEntityClass = '\Applications\Entity\Attachment';
     protected $multiple = true;
-    /**@#-*/
-    
-    /**
-     * {@inheritDoc}
-     * @see \Core\Form\FileUploadFactory::configureForm()
-     */
+    protected $configKey = 'application_attachments';
+
     protected function configureForm($form)
     {
         /** @var $form \Core\Form\Form */
@@ -44,11 +37,19 @@ class AttachmentsFactory extends FileUploadFactory
 
         /** @var $file \Core\Form\Element\FileUpload*/
         $file = $form->get($this->fileName);
-        $file->setMaxSize(5000000)
-             ->setAllowedTypes(array(
-                'image/',
-                'application/pdf'
-             ));
+        $size = isset($this->config['max_size']) ? $this->config['max_size'] : 5000000;
+        $type = isset($this->config['mimetype']) ? $this->config['mimetype'] : null;
+        $count = isset($this->config['count']) ? $this->config['count'] : 0;
+
+        $file->setMaxSize($size);
+        if ($type) {
+            $file->setAllowedTypes($type);
+        }
+        $file->setMaxFileCount($count);
+
+        // pass form to element. Needed for file count validation
+        // I did not find another (better) way.
+        $file->setForm($form);
 
     }
 }
