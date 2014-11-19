@@ -45,7 +45,7 @@ class ImportController extends AbstractActionController {
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
-        if (True && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
+        if (False && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
 
             // Test
             $this->request->setMethod('post');
@@ -74,11 +74,10 @@ class ImportController extends AbstractActionController {
         $repositories    = $services->get('repositories');
         $repositoriesJob = $repositories->get('Jobs/Job');
         $log             = $services->get('Log/Core/Cam');
-        $log->info('Jobs/manage/saveJob ' . var_export($p, True));
         //if (isset($user)) {
         //    $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . $user->login);
         //}
-        $result = array('token' => session_id(), 'isSaved' => False);
+        $result = array('token' => session_id(), 'isSaved' => False, 'message' => '');
         if (isset($user) && !empty($user->login)) {
             $formElementManager = $services->get('FormElementManager');
             $form               = $formElementManager->get('Jobs/Import');
@@ -122,6 +121,7 @@ class ImportController extends AbstractActionController {
                     }
                     $repositoriesJob->store($entity);
                     $result['isSaved'] = true;
+                    $log->info('Jobs/manage/saveJob [user: ' . $user->login . ']:' . var_export($p, True));
                     
                     if (!empty($params->companyId)) {
                         $companyId                = $params->companyId . $loginSuffix;
@@ -139,11 +139,16 @@ class ImportController extends AbstractActionController {
                         $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                         $repositories->store($entityOrganization);
                     }
+                    else {
+                        $result['message'] = '';
+                    }
                 } else {
+                    $log->info('Jobs/manage/saveJob [error: ' . $form->getMessages() . ']:' . var_export($p, True));
                     $result['valid Error'] = $form->getMessages();
                 }
             }
         } else {
+            $log->info('Jobs/manage/saveJob [error: session lost]:' . var_export($p, True));
             $result['message'] = 'session_id is lost';
         }
         //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));

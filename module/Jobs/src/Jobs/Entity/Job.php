@@ -19,6 +19,7 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
+use Core\Entity\PermissionsResourceInterface;
 
 /**
  * The job model
@@ -579,12 +580,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
      */
-    public function setPermissions(PermissionsInterface $permissions) {
+    public function setPermissions(PermissionsInterface $permissions)
+    {
         $this->permissions = $permissions;
         return $this;
     }
 
-    public function getTemplateValues() {
+    public function getTemplateValues()
+    {
         if (!$this->templateValues instanceOf TemplateValues) {
             $this->templateValues = new TemplateValues();
         }
