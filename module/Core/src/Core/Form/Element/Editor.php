@@ -17,8 +17,18 @@ use Core\Service\OptionValueInterface;
 
 class Editor extends Textarea implements ViewHelperProviderInterface
 {
+    protected $viewHelper;
+
+    public function setViewHelper($helper) {
+        $this->viewHelper = $helper;
+        return $this;
+    }
+
     public function getViewHelper() {
-        return new FormEditor();
+        if (!isset($this->viewHelper)) {
+            $this->setViewHelper(new FormEditor());
+        }
+        return $this->viewHelper;
     }
 
     public function getValue() {
