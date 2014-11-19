@@ -4,15 +4,16 @@
  *
  * @filesource
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   MIT
+ * @license       MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\Element;
 
 use Doctrine\Common\Collections\Collection;
 use Zend\Form\Element\File;
 use Zend\InputFilter\InputProviderInterface;
+use Zend\Validator\Callback;
 use Zend\Validator\File\MimeType;
 use Zend\Validator\File\Size;
 use Zend\View\Helper\HelperInterface;
@@ -41,25 +42,43 @@ class FileUpload extends File implements ViewHelperProviderInterface,
     protected $isMultiple = false;
 
     /**
-     * The form which contains this element,
+     * The form which contains this element
      *
      * @var FormInterface
      */
     protected $form;
-    
+
     public function setViewHelper($helper)
     {
         if (is_object($helper) && !$helper instanceOf HelperInterface) {
             throw new \InvalidArgumentException('Expects helper to be eiter a service name or an instance of "Zend\View\Helper\HelperInterface"');
         }
-        
+
         $this->helper = $helper;
+
         return $this;
     }
-    
+
     public function getViewHelper()
     {
         return $this->helper;
+    }
+
+    /**
+     * Sets the form instance of the form which contains this element.
+     * This instance is needed in
+     * {@link fileCountValidationCallback()} and
+     * {@link getFileEntity()}
+     *
+     * @param \Zend\Form\FormInterface $form
+     *
+     * @return self
+     */
+    public function setForm(FormInterface $form)
+    {
+        $this->form = $form;
+
+        return $this;
     }
 
     /**
@@ -74,14 +93,8 @@ class FileUpload extends File implements ViewHelperProviderInterface,
         return $this->setAttribute('data-maxsize', $bytes);
     }
 
-    public function getMaxSize()
-    {
-        return $this->getAttribute('data-maxsize');
-    }
-
     /**
      * Sets the allowed mime types.
-     *
      * The types can be passed either as an array or a comma separated list.
      *
      * @param array|string $types
@@ -93,15 +106,20 @@ class FileUpload extends File implements ViewHelperProviderInterface,
         if (is_array($types)) {
             $types = implode(',', $types);
         }
-        
+
         return $this->setAttribute('data-allowedtypes', $types);
     }
 
-    public function getAllowedTypes()
+    /**
+     * Sets the maximum files count.
+     *
+     * @param int $count
+     *
+     * @return self
+     */
+    public function setMaxFileCount($count)
     {
-        $types = $this->getAttribute('data-allowedtypes');
-
-        return $types;
+        return $this->setAttribute('data-maxfilecount', (int) $count);
     }
 
     /**
@@ -119,8 +137,44 @@ class FileUpload extends File implements ViewHelperProviderInterface,
         } else {
             $this->removeAttribute('multiple');
         }
-        
+
         return $this;
+    }
+
+    public function prepareElement(FormInterface $form)
+    {
+        $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single') . '-file-upload');
+        $form->setAttribute('data-is-empty', null === $this->getValue());
+        //$this->form = $form;
+        parent::prepareElement($form);
+    }
+
+    public function getInputSpecification()
+    {
+        $validators = array();
+        $mimetypes  = $this->getAllowedTypes();
+        $fileCount  = $this->getMaxFileCount();
+
+        if ($mimetypes) {
+            $mimeTypeValidator = new MimeType();
+            $mimeTypeValidator->setMagicFile(false)
+                              ->disableMagicFile(true)
+                              ->setMimeType($this->getAllowedTypes());
+
+            $validators[] = $mimeTypeValidator;
+        }
+
+        $validators[] = new Size($this->getMaxSize());
+
+        if (0 < $fileCount) {
+            $validators[] = new Callback(array($this, 'fileCountValidationCallback'));
+        }
+
+        return array(
+            'name'       => $this->getName(),
+            'required'   => false,
+            'validators' => $validators,
+        );
     }
 
     /**
@@ -134,21 +188,48 @@ class FileUpload extends File implements ViewHelperProviderInterface,
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the allowed mimetypes
      *
-     * Sets {@link form}.
+     * @param bool $asArray if true, the types are returned as an array,
+     *                      if false, the types are returned as comma separated string.
+     *
+     * @return string|array
      */
-    public function prepareElement(FormInterface $form)
+    public function getAllowedTypes($asArray = false)
     {
-        $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single') . '-file-upload');
-        $form->setAttribute('data-is-empty', null === $this->getValue());
-        $this->form = $form;
-        parent::prepareElement($form);
+        $types = $this->getAttribute('data-allowedtypes');
+
+        if ($asArray) {
+            return explode(',', $types);
+        }
+
+        return $types;
+    }
+
+    /**
+     * Gets the maximum files count.
+     *
+     * @return int
+     */
+    public function getMaxFileCount()
+    {
+        $count = $this->getAttribute('data-maxfilecount');
+
+        return $count;
+    }
+
+    /**
+     * Gets the maximum file size
+     *
+     * @return int
+     */
+    public function getMaxSize()
+    {
+        return $this->getAttribute('data-maxsize');
     }
 
     /**
      * Gets the file entity bound to the containing form,
-     *
      * Returns <i>NULL</i>, if the entity cannot be retrieved or is not set in the form.
      *
      * @return null|Collection|\Core\Entity\FileInterface
@@ -158,39 +239,38 @@ class FileUpload extends File implements ViewHelperProviderInterface,
         if (!$this->form || !($object = $this->form->getObject())) {
             return;
         }
-        
+
         if ($this->isMultiple()) {
             return $object;
         }
-        
+
         $entityName = $this->getName();
-        
+
         try {
             $fileEntity = $object->$entityName;
         } catch (\OutOfBoundsException $e) {
             return null;
         }
-        
+
         return $fileEntity;
     }
 
-    public function getInputSpecification()
+    /**
+     * Callback for file count validation.
+     *
+     * @internal
+     *      This function gets the value passed in as variable,
+     *      but we do not need it.
+     * @return bool
+     */
+    public function fileCountValidationCallback()
     {
-        $mimeTypeValidator = new MimeType();
-        $mimeTypeValidator->setMagicFile(false)
-                          ->disableMagicFile(true)
-                          ->setMimeType($this->getAllowedTypes());
+        if ($this->form && ($object = $this->form->getObject())) {
+            if ($this->getMaxFileCount() - 1 < count($object)) {
+                return false;
+            }
+        }
 
-        $sizeValidator = new Size($this->getMaxSize());
-
-        return array(
-            'name' => $this->getName(),
-            'required' => false,
-            'validators' => array(
-                $mimeTypeValidator,
-                $sizeValidator,
-            ),
-        );
+        return true;
     }
-    
 }
