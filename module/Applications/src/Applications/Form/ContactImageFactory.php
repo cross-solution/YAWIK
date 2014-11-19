@@ -21,4 +21,5 @@ use Auth\Form\UserImageFactory;
 class ContactImageFactory extends UserImageFactory
 {
     protected $fileEntityClass = '\Applications\Entity\Attachment';
+    protected $configKey = 'application_contact_image';
 } 
