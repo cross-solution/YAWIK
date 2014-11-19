@@ -30,7 +30,8 @@ class UserImageFactory extends FileUploadFactory
 
         $form->get($this->fileName)->setViewHelper('FormImageUpload')
                                    ->setMaxSize($size)
-                                   ->setAllowedTypes($type);
+                                   ->setAllowedTypes($type)
+                                   ->setForm($form);
                                    
     }
 } 
