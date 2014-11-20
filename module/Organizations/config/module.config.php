@@ -88,6 +88,7 @@ return array(
             // guests are not allowed to see a list of companies
             'guest' => array(
                 'allow' => array(
+                    'Entity/OrganizationImage'
                 ),
                 'deny' => array(
                     'route/lang/organizations',

@@ -11,6 +11,7 @@
 namespace Organizations\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Core\Entity\FileEntity;
 
 /**
@@ -18,7 +19,7 @@ use Core\Entity\FileEntity;
  * 
  * @ODM\Document(collection="organization.images", repositoryClass="Organizations\Repository\OrganizationImage")
  */
-class OrganizationImage extends FileEntity
+class OrganizationImage extends FileEntity implements ResourceInterface
 {
 
     /**
@@ -45,5 +46,15 @@ class OrganizationImage extends FileEntity
     public function getImageUri()
     {
         return $this->imageUri;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     * @see \Zend\Permissions\Acl\Resource\ResourceInterface::getResourceId()
+     */
+    public function getResourceId()
+    {
+        return 'Entity/OrganizationImage';
     }
 }
