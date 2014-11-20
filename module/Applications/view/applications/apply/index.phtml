@@ -11,11 +11,19 @@ $this->headTitle($this->translate('Apply'));
 $job = $this->application->job;
 ?>
 <h1><?php echo $this->translate('Application')?></h1>
+<div class="container">
+    <div class="row">
+    <div class="col-md-8">
 <p class="lead"><?php printf(
     $this->translate('Apply to "%s" from "%s"'), 
     '<a href="'.$job->link.'" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->title)) . '</a>',
     $job->company
 ) ?></p>
+    </div>
+        <div class="col-md-4">
+            <img src="<?php echo $this->application->job->logoRef ?>">
+        </div>
+    </div>
 
 
 <?php if ($this->success):
@@ -65,3 +73,4 @@ echo $this->partial('applications/apply/_buttons',
 );
 ?>
 <?php endif ?>
+</div>

@@ -481,6 +481,11 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @return string
      */
     public function getLogoRef() {
+        $organization = $this->organization;
+        if (isset($organization)) {
+            $organizationImage = $organization->image;
+            return "/file/Organizations.OrganizationImage/" . $organizationImage->id;
+        }
         return $this->logoRef;
     }
     /**
