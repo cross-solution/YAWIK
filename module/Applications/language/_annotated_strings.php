@@ -38,10 +38,10 @@ translate('Status'       => array('sort' => 'status');
 //: ./view/applications/manage/index.applicant.ajax.phtml:18
 translate('Actions');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:41
+//: ./src/Applications/Form/AttachmentsFactory.php:34
 translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:43
+//: ./src/Applications/Form/AttachmentsFactory.php:36
 translate('Attachments');
 
 //: ./src/Applications/Form/Base.php:26

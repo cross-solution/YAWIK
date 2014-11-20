@@ -9,10 +9,10 @@ translate('City'         => array('class' => 'cam-job');
 translate('Street');
 
 //: ./src/Organizations/Form/Organizations.php:43
-translate('Identify the company.');
+translate('Please enter the name of the hiring organization.');
 
 //: ./src/Organizations/Form/Organizations.php:54
-translate('Basic Location Information.');
+translate('Please enter a contact for the hiring organization.');
 
 //: ./src/Organizations/Form/OrganizationsNameFieldset.php:54
 translate('Organizationname');

@@ -35,6 +35,7 @@ translate('Contact email');
 //: ./src/Jobs/Form/JobFieldset.php:87
 translate('Reference number');
 
+101:       //         'label' => /*@translate*/
 //: ./src/Jobs/Form/Job.php:56
 translate('Customize apply form');
 
