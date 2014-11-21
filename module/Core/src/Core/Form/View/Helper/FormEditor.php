@@ -68,8 +68,9 @@ class FormEditor extends FormTextarea
                     editor.on("blur", function(e) {
                     //console.log("blur event", e);
                     var container = e.target.bodyElement;
-                    var form = $(container).parents("form").get(0);
-                    console.log("form", form);
+                    var form = $(container).parents("form");
+                    //console.log("form", form);
+                    editor.save();
                     form.submit();
                     //$(form).on("yk.forms.done", function(){console.log("done")});
 

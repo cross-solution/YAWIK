@@ -35,6 +35,7 @@
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
 			var data  = $form.serializeArray();
+            console.log('data', $form, data);
 			if (extraData) {
 				$.each(extraData, function(idx, value) {
 					data.push({
@@ -54,11 +55,13 @@
 				data: data
 			})
 			.done(function(data, textStatus, jqXHR) {
+                // the data-object can contains following values
+                // valid = boolean ,if explicitly set to false, errors will be displayed
 				methods.clearErrors($form);
 				if (!data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
-                    console.log('$form',$form);
+                // console.log('$form',$form);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {

@@ -33,7 +33,7 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
         $this->setName('jobs-form-requirements');
         $this->setAttributes(array(
             'id' => 'jobs-form-requirements',
-            'data-handle-by' => 'native'
+            'data-handle-by' => 'yk-form'
         ));
 
         $this->add(array(

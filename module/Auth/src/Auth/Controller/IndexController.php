@@ -48,20 +48,19 @@ class IndexController extends AbstractActionController
                               ->get('Auth/Login');
         
         if ($this->request->isPost()) {
-            
-            $form->setData($this->params()->fromPost());
-            $adapter    = $services->get('Auth/Adapter/UserLogin');
-            
+            $data                          = $this->params()->fromPost();
+            $adapter                       = $services->get('Auth/Adapter/UserLogin');
             // inject suffixes via shared Events
-            $loginSuffix = '';
-            $e = $this->getEvent();
+            $loginSuffix                   = '';
+            $e                             = $this->getEvent();
             //$this->getEventManager()->addIdentifiers('login');
             $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
             if (!$loginSuffixResponseCollection->isEmpty()) {
                 $loginSuffix = $loginSuffixResponseCollection->last();
             }
-            
-            $data       = $this->params()->fromPost();
+
+            $form->setData($data);
+            if (array_key_exists('credentials', $data) && array_key_exists('login', $data['credentials']) && array_key_exists('credential', $data['credentials']))
             $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
             

@@ -13,6 +13,7 @@ namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Auth\Exception\UnauthorizedAccessException;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
@@ -180,6 +181,7 @@ class ManageController extends AbstractActionController {
     protected function edittemplateAction()
     {
         $request              = $this->getRequest();
+        $isAjax               = $request->isXmlHttpRequest();
         $params               = $this->params();
         $formIdentifier       = $params->fromQuery('form');
         $services             = $this->getServiceLocator();
@@ -214,6 +216,15 @@ class ManageController extends AbstractActionController {
             if ($instanceForm->isValid()) {
                 $this->getServiceLocator()->get('repositories')->persist($jobEntity);
             }
+        }
+
+        if (!$isAjax) {
+            $headScript = $viewHelperManager->get('headscript');
+            $headScript->appendFile('/Core/js/core.forms.js');
+            //$headScript->appendScript('$(document).ready(function() { $() });');
+        }
+        else {
+            return new JsonModel(array('valid' => True));
         }
 
         $descriptionFormBenefits = $formTemplate->get('descriptionFormBenefits');

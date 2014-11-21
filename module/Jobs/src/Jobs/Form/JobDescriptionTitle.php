@@ -32,8 +32,8 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
     {
         $this->setName('jobs-form-title');
         $this->setAttributes(array(
-            'id' => 'jobs-form-benefits',
-            'data-handle-by' => 'native'
+            'id' => 'jobs-form-title',
+            'data-handle-by' => 'yk-form'
         ));
 
         $this->add(array(
