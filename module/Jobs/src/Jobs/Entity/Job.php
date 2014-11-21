@@ -18,13 +18,15 @@ use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
+use Core\Entity\DraftableEntityInterface;
+use Core\Entity\PermissionsResourceInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends BaseEntity implements JobInterface {
+class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
      * uniq ID of a job posting used by applications to reference
@@ -149,7 +151,15 @@ class Job extends BaseEntity implements JobInterface {
      * @ODM\String 
      */
     protected $logoRef;
-    
+
+    /**
+     * Application link.
+     *
+     * @var String
+     * @ODM\String
+     */
+    protected $uriApply;
+
     /**
      * Unified Resource Locator the Yawik, which handled this job first - so 
      * does know who is the one who has commited this job.
@@ -185,7 +195,23 @@ class Job extends BaseEntity implements JobInterface {
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
     protected $permissions;
-    
+
+    /**
+     * The actual name of the organization.
+     *
+     * @var TemplateValues
+     * @ODM\EmbedOne(targetDocument="\Jobs\Entity\TemplateValues")
+     */
+    protected $templateValues;
+
+    /**
+     * Flag indicating draft state of this job.
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $isDraft = false;
+
     /**
      * Is this needed?
      * 
@@ -195,6 +221,7 @@ class Job extends BaseEntity implements JobInterface {
     {
         return 'Entity/Jobs/Job';
     }
+
     /**
      * @see \Jobs\Entity\JobInterface::setApplyId()
      * @param String $applyId
@@ -209,6 +236,10 @@ class Job extends BaseEntity implements JobInterface {
      * @return String
      */
     public function getApplyId() {
+        if (!isset($this->applyId)) {
+            // take the entity-id as a default
+            $this->applyId = $this->id;
+        }
         return $this->applyId;
     }
 
@@ -466,6 +497,23 @@ class Job extends BaseEntity implements JobInterface {
     /**
      * @return String
      */
+    public function getUriApply() {
+        return $this->uriApply;
+    }
+    /**
+     *
+     * @param String $uriApply
+     * @return \Jobs\Entity\Job
+     */
+    public function setUriApply($uriApply) {
+        $this->uriApply = $uriApply;
+        return $this;
+    }
+
+
+    /**
+     * @return String
+     */
     public function getUriPublisher() {
         return $this->uriPublisher;
     }
@@ -536,8 +584,51 @@ class Job extends BaseEntity implements JobInterface {
      * (non-PHPdoc)
      * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
      */
-    public function setPermissions(PermissionsInterface $permissions) {
+    public function setPermissions(PermissionsInterface $permissions)
+    {
         $this->permissions = $permissions;
+        return $this;
+    }
+
+    public function getTemplateValues()
+    {
+        if (!$this->templateValues instanceOf TemplateValues) {
+            $this->templateValues = new TemplateValues();
+        }
+        return $this->templateValues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTemplateValues(EntityInterface $templateValues = null)
+    {
+        if (!$templateValues instanceOf TemplateValues) {
+            $templateValues = new TemplateValues($templateValues);
+        }
+        $this->templateValues = $templateValues;
+        return $this;
+    }
+
+    /**
+     * Gets the flag indicating the draft state.
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
+
+    /**
+     * Sets the flag indicating the draft state.
+     *
+     * @param boolean $flag
+     * @return DraftableEntityInterface
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
         return $this;
     }
 }

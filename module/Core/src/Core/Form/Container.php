@@ -11,6 +11,7 @@
 namespace Core\Form;
 
 use Zend\Form\Element;
+use Zend\Form\FieldsetInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -288,8 +289,9 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         if ($entity = $this->getEntity()) {
             $this->mapEntity($formInstance, isset($form['property']) ? $form['property'] : $key, $entity);
         }
-        
+
         $formInstance->setParams($this->getParams());
+
         $this->forms[$key]['__instance__'] = $formInstance;
         $this->forms[$key]['options'] = $options;
         return $formInstance;
@@ -478,4 +480,94 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         }
         
     }
+
+    /**
+     * @return bool
+     */
+    public function isValid()
+    {
+        $isValid = True;
+        foreach ($this->activeForms as $activeFormKey) {
+            $activeForm = $this->getForm($activeFormKey);
+            $isValid &= $activeForm->isValid();
+        }
+        return $isValid;
+    }
+
+    /**
+     * if fieldsets there is get method to have access to any element by name
+     * this method is similar
+     * get('form') gets a form
+     * get('element') gets an element, if an element has the same name as a form, the form get's first access
+     * get('form.element') gets an element of a form, this is more efficent because it doesn't expand all forms in the container,
+     *      but just the one adressed
+     * @param $key string
+     * @return null|\Zend\Form\ElementInterface
+     */
+    public function get($key) {
+        $return   = Null;
+        $lastKey  = Null;
+        $searchIn = $this->activeForms;
+        $keySplit = explode('.', $key);
+
+        while (0 < count($keySplit)) {
+            $lastKey = array_shift($keySplit);
+            foreach ($searchIn as $activeFormKey) {
+                if ($lastKey == $activeFormKey) {
+                    $searchIn = $this->getForm($activeFormKey);
+                    unset($lastKey);
+                    break;
+                }
+            }
+        }
+        if (!isset($lastKey) && !empty($keySplit)) {
+            $lastKey = array_shift($keySplit);
+        }
+        if (isset($lastKey) && empty($keySplit)) {
+            if ($searchIn instanceof FieldsetInterface) {
+                // has reached a fieldset to search in
+                $return = $searchIn->get($lastKey);
+                unset($lastKey);
+            }
+            else if (is_array($searchIn) || $searchIn instanceof Traversable) {
+                // is probably still in the container
+                foreach ($searchIn as $activeKey) {
+                    $activeForm = $this->getForm($activeKey);
+                    if ($activeForm instanceof FieldsetInterface) {
+                        $return = $activeForm->get($lastKey);
+                    }
+                }
+            }
+        }
+        if (!isset($lastKey) && empty($keySplit) && !isset($return)) {
+            $return = $searchIn;
+        }
+        return $return;
+    }
+
+    public function setData($data) {
+        $filteredData = array();
+        foreach ($data as $key => $elem) {
+            if (!array_key_exists($key, $this->params) && $key != 'formName') {
+                $filteredData[$key] = $elem;
+            }
+            if ($key == 'formName' && is_string($elem)) {
+                // you can activate a specific form with postData
+                foreach ($this->activeForms as $activeFormKey) {
+                    if ($activeFormKey == $elem) {
+                        $this->enableForm($activeFormKey);
+                    }
+                    else {
+                        $this->disableForm($activeFormKey);
+                    }
+                }
+            }
+        }
+        foreach ($this->activeForms as $activeFormKey) {
+            $activeForm = $this->getForm($activeFormKey);
+            $activeForm->setData($filteredData);
+        }
+        return $this;
+    }
+
 }

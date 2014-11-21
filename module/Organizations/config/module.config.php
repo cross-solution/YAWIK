@@ -35,26 +35,7 @@ return array(
             ),
         ),
     ),
-    'acl' => array(
-        'rules' => array(
-            'guest' => array(
-                'allow' => array(
-//                    'route/lang/organizations',
-                ),
-                'deny' => array(
-                    'route/lang/organizations',
-                ),
-            ),
-            'recruiter' => array(
-                'allow' => array(
-                ),
-            ),
-        ),
-        'assertions' => array(
-            'invokables' => array(
-            ),
-        ),
-    ),
+
 
     'controllers' => array(
         'invokables' => array(
@@ -74,8 +55,11 @@ return array(
     'form_elements' => array(
         'invokables' => array(
              'Organizations/form' => 'Organizations\Form\Organizations',
-             'Organizations/ContactFieldset' => 'Organizations\Form\ContactFieldset',
-             'Organizations/OrganizationFieldset' => 'Organizations\Form\OrganizationsFieldset',
+             'Organizations/OrganizationsContactForm'     => 'Organizations\Form\OrganizationsContactForm',
+             'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
+             'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
+             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+            //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
         ),
         'factories' => array(
         )
@@ -98,10 +82,13 @@ return array(
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
         ),
     ),
+
     'acl' => array(
         'rules' => array(
             // guests are not allowed to see a list of companies
             'guest' => array(
+                'allow' => array(
+                ),
                 'deny' => array(
                     'route/lang/organizations',
                 ),
@@ -112,8 +99,11 @@ return array(
                     'route/lang/organizations',
                 ),
             ),
-
-        )
+        ),
+        'assertions' => array(
+            'invokables' => array(
+            ),
+        ),
     ),
 
     'navigation' => array(

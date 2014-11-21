@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:32+0200\n"
+"POT-Creation-Date: 2014-11-19 19:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "My groups"
 msgstr ""
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:26
 msgid "Manage groups"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr ""
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:45
+#: view/auth/index/login-info.phtml:49
 msgid "Login"
 msgstr ""
 
@@ -112,33 +112,33 @@ msgstr ""
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr ""
 
-#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:18
+#: view/auth/index/login-info.phtml:22
 msgid "Change password"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:27
+#: view/auth/index/login-info.phtml:31
 msgid "Logout"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:38
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:35
+#: view/auth/index/login-info.phtml:39
 msgid "Guest"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:47
+#: view/auth/index/login-info.phtml:51
 msgid "Login via"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:50
+#: view/auth/index/login-info.phtml:54
 #, php-format
 msgid "Login with %s"
 msgstr ""
@@ -166,11 +166,11 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: src/Auth/Controller/ManageController.php:92
+#: src/Auth/Controller/ManageController.php:105
 msgid "Password successfully changed"
 msgstr ""
 
-#: src/Auth/Controller/ManageController.php:98
+#: src/Auth/Controller/ManageController.php:111
 msgid "Password could not be changed"
 msgstr ""
 
@@ -298,17 +298,13 @@ msgid "Authentication failed."
 msgstr ""
 
 #: language/_annotated_strings.php:114
-msgid "Welcome to YAWIK!"
-msgstr ""
-
-#: language/_annotated_strings.php:117
 msgid "You are now logged out"
 msgstr ""
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:117
 msgid "user"
 msgstr ""
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:120
 msgid "recruiter"
 msgstr ""

@@ -21,6 +21,7 @@ mongo.pass=
 
 username=
 password=
+role=recuiter
 
 ;
 ; external appKey. You can add jobs and users by using a simple API. This 
@@ -36,6 +37,11 @@ external.app.prefix=myapp
 ;
 mail.from.email=demo@yawik.org
 mail.from.name=YAWIK
+
+; subject of the initial email, if somebody logs into via a social network
+mail.first_login.subject=Welcome to the YAWIK demo
+
+auth.suffix=
 
 ;
 ; Email development system settings
@@ -69,6 +75,36 @@ linkedin.secret=<put your linkedin app secret here>
 linkedin.scope=r_fullprofile
 
 ;
+; Forms configuration
+;
+
+; Auth / User / Image
+;
+
+; Maximum file size (in Bytes)
+auth.forms.userimage.maxsize=1000000
+
+; Allowed mimetypes. Comma separated list. Provide either full type or just a group
+; e.g. "image/jpeg,image/png,text"
+; Leave this empty to not restrict mimetypes
+auth.forms.userimage.mimetype=image
+
+; Applications / Apply / Attachments
+;
+
+applications.forms.attachments.maxsize=5000000
+applications.forms.attachments.mimetype=
+
+; Maximum file count. Only this amount of files can be uploaded and attached.
+applications.forms.attachments.count=5
+
+; Applications / Apply / ContactImage
+;
+
+applications.forms.contactimage.maxsize=1000000
+applications.forms.contactimage.mimetype=image
+
+;
 ; For Developers: If you plan to contribute to the development, you can define some deployment variables. 
 ;
 
@@ -76,4 +112,8 @@ linkedin.scope=r_fullprofile
 deploy.ssh.host =
 deploy.ssh.user =
 deploy.docs.target =
+
+; als long there is no mechanism to read properties files from modules, we
+; put this config option here
+yawik.demoskin.piwik=/../../module/YawikDemoSkin/view/.piwik.phtml
 

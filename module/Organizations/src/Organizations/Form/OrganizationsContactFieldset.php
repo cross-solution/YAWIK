@@ -11,14 +11,26 @@
 namespace Organizations\Form;
 
 use Zend\Form\Fieldset;
+use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\OrganizationContact;
 
 /**
  * Class ContactFieldset
  * @package Organizations\Form
  */
-class ContactFieldset extends Fieldset 
+class OrganizationsContactFieldset extends Fieldset
 {
+
+    public function getHydrator()
+    {
+        if (!$this->hydrator) {
+            $hydrator           = new EntityHydrator();
+            $this->setHydrator($hydrator);
+        }
+        return $this->hydrator;
+    }
+
+
     /**
      * set the elements for the form
      */

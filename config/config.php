@@ -22,8 +22,7 @@ $modules = array(
          'Jobs', 
          'Settings', 
          'Pdf', 
-         'Geo', 
-         'FormularValidation',
+         'Geo',
          'Organizations',
     );
 
@@ -58,7 +57,6 @@ $config = array(
         'module_paths' => array(
             './module',
             './vendor',
-            'Cam\*' => './vendor/extern'
         ),
     
     

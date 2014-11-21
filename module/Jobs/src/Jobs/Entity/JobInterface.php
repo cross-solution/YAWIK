@@ -152,6 +152,37 @@ interface JobInterface extends EntityInterface,
     public function getUser() ;
 
     /**
+     * Gets the link to the application form
+     *
+     * @return String
+     */
+    public function getUriApply();
+
+    /**
+     * Sets the Link to the application form
+     *
+     * @param String $uriApply
+     * @return \Jobs\Entity\Job
+     */
+    public function setUriApply($uriApply);
+
+
+    /**
+     * Gets the URI of the publisher
+     *
+     * @return String
+     */
+    public function getUriPublisher();
+
+    /**
+     * Sets the URI of the publisher
+     *
+     * @param String $uriPublisher
+     * @return \Jobs\Entity\Job
+     */
+    public function setUriPublisher($uriPublisher);
+
+    /**
      * Sets the location of a job posting
      *
      * @param string $location

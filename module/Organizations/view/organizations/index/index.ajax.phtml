@@ -56,7 +56,10 @@ if ('-' == $this->sort{0}) {
  <tr>
   <td>
       <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->id)); ?>">
-    <?php echo $organization->organizationName->name;?>
+    <?php
+        $nameEntity = $organization->organizationName;
+        echo isset($nameEntity)?$nameEntity->name:'**** DRAFT ****';
+    ?>
       </a>
   </td>
   <td>
@@ -70,3 +73,4 @@ if ('-' == $this->sort{0}) {
  </tr>
 <?php endforeach?>
 </table>
+<?php echo $this->paginationControl($organizations, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/organizations'));?>

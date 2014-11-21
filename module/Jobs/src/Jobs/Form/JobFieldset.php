@@ -7,8 +7,8 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 class JobFieldset extends Fieldset 
 {
-    
-    
+
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -28,18 +28,15 @@ class JobFieldset extends Fieldset
         $this->setAttribute('id', 'job-fieldset');
         $this->setLabel('Job details');
 
-        $this->add(array(
-            'type' => 'hidden',
-            'name' => 'id'
-        ));
-        
-       $this->add(array(
-            'type' => 'Text',
-            'name' => 'company',
-            'options' => array(
-                'label' => /*@translate*/ 'Company'
-            ),
-        ));
+
+//       $this->add(array(
+//            'type' => 'Text',
+//            'name' => 'company',
+//            'options' => array(
+//                'label' => /*@translate*/ 'Company'
+//            ),
+//        ));
+
         
        $this->add(array(
             'type' => 'Text',
@@ -49,21 +46,21 @@ class JobFieldset extends Fieldset
             ),
         ));
        
-       $this->add(array(
-           'type' => 'Jobs/ApplyId',
-           'name' => 'applyId',
-           'options' => array(
-               'label' => /*@translate*/ 'Apply Identifier'
-           ),
-       ));
-       
-       $this->add(array(
-           'type' => 'Textarea',
-           'name' => 'description',
-           'options' => array(
-                'label' => /*@translate*/ 'Job description'
-           ),
-       ));
+//       $this->add(array(
+//           'type' => 'Jobs/ApplyId',
+//           'name' => 'applyId',
+//           'options' => array(
+//               'label' => /*@translate*/ 'Apply Identifier'
+//           ),
+//       ));
+//
+//       $this->add(array(
+//           'type' => 'Textarea',
+//           'name' => 'description',
+//           'options' => array(
+//                'label' => /*@translate*/ 'Job description'
+//           ),
+//       ));
        
        $this->add(array(
             'type' => 'Location',
@@ -73,28 +70,37 @@ class JobFieldset extends Fieldset
             ),
         ));
        
-       $this->add(array(
-            'type' => 'Text',
-            'name' => 'contactEmail',
-            'options' => array(
-                'label' => /*@translate*/ 'Contact email'
-            ),
-           
-        ));
+//       $this->add(array(
+//            'type' => 'Text',
+//            'name' => 'contactEmail',
+//            'options' => array(
+//                'label' => /*@translate*/ 'Contact email'
+//            ),
+//
+//        ));
+//
+//
+//       $this->add(array(
+//            'type' => 'Text',
+//            'name' => 'reference',
+//            'options' => array(
+//                'label' => /*@translate*/ 'Reference number'
+//            ),
+//
+//        ));
        
-       
-       $this->add(array(
-            'type' => 'Text',
-            'name' => 'reference',
-            'options' => array(
-                'label' => /*@translate*/ 'Reference number'
-            ),
-            
-        ));
-       
-       $this->add(array(
-           'type' => 'Core/PermissionsCollection'
-       ));
-       
+       //$this->add(array(
+       //    'type' => 'Core/PermissionsCollection'
+       //));
+
+       // @TODO: insert editable hidden field
+       //$this->add(array(
+       //     'type'    => 'Jobs/ApplyId',
+       //     'name'    => 'applyId',
+       //     'options' => array(
+       //         'label' => /*@translate*/
+       //             'Apply Identifier'
+       //     ),
+       //));
     }
 }

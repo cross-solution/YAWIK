@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:20+0200\n"
-"PO-Revision-Date: 2014-09-11 16:40+0000\n"
+"POT-Creation-Date: 2014-11-19 19:18+0100\n"
+"PO-Revision-Date: 2014-11-19 18:47+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,13 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/form/apply-identifier.phtml:19
+#: view/iframe/iFrame.phtml:13
+msgid ""
+"You are using a default template. You are free to create your own template, "
+"just contact the developing team for integration"
+msgstr "Sie nutzen die Vorlage für eine Stellenanzeige. Sie können sich eine eigene Vorlage erstellen. Oder nehmen Sie mit uns Kontakt auf. Wir helfen Ihnen."
+
+#: view/form/apply-identifier.phtml:22
 msgid "Apply link"
 msgstr "Bewerbungslink"
 
@@ -38,7 +44,7 @@ msgid "All jobs"
 msgstr "Alle Anzeigen"
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:73
 msgid "Jobs"
 msgstr "Stellenanzeigen"
 
@@ -58,7 +64,7 @@ msgstr "Eingangsdatum"
 msgid "Title of the job"
 msgstr "Titel der Anzeige"
 
-#: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:18
+#: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:30
 msgid "Location"
 msgstr "Ort"
 
@@ -90,7 +96,11 @@ msgstr "gesamt"
 msgid "unread"
 msgstr "ungelesen"
 
-#: view/jobs/index/index.ajax.phtml:72 view/jobs/index/view.phtml:18
+#: view/jobs/index/index.ajax.phtml:66
+msgid "draft"
+msgstr "Entwurf"
+
+#: view/jobs/index/index.ajax.phtml:89 view/jobs/index/view.phtml:18
 msgid "Apply"
 msgstr "Bewerben"
 
@@ -114,90 +124,102 @@ msgstr "Datum"
 msgid "Online since"
 msgstr "Online seit"
 
-#: view/jobs/manage/form.phtml:20
-msgid "Publish a job"
-msgstr "Eine Stellenanzeige veröffentlichen"
-
-#: view/jobs/manage/form.phtml:22
-msgid "Edit a job"
-msgstr "eine  Stellenanzeige bearbeiten"
+#: src/Jobs/Form/JobDescriptionFieldset.php:24
+msgid "Description"
+msgstr "Beschreibung"
 
 #: src/Jobs/Form/JobFieldset.php:29
 msgid "Job details"
 msgstr "Beschreibung der Stellenanzeige"
+
+#: src/Jobs/Form/JobEmployersFieldset.php:29
+msgid "Employers"
+msgstr "Mitarbeiter"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
 msgstr "nach Stellenanzeigen suchen"
 
 #: language/_annotated_strings.php:6
-msgid "Company"
-msgstr "Firmenname"
+msgid "Job qualification"
+msgstr "Qualififationen"
 
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:45
-msgid "Job title"
-msgstr "Titel der Anzeige"
+#: language/_annotated_strings.php:9
+msgid "Job benefits"
+msgstr "Benefits"
 
 #: language/_annotated_strings.php:12
-msgid "Apply Identifier"
-msgstr "Bewerbungsschlüssel"
+msgid "Job requirements"
+msgstr "Aufgaben"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:27
 msgid "Job description"
 msgstr "Beschreibung der Stellenanzeige"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:18
+msgid "Company"
+msgstr "Firmenname"
+
+#: language/_annotated_strings.php:21 language/_annotated_strings.php:61
+msgid "Job title"
+msgstr "Titel der Anzeige"
+
+#: language/_annotated_strings.php:24
+msgid "Apply Identifier"
+msgstr "Bewerbungsschlüssel"
+
+#: language/_annotated_strings.php:33
 msgid "Contact email"
 msgstr "E-Mail für Bewerbungen"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:36
 msgid "Reference number"
 msgstr "Referenz"
 
-#: language/_annotated_strings.php:27
-msgid "Publish job"
-msgstr "Stellenanzeige veröffentlichen"
+#: language/_annotated_strings.php:40
+msgid "Customize apply form"
+msgstr "Bewerbungsformular anpassen"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:43
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr "Der Berwerbungsschlüssel \"%value%\" wird schon benutzt."
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:46 language/_annotated_strings.php:64
+msgid "Publish job"
+msgstr "Stellenanzeige veröffentlichen"
+
+#: language/_annotated_strings.php:49
 msgid "Show all jobs"
-msgstr "Zeige alle Jobs"
+msgstr "Zeige alle Stellenanzeigen"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:52
 msgid "Show my jobs"
-msgstr "Zeige meine Jobs"
+msgstr "Zeige meine Stellenanzeigen"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:55
 msgid "Active"
 msgstr "Aktiv"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:58
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: language/_annotated_strings.php:48
-msgid "Job published."
-msgstr "Stellenanzeige wurde veröffentlicht."
+#: language/_annotated_strings.php:67
+msgid "Job saved"
+msgstr "Die Stellenanzeige wurde gespeichert"
 
-#: language/_annotated_strings.php:51
-msgid "Job saved."
-msgstr "Stellenanzeige wurde gespeichert."
-
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:70
 msgid "There were errors in the form"
 msgstr "Beim Ausfüllen des Formulars sind Fehler aufgetreten."
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:76
 msgid "Overview"
 msgstr "Übersicht"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:79
 msgid "Create job"
 msgstr "Stellenanzeige anlegen"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:82
 msgid "Edit job"
 msgstr "Stellenanzeige bearbeiten"

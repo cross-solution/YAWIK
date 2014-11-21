@@ -1,3 +1,4 @@
+// TODO: documentation
 
 ;(function ($) {
 	
@@ -159,7 +160,30 @@
 				{
 					data.context.removeClass('fu-working');
 					data.context.find('.fu-progress').addClass('hide');
-					data.context.find('.fu-file-info').attr('href', data.result.content);
+                    if (data.result.valid) {
+					    data.context.find('.fu-file-info').attr('href', data.result.content);
+                        return;
+                    }
+
+                    data.context.removeClass('fu-working').addClass('fu-error')
+                        .find('.fu-errors').show();
+                    for (var errorKey in data.result.errors[$form.attr('action').replace(/\?form=/, '')]) {
+                        switch (errorKey) {
+                            case 'fileMimeTypeFalse':
+                                data.context.find('.fu-error-type').show();
+                                break;
+
+                            case 'fileSizeTooBig':
+                                data.context.find('.fu-error-size').show();
+                                break;
+
+                            case 'callbackValue':
+                                data.context.find('.fu-error-count').show();
+                                break;
+                        }
+                    }
+
+
 				},
 				
 				fail: function(e, data) 

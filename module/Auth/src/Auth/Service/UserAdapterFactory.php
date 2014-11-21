@@ -38,8 +38,9 @@ class UserAdapterFactory implements FactoryInterface
         
         if (isset($config['login']) && !empty($config['login'])
             && isset($config['password']) && !empty($config['password'])
+            && isset($config['role']) && !empty($config['role'])
         ) {
-            $adapter->setDefaultUser($config['login'], $config['password']);
+            $adapter->setDefaultUser($config['login'], $config['password'], $config['role']);
         }
         
         return $adapter;

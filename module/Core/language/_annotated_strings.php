@@ -1,4 +1,10 @@
 <?php
+//: ./src/Core/Form/FormSubmitButtonsFieldset.php:25
+translate('Save');
+
+//: ./src/Core/Form/FormSubmitButtonsFieldset.php:39
+translate('Cancel');
+
 //: ./src/Core/Form/DefaultButtonsFieldset.php:17
 translate('Save');
 
@@ -47,7 +53,7 @@ translate('Excellent');
 //: ./src/Core/Form/Element/Phone.php:25
 translate('Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.');
 
-//: ./src/Core/Form/FileUploadFactory.php:90
+//: ./src/Core/Form/FileUploadFactory.php:119
 translate('Remove all');
 
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:21
@@ -65,6 +71,6 @@ translate('German');
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:27
 translate('defines the languages of this frontend.');
 
-//: ./config/module.config.php:26
+//: ./config/module.config.php:25
 translate('general settings');
 

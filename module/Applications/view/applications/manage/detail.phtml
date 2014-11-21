@@ -303,7 +303,7 @@ endif;
             </a>
         
     <?php endforeach; 
-    $this->headScript()->appendFile($this->basePath('Core/js/jquery.reloadable-modal.js'))?>
+    $this->headScript()->appendFile($this->basePath('Core/js/core.reloadable-modal.js'))?>
     <div class="modal fade modal-scrollable" id="sp-modal" data-reloadable="body" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -353,8 +353,8 @@ endif;
           else:?>
             <button id="<?php echo $this->application->rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>" 
                     data-title="title"
-                    <?php echo $this->application->rating?'data-toggle="modal"':''?>
-                    <?php echo $this->application->rating?'data-target="#cam-application-comments"':''?> 
+                    data-target="#cam-application-comments"
+                    data-toggle="modal"
                     title="<?php echo $this->application->rating?$this->translate('View comments'):$this->translate('Add comment') ?>">
               <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
             </button>

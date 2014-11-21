@@ -397,4 +397,5 @@ return array(
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
+
 );

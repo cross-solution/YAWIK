@@ -7,12 +7,25 @@
  * @license   MIT
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-
+$this->headScript()->appendFile($this->basePath('Applications/js/application.form.js'));
 $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job->applyId), true);
+$isApplicationValid = $this->services('validatormanager.applicationsapplication')->isValid($this->application);
 ?>
 
 <div id="send-application-buttons">
     <nav class="navbar">
+
+        <?php
+        echo $this->alert()->warning(
+            $this->translate('Your application is incomplete. You have to add your contact data and accept the privacy policy to be able to submit the application. You can always preview or abort your application.'),
+            array(
+                'dismissable' => false,
+                'id'          => 'application_incomplete',
+                'class'       => $isApplicationValid ? 'hidden' : '',
+            )
+        );
+        ?>
+
 
         <?php if ($this->isPreview):?>
         <a href="<?php echo $applyUrl ?>" id="back-to-application" class="btn btn-lg btn-default">
@@ -23,11 +36,11 @@ $applyUrl = $this->url('lang/apply', array('applyId' => $this->application->job-
             <?php echo $this->translate('Preview application') ?>
         </a>
         <?php endif ?>
-        
+
         <a href="<?php echo $applyUrl ?>?do=send" id="send-application" class="btn btn-lg btn-primary<?php 
         
         echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
-             ? '' : ' disabled' 
+             ? '' : ' hidden'
         
         ?>">
             <?php echo $this->translate('Send application') ?>

@@ -91,7 +91,7 @@ return array(
                         'route' => 'lang/jobs/manage',
                         'resource' => 'route/lang/jobs/manage',
                         'params' => array(
-                            'action' => 'new'
+                            'action' => 'edit'
                         ),
                         'id' => 'Jobs/new',
                     ),
@@ -137,13 +137,24 @@ return array(
        
     'form_elements' => array(
         'invokables' => array(
-            'Jobs/Job'             => 'Jobs\Form\Job',
-            'Jobs/JobFieldset'     => 'Jobs\Form\JobFieldset',
-            'Jobs/ApplyId'         => 'Jobs\Form\ApplyIdentifierElement',
-            'Jobs/Import'            => '\Jobs\Form\Import',
-            'Jobs/ImportFieldset'        => '\Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'    => '\Jobs\Form\ListFilter',
-            'Jobs/ListFilterFieldset' => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/Job'                        => 'Jobs\Form\Job',
+            'Jobs/TitleLocation'              => 'Jobs\Form\JobTitleLocation',
+            'Jobs/JobFieldset'                => 'Jobs\Form\JobFieldset',
+            'Jobs/Employers'                  => 'Jobs\Form\JobEmployers',
+            'Jobs/JobEmployersFieldset'       => 'Jobs\Form\JobEmployersFieldset',
+            'Jobs/Description'                => 'Jobs\Form\JobDescription',
+            'Jobs/JobDescriptionFieldset'     => 'Jobs\Form\JobDescriptionFieldset',
+            'Jobs/ApplyId'                    => 'Jobs\Form\ApplyIdentifierElement',
+            'Jobs/Import'                     => '\Jobs\Form\Import',
+            'Jobs/ImportFieldset'             => '\Jobs\Form\ImportFieldset',
+            'Jobs/ListFilter'                 => '\Jobs\Form\ListFilter',
+            'Jobs/ListFilterFieldset'         => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/JobDescriptionBenefits'     => '\Jobs\Form\JobDescriptionBenefits',
+            'Jobs/JobDescriptionRequirements' => '\Jobs\Form\JobDescriptionRequirements',
+            'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',
+            'Jobs/JobDescriptionTitle'        => '\Jobs\Form\JobDescriptionTitle',
+            'Jobs/Description/Template'       => '\Jobs\Form\JobDescriptionTemplate',
+
         ),
         'factories' => array(
             'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',
@@ -152,8 +163,8 @@ return array(
     
     'input_filters' => array(
         'invokables' => array(
-            'Jobs/New'  => 'Jobs\Form\InputFilter\NewJob',
-            'Jobs/Edit' => 'Jobs\Form\InputFilter\EditJob', 
+            'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
+            'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
         ),
     ),
     

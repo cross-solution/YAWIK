@@ -157,12 +157,16 @@ class SummaryForm extends AbstractHelper
      */
     public function renderSummary(SummaryFormInterface $form)
     {
+        $baseFieldset = $form->getBaseFieldset();
+        if (!isset($baseFieldset)) {
+            throw new \InvalidArgumentException('For the Form ' . get_class($form) . ' there is no Basefieldset');
+        }
         return  '<div class="panel panel-default" style="min-height: 100px;">
                     <div class="panel-body"><button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
               . '<span class="yk-icon yk-icon-edit"></span> '
               . $this->getView()->translate('Edit')
               . '</button>'
-              . $this->renderSummaryElement($form->getBaseFieldset())
+              . $this->renderSummaryElement($baseFieldset)
               . '</div></div>';
     }
     

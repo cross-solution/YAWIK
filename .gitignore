@@ -9,6 +9,11 @@ phing.phar
 .idea
 
 #
+# phpdoc log files
+#
+phpdoc-*
+
+#
 # config files
 #
 config/phpdoc.xml
@@ -71,4 +76,6 @@ public/Jobs
 public/Settings
 public/CamMediaintown
 public/Pdf
-module/YawikDemoSkin
+public/YawikDemo*
+module/YawikDemo*
+module/Cam*

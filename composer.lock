@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2fdff78c71b6fe7fe4be6bb675204c88",
+    "hash": "65d03c3351c98a7faf1a06c8027362dc",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -139,7 +139,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -816,16 +816,16 @@
         },
         {
             "name": "fortawesome/font-awesome",
-            "version": "4.1.0",
+            "version": "v4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "2649d91d18629bab071449b3bc4cb02761037a57"
+                "reference": "a65bd93d81e9e6bd5ebfa41757a4474960b973b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/2649d91d18629bab071449b3bc4cb02761037a57",
-                "reference": "2649d91d18629bab071449b3bc4cb02761037a57",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/a65bd93d81e9e6bd5ebfa41757a4474960b973b4",
+                "reference": "a65bd93d81e9e6bd5ebfa41757a4474960b973b4",
                 "shasum": ""
             },
             "require-dev": {
@@ -860,7 +860,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2014-05-14 20:37:30"
+            "time": "2014-08-26 16:36:44"
         },
         {
             "name": "hybridauth/hybridauth",
@@ -1219,23 +1219,57 @@
             "time": "2014-05-23 09:02:52"
         },
         {
-            "name": "twbs/bootstrap",
-            "version": "v3.1.1",
+            "name": "tinymce/tinymce",
+            "version": "4.1.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d"
+                "url": "https://github.com/tinymce/tinymce-dist.git",
+                "reference": "2aeb97faf35cd5e2bd542746ab87500c808e08f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a365d8689c3f3cee7f1acf86b61270ecca8e106d",
-                "reference": "a365d8689c3f3cee7f1acf86b61270ecca8e106d",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/2aeb97faf35cd5e2bd542746ab87500c808e08f4",
+                "reference": "2aeb97faf35cd5e2bd542746ab87500c808e08f4",
                 "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "http://www.tinymce.com",
+            "keywords": [
+                "editor",
+                "html",
+                "javascript",
+                "richtext",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "time": "2014-09-09 08:54:57"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a",
+                "reference": "16dbdbd7a2c6cfa3be4e5dcc52249e577c02c84a",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "3.3.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1252,13 +1286,19 @@
                     "email": "markdotto@gmail.com"
                 }
             ],
-            "description": "Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.",
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "homepage": "http://getbootstrap.com",
             "keywords": [
-                "bootstrap",
-                "css"
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
             ],
-            "time": "2014-02-13 17:24:59"
+            "time": "2014-10-29 18:56:48"
         },
         {
             "name": "twitter/typeahead.js",
@@ -1461,24 +1501,19 @@
             "time": "2014-03-05 22:25:44"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "alpha",
     "stability-flags": {
         "doctrine/doctrine-mongo-odm-module": 20,
         "hybridauth/hybridauth": 20,
         "blueimp/jquery-file-upload": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3",
         "ext-mongo": "*",
         "ext-intl": "*"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }

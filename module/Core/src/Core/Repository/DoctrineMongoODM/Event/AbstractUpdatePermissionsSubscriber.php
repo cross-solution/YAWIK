@@ -17,6 +17,13 @@ use Core\Entity\PermissionsResourceInterface;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\PermissionsAwareInterface;
 
+/**
+ * how to use:
+ * derive a class from this, put in the repository
+ *
+ * Class AbstractUpdatePermissionsSubscriber
+ * @package Core\Repository\DoctrineMongoODM\Event
+ */
 abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
 {
     protected $repositoryName;

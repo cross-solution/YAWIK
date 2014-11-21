@@ -49,12 +49,11 @@
     <include name="LICENCE"/>
     <include name="README"/>
     <exclude name="public/js/*"/>
-    <exclude name="**/YawikDemoSkin/**"/>
+    <exclude name="**/YawikDemo*/**"/>
     <exclude name="**/CamMediaintown/**"/>
     <exclude name="public/Applications"/>
     <exclude name="public/Auth"/>
     <exclude name="public/Core"/>
-    <exclude name="public/FormularValidation"/>
     <exclude name="public/Geo"/>
     <exclude name="public/Jobs"/>
     <exclude name="**/*.po"/>
@@ -203,7 +202,6 @@
     <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
-    <symlink link="build/YAWIK-${version-short}/public/FormularValidation" target="../module/FormularValidation/public" />
     
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
@@ -308,7 +306,18 @@
           <token key="xing.enabled" value="${xing.enabled}"/>
           <token key="username" value="${username}"/>
           <token key="password" value="${password}"/>
+          <token key="role" value="${role}"/>
+          <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
+          <token key="auth.suffix" value="${auth.suffix}"/>
           <token key="mail.develop.override_recipient" value="${mail.develop.override_recipient}" />
+          <token key="yawik.demoskin.piwik" value="${yawik.demoskin.piwik}"/>
+          <token key="applications.forms.attachments.maxsize" value="${applications.forms.attachments.maxsize}" />
+          <token key="applications.forms.attachments.mimetype" value="${applications.forms.attachments.mimetype}" />
+          <token key="applications.forms.attachments.count" value="${applications.forms.attachments.count}" />
+          <token key="applications.forms.contactimage.maxsize" value="${applications.forms.contactimage.maxsize}" />
+          <token key="applications.forms.contactimage.mimetype" value="${applications.forms.contactimage.mimetype}" />
+          <token key="auth.forms.userimage.maxsize" value="${auth.forms.userimage.maxsize}" />
+          <token key="auth.forms.userimage.mimetype" value="${auth.forms.userimage.mimetype}" />
         </replacetokens>
       </filterchain>
     </copy>
@@ -349,7 +358,6 @@
     <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" />
     <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" />
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
-    <symlink link="${project.basedir}/public/FormularValidation" target="${project.basedir}/module/FormularValidation/public" />
     <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
     <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" />
   </target>  
@@ -369,7 +377,8 @@
   
   <target name="deploy-builds" description="publish TGZ and ZIP packages via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}"/>
-    <exec command="rsync -rv ${project.basedir}/build/ -l --exclude=YAWIK --exclude=YAWIK-${version-short} ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
+    <exec command="rsync -rv
+    ${project.basedir}/build/YAWIK-${version-short}.* -l --exclude=YAWIK ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
   </target>
             
 </project>

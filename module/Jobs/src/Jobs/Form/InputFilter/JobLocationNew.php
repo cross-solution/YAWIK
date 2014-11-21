@@ -11,7 +11,7 @@
 namespace Jobs\Form\InputFilter;
 
 
-class NewJob extends EditJob
+class JobLocationNew extends JobLocationEdit
 {
     
     public function init()

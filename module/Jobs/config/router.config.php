@@ -56,6 +56,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'dashboardjobs'   => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/dashboard',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Index',
+                        'action' => 'dashboard'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'typeahead' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -64,6 +75,24 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                         'controller' => 'Jobs/Index',
                         'action' => 'typeahead',
                         'forceJson' => true,
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+
+            'editTemplate' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/editTemplate/:id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'edittemplate',
+                        'defaults' => array(
+                            'id' => 0
+                        ),
+                        'constraints' => array(
+                            'id' => '[a-f0-9]+',
+                        ),
                     ),
                 ),
                 'may_terminate' => true,

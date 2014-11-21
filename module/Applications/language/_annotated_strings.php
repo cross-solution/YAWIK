@@ -38,10 +38,10 @@ translate('Status'       => array('sort' => 'status');
 //: ./view/applications/manage/index.applicant.ajax.phtml:18
 translate('Actions');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:41
+//: ./src/Applications/Form/AttachmentsFactory.php:34
 translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:43
+//: ./src/Applications/Form/AttachmentsFactory.php:36
 translate('Attachments');
 
 //: ./src/Applications/Form/Base.php:26
@@ -120,13 +120,10 @@ translate('Comment message');
 translate('Request additional facts from the Applicant. Selected Fields will be added to the application Form.');
 
 //: ./src/Applications/Form/Facts.php:39
-translate('Please provide som additional facts for this job opening.');
+translate('Please provide some additional facts for this job opening.');
 
 //: ./src/Applications/Form/FactsFieldset.php:29
 translate('Click here to enter facts.');
-
-//: ./src/Applications/Form/FactsFieldset.php:41
-translate('Please select');
 
 //: ./src/Applications/Form/FactsFieldset.php:42
 translate('Yes');
@@ -146,22 +143,25 @@ translate('Enter your willingness to travel.');
 //: ./src/Applications/Form/FactsFieldset.php:48
 translate('Ask the applicant about the willingness to travel');
 
-//: ./src/Applications/Form/FactsFieldset.php:57
+//: ./src/Applications/Form/FactsFieldset.php:52
+translate('please select');
+
+//: ./src/Applications/Form/FactsFieldset.php:61
 translate('Earliest starting date');
 
-//: ./src/Applications/Form/FactsFieldset.php:58
+//: ./src/Applications/Form/FactsFieldset.php:62
 translate('Enter the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:60
+//: ./src/Applications/Form/FactsFieldset.php:64
 translate('Ask the applicant about the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:68
+//: ./src/Applications/Form/FactsFieldset.php:72
 translate('Expected salary');
 
-//: ./src/Applications/Form/FactsFieldset.php:69
+//: ./src/Applications/Form/FactsFieldset.php:73
 translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
 
-//: ./src/Applications/Form/FactsFieldset.php:71
+//: ./src/Applications/Form/FactsFieldset.php:75
 translate('Ask users about their expected salary.');
 
 //: ./src/Applications/Form/Attributes.php:34
@@ -188,31 +188,31 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 //: ./src/Applications/Form/BaseFieldset.php:45
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:71
+//: ./src/Applications/Controller/ManageController.php:85
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:116
+//: ./src/Applications/Controller/ManageController.php:130
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:137
+//: ./src/Applications/Controller/ApplyController.php:141
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:216
+//: ./src/Applications/Controller/ApplyController.php:220
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:276
+//: ./src/Applications/Controller/ApplyController.php:280
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:67
+//: ./src/Applications/Controller/IndexController.php:82
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:146
+//: ./src/Applications/Controller/IndexController.php:161
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:223
+//: ./src/Applications/Controller/IndexController.php:238
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:256
+//: ./src/Applications/Controller/IndexController.php:271
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:40

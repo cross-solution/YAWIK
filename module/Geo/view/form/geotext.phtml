@@ -10,6 +10,10 @@
 //$this->headScript()->appendFile($this->basePath('Jobs/js/form.apply-identifier.js'));
 $value = $this->element->getValue();
 $label = $this->element->getLabel();
+$name  = "job[location]";
+if ($this->element->hasAttribute('name')) {
+    $name  = $this->element->getAttribute('name');
+}
 ?>
 
 <div class="controls controls-row row">
@@ -17,7 +21,7 @@ $label = $this->element->getLabel();
         <label for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate('Location') ?></label>
     </div>
     <div id="job-location-span" class="col-md-9">
-        <input type="text" value="" class=" form-control geolocation" id="job-location" name="job[location]" data-provide="typeahead" >
+        <input type="text" value="<?php echo $value; ?>" class=" form-control geolocation" id="job-location" name="<?php echo $name; ?>" data-provide="typeahead" >
         <div id="job-location-errors">
         </div>     
     </div>

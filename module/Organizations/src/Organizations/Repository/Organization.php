@@ -25,12 +25,12 @@ class Organization extends AbstractRepository
                     ->getQuery()
                     ->execute();
     }
-    
+
     /**
      * Gets a query builder to search for organizations
-     * 
+     *
      * @param array $params
-     * @return unknown
+     * @return mixed
      */
     protected function getPaginationQueryBuilder($params)
     {
@@ -74,5 +74,12 @@ class Organization extends AbstractRepository
             $entity->setExternalId($ref);
         }
         return $entity;
+    }
+
+    public function create(array $data=null) {
+        $entity = parent::create($data);
+        $entity->isDraft(True);
+        return $entity;
+
     }
 }

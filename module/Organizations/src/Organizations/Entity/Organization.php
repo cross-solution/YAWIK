@@ -18,13 +18,14 @@ use Core\Entity\EntityInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Entity\DraftableEntityInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  */
-class Organization extends BaseEntity implements OrganizationInterface {
+class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface {
     
     
     const postConstruct = 'postRepositoryConstruct';
@@ -61,6 +62,14 @@ class Organization extends BaseEntity implements OrganizationInterface {
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
      */
     protected $image;
+
+    /**
+     * Flag indicating draft state of this job.
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $isDraft = false;
     
     /**
      * Organization contact data.
@@ -207,6 +216,28 @@ class Organization extends BaseEntity implements OrganizationInterface {
             $this->contact = new OrganizationContact();
         }
         return $this->contact;
+    }
+
+    /**
+     * Gets the flag indicating the draft state.
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
+
+    /**
+     * Sets the flag indicating the draft state.
+     *
+     * @param boolean $flag
+     * @return DraftableEntityInterface
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+        return $this;
     }
 }
 

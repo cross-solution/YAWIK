@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 19:40+0200\n"
-"PO-Revision-Date: 2014-09-11 17:41+0000\n"
+"POT-Creation-Date: 2014-11-19 19:18+0100\n"
+"PO-Revision-Date: 2014-11-19 18:20+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -21,38 +21,46 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
-#: language/_annotated_strings.php:3
+#: view/organizations/index/form.phtml:1 language/_annotated_strings.php:3
 msgid "Organization"
-msgstr ""
-
-#: language/_annotated_strings.php:12
-msgid "Actions"
-msgstr ""
-
-#: language/_annotated_strings.php:15
-msgid "street"
-msgstr "strada"
-
-#: language/_annotated_strings.php:18
-msgid "house number"
-msgstr "numero civico"
-
-#: language/_annotated_strings.php:21
-msgid "Postalcode"
-msgstr "Postale"
-
-#: language/_annotated_strings.php:24 language/_annotated_strings.php:6
-msgid "City"
-msgstr "Città"
-
-#: language/_annotated_strings.php:27
-msgid "Overview"
-msgstr "Panoramica"
-
-#: language/_annotated_strings.php:30
-msgid "Insert"
 msgstr ""
 
 #: language/_annotated_strings.php:9
 msgid "Street"
+msgstr "Strada"
+
+#: language/_annotated_strings.php:12
+msgid "Please enter the name of the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:15
+msgid "Please enter a contact for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:18
+msgid "Organizationname"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "street"
+msgstr "strada"
+
+#: language/_annotated_strings.php:24
+msgid "house number"
+msgstr "numero civico"
+
+#: language/_annotated_strings.php:27
+msgid "Postalcode"
+msgstr "Postale"
+
+#: language/_annotated_strings.php:30 language/_annotated_strings.php:6
+msgid "City"
+msgstr "Città"
+
+#: language/_annotated_strings.php:33
+msgid "Overview"
+msgstr "Panoramica"
+
+#: language/_annotated_strings.php:36
+msgid "Insert"
 msgstr ""

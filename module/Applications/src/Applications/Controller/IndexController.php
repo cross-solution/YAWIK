@@ -27,6 +27,21 @@ use Applications\Entity\StatusInterface;
 class IndexController extends AbstractActionController
 {
     /**
+     * attaches further Listeners for generating / processing the output
+     * @return $this
+     */
+    public function attachDefaultListeners()
+    {
+        parent::attachDefaultListeners();
+        $serviceLocator  = $this->getServiceLocator();
+        $defaultServices = $serviceLocator->get('DefaultListeners');
+        $events          = $this->getEventManager();
+        $events->attach($defaultServices);
+        return $this;
+    }
+
+
+    /**
      * Processes formular data of the application form
      * 
      * @return \Zend\View\Model\ViewModel
