@@ -28,7 +28,7 @@ http://yawik.org/demo
 Documentation
 -------------
 
-http://crossapplicantmanager.readthedocs.org/en/latest/
+http://yawik.readthedocs.org/en/latest/
 
 API Documentation
 -----------------
@@ -39,5 +39,3 @@ Forum
 -----
 
 https://groups.google.com/forum/?hl=de#!forum/yawik
-
-
