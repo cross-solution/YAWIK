@@ -21,7 +21,13 @@ mongo.pass=
 
 username=
 password=
-role=recuiter
+
+;
+; initial user role. After the first login. Users are asigned to this role by default.
+; possible roles: [ user | recruiter ]
+;
+
+role=recruiter
 
 ;
 ; external appKey. You can add jobs and users by using a simple API. This 
