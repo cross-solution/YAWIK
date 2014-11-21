@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-09-16 17:31+0000\n"
+"POT-Creation-Date: 2014-11-19 19:19+0100\n"
+"PO-Revision-Date: 2014-11-19 18:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Es muss mindestens ein Benutzer zugeordnet werden"
 msgid "My groups"
 msgstr "Meine Gruppen"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:26
 msgid "Manage groups"
 msgstr "Gruppenverwaltung"
 
@@ -98,7 +98,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr "Bitte melden Sie sich an"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:45
+#: view/auth/index/login-info.phtml:49
 msgid "Login"
 msgstr "Einloggen"
 
@@ -114,33 +114,33 @@ msgstr "Unbekannte Bewerbungskennung"
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr "Eine Stellenanzeige mit der angegebenen Referenz konnte nicht gefunden werden"
 
-#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Mein Profil"
 
-#: view/auth/index/login-info.phtml:18
+#: view/auth/index/login-info.phtml:22
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: view/auth/index/login-info.phtml:27
+#: view/auth/index/login-info.phtml:31
 msgid "Logout"
 msgstr "Abmelden"
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:38
 #, php-format
 msgid "Hello %s"
 msgstr "Hallo %s"
 
-#: view/auth/index/login-info.phtml:35
+#: view/auth/index/login-info.phtml:39
 msgid "Guest"
 msgstr "Gast"
 
-#: view/auth/index/login-info.phtml:47
+#: view/auth/index/login-info.phtml:51
 msgid "Login via"
 msgstr "Einloggen über"
 
-#: view/auth/index/login-info.phtml:50
+#: view/auth/index/login-info.phtml:54
 #, php-format
 msgid "Login with %s"
 msgstr "Mit %s anmelden"
@@ -168,11 +168,11 @@ msgstr "Gruppen Daten"
 msgid "Users"
 msgstr "Benutzer"
 
-#: src/Auth/Controller/ManageController.php:92
+#: src/Auth/Controller/ManageController.php:105
 msgid "Password successfully changed"
 msgstr "Kennwort wurde erfolgreich geändert"
 
-#: src/Auth/Controller/ManageController.php:98
+#: src/Auth/Controller/ManageController.php:111
 msgid "Password could not be changed"
 msgstr "Kennwort konnte nicht geändert werden"
 
@@ -300,17 +300,13 @@ msgid "Authentication failed."
 msgstr "Anmeldung fehlgeschlagen."
 
 #: language/_annotated_strings.php:114
-msgid "Welcome to YAWIK!"
-msgstr "Herzlich willkommen bei YAWIK!"
-
-#: language/_annotated_strings.php:117
 msgid "You are now logged out"
 msgstr "Sie sind nun abgemeldet"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:117
 msgid "user"
 msgstr "Benutzer"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:120
 msgid "recruiter"
 msgstr "Personaler"

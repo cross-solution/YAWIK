@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Organizations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-09 14:53+0100\n"
+"POT-Creation-Date: 2014-11-19 19:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +30,11 @@ msgid "Street"
 msgstr ""
 
 #: language/_annotated_strings.php:12
-msgid "Identify the company."
+msgid "Please enter the name of the hiring organization."
 msgstr ""
 
 #: language/_annotated_strings.php:15
-msgid "Basic Location Information."
+msgid "Please enter a contact for the hiring organization."
 msgstr ""
 
 #: language/_annotated_strings.php:18

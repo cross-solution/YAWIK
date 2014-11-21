@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-09 14:53+0100\n"
+"POT-Creation-Date: 2014-11-19 19:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,23 +24,23 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:18
-#: view/partial/pagination-control.phtml:22
+#: view/partial/pagination-control.phtml:19
+#: view/partial/pagination-control.phtml:23
 msgid "First"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:27
-#: view/partial/pagination-control.phtml:30
+#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:31
 msgid "&lt; Previous"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:35
-#: view/partial/pagination-control.phtml:38
+#: view/partial/pagination-control.phtml:36
+#: view/partial/pagination-control.phtml:39
 msgid "Next &gt;"
 msgstr ""
 
-#: view/partial/pagination-control.phtml:42
-#: view/partial/pagination-control.phtml:46
+#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:47
 msgid "Last"
 msgstr ""
 
@@ -201,17 +201,22 @@ msgstr ""
 msgid "Permissions"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:88
+#: src/Core/Form/View/Helper/FormFileUpload.php:104
 #: src/Core/Form/View/Helper/FormImageUpload.php:78
 msgid "The file is too big"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:89
+#: src/Core/Form/View/Helper/FormFileUpload.php:105
 #: src/Core/Form/View/Helper/FormImageUpload.php:79
 msgid "The file type is not supported"
 msgstr ""
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:122
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#, php-format
+msgid "You may only upload %d files"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:152
 msgid "Click here to add files or use drag and drop."
 msgstr ""
 

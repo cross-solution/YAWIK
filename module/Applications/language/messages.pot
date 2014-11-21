@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-09 14:52+0100\n"
+"POT-Creation-Date: 2014-11-19 19:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,69 +95,76 @@ msgid ""
 "link:"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:19
-msgid "Back to the formular"
+#: view/applications/apply/_buttons.phtml:18
+msgid ""
+"Your application is incomplete. You have to add your contact data and accept "
+"the privacy policy to be able to submit the application. You can always "
+"preview or abort your application."
 msgstr ""
 
 #: view/applications/apply/_buttons.phtml:23
+msgid "Back to the formular"
+msgstr ""
+
+#: view/applications/apply/_buttons.phtml:27
 msgid "Preview application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:33
+#: view/applications/apply/_buttons.phtml:37
 msgid "Send application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:39
+#: view/applications/apply/_buttons.phtml:43
 msgid "Abort application"
 msgstr ""
 
-#: view/applications/manage/index.phtml:10
+#: view/applications/manage/index.phtml:22
 #, php-format
 msgid "for the job \"%s\""
 msgstr ""
 
-#: view/applications/manage/index.phtml:11
+#: view/applications/manage/index.phtml:23
 msgid "to all of your jobs"
 msgstr ""
 
-#: view/applications/manage/index.phtml:15
+#: view/applications/manage/index.phtml:27
 msgid "Applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:25
+#: view/applications/manage/index.phtml:37
 msgid "List of received applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:30
+#: view/applications/manage/index.phtml:42
 msgid "Overview of your sent applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:44
+#: view/applications/manage/index.phtml:56
 #: view/applications/manage/detail.phtml:155
 #: view/applications/manage/detail.phtml:174
 #: view/applications/manage/detail.phtml:206
 msgid "Cancel"
 msgstr ""
 
-#: view/applications/manage/index.phtml:45
+#: view/applications/manage/index.phtml:57
 #: view/applications/manage/detail.phtml:156
 msgid "Send mail"
 msgstr ""
 
-#: view/applications/manage/index.phtml:65
+#: view/applications/manage/index.phtml:77
 msgid "search applications"
 msgstr ""
 
-#: view/applications/manage/index.phtml:70 language/_annotated_strings.php:105
+#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:105
 msgid "Enter job title"
 msgstr ""
 
-#: view/applications/manage/index.phtml:80 language/_annotated_strings.php:102
+#: view/applications/manage/index.phtml:92 language/_annotated_strings.php:102
 #: language/_annotated_strings.php:111
 msgid "Search"
 msgstr ""
 
-#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:114
+#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:114
 msgid "Clear"
 msgstr ""
 
@@ -302,7 +309,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:283
 #: view/applications/manage/detail.pdf.phtml:227
-#: src/Applications/Form/AttachmentsFactory.php:43
+#: src/Applications/Form/AttachmentsFactory.php:36
 #: language/_annotated_strings.php:45 language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr ""

@@ -23,8 +23,8 @@ class JobDescriptionQualificationsStrategy implements StrategyInterface
     }
 
     public function hydrate($value, $object = Null) {
-        if (isset($value['description-qualification'])) {
-            $object->templateValues->qualifications = $value['description-qualification'];
+        if (isset($value['description-qualifications'])) {
+            $object->templateValues->qualifications = $value['description-qualifications'];
         }
         return;
     }

@@ -40,7 +40,7 @@ class Organizations extends Container {
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*@translate*/ 'Identify the company.',
+                    'description' => /*@translate*/ 'Please enter the name of the hiring organization.',
                 ),
             )
         ));
@@ -51,7 +51,7 @@ class Organizations extends Container {
                 'property' => 'contact',
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*@translate*/ 'Basic Location Information.',
+                    'description' => /*@translate*/ 'Please enter a contact for the hiring organization.',
                 ),
             )
         ));

@@ -30,7 +30,7 @@ class JobDescriptionHydrator extends EntityHydrator
     {
         $this->addStrategy('descriptionrequirements', new Strategy\JobDescriptionRequirementsStrategy());
         $this->addStrategy('descriptionbenefits', new Strategy\JobDescriptionBenefitsStrategy());
-        $this->addStrategy('descriptionqualification', new Strategy\JobDescriptionQualificationsStrategy());
+        $this->addStrategy('descriptionqualifications', new Strategy\JobDescriptionQualificationsStrategy());
         $this->addStrategy('descriptiontitle', new Strategy\JobDescriptionTitleStrategy());
     }
 
@@ -42,7 +42,7 @@ class JobDescriptionHydrator extends EntityHydrator
         $data = parent::extract($object);
         $data['description-requirements']  = $this->extractValue('descriptionrequirements', $object);
         $data['description-benefits']      = $this->extractValue('descriptionbenefits', $object);
-        $data['description-qualification'] = $this->extractValue('descriptionqualification', $object);
+        $data['description-qualifications'] = $this->extractValue('descriptionqualifications', $object);
         $data['description-title']         = $this->extractValue('descriptiontitle', $object);
         return $data;
     }
@@ -52,7 +52,7 @@ class JobDescriptionHydrator extends EntityHydrator
         $object = parent::hydrate($data, $object);
         $this->hydrateValue('descriptionrequirements', $data, $object);
         $this->hydrateValue('descriptionbenefits', $data, $object);
-        $this->hydrateValue('descriptionqualification', $data, $object);
+        $this->hydrateValue('descriptionqualifications', $data, $object);
         $this->hydrateValue('descriptiontitle', $data, $object);
         return $object;
     }
