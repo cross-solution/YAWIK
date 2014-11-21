@@ -77,6 +77,10 @@
     <include name="vendor/jquery.ui.widget.js"/>
   </fileset>
   
+  <fileset id="tinymce" dir="${vendordir}/tinymce/tinymce">
+    <include name="**/*"/>
+  </fileset>
+  
   <!-- ============================================  -->
   <!-- Target: install                               -->
   <!-- ============================================  -->
@@ -172,6 +176,11 @@
       <fileset refid="blueimp"/>
     </copy>
     
+    <mkdir dir="${builddir}/public/js/tinymce"/>
+    <copy todir="${builddir}/public/js/tinymce">
+      <fileset refid="tinymce"/>
+    </copy>
+    
     <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>   
@@ -202,6 +211,7 @@
     <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
+    <symlink link="build/YAWIK-${version-short}/public/Jobs" target="../module/Jobs/public" />
     
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
