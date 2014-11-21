@@ -9,6 +9,20 @@
 
 $this->headTitle($this->translate('Apply'));
 $job = $this->application->job;
+
+// @TODO own viewhelper
+// does serverUrl do the right thing ? basePath und url don't
+function getImageRef($url, $self) {
+    if (preg_match('/^https?:\/\//',$url)) {
+        // pass
+    }
+    else {
+        $url = '/' . ltrim($url, '/');
+        $url = $self->serverUrl($url);
+    }
+    return $url;
+}
+
 ?>
 <h1><?php echo $this->translate('Application')?></h1>
 <div class="container">
@@ -21,7 +35,7 @@ $job = $this->application->job;
 ) ?></p>
     </div>
         <div class="col-md-4">
-            <img src="<?php echo $this->application->job->logoRef ?>">
+            <img src="<?php echo getImageRef($this->application->job->logoRef, $this) ?>">
         </div>
     </div>
 
