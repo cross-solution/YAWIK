@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:20+0200\n"
-"PO-Revision-Date: 2014-09-16 14:11+0000\n"
+"POT-Creation-Date: 2014-11-09 14:53+0100\n"
+"PO-Revision-Date: 2014-11-19 18:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Übersicht aller Lebensläufe"
 
 #: view/cv/index/index.ajax.phtml:5
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #: view/cv/manage/form.phtml:2
 msgid "Edit resume"

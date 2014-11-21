@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-09-16 13:42+0000\n"
+"POT-Creation-Date: 2014-11-19 19:18+0100\n"
+"PO-Revision-Date: 2014-11-19 18:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -97,69 +97,76 @@ msgid ""
 "link:"
 msgstr "Sie können den Bearbeitungsstand Ihrer Bewerbung einsehen, indem Sie sich diesen Link merken."
 
-#: view/applications/apply/_buttons.phtml:19
+#: view/applications/apply/_buttons.phtml:18
+msgid ""
+"Your application is incomplete. You have to add your contact data and accept"
+" the privacy policy to be able to submit the application. You can always "
+"preview or abort your application."
+msgstr "Ihre Bewerbung ist unvollständig. Um die Bewerbung absenden zu können, müssen Sie Ihre Kontaktdaten angeben und die Datenschutzbestimmungen akzeptieren. Sie können jederzeit die Vorschau über Ihre hinterlegten Daten einsehen bzw. den Bewerbungsprozess abbrechen."
+
+#: view/applications/apply/_buttons.phtml:23
 msgid "Back to the formular"
 msgstr "Zurück zum Bewerbungsformular"
 
-#: view/applications/apply/_buttons.phtml:23
+#: view/applications/apply/_buttons.phtml:27
 msgid "Preview application"
 msgstr "Voransicht der Bewerbung"
 
-#: view/applications/apply/_buttons.phtml:33
+#: view/applications/apply/_buttons.phtml:37
 msgid "Send application"
 msgstr "Bewerbung absenden"
 
-#: view/applications/apply/_buttons.phtml:39
+#: view/applications/apply/_buttons.phtml:43
 msgid "Abort application"
 msgstr "Bewerbung abbrechen"
 
-#: view/applications/manage/index.phtml:10
+#: view/applications/manage/index.phtml:22
 #, php-format
 msgid "for the job \"%s\""
 msgstr "auf die Stellenanzeige \"%s\""
 
-#: view/applications/manage/index.phtml:11
+#: view/applications/manage/index.phtml:23
 msgid "to all of your jobs"
 msgstr "für alle Ihre Anzeigen"
 
-#: view/applications/manage/index.phtml:15
+#: view/applications/manage/index.phtml:27
 msgid "Applications"
 msgstr "Bewerbungen"
 
-#: view/applications/manage/index.phtml:25
+#: view/applications/manage/index.phtml:37
 msgid "List of received applications"
 msgstr "Eingegangene Bewerbungen"
 
-#: view/applications/manage/index.phtml:30
+#: view/applications/manage/index.phtml:42
 msgid "Overview of your sent applications"
 msgstr "Ihre versendeten Bewerbungen"
 
-#: view/applications/manage/index.phtml:44
+#: view/applications/manage/index.phtml:56
 #: view/applications/manage/detail.phtml:155
 #: view/applications/manage/detail.phtml:174
 #: view/applications/manage/detail.phtml:206
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: view/applications/manage/index.phtml:45
+#: view/applications/manage/index.phtml:57
 #: view/applications/manage/detail.phtml:156
 msgid "Send mail"
 msgstr "Mail senden"
 
-#: view/applications/manage/index.phtml:65
+#: view/applications/manage/index.phtml:77
 msgid "search applications"
 msgstr "Bewerbungen durchsuchen"
 
-#: view/applications/manage/index.phtml:70 language/_annotated_strings.php:105
+#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:105
 msgid "Enter job title"
 msgstr "Anzeigentitel eingeben"
 
-#: view/applications/manage/index.phtml:80 language/_annotated_strings.php:102
+#: view/applications/manage/index.phtml:92 language/_annotated_strings.php:102
 #: language/_annotated_strings.php:111
 msgid "Search"
 msgstr "Suchen"
 
-#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:114
+#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:114
 msgid "Clear"
 msgstr "Filter löschen"
 
@@ -304,7 +311,7 @@ msgstr "Angaben zur Person"
 
 #: view/applications/manage/detail.phtml:283
 #: view/applications/manage/detail.pdf.phtml:227
-#: src/Applications/Form/AttachmentsFactory.php:43
+#: src/Applications/Form/AttachmentsFactory.php:36
 #: language/_annotated_strings.php:45 language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr "Anlagen"
@@ -351,7 +358,7 @@ msgstr "Sachbearbeiter"
 
 #: view/applications/manage/detail.phtml:392
 #: view/applications/manage/detail.pdf.phtml:123
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:138
 msgid "Willingness to travel"
 msgstr "Reisebereitschaft"
 
@@ -563,7 +570,7 @@ msgstr "Ein 410 Fehler ist aufgetreten"
 
 #: view/error/not-found.phtml:13
 msgid "Unknown application identifier"
-msgstr ""
+msgstr "Unbekannte Bewerbungsreferenz"
 
 #: view/error/not-found.phtml:14
 msgid "An application with the provided identifier could not be found."
@@ -582,23 +589,23 @@ msgstr "Optionen"
 msgid "OptionsFA"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:297
-#: src/Applications/Controller/MultimanageController.php:70
+#: src/Applications/Controller/ManageController.php:311
+#: src/Applications/Controller/MultimanageController.php:84
 #, php-format
 msgid "Your application dated %s"
 msgstr "Ihre Bewerbung vom %s"
 
-#: src/Applications/Controller/ManageController.php:343
+#: src/Applications/Controller/ManageController.php:357
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Bewerbung wurde weitergeleitet an %s"
 
-#: src/Applications/Controller/ManageController.php:358
+#: src/Applications/Controller/ManageController.php:372
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Weiterleitung der Bewerbung an  %s fehlgeschlagen."
 
-#: src/Applications/Controller/MultimanageController.php:75
+#: src/Applications/Controller/MultimanageController.php:89
 msgid "reject the applicants"
 msgstr "Ausgewählten Bewerbern Absage senden"
 
@@ -722,41 +729,41 @@ msgstr "Bemerkung"
 
 #: language/_annotated_strings.php:120
 msgid ""
-"Allow the user to provide some facts. Currently this will be only the "
-"expected salary."
-msgstr "Dem Kandidaten ermöglichen Angaben "
+"Request additional facts from the Applicant. Selected Fields will be added "
+"to the application Form."
+msgstr "Fordern Sie zusätzliche Fakten vom Bewerber. Ausgewählte Felder werden dem Bewerbungsformular hinzugefügt."
 
 #: language/_annotated_strings.php:123
-msgid "Provide some facts the recruiter might want to know."
-msgstr ""
+msgid "Please provide some additional facts for this job opening."
+msgstr "Für die Position sind folgende Angaben wichtig"
 
 #: language/_annotated_strings.php:126
 msgid "Click here to enter facts."
-msgstr ""
+msgstr "Klicken Sie hier, um weitere Informationen einzugeben"
 
 #: language/_annotated_strings.php:129
-msgid "Please select"
-msgstr "Bitte wählen"
-
-#: language/_annotated_strings.php:132
 msgid "Yes"
 msgstr "Ja"
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:132
 msgid "conditioned"
 msgstr "bedingt"
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:135
 msgid "No"
 msgstr "Nein"
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:141
 msgid "Enter your willingness to travel."
 msgstr "Bitte machen Sie Angaben zu Ihrer Reisebereitschaft."
 
-#: language/_annotated_strings.php:147
+#: language/_annotated_strings.php:144
 msgid "Ask the applicant about the willingness to travel"
 msgstr "Soll der Kandidat Angaben über seine Reisebereitschaft machen?"
+
+#: language/_annotated_strings.php:147
+msgid "please select"
+msgstr "Bitte wählen"
 
 #: language/_annotated_strings.php:153
 msgid "Enter the earliest starting date."

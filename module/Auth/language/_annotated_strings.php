@@ -110,7 +110,7 @@ translate('You are now logged in.');
 //: ./src/Auth/Controller/IndexController.php:108
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:406
+//: ./src/Auth/Controller/IndexController.php:390
 translate('You are now logged out');
 
 //: ./config/module.config.php:260

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-09 14:53+0100\n"
+"POT-Creation-Date: 2014-11-19 19:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgid "All jobs"
 msgstr ""
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:73
 msgid "Jobs"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Company"
 msgstr ""
 
-#: language/_annotated_strings.php:21 language/_annotated_strings.php:60
+#: language/_annotated_strings.php:21 language/_annotated_strings.php:61
 msgid "Job title"
 msgstr ""
 
@@ -172,50 +172,50 @@ msgstr ""
 msgid "Reference number"
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:40
 msgid "Customize apply form"
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:43
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:45 language/_annotated_strings.php:63
+#: language/_annotated_strings.php:46 language/_annotated_strings.php:64
 msgid "Publish job"
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:49
 msgid "Show all jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:52
 msgid "Show my jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:55
 msgid "Active"
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:58
 msgid "Inactive"
 msgstr ""
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:67
 msgid "Job saved"
 msgstr ""
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:70
 msgid "There were errors in the form"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:76
 msgid "Overview"
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:79
 msgid "Create job"
 msgstr ""
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:82
 msgid "Edit job"
 msgstr ""
