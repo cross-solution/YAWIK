@@ -119,7 +119,6 @@ class ImportController extends AbstractActionController {
                     if ($group) {
                         $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
                     }
-                    $repositoriesJob->store($entity);
                     $result['isSaved'] = true;
                     $log->info('Jobs/manage/saveJob [user: ' . $user->login . ']:' . var_export($p, True));
                     
@@ -138,10 +137,12 @@ class ImportController extends AbstractActionController {
                         $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                         $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                         $repositories->store($entityOrganization);
+                        $entity->setOrganization($entityOrganization);
                     }
                     else {
                         $result['message'] = '';
                     }
+                    $repositoriesJob->store($entity);
                 } else {
                     $log->info('Jobs/manage/saveJob [error: ' . $form->getMessages() . ']:' . var_export($p, True));
                     $result['valid Error'] = $form->getMessages();
