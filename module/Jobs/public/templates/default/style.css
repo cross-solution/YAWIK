@@ -38,7 +38,7 @@ address{padding: 20px 0 20px 0; font-style: normal;}
 	top: 77px;
 	left: 0;
 	height:140px;
-        background: #5498D7 url(/Jobs/templates/default/header-bg.png) repeat-y scroll 0 0;
+        background: #5498D7 url(header-bg.png) repeat-y scroll 0 0;
         padding:5px;
         text-align:right;
         color:#FFFFFF;
