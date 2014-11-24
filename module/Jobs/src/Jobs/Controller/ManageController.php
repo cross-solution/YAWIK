@@ -219,8 +219,9 @@ class ManageController extends AbstractActionController {
         }
 
         if (!$isAjax) {
+            $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
-            $headScript->appendFile('/Core/js/core.forms.js');
+            $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
             //$headScript->appendScript('$(document).ready(function() { $() });');
         }
         else {
