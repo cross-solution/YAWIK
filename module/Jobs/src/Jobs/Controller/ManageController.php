@@ -212,6 +212,7 @@ class ManageController extends AbstractActionController {
             // the id is part of the postData, but it never should be altered
             $postData = $request->getPost();
             unset($postData['id']);
+            unset($postData['applyId']);
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
                 $this->getServiceLocator()->get('repositories')->persist($jobEntity);

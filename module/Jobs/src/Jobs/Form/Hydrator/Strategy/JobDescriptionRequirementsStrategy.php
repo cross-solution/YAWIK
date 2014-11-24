@@ -16,7 +16,7 @@ class JobDescriptionRequirementsStrategy implements StrategyInterface
 {
     public function extract($value) {
         $result = Null;
-        if (isset($value->description)) {
+        if (isset($value->templateValues)) {
             $result = $value->templateValues->requirements;
         }
         return $result;
