@@ -35,7 +35,13 @@ function getImageRef($url, $self) {
 ) ?></p>
     </div>
         <div class="col-md-4">
+            <?php
+if (!empty($this->application->job->logoRef)):
+            ?>
             <img src="<?php echo getImageRef($this->application->job->logoRef, $this) ?>">
+            <?php
+endif;
+            ?>
         </div>
     </div>
 
