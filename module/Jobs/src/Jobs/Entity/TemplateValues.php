@@ -84,9 +84,9 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
         return $this->benefits;
     }
 
-    public function setTitle(\string $title)
+    public function setTitle($title)
     {
-        $this->title=$title;
+        $this->title=(string) $title;
         return $this;
     }
 

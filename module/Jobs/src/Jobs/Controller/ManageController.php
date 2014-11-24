@@ -84,8 +84,14 @@ class ManageController extends AbstractActionController {
             // the id is part of the postData, but it never should be altered
             $postData = $request->getPost();
             unset($postData['id']);
+            unset($postData['applyId']);
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
+                $title = $jobEntity->title;
+                $templateTitle = $jobEntity->templateValues->title;
+                if (empty($templateTitle)) {
+                    $jobEntity->templateValues->title = $title;
+                }
                 $this->getServiceLocator()->get('repositories')->persist($jobEntity);
                 $this->notification()->success(/*@translate*/ 'Job saved');
             }
