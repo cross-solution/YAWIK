@@ -15,5 +15,4 @@ use Core\Form\SummaryForm;
 class OrganizationsContactForm extends SummaryForm
 {
     protected $baseFieldset = 'Organizations/OrganizationsContactFieldset';
-
 }

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -11,8 +11,6 @@
 namespace Organizations\Entity\Hydrator\Strategy;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
-//use Core\Entity\FileInterface;
-//use Core\Entity\FileEntity;
 use Zend\Http\Client as HttpClient;
 use Doctrine\MongoDB\GridFSFile;
 use Organizations\Entity\OrganizationImage;

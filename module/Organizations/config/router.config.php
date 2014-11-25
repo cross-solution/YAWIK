@@ -81,18 +81,6 @@ return array(
                             ),
                         ),
                     ),
-                    'organizationsTestfill' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/organizationstest',
-                            'defaults' => array(
-                                'controller' => 'Organizations/Index',
-                                'action' => 'testfill',
-                                'module' => 'Organizations',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
                 )
             )
         )

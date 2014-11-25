@@ -21,7 +21,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\DraftableEntityInterface;
 
 /**
- * The job model
+ * The organization.
  *
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  */

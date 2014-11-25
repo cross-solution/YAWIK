@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -13,33 +13,46 @@ use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Defines the contact address of an Organization
+ * Defines the contact address of an organization
  * 
  * @ODM\EmbeddedDocument
  */
 class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
 {   
 	
-    /** @var string 
+    /**
+     * BuildingNumber of an organization address
+     *
+     * @var string
      * @ODM\String */
     protected $houseNumber;
     
-    /** @var string 
+    /**
+     * Postalcode of an organization address
+     *
+     * @var string
      * @ODM\String */
     protected $postalcode;
 
-    /** @var string 
+    /**
+     * Cityname of an organization address
+     *
+     * @var string
      * @ODM\String */
     protected $city;
     
-    /** @var string 
+    /**
+     * Streetname of an organization address
+     *
+     * @var string
      * @ODM\String */
     protected $street;
 
     /**
-     * Sets the House Number of an Organization Address
+     * Sets the Buildingnumber of an organization address
+     *
      * @param string $houseNumber
-     * @return $this
+     * @return OrganizationContact
      */
     public function setHouseNumber($houseNumber = "")
     {
@@ -48,7 +61,8 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
     
     /** 
-     * Gets the House Number of an Organization Address
+     * Gets the Buildingnumber of an organization address
+     *
      * @return string
      */
     public function getHouseNumber()
@@ -57,9 +71,10 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
 
     /**
-     * Sets a postal code
+     * Sets a postal code of an organization address
+     *
      * @param $postalcode
-     * @return $this
+     * @return OrganizationContact
      */
     public function setPostalcode($postalcode) {
     	$this->postalcode = (String) $postalcode;
@@ -67,7 +82,8 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
 
     /**
-     * Gets a postal code
+     * Gets a postal code of an organization address
+     *
      * @return string
      */
     public function getPostalcode() {
@@ -75,9 +91,10 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
     
     /**
-     * Sets a city (name)
+     * Sets a city (name) of an organization address
+     *
      * @param string $city
-     * @return $this
+     * @return OrganizationContact
      */
     public function setCity($city = "") {
     	$this->city = (String) $city;
@@ -85,7 +102,8 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
 
     /**
-     * Gets a city (name)
+     * Gets a city (name) of an organization address
+     *
      * @return string
      */
     public function getCity() {
@@ -93,9 +111,10 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
     
     /**
-     * Sets a street name
+     * Sets a street name of an organization address
+     *
      * @param string $street
-     * @return $this
+     * @return OrganizationContact
      */
     public function setStreet($street = "")
     {
@@ -104,7 +123,8 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     }
 
     /**
-     * Gets a street name
+     * Gets a street name of an organization address
+     *
      * @return string
      */
     public function getStreet()

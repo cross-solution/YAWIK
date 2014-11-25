@@ -3,11 +3,11 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
-/** ActionController of Jobs */
+/** ActionController of Organizations */
 namespace Organizations\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -24,6 +24,7 @@ class IndexController extends AbstractActionController
 {
     /**
      * attaches further Listeners for generating / processing the output
+     *
      * @return $this
      */
     public function attachDefaultListeners()
@@ -37,7 +38,8 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * List organisations
+     * Generates list of organizations
+     *
      * @return array
      */
     public function indexAction()
@@ -63,7 +65,7 @@ class IndexController extends AbstractActionController
      
      
     /**
-     * Change (Upsert) organisations
+     * Change (Upsert) organizations
      */
     public function editAction()
     {
@@ -78,7 +80,7 @@ class IndexController extends AbstractActionController
         $organization_id = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
         $repositories    = $services->get('repositories');
         $repository      = $repositories->get('Organizations/Organization');
-        $container            = $services->get('forms')->get('organizations/form');
+        $container       = $services->get('forms')->get('organizations/form');
         $viewHelper      = $services->get('ViewHelperManager');
         $org             = $repository->find($organization_id);
         if (!isset($org) && !$request->isPost()) {
@@ -129,36 +131,6 @@ class IndexController extends AbstractActionController
         }
         return $return;
      }
-     
-    /** 
-     * Test Repository and Entities
-     */
-    public function testfillAction()
-    {
-        /*
-        $services = $this->getServiceLocator();
-        $config = $services->get('Config');
-        
-          $this->request->setMethod('post');
-            $params = new Parameters(array(
-                'name' => 'doda dola',
-            ));
-            $this->getRequest()->setPost($params);
-            
-            $p = $this->params()->fromPost();
-        //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . var_export($p, True));
-        $user = $services->get('AuthenticationService')->getUser();
-        
-        $repName = $services->get('repositories')->get('Organizations/OrganizationName');
-        $rep = $services->get('repositories')->get('Organizations/Organization');
-        
-        // Create a new Entry in 3 Steps
-        $entity = $rep->findbyRef('abcdef');
-        $name = $repName->findbyName("Bonn");
-        $entity->setOrganizationName($name3);
-        */
-        
-    }
     
     /** 
      * companyLogo
@@ -186,7 +158,7 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * deprecated: gets a image-logo from the database, use the core-action instead
+     * @deprecated: gets a image-logo from the database, use the core-action instead
      * @return mixed
      */
     protected function getFile()
