@@ -23,7 +23,7 @@
                 add('#filterApplication #job-filter').typeahead(
 			{
 				highlight: true,
-				minLength: 4
+				minLength: 2
 			},
 			{
 				name: 'jobs',
@@ -38,6 +38,7 @@
 			}
 		).on('typeahead:selected', function(e, d, n) {
 			selectedValue = filterDisplayText(d);
+                console.log('#job-filter-value', $('#job-filter-value'));
 			$('#job-filter-value').val(d.id);
 		}).on('blur', function(e) {
 			if (selectedValue != $(this).val()) { 
