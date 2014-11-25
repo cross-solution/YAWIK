@@ -51,14 +51,20 @@ class FilterApplication extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
-            'id' => 'job-filter',
             'name' => 'job_title',
             'options' => array(
                 'label' => /* @translate */ 'Enter job title',
             ),
             'attributes' => array(
-                
                 'id' => 'job-filter',
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'job',
+            'attributes' => array(
+                'id' => 'job-filter-value',
             )
         ));
 
@@ -93,7 +99,7 @@ class FilterApplication extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Button',
-            'name' => 'clear',
+            'name' => 'submit',
             'attributes' => array(
                 'value' => "1",
                 'type' => 'submit', 
