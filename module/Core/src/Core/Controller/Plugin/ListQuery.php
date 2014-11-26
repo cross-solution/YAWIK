@@ -4,6 +4,11 @@ namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
+/**
+ * Class ListQuery
+ * @package Core\Controller\Plugin
+ * @todo: document
+ */
 class ListQuery extends AbstractPlugin
 {
     /**

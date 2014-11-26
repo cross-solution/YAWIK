@@ -24,61 +24,61 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Settings extends ModuleSettingsContainer {
     
     /**
-     * 
+     * send mail to the recruiter
+     *
      * @ODM\Boolean
-     * formLabel Send mail
      */
     protected $mailAccess = false;
     
     /**
+     * send BlindCarbonCopy to owner(?)
      * 
      * @ODM\Boolean
-     * formLabel Send BlindCarbonCopy to owner
      */
     protected $mailBCC = false;
-    
+
     
     /**
+     * @todo document this
      *
      * @ODM\Boolean
-     * formLabel Send mail
      */
     protected $formDisplaySkills = false;
     
 
     /**
+     * Confirm application immediately after submitting.
      *
      * @ODM\Boolean
-     * formLabel Confirm application immidiatly after submitting
      */
     protected $autoConfirmMail = false;
     
     /**
+     * Mail text, which informs the recruiter about an incoming application
      *
      * @ODM\String
-     * formLabel Send mail
      */
     protected $mailAccessText;
     
     /**
+     * Mail text for inviting an applicant. Mail is sent to the applicant
      *
      * @ODM\String
-     * formLabel Send mail
      */
     protected $mailInvitationText;
     
     
     /**
+     * Mail text for confirming an application-
      *
      * @ODM\String
-     * formLabel Send mail
      */
     protected $mailConfirmationText;
     
     /**
+     * Mail text for rejecting an application
      *
      * @ODM\String
-     * formLabel Send mail
      */
     protected $mailRejectionText;
 
@@ -90,13 +90,21 @@ class Settings extends ModuleSettingsContainer {
      */
     protected $applyFormSettings;
 
+    /**
+     * @param $mailAccess
+     * @return $this
+     */
     public function setMailAccess($mailAccess)
     {
         $this->mailAccess = (bool) $mailAccess;
         return $this;
     }
-    
-	public function setFormDisplaySkills ($formDisplaySkills)
+
+    /**
+     * @param $formDisplaySkills
+     * @return $this
+     */
+    public function setFormDisplaySkills ($formDisplaySkills)
     {
         $this->formDisplaySkills = (bool) $formDisplaySkills;
         return $this;
@@ -117,5 +125,4 @@ class Settings extends ModuleSettingsContainer {
 
         return $this->applyFormSettings;
     }
-
 }

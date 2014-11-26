@@ -1,4 +1,10 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 namespace Jobs\Entity;
 
@@ -12,7 +18,12 @@ use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 
-interface JobInterface extends EntityInterface, 
+/**
+ * Interface for a Job Posting
+ *
+ * @package Jobs\Entity
+ */
+interface JobInterface extends EntityInterface,
                                IdentifiableEntityInterface,
                                ModificationDateAwareEntityInterface, 
                                SearchableEntityInterface,
@@ -58,7 +69,8 @@ interface JobInterface extends EntityInterface,
     /**
      * Sets the publishing date of a job posting
      *
-     * @return string $title
+     * @param $datePublishStart
+     * @return string
      */
     public function setDatePublishStart($datePublishStart);
     
@@ -69,22 +81,22 @@ interface JobInterface extends EntityInterface,
      */
     
     public function getTitle();
+
     /**
      * Sets the title of a job posting
      *
      * @param string $title
      */
-    
     public function setTitle($title);
+
     /**
      * Gets the description of a job posting
      *
      * @return string
      */
-    
     public function getDescription();
     /**
-     * Sets the desription of a job posting
+     * Sets the description of a job posting
      *
      * @param string $text
      */
@@ -108,7 +120,7 @@ interface JobInterface extends EntityInterface,
     /**
      * Gets the organisation, which offers the job posting
      * 
-     * @return OrganisationInterface
+     * @return OrganizationInterface
      */
 
     public function getOrganization();
@@ -220,7 +232,7 @@ interface JobInterface extends EntityInterface,
     /**
      * Gets applications for a job posting
      *
-     * @return sting
+     * @return string
      */
     public function getStatus();
 

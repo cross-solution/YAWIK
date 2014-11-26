@@ -225,7 +225,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * @see \Jobs\Entity\JobInterface::setApplyId()
      * @param String $applyId
-     * @return \Jobs\Entity\JobInterface $job
+     * @return \Jobs\Entity\JobInterface
      */
     public function setApplyId($applyId) {
         $this->applyId = (string) $applyId;
@@ -243,14 +243,21 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         return $this->applyId;
     }
 
+    /**
+     * Gets the title of a job posting
+     *
+     * @return string
+     */
     public function getTitle() {
         return $this->title;
     }
 
     /**
+     * Sets the title of a job posting
+     *
      * @see \Jobs\Entity\JobInterface::setTitle()
      * @param String $title
-     * @return \Jobs\Entity\JobInterface $job
+     * @return \Jobs\Entity\JobInterface
      */
     public function setTitle($title) {
         $this->title = (string) $title;
@@ -258,9 +265,11 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
 
     /**
+     * Sets the description of a job position
+     *
      * @see \Jobs\Entity\JobInterface::setDescription()
      * @param String $text
-     * @return \Jobs\Entity\JobInterface $job
+     * @return \Jobs\Entity\JobInterface
      */
     public function setDescription($text)
     {
@@ -423,6 +432,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @param string $link
      * @see \Jobs\Entity\JobInterface::setDatePublishStart()
+     * @return $this
      */
     public function setDatePublishStart($datePublishStart) {
         $this->datePublishStart = $datePublishStart;
@@ -500,12 +510,16 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
 
     /**
+     * Gets the uri of an application link
+     *
      * @return String
      */
     public function getUriApply() {
         return $this->uriApply;
     }
+
     /**
+     * Sets the uri of an application link
      *
      * @param String $uriApply
      * @return \Jobs\Entity\Job
@@ -515,8 +529,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         return $this;
     }
 
-
     /**
+     * Gets the uri of a publisher
+     *
      * @return String
      */
     public function getUriPublisher() {
@@ -533,7 +548,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     
     /**
-     * @return array Names of attributes, which can be searched by keywords
+     * Get a list of fieldnames, which can be searched by keywords
+     *
+     * @return array
      */
     public function getSearchableProperties()
     {
@@ -595,6 +612,11 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         return $this;
     }
 
+    /**
+     * Gets the Values of a job template
+     *
+     * @return TemplateValues
+     */
     public function getTemplateValues()
     {
         if (!$this->templateValues instanceOf TemplateValues) {
