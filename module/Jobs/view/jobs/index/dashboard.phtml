@@ -15,7 +15,7 @@
      <tbody>
      <?php foreach ($this->jobs as $job):?>
      <tr>
-       <td><a target="_new" href="<?php echo $job->link ?>"><?php echo $job->title ?></a></td>
+       <td><a target="_new" href="<?php echo $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>"><?php echo $job->title ?></a></td>
        <td><?php echo $this->dateFormat($job->datePublishStart, 'short', 'none')?></td>
        <?php if ($this->acl()->isRole('recruiter')):?>
        <td>     
