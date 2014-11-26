@@ -247,6 +247,13 @@ class ManageController extends AbstractActionController {
         $descriptionFormTitle = $formTemplate->get('descriptionFormTitle');
         $renderedDescriptionFormTitle = $viewHelperForm->render($descriptionFormTitle);
 
+        // http://yawik.org/demo/de/apply/software-developer?subscriberUri=http%3A%2F%2Fcross-solution.de%2Fsubscriber%2F2
+        $uriApply = $jobEntity->uriApply;
+        if (empty($uriApply)) {
+            $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $jobEntity->applyId));
+        }
+        //$this->url('lang/apply', array('applyId' => 'software-developer')
+
         $model->setTemplate('templates/default/index.phtml');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         $model->setVariables(array(
@@ -254,6 +261,7 @@ class ManageController extends AbstractActionController {
             'requirements' => $renderedDescriptionFormRequirements,
             'qualifications' => $renderedDescriptionFormQualifications,
             'title' => $renderedDescriptionFormTitle,
+            'uriApply' => $uriApply
         ));
 
         return $model;
