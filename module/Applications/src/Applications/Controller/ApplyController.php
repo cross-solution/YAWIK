@@ -151,11 +151,14 @@ class ApplyController extends AbstractActionController
         
         $this->container->setParam('applicationId', $application->id);
 
-        return array(
+        $model = new ViewModel(array(
             'form' => $form,
             'isApplicationValid' => $this->checkApplication($application),
             'application' => $application,
-        );
+        ));
+        $model->setTemplate('applications/apply/index');
+        return $model;
+
     }
     
     public function processAction()
@@ -226,7 +229,7 @@ class ApplyController extends AbstractActionController
                     ->getPermissions()
                         ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
                         ->inherit($application->getJob()->getPermissions());
-        
+
         $this->sendRecruiterMails($application);
         $this->sendUserMails($application);
         
@@ -235,6 +238,7 @@ class ApplyController extends AbstractActionController
             'application' => $application,
         ));
         $model->setTemplate('applications/apply/index');
+
         return $model;
     }
     
@@ -309,7 +313,7 @@ class ApplyController extends AbstractActionController
         $job         = $application->getJob();
 
         /*
-         * TODO: Implement disable elements logic in entities, etc.
+         * @TODO: Implement disable elements logic in entities, etc.
          *
 
 
