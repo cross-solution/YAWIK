@@ -106,15 +106,33 @@ class IndexController extends AbstractActionController
          if (!$id) {
              throw new \RuntimeException('Missing job id.', 404);
          }
-         
          $job = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
          if (!$job) {
              throw new \RuntimeException('Job not found.', 404);
          }
-         
-         return array(
-             'job' => $job
-         );
+         $model                = new ViewModel();
+         $mvcEvent             = $this->getEvent();
+         $applicationViewModel = $mvcEvent->getViewModel();
+
+         $templateValues = $job->templateValues;
+
+         $model->setTemplate('templates/default/index.phtml');
+         $applicationViewModel->setTemplate('iframe/iFrameInjection');
+
+         $uriApply = $job->uriApply;
+         if (empty($uriApply)) {
+             $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $job->applyId));
+         }
+
+         $model->setVariables(array(
+             'job' => $job,
+             'benefits' => $templateValues->benefits,
+             'requirements' => $templateValues->requirements,
+             'qualifications' => $templateValues->qualifications,
+             'title' => $templateValues->title,
+             'uriApply' => $uriApply
+         ));
+         return $model;
          
      }
      
