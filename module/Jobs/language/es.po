@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Carsten Bleek <cbleek@yawik.org>, 2014
+# Mario de la Ossa <mariodelaossa@gmail.com>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-09 14:53+0100\n"
-"PO-Revision-Date: 2014-11-09 13:55+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"POT-Creation-Date: 2014-11-19 19:18+0100\n"
+"PO-Revision-Date: 2014-11-26 18:11+0000\n"
+"Last-Translator: Mario de la Ossa <mariodelaossa@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,11 +24,11 @@ msgstr ""
 msgid ""
 "You are using a default template. You are free to create your own template, "
 "just contact the developing team for integration"
-msgstr ""
+msgstr "Estas usando una plantilla por defecto. Eres libre de crear tu propia plantilla, solo comunícate con el equipo de desarrollo para su integración."
 
 #: view/form/apply-identifier.phtml:22
 msgid "Apply link"
-msgstr "Aplicar enlace"
+msgstr "Aplicar"
 
 #: view/form/list-filter.phtml:65
 msgid "Search"
@@ -42,7 +43,7 @@ msgid "All jobs"
 msgstr "Todos los puestos de trabajo"
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:73
 msgid "Jobs"
 msgstr "Empleos"
 
@@ -52,7 +53,7 @@ msgstr "Lista de todos los puestos de trabajo"
 
 #: view/jobs/index/index.phtml:8
 msgid "Public Job Opportunities"
-msgstr ""
+msgstr "Oportunidades de Empleo Publicadas"
 
 #: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"
@@ -96,7 +97,7 @@ msgstr "no leído"
 
 #: view/jobs/index/index.ajax.phtml:66
 msgid "draft"
-msgstr ""
+msgstr "borrador"
 
 #: view/jobs/index/index.ajax.phtml:89 view/jobs/index/view.phtml:18
 msgid "Apply"
@@ -124,7 +125,7 @@ msgstr "En línea desde"
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:24
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: src/Jobs/Form/JobFieldset.php:29
 msgid "Job details"
@@ -132,7 +133,7 @@ msgstr "Detalles de la experiencia"
 
 #: src/Jobs/Form/JobEmployersFieldset.php:29
 msgid "Employers"
-msgstr ""
+msgstr "Empleador"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
@@ -140,15 +141,15 @@ msgstr "buscar empleo"
 
 #: language/_annotated_strings.php:6
 msgid "Job qualification"
-msgstr ""
+msgstr "Cualificaciones del Empleo"
 
 #: language/_annotated_strings.php:9
 msgid "Job benefits"
-msgstr ""
+msgstr "Beneficios"
 
 #: language/_annotated_strings.php:12
 msgid "Job requirements"
-msgstr ""
+msgstr "Requerimientos"
 
 #: language/_annotated_strings.php:15 language/_annotated_strings.php:27
 msgid "Job description"
@@ -158,7 +159,7 @@ msgstr "Descripción del trabajo"
 msgid "Company"
 msgstr "Empresa"
 
-#: language/_annotated_strings.php:21 language/_annotated_strings.php:60
+#: language/_annotated_strings.php:21 language/_annotated_strings.php:61
 msgid "Job title"
 msgstr "Profesión"
 
@@ -174,50 +175,50 @@ msgstr "Correo electrónico de contacto"
 msgid "Reference number"
 msgstr "Número de referencia"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:40
 msgid "Customize apply form"
-msgstr ""
+msgstr "Personalizar formulario de aplicación"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:43
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr "El identificador de aplicación \"% value%\" ya está en uso."
 
-#: language/_annotated_strings.php:45 language/_annotated_strings.php:63
+#: language/_annotated_strings.php:46 language/_annotated_strings.php:64
 msgid "Publish job"
 msgstr "Publicar trabajo"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:49
 msgid "Show all jobs"
 msgstr "Mostrar todos los puestos de trabajo"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:52
 msgid "Show my jobs"
 msgstr "Mostrar mis trabajos"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:55
 msgid "Active"
 msgstr "Activo"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:58
 msgid "Inactive"
 msgstr "Inactivo"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:67
 msgid "Job saved"
-msgstr ""
+msgstr "Trabajo guardado"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:70
 msgid "There were errors in the form"
 msgstr "Hubo errores en el formulario"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:76
 msgid "Overview"
 msgstr "Visión de conjunto"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:79
 msgid "Create job"
 msgstr "Crear empleo"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:82
 msgid "Edit job"
 msgstr "Editar trabajo"

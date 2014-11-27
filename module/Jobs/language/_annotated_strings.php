@@ -63,10 +63,10 @@ translate('Job title');
 //: ./src/Jobs/Form/JobEmployers.php:42
 translate('Publish job');
 
-//: ./src/Jobs/Controller/ManageController.php:89
+//: ./src/Jobs/Controller/ManageController.php:96
 translate('Job saved');
 
-//: ./src/Jobs/Controller/ManageController.php:92
+//: ./src/Jobs/Controller/ManageController.php:99
 translate('There were errors in the form');
 
 //: ./config/module.config.php:81

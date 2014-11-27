@@ -104,13 +104,13 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:157
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:97
+//: ./src/Auth/Controller/IndexController.php:96
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:108
+//: ./src/Auth/Controller/IndexController.php:107
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:390
+//: ./src/Auth/Controller/IndexController.php:389
 translate('You are now logged out');
 
 //: ./config/module.config.php:260

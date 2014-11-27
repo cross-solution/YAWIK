@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Carsten Bleek <cbleek@yawik.org>, 2014
+# Mario de la Ossa <mariodelaossa@gmail.com>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-09-16 13:51+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"POT-Creation-Date: 2014-11-19 19:19+0100\n"
+"PO-Revision-Date: 2014-11-26 18:11+0000\n"
+"Last-Translator: Mario de la Ossa <mariodelaossa@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,21 +22,21 @@ msgstr ""
 
 #: view/form/user-info-container.phtml:21
 msgid "Image"
-msgstr ""
+msgstr "Imagen"
 
 #: view/form/contact.view.phtml:16
 msgid "Click here to enter contact informations."
-msgstr ""
+msgstr "Presiona aqui para introducir informacion de contacto."
 
 #: view/form/social-profiles-fieldset.phtml:22
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
-msgstr ""
+msgstr "puedes asociar tu perfil social a tu solicitud. Puedes ver una vista previa y remover el perfil asociado antes de enviar la solicitud."
 
 #: view/form/social-profiles-fieldset.phtml:33
 msgid "Loading"
-msgstr "Loading"
+msgstr "Cargando"
 
 #: view/form/social-profiles-fieldset.phtml:39
 msgid "Close"
@@ -43,15 +44,15 @@ msgstr "Cerca"
 
 #: view/form/social-profiles-button.phtml:38
 msgid "Attach profile"
-msgstr ""
+msgstr "Asociar perfil"
 
 #: view/form/social-profiles-button.phtml:39
 msgid "Detach profile"
-msgstr ""
+msgstr "Desasociar perfil"
 
 #: view/form/social-profiles-button.phtml:42
 msgid "View profile data"
-msgstr ""
+msgstr "Ver datos del perfil"
 
 #: view/form/userselect.phtml:25
 msgid "Add users"
@@ -65,9 +66,9 @@ msgstr "Por lo menos un usuario debe ser asignado"
 msgid "My groups"
 msgstr " Mis grupos"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:26
 msgid "Manage groups"
-msgstr "Gestión de grupos de"
+msgstr "Gestión de grupos"
 
 #: view/auth/manage-groups/index.phtml:15
 msgid "Add group"
@@ -83,7 +84,7 @@ msgstr "Acciones"
 
 #: view/auth/manage-groups/form.phtml:39
 msgid "search for users"
-msgstr ""
+msgstr "buscar usuarios"
 
 #: view/auth/manage-groups/form.phtml:74
 msgid "Ok"
@@ -95,52 +96,52 @@ msgstr "Se requiere ingresar"
 
 #: view/auth/index/index.phtml:12
 msgid "Please authenticate yourself to proceed"
-msgstr "Por favor, identifíquese a sí mismo para continuar"
+msgstr "Por favor, autentiquese para continuar"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:45
+#: view/auth/index/login-info.phtml:49
 msgid "Login"
 msgstr "Login"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
-msgstr ""
+msgstr "Ha ocurrido un error 410"
 
 #: view/auth/index/job-not-found.phtml:13
 msgid "Unknown apply identifier"
-msgstr ""
+msgstr "Identificador de solicitud desconocido"
 
 #: view/auth/index/job-not-found.phtml:14
 msgid "A job ad with the provided apply identifier could not be found."
-msgstr ""
+msgstr "No se pudo encontrar una publicacion de empleo con el identificador de solicitud proporcionado."
 
-#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Mi perfil"
 
-#: view/auth/index/login-info.phtml:18
+#: view/auth/index/login-info.phtml:22
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
-#: view/auth/index/login-info.phtml:27
+#: view/auth/index/login-info.phtml:31
 msgid "Logout"
 msgstr "Salir"
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:38
 #, php-format
 msgid "Hello %s"
 msgstr "Hola %s"
 
-#: view/auth/index/login-info.phtml:35
+#: view/auth/index/login-info.phtml:39
 msgid "Guest"
 msgstr "Invitado"
 
-#: view/auth/index/login-info.phtml:47
+#: view/auth/index/login-info.phtml:51
 msgid "Login via"
 msgstr "Ingresar a través de"
 
-#: view/auth/index/login-info.phtml:50
+#: view/auth/index/login-info.phtml:54
 #, php-format
 msgid "Login with %s"
 msgstr "Ingresar con %s"
@@ -168,13 +169,13 @@ msgstr "Datos de Grupo"
 msgid "Users"
 msgstr "Usuarios"
 
-#: src/Auth/Controller/ManageController.php:92
+#: src/Auth/Controller/ManageController.php:105
 msgid "Password successfully changed"
 msgstr "Contraseña cambiada con éxito"
 
-#: src/Auth/Controller/ManageController.php:98
+#: src/Auth/Controller/ManageController.php:111
 msgid "Password could not be changed"
-msgstr "La contraseña no se podía cambiar"
+msgstr "La contraseña no se pudo cambiar"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
@@ -186,12 +187,12 @@ msgstr "Editar grupo"
 
 #: language/_annotated_strings.php:9
 msgid "Social Profiles"
-msgstr ""
+msgstr "Perfiles Sociales"
 
 #: language/_annotated_strings.php:12
 #, php-format
 msgid "Allow users to attach their %s profile."
-msgstr ""
+msgstr "Permitir a los usuarios asociar su perfil de %s."
 
 #: language/_annotated_strings.php:18
 msgid "Email"
@@ -203,7 +204,7 @@ msgstr "Teléfono"
 
 #: language/_annotated_strings.php:24
 msgid "Postalcode"
-msgstr "Postalcode"
+msgstr "Codigo Postal"
 
 #: language/_annotated_strings.php:27
 msgid "City"
@@ -211,7 +212,7 @@ msgstr "Ciudad"
 
 #: language/_annotated_strings.php:30
 msgid "Salutation"
-msgstr ""
+msgstr "Titulo"
 
 #: language/_annotated_strings.php:33 language/_annotated_strings.php:42
 msgid "please select"
@@ -257,7 +258,7 @@ msgstr "Seleccione un nombre de grupo. Puede añadir usuarios a su grupo y luego
 
 #: language/_annotated_strings.php:78
 msgid "General settings"
-msgstr ""
+msgstr "Configuración general"
 
 #: language/_annotated_strings.php:81
 msgid "General"
@@ -265,7 +266,7 @@ msgstr "General"
 
 #: language/_annotated_strings.php:84
 msgid "I am"
-msgstr "Estoy"
+msgstr "Soy"
 
 #: language/_annotated_strings.php:87
 msgid "The group name \"%value%\" is already in use."
@@ -281,7 +282,7 @@ msgstr "login"
 
 #: language/_annotated_strings.php:99
 msgid "Group created"
-msgstr "Fecha de creación"
+msgstr "Grupo creado"
 
 #: language/_annotated_strings.php:102
 msgid "Group updated"
@@ -289,28 +290,24 @@ msgstr "Grupo actualizado"
 
 #: language/_annotated_strings.php:105
 msgid "Changes not saved."
-msgstr "Los cambios no guardados."
+msgstr "Los cambios no han sido guardados."
 
 #: language/_annotated_strings.php:108
 msgid "You are now logged in."
-msgstr "Ahora está conectado pulg"
+msgstr "Autenticado con exito."
 
 #: language/_annotated_strings.php:111
 msgid "Authentication failed."
 msgstr "Error de autenticación."
 
 #: language/_annotated_strings.php:114
-msgid "Welcome to YAWIK!"
-msgstr "Bienvenido a YAWIK! "
+msgid "You are now logged out"
+msgstr "Se ha cerrado la sesion."
 
 #: language/_annotated_strings.php:117
-msgid "You are now logged out"
-msgstr "Ahora está conectado a"
-
-#: language/_annotated_strings.php:120
 msgid "user"
 msgstr "usuario"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:120
 msgid "recruiter"
 msgstr "reclutador"

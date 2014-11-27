@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Carsten Bleek <cbleek@yawik.org>, 2014
+# Mario de la Ossa <mariodelaossa@gmail.com>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:20+0200\n"
-"PO-Revision-Date: 2014-09-16 14:22+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"POT-Creation-Date: 2014-11-09 14:53+0100\n"
+"PO-Revision-Date: 2014-11-26 18:11+0000\n"
+"Last-Translator: Mario de la Ossa <mariodelaossa@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,15 +22,15 @@ msgstr ""
 
 #: view/cv/index/index.phtml:1 language/_annotated_strings.php:846
 msgid "Resumes"
-msgstr ""
+msgstr "Curriculum"
 
 #: view/cv/index/index.phtml:7
 msgid "list of all resumes"
-msgstr ""
+msgstr "lista de todos los cv"
 
 #: view/cv/index/index.ajax.phtml:5
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: view/cv/manage/form.phtml:2
 msgid "Edit resume"
@@ -62,31 +63,31 @@ msgstr "Idioma"
 #: src/Cv/Form/NativeLanguageFieldset.php:16
 #: language/_annotated_strings.php:63
 msgid "Native Language"
-msgstr ""
+msgstr "lengua nativa"
 
 #: src/Cv/Form/EducationCollectionFactory.php:18
 msgid "Education history"
-msgstr ""
+msgstr "Historial de Educación"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:42
 msgid "Start date"
-msgstr ""
+msgstr "Fecha de inicio"
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:45
 msgid "End date"
-msgstr ""
+msgstr "Fecha fin"
 
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:48
 msgid "ongoing"
-msgstr ""
+msgstr "en curso"
 
 #: language/_annotated_strings.php:12
 msgid "Degree"
-msgstr ""
+msgstr "Grado"
 
 #: language/_annotated_strings.php:15
 msgid "please enter the name of your qualification"
-msgstr ""
+msgstr "por favor introduzca el nombre de su cualificación"
 
 #: language/_annotated_strings.php:18
 msgid "Organization Name"
@@ -118,7 +119,7 @@ msgstr "Descripción"
 
 #: language/_annotated_strings.php:39
 msgid "please enter a description"
-msgstr ""
+msgstr "por favor introduzca una descripción"
 
 #: language/_annotated_strings.php:51
 msgid "Company Name"
@@ -126,19 +127,19 @@ msgstr "Nombre de compañía"
 
 #: language/_annotated_strings.php:54
 msgid "please enter the name of the company"
-msgstr ""
+msgstr "por favor introduzca el nombre de la compañia"
 
 #: language/_annotated_strings.php:60
 msgid "please describe your position"
-msgstr ""
+msgstr "por favor describa su posición"
 
 #: language/_annotated_strings.php:66
 msgid "Other languages"
-msgstr ""
+msgstr "Otros lenguajes"
 
 #: language/_annotated_strings.php:69
 msgid "Other languages ..."
-msgstr ""
+msgstr "Otros lenguajes ..."
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:522
 msgid "Abkhazian"
@@ -570,18 +571,18 @@ msgstr "Yoruba"
 
 #: language/_annotated_strings.php:393
 msgid "which language are you speeking"
-msgstr ""
+msgstr "que lenguaje habla"
 
 #: language/_annotated_strings.php:396
 msgid "Understanding Listening ..."
-msgstr ""
+msgstr "La comprensión hablada ..."
 
 #: language/_annotated_strings.php:399
 msgid ""
 "I can understand familiar words and very basic phrases concerning myself, my"
 " family and immediate concrete surroundings when people speak slowly and "
 "clearly."
-msgstr ""
+msgstr "puedo entender palabras familiares y basicas que conciernen a mi persona, mi familia, y alrededores concretos cuando las personas hablan lenta y claramente."
 
 #: language/_annotated_strings.php:402
 msgid ""
@@ -626,17 +627,17 @@ msgstr ""
 #: language/_annotated_strings.php:465 language/_annotated_strings.php:489
 #: language/_annotated_strings.php:513
 msgid "level"
-msgstr ""
+msgstr "nivel"
 
 #: language/_annotated_strings.php:420
 msgid "Understanding Reading ..."
-msgstr ""
+msgstr "La comprensión leida..."
 
 #: language/_annotated_strings.php:423
 msgid ""
 "I can understand familiar names, words and very simple sentences, for "
 "example on notices and posters or in catalogues."
-msgstr ""
+msgstr "Puedo entender nombres familiares, palabras y frases sencillas, por ejemplo en noticieros y catalogos o afiches."
 
 #: language/_annotated_strings.php:426
 msgid ""
@@ -676,7 +677,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:444
 msgid "Spoken Interaction ..."
-msgstr ""
+msgstr "Interacción oral ..."
 
 #: language/_annotated_strings.php:447
 msgid ""
@@ -728,7 +729,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:468
 msgid "Spoken Production ..."
-msgstr ""
+msgstr "Expresión oral ..."
 
 #: language/_annotated_strings.php:471
 msgid ""
@@ -774,7 +775,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:492
 msgid "Writing ..."
-msgstr ""
+msgstr "Escritura ..."
 
 #: language/_annotated_strings.php:495
 msgid ""
@@ -831,7 +832,7 @@ msgstr "Habilidades"
 
 #: language/_annotated_strings.php:843
 msgid "what is your native language"
-msgstr ""
+msgstr "cual es tu lengua nativa"
 
 #: language/_annotated_strings.php:849
 msgid "Overview"
