@@ -18,12 +18,13 @@ but
 YAWIK is currently used by ~10 small companies for managing ~100 applications 
 a day.
 
-Build status: [![Build Status](https://api.travis-ci.org/cross-solution/CrossApplicantManager.svg)](https://travis-ci.org/cross-solution/CrossApplicantManager)
+Build status: [![Build Status](https://api.travis-ci.org/cross-solution/YAWIK.svg)](https://travis-ci.org/cross-solution/YAWIK)
 
 Demo
 ----
 
-http://yawik.org/demo
+http://yawik.org/demo (this demonstrates YAWIK as an applicant tracking system)
+http://jobs.yawik.org (this demonstrates YAWIK as a Jobportal) 
 
 Documentation
 -------------
