@@ -24,6 +24,7 @@ build.properties
 #
 # Unit test code coverage reports
 #
+
 tmp
 docs
 */*/test/coverage
@@ -45,37 +46,3 @@ cache
 .project
 nbproject
 
-public/css/Applications
-public/css/Auth
-public/css/Core
-public/css/Cv
-public/css/Jobs
-public/css/Settings
-public/css/CamMediaintown
-public/images/Applications
-public/images/Auth
-public/images/Core
-public/images/Cv
-public/images/Jobs
-public/images/Settings
-public/images/CamMediaintown
-public/js/Applications
-public/js/Auth
-public/js/Core
-public/js/Cv
-public/js/Jobs
-public/js/Settings
-public/js/CamMediaintown
-public/Applications
-public/Auth
-public/Geo
-public/FormularValidation
-public/Core
-public/Cv
-public/Jobs
-public/Settings
-public/CamMediaintown
-public/Pdf
-public/YawikDemo*
-module/YawikDemo*
-module/Cam*
