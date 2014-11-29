@@ -1,0 +1,836 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-09 14:53+0100\n"
+"PO-Revision-Date: 2014-11-29 16:21+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/yawik/language/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: view/cv/index/index.phtml:1 language/_annotated_strings.php:846
+msgid "Resumes"
+msgstr ""
+
+#: view/cv/index/index.phtml:7
+msgid "list of all resumes"
+msgstr ""
+
+#: view/cv/index/index.ajax.phtml:5
+msgid "Id"
+msgstr ""
+
+#: view/cv/manage/form.phtml:2
+msgid "Edit resume"
+msgstr ""
+
+#: view/cv/manage/form.phtml:2 language/_annotated_strings.php:852
+msgid "Create resume"
+msgstr ""
+
+#: view/cv/manage/form.phtml:7
+msgid "Create a new resume"
+msgstr ""
+
+#: view/cv/manage/form.phtml:11
+msgid "Your resume was saved successfully."
+msgstr ""
+
+#: src/Cv/Form/EducationFieldset.php:18
+msgid "Education"
+msgstr ""
+
+#: src/Cv/Form/EmploymentFieldset.php:16
+msgid "Employment"
+msgstr ""
+
+#: src/Cv/Form/SkillFieldset.php:16 src/Cv/Form/LanguageFieldset.php:16
+msgid "Language"
+msgstr ""
+
+#: src/Cv/Form/NativeLanguageFieldset.php:16
+#: language/_annotated_strings.php:63
+msgid "Native Language"
+msgstr ""
+
+#: src/Cv/Form/EducationCollectionFactory.php:18
+msgid "Education history"
+msgstr ""
+
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:42
+msgid "Start date"
+msgstr ""
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:45
+msgid "End date"
+msgstr ""
+
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:48
+msgid "ongoing"
+msgstr "devam eden"
+
+#: language/_annotated_strings.php:12
+msgid "Degree"
+msgstr "Derece"
+
+#: language/_annotated_strings.php:15
+msgid "please enter the name of your qualification"
+msgstr ""
+
+#: language/_annotated_strings.php:18
+msgid "Organization Name"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "please enter the name of the university or school"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid "Country"
+msgstr ""
+
+#: language/_annotated_strings.php:27
+msgid "please select the country"
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "City"
+msgstr "Şehir"
+
+#: language/_annotated_strings.php:33
+msgid "please enter the name of the city"
+msgstr ""
+
+#: language/_annotated_strings.php:36 language/_annotated_strings.php:57
+msgid "Description"
+msgstr "Tanım"
+
+#: language/_annotated_strings.php:39
+msgid "please enter a description"
+msgstr ""
+
+#: language/_annotated_strings.php:51
+msgid "Company Name"
+msgstr ""
+
+#: language/_annotated_strings.php:54
+msgid "please enter the name of the company"
+msgstr ""
+
+#: language/_annotated_strings.php:60
+msgid "please describe your position"
+msgstr ""
+
+#: language/_annotated_strings.php:66
+msgid "Other languages"
+msgstr ""
+
+#: language/_annotated_strings.php:69
+msgid "Other languages ..."
+msgstr ""
+
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:522
+msgid "Abkhazian"
+msgstr ""
+
+#: language/_annotated_strings.php:75 language/_annotated_strings.php:525
+msgid "Afrikaans"
+msgstr ""
+
+#: language/_annotated_strings.php:78 language/_annotated_strings.php:528
+msgid "Albanian"
+msgstr ""
+
+#: language/_annotated_strings.php:81 language/_annotated_strings.php:531
+msgid "Amharic"
+msgstr ""
+
+#: language/_annotated_strings.php:84 language/_annotated_strings.php:534
+msgid "Arabic"
+msgstr ""
+
+#: language/_annotated_strings.php:87 language/_annotated_strings.php:537
+msgid "Armenian"
+msgstr ""
+
+#: language/_annotated_strings.php:90 language/_annotated_strings.php:540
+msgid "Assamese"
+msgstr ""
+
+#: language/_annotated_strings.php:93 language/_annotated_strings.php:543
+msgid "Azerbaijani"
+msgstr ""
+
+#: language/_annotated_strings.php:96 language/_annotated_strings.php:546
+msgid "Basque"
+msgstr ""
+
+#: language/_annotated_strings.php:99 language/_annotated_strings.php:549
+msgid "Belarusian"
+msgstr ""
+
+#: language/_annotated_strings.php:102 language/_annotated_strings.php:552
+msgid "Bengali"
+msgstr ""
+
+#: language/_annotated_strings.php:105 language/_annotated_strings.php:555
+msgid "Bosnian"
+msgstr ""
+
+#: language/_annotated_strings.php:108 language/_annotated_strings.php:558
+msgid "Breton"
+msgstr ""
+
+#: language/_annotated_strings.php:111 language/_annotated_strings.php:561
+msgid "Bulgarian"
+msgstr ""
+
+#: language/_annotated_strings.php:114 language/_annotated_strings.php:564
+msgid "Burmese"
+msgstr ""
+
+#: language/_annotated_strings.php:117 language/_annotated_strings.php:567
+msgid "Catalan/Valencian"
+msgstr ""
+
+#: language/_annotated_strings.php:120 language/_annotated_strings.php:570
+msgid "Chechen"
+msgstr ""
+
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:573
+msgid "Chinese"
+msgstr ""
+
+#: language/_annotated_strings.php:126 language/_annotated_strings.php:576
+msgid "Cornish"
+msgstr ""
+
+#: language/_annotated_strings.php:129 language/_annotated_strings.php:579
+msgid "Corsican"
+msgstr ""
+
+#: language/_annotated_strings.php:132 language/_annotated_strings.php:582
+msgid "Croatian"
+msgstr ""
+
+#: language/_annotated_strings.php:135 language/_annotated_strings.php:585
+msgid "Czech"
+msgstr ""
+
+#: language/_annotated_strings.php:138 language/_annotated_strings.php:588
+msgid "Danish"
+msgstr ""
+
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:591
+msgid "Dutch"
+msgstr ""
+
+#: language/_annotated_strings.php:144 language/_annotated_strings.php:594
+msgid "Estonian"
+msgstr ""
+
+#: language/_annotated_strings.php:147 language/_annotated_strings.php:597
+msgid "Faroese"
+msgstr ""
+
+#: language/_annotated_strings.php:150 language/_annotated_strings.php:600
+msgid "Fijian"
+msgstr ""
+
+#: language/_annotated_strings.php:153 language/_annotated_strings.php:603
+msgid "Finnish"
+msgstr ""
+
+#: language/_annotated_strings.php:156 language/_annotated_strings.php:606
+msgid "French"
+msgstr ""
+
+#: language/_annotated_strings.php:159 language/_annotated_strings.php:609
+msgid "Gaelic/Scottish Gaelic"
+msgstr ""
+
+#: language/_annotated_strings.php:162 language/_annotated_strings.php:612
+msgid "Galician"
+msgstr ""
+
+#: language/_annotated_strings.php:165 language/_annotated_strings.php:615
+msgid "Georgian"
+msgstr ""
+
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:618
+msgid "German"
+msgstr ""
+
+#: language/_annotated_strings.php:171 language/_annotated_strings.php:621
+msgid "Greek"
+msgstr ""
+
+#: language/_annotated_strings.php:174 language/_annotated_strings.php:624
+msgid "Gujarati"
+msgstr ""
+
+#: language/_annotated_strings.php:177 language/_annotated_strings.php:627
+msgid "Haitian/Haitian Creole"
+msgstr ""
+
+#: language/_annotated_strings.php:180 language/_annotated_strings.php:630
+msgid "Hebrew"
+msgstr ""
+
+#: language/_annotated_strings.php:183 language/_annotated_strings.php:633
+msgid "Hindi"
+msgstr ""
+
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:636
+msgid "Hungarian"
+msgstr ""
+
+#: language/_annotated_strings.php:189 language/_annotated_strings.php:639
+msgid "Icelandic"
+msgstr ""
+
+#: language/_annotated_strings.php:192 language/_annotated_strings.php:642
+msgid "Indonesian"
+msgstr ""
+
+#: language/_annotated_strings.php:195 language/_annotated_strings.php:645
+msgid "Irish"
+msgstr ""
+
+#: language/_annotated_strings.php:198 language/_annotated_strings.php:648
+msgid "Italian"
+msgstr ""
+
+#: language/_annotated_strings.php:201 language/_annotated_strings.php:651
+msgid "Japanese"
+msgstr ""
+
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:654
+msgid "Javanese"
+msgstr ""
+
+#: language/_annotated_strings.php:207 language/_annotated_strings.php:657
+msgid "Kannada"
+msgstr ""
+
+#: language/_annotated_strings.php:210 language/_annotated_strings.php:660
+msgid "Kazakh"
+msgstr ""
+
+#: language/_annotated_strings.php:213 language/_annotated_strings.php:663
+msgid "Kirghiz"
+msgstr ""
+
+#: language/_annotated_strings.php:216 language/_annotated_strings.php:666
+msgid "Kongo/Kikongo"
+msgstr ""
+
+#: language/_annotated_strings.php:219 language/_annotated_strings.php:669
+msgid "Korean"
+msgstr ""
+
+#: language/_annotated_strings.php:222 language/_annotated_strings.php:672
+msgid "Kurdish"
+msgstr ""
+
+#: language/_annotated_strings.php:225 language/_annotated_strings.php:675
+msgid "Lao"
+msgstr ""
+
+#: language/_annotated_strings.php:228 language/_annotated_strings.php:678
+msgid "Latvian"
+msgstr ""
+
+#: language/_annotated_strings.php:231 language/_annotated_strings.php:681
+msgid "Limburgish/Limburgian/Limburgic"
+msgstr ""
+
+#: language/_annotated_strings.php:234 language/_annotated_strings.php:684
+msgid "Lingala"
+msgstr ""
+
+#: language/_annotated_strings.php:237 language/_annotated_strings.php:687
+msgid "Lithuanian"
+msgstr ""
+
+#: language/_annotated_strings.php:240 language/_annotated_strings.php:690
+msgid "Luxembourgish"
+msgstr ""
+
+#: language/_annotated_strings.php:243 language/_annotated_strings.php:693
+msgid "Macedonian"
+msgstr ""
+
+#: language/_annotated_strings.php:246 language/_annotated_strings.php:696
+msgid "Malagasy"
+msgstr ""
+
+#: language/_annotated_strings.php:249 language/_annotated_strings.php:699
+msgid "Malay"
+msgstr ""
+
+#: language/_annotated_strings.php:252 language/_annotated_strings.php:702
+msgid "Malayalam"
+msgstr ""
+
+#: language/_annotated_strings.php:255 language/_annotated_strings.php:705
+msgid "Maltese"
+msgstr ""
+
+#: language/_annotated_strings.php:258 language/_annotated_strings.php:708
+msgid "Manx"
+msgstr ""
+
+#: language/_annotated_strings.php:261 language/_annotated_strings.php:711
+msgid "Marathi"
+msgstr ""
+
+#: language/_annotated_strings.php:264 language/_annotated_strings.php:714
+msgid "Moldavian"
+msgstr ""
+
+#: language/_annotated_strings.php:267 language/_annotated_strings.php:717
+msgid "Mongolian"
+msgstr ""
+
+#: language/_annotated_strings.php:270 language/_annotated_strings.php:720
+msgid "Nepali"
+msgstr ""
+
+#: language/_annotated_strings.php:273 language/_annotated_strings.php:723
+msgid "Norwegian"
+msgstr ""
+
+#: language/_annotated_strings.php:276 language/_annotated_strings.php:726
+msgid "Norwegian (Bokmal)"
+msgstr ""
+
+#: language/_annotated_strings.php:279 language/_annotated_strings.php:729
+msgid "Norwegian (Nynorsk)"
+msgstr ""
+
+#: language/_annotated_strings.php:282 language/_annotated_strings.php:732
+msgid "Pashto"
+msgstr ""
+
+#: language/_annotated_strings.php:285 language/_annotated_strings.php:735
+msgid "Persian"
+msgstr ""
+
+#: language/_annotated_strings.php:288 language/_annotated_strings.php:738
+msgid "Polish"
+msgstr ""
+
+#: language/_annotated_strings.php:291 language/_annotated_strings.php:741
+msgid "Portuguese"
+msgstr ""
+
+#: language/_annotated_strings.php:294 language/_annotated_strings.php:744
+msgid "Punjabi"
+msgstr ""
+
+#: language/_annotated_strings.php:297 language/_annotated_strings.php:747
+msgid "Raeto-Romance"
+msgstr ""
+
+#: language/_annotated_strings.php:300 language/_annotated_strings.php:750
+msgid "Romani"
+msgstr ""
+
+#: language/_annotated_strings.php:303 language/_annotated_strings.php:753
+msgid "Romanian"
+msgstr ""
+
+#: language/_annotated_strings.php:306 language/_annotated_strings.php:756
+msgid "Russian"
+msgstr ""
+
+#: language/_annotated_strings.php:309 language/_annotated_strings.php:759
+msgid "Sami"
+msgstr ""
+
+#: language/_annotated_strings.php:312 language/_annotated_strings.php:762
+msgid "Sardinian"
+msgstr ""
+
+#: language/_annotated_strings.php:315 language/_annotated_strings.php:765
+msgid "Serbian"
+msgstr ""
+
+#: language/_annotated_strings.php:318 language/_annotated_strings.php:768
+msgid "Sindhi"
+msgstr ""
+
+#: language/_annotated_strings.php:321 language/_annotated_strings.php:771
+msgid "Slovak"
+msgstr ""
+
+#: language/_annotated_strings.php:324 language/_annotated_strings.php:774
+msgid "Slovenian"
+msgstr ""
+
+#: language/_annotated_strings.php:327 language/_annotated_strings.php:777
+msgid "Somali"
+msgstr ""
+
+#: language/_annotated_strings.php:330 language/_annotated_strings.php:780
+msgid "Spanish"
+msgstr ""
+
+#: language/_annotated_strings.php:333 language/_annotated_strings.php:783
+msgid "Swahili"
+msgstr ""
+
+#: language/_annotated_strings.php:336 language/_annotated_strings.php:786
+msgid "Swedish"
+msgstr ""
+
+#: language/_annotated_strings.php:339 language/_annotated_strings.php:789
+msgid "Tagalog"
+msgstr ""
+
+#: language/_annotated_strings.php:342 language/_annotated_strings.php:792
+msgid "Tahitian"
+msgstr ""
+
+#: language/_annotated_strings.php:345 language/_annotated_strings.php:795
+msgid "Tajik"
+msgstr ""
+
+#: language/_annotated_strings.php:348 language/_annotated_strings.php:798
+msgid "Tamil"
+msgstr ""
+
+#: language/_annotated_strings.php:351 language/_annotated_strings.php:801
+msgid "Tatar"
+msgstr ""
+
+#: language/_annotated_strings.php:354 language/_annotated_strings.php:804
+msgid "Telugu"
+msgstr ""
+
+#: language/_annotated_strings.php:357 language/_annotated_strings.php:807
+msgid "Thai"
+msgstr ""
+
+#: language/_annotated_strings.php:360 language/_annotated_strings.php:810
+msgid "Tibetan"
+msgstr ""
+
+#: language/_annotated_strings.php:363 language/_annotated_strings.php:813
+msgid "Turkish"
+msgstr ""
+
+#: language/_annotated_strings.php:366 language/_annotated_strings.php:816
+msgid "Turkmen"
+msgstr ""
+
+#: language/_annotated_strings.php:369 language/_annotated_strings.php:819
+msgid "Ukrainian"
+msgstr ""
+
+#: language/_annotated_strings.php:372 language/_annotated_strings.php:822
+msgid "Urdu"
+msgstr ""
+
+#: language/_annotated_strings.php:375 language/_annotated_strings.php:825
+msgid "Uzbek"
+msgstr ""
+
+#: language/_annotated_strings.php:378 language/_annotated_strings.php:828
+msgid "Vietnamese"
+msgstr ""
+
+#: language/_annotated_strings.php:381 language/_annotated_strings.php:831
+msgid "Welsh"
+msgstr ""
+
+#: language/_annotated_strings.php:384 language/_annotated_strings.php:834
+msgid "Western Frisian"
+msgstr ""
+
+#: language/_annotated_strings.php:387 language/_annotated_strings.php:837
+msgid "Yiddish"
+msgstr ""
+
+#: language/_annotated_strings.php:390 language/_annotated_strings.php:840
+msgid "Yoruba"
+msgstr ""
+
+#: language/_annotated_strings.php:393
+msgid "which language are you speeking"
+msgstr ""
+
+#: language/_annotated_strings.php:396
+msgid "Understanding Listening ..."
+msgstr ""
+
+#: language/_annotated_strings.php:399
+msgid ""
+"I can understand familiar words and very basic phrases concerning myself, my"
+" family and immediate concrete surroundings when people speak slowly and "
+"clearly."
+msgstr ""
+
+#: language/_annotated_strings.php:402
+msgid ""
+"I can understand phrases and the highest frequency vocabulary related to "
+"areas of most immediate personal relevance (e.g. very basic personal and "
+"family information, shopping, local area, employment). I can catch the main "
+"point in short, clear, simple messages and announcements."
+msgstr ""
+
+#: language/_annotated_strings.php:405
+msgid ""
+"I can understand the main points of clear standard speech on familiar "
+"matters regularly encountered in work, school, leisure, etc. I can "
+"understand the main point of many radio or TV programmes on current affairs "
+"or topics of personal or professional interest when the delivery is "
+"relatively slow and clear."
+msgstr ""
+
+#: language/_annotated_strings.php:408
+msgid ""
+"I can understand extended speech and lectures and follow even complex lines "
+"of argument provided the topic is reasonably familiar. I can understand most"
+" TV news and current affairs programmes. I can understand the majority of "
+"films in standard dialect."
+msgstr ""
+
+#: language/_annotated_strings.php:411
+msgid ""
+"I can understand extended speech even when it is not clearly structured and "
+"when relationships are only implied and not signalled explicitly. I can "
+"understand television programmes and films without too much effort."
+msgstr ""
+
+#: language/_annotated_strings.php:414
+msgid ""
+"I have no difficulty in understanding any kind of spoken language, whether "
+"live or broadcast, even when delivered at fast native speed, provided I have"
+" some time to get familiar with the accent."
+msgstr ""
+
+#: language/_annotated_strings.php:417 language/_annotated_strings.php:441
+#: language/_annotated_strings.php:465 language/_annotated_strings.php:489
+#: language/_annotated_strings.php:513
+msgid "level"
+msgstr ""
+
+#: language/_annotated_strings.php:420
+msgid "Understanding Reading ..."
+msgstr ""
+
+#: language/_annotated_strings.php:423
+msgid ""
+"I can understand familiar names, words and very simple sentences, for "
+"example on notices and posters or in catalogues."
+msgstr ""
+
+#: language/_annotated_strings.php:426
+msgid ""
+"I can read very short, simple texts. I can find specific, predictable "
+"information in simple everyday material such as advertisements, "
+"prospectuses, menus and timetables and I can understand short simple "
+"personal letters."
+msgstr ""
+
+#: language/_annotated_strings.php:429
+msgid ""
+"I can understand texts that consist mainly of high frequency everyday or "
+"job-related language. I can understand the description of events, feelings "
+"and wishes in personal letters."
+msgstr ""
+
+#: language/_annotated_strings.php:432
+msgid ""
+"I can read articles and reports concerned with contemporary problems in "
+"which the writers adopt particular attitudes or viewpoints. I can understand"
+" contemporary literary prose."
+msgstr ""
+
+#: language/_annotated_strings.php:435
+msgid ""
+"I can understand long and complex factual and literary texts, appreciating "
+"distinctions of style. I can understand specialised articles and longer "
+"technical instructions, even when they do not relate to my field."
+msgstr ""
+
+#: language/_annotated_strings.php:438
+msgid ""
+"I can read with ease virtually all forms   of the written language, "
+"including abstract, structurally or linguistically complex texts such as "
+"manuals, specialised articles and literary works."
+msgstr ""
+
+#: language/_annotated_strings.php:444
+msgid "Spoken Interaction ..."
+msgstr ""
+
+#: language/_annotated_strings.php:447
+msgid ""
+"I can interact in a simple way provided the other person is prepared to "
+"repeat or rephrase things at a slower rate of speech and help me formulate "
+"what I'm trying to say. I can ask and answer simple questions in areas of "
+"immediate need or on very familiar topics."
+msgstr ""
+
+#: language/_annotated_strings.php:450
+msgid ""
+"I can communicate in simple and routine tasks requiring a simple and direct "
+"exchange of information on familiar topics and activities. I can handle very"
+" short social exchanges, even though I can't usually understand enough to "
+"keep the conversation going myself."
+msgstr ""
+
+#: language/_annotated_strings.php:453
+msgid ""
+"I can deal with most situations likely to arise whilst travelling in an area"
+" where the language is spoken. I can enter unprepared into conversation on "
+"topics that are familiar, of personal interest or pertinent to everyday life"
+" (e.g. family, hobbies, work, travel and current events)."
+msgstr ""
+
+#: language/_annotated_strings.php:456
+msgid ""
+"I can interact with a degree of fluency and spontaneity that makes regular "
+"interaction with native speakers quite possible. I can take an active part "
+"in discussion in familiar contexts, accounting for  and sustaining my views."
+msgstr ""
+
+#: language/_annotated_strings.php:459
+msgid ""
+"I can express myself fluently and spontaneously without much obvious "
+"searching for expressions. I can use language flexibly and effectively for "
+"social and professional purposes. I can formulate ideas and opinions with "
+"precision and relate my contribution skilfully to those of other speakers."
+msgstr ""
+
+#: language/_annotated_strings.php:462
+msgid ""
+"I can take part effortlessly in any conversation or discussion and have a "
+"good familiarity with idiomatic expressions and colloquialisms. I can "
+"express myself fluently and convey finer shades of meaning precisely. If I "
+"do have a problem I can backtrack and restructure around the difficulty so "
+"smoothly that other people are hardly aware of it."
+msgstr ""
+
+#: language/_annotated_strings.php:468
+msgid "Spoken Production ..."
+msgstr ""
+
+#: language/_annotated_strings.php:471
+msgid ""
+"I can use simple phrases and sentences to describe where I live and people I"
+" know."
+msgstr ""
+
+#: language/_annotated_strings.php:474
+msgid ""
+"I can use a series of phrases and sentences to describe in simple terms my "
+"family and other people, living conditions, my educational background and my"
+" present or most recent job."
+msgstr ""
+
+#: language/_annotated_strings.php:477
+msgid ""
+"I can connect phrases in a simple way in order to describe experiences and "
+"events, my dreams, hopes and ambitions. I can briefly give reasons and "
+"explanations for opinions and plans. I can narrate a story or relate the "
+"plot of a book or film and describe my reactions."
+msgstr ""
+
+#: language/_annotated_strings.php:480
+msgid ""
+"I can present clear, detailed descriptions on a wide range of subjects "
+"related to my field of interest. I can explain a viewpoint on a topical "
+"issue giving the advantages and disadvantages of various options."
+msgstr ""
+
+#: language/_annotated_strings.php:483
+msgid ""
+"I can present clear, detailed descriptions of complex subjects integrating "
+"sub-themes, developing particular points and rounding off with an "
+"appropriate conclusion."
+msgstr ""
+
+#: language/_annotated_strings.php:486
+msgid ""
+"I can present a clear, smoothly-flowing description or argument in a style "
+"appropriate to the context and with an effective logical structure which "
+"helps the recipient to notice and remember significant points."
+msgstr ""
+
+#: language/_annotated_strings.php:492
+msgid "Writing ..."
+msgstr ""
+
+#: language/_annotated_strings.php:495
+msgid ""
+"I can write a short, simple postcard, for example sending holiday greetings."
+" I can fill in forms with personal details, for example entering my name, "
+"nationality and address on a hotel registration form."
+msgstr ""
+
+#: language/_annotated_strings.php:498
+msgid ""
+"I can write short, simple notes and messages. I can write a very simple "
+"personal letter, for example thanking someone for something."
+msgstr ""
+
+#: language/_annotated_strings.php:501
+msgid ""
+"I can write simple connected text on topics which are familiar or of "
+"personal interest. I can write personal letters describing experiences and "
+"impressions."
+msgstr ""
+
+#: language/_annotated_strings.php:504
+msgid ""
+"I can write clear, detailed text on a wide range of subjects related to my "
+"interests. I can write an essay or report, passing on information or giving "
+"reasons in support of or against a particular point of view. I can write "
+"letters highlighting the personal significance of events and experiences."
+msgstr ""
+
+#: language/_annotated_strings.php:507
+msgid ""
+"I can express myself in clear, well-structured text, expressing points of "
+"view at some length. I can write about complex subjects in a letter, an "
+"essay or a report, underlining what I consider to be the salient issues. I "
+"can select a style appropriate to the reader in mind."
+msgstr ""
+
+#: language/_annotated_strings.php:510
+msgid ""
+"I can write clear, smoothly-flowing  text in an appropriate style. I can "
+"write complex letters, reports or articles which present a case with an "
+"effective logical structure which helps the recipient to notice and remember"
+" significant points. I can write summaries and reviews of professional or "
+"literary works."
+msgstr ""
+
+#: language/_annotated_strings.php:516
+msgid "Employment history"
+msgstr ""
+
+#: language/_annotated_strings.php:519
+msgid "Skills"
+msgstr ""
+
+#: language/_annotated_strings.php:843
+msgid "what is your native language"
+msgstr ""
+
+#: language/_annotated_strings.php:849
+msgid "Overview"
+msgstr "Genel bakış"
