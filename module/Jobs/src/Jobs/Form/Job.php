@@ -52,6 +52,14 @@ class Job extends Container
             )
         ));
 
+
+        $this->setForms(array(
+            'previewForm' => array(
+                'type' => 'Jobs/Preview',
+                'property' => true,
+            )
+        ));
+
         // This label is used on the Settings page
         //$this->options['settings_label'] = /*@translate*/ 'Customize apply form';
 

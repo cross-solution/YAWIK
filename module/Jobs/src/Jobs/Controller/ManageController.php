@@ -69,7 +69,7 @@ class ManageController extends AbstractActionController {
 
     protected function save()
     {
-        $pageToForm         = array(0 => 'locationForm', 1 => 'descriptionForm',  2 => 'previewJobForm');
+        $pageToForm         = array(0 => 'locationForm', 1 => 'descriptionForm',  2 => 'previewForm');
         $request            = $this->getRequest();
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
@@ -119,10 +119,10 @@ class ManageController extends AbstractActionController {
         }
 
 
-        $formActive         = $form->getActiveFormActual();
-        if (empty($formIdentifier)) {
-            $form->enableForm($formActive);
-        }
+        //$formActive         = $form->getActiveFormActual();
+        //if (empty($formIdentifier)) {
+        //    $form->enableForm($formActive);
+        //}
         if (isset($formIdentifier) &&  $request->isPost()) {
             // at this point the form get instanciated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);

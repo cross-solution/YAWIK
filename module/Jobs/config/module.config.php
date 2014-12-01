@@ -106,7 +106,12 @@ return array(
             ),
         ),
     ),
-    
+
+    'service_manager' => array(
+        'invokables' => array(
+            'Jobs/PreviewLinkHydrator' => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
+        )
+    ),
     
     'controllers' => array(
         'invokables' => array(
@@ -118,8 +123,6 @@ return array(
     ),
     
     'view_manager' => array(
-    
-    
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
             'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
@@ -133,7 +136,12 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    
+
+    'view_helpers' => array(
+        'invokables' => array(
+            'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
+        )
+    ),
        
     'form_elements' => array(
         'invokables' => array(
@@ -154,6 +162,9 @@ return array(
             'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',
             'Jobs/JobDescriptionTitle'          => '\Jobs\Form\JobDescriptionTitle',
             'Jobs/Description/Template'         => '\Jobs\Form\JobDescriptionTemplate',
+            'Jobs/Preview'                      => '\Jobs\Form\JobPreview',
+            'Jobs/PreviewFieldset'              => '\Jobs\Form\JobPreviewFieldset',
+            'Jobs/JobPreviewLink'               => '\Jobs\Form\JobPreviewLink'
 
         ),
         'factories' => array(
