@@ -30,3 +30,16 @@ $navigation->findOneBy('route', 'lang/jobs')->setActive(true);
 ?></h1>
           
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
+
+<div id="locationForm-buttons" class="buttons-bar form-group">
+    <div class="col-md-12">
+<?php
+    if (!empty($this->pageLinkPrevious)) {
+        echo '<a href="' . $this->pageLinkPrevious . '" class="cam-btn-reset">' . $this->translate('previous page') . '</a>' . PHP_EOL;
+    }
+if (!empty($this->pageLinkNext)) {
+    echo '<a href="' . $this->pageLinkNext . '" class="cam-btn-reset">' . $this->translate('next page') . '</a>' . PHP_EOL;
+}
+?>
+    </div>
+</div>

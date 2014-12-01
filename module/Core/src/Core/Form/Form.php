@@ -19,7 +19,7 @@ use Zend\InputFilter\InputFilterInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Form extends ZendForm implements DescriptionAwareFormInterface, DisableElementsCapableInterface
+class Form extends ZendForm implements DescriptionAwareFormInterface, DisableElementsCapableInterface, FormParentInterface
 {
     /**
      * Form parameters.
@@ -29,12 +29,23 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
      */
     protected $params;
 
+    protected $parent;
+
     /**
      * Flag, if descriptions handling is enabled or not.
      *
      * @var bool
      */
     protected $isDescriptionsEnabled = false;
+
+    public function add($elementOrFieldset, array $flags = array())
+    {
+        parent::add($elementOrFieldset, $flags);
+        if ($elementOrFieldset instanceOf FormParentInterface) {
+            $elementOrFieldset->setParent($this);
+        }
+        return $this;
+    }
 
     public function setIsDescriptionsEnabled($flag)
     {
@@ -235,6 +246,23 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
             throw new \RuntimeException('missing name for form');
         }
         return $name;
+    }
+
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+
+    public function hasParent()
+    {
+        return isset($this->parent);
     }
 
     /**

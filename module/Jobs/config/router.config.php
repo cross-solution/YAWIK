@@ -28,6 +28,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                     'route' => '/:action',
                     'defaults' => array(
                         'controller' => 'Jobs/Manage',
+                        'action' => 'edit'
                     ),
                 ),
                 'may_terminate' => true,
