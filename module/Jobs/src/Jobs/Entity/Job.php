@@ -104,6 +104,15 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $unreadApplications;
     
     /**
+     * language of the job posting. Lanugages are ISO 639-1 coded
+     * 
+     * @var String
+     * @ODM\String
+     */
+    protected $language;
+
+    
+    /**
      * location of the job posting
      * 
      * @var String
@@ -347,6 +356,23 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     {
         $this->contactEmail = (string) $email;
         return $this;
+    }
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setLanguage()
+     */
+    public function setLanguage($language)
+    {
+    	$this->language = $language;
+    	return $this;
+    }
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getLanguage()
+     */
+    public function getLanguage()
+    {
+    	return $this->language;
     }
     /**
      * (non-PHPdoc)

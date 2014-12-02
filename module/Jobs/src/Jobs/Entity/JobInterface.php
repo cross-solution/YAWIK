@@ -195,6 +195,21 @@ interface JobInterface extends EntityInterface,
     public function setUriPublisher($uriPublisher);
 
     /**
+     * Sets the language of a job posting
+     *
+     * @param string $language
+     */
+    public function setLanguage($language);
+
+    /**
+     * Gets the language of a job posting
+     *
+     * @return string
+     */
+    public function getLanguage();
+
+
+    /**
      * Sets the location of a job posting
      *
      * @param string $location
