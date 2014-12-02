@@ -5,6 +5,9 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
+/**
+ * Basic Job form. Contains the Jobtitle and the location of the Job
+ */
 class JobFieldset extends Fieldset 
 {
 

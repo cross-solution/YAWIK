@@ -142,8 +142,7 @@ class ManageController extends AbstractActionController {
                 }
                 $this->getServiceLocator()->get('repositories')->persist($jobEntity);
                 $this->notification()->success(/*@translate*/ 'Job saved');
-            }
-            else {
+            } else {
                 $this->notification()->error(/*@translate*/ 'There were errors in the form');
             }
         }
@@ -152,6 +151,8 @@ class ManageController extends AbstractActionController {
         $viewModel->setVariables(array(
             'pageLinkPrevious' => $pageLinkPrevious,
             'pageLinkNext' => $pageLinkNext,
+            'page' => $pageIdentifier,
+            'title' => $jobEntity->title
         ));
         return $viewModel;
     }
