@@ -33,6 +33,9 @@ class Job extends Container
             'locationForm' => array(
                 'type' => 'Jobs/TitleLocation',
                 'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                )
             )
         ));
 

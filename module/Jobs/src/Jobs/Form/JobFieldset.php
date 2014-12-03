@@ -29,7 +29,8 @@ class JobFieldset extends Fieldset
     public function init()
     {
         $this->setAttribute('id', 'job-fieldset');
-        $this->setLabel('Job details');
+
+        $this->setName('jobTitleLocation');
 
 
 //       $this->add(array(
@@ -45,7 +46,8 @@ class JobFieldset extends Fieldset
             'type' => 'Text',
             'name' => 'title',
             'options' => array(
-                'label' => /*@translate*/ 'Job title'
+                'label' => /*@translate*/ 'Job title',
+                'description' => 'Test'
             ),
         ));
        

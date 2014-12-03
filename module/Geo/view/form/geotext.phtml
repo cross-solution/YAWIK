@@ -15,7 +15,13 @@ if ($this->element->hasAttribute('name')) {
     $name  = $this->element->getAttribute('name');
 }
 ?>
-
+<?php if ($this->renderSummary): ?>
+    <div class="row">
+        <div class="col-md-3 yk-label"><label><?php echo $this->translate('Location') ?></label></div>
+        <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
+    </div>
+    
+<?php return; endif ?>
 <div class="controls controls-row row">
     <div class="col-md-3 text-right">
         <label for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate('Location') ?></label>
