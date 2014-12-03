@@ -17,12 +17,7 @@
       <php expression="exit();"/>
     </then>
   </if>
-  <property file="./build.properties"/>
-  <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
-  <exec outputProperty="version-short" command="git describe --tags --abbrev=0 | sed -E -n 's/v(.*)/\1/p'" dir="${project.basedir}"/>
-  <exec outputProperty="external.app.key" command="php -r 'echo uniqid(md5(microtime()));'" dir="${project.basedir}"/>
-  <property name="builddir" value="./build/${phing.project.name}-${version-short}" override="false"/>
-  <property name="vendordir" value="./vendor" override="false"/>
+
   <if>
     <not>
       <os family="unix" />
@@ -31,60 +26,12 @@
       <echo message="This build.xml is only tested on unix. Please give feedback, if this build.xml is not working on your OS" level="warning"/>
     </then>
   </if>
-  <!-- ============================================  -->
-  <!-- defines various filesets                      -->
-  <!-- ============================================  -->
-  
-  <fileset id="core" dir="${project.basedir}">
-    <include name="module/**"/>
-    <include name="public/**"/>
-    <include name="bin/console"/>
-    <include name="config/config.php"/>
-    <include name="vendor/autoload.php"/>
-    <include name="vendor/composer/**"/>
-    <include name="vendor/zendframework/**"/>
-    <include name="vendor/hybridauth/**"/>
-    <include name="vendor/doctrine/**"/>
-    <include name="vendor/kriswallsmith/assetic/src/**"/>
-    <include name="LICENCE"/>
-    <include name="README"/>
-    <exclude name="public/js/*"/>
-    <exclude name="**/YawikDemo*/**"/>
-    <exclude name="**/CamMediaintown/**"/>
-    <exclude name="public/Applications"/>
-    <exclude name="public/Auth"/>
-    <exclude name="public/Core"/>
-    <exclude name="public/Geo"/>
-    <exclude name="public/Jobs"/>
-    <exclude name="**/*.po"/>
-    <exclude name="**/*.pot"/>
-    <exclude name="**/language/_annotated_strings.php"/>
-    <exclude name="public/fonts"/>
-    <exclude name="public/js/jquery-file-upload**"/>
-    <exclude name="public/css/select2**"/>
-  </fileset>
-  <fileset id="languages" dir="${project.basedir}/module">
-    <include name="**/**.po"/>
-  </fileset>
 
-  <fileset id="awesomefonts" dir="${vendordir}/fortawesome/font-awesome">
-    <include name="fonts/*"/>
-  </fileset>
-
-  <fileset id="blueimp" dir="${vendordir}/blueimp/jquery-file-upload/js">
-    <include name="jquery.iframe-transport.js"/>
-    <include name="jquery.fileupload.js"/>
-    <include name="vendor/jquery.ui.widget.js"/>
-  </fileset>
-  
-  <fileset id="tinymce" dir="${vendordir}/tinymce/tinymce">
-    <include name="**/*"/>
-  </fileset>
   
   <!-- ============================================  -->
   <!-- Target: install                               -->
   <!-- ============================================  -->
-  <target name="install" depends="prepare,generate-autoload-config" description="reads build.properties and generates config files">
+  <target name="install" depends="init,generate-autoload-config" description="reads build.properties and generates config files">
     <property name="target" value="config/autoload" override="true"/>
   </target>
   
@@ -288,6 +235,7 @@
       <fileset dir="${project.basedir}">
         <include name="**/**.dist"/>
         <exclude name="vendor/**"/>
+        <exclude name="module/YawikDemo**"/>
         <exclude name="build/**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
@@ -320,7 +268,6 @@
           <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
           <token key="auth.suffix" value="${auth.suffix}"/>
           <token key="mail.develop.override_recipient" value="${mail.develop.override_recipient}" />
-          <token key="yawik.demoskin.piwik" value="${yawik.demoskin.piwik}"/>
           <token key="applications.forms.attachments.maxsize" value="${applications.forms.attachments.maxsize}" />
           <token key="applications.forms.attachments.mimetype" value="${applications.forms.attachments.mimetype}" />
           <token key="applications.forms.attachments.count" value="${applications.forms.attachments.count}" />
@@ -342,6 +289,7 @@
       <fileset refid="languages"/>
     </foreach>
   </target>
+
   <target name="compile-po-file">
     <echo msg="Translate ${filename}"/>
     <exec command="msgfmt -cv -o ${project.basedir}/module/${filename}.mo ${absfilename}"
@@ -390,5 +338,110 @@
     <exec command="rsync -rv
     ${project.basedir}/build/YAWIK-${version-short}.* -l --exclude=YAWIK ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
   </target>
-            
+  
+  <target name="filesets">
+    <!-- ============================================  -->
+    <!-- defines various filesets                      -->
+    <!-- ============================================  -->
+  
+    <fileset id="core" dir="${project.basedir}">
+      <include name="module/**"/>
+      <include name="public/**"/>
+      <include name="bin/console"/>
+      <include name="config/config.php"/>
+      <include name="vendor/autoload.php"/>
+      <include name="vendor/composer/**"/>
+      <include name="vendor/zendframework/**"/>
+      <include name="vendor/hybridauth/**"/>
+      <include name="vendor/doctrine/**"/>
+      <include name="vendor/kriswallsmith/assetic/src/**"/>
+      <include name="LICENCE"/>
+      <include name="README"/>
+      <exclude name="public/js/*"/>
+      <exclude name="**/YawikDemo*/**"/>
+      <exclude name="**/CamMediaintown/**"/>
+      <exclude name="public/Applications"/>
+      <exclude name="public/Auth"/>
+      <exclude name="public/Core"/>
+      <exclude name="public/Geo"/>
+      <exclude name="public/Jobs"/>
+      <exclude name="**/*.po"/>
+      <exclude name="**/*.pot"/>
+      <exclude name="**/language/_annotated_strings.php"/>
+      <exclude name="public/fonts"/>
+      <exclude name="public/js/jquery-file-upload**"/>
+      <exclude name="public/css/select2**"/>
+    </fileset>
+    <fileset id="languages" dir="${project.basedir}/module">
+      <include name="**/**.po"/>
+    </fileset>
+
+    <fileset id="awesomefonts" dir="${vendordir}/fortawesome/font-awesome">
+      <include name="fonts/*"/>
+    </fileset>
+
+    <fileset id="blueimp" dir="${vendordir}/blueimp/jquery-file-upload/js">
+      <include name="jquery.iframe-transport.js"/>
+      <include name="jquery.fileupload.js"/>
+      <include name="vendor/jquery.ui.widget.js"/>
+    </fileset>
+  
+    <fileset id="tinymce" dir="${vendordir}/tinymce/tinymce">
+      <include name="**/*"/>
+    </fileset>
+  </target>
+  
+  <target name="init"
+     depends="load-properties, prepare"
+     unless="project.initialized">
+     <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
+     <exec outputProperty="version-short" 
+           command="git describe --tags --abbrev=0 | sed -E -n 's/v(.*)/\1/p'" 
+           dir="${project.basedir}"/>
+     <exec outputProperty="external.app.key" 
+           command="php -r 'echo uniqid(md5(microtime()));'" 
+           dir="${project.basedir}"/>
+     <property name="builddir" 
+               value="./build/${phing.project.name}-${version-short}" 
+               override="false"/>
+     <property name="vendordir" value="./vendor" override="false"/>
+     <!-- Set property to prevent target from being executed multiple times -->
+     <property name="project.initialized" value="true"/>
+  </target>
+  
+  <target name="load-properties">
+    <!-- first loop over all module properties files -->
+    <foreach param="dirname" absparam="absname" target="load-properties-subtask">
+      <fileset dir="module">
+        <type type="dir" />
+        <depth max="0" min="0" />
+      </fileset>
+    </foreach>
+    <!-- then read the global properties file -->
+    <property name="project.properties.file" value="${project.basedir}/build.properties" />
+    <!-- @todo if build.properties does not exist, check for a dist file -->
+    <property file="${project.properties.file}" override="true" />
+  </target>
+  
+  <target name="load-properties-subtask">
+    <property name="project.properties.file" value="${absname}/config/build.properties" />
+    <property file="${project.properties.file}" override="true" />
+    <available file="${absname}/build.xml" type="file" property="build.Exists" />  
+    <if>
+      <isset property="build.Exists"/>
+      <then>
+        <phing phingfile="${absname}/build.xml" inheritAll="true" haltonfailure="true"/>
+      </then> 
+      <else>
+        <echo>${absname}/build.xml not found</echo>
+      </else>
+    </if>
+    <if>
+      <istrue value="${YAWIK.bundled}"/>
+      <then>
+        <property name="modules[]" value="${dirname}" />
+        <echo>Bundled: ${YAWIK.bundled} Module: ${dirname}</echo>
+      </then>    
+    </if>
+  </target>          
 </project>

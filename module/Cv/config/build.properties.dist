@@ -1,0 +1,4 @@
+/*
+* If YAWIK.bundled=true, the modules will be included in the tgz/zip package 
+*/
+YAWIK.bundled=true
