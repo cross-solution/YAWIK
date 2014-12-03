@@ -67,62 +67,31 @@ class ManageController extends AbstractActionController {
         return $this->save();
     }
 
+    /**
+     * save a Job-Post either by a regular request or by an asyncron post (AJAX)
+     * a mandatory parameter is the ID of the Job
+     * in case of a regular Request you can
+     *
+     * @return null|ViewModel
+     * @throws \RuntimeException
+     */
     protected function save()
     {
+        $request            = $this->getRequest();
+        $isAjax             = $request->isXmlHttpRequest();
         $pageToForm         = array(0 => 'locationForm', 1 => 'descriptionForm',  2 => 'previewForm');
         $request            = $this->getRequest();
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
         $pageIdentifier     = (int) $params->fromQuery('page',0);
         $jobEntity          = $this->getJob();
+        $viewModel          = Null;
         //$this->acl($job, $origAction);
         $form               = $this->getFormular($jobEntity);
         $mvcEvent           = $this->getEvent();
         // getting and setting the active form
         //$formIdentifier = "locationForm";
-        if (isset($pageIdentifier)) {
-            if (array_key_exists($pageIdentifier, $pageToForm)) {
-                $actualFormIdentifier = $pageToForm[$pageIdentifier];
-                $form->enableForm($actualFormIdentifier);
-            }
-            else {
-                throw new \RuntimeException('No form found for page ' . $pageIdentifier);
-            }
-        }
-        $pageLinkNext = Null;
-        $pageLinkPrevious = Null;
-        if (0 < $pageIdentifier) {
-            $pageLinkPrevious = $this->url()
-                                     ->fromRoute(
-                                     'lang/jobs/manage',
-                                         array(),
-                                         array(
-                                             'query' => array(
-                                                 'id'   => $jobEntity->id,
-                                                 'page' => $pageIdentifier - 1
-                                             )
-                                         )
-            );
-        }
-        if ($pageIdentifier < count($pageToForm) - 1) {
-            $pageLinkNext = $this->url()->fromRoute(
-                                 'lang/jobs/manage',
-                                     array(
-                                     ),
-                                     array(
-                                         'query' => array(
-                                             'id' => $jobEntity->id,
-                                             'page' => $pageIdentifier + 1
-                                         )
-                                     )
-            );
-        }
 
-
-        //$formActive         = $form->getActiveFormActual();
-        //if (empty($formIdentifier)) {
-        //    $form->enableForm($formActive);
-        //}
         if (isset($formIdentifier) &&  $request->isPost()) {
             // at this point the form get instanciated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
@@ -146,14 +115,83 @@ class ManageController extends AbstractActionController {
                 $this->notification()->error(/*@translate*/ 'There were errors in the form');
             }
         }
-        $viewModel = $this->getViewModel($form);
-        //$viewModel->setVariable('page_next', 1);
-        $viewModel->setVariables(array(
-            'pageLinkPrevious' => $pageLinkPrevious,
-            'pageLinkNext' => $pageLinkNext,
-            'page' => $pageIdentifier,
-            'title' => $jobEntity->title
-        ));
+
+        // validation
+        $valid = True;
+        $errorMessage = array();
+        $translator = $this->getServiceLocator()->get('mvcTranslator');
+        if (empty($jobEntity->title)) {
+            $valid = False;
+            $errorMessage[] = $translator->translate('No Title');
+        }
+        if (empty($jobEntity->location)) {
+            $valid = False;
+            $errorMessage[] = $translator->translate('No Location');
+        }
+        if (empty($jobEntity->termsAccepted)) {
+            $valid = False;
+            $errorMessage[] = $translator->translate('Accept the Terms');
+        }
+
+
+        $errorMessage = '<br />' . implode('<br />', $errorMessage);
+        if ($isAjax) {
+            $viewModel = new JsonModel(array('valid' => $valid, 'errors' => array(), 'errorMessage' => $errorMessage));
+        }
+        else {
+            if (isset($pageIdentifier)) {
+                $form->disableForm();
+                if (array_key_exists($pageIdentifier, $pageToForm)) {
+                    $actualFormIdentifier = $pageToForm[$pageIdentifier];
+                    $form->enableForm($actualFormIdentifier);
+                }
+                else {
+                    throw new \RuntimeException('No form found for page ' . $pageIdentifier);
+                }
+            }
+            $pageLinkNext = Null;
+            $pageLinkPrevious = Null;
+            if (0 < $pageIdentifier) {
+                $pageLinkPrevious = $this->url()
+                                         ->fromRoute(
+                                         'lang/jobs/manage',
+                                             array(),
+                                             array(
+                                                 'query' => array(
+                                                     'id'   => $jobEntity->id,
+                                                     'page' => $pageIdentifier - 1
+                                                 )
+                                             )
+                );
+            }
+            if ($pageIdentifier < count($pageToForm) - 1) {
+                $pageLinkNext = $this->url()->fromRoute(
+                                     'lang/jobs/manage',
+                                         array(
+                                         ),
+                                         array(
+                                             'query' => array(
+                                                 'id' => $jobEntity->id,
+                                                 'page' => $pageIdentifier + 1
+                                             )
+                                         )
+                );
+            }
+
+
+            $viewModel = $this->getViewModel($form);
+            //$viewModel->setVariable('page_next', 1);
+            $viewModel->setVariables(array(
+                'pageLinkPrevious' => $pageLinkPrevious,
+                'pageLinkNext' => $pageLinkNext,
+                'page' => $pageIdentifier,
+                'title' => $jobEntity->title,
+                'job' => $jobEntity,
+                'summary' => 'this is what we charge you for your offer...',
+                'valid' => $valid,
+                'errorMessage' => $errorMessage
+            ));
+        }
         return $viewModel;
     }
     
@@ -177,7 +215,6 @@ class ManageController extends AbstractActionController {
         $container = $forms->get('Jobs/Job', array(
             'mode' => $job->id ? 'edit' : 'new'
         ));
-        $container->disableForm();
         $container->setEntity($job);
         $container->setParam('job',$job->id);
         $container->setParam('applyId',$job->applyId);

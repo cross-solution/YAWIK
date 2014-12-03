@@ -525,8 +525,9 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
             }
 	    return $this->history;
 	}
-        
+
 	/**
+     * @deprecated
 	 * {@inheritDoc}
 	 * @see \Applications\Entity\ApplicationInterface::setPrivacyPolicyAccepted()
 	 * @return Application
@@ -536,8 +537,9 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
 	    $this->privacyPolicy = $privacyPolicy;
 	    return $this;
 	}
-        
+
 	/**
+     * @deprecated
 	 * {qinheritDoc}
 	 * @see \Applications\Entity\ApplicationInterface::getPrivacyPolicyAccepted()
 	 */
@@ -545,7 +547,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
 	{
 	    return $this->privacyPolicy;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @see \Applications\Entity\ApplicationInterface::setReadBy()

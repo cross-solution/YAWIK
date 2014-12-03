@@ -14,10 +14,9 @@ use Core\Form\Form;
 use Core\Form\Container;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Core\Form\ViewPartialProviderInterface;
 
 
-class JobPreview extends Form implements ViewPartialProviderInterface
+class JobPreview extends Form
 {
 
     public function getHydrator()
@@ -34,7 +33,7 @@ class JobPreview extends Form implements ViewPartialProviderInterface
         $this->setName('jobs-form-preview');
         $this->setAttributes(array(
             'id' => 'jobs-form-preview',
-            'data-handle-by' => 'native'
+            //'data-handle-by' => 'native'
         ));
 
 
@@ -43,15 +42,6 @@ class JobPreview extends Form implements ViewPartialProviderInterface
             'name' => 'jobPreview',
             'options' => array(
                 'use_as_base_fieldset' => true,
-            ),
-        ));
-
-        $this->add(array(
-            'type' => 'DefaultButtonsFieldset',
-            'options' => array(
-                'save_label' => 'new' == $this->getOption('mode')
-                        ? /*@translate*/ 'Publish job'
-                        : 'Save',
             ),
         ));
     }

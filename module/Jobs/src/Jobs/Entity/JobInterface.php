@@ -252,6 +252,21 @@ interface JobInterface extends EntityInterface,
     public function getStatus();
 
     /**
+     * Sets the terms and conditions accepted flag.
+     *
+     * @param bool $flag
+     * @return ApplicationInterface
+     */
+    public function setTermsAccepted($flag);
+
+    /**
+     * Gets the terms and conditions accepted flag.
+     *
+     * @return bool
+     */
+    public function getTermsAccepted();
+
+    /**
      * Sets a reference for a job posting, used by the
      * organisation offering the job.
      *

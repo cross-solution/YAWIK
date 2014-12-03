@@ -98,6 +98,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'disclaimer' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/disclaimer',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Index',
+                        'action' => 'disclaimer',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'save' => array(

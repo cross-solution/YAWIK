@@ -11,16 +11,14 @@
 namespace Jobs\Form;
 
 use Zend\Form\Fieldset;
-use Jobs\Form\Hydrator\PreviewLinkHydrator;
+use Core\Entity\Hydrator\EntityHydrator;
 
 class JobPreviewFieldset extends Fieldset
 {
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $serviceLocater = $this->getFormFactory()->getFormElementManager()->getServiceLocator();
-            //$hydrator = new PreviewLinkHydrator();
-            $hydrator = $serviceLocater->get('Jobs/PreviewLinkHydrator');
+            $hydrator = new EntityHydrator();
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
@@ -31,6 +29,8 @@ class JobPreviewFieldset extends Fieldset
         $this->setAttribute('id', 'jobpreview-fieldset');
         $this->setLabel('Preview');
 
+        /*
+         * taken out in accordance by the team and written in the view
         $this->add(
              array(
                 'type' => 'Jobs/JobPreviewLink',
@@ -38,19 +38,19 @@ class JobPreviewFieldset extends Fieldset
                 'name' => 'previewLink',
             )
         );
+        */
 
         $this->add(
              array(
             'type' => 'infocheckbox',
-            'name' => 'acceptedPrivacyPolicy',
+            'name' => 'termsAccepted',
             'options' => array(
                 'headline' => /*@translate*/ 'Privacy Policy',
                 'long_label' => /*@translate*/ 'I have read the %s and accept it',
                 'linktext' => /*@translate*/ 'Privacy Policy',
-                'route' => 'lang/applications/disclaimer',
+                'route' => 'lang/jobs/disclaimer',
             ),
             'attributes' => array(
-                'data-validate' => 'acceptedPrivacyPolicy',
                 'data-trigger' => 'submit',
             ),
         ));

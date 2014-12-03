@@ -40,18 +40,4 @@ class JobPreviewLink extends Element implements ViewHelperProviderInterface
         return $this->helper;
     }
 
-    /*
-    protected $partial = 'jobs/form/apply-identifier';
-
-    public function getViewPartial()
-    {
-        return $this->partial;
-    }
-
-    public function setViewPartial($partial)
-    {
-        $this->partial = $partial;
-        return $this;
-    }
-    */
 }

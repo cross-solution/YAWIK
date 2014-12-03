@@ -13,6 +13,7 @@ namespace Core\Form;
 use Zend\Form\Element;
 use Zend\Form\FieldsetInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\View\Renderer\PhpRenderer as Renderer;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -600,6 +601,14 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     public function hasParent()
     {
         return isset($this->parent);
+    }
+
+    public function renderPre(Renderer $renderer) {
+        return '';
+    }
+
+    public function renderPost(Renderer $renderer) {
+        return '';
     }
 
     /**

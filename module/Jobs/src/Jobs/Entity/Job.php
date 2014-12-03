@@ -144,6 +144,13 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @ODM\Index
      */
     protected $status;
+
+    /**
+     * Flag, wether privacy policy is accepted or not.
+     *
+     * @var bool
+     */
+    protected $termsAccepted;
     
     /**
      * Reference of a jobad, on which an applicant can refer to.
@@ -479,6 +486,27 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         $this->status = $status;
         return $this;
     }
+
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setTermsAccepted()
+     * @return Application
+     */
+    public function setTermsAccepted($termsAccepted)
+    {
+        $this->termsAccepted = $termsAccepted;
+        return $this;
+    }
+
+    /**
+     * {qinheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getTermsAccepted()
+     */
+    public function getTermsAccepted()
+    {
+        return $this->termsAccepted;
+    }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getReference()

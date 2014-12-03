@@ -6,18 +6,14 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-/*
-$this->form->setAttribute('action', $this->url('lang/jobs/manage', array('action' => $this->action), true));
-$this->form->get('buttons')->get('cancel')->setAttribute(
-    'onclick', 'location.href="' . $this->url('lang/jobs', array(), true) . '"; return false;'
-);
-*/
 // Tweak navigation
 // @TODO move this navigation-processing to the controller
-$navigation = $this->navigation('Core/Navigation')->getContainer();
-$navigation->findOneBy('route', 'lang/jobs')->setActive(true);
+//$navigation = $this->navigation('Core/Navigation')->getContainer();
+//$navigation->findOneBy('route', 'lang/jobs')->setActive(true);
 //$subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
 //$subPage->setActive(true);
+
+$this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
 ?>
 <h1>
 <?php
@@ -29,7 +25,47 @@ $navigation->findOneBy('route', 'lang/jobs')->setActive(true);
 ?>
 </h1>
 
+<?php
+if ($this->page == 2)
+{
+    $viewLink = $this->url(
+            'lang/jobs/view',
+                array(
+                ),
+                array(
+                    'query' => array(
+                       'id' => $this->job->id
+                    )
+                )
+    );
+    echo '<iframe src="' . $viewLink . '" name="preview" style="width:100%; height:800px;"></iframe>';
+    echo '<h3>' . $this->translate('summary') . '</h3>';
+
+    echo $this->summary;
+}
+?>
+
+
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
+
+<?php
+if ($page == 2):
+?>
+    <div id="job_incomplete" class="alert alert-warning ">
+        <?php
+        echo $this->translate('Ihre Eingaben sind unvollständig. Um die Bewerbung absenden zu können, müssen Sie Ihre Kontaktdaten angeben und die Datenschutzbestimmungen akzeptieren. Sie können jederzeit die Vorschau über Ihre hinterlegten Daten einsehen bzw. den Bewerbungsprozess abbrechen.');
+        ?>
+        <span id="job_errormessages">
+<?php
+if (isset($this->valid) && $this->valid == false && !empty($this->errorMessage)) {
+    echo ($this->errorMessage);
+}
+?>
+        </span>
+    </div>
+<?php
+endif;
+?>
 
 <div id="locationForm-buttons" class="buttons-bar form-group">
     <div class="col-md-12">
@@ -44,7 +80,7 @@ $navigation->findOneBy('route', 'lang/jobs')->setActive(true);
         break;
     case "2":
         echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('&lt; Previous') . '</a>' . PHP_EOL;
-        echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to publish the job') . '</a>' . PHP_EOL;
+        echo '<a id="finalize_jobentry" style="display:none;" href="' . $this->basepath('/jobs/finalize?id=' . $this->job->id) . '" class="btn btn-primary">' . $this->translate('Next to publish the job') . '</a>' . PHP_EOL;
     default:
 
     endswitch;

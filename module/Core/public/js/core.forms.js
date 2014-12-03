@@ -1,4 +1,10 @@
-
+/**
+ * implements the AJAX for forms
+ *
+ * all forms with
+ *
+ *
+ */
 ;(function($) {
 	
 	var methods = {
@@ -35,7 +41,7 @@
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
 			var data  = $form.serializeArray();
-            console.log('data', $form, data);
+            console.debug('data', $form, data);
 			if (extraData) {
 				$.each(extraData, function(idx, value) {
 					data.push({
@@ -47,7 +53,8 @@
 			
 			var dataType = $form.data('type');
 			if (!dataType) dataType = 'json';
-			
+
+            $form.trigger('yk.forms.start', {data: data});
 			$.ajax({
 				url: $form.attr('action'),
 				type: $form.attr('method'),
@@ -109,20 +116,38 @@
 			$select.select2(options);
 		}
 	};
-	
+
+    /**
+     * this function is called for all forms which has
+     * - an attribute data-handle-by="yk-form"
+     * - or has no attribute data-handle-by
+     *
+     * implement the triggers for an AJAX-Submit
+     *
+     * @param method
+     * @returns
+     */
 	$.fn.form = function (method) 
 	{
 		return this.each(function() {
 			var $form = $(this);
-			
+
+            // enables the ability to call a distinct method for the picked forms,
+            // has nothing to do with initiating the triggers below
 			if (method && method in methods) {
 				var args = [].slice.call(arguments);
 				args.unshift($form);
 				return methods[method].apply(this, args);
 			}
-			
+
+            console.debug('ajax submit initialized for', $form);
+            // overwrite the originally (HTML)-Submit for the form
 			$form.submit(handlers.onSubmit);
-			$form.find('[data-trigger="submit"]').change(handlers.onChange);
+            // triggers an ajax call for elements with this specific attribute 'data-trigger'
+            // originally it is designed to immidiatly fire an submit event for input elements, after they have changed
+			var elementsThatTriggerASubmit = $form.find('[data-trigger="submit"]');
+            console.debug('elements that trigger a submit',elementsThatTriggerASubmit);
+            elementsThatTriggerASubmit.change(handlers.onChange);
 		});
 	};
 
