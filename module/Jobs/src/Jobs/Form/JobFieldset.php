@@ -1,4 +1,12 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    weitz@cross-solution.de
+ */
 
 namespace Jobs\Form;
 
@@ -74,38 +82,5 @@ class JobFieldset extends Fieldset
                 'label' => /*@translate*/ 'Location'
             ),
         ));
-       
-//       $this->add(array(
-//            'type' => 'Text',
-//            'name' => 'contactEmail',
-//            'options' => array(
-//                'label' => /*@translate*/ 'Contact email'
-//            ),
-//
-//        ));
-//
-//
-//       $this->add(array(
-//            'type' => 'Text',
-//            'name' => 'reference',
-//            'options' => array(
-//                'label' => /*@translate*/ 'Reference number'
-//            ),
-//
-//        ));
-       
-       //$this->add(array(
-       //    'type' => 'Core/PermissionsCollection'
-       //));
-
-       // @TODO: insert editable hidden field
-       //$this->add(array(
-       //     'type'    => 'Jobs/ApplyId',
-       //     'name'    => 'applyId',
-       //     'options' => array(
-       //         'label' => /*@translate*/
-       //             'Apply Identifier'
-       //     ),
-       //));
     }
 }

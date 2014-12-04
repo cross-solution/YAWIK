@@ -224,6 +224,20 @@ interface JobInterface extends EntityInterface,
     public function getLocation();
 
     /**
+     * Sets locations of a job posting
+     *
+     * @param string $locations
+     */
+    public function setLocations($locations);
+
+    /**
+     * Gets locations of a job posting
+     *
+     * @return string
+     */
+    public function getLocations();
+
+    /**
      * Sets applications for a job posting
      * 
      * @param Collection $applications
