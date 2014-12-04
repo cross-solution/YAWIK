@@ -88,7 +88,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * all applications of a certain jobad 
      * 
-     * @var Collection \Applications\Entity\Application
+     * @var Collection
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job",
      *                    repositoryMethod="loadApplicationsForJob")
      */
@@ -104,21 +104,30 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $unreadApplications;
     
     /**
-     * language of the job posting. Lanugages are ISO 639-1 coded
+     * language of the job posting. Languages are ISO 639-1 coded
      * 
      * @var String
      * @ODM\String
      */
     protected $language;
-
     
     /**
-     * location of the job posting
+     * location of the job posting. This is a plain text, which describes the location in
+     * search e.g. results.
      * 
      * @var String
      * @ODM\String
      */
     protected $location;
+
+    /**
+     * locations of the job posting. This collection contains structured coordinates,
+     * postalcodes, city, region, and country names
+     *
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="Location")
+     */
+    protected $locations;
     
     /**
      * Link which points to the job posting 
@@ -400,6 +409,23 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     /**
      * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::setLocations()
+     */
+    public function setLocations($locations)
+    {
+        $this->locations = $locations;
+        return $this;
+    }
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getLocations()
+     */
+    public function getLocations()
+    {
+        return $this->locations;
+    }
+    /**
+     * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setUser()
      */
     public function setUser(UserInterface $user) {
@@ -434,7 +460,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     /**
      * Gets the number of unread applications
-     * @return \Jobs\Entity\unknown
+     * @return Collection
      */
     public function getUnreadApplications() {
         return $this->unreadApplications;
@@ -463,7 +489,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     /**
      * (non-PHPdoc)
-     * @param string $link
+     * @param string $datePublishStart
      * @see \Jobs\Entity\JobInterface::setDatePublishStart()
      * @return $this
      */
@@ -545,6 +571,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @return string
      */
     public function getLogoRef() {
+        /** @var $organization \Organizations\Entity\Organization */
         $organization = $this->organization;
         if (isset($organization)) {
             $organizationImage = $organization->image;
