@@ -1,9 +1,16 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    weitz@cross-solution.de
+ */
 
 namespace Jobs\Form;
 
 use Zend\Form\Fieldset;
-//use Core\Entity\Hydrator\EntityHydrator;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
 class JobDescriptionFieldset extends Fieldset
@@ -48,15 +55,6 @@ class JobDescriptionFieldset extends Fieldset
                 'label' => /*@translate*/ 'Job requirements'
             ),
         ));
-
-        //$this->add(array(
-        //    'type' => 'Texteditor',
-        //    'name' => 'description',
-        //    'options' => array(
-        //        'label' => /*@translate*/ 'Job description'
-        //    ),
-        //));
-
 
     }
 }

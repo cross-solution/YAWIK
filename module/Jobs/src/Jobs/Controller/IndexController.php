@@ -183,7 +183,7 @@ class IndexController extends AbstractActionController
      *
      * @return \Zend\View\Model\ViewModel
      */
-    public function disclaimerAction()
+    public function termsAction()
     {
         $viewModel = new ViewModel();
         if ($this->request->isXmlHttpRequest()) {
