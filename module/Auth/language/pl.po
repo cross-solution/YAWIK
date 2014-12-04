@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:19+0100\n"
-"PO-Revision-Date: 2014-11-29 16:21+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 21:04+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/yawik/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -41,19 +42,19 @@ msgstr "Blisko"
 
 #: view/form/social-profiles-button.phtml:38
 msgid "Attach profile"
-msgstr ""
+msgstr "Dołącz profil"
 
 #: view/form/social-profiles-button.phtml:39
 msgid "Detach profile"
-msgstr ""
+msgstr "Zdjąć profil"
 
 #: view/form/social-profiles-button.phtml:42
 msgid "View profile data"
-msgstr ""
+msgstr "Dane Pokaż profil"
 
 #: view/form/userselect.phtml:25
 msgid "Add users"
-msgstr ""
+msgstr "Dodaj użytkowników"
 
 #: view/form/userselect.phtml:29
 msgid "At least one user has to be assigned"
@@ -85,20 +86,20 @@ msgstr ""
 
 #: view/auth/manage-groups/form.phtml:74
 msgid "Ok"
-msgstr ""
+msgstr "W porządku"
 
 #: view/auth/index/index.phtml:11
 msgid "Login required"
-msgstr ""
+msgstr "Logowanie wymagane"
 
 #: view/auth/index/index.phtml:12
 msgid "Please authenticate yourself to proceed"
-msgstr ""
+msgstr "Proszę się autoryzować, aby kontynuować"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
 #: view/auth/index/login-info.phtml:49
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
@@ -115,15 +116,15 @@ msgstr ""
 #: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
-msgstr ""
+msgstr "Mój profil"
 
 #: view/auth/index/login-info.phtml:22
 msgid "Change password"
-msgstr ""
+msgstr "Zmień hasło"
 
 #: view/auth/index/login-info.phtml:31
 msgid "Logout"
-msgstr ""
+msgstr "Wyloguj"
 
 #: view/auth/index/login-info.phtml:38
 #, php-format
@@ -132,11 +133,11 @@ msgstr ""
 
 #: view/auth/index/login-info.phtml:39
 msgid "Guest"
-msgstr ""
+msgstr "Gość"
 
 #: view/auth/index/login-info.phtml:51
 msgid "Login via"
-msgstr ""
+msgstr "Zaloguj się za pomocą"
 
 #: view/auth/index/login-info.phtml:54
 #, php-format
@@ -209,7 +210,7 @@ msgstr "Miasto"
 
 #: language/_annotated_strings.php:30
 msgid "Salutation"
-msgstr ""
+msgstr "Pozdrowienie"
 
 #: language/_annotated_strings.php:33 language/_annotated_strings.php:42
 msgid "please select"
@@ -217,35 +218,35 @@ msgstr "wybierz"
 
 #: language/_annotated_strings.php:36
 msgid "Mr."
-msgstr ""
+msgstr "Pan"
 
 #: language/_annotated_strings.php:39
 msgid "Mrs."
-msgstr ""
+msgstr "Pani"
 
 #: language/_annotated_strings.php:45
 msgid "First name"
-msgstr ""
+msgstr "Imię"
 
 #: language/_annotated_strings.php:48
 msgid "Last name"
-msgstr ""
+msgstr "Nazwisko"
 
 #: language/_annotated_strings.php:51
 msgid "street"
-msgstr ""
+msgstr "ulica"
 
 #: language/_annotated_strings.php:54
 msgid "house number"
-msgstr ""
+msgstr "numer domu"
 
 #: language/_annotated_strings.php:57
 msgid "Application photo"
-msgstr ""
+msgstr "Zdjęcia aplikacji"
 
 #: language/_annotated_strings.php:69
 msgid "Retype password"
-msgstr ""
+msgstr "Powtórz hasło"
 
 #: language/_annotated_strings.php:75
 msgid ""
@@ -255,7 +256,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:78
 msgid "General settings"
-msgstr ""
+msgstr "Ustawienia ogólne"
 
 #: language/_annotated_strings.php:81
 msgid "General"
@@ -291,20 +292,20 @@ msgstr ""
 
 #: language/_annotated_strings.php:108
 msgid "You are now logged in."
-msgstr ""
+msgstr "Jesteś teraz zalogowany."
 
 #: language/_annotated_strings.php:111
 msgid "Authentication failed."
-msgstr ""
+msgstr "Uwierzytelnianie nie powiodło się."
 
 #: language/_annotated_strings.php:114
 msgid "You are now logged out"
-msgstr ""
+msgstr "Jesteś już zalogowany"
 
 #: language/_annotated_strings.php:117
 msgid "user"
-msgstr ""
+msgstr "użytkownik"
 
 #: language/_annotated_strings.php:120
 msgid "recruiter"
-msgstr ""
+msgstr "rekruter"

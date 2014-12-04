@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:38+0000\n"
+"PO-Revision-Date: 2014-12-04 21:01+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -96,14 +96,14 @@ msgstr ""
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
-msgstr ""
+msgstr "Будьте в курсе процесса вашего приложения, закладки ссылку:"
 
 #: view/applications/apply/_buttons.phtml:20
 msgid ""
 "Your application is incomplete. You have to add your contact data and accept"
 " the privacy policy to be able to submit the application. You can always "
 "preview or abort your application."
-msgstr ""
+msgstr "Ваша заявка является неполной. Вы должны добавить Ваши контактные данные и принять политику конфиденциальности, чтобы быть в состоянии подать заявление. Вы всегда можете просмотреть или отменить вашу заявку."
 
 #: view/applications/apply/_buttons.phtml:32
 msgid "Back to the formular"
@@ -111,7 +111,7 @@ msgstr "Обратно к формуляру"
 
 #: view/applications/apply/_buttons.phtml:36
 msgid "Preview application"
-msgstr ""
+msgstr "Предварительный просмотр приложения"
 
 #: view/applications/apply/_buttons.phtml:46
 msgid "Send application"
@@ -119,7 +119,7 @@ msgstr "Послать заявление"
 
 #: view/applications/apply/_buttons.phtml:52
 msgid "Abort application"
-msgstr ""
+msgstr "Прервать приложение"
 
 #: view/applications/manage/index.phtml:22
 #, php-format
@@ -140,7 +140,7 @@ msgstr "Заявки, полученные"
 
 #: view/applications/manage/index.phtml:42
 msgid "Overview of your sent applications"
-msgstr ""
+msgstr "Обзор отправленных заявок"
 
 #: view/applications/manage/index.phtml:56
 #: view/applications/manage/detail.phtml:155
@@ -173,7 +173,7 @@ msgstr "Ясно"
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
-msgstr ""
+msgstr "Профиль данных"
 
 #: view/applications/manage/detail.phtml:15
 #: view/applications/manage/detail.pdf.phtml:15
@@ -252,7 +252,7 @@ msgstr "Удалить приложение"
 
 #: view/applications/manage/detail.phtml:138
 msgid "Delete"
-msgstr ""
+msgstr "Удалять"
 
 #: view/applications/manage/detail.phtml:167
 msgid "Delete Application"
@@ -476,19 +476,19 @@ msgstr "Школа или ВУЗ"
 
 #: view/applications/manage/social-profile/facebook.phtml:36
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: view/applications/manage/social-profile/facebook.phtml:66
 #: view/applications/manage/social-profile/linkedin.phtml:91
 #: view/applications/manage/social-profile/xing.phtml:82
 msgid "Employer"
-msgstr ""
+msgstr "Работодатель"
 
 #: view/applications/manage/social-profile/facebook.phtml:67
 #: view/applications/manage/social-profile/linkedin.phtml:92
 #: view/applications/manage/social-profile/xing.phtml:83
 msgid "Position"
-msgstr ""
+msgstr "Позиция"
 
 #: view/applications/manage/social-profile/facebook.phtml:90
 #: view/applications/manage/social-profile/xing.phtml:112
@@ -510,7 +510,7 @@ msgstr "Год рождения"
 
 #: view/applications/manage/social-profile/linkedin.phtml:55
 msgid "Degree"
-msgstr ""
+msgstr "Степень"
 
 #: view/applications/manage/social-profile/xing.phtml:54
 msgid "Notes"
@@ -518,7 +518,7 @@ msgstr "Оценки"
 
 #: view/applications/manage/social-profile/xing.phtml:91
 msgid "ongoing"
-msgstr ""
+msgstr "постоянный"
 
 #: view/applications/manage/social-profile/xing.phtml:96
 msgid "employes"
@@ -526,7 +526,7 @@ msgstr "сотрудники"
 
 #: view/applications/manage/social-profile/xing.phtml:97
 msgid "Industry"
-msgstr ""
+msgstr "Промышленность"
 
 #: view/applications/manage/social-profile/xing.phtml:101
 msgid "Level"
@@ -534,7 +534,7 @@ msgstr "Уровень"
 
 #: view/applications/manage/index.applicant.ajax.phtml:78
 msgid "view"
-msgstr ""
+msgstr "вид"
 
 #: view/applications/manage/detail.pdf.phtml:75
 msgid "application details"
@@ -640,17 +640,17 @@ msgstr "Действия"
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
-msgstr ""
+msgstr "Прикрепите изображений или PDF-документов для вашего приложения. Перетащите и падение их, или нажмите на области прикрепленного. Вы можете загрузить до 5 МБ"
 
 #: language/_annotated_strings.php:51
 msgid ""
 "Summary is meant as a general free text area. Click on \"edit\" to fill in "
 "some informations you think helps the recruiter to pick you for this job."
-msgstr ""
+msgstr "Основная предназначен в качестве общего Свободное место для текста. Нажмите на кнопку \"Изменить\", чтобы заполнить некоторую информацию вы думаете, помогает рекрутеру, чтобы забрать вас для этой работы."
 
 #: language/_annotated_strings.php:54
 msgid "Customize apply form"
-msgstr ""
+msgstr "Настройка применять форму"
 
 #: language/_annotated_strings.php:60
 msgid "receive E-Mail alert"
@@ -703,7 +703,7 @@ msgstr "Приглашение текст письма"
 msgid ""
 "default text of the invitation mail to the applicant. You can use all "
 "variables of the acknowledgment of receipt mail. "
-msgstr ""
+msgstr "Текст по умолчанию приглашения почте заявителю. Вы можете использовать все переменные уведомлением о вручении почте."
 
 #: language/_annotated_strings.php:90
 msgid "Rejection mail text"
@@ -713,7 +713,7 @@ msgstr "Отказ текст письма"
 msgid ""
 "default text of the refusal of an application to the applicant. You can use "
 "all variables of the acknowledgment of receipt mail."
-msgstr ""
+msgstr "Текст умолчанию отказа в применении к заявителю. Вы можете использовать все переменные уведомлением о вручении почте."
 
 #: language/_annotated_strings.php:96
 msgid "get blind carbon copy of all own mails"
@@ -736,27 +736,27 @@ msgstr "Комментарий сообщение"
 msgid ""
 "Request additional facts from the Applicant. Selected Fields will be added "
 "to the application Form."
-msgstr ""
+msgstr "Запрос дополнительных фактов от заявителя. Выбранные поля будут добавлены к форме заявки."
 
 #: language/_annotated_strings.php:123
 msgid "Please provide some additional facts for this job opening."
-msgstr ""
+msgstr "Пожалуйста, приведите некоторые дополнительные факты для этой вакансии."
 
 #: language/_annotated_strings.php:126
 msgid "Click here to enter facts."
-msgstr ""
+msgstr "Нажмите здесь, чтобы войти факты."
 
 #: language/_annotated_strings.php:129
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: language/_annotated_strings.php:132
 msgid "conditioned"
-msgstr ""
+msgstr "обусловленный"
 
 #: language/_annotated_strings.php:135
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: language/_annotated_strings.php:141
 msgid "Enter your willingness to travel."
@@ -768,7 +768,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:147
 msgid "please select"
-msgstr ""
+msgstr "пожалуйста, выберите"
 
 #: language/_annotated_strings.php:153
 msgid "Enter the earliest starting date."

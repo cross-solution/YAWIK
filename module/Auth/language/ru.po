@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-10-16 10:31+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 20:51+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +20,17 @@ msgstr ""
 
 #: view/form/user-info-container.phtml:21
 msgid "Image"
-msgstr ""
+msgstr "Изображение"
 
 #: view/form/contact.view.phtml:16
 msgid "Click here to enter contact informations."
-msgstr ""
+msgstr "Нажмите здесь, чтобы ввести контактные информации."
 
 #: view/form/social-profiles-fieldset.phtml:22
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
-msgstr ""
+msgstr "Вы можете добавить свой социальный профиль для вашего приложения. Вы можете просмотреть и удалить прикрепленный профиль до подачи заявления."
 
 #: view/form/social-profiles-fieldset.phtml:33
 msgid "Loading"
@@ -41,39 +42,39 @@ msgstr "Близко"
 
 #: view/form/social-profiles-button.phtml:38
 msgid "Attach profile"
-msgstr ""
+msgstr "Прикрепите профиль"
 
 #: view/form/social-profiles-button.phtml:39
 msgid "Detach profile"
-msgstr ""
+msgstr "Снять профиль"
 
 #: view/form/social-profiles-button.phtml:42
 msgid "View profile data"
-msgstr ""
+msgstr "Посмотреть профиль данных"
 
 #: view/form/userselect.phtml:25
 msgid "Add users"
-msgstr ""
+msgstr "Добавление пользователей"
 
 #: view/form/userselect.phtml:29
 msgid "At least one user has to be assigned"
-msgstr ""
+msgstr "По крайней мере, один пользователь должен быть назначен"
 
 #: view/sidebar/groups-menu.phtml:15
 msgid "My groups"
-msgstr ""
+msgstr "Мои группы"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:26
 msgid "Manage groups"
-msgstr ""
+msgstr "Управление группами"
 
 #: view/auth/manage-groups/index.phtml:15
 msgid "Add group"
-msgstr ""
+msgstr "Добавить группу"
 
 #: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:72
 msgid "Group name"
-msgstr ""
+msgstr "Название группы"
 
 #: view/auth/manage-groups/index.phtml:25
 msgid "Actions"
@@ -81,24 +82,24 @@ msgstr "Действия"
 
 #: view/auth/manage-groups/form.phtml:39
 msgid "search for users"
-msgstr ""
+msgstr "Поиск для пользователей"
 
 #: view/auth/manage-groups/form.phtml:74
 msgid "Ok"
-msgstr ""
+msgstr "Хорошо"
 
 #: view/auth/index/index.phtml:11
 msgid "Login required"
-msgstr ""
+msgstr "Войти требуется"
 
 #: view/auth/index/index.phtml:12
 msgid "Please authenticate yourself to proceed"
-msgstr ""
+msgstr "Пожалуйста, идентифицировать себя, чтобы продолжить"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:45
+#: view/auth/index/login-info.phtml:49
 msgid "Login"
-msgstr ""
+msgstr "Войти"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
@@ -110,42 +111,42 @@ msgstr ""
 
 #: view/auth/index/job-not-found.phtml:14
 msgid "A job ad with the provided apply identifier could not be found."
-msgstr ""
+msgstr "Объявление о работе с предоставленной применять идентификатор не может быть найдено."
 
-#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
-msgstr ""
+msgstr "Мой профиль"
 
-#: view/auth/index/login-info.phtml:18
+#: view/auth/index/login-info.phtml:22
 msgid "Change password"
-msgstr ""
+msgstr "Сменить пароль"
 
-#: view/auth/index/login-info.phtml:27
+#: view/auth/index/login-info.phtml:31
 msgid "Logout"
-msgstr ""
+msgstr "Выход"
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:38
 #, php-format
 msgid "Hello %s"
 msgstr "Привет %s"
 
-#: view/auth/index/login-info.phtml:35
+#: view/auth/index/login-info.phtml:39
 msgid "Guest"
-msgstr ""
+msgstr "Гость"
 
-#: view/auth/index/login-info.phtml:47
+#: view/auth/index/login-info.phtml:51
 msgid "Login via"
-msgstr ""
+msgstr "Войти через"
 
-#: view/auth/index/login-info.phtml:50
+#: view/auth/index/login-info.phtml:54
 #, php-format
 msgid "Login with %s"
 msgstr ""
 
 #: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
 msgid "My password"
-msgstr ""
+msgstr "Мой пароль"
 
 #: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:15
 #: language/_annotated_strings.php:60
@@ -156,35 +157,35 @@ msgstr "Личное дело"
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:66
 #: language/_annotated_strings.php:93
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/Auth/Form/GroupFieldset.php:31
 msgid "Group data"
-msgstr ""
+msgstr "Группа данных"
 
 #: src/Auth/Form/GroupUsersCollection.php:88
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
-#: src/Auth/Controller/ManageController.php:92
+#: src/Auth/Controller/ManageController.php:105
 msgid "Password successfully changed"
-msgstr ""
+msgstr "Пароль успешно изменен"
 
-#: src/Auth/Controller/ManageController.php:98
+#: src/Auth/Controller/ManageController.php:111
 msgid "Password could not be changed"
-msgstr ""
+msgstr "Пароль не может быть изменен"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
-msgstr ""
+msgstr "Создать группу"
 
 #: language/_annotated_strings.php:6
 msgid "Edit group"
-msgstr ""
+msgstr "Изменить группу"
 
 #: language/_annotated_strings.php:9
 msgid "Social Profiles"
-msgstr ""
+msgstr "Социальные профили"
 
 #: language/_annotated_strings.php:12
 #, php-format
@@ -193,7 +194,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:18
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: language/_annotated_strings.php:21
 msgid "Phone"
@@ -201,7 +202,7 @@ msgstr "Телефон"
 
 #: language/_annotated_strings.php:24
 msgid "Postalcode"
-msgstr ""
+msgstr "Почтовый Индекс"
 
 #: language/_annotated_strings.php:27
 msgid "City"
@@ -209,61 +210,61 @@ msgstr "Сити"
 
 #: language/_annotated_strings.php:30
 msgid "Salutation"
-msgstr ""
+msgstr "Приветствие"
 
 #: language/_annotated_strings.php:33 language/_annotated_strings.php:42
 msgid "please select"
-msgstr ""
+msgstr "пожалуйста, выберите"
 
 #: language/_annotated_strings.php:36
 msgid "Mr."
-msgstr ""
+msgstr "Мистер."
 
 #: language/_annotated_strings.php:39
 msgid "Mrs."
-msgstr ""
+msgstr "Миссис."
 
 #: language/_annotated_strings.php:45
 msgid "First name"
-msgstr ""
+msgstr "Имя"
 
 #: language/_annotated_strings.php:48
 msgid "Last name"
-msgstr ""
+msgstr "Фамилия"
 
 #: language/_annotated_strings.php:51
 msgid "street"
-msgstr ""
+msgstr "улица"
 
 #: language/_annotated_strings.php:54
 msgid "house number"
-msgstr ""
+msgstr "номер дома"
 
 #: language/_annotated_strings.php:57
 msgid "Application photo"
-msgstr ""
+msgstr "Применение фото"
 
 #: language/_annotated_strings.php:69
 msgid "Retype password"
-msgstr ""
+msgstr "Введите пароль еще раз"
 
 #: language/_annotated_strings.php:75
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
-msgstr ""
+msgstr "Выберите имя группы. Вы можете добавлять пользователей в группу, а затем работать вместе на работу и работу приложений."
 
 #: language/_annotated_strings.php:78
 msgid "General settings"
-msgstr ""
+msgstr "Общие настройки"
 
 #: language/_annotated_strings.php:81
 msgid "General"
-msgstr ""
+msgstr "Генерал"
 
 #: language/_annotated_strings.php:84
 msgid "I am"
-msgstr ""
+msgstr "Мне"
 
 #: language/_annotated_strings.php:87
 msgid "The group name \"%value%\" is already in use."
@@ -271,44 +272,40 @@ msgstr ""
 
 #: language/_annotated_strings.php:90
 msgid "Login name"
-msgstr ""
+msgstr "Войти Имя"
 
 #: language/_annotated_strings.php:96
 msgid "login"
-msgstr ""
+msgstr "Войти"
 
 #: language/_annotated_strings.php:99
 msgid "Group created"
-msgstr ""
+msgstr "Группа создана"
 
 #: language/_annotated_strings.php:102
 msgid "Group updated"
-msgstr ""
+msgstr "Группа обновила"
 
 #: language/_annotated_strings.php:105
 msgid "Changes not saved."
-msgstr ""
+msgstr "Изменения не сохранены."
 
 #: language/_annotated_strings.php:108
 msgid "You are now logged in."
-msgstr ""
+msgstr "Вы сейчас вошли в систему."
 
 #: language/_annotated_strings.php:111
 msgid "Authentication failed."
-msgstr ""
+msgstr "Ошибка аутентификации."
 
 #: language/_annotated_strings.php:114
-msgid "Welcome to YAWIK!"
-msgstr "Добро пожаловать в YAWIK!"
+msgid "You are now logged out"
+msgstr "Вы вошли из"
 
 #: language/_annotated_strings.php:117
-msgid "You are now logged out"
-msgstr ""
+msgid "user"
+msgstr "пользователь"
 
 #: language/_annotated_strings.php:120
-msgid "user"
-msgstr ""
-
-#: language/_annotated_strings.php:123
 msgid "recruiter"
-msgstr ""
+msgstr "вербовщик"

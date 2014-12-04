@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:40+0000\n"
+"POT-Creation-Date: 2014-12-04 21:03+0100\n"
+"PO-Revision-Date: 2014-12-04 20:51+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: view/iframe/iFrame.phtml:2
 msgid "Job details"
-msgstr ""
+msgstr "Описание работы"
 
 #: view/iframe/iFrame.phtml:13
 msgid ""
@@ -37,44 +38,44 @@ msgstr "Поиск"
 
 #: view/sidebar/index.phtml:14
 msgid "My jobs"
-msgstr ""
+msgstr "Мои работы"
 
 #: view/sidebar/index.phtml:14
 msgid "All jobs"
-msgstr ""
+msgstr "Все работы"
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
 #: language/_annotated_strings.php:78
 msgid "Jobs"
-msgstr ""
+msgstr "Работы"
 
 #: view/jobs/index/index.phtml:6
 msgid "List of all jobs"
-msgstr ""
+msgstr "Список всех рабочих мест"
 
 #: view/jobs/index/index.phtml:8
 msgid "Public Job Opportunities"
-msgstr ""
+msgstr "Общественные возможности трудоустройства"
 
 #: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"
-msgstr ""
+msgstr "Дата получения"
 
 #: view/jobs/index/index.ajax.phtml:14
 msgid "Title of the job"
-msgstr ""
+msgstr "Название работы"
 
 #: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:30
 msgid "Location"
-msgstr ""
+msgstr "Расположение"
 
 #: view/jobs/index/index.ajax.phtml:16
 msgid "Companyname"
-msgstr ""
+msgstr "Название Компании"
 
 #: view/jobs/index/index.ajax.phtml:17
 msgid "Reference"
-msgstr ""
+msgstr "Ссылка"
 
 #: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
 msgid "Applications"
@@ -86,19 +87,19 @@ msgstr "Статус"
 
 #: view/jobs/index/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:26
 msgid "total"
-msgstr ""
+msgstr "общий"
 
 #: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:32
 msgid "unread"
-msgstr ""
+msgstr "непрочитанный"
 
 #: view/jobs/index/index.ajax.phtml:66
 msgid "draft"
-msgstr ""
+msgstr "проект"
 
 #: view/jobs/index/index.ajax.phtml:89 view/jobs/index/view.phtml:18
 msgid "Apply"
@@ -106,11 +107,11 @@ msgstr "Применять"
 
 #: view/jobs/index/dashboard.phtml:3
 msgid "Current Jobs"
-msgstr ""
+msgstr "Текущие Вакансии"
 
 #: view/jobs/index/dashboard.phtml:3
 msgid "Famous jobs"
-msgstr ""
+msgstr "Известные работы"
 
 #: view/jobs/index/dashboard.phtml:8
 msgid "Job"
@@ -122,15 +123,15 @@ msgstr "Дата"
 
 #: view/jobs/index/view.phtml:15
 msgid "Online since"
-msgstr ""
+msgstr "Интернет с"
 
 #: view/jobs/index/terms.phtml:22
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Сроки и условия"
 
 #: view/jobs/manage/form.phtml:15
 msgid "Publish a job"
-msgstr ""
+msgstr "Опубликовать работу"
 
 #: view/jobs/manage/form.phtml:17
 #, php-format
@@ -139,7 +140,7 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:36
 msgid "Preview of your job posting"
-msgstr ""
+msgstr "Предварительный просмотр вашего размещения вакансии"
 
 #: view/jobs/manage/form.phtml:47
 #, php-format
@@ -150,7 +151,7 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:48
 msgid "here"
-msgstr ""
+msgstr "вот"
 
 #: view/jobs/manage/form.phtml:52
 msgid "Summary"
@@ -160,63 +161,63 @@ msgstr "Резюме"
 msgid ""
 "Your job position is incomplete. You have to set a job title, the location "
 "of the job and accept terms and conditions to be able to publish the job."
-msgstr ""
+msgstr "Ваша позиция работа является неполной. Вы должны установить должность, местонахождение работы и принимаю правила и условия, чтобы иметь возможность публиковать эту работу."
 
 #: view/jobs/manage/form.phtml:73
 msgid "Next to enter the job"
-msgstr ""
+msgstr "Следующая, чтобы войти в работу"
 
 #: view/jobs/manage/form.phtml:76 view/jobs/manage/form.phtml:80
 msgid "Back"
-msgstr ""
+msgstr "Предыдущая"
 
 #: view/jobs/manage/form.phtml:77
 msgid "Next to preview the job"
-msgstr ""
+msgstr "Следующая, чтобы просмотреть работу"
 
 #: view/jobs/manage/form.phtml:81
 msgid "Next to publish the job"
-msgstr ""
+msgstr "Следующая опубликовать работу"
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:31
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: src/Jobs/Form/JobEmployersFieldset.php:29
 msgid "Employers"
-msgstr ""
+msgstr "Работодатели"
 
 #: src/Jobs/Form/JobPreviewFieldset.php:30
 msgid "Preview"
-msgstr ""
+msgstr "Предварительный просмотр"
 
 #: src/Jobs/Controller/ManageController.php:125
 msgid "No Title"
-msgstr ""
+msgstr "Без названия"
 
 #: src/Jobs/Controller/ManageController.php:129
 msgid "No Location"
-msgstr ""
+msgstr "Нет Местоположение"
 
 #: src/Jobs/Controller/ManageController.php:133
 msgid "Accept the Terms"
-msgstr ""
+msgstr "Примите условия"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
-msgstr ""
+msgstr "поиск работы"
 
 #: language/_annotated_strings.php:6
 msgid "Job qualification"
-msgstr ""
+msgstr "Работа квалификация"
 
 #: language/_annotated_strings.php:9
 msgid "Job benefits"
-msgstr ""
+msgstr "Льготы по месту работы"
 
 #: language/_annotated_strings.php:12
 msgid "Job requirements"
-msgstr ""
+msgstr "Требования к кандидату"
 
 #: language/_annotated_strings.php:15
 msgid "Company"
@@ -224,31 +225,31 @@ msgstr "Компания"
 
 #: language/_annotated_strings.php:18 language/_annotated_strings.php:66
 msgid "Job title"
-msgstr ""
+msgstr "Должность"
 
 #: language/_annotated_strings.php:21
 msgid "Please enter the job title"
-msgstr ""
+msgstr "Пожалуйста, введите название должности"
 
 #: language/_annotated_strings.php:24
 msgid "Apply Identifier"
-msgstr ""
+msgstr "Применить идентификатор"
 
 #: language/_annotated_strings.php:27
 msgid "Job description"
-msgstr ""
+msgstr "Описание работы"
 
 #: language/_annotated_strings.php:33
 msgid "Please enter the location of the job"
-msgstr ""
+msgstr "Пожалуйста, введите расположение работы"
 
 #: language/_annotated_strings.php:36
 msgid "Customize apply form"
-msgstr ""
+msgstr "Настройка применять форму"
 
 #: language/_annotated_strings.php:39
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Сроки и условия"
 
 #: language/_annotated_strings.php:42
 #, php-format
@@ -257,7 +258,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:45
 msgid "terms an conditions"
-msgstr ""
+msgstr "Условия А.Н. условия"
 
 #: language/_annotated_strings.php:48
 msgid "The apply identifier \"%value%\" is already in use."
@@ -265,35 +266,35 @@ msgstr ""
 
 #: language/_annotated_strings.php:51
 msgid "Title and job location"
-msgstr ""
+msgstr "Название и работы место"
 
 #: language/_annotated_strings.php:54
 msgid "Show all jobs"
-msgstr ""
+msgstr "Показать все рабочие места"
 
 #: language/_annotated_strings.php:57
 msgid "Show my jobs"
-msgstr ""
+msgstr "Показать мои работы"
 
 #: language/_annotated_strings.php:60
 msgid "Active"
-msgstr ""
+msgstr "Активный"
 
 #: language/_annotated_strings.php:63
 msgid "Inactive"
-msgstr ""
+msgstr "Неактивный"
 
 #: language/_annotated_strings.php:69
 msgid "Publish job"
-msgstr ""
+msgstr "Опубликовать работу"
 
 #: language/_annotated_strings.php:72
 msgid "Job saved"
-msgstr ""
+msgstr "Работа сохраняются"
 
 #: language/_annotated_strings.php:75
 msgid "There were errors in the form"
-msgstr ""
+msgstr "Были ошибки в форме"
 
 #: language/_annotated_strings.php:81
 msgid "Overview"
@@ -301,8 +302,8 @@ msgstr "Обзор"
 
 #: language/_annotated_strings.php:84
 msgid "Create job"
-msgstr ""
+msgstr "Создать работу"
 
 #: language/_annotated_strings.php:87
 msgid "Edit job"
-msgstr ""
+msgstr "Редактировать работа"

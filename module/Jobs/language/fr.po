@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:40+0000\n"
+"POT-Creation-Date: 2014-12-04 21:03+0100\n"
+"PO-Revision-Date: 2014-12-04 20:31+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -170,7 +170,7 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:76 view/jobs/manage/form.phtml:80
 msgid "Back"
-msgstr ""
+msgstr "Précédent"
 
 #: view/jobs/manage/form.phtml:77
 msgid "Next to preview the job"

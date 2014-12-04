@@ -3,17 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:38+0000\n"
-=======
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-19 18:20+0000\n"
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
+"PO-Revision-Date: 2014-12-04 20:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/projects/p/yawik/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -24,22 +20,22 @@ msgstr ""
 
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
-msgstr ""
+msgstr "लोडिंग"
 
 #: view/partial/pagination-control.phtml:19
 #: view/partial/pagination-control.phtml:23
 msgid "First"
-msgstr ""
+msgstr "प्रथम"
 
 #: view/partial/pagination-control.phtml:28
 #: view/partial/pagination-control.phtml:31
 msgid "Back"
-msgstr ""
+msgstr "वापस"
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:39
 msgid "Next"
-msgstr ""
+msgstr "अगली"
 
 #: view/partial/pagination-control.phtml:43
 #: view/partial/pagination-control.phtml:47
@@ -56,7 +52,7 @@ msgstr ""
 
 #: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
-msgstr ""
+msgstr "YAWIK करने के लिए आपका स्वागत है!"
 
 #: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
@@ -194,7 +190,7 @@ msgstr ""
 
 #: view/layout/layout.phtml:84
 msgid "Help to translate YAWIK"
-msgstr ""
+msgstr "YAWIK अनुवाद करने के लिए मदद"
 
 #: view/layout/layout.phtml:114
 msgid "All rights reserved."
@@ -235,25 +231,20 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-<<<<<<< HEAD
 #: src/Core/Form/LocalizationSettingsFieldset.php:12
 #: language/_annotated_strings.php:90
-=======
-#: src/Core/Form/LocalizationSettingsFieldset.php:15
-#: language/_annotated_strings.php:75
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgid "general settings"
 msgstr ""
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:21
 msgid "Save"
-msgstr ""
+msgstr "सेव"
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:24
 msgid "Cancel"
-msgstr ""
+msgstr "रद्द करना"
 
 #: language/_annotated_strings.php:15
 msgid "Apply filter"
@@ -326,7 +317,6 @@ msgid "German"
 msgstr ""
 
 #: language/_annotated_strings.php:72
-<<<<<<< HEAD
 msgid "Italian"
 msgstr ""
 
@@ -347,7 +337,5 @@ msgid "Spanish"
 msgstr ""
 
 #: language/_annotated_strings.php:87
-=======
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgid "defines the languages of this frontend."
 msgstr ""

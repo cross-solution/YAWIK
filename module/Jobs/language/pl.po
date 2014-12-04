@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:38+0000\n"
+"POT-Creation-Date: 2014-12-04 21:03+0100\n"
+"PO-Revision-Date: 2014-12-04 21:01+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/yawik/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: view/iframe/iFrame.phtml:2
 msgid "Job details"
-msgstr ""
+msgstr "Szczegóły pracy"
 
 #: view/iframe/iFrame.phtml:13
 msgid ""
@@ -38,16 +38,16 @@ msgstr "Poszukiwanie"
 
 #: view/sidebar/index.phtml:14
 msgid "My jobs"
-msgstr ""
+msgstr "Moje oferty pracy"
 
 #: view/sidebar/index.phtml:14
 msgid "All jobs"
-msgstr ""
+msgstr "Wszystkie oferty pracy"
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
 #: language/_annotated_strings.php:78
 msgid "Jobs"
-msgstr ""
+msgstr "Oferty pracy"
 
 #: view/jobs/index/index.phtml:6
 msgid "List of all jobs"
@@ -55,7 +55,7 @@ msgstr "Lista wszystkich miejsc pracy"
 
 #: view/jobs/index/index.phtml:8
 msgid "Public Job Opportunities"
-msgstr ""
+msgstr "Publiczne Oferty Pracy"
 
 #: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"
@@ -63,23 +63,23 @@ msgstr "Data otrzymania"
 
 #: view/jobs/index/index.ajax.phtml:14
 msgid "Title of the job"
-msgstr ""
+msgstr "Tytuł pracy"
 
 #: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:30
 msgid "Location"
-msgstr ""
+msgstr "Lokalizacja"
 
 #: view/jobs/index/index.ajax.phtml:16
 msgid "Companyname"
-msgstr ""
+msgstr "Nazwa firmy"
 
 #: view/jobs/index/index.ajax.phtml:17
 msgid "Reference"
-msgstr ""
+msgstr "Odniesienie"
 
 #: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
 msgid "Applications"
-msgstr ""
+msgstr "Aplikacje"
 
 #: view/jobs/index/index.ajax.phtml:20
 msgid "Status"
@@ -87,11 +87,11 @@ msgstr "Status"
 
 #: view/jobs/index/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
 msgid "Action"
-msgstr ""
+msgstr "Akcja"
 
 #: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:26
 msgid "total"
-msgstr ""
+msgstr "całkowity"
 
 #: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:32
 msgid "unread"
@@ -107,11 +107,11 @@ msgstr "Zastosować"
 
 #: view/jobs/index/dashboard.phtml:3
 msgid "Current Jobs"
-msgstr ""
+msgstr "Aktualne Oferty pracy"
 
 #: view/jobs/index/dashboard.phtml:3
 msgid "Famous jobs"
-msgstr ""
+msgstr "Słynne miejsca pracy"
 
 #: view/jobs/index/dashboard.phtml:8
 msgid "Job"
@@ -123,15 +123,15 @@ msgstr "Data"
 
 #: view/jobs/index/view.phtml:15
 msgid "Online since"
-msgstr ""
+msgstr "Online od"
 
 #: view/jobs/index/terms.phtml:22
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Warunki"
 
 #: view/jobs/manage/form.phtml:15
 msgid "Publish a job"
-msgstr ""
+msgstr "Opublikuj ofertę pracy"
 
 #: view/jobs/manage/form.phtml:17
 #, php-format
@@ -140,7 +140,7 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:36
 msgid "Preview of your job posting"
-msgstr ""
+msgstr "Podgląd swojej ofercie pracy"
 
 #: view/jobs/manage/form.phtml:47
 #, php-format
@@ -151,17 +151,17 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:48
 msgid "here"
-msgstr ""
+msgstr "tutaj"
 
 #: view/jobs/manage/form.phtml:52
 msgid "Summary"
-msgstr ""
+msgstr "Streszczenie"
 
 #: view/jobs/manage/form.phtml:61
 msgid ""
 "Your job position is incomplete. You have to set a job title, the location "
 "of the job and accept terms and conditions to be able to publish the job."
-msgstr ""
+msgstr "Twoje stanowisko pracy jest niekompletna. Musisz ustawić tytuł pracy, lokalizację pracy i zaakceptować warunki, aby móc opublikować pracę."
 
 #: view/jobs/manage/form.phtml:73
 msgid "Next to enter the job"
@@ -169,7 +169,7 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:76 view/jobs/manage/form.phtml:80
 msgid "Back"
-msgstr ""
+msgstr "Poprzedni"
 
 #: view/jobs/manage/form.phtml:77
 msgid "Next to preview the job"
@@ -185,7 +185,7 @@ msgstr "Opis"
 
 #: src/Jobs/Form/JobEmployersFieldset.php:29
 msgid "Employers"
-msgstr ""
+msgstr "Pracodawcy"
 
 #: src/Jobs/Form/JobPreviewFieldset.php:30
 msgid "Preview"
@@ -209,7 +209,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:6
 msgid "Job qualification"
-msgstr ""
+msgstr "Praca kwalifikacje"
 
 #: language/_annotated_strings.php:9
 msgid "Job benefits"
@@ -225,7 +225,7 @@ msgstr "Spółka"
 
 #: language/_annotated_strings.php:18 language/_annotated_strings.php:66
 msgid "Job title"
-msgstr ""
+msgstr "Tytuł pracy"
 
 #: language/_annotated_strings.php:21
 msgid "Please enter the job title"
@@ -237,11 +237,11 @@ msgstr ""
 
 #: language/_annotated_strings.php:27
 msgid "Job description"
-msgstr ""
+msgstr "Opis stanowiska pracy"
 
 #: language/_annotated_strings.php:33
 msgid "Please enter the location of the job"
-msgstr ""
+msgstr "Wprowadź lokalizację pracy"
 
 #: language/_annotated_strings.php:36
 msgid "Customize apply form"
@@ -249,7 +249,7 @@ msgstr "Dostosuj stosować formę"
 
 #: language/_annotated_strings.php:39
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Regulamin"
 
 #: language/_annotated_strings.php:42
 #, php-format
@@ -270,27 +270,27 @@ msgstr ""
 
 #: language/_annotated_strings.php:54
 msgid "Show all jobs"
-msgstr ""
+msgstr "Pokaż wszystkie oferty pracy:"
 
 #: language/_annotated_strings.php:57
 msgid "Show my jobs"
-msgstr ""
+msgstr "Pokaż swoje miejsca pracy"
 
 #: language/_annotated_strings.php:60
 msgid "Active"
-msgstr ""
+msgstr "Aktywny"
 
 #: language/_annotated_strings.php:63
 msgid "Inactive"
-msgstr ""
+msgstr "Nieaktywny"
 
 #: language/_annotated_strings.php:69
 msgid "Publish job"
-msgstr ""
+msgstr "Opublikuj ofertę pracy"
 
 #: language/_annotated_strings.php:72
 msgid "Job saved"
-msgstr ""
+msgstr "Praca zapamiętanych"
 
 #: language/_annotated_strings.php:75
 msgid "There were errors in the form"
@@ -302,8 +302,8 @@ msgstr "Przegląd"
 
 #: language/_annotated_strings.php:84
 msgid "Create job"
-msgstr ""
+msgstr "Tworzenie pracy"
 
 #: language/_annotated_strings.php:87
 msgid "Edit job"
-msgstr ""
+msgstr "Edycja pracy"
