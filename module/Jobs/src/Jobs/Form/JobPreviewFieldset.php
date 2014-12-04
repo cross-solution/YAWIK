@@ -45,10 +45,10 @@ class JobPreviewFieldset extends Fieldset
             'type' => 'infocheckbox',
             'name' => 'termsAccepted',
             'options' => array(
-                'headline' => /*@translate*/ 'Privacy Policy',
+                'headline' => /*@translate*/ 'Terms and conditions',
                 'long_label' => /*@translate*/ 'I have read the %s and accept it',
-                'linktext' => /*@translate*/ 'Privacy Policy',
-                'route' => 'lang/jobs/disclaimer',
+                'linktext' => /*@translate*/ 'terms an conditions',
+                'route' => 'lang/jobs/terms',
             ),
             'attributes' => array(
                 'data-trigger' => 'submit',

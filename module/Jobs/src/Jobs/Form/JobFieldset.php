@@ -1,4 +1,12 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    weitz@cross-solution.de
+ */
 
 namespace Jobs\Form;
 
@@ -10,8 +18,7 @@ use Core\Entity\Hydrator\EntityHydrator;
  */
 class JobFieldset extends Fieldset 
 {
-
-
+ 
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -47,7 +54,7 @@ class JobFieldset extends Fieldset
             'name' => 'title',
             'options' => array(
                 'label' => /*@translate*/ 'Job title',
-                'description' => 'Test'
+                'description' => /*@translate*/ 'Please enter the job title'
             ),
         ));
        
@@ -71,41 +78,9 @@ class JobFieldset extends Fieldset
             'type' => 'Location',
             'name' => 'location',
             'options' => array(
-                'label' => /*@translate*/ 'Location'
+                'label' => /*@translate*/ 'Location',
+                'description' => /*@translate*/ 'Please enter the location of the job'
             ),
         ));
-       
-//       $this->add(array(
-//            'type' => 'Text',
-//            'name' => 'contactEmail',
-//            'options' => array(
-//                'label' => /*@translate*/ 'Contact email'
-//            ),
-//
-//        ));
-//
-//
-//       $this->add(array(
-//            'type' => 'Text',
-//            'name' => 'reference',
-//            'options' => array(
-//                'label' => /*@translate*/ 'Reference number'
-//            ),
-//
-//        ));
-       
-       //$this->add(array(
-       //    'type' => 'Core/PermissionsCollection'
-       //));
-
-       // @TODO: insert editable hidden field
-       //$this->add(array(
-       //     'type'    => 'Jobs/ApplyId',
-       //     'name'    => 'applyId',
-       //     'options' => array(
-       //         'label' => /*@translate*/
-       //             'Apply Identifier'
-       //     ),
-       //));
     }
 }

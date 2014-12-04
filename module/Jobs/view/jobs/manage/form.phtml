@@ -6,12 +6,6 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-// Tweak navigation
-// @TODO move this navigation-processing to the controller
-//$navigation = $this->navigation('Core/Navigation')->getContainer();
-//$navigation->findOneBy('route', 'lang/jobs')->setActive(true);
-//$subPage = $navigation->findOneBy('id', 'Jobs/' . $this->action);
-//$subPage->setActive(true);
 
 $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
 ?>
@@ -24,10 +18,10 @@ $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
     endif;
 ?>
 </h1>
-
+<h3><?php echo $this->translate("Preview of your job posting"); ?></h3>
 <?php
-if ($this->page == 2)
-{
+if ($this->page == 2):
+
     $viewLink = $this->url(
             'lang/jobs/view',
                 array(
@@ -38,34 +32,37 @@ if ($this->page == 2)
                     )
                 )
     );
-    echo '<iframe src="' . $viewLink . '" name="preview" style="width:100%; height:800px;"></iframe>';
-    echo '<h3>' . $this->translate('summary') . '</h3>';
-
-    echo $this->summary;
-}
 ?>
+    <div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <iframe style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="alert alert-info">
+        <?php echo sprintf($this->translate('Please check the preview of your job position. Click %s to open the preview in a new window'),
+                           '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?>
+        </div>
+    </div>
+    </div>
+    <h3><?php echo $this->translate('Summary') ?></h3>
 
+    <?php echo $this->summary?>
+<?php endif; ?>
 
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
 
-<?php
-if ($page == 2):
-?>
+<?php if ($page == 2): ?>
     <div id="job_incomplete" class="alert alert-warning ">
-        <?php
-        echo $this->translate('Ihre Eingaben sind unvollständig. Um die Bewerbung absenden zu können, müssen Sie Ihre Kontaktdaten angeben und die Datenschutzbestimmungen akzeptieren. Sie können jederzeit die Vorschau über Ihre hinterlegten Daten einsehen bzw. den Bewerbungsprozess abbrechen.');
-        ?>
-        <span id="job_errormessages">
-<?php
-if (isset($this->valid) && $this->valid == false && !empty($this->errorMessage)) {
-    echo ($this->errorMessage);
-}
-?>
-        </span>
+    <?php echo $this->translate('Your job position is incomplete. You have to set a job title, the location of the job and accept terms and conditions to be able to publish the job.'); ?>
+    <span id="job_errormessages">
+    <?php if (isset($this->valid) && $this->valid == false && !empty($this->errorMessage)) echo ($this->errorMessage); ?>
+    </span>
     </div>
-<?php
-endif;
-?>
+<?php endif; ?>
 
 <div id="locationForm-buttons" class="buttons-bar form-group">
     <div class="col-md-12">

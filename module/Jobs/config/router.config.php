@@ -98,13 +98,13 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
-            'disclaimer' => array(
+            'terms' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/disclaimer',
+                    'route' => '/terms',
                     'defaults' => array(
                         'controller' => 'Jobs/Index',
-                        'action' => 'disclaimer',
+                        'action' => 'terms',
                     ),
                 ),
                 'may_terminate' => true,

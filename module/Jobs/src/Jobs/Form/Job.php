@@ -36,6 +36,7 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
+                    'description' => /*translate*/ 'Please choose a descriptive title and a location for your job posting '
                 )
             )
         ));
