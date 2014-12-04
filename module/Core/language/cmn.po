@@ -3,323 +3,318 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-19 18:45+0000\n"
+"PO-Revision-Date: 2014-11-19 18:20+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
+"Language-Team: Chinese (Mandarin) (http://www.transifex.com/projects/p/yawik/language/cmn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: cmn\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
-msgstr "Wird geladen"
+msgstr ""
 
 #: view/partial/pagination-control.phtml:19
 #: view/partial/pagination-control.phtml:23
 msgid "First"
-msgstr "Anfang"
+msgstr ""
 
 #: view/partial/pagination-control.phtml:28
 #: view/partial/pagination-control.phtml:31
 msgid "Back"
-msgstr "&lt; Zurück"
+msgstr ""
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:39
 msgid "Next"
-msgstr "Weiter &gt;"
+msgstr ""
 
 #: view/partial/pagination-control.phtml:43
 #: view/partial/pagination-control.phtml:47
 msgid "Last"
-msgstr "Ende"
+msgstr ""
 
 #: view/form/permissions-collection.phtml:12
 msgid "Add permission"
-msgstr "Zugriffsrechte hinzufügen"
+msgstr ""
 
 #: view/core/index/index.phtml:11
 msgid "Home"
-msgstr "Start"
+msgstr ""
 
 #: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
-msgstr "Willkommen bei YAWIK!"
+msgstr ""
 
 #: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
-msgstr "wir verbinden Personaler und Bewerber"
+msgstr ""
 
 #: view/core/index/index.phtml:18
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
-msgstr "Melde Dich mit Deinen Sozialen Netzwerk am Open Source Bewerbermanagement System an"
+msgstr ""
 
 #: view/core/index/index.phtml:22
 #, php-format
 msgid "Login with %s"
-msgstr "Anmelden mit %s"
+msgstr ""
 
 #: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
-msgstr "Responsive Designe (nutzt Bootstrap3 und Awesome Fonts)"
+msgstr ""
 
 #: view/core/index/index.phtml:32
 msgid "multilingual"
-msgstr "mehrsprachig"
+msgstr ""
 
 #: view/core/index/index.phtml:33
 msgid "ready for social recruiting"
-msgstr "bereit für Social Recruiting"
+msgstr ""
 
 #: view/core/index/index.phtml:34
 msgid "enter job ads"
-msgstr "Stellenanzeigen eingeben"
+msgstr ""
 
 #: view/core/index/index.phtml:35
 #, php-format
 msgid "%sapplication forms%s."
-msgstr "%sBewerbungsformulare%s."
+msgstr ""
 
 #: view/core/index/index.phtml:39
 msgid "manage applications"
-msgstr "Bewerbungen verwalten"
+msgstr ""
 
 #: view/core/index/index.phtml:40
 msgid "open and free software"
-msgstr "Open Source im Sinne von freier Software"
+msgstr ""
 
 #: view/core/index/index.phtml:48
 msgid "Developer News"
-msgstr "Neuigkeiten für Entwickler"
+msgstr ""
 
 #: view/core/index/index.phtml:65
 msgid "Recruiter News"
-msgstr "Neuigkeiten für Personaler"
+msgstr ""
 
 #: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr ""
 
 #: view/core/index/dashboard-widget.phtml:19
 msgid "Error loading widget."
-msgstr "Fehler beim Laden des Widget"
+msgstr ""
 
 #: view/error/index.phtml:11
 msgid "An error occurred"
-msgstr "Ein Fehler ist aufgetreten"
+msgstr ""
 
 #: view/error/index.phtml:18 view/error/403.phtml:20 view/error/404.phtml:64
 msgid "Additional information"
-msgstr "Zusätzliche Informationen"
+msgstr ""
 
 #: view/error/index.phtml:21 view/error/index.phtml:45 view/error/403.phtml:23
 #: view/error/403.phtml:47 view/error/404.phtml:67 view/error/404.phtml:91
 msgid "File"
-msgstr "Datei"
+msgstr ""
 
 #: view/error/index.phtml:25 view/error/index.phtml:49 view/error/403.phtml:27
 #: view/error/403.phtml:51 view/error/404.phtml:71 view/error/404.phtml:95
 msgid "Message"
-msgstr "Nachricht"
+msgstr ""
 
 #: view/error/index.phtml:29 view/error/index.phtml:53 view/error/403.phtml:31
 #: view/error/403.phtml:55 view/error/404.phtml:75 view/error/404.phtml:99
 msgid "Stack trace"
-msgstr "Stapelverlauf"
+msgstr ""
 
 #: view/error/index.phtml:39 view/error/403.phtml:41 view/error/404.phtml:85
 msgid "Previous exceptions"
-msgstr "Vorherige Exceptions"
+msgstr ""
 
 #: view/error/index.phtml:68 view/error/403.phtml:70 view/error/404.phtml:114
 msgid "No Exception available"
-msgstr "Keine Exception verfügbar"
+msgstr ""
 
 #: view/error/403.phtml:12
 msgid "A 403 error occurred"
-msgstr "Ein 403 Fehler ist aufgetreten"
+msgstr ""
 
 #: view/error/404.phtml:12
 msgid "A 404 error occurred"
-msgstr "Ein 404 Fehler ist aufgetreten"
+msgstr ""
 
 #: view/error/404.phtml:21
 msgid "The requested controller was unable to dispatch the request."
-msgstr "Der angeforderte Controller konnte die Anfrage nicht abfertigen."
+msgstr ""
 
 #: view/error/404.phtml:24
 msgid ""
 "The requested controller could not be mapped to an existing controller "
 "class."
-msgstr "Der angeforderte Controller konnte keiner existierenden Controller-Klasse zugeordnet werden."
+msgstr ""
 
 #: view/error/404.phtml:27
 msgid "The requested controller was not dispatchable."
-msgstr "Der angeforderte Controller konnte nicht abgefertigt werden."
+msgstr ""
 
 #: view/error/404.phtml:30
 msgid "The requested URL could not be matched by routing."
-msgstr "Die angeforderte URL konnte keiner Route zugeordnet werden."
+msgstr ""
 
 #: view/error/404.phtml:33
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr "Wir können momentan nicht feststellen, warum ein 404 Fehler aufgetreten ist."
+msgstr ""
 
 #: view/error/404.phtml:45
 msgid "Controller"
-msgstr "Controller"
+msgstr ""
 
 #: view/error/404.phtml:52
 #, php-format
 msgid "resolves to %s"
-msgstr "löst auf nach %s"
+msgstr ""
 
 #: view/layout/layout.phtml:21
 msgid "YAWIK"
-msgstr "YAWIK"
+msgstr ""
 
 #: view/layout/layout.phtml:84
 msgid "Help to translate YAWIK"
-msgstr "Hilf bei der Übersetzung von YAWIK"
+msgstr ""
 
 #: view/layout/layout.phtml:114
 msgid "All rights reserved."
-msgstr "Alle Rechte vorbehalten."
+msgstr ""
 
 #: src/Core/Form/PermissionsCollection.php:36
 msgid "Permissions"
-msgstr "Zugriffsrechte"
+msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:104
 #: src/Core/Form/View/Helper/FormImageUpload.php:78
 msgid "The file is too big"
-msgstr "Die Datei ist zu groß"
+msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:105
 #: src/Core/Form/View/Helper/FormImageUpload.php:79
 msgid "The file type is not supported"
-msgstr "Der Dateityp wird nicht unterstützt"
+msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:106
 #, php-format
 msgid "You may only upload %d files"
-msgstr "Sie können insgesamt %d Dateien übermitteln"
+msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:152
 msgid "Click here to add files or use drag and drop."
-msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
+msgstr ""
 
 #: src/Core/Form/View/Helper/FormImageUpload.php:40
 msgid "Click here to add an image or use drag and drop."
-msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
+msgstr ""
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
 msgid "processing"
-msgstr "bearbeiten"
+msgstr ""
 
 #: src/Core/Form/View/Helper/SummaryForm.php:167
 msgid "Edit"
-msgstr "Bearbeiten"
+msgstr ""
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:15
 #: language/_annotated_strings.php:75
 msgid "general settings"
-msgstr "Allgemeine Einstellungen"
+msgstr ""
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:21
 msgid "Save"
-msgstr "Speichern"
+msgstr ""
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:24
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr ""
 
 #: language/_annotated_strings.php:15
 msgid "Apply filter"
-msgstr "Filter anwenden"
+msgstr ""
 
 #: language/_annotated_strings.php:18
 msgid "Reset filter"
-msgstr "Filter zurücksetzen"
+msgstr ""
 
 #: language/_annotated_strings.php:27
 msgid "Rights"
-msgstr "Rechte"
+msgstr ""
 
 #: language/_annotated_strings.php:30
 msgid "View"
-msgstr "Ansehen"
+msgstr ""
 
 #: language/_annotated_strings.php:33
 msgid "Write"
-msgstr "Bearbeiten"
+msgstr ""
 
 #: language/_annotated_strings.php:36
 msgid "Not Rated"
-msgstr "Nicht bewertet"
+msgstr ""
 
 #: language/_annotated_strings.php:39
 msgid "Poor"
-msgstr "Ungeeignet"
+msgstr ""
 
 #: language/_annotated_strings.php:42
 msgid "Bad"
-msgstr "Unterdurchschnittlich"
+msgstr ""
 
 #: language/_annotated_strings.php:45
 msgid "Average"
-msgstr "Durchschnittlich"
+msgstr ""
 
 #: language/_annotated_strings.php:48
 msgid "Good"
-msgstr "Gut"
+msgstr ""
 
 #: language/_annotated_strings.php:51
 msgid "Excellent"
-msgstr "Sehr gut"
+msgstr ""
 
 #: language/_annotated_strings.php:54
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr "Bitte geben Die eine Telefonnummer ein. Sie können das internationale Format verwenden. Erlaubt sind Ziffern und \"+\"."
+msgstr ""
 
 #: language/_annotated_strings.php:57
 msgid "Remove all"
-msgstr "Alle entfernen"
+msgstr ""
 
 #: language/_annotated_strings.php:60
 msgid "choose your language"
-msgstr "wählen Sie Ihre Sparche"
+msgstr ""
 
 #: language/_annotated_strings.php:63
 msgid "English"
-msgstr "Englisch"
+msgstr ""
 
 #: language/_annotated_strings.php:66
 msgid "French"
-msgstr "Französisch"
+msgstr ""
 
 #: language/_annotated_strings.php:69
 msgid "German"
-msgstr "Deutsch"
+msgstr ""
 
 #: language/_annotated_strings.php:72
 msgid "defines the languages of this frontend."
-msgstr "Sprache dieses Frontends"
+msgstr ""

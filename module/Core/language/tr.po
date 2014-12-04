@@ -28,12 +28,12 @@ msgstr ""
 
 #: view/partial/pagination-control.phtml:28
 #: view/partial/pagination-control.phtml:31
-msgid "&lt; Previous"
+msgid "Back"
 msgstr ""
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:39
-msgid "Next &gt;"
+msgid "Next"
 msgstr ""
 
 #: view/partial/pagination-control.phtml:43

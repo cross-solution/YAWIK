@@ -73,11 +73,11 @@ if ($this->page == 2):
         echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to enter the job') . '</a>' . PHP_EOL;
         break;
     case "1":
-        echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('&lt; Previous') . '</a>' . PHP_EOL;
+        echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
         echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to preview the job') . '</a>' . PHP_EOL;
         break;
     case "2":
-        echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('&lt; Previous') . '</a>' . PHP_EOL;
+        echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
         echo '<a id="finalize_jobentry" style="display:none;" href="' . $this->basepath('/jobs/finalize?id=' . $this->job->id) . '" class="btn btn-primary">' . $this->translate('Next to publish the job') . '</a>' . PHP_EOL;
     default:
 

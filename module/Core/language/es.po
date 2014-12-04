@@ -31,12 +31,12 @@ msgstr "Primero"
 
 #: view/partial/pagination-control.phtml:28
 #: view/partial/pagination-control.phtml:31
-msgid "&lt; Previous"
+msgid "Back"
 msgstr " &lt; Anterior "
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:39
-msgid "Next &gt;"
+msgid "Next"
 msgstr "Próximo &gt;"
 
 #: view/partial/pagination-control.phtml:43

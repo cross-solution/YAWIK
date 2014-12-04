@@ -56,19 +56,34 @@ translate('Please enter a phone Number. You can use the intenational format. Onl
 //: ./src/Core/Form/FileUploadFactory.php:119
 translate('Remove all');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:21
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:18
 translate('choose your language');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:23
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:20
 translate('English');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:24
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:21
 translate('French');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:25
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:22
 translate('German');
 
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:23
+translate('Italian');
+
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:24
+translate('Polish');
+
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:25
+translate('Russian');
+
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:26
+translate('Turkish');
+
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:27
+translate('Spanish');
+
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:29
 translate('defines the languages of this frontend.');
 
 //: ./config/module.config.php:25

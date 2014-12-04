@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Applications\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2014-11-19 19:18+0100\n"
+"PO-Revision-Date: 2014-11-19 18:20+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Hindi (India) (http://www.transifex.com/projects/p/yawik/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/applications/comment/list.phtml:67
 msgid ""
@@ -28,19 +28,19 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: view/applications/index/index.phtml:16
-#: view/applications/apply/index.phtml:27
+#: view/applications/index/index.phtml:15
+#: view/applications/apply/index.phtml:13
 msgid "Application"
 msgstr ""
 
-#: view/applications/index/index.phtml:18
-#: view/applications/apply/index.phtml:32
+#: view/applications/index/index.phtml:17
+#: view/applications/apply/index.phtml:15
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
-#: view/applications/index/index.phtml:19
-#: view/applications/apply/index.phtml:33
+#: view/applications/index/index.phtml:18
+#: view/applications/apply/index.phtml:16
 msgid "click to open the job ad"
 msgstr ""
 
@@ -78,43 +78,43 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: view/applications/apply/index.phtml:56 language/_annotated_strings.php:216
+#: view/applications/apply/index.phtml:28 language/_annotated_strings.php:216
 msgid "your application was sent successfully"
 msgstr ""
 
-#: view/applications/apply/index.phtml:62
+#: view/applications/apply/index.phtml:34
 #, php-format
 msgid ""
 "The application was added to your %slist%s, so you can keep up-to-date with "
 "the process."
 msgstr ""
 
-#: view/applications/apply/index.phtml:69
+#: view/applications/apply/index.phtml:41
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:20
+#: view/applications/apply/_buttons.phtml:18
 msgid ""
-"Your application is incomplete. You have to add your contact data and accept "
-"the privacy policy to be able to submit the application. You can always "
+"Your application is incomplete. You have to add your contact data and accept"
+" the privacy policy to be able to submit the application. You can always "
 "preview or abort your application."
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:32
+#: view/applications/apply/_buttons.phtml:23
 msgid "Back to the formular"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:36
+#: view/applications/apply/_buttons.phtml:27
 msgid "Preview application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:46
+#: view/applications/apply/_buttons.phtml:37
 msgid "Send application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:52
+#: view/applications/apply/_buttons.phtml:43
 msgid "Abort application"
 msgstr ""
 
@@ -245,10 +245,6 @@ msgstr ""
 #: view/applications/manage/detail.phtml:137
 #: view/applications/manage/detail.phtml:176
 msgid "Delete application"
-msgstr ""
-
-#: view/applications/manage/detail.phtml:138
-msgid "Delete"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:167
@@ -635,8 +631,8 @@ msgstr ""
 
 #: language/_annotated_strings.php:42
 msgid ""
-"Attach images or PDF Documents to your application. Drag&drop them, or click "
-"into the attachement area. You can upload up to 5MB"
+"Attach images or PDF Documents to your application. Drag&drop them, or click"
+" into the attachement area. You can upload up to 5MB"
 msgstr ""
 
 #: language/_annotated_strings.php:51
@@ -664,8 +660,8 @@ msgstr ""
 #: language/_annotated_strings.php:69
 msgid ""
 "default text of the notification mail about new applications. The following "
-"variables can be used:<ul><li>##name## = your name</li><li>##title## = title "
-"of the job</li></ul>"
+"variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
+" of the job</li></ul>"
 msgstr ""
 
 #: language/_annotated_strings.php:72
@@ -685,10 +681,10 @@ msgstr ""
 #: language/_annotated_strings.php:81
 msgid ""
 "default text of the acknowledgment of receipt mail to the applicant. The "
-"following variables can be used:<br><ul><li>##anrede_formell## = salutation. "
-"Includes gender, firstname and lastname.<li>##anrede_informell## = "
-"salutation. Includes fistname and lastname.</li><li>##job_title## = title of "
-"the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
+"following variables can be used:<br><ul><li>##anrede_formell## = salutation."
+" Includes gender, firstname and lastname.<li>##anrede_informell## = "
+"salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
+" the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
 "of recipt of the application.</li></ul>"
 msgstr ""
 
@@ -846,8 +842,8 @@ msgstr ""
 
 #: language/_annotated_strings.php:225
 msgid ""
-"Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
-"\"##title##\\\"\\n\\n"
+"Hello ##name##,\\n\\nThere is a new application for your "
+"vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
 #: language/_annotated_strings.php:228

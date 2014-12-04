@@ -25,18 +25,18 @@ $query = $this->params()->fromQuery();
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
   <li><a href="<?php $query['page'] = $this->previous; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <?php echo $this->translate('&lt; Previous')?>
+    <?php echo $this->translate('Back')?>
   </a></li>
 <?php else: ?>
-  <li class="disabled"><a><?php echo $this->translate('&lt; Previous')?></a></li>
+  <li class="disabled"><a><?php echo $this->translate('Back')?></a></li>
 <?php endif; ?>
 <!-- Next page link -->
 <?php if (isset($this->next)): $query['page'] = $this->next; ?>
   <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <?php echo $this->translate('Next &gt;')?>
+    <?php echo $this->translate('Next')?>
   </a></li>
 <?php else: ?>
-  <li class="disabled"><a><?php echo $this->translate('Next &gt;')?></a></li>
+  <li class="disabled"><a><?php echo $this->translate('Next')?></a></li>
 <?php endif; ?>
 <!-- Last page link -->
 <?php if (isset($this->next)): $query['page'] = $this->last; ?>
