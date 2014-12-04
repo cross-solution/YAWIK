@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-19 18:41+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 19:38+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -30,19 +30,19 @@ msgstr "Il n'y a pas encore de commentaires pour cette application. Soyez le pre
 msgid "Apply"
 msgstr "Appliquer"
 
-#: view/applications/index/index.phtml:15
-#: view/applications/apply/index.phtml:13
+#: view/applications/index/index.phtml:16
+#: view/applications/apply/index.phtml:27
 msgid "Application"
 msgstr "Application"
 
-#: view/applications/index/index.phtml:17
-#: view/applications/apply/index.phtml:15
+#: view/applications/index/index.phtml:18
+#: view/applications/apply/index.phtml:32
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
-#: view/applications/index/index.phtml:18
-#: view/applications/apply/index.phtml:16
+#: view/applications/index/index.phtml:19
+#: view/applications/apply/index.phtml:33
 msgid "click to open the job ad"
 msgstr "cliquez pour ouvrir l'offre d'emploi"
 
@@ -80,43 +80,43 @@ msgstr "Emploi"
 msgid "Date"
 msgstr "Date"
 
-#: view/applications/apply/index.phtml:28 language/_annotated_strings.php:216
+#: view/applications/apply/index.phtml:56 language/_annotated_strings.php:216
 msgid "your application was sent successfully"
 msgstr "votre demande a été envoyée avec succès"
 
-#: view/applications/apply/index.phtml:34
+#: view/applications/apply/index.phtml:62
 #, php-format
 msgid ""
 "The application was added to your %slist%s, so you can keep up-to-date with "
 "the process."
 msgstr ""
 
-#: view/applications/apply/index.phtml:41
+#: view/applications/apply/index.phtml:69
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:18
+#: view/applications/apply/_buttons.phtml:20
 msgid ""
 "Your application is incomplete. You have to add your contact data and accept"
 " the privacy policy to be able to submit the application. You can always "
 "preview or abort your application."
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:23
+#: view/applications/apply/_buttons.phtml:32
 msgid "Back to the formular"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:27
+#: view/applications/apply/_buttons.phtml:36
 msgid "Preview application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:37
+#: view/applications/apply/_buttons.phtml:46
 msgid "Send application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:43
+#: view/applications/apply/_buttons.phtml:52
 msgid "Abort application"
 msgstr ""
 
@@ -248,6 +248,10 @@ msgstr "suivant"
 #: view/applications/manage/detail.phtml:176
 msgid "Delete application"
 msgstr "Supprimer l'application"
+
+#: view/applications/manage/detail.phtml:138
+msgid "Delete"
+msgstr ""
 
 #: view/applications/manage/detail.phtml:167
 msgid "Delete Application"

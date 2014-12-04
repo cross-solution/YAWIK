@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-29 16:21+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 19:40+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/yawik/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: view/iframe/iFrame.phtml:2
+msgid "Job details"
+msgstr ""
 
 #: view/iframe/iFrame.phtml:13
 msgid ""
@@ -40,7 +44,7 @@ msgid "All jobs"
 msgstr ""
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:73
+#: language/_annotated_strings.php:78
 msgid "Jobs"
 msgstr ""
 
@@ -84,11 +88,11 @@ msgstr "Durum"
 msgid "Action"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:23
+#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:26
 msgid "total"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:29
+#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:32
 msgid "unread"
 msgstr ""
 
@@ -120,16 +124,82 @@ msgstr "Tarih"
 msgid "Online since"
 msgstr ""
 
-#: src/Jobs/Form/JobDescriptionFieldset.php:24
+#: view/jobs/index/terms.phtml:22
+msgid "Terms and Conditions"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:15
+msgid "Publish a job"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:17
+#, php-format
+msgid "Edit the job %s"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:36
+msgid "Preview of your job posting"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:47
+#, php-format
+msgid ""
+"Please check the preview of your job position. Click %s to open the preview "
+"in a new window"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:48
+msgid "here"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:52
+msgid "Summary"
+msgstr "Özet"
+
+#: view/jobs/manage/form.phtml:61
+msgid ""
+"Your job position is incomplete. You have to set a job title, the location "
+"of the job and accept terms and conditions to be able to publish the job."
+msgstr ""
+
+#: view/jobs/manage/form.phtml:73
+msgid "Next to enter the job"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:76 view/jobs/manage/form.phtml:80
+msgid "Back"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:77
+msgid "Next to preview the job"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:81
+msgid "Next to publish the job"
+msgstr ""
+
+#: src/Jobs/Form/JobDescriptionFieldset.php:31
 msgid "Description"
 msgstr "Tanım"
 
-#: src/Jobs/Form/JobFieldset.php:29
-msgid "Job details"
-msgstr ""
-
 #: src/Jobs/Form/JobEmployersFieldset.php:29
 msgid "Employers"
+msgstr ""
+
+#: src/Jobs/Form/JobPreviewFieldset.php:30
+msgid "Preview"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:125
+msgid "No Title"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:129
+msgid "No Location"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:133
+msgid "Accept the Terms"
 msgstr ""
 
 #: language/_annotated_strings.php:3
@@ -148,74 +218,91 @@ msgstr ""
 msgid "Job requirements"
 msgstr ""
 
-#: language/_annotated_strings.php:15 language/_annotated_strings.php:27
-msgid "Job description"
-msgstr ""
-
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:15
 msgid "Company"
 msgstr "Şirket"
 
-#: language/_annotated_strings.php:21 language/_annotated_strings.php:61
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:66
 msgid "Job title"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Please enter the job title"
 msgstr ""
 
 #: language/_annotated_strings.php:24
 msgid "Apply Identifier"
 msgstr ""
 
+#: language/_annotated_strings.php:27
+msgid "Job description"
+msgstr ""
+
 #: language/_annotated_strings.php:33
-msgid "Contact email"
+msgid "Please enter the location of the job"
 msgstr ""
 
 #: language/_annotated_strings.php:36
-msgid "Reference number"
-msgstr ""
-
-#: language/_annotated_strings.php:40
 msgid "Customize apply form"
 msgstr "Formu uygulamak özelleştirme"
 
-#: language/_annotated_strings.php:43
+#: language/_annotated_strings.php:39
+msgid "Terms and conditions"
+msgstr ""
+
+#: language/_annotated_strings.php:42
+#, php-format
+msgid "I have read the %s and accept it"
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid "terms an conditions"
+msgstr ""
+
+#: language/_annotated_strings.php:48
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:46 language/_annotated_strings.php:64
-msgid "Publish job"
+#: language/_annotated_strings.php:51
+msgid "Title and job location"
 msgstr ""
 
-#: language/_annotated_strings.php:49
+#: language/_annotated_strings.php:54
 msgid "Show all jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:52
+#: language/_annotated_strings.php:57
 msgid "Show my jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:55
+#: language/_annotated_strings.php:60
 msgid "Active"
 msgstr ""
 
-#: language/_annotated_strings.php:58
+#: language/_annotated_strings.php:63
 msgid "Inactive"
 msgstr ""
 
-#: language/_annotated_strings.php:67
+#: language/_annotated_strings.php:69
+msgid "Publish job"
+msgstr ""
+
+#: language/_annotated_strings.php:72
 msgid "Job saved"
 msgstr ""
 
-#: language/_annotated_strings.php:70
+#: language/_annotated_strings.php:75
 msgid "There were errors in the form"
 msgstr ""
 
-#: language/_annotated_strings.php:76
+#: language/_annotated_strings.php:81
 msgid "Overview"
 msgstr "Genel bakış"
 
-#: language/_annotated_strings.php:79
+#: language/_annotated_strings.php:84
 msgid "Create job"
 msgstr ""
 
-#: language/_annotated_strings.php:82
+#: language/_annotated_strings.php:87
 msgid "Edit job"
 msgstr ""

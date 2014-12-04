@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-29 17:25+0100\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,6 +245,10 @@ msgstr ""
 #: view/applications/manage/detail.phtml:137
 #: view/applications/manage/detail.phtml:176
 msgid "Delete application"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:138
+msgid "Delete"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:167

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-19 18:20+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 19:40+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -30,13 +30,13 @@ msgstr "Première"
 
 #: view/partial/pagination-control.phtml:28
 #: view/partial/pagination-control.phtml:31
-msgid "&lt; Previous"
-msgstr " &lt; Précédent"
+msgid "Back"
+msgstr ""
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:39
-msgid "Next &gt;"
-msgstr " Suivant &gt;"
+msgid "Next"
+msgstr ""
 
 #: view/partial/pagination-control.phtml:43
 #: view/partial/pagination-control.phtml:47
@@ -232,8 +232,8 @@ msgstr "traitement"
 msgid "Edit"
 msgstr ""
 
-#: src/Core/Form/LocalizationSettingsFieldset.php:15
-#: language/_annotated_strings.php:75
+#: src/Core/Form/LocalizationSettingsFieldset.php:12
+#: language/_annotated_strings.php:90
 msgid "general settings"
 msgstr "paramètres généraux"
 
@@ -318,5 +318,25 @@ msgid "German"
 msgstr "Allemand"
 
 #: language/_annotated_strings.php:72
+msgid "Italian"
+msgstr "Italien"
+
+#: language/_annotated_strings.php:75
+msgid "Polish"
+msgstr "Polonais"
+
+#: language/_annotated_strings.php:78
+msgid "Russian"
+msgstr "Russe"
+
+#: language/_annotated_strings.php:81
+msgid "Turkish"
+msgstr "Turc"
+
+#: language/_annotated_strings.php:84
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: language/_annotated_strings.php:87
 msgid "defines the languages of this frontend."
 msgstr "définit les langues de cette interface."
