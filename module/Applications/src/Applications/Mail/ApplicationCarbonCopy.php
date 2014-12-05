@@ -7,9 +7,14 @@
  * @license   MIT
  */
 
-/** NewApplication.php */ 
+/** ApplicationCarbonCopy.php */
 namespace Applications\Mail;
 
+/**
+ * Sends a Carbon Copy of the submitted application to the applicant
+ *
+ * @package Applications\Mail
+ */
 class ApplicationCarbonCopy extends Forward
 {
     public function setApplication($application)

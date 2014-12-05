@@ -7,19 +7,24 @@
  * @license   MIT
  */
 
-/** Forward.php 
- *
- * generates an email containing an applications
- */ 
+/** Forward.php */
+
 namespace Applications\Mail;
 
 use Core\Mail\TranslatorAwareMessage;
 use Zend\Mime;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Forward extends TranslatorAwareMessage
+/**
+* Sends an e-mail containing an applications
+*/
+
+class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInterface
 {
     protected $application;
     protected $isInitialized = false;
+    protected $serviceLocator;
     
     public function setApplication($application)
     {
@@ -52,11 +57,10 @@ class Forward extends TranslatorAwareMessage
     protected function generateBody()
     {
         $message = new Mime\Message();
-        
-        
-        $text = $this->generateText();
+
+        $text = $this->generateHtml();
         $textPart = new Mime\Part($text);
-        $textPart->type = 'text/plain';
+        $textPart->type = 'text/html';
         $textPart->charset = 'UTF-8';
         $textPart->disposition = Mime\Mime::DISPOSITION_INLINE;
         $message->addPart($textPart);
@@ -144,6 +148,43 @@ class Forward extends TranslatorAwareMessage
         }
               
         return trim($text);
+    }
+
+    /**
+     * Generates a mail containing an Application.
+     *
+     * @return mixed
+     */
+    protected function generateHtml(){
+
+         // ServiceManager->MailPluginManager->MailService
+
+         $services = $this->getServiceLocator()->getServiceLocator();
+
+         /**
+          * "ViewHelperManager" desfined by ZF2
+          *  see http://framework.zend.com/manual/2.0/en/modules/zend.mvc.services.html#viewmanager
+          */
+         $viewManager = $services->get('ViewHelperManager');
+
+         return $viewManager->get("partial")->__invoke('applications/mail/forward', array("application"=>$this->application));
+
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return Container
+     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+        return $this;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
     }
 }
 
