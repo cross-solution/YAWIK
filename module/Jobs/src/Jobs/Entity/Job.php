@@ -229,6 +229,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     protected $templateValues;
 
+
+    /**
+     * Can contain various Portals
+     *
+     * @var array
+     * @ODM\Hash*/
+    protected $portals = array();
+
     /**
      * Flag indicating draft state of this job.
      *
@@ -716,6 +724,25 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         }
         $this->templateValues = $templateValues;
         return $this;
+    }
+
+    /**
+     *  @param Array
+     * {@inheritdoc}
+     */
+    public function setPortals(array $portals)
+    {
+        $this->portals = $portals;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return Array
+     */
+    public function getPortals()
+    {
+        return $this->portals;
     }
 
     /**

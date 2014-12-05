@@ -41,6 +41,21 @@ class Job extends Container
             )
         ));
 
+        $this->setForms(array(
+            'nameForm' => array(
+                'type' => 'Jobs/CompanyName',
+                'property' => true,
+            )
+        ));
+
+
+        $this->setForms(array(
+            'portalForm' => array(
+                'type' => 'Jobs/Portals',
+                'property' => true,
+            )
+        ));
+
         /*
         $this->setForms(array(
             'employersForm' => array(

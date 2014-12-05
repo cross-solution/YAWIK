@@ -140,6 +140,7 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
+
         )
     ),
        
@@ -164,7 +165,13 @@ return array(
             'Jobs/Description/Template'         => '\Jobs\Form\JobDescriptionTemplate',
             'Jobs/Preview'                      => '\Jobs\Form\JobPreview',
             'Jobs/PreviewFieldset'              => '\Jobs\Form\JobPreviewFieldset',
-            'Jobs/JobPreviewLink'               => '\Jobs\Form\JobPreviewLink'
+            'Jobs/JobPreviewLink'               => '\Jobs\Form\JobPreviewLink',
+            'Jobs/CompanyName'                  => '\Jobs\Form\JobCompanyName',
+            'Jobs/CompanyNameFieldset'          => '\Jobs\Form\JobCompanyNameFieldset',
+            'Jobs/CompanyNameElement'           => '\Jobs\Form\JobCompanyNameElement',
+            'Jobs/Portals'                      => '\Jobs\Form\JobPortals',
+            'Jobs/PortalsFieldset'              => '\Jobs\Form\JobPortalsFieldset',
+            'Jobs/PortalsElement'               => '\Jobs\Form\JobPortalsElement',
 
         ),
         'factories' => array(
@@ -190,5 +197,37 @@ return array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
-    
+
+    'portals' => array (
+        array(
+            'name' => 'test1',
+            'label' => /*@translate*/ 'stands in the front and is bold',
+            'headline' => /*@translate*/ 'stands above and is bold',
+            'long_label' => /*@translate*/ 'here is something %s and a little more',
+            'linktext' => /*@translate*/ 'linktext',
+        ),
+        array(
+            'name' => 'test2',
+            'label' => 'YAWIK',
+            'headline' => /*@translate*/ 'stands above and is bold',
+            'long_label' => /*@translate*/ 'here is something %s and a little more',
+            'linktext' => /*@translate*/ 'linktext',
+        ),
+        array(
+            'name' => 'test3',
+            'label' => 'Jobsintown',
+            'headline' => /*@translate*/ 'stands above and is bold',
+            'long_label' => /*@translate*/ 'here is something %s and a little more',
+            'linktext' => /*@translate*/ 'linktext',
+        ),
+        array(
+            'name' => 'test4',
+            'label' => 'eigene Homepage',
+            'headline' => /*@translate*/ 'stands above and is bold',
+            'long_label' => /*@translate*/ 'here is something %s and a little more',
+            'linktext' => /*@translate*/ 'linktext',
+        ),
+    ),
+
+
 );

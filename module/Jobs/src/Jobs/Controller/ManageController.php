@@ -79,7 +79,7 @@ class ManageController extends AbstractActionController {
     {
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
-        $pageToForm         = array(0 => 'locationForm', 1 => 'descriptionForm',  2 => 'previewForm');
+        $pageToForm         = array(0 => array('locationForm', 'nameForm', 'portalForm'), 1 => array('descriptionForm'),  2 => array('previewForm'));
         $request            = $this->getRequest();
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
@@ -133,7 +133,6 @@ class ManageController extends AbstractActionController {
             $errorMessage[] = $translator->translate('Accept the Terms');
         }
 
-
         $errorMessage = '<br />' . implode('<br />', $errorMessage);
         if ($isAjax) {
             $viewModel = new JsonModel(array('valid' => $valid, 'errors' => array(), 'errorMessage' => $errorMessage));
@@ -142,8 +141,9 @@ class ManageController extends AbstractActionController {
             if (isset($pageIdentifier)) {
                 $form->disableForm();
                 if (array_key_exists($pageIdentifier, $pageToForm)) {
-                    $actualFormIdentifier = $pageToForm[$pageIdentifier];
-                    $form->enableForm($actualFormIdentifier);
+                    foreach ($pageToForm[$pageIdentifier] as $actualFormIdentifier) {
+                        $form->enableForm($actualFormIdentifier);
+                    }
                 }
                 else {
                     throw new \RuntimeException('No form found for page ' . $pageIdentifier);
