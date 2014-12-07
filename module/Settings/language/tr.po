@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-16 16:05+0200\n"
-"PO-Revision-Date: 2014-11-27 17:07+0000\n"
+"PO-Revision-Date: 2014-12-07 15:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/yawik/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -24,27 +24,27 @@ msgstr ""
 
 #: src/Settings/Form/LanguageSettingsFieldset.php:24
 msgid "general settings"
-msgstr ""
+msgstr "Genel ayarlar"
 
 #: language/_annotated_strings.php:3
 msgid "choose your language"
-msgstr ""
+msgstr "Dil seçin"
 
 #: language/_annotated_strings.php:6
 msgid "English"
-msgstr ""
+msgstr "İngilizce"
 
 #: language/_annotated_strings.php:9
 msgid "French"
-msgstr ""
+msgstr "Fransız"
 
 #: language/_annotated_strings.php:12
 msgid "German"
-msgstr ""
+msgstr "Alman"
 
 #: language/_annotated_strings.php:15
 msgid "defines the languages of this frontend."
-msgstr ""
+msgstr "Bu önyüz dillerini tanımlar."
 
 #: language/_annotated_strings.php:18
 #, php-format

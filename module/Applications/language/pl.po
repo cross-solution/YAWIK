@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:38+0000\n"
+"PO-Revision-Date: 2014-12-04 21:21+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/yawik/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: view/applications/manage/index.phtml:27
 msgid "Applications"
-msgstr ""
+msgstr "Aplikacje"
 
 #: view/applications/manage/index.phtml:37
 msgid "List of received applications"
@@ -811,7 +811,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:189
 msgid "Summary"
-msgstr ""
+msgstr "Streszczenie"
 
 #: language/_annotated_strings.php:192
 msgid "all"

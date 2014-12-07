@@ -215,7 +215,7 @@ translate('Application confirmation');
 //: ./src/Applications/Controller/IndexController.php:271
 translate('your application was sent successfully');
 
-//: ./src/Applications/Mail/Forward.php:40
+//: ./src/Applications/Mail/Forward.php:45
 translate('Fwd: Application to "%s" dated %s');
 
 //: ./src/Applications/Mail/NewApplication.php:50

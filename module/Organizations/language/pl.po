@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-29 16:21+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 21:21+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/yawik/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -43,11 +43,11 @@ msgstr ""
 
 #: language/_annotated_strings.php:21
 msgid "street"
-msgstr ""
+msgstr "ulica"
 
 #: language/_annotated_strings.php:24
 msgid "house number"
-msgstr ""
+msgstr "numer domu"
 
 #: language/_annotated_strings.php:27
 msgid "Postalcode"

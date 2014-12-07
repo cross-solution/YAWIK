@@ -8,61 +8,61 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-16 16:05+0200\n"
-"PO-Revision-Date: 2014-12-04 21:21+0000\n"
+"PO-Revision-Date: 2014-09-16 14:02+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/yawik/language/pl/)\n"
+"Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
 #: language/_annotated_strings.php:33
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: src/Settings/Form/LanguageSettingsFieldset.php:24
 msgid "general settings"
-msgstr "ustawienia ogólne"
+msgstr "general settings"
 
 #: language/_annotated_strings.php:3
 msgid "choose your language"
-msgstr "Wybierz język"
+msgstr "choose your language"
 
 #: language/_annotated_strings.php:6
 msgid "English"
-msgstr "Angielski"
+msgstr "English"
 
 #: language/_annotated_strings.php:9
 msgid "French"
-msgstr "Francuski"
+msgstr "French"
 
 #: language/_annotated_strings.php:12
 msgid "German"
-msgstr "Niemiecki"
+msgstr "German"
 
 #: language/_annotated_strings.php:15
 msgid "defines the languages of this frontend."
-msgstr "definiuje się języków to nakładka."
+msgstr "defines the languages of this frontend."
 
 #: language/_annotated_strings.php:18
 #, php-format
 msgid "Customize enabled elements for %s"
-msgstr ""
+msgstr "Customize enabled elements for %s"
 
 #: language/_annotated_strings.php:21
 msgid "Activate"
-msgstr ""
+msgstr "Activate"
 
 #: language/_annotated_strings.php:24
 msgid "Enables the form element customization."
-msgstr ""
+msgstr "Enables the form element customization."
 
 #: language/_annotated_strings.php:27
 msgid "Changes successfully saved"
-msgstr ""
+msgstr "Changes successfully saved"
 
 #: language/_annotated_strings.php:30
 msgid "Changes could not be saved"
-msgstr ""
+msgstr "Changes could not be saved"

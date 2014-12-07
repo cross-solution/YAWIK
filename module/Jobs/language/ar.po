@@ -9,129 +9,129 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-04 21:03+0100\n"
-"PO-Revision-Date: 2014-12-07 15:32+0000\n"
+"PO-Revision-Date: 2014-12-07 13:10+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/yawik/language/tr/)\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: view/iframe/iFrame.phtml:2
 msgid "Job details"
-msgstr "İş detayları"
+msgstr "تفاصيل الوظيفة"
 
 #: view/iframe/iFrame.phtml:13
 msgid ""
 "You are using a default template. You are free to create your own template, "
 "just contact the developing team for integration"
-msgstr "Bir varsayılan şablonu kullanıyor. Kendi şablon oluşturmak için ücretsiz, sadece entegrasyon gelişmekte ekibine başvurun"
+msgstr "كنت تستخدم القالب الافتراضي. أنت حر في خلق القالب الخاص بك، فقط اتصل فريق النامية من أجل التكامل"
 
 #: view/form/apply-identifier.phtml:22
 msgid "Apply link"
-msgstr "Bağlantıyı Uygula"
+msgstr "تطبيق صلة"
 
 #: view/form/list-filter.phtml:65
 msgid "Search"
-msgstr "Arama"
+msgstr "بحث"
 
 #: view/sidebar/index.phtml:14
 msgid "My jobs"
-msgstr "Benim işler"
+msgstr "بلدي وظائف"
 
 #: view/sidebar/index.phtml:14
 msgid "All jobs"
-msgstr "Bütün işler"
+msgstr "جميع الوظائف"
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
 #: language/_annotated_strings.php:78
 msgid "Jobs"
-msgstr "İşler"
+msgstr "وظائف"
 
 #: view/jobs/index/index.phtml:6
 msgid "List of all jobs"
-msgstr "Tüm işlerin listesi"
+msgstr "قائمة بجميع وظائف"
 
 #: view/jobs/index/index.phtml:8
 msgid "Public Job Opportunities"
-msgstr "Kamu İş Fırsatları"
+msgstr "فرص العمل العامة"
 
 #: view/jobs/index/index.ajax.phtml:13
 msgid "Date of receipt"
-msgstr "Alınış tarihi"
+msgstr "تاريخ استلام"
 
 #: view/jobs/index/index.ajax.phtml:14
 msgid "Title of the job"
-msgstr "İşin Adı"
+msgstr "عنوان العمل"
 
 #: view/jobs/index/index.ajax.phtml:15 language/_annotated_strings.php:30
 msgid "Location"
-msgstr "Konum"
+msgstr "موقع"
 
 #: view/jobs/index/index.ajax.phtml:16
 msgid "Companyname"
-msgstr "Firma Adı"
+msgstr "اسم الشركة"
 
 #: view/jobs/index/index.ajax.phtml:17
 msgid "Reference"
-msgstr "Referans"
+msgstr "إشارة"
 
 #: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
 msgid "Applications"
-msgstr "Uygulamalar"
+msgstr "تطبيقات"
 
 #: view/jobs/index/index.ajax.phtml:20
 msgid "Status"
-msgstr "Durum"
+msgstr "وضع"
 
 #: view/jobs/index/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
 msgid "Action"
-msgstr "Eylem"
+msgstr "عمل"
 
 #: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:26
 msgid "total"
-msgstr "toplam"
+msgstr "مجموع"
 
 #: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:32
 msgid "unread"
-msgstr "okunmamış"
+msgstr "غير مقروءة"
 
 #: view/jobs/index/index.ajax.phtml:66
 msgid "draft"
-msgstr "taslak"
+msgstr "مسودة"
 
 #: view/jobs/index/index.ajax.phtml:89 view/jobs/index/view.phtml:18
 msgid "Apply"
-msgstr "Uygulamak"
+msgstr "تطبق"
 
 #: view/jobs/index/dashboard.phtml:3
 msgid "Current Jobs"
-msgstr "Güncel İşler"
+msgstr "الوظائف الحالية"
 
 #: view/jobs/index/dashboard.phtml:3
 msgid "Famous jobs"
-msgstr "Ünlü işler"
+msgstr "وظائف الشهيرة"
 
 #: view/jobs/index/dashboard.phtml:8
 msgid "Job"
-msgstr "Iş"
+msgstr "وظيفة"
 
 #: view/jobs/index/dashboard.phtml:9
 msgid "Date"
-msgstr "Tarih"
+msgstr "تاريخ"
 
 #: view/jobs/index/view.phtml:15
 msgid "Online since"
-msgstr "Online since"
+msgstr "على الانترنت منذ عام"
 
 #: view/jobs/index/terms.phtml:22
 msgid "Terms and Conditions"
-msgstr "Şartlar ve koşullar"
+msgstr "الأحكام والشروط"
 
 #: view/jobs/manage/form.phtml:15
 msgid "Publish a job"
-msgstr "Bir işi Yayınla"
+msgstr "نشر على وظيفة"
 
 #: view/jobs/manage/form.phtml:17
 #, php-format
@@ -140,7 +140,7 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:36
 msgid "Preview of your job posting"
-msgstr "Iş ilanıyla Önizleme"
+msgstr "معاينة نشر وظيفتك"
 
 #: view/jobs/manage/form.phtml:47
 #, php-format
@@ -151,105 +151,105 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:48
 msgid "here"
-msgstr "işte"
+msgstr "هنا"
 
 #: view/jobs/manage/form.phtml:52
 msgid "Summary"
-msgstr "Özet"
+msgstr "ملخص"
 
 #: view/jobs/manage/form.phtml:61
 msgid ""
 "Your job position is incomplete. You have to set a job title, the location "
 "of the job and accept terms and conditions to be able to publish the job."
-msgstr "Sizin işiniz pozisyonu eksik. İşi yayınlamak edebilmek için şartlarını ve koşullarını iş unvanı, işin konumunu ayarlamak ve kabul etmek zorunda."
+msgstr "موقف عملك غير كامل. لديك لتحديد المسمى الوظيفي، ومكان العمل، واستعرض الأحكام والشروط لتكون قادرة على نشر هذا المنصب."
 
 #: view/jobs/manage/form.phtml:73
 msgid "Next to enter the job"
-msgstr "İşi girmek için Sonraki"
+msgstr "بجانب إدخال وظيفة"
 
 #: view/jobs/manage/form.phtml:76 view/jobs/manage/form.phtml:80
 msgid "Back"
-msgstr "Geri"
+msgstr "إلى الوراء"
 
 #: view/jobs/manage/form.phtml:77
 msgid "Next to preview the job"
-msgstr "İşi önizlemek Sonraki"
+msgstr "التالي لمعاينة وظيفة"
 
 #: view/jobs/manage/form.phtml:81
 msgid "Next to publish the job"
-msgstr "İşi yayınlamak Sonraki"
+msgstr "بجانب نشر وظيفة"
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:31
 msgid "Description"
-msgstr "Tanım"
+msgstr "وصف"
 
 #: src/Jobs/Form/JobEmployersFieldset.php:29
 msgid "Employers"
-msgstr "İşverenler"
+msgstr "أرباب العمل"
 
 #: src/Jobs/Form/JobPreviewFieldset.php:30
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "معاينة"
 
 #: src/Jobs/Controller/ManageController.php:125
 msgid "No Title"
-msgstr "Başlık"
+msgstr "لا عنوان"
 
 #: src/Jobs/Controller/ManageController.php:129
 msgid "No Location"
-msgstr "Hiçbir Yer"
+msgstr "الموقع غير"
 
 #: src/Jobs/Controller/ManageController.php:133
 msgid "Accept the Terms"
-msgstr "Şartları kabul"
+msgstr "قبول شروط"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
-msgstr "işler için arama"
+msgstr "البحث عن وظائف"
 
 #: language/_annotated_strings.php:6
 msgid "Job qualification"
-msgstr "İş yeterlilik"
+msgstr "التأهيل الوظيفي"
 
 #: language/_annotated_strings.php:9
 msgid "Job benefits"
-msgstr "İş faydaları"
+msgstr "فوائد العمل"
 
 #: language/_annotated_strings.php:12
 msgid "Job requirements"
-msgstr "İş gereksinimleri"
+msgstr "متطلبات الوظيفة"
 
 #: language/_annotated_strings.php:15
 msgid "Company"
-msgstr "Şirket"
+msgstr "شركة"
 
 #: language/_annotated_strings.php:18 language/_annotated_strings.php:66
 msgid "Job title"
-msgstr "Iş unvanı"
+msgstr "المسمى الوظيفي"
 
 #: language/_annotated_strings.php:21
 msgid "Please enter the job title"
-msgstr "Iş unvanı giriniz"
+msgstr "الرجاء إدخال المسمى الوظيفي"
 
 #: language/_annotated_strings.php:24
 msgid "Apply Identifier"
-msgstr "Tanımlayıcı Uygula"
+msgstr "تطبيق معرف"
 
 #: language/_annotated_strings.php:27
 msgid "Job description"
-msgstr "Iş tanımı"
+msgstr "المسمى الوظيفي"
 
 #: language/_annotated_strings.php:33
 msgid "Please enter the location of the job"
-msgstr "Iş yerini girin"
+msgstr "من فضلك ادخل موقع العمل"
 
 #: language/_annotated_strings.php:36
 msgid "Customize apply form"
-msgstr "Formu uygulamak özelleştirme"
+msgstr "تخصيص تطبيق النموذج"
 
 #: language/_annotated_strings.php:39
 msgid "Terms and conditions"
-msgstr "Şartlar ve koşullar"
+msgstr "الأحكام والشروط"
 
 #: language/_annotated_strings.php:42
 #, php-format
@@ -258,7 +258,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:45
 msgid "terms an conditions"
-msgstr "terimler koşullar"
+msgstr "حيث والشروط"
 
 #: language/_annotated_strings.php:48
 msgid "The apply identifier \"%value%\" is already in use."
@@ -266,44 +266,44 @@ msgstr ""
 
 #: language/_annotated_strings.php:51
 msgid "Title and job location"
-msgstr "Başlık ve iş yeri"
+msgstr "العنوان ومكان الوظيفة"
 
 #: language/_annotated_strings.php:54
 msgid "Show all jobs"
-msgstr "Tüm işleri göster"
+msgstr "عرض جميع الوظائف"
 
 #: language/_annotated_strings.php:57
 msgid "Show my jobs"
-msgstr "Benim iş Göster"
+msgstr "عرض وظائف بلدي"
 
 #: language/_annotated_strings.php:60
 msgid "Active"
-msgstr "Aktif"
+msgstr "نشط"
 
 #: language/_annotated_strings.php:63
 msgid "Inactive"
-msgstr "Pasif"
+msgstr "غير فعال"
 
 #: language/_annotated_strings.php:69
 msgid "Publish job"
-msgstr "İşi Yayınla"
+msgstr "نشر وظيفة"
 
 #: language/_annotated_strings.php:72
 msgid "Job saved"
-msgstr "İş kaydedildi"
+msgstr "حفظ وظيفة"
 
 #: language/_annotated_strings.php:75
 msgid "There were errors in the form"
-msgstr "Hatalar şeklinde vardı"
+msgstr "كانت هناك أخطاء في شكل"
 
 #: language/_annotated_strings.php:81
 msgid "Overview"
-msgstr "Genel bakış"
+msgstr "نظرة عامة"
 
 #: language/_annotated_strings.php:84
 msgid "Create job"
-msgstr "İşi oluştur"
+msgstr "خلق فرص العمل"
 
 #: language/_annotated_strings.php:87
 msgid "Edit job"
-msgstr "Düzenleme işi"
+msgstr "تحرير العمل"

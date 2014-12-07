@@ -9,60 +9,60 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-07 15:41+0000\n"
+"PO-Revision-Date: 2014-12-07 11:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/yawik/language/tr/)\n"
+"Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: view/partial/loading-popup.phtml:16
 msgid "Loading"
-msgstr "Yükleme"
+msgstr "تحميل"
 
 #: view/partial/pagination-control.phtml:19
 #: view/partial/pagination-control.phtml:23
 msgid "First"
-msgstr "Ilk"
+msgstr "أولا"
 
 #: view/partial/pagination-control.phtml:28
 #: view/partial/pagination-control.phtml:31
 msgid "Back"
-msgstr "Geri"
+msgstr "إلى الوراء"
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:39
 msgid "Next"
-msgstr "Sonraki"
+msgstr "التالى"
 
 #: view/partial/pagination-control.phtml:43
 #: view/partial/pagination-control.phtml:47
 msgid "Last"
-msgstr "Son"
+msgstr "آخر"
 
 #: view/form/permissions-collection.phtml:12
 msgid "Add permission"
-msgstr "Izni ekle"
+msgstr "إضافة إذن"
 
 #: view/core/index/index.phtml:11
 msgid "Home"
-msgstr "Ev"
+msgstr "منزل"
 
 #: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
-msgstr "YAWIK Hoşgeldiniz!"
+msgstr "مرحبا بكم في YAWIK!"
 
 #: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
-msgstr "Biz İşverenler ve başvuru bağlayan konum"
+msgstr "نحن ربط التوظيف والمتقدمين"
 
 #: view/core/index/index.phtml:18
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
-msgstr "Favorit sosyal ağı kullanarak açık kaynak kodlu bir başvuranın izleme sistemine Girişi"
+msgstr "تسجيل الدخول إلى النظام المصدر مقدم الطلب تتبع المفتوح باستخدام الشبكة الاجتماعية الخاصة بك FAVORIT"
 
 #: view/core/index/index.phtml:22
 #, php-format
@@ -71,19 +71,19 @@ msgstr ""
 
 #: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
-msgstr "duyarlı tasarım (bootstrap3 ve yazı müthiş kullanır)"
+msgstr "تصميم استجابة (يستخدم bootstrap3 والخط رهيبة)"
 
 #: view/core/index/index.phtml:32
 msgid "multilingual"
-msgstr "çok dilli"
+msgstr "متعدد اللغات"
 
 #: view/core/index/index.phtml:33
 msgid "ready for social recruiting"
-msgstr "Sosyal işe hazır"
+msgstr "جاهزة للتجنيد الاجتماعي"
 
 #: view/core/index/index.phtml:34
 msgid "enter job ads"
-msgstr "iş ilanları girin"
+msgstr "إدخال إعلانات الوظائف"
 
 #: view/core/index/index.phtml:35
 #, php-format
@@ -92,92 +92,92 @@ msgstr ""
 
 #: view/core/index/index.phtml:39
 msgid "manage applications"
-msgstr "uygulamaları yönetmek"
+msgstr "إدارة التطبيقات"
 
 #: view/core/index/index.phtml:40
 msgid "open and free software"
-msgstr "açık ve özgür yazılım"
+msgstr "البرمجيات مفتوحة وحرة"
 
 #: view/core/index/index.phtml:48
 msgid "Developer News"
-msgstr "Geliştirici Haberler"
+msgstr "المطور أخبار"
 
 #: view/core/index/index.phtml:65
 msgid "Recruiter News"
-msgstr "İşveren Haberleri"
+msgstr "المجند الأخبار"
 
 #: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
 msgid "Dashboard"
-msgstr "Gösterge paneli"
+msgstr "لوحة القيادة"
 
 #: view/core/index/dashboard-widget.phtml:19
 msgid "Error loading widget."
-msgstr "Yüklenirken hata Widget."
+msgstr "خطأ القطعة التحميل."
 
 #: view/error/index.phtml:11
 msgid "An error occurred"
-msgstr "Bir hata oluştu"
+msgstr "حدث خطأ"
 
 #: view/error/index.phtml:18 view/error/403.phtml:20 view/error/404.phtml:64
 msgid "Additional information"
-msgstr "Ek Bilgiler"
+msgstr "معلومات إضافية"
 
 #: view/error/index.phtml:21 view/error/index.phtml:45 view/error/403.phtml:23
 #: view/error/403.phtml:47 view/error/404.phtml:67 view/error/404.phtml:91
 msgid "File"
-msgstr "Dosya"
+msgstr "ملف"
 
 #: view/error/index.phtml:25 view/error/index.phtml:49 view/error/403.phtml:27
 #: view/error/403.phtml:51 view/error/404.phtml:71 view/error/404.phtml:95
 msgid "Message"
-msgstr "Mesaj"
+msgstr "رسالة"
 
 #: view/error/index.phtml:29 view/error/index.phtml:53 view/error/403.phtml:31
 #: view/error/403.phtml:55 view/error/404.phtml:75 view/error/404.phtml:99
 msgid "Stack trace"
-msgstr "Yığın izleme"
+msgstr "تتبع المكدس"
 
 #: view/error/index.phtml:39 view/error/403.phtml:41 view/error/404.phtml:85
 msgid "Previous exceptions"
-msgstr "Önceki istisnalar"
+msgstr "الاستثناءات السابقة"
 
 #: view/error/index.phtml:68 view/error/403.phtml:70 view/error/404.phtml:114
 msgid "No Exception available"
-msgstr "Yok İstisna"
+msgstr "لا استثناء متاح"
 
 #: view/error/403.phtml:12
 msgid "A 403 error occurred"
-msgstr "Bir 403 hata oluştu"
+msgstr "حدث خطأ 403"
 
 #: view/error/404.phtml:12
 msgid "A 404 error occurred"
-msgstr "Bir 404 hata oluştu"
+msgstr "حدث خطأ 404"
 
 #: view/error/404.phtml:21
 msgid "The requested controller was unable to dispatch the request."
-msgstr "İstenen denetleyici isteği göndermek için açamadı."
+msgstr "لم يتمكن من ارسال طلب وحدة تحكم المطلوبة."
 
 #: view/error/404.phtml:24
 msgid ""
 "The requested controller could not be mapped to an existing controller "
 "class."
-msgstr "İstenen denetleyici varolan denetleyici sınıfa eşlenen olamazdı."
+msgstr "لا يمكن تعيين وحدة تحكم المطلوبة لفئة تحكم القائمة."
 
 #: view/error/404.phtml:27
 msgid "The requested controller was not dispatchable."
-msgstr "İstenen kontrolör yük dağıtımı değildi."
+msgstr "وكان تحكم المطلوبة لا dispatchable."
 
 #: view/error/404.phtml:30
 msgid "The requested URL could not be matched by routing."
-msgstr "İstenen URL yönlendirme ile eşleşen olamazdı."
+msgstr "قد لا تكون مطابقة URL المطلوب من قبل التوجيه."
 
 #: view/error/404.phtml:33
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr "Biz 404 oluşturulan neden şu anda belirleyemiyor."
+msgstr "ونحن لا يمكن تحديد في هذا الوقت لماذا تم إنشاؤها 404."
 
 #: view/error/404.phtml:45
 msgid "Controller"
-msgstr "Kontrolör"
+msgstr "مراقب"
 
 #: view/error/404.phtml:52
 #, php-format
@@ -190,25 +190,25 @@ msgstr "YAWIK"
 
 #: view/layout/layout.phtml:84
 msgid "Help to translate YAWIK"
-msgstr "YAWIK çevirmek için yardım"
+msgstr "مساعدة لترجمة YAWIK"
 
 #: view/layout/layout.phtml:114
 msgid "All rights reserved."
-msgstr "Her hakkı saklıdır."
+msgstr "جميع الحقوق محفوظة."
 
 #: src/Core/Form/PermissionsCollection.php:36
 msgid "Permissions"
-msgstr "İzinler"
+msgstr "ضوابط"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:104
 #: src/Core/Form/View/Helper/FormImageUpload.php:78
 msgid "The file is too big"
-msgstr "dosya çok büyük"
+msgstr "الملف كبير جدا"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:105
 #: src/Core/Form/View/Helper/FormImageUpload.php:79
 msgid "The file type is not supported"
-msgstr "dosya türü desteklenmiyor"
+msgstr "غير معتمد نوع الملف"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:106
 #, php-format
@@ -217,125 +217,125 @@ msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:152
 msgid "Click here to add files or use drag and drop."
-msgstr "Dosyaları eklemek veya sürükle ve bırak için tıklayınız."
+msgstr "انقر هنا لإضافة الملفات أو استخدام السحب والإسقاط."
 
 #: src/Core/Form/View/Helper/FormImageUpload.php:40
 msgid "Click here to add an image or use drag and drop."
-msgstr "Bir görüntü ya da kullanım sürükle ve bırak eklemek için tıklayınız."
+msgstr "انقر هنا لإضافة صورة أو استخدام السحب والإسقاط."
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
 msgid "processing"
-msgstr "işleme"
+msgstr "تحويل"
 
 #: src/Core/Form/View/Helper/SummaryForm.php:167
 msgid "Edit"
-msgstr "Düzenle"
+msgstr "تحرير"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:12
 #: language/_annotated_strings.php:90
 msgid "general settings"
-msgstr "Genel ayarlar"
+msgstr "الإعدادات العامة"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:21
 msgid "Save"
-msgstr "Kaydet"
+msgstr "حفظ"
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:24
 msgid "Cancel"
-msgstr "Iptal"
+msgstr "إلغاء"
 
 #: language/_annotated_strings.php:15
 msgid "Apply filter"
-msgstr "Filtreyi Uygula"
+msgstr "تطبيق فلتر"
 
 #: language/_annotated_strings.php:18
 msgid "Reset filter"
-msgstr "Sıfırlama filtresi"
+msgstr "إعادة تعيين مرشح"
 
 #: language/_annotated_strings.php:27
 msgid "Rights"
-msgstr "Haklar"
+msgstr "حقوق"
 
 #: language/_annotated_strings.php:30
 msgid "View"
-msgstr "Görünüm"
+msgstr "رأي"
 
 #: language/_annotated_strings.php:33
 msgid "Write"
-msgstr "Yazmak"
+msgstr "أكتب"
 
 #: language/_annotated_strings.php:36
 msgid "Not Rated"
-msgstr "Anma Değil"
+msgstr "غير مصنفة"
 
 #: language/_annotated_strings.php:39
 msgid "Poor"
-msgstr "Fakir"
+msgstr "فقير"
 
 #: language/_annotated_strings.php:42
 msgid "Bad"
-msgstr "Kötü"
+msgstr "سيئة"
 
 #: language/_annotated_strings.php:45
 msgid "Average"
-msgstr "Ortalama"
+msgstr "متوسط"
 
 #: language/_annotated_strings.php:48
 msgid "Good"
-msgstr "Iyi"
+msgstr "خير"
 
 #: language/_annotated_strings.php:51
 msgid "Excellent"
-msgstr "Mükemmel"
+msgstr "ممتاز"
 
 #: language/_annotated_strings.php:54
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr "Bir telefon numarası girin. Sen vergilendirmesi biçimi kullanabilirsiniz. Sadece rakam ve '+'."
+msgstr "الرجاء إدخال رقم الهاتف. يمكنك استخدام شكل هيئة المعونة. فقط أرقام و'+'."
 
 #: language/_annotated_strings.php:57
 msgid "Remove all"
-msgstr "Tümünü kaldır"
+msgstr "إزالة جميع"
 
 #: language/_annotated_strings.php:60
 msgid "choose your language"
-msgstr "Dil seçin"
+msgstr "اختيار لغتك"
 
 #: language/_annotated_strings.php:63
 msgid "English"
-msgstr "İngilizce"
+msgstr "الإنجليزية"
 
 #: language/_annotated_strings.php:66
 msgid "French"
-msgstr "Fransız"
+msgstr "اللغة الفرنسية"
 
 #: language/_annotated_strings.php:69
 msgid "German"
-msgstr "Alman"
+msgstr "ألماني"
 
 #: language/_annotated_strings.php:72
 msgid "Italian"
-msgstr "İtalyan"
+msgstr "الإيطالي"
 
 #: language/_annotated_strings.php:75
 msgid "Polish"
-msgstr "Lehçe"
+msgstr "البولندية"
 
 #: language/_annotated_strings.php:78
 msgid "Russian"
-msgstr "Rus"
+msgstr "الروسية"
 
 #: language/_annotated_strings.php:81
 msgid "Turkish"
-msgstr "Türk"
+msgstr "اللغة التركية"
 
 #: language/_annotated_strings.php:84
 msgid "Spanish"
-msgstr "İspanyolca"
+msgstr "الأسبانية"
 
 #: language/_annotated_strings.php:87
 msgid "defines the languages of this frontend."
-msgstr "Bu önyüz dillerini tanımlar."
+msgstr "ويعرف لغات هذه الواجهة."
