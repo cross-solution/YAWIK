@@ -35,7 +35,8 @@ class JobCompanyNameFieldset extends Fieldset
                 'property' => true,
                 'name' => 'company',
                 'options' => array(
-                    'label' => /*@translate*/ 'Company Name'
+                    'label' => /*@translate*/ 'Companyname',
+                    //'description' => /*@translate*/ 'The name of the hiring organization will be shown in search results.'
                 ),
             )
         );

@@ -18,7 +18,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 class JobCompanyName extends SummaryForm
 {
     protected $baseFieldset = 'Jobs/CompanyNameFieldset';
-    protected $label = /*@translate*/ 'Company Name';
+    protected $label = /*@translate*/ 'Companyname';
 
     public function getHydrator()
     {

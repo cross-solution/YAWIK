@@ -45,6 +45,10 @@ class Job extends Container
             'nameForm' => array(
                 'type' => 'Jobs/CompanyName',
                 'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                    'description' => /*translate*/ 'Please enter the name of the hiring organization.'
+                )
             )
         ));
 
@@ -53,6 +57,10 @@ class Job extends Container
             'portalForm' => array(
                 'type' => 'Jobs/Portals',
                 'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                    'description' => /*translate*/ 'Please choose the portals, where you wish to publish your job opening.'
+                )
             )
         ));
 

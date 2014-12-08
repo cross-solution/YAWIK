@@ -7,8 +7,16 @@
  * @license   MIT
  */
 /**
- * render the application as an PDF file
+ * render the application as a simple HTML.
+ *
+ * This HTML is used to generate a PDF
  * @see http://mpdf1.com/manual/index.php
+ *
+ * and this is used to generate the Mail, if an application is forwarded
+ * or if an applicant want's to get his application via CC.
+ *
+ * The HTML should be standalone. No external references.
+ *
  */
 use Applications\Entity\StatusInterface as Status;
       
@@ -53,28 +61,29 @@ th {
 	background-color: #f4f4f4;
 }
 .photo {
- 	width: 150px;
+ 	width: 100px;
 }
 </style>
 <!--suppress HtmlUnknownTag -->
 <sethtmlpageheader name="header" value="on" show-this-page="1"/>
 <!--suppress HtmlUnknownTag -->
 <htmlpageheader name="header">
-<div class="header">Bewerbung vom: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
+<div class="header"><?php echo $this->translate('Bewerbung vom')?>: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
 </htmlpageheader>
 <!--suppress HtmlUnknownTag -->
 <htmlpagefooter name="footer">
+<!-- @todo the following header makes no sense in Emails. -->
 <table width="100%" class="footer"><tr>
     <td width="33%">{DATE d.m.Y}</td>
     <td width="33%" align="center">{PAGENO}/{nbpg}</td>
-    <td width="33%" style="text-align: right; ">Bewerbung</td>
+    <td width="33%" style="text-align: right; "><?php echo $this->translate('Bewerbung')?></td>
     </tr></table>
 </htmlpagefooter>
 <!--suppress HtmlUnknownTag -->
 <sethtmlpagefooter name="footer" value="on"/>
 <h1><?php echo $this->translate('application details') ?></h1>
 <h2><?php echo $this->translate('personal information')?></h2>
-<table class="personal-information" width="100%">
+<table class="personal-information">
  <tr>
   <td>
    <table class="address">
@@ -106,7 +115,7 @@ th {
   </td>
   <td align="right">
    <?php if ($this->application->contact->image):?>
-   <img src="data:;base64,<?php echo base64_encode($this->application->contact->image->content) ?>"  class="photo">
+   <img src="data:;base64,<?php echo base64_encode($this->application->contact->image->content) ?>" class="photo">
    <?php endif ?> 
   </td>
  </tr>
@@ -176,7 +185,7 @@ th {
    <td><?php echo $this->DateFormat($education->endDate,'middle','null',$this->lang,'MMM Y') ?></td>
    <td><?php echo $education->description ?></td>
   </tr>
-<?php endforeach; // eucations?>    
+<?php endforeach; // educations?>
 </table>
 <?php endif;?> 
 
