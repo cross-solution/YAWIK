@@ -36,7 +36,8 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*translate*/ 'Please choose a descriptive title and a location for your job posting '
+                    'description' => /*translate*/ 'Please choose a descriptive title and a location for your job posting ',
+                    'display_mode' => 'summary'
                 )
             )
         ));
@@ -47,7 +48,8 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*translate*/ 'Please enter the name of the hiring organization.'
+                    'description' => /*translate*/ 'Please enter the name of the hiring organization.',
+                    'display_mode' => 'summary'
                 )
             )
         ));
@@ -59,7 +61,8 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*translate*/ 'Please choose the portals, where you wish to publish your job opening.'
+                    'description' => /*translate*/ 'Please choose the portals, where you wish to publish your job opening.',
+                    'display_mode' => 'summary'
                 )
             )
         ));
@@ -102,7 +105,7 @@ class Job extends Container
              $('form').on('yk.forms.done', function(event, data) {
                 //if (typeof data != 'undefined' && typeof data['data'] != 'undefined') {}
                 if (typeof data != 'undefined' && typeof data['data'] != 'undefined') {
-                    if (typeof data['data']['valid'] != 'undefined' && data['data']['valid'] === true) {
+                    if (typeof data['data']['jobvalid'] != 'undefined' && data['data']['jobvalid'] === true) {
                         $('#job_incomplete').hide();
                         $('#finalize_jobentry').show();
                     }

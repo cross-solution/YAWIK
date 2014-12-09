@@ -57,10 +57,15 @@ if ($this->page == 2):
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
 
 <?php if ($page == 2): ?>
-    <div id="job_incomplete" class="alert alert-warning ">
-    <?php echo $this->translate('Your job position is incomplete. You have to set a job title, the location of the job and accept terms and conditions to be able to publish the job.'); ?>
+    <div id="job_incomplete" class="alert alert-warning " <?php if (isset($this->jobvalid) && $this->jobvalid == true)
+        {
+            echo 'style = "display: none;"';
+        } ?>>
+    <?php echo $this->translate('Your job position is incomplete.'); ?>
     <span id="job_errormessages">
-    <?php if (isset($this->valid) && $this->valid == false && !empty($this->errorMessage)) echo ($this->errorMessage); ?>
+    <?php if (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) {
+        echo ($this->errorMessage);
+    } ?>
     </span>
     </div>
 <?php endif; ?>
@@ -78,7 +83,7 @@ if ($this->page == 2):
         break;
     case "2":
         echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
-        echo '<a id="finalize_jobentry" style="display:none;" href="' . $this->basepath('/jobs/finalize?id=' . $this->job->id) . '" class="btn btn-primary">' . $this->translate('Next to publish the job') . '</a>' . PHP_EOL;
+        echo '<a id="finalize_jobentry" style="display:none;" href="' . $this->completionLink . '" class="btn btn-primary">' . $this->translate('Next to publish the job') . '</a>' . PHP_EOL;
     default:
 
     endswitch;

@@ -22,6 +22,25 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
         ),
         'may_terminate' => true,
         'child_routes' => array(
+            'completion' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/completion/:id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'completion',
+                        'defaults' => array(
+                            'defaults' => array(
+                                'id' => 0
+                            ),
+                            'constraints' => array(
+                                'id' => '[a-f0-9]+',
+                            ),
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'manage' => array(
                 'type' => 'Segment',
                 'options' => array(

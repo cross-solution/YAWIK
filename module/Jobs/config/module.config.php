@@ -110,6 +110,8 @@ return array(
     'service_manager' => array(
         'invokables' => array(
             'Jobs/PreviewLinkHydrator' => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
+            'Jobs/Listeners'           => 'Jobs\Listener\JobsListener',
+            'Jobs/Event'               => 'Jobs\Listener\Events\JobEvent',
         )
     ),
     

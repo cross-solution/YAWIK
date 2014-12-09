@@ -17,6 +17,8 @@ use Zend\View\Model\JsonModel;
 use Auth\Exception\UnauthorizedAccessException;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
+use Jobs\Listener\Events\JobEvent;
+use Core\Form\SummaryFormInterface;
 
 
 /**
@@ -31,8 +33,10 @@ class ManageController extends AbstractActionController {
         parent::attachDefaultListeners();
         $serviceLocator = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
+        $jobServices = $serviceLocator->get('Jobs/Listeners');
         $events = $this->getEventManager();
         $events->attach($defaultServices);
+        $events->attach($jobServices);
 
         return $this;
     }
@@ -77,6 +81,7 @@ class ManageController extends AbstractActionController {
      */
     protected function save()
     {
+        $serviceLocator     = $this->getServiceLocator();
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
         $pageToForm         = array(0 => array('locationForm', 'nameForm', 'portalForm'), 1 => array('descriptionForm'),  2 => array('previewForm'));
@@ -92,6 +97,7 @@ class ManageController extends AbstractActionController {
         // getting and setting the active form
         //$formIdentifier = "locationForm";
 
+        $valid = true;
         if (isset($formIdentifier) &&  $request->isPost()) {
             // at this point the form get instanciated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
@@ -103,39 +109,38 @@ class ManageController extends AbstractActionController {
             unset($postData['id']);
             unset($postData['applyId']);
             $instanceForm->setData($postData);
-            if ($instanceForm->isValid()) {
+            $valid = $instanceForm->isValid();
+            if ($valid) {
                 $title = $jobEntity->title;
                 $templateTitle = $jobEntity->templateValues->title;
                 if (empty($templateTitle)) {
                     $jobEntity->templateValues->title = $title;
                 }
-                $this->getServiceLocator()->get('repositories')->persist($jobEntity);
-                $this->notification()->success(/*@translate*/ 'Job saved');
+                $serviceLocator->get('repositories')->persist($jobEntity);
             } else {
-                $this->notification()->error(/*@translate*/ 'There were errors in the form');
             }
         }
 
         // validation
-        $valid = True;
+        $jobValid = True;
         $errorMessage = array();
-        $translator = $this->getServiceLocator()->get('mvcTranslator');
+        $translator = $serviceLocator->get('mvcTranslator');
         if (empty($jobEntity->title)) {
-            $valid = False;
+            $jobValid = False;
             $errorMessage[] = $translator->translate('No Title');
         }
         if (empty($jobEntity->location)) {
-            $valid = False;
+            $jobValid = False;
             $errorMessage[] = $translator->translate('No Location');
         }
         if (empty($jobEntity->termsAccepted)) {
-            $valid = False;
+            $jobValid = False;
             $errorMessage[] = $translator->translate('Accept the Terms');
         }
 
         $errorMessage = '<br />' . implode('<br />', $errorMessage);
         if ($isAjax) {
-            $viewModel = new JsonModel(array('valid' => $valid, 'errors' => array(), 'errorMessage' => $errorMessage));
+            $viewModel = new JsonModel(array('valid' => $valid, 'jobvalid' => $jobValid, 'errors' => array(), 'errorMessage' => $errorMessage));
         }
         else {
             if (isset($pageIdentifier)) {
@@ -143,6 +148,12 @@ class ManageController extends AbstractActionController {
                 if (array_key_exists($pageIdentifier, $pageToForm)) {
                     foreach ($pageToForm[$pageIdentifier] as $actualFormIdentifier) {
                         $form->enableForm($actualFormIdentifier);
+                        if ($jobEntity->isDraft()) {
+                            $actualForm = $form->get($actualFormIdentifier);
+                            if ($actualForm instanceOf SummaryFormInterface) {
+                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::RENDER_FORM);
+                            }
+                        }
                     }
                 }
                 else {
@@ -152,44 +163,27 @@ class ManageController extends AbstractActionController {
             $pageLinkNext = Null;
             $pageLinkPrevious = Null;
             if (0 < $pageIdentifier) {
-                $pageLinkPrevious = $this->url()
-                                         ->fromRoute(
-                                         'lang/jobs/manage',
-                                             array(),
-                                             array(
-                                                 'query' => array(
-                                                     'id'   => $jobEntity->id,
-                                                     'page' => $pageIdentifier - 1
-                                                 )
-                                             )
-                );
+                $pageLinkPrevious = $this->url()->fromRoute('lang/jobs/manage', array(), array('query' => array('id' => $jobEntity->id, 'page' => $pageIdentifier - 1)));
             }
             if ($pageIdentifier < count($pageToForm) - 1) {
-                $pageLinkNext = $this->url()->fromRoute(
-                                     'lang/jobs/manage',
-                                         array(
-                                         ),
-                                         array(
-                                             'query' => array(
-                                                 'id' => $jobEntity->id,
-                                                 'page' => $pageIdentifier + 1
-                                             )
-                                         )
-                );
+                $pageLinkNext     = $this->url()->fromRoute('lang/jobs/manage', array(), array('query' => array('id' => $jobEntity->id, 'page' => $pageIdentifier + 1)));
             }
-
+            $completionLink = $this->url()->fromRoute('lang/jobs/completion', array('id' => $jobEntity->id));
 
             $viewModel = $this->getViewModel($form);
             //$viewModel->setVariable('page_next', 1);
             $viewModel->setVariables(array(
                 'pageLinkPrevious' => $pageLinkPrevious,
                 'pageLinkNext' => $pageLinkNext,
+                'completionLink' => $completionLink,
                 'page' => $pageIdentifier,
                 'title' => $jobEntity->title,
                 'job' => $jobEntity,
                 'summary' => 'this is what we charge you for your offer...',
                 'valid' => $valid,
-                'errorMessage' => $errorMessage
+                'jobvalid' => $jobValid,
+                'errorMessage' => $errorMessage,
+
             ));
         }
         return $viewModel;
@@ -359,6 +353,19 @@ class ManageController extends AbstractActionController {
         return $model;
     }
 
+    public function completionAction() {
+
+        $serviceLocator = $this->getServiceLocator();
+        $jobEntity      = $this->getJob();
+        $jobEvent       = $serviceLocator->get('Jobs/Event');
+        $jobEvent->setJobEntity($jobEntity);
+        $this->getEventManager()->trigger(JobEvent::EVENT_JOB_NEW, $jobEvent);
+
+        $jobEntity->isDraft = false;
+        $serviceLocator->get('repositories')->persist($jobEntity);
+
+        return array('job' => $jobEntity);
+    }
 
 }
 

@@ -158,6 +158,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * Flag, wether privacy policy is accepted or not.
      *
      * @var bool
+     * @ODM\Boolean
      */
     protected $termsAccepted;
     
