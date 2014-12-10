@@ -18,6 +18,7 @@ use Jobs\Listener\Events\JobEvent;
 
 class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInterface
 {
+    // @TODO rename $serviceManager
     protected $serviceLocator;
 
     public function setServiceManager(ServiceManager $serviceManager) {
@@ -44,12 +45,16 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
     }
 
     public function jobNewMail(JobEvent $e) {
+        $serviceLocator = $this->getServiceManager();
+        $config = $serviceLocator->get('config');
+        // @TODO check with isset to avoid an exception
+        $email = $config['Auth']['default_user']['email'];
         $job = $e->getJobEntity();
         $mailService = $this->getServiceManager()->get('Core/MailService');
         $mail = $mailService->get('stringtemplate');
         $mail->setSubject('Subject');
         $mail->setBody('body ' . $job->id . ', Title: ' . $job->title);
-        $mail->setTo('weitz@cross-solution.de');
+        $mail->setTo($email);
         $mail->setFrom('from', 'fromName');
         $mail->addBcc('Adresse', 'displayName');
         $mailService->send($mail);

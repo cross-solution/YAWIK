@@ -147,6 +147,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Status of the job posting
+     *
+     * @TODO use predefined constants (like in Module Applications)
      * 
      * @var String
      * @ODM\String
