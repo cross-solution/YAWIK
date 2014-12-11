@@ -16,6 +16,11 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
+/**
+ * Defines the formular field "title" of a job opening.
+ *
+ * @package Jobs\Form
+ */
 class JobDescriptionTitle extends Form implements InputFilterProviderInterface
 {
 

@@ -13,6 +13,11 @@ namespace Jobs\Form;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * Factory for the job opening formular
+ *
+ * @package Jobs\Form
+ */
 class NewJobFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)

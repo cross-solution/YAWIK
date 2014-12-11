@@ -5,6 +5,11 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
+/**
+ * ??
+ *
+ * @package Jobs\Form
+ */
 class JobEmployersFieldset extends Fieldset
 {
 
@@ -13,11 +18,6 @@ class JobEmployersFieldset extends Fieldset
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
-            /*
-            $datetimeStrategy = new Hydrator\DatetimeStrategy();
-            $datetimeStrategy->setHydrateFormat(Hydrator\DatetimeStrategy::FORMAT_MYSQLDATE);
-            $hydrator->addStrategy('datePublishStart', $datetimeStrategy);
-             */
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;

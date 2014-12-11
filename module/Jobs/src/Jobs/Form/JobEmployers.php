@@ -6,6 +6,11 @@ use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
+/**
+ * Defines the formular for entering the hiring organization name
+ *
+ * @package Jobs\Form
+ */
 class JobEmployers extends Form implements InputFilterProviderInterface
 {
 

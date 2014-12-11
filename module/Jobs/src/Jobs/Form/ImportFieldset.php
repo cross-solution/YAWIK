@@ -11,6 +11,10 @@ use Core\Repository\Hydrator;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 
+/**
+ * Class ImportFieldset
+ * @package Jobs\Form
+ */
 class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 {
     
@@ -18,11 +22,6 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
     {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
-            /*
-            $datetimeStrategy = new Hydrator\DatetimeStrategy();
-            $datetimeStrategy->setHydrateFormat(Hydrator\DatetimeStrategy::FORMAT_MYSQLDATE);
-            $hydrator->addStrategy('datePublishStart', $datetimeStrategy);
-             */
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
@@ -106,7 +105,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             'name' => 'id'
         ));
         
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'applyId',
             'options' => array(
@@ -117,7 +116,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
         
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'company',
             'options' => array(
@@ -129,7 +128,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
            
         ));
         
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'title',
             'options' => array(
@@ -140,7 +139,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'link',
             'options' => array(
@@ -150,7 +149,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'location',
             'options' => array(
@@ -160,7 +159,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'contactEmail',
             'options' => array(
@@ -201,7 +200,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'reference',
             'options' => array(
@@ -211,7 +210,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Radio',
             'name' => 'camEnabled',
             'options' => array(
@@ -223,7 +222,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
         ));
        
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'logoRef',
             'options' => array(

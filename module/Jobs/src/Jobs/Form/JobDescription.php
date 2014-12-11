@@ -10,12 +10,14 @@
 
 namespace Jobs\Form;
 
-use Core\Form\Form;
 use Core\Form\Container;
-use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 
+/**
+ * Defines the formular for editing the job position.
+ *
+ * @package Jobs\Form
+ */
 class JobDescription extends Container implements ViewPartialProviderInterface
 {
 

@@ -13,6 +13,11 @@ namespace Jobs\Form;
 use Core\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 
+/**
+ * Defines the job opening search formular
+ *
+ * @package Jobs\Form
+ */
 class ListFilter extends Form implements ViewPartialProviderInterface
 {
     

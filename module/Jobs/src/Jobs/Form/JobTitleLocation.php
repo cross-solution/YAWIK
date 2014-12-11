@@ -6,6 +6,11 @@ use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
+/**
+ * Defines the base formular of a job opening.
+ *
+ * @package Jobs\Form
+ */
 class JobTitleLocation extends SummaryForm implements InputFilterProviderInterface
 {
 
