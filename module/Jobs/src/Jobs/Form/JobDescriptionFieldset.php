@@ -13,6 +13,11 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
+/**
+ * Defines the formular fields of a job opening
+ *
+ * @package Jobs\Form
+ */
 class JobDescriptionFieldset extends Fieldset
 {
 

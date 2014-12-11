@@ -14,7 +14,7 @@ use Zend\Form\Element;
 use Core\Form\Element\ViewHelperProviderInterface;
 
 /**
- * this Class is a rudimentary base for the future extension of entering the company-name
+ * this Class is a rudimentary base for the future extension of entering the hiring organization name
  *
  * Class JobNameElement
  * @package Jobs\Form

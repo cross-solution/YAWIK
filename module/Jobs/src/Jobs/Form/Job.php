@@ -14,7 +14,7 @@ use Core\Form\Container;
 use Zend\View\Renderer\PhpRenderer as Renderer;
 
 /**
- * Jobs forms container
+ * Jobs form container. Defines all formulars for entering a job position.
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  */
@@ -67,14 +67,7 @@ class Job extends Container
             )
         ));
 
-        /*
-        $this->setForms(array(
-            'employersForm' => array(
-                'type' => 'Jobs/Employers',
-                'property' => true,
-            )
-        ));
-        */
+
 
         $this->setForms(array(
             'descriptionForm' => array(

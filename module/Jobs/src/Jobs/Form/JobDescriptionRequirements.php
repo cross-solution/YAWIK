@@ -16,6 +16,11 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
+/**
+ * Defines the formular field "requirements" of a job opening
+ *
+ * @package Jobs\Form
+ */
 class JobDescriptionRequirements extends Form implements InputFilterProviderInterface
 {
 

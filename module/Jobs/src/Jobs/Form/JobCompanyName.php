@@ -15,9 +15,25 @@ use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
 
 
+/**
+ * Defines the form for entering the hiring organization name
+ *
+ * @package Jobs\Form
+ */
 class JobCompanyName extends SummaryForm
 {
+    /**
+     * formular fields are defined in JobsCompanyNameFieldset
+     *
+     * @var string
+     */
     protected $baseFieldset = 'Jobs/CompanyNameFieldset';
+
+    /**
+     * header of the formular box
+     *
+     * @var string
+     */
     protected $label = /*@translate*/ 'Companyname';
 
     public function getHydrator()
@@ -28,24 +44,4 @@ class JobCompanyName extends SummaryForm
         }
         return $this->hydrator;
     }
-
-    /*
-    public function init()
-    {
-        $this->setName('jobs-form-companyname');
-        $this->setAttributes(array(
-            'id' => 'jobs-form-companyname',
-            //'data-handle-by' => 'native'
-        ));
-
-
-        $this->add(array(
-            'type' => 'Jobs/CompanyNameFieldset',
-            'name' => 'jobCompanyName',
-            'options' => array(
-                'use_as_base_fieldset' => true,
-            ),
-        ));
-    }
-    */
 }

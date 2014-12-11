@@ -14,7 +14,7 @@ use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**
- * Basic Job form. Contains the Jobtitle and the location of the Job
+ * Defines the formular fields of the base formular of a job opening.
  */
 class JobFieldset extends Fieldset 
 {
@@ -38,18 +38,8 @@ class JobFieldset extends Fieldset
         $this->setAttribute('id', 'job-fieldset');
 
         $this->setName('jobTitleLocation');
-
-
-//       $this->add(array(
-//            'type' => 'Text',
-//            'name' => 'company',
-//            'options' => array(
-//                'label' => /*@translate*/ 'Company'
-//            ),
-//        ));
-
         
-       $this->add(array(
+        $this->add(array(
             'type' => 'Text',
             'name' => 'title',
             'options' => array(
@@ -66,15 +56,9 @@ class JobFieldset extends Fieldset
 //           ),
 //       ));
 //
-//       $this->add(array(
-//           'type' => 'Textarea',
-//           'name' => 'description',
-//           'options' => array(
-//                'label' => /*@translate*/ 'Job description'
-//           ),
-//       ));
+
        
-       $this->add(array(
+        $this->add(array(
             'type' => 'Location',
             'name' => 'location',
             'options' => array(

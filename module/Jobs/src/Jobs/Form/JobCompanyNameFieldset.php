@@ -13,6 +13,11 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
+/**
+ * Defines the formular fields used in the formular for entering the hiring organization name
+ *
+ * @package Jobs\Form
+ */
 class JobCompanyNameFieldset extends Fieldset
 {
     public function getHydrator()

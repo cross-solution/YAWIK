@@ -13,7 +13,7 @@ namespace Jobs\Form;
 use Core\Form\Container;
 
 /**
- * Jobs forms container
+ * Compiles the formular fields of a job opening into a container
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  */

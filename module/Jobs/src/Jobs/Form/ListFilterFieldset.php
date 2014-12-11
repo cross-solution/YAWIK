@@ -13,6 +13,11 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Zend\Form\FormInterface;
 
+/**
+ * Defines the formular fields of the job opening search formular
+ *
+ * @package Jobs\Form
+ */
 class ListFilterFieldset extends Fieldset
 {
     protected $isExtended;

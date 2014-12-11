@@ -38,7 +38,7 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * Generates list of organizations
+     * Generates a list of organizations
      *
      * @return array
      */
@@ -133,7 +133,8 @@ class IndexController extends AbstractActionController
      }
     
     /** 
-     * companyLogo
+     * returns an organization logo.
+     *
      * @return \Zend\Stdlib\ResponseInterface
      */
     public function logoAction()
