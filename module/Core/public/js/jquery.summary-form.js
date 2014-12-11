@@ -18,8 +18,17 @@
 			}	
 			if (result.valid) {
 				console.debug('catch submit', e, result);
-				_this.$summaryContainer.html(result.content);
-				_this._initSummaryContainer();
+
+                // Check if content is returned to replace the summary containers' html.
+                // @todo If no content is returned, we must update the field values in the summary,
+                // which has to be implemented yet.
+                // However, we must not attach a click event listener on the edit button,
+                // because the old button is NOT replaced and will call the listener twice!
+
+                if (result.content) {
+				    _this.$summaryContainer.html(result.content);
+				    _this._initSummaryContainer();
+                }
 									   
 				_this.cancel();
 			}
