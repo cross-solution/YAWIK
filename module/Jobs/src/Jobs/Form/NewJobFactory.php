@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the job opening formular
- *
+ * @deprecated
  * @package Jobs\Form
  */
 class NewJobFactory implements FactoryInterface

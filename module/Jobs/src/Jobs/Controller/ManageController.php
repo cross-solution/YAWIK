@@ -14,6 +14,7 @@ namespace Jobs\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Core\Form\SummaryForm;
 use Auth\Exception\UnauthorizedAccessException;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
@@ -96,8 +97,9 @@ class ManageController extends AbstractActionController {
         $mvcEvent           = $this->getEvent();
         // getting and setting the active form
         //$formIdentifier = "locationForm";
-
-        $valid = true;
+        $valid              = true;
+        $instanceForm       = Null;
+        $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
         if (isset($formIdentifier) &&  $request->isPost()) {
             // at this point the form get instanciated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
@@ -140,7 +142,19 @@ class ManageController extends AbstractActionController {
 
         $errorMessage = '<br />' . implode('<br />', $errorMessage);
         if ($isAjax) {
-            $viewModel = new JsonModel(array('valid' => $valid, 'jobvalid' => $jobValid, 'errors' => array(), 'errorMessage' => $errorMessage));
+            if ($instanceForm instanceOf SummaryForm)  {
+                $instanceForm->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                $viewHelper = 'summaryform';
+            } else {
+                $viewHelper = 'form';
+            }
+            $content = $viewHelperManager->get($viewHelper)->__invoke($instanceForm);
+            $viewModel = new JsonModel(array(
+                'content' => $content,
+                'valid' => $valid,
+                'jobvalid' => $jobValid,
+                'errors' => array(),
+                'errorMessage' => $errorMessage));
         }
         else {
             if (isset($pageIdentifier)) {
