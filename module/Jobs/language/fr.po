@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-04 21:03+0100\n"
-"PO-Revision-Date: 2014-12-04 20:31+0000\n"
+"PO-Revision-Date: 2014-12-08 21:21+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,7 @@ msgstr "Emplacement"
 
 #: view/jobs/index/index.ajax.phtml:16
 msgid "Companyname"
-msgstr "Raison sociale"
+msgstr "Nom de l'entreprise"
 
 #: view/jobs/index/index.ajax.phtml:17
 msgid "Reference"
@@ -100,7 +100,7 @@ msgstr "non lu"
 
 #: view/jobs/index/index.ajax.phtml:66
 msgid "draft"
-msgstr ""
+msgstr "ébauche"
 
 #: view/jobs/index/index.ajax.phtml:89 view/jobs/index/view.phtml:18
 msgid "Apply"
@@ -128,7 +128,7 @@ msgstr "En ligne depuis"
 
 #: view/jobs/index/terms.phtml:22
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Termes et conditions"
 
 #: view/jobs/manage/form.phtml:15
 msgid "Publish a job"
@@ -230,7 +230,7 @@ msgstr "Titre du poste"
 
 #: language/_annotated_strings.php:21
 msgid "Please enter the job title"
-msgstr ""
+msgstr "Se il vous plaît entrer le titre de l'emploi"
 
 #: language/_annotated_strings.php:24
 msgid "Apply Identifier"
@@ -242,7 +242,7 @@ msgstr "Description du poste"
 
 #: language/_annotated_strings.php:33
 msgid "Please enter the location of the job"
-msgstr ""
+msgstr "Se il vous plaît entrer dans le lieu de l'emploi"
 
 #: language/_annotated_strings.php:36
 msgid "Customize apply form"
@@ -250,7 +250,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:39
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Termes et conditions"
 
 #: language/_annotated_strings.php:42
 #, php-format
@@ -259,7 +259,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:45
 msgid "terms an conditions"
-msgstr ""
+msgstr "termes un conditions"
 
 #: language/_annotated_strings.php:48
 msgid "The apply identifier \"%value%\" is already in use."

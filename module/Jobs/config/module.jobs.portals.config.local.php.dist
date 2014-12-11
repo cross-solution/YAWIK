@@ -1,0 +1,30 @@
+<?php
+
+return array(
+    'multiposting' => array (
+        'channels' => array (
+            array(
+                'name' => 'yawik',
+                'label' => 'YAWIK',
+                'headline' => /*@translate*/ 'publish your job on yawik.org for free',
+                'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
+                'linktext' => /*@translate*/ 'yawik.org',
+            ),
+            array(
+                'name' => 'jobsintown',
+                'label' => 'Jobsintown',
+                'headline' => /*@translate*/ 'publish your job on Jobsintown.',
+                'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
+                'linktext' => /*@translate*/ 'www.jobsintown.de',
+            ),
+            array(
+                'name' => 'homepage',
+                'label' => /*@translate*/ 'eigene Homepage',
+                'headline' => /*@translate*/ 'publish the job on your personal Homepage',
+                'long_label' => /*@translate*/ 'Click %s to get more informations',
+                'linktext' => /*@translate*/ 'here',
+            ),
+        ),
+        'approvalMail' => '%%approvalMail%%'
+    ),
+);

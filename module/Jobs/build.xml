@@ -1,0 +1,15 @@
+<project name="YAWIK" default="install">
+    <target name="install">
+        <copy todir="../../config/autoload" overwrite="true">
+            <fileset dir="config">
+                <include name="**.dist"/>
+            </fileset>
+            <mapper type="regexp" from="^(.*\.php)\.dist" to="\1"/>
+            <filterchain>
+                <replacetokens begintoken="%%" endtoken="%%">
+                    <token key="approvalMail" value="${approvalMail}"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+</project>

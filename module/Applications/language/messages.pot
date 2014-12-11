@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-07 16:51+0100\n"
+"POT-Creation-Date: 2014-12-11 15:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,7 +173,7 @@ msgid "Profile data"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:15
-#: view/applications/manage/detail.pdf.phtml:15
+#: view/applications/manage/detail.pdf.phtml:23
 msgid "Details"
 msgstr ""
 
@@ -307,12 +307,12 @@ msgstr ""
 #: view/applications/manage/social-profile/facebook.phtml:14
 #: view/applications/manage/social-profile/linkedin.phtml:14
 #: view/applications/manage/social-profile/xing.phtml:14
-#: view/applications/manage/detail.pdf.phtml:76
+#: view/applications/manage/detail.pdf.phtml:85
 msgid "personal information"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:283
-#: view/applications/manage/detail.pdf.phtml:227
+#: view/applications/manage/detail.pdf.phtml:236
 #: src/Applications/Form/AttachmentsFactory.php:36
 #: language/_annotated_strings.php:45 language/_annotated_strings.php:9
 msgid "Attachments"
@@ -359,25 +359,25 @@ msgid "agent"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:392
-#: view/applications/manage/detail.pdf.phtml:123
+#: view/applications/manage/detail.pdf.phtml:132
 #: language/_annotated_strings.php:138
 msgid "Willingness to travel"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:398
-#: view/applications/manage/detail.pdf.phtml:129
+#: view/applications/manage/detail.pdf.phtml:138
 #: language/_annotated_strings.php:150
 msgid "Earliest starting date"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:404
-#: view/applications/manage/detail.pdf.phtml:135
+#: view/applications/manage/detail.pdf.phtml:144
 #: language/_annotated_strings.php:159
 msgid "Expected salary"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:418
-#: view/applications/manage/detail.pdf.phtml:142
+#: view/applications/manage/detail.pdf.phtml:151
 #: language/_annotated_strings.php:48
 msgid "Cover Letter"
 msgstr ""
@@ -387,21 +387,21 @@ msgstr ""
 #: view/applications/manage/social-profile/facebook.phtml:62
 #: view/applications/manage/social-profile/linkedin.phtml:87
 #: view/applications/manage/social-profile/xing.phtml:78
-#: view/applications/manage/detail.pdf.phtml:148
+#: view/applications/manage/detail.pdf.phtml:157
 msgid "work experience"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:438
 #: view/applications/manage/detail.phtml:468
-#: view/applications/manage/detail.pdf.phtml:151
-#: view/applications/manage/detail.pdf.phtml:169
+#: view/applications/manage/detail.pdf.phtml:160
+#: view/applications/manage/detail.pdf.phtml:178
 msgid "Start"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:439
 #: view/applications/manage/detail.phtml:469
-#: view/applications/manage/detail.pdf.phtml:152
-#: view/applications/manage/detail.pdf.phtml:170
+#: view/applications/manage/detail.pdf.phtml:161
+#: view/applications/manage/detail.pdf.phtml:179
 msgid "End"
 msgstr ""
 
@@ -415,13 +415,13 @@ msgstr ""
 #: view/applications/manage/social-profile/facebook.phtml:68
 #: view/applications/manage/social-profile/linkedin.phtml:93
 #: view/applications/manage/social-profile/xing.phtml:84
-#: view/applications/manage/detail.pdf.phtml:153
-#: view/applications/manage/detail.pdf.phtml:171
+#: view/applications/manage/detail.pdf.phtml:162
+#: view/applications/manage/detail.pdf.phtml:180
 msgid "Description"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:464
-#: view/applications/manage/detail.pdf.phtml:166
+#: view/applications/manage/detail.pdf.phtml:175
 msgid "education and training"
 msgstr ""
 
@@ -430,12 +430,12 @@ msgid "University"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:488
-#: view/applications/manage/detail.pdf.phtml:184
+#: view/applications/manage/detail.pdf.phtml:193
 msgid "personal skills"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:490
-#: view/applications/manage/detail.pdf.phtml:186
+#: view/applications/manage/detail.pdf.phtml:195
 msgid "native language"
 msgstr ""
 
@@ -533,31 +533,39 @@ msgstr ""
 msgid "view"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:75
+#: view/applications/manage/detail.pdf.phtml:71
+msgid "Bewerbung vom"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:79
+msgid "Bewerbung"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:84
 msgid "application details"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:82
+#: view/applications/manage/detail.pdf.phtml:91
 msgid "name"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:87
+#: view/applications/manage/detail.pdf.phtml:96
 msgid "Street"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:93
+#: view/applications/manage/detail.pdf.phtml:102
 msgid "City"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:98
+#: view/applications/manage/detail.pdf.phtml:107
 msgid "E-Mail"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:102
+#: view/applications/manage/detail.pdf.phtml:111
 msgid "Phone"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:119
+#: view/applications/manage/detail.pdf.phtml:128
 #: src/Applications/Form/Facts.php:37
 msgid "Facts"
 msgstr ""

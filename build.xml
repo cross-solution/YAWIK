@@ -168,9 +168,6 @@
       </filterchain>
     </copy>
 
-    <!--tar destfile="build/YAWIK-${version-short}.tgz"
-         basedir="${builddir}/.."
-         compression="gzip" /--> 
     <echo msg="generate YAWIK-${version-short}.zip and YAWIK-${version-short}.tgz"/>
     <exec dir="${builddir}/.." command="tar -czpf YAWIK-${version-short}.tgz YAWIK-${version-short}" logoutput="false"/>
     <exec dir="${builddir}/.." command="zip -r YAWIK-${version-short}.zip YAWIK-${version-short}" logoutput="false"/>
@@ -180,7 +177,7 @@
   <!-- ============================================  -->
   <!-- Target: generate autoload config files        -->
   <!-- ============================================  -->
-  <target name="generate-autoload-config">
+  <target name="generate-autoload-config" depends="load-properties">
     <property name="target" value="config/autoload" override="true"/>
     <if>
       <equals arg1="${username}" arg2="" trim="true"/>
@@ -236,6 +233,7 @@
         <include name="**/**.dist"/>
         <exclude name="vendor/**"/>
         <exclude name="module/YawikDemo**"/>
+        <exclude name="module/Jobs**"/>
         <exclude name="build/**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
@@ -282,7 +280,7 @@
   <!-- ============================================  -->
   <!-- Target: translate                             -->
   <!-- ============================================  -->
-  <target name="translate" depends="prepare" description="compiles all languages *.po files">
+  <target name="translate" depends="init,prepare,filesets" description="compiles all languages *.po files">
     <echo msg="Compile locales ${locales} ..."/>
     <foreach param="filename" absparam="absfilename" target="compile-po-file">
       <mapper type="regexp" from="^(.*)\.po" to="\1"/>
@@ -300,7 +298,7 @@
   <!-- Target: docs                                  -->
   <!-- ============================================  -->
 
-  <target name="docs" depends="phpdoc" description="build api docs">
+  <target name="docs" depends="init,phpdoc" description="build api docs">
     <tar destfile="build/YAWIK-docs-${version-short}.tgz"
          basedir="${project.basedir}/docs"
          compression="gzip" /> 
@@ -328,7 +326,7 @@
     <exec command="phpdoc" dir="." passthru="true"/>
   </target>  
   
-  <target name="deploy-docs" description="publish API docs via rsync">
+  <target name="deploy-docs" depends="init" description="publish API docs via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
   </target>
@@ -418,30 +416,49 @@
       </fileset>
     </foreach>
     <!-- then read the global properties file -->
-    <property name="project.properties.file" value="${project.basedir}/build.properties" />
-    <!-- @todo if build.properties does not exist, check for a dist file -->
-    <property file="${project.properties.file}" override="true" />
+    <property file="${project.basedir}/build.properties" />
   </target>
-  
-  <target name="load-properties-subtask">
-    <property name="project.properties.file" value="${absname}/config/build.properties" />
-    <property file="${project.properties.file}" override="true" />
-    <available file="${absname}/build.xml" type="file" property="build.Exists" />  
-    <if>
-      <isset property="build.Exists"/>
-      <then>
-        <phing phingfile="${absname}/build.xml" inheritAll="true" haltonfailure="true"/>
-      </then> 
-      <else>
-        <echo>${absname}/build.xml not found</echo>
-      </else>
-    </if>
-    <if>
-      <istrue value="${YAWIK.bundled}"/>
-      <then>
-        <property name="modules[]" value="${dirname}" />
-        <echo>Bundled: ${YAWIK.bundled} Module: ${dirname}</echo>
-      </then>    
-    </if>
-  </target>          
+
+    <target name="load-properties-subtask">
+        <property name="properties" value="${absname}/config/build.properties" />
+        <available file="${properties}" type="file" property="build.properties.exists" />
+        <if>
+            <equals arg1="${build.properties.exists}" arg2="true" />
+            <then>
+                <echo>load ${properties}</echo>
+                <property file="${properties}" />
+            </then>
+            <else>
+                <echo>no ${properties} found. Check for a .dist file</echo>
+                <available file="${absname}/config/build.properties.dist" type="file" property="build.properties.dist.exists" />
+                <if>
+                    <equals arg1="${build.properties.dist.exists}" arg2="true" />
+                    <then>
+                        <copy file="${absname}/config/build.properties.dist" tofile="${properties}" overwrite="true"/>
+                        <property file="${properties}" />
+                    </then>
+                </if>
+                <!-- If file doesn't exist -->
+            </else>
+        </if>
+
+        <available file="${absname}/build.xml" type="file" property="build.Exists" />
+        <if>
+            <isset property="build.Exists"/>
+            <then>
+                <phing phingfile="${absname}/build.xml" inheritAll="false"
+                inheritRefs="false" haltonfailure="true"/>
+            </then>
+            <else>
+                <echo>${absname}/build.xml not found</echo>
+            </else>
+        </if>
+        <if>
+            <istrue value="${YAWIK.bundled}"/>
+            <then>
+                <property name="modules[]" value="${dirname}" />
+                <echo>Bundled: ${YAWIK.bundled} Module: ${dirname}</echo>
+            </then>
+        </if>
+    </target>
 </project>

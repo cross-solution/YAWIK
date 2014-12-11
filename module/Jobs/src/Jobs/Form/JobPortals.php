@@ -17,7 +17,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 class JobPortals extends SummaryForm
 {
     protected $baseFieldset = 'Jobs/PortalsFieldset';
-    protected $label = /*@translate*/ 'Portals';
+    protected $label = /*@translate*/ 'Multiposting';
 
     public function getHydrator()
     {

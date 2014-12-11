@@ -2,38 +2,44 @@
 //: ./view/form/list-filter.phtml:63
 translate('search for jobs');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:38
+//: ./src/Jobs/Form/JobCompanyName.php:37
+translate('Companyname');
+
+//: ./src/Jobs/Form/JobPortals.php:20
+translate('Multiposting');
+
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:43
 translate('Job qualification');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:46
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:51
 translate('Job benefits');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:55
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:60
 translate('Job requirements');
 
-//: ./src/Jobs/Form/JobFieldset.php:47
-translate('Company');
-
-//: ./src/Jobs/Form/JobFieldset.php:56
+//: ./src/Jobs/Form/JobFieldset.php:46
 translate('Job title');
 
-//: ./src/Jobs/Form/JobFieldset.php:57
+//: ./src/Jobs/Form/JobFieldset.php:47
 translate('Please enter the job title');
 
-//: ./src/Jobs/Form/JobFieldset.php:65
+//: ./src/Jobs/Form/JobFieldset.php:55
 translate('Apply Identifier');
 
-//: ./src/Jobs/Form/JobFieldset.php:73
-translate('Job description');
-
-//: ./src/Jobs/Form/JobFieldset.php:81
+//: ./src/Jobs/Form/JobFieldset.php:65
 translate('Location');
 
-//: ./src/Jobs/Form/JobFieldset.php:82
+//: ./src/Jobs/Form/JobFieldset.php:66
 translate('Please enter the location of the job');
 
-//: ./src/Jobs/Form/Job.php:69
+//: ./src/Jobs/Form/Job.php:88
 translate('Customize apply form');
+
+//: ./src/Jobs/Form/JobCompanyNameFieldset.php:43
+translate('Companyname');
+
+//: ./src/Jobs/Form/JobCompanyNameFieldset.php:44
+translate('The name of the hiring organization will be shown in search results.');
 
 //: ./src/Jobs/Form/JobPreviewFieldset.php:48
 translate('Terms and conditions');
@@ -47,32 +53,26 @@ translate('terms an conditions');
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
 
-//: ./src/Jobs/Form/JobTitleLocation.php:17
+//: ./src/Jobs/Form/JobTitleLocation.php:22
 translate('Title and job location');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:44
+//: ./src/Jobs/Form/ListFilterFieldset.php:49
 translate('Show all jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:45
+//: ./src/Jobs/Form/ListFilterFieldset.php:50
 translate('Show my jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:59
+//: ./src/Jobs/Form/ListFilterFieldset.php:64
 translate('Active');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:60
+//: ./src/Jobs/Form/ListFilterFieldset.php:65
 translate('Inactive');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:71
+//: ./src/Jobs/Form/ListFilterFieldset.php:76
 translate('Job title');
 
-//: ./src/Jobs/Form/JobEmployers.php:42
+//: ./src/Jobs/Form/JobEmployers.php:47
 translate('Publish job');
-
-//: ./src/Jobs/Controller/ManageController.php:113
-translate('Job saved');
-
-//: ./src/Jobs/Controller/ManageController.php:115
-translate('There were errors in the form');
 
 //: ./config/module.config.php:81
 translate('Jobs');

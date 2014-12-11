@@ -33,8 +33,8 @@ class JobPortalsFieldset extends Fieldset
         // all necessary informations about the portals are provided in the configs
         $portals = array();
         $config = $this->getFormFactory()->getFormElementManager()->getServiceLocator()->get('Config');
-        if (array_key_exists('portals',$config)) {
-            $portals = ArrayUtils::merge($portals, $config['portals']);
+        if (array_key_exists('multiposting',$config)) {
+            $portals = ArrayUtils::merge($portals, $config['multiposting']['channels']);
         }
 
         $this->setAttribute('id', 'jobportals-fieldset');

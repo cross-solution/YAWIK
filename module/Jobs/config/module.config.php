@@ -199,37 +199,4 @@ return array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
-
-    'portals' => array (
-        array(
-            'name' => 'test1',
-            'label' => /*@translate*/ 'stands in the front and is bold',
-            'headline' => /*@translate*/ 'stands above and is bold',
-            'long_label' => /*@translate*/ 'here is something %s and a little more',
-            'linktext' => /*@translate*/ 'linktext',
-        ),
-        array(
-            'name' => 'test2',
-            'label' => 'YAWIK',
-            'headline' => /*@translate*/ 'stands above and is bold',
-            'long_label' => /*@translate*/ 'here is something %s and a little more',
-            'linktext' => /*@translate*/ 'linktext',
-        ),
-        array(
-            'name' => 'test3',
-            'label' => 'Jobsintown',
-            'headline' => /*@translate*/ 'stands above and is bold',
-            'long_label' => /*@translate*/ 'here is something %s and a little more',
-            'linktext' => /*@translate*/ 'linktext',
-        ),
-        array(
-            'name' => 'test4',
-            'label' => 'eigene Homepage',
-            'headline' => /*@translate*/ 'stands above and is bold',
-            'long_label' => /*@translate*/ 'here is something %s and a little more',
-            'linktext' => /*@translate*/ 'linktext',
-        ),
-    ),
-
-
 );

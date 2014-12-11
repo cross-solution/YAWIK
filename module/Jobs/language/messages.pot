@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Jobs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-07 16:52+0100\n"
+"POT-Creation-Date: 2014-12-11 15:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,8 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:16
+#: view/jobs/index/index.ajax.phtml:16 language/_annotated_strings.php:6
+#: language/_annotated_strings.php:39
 msgid "Companyname"
 msgstr ""
 
@@ -156,29 +157,27 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:61
-msgid ""
-"Your job position is incomplete. You have to set a job title, the location "
-"of the job and accept terms and conditions to be able to publish the job."
+#: view/jobs/manage/form.phtml:64
+msgid "Your job position is incomplete."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:73
+#: view/jobs/manage/form.phtml:78
 msgid "Next to enter the job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:76 view/jobs/manage/form.phtml:80
+#: view/jobs/manage/form.phtml:81 view/jobs/manage/form.phtml:85
 msgid "Back"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:77
+#: view/jobs/manage/form.phtml:82
 msgid "Next to preview the job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:81
+#: view/jobs/manage/form.phtml:86
 msgid "Next to publish the job"
 msgstr ""
 
-#: src/Jobs/Form/JobDescriptionFieldset.php:31
+#: src/Jobs/Form/JobDescriptionFieldset.php:36
 msgid "Description"
 msgstr ""
 
@@ -190,15 +189,15 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:125
+#: src/Jobs/Controller/ManageController.php:130
 msgid "No Title"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:129
+#: src/Jobs/Controller/ManageController.php:134
 msgid "No Location"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:133
+#: src/Jobs/Controller/ManageController.php:138
 msgid "Accept the Terms"
 msgstr ""
 
@@ -206,36 +205,32 @@ msgstr ""
 msgid "search for jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:6
-msgid "Job qualification"
-msgstr ""
-
 #: language/_annotated_strings.php:9
-msgid "Job benefits"
+msgid "Multiposting"
 msgstr ""
 
 #: language/_annotated_strings.php:12
-msgid "Job requirements"
+msgid "Job qualification"
 msgstr ""
 
 #: language/_annotated_strings.php:15
-msgid "Company"
+msgid "Job benefits"
 msgstr ""
 
-#: language/_annotated_strings.php:18 language/_annotated_strings.php:66
+#: language/_annotated_strings.php:18
+msgid "Job requirements"
+msgstr ""
+
+#: language/_annotated_strings.php:21 language/_annotated_strings.php:72
 msgid "Job title"
 msgstr ""
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:24
 msgid "Please enter the job title"
 msgstr ""
 
-#: language/_annotated_strings.php:24
-msgid "Apply Identifier"
-msgstr ""
-
 #: language/_annotated_strings.php:27
-msgid "Job description"
+msgid "Apply Identifier"
 msgstr ""
 
 #: language/_annotated_strings.php:33
@@ -246,53 +241,49 @@ msgstr ""
 msgid "Customize apply form"
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:42
+msgid "The name of the hiring organization will be shown in search results."
+msgstr ""
+
+#: language/_annotated_strings.php:45
 msgid "Terms and conditions"
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:48
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:51
 msgid "terms an conditions"
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:54
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:57
 msgid "Title and job location"
 msgstr ""
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:60
 msgid "Show all jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:63
 msgid "Show my jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:66
 msgid "Active"
 msgstr ""
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:69
 msgid "Inactive"
 msgstr ""
 
-#: language/_annotated_strings.php:69
-msgid "Publish job"
-msgstr ""
-
-#: language/_annotated_strings.php:72
-msgid "Job saved"
-msgstr ""
-
 #: language/_annotated_strings.php:75
-msgid "There were errors in the form"
+msgid "Publish job"
 msgstr ""
 
 #: language/_annotated_strings.php:81
