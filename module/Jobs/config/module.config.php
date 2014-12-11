@@ -130,6 +130,7 @@ return array(
             'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
+            'jobs/modals/yawik' => __DIR__ . '/../view/modals/yawik.phtml',
             //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
         ),
     
