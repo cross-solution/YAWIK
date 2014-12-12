@@ -20,6 +20,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
 use Jobs\Listener\Events\JobEvent;
 use Core\Form\SummaryFormInterface;
+use Zend\Stdlib\ArrayUtils;
 
 
 /**
@@ -100,6 +101,7 @@ class ManageController extends AbstractActionController {
         $valid              = true;
         $instanceForm       = Null;
         $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
+        $formErrorMessages = array();
         if (isset($formIdentifier) &&  $request->isPost()) {
             // at this point the form get instanciated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
@@ -112,6 +114,7 @@ class ManageController extends AbstractActionController {
             unset($postData['applyId']);
             $instanceForm->setData($postData);
             $valid = $instanceForm->isValid();
+            $formErrorMessages = ArrayUtils::merge($formErrorMessages, $instanceForm->getMessages());
             if ($valid) {
                 $title = $jobEntity->title;
                 $templateTitle = $jobEntity->templateValues->title;
@@ -153,7 +156,7 @@ class ManageController extends AbstractActionController {
                 'content' => $content,
                 'valid' => $valid,
                 'jobvalid' => $jobValid,
-                'errors' => array(),
+                'errors' => $formErrorMessages,
                 'errorMessage' => $errorMessage));
         }
         else {

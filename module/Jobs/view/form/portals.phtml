@@ -1,0 +1,34 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    weitz@cross-solution.de
+ * @deprecated
+ */
+
+$elements   = $this->element->getElements();
+
+?>
+    <fieldset id="<?php echo $this->element->getAttribute('id') ?>" class="form-collection">
+        <legend><?php echo $this->translate($this->element->getLabel()) ?>
+           Test
+        </legend>
+
+        <div class="">
+            <?php foreach ($elements as $elem):
+                echo $elem->getLabel();
+                ?>
+                    <br/>
+            <?php endforeach ?>
+
+        </div>
+        <?php
+            //echo $this->formCollection()->renderTemplate($this->element)
+        ?>
+
+
+
+    </fieldset>

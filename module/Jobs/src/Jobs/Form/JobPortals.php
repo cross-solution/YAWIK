@@ -10,11 +10,11 @@
 
 namespace Jobs\Form;
 
-use Core\Form\SummaryForm;
+use Core\Form\BaseForm;
 use Core\Entity\Hydrator\EntityHydrator;
 
 
-class JobPortals extends SummaryForm
+class JobPortals extends BaseForm
 {
     protected $baseFieldset = 'Jobs/PortalsFieldset';
     protected $label = /*@translate*/ 'Multiposting';
@@ -26,5 +26,13 @@ class JobPortals extends SummaryForm
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
+    }
+
+    /**
+     * overwrite this method to do nothing
+     * this blends out the Buttons
+     */
+    protected function addButtonsFieldset()
+    {
     }
 }

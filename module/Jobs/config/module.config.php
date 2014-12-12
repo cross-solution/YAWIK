@@ -131,6 +131,7 @@ return array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
             'jobs/modals/yawik' => __DIR__ . '/../view/modals/yawik.phtml',
+            'jobs/form/portals' => __DIR__ . '/../view/form/portals.phtml',
             //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
         ),
     

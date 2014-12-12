@@ -13,9 +13,11 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Stdlib\ArrayUtils;
+use Core\Form\ViewPartialProviderInterface;
 
 class JobPortalsFieldset extends Fieldset
 {
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -59,6 +61,9 @@ class JobPortalsFieldset extends Fieldset
                      'property' => true,
                      'name' => $portal['name'],
                      'options' => $options,
+                     'attributes' => array(
+                         'data-trigger' => 'submit',
+                     ),
                  )
             );
         }
@@ -122,4 +127,5 @@ class JobPortalsFieldset extends Fieldset
         }
         return $aggregatValues;
     }
+
 }

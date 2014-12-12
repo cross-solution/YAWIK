@@ -19,20 +19,21 @@
 			
 			displayErrors: function($form, errors, prefix)
 			{
-				$.each(errors, function(idx, error) {
-					var $errorsDiv = $form.find('#' + prefix + idx + '-errors'); 
-					if ($errorsDiv.length) {
-						var html = '<ul class="error">'
-						$.each(error, function(i, err) {
-							html += '<li>' + err + '</li>';
-						});
-						html += '</ul>';
-						$errorsDiv.html(html);
-						$errorsDiv.parent().addClass('input-error');
-					} else {
-						methods.displayErrors($form, error, idx + '-');
-					}
-				});
+                $.each(errors, function(idx, error) {
+                    var $errorsDiv = $form.find('#' + prefix + idx + '-errors');
+                    console.debug('inserting error messages', '#' + prefix + idx + '-errors', $errorsDiv, error);
+                    if ($errorsDiv.length) {
+                        var html = '<ul class="error">'
+                        $.each(error, function(i, err) {
+                            html += '<li>' + err + '</li>';
+                        });
+                        html += '</ul>';
+                        $errorsDiv.html(html);
+                        $errorsDiv.parent().addClass('input-error');
+                    } else {
+                        methods.displayErrors($form, error, idx + '-');
+                    }
+                });
 			}
 	};
 	
@@ -68,7 +69,7 @@
 				if (!data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
-                // console.log('$form',$form);
+                console.debug('bubble done event for form',$form);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
