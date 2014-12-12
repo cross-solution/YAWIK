@@ -9,9 +9,9 @@ return array(
                 'headline' => /*@translate*/ 'publish your job on yawik.org for free',
                 'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
                 'linktext' => /*@translate*/ 'yawik.org',
-                'route' => 'lang/jobs/multipost',
+                'route' => 'lang/multipost',
                 'params' => array(
-                    'view' => 'yawik'
+                    'view' => 'jobs-publish-on-yawik'
                     )
             ),
             array(
@@ -20,9 +20,9 @@ return array(
                 'headline' => /*@translate*/ 'publish your job on Jobsintown.',
                 'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
                 'linktext' => /*@translate*/ 'www.jobsintown.de',
-                'route' => 'lang/jobs/multipost',
+                'route' => 'lang/multipost',
                 'params' => array(
-                      'view' => 'jobsintown'
+                      'view' => 'jobs-publish-on-jobsintown'
                       )
             ),
             array(
@@ -31,9 +31,9 @@ return array(
                 'headline' => /*@translate*/ 'enable integration of this job on your Homepage',
                 'long_label' => /*@translate*/ 'enable %s of this job on your Homepage',
                 'linktext' => /*@translate*/ 'integration',
-                'route' => 'lang/jobs/multipost',
+                'route' => 'lang/multipost',
                 'params' => array(
-                    'view' => 'homepage'
+                    'view' => 'jobs-publish-on-homepage'
                 )
             ),
         ),
@@ -42,9 +42,7 @@ return array(
     'view_manager' => array(
             // Define the discriptions for the channels
             'template_map' => array(
-                'jobs/modals/yawik' => __DIR__ . '/../../module/Jobs/view/modals/yawik.phtml',
-                'jobs/modals/jobsintown' => __DIR__ . '/../../module/Jobs/view/modals/jobsintown.phtml',
-                'jobs/modals/homepage' => __DIR__ . '/../../module/Jobs/view/modals/homepage.phtml',
+
             ),
     ),
 );

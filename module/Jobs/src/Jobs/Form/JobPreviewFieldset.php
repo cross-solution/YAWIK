@@ -48,7 +48,10 @@ class JobPreviewFieldset extends Fieldset
                 'headline' => /*@translate*/ 'Terms and conditions',
                 'long_label' => /*@translate*/ 'I have read the %s and accept it',
                 'linktext' => /*@translate*/ 'terms an conditions',
-                'route' => 'lang/jobs/terms',
+                'route' => 'lang/multipost',
+                'params' => array(
+                    'view' => 'jobs-terms-and-conditions'
+                )
             ),
             'attributes' => array(
                 'data-trigger' => 'submit',

@@ -188,6 +188,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Core\Controller\Index' => 'Core\Controller\IndexController',
+            'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
         ),
     ),

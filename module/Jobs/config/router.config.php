@@ -117,35 +117,6 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
-            'terms' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/terms',
-                    'defaults' => array(
-                        'controller' => 'Jobs/Index',
-                        'action' => 'terms',
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-            'multipost' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/multipost/:view',
-                    'defaults' => array(
-                        'controller' => 'Core\Controller\Index',
-                        'action' => 'modalContent',
-                        'defaults' => array(
-                            'view' => 0
-                        ),
-                        'constraints' => array(
-                            'view' => '[a-f0-9]+',
-                        ),
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-
         ),
     ),
     'save' => array(
@@ -159,5 +130,22 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
         ),
         'may_terminate' => true,
 
+    ),
+    'multipost' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route' => '/multipost/:view',
+            'defaults' => array(
+                'controller' => 'Core\Controller\Content',
+                'action' => 'modal',
+                'defaults' => array(
+                    'view' => 0
+                ),
+                'constraints' => array(
+                    'view' => '[a-f0-9-]+',
+                ),
+            ),
+        ),
+        'may_terminate' => true,
     ),
 )))));

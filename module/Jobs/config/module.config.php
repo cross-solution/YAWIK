@@ -130,9 +130,10 @@ return array(
             'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
-            'jobs/modals/yawik' => __DIR__ . '/../view/modals/yawik.phtml',
-            'jobs/form/portals' => __DIR__ . '/../view/form/portals.phtml',
-            //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
+            'jobs-publish-on-yawik' => __DIR__ . '/../module/Jobs/view/modals/yawik.phtml',
+            'jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
+            'jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
+            'jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
         ),
     
         // Where to look for view templates not mapped above

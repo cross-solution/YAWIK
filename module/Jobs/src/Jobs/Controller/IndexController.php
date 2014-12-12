@@ -179,19 +179,4 @@ class IndexController extends AbstractActionController
          
          return new JsonModel($return);
      }
-
-    /**
-     * Handles the privacy policy used in an application form.
-     *
-     * @return \Zend\View\Model\ViewModel
-     */
-    public function termsAction()
-    {
-        $viewModel = new ViewModel();
-        if ($this->request->isXmlHttpRequest()) {
-            $viewModel->setTerminal(true);
-        }
-        return $viewModel;
-    }
-    
 }
