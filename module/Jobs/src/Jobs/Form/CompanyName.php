@@ -20,7 +20,7 @@ use Core\Entity\Hydrator\EntityHydrator;
  *
  * @package Jobs\Form
  */
-class JobCompanyName extends SummaryForm
+class CompanyName extends SummaryForm
 {
     /**
      * formular fields are defined in JobsCompanyNameFieldset

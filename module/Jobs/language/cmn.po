@@ -7,13 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:38+0000\n"
-=======
 "POT-Creation-Date: 2014-11-19 19:18+0100\n"
 "PO-Revision-Date: 2014-11-09 13:55+0000\n"
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (Mandarin) (http://www.transifex.com/projects/p/yawik/language/cmn/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +17,10 @@ msgstr ""
 "Language: cmn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-<<<<<<< HEAD
 #: view/iframe/iFrame.phtml:2
 msgid "Job details"
 msgstr ""
 
-=======
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 #: view/iframe/iFrame.phtml:13
 msgid ""
 "You are using a default template. You are free to create your own template, "
@@ -52,11 +44,7 @@ msgid "All jobs"
 msgstr ""
 
 #: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
-<<<<<<< HEAD
-#: language/_annotated_strings.php:78
-=======
 #: language/_annotated_strings.php:73
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgid "Jobs"
 msgstr ""
 
@@ -100,19 +88,11 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-<<<<<<< HEAD
-#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:26
-msgid "total"
-msgstr ""
-
-#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:32
-=======
 #: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:23
 msgid "total"
 msgstr ""
 
 #: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:29
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgid "unread"
 msgstr ""
 
@@ -144,7 +124,6 @@ msgstr ""
 msgid "Online since"
 msgstr ""
 
-<<<<<<< HEAD
 #: view/jobs/index/terms.phtml:22
 msgid "Terms and Conditions"
 msgstr ""
@@ -201,21 +180,12 @@ msgstr ""
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:31
 msgid "Description"
-=======
-#: src/Jobs/Form/JobDescriptionFieldset.php:24
-msgid "Description"
-msgstr ""
-
-#: src/Jobs/Form/JobFieldset.php:29
-msgid "Job details"
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgstr ""
 
 #: src/Jobs/Form/JobEmployersFieldset.php:29
 msgid "Employers"
 msgstr ""
 
-<<<<<<< HEAD
 #: src/Jobs/Form/JobPreviewFieldset.php:30
 msgid "Preview"
 msgstr ""
@@ -232,8 +202,6 @@ msgstr ""
 msgid "Accept the Terms"
 msgstr ""
 
-=======
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
 msgstr ""
@@ -250,18 +218,6 @@ msgstr ""
 msgid "Job requirements"
 msgstr ""
 
-<<<<<<< HEAD
-#: language/_annotated_strings.php:15
-msgid "Company"
-msgstr ""
-
-#: language/_annotated_strings.php:18 language/_annotated_strings.php:66
-msgid "Job title"
-msgstr ""
-
-#: language/_annotated_strings.php:21
-msgid "Please enter the job title"
-=======
 #: language/_annotated_strings.php:15 language/_annotated_strings.php:27
 msgid "Job description"
 msgstr ""
@@ -272,85 +228,12 @@ msgstr ""
 
 #: language/_annotated_strings.php:21 language/_annotated_strings.php:61
 msgid "Job title"
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgstr ""
 
 #: language/_annotated_strings.php:24
 msgid "Apply Identifier"
 msgstr ""
 
-<<<<<<< HEAD
-#: language/_annotated_strings.php:27
-msgid "Job description"
-msgstr ""
-
-#: language/_annotated_strings.php:33
-msgid "Please enter the location of the job"
-msgstr ""
-
-#: language/_annotated_strings.php:36
-msgid "Customize apply form"
-msgstr ""
-
-#: language/_annotated_strings.php:39
-msgid "Terms and conditions"
-msgstr ""
-
-#: language/_annotated_strings.php:42
-#, php-format
-msgid "I have read the %s and accept it"
-msgstr ""
-
-#: language/_annotated_strings.php:45
-msgid "terms an conditions"
-msgstr ""
-
-#: language/_annotated_strings.php:48
-msgid "The apply identifier \"%value%\" is already in use."
-msgstr ""
-
-#: language/_annotated_strings.php:51
-msgid "Title and job location"
-msgstr ""
-
-#: language/_annotated_strings.php:54
-msgid "Show all jobs"
-msgstr ""
-
-#: language/_annotated_strings.php:57
-msgid "Show my jobs"
-msgstr ""
-
-#: language/_annotated_strings.php:60
-msgid "Active"
-msgstr ""
-
-#: language/_annotated_strings.php:63
-msgid "Inactive"
-msgstr ""
-
-#: language/_annotated_strings.php:69
-msgid "Publish job"
-msgstr ""
-
-#: language/_annotated_strings.php:72
-msgid "Job saved"
-msgstr ""
-
-#: language/_annotated_strings.php:75
-msgid "There were errors in the form"
-msgstr ""
-
-#: language/_annotated_strings.php:81
-msgid "Overview"
-msgstr ""
-
-#: language/_annotated_strings.php:84
-msgid "Create job"
-msgstr ""
-
-#: language/_annotated_strings.php:87
-=======
 #: language/_annotated_strings.php:33
 msgid "Contact email"
 msgstr ""
@@ -404,6 +287,5 @@ msgid "Create job"
 msgstr ""
 
 #: language/_annotated_strings.php:82
->>>>>>> df5064ebdfd1d566f1534a4ab5525de8c60b7d0d
 msgid "Edit job"
 msgstr ""

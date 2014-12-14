@@ -11,10 +11,10 @@ use Zend\InputFilter\InputFilterProviderInterface;
  *
  * @package Jobs\Form
  */
-class JobTitleLocation extends SummaryForm implements InputFilterProviderInterface
+class Base extends SummaryForm implements InputFilterProviderInterface
 {
 
-    protected $baseFieldset = 'Jobs/JobFieldset';
+    protected $baseFieldset = 'Jobs/BaseFieldset';
     
     /**
      * label of the Title and Location Form.

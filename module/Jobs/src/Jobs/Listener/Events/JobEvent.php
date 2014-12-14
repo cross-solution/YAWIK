@@ -18,6 +18,10 @@ class JobEvent extends Event
     /**#@+
      * Job events triggered by eventmanager
      */
+
+    /**
+     * The event is fired, if a new job was created
+     */
     const EVENT_JOB_NEW      = 'job.new';
     const EVENT_JOB_DELETE   = 'job.delete';
     const EVENT_JOB_ERROR    = 'job.error';

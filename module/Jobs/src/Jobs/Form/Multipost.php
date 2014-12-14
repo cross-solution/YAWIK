@@ -14,9 +14,9 @@ use Core\Form\BaseForm;
 use Core\Entity\Hydrator\EntityHydrator;
 
 
-class JobPortals extends BaseForm
+class Multipost extends BaseForm
 {
-    protected $baseFieldset = 'Jobs/PortalsFieldset';
+    protected $baseFieldset = 'Jobs/MultipostFieldset';
     protected $label = /*@translate*/ 'Multiposting';
 
     public function getHydrator()

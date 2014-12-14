@@ -152,8 +152,8 @@ return array(
     'form_elements' => array(
         'invokables' => array(
             'Jobs/Job'                          => 'Jobs\Form\Job',
-            'Jobs/TitleLocation'                => 'Jobs\Form\JobTitleLocation',
-            'Jobs/JobFieldset'                  => 'Jobs\Form\JobFieldset',
+            'Jobs/Base'                         => 'Jobs\Form\Base',
+            'Jobs/BaseFieldset'                 => 'Jobs\Form\BaseFieldset',
             'Jobs/Employers'                    => 'Jobs\Form\JobEmployers',
             'Jobs/JobEmployersFieldset'         => 'Jobs\Form\JobEmployersFieldset',
             'Jobs/Description'                  => 'Jobs\Form\JobDescription',
@@ -171,12 +171,12 @@ return array(
             'Jobs/Preview'                      => '\Jobs\Form\JobPreview',
             'Jobs/PreviewFieldset'              => '\Jobs\Form\JobPreviewFieldset',
             'Jobs/JobPreviewLink'               => '\Jobs\Form\JobPreviewLink',
-            'Jobs/CompanyName'                  => '\Jobs\Form\JobCompanyName',
-            'Jobs/CompanyNameFieldset'          => '\Jobs\Form\JobCompanyNameFieldset',
-            'Jobs/CompanyNameElement'           => '\Jobs\Form\JobCompanyNameElement',
-            'Jobs/Portals'                      => '\Jobs\Form\JobPortals',
-            'Jobs/PortalsFieldset'              => '\Jobs\Form\JobPortalsFieldset',
-            'Jobs/PortalsElement'               => '\Jobs\Form\JobPortalsElement',
+            'Jobs/CompanyName'                  => 'Jobs\Form\CompanyName',
+            'Jobs/CompanyNameFieldset'          => 'Jobs\Form\CompanyNameFieldset',
+            'Jobs/CompanyNameElement'           => 'Jobs\Form\CompanyNameElement',
+            'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
+            'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
+            'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
 
         ),
         'factories' => array(

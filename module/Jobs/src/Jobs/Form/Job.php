@@ -32,7 +32,7 @@ class Job extends Container
     {
         $this->setForms(array(
             'locationForm' => array(
-                'type' => 'Jobs/TitleLocation',
+                'type' => 'Jobs/Base',
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
@@ -57,7 +57,7 @@ class Job extends Container
 
         $this->setForms(array(
             'portalForm' => array(
-                'type' => 'Jobs/Portals',
+                'type' => 'Jobs/Multipost',
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,

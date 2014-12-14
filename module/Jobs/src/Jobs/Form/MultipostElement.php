@@ -8,27 +8,28 @@
  * @author    weitz@cross-solution.de
  */
 
+
 namespace Jobs\Form;
 
 use Zend\Form\Element;
 use Core\Form\Element\ViewHelperProviderInterface;
 
 /**
- * this Class is a rudimentary base for the future extension of entering the hiring organization name
+ * this Class is a rudimentary base for the future extension of entering the company-name
  *
  * Class JobNameElement
  * @package Jobs\Form
  */
-class JobCompanyNameElement extends Element implements ViewHelperProviderInterface
+class MultipostElement extends Element implements ViewHelperProviderInterface
 {
     protected $attributes = array(
-        'type' => 'text',
+        'type' => 'multi_checkbox',
     );
 
     // a distinct helper will be needed if this element is expanded
     // for the moment a inputfield is all we need, and this is achieved by the text
     //protected $helper = 'jobPreviewLink';
-    protected $helper = 'formText';
+    protected $helper = 'formMultiCheckbox';
 
     /**
      * @param string|\Zend\View\Helper\HelperInterface $helper

@@ -16,7 +16,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 /**
  * Defines the formular fields of the base formular of a job opening.
  */
-class JobFieldset extends Fieldset 
+class BaseFieldset extends Fieldset
 {
  
     public function getHydrator()
@@ -37,7 +37,7 @@ class JobFieldset extends Fieldset
     {
         $this->setAttribute('id', 'job-fieldset');
 
-        $this->setName('jobTitleLocation');
+        $this->setName('jobBase');
         
         $this->add(array(
             'type' => 'Text',
@@ -47,16 +47,6 @@ class JobFieldset extends Fieldset
                 'description' => /*@translate*/ 'Please enter the job title'
             ),
         ));
-       
-//       $this->add(array(
-//           'type' => 'Jobs/ApplyId',
-//           'name' => 'applyId',
-//           'options' => array(
-//               'label' => /*@translate*/ 'Apply Identifier'
-//           ),
-//       ));
-//
-
        
         $this->add(array(
             'type' => 'Location',

@@ -74,7 +74,7 @@ class ManageController extends AbstractActionController {
     }
 
     /**
-     * save a Job-Post either by a regular request or by an asyncron post (AJAX)
+     * save a Job-Post either by a regular request or by an async post (AJAX)
      * a mandatory parameter is the ID of the Job
      * in case of a regular Request you can
      *
@@ -103,14 +103,14 @@ class ManageController extends AbstractActionController {
         $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
         $formErrorMessages = array();
         if (isset($formIdentifier) &&  $request->isPost()) {
-            // at this point the form get instanciated and immediately accumulated
+            // at this point the form get instantiated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
             if (!isset($instanceForm)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
-            // the id is part of the postData, but it never should be altered
+            // the id may be part of the postData, but it never should be altered
             $postData = $request->getPost();
-            unset($postData['id']);
+            if (isset($postData['id'])) unset($postData['id']);
             unset($postData['applyId']);
             $instanceForm->setData($postData);
             $valid = $instanceForm->isValid();
@@ -230,16 +230,6 @@ class ManageController extends AbstractActionController {
         $container->setParam('job',$job->id);
         $container->setParam('applyId',$job->applyId);
         return $container;
-        /*
-        $formTitleLocation = $form->getForm->get('location');
-        $formTitleLocation->bind($job);
-        
-        if ($this->getRequest()->isPost()) {
-            $formTitleLocation->setData($_POST);
-        }
-
-        return $formTitleLocation;
-        */
     }
     
     protected function getJob($allowDraft = true)
@@ -287,7 +277,7 @@ class ManageController extends AbstractActionController {
     }
 
 
-    protected function edittemplateAction()
+    protected function editTemplateAction()
     {
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();

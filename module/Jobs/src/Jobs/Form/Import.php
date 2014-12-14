@@ -8,6 +8,11 @@ use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
 
+/**
+ * This form is used to import jobs via the API
+ *
+ * @package Jobs\Form
+ */
 class Import extends Form
 {
     

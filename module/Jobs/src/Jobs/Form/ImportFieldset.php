@@ -15,6 +15,12 @@ use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
  * Class ImportFieldset
  * @package Jobs\Form
  */
+
+/**
+ * Defines the formular fields which can be send via API calls.
+ *
+ * @package Jobs\Form
+ */
 class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 {
     

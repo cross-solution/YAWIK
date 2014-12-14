@@ -16,18 +16,23 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Jobs\Listener\Events\JobEvent;
 
+/**
+ * Job listener for triggering actions like sending mail notification
+ *
+ * @package Jobs\Listener
+ */
 class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInterface
 {
-    // @TODO rename $serviceManager
-    protected $serviceLocator;
+
+    protected $serviceManager;
 
     public function setServiceManager(ServiceManager $serviceManager) {
-        $this->serviceLocator = $serviceManager;
+        $this->serviceManager = $serviceManager;
         return $this;
     }
 
     public function getServiceManager() {
-        return $this->serviceLocator;
+        return $this->serviceManager;
     }
 
     public function attach(EventManagerInterface $events)
@@ -44,9 +49,14 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
         return $this;
     }
 
+    /**
+     * Sends a notification mail about a created job position
+     *
+     * @param JobEvent $e
+     */
     public function jobNewMail(JobEvent $e) {
-        $serviceLocator = $this->getServiceManager();
-        $config = $serviceLocator->get('config');
+        $serviceManager = $this->getServiceManager();
+        $config = $serviceManager->get('config');
         // @TODO check with isset to avoid an exception
         $email = $config['Auth']['default_user']['email'];
         $job = $e->getJobEntity();
@@ -60,5 +70,4 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
         $mailService->send($mail);
 
     }
-
 }

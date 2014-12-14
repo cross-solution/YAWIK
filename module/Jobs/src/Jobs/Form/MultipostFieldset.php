@@ -15,7 +15,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Stdlib\ArrayUtils;
 use Core\Form\ViewPartialProviderInterface;
 
-class JobPortalsFieldset extends Fieldset
+class MultipostFieldset extends Fieldset
 {
 
     public function getHydrator()
@@ -85,7 +85,7 @@ class JobPortalsFieldset extends Fieldset
 
     public function bindValues(array $values = array())
     {
-        $aggregatValues = $this->makeAggregatValues($values);
+        $aggregatValues = $this->makeAggregateValues($values);
         $object = $this->getObject();
         $object->setPortals($aggregatValues);
         return $this->object;
@@ -107,12 +107,12 @@ class JobPortalsFieldset extends Fieldset
             ));
         }
 
-        $aggregatValues = $this->makeAggregatValues($data);
+        $aggregateValues = $this->makeAggregateValues($data);
     }
 
-    public function makeAggregatValues($data)
+    public function makeAggregateValues($data)
     {
-        $aggregatValues = array();
+        $aggregateValues = array();
         foreach ($data as $portalName => $portalValue) {
             $valueExists = array_key_exists($portalName, $this->byName);
             if (!$valueExists) {
@@ -123,9 +123,9 @@ class JobPortalsFieldset extends Fieldset
             // @TODO set the element values in populateValues (that means untwisting them there)
             $element = $this->byName[$portalName];
             $element->setValue($data[$portalName]);
-            $aggregatValues[$portalName] = array('active' => $portalValue, 'name' => $portalName);
+            $aggregateValues[$portalName] = array('active' => $portalValue, 'name' => $portalName);
         }
-        return $aggregatValues;
+        return $aggregateValues;
     }
 
 }

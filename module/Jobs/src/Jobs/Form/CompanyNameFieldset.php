@@ -18,7 +18,7 @@ use Core\Entity\Hydrator\EntityHydrator;
  *
  * @package Jobs\Form
  */
-class JobCompanyNameFieldset extends Fieldset
+class CompanyNameFieldset extends Fieldset
 {
     public function getHydrator()
     {
