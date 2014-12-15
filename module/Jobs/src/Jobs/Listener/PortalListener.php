@@ -10,8 +10,6 @@
 
 namespace Jobs\Listener;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Jobs\Listener\Events\JobEvent;
@@ -21,9 +19,8 @@ use Jobs\Listener\Events\JobEvent;
  *
  * @package Jobs\Listener
  */
-class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInterface
+class PortalListener implements ServiceManagerAwareInterface
 {
-
     protected $serviceManager;
 
     public function setServiceManager(ServiceManager $serviceManager) {
@@ -35,40 +32,25 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
         return $this->serviceManager;
     }
 
-    public function attach(EventManagerInterface $events)
+    public function __invoke(JobEvent $e)
     {
-        //$eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
-
-        $events->attach(JobEvent::EVENT_NEW, array($this, 'jobNewMail'), 1);
-        $events->attach(JobEvent::EVENT_SEND_PORTALS, $this->getServiceManager()->get('Jobs/PortalListener') , 1);
-
-        return $this;
-    }
-
-    public function detach(EventManagerInterface $events)
-    {
-        return $this;
-    }
-
-    /**
-     * Sends a notification mail about a created job position
-     *
-     * @param JobEvent $e
-     */
-    public function jobNewMail(JobEvent $e) {
         $serviceManager = $this->getServiceManager();
         $config = $serviceManager->get('config');
         // @TODO check with isset to avoid an exception
         $email = $config['Auth']['default_user']['email'];
         $job = $e->getJobEntity();
         $mailService = $this->getServiceManager()->get('Core/MailService');
-        $mail = $mailService->get('stringtemplate');
+        $mail = $mailService->get('htmltemplate');
+        $mail->setTemplate('mail/portalmail');
         $mail->setSubject('Subject');
-        $mail->setBody('body ' . $job->id . ', Title: ' . $job->title);
+        //$mail->setBody('body ' . $job->id . ', Title: ' . $job->title);
         $mail->setTo($email);
         $mail->setFrom('from', 'fromName');
         $mail->addBcc('Adresse', 'displayName');
+        $mail->job = $job;
         $mailService->send($mail);
+        return;
 
     }
+
 }

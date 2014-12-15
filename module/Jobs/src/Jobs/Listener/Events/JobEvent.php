@@ -22,9 +22,11 @@ class JobEvent extends Event
     /**
      * The event is fired, if a new job was created
      */
-    const EVENT_JOB_NEW      = 'job.new';
-    const EVENT_JOB_DELETE   = 'job.delete';
-    const EVENT_JOB_ERROR    = 'job.error';
+    const EVENT_NEW            = 'job.new';
+    const EVENT_DELETE         = 'job.delete';
+    const EVENT_ERROR          = 'job.error';
+    const EVENT_SEND_PORTALS   = 'job.portals';
+    const EVENT_STATUS_CHANGED = 'job.changed';
 
     protected $jobEntity;
 
