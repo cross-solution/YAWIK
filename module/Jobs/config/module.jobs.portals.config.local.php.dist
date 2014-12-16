@@ -3,9 +3,10 @@
 return array(
     'multiposting' => array (
         'channels' => array (
-            array(
+            'yawik' => array(
                 'name' => 'yawik',
                 'label' => 'YAWIK',
+                'price' => 'free',
                 'headline' => /*@translate*/ 'publish your job on yawik.org for free',
                 'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
                 'linktext' => /*@translate*/ 'yawik.org',
@@ -14,9 +15,10 @@ return array(
                     'view' => 'jobs-publish-on-yawik'
                     )
             ),
-            array(
+            'jobsintown' => array(
                 'name' => 'jobsintown',
                 'label' => 'Jobsintown',
+                'price' => '199 €',
                 'headline' => /*@translate*/ 'publish your job on Jobsintown.',
                 'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
                 'linktext' => /*@translate*/ 'www.jobsintown.de',
@@ -25,9 +27,10 @@ return array(
                       'view' => 'jobs-publish-on-jobsintown'
                       )
             ),
-            array(
+            'homepage' => array(
                 'name' => 'homepage',
                 'label' => /*@translate*/ 'Your Homepage',
+                'price' => 'free',
                 'headline' => /*@translate*/ 'enable integration of this job on your Homepage',
                 'long_label' => /*@translate*/ 'enable %s of this job on your Homepage',
                 'linktext' => /*@translate*/ 'integration',

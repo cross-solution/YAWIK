@@ -42,10 +42,14 @@ class PortalListener implements ServiceManagerAwareInterface
         $mailService = $this->getServiceManager()->get('Core/MailService');
         $mail = $mailService->get('htmltemplate');
         $mail->setTemplate('mail/portalmail');
-        $mail->setSubject('Subject');
+        $mail->setSubject( /*translate*/ 'A New Job was created');
         //$mail->setBody('body ' . $job->id . ', Title: ' . $job->title);
         $mail->setTo($email);
-        $mail->setFrom('from', 'fromName');
+
+        /**
+         * How can I access auth()->get('info')->email and auth()->get('info')->displayName
+         */
+        $mail->setFrom('bleek@cross-solution.de', 'Carsten Bleek');
         $mail->addBcc('Adresse', 'displayName');
         $mail->job = $job;
         $mailService->send($mail);

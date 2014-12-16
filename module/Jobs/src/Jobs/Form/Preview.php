@@ -15,8 +15,12 @@ use Core\Form\Container;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
-
-class JobPreview extends Form
+/**
+ * Defines the form on the 3rd page when entering a job position
+ *
+ * @package Jobs\Form
+ */
+class Preview extends Form
 {
 
     public function getHydrator()

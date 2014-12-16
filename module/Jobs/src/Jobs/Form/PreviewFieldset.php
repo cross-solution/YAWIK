@@ -13,7 +13,13 @@ namespace Jobs\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
-class JobPreviewFieldset extends Fieldset
+
+/**
+ * Defines the formular files of the 3rd formular for entering a job opening
+ *
+ * @package Jobs\Form
+ */
+class PreviewFieldset extends Fieldset
 {
     public function getHydrator()
     {
@@ -27,18 +33,6 @@ class JobPreviewFieldset extends Fieldset
     public function init()
     {
         $this->setAttribute('id', 'jobpreview-fieldset');
-        $this->setLabel('Preview');
-
-        /*
-         * taken out in accordance by the team and written in the view
-        $this->add(
-             array(
-                'type' => 'Jobs/JobPreviewLink',
-                'property' => true,
-                'name' => 'previewLink',
-            )
-        );
-        */
 
         $this->add(
              array(
