@@ -366,13 +366,13 @@ class ManageController extends AbstractActionController {
         $jobEntity      = $this->getJob();
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
-        $this->getEventManager()->trigger(JobEvent::EVENT_NEW, $jobEvent);
-        $this->getEventManager()->trigger(JobEvent::EVENT_STATUS_CHANGED, $jobEvent);
-        $this->getEventManager()->trigger(JobEvent::EVENT_SEND_PORTALS, $jobEvent);
 
         $jobEntity->isDraft = false;
         $jobEntity->status = 'active';
-        $serviceLocator->get('repositories')->persist($jobEntity);
+        //$serviceLocator->get('repositories')->persist($jobEntity);
+        $serviceLocator->get('repositories')->store($jobEntity);
+        $this->getEventManager()->trigger(JobEvent::EVENT_NEW, $jobEvent);
+        $this->getEventManager()->trigger(JobEvent::EVENT_SEND_PORTALS, $jobEvent);
 
         return array('job' => $jobEntity);
     }

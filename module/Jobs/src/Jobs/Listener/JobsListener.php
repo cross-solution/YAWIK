@@ -17,7 +17,9 @@ use Zend\ServiceManager\ServiceManager;
 use Jobs\Listener\Events\JobEvent;
 
 /**
- * Job listener for triggering actions like sending mail notification
+ * Aggregate for all Action concerning Jobs in the Job-Module
+ * most handlers are here
+ * more sophisticated handlers or handlers that involve similar tasks, are pooled in an own class (like Portals)
  *
  * @package Jobs\Listener
  */

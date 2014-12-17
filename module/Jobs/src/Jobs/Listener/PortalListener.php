@@ -32,22 +32,30 @@ class PortalListener implements ServiceManagerAwareInterface
         return $this->serviceManager;
     }
 
+    /**
+     * allows an event attachment just by class
+     * @param JobEvent $e
+     */
     public function __invoke(JobEvent $e)
     {
         $serviceManager = $this->getServiceManager();
-        $config = $serviceManager->get('config');
+        // @deprecated
+        // $config         = $serviceManager->get('config');
+        $authService    = $serviceManager->get('authenticationservice');
+        $userEmail      = $authService->getUser()->info->email;
+        $userName       = $authService->getUser()->info->displayName;
         // @TODO check with isset to avoid an exception
-        $email = $config['Auth']['default_user']['email'];
-        $job = $e->getJobEntity();
-        $mailService = $this->getServiceManager()->get('Core/MailService');
-        $mail = $mailService->get('htmltemplate');
+        // @deprecated
+        // $email          = $config['Auth']['default_user']['email'];
+        $job            = $e->getJobEntity();
+        $mailService    = $serviceManager->get('Core/MailService');
+        $mail           = $mailService->get('htmltemplate');
         $mail->setTemplate('mail/portalmail');
         $mail->setSubject( /*translate*/ 'A New Job was created');
-        //$mail->setBody('body ' . $job->id . ', Title: ' . $job->title);
         $mail->setTo($email);
 
         /**
-         * How can I access auth()->get('info')->email and auth()->get('info')->displayName
+         * look above $userName and $userEmail
          */
         $mail->setFrom('bleek@cross-solution.de', 'Carsten Bleek');
         $mail->addBcc('Adresse', 'displayName');
