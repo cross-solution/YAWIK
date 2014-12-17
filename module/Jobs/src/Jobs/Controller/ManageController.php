@@ -384,5 +384,40 @@ class ManageController extends AbstractActionController {
         return array('job' => $jobEntity);
     }
 
+    /**
+     * all actions around approve or decline jobs-offers
+     * @return array with the viewVariables
+     */
+    public function approvalAction() {
+
+        $serviceLocator = $this->getServiceLocator();
+        $translator     = $serviceLocator->get('mvcTranslator');
+        $repositories   = $serviceLocator->get('repositories');
+        $params         = $this->params('state');
+        $jobEntity      = $this->getJob();
+        $jobEvent       = $serviceLocator->get('Jobs/Event');
+        $jobEvent->setJobEntity($jobEntity);
+        if ($params == 'declined') {
+            // @TODO choose appropiate state
+            //$jobEntity->state = '';
+            $repositories->store($jobEntity);
+            // @TODO choose appropiate event
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
+            $this->notification()->success($translator->translate('job has been declined'));
+        }
+        if ($params == 'approved') {
+            // @TODO choose appropiate state
+            //$jobEntity->state = '';
+            $repositories->store($jobEntity);
+            // @TODO choose appropiate event
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
+            $this->notification()->success($translator->translate('job has been approved'));
+        }
+        $viewLink = $this->url()->fromRoute('lang/jobs/view', array(), array('query' => array( 'id' => $jobEntity->id)));
+        $approvalLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'approved'), array('query' => array( 'id' => $jobEntity->id)));
+        $declineLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'declined'), array('query' => array( 'id' => $jobEntity->id)));
+        return array('job' => $jobEntity, 'viewlink' => $viewLink, 'approvalLink' => $approvalLink, 'declineLink' => $declineLink);
+    }
+
 }
 

@@ -38,32 +38,33 @@ class PortalListener implements ServiceManagerAwareInterface
      */
     public function __invoke(JobEvent $e)
     {
-        $serviceManager = $this->getServiceManager();
+        $serviceManager          = $this->getServiceManager();
 
         /**
          * the sender of the mail is the currently logged in user
          */
-        $authService    = $serviceManager->get('authenticationservice');
-        $userEmail      = $authService->getUser()->info->email;
-        $userName       = $authService->getUser()->info->displayName;
+        $authService             = $serviceManager->get('authenticationservice');
+        $userEmail               = $authService->getUser()->info->email;
+        $userName                = $authService->getUser()->info->displayName;
+        $job                     = $e->getJobEntity();
+
+        $controllerPluginManager = $serviceManager->get('controllerPluginManager');
+        $urlPlugin               = $controllerPluginManager->get('url');
+        $previewLink             = $urlPlugin->fromRoute('lang/jobs/approval', array(), array('force_canonical' => True, 'query' => array('id' => $job->id)));
 
         /**
          * the receiver of the mail is the "admin" of the running yawik installation
          */
-        $config         = $serviceManager->get('config');
-        $email          = $config['Auth']['default_user']['email'];
-        $job            = $e->getJobEntity();
-        $mailService    = $serviceManager->get('Core/MailService');
-        $mail           = $mailService->get('htmltemplate');
+        $config                  = $serviceManager->get('config');
+        $email                   = $config['Auth']['default_user']['email'];
+        $mailService             = $serviceManager->get('Core/MailService');
+        $mail                    = $mailService->get('htmltemplate');
+        $mail->job               = $job;
+        $mail->link              = $previewLink;
         $mail->setTemplate('mail/jobCreatedMail');
         $mail->setSubject( /*translate*/ 'A New Job was created');
         $mail->setTo($email);
-
-        /**
-         * look above $userName and $userEmail
-         */
         $mail->setFrom($userEmail, $userName);
-        $mail->job = $job;
         $mailService->send($mail);
         return;
 
