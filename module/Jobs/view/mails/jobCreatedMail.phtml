@@ -1,0 +1,61 @@
+<?php
+/**
+ * this mail is sent to a owner of yawik. The mail contains a link to an
+ * approval page, where the owner can accept or decline the job opening
+ */
+?>
+<html>
+
+<h2><?php echo $this->translate("Job details")?></h2>
+<table>
+    <tr>
+        <td><?php echo $this->translate("Title of the job")?></td>
+        <td><?php echo $this->job->title ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate("Location")?></td>
+        <td><?php echo $this->job->location ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate("Companyname")?></td>
+        <td><?php echo $this->job->company ?></td>
+    </tr>
+</table>
+
+<h2><?php echo $this->translate("Publisher details")?></h2>
+
+<table>
+    <tr>
+        <td><?php echo $this->translate("Name")?></td>
+        <td><?php echo $this->job->user->info->displayName ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate("Email")?></td>
+        <td><?php echo $this->job->user->info->email ?></td>
+    </tr>
+</table>
+
+
+<?php
+/**
+ * following Variables are accessible
+ * - template string
+ * - job JobEntity
+ */
+?>
+
+<?php if (empty($this->job->portals)) :?>
+    <?php echo $this->translate('no Portal chosen')?>
+<?php else:?>
+    <h2><?php echo $this->translate("Selected Channels")?></h2>
+    <ul>
+        <?php foreach ($this->job->portals as $portalName => $portal):?>
+            <?php if (!empty($portal['active'])): ?>
+                <li><?php echo $portal['name']?></li>
+            <?php endif;?>
+        <?php endforeach;?>
+    </ul>
+<?php endif;?>
+
+<a href="<?php echo $this->job->link?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
+</html>

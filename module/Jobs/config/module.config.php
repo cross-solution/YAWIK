@@ -135,7 +135,7 @@ return array(
             'jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
             'jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
             'jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
-            'mail/portalmail' => __DIR__ . '/../view/mails/portalMail.phtml',
+            'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
         ),
     
         // Where to look for view templates not mapped above

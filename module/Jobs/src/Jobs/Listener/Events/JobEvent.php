@@ -11,6 +11,7 @@
 
 namespace Jobs\Listener\Events;
 
+use Jobs\Entity\Job;
 use Zend\EventManager\Event;
 
 class JobEvent extends Event
@@ -20,20 +21,30 @@ class JobEvent extends Event
      */
 
     /**
-     * a new job was created
+     * Event is fired when a users has created a new job opening and accepted the
+     * terms and conditions
      */
-    const EVENT_NEW            = 'job.new';
+    const EVENT_JOB_CREATED   = 'job.created';
+
     /**
-     * portals have changed
+     * Event is fired when the owner of the YAWIK installation has accepted the job
+     * opening
      */
-    const EVENT_SEND_PORTALS   = 'job.portals';
+    const EVENT_JOB_ACCEPTED   = 'job.accepted';
+
+    /**
+     * Event is fired, when the owner of the YAWIK installation has rejected the job
+     * opening
+     */
+    const EVENT_JOB_REJECTED   = 'job.rejected';
+
 
     protected $jobEntity;
 
     /**
-     * Set jobentity
+     * Sets the job entity
      *
-     * @param  Jobs\Entity $jobEntity
+     * @param  Job $jobEntity
      * @return MvcEvent
      */
     public function setJobEntity($jobEntity)
@@ -43,9 +54,9 @@ class JobEvent extends Event
     }
 
     /**
-     * Get jobentity
+     * Gets the job entity
      *
-     * @return Jobs\Entity
+     * @return Job
      */
     public function getJobEntity()
     {
