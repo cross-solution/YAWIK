@@ -14,13 +14,14 @@ use Core\Form\Form;
 use Core\Form\Container;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Core\Form\propagateAttributeInterface;
 
 /**
  * Defines the form on the 3rd page when entering a job position
  *
  * @package Jobs\Form
  */
-class Preview extends Form
+class Preview extends Form implements propagateAttributeInterface
 {
 
     public function getHydrator()
@@ -56,6 +57,16 @@ class Preview extends Form
 
     public function getViewPartial() {
         return 'form/preview.phtml';
+    }
+
+    public function enableAll($enable = true)
+    {
+        foreach ($this as $forms) {
+            if ($forms instanceof propagateAttributeInterface) {
+                $forms->enableAll($enable);
+            }
+        }
+        return $this;
     }
 
 }

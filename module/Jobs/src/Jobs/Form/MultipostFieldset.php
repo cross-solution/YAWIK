@@ -14,8 +14,9 @@ use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Stdlib\ArrayUtils;
 use Core\Form\ViewPartialProviderInterface;
+use Core\Form\propagateAttributeInterface;
 
-class MultipostFieldset extends Fieldset
+class MultipostFieldset extends Fieldset implements propagateAttributeInterface
 {
 
     public function getHydrator()
@@ -67,6 +68,14 @@ class MultipostFieldset extends Fieldset
                  )
             );
         }
+    }
+
+    public function enableAll($enable = true)
+    {
+        foreach ($this as $forms) {
+            $forms->setAttribute('disabled', 'disabled');
+        }
+        return $this;
     }
 
     /**

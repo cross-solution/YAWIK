@@ -172,6 +172,10 @@ class ManageController extends AbstractActionController {
                             }
                         }
                     }
+                    if (!$jobEntity->isDraft()) {
+                        // Job is deployed, some changes are now disabled
+                        $form->enableAll();
+                    }
                 }
                 else {
                     throw new \RuntimeException('No form found for page ' . $pageIdentifier);
