@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "65d03c3351c98a7faf1a06c8027362dc",
+    "hash": "54e6d33431d69ab9fe2a1e029b84b939",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -1335,20 +1335,20 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.3.3",
+            "version": "2.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "88c9b6f566fc1097f64ead155625db9bdfee531e"
+                "reference": "f5739702d974f1242ca4101467c58e94cb568294"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-88c9b6f566fc1097f64ead155625db9bdfee531e-zip-ae26c7.zip",
-                "reference": "2.3.3",
-                "shasum": "4864156c8e6131a5e98bef51f7ec6d51f27866f2"
+                "url": "https://packages.zendframework.com/composer/zendframework-zendframework-f5739702d974f1242ca4101467c58e94cb568294-zip-968e4e.zip",
+                "reference": "2.2.8",
+                "shasum": "22befc1e6903d36e4409842c5fc96b9a2f53f89e"
             },
             "require": {
-                "php": ">=5.3.23",
+                "php": ">=5.3.3",
                 "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
@@ -1406,19 +1406,17 @@
             },
             "require-dev": {
                 "doctrine/annotations": ">=1.0",
-                "fabpot/php-cs-fixer": "dev-master#fcbb09b5204",
+                "fabpot/php-cs-fixer": "*@dev",
                 "ircmaxell/random-lib": "dev-master",
                 "ircmaxell/security-lib": "dev-master",
-                "mikey179/vfsstream": "1.2.*",
-                "phpunit/phpunit": "3.7.*",
-                "satooshi/php-coveralls": "dev-master",
-                "sebastianbergmann/phpcov": "1.1.0"
+                "ocramius/proxy-manager": "0.4.*",
+                "phpunit/phpunit": "3.7.*"
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine Annotations >=1.0 for annotation features",
                 "ext-intl": "ext/intl for i18n features (included in default builds of PHP)",
                 "ircmaxell/random-lib": "Fallback random byte generator for Zend\\Math\\Rand if OpenSSL/Mcrypt extensions are unavailable",
-                "ocramius/proxy-manager": "ProxyManager 0.5.* to handle lazy initialization of services",
+                "ocramius/proxy-manager": "ProxyManager to handle lazy initialization of services",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
@@ -1430,8 +1428,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev",
-                    "dev-develop": "2.4-dev"
+                    "dev-master": "2.2-dev",
+                    "dev-develop": "2.3-dev"
                 }
             },
             "autoload": {
@@ -1449,10 +1447,10 @@
                 "zf2"
             ],
             "support": {
-                "source": "https://github.com/zendframework/zf2/tree/release-2.3.3",
+                "source": "https://github.com/zendframework/zf2/tree/release-2.2.8",
                 "issues": "https://github.com/zendframework/zf2/issues"
             },
-            "time": "2014-09-16 22:58:11"
+            "time": "2014-09-16 22:41:30"
         },
         {
             "name": "zendframework/zendxml",

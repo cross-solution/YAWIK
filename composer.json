@@ -32,7 +32,7 @@
         "php": ">=5.3.3",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "*",
+        "zendframework/zendframework": "2.2.*",
         "doctrine/doctrine-mongo-odm-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
 	"mpdf/mpdf": "5.7.*",
