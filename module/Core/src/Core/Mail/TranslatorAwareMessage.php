@@ -53,7 +53,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslator()
      */
-    public function setTranslator (\Zend\I18n\Translator\TranslatorInterface $translator = null, $textDomain = NULL)
+    public function setTranslator (\Zend\I18n\Translator\Translator $translator = null, $textDomain = NULL)
     {
         if ($translator) {
             $this->translator = $translator;
