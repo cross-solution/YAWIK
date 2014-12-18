@@ -12,9 +12,10 @@ namespace Jobs\Form;
 
 use Core\Form\BaseForm;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\propagateAttributeInterface;
 
 
-class Multipost extends BaseForm
+class Multipost extends BaseForm implements propagateAttributeInterface
 {
     protected $baseFieldset = 'Jobs/MultipostFieldset';
     protected $label = /*@translate*/ 'Multiposting';
@@ -34,5 +35,15 @@ class Multipost extends BaseForm
      */
     protected function addButtonsFieldset()
     {
+    }
+
+    public function enableAll($enable = true)
+    {
+        foreach ($this as $forms) {
+            if ($forms instanceof propagateAttributeInterface) {
+                $forms->enableAll($enable);
+            }
+        }
+        return $this;
     }
 }

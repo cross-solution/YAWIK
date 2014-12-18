@@ -117,6 +117,23 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'approval'   => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/approval[/:state]',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'approval',
+                        'defaults' => array(
+                            'state' => 'pending'
+                        ),
+                        'constraints' => array(
+                            'state' => '(pending|approved|declined)',
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'save' => array(
@@ -131,6 +148,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
         'may_terminate' => true,
 
     ),
+    // @TODO put this to the core. By the way - multipost is used for portals already, these are
     'multipost' => array(
         'type' => 'Segment',
         'options' => array(
