@@ -26,7 +26,7 @@ translate('Title and job location');
 //: ./src/Jobs/Form/CompanyName.php:37
 translate('Companyname');
 
-//: ./src/Jobs/Form/Job.php:88
+//: ./src/Jobs/Form/Job.php:89
 translate('Customize apply form');
 
 //: ./src/Jobs/Form/CompanyNameFieldset.php:43
@@ -65,7 +65,7 @@ translate('Location');
 //: ./src/Jobs/Form/BaseFieldset.php:56
 translate('Please enter the location of the job');
 
-//: ./src/Jobs/Form/Multipost.php:20
+//: ./src/Jobs/Form/Multipost.php:21
 translate('Multiposting');
 
 //: ./config/module.config.php:81

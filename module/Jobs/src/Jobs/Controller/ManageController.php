@@ -386,6 +386,7 @@ class ManageController extends AbstractActionController {
 
     /**
      * all actions around approve or decline jobs-offers
+     *
      * @return array with the viewVariables
      */
     public function approvalAction() {
@@ -398,25 +399,22 @@ class ManageController extends AbstractActionController {
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         if ($params == 'declined') {
-            // @TODO choose appropiate state
-            //$jobEntity->state = '';
+            $jobEntity->status = 'rejected';
+            $jobEntity->isDraft = true;
             $repositories->store($jobEntity);
-            // @TODO choose appropiate event
-            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
-            $this->notification()->success($translator->translate('job has been declined'));
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
+            $this->notification()->success($translator->translate('Job has been rejected'));
         }
         if ($params == 'approved') {
-            // @TODO choose appropiate state
-            //$jobEntity->state = '';
+            $jobEntity->status = 'active';
             $repositories->store($jobEntity);
-            // @TODO choose appropiate event
-            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
-            $this->notification()->success($translator->translate('job has been approved'));
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+            $this->notification()->success($translator->translate('Job has been approved'));
         }
         $viewLink = $this->url()->fromRoute('lang/jobs/view', array(), array('query' => array( 'id' => $jobEntity->id)));
         $approvalLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'approved'), array('query' => array( 'id' => $jobEntity->id)));
         $declineLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'declined'), array('query' => array( 'id' => $jobEntity->id)));
-        return array('job' => $jobEntity, 'viewlink' => $viewLink, 'approvalLink' => $approvalLink, 'declineLink' => $declineLink);
+        return array('job' => $jobEntity, 'viewLink' => $viewLink, 'approvalLink' => $approvalLink, 'declineLink' => $declineLink);
     }
 
 }

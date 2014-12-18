@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 17:42+0100\n"
-"PO-Revision-Date: 2014-12-18 17:01+0000\n"
+"POT-Creation-Date: 2014-12-18 18:45+0100\n"
+"PO-Revision-Date: 2014-12-18 17:46+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -173,6 +173,34 @@ msgid ""
 "reviewing team."
 msgstr ""
 
+#: view/jobs/manage/approval.phtml:11
+msgid "Preview of the posting"
+msgstr ""
+
+#: view/jobs/manage/approval.phtml:23 view/jobs/manage/form.phtml:82
+msgid "Summary"
+msgstr "Riassunto"
+
+#: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:90
+msgid "Channel"
+msgstr ""
+
+#: view/jobs/manage/approval.phtml:28 view/jobs/manage/form.phtml:91
+msgid "Price"
+msgstr ""
+
+#: view/jobs/manage/approval.phtml:40 view/jobs/manage/form.phtml:103
+msgid "Total"
+msgstr ""
+
+#: view/jobs/manage/approval.phtml:46
+msgid "Reject Job"
+msgstr ""
+
+#: view/jobs/manage/approval.phtml:47
+msgid "Accept Job"
+msgstr ""
+
 #: view/jobs/manage/form.phtml:31
 msgid "Publish a job"
 msgstr ""
@@ -197,24 +225,8 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:82
-msgid "Summary"
-msgstr "Riassunto"
-
 #: view/jobs/manage/form.phtml:86
 msgid "Your job opening is ready to be published to the following channels"
-msgstr ""
-
-#: view/jobs/manage/form.phtml:90
-msgid "Channel"
-msgstr ""
-
-#: view/jobs/manage/form.phtml:91
-msgid "Price"
-msgstr ""
-
-#: view/jobs/manage/form.phtml:103
-msgid "Total"
 msgstr ""
 
 #: view/jobs/manage/form.phtml:111
@@ -261,6 +273,14 @@ msgstr ""
 
 #: src/Jobs/Controller/ManageController.php:143
 msgid "Accept the Terms"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:406
+msgid "Job has been rejected"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:412
+msgid "Job has been approved"
 msgstr ""
 
 #: language/_annotated_strings.php:3

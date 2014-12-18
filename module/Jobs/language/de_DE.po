@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 17:42+0100\n"
-"PO-Revision-Date: 2014-12-18 17:05+0000\n"
+"POT-Creation-Date: 2014-12-18 18:45+0100\n"
+"PO-Revision-Date: 2014-12-18 17:48+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -177,6 +177,34 @@ msgid ""
 "reviewing team."
 msgstr "Vielen Dank für die Eingabe einer Stellenanzeige. Eine E-Mail wurde an das Review-Team gesendet."
 
+#: view/jobs/manage/approval.phtml:11
+msgid "Preview of the posting"
+msgstr "Voransicht der Stellenanzeige"
+
+#: view/jobs/manage/approval.phtml:23 view/jobs/manage/form.phtml:82
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:90
+msgid "Channel"
+msgstr "Jobportal"
+
+#: view/jobs/manage/approval.phtml:28 view/jobs/manage/form.phtml:91
+msgid "Price"
+msgstr "Preis"
+
+#: view/jobs/manage/approval.phtml:40 view/jobs/manage/form.phtml:103
+msgid "Total"
+msgstr "Summe"
+
+#: view/jobs/manage/approval.phtml:46
+msgid "Reject Job"
+msgstr "Stellenanzeige ablehnen"
+
+#: view/jobs/manage/approval.phtml:47
+msgid "Accept Job"
+msgstr "Stellenanzeige akzeptieren"
+
 #: view/jobs/manage/form.phtml:31
 msgid "Publish a job"
 msgstr "Eine Stellenanzeige veröffentlichen"
@@ -201,25 +229,9 @@ msgstr "Bitte überprüfen Sie die Voransicht Ihrer Stellenanzeige. Klicken Sie 
 msgid "here"
 msgstr "hier"
 
-#: view/jobs/manage/form.phtml:82
-msgid "Summary"
-msgstr "Zusammenfassung"
-
 #: view/jobs/manage/form.phtml:86
 msgid "Your job opening is ready to be published to the following channels"
 msgstr "Ihre Stellenanzeige wird auf folgenden Jobportalen veröffentlicht"
-
-#: view/jobs/manage/form.phtml:90
-msgid "Channel"
-msgstr "Jobportal"
-
-#: view/jobs/manage/form.phtml:91
-msgid "Price"
-msgstr "Preis"
-
-#: view/jobs/manage/form.phtml:103
-msgid "Total"
-msgstr "Summe"
 
 #: view/jobs/manage/form.phtml:111
 #, php-format
@@ -266,6 +278,14 @@ msgstr "Kein Arbeitsort eingegeben"
 #: src/Jobs/Controller/ManageController.php:143
 msgid "Accept the Terms"
 msgstr "Akzeptieren Sie die AGBs"
+
+#: src/Jobs/Controller/ManageController.php:406
+msgid "Job has been rejected"
+msgstr "Die Veröffentlichung der Stellenanzeige wurde abgelehnt"
+
+#: src/Jobs/Controller/ManageController.php:412
+msgid "Job has been approved"
+msgstr "Die Veröffentlichung der Stellenanzeige wurde genehmigt"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
