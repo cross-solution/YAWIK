@@ -45,6 +45,7 @@ class ListFilter extends Form implements ViewPartialProviderInterface
     {
         $this->setName('jobs-list-filter');
         $this->setAttribute('id', 'jobs-list-filter');
+        $this->setAttribute('data-handle-by', 'native');
         
         $this->add(array(
             'type' => 'Jobs/ListFilterFieldset' . ($this->isExtended ? 'Extended' : ''), 
