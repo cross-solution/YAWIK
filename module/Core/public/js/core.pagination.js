@@ -24,7 +24,6 @@
                 else {
                     $container.data('uri', url);
                 }
-		
 		$container.load(url, function() { 
                     $container.pagination(); 
                     if (typeof event.data.loadingIndicator != 'undefined') {

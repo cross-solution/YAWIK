@@ -42,7 +42,7 @@
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
 			var data  = $form.serializeArray();
-            console.debug('data', $form, data);
+            console.debug('data', e, $form, data);
 			if (extraData) {
 				$.each(extraData, function(idx, value) {
 					data.push({
@@ -86,7 +86,7 @@
 			if (validate) {
 				data.validationGroup = validate;
 			}
-
+            console.debug('triggering a submit on change', data);
 			$element.parents('form').trigger('submit', data);
 			return false;
 		}
