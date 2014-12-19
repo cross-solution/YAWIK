@@ -181,10 +181,16 @@ class Application extends AbstractRepository
         $result = $qb->getQuery()->execute();
         return $result;
     }
-    
+
+    /**
+     * @param $user Auth\Entity\AnonymousUser
+     * @param $applyId
+     * @return null |
+     */
     public function findDraft($user, $applyId)
     {
         if ($user instanceOf UserInterface) {
+            //
             $user = $user->getId();
         }
         

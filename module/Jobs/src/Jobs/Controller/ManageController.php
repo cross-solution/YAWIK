@@ -245,14 +245,18 @@ class ManageController extends AbstractActionController {
         $id_fromRoute   = $this->params('id',0);
         $id_fromQuery   = $this->params()->fromQuery('id',0);
         $id_fromSubForm = $this->params()->fromPost('job',0);
+        $user           = $this->auth()->getIdentity();
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
         
         if (empty($id) && $allowDraft) {
-            $job        = $repository->create();
-            $user       = $this->auth()->getUser();
-            $job->setIsDraft(true);
-            $job->setUser($user);
-            $repositories->store($job);
+            $job        = $repository->findDraft($user);
+            if (empty($job)) {
+                $job        = $repository->create();
+                $user       = $this->auth()->getIdentity();
+                $job->setIsDraft(true);
+                $job->setUser($user);
+                $repositories->store($job);
+            }
             return $job;
         }
 
