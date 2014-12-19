@@ -110,6 +110,12 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getGroups();
-    
-    
+
+    /**
+     * get tokens of the user
+     *
+     * @return \Core\Entity\Collection\ArrayCollection
+     */
+    public function getTokens();
+
 }

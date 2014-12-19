@@ -1,0 +1,16 @@
+<?php $this->headTitle($this->translate("We'll help you remember your password")); ?>
+    <h1><?php echo $this->translate("We'll help you remember your password"); ?></h1>
+    <br/>
+    <div class="alert alert-info">
+        <?= $this->translate(
+            'Please enter your username or email address. You will receive a link to create a new password via email.'
+        ); ?>
+    </div>
+
+<?php
+/** @var \Auth\Form\ForgotPassword $form */
+$form = $this->form;
+$form->setAttribute('action', $this->url('lang/forgot-password'));
+?>
+
+<?= $this->form($form); ?>

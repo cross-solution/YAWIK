@@ -196,7 +196,7 @@ class MailService extends AbstractPluginManager
             $headers->addHeader($mailerHeader);
             $mailerHeader->setEncoding('ASCII'); // get rid of other encodings for this header!
         }
-        
+
         $transport->send($mail);
     }
 }

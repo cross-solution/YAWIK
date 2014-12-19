@@ -157,5 +157,11 @@ interface InfoInterface extends EntityInterface
      * @@return string
      */
     public function getHouseNumber();
-    
+
+    /**
+     * Gets the user display name
+     *
+     * @return string
+     */
+    public function getDisplayName();
 }  

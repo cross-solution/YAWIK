@@ -43,7 +43,7 @@ class RepositoryService
     {
         return $this->dm->createQueryBuilder();
     }
-    
+
     public function store(EntityInterface $entity)
     {
         $this->dm->persist($entity);

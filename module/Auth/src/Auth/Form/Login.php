@@ -20,29 +20,32 @@ class Login extends Form
     {
         $this->setName('login-form');
         $this->setAttribute('data-handle-by', 'native');
+        $this->setAttribute('class', 'form-inline');
              
         
         $fieldset = new Fieldset('credentials');
         //$fieldset->setLabel('Enter your credentials');
         $fieldset->setOptions(array('renderFieldset' => true));
         $fieldset->add(array(
-            'name' => 'login',
+            'name' => 'credentials[login]',
             'options' => array(
+                'id' => 'credentials-login',
                 'label' => /* @translate */ 'Login name',
             ),
         ));
         
         $fieldset->add(array(
             'type' => 'password',
-            'name' => 'credential',
+            'name' => 'credentials[credential]',
             'options' => array(
+                'id' => 'credentials-credential',
                 'label' => /* @translate */ 'Password',
                 
             ),
         ));
-        
-        
-        
+
+
+
         $this->add($fieldset);
             
         $buttons = new \Core\Form\ButtonsFieldset('buttons');
