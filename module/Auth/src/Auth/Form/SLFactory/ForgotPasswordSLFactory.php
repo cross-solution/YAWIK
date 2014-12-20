@@ -21,7 +21,7 @@ class ForgotPasswordSLFactory implements FactoryInterface
         /**
          * @var $filter ForgotPasswordInputFilter
          */
-        $filter = $serviceLocator->get('Auth\Form\ForgotPasswordInputFilter');
+        $filter = $serviceLocator->get('Auth\\Form\\ForgotPasswordInputFilter');
         $form = new ForgotPassword();
         $form->setInputfilter($filter);
 

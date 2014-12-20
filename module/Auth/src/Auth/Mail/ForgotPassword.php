@@ -31,8 +31,7 @@ class ForgotPassword extends StringTemplateMessage
         $this->setVariables($variables);
 
         $this->setTo($email, $name !== $email ? $name : null);
-        $subject = /*@translate*/
-            'Password recovery';
+        $subject = /*@translate*/ 'Password recovery';
 
         if ($this->isTranslatorEnabled()) {
             $subject = $this->getTranslator()->translate($subject);

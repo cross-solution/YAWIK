@@ -19,24 +19,24 @@ class ForgotPasswordInputFilter extends InputFilter
         $factory = new InputFactory();
         $this->add(
             $factory->createInput(
-                [
+                array(
                     'name' => 'identity',
                     'required' => true,
-                    'filters' => [
-                        ['name' => 'StripTags'],
-                        ['name' => 'StringTrim'],
-                    ],
-                    'validators' => [
-                        [
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim'),
+                    ),
+                    'validators' => array(
+                        array(
                             'name' => 'StringLength',
-                            'options' => [
+                            'options' => array(
                                 'encoding' => 'UTF-8',
                                 'min' => 3,
                                 'max' => 255,
-                            ],
-                        ],
-                    ],
-                ]
+                            ),
+                        ),
+                    ),
+                )
             )
         );
 

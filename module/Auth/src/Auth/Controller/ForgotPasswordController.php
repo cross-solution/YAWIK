@@ -48,39 +48,39 @@ class ForgotPasswordController extends AbstractCoreController
         $request = $this->getRequest();
         try {
             if ($request->isPost()) {
-                $this->form->setData($request->getPost()->toArray() ?: []);
+                $this->form->setData($request->getPost()->toArray() ?: array());
                 if ($this->form->isValid()) {
                     $mailer = $this->getPluginManager()->get('Mailer');
                     $url = $this->plugin('url');
 
                     $this->service->proceed($this->form->getInputFilter(), $mailer, $url);
 
-                    $this->notification()->success(/*@translate*/
-                        'Mail with link for reset password has been send, please try to check your email box'
+                    $this->notification()->success(
+                        /*@translate*/ 'Mail with link for reset password has been send, please try to check your email box'
                     );
                 } else {
-                    $this->notification()->danger(/*@translate*/
-                        'Please fill form correctly'
+                    $this->notification()->danger(
+                        /*@translate*/ 'Please fill form correctly'
                     );
                 }
             }
         } catch (Exception\UserNotFoundException $e) {
-            $this->notification()->danger(/*@translate*/
-                'User cannot be found for specified username or email'
+            $this->notification()->danger(
+                /*@translate*/ 'User cannot be found for specified username or email'
             );
         } catch (Exception\UserDoesNotHaveAnEmailException $e) {
-            $this->notification()->danger(/*@translate*/
-                'Found user does not have an email'
+            $this->notification()->danger(
+                /*@translate*/ 'Found user does not have an email'
             );
         } catch (\Exception $e) {
             $this->logger->crit($e);
-            $this->notification()->danger(/*@translate*/
-                'An unexpected error has occurred, please contact your system administrator'
+            $this->notification()->danger(
+                /*@translate*/ 'An unexpected error has occurred, please contact your system administrator'
             );
         }
 
-        return [
+        return array(
             'form' => $this->form
-        ];
+        );
     }
 }
