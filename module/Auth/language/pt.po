@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-07 15:41+0000\n"
+"POT-Creation-Date: 2014-12-21 16:36+0100\n"
+"PO-Revision-Date: 2014-12-21 15:37+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Portuguese (http://www.transifex.com/projects/p/yawik/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -101,6 +101,10 @@ msgstr "Por favor, autentique-se para continuar"
 msgid "Login"
 msgstr "Conecte-Se"
 
+#: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
+msgid "I forgot my password"
+msgstr ""
+
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
 msgstr "Um erro 410 ocorreu"
@@ -144,7 +148,18 @@ msgstr "Entre via"
 msgid "Login with %s"
 msgstr ""
 
-#: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
+#: view/auth/forgot-password/index.phtml:1
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:84
+msgid "Reset your password"
+msgstr ""
+
+#: view/auth/forgot-password/index.phtml:5
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr ""
+
+#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr "Minha senha"
 
@@ -155,7 +170,7 @@ msgstr "Informações pessoais"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:66
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:99
 msgid "Password"
 msgstr "Senha"
 
@@ -166,14 +181,6 @@ msgstr "Grupo de dados"
 #: src/Auth/Form/GroupUsersCollection.php:88
 msgid "Users"
 msgstr "Usuários"
-
-#: src/Auth/Controller/ManageController.php:105
-msgid "Password successfully changed"
-msgstr "Senha alterada com sucesso"
-
-#: src/Auth/Controller/ManageController.php:111
-msgid "Password could not be changed"
-msgstr "A senha não pode ser alterada"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
@@ -259,53 +266,92 @@ msgid "General settings"
 msgstr "As definições gerais"
 
 #: language/_annotated_strings.php:81
+msgid "Username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:87
 msgid "General"
 msgstr "Geral"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:90
 msgid "I am"
 msgstr "Eu sou"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:93
 msgid "The group name \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:96
 msgid "Login name"
 msgstr "Nome de login"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:102
 msgid "login"
 msgstr "conecte-se"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:108 language/_annotated_strings.php:111
+msgid "Password successfully changed"
+msgstr "Senha alterada com sucesso"
+
+#: language/_annotated_strings.php:114 language/_annotated_strings.php:117
+msgid "Password could not be changed"
+msgstr "A senha não pode ser alterada"
+
+#: language/_annotated_strings.php:120
 msgid "Group created"
 msgstr "Grupo criado"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:123
 msgid "Group updated"
 msgstr "Grupo atualizado"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:126
 msgid "Changes not saved."
 msgstr "As alterações não salvas."
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:129
 msgid "You are now logged in."
 msgstr "Você agora está logado."
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:132
 msgid "Authentication failed."
 msgstr "Falha na autenticação."
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:135
 msgid "You are now logged out"
 msgstr "Agora você está logado para fora"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:138
+msgid ""
+"Mail with link for reset password has been send, please try to check your "
+"email box"
+msgstr ""
+
+#: language/_annotated_strings.php:141
+msgid "Please fill form correctly"
+msgstr ""
+
+#: language/_annotated_strings.php:144
+msgid "User cannot be found for specified username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:147
+msgid "Found user does not have an email"
+msgstr ""
+
+#: language/_annotated_strings.php:150
+msgid ""
+"An unexpected error has occurred, please contact your system administrator"
+msgstr ""
+
+#: language/_annotated_strings.php:153
+msgid "Password recovery"
+msgstr ""
+
+#: language/_annotated_strings.php:157
 msgid "user"
 msgstr "usuário"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:160
 msgid "recruiter"
 msgstr "recrutador"

@@ -39,7 +39,7 @@ class ForgotPassword extends Form
                 'attributes' => array(
                     'id' => 'submit',
                     'type' => 'submit',
-                    'value' => /* @translate */ 'reset your password',
+                    'value' => /* @translate */ 'Reset your password',
                     'class' => 'btn btn-primary'
                 ),
             )
