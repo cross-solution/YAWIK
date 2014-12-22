@@ -40,7 +40,14 @@ return array(
                 )
             ),
         ),
-        'approvalMail' => '%%approvalMail%%'
+        'approvalMail' => '%%approvalMail%%',
+        'target' => array(
+            'restServer'          => array(
+                'uri'           => '%%multiposting.target.uri%%',
+                'PHP_AUTH_USER' => '%%multiposting.target.user%%',
+                'PHP_AUTH_PW'   => '%%multiposting.target.pw%%'
+            )
+        ),
     ),
     'view_manager' => array(
             // Define the discriptions for the channels
@@ -48,4 +55,5 @@ return array(
 
             ),
     ),
+
 );

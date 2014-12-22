@@ -5,6 +5,9 @@ namespace Core\Entity\Hydrator;
 
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
+use Zend\Stdlib\Hydrator\Filter\FilterInterface;
+use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 class EntityHydrator extends AbstractHydrator
 {
@@ -40,8 +43,9 @@ class EntityHydrator extends AbstractHydrator
         foreach ($getters as $getter) {
             $propertyValue = $object->$getter();
             $propertyName = lcfirst(substr($getter, 3));
-            
-            $data[$propertyName] = $this->extractValue($propertyName, $propertyValue, $object);
+            if ($this->getFilter()->filter($propertyName)) {
+                $data[$propertyName] = $this->extractValue($propertyName, $propertyValue, $object);
+            }
         }
         return $data;
         
@@ -82,6 +86,18 @@ class EntityHydrator extends AbstractHydrator
         
         return $object;
     }
-    
-    
+
+    /**
+     * exclude methods from the automatism
+     * @param $methods
+     */
+    public function setExcludeMethods($methods)
+    {
+        if (is_string($methods)) {
+            $methods = array($methods);
+        }
+        foreach ($methods as $method) {
+            $this->addFilter($method, new MethodMatchFilter($method), FilterComposite::CONDITION_AND);
+        }
+    }
 }

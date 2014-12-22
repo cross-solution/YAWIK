@@ -58,5 +58,16 @@ class Module implements ConsoleUsageProviderInterface
             ),
         );
     }
+
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager = $e->getApplication()->getEventManager();
+        $services     = $e->getApplication()->getServiceManager();
+        $sharedManager = $eventManager->getSharedManager();
+
+        $defaultlistener = $services->get('CamMediaintown/JobListener');
+        $defaultlistener->attachShared($sharedManager);
+    }
+
 }
 
