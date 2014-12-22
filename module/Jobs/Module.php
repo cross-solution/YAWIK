@@ -59,3 +59,4 @@ class Module implements ConsoleUsageProviderInterface
         );
     }
 }
+

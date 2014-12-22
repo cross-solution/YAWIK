@@ -46,7 +46,6 @@ class IndexController extends AbstractActionController
         
         $params      = $this->getRequest()->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
-        $repository  = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         $isRecruiter = $this->acl()->isRole('recruiter');
         
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
@@ -66,9 +65,7 @@ class IndexController extends AbstractActionController
             //$filterForm->setData(array('params' => $params->toArray()));
             //$filterForm->setData()
         }
-        
-        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
-        
+
         if (!isset($params['sort'])) {
             $params['sort']='-date';
         }
@@ -101,8 +98,12 @@ class IndexController extends AbstractActionController
         
     
      }
-     
-     public function viewAction()
+
+    /**
+     * @return ViewModel
+     * @throws \RuntimeException
+     */
+    public function viewAction()
      {
          $id                   = $this->params()->fromQuery('id');
          if (!$id) {
@@ -144,8 +145,11 @@ class IndexController extends AbstractActionController
          return $model;
          
      }
-     
-     public function dashboardAction()
+
+    /**
+     * @return array
+     */
+    public function dashboardAction()
      {
          $services = $this->getServiceLocator();
          $params = $this->getRequest()->getQuery();
@@ -157,9 +161,6 @@ class IndexController extends AbstractActionController
          
          $paginator = $this->paginator('Jobs/Job');
 
-         #$paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
-         #->setItemCountPerPage($params->get('count', 10));
-         
          return array(
              'script' => 'jobs/index/dashboard',
              'type' => $this->params('type'),
@@ -167,8 +168,11 @@ class IndexController extends AbstractActionController
              'jobs' => $paginator
          );
      }
-     
-     public function typeaheadAction()
+
+    /**
+     * @return JsonModel
+     */
+    public function typeaheadAction()
      {
          $query = $this->params()->fromQuery('q', '*');
          $repository = $this->getServiceLocator()
