@@ -1,3 +1,3 @@
 #!/bin/sh
 
-lessc yawik.less ../public/css/yawik.css
+lessc  --yui-compress  yawik.less ../public/css/yawik.css

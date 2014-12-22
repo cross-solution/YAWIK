@@ -63,7 +63,7 @@
 
 @table-bg-header:  #EFEFEF;
 
-// CAM Variables
+// YAWIK Variables
 @colorError:               #B94A48;
 @colorErrorShadow:         #D59392;
 @colorErrorBorder:         #953B39;
@@ -71,7 +71,6 @@
 @backgroundSidebarActive:  #f5f5f5;
 
 body {
-	padding: @navbar-height 0 25px;	
 	position: relative;
 }
 
@@ -79,11 +78,10 @@ th {
   background-color: @table-bg-header;
 }
 
-#cam-topbar {
+#yk-topbar {
   .navbar;
   .navbar-inverse;
   .navbar-fixed-top;
-  .cam-nav;
 }
 
 main {
@@ -128,8 +126,8 @@ h6 {
  */
 .cam-toolbar {
   margin: 0 0 8px;
-  padding: 0px;
-  min-height: 0px;
+  padding: 0;
+  min-height: 0;
 
   .cam-input-group {
     max-width: 400px;
@@ -169,7 +167,7 @@ h6 {
   }
   a:hover {
 	color: @navbar-inverse-link-hover-color;
-	backbround-color: @brand-primary;
+	background-color: @brand-primary;
   }
 
   li li {
@@ -217,18 +215,7 @@ form .input-error input:focus {
 	border-color: @colorErrorBorder;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px @colorErrorShadow;
 }
-/*
-fieldset fieldset,
-fieldset .fieldset-content {
-  border: 1px solid #dddddd;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
-	margin-bottom: 20px;
-	padding: 20px;
-	background-color: @backgroundFieldset;
-}
-*/
+
 .form-inline fieldset .fieldset-content .controls-row {
 	margin-bottom: 15px;
 }
@@ -244,8 +231,8 @@ fieldset fieldset a.remove-item {
 
 #params-search-wrapper {
   .col-xs-6 {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
   }
 }
 
@@ -253,8 +240,8 @@ fieldset fieldset a.remove-item {
 .btn-group {
  .col-md-3,
  .col-md-6 {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
  }
 }
 
@@ -264,22 +251,6 @@ fieldset fieldset a.remove-item {
  *
  * Turn the `.navbar` at the top of the docs purple.
  */
-
-.cam-nav {
-  text-shadow: 0 -1px 0 rgba(0,0,0,.15);
-  border-color: darken(@brand-primary, -20%);
-  box-shadow: 0 1px 0 rgba(255,255,255,.1);
-
- .navbar-collapse {
-   border-color: darken(@brand-primary, -20%);
- }
- .navbar-toggle {
-  border-color: darken(@brand-primary, -20%);
- }
- .navbar-toggle:hover {
-  border-color: darken(@brand-primary, -30%);
- }
-}
 
 #login-info-box {
   .dropdown-header {
@@ -306,12 +277,12 @@ fieldset fieldset a.remove-item {
 #contact-image {
   border: none;
   box-shadow: none;
-  padding: 0px 12px;
+  padding: 0 12px;
 }
 #attachments input {
   border: none;
   box-shadow: none;
-  padding: 0px 12px;
+  padding: 0 12px;
 }
 
 #profiles {
