@@ -117,13 +117,13 @@ class IndexController extends AbstractActionController
          $applicationViewModel = $mvcEvent->getViewModel();
          $templateValues       = $job->templateValues;
          $uriApply             = $job->uriApply;
-         $model->setTemplate('templates/default/index.phtml');
+         $model->setTemplate('templates/default/index');
          if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
              $this->response->setStatusCode(404);
              $model->setVariable('message','job is not available');
          }
          else {
-            $model->setTemplate('templates/default/index.phtml');
+            $model->setTemplate('templates/default/index');
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
          }
          if (empty($uriApply)) {
@@ -136,7 +136,10 @@ class IndexController extends AbstractActionController
              'requirements' => $templateValues->requirements,
              'qualifications' => $templateValues->qualifications,
              'title' => $templateValues->title,
-             'uriApply' => $uriApply
+             'uriApply' => $uriApply,
+             'organizationName' => $job->company,
+             'street' => $job->user->info->street.' '.$job->user->info->houseNumber,
+             'phone' => $job->user->info->phone
          ));
          return $model;
          

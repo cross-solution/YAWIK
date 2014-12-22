@@ -355,14 +355,17 @@ class ManageController extends AbstractActionController {
         }
         //$this->url('lang/apply', array('applyId' => 'software-developer')
 
-        $model->setTemplate('templates/default/index.phtml');
+        $model->setTemplate('templates/default/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         $model->setVariables(array(
             'benefits' => $renderedDescriptionFormBenefits,
             'requirements' => $renderedDescriptionFormRequirements,
             'qualifications' => $renderedDescriptionFormQualifications,
             'title' => $renderedDescriptionFormTitle,
-            'uriApply' => $uriApply
+            'uriApply' => $uriApply,
+            'organizationName' => $jobEntity->company,
+            'street' => $jobEntity->user->info->street.' '.$jobEntity->user->info->houseNumber,
+            'postalCode' => $jobEntity->user->info->postalCode,
         ));
 
         return $model;
