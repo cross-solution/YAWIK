@@ -21,7 +21,9 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
-    
+
+
+
     /**
      * Sets the users login name
      *

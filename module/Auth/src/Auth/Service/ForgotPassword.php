@@ -44,6 +44,13 @@ class ForgotPassword
         $this->logger = $logger;
     }
 
+    /**
+     * @param InputFilterInterface $filter
+     * @param Plugin\Mailer $mailer
+     * @param Url $url
+     * @throws UserDoesNotHaveAnEmailException
+     * @throws UserNotFoundException
+     */
     public function proceed(InputFilterInterface $filter, Plugin\Mailer $mailer, Url $url)
     {
         if (!$filter->isValid()) {
@@ -53,11 +60,11 @@ class ForgotPassword
         $identity = $filter->getValue('identity');
 
         if (!($user = $this->userRepository->findByLoginOrEmail($identity))) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException('User is not found');
         }
 
         if (!($email = $user->getInfo()->getEmail())) {
-            throw new UserDoesNotHaveAnEmailException();
+            throw new UserDoesNotHaveAnEmailException('User does not have an email');
         }
 
         $tokenHash = $this->tokenGenerator->generate($user);
@@ -68,19 +75,14 @@ class ForgotPassword
             array('force_canonical' => true)
         );
 
-        try {
-            $mailer->__invoke(
-                'Auth\Mail\ForgotPassword',
-                array(
-                    'user' => $user,
-                    'resetLink' => $resetLink
-                ),
-                true
-            );
-        } catch (\Exception $e) {
-            $this->logger->crit($e);
-            throw $e;
-        }
+        $mailer->__invoke(
+            'Auth\Mail\ForgotPassword',
+            array(
+                'user' => $user,
+                'resetLink' => $resetLink
+            ),
+            true
+        );
     }
 }
 
