@@ -14,6 +14,7 @@ use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\Router\SimpleRouteStack;
 use Zend\Mvc\Service\RouterFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
@@ -34,17 +35,23 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      */
     protected $controller;
 
-    public function init($controllerName, $actionName = 'index')
+    public function init($controllerName, $actionName = 'index', $lang = 'en')
     {
         $this->routeMatch = new RouteMatch(
-            [
+            array(
                 'controller' => $controllerName,
-                'action' => $actionName
-            ]
+                'action' => $actionName,
+                'lang' => $lang
+            )
         );
         $this->event = new MvcEvent();
         $this->event->setRouteMatch($this->routeMatch);
-        $this->event->setRouter((new RouterFactory())->createService(Bootstrap::getServiceManager()));
+
+        /** @var SimpleRouteStack $router */
+        $router = (new RouterFactory())->createService(clone Bootstrap::getServiceManager());
+        $router->setDefaultParam('lang', $lang);
+
+        $this->event->setRouter($router);
     }
 
     protected function assertResponseStatusCode($code)

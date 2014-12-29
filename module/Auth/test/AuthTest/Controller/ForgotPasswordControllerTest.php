@@ -10,9 +10,15 @@
 namespace AuthTest\Controller;
 
 use Auth\Controller\ForgotPasswordController;
+use Auth\Form\ForgotPasswordInputFilter;
+use Auth\Service\Exception;
+use AuthTest\Bootstrap;
+use Core\Controller\Plugin\Notification;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
+use Zend\Mvc\Controller\PluginManager;
+use Zend\Stdlib\Parameters;
 
 class ForgotPasswordControllerTest extends AbstractControllerTestCase
 {
@@ -40,6 +46,9 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
 
         $this->controller = new ForgotPasswordController($this->formMock, $this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);
+        /** @var PluginManager $controllerPluginManager */
+        $controllerPluginManager = clone Bootstrap::getServiceManager()->get('ControllerPluginManager');
+        $this->controller->setPluginManager($controllerPluginManager);
     }
 
     public function testIndexAction_WithGetRequest()
@@ -57,4 +66,209 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->assertSame($expected, $result);
     }
 
+    public function testIndexAction_WithPostRequest_WhenDataIsInvalid()
+    {
+        $postData = array();
+
+        $request = new Request();
+        $request->setMethod(Request::METHOD_POST);
+        $request->setPost(new Parameters($postData));
+
+        $this->formMock->expects($this->once())
+            ->method('setData')
+            ->with($postData);
+
+        $this->formMock->expects($this->once())
+            ->method('isValid')
+            ->willReturn(false);
+
+        $result = $this->controller->dispatch($request);
+
+        $expected = array(
+            'form' => $this->formMock
+        );
+
+        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
+        $this->assertSame($expected, $result);
+
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_DANGER);
+
+        $expectedMessages = array(
+            'Please fill form correctly'
+        );
+
+        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+    }
+
+    public function testIndexAction_WithPostRequest_WhenUserCannotBeFoundByUsernameOrEmail()
+    {
+        $postData = array('identity' => uniqid('identity'));
+
+        $request = new Request();
+        $request->setMethod(Request::METHOD_POST);
+        $request->setPost(new Parameters($postData));
+
+        $this->formMock->expects($this->once())
+            ->method('setData')
+            ->with($postData);
+
+        $this->formMock->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+
+        $this->formMock->expects($this->once())
+            ->method('getInputFilter')
+            ->willReturn(new ForgotPasswordInputFilter());
+
+        $this->serviceMock->expects($this->once())
+            ->method('proceed')
+            ->willThrowException(new Exception\UserNotFoundException());
+
+        $result = $this->controller->dispatch($request);
+
+        $expected = array(
+            'form' => $this->formMock
+        );
+
+        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
+        $this->assertSame($expected, $result);
+
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_DANGER);
+
+        $expectedMessages = array(
+            'User cannot be found for specified username or email'
+        );
+
+        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+    }
+
+    public function testIndexAction_WithPostRequest_WhenUserDoesNotHaveAnEmail()
+    {
+        $postData = array('identity' => uniqid('identity'));
+
+        $request = new Request();
+        $request->setMethod(Request::METHOD_POST);
+        $request->setPost(new Parameters($postData));
+
+        $this->formMock->expects($this->once())
+            ->method('setData')
+            ->with($postData);
+
+        $this->formMock->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+
+        $this->formMock->expects($this->once())
+            ->method('getInputFilter')
+            ->willReturn(new ForgotPasswordInputFilter());
+
+        $this->serviceMock->expects($this->once())
+            ->method('proceed')
+            ->willThrowException(new Exception\UserDoesNotHaveAnEmailException());
+
+        $result = $this->controller->dispatch($request);
+
+        $expected = array(
+            'form' => $this->formMock
+        );
+
+        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
+        $this->assertSame($expected, $result);
+
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_DANGER);
+
+        $expectedMessages = array(
+            'Found user does not have an email'
+        );
+
+        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+    }
+
+    public function testIndexAction_WithPostRequest_WhenUnexpectedExceptionHasOccurred()
+    {
+        $postData = array('identity' => uniqid('identity'));
+
+        $request = new Request();
+        $request->setMethod(Request::METHOD_POST);
+        $request->setPost(new Parameters($postData));
+
+        $this->formMock->expects($this->once())
+            ->method('setData')
+            ->with($postData);
+
+        $this->formMock->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+
+        $this->formMock->expects($this->once())
+            ->method('getInputFilter')
+            ->willReturn(new ForgotPasswordInputFilter());
+
+        $this->serviceMock->expects($this->once())
+            ->method('proceed')
+            ->willThrowException(new \LogicException());
+
+        $result = $this->controller->dispatch($request);
+
+        $expected = array(
+            'form' => $this->formMock
+        );
+
+        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
+        $this->assertSame($expected, $result);
+
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_DANGER);
+
+        $expectedMessages = array(
+            'An unexpected error has occurred, please contact your system administrator'
+        );
+
+        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+    }
+
+    public function testIndexAction_WithPostRequest()
+    {
+        $postData = array('identity' => uniqid('identity'));
+
+        $request = new Request();
+        $request->setMethod(Request::METHOD_POST);
+        $request->setPost(new Parameters($postData));
+
+        $this->formMock->expects($this->once())
+            ->method('setData')
+            ->with($postData);
+
+        $this->formMock->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+
+        $this->formMock->expects($this->once())
+            ->method('getInputFilter')
+            ->willReturn(new ForgotPasswordInputFilter());
+
+        $this->serviceMock->expects($this->once())
+            ->method('proceed');
+
+        $result = $this->controller->dispatch($request);
+
+        $expected = array(
+            'form' => $this->formMock
+        );
+
+        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
+        $this->assertSame($expected, $result);
+
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_SUCCESS);
+
+        $expectedMessages = array(
+            'Mail with link for reset password has been send, please try to check your email box'
+        );
+
+        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+    }
 }

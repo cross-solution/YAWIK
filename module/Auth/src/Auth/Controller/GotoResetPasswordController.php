@@ -50,17 +50,17 @@ class GotoResetPasswordController extends AbstractCoreController
 
             return $this->redirect()->toRoute('lang/my', array('action' => 'password'));
         } catch (Exception\TokenExpirationDateExpiredException $e) {
-            $this->notification()->danger(/*@translate*/
-                'Cannot proceed, token expired'
+            $this->notification()->danger(
+                /*@translate*/ 'Cannot proceed, token expired'
             );
         } catch (Exception\UserNotFoundException $e) {
-            $this->notification()->danger(/*@translate*/
-                'User cannot be found for specified token'
+            $this->notification()->danger(
+                /*@translate*/ 'User cannot be found for specified token'
             );
         } catch (\Exception $e) {
             $this->logger->crit($e);
-            $this->notification()->danger(/*@translate*/
-                'An unexpected error has occurred, please contact your system administrator'
+            $this->notification()->danger(
+                /*@translate*/ 'An unexpected error has occurred, please contact your system administrator'
             );
         }
 

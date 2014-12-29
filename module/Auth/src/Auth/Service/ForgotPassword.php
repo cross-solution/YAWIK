@@ -29,19 +29,12 @@ class ForgotPassword
      */
     private $tokenGenerator;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
     public function __construct(
         Repository\User $userRepository,
-        UserUniqueTokenGenerator $tokenGenerator,
-        LoggerInterface $logger
+        UserUniqueTokenGenerator $tokenGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;
-        $this->logger = $logger;
     }
 
     /**
