@@ -13,6 +13,9 @@ error_reporting(E_ALL & ~E_STRICT);
 
 class Bootstrap
 {
+    /**
+     * @var ServiceManager
+     */
     protected static $serviceManager;
     protected static $config;
     protected static $bootstrap;

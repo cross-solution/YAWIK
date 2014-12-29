@@ -23,6 +23,7 @@ class ForgotPassword extends Form
 
         $this->add(
             array(
+                'type' => 'text',
                 'name' => 'identity',
                 'options' => array(
                     'label' => /* @translate */ 'Username or email',

@@ -54,7 +54,7 @@ class GotoResetPassword
         );
 
         if (!$user) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException('User or token does not exists');
         }
 
         $this->checkAllTokens($user, $tokenHash);

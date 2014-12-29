@@ -35,15 +35,16 @@
         "zendframework/zendframework": "2.2.*",
         "doctrine/doctrine-mongo-odm-module": "dev-master",
         "hybridauth/hybridauth": "dev-master",
-	"mpdf/mpdf": "5.7.*",
+        "mpdf/mpdf": "5.7.*",
         "twbs/bootstrap": "*",
         "components/jquery": "1.9.1",
         "fortawesome/font-awesome": "*",
         "twitter/typeahead.js": "*",
         "blueimp/jquery-file-upload": "dev-master",
-	"ivaynberg/select2": "3.5.*",
+        "ivaynberg/select2": "3.5.*",
         "tinymce/tinymce": "*"
     },
     "require-dev": {
+        "phpunit/phpunit": "4.3.*"
     }
 }

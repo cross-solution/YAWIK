@@ -31,12 +31,10 @@ class ForgotPasswordSLFactory implements FactoryInterface
         /**
          * @var Repository\User          $userRepository
          * @var UserUniqueTokenGenerator $tokenGenerator
-         * @var LoggerInterface          $logger
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
         $tokenGenerator = $serviceLocator->get('Auth\Service\UserUniqueTokenGenerator');
-        $logger = $serviceLocator->get('Log/Core/Cam');
 
-        return new ForgotPassword($userRepository, $tokenGenerator, $logger);
+        return new ForgotPassword($userRepository, $tokenGenerator);
     }
 }
