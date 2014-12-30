@@ -1,6 +1,6 @@
 <?php
 /**
-* this file is not used.
+* this partial renders the navigation horizontal.
 */
 $navigation = $this->navigation('Core/Navigation')->menu();
 $html = '';
@@ -59,7 +59,7 @@ foreach ($iterator as $page) {
     if ($depth > $prevDepth) {
         // start new ul tag
         if ($depth ==  0) {
-            $ulClass = ' class="nav nav-tabs"';
+            $ulClass = ' class="nav nav-tabs pull-left"';
         } else {
             $ulClass = ' class="dropdown-menu"';
         }

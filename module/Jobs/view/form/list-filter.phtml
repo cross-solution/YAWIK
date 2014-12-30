@@ -27,23 +27,6 @@ $createRadioGroup = function ($element, $id) use ($translate) {
     </div>
     <?php //return $input;
 };
-/*$createDropdown = function ($element, $id) {
-    
-    $input = '';
-    ?><div class="dropdown"><button class="btn btn-small dropdown-toggle" data-target="#" data-toggle="dropdown" id="params-<?php echo $id ?>">
-        <?php echo $element->getLabel() ?>: <?php echo $element->getValue() ?> <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <?php foreach ($element->getValueOptions() as $value => $label):?>
-        <li id="params-<?php echo "$id-$value" ?>" class="<?php $value == $element->getValue() ? "inactive" : "" ?>">
-            <a href="#"><?php echo $label ?></a>
-        </li>
-        <?php endforeach ?>
-    </ul></div>
-    <?php $input = '<input id="params-' . $id . '-value" type="hidden" name="' . $element->getName() . '" value="' . $element->getValue() .'" />';
-    return $input;
-};*/
-
 
 $form   = $this->element;
 $params = $this->element->get('params'); 
@@ -72,7 +55,4 @@ $statusElement = $params->get('status');
 </div>
 <?php endif; ?>
 
-<?php 
-echo $this->form()->closeTag();
-
-?>
+<?php echo $this->form()->closeTag(); ?>

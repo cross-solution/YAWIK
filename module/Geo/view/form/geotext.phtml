@@ -28,7 +28,7 @@ if ($this->element->hasAttribute('name')) {
     </div>
     <div id="job-location-span" class="col-md-9">
         <input type="text" value="<?php echo $value; ?>" class=" form-control geolocation" id="job-location" name="<?php echo $name; ?>" data-provide="typeahead" >
-        <div id="job-location-errors">
+        <div id="<?php echo preg_replace('/\W/','-',$this->element->getName()); ?>errors">
         </div>     
     </div>
 </div>

@@ -48,7 +48,8 @@ class MailService extends AbstractPluginManager
     
     protected $invokableClasses = array(
         'simple' => '\Zend\Mail\Message',
-        'stringtemplate' => '\Core\Mail\StringTemplateMessage'
+        'stringtemplate' => '\Core\Mail\StringTemplateMessage',
+        'htmltemplate' => '\Core\Mail\HTMLTemplateMessage'
     );
     
     protected $factories = array(
@@ -195,7 +196,7 @@ class MailService extends AbstractPluginManager
             $headers->addHeader($mailerHeader);
             $mailerHeader->setEncoding('ASCII'); // get rid of other encodings for this header!
         }
-        
+
         $transport->send($mail);
     }
 }

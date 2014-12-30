@@ -65,7 +65,7 @@ class Mailer extends AbstractPlugin
         }
         
         $mail = $this->get($mail, $options);
-        
+
         return $sendMail ? $this->send($mail) : $mail;
     }
 }

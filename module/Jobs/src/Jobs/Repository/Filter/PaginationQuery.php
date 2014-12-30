@@ -47,7 +47,7 @@ class PaginationQuery extends AbstractPaginationQuery
                         break;
                 }
             }
-            if (isset($value['status']) && !empty($value['status'])) {
+            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' ) {
                 $queryBuilder->field('status')->equals((string) $value['status']);
             }
             

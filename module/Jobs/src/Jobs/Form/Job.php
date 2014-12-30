@@ -12,6 +12,7 @@ namespace Jobs\Form;
 
 use Core\Form\Container;
 use Zend\View\Renderer\PhpRenderer as Renderer;
+use Core\Form\propagateAttributeInterface;
 
 /**
  * Jobs form container. Defines all formulars for entering a job position.
@@ -32,7 +33,7 @@ class Job extends Container
     {
         $this->setForms(array(
             'locationForm' => array(
-                'type' => 'Jobs/TitleLocation',
+                'type' => 'Jobs/Base',
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
@@ -57,7 +58,7 @@ class Job extends Container
 
         $this->setForms(array(
             'portalForm' => array(
-                'type' => 'Jobs/Portals',
+                'type' => 'Jobs/Multipost',
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
@@ -120,6 +121,18 @@ JS;
 
         $renderer->headScript()->appendScript($javaScript);
         return parent::renderPost($renderer);
+    }
+
+
+    public function enableAll($enable = true)
+    {
+        foreach ($this->activeForms as $formkey) {
+            $forms = $this->getForm($formkey);
+            if ($forms instanceof propagateAttributeInterface) {
+                $forms->enableAll($enable);
+            }
+        }
+        return $this;
     }
 
 }

@@ -61,12 +61,13 @@ class ListFilterFieldset extends Fieldset
                 'name' => 'status',
                 'options' => array(
                     'value_options' => array(
+                        'all' => /*@translate*/ 'All',
                         'active' => /*@translate*/ 'Active',
                         'inactive' => /*@translate*/ 'Inactive',
                     )
                 ),
                 'attributes' => array(
-                    'value' => 'active',
+                    'value' => 'all',
                 )
             ));
         }

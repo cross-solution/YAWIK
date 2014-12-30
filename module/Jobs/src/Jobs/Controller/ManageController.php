@@ -20,6 +20,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
 use Jobs\Listener\Events\JobEvent;
 use Core\Form\SummaryFormInterface;
+use Zend\Stdlib\ArrayUtils;
 
 
 /**
@@ -73,7 +74,7 @@ class ManageController extends AbstractActionController {
     }
 
     /**
-     * save a Job-Post either by a regular request or by an asyncron post (AJAX)
+     * save a Job-Post either by a regular request or by an async post (AJAX)
      * a mandatory parameter is the ID of the Job
      * in case of a regular Request you can
      *
@@ -100,18 +101,20 @@ class ManageController extends AbstractActionController {
         $valid              = true;
         $instanceForm       = Null;
         $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
+        $formErrorMessages = array();
         if (isset($formIdentifier) &&  $request->isPost()) {
-            // at this point the form get instanciated and immediately accumulated
+            // at this point the form get instantiated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
             if (!isset($instanceForm)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
-            // the id is part of the postData, but it never should be altered
+            // the id may be part of the postData, but it never should be altered
             $postData = $request->getPost();
-            unset($postData['id']);
+            if (isset($postData['id'])) unset($postData['id']);
             unset($postData['applyId']);
             $instanceForm->setData($postData);
             $valid = $instanceForm->isValid();
+            $formErrorMessages = ArrayUtils::merge($formErrorMessages, $instanceForm->getMessages());
             if ($valid) {
                 $title = $jobEntity->title;
                 $templateTitle = $jobEntity->templateValues->title;
@@ -153,7 +156,7 @@ class ManageController extends AbstractActionController {
                 'content' => $content,
                 'valid' => $valid,
                 'jobvalid' => $jobValid,
-                'errors' => array(),
+                'errors' => $formErrorMessages,
                 'errorMessage' => $errorMessage));
         }
         else {
@@ -168,6 +171,10 @@ class ManageController extends AbstractActionController {
                                 $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::RENDER_FORM);
                             }
                         }
+                    }
+                    if (!$jobEntity->isDraft()) {
+                        // Job is deployed, some changes are now disabled
+                        $form->enableAll();
                     }
                 }
                 else {
@@ -227,16 +234,6 @@ class ManageController extends AbstractActionController {
         $container->setParam('job',$job->id);
         $container->setParam('applyId',$job->applyId);
         return $container;
-        /*
-        $formTitleLocation = $form->getForm->get('location');
-        $formTitleLocation->bind($job);
-        
-        if ($this->getRequest()->isPost()) {
-            $formTitleLocation->setData($_POST);
-        }
-
-        return $formTitleLocation;
-        */
     }
     
     protected function getJob($allowDraft = true)
@@ -248,14 +245,18 @@ class ManageController extends AbstractActionController {
         $id_fromRoute   = $this->params('id',0);
         $id_fromQuery   = $this->params()->fromQuery('id',0);
         $id_fromSubForm = $this->params()->fromPost('job',0);
+        $user           = $this->auth()->getIdentity();
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
         
         if (empty($id) && $allowDraft) {
-            $job        = $repository->create();
-            $user       = $this->auth()->getUser();
-            $job->setIsDraft(true);
-            $job->setUser($user);
-            $repositories->store($job);
+            $job        = $repository->findDraft($user);
+            if (empty($job)) {
+                $job        = $repository->create();
+                $user       = $this->auth()->getIdentity();
+                $job->setIsDraft(true);
+                $job->setUser($user);
+                $repositories->store($job);
+            }
             return $job;
         }
 
@@ -284,7 +285,7 @@ class ManageController extends AbstractActionController {
     }
 
 
-    protected function edittemplateAction()
+    protected function editTemplateAction()
     {
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
@@ -354,14 +355,17 @@ class ManageController extends AbstractActionController {
         }
         //$this->url('lang/apply', array('applyId' => 'software-developer')
 
-        $model->setTemplate('templates/default/index.phtml');
+        $model->setTemplate('templates/default/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         $model->setVariables(array(
             'benefits' => $renderedDescriptionFormBenefits,
             'requirements' => $renderedDescriptionFormRequirements,
             'qualifications' => $renderedDescriptionFormQualifications,
             'title' => $renderedDescriptionFormTitle,
-            'uriApply' => $uriApply
+            'uriApply' => $uriApply,
+            'organizationName' => $jobEntity->company,
+            'street' => $jobEntity->user->info->street.' '.$jobEntity->user->info->houseNumber,
+            'postalCode' => $jobEntity->user->info->postalCode,
         ));
 
         return $model;
@@ -373,13 +377,51 @@ class ManageController extends AbstractActionController {
         $jobEntity      = $this->getJob();
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
-        $this->getEventManager()->trigger(JobEvent::EVENT_JOB_NEW, $jobEvent);
 
         $jobEntity->isDraft = false;
         $jobEntity->status = 'active';
-        $serviceLocator->get('repositories')->persist($jobEntity);
+
+        /**
+         * make the job opening persist and fire the EVENT_JOB_CREATED
+         */
+        $serviceLocator->get('repositories')->store($jobEntity);
+
+        $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
 
         return array('job' => $jobEntity);
+    }
+
+    /**
+     * all actions around approve or decline jobs-offers
+     *
+     * @return array with the viewVariables
+     */
+    public function approvalAction() {
+
+        $serviceLocator = $this->getServiceLocator();
+        $translator     = $serviceLocator->get('mvcTranslator');
+        $repositories   = $serviceLocator->get('repositories');
+        $params         = $this->params('state');
+        $jobEntity      = $this->getJob();
+        $jobEvent       = $serviceLocator->get('Jobs/Event');
+        $jobEvent->setJobEntity($jobEntity);
+        if ($params == 'declined') {
+            $jobEntity->status = 'rejected';
+            $jobEntity->isDraft = true;
+            $repositories->store($jobEntity);
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
+            $this->notification()->success($translator->translate('Job has been rejected'));
+        }
+        if ($params == 'approved') {
+            $jobEntity->status = 'active';
+            $repositories->store($jobEntity);
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+            $this->notification()->success($translator->translate('Job has been approved'));
+        }
+        $viewLink = $this->url()->fromRoute('lang/jobs/view', array(), array('query' => array( 'id' => $jobEntity->id)));
+        $approvalLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'approved'), array('query' => array( 'id' => $jobEntity->id)));
+        $declineLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'declined'), array('query' => array( 'id' => $jobEntity->id)));
+        return array('job' => $jobEntity, 'viewLink' => $viewLink, 'approvalLink' => $approvalLink, 'declineLink' => $declineLink);
     }
 
 }

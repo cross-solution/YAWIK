@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 15:32+0200\n"
-"PO-Revision-Date: 2014-09-16 13:51+0000\n"
+"POT-Creation-Date: 2014-12-21 16:36+0100\n"
+"PO-Revision-Date: 2014-12-21 15:37+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Au moins un utilisateur doit être assigné"
 msgid "My groups"
 msgstr "Mes groupes"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:22
+#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:26
 msgid "Manage groups"
 msgstr "Gérer les groupes"
 
@@ -98,9 +98,13 @@ msgid "Please authenticate yourself to proceed"
 msgstr "S'il vous plaît vous authentifier pour procéder"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:45
+#: view/auth/index/login-info.phtml:49
 msgid "Login"
 msgstr "Connexion"
+
+#: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
+msgid "I forgot my password"
+msgstr ""
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
@@ -114,38 +118,49 @@ msgstr "Inconnu appliquer identifiant"
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr "Une annonce d'emploi fourni avec le s'applique identifiant n'a pu être trouvée."
 
-#: view/auth/index/login-info.phtml:15 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Mon profil"
 
-#: view/auth/index/login-info.phtml:18
+#: view/auth/index/login-info.phtml:22
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
-#: view/auth/index/login-info.phtml:27
+#: view/auth/index/login-info.phtml:31
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: view/auth/index/login-info.phtml:34
+#: view/auth/index/login-info.phtml:38
 #, php-format
 msgid "Hello %s"
 msgstr "Bonjour %s "
 
-#: view/auth/index/login-info.phtml:35
+#: view/auth/index/login-info.phtml:39
 msgid "Guest"
 msgstr "Invité"
 
-#: view/auth/index/login-info.phtml:47
+#: view/auth/index/login-info.phtml:51
 msgid "Login via"
 msgstr "Connectez-vous via"
 
-#: view/auth/index/login-info.phtml:50
+#: view/auth/index/login-info.phtml:54
 #, php-format
 msgid "Login with %s"
 msgstr "Connectez-vous avec %s"
 
-#: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
+#: view/auth/forgot-password/index.phtml:1
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:84
+msgid "Reset your password"
+msgstr ""
+
+#: view/auth/forgot-password/index.phtml:5
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr ""
+
+#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr "  Mon mot de passe "
 
@@ -156,7 +171,7 @@ msgstr "  Informations personnelles "
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:66
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:99
 msgid "Password"
 msgstr "  Mot de passe "
 
@@ -167,14 +182,6 @@ msgstr "données de groupe"
 #: src/Auth/Form/GroupUsersCollection.php:88
 msgid "Users"
 msgstr "Utilisateurs"
-
-#: src/Auth/Controller/ManageController.php:92
-msgid "Password successfully changed"
-msgstr "  Mot de passe modifié avec succès "
-
-#: src/Auth/Controller/ManageController.php:98
-msgid "Password could not be changed"
-msgstr "Mot de passe ne peut pas être changé"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
@@ -260,57 +267,92 @@ msgid "General settings"
 msgstr ""
 
 #: language/_annotated_strings.php:81
+msgid "Username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:87
 msgid "General"
 msgstr "Général"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:90
 msgid "I am"
 msgstr "Je suis"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:93
 msgid "The group name \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:96
 msgid "Login name"
 msgstr "Connexion nom"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:102
 msgid "login"
 msgstr "Connexion"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:108 language/_annotated_strings.php:111
+msgid "Password successfully changed"
+msgstr "  Mot de passe modifié avec succès "
+
+#: language/_annotated_strings.php:114 language/_annotated_strings.php:117
+msgid "Password could not be changed"
+msgstr "Mot de passe ne peut pas être changé"
+
+#: language/_annotated_strings.php:120
 msgid "Group created"
 msgstr "Groupe créé"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:123
 msgid "Group updated"
 msgstr "Groupe de mise à jour"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:126
 msgid "Changes not saved."
 msgstr "Changements pas enregistrées."
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:129
 msgid "You are now logged in."
 msgstr "Vous êtes maintenant connecté "
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:132
 msgid "Authentication failed."
 msgstr "L'authentification a échoué."
 
-#: language/_annotated_strings.php:114
-msgid "Welcome to YAWIK!"
-msgstr "Bienvenue à YAWIK!"
-
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:135
 msgid "You are now logged out"
 msgstr "Vous êtes déconnecté"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:138
+msgid ""
+"Mail with link for reset password has been send, please try to check your "
+"email box"
+msgstr ""
+
+#: language/_annotated_strings.php:141
+msgid "Please fill form correctly"
+msgstr ""
+
+#: language/_annotated_strings.php:144
+msgid "User cannot be found for specified username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:147
+msgid "Found user does not have an email"
+msgstr ""
+
+#: language/_annotated_strings.php:150
+msgid ""
+"An unexpected error has occurred, please contact your system administrator"
+msgstr ""
+
+#: language/_annotated_strings.php:153
+msgid "Password recovery"
+msgstr ""
+
+#: language/_annotated_strings.php:157
 msgid "user"
 msgstr "utilisateur"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:160
 msgid "recruiter"
 msgstr " recruteur"

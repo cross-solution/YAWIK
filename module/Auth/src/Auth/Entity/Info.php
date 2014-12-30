@@ -129,7 +129,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Entity\User
+     * @return \Auth\Entity\Info
      */
     public function setEmail($email)
     {

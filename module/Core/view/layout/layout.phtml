@@ -45,7 +45,7 @@ $notifications = $this->partial('core/notifications');
     </head>
     <body>
 	<a class="sr-only" href="#content">Skip to main content</a>
-	<header id="cam-topbar" role="banner">
+	<header id="yk-topbar" role="banner">
          <div class="cam-container">
    	       <div class="navbar-header">
                     <button class="navbar-toggle collapsed" data-target=".cam-navbar-collapse" data-toggle="collapse" type="button">
@@ -57,7 +57,7 @@ $notifications = $this->partial('core/notifications');
                     <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>">YAWIK</a>
                     <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>">Y</a>
                </div>
-                  <nav id="cam-main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
+                  <nav id="main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
                      <?php 
                         echo $this->navigation('Core/Navigation')
                                   ->setAcl($this->services('acl'))

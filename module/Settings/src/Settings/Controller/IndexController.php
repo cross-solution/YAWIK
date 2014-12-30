@@ -12,9 +12,6 @@ namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-//use Applications\Form\Application as ApplicationForm;
-//use Applications\Model\Application as ApplicationModel;
-//use Applications\Form\ApplicationHydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\View\Model\JsonModel;
 use Zend\EventManager\Event;
@@ -42,7 +39,6 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {   
         $services = $this->getServiceLocator();
-        $translator = $services->get('translator');
         $moduleName = $this->params('module', 'Core');
         
         $settings = $this->settings($moduleName);

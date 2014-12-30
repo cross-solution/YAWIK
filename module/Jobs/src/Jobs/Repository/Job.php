@@ -60,5 +60,32 @@ class Job extends AbstractRepository
         return $result;
         
     }
+
+    /**
+     * Look for an drafted Document of a given user
+     *
+     * @param $user
+     * @param $jobId
+     * @return null
+     */
+    public function findDraft($user)
+    {
+        if ($user instanceOf UserInterface) {
+            $user = $user->getId();
+        }
+        $document = $this->findOneBy(array(
+            'isDraft' => true,
+            'user' => $user
+        ));
+        if (!empty($document)) {
+            return $document;
+        }
+        //foreach ($documents as $document) {
+        //    if ($jobId == $document->getJob()->getJobId()) {
+        //        return $document;
+        //    }
+        //}
+        return null;
+    }
     
 }

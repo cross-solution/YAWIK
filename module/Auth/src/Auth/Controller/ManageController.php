@@ -88,7 +88,6 @@ class ManageController extends AbstractActionController
         $services = $this->getServiceLocator();
         $form     = $services->get('forms')->get('user-password');
         $user     = $services->get('AuthenticationService')->getUser();
-        $translator = $services->get('translator');
         
         if (!$user) {
             throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
@@ -99,16 +98,18 @@ class ManageController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $services->get('repositories')->store($user);
+ //               $this->notification()->success(/*@translate*/ 'Password successfully changed');
                 $vars = array(
                         'ok' => true,
                         'status' => 'success',
-                        'text' => $translator->translate('Password successfully changed') . '.',
-                );
+                        'text' => /*@translate*/ 'Password successfully changed'
+                    );
             } else { // form is invalid
+//                $this->notification()->error(/*@translate*/ 'Password could not be changed');
                 $vars = array(
                         'ok' => false,
                         'status' => 'error',
-                        'text' => $translator->translate('Password could not be changed') . '.',
+                        'text' => /*@translate*/ 'Password could not be changed'
                 );
             }
         }

@@ -104,24 +104,28 @@ class IndexController extends AbstractActionController
      
      public function viewAction()
      {
-         $id = $this->params()->fromQuery('id');
+         $id                   = $this->params()->fromQuery('id');
          if (!$id) {
              throw new \RuntimeException('Missing job id.', 404);
          }
-         $job = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
+         $job                  = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
          if (!$job) {
              throw new \RuntimeException('Job not found.', 404);
          }
          $model                = new ViewModel();
          $mvcEvent             = $this->getEvent();
          $applicationViewModel = $mvcEvent->getViewModel();
-
-         $templateValues = $job->templateValues;
-
-         $model->setTemplate('templates/default/index.phtml');
-         $applicationViewModel->setTemplate('iframe/iFrameInjection');
-
-         $uriApply = $job->uriApply;
+         $templateValues       = $job->templateValues;
+         $uriApply             = $job->uriApply;
+         $model->setTemplate('templates/default/index');
+         if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
+             $this->response->setStatusCode(404);
+             $model->setVariable('message','job is not available');
+         }
+         else {
+            $model->setTemplate('templates/default/index');
+            $applicationViewModel->setTemplate('iframe/iFrameInjection');
+         }
          if (empty($uriApply)) {
              $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $job->applyId));
          }
@@ -132,7 +136,10 @@ class IndexController extends AbstractActionController
              'requirements' => $templateValues->requirements,
              'qualifications' => $templateValues->qualifications,
              'title' => $templateValues->title,
-             'uriApply' => $uriApply
+             'uriApply' => $uriApply,
+             'organizationName' => $job->company,
+             'street' => $job->user->info->street.' '.$job->user->info->houseNumber,
+             'phone' => $job->user->info->phone
          ));
          return $model;
          
@@ -179,19 +186,4 @@ class IndexController extends AbstractActionController
          
          return new JsonModel($return);
      }
-
-    /**
-     * Handles the privacy policy used in an application form.
-     *
-     * @return \Zend\View\Model\ViewModel
-     */
-    public function termsAction()
-    {
-        $viewModel = new ViewModel();
-        if ($this->request->isXmlHttpRequest()) {
-            $viewModel->setTerminal(true);
-        }
-        return $viewModel;
-    }
-    
 }

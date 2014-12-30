@@ -11,6 +11,7 @@
 namespace Core\Mail;
 
 use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\I18n\Translator\Translator;
 
 class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
 {
@@ -18,8 +19,10 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     protected $translatorEnabled = false;
     protected $translatorTextDomain = 'default';
     
-    /* (non-PHPdoc)
+    /**
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::getTranslator()
+     *
+     * @return Translator
      */
     public function getTranslator ()
     {
@@ -53,7 +56,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslator()
      */
-    public function setTranslator (\Zend\I18n\Translator\Translator $translator = null, $textDomain = 'default')
+    public function setTranslator (Translator $translator = null, $textDomain = NULL)
     {
         if ($translator) {
             $this->translator = $translator;

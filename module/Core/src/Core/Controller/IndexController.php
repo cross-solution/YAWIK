@@ -128,31 +128,4 @@ class IndexController extends AbstractActionController
                   ->setVariable('message', 'An unexpected error had occured. Please try again later.');
         return $viewModel;
     }
-
-    /**
-     * general action to display content of a modal box.
-     */
-    public function modalContentAction()
-    {
-        $basePath = $this->request->getBasePath();
-        $uri = $this->request->getUri()->getPath();
-        $view = $this->params('view');
-
-        $search =  '~^'.$basePath.'/[a-z]+/([^/]+)/.*~';
-        $string = $basePath . $uri;
-
-        if (preg_match($search,$string,$matches)){
-           $module = $matches[1];
-        }
-
-        $event=$this->getEvent();
-        $this->params();
-        $viewModel = new ViewModel();
-        $viewModel->setTemplate($module.'/modals/'.$view);
-        if ($this->request->isXmlHttpRequest()) {
-            $viewModel->setTerminal(true);
-        }
-
-        return $viewModel;
-    }
 }

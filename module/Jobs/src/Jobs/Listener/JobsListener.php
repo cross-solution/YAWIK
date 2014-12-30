@@ -16,25 +16,33 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Jobs\Listener\Events\JobEvent;
 
+/**
+ * Aggregate for all Action concerning Jobs in the Job-Module
+ * most handlers are here
+ * more sophisticated handlers or handlers that involve similar tasks, are pooled in an own class (like Portals)
+ *
+ * @package Jobs\Listener
+ */
 class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInterface
 {
-    // @TODO rename $serviceManager
-    protected $serviceLocator;
+
+    protected $serviceManager;
 
     public function setServiceManager(ServiceManager $serviceManager) {
-        $this->serviceLocator = $serviceManager;
+        $this->serviceManager = $serviceManager;
         return $this;
     }
 
     public function getServiceManager() {
-        return $this->serviceLocator;
+        return $this->serviceManager;
     }
 
     public function attach(EventManagerInterface $events)
     {
-        $eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
+        //$eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
 
-        $events->attach(JobEvent::EVENT_JOB_NEW, array($this, 'jobNewMail'), 1);
+        //$events->attach(JobEvent::EVENT_NEW, array($this, 'jobNewMail'), 1);
+        $events->attach(JobEvent::EVENT_JOB_CREATED, $this->getServiceManager()->get('Jobs/PortalListener') , 1);
 
         return $this;
     }
@@ -44,9 +52,16 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
         return $this;
     }
 
+    /**
+     * Sends a notification mail about a created job position
+     *
+     * can this be deleted?
+     *
+     * @param JobEvent $e
+     */
     public function jobNewMail(JobEvent $e) {
-        $serviceLocator = $this->getServiceManager();
-        $config = $serviceLocator->get('config');
+        $serviceManager = $this->getServiceManager();
+        $config = $serviceManager->get('config');
         // @TODO check with isset to avoid an exception
         $email = $config['Auth']['default_user']['email'];
         $job = $e->getJobEntity();
@@ -60,5 +75,4 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
         $mailService->send($mail);
 
     }
-
 }

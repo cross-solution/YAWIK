@@ -146,7 +146,7 @@ return array(
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-            //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+//            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
         ),
@@ -188,6 +188,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Core\Controller\Index' => 'Core\Controller\IndexController',
+            'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
         ),
     ),

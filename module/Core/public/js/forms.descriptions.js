@@ -62,7 +62,7 @@
 		
 		toggle: function(id, focus) 
 		{
-            console.debug(id);
+            console.debug('toggle description', id);
 			if (!id) {
 				id = this.focus || '__initial__';
 			}

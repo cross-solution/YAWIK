@@ -14,7 +14,7 @@ use Core\Form\Container;
 use Core\Form\ViewPartialProviderInterface;
 
 /**
- * Defines the formular for editing the job position.
+ * Adds an iFrame to the job formular which holds the editable job opening.
  *
  * @package Jobs\Form
  */

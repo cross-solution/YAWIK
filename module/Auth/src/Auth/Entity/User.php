@@ -3,21 +3,20 @@
  * YAWIK
  *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   MIT
+ * @license       MIT
  */
 
 namespace Auth\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
-use Core\Entity\EntityInterface;
-use Core\Entity\RelationEntity;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\Collection\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Settings\Repository\SettingsEntityResolver;
 
 /**
  * Defines an user model
- * 
+ *
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */
 class User extends AbstractIdentifiableEntity implements UserInterface
@@ -26,92 +25,107 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     /**
      * defines the role of a recruiter
      */
-    const ROLE_RECRUITER='recruiter';
+    const ROLE_RECRUITER = 'recruiter';
     /*
      * defines the role of an authenticated user
      */
-    const ROLE_USER='user';
+    const ROLE_USER = 'user';
 
     /**
      * Users login name
      *
      * @var string
-     * @ODM\String @ODM\Index */
+     * @ODM\String @ODM\Index
+     */
     protected $login;
-    
+
     /**
      * Role of an user. Currently "user" or "recruiter"
      *
-     * @ODM\String */
+     * @ODM\String*/
     protected $role;
-    
+
     /**
      * Users contact data.
      *
-     * @ODM\EmbedOne(targetDocument="Info") */
+     * @ODM\EmbedOne(targetDocument="Info")
+     */
     protected $info;
-    
+
     /**
      * Users login password
      *
-     * @ODM\String */
+     * @ODM\String
+     */
     protected $credential;
-    
+
     /**
      * Users primary email address
      *
-     * @ODM\String */
+     * @ODM\String
+     */
     protected $email;
-    
-     /**
-      * pre-shared key, which allows an external application to authenticate
-      *
-      * @var String
-      * @ODM\String*/
+
+    /**
+     * pre-shared key, which allows an external application to authenticate
+     *
+     * @var String
+     * @ODM\String
+     */
     protected $secret;
-    
+
     /**
      * Can contain various HybridAuth profiles.
      *
      * @var array
-     * @ODM\Hash*/
+     * @ODM\Hash
+     */
     protected $profile = array();
-    
-    /** @var array 
-     * @ODM\EmbedMany(discriminatorField="_entity") */
+
+    /** @var array
+     * @ODM\EmbedMany(discriminatorField="_entity")
+     */
     protected $settings;
-    
+
     /**
      * This is not a persistent property!
      *
      * @var SettingsEntityResolver
      */
     protected $settingsEntityResolver;
-    
+
     /**
      * User groups.
-     * 
+     *
      * @var Collection
      * @ODM\ReferenceMany(targetDocument="Group", mappedBy="owner", simple=true, cascade="all")
      */
     protected $groups;
-    
+
+    /**
+     * User tokens.
+     *
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="Token")
+     */
+    protected $tokens;
+
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
      * It is recommended best practice to initialize any business collections in documents in the constructor.
      * {mg: What about lazy loading? Initialize the Collection in the getter, if none is set? Reduce overload.}
      */
-    public function __construct(){
-        //$this->info = new Info(); // moved to getter {mg}
+    public function __construct()
+    {
     }
 
     /** {@inheritdoc} */
     public function setLogin($login)
     {
-        $this->login = trim((String) $login);
+        $this->login = trim((String)$login);
         return $this;
     }
-    
+
     /** {@inheritdoc} */
     public function getLogin()
     {
@@ -173,16 +187,16 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     /** {@inheritdoc} */
     public function setPassword($password)
     {
-        $filter     = new Filter\CredentialFilter();
-        $credential = $filter->filter($password); 
+        $filter = new Filter\CredentialFilter();
+        $credential = $filter->filter($password);
         return $this->setCredential($credential);
     }
 
     /** {@inheritdoc} */
-    public function setCredential($credential) 
+    public function setCredential($credential)
     {
         $this->credential = $credential;
-        return $this;    
+        return $this;
     }
 
     /** {@inheritdoc} */
@@ -220,7 +234,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->profile = $profile;
         return $this;
     }
-    
+
     /** {@inheritdoc} */
     public function getProfile()
     {
@@ -239,17 +253,17 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         if (!isset($module)) {
             throw new \InvalidArgumentException('$module must not be null.');
         }
-        
+
         if (!$this->settings) {
             $this->settings = new ArrayCollection();
         }
-        
+
         foreach ($this->settings as $settings) {
             if ($settings->moduleName == $module) {
                 return $settings;
             }
         }
-        
+
         $settings = $this->settingsEntityResolver->getNewSettingsEntity($module);
         $this->settings->add($settings);
         return $settings;
@@ -280,4 +294,25 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         }
         return null;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getTokens()
+    {
+        if (!$this->tokens) {
+            $this->tokens = new ArrayCollection();
+        }
+
+        return $this->tokens;
+    }
+
+    /**
+     * @param Collection $tokens
+     */
+    public function setTokens($tokens)
+    {
+        $this->tokens = $tokens;
+    }
+
 }
