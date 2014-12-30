@@ -339,6 +339,14 @@
     ${project.basedir}/build/YAWIK-${version-short}.* -l --exclude=YAWIK ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
   </target>
   
+  <!-- ============================================  --> 
+  <!-- Target: phpunit                               -->
+  <!-- ============================================  -->
+  <target name="phpunit" depends="prepare" description="run phpunit tests">
+    <exec command="vendor/phpunit/phpunit/phpunit --bootstrap module/Auth/test/Bootstrap.php --configuration module/Auth/test/phpunit.xml"
+          logoutput="/dev/stdout"/>
+  </target>  
+  
   <target name="filesets">
     <!-- ============================================  -->
     <!-- defines various filesets                      -->

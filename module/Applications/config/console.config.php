@@ -39,4 +39,16 @@ return array('console' => array('router' => array('routes' => array(
             ),
         ),
     ),
+    /*
+     * list available view scripts
+     */
+    'applications-partials' => array(
+        'options' => array(
+            'route' => 'applications list',
+            'defaults' => array(
+                'controller' => 'Applications/Console',
+                'action'     => 'listviewscripts'
+            ),
+        ),
+    ),
 ))));

@@ -12,6 +12,7 @@ namespace Applications\Controller;
 
 use Auth\Entity\Info;
 use Applications\Entity\Application;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -20,7 +21,6 @@ use Applications\Entity\StatusInterface;
 
 /**
  * Main Action Controller for Applications module.
- *
  *
  * @method \Auth\Controller\Plugin\Auth auth
  */
@@ -49,6 +49,7 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {           
         $services = $this->getServiceLocator();
+        /** @var Request $request */
         $request = $this->getRequest();
 
         $jobId = $this->params()->fromPost('jobId',0);
@@ -99,7 +100,6 @@ class IndexController extends AbstractActionController
         
         $applicationEntity = new Application();
         $applicationEntity->setJob($job);
-        //$a = $services->get('repositories')->get('Applications/Subscriber')->findOneBy(array( "uri" => "aaaa" ));
 
         if ($this->auth()->isLoggedIn()) {
             // copy the contact info into the application
@@ -111,30 +111,14 @@ class IndexController extends AbstractActionController
         $form->bind($applicationEntity);
         $form->get('jobId')->setValue($job->id);
         $form->get('subscriberUri')->setValue($subscriberUri);
-        
-        /*
-         * validate email. 
-         */
-         /**
-         * 
-         * @todo has to be fixed  
-         * does not work. Validation is set in \Auth\Form\UserInfoFieldset.php
-         * 
-         *  $form->getInputFilter()->get('contact')->get('email')->getValidatorChain()
-                ->attach(new \Zend\Validator\EmailAddress())
-                ->attach(new \Zend\Validator\StringLength(array('max'=>100)));
-         */
        
         if ($request->isPost()) {
             if ($returnTo = $this->params()->fromPost('returnTo', false)) {
                 $returnTo = \Zend\Uri\UriFactory::factory($returnTo);
             }
             $services = $this->getServiceLocator();
-            $repository = $services->get('repositories')->get('Applications/Application');
-            
-            
-            //$applicationEntity = $services->get('builders')->get('Application')->getEntity(); 
-            //$form->bind($applicationEntity);
+            //$repository = $services->get('repositories')->get('Applications/Application');
+
             $data = array_merge_recursive(
                 $this->request->getPost()->toArray(),
                 $this->request->getFiles()->toArray()
@@ -159,7 +143,7 @@ class IndexController extends AbstractActionController
                     return $this->redirect()->toUrl((string) $returnTo);
                 }
                 $this->notification()->error(/*@translate*/ 'There were errors in the form.');
-                //$form->populateValues($data);
+
             } else {
                 $auth = $this->auth();
             
@@ -196,7 +180,7 @@ class IndexController extends AbstractActionController
 
                     /*
                      * New Application alert Mails to job recruiter
-                     * This is temporarly until Companies are implemented.
+                     * This is temporary until Companies are implemented.
                      */
                     $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
                     if (!$recruiter) {
@@ -209,7 +193,7 @@ class IndexController extends AbstractActionController
                     $services->get('repositories')->store($applicationEntity);
                     /*
                      * New Application alert Mails to job recruiter
-                     * This is temporarly until Companies are implemented.
+                     * This is temporary until Companies are implemented.
                      */
                     $recruiter = $services->get('repositories')->get('Auth/User')->findOneByEmail($job->contactEmail);
                     if (!$recruiter) {
@@ -229,7 +213,7 @@ class IndexController extends AbstractActionController
                         }
                         if (!empty($ackBody)) {
 
-                            /* Acknowledge mail to applier */
+                            /* Acknowledge mail to the applicant */
                             $ackMail = $this->mailer('Applications/Confirmation', 
                                             array('application' => $applicationEntity,
                                                   'body' => $ackBody,
@@ -243,7 +227,7 @@ class IndexController extends AbstractActionController
                     }
 
                     // send carbon copy of the application
-                    //$user = $auth->getUser();
+
                     $paramsCC = $this->getRequest()->getPost('carboncopy',0);
                     if (isset($paramsCC) && array_key_exists('carboncopy',$paramsCC)) {
                         $wantCarbonCopy = (int) $paramsCC['carboncopy'];
@@ -288,15 +272,14 @@ class IndexController extends AbstractActionController
         if ($isRecruiter) {
             $params->set('by', 'me');
         }
-        
-        $appRepo = $services->get('repositories')->get('Applications/Application');
-         
+
          //default sorting
         if (!isset($params['sort'])) {
             $params['sort']="-date";
         }
         $params->count = 5;
         $this->paginationParams()->setParams('Applications\Index', $params);
+
         $paginator = $this->paginator('Applications/Application',$params);
      
         return array(

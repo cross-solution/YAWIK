@@ -107,7 +107,7 @@ return array(
         ),
         'assertions' => array(
             'invokables' => array(
-                'Applications/Access'      => 'Applications\Acl\ApplicationAccessAssertion',
+                'Applications/Access' => 'Applications\Acl\ApplicationAccessAssertion',
             ),
         ),
     ),
@@ -158,8 +158,7 @@ return array(
     'view_helpers' => array(
         
     ),
-    
-    
+
     'view_helper_config' => array(
         'headscript' => array(
             'lang/applications' => array('Core/js/jquery.barrating.min.js'),

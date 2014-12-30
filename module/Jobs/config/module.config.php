@@ -128,7 +128,6 @@ return array(
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
-            'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
             'jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
