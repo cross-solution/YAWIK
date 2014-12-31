@@ -10,30 +10,26 @@
 namespace Auth\Service\SLFactory;
 
 use Auth\Repository;
-use Auth\Service\ForgotPassword;
-use Auth\Service\UserUniqueTokenGenerator;
-use Core\Controller\Plugin;
+use Auth\Service\Register;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ForgotPasswordSLFactory implements FactoryInterface
+class RegisterSLFactory implements FactoryInterface
 {
     /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return ForgotPassword
+     * @return Register
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /**
-         * @var Repository\User          $userRepository
-         * @var UserUniqueTokenGenerator $tokenGenerator
+         * @var Repository\User $userRepository
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
-        $tokenGenerator = $serviceLocator->get('Auth\Service\UserUniqueTokenGenerator');
 
-        return new ForgotPassword($userRepository, $tokenGenerator);
+        return new Register($userRepository);
     }
 }

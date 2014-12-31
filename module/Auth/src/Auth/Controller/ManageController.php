@@ -113,7 +113,7 @@ class ManageController extends AbstractActionController
                 );
             }
         }
-        
+
         $vars['form']=$form;
         return $vars;
     }

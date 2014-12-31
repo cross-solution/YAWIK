@@ -9,8 +9,8 @@
 
 namespace AuthTest\Controller;
 
-use Auth\Controller\ForgotPasswordController;
-use Auth\Form\ForgotPasswordInputFilter;
+use Auth\Controller\RegisterController;
+use Auth\Form\RegisterInputFilter;
 use Auth\Service\Exception;
 use AuthTest\Bootstrap;
 use Core\Controller\Plugin\Notification;
@@ -20,7 +20,7 @@ use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Stdlib\Parameters;
 
-class ForgotPasswordControllerTest extends AbstractControllerTestCase
+class RegisterControllerTest extends AbstractControllerTestCase
 {
     /**
      * @var MockObject
@@ -34,17 +34,17 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
 
     public function setUp()
     {
-        $this->init('forgot-password');
+        $this->init('register');
 
-        $this->formMock = $this->getMock('Auth\Form\ForgotPassword');
+        $this->formMock = $this->getMock('Auth\Form\Register');
 
-        $this->serviceMock = $this->getMockBuilder('Auth\Service\ForgotPassword')
+        $this->serviceMock = $this->getMockBuilder('Auth\Service\Register')
             ->disableOriginalConstructor()
             ->getMock();
 
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
-        $this->controller = new ForgotPasswordController($this->formMock, $this->serviceMock, $loggerMock);
+        $this->controller = new RegisterController($this->formMock, $this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);
         /** @var PluginManager $controllerPluginManager */
         $controllerPluginManager = clone Bootstrap::getServiceManager()->get('ControllerPluginManager');
@@ -101,9 +101,12 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 
-    public function testIndexAction_WithPostRequest_WhenUserCannotBeFoundByUsernameOrEmail()
+    public function testIndexAction_WithPostRequest_WhenUserAlreadyExists()
     {
-        $postData = array('identity' => uniqid('identity'));
+        $postData = array(
+            'name' => uniqid('name'),
+            'email' => uniqid('email') . '@' . uniqid('host') . '.com.pl'
+        );
 
         $request = new Request();
         $request->setMethod(Request::METHOD_POST);
@@ -117,13 +120,16 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
             ->method('isValid')
             ->willReturn(true);
 
+        $registerInputFilter = new RegisterInputFilter();
+        $registerInputFilter->add(array('name' => 'captcha'));
+
         $this->formMock->expects($this->once())
             ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
+            ->willReturn($registerInputFilter);
 
         $this->serviceMock->expects($this->once())
             ->method('proceed')
-            ->willThrowException(new Exception\UserNotFoundException());
+            ->willThrowException(new Exception\UserAlreadyExistsException());
 
         $result = $this->controller->dispatch($request);
 
@@ -138,50 +144,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $fm->setNamespace(Notification::NAMESPACE_DANGER);
 
         $expectedMessages = array(
-            'User cannot be found for specified username or email'
-        );
-
-        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
-    }
-
-    public function testIndexAction_WithPostRequest_WhenUserDoesNotHaveAnEmail()
-    {
-        $postData = array('identity' => uniqid('identity'));
-
-        $request = new Request();
-        $request->setMethod(Request::METHOD_POST);
-        $request->setPost(new Parameters($postData));
-
-        $this->formMock->expects($this->once())
-            ->method('setData')
-            ->with($postData);
-
-        $this->formMock->expects($this->once())
-            ->method('isValid')
-            ->willReturn(true);
-
-        $this->formMock->expects($this->once())
-            ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
-
-        $this->serviceMock->expects($this->once())
-            ->method('proceed')
-            ->willThrowException(new Exception\UserDoesNotHaveAnEmailException());
-
-        $result = $this->controller->dispatch($request);
-
-        $expected = array(
-            'form' => $this->formMock
-        );
-
-        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
-
-        $fm = $this->controller->flashMessenger();
-        $fm->setNamespace(Notification::NAMESPACE_DANGER);
-
-        $expectedMessages = array(
-            'Found user does not have an email'
+            'User with this email address already exists'
         );
 
         $this->assertSame($expectedMessages, $fm->getCurrentMessages());
@@ -189,7 +152,10 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
 
     public function testIndexAction_WithPostRequest_WhenUnexpectedExceptionHasOccurred()
     {
-        $postData = array('identity' => uniqid('identity'));
+        $postData = array(
+            'name' => uniqid('name'),
+            'email' => uniqid('email') . '@' . uniqid('host') . '.com.pl'
+        );
 
         $request = new Request();
         $request->setMethod(Request::METHOD_POST);
@@ -203,9 +169,12 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
             ->method('isValid')
             ->willReturn(true);
 
+        $registerInputFilter = new RegisterInputFilter();
+        $registerInputFilter->add(array('name' => 'captcha'));
+
         $this->formMock->expects($this->once())
             ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
+            ->willReturn($registerInputFilter);
 
         $this->serviceMock->expects($this->once())
             ->method('proceed')
@@ -230,9 +199,12 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 
-    public function testIndexAction_WithPostRequest()
+    public function testIndexAction_WithValidPostRequest()
     {
-        $postData = array('identity' => uniqid('identity'));
+        $postData = array(
+            'name' => uniqid('name'),
+            'email' => uniqid('email') . '@' . uniqid('host') . '.com.pl'
+        );
 
         $request = new Request();
         $request->setMethod(Request::METHOD_POST);
@@ -246,9 +218,12 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
             ->method('isValid')
             ->willReturn(true);
 
+        $registerInputFilter = new RegisterInputFilter();
+        $registerInputFilter->add(array('name' => 'captcha'));
+
         $this->formMock->expects($this->once())
             ->method('getInputFilter')
-            ->willReturn(new ForgotPasswordInputFilter());
+            ->willReturn($registerInputFilter);
 
         $this->serviceMock->expects($this->once())
             ->method('proceed');
@@ -266,7 +241,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $fm->setNamespace(Notification::NAMESPACE_SUCCESS);
 
         $expectedMessages = array(
-            'Mail with link for reset password has been sent, please try to check your email box'
+            'An Email with an activation link has been sent, please try to check your email box'
         );
 
         $this->assertSame($expectedMessages, $fm->getCurrentMessages());

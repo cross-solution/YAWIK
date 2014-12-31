@@ -9,11 +9,13 @@
 
 namespace AuthTest\Service;
 
+use Auth\Entity\User;
 use Auth\Service\ForgotPassword;
+use Auth\Service\Register;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
+class RegisterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ForgotPassword
@@ -24,11 +26,6 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
      * @var MockObject
      */
     private $userRepositoryMock;
-
-    /**
-     * @var MockObject
-     */
-    private $tokenGeneratorMock;
 
     /**
      * @var MockObject
@@ -54,11 +51,7 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->tokenGeneratorMock = $this->getMockBuilder('Auth\Service\UserUniqueTokenGenerator')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->testedObject = new ForgotPassword($this->userRepositoryMock, $this->tokenGeneratorMock);
+        $this->testedObject = new Register($this->userRepositoryMock);
 
         $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
         $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');
@@ -76,94 +69,90 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
 
-    public function testProceed_WhenUserIsNotFound()
+    public function testProceed_WhenUserAlreadyExists()
     {
-        $identity = uniqid('identity');
+        $name = uniqid('name');
+        $email = uniqid('email') . '@' . uniqid('host') . '.com.pl';
+        $user = UserEntityProvider::createEntityWithRandomData();
 
         $this->inputFilterMock->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
 
         $this->inputFilterMock->expects($this->once())
+            ->method('get')
+            ->with('register')
+            ->willReturnSelf();
+
+        $this->inputFilterMock->expects($this->exactly(2))
             ->method('getValue')
-            ->with('identity')
-            ->willReturn($identity);
+            ->willReturnOnConsecutiveCalls($name, $email);
 
         $this->userRepositoryMock->expects($this->once())
             ->method('findByLoginOrEmail')
-            ->with($identity)
-            ->willReturn(null);
-
-        $this->setExpectedException('Auth\Service\Exception\UserNotFoundException', 'User is not found');
-
-        $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
-    }
-
-    public function testProceed_WhenUserDoesNotHaveAnEmail()
-    {
-        $identity = uniqid('identity');
-        $user = UserEntityProvider::createEntityWithRandomData(array('email' => null));
-
-        $this->inputFilterMock->expects($this->once())
-            ->method('isValid')
-            ->willReturn(true);
-
-        $this->inputFilterMock->expects($this->once())
-            ->method('getValue')
-            ->with('identity')
-            ->willReturn($identity);
-
-        $this->userRepositoryMock->expects($this->once())
-            ->method('findByLoginOrEmail')
-            ->with($identity)
+            ->with($email)
             ->willReturn($user);
 
-        $this->setExpectedException('Auth\Service\Exception\UserDoesNotHaveAnEmailException', 'User does not have an email');
+        $this->setExpectedException('Auth\Service\Exception\UserAlreadyExistsException', 'User already exists');
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
 
     public function testProceed()
     {
-        $identity = uniqid('identity');
+        $name = uniqid('name') . ' ' . uniqid('surname');
+        $email = uniqid('email') . '@' . uniqid('host') . '.com.pl';
         $user = UserEntityProvider::createEntityWithRandomData();
-        $tokenHash = uniqid('tokenHash');
-        $resetLink = uniqid('resetLink');
+        $confirmationLink = uniqid('confirmationLink');
 
         $this->inputFilterMock->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
 
         $this->inputFilterMock->expects($this->once())
+            ->method('get')
+            ->with('register')
+            ->willReturnSelf();
+
+        $this->inputFilterMock->expects($this->exactly(2))
             ->method('getValue')
-            ->with('identity')
-            ->willReturn($identity);
+            ->willReturnOnConsecutiveCalls($name, $email);
 
         $this->userRepositoryMock->expects($this->once())
             ->method('findByLoginOrEmail')
-            ->with($identity)
+            ->with($email)
+            ->willReturn(null);
+
+        $user->setLogin($email)->setRole(User::ROLE_RECRUITER);
+
+        $this->userRepositoryMock->expects($this->once())
+            ->method('create')
+            ->with(array('login' => $email, 'role' => User::ROLE_RECRUITER))
             ->willReturn($user);
 
-        $this->tokenGeneratorMock->expects($this->once())
-            ->method('generate')
-            ->with($user)
-            ->willReturn($tokenHash);
+        $this->userRepositoryMock->expects($this->once())
+            ->method('store')
+            ->with($this->callback(function ($user) {
+                $this->assertInstanceOf('Auth\Entity\User', $user);
+
+                return $user;
+            }));
 
         $this->urlPluginMock->expects($this->once())
             ->method('fromRoute')
             ->with(
-                'lang/goto-reset-password',
-                array('token' => $tokenHash, 'userId' => $user->getId()),
+                'lang/register-confirmation',
+                array('userId' => $user->getId()),
                 array('force_canonical' => true)
-            )->willReturn($resetLink);
+            )->willReturn($confirmationLink);
 
         $this->mailerPluginMock->expects($this->once())
             ->method('__invoke')
             ->with(
-                'Auth\Mail\ForgotPassword',
+                'Auth\Mail\RegisterConfirmation',
                 array(
                     'user' => $user,
-                    'resetLink' => $resetLink
+                    'confirmationLink' => $confirmationLink
                 ),
                 true
             );
