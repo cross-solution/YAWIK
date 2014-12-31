@@ -14,7 +14,6 @@ use Auth\Service\Exception\UserDoesNotHaveAnEmailException;
 use Auth\Service\Exception\UserNotFoundException;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
-use Zend\Log\LoggerInterface;
 use Zend\Mvc\Controller\Plugin\Url;
 
 class ForgotPassword

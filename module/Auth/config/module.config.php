@@ -32,6 +32,7 @@ return array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
+            'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
         ),
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
@@ -47,6 +48,9 @@ return array(
             'Auth\Service\ForgotPassword' => 'Auth\Service\SLFactory\ForgotPasswordSLFactory',
             'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Service\SLFactory\UserUniqueTokenGeneratorSLFactory',
             'Auth\Service\GotoResetPassword' => 'Auth\Service\SLFactory\GotoResetPasswordSLFactory',
+            'Auth\Form\Register' => 'Auth\Form\SLFactory\RegisterSLFactory',
+            'Auth\Service\Register' => 'Auth\Service\SLFactory\RegisterSLFactory',
+            'Auth\Service\RegisterConfirmation' => 'Auth\Service\SLFactory\RegisterConfirmationSLFactory',
         ),
         'aliases' => array(
             'assertions' => 'Acl/AssertionManager',
@@ -63,8 +67,10 @@ return array(
             'Auth/SocialProfiles' => 'Auth\Controller\SocialProfilesController',
         ),
         'factories' => array(
-            'Auth\\Controller\\ForgotPassword' => 'Auth\\Controller\\SLFactory\\ForgotPasswordControllerSLFactory',
-            'Auth\\Controller\\GotoResetPassword' => 'Auth\\Controller\\SLFactory\\GotoResetPasswordControllerSLFactory',
+            'Auth\Controller\ForgotPassword' => 'Auth\Controller\SLFactory\ForgotPasswordControllerSLFactory',
+            'Auth\Controller\GotoResetPassword' => 'Auth\Controller\SLFactory\GotoResetPasswordControllerSLFactory',
+            'Auth\Controller\Register' => 'Auth\Controller\SLFactory\RegisterControllerSLFactory',
+            'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory'
         )
     ),
     
@@ -103,6 +109,7 @@ return array(
     'mails' => array(
         'invokables' => array(
             'Auth\Mail\ForgotPassword' => 'Auth\Mail\ForgotPassword',
+            'Auth\Mail\RegisterConfirmation' => 'Auth\Mail\RegisterConfirmation',
         ),
     ),
 
@@ -164,7 +171,29 @@ return array(
                             ),
                         ),
                         'may_terminate' => true,
-                    )
+                    ),
+                    'register' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/auth/register',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Register',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'register-confirmation' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/auth/register-confirmation/:userId',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\RegisterConfirmation',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                 ),
             ),
             'auth-provider' => array(
@@ -430,5 +459,22 @@ return array(
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
+
+    'captcha' => array(
+        'use' => 'image',
+        'reCaptcha' => array(
+            // these information you need to get from: https://www.google.com/recaptcha/admin#list
+            'public_key' => '', // "site_key"
+            'private_key' => '' // "secret_key"
+        ),
+        'image' => array(
+            'expiration' => '300',
+            'wordlen' => '7',
+            'font' => 'data/fonts/arial.ttf',
+            'fontSize' => '20',
+            'imgDir' => 'public/captcha',
+            'imgUrl' => '/captcha'
+        ),
+    )
 
 );

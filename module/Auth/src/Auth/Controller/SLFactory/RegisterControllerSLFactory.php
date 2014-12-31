@@ -9,7 +9,7 @@
 
 namespace Auth\Controller\SLFactory;
 
-use Auth\Controller\ForgotPasswordController;
+use Auth\Controller\RegisterController;
 use Auth\Form;
 use Auth\Service;
 use Zend\Log\LoggerInterface;
@@ -17,7 +17,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ForgotPasswordControllerSLFactory implements FactoryInterface
+class RegisterControllerSLFactory implements FactoryInterface
 {
 
     /**
@@ -25,7 +25,7 @@ class ForgotPasswordControllerSLFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return ForgotPasswordController
+     * @return RegisterController
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
@@ -33,14 +33,14 @@ class ForgotPasswordControllerSLFactory implements FactoryInterface
         $serviceLocator = $serviceLocator->getServiceLocator();
 
         /**
-         * @var $form    Form\ForgotPassword
-         * @var $service Service\ForgotPassword
+         * @var $form    Form\Register
+         * @var $service Service\Register
          * @var $logger  LoggerInterface
          */
-        $form = $serviceLocator->get('Auth\Form\ForgotPassword');
-        $service = $serviceLocator->get('Auth\Service\ForgotPassword');
+        $form = $serviceLocator->get('Auth\Form\Register');
+        $service = $serviceLocator->get('Auth\Service\Register');
         $logger = $serviceLocator->get('Log/Core/Cam');
 
-        return new ForgotPasswordController($form, $service, $logger);
+        return new RegisterController($form, $service, $logger);
     }
 }

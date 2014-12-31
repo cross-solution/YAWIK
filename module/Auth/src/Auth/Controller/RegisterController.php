@@ -15,28 +15,25 @@ use Auth\Service\Exception;
 use Core\Controller\AbstractCoreController;
 use Zend\Log\LoggerInterface;
 
-class ForgotPasswordController extends AbstractCoreController
+class RegisterController extends AbstractCoreController
 {
     /**
-     * @var Form\ForgotPassword
+     * @var Form\Register
      */
     private $form;
 
     /**
-     * @var Service\ForgotPassword
+     * @var Service\Register
      */
     private $service;
 
     /**
-     * @param Form\ForgotPassword    $form
-     * @param Service\ForgotPassword $service
-     * @param LoggerInterface        $logger
+     * @var LoggerInterface
      */
-    public function __construct(
-        Form\ForgotPassword $form,
-        Service\ForgotPassword $service,
-        LoggerInterface $logger
-    ) {
+    private $logger;
+
+    public function __construct(Form\Register $form, Service\Register $service, LoggerInterface $logger)
+    {
         $this->form = $form;
         $this->service = $service;
         $this->logger = $logger;
@@ -46,6 +43,7 @@ class ForgotPasswordController extends AbstractCoreController
     {
         /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
+
         try {
             if ($request->isPost()) {
                 $this->form->setData($request->getPost()->toArray() ?: array());
@@ -53,10 +51,12 @@ class ForgotPasswordController extends AbstractCoreController
                     $mailer = $this->getPluginManager()->get('Mailer');
                     $url = $this->plugin('url');
 
+                    // we cannot check reCaptcha twice (security protection)
+                    $this->form->getInputFilter()->remove('captcha');
                     $this->service->proceed($this->form->getInputFilter(), $mailer, $url);
 
                     $this->notification()->success(
-                        /*@translate*/ 'Mail with link for reset password has been sent, please try to check your email box'
+                        /*@translate*/ 'An Email with an activation link has been sent, please try to check your email box'
                     );
                 } else {
                     $this->notification()->danger(
@@ -64,13 +64,9 @@ class ForgotPasswordController extends AbstractCoreController
                     );
                 }
             }
-        } catch (Exception\UserNotFoundException $e) {
+        } catch (Exception\UserAlreadyExistsException $e) {
             $this->notification()->danger(
-                /*@translate*/ 'User cannot be found for specified username or email'
-            );
-        } catch (Exception\UserDoesNotHaveAnEmailException $e) {
-            $this->notification()->danger(
-                /*@translate*/ 'Found user does not have an email'
+                /*@translate*/ 'User with this email address already exists'
             );
         } catch (\Exception $e) {
             $this->logger->crit($e);
@@ -78,6 +74,8 @@ class ForgotPasswordController extends AbstractCoreController
                 /*@translate*/ 'An unexpected error has occurred, please contact your system administrator'
             );
         }
+
+        $this->form->setAttribute('action', $this->url()->fromRoute('lang/register'));
 
         return array(
             'form' => $this->form

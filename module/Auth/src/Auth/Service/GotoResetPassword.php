@@ -59,7 +59,6 @@ class GotoResetPassword
 
         $this->checkAllTokens($user, $tokenHash);
 
-
         $this->authenticationService->getStorage()->write($user->getId());
     }
 

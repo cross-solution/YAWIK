@@ -74,6 +74,17 @@ interface InfoInterface extends EntityInterface
      * @return string
      */
     public function getEmail();
+
+    /**
+     * @return boolean
+     */
+    public function isEmailVerified();
+
+    /**
+     * @param bool $emailVerified
+     * @return self
+     */
+    public function setEmailVerified($emailVerified);
     
     /**
      * Sets the first name
