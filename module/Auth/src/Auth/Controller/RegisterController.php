@@ -52,8 +52,8 @@ class RegisterController extends AbstractCoreController
                     $url = $this->plugin('url');
 
                     // we cannot check reCaptcha twice (security protection)
-                    $this->form->getInputFilter()->remove('captcha');
-                    $this->service->proceed($this->form->getInputFilter(), $mailer, $url);
+                    $filter = $this->form->getInputFilter()->remove('captcha');
+                    $this->service->proceed($filter, $mailer, $url);
 
                     $this->notification()->success(
                         /*@translate*/ 'An Email with an activation link has been sent, please try to check your email box'
