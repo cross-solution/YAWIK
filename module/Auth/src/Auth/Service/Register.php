@@ -34,8 +34,10 @@ class Register
             throw new \LogicException('Form is not valid');
         }
 
-        $name = $filter->get('register')->getValue('name');
-        $email = $filter->get('register')->getValue('email');
+        $registerFilter = $filter->get('register');
+
+        $name = $registerFilter->getValue('name');
+        $email = $registerFilter->getValue('email');
 
         if (($user = $this->userRepository->findByLoginOrEmail($email))) {
             throw new Exception\UserAlreadyExistsException('User already exists');

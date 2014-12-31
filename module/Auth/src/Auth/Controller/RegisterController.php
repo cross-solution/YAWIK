@@ -51,7 +51,7 @@ class RegisterController extends AbstractCoreController
                     $mailer = $this->getPluginManager()->get('Mailer');
                     $url = $this->plugin('url');
 
-                    // we cannot check reCaptcha twice (security protection)
+                    // we cannot check reCaptcha twice (security protection) so we have to remove it
                     $filter = $this->form->getInputFilter()->remove('captcha');
                     $this->service->proceed($filter, $mailer, $url);
 
