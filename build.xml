@@ -260,6 +260,8 @@
           <token key="xing.secret" value="${xing.secret}"/>
           <token key="xing.scope" value="${xing.scope}"/>
           <token key="xing.enabled" value="${xing.enabled}"/>
+          <token key="captcha.recapture.public_key" value="${captcha.recapture.public_key}"/>
+          <token key="captcha.recapture.private_key" value="${captcha.recapture.private_key}"/>
           <token key="username" value="${username}"/>
           <token key="password" value="${password}"/>
           <token key="role" value="${role}"/>

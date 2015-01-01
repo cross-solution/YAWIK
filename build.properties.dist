@@ -81,6 +81,13 @@ linkedin.secret=<put your linkedin app secret here>
 linkedin.scope=r_fullprofile
 
 ;
+; reCapture on registration form
+; these information you need to get from: https://www.google.com/recaptcha/admin#list
+;
+captcha.recapture.public_key=<put your public key here>
+captcha.recapture.private_key=<put your secret key here>
+
+;
 ; Forms configuration
 ;
 

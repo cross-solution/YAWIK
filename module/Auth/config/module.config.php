@@ -459,22 +459,4 @@ return array(
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
-
-    'captcha' => array(
-        'use' => 'image',
-        'reCaptcha' => array(
-            // these information you need to get from: https://www.google.com/recaptcha/admin#list
-            'public_key' => '', // "site_key"
-            'private_key' => '' // "secret_key"
-        ),
-        'image' => array(
-            'expiration' => '300',
-            'wordlen' => '7',
-            'font' => 'data/fonts/arial.ttf',
-            'fontSize' => '20',
-            'imgDir' => 'public/captcha',
-            'imgUrl' => '/captcha'
-        ),
-    )
-
 );

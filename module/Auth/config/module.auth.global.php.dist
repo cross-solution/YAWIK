@@ -43,4 +43,20 @@ return array(
             '%%external.app.prefix%%' => '%%external.app.key%%',
         ),
     ),
+    'captcha' => array(
+        'use' => 'image',
+        'reCaptcha' => array(
+            // these information you need to get from: https://www.google.com/recaptcha/admin#list
+            'public_key' => '%%captcha.recapture.public_key%%', // "site_key"
+            'private_key' => '%%captcha.recapture.private_key%%' // "secret_key"
+        ),
+        'image' => array(
+            'expiration' => '300',
+            'wordlen' => '7',
+            'font' => 'data/fonts/arial.ttf',
+            'fontSize' => '20',
+            'imgDir' => 'public/captcha',
+            'imgUrl' => '/captcha'
+        ),
+    )
 );
