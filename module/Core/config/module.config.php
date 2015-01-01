@@ -30,7 +30,7 @@ return array(
 
     // Logging
     'log' => array(
-        'Log/Core/Cam' => array(
+        'Core/Log' => array(
             'writers' => array(
                  array(
                      'name' => 'stream',

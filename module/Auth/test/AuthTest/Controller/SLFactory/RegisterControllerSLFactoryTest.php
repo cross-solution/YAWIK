@@ -37,7 +37,7 @@ class RegisterControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
         $sm->setService('Auth\Service\Register', $registerServiceMock);
-        $sm->setService('Log/Core/Cam', $loggerMock);
+        $sm->setService('Core/Log', $loggerMock);
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

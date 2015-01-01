@@ -36,7 +36,7 @@ class RegisterConfirmationControllerSLFactory implements FactoryInterface
          * @var $logger  LoggerInterface
          */
         $service = $serviceLocator->get('Auth\Service\RegisterConfirmation');
-        $logger = $serviceLocator->get('Log/Core/Cam');
+        $logger = $serviceLocator->get('Core/Log');
 
         return new RegisterConfirmationController($service, $logger);
     }

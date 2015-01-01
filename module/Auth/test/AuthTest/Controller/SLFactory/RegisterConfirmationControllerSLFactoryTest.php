@@ -37,7 +37,7 @@ class RegisterConfirmationControllerSLFactoryTest extends \PHPUnit_Framework_Tes
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
         $sm->setService('Auth\Service\RegisterConfirmation', $registerConfirmationServiceMock);
-        $sm->setService('Log/Core/Cam', $loggerMock);
+        $sm->setService('Core/Log', $loggerMock);
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

@@ -39,7 +39,7 @@ class RegisterControllerSLFactory implements FactoryInterface
          */
         $form = $serviceLocator->get('Auth\Form\Register');
         $service = $serviceLocator->get('Auth\Service\Register');
-        $logger = $serviceLocator->get('Log/Core/Cam');
+        $logger = $serviceLocator->get('Core/Log');
 
         return new RegisterController($form, $service, $logger);
     }

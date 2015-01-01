@@ -39,7 +39,7 @@ class ForgotPasswordControllerSLFactory implements FactoryInterface
          */
         $form = $serviceLocator->get('Auth\Form\ForgotPassword');
         $service = $serviceLocator->get('Auth\Service\ForgotPassword');
-        $logger = $serviceLocator->get('Log/Core/Cam');
+        $logger = $serviceLocator->get('Core/Log');
 
         return new ForgotPasswordController($form, $service, $logger);
     }

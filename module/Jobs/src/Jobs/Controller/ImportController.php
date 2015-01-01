@@ -73,9 +73,9 @@ class ImportController extends AbstractActionController {
         $user            = $services->get('AuthenticationService')->getUser();
         $repositories    = $services->get('repositories');
         $repositoriesJob = $repositories->get('Jobs/Job');
-        $log             = $services->get('Log/Core/Cam');
+        $log             = $services->get('Core/Log');
         //if (isset($user)) {
-        //    $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . $user->login);
+        //    $services->get('Core/Log')->info('Jobs/manage/saveJob ' . $user->login);
         //}
         $result = array('token' => session_id(), 'isSaved' => False, 'message' => '');
         if (isset($user) && !empty($user->login)) {
@@ -152,7 +152,7 @@ class ImportController extends AbstractActionController {
             $log->info('Jobs/manage/saveJob [error: session lost]:' . var_export($p, True));
             $result['message'] = 'session_id is lost';
         }
-        //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
+        //$services->get('Core/Log')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
         return new JsonModel($result);
     }
 

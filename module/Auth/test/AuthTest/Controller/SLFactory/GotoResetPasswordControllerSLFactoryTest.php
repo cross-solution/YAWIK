@@ -37,7 +37,7 @@ class GotoResetPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCa
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
         $sm->setService('Auth\Service\GotoResetPassword', $gotoResetPasswordMock);
-        $sm->setService('Log/Core/Cam', $loggerMock);
+        $sm->setService('Core/Log', $loggerMock);
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

@@ -36,7 +36,7 @@ class GotoResetPasswordControllerSLFactory implements FactoryInterface
          * @var $logger  LoggerInterface
          */
         $service = $serviceLocator->get('Auth\Service\GotoResetPassword');
-        $logger = $serviceLocator->get('Log/Core/Cam');
+        $logger = $serviceLocator->get('Core/Log');
 
         return new GotoResetPasswordController($service, $logger);
     }
