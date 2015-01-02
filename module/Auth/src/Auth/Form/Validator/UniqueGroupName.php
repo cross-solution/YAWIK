@@ -96,7 +96,8 @@ class UniqueGroupName extends AbstractValidator
      * Returns true, if the given value is unique among the groups of the user.
      * 
      * Also returns true, if the given value equals the {@link $allowName}.
-     * 
+     *
+     * @param string $value
      * @return bool
      * @see \Zend\Validator\ValidatorInterface::isValid()
      */

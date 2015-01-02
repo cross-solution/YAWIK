@@ -5,8 +5,10 @@ PHING=phing.phar
 COMPOSER=composer.phar
 
 #
-# assume, the script is running within a development enviroment, if ".git"
+# assume, the script is running within a development environment, if ".git"
 # directory exists
+#
+# Note: this leads to a problem, if you install YAWIK on eg. openshift. 
 #
 if [ -d .git ] 
 then
