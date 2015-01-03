@@ -8,6 +8,7 @@
 
 namespace Jobs\Repository;
 
+use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
 use Core\Repository\PaginatorAdapter;
@@ -65,7 +66,6 @@ class Job extends AbstractRepository
      * Look for an drafted Document of a given user
      *
      * @param $user
-     * @param $jobId
      * @return null
      */
     public function findDraft($user)
@@ -73,18 +73,16 @@ class Job extends AbstractRepository
         if ($user instanceOf UserInterface) {
             $user = $user->getId();
         }
+
         $document = $this->findOneBy(array(
             'isDraft' => true,
             'user' => $user
         ));
+
         if (!empty($document)) {
             return $document;
         }
-        //foreach ($documents as $document) {
-        //    if ($jobId == $document->getJob()->getJobId()) {
-        //        return $document;
-        //    }
-        //}
+
         return null;
     }
     
