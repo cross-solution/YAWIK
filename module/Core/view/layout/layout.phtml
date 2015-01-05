@@ -40,11 +40,6 @@ $notifications = $this->partial('core/notifications');
 
         ?>
         <?php echo $this->headStyle() ?>
-        <style type="text/css">
-        .yk-notifications {
-            margin-top: 10px;
-        	padding: 0 15px;
-    }</style>
     </head>
     <body>
 	<a class="sr-only" href="#content">Skip to main content</a>
@@ -94,9 +89,8 @@ $notifications = $this->partial('core/notifications');
               ->setRenderParents(false)
               ->setUlClass('nav nav-pills nav-stacked');
 ?>
-
-
 <?php foreach ($this->layout()->getChildren() as $child):
+    /** @var $child \Zend\View\Model\ModelInterface */
     if (0 === strpos($child->captureTo(), "sidebar_")):
         echo $this->{$child->captureTo()};
     endif;
@@ -112,7 +106,7 @@ endforeach;?>
 <?php echo $this->content; ?>
 </main> 
 <!-- /container -->
-            <footer id="cam-footer">
+            <footer id="yk-footer">
                 <div class="container">
 		<span class="pull-left"><small>&copy; 2013-2014 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
                     | <version><?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</version></small></span>

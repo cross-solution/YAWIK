@@ -27,7 +27,7 @@
 // the default values of the bootstrap global variables are defined in bootstrap/variables.less.
 // you can overwrite them here. 
 
-@navbar-height:                     50px;
+@navbar-height:             50px;
 @footer-height:			    25px;
 
 @navbar-default-link-color:         @brand-primary;
@@ -90,7 +90,7 @@ main {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 26px;
 }
 h2 {
   font-size: 24px;
@@ -117,15 +117,14 @@ h6 {
 		overflow-y: auto;
 	}
 }
-.cam-input-group {
-  .input-group;
-}
 
+.yk-input-group {
+}
 
 /**
  * toolbar on the main section
  */
-.cam-toolbar {
+.yk-toolbar {
   margin: 0 0 8px;
   padding: 0;
   min-height: 0;
@@ -143,14 +142,10 @@ h6 {
   }
 }
 
-.cam-thumbnail {
-  max-height: 50px;
-}
-
 /**
  * footer on the page
  */
-#cam-footer {
+#yk-footer {
         .hidden-xs;
         .navbar;
         .navbar-fixed-bottom;
@@ -246,40 +241,20 @@ fieldset fieldset a.remove-item {
  }
 }
 
-
 /*
- * Main navigation
- *
- * Turn the `.navbar` at the top of the docs purple.
- */
-
-#login-info-box {
-  .dropdown-header {
-    a,
-    a:hover {
-      color: @text-color;
-      text-decoration: none;
-      cursor: default;
-      background: none;
-    } 
-  }
-}
-
-.cam-form-add {
+* Add & remove buttons
+*/
+.yk-form-add {
   .btn;
   .btn-default;
   .pull-right;
 }
-.cam-form-remove {
+.yk-form-remove {
   .btn;
   .btn-default;
   .pull-right;
 }
-#contact-image {
-  border: none;
-  box-shadow: none;
-  padding: 0 12px;
-}
+
 #attachments input {
   border: none;
   box-shadow: none;
@@ -288,4 +263,12 @@ fieldset fieldset a.remove-item {
 
 #profiles {
   margin-bottom:20px;
+}
+
+/**
+* used in layout.phtml
+*/
+.yk-notifications {
+  margin-top: 10px;
+  padding: 0 15px;
 }
