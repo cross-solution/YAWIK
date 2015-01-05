@@ -131,7 +131,7 @@ interface JobInterface extends EntityInterface,
      * @param OrganizationInterface $organization
      * @return JobInterface
      */
-    public function setOrganization(OrganizationInterface $organization);
+    public function setOrganization(OrganizationInterface $organization = null);
 
     /**
      * Sets the contact email of a job posting
@@ -269,7 +269,7 @@ interface JobInterface extends EntityInterface,
      * Sets the terms and conditions accepted flag.
      *
      * @param bool $flag
-     * @return ApplicationInterface
+     * @return self
      */
     public function setTermsAccepted($flag);
 

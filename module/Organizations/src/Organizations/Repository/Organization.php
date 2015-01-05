@@ -9,8 +9,6 @@
 namespace Organizations\Repository;
 
 use Core\Repository\AbstractRepository;
-use Core\Entity\EntityInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Organization extends AbstractRepository
 {
@@ -44,15 +42,14 @@ class Organization extends AbstractRepository
      * Find a organizations by an name
      * 
      * @param String $name
-     * @return \Organizations\Entity\Organization
+     * @param boolean $create
+     * @return array
      */
-    public function findbyName($name, $create = false) {
-        $organizations = array();
-        $query = $this->dm->createQueryBuilder("Organizations\Entity\OrganizationName")->hydrate(false)->field('name')->equals($name)->select("_id");
+    public function findByName($name, $create = true) {
+        $query = $this->dm->createQueryBuilder('Organizations\Entity\OrganizationName')->hydrate(false)->field('name')->equals($name)->select("_id");
         $result = $query->getQuery()->execute()->toArray(false);
-        if (empty($result)) {
-            // create
-            $repositoryNames = $this->dm->getRepository("Organizations\Entity\OrganizationName");
+        if (empty($result) && $create) {
+            $repositoryNames = $this->dm->getRepository('Organizations\Entity\OrganizationName');
             $entityName = $repositoryNames->create();
             $entityName->setName($name);
             $entity = $this->create();
@@ -64,7 +61,7 @@ class Organization extends AbstractRepository
             $idName = $result[0]['_id'];
             $organizations = $this->findBy(array('organizationName' => $idName));
         }
-        return $organizations; 
+        return $organizations;
     }
     
     public function findbyRef($ref, $create = true) {
@@ -80,6 +77,47 @@ class Organization extends AbstractRepository
         $entity = parent::create($data);
         $entity->isDraft(True);
         return $entity;
+    }
 
+    /**
+     * @param string $query
+     * @param int    $userId
+     * @return array
+     */
+    public function getTypeAheadResults($query, $userId)
+    {
+        $organizationNames = array();
+
+        $organizationNameQb = $this->getDocumentManager()->createQueryBuilder('Organizations\Entity\OrganizationName');
+        $organizationNameQb->hydrate(false)
+            ->select(array('id', 'name'))
+            ->field('name')->equals(new \MongoRegex('/' . $query . '/i'))
+            ->sort('name')
+            ->limit(5);
+
+        $organizationNameResults = $organizationNameQb->getQuery()->execute();
+
+        foreach($organizationNameResults as $id => $item) {
+            $organizationNames[$id] = $item;
+        }
+
+        $organizations = array();
+
+        $qb = $this->createQueryBuilder();
+        $qb->hydrate(false)
+            ->select(['contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'])
+            ->field('permissions.view')->equals($userId)
+            ->field('organizationName')->in(array_keys($organizationNames))
+            ->limit(5);
+
+        $result = $qb->getQuery()->execute();
+
+        foreach($result as $id => $item) {
+            $organizations[$id] = $item;
+            $organizationNameId = (string)$organizations[$id]['organizationName'];
+            $organizations[$id]['organizationName'] = $organizationNames[$organizationNameId];
+        }
+
+        return $organizations;
     }
 }

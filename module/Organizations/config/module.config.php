@@ -41,6 +41,9 @@ return array(
         'invokables' => array(
             'Organizations/Index' => 'Organizations\Controller\IndexController', 
         ),
+        'factories' => array(
+            'Organizations/TypeAHead' => 'Organizations\Controller\SLFactory\TypeAHeadControllerSLFactory',
+        )
     ),
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.

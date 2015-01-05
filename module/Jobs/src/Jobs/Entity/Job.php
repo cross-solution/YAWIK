@@ -10,7 +10,6 @@ namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\EntityInterface;
-use Core\Entity\RelationEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Doctrine\Common\Collections\Collection;
@@ -19,7 +18,6 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
-use Core\Entity\PermissionsResourceInterface;
 
 /**
  * The job model
@@ -64,7 +62,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * publishing company
      *
      * @var OrganizationInterface
-     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true) @ODM\Index
+     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true)
+     * @ODM\Index
      */
     protected $organization;
     
@@ -81,7 +80,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * the owner of a Job Posting
      *  
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) @ODM\Index
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\Index
      */
     protected $user;
     
@@ -349,10 +349,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     
     /**
-     * (non-PHPdoc)
-     * @see \Jobs\Entity\JobInterface::setOrganization()
+     * @inheritdoc
      */
-    public function setOrganization(OrganizationInterface $organization)
+    public function setOrganization(OrganizationInterface $organization = null)
     {
         $this->organization = $organization;
         return $this;
@@ -527,7 +526,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::setTermsAccepted()
-     * @return Application
+     * @return self
      */
     public function setTermsAccepted($termsAccepted)
     {
