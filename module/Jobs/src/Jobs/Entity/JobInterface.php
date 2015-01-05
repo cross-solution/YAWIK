@@ -101,17 +101,19 @@ interface JobInterface extends EntityInterface,
      * @param string $text
      */
     public function setDescription($text);
-    
+
     /**
      * Gets the organisation name, which offers the job posting
      *
+     * @deprecated
      * @return string
      */
     public function getCompany();
-    
+
     /**
      * Sets the organisation name, which offers a job posting
      *
+     * @deprecated
      * @param string $company
      * @return JobInterface $job
      */
