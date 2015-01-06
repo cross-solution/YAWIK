@@ -14,7 +14,9 @@
 
 // See: http://yawik.readthedocs.org/en/latest/modules/core/notifications.html
 
-$notifications = $this->partial('core/notifications'); 
+$notifications = $this->partial('core/notifications');
+
+$this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
 
 ?>
 <?php echo $this->doctype(); ?>
@@ -36,7 +38,7 @@ $notifications = $this->partial('core/notifications');
 
         // See: http://yawik.readthedocs.org/en/latest/customize.html#css
 
-        echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/yawik.css');
+        echo $this->headLink();
 
         ?>
         <?php echo $this->headStyle() ?>
