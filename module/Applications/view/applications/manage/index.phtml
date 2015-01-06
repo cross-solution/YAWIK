@@ -61,7 +61,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 </div>
 
 <?php if ($this->acl()->isRole('recruiter')):?>
-  <nav class="navbar cam-toolbar">
+  <nav class="navbar yk-toolbar">
     <?php echo $this->filterform($this->form); ?>
   </nav>
 <?php endif;?>
@@ -70,7 +70,7 @@ $this->headScript()->appendFile($this->basePath('Applications/js/applications.in
 if (False):
 ?>
 <div class="container col-md-12">
-<nav class="navbar cam-toolbar"> 
+<nav class="navbar yk-toolbar"> 
     <form id="search-applications-form" class="form-inline" action="<?php echo $this->basePath('/de/applications')?>" method="get">          
       <div id="search-applications form-group has-feedback" class="row">
         <input class="form-control" id="search-applications-input" 

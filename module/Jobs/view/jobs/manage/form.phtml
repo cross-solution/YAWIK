@@ -18,9 +18,10 @@ $channels=array("yawik" =>
                     array(
                         "label"=>"YAWIK",
                         "price" =>  /*translate*/ "free"),
-                "jobsintown" => array(
-                    "label" => "www.obsintown.de",
-                    "price" => "199 €")
+                "jobsintown" =>
+                    array(
+                        "label" => "www.obsintown.de",
+                        "price" => "199 €")
 );
 
 $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
@@ -120,7 +121,7 @@ if ($this->page == 2):
 
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
 
-<?php if ($page == 2): ?>
+<?php if ($this->page == 2): ?>
     <div id="job_incomplete" class="alert alert-warning " <?php if (isset($this->jobvalid) && $this->jobvalid == true)
     {
         echo 'style = "display: none;"';
@@ -137,7 +138,7 @@ if ($this->page == 2):
 <div id="locationForm-buttons" class="buttons-bar form-group">
     <div class="col-md-12">
         <?php
-        switch($page):
+        switch($this->page):
             case "0":
                 echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to enter the job') . '</a>' . PHP_EOL;
                 break;

@@ -38,10 +38,10 @@ endif;
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
-<nav class="navbar cam-toolbar">   
+<nav class="navbar yk-toolbar">   
     <?php if (!$this->application->isDraft() 
               && $this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
-    <div id="state-actions" class="btn-group cam-action-states">
+    <div id="state-actions" class="btn-group cam-action-states nav navbar-nav">
         <?php $status = $application->status->name;
         
             $actionButtons = array(
@@ -78,7 +78,7 @@ endif;
             foreach ($actionButtons as $targetStatus => $spec):
                 if ($status == $targetStatus): continue; endif?>
               
-            <button class="btn btn-default" 
+            <button class="btn btn-sm btn-default"
                     data-href="<?php echo $spec['href']?>"
                     <?php if (isset($spec['title'])):?>
                     data-title="<?php echo $spec['title']?>"
@@ -88,11 +88,13 @@ endif;
             ><?php echo $spec['label'] ?></button>
             <?php endforeach ?>  
      </div>
+
      <?php endif ?>
      <?php if (!$this->application->isDraft() && 'recruiter' == $this->auth('role')):?> 
-   <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" method="get">
-     <div id="forward-email" class="cam-input-group input-group">
-            <span class="input-group-addon"
+     <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" class="form-inline" method="get">
+
+     <span id="forward-email" class="input-group navbar-nav">
+            <span class="input-group-addon input-sm"
             data-toggle="popover" 
             data-trigger="hover focus click"
             data-placement="bottom" 
@@ -101,21 +103,21 @@ endif;
             <i class="yk-icon yk-icon-envelope"></i>
             </span>
             <input type="hidden" name="action" value="forward">
-            <input class="form-control" id="forward-email-input" name="email" type="email">
+            <input class="form-control input-sm" id="forward-email-input" name="email" type="email">
             <span class="input-group-btn">
-            <button class="btn btn-default" type="submit">
+            <button class="btn btn-sm btn-default" type="submit">
              <span class="yk-icon yk-icon-forward"></span> <?php echo $this->translate('Forward')?>
             </button>
             </span>
-      </div>
+      </span>
     </form>
     <?php endif ?>
     <div class="pull-right">
     <?php if (!$this->application->isDraft() && $this->list->getCount()):?>
-    <div class="btn-group xpull-left">
-      <a href="<?php echo $prevHref ?>" class="btn btn-mini btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
-      <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-mini btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
-      <a href="<?php echo $nextHref ?>" class="btn btn-mini btn-default<?php if (!$nextId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
+    <div class="btn-group">
+      <a href="<?php echo $prevHref ?>" class="btn btn-sm btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
+      <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-sm btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
+      <a href="<?php echo $nextHref ?>" class="btn btn-sm btn-default<?php if (!$nextId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('next')?>"><span class="yk-icon fa-chevron-right"></span></a>
     </div>    
     <?php endif ?>
     <div class="pull-left" style="padding-left: 10px; padding-top:7px;">
@@ -131,7 +133,7 @@ endif;
           } 
           ?>
           <?php if ($this->acl($this->application, 'delete')):?>            
-          <button class="btn btn-default" data-title="delete Application"
+          <button class="btn btn-sm btn-default" data-title="delete Application"
                     data-toggle="modal"
                     data-target="#cam-delete-application"
                     title="<?php echo $this->translate('Delete application')?>"> 

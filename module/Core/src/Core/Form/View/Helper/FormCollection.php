@@ -114,7 +114,7 @@ class FormCollection extends ZendFormCollection
             
             if ($this->isWithinCollection) {
                 $attrStr = $this->createAttributesString($element->getAttributes());
-                $markup = sprintf('<fieldset %s><a class="remove-item cam-form-remove"><i class="yk-icon yk-icon-minus"></i></a>%s</fieldset>', $attrStr, $markup);
+                $markup = sprintf('<fieldset %s><a class="remove-item yk-form-remove"><i class="yk-icon yk-icon-minus"></i></a>%s</fieldset>', $attrStr, $markup);
             } else {
                 $label = $element->getLabel();
 
@@ -136,7 +136,7 @@ class FormCollection extends ZendFormCollection
                     $label = $escapeHtmlHelper($label);
                     
                     if ($isCollectionElement) {
-                        $extraLegend = '<a href="#" class="add-item cam-form-add"><i class="yk-icon yk-icon-plus"></i></a>';
+                        $extraLegend = '<a href="#" class="add-item yk-form-add"><i class="yk-icon yk-icon-plus"></i></a>';
                         $class  = $element->getAttribute('class');
                         $class .= " form-collection";
                         $element->setAttribute('class', $class);
