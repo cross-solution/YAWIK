@@ -583,7 +583,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     public function getLogoRef() {
         /** @var $organization \Organizations\Entity\Organization */
         $organization = $this->organization;
-        if (isset($organization)) {
+        if (isset($organization) && isset($organization->image)) {
             $organizationImage = $organization->image;
             return "/file/Organizations.OrganizationImage/" . $organizationImage->id;
         }

@@ -61,18 +61,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
     public function testAction()
     {
         $queryName = uniqid('query');
-        $data = array(
-            mt_rand(1, 100) => array(
-                'organizationName' => array(
-                    'name' => uniqid('name')
-                ),
-                'contact' => array(
-                    'city' => uniqid('city'),
-                    'street' => uniqid('street'),
-                    'houseNumber' => mt_rand(1, 100)
-                )
-            )
-        );
+        list($data, $expected) = $this->prepareDataAndExpected();
         $user = UserEntityProvider::createEntityWithRandomData();
 
         $request = new Request();
@@ -89,11 +78,45 @@ class RegisterControllerTest extends AbstractControllerTestCase
             ->with($queryName, $user->getId())
             ->willReturn($data);
 
+        /** @var JsonModel $result */
         $result = $this->controller->dispatch($request);
-//        $expected = new JsonModel($data);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-//        $this->assertSame($expected, $result);
+        $this->assertSame($expected, $result->getVariables());
+    }
+
+    private function prepareDataAndExpected()
+    {
+        $id = mt_rand(1, 100);
+        $name = uniqid('name');
+        $city = uniqid('city');
+        $street = uniqid('street');
+        $houseNumber = mt_rand(1, 100);
+
+        $data = array(
+            $id => array(
+                'organizationName' => array(
+                    'name' => $name
+                ),
+                'contact' => array(
+                    'city' => $city,
+                    'street' => $street,
+                    'houseNumber' => $houseNumber
+                )
+            )
+        );
+
+        $expected = array(
+            array(
+                'id' => $id,
+                'name' => $name,
+                'city' => $city,
+                'street' => $street,
+                'houseNumber' => $houseNumber
+            )
+        );
+
+        return array($data, $expected);
     }
 
 }
