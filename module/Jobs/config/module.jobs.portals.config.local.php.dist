@@ -19,7 +19,7 @@ return array(
                 'name' => 'jobsintown',
                 'label' => 'Jobsintown',
                 'price' => '199 €',
-                'headline' => /*@translate*/ 'publish your job on Jobsintown.',
+                'headline' => /*@translate*/ 'publish your job on Jobsintown. 199,-€',
                 'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
                 'linktext' => /*@translate*/ 'www.jobsintown.de',
                 'route' => 'lang/multipost',

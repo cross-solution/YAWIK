@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 18:45+0100\n"
-"PO-Revision-Date: 2014-12-18 17:46+0000\n"
+"POT-Creation-Date: 2015-01-06 15:56+0100\n"
+"PO-Revision-Date: 2015-01-06 14:56+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/projects/p/yawik/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -27,45 +27,45 @@ msgstr ""
 msgid "Publish on %s"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:9 view/iframe/iFrame.phtml:2
+#: view/mails/jobCreatedMail.phtml:8 view/iframe/iFrame.phtml:2
 msgid "Job details"
 msgstr "नौकरी विवरण"
 
-#: view/mails/jobCreatedMail.phtml:12 view/jobs/index/index.ajax.phtml:14
+#: view/mails/jobCreatedMail.phtml:11 view/jobs/index/index.ajax.phtml:14
 msgid "Title of the job"
 msgstr "नौकरी का शीर्षक"
 
-#: view/mails/jobCreatedMail.phtml:16 view/jobs/index/index.ajax.phtml:15
-#: language/_annotated_strings.php:63
+#: view/mails/jobCreatedMail.phtml:15 view/jobs/index/index.ajax.phtml:15
+#: language/_annotated_strings.php:72
 msgid "Location"
 msgstr "स्थान"
 
-#: view/mails/jobCreatedMail.phtml:20 view/jobs/index/index.ajax.phtml:16
-#: language/_annotated_strings.php:27 language/_annotated_strings.php:33
+#: view/mails/jobCreatedMail.phtml:19 view/jobs/index/index.ajax.phtml:16
+#: language/_annotated_strings.php:27 language/_annotated_strings.php:39
 msgid "Companyname"
 msgstr "कंपनी का नाम"
 
-#: view/mails/jobCreatedMail.phtml:25
+#: view/mails/jobCreatedMail.phtml:24
 msgid "Publisher details"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:29
+#: view/mails/jobCreatedMail.phtml:28
 msgid "Name"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:33
+#: view/mails/jobCreatedMail.phtml:32
 msgid "Email"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:48
+#: view/mails/jobCreatedMail.phtml:47
 msgid "no Portal chosen"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:50
+#: view/mails/jobCreatedMail.phtml:49
 msgid "Selected Channels"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:60
+#: view/mails/jobCreatedMail.phtml:59
 msgid "Click here to accept or reject the job opening"
 msgstr ""
 
@@ -75,32 +75,32 @@ msgid ""
 "just contact the developing team for integration"
 msgstr ""
 
-#: view/form/apply-identifier.phtml:22
+#: view/form/apply-identifier.phtml:26
 msgid "Apply link"
 msgstr ""
 
-#: view/form/list-filter.phtml:48
+#: view/form/list-filter.phtml:51
 msgid "Search"
 msgstr "सर्च"
 
-#: view/sidebar/index.phtml:14
+#: view/sidebar/index.phtml:19
 msgid "My jobs"
 msgstr "मेरी नौकरी"
 
-#: view/sidebar/index.phtml:14
+#: view/sidebar/index.phtml:19
 msgid "All jobs"
 msgstr "सभी नौकरियां"
 
-#: view/jobs/index/index.phtml:1 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:72
+#: view/jobs/index/index.phtml:2 view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:81
 msgid "Jobs"
 msgstr "नौकरी"
 
-#: view/jobs/index/index.phtml:6
+#: view/jobs/index/index.phtml:7
 msgid "List of all jobs"
 msgstr "सभी नौकरियों की सूची"
 
-#: view/jobs/index/index.phtml:8
+#: view/jobs/index/index.phtml:9
 msgid "Public Job Opportunities"
 msgstr "लोक नौकरी के अवसर"
 
@@ -178,19 +178,19 @@ msgstr ""
 msgid "Preview of the posting"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:23 view/jobs/manage/form.phtml:82
+#: view/jobs/manage/approval.phtml:23 view/jobs/manage/form.phtml:83
 msgid "Summary"
 msgstr "समरी"
 
-#: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:90
+#: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:91
 msgid "Channel"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:28 view/jobs/manage/form.phtml:91
+#: view/jobs/manage/approval.phtml:28 view/jobs/manage/form.phtml:92
 msgid "Price"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:40 view/jobs/manage/form.phtml:103
+#: view/jobs/manage/approval.phtml:40 view/jobs/manage/form.phtml:104
 msgid "Total"
 msgstr ""
 
@@ -202,61 +202,61 @@ msgstr ""
 msgid "Accept Job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:31
+#: view/jobs/manage/form.phtml:32
 msgid "Publish a job"
 msgstr "एक नौकरी प्रकाशित करें"
 
-#: view/jobs/manage/form.phtml:33
+#: view/jobs/manage/form.phtml:34
 #, php-format
 msgid "Edit the job %s"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:65
+#: view/jobs/manage/form.phtml:66
 msgid "Preview of your job posting"
 msgstr "अपनी नौकरी पोस्टिंग का पूर्वावलोकन"
 
-#: view/jobs/manage/form.phtml:76
+#: view/jobs/manage/form.phtml:77
 #, php-format
 msgid ""
 "Please check the preview of your job position. Click %s to open the preview "
 "in a new window"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:77 view/jobs/manage/form.phtml:112
+#: view/jobs/manage/form.phtml:78 view/jobs/manage/form.phtml:113
 msgid "here"
 msgstr "यहाँ"
 
-#: view/jobs/manage/form.phtml:86
+#: view/jobs/manage/form.phtml:87
 msgid "Your job opening is ready to be published to the following channels"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:111
+#: view/jobs/manage/form.phtml:112
 #, php-format
 msgid "Please check your selected channels. Click %s to modify the channels"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:128
+#: view/jobs/manage/form.phtml:129
 msgid "Your job position is incomplete."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:142
+#: view/jobs/manage/form.phtml:143
 msgid "Next to enter the job"
 msgstr "नौकरी में प्रवेश करने के लिए अगला"
 
-#: view/jobs/manage/form.phtml:145 view/jobs/manage/form.phtml:149
+#: view/jobs/manage/form.phtml:146 view/jobs/manage/form.phtml:150
 msgid "Back"
 msgstr "वापस"
 
-#: view/jobs/manage/form.phtml:146
+#: view/jobs/manage/form.phtml:147
 msgid "Next to preview the job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:151
+#: view/jobs/manage/form.phtml:152
 #, php-format
 msgid "Publish job %s"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:151
+#: view/jobs/manage/form.phtml:152
 msgid "chargeable"
 msgstr ""
 
@@ -276,11 +276,11 @@ msgstr "कोई स्थान"
 msgid "Accept the Terms"
 msgstr "शर्तें स्वीकार करें"
 
-#: src/Jobs/Controller/ManageController.php:406
+#: src/Jobs/Controller/ManageController.php:413
 msgid "Job has been rejected"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:412
+#: src/Jobs/Controller/ManageController.php:419
 msgid "Job has been approved"
 msgstr ""
 
@@ -318,57 +318,71 @@ msgid "Title and job location"
 msgstr "शीर्षक और नौकरी के स्थान"
 
 #: language/_annotated_strings.php:30
-msgid "Customize apply form"
-msgstr "फार्म लागू अनुकूलित"
-
-#: language/_annotated_strings.php:36
-msgid "The name of the hiring organization will be shown in search results."
+msgid "Please choose a descriptive title and a location for your job posting "
 msgstr ""
 
-#: language/_annotated_strings.php:39
-msgid "The apply identifier \"%value%\" is already in use."
+#: language/_annotated_strings.php:33
+msgid ""
+"Please choose the name of the hiring organization. The selected name defines"
+" the template of the job opening."
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Please choose the portals, where you wish to publish your job opening."
 msgstr ""
 
 #: language/_annotated_strings.php:42
+msgid "The name of the hiring organization will be shown in search results."
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:48
 msgid "Show all jobs"
 msgstr "सभी नौकरियों दिखाएँ"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:51
 msgid "Show my jobs"
 msgstr "मेरी नौकरी दिखाएँ"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:54
+msgid "All"
+msgstr ""
+
+#: language/_annotated_strings.php:57
 msgid "Active"
 msgstr "सक्रिय"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:60
 msgid "Inactive"
 msgstr "निष्क्रिय"
 
-#: language/_annotated_strings.php:54 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:63 language/_annotated_strings.php:66
 msgid "Job title"
 msgstr "नौकरी का नाम"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:69
 msgid "Please enter the job title"
 msgstr "नौकरी शीर्षक दर्ज करें"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:75
 msgid "Please enter the location of the job"
 msgstr "नौकरी के स्थान दर्ज करें"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:78
 msgid "Multiposting"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:84
 msgid "Overview"
 msgstr "अवलोकन"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:87
 msgid "Create job"
 msgstr "नौकरी बनाएँ"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:90
 msgid "Edit job"
 msgstr "संपादित नौकरी"

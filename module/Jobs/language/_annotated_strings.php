@@ -1,5 +1,5 @@
 <?php
-//: ./view/form/list-filter.phtml:46
+//: ./view/form/list-filter.phtml:49
 translate('search for jobs');
 
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:43
@@ -26,13 +26,19 @@ translate('Title and job location');
 //: ./src/Jobs/Form/CompanyName.php:37
 translate('Companyname');
 
-//: ./src/Jobs/Form/Job.php:89
-translate('Customize apply form');
+//: ./src/Jobs/Form/Job.php:40
+translate('Please choose a descriptive title and a location for your job posting ');
 
-//: ./src/Jobs/Form/CompanyNameFieldset.php:43
+//: ./src/Jobs/Form/Job.php:52
+translate('Please choose the name of the hiring organization. The selected name defines the template of the job opening.');
+
+//: ./src/Jobs/Form/Job.php:65
+translate('Please choose the portals, where you wish to publish your job opening.');
+
+//: ./src/Jobs/Form/CompanyNameFieldset.php:33
 translate('Companyname');
 
-//: ./src/Jobs/Form/CompanyNameFieldset.php:44
+//: ./src/Jobs/Form/CompanyNameFieldset.php:34
 translate('The name of the hiring organization will be shown in search results.');
 
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
@@ -45,12 +51,15 @@ translate('Show all jobs');
 translate('Show my jobs');
 
 //: ./src/Jobs/Form/ListFilterFieldset.php:64
-translate('Active');
+translate('All');
 
 //: ./src/Jobs/Form/ListFilterFieldset.php:65
+translate('Active');
+
+//: ./src/Jobs/Form/ListFilterFieldset.php:66
 translate('Inactive');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:76
+//: ./src/Jobs/Form/ListFilterFieldset.php:77
 translate('Job title');
 
 //: ./src/Jobs/Form/BaseFieldset.php:46

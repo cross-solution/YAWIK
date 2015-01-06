@@ -37,7 +37,7 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*translate*/ 'Please choose a descriptive title and a location for your job posting ',
+                    'description' => /*@translate*/ 'Please choose a descriptive title and a location for your job posting ',
                     'display_mode' => 'summary'
                 )
             )
@@ -49,7 +49,7 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*translate*/ 'Please enter the name of the hiring organization.',
+                    'description' => /*@translate*/ 'Please choose the name of the hiring organization. The selected name defines the template of the job opening.',
                     'display_mode' => 'summary'
                 )
             )
@@ -62,7 +62,7 @@ class Job extends Container
                 'property' => true,
                 'options' => array(
                     'enable_descriptions' => true,
-                    'description' => /*translate*/ 'Please choose the portals, where you wish to publish your job opening.',
+                    'description' => /*@translate*/ 'Please choose the portals, where you wish to publish your job opening.',
                     'display_mode' => 'summary'
                 )
             )
@@ -85,8 +85,6 @@ class Job extends Container
             )
         ));
 
-        // This label is used on the Settings page
-        //$this->options['settings_label'] = /*@translate*/ 'Customize apply form';
     }
 
     public function renderPost(Renderer $renderer) {

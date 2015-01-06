@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-21 16:36+0100\n"
-"PO-Revision-Date: 2014-12-21 15:37+0000\n"
+"POT-Creation-Date: 2015-01-06 16:36+0100\n"
+"PO-Revision-Date: 2015-01-06 15:36+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/form/user-info-container.phtml:21
+#: view/form/user-info-container.phtml:25
 msgid "Image"
 msgstr "Imagen"
 
@@ -28,37 +28,37 @@ msgstr "Imagen"
 msgid "Click here to enter contact informations."
 msgstr "Presiona aqui para introducir informacion de contacto."
 
-#: view/form/social-profiles-fieldset.phtml:22
+#: view/form/social-profiles-fieldset.phtml:26
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
 msgstr "puedes asociar tu perfil social a tu solicitud. Puedes ver una vista previa y remover el perfil asociado antes de enviar la solicitud."
 
-#: view/form/social-profiles-fieldset.phtml:33
+#: view/form/social-profiles-fieldset.phtml:37
 msgid "Loading"
 msgstr "Cargando"
 
-#: view/form/social-profiles-fieldset.phtml:39
+#: view/form/social-profiles-fieldset.phtml:43
 msgid "Close"
 msgstr "Cerca"
 
-#: view/form/social-profiles-button.phtml:38
+#: view/form/social-profiles-button.phtml:42
 msgid "Attach profile"
 msgstr "Asociar perfil"
 
-#: view/form/social-profiles-button.phtml:39
+#: view/form/social-profiles-button.phtml:43
 msgid "Detach profile"
 msgstr "Desasociar perfil"
 
-#: view/form/social-profiles-button.phtml:42
+#: view/form/social-profiles-button.phtml:46
 msgid "View profile data"
 msgstr "Ver datos del perfil"
 
-#: view/form/userselect.phtml:25
+#: view/form/userselect.phtml:28
 msgid "Add users"
 msgstr "Añadir usuarios"
 
-#: view/form/userselect.phtml:29
+#: view/form/userselect.phtml:32
 msgid "At least one user has to be assigned"
 msgstr "Por lo menos un usuario debe ser asignado"
 
@@ -105,6 +105,12 @@ msgstr "Login"
 
 #: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
 msgid "I forgot my password"
+msgstr ""
+
+#: view/auth/index/index.phtml:40 view/auth/index/index.phtml:41
+#: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
+#: language/_annotated_strings.php:96
+msgid "Register"
 msgstr ""
 
 #: view/auth/index/job-not-found.phtml:11
@@ -172,7 +178,7 @@ msgstr "datos personales"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:66
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:111
 msgid "Password"
 msgstr "Contraseña"
 
@@ -201,7 +207,7 @@ msgstr "Perfiles Sociales"
 msgid "Allow users to attach their %s profile."
 msgstr "Permitir a los usuarios asociar su perfil de %s."
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:90
 msgid "Email"
 msgstr "Email"
 
@@ -272,88 +278,128 @@ msgid "Username or email"
 msgstr ""
 
 #: language/_annotated_strings.php:87
+msgid "Name"
+msgstr ""
+
+#: language/_annotated_strings.php:93
+msgid "Are you human?"
+msgstr ""
+
+#: language/_annotated_strings.php:99
 msgid "General"
 msgstr "General"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:102
 msgid "I am"
 msgstr "Soy"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:105
 msgid "The group name \"%value%\" is already in use."
 msgstr "El nombre del grupo \"%value%\" ya está en uso."
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:108
 msgid "Login name"
 msgstr "Nombre de acceso"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:114
 msgid "login"
 msgstr "login"
 
-#: language/_annotated_strings.php:108 language/_annotated_strings.php:111
-msgid "Password successfully changed"
-msgstr "Contraseña cambiada con éxito"
-
-#: language/_annotated_strings.php:114 language/_annotated_strings.php:117
-msgid "Password could not be changed"
-msgstr "La contraseña no se pudo cambiar"
+#: language/_annotated_strings.php:117
+msgid "Cannot proceed, token expired"
+msgstr ""
 
 #: language/_annotated_strings.php:120
-msgid "Group created"
-msgstr "Grupo creado"
-
-#: language/_annotated_strings.php:123
-msgid "Group updated"
-msgstr "Grupo actualizado"
-
-#: language/_annotated_strings.php:126
-msgid "Changes not saved."
-msgstr "Los cambios no han sido guardados."
-
-#: language/_annotated_strings.php:129
-msgid "You are now logged in."
-msgstr "Autenticado con exito."
-
-#: language/_annotated_strings.php:132
-msgid "Authentication failed."
-msgstr "Error de autenticación."
-
-#: language/_annotated_strings.php:135
-msgid "You are now logged out"
-msgstr "Se ha cerrado la sesion."
-
-#: language/_annotated_strings.php:138
-msgid ""
-"Mail with link for reset password has been send, please try to check your "
-"email box"
+msgid "User cannot be found for specified token"
 msgstr ""
 
-#: language/_annotated_strings.php:141
-msgid "Please fill form correctly"
-msgstr ""
-
-#: language/_annotated_strings.php:144
-msgid "User cannot be found for specified username or email"
-msgstr ""
-
-#: language/_annotated_strings.php:147
-msgid "Found user does not have an email"
-msgstr ""
-
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:132
+#: language/_annotated_strings.php:174 language/_annotated_strings.php:189
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
 msgstr ""
 
+#: language/_annotated_strings.php:126
+msgid ""
+"User email verified successfully. You need to set a password to log in."
+msgstr ""
+
+#: language/_annotated_strings.php:129
+msgid "User cannot be found"
+msgstr ""
+
+#: language/_annotated_strings.php:135 language/_annotated_strings.php:138
+msgid "Password successfully changed"
+msgstr "Contraseña cambiada con éxito"
+
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:144
+msgid "Password could not be changed"
+msgstr "La contraseña no se pudo cambiar"
+
+#: language/_annotated_strings.php:147
+msgid "Group created"
+msgstr "Grupo creado"
+
+#: language/_annotated_strings.php:150
+msgid "Group updated"
+msgstr "Grupo actualizado"
+
 #: language/_annotated_strings.php:153
+msgid "Changes not saved."
+msgstr "Los cambios no han sido guardados."
+
+#: language/_annotated_strings.php:156
+msgid "You are now logged in."
+msgstr "Autenticado con exito."
+
+#: language/_annotated_strings.php:159
+msgid "Authentication failed."
+msgstr "Error de autenticación."
+
+#: language/_annotated_strings.php:162
+msgid "You are now logged out"
+msgstr "Se ha cerrado la sesion."
+
+#: language/_annotated_strings.php:165
+msgid ""
+"An Email with an activation link has been sent, please try to check your "
+"email box"
+msgstr ""
+
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:180
+msgid "Please fill form correctly"
+msgstr ""
+
+#: language/_annotated_strings.php:171
+msgid "User with this email address already exists"
+msgstr ""
+
+#: language/_annotated_strings.php:177
+msgid ""
+"Mail with link for reset password has been sent, please try to check your "
+"email box"
+msgstr ""
+
+#: language/_annotated_strings.php:183
+msgid "User cannot be found for specified username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:186
+msgid "Found user does not have an email"
+msgstr ""
+
+#: language/_annotated_strings.php:192
+msgid "Register confirmation"
+msgstr ""
+
+#: language/_annotated_strings.php:196
 msgid "Password recovery"
 msgstr ""
 
-#: language/_annotated_strings.php:157
+#: language/_annotated_strings.php:200
 msgid "user"
 msgstr "usuario"
 
-#: language/_annotated_strings.php:160
+#: language/_annotated_strings.php:203
 msgid "recruiter"
 msgstr "reclutador"

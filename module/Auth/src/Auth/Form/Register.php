@@ -71,7 +71,7 @@ class Register extends Form
                 $this->add(array(
                     'name' => 'captcha',
                     'options' => array(
-                        'label' => /*@translate*/ 'Please verify you are human',
+                        'label' => /*@translate*/ 'Are you human?',
                         'captcha' => $captcha,
                     ),
                     'type' => 'Zend\Form\Element\Captcha',

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 19:51+0000\n"
+"POT-Creation-Date: 2015-01-06 16:43+0100\n"
+"PO-Revision-Date: 2015-01-06 15:44+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,7 @@ msgstr "Appliquer"
 
 #: view/applications/index/index.phtml:16
 #: view/applications/apply/index.phtml:27
+#: view/applications/manage/detail.pdf.phtml:79
 msgid "Application"
 msgstr "Application"
 
@@ -70,7 +71,7 @@ msgid "Job"
 msgstr "Emploi"
 
 #: view/applications/index/dashboard.phtml:41
-#: view/applications/manage/detail.phtml:229
+#: view/applications/manage/detail.phtml:231
 #: view/applications/manage/social-profile/facebook.phtml:34
 #: view/applications/manage/social-profile/facebook.phtml:65
 #: view/applications/manage/social-profile/linkedin.phtml:53
@@ -142,14 +143,14 @@ msgid "Overview of your sent applications"
 msgstr ""
 
 #: view/applications/manage/index.phtml:56
-#: view/applications/manage/detail.phtml:155
-#: view/applications/manage/detail.phtml:174
-#: view/applications/manage/detail.phtml:206
+#: view/applications/manage/detail.phtml:157
+#: view/applications/manage/detail.phtml:176
+#: view/applications/manage/detail.phtml:208
 msgid "Cancel"
 msgstr "Annuler"
 
 #: view/applications/manage/index.phtml:57
-#: view/applications/manage/detail.phtml:156
+#: view/applications/manage/detail.phtml:158
 msgid "Send mail"
 msgstr "Envoyez un mail"
 
@@ -175,7 +176,7 @@ msgid "Profile data"
 msgstr "Profil données"
 
 #: view/applications/manage/detail.phtml:15
-#: view/applications/manage/detail.pdf.phtml:15
+#: view/applications/manage/detail.pdf.phtml:23
 msgid "Details"
 msgstr "Détails"
 
@@ -201,7 +202,7 @@ msgid "Invite"
 msgstr "Inviter"
 
 #: view/applications/manage/detail.phtml:64
-#: view/applications/manage/detail.phtml:150
+#: view/applications/manage/detail.phtml:152
 msgid "Invite the applicant"
 msgstr "Invite le déposant"
 
@@ -214,250 +215,250 @@ msgstr "Rejeter"
 msgid "Reject the applicant"
 msgstr "Rejeter le demandeur"
 
-#: view/applications/manage/detail.phtml:99
+#: view/applications/manage/detail.phtml:101
 msgid "Enter an email address"
 msgstr "Saisissez une adresse e-mail "
 
-#: view/applications/manage/detail.phtml:100
+#: view/applications/manage/detail.phtml:102
 msgid ""
 "This application will be send as an email to the given address in a layout "
 "similar to that on this page with all attachments included."
 msgstr "Cette application vous seront envoyés comme un e-mail à l'adresse indiquée dans une mise en page similaire à celle sur cette page avec tous les accessoires inclus."
 
-#: view/applications/manage/detail.phtml:107
+#: view/applications/manage/detail.phtml:109
 msgid "Forward"
 msgstr "Avant"
 
-#: view/applications/manage/detail.phtml:116
+#: view/applications/manage/detail.phtml:118
 msgid "previous"
 msgstr "précédent"
 
-#: view/applications/manage/detail.phtml:117
+#: view/applications/manage/detail.phtml:119
 msgid "Back to list"
 msgstr "Retour à la liste"
 
-#: view/applications/manage/detail.phtml:117
+#: view/applications/manage/detail.phtml:119
 msgid "List"
 msgstr "Liste"
 
-#: view/applications/manage/detail.phtml:118
+#: view/applications/manage/detail.phtml:120
 msgid "next"
 msgstr "suivant"
 
-#: view/applications/manage/detail.phtml:137
-#: view/applications/manage/detail.phtml:176
+#: view/applications/manage/detail.phtml:139
+#: view/applications/manage/detail.phtml:178
 msgid "Delete application"
 msgstr "Supprimer l'application"
 
-#: view/applications/manage/detail.phtml:138
+#: view/applications/manage/detail.phtml:140
 msgid "Delete"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:167
+#: view/applications/manage/detail.phtml:169
 msgid "Delete Application"
 msgstr "Supprimer l'application"
 
-#: view/applications/manage/detail.phtml:171
+#: view/applications/manage/detail.phtml:173
 msgid "Are you sure you want to delete this application?"
 msgstr "Etes-vous sûr de vouloir supprimer cette application?"
 
-#: view/applications/manage/detail.phtml:175
+#: view/applications/manage/detail.phtml:177
 msgid "delete this application"
 msgstr "supprimer cette application"
 
-#: view/applications/manage/detail.phtml:183
+#: view/applications/manage/detail.phtml:185
 msgid "Error while loading comments."
 msgstr "Erreur lors du chargement des commentaires."
 
-#: view/applications/manage/detail.phtml:190
+#: view/applications/manage/detail.phtml:192
 msgid "Error while loading comment form."
 msgstr "Erreur lors du chargement de formulaire de commentaires."
 
-#: view/applications/manage/detail.phtml:200
+#: view/applications/manage/detail.phtml:202
 msgid "Comments"
 msgstr "Commentaires"
 
-#: view/applications/manage/detail.phtml:207
+#: view/applications/manage/detail.phtml:209
 msgid "Save"
 msgstr "Sauver"
 
-#: view/applications/manage/detail.phtml:208
+#: view/applications/manage/detail.phtml:210
 msgid "Add new comment"
 msgstr "Ajouter un commentaire"
 
-#: view/applications/manage/detail.phtml:209
-#: view/applications/manage/detail.phtml:320
+#: view/applications/manage/detail.phtml:211
+#: view/applications/manage/detail.phtml:322
 msgid "Close"
 msgstr "Fermer"
 
-#: view/applications/manage/detail.phtml:222
-#: view/applications/manage/detail.phtml:373
-#: view/applications/manage/detail.phtml:379
+#: view/applications/manage/detail.phtml:224
+#: view/applications/manage/detail.phtml:375
+#: view/applications/manage/detail.phtml:381
 msgid "State history"
 msgstr "l'histoire de l'État"
 
-#: view/applications/manage/detail.phtml:230
-#: view/applications/manage/detail.phtml:331
+#: view/applications/manage/detail.phtml:232
+#: view/applications/manage/detail.phtml:333
 msgid "State"
 msgstr "État"
 
-#: view/applications/manage/detail.phtml:231
+#: view/applications/manage/detail.phtml:233
 msgid "Comment"
 msgstr "Commentaire"
 
-#: view/applications/manage/detail.phtml:252
+#: view/applications/manage/detail.phtml:254
 #: view/applications/manage/social-profile/facebook.phtml:14
 #: view/applications/manage/social-profile/linkedin.phtml:14
 #: view/applications/manage/social-profile/xing.phtml:14
-#: view/applications/manage/detail.pdf.phtml:76
+#: view/applications/manage/detail.pdf.phtml:85
 msgid "personal information"
 msgstr "renseignements personnels"
 
-#: view/applications/manage/detail.phtml:283
-#: view/applications/manage/detail.pdf.phtml:227
+#: view/applications/manage/detail.phtml:285
+#: view/applications/manage/detail.pdf.phtml:236
 #: src/Applications/Form/AttachmentsFactory.php:36
 #: language/_annotated_strings.php:45 language/_annotated_strings.php:9
 msgid "Attachments"
 msgstr "Annexes "
 
-#: view/applications/manage/detail.phtml:294
+#: view/applications/manage/detail.phtml:296
 msgid "no attachments available"
 msgstr "Pas de pièces jointes disponibles"
 
-#: view/applications/manage/detail.phtml:314
+#: view/applications/manage/detail.phtml:316
 msgid "Loading"
 msgstr "Chargement"
 
-#: view/applications/manage/detail.phtml:334
+#: view/applications/manage/detail.phtml:336
 msgid "date of receipt"
 msgstr "date de réception"
 
-#: view/applications/manage/detail.phtml:337
+#: view/applications/manage/detail.phtml:339
 msgid "via"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:341
+#: view/applications/manage/detail.phtml:343
 msgid "application state"
 msgstr "état de l'application"
 
-#: view/applications/manage/detail.phtml:348
+#: view/applications/manage/detail.phtml:350
 msgid "rating"
 msgstr "évaluation"
 
-#: view/applications/manage/detail.phtml:358
+#: view/applications/manage/detail.phtml:360
 msgid "View comments"
 msgstr "Voir les commentaires"
 
-#: view/applications/manage/detail.phtml:358
+#: view/applications/manage/detail.phtml:360
 msgid "Add comment"
 msgstr "Ajouter un commentaire"
 
-#: view/applications/manage/detail.phtml:367
+#: view/applications/manage/detail.phtml:369
 msgid "last modification date"
 msgstr "date de dernière modification"
 
-#: view/applications/manage/detail.phtml:386
+#: view/applications/manage/detail.phtml:388
 msgid "agent"
 msgstr "agent"
 
-#: view/applications/manage/detail.phtml:392
-#: view/applications/manage/detail.pdf.phtml:123
+#: view/applications/manage/detail.phtml:394
+#: view/applications/manage/detail.pdf.phtml:132
 #: language/_annotated_strings.php:138
 msgid "Willingness to travel"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:398
-#: view/applications/manage/detail.pdf.phtml:129
+#: view/applications/manage/detail.phtml:400
+#: view/applications/manage/detail.pdf.phtml:138
 #: language/_annotated_strings.php:150
 msgid "Earliest starting date"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:404
-#: view/applications/manage/detail.pdf.phtml:135
+#: view/applications/manage/detail.phtml:406
+#: view/applications/manage/detail.pdf.phtml:144
 #: language/_annotated_strings.php:159
 msgid "Expected salary"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:418
-#: view/applications/manage/detail.pdf.phtml:142
+#: view/applications/manage/detail.phtml:420
+#: view/applications/manage/detail.pdf.phtml:151
 #: language/_annotated_strings.php:48
 msgid "Cover Letter"
 msgstr "Résumé"
 
-#: view/applications/manage/detail.phtml:433
-#: view/applications/manage/index.recruiter.ajax.phtml:123
+#: view/applications/manage/detail.phtml:435
+#: view/applications/manage/index.recruiter.ajax.phtml:124
 #: view/applications/manage/social-profile/facebook.phtml:62
 #: view/applications/manage/social-profile/linkedin.phtml:87
 #: view/applications/manage/social-profile/xing.phtml:78
-#: view/applications/manage/detail.pdf.phtml:148
+#: view/applications/manage/detail.pdf.phtml:157
 msgid "work experience"
 msgstr "expérience de travail"
 
-#: view/applications/manage/detail.phtml:438
-#: view/applications/manage/detail.phtml:468
-#: view/applications/manage/detail.pdf.phtml:151
-#: view/applications/manage/detail.pdf.phtml:169
+#: view/applications/manage/detail.phtml:440
+#: view/applications/manage/detail.phtml:470
+#: view/applications/manage/detail.pdf.phtml:160
+#: view/applications/manage/detail.pdf.phtml:178
 msgid "Start"
 msgstr "Démarrer"
 
-#: view/applications/manage/detail.phtml:439
-#: view/applications/manage/detail.phtml:469
-#: view/applications/manage/detail.pdf.phtml:152
-#: view/applications/manage/detail.pdf.phtml:170
+#: view/applications/manage/detail.phtml:441
+#: view/applications/manage/detail.phtml:471
+#: view/applications/manage/detail.pdf.phtml:161
+#: view/applications/manage/detail.pdf.phtml:179
 msgid "End"
 msgstr "Fin"
 
-#: view/applications/manage/detail.phtml:440
+#: view/applications/manage/detail.phtml:442
 #: language/_annotated_strings.php:30
 msgid "Company"
 msgstr " Entreprise"
 
-#: view/applications/manage/detail.phtml:441
-#: view/applications/manage/detail.phtml:471
+#: view/applications/manage/detail.phtml:443
+#: view/applications/manage/detail.phtml:473
 #: view/applications/manage/social-profile/facebook.phtml:68
 #: view/applications/manage/social-profile/linkedin.phtml:93
 #: view/applications/manage/social-profile/xing.phtml:84
-#: view/applications/manage/detail.pdf.phtml:153
-#: view/applications/manage/detail.pdf.phtml:171
+#: view/applications/manage/detail.pdf.phtml:162
+#: view/applications/manage/detail.pdf.phtml:180
 msgid "Description"
 msgstr "Description"
 
-#: view/applications/manage/detail.phtml:464
-#: view/applications/manage/detail.pdf.phtml:166
+#: view/applications/manage/detail.phtml:466
+#: view/applications/manage/detail.pdf.phtml:175
 msgid "education and training"
 msgstr "l'éducation et la formation"
 
-#: view/applications/manage/detail.phtml:470
+#: view/applications/manage/detail.phtml:472
 msgid "University"
 msgstr "Université"
 
-#: view/applications/manage/detail.phtml:488
-#: view/applications/manage/detail.pdf.phtml:184
+#: view/applications/manage/detail.phtml:490
+#: view/applications/manage/detail.pdf.phtml:193
 msgid "personal skills"
 msgstr "compétences personnelles"
 
-#: view/applications/manage/detail.phtml:490
-#: view/applications/manage/detail.pdf.phtml:186
+#: view/applications/manage/detail.phtml:492
+#: view/applications/manage/detail.pdf.phtml:195
 msgid "native language"
 msgstr "langue maternelle"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:120
+#: view/applications/manage/index.recruiter.ajax.phtml:121
 #: view/applications/manage/social-profile/facebook.phtml:31
 #: view/applications/manage/social-profile/linkedin.phtml:50
 #: view/applications/manage/social-profile/xing.phtml:49
 msgid "education"
 msgstr "éducation"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:120
-#: view/applications/manage/index.recruiter.ajax.phtml:123
+#: view/applications/manage/index.recruiter.ajax.phtml:121
+#: view/applications/manage/index.recruiter.ajax.phtml:124
 msgid "years"
 msgstr "ans "
 
-#: view/applications/manage/index.recruiter.ajax.phtml:141
+#: view/applications/manage/index.recruiter.ajax.phtml:142
 msgid "no attachments"
 msgstr "Pas de pièces jointes"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:165
+#: view/applications/manage/index.recruiter.ajax.phtml:167
 msgid "edit"
 msgstr "modifier"
 
@@ -535,48 +536,52 @@ msgstr "Niveau"
 msgid "view"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:75
+#: view/applications/manage/detail.pdf.phtml:71
+msgid "Application dated"
+msgstr ""
+
+#: view/applications/manage/detail.pdf.phtml:84
 msgid "application details"
 msgstr "modalités d'application"
 
-#: view/applications/manage/detail.pdf.phtml:82
+#: view/applications/manage/detail.pdf.phtml:91
 msgid "name"
 msgstr "nom"
 
-#: view/applications/manage/detail.pdf.phtml:87
+#: view/applications/manage/detail.pdf.phtml:96
 msgid "Street"
 msgstr "Rue"
 
-#: view/applications/manage/detail.pdf.phtml:93
+#: view/applications/manage/detail.pdf.phtml:102
 msgid "City"
 msgstr "Ville"
 
-#: view/applications/manage/detail.pdf.phtml:98
+#: view/applications/manage/detail.pdf.phtml:107
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: view/applications/manage/detail.pdf.phtml:102
+#: view/applications/manage/detail.pdf.phtml:111
 msgid "Phone"
 msgstr "Téléphone"
 
-#: view/applications/manage/detail.pdf.phtml:119
+#: view/applications/manage/detail.pdf.phtml:128
 #: src/Applications/Form/Facts.php:37
 msgid "Facts"
 msgstr ""
 
-#: view/sidebar/manage.phtml:4
+#: view/sidebar/manage.phtml:7
 msgid "new applications"
 msgstr "de nouvelles applications"
 
-#: view/error/not-found.phtml:11
+#: view/error/not-found.phtml:14
 msgid "A 410 error occured"
 msgstr "Une erreur produite 410"
 
-#: view/error/not-found.phtml:13
+#: view/error/not-found.phtml:16
 msgid "Unknown application identifier"
 msgstr ""
 
-#: view/error/not-found.phtml:14
+#: view/error/not-found.phtml:17
 msgid "An application with the provided identifier could not be found."
 msgstr ""
 
@@ -590,7 +595,7 @@ msgid "Options"
 msgstr "Options de"
 
 #: src/Applications/Form/FilterApplication.php:39
-msgid "OptionsFA"
+msgid "Search applications"
 msgstr ""
 
 #: src/Applications/Controller/ManageController.php:311
@@ -613,19 +618,19 @@ msgstr ""
 msgid "reject the applicants"
 msgstr "rejeter les candidats"
 
-#: src/Applications/Mail/Confirmation.php:63
+#: src/Applications/Mail/Confirmation.php:68
 #: src/Applications/Mail/StatusChange.php:57
 #, php-format
 msgid "Dear Mr. %s"
 msgstr "Monsieur %s "
 
-#: src/Applications/Mail/Confirmation.php:64
+#: src/Applications/Mail/Confirmation.php:69
 #: src/Applications/Mail/StatusChange.php:58
 #, php-format
 msgid "Dear Ms. %s"
 msgstr "Madame %s "
 
-#: src/Applications/Mail/Confirmation.php:75
+#: src/Applications/Mail/Confirmation.php:80
 #: src/Applications/Mail/StatusChange.php:69
 #, php-format
 msgid "Hello %s"

@@ -203,16 +203,16 @@ translate('There are missing required informations. Your application cannot be s
 //: ./src/Applications/Controller/ApplyController.php:284
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:82
+//: ./src/Applications/Controller/IndexController.php:83
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:161
+//: ./src/Applications/Controller/IndexController.php:145
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:238
+//: ./src/Applications/Controller/IndexController.php:222
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:271
+//: ./src/Applications/Controller/IndexController.php:255
 translate('your application was sent successfully');
 
 //: ./src/Applications/Mail/Forward.php:45

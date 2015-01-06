@@ -68,7 +68,7 @@ th {
 <sethtmlpageheader name="header" value="on" show-this-page="1"/>
 <!--suppress HtmlUnknownTag -->
 <htmlpageheader name="header">
-<div class="header"><?php echo $this->translate('Bewerbung vom')?>: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
+<div class="header"><?php echo $this->translate('Application dated')?>: <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?></div>
 </htmlpageheader>
 <!--suppress HtmlUnknownTag -->
 <htmlpagefooter name="footer">
@@ -76,7 +76,7 @@ th {
 <table width="100%" class="footer"><tr>
     <td width="33%">{DATE d.m.Y}</td>
     <td width="33%" align="center">{PAGENO}/{nbpg}</td>
-    <td width="33%" style="text-align: right; "><?php echo $this->translate('Bewerbung')?></td>
+    <td width="33%" style="text-align: right; "><?php echo $this->translate('Application')?></td>
     </tr></table>
 </htmlpagefooter>
 <!--suppress HtmlUnknownTag -->

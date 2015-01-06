@@ -77,11 +77,23 @@ translate('Select a group name. You can add users to your group and then work to
 //: ./src/Auth/Form/UserProfileContainer.php:27
 translate('General settings');
 
-//: ./src/Auth/Form/ForgotPassword.php:28
+//: ./src/Auth/Form/ForgotPassword.php:29
 translate('Username or email');
 
-//: ./src/Auth/Form/ForgotPassword.php:42
+//: ./src/Auth/Form/ForgotPassword.php:43
 translate('Reset your password');
+
+//: ./src/Auth/Form/Register.php:36
+translate('Name');
+
+//: ./src/Auth/Form/Register.php:46
+translate('Email');
+
+//: ./src/Auth/Form/Register.php:74
+translate('Are you human?');
+
+//: ./src/Auth/Form/Register.php:89
+translate('Register');
 
 //: ./src/Auth/Form/UserBaseFieldset.php:23
 translate('General');
@@ -101,9 +113,24 @@ translate('Password');
 //: ./src/Auth/Form/Login.php:58
 translate('login');
 
-53:            $this->notification()->danger(/*@translate*/
-57:            $this->notification()->danger(/*@translate*/
-62:            $this->notification()->danger(/*@translate*/
+//: ./src/Auth/Controller/GotoResetPasswordController.php:54
+translate('Cannot proceed, token expired');
+
+//: ./src/Auth/Controller/GotoResetPasswordController.php:58
+translate('User cannot be found for specified token');
+
+//: ./src/Auth/Controller/GotoResetPasswordController.php:63
+translate('An unexpected error has occurred, please contact your system administrator');
+
+//: ./src/Auth/Controller/RegisterConfirmationController.php:44
+translate('User email verified successfully. You need to set a password to log in.');
+
+//: ./src/Auth/Controller/RegisterConfirmationController.php:50
+translate('User cannot be found');
+
+//: ./src/Auth/Controller/RegisterConfirmationController.php:55
+translate('An unexpected error has occurred, please contact your system administrator');
+
 //: ./src/Auth/Controller/ManageController.php:101
 translate('Password successfully changed');
 
@@ -134,8 +161,20 @@ translate('Authentication failed.');
 //: ./src/Auth/Controller/IndexController.php:389
 translate('You are now logged out');
 
+//: ./src/Auth/Controller/RegisterController.php:59
+translate('An Email with an activation link has been sent, please try to check your email box');
+
+//: ./src/Auth/Controller/RegisterController.php:63
+translate('Please fill form correctly');
+
+//: ./src/Auth/Controller/RegisterController.php:69
+translate('User with this email address already exists');
+
+//: ./src/Auth/Controller/RegisterController.php:74
+translate('An unexpected error has occurred, please contact your system administrator');
+
 //: ./src/Auth/Controller/ForgotPasswordController.php:59
-translate('Mail with link for reset password has been send, please try to check your email box');
+translate('Mail with link for reset password has been sent, please try to check your email box');
 
 //: ./src/Auth/Controller/ForgotPasswordController.php:63
 translate('Please fill form correctly');
@@ -149,13 +188,17 @@ translate('Found user does not have an email');
 //: ./src/Auth/Controller/ForgotPasswordController.php:78
 translate('An unexpected error has occurred, please contact your system administrator');
 
+//: ./src/Auth/Mail/RegisterConfirmation.php:34
+translate('Register confirmation');
+
+41:        $bodyHtml = /*@translate*/
 //: ./src/Auth/Mail/ForgotPassword.php:34
 translate('Password recovery');
 
 41:        $bodyHtml = /*@translate*/
-//: ./config/module.config.php:295
+//: ./config/module.config.php:324
 translate('user');
 
-//: ./config/module.config.php:296
+//: ./config/module.config.php:325
 translate('recruiter');
 

@@ -36,7 +36,7 @@ class FilterApplication extends Form
     {
         $options = $this->getOptions();
         $this->setName('search-applications-form')
-                ->setLabel('OptionsFA')
+                ->setLabel('Search applications')
                 ->setAttributes(array(
                     'class' => 'form-inline',
                     'method' => 'get'));
