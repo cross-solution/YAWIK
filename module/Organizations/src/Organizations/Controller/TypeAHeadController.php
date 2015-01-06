@@ -26,6 +26,7 @@ class TypeAHeadController extends AbstractCoreController
     {
         $data = array();
         $query = $this->params()->fromQuery('q', null);
+        /** @var int $userId */
         $userId = $this->auth('id');
 
         if ($query) {

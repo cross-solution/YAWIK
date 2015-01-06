@@ -10,9 +10,9 @@
 
 namespace Jobs\Form;
 
-use Core\Form\Form;
 use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
+use Zend\InputFilter\InputFilterProviderInterface;
 
 
 /**
@@ -20,7 +20,7 @@ use Core\Entity\Hydrator\EntityHydrator;
  *
  * @package Jobs\Form
  */
-class CompanyName extends SummaryForm
+class CompanyName extends SummaryForm implements InputFilterProviderInterface
 {
     /**
      * formular fields are defined in JobsCompanyNameFieldset
@@ -43,5 +43,16 @@ class CompanyName extends SummaryForm
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
+    }
+
+    public function getInputFilterSpecification()
+    {
+        $formName = $this->getFormName();
+
+        return array(
+            $formName => array(
+                'type' => 'Jobs/Company'
+            )
+        );
     }
 }

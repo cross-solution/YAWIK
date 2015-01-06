@@ -191,6 +191,7 @@ return array(
         'invokables' => array(
             'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
+            'Jobs/Company' => 'Jobs\Form\InputFilter\CompanyName',
         ),
     ),
     
