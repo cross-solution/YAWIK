@@ -10,7 +10,7 @@
 namespace AuthTest\Controller\SLFactory;
 
 use Auth\Controller\SLFactory\RegisterControllerSLFactory;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class RegisterControllerSLFactoryTest extends \PHPUnit_Framework_TestCase

@@ -10,7 +10,7 @@
 namespace AuthTest\Controller\SLFactory;
 
 use Auth\Controller\SLFactory\GotoResetPasswordControllerSLFactory;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class GotoResetPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase

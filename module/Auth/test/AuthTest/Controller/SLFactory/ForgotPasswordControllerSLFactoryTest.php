@@ -10,7 +10,7 @@
 namespace AuthTest\Controller\SLFactory;
 
 use Auth\Controller\SLFactory\ForgotPasswordControllerSLFactory;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class ForgotPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
