@@ -10,7 +10,7 @@
 namespace AuthTest\Service\SLFactory;
 
 use Auth\Service\SLFactory\ForgotPasswordSLFactory;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 
 class ForgotPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
 {

@@ -101,17 +101,19 @@ interface JobInterface extends EntityInterface,
      * @param string $text
      */
     public function setDescription($text);
-    
+
     /**
      * Gets the organisation name, which offers the job posting
      *
+     * @deprecated
      * @return string
      */
     public function getCompany();
-    
+
     /**
      * Sets the organisation name, which offers a job posting
      *
+     * @deprecated
      * @param string $company
      * @return JobInterface $job
      */
@@ -131,7 +133,7 @@ interface JobInterface extends EntityInterface,
      * @param OrganizationInterface $organization
      * @return JobInterface
      */
-    public function setOrganization(OrganizationInterface $organization);
+    public function setOrganization(OrganizationInterface $organization = null);
 
     /**
      * Sets the contact email of a job posting
@@ -269,7 +271,7 @@ interface JobInterface extends EntityInterface,
      * Sets the terms and conditions accepted flag.
      *
      * @param bool $flag
-     * @return ApplicationInterface
+     * @return self
      */
     public function setTermsAccepted($flag);
 

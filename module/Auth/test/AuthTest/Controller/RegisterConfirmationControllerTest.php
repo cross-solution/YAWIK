@@ -11,8 +11,9 @@ namespace AuthTest\Controller;
 
 use Auth\Controller\RegisterConfirmationController;
 use Auth\Service\Exception;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 use Core\Controller\Plugin\Notification;
+use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;

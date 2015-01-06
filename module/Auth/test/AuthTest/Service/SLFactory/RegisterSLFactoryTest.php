@@ -10,7 +10,7 @@
 namespace AuthTest\Service\SLFactory;
 
 use Auth\Service\SLFactory\RegisterSLFactory;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 
 class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
 {

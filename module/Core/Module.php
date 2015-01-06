@@ -144,6 +144,7 @@ class Module implements ConsoleBannerProviderInterface
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    'CoreTest' => __DIR__ . '/test/' . 'CoreTest'
                 ),
             ),
         );

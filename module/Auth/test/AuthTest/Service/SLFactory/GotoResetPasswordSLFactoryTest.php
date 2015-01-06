@@ -10,7 +10,7 @@
 namespace AuthTest\Service\SLFactory;
 
 use Auth\Service\SLFactory\GotoResetPasswordSLFactory;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 
 class GotoResetPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
 {

@@ -60,7 +60,9 @@ class Module
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                    'Acl' => __DIR__ . '/src/Acl'
+                    'AuthTest' => __DIR__ . '/test/AuthTest',
+                    'Acl' => __DIR__ . '/src/Acl',
+                    'AclTest' => __DIR__ . '/test/AclTest',
                 ),
             ),
         );

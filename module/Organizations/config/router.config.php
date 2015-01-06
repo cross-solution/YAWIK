@@ -79,6 +79,16 @@ return array(
                                     ),
                                 ),
                             ),
+                            'typeahead' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/typeahead',
+                                    'defaults' => array(
+                                        'controller' => 'Organizations/TypeAHead',
+                                        'action' => 'index',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                 )

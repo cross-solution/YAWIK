@@ -7,9 +7,9 @@
  * @license       MIT
  */
 
-namespace AuthTest\Controller;
+namespace CoreTest\Controller;
 
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;

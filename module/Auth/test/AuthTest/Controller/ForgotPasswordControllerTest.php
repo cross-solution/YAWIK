@@ -12,8 +12,9 @@ namespace AuthTest\Controller;
 use Auth\Controller\ForgotPasswordController;
 use Auth\Form\ForgotPasswordInputFilter;
 use Auth\Service\Exception;
-use AuthTest\Bootstrap;
+use Test\Bootstrap;
 use Core\Controller\Plugin\Notification;
+use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
@@ -46,6 +47,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
 
         $this->controller = new ForgotPasswordController($this->formMock, $this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);
+
         /** @var PluginManager $controllerPluginManager */
         $controllerPluginManager = clone Bootstrap::getServiceManager()->get('ControllerPluginManager');
         $this->controller->setPluginManager($controllerPluginManager);

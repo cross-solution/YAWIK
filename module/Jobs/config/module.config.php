@@ -113,6 +113,9 @@ return array(
             'Jobs/Listeners'           => 'Jobs\Listener\JobsListener',
             'Jobs/Event'               => 'Jobs\Listener\Events\JobEvent',
             'Jobs/PortalListener'      => 'Jobs\Listener\PortalListener',
+        ),
+        'factories' => array(
+            'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
         )
     ),
     
@@ -173,15 +176,14 @@ return array(
             'Jobs/PreviewFieldset'              => 'Jobs\Form\PreviewFieldset',
             'Jobs/PreviewLink'                  => 'Jobs\Form\PreviewLink',
             'Jobs/CompanyName'                  => 'Jobs\Form\CompanyName',
-            'Jobs/CompanyNameFieldset'          => 'Jobs\Form\CompanyNameFieldset',
             'Jobs/CompanyNameElement'           => 'Jobs\Form\CompanyNameElement',
             'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
             'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
             'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
-
         ),
         'factories' => array(
             'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',
+            'Jobs/CompanyNameFieldset' => 'Jobs\Form\SLFactory\CompanyNameFieldsetSLFactory',
         )
     ),
     
@@ -189,6 +191,7 @@ return array(
         'invokables' => array(
             'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
+            'Jobs/Company' => 'Jobs\Form\InputFilter\CompanyName',
         ),
     ),
     

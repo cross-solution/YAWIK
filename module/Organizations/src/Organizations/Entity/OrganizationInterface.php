@@ -43,7 +43,7 @@ interface OrganizationInterface
    /**
     * Gets the name of the organization
     *
-    * @return OrganizationInterface
+    * @return OrganizationName
     */
    public function getOrganizationName();
    

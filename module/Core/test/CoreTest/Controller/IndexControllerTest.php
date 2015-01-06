@@ -9,7 +9,7 @@
 namespace CoreTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractControllerTestCase;
-use CoreTest\Bootstrap;
+use Test\Bootstrap;
 
 class IndexControllerTest extends AbstractControllerTestCase
 {
