@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-07 09:35+0100\n"
-"PO-Revision-Date: 2015-01-07 08:40+0000\n"
+"PO-Revision-Date: 2015-01-07 18:43+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -385,7 +385,7 @@ msgstr "30 Tage kostenlos auf yawik.org veröffenlichen"
 #: language/_annotated_strings.php:84 language/_annotated_strings.php:93
 #, php-format
 msgid "publish the job for 30 days on %s"
-msgstr "30 Tage für 199,-€ auf %s veröffenlichen"
+msgstr "Stellenanzeige für 30 Tage auf %s veröffentlichen"
 
 #: language/_annotated_strings.php:87
 msgid "yawik.org"
