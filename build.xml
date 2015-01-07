@@ -343,7 +343,7 @@
   <!-- Target: phpunit                               -->
   <!-- ============================================  -->
   <target name="phpunit" depends="prepare" description="run phpunit tests">
-    <exec command="vendor/phpunit/phpunit/phpunit --bootstrap module/Auth/test/Bootstrap.php --configuration module/Auth/test/phpunit.xml"
+    <exec command="vendor/phpunit/phpunit/phpunit -c ${project.basedir}/test/phpunit.xml"
           logoutput="/dev/stdout"/>
   </target>  
   

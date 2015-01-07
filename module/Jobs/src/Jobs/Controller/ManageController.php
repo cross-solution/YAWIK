@@ -362,9 +362,10 @@ class ManageController extends AbstractActionController {
             'qualifications' => $renderedDescriptionFormQualifications,
             'title' => $renderedDescriptionFormTitle,
             'uriApply' => $uriApply,
-            'organizationName' => $jobEntity->company,
-            'street' => $jobEntity->user->info->street.' '.$jobEntity->user->info->houseNumber,
-            'postalCode' => $jobEntity->user->info->postalCode,
+            'organizationName' => $jobEntity->organization->organizationName->name,
+            'street' => $jobEntity->organization->contact->street.' '.$jobEntity->organization->contact->houseNumber,
+            'postalCode' => $jobEntity->organization->contact->postalcode,
+            'city' => $jobEntity->organization->contact->city,
         ));
 
         return $model;

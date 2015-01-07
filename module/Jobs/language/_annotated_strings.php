@@ -77,6 +77,36 @@ translate('Please enter the location of the job');
 //: ./src/Jobs/Form/Multipost.php:21
 translate('Multiposting');
 
+//: ./config/module.jobs.portals.config.local.php.dist:10
+translate('publish your job on yawik.org for free');
+
+//: ./config/module.jobs.portals.config.local.php.dist:11
+translate('publish the job for 30 days on %s');
+
+//: ./config/module.jobs.portals.config.local.php.dist:12
+translate('yawik.org');
+
+//: ./config/module.jobs.portals.config.local.php.dist:22
+translate('publish your job on Jobsintown. 199,-€');
+
+//: ./config/module.jobs.portals.config.local.php.dist:23
+translate('publish the job for 30 days on %s');
+
+//: ./config/module.jobs.portals.config.local.php.dist:24
+translate('www.jobsintown.de');
+
+//: ./config/module.jobs.portals.config.local.php.dist:32
+translate('Your Homepage');
+
+//: ./config/module.jobs.portals.config.local.php.dist:34
+translate('enable integration of this job on your Homepage');
+
+//: ./config/module.jobs.portals.config.local.php.dist:35
+translate('enable %s of this job on your Homepage');
+
+//: ./config/module.jobs.portals.config.local.php.dist:36
+translate('integration');
+
 //: ./config/module.config.php:81
 translate('Jobs');
 
