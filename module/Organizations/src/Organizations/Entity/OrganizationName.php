@@ -79,7 +79,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     /**
      * Gets the ranking of an organization
      *
-     * @return String $name
+     * @return int $name
      */
     public function getRankingByCompany()
     {
@@ -89,11 +89,11 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     /**
      * Sets the ranking of an organization
      *
-     * @param string $rankingByCompany
+     * @param int $rankingByCompany
      * @return OrganizationName
      */
     public function setRankingByCompany($rankingByCompany)
-    {http://yawik.org/demo/
+    {
         $this->rankingByCompany = $rankingByCompany;
         return $this;
     }
