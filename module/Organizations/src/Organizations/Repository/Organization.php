@@ -105,7 +105,7 @@ class Organization extends AbstractRepository
 
         $qb = $this->createQueryBuilder();
         $qb->hydrate(false)
-            ->select(['contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'])
+            ->select(array('contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'))
             ->field('permissions.view')->equals($userId)
             ->field('organizationName')->in(array_keys($organizationNames))
             ->limit(5);
