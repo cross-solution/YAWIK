@@ -109,13 +109,16 @@ return array(
 
     'service_manager' => array(
         'invokables' => array(
-            'Jobs/PreviewLinkHydrator' => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
-            'Jobs/Listeners'           => 'Jobs\Listener\JobsListener',
-            'Jobs/Event'               => 'Jobs\Listener\Events\JobEvent',
-            'Jobs/PortalListener'      => 'Jobs\Listener\PortalListener',
+                'Jobs/PreviewLinkHydrator'      => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
+                'Jobs/Listeners'                => 'Jobs\Listener\JobsListener',
+                'Jobs/Event'                    => 'Jobs\Listener\Events\JobEvent',
+                'Jobs/PortalListener'           => 'Jobs\Listener\PortalListener',
+                'CamMediaintown/JobListener'    => 'Jobs\Listener\JobsListenerMit',
         ),
         'factories' => array(
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
+            'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
+            'CamMediaintown/RestClient'                   => 'Jobs\Services\AMSRestClientFactory',
         )
     ),
     
@@ -206,4 +209,5 @@ return array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
+
 );

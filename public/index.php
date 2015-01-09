@@ -5,7 +5,7 @@
  * @copyright (c) 2013-2014 Cross Solution <http://cross-solution.de>
  * @license MIT
  */
- 
+
 ini_set('display_errors', true);
 ini_set('error_reporting', E_ALL | E_STRICT);
 

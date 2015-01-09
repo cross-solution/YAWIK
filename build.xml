@@ -233,7 +233,6 @@
         <include name="**/**.dist"/>
         <exclude name="vendor/**"/>
         <exclude name="module/YawikDemo**"/>
-        <exclude name="module/Jobs**"/>
         <exclude name="build/**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
@@ -275,6 +274,10 @@
           <token key="applications.forms.contactimage.mimetype" value="${applications.forms.contactimage.mimetype}" />
           <token key="auth.forms.userimage.maxsize" value="${auth.forms.userimage.maxsize}" />
           <token key="auth.forms.userimage.mimetype" value="${auth.forms.userimage.mimetype}" />
+          <token key="approvalMail" value="${multiposting.approvalMail}" />
+          <token key="multiposting.target.uri" value="${multiposting.target.uri}" />
+          <token key="multiposting.target.user" value="${multiposting.target.user}" />
+          <token key="multiposting.target.pw" value="${multiposting.target.pw}" />
         </replacetokens>
       </filterchain>
     </copy>
