@@ -130,14 +130,3 @@ deploy.docs.target =
 ; put this config option here
 yawik.demoskin.piwik=/../../module/YawikDemoSkin/view/.piwik.phtml
 
-/**
-* Email
-*/
-multiposting.approvalMail=jobs@yawik.org
-
-/**
-* Rest-Server, that imports multipostings
-*/
-multiposting.target.uri=
-multiposting.target.user=
-multiposting.target.pw=

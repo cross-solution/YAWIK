@@ -7,7 +7,10 @@
             <mapper type="regexp" from="^(.*\.php)\.dist" to="\1"/>
             <filterchain>
                 <replacetokens begintoken="%%" endtoken="%%">
-                    <token key="approvalMail" value="${approvalMail}"/>
+                    <token key="approvalMail" value="${multiposting.approvalMail}" />
+                    <token key="multiposting.target.uri" value="${multiposting.target.uri}"/>
+                    <token key="multiposting.target.user" value="${multiposting.target.user}"/>
+                    <token key="multiposting.target.pw" value="${multiposting.target.pw}"/>
                 </replacetokens>
             </filterchain>
         </copy>
