@@ -61,5 +61,15 @@ interface OrganizationInterface
     * @return AddressInterface
     */
    public function getAddresses();
-    
+
+    /**
+     * @return string
+     */
+    public function getDescription();
+
+    /**
+     * @param string $description
+     * @return self
+     */
+    public function setDescription($description);
 }

@@ -49,5 +49,21 @@ class Organizations extends Container {
                 ),
             )
         ));
+
+        $this->setForms(array(
+            'image' => array(
+                'type' => 'Organizations/Image',
+                'property' => true,
+                'use_files_array' => true,
+            ),
+            'descriptionForm' => array(
+                'type' => 'Organizations/OrganizationsDescriptionForm',
+                'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/ 'Please enter a description for the hiring organization.',
+                ),
+            ),
+        ));
     }
 }

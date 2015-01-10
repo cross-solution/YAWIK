@@ -10,6 +10,8 @@
 /**  */ 
 namespace Core\Form\View\Helper;
 
+use Core\Form\Element\FileUpload;
+
 /**
  *
  *
@@ -20,7 +22,7 @@ class FormImageUpload extends FormFileUpload
 
     protected $scriptFile = 'Core/js/forms.image-upload.js';
     
-    protected function renderMarkup($element)
+    protected function renderMarkup(FileUpload $element)
     {
         $file      = $element->getFileEntity();
         $preview   = '';

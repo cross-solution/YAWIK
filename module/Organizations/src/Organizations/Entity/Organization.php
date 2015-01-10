@@ -77,6 +77,12 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\EmbedOne(targetDocument="\Organizations\Entity\OrganizationContact") */
     protected $contact;
 
+    /**
+     * @var string
+     * @ODM\String
+     */
+    protected $description;
+
     /** {@inheritdoc} */
     public function setExternalId($externalId) 
     {
@@ -239,6 +245,27 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         $this->isDraft = (bool) $flag;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 }
 
 

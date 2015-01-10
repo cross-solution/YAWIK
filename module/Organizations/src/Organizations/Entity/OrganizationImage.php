@@ -57,4 +57,13 @@ class OrganizationImage extends FileEntity implements ResourceInterface
     {
         return 'Entity/OrganizationImage';
     }
+
+    /**
+     * get the URI of an attachment
+     * @return string
+     */
+    function getUri()
+    {
+        return "/file/Organizations.OrganizationImage/" . $this->id . "/" .urlencode($this->name);
+    }
 }
