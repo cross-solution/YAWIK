@@ -60,11 +60,14 @@ return array(
              'Organizations/form' => 'Organizations\Form\Organizations',
              'Organizations/OrganizationsContactForm'     => 'Organizations\Form\OrganizationsContactForm',
              'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
-             'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
-             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+            'Organizations/OrganizationsDescriptionForm' => 'Organizations\Form\OrganizationsDescriptionForm',
+            'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
+            'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+            'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
         ),
         'factories' => array(
+            'Organizations/Image' => 'Organizations\Form\LogoImageFactory',
         )
     ),
     'input_filters' => array(

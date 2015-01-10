@@ -10,6 +10,7 @@
 /** ActionController of Organizations */
 namespace Organizations\Controller;
 
+use Core\Form\SummaryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
@@ -100,8 +101,9 @@ class IndexController extends AbstractActionController
             $container->setParam('id', $org->id);
             if (isset($formIdentifier) && $request->isPost()) {
                 $postData = $this->params()->fromPost();
+                $filesData = $this->params()->fromFiles();
                 $form = $container->get($formIdentifier);
-                $form->setData($postData);
+                $form->setData(array_merge($postData, $filesData));
                 if (!isset($form)) {
                     throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
                 }
@@ -112,15 +114,27 @@ class IndexController extends AbstractActionController
                     //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                     //$repositories->persist($org);
                 }
-                if ($ajaxRequest) {
-                    $summeryFormViewHelper = $viewHelper->get('summaryform');
-                    //$form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-                    $content = $summeryFormViewHelper->__invoke($form);
-                    $return =  new JsonModel(array(
-                        'valid' => True,
-                        'content' => $content
-                    ));
+
+                $organization = $container->getEntity();
+                $this->getServiceLocator()->get('repositories')->store($organization);
+
+                if ('file-uri' === $this->params()->fromPost('return')) {
+                    $basepath = $this->getServiceLocator()->get('ViewHelperManager')->get('basepath');
+                    $content = $basepath($form->getHydrator()->getLastUploadedFile()->getImageUri());
+                } else {
+                    if ($form instanceOf SummaryForm) {
+                        //$form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                        $viewHelper = 'summaryform';
+                    } else {
+                        $viewHelper = 'form';
+                    }
+                    $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
                 }
+
+                return new JsonModel(array(
+                    'valid' => $form->isValid(),
+                    'content' => $content,
+                ));
             }
         }
 
