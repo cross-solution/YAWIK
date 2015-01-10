@@ -8,13 +8,13 @@
  */
 
 /** History.php */ 
-namespace Applications\Entity;
+namespace Jobs\Entity;
 
 use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * History of an application. Holds status changes of an application
+ * History of an job. Holds status changes of an job opening
  * 
  * @ODM\EmbeddedDocument
  */
@@ -26,7 +26,7 @@ class History extends AbstractEntity implements HistoryInterface
     protected $date;
     
     /**
-     * Status of an application.
+     * Status of a job opening.
      * 
      * @var StatusInterface
      * @ODM\EmbedOne(targetDocument="status")
@@ -59,6 +59,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
     
 	/**
+     * Gets the date of an history entry
+     *
      * @return $date
      */
     public function getDate ()
@@ -67,6 +69,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
+     * Sets the date of an history enrtry
+     *
      * @param \DateTime $date
      * @return $this
      */
@@ -77,6 +81,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
+     * Gets the status of an history entry
+     *
      * @return StatusInterface $status
      */
     public function getStatus ()
@@ -85,7 +91,10 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
+     * Sets the Status of en history entry
+     *
      * @param StatusInterface $status
+     * @return $this
      */
     public function setStatus (StatusInterface $status)
     {
@@ -94,6 +103,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
+     * Gets the message of an history entry
+     *
      * @return String $message
      */
     public function getMessage ()
@@ -102,12 +113,18 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
+     * Sets the message of an history entry
+     *
      * @param String $message
+     * @return $this
      */
     public function setMessage ($message)
     {
         $this->message = $message;
         return $this;
     }
+
+    
+    
 }
 

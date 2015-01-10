@@ -16,6 +16,7 @@ use Zend\View\Model\JsonModel;
 use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
+use Applications\Entity\Application;
 use Applications\Entity\Comment;
 use Applications\Entity\Rating;
 use Zend\Stdlib\Parameters;
@@ -250,6 +251,7 @@ class ManageController extends AbstractActionController
     {
         $applicationId = $this->params('id');
         $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        /** @var Application $application */
         $application   = $repository->find($applicationId);
         
         $this->acl($application, 'change');

@@ -207,7 +207,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         // if existing entries are changed....
         // We limit recalculates to the cases where comments gets loaded from
         // the database (which still does not neccessarly mean, there are changes...
-        
+
         $comments = $this->getComments();
         if ( $comments instanceOf ArrayCollection // new Comments
             || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)

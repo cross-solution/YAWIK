@@ -268,6 +268,21 @@ interface JobInterface extends EntityInterface,
     public function getStatus();
 
     /**
+     * Sets the collection of history entities.
+     *
+     * @param Collection $history
+     * @return JobInterface
+     */
+    public function setHistory(Collection $history);
+
+    /**
+     * Gets the collection of history entities.
+     *
+     * @return Collection
+     */
+    public function getHistory();
+
+    /**
      * Sets the terms and conditions accepted flag.
      *
      * @param bool $flag
@@ -297,5 +312,19 @@ interface JobInterface extends EntityInterface,
      * @return string $reference
      */
     public function getReference();
-    
+
+    /**
+     * Sets the list of channels where a job opening should be published
+     *
+     * @param Array $portals
+     */
+    public function setPortals(array $portals);
+
+    /**
+     * Gets the list of channels where the job opening should be published
+     *
+     * @return Array
+     */
+    public function getPortals();
+
 }

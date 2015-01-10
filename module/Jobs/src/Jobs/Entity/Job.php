@@ -18,6 +18,7 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
+use Core\Entity\Collection\ArrayCollection;
 
 /**
  * The job model
@@ -122,7 +123,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
      * locations of the job posting. This collection contains structured coordinates,
-     * postalcodes, city, region, and country names
+     * postal codes, city, region, and country names
      *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="Location")
@@ -147,17 +148,23 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Status of the job posting
-     *
-     * @TODO use predefined constants (like in Module Applications)
      * 
      * @var String
-     * @ODM\String
+     * @ODM\EmbedOne(targetDocument="Status")
      * @ODM\Index
      */
     protected $status;
 
     /**
-     * Flag, wether privacy policy is accepted or not.
+     * History on an job posting
+     *
+     * @var Collection
+     * @ODM\EmbedMany(targetDocument="History")
+     */
+    protected $history;
+
+    /**
+     * Flag, privacy policy is accepted or not.
      *
      * @var bool
      * @ODM\Boolean
@@ -165,7 +172,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $termsAccepted;
     
     /**
-     * Reference of a jobad, on which an applicant can refer to.
+     * Reference of a job opening, on which an applicant can refer to.
      * 
      * @var String
      * @ODM\String 
@@ -507,6 +514,27 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         $this->datePublishStart = $datePublishStart;
         return $this;
     }
+
+    /**
+     * Modifies the state of an application.
+     *
+     * Creates a history entry.
+     *
+     * @param StatusInterface|string $status
+     * @param string $message
+     * @return Job
+     */
+    public function changeStatus($status, $message = '[System]')
+    {
+        $this->setStatus($status);
+        $status = $this->getStatus(); // ensure StatusEntity
+
+        $history = new History($status, $message);
+
+        $this->getHistory()->add($history);
+        return $this;
+    }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getStatus()
@@ -519,13 +547,38 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @see \Jobs\Entity\JobInterface::setStatus()
      */
     public function setStatus($status) {
+        if (!$status instanceOf Status) {
+            $status = new Status($status);
+        }
         $this->status = $status;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see JobInterface::setHistory()
+     * @return Job
+     */
+    public function setHistory(Collection $history)
+    {
+        $this->history = $history;
         return $this;
     }
 
     /**
      * {@inheritDoc}
-     * @see \Applications\Entity\ApplicationInterface::setTermsAccepted()
+     * @see JobInterface::getHistory()
+     */
+    public function getHistory()
+    {
+        if (Null == $this->history) {
+            $this->setHistory(new ArrayCollection());
+        }
+        return $this->history;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see JobInterface::setTermsAccepted()
      * @return self
      */
     public function setTermsAccepted($termsAccepted)
@@ -536,7 +589,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
      * {qinheritDoc}
-     * @see \Applications\Entity\ApplicationInterface::getTermsAccepted()
+     * @see JobInterface::getTermsAccepted()
      */
     public function getTermsAccepted()
     {
@@ -545,14 +598,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
      * (non-PHPdoc)
-     * @see \Jobs\Entity\JobInterface::getReference()
+     * @see JobInterface::getReference()
      */
     public function getReference() {
         return $this->reference;
     }
     /**
      * (non-PHPdoc)
-     * @see \Jobs\Entity\JobInterface::setReference()
+     * @see JobInterface::setReference()
      */
     public function setReference($reference) {
         $this->reference = $reference;
@@ -729,7 +782,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
 
     /**
-     *  @param Array
+     * Sets the list of channels where a job opening should be published
+     *
+     * @param Array
      * {@inheritdoc}
      */
     public function setPortals(array $portals)
@@ -739,6 +794,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
 
     /**
+     * Gets the list of channels where the job opening should be published
+     *
      * {@inheritdoc}
      * @return Array
      */

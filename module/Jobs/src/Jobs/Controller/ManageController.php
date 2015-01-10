@@ -11,6 +11,7 @@
 /** ActionController of Core */
 namespace Jobs\Controller;
 
+use Jobs\Entity\Status;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -84,9 +85,12 @@ class ManageController extends AbstractActionController {
     protected function save()
     {
         $serviceLocator     = $this->getServiceLocator();
+        /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
-        $pageToForm         = array(0 => array('locationForm', 'nameForm', 'portalForm'), 1 => array('descriptionForm'),  2 => array('previewForm'));
+        $pageToForm         = array(0 => array('locationForm', 'nameForm', 'portalForm'),
+                                    1 => array('descriptionForm'),
+                                    2 => array('previewForm'));
         $request            = $this->getRequest();
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
@@ -96,8 +100,7 @@ class ManageController extends AbstractActionController {
         //$this->acl($job, $origAction);
         $form               = $this->getFormular($jobEntity);
         $mvcEvent           = $this->getEvent();
-        // getting and setting the active form
-        //$formIdentifier = "locationForm";
+
         $valid              = true;
         $instanceForm       = Null;
         $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
@@ -129,7 +132,7 @@ class ManageController extends AbstractActionController {
         // validation
         $jobValid = True;
         $errorMessage = array();
-        $translator = $serviceLocator->get('mvcTranslator');
+        $translator = $serviceLocator->get('translator');
         if (empty($jobEntity->title)) {
             $jobValid = False;
             $errorMessage[] = $translator->translate('No Title');
@@ -240,6 +243,7 @@ class ManageController extends AbstractActionController {
     {
         $services       = $this->getServiceLocator();
         $repositories   = $services->get('repositories');
+        /** @var \Jobs\Repository\Job $repository */
         $repository     = $repositories->get('Jobs/Job');
         // @TODO three different method to obtain the job-id ?, simplify this
         $id_fromRoute   = $this->params('id',0);
@@ -249,6 +253,7 @@ class ManageController extends AbstractActionController {
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
 
         if (empty($id) && $allowDraft) {
+            /** @var \Jobs\Entity\Job $job */
             $job = $repository->findDraft($user);
             if (empty($job)) {
                 $job = $repository->create();
@@ -371,6 +376,11 @@ class ManageController extends AbstractActionController {
         return $model;
     }
 
+    /**
+     * Job opening is completed.
+     *
+     * @return array
+     */
     public function completionAction() {
 
         $serviceLocator = $this->getServiceLocator();
@@ -379,7 +389,7 @@ class ManageController extends AbstractActionController {
         $jobEvent->setJobEntity($jobEntity);
 
         $jobEntity->isDraft = false;
-        $jobEntity->status = 'active';
+        $jobEntity->changeStatus(Status::CREATED, "job was created");
         $jobEntity->camEnabled = true;
 
         /**
@@ -400,29 +410,49 @@ class ManageController extends AbstractActionController {
     public function approvalAction() {
 
         $serviceLocator = $this->getServiceLocator();
-        $translator     = $serviceLocator->get('mvcTranslator');
+        $translator     = $serviceLocator->get('translator');
+        $user           = $this->auth()->getUser();
         $repositories   = $serviceLocator->get('repositories');
         $params         = $this->params('state');
+        /** @var \Jobs\Entity\Job $jobEntity */
         $jobEntity      = $this->getJob();
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
+
         if ($params == 'declined') {
-            $jobEntity->status = 'rejected';
+            $jobEntity->changeStatus(Status::REJECTED, sprintf( /*@translate*/ "Job opening was rejected by %s",$user->info->displayName));
             $jobEntity->isDraft = true;
             $repositories->store($jobEntity);
             $this->getEventManager()->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
             $this->notification()->success($translator->translate('Job has been rejected'));
         }
+
         if ($params == 'approved') {
-            $jobEntity->status = 'active';
+            $jobEntity->changeStatus(Status::ACTIVE, sprintf( /*@translate*/ "Job opening was activated by %s",$user->info->displayName));
             $repositories->store($jobEntity);
             $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
             $this->notification()->success($translator->translate('Job has been approved'));
         }
-        $viewLink = $this->url()->fromRoute('lang/jobs/view', array(), array('query' => array( 'id' => $jobEntity->id)));
-        $approvalLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'approved'), array('query' => array( 'id' => $jobEntity->id)));
-        $declineLink = $this->url()->fromRoute('lang/jobs/approval', array('state' => 'declined'), array('query' => array( 'id' => $jobEntity->id)));
-        return array('job' => $jobEntity, 'viewLink' => $viewLink, 'approvalLink' => $approvalLink, 'declineLink' => $declineLink);
+
+        $viewLink = $this->url()->fromRoute('lang/jobs/view',
+            array(),
+            array('query' =>
+                      array( 'id' => $jobEntity->id)));
+
+        $approvalLink = $this->url()->fromRoute('lang/jobs/approval',
+            array('state' => 'approved'),
+            array('query' =>
+                      array( 'id' => $jobEntity->id)));
+
+        $declineLink = $this->url()->fromRoute('lang/jobs/approval',
+            array('state' => 'declined'),
+            array('query' =>
+                      array( 'id' => $jobEntity->id)));
+
+        return array('job' => $jobEntity,
+                     'viewLink' => $viewLink,
+                     'approvalLink' => $approvalLink,
+                     'declineLink' => $declineLink);
     }
 
 }

@@ -17,11 +17,16 @@
 $channels=array("yawik" =>
                     array(
                         "label"=>"YAWIK",
-                        "price" =>  /*translate*/ "free"),
+                        "price" =>  /*@translate*/ "free"),
                 "jobsintown" =>
                     array(
                         "label" => "www.obsintown.de",
-                        "price" => "199 €")
+                        "price" => "199 €"),
+                "homepage" =>
+                    array(
+                        "label" => /*@translate*/ "Your Homepage",
+                        "price" => "free"),
+
 );
 
 $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));

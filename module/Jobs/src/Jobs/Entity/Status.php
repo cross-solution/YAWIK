@@ -9,7 +9,7 @@
 
 /** StatusInterface.php */
     
-namespace Applications\Entity;
+namespace Jobs\Entity;
 
 use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -25,14 +25,17 @@ class Status extends AbstractEntity implements StatusInterface
      * status values
      */
     protected static $orderMap = array(
-        self::INCOMING => 10,
-        self::CONFIRMED => 20,
-        self::INVITED => 30,
-        self::REJECTED => 40,
+        self::CREATED => 10,
+        self::WAITING_FOR_APPROVAL => 20,
+        self::REJECTED => 30,
+        self::PUBLISH => 40,
+        self::ACTIVE => 50,
+        self::INACTIVE => 60,
+        self::EXPIRED => 70,
     );
 
     /**
-     * name of the status
+     * name of the job status
      * 
      * @var string
      * @ODM\String
@@ -47,7 +50,7 @@ class Status extends AbstractEntity implements StatusInterface
      */
     protected $order;
 
-    public function __construct($status = self::INCOMING)
+    public function __construct($status = self::CREATED)
     {
         $constant = 'self::' . strtoupper($status);
         if (!defined($constant)) {
@@ -58,7 +61,7 @@ class Status extends AbstractEntity implements StatusInterface
     }
 
     /**
-     * @see \Applications\Entity\StatusInterface::getName()
+     * @see \Jobs\Entity\StatusInterface::getName()
      * @return String
      */
     public function getName()
@@ -67,7 +70,7 @@ class Status extends AbstractEntity implements StatusInterface
     }
 
     /**
-     * @see \Applications\Entity\StatusInterface::getOrder()
+     * @see \Jobs\Entity\StatusInterface::getOrder()
      * @return Int
      */
     public function getOrder()

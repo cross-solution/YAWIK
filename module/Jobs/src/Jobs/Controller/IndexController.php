@@ -138,9 +138,10 @@ class IndexController extends AbstractActionController
              'qualifications' => $templateValues->qualifications,
              'title' => $templateValues->title,
              'uriApply' => $uriApply,
-             'organizationName' => $job->company,
-             'street' => $job->user->info->street.' '.$job->user->info->houseNumber,
-             'phone' => $job->user->info->phone
+             'organizationName' => $job->organization->organizationName->name,
+             'street' => $job->organization->contact->street.' '.$job->organization->contact->houseNumber,
+             'postalCode' => $job->organization->contact->postalcode,
+             'city' => $job->organization->contact->city,
          ));
          return $model;
          

@@ -1,5 +1,6 @@
 <project name="YAWIK" default="install">
     <target name="install">
+        <property file="${project.basedir}/config/build.properties" />
         <copy todir="../../config/autoload" overwrite="true">
             <fileset dir="config">
                 <include name="**.dist"/>

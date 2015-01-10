@@ -175,7 +175,7 @@ interface ApplicationInterface
     public function setHistory(Collection $history);
     
     /**
-     * Gets the collection of histroy entities.
+     * Gets the collection of history entities.
      * 
      * @return Collection
      */

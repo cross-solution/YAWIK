@@ -229,12 +229,9 @@
     </if>
     <echo msg="generate config files in: ${target}"/>
     <copy todir="${target}" overwrite="true">
-      <fileset dir="${project.basedir}">
+      <fileset dir="${project.basedir}/module" excludes="Jobs/**">
         <include name="**/**.dist"/>
-        <exclude name="vendor/**"/>
-        <exclude name="module/YawikDemo**"/>
-        <exclude name="module/Jobs**"/>
-        <exclude name="build/**"/>
+        <exclude name="YawikDemo**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
       <filterchain>

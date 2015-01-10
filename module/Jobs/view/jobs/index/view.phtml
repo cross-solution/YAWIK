@@ -13,6 +13,6 @@ $this->headTitle()->append($this->escapeHtml($this->job->title))->append($this->
 <h2><?php echo $this->job->title?><br><small><?php echo $this->job->company ?> - <?php echo $this->job->location ?></small></h2>
 
 <p><?php echo $this->translate('Online since') ?>: <?php echo $this->dateFormat($this->job->dateCreated, 'short') ?></p>
-<p><?php echo nl2br($job->description) ?></p>
+<p><?php echo nl2br($this->job->description) ?></p>
 
-<a href="<?php echo $this->url('lang/apply', array('applyId' => $job->applyId)); ?>" class="btn btn-primary btn-lg"><?php echo $this->translate('Apply') ?></a>
+<a href="<?php echo $this->url('lang/apply', array('applyId' => $this->job->applyId)); ?>" class="btn btn-primary btn-lg"><?php echo $this->translate('Apply') ?></a>
