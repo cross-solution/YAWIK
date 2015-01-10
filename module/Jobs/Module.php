@@ -59,21 +59,15 @@ class Module implements ConsoleUsageProviderInterface
         );
     }
 
-    /**
-     * @todo: check this
-     *
-     * 2015-01-10 19:28:51 ERR Argument 1 passed to Jobs\Module::onBootstrap() must be an instance of Jobs\MvcEvent, instance of Zend\Mvc\MvcEvent given (errno 4096) in /home/cbleek/Projects/YAWIK/module/Jobs/Module.php on line 62
-     *
-     */
-//    public function onBootstrap(MvcEvent $e)
-//    {
-//        $eventManager = $e->getApplication()->getEventManager();
-//        $services     = $e->getApplication()->getServiceManager();
-//        $sharedManager = $eventManager->getSharedManager();
-//
-//        $defaultlistener = $services->get('CamMediaintown/JobListener');
-//        $defaultlistener->attachShared($sharedManager);
-//    }
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager = $e->getApplication()->getEventManager();
+        $services     = $e->getApplication()->getServiceManager();
+        $sharedManager = $eventManager->getSharedManager();
+
+        $defaultlistener = $services->get('CamMediaintown/JobListener');
+        $defaultlistener->attachShared($sharedManager);
+    }
 
 }
 

@@ -48,14 +48,14 @@ class PaginationQuery extends AbstractPaginationQuery
                 }
             }
             if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' ) {
-                $queryBuilder->field('status')->equals((string) $value['status']);
+                $queryBuilder->field('status.name')->equals((string) $value['status']);
             }
             
         } else  {
             /*
              * an applicants or guests can see all aktive jobs
              */
-            $queryBuilder->field('status')->equals('active');
+            $queryBuilder->field('status.name')->equals('active');
         }
     
         

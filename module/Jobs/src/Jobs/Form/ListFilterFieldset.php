@@ -10,6 +10,7 @@
 /** ListFilterFieldset.php */ 
 namespace Jobs\Form;
 
+use Jobs\Entity\Status;
 use Zend\Form\Fieldset;
 use Zend\Form\FormInterface;
 
@@ -62,8 +63,8 @@ class ListFilterFieldset extends Fieldset
                 'options' => array(
                     'value_options' => array(
                         'all' => /*@translate*/ 'All',
-                        'active' => /*@translate*/ 'Active',
-                        'inactive' => /*@translate*/ 'Inactive',
+                        Status::ACTIVE => /*@translate*/ 'Active',
+                        Status::INACTIVE => /*@translate*/ 'Inactive',
                     )
                 ),
                 'attributes' => array(
