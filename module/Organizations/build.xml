@@ -1,0 +1,17 @@
+<project name="Organizations" default="install">
+    <target name="install">
+        <property file="${project.basedir}/config/build.properties" />
+        <copy todir="../../config/autoload" overwrite="true">
+            <fileset dir="config">
+                <include name="**.dist"/>
+            </fileset>
+            <mapper type="regexp" from="^(.*\.php)\.dist" to="\1"/>
+            <filterchain>
+                <replacetokens begintoken="%%" endtoken="%%">
+                    <token key="organizations.forms.logoimage.maxsize" value="${organizations.forms.logoimage.maxsize}"/>
+                    <token key="organizations.forms.logoimage.mimetype" value="${organizations.forms.logoimage.maxsize}"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+</project>

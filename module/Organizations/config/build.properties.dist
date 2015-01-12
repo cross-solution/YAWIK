@@ -2,3 +2,16 @@
 * If YAWIK.bundled=true, the modules will be included in the tgz/zip package 
 */
 YAWIK.bundled=true
+
+
+; Maximum file size (in Bytes)
+organizations.forms.logoimage.maxsize=250000
+
+; Allowed mimetypes. Comma separated list. Provide either full type or just a group
+; e.g. "image/jpeg,image/png,text"
+; Leave this empty to not restrict mimetypes
+organizations.forms.logoimage.mimetype=image
+
+
+
+

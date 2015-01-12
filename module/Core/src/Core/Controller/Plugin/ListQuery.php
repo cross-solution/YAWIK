@@ -144,7 +144,8 @@ class ListQuery extends AbstractPlugin
     {
         $dbQuery = $this->getController()->getServiceLocator()->get('query');
         $criteria = $dbQuery->criteria();
-        
+
+        /** @var \Zend\Http\Request $request */
         $request = $this->getController()->getRequest();
         $query = $request->getQuery()->toArray();
         
