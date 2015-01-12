@@ -9,6 +9,7 @@
 
 namespace Jobs;
 
+use Zend\Mvc\MvcEvent;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
@@ -65,7 +66,7 @@ class Module implements ConsoleUsageProviderInterface
         $services     = $e->getApplication()->getServiceManager();
         $sharedManager = $eventManager->getSharedManager();
 
-        $defaultlistener = $services->get('CamMediaintown/JobListener');
+        $defaultlistener = $services->get('Jobs/JobsPublishListener');
         $defaultlistener->attachShared($sharedManager);
     }
 

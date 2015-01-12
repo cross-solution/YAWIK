@@ -113,7 +113,7 @@ return array(
                 'Jobs/Listeners'                => 'Jobs\Listener\JobsListener',
                 'Jobs/Event'                    => 'Jobs\Listener\Events\JobEvent',
                 'Jobs/PortalListener'           => 'Jobs\Listener\PortalListener',
-                'CamMediaintown/JobListener'    => 'Jobs\Listener\JobsListenerMit',
+                'Jobs/JobsPublishListener'      => 'Jobs\Listener\JobsListenerMit',
         ),
         'factories' => array(
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
