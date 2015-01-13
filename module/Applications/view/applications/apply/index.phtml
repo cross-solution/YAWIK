@@ -17,7 +17,7 @@ function getImageRef($url, $self) {
         // pass
     }
     else {
-        $url = '/' . ltrim($url, '/');
+        $url = $self->basePath('/' . ltrim($url, '/'));
         $url = $self->serverUrl($url);
     }
     return $url;
