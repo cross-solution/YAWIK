@@ -112,13 +112,13 @@ return array(
                 'Jobs/PreviewLinkHydrator'      => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
                 'Jobs/Listeners'                => 'Jobs\Listener\JobsListener',
                 'Jobs/Event'                    => 'Jobs\Listener\Events\JobEvent',
-                'Jobs/PortalListener'           => 'Jobs\Listener\PortalListener',
-                'Jobs/JobsPublishListener'      => 'Jobs\Listener\JobsListenerMit',
+                'Jobs/Listener/StatusChanged'   => 'Jobs\Listener\StatusChanged',
+                'Jobs/Listener/Publisher'       => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
-            'CamMediaintown/RestClient'                   => 'Jobs\Services\AMSRestClientFactory',
+            'Jobs/RestClient'                             => 'Jobs\Services\JobsPublisherFactory',
         )
     ),
     

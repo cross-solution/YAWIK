@@ -14,6 +14,10 @@ use Organizations\Repository\Organization;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * Class OrganizationNameHydratorSLFactory
+ * @package Jobs\Form\Hydrator\SLFactory
+ */
 class OrganizationNameHydratorSLFactory implements FactoryInterface
 {
     /**
@@ -25,9 +29,7 @@ class OrganizationNameHydratorSLFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /**
-         * @var $hydrator Organization
-         */
+        /* @var $hydrator Organization */
         $organizationRepository = $serviceLocator->get('repositories')->get('Organizations/Organization');
 
         $hydrator = new OrganizationNameHydrator($organizationRepository);

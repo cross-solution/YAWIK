@@ -26,7 +26,7 @@ use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
  * @package CamMediaintown\Listener
  */
 
-class JobsListenerMit implements ListenerAggregateInterface, SharedListenerAggregateInterface, ServiceManagerAwareInterface
+class Publisher implements ListenerAggregateInterface, SharedListenerAggregateInterface, ServiceManagerAwareInterface
 {
     protected $serviceManager;
 
@@ -47,7 +47,7 @@ class JobsListenerMit implements ListenerAggregateInterface, SharedListenerAggre
 
     public function attachShared(SharedEventManagerInterface $events)
     {
-        $events->attach('Jobs', JobEvent::EVENT_JOB_ACCEPTED, array($this, 'sendAMS'), 10);
+        $events->attach('Jobs', JobEvent::EVENT_JOB_ACCEPTED, array($this, 'restPost'), 10);
         return;
     }
 
@@ -66,10 +66,10 @@ class JobsListenerMit implements ListenerAggregateInterface, SharedListenerAggre
      * allows an event attachment just by class
      * @param JobEvent $e
      */
-    public function sendAMS(JobEvent $e)
+    public function restPost(JobEvent $e)
     {
         $serviceManager = $this->getServiceManager();
-        $restClient = $serviceManager->get('CamMediaintown/RestClient');
+        $restClient = $serviceManager->get('Jobs/RestClient');
 
         $entity = $e->getJobEntity();
         $hydrator = $serviceManager->get('Jobs/JsonJobsEntityHydrator');

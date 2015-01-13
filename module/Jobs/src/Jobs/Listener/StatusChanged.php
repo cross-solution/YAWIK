@@ -21,7 +21,7 @@ use Jobs\Listener\Events\JobEvent;
  *
  * @package Jobs\Listener
  */
-class PortalListener implements ServiceManagerAwareInterface
+class StatusChanged implements ServiceManagerAwareInterface
 {
     protected $serviceManager;
 

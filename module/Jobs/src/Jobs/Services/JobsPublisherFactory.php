@@ -17,7 +17,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class RestClientFactory
  * @package Jobs\Services
  */
-class AMSRestClientFactory extends RestClientFactory
+class JobsPublisherFactory extends RestClientFactory
 {
     protected $config;
     /**

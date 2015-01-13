@@ -66,7 +66,7 @@ class Module implements ConsoleUsageProviderInterface
         $services     = $e->getApplication()->getServiceManager();
         $sharedManager = $eventManager->getSharedManager();
 
-        $defaultlistener = $services->get('Jobs/JobsPublishListener');
+        $defaultlistener = $services->get('Jobs/Listener/Publisher');
         $defaultlistener->attachShared($sharedManager);
     }
 
