@@ -56,7 +56,7 @@ class PortalListener implements ServiceManagerAwareInterface
          * the receiver of the mail is the "admin" of the running yawik installation
          */
         $config                  = $serviceManager->get('config');
-        $email                   = $config['Auth']['default_user']['email'];
+        $email                   = $config['multiposting']['approvalMail'];
         $mailService             = $serviceManager->get('Core/MailService');
         $mail                    = $mailService->get('htmltemplate');
         $mail->job               = $job;
