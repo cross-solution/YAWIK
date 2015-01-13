@@ -20,6 +20,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class AMSRestClientFactory extends RestClientFactory
 {
     protected $config;
+    /**
+     * @var ServiceLocatorInterface $serviceLocator
+     */
     protected $serviceLocator;
 
     protected function getUri() {

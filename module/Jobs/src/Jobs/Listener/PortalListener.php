@@ -10,6 +10,8 @@
 
 namespace Jobs\Listener;
 
+use Auth\AuthenticationService;
+use Zend\Mvc\Service\ControllerPluginManagerFactory;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Jobs\Listener\Events\JobEvent;
@@ -38,16 +40,19 @@ class PortalListener implements ServiceManagerAwareInterface
      */
     public function __invoke(JobEvent $e)
     {
+        /** @var ServiceManager $serviceManager */
         $serviceManager          = $this->getServiceManager();
 
         /**
          * the sender of the mail is the currently logged in user
          */
+        /** @var AuthenticationService $authService */
         $authService             = $serviceManager->get('authenticationservice');
         $userEmail               = $authService->getUser()->info->email;
         $userName                = $authService->getUser()->info->displayName;
         $job                     = $e->getJobEntity();
 
+        /** @var ControllerPluginManagerFactory $controllerPluginManager */
         $controllerPluginManager = $serviceManager->get('controllerPluginManager');
         $urlPlugin               = $controllerPluginManager->get('url');
         $previewLink             = $urlPlugin->fromRoute('lang/jobs/approval', array(), array('force_canonical' => True, 'query' => array('id' => $job->id)));

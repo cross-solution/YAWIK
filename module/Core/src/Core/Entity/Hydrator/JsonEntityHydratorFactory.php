@@ -18,10 +18,10 @@ class JsonEntityHydratorFactory implements FactoryInterface
     protected $hydrator;
 
     /**
-     * Create the settings service
+     * Create the Json Entity Hydrator
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return
+     * @return JsonEntityHydrator
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
