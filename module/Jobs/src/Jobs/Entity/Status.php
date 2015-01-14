@@ -66,7 +66,7 @@ class Status extends AbstractEntity implements StatusInterface
      */
     public function getName()
     {
-        return $this->name;
+        return isset($this->name)?$this->name:'';
     }
 
     /**
