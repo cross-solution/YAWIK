@@ -10,7 +10,6 @@
 namespace Organizations\Form;
 
 use Core\Form\FileUploadFactory;
-use Core\Form\Form;
 
 class LogoImageFactory extends FileUploadFactory
 {
@@ -18,7 +17,7 @@ class LogoImageFactory extends FileUploadFactory
     protected $fileEntityClass = '\Organizations\Entity\OrganizationImage';
     protected $configKey = 'organization_logo_image';
 
-    protected function configureForm(Form $form)
+    protected function configureForm($form)
     {
         $size = isset($this->config['max_size']) ? $this->config['max_size'] : 100000;
         $type = isset($this->config['mimetype']) ? $this->config['mimetype'] : 'image';

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UserImage.php */ 
+/** UserImage.php */
 namespace Organizations\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -16,38 +16,16 @@ use Core\Entity\FileEntity;
 
 /**
  * Defines the logo of an organiozation
- * 
- * @ODM\Document(collection="organization.images", repositoryClass="Organizations\Repository\OrganizationImage")
+ * @ODM\HasLifecycleCallbacks()
+ * @ODM\Document(collection="organizations.images", repositoryClass="Organizations\Repository\OrganizationImage")
  */
 class OrganizationImage extends FileEntity implements ResourceInterface
 {
-
     /**
-     * ImageUrl
-     * 
-     * @var string
-     * @ODM\String
+     * @var Organization
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", mappedBy="image")
      */
-    protected $imageUri;
-
-    /**
-     * @param $uri
-     * @return $this
-     */
-    public function setImageUri($uri)
-    {
-        $this->imageUri = $uri;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImageUri()
-    {
-        return $this->imageUri;
-    }
-
+    protected $organization;
 
     /**
      * {@inheritDoc}
@@ -64,6 +42,31 @@ class OrganizationImage extends FileEntity implements ResourceInterface
      */
     function getUri()
     {
-        return "/file/Organizations.OrganizationImage/" . $this->id . "/" .urlencode($this->name);
+        return "/file/Organizations.OrganizationImage/" . $this->id . "/" . urlencode($this->name);
     }
+
+    /**
+     * @return Organization
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param Organization $organization
+     */
+    public function setOrganization(Organization $organization)
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * @ODM\PreRemove()
+     */
+    public function preRemove()
+    {
+        $this->getOrganization()->setImage(null);
+    }
+
 }
