@@ -10,10 +10,9 @@
 /** FileEntity.php */ 
 namespace Core\Entity;
 
+use Auth\Entity\User;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
-use Zend\Permissions\Acl\Resource\ResourceInterface;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * stores files in MongoGridFS into the collection "files". You can override this.
@@ -90,7 +89,10 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         
         return $this;
     }
-    
+
+    /**
+     * @return User
+     */
     public function getUser()
     {
         return $this->user;
