@@ -76,7 +76,7 @@ class Info extends AbstractEntity implements InfoInterface
      * the photo of an users profile
      *
      * @var FileInterface
-     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
+     * @ODM\ReferenceOne(targetDocument="UserImage", simple=true, nullable=true, cascade={"all"})
      */
     protected $image;
     
