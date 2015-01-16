@@ -104,6 +104,7 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         $email = uniqid('email') . '@' . uniqid('host') . '.com.pl';
         $user = UserEntityProvider::createEntityWithRandomData();
         $confirmationLink = uniqid('confirmationLink');
+        $self = $this;
 
         $this->inputFilterMock->expects($this->once())
             ->method('isValid')
@@ -132,8 +133,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->userRepositoryMock->expects($this->once())
             ->method('store')
-            ->with($this->callback(function ($user) {
-                $this->assertInstanceOf('Auth\Entity\User', $user);
+            ->with($this->callback(function ($user) use ($self) {
+                $self->assertInstanceOf('Auth\Entity\User', $user);
 
                 return $user;
             }));

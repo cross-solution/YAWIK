@@ -48,7 +48,8 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         $this->event->setRouteMatch($this->routeMatch);
 
         /** @var SimpleRouteStack $router */
-        $router = (new RouterFactory())->createService(clone Bootstrap::getServiceManager());
+        $routerFactory = new RouterFactory();
+        $router        = $routerFactory->createService(clone Bootstrap::getServiceManager());
         $router->setDefaultParam('lang', $lang);
 
         $this->event->setRouter($router);
