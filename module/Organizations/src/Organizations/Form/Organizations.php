@@ -51,7 +51,7 @@ class Organizations extends Container {
         ));
 
         $this->setForms(array(
-            'image' => array(
+            'organizationLogo' => array(
                 'type' => 'Organizations/Image',
                 'property' => true,
                 'use_files_array' => true,

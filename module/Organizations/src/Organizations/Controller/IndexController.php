@@ -145,23 +145,23 @@ class IndexController extends AbstractActionController
         }
         return $return;
      }
-    
-    /** 
+
+    /**
      * returns an organization logo.
-     *
+     * @deprecated
      * @return \Zend\Stdlib\ResponseInterface
      */
     public function logoAction()
     {
         $response = $this->getResponse();
         $file     = $this->getFile();
-        
+
         if (!$file) {
             return $response;
         }
-        
+
         //$this->acl($file);
-        
+
         $response->getHeaders()->addHeaderline('Content-Type', $file->type)
                                ->addHeaderline('Content-Length', $file->length);
         $response->sendHeaders();
@@ -180,11 +180,11 @@ class IndexController extends AbstractActionController
     {
         $imageId = $this->params('id');
         $response = $this->getResponse();
-        
+
         try {
             $repository = $this->getServiceLocator()->get('repositories')->get('Organizations/OrganizationImage');
-            
-            $file       = $repository->find($imageId);                
+
+            $file       = $repository->find($imageId);
             if ($file) {
                 return $file;
             }

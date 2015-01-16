@@ -59,7 +59,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * primary logo of an organization
      * 
      * @var \Organizations\Entity\OrganizationImage
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", simple=true, nullable="true", cascade={"all"})
      */
     protected $image;
 
@@ -189,7 +189,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /** {@inheritdoc} */
-    public function setImage(EntityInterface $image = null)
+    public function setImage(OrganizationImage $image = null)
     {
         $this->image = $image;
         return $this;
