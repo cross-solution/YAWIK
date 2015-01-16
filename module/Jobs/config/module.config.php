@@ -126,6 +126,7 @@ return array(
         'invokables' => array(
             'Jobs/Index' => 'Jobs\Controller\IndexController',
             'Jobs/Manage' => 'Jobs\Controller\ManageController',
+            'Jobs/Template' => 'Jobs\Controller\TemplateController',
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),

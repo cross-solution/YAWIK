@@ -70,7 +70,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'options' => array(
                     'route' => '/view',
                     'defaults' => array(
-                        'controller' => 'Jobs/Index',
+                        'controller' => 'Jobs/Template',
                         'action' => 'view'
                     ),
                 ),
@@ -105,7 +105,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'options' => array(
                     'route' => '/editTemplate/:id',
                     'defaults' => array(
-                        'controller' => 'Jobs/Manage',
+                        'controller' => 'Jobs/Template',
                         'action' => 'edittemplate',
                         'defaults' => array(
                             'id' => 0
