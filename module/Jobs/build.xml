@@ -12,6 +12,7 @@
                     <token key="multiposting.target.uri" value="${multiposting.target.uri}"/>
                     <token key="multiposting.target.user" value="${multiposting.target.user}"/>
                     <token key="multiposting.target.pw" value="${multiposting.target.pw}"/>
+                    <token key="default_logo" value="${default_logo}"/>
                 </replacetokens>
             </filterchain>
         </copy>

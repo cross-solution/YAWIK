@@ -263,6 +263,7 @@
           <token key="captcha.recapture.private_key" value="${captcha.recapture.private_key}"/>
           <token key="username" value="${username}"/>
           <token key="password" value="${password}"/>
+          <token key="email" value="${email}"/>
           <token key="role" value="${role}"/>
           <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
           <token key="auth.suffix" value="${auth.suffix}"/>

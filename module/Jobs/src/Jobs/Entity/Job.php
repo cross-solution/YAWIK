@@ -181,7 +181,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Unified Resource Locator to the company-Logo
-     * 
+     *
+     * @deprecated (use $organization->image->uri instead)
      * @var String
      * @ODM\String 
      */
@@ -630,7 +631,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     /**
      * returns an uri to the organisations logo
-     * 
+     *
+     * @deprecated
      * @return string
      */
     public function getLogoRef() {
@@ -644,7 +646,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
     /**
      * Set the uri to the organisations logo
-     * 
+     *
+     * @deprecated
      * @param string $logoRef
      * @return \Jobs\Entity\Job
      */

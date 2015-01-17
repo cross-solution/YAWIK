@@ -4,14 +4,14 @@
  *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @author cbleek
- * @license   AGPLv3
+ * @author bleek@cross-solution.de
+ * @license   MIT
  */
 
 namespace Jobs\Controller;
 
-use Jobs\Form\Job;
 use Jobs\Form\JobDescriptionTemplate;
+use Jobs\Repository;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -22,12 +22,17 @@ use Zend\View\Model\JsonModel;
  * Class TemplateController
  * @package Jobs\Controller
  */
-
-
 class TemplateController extends AbstractActionController  {
 
+    private $jobRepository;
+
+    public function __construct(Repository\Job $jobRepository)
+    {
+        $this->jobRepository = $jobRepository;
+    }
+
     /**
-     * Handels the job opening template in preview mode
+     * Handles the job opening template in preview mode
      *
      * @return ViewModel
      * @throws \RuntimeException
@@ -35,13 +40,8 @@ class TemplateController extends AbstractActionController  {
     public function viewAction()
     {
         $id = $this->params()->fromQuery('id');
-        if (!$id) {
-            throw new \RuntimeException('Missing job id.', 404);
-        }
-        $job  = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
-        if (!$job) {
-            throw new \RuntimeException('Job not found.', 404);
-        }
+        $job = $this->jobRepository->find($id);
+
         $model                = new ViewModel();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
@@ -61,26 +61,26 @@ class TemplateController extends AbstractActionController  {
     }
 
     /**
-     * Handels the job opening template in formular mode
+     * Handles the job opening template in formular mode
      *
      * @return ViewModel
      */
     protected function editTemplateAction()
     {
+
+        $id = $this->params('id');
+        $formIdentifier=$this->params()->fromQuery('form');
+        $job = $this->jobRepository->find($id);
+
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
-        $params               = $this->params();
-        $formIdentifier       = $params->fromQuery('form');
         $services             = $this->getServiceLocator();
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
-        $id                   = $this->params('id');
         $applicationViewModel = $mvcEvent->getViewModel();
-        $repositories         = $services->get('repositories');
-        $repositoryJob        = $repositories->get('Jobs/Job');
-        $job                  = $repositoryJob->find($id);
         $model                = new ViewModel();
         $forms                = $services->get('FormElementManager');
+        /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
         $formTemplate         = $forms->get('Jobs/Description/Template', array(
             'mode' => $job->id ? 'edit' : 'new'
         ));
@@ -109,7 +109,6 @@ class TemplateController extends AbstractActionController  {
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
-            //$headScript->appendScript('$(document).ready(function() { $() });');
         } else {
             return new JsonModel(array('valid' => True));
         }
@@ -123,13 +122,13 @@ class TemplateController extends AbstractActionController  {
     }
 
     /**
-     * prepares the template fields depending on the mode
+     * prepares the template fields depending on the mode (preview or formular)
      *
      * @param $job
      * @param JobDescriptionTemplate|null $form
      * @return array
      */
-    protected function getTemplateFields($job,JobDescriptionTemplate $form=null)
+    private function getTemplateFields($job,JobDescriptionTemplate $form=null)
     {
 
         $uriApply = $job->uriApply;
@@ -172,10 +171,29 @@ class TemplateController extends AbstractActionController  {
             'street' => $job->organization->contact->street.' '.$job->organization->contact->houseNumber,
             'postalCode' => $job->organization->contact->postalcode,
             'city' => $job->organization->contact->city,
-            'uriLogo' => $job->organization->image->uri, // @todo: set a default logo, if no logo is available
+            'uriLogo' => $this->getOrganizationLogo($job->organization),
             'description' => $job->organization->description,
         );
 
         return $fields;
+    }
+
+    /**
+     * Gets the organization logo. If no logo exists, take a predefined one
+     *
+     * @param \Organizations\Entity\Organization $organization
+     * @return String
+     */
+    private function getOrganizationLogo(\Organizations\Entity\Organization $organization)
+    {
+        if ($organization->image->uri) {
+            return ($organization->image->uri);
+        } else {
+            /** @var \Zend\ServiceManager\ServiceManager $serviceLocator */
+
+            $serviceLocator = $this->getServiceLocator();
+            $config = $serviceLocator->get('config');
+            return $config['Jobs']['default_logo'];
+        }
     }
 }

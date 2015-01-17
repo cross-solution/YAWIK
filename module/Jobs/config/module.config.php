@@ -126,10 +126,12 @@ return array(
         'invokables' => array(
             'Jobs/Index' => 'Jobs\Controller\IndexController',
             'Jobs/Manage' => 'Jobs\Controller\ManageController',
-            'Jobs/Template' => 'Jobs\Controller\TemplateController',
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),
+        'factories' => array(
+            'Jobs/Template' => 'Jobs\Controller\SLFactory\TemplateControllerSLFactory',
+        )
     ),
     
     'view_manager' => array(

@@ -58,7 +58,6 @@ abstract class AbstractEntity implements EntityInterface
         if (method_exists($this, $method)) {
             return $this->$method();
         }
-        
         throw new OutOfBoundsException("'$property' is not a valid property of '" . get_class($this) . "'");
     }
     
