@@ -1,37 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="YAWIK" default="install">
-  <if>
-    <not>
-      <available file="./build.properties"/>
-    </not>
-    <then>
-      <echo level="warning">
 
-      the build.properties file does not exists. 
-      
-      Use the build.properties.dist file as template 
-      
-      and adjust the configuration
-
-      </echo>
-      <php expression="exit();"/>
-    </then>
-  </if>
-
-  <if>
-    <not>
-      <os family="unix" />
-    </not>
-    <then>
-      <echo message="This build.xml is only tested on unix. Please give feedback, if this build.xml is not working on your OS" level="warning"/>
-    </then>
-  </if>
+  <!-- build.properties can be set as an argument -->
+    
 
   
   <!-- ============================================  -->
   <!-- Target: install                               -->
   <!-- ============================================  -->
-  <target name="install" depends="init,generate-autoload-config" description="reads build.properties and generates config files">
+  <target name="install" depends="check-requirements,init,generate-autoload-config" description="reads build.properties and generates config files">
     <property name="target" value="config/autoload" override="true"/>
   </target>
   
@@ -426,7 +403,7 @@
       </fileset>
     </foreach>
     <!-- then read the global properties file -->
-    <property file="${project.basedir}/build.properties" />
+    <property file="${project.basedir}/${build.properties}" />
   </target>
 
     <target name="load-properties-subtask">
@@ -471,4 +448,41 @@
             </then>
         </if>
     </target>
+    
+    
+    <!-- =======================================================  -->
+    <!-- check requirements. A build.properties files is needed   -->
+    <!-- =======================================================  -->
+    <target name="check-requirements">
+       <property name="build.properties" value="build.properties" override="false"/>
+      <if>
+        <not>
+          <available file="${build.properties}"/>
+       </not>
+     <then>
+      <echo level="warning">
+
+      the build.properties file does not exists at '${build.properties}'. 
+      
+      Use the build.properties.dist file as template 
+      
+      and adjust the configuration
+
+      </echo>
+      <php expression="exit();"/>
+    </then>
+  </if>
+
+  <if>
+    <not>
+      <os family="unix" />
+    </not>
+    <then>
+      <echo message="This build.xml is only tested on unix. Please give feedback, if this build.xml is not working on your OS" level="warning"/>
+    </then>
+  </if>
+
+    </target>
 </project>
+
+
