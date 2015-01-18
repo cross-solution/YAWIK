@@ -8,6 +8,9 @@ php:
 services:
   - mongodb
 
+env:
+  - PECLMONGO=mongo-1.5.8
+
 before_install:
   - sudo apt-get update > /dev/null
 
@@ -15,16 +18,17 @@ install:
   # install php packages required for running YAWIK phpunit tests
   - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
 
-  - pecl install mongo
-
   # add composer's global bin directory to the path
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 before_script: 
-  # - phpenv config-add .travis/phpenv.ini
+  - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
+  - sh -c "tar xfz $PECLMONGO.tgz"
+  - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
+  - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
   - ./composer.phar install
 
 script:
-  - phpunit --configuration /home/travis/build/cross-solution/YAWIK/travis.phpunit.xml
+  - phpunit --configuration ${TRAVIS_BUILD_DIR}/travis.phpunit.xml
