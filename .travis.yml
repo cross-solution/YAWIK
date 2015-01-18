@@ -6,6 +6,8 @@ php:
   - "5.3"
 services:
   - mongodb
+before_script: phpenv config-add .travis/phpenv.ini
+
 script:
   - composer install
   - phpunit --configuration travis.phpunit.xml
