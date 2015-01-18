@@ -14,7 +14,6 @@ before_install:
 install:
   # install php packages required for running YAWIK phpunit tests
   - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
-  - compser self-update
 
   # add composer's global bin directory to the path
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -24,5 +23,6 @@ before_script:
   - ./install.sh -b .travis/build.properties.travis
 
 script:
+  - compser self-update
   - composer install
   - phpunit --configuration travis.phpunit.xml
