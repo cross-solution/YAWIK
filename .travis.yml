@@ -21,8 +21,8 @@ install:
 before_script: 
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
+  - ./compser.phar self-update
+  - ./composer.phar install
 
 script:
-  - compser self-update
-  - composer install
   - phpunit --configuration travis.phpunit.xml
