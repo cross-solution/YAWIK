@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Organizations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-11 15:37+0100\n"
+"POT-Creation-Date: 2015-01-18 16:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
-#: view/organizations/index/form.phtml:1 language/_annotated_strings.php:3
+#: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
 msgstr ""
 
@@ -38,29 +38,43 @@ msgid "Please enter a contact for the hiring organization."
 msgstr ""
 
 #: language/_annotated_strings.php:18
-msgid "Organizationname"
+msgid "Please enter a description for the hiring organization."
 msgstr ""
 
 #: language/_annotated_strings.php:21
-msgid "street"
+msgid "Description"
 msgstr ""
 
 #: language/_annotated_strings.php:24
-msgid "house number"
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
 msgstr ""
 
 #: language/_annotated_strings.php:27
-msgid "Postalcode"
+msgid "Organizationname"
 msgstr ""
 
-#: language/_annotated_strings.php:30 language/_annotated_strings.php:6
-msgid "City"
+#: language/_annotated_strings.php:30
+msgid "street"
 msgstr ""
 
 #: language/_annotated_strings.php:33
-msgid "Overview"
+msgid "house number"
 msgstr ""
 
 #: language/_annotated_strings.php:36
+msgid "Postalcode"
+msgstr ""
+
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:6
+msgid "City"
+msgstr ""
+
+#: language/_annotated_strings.php:42
+msgid "Overview"
+msgstr ""
+
+#: language/_annotated_strings.php:45
 msgid "Insert"
 msgstr ""

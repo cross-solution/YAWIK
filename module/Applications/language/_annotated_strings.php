@@ -188,10 +188,10 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 //: ./src/Applications/Form/BaseFieldset.php:45
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:85
+//: ./src/Applications/Controller/ManageController.php:86
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:130
+//: ./src/Applications/Controller/ManageController.php:131
 translate('Invalid apply id');
 
 //: ./src/Applications/Controller/ApplyController.php:141

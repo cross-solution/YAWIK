@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-19 18:44+0000\n"
+"POT-Creation-Date: 2015-01-18 16:56+0100\n"
+"PO-Revision-Date: 2015-01-18 15:58+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Organizations"
 msgstr "Firmen"
 
-#: view/organizations/index/form.phtml:1 language/_annotated_strings.php:3
+#: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
 msgstr "Firma"
 
@@ -39,29 +39,43 @@ msgid "Please enter a contact for the hiring organization."
 msgstr "Bitte hinterlegen Sie eine Kontaktadresse für das schaltende Unternehmen"
 
 #: language/_annotated_strings.php:18
+msgid "Please enter a description for the hiring organization."
+msgstr "Bitte geben Sie eine Beschreibung für das schaltende Unternehmen ein. Die Beschreibung erscheint in der Stellenanzeige."
+
+#: language/_annotated_strings.php:21
+msgid "Description"
+msgstr "Beschreibung"
+
+#: language/_annotated_strings.php:24
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr "Bitte wählen Sie ein Logo für das schaltende Unternehmen. Das Logo erscheint in der Stellenanzeige und im Bewerbungsformular."
+
+#: language/_annotated_strings.php:27
 msgid "Organizationname"
 msgstr "Name des Unternehmens"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:30
 msgid "street"
 msgstr "Strasse"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:33
 msgid "house number"
 msgstr "Hausnummer"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:36
 msgid "Postalcode"
 msgstr "Postleitzahl"
 
-#: language/_annotated_strings.php:30 language/_annotated_strings.php:6
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:6
 msgid "City"
 msgstr "Ort"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:42
 msgid "Overview"
 msgstr "Übersicht"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "Insert"
 msgstr "hinzufügen"

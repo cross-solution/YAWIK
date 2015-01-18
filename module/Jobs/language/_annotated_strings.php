@@ -2,6 +2,12 @@
 //: ./view/form/list-filter.phtml:49
 translate('search for jobs');
 
+//: ./view/jobs/manage/form.phtml:20
+translate('free');
+
+//: ./view/jobs/manage/form.phtml:27
+translate('Your Homepage');
+
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:43
 translate('Job qualification');
 
@@ -44,22 +50,22 @@ translate('The name of the hiring organization will be shown in search results.'
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:49
+//: ./src/Jobs/Form/ListFilterFieldset.php:50
 translate('Show all jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:50
+//: ./src/Jobs/Form/ListFilterFieldset.php:51
 translate('Show my jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:64
+//: ./src/Jobs/Form/ListFilterFieldset.php:65
 translate('All');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:65
+//: ./src/Jobs/Form/ListFilterFieldset.php:66
 translate('Active');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:66
+//: ./src/Jobs/Form/ListFilterFieldset.php:67
 translate('Inactive');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:77
+//: ./src/Jobs/Form/ListFilterFieldset.php:78
 translate('Job title');
 
 //: ./src/Jobs/Form/BaseFieldset.php:46
@@ -76,6 +82,12 @@ translate('Please enter the location of the job');
 
 //: ./src/Jobs/Form/Multipost.php:21
 translate('Multiposting');
+
+//: ./src/Jobs/Controller/ManageController.php:338
+translate('Job opening was rejected by %s');
+
+//: ./src/Jobs/Controller/ManageController.php:346
+translate('Job opening was activated by %s');
 
 //: ./config/module.jobs.portals.config.local.php.dist:10
 translate('publish your job on yawik.org for free');

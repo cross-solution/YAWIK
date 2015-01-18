@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-07 15:21+0000\n"
+"POT-Creation-Date: 2015-01-18 16:56+0100\n"
+"PO-Revision-Date: 2015-01-18 15:57+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Organizations"
 msgstr "المنظمات"
 
-#: view/organizations/index/form.phtml:1 language/_annotated_strings.php:3
+#: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
 msgstr "منظمة"
 
@@ -39,29 +39,43 @@ msgid "Please enter a contact for the hiring organization."
 msgstr "الرجاء إدخال جهة اتصال لتنظيم التوظيف."
 
 #: language/_annotated_strings.php:18
+msgid "Please enter a description for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Description"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr ""
+
+#: language/_annotated_strings.php:27
 msgid "Organizationname"
 msgstr "Organizationname"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:30
 msgid "street"
 msgstr "شارع"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:33
 msgid "house number"
 msgstr "رقم المنزل"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:36
 msgid "Postalcode"
 msgstr "الرمز البريدي"
 
-#: language/_annotated_strings.php:30 language/_annotated_strings.php:6
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:6
 msgid "City"
 msgstr "مدينة"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:42
 msgid "Overview"
 msgstr "نظرة عامة"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "Insert"
 msgstr "إدراج"

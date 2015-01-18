@@ -9,7 +9,7 @@
             <filterchain>
                 <replacetokens begintoken="%%" endtoken="%%">
                     <token key="organizations.forms.logoimage.maxsize" value="${organizations.forms.logoimage.maxsize}"/>
-                    <token key="organizations.forms.logoimage.mimetype" value="${organizations.forms.logoimage.maxsize}"/>
+                    <token key="organizations.forms.logoimage.mimetype" value="${organizations.forms.logoimage.mimetype}"/>
                 </replacetokens>
             </filterchain>
         </copy>

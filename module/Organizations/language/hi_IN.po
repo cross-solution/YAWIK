@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
-"PO-Revision-Date: 2014-12-04 20:51+0000\n"
+"POT-Creation-Date: 2015-01-18 16:56+0100\n"
+"PO-Revision-Date: 2015-01-18 15:57+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/projects/p/yawik/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Organizations"
 msgstr "संगठन"
 
-#: view/organizations/index/form.phtml:1 language/_annotated_strings.php:3
+#: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
 msgstr "संगठन"
 
@@ -39,29 +39,43 @@ msgid "Please enter a contact for the hiring organization."
 msgstr "भर्ती के संगठन के लिए एक संपर्क दर्ज करें।"
 
 #: language/_annotated_strings.php:18
+msgid "Please enter a description for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Description"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr ""
+
+#: language/_annotated_strings.php:27
 msgid "Organizationname"
 msgstr "OrganizationName"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:30
 msgid "street"
 msgstr "स्ट्रीट"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:33
 msgid "house number"
 msgstr "घर का नंबर"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:36
 msgid "Postalcode"
 msgstr "डाक कोड"
 
-#: language/_annotated_strings.php:30 language/_annotated_strings.php:6
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:6
 msgid "City"
 msgstr "शहर"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:42
 msgid "Overview"
 msgstr "अवलोकन"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "Insert"
 msgstr "सम्मिलित करें"

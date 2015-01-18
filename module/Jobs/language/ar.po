@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-06 15:56+0100\n"
-"PO-Revision-Date: 2015-01-06 14:56+0000\n"
+"POT-Creation-Date: 2015-01-07 09:35+0100\n"
+"PO-Revision-Date: 2015-01-07 08:35+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgid "All jobs"
 msgstr "جميع الوظائف"
 
 #: view/jobs/index/index.phtml:2 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:111
 msgid "Jobs"
 msgstr "وظائف"
 
@@ -276,11 +276,11 @@ msgstr "الموقع غير"
 msgid "Accept the Terms"
 msgstr "قبول شروط"
 
-#: src/Jobs/Controller/ManageController.php:413
+#: src/Jobs/Controller/ManageController.php:414
 msgid "Job has been rejected"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:419
+#: src/Jobs/Controller/ManageController.php:420
 msgid "Job has been approved"
 msgstr ""
 
@@ -375,14 +375,52 @@ msgstr "من فضلك ادخل موقع العمل"
 msgid "Multiposting"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:81
+msgid "publish your job on yawik.org for free"
+msgstr ""
+
+#: language/_annotated_strings.php:84 language/_annotated_strings.php:93
+#, php-format
+msgid "publish the job for 30 days on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:87
+msgid "yawik.org"
+msgstr ""
+
+#: language/_annotated_strings.php:90
+msgid "publish your job on Jobsintown. 199,-€"
+msgstr ""
+
+#: language/_annotated_strings.php:96
+msgid "www.jobsintown.de"
+msgstr ""
+
+#: language/_annotated_strings.php:99
+msgid "Your Homepage"
+msgstr ""
+
+#: language/_annotated_strings.php:102
+msgid "enable integration of this job on your Homepage"
+msgstr ""
+
+#: language/_annotated_strings.php:105
+#, php-format
+msgid "enable %s of this job on your Homepage"
+msgstr ""
+
+#: language/_annotated_strings.php:108
+msgid "integration"
+msgstr ""
+
+#: language/_annotated_strings.php:114
 msgid "Overview"
 msgstr "نظرة عامة"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:117
 msgid "Create job"
 msgstr "خلق فرص العمل"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:120
 msgid "Edit job"
 msgstr "تحرير العمل"

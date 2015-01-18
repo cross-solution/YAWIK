@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:18+0100\n"
-"PO-Revision-Date: 2014-11-26 18:12+0000\n"
-"Last-Translator: Mario de la Ossa <mariodelaossa@gmail.com>\n"
+"POT-Creation-Date: 2015-01-18 16:56+0100\n"
+"PO-Revision-Date: 2015-01-18 15:57+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Organizations"
 msgstr "Organizaciones"
 
-#: view/organizations/index/form.phtml:1 language/_annotated_strings.php:3
+#: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
 msgstr "Organización"
 
@@ -39,29 +39,43 @@ msgid "Please enter a contact for the hiring organization."
 msgstr "Por favor introduzca un contacto para la organización que contrata."
 
 #: language/_annotated_strings.php:18
+msgid "Please enter a description for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Description"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr ""
+
+#: language/_annotated_strings.php:27
 msgid "Organizationname"
 msgstr "Nombre de organización"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:30
 msgid "street"
 msgstr "calle"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:33
 msgid "house number"
 msgstr "número de casa"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:36
 msgid "Postalcode"
 msgstr "Codigo Postal"
 
-#: language/_annotated_strings.php:30 language/_annotated_strings.php:6
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:6
 msgid "City"
 msgstr "Ciudad"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:42
 msgid "Overview"
 msgstr "Visión de conjunto"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "Insert"
 msgstr "Insertar"

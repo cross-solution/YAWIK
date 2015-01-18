@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# BLU-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-16 16:05+0200\n"
-"PO-Revision-Date: 2014-09-16 14:02+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2015-01-15 13:01+0000\n"
+"Last-Translator: BLU-IT\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 #: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
 #: language/_annotated_strings.php:33
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #: src/Settings/Form/LanguageSettingsFieldset.php:24
 msgid "general settings"
@@ -49,15 +50,15 @@ msgstr "definisce le lingue di questo frontend."
 #: language/_annotated_strings.php:18
 #, php-format
 msgid "Customize enabled elements for %s"
-msgstr ""
+msgstr "Personalizzare elementi abilitati per %s"
 
 #: language/_annotated_strings.php:21
 msgid "Activate"
-msgstr ""
+msgstr "Attivare"
 
 #: language/_annotated_strings.php:24
 msgid "Enables the form element customization."
-msgstr ""
+msgstr "Consente la personalizzazione elemento modulo."
 
 #: language/_annotated_strings.php:27
 msgid "Changes successfully saved"
@@ -65,4 +66,4 @@ msgstr "Modifiche salvate con successo"
 
 #: language/_annotated_strings.php:30
 msgid "Changes could not be saved"
-msgstr ""
+msgstr "Le modifiche non possono essere salvate"
