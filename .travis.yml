@@ -19,10 +19,10 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 before_script: 
-  - phpenv config-add .travis/phpenv.ini
+  # - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
   - ./composer.phar install
 
 script:
-  - phpunit --configuration travis.phpunit.xml
+  - phpunit --configuration /home/travis/build/cross-solution/YAWIK/travis.phpunit.xml
