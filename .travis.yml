@@ -31,4 +31,4 @@ before_script:
   - ./composer.phar install
 
 script:
-  - phpunit --configuration ${TRAVIS_BUILD_DIR}/travis.phpunit.xml
+  - phpunit --configuration $TRAVIS_BUILD_DIR/travis.phpunit.xml
