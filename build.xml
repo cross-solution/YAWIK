@@ -2,28 +2,28 @@
 <project name="YAWIK" default="install">
 
   <!-- build.properties can be set as an argument -->
-    
 
-  
+
+
   <!-- ============================================  -->
   <!-- Target: install                               -->
   <!-- ============================================  -->
   <target name="install" depends="check-requirements,init,generate-autoload-config" description="reads build.properties and generates config files">
     <property name="target" value="config/autoload" override="true"/>
   </target>
-  
+
   <!-- ============================================  -->
   <!-- Target: Cleanup all                           -->
   <!-- ============================================  -->
   <target name="clean" description="removes build, log, cache, tmp, components and vendor dir">
-      <delete dir="${project.basedir}/build"/>
-      <delete dir="${project.basedir}/log"/>
-      <delete dir="${project.basedir}/cache"/>
-      <delete dir="${project.basedir}/tmp"/>
-      <delete dir="${project.basedir}/vendor"/>
-      <delete dir="${project.basedir}/components"/>
+    <delete dir="${project.basedir}/build"/>
+    <delete dir="${project.basedir}/log"/>
+    <delete dir="${project.basedir}/cache"/>
+    <delete dir="${project.basedir}/tmp"/>
+    <delete dir="${project.basedir}/vendor"/>
+    <delete dir="${project.basedir}/components"/>
   </target>
-  
+
   <!-- ============================================  -->
   <!-- Target: prepare, creates log and cache dir    -->
   <!-- ============================================  -->
@@ -33,8 +33,8 @@
         <available file='${project.basedir}/log' type='dir' />
       </not>
       <then>
-       <mkdir dir="${project.basedir}/log"/>
-       <chmod file="${project.basedir}/log" mode="0777"/>
+        <mkdir dir="${project.basedir}/log"/>
+        <chmod file="${project.basedir}/log" mode="0777"/>
       </then>
     </if>
     <if>
@@ -64,7 +64,7 @@
         <chmod file="${project.basedir}/build" mode="0777"/>
       </then>
     </if>
-    <if> 
+    <if>
       <not>
         <available file='${project.basedir}/vendor' type='dir' />
       </not>
@@ -77,16 +77,16 @@
       </then>
     </if>
   </target>
-  
 
-  
+
+
   <!-- ============================================  -->
   <!-- Target: build                                 -->
   <!-- ============================================  -->
-  <target name="build" depends="prepare,translate" 
+  <target name="build" depends="prepare,translate"
           description="build tgz and zip packages">
-    <delete dir="${project.basedir}/build"/>      
-          
+    <delete dir="${project.basedir}/build"/>
+
     <copy todir="${builddir}">
       <fileset refid="core"/>
     </copy>
@@ -99,15 +99,15 @@
     <copy todir="${builddir}/public/js/jquery-file-upload">
       <fileset refid="blueimp"/>
     </copy>
-    
+
     <mkdir dir="${builddir}/public/js/tinymce"/>
     <copy todir="${builddir}/public/js/tinymce">
       <fileset refid="tinymce"/>
     </copy>
-    
+
     <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
-    <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>   
+    <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>
     <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
     <copy file="${vendordir}/ivaynberg/select2/select2.min.js" tofile="${builddir}/public/js/select2.min.js"/>
     <copy file="${vendordir}/ivaynberg/select2/select2.css" tofile="${builddir}/public/css/select2.css"/>
@@ -119,7 +119,7 @@
     <copy file="${project.basedir}/install.sh" tofile="${builddir}/install.sh"/>
     <copy file="${project.basedir}/build.xml" tofile="${builddir}/build.xml"/>
     <copy file="${project.basedir}/build.properties.dist" tofile="${builddir}/build.properties"/>
- 
+
     <mkdir dir="${builddir}/log"/>
     <chmod file="${builddir}/log" mode="0777"/>
     <mkdir dir="${builddir}/cache"/>
@@ -129,14 +129,14 @@
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
     <mkdir dir="${builddir}/config/autoload"/>
-    
+
     <echo file="${builddir}/VERSION" append="false">${version}</echo>
 
     <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
     <symlink link="build/YAWIK-${version-short}/public/Jobs" target="../module/Jobs/public" />
-    
+
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
         <replaceregexp>
@@ -148,9 +148,9 @@
     <echo msg="generate YAWIK-${version-short}.zip and YAWIK-${version-short}.tgz"/>
     <exec dir="${builddir}/.." command="tar -czpf YAWIK-${version-short}.tgz YAWIK-${version-short}" logoutput="false"/>
     <exec dir="${builddir}/.." command="zip -r YAWIK-${version-short}.zip YAWIK-${version-short}" logoutput="false"/>
-    
+
   </target>
-  
+
   <!-- ============================================  -->
   <!-- Target: generate autoload config files        -->
   <!-- ============================================  -->
@@ -194,7 +194,7 @@
     </if>
     <if>
       <istrue value="${linkedin.enabled}"/>
-      <then>   
+      <then>
         <if>
           <isset property="${linkedin.appid}"/>
           <then>
@@ -256,6 +256,7 @@
       </filterchain>
     </copy>
   </target>
+
   <!-- ============================================  -->
   <!-- Target: translate                             -->
   <!-- ============================================  -->
@@ -272,7 +273,7 @@
     <exec command="msgfmt -cv -o ${project.basedir}/module/${filename}.mo ${absfilename}"
           logoutput="true" dir="."/>
   </target>
-          
+
   <!-- ============================================  -->
   <!-- Target: docs                                  -->
   <!-- ============================================  -->
@@ -280,11 +281,11 @@
   <target name="docs" depends="init,phpdoc" description="build api docs">
     <tar destfile="build/YAWIK-docs-${version-short}.tgz"
          basedir="${project.basedir}/docs"
-         compression="gzip" /> 
+         compression="gzip" />
     <echo msg="exec: zip -r  YAWIK-${version-short}.zip YAWIK"/>
     <exec dir="${builddir}/.." command="zip -r  YAWIK-${version-short}.zip YAWIK" logoutput="false"/>
 
-  </target>  
+  </target>
   <!-- ============================================  -->
   <!-- Target: symlinks                              -->
   <!-- ============================================  -->
@@ -295,40 +296,40 @@
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
     <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
     <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" />
-  </target>  
-  
+  </target>
+
   <!-- ============================================  -->
   <!-- Target: phpdoc                                -->
   <!-- ============================================  -->
   <target name="phpdoc" depends="prepare" description="build api docs using phpdoc">
     <exec command="rm -R ./tmp" dir="."/>
     <exec command="phpdoc" dir="." passthru="true"/>
-  </target>  
-  
+  </target>
+
   <target name="deploy-docs" depends="init" description="publish API docs via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
   </target>
-  
+
   <target name="deploy-builds" description="publish TGZ and ZIP packages via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}"/>
     <exec command="rsync -rv
     ${project.basedir}/build/YAWIK-${version-short}.* -l --exclude=YAWIK ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
   </target>
-  
-  <!-- ============================================  --> 
+
+  <!-- ============================================  -->
   <!-- Target: phpunit                               -->
   <!-- ============================================  -->
   <target name="phpunit" depends="prepare" description="run phpunit tests">
     <exec command="vendor/phpunit/phpunit/phpunit -c ${project.basedir}/test/phpunit.xml"
           logoutput="/dev/stdout"/>
-  </target>  
-  
+  </target>
+
   <target name="filesets">
     <!-- ============================================  -->
     <!-- defines various filesets                      -->
     <!-- ============================================  -->
-  
+
     <fileset id="core" dir="${project.basedir}">
       <include name="module/**"/>
       <include name="public/**"/>
@@ -345,11 +346,13 @@
       <exclude name="public/js/*"/>
       <exclude name="**/YawikDemo*/**"/>
       <exclude name="**/CamMediaintown/**"/>
+      <exclude name="**/JobsDeutschland/**"/>
       <exclude name="public/Applications"/>
       <exclude name="public/Auth"/>
       <exclude name="public/Core"/>
       <exclude name="public/Geo"/>
       <exclude name="public/Jobs"/>
+      <exclude name="public/Organizations"/>
       <exclude name="**/*.po"/>
       <exclude name="**/*.pot"/>
       <exclude name="**/language/_annotated_strings.php"/>
@@ -370,30 +373,30 @@
       <include name="jquery.fileupload.js"/>
       <include name="vendor/jquery.ui.widget.js"/>
     </fileset>
-  
+
     <fileset id="tinymce" dir="${vendordir}/tinymce/tinymce">
       <include name="**/*"/>
     </fileset>
   </target>
-  
+
   <target name="init"
-     depends="load-properties, prepare"
-     unless="project.initialized">
-     <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
-     <exec outputProperty="version-short" 
-           command="git describe --tags --abbrev=0 | sed -E -n 's/v(.*)/\1/p'" 
-           dir="${project.basedir}"/>
-     <exec outputProperty="external.app.key" 
-           command="php -r 'echo uniqid(md5(microtime()));'" 
-           dir="${project.basedir}"/>
-     <property name="builddir" 
-               value="./build/${phing.project.name}-${version-short}" 
-               override="false"/>
-     <property name="vendordir" value="./vendor" override="false"/>
-     <!-- Set property to prevent target from being executed multiple times -->
-     <property name="project.initialized" value="true"/>
+          depends="load-properties, prepare"
+          unless="project.initialized">
+    <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
+    <exec outputProperty="version-short"
+          command="git describe --tags --abbrev=0 | sed -E -n 's/v(.*)/\1/p'"
+          dir="${project.basedir}"/>
+    <exec outputProperty="external.app.key"
+          command="php -r 'echo uniqid(md5(microtime()));'"
+          dir="${project.basedir}"/>
+    <property name="builddir"
+              value="./build/${phing.project.name}-${version-short}"
+              override="false"/>
+    <property name="vendordir" value="./vendor" override="false"/>
+    <!-- Set property to prevent target from being executed multiple times -->
+    <property name="project.initialized" value="true"/>
   </target>
-  
+
   <target name="load-properties">
     <!-- first loop over all module properties files -->
     <foreach param="dirname" absparam="absname" target="load-properties-subtask">
@@ -406,83 +409,82 @@
     <property file="${project.basedir}/${build.properties}" />
   </target>
 
-    <target name="load-properties-subtask">
-        <property name="properties" value="${absname}/config/build.properties" />
-        <available file="${properties}" type="file" property="build.properties.exists" />
+  <target name="load-properties-subtask">
+    <property name="properties" value="${absname}/config/build.properties" />
+    <available file="${properties}" type="file" property="build.properties.exists" />
+    <if>
+      <equals arg1="${build.properties.exists}" arg2="true" />
+      <then>
+        <echo>load ${properties}</echo>
+        <property file="${properties}" />
+      </then>
+      <else>
+        <echo>no ${properties} found. Check for a .dist file</echo>
+        <available file="${absname}/config/build.properties.dist" type="file" property="build.properties.dist.exists" />
         <if>
-            <equals arg1="${build.properties.exists}" arg2="true" />
-            <then>
-                <echo>load ${properties}</echo>
-                <property file="${properties}" />
-            </then>
-            <else>
-                <echo>no ${properties} found. Check for a .dist file</echo>
-                <available file="${absname}/config/build.properties.dist" type="file" property="build.properties.dist.exists" />
-                <if>
-                    <equals arg1="${build.properties.dist.exists}" arg2="true" />
-                    <then>
-                        <copy file="${absname}/config/build.properties.dist" tofile="${properties}" overwrite="true"/>
-                        <property file="${properties}" />
-                    </then>
-                </if>
-                <!-- If file doesn't exist -->
-            </else>
+          <equals arg1="${build.properties.dist.exists}" arg2="true" />
+          <then>
+            <copy file="${absname}/config/build.properties.dist" tofile="${properties}" overwrite="true"/>
+            <property file="${properties}" />
+          </then>
         </if>
+        <!-- If file doesn't exist -->
+      </else>
+    </if>
 
-        <available file="${absname}/build.xml" type="file" property="build.Exists" />
-        <if>
-            <isset property="build.Exists"/>
-            <then>
-                <phing phingfile="${absname}/build.xml" inheritAll="false"
-                inheritRefs="false" haltonfailure="true"/>
-            </then>
-            <else>
-                <echo>${absname}/build.xml not found</echo>
-            </else>
-        </if>
-        <if>
-            <istrue value="${YAWIK.bundled}"/>
-            <then>
-                <property name="modules[]" value="${dirname}" />
-                <echo>Bundled: ${YAWIK.bundled} Module: ${dirname}</echo>
-            </then>
-        </if>
-    </target>
-    
-    
-    <!-- =======================================================  -->
-    <!-- check requirements. A build.properties files is needed   -->
-    <!-- =======================================================  -->
-    <target name="check-requirements">
-       <property name="build.properties" value="build.properties" override="false"/>
-      <if>
-        <not>
-          <available file="${build.properties}"/>
-       </not>
-     <then>
-      <echo level="warning">
+    <available file="${absname}/build.xml" type="file" property="build.Exists" />
+    <if>
+      <isset property="build.Exists"/>
+      <then>
+        <phing phingfile="${absname}/build.xml" inheritAll="false"
+               inheritRefs="false" haltonfailure="true"/>
+      </then>
+      <else>
+        <echo>${absname}/build.xml not found</echo>
+      </else>
+    </if>
+    <if>
+      <istrue value="${YAWIK.bundled}"/>
+      <then>
+        <property name="modules[]" value="${dirname}" />
+        <echo>Bundled: ${YAWIK.bundled} Module: ${dirname}</echo>
+      </then>
+    </if>
+  </target>
 
-      the build.properties file does not exists at '${build.properties}'. 
-      
-      Use the build.properties.dist file as template 
-      
-      and adjust the configuration
+  <!-- =======================================================  -->
+  <!-- check requirements. A build.properties files is needed   -->
+  <!-- =======================================================  -->
+  <target name="check-requirements">
+    <property name="build.properties" value="build.properties" override="false"/>
+    <if>
+      <not>
+        <available file="${build.properties}"/>
+      </not>
+      <then>
+        <echo level="warning">
 
-      </echo>
-      <php expression="exit();"/>
-    </then>
-  </if>
+          the build.properties file does not exists at '${build.properties}'.
 
-  <if>
-    <not>
-      <os family="unix" />
-    </not>
-    <then>
-      <echo message="This build.xml is only tested on unix. Please give feedback, if this build.xml is not working on your OS" level="warning"/>
-    </then>
-  </if>
+          Use the build.properties.dist file as template
 
-    </target>
+          and adjust the configuration
+
+        </echo>
+        <php expression="exit();"/>
+      </then>
+    </if>
+
+    <if>
+      <not>
+        <os family="unix" />
+      </not>
+      <then>
+        <echo message="This build.xml is only tested on unix. Please give feedback, if this build.xml is not working on your OS" level="warning"/>
+      </then>
+    </if>
+
+  </target>
 </project>
 
 
