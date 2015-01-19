@@ -207,7 +207,7 @@ class ManageController extends AbstractActionController {
                 'valid' => $valid,
                 'jobvalid' => $jobValid,
                 'errorMessage' => $errorMessage,
-
+                'isDraft' => $jobEntity->isDraft()
             ));
         }
         return $viewModel;

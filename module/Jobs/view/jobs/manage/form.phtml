@@ -36,7 +36,7 @@ $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
     if ('new' == $this->action):
         echo $this->translate('Publish a job');
     else:
-        echo sprintf($this->translate('Edit the job %s'),'<i>'.$this->title.'</i>');
+        echo sprintf($this->translate($this->isDraft?'Create a job':'Edit the job %s'),'<i>'.$this->title.'</i>');
     endif;
     ?>
 </h1>
