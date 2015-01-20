@@ -11,7 +11,7 @@ class UserPasswordHydrator extends EntityHydrator
         $data = parent::extract($object);
         // provide the fieldset access to the entity
         // (since it is changing properties of the user)
-        $data['passwordfieldset'] = $object;
+        $data['passwordFieldset'] = $object;
         return $data;
     }
 }
