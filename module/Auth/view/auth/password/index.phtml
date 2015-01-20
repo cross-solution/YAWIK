@@ -7,8 +7,8 @@
  * @license   MIT
  */
 
-echo $this->headScript()->appendFile('/js/pnotify.custom.min.js', 'text/javascript');
-echo $this->headLink()->prependStylesheet('/css/pnotify.custom.min.css');
+echo $this->headScript()->appendFile('/Core/js/pnotify.custom.min.js', 'text/javascript');
+echo $this->headLink()->prependStylesheet('/Core/css/pnotify.custom.min.css');
 
 $this->headTitle($this->translate('My password'));
 ?>
@@ -21,16 +21,6 @@ $this->headTitle($this->translate('My password'));
 <?php endif ?>
 <?php
 $this->form->setAttribute('action', $this->url('lang/my-password', array(), true));
+echo $this->inlineScript()->prependFile($this->basePath('/Auth/js/form.change-password.js'));
 echo $this->form($this->form, 'form-inline');
 ?>
-<script type="text/javascript">
-    PNotify.prototype.options.styling = "fontawesome";
-    var $form = $('#user-password-form');
-    $form.on('yk.forms.done', function (event, object) {
-        event.stopPropagation();
-        new PNotify({
-            text: object.data.text,
-            type: object.data.status
-        });
-    });
-</script>
