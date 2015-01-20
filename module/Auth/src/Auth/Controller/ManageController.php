@@ -83,41 +83,6 @@ class ManageController extends AbstractActionController
        return array('form' => $container);
     }
 
-    public function passwordAction()
-    {
-        $services = $this->getServiceLocator();
-        $form     = $services->get('forms')->get('user-password');
-        $user     = $services->get('AuthenticationService')->getUser();
-        
-        if (!$user) {
-            throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
-        }
-        $form->bind($user);
-        if ($this->request->isPost()) {
-            $data = $this->request->getPost();
-            $form->setData($data);
-            if ($form->isValid()) {
-                $services->get('repositories')->store($user);
- //               $this->notification()->success(/*@translate*/ 'Password successfully changed');
-                $vars = array(
-                        'ok' => true,
-                        'status' => 'success',
-                        'text' => /*@translate*/ 'Password successfully changed'
-                    );
-            } else { // form is invalid
-//                $this->notification()->error(/*@translate*/ 'Password could not be changed');
-                $vars = array(
-                        'ok' => false,
-                        'status' => 'error',
-                        'text' => /*@translate*/ 'Password could not be changed'
-                );
-            }
-        }
-
-        $vars['form']=$form;
-        return $vars;
-    }
-    
 }
 
  

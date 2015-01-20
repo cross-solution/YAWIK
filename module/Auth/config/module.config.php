@@ -70,7 +70,8 @@ return array(
             'Auth\Controller\ForgotPassword' => 'Auth\Controller\SLFactory\ForgotPasswordControllerSLFactory',
             'Auth\Controller\GotoResetPassword' => 'Auth\Controller\SLFactory\GotoResetPasswordControllerSLFactory',
             'Auth\Controller\Register' => 'Auth\Controller\SLFactory\RegisterControllerSLFactory',
-            'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory'
+            'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory',
+            'Auth\Controller\Password' => 'Auth\Controller\SLFactory\PasswordControllerSLFactory',
         )
     ),
     
@@ -135,6 +136,16 @@ return array(
                             'route' => '/my/:action',
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Manage',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'my-password' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/my/password',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Password',
                             ),
                         ),
                         'may_terminate' => true,

@@ -1,0 +1,36 @@
+<?php
+/**
+ * YAWIK
+ * View template of the Login site
+ *
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+
+echo $this->headScript()->appendFile('/js/pnotify.custom.min.js', 'text/javascript');
+echo $this->headLink()->prependStylesheet('/css/pnotify.custom.min.css');
+
+$this->headTitle($this->translate('My password'));
+?>
+<h1><?php echo $this->translate('My password') ?></h1>
+<?php if ($this->valid): ?>
+    <div id="user-profile-form-response" class="alert cam-<?php echo $this->status ?>">
+        <?php echo $this->text ?>
+        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+    </div>
+<?php endif ?>
+<?php
+$this->form->setAttribute('action', $this->url('lang/my-password', array(), true));
+echo $this->form($this->form, 'form-inline');
+?>
+<script type="text/javascript">
+    PNotify.prototype.options.styling = "fontawesome";
+    var $form = $('#user-password-form');
+    $form.on('yk.forms.done', function (event, object) {
+        event.stopPropagation();
+        new PNotify({
+            text: object.data.text,
+            type: object.data.status
+        });
+    });
+</script>
