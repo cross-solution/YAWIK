@@ -459,4 +459,8 @@ return array(
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
         )
     ),
+
+    'Auth' => array(
+        'allowRegister' => True,
+    ),
 );

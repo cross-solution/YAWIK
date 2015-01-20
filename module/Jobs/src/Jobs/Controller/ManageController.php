@@ -44,6 +44,10 @@ class ManageController extends AbstractActionController {
         return $this;
     }
 
+    public function testAction()
+    {
+    }
+
     /**
      * Action called, when a new job should be created.
      * 

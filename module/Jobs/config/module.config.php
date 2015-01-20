@@ -59,6 +59,7 @@ return array(
         'rules' => array(
             'recruiter' => array(
                 'allow' => array(
+                    'Jobs',
                     'Jobs/Manage',
                     'route/lang/jobs/manage',
                     'Entity/Jobs/Job' => array(
@@ -81,6 +82,7 @@ return array(
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
                 'order' => '30',
+                'resource' => 'Jobs',
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',

@@ -118,6 +118,11 @@ class IndexController extends AbstractActionController
             }
             $viewModel->setVariable('ref', $ref);
         }
+
+        $allowRegister = $services->get('controllerPluginManager')->get('config')->get('allowRegister');
+        if (isset($allowRegister)) {
+            $viewModel->setVariable('allowRegister', $allowRegister);
+        }
         
         $viewModel->setVariable('form', $form);
         return $viewModel;

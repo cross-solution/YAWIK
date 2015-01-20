@@ -37,9 +37,15 @@ $form = $this->form;
                 <a href="<?= $this->url('lang/forgot-password'); ?>" title="<?= $this->translate('I forgot my password'); ?>" class="small">
                     <?= $this->translate('I forgot my password'); ?>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php
+                if (!isset($this->allowRegister) || $this->allowRegister==True ):
+                ?>
                 <a href="<?= $this->url('lang/register'); ?>" title="<?= $this->translate('Register'); ?>" class="small">
                     <?= $this->translate('Register'); ?>
                 </a>
+                <?php
+                endif;
+                ?>
             </div>
         </div>
         <?= $this->formRow($form->get('buttons')); ?>
