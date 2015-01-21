@@ -1,14 +1,15 @@
 <?php
 /**
  * YAWIK
- * View template of the Login site
  *
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * View template for changing the password
+ *
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
-echo $this->headScript()->appendFile('/Core/js/pnotify.custom.min.js', 'text/javascript');
-echo $this->headLink()->prependStylesheet('/Core/css/pnotify.custom.min.css');
+echo $this->headScript()->appendFile($this->basePath('/Core/js/pnotify.custom.min.js'), 'text/javascript');
+echo $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.min.css'));
 
 $this->headTitle($this->translate('My password'));
 ?>
