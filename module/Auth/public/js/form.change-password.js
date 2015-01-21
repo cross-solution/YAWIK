@@ -1,3 +1,4 @@
+PNotify.prototype.options.styling = "fontawesome";
 var $form = $('#user-password-form');
 $form.on('yk.forms.done', function (event, object) {
     event.stopPropagation();

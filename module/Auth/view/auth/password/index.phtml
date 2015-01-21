@@ -4,24 +4,20 @@
  *
  * View template for changing the password
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
-echo $this->headScript()->appendFile($this->basePath('/Core/js/pnotify.custom.min.js'), 'text/javascript');
-echo $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.min.css'));
-
 $this->headTitle($this->translate('My password'));
+
 ?>
 <h1><?php echo $this->translate('My password') ?></h1>
-<?php if ($this->valid): ?>
-    <div id="user-profile-form-response" class="alert cam-<?php echo $this->status ?>">
-        <?php echo $this->text ?>
-        <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
-    </div>
-<?php endif ?>
+
+<?php $this->form->setAttribute('action', $this->url('lang/my-password', array(), true));?>
+<?php echo $this->form($this->form, 'form-inline');?>
 <?php
-$this->form->setAttribute('action', $this->url('lang/my-password', array(), true));
-echo $this->inlineScript()->prependFile($this->basePath('/Auth/js/form.change-password.js'));
-echo $this->form($this->form, 'form-inline');
+/**
+ * Javascript must be loaded after the form
+ */
 ?>
+<script src="<?php echo $this->basePath('/Auth/js/form.change-password.js')?>" type="text/javascript"></script>
