@@ -120,7 +120,7 @@ class OrganizationHydrator extends Reflection
             // image uri is given, decide if image should be downloaded
             $image = $this->object->getImage();
             if (isset($image)) {
-                $uri = $image->getImageUri();
+                $uri = $image->getUri();
                 if (!empty($uri) && $uri == $this->data['image']) {
                     unset($this->data['image']);
                 }

@@ -48,7 +48,7 @@ class HttploadStrategy implements StrategyInterface
             $organizationImageEntity->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
             
             $organizationImageEntity->setFile($file);
-            $organizationImageEntity->setImageUri($value);
+            $organizationImageEntity->setUri($value);
         }
         
         return $organizationImageEntity;

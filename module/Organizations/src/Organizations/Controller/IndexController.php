@@ -120,7 +120,7 @@ class IndexController extends AbstractActionController
 
                 if ('file-uri' === $this->params()->fromPost('return')) {
                     $basepath = $this->getServiceLocator()->get('ViewHelperManager')->get('basepath');
-                    $content = $basepath($form->getHydrator()->getLastUploadedFile()->getImageUri());
+                    $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
                 } else {
                     if ($form instanceOf SummaryForm) {
                         //$form->setRenderMode(SummaryForm::RENDER_SUMMARY);
