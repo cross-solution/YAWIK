@@ -137,9 +137,11 @@ return array(
         'invokables' => array(
             'configaccess' => 'Core\Service\Config',
             'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber',
-            'defaultListeners' => 'Core\Listener\DefaultListener',
-            'templateProvider' => 'Core\Service\TemplateProvider',
-            'templateProviderStrategy' => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
+            'defaultListeners'           => 'Core\Listener\DefaultListener',
+            'templateProvider'           => 'Core\Service\TemplateProvider',
+            'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
+            'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
+            'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
         ),
         'factories' => array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',

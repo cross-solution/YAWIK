@@ -13,6 +13,7 @@ namespace Core\Controller\Plugin\Service;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Controller\Plugin\Notification;
+use Core\Listener\Events\NotificationEvent;
 
 class NotificationFactory implements FactoryInterface
 {
@@ -20,7 +21,10 @@ class NotificationFactory implements FactoryInterface
     {
         $flashMessenger = $serviceLocator->get('FlashMessenger');
         $notification   = new Notification($flashMessenger);
-        
+
+        $sharedListener = $serviceLocator->getServiceLocator()->get('SharedEventManager');
+        //$sharedListener->attach('*', NotificationEvent::EVENT_NOTIFICATION_HTML, array($notification,'createOutput') , 1);
+
         return $notification;
     }
 }

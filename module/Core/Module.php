@@ -66,6 +66,7 @@ class Module implements ConsoleBannerProviderInterface
         $translator = $sm->get('translator'); // initialise translator!
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
+        $sharedManager       = $eventManager->getSharedManager();
         
  #       $LogListener = new LogListener();
  #       $LogListener->attach($eventManager);
@@ -95,6 +96,9 @@ class Module implements ConsoleBannerProviderInterface
         
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
+
+            $notificationlistener = $sm->get('Core/Listener/Notification');
+            $notificationlistener->attachShared($sharedManager);
 
         }
         
