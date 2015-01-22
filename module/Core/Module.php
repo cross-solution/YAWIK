@@ -22,6 +22,8 @@ use Core\Listener\ErrorLoggerListener;
 use Core\Listener\ErrorHandlerListener;
 use Zend\Log\Formatter\ErrorHandler;
 use Core\Repository\DoctrineMongoODM\PersistenceListener;
+use Core\Listener\NotificationAjaxHandler;
+use Core\Listener\Events\NotificationEvent;
 
 /**
  * Bootstrap class of the Core module
@@ -40,9 +42,7 @@ class Module implements ConsoleBannerProviderInterface
             str_repeat('-', $width - 4),
             str_repeat(' ', floor(($width - strlen($name)) / 2)),
             $name
-       ); 
-             
-        
+       );
     }
     
     /**
@@ -99,6 +99,11 @@ class Module implements ConsoleBannerProviderInterface
 
             $notificationlistener = $sm->get('Core/Listener/Notification');
             $notificationlistener->attachShared($sharedManager);
+
+            $notificationAjaxHandler = new NotificationAjaxHandler();
+            $notificationlistener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
+            $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($notificationAjaxHandler, 'injectView'), -20);
+
 
         }
         

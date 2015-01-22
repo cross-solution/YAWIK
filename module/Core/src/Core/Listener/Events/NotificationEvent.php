@@ -22,15 +22,25 @@ class NotificationEvent extends Event
     const NOTIFICATION_SEVERITY_ERROR   = 'error';
     const NOTIFICATION_SEVERITY_WARNING = 'warning';
 
-    protected $message;
+    protected $notification;
+    protected $notifications;
 
-    public function setMessage($message) {
-        $this->message = $message;
+    public function setNotification($message) {
+        $this->notification = $message;
         return $this;
     }
 
-    public function getMessage() {
-        return $this->message;
+    public function getNotification() {
+        return $this->notification;
+    }
+
+    public function setNotifications($messages) {
+        $this->notifications = $messages;
+        return $this;
+    }
+
+    public function getNotifications() {
+        return $this->notifications;
     }
 
 }

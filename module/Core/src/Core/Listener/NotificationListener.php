@@ -16,14 +16,17 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\EventManager\SharedEventManagerInterface;
 use Core\Listener\Events\NotificationEvent;
+use Zend\Mvc\MvcEvent;
+use Zend\EventManager\EventManager;
 
 /**
  */
-class NotificationListener implements SharedListenerAggregateInterface, ServiceManagerAwareInterface
+class NotificationListener extends EventManager implements SharedListenerAggregateInterface, ServiceManagerAwareInterface
 {
 
     protected $serviceManager;
     protected $notifications = array();
+    protected $hasRunned = True;
 
     public function setServiceManager(ServiceManager $serviceManager) {
         $this->serviceManager = $serviceManager;
@@ -37,6 +40,10 @@ class NotificationListener implements SharedListenerAggregateInterface, ServiceM
     public function attachShared(SharedEventManagerInterface $events)
     {
         $events->attach('*', NotificationEvent::EVENT_NOTIFICATION_ADD, array($this,'add') , 1);
+        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderHTML') , -250);
+        // Sometimes the Dispatch-Event is not reached, for instance with a route-direct
+        // but also for Events, that are happening after the Dispatch
+        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_FINISH, array($this,'renderHTML') , -250);
         return $this;
     }
 
@@ -46,10 +53,21 @@ class NotificationListener implements SharedListenerAggregateInterface, ServiceM
     }
 
     public function add(NotificationEvent $event) {
-        $message = $event->getMessage();
-        $this->notifications[] = array('notification' => $message);
+        $notification = $event->getNotification();
+        $this->notifications[] = $notification;
+        $this->hasRunned = False;
         return $this;
     }
 
-    //public function
+    public function renderHTML(MvcEvent $event) {
+        if (!$this->hasRunned) {
+            $nEvent = new NotificationEvent();
+            $nEvent->setNotifications($this->notifications);
+            $this->trigger(NotificationEvent::EVENT_NOTIFICATION_HTML, $nEvent);
+            $this->notifications = array();
+            $this->hasRunned = True;
+        }
+        return;
+    }
+
 }

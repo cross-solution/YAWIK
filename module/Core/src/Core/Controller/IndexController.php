@@ -55,10 +55,6 @@ class IndexController extends AbstractActionController
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
 
-        $notificationEvent = $services->get('Notification/Event');
-        $notificationEvent->setMessage('Uh-ooh');
-        $this->getEventManager()->trigger('notification.add', $notificationEvent);
-
         $dashboardConfig = array(
             'controller' => 'Core\Controller\Index',
             'action'     => 'dashboard',

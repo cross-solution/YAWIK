@@ -22,8 +22,11 @@ class NotificationFactory implements FactoryInterface
         $flashMessenger = $serviceLocator->get('FlashMessenger');
         $notification   = new Notification($flashMessenger);
 
-        $sharedListener = $serviceLocator->getServiceLocator()->get('SharedEventManager');
+        //$sharedListener = $serviceLocator->getServiceLocator()->get('SharedEventManager');
         //$sharedListener->attach('*', NotificationEvent::EVENT_NOTIFICATION_HTML, array($notification,'createOutput') , 1);
+
+        $notificationListener = $serviceLocator->getServiceLocator()->get('Core/Listener/Notification');
+        $notification->setListener($notificationListener);
 
         return $notification;
     }
