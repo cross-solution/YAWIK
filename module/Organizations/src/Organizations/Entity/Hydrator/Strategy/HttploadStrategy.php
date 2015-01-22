@@ -42,13 +42,10 @@ class HttploadStrategy implements StrategyInterface
             $file = new GridFSFile();
             $file->setBytes($response->getBody());
 
-            //$organizationImageEntity = new OrganizationImage();
             $organizationImageEntity = $this->repository->create();
-            //$organizationImageEntity->setName($userProfile->lastName . $userProfile->firstName);
             $organizationImageEntity->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
             
             $organizationImageEntity->setFile($file);
-            $organizationImageEntity->setUri($value);
         }
         
         return $organizationImageEntity;
