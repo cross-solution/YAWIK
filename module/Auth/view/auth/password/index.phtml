@@ -14,10 +14,5 @@ $this->headTitle($this->translate('My password'));
 <h1><?php echo $this->translate('My password') ?></h1>
 
 <?php $this->form->setAttribute('action', $this->url('lang/my-password', array(), true));?>
-<?php echo $this->form($this->form, 'form-inline');?>
-<?php
-/**
- * Javascript must be loaded after the form
- */
-?>
-<script src="<?php echo $this->basePath('/Auth/js/form.change-password.js')?>" type="text/javascript"></script>
+<?= $this->form($this->form, 'form-inline'); ?>
+<?= $this->inlineScript()->appendFile($this->basePath('/Auth/js/form.change-password.js')); ?>

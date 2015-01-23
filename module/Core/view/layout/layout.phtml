@@ -18,8 +18,8 @@ $notifications = $this->partial('core/notifications');
 
 $this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
 
-$this->configHeadScript()->appendFile($this->basePath('/Core/js/pnotify.custom.min.js'), 'text/javascript');
 $this->configHeadScript()->prependFile($this->basepath('Core/js/core.init.js'));
+$this->configHeadScript()->prependFile($this->basePath('Core/js/pnotify.custom.min.js'), 'text/javascript');
 $this->configHeadScript()->prependFile($this->basePath('js/bootstrap.min.js'));
 $this->configHeadScript()->prependFile($this->basePath('js/jquery.min.js'));
 $this->configHeadScript()->appendScript('var lang="' . $this->params('lang') . '";'
