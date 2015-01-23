@@ -309,7 +309,7 @@ class ManageController extends AbstractActionController {
 
         $jobEntity->isDraft = false;
         $jobEntity->changeStatus(Status::CREATED, "job was created");
-        $jobEntity->camEnabled = true;
+        $jobEntity->atsEnabled = true;
 
         /**
          * make the job opening persist and fire the EVENT_JOB_CREATED
