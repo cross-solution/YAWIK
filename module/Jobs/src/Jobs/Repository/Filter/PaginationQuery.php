@@ -99,7 +99,7 @@ class PaginationQuery extends AbstractPaginationQuery
                 $sortProp = "title";
                 break;
             case "cam":
-                $sortProp = "camEnabled";
+                $sortProp = "atsEnabled";
                 break;
     
             default:

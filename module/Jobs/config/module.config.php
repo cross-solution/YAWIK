@@ -41,16 +41,16 @@ return array(
         ), 
     ),
 
-	// Translations
-	'translator' => array(
-			'translation_file_patterns' => array(
-					array(
-							'type'     => 'gettext',
-							'base_dir' => __DIR__ . '/../language',
-							'pattern'  => '%s.mo',
-					),
-			),
-	),
+    // Translations
+    'translator' => array(
+            'translation_file_patterns' => array(
+                    array(
+                            'type'     => 'gettext',
+                            'base_dir' => __DIR__ . '/../language',
+                            'pattern'  => '%s.mo',
+                    ),
+            ),
+    ),
     
     
     
@@ -66,6 +66,16 @@ return array(
                         'new',
                         'edit' => 'Jobs/Write',
                     ),
+                ),
+            ),
+            'guest' => array(
+                'allow' => array(
+                    'Jobs',
+                ),
+            ),
+            'applicant' => array(
+                'allow' => array(
+                    'Jobs',
                 ),
             ),
         ),

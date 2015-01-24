@@ -60,7 +60,7 @@ class ImportController extends AbstractActionController {
                 'datePublishStart' => '2013-11-15',
                 'status' => 'aktiv',
                 'reference' => '2130010128',
-                'camEnabled' => '1',
+                'atsEnabled' => '1',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
                 'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',

@@ -82,7 +82,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             
-            'camEnabled' => array(
+            'atsEnabled' => array(
                 'filters'  => array(
                 ),          
                 'allow_empty' => True
@@ -218,7 +218,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
        
         $this->add(array(
             'type' => 'Zend\Form\Element\Radio',
-            'name' => 'camEnabled',
+            'name' => 'atsEnabled',
             'options' => array(
                 'label' => 'cam enabled',
                 'value_options' => array(0,1, True, False)
