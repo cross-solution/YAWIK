@@ -7,7 +7,7 @@
  * @license   MIT
  */
 /**
- * reders the detail view of an application.
+ * renders the detail view of an application.
  */
 
 use Applications\Entity\StatusInterface as Status;
@@ -270,10 +270,12 @@ endif;
         <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
         <br>
         <?php if ($this->application->contact->phone):?>
-        <i class="yk-icon yk-icon-phone"></i> <?php echo $this->application->contact->phone; ?><br>
+            <abbr title="<?php echo $this->translate("Phone")?>"><i class="yk-icon yk-icon-phone"></i></abbr>
+            <?php echo $this->application->contact->phone; ?><br>
         <?php endif?>
         <?php if ($this->application->contact->email):?>
-        <i class="yk-icon yk-icon-envelope"></i> <?php echo $this->link($this->application->contact->email); ?><br>
+            <abbr title="E-Mail"><i class="yk-icon yk-icon-envelope"></i></abbr>
+            <?php echo $this->link($this->application->contact->email); ?><br>
         <?php endif?>
         </adress>
       </div>
