@@ -44,6 +44,20 @@ interface JobInterface extends EntityInterface,
      * @return string
      */
     public function getApplyId();
+
+    /**
+     * checks, weather a job is enabled for getting applications
+     * @return boolean
+     */
+    public function getAtsEnabled();
+
+    /**
+     * enables a job add to receive applications
+     *
+     * @param boolean $atsEnabled
+     * @return \Jobs\Entity\Job
+     */
+    public function setAtsEnabled($atsEnabled);
     
     /**
      * Gets an URI for a job posting

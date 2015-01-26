@@ -613,10 +613,10 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         return $this;
     }
     /**
-     * checks, wether a job is enabled for getting applications
+     * checks, weather a job is enabled for getting applications
      * @return boolean
      */
-    public function getCamEnabled() {
+    public function getAtsEnabled() {
         return $this->atsEnabled;
     }
     /**
@@ -625,7 +625,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @param boolean $atsEnabled
      * @return \Jobs\Entity\Job
      */
-    public function setCamEnabled($atsEnabled) {
+    public function setAtsEnabled($atsEnabled) {
         $this->atsEnabled = $atsEnabled;
         return $this;
     }
