@@ -69,8 +69,9 @@
 				if (!data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
-                console.debug('bubble done event for form',$form);
+                console.debug('bubble done event for form',$form,data);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR});
+                $form.trigger('ajax.ready', {'data': data});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
 				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown});

@@ -24,12 +24,12 @@
                 else {
                     $container.data('uri', url);
                 }
-		$container.load(url, function() { 
+		$container.load(url, function(data) {
                     $container.pagination(); 
                     if (typeof event.data.loadingIndicator != 'undefined') {
                         event.data.loadingIndicator.hide();
                     }
-                    $container.trigger('ajax.ready');
+                    $container.trigger('ajax.ready', {'data': data});
                     
                 });
 		return false;

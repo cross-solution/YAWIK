@@ -12,6 +12,17 @@ namespace Core\Listener\Events;
 
 use Zend\EventManager\Event;
 
+/**
+ * has two purposes
+ * #1 adding messages to the listener
+ * #2 call for handling all the messages
+ *
+ * while adding messages is triggered by someone else
+ * the call for handling all messages is triggered by the listener itself and is send to all handlers
+ *
+ * Class NotificationEvent
+ * @package Core\Listener\Events
+ */
 class NotificationEvent extends Event
 {
     const EVENT_NOTIFICATION_ADD   = 'notification.add';

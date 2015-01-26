@@ -53,6 +53,10 @@ class Notification extends AbstractPlugin
         $this->flashMessenger = $flashMessenger;
     }
 
+    /**
+     * attach a Listener, that is liable for storing the notifications
+     * @param $listener
+     */
     public function setListener($listener) {
         $listener->getSharedManager()->attach('*', NotificationEvent::EVENT_NOTIFICATION_HTML, array($this,'createOutput') , 1);
         $this->notificationListener = $listener;
@@ -66,17 +70,12 @@ class Notification extends AbstractPlugin
         return $this->addMessage($message, $namespace);
     }
 
-    public function renderMessage($message, $namespace = self::NAMESPACE_INFO)
-    {
-        $origNamespace = $this->flashMessenger->getNamespace();
-        $this->flashMessenger
-            ->setNamespace($namespace)
-            ->addMessage($message)
-            ->setNamespace($origNamespace);
-
-        return $this;
-    }
-    
+    /**
+     * send a message to the notification-handler
+     * @param $message
+     * @param string $namespace
+     * @return $this
+     */
     public function addMessage($message, $namespace = self::NAMESPACE_INFO)
     {
         if (!$message instanceof NotificationEntityInterface) {
@@ -125,6 +124,17 @@ class Notification extends AbstractPlugin
                 $this->renderMessage($notification->getNotification(), $this->priority2namespace[$notification->getPriority()]);
             }
         }
+        return $this;
+    }
+
+    public function renderMessage($message, $namespace = self::NAMESPACE_INFO)
+    {
+        $origNamespace = $this->flashMessenger->getNamespace();
+        $this->flashMessenger
+            ->setNamespace($namespace)
+            ->addMessage($message)
+            ->setNamespace($origNamespace);
+
         return $this;
     }
 }

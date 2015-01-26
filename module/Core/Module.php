@@ -97,12 +97,13 @@ class Module implements ConsoleBannerProviderInterface
             $stringListener = new StringListener();
             $stringListener->attach($eventManager);
 
+            //
             $notificationlistener = $sm->get('Core/Listener/Notification');
             $notificationlistener->attachShared($sharedManager);
 
             $notificationAjaxHandler = new NotificationAjaxHandler();
-            $notificationlistener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
             $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($notificationAjaxHandler, 'injectView'), -20);
+            $notificationlistener->attach(NotificationEvent::EVENT_NOTIFICATION_HTML, array($notificationAjaxHandler, 'render'), -20);
 
 
         }
