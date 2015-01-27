@@ -56,20 +56,20 @@ class PasswordController extends AbstractActionController
         $this->form->bind($user);
         if ($request->isPost()) {
             $this->form->setData($request->getPost()->toArray());
+
             if ($this->form->isValid()) {
                 $this->repositoryService->store($user);
                 $vars = array(
                     'valid' => true,
-                    'status' => 'success',
-                    'text' => /*@translate*/ 'Password successfully changed',
                 );
+                $this->notification()->success(/*@translate*/ 'Password successfully changed');
             } else { // form is invalid
                 $vars = array(
                     'valid' => false,
-                    'status' => 'error',
-                    'text' => /*@translate*/ 'Password could not be changed',
-                    'errors' => $this->form->getMessages()
                 );
+                // @TODO the messages are distributed to the hierarchy of the subElements, either we reduce that to flat plain text, or we make a message handling in JS
+                $messages = $this->form->getMessages();
+                $this->notification()->error(/*@translate*/ 'Password could not be changed');
             }
         }
 

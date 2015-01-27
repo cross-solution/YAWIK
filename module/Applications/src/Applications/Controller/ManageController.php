@@ -288,8 +288,10 @@ class ManageController extends AbstractActionController
                $mail->addBcc($user->info->email, $user->info->displayName);
            }
            $mailService->send($mail);
-           
-            $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));
+
+           $historyText = sprintf('Mail was sent to %s' , $application->contact->email);
+            $application->changeStatus($status, $historyText);
+            $this->notification()->success($historyText);
 
             if ($jsonFormat) {
                 return array(
@@ -307,6 +309,7 @@ class ManageController extends AbstractActionController
             case Status::REJECTED : $key = 'mailRejectionText'; break;
         }
         $mailText      = $settings->$key ? $settings->$key : '';
+        $this->notification()->success($mailText);
         $mail->setBody($mailText);
         $mailText = $mail->getBodyText();
         $mailSubject   = sprintf(
@@ -368,11 +371,14 @@ class ManageController extends AbstractActionController
                 'from'        => array($fromAddress => $userName)
             );
             $this->mailer('Applications/Forward', $mailOptions, true);
+            $this->notification()->success($params['text']);
         } catch (\Exception $ex) {
             $params = array(
                 'ok' => false,
                 'text' => sprintf($translator->translate('Forward application to %s failed.'), $emailAddress)
             );
+            $this->notification()->error($params['text']);
+
         }
         $application->changeStatus($application->status,$params['text']);
         return new JsonModel($params);

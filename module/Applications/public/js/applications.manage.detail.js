@@ -34,30 +34,17 @@
 	
 	var forwardEmailHandler = function(event)
 	{
-		var displayResult = function(text, type)
-		{
-			alert = $('#forward-email-result');
-			alert.addClass('cam-' + type);
-			alert.html(text);
-			alert.slideDown();
-			window.setTimeout(function() { alert.removeClass('cam-' + type); alert.slideUp(); }, 3000);
-		};
-		
+
 		var $formular = $(event.target);
 		if ('' == $formular.find('#forward-email-input').val()) {
 			return false;
 		}
 		
 		var alert = $('#forward-email-result');
-		
-		console.debug(alert);
-		
+		//console.debug('alert', alert);
 		$.get($formular.attr('action') + '?' + $formular.serialize())
 		 .done(function (data) {
-			 displayResult(data.text, data.ok ? 'success' : 'error');
-		 })
-		 .fail(function (jqXHR, textStatus, errorThrown) {
-			 displayResult('Unexpected error: ' + jqXHR.status + ' ' + jqXHR.statusText, 'error');
+             $(document).trigger('ajax.ready', {'data': data});
 		 });
 		return false;
 	};
