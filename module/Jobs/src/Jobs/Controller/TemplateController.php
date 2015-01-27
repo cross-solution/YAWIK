@@ -136,11 +136,12 @@ class TemplateController extends AbstractActionController  {
             $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $job->applyId));
         }
 
+        $headTitle= $job->templateValues->title;
         if ( is_null($form)){
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
             $qualifications = $job->templateValues->qualifications;
-            $title = $job->templateValues->title;
+            $title = $headTitle;
         } else {
 
             $services = $this->getServiceLocator();
@@ -159,6 +160,7 @@ class TemplateController extends AbstractActionController  {
 
             $descriptionFormTitle = $form->get('descriptionFormTitle');
             $title = $viewHelperForm->render($descriptionFormTitle);
+
         }
 
         $fields= array(
@@ -167,6 +169,7 @@ class TemplateController extends AbstractActionController  {
             'qualifications' => $qualifications,
             'title' => $title,
             'uriApply' => $uriApply,
+            'headTitle' => $headTitle,
             'organizationName' => $job->organization->organizationName->name,
             'street' => $job->organization->contact->street.' '.$job->organization->contact->houseNumber,
             'postalCode' => $job->organization->contact->postalcode,
