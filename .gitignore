@@ -18,6 +18,7 @@ phpdoc-*
 #
 config/phpdoc.xml
 config/autoload
+config/autoload.bak
 config/autoload/*.php
 build.properties
 

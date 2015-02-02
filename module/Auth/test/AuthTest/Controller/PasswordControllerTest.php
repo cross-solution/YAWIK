@@ -9,6 +9,7 @@
 
 namespace AuthTest\Controller;
 
+use Test\Bootstrap;
 use Auth\AuthenticationService;
 use Auth\Controller\PasswordController;
 use Auth\Form\UserPassword;
@@ -58,6 +59,11 @@ class PasswordControllerTest extends AbstractControllerTestCase
         );
 
         $this->controller->setEvent($this->event);
+
+        $serviceManager = Bootstrap::getServiceManager();
+        $controllerPluginManager = $serviceManager->get('controllerPluginManager');
+        $this->controller->setServiceLocator($serviceManager);
+        $this->controller->setPluginManager($controllerPluginManager);
     }
 
     public function testIndexAction_WithGetRequest()
@@ -133,9 +139,6 @@ class PasswordControllerTest extends AbstractControllerTestCase
 
         $expected = array(
             'valid' => false,
-            'status' => 'error',
-            'text' => 'Password could not be changed',
-            'errors' => array('Some error message'),
             'form' => $this->formMock
         );
 
