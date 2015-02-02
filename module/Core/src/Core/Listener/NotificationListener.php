@@ -90,6 +90,12 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
         return;
     }
 
+
+    public function reset() {
+        $this->hasRunned = False;
+        return $this;
+    }
+
     public function renderHTML(MvcEvent $event) {
         if (!$this->hasRunned) {
             $nEvent = new NotificationEvent();
@@ -98,7 +104,7 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
             $this->notifications = array();
             $this->hasRunned = True;
         }
-        return;
+        return $this;
     }
 
 }

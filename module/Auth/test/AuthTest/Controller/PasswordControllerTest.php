@@ -180,8 +180,6 @@ class PasswordControllerTest extends AbstractControllerTestCase
 
         $expected = array(
             'valid' => true,
-            'status' => 'success',
-            'text' => 'Password successfully changed',
             'form' => $this->formMock
         );
 

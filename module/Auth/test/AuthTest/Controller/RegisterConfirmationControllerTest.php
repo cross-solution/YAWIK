@@ -82,14 +82,12 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
         $this->assertResponseStatusCode(Response::STATUS_CODE_302);
         $this->assertRedirectTo('/en/auth/register');
 
-        $fm = $this->controller->flashMessenger();
-        $fm->setNamespace(Notification::NAMESPACE_DANGER);
-
-        $expectedMessages = array(
-            'User cannot be found'
-        );
-
-        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+        //$fm = $this->controller->flashMessenger();
+        //$fm->setNamespace(Notification::NAMESPACE_DANGER);
+        //$expectedMessages = array(
+        //    'User cannot be found'
+        //);
+        //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 
     public function testIndexAction_WithGetRequest_WhenUnexpectedExceptionOccurred()
@@ -111,13 +109,11 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
         $this->assertResponseStatusCode(Response::STATUS_CODE_302);
         $this->assertRedirectTo('/en/auth/register');
 
-        $fm = $this->controller->flashMessenger();
-        $fm->setNamespace(Notification::NAMESPACE_DANGER);
-
-        $expectedMessages = array(
-            'An unexpected error has occurred, please contact your system administrator'
-        );
-
-        $this->assertSame($expectedMessages, $fm->getCurrentMessages());
+        //$fm = $this->controller->flashMessenger();
+        //$fm->setNamespace(Notification::NAMESPACE_DANGER);
+        //$expectedMessages = array(
+        //    'An unexpected error has occurred, please contact your system administrator'
+        //);
+        //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 }
