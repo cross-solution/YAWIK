@@ -70,17 +70,21 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
     {
         $serviceManager = $this->getServiceManager();
         if ($serviceManager->has('Jobs/RestClient')) {
-            $restClient = $serviceManager->get('Jobs/RestClient');
+            try {
+                $restClient = $serviceManager->get('Jobs/RestClient');
 
-            $entity = $e->getJobEntity();
-            $hydrator = $serviceManager->get('Jobs/JsonJobsEntityHydrator');
-            $json = $hydrator->extract($entity);
-            $restClient->setRawBody($json);
-            $response = $restClient->send();
-            // @TODO: statusCode is not stored, there is simply no mechanism to track external communication.
-            $StatusCode = $response->getStatusCode();
+                $entity = $e->getJobEntity();
+                $hydrator = $serviceManager->get('Jobs/JsonJobsEntityHydrator');
+                $json = $hydrator->extract($entity);
+                $restClient->setRawBody($json);
+                $response = $restClient->send();
+                // @TODO: statusCode is not stored, there is simply no mechanism to track external communication.
+                $StatusCode = $response->getStatusCode();
 
-            $e->stopPropagation(true);
+                $e->stopPropagation(true);
+            }
+            catch (\Exception $e) {
+            }
         }
         return;
 

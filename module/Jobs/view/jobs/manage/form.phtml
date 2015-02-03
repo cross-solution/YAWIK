@@ -126,19 +126,6 @@ if ($this->page == 2):
 
 <?php echo $this->formContainer($this->form,'form-horizontal'); ?>
 
-<?php if ($this->page == 2): ?>
-    <div id="job_incomplete" class="alert alert-warning " <?php if (isset($this->jobvalid) && $this->jobvalid == true)
-    {
-        echo 'style = "display: none;"';
-    } ?>>
-        <?php echo $this->translate('Your job position is incomplete.'); ?>
-        <span id="job_errormessages">
-    <?php if (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) {
-        echo ($this->errorMessage);
-    } ?>
-    </span>
-    </div>
-<?php endif; ?>
 
 <div id="locationForm-buttons" class="buttons-bar form-group">
     <div class="col-md-12">
@@ -152,22 +139,41 @@ if ($this->page == 2):
                 echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to preview the job') . '</a>' . PHP_EOL;
                 break;
             case "2":
+        ?>
+        <div id="job_incomplete" class="alert alert-warning " <?php if (isset($this->jobvalid) && $this->jobvalid == true)
+        {
+            echo 'style = "display: none;"';
+        } ?>>
+        <?php echo $this->translate('Your job position is incomplete.'); ?>
+        <span id="job_errormessages">
+    <?php if (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) {
+        echo ($this->errorMessage);
+    } ?>
+    </span>
+    </div>
+    <?php
                 echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
-                if ($this->job->isActive()) {
+                if ($this->job->isDraft()) {
+                    echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
+                        sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'') . '</a>' . PHP_EOL;
+                }
+                else if ($this->job->isActive()) {
+                    echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
+                        $this->translate('submit changes') . '</a>' . PHP_EOL;
                     $deactivateLink = $this->url(
-                         'lang/jobs/deactivate',
-                             array(
-                             ),
-                             array(
-                                 'query' => array(
-                                     'id' => $this->job->id
-                                 )
-                             )
+                                           'lang/jobs/deactivate',
+                                               array(
+                                               ),
+                                               array(
+                                                   'query' => array(
+                                                       'id' => $this->job->id
+                                                   )
+                                               )
                     );
                     echo '<a href="' . $deactivateLink . '" class="btn btn-primary">' . $this->translate('Deactivate') . '</a>' . PHP_EOL;
                 }
-                echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
-                    sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'') . '</a>' . PHP_EOL;
+                else {
+                }
             default:
 
         endswitch;
