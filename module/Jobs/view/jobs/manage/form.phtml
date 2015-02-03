@@ -153,6 +153,19 @@ if ($this->page == 2):
                 break;
             case "2":
                 echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
+                if ($this->job->isActive()) {
+                    $deactivateLink = $this->url(
+                         'lang/jobs/deactivate',
+                             array(
+                             ),
+                             array(
+                                 'query' => array(
+                                     'id' => $this->job->id
+                                 )
+                             )
+                    );
+                    echo '<a href="' . $deactivateLink . '" class="btn btn-primary">' . $this->translate('Deactivate') . '</a>' . PHP_EOL;
+                }
                 echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
                     sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'') . '</a>' . PHP_EOL;
             default:

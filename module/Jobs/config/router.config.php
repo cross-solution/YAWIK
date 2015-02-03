@@ -134,6 +134,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'deactivate'   => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/deactivate',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'deactivate',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'save' => array(

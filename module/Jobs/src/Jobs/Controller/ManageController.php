@@ -83,10 +83,13 @@ class ManageController extends AbstractActionController {
      * a mandatory parameter is the ID of the Job
      * in case of a regular Request you can
      *
+     * parameter are arbitrary elements for defaults or programming flow
+     *
+     * @param array $parameter
      * @return null|ViewModel
      * @throws \RuntimeException
      */
-    protected function save()
+    protected function save($parameter = array())
     {
         $serviceLocator     = $this->getServiceLocator();
         /** @var \Zend\Http\Request $request */
@@ -98,7 +101,7 @@ class ManageController extends AbstractActionController {
         $request            = $this->getRequest();
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
-        $pageIdentifier     = (int) $params->fromQuery('page',0);
+        $pageIdentifier     = (int) $params->fromQuery('page', array_key_exists('page', $parameter)?$parameter['page']:0);
         $jobEntity          = $this->getJob();
         $viewModel          = Null;
         //$this->acl($job, $origAction);
@@ -374,5 +377,19 @@ class ManageController extends AbstractActionController {
                      'declineLink' => $declineLink);
     }
 
+    public function deactivateAction() {
+        $serviceLocator = $this->getServiceLocator();
+        $translator     = $serviceLocator->get('translator');
+        $user           = $this->auth()->getUser();
+        $jobEntity      = $this->getJob();
+
+        try {
+            $jobEntity->changeStatus(Status::INACTIVE, sprintf( /*@translate*/ "Job was deactivated by %s",$user->info->displayName));
+            $this->notification()->success($translator->translate('Job has been deactivated'));
+        } catch (\Exception $e) {
+            $this->notification()->danger($translator->translate('Job could not be deactivated'));
+        }
+        return $this->save(array('page' => 2));
+    }
 }
 

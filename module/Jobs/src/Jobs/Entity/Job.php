@@ -828,4 +828,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         $this->isDraft = (bool) $flag;
         return $this;
     }
+
+    /**
+     * Gets the status and checks it against 'active'
+     *
+     * @return bool
+     */
+    public function isActive()
+    {
+        return !$this->isDraft && $this->status->name == 'active';
+    }
 }
