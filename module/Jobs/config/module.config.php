@@ -151,10 +151,10 @@ return array(
         'template_map' => array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
-            'jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
-            'jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
-            'jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
-            'jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
+            'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
+            'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
+            'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
+            'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
             'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
         ),
     

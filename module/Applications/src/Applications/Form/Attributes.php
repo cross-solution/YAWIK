@@ -47,7 +47,7 @@ class Attributes extends Form
                 'headline' => /*@translate*/ 'Privacy Policy',
                 'long_label' => /*@translate*/ 'I have read the %s and accept it',
                 'linktext' => /*@translate*/ 'Privacy Policy',
-                'route' => 'lang/multipost',
+                'route' => 'lang/content',
                 'params' => array(
                     'view' => 'applications-privacy-policy'
                  )
