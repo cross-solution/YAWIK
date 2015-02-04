@@ -153,6 +153,7 @@ return array(
             'applications/mail/forward' => __DIR__ . '/../view/mail/forward.phtml',
             'applications/detail/pdf' => __DIR__ . '/../view/applications/manage/detail.pdf.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
+            'content/applications-privacy-policy' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
         )
     ),
     'view_helpers' => array(

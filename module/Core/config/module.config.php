@@ -98,6 +98,19 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'content' => array(
+                        'type' => 'Regex',
+                        'options' => array(
+                            'regex' => '/content/(?<view>.*)$',
+                            'defaults' => array(
+                                'controller' => 'Core\Controller\Content',
+                                'action' => 'index',
+                            ),
+                            'spec' => '/content/%view%'
+                        ),
+                        'may_terminate' => true,
+
+                    )
                 ),
             ),
             'file' => array(
