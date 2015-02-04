@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 19:05+0100\n"
+"POT-Creation-Date: 2015-02-04 22:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,7 +224,8 @@ msgstr ""
 msgid "Click here to add an image or use drag and drop."
 msgstr ""
 
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:47
+#: language/_annotated_strings.php:36
 msgid "processing"
 msgstr ""
 
@@ -233,7 +234,7 @@ msgid "Edit"
 msgstr ""
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:12
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:93
 msgid "general settings"
 msgstr ""
 
@@ -267,76 +268,76 @@ msgstr ""
 msgid "Write"
 msgstr ""
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:39
 msgid "Not Rated"
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:42
 msgid "Poor"
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:45
 msgid "Bad"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:48
 msgid "Average"
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:51
 msgid "Good"
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:54
 msgid "Excellent"
 msgstr ""
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:57
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:60
 msgid "Remove all"
 msgstr ""
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:63
 msgid "choose your language"
 msgstr ""
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:66
 msgid "English"
 msgstr ""
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:69
 msgid "French"
 msgstr ""
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:72
 msgid "German"
 msgstr ""
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:75
 msgid "Italian"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid "Polish"
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid "Russian"
 msgstr ""
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
 msgid "Turkish"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:87
 msgid "Spanish"
 msgstr ""
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:90
 msgid "defines the languages of this frontend."
 msgstr ""

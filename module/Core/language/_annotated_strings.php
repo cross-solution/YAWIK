@@ -32,6 +32,9 @@ translate('View');
 //: ./src/Core/Form/PermissionsFieldset.php:68
 translate('Write');
 
+//: ./src/Core/Form/View/Helper/Element/SpinnerButton.php:47
+translate('processing');
+
 //: ./src/Core/Form/Element/Rating.php:30
 translate('Not Rated');
 
