@@ -43,7 +43,7 @@ interface OrganizationInterface
    /**
     * Gets the name of the organization
     *
-    * @return OrganizationInterface
+    * @return OrganizationName
     */
    public function getOrganizationName();
    
@@ -61,5 +61,15 @@ interface OrganizationInterface
     * @return AddressInterface
     */
    public function getAddresses();
-    
+
+    /**
+     * @return string
+     */
+    public function getDescription();
+
+    /**
+     * @param string $description
+     * @return self
+     */
+    public function setDescription($description);
 }

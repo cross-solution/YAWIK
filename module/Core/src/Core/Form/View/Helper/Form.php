@@ -180,7 +180,7 @@ class Form extends ZendForm
                 
                 $formContent = sprintf(
                     '<div class="daf-form-container row">
-                        <div class="daf-form col-md-8">%s</div>
+                        <div class="daf-form col-md-8"><div class="panel panel-default"><div class="panel-body">%s</div></div></div>
                         <div class="daf-desc col-md-4">
                             <div class="daf-desc-content alert alert-info">%s</div>
                         </div>

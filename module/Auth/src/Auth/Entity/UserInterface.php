@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -21,7 +21,9 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
-    
+
+
+
     /**
      * Sets the users login name
      *
@@ -110,6 +112,12 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getGroups();
-    
-    
+
+    /**
+     * get tokens of the user
+     *
+     * @return \Core\Entity\Collection\ArrayCollection
+     */
+    public function getTokens();
+
 }

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -18,30 +18,6 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
             ),
         ),
         'may_terminate' => true,
-        /*'child_routes' => array(
-            'form' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/:jobId',
-                ),
-            ),
-            'submit' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/submit',
-                ),
-            ),
-            'disclaimer' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/disclaimer',
-                    'defaults' => array(
-                        'controller' => '\Applications\Controller\Index',
-                        'action' => 'disclaimer',
-                    ),
-                ),
-            ),
-        ),*/
     ),
     'applications-dashboard' => array(
         'type' => 'Literal',

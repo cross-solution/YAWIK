@@ -175,26 +175,11 @@ interface ApplicationInterface
     public function setHistory(Collection $history);
     
     /**
-     * Gets the collection of histroy entities.
+     * Gets the collection of history entities.
      * 
      * @return Collection
      */
-    public function getHistory(); 
-    
-    /**
-     * Sets the privacy policy accepted flag.
-     * 
-     * @param bool $flag
-     * @return ApplicationInterface
-     */
-    public function setPrivacyPolicyAccepted($flag);
-    
-    /**
-     * Gets the privacy policy accepted flag.
-     * 
-     * @return bool
-     */
-    public function getPrivacyPolicyAccepted();
+    public function getHistory();
     
     /**
      * Sets the array of user ids of users which has at least once viewed this application.

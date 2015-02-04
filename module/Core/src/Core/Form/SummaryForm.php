@@ -98,5 +98,14 @@ class SummaryForm extends BaseForm implements SummaryFormInterface
         
         return $isValid;
     }
+
+    public function setOptions($options)
+    {
+        parent::setOptions($options);
+
+        if (isset($options['display_mode'])) {
+            $this->setDisplayMode($options['display_mode']);
+        }
+    }
     
 }

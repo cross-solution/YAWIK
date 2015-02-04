@@ -41,6 +41,9 @@ return array(
         'invokables' => array(
             'Organizations/Index' => 'Organizations\Controller\IndexController', 
         ),
+        'factories' => array(
+            'Organizations/TypeAHead' => 'Organizations\Controller\SLFactory\TypeAHeadControllerSLFactory',
+        )
     ),
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.
@@ -57,11 +60,14 @@ return array(
              'Organizations/form' => 'Organizations\Form\Organizations',
              'Organizations/OrganizationsContactForm'     => 'Organizations\Form\OrganizationsContactForm',
              'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
-             'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
-             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+            'Organizations/OrganizationsDescriptionForm' => 'Organizations\Form\OrganizationsDescriptionForm',
+            'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
+            'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+            'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
         ),
         'factories' => array(
+            'Organizations/Image' => 'Organizations\Form\LogoImageFactory',
         )
     ),
     'input_filters' => array(
@@ -88,6 +94,7 @@ return array(
             // guests are not allowed to see a list of companies
             'guest' => array(
                 'allow' => array(
+                    'Entity/OrganizationImage'
                 ),
                 'deny' => array(
                     'route/lang/organizations',

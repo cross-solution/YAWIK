@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -74,6 +74,17 @@ interface InfoInterface extends EntityInterface
      * @return string
      */
     public function getEmail();
+
+    /**
+     * @return boolean
+     */
+    public function isEmailVerified();
+
+    /**
+     * @param bool $emailVerified
+     * @return self
+     */
+    public function setEmailVerified($emailVerified);
     
     /**
      * Sets the first name
@@ -157,5 +168,11 @@ interface InfoInterface extends EntityInterface
      * @@return string
      */
     public function getHouseNumber();
-    
+
+    /**
+     * Gets the user display name
+     *
+     * @return string
+     */
+    public function getDisplayName();
 }  

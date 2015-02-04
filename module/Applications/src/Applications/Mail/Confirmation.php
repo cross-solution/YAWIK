@@ -3,16 +3,21 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
-/** NewApplication.php */ 
+/** Confirmation.php */
 namespace Applications\Mail;
 
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
 
+/**
+ * Sends an confirmation Mail to the applicant.
+ *
+ * @package Applications\Mail
+ */
 class Confirmation extends StringTemplateMessage
 {
     protected $application;

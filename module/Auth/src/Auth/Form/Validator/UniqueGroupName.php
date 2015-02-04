@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -96,7 +96,8 @@ class UniqueGroupName extends AbstractValidator
      * Returns true, if the given value is unique among the groups of the user.
      * 
      * Also returns true, if the given value equals the {@link $allowName}.
-     * 
+     *
+     * @param string $value
      * @return bool
      * @see \Zend\Validator\ValidatorInterface::isValid()
      */

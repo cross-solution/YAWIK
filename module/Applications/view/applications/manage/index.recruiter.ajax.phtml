@@ -94,7 +94,8 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
 <tbody>
 <?php 
 foreach ($this->applications as $application):
-$isUnread = $application->isUnreadBy($this->auth('id'));?>
+
+  $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
     <td>
         <?php 
@@ -115,7 +116,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
        <?php echo $application->contact->displayName?><br>
        <?php echo $application->contact->city?>
     </td>
-    <td class="cam-career">
+    <td class="yk-career">
     <?php if (count($application->cv->educations)>0):?>
       <?php echo $this->translate('education').': '.$this->period($application->cv->educations).' '.$this->translate('years')?><br/>
     <?php endif;?>
@@ -123,7 +124,7 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
       <?php echo $this->translate('work experience').': '.$this->period($application->cv->employments).' '.$this->translate('years')?><br/>
     <?php endif;?>
     </td>
-    <td class="cam-attachment">
+    <td class="yk-attachment">
      <?php if(count($application->attachments)>0):?>
      <ul class="media-list">
      <?php foreach ($application->attachments as $attachment):?>
@@ -141,13 +142,14 @@ $isUnread = $application->isUnreadBy($this->auth('id'));?>
      <?php echo $this->translate('no attachments')?>
      <?php endif;?>
      <?php if(count($application->profiles)>0):?>
+         <div>
      <?php foreach ($application->profiles as $profile):?>
-         <i class="btn btn-default btn-xs yk-icon yk-icon-<?php echo strtolower($profile->name); ?>"></i>
+         <span class="btn btn-default btn-xs"><i class="yk-icon yk-icon-<?php echo strtolower($profile->name); ?>"></i></span>
      <?php endforeach;?>
-     </ul>
+             </div>
      <?php endif;?>     
     </td>
-    <td class="cam-job">
+    <td class="yk-job">
          <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
           <?php echo strip_tags($application->job->title) ?>
          </a>         

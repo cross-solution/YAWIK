@@ -45,8 +45,15 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
         return $this;
     }
 
+    /**
+     * @todo why this was added?
+     *
+     * this breaks
+     *
+     * YAWIK/bin$ ./console applications cleanup
+     */
     public function postDispatch(MvcEvent $e) {
-        $view = $this->getServiceManager()->get('view');
+       // $view = $this->getServiceManager()->get('view');
 
     }
 

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -31,8 +31,10 @@ class IndexController extends AbstractActionController
         parent::attachDefaultListeners();
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
+        $jobServices     = $serviceLocator->get('Jobs/Listeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
+        $events->attach($jobServices);
         return $this;
     }
 
@@ -44,7 +46,6 @@ class IndexController extends AbstractActionController
         
         $params      = $this->getRequest()->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
-        $repository  = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
         $isRecruiter = $this->acl()->isRole('recruiter');
         
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
@@ -64,9 +65,7 @@ class IndexController extends AbstractActionController
             //$filterForm->setData(array('params' => $params->toArray()));
             //$filterForm->setData()
         }
-        
-        $repository = $this->getServiceLocator()->get('repositories')->get('Jobs/Job');
-        
+
         if (!isset($params['sort'])) {
             $params['sort']='-date';
         }
@@ -99,26 +98,12 @@ class IndexController extends AbstractActionController
         
     
      }
-     
-     public function viewAction()
-     {
-         $id = $this->params()->fromQuery('id');
-         if (!$id) {
-             throw new \RuntimeException('Missing job id.', 404);
-         }
-         
-         $job = $this->getServiceLocator()->get('repositories')->get('Jobs/Job')->find($id);
-         if (!$job) {
-             throw new \RuntimeException('Job not found.', 404);
-         }
-         
-         return array(
-             'job' => $job
-         );
-         
-     }
-     
-     public function dashboardAction()
+
+
+    /**
+     * @return array
+     */
+    public function dashboardAction()
      {
          $services = $this->getServiceLocator();
          $params = $this->getRequest()->getQuery();
@@ -130,9 +115,6 @@ class IndexController extends AbstractActionController
          
          $paginator = $this->paginator('Jobs/Job');
 
-         #$paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
-         #->setItemCountPerPage($params->get('count', 10));
-         
          return array(
              'script' => 'jobs/index/dashboard',
              'type' => $this->params('type'),
@@ -140,8 +122,11 @@ class IndexController extends AbstractActionController
              'jobs' => $paginator
          );
      }
-     
-     public function typeaheadAction()
+
+    /**
+     * @return JsonModel
+     */
+    public function typeaheadAction()
      {
          $query = $this->params()->fromQuery('q', '*');
          $repository = $this->getServiceLocator()
@@ -159,5 +144,4 @@ class IndexController extends AbstractActionController
          
          return new JsonModel($return);
      }
-    
 }

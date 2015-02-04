@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -58,6 +58,22 @@ class User extends AbstractRepository
     public function findByLogin($login) {
         $entity = $this->findOneBy(array('login' => $login));
         return $entity;
+    }
+
+    /**
+     * Finds user by login name or email
+     *
+     * @param string $identity
+     *
+     * @return UserInterface|null
+     */
+    public function findByLoginOrEmail($identity)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->addOr($qb->expr()->field('login')->equals($identity))
+            ->addOr($qb->expr()->field('info.email')->equals($identity));
+
+        return $qb->getQuery()->getSingleResult();
     }
     
     /**

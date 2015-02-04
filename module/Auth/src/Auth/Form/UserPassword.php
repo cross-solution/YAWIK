@@ -1,4 +1,11 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 namespace Auth\Form;
 
@@ -6,10 +13,12 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Form\Hydrator\UserPasswordHydrator;
-//use Zend\InputFilter\InputFilterProviderInterface;
 
-class UserPassword extends Form implements ServiceLocatorAwareInterface//, InputFilterProviderInterface
+class UserPassword extends Form implements ServiceLocatorAwareInterface
 {
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $forms;
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
@@ -35,7 +44,6 @@ class UserPassword extends Form implements ServiceLocatorAwareInterface//, Input
     public function init()
     {
         $this->setName('user-password-form');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         $this->add(array(
             'type' => 'hidden',
@@ -44,7 +52,6 @@ class UserPassword extends Form implements ServiceLocatorAwareInterface//, Input
         
         $this->add(
             $this->forms->get('Auth/UserPasswordFieldset')
-                        //->setUseAsBaseFieldset(true)
         );
         
         $this->add($this->forms->get('submitField'));

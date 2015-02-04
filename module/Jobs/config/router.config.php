@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -22,12 +22,32 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
         ),
         'may_terminate' => true,
         'child_routes' => array(
+            'completion' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/completion/:id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'completion',
+                        'defaults' => array(
+                            'defaults' => array(
+                                'id' => 0
+                            ),
+                            'constraints' => array(
+                                'id' => '[a-f0-9]+',
+                            ),
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'manage' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/:action',
                     'defaults' => array(
                         'controller' => 'Jobs/Manage',
+                        'action' => 'edit'
                     ),
                 ),
                 'may_terminate' => true,
@@ -50,7 +70,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'options' => array(
                     'route' => '/view',
                     'defaults' => array(
-                        'controller' => 'Jobs/Index',
+                        'controller' => 'Jobs/Template',
                         'action' => 'view'
                     ),
                 ),
@@ -85,7 +105,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'options' => array(
                     'route' => '/editTemplate/:id',
                     'defaults' => array(
-                        'controller' => 'Jobs/Manage',
+                        'controller' => 'Jobs/Template',
                         'action' => 'edittemplate',
                         'defaults' => array(
                             'id' => 0
@@ -93,6 +113,34 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                         'constraints' => array(
                             'id' => '[a-f0-9]+',
                         ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'approval'   => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/approval[/:state]',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'approval',
+                        'defaults' => array(
+                            'state' => 'pending'
+                        ),
+                        'constraints' => array(
+                            'state' => '(pending|approved|declined)',
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'deactivate'   => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/deactivate',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'deactivate',
                     ),
                 ),
                 'may_terminate' => true,
@@ -106,6 +154,25 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
             'defaults' => array(
                 'controller' => 'Jobs/Import',
                 'action' => 'save',
+            ),
+        ),
+        'may_terminate' => true,
+
+    ),
+    // @TODO put this to the core. By the way - multipost is used for portals already, these are
+    'multipost' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route' => '/multipost/:view',
+            'defaults' => array(
+                'controller' => 'Core\Controller\Content',
+                'action' => 'modal',
+                'defaults' => array(
+                    'view' => 0
+                ),
+                'constraints' => array(
+                    'view' => '[a-f0-9-]+',
+                ),
             ),
         ),
         'may_terminate' => true,

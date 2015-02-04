@@ -10,10 +10,6 @@
 namespace Applications;
 
 use Zend\Mvc\MvcEvent;
-use Zend\ModuleManager\Feature\FormElementProviderInterface;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Zend\View\ViewEvent;
-use Zend\View\Renderer\PhpRenderer;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
@@ -30,14 +26,14 @@ class Module implements ConsoleUsageProviderInterface
      * @param Console $console
      * @return array|null|string
      */
-
     public function getConsoleUsage(Console $console)
     {
         return array(
-            'Manipulation of applications database',
+            'Manipulation of applications collection',
             'applications generatekeywords' => '(Re-)Generates keywords for all applications.',
             'applications calculate-rating' => '(Re-)Calculates average rating for all applications.',
             'applications cleanup'          => 'removes applications drafts.',
+            'applications list'             => 'list view scripts.',
         );
     }
     
@@ -69,14 +65,14 @@ class Module implements ConsoleUsageProviderInterface
     }
     
     /**
-     * Bootraps the application module
+     * Bootstraps the application module
      * 
      * @param MvcEvent $mvcEvent
      */
-    public function onBootstrap(MvcEvent $mvcEvent)
-    {
-        // Ignore the form annotations in setting entities
-        AnnotationReader::addGlobalIgnoredName('formLabel');
-    }
+//    public function onBootstrap(MvcEvent $mvcEvent)
+//    {
+//        // Ignore the form annotations in setting entities
+//        AnnotationReader::addGlobalIgnoredName('formLabel');
+//    }
     
 }

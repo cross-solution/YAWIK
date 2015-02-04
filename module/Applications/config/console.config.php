@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -36,6 +36,18 @@ return array('console' => array('router' => array('routes' => array(
             'defaults' => array(
                 'controller' => 'Applications/Console',
                 'action'     => 'cleanup'
+            ),
+        ),
+    ),
+    /*
+     * list available view scripts
+     */
+    'applications-partials' => array(
+        'options' => array(
+            'route' => 'applications list',
+            'defaults' => array(
+                'controller' => 'Applications/Console',
+                'action'     => 'listviewscripts'
             ),
         ),
     ),

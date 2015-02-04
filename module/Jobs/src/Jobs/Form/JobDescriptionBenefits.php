@@ -16,6 +16,11 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
+/**
+ * Defines the formular field benefits of a job opening.
+ *
+ * @package Jobs\Form
+ */
 class JobDescriptionBenefits extends Form implements InputFilterProviderInterface
 {
 
@@ -33,7 +38,7 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
         $this->setName('jobs-form-benefits');
         $this->setAttributes(array(
             'id' => 'jobs-form-benefits',
-            'data-handle-by' => 'native'
+            'data-handle-by' => 'yk-form'
         ));
 
         $this->add(array(

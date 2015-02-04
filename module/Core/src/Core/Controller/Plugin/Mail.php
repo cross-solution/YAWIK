@@ -191,7 +191,7 @@ class mail extends Message implements PluginInterface
             $log->info($this);
         } catch (Exception $e) {
             $log->err('Mail failure ' . $e->getMessage());
-            //$this->getController()->getServiceLocator()->get('Log/Core/Cam')->warn('Mail failure ' . $e->getMessage());
+            //$this->getController()->getServiceLocator()->get('Core/Log')->warn('Mail failure ' . $e->getMessage());
         }
         //}
         return $erg;

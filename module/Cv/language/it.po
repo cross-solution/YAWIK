@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# BLU-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:20+0200\n"
-"PO-Revision-Date: 2014-09-16 14:22+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2015-01-15 20:11+0000\n"
+"Last-Translator: BLU-IT\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,88 +20,88 @@ msgstr ""
 
 #: view/cv/index/index.phtml:1 language/_annotated_strings.php:846
 msgid "Resumes"
-msgstr ""
+msgstr "CV"
 
 #: view/cv/index/index.phtml:7
 msgid "list of all resumes"
-msgstr ""
+msgstr "elenco di tutti i curriculum"
 
 #: view/cv/index/index.ajax.phtml:5
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: view/cv/manage/form.phtml:2
 msgid "Edit resume"
-msgstr ""
+msgstr "Modifica curriculum"
 
 #: view/cv/manage/form.phtml:2 language/_annotated_strings.php:852
 msgid "Create resume"
-msgstr ""
+msgstr "Creazione curriculum"
 
 #: view/cv/manage/form.phtml:7
 msgid "Create a new resume"
-msgstr ""
+msgstr "Creare un nuovo curriculum"
 
 #: view/cv/manage/form.phtml:11
 msgid "Your resume was saved successfully."
-msgstr ""
+msgstr "Il tuo curriculum è stato salvato con successo."
 
 #: src/Cv/Form/EducationFieldset.php:18
 msgid "Education"
-msgstr ""
+msgstr "Educazione"
 
 #: src/Cv/Form/EmploymentFieldset.php:16
 msgid "Employment"
-msgstr ""
+msgstr "Occupazione"
 
 #: src/Cv/Form/SkillFieldset.php:16 src/Cv/Form/LanguageFieldset.php:16
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 #: src/Cv/Form/NativeLanguageFieldset.php:16
 #: language/_annotated_strings.php:63
 msgid "Native Language"
-msgstr ""
+msgstr "Madrelingua"
 
 #: src/Cv/Form/EducationCollectionFactory.php:18
 msgid "Education history"
-msgstr ""
+msgstr "Istruzione formativo"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:42
 msgid "Start date"
-msgstr ""
+msgstr "Data di inizio"
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:45
 msgid "End date"
-msgstr ""
+msgstr "Data di fine"
 
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:48
 msgid "ongoing"
-msgstr ""
+msgstr "in corso"
 
 #: language/_annotated_strings.php:12
 msgid "Degree"
-msgstr ""
+msgstr "Laurea"
 
 #: language/_annotated_strings.php:15
 msgid "please enter the name of your qualification"
-msgstr ""
+msgstr "inserisci il nome della tua qualifica"
 
 #: language/_annotated_strings.php:18
 msgid "Organization Name"
-msgstr ""
+msgstr "Nome organizzazione"
 
 #: language/_annotated_strings.php:21
 msgid "please enter the name of the university or school"
-msgstr ""
+msgstr "inserisci il nome dell'università o della scuola"
 
 #: language/_annotated_strings.php:24
 msgid "Country"
-msgstr ""
+msgstr "Paese"
 
 #: language/_annotated_strings.php:27
 msgid "please select the country"
-msgstr ""
+msgstr "per favore selezionare il paese"
 
 #: language/_annotated_strings.php:30
 msgid "City"
@@ -108,7 +109,7 @@ msgstr "Città"
 
 #: language/_annotated_strings.php:33
 msgid "please enter the name of the city"
-msgstr ""
+msgstr "per favore inserisci il nome della città"
 
 #: language/_annotated_strings.php:36 language/_annotated_strings.php:57
 msgid "Description"
@@ -116,139 +117,139 @@ msgstr "Descrizione"
 
 #: language/_annotated_strings.php:39
 msgid "please enter a description"
-msgstr ""
+msgstr "per favore inserisci una descrizione"
 
 #: language/_annotated_strings.php:51
 msgid "Company Name"
-msgstr ""
+msgstr "Nome della società / ditta"
 
 #: language/_annotated_strings.php:54
 msgid "please enter the name of the company"
-msgstr ""
+msgstr "inserisci il nome della società / ditta"
 
 #: language/_annotated_strings.php:60
 msgid "please describe your position"
-msgstr ""
+msgstr "per favore descrivi la tua posizione"
 
 #: language/_annotated_strings.php:66
 msgid "Other languages"
-msgstr ""
+msgstr "Altre lingue"
 
 #: language/_annotated_strings.php:69
 msgid "Other languages ..."
-msgstr ""
+msgstr "Altre lingue ..."
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:522
 msgid "Abkhazian"
-msgstr ""
+msgstr "Abkhazian"
 
 #: language/_annotated_strings.php:75 language/_annotated_strings.php:525
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: language/_annotated_strings.php:78 language/_annotated_strings.php:528
 msgid "Albanian"
-msgstr ""
+msgstr "Albanese"
 
 #: language/_annotated_strings.php:81 language/_annotated_strings.php:531
 msgid "Amharic"
-msgstr ""
+msgstr "Amarico"
 
 #: language/_annotated_strings.php:84 language/_annotated_strings.php:534
 msgid "Arabic"
-msgstr ""
+msgstr "Arabo"
 
 #: language/_annotated_strings.php:87 language/_annotated_strings.php:537
 msgid "Armenian"
-msgstr ""
+msgstr "Armeno"
 
 #: language/_annotated_strings.php:90 language/_annotated_strings.php:540
 msgid "Assamese"
-msgstr ""
+msgstr "Assamese"
 
 #: language/_annotated_strings.php:93 language/_annotated_strings.php:543
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azero"
 
 #: language/_annotated_strings.php:96 language/_annotated_strings.php:546
 msgid "Basque"
-msgstr ""
+msgstr "Basco"
 
 #: language/_annotated_strings.php:99 language/_annotated_strings.php:549
 msgid "Belarusian"
-msgstr ""
+msgstr "Bielorusso"
 
 #: language/_annotated_strings.php:102 language/_annotated_strings.php:552
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalese"
 
 #: language/_annotated_strings.php:105 language/_annotated_strings.php:555
 msgid "Bosnian"
-msgstr ""
+msgstr "Bosniaco"
 
 #: language/_annotated_strings.php:108 language/_annotated_strings.php:558
 msgid "Breton"
-msgstr ""
+msgstr "Bretone"
 
 #: language/_annotated_strings.php:111 language/_annotated_strings.php:561
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgaro"
 
 #: language/_annotated_strings.php:114 language/_annotated_strings.php:564
 msgid "Burmese"
-msgstr ""
+msgstr "Birmano"
 
 #: language/_annotated_strings.php:117 language/_annotated_strings.php:567
 msgid "Catalan/Valencian"
-msgstr ""
+msgstr "Catalan / valenciano"
 
 #: language/_annotated_strings.php:120 language/_annotated_strings.php:570
 msgid "Chechen"
-msgstr ""
+msgstr "Ceceno"
 
 #: language/_annotated_strings.php:123 language/_annotated_strings.php:573
 msgid "Chinese"
-msgstr ""
+msgstr "Cinese"
 
 #: language/_annotated_strings.php:126 language/_annotated_strings.php:576
 msgid "Cornish"
-msgstr ""
+msgstr "Della Cornovaglia"
 
 #: language/_annotated_strings.php:129 language/_annotated_strings.php:579
 msgid "Corsican"
-msgstr ""
+msgstr "Corsica"
 
 #: language/_annotated_strings.php:132 language/_annotated_strings.php:582
 msgid "Croatian"
-msgstr ""
+msgstr "Croato"
 
 #: language/_annotated_strings.php:135 language/_annotated_strings.php:585
 msgid "Czech"
-msgstr ""
+msgstr "Ceco"
 
 #: language/_annotated_strings.php:138 language/_annotated_strings.php:588
 msgid "Danish"
-msgstr ""
+msgstr "Danese"
 
 #: language/_annotated_strings.php:141 language/_annotated_strings.php:591
 msgid "Dutch"
-msgstr ""
+msgstr "Olandese"
 
 #: language/_annotated_strings.php:144 language/_annotated_strings.php:594
 msgid "Estonian"
-msgstr ""
+msgstr "Estonian"
 
 #: language/_annotated_strings.php:147 language/_annotated_strings.php:597
 msgid "Faroese"
-msgstr ""
+msgstr "Faroese"
 
 #: language/_annotated_strings.php:150 language/_annotated_strings.php:600
 msgid "Fijian"
-msgstr ""
+msgstr "Fijian"
 
 #: language/_annotated_strings.php:153 language/_annotated_strings.php:603
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandese"
 
 #: language/_annotated_strings.php:156 language/_annotated_strings.php:606
 msgid "French"
@@ -256,15 +257,15 @@ msgstr "Francese"
 
 #: language/_annotated_strings.php:159 language/_annotated_strings.php:609
 msgid "Gaelic/Scottish Gaelic"
-msgstr ""
+msgstr "Gaelico / gaelico scozzese"
 
 #: language/_annotated_strings.php:162 language/_annotated_strings.php:612
 msgid "Galician"
-msgstr ""
+msgstr "Galiziano"
 
 #: language/_annotated_strings.php:165 language/_annotated_strings.php:615
 msgid "Georgian"
-msgstr ""
+msgstr "Georgiano"
 
 #: language/_annotated_strings.php:168 language/_annotated_strings.php:618
 msgid "German"
@@ -272,314 +273,314 @@ msgstr "Tedesco"
 
 #: language/_annotated_strings.php:171 language/_annotated_strings.php:621
 msgid "Greek"
-msgstr ""
+msgstr "Greco"
 
 #: language/_annotated_strings.php:174 language/_annotated_strings.php:624
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #: language/_annotated_strings.php:177 language/_annotated_strings.php:627
 msgid "Haitian/Haitian Creole"
-msgstr ""
+msgstr "Creolo haitiano / Haiti"
 
 #: language/_annotated_strings.php:180 language/_annotated_strings.php:630
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebraico"
 
 #: language/_annotated_strings.php:183 language/_annotated_strings.php:633
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: language/_annotated_strings.php:186 language/_annotated_strings.php:636
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungherese"
 
 #: language/_annotated_strings.php:189 language/_annotated_strings.php:639
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandese"
 
 #: language/_annotated_strings.php:192 language/_annotated_strings.php:642
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesiano"
 
 #: language/_annotated_strings.php:195 language/_annotated_strings.php:645
 msgid "Irish"
-msgstr ""
+msgstr "Irlandese"
 
 #: language/_annotated_strings.php:198 language/_annotated_strings.php:648
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: language/_annotated_strings.php:201 language/_annotated_strings.php:651
 msgid "Japanese"
-msgstr ""
+msgstr "Giapponese"
 
 #: language/_annotated_strings.php:204 language/_annotated_strings.php:654
 msgid "Javanese"
-msgstr ""
+msgstr "Giavanese"
 
 #: language/_annotated_strings.php:207 language/_annotated_strings.php:657
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #: language/_annotated_strings.php:210 language/_annotated_strings.php:660
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazako"
 
 #: language/_annotated_strings.php:213 language/_annotated_strings.php:663
 msgid "Kirghiz"
-msgstr ""
+msgstr "Kirghiz"
 
 #: language/_annotated_strings.php:216 language/_annotated_strings.php:666
 msgid "Kongo/Kikongo"
-msgstr ""
+msgstr "Kongo / Kikongo"
 
 #: language/_annotated_strings.php:219 language/_annotated_strings.php:669
 msgid "Korean"
-msgstr ""
+msgstr "Coreano"
 
 #: language/_annotated_strings.php:222 language/_annotated_strings.php:672
 msgid "Kurdish"
-msgstr ""
+msgstr "Curdo"
 
 #: language/_annotated_strings.php:225 language/_annotated_strings.php:675
 msgid "Lao"
-msgstr ""
+msgstr "Lao"
 
 #: language/_annotated_strings.php:228 language/_annotated_strings.php:678
 msgid "Latvian"
-msgstr ""
+msgstr "Lettone"
 
 #: language/_annotated_strings.php:231 language/_annotated_strings.php:681
 msgid "Limburgish/Limburgian/Limburgic"
-msgstr ""
+msgstr "Limburgese / Limburgo / Limburgic"
 
 #: language/_annotated_strings.php:234 language/_annotated_strings.php:684
 msgid "Lingala"
-msgstr ""
+msgstr "Lingala"
 
 #: language/_annotated_strings.php:237 language/_annotated_strings.php:687
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituano"
 
 #: language/_annotated_strings.php:240 language/_annotated_strings.php:690
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Lussemburghese"
 
 #: language/_annotated_strings.php:243 language/_annotated_strings.php:693
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedone"
 
 #: language/_annotated_strings.php:246 language/_annotated_strings.php:696
 msgid "Malagasy"
-msgstr ""
+msgstr "Malgascio"
 
 #: language/_annotated_strings.php:249 language/_annotated_strings.php:699
 msgid "Malay"
-msgstr ""
+msgstr "Malese"
 
 #: language/_annotated_strings.php:252 language/_annotated_strings.php:702
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #: language/_annotated_strings.php:255 language/_annotated_strings.php:705
 msgid "Maltese"
-msgstr ""
+msgstr "Maltese"
 
 #: language/_annotated_strings.php:258 language/_annotated_strings.php:708
 msgid "Manx"
-msgstr ""
+msgstr "Manx"
 
 #: language/_annotated_strings.php:261 language/_annotated_strings.php:711
 msgid "Marathi"
-msgstr ""
+msgstr "Marathi"
 
 #: language/_annotated_strings.php:264 language/_annotated_strings.php:714
 msgid "Moldavian"
-msgstr ""
+msgstr "Moldavo"
 
 #: language/_annotated_strings.php:267 language/_annotated_strings.php:717
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongolo"
 
 #: language/_annotated_strings.php:270 language/_annotated_strings.php:720
 msgid "Nepali"
-msgstr ""
+msgstr "Nepali"
 
 #: language/_annotated_strings.php:273 language/_annotated_strings.php:723
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvegese"
 
 #: language/_annotated_strings.php:276 language/_annotated_strings.php:726
 msgid "Norwegian (Bokmal)"
-msgstr ""
+msgstr "Norvegese (Bokmål)"
 
 #: language/_annotated_strings.php:279 language/_annotated_strings.php:729
 msgid "Norwegian (Nynorsk)"
-msgstr ""
+msgstr "Norvegese (Nynorsk)"
 
 #: language/_annotated_strings.php:282 language/_annotated_strings.php:732
 msgid "Pashto"
-msgstr ""
+msgstr "Pashto"
 
 #: language/_annotated_strings.php:285 language/_annotated_strings.php:735
 msgid "Persian"
-msgstr ""
+msgstr "Persiano"
 
 #: language/_annotated_strings.php:288 language/_annotated_strings.php:738
 msgid "Polish"
-msgstr ""
+msgstr "Polacco"
 
 #: language/_annotated_strings.php:291 language/_annotated_strings.php:741
 msgid "Portuguese"
-msgstr ""
+msgstr "Portoghese"
 
 #: language/_annotated_strings.php:294 language/_annotated_strings.php:744
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #: language/_annotated_strings.php:297 language/_annotated_strings.php:747
 msgid "Raeto-Romance"
-msgstr ""
+msgstr "Raeto-Romance"
 
 #: language/_annotated_strings.php:300 language/_annotated_strings.php:750
 msgid "Romani"
-msgstr ""
+msgstr "Romani"
 
 #: language/_annotated_strings.php:303 language/_annotated_strings.php:753
 msgid "Romanian"
-msgstr ""
+msgstr "Rumeno"
 
 #: language/_annotated_strings.php:306 language/_annotated_strings.php:756
 msgid "Russian"
-msgstr ""
+msgstr "Russo"
 
 #: language/_annotated_strings.php:309 language/_annotated_strings.php:759
 msgid "Sami"
-msgstr ""
+msgstr "Sami"
 
 #: language/_annotated_strings.php:312 language/_annotated_strings.php:762
 msgid "Sardinian"
-msgstr ""
+msgstr "Sardo"
 
 #: language/_annotated_strings.php:315 language/_annotated_strings.php:765
 msgid "Serbian"
-msgstr ""
+msgstr "Serbo"
 
 #: language/_annotated_strings.php:318 language/_annotated_strings.php:768
 msgid "Sindhi"
-msgstr ""
+msgstr "Sindhi"
 
 #: language/_annotated_strings.php:321 language/_annotated_strings.php:771
 msgid "Slovak"
-msgstr ""
+msgstr "Slovacco"
 
 #: language/_annotated_strings.php:324 language/_annotated_strings.php:774
 msgid "Slovenian"
-msgstr ""
+msgstr "Sloveno"
 
 #: language/_annotated_strings.php:327 language/_annotated_strings.php:777
 msgid "Somali"
-msgstr ""
+msgstr "Somali"
 
 #: language/_annotated_strings.php:330 language/_annotated_strings.php:780
 msgid "Spanish"
-msgstr ""
+msgstr "Spagnolo"
 
 #: language/_annotated_strings.php:333 language/_annotated_strings.php:783
 msgid "Swahili"
-msgstr ""
+msgstr "Swahili"
 
 #: language/_annotated_strings.php:336 language/_annotated_strings.php:786
 msgid "Swedish"
-msgstr ""
+msgstr "Svedese"
 
 #: language/_annotated_strings.php:339 language/_annotated_strings.php:789
 msgid "Tagalog"
-msgstr ""
+msgstr "Tagalog"
 
 #: language/_annotated_strings.php:342 language/_annotated_strings.php:792
 msgid "Tahitian"
-msgstr ""
+msgstr "Tahitiano"
 
 #: language/_annotated_strings.php:345 language/_annotated_strings.php:795
 msgid "Tajik"
-msgstr ""
+msgstr "Tajik"
 
 #: language/_annotated_strings.php:348 language/_annotated_strings.php:798
 msgid "Tamil"
-msgstr ""
+msgstr "Tamil"
 
 #: language/_annotated_strings.php:351 language/_annotated_strings.php:801
 msgid "Tatar"
-msgstr ""
+msgstr "Tatar"
 
 #: language/_annotated_strings.php:354 language/_annotated_strings.php:804
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #: language/_annotated_strings.php:357 language/_annotated_strings.php:807
 msgid "Thai"
-msgstr ""
+msgstr "Thai"
 
 #: language/_annotated_strings.php:360 language/_annotated_strings.php:810
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetano"
 
 #: language/_annotated_strings.php:363 language/_annotated_strings.php:813
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 #: language/_annotated_strings.php:366 language/_annotated_strings.php:816
 msgid "Turkmen"
-msgstr ""
+msgstr "Turkmeno"
 
 #: language/_annotated_strings.php:369 language/_annotated_strings.php:819
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucraino"
 
 #: language/_annotated_strings.php:372 language/_annotated_strings.php:822
 msgid "Urdu"
-msgstr ""
+msgstr "Urdu"
 
 #: language/_annotated_strings.php:375 language/_annotated_strings.php:825
 msgid "Uzbek"
-msgstr ""
+msgstr "Uzbeka"
 
 #: language/_annotated_strings.php:378 language/_annotated_strings.php:828
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #: language/_annotated_strings.php:381 language/_annotated_strings.php:831
 msgid "Welsh"
-msgstr ""
+msgstr "Gallese"
 
 #: language/_annotated_strings.php:384 language/_annotated_strings.php:834
 msgid "Western Frisian"
-msgstr ""
+msgstr "Frisone"
 
 #: language/_annotated_strings.php:387 language/_annotated_strings.php:837
 msgid "Yiddish"
-msgstr ""
+msgstr "Yiddish"
 
 #: language/_annotated_strings.php:390 language/_annotated_strings.php:840
 msgid "Yoruba"
-msgstr ""
+msgstr "Yoruba"
 
 #: language/_annotated_strings.php:393
 msgid "which language are you speeking"
-msgstr ""
+msgstr "che lingua parli"
 
 #: language/_annotated_strings.php:396
 msgid "Understanding Listening ..."
-msgstr ""
+msgstr "Capire ascolto ..."
 
 #: language/_annotated_strings.php:399
 msgid ""
 "I can understand familiar words and very basic phrases concerning myself, my"
 " family and immediate concrete surroundings when people speak slowly and "
 "clearly."
-msgstr ""
+msgstr "Capisco parole familiari ed espressioni molto semplici riferite a me stesso, riguardando mia famiglia e l'ambiente circostante, purché le persone parlino lentamente e chiaramente."
 
 #: language/_annotated_strings.php:402
 msgid ""
@@ -587,7 +588,7 @@ msgid ""
 "areas of most immediate personal relevance (e.g. very basic personal and "
 "family information, shopping, local area, employment). I can catch the main "
 "point in short, clear, simple messages and announcements."
-msgstr ""
+msgstr "Riesco a capire espressioni e parole di uso frequente relative ad ambiti di immediata rilevanza personali (informazioni personali e familiari di base ad esempio, acquisti, l'ambiente circostante e il lavoro). Riesco ad afferrare l'essenziale di brevi, chiari, semplici messaggi e annunci."
 
 #: language/_annotated_strings.php:405
 msgid ""
@@ -596,7 +597,7 @@ msgid ""
 "understand the main point of many radio or TV programmes on current affairs "
 "or topics of personal or professional interest when the delivery is "
 "relatively slow and clear."
-msgstr ""
+msgstr "Riesco a capire i punti principali di discorso chiaro in lingua standard su argomenti familiari che riguardano la scuola, il tempo libero, ecc. Posso capire l'essenziale di molte trasmissioni radiofoniche e televisive su argomenti di attualità o temi di mio interesse personale o professionale, purché il discorso sia relativamente lento e chiaro."
 
 #: language/_annotated_strings.php:408
 msgid ""
@@ -604,37 +605,37 @@ msgid ""
 "of argument provided the topic is reasonably familiar. I can understand most"
 " TV news and current affairs programmes. I can understand the majority of "
 "films in standard dialect."
-msgstr ""
+msgstr "Sono capace di capire un discorso lungo e conferenze e a seguire anche le linee complesse di argomentazioni, purché il tema mi sia relativamente familiare. Riesco a capire la maggior parte dei telegiornali e programmi di attualità. Posso capire la maggior parte dei film in lingua standard."
 
 #: language/_annotated_strings.php:411
 msgid ""
 "I can understand extended speech even when it is not clearly structured and "
 "when relationships are only implied and not signalled explicitly. I can "
 "understand television programmes and films without too much effort."
-msgstr ""
+msgstr "Riesco a capire un discorso lungo anche se non è chiaramente strutturato e le relazioni sono implicite e non segnalate esplicitamente. Riesco a capire i programmi televisivi e film senza troppo sforzo."
 
 #: language/_annotated_strings.php:414
 msgid ""
 "I have no difficulty in understanding any kind of spoken language, whether "
 "live or broadcast, even when delivered at fast native speed, provided I have"
 " some time to get familiar with the accent."
-msgstr ""
+msgstr "Non ho nessuna difficoltà a capire qualsiasi lingua parlata, sia dal vivo, sia trasmessa, anche se il discorso in modo veloce da un madrelingua, purché abbia il tempo di abituarmi all 'accento."
 
 #: language/_annotated_strings.php:417 language/_annotated_strings.php:441
 #: language/_annotated_strings.php:465 language/_annotated_strings.php:489
 #: language/_annotated_strings.php:513
 msgid "level"
-msgstr ""
+msgstr "livello"
 
 #: language/_annotated_strings.php:420
 msgid "Understanding Reading ..."
-msgstr ""
+msgstr "Capire lettura ..."
 
 #: language/_annotated_strings.php:423
 msgid ""
 "I can understand familiar names, words and very simple sentences, for "
 "example on notices and posters or in catalogues."
-msgstr ""
+msgstr "Capisco nomi familiari, parole e frasi molto semplici, per esempio quelle di annunci, cartelloni o cataloghi."
 
 #: language/_annotated_strings.php:426
 msgid ""
@@ -642,39 +643,39 @@ msgid ""
 "information in simple everyday material such as advertisements, "
 "prospectuses, menus and timetables and I can understand short simple "
 "personal letters."
-msgstr ""
+msgstr "Riesco a leggere testi molto brevi e semplici. Posso trovare informazioni specifiche e prevedibili in materiale di uso quotidiano, quali pubblicità, programmi, menù e orari e sono capace di capire breve lettere personali semplici."
 
 #: language/_annotated_strings.php:429
 msgid ""
 "I can understand texts that consist mainly of high frequency everyday or "
 "job-related language. I can understand the description of events, feelings "
 "and wishes in personal letters."
-msgstr ""
+msgstr "Riesco a capire testi che consistono principalmente di alta frequenza quotidiana o al lavoro correlato. Riesco a capire la descrizione di avvenimenti, di sentimenti e desideri in lettere personali."
 
 #: language/_annotated_strings.php:432
 msgid ""
 "I can read articles and reports concerned with contemporary problems in "
 "which the writers adopt particular attitudes or viewpoints. I can understand"
 " contemporary literary prose."
-msgstr ""
+msgstr "Riesco a leggere articoli e relazioni su questioni d'attualità in cui l'autore prende posizione ed esprime un punto di vista. Posso comprendere un testo narrativo contemporaneo."
 
 #: language/_annotated_strings.php:435
 msgid ""
 "I can understand long and complex factual and literary texts, appreciating "
 "distinctions of style. I can understand specialised articles and longer "
 "technical instructions, even when they do not relate to my field."
-msgstr ""
+msgstr "Riesco a capire testi letterari e informativi lunghi e complessi e so apprezzare le differenze di stile. Riesco a capire articoli specialistici e istruzioni tecniche, anche quando non appartengono al mio settore."
 
 #: language/_annotated_strings.php:438
 msgid ""
 "I can read with ease virtually all forms   of the written language, "
 "including abstract, structurally or linguistically complex texts such as "
 "manuals, specialised articles and literary works."
-msgstr ""
+msgstr "Riesco a capire con facilità praticamente tutte le forme di lingua scritta inclusi i teorici, strutturalmente o testi linguisticamente complessi, quali manuali, articoli specialistici e opere letterarie."
 
 #: language/_annotated_strings.php:444
 msgid "Spoken Interaction ..."
-msgstr ""
+msgstr "Partecipare a una conversazione ..."
 
 #: language/_annotated_strings.php:447
 msgid ""
@@ -682,7 +683,7 @@ msgid ""
 "repeat or rephrase things at a slower rate of speech and help me formulate "
 "what I'm trying to say. I can ask and answer simple questions in areas of "
 "immediate need or on very familiar topics."
-msgstr ""
+msgstr "Riesco a interagire in modo semplice se l'interlocutore é disposto a ripetere o a riformulare le cose ad una velocità di parola più lenta e mi aiuta a formulare ciò che cerco di dire. Riesco a porre e a rispondere a domande semplici bisogni immediati o su argomenti molto familiari."
 
 #: language/_annotated_strings.php:450
 msgid ""
@@ -690,7 +691,7 @@ msgid ""
 "exchange of information on familiar topics and activities. I can handle very"
 " short social exchanges, even though I can't usually understand enough to "
 "keep the conversation going myself."
-msgstr ""
+msgstr "Riesco a comunicare in attività semplici e di routine che richiedono uno scambio semplice e diretto di informazioni su argomenti e attività consuete. Riesco a fare breve conversazioni, anche se di solito non capisco abbastanza per mantenere la conversazione."
 
 #: language/_annotated_strings.php:453
 msgid ""
@@ -698,14 +699,14 @@ msgid ""
 " where the language is spoken. I can enter unprepared into conversation on "
 "topics that are familiar, of personal interest or pertinent to everyday life"
 " (e.g. family, hobbies, work, travel and current events)."
-msgstr ""
+msgstr "Riesco ad affrontare molte delle situazioni che si possono presentare viaggiando in una zona dove si parla la lingua. Riesco a partecipare, senza essermi preparato, a conversazioni su argomenti familiari, d'interesse personale o riguardando la vita quotidiana (per esempio la famiglia, gli hobby, il lavoro, i viaggi e i fatti di attualità)."
 
 #: language/_annotated_strings.php:456
 msgid ""
 "I can interact with a degree of fluency and spontaneity that makes regular "
 "interaction with native speakers quite possible. I can take an active part "
 "in discussion in familiar contexts, accounting for  and sustaining my views."
-msgstr ""
+msgstr "Riesco a comunicare con un grado di spontaneità e scioltezza sufficiente per interagire in modo normale con parlanti nativi. Posso partecipare attivamente a una discussione in contesti familiari, esponendo e sostenendo le mie opinioni."
 
 #: language/_annotated_strings.php:459
 msgid ""
@@ -713,7 +714,7 @@ msgid ""
 "searching for expressions. I can use language flexibly and effectively for "
 "social and professional purposes. I can formulate ideas and opinions with "
 "precision and relate my contribution skilfully to those of other speakers."
-msgstr ""
+msgstr "Riesco ad esprimermi in modo sciolto e spontaneo senza dover cercare troppo le parole. Posso usare la lingua in modo flessibile ed efficace nelle relazioni sociali e professionali. Riesco a formulare idee e opinioni in modo preciso e relazionare abilmente i miei interventi a quelli di altri interlocutori."
 
 #: language/_annotated_strings.php:462
 msgid ""
@@ -722,24 +723,24 @@ msgid ""
 "express myself fluently and convey finer shades of meaning precisely. If I "
 "do have a problem I can backtrack and restructure around the difficulty so "
 "smoothly that other people are hardly aware of it."
-msgstr ""
+msgstr "Riesco a partecipare senza sforzi a qualsiasi conversazione e discussione ed ho familiarità con le espressioni idiomatiche e colloquiali. Posso esprimermi con scioltezza e rendere con precisione sottili sfumature di significato. Se ho un problema sono capace di ritornare sul discorso e a riformularlo in modo scorrevole che nessuno se ne accorge."
 
 #: language/_annotated_strings.php:468
 msgid "Spoken Production ..."
-msgstr ""
+msgstr "Parlare coerente"
 
 #: language/_annotated_strings.php:471
 msgid ""
 "I can use simple phrases and sentences to describe where I live and people I"
 " know."
-msgstr ""
+msgstr "Posso usare espressioni e frasi semplici per descrivere il luogo dove abito e la gente che conosco."
 
 #: language/_annotated_strings.php:474
 msgid ""
 "I can use a series of phrases and sentences to describe in simple terms my "
 "family and other people, living conditions, my educational background and my"
 " present or most recent job."
-msgstr ""
+msgstr "Riesco ad usare una serie di espressioni e frasi per descrivere con parole semplici la mia famiglia ed altre persone, le condizioni di vita, la carriera scolastica e il mio lavoro attuale o il più recente."
 
 #: language/_annotated_strings.php:477
 msgid ""
@@ -747,52 +748,52 @@ msgid ""
 "events, my dreams, hopes and ambitions. I can briefly give reasons and "
 "explanations for opinions and plans. I can narrate a story or relate the "
 "plot of a book or film and describe my reactions."
-msgstr ""
+msgstr "Posso collegare frasi in un modo semplice per descrivere esperienze ed avvenimenti, i miei sogni, speranze e ambizioni. Posso brevemente  giustificare e dare spiegazioni su opinioni e progetti. Riesco a narrare una storia e la trama di un libro o di un film ea descrivere le mie reazioni."
 
 #: language/_annotated_strings.php:480
 msgid ""
 "I can present clear, detailed descriptions on a wide range of subjects "
 "related to my field of interest. I can explain a viewpoint on a topical "
 "issue giving the advantages and disadvantages of various options."
-msgstr ""
+msgstr "Posso esprimermi in modo chiaro e articolato su una vasta gamma di argomenti che mi interessano. Riesco a esprimere un'opinione su un argomento d'attualità, indicando vantaggi e svantaggi delle diverse opzioni."
 
 #: language/_annotated_strings.php:483
 msgid ""
 "I can present clear, detailed descriptions of complex subjects integrating "
 "sub-themes, developing particular points and rounding off with an "
 "appropriate conclusion."
-msgstr ""
+msgstr "Riesco a presentare descrizioni chiare e articolate su argomenti complessi, integrando temi secondari, sviluppando punti specifici e arrotondamentando fuori con una conclusione adeguata."
 
 #: language/_annotated_strings.php:486
 msgid ""
 "I can present a clear, smoothly-flowing description or argument in a style "
 "appropriate to the context and with an effective logical structure which "
 "helps the recipient to notice and remember significant points."
-msgstr ""
+msgstr "Riesco a presentare una chiara descrizione scorrevole o argomentazioni in uno stile adeguato al contesto e con una struttura logica efficace che aiuti il ​​destinatario a identificare i punti salienti da ricordare."
 
 #: language/_annotated_strings.php:492
 msgid "Writing ..."
-msgstr ""
+msgstr "Scrittura ..."
 
 #: language/_annotated_strings.php:495
 msgid ""
 "I can write a short, simple postcard, for example sending holiday greetings."
 " I can fill in forms with personal details, for example entering my name, "
 "nationality and address on a hotel registration form."
-msgstr ""
+msgstr "Riesco a scrivere una breve e semplice cartolina, ad esempio per mandare i saluti dalle vacanze. Riesco a compilare moduli con dati personali, per esempio il mio nome, la nazionalità e l'indirizzo sulla scheda di registrazione albergo."
 
 #: language/_annotated_strings.php:498
 msgid ""
 "I can write short, simple notes and messages. I can write a very simple "
 "personal letter, for example thanking someone for something."
-msgstr ""
+msgstr "Posso scrivere breve note semplici e messaggi. Riesco a scrivere una lettera personale molto semplice, per esempio per ringraziare qualcuno."
 
 #: language/_annotated_strings.php:501
 msgid ""
 "I can write simple connected text on topics which are familiar or of "
 "personal interest. I can write personal letters describing experiences and "
 "impressions."
-msgstr ""
+msgstr "Riesco a scrivere testi semplici e coerenti su argomenti che siano familiari o di interesse personale. Riesco a scrivere lettere personali esponendo esperienze e impressioni."
 
 #: language/_annotated_strings.php:504
 msgid ""
@@ -800,7 +801,7 @@ msgid ""
 "interests. I can write an essay or report, passing on information or giving "
 "reasons in support of or against a particular point of view. I can write "
 "letters highlighting the personal significance of events and experiences."
-msgstr ""
+msgstr "Riesco a scrivere testi chiari e articolati su un'ampia gamma di argomenti che mi interessano. Riesco a scrivere saggi e relazioni, fornendo informazioni o dando ragioni a favore o contro un particolare punto di vista. Riesco a scrivere lettere mettendo in evidenza il significato personale di eventi ed esperienze."
 
 #: language/_annotated_strings.php:507
 msgid ""
@@ -808,7 +809,7 @@ msgid ""
 "view at some length. I can write about complex subjects in a letter, an "
 "essay or a report, underlining what I consider to be the salient issues. I "
 "can select a style appropriate to the reader in mind."
-msgstr ""
+msgstr "Riesco a scrivere testi chiari e ben strutturati, esprimendo punti di vista con una certa lunghezza. Posso scrivere su argomenti complessi in una lettera, un saggio o un rapporto, evidenziando i punti che ritengo d'essere le questioni salienti. Riesco a scegliere lo stile adatto ai lettori in mente."
 
 #: language/_annotated_strings.php:510
 msgid ""
@@ -817,20 +818,20 @@ msgid ""
 "effective logical structure which helps the recipient to notice and remember"
 " significant points. I can write summaries and reviews of professional or "
 "literary works."
-msgstr ""
+msgstr "Riesco a scrivere testi chiari, scorrevoli e stilisticamente appropriati. Riesco a scrivere lettere complesse, relazioni o articoli che presentano il contenuto con una struttura logica efficace che aiuti il ​​destinatario a identificare i punti salienti da rammentare. Riesco a scrivere riassunti e recensioni di opere letterarie."
 
 #: language/_annotated_strings.php:516
 msgid "Employment history"
-msgstr ""
+msgstr "Storia occupazione"
 
 #: language/_annotated_strings.php:519
 msgid "Skills"
-msgstr ""
+msgstr "Abilità"
 
 #: language/_annotated_strings.php:843
 msgid "what is your native language"
-msgstr ""
+msgstr "Qual è la tua lingua madre"
 
 #: language/_annotated_strings.php:849
 msgid "Overview"
-msgstr "Panoramica"
+msgstr "Sintesi"

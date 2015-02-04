@@ -31,9 +31,9 @@
 <div class="panel-heading"><?php echo $this->translate("education")?></div>
 <table class="table table-bordered table-condensed">
 <tr>
-<th class="col1"><?php echo $this->translate("Date")?></th>
-<th class="col2"><?php echo $this->translate("School or university")?></th>
-<th class="col3"><?php echo $this->translate("Type")?></th>
+<th style="width:10%"><?php echo $this->translate("Date")?></th>
+<th style="width:50%"><?php echo $this->translate("School or university")?></th>
+<th style="width:40%"><?php echo $this->translate("Type")?></th>
 </tr>
 <?php foreach($this->education as $edu):?>
 <tr>
@@ -62,10 +62,10 @@
 <div class="panel-heading"><?php echo $this->translate("work experience");?></div>
 <table class="table table-bordered table-condensed">
 <tr>
-<th class="col1"><?php echo $this->translate("Date")?></th>
-<th class="col2"><?php echo $this->translate("Employer")?></th>
-<th class="col3"><?php echo $this->translate("Position")?></th>
-<th><?php echo $this->translate("Description")?></th>
+<th style="width:10%"><?php echo $this->translate("Date")?></th>
+<th style="width:25%"><?php echo $this->translate("Employer")?></th>
+<th style="width:25%"><?php echo $this->translate("Position")?></th>
+<th style="width:40%"><?php echo $this->translate("Description")?></th>
 </tr>
 <?php foreach($this->work as $work_experience):?>
 <tr>

@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -16,6 +16,7 @@ use Zend\View\Model\JsonModel;
 use Zend\Session\Container as Session;
 use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
+use Applications\Entity\Application;
 use Applications\Entity\Comment;
 use Applications\Entity\Rating;
 use Zend\Stdlib\Parameters;
@@ -250,6 +251,7 @@ class ManageController extends AbstractActionController
     {
         $applicationId = $this->params('id');
         $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        /** @var Application $application */
         $application   = $repository->find($applicationId);
         
         $this->acl($application, 'change');
@@ -286,8 +288,10 @@ class ManageController extends AbstractActionController
                $mail->addBcc($user->info->email, $user->info->displayName);
            }
            $mailService->send($mail);
-           
-            $application->changeStatus($status, sprintf('Mail was sent to %s' , $application->contact->email));
+
+           $historyText = sprintf('Mail was sent to %s' , $application->contact->email);
+            $application->changeStatus($status, $historyText);
+            $this->notification()->success($historyText);
 
             if ($jsonFormat) {
                 return array(
@@ -305,6 +309,7 @@ class ManageController extends AbstractActionController
             case Status::REJECTED : $key = 'mailRejectionText'; break;
         }
         $mailText      = $settings->$key ? $settings->$key : '';
+        $this->notification()->success($mailText);
         $mail->setBody($mailText);
         $mailText = $mail->getBodyText();
         $mailSubject   = sprintf(
@@ -366,11 +371,14 @@ class ManageController extends AbstractActionController
                 'from'        => array($fromAddress => $userName)
             );
             $this->mailer('Applications/Forward', $mailOptions, true);
+            $this->notification()->success($params['text']);
         } catch (\Exception $ex) {
             $params = array(
                 'ok' => false,
                 'text' => sprintf($translator->translate('Forward application to %s failed.'), $emailAddress)
             );
+            $this->notification()->error($params['text']);
+
         }
         $application->changeStatus($application->status,$params['text']);
         return new JsonModel($params);

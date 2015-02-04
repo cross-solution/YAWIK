@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -58,7 +58,6 @@ abstract class AbstractEntity implements EntityInterface
         if (method_exists($this, $method)) {
             return $this->$method();
         }
-        
         throw new OutOfBoundsException("'$property' is not a valid property of '" . get_class($this) . "'");
     }
     

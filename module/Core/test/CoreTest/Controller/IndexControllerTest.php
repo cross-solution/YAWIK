@@ -2,14 +2,14 @@
 /**
  * YAWIK - Unit Tests
  *
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 namespace CoreTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractControllerTestCase;
-use CoreTest\Bootstrap;
+use Test\Bootstrap;
 
 class IndexControllerTest extends AbstractControllerTestCase
 {

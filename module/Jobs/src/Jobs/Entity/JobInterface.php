@@ -1,4 +1,10 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 namespace Jobs\Entity;
 
@@ -12,7 +18,12 @@ use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 
-interface JobInterface extends EntityInterface, 
+/**
+ * Interface for a Job Posting
+ *
+ * @package Jobs\Entity
+ */
+interface JobInterface extends EntityInterface,
                                IdentifiableEntityInterface,
                                ModificationDateAwareEntityInterface, 
                                SearchableEntityInterface,
@@ -33,6 +44,20 @@ interface JobInterface extends EntityInterface,
      * @return string
      */
     public function getApplyId();
+
+    /**
+     * checks, weather a job is enabled for getting applications
+     * @return boolean
+     */
+    public function getAtsEnabled();
+
+    /**
+     * enables a job add to receive applications
+     *
+     * @param boolean $atsEnabled
+     * @return \Jobs\Entity\Job
+     */
+    public function setAtsEnabled($atsEnabled);
     
     /**
      * Gets an URI for a job posting
@@ -58,7 +83,8 @@ interface JobInterface extends EntityInterface,
     /**
      * Sets the publishing date of a job posting
      *
-     * @return string $title
+     * @param $datePublishStart
+     * @return string
      */
     public function setDatePublishStart($datePublishStart);
     
@@ -69,37 +95,39 @@ interface JobInterface extends EntityInterface,
      */
     
     public function getTitle();
+
     /**
      * Sets the title of a job posting
      *
      * @param string $title
      */
-    
     public function setTitle($title);
+
     /**
      * Gets the description of a job posting
      *
      * @return string
      */
-    
     public function getDescription();
     /**
-     * Sets the desription of a job posting
+     * Sets the description of a job posting
      *
      * @param string $text
      */
     public function setDescription($text);
-    
+
     /**
      * Gets the organisation name, which offers the job posting
      *
+     * @deprecated
      * @return string
      */
     public function getCompany();
-    
+
     /**
      * Sets the organisation name, which offers a job posting
      *
+     * @deprecated
      * @param string $company
      * @return JobInterface $job
      */
@@ -108,7 +136,7 @@ interface JobInterface extends EntityInterface,
     /**
      * Gets the organisation, which offers the job posting
      * 
-     * @return OrganisationInterface
+     * @return OrganizationInterface
      */
 
     public function getOrganization();
@@ -119,7 +147,7 @@ interface JobInterface extends EntityInterface,
      * @param OrganizationInterface $organization
      * @return JobInterface
      */
-    public function setOrganization(OrganizationInterface $organization);
+    public function setOrganization(OrganizationInterface $organization = null);
 
     /**
      * Sets the contact email of a job posting
@@ -183,6 +211,21 @@ interface JobInterface extends EntityInterface,
     public function setUriPublisher($uriPublisher);
 
     /**
+     * Sets the language of a job posting
+     *
+     * @param string $language
+     */
+    public function setLanguage($language);
+
+    /**
+     * Gets the language of a job posting
+     *
+     * @return string
+     */
+    public function getLanguage();
+
+
+    /**
      * Sets the location of a job posting
      *
      * @param string $location
@@ -195,6 +238,20 @@ interface JobInterface extends EntityInterface,
      * @return string
      */
     public function getLocation();
+
+    /**
+     * Sets locations of a job posting
+     *
+     * @param string $locations
+     */
+    public function setLocations($locations);
+
+    /**
+     * Gets locations of a job posting
+     *
+     * @return string
+     */
+    public function getLocations();
 
     /**
      * Sets applications for a job posting
@@ -220,9 +277,39 @@ interface JobInterface extends EntityInterface,
     /**
      * Gets applications for a job posting
      *
-     * @return sting
+     * @return string
      */
     public function getStatus();
+
+    /**
+     * Sets the collection of history entities.
+     *
+     * @param Collection $history
+     * @return JobInterface
+     */
+    public function setHistory(Collection $history);
+
+    /**
+     * Gets the collection of history entities.
+     *
+     * @return Collection
+     */
+    public function getHistory();
+
+    /**
+     * Sets the terms and conditions accepted flag.
+     *
+     * @param bool $flag
+     * @return self
+     */
+    public function setTermsAccepted($flag);
+
+    /**
+     * Gets the terms and conditions accepted flag.
+     *
+     * @return bool
+     */
+    public function getTermsAccepted();
 
     /**
      * Sets a reference for a job posting, used by the
@@ -239,5 +326,19 @@ interface JobInterface extends EntityInterface,
      * @return string $reference
      */
     public function getReference();
-    
+
+    /**
+     * Sets the list of channels where a job opening should be published
+     *
+     * @param Array $portals
+     */
+    public function setPortals(array $portals);
+
+    /**
+     * Gets the list of channels where the job opening should be published
+     *
+     * @return Array
+     */
+    public function getPortals();
+
 }

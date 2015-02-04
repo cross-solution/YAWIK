@@ -6,12 +6,26 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
+/**
+ * {{rtd: General layout. Includes the HTML Header}}
+ */
 ?>
 <?php 
 
 // See: http://yawik.readthedocs.org/en/latest/modules/core/notifications.html
 
-$notifications = $this->partial('core/notifications'); 
+$notifications = $this->partial('core/notifications');
+
+$this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
+
+$this->configHeadScript()->prependFile($this->basepath('Core/js/core.init.js'));
+$this->configHeadScript()->prependFile($this->basePath('Core/js/pnotify.custom.min.js'), 'text/javascript');
+$this->configHeadScript()->prependFile($this->basePath('js/bootstrap.min.js'));
+$this->configHeadScript()->prependFile($this->basePath('js/jquery.min.js'));
+$this->configHeadScript()->appendScript('var lang="' . $this->params('lang') . '";'
+                                      . 'var basePath="' . $this->basePath() . '";');
+
+$this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.min.css'));
 
 ?>
 <?php echo $this->doctype(); ?>
@@ -22,30 +36,19 @@ $notifications = $this->partial('core/notifications');
 
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         
-        <?php echo $this->configheadScript()
-                        ->prependFile($this->basepath('Core/js/core.init.js'))
-                        ->prependFile($this->basePath('js/bootstrap.min.js'))
-                        ->prependFile($this->basePath('js/jquery.min.js')) 
-                        ->appendScript('var lang="' . $this->params('lang') . '";'
-                                     . 'var basePath="' . $this->basePath() . '";');
-        ?>
+        <?php echo $this->configheadScript();?>
         <?php
 
         // See: http://yawik.readthedocs.org/en/latest/customize.html#css
 
-        echo $this->headLink() ->prependStylesheet($this->basePath() . '/css/yawik.css');
+        echo $this->headLink();
 
         ?>
         <?php echo $this->headStyle() ?>
-        <style type="text/css">
-        .yk-notifications {
-            margin-top: 10px;
-        	padding: 0 15px;
-    }</style>
     </head>
     <body>
 	<a class="sr-only" href="#content">Skip to main content</a>
-	<header id="cam-topbar" role="banner">
+	<header id="yk-topbar" role="banner">
          <div class="cam-container">
    	       <div class="navbar-header">
                     <button class="navbar-toggle collapsed" data-target=".cam-navbar-collapse" data-toggle="collapse" type="button">
@@ -57,7 +60,7 @@ $notifications = $this->partial('core/notifications');
                     <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>">YAWIK</a>
                     <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/' . $this->params('lang'))?>">Y</a>
                </div>
-                  <nav id="cam-main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
+                  <nav id="main-navigation" class="navbar-collapse collapse cam-navbar-collapse" role="navigation">
                      <?php 
                         echo $this->navigation('Core/Navigation')
                                   ->setAcl($this->services('acl'))
@@ -70,7 +73,7 @@ $notifications = $this->partial('core/notifications');
                  </nav> <!-- /main-navigation -->
 		</div>
             </header>
-          <div class="container row col-md-2">
+          <div class="container col-md-2">
 <!-- SIDEBAR -->
 <nav id="sidebar">
 <div class="btn-group" data-toggle="buttons-radio" id="language-switcher">
@@ -91,9 +94,8 @@ $notifications = $this->partial('core/notifications');
               ->setRenderParents(false)
               ->setUlClass('nav nav-pills nav-stacked');
 ?>
-
-
 <?php foreach ($this->layout()->getChildren() as $child):
+    /** @var $child \Zend\View\Model\ModelInterface */
     if (0 === strpos($child->captureTo(), "sidebar_")):
         echo $this->{$child->captureTo()};
     endif;
@@ -109,9 +111,9 @@ endforeach;?>
 <?php echo $this->content; ?>
 </main> 
 <!-- /container -->
-            <footer id="cam-footer">
+            <footer id="yk-footer">
                 <div class="container">
-		<span class="pull-left"><small>&copy; 2013-2014 <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
+		<span class="pull-left"><small>&copy; 2013-<?php echo date("Y")?> <a href="http://cross-solution.de">Cross Solution</a>. <?php echo $this->translate('All rights reserved.') ?>
                     | <version><?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</version></small></span>
                 <span class="pull-right"><small>
                     Powered by <a href="http://yawik.org">YAWIK</a>

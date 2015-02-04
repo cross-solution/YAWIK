@@ -29,7 +29,7 @@ class Timeline extends AbstractEntity
     }
     
     /**
-     * @return the $date
+     * @return $date
      */
     public function getDate ()
     {
@@ -40,7 +40,7 @@ class Timeline extends AbstractEntity
     }
 
     /**
-     * @param field_type $date
+     * @param \DateTime $date
      * @return $this
      */
     public function setDate (\DateTime $date)

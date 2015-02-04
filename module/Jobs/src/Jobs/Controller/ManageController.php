@@ -4,18 +4,24 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** ActionController of Core */
 namespace Jobs\Controller;
 
+use Jobs\Entity\Status;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use Core\Form\SummaryForm;
 use Auth\Exception\UnauthorizedAccessException;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
+use Jobs\Listener\Events\JobEvent;
+use Core\Form\SummaryFormInterface;
+use Zend\Stdlib\ArrayUtils;
 
 
 /**
@@ -30,10 +36,16 @@ class ManageController extends AbstractActionController {
         parent::attachDefaultListeners();
         $serviceLocator = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
+        $jobServices = $serviceLocator->get('Jobs/Listeners');
         $events = $this->getEventManager();
         $events->attach($defaultServices);
+        $events->attach($jobServices);
 
         return $this;
+    }
+
+    public function testAction()
+    {
     }
 
     /**
@@ -66,34 +78,146 @@ class ManageController extends AbstractActionController {
         return $this->save();
     }
 
-    protected function save()
+    /**
+     * save a Job-Post either by a regular request or by an async post (AJAX)
+     * a mandatory parameter is the ID of the Job
+     * in case of a regular Request you can
+     *
+     * parameter are arbitrary elements for defaults or programming flow
+     *
+     * @param array $parameter
+     * @return null|ViewModel
+     * @throws \RuntimeException
+     */
+    protected function save($parameter = array())
     {
+        $serviceLocator     = $this->getServiceLocator();
+        /** @var \Zend\Http\Request $request */
+        $request            = $this->getRequest();
+        $isAjax             = $request->isXmlHttpRequest();
+        $pageToForm         = array(0 => array('locationForm', 'nameForm', 'portalForm'),
+                                    1 => array('descriptionForm'),
+                                    2 => array('previewForm'));
         $request            = $this->getRequest();
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
+        $pageIdentifier     = (int) $params->fromQuery('page', array_key_exists('page', $parameter)?$parameter['page']:0);
         $jobEntity          = $this->getJob();
+        $viewModel          = Null;
         //$this->acl($job, $origAction);
-        $form       = $this->getFormular($jobEntity);
+        $form               = $this->getFormular($jobEntity);
+        $mvcEvent           = $this->getEvent();
+
+        $valid              = true;
+        $instanceForm       = Null;
+        $viewHelperManager  = $serviceLocator->get('ViewHelperManager');
+        $formErrorMessages = array();
         if (isset($formIdentifier) &&  $request->isPost()) {
-            // at this point the form get instanciated and immediately accumulated
+            // at this point the form get instantiated and immediately accumulated
             $instanceForm = $form->get($formIdentifier);
             if (!isset($instanceForm)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
-            // the id is part of the postData, but it never should be altered
+            // the id may be part of the postData, but it never should be altered
             $postData = $request->getPost();
-            unset($postData['id']);
+            if (isset($postData['id'])) unset($postData['id']);
+            unset($postData['applyId']);
             $instanceForm->setData($postData);
-            if ($instanceForm->isValid()) {
-                $this->getServiceLocator()->get('repositories')->persist($jobEntity);
-                $this->notification()->success(/*@translate*/ 'Job saved');
-            }
-            else {
-                $this->notification()->error(/*@translate*/ 'There were errors in the form');
+            $valid = $instanceForm->isValid();
+            $formErrorMessages = ArrayUtils::merge($formErrorMessages, $instanceForm->getMessages());
+            if ($valid) {
+                $title = $jobEntity->title;
+                $templateTitle = $jobEntity->templateValues->title;
+                if (empty($templateTitle)) {
+                    $jobEntity->templateValues->title = $title;
+                }
+                $serviceLocator->get('repositories')->persist($jobEntity);
+            } else {
             }
         }
 
-        return $this->getViewModel($form);
+        // validation
+        $jobValid = True;
+        $errorMessage = array();
+        $translator = $serviceLocator->get('translator');
+        if (empty($jobEntity->title)) {
+            $jobValid = False;
+            $errorMessage[] = $translator->translate('No Title');
+        }
+        if (empty($jobEntity->location)) {
+            $jobValid = False;
+            $errorMessage[] = $translator->translate('No Location');
+        }
+        if (empty($jobEntity->termsAccepted)) {
+            $jobValid = False;
+            $errorMessage[] = $translator->translate('Accept the Terms');
+        }
+
+        $errorMessage = '<br />' . implode('<br />', $errorMessage);
+        if ($isAjax) {
+            if ($instanceForm instanceOf SummaryForm)  {
+                $instanceForm->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                $viewHelper = 'summaryform';
+            } else {
+                $viewHelper = 'form';
+            }
+            $content = $viewHelperManager->get($viewHelper)->__invoke($instanceForm);
+            $viewModel = new JsonModel(array(
+                'content' => $content,
+                'valid' => $valid,
+                'jobvalid' => $jobValid,
+                'errors' => $formErrorMessages,
+                'errorMessage' => $errorMessage));
+        }
+        else {
+            if (isset($pageIdentifier)) {
+                $form->disableForm();
+                if (array_key_exists($pageIdentifier, $pageToForm)) {
+                    foreach ($pageToForm[$pageIdentifier] as $actualFormIdentifier) {
+                        $form->enableForm($actualFormIdentifier);
+                        if ($jobEntity->isDraft()) {
+                            $actualForm = $form->get($actualFormIdentifier);
+                            if ($actualForm instanceOf SummaryFormInterface) {
+                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::RENDER_FORM);
+                            }
+                        }
+                    }
+                    if (!$jobEntity->isDraft()) {
+                        // Job is deployed, some changes are now disabled
+                        $form->enableAll();
+                    }
+                }
+                else {
+                    throw new \RuntimeException('No form found for page ' . $pageIdentifier);
+                }
+            }
+            $pageLinkNext = Null;
+            $pageLinkPrevious = Null;
+            if (0 < $pageIdentifier) {
+                $pageLinkPrevious = $this->url()->fromRoute('lang/jobs/manage', array(), array('query' => array('id' => $jobEntity->id, 'page' => $pageIdentifier - 1)));
+            }
+            if ($pageIdentifier < count($pageToForm) - 1) {
+                $pageLinkNext     = $this->url()->fromRoute('lang/jobs/manage', array(), array('query' => array('id' => $jobEntity->id, 'page' => $pageIdentifier + 1)));
+            }
+            $completionLink = $this->url()->fromRoute('lang/jobs/completion', array('id' => $jobEntity->id));
+
+            $viewModel = $this->getViewModel($form);
+            //$viewModel->setVariable('page_next', 1);
+            $viewModel->setVariables(array(
+                'pageLinkPrevious' => $pageLinkPrevious,
+                'pageLinkNext' => $pageLinkNext,
+                'completionLink' => $completionLink,
+                'page' => $pageIdentifier,
+                'title' => $jobEntity->title,
+                'job' => $jobEntity,
+                'summary' => 'this is what we charge you for your offer...',
+                'valid' => $valid,
+                'jobvalid' => $jobValid,
+                'errorMessage' => $errorMessage,
+                'isDraft' => $jobEntity->isDraft()
+            ));
+        }
+        return $viewModel;
     }
     
     public function checkApplyIdAction()
@@ -120,35 +244,30 @@ class ManageController extends AbstractActionController {
         $container->setParam('job',$job->id);
         $container->setParam('applyId',$job->applyId);
         return $container;
-        /*
-        $formTitleLocation = $form->getForm->get('location');
-        $formTitleLocation->bind($job);
-        
-        if ($this->getRequest()->isPost()) {
-            $formTitleLocation->setData($_POST);
-        }
-
-        return $formTitleLocation;
-        */
     }
     
     protected function getJob($allowDraft = true)
     {
         $services       = $this->getServiceLocator();
         $repositories   = $services->get('repositories');
+        /** @var \Jobs\Repository\Job $repository */
         $repository     = $repositories->get('Jobs/Job');
         // @TODO three different method to obtain the job-id ?, simplify this
         $id_fromRoute   = $this->params('id',0);
         $id_fromQuery   = $this->params()->fromQuery('id',0);
         $id_fromSubForm = $this->params()->fromPost('job',0);
+        $user           = $this->auth()->getUser();
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
-        
+
         if (empty($id) && $allowDraft) {
-            $job        = $repository->create();
-            $user       = $this->auth()->getUser();
-            $job->setIsDraft(true);
-            $job->setUser($user);
-            $repositories->store($job);
+            /** @var \Jobs\Entity\Job $job */
+            $job = $repository->findDraft($user);
+            if (empty($job)) {
+                $job = $repository->create();
+                $job->setIsDraft(true);
+                $job->setUser($user);
+                $repositories->store($job);
+            }
             return $job;
         }
 
@@ -177,69 +296,100 @@ class ManageController extends AbstractActionController {
     }
 
 
-    protected function edittemplateAction()
-    {
-        $request              = $this->getRequest();
-        $params               = $this->params();
-        $formIdentifier       = $params->fromQuery('form');
-        $services             = $this->getServiceLocator();
-        $viewHelperManager    = $services->get('ViewHelperManager');
-        $viewHelperForm       = $viewHelperManager->get('formsimple');
-        $mvcEvent             = $this->getEvent();
-        $id                   = $this->params('id');
-        $applicationViewModel = $mvcEvent->getViewModel();
-        $repositories         = $services->get('repositories');
-        $repositoryJob        = $repositories->get('Jobs/Job');
-        $jobEntity            = $repositoryJob->find($id);
-        $model                = new ViewModel();
-        $forms                = $services->get('FormElementManager');
-        $formTemplate         = $forms->get('Jobs/Description/Template', array(
-                                    'mode' => $jobEntity->id ? 'edit' : 'new'
-                                ));
 
-        $formTemplate->setParam('id', $jobEntity->id);
-        $formTemplate->setParam('applyId', $jobEntity->applyId);
-        $formTemplate->setEntity($jobEntity);
 
-        if (isset($formIdentifier) && $request->isPost()) {
-            // at this point the form get instanciated and immediately accumulated
-            $instanceForm = $formTemplate->get($formIdentifier);
-            if (!isset($instanceForm)) {
-                throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
-            }
-            // the id is part of the postData, but it never should be altered
-            $postData = $request->getPost();
-            unset($postData['id']);
-            $instanceForm->setData($postData);
-            if ($instanceForm->isValid()) {
-                $this->getServiceLocator()->get('repositories')->persist($jobEntity);
-            }
-        }
+    /**
+     * Job opening is completed.
+     *
+     * @return array
+     */
+    public function completionAction() {
 
-        $descriptionFormBenefits = $formTemplate->get('descriptionFormBenefits');
-        $renderedDescriptionFormBenefits = $viewHelperForm->render($descriptionFormBenefits);
+        $serviceLocator = $this->getServiceLocator();
+        $jobEntity      = $this->getJob();
+        $jobEvent       = $serviceLocator->get('Jobs/Event');
+        $jobEvent->setJobEntity($jobEntity);
 
-        $descriptionFormRequirements = $formTemplate->get('descriptionFormRequirements');
-        $renderedDescriptionFormRequirements = $viewHelperForm->render($descriptionFormRequirements);
+        $jobEntity->isDraft = false;
+        $jobEntity->changeStatus(Status::CREATED, "job was created");
+        $jobEntity->atsEnabled = true;
 
-        $descriptionFormQualifications = $formTemplate->get('descriptionFormQualifications');
-        $renderedDescriptionFormQualifications = $viewHelperForm->render($descriptionFormQualifications);
+        /**
+         * make the job opening persist and fire the EVENT_JOB_CREATED
+         */
+        $serviceLocator->get('repositories')->store($jobEntity);
 
-        $descriptionFormTitle = $formTemplate->get('descriptionFormTitle');
-        $renderedDescriptionFormTitle = $viewHelperForm->render($descriptionFormTitle);
+        $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
 
-        $model->setTemplate('templates/default/index.phtml');
-        $applicationViewModel->setTemplate('iframe/iFrameInjection');
-        $model->setVariables(array(
-            'benefits' => $renderedDescriptionFormBenefits,
-            'requirements' => $renderedDescriptionFormRequirements,
-            'qualifications' => $renderedDescriptionFormQualifications,
-            'title' => $renderedDescriptionFormTitle,
-        ));
-
-        return $model;
+        return array('job' => $jobEntity);
     }
 
+    /**
+     * all actions around approve or decline jobs-offers
+     *
+     * @return array with the viewVariables
+     */
+    public function approvalAction() {
 
+        $serviceLocator = $this->getServiceLocator();
+        $translator     = $serviceLocator->get('translator');
+        $user           = $this->auth()->getUser();
+        $repositories   = $serviceLocator->get('repositories');
+        $params         = $this->params('state');
+        /** @var \Jobs\Entity\Job $jobEntity */
+        $jobEntity      = $this->getJob();
+        $jobEvent       = $serviceLocator->get('Jobs/Event');
+        $jobEvent->setJobEntity($jobEntity);
+
+        if ($params == 'declined') {
+            $jobEntity->changeStatus(Status::REJECTED, sprintf( /*@translate*/ "Job opening was rejected by %s",$user->info->displayName));
+            $jobEntity->isDraft = true;
+            $repositories->store($jobEntity);
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
+            $this->notification()->success($translator->translate('Job has been rejected'));
+        }
+
+        if ($params == 'approved') {
+            $jobEntity->changeStatus(Status::ACTIVE, sprintf( /*@translate*/ "Job opening was activated by %s",$user->info->displayName));
+            $repositories->store($jobEntity);
+            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+            $this->notification()->success($translator->translate('Job has been approved'));
+        }
+
+        $viewLink = $this->url()->fromRoute('lang/jobs/view',
+            array(),
+            array('query' =>
+                      array( 'id' => $jobEntity->id)));
+
+        $approvalLink = $this->url()->fromRoute('lang/jobs/approval',
+            array('state' => 'approved'),
+            array('query' =>
+                      array( 'id' => $jobEntity->id)));
+
+        $declineLink = $this->url()->fromRoute('lang/jobs/approval',
+            array('state' => 'declined'),
+            array('query' =>
+                      array( 'id' => $jobEntity->id)));
+
+        return array('job' => $jobEntity,
+                     'viewLink' => $viewLink,
+                     'approvalLink' => $approvalLink,
+                     'declineLink' => $declineLink);
+    }
+
+    public function deactivateAction() {
+        $serviceLocator = $this->getServiceLocator();
+        $translator     = $serviceLocator->get('translator');
+        $user           = $this->auth()->getUser();
+        $jobEntity      = $this->getJob();
+
+        try {
+            $jobEntity->changeStatus(Status::INACTIVE, sprintf( /*@translate*/ "Job was deactivated by %s",$user->info->displayName));
+            $this->notification()->success($translator->translate('Job has been deactivated'));
+        } catch (\Exception $e) {
+            $this->notification()->danger($translator->translate('Job could not be deactivated'));
+        }
+        return $this->save(array('page' => 2));
+    }
 }
 

@@ -11,13 +11,14 @@
 /** ActionController of Core */
 namespace Applications\Controller;
 
+use Applications\Repository\Application;
+use Core\Repository\Filter\PropertyToKeywords;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
-use Zend\Mvc\MvcEvent;
-use Zend\Console\Request as ConsoleRequest;
 use Core\Console\ProgressBar;
+use Zend\View\Model\ViewModel;
+use \Zend\Text\Table\Table;
+use \Zend\Text\Table\Row;
+use \Zend\Text\Table\Column;
 
 /**
  * Handles cli actions for applications 
@@ -39,7 +40,7 @@ class ConsoleController extends AbstractActionController {
     }
 
     /**
-     * regenarate keywords for applications
+     * regenerate keywords for applications
      * 
      * @return string
      */
@@ -62,10 +63,12 @@ class ConsoleController extends AbstractActionController {
         echo "Generate keywords for $count applications ...\n";
         
         $progress     = new ProgressBar($count);
-        
+
+        /** @var PropertyToKeywords $filter */
         $filter = $services->get('filtermanager')->get('Core/Repository/PropertyToKeywords');
         $i = 0;
-        
+
+        /** @var \Applications\Entity\Application $application */
         foreach ($applications as $application) {
             $progress->update($i++, 'Application ' . $i . ' / ' . $count);
             $keywords = $filter->filter($application);
@@ -96,7 +99,7 @@ class ConsoleController extends AbstractActionController {
         echo "Calculate rating for " . $count . " applications ...\n";
         
         $progress = new ProgressBar($count);
-        
+        /** @var  \Applications\Entity\Application $application */
         foreach ($applications as $application) {
             $progress->update($i++, 'Application ' . $i . ' / ' . $count);
             $application->getRating(/* recalculate */ true);
@@ -136,20 +139,76 @@ class ConsoleController extends AbstractActionController {
         }
         $progress->finish();
     }
-    
+
+    /**
+     * list available view scripts
+     */
+    public function listviewscriptsAction() {
+
+        $config = $this->getServiceLocator()->get('Config');
+
+        $table = new Table(array('columnWidths' => array(40, 40, 40),
+                                 'decorator' => 'ascii'));
+
+        $table->appendRow(array('Module', 'Name', 'Description'));
+
+        $offset=strlen(getcwd())+1;
+        $links="";
+        $github='https://github.com/cross-solution/YAWIK/blob/master/';
+
+        foreach($config['view_manager']['template_map'] as $key=>$absolute_filename){
+            // strip the application_root plus an additional slash
+            $filename=substr(realpath($absolute_filename),$offset);
+            if (preg_match('~module/([^/]+)~',$filename,$match)){
+                $module=$match[1];
+            }else{
+                $module="not found ($key)";
+            }
+
+            $viewModel = new ViewModel();
+            $viewModel->setTemplate($key);
+
+            $row = new Row();
+            $row->appendColumn(new Column($module));
+            if ($filename) {
+                $row->appendColumn(new Column('`' . $key . '`_' ));
+                $links.='.. _'. $key .': '. $github.$filename .PHP_EOL;
+            }else {
+                $row->appendColumn(new Column("WRONG CONFIGURATION"));
+            }
+            $comment="";
+            if (file_exists($absolute_filename)) {
+                $src=file_get_contents($absolute_filename);
+                $comment="file exists";
+                if (preg_match("/{{rtd:\s*(.*)}}/",$src,$match)){
+                    $comment=$match['1'];
+                }
+            }
+            $row->appendColumn(new Column($comment));
+            $table->appendRow($row);
+        }
+
+        echo $table.PHP_EOL;
+        echo $links;
+
+        return PHP_EOL;
+    }
+
     /**
      * Fetches applications
      * 
      * @param Array $filter
-     * @return $applications
+     * @return Array
      */
     protected function fetchApplications($filter = array())
     {
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
+
+        /** @var Application $appRepo */
         $appRepo      = $repositories->get('Applications/Application');
         $query        = array();
-        $limit        = 0;
+
         foreach ($filter as $key => $value) {
             switch ($key) {
                 case "before":
@@ -178,7 +237,6 @@ class ConsoleController extends AbstractActionController {
 
                 case "id":
                     $query['_id'] = new \MongoId($value);
-                    //$query['id'] = $value;
                     break;
                 case "isDraft":
                     $query['isDraft'] = true;
@@ -193,6 +251,5 @@ class ConsoleController extends AbstractActionController {
 
         return $applications;
     }
-
 }
 

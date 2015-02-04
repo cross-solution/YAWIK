@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -43,7 +43,7 @@ class RepositoryService
     {
         return $this->dm->createQueryBuilder();
     }
-    
+
     public function store(EntityInterface $entity)
     {
         $this->dm->persist($entity);

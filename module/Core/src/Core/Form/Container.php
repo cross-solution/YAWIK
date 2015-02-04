@@ -13,6 +13,7 @@ namespace Core\Form;
 use Zend\Form\Element;
 use Zend\Form\FieldsetInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\View\Renderer\PhpRenderer as Renderer;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -27,7 +28,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Container extends Element implements DisableElementsCapableInterface, ServiceLocatorAwareInterface,
+class Container extends Element implements DisableElementsCapableInterface, ServiceLocatorAwareInterface, FormParentInterface,
                                            \IteratorAggregate,
                                            \Countable
 {
@@ -65,6 +66,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
      * @var array
      */
     protected $params = array();
+
+    protected $parent;
 
     /**
      * {@inheritDoc}
@@ -269,11 +272,20 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         }
         
         $formInstance = $this->formElementManager->get($form['type'], $options);
-        $formName     = (($name = $this->getName())
-                         ? $name . '.' : '')
-                        . $form['name'];
+        $formInstance->setParent($this);
+
+        $formName = '';
+        if (!empty($this->parent)) {
+            $name = $this->getName();
+            if (!empty($name)) {
+                $formName .= $name . '.';
+            }
+        }
+        $formName .= $form['name'];
         $formInstance->setName($formName)
                      ->setAttribute('action', '?form=' . $formName);
+
+        //$testKey = $this->getActionFor($form['type']);
         
         if (isset($form['label'])) {
             $formInstance->setLabel($form['label']);
@@ -318,6 +330,9 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         }
         
         $this->forms[$key] = $spec;
+        if ($spec instanceOf FormParentInterface) {
+            $spec->setParent($this);
+        }
         if ($enabled) {
             $this->enableForm($key);
         } else if (true === $this->activeForms) {
@@ -379,6 +394,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         
         foreach ($key as $k) {
             if (false !== strpos($k, '.')) {
+                // this seems not to be childkey.childform but actualkey.childkey
                 list($childKey, $childForm) = explode('.', $k, 2);
                 $child = $this->getForm($childKey);
                 $child->enableForm($childForm);
@@ -568,6 +584,104 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
             $activeForm->setData($filteredData);
         }
         return $this;
+    }
+
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+
+    public function hasParent()
+    {
+        return isset($this->parent);
+    }
+
+    public function renderPre(Renderer $renderer) {
+        return '';
+    }
+
+    public function renderPost(Renderer $renderer) {
+        return '';
+    }
+
+    /**
+     * get the actual active Form
+     * @param bool $setDefault
+     * @return mixed|null
+     */
+    public function getActiveFormActual($setDefault = True) {
+        $key = null;
+        if (!empty($this->activeForms)) {
+            $key = $this->activeForms[0];
+        }
+        if (!isset($key) && $setDefault) {
+            $formsAvailable = array_keys($this->forms);
+            $key = array_shift($formsAvailable);
+        }
+        return $key;
+    }
+
+    /**
+     * get the form before the actual active
+     * @return null
+     */
+    public function getActiveFormPrevious() {
+        $key = null;
+        $actualKey = $this->getActiveFormActual();
+        if (isset($actualKey)) {
+            $forms = array_keys($this->forms);
+            $formsFlip =  array_flip($forms);
+            $index = $formsFlip[$actualKey];
+            if (0 < $index) {
+                $key = $forms[$index-1];
+            }
+        }
+        return $key;
+    }
+
+
+    /**
+     * get the form after the actual active
+     * @return null
+     */
+    public function getActiveFormNext() {
+        $key = null;
+        $actualKey = $this->getActiveFormActual();
+        if (isset($actualKey)) {
+            $forms = array_keys($this->forms);
+            $formsFlip =  array_flip($forms);
+            $index = $formsFlip[$actualKey];
+            if ($index < count($forms) - 1) {
+                $key = $forms[$index+1];
+            }
+        }
+        return $key;
+    }
+
+    public function getActionFor($key) {
+        $form               = $this->forms[$key];
+        $options            = isset($form['options']) ? $form['options'] : array();
+        $formElementManager = $this->formElementManager;
+        if (!isset($options['use_post_array'])) {
+            $options['use_post_array'] = true;
+        }
+        if (!isset($options['use_files_array'])) {
+            $options['use_files_array'] = false;
+        }
+
+        //$formInstance = $this->formElementManager->get($form['type'], $options);
+        $formName     = (($name = $this->getName()) ? $name . '.' : '') . $form['name'];
+        $action = '?form=' . $formName;
+
+        return $action;
+
     }
 
 }

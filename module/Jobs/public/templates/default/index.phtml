@@ -14,7 +14,7 @@ form > div {
 <div id="page">
  <div id="header">
   <div id="headerimg">
-    <img src="<?php echo $this->basePath("/Jobs/templates/default/logo.gif")?>" class="logo" border="0">
+    <img src="<?php echo $this->uriLogo?>" class="logo" border="0">
     <div class="description">This is a demo Template of a job opening</div>
   </div>
  </div>
@@ -25,7 +25,8 @@ into your jobad and yawik will create an inline editor into your jobad.
 Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
 </p>
 <p>Click below to enter the Jobtitle</p>
-<h1><?echo $this->title?></h1>
+    <p><?php echo $this->description?></p>
+<h1><?php echo $this->title; ?></h1>
 
 <h4>Requirements:</h4>
 <?php echo $this->requirements;?>
@@ -34,15 +35,13 @@ Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWI
 <h4>Benefits:</h4>
 <?php echo $this->benefits;?>
 
-<h2><a target="_new" href="http://yawik.org/demo/de/apply/software-developer?subscriberUri=http%3A%2F%2Fcross-solution.de%2Fsubscriber%2F2"><strong>Zum Online Bewerbungsformular</strong></a></h2>
+<h2><a target="_new" href="<?php echo $this->uriApply ?>"><strong>Zum Online Bewerbungsformular</strong></a></h2>
 
 <address>
-<strong>EXAMPLE Company<br>
-</strong>Diemelstraße 2-4<br>
-60486 Frankfurt am Main (Bockenheim)<br><br>
-
-Tel: 0815-4711<br>
-Fax: 0815-4712
+<strong><?php echo $this->organizationName?><br></strong>
+<?php echo $this->street?><br>
+<?php echo $this->zipcode?> <?php echo $this->city?><br><br>
+<?php echo $this->phone?>
 </address>
 </div>
 </div>

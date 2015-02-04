@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -43,13 +43,18 @@ class IndexController extends AbstractActionController
     public function indexAction()
     { 
         $auth = $this->auth();
+        $services = $this->getServiceLocator();
         if (!$auth->isLoggedIn()) {
+            $config = $services->get('config');
+            if (array_key_exists('startpage',$config['view_manager']['template_map'])) {
+                $this->layout()->setTerminal(True)->setTemplate('startpage');
+            }
             return;
         }
-        
+
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
-        
+
         $dashboardConfig = array(
             'controller' => 'Core\Controller\Index',
             'action'     => 'dashboard',

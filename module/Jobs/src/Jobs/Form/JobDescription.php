@@ -1,13 +1,23 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author    weitz@cross-solution.de
+ */
 
 namespace Jobs\Form;
 
-use Core\Form\Form;
 use Core\Form\Container;
-use Core\Entity\Hydrator\EntityHydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 
+/**
+ * Adds an iFrame to the job formular which holds the editable job opening.
+ *
+ * @package Jobs\Form
+ */
 class JobDescription extends Container implements ViewPartialProviderInterface
 {
 

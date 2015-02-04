@@ -1,0 +1,133 @@
+; This file contains configuration options. By executing:
+;
+; ./phing.phar generate-autoload-config
+;
+; The values are written to configuration files located in config/autoload
+; 
+
+;
+;
+; Database Settings (module/Core/config/module.core.doctrine.config.local.php.dist)
+;
+mongo.host=localhost
+mongo.port=27017
+mongo.db=Yawik
+mongo.user=
+mongo.pass=
+
+;
+; initial user login. The useraccount will be added to the mongodb if not exist.
+;
+
+username=travis
+password=travis
+email=travis@yawik.org
+
+;
+; initial user role. After the first login. Users are asigned to this role by default.
+; possible roles: [ user | recruiter ]
+;
+
+role=recruiter
+
+;
+; external appKey. You can add jobs and users by using a simple API. This 
+; external.appkey is a pre-shared key, which allows your external application
+; to authenticate. An empty value disables this feature.
+;
+
+external.app.key=will-be-overwritten-during-build-process
+external.app.prefix=myapp
+
+;
+; Email (module/Core/config/core.mails.global.php.dist).
+;
+mail.from.email=travis@yawik.org
+mail.from.name=YAWIK
+
+; subject of the initial email, if somebody logs into via a social network
+mail.first_login.subject=Welcome to the YAWIK demo
+
+auth.suffix=
+
+;
+; Email development system settings
+; (module/Core/config/core.mails.development.php.dist).
+;
+; Override recipient for every mail send. (including CC and BCC)
+; Use comma to separate multiple addresses.
+;
+mail.develop.override_recipient=true
+
+;
+; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)
+; You'll het an facebook app ID by creating a Facebook app. 
+; more info: https://developers.facebook.com/ 
+
+facebook.enabled=false
+facebook.appid=<put your facebook app ID here>
+facebook.secret=<put you facebook app secret here>
+facebook.scope=email,user_about_me,user_birthday,user_hometown,user_work_history,user_education_history
+
+; more info: https://dev.xing.com/
+xing.enabled=false
+xing.appid=<put your xing app ID here>
+xing.secret=<put your xing app secret here>
+xing.scope=
+
+; more info: https://developer.linkedin.com/
+linkedin.enabled=false
+linkedin.appid=<put your linkedin app ID here>
+linkedin.secret=<put your linkedin app secret here>
+linkedin.scope=r_fullprofile
+
+;
+; reCapture on registration form
+; these information you need to get from: https://www.google.com/recaptcha/admin#list
+;
+captcha.recapture.public_key=<put your public key here>
+captcha.recapture.private_key=<put your secret key here>
+
+;
+; Forms configuration
+;
+
+; Auth / User / Image
+;
+
+; Maximum file size (in Bytes)
+auth.forms.userimage.maxsize=1000000
+
+; Allowed mimetypes. Comma separated list. Provide either full type or just a group
+; e.g. "image/jpeg,image/png,text"
+; Leave this empty to not restrict mimetypes
+auth.forms.userimage.mimetype=image
+
+; Applications / Apply / Attachments
+;
+
+applications.forms.attachments.maxsize=5000000
+applications.forms.attachments.mimetype=
+
+; Maximum file count. Only this amount of files can be uploaded and attached.
+applications.forms.attachments.count=5
+
+; Applications / Apply / ContactImage
+;
+
+applications.forms.contactimage.maxsize=1000000
+applications.forms.contactimage.mimetype=image
+
+;
+; For Developers: If you plan to contribute to the development, you can define some deployment variables. 
+;
+
+; where to deploy the api docs generated via phpdoc 
+deploy.ssh.host =
+deploy.ssh.user =
+deploy.docs.target =
+
+; als long there is no mechanism to read properties files from modules, we
+; put this config option here
+yawik.demoskin.piwik=/../../module/YawikDemoSkin/view/.piwik.phtml
+

@@ -1,8 +1,15 @@
 <?php
-    $lang = isset($this->lang)?$this->lang:$this->params('lang');
+/**
+ * YAWIK
+ *
+ * View template for the login status box.
+ *
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 ?>
-
-<ul id="login-info-box" class="nav navbar-nav cam-navbar-collapse navbar-collapse collapse navbar-right">
+<?php $lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
+<ul id="yk-login-info" class="nav navbar-nav navbar-collapse collapse navbar-right">
     <li class="dropdown">
     
 <?php if ($this->auth()->isLoggedIn()):?>
@@ -40,13 +47,16 @@
     )?><b class="caret"></b></a>
 
    <ul class="dropdown-menu pull-right">
-        <li><a href="<?php 
+        <li><a href="<?php
+
             $ref = $this->buildReferer(array('logout', 'ref'));
-        echo $this->url('lang/auth', array(), array(
+            echo $this->url('lang/auth', array(), array(
                                                 'query' => array(
                                                     'ref' => urlencode($ref),
-                                                 )), true)?>"
-             ><span class="yk-icon yk-icon-login"></span> <?php echo $this->translate('Login')?></a></li>
+                                                 )), true)?>">
+                <span class="yk-icon yk-icon-login"></span> <?php echo $this->translate('Login')?>
+            </a>
+        </li>
         <li class="divider"></li>
         <li class="disabled dropdown-header"><a><?php echo $this->translate('Login via')?>...</a></li>
     <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>

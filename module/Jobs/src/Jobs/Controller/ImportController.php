@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -60,7 +60,7 @@ class ImportController extends AbstractActionController {
                 'datePublishStart' => '2013-11-15',
                 'status' => 'aktiv',
                 'reference' => '2130010128',
-                'camEnabled' => '1',
+                'atsEnabled' => '1',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
                 'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',
@@ -73,9 +73,9 @@ class ImportController extends AbstractActionController {
         $user            = $services->get('AuthenticationService')->getUser();
         $repositories    = $services->get('repositories');
         $repositoriesJob = $repositories->get('Jobs/Job');
-        $log             = $services->get('Log/Core/Cam');
+        $log             = $services->get('Core/Log');
         //if (isset($user)) {
-        //    $services->get('Log/Core/Cam')->info('Jobs/manage/saveJob ' . $user->login);
+        //    $services->get('Core/Log')->info('Jobs/manage/saveJob ' . $user->login);
         //}
         $result = array('token' => session_id(), 'isSaved' => False, 'message' => '');
         if (isset($user) && !empty($user->login)) {
@@ -119,7 +119,6 @@ class ImportController extends AbstractActionController {
                     if ($group) {
                         $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
                     }
-                    $repositoriesJob->store($entity);
                     $result['isSaved'] = true;
                     $log->info('Jobs/manage/saveJob [user: ' . $user->login . ']:' . var_export($p, True));
                     
@@ -138,10 +137,12 @@ class ImportController extends AbstractActionController {
                         $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                         $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                         $repositories->store($entityOrganization);
+                        $entity->setOrganization($entityOrganization);
                     }
                     else {
                         $result['message'] = '';
                     }
+                    $repositoriesJob->store($entity);
                 } else {
                     $log->info('Jobs/manage/saveJob [error: ' . $form->getMessages() . ']:' . var_export($p, True));
                     $result['valid Error'] = $form->getMessages();
@@ -151,7 +152,7 @@ class ImportController extends AbstractActionController {
             $log->info('Jobs/manage/saveJob [error: session lost]:' . var_export($p, True));
             $result['message'] = 'session_id is lost';
         }
-        //$services->get('Log/Core/Cam')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
+        //$services->get('Core/Log')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
         return new JsonModel($result);
     }
 

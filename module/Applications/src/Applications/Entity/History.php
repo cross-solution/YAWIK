@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -28,7 +28,7 @@ class History extends AbstractEntity implements HistoryInterface
     /**
      * Status of an application.
      * 
-     * @var unknown
+     * @var StatusInterface
      * @ODM\EmbedOne(targetDocument="status")
      */
     protected $status;
@@ -59,7 +59,7 @@ class History extends AbstractEntity implements HistoryInterface
     }
     
 	/**
-     * @return the $date
+     * @return $date
      */
     public function getDate ()
     {
@@ -67,7 +67,7 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
-     * @param field_type $date
+     * @param \DateTime $date
      * @return $this
      */
     public function setDate (\DateTime $date)
@@ -77,7 +77,7 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
-     * @return the $status
+     * @return StatusInterface $status
      */
     public function getStatus ()
     {
@@ -85,7 +85,7 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
-     * @param field_type $status
+     * @param StatusInterface $status
      */
     public function setStatus (StatusInterface $status)
     {
@@ -94,7 +94,7 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
-     * @return the $message
+     * @return String $message
      */
     public function getMessage ()
     {
@@ -102,15 +102,12 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
 	/**
-     * @param field_type $message
+     * @param String $message
      */
     public function setMessage ($message)
     {
         $this->message = $message;
         return $this;
     }
-
-    
-    
 }
 

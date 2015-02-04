@@ -13,7 +13,8 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Name of an Organization.
+ * Name of an Organization. Organization names can be used by applicants in the work history or by Companies
+ * in job positions as a reference to the hiring Organization.
  *
  * @ODM\Document(collection="organizations.names", repositoryClass="Organizations\Repository\OrganizationName")
  */
@@ -28,7 +29,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     protected $name;
     
     /**
-     * Flag, if the nane is used
+     * Reference counter. If the name is used as an hiring organization name, the counter is incremented.
      * 
      * @var int
      * @ODM\Int
@@ -54,6 +55,8 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
     
     /**
+     * Gets the name of an organization
+     *
      * @return String $name
      */
     public function getName()
@@ -62,8 +65,10 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
 
     /**
+     * Sets the name of an organization
+     *
      * @param string $name
-     * @return
+     * @return \Organizations\Entity\OrganizationName
      */
     public function setName($name)
     {
@@ -72,7 +77,9 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
     
     /**
-     * @return String $name
+     * Gets the ranking of an organization
+     *
+     * @return int $name
      */
     public function getRankingByCompany()
     {
@@ -80,7 +87,9 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
 
     /**
-     * @param string $rankingByCompany
+     * Sets the ranking of an organization
+     *
+     * @param int $rankingByCompany
      * @return OrganizationName
      */
     public function setRankingByCompany($rankingByCompany)
@@ -93,6 +102,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * Sets the id.
      * 
      * @param String $id
+     * @return OrganizationName
      */
     public function setId($id) 
     {
@@ -101,7 +111,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
     
     /**
-     * Gets the id.
+     * Gets the id of an Organization
      * 
      * @return String id of the OrganizationName
      */
@@ -111,6 +121,8 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
 
     /**
+     * Decrements the reference counter of an organization
+     *
      * @return OrganizationName
      */
     public function refCounterDec()
@@ -120,6 +132,8 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
 
     /**
+     * Increments the reference counter of an organization
+     *
      * @return OrganizationName
      */
     public function refCounterInc()
@@ -129,6 +143,8 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
 
     /**
+     * Decrements the reference counter of an organization
+     *
      * @return OrganizationName
      */
     public function refCompanyCounterDec()
@@ -138,6 +154,8 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     }
 
     /**
+     * Increments the reference counter of an organization
+     *
      * @return OrganizationName
      */
     public function refCompanyCounterInc()

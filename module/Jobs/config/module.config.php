@@ -41,16 +41,16 @@ return array(
         ), 
     ),
 
-	// Translations
-	'translator' => array(
-			'translation_file_patterns' => array(
-					array(
-							'type'     => 'gettext',
-							'base_dir' => __DIR__ . '/../language',
-							'pattern'  => '%s.mo',
-					),
-			),
-	),
+    // Translations
+    'translator' => array(
+            'translation_file_patterns' => array(
+                    array(
+                            'type'     => 'gettext',
+                            'base_dir' => __DIR__ . '/../language',
+                            'pattern'  => '%s.mo',
+                    ),
+            ),
+    ),
     
     
     
@@ -59,12 +59,23 @@ return array(
         'rules' => array(
             'recruiter' => array(
                 'allow' => array(
+                    'Jobs',
                     'Jobs/Manage',
                     'route/lang/jobs/manage',
                     'Entity/Jobs/Job' => array(
                         'new',
                         'edit' => 'Jobs/Write',
                     ),
+                ),
+            ),
+            'guest' => array(
+                'allow' => array(
+                    'Jobs',
+                ),
+            ),
+            'applicant' => array(
+                'allow' => array(
+                    'Jobs',
                 ),
             ),
         ),
@@ -81,6 +92,7 @@ return array(
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
                 'order' => '30',
+                'resource' => 'Jobs',
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
@@ -106,7 +118,21 @@ return array(
             ),
         ),
     ),
-    
+
+    'service_manager' => array(
+        'invokables' => array(
+                'Jobs/PreviewLinkHydrator'      => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
+                'Jobs/Listeners'                => 'Jobs\Listener\JobsListener',
+                'Jobs/Event'                    => 'Jobs\Listener\Events\JobEvent',
+                'Jobs/Listener/StatusChanged'   => 'Jobs\Listener\StatusChanged',
+                'Jobs/Listener/Publisher'       => 'Jobs\Listener\Publisher',
+        ),
+        'factories' => array(
+            'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
+            'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
+            'Jobs/RestClient'                             => 'Jobs\Services\JobsPublisherFactory',
+        )
+    ),
     
     'controllers' => array(
         'invokables' => array(
@@ -115,17 +141,21 @@ return array(
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),
+        'factories' => array(
+            'Jobs/Template' => 'Jobs\Controller\SLFactory\TemplateControllerSLFactory',
+        )
     ),
     
     'view_manager' => array(
-    
-    
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
-            'jobs/sidebar/index' => __DIR__ . '/../view/sidebar/index.phtml',
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
-            //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
+            'jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
+            'jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
+            'jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
+            'jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
+            'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
         ),
     
         // Where to look for view templates not mapped above
@@ -133,31 +163,45 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    
+
+    'view_helpers' => array(
+        'invokables' => array(
+            'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
+
+        )
+    ),
        
     'form_elements' => array(
         'invokables' => array(
-            'Jobs/Job'                        => 'Jobs\Form\Job',
-            'Jobs/TitleLocation'              => 'Jobs\Form\JobTitleLocation',
-            'Jobs/JobFieldset'                => 'Jobs\Form\JobFieldset',
-            'Jobs/Employers'                  => 'Jobs\Form\JobEmployers',
-            'Jobs/JobEmployersFieldset'       => 'Jobs\Form\JobEmployersFieldset',
-            'Jobs/Description'                => 'Jobs\Form\JobDescription',
-            'Jobs/JobDescriptionFieldset'     => 'Jobs\Form\JobDescriptionFieldset',
-            'Jobs/ApplyId'                    => 'Jobs\Form\ApplyIdentifierElement',
-            'Jobs/Import'                     => '\Jobs\Form\Import',
-            'Jobs/ImportFieldset'             => '\Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'                 => '\Jobs\Form\ListFilter',
-            'Jobs/ListFilterFieldset'         => 'Jobs\Form\ListFilterFieldset',
-            'Jobs/JobDescriptionBenefits'     => '\Jobs\Form\JobDescriptionBenefits',
-            'Jobs/JobDescriptionRequirements' => '\Jobs\Form\JobDescriptionRequirements',
+            'Jobs/Job'                          => 'Jobs\Form\Job',
+            'Jobs/Base'                         => 'Jobs\Form\Base',
+            'Jobs/BaseFieldset'                 => 'Jobs\Form\BaseFieldset',
+            'Jobs/Employers'                    => 'Jobs\Form\JobEmployers',
+            'Jobs/JobEmployersFieldset'         => 'Jobs\Form\JobEmployersFieldset',
+            'Jobs/Description'                  => 'Jobs\Form\JobDescription',
+            'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
+            'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
+            'Jobs/Import'                       => '\Jobs\Form\Import',
+            'Jobs/ImportFieldset'               => '\Jobs\Form\ImportFieldset',
+            'Jobs/ListFilter'                   => '\Jobs\Form\ListFilter',
+            'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/JobDescriptionBenefits'       => '\Jobs\Form\JobDescriptionBenefits',
+            'Jobs/JobDescriptionRequirements'   => '\Jobs\Form\JobDescriptionRequirements',
             'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',
-            'Jobs/JobDescriptionTitle'        => '\Jobs\Form\JobDescriptionTitle',
-            'Jobs/Description/Template'       => '\Jobs\Form\JobDescriptionTemplate',
-
+            'Jobs/JobDescriptionTitle'          => '\Jobs\Form\JobDescriptionTitle',
+            'Jobs/Description/Template'         => '\Jobs\Form\JobDescriptionTemplate',
+            'Jobs/Preview'                      => 'Jobs\Form\Preview',
+            'Jobs/PreviewFieldset'              => 'Jobs\Form\PreviewFieldset',
+            'Jobs/PreviewLink'                  => 'Jobs\Form\PreviewLink',
+            'Jobs/CompanyName'                  => 'Jobs\Form\CompanyName',
+            'Jobs/CompanyNameElement'           => 'Jobs\Form\CompanyNameElement',
+            'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
+            'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
+            'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
         ),
         'factories' => array(
             'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',
+            'Jobs/CompanyNameFieldset' => 'Jobs\Form\SLFactory\CompanyNameFieldsetSLFactory',
         )
     ),
     
@@ -165,6 +209,7 @@ return array(
         'invokables' => array(
             'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
+            'Jobs/Company' => 'Jobs\Form\InputFilter\CompanyName',
         ),
     ),
     
@@ -179,5 +224,5 @@ return array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
         ),
     ),
-    
+
 );

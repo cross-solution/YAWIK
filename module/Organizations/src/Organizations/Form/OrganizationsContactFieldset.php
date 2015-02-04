@@ -65,9 +65,6 @@ class OrganizationsContactFieldset extends Fieldset
         				'label' => /* @translate */ 'City'
         		)
         ));
-        
-        //$this->add($fieldset);
-        
     }
 
     /**

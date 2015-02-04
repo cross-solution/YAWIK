@@ -3,16 +3,22 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** ListFilterFieldset.php */ 
 namespace Jobs\Form;
 
+use Jobs\Entity\Status;
 use Zend\Form\Fieldset;
 use Zend\Form\FormInterface;
 
+/**
+ * Defines the formular fields of the job opening search formular
+ *
+ * @package Jobs\Form
+ */
 class ListFilterFieldset extends Fieldset
 {
     protected $isExtended;
@@ -56,12 +62,13 @@ class ListFilterFieldset extends Fieldset
                 'name' => 'status',
                 'options' => array(
                     'value_options' => array(
-                        'active' => /*@translate*/ 'Active',
-                        'inactive' => /*@translate*/ 'Inactive',
+                        'all' => /*@translate*/ 'All',
+                        Status::ACTIVE => /*@translate*/ 'Active',
+                        Status::INACTIVE => /*@translate*/ 'Inactive',
                     )
                 ),
                 'attributes' => array(
-                    'value' => 'active',
+                    'value' => 'all',
                 )
             ));
         }

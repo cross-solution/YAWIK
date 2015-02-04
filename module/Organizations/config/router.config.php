@@ -79,19 +79,17 @@ return array(
                                     ),
                                 ),
                             ),
-                        ),
-                    ),
-                    'organizationsTestfill' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/organizationstest',
-                            'defaults' => array(
-                                'controller' => 'Organizations/Index',
-                                'action' => 'testfill',
-                                'module' => 'Organizations',
+                            'typeahead' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/typeahead',
+                                    'defaults' => array(
+                                        'controller' => 'Organizations/TypeAHead',
+                                        'action' => 'index',
+                                    ),
+                                ),
                             ),
                         ),
-                        'may_terminate' => true,
                     ),
                 )
             )

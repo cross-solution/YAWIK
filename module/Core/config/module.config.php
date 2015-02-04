@@ -8,7 +8,7 @@
  * Having said that, you may always overwrite or extend the configuration
  * in your own modules configuration file(s) (or via the config autoloading).
  *
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -30,7 +30,7 @@ return array(
 
     // Logging
     'log' => array(
-        'Log/Core/Cam' => array(
+        'Core/Log' => array(
             'writers' => array(
                  array(
                      'name' => 'stream',
@@ -137,18 +137,21 @@ return array(
         'invokables' => array(
             'configaccess' => 'Core\Service\Config',
             'Core/DoctrineMongoODM/RepositoryEvents' => '\Core\Repository\DoctrineMongoODM\Event\RepositoryEventsSubscriber',
-            'defaultListeners' => 'Core\Listener\DefaultListener',
-            'templateProvider' => 'Core\Service\TemplateProvider',
-            'templateProviderStrategy' => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
+            'defaultListeners'           => 'Core\Listener\DefaultListener',
+            'templateProvider'           => 'Core\Service\TemplateProvider',
+            'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
+            'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
+            'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
         ),
         'factories' => array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-            //'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+//            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
+            'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory'
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
@@ -188,6 +191,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Core\Controller\Index' => 'Core\Controller\IndexController',
+            'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
         ),
     ),
@@ -236,7 +240,8 @@ return array(
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
-            'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml'
+            'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml',
+            //'startpage' => __DIR__ . '/../view/layout/startpage.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -336,7 +341,7 @@ return array(
     'mails_config' => array(
         'from' => array(
             'email' => 'no-reply@host.tld',
-            'name'  => 'CrossApplicantManagement'
+            'name'  => 'YAWIK'
         ),
     ),
     

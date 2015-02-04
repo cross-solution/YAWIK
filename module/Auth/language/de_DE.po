@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014-2015
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-19 19:19+0100\n"
-"PO-Revision-Date: 2014-11-19 18:41+0000\n"
+"POT-Creation-Date: 2015-01-06 16:36+0100\n"
+"PO-Revision-Date: 2015-01-06 15:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/form/user-info-container.phtml:21
+#: view/form/user-info-container.phtml:25
 msgid "Image"
 msgstr "Bild"
 
@@ -27,37 +27,37 @@ msgstr "Bild"
 msgid "Click here to enter contact informations."
 msgstr "Klicken Sie hier, um Ihre Kontaktdaten einzugeben."
 
-#: view/form/social-profiles-fieldset.phtml:22
+#: view/form/social-profiles-fieldset.phtml:26
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
 msgstr "Sie können Ihrer Bewerbung Lebenslaufdaten aus einem Facebook, Xing oder LinkedIn Profil anhängen. Die hinzugefügten Daten können Sie vor dem Absenden der Bewerbung einsehen und auch wieder entfernen."
 
-#: view/form/social-profiles-fieldset.phtml:33
+#: view/form/social-profiles-fieldset.phtml:37
 msgid "Loading"
 msgstr "Daten werden geladen"
 
-#: view/form/social-profiles-fieldset.phtml:39
+#: view/form/social-profiles-fieldset.phtml:43
 msgid "Close"
 msgstr "Schließen"
 
-#: view/form/social-profiles-button.phtml:38
+#: view/form/social-profiles-button.phtml:42
 msgid "Attach profile"
 msgstr "Profil hinzufügen"
 
-#: view/form/social-profiles-button.phtml:39
+#: view/form/social-profiles-button.phtml:43
 msgid "Detach profile"
 msgstr "Profil entfernen"
 
-#: view/form/social-profiles-button.phtml:42
+#: view/form/social-profiles-button.phtml:46
 msgid "View profile data"
 msgstr "Profildaten einsehen"
 
-#: view/form/userselect.phtml:25
+#: view/form/userselect.phtml:28
 msgid "Add users"
 msgstr "Benutzer hinzufügen"
 
-#: view/form/userselect.phtml:29
+#: view/form/userselect.phtml:32
 msgid "At least one user has to be assigned"
 msgstr "Es muss mindestens ein Benutzer zugeordnet werden"
 
@@ -102,6 +102,16 @@ msgstr "Bitte melden Sie sich an"
 msgid "Login"
 msgstr "Einloggen"
 
+#: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
+msgid "I forgot my password"
+msgstr "Kennwort vergessen?"
+
+#: view/auth/index/index.phtml:40 view/auth/index/index.phtml:41
+#: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
+#: language/_annotated_strings.php:96
+msgid "Register"
+msgstr "Registrieren"
+
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
 msgstr "Ein 410 Fehler ist aufgetreten"
@@ -145,7 +155,18 @@ msgstr "Einloggen über"
 msgid "Login with %s"
 msgstr "Mit %s anmelden"
 
-#: view/auth/manage/password.phtml:3 view/auth/manage/password.phtml:8
+#: view/auth/forgot-password/index.phtml:1
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:84
+msgid "Reset your password"
+msgstr "Kennwort zurücksetzen"
+
+#: view/auth/forgot-password/index.phtml:5
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr "Bitte geben Sie Ihren Benutzernamen oder Ihre E-mail Adresse ein. Sie erhalten per Mail einen Link, um Ihr Kennwort zurückzusetzen"
+
+#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr "Mein Passwort"
 
@@ -156,7 +177,7 @@ msgstr "Persönliche Angaben"
 
 #: src/Auth/Form/UserPasswordFieldset.php:31
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:66
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:111
 msgid "Password"
 msgstr "Passwort"
 
@@ -167,14 +188,6 @@ msgstr "Gruppen Daten"
 #: src/Auth/Form/GroupUsersCollection.php:88
 msgid "Users"
 msgstr "Benutzer"
-
-#: src/Auth/Controller/ManageController.php:105
-msgid "Password successfully changed"
-msgstr "Kennwort wurde erfolgreich geändert"
-
-#: src/Auth/Controller/ManageController.php:111
-msgid "Password could not be changed"
-msgstr "Kennwort konnte nicht geändert werden"
 
 #: language/_annotated_strings.php:3
 msgid "Create group"
@@ -193,7 +206,7 @@ msgstr "Soziale Profile"
 msgid "Allow users to attach their %s profile."
 msgstr "Erlaubt es Kandidaten ihr %s Profil der Bewerbung hinzuzufügen."
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:90
 msgid "Email"
 msgstr "E-Mail"
 
@@ -260,53 +273,132 @@ msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
 #: language/_annotated_strings.php:81
+msgid "Username or email"
+msgstr "Benutzername oder E-Mail"
+
+#: language/_annotated_strings.php:87
+msgid "Name"
+msgstr "Name"
+
+#: language/_annotated_strings.php:93
+msgid "Are you human?"
+msgstr "Sind Sie ein Mensch?"
+
+#: language/_annotated_strings.php:99
 msgid "General"
 msgstr "Sonstiges"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:102
 msgid "I am"
 msgstr "Ich bin"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:105
 msgid "The group name \"%value%\" is already in use."
 msgstr "Der Gruppenname  \"%value%\" existiert bereits."
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:108
 msgid "Login name"
 msgstr "Benutzername"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:114
 msgid "login"
 msgstr "anmelden"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:117
+msgid "Cannot proceed, token expired"
+msgstr "Der übergebene Schlüssel ist abgelaufen"
+
+#: language/_annotated_strings.php:120
+msgid "User cannot be found for specified token"
+msgstr "Für den übergebenen Schlüssel konnte kein Benutzer gefunden werden."
+
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:132
+#: language/_annotated_strings.php:174 language/_annotated_strings.php:189
+msgid ""
+"An unexpected error has occurred, please contact your system administrator"
+msgstr "Ein unerwarteter Fehler ist aufgetreten. Bitte kontaktieren Sie den System Administrator"
+
+#: language/_annotated_strings.php:126
+msgid ""
+"User email verified successfully. You need to set a password to log in."
+msgstr "Die Benutzer E-Mail Adresse wurde erfolgreich bestätigt. Sie müssen ein Kennwort setzen, um sich einzuloggen."
+
+#: language/_annotated_strings.php:129
+msgid "User cannot be found"
+msgstr "Der Benutzer wurde nicht gefunden"
+
+#: language/_annotated_strings.php:135 language/_annotated_strings.php:138
+msgid "Password successfully changed"
+msgstr "Kennwort wurde erfolgreich geändert"
+
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:144
+msgid "Password could not be changed"
+msgstr "Kennwort konnte nicht geändert werden"
+
+#: language/_annotated_strings.php:147
 msgid "Group created"
 msgstr "Gruppe wurde angelegt"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:150
 msgid "Group updated"
 msgstr "Gruppe wurde aktualisiert"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:153
 msgid "Changes not saved."
 msgstr "Änderungen wurden gespeichert"
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:156
 msgid "You are now logged in."
 msgstr "Sie sind nun angemeldet"
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:159
 msgid "Authentication failed."
 msgstr "Anmeldung fehlgeschlagen."
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:162
 msgid "You are now logged out"
 msgstr "Sie sind nun abgemeldet"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:165
+msgid ""
+"An Email with an activation link has been sent, please try to check your "
+"email box"
+msgstr "Eine E-Mail mit einem Bestätigungslink wurde versendet. Bitte überprüfen Sie Ihr Postfach."
+
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:180
+msgid "Please fill form correctly"
+msgstr "Die Eingaben im Formular enthalten Fehler"
+
+#: language/_annotated_strings.php:171
+msgid "User with this email address already exists"
+msgstr "Die Email Adresse ist bereits vergeben."
+
+#: language/_annotated_strings.php:177
+msgid ""
+"Mail with link for reset password has been sent, please try to check your "
+"email box"
+msgstr "Eine E-Mail mit einem Link zum Zurücksetzen des Kennwortes wurde gesendet. Bitte überprüfen Sie Ihr Postfach."
+
+#: language/_annotated_strings.php:183
+msgid "User cannot be found for specified username or email"
+msgstr "Für den eingegebenen Benutzernamen oder die eingegebene E-Mail konnte kein Benutzer gefunden werden"
+
+#: language/_annotated_strings.php:186
+msgid "Found user does not have an email"
+msgstr "Der Benutzer hat keine Email Adresse hinterlegt."
+
+#: language/_annotated_strings.php:192
+msgid "Register confirmation"
+msgstr "Bestätigung der Registrierung"
+
+#: language/_annotated_strings.php:196
+msgid "Password recovery"
+msgstr "Widerherstellen des Kennwortes"
+
+#: language/_annotated_strings.php:200
 msgid "user"
 msgstr "Benutzer"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:203
 msgid "recruiter"
 msgstr "Personaler"

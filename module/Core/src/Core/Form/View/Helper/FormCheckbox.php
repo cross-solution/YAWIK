@@ -37,15 +37,11 @@ class FormCheckbox extends ZfFormCheckbox
             $headline = '<h6>' . $translator->translate($headline, $textDomain) . '</h6>';
         }
 
-        $markup = '
-        <div class="form-checkbox-wrapper">
-            <div class="pull-left">%s</div>
-            <div class="form-checkbox-label"><label for="%s">%s</label></div>
-        </div>';
+        $markup = '<div class="checkbox"><label for="%s">%s %s</label></div>';
         
         $markup = sprintf(
             $markup,
-            $input, $element->getAttribute('id'), $label
+            $element->getAttribute('id'), $input, $label
         );
         
         return $headline . $markup;

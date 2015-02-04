@@ -21,7 +21,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\DraftableEntityInterface;
 
 /**
- * The job model
+ * The organization.
  *
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  */
@@ -59,7 +59,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * primary logo of an organization
      * 
      * @var \Organizations\Entity\OrganizationImage
-     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", simple=true, nullable="true", cascade={"all"})
      */
     protected $image;
 
@@ -76,6 +76,12 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      *
      * @ODM\EmbedOne(targetDocument="\Organizations\Entity\OrganizationContact") */
     protected $contact;
+
+    /**
+     * @var string
+     * @ODM\String
+     */
+    protected $description;
 
     /** {@inheritdoc} */
     public function setExternalId($externalId) 
@@ -183,7 +189,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /** {@inheritdoc} */
-    public function setImage(EntityInterface $image = null)
+    public function setImage(OrganizationImage $image = null)
     {
         $this->image = $image;
         return $this;
@@ -239,6 +245,27 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         $this->isDraft = (bool) $flag;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 }
 
 

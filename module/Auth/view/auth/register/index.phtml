@@ -1,0 +1,9 @@
+<?php $this->headTitle($this->translate("Register")); ?>
+    <h1><?= $this->translate("Register"); ?></h1>
+    <br/>
+<?php
+/** @var \Auth\Form\Register $form */
+$form = $this->form;
+?>
+
+<?= $this->form($form); ?>

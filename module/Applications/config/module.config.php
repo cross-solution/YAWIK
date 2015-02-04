@@ -4,7 +4,7 @@
  * YAWIK
  * Configuration file of the Applications module
  * 
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -107,7 +107,7 @@ return array(
         ),
         'assertions' => array(
             'invokables' => array(
-                'Applications/Access'      => 'Applications\Acl\ApplicationAccessAssertion',
+                'Applications/Access' => 'Applications\Acl\ApplicationAccessAssertion',
             ),
         ),
     ),
@@ -150,14 +150,15 @@ return array(
             'applications/error/not-found' => __DIR__ . '/../view/error/not-found.phtml', 
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
+            'applications/mail/forward' => __DIR__ . '/../view/mail/forward.phtml',
+            'applications/detail/pdf' => __DIR__ . '/../view/applications/manage/detail.pdf.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
         )
     ),
     'view_helpers' => array(
         
     ),
-    
-    
+
     'view_helper_config' => array(
         'headscript' => array(
             'lang/applications' => array('Core/js/jquery.barrating.min.js'),

@@ -15,7 +15,7 @@ namespace Organizations\Form;
 use Core\Form\Container;
 
 /**
- * Organization forms container 
+ * Organization form container
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  */
@@ -27,12 +27,6 @@ class Organizations extends Container {
     public function init()
     {
         $this->setName('application-comment-form');
-        //, 'options' => array('use_as_base_fieldset' => true)
-        //$this->add(array('type' => 'Organizations/OrganizationsNameForm'))
-        //    ->add(array('type' => 'Organizations/OrganizationContactForm'));
-        //->add(array('type' => 'DefaultButtonsFieldset'));
-        //;
-
 
         $this->setForms(array(
             'nameForm' => array(
@@ -56,8 +50,20 @@ class Organizations extends Container {
             )
         ));
 
-
-
+        $this->setForms(array(
+            'organizationLogo' => array(
+                'type' => 'Organizations/Image',
+                'property' => true,
+                'use_files_array' => true,
+            ),
+            'descriptionForm' => array(
+                'type' => 'Organizations/OrganizationsDescriptionForm',
+                'property' => true,
+                'options' => array(
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/ 'Please enter a description for the hiring organization.',
+                ),
+            ),
+        ));
     }
-
 }

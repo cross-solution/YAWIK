@@ -4,6 +4,11 @@ namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
+/**
+ * Class ListQuery
+ * @package Core\Controller\Plugin
+ * @todo: document
+ */
 class ListQuery extends AbstractPlugin
 {
     /**
@@ -139,7 +144,8 @@ class ListQuery extends AbstractPlugin
     {
         $dbQuery = $this->getController()->getServiceLocator()->get('query');
         $criteria = $dbQuery->criteria();
-        
+
+        /** @var \Zend\Http\Request $request */
         $request = $this->getController()->getRequest();
         $query = $request->getQuery()->toArray();
         

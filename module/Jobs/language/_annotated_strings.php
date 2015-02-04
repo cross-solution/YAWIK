@@ -1,83 +1,136 @@
 <?php
-//: ./view/form/list-filter.phtml:63
+//: ./view/form/list-filter.phtml:49
 translate('search for jobs');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:31
+//: ./view/jobs/manage/form.phtml:20
+translate('free');
+
+//: ./view/jobs/manage/form.phtml:27
+translate('Your Homepage');
+
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:43
 translate('Job qualification');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:39
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:51
 translate('Job benefits');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:48
+//: ./src/Jobs/Form/JobDescriptionFieldset.php:60
 translate('Job requirements');
 
-//: ./src/Jobs/Form/JobDescriptionFieldset.php:56
-translate('Job description');
+//: ./src/Jobs/Form/PreviewFieldset.php:42
+translate('Terms and conditions');
 
-//: ./src/Jobs/Form/JobFieldset.php:36
-translate('Company');
+//: ./src/Jobs/Form/PreviewFieldset.php:43
+translate('I have read the %s and accept it');
 
-//: ./src/Jobs/Form/JobFieldset.php:45
-translate('Job title');
+//: ./src/Jobs/Form/PreviewFieldset.php:44
+translate('terms an conditions');
 
-//: ./src/Jobs/Form/JobFieldset.php:53
-translate('Apply Identifier');
+//: ./src/Jobs/Form/Base.php:22
+translate('Title and job location');
 
-//: ./src/Jobs/Form/JobFieldset.php:61
-translate('Job description');
+//: ./src/Jobs/Form/CompanyName.php:37
+translate('Companyname');
 
-//: ./src/Jobs/Form/JobFieldset.php:69
-translate('Location');
+//: ./src/Jobs/Form/Job.php:40
+translate('Please choose a descriptive title and a location for your job posting ');
 
-//: ./src/Jobs/Form/JobFieldset.php:77
-translate('Contact email');
+//: ./src/Jobs/Form/Job.php:52
+translate('Please choose the name of the hiring organization. The selected name defines the template of the job opening.');
 
-//: ./src/Jobs/Form/JobFieldset.php:87
-translate('Reference number');
+//: ./src/Jobs/Form/Job.php:65
+translate('Please choose the portals, where you wish to publish your job opening.');
 
-101:       //         'label' => /*@translate*/
-//: ./src/Jobs/Form/Job.php:56
-translate('Customize apply form');
+//: ./src/Jobs/Form/CompanyNameFieldset.php:33
+translate('Companyname');
+
+//: ./src/Jobs/Form/CompanyNameFieldset.php:34
+translate('The name of the hiring organization will be shown in search results.');
 
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
 
-//: ./src/Jobs/Form/JobTitleLocation.php:42
-translate('Publish job');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:44
+//: ./src/Jobs/Form/ListFilterFieldset.php:50
 translate('Show all jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:45
+//: ./src/Jobs/Form/ListFilterFieldset.php:51
 translate('Show my jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:59
+//: ./src/Jobs/Form/ListFilterFieldset.php:65
+translate('All');
+
+//: ./src/Jobs/Form/ListFilterFieldset.php:66
 translate('Active');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:60
+//: ./src/Jobs/Form/ListFilterFieldset.php:67
 translate('Inactive');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:71
+//: ./src/Jobs/Form/ListFilterFieldset.php:78
 translate('Job title');
 
-//: ./src/Jobs/Form/JobEmployers.php:42
-translate('Publish job');
+//: ./src/Jobs/Form/BaseFieldset.php:46
+translate('Job title');
 
-//: ./src/Jobs/Controller/ManageController.php:89
-translate('Job saved');
+//: ./src/Jobs/Form/BaseFieldset.php:47
+translate('Please enter the job title');
 
-//: ./src/Jobs/Controller/ManageController.php:92
-translate('There were errors in the form');
+//: ./src/Jobs/Form/BaseFieldset.php:55
+translate('Location');
 
-//: ./config/module.config.php:81
+//: ./src/Jobs/Form/BaseFieldset.php:56
+translate('Please enter the location of the job');
+
+//: ./src/Jobs/Form/Multipost.php:21
+translate('Multiposting');
+
+//: ./src/Jobs/Controller/ManageController.php:345
+translate('Job opening was rejected by %s');
+
+//: ./src/Jobs/Controller/ManageController.php:353
+translate('Job opening was activated by %s');
+
+//: ./src/Jobs/Controller/ManageController.php:387
+translate('Job was deactivated by %s');
+
+//: ./config/module.jobs.portals.config.local.php.dist:10
+translate('publish your job on yawik.org for free');
+
+//: ./config/module.jobs.portals.config.local.php.dist:11
+translate('publish the job for 30 days on %s');
+
+//: ./config/module.jobs.portals.config.local.php.dist:12
+translate('yawik.org');
+
+//: ./config/module.jobs.portals.config.local.php.dist:22
+translate('publish your job on Jobsintown. 199,-€');
+
+//: ./config/module.jobs.portals.config.local.php.dist:23
+translate('publish the job for 30 days on %s');
+
+//: ./config/module.jobs.portals.config.local.php.dist:24
+translate('www.jobsintown.de');
+
+//: ./config/module.jobs.portals.config.local.php.dist:32
+translate('Your Homepage');
+
+//: ./config/module.jobs.portals.config.local.php.dist:34
+translate('enable integration of this job on your Homepage');
+
+//: ./config/module.jobs.portals.config.local.php.dist:35
+translate('enable %s of this job on your Homepage');
+
+//: ./config/module.jobs.portals.config.local.php.dist:36
+translate('integration');
+
+//: ./config/module.config.php:92
 translate('Jobs');
 
-//: ./config/module.config.php:86
+//: ./config/module.config.php:98
 translate('Overview');
 
-//: ./config/module.config.php:90
+//: ./config/module.config.php:102
 translate('Create job');
 
-//: ./config/module.config.php:99
+//: ./config/module.config.php:111
 translate('Edit job');
 

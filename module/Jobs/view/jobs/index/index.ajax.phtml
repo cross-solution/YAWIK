@@ -36,7 +36,7 @@
               
     <td>
     <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
-        <a href="<?php echo $href ?>"><?php echo strip_tags($job->title)?></a>
+        <a href="<?php echo $href ?>" target="_blank"><?php echo strip_tags($job->title)?></a>
     
         </td>
     <td><?php echo $job->location?></td>
@@ -74,7 +74,7 @@
          <?php endif ?>     
          </td>
       <?php else:?>
-         <?php if ($job->camEnabled): ?>
+         <?php if ($job->atsEnabled): ?>
             <a href="<?php
                 if (empty($job->uriApply)) {
                     // @TODO: unriddle this logic to somewhere else

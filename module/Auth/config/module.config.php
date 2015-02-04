@@ -3,7 +3,7 @@
  * YAWIK
  * Configuration file of the Auth module
  * 
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -31,6 +31,8 @@ return array(
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
+            'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
+            'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
         ),
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
@@ -42,12 +44,19 @@ return array(
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
             'Acl' => '\Acl\Service\AclFactory',
             'Acl/AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
+            'Auth\Form\ForgotPassword' => 'Auth\Form\SLFactory\ForgotPasswordSLFactory',
+            'Auth\Service\ForgotPassword' => 'Auth\Service\SLFactory\ForgotPasswordSLFactory',
+            'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Service\SLFactory\UserUniqueTokenGeneratorSLFactory',
+            'Auth\Service\GotoResetPassword' => 'Auth\Service\SLFactory\GotoResetPasswordSLFactory',
+            'Auth\Form\Register' => 'Auth\Form\SLFactory\RegisterSLFactory',
+            'Auth\Service\Register' => 'Auth\Service\SLFactory\RegisterSLFactory',
+            'Auth\Service\RegisterConfirmation' => 'Auth\Service\SLFactory\RegisterConfirmationSLFactory',
         ),
         'aliases' => array(
             'assertions' => 'Acl/AssertionManager',
         )
     ),
-    
+
     'controllers' => array(
         'invokables' => array(
             'Auth\Controller\Index' => 'Auth\Controller\IndexController',
@@ -57,6 +66,13 @@ return array(
             'Auth\Controller\HybridAuth' => 'Auth\Controller\HybridAuthController',
             'Auth/SocialProfiles' => 'Auth\Controller\SocialProfilesController',
         ),
+        'factories' => array(
+            'Auth\Controller\ForgotPassword' => 'Auth\Controller\SLFactory\ForgotPasswordControllerSLFactory',
+            'Auth\Controller\GotoResetPassword' => 'Auth\Controller\SLFactory\GotoResetPasswordControllerSLFactory',
+            'Auth\Controller\Register' => 'Auth\Controller\SLFactory\RegisterControllerSLFactory',
+            'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory',
+            'Auth\Controller\Password' => 'Auth\Controller\SLFactory\PasswordControllerSLFactory',
+        )
     ),
     
     'controller_plugins' => array(
@@ -90,9 +106,14 @@ return array(
             "keys"    => array ( "key" => "", "secret" => "" ),
         ),
     ),
-    
 
-    
+    'mails' => array(
+        'invokables' => array(
+            'Auth\Mail\ForgotPassword' => 'Auth\Mail\ForgotPassword',
+            'Auth\Mail\RegisterConfirmation' => 'Auth\Mail\RegisterConfirmation',
+        ),
+    ),
+
     // Routes
     'router' => array(
         'routes' => array(
@@ -119,12 +140,66 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'my-password' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/my/password',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Password',
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
                     'my-groups' => array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => '/my/groups[/:action]',
                             'defaults' => array(
                                 'controller' => 'Auth/ManageGroups',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'forgot-password' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/auth/forgot-password',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\ForgotPassword',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'goto-reset-password' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/auth/goto-reset-password/:token/:userId',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\GotoResetPassword',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'register' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/auth/register',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\Register',
+                                'action' => 'index'
+                            ),
+                        ),
+                        'may_terminate' => true,
+                    ),
+                    'register-confirmation' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/auth/register-confirmation/:userId',
+                            'defaults' => array(
+                                'controller' => 'Auth\Controller\RegisterConfirmation',
                                 'action' => 'index'
                             ),
                         ),
@@ -387,8 +462,6 @@ return array(
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldset',
             'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
-            
-            
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
@@ -398,4 +471,7 @@ return array(
         )
     ),
 
+    'Auth' => array(
+        'allowRegister' => True,
+    ),
 );

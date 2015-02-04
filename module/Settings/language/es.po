@@ -1,0 +1,69 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Mario de la Ossa <mariodelaossa@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-16 16:05+0200\n"
+"PO-Revision-Date: 2014-11-26 18:21+0000\n"
+"Last-Translator: Mario de la Ossa <mariodelaossa@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
+#: language/_annotated_strings.php:33
+msgid "Settings"
+msgstr "Configuración"
+
+#: src/Settings/Form/LanguageSettingsFieldset.php:24
+msgid "general settings"
+msgstr "configuración general"
+
+#: language/_annotated_strings.php:3
+msgid "choose your language"
+msgstr "elige tu idioma"
+
+#: language/_annotated_strings.php:6
+msgid "English"
+msgstr "Inglés"
+
+#: language/_annotated_strings.php:9
+msgid "French"
+msgstr "Francés"
+
+#: language/_annotated_strings.php:12
+msgid "German"
+msgstr "Alemán"
+
+#: language/_annotated_strings.php:15
+msgid "defines the languages of this frontend."
+msgstr "define las lenguas de esta interfaz."
+
+#: language/_annotated_strings.php:18
+#, php-format
+msgid "Customize enabled elements for %s"
+msgstr "Personaliza los elementos habilitados para %s"
+
+#: language/_annotated_strings.php:21
+msgid "Activate"
+msgstr "Activar"
+
+#: language/_annotated_strings.php:24
+msgid "Enables the form element customization."
+msgstr "Habilita la personalización de los elementos de formularios."
+
+#: language/_annotated_strings.php:27
+msgid "Changes successfully saved"
+msgstr "Cambios guardados correctamente:"
+
+#: language/_annotated_strings.php:30
+msgid "Changes could not be saved"
+msgstr "Los cambios no pudieron ser guardados."

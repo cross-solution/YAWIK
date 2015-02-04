@@ -1,0 +1,18 @@
+<?php
+/**
+ * YAWIK
+ *
+ * View template for changing the password
+ *
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+
+$this->headTitle($this->translate('My password'));
+
+?>
+<h1><?php echo $this->translate('My password') ?></h1>
+
+<?php $this->form->setAttribute('action', $this->url('lang/my-password', array(), true));?>
+<?= $this->form($this->form, 'form-inline'); ?>
+<?= $this->inlineScript()->appendFile($this->basePath('/Auth/js/form.change-password.js')); ?>

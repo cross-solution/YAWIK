@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -13,6 +13,11 @@ namespace Jobs\Form;
 use Core\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 
+/**
+ * Defines the job opening search formular
+ *
+ * @package Jobs\Form
+ */
 class ListFilter extends Form implements ViewPartialProviderInterface
 {
     
@@ -40,6 +45,7 @@ class ListFilter extends Form implements ViewPartialProviderInterface
     {
         $this->setName('jobs-list-filter');
         $this->setAttribute('id', 'jobs-list-filter');
+        $this->setAttribute('data-handle-by', 'native');
         
         $this->add(array(
             'type' => 'Jobs/ListFilterFieldset' . ($this->isExtended ? 'Extended' : ''), 

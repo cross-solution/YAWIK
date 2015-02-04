@@ -1,57 +1,68 @@
-<?php 
+<?php
 /**
  * YAWIK
-*
-* @filesource
-* @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
-* @license   MIT
-*/
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * {{rtd: Renders paginations}}
+ */
 
 if ($this->pageCount):
-$this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
-$query = $this->params()->fromQuery();
-?>
-<div class="row yk-pagination">
-<div class="col-md-6">
-<!-- First page link -->
-<ul class="pagination">
-<?php if (isset($this->previous)): ?>
-  <li><a title="<?php echo $this->translate('First')?>" href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <i class="yk-icon yk-icon-pagination-start"></i>
-  </a></li>
-<?php else: ?>
-  <li class="disabled"><a title="<?php echo $this->translate('First');?>"><i class="yk-icon yk-icon-pagination-start"></i></a></li>
-<?php endif; ?>
-<!-- Previous page link -->
-<?php if (isset($this->previous)): ?>
-  <li><a href="<?php $query['page'] = $this->previous; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <?php echo $this->translate('&lt; Previous')?>
-  </a></li>
-<?php else: ?>
-  <li class="disabled"><a><?php echo $this->translate('&lt; Previous')?></a></li>
-<?php endif; ?>
-<!-- Next page link -->
-<?php if (isset($this->next)): $query['page'] = $this->next; ?>
-  <li><a href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <?php echo $this->translate('Next &gt;')?>
-  </a></li>
-<?php else: ?>
-  <li class="disabled"><a><?php echo $this->translate('Next &gt;')?></a></li>
-<?php endif; ?>
-<!-- Last page link -->
-<?php if (isset($this->next)): $query['page'] = $this->last; ?>
-  <li><a title="<?php echo $this->translate('Last')?>" href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
-    <i class="yk-icon yk-icon-pagination-end"></i>
-  </a></li>
-<?php else: ?>
-  <li class="disabled"><a title="<?php echo $this->translate('Last')?>"><i class="yk-icon yk-icon-pagination-end"></i></a></li>
-<?php endif; ?>
-</ul>
-</div>
-<div class="col-md-6 text-right">
-<?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
- of <?php echo $this->totalItemCount; ?>
-</div>
-<i class="yk-icon yk-icon-spinner fa-spin pagination-loading"></i> 
-</div>
+
+  $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'));
+
+  $query = $this->params()->fromQuery();
+
+
+  ?>
+  <div class="row yk-pagination">
+    <div class="col-md-6">
+      <!-- First page link -->
+      <ul class="pagination">
+        <?php if (isset($this->previous)): ?>
+          <li><a title="<?php echo $this->translate('First')?>" href="<?php $query['page'] = $this->first; echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+              <i class="yk-icon yk-icon-pagination-start"></i>
+            </a></li>
+        <?php else: ?>
+          <li class="disabled"><a title="<?php echo $this->translate('First');?>"><i class="yk-icon yk-icon-pagination-start"></i></a></li>
+        <?php endif; ?>
+        <!-- Previous page link -->
+        <?php if (isset($this->previous)): $query['page'] = $this->previous; ?>
+          <?php $url=$this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true);?>
+          <li><a href="<?php echo $url ?>">
+              <?php echo $this->translate('Back')?>
+              <?php $this->headLink(array('rel' => 'prev', 'href' => $url), 'PREPEND');?>
+            </a></li>
+        <?php else: ?>
+          <li class="disabled"><a><?php echo $this->translate('Back')?></a></li>
+        <?php endif; ?>
+        <!-- Next page link -->
+        <?php if (isset($this->next)): $query['page'] = $this->next; ?>
+            <?php $url=$this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true);?>
+          <li><a href="<?php echo $url ?>">
+              <?php echo $this->translate('Next')?>
+              <?php $this->headLink(array('rel' => 'next', 'href' => $url), 'PREPEND');?>
+            </a></li>
+        <?php else: ?>
+          <li class="disabled"><a><?php echo $this->translate('Next')?></a></li>
+        <?php endif; ?>
+        <!-- Last page link -->
+        <?php if (isset($this->next)): $query['page'] = $this->last; ?>
+          <li><a title="<?php echo $this->translate('Last')?>" href="<?php echo $this->url($this->route, array('lang' => $this->lang), array('query'=>$query), true); ?>">
+              <i class="yk-icon yk-icon-pagination-end"></i>
+            </a></li>
+        <?php else: ?>
+          <li class="disabled"><a title="<?php echo $this->translate('Last')?>"><i class="yk-icon yk-icon-pagination-end"></i></a></li>
+        <?php endif; ?>
+      </ul>
+    </div>
+    <div class="col-md-6 text-right">
+      <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
+      of <?php echo $this->totalItemCount; ?>
+    </div>
+    <i class="yk-icon yk-icon-spinner fa-spin pagination-loading"></i>
+  </div>
 <?php endif; ?>

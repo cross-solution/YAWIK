@@ -21,13 +21,22 @@ class LanguageRouteListener implements ListenerAggregateInterface
 
     protected $defaultLanguage;
     
+    /**
+    * @todo: get this from the configuration.
+    */
     protected $availableLanguages = array(
             'en' => 'en_EN',
             'de' => 'de_DE',
             'es' => 'es',
             'fr' => 'fr',
             'it' => 'it',
-            'ru' => 'ru'
+            'ru' => 'ru',
+            'pl' => 'pl',
+            'tr' => 'tr',
+            'hi' => 'hi_IN',
+            'cn' => 'cmn',
+            'pt' => 'pt',
+            'ar' => 'ar'
 	);
 		
     /**

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-11 18:20+0200\n"
-"PO-Revision-Date: 2014-09-11 16:40+0000\n"
+"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"PO-Revision-Date: 2014-12-04 21:01+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -76,11 +76,11 @@ msgstr ""
 
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:48
 msgid "ongoing"
-msgstr ""
+msgstr "постоянный"
 
 #: language/_annotated_strings.php:12
 msgid "Degree"
-msgstr ""
+msgstr "Степень"
 
 #: language/_annotated_strings.php:15
 msgid "please enter the name of your qualification"

@@ -1,0 +1,49 @@
+<?php
+/*
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * {{rtd: displays short info about publishing on Jobsintown.de}}
+ *
+ * @package      YAWIK
+ * @subpackage   Applications
+ * @author       weitz@cross-solution.de
+ */
+?>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">
+        <span>&times;</span>
+    </button>
+    <h4 class="modal-title"><?php echo sprintf($this->translate('Publish on %s'),'www.jobsintown.de')?></h4>
+</div>
+
+<div class="modal-body">
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading">über Jobsintown</h4>
+
+            Die 1999 gegründete Online-Stellenbörse jobsintown.de hat monatlich mehr als 840.000 Besuchern und ist
+            spezialisiert auf die regionale und branchenspezifische Jobsuche. Die zahlreichen spezialisierten Fachkanäle,
+            ermöglichen eine gezielte berufsgruppenspezifische Ansprache. Außerdem bietet die Stellenbörse ein
+            umfangreiches Karrierenetzwerk, mit vielen hochwertigen Partnerportalen. Für alle Arbeitnehmer die einen Job
+            in Wohnortnähe suchen, ist jobsintown.de in jeder deutschen Stadt über 100.000 Einwohner mit lokalen
+            Online-Portalen vertreten. Weitere Informationen unter <a href="http://www.jobsintown.de">www.jobsintown.de</a>.
+            <h4>
+                Schaltungsdauer: 30 Tage, Preis: <span class="label label-default">199,- €</span>
+
+            </h4>
+        </div>
+        <a class="media-right" href="http://www.jobsintown.de/" target="_blank">
+            <img src="<?php echo $this->basePath("/Jobs/images/screenshot-jobsintown.png")?>" alt="Jobsintown.de">
+        </a>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

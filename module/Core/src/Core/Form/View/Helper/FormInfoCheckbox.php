@@ -60,9 +60,8 @@ class FormInfoCheckbox extends ZfFormCheckbox
         }
         
         $markup = '
-        <div class="form-checkbox-wrapper">
-            <div class="pull-left">%s</div>
-            <div class="form-checkbox-label"><label for="%s">%s</label></div>
+        <div class="checkbox">
+            <label for="%s">%s %s</label>
         </div>
         
         <div class="modal fade" id="modal-' . $element->getAttribute('id') . '">
@@ -74,7 +73,7 @@ class FormInfoCheckbox extends ZfFormCheckbox
         
         $markup = sprintf(
             $markup,
-            $input, $element->getAttribute('id'), $label
+            $element->getAttribute('id'), $input, $label
         );
         
         return $headline . $markup;

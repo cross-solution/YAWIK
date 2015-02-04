@@ -14,7 +14,7 @@ use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Defines the contact address of an Organization
+ * Holds various fields a o job opening template
  *
  * @ODM\EmbeddedDocument
  */
@@ -22,79 +22,138 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
 {
 
     /**
+     * Qualification field of the job template
+     *
      * @var String
      * @ODM\String
      */
     protected $qualifications;
 
     /**
+     * Requirements field of the job template
+     *
      * @var String
      * @ODM\String
      */
     protected $requirements;
 
     /**
+     * Benefits field of the job template
+     *
      * @var String
      * @ODM\String
      */
     protected $benefits;
 
     /**
+     * Job title field of the job template
+     *
      * @var String
      * @ODM\String
      */
     protected $title;
 
     /**
+     * free values (currently not in use)
+     *
      * @ODM\Hash
      */
     protected $_freeValues;
 
-    public function setQualifications(\string $qualifications)
+    /**
+     * Sets the Qualification field of the job template
+     *
+     * @param $qualifications
+     * @return $this
+     */
+    public function setQualifications($qualifications)
     {
-        $this->qualifications=$qualifications;
+        $this->qualifications= (string) $qualifications;
         return $this;
     }
 
+    /**
+     * Gets the qualification of a job template
+     *
+     * @return String
+     */
     public function getQualification()
     {
         return $this->qualifications;
     }
 
-
-    public function setRequirements(\string $requirements)
+    /**
+     * Sets the requirements of a job template
+     *
+     * @param String $requirements
+     * @return $this
+     */
+    public function setRequirements($requirements)
     {
-        $this->requirements=$requirements;
+        $this->requirements=(string) $requirements;
         return $this;
     }
 
+    /**
+     * Gets the requirements of a job template
+     *
+     * @return String
+     */
     public function getRequirements()
     {
         return $this->requirements;
     }
 
-    public function setBenefits(\string $benefits)
+    /**
+     * Sets the benefits of a job template
+     *
+     * @param String $benefits
+     * @return $this
+     */
+    public function setBenefits($benefits)
     {
-        $this->benefits=$benefits;
+        $this->benefits=(string) $benefits;
         return $this;
     }
 
+    /**
+     * Gets the Benefits of a job template
+     *
+     * @return String
+     */
     public function getBenefits()
     {
         return $this->benefits;
     }
 
-    public function setTitle(\string $title)
+    /**
+     * Sets the job title of the job template
+     *
+     * @param $title
+     * @return $this
+     */
+    public function setTitle($title)
     {
-        $this->title=$title;
+        $this->title=(string) $title;
         return $this;
     }
 
+    /**
+     * Gets the job title of the job template
+     *
+     * @return String
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
+    /**
+     * @param null $key
+     * @param null $default
+     * @param bool $set
+     * @return null
+     */
     public function get($key = null, $default = null, $set = false)
     {
         if (isset($this->_freeValues[$key])) {
@@ -106,6 +165,11 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
         return $default;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
     public function set($key, $value)
     {
         //$this->checkWriteAccess();

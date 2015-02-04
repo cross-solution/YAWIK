@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 /** AttachmentsFieldset.php */
@@ -36,7 +36,7 @@ class FilterApplication extends Form
     {
         $options = $this->getOptions();
         $this->setName('search-applications-form')
-                ->setLabel('OptionsFA')
+                ->setLabel('Search applications')
                 ->setAttributes(array(
                     'class' => 'form-inline',
                     'method' => 'get'));

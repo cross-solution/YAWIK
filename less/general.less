@@ -10,11 +10,11 @@
  * general css classes
  */
 
-@cam-color-confirmed: @brand-success;
-@cam-color-rejected: @brand-danger;
-@cam-color-incoming: @brand-info;
-@cam-color-invited: @brand-warning;
-@cam-color-th: #efefef;
+@yk-color-confirmed: @brand-success;
+@yk-color-rejected: @brand-danger;
+@yk-color-incoming: @brand-info;
+@yk-color-invited: @brand-warning;
+@yk-color-th: #efefef;
 
 /**
 * Alert Boxes success and error
@@ -49,19 +49,19 @@
     .cam-icon-portrait {
       font-size: 40px;
     }
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
 
 /**
 * hide some columns on small devices
 */
-.cam-career,
-.cam-attachment,
-.cam-job {
+.@{yawik-css-prefix}-career,
+.@{yawik-css-prefix}-attachment,
+.@{yawik-css-prefix}-job {
     .hidden-xs;
 }
-.cam-attachment {
+.@{yawik-css-prefix}-attachment {
   max-width: 130px;
   overflow: hidden;
 }
@@ -78,14 +78,14 @@
 * State Colors 
 */
 
-.cam-color-incoming {
-  color: @cam-color-incoming;
+.@{yawik-css-prefix}-color-incoming {
+  color: @yk-color-incoming;
 }
-.cam-color-invited {
-  color: @cam-color-invited;
+.@{yawik-css-prefix}-color-invited {
+  color: @yk-color-invited;
 }
-.cam-color-rejected {
-  color: @cam-color-rejected;
+.@{yawik-css-prefix}-color-rejected {
+  color: @yk-color-rejected;
 }
 .@{yawik-css-prefix}-color-success { color: @brand-success; }
 
@@ -98,12 +98,12 @@
   text-align: right;
 } 
 .@{yawik-css-prefix}-hidden {   
-  height: 0px; 
-  line-height: 0px; 
+  height: 0;
+  line-height: 0;
   overflow: hidden;
 }
 
 .img-ploraid {
   width: 120px;
-  hight: 180px;
+  height: 180px;
 }

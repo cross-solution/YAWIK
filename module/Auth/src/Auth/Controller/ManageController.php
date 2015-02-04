@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -83,40 +83,6 @@ class ManageController extends AbstractActionController
        return array('form' => $container);
     }
 
-    public function passwordAction()
-    {
-        $services = $this->getServiceLocator();
-        $form     = $services->get('forms')->get('user-password');
-        $user     = $services->get('AuthenticationService')->getUser();
-        $translator = $services->get('translator');
-        
-        if (!$user) {
-            throw new \Auth\Exception\UnauthorizedAccessException('You must be logged in.');
-        }
-        $form->bind($user);
-        if ($this->request->isPost()) {
-            $data = $this->request->getPost();
-            $form->setData($data);
-            if ($form->isValid()) {
-                $services->get('repositories')->store($user);
-                $vars = array(
-                        'ok' => true,
-                        'status' => 'success',
-                        'text' => $translator->translate('Password successfully changed') . '.',
-                );
-            } else { // form is invalid
-                $vars = array(
-                        'ok' => false,
-                        'status' => 'error',
-                        'text' => $translator->translate('Password could not be changed') . '.',
-                );
-            }
-        }
-        
-        $vars['form']=$form;
-        return $vars;
-    }
-    
 }
 
  

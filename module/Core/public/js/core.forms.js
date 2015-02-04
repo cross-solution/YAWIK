@@ -1,4 +1,10 @@
-
+/**
+ * implements the AJAX for forms
+ *
+ * all forms with
+ *
+ *
+ */
 ;(function($) {
 	
 	var methods = {
@@ -13,20 +19,21 @@
 			
 			displayErrors: function($form, errors, prefix)
 			{
-				$.each(errors, function(idx, error) {
-					var $errorsDiv = $form.find('#' + prefix + idx + '-errors'); 
-					if ($errorsDiv.length) {
-						var html = '<ul class="error">'
-						$.each(error, function(i, err) {
-							html += '<li>' + err + '</li>';
-						});
-						html += '</ul>';
-						$errorsDiv.html(html);
-						$errorsDiv.parent().addClass('input-error');
-					} else {
-						methods.displayErrors($form, error, idx + '-');
-					}
-				});
+                $.each(errors, function(idx, error) {
+                    var $errorsDiv = $form.find('#' + prefix + idx + '-errors');
+                    console.debug('inserting error messages', '#' + prefix + idx + '-errors', $errorsDiv, error);
+                    if ($errorsDiv.length) {
+                        var html = '<ul class="error">'
+                        $.each(error, function(i, err) {
+                            html += '<li>' + err + '</li>';
+                        });
+                        html += '</ul>';
+                        $errorsDiv.html(html);
+                        $errorsDiv.parent().addClass('input-error');
+                    } else {
+                        methods.displayErrors($form, error, idx + '-');
+                    }
+                });
 			}
 	};
 	
@@ -35,6 +42,7 @@
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
 			var data  = $form.serializeArray();
+            console.debug('data', e, $form, data);
 			if (extraData) {
 				$.each(extraData, function(idx, value) {
 					data.push({
@@ -46,7 +54,8 @@
 			
 			var dataType = $form.data('type');
 			if (!dataType) dataType = 'json';
-			
+
+            $form.trigger('yk.forms.start', {data: data});
 			$.ajax({
 				url: $form.attr('action'),
 				type: $form.attr('method'),
@@ -54,12 +63,15 @@
 				data: data
 			})
 			.done(function(data, textStatus, jqXHR) {
+                // the data-object can contains following values
+                // valid = boolean ,if explicitly set to false, errors will be displayed
 				methods.clearErrors($form);
 				if (!data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
-                    console.log('$form',$form);
+                console.debug('bubble done event for form',$form,data);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR});
+                $form.trigger('ajax.ready', {'data': data});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
 				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
@@ -75,7 +87,7 @@
 			if (validate) {
 				data.validationGroup = validate;
 			}
-
+            console.debug('triggering a submit on change', data);
 			$element.parents('form').trigger('submit', data);
 			return false;
 		}
@@ -106,20 +118,38 @@
 			$select.select2(options);
 		}
 	};
-	
+
+    /**
+     * this function is called for all forms which has
+     * - an attribute data-handle-by="yk-form"
+     * - or has no attribute data-handle-by
+     *
+     * implement the triggers for an AJAX-Submit
+     *
+     * @param method
+     * @returns
+     */
 	$.fn.form = function (method) 
 	{
 		return this.each(function() {
 			var $form = $(this);
-			
+
+            // enables the ability to call a distinct method for the picked forms,
+            // has nothing to do with initiating the triggers below
 			if (method && method in methods) {
 				var args = [].slice.call(arguments);
 				args.unshift($form);
 				return methods[method].apply(this, args);
 			}
-			
+
+            console.debug('ajax submit initialized for', $form);
+            // overwrite the originally (HTML)-Submit for the form
 			$form.submit(handlers.onSubmit);
-			$form.find('[data-trigger="submit"]').change(handlers.onChange);
+            // triggers an ajax call for elements with this specific attribute 'data-trigger'
+            // originally it is designed to immidiatly fire an submit event for input elements, after they have changed
+			var elementsThatTriggerASubmit = $form.find('[data-trigger="submit"]');
+            console.debug('elements that trigger a submit',elementsThatTriggerASubmit);
+            elementsThatTriggerASubmit.change(handlers.onChange);
 		});
 	};
 

@@ -1,0 +1,48 @@
+<?php
+/*
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * {{rtd: displays short info about publishing on YAWIK}}
+ *
+ * @package      YAWIK
+ * @subpackage   Applications
+ * @author       weitz@cross-solution.de
+ */
+?>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">
+        <span>&times;</span>
+    </button>
+    <h4 class="modal-title"><?php echo sprintf($this->translate('Publish on %s'),'YAWIK')?></h4>
+</div>
+
+<div class="modal-body">
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading">über YAWIK</h4>
+            YAWIK offers a web based solution for managing job applications. Jobs ads can be entered or pushed to
+            the system. The system assigns application forms to job ads. Applicants and Recruiters can connect
+            to YAWIK using social networks. Currently it is possible to integrate YAWIK into a corporate website
+            by extending it with an own module. On the long term it is designed to become a distributed system for
+            connecting recruiters and applicants.
+            . Weitere Informationen unter <a href="http://jobs.yawik.org">jobs.yawik.org</a>.
+            <h4>
+                Schaltungsdauer: 30 Tage, Preis: <span class="label label-default">0,- €</span>
+
+            </h4>
+        </div>
+        <a class="media-right" href="http://jobs.yawik.org/" target="_blank">
+            <img src="<?php echo $this->basePath("/Jobs/images/screenshot-yawik.png")?>" alt="yawik.org">
+        </a>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>

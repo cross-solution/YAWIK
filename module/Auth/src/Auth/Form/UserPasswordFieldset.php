@@ -1,13 +1,17 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 namespace Auth\Form;
 
-//use Core\Entity\Hydrator\EntityHydrator;
 use Auth\Form\Hydrator\UserPasswordFieldsetHydrator;
 use Auth\Entity\User;
 use Zend\Form\Fieldset;
-use Core\Entity\EntityInterface;
-use Core\Entity\RelationEntity;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\Identical;
 use Zend\Validator\NotEmpty;
@@ -15,7 +19,7 @@ use Zend\Validator\StringLength;
 
 class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -24,52 +28,34 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
         }
         return $this->hydrator;
     }
-    
-	public function init()
-    {
-        $this->setName('passwordfieldset')
-             ->setLabel( /* @translate */ 'Password');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
-        
+    public function init()
+    {
+        $this->setName('passwordFieldset')
+            ->setLabel(/* @translate */ 'Password');
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Password',
             'name' => 'password',
-            'options' => array( 'label' => /* @translate */ 'Password' ),
-         )); 
-        
+            'options' => array(
+                'label' => /* @translate */ 'Password'
+            ),
+        ));
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Password',
             'name' => 'password2',
-            'options' => array( 'label' => /* @translate */ 'Retype password' ),
-         ));
-               
+            'options' => array(
+                'label' => /* @translate */ 'Retype password'
+            ),
+        ));
     }
-    
+
     public function allowObjectBinding($object)
     {
         return $object instanceof User;
     }
-    
-    /*
-    public function setValue($value)
-    {
-        if ($value instanceOf EntityInterface) {
-            if ($value instanceOf RelationEntity) {
-                $value = $value->getEntity();
-            }
-            $data = $this->getHydrator()->extract($value);
-            $this->populateValues($data);
-            $this->setObject($value);
-        }
-        return parent::setValue($value);
-    }
-    */
-    
-    public function setValidationGroup($name) {
-        return parent::setValidationGroup($name);
-    }
-    
+
     /**
      * (non-PHPdoc)
      * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
@@ -77,28 +63,29 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
     public function getInputFilterSpecification()
     {
         return array(
-             'password' => array(
+            'password' => array(
                 'required' => true,
-                'filters'  => array(
+                'filters' => array(
                     array('name' => '\Zend\Filter\StringTrim'),
+                    array('name' => '\Zend\Filter\StripTags'),
                 ),
                 'validators' => array(
-                            new NotEmpty(),
-                            new StringLength(array('max' => 50))
+                    new NotEmpty(),
+                    new StringLength(array('min' => 3, 'max' => 50))
                 ),
             ),
-             'password2' => array(
+            'password2' => array(
                 'required' => true,
-                'filters'  => array(
+                'filters' => array(
                     array('name' => '\Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
-                            new NotEmpty(),
-                            new StringLength(array('max' => 50)),
-                            new Identical('password'),
+                    new NotEmpty(),
+                    new StringLength(array('min' => 3, 'max' => 50)),
+                    new Identical('password'),
                 ),
             ),
         );
-        
+
     }
 }

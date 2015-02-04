@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -11,12 +11,11 @@ namespace Auth\Entity;
 
 use Core\Entity\AbstractEntity;
 use Core\Entity\EntityInterface;
-use Core\Entity\FileEntity;
-use Core\Entity\FileEntityInterface;
+use Core\Entity\FileInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * peronal informations of a user.
+ * personal information of a user.
  * 
  * @ODM\EmbeddedDocument
  */
@@ -38,6 +37,12 @@ class Info extends AbstractEntity implements InfoInterface
     /** @var string 
      * @ODM\String */
     protected $email;
+
+    /**
+     * @var boolean
+     * @ODM\Boolean
+     */
+    protected $emailVerified;
     
     /** @var string 
      * @ODM\String */ 
@@ -61,7 +66,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /** @var string 
      * @ODM\String */
-    protected $postalcode;
+    protected $postalCode;
 
     /** @var string 
      * @ODM\String */
@@ -71,7 +76,7 @@ class Info extends AbstractEntity implements InfoInterface
      * the photo of an users profile
      *
      * @var FileInterface
-     * @ODM\ReferenceOne(targetDocument="UserImage", cascade={"persist","update","remove"}, orphanRemoval=true, simple=true, nullable=true) 
+     * @ODM\ReferenceOne(targetDocument="UserImage", simple=true, nullable=true, cascade={"all"})
      */
     protected $image;
     
@@ -129,7 +134,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
-     * @return \Auth\Entity\User
+     * @return \Auth\Entity\Info
      */
     public function setEmail($email)
     {
@@ -142,7 +147,20 @@ class Info extends AbstractEntity implements InfoInterface
     {
     	return $this->email;
     }
-    
+
+    /** {@inheritdoc} */
+    public function isEmailVerified()
+    {
+        return $this->emailVerified;
+    }
+
+    /** {@inheritdoc} */
+    public function setEmailVerified($emailVerified)
+    {
+        $this->emailVerified = $emailVerified;
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      * @return \Auth\Entity\User
@@ -263,14 +281,14 @@ class Info extends AbstractEntity implements InfoInterface
      * {@inheritdoc}
      * @return \Auth\Entity\User
      */
-    public function setPostalcode($postalcode) {
-    	$this->postalcode = (String) $postalcode;
+    public function setPostalCode($postalCode) {
+    	$this->postalCode = (String) $postalCode;
     	return $this;
     }
     
     /** {@inheritdoc} */
-    public function getPostalcode() {
-    	return $this->postalcode;
+    public function getPostalCode() {
+    	return $this->postalCode;
     }
     
     /**
@@ -325,12 +343,13 @@ class Info extends AbstractEntity implements InfoInterface
         $this->birthYear=$array['birthYear'];
         $this->firstName=$array['firstName'];
         $this->lastName=$array['lastName'];
-        $this->email=$array['email'];        
+        $this->email=$array['email'];
+        $this->emailVerified = isset($array['emailVerified']) ? $array['emailVerified'] : null;
         $this->gender=$array['gender']; 
         $this->street=$array['street'];
         $this->houseNumber=$array['houseNumber'];
         $this->phone=$array['phone'];
-        $this->postalcode=$array['postalcode'];
+        $this->postalCode=$array['postalcode'];
         $this->city=$array['city'];        
         return($this);   
     }
@@ -348,11 +367,12 @@ class Info extends AbstractEntity implements InfoInterface
         $array['firstName']=$info->firstName;
         $array['lastName']=$info->lastName;
         $array['email']=$info->email;
+        $array['emailVerified'] = $info->emailVerified;
         $array['gender']=$info->gender;
         $array['street']=$info->street;
         $array['houseNumber']=$info->houseNumber;
         $array['phone']=$info->phone;
-        $array['postalcode']=$info->postalcode;
+        $array['postalcode']=$info->postalCode;
         $array['city']=$info->city;
         return $array;
     }

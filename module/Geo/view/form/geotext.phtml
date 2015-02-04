@@ -6,7 +6,9 @@
  * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-
+/**
+ * {{rtd: Renders the autocompletion for locations}}
+ */
 //$this->headScript()->appendFile($this->basePath('Jobs/js/form.apply-identifier.js'));
 $value = $this->element->getValue();
 $label = $this->element->getLabel();
@@ -15,14 +17,20 @@ if ($this->element->hasAttribute('name')) {
     $name  = $this->element->getAttribute('name');
 }
 ?>
-
+<?php if ($this->renderSummary): ?>
+    <div class="row">
+        <div class="col-md-3 yk-label"><label><?php echo $this->translate('Location') ?></label></div>
+        <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
+    </div>
+    
+<?php return; endif ?>
 <div class="controls controls-row row">
     <div class="col-md-3 text-right">
         <label for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate('Location') ?></label>
     </div>
     <div id="job-location-span" class="col-md-9">
         <input type="text" value="<?php echo $value; ?>" class=" form-control geolocation" id="job-location" name="<?php echo $name; ?>" data-provide="typeahead" >
-        <div id="job-location-errors">
+        <div id="<?php echo preg_replace('/\W/','-',$this->element->getName()); ?>errors">
         </div>     
     </div>
 </div>

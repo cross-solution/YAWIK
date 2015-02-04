@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -47,15 +47,15 @@ class PaginationQuery extends AbstractPaginationQuery
                         break;
                 }
             }
-            if (isset($value['status']) && !empty($value['status'])) {
-                $queryBuilder->field('status')->equals((string) $value['status']);
+            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' ) {
+                $queryBuilder->field('status.name')->equals((string) $value['status']);
             }
             
         } else  {
             /*
              * an applicants or guests can see all aktive jobs
              */
-            $queryBuilder->field('status')->equals('active');
+            $queryBuilder->field('status.name')->equals('active');
         }
     
         
@@ -99,7 +99,7 @@ class PaginationQuery extends AbstractPaginationQuery
                 $sortProp = "title";
                 break;
             case "cam":
-                $sortProp = "camEnabled";
+                $sortProp = "atsEnabled";
                 break;
     
             default:

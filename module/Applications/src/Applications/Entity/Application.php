@@ -118,13 +118,6 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @ODM\EmbedMany(targetDocument="History")
      */
     protected $history;
-        
-    /**
-     * Flag, wether privacy policy is accepted or not.
-     * 
-     * @var bool
-     */
-    protected $privacyPolicy;
     
     /**
      * Who has opened the detail view of the application. Contains an array of user ids, which has read this
@@ -209,12 +202,12 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     public function recalculateRatings()
     { 
         // Compute rating value.
-        // @todo Need to know wether comments has changed or not.
+        // @todo Need to know weather comments has changed or not.
         // Unfortunately, persistent collection gets no dirty flag,
         // if existing entries are changed....
         // We limit recalculates to the cases where comments gets loaded from
         // the database (which still does not neccessarly mean, there are changes...
-        
+
         $comments = $this->getComments();
         if ( $comments instanceOf ArrayCollection // new Comments
             || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)
@@ -525,27 +518,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
             }
 	    return $this->history;
 	}
-        
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::setPrivacyPolicyAccepted()
-	 * @return Application
-	 */
-	public function setPrivacyPolicyAccepted($privacyPolicy)
-	{
-	    $this->privacyPolicy = $privacyPolicy;
-	    return $this;
-	}
-        
-	/**
-	 * {qinheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::getPrivacyPolicyAccepted()
-	 */
-	public function getPrivacyPolicyAccepted()
-	{
-	    return $this->privacyPolicy;
-	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @see \Applications\Entity\ApplicationInterface::setReadBy()

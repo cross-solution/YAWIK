@@ -16,6 +16,11 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
 use Jobs\Form\Hydrator\JobDescriptionHydrator;
 
+/**
+ * Defines the formular qualification of a job opening
+ *
+ * @package Jobs\Form
+ */
 class JobDescriptionQualifications extends Form implements InputFilterProviderInterface
 {
 
@@ -33,7 +38,7 @@ class JobDescriptionQualifications extends Form implements InputFilterProviderIn
         $this->setName('jobs-form-qualifications');
         $this->setAttributes(array(
             'id' => 'jobs-form-qualifications',
-            'data-handle-by' => 'native'
+            'data-handle-by' => 'yk-form'
         ));
 
         $this->add(array(

@@ -101,16 +101,16 @@ translate('if checked, you\'ll get a copy of all mails you send.');
 //: ./src/Applications/Form/FilterApplication.php:48
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:57
+//: ./src/Applications/Form/FilterApplication.php:56
 translate('Enter job title');
 
-//: ./src/Applications/Form/FilterApplication.php:69
+//: ./src/Applications/Form/FilterApplication.php:75
 translate('Status');
 
-//: ./src/Applications/Form/FilterApplication.php:103
+//: ./src/Applications/Form/FilterApplication.php:109
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:111
+//: ./src/Applications/Form/FilterApplication.php:117
 translate('Clear');
 
 //: ./src/Applications/Form/CommentForm.php:41
@@ -188,34 +188,34 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 //: ./src/Applications/Form/BaseFieldset.php:45
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:85
+//: ./src/Applications/Controller/ManageController.php:86
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:130
+//: ./src/Applications/Controller/ManageController.php:131
 translate('Invalid apply id');
 
 //: ./src/Applications/Controller/ApplyController.php:141
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:220
+//: ./src/Applications/Controller/ApplyController.php:223
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:280
+//: ./src/Applications/Controller/ApplyController.php:284
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:82
+//: ./src/Applications/Controller/IndexController.php:83
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:161
+//: ./src/Applications/Controller/IndexController.php:145
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:238
+//: ./src/Applications/Controller/IndexController.php:222
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:271
+//: ./src/Applications/Controller/IndexController.php:255
 translate('your application was sent successfully');
 
-//: ./src/Applications/Mail/Forward.php:40
+//: ./src/Applications/Mail/Forward.php:45
 translate('Fwd: Application to "%s" dated %s');
 
 //: ./src/Applications/Mail/NewApplication.php:50
