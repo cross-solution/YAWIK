@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-06 16:43+0100\n"
+"POT-Creation-Date: 2015-01-18 16:50+0100\n"
 "PO-Revision-Date: 2015-01-06 15:44+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
@@ -596,18 +596,18 @@ msgstr "Options"
 msgid "Search applications"
 msgstr "Search applications"
 
-#: src/Applications/Controller/ManageController.php:311
+#: src/Applications/Controller/ManageController.php:313
 #: src/Applications/Controller/MultimanageController.php:84
 #, php-format
 msgid "Your application dated %s"
 msgstr "Your application dated %s"
 
-#: src/Applications/Controller/ManageController.php:357
+#: src/Applications/Controller/ManageController.php:359
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Forwarded application to %s"
 
-#: src/Applications/Controller/ManageController.php:372
+#: src/Applications/Controller/ManageController.php:374
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Forward application to %s failed."

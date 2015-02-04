@@ -59,13 +59,13 @@ translate('Application photo');
 //: ./src/Auth/Form/UserInfo.php:31
 translate('personal informations');
 
-//: ./src/Auth/Form/UserPasswordFieldset.php:31
+//: ./src/Auth/Form/UserPasswordFieldset.php:35
 translate('Password');
 
-//: ./src/Auth/Form/UserPasswordFieldset.php:38
+//: ./src/Auth/Form/UserPasswordFieldset.php:41
 translate('Password');
 
-//: ./src/Auth/Form/UserPasswordFieldset.php:44
+//: ./src/Auth/Form/UserPasswordFieldset.php:49
 translate('Retype password');
 
 //: ./src/Auth/Form/GroupFieldset.php:44
@@ -131,18 +131,6 @@ translate('User cannot be found');
 //: ./src/Auth/Controller/RegisterConfirmationController.php:55
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/ManageController.php:101
-translate('Password successfully changed');
-
-//: ./src/Auth/Controller/ManageController.php:105
-translate('Password successfully changed');
-
-//: ./src/Auth/Controller/ManageController.php:108
-translate('Password could not be changed');
-
-//: ./src/Auth/Controller/ManageController.php:112
-translate('Password could not be changed');
-
 //: ./src/Auth/Controller/ManageGroupsController.php:144
 translate('Group created');
 
@@ -158,7 +146,7 @@ translate('You are now logged in.');
 //: ./src/Auth/Controller/IndexController.php:107
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:389
+//: ./src/Auth/Controller/IndexController.php:394
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/RegisterController.php:59
@@ -172,6 +160,12 @@ translate('User with this email address already exists');
 
 //: ./src/Auth/Controller/RegisterController.php:74
 translate('An unexpected error has occurred, please contact your system administrator');
+
+//: ./src/Auth/Controller/PasswordController.php:65
+translate('Password successfully changed');
+
+//: ./src/Auth/Controller/PasswordController.php:72
+translate('Password could not be changed');
 
 //: ./src/Auth/Controller/ForgotPasswordController.php:59
 translate('Mail with link for reset password has been sent, please try to check your email box');
@@ -196,9 +190,9 @@ translate('Register confirmation');
 translate('Password recovery');
 
 41:        $bodyHtml = /*@translate*/
-//: ./config/module.config.php:324
+//: ./config/module.config.php:335
 translate('user');
 
-//: ./config/module.config.php:325
+//: ./config/module.config.php:336
 translate('recruiter');
 

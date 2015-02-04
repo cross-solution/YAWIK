@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-18 16:50+0100\n"
+"POT-Creation-Date: 2015-02-04 19:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,15 +185,15 @@ msgstr ""
 msgid "resolves to %s"
 msgstr ""
 
-#: view/layout/layout.phtml:26
+#: view/layout/layout.phtml:35
 msgid "YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:84
+#: view/layout/layout.phtml:87
 msgid "Help to translate YAWIK"
 msgstr ""
 
-#: view/layout/layout.phtml:113
+#: view/layout/layout.phtml:116
 msgid "All rights reserved."
 msgstr ""
 

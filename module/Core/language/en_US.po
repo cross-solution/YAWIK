@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-04 20:32+0100\n"
+"POT-Creation-Date: 2015-02-04 19:05+0100\n"
 "PO-Revision-Date: 2014-12-04 19:38+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/partial/loading-popup.phtml:16
+#: view/partial/loading-popup.phtml:18
 msgid "Loading"
 msgstr "Loading"
 
-#: view/partial/pagination-control.phtml:19
-#: view/partial/pagination-control.phtml:23
+#: view/partial/pagination-control.phtml:26
+#: view/partial/pagination-control.phtml:30
 msgid "First"
 msgstr "First"
 
-#: view/partial/pagination-control.phtml:28
-#: view/partial/pagination-control.phtml:31
+#: view/partial/pagination-control.phtml:36
+#: view/partial/pagination-control.phtml:40
 msgid "Back"
 msgstr "Back"
 
-#: view/partial/pagination-control.phtml:36
-#: view/partial/pagination-control.phtml:39
+#: view/partial/pagination-control.phtml:46
+#: view/partial/pagination-control.phtml:50
 msgid "Next"
 msgstr "Next"
 
-#: view/partial/pagination-control.phtml:43
-#: view/partial/pagination-control.phtml:47
+#: view/partial/pagination-control.phtml:54
+#: view/partial/pagination-control.phtml:58
 msgid "Last"
 msgstr "Last"
 
-#: view/form/permissions-collection.phtml:12
+#: view/form/permissions-collection.phtml:15
 msgid "Add permission"
 msgstr "Add permission"
 
@@ -113,85 +113,85 @@ msgstr "Dashboard"
 msgid "Error loading widget."
 msgstr "Error loading widget."
 
-#: view/error/index.phtml:11
+#: view/error/index.phtml:14
 msgid "An error occurred"
 msgstr "An error occurred"
 
-#: view/error/index.phtml:18 view/error/403.phtml:20 view/error/404.phtml:64
+#: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
 msgid "Additional information"
 msgstr "Additional information"
 
-#: view/error/index.phtml:21 view/error/index.phtml:45 view/error/403.phtml:23
-#: view/error/403.phtml:47 view/error/404.phtml:67 view/error/404.phtml:91
+#: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
+#: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
 msgid "File"
 msgstr "File"
 
-#: view/error/index.phtml:25 view/error/index.phtml:49 view/error/403.phtml:27
-#: view/error/403.phtml:51 view/error/404.phtml:71 view/error/404.phtml:95
+#: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
+#: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
 msgid "Message"
 msgstr "Message"
 
-#: view/error/index.phtml:29 view/error/index.phtml:53 view/error/403.phtml:31
-#: view/error/403.phtml:55 view/error/404.phtml:75 view/error/404.phtml:99
+#: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
+#: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
 msgid "Stack trace"
 msgstr "Stack trace"
 
-#: view/error/index.phtml:39 view/error/403.phtml:41 view/error/404.phtml:85
+#: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
 msgid "Previous exceptions"
 msgstr "Previous exceptions"
 
-#: view/error/index.phtml:68 view/error/403.phtml:70 view/error/404.phtml:114
+#: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
 msgid "No Exception available"
 msgstr "No Exception available"
 
-#: view/error/403.phtml:12
+#: view/error/403.phtml:15
 msgid "A 403 error occurred"
 msgstr "A 403 error occurred"
 
-#: view/error/404.phtml:12
+#: view/error/404.phtml:15
 msgid "A 404 error occurred"
 msgstr "A 404 error occurred"
 
-#: view/error/404.phtml:21
+#: view/error/404.phtml:24
 msgid "The requested controller was unable to dispatch the request."
 msgstr "The requested controller was unable to dispatch the request."
 
-#: view/error/404.phtml:24
+#: view/error/404.phtml:27
 msgid ""
 "The requested controller could not be mapped to an existing controller "
 "class."
 msgstr "The requested controller could not be mapped to an existing controller class."
 
-#: view/error/404.phtml:27
+#: view/error/404.phtml:30
 msgid "The requested controller was not dispatchable."
 msgstr "The requested controller was not dispatchable."
 
-#: view/error/404.phtml:30
+#: view/error/404.phtml:33
 msgid "The requested URL could not be matched by routing."
 msgstr "The requested URL could not be matched by routing."
 
-#: view/error/404.phtml:33
+#: view/error/404.phtml:36
 msgid "We cannot determine at this time why a 404 was generated."
 msgstr "We cannot determine at this time why a 404 was generated."
 
-#: view/error/404.phtml:45
+#: view/error/404.phtml:48
 msgid "Controller"
 msgstr "Controller"
 
-#: view/error/404.phtml:52
+#: view/error/404.phtml:55
 #, php-format
 msgid "resolves to %s"
 msgstr "resolves to %s"
 
-#: view/layout/layout.phtml:21
+#: view/layout/layout.phtml:35
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:84
+#: view/layout/layout.phtml:87
 msgid "Help to translate YAWIK"
 msgstr "Help to translate YAWIK"
 
-#: view/layout/layout.phtml:114
+#: view/layout/layout.phtml:116
 msgid "All rights reserved."
 msgstr "All rights reserved."
 
@@ -200,12 +200,12 @@ msgid "Permissions"
 msgstr "Permissions"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:104
-#: src/Core/Form/View/Helper/FormImageUpload.php:78
+#: src/Core/Form/View/Helper/FormImageUpload.php:80
 msgid "The file is too big"
 msgstr "The file is too big"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:105
-#: src/Core/Form/View/Helper/FormImageUpload.php:79
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file type is not supported"
 msgstr "The file type is not supported"
 
@@ -218,7 +218,7 @@ msgstr "You may only upload %d files"
 msgid "Click here to add files or use drag and drop."
 msgstr "Click here to add files or use drag and drop."
 
-#: src/Core/Form/View/Helper/FormImageUpload.php:40
+#: src/Core/Form/View/Helper/FormImageUpload.php:42
 msgid "Click here to add an image or use drag and drop."
 msgstr "Click here to add an image or use drag and drop."
 
