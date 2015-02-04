@@ -21,6 +21,20 @@ use Settings\Repository\Settings as SettingsRepository;
  */
 class ContentController extends AbstractActionController
 {
+    public function indexAction()
+    {
+        $view = $this->params('view');
+        $view = 'content/' . $view;
+
+        $viewModel = new ViewModel();
+        $viewModel->setTemplate($view);
+        if ($this->request->isXmlHttpRequest()) {
+            $viewModel->setTerminal(true);
+        }
+        return $viewModel;
+    }
+
+
 
     /**
      * displays the content of a modal box. This is used e.g. when opening
