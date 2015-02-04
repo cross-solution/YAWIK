@@ -185,6 +185,7 @@ return array(
             'Jobs/ImportFieldset'               => '\Jobs\Form\ImportFieldset',
             'Jobs/ListFilter'                   => '\Jobs\Form\ListFilter',
             'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/JobDescriptionDescription'    => '\Jobs\Form\JobDescriptionDescription',
             'Jobs/JobDescriptionBenefits'       => '\Jobs\Form\JobDescriptionBenefits',
             'Jobs/JobDescriptionRequirements'   => '\Jobs\Form\JobDescriptionRequirements',
             'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',

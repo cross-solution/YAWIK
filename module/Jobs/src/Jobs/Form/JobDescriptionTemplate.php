@@ -30,6 +30,13 @@ class JobDescriptionTemplate extends Container
     public function init()
     {
         $this->setForms(array(
+            'descriptionFormDescription' => array(
+                'type' => 'Jobs/JobDescriptionDescription',
+                'property' => true,
+            )
+        ));
+
+        $this->setForms(array(
             'descriptionFormBenefits' => array(
                 'type' => 'Jobs/JobDescriptionBenefits',
                 'property' => true,

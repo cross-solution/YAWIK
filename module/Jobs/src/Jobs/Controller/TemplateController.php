@@ -138,6 +138,7 @@ class TemplateController extends AbstractActionController  {
 
         $headTitle= $job->templateValues->title;
         if ( is_null($form)){
+            $companydescription = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
             $qualifications = $job->templateValues->qualifications;
@@ -148,6 +149,9 @@ class TemplateController extends AbstractActionController  {
             $viewHelperManager = $services->get('ViewHelperManager');
             /* @var $viewHelperForm \Core\Form\View\Helper\FormSimple */
             $viewHelperForm = $viewHelperManager->get('formsimple');
+
+            $formDescription = $form->get('descriptionFormDescription');
+            $companydescription = $viewHelperForm->render($formDescription);
 
             $formBenefits = $form->get('descriptionFormBenefits');
             $benefits = $viewHelperForm->render($formBenefits);
@@ -164,6 +168,7 @@ class TemplateController extends AbstractActionController  {
         }
 
         $fields= array(
+            'companydescription' => $companydescription,
             'benefits' => $benefits,
             'requirements' => $requirements,
             'qualifications' => $qualifications,
