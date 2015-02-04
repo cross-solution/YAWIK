@@ -24,11 +24,11 @@ class RestClient extends ZendClient
     protected $config;
 
     /**
-     * etablish all parameters to the AMS-Server
+     * establish all parameters to another YAWIK instance
      * these are quite good default-parameter for all REST-Clients
      *
      * notice: PHP_AUTH_USER and PHP_AUTH_PW are the basic-authentification parameter,
-     * they are set by setAuth($user, $pw)
+     * they are set by setAuth($user, $pw). It will be replaced by oAuth2.
      * at the client they are with available at the $_SERVER['PHP_AUTH_USER'] and $_SERVER['PHP_AUTH_PW'] again
      * @param null|string $uri
      * @param array $config
@@ -99,6 +99,5 @@ class RestClient extends ZendClient
         $pw = $this->config['PHP_AUTH_PW'];
         unset($this->config['PHP_AUTH_USER'], $this->config['PHP_AUTH_PW']);
         return $this->setAuth($auth, $pw);
-
     }
 }

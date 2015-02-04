@@ -354,7 +354,7 @@ return array(
     'mails_config' => array(
         'from' => array(
             'email' => 'no-reply@host.tld',
-            'name'  => 'CrossApplicantManagement'
+            'name'  => 'YAWIK'
         ),
     ),
     

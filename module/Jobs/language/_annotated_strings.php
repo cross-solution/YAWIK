@@ -83,11 +83,14 @@ translate('Please enter the location of the job');
 //: ./src/Jobs/Form/Multipost.php:21
 translate('Multiposting');
 
-//: ./src/Jobs/Controller/ManageController.php:338
+//: ./src/Jobs/Controller/ManageController.php:345
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:346
+//: ./src/Jobs/Controller/ManageController.php:353
 translate('Job opening was activated by %s');
+
+//: ./src/Jobs/Controller/ManageController.php:387
+translate('Job was deactivated by %s');
 
 //: ./config/module.jobs.portals.config.local.php.dist:10
 translate('publish your job on yawik.org for free');
@@ -119,15 +122,15 @@ translate('enable %s of this job on your Homepage');
 //: ./config/module.jobs.portals.config.local.php.dist:36
 translate('integration');
 
-//: ./config/module.config.php:81
+//: ./config/module.config.php:92
 translate('Jobs');
 
-//: ./config/module.config.php:86
+//: ./config/module.config.php:98
 translate('Overview');
 
-//: ./config/module.config.php:90
+//: ./config/module.config.php:102
 translate('Create job');
 
-//: ./config/module.config.php:99
+//: ./config/module.config.php:111
 translate('Edit job');
 
