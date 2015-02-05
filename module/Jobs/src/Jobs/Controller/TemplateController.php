@@ -41,7 +41,6 @@ class TemplateController extends AbstractActionController  {
     {
         $id = $this->params()->fromQuery('id');
         $job = $this->jobRepository->find($id);
-
         $model                = new ViewModel();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
@@ -137,7 +136,10 @@ class TemplateController extends AbstractActionController  {
         }
 
         $headTitle= $job->templateValues->title;
-        if ( is_null($form)){
+        if (empty($job->templateValues->description) && isset($job->organization)) {
+            $job->templateValues->description = $job->organization->description;
+        }
+        if ( is_null($form)) {
             $companydescription = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
