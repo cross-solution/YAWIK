@@ -33,6 +33,7 @@ return array(
             'SessionManager' => '\Zend\Session\SessionManager',
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
+            'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
         ),
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
@@ -78,6 +79,7 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'Auth' => '\Auth\Controller\Plugin\Auth',
+            'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter',
         ),
         'factories' => array(
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
