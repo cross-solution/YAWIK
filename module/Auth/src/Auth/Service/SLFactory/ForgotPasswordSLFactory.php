@@ -13,6 +13,7 @@ use Auth\Repository;
 use Auth\Service\ForgotPassword;
 use Auth\Service\UserUniqueTokenGenerator;
 use Core\Controller\Plugin;
+use Zend\EventManager\EventManagerAwareInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -33,7 +34,8 @@ class ForgotPasswordSLFactory implements FactoryInterface
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
         $tokenGenerator = $serviceLocator->get('Auth\Service\UserUniqueTokenGenerator');
+        $loginFilter = $serviceLocator->get('Auth\LoginFilter');
 
-        return new ForgotPassword($userRepository, $tokenGenerator);
+        return new ForgotPassword($userRepository, $tokenGenerator, $loginFilter);
     }
 }

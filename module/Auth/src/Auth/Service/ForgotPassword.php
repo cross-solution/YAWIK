@@ -28,12 +28,25 @@ class ForgotPassword
      */
     private $tokenGenerator;
 
+    /**
+     * @var Auth\Filter\LoginFilter
+     */
+    private $loginFilter;
+
     public function __construct(
         Repository\User $userRepository,
-        UserUniqueTokenGenerator $tokenGenerator
+        UserUniqueTokenGenerator $tokenGenerator,
+        Auth\Filter\LoginFilter $loginFilter
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;
+        $this->loginFilter = $loginFilter;
+    }
+
+    public function setSuffix($suffix)
+    {
+        $this->siuffix = $suffix;
+        return $this;
     }
 
     /**
@@ -51,7 +64,9 @@ class ForgotPassword
 
         $identity = $filter->getValue('identity');
 
-        if (!($user = $this->userRepository->findByLoginOrEmail($identity))) {
+        $suffix = $this->loginFilter->filter();
+
+        if (!($user = $this->userRepository->findByLoginOrEmail($identity, $suffix))) {
             throw new UserNotFoundException('User is not found');
         }
 

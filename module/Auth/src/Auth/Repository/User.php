@@ -67,10 +67,10 @@ class User extends AbstractRepository
      *
      * @return UserInterface|null
      */
-    public function findByLoginOrEmail($identity)
+    public function findByLoginOrEmail($identity, $suffix = '')
     {
         $qb = $this->createQueryBuilder();
-        $qb->addOr($qb->expr()->field('login')->equals($identity))
+        $qb->addOr($qb->expr()->field('login')->equals($identity . $suffix))
             ->addOr($qb->expr()->field('info.email')->equals($identity));
 
         return $qb->getQuery()->getSingleResult();
