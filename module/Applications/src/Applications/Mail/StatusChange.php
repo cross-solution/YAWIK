@@ -3,21 +3,28 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** NewApplication.php */ 
 namespace Applications\Mail;
 
-use Jobs\Entity\JobInterface;
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
 
 class StatusChange extends StringTemplateMessage
 {
+    /**
+     * @var ApplicationInterface
+     */
     protected $application;
-    
+
+    /**
+     * placeholders, which are replaced in the mail
+     *
+     * @var array
+     */
     protected $callbacks = array(
         'anrede_formell' => 'getFormalSalutation',
         'salutation_formal' => 'getFormalSalutation',
@@ -27,6 +34,10 @@ class StatusChange extends StringTemplateMessage
         'date' => 'getDate'
     );
 
+    /**
+     * @param ApplicationInterface $application
+     * @return StringTemplateMessage
+     */
     public function setVariablesFromApplication(ApplicationInterface $application)
     {
         $contact = $application->contact;
@@ -37,7 +48,13 @@ class StatusChange extends StringTemplateMessage
         );
         return $this->setVariables($variables);
     }
-    
+
+    /**
+     * Sets the application
+     *
+     * @param ApplicationInterface $application
+     * @return $this
+     */
     public function setApplication(ApplicationInterface $application)
     {
         $this->application = $application;
@@ -45,7 +62,12 @@ class StatusChange extends StringTemplateMessage
         $this->setVariablesFromApplication($application);
         return $this;
     }
-    
+
+    /**
+     * Gets the formal salutation of the applicant
+     *
+     * @return string
+     */
     protected function getFormalSalutation()
     {
         $contact = $this->application->contact;
@@ -59,7 +81,12 @@ class StatusChange extends StringTemplateMessage
         
         return sprintf($salutation, $name);
     }
-    
+
+    /**
+     * Gets the informal salutation of the applicant
+     *
+     * @return string
+     */
     protected function getInformalSalutation()
     {
         $contact = $this->application->contact;
@@ -70,14 +97,25 @@ class StatusChange extends StringTemplateMessage
         
         return sprintf($salutation, $name);
     }
-    
+
+    /**
+     * Gets the title of the job posting
+     *
+     * @return mixed
+     */
     protected function getJobTitle()
     {
         return $this->application->job->title;
     }
-    
+
+    /**
+     * Gets the creation date of the application
+     *
+     * @return string
+     */
     protected function getDate()
     {
+        /** @var $date \DateTime */
         $date = $this->application->dateCreated;
         return strftime('%x', $date->getTimestamp());
     }

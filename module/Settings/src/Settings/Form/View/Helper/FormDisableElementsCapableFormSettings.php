@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright 2013-2014 Cross Solution <http://cross-solution.de>
+ * @copyright 2013-2015 Cross Solution <http://cross-solution.de>
  */
   
 /** */

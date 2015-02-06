@@ -5,7 +5,7 @@
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @author cbleek
- * @license   AGPLv3
+ * @license   MIT
  */
 
 namespace ApplicationsTest\Options;

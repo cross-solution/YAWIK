@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -19,7 +19,7 @@ use Zend\Stdlib\ArrayUtils;
  * Helps keeping module configuration in multiple files.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @copyright (c) 2013-2014 CrossSolution <http://cross-solution.de>
+ * @copyright (c) 2013-2015 CrossSolution <http://cross-solution.de>
  */
 class ModuleConfigLoader
 {
