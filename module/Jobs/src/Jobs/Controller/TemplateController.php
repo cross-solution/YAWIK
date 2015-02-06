@@ -51,7 +51,7 @@ class TemplateController extends AbstractActionController  {
             $model->setVariable('message','job is not available');
         }
         else {
-            $model->setTemplate('templates/default/index');
+            $model->setTemplate('templates/' . $job->template . '/index');
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
         }
 
@@ -112,7 +112,7 @@ class TemplateController extends AbstractActionController  {
             return new JsonModel(array('valid' => True));
         }
 
-        $model->setTemplate('templates/default/index');
+        $model->setTemplate('templates/' . $job->template . '/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
 
         $model->setVariables($this->getTemplateFields($job,$formTemplate));
@@ -169,8 +169,9 @@ class TemplateController extends AbstractActionController  {
 
         }
 
+        // @see http://yawik.readthedocs.org/en/latest/modules/jobs/index.html#job-templates
         $fields= array(
-            'companydescription' => $companydescription,
+            'description' => $companydescription,
             'benefits' => $benefits,
             'requirements' => $requirements,
             'qualifications' => $qualifications,
@@ -182,7 +183,6 @@ class TemplateController extends AbstractActionController  {
             'postalCode' => $job->organization->contact->postalcode,
             'city' => $job->organization->contact->city,
             'uriLogo' => $this->getOrganizationLogo($job->organization),
-            'description' => $job->organization->description,
         );
 
         return $fields;
