@@ -155,7 +155,8 @@ class ManageController extends AbstractActionController
         $return = array(
             'application'=> $application, 
             'list' => $list,
-            'isUnread' => $applicationIsUnread
+            'isUnread' => $applicationIsUnread,
+            'format' => 'html'
         );
         switch ($format) {
             case 'json':
@@ -172,7 +173,7 @@ class ManageController extends AbstractActionController
                 break;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
-           
+                $return['format'] = $format;
                 break;
             default:
                 $contentCollector = $this->getPluginManager()->get('Core/ContentCollector'); 

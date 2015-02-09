@@ -15,7 +15,12 @@ use Auth\Service\Exception\UserNotFoundException;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
+use Auth\Filter\LoginFilter;
 
+/**
+ * Class ForgotPassword
+ * @package Auth\Service
+ */
 class ForgotPassword
 {
     /**
@@ -29,30 +34,30 @@ class ForgotPassword
     private $tokenGenerator;
 
     /**
-     * @var Auth\Filter\LoginFilter
+     * @var LoginFilter
      */
     private $loginFilter;
 
+    /**
+     * @param Repository\User $userRepository
+     * @param UserUniqueTokenGenerator $tokenGenerator
+     * @param LoginFilter $loginFilter
+     */
     public function __construct(
         Repository\User $userRepository,
         UserUniqueTokenGenerator $tokenGenerator,
-        Auth\Filter\LoginFilter $loginFilter
+        LoginFilter $loginFilter
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;
         $this->loginFilter = $loginFilter;
     }
 
-    public function setSuffix($suffix)
-    {
-        $this->siuffix = $suffix;
-        return $this;
-    }
-
     /**
      * @param InputFilterInterface $filter
      * @param Plugin\Mailer $mailer
      * @param Url $url
+     * @throws \LogicException
      * @throws UserDoesNotHaveAnEmailException
      * @throws UserNotFoundException
      */

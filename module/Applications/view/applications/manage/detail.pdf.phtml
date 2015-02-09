@@ -64,6 +64,7 @@ th {
  	width: 100px;
 }
 </style>
+<?php if($this->format == 'pdf'):?>
 <!--suppress HtmlUnknownTag -->
 <sethtmlpageheader name="header" value="on" show-this-page="1"/>
 <!--suppress HtmlUnknownTag -->
@@ -81,6 +82,7 @@ th {
 </htmlpagefooter>
 <!--suppress HtmlUnknownTag -->
 <sethtmlpagefooter name="footer" value="on"/>
+<?php endif?>
 <h1><?php echo $this->translate('application details') ?></h1>
 <h2><?php echo $this->translate('personal information')?></h2>
 <table class="personal-information">

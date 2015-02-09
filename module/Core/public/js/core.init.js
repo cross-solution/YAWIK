@@ -43,7 +43,8 @@
                     // take out all operational chars
                     $(this).children().empty();
                     new PNotify({
-                        'text': $(this).text(),
+                        // trim startinn and trailing whitespaces
+                        'text': $(this).text().replace(/^\s+|\s+$/gm,''),
                         'type': type
                     });
                     $(this).remove();

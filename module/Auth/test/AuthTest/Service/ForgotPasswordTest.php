@@ -31,6 +31,11 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
     private $tokenGeneratorMock;
 
     /**
+     * @var
+     */
+    private $loginFilterMock;
+
+    /**
      * @var MockObject
      */
     private $inputFilterMock;
@@ -58,7 +63,11 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->testedObject = new ForgotPassword($this->userRepositoryMock, $this->tokenGeneratorMock);
+        $this->loginFilterMock = $this->getMockBuilder('Auth\Filter\LoginFilter')
+                                         ->disableOriginalConstructor()
+                                         ->getMock();
+
+        $this->testedObject = new ForgotPassword($this->userRepositoryMock, $this->tokenGeneratorMock, $this->loginFilterMock);
 
         $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
         $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');
