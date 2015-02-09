@@ -391,5 +391,24 @@ class ManageController extends AbstractActionController {
         }
         return $this->save(array('page' => 2));
     }
+
+    public function templateAction() {
+        $serviceLocator          = $this->getServiceLocator();
+        try {
+            $jobEntity           = $this->getJob();
+            $template            = $this->params('template','default');
+            $repositories        = $serviceLocator->get('repositories');
+
+            $translator          = $serviceLocator->get('translator');
+            $jobEntity->template = $template;
+            $repositories->store($jobEntity);
+            $this->notification()->success($translator->translate('Template changed'));
+        }
+        catch (\Exception $e) {
+            $this->notification()->danger($translator->translate('Template not changed'));
+        }
+
+        return new JsonModel(array());
+    }
 }
 

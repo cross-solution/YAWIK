@@ -189,6 +189,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $logoRef;
 
     /**
+     * Template-Name
+     *
+     * @var String
+     * @ODM\String
+     */
+    protected $template;
+
+    /**
      * Application link.
      *
      * @var String
@@ -655,6 +663,31 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         $this->logoRef = $logoRef;
         return $this;
     }
+
+    /**
+     *
+     *
+     * @return string
+     */
+    public function getTemplate() {
+        $template = $this->template;
+        if (empty($template)) {
+            $template = 'default';
+        }
+        return $template;
+    }
+    /**
+     *
+     *
+     * @param string $template name of the Template
+     * @return \Jobs\Entity\Job
+     */
+    public function setTemplate($template) {
+        $this->template = $template;
+        return $this;
+    }
+
+
 
     /**
      * Gets the uri of an application link
