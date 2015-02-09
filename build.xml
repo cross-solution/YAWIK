@@ -210,6 +210,7 @@
         <include name="**/**.dist"/>
         <exclude name="YawikDemo**"/>
         <exclude name="Jobs/**"/>
+        <exclude name="JobsDeutschland/**"/>
         <exclude name="Organizations/**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>

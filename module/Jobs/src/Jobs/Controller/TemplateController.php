@@ -140,7 +140,7 @@ class TemplateController extends AbstractActionController  {
             $job->templateValues->description = $job->organization->description;
         }
         if ( is_null($form)) {
-            $companydescription = $job->templateValues->description;
+            $descriptionEditable = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
             $qualifications = $job->templateValues->qualifications;
@@ -153,7 +153,7 @@ class TemplateController extends AbstractActionController  {
             $viewHelperForm = $viewHelperManager->get('formsimple');
 
             $formDescription = $form->get('descriptionFormDescription');
-            $companydescription = $viewHelperForm->render($formDescription);
+            $descriptionEditable = $viewHelperForm->render($formDescription);
 
             $formBenefits = $form->get('descriptionFormBenefits');
             $benefits = $viewHelperForm->render($formBenefits);
@@ -171,7 +171,7 @@ class TemplateController extends AbstractActionController  {
 
         // @see http://yawik.readthedocs.org/en/latest/modules/jobs/index.html#job-templates
         $fields= array(
-            'description' => $companydescription,
+            'descriptionEditable' => $descriptionEditable,
             'benefits' => $benefits,
             'requirements' => $requirements,
             'qualifications' => $qualifications,
