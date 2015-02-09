@@ -14,19 +14,30 @@
     <div class="col-md-4">
         <div class="alert alert-info">
             <?php echo $this->translate("You are using a default template. You are free to create your own template, just contact the developing team for integration")?>
-        </div>
-        <div id="template-links">
-            <a href="/<?php echo $lang ?>/jobs/template/<?php echo $id ?>/default">default</a><br />
-            <a href="/<?php echo $lang ?>/jobs/template/<?php echo $id ?>/classic">classic</a><br />
-            <a href="/<?php echo $lang ?>/jobs/template/<?php echo $id ?>/modern">modern</a><br />
-            <div id="template-links-loading" style="display: none;">loading</div>
-            <?php
+            <div id="template-links">
+            <ul >
+                <li>
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id,'template'=>'default'))?>">
+                        <?php echo $this->translate("Default")?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id, 'template'=>'classic'))?>">
+                        <?php echo $this->translate("Classic")?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('lang/jobs/template', array('id' => $this->element->getEntity()->id, 'template'=>'modern'))?>">
+                        <?php echo $this->translate("Modern")?>
+                    </a>
+                </li>
+
+                <?php
                 $this->headScript()->appendFile($this->basePath('/Jobs/js/templates.js'));
-            ?>
+                ?>
+            </ul>
+                <div id="template-links-loading" style="display: none;">loading</div>
+            </div>
         </div>
     </div>
 </div>
-<?php
-
-
-?>

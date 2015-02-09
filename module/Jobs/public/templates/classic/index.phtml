@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="de-DE">
 <head>
-<title></title>
+<title><?php echo $this->titleHead?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/default/style.css")?>" type="text/css" media="screen">
+<link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/classic/style.css")?>" type="text/css" media="screen">
 <style>
 form > div {
   border:1px solid rgb(84, 152, 215);
@@ -20,12 +20,10 @@ form > div {
  </div>
 <div id="content">
 <p>
-This is a demo Template of a jobad. Templates are quite easy to create. Just put <code>&lt;?php echo->requirements?&gt</code>
-into your jobad and yawik will create an inline editor into your jobad.
-Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
+This is a <b>Classic</b> Template of a jobad. Templates are quite easy to create. Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/classic/index.phtml">sources</a>.
 </p>
 <p>Click below to enter the Jobtitle</p>
-<p><?php echo $this->companydescription ?></p>
+<p><?php echo $this->description ?></p>
 <h1><?php echo $this->title; ?></h1>
 
 <h4>Requirements:</h4>
