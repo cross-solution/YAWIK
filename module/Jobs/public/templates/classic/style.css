@@ -5,13 +5,11 @@ body {
 	font-size: 100%; /* Resets 1em to 10px */
 	font-family: 'Lucida Sans Unicode',Arial,sans-serif;
 	background: #ffffff;
-	/*color: #5498d7;*/
 	}
 #footer a {
     font-size: 0.9em;
     text-decoration: none;
 }
-
 a, a:link, a:visited {
     color: #5498D7;
 }
@@ -29,7 +27,7 @@ ul{margin: 0px; padding: 0px; list-style: none; line-height: 20px;}
 li{ background: url(bullet.png) left top no-repeat; padding-left: 15px;}
 address{padding: 20px 0 20px 0; font-style: normal;}
 #page {
- border: 1px solid #CFDFFF;
+ 	border: 1px solid #CFDFFF;
 	width: 700px;
 	margin: auto;
 	}
@@ -67,20 +65,17 @@ address{padding: 20px 0 20px 0; font-style: normal;}
 }
 .apply{padding: 25px 0 25px 0;}
 #footer {
-font-size: 0.7em;
+	font-size: 0.7em;
 	background: #fff;
-
 }
 #footer a {
 	font-size: 0.8em;
 	text-decoration: none;
 }
 div#footer { 
-font-size: 0.7em;
+	font-size: 0.7em;
 	width: 700px;
 	margin: 0px auto;
 	padding: 20px 0px;
 	text-align: center;
-
-	}
-
+}
