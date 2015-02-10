@@ -3,12 +3,7 @@
 <head>
 <title><?php echo $this->titleHead?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/default/style.css")?>" type="text/css" media="screen">
-<style>
-form > div {
-  border:1px solid rgb(84, 152, 215);
-}
-</style>
+<link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/classic/job.css")?>" type="text/css">
 </head>
 <body>
 <div id="page">
@@ -20,12 +15,10 @@ form > div {
  </div>
 <div id="content">
 <p>
-This is a demo Template of a jobad. Templates are quite easy to create. Just put <code>&lt;?php echo->requirements?&gt</code>
-into your jobad and yawik will create an inline editor into your jobad.
-Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
+This is a <b>Classic</b> Template of a jobad. Templates are quite easy to create. Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/classic/index.phtml">sources</a>.
 </p>
 <p>Click below to enter the Jobtitle</p>
-<p><?php echo $this->descriptionEditable ?></p>
+<p><?php echo $this->description ?></p>
 <h1><?php echo $this->title; ?></h1>
 
 <h4>Requirements:</h4>
@@ -35,7 +28,12 @@ Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWI
 <h4>Benefits:</h4>
 <?php echo $this->benefits;?>
 
-<h2><a target="_new" href="<?php echo $this->uriApply ?>"><strong>Zum Online Bewerbungsformular</strong></a></h2>
+<h2>
+<a target="_new" href="<?php echo $this->uriApply ?>">
+<strong>Zum Online Bewerbungsformular
+</strong>
+</a>
+</h2>
 
 <address>
 <strong><?php echo $this->organizationName?><br></strong>
@@ -44,7 +42,10 @@ Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWI
 <?php echo $this->phone?>
 </address>
 </div>
-<footer>powered by YAWIK</footer>
+<footer>
+powered by YAWIK
+</footer>
 </div>
+
 </body>
 </html>

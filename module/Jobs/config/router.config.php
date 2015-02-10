@@ -117,6 +117,18 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'template' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/template/:id/:template',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action'     => 'template',
+                        'forceJson' => true,
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'approval'   => array(
                 'type' => 'Segment',
                 'options' => array(

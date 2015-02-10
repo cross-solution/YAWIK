@@ -52,8 +52,8 @@ class IndexController extends AbstractActionController
             $adapter                       = $services->get('Auth/Adapter/UserLogin');
             // inject suffixes via shared Events
             $loginSuffix                   = '';
+            // @TODO: replace this by the Plugin LoginFilter
             $e                             = $this->getEvent();
-            //$this->getEventManager()->addIdentifiers('login');
             $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
             if (!$loginSuffixResponseCollection->isEmpty()) {
                 $loginSuffix = $loginSuffixResponseCollection->last();
@@ -339,11 +339,10 @@ class IndexController extends AbstractActionController
         $userGrpAdmin = $auth->getUser();
         $this->getServiceLocator()->get('Core/Log')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
         $grp = $this->params()->fromQuery('group');
-      
-        //$this->getServiceLocator()->get('Core/Log')->info('Get ' . var_export($_GET, true));
         
         // if the request is made by an external host, add his identification-key to the name
         $loginSuffix = '';
+        // @TODO: replace this by the Plugin LoginFilter
         $e = $this->getEvent();
         $loginSuffixResponseCollection = $this->getEventManager()->trigger('login.getSuffix', $e);
         if (!$loginSuffixResponseCollection->isEmpty()) {
