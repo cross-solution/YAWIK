@@ -53,7 +53,7 @@ class PaginationQuery extends AbstractPaginationQuery
             
         } else  {
             /*
-             * an applicants or guests can see all aktive jobs
+             * an applicants or guests can see all active jobs
              */
             $queryBuilder->field('status.name')->equals('active');
         }

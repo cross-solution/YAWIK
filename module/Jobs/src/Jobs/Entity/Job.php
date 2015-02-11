@@ -28,7 +28,7 @@ use Core\Entity\Collection\ArrayCollection;
 class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
-     * uniq ID of a job posting used by applications to reference
+     * unique ID of a job posting used by applications to reference
      * a job
      *
      * @var String
@@ -70,7 +70,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     
     /**
-     * Email Adress, which is used to send notifications about e.g. new applications.
+     * Email Address, which is used to send notifications about e.g. new applications.
      * 
      * @var String
      * @ODM\String
