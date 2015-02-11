@@ -24,6 +24,9 @@ use Zend\View\Model\JsonModel;
  */
 class TemplateController extends AbstractActionController  {
 
+    /**
+     * @var Repository\Job $jobRepository
+     */
     private $jobRepository;
 
     public function __construct(Repository\Job $jobRepository)
@@ -46,11 +49,11 @@ class TemplateController extends AbstractActionController  {
         $applicationViewModel = $mvcEvent->getViewModel();
 
         $model->setTemplate('templates/default/index');
+
         if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
             $this->response->setStatusCode(404);
             $model->setVariable('message','job is not available');
-        }
-        else {
+        } else {
             $model->setTemplate('templates/' . $job->template . '/index');
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
         }
@@ -66,7 +69,6 @@ class TemplateController extends AbstractActionController  {
      */
     protected function editTemplateAction()
     {
-
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
         $job = $this->jobRepository->find($id);

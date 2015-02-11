@@ -26,6 +26,10 @@ $isApplicationValid = $this->services('validatormanager.applicationsapplication'
         );
         ?>
 
+        <?php if (!$this->application->job->atsEnabled):?>
+         <!-- ATS Disabled -->
+        <?php endif;?>
+
 
         <?php if ($this->isPreview):?>
         <a href="<?php echo $applyUrl ?>" id="back-to-application" class="btn btn-lg btn-default">

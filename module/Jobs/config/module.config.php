@@ -61,21 +61,25 @@ return array(
                 'allow' => array(
                     'Jobs',
                     'Jobs/Manage',
+                    'JobboardRecruiter',
                     'route/lang/jobs/manage',
                     'Entity/Jobs/Job' => array(
                         'new',
                         'edit' => 'Jobs/Write',
                     ),
                 ),
+                'deny' => array(
+                  'Jobboard'
+                ),
             ),
             'guest' => array(
                 'allow' => array(
-                    'Jobs',
+                    'Jobboard'
                 ),
             ),
             'applicant' => array(
                 'allow' => array(
-                    'Jobs',
+                    'Jobboard'
                 ),
             ),
         ),
@@ -88,6 +92,12 @@ return array(
     
     'navigation' => array(
         'default' => array(
+            'jobboard' => array(
+                'label' =>  /*@translate*/ 'Jobboard',
+                'route' => 'lang/jobboard',
+                'order' => '30',
+                'resource' => 'Jobboard',
+            ),
             'jobs' => array(
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
@@ -113,6 +123,12 @@ return array(
                         'uri' => '#',
                         'visible' => false,
                         'id' => 'Jobs/edit'
+                    ),
+                    'jobboard-recruiter' => array(
+                        'label' =>  /*@translate*/ 'Jobboard',
+                        'route' => 'lang/jobboard',
+                        'order' => '30',
+                        'resource' => 'JobboardRecruiter',
                     ),
                 ),
             ),
@@ -143,6 +159,7 @@ return array(
         ),
         'factories' => array(
             'Jobs/Template' => 'Jobs\Controller\SLFactory\TemplateControllerSLFactory',
+            'Jobs/Jobboard' => 'Jobs\Controller\SLFactory\JobboardControllerSLFactory',
         )
     ),
     

@@ -232,6 +232,11 @@ class ApplyController extends AbstractActionController
 
         $this->sendRecruiterMails($application);
         $this->sendUserMails($application);
+
+        if (!$application->job->atsEnabled) {
+
+        }
+
         
         $model = new ViewModel(array(
             'success' => true,
