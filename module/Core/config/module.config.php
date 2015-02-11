@@ -313,12 +313,18 @@ return array(
             'message_separator_string' => '</li><li>',
             'message_close_string'     => '</li></ul></div>',
         ),
+        'headscript' => array(
+            'Core/js/notification.js',
+        ),
     ),
     
     'filters' => array(
         'invokables' => array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
         ),
+        'factories' => array(
+            "Core/XssFilter" => "Core\Filter\XssFilterFactory",
+       ),
     ),
     
     'form_elements' => array(
