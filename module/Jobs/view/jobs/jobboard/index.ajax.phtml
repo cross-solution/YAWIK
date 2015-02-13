@@ -24,7 +24,11 @@
         <?php endif ?>
         <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
         <a href="<?php echo $href ?>" target="_blank"><?php echo strip_tags($job->title)?></a>
-        <br/><?php echo $job->organization->organizationName->name?>
+        <br/><?php
+            if (isset($job->organization) && isset($job->organization->organizationName) && isset($job->organization->organizationName->name)) {
+                echo $job->organization->organizationName->name;
+            }
+        ?>
     </td>
     <td>
         <div><?php echo $job->location?></div>

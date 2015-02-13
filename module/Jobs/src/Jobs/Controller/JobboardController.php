@@ -76,7 +76,8 @@ class JobboardController extends AbstractActionController
         if (!isset($params['sort'])) {
             $params['sort']='-date';
         }
-        
+
+        $params['by'] = "guest";
         $paginator = $this->paginator('Jobs/Job',$params);
         
         $return = array(

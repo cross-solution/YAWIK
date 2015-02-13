@@ -25,12 +25,19 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $this->auth = $auth;
     }
-    
+
+    /**
+     * for people
+     *
+     * @param $params
+     * @param $queryBuilder
+     * @return mixed
+     */
     public function createQuery($params, $queryBuilder)
     {
         $value = $params->toArray();
         $user = $this->auth->getUser();
-        if ($user->getRole()=='recruiter') {
+        if ($user->getRole()=='recruiter' && (!isset($value['by']) || $value['by'] != 'guest')) {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */

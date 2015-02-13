@@ -36,22 +36,26 @@ $isApplicationValid = $this->services('validatormanager.applicationsapplication'
             <?php echo $this->translate('Back to the formular') ?>
         </a>
         <?php else: ?>
-        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
-            <?php echo $this->translate('Preview application') ?>
-        </a>
+            <?php if ($this->application->job->atsEnabled):?>
+                <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
+                <?php echo $this->translate('Preview application') ?>
+
+                </a>
+                <a href="<?php echo $applyUrl ?>?do=send" id="send-application" class="btn btn-lg btn-primary<?php
+                echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
+                    ? '' : ' hidden' ?>">
+                    <?php echo $this->translate('Send application') ?>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo $this->url('lang/applications/mail', array('status' => 'test'), array('query' => array('id' => $this->application->id)), true) ?>" id="testmail-application-test" disabled=true class="btn btn-lg btn-default">
+                    <?php echo $this->translate('Send Testmail') ?>
+                </a>
+                <a href="<?php echo $applyUrl ?>?do=sendmail" id="testmail-application-apply" disabled=true class="btn btn-lg btn-default">
+                    <?php echo $this->translate('Send application') ?>
+                </a>
+            <?php endif ?>
         <?php endif ?>
 
-        <a href="<?php echo $applyUrl ?>?do=send" id="send-application" class="btn btn-lg btn-primary<?php 
-        
-        echo $this->services('validatormanager.applicationsapplication')->isValid($this->application)
-             ? '' : ' hidden'
-        
-        ?>">
-            <?php echo $this->translate('Send application') ?>
-        </a>
-        
-        
-        
         <a href="<?php echo $applyUrl ?>?do=abort" id="abort-application" class="btn btn-lg btn-danger">
             <?php echo $this->translate('Abort application') ?>
         </a>
