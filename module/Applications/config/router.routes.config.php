@@ -95,6 +95,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                     ),
                                 ),
                             ),
+                            'mail' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/mail/:status',
+                                    'defaults' => array(
+                                        'controller' => 'Applications\Controller\Index',
+                                        'action' => 'mail',
+                                        'status' => 'test'
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
 )))));

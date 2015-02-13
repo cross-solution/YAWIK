@@ -8,6 +8,7 @@
  */
 
 $this->headTitle($this->translate('Apply'));
+
 $job = $this->application->job;
 
 // @TODO own viewhelper
@@ -27,23 +28,26 @@ function getImageRef($url, $self) {
 <h1><?php echo $this->translate('Application')?></h1>
 <div class="container">
     <div class="row">
-    <div class="col-md-8">
-<p class="lead"><?php printf(
-    $this->translate('Apply to "%s" from "%s"'), 
-    '<a href="'.$job->link.'" title="' . $this->translate('click to open the job ad') . '">' . $this->escapehtml(strip_tags($job->title)) . '</a>',
-    $job->company
-) ?></p>
-    </div>
+        <div class="col-md-8">
+            <p class="lead">
+                <?php printf($this->translate('Apply to "%s" from "%s"'),
+                            '<a href="'.$job->link.'" title="' .
+                                        $this->translate('click to open the job ad') . '">' .
+                            $this->escapehtml(strip_tags($job->title)) . '</a>', $job->company ) ?>
+            </p>
+        </div>
         <div class="col-md-4">
-            <?php
-if (!empty($this->application->job->logoRef)):
-            ?>
-            <img src="<?php echo getImageRef($this->application->job->logoRef, $this) ?>">
-            <?php
-endif;
-            ?>
+            <?php if (!empty($this->application->job->logoRef)):?>
+                <img src="<?php echo getImageRef($this->application->job->logoRef, $this) ?>">
+            <?php endif;?>
         </div>
     </div>
+    <?php
+    /**
+     * if Applicant tracking System is disabled
+     */
+
+    ?>
 
 
 <?php if ($this->success):
@@ -53,7 +57,7 @@ endif;
 
 ?>
 <div class="alert alert-success">
-    <p><?php echo $this->translate('your application was sent successfully') ?></p> 
+    <p><?php echo $this->translate('your application was sent successfully') ?></p>
 </div>
 <div class="alert alert-info">
     <?php if ($this->auth()->isLoggedIn()):?>

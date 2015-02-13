@@ -1,0 +1,60 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+?>
+<table class="table table-striped table-bordered table-hover" id="jobs-list">
+    <thead>
+        <tr>
+            <th><?php echo $this->translate('Title of the job')?> / <?php echo $this->translate('Companyname')?></th>
+            <th><?php echo $this->translate('Location')?> / <?php echo $this->translate('Date of receipt')?></th>
+            <th><?php echo $this->translate('Apply')?></th>
+        </tr>
+    </thead>
+<tbody>
+<?php foreach ($jobs as $job):?>
+<tr>
+    <td>
+        <?php if ($job->organization && $job->organization->image &&  $job->organization->organizationName): ?>
+            <img class="yk-logo-sm" src="<?php echo $job->organization->image->uri ?>">
+        <?php endif ?>
+        <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
+        <a href="<?php echo $href ?>" target="_blank"><?php echo strip_tags($job->title)?></a>
+        <br/><?php
+            if (isset($job->organization) && isset($job->organization->organizationName) && isset($job->organization->organizationName->name)) {
+                echo $job->organization->organizationName->name;
+            }
+        ?>
+    </td>
+    <td>
+        <div><?php echo $job->location?></div>
+        <small>
+            <?php
+            if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
+            elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none');
+            endif?>
+        </small>
+    </td>
+    <td>
+        <a href="<?php
+                if (empty($job->uriApply)) {
+                    // @TODO: unriddle this logic to somewhere else
+                    $url = $this->url( 'lang/apply', array('applyId' => $job->applyId , 'lang' => $this->params('lang')));
+                    $query = http_build_query(array('subscriberUri' => $this->serverUrl() . '/subscriber/' . 1));
+                    echo $url . '?' . $query;
+                } else {
+                    echo $job->uriApply;
+                }
+                ?>">
+            <?php echo $this->translate('Apply')?>
+        </a>
+     </td>
+</tr>
+<?php endforeach?>
+</tbody>
+</table>
+<?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobboard'));?>

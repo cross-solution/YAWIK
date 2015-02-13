@@ -1,10 +1,8 @@
-<?php //desciption: Renders the list of jobs. used by applicants and recruiters ?>
+<?php //description: Renders the list of public jobs. ?>
 <?php $this->headTitle($this->translate('Jobs'));
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
 
-<h1>
-  <?php echo $this->translate('List of all jobs');?>
-</h1>
+<h1><?php echo $this->translate('Public Job Opportunities')?></h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 
@@ -12,6 +10,6 @@
 <?php echo $this->form($this->filterForm)  ?>
 </nav>
 <div id="jobs-list-container" class="pagination-container">
-<?php echo $this->render('jobs/index/index.ajax.phtml')?>
+<?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
 </div>
 
