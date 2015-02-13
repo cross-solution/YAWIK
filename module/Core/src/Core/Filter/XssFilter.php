@@ -57,6 +57,6 @@ class XssFilter implements FilterInterface
     public function filter($value)
     {
          $htmlPurifier = $this->getHtmlPurifier();
-         return $getHtmlPurifier->filter($value);
+         return $htmlPurifier->filter($value);
     }
 }

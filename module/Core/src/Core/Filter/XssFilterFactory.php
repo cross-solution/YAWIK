@@ -14,6 +14,7 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use zf2htmlpurifier\Filter;
 
+
 /**
  * Factory for the XssFilter
  *
@@ -27,14 +28,14 @@ class XssFilterFactory implements FactoryInterface
      *
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      * @param ServiceLocatorInterface $serviceLocator
-     * @return \Core\Filter\XssFilter|mixed
+     * @return XssFilter|mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator){
 
-       $htmlPurifier = new HTMLPurifierFilter();
+       $htmlPurifier = new Filter\HTMLPurifierFilter();
 
-       $filter = XssFilter($htmlPurifier);
+       $filter = new XssFilter($htmlPurifier);
 
        return $filter;
-    };
+    }
 }
