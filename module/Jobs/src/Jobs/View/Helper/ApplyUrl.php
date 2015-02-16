@@ -46,11 +46,11 @@ class ApplyUrl extends AbstractHelper
     public function __invoke(Job $jobEntity)
     {
         $result = '';
-        if ($jobEntity->getAtsEnabled() == True) {
+        if ($jobEntity->getAtsEnabled() == True && !empty($jobEntity->uriApply)) {
             $result = '<a href="' .  $jobEntity->uriApply . '">' . call_user_func_array($this->translateHelper, array('Apply')) . '</a>';
         }
         $contactEmail = $jobEntity->contactEmail;
-        if ($jobEntity->getAtsEnabled() == False && !empty($contactEmail)) {
+        if (($jobEntity->getAtsEnabled() == False && !empty($contactEmail)) || ($jobEntity->getAtsEnabled() == True && empty($jobEntity->uriApply))) {
             $url = call_user_func_array($this->urlHelper,
                 array( 'lang/apply',
                     array('applyId' => $jobEntity->applyId ,
