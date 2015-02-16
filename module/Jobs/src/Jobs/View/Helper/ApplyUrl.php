@@ -51,7 +51,7 @@ class ApplyUrl extends AbstractHelper
         }
         $contactEmail = $jobEntity->contactEmail;
         if ($jobEntity->getAtsEnabled() == False && !empty($contactEmail)) {
-            $url = call_user_func_array($this->serverUrlHelper,
+            $url = call_user_func_array($this->urlHelper,
                 array( 'lang/apply',
                     array('applyId' => $jobEntity->applyId ,
                     'lang' => call_user_func_array($this->paramsHelper, array('lang')))));
