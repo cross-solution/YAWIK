@@ -185,9 +185,13 @@ return array(
         'invokables' => array(
             'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
 
-        )
+        ),
+        'factories' => array(
+            'applyUrl' => 'Jobs\View\Helper\ApplyUrlFactory',
+        ),
+
     ),
-       
+
     'form_elements' => array(
         'invokables' => array(
             'Jobs/Job'                          => 'Jobs\Form\Job',
