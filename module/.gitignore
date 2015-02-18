@@ -6,6 +6,7 @@
 # and "Settings"
 
 !.gitignore
+!Admin
 !Applications
 !Auth
 !Core

@@ -23,7 +23,8 @@ $modules = array(
          'Settings', 
          'Pdf', 
          'Geo',
-         'Organizations'
+         'Organizations',
+         'Admin'
     );
 
 if (!isset($allModules)) {
