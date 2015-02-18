@@ -15,8 +15,16 @@ use Auth\Service\Exception\UserNotFoundException;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
+use Auth\Filter\LoginFilter;
+use Auth\Listener\Events\AuthEvent;
 
-class ForgotPassword
+/**
+ * Class ForgotPassword
+ * @package Auth\Service
+ */
+class ForgotPassword implements EventManagerAwareInterface
 {
     /**
      * @var Repository\User
@@ -29,14 +37,24 @@ class ForgotPassword
     private $tokenGenerator;
 
     /**
-     * @var Auth\Filter\LoginFilter
+     * @var LoginFilter
      */
     private $loginFilter;
 
+    /**
+     * @var
+     */
+    protected $eventManager;
+
+    /**
+     * @param Repository\User $userRepository
+     * @param UserUniqueTokenGenerator $tokenGenerator
+     * @param LoginFilter $loginFilter
+     */
     public function __construct(
         Repository\User $userRepository,
         UserUniqueTokenGenerator $tokenGenerator,
-        Auth\Filter\LoginFilter $loginFilter
+        LoginFilter $loginFilter
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;
@@ -45,8 +63,25 @@ class ForgotPassword
 
     public function setSuffix($suffix)
     {
-        $this->siuffix = $suffix;
+        $this->suffix = $suffix;
         return $this;
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     * @return $this|void
+     */
+    public function setEventManager(EventManagerInterface $eventManager) {
+        $eventManager->setIdentifiers('Auth');
+        $this->eventManager = $eventManager;
+        return $this;
+    }
+
+    /**
+     * @return EventManagerInterface
+     */
+    public function getEventManager() {
+        return $this->eventManager;
     }
 
     /**
@@ -82,6 +117,13 @@ class ForgotPassword
             array('force_canonical' => true)
         );
 
+        $e = new AuthEvent();
+        $e->setResetLink($resetLink);
+        $e->setUser($user);
+
+        $this->eventManager->trigger(AuthEvent::EVENT_AUTH_NEWPASSWORD, $e);
+
+        /*
         $mailer->__invoke(
             'Auth\Mail\ForgotPassword',
             array(
@@ -90,6 +132,7 @@ class ForgotPassword
             ),
             true
         );
+        */
     }
 }
 

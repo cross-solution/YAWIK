@@ -87,6 +87,10 @@ class Module
         
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
+
+        $sharedManager = $eventManager->getSharedManager();
+        $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');
+        $defaultlistener->attachShared($sharedManager);
         
     }
     
