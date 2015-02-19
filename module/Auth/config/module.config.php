@@ -34,6 +34,8 @@ return array(
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
             'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
+            'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener',
+            'Auth/Listener/MailForgotPassword' => 'Auth\Listener\MailForgotPassword'
         ),
         'factories' => array(
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
@@ -415,6 +417,7 @@ return array(
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
             'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
+            'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
         ),
     
         'template_path_stack' => array(
