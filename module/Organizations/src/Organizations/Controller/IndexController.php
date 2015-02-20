@@ -12,17 +12,34 @@ namespace Organizations\Controller;
 
 use Core\Form\SummaryForm;
 use Zend\Mvc\Controller\AbstractActionController;
+use Organizations\Repository;
+use Organizations\Form;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
 use Core\Entity\PermissionsInterface;
 
 /**
  * Main Action Controller for the Organization.
- * Responsible for displaying the home site.  
+ * Responsible for handling the organization form.
  *
  */
 class IndexController extends AbstractActionController
 {
+    /**
+     * @var Form\Organizations
+     */
+    private $form;
+
+    /**
+     * @var Repository\Organization
+     */
+    private $repository;
+
+    public function __construct(Form\Organizations $form, Repository\Organization $repository)
+    {
+        $this->repository = $repository;
+        $this->form = $form;
+    }
     /**
      * attaches further Listeners for generating / processing the output
      *
@@ -70,77 +87,55 @@ class IndexController extends AbstractActionController
      */
     public function editAction()
     {
+        $serviceLocator  = $this->getServiceLocator();
         $return          = Null;
-        $services        = $this->getServiceLocator();
         $request         = $this->getRequest();
-        $ajaxRequest     = $request->isXmlHttpRequest();
         $params          = $this->params();
         $formIdentifier  = $params->fromQuery('form');
-        $id_fromRoute    = $this->params('id', 0);
-        $id_fromSubForm  = $this->params()->fromPost('id',0);
-        $organization_id = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
-        $repositories    = $services->get('repositories');
-        $repository      = $repositories->get('Organizations/Organization');
-        $container       = $services->get('forms')->get('organizations/form');
-        $viewHelper      = $services->get('ViewHelperManager');
-        $org             = $repository->find($organization_id);
+        $org             = $this->getOrganization(true);
+        $container       = $this->getFormular($org);
+
         $os = $org->getHiringOrganizations();
         foreach ($os as $o) {
             $a = $o;
         }
 
-        if (!isset($org) && !$request->isPost()) {
-            // create a new Organization
-            $org =  $repository->create();
-            $org->setIsDraft(true);
-            $user  = $this->auth()->getUser();
-            $permissions = $org->getPermissions();
-            $permissions->grant($user, PermissionsInterface::PERMISSION_ALL);
-            $repositories->persist($org);
-        }
-        if (isset($org)) {
-            if (isset($org->org) && !empty($org->organizationName->name)) {
-                $org->setIsDraft(false);
+        if (isset($formIdentifier) && $request->isPost()) {
+            $postData = $this->params()->fromPost();
+            $filesData = $this->params()->fromFiles();
+            $form = $container->get($formIdentifier);
+            $form->setData(array_merge($postData, $filesData));
+            if (!isset($form)) {
+                throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
-            $container->setEntity($org);
-            $container->setParam('id', $org->id);
-            if (isset($formIdentifier) && $request->isPost()) {
-                $postData = $this->params()->fromPost();
-                $filesData = $this->params()->fromFiles();
-                $form = $container->get($formIdentifier);
-                $form->setData(array_merge($postData, $filesData));
-                if (!isset($form)) {
-                    throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
+            $isValid = $form->isValid();
+            if ($isValid) {
+                if (isset($org->organizationName) && !empty($org->organizationName->name)) {
+                    $org->setIsDraft(false);
                 }
-                $isValid = $form->isValid();
-                if ($isValid) {
-                    //$user  = $this->auth()->getUser();
-                    //$permissions = $org->getPermissions();
-                    //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
-                    //$repositories->persist($org);
-                }
+                $serviceLocator->get('repositories')->persist($org);
+            }
 
-                $organization = $container->getEntity();
-                $this->getServiceLocator()->get('repositories')->store($organization);
+            $organization = $container->getEntity();
+            $serviceLocator->get('repositories')->store($organization);
 
-                if ('file-uri' === $this->params()->fromPost('return')) {
-                    $basepath = $this->getServiceLocator()->get('ViewHelperManager')->get('basepath');
-                    $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
+            if ('file-uri' === $this->params()->fromPost('return')) {
+                $basepath = $serviceLocator->get('ViewHelperManager')->get('basepath');
+                $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
+            } else {
+                if ($form instanceOf SummaryForm) {
+                    $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
+                    $viewHelper = 'summaryform';
                 } else {
-                    if ($form instanceOf SummaryForm) {
-                        //$form->setRenderMode(SummaryForm::RENDER_SUMMARY);
-                        $viewHelper = 'summaryform';
-                    } else {
-                        $viewHelper = 'form';
-                    }
-                    $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+                    $viewHelper = 'form';
                 }
-
-                return new JsonModel(array(
-                    'valid' => $form->isValid(),
-                    'content' => $content,
-                ));
+                $content = $serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
             }
+
+            return new JsonModel(array(
+                'valid' => $form->isValid(),
+                'content' => $content,
+            ));
         }
 
         if (!isset($return)) {
@@ -149,7 +144,7 @@ class IndexController extends AbstractActionController
             );
         }
         return $return;
-     }
+    }
 
     /**
      * returns an organization logo.
@@ -187,9 +182,7 @@ class IndexController extends AbstractActionController
         $response = $this->getResponse();
 
         try {
-            $repository = $this->getServiceLocator()->get('repositories')->get('Organizations/OrganizationImage');
-
-            $file       = $repository->find($imageId);
+            $file = $this->repository->find($imageId);
             if ($file) {
                 return $file;
             }
@@ -200,5 +193,50 @@ class IndexController extends AbstractActionController
             return Null;
         }
         return Null;
+    }
+
+    protected function getFormular($organization)
+    {
+        $services = $this->getServiceLocator();
+        $forms    = $services->get('FormElementManager');
+        $container = $forms->get('organizations/form', array(
+            'mode' => $organization->id ? 'edit' : 'new'
+        ));
+        $container->setEntity($organization);
+        $container->setParam('id',$organization->id);
+//        $container->setParam('applyId',$job->applyId);
+        return $container;
+    }
+
+    protected function getOrganization($allowDraft = true)
+    {
+        $services       = $this->getServiceLocator();
+        $repositories   = $services->get('repositories');
+
+        // @TODO three different method to obtain the job-id ?, simplify this
+        $id_fromRoute = $this->params('id', 0);
+        $id_fromSubForm = $this->params()->fromPost('id',0);
+        $user = $this->auth()->getUser();
+
+        $organizationId = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
+
+        if (empty($organizationId) && $allowDraft) {
+            $organization = $this->repository->findDraft($user);
+            if (empty($organization)) {
+                $organization = $this->repository->create();
+                $organization->setIsDraft(true);
+                $organization->setUser($user);
+                $permissions = $organization->getPermissions();
+                $permissions->grant($user, PermissionsInterface::PERMISSION_ALL);
+                $repositories->store($organization);
+            }
+            return $organization;
+        }
+
+        $organization      = $this->repository->find($organizationId);
+        if (!$organization) {
+            throw new \RuntimeException('No Organization found with id "' . $organizationId . '"');
+        }
+        return $organization;
     }
 }

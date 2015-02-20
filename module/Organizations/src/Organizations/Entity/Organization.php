@@ -129,6 +129,15 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     protected $employees;
 
+    /**
+     * the owner of a Organization
+     *
+     * @var UserInterface $user
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\Index
+     */
+    protected $user;
+
     public function setOwner(UserInterface $user)
     {
         if ($this->owner) {
@@ -166,7 +175,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     {
         return null !== $this->parent;
     }
-
 
     /** {@inheritdoc} */
     public function setExternalId($externalId) 
@@ -415,6 +423,26 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         }
 
     }
+
+    /**
+     * @param UserInterface $user
+     * @return $this
+     */
+    public function setUser(UserInterface $user) {
+        if ($this->user) {
+            $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
+        }
+        $this->user = $user;
+        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
+        return $this;
+    }
+    /**
+     * @return UserInterface
+     */
+    public function getUser() {
+        return $this->user;
+    }
 }
+
 
 

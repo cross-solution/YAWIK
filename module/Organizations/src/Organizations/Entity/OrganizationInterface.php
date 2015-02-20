@@ -145,4 +145,16 @@ interface OrganizationInterface
      * @since 0.18
      */
     public function getEmployees();
+
+    /**
+     * @return UserInterface
+     */
+    public function getUser();
+
+    /**
+     * @param UserInterface $user
+     * @return self
+     */
+    public function setUser(UserInterface $user);
 }
+

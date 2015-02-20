@@ -10,6 +10,8 @@
 namespace Organizations\Form;
 
 use Core\Form\FileUploadFactory;
+use Applications\Options\ModuleOptions; // als log we have no organization options, we use the options from
+                                        // the applications module
 
 class LogoImageFactory extends FileUploadFactory
 {
@@ -17,10 +19,10 @@ class LogoImageFactory extends FileUploadFactory
     protected $fileEntityClass = '\Organizations\Entity\OrganizationImage';
     protected $configKey = 'organization_logo_image';
 
-    protected function configureForm($form)
+    protected function configureForm($form, ModuleOptions $options)
     {
-        $size = isset($this->config['max_size']) ? $this->config['max_size'] : 100000;
-        $type = isset($this->config['mimetype']) ? $this->config['mimetype'] : 'image';
+        $size = $options->getContactImageMaxSize();
+        $type = $options->getContactImageMimeType();
 
         $form->get($this->fileName)->setViewHelper('FormImageUpload')
             ->setMaxSize($size)

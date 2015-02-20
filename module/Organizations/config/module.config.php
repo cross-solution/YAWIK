@@ -42,11 +42,9 @@ return array(
 
 
     'controllers' => array(
-        'invokables' => array(
-            'Organizations/Index' => 'Organizations\Controller\IndexController', 
-        ),
         'factories' => array(
             'Organizations/TypeAHead' => 'Organizations\Controller\SLFactory\TypeAHeadControllerSLFactory',
+            'Organizations/Index' => 'Organizations\Controller\SLFactory\IndexControllerSLFactory',
         )
     ),
     'view_manager' => array(

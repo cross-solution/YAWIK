@@ -8,6 +8,7 @@
 
 namespace Organizations\Repository;
 
+use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Organizations\Entity\OrganizationInterface;
 
@@ -153,5 +154,29 @@ class Organization extends AbstractRepository
         }
 
         return $organizations;
+    }
+
+    /**
+     * Look for an drafted Document of a given user
+     *
+     * @param $user
+     * @return \Organizations\Entity\Organization|null
+     */
+    public function findDraft($user)
+    {
+        if ($user instanceOf UserInterface) {
+            $user = $user->getId();
+        }
+
+        $document = $this->findOneBy(array(
+            'isDraft' => true,
+            'user' => $user
+        ));
+
+        if (!empty($document)) {
+            return $document;
+        }
+
+        return null;
     }
 }
