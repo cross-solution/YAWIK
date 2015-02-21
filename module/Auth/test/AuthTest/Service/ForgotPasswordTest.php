@@ -53,11 +53,6 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
     /**
      * @var MockObject
      */
-    private $loginFilterMock;
-
-    /**
-     * @var MockObject
-     */
     public function setUp()
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
