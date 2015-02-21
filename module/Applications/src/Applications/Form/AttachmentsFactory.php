@@ -11,6 +11,7 @@
 namespace Applications\Form;
 
 use Core\Form\FileUploadFactory;
+use Applications\Options\ModuleOptions;
 
 /**
  * Factors a file upload form to attach files to an application.
@@ -25,8 +26,10 @@ class AttachmentsFactory extends FileUploadFactory
     protected $multiple = true;
     protected $configKey = 'application_attachments';
 
-    protected function configureForm($form)
+
+    protected function configureForm($form , ModuleOptions $options)
     {
+
         /** @var $form \Core\Form\Form */
         $form->setIsDisableCapable(false)
              ->setIsDisableElementsCapable(false)
@@ -37,9 +40,9 @@ class AttachmentsFactory extends FileUploadFactory
 
         /** @var $file \Core\Form\Element\FileUpload*/
         $file = $form->get($this->fileName);
-        $size = isset($this->config['max_size']) ? $this->config['max_size'] : 5000000;
-        $type = isset($this->config['mimetype']) ? $this->config['mimetype'] : null;
-        $count = isset($this->config['count']) ? $this->config['count'] : 0;
+        $size = $options->getAttachmentsMaxSize();
+        $type = $options->getAttachmentsMimeType();
+        $count = $options->getAttachmentsCount();
 
         $file->setMaxSize($size);
         if ($type) {

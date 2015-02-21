@@ -86,6 +86,9 @@
 					
 					if (fileType.match(/^image\//)) {
 						iconType += '-image-o';
+	 				} else if (fileType.match(/pdf$/)) {
+						iconType += '-pdf-o';
+
 					} else {
 						iconType += '-o';
 					}
@@ -94,7 +97,6 @@
 					               .replace(/__file-name__/, data.files[0].name)
 					               .replace(/__file-size__/, formatFileSize(data.files[0].size))
 					               .replace(/fa-file-o/, iconType);
-					               
 					
 					var $tpl = $(tpl);
 					
@@ -172,11 +174,9 @@
                             case 'fileMimeTypeFalse':
                                 data.context.find('.fu-error-type').show();
                                 break;
-
                             case 'fileSizeTooBig':
                                 data.context.find('.fu-error-size').show();
                                 break;
-
                             case 'callbackValue':
                                 data.context.find('.fu-error-count').show();
                                 break;

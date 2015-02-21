@@ -12,13 +12,14 @@ namespace Applications;
 use Zend\Mvc\MvcEvent;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
 
 
 /**
  * Bootstrap class of the applications module
  */
-class Module implements ConsoleUsageProviderInterface
+class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterface
 {
     /**
      * Displays console options

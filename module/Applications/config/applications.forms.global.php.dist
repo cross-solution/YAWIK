@@ -1,16 +1,39 @@
 <?php
+
+$options = array(
+        /*
+        * maximum size in bytes of an uploaded attachment
+        */
+        'attachmentsMaxSize' => '500000',
+
+        /*
+        * allowed Mime-Type of an uploaded Attachment
+        */
+        'attachmentsMimeType' => array('image','pdf'),
+
+
+        /*
+        * maximum amount of uploaded attachments
+        */
+        'attachmentsCount' => 5,
+
+        /*
+        * maximum size in bytes of an uploaded contact photo
+        */
+        'contactImageMaxSize' => '100000',
+
+        /*
+        * allowed Mime-Type of an uploaded contact photo
+        */
+        'contactImageMimeType' => array('image'),
+
+        /*
+        * allowed Mime-Types
+        */
+        'allowedMimeTypes' => array('image','text','application/pdf'),
+
+    );
+
 return array(
-    'form_elements_config' => array(
-        'file_upload_factories' => array(
-            'application_attachments' => array(
-                'max_size' => '%%applications.forms.attachments.maxsize%%',
-                'mimetype' => '%%applications.forms.attachments.mimetype%%',
-                'count'    => '%%applications.forms.attachments.count%%',
-            ),
-            'application_contact_image' => array(
-                'max_size' => '%%applications.forms.contactimage.maxsize%%',
-                'mimetype' => '%%applications.forms.contactimage.mimetype%%',
-            ),
-        ),
-    ),
-);
+        'application_options' => $options
+    );

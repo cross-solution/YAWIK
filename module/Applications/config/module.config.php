@@ -69,8 +69,13 @@ return array(
     
     'service_manager' => array(
         'invokables' => array(
+            'Applications\Options\ModuleOptions' => 'Applications\Options\ModuleOptions'
         ),
         'factories' => array(
+           'Applications\Options' => 'Applications\Factory\ModuleOptionsFactory',
+           'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
+           'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
+           'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
         ),
     ),
     'controllers' => array(

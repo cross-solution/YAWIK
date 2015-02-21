@@ -314,9 +314,6 @@ return array(
             'message_separator_string' => '</li><li>',
             'message_close_string'     => '</li></ul></div>',
         ),
-        'headscript' => array(
-            'Core/js/notification.js',
-        ),
     ),
     
     'filters' => array(

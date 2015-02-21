@@ -102,21 +102,6 @@ auth.forms.userimage.maxsize=1000000
 ; Leave this empty to not restrict mimetypes
 auth.forms.userimage.mimetype=image
 
-; Applications / Apply / Attachments
-;
-
-applications.forms.attachments.maxsize=5000000
-applications.forms.attachments.mimetype=
-
-; Maximum file count. Only this amount of files can be uploaded and attached.
-applications.forms.attachments.count=5
-
-; Applications / Apply / ContactImage
-;
-
-applications.forms.contactimage.maxsize=1000000
-applications.forms.contactimage.mimetype=image
-
 ;
 ; For Developers: If you plan to contribute to the development, you can define some deployment variables. 
 ;

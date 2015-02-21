@@ -246,11 +246,6 @@
           <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
           <token key="auth.suffix" value="${auth.suffix}"/>
           <token key="mail.develop.override_recipient" value="${mail.develop.override_recipient}" />
-          <token key="applications.forms.attachments.maxsize" value="${applications.forms.attachments.maxsize}" />
-          <token key="applications.forms.attachments.mimetype" value="${applications.forms.attachments.mimetype}" />
-          <token key="applications.forms.attachments.count" value="${applications.forms.attachments.count}" />
-          <token key="applications.forms.contactimage.maxsize" value="${applications.forms.contactimage.maxsize}" />
-          <token key="applications.forms.contactimage.mimetype" value="${applications.forms.contactimage.mimetype}" />
           <token key="auth.forms.userimage.maxsize" value="${auth.forms.userimage.maxsize}" />
           <token key="auth.forms.userimage.mimetype" value="${auth.forms.userimage.mimetype}" />
         </replacetokens>

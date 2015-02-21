@@ -16,6 +16,8 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
+use Applications\Options\ModuleOptions;
+
 
 /**
  * Factory for creating file upload formular elements.
@@ -72,6 +74,9 @@ class FileUploadFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Form\FormElementManager */
+        $service = $serviceLocator->getServiceLocator();
+        $options = $service->get('Applications\Options');
+
 
         // Retrieve configuration.
         if ($this->configKey) {
@@ -130,7 +135,7 @@ class FileUploadFactory implements FactoryInterface
         $form->setHydrator($hydrator);
         $form->setOptions(array('use_files_array' => true));
         
-        $this->configureForm($form);
+        $this->configureForm($form, $options);
         return $form;
     }
 
@@ -138,8 +143,9 @@ class FileUploadFactory implements FactoryInterface
      * Configures the factored form.
      *
      * @param \Core\Form\Form $form
+     * @param ModuleOptions $options
      */
-    protected function configureForm($form)
+    protected function configureForm($form, ModuleOptions $options)
     { }
     
 }
