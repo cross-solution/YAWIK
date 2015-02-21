@@ -24,6 +24,11 @@ class ConfigController extends AbstractActionController
     {
         $viewModel = new ViewModel();
         $viewModel->setTemplate('admin/config/'. $this->params()->fromRoute('section'));
+
+        $services = $this->getServiceLocator();
+        $container = $services->get('forms')->get('Admin\Form\Config');
+
+        $viewModel->setVariable('form' , $container);
         return $viewModel;
     }
 }

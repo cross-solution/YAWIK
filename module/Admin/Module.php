@@ -9,7 +9,8 @@
 
 namespace Admin;
 
-use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature;
+use Zend\Loader\StandardAutoloader;
 
 /**
  * Bootstrap class of the Admin module
@@ -18,8 +19,15 @@ use Zend\Mvc\MvcEvent;
 /**
  * Bootstrap class of the Admin Module
  */
-class Module
+class Module implements Feature\DependencyIndicatorInterface,
+                        Feature\AutoloaderProviderInterface,
+                        Feature\ConfigProviderInterface
 {
+    public function getModuleDependencies()
+    {
+        return array('Core','Auth');
+    }
+
     /**
      * indicates, that the autoload configuration for this module should be loaded.
      * @see
@@ -42,9 +50,10 @@ class Module
     public function getAutoloaderConfig()
     {
         return array(
-            'Zend\Loader\StandardAutoloader' => array(
+            StandardAutoloader::class => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    __NAMESPACE__ . 'Test' => __DIR__ . '/test/' . __NAMESPACE__ . 'Test',
                 ),
             ),
         );

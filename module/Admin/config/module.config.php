@@ -161,5 +161,5 @@ return array(
         'template_path_stack' => array(
             'Admin' => __DIR__ . '/../view',
         ),
-    )
+    ),
 );
