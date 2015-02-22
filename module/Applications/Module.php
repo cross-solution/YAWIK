@@ -54,12 +54,12 @@ class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterfa
      * @return array
      */
     public function getAutoloaderConfig()
-    {
-        
+    {        
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    __NAMESPACE__ . 'Test' => __DIR__ . '/test/' . __NAMESPACE__ .'Test',
                 ),
             ),
         );

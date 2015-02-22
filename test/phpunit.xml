@@ -3,6 +3,7 @@
 <phpunit bootstrap="Bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="AllTests">
+            <directory>../module/Applications/test/ApplicationsTest</directory>
             <directory>../module/Auth/test/AuthTest</directory>
             <directory>../module/Jobs/test/JobsTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
