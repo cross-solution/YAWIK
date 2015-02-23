@@ -34,9 +34,15 @@ http://yawik.readthedocs.org/en/latest/
 API Documentation
 -----------------
 
-http://yawik.org/docs
+http://yawik.org/docs/
 
 Forum
 -----
 
 https://groups.google.com/forum/?hl=de#!forum/yawik
+
+
+Mailinglist for Developers
+--------------------------
+
+yawik-dev @ googlemail . com
