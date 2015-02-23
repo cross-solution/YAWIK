@@ -1,0 +1,33 @@
+<?php
+
+$options = array(
+
+        /**
+        * If not set, the email address of the default user is used
+        */
+        'multipostingApprovalMail' => '',
+
+        /**
+        * If a target Uri is set, a rest Request is sent to this target in case
+        * a job posting was accepted.
+        */
+        'multipostingTargetUri' => '',
+
+        /**
+        *
+        */
+        'multipostingTargetUser' => '',
+
+        /**
+        *
+        */
+        'multipostingTargetPassword'   => '',
+
+        /**
+        *
+        */
+	    'default_logo' => '/Jobs/images/yawik-small.jpg'
+
+);
+
+return array('jobs_options' => $options);
