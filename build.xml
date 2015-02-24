@@ -302,7 +302,8 @@
     <exec command="phpdoc" dir="." passthru="true"/>
   </target>
 
-  <target name="deploy-docs" depends="init" description="publish API docs via rsync">
+  <target name="deploy-docs" description="publish API docs via rsync">
+    <property file="${project.basedir}/build.properties" />
     <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
   </target>
