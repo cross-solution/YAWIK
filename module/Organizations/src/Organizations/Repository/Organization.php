@@ -80,6 +80,20 @@ class Organization extends AbstractRepository
     }
 
     /**
+     * creates a new Organization, no matter if a organization with this name already exists,
+     * also creates a new Name, but link this Name to another OrganizationName-Link, if this Name already exists
+     * @param $name
+     */
+    public function createWithName($name) {
+        $entity = parent::create();
+        $repositoryNames = $this->dm->getRepository('Organizations\Entity\OrganizationName');
+        $entityName = $repositoryNames->create();
+        $entityName->setName($name);
+        $entity->setOrganizationName($entityName);
+        return $entity;
+    }
+
+    /**
      * @param string $query
      * @param int    $userId
      * @return array
