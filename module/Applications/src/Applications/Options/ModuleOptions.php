@@ -22,11 +22,15 @@ use Zend\Stdlib\AbstractOptions;
 class ModuleOptions extends AbstractOptions {
 
     /**
+     * maximum size in bytes of an attachment
+     *
      * @var int $attachmentsMaxSize
      */
     protected $attachmentsMaxSize = 500000;
 
     /**
+     * valid Mime-Types of attachments
+     *
      * @var array $attachmentsMimeType
      */
     protected $attachmentsMimeType = array('image','applications/pdf',
@@ -37,21 +41,29 @@ class ModuleOptions extends AbstractOptions {
         'text/x-pdf');
 
     /**
+     * maximum number of attachments
+     *
      * @var int $attachmentsCount
      */
     protected $attachmentsCount = 1;
 
     /**
+     * maximum size of an user image
+     *
      * @var int $contactImageMaxSize
      */
     protected $contactImageMaxSize = 100000;
 
     /**
+     * allowed Mime-Type of a user image
+     *
      * @var array $contactImageMimeType
      */
     protected $contactImageMimeType = array('image');
 
     /**
+     * Generally allowed Mime Types
+     *
      * @var array $allowedMimeTypes
      */
     protected $allowedMimeTypes = array('image',

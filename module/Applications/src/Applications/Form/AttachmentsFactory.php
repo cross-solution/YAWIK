@@ -20,13 +20,41 @@ use Applications\Options\ModuleOptions;
  */
 class AttachmentsFactory extends FileUploadFactory
 {
+    /**
+     * Form element for the file upload
+     *
+     * @var string
+     */
     protected $fileElement = 'Core/FileUpload';
+
+    /**
+     * Name of the file, if downloaded.
+     *
+     * @var string
+     */
     protected $fileName = 'attachments';
+
+    /**
+     * Entity for storing the attachment
+     *
+     * @var string
+     */
     protected $fileEntityClass = '\Applications\Entity\Attachment';
+
+    /**
+     * allow to upload multiple files
+     *
+     * @var bool
+     */
     protected $multiple = true;
-    protected $configKey = 'application_attachments';
 
 
+    /**
+     * configure the formular for uploading attachments
+     *
+     * @param \Core\Form\Form $form
+     * @param ModuleOptions $options
+     */
     protected function configureForm($form , ModuleOptions $options)
     {
 
