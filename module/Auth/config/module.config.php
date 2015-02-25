@@ -292,6 +292,16 @@ return array(
                     ),
                 ),
             ),
+            'user-search' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/user/search',
+                    'defaults' => array(
+                        'controller' => 'Auth/ManageGroups',
+                        'action' => 'search-users'
+                    ),
+                ),
+            ),
         ),
     ),
     
@@ -470,6 +480,7 @@ return array(
 //             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
+            'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
         )
     ),
 
