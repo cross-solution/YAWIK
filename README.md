@@ -20,6 +20,7 @@ a day.
 
 Build status: [![Build Status](https://api.travis-ci.org/cross-solution/YAWIK.svg)](https://travis-ci.org/cross-solution/YAWIK)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cross-solution/YAWIK/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/cross-solution/YAWIK/?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/cross-solution/YAWIK/badge.svg)](https://coveralls.io/r/cross-solution/YAWIK)
 
 Demo
 ----
