@@ -2,46 +2,46 @@
 //: ./view/applications/manage/index.recruiter.ajax.phtml:46
 translate('Applicant');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:47
-translate('Career'       => array('class' => 'cam-career');
-
 //: ./view/applications/manage/index.recruiter.ajax.phtml:48
-translate('Attachments'  => array('class' => 'cam-attachment');
-
-//: ./view/applications/manage/index.recruiter.ajax.phtml:49
-translate('Job'          => array('class' => 'cam-job');
+translate('Career');
 
 //: ./view/applications/manage/index.recruiter.ajax.phtml:50
-translate('Status'       => array('sort' => 'status');
-
-//: ./view/applications/manage/index.recruiter.ajax.phtml:51
-translate('Rating'       => array('sort' => 'rating');
+translate('Attachments');
 
 //: ./view/applications/manage/index.recruiter.ajax.phtml:52
-translate('Modified'     => array('sort' => 'date');
+translate('Job');
 
-//: ./view/applications/manage/index.recruiter.ajax.phtml:53
+//: ./view/applications/manage/index.recruiter.ajax.phtml:54
+translate('Status');
+
+//: ./view/applications/manage/index.recruiter.ajax.phtml:56
+translate('Rating');
+
+//: ./view/applications/manage/index.recruiter.ajax.phtml:58
+translate('Modified');
+
+//: ./view/applications/manage/index.recruiter.ajax.phtml:60
 translate('Actions');
 
 //: ./view/applications/manage/index.applicant.ajax.phtml:14
-translate('Sent on'      => array('sort' => 'date');
-
-//: ./view/applications/manage/index.applicant.ajax.phtml:15
-translate('Company');
+translate('Sent on');
 
 //: ./view/applications/manage/index.applicant.ajax.phtml:16
-translate('Job'          => array('class' => 'cam-job');
-
-//: ./view/applications/manage/index.applicant.ajax.phtml:17
-translate('Status'       => array('sort' => 'status');
+translate('Company');
 
 //: ./view/applications/manage/index.applicant.ajax.phtml:18
+translate('Job');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:20
+translate('Status');
+
+//: ./view/applications/manage/index.applicant.ajax.phtml:22
 translate('Actions');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:34
+//: ./src/Applications/Form/AttachmentsFactory.php:65
 translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:36
+//: ./src/Applications/Form/AttachmentsFactory.php:67
 translate('Attachments');
 
 //: ./src/Applications/Form/Base.php:26
@@ -194,13 +194,16 @@ translate('all');
 //: ./src/Applications/Controller/ManageController.php:131
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:141
+//: ./src/Applications/Controller/ApplyController.php:152
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:223
+//: ./src/Applications/Controller/ApplyController.php:235
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:284
+//: ./src/Applications/Controller/ApplyController.php:250
+translate('Application has been send.');
+
+//: ./src/Applications/Controller/ApplyController.php:316
 translate('Application confirmation');
 
 //: ./src/Applications/Controller/IndexController.php:83
@@ -215,6 +218,18 @@ translate('Application confirmation');
 //: ./src/Applications/Controller/IndexController.php:255
 translate('your application was sent successfully');
 
+//: ./src/Applications/Controller/IndexController.php:306
+translate('Application has been deleted.');
+
+//: ./src/Applications/Controller/IndexController.php:332
+translate('Mail has been send');
+
+//: ./src/Applications/Controller/IndexController.php:335
+translate('Application data has been deleted');
+
+//: ./src/Applications/Controller/IndexController.php:338
+translate('No mail adress available');
+
 //: ./src/Applications/Mail/Forward.php:45
 translate('Fwd: Application to "%s" dated %s');
 
@@ -227,6 +242,6 @@ translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##
 //: ./config/module.config.php:65
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:128
+//: ./config/module.config.php:133
 translate('Overview');
 

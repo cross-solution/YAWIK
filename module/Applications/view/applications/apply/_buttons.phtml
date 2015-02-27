@@ -48,7 +48,7 @@ $isApplicationValid = $this->services('validatormanager.applicationsapplication'
                 </a>
             <?php else: ?>
                 <a href="<?php echo $this->url('lang/applications/mail', array('status' => 'test'), array('query' => array('id' => $this->application->id)), true) ?>" id="testmail-application-test" disabled=true class="btn btn-lg btn-default">
-                    <?php echo $this->translate('Send Testmail') ?>
+                    <?php echo $this->translate('Send preview to my email') ?>
                 </a>
                 <a href="<?php echo $applyUrl ?>?do=sendmail" id="testmail-application-apply" disabled=true class="btn btn-lg btn-default">
                     <?php echo $this->translate('Send application') ?>
