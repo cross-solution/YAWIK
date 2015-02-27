@@ -35,7 +35,7 @@ class FormContainer extends AbstractHelper
      * @param array $parameter
      * @return FormContainer|string
      */
-    public function __invoke(Container $container = null, $layout=Form::LAYOUT_INLINE, $parameter = array())
+    public function __invoke(Container $container = null, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         if (!$container) {
             return $this;
@@ -52,7 +52,7 @@ class FormContainer extends AbstractHelper
      * @param array $parameter
      * @return string
      */
-    public function render(Container $container, $layout=Form::LAYOUT_INLINE, $parameter = array())
+    public function render(Container $container, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         
         $content = '';
