@@ -9,6 +9,7 @@
 namespace Organizations\Repository;
 
 use Core\Repository\AbstractRepository;
+use Organizations\Entity\OrganizationInterface;
 
 class Organization extends AbstractRepository
 {
@@ -37,7 +38,26 @@ class Organization extends AbstractRepository
         
         return $qb;
     }
-    
+
+    /**
+     * Gets a cursor for all hiring organizations.
+     *
+     * @param OrganizationInterface $organization parent organization
+     *
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     * @usedBy \Organizations\Entity\Organization::getHiringOrganizations()
+     * @since 0.18
+     */
+    public function getHiringOrganizationsCursor(OrganizationInterface $organization)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->field('parent')->equals($organization->getId());
+        $q  = $qb->getQuery();
+        $cursor = $q->execute();
+
+        return $cursor;
+    }
+
     /**
      * Find a organizations by an name
      * 

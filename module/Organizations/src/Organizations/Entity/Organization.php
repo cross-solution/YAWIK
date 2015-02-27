@@ -8,7 +8,10 @@
 
 namespace Organizations\Entity;
 
+use Auth\Entity\UserInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
+use Core\Entity\Collection\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Core\Entity\AddressInterface;
@@ -24,11 +27,24 @@ use Core\Entity\DraftableEntityInterface;
  * The organization.
  *
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
+ * @ODM\HasLifecycleCallbacks
+ *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface {
     
     
     const postConstruct = 'postRepositoryConstruct';
+
+    /**
+     * Owner of the organization
+     *
+     * @var \Auth\Entity\UserInterface
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple="true")
+     * @since 0.18
+     */
+    protected $owner;
     
     /**
      * externalId. Allows external applications to reference their primary key.
@@ -82,6 +98,75 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\String
      */
     protected $description;
+
+    /**
+     * The parent of this organization.
+     *
+     * @see setParent()
+     * @var OrganizationInterface | null
+     * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", simple=true, nullable=true)
+     * @since 0.18
+     */
+    protected $parent;
+
+    /**
+     * The hiring organizations of this organization.
+     *
+     * @var Collection
+     * @ODM\ReferenceMany(
+     *      targetDocument="Organizations\Entity\Organization",
+     *      repositoryMethod="getHiringOrganizationsCursor"
+     * )
+     * @since 0.18
+     */
+    protected $hiringOrganizations;
+
+    /**
+     * The associated employees (users)
+     *
+     * @ODM\EmbedMany(targetDocument="\Organizations\Entity\Employee")
+     * @var Collection
+     */
+    protected $employees;
+
+    public function setOwner(UserInterface $user)
+    {
+        if ($this->owner) {
+            $this->getPermissions()->revoke($this->owner, Permissions::PERMISSION_ALL, /*build*/ false);
+        }
+        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
+        $this->owner = $user;
+
+        return $this;
+    }
+
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    public function setParent(OrganizationInterface $parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function getHiringOrganizations()
+    {
+        return $this->hiringOrganizations;
+    }
+
+    public function isHiringOrganization()
+    {
+        return null !== $this->parent;
+    }
+
 
     /** {@inheritdoc} */
     public function setExternalId($externalId) 
@@ -266,6 +351,70 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this;
     }
 
+    public function setEmployees(Collection $employees)
+    {
+        /* todo: Throw exception or at least log incidents, where employees are added to "hiring orgs" */
+        if (!$this->isHiringOrganization()) {
+            $this->employees = $employees;
+        }
+
+        return $this;
+    }
+
+    public function getEmployees()
+    {
+        if ($this->isHiringOrganization()) {
+            // Always return empty list, as we never have employees in this case.
+            return new ArrayCollection();
+        }
+
+        if (!$this->employees) {
+            $this->setEmployees(new ArrayCollection());
+        }
+
+        return $this->employees;
+    }
+
+    /**
+     * Updates the organizationsPermissions to allow all employees to view this organization.
+     *
+     * In case of a HiringOrganization Permissions are granted to all employees of the parent
+     * organization.
+     *
+     * @ODM\PreUpdate
+     * @ODM\PrePersist
+     * @since 0.18
+     */
+    public function updatePermissions()
+    {
+        if ($this->isHiringOrganization()) {
+            $organization = $this->getParent();
+            $owner        = $organization->getOwner();
+            $this->setOwner($owner);
+        } else {
+            $organization = $this;
+        }
+
+
+        /* @var $employees null | ArrayCollection | \Doctrine\ODM\MongoDB\PersistentCollection */
+        $employees = $organization->getEmployees();
+
+        if ($employees &&
+            ( $employees instanceof ArrayCollection
+              || $employees->isDirty()
+              || $employees->isInitialized())
+        ) {
+            /* @var $perms Permissions */
+            $perms = $this->getPermissions();
+
+            foreach ($employees as $emp) {
+                /* @var $emp \Organizations\Entity\Employee */
+                $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
+            }
+            $perms->build();
+        }
+
+    }
 }
 
 

@@ -1,5 +1,5 @@
 <project name="Organizations" default="install">
-    <target name="install">
+    <target name="install" depends="symlinks">
         <property file="${project.basedir}/config/build.properties" />
         <copy todir="../../config/autoload" overwrite="true">
             <fileset dir="config">
@@ -14,4 +14,9 @@
             </filterchain>
         </copy>
     </target>
+
+    <target name="symlinks">
+        <symlink link="${project.basedir}/../../public/Organizations" target="${project.basedir}/public" />
+    </target>
+
 </project>
