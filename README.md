@@ -21,6 +21,10 @@ a day.
 Build status: [![Build Status](https://api.travis-ci.org/cross-solution/YAWIK.svg)](https://travis-ci.org/cross-solution/YAWIK)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cross-solution/YAWIK/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/cross-solution/YAWIK/?branch=develop)
 [![Coverage Status](https://coveralls.io/repos/cross-solution/YAWIK/badge.svg)](https://coveralls.io/r/cross-solution/YAWIK)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/cross-solution/YAWIK.svg)](http://isitmaintained.com/project/cross-solution/YAWIK "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/cross-solution/YAWIK.svg)](http://isitmaintained.com/project/cross-solution/YAWIK "Percentage of issues still open")
+[![Dependency Status](https://www.versioneye.com/user/projects/54f0486b4f3108d1fa000266/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54f0486b4f3108d1fa000266)
+
 
 Demo
 ----
