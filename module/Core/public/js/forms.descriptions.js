@@ -19,7 +19,7 @@
 			var _this = this;
 			
 			$form.find('.cam-description').hide().appendTo(this.$descDiv);
-            $form.find(':input:not([id^="s2id_"]):not(select), .select2-container')
+            $form.find(':input:not([id^="s2id_"]):not(select), .select2-container, .cam-description-toggle, .cam-description-toggle *')
 			     .on('mouseover mouseout', $.proxy(this.eventToggle, this))
 			     .focus($.proxy(function(event) {
                     console.debug('focus');
@@ -39,8 +39,10 @@
 			     }, this));
 
             $form.find('label').on("mouseover mouseout", function(event) {
-                var id = "mouseover" == event.type ? $(event.target).attr('for') : null;
-                _this.toggle(id);
+                if ($(event.target).is('label')) {
+                    var id = "mouseover" == event.type ? $(event.target).attr('for') : null;
+                    _this.toggle(id);
+                }
             });
 
             $form.find('select').on('focus select2-focus blur select2-blur',

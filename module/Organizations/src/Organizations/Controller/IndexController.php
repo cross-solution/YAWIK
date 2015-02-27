@@ -44,7 +44,7 @@ class IndexController extends AbstractActionController
      * @return array
      */
     public function indexAction()
-    { 
+    {
         $params        = $this->getRequest()->getQuery();
         $isRecruiter   = $this->acl()->isRole('recruiter');
         $params->count = 10;
@@ -84,6 +84,11 @@ class IndexController extends AbstractActionController
         $container       = $services->get('forms')->get('organizations/form');
         $viewHelper      = $services->get('ViewHelperManager');
         $org             = $repository->find($organization_id);
+        $os = $org->getHiringOrganizations();
+        foreach ($os as $o) {
+            $a = $o;
+        }
+
         if (!isset($org) && !$request->isPost()) {
             // create a new Organization
             $org =  $repository->create();

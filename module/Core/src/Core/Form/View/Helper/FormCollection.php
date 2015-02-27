@@ -36,7 +36,7 @@ class FormCollection extends ZendFormCollection
         return $this;
     }
     
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element, $useViewPartial = true)
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $renderer = $this->getView();
@@ -59,10 +59,39 @@ class FormCollection extends ZendFormCollection
             $templateMarkup = $this->renderTemplate($element);
             $this->isWithinCollection = false;
         }
-    
+
+        $elementId = $element->getAttribute('id');
+        if (!$elementId) {
+            $elementId = preg_replace(
+                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                array('-'              , '-'    , ''       ),
+                $element->getName()
+            );
+            $element->setAttribute('id', $elementId);
+        }
+
+        if ($element instanceOf ViewPartialProviderInterface && $useViewPartial) {
+            /* @var $partial \Zend\View\Helper\Partial */
+            $partial = $renderer->plugin('partial');
+            return $partial(
+                $element->getViewPartial(), array('element' => $element)
+            );
+        }
+
         foreach ($element->getIterator() as $elementOrFieldset) {
             /* @var $elementOrFieldset ElementInterface|ViewPartialProviderInterface|ViewHelperProviderInterface */
             if ($elementOrFieldset instanceOf ViewPartialProviderInterface) {
+
+                $elementOrFieldsetId = $elementOrFieldset->getAttribute('id');
+                if (!$elementOrFieldsetId) {
+                    $elementOrFieldsetId = preg_replace(
+                        array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                        array('-'              , '-'    , ''       ),
+                        $elementOrFieldset->getName()
+                    );
+                    $elementOrFieldset->setAttribute('id', $elementOrFieldsetId);
+                }
+
                 /* @var $partial \Zend\View\Helper\Partial */
                 $partial = $renderer->plugin('partial');
                 $markup .= $partial(
@@ -102,15 +131,7 @@ class FormCollection extends ZendFormCollection
         
         // Every collection is wrapped by a fieldset if needed
         if ($this->shouldWrap) {
-            $elementId = $element->getAttribute('id');
-            if (!$elementId) {
-                $elementId = preg_replace(
-                    array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
-                    array('-'              , '-'    , ''       ),
-                    $element->getName()
-                );
-                $element->setAttribute('id', $elementId);
-            }
+
             
             if ($this->isWithinCollection) {
                 $attrStr = $this->createAttributesString($element->getAttributes());

@@ -9,12 +9,14 @@
 
 namespace Organizations\Entity;
 
+use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\AddressInterface;
 use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
+use Doctrine\Common\Collections\Collection;
 use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 
 /**
@@ -29,9 +31,58 @@ interface OrganizationInterface
             PermissionsAwareInterface,
             HydratorAwareInterface
 {
-    
-    
-    
+
+    /**
+     * Sets the owner of the organization.
+     *
+     * @param UserInterface $user
+     *
+     * @return self
+     * @since 0.18
+     */
+    public function setOwner(UserInterface $user);
+
+    /**
+     * Gets the owner of the organization.
+     *
+     * @return UserInterface
+     * @since 0.18
+     */
+    public function getOwner();
+
+    /**
+     * Sets the parent organizations.
+     *
+     * If this field is set, it means, this organization is a
+     * hiring organization (a "customer") and it is NOT allowed
+     * to add employees.
+     *
+     * @param OrganizationInterface $parent
+     *
+     * @return self
+     * @since 0.18
+     */
+    public function setParent(OrganizationInterface $parent);
+
+    /**
+     * Gets the parent organization.
+     *
+     * @return OrganizationInterface | null
+     * @since 0.18
+     */
+    public function getParent();
+
+    /**
+     * Checks if the organization is a hiring organization.
+     *
+     * @internal
+     *      Must check for a parent.
+     *
+     * @return boolean
+     * @since 0.18
+     */
+    public function isHiringOrganization();
+
    /**
     * Sets the name of the organization
     * 
@@ -72,4 +123,26 @@ interface OrganizationInterface
      * @return self
      */
     public function setDescription($description);
+
+    /**
+     * Sets the employees collection.
+     *
+     * @internal
+     *      NOTE: if a parent is set, this method should throw an exception
+     *      or act as a null-op. see {@link setParent()}
+     *
+     * @param Collection $employees
+     *
+     * @return self
+     * @since 0.18
+     */
+    public function setEmployees(Collection $employees);
+
+    /**
+     * Gets the employees collection,
+     *
+     * @return Collection
+     * @since 0.18
+     */
+    public function getEmployees();
 }

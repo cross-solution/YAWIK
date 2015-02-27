@@ -10,6 +10,7 @@
 /** JobAccessAssertion.php */ 
 namespace Jobs\Acl;
 
+use Organizations\Entity\EmployeePermissionsInterface;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
@@ -32,6 +33,28 @@ class WriteAssertion implements AssertionInterface
             return false;
         }
 
-        return $resource->getPermissions()->isGranted($role->getId(), Permissions::PERMISSION_CHANGE);
+        return $resource->getPermissions()->isGranted($role->getId(), Permissions::PERMISSION_CHANGE)
+               || $this->checkOrganizationPermissions($role, $resource);
+    }
+
+    protected function checkOrganizationPermissions($role, $resource)
+    {
+        $organization = $resource->getOrganization();
+        if ($organization->isHiringOrganization()) {
+            $organization = $organization->getParent();
+        }
+
+        if ($role->getId() == $organization->getOwner()->getId()) {
+            return true;
+        }
+
+        $employees = $organization->getEmployees();
+        foreach ($employees as $emp) {
+            if ($emp->getPermissions()->isAllowed($role, EmployeePermissionsInterface::JOBS_CHANGE)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

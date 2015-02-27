@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 
 return array(
     'doctrine' => array(
@@ -49,6 +53,8 @@ return array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
              'organizations/index/edit' => __DIR__ . '/../view/organizations/index/form.phtml',
+             'organizations/form/employees-fieldset' => __DIR__ . '/../view/form/employees-fieldset.phtml',
+             'organizations/form/employee-fieldset' => __DIR__ .'/../view/form/employee-fieldset.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -65,9 +71,16 @@ return array(
             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
             'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
+            'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
+            'Organizations/Employees'                    => 'Organizations\Form\Employees',
+
+
+            'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
         ),
         'factories' => array(
             'Organizations/Image' => 'Organizations\Form\LogoImageFactory',
+            'Organizations/EmployeesFieldset'            => 'Organizations\Factory\Form\EmployeesFieldsetFactory',
+            'Organizations/EmployeeFieldset'             => 'Organizations\Factory\Form\EmployeeFieldsetFactory',
         )
     ),
     'input_filters' => array(
