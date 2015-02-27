@@ -8,7 +8,7 @@
  */
   
 /** */
-namespace Auth\Form\Element;
+namespace Auth\Factory\Form\Element;
 
 use Zend\Form\Element\Text;
 use Zend\ServiceManager\FactoryInterface;
