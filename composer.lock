@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "652f51a7b781c5a1be702d9c40a1246f",
+    "hash": "80208636a2c47c7f46ed08a87fc1b5d0",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -58,20 +58,17 @@
         },
         {
             "name": "components/jquery",
-            "version": "1.9.1",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/jquery.git",
-                "reference": "0e94233e6a4ab678d8fc04312241b2f840717b0c"
+                "reference": "f8edb647d1833fd5d57410ab70860f03534cb2e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/0e94233e6a4ab678d8fc04312241b2f840717b0c",
-                "reference": "0e94233e6a4ab678d8fc04312241b2f840717b0c",
+                "url": "https://api.github.com/repos/components/jquery/zipball/f8edb647d1833fd5d57410ab70860f03534cb2e8",
+                "reference": "f8edb647d1833fd5d57410ab70860f03534cb2e8",
                 "shasum": ""
-            },
-            "require": {
-                "robloach/component-installer": "*"
             },
             "type": "component",
             "extra": {
@@ -81,6 +78,7 @@
                     ],
                     "files": [
                         "jquery.min.js",
+                        "jquery.min.map",
                         "jquery-migrate.js",
                         "jquery-migrate.min.js"
                     ]
@@ -93,13 +91,12 @@
             "authors": [
                 {
                     "name": "John Resig",
-                    "email": "jeresig@gmail.com",
-                    "homepage": "http://ejohn.org/"
+                    "email": "jeresig@gmail.com"
                 }
             ],
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
-            "time": "2013-07-16 10:41:05"
+            "time": "2014-12-23 06:48:45"
         },
         {
             "name": "doctrine/annotations",

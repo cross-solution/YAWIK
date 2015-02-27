@@ -32,3 +32,6 @@ before_script:
 
 script:
   - phpunit --configuration $TRAVIS_BUILD_DIR/travis.phpunit.xml
+
+after_script:
+  - php $TRAVIS_BUILD_DIR/vendor/bin/coveralls -v
