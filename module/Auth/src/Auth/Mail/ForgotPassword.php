@@ -38,7 +38,7 @@ class ForgotPassword extends StringTemplateMessage
         }
         $this->setSubject($subject);
 
-        $bodyHtml = /*@translate*/
+        $bodyHtml =
             <<<HTML
 %sHello ##name##,
 
