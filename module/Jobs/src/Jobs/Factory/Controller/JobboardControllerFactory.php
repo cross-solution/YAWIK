@@ -7,7 +7,7 @@
  * @license       MIT
  */
 
-namespace Jobs\Controller\SLFactory;
+namespace Jobs\Factory\Controller;
 
 use Jobs\Controller\JobboardController;
 use Jobs\Repository;
@@ -15,7 +15,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class JobboardControllerSLFactory implements FactoryInterface
+class JobboardControllerFactory implements FactoryInterface
 {
 
     /**

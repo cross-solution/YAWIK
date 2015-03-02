@@ -26,10 +26,18 @@ class JobboardController extends AbstractActionController
     private $jobRepository;
 
     /**
+     * Formular for searching job postings
+     *
      * @var ListFilter $searchForm
      */
     private $searchForm;
 
+    /**
+     * Construct the jobboard controller
+     *
+     * @param Repository\Job $jobRepository
+     * @param ListFilter $searchForm
+     */
     public function __construct(Repository\Job $jobRepository, ListFilter $searchForm)
     {
         $this->jobRepository = $jobRepository;
@@ -83,10 +91,8 @@ class JobboardController extends AbstractActionController
         $return = array(
             'by' => $params->get('by', 'all'),
             'jobs' => $paginator,
+            'filterForm' => $this->searchForm
         );
-        if (isset($filterForm)) {
-            $return['filterForm'] = $filterForm;
-        }
         return $return;
      }
 }

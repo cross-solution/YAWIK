@@ -158,8 +158,8 @@ return array(
             'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),
         'factories' => array(
-            'Jobs/Template' => 'Jobs\Controller\SLFactory\TemplateControllerSLFactory',
-            'Jobs/Jobboard' => 'Jobs\Controller\SLFactory\JobboardControllerSLFactory',
+            'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
+            'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
         )
     ),
     

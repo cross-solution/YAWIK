@@ -7,22 +7,23 @@
  * @license       MIT
  */
 
-namespace JobsTest\Controller\SLFactory;
+namespace JobsTest\Factory\Controller;
 
-use Jobs\Controller\SLFactory\TemplateControllerSLFactory;
+use Jobs\Factory\Controller\TemplateControllerFactory;
+use Jobs\Controller;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class TemplateControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var TemplateControllerSLFactory
+     * @var TemplateControllerFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new TemplateControllerSLFactory();
+        $this->testedObj = new TemplateControllerFactory();
     }
 
     public function testCreateService()
