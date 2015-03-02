@@ -35,8 +35,13 @@ class FormCollection extends ZendFormCollection
         $this->layout = $layout;
         return $this;
     }
-    
-    public function render(ElementInterface $element, $useViewPartial = true)
+
+    /**
+     * @param ElementInterface $element
+     * @param bool $useViewPartial
+     * @return string
+     */
+    public function render(ElementInterface $element, $useViewPartial = false)
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $renderer = $this->getView();
