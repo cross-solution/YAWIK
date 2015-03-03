@@ -8,14 +8,14 @@
  * @author    weitz@cross-solution.de
  */
 
-namespace Jobs\Services;
+namespace Jobs\Factory\Service;
 
-use Core\Service\RestClientFactory;
+use Core\Factory\Service\RestClientFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class RestClientFactory
- * @package Jobs\Services
+ * Class JobsPublisherFactory
+ * @package Jobs\Factory\Service
  */
 class JobsPublisherFactory extends RestClientFactory
 {
@@ -25,10 +25,12 @@ class JobsPublisherFactory extends RestClientFactory
      */
     protected $serviceLocator;
 
+
+
     protected function getUri() {
         $config = $this->getConfig();
         if (!array_key_exists('uri', $config)) {
-            throw new \RuntimeException('uri for Rest-Server CamMediaintown is missing', 500);
+            throw new \RuntimeException('uri for Rest-Server YAWIK is missing', 500);
         }
         return $config['uri'];
     }
@@ -49,7 +51,4 @@ class JobsPublisherFactory extends RestClientFactory
         }
         return $this->config;
     }
-
-
-
 }

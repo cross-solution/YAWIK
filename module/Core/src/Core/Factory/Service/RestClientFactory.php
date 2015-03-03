@@ -8,21 +8,29 @@
  * @author    weitz@cross-solution.de
  */
 
-namespace Core\Service;
+namespace Core\Factory\Service;
 
+use Core\Service\RestClient;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 abstract class RestClientFactory implements FactoryInterface
 {
+    /**
+     * @var array
+     */
     protected $config;
+
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $serviceLocator;
 
     /**
      * Create the settings service
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return ControllerManager
+     * @return RestClient
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

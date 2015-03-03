@@ -146,7 +146,7 @@ return array(
         'factories' => array(
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
-            'Jobs/RestClient'                             => 'Jobs\Services\JobsPublisherFactory',
+            'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
         )
     ),
     
