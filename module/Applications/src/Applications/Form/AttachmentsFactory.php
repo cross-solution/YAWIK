@@ -11,7 +11,7 @@
 namespace Applications\Form;
 
 use Core\Form\FileUploadFactory;
-use Applications\Options\ModuleOptions;
+use Zend\Stdlib\AbstractOptions;
 
 /**
  * Factors a file upload form to attach files to an application.
@@ -48,14 +48,21 @@ class AttachmentsFactory extends FileUploadFactory
      */
     protected $multiple = true;
 
+    /**
+     * use abstract options defined in "Applications/Options"
+     *
+     * @var string
+     */
+    protected $options="Applications/Options";
+
 
     /**
      * configure the formular for uploading attachments
      *
      * @param \Core\Form\Form $form
-     * @param ModuleOptions $options
+     * @param AbstractOptions $options
      */
-    protected function configureForm($form , ModuleOptions $options)
+    protected function configureForm($form , AbstractOptions $options)
     {
 
         /** @var $form \Core\Form\Form */

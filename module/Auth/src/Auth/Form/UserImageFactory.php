@@ -10,7 +10,7 @@
 /**  */ 
 namespace Auth\Form;
 
-use Applications\Options\ModuleOptions;
+use Zend\Stdlib\AbstractOptions;
 use Core\Form\FileUploadFactory;
 use Auth\Entity\UserImage;
 /**
@@ -23,8 +23,21 @@ class UserImageFactory extends FileUploadFactory
     protected $fileName = 'image';
     protected $fileEntityClass = 'Auth\Entity\UserImage';
     protected $configKey = 'user_image';
-    
-    protected function configureForm($form, ModuleOptions $options)
+
+    /**
+     * Use abstract options defined in "Applications/Options"
+     *
+     * @var string
+     */
+    protected $options = 'Applications/Options';
+
+    /**
+     * Configure the file upload formular with Applications/Options
+     *
+     * @param \Core\Form\Form $form
+     * @param AbstractOptions $options
+     */
+    protected function configureForm($form, AbstractOptions $options)
     {
 
         $form->get($this->fileName)->setViewHelper('FormImageUpload')

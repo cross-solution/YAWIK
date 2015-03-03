@@ -29,19 +29,14 @@ class ModuleOptions extends AbstractOptions {
     protected $multipostingApprovalMail;
 
     /**
+     * Send a Rest Request to this target on status changes of a job opening.
+     * The URI can contain Username/Password
+     *
+     * E.g.: http://user:pass@host/location?query
+     *
      * @var string $multipostingTargetUri
      */
     protected $multipostingTargetUri;
-
-    /**
-     * @var string $multipostingTargetUser
-     */
-    protected $multipostingTargetUser;
-
-    /**
-     * @var string $multipostingTargetPassword
-     */
-    protected $multipostingTargetPassword;
 
     /**
      * The default Logo is shown in a job opening and in the application form
@@ -49,6 +44,21 @@ class ModuleOptions extends AbstractOptions {
      * @var string $defaultLogo
      */
     protected $defaultLogo="/Jobs/images/yawik-small.jpg";
+
+    /**
+     * Maximum size in bytes of a company Logo
+     *
+     * @var int $companyLogoMaxSize
+     */
+    protected $companyLogoMaxSize=100000;
+
+    /**
+     * Allowed Mime-Types for company Logos
+     *
+     * @var string
+     */
+    protected $companyLogoMimeType=array("image");
+
 
     /**
      * Gets the email address to which approval mails are sent
@@ -97,48 +107,6 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
-     * Gets the username for sending a Rest request, after a job opening was accepted
-     *
-     * @return string
-     */
-    public function getMultipostingTargetUser()
-    {
-        return $this->multipostingTargetUser;
-    }
-    /**
-     * Sets the username for sending a Rest request, after a job opening was accepted
-     *
-     * @param string $username
-     * @return ModuleOptions
-     */
-    public function setMultipostingTargetUser($username)
-    {
-        $this->multipostingTargetUser = $username;
-        return $this;
-    }
-
-    /**
-     * Gets the password for sending a Rest request, after a job opening was accepted
-     *
-     * @return string
-     */
-    public function getMultipostingTargetPassword()
-    {
-        return $this->multipostingTargetPassword;
-    }
-    /**
-     * Sets the password for sending a Rest request, after a job opening was accepted
-     *
-     * @param string $password
-     * @return ModuleOptions
-     */
-    public function setMultipostingTargetPassword($password)
-    {
-        $this->multipostingTargetPassword = $password;
-        return $this;
-    }
-
-    /**
      * Gets the default logo of a job opening/application formular
      *
      * @return string
@@ -150,7 +118,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Sets the default logo of a job opening/application formular
      *
-     * @param string $mime
+     * @param string $logo
      * @return ModuleOptions
      */
     public function setDefaultLogo($logo)
@@ -158,5 +126,49 @@ class ModuleOptions extends AbstractOptions {
         $this->defaultLogo = $logo;
         return $this;
     }
+
+    /**
+     * Gets the maximum size in bytes of a company Logo
+     *
+     * @return int
+     */
+    public function getCompanyLogoMaxSize()
+    {
+        return $this->companyLogoMaxSize;
+    }
+    /**
+     * Sets Maximum size in bytes of a company Logo
+     *
+     * @param int $size
+     * @return ModuleOptions
+     */
+    public function setCompanyLogoMaxSize($size)
+    {
+        $this->companyLogoMaxSize = $size;
+        return $this;
+    }
+
+    /**
+     * Gets the allowed Mime-Type of a company logo
+     *
+     * @return array
+     */
+    public function getCompanyLogoMimeType()
+    {
+        return $this->companyLogoMimeType;
+    }
+
+    /**
+     * Sets the allowed Mime-Types of a company logo
+     *
+     * @param array $mime
+     * @return ModuleOptions
+     */
+    public function setCompanyLogoMimeType($mime)
+    {
+        $this->companyLogoMimeType = $mime;
+        return $this;
+    }
+
 
 }

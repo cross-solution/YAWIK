@@ -61,26 +61,26 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getMultipostingTargetUser
-     * @covers Jobs\Options\ModuleOptions::setMultipostingTargetUser
+     * @covers Jobs\Options\ModuleOptions::getCompanyLogoMaxSize
+     * @covers Jobs\Options\ModuleOptions::setCompanyLogoMaxSize
      */
-    public function testSetGetMultipostingTargetUser()
+    public function testSetGetCompanyLogoMaxSize()
     {
-        $username='username';
+        $size='1234';
 
-        $this->options->setMultipostingTargetUser($username);
-        $this->assertEquals($username, $this->options->getMultipostingTargetUser());
+        $this->options->setCompanyLogoMaxSize($size);
+        $this->assertEquals($size, $this->options->getCompanyLogoMaxSize());
     }
 
     /**
-     * @covers Jobs\Options\ModuleOptions::getMultipostingTargetPassword
-     * @covers Jobs\Options\ModuleOptions::setMultipostingTargetPassword
+     * @covers Jobs\Options\ModuleOptions::getCompanyLogoMimeType
+     * @covers Jobs\Options\ModuleOptions::setCompanyLogoMimeType
      */
-    public function testSetGetMultipostingTargetPassword()
+    public function testSetGetCompanyLogoMimeType()
     {
-        $password="secret";
+        $mime=array("text/plain");
 
-        $this->options->setMultipostingTargetPassword($password);
-        $this->assertEquals($password, $this->options->getMultipostingTargetPassword());
+        $this->options->setCompanyLogoMimeType($mime);
+        $this->assertEquals($mime, $this->options->getCompanyLogoMimeType());
     }
 }

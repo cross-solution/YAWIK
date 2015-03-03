@@ -14,10 +14,17 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Jobs\Options\ModuleOptions;
 
+/**
+ * Class ModuleOptionsFactory
+ * @package Jobs\Factory
+ */
 class ModuleOptionsFactory  implements FactoryInterface
 {
     /**
      * {@inheritDoc}
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return ModuleOptions
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

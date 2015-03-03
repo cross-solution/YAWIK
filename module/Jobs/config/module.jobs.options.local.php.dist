@@ -4,6 +4,7 @@ $options = array(
 
         /**
         * If not set, the email address of the default user is used
+        * @see Jobs\Options\ModulesOptionFactory
         */
         'multipostingApprovalMail' => '',
 
@@ -14,19 +15,19 @@ $options = array(
         'multipostingTargetUri' => '',
 
         /**
-        *
+        * default Logo, if a company has no logo.
         */
-        'multipostingTargetUser' => '',
+	    'default_logo' => '/Jobs/images/yawik-small.jpg',
+
+	    /**
+        * Maximum size in bytes of a company Logo
+        */
+        'companyLogoMaxSize' => 100000,
 
         /**
-        *
+        * Allowed Mime-Types for company Logos
         */
-        'multipostingTargetPassword'   => '',
-
-        /**
-        *
-        */
-	    'default_logo' => '/Jobs/images/yawik-small.jpg'
+        'companyLogoMimeType' => array("image")
 
 );
 
