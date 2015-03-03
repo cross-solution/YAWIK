@@ -37,5 +37,5 @@ script:
 after_script:
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=json-clover build/logs/coveralls-upload.json
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
 
