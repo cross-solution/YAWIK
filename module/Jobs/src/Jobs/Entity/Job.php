@@ -369,7 +369,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function setOrganization(OrganizationInterface $organization = null)
     {
+        $permissions = $this->getPermissions();
+
+        if ($this->organization) {
+            $permissions->revoke($this->organization, null, false);
+        }
         $this->organization = $organization;
+        $permissions->grant($organization);
+
         return $this;
     }
     
@@ -773,12 +780,13 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     public function getPermissions()
     {
         if (!$this->permissions) {
-            $permissions = new Permissions();
+            $permissions = new Permissions('Job/Permissions');
             if ($this->user) {
                 $permissions->grant($this->user, Permissions::PERMISSION_ALL);
             }
             $this->setPermissions($permissions);
         }
+
         return $this->permissions;
     }
     
