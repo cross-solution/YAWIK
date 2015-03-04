@@ -10,48 +10,111 @@
 /** Permissions.php */ 
 namespace Core\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
-use Auth\Entity\GroupInterface;
 use Core\Entity\Collection\ArrayCollection;
 
 /**
- * 
+ * Manages permissions for an entity.
+ *
+ *
+ * @method boolean isAllGranted($userOrId)    shortcut for isGranted($userOrId, self::PERMISSION_ALL)
+ * @method boolean isNoneGranted($userOrId)   shortcut for isGranted($userOrId, self::PERMISSION_NONE)
+ * @method boolean isChangeGranted($userOrId) shortcut for isGranted($userOrId, self::PERMISSION_CHANGE)
+ * @method boolean isViewGranted($userOrId)   shortcut for isGranted($userOrId, self::PERMISSION_VIEW)
+ * @method $this grantAll($resource)          shortcut for grant($resource, self::PERMISSION_ALL)
+ * @method $this grantNone($resource)         shortcut for grant($resource, self::PERMISSION_NONE)
+ * @method $this grantChange($resource)       shortcut for grant($resource, self::PERMISSION_CHANGE)
+ * @method $this grantView($resource)         shortcut for grant($resource, self::PERMISSION_VIEW)
+ * @method $this revokeAll($resource)         shortcut for grant($resource, self::PERMISSION_ALL)
+ * @method $this revokeNone($resource)        shortcut for grant($resource, self::PERMISSION_NONE)
+ * @method $this revokeChange($resource)      shortcut for grant($resource, self::PERMISSION_CHANGE)
+ * @method $this revokeView($resource)        shortcut for grant($resource, self::PERMISSION_VIEW)
+ *
  * @ODM\EmbeddedDocument
  */
 class Permissions implements PermissionsInterface
 {
-    
     /**
-     * Permissions container
-     * Array of Format <user_id> => <permission>
+     * The type of this Permissions
+     *
+     * default is the Fully qualified class name.
+     *
+     * @ODM\String
+     * @var string
+     * @since 0,18
+     */
+    protected $type;
+
+    /**
+     * Ids of users, which have view access.
+     *
      * @var array
      * @ODM\Collection
      */
     protected $view = array();
 
     /**
-     * 
+     * Ids of users, which have change access.
+     *
      * @var array
      * @ODM\Collection
      */
     protected $change = array();
     
     /**
+     * Specification of assigned resources.
+     *
+     * As of 0.18, the format is:
+     * <pre>
+     * array(
+     *  resourceId => array(
+     *    permission => array(userId,...),
+     *    ...
+     *  ),
+     *  ...
+     * );
+     * </pre>
+     *
      * @var array
      * @ODM\Hash
      */
     protected $assigned = array();
     
     /**
-     * 
-     * @var unknown
+     * Collection of all assigned resources.
+     *
+     * @var Collection
      * @ODM\ReferenceMany(discriminatorField="_resource")
      */
     protected $resources;
-    
+
+    /**
+     * Flag, wether this permissions has changed or not.
+     *
+     * @var bool
+     */
     protected $hasChanged = false;
-    
+
+    /**
+     * Creates a Permissions instance.
+     *
+     * @param string|null $type The type identifier, defaults to FQCN.
+     */
+    public function __construct($type = null)
+    {
+        if (!$type) {
+            $this->type = get_class($this);
+        }
+    }
+
+    /**
+     * Clones resources in a new ArrayCollection.
+     * Needed because PHP does not deep cloning objects.
+     * (That means, references stay references pointing to the same
+     *  object than the parent.)
+     */
     public function __clone()
     {
         $resources = new ArrayCollection();
@@ -62,7 +125,21 @@ class Permissions implements PermissionsInterface
         }
         $this->resources = $resources;
     }
-    
+
+    /**
+     * Provides magic methods.
+     *
+     * - is[View|Change|None|All]Granted($user)
+     * - grant[View|Change|None|All]($user)
+     * - revoke[View|Change|None|All($user)
+     *
+     * @param string $method
+     * @param array $params
+     *
+     * @return self|bool
+     * @throws \InvalidArgumentException
+     * @throws \BadMethodCallException
+     */
     public function __call($method, $params)
     {
         if (1 < count($params)) {
@@ -86,12 +163,15 @@ class Permissions implements PermissionsInterface
         
         throw new \BadMethodCallException('Unknown method "' . $method . '"');
     }
-    
+
     /**
+     * Grants a permission to a user or resource.
+     *
      * {@inheritDoc}
-     * @see \Core\Entity\PermissionsInterface::grantTo()
+     *
+     * @param bool $build Should the view and change arrays be rebuild?
      */
-    public function grant ($resource, $permission, $build = true)
+    public function grant ($resource, $permission = null, $build = true)
     {
         if (is_array($resource)) {
             foreach ($resource as $r) {
@@ -102,16 +182,16 @@ class Permissions implements PermissionsInterface
             }
             return $this;
         }
-        
+
         //new \Doctrine\ODM\MongoDB\
-        true === $permission || $this->checkPermission($permission);
+        true === $permission
+        || (null === $permission && $resource instanceOf PermissionsResourceInterface)
+        || $this->checkPermission($permission);
         
-        list ($resourceId, $userIds) = $this->getResourceId($resource, true);
+        $resourceId = $this->getResourceId($resource);
         
         if (true === $permission) {
-            $permission = isset($this->assigned[$resourceId])
-                        ? $this->assigned[$resourceId]['permission']
-                        : self::PERMISSION_NONE;
+            $permission = $this->getFrom($resource);
         }
         
         if (self::PERMISSION_NONE == $permission) {
@@ -123,10 +203,17 @@ class Permissions implements PermissionsInterface
             }
             unset($this->assigned[$resourceId]);
         } else {
-            $this->assigned[$resourceId] = array(
-                'users'      => $userIds,
-                'permission' => $permission,
-            );
+            if ($resource instanceOf PermissionsResourceInterface) {
+                $spec = null === $permission
+                      ? $resource->getPermissionsUserIds($this->type)
+                      : array($permission => $resource->getPermissionsUserIds());
+
+            } else {
+                $spec = array($permission => $resource instanceOf UserInterface ? $resource->getId() : $resource);
+            }
+
+            $this->assigned[$resourceId] = $spec;
+
             if ($resource instanceOf PermissionsResourceInterface) {
                 $refs = $this->getResources();
                 if (!$refs->contains($resource)) {
@@ -141,8 +228,17 @@ class Permissions implements PermissionsInterface
         $this->hasChanged = true;
         return $this;
     }
-    
-    public function revoke ($resource, $permission)
+
+    /**
+     * Revokes a permission from a user or resource.
+     *
+     * {@inheritDoc}
+     *
+     * @param bool $build Should the view and change arrays be rebuild?
+     *
+     * @return $this|PermissionsInterface
+     */
+    public function revoke ($resource, $permission = null, $build = true)
     {
         
         if (self::PERMISSION_NONE == $permission || !$this->isAssigned($resource)) {
@@ -150,10 +246,10 @@ class Permissions implements PermissionsInterface
         }
         
         if (self::PERMISSION_CHANGE == $permission) {
-            return $this->grant($resource, self::PERMISSION_VIEW);
+            return $this->grant($resource, self::PERMISSION_VIEW, $build);
         }
         
-        return $this->grant($resource, self::PERMISSION_NONE);
+        return $this->grant($resource, self::PERMISSION_NONE, $build);
         
     }
     
@@ -169,6 +265,7 @@ class Permissions implements PermissionsInterface
     
     public function inherit(PermissionsInterface $permissions, $build=true)
     {
+        /* @var $permissions Permissions */
         $assigned  = $permissions->getAssigned();
         $resources = $permissions->getResources();
     
@@ -176,7 +273,9 @@ class Permissions implements PermissionsInterface
          * Grant resource references permissions.
          */
         foreach ($resources as $resource) {
+            /* @var $resource PermissionsResourceInterface */
             $permission = $permissions->getFrom($resource);
+
             $this->grant($resource, $permission, false);
             unset($assigned[$resource->getPermissionsResourceId()]);
         }
@@ -190,15 +289,33 @@ class Permissions implements PermissionsInterface
         $this->hasChanged= true;
         return $this;
     }
-    
+
+    /**
+     * Builds the user id lists.
+     *
+     * This will make database queries faster and also the calls to {@link isGranted()} will be faster.
+     *
+     * @return self
+     */
     public function build()
     {
         $view = $change = array();
-        foreach ($this->assigned as $spec) {
-            if (self::PERMISSION_ALL == $spec['permission'] || self::PERMISSION_CHANGE == $spec['permission']) {
-                $change = array_merge($change, $spec['users']);
+        foreach ($this->assigned as $resourceId => $spec) {
+            /* This is needed to convert old permissions to the new spec format
+             * introduced in 0.18
+             * TODO: Remove this line some versions later.
+             */
+            if (isset($spec['permission'])) {
+                $spec = array($spec['permission'] => $spec['users']);
+                $this->assigned[$resourceId] = $spec;
             }
-            $view = array_merge($view, $spec['users']);
+
+            foreach ($spec as $perm => $userIds) {
+                if (self::PERMISSION_ALL == $perm || self::PERMISSION_CHANGE == $perm) {
+                    $change = array_merge($change, $userIds);
+                }
+                $view = array_merge($view, $userIds);
+            }
         }
         
         $this->change = array_unique($change);
@@ -206,10 +323,6 @@ class Permissions implements PermissionsInterface
         return $this;
     }
     
-    /** 
-     * {@inheritDoc}
-     * @see \Core\Entity\PermissionsInterface::isGranted()
-     */
     public function isGranted ($userOrId, $permission)
     {
         $userId = $this->getUserId($userOrId);
@@ -226,7 +339,6 @@ class Permissions implements PermissionsInterface
         if (self::PERMISSION_VIEW == $permission) {
             return in_array($userId, $this->view);
         }
-        
     }
     
     public function isAssigned($resource)
@@ -239,12 +351,26 @@ class Permissions implements PermissionsInterface
     {
         return $this->hasChanged;
     }
-    
+
+    /**
+     * Gets the assigned specification.
+     *
+     * This is only needed when inheriting this permissions object into another.
+     *
+     * @return array
+     */
     public function getAssigned()
     {
         return $this->assigned;
     }
-    
+
+    /**
+     * Gets the resource collection.
+     *
+     * This is only needed when inheriting.
+     *
+     * @return Collection
+     */
     public function getResources()
     {
         if (!$this->resources) {
@@ -252,13 +378,18 @@ class Permissions implements PermissionsInterface
         }
         return $this->resources;
     }
-    
+
+
     public function getFrom($resource)
     {
         $resourceId = $this->getResourceId($resource);
-        return isset($this->assigned[$resourceId])
-               ? $this->assigned[$resourceId]['permission']
-               : self::PERMISSION_NONE;
+        if (!isset($this->assigned[$resourceId])) {
+            return self::PERMISSION_NONE;
+        }
+
+        $spec = $this->assigned[$resourceId];
+
+        return 1 == count($spec) ? key($spec) : null;
     }
     
     protected function getUserId($userOrId)
@@ -267,26 +398,34 @@ class Permissions implements PermissionsInterface
                ? $userOrId->getId()
                : (string) $userOrId;
     }
-    
-    protected function getResourceId($resource, $includeUsers = false)
+
+    /**
+     * Gets/Generates the resource id.
+     *
+     * @param string|UserInterface|PermissionsResourceInterface $resource
+     *
+     * @return string
+     */
+    protected function getResourceId($resource)
     {
         if ($resource instanceOf PermissionsResourceInterface) {
-            return $includeUsers
-                   ? array($resource->getPermissionsResourceId(), $resource->getPermissionsUserIds())
-                   : $resource->getPermissionsResourceId();
+            return $resource->getPermissionsResourceId();
         }
         
         if ($resource instanceOf UserInterface) {
-            return $includeUsers
-                   ? array('user:' . $resource->getId(), array($resource->getId()))
-                   : 'user:' . $resource->getId();
+            return 'user:' . $resource->getId();
         }
         
-        return $includeUsers
-               ? array('user:' . $resource, array($resource))
-               : 'user:' . $resource;
+        return 'user:' . $resource;
     }
-    
+
+    /**
+     * Checks a valid permission.
+     *
+     * @param string $permission
+     *
+     * @throws \InvalidArgumentException
+     */
     protected function checkPermission($permission)
     {
         $perms = array(

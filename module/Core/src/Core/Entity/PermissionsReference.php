@@ -44,4 +44,9 @@ class PermissionsReference
         $this->userIds    = $resource->getPermissionsUserIds();
         $this->permission = $permission;
     }
+
+    public function getUserIds()
+    {
+
+    }
 }
