@@ -3,27 +3,27 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
-namespace Organizations\Controller\SLFactory;
+namespace Organizations\Factory\Controller;
 
-use Organizations\Controller\IndexController;
+use Organizations\Controller\TypeAHeadController;
 use Organizations\Repository;
-use Organizations\Form;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class IndexControllerSLFactory implements FactoryInterface
+class TypeAHeadControllerFactory implements FactoryInterface
 {
+
     /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return IndexController
+     * @return TypeAHeadController
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
@@ -31,15 +31,10 @@ class IndexControllerSLFactory implements FactoryInterface
         $serviceLocator = $serviceLocator->getServiceLocator();
 
         /**
-         * @var Repository\Organization $organizationRepository
+         * @var $organizationRepository Repository\Organization
          */
         $organizationRepository = $serviceLocator->get('repositories')->get('Organizations/Organization');
 
-        /**
-         * @var Form\Organizations $form
-         */
-        $form = new Form\Organizations(null);;
-
-        return new IndexController($form, $organizationRepository);
+        return new TypeAHeadController($organizationRepository);
     }
 }

@@ -7,22 +7,22 @@
  * @license       MIT
  */
 
-namespace AuthTest\Controller\SLFactory;
+namespace OrganizationsTest\Factory\Controller;
 
-use Organizations\Controller\SLFactory\TypeAHeadControllerSLFactory;
+use Organizations\Factory\Controller\TypeAHeadControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class TypeAHeadControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class TypeAHeadControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var TypeAHeadControllerSLFactory
+     * @var TypeAHeadControllerFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new TypeAHeadControllerSLFactory();
+        $this->testedObj = new TypeAHeadControllerFactory();
     }
 
     public function testCreateService()

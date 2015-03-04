@@ -43,8 +43,8 @@ return array(
 
     'controllers' => array(
         'factories' => array(
-            'Organizations/TypeAHead' => 'Organizations\Controller\SLFactory\TypeAHeadControllerSLFactory',
-            'Organizations/Index' => 'Organizations\Controller\SLFactory\IndexControllerSLFactory',
+            'Organizations/TypeAHead' => 'Organizations\Factory\Controller\TypeAHeadControllerFactory',
+            'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
         )
     ),
     'view_manager' => array(

@@ -21,7 +21,6 @@ use Core\Entity\PermissionsInterface;
 /**
  * Main Action Controller for the Organization.
  * Responsible for handling the organization form.
- *
  */
 class IndexController extends AbstractActionController
 {
@@ -94,11 +93,6 @@ class IndexController extends AbstractActionController
         $formIdentifier  = $params->fromQuery('form');
         $org             = $this->getOrganization(true);
         $container       = $this->getFormular($org);
-
-        $os = $org->getHiringOrganizations();
-        foreach ($os as $o) {
-            $a = $o;
-        }
 
         if (isset($formIdentifier) && $request->isPost()) {
             $postData = $this->params()->fromPost();
