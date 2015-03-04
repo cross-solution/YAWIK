@@ -281,6 +281,34 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this;
     }
 
+    public function getPermissionsResourceId()
+    {
+        return 'organization:' . $this->getId();
+    }
+
+    public function getPermissionsUserIds($type = null)
+    {
+        if ('Job/Permissions' == $type) {
+            $employees = $this->getEmployees();
+
+            $spec = array();
+            foreach ($employees as $emp) {
+                /* @var $emp EmployeeInterface */
+                $perm = $emp->getPermissions();
+                if ($perm->isAllowed(EmployeePermissionsInterface::JOBS_CHANGE)) {
+                    $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
+                } else if ($perm->isAllowed(EmployeePermissionsInterface::JOBS_VIEW)) {
+                    $spec[PermissionsInterface::PERMISSION_VIEW][] = $emp->getUser()->getId();
+                }
+            }
+
+            return $spec;
+        }
+
+        return array();
+    }
+
+
     /** {@inheritdoc} */
     public function setImage(OrganizationImage $image = null)
     {

@@ -12,6 +12,7 @@ namespace Organizations\Entity;
 use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\AddressInterface;
+use Core\Entity\PermissionsResourceInterface;
 use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
@@ -29,6 +30,7 @@ interface OrganizationInterface
             SearchableEntityInterface,
             ModificationDateAwareEntityInterface,
             PermissionsAwareInterface,
+            PermissionsResourceInterface,
             HydratorAwareInterface
 {
 
