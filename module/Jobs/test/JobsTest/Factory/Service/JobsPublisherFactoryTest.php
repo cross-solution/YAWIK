@@ -11,6 +11,10 @@ namespace Jobs\Factory\Service;
 
 use Test\Bootstrap;
 
+/**
+ * Class JobsPublisherFactoryTest
+ * @package Jobs\Factory\Service
+ */
 class JobsPublisherFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -18,11 +22,17 @@ class JobsPublisherFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $testedObj;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->testedObj = new JobsPublisherFactory();
     }
 
+    /**
+     *
+     */
     public function testCreateService()
     {
         $sm = clone Bootstrap::getServiceManager();

@@ -81,11 +81,15 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'Auth' => '\Auth\Controller\Plugin\Auth',
+            'OAuth' => '\Auth\Controller\Plugin\OAuth',
             'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter',
         ),
         'factories' => array(
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
+        ),
+        'shared' => array(
+            'OAuth' => False,
         )
     ),
     'hybridauth' => array(
@@ -301,6 +305,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Auth/ManageGroups',
                         'action' => 'search-users'
+                    ),
+                ),
+            ),
+            'test-hybrid' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/testhybrid',
+                    'defaults' => array(
+                        'controller' => 'Auth/SocialProfiles',
+                        'action' => 'testhybrid',
                     ),
                 ),
             ),

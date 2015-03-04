@@ -47,6 +47,7 @@ foreach (glob(__DIR__ . '/autoload/*.module.php') as $moduleFile) {
 }
 
 $config = array(
+    'enviroment' => $env,
 
     // Activated modules. (Use folder name)
     'modules' => $modules,

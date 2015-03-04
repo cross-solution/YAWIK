@@ -4,8 +4,15 @@ namespace JobsTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
+/**
+ * Class ManageControllerTest
+ * @package JobsTest\Controller
+ */
 class ManageControllerTest extends AbstractHttpControllerTestCase
 {
+    /**
+     *
+     */
     public function setUp()
     {
         $this->setApplicationConfig(
@@ -14,6 +21,9 @@ class ManageControllerTest extends AbstractHttpControllerTestCase
         parent::setUp();
     }
 
+    /**
+     *
+     */
     public function testActionCanBeAccessed()
     {
         $this->assertTrue(True);

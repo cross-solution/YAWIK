@@ -53,6 +53,13 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $info;
 
     /**
+     * Authentification Sessions like oAuth
+     *
+     * @ODM\EmbedMany(targetDocument="AuthSession")
+     */
+    protected $authSessions;
+
+    /**
      * Users login password
      *
      * @ODM\String
@@ -176,6 +183,49 @@ class User extends AbstractIdentifiableEntity implements UserInterface
             $this->setInfo(new Info());
         }
         return $this->info;
+    }
+
+    public function updateAuthSession($key, $sessionParameter) {
+        $notExists = True;
+        foreach ($this->authSessions as $authSession) {
+            if ($key == $authSession->getName()) {
+                $authSession->setSession($sessionParameter);
+                $notExists = False;
+            }
+        }
+        if ($notExists) {
+            $authSession = new AuthSession();
+            $authSession->setName($key);
+            $authSession->setSession($sessionParameter);
+            $this->authSessions[] = $authSession;
+        }
+        return $this;
+    }
+
+    public function getAuthSession($key) {
+        $result = Null;
+        foreach ($this->authSessions as $authSession) {
+            if ($key == $authSession->getName()) {
+                $result = $authSession->getSession();
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * removes a stored Session
+     * @param string|null $key providerName, if null, remove all sessions
+     * @return $this
+     */
+    public function removeSessionData($key = Null) {
+        $authSessionRefresh = array();
+        foreach ($this->authSessions as $authSession) {
+            if (isset($key) && $key != $authSession->getName()) {
+                $authSessionRefresh[] = $authSession;
+            }
+        }
+        $this->authSessions = $authSessionRefresh;
+        return $this;
     }
 
     /** {@inheritdoc} */
