@@ -150,14 +150,17 @@ class ImportController extends AbstractActionController {
                             $result['message'] = '';
                         }
                         $repositoriesJob->store($entity);
-                        $id = $entity->id;
+                        //$id = $entity->id;
                         if (!empty($id)) {
                             $jobEvent = $services->get('Jobs/Event');
                             $jobEvent->setJobEntity($entity);
-                            $responses = $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
-                            foreach ($responses as $response) {
-                                // responses from the portals
-
+                            if ($createdJob and True) {
+                                $responses = $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+                                foreach ($responses as $response) {
+                                    // responses from the portals
+                                    // @TODO, put this in some conclusion and meaningful messages
+                                    $result['log'][] = var_export($response, True);
+                                }
                             }
                         }
                     } else {

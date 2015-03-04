@@ -11,6 +11,7 @@
 namespace JobsTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+/*
 use Zend\Loader\ClassMapAutoloader;
 use Zend\Loader\AutoloaderFactory;
 use Zend\ServiceManager\ServiceManager;
@@ -22,21 +23,30 @@ use Zend\EventManager\StaticEventManager;
 use Zend\Http\Request as HttpRequest;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
+*/
 
+/**
+ * Class ImportControllerTest
+ * @package JobsTest\Controller
+ */
 class ImportControllerTest extends AbstractHttpControllerTestCase
 {
-
+    /**
+     * setup
+     */
     public function setUp()
     {
-        //AutoloaderFactory::factory(array('Zend\Loader\ClassMapAutoloader'=>array(array('ImportControllerTest' => __FILE__ ))));
-        $config = include '../config/config.php';
-        //$config['listeners'][] = 'testCaseListener';
-        //$config['service_manager']['instances']['testCaseListener'] = 'ImportControllerTest';
-        $config['service_manager']['services']['Auth/CheckPermissionsListener'] = 'White Bunny';
+        ////AutoloaderFactory::factory(array('Zend\Loader\ClassMapAutoloader'=>array(array('ImportControllerTest' => __FILE__ ))));
 
-        $this->setApplicationConfig(
-             $config
-        );
+        //$config = include '../config/config.php';
+
+        ////$config['listeners'][] = 'testCaseListener';
+        ////$config['service_manager']['instances']['testCaseListener'] = 'ImportControllerTest';
+        ////$config['service_manager']['services']['Auth/CheckPermissionsListener'] = 'White Bunny';
+
+        //$this->setApplicationConfig(
+        //     $config
+        //);
         parent::setUp();
 
         //$sm = new ServiceManager();
@@ -87,6 +97,9 @@ class ImportControllerTest extends AbstractHttpControllerTestCase
     }
     */
 
+    /**
+     *
+     */
     public function testImportActionCanBeAccessed()
     {
         $this->assertTrue(True);
