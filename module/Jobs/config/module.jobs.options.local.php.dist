@@ -1,0 +1,34 @@
+<?php
+
+$options = array(
+
+        /**
+        * If not set, the email address of the default user is used
+        * @see Jobs\Options\ModulesOptionFactory
+        */
+        'multipostingApprovalMail' => '',
+
+        /**
+        * If a target Uri is set, a rest Request is sent to this target in case
+        * a job posting was accepted.
+        */
+        'multipostingTargetUri' => '',
+
+        /**
+        * default Logo, if a company has no logo.
+        */
+	    'default_logo' => '/Jobs/images/yawik-small.jpg',
+
+	    /**
+        * Maximum size in bytes of a company Logo
+        */
+        'companyLogoMaxSize' => 100000,
+
+        /**
+        * Allowed Mime-Types for company Logos
+        */
+        'companyLogoMimeType' => array("image")
+
+);
+
+return array('jobs_options' => $options);

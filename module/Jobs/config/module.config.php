@@ -144,6 +144,7 @@ return array(
                 'Jobs/Listener/Publisher'       => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
+            'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',

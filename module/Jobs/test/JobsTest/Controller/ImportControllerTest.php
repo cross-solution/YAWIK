@@ -11,6 +11,8 @@
 namespace JobsTest\Controller;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+/*
+
 use Zend\Loader\ClassMapAutoloader;
 use Zend\Loader\AutoloaderFactory;
 use Zend\ServiceManager\ServiceManager;
@@ -22,20 +24,30 @@ use Zend\EventManager\StaticEventManager;
 use Zend\Http\Request as HttpRequest;
 use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
+*/
 
+/**
+ * Class ImportControllerTest
+ * @package JobsTest\Controller
+ */
 class ImportControllerTest extends AbstractHttpControllerTestCase
 {
-
+    /**
+     * setup
+     */
     public function setUp()
     {
-        //AutoloaderFactory::factory(array('Zend\Loader\ClassMapAutoloader'=>array(array('ImportControllerTest' => __FILE__ ))));
-        $config = include '../config/config.php';
-        //$config['listeners'][] = 'testCaseListener';
-        //$config['service_manager']['invokables']['testCaseListener'] = 'ImportControllerTest';
+        ////AutoloaderFactory::factory(array('Zend\Loader\ClassMapAutoloader'=>array(array('ImportControllerTest' => __FILE__ ))));
 
-        $this->setApplicationConfig(
-             $config
-        );
+        //$config = include '../config/config.php';
+
+        ////$config['listeners'][] = 'testCaseListener';
+        ////$config['service_manager']['instances']['testCaseListener'] = 'ImportControllerTest';
+        ////$config['service_manager']['services']['Auth/CheckPermissionsListener'] = 'White Bunny';
+
+        //$this->setApplicationConfig(
+        //     $config
+        //);
         parent::setUp();
 
         //$sm = new ServiceManager();
@@ -68,7 +80,16 @@ class ImportControllerTest extends AbstractHttpControllerTestCase
         }
         $appConfig = $this->applicationConfig;
         Console::overrideIsConsole($this->getUseConsoleRequest());
-        $this->application = Application::init($appConfig);
+        //$this->application = Application::init($appConfig);
+
+        $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
+        $listeners = isset($configuration['listeners']) ? $configuration['listeners'] : array();
+        $serviceManager = new ServiceManager(new Service\ServiceManagerConfig($smConfig));
+        $serviceManager->setService('ApplicationConfig', $configuration);
+        $serviceManager->get('ModuleManager')->loadModules();
+        // TODO Mocks
+        return $serviceManager->get('Application')->bootstrap($listeners);
+
 
         $events = $this->application->getEventManager();
         $events->detach($this->application->getServiceManager()->get('SendResponseListener'));
@@ -77,9 +98,13 @@ class ImportControllerTest extends AbstractHttpControllerTestCase
     }
     */
 
+    /**
+     *
+     */
     public function testImportActionCanBeAccessed()
     {
         $this->assertTrue(True);
+
         /*
         $this->dispatch('/');
         $this->assertResponseStatusCode(200);

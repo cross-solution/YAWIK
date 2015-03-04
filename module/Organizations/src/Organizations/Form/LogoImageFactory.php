@@ -10,8 +10,7 @@
 namespace Organizations\Form;
 
 use Core\Form\FileUploadFactory;
-use Applications\Options\ModuleOptions; // als log we have no organization options, we use the options from
-                                        // the applications module
+use Zend\Stdlib\AbstractOptions;
 
 class LogoImageFactory extends FileUploadFactory
 {
@@ -19,10 +18,17 @@ class LogoImageFactory extends FileUploadFactory
     protected $fileEntityClass = '\Organizations\Entity\OrganizationImage';
     protected $configKey = 'organization_logo_image';
 
-    protected function configureForm($form, ModuleOptions $options)
+    /**
+     * use abstract options defined in "Applications/Options"
+     *
+     * @var string
+     */
+    protected $options="Jobs/Options";
+
+    protected function configureForm($form, AbstractOptions $options)
     {
-        $size = $options->getContactImageMaxSize();
-        $type = $options->getContactImageMimeType();
+        $size = $options->getCompanyLogoMaxSize();
+        $type = $options->getCompanyLogoMimeType();
 
         $form->get($this->fileName)->setViewHelper('FormImageUpload')
             ->setMaxSize($size)

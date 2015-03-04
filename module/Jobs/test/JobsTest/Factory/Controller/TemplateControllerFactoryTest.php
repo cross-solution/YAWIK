@@ -14,6 +14,10 @@ use Jobs\Controller;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
+/**
+ * Class TemplateControllerFactoryTest
+ * @package JobsTest\Factory\Controller
+ */
 class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -21,11 +25,17 @@ class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $testedObj;
 
+    /**
+     *
+     */
     public function setUp()
     {
         $this->testedObj = new TemplateControllerFactory();
     }
 
+    /**
+     *
+     */
     public function testCreateService()
     {
         $sm = clone Bootstrap::getServiceManager();

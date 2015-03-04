@@ -17,6 +17,7 @@ use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
 use Applications\Options\ModuleOptions;
+use Zend\Stdlib\AbstractOptions;
 
 
 /**
@@ -68,15 +69,23 @@ class FileUploadFactory implements FactoryInterface
     protected $config;
 
     /**
+     * Optional Module Options. eg. "Jobs/Options" or "Applications/Options"
+     *
+     * @var string|null
+     */
+    protected $options;
+
+    /**
      * The configuration from the FileUploadFactory configuration
      */
-
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Form\FormElementManager */
         $service = $serviceLocator->getServiceLocator();
-        $options = $service->get('Applications\Options');
-
+        $options=null;
+        if ($this->options){
+            $options = $service->get($this->options);
+        }
 
         // Retrieve configuration.
         if ($this->configKey) {
@@ -143,9 +152,9 @@ class FileUploadFactory implements FactoryInterface
      * Configures the factored form.
      *
      * @param \Core\Form\Form $form
-     * @param ModuleOptions $options
+     * @param AbstractOptions $options
      */
-    protected function configureForm($form, ModuleOptions $options)
+    protected function configureForm($form, AbstractOptions $options)
     { }
     
 }
