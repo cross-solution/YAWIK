@@ -79,7 +79,7 @@ class ImportController extends AbstractActionController {
         //if (isset($user)) {
         //    $services->get('Core/Log')->info('Jobs/manage/saveJob ' . $user->login);
         //}
-        $result = array('token' => session_id(), 'isSaved' => False, 'message' => '');
+        $result = array('token' => session_id(), 'isSaved' => False, 'message' => '', 'portals' => array());
         try {
             if (isset($user) && !empty($user->login)) {
                 $formElementManager = $services->get('FormElementManager');
@@ -155,6 +155,7 @@ class ImportController extends AbstractActionController {
                         if (!empty($id)) {
                             $jobEvent = $services->get('Jobs/Event');
                             $jobEvent->setJobEntity($entity);
+                            $jobEvent->addPortal('XING');
                             if ($createdJob || True) {
                                 $responses = $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
                                 foreach ($responses as $response) {
@@ -165,9 +166,36 @@ class ImportController extends AbstractActionController {
                                             if (!array_key_exists('log',$result)) {
                                                 $result['log'] = '';
                                             }
-                                            $result['log'] .= $response->getMessage() . PHP_EOL;
-                                            $result['isSaved'] = $result['isSaved'] && ($response->getStatus() == JobResponse::RESPONSE_OK);
+                                            //$message = $response->getMessage();
+                                            //$result['log'] .= $response->getMessage() . PHP_EOL;
+                                            $status = $response->getStatus();
+                                            $portal = $response->getPortal();
+                                            if (empty($portal)) {
+                                                throw new \RuntimeException('Publisher-Events (internal error): There is an unregistered publisher listening');
+                                            }
+                                            switch ($status) {
+                                                case JobResponse::RESPONSE_FAIL:
+                                                case JobResponse::RESPONSE_NOTIMPLEMENTED:
+                                                case JobResponse::RESPONSE_ERROR:
+                                                    $result['isSaved'] = false;
+                                                    break;
+                                                case JobResponse::RESPONSE_DENIED:
+                                                case JobResponse::RESPONSE_OK:
+                                                case JobResponse::RESPONSE_OKANDSTOP:
+                                                case JobResponse::RESPONSE_DEPRECATED:
+                                                    break;
+                                            }
+                                            if (array_key_exists($portal, $result['portals'])) {
+                                                throw new \RuntimeException('Publisher-Events (internal error): There are two publisher registered for ' . $portal);
+                                            }
+                                            $result['portals'][$portal] = $status;
                                         }
+                                        else {
+                                            throw new \RuntimeException('Publisher-Events (internal error): Response must be from the class Jobs\Listener\Response\JobResponse');
+                                        }
+                                    }
+                                    else {
+                                        throw new \RuntimeException('Publisher-Events (internal error): Response must be set');
                                     }
                                 }
                             }

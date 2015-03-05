@@ -54,6 +54,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
 
     /**
      * Authentification Sessions like oAuth
+     * After Authentification with OAuth sessions can be stored like a password/key pair
      *
      * @ODM\EmbedMany(targetDocument="AuthSession")
      */
@@ -110,7 +111,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $groups;
 
     /**
-     * User tokens.
+     * User tokens. Is generated when recovering Passwords as a short term key.
      *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="Token")
@@ -185,6 +186,11 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         return $this->info;
     }
 
+    /**
+     * @param $key
+     * @param $sessionParameter
+     * @return $this
+     */
     public function updateAuthSession($key, $sessionParameter) {
         $notExists = True;
         foreach ($this->authSessions as $authSession) {
@@ -202,6 +208,10 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         return $this;
     }
 
+    /**
+     * @param $key
+     * @return null
+     */
     public function getAuthSession($key) {
         $result = Null;
         foreach ($this->authSessions as $authSession) {
