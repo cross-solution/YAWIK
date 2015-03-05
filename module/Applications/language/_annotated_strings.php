@@ -38,10 +38,10 @@ translate('Status');
 //: ./view/applications/manage/index.applicant.ajax.phtml:22
 translate('Actions');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:65
+//: ./src/Applications/Form/AttachmentsFactory.php:72
 translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:67
+//: ./src/Applications/Form/AttachmentsFactory.php:74
 translate('Attachments');
 
 //: ./src/Applications/Form/Base.php:26
@@ -233,10 +233,10 @@ translate('No mail adress available');
 //: ./src/Applications/Mail/Forward.php:45
 translate('Fwd: Application to "%s" dated %s');
 
-//: ./src/Applications/Mail/NewApplication.php:50
+//: ./src/Applications/Mail/NewApplication.php:56
 translate('New application for your vacancy "%s"');
 
-//: ./src/Applications/Mail/NewApplication.php:62
+//: ./src/Applications/Mail/NewApplication.php:68
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
 //: ./config/module.config.php:65

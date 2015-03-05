@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-27 12:47+0100\n"
+"POT-Creation-Date: 2015-03-05 14:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:287
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Form/AttachmentsFactory.php:67
+#: src/Applications/Form/AttachmentsFactory.php:74
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:45
 msgid "Attachments"
 msgstr ""
@@ -633,20 +633,20 @@ msgstr ""
 msgid "reject the applicants"
 msgstr ""
 
-#: src/Applications/Mail/Confirmation.php:68
-#: src/Applications/Mail/StatusChange.php:57
+#: src/Applications/Mail/Confirmation.php:85
+#: src/Applications/Mail/StatusChange.php:79
 #, php-format
 msgid "Dear Mr. %s"
 msgstr ""
 
-#: src/Applications/Mail/Confirmation.php:69
-#: src/Applications/Mail/StatusChange.php:58
+#: src/Applications/Mail/Confirmation.php:86
+#: src/Applications/Mail/StatusChange.php:80
 #, php-format
 msgid "Dear Ms. %s"
 msgstr ""
 
-#: src/Applications/Mail/Confirmation.php:80
-#: src/Applications/Mail/StatusChange.php:69
+#: src/Applications/Mail/Confirmation.php:100
+#: src/Applications/Mail/StatusChange.php:96
 #, php-format
 msgid "Hello %s"
 msgstr ""

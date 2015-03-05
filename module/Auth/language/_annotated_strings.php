@@ -185,13 +185,12 @@ translate('An unexpected error has occurred, please contact your system administ
 //: ./src/Auth/Mail/RegisterConfirmation.php:34
 translate('Register confirmation');
 
-41:        $bodyHtml = /*@translate*/
 //: ./src/Auth/Mail/ForgotPassword.php:34
 translate('Password recovery');
 
-//: ./config/module.config.php:349
+//: ./config/module.config.php:363
 translate('user');
 
-//: ./config/module.config.php:350
+//: ./config/module.config.php:364
 translate('recruiter');
 
