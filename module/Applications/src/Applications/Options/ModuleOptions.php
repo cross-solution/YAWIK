@@ -162,7 +162,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Gets the allowed Mime-Types for contact images
      *
-     * @return string
+     * @return array
      */
     public function getContactImageMimeType()
     {
@@ -171,7 +171,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Sets the allowed Mime-Types for contact images
      *
-     * @param string $mime
+     * @param array $mime
      * @return ModuleOptions
      */
     public function setContactImageMimeType($mime)

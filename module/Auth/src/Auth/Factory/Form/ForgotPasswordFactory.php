@@ -1,13 +1,19 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
-namespace Auth\Form\SLFactory;
+namespace Auth\Factory\Form;
 
 use Auth\Form\ForgotPassword;
 use Auth\Form\ForgotPasswordInputFilter;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ForgotPasswordSLFactory implements FactoryInterface
+class ForgotPasswordFactory implements FactoryInterface
 {
     /**
      * Create service

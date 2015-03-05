@@ -7,17 +7,20 @@
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-/** AttachmentsFieldset.php */
+
+/** FilterApplication.php */
 
 namespace Applications\Form;
 
 use Zend\Form\Form;
-use Core\Form\ViewPartialProviderInterface;
-use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Stdlib\Hydrator\ArraySerializable as ArrayHydrator;
 
-// implements ViewPartialProviderInterface, InputFilterProviderInterface
-
+/**
+ * Formular to search for applications
+ *
+ * Class FilterApplication
+ * @package Applications\Form
+ */
 class FilterApplication extends Form
 {
 
@@ -34,7 +37,6 @@ class FilterApplication extends Form
 
     public function init()
     {
-        $options = $this->getOptions();
         $this->setName('search-applications-form')
                 ->setLabel('Search applications')
                 ->setAttributes(array(
@@ -85,17 +87,6 @@ class FilterApplication extends Form
                 'label' => 'unread',
             )
         ));
-        
-        /*
-        $this->add(array('type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'unread',
-            'options' => array(
-                'checked_value' => '1',
-                'unchecked_value' => '0',
-                'label' => 'unread only',
-            )
-        ));
-        */
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Button',

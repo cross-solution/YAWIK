@@ -80,10 +80,10 @@ class CommentController extends AbstractActionController
         
         $mode  = $this->params()->fromQuery('mode', 'new');
         $appId = $this->params()->fromQuery('id');
+        $application = $repository->find($appId);
 
         $viewModel = new ViewModel();
         if ('edit' == $mode) {
-            //$application = $repository->findByCommentId($appId);
             $comment = $repository->findComment($appId);
         } else {
             $comment = new Comment();
@@ -105,8 +105,6 @@ class CommentController extends AbstractActionController
                 }
                 $viewModel->setVariable('isSaved', true);
             }
-            
-            
         }
        
         $viewModel->setVariables(array(
@@ -115,6 +113,5 @@ class CommentController extends AbstractActionController
             'commentForm' => $form,
         ));
         return $viewModel;
-        
     }
 }

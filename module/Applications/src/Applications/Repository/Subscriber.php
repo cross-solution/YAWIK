@@ -16,8 +16,7 @@ use Core\Repository\AbstractRepository;
  * class for accessing a subscriber
  */
 class Subscriber extends AbstractRepository
-{   
-
+{
     /**
      * Find a subscriber by an uri
      * 
@@ -25,15 +24,15 @@ class Subscriber extends AbstractRepository
      * @param boolean $create
      * @return \Applications\Entity\Subscriber
      */
-    public function findbyUri($uri, $create = false) {
-        $subScriber = $this->findOneBy(array( "uri" => $uri ));
-        if (!isset($subScriber) && $create) {
-            $subScriber = $this->create();
-            $subScriber->uri = $uri;
-            $this->dm->persist($subScriber);
+    public function findByUri($uri, $create = false) {
+        $subscriber = $this->findOneBy(array( "uri" => $uri ));
+        if (!isset($subscriber) && $create) {
+            $subscriber = $this->create();
+            $subscriber->uri = $uri;
+            $this->dm->persist($subscriber);
             $this->dm->flush();
         }
-        return $subScriber; 
+        return $subscriber;
     }
     
 }

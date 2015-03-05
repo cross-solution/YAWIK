@@ -325,9 +325,9 @@ class ApplyController extends AbstractActionController
     protected function sendUserMails($application)
     {
         if ($application->getAttributes()->getSendCarbonCopy()) {
-            $mail = $this->mailer('Applications/CarbonCopy', array(
-                'application' => $application,
-            ), /*send*/ true);
+            $this->mailer('Applications/CarbonCopy', array(
+                    'application' => $application,
+                ), /*send*/ true);
         }
     }
 

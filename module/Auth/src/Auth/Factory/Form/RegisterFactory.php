@@ -1,13 +1,19 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
-namespace Auth\Form\SLFactory;
+namespace Auth\Factory\Form;
 
 use Auth\Form\Register;
 use Auth\Form\RegisterInputFilter;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RegisterSLFactory implements FactoryInterface
+class RegisterFactory implements FactoryInterface
 {
     /**
      * Create service

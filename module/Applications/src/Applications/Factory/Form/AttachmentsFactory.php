@@ -8,10 +8,13 @@
  */
 
 /**  */ 
-namespace Applications\Form;
+namespace Applications\Factory\Form;
 
 use Core\Form\FileUploadFactory;
+use Core\Form\Element\FileUpload;
+use Core\Form\Form;
 use Zend\Stdlib\AbstractOptions;
+use Applications\Options\ModuleOptions;
 
 /**
  * Factors a file upload form to attach files to an application.
@@ -59,13 +62,11 @@ class AttachmentsFactory extends FileUploadFactory
     /**
      * configure the formular for uploading attachments
      *
-     * @param \Core\Form\Form $form
+     * @param Form $form
      * @param AbstractOptions $options
      */
     protected function configureForm($form , AbstractOptions $options)
     {
-
-        /** @var $form \Core\Form\Form */
         $form->setIsDisableCapable(false)
              ->setIsDisableElementsCapable(false)
              ->setIsDescriptionsEnabled(true)
@@ -73,8 +74,10 @@ class AttachmentsFactory extends FileUploadFactory
              ->setParam('return', 'file-uri')
              ->setLabel(/*@translate*/ 'Attachments');
 
-        /** @var $file \Core\Form\Element\FileUpload*/
+        /** @var $file FileUpload*/
         $file = $form->get($this->fileName);
+
+        /** @var ModuleOptions $options */
         $size = $options->getAttachmentsMaxSize();
         $type = $options->getAttachmentsMimeType();
         $count = $options->getAttachmentsCount();

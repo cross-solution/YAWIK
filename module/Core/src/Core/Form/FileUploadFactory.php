@@ -77,6 +77,9 @@ class FileUploadFactory implements FactoryInterface
 
     /**
      * The configuration from the FileUploadFactory configuration
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return Form
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

@@ -187,8 +187,8 @@ return array(
              'href' => 'Applications\Form\Element\Ref',
          ),
         'factories' => array(
-            'Applications/ContactImage' => 'Applications\Form\ContactImageFactory',
-            'Applications/Attachments' => 'Applications\Form\AttachmentsFactory',
+            'Applications/ContactImage' => 'Applications\Factory\Form\ContactImageFactory',
+            'Applications/Attachments' => 'Applications\Factory\Form\AttachmentsFactory',
         ),
      ),
 
