@@ -16,6 +16,7 @@ use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
 use Core\Entity\PermissionsInterface;
 use Jobs\Listener\Events\JobEvent;
+use Jobs\Listener\Response\JobResponse;
 
 /**
  * 
@@ -150,16 +151,24 @@ class ImportController extends AbstractActionController {
                             $result['message'] = '';
                         }
                         $repositoriesJob->store($entity);
-                        //$id = $entity->id;
+                        $id = $entity->getId();
                         if (!empty($id)) {
                             $jobEvent = $services->get('Jobs/Event');
                             $jobEvent->setJobEntity($entity);
-                            if ($createdJob and True) {
+                            if ($createdJob || True) {
                                 $responses = $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
                                 foreach ($responses as $response) {
                                     // responses from the portals
                                     // @TODO, put this in some conclusion and meaningful messages
-                                    $result['log'][] = var_export($response, True);
+                                    if (!empty($response)) {
+                                        if ($response instanceof JobResponse) {
+                                            if (!array_key_exists('log',$result)) {
+                                                $result['log'] = '';
+                                            }
+                                            $result['log'] .= $response->getMessage() . PHP_EOL;
+                                            $result['isSaved'] = $result['isSaved'] && ($response->getStatus() == JobResponse::RESPONSE_OK);
+                                        }
+                                    }
                                 }
                             }
                         }

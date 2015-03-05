@@ -17,8 +17,9 @@ use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\Http\Request;
-use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
+//use Jobs\Listener\Response\JobResponse;
+//use Zend\Http\Request;
+//use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 /**
  * Job listener for publishing job opening via REST
