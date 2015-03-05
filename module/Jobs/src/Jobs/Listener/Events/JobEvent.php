@@ -38,6 +38,15 @@ class JobEvent extends Event
      */
     const EVENT_JOB_REJECTED   = 'job.rejected';
 
+    /**
+     * get all available names for publishing
+     */
+    const PORTAL_AVAIL_NAME    = 'portal.availname';
+
+    /**
+     * @var portals to be published
+     */
+    protected $portals = array();
 
     protected $jobEntity;
 
@@ -61,5 +70,30 @@ class JobEvent extends Event
     public function getJobEntity()
     {
         return $this->jobEntity;
+    }
+
+    /**
+     * @param $portal
+     * @return $this
+     */
+    public function addPortal ($portal)
+    {
+        $portal = strtolower($portal);
+        if (!in_array($portal, $this->portals)) {
+            $this->portals[] = $portal;
+        }
+        return $this;
+    }
+
+    /**
+     * publisher can apply an request for publishing
+     * this by no means imply they are not free to choose other means of qualification to publish a job
+     * @param $portal
+     * @return bool
+     */
+    public function hasPortal ($portal)
+    {
+        $portal = strtolower($portal);
+        return in_array($portal, $this->portals);
     }
 }

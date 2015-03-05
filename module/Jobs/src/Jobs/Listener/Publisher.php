@@ -17,8 +17,10 @@ use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\Http\Request;
-use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
+use Jobs\Listener\Response\JobResponse;
+//use Jobs\Listener\Response\JobResponse;
+//use Zend\Http\Request;
+//use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 /**
  * Job listener for publishing job opening via REST
@@ -29,6 +31,8 @@ use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 class Publisher implements ListenerAggregateInterface, SharedListenerAggregateInterface, ServiceManagerAwareInterface
 {
     protected $serviceManager;
+
+    protected $name = 'feedback_publisher_email';
 
     /**
      * @param ServiceManager $serviceManager
@@ -87,6 +91,7 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
      */
     public function restPost(JobEvent $e)
     {
+        $response = new JobResponse($this->name, JobResponse::RESPONSE_NOTIMPLEMENTED);
         $serviceManager = $this->getServiceManager();
         if ($serviceManager->has('Jobs/RestClient')) {
             try {
@@ -101,11 +106,13 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 $StatusCode = $response->getStatusCode();
 
                 $e->stopPropagation(true);
+                $response = new JobResponse($this->name, JobResponse::RESPONSE_OKANDSTOP);
             }
             catch (\Exception $e) {
+                $response = new JobResponse($this->name, JobResponse::RESPONSE_FAIL);
             }
         }
-        return;
+        return $response;
     }
 }
 
