@@ -51,13 +51,8 @@ class Bootstrap
         );
 
         $config = ArrayUtils::merge($baseConfig, $testConfig);
-
-        $serviceManager = new ServiceManager(new ServiceManagerConfig());
-        $serviceManager->setService('ApplicationConfig', $config);
-        $serviceManager->get('ModuleManager')->loadModules();
-
-        static::$serviceManager = $serviceManager;
         static::$config = $config;
+        static::setupServiceManager();
     }
 
     /**
@@ -71,6 +66,14 @@ class Bootstrap
     public static function getConfig()
     {
         return static::$config;
+    }
+
+    public static function setupServiceManager()
+    {
+        $serviceManager = new ServiceManager(new ServiceManagerConfig());
+        $serviceManager->setService('ApplicationConfig', static::$config);
+        $serviceManager->get('ModuleManager')->loadModules();
+        static::$serviceManager = $serviceManager;
     }
 
     protected static function initAutoloader()

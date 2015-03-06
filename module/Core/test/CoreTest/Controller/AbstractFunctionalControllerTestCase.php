@@ -33,6 +33,12 @@ abstract class AbstractFunctionalControllerTestCase extends AbstractHttpControll
         $this->prepareDocumentManagerMock();
     }
 
+    public static function tearDownAfterClass()
+    {
+        parent::tearDownAfterClass();
+        Bootstrap::setupServiceManager();
+    }
+
     /**
      * Set service to service locator
      *
