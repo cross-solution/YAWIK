@@ -27,7 +27,7 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $this->setMockToServiceLocator('repositories', $this->repositoriesMock);
     }
 
-    public function testAction()
+    public function testAccessWhenYouAreNotLoggedIn()
     {
         $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
 
@@ -36,5 +36,17 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $this->assertNotRedirect();
         $this->assertResponseStatusCode(Response::STATUS_CODE_403);
         $this->assertContains('Please authenticate yourself to proceed', $result);
+    }
+
+    public function testAccessWhenYouAreLogged()
+    {
+        $this->authenticateUser();
+        $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
+
+        $result = $this->getResponse()->getContent();
+
+        $this->assertNotRedirect();
+        $this->assertResponseStatusCode(Response::STATUS_CODE_200);
+//        $this->assertContains('Please authenticate yourself to proceed', $result);
     }
 }
