@@ -377,6 +377,7 @@ return array(
                 'allow' => array(
                     'route/auth-logout',
                     'route/lang/my',
+                    'route/lang/my-password'
                 ),
                 'deny' => array( 
                     'route/lang/auth',

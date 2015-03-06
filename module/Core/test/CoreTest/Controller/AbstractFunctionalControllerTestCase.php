@@ -64,7 +64,7 @@ abstract class AbstractFunctionalControllerTestCase extends AbstractHttpControll
      *
      * @return User
      */
-    protected function authenticateUser(array $params = [])
+    protected function authenticateUser(array $params = array())
     {
         $userEntity = UserEntityProvider::createEntityWithRandomData($params);
         $this->prepareAuthenticateMock(true, $userEntity);

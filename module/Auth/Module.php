@@ -86,6 +86,7 @@ class Module
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function (MvcEvent $e) use ($services) {
             /** @var CheckPermissionsListener $checkPermissionsListener */
             $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+            $checkPermissionsListener->onRoute($e);
             $checkPermissionsListener->onDispatch($e);
         }, 10);
 
