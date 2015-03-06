@@ -180,7 +180,6 @@ class ModuleOptions extends AbstractOptions {
         return $this;
     }
 
-
     /**
      * Gets the allowed Mime-Types for contact images
      *

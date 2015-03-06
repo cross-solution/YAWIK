@@ -81,5 +81,16 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($size, $this->options->getContactImageMaxSize());
     }
 
+    /**
+     * @covers Applications\Options\ModuleOptions::getContactImageMaxSize
+     * @covers Applications\Options\ModuleOptions::setContactImageMaxSize
+     */
+    public function testSetGetAllowedMimeTypes()
+    {
+        $mime=array('image','application/pdf');
+
+        $this->options->setAllowedMimeTypes($mime);
+        $this->assertEquals($mime, $this->options->getAllowedMimeTypes());
+    }
 
 }
