@@ -47,6 +47,6 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
 
         $this->assertNotRedirect();
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-//        $this->assertContains('Please authenticate yourself to proceed', $result);
+        $this->assertContains('My password', $result);
     }
 }
