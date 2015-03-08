@@ -1,6 +1,6 @@
 {
     "name": "cross-solution/yawik",
-    "description": "An Application to manage applicants by human resources departments",
+    "description": "Web based applicant tracking system for managing jobs and applications",
     "authors": [
 	{
 		"name": "Mathias Gelhausen",
@@ -17,8 +17,8 @@
     ],
     "license": "MIT",
     "keywords": [
-        "human resource", "human relation", "applicant",
-        "zf2"
+        "human resource", "human relation", "applicant", "ATS",
+        "zf2", "jobboard"
     ],
     "repositories": [
        {
