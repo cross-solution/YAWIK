@@ -22,10 +22,26 @@ class Register
      * @var Repository\User
      */
     private $userRepository;
+    /**
+     * @var InputFilterInterface
+     */
     protected $filter;
     protected $name;
     protected $email;
+
+    /**
+     * @var Url
+     */
+    protected $urlPlugin;
+
+    /**
+     * @var Plugin\Mailer
+     */
     protected $mailer;
+
+    /**
+     * @var User
+     */
     protected $user;
 
     public function __construct(Repository\User $userRepository)
@@ -33,40 +49,65 @@ class Register
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @param InputFilterInterface $filter
+     * @return $this
+     */
     protected function setFormFilter(InputFilterInterface $filter)
     {
         $this->filter = $filter;
         return $this;
     }
 
+    /**
+     * @param Plugin\Mailer $mailer
+     * @return $this
+     */
     protected function setMailer(Plugin\Mailer $mailer)
     {
         $this->mailer = $mailer;
         return $this;
     }
 
+    /**
+     * @return Plugin\Mailer
+     */
     protected function getMailer()
     {
         return $this->mailer;
     }
 
+    /**
+     * @param $user
+     * @return $this
+     */
     protected function setUser($user)
     {
         $this->user = $user;
         return $this;
     }
 
+    /**
+     * @return User
+     */
     protected function getUser()
     {
         return $this->user;
     }
 
+    /**
+     * @param Url $urlPlugin
+     * @return $this
+     */
     protected function setUrlPlugin($urlPlugin)
     {
         $this->urlPlugin = $urlPlugin;
         return $this;
     }
 
+    /**
+     * @return Url
+     */
     protected function getUrlPlugin()
     {
         return $this->urlPlugin;
@@ -159,7 +200,8 @@ class Register
     /**
      * @param InputFilterInterface $filter
      * @param Plugin\Mailer $mailer
-     * @param Url $url UrlPlugin
+     * @param Url $url
+     * @return null
      * @throws Exception\UserAlreadyExistsException
      */
     public function proceed(InputFilterInterface $filter, Plugin\Mailer $mailer, Url $url)
@@ -209,6 +251,5 @@ class Register
                    ),
                    true
         );
-
     }
 }

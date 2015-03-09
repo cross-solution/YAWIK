@@ -33,6 +33,7 @@ return array(
             'SessionManager' => '\Zend\Session\SessionManager',
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
+            'Auth\Form\LoginInputFilter' => 'Auth\Form\LoginInputFilter',
             'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
             'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener',
             'Auth/Listener/MailForgotPassword' => 'Auth\Listener\MailForgotPassword'
@@ -51,6 +52,7 @@ return array(
             'Auth\Service\ForgotPassword' => 'Auth\Service\SLFactory\ForgotPasswordSLFactory',
             'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Service\SLFactory\UserUniqueTokenGeneratorSLFactory',
             'Auth\Service\GotoResetPassword' => 'Auth\Service\SLFactory\GotoResetPasswordSLFactory',
+            'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
             'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
             'Auth\Service\Register' => 'Auth\Service\SLFactory\RegisterSLFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Service\SLFactory\RegisterConfirmationSLFactory',
@@ -62,7 +64,6 @@ return array(
 
     'controllers' => array(
         'invokables' => array(
-            'Auth\Controller\Index' => 'Auth\Controller\IndexController',
             'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
             'Auth/ManageGroups' => 'Auth\Controller\ManageGroupsController',
             'Auth\Controller\Image' => 'Auth\Controller\ImageController',
@@ -75,6 +76,7 @@ return array(
             'Auth\Controller\Register' => 'Auth\Controller\SLFactory\RegisterControllerSLFactory',
             'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory',
             'Auth\Controller\Password' => 'Auth\Controller\SLFactory\PasswordControllerSLFactory',
+            'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
         )
     ),
     
@@ -380,7 +382,7 @@ return array(
                     'route/lang/my-password'
                 ),
                 'deny' => array( 
-                    'route/lang/auth',
+                   // 'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-extern',
                 ),

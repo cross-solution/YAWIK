@@ -11,20 +11,18 @@ namespace Auth\Form;
 
 use Core\Form\Form;
 use Zend\Form\Fieldset;
-//use Zend\InputFilter\InputFilterProviderInterface;
 
 class Login extends Form 
 {
-    
-	public function init()
+	public function __construct($name = 'login-form', $options = array())
     {
-        $this->setName('login-form');
+        parent::__construct($name, $options);
+
         $this->setAttribute('data-handle-by', 'native');
         $this->setAttribute('class', 'form-inline');
              
         
         $fieldset = new Fieldset('credentials');
-        //$fieldset->setLabel('Enter your credentials');
         $fieldset->setOptions(array('renderFieldset' => true));
         $fieldset->add(array(
             'name' => 'credentials[login]',
@@ -44,8 +42,6 @@ class Login extends Form
             ),
         ));
 
-
-
         $this->add($fieldset);
             
         $buttons = new \Core\Form\ButtonsFieldset('buttons');
@@ -59,9 +55,7 @@ class Login extends Form
                 'class' => 'btn btn-primary'
             ),
         ));
-        
+
         $this->add($buttons);
     }
-    
-    
 }

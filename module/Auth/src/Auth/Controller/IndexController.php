@@ -10,12 +10,13 @@
 /** Auth controller */
 namespace Auth\Controller;
 
+use Auth\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
 
-//@codeCoverageIgnoreStart 
 
 /**
  * Main Action Controller for Authentication module.
@@ -23,17 +24,28 @@ use Zend\Stdlib\Parameters;
 class IndexController extends AbstractActionController
 {
     /**
-     * attaches further Listeners for generating / processing the output
-     * @return $this
+     * @var AuthenticationService
      */
-    public function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
-        $defaultServices = $serviceLocator->get('DefaultListeners');
-        $events          = $this->getEventManager();
-        $events->attach($defaultServices);
-        return $this;
+    protected $auth;
+
+    /**
+     * @var
+     */
+    protected $loginForm;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @param $auth
+     * @param $loginForm
+     */
+    public function __construct($auth,$logger,$loginForm) {
+        $this->auth=$auth;
+        $this->loginForm=$loginForm;
+        $this->logger=$logger;
     }
 
     /**
@@ -41,11 +53,13 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     { 
-        
+        if ($this->auth->hasIdentity()){
+            return $this->redirect()->toRoute( 'lang' );
+        }
+
         $viewModel = new ViewModel();
         $services  = $this->getServiceLocator();
-        $form      = $services->get('FormElementManager')
-                              ->get('Auth/Login');
+        $form      = $this->loginForm;
         
         if ($this->request->isPost()) {
             $data                          = $this->params()->fromPost();
@@ -64,7 +78,7 @@ class IndexController extends AbstractActionController
             $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
             
-            $auth       = $services->get('AuthenticationService');
+            $auth       = $this->auth;
             $result     = $auth->authenticate($adapter);
             
             
@@ -81,7 +95,7 @@ class IndexController extends AbstractActionController
                         $language = 'en';
                     }
                 }
-                $services->get('Core/Log')->info('User ' . $user->login . ' logged in');
+                $this->logger->info('User ' . $user->login . ' logged in');
                 
                 $ref = $this->params()->fromQuery('ref', false);
 
@@ -102,7 +116,7 @@ class IndexController extends AbstractActionController
                 if (array_key_exists('database', $config) && array_key_exists('databaseName', $config['database'])) {
                     $databaseName = $config['database']['databaseName'];
                 }
-                $services->get('Core/Log')->info('Failed to authenticate User ' . $data['credentials']['login'] . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
+                $this->logger->info('Failed to authenticate User ' . $data['credentials']['login'] . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
                 
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
@@ -126,7 +140,6 @@ class IndexController extends AbstractActionController
         
         $viewModel->setVariable('form', $form);
         return $viewModel;
-        //var_dump($this->getServiceLocator()->get('Config'));
     }
     
     /**
@@ -145,16 +158,16 @@ class IndexController extends AbstractActionController
         $config = $this->config();
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
-        $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $auth = $this->auth;
         $result = $auth->authenticate($hauth);
         $resultMessage = $result->getMessages();
 
         if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-            $this->getServiceLocator()->get('Core/Log')->debug('first login via ' . $provider);
+            $this->logger->debug('first login via ' . $provider);
             
             if (array_key_exists('user', $resultMessage)) {
                 $user=$auth->getUser();
-//                $user = $resultMessage['user'];
+
                 $password = substr(md5(uniqid()),0,6);
 
                 $login = uniqid() . ($config['auth']['suffix']!=""?'@'.$config['auth']['suffix']:'');
@@ -186,21 +199,21 @@ class IndexController extends AbstractActionController
                 $mail->setSubject($config['first_login']['mail_subject']);
             }
             if (isset($mail) && $this->mailer($mail)) {
-                $this->getServiceLocator()->get('Core/Log')->info('Mail first-login sent to ' . $user->info->getEmail());
+                $this->logger->info('Mail first-login sent to ' . $user->info->getEmail());
             } else {
-                $this->getServiceLocator()->get('Core/Log')->warn('No Mail was sent');
+                $this->logger->warn('No Mail was sent');
             }
             
         }
         
         $user = $auth->getUser();
-        $this->getServiceLocator()->get('Core/Log')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
+        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
             $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
         } 
-        return $this->redirect()->toUrl($ref); //Route('lang/home', array('lang' => $this->params('lang')));
+        return $this->redirect()->toUrl($ref);
     }
     
     /**
@@ -217,15 +230,6 @@ class IndexController extends AbstractActionController
      */
     public function loginExternAction()
     {
-       
-//         if (!$this->getRequest()->isPost()) {
-//             return new JsonModel(array(
-//                 'status' => 'failure',
-//                 'code'   => 1,
-//                 'messages' => 'Authentification requires a post request.',
-//             ));
-//         }
-
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
 
@@ -233,11 +237,11 @@ class IndexController extends AbstractActionController
                 ->setCredential($this->params()->fromPost('pass'))
                 ->setApplicationKey($this->params()->fromPost('appKey'));
         
-        $auth       = $services->get('AuthenticationService');
+        $auth       = $this->auth;
         $result     = $auth->authenticate($adapter);
         
         if ($result->isValid()) {
-            $services->get('Core/Log')->info('User ' . $this->params()->fromPost('user') . 
+            $this->logger->info('User ' . $this->params()->fromPost('user') .
                                         ' logged via ' . $this->params()->fromPost('appKey'));
             
             // the external login may include some parameters for an update
@@ -293,9 +297,9 @@ class IndexController extends AbstractActionController
                 $mail->informationComplete();
                 
                 if (isset($mail) && $this->mailer($mail)) {
-                    $this->getServiceLocator()->get('Core/Log')->info('Mail first-login sent to ' . $userName);
+                    $this->logger->info('Mail first-login sent to ' . $userName);
                 } else {
-                    $this->getServiceLocator()->get('Core/Log')->warn('No Mail was sent');
+                    $this->logger->warn('No Mail was sent');
                 }
             }
             
@@ -304,7 +308,7 @@ class IndexController extends AbstractActionController
                 'token' => session_id()
             ));
         } else {
-            $services->get('Core/Log')->info('Failed to authenticate User ' . $this->params()->fromPost('user') .
+            $this->logger->info('Failed to authenticate User ' . $this->params()->fromPost('user') .
                                         ' via ' . $this->params()->fromPost('appKey'));
             
             $this->getResponse()->setStatusCode(403);
@@ -335,9 +339,9 @@ class IndexController extends AbstractActionController
             $this->getRequest()->setQuery($params);
              
         }
-        $auth = $this->getServiceLocator()->get('AuthenticationService');
+        $auth = $this->auth;
         $userGrpAdmin = $auth->getUser();
-        $this->getServiceLocator()->get('Core/Log')->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
+        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
         $grp = $this->params()->fromQuery('group');
         
         // if the request is made by an external host, add his identification-key to the name
@@ -370,7 +374,7 @@ class IndexController extends AbstractActionController
             $group = $this->auth()->getUser()->getGroup($params->name, /*create*/ true);
             $group->setUsers($groupUserId);
         }
-        $this->getServiceLocator()->get('Core/Log')->info('Update Group Name: ' . $name . PHP_EOL . str_repeat(' ',36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL . 
+        $this->logger->info('Update Group Name: ' . $name . PHP_EOL . str_repeat(' ',36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL .
                 str_repeat(' ',36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
                 str_repeat(' ',36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ',36) . 'Group Members not found: ' . implode(',', $notFoundUsers));
         
@@ -385,8 +389,8 @@ class IndexController extends AbstractActionController
      */
     public function logoutAction()
     {
-        $auth = $this->getServiceLocator()->get('AuthenticationService');
-        $this->getServiceLocator()->get('Core/Log')->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
+        $auth = $this->auth;
+        $this->logger->info('User ' . ($auth->getUser()->login==''?$auth->getUser()->info->displayName:$auth->getUser()->login) . ' logged out');
         $auth->clearIdentity();
         unset($_SESSION['HA::STORE']);
 
@@ -398,5 +402,3 @@ class IndexController extends AbstractActionController
     }
     
 }
-
-// @codeCoverageIgnoreEnd 

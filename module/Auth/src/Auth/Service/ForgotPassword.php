@@ -42,9 +42,14 @@ class ForgotPassword implements EventManagerAwareInterface
     private $loginFilter;
 
     /**
-     * @var
+     * @var EventManagerInterface
      */
     protected $eventManager;
+
+    /**
+     * @var string
+     */
+    protected $suffix;
 
     /**
      * @param Repository\User $userRepository
@@ -85,6 +90,8 @@ class ForgotPassword implements EventManagerAwareInterface
     }
 
     /**
+     * @todo remove unused $mailer parameter an fix tests
+     *
      * @param InputFilterInterface $filter
      * @param Plugin\Mailer $mailer
      * @param Url $url
@@ -124,16 +131,6 @@ class ForgotPassword implements EventManagerAwareInterface
 
         $this->eventManager->trigger(AuthEvent::EVENT_AUTH_NEWPASSWORD, $e);
 
-        /*
-        $mailer->__invoke(
-            'Auth\Mail\ForgotPassword',
-            array(
-                'user' => $user,
-                'resetLink' => $resetLink
-            ),
-            true
-        );
-        */
     }
 }
 
