@@ -26,7 +26,9 @@ endif;
             
 ?>
 <h1>
-<?php echo $this->translate('application for')?>: <?php echo $this->link($this->application->job->link, $this->application->job->title)?>
+<?php echo $this->translate('application for')?>: 
+<?php $href = $this->application->job->link ? $this->application->job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $this->application->job->id)), true); ?>
+<?php echo $this->link($href, $this->application->job->title)?>
 <?php if (!$this->application->isDraft() && $this->list->getCount()):?>
 <small class="pull-right">
     <?php echo sprintf($this->translate('Application %d of %d'),
