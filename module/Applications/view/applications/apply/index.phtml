@@ -30,8 +30,9 @@ function getImageRef($url, $self) {
     <div class="row">
         <div class="col-md-8">
             <p class="lead">
+                <?php $href = $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>
                 <?php printf($this->translate('Apply to "%s" from "%s"'),
-                            '<a href="'.$job->link.'" title="' .
+                            '<a href="'.$href.'" title="' .
                                         $this->translate('click to open the job ad') . '">' .
                             $this->escapehtml(strip_tags($job->title)) . '</a>', $job->company ) ?>
             </p>
