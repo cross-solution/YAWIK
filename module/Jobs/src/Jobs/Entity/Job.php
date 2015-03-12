@@ -63,7 +63,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * publishing company
      *
      * @var OrganizationInterface
-     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true)
+     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true, inversedBy="jobs")
      * @ODM\Index
      */
     protected $organization;
