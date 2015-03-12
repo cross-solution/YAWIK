@@ -209,7 +209,7 @@ class Permissions implements PermissionsInterface
                       : array($permission => $resource->getPermissionsUserIds());
 
             } else {
-                $spec = array($permission => $resource instanceOf UserInterface ? $resource->getId() : $resource);
+                $spec = array($permission => $resource instanceOf UserInterface ? array($resource->getId()) : array($resource));
             }
 
             $this->assigned[$resourceId] = $spec;
