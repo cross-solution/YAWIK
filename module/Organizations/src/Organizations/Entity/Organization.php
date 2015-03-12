@@ -38,15 +38,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     const postConstruct = 'postRepositoryConstruct';
 
     /**
-     * Owner of the organization
-     *
-     * @var \Auth\Entity\UserInterface
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple="true")
-     * @since 0.18
-     */
-    protected $owner;
-    
-    /**
      * externalId. Allows external applications to reference their primary key.
      * 
      * @var string
@@ -130,29 +121,30 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     protected $employees;
 
     /**
+     * Jobs of this organization.
+     *
+     * @var Collection
+     * @ODM\ReferenceMany(targetDocument="\Jobs\Entity\Job", simple=true, mappedBy="organization")
+     * @since 0.18
+     */
+    protected $jobs;
+
+    /**
      * the owner of a Organization
      *
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true, inversedBy="organization")
      * @ODM\Index
      */
     protected $user;
 
-    public function setOwner(UserInterface $user)
-    {
-        if ($this->owner) {
-            $this->getPermissions()->revoke($this->owner, Permissions::PERMISSION_ALL, /*build*/ false);
-        }
-        $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
-        $this->owner = $user;
-
-        return $this;
-    }
-
-    public function getOwner()
-    {
-        return $this->owner;
-    }
+    /**
+     * Internal references (database query optimization)
+     *
+     * @var InternalReferences
+     * @ODM\EmbedOne(targetDocument="InternalReferences")
+     */
+    protected $refs;
 
     public function setParent(OrganizationInterface $parent)
     {
@@ -453,6 +445,23 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * Updates the internal references.
+     *
+     *
+     * @ODM\PreUpdate
+     * @ODM\PrePersist
+     * @since 0.18
+     */
+    public function updateInternalReferences()
+    {
+        if (!$this->refs) {
+            $this->refs = new InternalReferences();
+        }
+
+        $this->refs->setEmployeesIdsFromCollection($this->getEmployees());
+    }
+
+    /**
      * @param UserInterface $user
      * @return $this
      */
@@ -470,6 +479,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function getUser() {
         return $this->user;
     }
+
+    public function getJobs()
+    {
+        return $this->jobs;
+    }
+
+
 }
 
 

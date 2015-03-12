@@ -34,23 +34,6 @@ interface OrganizationInterface
             HydratorAwareInterface
 {
 
-    /**
-     * Sets the owner of the organization.
-     *
-     * @param UserInterface $user
-     *
-     * @return self
-     * @since 0.18
-     */
-    public function setOwner(UserInterface $user);
-
-    /**
-     * Gets the owner of the organization.
-     *
-     * @return UserInterface
-     * @since 0.18
-     */
-    public function getOwner();
 
     /**
      * Sets the parent organizations.

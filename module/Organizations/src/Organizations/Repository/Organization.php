@@ -94,6 +94,17 @@ class Organization extends AbstractRepository
         return $entity;
     }
 
+    public function getEmployersCursor(UserInterface $user)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->field('refs.employees')->equals($user->getId());
+
+        $q  = $qb->getQuery();
+        $c  = $q->execute();
+
+        return $c;
+    }
+
     public function create(array $data=null) {
         $entity = parent::create($data);
         $entity->isDraft(True);
