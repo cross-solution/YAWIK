@@ -29,8 +29,18 @@
                 <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $lang), true) ?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
             </li>
             <?php if ($this->auth('role') == 'recruiter'): ?>
-            <li>
+            <?php  /*<li>
                 <a href="<?php echo $this->url('lang/my-groups', array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('Manage groups') ?></a>
+            </li>*/?>
+            <li>
+                <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building"></span> <?php
+                    $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
+                    if ($user->hasOrganization()) {
+                        echo sprintf($this->translate('Edit "%s"'), $user->getOrganization()->getOrganizationName()->getName());
+                    } else {
+                        echo $this->translate('Create my organization');
+                    }
+                    ?></a>
             </li>
             <?php endif ?>
             <li class="divider"></li>
