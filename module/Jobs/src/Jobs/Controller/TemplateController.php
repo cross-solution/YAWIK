@@ -141,6 +141,9 @@ class TemplateController extends AbstractActionController  {
         if (empty($job->templateValues->description) && isset($job->organization)) {
             $job->templateValues->description = $job->organization->description;
         }
+
+        $description=$job->templateValues->description;
+
         if ( is_null($form)) {
             $descriptionEditable = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
@@ -174,6 +177,7 @@ class TemplateController extends AbstractActionController  {
         // @see http://yawik.readthedocs.org/en/latest/modules/jobs/index.html#job-templates
         $fields= array(
             'descriptionEditable' => $descriptionEditable,
+            'description' => $description,
             'benefits' => $benefits,
             'requirements' => $requirements,
             'qualifications' => $qualifications,
