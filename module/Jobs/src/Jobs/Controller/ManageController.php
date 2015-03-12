@@ -104,7 +104,7 @@ class ManageController extends AbstractActionController {
         $pageIdentifier     = (int) $params->fromQuery('page', array_key_exists('page', $parameter)?$parameter['page']:0);
         $jobEntity          = $this->getJob();
         $viewModel          = Null;
-        //$this->acl($job, $origAction);
+        $this->acl($jobEntity, 'edit');
         $form               = $this->getFormular($jobEntity);
         $mvcEvent           = $this->getEvent();
 
