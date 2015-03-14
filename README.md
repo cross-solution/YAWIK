@@ -31,7 +31,7 @@ Build status:
 Demo
 ----
 
-http://yawik.org/demo (this demonstrates YAWIK as an applicant tracking system)
+http://yawik.org/demo/ (this demonstrates YAWIK as an applicant tracking system)
 http://jobs.yawik.org (this demonstrates YAWIK as a Jobportal) 
 
 Documentation
