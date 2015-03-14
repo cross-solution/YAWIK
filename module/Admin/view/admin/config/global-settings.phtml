@@ -8,24 +8,10 @@
  * @license   AGPLv3
  */
 ?>
-<h1>Global Settings</h1>
+<h1><?php echo $this->translate('Global Settings')?></h1>
 
-This Page will set global Parameters or Imprint data, which are needed
-in Emails, imprint or terms&conditions
-
-<ul>
-    <li>Name of the Site eg. YAWIK.ORG</li>
-    <li>Title of the Site</li>
-    <li>Logo for the Site</li>
-    <li>imprint_company_fullname=YourCompany Name AG</li>
-    <li>imprint_company_name=YourCompany</li>
-    <li>imprint_company_fat=EU-XXX</li>
-    <li>imprint_company_zip=99999</li>
-    <li>imprint_company_city=Testcity</li>
-    <li>imprint_person_name=Peter Mustermann<li>
-    <li>imprint_person_email=test@exanmple.com</li>
-    <li>imprint_person_phone=0815-4711</li>
-    <li>imprint_person_fax=0815-4711</li>
-</ul>
-
+<div class="alert alert-danger">
+    <b><?php echo $this->translate('Module is in development. Formular data are currently not processed');?></b>
+</div>
+<br/>
 <?php  echo $this->formContainer($this->form); ?>

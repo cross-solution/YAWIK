@@ -50,7 +50,7 @@ interface ConfigInterface
     public function getValue();
 
     /**
-     * @param string $description
+     * @param string $value
      * @return ConfigInterface
      */
     public function setValue($value);

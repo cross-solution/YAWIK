@@ -40,7 +40,7 @@ return array(
      */
     'acl' => array(
         'roles' => array(
-            'admin' => 'user'
+            'admin' => 'recruiter'
         ),
         
         'public_roles' => array(
@@ -51,8 +51,8 @@ return array(
                 'allow' => array(
                     'route/lang/admin',
                     'route/lang/my',
-                    '/logout'
-
+                    '/logout',
+                    'route/lang/jobs/edit'
                 ),
                 'deny' => array(
                     'route/lang/auth',
