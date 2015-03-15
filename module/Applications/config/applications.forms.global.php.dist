@@ -9,7 +9,7 @@ $options = array(
         /*
         * allowed Mime-Type of an uploaded Attachment
         */
-        'attachmentsMimeType' => array('image','pdf'),
+        'attachmentsMimeType' => array('image','application/pdf'),
 
 
         /*
