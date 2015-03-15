@@ -7,7 +7,7 @@
  * @license   MIT
   */
 
-namespace Jobs\Form\Hydrator\SLFactory;
+namespace Jobs\Factory\Form\Hydrator;
 
 use Jobs\Form\Hydrator\OrganizationNameHydrator;
 use Organizations\Repository\Organization;
@@ -15,10 +15,10 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class OrganizationNameHydratorSLFactory
- * @package Jobs\Form\Hydrator\SLFactory
+ * Class OrganizationNameHydratorFactory
+ * @package Jobs\Factory\Form\Hydrator
  */
-class OrganizationNameHydratorSLFactory implements FactoryInterface
+class OrganizationNameHydratorFactory implements FactoryInterface
 {
     /**
      * Create service

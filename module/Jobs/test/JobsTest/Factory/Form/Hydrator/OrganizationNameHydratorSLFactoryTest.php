@@ -7,21 +7,21 @@
  * @license       MIT
  */
 
-namespace JobsTest\Form\Hydrator\SLFactory;
+namespace JobsTest\Factory\Form\Hydrator;
 
-use Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory;
+use Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory;
 use Test\Bootstrap;
 
-class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
+class OrganizationNameHydratorFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var OrganizationNameHydratorSLFactory
+     * @var OrganizationNameHydratorFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new OrganizationNameHydratorSLFactory();
+        $this->testedObj = new OrganizationNameHydratorFactory();
     }
 
     public function testCreateService()

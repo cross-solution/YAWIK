@@ -1,12 +1,13 @@
 <?php
 
-namespace Jobs\Form;
+namespace Jobs\Factory\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Jobs\Form\ListFilterFieldset;
 
 /**
- * Factory for the job opening search formular
+ * Factory for the job opening search formular fields
  *
  * @package Jobs\Form
  */
@@ -18,10 +19,7 @@ class ListFilterFieldsetExtendedFactory implements FactoryInterface
     */
     public function createService (ServiceLocatorInterface $serviceLocator)
     {
-        $auth = $serviceLocator->getServiceLocator()->get('AuthenticationService');
-        $fieldset = Null;
-        //if ($)
+        $fieldset = new ListFilterFieldset(true);
         return $fieldset;
     }
-
 }

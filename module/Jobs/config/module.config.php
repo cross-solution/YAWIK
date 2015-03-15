@@ -150,7 +150,7 @@ return array(
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
-            'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
+            'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
         )
@@ -208,16 +208,16 @@ return array(
             'Jobs/Description'                  => 'Jobs\Form\JobDescription',
             'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
-            'Jobs/Import'                       => '\Jobs\Form\Import',
-            'Jobs/ImportFieldset'               => '\Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'                   => '\Jobs\Form\ListFilter',
+            'Jobs/Import'                       => 'Jobs\Form\Import',
+            'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
+            'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
-            'Jobs/JobDescriptionDescription'    => '\Jobs\Form\JobDescriptionDescription',
-            'Jobs/JobDescriptionBenefits'       => '\Jobs\Form\JobDescriptionBenefits',
-            'Jobs/JobDescriptionRequirements'   => '\Jobs\Form\JobDescriptionRequirements',
-            'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',
-            'Jobs/JobDescriptionTitle'          => '\Jobs\Form\JobDescriptionTitle',
-            'Jobs/Description/Template'         => '\Jobs\Form\JobDescriptionTemplate',
+            'Jobs/JobDescriptionDescription'    => 'Jobs\Form\JobDescriptionDescription',
+            'Jobs/JobDescriptionBenefits'       => 'Jobs\Form\JobDescriptionBenefits',
+            'Jobs/JobDescriptionRequirements'   => 'Jobs\Form\JobDescriptionRequirements',
+            'Jobs/JobDescriptionQualifications' => 'Jobs\Form\JobDescriptionQualifications',
+            'Jobs/JobDescriptionTitle'          => 'Jobs\Form\JobDescriptionTitle',
+            'Jobs/Description/Template'         => 'Jobs\Form\JobDescriptionTemplate',
             'Jobs/Preview'                      => 'Jobs\Form\Preview',
             'Jobs/PreviewFieldset'              => 'Jobs\Form\PreviewFieldset',
             'Jobs/PreviewLink'                  => 'Jobs\Form\PreviewLink',
@@ -228,16 +228,16 @@ return array(
             'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
         ),
         'factories' => array(
-            'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',
-            'Jobs/CompanyNameFieldset' => 'Jobs\Form\SLFactory\CompanyNameFieldsetSLFactory',
+            'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
+            'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
         )
     ),
     
     'input_filters' => array(
         'invokables' => array(
-            'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
-            'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
-            'Jobs/Company' => 'Jobs\Form\InputFilter\CompanyName',
+            'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
+            'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
+            'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
         ),
     ),
     

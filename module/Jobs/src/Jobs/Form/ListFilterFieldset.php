@@ -21,6 +21,11 @@ use Zend\Form\FormInterface;
  */
 class ListFilterFieldset extends Fieldset
 {
+    /**
+     * Show my jobs, all jobs and job status filter
+     *
+     * @var bool
+     */
     protected $isExtended;
     
     public function __construct($extended = false)
@@ -79,7 +84,10 @@ class ListFilterFieldset extends Fieldset
             ),
         ));
     }
-    
+
+    /**
+     * @param FormInterface $form
+     */
     public function prepareElement(FormInterface $form)
     {
         foreach ($this->byName as $elementOrFieldset) {
@@ -90,4 +98,3 @@ class ListFilterFieldset extends Fieldset
         }
     }
 }
-
