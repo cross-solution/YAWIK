@@ -1,6 +1,10 @@
 <?php //desciption: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))
+                         ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
+                         ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
+                         ->appendFile($this->basePath('/js/select2.min.js'));
+      $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))?>
 
 <h1>
   <?php echo $this->translate('List of your jobs');?>
