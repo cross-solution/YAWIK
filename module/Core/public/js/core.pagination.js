@@ -29,6 +29,8 @@
                     if (typeof event.data.loadingIndicator != 'undefined') {
                         event.data.loadingIndicator.hide();
                     }
+                    // Use more verbose event name
+                    $container.trigger('yk-pagination-loaded',  {data: data});
                     $container.trigger('ajax.ready', {'data': data});
                     
                 });

@@ -12,6 +12,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Organizations\Entity\OrganizationInterface;
 use Settings\Repository\SettingsEntityResolver;
 
 /**
@@ -117,6 +118,32 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @ODM\EmbedMany(targetDocument="Token")
      */
     protected $tokens;
+
+    /**
+     * The organization this user belongs to either as owner or as employee.
+     *
+     * This is the inversed side of a bi-directional reference, so it is NOT
+     * mutable. (and not stored in the database.)
+     *
+     * @var OrganizationInterface
+     * @ODM\ReferenceOne(
+     *      targetDocument="\Organizations\Entity\Organization",
+     *      mappedBy="user"
+     * )
+     * @since 0.18
+     */
+    protected $organization;
+
+    /**
+     * Collection of organizations this user is employed by.
+     *
+     * @var Collection
+     * @ODM\ReferenceMany(
+     *      targetDocument="\Organizations\Entity\Organization",
+     *      repositoryMethod="getEmployersCursor"
+     * )
+     */
+    protected $employers;
 
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
@@ -343,6 +370,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     {
         $groups = $this->getGroups();
         foreach ($groups as $group) {
+            /* @var $group GroupInterface */
             if ($group->getName() == $name) {
                 return $group;
             }
@@ -374,5 +402,21 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     {
         $this->tokens = $tokens;
     }
+
+    public function hasOrganization()
+    {
+        return (bool) $this->organization;
+    }
+
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    public function getEmployers()
+    {
+        return $this->employers;
+    }
+
 
 }

@@ -33,23 +33,27 @@ class WriteAssertion implements AssertionInterface
             return false;
         }
 
+        /* @var $resource \Jobs\Entity\JobInterface */
         return $resource->getPermissions()->isGranted($role->getId(), Permissions::PERMISSION_CHANGE)
                || $this->checkOrganizationPermissions($role, $resource);
     }
 
     protected function checkOrganizationPermissions($role, $resource)
     {
+        /* @var $resource \Jobs\Entity\JobInterface */
+        /* @var $role     \Auth\Entity\UserInterface */
         $organization = $resource->getOrganization();
         if ($organization->isHiringOrganization()) {
             $organization = $organization->getParent();
         }
 
-        if ($role->getId() == $organization->getOwner()->getId()) {
+        if ($role->getId() == $organization->getUser()->getId()) {
             return true;
         }
 
         $employees = $organization->getEmployees();
         foreach ($employees as $emp) {
+            /* @var $emp \Organizations\Entity\EmployeeInterface */
             if ($emp->getPermissions()->isAllowed($role, EmployeePermissionsInterface::JOBS_CHANGE)) {
                 return true;
             }

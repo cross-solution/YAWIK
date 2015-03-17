@@ -12,6 +12,7 @@ namespace Organizations\Entity;
 use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\AddressInterface;
+use Core\Entity\PermissionsResourceInterface;
 use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
@@ -29,26 +30,10 @@ interface OrganizationInterface
             SearchableEntityInterface,
             ModificationDateAwareEntityInterface,
             PermissionsAwareInterface,
+            PermissionsResourceInterface,
             HydratorAwareInterface
 {
 
-    /**
-     * Sets the owner of the organization.
-     *
-     * @param UserInterface $user
-     *
-     * @return self
-     * @since 0.18
-     */
-    public function setOwner(UserInterface $user);
-
-    /**
-     * Gets the owner of the organization.
-     *
-     * @return UserInterface
-     * @since 0.18
-     */
-    public function getOwner();
 
     /**
      * Sets the parent organizations.

@@ -61,6 +61,25 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
+        $reps = $this->getServiceLocator()->get('repositories');
+        $users = $reps->get('Auth/User');
+        $orgs = $reps->get('Organizations');
+        $org = $orgs->find('54ddd3ead3b93fd059d2821a');
+        $user = $org->getUser();
+        $org2 = $user->getOrganization();
+        $emps = $user->getEmployers();
+
+        foreach ($emps as $emp) {
+            echo '';
+        }
+        echo count($emps);
+
+       // $user = $users->find('513c9625ae0259cf66000000');
+
+       // $org = $user->getOrganization();
+
+
+
         $params        = $this->getRequest()->getQuery();
         $isRecruiter   = $this->acl()->isRole('recruiter');
         $params->count = 10;
@@ -199,6 +218,13 @@ class IndexController extends AbstractActionController
         $container->setEntity($organization);
         $container->setParam('id',$organization->id);
 //        $container->setParam('applyId',$job->applyId);
+
+        if ('__my__' != $this->params('id', '')) {
+            $container->disableForm('employeesManagement');
+        } else {
+            $container->disableForm('organizationLogo')
+                      ->disableForm('descriptionForm');
+        }
         return $container;
     }
 
@@ -210,9 +236,12 @@ class IndexController extends AbstractActionController
         // @TODO three different method to obtain the job-id ?, simplify this
         $id_fromRoute = $this->params('id', 0);
         $id_fromSubForm = $this->params()->fromPost('id',0);
-        $user = $this->auth()->getUser();
+        $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\UserInterface */
 
         $organizationId = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
+        if ('__my__' == $organizationId) {
+            $organizationId = $user->hasOrganization() ? $user->getOrganization()->getId() : 0;
+        }
 
         if (empty($organizationId) && $allowDraft) {
             $organization = $this->repository->findDraft($user);

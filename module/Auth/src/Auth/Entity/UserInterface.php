@@ -11,6 +11,8 @@
 namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
+use Doctrine\Common\Collections\Collection;
+use Organizations\Entity\OrganizationInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
@@ -119,5 +121,29 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getTokens();
+
+    /**
+     * Returns true, if this user is assigned to an organization.
+     *
+     * @return bool
+     * @since 0.18
+     */
+    public function hasOrganization();
+
+    /**
+     * Gets the organization the user owns.
+     *
+     * @return OrganizationInterface
+     * @since 0.18
+     */
+    public function getOrganization();
+
+    /**
+     * Returns a collection of organizations the user is employed by
+     *
+     * @return Collection
+     * @since 0.18
+     */
+    public function getEmployers();
 
 }

@@ -91,8 +91,19 @@ return array(
                             ),
                         ),
                     ),
-                )
-            )
-        )
-    )
+                    'my-organization' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/my/organization',
+                            'defaults' => array(
+                                'controller' => 'Organizations/Index',
+                                'action' => 'edit',
+                                'id' => '__my__',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
 );

@@ -166,6 +166,7 @@ return array(
         'factories' => array(
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
             'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
+            'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
         )
     ),
     
@@ -174,6 +175,7 @@ return array(
         'template_map' => array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
+            'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
             'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
             'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
             'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',

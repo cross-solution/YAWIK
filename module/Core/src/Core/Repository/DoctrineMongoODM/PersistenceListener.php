@@ -67,9 +67,9 @@ class PersistenceListener implements ListenerAggregateInterface
         }
         
         $services = $event->getApplication()->getServiceManager();
-        $dm       = $services->get('Core\DocumentManager');
+        $repos    = $services->get('repositories');
 
-        $dm  ->flush();
+        $repos->flush();
         $this->hasRun = true;
     }
 }

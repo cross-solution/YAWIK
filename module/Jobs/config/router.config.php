@@ -157,6 +157,16 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'assign-user' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/assign-user',
+                    'defaults' => array(
+                        'controller' => 'Jobs/AssignUser',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'save' => array(

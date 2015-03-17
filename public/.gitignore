@@ -9,4 +9,7 @@
 !index.php
 !images
 !css
+!css/*.css
 !js
+!js/*.js
+
