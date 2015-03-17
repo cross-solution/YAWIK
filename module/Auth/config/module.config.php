@@ -119,7 +119,6 @@ return array(
 
     'mails' => array(
         'invokables' => array(
-            'Auth\Mail\ForgotPassword' => 'Auth\Mail\ForgotPassword',
             'Auth\Mail\RegisterConfirmation' => 'Auth\Mail\RegisterConfirmation',
         ),
     ),
@@ -445,6 +444,7 @@ return array(
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
             'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
             'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
+            'mail/register' =>  __DIR__ . '/../view/mail/register.phtml',
         ),
     
         'template_path_stack' => array(

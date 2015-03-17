@@ -28,11 +28,18 @@ class StatusChanged implements ServiceManagerAwareInterface
      */
     protected $serviceManager;
 
+    /**
+     * @param ServiceManager $serviceManager
+     * @return $this
+     */
     public function setServiceManager(ServiceManager $serviceManager) {
         $this->serviceManager = $serviceManager;
         return $this;
     }
 
+    /**
+     * @return ServiceManager
+     */
     public function getServiceManager() {
         return $this->serviceManager;
     }
@@ -46,21 +53,32 @@ class StatusChanged implements ServiceManagerAwareInterface
     {
         /** @var ServiceManager $serviceManager */
         $serviceManager = $this->getServiceManager();
+        /** @var PluginManager $controllerPluginManager */
+        $controllerPluginManager = $serviceManager->get('controllerPluginManager');
+        $translator = $serviceManager->get('translator');
 
         /** @var \Jobs\Options\ModuleOptions $options */
         $options = $serviceManager->get('Jobs/Options');
+        $optionsCore = $serviceManager->get('Core/Options');
+
+        $prices = array();
+        $config = $serviceManager->get('Config');
+        if (array_key_exists('multiposting', $config) && array_key_exists('channels', $config['multiposting'])) {
+            foreach ($config['multiposting']['channels'] as $name => $data) {
+                $prices[$name] = isset($data['price'])?$data['price']:$translator->translate('free');
+            }
+        }
 
         /**
          * the sender of the mail is the currently logged in user
          */
         /** @var AuthenticationService $authService */
         $authService             = $serviceManager->get('authenticationservice');
+        $user                    = $authService->getUser();
         $userEmail               = $authService->getUser()->getInfo()->email;
         $userName                = $authService->getUser()->getInfo()->displayName;
         $job                     = $e->getJobEntity();
 
-        /** @var PluginManager $controllerPluginManager */
-        $controllerPluginManager = $serviceManager->get('controllerPluginManager');
 
         /** @var \Zend\Mvc\Controller\Plugin\Url $urlPlugin */
         $urlPlugin = $controllerPluginManager->get('url');
@@ -76,6 +94,9 @@ class StatusChanged implements ServiceManagerAwareInterface
         /** @var \Core\Mail\HTMLTemplateMessage $mail */
         $mail = $mailService->get('htmltemplate');
 
+        $mail->siteName = $optionsCore->siteName;
+        $mail->prices = $prices;
+        $mail->userName = $user->getInfo()->getDisplayName();
         $mail->setVariable('job', $job);
         $mail->setVariable('link' ,$previewLink);
         $mail->setTemplate('mail/jobCreatedMail');

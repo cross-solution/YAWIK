@@ -10,23 +10,36 @@
 namespace Auth\Service;
 
 use Auth\Entity\User;
-use Auth\Repository;
 use Auth\Service\Exception;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
+use Auth\Options\ServiceRegisterOptions;
 
+/**
+ * Class Register
+ * @package Auth\Service
+ */
 class Register
 {
     /**
-     * @var Repository\User
+     * @var ServiceRegisterOptions
      */
-    private $userRepository;
+    protected $options;
+
     /**
      * @var InputFilterInterface
      */
     protected $filter;
+
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var string
+     */
     protected $email;
 
     /**
@@ -44,9 +57,12 @@ class Register
      */
     protected $user;
 
-    public function __construct(Repository\User $userRepository)
+    /**
+     * @param ServiceRegisterOptions $options
+     */
+    public function __construct(ServiceRegisterOptions $options)
     {
-        $this->userRepository = $userRepository;
+        $this->options = $options;
     }
 
     /**
@@ -67,14 +83,6 @@ class Register
     {
         $this->mailer = $mailer;
         return $this;
-    }
-
-    /**
-     * @return Plugin\Mailer
-     */
-    protected function getMailer()
-    {
-        return $this->mailer;
     }
 
     /**
@@ -113,7 +121,11 @@ class Register
         return $this->urlPlugin;
     }
 
-
+    /**
+     * @return $this
+     * @throws \LogicException
+     * @throws \InvalidArgumentException
+     */
     protected function extractUserMailFromFormular()
     {
         if (!isset($this->filter)) {
@@ -131,6 +143,9 @@ class Register
         return $this;
     }
 
+    /**
+     * @return string
+     */
     protected function getName()
     {
         if (!isset($this->name)) {
@@ -139,12 +154,19 @@ class Register
         return $this->name;
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     protected function setName($name)
     {
         $this->name = $name;
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     protected function getEmail()
     {
         if (!isset($this->email)) {
@@ -153,23 +175,33 @@ class Register
         return $this->email;
     }
 
+    /**
+     * Email-Adress
+     * @param $email string
+     * @return mixed
+     */
     protected function setEmail($email)
     {
         $this->email = $email;
-        return $this->email;
+        return $this;
     }
 
+    /**
+     * @return User
+     * @throws Exception\UserAlreadyExistsException
+     */
     protected function proceedUser()
     {
         if (!isset($this->user)) {
+            $userRepository = $this->options->getUserRepository();
             $name = $this->getName();
             $email = $this->getEmail();
 
-            if (($user = $this->userRepository->findByLoginOrEmail($email))) {
+            if (($user = $userRepository->findByLoginOrEmail($email))) {
                 throw new Exception\UserAlreadyExistsException('User already exists');
             }
 
-            $user = $this->userRepository->create(array(
+            $user = $userRepository->create(array(
                 'login' => $email,
                 'role' => User::ROLE_RECRUITER
             ));
@@ -190,7 +222,7 @@ class Register
 
             $user->setPassword(uniqid('credentials', true));
 
-            $this->userRepository->store($user);
+            $userRepository->store($user);
             $this->setUser($user);
         }
 
@@ -217,6 +249,13 @@ class Register
         return null;
     }
 
+    /**
+     * @param $name
+     * @param $email
+     * @param Plugin\Mailer $mailer
+     * @param Url $url
+     * @return User|null
+     */
     public function proceedWithEmail($name, $email, Plugin\Mailer $mailer, Url $url)
     {
         $this->setName($name);
@@ -231,9 +270,11 @@ class Register
         return null;
     }
 
+    /**
+     *
+     */
     public function proceedMail()
     {
-        $mailer = $this->getMailer();
         $url = $this->getUrlPlugin();
         $user = $this->getUser();
 
@@ -243,13 +284,17 @@ class Register
                                     array('force_canonical' => true)
         );
 
-        $mailer->__invoke(
-               'Auth\Mail\RegisterConfirmation',
-                   array(
-                       'user' => $user,
-                       'confirmationLink' => $confirmationLink
-                   ),
-                   true
-        );
+        $userEmail              = $user->getInfo()->getEmail();
+        $userName               = $user->getInfo()->getDisplayName();
+        $mailService            = $this->options->getMailService();
+        $mail                   = $mailService->get('htmltemplate');
+        $mail->user             = $user;
+        $mail->name             = $userName;
+        $mail->confirmationlink = $confirmationLink;
+        $mail->setTemplate('mail/register');
+        $mail->setSubject( /*translate*/ 'Registration');
+        $mail->setTo($userEmail);
+        $mail->setFrom('Yawik-System', $userName);
+        $mailService->send($mail);
     }
 }

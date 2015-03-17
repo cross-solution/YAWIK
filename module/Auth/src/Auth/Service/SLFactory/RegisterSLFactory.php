@@ -13,6 +13,7 @@ use Auth\Repository;
 use Auth\Service\Register;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Auth\Options\ServiceRegisterOptions;
 
 class RegisterSLFactory implements FactoryInterface
 {
@@ -29,7 +30,10 @@ class RegisterSLFactory implements FactoryInterface
          * @var Repository\User $userRepository
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
+        $mailService = $serviceLocator->get('Core/MailService');
 
-        return new Register($userRepository);
+        $serviceRegisterOptions = new ServiceRegisterOptions(array('userRepository' => $userRepository, 'mailService' => $mailService));
+
+        return new Register($serviceRegisterOptions);
     }
 }
