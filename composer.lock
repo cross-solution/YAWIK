@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "15276cebbbfc74789c346a68d9772505",
+    "hash": "af001d620472beac7f785d694420c6df",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -97,6 +97,38 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2014-12-23 06:48:45"
+        },
+        {
+            "name": "cross-solution/bootstrap3-dialog",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cross-solution/bootstrap3-dialog.git",
+                "reference": "1602958ce7f6dee32980c9d7161c52a848b51168"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cross-solution/bootstrap3-dialog/zipball/1602958ce7f6dee32980c9d7161c52a848b51168",
+                "reference": "1602958ce7f6dee32980c9d7161c52a848b51168",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": "*",
+                "twbs/bootstrap": "3.*"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nakupanda",
+                    "email": "javanoob@hotmail.com"
+                }
+            ],
+            "description": "Make use of Bootstrap Modal more monkey-friendly.",
+            "time": "2015-03-13 14:06:14"
         },
         {
             "name": "doctrine/annotations",
@@ -2978,17 +3010,21 @@
             "time": "2015-01-25 04:39:26"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "alpha",
     "stability-flags": {
+        "cross-solution/bootstrap3-dialog": 20,
         "satooshi/php-coveralls": 20
     },
     "prefer-stable": false,
-    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3",
         "ext-mongo": "*",
         "ext-intl": "*"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }
