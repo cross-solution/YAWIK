@@ -21,7 +21,7 @@ use Jobs\Listener\Events\JobEvent;
  *
  * @package Jobs\Listener
  */
-class StatusChanged implements ServiceManagerAwareInterface
+class PendingForAcception implements ServiceManagerAwareInterface
 {
     /**
      * @var ServiceManager
@@ -79,29 +79,18 @@ class StatusChanged implements ServiceManagerAwareInterface
         $userName                = $authService->getUser()->getInfo()->displayName;
         $job                     = $e->getJobEntity();
 
-
-        /** @var \Zend\Mvc\Controller\Plugin\Url $urlPlugin */
-        $urlPlugin = $controllerPluginManager->get('url');
-
-        $previewLink = $urlPlugin->fromRoute('lang/jobs/approval', array(),
-            array('force_canonical' => True,
-                  'query' => array('id' => $job->getId())));
-
-
         /** @var \Core\Mail\MailService $mailService */
         $mailService = $serviceManager->get('Core/MailService');
 
         /** @var \Core\Mail\HTMLTemplateMessage $mail */
         $mail = $mailService->get('htmltemplate');
 
-        $mail->siteName = $optionsCore->siteName;
-        $mail->ref = $job->getReference();
-        $mail->prices = $prices;
+        $mail->siteName = $optionsCore->getSiteName();
         $mail->userName = $user->getInfo()->getDisplayName();
+        $mail->ref = $job->getReference();
         $mail->setVariable('job', $job);
-        $mail->setVariable('link' ,$previewLink);
-        $mail->setTemplate('mail/jobCreatedMail');
-        $mail->setSubject( /*translate*/ 'A New Job was created');
+        $mail->setTemplate('mail/jobPendingForAcception');
+        $mail->setSubject( /*translate*/ 'Your Job have been wrapped up for approval');
         $mail->setFrom($userEmail, $userName);
         $mail->setTo($options->getMultipostingApprovalMail());
 

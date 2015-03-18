@@ -42,7 +42,8 @@ class JobsListener implements ListenerAggregateInterface, ServiceManagerAwareInt
         //$eventsApplication = $this->getServiceManager()->get("Application")->getEventManager();
 
         //$events->attach(JobEvent::EVENT_NEW, array($this, 'jobNewMail'), 1);
-        $events->attach(JobEvent::EVENT_JOB_CREATED, $this->getServiceManager()->get('Jobs/Listener/StatusChanged') , 1);
+        $events->attach(JobEvent::EVENT_JOB_CREATED, $this->getServiceManager()->get('Jobs/Listener/StatusChanged') , 10);
+        $events->attach(JobEvent::EVENT_JOB_CREATED, $this->getServiceManager()->get('Jobs/Listener/PendingForAcception') , 8);
 
         return $this;
     }

@@ -291,12 +291,12 @@ class ManageController extends AbstractActionController {
         return $model;
     }
 
+    /**
+     * @param $key
+     */
     protected function get($key) {
         return;
     }
-
-
-
 
     /**
      * Job opening is completed.
@@ -311,6 +311,14 @@ class ManageController extends AbstractActionController {
         $jobEvent->setJobEntity($jobEntity);
 
         $jobEntity->isDraft = false;
+        $reference = $jobEntity->getReference();
+        if (empty($reference)) {
+            // create an unique job-reference
+            $repository = $this->getServiceLocator()
+                               ->get('repositories')
+                               ->get('Jobs/Job');
+            $jobEntity->setReference($repository->getUniqueReference());
+        }
         $jobEntity->changeStatus(Status::CREATED, "job was created");
         $jobEntity->atsEnabled = true;
 

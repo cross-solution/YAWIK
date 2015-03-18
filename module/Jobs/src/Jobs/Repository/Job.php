@@ -109,5 +109,12 @@ class Job extends AbstractRepository
 
         return null;
     }
+
+    /**
+     * @return string
+     */
+    public function getUniqueReference() {
+        return uniqid();
+    }
     
 }

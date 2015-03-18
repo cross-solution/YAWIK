@@ -137,14 +137,14 @@ class Register
 
         $registerFilter = $this->filter->get('register');
 
-        $this->name = $registerFilter->getValue('name');
-        $this->email = $registerFilter->getValue('email');
+        $this->setName($registerFilter->getValue('name'));
+        $this->setEmail($registerFilter->getValue('email'));
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     protected function getName()
     {
@@ -165,7 +165,7 @@ class Register
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     protected function getEmail()
     {
@@ -197,7 +197,7 @@ class Register
             $name = $this->getName();
             $email = $this->getEmail();
 
-            if (($user = $userRepository->findByLoginOrEmail($email))) {
+            if (($userRepository->findByLoginOrEmail($email))) {
                 throw new Exception\UserAlreadyExistsException('User already exists');
             }
 
@@ -233,7 +233,7 @@ class Register
      * @param InputFilterInterface $filter
      * @param Plugin\Mailer $mailer
      * @param Url $url
-     * @return null
+     * @return null|User
      * @throws Exception\UserAlreadyExistsException
      */
     public function proceed(InputFilterInterface $filter, Plugin\Mailer $mailer, Url $url)

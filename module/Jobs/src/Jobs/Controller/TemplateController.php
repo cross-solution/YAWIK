@@ -173,6 +173,17 @@ class TemplateController extends AbstractActionController  {
             $title = $viewHelperForm->render($descriptionFormTitle);
 
         }
+        $organizationName = '';
+        $organizationStreet = '';
+        $organizationPostalCode = '';
+        $organizationPostalCity = '';
+        $organization = $job->organization;
+        if (isset($organization)) {
+            $organizationName = $organization->organizationName->name;
+            $organizationStreet = $organization->contact->street.' '.$organization->contact->houseNumber;
+            $organizationPostalCode = $organization->contact->postalcode;
+            $organizationPostalCity = $organization->contact->city;
+        }
 
         // @see http://yawik.readthedocs.org/en/latest/modules/jobs/index.html#job-templates
         $fields= array(
@@ -184,11 +195,11 @@ class TemplateController extends AbstractActionController  {
             'title' => $title,
             'uriApply' => $uriApply,
             'headTitle' => $headTitle,
-            'organizationName' => $job->organization->organizationName->name,
-            'street' => $job->organization->contact->street.' '.$job->organization->contact->houseNumber,
-            'postalCode' => $job->organization->contact->postalcode,
-            'city' => $job->organization->contact->city,
-            'uriLogo' => $this->getOrganizationLogo($job->organization),
+            'organizationName' => $organizationName,
+            'street' => $organizationStreet,
+            'postalCode' => $organizationPostalCode,
+            'city' => $organizationPostalCity,
+            'uriLogo' => $this->getOrganizationLogo($organization),
         );
 
         return $fields;
@@ -202,7 +213,7 @@ class TemplateController extends AbstractActionController  {
      */
     private function getOrganizationLogo(\Organizations\Entity\Organization $organization)
     {
-        if ($organization->image->uri) {
+        if (isset($organization) && isset($organization->image) && $organization->image->uri) {
             return ($organization->image->uri);
         } else {
             /** @var \Zend\ServiceManager\ServiceManager $serviceLocator */

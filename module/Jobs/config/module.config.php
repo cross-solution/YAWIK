@@ -142,11 +142,12 @@ return array(
 
     'service_manager' => array(
         'invokables' => array(
-                'Jobs/PreviewLinkHydrator'      => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
-                'Jobs/Listeners'                => 'Jobs\Listener\JobsListener',
-                'Jobs/Event'                    => 'Jobs\Listener\Events\JobEvent',
-                'Jobs/Listener/StatusChanged'   => 'Jobs\Listener\StatusChanged',
-                'Jobs/Listener/Publisher'       => 'Jobs\Listener\Publisher',
+                'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
+                'Jobs/Listeners'                    => 'Jobs\Listener\JobsListener',
+                'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
+                'Jobs/Listener/StatusChanged'       => 'Jobs\Listener\StatusChanged',
+                'Jobs/Listener/PendingForAcception' => 'Jobs\Listener\PendingForAcception',
+                'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
@@ -181,6 +182,7 @@ return array(
             'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
             'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
             'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
+            'mail/jobPendingForAcception' => __DIR__ . '/../view/mails/deJobPendingForAcception.phtml',
         ),
     
         // Where to look for view templates not mapped above
