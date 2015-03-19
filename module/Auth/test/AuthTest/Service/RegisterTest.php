@@ -30,6 +30,16 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
     /**
      * @var MockObject
      */
+    private $mailServiceMock;
+
+    /**
+     * @var MockObject
+     */
+    private $mailMock;
+
+    /**
+     * @var MockObject
+     */
     private $inputFilterMock;
 
     /**
@@ -51,7 +61,16 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->testedObject = new Register($this->userRepositoryMock);
+        $this->mailServiceMock = $this->getMockBuilder('Core\Mail\MailService')
+                                         ->disableOriginalConstructor()
+                                         ->getMock();
+
+        $this->mailMock = $this->getMockBuilder('\Core\Mail\HTMLTemplateMessage')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+
+        $this->testedObject = new Register($this->userRepositoryMock, $this->mailServiceMock);
 
         $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
         $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');
@@ -147,16 +166,10 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
                 array('force_canonical' => true)
             )->willReturn($confirmationLink);
 
-        $this->mailerPluginMock->expects($this->once())
-            ->method('__invoke')
-            ->with(
-                'Auth\Mail\RegisterConfirmation',
-                array(
-                    'user' => $user,
-                    'confirmationLink' => $confirmationLink
-                ),
-                true
-            );
+        $this->mailServiceMock->expects($this->once())
+                              ->method('get')
+                              ->with('htmltemplate')
+                              ->willReturn($this->mailMock);
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }

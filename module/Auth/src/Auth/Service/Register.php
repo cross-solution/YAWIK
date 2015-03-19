@@ -14,7 +14,8 @@ use Auth\Service\Exception;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
-use Auth\Options\ServiceRegisterOptions;
+use Auth\Repository\User as UserRepository;
+use Core\Mail\MailService;
 
 /**
  * Class Register
@@ -23,9 +24,14 @@ use Auth\Options\ServiceRegisterOptions;
 class Register
 {
     /**
-     * @var ServiceRegisterOptions
+     * @var MailService
      */
-    protected $options;
+    protected $mailService;
+
+    /**
+     * @var UserRepository
+     */
+    protected $userRepository;
 
     /**
      * @var InputFilterInterface
@@ -57,12 +63,26 @@ class Register
      */
     protected $user;
 
-    /**
-     * @param ServiceRegisterOptions $options
-     */
-    public function __construct(ServiceRegisterOptions $options)
+    public function __construct(UserRepository $userRepository, MailService $mailService)
     {
-        $this->options = $options;
+        $this->userRepository = $userRepository;
+        $this->mailService = $mailService;
+    }
+
+    /**
+     * @return UserRepository
+     */
+    protected function getUserRepository()
+    {
+        return $this->userRepository;
+    }
+
+    /**
+     * @return MailService
+     */
+    protected function getMailService()
+    {
+        return $this->mailService;
     }
 
     /**
@@ -193,7 +213,7 @@ class Register
     protected function proceedUser()
     {
         if (!isset($this->user)) {
-            $userRepository = $this->options->getUserRepository();
+            $userRepository = $this->getUserRepository();
             $name = $this->getName();
             $email = $this->getEmail();
 
@@ -286,7 +306,7 @@ class Register
 
         $userEmail              = $user->getInfo()->getEmail();
         $userName               = $user->getInfo()->getDisplayName();
-        $mailService            = $this->options->getMailService();
+        $mailService            = $this->getMailService();
         $mail                   = $mailService->get('htmltemplate');
         $mail->user             = $user;
         $mail->name             = $userName;
