@@ -19,11 +19,20 @@ use Jobs\Entity\JobInterface;
 use Auth\Entity\UserInterface;
 use Core\Entity\Permissions;
 
+/**
+ * This assertion checks permissions to change a job.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ */
 class WriteAssertion implements AssertionInterface
 {
-    /* (non-PHPdoc)
+    /**
+     * Returns true, if the user has write access to the job.
+     *
+     * {@inheritDoc}
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
-    */
+     */
     public function assert(Acl $acl,
         RoleInterface $role = null,
         ResourceInterface $resource = null,
@@ -38,16 +47,30 @@ class WriteAssertion implements AssertionInterface
                || $this->checkOrganizationPermissions($role, $resource);
     }
 
+    /**
+     * Returns true, if the user has write access to the job granted from the organization.
+     *
+     * @param RoleInterface $role This must be a UserInterface instance
+     * @param ResourceInterface $resource This must be a JobInterface instance
+     *
+     * @return bool
+     */
     protected function checkOrganizationPermissions($role, $resource)
     {
         /* @var $resource \Jobs\Entity\JobInterface */
         /* @var $role     \Auth\Entity\UserInterface */
         $organization = $resource->getOrganization();
+        if (!$organization) {
+            return false;
+        }
+
         if ($organization->isHiringOrganization()) {
             $organization = $organization->getParent();
         }
 
-        if ($role->getId() == $organization->getUser()->getId()) {
+        $orgUser = $organization->getUser();
+
+        if ($orgUser && $role->getId() == $orgUser->getId()) {
             return true;
         }
 

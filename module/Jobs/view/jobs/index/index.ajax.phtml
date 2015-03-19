@@ -68,17 +68,17 @@
             echo implode('<br />', $status);
          ?>
          </td>
-         <td>
+         <td><?php if ($this->acl($job, 'edit')): ?>
+             <?php if ($job->getOrganization()):?>
              <a href="<?php echo $this->url('lang/jobs/assign-user', array(), array('query' => array('id' => $job->id)), true)?>"
                 data-id="<?php echo $job->id ?>"
-                data-title="<?php echo $this->escapeHtmlAttr(sprintf(
-                                            $this->translate('Change responsible user for job "%s"'),
+                data-i18n='{"title":"<?php echo $this->escapeHtmlAttr(sprintf(
+                                            $this->translate('Change responsible user for job \\"%s\\"'),
                                             $job->title
-                                       ))?>"
-                data-loading="<?php echo $this->translate('Loading') ?>&hellip;"
-
+                                       ))?>"}'
                 class="btn btn-default btn-xs assign-user-button"><span class="yk-icon yk-icon-user"></span></a>
-         <?php if ($this->acl($job, 'edit')): ?>
+                     <?php endif ?>
+
            <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="yk-icon yk-icon-edit"></span></a>
          <?php endif ?>     
          </td>
