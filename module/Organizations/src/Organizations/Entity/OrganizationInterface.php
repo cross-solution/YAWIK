@@ -141,5 +141,13 @@ interface OrganizationInterface
      * @return self
      */
     public function setUser(UserInterface $user);
+
+    /**
+     * Gets a collection of all jobs the organization is assigned to.
+     *
+     * @return Collection
+     */
+    public function getJobs();
+
 }
 

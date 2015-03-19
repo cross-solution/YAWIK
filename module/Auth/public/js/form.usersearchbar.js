@@ -29,7 +29,7 @@
         usersearch.initialize();
 
         var filterDisplayText = function(d) {
-            return d.name + '&lt;' + d.email + '&gt;';
+            return d.name + ' <' + d.email + '>';
         };
 
         $('.usersearchbar').typeahead(
@@ -44,14 +44,14 @@
                 templates: {
                     suggestion: function(d) {
                         console.debug(d, d.name);
-                        return '<p>' + d.name + '<br><small style="white-space:nowrap;">' + d.email + '</small></p>';
+                        return '<p>' + d.name + '<br><small style="white-space:nowrap;">&lt;' + d.email + '&gt;</small></p>';
                     }
 
                 }
             }
         ).on('typeahead:selected', function(e, d, n) {
                 //var selectedValue = filterDisplayText(d);
-                $input.trigger('yk.auth.usersearchbar.selected', {data: d});
+                $input.trigger('selected.yk.auth.usersearchbar', {data: d});
                 $input.val('');
             }).on('blur', function(e) {
                 $input.val('');

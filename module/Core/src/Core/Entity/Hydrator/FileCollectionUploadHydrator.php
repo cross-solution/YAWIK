@@ -26,7 +26,12 @@ class FileCollectionUploadHydrator implements HydratorInterface
         $this->strategy    = $strategy;
         $this->elementName = $name;
     }
-    
+
+    /**
+     *
+     *
+     * @return \Core\Entity\FileInterface
+     */
     public function getLastUploadedFile()
     {
         return $this->lastUploaded;

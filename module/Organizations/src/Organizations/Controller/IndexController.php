@@ -21,24 +21,45 @@ use Core\Entity\PermissionsInterface;
 /**
  * Main Action Controller for the Organization.
  * Responsible for handling the organization form.
+ *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Rafal Ksiazek
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ *
+ * @method \Acl\Controller\Plugin\Acl acl()
+ * @method \Core\Controller\Plugin\PaginationParams paginationParams()
+ * @method \Core\Controller\Plugin\CreatePaginator paginator(string $repositoryName, array $defaultParams = array(), bool $usePostParams = false)
+ * @method \Auth\Controller\Plugin\Auth auth()
  */
 class IndexController extends AbstractActionController
 {
     /**
+     * The organization form.
+     *
      * @var Form\Organizations
      */
     private $form;
 
     /**
+     * The organization repository.
+     *
      * @var Repository\Organization
      */
     private $repository;
 
+    /**
+     * Creates an instance.
+     *
+     * @param Form\Organizations      $form         Organization form.
+     * @param Repository\Organization $repository   Organization repository
+     */
     public function __construct(Form\Organizations $form, Repository\Organization $repository)
     {
         $this->repository = $repository;
         $this->form = $form;
     }
+
     /**
      * attaches further Listeners for generating / processing the output
      *
@@ -47,9 +68,11 @@ class IndexController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
+
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
+
         $events->attach($defaultServices);
         return $this;
     }
@@ -61,26 +84,9 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        $reps = $this->getServiceLocator()->get('repositories');
-        $users = $reps->get('Auth/User');
-        $orgs = $reps->get('Organizations');
-        $org = $orgs->find('54ddd3ead3b93fd059d2821a');
-        $user = $org->getUser();
-        $org2 = $user->getOrganization();
-        $emps = $user->getEmployers();
-
-        foreach ($emps as $emp) {
-            echo '';
-        }
-        echo count($emps);
-
-       // $user = $users->find('513c9625ae0259cf66000000');
-
-       // $org = $user->getOrganization();
-
-
-
-        $params        = $this->getRequest()->getQuery();
+        /* @var $request \Zend\Http\Request */
+        $request       = $this->getRequest();
+        $params        = $request->getQuery();
         $isRecruiter   = $this->acl()->isRole('recruiter');
         $params->count = 10;
         if ($isRecruiter) {
@@ -102,9 +108,13 @@ class IndexController extends AbstractActionController
      
     /**
      * Change (Upsert) organizations
+     *
+     * @return JsonModel
+     * @throws \RuntimeException
      */
     public function editAction()
     {
+        /* @var $request \Zend\Http\Request */
         $serviceLocator  = $this->getServiceLocator();
         $return          = Null;
         $request         = $this->getRequest();
@@ -114,6 +124,8 @@ class IndexController extends AbstractActionController
         $container       = $this->getFormular($org);
 
         if (isset($formIdentifier) && $request->isPost()) {
+
+            /* @var $form \Zend\Form\FormInterface */
             $postData = $this->params()->fromPost();
             $filesData = $this->params()->fromFiles();
             $form = $container->get($formIdentifier);
@@ -123,7 +135,8 @@ class IndexController extends AbstractActionController
             }
             $isValid = $form->isValid();
             if ($isValid) {
-                if (isset($org->organizationName) && !empty($org->organizationName->name)) {
+                $orgName = $org->getOrganizationName();
+                if ($orgName && '' !== (string) $orgName->getName()) {
                     $org->setIsDraft(false);
                 }
                 $serviceLocator->get('repositories')->persist($org);
@@ -133,10 +146,16 @@ class IndexController extends AbstractActionController
             $serviceLocator->get('repositories')->store($organization);
 
             if ('file-uri' === $this->params()->fromPost('return')) {
+
+                /* @var $hydrator \Core\Entity\Hydrator\FileCollectionUploadHydrator
+                 * @var $file     \Organizations\Entity\OrganizationImage */
                 $basepath = $serviceLocator->get('ViewHelperManager')->get('basepath');
-                $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
+                $hydrator = $form->getHydrator();
+                $file     = $hydrator->getLastUploadedFile();
+                $content = $basepath($file->getUri());
             } else {
                 if ($form instanceOf SummaryForm) {
+                    /* @var $form \Core\Form\SummaryForm */
                     $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
                     $viewHelper = 'summaryform';
                 } else {
@@ -160,60 +179,19 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * returns an organization logo.
-     * @deprecated
-     * @return \Zend\Stdlib\ResponseInterface
+     * Gets the organization form container.
+     *
+     * @param \Organizations\Entity\OrganizationInterface $organization
+     *
+     * @return \Organizations\Form\Organizations
      */
-    public function logoAction()
-    {
-        $response = $this->getResponse();
-        $file     = $this->getFile();
-
-        if (!$file) {
-            return $response;
-        }
-
-        //$this->acl($file);
-
-        $response->getHeaders()->addHeaderline('Content-Type', $file->type)
-                               ->addHeaderline('Content-Length', $file->length);
-        $response->sendHeaders();
-        $resource = $file->getResource();
-        while (!feof($resource)) {
-            echo fread($resource, 1024);
-        }
-        return $response;
-    }
-
-    /**
-     * @deprecated: gets a image-logo from the database, use the core-action instead
-     * @return mixed
-     */
-    protected function getFile()
-    {
-        $imageId = $this->params('id');
-        $response = $this->getResponse();
-
-        try {
-            $file = $this->repository->find($imageId);
-            if ($file) {
-                return $file;
-            }
-            $response->setStatusCode(404);
-        } catch (\Exception $e) {
-            $response->setStatusCode(404);
-            $this->getEvent()->setParam('exception', $e);
-            return Null;
-        }
-        return Null;
-    }
-
     protected function getFormular($organization)
     {
-        $services = $this->getServiceLocator();
-        $forms    = $services->get('FormElementManager');
+        /* @var $container \Organizations\Form\Organizations */
+        $services  = $this->getServiceLocator();
+        $forms     = $services->get('FormElementManager');
         $container = $forms->get('organizations/form', array(
-            'mode' => $organization->id ? 'edit' : 'new'
+            'mode' => $organization->getId() ? 'edit' : 'new'
         ));
         $container->setEntity($organization);
         $container->setParam('id',$organization->id);
@@ -228,6 +206,14 @@ class IndexController extends AbstractActionController
         return $container;
     }
 
+    /**
+     * Gets the organization entity.
+     *
+     * @param bool $allowDraft
+     *
+     * @return \Organizations\Entity\Organization
+     * @throws \RuntimeException
+     */
     protected function getOrganization($allowDraft = true)
     {
         $services       = $this->getServiceLocator();
@@ -238,12 +224,14 @@ class IndexController extends AbstractActionController
         $id_fromSubForm = $this->params()->fromPost('id',0);
         $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\UserInterface */
 
+        /* @var $organizationId string */
         $organizationId = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
         if ('__my__' == $organizationId) {
             $organizationId = $user->hasOrganization() ? $user->getOrganization()->getId() : 0;
         }
 
         if (empty($organizationId) && $allowDraft) {
+            /* @var $organization \Organizations\Entity\Organization */
             $organization = $this->repository->findDraft($user);
             if (empty($organization)) {
                 $organization = $this->repository->create();

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @license   MIT
  */
 
 namespace Organizations\Entity;
@@ -19,7 +19,6 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\EntityInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
-use Zend\Stdlib\Hydrator\HydratorAwareInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\DraftableEntityInterface;
 
@@ -33,8 +32,12 @@ use Core\Entity\DraftableEntityInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface {
-    
-    
+
+    /**
+     * Event name of post construct event.
+     *
+     * @var string
+     */
     const postConstruct = 'postRepositoryConstruct';
 
     /**
@@ -85,6 +88,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     protected $contact;
 
     /**
+     * The organizations' description.
+     *
      * @var string
      * @ODM\String
      */
@@ -168,40 +173,40 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return null !== $this->parent;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * Sets the external id.
+     *
+     * @todo Has to be in interface!
+     * @param $externalId
+     *
+     * @return self
+     */
     public function setExternalId($externalId) 
     {
         $this->externalId = $externalId;
         return $this;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * Gets the internal id.
+     * @todo has to be in interface!
+     *
+     * @return string
+     */
     public function getExternalId() 
     {
         return $this->externalId;
     }
 
-    /**
-     * Set hydrator
-     *
-     * @param  HydratorInterface $hydrator
-     * @return HydratorAwareInterface
-     */
     public function setHydrator(HydratorInterface $hydrator) {
         return $this;
     }
 
-    /**
-     * Retrieve hydrator
-     *
-     * @return HydratorInterface
-     */
     public function getHydrator() {
         return new EntityHydrator();
     }
 
-    /** {@inheritdoc} */
-    public function setOrganizationName(OrganizationName $organizationName) 
+    public function setOrganizationName(OrganizationName $organizationName)
     {
         if (isset($this->organizationName)) {
             $this->organizationName->refCounterDec()->refCompanyCounterDec();
@@ -211,64 +216,46 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this;
     }
 
-    /** {@inheritdoc} */
-   public function getOrganizationName() 
-   {
-       return $this->organizationName;
-   }
+    public function getOrganizationName()
+    {
+        return $this->organizationName;
+    }
 
-    /** {@inheritdoc} */
-   public function setAddresses(AddressInterface $addresses)
-   {
-   }
+    public function setAddresses(AddressInterface $addresses)
+    { }
 
-    /** {@inheritdoc} */
-   public function getAddresses() 
-   {
-   }
+    public function getAddresses()
+    { }
 
-    /** {@inheritdoc} */
     public function getSearchableProperties()
-    {
-    }
+    { }
 
-    /** {@inheritdoc} */
     public function setKeywords(array $keywords)
-    {
-    }
+    { }
 
-    /** {@inheritdoc} */
     public function clearKeywords()
-    {
-    }
+    { }
 
-    /** {@inheritdoc} */
     public function getKeywords()
-    {
-    }
+    { }
 
-    /**
-     * {@inheritDoc}
-     * @see \Core\Entity\PermissionsAwareInterface::getPermissions()
-     */
     public function getPermissions()
     {
         if (!$this->permissions) {
             $permissions = new Permissions();
-            //if ($this->user) {
-            //    $permissions->grant($this->user, Permissions::PERMISSION_ALL);
-            //}
+            if ($this->user) {
+                $permissions->grant($this->user, Permissions::PERMISSION_ALL);
+            }
             $this->setPermissions($permissions);
         }
         return $this->permissions;
     }
 
-    /**
-     * {@inheritDoc}
-     * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
-     * @return $this
-     */
     public function setPermissions(PermissionsInterface $permissions) {
+        // Assure the user has always all rights.
+        if ($this->user) {
+            $permissions->grant($this->user, Permissions::PERMISSION_ALL);
+        }
         $this->permissions = $permissions;
         return $this;
     }
@@ -284,6 +271,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $employees = $this->getEmployees();
 
             $spec = array();
+
+            // Grant Owner of organization full access
+            $spec[PermissionsInterface::PERMISSION_ALL][] = $this->getUser()->getId();
+
             foreach ($employees as $emp) {
                 /* @var $emp EmployeeInterface */
                 $perm = $emp->getPermissions();
@@ -300,22 +291,38 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return array();
     }
 
-
-    /** {@inheritdoc} */
+    /**
+     * Sets logo.
+     *
+     * @todo has to be in interface
+     * @param OrganizationImage $image
+     *
+     * @return self
+     */
     public function setImage(OrganizationImage $image = null)
     {
         $this->image = $image;
         return $this;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * gets image
+     *
+     * @todo has to be in interface
+     * @return OrganizationImage
+     */
     public function getImage()
     {
         return $this->image;
     }
-    
-    /** 
-     * {@inheritdoc} 
+
+    /**
+     * Sets contact.
+     *
+     * @todo has to be in interface
+     * @param EntityInterface $contact
+     *
+     * @return self
      */
     public function setContact(EntityInterface $contact = null)
     {
@@ -327,7 +334,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /** 
-     * {@inheritdoc} 
+     * gets the contact
+     * @todo has to be in interface
+     * @return OrganizationContact
      */
     public function getContact()
     {
@@ -337,41 +346,22 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->contact;
     }
 
-    /**
-     * Gets the flag indicating the draft state.
-     *
-     * @return bool
-     */
     public function isDraft()
     {
         return $this->isDraft;
     }
 
-    /**
-     * Sets the flag indicating the draft state.
-     *
-     * @param boolean $flag
-     * @return DraftableEntityInterface
-     */
     public function setIsDraft($flag)
     {
         $this->isDraft = (bool) $flag;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     *
-     * @return self
-     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -417,8 +407,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     {
         if ($this->isHiringOrganization()) {
             $organization = $this->getParent();
-            $owner        = $organization->getOwner();
-            $this->setOwner($owner);
+            $owner        = $organization->getUser();
+
+            $this->setUser($owner);
         } else {
             $organization = $this;
         }
@@ -461,10 +452,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         $this->refs->setEmployeesIdsFromCollection($this->getEmployees());
     }
 
-    /**
-     * @param UserInterface $user
-     * @return $this
-     */
     public function setUser(UserInterface $user) {
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
@@ -473,9 +460,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         $this->getPermissions()->grant($user, Permissions::PERMISSION_ALL);
         return $this;
     }
-    /**
-     * @return UserInterface
-     */
+
     public function getUser() {
         return $this->user;
     }
@@ -484,8 +469,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     {
         return $this->jobs;
     }
-
-
 }
 
 
