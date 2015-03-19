@@ -7,6 +7,11 @@ use Auth\Entity\Info;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Authentication\AuthenticationService;
 
+/**
+ *
+ *
+ * @method \Auth\Entity\UserInterface getUser()
+ */
 class Auth extends AbstractPlugin
 {
     protected $auth;
