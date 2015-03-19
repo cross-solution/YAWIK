@@ -19,15 +19,17 @@
     if (!$user) {
         $this->element->get('permissions')->setValue(array(16, 2));
     }
+    $fsId = $this->element->getAttribute('id');
 ?>
-<fieldset id="<?php echo $this->element->getAttribute('id') ?>" class="employee-wrapper">
+<fieldset id="<?php echo $fsId ?>" class="employee-wrapper">
 
     <?php echo $this->formHidden($employee); ?>
 
 
     <div class="employee-info-wrapper">
         <?php echo $user ? $user->getInfo()->getDisplayName() : '__userName__' ?>
-        <span><?php echo $user ? $user->getInfo()->getEmail()  : '__userEmail__' ?></span>
+        <span>&lt;<?php echo $user ? $user->getInfo()->getEmail()  : '__userEmail__' ?>&gt;</span>
+        <button type="button" class="pull-right btn btn-default btn-xs remove-employee" data-id="<?php echo $fsId ?>"><span class="yk-icon yk-icon-minus"></span></button>
     </div>
     <div id="<?php
 
@@ -42,5 +44,5 @@
         <?php echo $this->formMultiCheckbox($this->element->get('permissions')) ?>
 
     </div>
-
+<hr>
 </fieldset>

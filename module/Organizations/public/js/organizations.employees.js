@@ -4,8 +4,8 @@
     var $form;
 
     $(function() {
-        $('.usersearchbar').on('yk.auth.usersearchbar.selected', userSelected);
-        $('#employeesManagement').find('#employees-employees').find('.remove-item').click(removeEmployee);
+        $('.usersearchbar').on('selected.yk.auth.usersearchbar', userSelected);
+        $('#employeesManagement').find('#employees-employees').find('.remove-employee').click(removeEmployee);
         $form = $('#employeesManagement');
         $form.on('yk.forms.done', handleFormResponse);
 
@@ -22,7 +22,8 @@
 
     function removeEmployee(e)
     {
-        $(e.currentTarget).parent().remove();
+        var fieldsetId = $(e.currentTarget).data('id');
+        $('#' + fieldsetId).remove();
     }
 
     function userSelected(e, d)
@@ -44,7 +45,7 @@
                         .replace(/__userEmail__/g, d.data.email);
 
         $fs.append(html);
-        $fs.find('#employees-employees-' + index).find('.remove-item').click(removeEmployee);
+        $fs.find('#employees-employees-' + index).find('.remove-employee').click(removeEmployee);
         //$form.submit();
     }
 
