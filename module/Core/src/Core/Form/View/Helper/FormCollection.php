@@ -75,7 +75,16 @@ class FormCollection extends ZendFormCollection
             $element->setAttribute('id', $elementId);
         }
 
-        if ($element instanceOf ViewPartialProviderInterface && $useViewPartial) {
+        /*
+         * We had the problem, that collection templates were not rendered using the viewPartial due to the call
+         * to this function from the parent class, which does not provide the $useViewPartial variable.
+         * Currently this is fixed by always using the view partial if $this->isWithinCollection is true.
+         *
+         * We should consider using a new property $this->useViewPartial, for cover the case, where the
+         * template should NOT be rendered using the view partial.
+         *
+         */
+        if ($element instanceOf ViewPartialProviderInterface && ($this->isWithinCollection || $useViewPartial)) {
             /* @var $partial \Zend\View\Helper\Partial */
             $partial = $renderer->plugin('partial');
             return $partial(

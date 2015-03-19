@@ -1,7 +1,64 @@
 
 ;(function($) {
+
+    var methods = {
+        init: function()
+        {
+            this.each(function() {
+                //
+                $(this).unbind('paginate');
+                $(this).bind('paginate', function(event, data) {
+                    //c/onsole.log('paginate-data', event, data);
+                    //data
+                    event.data = data;
+                    paginate(event);
+                });
+            });
+            return this.each(function() {
+                // default trigger
+
+                var eventData = {
+                    "container": $(this),
+                    "loadingIndicator": $(this).find('.pagination-loading')
+                };
+
+                eventData.loadingIndicator.hide();
+
+                $(this).find('.pagination li[class!="disabled"] a, th > a')
+                    .click(eventData, function(e) {
+                        //c/onsole.log('paginate-event', e, eventData);
+                        var data = {};
+                        data.href = $(e.currentTarget).attr('href');
+                        data.container = eventData.container;
+                        data.container.trigger('paginate', [data]);
+                        //paginate(e);
+                        return false;
+                    });
+            });
+        },
+
+        reload: function()
+        {
+            return this.each(function() {
+                var $container = $(this);
+                $container.trigger('paginate', [{container:$container}]);
+            });
+        },
+
+        load: function(url)
+        {
+            return this.each(function() {
+                var $container = $(this);
+                var data = {
+                    href: url,
+                    container: $container
+                };
+                $container.trigger('paginate', [data]);
+            });
+        }
+    };
 	
-	paginate = function(event)
+	function paginate(event)
 	{
                 //c/onsole.log('paginate-event2', event); 
                 if (typeof event.data.loadingIndicator != 'undefined') {
@@ -35,44 +92,18 @@
                     
                 });
 		return false;
-	};
+	}
 	
-	$.fn.pagination = function()
+	$.fn.pagination = function(method)
 	{
-                this.each(function() {
-                    //
-                    $(this).unbind('paginate');
-                    $(this).bind('paginate', function(event, data) {
-                        //c/onsole.log('paginate-data', event, data);
-                        //data
-                        event.data = data;
-                        paginate(event);
-                    });
-                });
-		return this.each(function() {
-                    // default trigger
-			
-			var eventData = {
-				"container": $(this),
-				"loadingIndicator": $(this).find('.pagination-loading')
-			};
-			
-			eventData.loadingIndicator.hide();
-			
-			$(this).find('.pagination li[class!="disabled"] a, th > a')
-			       .click(eventData, function(e) {
-                                    //c/onsole.log('paginate-event', e, eventData);
-                                    var data = {};
-                                    data.href = $(e.currentTarget).attr('href');
-                                    data.container = eventData.container;
-                                    data.container.trigger('paginate', [data]);
-                                    //paginate(e);
-                                    return false;
-                                });
-		});
+        method = method || 'init'; // set default method if none provided.
+
+        return method in methods
+               ? methods[method].apply(this, Array.prototype.slice.call(arguments, 1))
+               : this; // Maybe add error handling? Currently it's an no-op to call undefined method.
 	};
 	
-        // start with the default class
+    // Automatically init elements with class ".pagination-container" on page load.
 	$(function() {
 		$(".pagination-container").pagination();
 	});
