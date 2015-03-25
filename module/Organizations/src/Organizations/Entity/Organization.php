@@ -138,7 +138,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * the owner of a Organization
      *
      * @var UserInterface $user
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true, inversedBy="organization")
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
      * @ODM\Index
      */
     protected $user;
@@ -267,28 +267,34 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     public function getPermissionsUserIds($type = null)
     {
-        if ('Job/Permissions' == $type) {
-            $employees = $this->getEmployees();
+        // Grant Owner of organization full access
+        $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()));
 
-            $spec = array();
-
-            // Grant Owner of organization full access
-            $spec[PermissionsInterface::PERMISSION_ALL][] = $this->getUser()->getId();
-
-            foreach ($employees as $emp) {
-                /* @var $emp EmployeeInterface */
-                $perm = $emp->getPermissions();
-                if ($perm->isAllowed(EmployeePermissionsInterface::JOBS_CHANGE)) {
-                    $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
-                } else if ($perm->isAllowed(EmployeePermissionsInterface::JOBS_VIEW)) {
-                    $spec[PermissionsInterface::PERMISSION_VIEW][] = $emp->getUser()->getId();
-                }
-            }
-
+        if (null === $type || ('Job/Permissions' != $type && 'Application' != $type)) {
             return $spec;
         }
 
-        return array();
+        if ('Job/Permissions' == $type) {
+            $change = EmployeePermissionsInterface::JOBS_CHANGE;
+            $view = EmployeePermissionsInterface::JOBS_VIEW;
+        } else {
+            $change = EmployeePermissionsInterface::APPLICATIONS_CHANGE;
+            $view = EmployeePermissionsInterface::APPLICATIONS_VIEW;
+        }
+
+        $employees = $this->getEmployees();
+
+        foreach ($employees as $emp) {
+            /* @var $emp EmployeeInterface */
+            $perm = $emp->getPermissions();
+            if ($perm->isAllowed($change)) {
+                $spec[$change][] = $emp->getUser()->getId();
+            } else if ($perm->isAllowed($view)) {
+                $spec[$view][] = $emp->getUser()->getId();
+            }
+        }
+
+        return $spec;
     }
 
     /**
@@ -393,6 +399,21 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->employees;
     }
 
+    public function isOwner(UserInterface $user)
+    {
+        return $this->getUser()->getId() == $user->getId();
+    }
+
+    public function isEmployee(UserInterface $user)
+    {
+        return $this->refs && in_array($user->getId(), $this->refs->getEmployeeIds());
+    }
+
+    public function isAssociated(UserInterface $user)
+    {
+        return $this->isOwner($user) || $this->isEmployee($user);
+    }
+
     /**
      * Updates the organizationsPermissions to allow all employees to view this organization.
      *
@@ -435,6 +456,16 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     }
 
+    public function getInternalReferences()
+    {
+        if (!$this->refs) {
+            $this->refs = new InternalReferences();
+            $this->refs->setEmployeesIdsFromCollection($this->getEmployees());
+        }
+
+        return $this->refs;
+    }
+
     /**
      * Updates the internal references.
      *
@@ -445,11 +476,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     public function updateInternalReferences()
     {
-        if (!$this->refs) {
-            $this->refs = new InternalReferences();
-        }
-
-        $this->refs->setEmployeesIdsFromCollection($this->getEmployees());
+        $this->getInternalReferences()
+             ->setEmployeesIdsFromCollection($this->getEmployees());
     }
 
     public function setUser(UserInterface $user) {

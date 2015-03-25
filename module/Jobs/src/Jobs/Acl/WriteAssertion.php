@@ -75,9 +75,12 @@ class WriteAssertion implements AssertionInterface
         }
 
         $employees = $organization->getEmployees();
+
         foreach ($employees as $emp) {
             /* @var $emp \Organizations\Entity\EmployeeInterface */
-            if ($emp->getPermissions()->isAllowed($role, EmployeePermissionsInterface::JOBS_CHANGE)) {
+            if ($emp->getUser()->getId() == $role->getId()
+                && $emp->getPermissions()->isAllowed(EmployeePermissionsInterface::JOBS_CHANGE)
+            ) {
                 return true;
             }
         }

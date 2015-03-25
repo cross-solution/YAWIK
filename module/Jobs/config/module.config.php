@@ -60,11 +60,13 @@ return array(
             'recruiter' => array(
                 'allow' => array(
                     'Jobs',
-                    'Jobs/Manage',
+                    'Jobs/Manage' => array(
+                        'edit',
+                        'new' => 'Jobs/Create',
+                    ),
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',
                     'Entity/Jobs/Job' => array(
-                        'new',
                         'edit' => 'Jobs/Write',
                     ),
                 ),
@@ -90,7 +92,8 @@ return array(
         ),
         'assertions' => array(
             'invokables' => array(
-                'Jobs/Write' => 'Jobs\Acl\WriteAssertion'
+                'Jobs/Write' => 'Jobs\Acl\WriteAssertion',
+                'Jobs/Create' => 'Jobs\Acl\CreateAssertion',
             ),
         ),
     ),

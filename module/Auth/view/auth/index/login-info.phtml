@@ -31,17 +31,23 @@
             <?php if ($this->auth('role') == 'recruiter'): ?>
             <?php  /*<li>
                 <a href="<?php echo $this->url('lang/my-groups', array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('Manage groups') ?></a>
-            </li>*/?>
+            </li>*/
+
+                $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
+                $org  = $user->getOrganization();
+                if (!$org || $org->isOwner() ):?>
             <li>
                 <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building"></span> <?php
-                    $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
-                    if ($user->hasOrganization()) {
-                        echo sprintf($this->translate('Edit "%s"'), $user->getOrganization()->getOrganizationName()->getName());
-                    } else {
+                    if (!$org) {
                         echo $this->translate('Create my organization');
+                    } else {
+                        echo sprintf($this->translate('Edit "%s"'), $org->getOrganizationName()->getName());
                     }
+
+
                     ?></a>
-            </li>
+            </li><?php endif ?>
+
             <?php endif ?>
             <li class="divider"></li>
             <li>

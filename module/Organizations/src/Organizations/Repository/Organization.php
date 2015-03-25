@@ -127,10 +127,10 @@ class Organization extends AbstractRepository
 
     /**
      * @param string $query
-     * @param int    $userId
+     * @param UserInterface    $user
      * @return array
      */
-    public function getTypeAheadResults($query, $userId)
+    public function getTypeAheadResults($query, $user)
     {
         $organizationNames = array();
 
@@ -149,12 +149,23 @@ class Organization extends AbstractRepository
 
         $organizations = array();
 
+        $userOrg = $user->getOrganization();
+
         $qb = $this->createQueryBuilder();
         $qb->hydrate(false)
             ->select(array('contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'))
-            ->field('permissions.view')->equals($userId)
-            ->field('organizationName')->in(array_keys($organizationNames))
-            ->limit(5);
+            ->limit(5)
+            ->addAnd($qb->expr()->field('permissions.view')->equals($user->getId())
+                                ->field('organizationName')->in(array_keys($organizationNames))
+            );
+
+
+        if ($userOrg->hasAssociation()) {
+            $qb->addAnd(
+                $qb->expr()->addOr($qb->expr()->field('parent')->equals($userOrg->getId()))
+                           ->addOr($qb->expr()->field('_id')->equals($userOrg->getId()))
+            );
+        }
 
         $result = $qb->getQuery()->execute();
 

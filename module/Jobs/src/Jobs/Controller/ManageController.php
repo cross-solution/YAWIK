@@ -260,9 +260,11 @@ class ManageController extends AbstractActionController {
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
 
         if (empty($id) && $allowDraft) {
+            $this->acl('Jobs/Manage', 'new');
             /** @var \Jobs\Entity\Job $job */
             $job = $repository->findDraft($user);
             if (empty($job)) {
+
                 $job = $repository->create();
                 $job->setIsDraft(true);
                 $job->setUser($user);

@@ -55,8 +55,8 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
             $dm->persist($entity);
         }
 
-        $dm->flush();
         $this->queuedEntities = null;
+        $dm->flush();
     }
     
     protected function updatePermissions(LifecycleEventArgs $args, $permission)

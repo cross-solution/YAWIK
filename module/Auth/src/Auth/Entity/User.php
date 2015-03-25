@@ -12,7 +12,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Organizations\Entity\OrganizationInterface;
+use Organizations\Entity\OrganizationReferenceInterface;
 use Settings\Repository\SettingsEntityResolver;
 
 /**
@@ -120,30 +120,16 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $tokens;
 
     /**
-     * The organization this user belongs to either as owner or as employee.
+     * The organization reference for the user.
      *
-     * This is the inversed side of a bi-directional reference, so it is NOT
-     * mutable. (and not stored in the database.)
+     * This field is not stored in the database, but injected on postLoad via
+     * {@link \Organizations\Repository\Event\InjectOrganizationReferenceListener}
      *
-     * @var OrganizationInterface
-     * @ODM\ReferenceOne(
-     *      targetDocument="\Organizations\Entity\Organization",
-     *      mappedBy="user"
-     * )
+     * @var OrganizationReferenceInterface
+     *
      * @since 0.18
      */
     protected $organization;
-
-    /**
-     * Collection of organizations this user is employed by.
-     *
-     * @var Collection
-     * @ODM\ReferenceMany(
-     *      targetDocument="\Organizations\Entity\Organization",
-     *      repositoryMethod="getEmployersCursor"
-     * )
-     */
-    protected $employers;
 
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
@@ -403,20 +389,22 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->tokens = $tokens;
     }
 
+    public function setOrganization(OrganizationReferenceInterface $organization)
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
     public function hasOrganization()
     {
-        return (bool) $this->organization;
+        /* @var $this->organization \Organizations\Entity\OrganizationReference */
+        return $this->organization &&
+               $this->organization->hasAssociation();
     }
 
     public function getOrganization()
     {
         return $this->organization;
     }
-
-    public function getEmployers()
-    {
-        return $this->employers;
-    }
-
-
 }

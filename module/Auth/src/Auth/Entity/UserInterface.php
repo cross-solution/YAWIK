@@ -13,6 +13,7 @@ namespace Auth\Entity;
 use Core\Entity\IdentifiableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Entity\OrganizationInterface;
+use Organizations\Entity\OrganizationReferenceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
@@ -123,27 +124,30 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     public function getTokens();
 
     /**
-     * Returns true, if this user is assigned to an organization.
+     * Sets the organization reference of the user.
      *
-     * @return bool
+     * @param OrganizationReferenceInterface $organization
+     *
+     * @return self
+     * @since 0.18
+     */
+    public function setOrganization(OrganizationReferenceInterface $organization);
+
+    /**
+     * returns true, if the user is associated to an organization.
+     *
+     * @return boolean
      * @since 0.18
      */
     public function hasOrganization();
 
     /**
-     * Gets the organization the user owns.
+     * Gets the organization reference of the the user.
      *
-     * @return OrganizationInterface
+     * @return null|OrganizationReferenceInterface
      * @since 0.18
      */
     public function getOrganization();
 
-    /**
-     * Returns a collection of organizations the user is employed by
-     *
-     * @return Collection
-     * @since 0.18
-     */
-    public function getEmployers();
 
 }

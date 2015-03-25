@@ -10,6 +10,7 @@
 /** ActionController of Organizations */
 namespace Organizations\Controller;
 
+use Auth\Exception\UnauthorizedAccessException;
 use Core\Form\SummaryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
@@ -226,8 +227,14 @@ class IndexController extends AbstractActionController
 
         /* @var $organizationId string */
         $organizationId = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
-        if ('__my__' == $organizationId) {
-            $organizationId = $user->hasOrganization() ? $user->getOrganization()->getId() : 0;
+        $editOwnOrganization = '__my__' === $organizationId;
+        if ($editOwnOrganization) {
+            /* @var $userOrg \Organizations\Entity\OrganizationReference */
+            $userOrg = $user->getOrganization();
+            if ($userOrg->hasAssociation() && !$userOrg->isOwner()) {
+                throw new UnauthorizedAccessException('You may not edit this organization as you are only employer.');
+            }
+            $organizationId = $userOrg->hasAssociation() ? $userOrg->getId() : 0;
         }
 
         if (empty($organizationId) && $allowDraft) {
@@ -237,9 +244,17 @@ class IndexController extends AbstractActionController
                 $organization = $this->repository->create();
                 $organization->setIsDraft(true);
                 $organization->setUser($user);
-                $permissions = $organization->getPermissions();
-                $permissions->grant($user, PermissionsInterface::PERMISSION_ALL);
+                if (!$editOwnOrganization) {
+                    /* @var $parent \Organizations\Entity\OrganizationReference */
+                    $parent = $user->getOrganization();
+                    if (!$parent->hasAssociation()) {
+                        throw new \RuntimeException('You cannot create organizations, because you do not belong to a parent organization. Use "User menu -> create my organization" first.');
+                    }
+                    $organization->setParent($parent->getOrganization());
+                }
+
                 $repositories->store($organization);
+
             }
             return $organization;
         }

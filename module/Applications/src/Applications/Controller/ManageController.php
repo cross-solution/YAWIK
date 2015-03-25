@@ -80,7 +80,7 @@ class ManageController extends AbstractActionController
         $form                  = $services_form->get('Applications/Filter');
         $params                = $this->getRequest()->getQuery();
         $statusElement         = $form->get('status');
-        $form->bind($params);
+
         
         $states                = $applicationRepository->getStates()->toArray();
         $states                = array_merge(array(/*@translate*/ 'all'), $states);
@@ -93,6 +93,12 @@ class ManageController extends AbstractActionController
         
         $job = $params->job ? $jobRepository->find($params->job)  : null;
         $paginator = $this->paginator('Applications/Application',$params);
+
+        if ($job) {
+            $params['job_title'] = '[' . $job->getApplyId() . '] ' . $job->getTitle();
+        }
+
+        $form->bind($params);
                 
         return array(
             'form' => $form,

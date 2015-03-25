@@ -51,7 +51,7 @@
 		
 		_getDescription: function(id)
 		{
-            id = id.replace(/^s2id_/, '');
+            id = !id ? "__initial__" : id.replace(/^s2id_/, '');
             id = "__initial__" == id ? '.daf-desc-content' : '#' + id + '-desc';
 
             var $desc = this.$descDiv.find(id);
@@ -95,8 +95,9 @@
 					id = '__initial__';
 				}
 			}
-			
-			if (event.type.match(/mouse/)) {
+
+
+			if (event.type.match(/mouse/) || !id) {
 				this.toggle(id);
 			} else {
 				if ('focus' === event.type) {
