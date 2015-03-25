@@ -16,10 +16,12 @@ return array(
         'eventmanager' => array(
             'odm_default' => array(
                 'subscribers' => array(
+                    '\Organizations\Repository\Event\InjectOrganizationReferenceListener',
                 ),
             ),
         ),
     ),
+
     'Organizations' => array(
         'form' => array(
         ),
