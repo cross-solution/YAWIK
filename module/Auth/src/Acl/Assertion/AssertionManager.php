@@ -10,8 +10,12 @@
 /** AssertionManager.php */ 
 namespace Acl\Assertion;
 
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
+use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class AssertionManager
@@ -19,6 +23,29 @@ use Zend\Permissions\Acl\Assertion\AssertionInterface;
  */
 class AssertionManager extends AbstractPluginManager
 {
+    public function __construct(ConfigInterface $configuration = null)
+    {
+        parent::__construct($configuration);
+
+        // Pushing to bottom of stack to ensure this is done last
+        $this->addInitializer(array($this, 'injectEventManager'), false);
+    }
+
+    public function injectEventManager($assertion, ServiceLocatorInterface $serviceLocator)
+    {
+        if (!$assertion instanceOf EventManagerAwareInterface) {
+            return;
+        }
+
+        $parentLocator = $serviceLocator->getServiceLocator();
+        $events = $assertion->getEventManager();
+        if (!$events instanceof EventManagerInterface) {
+            $assertion->setEventManager($parentLocator->get('EventManager'));
+        } else {
+            $events->setSharedManager($parentLocator->get('SharedEventManager'));
+        }
+    }
+
     /**
      * @param mixed $plugin
      * @throws \RuntimeException
