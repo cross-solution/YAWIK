@@ -10,21 +10,22 @@
 /** */
 namespace Organizations\Factory\Form;
 
+use Core\Entity\Hydrator\EntityHydrator;
+use Core\Form\Hydrator\Strategy\CollectionStrategy;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Organizations\Form\EmployeesFieldset;
 
 /**
- * ${CARET}
+ * Creates an EmployeesFieldset and injects the needed javascript to the HeadScript View Helper
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  * @since 0.18
  */
 class EmployeesFieldsetFactory implements FactoryInterface
 {
     /**
-     * Creates service
+     * Creates fieldset
      * {@inheritdoc}
      *
      * @return EmployeesFieldset
@@ -38,6 +39,10 @@ class EmployeesFieldsetFactory implements FactoryInterface
         $headscript = $helpers->get('headscript');
         $basepath   = $helpers->get('basepath');
         $fieldset = new EmployeesFieldset();
+        $hydrator = new EntityHydrator();
+
+        $hydrator->addStrategy('employees', new CollectionStrategy());
+        $fieldset->setHydrator($hydrator);
 
         $headscript->appendFile($basepath('Organizations/js/organizations.employees.js'));
 

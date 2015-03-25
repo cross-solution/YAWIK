@@ -14,7 +14,6 @@ use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
-use Core\Entity\AddressInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\EntityInterface;
@@ -143,14 +142,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     protected $user;
 
-    /**
-     * Internal references (database query optimization)
-     *
-     * @var InternalReferences
-     * @ODM\EmbedOne(targetDocument="InternalReferences")
-     */
-    protected $refs;
-
     public function setParent(OrganizationInterface $parent)
     {
         $this->parent = $parent;
@@ -221,12 +212,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->organizationName;
     }
 
-    public function setAddresses(AddressInterface $addresses)
-    { }
-
-    public function getAddresses()
-    { }
-
     public function getSearchableProperties()
     { }
 
@@ -267,8 +252,11 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     public function getPermissionsUserIds($type = null)
     {
-        // Grant Owner of organization full access
-        $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()));
+        // if we have a user, grant him full access to all associated permissions.
+        $user = $this->getUser();
+        $spec = $user
+              ? $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()))
+              : array();
 
         if (null === $type || ('Job/Permissions' != $type && 'Application' != $type)) {
             return $spec;
@@ -454,30 +442,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $perms->build();
         }
 
-    }
-
-    public function getInternalReferences()
-    {
-        if (!$this->refs) {
-            $this->refs = new InternalReferences();
-            $this->refs->setEmployeesIdsFromCollection($this->getEmployees());
-        }
-
-        return $this->refs;
-    }
-
-    /**
-     * Updates the internal references.
-     *
-     *
-     * @ODM\PreUpdate
-     * @ODM\PrePersist
-     * @since 0.18
-     */
-    public function updateInternalReferences()
-    {
-        $this->getInternalReferences()
-             ->setEmployeesIdsFromCollection($this->getEmployees());
     }
 
     public function setUser(UserInterface $user) {

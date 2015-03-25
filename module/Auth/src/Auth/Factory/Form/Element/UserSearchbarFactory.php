@@ -15,15 +15,16 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * ${CARET}
+ * A text input element with typeahead and bloodhound abilities to search users.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class UserSearchbarFactory implements FactoryInterface
 {
     /**
      * Create a user search bar textfield with typeahead and bloodhound support.
+     *
+     * Injects the needed javascript to the headscript view helper.
      *
      * {@inheritdoc}
      */
@@ -39,7 +40,7 @@ class UserSearchbarFactory implements FactoryInterface
 
         $headscript->appendFile($basepath('Auth/js/form.usersearchbar.js'));
 
-        $input = new Text();
+        $input = $serviceLocator->get('text');
         $input->setAttribute('class', 'usersearchbar');
 
         return $input;

@@ -16,7 +16,6 @@ use Core\Form\SummaryForm;
  * Form for managing employees.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test.
  * @since 0.18
  */
 class Employees extends SummaryForm

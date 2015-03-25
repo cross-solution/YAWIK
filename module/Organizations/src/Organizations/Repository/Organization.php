@@ -94,6 +94,57 @@ class Organization extends AbstractRepository
         return $entity;
     }
 
+    /**
+     * Finds the main organization of an user.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|OrganizationInterface
+     */
+    public function findByUser($userOrId)
+    {
+        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+        $qb     = $this->createQueryBuilder();
+
+        /*
+         * HiringOrganizations also could be associated to the user, but we
+         * do not want them to be queried here, so the query needs to check the
+         * "parent" field, too.
+         */
+        $qb->addAnd(
+           $qb->expr()->field('user')->equals($userId),
+           $qb->expr()->addOr(
+               $qb->expr()->field('parent')->exists(false),
+               $qb->expr()->field('parent')->equals(null)
+           )
+        );
+
+        $q      = $qb->getQuery();
+        $entity = $q->getSingleResult();
+
+        return $entity;
+    }
+
+    /**
+     * Finds the organization, an user is employed by.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|OrganizationInterface
+     */
+    public function findByEmployee($userOrId)
+    {
+        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        /*
+         * Employees collection is only set on main organization,
+         * so here, we do not have to query the "parent" field.
+         */
+        $entity = $this->findOneBy(array('employees.user' => $userId));
+
+        return $entity;
+    }
+
     public function getEmployersCursor(UserInterface $user)
     {
         $qb = $this->createQueryBuilder();

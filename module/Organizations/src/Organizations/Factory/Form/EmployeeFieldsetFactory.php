@@ -19,20 +19,20 @@ use Organizations\Entity\EmployeePermissionsInterface as Perms;
 use Organizations\Form\EmployeeFieldset;
 
 /**
- * ${CARET}
+ * Factory for an EmployeeFieldset
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test, extract hydrating strategies
+ * @todo extract hydrating strategies
  * @since 0.18
  */
 class EmployeeFieldsetFactory implements FactoryInterface
 {
     /**
-     * Create service
+     * Create the fieldset.
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * {@inheritDoc}
      *
-     * @return mixed
+     * @return EmployeeFieldset
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

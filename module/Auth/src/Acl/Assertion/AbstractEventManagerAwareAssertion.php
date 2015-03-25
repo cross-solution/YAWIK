@@ -23,9 +23,12 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  *
  * Handles the management of the EventManager, the creation of the AssertionEvent, triggers the event and
  * introspecting the result set.
+ *
+ * Listeners to that event should return a simple boolean value. Other return types are treated as they were the
+ * boolean TRUE. If a listener returns FALSE the propagation is stopped immediatly and no further listeners are invoked.
+ * The assertion returns FALSE in this case.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  * @since 0.18
  */
 abstract class AbstractEventManagerAwareAssertion implements EventManagerAwareInterface, AssertionInterface

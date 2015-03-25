@@ -11,13 +11,10 @@
 namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
-use Core\Entity\AddressInterface;
-use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsInterface;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Zend\Stdlib\Hydrator\HydratorAwareInterface;
+use Organizations\Repository\Organization as OrganizationRepository;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
 /**
@@ -27,8 +24,6 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
  * object), this class can be used as an organization.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
- *
  */
 class OrganizationReference implements OrganizationInterface,
                                        OrganizationReferenceInterface
@@ -46,11 +41,11 @@ class OrganizationReference implements OrganizationInterface,
     protected $_userId;
 
     /**
-     * The doctrine document manager.
+     * The organization repository.
      *
-     * @var \Doctrine\ODM\MongoDB\DocumentManager
+     * @var \Organizations\Repository\Organization
      */
-    protected $_documentManager;
+    protected $_repository;
 
     /**
      * The organization
@@ -72,34 +67,13 @@ class OrganizationReference implements OrganizationInterface,
     /**
      * Creates an instance.
      *
-     * @param string          $userId
-     * @param DocumentManager $documentManager
+     * @param string                 $userId
+     * @param OrganizationRepository $repository
      */
-    public function __construct($userId, DocumentManager $documentManager)
+    public function __construct($userId, OrganizationRepository $repository)
     {
         $this->_userId = $userId;
-        $this->_documentManager = $documentManager;
-    }
-
-    /**
-     * Proxies all calls to the referenced organization entity.
-     *
-     * @param string $method
-     * @param array $args
-     *
-     * @return mixed
-     * @throws \BadMethodCallException
-     */
-    public function __call($method, $args)
-    {
-        if (method_exists($this->_organization, $method)) {
-            return call_user_func_array(array($this->organization, $method), $args);
-        }
-
-        throw new \BadMethodCallException(sprintf(
-            'Neither "%s" nor proxied class "%s" have a method called "%s',
-            get_class($this), get_class($this->_organization), $method
-        ));
+        $this->_repository = $repository;
     }
 
     public function isOwner()
@@ -138,10 +112,7 @@ class OrganizationReference implements OrganizationInterface,
         if (null !== $this->_type) { return; }
 
         // Is the user the owner of the referenced organization?
-        $qb = $this->_documentManager->createQueryBuilder('\Organizations\Entity\Organization');
-        $qb->field('user')->equals($this->_userId);
-        $q  = $qb->getQuery();
-        $org = $q->getSingleResult();
+        $org = $this->_repository->findByUser($this->_userId);
 
         if ($org) {
             $this->_type = self::TYPE_OWNER;
@@ -151,10 +122,7 @@ class OrganizationReference implements OrganizationInterface,
         }
 
         // Is the user employed by the referenced organization?
-        $qb = $this->_documentManager->createQueryBuilder('\Organizations\Entity\Organization');
-        $qb->field('employees.user')->equals($this->_userId);
-        $q  = $qb->getQuery();
-        $org = $q->getSingleResult(); // we need only the first.
+        $org = $this->_repository->findByEmployee($this->_userId);
 
         if ($org) {
             $this->_type = self::TYPE_EMPLOYEE;
@@ -168,6 +136,20 @@ class OrganizationReference implements OrganizationInterface,
     }
 
 
+    /**
+     * Executes a proxy call to the associated organization entity.
+     *
+     * Does nothing, if no organization is available.
+     *
+     * Call it like:
+     * <pre>
+     *   $this->proxy($method[, $arg1[, $arg2[, ...]]]);
+     * </pre>
+     *
+     * @param $method
+     *
+     * @return self|mixed
+     */
     protected function proxy($method)
     {
         if (!$this->hasAssociation()) {
@@ -176,7 +158,9 @@ class OrganizationReference implements OrganizationInterface,
 
         $args = array_slice(func_get_args(), 1);
 
-        return call_user_func_array(array($this->_organization, $method), $args);
+        $return = call_user_func_array(array($this->_organization, $method), $args);
+
+        return ($return === $this->_organization) ? $this : $return;
     }
 
     /*
@@ -271,16 +255,6 @@ class OrganizationReference implements OrganizationInterface,
         return $this->proxy('getOrganizationName');
     }
 
-    public function setAddresses(AddressInterface $addresses)
-    {
-        return $this->proxy('setAddresses', $addresses);
-    }
-
-    public function getAddresses()
-    {
-        return $this->proxy('getAddresses');
-    }
-
     public function getDescription()
     {
         return $this->proxy('getDescription');
@@ -332,9 +306,9 @@ class OrganizationReference implements OrganizationInterface,
         return $this->proxy('getPermissionsResourceId');
     }
 
-    public function getPermissionsUserIds()
+    public function getPermissionsUserIds($type = null)
     {
-        // TODO: Implement getPermissionsUserIds() method.
+        return $this->proxy('getPermissionsUSerIds', $type);
     }
 
     public function getSearchableProperties()

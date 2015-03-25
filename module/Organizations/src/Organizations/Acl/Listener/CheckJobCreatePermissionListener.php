@@ -11,15 +11,16 @@
 namespace Organizations\Acl\Listener;
 
 use Acl\Assertion\AssertionEvent;
+use Auth\Entity\UserInterface;
 use Organizations\Entity\EmployeePermissionsInterface;
 use Zend\EventManager\SharedEventManagerInterface;
 use Zend\EventManager\SharedListenerAggregateInterface;
 
 /**
- * ${CARET}
+ * Checks if an user may create jobs according to the organization permissions.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.18
  */
 class CheckJobCreatePermissionListener implements SharedListenerAggregateInterface
 {
@@ -59,6 +60,11 @@ class CheckJobCreatePermissionListener implements SharedListenerAggregateInterfa
          * @var $organization \Organizations\Entity\OrganizationReference
          */
         $role = $e->getRole();
+
+        if (!$role instanceOf UserInterface) {
+            return false;
+        }
+
         $organization = $role->getOrganization();
 
         if (!$organization->hasAssociation()

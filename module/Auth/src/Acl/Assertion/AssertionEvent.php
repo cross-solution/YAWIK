@@ -16,10 +16,12 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
- * ${CARET}
+ * This event is passed around from instances of EventManager aware assertions.
+ *
+ * It will get populated with the Acl, the role, the resource and the privilege and
+ * provide convenient getter methods.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class AssertionEvent extends Event
 {

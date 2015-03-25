@@ -83,25 +83,10 @@ interface OrganizationInterface
     */
    public function getOrganizationName();
    
-   /**
-    * Address provides the information about the address or semantic address 
-    * of an associated entity.Definition: Based on OAGIS AddressBaseType. 
-    * Exception:CountryCode uses the HR country code list.
-    * 
-    * @param \Core\Entity\AddressInterface
-    * @return OrganizationInterface
-    */
-   public function setAddresses(AddressInterface $addresses);
-   
-   /**
-    * @return AddressInterface
-    */
-   public function getAddresses();
-
-    /**
+      /**
      * @return string
      */
-    public function getDescription();
+   public function getDescription();
 
     /**
      * @param string $description
