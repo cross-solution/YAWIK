@@ -22,7 +22,7 @@
             $form.find(':input:not([id^="s2id_"]):not(select), .select2-container, .cam-description-toggle, .cam-description-toggle *')
 			     .on('mouseover mouseout', $.proxy(this.eventToggle, this))
 			     .focus($.proxy(function(event) {
-                    console.debug('focus');
+//                    console.debug('focus');
 			    	 if (this.blurTimeout) {
 			    		 var $desc = this._getDescription($(event.target).attr('id'));
 			    		 if ($desc) {
@@ -64,7 +64,7 @@
 		
 		toggle: function(id, focus) 
 		{
-            console.debug('toggle description', id);
+            //console.debug('toggle description', id);
 			if (!id) {
 				id = this.focus || '__initial__';
 			}
@@ -115,7 +115,7 @@
 
         select2Toggle: function(event)
         {
-            console.debug(event);
+//            console.debug(event);
 
             var $select  = $(event.target);
             var id       = $select.attr('id');
