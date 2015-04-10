@@ -104,9 +104,7 @@ class Permissions implements PermissionsInterface
      */
     public function __construct($type = null)
     {
-        if (!$type) {
-            $this->type = get_class($this);
-        }
+        $this->type = $type ?: get_class($this);
     }
 
     /**
@@ -204,10 +202,12 @@ class Permissions implements PermissionsInterface
             unset($this->assigned[$resourceId]);
         } else {
             if ($resource instanceOf PermissionsResourceInterface) {
-                $spec = null === $permission
-                      ? $resource->getPermissionsUserIds($this->type)
-                      : array($permission => $resource->getPermissionsUserIds());
-
+                $spec = $resource->getPermissionsUserIds($this->type);
+                if (!is_array($spec) || !count($spec)) {
+                    $spec = array();
+                } else if (is_numeric(key($spec))) {
+                    $spec = array($permission => $spec);
+                }
             } else {
                 $spec = array($permission => $resource instanceOf UserInterface ? array($resource->getId()) : array($resource));
             }
