@@ -63,5 +63,4 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
             ),
         ));
     }
-    
 }

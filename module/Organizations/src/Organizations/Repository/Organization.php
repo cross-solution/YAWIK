@@ -111,13 +111,17 @@ class Organization extends AbstractRepository
          * do not want them to be queried here, so the query needs to check the
          * "parent" field, too.
          */
-        $qb->addAnd(
-           $qb->expr()->field('user')->equals($userId),
-           $qb->expr()->addOr(
-               $qb->expr()->field('parent')->exists(false),
-               $qb->expr()->field('parent')->equals(null)
-           )
-        );
+//        $qb->addAnd(
+//           $qb->expr()->field('user')->equals($userId)
+//                      ->addOr(
+//                            $qb->expr()->addOr($qb->expr()->field('parent')->exists(false))
+//                                       ->addOr($qb->expr()->field('parent')->equals(null))
+//           )
+//        );
+        $qb->addAnd($qb->expr()->field('user')->equals($userId))
+           ->addAnd($qb->expr()->addOr($qb->expr()->field('parent')->exists(false))
+                               ->addOr($qb->expr()->field('parent')->equals(null))
+            );
 
         $q      = $qb->getQuery();
         $entity = $q->getSingleResult();
@@ -140,7 +144,7 @@ class Organization extends AbstractRepository
          * Employees collection is only set on main organization,
          * so here, we do not have to query the "parent" field.
          */
-        $entity = $this->findOneBy(array('employees.user' => $userId));
+        $entity = $this->findOneBy(array('employees.user' => new \MongoId($userId)));
 
         return $entity;
     }

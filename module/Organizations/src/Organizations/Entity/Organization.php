@@ -276,9 +276,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             /* @var $emp EmployeeInterface */
             $perm = $emp->getPermissions();
             if ($perm->isAllowed($change)) {
-                $spec[$change][] = $emp->getUser()->getId();
+                $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
             } else if ($perm->isAllowed($view)) {
-                $spec[$view][] = $emp->getUser()->getId();
+                $spec[PermissionsInterface::PERMISSION_VIEW][] = $emp->getUser()->getId();
             }
         }
 
@@ -427,21 +427,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         /* @var $employees null | ArrayCollection | \Doctrine\ODM\MongoDB\PersistentCollection */
         $employees = $organization->getEmployees();
 
-        if ($employees &&
-            ( $employees instanceof ArrayCollection
-              || $employees->isDirty()
-              || $employees->isInitialized())
-        ) {
-            /* @var $perms Permissions */
-            $perms = $this->getPermissions();
+        $perms = $this->getPermissions();
 
-            foreach ($employees as $emp) {
-                /* @var $emp \Organizations\Entity\Employee */
-                $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
-            }
-            $perms->build();
+        foreach ($employees as $emp) {
+            /* @var $emp \Organizations\Entity\Employee */
+            $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
         }
-
+        $perms->build();
     }
 
     public function setUser(UserInterface $user) {
