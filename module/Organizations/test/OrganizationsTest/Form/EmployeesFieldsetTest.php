@@ -71,6 +71,7 @@ class EmployeesFieldsetTest extends \PHPUnit_Framework_TestCase
                 'should_create_template' => true,
                 'use_labeled_items' => false,
                 'allow_add' => true,
+                'allow_remove' => true,
                 'renderFieldset' => true,
                 'target_element' => array(
                     'type' => 'Organizations/EmployeeFieldset'
