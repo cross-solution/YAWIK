@@ -11,6 +11,7 @@
 /** ActionController of Core */
 namespace Jobs\Controller;
 
+use Jobs\Entity\Status;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
@@ -122,6 +123,7 @@ class ImportController extends AbstractActionController {
                     $result['post']                = $_POST;
                     $form->setData($params);
                     if ($form->isValid()) {
+                        $entity->setStatus($this->mapJobStatus($params['status']));
                         $entity->setUser($user);
                         $group = $user->getGroup($entity->getCompany());
                         if ($group) {
@@ -217,5 +219,23 @@ class ImportController extends AbstractActionController {
         return new JsonModel($result);
     }
 
+    protected $jobStatusMap = array(
+        'aktiv' => Status::ACTIVE,
+        'inaktiv' => Status::INACTIVE,
+        'Freigabe?' => Status::WAITING_FOR_APPROVAL,
+        'freigegeben' => Status::PUBLISH,
+        'ueberarbeiten' => Status::WAITING_FOR_APPROVAL,
+        'neu' => Status::CREATED,
+        'revision' => Status::WAITING_FOR_APPROVAL,
+        'termin' => Status::WAITING_FOR_APPROVAL,
+        'Entwurf' => Status::WAITING_FOR_APPROVAL,
+    );
+
+    protected function mapJobStatus($status)
+    {
+        return isset($this->jobStatusMap[$status])
+               ? $this->jobStatusMap[$status]
+               : Status::CREATED;
+    }
 }
 

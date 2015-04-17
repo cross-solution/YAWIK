@@ -75,13 +75,6 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             
-            'status' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
-            
             'atsEnabled' => array(
                 'filters'  => array(
                 ),          
