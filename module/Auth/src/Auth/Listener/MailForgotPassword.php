@@ -42,6 +42,7 @@ class MailForgotPassword implements ServiceManagerAwareInterface
     {
         /** @var ServiceManager $serviceManager */
         $serviceManager          = $this->getServiceManager();
+        $config                  = $serviceManager->get('config');
 
         /**
          * the sender of the mail is the currently logged in user
@@ -57,6 +58,17 @@ class MailForgotPassword implements ServiceManagerAwareInterface
         //$controllerPluginManager = $serviceManager->get('controllerPluginManager');
         //$urlPlugin               = $controllerPluginManager->get('url');
 
+        $fromEmail               = 'Yawik-System';
+        $fromName                =  $userName;
+        if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails'])) {
+            if (array_key_exists('email', $config['mails']['from'])) {
+                $fromEmail = $config['mails']['from']['email'];
+            }
+            if (array_key_exists('name', $config['mails']['from'])) {
+                $fromName = $config['mails']['from']['name'];
+            }
+        }
+
         /**
          * the receiver of the mail is the "admin" of the running yawik installation
          */
@@ -68,7 +80,7 @@ class MailForgotPassword implements ServiceManagerAwareInterface
         $mail->setTemplate('mail/forgotPassword');
         $mail->setSubject( /*translate*/ 'new Password');
         $mail->setTo($userEmail);
-        $mail->setFrom('Yawik-System', $userName);
+        $mail->setFrom($fromEmail, $fromName);
         $mailService->send($mail);
         return;
 

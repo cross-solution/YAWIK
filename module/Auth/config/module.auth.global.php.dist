@@ -44,7 +44,7 @@ return array(
         ),
     ),
     'captcha' => array(
-        'use' => 'image',
+        'use' => 'reCaptcha', // possible Values are 'image' or 'reCaptcha'
         'reCaptcha' => array(
             // these information you need to get from: https://www.google.com/recaptcha/admin#list
             'public_key' => '%%captcha.recapture.public_key%%', // "site_key"
