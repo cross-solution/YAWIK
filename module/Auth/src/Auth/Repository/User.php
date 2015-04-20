@@ -60,6 +60,13 @@ class User extends AbstractRepository
         return $entity;
     }
 
+    public function findByEmail($email)
+    {
+        $entity = $this->findOneBy(array('info.email' => $email));
+
+        return $entity;
+    }
+
     /**
      * Finds user by login name or email
      *

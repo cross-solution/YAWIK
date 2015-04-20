@@ -124,7 +124,14 @@ class ImportController extends AbstractActionController {
                     $form->setData($params);
                     if ($form->isValid()) {
                         $entity->setStatus($this->mapJobStatus($params['status']));
-                        $entity->setUser($user);
+                        /*
+                         * Search responsible user via contactEmail
+                         */
+                        $users = $repositories->get('Auth/User');
+                        $responsibleUser = $users->findByEmail($params['contactEmail']);
+
+                        $entity->setUser($responsibleUser ?: $user);
+
                         $group = $user->getGroup($entity->getCompany());
                         if ($group) {
                             $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
@@ -138,13 +145,13 @@ class ImportController extends AbstractActionController {
                             $hydratorManager          = $services->get('hydratorManager');
                             $hydrator                 = $hydratorManager->get('Hydrator/Organization');
                             $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
-                            $permissions              = $entityOrganizationFromDB->getPermissions();
+                            //$permissions              = $entityOrganizationFromDB->getPermissions();
                             $data = array(
-                                'externsalId'      => $params->companyId,
+                                'externalId'      => $params->companyId,
                                 'organizationName' => $params->company,
                                 'image'            => $params->logoRef
                             );
-                            $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
+                            //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                             $repositories->store($entityOrganization);
                             $entity->setOrganization($entityOrganization);

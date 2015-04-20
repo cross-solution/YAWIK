@@ -191,16 +191,6 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
        
        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
-            'name' => 'status',
-            'options' => array(
-                'label' => 'status'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
             'name' => 'reference',
             'options' => array(
                 'label' => 'reference'

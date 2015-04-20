@@ -82,7 +82,7 @@ class Auth extends AbstractHelper
         
         try {
             return $this->getService()->getUser()->$property;
-        } catch (\Core\Model\Exception\OutOfBoundsException $e) {
+        } catch (\OutOfBoundsException $e) {
             return null;
         }
     }
