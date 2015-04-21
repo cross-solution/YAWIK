@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 
 return array(
     'doctrine' => array(
@@ -12,10 +16,12 @@ return array(
         'eventmanager' => array(
             'odm_default' => array(
                 'subscribers' => array(
+                    '\Organizations\Repository\Event\InjectOrganizationReferenceListener',
                 ),
             ),
         ),
     ),
+
     'Organizations' => array(
         'form' => array(
         ),
@@ -38,17 +44,18 @@ return array(
 
 
     'controllers' => array(
-        'invokables' => array(
-            'Organizations/Index' => 'Organizations\Controller\IndexController', 
-        ),
         'factories' => array(
-            'Organizations/TypeAHead' => 'Organizations\Controller\SLFactory\TypeAHeadControllerSLFactory',
+            'Organizations/TypeAHead' => 'Organizations\Factory\Controller\TypeAHeadControllerFactory',
+            'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
         )
     ),
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
              'organizations/index/edit' => __DIR__ . '/../view/organizations/index/form.phtml',
+             'organizations/form/employees-fieldset' => __DIR__ . '/../view/form/employees-fieldset.phtml',
+             'organizations/form/employee-fieldset' => __DIR__ .'/../view/form/employee-fieldset.phtml',
+             'organizations/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -60,14 +67,21 @@ return array(
              'Organizations/form' => 'Organizations\Form\Organizations',
              'Organizations/OrganizationsContactForm'     => 'Organizations\Form\OrganizationsContactForm',
              'Organizations/OrganizationsNameForm'        => 'Organizations\Form\OrganizationsNameForm',
-            'Organizations/OrganizationsDescriptionForm' => 'Organizations\Form\OrganizationsDescriptionForm',
-            'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
-            'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
-            'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
+             'Organizations/OrganizationsDescriptionForm' => 'Organizations\Form\OrganizationsDescriptionForm',
+             'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
+             'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
+             'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
+            'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
+            'Organizations/Employees'                    => 'Organizations\Form\Employees',
+
+
+            'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
         ),
         'factories' => array(
             'Organizations/Image' => 'Organizations\Form\LogoImageFactory',
+            'Organizations/EmployeesFieldset'            => 'Organizations\Factory\Form\EmployeesFieldsetFactory',
+            'Organizations/EmployeeFieldset'             => 'Organizations\Factory\Form\EmployeeFieldsetFactory',
         )
     ),
     'input_filters' => array(

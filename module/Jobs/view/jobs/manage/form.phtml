@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 /**
@@ -140,24 +140,70 @@ if ($this->page == 2):
                 break;
             case "2":
         ?>
-        <div id="job_incomplete" class="alert alert-warning " <?php if (isset($this->jobvalid) && $this->jobvalid == true)
-        {
-            echo 'style = "display: none;"';
-        } ?>>
-        <?php echo $this->translate('Your job position is incomplete.'); ?>
-        <span id="job_errormessages">
-    <?php if (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) {
-        echo ($this->errorMessage);
-    } ?>
-    </span>
-    </div>
-    <?php
+	<php
+        /**
+         * check for required fields
+         */
+        ?>
+        <?php if ($job->isDraft()):?>
+            <div id="job_incomplete" class="alert alert-warning " <?php echo (isset($this->jobvalid) && $this->jobvalid == true) ? 'style = "display: none;"' : ''; ?>>
+                <?php echo $this->translate('Your job position is incomplete.'); ?>
+                <span id="job_errormessages">
+                    <?php echo (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) ? ($this->errorMessage) : '';?>
+                </span>
+            </div>
+	<?php
+        /**
+         * if job is ative, a user can deativate the job or publish changes
+         */
+        ?>
+        <?php elseif ($job->status == 'active'):?>
+            <div class="alert alert-info">
+                <?php echo $this->translate('Your job opening is online. You can publish minor changes or you can deactivate the job opening'); ?>
+            </div>
+	<?php
+        /**
+         * if job was created and is waiting for approval
+         */
+        ?>
+        <?php elseif ($job->status == 'created'):?>
+            <div class="alert alert-info">
+                <?php echo $this->translate('Your job opening was successfully created and is waiting for approval.'); ?>
+            </div>
+	<?php
+        /**
+         * if is inactive
+         */
+        ?>
+        <?php elseif ($job->status == 'inactive'):?>
+            <div class="alert alert-info">
+                <?php echo $this->translate('Your job opening is inactive. You can reactivate it. Chargeable channels are not updated.'); ?>
+            </div>
+	<?php
+        /**
+         * if is expired
+         */
+        ?>
+        <?php elseif ($job->status == 'expired'):?>
+            <div class="alert alert-info">
+                <?php echo $this->translate('Your job was expired. You can reactivate you job opening. Chargeable channels are not updated.'); ?>
+            </div>
+	<?php
+        /**
+         * if job was rejected
+         */
+        ?>
+        <?php elseif ($job->status == 'rejected'):?>
+            <div class="alert alert-warning">
+                <?php echo $this->translate('Your job opening was rejected. Please correct the errors and republish it'); ?>
+            </div>
+        <?php endif?>
+        <?php
                 echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
                 if ($this->job->isDraft()) {
                     echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
                         sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'') . '</a>' . PHP_EOL;
-                }
-                else if ($this->job->isActive()) {
+                } elseif ($this->job->isActive()) {
                     echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
                         $this->translate('submit changes') . '</a>' . PHP_EOL;
                     $deactivateLink = $this->url(

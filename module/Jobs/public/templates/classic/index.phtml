@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><?php echo $this->titleHead?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/classic/job.css")?>" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <style>
+      form > div:hover {background-color: #eee;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <main>
+        <!-- 
+          This the *classic* Template. Templates are quite easy to create. Take a look at the sources:
+ 
+          https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
+        -->
+        <p><?php echo $this->descriptionEditable ?></p>
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-center"><?php echo $this->title; ?></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="panel">
+              <div class="panel-heading"><h4><?php echo $this->translate("Your tasks")?>:</h4></div>
+              <div class="panel-body"><?php echo $this->requirements;?></div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="panel">
+              <div class="panel-heading"><h4><?php echo $this->translate("Qualifications")?>:</h4></div>
+              <div class="panel-body"><?php echo $this->qualifications;?></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel">
+              <div class="panel-heading"><h4><?php echo $this->translate("Benefis")?>:</h4></div>
+              <div class="panel-body"><?php echo $this->benefits;?></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-center">
+              <a target="_new" class="btn btn-lg btn-primary" href="<?php echo $this->uriApply ?>">
+                <strong><?php echo $this->translate("Apply now")?></strong>
+              </a>
+            </h2>
+         </row>
+         <row>
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <div>
+              <img src="<?php echo $this->basePath($this->uriLogo)?>">
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+            <address>
+              <strong><?php echo $this->organizationName?><br></strong>
+              <?php echo $this->street?><br>
+              <?php echo $this->zipcode?> <?php echo $this->city?><br><br>
+              <?php echo $this->phone?>
+            </address>
+          </div>
+        </div>
+      </main>
+      <footer class="text-right"><small>powered by <a href="http://yawik.org">YAWIK</small></footer>
+    </div>
+  </body>
+</html>

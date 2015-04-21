@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -92,6 +92,17 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                     'defaults' => array(
                                         'controller' => 'Applications\Controller\MultiManage',
                                         'action' => 'multimodal'
+                                    ),
+                                ),
+                            ),
+                            'mail' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/mail/:status',
+                                    'defaults' => array(
+                                        'controller' => 'Applications\Controller\Index',
+                                        'action' => 'mail',
+                                        'status' => 'test'
                                     ),
                                 ),
                             ),

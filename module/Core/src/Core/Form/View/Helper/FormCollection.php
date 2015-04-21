@@ -35,8 +35,13 @@ class FormCollection extends ZendFormCollection
         $this->layout = $layout;
         return $this;
     }
-    
-    public function render(ElementInterface $element)
+
+    /**
+     * @param ElementInterface $element
+     * @param bool $useViewPartial
+     * @return string
+     */
+    public function render(ElementInterface $element, $useViewPartial = false)
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $renderer = $this->getView();
@@ -59,10 +64,48 @@ class FormCollection extends ZendFormCollection
             $templateMarkup = $this->renderTemplate($element);
             $this->isWithinCollection = false;
         }
-    
+
+        $elementId = $element->getAttribute('id');
+        if (!$elementId) {
+            $elementId = preg_replace(
+                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                array('-'              , '-'    , ''       ),
+                $element->getName()
+            );
+            $element->setAttribute('id', $elementId);
+        }
+
+        /*
+         * We had the problem, that collection templates were not rendered using the viewPartial due to the call
+         * to this function from the parent class, which does not provide the $useViewPartial variable.
+         * Currently this is fixed by always using the view partial if $this->isWithinCollection is true.
+         *
+         * We should consider using a new property $this->useViewPartial, for cover the case, where the
+         * template should NOT be rendered using the view partial.
+         *
+         */
+        if ($element instanceOf ViewPartialProviderInterface && ($this->isWithinCollection || $useViewPartial)) {
+            /* @var $partial \Zend\View\Helper\Partial */
+            $partial = $renderer->plugin('partial');
+            return $partial(
+                $element->getViewPartial(), array('element' => $element)
+            );
+        }
+
         foreach ($element->getIterator() as $elementOrFieldset) {
             /* @var $elementOrFieldset ElementInterface|ViewPartialProviderInterface|ViewHelperProviderInterface */
             if ($elementOrFieldset instanceOf ViewPartialProviderInterface) {
+
+                $elementOrFieldsetId = $elementOrFieldset->getAttribute('id');
+                if (!$elementOrFieldsetId) {
+                    $elementOrFieldsetId = preg_replace(
+                        array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                        array('-'              , '-'    , ''       ),
+                        $elementOrFieldset->getName()
+                    );
+                    $elementOrFieldset->setAttribute('id', $elementOrFieldsetId);
+                }
+
                 /* @var $partial \Zend\View\Helper\Partial */
                 $partial = $renderer->plugin('partial');
                 $markup .= $partial(
@@ -102,15 +145,7 @@ class FormCollection extends ZendFormCollection
         
         // Every collection is wrapped by a fieldset if needed
         if ($this->shouldWrap) {
-            $elementId = $element->getAttribute('id');
-            if (!$elementId) {
-                $elementId = preg_replace(
-                    array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
-                    array('-'              , '-'    , ''       ),
-                    $element->getName()
-                );
-                $element->setAttribute('id', $elementId);
-            }
+
             
             if ($this->isWithinCollection) {
                 $attrStr = $this->createAttributesString($element->getAttributes());

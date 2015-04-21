@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -23,6 +23,17 @@ use Applications\Entity\Status;
 use Applications\Entity\StatusInterface;
 
 /**
+ * there are basically two ways to use this controller,
+ * (1) either you have a form, and want to accumulate inputs, or you want to create a form on an existing or new application
+ * (2) or want to do some action on a concrete form.
+ *
+ * for both you need the applyId, which is NOT the application-id, the applyId is an alias for the Job, it can be some human-readable text or an external ID.
+ * the application to an applyId is found by the combination of the user and the job, that is represented by the applyId.
+ * this approach ensures, that applications stick to the related job.
+ *
+ * nonetheless, there is an exception, for the posts for updating the application, the application-id is needed.
+ *
+ * if you use the do as query-parameter, you have to customize the do-Action for the special purpose that is assigned to the do parameter in the query
  *
  * @method \Auth\Controller\Plugin\Auth auth
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -203,6 +214,7 @@ class ApplyController extends AbstractActionController
     public function doAction()
     {
         $services     = $this->getServiceLocator();
+        $config       = $services->get('Config');
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
         $application  = $repository->findDraft(
@@ -223,7 +235,27 @@ class ApplyController extends AbstractActionController
             $this->notification()->error(/*@translate*/ 'There are missing required informations. Your application cannot be send.');
             return $this->redirect()->toRoute('lang/apply', array('applyId' => $this->params('applyId')));
         }
-        
+
+        if ('sendmail' == $this->params()->fromQuery('do')) {
+            $jobEntity         = $application->job;;
+            $mailData = array(
+                'application' => $application,
+                'to'          => $jobEntity->contactEmail
+            );
+            if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails']) && array_key_exists('email', $config['mails']['from'])) {
+                $mailData['from'] = $config['mails']['from']['email'];
+            }
+            $this->mailer('Applications/CarbonCopy', $mailData, TRUE);
+            $repositories->remove($application);
+            //$this->notification()->success(/*@translate*/ 'Application has been send.');
+            $model = new ViewModel(array(
+                'success' => true,
+                'job' => $jobEntity,
+            ));
+            $model->setTemplate('applications/apply/success');
+            return $model;
+        }
+
         $application->setIsDraft(false)
                     ->setStatus(new Status())
                     ->getPermissions()
@@ -232,7 +264,7 @@ class ApplyController extends AbstractActionController
 
         $this->sendRecruiterMails($application);
         $this->sendUserMails($application);
-        
+
         $model = new ViewModel(array(
             'success' => true,
             'application' => $application,
@@ -293,9 +325,9 @@ class ApplyController extends AbstractActionController
     protected function sendUserMails($application)
     {
         if ($application->getAttributes()->getSendCarbonCopy()) {
-            $mail = $this->mailer('Applications/CarbonCopy', array(
-                'application' => $application,
-            ), /*send*/ true);
+            $this->mailer('Applications/CarbonCopy', array(
+                    'application' => $application,
+                ), /*send*/ true);
         }
     }
 

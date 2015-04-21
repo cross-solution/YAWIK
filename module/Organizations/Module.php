@@ -3,19 +3,21 @@
  * YAWIK
  * Organizations Module Bootstrap
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
 namespace Organizations;
 
 use Core\ModuleManager\ModuleConfigLoader;
+use Zend\EventManager\EventInterface;
+use Zend\Mvc\MvcEvent;
 
 
 /**
  * Bootstrap class of the organizations module
  */
-class Module 
+class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
 {
     /**
      * Loads module specific configuration.
@@ -43,5 +45,19 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function onBootstrap(EventInterface $e)
+    {
+        /* @var $e MvcEvent */
+        $eventManager = $e->getApplication()->getEventManager();
+        $services     = $e->getApplication()->getServiceManager();
+        $sharedManager = $eventManager->getSharedManager();
+
+        $createJobListener = new \Organizations\Acl\Listener\CheckJobCreatePermissionListener();
+        $createJobListener->attachShared($sharedManager);
+
+
+
     }
 }

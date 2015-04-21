@@ -8,7 +8,7 @@
  * Having said that, you may always overwrite or extend the configuration
  * in your own modules configuration file(s) (or via the config autoloading).
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -98,6 +98,19 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
+                    'content' => array(
+                        'type' => 'Regex',
+                        'options' => array(
+                            'regex' => '/content/(?<view>.*)$',
+                            'defaults' => array(
+                                'controller' => 'Core\Controller\Content',
+                                'action' => 'index',
+                            ),
+                            'spec' => '/content/%view%'
+                        ),
+                        'may_terminate' => true,
+
+                    )
                 ),
             ),
             'file' => array(
@@ -151,7 +164,8 @@ return array(
 //            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
-            'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory'
+            'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
+            'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
@@ -301,15 +315,15 @@ return array(
             'message_separator_string' => '</li><li>',
             'message_close_string'     => '</li></ul></div>',
         ),
-        'headscript' => array(
-            'Core/js/notification.js',
-        ),
     ),
     
     'filters' => array(
         'invokables' => array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
         ),
+        'factories' => array(
+            "Core/XssFilter" => "Core\Filter\XssFilterFactory",
+       ),
     ),
     
     'form_elements' => array(

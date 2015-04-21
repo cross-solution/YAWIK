@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
@@ -31,6 +31,11 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
     private $tokenGeneratorMock;
 
     /**
+     * @var
+     */
+    private $loginFilterMock;
+
+    /**
      * @var MockObject
      */
     private $inputFilterMock;
@@ -44,11 +49,6 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
      * @var MockObject
      */
     private $urlPluginMock;
-
-    /**
-     * @var MockObject
-     */
-    private $loginFilterMock;
 
     /**
      * @var MockObject

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -81,10 +81,13 @@ class CheckPermissionsListener implements ListenerAggregateInterface
     /**
      * test acl on route
      * @param \Zend\Mvc\MvcEvent $event
-     * @return type
+     * @return void
      */
     public function onRoute(MvcEvent $event)
     {
+        if ($event->isError()) {
+            return $event->getResult();
+        }
         $routeMatch = $event->getRouteMatch();
         $routeName  = $routeMatch->getMatchedRouteName();
         $resourceId = "route/$routeName";

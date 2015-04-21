@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -63,8 +63,7 @@ class FormInfoCheckbox extends ZfFormCheckbox
         <div class="checkbox">
             <label for="%s">%s %s</label>
         </div>
-        
-        <div class="modal fade" id="modal-' . $element->getAttribute('id') . '">
+        <div class="modal fade modal-scrollable" id="modal-' . $element->getAttribute('id') . '" tabindex="-1" role="dialog" aria-labelledby="label-search-user" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 </div>

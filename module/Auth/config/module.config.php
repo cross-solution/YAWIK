@@ -3,7 +3,7 @@
  * YAWIK
  * Configuration file of the Auth module
  * 
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -33,6 +33,7 @@ return array(
             'SessionManager' => '\Zend\Session\SessionManager',
             'Auth\Form\ForgotPasswordInputFilter' => 'Auth\Form\ForgotPasswordInputFilter',
             'Auth\Form\RegisterInputFilter' => 'Auth\Form\RegisterInputFilter',
+            'Auth\Form\LoginInputFilter' => 'Auth\Form\LoginInputFilter',
             'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
             'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener',
             'Auth/Listener/MailForgotPassword' => 'Auth\Listener\MailForgotPassword'
@@ -47,11 +48,12 @@ return array(
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
             'Acl' => '\Acl\Service\AclFactory',
             'Acl/AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
-            'Auth\Form\ForgotPassword' => 'Auth\Form\SLFactory\ForgotPasswordSLFactory',
+            'Auth\Form\ForgotPassword' => 'Auth\Factory\Form\ForgotPasswordFactory',
             'Auth\Service\ForgotPassword' => 'Auth\Service\SLFactory\ForgotPasswordSLFactory',
             'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Service\SLFactory\UserUniqueTokenGeneratorSLFactory',
             'Auth\Service\GotoResetPassword' => 'Auth\Service\SLFactory\GotoResetPasswordSLFactory',
-            'Auth\Form\Register' => 'Auth\Form\SLFactory\RegisterSLFactory',
+            'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
+            'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
             'Auth\Service\Register' => 'Auth\Service\SLFactory\RegisterSLFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Service\SLFactory\RegisterConfirmationSLFactory',
         ),
@@ -62,7 +64,6 @@ return array(
 
     'controllers' => array(
         'invokables' => array(
-            'Auth\Controller\Index' => 'Auth\Controller\IndexController',
             'Auth\Controller\Manage' => 'Auth\Controller\ManageController',
             'Auth/ManageGroups' => 'Auth\Controller\ManageGroupsController',
             'Auth\Controller\Image' => 'Auth\Controller\ImageController',
@@ -75,17 +76,22 @@ return array(
             'Auth\Controller\Register' => 'Auth\Controller\SLFactory\RegisterControllerSLFactory',
             'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory',
             'Auth\Controller\Password' => 'Auth\Controller\SLFactory\PasswordControllerSLFactory',
+            'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
         )
     ),
     
     'controller_plugins' => array(
         'invokables' => array(
             'Auth' => '\Auth\Controller\Plugin\Auth',
+            'OAuth' => '\Auth\Controller\Plugin\OAuth',
             'Auth/LoginFilter' => 'Auth\Controller\Plugin\LoginFilter',
         ),
         'factories' => array(
             'Auth/SocialProfiles' => 'Auth\Controller\Plugin\Service\SocialProfilesFactory',
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
+        ),
+        'shared' => array(
+            'OAuth' => False,
         )
     ),
     'hybridauth' => array(
@@ -113,7 +119,6 @@ return array(
 
     'mails' => array(
         'invokables' => array(
-            'Auth\Mail\ForgotPassword' => 'Auth\Mail\ForgotPassword',
             'Auth\Mail\RegisterConfirmation' => 'Auth\Mail\RegisterConfirmation',
         ),
     ),
@@ -294,6 +299,26 @@ return array(
                     ),
                 ),
             ),
+            'user-search' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/user/search',
+                    'defaults' => array(
+                        'controller' => 'Auth/ManageGroups',
+                        'action' => 'search-users'
+                    ),
+                ),
+            ),
+            'test-hybrid' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/testhybrid',
+                    'defaults' => array(
+                        'controller' => 'Auth/SocialProfiles',
+                        'action' => 'testhybrid',
+                    ),
+                ),
+            ),
         ),
     ),
     
@@ -353,9 +378,10 @@ return array(
                 'allow' => array(
                     'route/auth-logout',
                     'route/lang/my',
+                    'route/lang/my-password'
                 ),
                 'deny' => array( 
-                    'route/lang/auth',
+                   // 'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-extern',
                 ),
@@ -418,6 +444,7 @@ return array(
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
             'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
             'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
+            'mail/register' =>  __DIR__ . '/../view/mail/register.phtml',
         ),
     
         'template_path_stack' => array(
@@ -473,6 +500,7 @@ return array(
 //             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
+            'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
         )
     ),
 

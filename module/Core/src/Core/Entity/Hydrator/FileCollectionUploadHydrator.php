@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -26,7 +26,12 @@ class FileCollectionUploadHydrator implements HydratorInterface
         $this->strategy    = $strategy;
         $this->elementName = $name;
     }
-    
+
+    /**
+     *
+     *
+     * @return \Core\Entity\FileInterface
+     */
     public function getLastUploadedFile()
     {
         return $this->lastUploaded;

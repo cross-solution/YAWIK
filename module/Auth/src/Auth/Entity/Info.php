@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -22,53 +22,88 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Info extends AbstractEntity implements InfoInterface
 {   
 	
-	/** @var string 
+	/**
+     * Day of birth of the user
+     *
+     * @var string
 	 * @ODM\String */
 	protected $birthDay;
 	
-	/** @var string 
+	/**
+     * Month of birth of the user
+     *
+     * @var string
 	 * @ODM\String */
 	protected $birthMonth;
 
-	/** @var string 
+	/**
+     * Year of birth of the user
+     *
+     * @var string
 	 * @ODM\String */
 	protected $birthYear;
 	
-    /** @var string 
+    /**
+     * primary email of the user.
+     *
+     * @var string
      * @ODM\String */
     protected $email;
 
     /**
+     * Flag, if primary email is verified
+     *
      * @var boolean
      * @ODM\Boolean
      */
     protected $emailVerified;
     
-    /** @var string 
+    /**
+     * Firstname of the user
+     *
+     * @var string
      * @ODM\String */ 
     protected $firstName;
     
-    /** @var string 
+    /**
+     * Gender of the user
+     *
+     * @var string
      * @ODM\String */
     protected $gender;
     
-    /** @var string 
+    /**
+     * house number of the users address
+     *
+     * @var string
      * @ODM\String */
     protected $houseNumber;
     
-    /** @var string
+    /**
+     * Lastname of the user
+     *
+     * @var string
      * @ODM\String */
     protected $lastName;
     
-    /** @var string 
+    /**
+     * phone number of the user
+     *
+     * @var string
      * @ODM\String */
     protected $phone;
     
-    /** @var string 
+    /**
+     * postal code of the users address
+     *
+     * @var string
      * @ODM\String */
     protected $postalCode;
 
-    /** @var string 
+    /**
+     * city of the users address
+     *
+     * @var string
      * @ODM\String */
     protected $city;
     
@@ -80,12 +115,16 @@ class Info extends AbstractEntity implements InfoInterface
      */
     protected $image;
     
-    /** @var string 
+    /**
+     * street of the users address
+     *
+     * @var string
      * @ODM\String */
     protected $street;    
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setBirthDay($birthDay)
@@ -93,8 +132,12 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->birthDay=$birthDay;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getBirthDay()
     {
     	return $this->street;
@@ -102,6 +145,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setBirthMonth($birthMonth)
@@ -109,8 +153,12 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->birthDay=$birthMonth;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getBirthMonth()
     {
     	return $this->birthMonth;
@@ -118,6 +166,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setBirthYear($birthYear)
@@ -125,8 +174,12 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->birthYear=$birthYear;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getBirthYear()
     {
     	return $this->birthYear;
@@ -134,6 +187,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\Info
      */
     public function setEmail($email)
@@ -141,20 +195,33 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->email = trim((String)$email);
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getEmail()
     {
     	return $this->email;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
     public function isEmailVerified()
     {
         return $this->emailVerified;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     *
+     * @param bool $emailVerified
+     * @return $this
+     */
     public function setEmailVerified($emailVerified)
     {
         $this->emailVerified = $emailVerified;
@@ -163,6 +230,7 @@ class Info extends AbstractEntity implements InfoInterface
 
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setFirstName($firstName)
@@ -170,9 +238,13 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->firstName = trim((String)$firstName);
     	return $this;
     }
-    
-    
-    /** {@inheritdoc} */
+
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getGender()
     {
     	return $this->gender;
@@ -180,6 +252,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setGender($gender)
@@ -187,8 +260,12 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->gender = trim((String)$gender);
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getFirstName()
     {
     	return $this->firstName;
@@ -196,6 +273,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setHouseNumber($houseNumber)
@@ -203,8 +281,12 @@ class Info extends AbstractEntity implements InfoInterface
     	$this->houseNumber=$houseNumber;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getHouseNumber()
     {
     	return $this->houseNumber;
@@ -212,6 +294,7 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setLastName($name)
@@ -219,13 +302,22 @@ class Info extends AbstractEntity implements InfoInterface
         $this->lastName = trim((String) $name);
         return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getLastName()
     {
         return $this->lastName;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getDisplayName()
     {
         if (!$this->lastName) {
@@ -233,7 +325,13 @@ class Info extends AbstractEntity implements InfoInterface
         }
         return ($this->firstName ? $this->firstName . ' ' : '') . $this->lastName;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param bool $extended
+     * @return string
+     */
     public function getAddress($extended = false)
     {
         $address = array();
@@ -265,58 +363,85 @@ class Info extends AbstractEntity implements InfoInterface
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setPhone($phone) {
     	$this->phone = (String) $phone;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getPhone() {
     	return $this->phone;
     }
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setPostalCode($postalCode) {
     	$this->postalCode = (String) $postalCode;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getPostalCode() {
     	return $this->postalCode;
     }
     
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setCity($city) {
     	$this->city = (String) $city;
     	return $this;
     }
-    
-    /** {@inheritdoc} */
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getCity() {
     	return $this->city;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param EntityInterface $image
+     * @return $this
+     */
     public function setImage(EntityInterface $image = null)
     {
         $this->image = $image;
         return $this;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return FileInterface
+     */
     public function getImage()
     {
         return $this->image;
     }
     /**
      * {@inheritdoc}
+     *
      * @return \Auth\Entity\User
      */
     public function setStreet($street)
@@ -325,14 +450,19 @@ class Info extends AbstractEntity implements InfoInterface
     	return $this;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
     public function getStreet() 
     {
     	return $this->street;
     }
     
     /**
-     * convert an array into an Info Object
+     * convert an array into an InfoObject
+     *
      * @param Array $array
      * @return \Auth\Entity\Info
      */
@@ -355,7 +485,8 @@ class Info extends AbstractEntity implements InfoInterface
     }
     
     /**
-     * convert an Info object into an Array
+     * convert an InfoObject into an Array
+     *
      * @param Info $info
      * @return Array
      */

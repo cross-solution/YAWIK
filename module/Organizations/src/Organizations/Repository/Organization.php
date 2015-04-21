@@ -2,13 +2,15 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   GPLv3
  */
 
 namespace Organizations\Repository;
 
+use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
+use Organizations\Entity\OrganizationInterface;
 
 class Organization extends AbstractRepository
 {
@@ -37,7 +39,26 @@ class Organization extends AbstractRepository
         
         return $qb;
     }
-    
+
+    /**
+     * Gets a cursor for all hiring organizations.
+     *
+     * @param OrganizationInterface $organization parent organization
+     *
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     * @usedBy \Organizations\Entity\Organization::getHiringOrganizations()
+     * @since 0.18
+     */
+    public function getHiringOrganizationsCursor(OrganizationInterface $organization)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->field('parent')->equals($organization->getId());
+        $q  = $qb->getQuery();
+        $cursor = $q->execute();
+
+        return $cursor;
+    }
+
     /**
      * Find a organizations by an name
      * 
@@ -73,6 +94,72 @@ class Organization extends AbstractRepository
         return $entity;
     }
 
+    /**
+     * Finds the main organization of an user.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|OrganizationInterface
+     */
+    public function findByUser($userOrId)
+    {
+        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+        $qb     = $this->createQueryBuilder();
+
+        /*
+         * HiringOrganizations also could be associated to the user, but we
+         * do not want them to be queried here, so the query needs to check the
+         * "parent" field, too.
+         */
+//        $qb->addAnd(
+//           $qb->expr()->field('user')->equals($userId)
+//                      ->addOr(
+//                            $qb->expr()->addOr($qb->expr()->field('parent')->exists(false))
+//                                       ->addOr($qb->expr()->field('parent')->equals(null))
+//           )
+//        );
+        $qb->addAnd($qb->expr()->field('user')->equals($userId))
+           ->addAnd($qb->expr()->addOr($qb->expr()->field('parent')->exists(false))
+                               ->addOr($qb->expr()->field('parent')->equals(null))
+            );
+
+        $q      = $qb->getQuery();
+        $entity = $q->getSingleResult();
+
+        return $entity;
+    }
+
+    /**
+     * Finds the organization, an user is employed by.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|OrganizationInterface
+     */
+    public function findByEmployee($userOrId)
+    {
+        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        /*
+         * Employees collection is only set on main organization,
+         * so here, we do not have to query the "parent" field.
+         */
+        $entity = $this->findOneBy(array('employees.user' => new \MongoId($userId)));
+
+        return $entity;
+    }
+
+    public function getEmployersCursor(UserInterface $user)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->field('refs.employees')->equals($user->getId());
+
+        $q  = $qb->getQuery();
+        $c  = $q->execute();
+
+        return $c;
+    }
+
     public function create(array $data=null) {
         $entity = parent::create($data);
         $entity->isDraft(True);
@@ -80,11 +167,25 @@ class Organization extends AbstractRepository
     }
 
     /**
+     * creates a new Organization, no matter if a organization with this name already exists,
+     * also creates a new Name, but link this Name to another OrganizationName-Link, if this Name already exists
+     * @param $name
+     */
+    public function createWithName($name) {
+        $entity = parent::create();
+        $repositoryNames = $this->dm->getRepository('Organizations\Entity\OrganizationName');
+        $entityName = $repositoryNames->create();
+        $entityName->setName($name);
+        $entity->setOrganizationName($entityName);
+        return $entity;
+    }
+
+    /**
      * @param string $query
-     * @param int    $userId
+     * @param UserInterface    $user
      * @return array
      */
-    public function getTypeAheadResults($query, $userId)
+    public function getTypeAheadResults($query, $user)
     {
         $organizationNames = array();
 
@@ -103,12 +204,23 @@ class Organization extends AbstractRepository
 
         $organizations = array();
 
+        $userOrg = $user->getOrganization();
+
         $qb = $this->createQueryBuilder();
         $qb->hydrate(false)
             ->select(array('contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'))
-            ->field('permissions.view')->equals($userId)
-            ->field('organizationName')->in(array_keys($organizationNames))
-            ->limit(5);
+            ->limit(5)
+            ->addAnd($qb->expr()->field('permissions.view')->equals($user->getId())
+                                ->field('organizationName')->in(array_keys($organizationNames))
+            );
+
+
+        if ($userOrg->hasAssociation()) {
+            $qb->addAnd(
+                $qb->expr()->addOr($qb->expr()->field('parent')->equals($userOrg->getId()))
+                           ->addOr($qb->expr()->field('_id')->equals($userOrg->getId()))
+            );
+        }
 
         $result = $qb->getQuery()->execute();
 
@@ -119,5 +231,29 @@ class Organization extends AbstractRepository
         }
 
         return $organizations;
+    }
+
+    /**
+     * Look for an drafted Document of a given user
+     *
+     * @param $user
+     * @return \Organizations\Entity\Organization|null
+     */
+    public function findDraft($user)
+    {
+        if ($user instanceOf UserInterface) {
+            $user = $user->getId();
+        }
+
+        $document = $this->findOneBy(array(
+            'isDraft' => true,
+            'user' => $user
+        ));
+
+        if (!empty($document)) {
+            return $document;
+        }
+
+        return null;
     }
 }

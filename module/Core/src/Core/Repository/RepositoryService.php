@@ -3,13 +3,14 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** RepositoryService.php */ 
 namespace Core\Repository;
 
+use Core\Repository\DoctrineMongoODM\Event\EventArgs;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Core\Entity\EntityInterface;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -27,7 +28,7 @@ class RepositoryService
     {
         $nameParts = explode('/', $name);
         if (2 > count($nameParts)) {
-            $nameParts = array($name, $name);
+            $nameParts = array($name, substr($name, 0, -1));
             //throw new \InvalidArgumentException('Name must be in the format "Namespace/Entity")');
         }
         
@@ -50,7 +51,16 @@ class RepositoryService
         $this->dm->flush();
         return $this;
     }
-    
+
+    public function flush($entity = null, array $options = array())
+    {
+        $this->dm->flush();
+
+        $events = $this->dm->getEventManager();
+        $events->hasListeners('postCommit')
+        && $events->dispatchEvent('postCommit', new EventArgs(array('document' => $entity, 'documentManager' => $this->dm)));
+    }
+
     public function remove(EntityInterface $entity)
     {
         $dm     = $this->dm;

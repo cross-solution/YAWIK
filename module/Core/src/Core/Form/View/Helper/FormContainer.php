@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -35,7 +35,7 @@ class FormContainer extends AbstractHelper
      * @param array $parameter
      * @return FormContainer|string
      */
-    public function __invoke(Container $container = null, $layout=Form::LAYOUT_INLINE, $parameter = array())
+    public function __invoke(Container $container = null, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         if (!$container) {
             return $this;
@@ -52,7 +52,7 @@ class FormContainer extends AbstractHelper
      * @param array $parameter
      * @return string
      */
-    public function render(Container $container, $layout=Form::LAYOUT_INLINE, $parameter = array())
+    public function render(Container $container, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         
         $content = '';

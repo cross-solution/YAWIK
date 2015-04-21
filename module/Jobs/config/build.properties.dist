@@ -3,19 +3,3 @@
 */
 YAWIK.bundled=true
 
-/**
-* Email
-**/
-multiposting.approvalMail=jobs@yawik.org
-
-/**
-* Rest-Server, that imports multipostings
-*/
-multiposting.target.uri=
-multiposting.target.user=
-multiposting.target.pw=
-
-/**
-* default logo, which is displayed in job openings, if a company has no own logo
-*/
-default_logo=/Jobs/images/yawik-small.jpg

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -16,6 +16,9 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
+use Applications\Options\ModuleOptions;
+use Zend\Stdlib\AbstractOptions;
+
 
 /**
  * Factory for creating file upload formular elements.
@@ -66,12 +69,26 @@ class FileUploadFactory implements FactoryInterface
     protected $config;
 
     /**
-     * The configuration from the FileUploadFactory configuration
+     * Optional Module Options. eg. "Jobs/Options" or "Applications/Options"
+     *
+     * @var string|null
      */
+    protected $options;
 
+    /**
+     * The configuration from the FileUploadFactory configuration
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return Form
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Form\FormElementManager */
+        $service = $serviceLocator->getServiceLocator();
+        $options=null;
+        if ($this->options){
+            $options = $service->get($this->options);
+        }
 
         // Retrieve configuration.
         if ($this->configKey) {
@@ -130,7 +147,7 @@ class FileUploadFactory implements FactoryInterface
         $form->setHydrator($hydrator);
         $form->setOptions(array('use_files_array' => true));
         
-        $this->configureForm($form);
+        $this->configureForm($form, $options);
         return $form;
     }
 
@@ -138,8 +155,9 @@ class FileUploadFactory implements FactoryInterface
      * Configures the factored form.
      *
      * @param \Core\Form\Form $form
+     * @param AbstractOptions $options
      */
-    protected function configureForm($form)
+    protected function configureForm($form, AbstractOptions $options)
     { }
     
 }

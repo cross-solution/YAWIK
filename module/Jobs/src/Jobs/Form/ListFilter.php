@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -20,13 +20,19 @@ use Core\Form\ViewPartialProviderInterface;
  */
 class ListFilter extends Form implements ViewPartialProviderInterface
 {
-    
+    /**
+     * @var string $viewPartial view script for the search formular
+     */
     protected $viewPartial = 'jobs/form/list-filter';
+
+    /**
+     * @var bool $isExtended if set, acl is used
+     */
     protected $isExtended;
     
-    public function __construct($extended = false)
+    public function __construct($useAcl = false)
     {
-        $this->isExtended = (bool) $extended;
+        $this->isExtended = (bool) $useAcl;
         parent::__construct();
     }
     

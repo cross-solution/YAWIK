@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit bootstrap="Bootstrap.php" colors="true">
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="coverage-php" target="build/logs/clover.serialized"/>
+    </logging>
     <testsuites>
         <testsuite name="AllTests">
+            <directory>../module/Core/test/CoreTest</directory>
+            <directory>../module/Applications/test/ApplicationsTest</directory>
             <directory>../module/Auth/test/AuthTest</directory>
+            <directory>../module/Auth/test/AclTest</directory>
             <directory>../module/Jobs/test/JobsTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
         </testsuite>

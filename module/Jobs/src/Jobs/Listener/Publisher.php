@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -17,50 +17,73 @@ use Zend\EventManager\SharedListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
-use Zend\Http\Request;
-use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
+use Jobs\Listener\Response\JobResponse;
+//use Jobs\Listener\Response\JobResponse;
+//use Zend\Http\Request;
+//use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 /**
- * Job listener for triggering actions like sending mail notification
+ * Job listener for publishing job opening via REST
  *
- * @package CamMediaintown\Listener
+ * @package Jobs\Listener
  */
 
 class Publisher implements ListenerAggregateInterface, SharedListenerAggregateInterface, ServiceManagerAwareInterface
 {
     protected $serviceManager;
 
+    protected $name = 'feedback_publisher_email';
+
+    /**
+     * @param ServiceManager $serviceManager
+     * @return $this
+     */
     public function setServiceManager(ServiceManager $serviceManager) {
         $this->serviceManager = $serviceManager;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getServiceManager() {
         return $this->serviceManager;
     }
 
+    /**
+     * @param EventManagerInterface $events
+     * @return $this
+     */
     public function attach(EventManagerInterface $events)
     {
-        //$events->attach(JobEvent::EVENT_NEW, array($this, 'jobNewMail'), 1);
         return $this;
     }
 
+    /**
+     * @param SharedEventManagerInterface $events
+     */
     public function attachShared(SharedEventManagerInterface $events)
     {
         $events->attach('Jobs', JobEvent::EVENT_JOB_ACCEPTED, array($this, 'restPost'), 10);
         return;
     }
 
-
+    /**
+     * @param EventManagerInterface $events
+     * @return $this
+     */
     public function detach(EventManagerInterface $events)
     {
         return $this;
     }
 
+    /**
+     * @param SharedEventManagerInterface $events
+     * @return $this
+     */
     public function detachShared(SharedEventManagerInterface $events) {
         return $this;
     }
-
 
     /**
      * allows an event attachment just by class
@@ -68,6 +91,7 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
      */
     public function restPost(JobEvent $e)
     {
+        $response = new JobResponse($this->name, JobResponse::RESPONSE_NOTIMPLEMENTED);
         $serviceManager = $this->getServiceManager();
         if ($serviceManager->has('Jobs/RestClient')) {
             try {
@@ -82,12 +106,13 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 $StatusCode = $response->getStatusCode();
 
                 $e->stopPropagation(true);
+                $response = new JobResponse($this->name, JobResponse::RESPONSE_OKANDSTOP);
             }
             catch (\Exception $e) {
+                $response = new JobResponse($this->name, JobResponse::RESPONSE_FAIL);
             }
         }
-        return;
-
+        return $response;
     }
-
 }
+

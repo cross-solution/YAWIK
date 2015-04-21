@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
@@ -12,6 +12,7 @@ use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Organizations\Entity\OrganizationReferenceInterface;
 use Settings\Repository\SettingsEntityResolver;
 
 /**
@@ -51,6 +52,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @ODM\EmbedOne(targetDocument="Info")
      */
     protected $info;
+
+    /**
+     * Authentification Sessions like oAuth
+     * After Authentification with OAuth sessions can be stored like a password/key pair
+     *
+     * @ODM\EmbedMany(targetDocument="AuthSession")
+     */
+    protected $authSessions;
 
     /**
      * Users login password
@@ -103,12 +112,24 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $groups;
 
     /**
-     * User tokens.
+     * User tokens. Is generated when recovering Passwords as a short term key.
      *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="Token")
      */
     protected $tokens;
+
+    /**
+     * The organization reference for the user.
+     *
+     * This field is not stored in the database, but injected on postLoad via
+     * {@link \Organizations\Repository\Event\InjectOrganizationReferenceListener}
+     *
+     * @var OrganizationReferenceInterface
+     *
+     * @since 0.18
+     */
+    protected $organization;
 
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
@@ -176,6 +197,58 @@ class User extends AbstractIdentifiableEntity implements UserInterface
             $this->setInfo(new Info());
         }
         return $this->info;
+    }
+
+    /**
+     * @param $key
+     * @param $sessionParameter
+     * @return $this
+     */
+    public function updateAuthSession($key, $sessionParameter) {
+        $notExists = True;
+        foreach ($this->authSessions as $authSession) {
+            if ($key == $authSession->getName()) {
+                $authSession->setSession($sessionParameter);
+                $notExists = False;
+            }
+        }
+        if ($notExists) {
+            $authSession = new AuthSession();
+            $authSession->setName($key);
+            $authSession->setSession($sessionParameter);
+            $this->authSessions[] = $authSession;
+        }
+        return $this;
+    }
+
+    /**
+     * @param $key
+     * @return null
+     */
+    public function getAuthSession($key) {
+        $result = Null;
+        foreach ($this->authSessions as $authSession) {
+            if ($key == $authSession->getName()) {
+                $result = $authSession->getSession();
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * removes a stored Session
+     * @param string|null $key providerName, if null, remove all sessions
+     * @return $this
+     */
+    public function removeSessionData($key = Null) {
+        $authSessionRefresh = array();
+        foreach ($this->authSessions as $authSession) {
+            if (isset($key) && $key != $authSession->getName()) {
+                $authSessionRefresh[] = $authSession;
+            }
+        }
+        $this->authSessions = $authSessionRefresh;
+        return $this;
     }
 
     /** {@inheritdoc} */
@@ -283,6 +356,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     {
         $groups = $this->getGroups();
         foreach ($groups as $group) {
+            /* @var $group GroupInterface */
             if ($group->getName() == $name) {
                 return $group;
             }
@@ -315,4 +389,22 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->tokens = $tokens;
     }
 
+    public function setOrganization(OrganizationReferenceInterface $organization)
+    {
+        $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function hasOrganization()
+    {
+        /* @var $this->organization \Organizations\Entity\OrganizationReference */
+        return $this->organization &&
+               $this->organization->hasAssociation();
+    }
+
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
 }

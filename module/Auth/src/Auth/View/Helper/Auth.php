@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -82,7 +82,7 @@ class Auth extends AbstractHelper
         
         try {
             return $this->getService()->getUser()->$property;
-        } catch (\Core\Model\Exception\OutOfBoundsException $e) {
+        } catch (\OutOfBoundsException $e) {
             return null;
         }
     }

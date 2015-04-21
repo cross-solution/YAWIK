@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -287,6 +287,58 @@ class IndexController extends AbstractActionController
             #'type' => $this->params('type'),
             'applications' => $paginator
         );
+    }
+
+    /**
+     * sends a test-mail with all application-data to the applicant
+     * @return JsonModel
+     */
+    public function mailAction()
+    {
+        $services          = $this->getServiceLocator();
+        $config            = $services->get('Config');
+        $applicationId     = $this->getRequest()
+                                  ->getQuery('id');
+        $status            = $this->params('status');
+        $repositories      = $services->get('repositories');
+        $entityApplication = $repositories->get('Applications/Application')->find($applicationId);
+        if (empty($entityApplication)) {
+            $this->notification()->error( /*@translate*/ 'Application has been deleted.');
+        } else {
+            $jobEntity         = $entityApplication->job;
+            $applicantEmail    = $entityApplication->contact->email;
+            $organizationEmail = $jobEntity->contactEmail;
+            $mailAdress        = NULL;
+            switch ($status == 'test') {
+                case 'company':
+                    $mailAdress = $organizationEmail;
+                    break;
+                case 'test':
+                default:
+                    $mailAdress = $applicantEmail;
+                    break;
+            }
+            if (!empty($mailAdress)) {
+                $mailData = array(
+                    'application' => $entityApplication,
+                    'to'          => $mailAdress
+                );
+                if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails']) && array_key_exists('email', $config['mails']['from'])) {
+                    $mailData['from'] = $config['mails']['from']['email'];
+                }
+
+                $mail = $this->mailer('Applications/CarbonCopy', $mailData, TRUE);
+                $this->notification()
+                     ->success( /*@translate*/ 'Mail has been send');
+                if ($status == 'company') {
+                    $repositories->remove($entityApplication);
+                    $this->notification()->info( /*@translate*/ 'Application data has been deleted');
+                }
+            } else {
+                $this->notification()->error( /*@translate*/ 'No mail adress available');
+            }
+        }
+        return new JsonModel(array());
     }
 }
 

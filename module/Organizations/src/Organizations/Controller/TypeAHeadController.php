@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -27,10 +27,10 @@ class TypeAHeadController extends AbstractCoreController
         $data = array();
         $query = $this->params()->fromQuery('q', null);
         /** @var int $userId */
-        $userId = $this->auth('id');
+        $user = $this->auth()->getUser();
 
         if ($query) {
-            $result = $this->organizationRepository->getTypeAheadResults($query, $userId);
+            $result = $this->organizationRepository->getTypeAheadResults($query, $user);
 
             foreach ($result as $id => $item) {
                 $data[] = array(

@@ -19,10 +19,10 @@
 			var _this = this;
 			
 			$form.find('.cam-description').hide().appendTo(this.$descDiv);
-            $form.find(':input:not([id^="s2id_"]):not(select), .select2-container')
+            $form.find(':input:not([id^="s2id_"]):not(select), .select2-container, .cam-description-toggle, .cam-description-toggle *')
 			     .on('mouseover mouseout', $.proxy(this.eventToggle, this))
 			     .focus($.proxy(function(event) {
-                    console.debug('focus');
+//                    console.debug('focus');
 			    	 if (this.blurTimeout) {
 			    		 var $desc = this._getDescription($(event.target).attr('id'));
 			    		 if ($desc) {
@@ -39,8 +39,10 @@
 			     }, this));
 
             $form.find('label').on("mouseover mouseout", function(event) {
-                var id = "mouseover" == event.type ? $(event.target).attr('for') : null;
-                _this.toggle(id);
+                if ($(event.target).is('label')) {
+                    var id = "mouseover" == event.type ? $(event.target).attr('for') : null;
+                    _this.toggle(id);
+                }
             });
 
             $form.find('select').on('focus select2-focus blur select2-blur',
@@ -49,7 +51,7 @@
 		
 		_getDescription: function(id)
 		{
-            id = id.replace(/^s2id_/, '');
+            id = !id ? "__initial__" : id.replace(/^s2id_/, '');
             id = "__initial__" == id ? '.daf-desc-content' : '#' + id + '-desc';
 
             var $desc = this.$descDiv.find(id);
@@ -62,7 +64,7 @@
 		
 		toggle: function(id, focus) 
 		{
-            console.debug('toggle description', id);
+            //console.debug('toggle description', id);
 			if (!id) {
 				id = this.focus || '__initial__';
 			}
@@ -93,8 +95,9 @@
 					id = '__initial__';
 				}
 			}
-			
-			if (event.type.match(/mouse/)) {
+
+
+			if (event.type.match(/mouse/) || !id) {
 				this.toggle(id);
 			} else {
 				if ('focus' === event.type) {
@@ -112,7 +115,7 @@
 
         select2Toggle: function(event)
         {
-            console.debug(event);
+//            console.debug(event);
 
             var $select  = $(event.target);
             var id       = $select.attr('id');

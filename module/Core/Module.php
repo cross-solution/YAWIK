@@ -3,7 +3,7 @@
  * YAWIK
  * Core Module Bootstrap
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -24,6 +24,7 @@ use Zend\Log\Formatter\ErrorHandler;
 use Core\Repository\DoctrineMongoODM\PersistenceListener;
 use Core\Listener\NotificationAjaxHandler;
 use Core\Listener\Events\NotificationEvent;
+use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
 
 /**
  * Bootstrap class of the Core module
@@ -57,10 +58,12 @@ class Module implements ConsoleBannerProviderInterface
     {
         // Register the TimezoneAwareDate type with DoctrineMongoODM
         // Use it in Annotions ( @Field(type="tz_date") )
-        \Doctrine\ODM\MongoDB\Types\Type::addType(
-            'tz_date', 
-            '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
-        );
+        if (!DoctrineType::hasType('tz_date')) {
+            DoctrineType::addType(
+                'tz_date',
+                '\Core\Repository\DoctrineMongoODM\Types\TimezoneAwareDate'
+            );
+        }
         
         $sm = $e->getApplication()->getServiceManager();
         $translator = $sm->get('translator'); // initialise translator!

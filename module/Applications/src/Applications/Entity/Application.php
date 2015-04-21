@@ -602,7 +602,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     public function getPermissions()
     {
         if (!$this->permissions) {
-            $permissions = new Permissions();
+            $permissions = new Permissions('Application');
             if ($this->user) {
                 $permissions->grant($this->user, Permissions::PERMISSION_ALL);
             }

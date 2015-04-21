@@ -24,6 +24,9 @@ use Zend\View\Model\JsonModel;
  */
 class TemplateController extends AbstractActionController  {
 
+    /**
+     * @var Repository\Job $jobRepository
+     */
     private $jobRepository;
 
     public function __construct(Repository\Job $jobRepository)
@@ -41,18 +44,17 @@ class TemplateController extends AbstractActionController  {
     {
         $id = $this->params()->fromQuery('id');
         $job = $this->jobRepository->find($id);
-
         $model                = new ViewModel();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
         $model->setTemplate('templates/default/index');
+
         if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
             $this->response->setStatusCode(404);
             $model->setVariable('message','job is not available');
-        }
-        else {
-            $model->setTemplate('templates/default/index');
+        } else {
+            $model->setTemplate('templates/' . $job->template . '/index');
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
         }
 
@@ -67,7 +69,6 @@ class TemplateController extends AbstractActionController  {
      */
     protected function editTemplateAction()
     {
-
         $id = $this->params('id');
         $formIdentifier=$this->params()->fromQuery('form');
         $job = $this->jobRepository->find($id);
@@ -113,7 +114,7 @@ class TemplateController extends AbstractActionController  {
             return new JsonModel(array('valid' => True));
         }
 
-        $model->setTemplate('templates/default/index');
+        $model->setTemplate('templates/' . $job->template . '/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
 
         $model->setVariables($this->getTemplateFields($job,$formTemplate));
@@ -137,7 +138,14 @@ class TemplateController extends AbstractActionController  {
         }
 
         $headTitle= $job->templateValues->title;
-        if ( is_null($form)){
+        if (empty($job->templateValues->description) && isset($job->organization)) {
+            $job->templateValues->description = $job->organization->description;
+        }
+
+        $description=$job->templateValues->description;
+
+        if ( is_null($form)) {
+            $descriptionEditable = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
             $qualifications = $job->templateValues->qualifications;
@@ -148,6 +156,9 @@ class TemplateController extends AbstractActionController  {
             $viewHelperManager = $services->get('ViewHelperManager');
             /* @var $viewHelperForm \Core\Form\View\Helper\FormSimple */
             $viewHelperForm = $viewHelperManager->get('formsimple');
+
+            $formDescription = $form->get('descriptionFormDescription');
+            $descriptionEditable = $viewHelperForm->render($formDescription);
 
             $formBenefits = $form->get('descriptionFormBenefits');
             $benefits = $viewHelperForm->render($formBenefits);
@@ -162,20 +173,33 @@ class TemplateController extends AbstractActionController  {
             $title = $viewHelperForm->render($descriptionFormTitle);
 
         }
+        $organizationName = '';
+        $organizationStreet = '';
+        $organizationPostalCode = '';
+        $organizationPostalCity = '';
+        $organization = $job->organization;
+        if (isset($organization)) {
+            $organizationName = $organization->organizationName->name;
+            $organizationStreet = $organization->contact->street.' '.$organization->contact->houseNumber;
+            $organizationPostalCode = $organization->contact->postalcode;
+            $organizationPostalCity = $organization->contact->city;
+        }
 
+        // @see http://yawik.readthedocs.org/en/latest/modules/jobs/index.html#job-templates
         $fields= array(
+            'descriptionEditable' => $descriptionEditable,
+            'description' => $description,
             'benefits' => $benefits,
             'requirements' => $requirements,
             'qualifications' => $qualifications,
             'title' => $title,
             'uriApply' => $uriApply,
             'headTitle' => $headTitle,
-            'organizationName' => $job->organization->organizationName->name,
-            'street' => $job->organization->contact->street.' '.$job->organization->contact->houseNumber,
-            'postalCode' => $job->organization->contact->postalcode,
-            'city' => $job->organization->contact->city,
-            'uriLogo' => $this->getOrganizationLogo($job->organization),
-            'description' => $job->organization->description,
+            'organizationName' => $organizationName,
+            'street' => $organizationStreet,
+            'postalCode' => $organizationPostalCode,
+            'city' => $organizationPostalCity,
+            'uriLogo' => $this->getOrganizationLogo($organization),
         );
 
         return $fields;
@@ -189,7 +213,7 @@ class TemplateController extends AbstractActionController  {
      */
     private function getOrganizationLogo(\Organizations\Entity\Organization $organization)
     {
-        if ($organization->image->uri) {
+        if (isset($organization) && isset($organization->image) && $organization->image->uri) {
             return ($organization->image->uri);
         } else {
             /** @var \Zend\ServiceManager\ServiceManager $serviceLocator */

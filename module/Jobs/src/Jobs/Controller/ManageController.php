@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -104,7 +104,7 @@ class ManageController extends AbstractActionController {
         $pageIdentifier     = (int) $params->fromQuery('page', array_key_exists('page', $parameter)?$parameter['page']:0);
         $jobEntity          = $this->getJob();
         $viewModel          = Null;
-        //$this->acl($job, $origAction);
+        $this->acl($jobEntity, 'edit');
         $form               = $this->getFormular($jobEntity);
         $mvcEvent           = $this->getEvent();
 
@@ -260,9 +260,11 @@ class ManageController extends AbstractActionController {
         $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
 
         if (empty($id) && $allowDraft) {
+            $this->acl('Jobs/Manage', 'new');
             /** @var \Jobs\Entity\Job $job */
             $job = $repository->findDraft($user);
             if (empty($job)) {
+
                 $job = $repository->create();
                 $job->setIsDraft(true);
                 $job->setUser($user);
@@ -291,12 +293,12 @@ class ManageController extends AbstractActionController {
         return $model;
     }
 
+    /**
+     * @param $key
+     */
     protected function get($key) {
         return;
     }
-
-
-
 
     /**
      * Job opening is completed.
@@ -311,6 +313,14 @@ class ManageController extends AbstractActionController {
         $jobEvent->setJobEntity($jobEntity);
 
         $jobEntity->isDraft = false;
+        $reference = $jobEntity->getReference();
+        if (empty($reference)) {
+            // create an unique job-reference
+            $repository = $this->getServiceLocator()
+                               ->get('repositories')
+                               ->get('Jobs/Job');
+            $jobEntity->setReference($repository->getUniqueReference());
+        }
         $jobEntity->changeStatus(Status::CREATED, "job was created");
         $jobEntity->atsEnabled = true;
 
@@ -390,6 +400,25 @@ class ManageController extends AbstractActionController {
             $this->notification()->danger($translator->translate('Job could not be deactivated'));
         }
         return $this->save(array('page' => 2));
+    }
+
+    public function templateAction() {
+        $serviceLocator          = $this->getServiceLocator();
+        try {
+            $jobEntity           = $this->getJob();
+            $template            = $this->params('template','default');
+            $repositories        = $serviceLocator->get('repositories');
+
+            $translator          = $serviceLocator->get('translator');
+            $jobEntity->template = $template;
+            $repositories->store($jobEntity);
+            $this->notification()->success($translator->translate('Template changed'));
+        }
+        catch (\Exception $e) {
+            $this->notification()->danger($translator->translate('Template not changed'));
+        }
+
+        return new JsonModel(array());
     }
 }
 

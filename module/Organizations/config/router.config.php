@@ -4,8 +4,8 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
- * @license   AGPLv3
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
  */
 return array(
     'router' => array(
@@ -91,8 +91,19 @@ return array(
                             ),
                         ),
                     ),
-                )
-            )
-        )
-    )
+                    'my-organization' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/my/organization',
+                            'defaults' => array(
+                                'controller' => 'Organizations/Index',
+                                'action' => 'edit',
+                                'id' => '__my__',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
 );

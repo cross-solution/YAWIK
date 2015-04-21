@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -55,6 +55,13 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
     public function getInputFilterSpecification()
     {
         return array(
+            'description-benefits' => array(
+                'filters' => array(
+                    array(
+                        'name' => 'Core\XssFilter'
+                    )
+                )
+            )
         );
     }
 

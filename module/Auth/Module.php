@@ -3,19 +3,20 @@
  * YAWIK
  * Auth Module Bootstrap
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 namespace Auth;
 
+use Acl\Listener\CheckPermissionsListener;
 use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
 use Auth\Listener\UnauthorizedAccessListener;
 /**
  * Bootstrap class of the Core module
- * 
+ *
  */
 class Module
 {
@@ -25,14 +26,14 @@ class Module
         if (\Zend\Console\Console::isConsole()) {
             return;
         }
-        
+
         $eventManager  = $moduleManager->getEventManager()->getSharedManager();
         $tokenListener = new TokenListener();
         $tokenListener->attachShared($eventManager);
     }
     /**
      * Loads module specific configuration.
-     * 
+     *
      * @return array
      */
     public function getConfig()
@@ -42,12 +43,12 @@ class Module
 
     /**
      * Loads module specific autoloader configuration.
-     * 
+     *
      * @return array
      */
     public function getAutoloaderConfig()
     {
-        
+
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 // This is an hack due to bad design of Hybridauth
@@ -67,7 +68,7 @@ class Module
             ),
         );
     }
-    
+
     public function onBootstrap(MvcEvent $e)
     {
         if (\Zend\Console\Console::isConsole()) {
@@ -75,23 +76,32 @@ class Module
         }
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
-        
+
         // TODO: Löschen sobald die Lösung mit der LoginBox klappt
         //$eventManager->attach(
         //    array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
         //    array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
         //);
-        
-        $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
-        $checkPermissionsListener->attach($eventManager);
-        
+
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, function (MvcEvent $e) use ($services) {
+            /** @var CheckPermissionsListener $checkPermissionsListener */
+            $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+            $checkPermissionsListener->onRoute($e);
+        }, -10);
+
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function (MvcEvent $e) use ($services) {
+            /** @var CheckPermissionsListener $checkPermissionsListener */
+            $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+            $checkPermissionsListener->onDispatch($e);
+        }, 10);
+
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
 
         $sharedManager = $eventManager->getSharedManager();
         $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');
         $defaultlistener->attachShared($sharedManager);
-        
+
     }
-    
+
 }

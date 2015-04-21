@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -176,6 +176,9 @@ class ManageGroupsController extends AbstractActionController
         
         $model = new JsonModel();
         $query = $this->params()->fromPost('query', false);
+        if (!$query) {
+            $query = $this->params()->fromQuery('q', false);
+        }
         if (false === $query) {
             $result = array();
         } else {
@@ -190,7 +193,8 @@ class ManageGroupsController extends AbstractActionController
             $result     = array_values(array_map($filterFunc, $users->toArray()));
         }
         
-        $model->setVariable('users', $result);
+        //$model->setVariable('users', $result);
+        $model->setVariables($result);
         return $model;
     }
     

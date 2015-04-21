@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
@@ -21,7 +21,11 @@ use Zend\Mvc\Controller\PluginManager;
 use Zend\Stdlib\Parameters;
 use Zend\View\Model\JsonModel;
 
-class RegisterControllerTest extends AbstractControllerTestCase
+/**
+ * @group Organizations
+ * @group Organizations.Controller
+ */
+class TypeAHeadControllerTest extends AbstractControllerTestCase
 {
     /**
      * @var MockObject|Repository\Organization
@@ -44,7 +48,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
             ->getMock();
 
         $this->authControllerPluginMock = $this->getMockBuilder('Auth\Controller\Plugin\Auth')
-            ->setMethods(array('__invoke'))
+            ->setMethods(array('__invoke', 'getUser'))
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -58,6 +62,15 @@ class RegisterControllerTest extends AbstractControllerTestCase
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
+    /**
+      */
+    public function testRepositoryIsInjectedInConstructor()
+    {
+        $this->assertAttributeSame($this->organizationRepoMock, 'organizationRepository', $this->controller);
+    }
+
+    /**
+     */
     public function testAction()
     {
         $queryName = uniqid('query');
@@ -70,12 +83,14 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $this->authControllerPluginMock->expects($this->once())
             ->method('__invoke')
-            ->with('id')
-            ->willReturn($user->getId());
+            ->with(null)
+            ->will($this->returnSelf());
+        $this->authControllerPluginMock->expects($this->once())
+            ->method('getUser')->willReturn($user);
 
         $this->organizationRepoMock->expects($this->once())
             ->method('getTypeAheadResults')
-            ->with($queryName, $user->getId())
+            ->with($queryName, $user)
             ->willReturn($data);
 
         /** @var JsonModel $result */

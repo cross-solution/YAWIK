@@ -1,0 +1,48 @@
+<?php
+/**
+ * YAWIK
+ *
+ * Partial for an employee form element.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @since 0.18
+ */
+
+    /* @var $employee \Organizations\Form\Element\Employee */
+//    $users = $this->services('repositories.Auth/User');
+//    $user  = $users->find($this->element->getValue());
+    $employee = $this->element->get('user');
+    $user = $employee->getUser();
+    if (!$user) {
+        $this->element->get('permissions')->setValue(array(16, 2));
+    }
+    $fsId = $this->element->getAttribute('id');
+?>
+<fieldset id="<?php echo $fsId ?>" class="employee-wrapper">
+
+    <?php echo $this->formHidden($employee); ?>
+
+
+    <div class="employee-info-wrapper">
+        <?php echo $user ? $user->getInfo()->getDisplayName() : '__userName__' ?>
+        <span>&lt;<?php echo $user ? $user->getInfo()->getEmail()  : '__userEmail__' ?>&gt;</span>
+        <button type="button" class="pull-right btn btn-default btn-xs remove-employee" data-id="<?php echo $fsId ?>"><span class="yk-icon yk-icon-minus"></span></button>
+    </div>
+    <div id="<?php
+
+    $elementId = preg_replace(
+        array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+        array('-'              , '-'    , ''       ),
+        $this->element->get('permissions')->getName()
+    );
+    $this->element->get('permissions')->setAttribute('id', $elementId);
+    echo $this->element->get('permissions')->getAttribute('id')?>-wrapper" class="cam-description-toggl employee-permissions-wrapper">
+
+        <?php echo $this->formMultiCheckbox($this->element->get('permissions')) ?>
+
+    </div>
+<hr>
+</fieldset>

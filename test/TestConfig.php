@@ -4,6 +4,7 @@ return array(
         'Core',
         'Auth',
         'Jobs',
+        'Applications',
         'Organizations',
     ),
     'module_listener_options' => array(

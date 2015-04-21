@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 /**
@@ -12,9 +12,12 @@
 ?>
 <?php
 $columns = array(
-/*@translate*/ 'Organization' => array(),
-/*@translate*/ 'City'         => array('class' => 'cam-job'),
-/*@translate*/ 'Street'       => array(),
+/*@translate*/ 'Organization' 
+   => array(),
+/*@translate*/ 'City'        
+   => array('class' => 'cam-job'),
+/*@translate*/ 'Street'   
+   => array(),
 );
 
 if ('-' == $this->sort{0}) {
@@ -52,7 +55,7 @@ if ('-' == $this->sort{0}) {
         <?php endforeach; ?>
     </tr>
     </thead>
-<?php foreach ($this->organizations as $organization):?>
+<?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
       <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->id)); ?>">
@@ -61,6 +64,13 @@ if ('-' == $this->sort{0}) {
         echo isset($nameEntity)?$nameEntity->name:'**** DRAFT ****';
     ?>
       </a>
+      <?php if ($organization->isHiringOrganization()): $parent = $organization->getParent(); ?>
+          <br><small><?php echo sprintf(
+                $this->translate('Hiring organization of <strong>%s</strong>'),
+                '<a href="' . $this->url('lang/organizations/edit', array('id' => $parent->id)) . '">' . $parent->getOrganizationName()->getName() . '</a>'
+          );?></small>
+
+        <?php endif ?>
   </td>
   <td>
       <?php echo $organization->contact->postalcode;?>

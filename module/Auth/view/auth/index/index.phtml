@@ -3,7 +3,7 @@
  * YAWIK
  * View template of the Login site
  *
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 ?>
@@ -29,27 +29,27 @@ $form = $this->form;
 ?>
 <div id="form-login-form" class="form-container">
     <div class="form-content">
-        <?= $this->form()->openTag($form); ?>
-        <?= $this->formCollection($form->get('credentials')); ?>
+        <?php echo  $this->form()->openTag($form); ?>
+        <?php echo  $this->formCollection($form->get('credentials')); ?>
         <div class="row">
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-3">
-                <a href="<?= $this->url('lang/forgot-password'); ?>" title="<?= $this->translate('I forgot my password'); ?>" class="small">
-                    <?= $this->translate('I forgot my password'); ?>
+                <a href="<?php echo  $this->url('lang/forgot-password'); ?>" title="<?php echo  $this->translate('I forgot my password'); ?>" class="small">
+                    <?php echo  $this->translate('I forgot my password'); ?>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <?php
                 if (!isset($this->allowRegister) || $this->allowRegister==True ):
                 ?>
-                <a href="<?= $this->url('lang/register'); ?>" title="<?= $this->translate('Register'); ?>" class="small">
-                    <?= $this->translate('Register'); ?>
+                <a href="<?php echo  $this->url('lang/register'); ?>" title="<?php echo  $this->translate('Register'); ?>" class="small">
+                    <?php echo  $this->translate('Register'); ?>
                 </a>
                 <?php
                 endif;
                 ?>
             </div>
         </div>
-        <?= $this->formRow($form->get('buttons')); ?>
-        <?= $this->form()->closeTag($form); ?>
+        <?php echo  $this->formRow($form->get('buttons')); ?>
+        <?php echo  $this->form()->closeTag($form); ?>
     </div>
 </div>
 

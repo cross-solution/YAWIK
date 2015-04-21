@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -13,6 +13,12 @@ namespace Applications\Mail;
 use Jobs\Entity\JobInterface;
 use Core\Mail\StringTemplateMessage;
 
+/**
+ * Sends Information about a new Application to the recruiter
+ *
+ * Class NewApplication
+ * @package Applications\Mail
+ */
 class NewApplication extends StringTemplateMessage
 {
     protected $job;
@@ -29,7 +35,7 @@ class NewApplication extends StringTemplateMessage
     public function init()
     {
         if (!$this->job) {
-            return;
+            return false;
         }
         
         $name = $this->user->info->displayName;

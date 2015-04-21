@@ -210,6 +210,7 @@
         <include name="**/**.dist"/>
         <exclude name="YawikDemo**"/>
         <exclude name="Jobs/**"/>
+        <exclude name="JobsDeutschland/**"/>
         <exclude name="Organizations/**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
@@ -245,13 +246,6 @@
           <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
           <token key="auth.suffix" value="${auth.suffix}"/>
           <token key="mail.develop.override_recipient" value="${mail.develop.override_recipient}" />
-          <token key="applications.forms.attachments.maxsize" value="${applications.forms.attachments.maxsize}" />
-          <token key="applications.forms.attachments.mimetype" value="${applications.forms.attachments.mimetype}" />
-          <token key="applications.forms.attachments.count" value="${applications.forms.attachments.count}" />
-          <token key="applications.forms.contactimage.maxsize" value="${applications.forms.contactimage.maxsize}" />
-          <token key="applications.forms.contactimage.mimetype" value="${applications.forms.contactimage.mimetype}" />
-          <token key="auth.forms.userimage.maxsize" value="${auth.forms.userimage.maxsize}" />
-          <token key="auth.forms.userimage.mimetype" value="${auth.forms.userimage.mimetype}" />
         </replacetokens>
       </filterchain>
     </copy>
@@ -306,7 +300,8 @@
     <exec command="phpdoc" dir="." passthru="true"/>
   </target>
 
-  <target name="deploy-docs" depends="init" description="publish API docs via rsync">
+  <target name="deploy-docs" description="publish API docs via rsync">
+    <property file="${project.basedir}/build.properties" />
     <echo msg="deploy: rsync -r ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}"/>
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
   </target>

@@ -1,0 +1,10 @@
+Sehr geehrte/-r Herr/Frau <?php echo $this->name; ?>,<br />
+Sie haben sich erfolgreich auf <?php echo $this->siteName; ?> registriert.<br />
+Zur Bestätigung Ihrer Registrierung und Freischaltung Ihres Kontos klicken Sie bitte auf folgenden Link:<br />
+<?php
+echo $this->confirmationlink;
+?>
+
+<?php
+echo $this->partial('mail/footer');
+?>

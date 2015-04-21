@@ -4,7 +4,7 @@
  * YAWIK
  * Configuration file of the Applications module
  * 
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -69,8 +69,13 @@ return array(
     
     'service_manager' => array(
         'invokables' => array(
+            'Applications/Options/ModuleOptions' => 'Applications\Options\ModuleOptions'
         ),
         'factories' => array(
+           'Applications/Options' => 'Applications\Factory\ModuleOptionsFactory',
+           'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
+           'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
+           'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
         ),
     ),
     'controllers' => array(
@@ -153,6 +158,7 @@ return array(
             'applications/mail/forward' => __DIR__ . '/../view/mail/forward.phtml',
             'applications/detail/pdf' => __DIR__ . '/../view/applications/manage/detail.pdf.phtml',
             'applications/index/disclaimer' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
+            'content/applications-privacy-policy' => __DIR__ . '/../view/applications/index/disclaimer.phtml',
         )
     ),
     'view_helpers' => array(
@@ -181,8 +187,8 @@ return array(
              'href' => 'Applications\Form\Element\Ref',
          ),
         'factories' => array(
-            'Applications/ContactImage' => 'Applications\Form\ContactImageFactory',
-            'Applications/Attachments' => 'Applications\Form\AttachmentsFactory',
+            'Applications/ContactImage' => 'Applications\Factory\Form\ContactImageFactory',
+            'Applications/Attachments' => 'Applications\Factory\Form\AttachmentsFactory',
         ),
      ),
 

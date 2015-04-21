@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -44,7 +44,7 @@ class Form extends ZendForm
      * @param array $parameter
      * @return string
      */
-    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_INLINE, $parameter = array())
+    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_HORIZONTAL, $parameter = array())
     {
         if (!$form) {
             return $this;
@@ -61,7 +61,7 @@ class Form extends ZendForm
      * @param array $parameter
      * @return string
      */
-    public function renderBare(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
+    public function renderBare(FormInterface $form, $layout=self::LAYOUT_HORIZONTAL, $parameter = array())
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer
          * @var $headscript \Zend\View\Helper\HeadScript
@@ -159,7 +159,7 @@ class Form extends ZendForm
      * @see \Zend\Form\View\Helper\Form::render()
      * @return string
      */
-    public function render(FormInterface $form, $layout=self::LAYOUT_INLINE, $parameter = array())
+    public function render(FormInterface $form, $layout=self::LAYOUT_HORIZONTAL, $parameter = array())
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $formContent = $this->renderBare($form, $layout, $parameter);

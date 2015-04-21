@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="de-DE">
 <head>
-<title></title>
+<title><?php echo $this->titleHead?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/default/style.css")?>" type="text/css" media="screen">
 <style>
@@ -14,7 +14,7 @@ form > div {
 <div id="page">
  <div id="header">
   <div id="headerimg">
-    <img src="<?php echo $this->uriLogo?>" class="logo" border="0">
+    <img src="<?php echo $this->basePath($this->uriLogo)?>" class="logo" border="0">
     <div class="description">This is a demo Template of a job opening</div>
   </div>
  </div>
@@ -25,7 +25,7 @@ into your jobad and yawik will create an inline editor into your jobad.
 Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
 </p>
 <p>Click below to enter the Jobtitle</p>
-    <p><?php echo $this->description?></p>
+<p><?php echo $this->descriptionEditable ?></p>
 <h1><?php echo $this->title; ?></h1>
 
 <h4>Requirements:</h4>
@@ -44,6 +44,7 @@ Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWI
 <?php echo $this->phone?>
 </address>
 </div>
+<footer>powered by YAWIK</footer>
 </div>
 </body>
 </html>

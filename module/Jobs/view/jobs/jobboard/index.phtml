@@ -1,0 +1,15 @@
+<?php //description: Renders the list of public jobs. ?>
+<?php $this->headTitle($this->translate('Jobs'));
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
+
+<h1><?php echo $this->translate('Public Job Opportunities')?></h1>
+
+<?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
+
+<nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
+<?php echo $this->form($this->filterForm)  ?>
+</nav>
+<div id="jobs-list-container" class="pagination-container">
+<?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
+</div>
+

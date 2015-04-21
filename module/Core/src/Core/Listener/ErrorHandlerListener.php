@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -17,6 +17,10 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Application;
 use Zend\Log\Logger;
 
+/**
+ * Class ErrorHandlerListener
+ * @package Core\Listener
+ */
 class ErrorHandlerListener implements ListenerAggregateInterface
 {
     
@@ -25,11 +29,21 @@ class ErrorHandlerListener implements ListenerAggregateInterface
      * @var \Zend\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
-    
+
+    /**
+     * @var
+     */
     protected $log;
-    
+
+    /**
+     * @var
+     */
     protected $redirect;
-    
+
+    /**
+     * @param LoggerInterface $log
+     * @param null $redirect
+     */
     public function __construct(LoggerInterface $log, $redirect = null)
     {
         $this->log = $log;
@@ -38,7 +52,10 @@ class ErrorHandlerListener implements ListenerAggregateInterface
             register_shutdown_function(array($this, 'handleFatalError'));
         }
     }
-    
+
+    /**
+     * @return LoggerInterface
+     */
     public function getLog()
     {
         return $this->log;
@@ -70,7 +87,10 @@ class ErrorHandlerListener implements ListenerAggregateInterface
             }
         }
     }
-    
+
+    /**
+     * @param MvcEvent $event
+     */
     public function handleError(MvcEvent $event)
     {
         // Do nothing if no error in the event
@@ -118,8 +138,10 @@ class ErrorHandlerListener implements ListenerAggregateInterface
                 break;
         }
     }
-    
-    
+
+    /**
+     *
+     */
     public function handleFatalError()
     {
         $error = error_get_last();

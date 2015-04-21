@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -11,6 +11,9 @@
 namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
+use Doctrine\Common\Collections\Collection;
+use Organizations\Entity\OrganizationInterface;
+use Organizations\Entity\OrganizationReferenceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
@@ -119,5 +122,32 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @return \Core\Entity\Collection\ArrayCollection
      */
     public function getTokens();
+
+    /**
+     * Sets the organization reference of the user.
+     *
+     * @param OrganizationReferenceInterface $organization
+     *
+     * @return self
+     * @since 0.18
+     */
+    public function setOrganization(OrganizationReferenceInterface $organization);
+
+    /**
+     * returns true, if the user is associated to an organization.
+     *
+     * @return boolean
+     * @since 0.18
+     */
+    public function hasOrganization();
+
+    /**
+     * Gets the organization reference of the the user.
+     *
+     * @return null|OrganizationReferenceInterface
+     * @since 0.18
+     */
+    public function getOrganization();
+
 
 }

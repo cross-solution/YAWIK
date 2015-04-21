@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -25,12 +25,19 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $this->auth = $auth;
     }
-    
+
+    /**
+     * for people
+     *
+     * @param $params
+     * @param $queryBuilder
+     * @return mixed
+     */
     public function createQuery($params, $queryBuilder)
     {
         $value = $params->toArray();
         $user = $this->auth->getUser();
-        if ($user->getRole()=='recruiter') {
+        if ($user->getRole()=='recruiter' && (!isset($value['by']) || $value['by'] != 'guest')) {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
@@ -53,7 +60,7 @@ class PaginationQuery extends AbstractPaginationQuery
             
         } else  {
             /*
-             * an applicants or guests can see all aktive jobs
+             * an applicants or guests can see all active jobs
              */
             $queryBuilder->field('status.name')->equals('active');
         }

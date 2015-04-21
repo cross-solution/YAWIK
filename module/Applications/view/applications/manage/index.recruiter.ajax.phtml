@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 /**
@@ -42,15 +42,23 @@ $columnLabel = $renderedFormCheckBox.'
 
 
 $columns = array(
-        $columnLabel                  => array('class' => 'yk-list-action'),
-        /*@translate*/ 'Applicant'    => array(),
-        /*@translate*/ 'Career'       => array('class' => 'cam-career'),
-        /*@translate*/ 'Attachments'  => array('class' => 'cam-attachment'),	
-        /*@translate*/ 'Job'          => array('class' => 'cam-job'),	
-        /*@translate*/ 'Status'       => array('sort' => 'status'),
-        /*@translate*/ 'Rating'       => array('sort' => 'rating'),
-        /*@translate*/ 'Modified'     => array('sort' => 'date'),
-        /*@translate*/ 'Actions'      => array(),
+        $columnLabel => array('class' => 'yk-list-action'),
+        /*@translate*/ 'Applicant'
+                    => array(),
+        /*@translate*/ 'Career'
+                    => array('class' => 'yk-career'),
+        /*@translate*/ 'Attachments'
+                    => array('class' => 'yk-attachment'),
+        /*@translate*/ 'Job'
+                    => array('class' => 'yk-job'),
+        /*@translate*/ 'Status'
+                    => array('sort' => 'status'),
+        /*@translate*/ 'Rating'
+                    => array('sort' => 'rating'),
+        /*@translate*/ 'Modified'
+                    => array('sort' => 'date'),
+        /*@translate*/ 'Actions'
+                    => array(),
 );
 
 if ('-' == $this->sort{0}) {
@@ -92,9 +100,9 @@ echo $this->paginationControl($this->applications, 'Sliding', 'pagination-contro
 </thead>
 
 <tbody>
-<?php 
+<?php
+/* @var  $application Applications\Entity\Application */
 foreach ($this->applications as $application):
-
   $isUnread = $application->isUnreadBy($this->auth('id'));?>
   <tr<?php echo ($isUnread?' class="yk-new"':"")?>>
     <td>
@@ -106,6 +114,7 @@ foreach ($this->applications as $application):
     </td>
     <td>
     <div class="portrait">
+        <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
     <?php if ($application->contact->image):?>
     <img src="<?php echo $this->basePath($application->contact->image->uri) ?>" />
     <?php else:?>
@@ -115,6 +124,7 @@ foreach ($this->applications as $application):
        <?php echo $this->translate($this->salutation($application->contact->gender))?>
        <?php echo $application->contact->displayName?><br>
        <?php echo $application->contact->city?>
+        </a>
     </td>
     <td class="yk-career">
     <?php if (count($application->cv->educations)>0):?>
@@ -146,13 +156,12 @@ foreach ($this->applications as $application):
      <?php foreach ($application->profiles as $profile):?>
          <span class="btn btn-default btn-xs"><i class="yk-icon yk-icon-<?php echo strtolower($profile->name); ?>"></i></span>
      <?php endforeach;?>
-             </div>
+         </div>
      <?php endif;?>     
     </td>
     <td class="yk-job">
-         <a href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), /* reuse matched params*/ true)?>">
-          <?php echo strip_tags($application->job->title) ?>
-         </a>         
+        <?php $href = $application->job->link ? $application->job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $application->job->id)), true); ?>
+        <?php echo $this->link($href, strip_tags($application->job->title))?>
     </td>
     <td>
      <?php echo $this->translate($application->status->name) ?>

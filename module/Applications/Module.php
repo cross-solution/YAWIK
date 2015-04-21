@@ -3,7 +3,7 @@
  * YAWIK
  * Applications Module Bootstrap
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -12,13 +12,14 @@ namespace Applications;
 use Zend\Mvc\MvcEvent;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
 
 
 /**
  * Bootstrap class of the applications module
  */
-class Module implements ConsoleUsageProviderInterface
+class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterface
 {
     /**
      * Displays console options
@@ -53,12 +54,12 @@ class Module implements ConsoleUsageProviderInterface
      * @return array
      */
     public function getAutoloaderConfig()
-    {
-        
+    {        
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    __NAMESPACE__ . 'Test' => __DIR__ . '/test/' . __NAMESPACE__ .'Test',
                 ),
             ),
         );

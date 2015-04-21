@@ -1,13 +1,31 @@
 <?php //desciption: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))
+                         ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
+                         ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
+                         ->appendFile($this->basePath('/js/select2.min.js'));
+$this->headScript()->captureStart() ?>
+/* This code is generated in jobs/index/index.phtml
+ *
+ * It sets default i18n settings for the assign user dialog.
+ */
+(function($) {
+    $.extend($.fn.ykAssignUsers.defaults["i18n"],
+    {
+        loading:     '<?php echo $this->translate('Loading'); ?>&hellip;',
+        accessError: '<?php echo $this->translate('Access denied!') ?>',
+        appError:    '<?php echo $this->translate('Application error!') ?>',
+        cancel:      '<?php echo $this->translate('Cancel') ?>',
+        save:        '<?php echo $this->translate('Save') ?>',
+        sending:     '<?php echo $this->translate('Sending') ?>',
+        fail:        '<?php echo $this->translate('Fail!') ?>'
+    });
+})(jQuery);
+<?php $this->headScript()->captureEnd();
+      $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))?>
 
 <h1>
-  <?php if ($this->acl()->isRole('recruiter')):?>
-    <?php echo $this->translate('List of all jobs');?>
-  <?php else:?>
-    <?php echo $this->translate('Public Job Opportunities')?>
-  <?php endif?>
+  <?php echo $this->translate('List of your jobs');?>
 </h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
@@ -15,7 +33,8 @@
 <nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
 <?php echo $this->form($this->filterForm)  ?>
 </nav>
-<div id="jobs-list-container" class="pagination-container">
+<div id="jobs-list-container" class="pagination-container" data-uri="<?php
+    echo $this->url('lang/jobs', array(), array('query' => $this->params()->fromQuery()), true)?>">
 <?php echo $this->render('jobs/index/index.ajax.phtml')?>
 </div>
 

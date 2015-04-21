@@ -79,7 +79,8 @@ class MultimanageController extends AbstractActionController
             }
         }
 
-        $mail = $mailService->get('Applications/StatusChange');
+        $mailService->get('Applications/StatusChange');
+
         $mailText = $settings->mailRejectionText ? $settings->mailRejectionText : '';
         $mailSubject = $translator->translate('Your application dated %s');
 

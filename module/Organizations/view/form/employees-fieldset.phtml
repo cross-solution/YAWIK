@@ -1,0 +1,57 @@
+<?php
+/**
+ * YAWIK
+ *
+ * Partial for the employees collection element
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @since 0.18
+ * @todo translations
+ */
+
+use Organizations\Entity\EmployeePermissionsInterface as Perms;
+
+if ($this->renderSummary):
+
+    $employees = $this->element->getObject()->getEmployees();
+?>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <td>User</td>
+                <td>Jobs View</td>
+                <td>Change</td>
+                <td>Create</td>
+                <td>Applications View</td>
+                <td>Change</td>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($employees as $employee):
+            /* @var $employee \Organizations\Entity\Employee */
+            $user = $employee->getUser();
+            $info = $user->getInfo();
+            $perms = $employee->getPermissions()?>
+        <tr>
+            <td><?php echo $info->getDisplayName() ?><br><?php echo $info->getEmail() ?></td>
+            <td>
+                <?php echo $perms->isAllowed(Perms::JOBS_VIEW) ? 'X' : 'O' ?> </td><td>
+                <?php echo $perms->isAllowed(Perms::JOBS_CHANGE) ? 'X' : 'O' ?> </td><td>
+                <?php echo $perms->isAllowed(Perms::JOBS_CREATE) ? 'X' : 'O' ?>
+            </td>
+            <td>
+                <?php echo $perms->isAllowed(Perms::APPLICATIONS_VIEW) ? 'X' : 'O' ?> </td><td>
+                <?php echo $perms->isAllowed(Perms::APPLICATIONS_CHANGE) ? ' X' : 'O' ?>
+            </td>
+
+        </tr>
+        <?php endforeach?>
+        </tbody>
+    </table>
+
+<?php else:
+    echo $this->formCollection()->render($this->element, /* useViewPartial */ false);
+endif;

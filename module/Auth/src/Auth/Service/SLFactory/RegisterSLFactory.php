@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
@@ -29,7 +29,8 @@ class RegisterSLFactory implements FactoryInterface
          * @var Repository\User $userRepository
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
+        $mailService = $serviceLocator->get('Core/MailService');
 
-        return new Register($userRepository);
+        return new Register($userRepository, $mailService);
     }
 }

@@ -3,9 +3,12 @@
 <phpunit bootstrap="Bootstrap.php" colors="true">
     <testsuites>
             <testsuite name="CrossApplicantManagement">
-		    <directory>./AuthTest</directory>
+		<directory>./AuthTest</directory>
             </testsuite>
-     </testsuites>
+            <testsuite name="CrossApplicantManagement">
+            	<directory>./AclTest</directory>
+            </testsuite>
+    </testsuites>
      <logging>
 	     <log type="coverage-html" target="./coverage"
                   charset="UTF-8"

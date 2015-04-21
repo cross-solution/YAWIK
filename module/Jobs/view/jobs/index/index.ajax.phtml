@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 ?>
@@ -68,10 +68,19 @@
             echo implode('<br />', $status);
          ?>
          </td>
-         <td>
-         <?php if ($this->acl($job, 'edit')): ?>
+         <td><?php if ($this->acl($job, 'edit')): ?>
+             <?php $org = $job->getOrganization(); if ($org && $org->getUser()):?>
+             <a href="<?php echo $this->url('lang/jobs/assign-user', array(), array('query' => array('id' => $job->id)), true)?>"
+                data-id="<?php echo $job->id ?>"
+                data-i18n='{"title":"<?php echo $this->escapeHtmlAttr(sprintf(
+                                            $this->translate('Change responsible user for job \\"%s\\"'),
+                                            $job->title
+                                       ))?>"}'
+                class="btn btn-default btn-xs assign-user-button"><span class="yk-icon yk-icon-user"></span></a>
+                     <?php endif; ?>
+
            <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="yk-icon yk-icon-edit"></span></a>
-         <?php endif ?>     
+         <?php endif; ?>
          </td>
       <?php else:?>
          <?php if ($job->atsEnabled): ?>

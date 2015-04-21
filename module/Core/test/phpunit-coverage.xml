@@ -7,17 +7,17 @@
             </testsuite>
      </testsuites>
      <logging>
-	     <log type="coverage-html" target="../../../public/coverage"
+             <log type="coverage-html" target="./coverage"
                   charset="UTF-8"
                   yui="true"
                   highlight="false"
                   lowUpperBound="35"
                   highLowerBound="70"/>
-     </logging>
-     <filter>
-             <whitelist>
-                  <directory suffix=".php">./../src/</directory>
-             </whitelist>
-     </filter>
-
+    </logging>
+    <filter>
+            <whitelist>
+                 <directory
+                  suffix=".php">./../src/</directory>
+            </whitelist>
+    </filter>
 </phpunit>

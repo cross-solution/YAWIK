@@ -2,29 +2,38 @@
 //: ./view/organizations/index/index.ajax.phtml:15
 translate('Organization');
 
-//: ./view/organizations/index/index.ajax.phtml:16
-translate('City'         => array('class' => 'cam-job');
-
 //: ./view/organizations/index/index.ajax.phtml:17
+translate('City');
+
+//: ./view/organizations/index/index.ajax.phtml:19
 translate('Street');
 
-//: ./src/Organizations/Form/Organizations.php:37
+//: ./src/Organizations/Form/Organizations.php:33
 translate('Please enter the name of the hiring organization.');
 
-//: ./src/Organizations/Form/Organizations.php:48
+//: ./src/Organizations/Form/Organizations.php:42
 translate('Please enter a contact for the hiring organization.');
 
-//: ./src/Organizations/Form/Organizations.php:64
+//: ./src/Organizations/Form/Organizations.php:57
 translate('Please enter a description for the hiring organization.');
+
+//: ./src/Organizations/Form/Organizations.php:65
+translate('Employees');
+
+//: ./src/Organizations/Form/Organizations.php:67
+translate('Manage your employees and their permissions.');
 
 //: ./src/Organizations/Form/OrganizationsDescriptionFieldset.php:43
 translate('Description');
 
-//: ./src/Organizations/Form/LogoImageFactory.php:32
+//: ./src/Organizations/Form/LogoImageFactory.php:34
 translate('Choose a Logo. This logo will be shown in the job opening and the application form.');
 
 //: ./src/Organizations/Form/OrganizationsNameFieldset.php:54
 translate('Organizationname');
+
+//: ./src/Organizations/Form/EmployeesFieldset.php:53
+translate('Search for registered users.');
 
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:44
 translate('street');
@@ -38,9 +47,9 @@ translate('Postalcode');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:65
 translate('City');
 
-//: ./config/module.config.php:126
+//: ./config/module.config.php:137
 translate('Overview');
 
-//: ./config/module.config.php:130
+//: ./config/module.config.php:141
 translate('Insert');
 

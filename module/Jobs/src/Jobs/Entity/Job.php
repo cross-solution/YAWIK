@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -28,7 +28,7 @@ use Core\Entity\Collection\ArrayCollection;
 class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
-     * uniq ID of a job posting used by applications to reference
+     * unique ID of a job posting used by applications to reference
      * a job
      *
      * @var String
@@ -63,14 +63,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * publishing company
      *
      * @var OrganizationInterface
-     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true)
+     * @ODM\ReferenceOne (targetDocument="\Organizations\Entity\Organization", simple=true, inversedBy="jobs")
      * @ODM\Index
      */
     protected $organization;
     
     
     /**
-     * Email Adress, which is used to send notifications about e.g. new applications.
+     * Email Address, which is used to send notifications about e.g. new applications.
      * 
      * @var String
      * @ODM\String
@@ -149,7 +149,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * Status of the job posting
      * 
-     * @var String
+     * @var Status
      * @ODM\EmbedOne(targetDocument="Status")
      * @ODM\Index
      */
@@ -187,6 +187,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @ODM\String 
      */
     protected $logoRef;
+
+    /**
+     * Template-Name
+     *
+     * @var String
+     * @ODM\String
+     */
+    protected $template;
 
     /**
      * Application link.
@@ -361,7 +369,14 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function setOrganization(OrganizationInterface $organization = null)
     {
+        $permissions = $this->getPermissions();
+
+        if ($this->organization) {
+            $permissions->revoke($this->organization, null, false);
+        }
         $this->organization = $organization;
+        $permissions->grant($organization);
+
         return $this;
     }
     
@@ -657,6 +672,31 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     }
 
     /**
+     *
+     *
+     * @return string
+     */
+    public function getTemplate() {
+        $template = $this->template;
+        if (empty($template)) {
+            $template = 'default';
+        }
+        return $template;
+    }
+    /**
+     *
+     *
+     * @param string $template name of the Template
+     * @return \Jobs\Entity\Job
+     */
+    public function setTemplate($template) {
+        $this->template = $template;
+        return $this;
+    }
+
+
+
+    /**
      * Gets the uri of an application link
      *
      * @return String
@@ -740,12 +780,13 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     public function getPermissions()
     {
         if (!$this->permissions) {
-            $permissions = new Permissions();
+            $permissions = new Permissions('Job/Permissions');
             if ($this->user) {
                 $permissions->grant($this->user, Permissions::PERMISSION_ALL);
             }
             $this->setPermissions($permissions);
         }
+
         return $this->permissions;
     }
     

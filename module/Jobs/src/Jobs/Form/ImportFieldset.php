@@ -75,13 +75,6 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             
-            'status' => array(
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
-            
             'atsEnabled' => array(
                 'filters'  => array(
                 ),          
@@ -197,16 +190,6 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
         ));
        
        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'status',
-            'options' => array(
-                'label' => 'status'
-            ),
-            'attributes' => array(
-            )
-        ));
-       
-        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'reference',
             'options' => array(

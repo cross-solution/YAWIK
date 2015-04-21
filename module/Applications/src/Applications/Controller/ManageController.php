@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -80,7 +80,7 @@ class ManageController extends AbstractActionController
         $form                  = $services_form->get('Applications/Filter');
         $params                = $this->getRequest()->getQuery();
         $statusElement         = $form->get('status');
-        $form->bind($params);
+
         
         $states                = $applicationRepository->getStates()->toArray();
         $states                = array_merge(array(/*@translate*/ 'all'), $states);
@@ -93,6 +93,12 @@ class ManageController extends AbstractActionController
         
         $job = $params->job ? $jobRepository->find($params->job)  : null;
         $paginator = $this->paginator('Applications/Application',$params);
+
+        if ($job) {
+            $params['job_title'] = '[' . $job->getApplyId() . '] ' . $job->getTitle();
+        }
+
+        $form->bind($params);
                 
         return array(
             'form' => $form,
@@ -155,7 +161,8 @@ class ManageController extends AbstractActionController
         $return = array(
             'application'=> $application, 
             'list' => $list,
-            'isUnread' => $applicationIsUnread
+            'isUnread' => $applicationIsUnread,
+            'format' => 'html'
         );
         switch ($format) {
             case 'json':
@@ -172,7 +179,7 @@ class ManageController extends AbstractActionController
                 break;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
-           
+                $return['format'] = $format;
                 break;
             default:
                 $contentCollector = $this->getPluginManager()->get('Core/ContentCollector'); 

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -117,6 +117,18 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'template' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/template/:id/:template',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action'     => 'template',
+                        'forceJson' => true,
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'approval'   => array(
                 'type' => 'Segment',
                 'options' => array(
@@ -145,6 +157,16 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'assign-user' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/assign-user',
+                    'defaults' => array(
+                        'controller' => 'Jobs/AssignUser',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
         ),
     ),
     'save' => array(
@@ -159,22 +181,19 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
         'may_terminate' => true,
 
     ),
-    // @TODO put this to the core. By the way - multipost is used for portals already, these are
-    'multipost' => array(
-        'type' => 'Segment',
-        'options' => array(
-            'route' => '/multipost/:view',
-            'defaults' => array(
-                'controller' => 'Core\Controller\Content',
-                'action' => 'modal',
+
+    /**
+     * route to the public list job job abs
+     */
+    'jobboard' => array(
+            'type' => 'Literal',
+            'options' => array(
+                'route'    => '/jobboard',
                 'defaults' => array(
-                    'view' => 0
-                ),
-                'constraints' => array(
-                    'view' => '[a-f0-9-]+',
+                    'controller' => 'Jobs/Jobboard',
+                    'action'     => 'index',
                 ),
             ),
+
         ),
-        'may_terminate' => true,
-    ),
 )))));

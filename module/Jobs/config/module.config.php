@@ -60,34 +60,52 @@ return array(
             'recruiter' => array(
                 'allow' => array(
                     'Jobs',
-                    'Jobs/Manage',
+                    'Jobs/Manage' => array(
+                        'edit',
+                        'new' => 'Jobs/Create',
+                    ),
+                    'JobboardRecruiter',
                     'route/lang/jobs/manage',
                     'Entity/Jobs/Job' => array(
-                        'new',
                         'edit' => 'Jobs/Write',
                     ),
+                ),
+                'deny' => array(
+                  'Jobboard'
                 ),
             ),
             'guest' => array(
                 'allow' => array(
-                    'Jobs',
+                    'Jobboard'
                 ),
             ),
             'applicant' => array(
                 'allow' => array(
-                    'Jobs',
+                    'Jobboard'
                 ),
             ),
+            'admin' => array(
+                'allow' => array(
+                    'route/lang/jobs/approval'
+                )
+            )
         ),
         'assertions' => array(
             'invokables' => array(
-                'Jobs/Write' => 'Jobs\Acl\WriteAssertion'
+                'Jobs/Write' => 'Jobs\Acl\WriteAssertion',
+                'Jobs/Create' => 'Jobs\Acl\CreateAssertion',
             ),
         ),
     ),
     
     'navigation' => array(
         'default' => array(
+            'jobboard' => array(
+                'label' =>  /*@translate*/ 'Jobboard',
+                'route' => 'lang/jobboard',
+                'order' => '30',
+                'resource' => 'Jobboard',
+            ),
             'jobs' => array(
                 'label' =>  /*@translate*/ 'Jobs',
                 'route' => 'lang/jobs',
@@ -114,6 +132,12 @@ return array(
                         'visible' => false,
                         'id' => 'Jobs/edit'
                     ),
+                    'jobboard-recruiter' => array(
+                        'label' =>  /*@translate*/ 'Jobboard',
+                        'route' => 'lang/jobboard',
+                        'order' => '30',
+                        'resource' => 'JobboardRecruiter',
+                    ),
                 ),
             ),
         ),
@@ -121,16 +145,18 @@ return array(
 
     'service_manager' => array(
         'invokables' => array(
-                'Jobs/PreviewLinkHydrator'      => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
-                'Jobs/Listeners'                => 'Jobs\Listener\JobsListener',
-                'Jobs/Event'                    => 'Jobs\Listener\Events\JobEvent',
-                'Jobs/Listener/StatusChanged'   => 'Jobs\Listener\StatusChanged',
-                'Jobs/Listener/Publisher'       => 'Jobs\Listener\Publisher',
+                'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
+                'Jobs/Listeners'                    => 'Jobs\Listener\JobsListener',
+                'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
+                'Jobs/Listener/StatusChanged'       => 'Jobs\Listener\StatusChanged',
+                'Jobs/Listener/PendingForAcception' => 'Jobs\Listener\PendingForAcception',
+                'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
-            'Jobs\Form\Hydrator\OrganizationNameHydrator' => '\Jobs\Form\Hydrator\SLFactory\OrganizationNameHydratorSLFactory',
+            'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
+            'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
-            'Jobs/RestClient'                             => 'Jobs\Services\JobsPublisherFactory',
+            'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
         )
     ),
     
@@ -142,7 +168,9 @@ return array(
             'Jobs/Console' => 'Jobs\Controller\ConsoleController'
         ),
         'factories' => array(
-            'Jobs/Template' => 'Jobs\Controller\SLFactory\TemplateControllerSLFactory',
+            'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
+            'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
+            'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
         )
     ),
     
@@ -151,11 +179,13 @@ return array(
         'template_map' => array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
-            'jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
-            'jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
-            'jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
-            'jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
+            'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
+            'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
+            'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
+            'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
+            'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
             'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
+            'mail/jobPendingForAcception' => __DIR__ . '/../view/mails/deJobPendingForAcception.phtml',
         ),
     
         // Where to look for view templates not mapped above
@@ -168,9 +198,13 @@ return array(
         'invokables' => array(
             'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
 
-        )
+        ),
+        'factories' => array(
+            'applyUrl' => 'Jobs\View\Helper\ApplyUrlFactory',
+        ),
+
     ),
-       
+
     'form_elements' => array(
         'invokables' => array(
             'Jobs/Job'                          => 'Jobs\Form\Job',
@@ -181,15 +215,16 @@ return array(
             'Jobs/Description'                  => 'Jobs\Form\JobDescription',
             'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
-            'Jobs/Import'                       => '\Jobs\Form\Import',
-            'Jobs/ImportFieldset'               => '\Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'                   => '\Jobs\Form\ListFilter',
+            'Jobs/Import'                       => 'Jobs\Form\Import',
+            'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
+            'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
-            'Jobs/JobDescriptionBenefits'       => '\Jobs\Form\JobDescriptionBenefits',
-            'Jobs/JobDescriptionRequirements'   => '\Jobs\Form\JobDescriptionRequirements',
-            'Jobs/JobDescriptionQualifications' => '\Jobs\Form\JobDescriptionQualifications',
-            'Jobs/JobDescriptionTitle'          => '\Jobs\Form\JobDescriptionTitle',
-            'Jobs/Description/Template'         => '\Jobs\Form\JobDescriptionTemplate',
+            'Jobs/JobDescriptionDescription'    => 'Jobs\Form\JobDescriptionDescription',
+            'Jobs/JobDescriptionBenefits'       => 'Jobs\Form\JobDescriptionBenefits',
+            'Jobs/JobDescriptionRequirements'   => 'Jobs\Form\JobDescriptionRequirements',
+            'Jobs/JobDescriptionQualifications' => 'Jobs\Form\JobDescriptionQualifications',
+            'Jobs/JobDescriptionTitle'          => 'Jobs\Form\JobDescriptionTitle',
+            'Jobs/Description/Template'         => 'Jobs\Form\JobDescriptionTemplate',
             'Jobs/Preview'                      => 'Jobs\Form\Preview',
             'Jobs/PreviewFieldset'              => 'Jobs\Form\PreviewFieldset',
             'Jobs/PreviewLink'                  => 'Jobs\Form\PreviewLink',
@@ -200,16 +235,16 @@ return array(
             'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
         ),
         'factories' => array(
-            'jobs/ListFilterFieldsetExtended' => 'Jobs\Form\ListFilterFieldsetExtendedFactory',
-            'Jobs/CompanyNameFieldset' => 'Jobs\Form\SLFactory\CompanyNameFieldsetSLFactory',
+            'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
+            'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
         )
     ),
     
     'input_filters' => array(
         'invokables' => array(
-            'Jobs/Location/New'  => 'Jobs\Form\InputFilter\JobLocationNew',
-            'Jobs/Location/Edit' => 'Jobs\Form\InputFilter\JobLocationEdit',
-            'Jobs/Company' => 'Jobs\Form\InputFilter\CompanyName',
+            'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
+            'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
+            'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
         ),
     ),
     
@@ -222,6 +257,49 @@ return array(
     'validators' => array(
         'factories' => array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',
+        ),
+    ),
+
+
+
+    'multiposting' => array (
+        'channels' => array (
+            'yawik' => array(
+                'name' => 'yawik',
+                'label' => 'YAWIK',
+                'price' => 'free',
+                'headline' => /*@translate*/ 'publish your job on yawik.org for free',
+                'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
+                'linktext' => /*@translate*/ 'yawik.org',
+                'route' => 'lang/content',
+                'params' => array(
+                    'view' => 'jobs-publish-on-yawik'
+                )
+            ),
+            'jobsintown' => array(
+                'name' => 'jobsintown',
+                'label' => 'Jobsintown',
+                'price' => '199 €',
+                'headline' => /*@translate*/ 'publish your job on Jobsintown. 199,-€',
+                'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
+                'linktext' => /*@translate*/ 'www.jobsintown.de',
+                'route' => 'lang/content',
+                'params' => array(
+                    'view' => 'jobs-publish-on-jobsintown'
+                )
+            ),
+            'homepage' => array(
+                'name' => 'homepage',
+                'label' => /*@translate*/ 'Your Homepage',
+                'price' => 'free',
+                'headline' => /*@translate*/ 'enable integration of this job on your Homepage',
+                'long_label' => /*@translate*/ 'enable %s of this job on your Homepage',
+                'linktext' => /*@translate*/ 'integration',
+                'route' => 'lang/content',
+                'params' => array(
+                    'view' => 'jobs-publish-on-homepage'
+                )
+            ),
         ),
     ),
 

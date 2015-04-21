@@ -3,7 +3,7 @@
  * YAWIK
  * Auth Module Bootstrap
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 

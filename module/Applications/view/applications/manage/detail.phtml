@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2104 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 /**
@@ -26,8 +26,10 @@ endif;
             
 ?>
 <h1>
-<?php echo $this->translate('application for')?>: <?php echo $this->link($this->application->job->link, $this->application->job->title)?>
-<?php if (!$this->application->isDraft() && $this->list->getCount()):?>
+<?php echo $this->translate('application for')?>: 
+<?php $href = $this->application->job->link ? $this->application->job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $this->application->job->id)), true); ?>
+<?php echo $this->link($href, $this->application->job->title)?>
+<?php if (!$this->application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
 <small class="pull-right">
     <?php echo sprintf($this->translate('Application %d of %d'),
                        $this->list->getPosition(), $this->list->getCount()
@@ -113,7 +115,7 @@ endif;
     </form>
     <?php endif ?>
     <div class="pull-right">
-    <?php if (!$this->application->isDraft() && $this->list->getCount()):?>
+    <?php if (!$this->application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
     <div class="btn-group">
       <a href="<?php echo $prevHref ?>" class="btn btn-sm btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
       <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-sm btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>

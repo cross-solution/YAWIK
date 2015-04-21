@@ -1,0 +1,16 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<select class="assign-user-select form-input" name="user" style="width: 100%">
+    <?php foreach ($this->users as $user): ?>
+    <option value="<?php echo $user->getId() ?>"<?php if ($user->getId() == $this->currentUser->getId()): echo ' selected'; endif ?>><?php
+        echo $user->getInfo()->getDisplayName();
+        ?></option>
+<?php endforeach ?>
+</select>

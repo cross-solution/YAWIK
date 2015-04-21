@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -21,6 +21,20 @@ use Settings\Repository\Settings as SettingsRepository;
  */
 class ContentController extends AbstractActionController
 {
+    public function indexAction()
+    {
+        $view = $this->params('view');
+        $view = 'content/' . $view;
+
+        $viewModel = new ViewModel();
+        $viewModel->setTemplate($view);
+        if ($this->request->isXmlHttpRequest()) {
+            $viewModel->setTerminal(true);
+        }
+        return $viewModel;
+    }
+
+
 
     /**
      * displays the content of a modal box. This is used e.g. when opening

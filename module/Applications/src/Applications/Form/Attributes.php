@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -47,7 +47,7 @@ class Attributes extends Form
                 'headline' => /*@translate*/ 'Privacy Policy',
                 'long_label' => /*@translate*/ 'I have read the %s and accept it',
                 'linktext' => /*@translate*/ 'Privacy Policy',
-                'route' => 'lang/multipost',
+                'route' => 'lang/content',
                 'params' => array(
                     'view' => 'applications-privacy-policy'
                  )

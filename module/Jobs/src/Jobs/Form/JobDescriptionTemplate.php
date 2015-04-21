@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -29,6 +29,13 @@ class JobDescriptionTemplate extends Container
      */
     public function init()
     {
+        $this->setForms(array(
+            'descriptionFormDescription' => array(
+                'type' => 'Jobs/JobDescriptionDescription',
+                'property' => true,
+            )
+        ));
+
         $this->setForms(array(
             'descriptionFormBenefits' => array(
                 'type' => 'Jobs/JobDescriptionBenefits',

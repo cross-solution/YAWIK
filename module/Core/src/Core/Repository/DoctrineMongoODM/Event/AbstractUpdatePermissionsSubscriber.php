@@ -3,13 +3,14 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** PermissionsResourceEventsSubscriber.php */ 
 namespace Core\Repository\DoctrineMongoODM\Event;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -27,9 +28,10 @@ use Core\Entity\PermissionsAwareInterface;
 abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
 {
     protected $repositoryName;
+    protected $queuedEntities;
     
     public function getSubscribedEvents() {
-        return array(Events::postRemove, Events::postUpdate);
+        return array(Events::postRemove, Events::postUpdate, 'postCommit');
     }
     
     public function postUpdate(LifecycleEventArgs $args)
@@ -40,6 +42,21 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
     public function postRemove(LifecycleEventArgs $args)
     {
         $this->updatePermissions($args, PermissionsInterface::PERMISSION_NONE);
+    }
+
+    public function postCommit(EventArgs $args)
+    {
+        if (!$this->queuedEntities) {
+            return;
+        }
+
+        $dm = $args->get('documentManager'); /* @var $dm \Doctrine\ODM\MongoDB\DocumentManager */
+        foreach ($this->queuedEntities as $entity) {
+            $dm->persist($entity);
+        }
+
+        $this->queuedEntities = null;
+        $dm->flush();
     }
     
     protected function updatePermissions(LifecycleEventArgs $args, $permission)
@@ -57,12 +74,20 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
             }
             $permissions = $entity->getPermissions();
             $permissions->grant($resource, $permission);
+            $this->queuedEntities[] = $entity;
         }
         
-        $args->getDocumentManager()->flush();
+        //$args->getDocumentManager()->flush($resource);
         
     }
 
+    /**
+     * Fetch entities from the database which permissions are assigned the referral document.
+     *
+     * @param LifecycleEventArgs $args
+     *
+     * @return Collection
+     */
     protected function getEntities($args)
     {
         $dm             = $args->getDocumentManager();
@@ -94,7 +119,7 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
         
         $nameParts = explode('/', $this->repositoryName);
         if (2 > count($nameParts)) {
-            $nameParts = array($name, $name);
+            $nameParts[1] = $nameParts[0];
         }
         
         $namespace  = $nameParts[0];

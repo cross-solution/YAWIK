@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -42,7 +42,7 @@ class PreviewFieldset extends Fieldset implements propagateAttributeInterface
                 'headline' => /*@translate*/ 'Terms and conditions',
                 'long_label' => /*@translate*/ 'I have read the %s and accept it',
                 'linktext' => /*@translate*/ 'terms an conditions',
-                'route' => 'lang/multipost',
+                'route' => 'lang/content',
                 'params' => array(
                     'view' => 'jobs-terms-and-conditions'
                 )

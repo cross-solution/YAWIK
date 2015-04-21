@@ -3,13 +3,14 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 namespace Organizations\Form;
 
 use Core\Form\FileUploadFactory;
+use Zend\Stdlib\AbstractOptions;
 
 class LogoImageFactory extends FileUploadFactory
 {
@@ -17,10 +18,17 @@ class LogoImageFactory extends FileUploadFactory
     protected $fileEntityClass = '\Organizations\Entity\OrganizationImage';
     protected $configKey = 'organization_logo_image';
 
-    protected function configureForm($form)
+    /**
+     * use abstract options defined in "Applications/Options"
+     *
+     * @var string
+     */
+    protected $options="Jobs/Options";
+
+    protected function configureForm($form, AbstractOptions $options)
     {
-        $size = isset($this->config['max_size']) ? $this->config['max_size'] : 100000;
-        $type = isset($this->config['mimetype']) ? $this->config['mimetype'] : 'image';
+        $size = $options->getCompanyLogoMaxSize();
+        $type = $options->getCompanyLogoMimeType();
 
         $form->get($this->fileName)->setViewHelper('FormImageUpload')
             ->setMaxSize($size)

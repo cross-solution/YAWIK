@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -67,9 +67,9 @@ class PersistenceListener implements ListenerAggregateInterface
         }
         
         $services = $event->getApplication()->getServiceManager();
-        $dm       = $services->get('Core\DocumentManager');
+        $repos    = $services->get('repositories');
 
-        $dm  ->flush();
+        $repos->flush();
         $this->hasRun = true;
     }
 }

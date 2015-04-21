@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -31,13 +31,14 @@ class UserToSearchResult implements FilterInterface
         if (!$value instanceOf User) {
             return array();
         }
-        
+
+        $info = $value->getInfo();
+
         return array(
-            'id' => $value->id,
-            'name' => $value->info->displayName,
-            'image' => $value->info->image ? $value->info->image->uri : '',
-            'company' => 'Dummy Company',
-            'position' => 'Dummy position',
+            'id' => $value->getId(),
+            'name' => $info->displayName,
+            'image' => $info->image ? $info->image->uri : '',
+            'email' => $info->email,
         );
     }
 }

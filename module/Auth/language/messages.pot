@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 19:05+0100\n"
+"POT-Creation-Date: 2015-03-05 14:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -389,14 +389,14 @@ msgstr ""
 msgid "Register confirmation"
 msgstr ""
 
-#: language/_annotated_strings.php:190
+#: language/_annotated_strings.php:189
 msgid "Password recovery"
 msgstr ""
 
-#: language/_annotated_strings.php:194
+#: language/_annotated_strings.php:192
 msgid "user"
 msgstr ""
 
-#: language/_annotated_strings.php:197
+#: language/_annotated_strings.php:195
 msgid "recruiter"
 msgstr ""
