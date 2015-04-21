@@ -140,6 +140,14 @@ class IndexController extends AbstractActionController
              * MultiCheckbox Validation will FAIL on empty values!
              */
             if ("employeesManagement" == $formIdentifier) {
+                $markedEmps = array();
+                // Check if no permissions are set, and set one, mark this employee and restore it afterwards.
+                foreach ($postData['employees']['employees'] as &$empData) {
+                    if (!isset($empData['permissions'])) {
+                        $empData['permissions'][] = 16;
+                        $markedEmps[] = $empData['user'];
+                    }
+                }
                 $org->setEmployees(new ArrayCollection());
             }
 
@@ -149,6 +157,16 @@ class IndexController extends AbstractActionController
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
             $isValid = $form->isValid();
+
+            if ("employeesManagement" == $formIdentifier) {
+                // remove permissions from marked employees
+                foreach ($org->getEmployees() as $emp) {
+                    $empId = $emp->getUser()->getId();
+                    if (in_array($empId, $markedEmps)) {
+                        $emp->getPermissions()->revokeAll();
+                    }
+                }
+            }
             if ($isValid) {
                 $orgName = $org->getOrganizationName();
                 if ($orgName && '' !== (string) $orgName->getName()) {
