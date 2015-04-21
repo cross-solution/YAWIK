@@ -11,6 +11,7 @@
 namespace Organizations\Controller;
 
 use Auth\Exception\UnauthorizedAccessException;
+use Core\Entity\Collection\ArrayCollection;
 use Core\Form\SummaryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
@@ -18,6 +19,7 @@ use Organizations\Form;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
 use Core\Entity\PermissionsInterface;
+use Zend\View\Model\ViewModel;
 
 /**
  * Main Action Controller for the Organization.
@@ -121,7 +123,11 @@ class IndexController extends AbstractActionController
         $request         = $this->getRequest();
         $params          = $this->params();
         $formIdentifier  = $params->fromQuery('form');
-        $org             = $this->getOrganization(true);
+        try {
+            $org             = $this->getOrganization(true);
+        } catch (\RuntimeException $e) {
+            return $this->getErrorViewModel('no-parent');
+        }
         $container       = $this->getFormular($org);
 
         if (isset($formIdentifier) && $request->isPost()) {
@@ -129,12 +135,38 @@ class IndexController extends AbstractActionController
             /* @var $form \Zend\Form\FormInterface */
             $postData = $this->params()->fromPost();
             $filesData = $this->params()->fromFiles();
+            /* due to issues in ZF2 we need to clear the employees collection in the entity,
+             * prior to binding. Otherwise it is not possible to REMOVE an employee, as the
+             * MultiCheckbox Validation will FAIL on empty values!
+             */
+            if ("employeesManagement" == $formIdentifier) {
+                $markedEmps = array();
+                // Check if no permissions are set, and set one, mark this employee and restore it afterwards.
+                foreach ($postData['employees']['employees'] as &$empData) {
+                    if (!isset($empData['permissions'])) {
+                        $empData['permissions'][] = 16;
+                        $markedEmps[] = $empData['user'];
+                    }
+                }
+                $org->setEmployees(new ArrayCollection());
+            }
+
             $form = $container->get($formIdentifier);
             $form->setData(array_merge($postData, $filesData));
             if (!isset($form)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
             $isValid = $form->isValid();
+
+            if ("employeesManagement" == $formIdentifier) {
+                // remove permissions from marked employees
+                foreach ($org->getEmployees() as $emp) {
+                    $empId = $emp->getUser()->getId();
+                    if (in_array($empId, $markedEmps)) {
+                        $emp->getPermissions()->revokeAll();
+                    }
+                }
+            }
             if ($isValid) {
                 $orgName = $org->getOrganizationName();
                 if ($orgName && '' !== (string) $orgName->getName()) {
@@ -166,7 +198,7 @@ class IndexController extends AbstractActionController
             }
 
             return new JsonModel(array(
-                'valid' => $form->isValid(),
+                'valid' => $isValid,
                 'content' => $content,
             ));
         }
@@ -264,5 +296,15 @@ class IndexController extends AbstractActionController
             throw new \RuntimeException('No Organization found with id "' . $organizationId . '"');
         }
         return $organization;
+    }
+
+    protected function getErrorViewModel($script)
+    {
+        $this->getResponse()->setStatusCode(500);
+
+        $model = new ViewModel();
+        $model->setTemplate("organizations/error/$script");
+
+        return $model;
     }
 }

@@ -149,7 +149,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * Status of the job posting
      * 
-     * @var String
+     * @var Status
      * @ODM\EmbedOne(targetDocument="Status")
      * @ODM\Index
      */

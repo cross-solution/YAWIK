@@ -23,7 +23,6 @@ use Core\Entity\AbstractEntity;
  * @ODM\EmbeddedDocument
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
- * @todo write test 
  */
 class Employee extends AbstractEntity implements EmployeeInterface
 {

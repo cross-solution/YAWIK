@@ -11,17 +11,22 @@
 namespace Organizations\Entity;
 
 /**
- * ${CARET}
+ * Defines a OrganizationReference entity.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 interface OrganizationReferenceInterface 
 {
 
+    /**#@+
+     * Reference types.
+     *
+     * @var string
+     */
     const TYPE_NONE = 'none';
     const TYPE_OWNER = 'owner';
     const TYPE_EMPLOYEE = 'employee';
+    /**#@-*/
 
     /**
      * Returns true, if reference is of type TYPE_OWNER

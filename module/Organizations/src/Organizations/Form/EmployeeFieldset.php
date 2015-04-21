@@ -15,10 +15,13 @@ use Zend\Form\Fieldset;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 
 /**
- * ${CARET}
+ * An employee fieldset.
+ *
+ * This fieldset contains two elements:
+ * A user reference (field of type Employee)
+ * and the permissions multi checkboxes.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  * @since 0.18
  */
 class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
@@ -60,5 +63,4 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
             ),
         ));
     }
-    
 }

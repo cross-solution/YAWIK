@@ -55,6 +55,7 @@ return array(
              'organizations/index/edit' => __DIR__ . '/../view/organizations/index/form.phtml',
              'organizations/form/employees-fieldset' => __DIR__ . '/../view/form/employees-fieldset.phtml',
              'organizations/form/employee-fieldset' => __DIR__ .'/../view/form/employee-fieldset.phtml',
+             'organizations/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(

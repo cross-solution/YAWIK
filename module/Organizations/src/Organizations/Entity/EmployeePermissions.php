@@ -18,7 +18,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  * @since 0.18
  */
 class EmployeePermissions extends AbstractEntity implements EmployeePermissionsInterface
@@ -38,8 +37,12 @@ class EmployeePermissions extends AbstractEntity implements EmployeePermissionsI
      *
      * @param int $permissions Permissions bit mask
      */
-    public function __construct($permissions = 18)
+    public function __construct($permissions = null)
     {
+        if (!is_int($permissions)) {
+            $permissions = self::JOBS_VIEW | self::APPLICATIONS_VIEW;
+        }
+
         $this->setPermissions($permissions);
     }
 

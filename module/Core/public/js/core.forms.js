@@ -21,7 +21,7 @@
 			{
                 $.each(errors, function(idx, error) {
                     var $errorsDiv = $form.find('#' + prefix + idx + '-errors');
-                    console.debug('inserting error messages', '#' + prefix + idx + '-errors', $errorsDiv, error);
+//                    console.debug('inserting error messages', '#' + prefix + idx + '-errors', $errorsDiv, error);
                     if ($errorsDiv.length) {
                         var html = '<ul class="error">'
                         $.each(error, function(i, err) {
@@ -42,7 +42,7 @@
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
 			var data  = $form.serializeArray();
-            console.debug('data', e, $form, data);
+//            console.debug('data', e, $form, data);
 			if (extraData) {
 				$.each(extraData, function(idx, value) {
 					data.push({
@@ -70,7 +70,7 @@
 				if (!data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
-                console.debug('bubble done event for form',$form,data);
+//                console.debug('bubble done event for form',$form,data);
 				$form.trigger('yk.forms.done', {data: data, status:textStatus, jqXHR:jqXHR}); // DEPRECATED EVENT USE NEXT
                 $form.trigger('done.yk.core.forms', {data: data, status:textStatus, jqXHR: jqXHR});
                 $form.trigger('ajax.ready', {'data': data});
@@ -90,7 +90,7 @@
 			if (validate) {
 				data.validationGroup = validate;
 			}
-            console.debug('triggering a submit on change', data);
+//            console.debug('triggering a submit on change', data);
 			$element.parents('form').trigger('submit', data);
 			return false;
 		}
@@ -117,7 +117,7 @@
 				
 				options[idx] = val;
 			});
-			console.debug($select, options);
+//			console.debug($select, options);
 			$select.select2(options);
 		}
 	};
@@ -144,13 +144,13 @@
 				return methods[method].apply(this, args);
 			}
 
-            console.debug('ajax submit initialized for', $form);
+//            console.debug('ajax submit initialized for', $form);
             // overwrite the originally (HTML)-Submit for the form
 			$form.submit(handlers.onSubmit);
             // triggers an ajax call for elements with this specific attribute 'data-trigger'
             // originally it is designed to immidiatly fire an submit event for input elements, after they have changed
 			var elementsThatTriggerASubmit = $form.find('[data-trigger="submit"]');
-            console.debug('elements that trigger a submit',elementsThatTriggerASubmit);
+//            console.debug('elements that trigger a submit',elementsThatTriggerASubmit);
             elementsThatTriggerASubmit.change(handlers.onChange);
 		});
 	};

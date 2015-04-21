@@ -15,28 +15,19 @@ use Core\Form\ViewPartialProviderInterface;
 use Zend\Form\Element;
 
 /**
- * ${CARET}
+ * An employee form element.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.18
  */
-class Employee extends Element //implements ViewPartialProviderInterface
+class Employee extends Element
 {
 
-    protected $viewPartial = 'organizations/form/employee';
-
-    public function setViewPartial($partial)
-    {
-        $this->viewPartial = $partial;
-
-        return $this;
-    }
-
-    public function getViewPartial()
-    {
-        return $this->viewPartial;
-    }
-
+    /**
+     * Gets the user id or a placeholder for use in collection template.
+     *
+     * @return string
+     */
     public function getValue()
     {
         $value = parent::getValue();
@@ -44,6 +35,11 @@ class Employee extends Element //implements ViewPartialProviderInterface
         return $value instanceOf UserInterface ? $value->getId() : '__userId__';
     }
 
+    /**
+     * Gets the user entity or null.
+     *
+     * @return UserInterface|null
+     */
     public function getUser()
     {
         $value = parent::getValue();

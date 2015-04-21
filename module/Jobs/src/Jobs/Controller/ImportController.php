@@ -11,6 +11,7 @@
 /** ActionController of Core */
 namespace Jobs\Controller;
 
+use Jobs\Entity\Status;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
@@ -122,7 +123,15 @@ class ImportController extends AbstractActionController {
                     $result['post']                = $_POST;
                     $form->setData($params);
                     if ($form->isValid()) {
-                        $entity->setUser($user);
+                        $entity->setStatus($this->mapJobStatus($params['status']));
+                        /*
+                         * Search responsible user via contactEmail
+                         */
+                        $users = $repositories->get('Auth/User');
+                        $responsibleUser = $users->findByEmail($params['contactEmail']);
+
+                        $entity->setUser($responsibleUser ?: $user);
+
                         $group = $user->getGroup($entity->getCompany());
                         if ($group) {
                             $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
@@ -136,13 +145,13 @@ class ImportController extends AbstractActionController {
                             $hydratorManager          = $services->get('hydratorManager');
                             $hydrator                 = $hydratorManager->get('Hydrator/Organization');
                             $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
-                            $permissions              = $entityOrganizationFromDB->getPermissions();
+                            //$permissions              = $entityOrganizationFromDB->getPermissions();
                             $data = array(
-                                'externsalId'      => $params->companyId,
+                                'externalId'      => $params->companyId,
                                 'organizationName' => $params->company,
                                 'image'            => $params->logoRef
                             );
-                            $permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
+                            //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                             $repositories->store($entityOrganization);
                             $entity->setOrganization($entityOrganization);
@@ -217,5 +226,23 @@ class ImportController extends AbstractActionController {
         return new JsonModel($result);
     }
 
+    protected $jobStatusMap = array(
+        'aktiv' => Status::ACTIVE,
+        'inaktiv' => Status::INACTIVE,
+        'Freigabe?' => Status::WAITING_FOR_APPROVAL,
+        'freigegeben' => Status::PUBLISH,
+        'ueberarbeiten' => Status::WAITING_FOR_APPROVAL,
+        'neu' => Status::CREATED,
+        'revision' => Status::WAITING_FOR_APPROVAL,
+        'termin' => Status::WAITING_FOR_APPROVAL,
+        'Entwurf' => Status::WAITING_FOR_APPROVAL,
+    );
+
+    protected function mapJobStatus($status)
+    {
+        return isset($this->jobStatusMap[$status])
+               ? $this->jobStatusMap[$status]
+               : Status::CREATED;
+    }
 }
 

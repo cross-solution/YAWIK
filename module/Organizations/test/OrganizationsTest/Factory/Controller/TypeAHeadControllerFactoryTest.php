@@ -13,6 +13,12 @@ use Organizations\Factory\Controller\TypeAHeadControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
+/**
+ * @group Organizations
+ * @group Organizations.Controller
+ * @group Organizations.Controller.SLFactory
+ *
+ */
 class TypeAHeadControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -25,6 +31,8 @@ class TypeAHeadControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->testedObj = new TypeAHeadControllerFactory();
     }
 
+    /**
+     */
     public function testCreateService()
     {
         $sm = clone Bootstrap::getServiceManager();
@@ -51,5 +59,6 @@ class TypeAHeadControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $result = $this->testedObj->createService($controllerManager);
 
         $this->assertInstanceOf('Organizations\Controller\TypeAHeadController', $result);
+        $this->assertAttributeSame($organizationRepositoryMock, 'organizationRepository', $result);
     }
 }

@@ -12,13 +12,11 @@ namespace Acl\Assertion;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\Config;
-use Acl\Assertion\AssertionManager;
 
 /**
- * Factory for creating the Auth view helper.
+ * Factory for creating the AssertionManager.
  *
- * Class AssertionManagerFactory
- * @package Acl\Assertion
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class AssertionManagerFactory implements FactoryInterface
 {
@@ -27,8 +25,8 @@ class AssertionManagerFactory implements FactoryInterface
      * 
      * - Injects the AuthenticationService
      * 
-     * @param ServiceLocatorInterface $helpers
-     * @return \Auth\View\Helper\Auth
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return AssertionManager
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)

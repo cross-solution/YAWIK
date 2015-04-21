@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AssertionManager.php */ 
+/** */
 namespace Acl\Assertion;
 
 use Zend\EventManager\EventManagerAwareInterface;
@@ -18,11 +18,21 @@ use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class AssertionManager
- * @package Acl\Assertion
+ * Plugin manager for assertions.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class AssertionManager extends AbstractPluginManager
 {
+    /**
+     * Creates an instance.
+     *
+     * {@inheritDoc}
+     *
+     * Adds an additional initializer to inject an event manager to assertions
+     * implementing {@link EventManagerAwareInterface}.
+     *
+     */
     public function __construct(ConfigInterface $configuration = null)
     {
         parent::__construct($configuration);
@@ -31,8 +41,17 @@ class AssertionManager extends AbstractPluginManager
         $this->addInitializer(array($this, 'injectEventManager'), false);
     }
 
-    public function injectEventManager($assertion, ServiceLocatorInterface $serviceLocator)
+    /**
+     * Injects a shared event manager aware event manager.
+     *
+     *
+     * @param AssertionInterface      $assertion
+     * @param ServiceLocatorInterface $serviceLocator
+     */
+    public function injectEventManager(AssertionInterface $assertion, ServiceLocatorInterface $serviceLocator)
     {
+        /* @var $serviceLocator AssertionManager */
+
         if (!$assertion instanceOf EventManagerAwareInterface) {
             return;
         }
@@ -40,15 +59,21 @@ class AssertionManager extends AbstractPluginManager
         $parentLocator = $serviceLocator->getServiceLocator();
         $events = $assertion->getEventManager();
         if (!$events instanceof EventManagerInterface) {
-            $assertion->setEventManager($parentLocator->get('EventManager'));
+            $events = $parentLocator->get('EventManager'); /* @var $events \Zend\EventManager\EventManagerInterface */
+            $assertion->setEventManager($events);
         } else {
-            $events->setSharedManager($parentLocator->get('SharedEventManager'));
+            $sharedEvents = $parentLocator->get('SharedEventManager'); /* @var $sharedEvents \Zend\EventManager\SharedEventManagerInterface */
+            $events->setSharedManager($sharedEvents);
         }
     }
 
     /**
+     * Validates assertions.
+     *
+     * Checks that the assertion implements AssertionInterface.
+     *
      * @param mixed $plugin
-     * @throws \RuntimeException
+     * @throws \RuntimeException if invalid
      */
     public function validatePlugin($plugin)
     {

@@ -104,9 +104,7 @@ class Permissions implements PermissionsInterface
      */
     public function __construct($type = null)
     {
-        if (!$type) {
-            $this->type = get_class($this);
-        }
+        $this->type = $type ?: get_class($this);
     }
 
     /**
@@ -142,10 +140,10 @@ class Permissions implements PermissionsInterface
      */
     public function __call($method, $params)
     {
-        if (1 < count($params)) {
+        if (1 != count($params)) {
             throw new \InvalidArgumentException('Missing required parameter.');
         }
-        
+
         if (preg_match('~^is(View|Change|None|All)Granted$~', $method, $match)) {
             $permission = constant('self::PERMISSION_' . strtoupper($match[1]));
             return $this->isGranted($params[0], $permission);
@@ -204,10 +202,12 @@ class Permissions implements PermissionsInterface
             unset($this->assigned[$resourceId]);
         } else {
             if ($resource instanceOf PermissionsResourceInterface) {
-                $spec = null === $permission
-                      ? $resource->getPermissionsUserIds($this->type)
-                      : array($permission => $resource->getPermissionsUserIds());
-
+                $spec = $resource->getPermissionsUserIds($this->type);
+                if (!is_array($spec) || !count($spec)) {
+                    $spec = array();
+                } else if (is_numeric(key($spec))) {
+                    $spec = array($permission => $spec);
+                }
             } else {
                 $spec = array($permission => $resource instanceOf UserInterface ? array($resource->getId()) : array($resource));
             }
@@ -215,10 +215,12 @@ class Permissions implements PermissionsInterface
             $this->assigned[$resourceId] = $spec;
 
             if ($resource instanceOf PermissionsResourceInterface) {
+                try {
                 $refs = $this->getResources();
                 if (!$refs->contains($resource)) {
                     $refs->add($resource);
                 }
+                } catch (\Exception $e) {};
             }
         }
         
@@ -305,10 +307,12 @@ class Permissions implements PermissionsInterface
              * introduced in 0.18
              * TODO: Remove this line some versions later.
              */
+            // @codeCoverageIgnoreStart
             if (isset($spec['permission'])) {
                 $spec = array($spec['permission'] => $spec['users']);
                 $this->assigned[$resourceId] = $spec;
             }
+            // @codeCoverageIgnoreEnd
 
             foreach ($spec as $perm => $userIds) {
                 if (self::PERMISSION_ALL == $perm || self::PERMISSION_CHANGE == $perm) {
@@ -335,10 +339,9 @@ class Permissions implements PermissionsInterface
         if (self::PERMISSION_ALL == $permission || self::PERMISSION_CHANGE == $permission) {
             return in_array($userId, $this->change);
         }
-        
-        if (self::PERMISSION_VIEW == $permission) {
-            return in_array($userId, $this->view);
-        }
+
+        // Now there's only PERMISSION_VIEW left to check.
+        return in_array($userId, $this->view);
     }
     
     public function isAssigned($resource)
@@ -383,6 +386,7 @@ class Permissions implements PermissionsInterface
     public function getFrom($resource)
     {
         $resourceId = $this->getResourceId($resource);
+
         if (!isset($this->assigned[$resourceId])) {
             return self::PERMISSION_NONE;
         }

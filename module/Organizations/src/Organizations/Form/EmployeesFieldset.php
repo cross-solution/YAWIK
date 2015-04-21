@@ -16,10 +16,12 @@ use Core\Form\ViewPartialProviderInterface;
 use Zend\Form\Fieldset;
 
 /**
- * ${CARET}
+ * The employees fieldset used for managing employees.
+ *
+ * Currently has two elements:
+ * A user search bar to add new employees and a Collection of EmployeeFieldsets (one for each employee).
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  * @since 0.18
  */
 class EmployeesFieldset extends Fieldset implements ViewPartialProviderInterface
@@ -63,15 +65,12 @@ class EmployeesFieldset extends Fieldset implements ViewPartialProviderInterface
                 'should_create_template' => true,
                 'use_labeled_items' => false,
                 'allow_add' => true,
+                'allow_remove' => true,
                 'renderFieldset' => true,
                 'target_element' => array(
                     'type' => 'Organizations/EmployeeFieldset'
                 )
             ),
         ));
-        /*@todo needs to be in factory*/
-        $hydrator = new EntityHydrator();
-        $hydrator->addStrategy('employees', new CollectionStrategy());
-        $this->setHydrator($hydrator);
     }
 }

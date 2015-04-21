@@ -14,7 +14,6 @@ use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
-use Core\Entity\AddressInterface;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\EntityInterface;
@@ -143,14 +142,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     protected $user;
 
-    /**
-     * Internal references (database query optimization)
-     *
-     * @var InternalReferences
-     * @ODM\EmbedOne(targetDocument="InternalReferences")
-     */
-    protected $refs;
-
     public function setParent(OrganizationInterface $parent)
     {
         $this->parent = $parent;
@@ -221,12 +212,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->organizationName;
     }
 
-    public function setAddresses(AddressInterface $addresses)
-    { }
-
-    public function getAddresses()
-    { }
-
     public function getSearchableProperties()
     { }
 
@@ -267,8 +252,11 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     public function getPermissionsUserIds($type = null)
     {
-        // Grant Owner of organization full access
-        $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()));
+        // if we have a user, grant him full access to all associated permissions.
+        $user = $this->getUser();
+        $spec = $user
+              ? $spec = array(PermissionsInterface::PERMISSION_ALL => array($this->getUser()->getId()))
+              : array();
 
         if (null === $type || ('Job/Permissions' != $type && 'Application' != $type)) {
             return $spec;
@@ -288,9 +276,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             /* @var $emp EmployeeInterface */
             $perm = $emp->getPermissions();
             if ($perm->isAllowed($change)) {
-                $spec[$change][] = $emp->getUser()->getId();
+                $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
             } else if ($perm->isAllowed($view)) {
-                $spec[$view][] = $emp->getUser()->getId();
+                $spec[PermissionsInterface::PERMISSION_VIEW][] = $emp->getUser()->getId();
             }
         }
 
@@ -439,45 +427,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         /* @var $employees null | ArrayCollection | \Doctrine\ODM\MongoDB\PersistentCollection */
         $employees = $organization->getEmployees();
 
-        if ($employees &&
-            ( $employees instanceof ArrayCollection
-              || $employees->isDirty()
-              || $employees->isInitialized())
-        ) {
-            /* @var $perms Permissions */
-            $perms = $this->getPermissions();
+        $perms = $this->getPermissions();
 
-            foreach ($employees as $emp) {
-                /* @var $emp \Organizations\Entity\Employee */
-                $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
-            }
-            $perms->build();
+        foreach ($employees as $emp) {
+            /* @var $emp \Organizations\Entity\Employee */
+            $perms->grant($emp->getUser(), PermissionsInterface::PERMISSION_CHANGE, false);
         }
-
-    }
-
-    public function getInternalReferences()
-    {
-        if (!$this->refs) {
-            $this->refs = new InternalReferences();
-            $this->refs->setEmployeesIdsFromCollection($this->getEmployees());
-        }
-
-        return $this->refs;
-    }
-
-    /**
-     * Updates the internal references.
-     *
-     *
-     * @ODM\PreUpdate
-     * @ODM\PrePersist
-     * @since 0.18
-     */
-    public function updateInternalReferences()
-    {
-        $this->getInternalReferences()
-             ->setEmployeesIdsFromCollection($this->getEmployees());
+        $perms->build();
     }
 
     public function setUser(UserInterface $user) {

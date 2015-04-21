@@ -20,7 +20,6 @@ use Auth\Entity\UserInterface;
  * This assertion checks permissions to create a job.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo   write test
  * @since 0.18
  */
 class CreateAssertion extends AbstractEventManagerAwareAssertion

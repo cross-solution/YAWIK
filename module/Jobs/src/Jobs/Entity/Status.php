@@ -45,8 +45,8 @@ class Status extends AbstractEntity implements StatusInterface
     /**
      * integer for ordering states.
      * 
-     * @var string
-     * @ODM\String
+     * @var int
+     * @ODM\Int
      */
     protected $order;
 

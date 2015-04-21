@@ -18,6 +18,16 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
 
     public function setUp()
     {
+        $logDir = __DIR__ . '/../../../../../log/';
+        $errorLogFile = $logDir . 'error.log';
+        $yawikLogFile = $logDir . 'yawik.log';
+
+        if ((file_exists($errorLogFile) && !is_writable($errorLogFile))
+            || (file_exists($yawikLogFile) && !is_writable($yawikLogFile))
+        ) {
+            $this->markTestSkipped('error.log and/or yawik.log is/are not writable! Run the test with the right user or set appropriate file permissions');
+        }
+
         parent::setUp();
 
         $this->repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
@@ -29,6 +39,7 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
 
     public function testAccessWhenYouAreNotLoggedIn()
     {
+        echo "pups"; exit;
         $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
 
         $result = $this->getResponse()->getContent();
