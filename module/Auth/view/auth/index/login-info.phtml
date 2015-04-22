@@ -41,7 +41,8 @@
                     if (!$org) {
                         echo $this->translate('Create my organization');
                     } else {
-                        echo sprintf($this->translate('Edit "%s"'), $org->getOrganizationName()->getName());
+                        $orgName = $org->getOrganizationName();
+                        echo sprintf($this->translate('Edit "%s"'), $orgName ? $orgName->getName() : '&lt;unnamed organization&gt;');
                     }
 
 
