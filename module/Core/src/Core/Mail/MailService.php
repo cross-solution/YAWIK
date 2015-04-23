@@ -14,6 +14,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\Mail\Transport\TransportInterface;
 use Zend\Mail\Message;
+use Zend\Mail\Address;
 use Zend\Mail\AddressList;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\I18n\Translator\TranslatorAwareInterface;
@@ -177,7 +178,7 @@ class MailService extends AbstractPluginManager
             $mail->setFrom($this->from);
         }
         
-        if (null !== $this->overrideRecipient) {
+        if ($this->overrideRecipient instanceof AddressList) {
             $originalRecipient = $headers->get('to')->toString();
             if ($headers->has('cc')) {
                 $originalRecipient .= '; ' . $headers->get('cc')->toString();

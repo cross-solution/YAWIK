@@ -218,7 +218,8 @@ class Register
             $email = $this->getEmail();
 
             if (($userRepository->findByLoginOrEmail($email))) {
-                throw new Exception\UserAlreadyExistsException('User already exists');
+                return Null;
+                //throw new Exception\UserAlreadyExistsException('User already exists');
             }
 
             $user = $userRepository->create(array(
@@ -261,10 +262,11 @@ class Register
         $this->setFormFilter($filter);
         $this->setMailer($mailer);
         $this->setUrlPlugin($url);
-        $this->proceedUser();
-        $this->proceedMail();
-        if (isset($this->user)) {
-            return $this->user;
+        if ($this->proceedUser()) {
+            $this->proceedMail();
+            if (isset($this->user)) {
+                return $this->user;
+            }
         }
         return null;
     }
@@ -282,10 +284,11 @@ class Register
         $this->setEmail($email);
         $this->setMailer($mailer);
         $this->setUrlPlugin($url);
-        $this->proceedUser();
-        $this->proceedMail();
-        if (isset($this->user)) {
-            return $this->user;
+        if ($this->proceedUser()) {
+            $this->proceedMail();
+            if (isset($this->user)) {
+                return $this->user;
+            }
         }
         return null;
     }
@@ -297,24 +300,25 @@ class Register
     {
         $url = $this->getUrlPlugin();
         $user = $this->getUser();
+        if (isset($user)) {
+            $confirmationLink = $url->fromRoute(
+                                    'lang/register-confirmation',
+                                        array('userId' => $user->getId()),
+                                        array('force_canonical' => true)
+            );
 
-        $confirmationLink = $url->fromRoute(
-                                'lang/register-confirmation',
-                                    array('userId' => $user->getId()),
-                                    array('force_canonical' => true)
-        );
-
-        $userEmail              = $user->getInfo()->getEmail();
-        $userName               = $user->getInfo()->getDisplayName();
-        $mailService            = $this->getMailService();
-        $mail                   = $mailService->get('htmltemplate');
-        $mail->user             = $user;
-        $mail->name             = $userName;
-        $mail->confirmationlink = $confirmationLink;
-        $mail->setTemplate('mail/register');
-        $mail->setSubject( /*translate*/ 'Registration');
-        $mail->setTo($userEmail);
-        $mail->setFrom('Yawik-System', $userName);
-        $mailService->send($mail);
+            $userEmail              = $user->getInfo()->getEmail();
+            $userName               = $user->getInfo()->getDisplayName();
+            $mailService            = $this->getMailService();
+            $mail                   = $mailService->get('htmltemplate');
+            $mail->user             = $user;
+            $mail->name             = $userName;
+            $mail->confirmationlink = $confirmationLink;
+            $mail->setTemplate('mail/register');
+            $mail->setSubject( /*translate*/ 'Registration');
+            $mail->setTo($userEmail);
+            $mail->setFrom('Yawik-System', $userName);
+            $mailService->send($mail);
+        }
     }
 }

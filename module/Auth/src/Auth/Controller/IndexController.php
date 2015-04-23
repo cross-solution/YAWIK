@@ -11,6 +11,7 @@
 namespace Auth\Controller;
 
 use Auth\AuthenticationService;
+use Auth\Service\Exception;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
@@ -39,13 +40,19 @@ class IndexController extends AbstractActionController
     protected $logger;
 
     /**
+     * @var
+     */
+    protected $options;
+
+    /**
      * @param $auth
      * @param $loginForm
      */
-    public function __construct($auth,$logger,$loginForm) {
+    public function __construct($auth, $logger, $loginForm, $options) {
         $this->auth=$auth;
         $this->loginForm=$loginForm;
         $this->logger=$logger;
+        $this->options = $options;
     }
 
     /**
@@ -163,14 +170,12 @@ class IndexController extends AbstractActionController
         $resultMessage = $result->getMessages();
 
         if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-            $this->logger->debug('first login via ' . $provider);
-            
-            if (array_key_exists('user', $resultMessage)) {
-                $user=$auth->getUser();
-
-                $password = substr(md5(uniqid()),0,6);
-
-                $login = uniqid() . ($config['auth']['suffix']!=""?'@'.$config['auth']['suffix']:'');
+            try {
+                $user          = $auth->getUser();
+                $password      = substr(md5(uniqid()),0,6);
+                $login         = uniqid() . ($this->options->auth_suffix != "" ? '@' . $this->options->auth_suffix : '');
+                $externalLogin = isset($user->login)?$user->login:'-- not communicated --';
+                $this->logger->debug('first login via ' . $provider . ' as: ' . $externalLogin);
 
                 $scheme = '';
                 $domain = '';
@@ -181,33 +186,42 @@ class IndexController extends AbstractActionController
                 }
                 $viewHelperManager = $this->getServiceLocator()->get('ViewHelperManager');
                 $basePath = $viewHelperManager->get('basePath')->__invoke();
-                
+
                 $user->login=$login;
                 $user->setPassword($password);
-                $user->role=$config['first_login']['role'];
-                             
+                $user->role = $this->options->role;
+
                 $mail = $this->mail(
-                        array('displayName'=>$user->info->getDisplayName(),
-                              'provider' => $provider,
-                              'user' => $login,
-                              'password' => $password,
-                              'uri' =>  $scheme . '://' . $domain . $basePath)
+                        array(  'from' => $this->options->mail_from,
+                                'fromName' => $this->options->mail_name,
+                                'subject' => 'registration at the YAWIK',
+                                'displayName'=> $user->info->getDisplayName(),
+                                'provider' => $provider,
+                                'user' => $login,
+                                'password' => $password,
+                                'uri' =>  $scheme . '://' . $domain . $basePath)
                         );
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
-                $mail->setFrom('contact@yawik.org', $config['first_login']['mail_name']);
-                $mail->setSubject($config['first_login']['mail_subject']);
+                $mail->setSubject($this->options->mail_subject);
+
+                $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
+                if (isset($mail) && $this->mailer($mail)) {
+                    $this->logger->info('Mail first-login for ' . $loggerId . ' sent to ' . $user->info->getEmail());
+                } else {
+                    $this->logger->warn('No Mail was sent for ' . $loggerId);
+                }
             }
-            if (isset($mail) && $this->mailer($mail)) {
-                $this->logger->info('Mail first-login sent to ' . $user->info->getEmail());
-            } else {
-                $this->logger->warn('No Mail was sent');
+            catch (\Exception $e) {
+                $this->logger->crit($e);
+                $this->notification()->danger(
+                    /*@translate*/ 'An unexpected error has occurred, please contact your system administrator'
+                );
             }
-            
         }
         
-        $user = $auth->getUser();
-        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
+        //$user = $auth->getUser();
+        //$this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
