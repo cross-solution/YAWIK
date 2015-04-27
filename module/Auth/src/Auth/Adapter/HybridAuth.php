@@ -37,7 +37,7 @@ class HybridAuth implements AdapterInterface
     /**
      * User mapper.
      * 
-     * @var \Auth\Mapper\MongoDb\UserMapper
+     * @var \Auth\Repository\User
      */
     protected $repository;
     
