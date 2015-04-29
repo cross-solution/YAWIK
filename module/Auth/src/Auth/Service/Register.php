@@ -218,8 +218,8 @@ class Register
             $email = $this->getEmail();
 
             if (($userRepository->findByLoginOrEmail($email))) {
-                return Null;
-                //throw new Exception\UserAlreadyExistsException('User already exists');
+                //return Null;
+                throw new Exception\UserAlreadyExistsException('User already exists');
             }
 
             $user = $userRepository->create(array(

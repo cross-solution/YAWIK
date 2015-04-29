@@ -28,4 +28,8 @@ interface NotificationEntityInterface
     public function setPriority($priority);
 
     public function getPriority();
+
+    public function setTarget($target);
+
+    public function getTarget();
 }

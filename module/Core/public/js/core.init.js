@@ -40,13 +40,32 @@
                     if ($(this).hasClass('alert-info')) {
                         type = 'info';
                     }
-                    // take out all operational chars
-                    $(this).children().empty();
-                    new PNotify({
-                        // trim startinn and trailing whitespaces
-                        'text': $(this).text().replace(/^\s+|\s+$/gm,''),
-                        'type': type
-                    });
+                    // take out all operational chars, this takes also
+                    // $(this).children().empty();
+                    $message = $(this).children('.notification-content').eq(0);
+                    if (typeof $message != undefined) {
+                        // @TODO: change this so you can use tags inside the Message
+                        $message = $message.text();
+                    }
+                    console.log('message', $message );
+
+                    var targetId = $(this).attr('target');
+                    if (typeof targetId != 'undefined') {
+                        console.log('targetId', targetId);
+                        console.log('target', $('#' + targetId));
+                        target = $('#' + targetId);
+                    }
+
+                    if (typeof target == 'undefined') {
+                        new PNotify({
+                            // trim startinn and trailing whitespaces
+                            'text': $message.replace(/^\s+|\s+$/gm,''),
+                            'type': type
+                        });
+                    }
+                    else {
+                        target.append($message);
+                    }
                     $(this).remove();
                 }
             })

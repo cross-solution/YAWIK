@@ -25,7 +25,16 @@ $translate = $this->plugin('translate');
     $messenger->clearCurrentMessagesFromNamespace($ns);
     
     foreach ($messages as $message):
-        echo $alert->render($ns, $translate($message));
+        $options = array();
+        $testJson = json_decode($message);
+        if (is_object($testJson)) {
+            $testJson = (array) $testJson;
+        }
+        if ( is_array($testJson) && json_last_error() == JSON_ERROR_NONE && array_key_exists('message', $testJson)) {
+            $message = $testJson['message'];
+            $options = $testJson;
+        }
+        echo $alert->render($ns, $translate($message), $options);
     endforeach;
 endforeach ?>        
 </div>
