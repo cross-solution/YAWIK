@@ -50,22 +50,22 @@ translate('The name of the hiring organization will be shown in search results.'
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:50
+//: ./src/Jobs/Form/ListFilterFieldset.php:55
 translate('Show all jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:51
+//: ./src/Jobs/Form/ListFilterFieldset.php:56
 translate('Show my jobs');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:65
+//: ./src/Jobs/Form/ListFilterFieldset.php:70
 translate('All');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:66
+//: ./src/Jobs/Form/ListFilterFieldset.php:71
 translate('Active');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:67
+//: ./src/Jobs/Form/ListFilterFieldset.php:72
 translate('Inactive');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:78
+//: ./src/Jobs/Form/ListFilterFieldset.php:83
 translate('Job title');
 
 //: ./src/Jobs/Form/BaseFieldset.php:46
@@ -83,54 +83,60 @@ translate('Please enter the location of the job');
 //: ./src/Jobs/Form/Multipost.php:21
 translate('Multiposting');
 
-//: ./src/Jobs/Controller/ManageController.php:345
+//: ./src/Jobs/Controller/ManageController.php:355
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:353
+//: ./src/Jobs/Controller/ManageController.php:363
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:387
+//: ./src/Jobs/Controller/ManageController.php:397
 translate('Job was deactivated by %s');
 
-//: ./config/module.jobs.portals.config.local.php.dist:10
-translate('publish your job on yawik.org for free');
-
-//: ./config/module.jobs.portals.config.local.php.dist:11
-translate('publish the job for 30 days on %s');
-
-//: ./config/module.jobs.portals.config.local.php.dist:12
-translate('yawik.org');
-
-//: ./config/module.jobs.portals.config.local.php.dist:22
-translate('publish your job on Jobsintown. 199,-€');
-
-//: ./config/module.jobs.portals.config.local.php.dist:23
-translate('publish the job for 30 days on %s');
-
-//: ./config/module.jobs.portals.config.local.php.dist:24
-translate('www.jobsintown.de');
-
-//: ./config/module.jobs.portals.config.local.php.dist:32
-translate('Your Homepage');
-
-//: ./config/module.jobs.portals.config.local.php.dist:34
-translate('enable integration of this job on your Homepage');
-
-//: ./config/module.jobs.portals.config.local.php.dist:35
-translate('enable %s of this job on your Homepage');
-
-//: ./config/module.jobs.portals.config.local.php.dist:36
-translate('integration');
-
-//: ./config/module.config.php:92
-translate('Jobs');
-
-//: ./config/module.config.php:98
-translate('Overview');
-
-//: ./config/module.config.php:102
-translate('Create job');
+//: ./config/module.config.php:105
+translate('Jobboard');
 
 //: ./config/module.config.php:111
+translate('Jobs');
+
+//: ./config/module.config.php:117
+translate('Overview');
+
+//: ./config/module.config.php:121
+translate('Create job');
+
+//: ./config/module.config.php:130
 translate('Edit job');
+
+//: ./config/module.config.php:137
+translate('Jobboard');
+
+//: ./config/module.config.php:272
+translate('publish your job on yawik.org for free');
+
+//: ./config/module.config.php:273
+translate('publish the job for 30 days on %s');
+
+//: ./config/module.config.php:274
+translate('yawik.org');
+
+//: ./config/module.config.php:284
+translate('publish your job on Jobsintown. 199,-€');
+
+//: ./config/module.config.php:285
+translate('publish the job for 30 days on %s');
+
+//: ./config/module.config.php:286
+translate('www.jobsintown.de');
+
+//: ./config/module.config.php:294
+translate('Your Homepage');
+
+//: ./config/module.config.php:296
+translate('enable integration of this job on your Homepage');
+
+//: ./config/module.config.php:297
+translate('enable %s of this job on your Homepage');
+
+//: ./config/module.config.php:298
+translate('integration');
 

@@ -32,9 +32,6 @@ translate('View');
 //: ./src/Core/Form/PermissionsFieldset.php:68
 translate('Write');
 
-//: ./src/Core/Form/View/Helper/Element/SpinnerButton.php:47
-translate('processing');
-
 //: ./src/Core/Form/Element/Rating.php:30
 translate('Not Rated');
 
@@ -56,7 +53,7 @@ translate('Excellent');
 //: ./src/Core/Form/Element/Phone.php:25
 translate('Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.');
 
-//: ./src/Core/Form/FileUploadFactory.php:119
+//: ./src/Core/Form/FileUploadFactory.php:136
 translate('Remove all');
 
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:18

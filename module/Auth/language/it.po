@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-06 16:36+0100\n"
-"PO-Revision-Date: 2015-01-15 13:01+0000\n"
-"Last-Translator: BLU-IT\n"
+"POT-Creation-Date: 2015-04-29 19:03+0200\n"
+"PO-Revision-Date: 2015-04-29 17:22+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr "Almeno un utente deve essere assegnato"
 msgid "My groups"
 msgstr "I miei gruppi"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:26
+#: view/auth/manage-groups/index.phtml:11
 msgid "Manage groups"
 msgstr "Gestire i gruppi"
 
@@ -98,7 +98,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr "Si prega di autenticarsi per procedere"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:49
+#: view/auth/index/login-info.phtml:72
 msgid "Login"
 msgstr "Entra"
 
@@ -106,7 +106,7 @@ msgstr "Entra"
 msgid "I forgot my password"
 msgstr "Ho dimenticato la mia password"
 
-#: view/auth/index/index.phtml:40 view/auth/index/index.phtml:41
+#: view/auth/index/index.phtml:43 view/auth/index/index.phtml:44
 #: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
 #: language/_annotated_strings.php:96
 msgid "Register"
@@ -124,33 +124,42 @@ msgstr "Identifier domanda sconosciuto"
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr "Un annuncio di lavoro con l'identificativo fornito non è stato trovato."
 
-#: view/auth/index/login-info.phtml:19 view/auth/manage/profile.phtml:3
+#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
 msgid "My profile"
 msgstr "Il mio profilo"
 
-#: view/auth/index/login-info.phtml:22
+#: view/auth/index/login-info.phtml:29
 msgid "Change password"
 msgstr "Cambia password"
 
-#: view/auth/index/login-info.phtml:31
+#: view/auth/index/login-info.phtml:42
+msgid "Create my organization"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:45
+#, php-format
+msgid "Edit \"%s\""
+msgstr ""
+
+#: view/auth/index/login-info.phtml:53
 msgid "Logout"
 msgstr "Logout"
 
-#: view/auth/index/login-info.phtml:38
+#: view/auth/index/login-info.phtml:60
 #, php-format
 msgid "Hello %s"
 msgstr "Ciao %s"
 
-#: view/auth/index/login-info.phtml:39
+#: view/auth/index/login-info.phtml:61
 msgid "Guest"
 msgstr "Ospite"
 
-#: view/auth/index/login-info.phtml:51
+#: view/auth/index/login-info.phtml:76
 msgid "Login via"
 msgstr "Accedi via"
 
-#: view/auth/index/login-info.phtml:54
+#: view/auth/index/login-info.phtml:79
 #, php-format
 msgid "Login with %s"
 msgstr "Accedi con %s"
@@ -166,6 +175,7 @@ msgid ""
 "create a new password via email."
 msgstr "Inserisci il tuo nome utente o indirizzo e-mail. Riceverai un link per creare una nuova password via e-mail."
 
+#: view/auth/password/index.phtml:11 view/auth/password/index.phtml:14
 #: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr "La mia password"
@@ -175,7 +185,7 @@ msgstr "La mia password"
 msgid "personal informations"
 msgstr "Informazioni personali"
 
-#: src/Auth/Form/UserPasswordFieldset.php:31
+#: src/Auth/Form/UserPasswordFieldset.php:35
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:66
 #: language/_annotated_strings.php:111
 msgid "Password"
@@ -313,7 +323,8 @@ msgid "User cannot be found for specified token"
 msgstr "Utente non può essere trovato per token della sessione specificato"
 
 #: language/_annotated_strings.php:123 language/_annotated_strings.php:132
-#: language/_annotated_strings.php:174 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:150 language/_annotated_strings.php:165
+#: language/_annotated_strings.php:186
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
 msgstr "Si è verificato un errore imprevisto, si prega di contattare l'amministratore di sistema"
@@ -327,78 +338,74 @@ msgstr "Email User verificato con successo. È necessario impostare una password
 msgid "User cannot be found"
 msgstr "Utente non può essere trovato"
 
-#: language/_annotated_strings.php:135 language/_annotated_strings.php:138
-msgid "Password successfully changed"
-msgstr "Password modificata con successo"
-
-#: language/_annotated_strings.php:141 language/_annotated_strings.php:144
-msgid "Password could not be changed"
-msgstr "La password non può essere modificata"
-
-#: language/_annotated_strings.php:147
+#: language/_annotated_strings.php:135
 msgid "Group created"
 msgstr "Data creazione"
 
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:138
 msgid "Group updated"
 msgstr "Gruppo aggiornato"
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:141
 msgid "Changes not saved."
 msgstr "Le modifiche non salvate."
 
-#: language/_annotated_strings.php:156
+#: language/_annotated_strings.php:144
 msgid "You are now logged in."
 msgstr "Si è ora loggato"
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:147
 msgid "Authentication failed."
 msgstr "Autenticazione non riuscita."
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:153
 msgid "You are now logged out"
 msgstr "Si è ora disconnesso"
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:156
 msgid ""
 "An Email with an activation link has been sent, please try to check your "
 "email box"
 msgstr "Una e-mail con un link di attivazione è stata inviata. Si prega di controllare la casella di posta elettronica."
 
-#: language/_annotated_strings.php:168 language/_annotated_strings.php:180
+#: language/_annotated_strings.php:159 language/_annotated_strings.php:177
 msgid "Please fill form correctly"
 msgstr "Si prega di compilare il modula correttamente"
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:162
 msgid "User with this email address already exists"
 msgstr "Utente con questo indirizzo e-mail esiste già"
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:168
+msgid "Password successfully changed"
+msgstr "Password modificata con successo"
+
+#: language/_annotated_strings.php:171
+msgid "Password could not be changed"
+msgstr "La password non può essere modificata"
+
+#: language/_annotated_strings.php:174
 msgid ""
 "Mail with link for reset password has been sent, please try to check your "
 "email box"
 msgstr "Un e-mail con il link per la reimpostazione della password è stata inviata. Si prega di controllare la casella di posta elettronica"
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:180
 msgid "User cannot be found for specified username or email"
 msgstr "L'utente non può essere trovato per con l'utente o email specificato"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:183
 msgid "Found user does not have an email"
 msgstr "Utente trovato non dispone di un indirizzo e-mail"
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:189
 msgid "Register confirmation"
 msgstr "Conferma registro"
 
-#: language/_annotated_strings.php:196
-msgid "Password recovery"
-msgstr "Il recupero della password"
-
-#: language/_annotated_strings.php:200
+#: language/_annotated_strings.php:192
 msgid "user"
 msgstr "utente"
 
-#: language/_annotated_strings.php:203
+#: language/_annotated_strings.php:195
 msgid "recruiter"
 msgstr "recruiter"

@@ -104,13 +104,13 @@ translate('I am');
 //: ./src/Auth/Form/Validator/UniqueGroupName.php:46
 translate('The group name "%value%" is already in use.');
 
-//: ./src/Auth/Form/Login.php:33
+//: ./src/Auth/Form/Login.php:31
 translate('Login name');
 
-//: ./src/Auth/Form/Login.php:42
+//: ./src/Auth/Form/Login.php:40
 translate('Password');
 
-//: ./src/Auth/Form/Login.php:58
+//: ./src/Auth/Form/Login.php:54
 translate('login');
 
 //: ./src/Auth/Controller/GotoResetPasswordController.php:54
@@ -140,13 +140,16 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:157
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:96
+//: ./src/Auth/Controller/IndexController.php:117
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:107
+//: ./src/Auth/Controller/IndexController.php:128
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:393
+//: ./src/Auth/Controller/IndexController.php:218
+translate('An unexpected error has occurred, please contact your system administrator');
+
+//: ./src/Auth/Controller/IndexController.php:411
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/RegisterController.php:59
@@ -185,12 +188,9 @@ translate('An unexpected error has occurred, please contact your system administ
 //: ./src/Auth/Mail/RegisterConfirmation.php:34
 translate('Register confirmation');
 
-//: ./src/Auth/Mail/ForgotPassword.php:34
-translate('Password recovery');
-
-//: ./config/module.config.php:363
+//: ./config/module.config.php:364
 translate('user');
 
-//: ./config/module.config.php:364
+//: ./config/module.config.php:365
 translate('recruiter');
 

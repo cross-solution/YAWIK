@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-27 12:47+0100\n"
-"PO-Revision-Date: 2015-02-27 11:47+0000\n"
+"POT-Creation-Date: 2015-04-29 19:02+0200\n"
+"PO-Revision-Date: 2015-04-29 17:22+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -38,18 +38,18 @@ msgid "Application"
 msgstr "تطبيق"
 
 #: view/applications/index/index.phtml:18
-#: view/applications/apply/index.phtml:33
+#: view/applications/apply/index.phtml:34
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
 #: view/applications/index/index.phtml:19
-#: view/applications/apply/index.phtml:35
+#: view/applications/apply/index.phtml:36
 msgid "click to open the job ad"
 msgstr "انقر لفتح إعلان وظيفة"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:174 language/_annotated_strings.php:180
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:174
 msgid "Privacy Policy"
 msgstr "سياسة الخصوصية"
 
@@ -72,7 +72,7 @@ msgid "Job"
 msgstr "وظيفة"
 
 #: view/applications/index/dashboard.phtml:41
-#: view/applications/manage/detail.phtml:231
+#: view/applications/manage/detail.phtml:233
 #: view/applications/manage/social-profile/facebook.phtml:34
 #: view/applications/manage/social-profile/facebook.phtml:65
 #: view/applications/manage/social-profile/linkedin.phtml:53
@@ -82,18 +82,18 @@ msgstr "وظيفة"
 msgid "Date"
 msgstr "تاريخ"
 
-#: view/applications/apply/index.phtml:60 language/_annotated_strings.php:219
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:213
 msgid "your application was sent successfully"
 msgstr "تم إرسال طلبك بنجاح"
 
-#: view/applications/apply/index.phtml:66
+#: view/applications/apply/index.phtml:67
 #, php-format
 msgid ""
 "The application was added to your %slist%s, so you can keep up-to-date with "
 "the process."
 msgstr ""
 
-#: view/applications/apply/index.phtml:73
+#: view/applications/apply/index.phtml:74
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
@@ -158,14 +158,14 @@ msgid "Overview of your sent applications"
 msgstr "نظرة عامة على التطبيقات المرسلة"
 
 #: view/applications/manage/index.phtml:56
-#: view/applications/manage/detail.phtml:157
-#: view/applications/manage/detail.phtml:176
-#: view/applications/manage/detail.phtml:208
+#: view/applications/manage/detail.phtml:159
+#: view/applications/manage/detail.phtml:178
+#: view/applications/manage/detail.phtml:210
 msgid "Cancel"
 msgstr "إلغاء"
 
 #: view/applications/manage/index.phtml:57
-#: view/applications/manage/detail.phtml:158
+#: view/applications/manage/detail.phtml:160
 msgid "Send mail"
 msgstr "إرسال البريد"
 
@@ -173,16 +173,16 @@ msgstr "إرسال البريد"
 msgid "search applications"
 msgstr "تطبيقات البحث"
 
-#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:105
+#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:99
 msgid "Enter job title"
 msgstr "أدخل المسمى الوظيفي"
 
-#: view/applications/manage/index.phtml:92 language/_annotated_strings.php:102
-#: language/_annotated_strings.php:111
+#: view/applications/manage/index.phtml:92 language/_annotated_strings.php:96
+#: language/_annotated_strings.php:105
 msgid "Search"
 msgstr "بحث"
 
-#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:114
+#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:108
 msgid "Clear"
 msgstr "واضح"
 
@@ -199,129 +199,129 @@ msgstr "تفاصيل"
 msgid "application for"
 msgstr "تطبيق ل"
 
-#: view/applications/manage/detail.phtml:32
+#: view/applications/manage/detail.phtml:34
 #, php-format
 msgid "Application %d of %d"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:54
+#: view/applications/manage/detail.phtml:56
 msgid "Confirm"
 msgstr "أكد"
 
-#: view/applications/manage/detail.phtml:55
+#: view/applications/manage/detail.phtml:57
 msgid "Confirm the receipt"
 msgstr "تأكيد استلام"
 
-#: view/applications/manage/detail.phtml:63
+#: view/applications/manage/detail.phtml:65
 msgid "Invite"
 msgstr "دعا"
 
-#: view/applications/manage/detail.phtml:64
-#: view/applications/manage/detail.phtml:152
+#: view/applications/manage/detail.phtml:66
+#: view/applications/manage/detail.phtml:154
 msgid "Invite the applicant"
 msgstr "دعوة مقدم الطلب"
 
-#: view/applications/manage/detail.phtml:72
+#: view/applications/manage/detail.phtml:74
 #: view/applications/manage/index.recruiter.ajax.phtml:36
 msgid "Reject"
 msgstr "رفض"
 
-#: view/applications/manage/detail.phtml:73
+#: view/applications/manage/detail.phtml:75
 msgid "Reject the applicant"
 msgstr "رفض الطلب"
 
-#: view/applications/manage/detail.phtml:101
+#: view/applications/manage/detail.phtml:103
 msgid "Enter an email address"
 msgstr "إدخال عنوان البريد الإلكتروني"
 
-#: view/applications/manage/detail.phtml:102
+#: view/applications/manage/detail.phtml:104
 msgid ""
 "This application will be send as an email to the given address in a layout "
 "similar to that on this page with all attachments included."
 msgstr "سيتم إرسال هذا الطلب بمثابة رسالة إلكترونية إلى العنوان المعطى في تخطيط مماثلة لتلك التي في هذه الصفحة مع كافة المرفقات شملت."
 
-#: view/applications/manage/detail.phtml:109
+#: view/applications/manage/detail.phtml:111
 msgid "Forward"
 msgstr "إلى الأمام"
 
-#: view/applications/manage/detail.phtml:118
+#: view/applications/manage/detail.phtml:120
 msgid "previous"
 msgstr "سابق"
 
-#: view/applications/manage/detail.phtml:119
+#: view/applications/manage/detail.phtml:121
 msgid "Back to list"
 msgstr "العودة إلى قائمة"
 
-#: view/applications/manage/detail.phtml:119
+#: view/applications/manage/detail.phtml:121
 msgid "List"
 msgstr "قائمة"
 
-#: view/applications/manage/detail.phtml:120
+#: view/applications/manage/detail.phtml:122
 msgid "next"
 msgstr "التالى"
 
-#: view/applications/manage/detail.phtml:139
-#: view/applications/manage/detail.phtml:178
+#: view/applications/manage/detail.phtml:141
+#: view/applications/manage/detail.phtml:180
 msgid "Delete application"
 msgstr "حذف تطبيق"
 
-#: view/applications/manage/detail.phtml:140
+#: view/applications/manage/detail.phtml:142
 msgid "Delete"
 msgstr "حذف"
 
-#: view/applications/manage/detail.phtml:169
+#: view/applications/manage/detail.phtml:171
 msgid "Delete Application"
 msgstr "حذف تطبيق"
 
-#: view/applications/manage/detail.phtml:173
+#: view/applications/manage/detail.phtml:175
 msgid "Are you sure you want to delete this application?"
 msgstr "هل أنت متأكد أنك تريد حذف هذا التطبيق؟"
 
-#: view/applications/manage/detail.phtml:177
+#: view/applications/manage/detail.phtml:179
 msgid "delete this application"
 msgstr "حذف هذا التطبيق"
 
-#: view/applications/manage/detail.phtml:185
+#: view/applications/manage/detail.phtml:187
 msgid "Error while loading comments."
 msgstr "خطأ أثناء تحميل التعليقات."
 
-#: view/applications/manage/detail.phtml:192
+#: view/applications/manage/detail.phtml:194
 msgid "Error while loading comment form."
 msgstr "خطأ أثناء شكل تعليق التحميل."
 
-#: view/applications/manage/detail.phtml:202
+#: view/applications/manage/detail.phtml:204
 msgid "Comments"
 msgstr "تعليقات"
 
-#: view/applications/manage/detail.phtml:209
+#: view/applications/manage/detail.phtml:211
 msgid "Save"
 msgstr "حفظ"
 
-#: view/applications/manage/detail.phtml:210
+#: view/applications/manage/detail.phtml:212
 msgid "Add new comment"
 msgstr "إضافة تعليق جديد"
 
-#: view/applications/manage/detail.phtml:211
-#: view/applications/manage/detail.phtml:324
+#: view/applications/manage/detail.phtml:213
+#: view/applications/manage/detail.phtml:326
 msgid "Close"
 msgstr "قريب"
 
-#: view/applications/manage/detail.phtml:224
-#: view/applications/manage/detail.phtml:377
-#: view/applications/manage/detail.phtml:383
+#: view/applications/manage/detail.phtml:226
+#: view/applications/manage/detail.phtml:379
+#: view/applications/manage/detail.phtml:385
 msgid "State history"
 msgstr "تاريخ الدولة"
 
-#: view/applications/manage/detail.phtml:232
-#: view/applications/manage/detail.phtml:335
+#: view/applications/manage/detail.phtml:234
+#: view/applications/manage/detail.phtml:337
 msgid "State"
 msgstr "دولة"
 
-#: view/applications/manage/detail.phtml:233
+#: view/applications/manage/detail.phtml:235
 msgid "Comment"
 msgstr "تعليق"
 
-#: view/applications/manage/detail.phtml:254
+#: view/applications/manage/detail.phtml:256
 #: view/applications/manage/social-profile/facebook.phtml:14
 #: view/applications/manage/social-profile/linkedin.phtml:14
 #: view/applications/manage/social-profile/xing.phtml:14
@@ -329,84 +329,84 @@ msgstr "تعليق"
 msgid "personal information"
 msgstr "معلومات شخصية"
 
-#: view/applications/manage/detail.phtml:273
+#: view/applications/manage/detail.phtml:275
 #: view/applications/manage/detail.pdf.phtml:113
 msgid "Phone"
 msgstr "هاتف"
 
-#: view/applications/manage/detail.phtml:287
+#: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Form/AttachmentsFactory.php:67
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:45
+#: src/Applications/Factory/Form/AttachmentsFactory.php:75
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:240
 msgid "Attachments"
 msgstr "مرفقات"
 
-#: view/applications/manage/detail.phtml:298
+#: view/applications/manage/detail.phtml:300
 msgid "no attachments available"
 msgstr "لا مرفقات المتاحة"
 
-#: view/applications/manage/detail.phtml:318
+#: view/applications/manage/detail.phtml:320
 msgid "Loading"
 msgstr "تحميل"
 
-#: view/applications/manage/detail.phtml:338
+#: view/applications/manage/detail.phtml:340
 msgid "date of receipt"
 msgstr "تاريخ استلام"
 
-#: view/applications/manage/detail.phtml:341
+#: view/applications/manage/detail.phtml:343
 msgid "via"
 msgstr "بواسطة"
 
-#: view/applications/manage/detail.phtml:345
+#: view/applications/manage/detail.phtml:347
 msgid "application state"
 msgstr "حالة التطبيق"
 
-#: view/applications/manage/detail.phtml:352
+#: view/applications/manage/detail.phtml:354
 msgid "rating"
 msgstr "تصنيف"
 
-#: view/applications/manage/detail.phtml:362
+#: view/applications/manage/detail.phtml:364
 msgid "View comments"
 msgstr "مشاهدة تعليقات"
 
-#: view/applications/manage/detail.phtml:362
+#: view/applications/manage/detail.phtml:364
 msgid "Add comment"
 msgstr "إضافة تعليق"
 
-#: view/applications/manage/detail.phtml:371
+#: view/applications/manage/detail.phtml:373
 msgid "last modification date"
 msgstr "تاريخ آخر تعديل"
 
-#: view/applications/manage/detail.phtml:390
+#: view/applications/manage/detail.phtml:392
 msgid "agent"
 msgstr "وكيل"
 
-#: view/applications/manage/detail.phtml:396
+#: view/applications/manage/detail.phtml:398
 #: view/applications/manage/detail.pdf.phtml:134
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:132
 msgid "Willingness to travel"
 msgstr "الاستعداد للسفر"
 
-#: view/applications/manage/detail.phtml:402
+#: view/applications/manage/detail.phtml:404
 #: view/applications/manage/detail.pdf.phtml:140
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:144
 msgid "Earliest starting date"
 msgstr "أقرب موعد انطلاق"
 
-#: view/applications/manage/detail.phtml:408
+#: view/applications/manage/detail.phtml:410
 #: view/applications/manage/detail.pdf.phtml:146
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:153
 msgid "Expected salary"
 msgstr "الراتب المتوقع"
 
-#: view/applications/manage/detail.phtml:422
+#: view/applications/manage/detail.phtml:424
 #: view/applications/manage/detail.pdf.phtml:153
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:42
 msgid "Cover Letter"
 msgstr "غطاء الرسالة"
 
-#: view/applications/manage/detail.phtml:437
-#: view/applications/manage/index.recruiter.ajax.phtml:132
+#: view/applications/manage/detail.phtml:439
+#: view/applications/manage/index.recruiter.ajax.phtml:134
 #: view/applications/manage/social-profile/facebook.phtml:62
 #: view/applications/manage/social-profile/linkedin.phtml:87
 #: view/applications/manage/social-profile/xing.phtml:78
@@ -414,27 +414,27 @@ msgstr "غطاء الرسالة"
 msgid "work experience"
 msgstr "خبرة في العمل"
 
-#: view/applications/manage/detail.phtml:442
-#: view/applications/manage/detail.phtml:472
+#: view/applications/manage/detail.phtml:444
+#: view/applications/manage/detail.phtml:474
 #: view/applications/manage/detail.pdf.phtml:162
 #: view/applications/manage/detail.pdf.phtml:180
 msgid "Start"
 msgstr "بداية"
 
-#: view/applications/manage/detail.phtml:443
-#: view/applications/manage/detail.phtml:473
+#: view/applications/manage/detail.phtml:445
+#: view/applications/manage/detail.phtml:475
 #: view/applications/manage/detail.pdf.phtml:163
 #: view/applications/manage/detail.pdf.phtml:181
 msgid "End"
 msgstr "النهاية"
 
-#: view/applications/manage/detail.phtml:444
+#: view/applications/manage/detail.phtml:446
 #: language/_annotated_strings.php:30
 msgid "Company"
 msgstr "شركة"
 
-#: view/applications/manage/detail.phtml:445
-#: view/applications/manage/detail.phtml:475
+#: view/applications/manage/detail.phtml:447
+#: view/applications/manage/detail.phtml:477
 #: view/applications/manage/social-profile/facebook.phtml:68
 #: view/applications/manage/social-profile/linkedin.phtml:93
 #: view/applications/manage/social-profile/xing.phtml:84
@@ -443,42 +443,42 @@ msgstr "شركة"
 msgid "Description"
 msgstr "وصف"
 
-#: view/applications/manage/detail.phtml:468
+#: view/applications/manage/detail.phtml:470
 #: view/applications/manage/detail.pdf.phtml:177
 msgid "education and training"
 msgstr "التعليم والتدريب"
 
-#: view/applications/manage/detail.phtml:474
+#: view/applications/manage/detail.phtml:476
 msgid "University"
 msgstr "جامعة"
 
-#: view/applications/manage/detail.phtml:492
+#: view/applications/manage/detail.phtml:494
 #: view/applications/manage/detail.pdf.phtml:195
 msgid "personal skills"
 msgstr "المهارات الشخصية"
 
-#: view/applications/manage/detail.phtml:494
+#: view/applications/manage/detail.phtml:496
 #: view/applications/manage/detail.pdf.phtml:197
 msgid "native language"
 msgstr "اللغة الأم"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:129
+#: view/applications/manage/index.recruiter.ajax.phtml:131
 #: view/applications/manage/social-profile/facebook.phtml:31
 #: view/applications/manage/social-profile/linkedin.phtml:50
 #: view/applications/manage/social-profile/xing.phtml:49
 msgid "education"
 msgstr "تعليم"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:129
-#: view/applications/manage/index.recruiter.ajax.phtml:132
+#: view/applications/manage/index.recruiter.ajax.phtml:131
+#: view/applications/manage/index.recruiter.ajax.phtml:134
 msgid "years"
 msgstr "سنوات"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:150
+#: view/applications/manage/index.recruiter.ajax.phtml:152
 msgid "no attachments"
 msgstr "لا مرفقات"
 
-#: view/applications/manage/index.recruiter.ajax.phtml:175
+#: view/applications/manage/index.recruiter.ajax.phtml:176
 msgid "edit"
 msgstr "تحرير"
 
@@ -602,7 +602,7 @@ msgid "An application with the provided identifier could not be found."
 msgstr "تعذر العثور على التطبيق مع معرف المقدمة."
 
 #: src/Applications/Form/SettingsFieldset.php:39
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "E-رسالة التنبيهات"
 
@@ -610,44 +610,44 @@ msgstr "E-رسالة التنبيهات"
 msgid "Options"
 msgstr "خيارات"
 
-#: src/Applications/Form/FilterApplication.php:39
+#: src/Applications/Form/FilterApplication.php:41
 msgid "Search applications"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:317
-#: src/Applications/Controller/MultimanageController.php:84
+#: src/Applications/Controller/ManageController.php:323
+#: src/Applications/Controller/MultimanageController.php:85
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:363
+#: src/Applications/Controller/ManageController.php:369
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:379
+#: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forward application to %s failed."
 msgstr ""
 
-#: src/Applications/Controller/MultimanageController.php:89
+#: src/Applications/Controller/MultimanageController.php:90
 msgid "reject the applicants"
 msgstr "رفض المتقدمين"
 
-#: src/Applications/Mail/Confirmation.php:68
-#: src/Applications/Mail/StatusChange.php:57
+#: src/Applications/Mail/Confirmation.php:85
+#: src/Applications/Mail/StatusChange.php:79
 #, php-format
 msgid "Dear Mr. %s"
 msgstr ""
 
-#: src/Applications/Mail/Confirmation.php:69
-#: src/Applications/Mail/StatusChange.php:58
+#: src/Applications/Mail/Confirmation.php:86
+#: src/Applications/Mail/StatusChange.php:80
 #, php-format
 msgid "Dear Ms. %s"
 msgstr ""
 
-#: src/Applications/Mail/Confirmation.php:80
-#: src/Applications/Mail/StatusChange.php:69
+#: src/Applications/Mail/Confirmation.php:100
+#: src/Applications/Mail/StatusChange.php:96
 #, php-format
 msgid "Hello %s"
 msgstr ""
@@ -657,7 +657,7 @@ msgid "Career"
 msgstr "مهنة"
 
 #: language/_annotated_strings.php:15 language/_annotated_strings.php:36
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:102
 msgid "Status"
 msgstr "وضع"
 
@@ -677,56 +677,50 @@ msgstr "تطبيقات"
 msgid "Sent on"
 msgstr "أرسلت في"
 
-#: language/_annotated_strings.php:42
-msgid ""
-"Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
-msgstr "إرفاق صور أو وثائق PDF إلى التطبيق الخاص بك. سحب وإسقاط لهم، أو انقر فوق في منطقة الملف المرفق. يمكنك تحميل ما يصل إلى 5MB"
-
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid ""
 "Summary is meant as a general free text area. Click on \"edit\" to fill in "
 "some informations you think helps the recruiter to pick you for this job."
 msgstr "والمقصود ملخص كمنطقة النص الحرة العامة. انقر على \"تحرير\" لملء بعض المعلومات التي تعتقد يساعد على اصحاب العمل يختار لك لهذه المهمة."
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:48
 msgid "Customize apply form"
 msgstr "تخصيص تطبيق النموذج"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:54
 msgid "receive E-Mail alert"
 msgstr "تلقي تنبيه البريد الإلكتروني"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:57
 msgid "if checked, you'll be informed by mail about new applications."
 msgstr "إذا كانت محددة، عليك أن تكون على علم عن طريق البريد حول تطبيقات جديدة."
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:60
 msgid "Mailtext"
 msgstr "Mailtext"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:63
 msgid ""
 "default text of the notification mail about new applications. The following "
 "variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
 " of the job</li></ul>"
 msgstr ""
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:66
 msgid "confirm application immidiatly after submit"
 msgstr "تأكيد تطبيق immidiatly بعد تقديم"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:69
 msgid ""
 "if checked, an application is immediatly confirmed. If unchecked "
 "confirmation is the duty of the recruiter."
 msgstr "إذا كانت محددة، يتم تأكيد تطبيق على الفور. إذا تأكيدا دون رادع من واجب المجند."
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:72
 msgid "Confirmation mail text"
 msgstr "النص الإلكتروني تأكيد"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:75
 msgid ""
 "default text of the acknowledgment of receipt mail to the applicant. The "
 "following variables can be used:<br><ul><li>##anrede_formell## = salutation."
@@ -736,178 +730,184 @@ msgid ""
 "of recipt of the application.</li></ul>"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:78
 msgid "Invitation mail text"
 msgstr "نص البريد دعوة"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:81
 msgid ""
 "default text of the invitation mail to the applicant. You can use all "
 "variables of the acknowledgment of receipt mail. "
 msgstr "النص الافتراضي للبريد دعوة لمقدم الطلب. يمكنك استخدام جميع المتغيرات من الاعتراف البريد الاستلام."
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:84
 msgid "Rejection mail text"
 msgstr "نص البريد الرفض"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:87
 msgid ""
 "default text of the refusal of an application to the applicant. You can use "
 "all variables of the acknowledgment of receipt mail."
 msgstr "النص الافتراضي لرفض طلب لمقدم الطلب. يمكنك استخدام جميع المتغيرات من الاعتراف البريد الاستلام."
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:90
 msgid "get blind carbon copy of all own mails"
 msgstr "الحصول على نسخة كربونية عمياء من جميع الرسائل الخاصة"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:93
 msgid "if checked, you'll get a copy of all mails you send."
 msgstr "إذا تحققت، سوف تحصل على نسخة من جميع الرسائل التي ترسلها."
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:111
 msgid "Comment message"
 msgstr "تعليق رسالة"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:114
 msgid ""
 "Request additional facts from the Applicant. Selected Fields will be added "
 "to the application Form."
 msgstr "طلب حقائق إضافية من مقدم الطلب. سيتم إضافة الحقول المحددة إلى نموذج التطبيق."
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:117
 msgid "Please provide some additional facts for this job opening."
 msgstr "يرجى تقديم بعض الحقائق إضافية لهذا فتح فرص العمل."
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:120
 msgid "Click here to enter facts."
 msgstr "اضغط هنا للدخول الحقائق."
 
-#: language/_annotated_strings.php:129
+#: language/_annotated_strings.php:123
 msgid "Yes"
 msgstr "نعم"
 
-#: language/_annotated_strings.php:132
+#: language/_annotated_strings.php:126
 msgid "conditioned"
 msgstr "مشروط"
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:129
 msgid "No"
 msgstr "لا"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:135
 msgid "Enter your willingness to travel."
 msgstr "أدخل استعدادكم للسفر."
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:138
 msgid "Ask the applicant about the willingness to travel"
 msgstr "اسأل مقدم الطلب عن الاستعداد للسفر"
 
-#: language/_annotated_strings.php:147
+#: language/_annotated_strings.php:141
 msgid "please select"
 msgstr "الرجاء اختيار"
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:147
 msgid "Enter the earliest starting date."
 msgstr "أدخل أقرب موعد الانطلاق."
 
-#: language/_annotated_strings.php:156
+#: language/_annotated_strings.php:150
 msgid "Ask the applicant about the earliest starting date."
 msgstr "اسأل مقدم الطلب عن أقرب موعد الانطلاق."
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:156
 msgid ""
 "Your salary requirements should be the annual amount before taxes. Do not "
 "forget to provide the currency sign."
 msgstr "وينبغي أن تكون متطلبات راتبك المبلغ السنوي قبل الضرائب. لا تنسى أن توفر علامة العملة."
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:159
 msgid "Ask users about their expected salary."
 msgstr "نطلب من المستخدمين حول رواتبهم المتوقع."
 
-#: language/_annotated_strings.php:168
+#: language/_annotated_strings.php:162
 msgid "Carbon Copy"
 msgstr "نسخة كربونية"
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:165
 msgid "send me a carbon copy of my application"
 msgstr "أرسل لي نسخة كربونية من طلبي"
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:171
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:177
 msgid "Click here to enter a summary."
 msgstr "اضغط هنا للدخول ملخصا."
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:180
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr "<strong>يرجى ملاحظة:</strong> يحصل تجريد علامات HTML الخروج. يتم الاحتفاظ فواصل الأسطر."
 
-#: language/_annotated_strings.php:189
+#: language/_annotated_strings.php:183
 msgid "Summary"
 msgstr "ملخص"
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:186
 msgid "all"
 msgstr "جميع"
 
-#: language/_annotated_strings.php:195 language/_annotated_strings.php:198
-#: language/_annotated_strings.php:210
+#: language/_annotated_strings.php:189 language/_annotated_strings.php:192
+#: language/_annotated_strings.php:204
 msgid "Invalid apply id"
 msgstr "تطبيق معرف غير صالح"
 
-#: language/_annotated_strings.php:201
+#: language/_annotated_strings.php:195
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr "هناك في عداد المفقودين المعلومات المطلوبة. لا يمكن أن ترسل طلبك."
 
-#: language/_annotated_strings.php:204
+#: language/_annotated_strings.php:198
 msgid "Application has been send."
 msgstr ""
 
-#: language/_annotated_strings.php:207 language/_annotated_strings.php:216
+#: language/_annotated_strings.php:201 language/_annotated_strings.php:210
 msgid "Application confirmation"
 msgstr "تأكيدا تطبيق"
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:207
 msgid "There were errors in the form."
 msgstr "كانت هناك أخطاء في النموذج."
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:216
 msgid "Application has been deleted."
 msgstr ""
 
-#: language/_annotated_strings.php:225
+#: language/_annotated_strings.php:219
 msgid "Mail has been send"
 msgstr ""
 
-#: language/_annotated_strings.php:228
+#: language/_annotated_strings.php:222
 msgid "Application data has been deleted"
 msgstr ""
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:225
 msgid "No mail adress available"
 msgstr ""
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:228
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:231
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:234
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
+
+#: language/_annotated_strings.php:237
+msgid ""
+"Attach images or PDF Documents to your application. Drag&drop them, or click"
+" into the attachement area. You can upload up to 5MB"
+msgstr "إرفاق صور أو وثائق PDF إلى التطبيق الخاص بك. سحب وإسقاط لهم، أو انقر فوق في منطقة الملف المرفق. يمكنك تحميل ما يصل إلى 5MB"
 
 #: language/_annotated_strings.php:243
 msgid "E-Mail Templates"

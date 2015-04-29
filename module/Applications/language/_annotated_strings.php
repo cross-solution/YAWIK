@@ -38,12 +38,6 @@ translate('Status');
 //: ./view/applications/manage/index.applicant.ajax.phtml:22
 translate('Actions');
 
-//: ./src/Applications/Form/AttachmentsFactory.php:72
-translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
-
-//: ./src/Applications/Form/AttachmentsFactory.php:74
-translate('Attachments');
-
 //: ./src/Applications/Form/Base.php:26
 translate('Cover Letter');
 
@@ -98,19 +92,19 @@ translate('get blind carbon copy of all own mails');
 //: ./src/Applications/Form/SettingsFieldset.php:76
 translate('if checked, you\'ll get a copy of all mails you send.');
 
-//: ./src/Applications/Form/FilterApplication.php:48
+//: ./src/Applications/Form/FilterApplication.php:50
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:56
+//: ./src/Applications/Form/FilterApplication.php:58
 translate('Enter job title');
 
-//: ./src/Applications/Form/FilterApplication.php:75
+//: ./src/Applications/Form/FilterApplication.php:77
 translate('Status');
 
-//: ./src/Applications/Form/FilterApplication.php:109
+//: ./src/Applications/Form/FilterApplication.php:100
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:117
+//: ./src/Applications/Form/FilterApplication.php:108
 translate('Clear');
 
 //: ./src/Applications/Form/CommentForm.php:41
@@ -191,7 +185,7 @@ translate('Summary');
 //: ./src/Applications/Controller/ManageController.php:86
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:131
+//: ./src/Applications/Controller/ManageController.php:137
 translate('Invalid apply id');
 
 //: ./src/Applications/Controller/ApplyController.php:152
@@ -238,6 +232,12 @@ translate('New application for your vacancy "%s"');
 
 //: ./src/Applications/Mail/NewApplication.php:68
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
+
+//: ./src/Applications/Factory/Form/AttachmentsFactory.php:73
+translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
+
+//: ./src/Applications/Factory/Form/AttachmentsFactory.php:75
+translate('Attachments');
 
 //: ./config/module.config.php:65
 translate('E-Mail Templates');

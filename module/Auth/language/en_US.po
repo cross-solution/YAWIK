@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 19:05+0100\n"
-"PO-Revision-Date: 2015-01-06 15:36+0000\n"
+"POT-Creation-Date: 2015-04-29 19:03+0200\n"
+"PO-Revision-Date: 2015-04-29 17:04+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "At least one user has to be assigned"
 msgid "My groups"
 msgstr "My groups"
 
-#: view/auth/manage-groups/index.phtml:11 view/auth/index/login-info.phtml:33
+#: view/auth/manage-groups/index.phtml:11
 msgid "Manage groups"
 msgstr "Manage groups"
 
@@ -96,7 +96,7 @@ msgid "Please authenticate yourself to proceed"
 msgstr "Please authenticate yourself to proceed"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:57
+#: view/auth/index/login-info.phtml:72
 msgid "Login"
 msgstr "Login"
 
@@ -131,24 +131,33 @@ msgstr "My profile"
 msgid "Change password"
 msgstr "Change password"
 
-#: view/auth/index/login-info.phtml:38
+#: view/auth/index/login-info.phtml:42
+msgid "Create my organization"
+msgstr "Create my organization"
+
+#: view/auth/index/login-info.phtml:45
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Edit \"%s\""
+
+#: view/auth/index/login-info.phtml:53
 msgid "Logout"
 msgstr "Logout"
 
-#: view/auth/index/login-info.phtml:45
+#: view/auth/index/login-info.phtml:60
 #, php-format
 msgid "Hello %s"
 msgstr "Hello %s"
 
-#: view/auth/index/login-info.phtml:46
+#: view/auth/index/login-info.phtml:61
 msgid "Guest"
 msgstr "Guest"
 
-#: view/auth/index/login-info.phtml:61
+#: view/auth/index/login-info.phtml:76
 msgid "Login via"
 msgstr "Login via"
 
-#: view/auth/index/login-info.phtml:64
+#: view/auth/index/login-info.phtml:79
 #, php-format
 msgid "Login with %s"
 msgstr "Login with %s"
@@ -312,7 +321,8 @@ msgid "User cannot be found for specified token"
 msgstr "User cannot be found for specified token"
 
 #: language/_annotated_strings.php:123 language/_annotated_strings.php:132
-#: language/_annotated_strings.php:162 language/_annotated_strings.php:183
+#: language/_annotated_strings.php:150 language/_annotated_strings.php:165
+#: language/_annotated_strings.php:186
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
 msgstr "An unexpected error has occurred, please contact your system administrator"
@@ -346,58 +356,54 @@ msgstr "You are now logged in."
 msgid "Authentication failed."
 msgstr "Authentication failed."
 
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:153
 msgid "You are now logged out"
 msgstr "You are now logged out"
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:156
 msgid ""
 "An Email with an activation link has been sent, please try to check your "
 "email box"
 msgstr "An Email with an activation link has been sent, please try to check your email box"
 
-#: language/_annotated_strings.php:156 language/_annotated_strings.php:174
+#: language/_annotated_strings.php:159 language/_annotated_strings.php:177
 msgid "Please fill form correctly"
 msgstr "Please fill form correctly"
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:162
 msgid "User with this email address already exists"
 msgstr "User with this email address already exists"
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:168
 msgid "Password successfully changed"
 msgstr "Password successfully changed"
 
-#: language/_annotated_strings.php:168
+#: language/_annotated_strings.php:171
 msgid "Password could not be changed"
 msgstr "Password could not be changed"
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:174
 msgid ""
 "Mail with link for reset password has been sent, please try to check your "
 "email box"
 msgstr "Mail with link for reset password has been sent, please try to check your email box"
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "User cannot be found for specified username or email"
 msgstr "User cannot be found for specified username or email"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "Found user does not have an email"
 msgstr "Found user does not have an email"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 msgid "Register confirmation"
 msgstr "Register confirmation"
 
-#: language/_annotated_strings.php:190
-msgid "Password recovery"
-msgstr "Password recovery"
-
-#: language/_annotated_strings.php:194
+#: language/_annotated_strings.php:192
 msgid "user"
 msgstr "user"
 
-#: language/_annotated_strings.php:197
+#: language/_annotated_strings.php:195
 msgid "recruiter"
 msgstr "recruiter"

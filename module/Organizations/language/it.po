@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-18 16:56+0100\n"
-"PO-Revision-Date: 2015-01-21 18:21+0000\n"
-"Last-Translator: BLU-IT\n"
+"POT-Creation-Date: 2015-04-29 19:02+0200\n"
+"PO-Revision-Date: 2015-04-29 17:04+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,9 +22,29 @@ msgstr ""
 msgid "Organizations"
 msgstr "Organizzazioni"
 
+#: view/organizations/index/index.ajax.phtml:69
+#, php-format
+msgid "Hiring organization of <strong>%s</strong>"
+msgstr ""
+
 #: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
 msgstr "Organizzazione"
+
+#: view/error/no-parent.phtml:15
+msgid "Sorry, you may not create organizations."
+msgstr ""
+
+#: view/error/no-parent.phtml:18
+#, php-format
+msgid ""
+"Before you are able to create organizations, you have to %screate your main "
+"organization%s first."
+msgstr ""
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:48
+msgid "City"
+msgstr "Città"
 
 #: language/_annotated_strings.php:9
 msgid "Street"
@@ -43,39 +63,47 @@ msgid "Please enter a description for the hiring organization."
 msgstr "Si prega di inserire una descrizione per l'organizzazione di assunzione."
 
 #: language/_annotated_strings.php:21
+msgid "Employees"
+msgstr ""
+
+#: language/_annotated_strings.php:24
+msgid "Manage your employees and their permissions."
+msgstr ""
+
+#: language/_annotated_strings.php:27
 msgid "Description"
 msgstr "Descrizione"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:30
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
 msgstr "Scegliere un logo. Questo logo verrà mostrato nel offerta di lavoro e il modulo di domanda."
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:33
 msgid "Organizationname"
 msgstr "Nome organizzazione"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:36 language/_annotated_strings.php:57
+msgid "Search for registered users."
+msgstr ""
+
+#: language/_annotated_strings.php:39
 msgid "street"
 msgstr "strada"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:42
 msgid "house number"
 msgstr "numero civico"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "Postalcode"
 msgstr "Postale"
 
-#: language/_annotated_strings.php:39 language/_annotated_strings.php:6
-msgid "City"
-msgstr "Città"
-
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:51
 msgid "Overview"
 msgstr "Panoramica"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:54
 msgid "Insert"
 msgstr "Inserire"
