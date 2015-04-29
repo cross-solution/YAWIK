@@ -8,8 +8,16 @@
  * @author    weitz@cross-solution.de
  */
 
-return array(
-    'core_options' => array(
-           'siteName' => '',
-       )
+ /*
+  * to modify the options, copy this file without the ".dist" suffix to the
+  * autoload directory and modify the values
+  */
+  
+$options = array(
+    /**
+     * The sitename is used in Mails. Typically it's the name of your website
+     */
+    'siteName' => 'YAWIK',
 );
+
+return array('core_options',$options);

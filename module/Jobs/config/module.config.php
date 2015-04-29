@@ -62,6 +62,7 @@ return array(
                     'Jobs',
                     'Jobs/Manage' => array(
                         'edit',
+                        'completion',
                         'new' => 'Jobs/Create',
                     ),
                     'JobboardRecruiter',

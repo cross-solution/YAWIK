@@ -21,7 +21,10 @@ use Zend\Stdlib\AbstractOptions;
  */
 class ModuleOptions extends AbstractOptions {
 
-    protected $siteName;
+    /**
+     * The sitename is used in Mails. Typically it's the name of your website
+     */
+    protected $siteName="YAWIK";
 
     public function setSiteName($siteName)
     {
@@ -32,9 +35,9 @@ class ModuleOptions extends AbstractOptions {
     public function getSiteName()
     {
         if (empty($this->siteName)) {
-            throw new \InvalidArgumentException(
-                'the argument sitename has to be defined'
-            );
+                throw new \InvalidArgumentException(
+                    'the argument sitename has to be defined'
+                );
         }
         return $this->siteName;
     }
