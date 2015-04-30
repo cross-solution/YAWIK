@@ -118,7 +118,10 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->with($email)
             ->willReturn($user);
 
-        $this->assertEmpty($this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock));
+        $this->setExpectedException('Auth\Service\Exception\UserAlreadyExistsException', 'User already exists');
+        $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
+
+        //$this->assertEmpty($this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock));
     }
 
     public function testProceed()
