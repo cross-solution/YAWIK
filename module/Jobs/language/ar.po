@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 19:02+0200\n"
-"PO-Revision-Date: 2015-04-29 17:22+0000\n"
+"POT-Creation-Date: 2015-04-30 14:21+0200\n"
+"PO-Revision-Date: 2015-04-30 12:23+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -106,7 +106,7 @@ msgid "All jobs"
 msgstr "جميع الوظائف"
 
 #: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
-#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:99
+#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:105
 msgid "Jobs"
 msgstr "وظائف"
 
@@ -411,7 +411,7 @@ msgstr ""
 msgid "search for jobs"
 msgstr "البحث عن وظائف"
 
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:132
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:138
 msgid "Your Homepage"
 msgstr ""
 
@@ -517,52 +517,60 @@ msgstr ""
 msgid "Job was deactivated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:96 language/_annotated_strings.php:111
+#: language/_annotated_strings.php:96
+msgid "Your Job have been wrapped up for approval"
+msgstr ""
+
+#: language/_annotated_strings.php:99
+msgid "A new job opening was created"
+msgstr ""
+
+#: language/_annotated_strings.php:102 language/_annotated_strings.php:117
 msgid "Jobboard"
 msgstr ""
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:108
 msgid "Overview"
 msgstr "نظرة عامة"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:111
 msgid "Create job"
 msgstr "خلق فرص العمل"
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:114
 msgid "Edit job"
 msgstr "تحرير العمل"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:120
 msgid "publish your job on yawik.org for free"
 msgstr ""
 
-#: language/_annotated_strings.php:117 language/_annotated_strings.php:126
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:132
 #, php-format
 msgid "publish the job for 30 days on %s"
 msgstr ""
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:126
 msgid "yawik.org"
 msgstr ""
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:129
 msgid "publish your job on Jobsintown. 199,-€"
 msgstr ""
 
-#: language/_annotated_strings.php:129
+#: language/_annotated_strings.php:135
 msgid "www.jobsintown.de"
 msgstr ""
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:141
 msgid "enable integration of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:144
 #, php-format
 msgid "enable %s of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:147
 msgid "integration"
 msgstr ""

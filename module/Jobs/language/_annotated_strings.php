@@ -92,6 +92,12 @@ translate('Job opening was activated by %s');
 //: ./src/Jobs/Controller/ManageController.php:397
 translate('Job was deactivated by %s');
 
+//: ./src/Jobs/Listener/PendingForAcception.php:93
+translate('Your Job have been wrapped up for approval');
+
+//: ./src/Jobs/Listener/StatusChanged.php:104
+translate('A new job opening was created');
+
 //: ./config/module.config.php:105
 translate('Jobboard');
 

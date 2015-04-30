@@ -90,7 +90,7 @@ class PendingForAcception implements ServiceManagerAwareInterface
         $mail->ref = $job->getReference();
         $mail->setVariable('job', $job);
         $mail->setTemplate('mail/jobPendingForAcception');
-        $mail->setSubject( /*translate*/ 'Your Job have been wrapped up for approval');
+        $mail->setSubject( /*@translate*/ 'Your Job have been wrapped up for approval');
         $mail->setFrom($userEmail, $userName);
         $mail->setTo($options->getMultipostingApprovalMail());
 
