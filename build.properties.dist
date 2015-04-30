@@ -21,6 +21,7 @@ mongo.pass=
 
 username=
 password=
+email=
 
 ;
 ; initial user role. After the first login. Users are asigned to this role by default.

@@ -15,6 +15,7 @@ use Jobs\Repository;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Zend\Stdlib\AbstractOptions;
 
 /**
  * Handles rendering the job in formular and in preview mode
@@ -29,9 +30,15 @@ class TemplateController extends AbstractActionController  {
      */
     private $jobRepository;
 
-    public function __construct(Repository\Job $jobRepository)
+    /**
+     * @var
+     */
+    protected $config;
+
+    public function __construct(Repository\Job $jobRepository, AbstractOptions $config)
     {
         $this->jobRepository = $jobRepository;
+        $this->config = $config;
     }
 
     /**
@@ -217,10 +224,7 @@ class TemplateController extends AbstractActionController  {
             return ($organization->image->uri);
         } else {
             /** @var \Zend\ServiceManager\ServiceManager $serviceLocator */
-
-            $serviceLocator = $this->getServiceLocator();
-            $config = $serviceLocator->get('config');
-            return $config['Jobs']['default_logo'];
+            return $this->config->default_logo;
         }
     }
 }

@@ -20,4 +20,4 @@ $options = array(
     'siteName' => 'YAWIK',
 );
 
-return array('core_options',$options);
+return array('core_options' => $options);

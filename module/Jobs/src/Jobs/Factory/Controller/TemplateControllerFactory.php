@@ -34,7 +34,8 @@ class TemplateControllerFactory implements FactoryInterface
          * @var $jobRepository Repository\Job
          */
         $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
+        $options = $serviceLocator->get('Jobs/Options');
 
-        return new TemplateController($jobRepository);
+        return new TemplateController($jobRepository, $options);
     }
 }
