@@ -2,11 +2,12 @@
 /**
  * YAWIK
  *
+ * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
-/** FileAccessAssertion.php */ 
+/** */
 namespace Applications\Acl;
 
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
@@ -19,14 +20,18 @@ use Core\Entity\PermissionsInterface;
 
 /**
  * Checks permission on attachments
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
  */
 class ApplicationAccessAssertion implements AssertionInterface
 {
     /**
-     * (non-PHPdoc)
+     * Checks permissions based on resources' permissions.
+     *
+     * {@inheritDoc}
+     *
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
-     * @param string $privilege
-     * @return bool
      */
     public function assert(Acl $acl, 
                            RoleInterface $role = null, 
@@ -36,33 +41,10 @@ class ApplicationAccessAssertion implements AssertionInterface
         if (!$role instanceOf UserInterface || !$resource instanceOf ApplicationInterface) {
             return false;
         }
-        
+        /* @var $resource ApplicationInterface */
+
         $permission = 'read' == $privilege ? PermissionsInterface::PERMISSION_VIEW : PermissionsInterface::PERMISSION_CHANGE;
         return $resource->getPermissions()->isGranted($role, $permission);
     }
-    
-    /**
-     * Checks read access on attachments
-     * 
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
-     * @return boolean
-     */
-    protected function assertRead($role, $resource)
-    {
-        return $resource->getJob()->getUser()->getId() == $role->getId();
-    }
-    
-    /**
-     * Checks write Access on attachments
-     * 
-     * @param RoleInterface $role
-     * @param ResourceInterface $resource
-     * @return boolean
-     */
-    protected function assertWrite($role, $resource)
-    {
-        $job = $resource->getJob();
-        return ($job && $role->getId() == $job->getUser()->getId());
-    }
+
 }

@@ -10,52 +10,49 @@
 namespace ApplicationTest\Factory\Form;
 
 use Applications\Factory\Form\ContactImageFactory;
-use Test\Bootstrap;
 
+/**
+ * @covers \Applications\Factory\Form\ContactImageFactory
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Applications
+ * @group Applications.Factory
+ * @group Applications.Factory.Form
+ */
 class ContactImageFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var ContactImageFactory
-     */
-    private $testedObj;
 
-    public function setUp()
+    /**
+     * @testdox Extends Auth\Form\UserImageFactory
+     */
+    public function testExtendsAuthFormUserImageFactory()
     {
-        $this->testedObj = new ContactImageFactory();
+        $baseClass = '\Auth\Form\UserImageFactory';
+        $factory   = new ContactImageFactory();
+
+        $this->assertInstanceOf($baseClass, $factory);
+    }
+
+    public function overridesPropertyProvider()
+    {
+        return array(
+            array('fileEntityClass', '\Applications\Entity\Attachment'),
+            array('configKey', 'application_contact_image'),
+        );
     }
 
     /**
-     * @expectedException \Zend\ServiceManager\Exception\ServiceNotFoundException
+     *
+     * @dataProvider overridesPropertyProvider
+     *
+     * @param $property
+     * @param $value
      */
-    public function testCreateService()
+    public function testOverridesProperty($property, $value)
     {
+        $factory = new ContactImageFactory();
 
-        $type="Core/FileUpload";
-        $name="image";
-        $multiple=false;
-
-        $sm = clone Bootstrap::getServiceManager();
-        $fm = $sm->get("FormElementManager");
-
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-
-        /**
-         * @todo This Test fails with:
-         *  Message was: "Zend\ServiceManager\ServiceManager::get was unable to fetch or create an instance for doctrine.documentmanager.odm_default" at
-         *   #0 /home/cbleek/Projects/YAWIK/module/Core/src/Core/Repository/DoctrineMongoODM/DocumentManagerFactory.php(27)
-         *
-         * reason: ACL in FileUploadFactory
-         *
-         * eighter the ACL stuff has to be done later or a Test Database has to be used.
-         *
-         */
-
-        $result = $this->testedObj->createService($fm);
-
-
-
-        $this->assertInstanceOf('Application\Form\ContactImage', $result);
+        $this->assertObjectHasAttribute($property, $factory);
+        $this->assertAttributeEquals($value, $property, $factory);
     }
 }

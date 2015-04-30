@@ -17,35 +17,58 @@ use Core\Entity\AbstractEntity;
  * Holds various attributes like "send me a carbon copy" or "i accept the privacy policy".
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ *
  * @ODM\EmbeddedDocument
  */
 class Attributes extends AbstractEntity
 {
     /**
-     * 
+     * Flag wether privacy policy is accepted or not.
+     *
      * @var boolean
      * @ODM\Boolean
      */
     protected $privacyPolicy;
     
     /**
-     * 
+     * Flag wether to send a carbon copy or not.
+     *
      * @var boolean
      * @ODM\Boolean
      */
     protected $carbonCopy;
-    
+
+    /**
+     * Sets wether the privacy policy is accepted.
+     *
+     * @param bool $flag
+     *
+     * @return self
+     */
     public function setAcceptedPrivacyPolicy($flag)
     {
         $this->privacyPolicy = (bool) $flag;
         return $this;
     }
-    
+
+    /**
+     * Returns wether the privacy policy is accepted.
+     *
+     * @return bool
+     */
     public function getAcceptedPrivacyPolicy()
     {
         return $this->privacyPolicy;
     }
-    
+
+    /**
+     *
+     *
+     * @param $flag
+     *
+     * @return self
+     */
     public function setSendCarbonCopy($flag)
     {
         $this->carbonCopy = (bool) $flag;
