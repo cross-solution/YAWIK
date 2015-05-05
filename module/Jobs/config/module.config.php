@@ -51,9 +51,6 @@ return array(
                     ),
             ),
     ),
-    
-    
-    
       
     'acl' => array(
         'rules' => array(
@@ -87,7 +84,13 @@ return array(
             ),
             'admin' => array(
                 'allow' => array(
-                    'route/lang/jobs/approval'
+                    'route/lang/jobs/approval',
+                    'route/auth-logout',
+                    'route/lang/my',
+                    'route/lang/my-password',
+                    'Jobs/Manage' => array(
+                        'approval',
+                    ),
                 )
             )
         ),

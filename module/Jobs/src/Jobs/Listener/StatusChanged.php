@@ -101,7 +101,7 @@ class StatusChanged implements ServiceManagerAwareInterface
         $mail->setVariable('job', $job);
         $mail->setVariable('link' ,$previewLink);
         $mail->setTemplate('mail/jobCreatedMail');
-        $mail->setSubject( /*@translate*/ 'A new job opening was created');
+        $mail->setSubject( $translator->translate('A new job opening was created'));
         $mail->setFrom($userEmail, $userName);
         $mail->setTo($options->getMultipostingApprovalMail());
 
