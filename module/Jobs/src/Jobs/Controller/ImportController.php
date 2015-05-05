@@ -147,7 +147,7 @@ class ImportController extends AbstractActionController {
                             $entityOrganizationFromDB = $repOrganization->findbyRef($companyId);
                             //$permissions              = $entityOrganizationFromDB->getPermissions();
                             $data = array(
-                                'externalId'      => $params->companyId,
+                                'externalId'      => $companyId,
                                 'organizationName' => $params->company,
                                 'image'            => $params->logoRef
                             );
