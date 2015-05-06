@@ -123,9 +123,9 @@ class ConsoleController extends AbstractActionController {
         $filter = array("before" => $date->format("Y-m-d"),
                         "isDraft" => 1);
 
-        $services     = $this->getServiceLocator();
-        $repositories = $services->get('repositories');
-        $applications = $this->fetchApplications($filter);
+        $services        = $this->getServiceLocator();
+        $applications    = $this->fetchApplications($filter);
+        $documentManager = $services->get('Core/DocumentManager');
 
         $count = count($applications); $i=0;
 
@@ -135,8 +135,10 @@ class ConsoleController extends AbstractActionController {
 
         foreach ($applications as $application) {
             $progress->update($i++, 'Application ' . $i . ' / ' . $count);
-            $repositories->remove($application);
+            $documentManager->remove($application);
         }
+        $progress->update($i, 'clean up database');
+        $documentManager->flush();
         $progress->finish();
     }
 
