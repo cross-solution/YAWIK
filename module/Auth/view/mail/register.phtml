@@ -1,10 +1,21 @@
-Sehr geehrte/-r Herr/Frau <?php echo $this->name; ?>,<br />
-Sie haben sich erfolgreich auf <?php echo $this->siteName; ?> registriert.<br />
-Zur Bestätigung Ihrer Registrierung und Freischaltung Ihres Kontos klicken Sie bitte auf folgenden Link:<br />
 <?php
-echo $this->confirmationlink;
+/**
+ * YAWIK
+ * Auth Module
+ *
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/*
+ * Sends a confirmation link to the user, after registration
+ */
 ?>
+<p>Sehr geehrte/-r Herr/Frau <?php echo $this->name; ?>,</p>
 
-<?php
-echo $this->partial('mail/footer');
-?>
+    <p>Sie haben sich erfolgreich auf <?php echo $this->siteName; ?> registriert.</p>
+
+    <p>Zur Bestätigung Ihrer Registrierung und Freischaltung Ihres Kontos klicken Sie bitte auf folgenden Link:</p>
+
+<?php echo $this->confirmationlink; ?>
+
+<?php echo $this->partial('mail/footer'); ?>
