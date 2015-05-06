@@ -23,8 +23,7 @@ $modules = array(
          'Settings', 
          'Pdf', 
          'Geo',
-         'Organizations',
-         'CamMediaintown'
+         'Organizations'
     );
 
 if (!isset($allModules)) {
