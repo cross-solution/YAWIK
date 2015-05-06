@@ -25,13 +25,20 @@ use Zend\Stdlib\CallbackHandler;
  */
 class TokenListenerTest extends \PHPUnit_Framework_TestCase
 {
+    # http://matthewturland.com/2010/08/19/process-isolation-in-phpunit/
+    # added, because these tests are failing on travis
+    public function run(\PHPUnit_Framework_TestResult $result = NULL)
+    {
+        $this->setPreserveGlobalState(false);
+        return parent::run($result);
+    }
 
     public function testImplementsSharedListenerAggregateInterface()
     {
         $this->assertInstanceOf('\Zend\EventManager\SharedListenerAggregateInterface', new TokenListener());
     }
 
-    public function testWorksAsSharedLisenerAggregate()
+    public function testWorksAsSharedListenerAggregate()
     {
         $target = new TokenListener();
         $expId = 'Zend\Mvc\Application';
