@@ -27,6 +27,7 @@ use Core\Entity\DraftableEntityInterface;
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  * @ODM\HasLifecycleCallbacks
  *
+ * @todo write test
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -310,14 +311,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->image;
     }
 
-    /**
-     * Sets contact.
-     *
-     * @todo has to be in interface
-     * @param EntityInterface $contact
-     *
-     * @return self
-     */
     public function setContact(EntityInterface $contact = null)
     {
         if (!$contact instanceOf OrganizationContact) {
@@ -327,11 +320,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this;
     }
 
-    /** 
-     * gets the contact
-     * @todo has to be in interface
-     * @return OrganizationContact
-     */
     public function getContact()
     {
         if (!$this->contact instanceOf OrganizationContact) {

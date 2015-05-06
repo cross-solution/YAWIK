@@ -16,12 +16,14 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationContact;
 use Organizations\Entity\OrganizationName;
 use Organizations\Entity\OrganizationReference;
 
 /**
  * Test the OrganizationReference entity.
- * 
+ *
+ * @covers \Organizations\Entity\OrganizationReference
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
@@ -161,6 +163,7 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setId('543');
         $perms = new Permissions();
+        $contact = new OrganizationContact();
 
         return array(
             array(array('__set', '__get', '__isset'), array(array('id', '4321'), array('id'), array('id')), array('__self__', '4321', true)),
@@ -170,7 +173,9 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
             array(array('setDateCreated', 'getDateCreated'), array(array($date), array()), array('__self__', $date)),
             array(array('setDateModified', 'getDateModified'), array(array($date), array()), array('__self__', $date)),
             array(array('setParent', 'getParent'), array(array($parent), array()), array('__self__', $parent)),
+            array(array('setContact', 'getContact'), array(array($contact), array()), array('__self__', $contact)),
             array('isHiringOrganization', array(), false),
+            array('getHiringOrganizations', array(), null),
             array(array('setOrganizationName', 'getOrganizationName'), array(array($name), array()), array('__self__', $name)),
             array(array('setDescription', 'getDescription'), array(array('nodesc'), array()), array('__self__', 'nodesc')),
             array(array('setEmployees', 'getEmployees'), array(array($emps), array()), array('__self__', $emps)),

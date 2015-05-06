@@ -12,6 +12,12 @@ use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Organizations\Entity\OrganizationInterface;
 
+/**
+ * This is the repository for Organizations entities.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ */
 class Organization extends AbstractRepository
 {
     /**
@@ -53,6 +59,7 @@ class Organization extends AbstractRepository
     {
         $qb = $this->createQueryBuilder();
         $qb->field('parent')->equals($organization->getId());
+        $qb->field('isDraft')->equals(false);
         $q  = $qb->getQuery();
         $cursor = $q->execute();
 
