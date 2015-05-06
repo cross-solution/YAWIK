@@ -149,7 +149,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
      *
      * @param  array|ArrayAccess|Traversable $variables
      * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @return ViewModel
      */
     public function setVariables($variables, $overwrite = false)
