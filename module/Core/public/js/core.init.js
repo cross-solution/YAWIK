@@ -69,7 +69,7 @@
                     $(this).remove();
                 }
             })
-        }
+        };
         reDirectNotifications();
         $(document).on('ajax.ready', function(event, data) {
             //console.log('global.ajax.ready', event, data);
@@ -90,3 +90,4 @@
     });
 
 })(jQuery);
+

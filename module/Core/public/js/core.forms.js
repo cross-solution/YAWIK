@@ -101,7 +101,14 @@
 		initSelect: function() 
 		{
 			var $select = $(this);
+            var data    = $select.data();
 			var options = {};
+
+            // allow disabling this autoinit routine.
+            // Select2 elements must then be initialized explicitely.
+            if (false == data.autoinit) {
+                return;
+            }
 			
 			$.each($select.data(), function(idx, val) {
 				
