@@ -183,6 +183,7 @@ return array(
         'template_map' => array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
+            'jobs/form/hiring-organization-select' => __DIR__ . '/../view/form/hiring-organization-select.phtml',
             'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
             'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
             'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
@@ -241,6 +242,7 @@ return array(
         'factories' => array(
             'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
+            'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
         )
     ),
     

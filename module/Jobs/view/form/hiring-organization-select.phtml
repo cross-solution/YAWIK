@@ -1,0 +1,42 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+
+
+if ($this->renderSummary):?>
+<div class="row">
+    <div class="col-md-3 yk-label">
+        <label><?php echo $this->translate($this->element->getLabel())?></label>
+    </div>
+    <div class="col-md-9">
+        <?php
+        $options = $this->element->getValueOptions();
+        $valueKey= $this->element->getValue();
+
+        if ($valueKey):
+            $value   = $options[$valueKey];
+
+            $data    = explode('|', $value);
+            $info    = array();
+
+            if ($data[1]):
+                $info[] = $data[1];
+            endif;
+
+            if ($data[2]):
+                $info[] = $data[2] . ($data[3] ? ' ' . $data[3] : '');
+            endif;
+            ?>
+        <strong><?php echo $data[0] ?></strong><br>
+        <small><?php echo implode(', ', $info) ?></small>
+        <?php endif ?>
+    </div>
+</div>
+
+<?php else: echo $this->formRow()->render($this->element, /* ignoreViewPartial */ true);
+endif; // ($this->renderSummary) ?>
