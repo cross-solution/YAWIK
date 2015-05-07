@@ -104,7 +104,7 @@
      */
     $.fn.summaryformEnsureSave = function ()
     {
-        //console.log("a onClick", this);
+        console.log("a onClick", this);
         $(this).click(function(event) {
             var returnValue = true;
             $(".sf-container").each(function() {
@@ -131,6 +131,17 @@
                 }
             });
             //console.log("returnValue", returnValue);
+            var iFrames = $("iframe");
+            if (0 < iFrames.length) {
+                var iFrameContent = $("iframe").get(0).contentDocument;
+                var iFrameHtml = $(iFrameContent).children("html");
+                console.log("iFrameHtml", iFrameHtml, iFrameHtml.hasClass('yk-changed'));
+                if (iFrameHtml.hasClass('yk-changed')) {
+                    console.log($(iFrameHtml).find(":input"));
+                    $(iFrameHtml).find(":input").trigger("blur");
+                    returnValue = confirm('Data is still saving, if you continue data will be lost.\nDo you want to continue');
+                }
+            }
             return returnValue;
         });
     }

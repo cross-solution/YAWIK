@@ -66,13 +66,17 @@ class FormEditor extends FormTextarea
                 . $this->additionalOptions() .
                 'setup: function(editor) {
                     editor.on("blur", function(e) {
-                    //console.log("blur event", e);
+                    console.log("blur event", e);
                     var container = e.target.bodyElement;
+                    $(container).parents("html").addClass("yk-changed");
                     var form = $(container).parents("form");
-                    //console.log("form", form);
+                    //console.log("form", form, container);
                     editor.save();
                     form.submit();
-                    //$(form).on("yk.forms.done", function(){console.log("done")});
+                    $(form).on("yk.forms.done", function(){
+                        console.log("done");
+                        //$(container).parents("html").removeClass("yk-changed");
+                    });
 
                 });
     }
