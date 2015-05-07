@@ -140,7 +140,7 @@ if ($this->page == 2):
                 break;
             case "2":
         ?>
-	<php
+	<?php
         /**
          * check for required fields
          */
@@ -149,7 +149,7 @@ if ($this->page == 2):
             <div id="job_incomplete" class="alert alert-warning " <?php echo (isset($this->jobvalid) && $this->jobvalid == true) ? 'style = "display: none;"' : ''; ?>>
                 <?php echo $this->translate('Your job position is incomplete.'); ?>
                 <span id="job_errormessages">
-                    <?php echo (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) ? ($this->errorMessage) : '';?>
+                    <?php echo (isset($this->jobvalid) && $this->jobvalid == false && !empty($this->errorMessage)) ? ($this->errorMessage) : '';?>
                 </span>
             </div>
 	<?php

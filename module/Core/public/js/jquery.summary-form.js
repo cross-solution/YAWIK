@@ -17,7 +17,9 @@
 				_this.$formContainer.find('button.sf-submit').spinnerbutton('toggle');
 			}	
 			if (result.valid) {
-				console.debug('catch submit', e, result);
+                var container = $(e.target).parents(".sf-container");
+				console.debug('catch submit', e, result, container);
+                container.removeClass('yk-changed');
 
                 // Check if content is returned to replace the summary containers' html.
                 // @todo If no content is returned, we must update the field values in the summary,
@@ -95,7 +97,60 @@
 			
 		});
 	};
-	
-	$(function() { $(".sf-container").summaryform();  });
+
+
+    /**
+     * ensures that all forms in the summary-form are saved before executing a link
+     */
+    $.fn.summaryformEnsureSave = function ()
+    {
+        //console.log("a onClick", this);
+        $(this).click(function(event) {
+            var returnValue = true;
+            $(".sf-container").each(function() {
+                var containers = $(this);
+                if (containers.hasClass("yk-changed")) {
+                    //console.log("test-container", containers, containers.hasClass("yk-changed"));
+                    var sfForm = $(this).find(".sf-form");
+                    var sfSummary = $(this).find(".sf-summary");
+                    var title = $(this).find(".sf-headline").text();
+                    if (sfForm.length == 1 && sfSummary.length == 1) {
+                        //console.log(title, sfForm.css("display"), sfSummary.css("display"));
+                        if (sfForm.css("display") == "block" && sfSummary.css("display") == "none") {
+                            var res = confirm("Form '" + title + "' has not been saved\ncontinue ?");
+                            if (!res) {
+                                // set the return-value and end the loop, so that you don't have to go through all other open forms
+                                returnValue = false;
+                                return false;
+                            }
+                            else {
+                                containers.removeClass('yk-changed');
+                            }
+                        }
+                    }
+                }
+            });
+            //console.log("returnValue", returnValue);
+            return returnValue;
+        });
+    }
+
+    $.fn.markChangeTrigger = function ()
+    {
+        $(this).find(":input").change(function(event) {
+            var target = event.target;
+            console.log('changed', target);
+            $(target).parents(".sf-container").addClass("yk-changed");
+        });
+    }
+
+    /**
+     * initialize on DocumentReady here
+     */
+	$(function() {
+        $(".sf-container").summaryform();
+        $("a").summaryformEnsureSave();
+        $(".sf-container").markChangeTrigger();
+    });
 	
 })(jQuery);
