@@ -39,6 +39,7 @@ return array(
             'Auth/Listener/MailForgotPassword' => 'Auth\Listener\MailForgotPassword'
         ),
         'factories' => array(
+            'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',

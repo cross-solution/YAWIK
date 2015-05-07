@@ -31,11 +31,11 @@ return array(
     		'email' => '%%email%%',                             // email-adress of the default-users
     	),
     	'first_login' => array (
-    	    'role' => '%%role%%',                               // role set on the first login.
-    	    'mail_name' => '%%mail.from.name%%',                // set the name in welcome Mail header
-    	    'mail_from' => '%%mail.from.email%%',               // set the From email in welcome Mail headers
-    	    'mail_subject' => '%%mail.first_login.subject%%',   // subject of the welcome mail
-    	    'auth_suffix' => '%%auth.suffix%%',                 // an auth suffix is needed, if you plan to add external apps.
+    	    'role' => '%%role%%',                                            // role set on the first login.
+    	    'from_name' => '%%mail.from.name%%',                             // set the name in welcome Mail header
+    	    'from_email' => '%%mail.from.email%%',                           // set the From email in welcome Mail headers
+    	    'mail_subject_registration' => '%%mail.first_login.subject%%',   // subject of the welcome mail
+    	    'auth_suffix' => '%%auth.suffix%%',                              // an auth suffix is needed, if you plan to add external apps.
     	),
     	// this allows an external application to use the YAWIK API
     	// applications[USERPOSTFIX] => AppKey

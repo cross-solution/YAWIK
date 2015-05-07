@@ -117,40 +117,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         				'label' => /*@translate*/ 'house number'
         		)
         ));
-        
-//         $this->add(array(
-//             'type' => 'hidden',
-//             'name' => 'imageId',
-//         ));
-//         $this->add(array(
-//             'type' => 'file',
-//             'name' => 'image',
-//             'options' => array(
-// //                 'label' => /*@translate*/ 'Application photo',
-                    
-//              ),
-//             'attributes' => array(
-//                    'accept' => 'image/*',
-//              ),
-        
-//         ));
-        
- 
-        
     }
-    
-//     public function setValue($value)
-//     {
-//         if ($value instanceOf EntityInterface) {
-//             if ($value instanceOf RelationEntity) {
-//                 $value = $value->getEntity();
-//             }
-//             $data = $this->getHydrator()->extract($value);
-//             $this->populateValues($data);
-//             $this->setObject($value);
-//         }
-//         return parent::setValue($value);
-//     }
     
     /**
      * (non-PHPdoc)

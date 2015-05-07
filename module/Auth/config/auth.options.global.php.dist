@@ -1,0 +1,28 @@
+<?php
+
+$options = array(
+       /*
+        * default email address, which is used in FROM headers of system mails like "new registration",
+        * "forgot password",..
+        */
+        'fromEmail' => 'email@example.com',
+
+        /*
+        * default name address, which is used in FROM headers of system mails like "new registration",
+        * "forgot password",..
+        */
+        'fromName' => 'email@example.com',
+
+        /*
+        * default name address, which is used in FROM headers of system mails like "new registration",
+        * "forgot password",..
+        */
+        'mailSubjectRegistration' => 'your registration',
+
+
+
+    );
+
+return array(
+        'auth_options' => $options
+    );

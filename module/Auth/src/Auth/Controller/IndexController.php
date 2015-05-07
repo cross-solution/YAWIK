@@ -12,6 +12,7 @@ namespace Auth\Controller;
 
 use Auth\AuthenticationService;
 use Auth\Service\Exception;
+use Auth\Options\ModuleOptions;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
@@ -40,13 +41,15 @@ class IndexController extends AbstractActionController
     protected $logger;
 
     /**
-     * @var
+     * @var ModuleOptions
      */
     protected $options;
 
     /**
      * @param $auth
+     * @param $logger
      * @param $loginForm
+     * @param $options
      */
     public function __construct($auth, $logger, $loginForm, $options) {
         $this->auth=$auth;
@@ -192,9 +195,9 @@ class IndexController extends AbstractActionController
                 $user->role = $this->options->role;
 
                 $mail = $this->mail(
-                        array(  'from' => $this->options->mail_from,
-                                'fromName' => $this->options->mail_name,
-                                'subject' => 'registration at the YAWIK',
+                        array(  'from' => $this->options->getFromEmail(),
+                                'fromName' => $this->options->getFromName(),
+                                'subject' => $this->options->getMailSubjectRegistration(),
                                 'displayName'=> $user->info->getDisplayName(),
                                 'provider' => $provider,
                                 'user' => $login,
@@ -203,7 +206,7 @@ class IndexController extends AbstractActionController
                         );
                 $mail->template('first-login');
                 $mail->addTo($user->info->getEmail());
-                $mail->setSubject($this->options->mail_subject);
+                $mail->setSubject($this->options->getMailSubjectRegistration());
 
                 $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
                 if (isset($mail) && $this->mailer($mail)) {
