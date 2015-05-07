@@ -45,7 +45,7 @@ class ManageController extends AbstractActionController
         $user     = $services->get('AuthenticationService')->getUser();
         
         $container->setEntity($user);
-        
+
         if ($this->request->isPost()) {
             $formName  = $this->params()->fromQuery('form');
             $form      = $container->getForm($formName);

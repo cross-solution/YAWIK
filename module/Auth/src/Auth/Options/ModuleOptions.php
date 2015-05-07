@@ -25,14 +25,14 @@ class ModuleOptions extends AbstractOptions {
      *
      * @var string
      */
-    protected $fromEmail = 'contact@yawik.org';
+    protected $fromEmail = 'email@example.com';
 
     /**
      * default name, which is used in FROM headers of system mails like "new registration", "forgot password",..
      *
      * @var string
      */
-    protected $fromName = 'YAWIK';
+    protected $fromName = 'Name';
 
     /**
      * default role, which is assigned to a user after registration. possible Values (user|recruiter)
@@ -46,22 +46,14 @@ class ModuleOptions extends AbstractOptions {
      * @deprecated
      * @var string
      */
-    protected $mailName = 'Yawik';
+    protected $mailName = '';
 
     /**
-     * use $fromEmail instead
+     * Subject of the registration mail.
      *
-     * @deprecated
      * @var string
      */
-    protected $mailFrom = 'demo@yawik.org';
-
-    /**
-     *
-     * @deprecated
-     * @var string
-     */
-    protected $mailSubject = 'Welcome to YAWIK';
+    protected $mailSubjectRegistration = 'Welcome to YAWIK';
 
     /**
      * an authSuffix can be used, if you plan to connect an external system. Users can login with "username", but
@@ -72,7 +64,7 @@ class ModuleOptions extends AbstractOptions {
     protected $authSuffix = '';
 
     /**
-     * sets the "role " option
+     * Sets the "role " option
      *
      * @param $role
      * @return $this
@@ -84,7 +76,7 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
-     * gets the "role" option
+     * Gets the "role" option
      *
      * @return string
      */
@@ -94,84 +86,8 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
-     * @deprecated
-     * @param $mailName
-     * @return $this
-     */
-    public function setMailName($mailName)
-    {
-        $this->mailName = $mailName;
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getMailName()
-    {
-        return $this->mailName;
-    }
-
-    /**
-     * @deprecated
-     * @param $mail
-     * @return $this
-     */
-    public function setMailFrom($mail)
-    {
-        $this->fromEmail = $mail;
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getMailFrom()
-    {
-        return $this->mailFrom;
-    }
-
-    /**
-     * @deprecated
-     * @param $subject
-     * @return $this
-     */
-    public function setMailSubject($subject)
-    {
-        $this->mailSubject = $subject;
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getMailSubject()
-    {
-        return $this->mailSubject;
-    }
-
-    /**
-     * @param $suffix
-     * @return $this
-     */
-    public function setAuthSuffix($suffix)
-    {
-        $this->authSuffix = $suffix;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAuthSuffix()
-    {
-        return $this->authSuffix;
-    }
-
-    /**
+     * Gets email address which is used in FROM header of system mails
+     *
      * @return string
      */
     public function getFromEmail()
@@ -180,6 +96,8 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
+     * Sets email address which is used in FROM header of system mails
+     *
      * @param $fromEmail
      * @return $this
      */
@@ -206,4 +124,108 @@ class ModuleOptions extends AbstractOptions {
         $this->fromName = $fromName;
         return $this;
     }
+
+
+    /**
+     * Sets the Mail Subject of the registration Mail
+     *
+     * @param $mailSubjectRegistration
+     * @return $this
+     */
+    public function setMailSubjectRegistration($mailSubjectRegistration)
+    {
+        $this->mailSubjectRegistration = $mailSubjectRegistration;
+        return $this;
+    }
+
+    /**
+     * Gets the Mail Subject of the registration Mail
+     *
+     * @return string
+     */
+    public function getMailSubjectRegistration()
+    {
+        return $this->mailSubjectRegistration;
+    }
+
+    /**
+     * @deprecated
+     * @param $mail
+     * @return $this
+     */
+    public function setMailFrom($mail)
+    {
+        $this->fromEmail = $mail;
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getMailFrom()
+    {
+        return $this->fromEmail;
+    }
+
+    /**
+     * @param $suffix
+     * @return $this
+     */
+    public function setAuthSuffix($suffix)
+    {
+        $this->authSuffix = $suffix;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthSuffix()
+    {
+        return $this->authSuffix;
+    }
+
+    /**
+     * @deprecated
+     * @param $mailName
+     * @return $this
+     */
+    public function setMailName($mailName)
+    {
+        $this->mailName = $mailName;
+        return $this;
+    }
+
+    /**
+     * @deprecated
+     * @return string
+     */
+    public function getMailName()
+    {
+        return $this->mailName;
+    }
+
+    /**
+     * Sets the Mail Subject of the registration Mail
+     * @deprecated
+     * @param $mailSubjectRegistration
+     * @return $this
+     */
+    public function setMailSubject($mailSubjectRegistration)
+    {
+        $this->mailSubjectRegistration = $mailSubjectRegistration;
+        return $this;
+    }
+
+    /**
+     * Gets the Mail Subject of the registration Mail
+     * @deprecated
+     * @return string
+     */
+    public function getMailSubject()
+    {
+        return $this->mailSubjectRegistration;
+    }
+
 }

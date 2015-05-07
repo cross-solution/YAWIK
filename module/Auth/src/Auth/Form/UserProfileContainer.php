@@ -22,11 +22,11 @@ class UserProfileContainer extends Container
     {
         $this->setForms(array(
             'info' => 'Auth/UserInfoContainer',
-            'base' => array(
-                'type' => 'Auth/UserBase',
-                'label' => /*@translate*/ 'General settings',
-                'property' => true,
-            ),
+//            'base' => array(
+//                'type' => 'Auth/UserBase',
+//                'label' => /*@translate*/ 'General settings',
+//                'property' => true,
+//            ),
         ));
     }
 }

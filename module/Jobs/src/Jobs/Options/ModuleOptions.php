@@ -5,7 +5,7 @@
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @author cbleek
- * @license   AGPLv3
+ * @license   MIT
  */
 
 namespace Jobs\Options;
@@ -46,11 +46,11 @@ class ModuleOptions extends AbstractOptions {
     protected $defaultLogo="/Jobs/images/yawik-small.jpg";
 
     /**
-     * Maximum size in bytes of a company Logo
+     * Maximum size in bytes of a company Logo. Default 200k
      *
      * @var int $companyLogoMaxSize
      */
-    protected $companyLogoMaxSize=100000;
+    protected $companyLogoMaxSize=200000;
 
     /**
      * Allowed Mime-Types for company Logos
