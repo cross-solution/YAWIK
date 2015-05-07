@@ -13,51 +13,67 @@ namespace Auth\Options;
 use Zend\Stdlib\AbstractOptions;
 
 /**
- * Class ListenerPublisherOptions
- * @package YawikXingVendorApi\Options
+ * Class ModuleOptions
+ *
+ * defines AbstractOptions of the Auth Module
  */
-class ControllerIndexOptions extends AbstractOptions {
+class ModuleOptions extends AbstractOptions {
 
     /**
-     * the preview indicates, that a job is not shown
-     * @var bool
+     * default email address, which is used in FROM headers of system mails like "new registration",
+     * "forgot password",..
+     *
+     * @var string
      */
     protected $fromEmail = 'contact@yawik.org';
 
     /**
-     * if no organizationId was set, return the id of the Sandbox
-     * Jobs in the sandbox can not be inspected in the backend, their
-     * only function is to get a negative or positive answer from the transmit
+     * default name, which is used in FROM headers of system mails like "new registration", "forgot password",..
+     *
      * @var string
      */
     protected $fromName = 'YAWIK';
 
     /**
+     * default role, which is assigned to a user after registration. possible Values (user|recruiter)
      * @var string
      */
     protected $role = 'recruiter';
 
     /**
-     * @var
+     * use $fromName instead
+     *
+     * @deprecated
+     * @var string
      */
     protected $mailName = 'Yawik';
 
     /**
-     * @var
+     * use $fromEmail instead
+     *
+     * @deprecated
+     * @var string
      */
     protected $mailFrom = 'demo@yawik.org';
 
     /**
-     * @var
+     *
+     * @deprecated
+     * @var string
      */
     protected $mailSubject = 'Welcome to YAWIK';
 
     /**
-     * @var
+     * an authSuffix can be used, if you plan to connect an external system. Users can login with "username", but
+     * the login itself is stored as "username@authSuffix"
+     *
+     * @var string
      */
-    protected $authSuffix = 'yawik';
+    protected $authSuffix = '';
 
     /**
+     * sets the "role " option
+     *
      * @param $role
      * @return $this
      */
@@ -68,6 +84,8 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * gets the "role" option
+     *
      * @return string
      */
     public function getRole()
@@ -76,6 +94,7 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @param $mailName
      * @return $this
      */
@@ -86,6 +105,7 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getMailName()
@@ -94,6 +114,7 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @param $mail
      * @return $this
      */
@@ -104,6 +125,7 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getMailFrom()
@@ -112,6 +134,7 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @param $subject
      * @return $this
      */
@@ -122,6 +145,7 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getMailSubject()
@@ -148,37 +172,38 @@ class ControllerIndexOptions extends AbstractOptions {
     }
 
     /**
-     *
+     * @return string
      */
-    public function getEmail()
+    public function getFromEmail()
     {
         return $this->fromEmail;
     }
 
     /**
-     *
+     * @param $fromEmail
+     * @return $this
      */
-    public function setEmail($fromEmail)
+    public function setFromEmail($fromEmail)
     {
         $this->fromEmail = $fromEmail;
         return $this;
     }
 
     /**
-     *
+     * @return string
      */
-    public function getName()
+    public function getFromName()
     {
         return $this->fromName;
     }
 
     /**
-     *
+     * @param $fromName
+     * @return $this
      */
-    public function setName($fromName)
+    public function setFromName($fromName)
     {
         $this->fromName = $fromName;
         return $this;
     }
-
 }
