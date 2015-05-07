@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8144282262d4627fc509eca961ce5268",
+    "hash": "1a9bb8dbbadad741df218111564ff4c9",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -1474,16 +1474,16 @@
         },
         {
             "name": "twitter/typeahead.js",
-            "version": "v0.11.1",
+            "version": "v0.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twitter/typeahead.js.git",
-                "reference": "588440f66559714280628a4f9799f0c4eb880a4a"
+                "reference": "5ac126185a5d762407ae77cad3a21dc0e60ad0e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/588440f66559714280628a4f9799f0c4eb880a4a",
-                "reference": "588440f66559714280628a4f9799f0c4eb880a4a",
+                "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/5ac126185a5d762407ae77cad3a21dc0e60ad0e6",
+                "reference": "5ac126185a5d762407ae77cad3a21dc0e60ad0e6",
                 "shasum": ""
             },
             "type": "library",
@@ -1503,7 +1503,7 @@
                 "autocomplete",
                 "typeahead"
             ],
-            "time": "2015-04-27 04:02:14"
+            "time": "2014-03-12 07:04:12"
         },
         {
             "name": "zendframework/zendframework",
