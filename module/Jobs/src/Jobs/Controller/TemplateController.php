@@ -138,10 +138,14 @@ class TemplateController extends AbstractActionController  {
      */
     private function getTemplateFields($job,JobDescriptionTemplate $form=null)
     {
-
-        $uriApply = $job->uriApply;
-        if (empty($uriApply)) {
+        /* @var $job \Jobs\Entity\Job */
+        $atsMode = $job->getAtsMode();
+        if ($atsMode->isIntern() || $atsMode->isEmail()) {
             $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $job->applyId));
+        } else if ($atsMode->isUri()) {
+            $uriApply = $atsMode->getUri();
+        } else {
+            $uriApply = false;
         }
 
         $headTitle= $job->templateValues->title;
@@ -207,6 +211,7 @@ class TemplateController extends AbstractActionController  {
             'postalCode' => $organizationPostalCode,
             'city' => $organizationPostalCity,
             'uriLogo' => $this->getOrganizationLogo($organization),
+            'location' => $job->getLocation(),
         );
 
         return $fields;

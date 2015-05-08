@@ -8,13 +8,17 @@
  * @author    weitz@cross-solution.de
  */
 
-namespace Jobs\View\Helper;
+namespace Jobs\Factory\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Jobs\View\Helper\ApplyUrl;
 
 /**
+ * Factory for ApplyUrl view helper
  *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ApplyUrlFactory implements FactoryInterface
 {

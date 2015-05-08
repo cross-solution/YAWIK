@@ -1,6 +1,7 @@
 <?php
     $id = $this->element->getEntity()->id;
     $lang = $this->params('lang');
+
 ?>
 <h3><?php echo $this->translate("Job details")?></h3>
 <div class="row">
@@ -38,6 +39,12 @@
             </ul>
                 <div id="template-links-loading" style="display: none;">loading</div>
             </div>
+        </div>
+        <div class="alert alert-info">
+            <h4><?php echo $this->translate('Track applications')?></h4>
+
+            <?php echo $this->summaryform($this->element->getForm('atsMode'), 'form-horizontal') ?>
+
         </div>
     </div>
 </div>

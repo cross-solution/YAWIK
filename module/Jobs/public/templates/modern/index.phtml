@@ -51,11 +51,13 @@
         </div>
         <div class="row">
           <div class="col-md-12">
+              <?php if ($this->uriApply): ?>
             <h2 class="text-center">
               <a target="_new" class="btn btn-lg btn-primary" href="<?php echo $this->uriApply ?>">
                 <strong><?php echo $this->translate("Apply now")?></strong>
               </a>
             </h2>
+              <?php endif;?>
             <address>
               <strong><?php echo $this->organizationName?><br></strong>
               <?php echo $this->street?><br>

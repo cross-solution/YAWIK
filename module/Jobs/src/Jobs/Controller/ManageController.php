@@ -114,7 +114,7 @@ class ManageController extends AbstractActionController {
         $formErrorMessages = array();
         if (isset($formIdentifier) &&  $request->isPost()) {
             // at this point the form get instantiated and immediately accumulated
-            $instanceForm = $form->get($formIdentifier);
+            $instanceForm = $form->getForm($formIdentifier);
             if (!isset($instanceForm)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }

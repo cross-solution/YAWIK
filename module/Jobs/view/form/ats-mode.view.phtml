@@ -1,0 +1,37 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+
+$entity = $this->element->getObject();
+$select = $this->element->get('mode');
+$value  = $select->getValue();
+
+echo '<p>';
+
+switch ($entity->getMode()):
+    case \Jobs\Entity\AtsModeInterface::MODE_INTERN:
+        echo $this->translate('The build-in ATS is currently used.');
+        break;
+
+    case \Jobs\Entity\AtsModeInterface::MODE_URI:
+        echo sprintf($this->translate('Applications are handled via URI: %s'),
+                     '<strong>' . $entity->getUri() . '</strong>');
+        break;
+
+    case \Jobs\Entity\AtsModeInterface::MODE_EMAIL:
+        echo sprintf($this->translate('Applications will be send to %s'),
+                     '<strong>' . $entity->getEmail() . '</strong>');
+        break;
+
+    case \Jobs\Entity\AtsModeInterface::MODE_NONE:
+        echo $this->translate('ATS is disabled.');
+        break;
+
+endswitch;
+
+echo '</p>';?>
