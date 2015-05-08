@@ -53,9 +53,9 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * @param null   $uriOrEmail Provide the URI for MODE_URI or the email address for MODE_EMAIL.
      *                           Is not used for MODE_INTERN and MODE_NONE.
      *
-     * use setMode()
-     * use setUri()
-     * use setEmail()
+     * @uses setMode()
+     * @uses setUri()
+     * @uses setEmail()
      * @throws \InvalidArgumentException if invalid mode is passed.
      */
     public function __construct($mode = self::MODE_INTERN, $uriOrEmail = null)
