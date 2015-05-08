@@ -51,7 +51,7 @@ $statusElement = $params->get('status');
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
     </span>
 </div>
-<?php if ($params->has('by') && $this->acl()->isRole('recruiter')):?>
+<?php if ($params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER )):?>
 <div class="btn-toolbar pull-right">
   <?php $createRadioGroup($params->get('by'), 'by') ?>
   <?php $createRadioGroup($params->get('status'), 'status') ?>

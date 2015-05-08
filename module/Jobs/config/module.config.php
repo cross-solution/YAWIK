@@ -87,6 +87,7 @@ return array(
                     'route/lang/jobs/approval',
                     'route/auth-logout',
                     'route/lang/my',
+                    'Jobboard',
                     'route/lang/my-password',
                     'Jobs/Manage' => array(
                         'approval',

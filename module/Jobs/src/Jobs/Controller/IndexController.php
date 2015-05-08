@@ -13,6 +13,7 @@ namespace Jobs\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
+use Auth\Entity\User;
 
 /**
  * Handles the job listing for recruiters.
@@ -58,7 +59,7 @@ class IndexController extends AbstractActionController
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
-        $isRecruiter = $this->acl()->isRole('recruiter');
+        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -109,7 +110,7 @@ class IndexController extends AbstractActionController
         $services    = $this->getServiceLocator();
         $request     = $this->getRequest();
         $params      = $request->getQuery();
-        $isRecruiter = $this->acl()->isRole('recruiter');
+        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
 
         if ($isRecruiter) {
             $params->set('by', 'me');

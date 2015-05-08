@@ -9,6 +9,8 @@
 namespace Jobs\Repository\Filter;
 
 use Core\Repository\Filter\AbstractPaginationQuery;
+use Jobs\Entity\Status;
+use Auth\Entity\User;
 
 /**
  * maps query parameters to entity attributes
@@ -37,7 +39,7 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $value = $params->toArray();
         $user = $this->auth->getUser();
-        if ($user->getRole()=='recruiter' && (!isset($value['by']) || $value['by'] != 'guest')) {
+        if ($user->getRole()==User::ROLE_RECRUITER && (!isset($value['by']) || $value['by'] != 'guest')) {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
@@ -48,7 +50,6 @@ class PaginationQuery extends AbstractPaginationQuery
                     default:
                         $queryBuilder->field('user')->equals($user->id);
                         break;
-                        
                     case 'all':
                         $queryBuilder->field('permissions.view')->equals($user->id);
                         break;
@@ -57,7 +58,8 @@ class PaginationQuery extends AbstractPaginationQuery
             if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' ) {
                 $queryBuilder->field('status.name')->equals((string) $value['status']);
             }
-            
+        } elseif($user->getRole()==User::ROLE_ADMIN) {
+            $queryBuilder->field('status.name')->equals( Status::CREATED);
         } else  {
             /*
              * an applicants or guests can see all active jobs
@@ -65,8 +67,7 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('status.name')->equals('active');
         }
     
-        
-        
+
         /*
          * search jobs by keywords
          */

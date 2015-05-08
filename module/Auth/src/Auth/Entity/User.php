@@ -31,6 +31,10 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * defines the role of an authenticated user
      */
     const ROLE_USER = 'user';
+    /*
+     * defines the role of an admin user.
+     */
+    const ROLE_ADMIN = 'admin';
 
     /**
      * Users login name
