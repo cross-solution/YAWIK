@@ -12,6 +12,13 @@ namespace Jobs\View\Helper;
 use Zend\View\Helper\AbstractHelper;
 use Jobs\Entity\Job;
 
+/**
+ * View helper to assemble an apply link according to the ATS configuration in a job entity.
+ *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ */
 class ApplyUrl extends AbstractHelper
 {
     protected $urlHelper;
@@ -45,20 +52,23 @@ class ApplyUrl extends AbstractHelper
 
     public function __invoke(Job $jobEntity)
     {
-        $result = '';
-        if ($jobEntity->getAtsEnabled() == True && !empty($jobEntity->uriApply)) {
-            $result = '<a href="' .  $jobEntity->uriApply . '">' . call_user_func_array($this->translateHelper, array('Apply')) . '</a>';
-        }
-        $contactEmail = $jobEntity->contactEmail;
-        if (($jobEntity->getAtsEnabled() == False && !empty($contactEmail)) || ($jobEntity->getAtsEnabled() == True && empty($jobEntity->uriApply))) {
-            $url = call_user_func_array($this->urlHelper,
-                array( 'lang/apply',
-                    array('applyId' => $jobEntity->applyId ,
-                    'lang' => call_user_func_array($this->paramsHelper, array('lang')))));
-            $query = http_build_query(array('subscriberUri' => call_user_func_array($this->serverUrlHelper,array()) . '/subscriber/' . 1));
+        $ats = $jobEntity->getAtsMode();
 
-            $result = '<a href="' .  $url . '?' . $query . '">' . call_user_func_array($this->translateHelper, array('Apply')) . '</a>';
+        if ($ats->isDisabled()) { return ''; }
+
+        if ($ats->isIntern() || $ats->isEmail()) {
+            $urlHelper = $this->urlHelper;
+            $serverUrlHelper = $this->serverUrlHelper;
+            $params = $this->paramsHelper;
+            $query = array('subscriberUri' => $serverUrlHelper(array()) . '/subscriber/' . 1);
+            $route = 'lang/apply';
+            $params = array('applyId' => $jobEntity->getApplyId(), 'lang' => $params('lang'));
+            $url = $urlHelper($route, $params, array('query' => $query));
+        } else {
+            $url = $ats->getUri();
         }
+        $translate = $this->translateHelper;
+        $result = sprintf('<a href="%s">%s</a>', $url, $translate('Apply'));
 
         return $result;
     }

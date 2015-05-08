@@ -184,6 +184,8 @@ return array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
             'jobs/form/hiring-organization-select' => __DIR__ . '/../view/form/hiring-organization-select.phtml',
+            'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
+            'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
             'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
             'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
             'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
@@ -205,7 +207,7 @@ return array(
 
         ),
         'factories' => array(
-            'applyUrl' => 'Jobs\View\Helper\ApplyUrlFactory',
+            'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
         ),
 
     ),
@@ -238,6 +240,8 @@ return array(
             'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
             'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
             'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
+            'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
+            'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
         ),
         'factories' => array(
             'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
@@ -251,6 +255,7 @@ return array(
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
             'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
+            'Jobs/AtsMode'                      => 'Jobs\Form\InputFilter\AtsMode',
         ),
     ),
     
