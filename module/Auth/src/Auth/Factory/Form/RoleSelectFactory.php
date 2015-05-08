@@ -1,11 +1,28 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license       MIT
+ */
 
-namespace Auth\Form;
+namespace Auth\Factory\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\Element\Select;
+use Auth\Entity\User;
 
+
+/**
+ * Class RoleSelectFactory
+ *
+ * Creates the select box of roles used temporary on the users profiles page. Box is removed from the
+ * Users profiles Page now. But maybe we can reuse the code for the admin user
+ *
+ * @package Auth\Factory\Form
+ */
 class RoleSelectFactory implements FactoryInterface
 {
     
@@ -19,9 +36,9 @@ class RoleSelectFactory implements FactoryInterface
                        && is_array($config['acl']['public_roles'])
                        && !empty($config['acl']['public_roles'])
                        ? $config['acl']['public_roles']
-                       : (in_array('user', $config['acl']['roles']) 
+                       : (in_array(User::ROLE_USER, $config['acl']['roles'])
                           || array_key_exists('user', $config['acl']['roles'])
-                          ? array('user')
+                          ? array(User::ROLE_USER)
                           : array('none')
                          );
         

@@ -22,6 +22,11 @@ class UserProfileContainer extends Container
     {
         $this->setForms(array(
             'info' => 'Auth/UserInfoContainer',
+
+            /*
+             * commented, because the role select box on the users profile page was removed.
+             */
+
 //            'base' => array(
 //                'type' => 'Auth/UserBase',
 //                'label' => /*@translate*/ 'General settings',
