@@ -31,27 +31,27 @@ interface StatusInterface extends EntityInterface
     /**
      * A job was rejected to be published.
      */
-    const REJECTED = 'rejected';
+    const REJECTED = /*@translate*/ 'rejected';
 
     /**
      * A Job is accepted an is going to be published
      */
-    const PUBLISH  = 'publish';
+    const PUBLISH  = /*@translate*/ 'publish';
 
     /**
      * A Job is online
      */
-    const ACTIVE  = 'active';
+    const ACTIVE  = /*@translate*/ 'active';
 
     /**
      * A job was is set inactive
      */
-    const INACTIVE  = 'inactive';
+    const INACTIVE = /*@translate*/ 'inactive';
 
     /**
      * A job was expired
      */
-    const EXPIRED  = 'expired';
+    const EXPIRED  = /*@translate*/ 'expired';
     
     public function __construct($status = self::CREATED);
 

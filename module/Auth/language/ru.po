@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 19:03+0200\n"
-"PO-Revision-Date: 2015-04-29 17:22+0000\n"
+"POT-Creation-Date: 2015-05-07 22:49+0200\n"
+"PO-Revision-Date: 2015-05-07 20:50+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: view/form/user-info-container.phtml:25
 msgid "Image"
@@ -72,7 +72,7 @@ msgstr "Управление группами"
 msgid "Add group"
 msgstr "Добавить группу"
 
-#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:72
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:69
 msgid "Group name"
 msgstr "Название группы"
 
@@ -107,7 +107,7 @@ msgstr ""
 
 #: view/auth/index/index.phtml:43 view/auth/index/index.phtml:44
 #: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:93
 msgid "Register"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgid "Login with %s"
 msgstr ""
 
 #: view/auth/forgot-password/index.phtml:1
-#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:84
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:81
 msgid "Reset your password"
 msgstr ""
 
@@ -180,13 +180,13 @@ msgid "My password"
 msgstr "Мой пароль"
 
 #: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:15
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:57
 msgid "personal informations"
 msgstr "Личное дело"
 
 #: src/Auth/Form/UserPasswordFieldset.php:35
-#: language/_annotated_strings.php:63 language/_annotated_strings.php:66
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:60 language/_annotated_strings.php:63
+#: language/_annotated_strings.php:108
 msgid "Password"
 msgstr "Пароль"
 
@@ -215,7 +215,7 @@ msgstr "Социальные профили"
 msgid "Allow users to attach their %s profile."
 msgstr ""
 
-#: language/_annotated_strings.php:18 language/_annotated_strings.php:90
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:87
 msgid "Email"
 msgstr "Email"
 
@@ -263,148 +263,140 @@ msgstr "улица"
 msgid "house number"
 msgstr "номер дома"
 
-#: language/_annotated_strings.php:57
-msgid "Application photo"
-msgstr "Применение фото"
-
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:66
 msgid "Retype password"
 msgstr "Введите пароль еще раз"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:72
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
 msgstr "Выберите имя группы. Вы можете добавлять пользователей в группу, а затем работать вместе на работу и работу приложений."
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:75
 msgid "General settings"
 msgstr "Общие настройки"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:78
 msgid "Username or email"
 msgstr ""
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:84
 msgid "Name"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:90
 msgid "Are you human?"
 msgstr ""
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:96
 msgid "General"
 msgstr "Генерал"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:99
 msgid "I am"
 msgstr "Мне"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:102
 msgid "The group name \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:105
 msgid "Login name"
 msgstr "Войти Имя"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:111
 msgid "login"
 msgstr "Войти"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:114
 msgid "Cannot proceed, token expired"
 msgstr ""
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:117
 msgid "User cannot be found for specified token"
 msgstr ""
 
-#: language/_annotated_strings.php:123 language/_annotated_strings.php:132
-#: language/_annotated_strings.php:150 language/_annotated_strings.php:165
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:120 language/_annotated_strings.php:129
+#: language/_annotated_strings.php:147 language/_annotated_strings.php:162
+#: language/_annotated_strings.php:183
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
 msgstr ""
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:123
 msgid ""
 "User email verified successfully. You need to set a password to log in."
 msgstr ""
 
-#: language/_annotated_strings.php:129
+#: language/_annotated_strings.php:126
 msgid "User cannot be found"
 msgstr ""
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:132
 msgid "Group created"
 msgstr "Группа создана"
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:135
 msgid "Group updated"
 msgstr "Группа обновила"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:138
 msgid "Changes not saved."
 msgstr "Изменения не сохранены."
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:141
 msgid "You are now logged in."
 msgstr "Вы сейчас вошли в систему."
 
-#: language/_annotated_strings.php:147
+#: language/_annotated_strings.php:144
 msgid "Authentication failed."
 msgstr "Ошибка аутентификации."
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:150
 msgid "You are now logged out"
 msgstr "Вы вошли из"
 
-#: language/_annotated_strings.php:156
+#: language/_annotated_strings.php:153
 msgid ""
 "An Email with an activation link has been sent, please try to check your "
 "email box"
 msgstr ""
 
-#: language/_annotated_strings.php:159 language/_annotated_strings.php:177
+#: language/_annotated_strings.php:156 language/_annotated_strings.php:174
 msgid "Please fill form correctly"
 msgstr ""
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:159
 msgid "User with this email address already exists"
 msgstr ""
 
-#: language/_annotated_strings.php:168
+#: language/_annotated_strings.php:165
 msgid "Password successfully changed"
 msgstr "Пароль успешно изменен"
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:168
 msgid "Password could not be changed"
 msgstr "Пароль не может быть изменен"
 
-#: language/_annotated_strings.php:174
+#: language/_annotated_strings.php:171
 msgid ""
 "Mail with link for reset password has been sent, please try to check your "
 "email box"
 msgstr ""
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:177
 msgid "User cannot be found for specified username or email"
 msgstr ""
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:180
 msgid "Found user does not have an email"
 msgstr ""
 
-#: language/_annotated_strings.php:189
-msgid "Register confirmation"
-msgstr ""
-
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:186
 msgid "user"
 msgstr "пользователь"
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:189
 msgid "recruiter"
 msgstr "вербовщик"

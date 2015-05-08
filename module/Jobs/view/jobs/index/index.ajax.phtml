@@ -68,7 +68,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             if ($job->isDraft()) {
                 $status[] = $this->translate('draft');
             }
-            echo implode('<br />', $status);
+            echo implode('<br />', $this->translate($status));
          ?>
          </td>
          <td><?php if ($this->acl($job, 'edit')): ?>

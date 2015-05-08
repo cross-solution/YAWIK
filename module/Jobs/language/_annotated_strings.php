@@ -47,6 +47,30 @@ translate('Companyname');
 //: ./src/Jobs/Form/CompanyNameFieldset.php:34
 translate('The name of the hiring organization will be shown in search results.');
 
+//: ./src/Jobs/Form/CompanyNameFieldset.php:37
+translate('Select hiring organization');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:62
+translate('Mode');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:64
+translate('Built-In ATS');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:65
+translate('Use external link');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:66
+translate('Get applications via email');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:67
+translate('Do not track');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:80
+translate('URL');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:88
+translate('Email');
+
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
 
@@ -83,6 +107,21 @@ translate('Please enter the location of the job');
 //: ./src/Jobs/Form/Multipost.php:21
 translate('Multiposting');
 
+//: ./src/Jobs/Entity/StatusInterface.php:34
+translate('rejected');
+
+//: ./src/Jobs/Entity/StatusInterface.php:39
+translate('publish');
+
+//: ./src/Jobs/Entity/StatusInterface.php:44
+translate('active');
+
+//: ./src/Jobs/Entity/StatusInterface.php:49
+translate('inactive');
+
+//: ./src/Jobs/Entity/StatusInterface.php:54
+translate('expired');
+
 //: ./src/Jobs/Controller/ManageController.php:355
 translate('Job opening was rejected by %s');
 
@@ -92,57 +131,51 @@ translate('Job opening was activated by %s');
 //: ./src/Jobs/Controller/ManageController.php:397
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Listener/PendingForAcception.php:93
-translate('Your Job have been wrapped up for approval');
-
-//: ./src/Jobs/Listener/StatusChanged.php:104
-translate('A new job opening was created');
-
-//: ./config/module.config.php:105
+//: ./config/module.config.php:109
 translate('Jobboard');
 
-//: ./config/module.config.php:111
+//: ./config/module.config.php:115
 translate('Jobs');
 
-//: ./config/module.config.php:117
+//: ./config/module.config.php:121
 translate('Overview');
 
-//: ./config/module.config.php:121
+//: ./config/module.config.php:125
 translate('Create job');
 
-//: ./config/module.config.php:130
+//: ./config/module.config.php:134
 translate('Edit job');
 
-//: ./config/module.config.php:137
+//: ./config/module.config.php:141
 translate('Jobboard');
 
-//: ./config/module.config.php:272
+//: ./config/module.config.php:283
 translate('publish your job on yawik.org for free');
 
-//: ./config/module.config.php:273
-translate('publish the job for 30 days on %s');
-
-//: ./config/module.config.php:274
-translate('yawik.org');
-
 //: ./config/module.config.php:284
-translate('publish your job on Jobsintown. 199,-€');
+translate('publish the job for 30 days on %s');
 
 //: ./config/module.config.php:285
-translate('publish the job for 30 days on %s');
+translate('yawik.org');
 
-//: ./config/module.config.php:286
-translate('www.jobsintown.de');
-
-//: ./config/module.config.php:294
-translate('Your Homepage');
+//: ./config/module.config.php:295
+translate('publish your job on Jobsintown. 199,-€');
 
 //: ./config/module.config.php:296
-translate('enable integration of this job on your Homepage');
+translate('publish the job for 30 days on %s');
 
 //: ./config/module.config.php:297
+translate('www.jobsintown.de');
+
+//: ./config/module.config.php:305
+translate('Your Homepage');
+
+//: ./config/module.config.php:307
+translate('enable integration of this job on your Homepage');
+
+//: ./config/module.config.php:308
 translate('enable %s of this job on your Homepage');
 
-//: ./config/module.config.php:298
+//: ./config/module.config.php:309
 translate('integration');
 
