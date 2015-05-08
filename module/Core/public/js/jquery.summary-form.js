@@ -1,4 +1,39 @@
 
+holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
+    // triggerRef = true if there are no open tinyMC-Editors, it triggers a click on the targetRef
+    var iFrames = jQuery("iframe");
+    var result = true;
+    if (0 < iFrames.length) {
+        // look out for tinyMC only if there are iFrames
+        var iFrameWindow = $("iframe")[0].contentWindow;
+        if (typeof iFrameWindow.tinyMCE != "undefined") {
+            // ensure that the tinyMC-Management is active
+            //console.log('iFrameWindow', iFrameWindow.tinyMCE);
+            for (tinyEditorIndex in iFrameWindow.tinyMCE.editors) {
+                var tinyEditor = iFrameWindow.tinyMCE.editors[tinyEditorIndex];
+                //console.log (tinyEditor, tinyEditor.isNotDirty);
+                if (!tinyEditor.isNotDirty) {
+                    console.log('dirty', tinyEditor);
+                    result = false;
+                    tinyEditor.fire("blur");
+                    setTimeout(function() { holdupRefUntiliFramesAreSaved(targetRef, true); }, 2500);
+                    break;
+                }
+            }
+        }
+    }
+    //console.log("holdupRefUntiliFramesAreSaved", result, triggerRef);
+    if (result && triggerRef) {
+        // now trigger the a-tag
+        //console.log('trigger this', targetRef);
+        var href = $(targetRef).prop('href');
+        //targetRef.click();
+        window.location.href = href;
+    }
+    return result;
+}
+
+
 ;(function ($) {
 	
 	function Container($container)
@@ -107,6 +142,7 @@
         //console.log("a onClick", this);
         $(this).click(function(event) {
             var returnValue = true;
+            var eventTarget = event.target;
             $(".sf-container").each(function() {
                 var containers = $(this);
                 if (containers.hasClass("yk-changed")) {
@@ -121,6 +157,7 @@
                             if (!res) {
                                 // set the return-value and end the loop, so that you don't have to go through all other open forms
                                 returnValue = false;
+                                // this return is intentional, it ends the each loop primarily - like a break statement would end a normal for-loop
                                 return false;
                             }
                             else {
@@ -131,6 +168,10 @@
                 }
             });
             //console.log("returnValue", returnValue);
+
+            // test for not saved tinyMC-Editoren in the iFrame
+            returnValue = returnValue && holdupRefUntiliFramesAreSaved(eventTarget, false);
+
             return returnValue;
         });
     }

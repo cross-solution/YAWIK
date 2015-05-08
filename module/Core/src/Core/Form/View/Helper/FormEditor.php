@@ -65,18 +65,23 @@ class FormEditor extends FormTextarea
                 removed_menuitems: "newdocument",' . PHP_EOL
                 . $this->additionalOptions() .
                 'setup: function(editor) {
+                    //console.log("editor", editor);
                     editor.on("blur", function(e) {
-                    //console.log("blur event", e);
-                    var container = e.target.bodyElement;
-                    var form = $(container).parents("form");
-                    //console.log("form", form);
-                    editor.save();
-                    form.submit();
-                    //$(form).on("yk.forms.done", function(){console.log("done")});
-
-                });
-    }
-
+                        if (editor.isDirty()) {
+                            //console.log("blur event", e);
+                            editor.save();
+                            var container = e.target.bodyElement;
+                            $(container).parents("html").addClass("yk-changed");
+                            var form = $(container).parents("form");
+                            //console.log("form", form, container);
+                            form.submit();
+                            $(form).on("yk.forms.done", function(){
+                                console.log("done");
+                                //$(container).parents("html").removeClass("yk-changed");
+                            });
+                        }
+                    });
+                }
             });
         });
         ');
