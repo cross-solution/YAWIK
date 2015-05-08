@@ -47,6 +47,7 @@ interface JobInterface extends EntityInterface,
 
     /**
      * checks, weather a job is enabled for getting applications
+     * @deprecated since 0.19 - Use atsMode sub document via getAtsMode()
      * @return boolean
      */
     public function getAtsEnabled();
@@ -55,10 +56,29 @@ interface JobInterface extends EntityInterface,
      * enables a job add to receive applications
      *
      * @param boolean $atsEnabled
+     * @deprecated since 0.19 - Use atsMode entity via setAtsMode()
      * @return \Jobs\Entity\Job
      */
     public function setAtsEnabled($atsEnabled);
-    
+
+    /**
+     * Sets the ATS mode.
+     *
+     * @param AtsMode $mode
+     *
+     * @return self
+     * @since 0.19
+     */
+    public function setAtsMode(AtsMode $mode);
+
+    /**
+     * Gets the ATS mode.
+     *
+     * @return AtsMode
+     * @since 0.19
+     */
+    public function getAtsMode();
+
     /**
      * Gets an URI for a job posting
      *

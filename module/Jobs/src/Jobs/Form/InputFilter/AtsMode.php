@@ -1,0 +1,69 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+  
+/** */
+namespace Jobs\Form\InputFilter;
+
+use Jobs\Entity\AtsModeInterface;
+use Zend\InputFilter\Exception;
+use Zend\InputFilter\InputFilter;
+
+/**
+ * InputFilter for the ATS settings.
+ * 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @since 0.19
+ */
+class AtsMode extends InputFilter
+{
+    /**
+     * Sets data for validating and filtering.
+     *
+     * @internal
+     *  We needed to add dynamically validators, because when "mode" is "intern" or "none" we must
+     *  not validate anything. When "mode" is "uri" we must not validate "email address" and we must not
+     *  validate "uri" if mode is "uri".
+     *
+     *  And only when the data is set we do know what has to be validated.
+     */
+    public function setData($data)
+    {
+        switch ($data['mode']) {
+            default:
+                break;
+
+            case AtsModeInterface::MODE_URI:
+                $this->add(array(
+                    'name' => 'uri',
+                    'validators' => array(
+                        array(
+                            'name' => 'uri',
+                            'options' => array(
+                                'allowRelative' => false,
+                            ),
+                        ),
+                    ),
+                ));
+                break;
+
+            case AtsModeInterface::MODE_EMAIL:
+                $this->add(array(
+                    'name' => 'email',
+                    'validators' => array(
+                        array('name' => 'EmailAddress')
+                    ),
+                ));
+                break;
+        }
+
+        return parent::setData($data);
+    }
+
+
+}
