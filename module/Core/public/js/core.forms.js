@@ -117,7 +117,12 @@
 						idx = "allowClear";
 						val = '1' == val || 'true' == val;
 						break;
-						
+
+                    case "searchbox":
+                        idx = "minimumResultsForSearch";
+                        val = false === val ? Infinity : parseInt(val);
+                        break;
+
 					default:
 						break;
 				}
