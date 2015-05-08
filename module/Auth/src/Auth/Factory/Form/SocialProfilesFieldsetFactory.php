@@ -8,10 +8,11 @@
  */
 
 /** Auth forms */ 
-namespace Auth\Form;
+namespace Auth\Factory\Form;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Auth\Form\SocialProfilesFieldset;
 
 /**
  * Factory for a SocialProfilesFieldset

@@ -493,13 +493,12 @@ return array(
             'Auth/SocialProfiles' => 'Auth\Form\SocialProfiles',
             'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
-            'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldset',
             'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
         ),
         'factories' => array(
-            'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
-//             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
-            'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
+            'Auth/RoleSelect' => 'Auth\Factory\Form\RoleSelectFactory',
+            'Auth/UserInfoFieldset' => 'Auth\Factory\Form\UserInfoFieldsetFactory',
+            'Auth/SocialProfilesFieldset' => 'Auth\Factory\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
             'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
         )
