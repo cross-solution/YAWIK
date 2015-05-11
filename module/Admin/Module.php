@@ -50,7 +50,7 @@ class Module implements Feature\DependencyIndicatorInterface,
     public function getAutoloaderConfig()
     {
         return array(
-            StandardAutoloader::class => array(
+             'Zend\Loader\StandardAutoloader'  => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                     __NAMESPACE__ . 'Test' => __DIR__ . '/test/' . __NAMESPACE__ . 'Test',
