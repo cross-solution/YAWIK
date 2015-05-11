@@ -92,6 +92,14 @@ class ManageController extends AbstractActionController {
     protected function save($parameter = array())
     {
         $serviceLocator     = $this->getServiceLocator();
+        // Test, has the user an email, if not redirect
+        $translator         = $serviceLocator->get('translator');
+        $user               = $this->auth()->getUser();
+        $userEmail          = $user->info->email;
+        if (!isset($userEmail) || empty($userEmail) || True) {
+            $this->notification()->danger($translator->translate('You must have a valid E-Mail to create a job'));
+            return $this->redirect()->toRoute('lang/my', array('action' => 'profile'));
+        }
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
@@ -139,7 +147,6 @@ class ManageController extends AbstractActionController {
         // validation
         $jobValid = True;
         $errorMessage = array();
-        $translator = $serviceLocator->get('translator');
         if (empty($jobEntity->title)) {
             $jobValid = False;
             $errorMessage[] = $translator->translate('No Title');
