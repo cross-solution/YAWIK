@@ -69,7 +69,8 @@ return array(
                     ),
                 ),
                 'deny' => array(
-                  'Jobboard'
+                    'Jobboard',
+                    'route/lang/jobs/approval'
                 ),
             ),
             'guest' => array(

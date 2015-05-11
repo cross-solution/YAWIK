@@ -195,10 +195,11 @@ return array(
     // Defines the Core/Navigation. 
     'navigation' => array(
         'default' => array(
-//             'home' => array(
-//                 'label' => 'Home',
-//                 'route' => 'lang',
-//             ),
+             'home' => array(
+                 'label' => /*@translate*/ 'Home',
+                 'route' => 'lang',
+                 'visible' => false
+             ),
         ),
     ),
     // Configuration of the controller service manager (Which loads controllers)
