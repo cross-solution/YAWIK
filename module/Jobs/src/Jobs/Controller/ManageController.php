@@ -92,13 +92,9 @@ class ManageController extends AbstractActionController {
     protected function save($parameter = array())
     {
         $serviceLocator     = $this->getServiceLocator();
-        // Test, has the user an email, if not redirect
-        $translator         = $serviceLocator->get('translator');
         $user               = $this->auth()->getUser();
-        $userEmail          = $user->info->email;
-        if (!isset($userEmail) || empty($userEmail) || True) {
-            $this->notification()->danger($translator->translate('You must have a valid E-Mail to create a job'));
-            return $this->redirect()->toRoute('lang/my', array('action' => 'profile'));
+        if (empty($user->info->email)) {
+            return $this->getErrorViewModel('no-parent');
         }
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
@@ -426,6 +422,16 @@ class ManageController extends AbstractActionController {
         }
 
         return new JsonModel(array());
+    }
+
+    protected function getErrorViewModel($script)
+    {
+        $this->getResponse()->setStatusCode(500);
+
+        $model = new ViewModel();
+        $model->setTemplate("jobs/error/$script");
+
+        return $model;
     }
 }
 

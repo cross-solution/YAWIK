@@ -126,8 +126,20 @@ class IndexController extends AbstractActionController
                 if (array_key_exists('database', $config) && array_key_exists('databaseName', $config['database'])) {
                     $databaseName = $config['database']['databaseName'];
                 }
-                $this->logger->info('Failed to authenticate User ' . $data['credentials']['login'] . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
-                
+                // update for Doctrine
+
+                if (empty($databaseName)
+                        && array_key_exists('doctrine', $config)
+                        && array_key_exists('configuration', $config['doctrine'])
+                        && array_key_exists('odm_default', $config['doctrine']['configuration'])
+                        && array_key_exists('default_db', $config['doctrine']['configuration']['odm_default'])) {
+                    $databaseName = $config['doctrine']['configuration']['odm_default']['default_db'];
+                }
+                $loginName = $data['credentials']['login'];
+                if (!empty($loginSuffix)) {
+                    $loginName = $loginName . ' (' . $loginName . $loginSuffix . ')';
+                }
+                $this->logger->info('Failed to authenticate User ' . $loginName . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
