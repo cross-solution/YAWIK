@@ -1,0 +1,23 @@
+<?php
+/**
+ * YAWIK
+ *
+ * Template for the "Please create your organization first" page.
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+?>
+
+<h1><?php echo $this->translate('Sorry, you may not create jobs.'); ?></h1>
+
+<p><?php echo sprintf(
+        $this->translate('Before you are able to create jobs, you have to %screate your main organization%s first.'),
+        '<a href="' . $this->url('lang/my-organization', array(), true) . '">',
+        '</a>'
+     )
+?></p>
+  

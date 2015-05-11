@@ -92,6 +92,10 @@ class ManageController extends AbstractActionController {
     protected function save($parameter = array())
     {
         $serviceLocator     = $this->getServiceLocator();
+        $user               = $this->auth()->getUser();
+        if (empty($user->info->email)) {
+            return $this->getErrorViewModel('no-parent');
+        }
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
@@ -139,7 +143,6 @@ class ManageController extends AbstractActionController {
         // validation
         $jobValid = True;
         $errorMessage = array();
-        $translator = $serviceLocator->get('translator');
         if (empty($jobEntity->title)) {
             $jobValid = False;
             $errorMessage[] = $translator->translate('No Title');
@@ -419,6 +422,16 @@ class ManageController extends AbstractActionController {
         }
 
         return new JsonModel(array());
+    }
+
+    protected function getErrorViewModel($script)
+    {
+        $this->getResponse()->setStatusCode(500);
+
+        $model = new ViewModel();
+        $model->setTemplate("jobs/error/$script");
+
+        return $model;
     }
 }
 

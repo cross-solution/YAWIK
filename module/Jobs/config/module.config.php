@@ -194,6 +194,7 @@ return array(
             'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
             'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
             'mail/jobPendingForAcception' => __DIR__ . '/../view/mails/deJobPendingForAcception.phtml',
+            'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
     
         // Where to look for view templates not mapped above
