@@ -17,7 +17,7 @@
 <p><?php
     if ($this->cause == 'noEmail') {
         echo sprintf(
-            $this->translate('Before you are able to create jobs, you have to %screate an email%s first.'),
+            $this->translate('Before you are able to create jobs, you have to %screate a valid email%s first.'),
             '<a href="' . $this->url('lang/my', array('action' => 'profile'), true) . '">',
             '</a>'
         );

@@ -96,6 +96,10 @@ class ManageController extends AbstractActionController {
         if (empty($user->info->email)) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
         }
+        $userOrg            = $user->getOrganization();
+        if (!$userOrg->hasAssociation()) {
+            return $this->getErrorViewModel('no-parent', array('cause' => 'noCompany'));
+        }
         $translator         = $serviceLocator->get('translator');
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
