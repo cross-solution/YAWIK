@@ -14,10 +14,20 @@
 
 <h1><?php echo $this->translate('Sorry, you may not create jobs.'); ?></h1>
 
-<p><?php echo sprintf(
-        $this->translate('Before you are able to create jobs, you have to %screate your main organization%s first.'),
-        '<a href="' . $this->url('lang/my-organization', array(), true) . '">',
-        '</a>'
-     )
+<p><?php
+    if ($this->cause == 'noEmail') {
+        echo sprintf(
+            $this->translate('Before you are able to create jobs, you have to %screate an email%s first.'),
+            '<a href="' . $this->url('lang/my', array('action' => 'profile'), true) . '">',
+            '</a>'
+        );
+    }
+    else {
+        echo sprintf(
+            $this->translate('Before you are able to create jobs, you have to %screate your main organization%s first.'),
+            '<a href="' . $this->url('lang/my-organization', array(), true) . '">',
+            '</a>'
+         );
+    }
 ?></p>
   

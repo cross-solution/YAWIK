@@ -94,8 +94,9 @@ class ManageController extends AbstractActionController {
         $serviceLocator     = $this->getServiceLocator();
         $user               = $this->auth()->getUser();
         if (empty($user->info->email)) {
-            return $this->getErrorViewModel('no-parent');
+            return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
         }
+        $translator         = $serviceLocator->get('translator');
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
@@ -424,11 +425,11 @@ class ManageController extends AbstractActionController {
         return new JsonModel(array());
     }
 
-    protected function getErrorViewModel($script)
+    protected function getErrorViewModel($script, $parameter = array())
     {
         $this->getResponse()->setStatusCode(500);
 
-        $model = new ViewModel();
+        $model = new ViewModel($parameter);
         $model->setTemplate("jobs/error/$script");
 
         return $model;
