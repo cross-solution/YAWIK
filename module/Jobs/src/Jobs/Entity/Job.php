@@ -351,6 +351,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @see \Jobs\Entity\JobInterface::getCompany()
      */
     public function getCompany() {
+        if ($this->organization) {
+            return $this->organization->getOrganizationName()->getName();
+        }
         return $this->company;
     }
 

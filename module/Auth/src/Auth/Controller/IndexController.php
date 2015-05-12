@@ -46,12 +46,12 @@ class IndexController extends AbstractActionController
     protected $options;
 
     /**
-     * @param $auth
-     * @param $logger
+     * @param $auth  AuthenticationService
+     * @param $logger LoggerInterface
      * @param $loginForm
      * @param $options
      */
-    public function __construct($auth, $logger, $loginForm, $options) {
+    public function __construct(AuthenticationService $auth, LoggerInterface $logger, $loginForm, $options) {
         $this->auth=$auth;
         $this->loginForm=$loginForm;
         $this->logger=$logger;
@@ -174,10 +174,8 @@ class IndexController extends AbstractActionController
      */
     public function loginAction()
     {
-        
         $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
-        $config = $this->config();
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
         $auth = $this->auth;
@@ -192,28 +190,20 @@ class IndexController extends AbstractActionController
                 $externalLogin = isset($user->login)?$user->login:'-- not communicated --';
                 $this->logger->debug('first login via ' . $provider . ' as: ' . $externalLogin);
 
-                $scheme = '';
-                $domain = '';
-                $uri = $this->getRequest()->getUri();
-                if (isset($uri)) {
-                    $scheme = $uri->getScheme();
-                    $domain = $uri->getHost();
-                }
-                $viewHelperManager = $this->getServiceLocator()->get('ViewHelperManager');
-                $basePath = $viewHelperManager->get('basePath')->__invoke();
-
                 $user->login=$login;
                 $user->setPassword($password);
-                $user->role = $this->options->role;
+                $user->role = $this->options->getRole();
 
                 $mail = $this->mailer('htmltemplate');
+                $mail->setTemplate('mail/first-socialmedia-login');
                 $mail->setSubject($this->options->getMailSubjectRegistration());
                 $mail->setVariables(array(
                                 'displayName'=> $user->info->getDisplayName(),
                                 'provider' => $provider,
-                                'user' => $login,
+                                'login' => $login,
                                 'password' => $password,
-                ));
+                                'link' => $this->url()->fromRoute('lang/auth', array(), array())));
+
                 $mail->addTo($user->info->getEmail());
 
                 $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
@@ -231,8 +221,8 @@ class IndexController extends AbstractActionController
             }
         }
         
-        //$user = $auth->getUser();
-        //$this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
+        $user = $auth->getUser();
+        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
@@ -298,7 +288,7 @@ class IndexController extends AbstractActionController
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
                 // first external Login
                 $userName = $this->params()->fromPost('user');
-                $this->getServiceLocator()->get('Core/Log')->debug('first login for User: ' .  $userName);
+                $this->logger->debug('first login for User: ' .  $userName);
                 // 
                 if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
                     $userName = $realUserName[1];

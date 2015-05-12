@@ -91,6 +91,7 @@ class HybridAuth implements AdapterInterface
        
        $forceSave = false;
        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
+
        if (!$user) {
            $forceSave = true;
            $user = $this->getRepository()->create();
