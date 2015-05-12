@@ -51,10 +51,13 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
 
     public function provideConstructorPermissions()
     {
+        $user = $this->getMock('\Auth\Entity\User');
         return array(
-            array(null),
-            array(EmployeePermissions::ALL),
-            array(new EmployeePermissions(EmployeePermissions::JOBS_CHANGE)),
+            array(null, null),
+            array(null, EmployeePermissions::APPLICATIONS_VIEW),
+            array($user, null),
+            array($user, EmployeePermissions::ALL),
+            array($user, new EmployeePermissions(EmployeePermissions::JOBS_CHANGE)),
         );
     }
 
@@ -62,19 +65,27 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
      * @dataProvider provideConstructorPermissions
      * @covers \Organizations\Entity\Employee::__construct
      *
+     * @param null|\Auth\Entity\UserInterface $user
      * @param null|int|EmployeePermissions $permissions
      */
-    public function testCreateInstancesViaConstructor($permissions)
+    public function testCreateInstancesViaConstructor($user, $permissions)
     {
-        $user = $this->getMock('\Auth\Entity\User');
         $target = new Employee($user, $permissions);
 
-        if ($permissions instanceOf EmployeePermissions) {
-            $this->assertSame($permissions, $target->getPermissions());
-        } else if (is_int($permissions)) {
-            $this->assertEquals($permissions, $target->getPermissions()->getPermissions());
-        } else {
+        if (null === $user) {
+            $this->assertAttributeEmpty('user', $target);
             $this->assertAttributeEmpty('permissions', $target);
+        } else {
+            $this->assertSame($user, $target->getUser());
+
+
+            if ($permissions instanceOf EmployeePermissions) {
+                $this->assertSame($permissions, $target->getPermissions());
+            } else if (is_int($permissions)) {
+                $this->assertEquals($permissions, $target->getPermissions()->getPermissions());
+            } else {
+                $this->assertAttributeEmpty('permissions', $target);
+            }
         }
     }
 

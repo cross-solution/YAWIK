@@ -52,16 +52,19 @@ class Employee extends AbstractEntity implements EmployeeInterface
      *
      * @since 0.19
      */
-    public function __construct(UserInterface $user, $permissions = null)
+    public function __construct(UserInterface $user = null, $permissions = null)
     {
-        $this->setUser($user);
+        if (null !== $user) {
+            $this->setUser($user);
 
-        if (is_int($permissions)) {
-            $permissions = new EmployeePermissions($permissions);
-        }
 
-        if ($permissions instanceof EmployeePermissionsInterface) {
-            $this->setPermissions($permissions);
+            if (is_int($permissions)) {
+                $permissions = new EmployeePermissions($permissions);
+            }
+
+            if ($permissions instanceof EmployeePermissionsInterface) {
+                $this->setPermissions($permissions);
+            }
         }
     }
 

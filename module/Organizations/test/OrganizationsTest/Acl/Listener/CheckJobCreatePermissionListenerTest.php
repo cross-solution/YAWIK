@@ -158,9 +158,7 @@ class CheckJobCreatePermissionListenerTest extends \PHPUnit_Framework_TestCase
             if (2 == $i && $isOneEmployeeAllowed) {
                 $perm->grant(EmployeePermissionsInterface::JOBS_CREATE);
             }
-            $emp = new Employee();
-            $emp->setUser($empUser);
-            $emp->setPermissions($perm);
+            $emp = new Employee($empUser, $perm);
 
             $employees->add($emp);
         }
