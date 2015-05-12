@@ -30,6 +30,22 @@ class Import extends Form
         if ($data instanceof Traversable) {
             $data = ArrayUtils::iteratorToArray($data);
         }
+
+        $isAts = isset($data['atsEnabled']) && $data['atsEnabled'];
+        $isUri = isset($data['uriApply']) && !empty($data['uriApply']);
+        $email = isset($data['contactEmail']) ? $data['contactEmail'] : '';
+        if ($isAts && $isUri) {
+            $data['atsMode']['mode'] = 'uri';
+            $data['atsMode']['uri'] = $data['uriApply'];
+        } else if ($isAts && !$isUri) {
+            $data['atsMode']['mode'] = 'intern';
+        } else if (!$isAts && !empty($email)) {
+                $data['atsMode']['mode'] = 'email';
+                $data['atsMode']['email'] = $email;
+        } else {
+            $data['atsMode']['mode'] = 'none';
+        }
+
         if (!array_key_exists('job',$data)) {
             $data = array('job' => $data);
         }

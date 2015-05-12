@@ -103,7 +103,7 @@ class OrganizationHydrator extends Reflection
      * @param array $data The whole data is optionally provided as context.
      * @return mixed
      */
-    public function hydrateValue($name, $value)
+    public function hydrateValue($name, $value, $data = null)
     {
         if ($this->hasStrategy($name)) {
             $strategy = $this->getStrategy($name);

@@ -214,7 +214,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     public function getSearchableProperties()
-    { }
+    {
+        return array();
+    }
 
     public function setKeywords(array $keywords)
     { }

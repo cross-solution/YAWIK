@@ -10,6 +10,7 @@
 /** */
 namespace JobsTest\Form;
 
+use Jobs\Entity\AtsMode;
 use Jobs\Form\AtsModeFieldset;
 
 /**
@@ -59,6 +60,20 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
         $target = new AtsModeFieldset();
 
         $this->assertInstanceOf('\Core\Entity\Hydrator\EntityHydrator', $target->getHydrator());
+    }
+
+    /**
+     * @testdox Allows object binding for entities implementing \Jobs\Entity\AtsModeInterface
+     */
+    public function testAllowsObjectBindingForEntitiesImplementingAtsModeInterface()
+    {
+        $target = new AtsModeFieldset();
+        $validObject = new AtsMode();
+        $invalidObject = new \stdClass();
+
+
+        $this->assertTrue($target->allowObjectBinding($validObject));
+        $this->assertFalse($target->allowObjectBinding($invalidObject));
     }
 
     /**

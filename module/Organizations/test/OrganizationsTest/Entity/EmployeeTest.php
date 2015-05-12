@@ -16,7 +16,8 @@ use Organizations\Entity\EmployeePermissions;
 
 /**
  * Test the employee entity.
- * 
+ *
+ * @covers \Organizations\Entity\Employee
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
@@ -25,14 +26,56 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * Class under Test
+     *
+     * @var Employee
+     */
+    private $target;
+
+    public function setup()
+    {
+        if ('testCreateInstancesViaConstructor' == $this->getName(false)) {
+            return;
+        }
+        $user = $this->getMock('\Auth\Entity\User');
+        $this->target = new Employee($user);
+    }
+    /**
      * Does the entity implement the correct interface?
      *
      */
     public function testEmployeeImplementsInterface()
     {
-        $target = new Employee();
+        $this->assertInstanceOf('\Organizations\Entity\EmployeeInterface', $this->target);
+    }
 
-        $this->assertInstanceOf('\Organizations\Entity\EmployeeInterface', $target);
+    public function provideConstructorPermissions()
+    {
+        return array(
+            array(null),
+            array(EmployeePermissions::ALL),
+            array(new EmployeePermissions(EmployeePermissions::JOBS_CHANGE)),
+        );
+    }
+
+    /**
+     * @dataProvider provideConstructorPermissions
+     * @covers \Organizations\Entity\Employee::__construct
+     *
+     * @param null|int|EmployeePermissions $permissions
+     */
+    public function testCreateInstancesViaConstructor($permissions)
+    {
+        $user = $this->getMock('\Auth\Entity\User');
+        $target = new Employee($user, $permissions);
+
+        if ($permissions instanceOf EmployeePermissions) {
+            $this->assertSame($permissions, $target->getPermissions());
+        } else if (is_int($permissions)) {
+            $this->assertEquals($permissions, $target->getPermissions()->getPermissions());
+        } else {
+            $this->assertAttributeEmpty('permissions', $target);
+        }
     }
 
     /**
@@ -46,7 +89,7 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingValuesViaSetterMethods($setter, $getter, $value)
     {
-        $target = new Employee();
+        $target = $this->target;
 
         $object = $target->$setter($value);
         $this->assertSame($target->$getter(), $value);
@@ -59,7 +102,7 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPermissionsCreateNewObjectIfNotSet()
     {
-        $target = new Employee();
+        $target = $this->target;
         $perm   = $target->getPermissions();
 
         $this->assertInstanceOf('\Organizations\Entity\EmployeePermissionsInterface', $perm);

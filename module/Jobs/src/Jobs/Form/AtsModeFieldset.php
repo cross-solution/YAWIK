@@ -12,6 +12,7 @@ namespace Jobs\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\ViewPartialProviderInterface;
+use Jobs\Entity\AtsModeInterface;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -51,6 +52,12 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
         }
         return $this->hydrator;
     }
+
+    public function allowObjectBinding($object)
+    {
+        return $object instanceOf AtsModeInterface || parent::allowObjectBinding($object);
+    }
+
 
     public function init()
     {

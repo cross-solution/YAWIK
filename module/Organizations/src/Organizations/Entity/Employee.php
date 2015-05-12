@@ -42,6 +42,29 @@ class Employee extends AbstractEntity implements EmployeeInterface
      */
     protected $permissions;
 
+    /**
+     * Creates an instance.
+     *
+     * @param UserInterface $user
+     * @param null|int|EmployeePermissionsInterface $permissions Passing an int means passing the permissions bitmask
+     *                                                           which is passed along to the constructor of a new
+     *                                                           instance of EmployeePermissionsInterface
+     *
+     * @since 0.19
+     */
+    public function __construct(UserInterface $user, $permissions = null)
+    {
+        $this->setUser($user);
+
+        if (is_int($permissions)) {
+            $permissions = new EmployeePermissions($permissions);
+        }
+
+        if ($permissions instanceof EmployeePermissionsInterface) {
+            $this->setPermissions($permissions);
+        }
+    }
+
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
