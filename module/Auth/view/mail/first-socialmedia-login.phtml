@@ -16,7 +16,7 @@ without social networks.</p>
 Secret: <?php echo $this->password ?></p>
 
 
-<p>Return to YAWIK and log in at: <?php echo $this->link ?></p>
+<p>Return to YAWIK and log in at: <a href="<?php $url = $this->serverUrl() . $this->url('lang/auth', array('lang' => 'en')); echo $url; ?>"><?php echo $url ?></a></p>
 
 
 <p>regards,</p>

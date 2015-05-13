@@ -202,8 +202,7 @@ class IndexController extends AbstractActionController
                                 'provider' => $provider,
                                 'login' => $login,
                                 'password' => $password,
-                                'link' => $this->url()->fromRoute('lang/auth', array(), array())));
-
+                ));
                 $mail->addTo($user->info->getEmail());
 
                 $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
