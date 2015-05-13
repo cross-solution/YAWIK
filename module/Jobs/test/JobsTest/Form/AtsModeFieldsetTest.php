@@ -107,7 +107,7 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
         );
 
         $addUri = array(
-            'type' => 'Text',
+            'type' => 'StrippedTagText',
             'name' => 'uri',
             'options' => array(
                 'label' => 'URL',
@@ -115,7 +115,7 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
         );
 
         $addEmail = array(
-            'type' => 'Text',
+            'type' => 'StrippedTagText',
             'name' => 'email',
             'options' => array(
                 'label' => 'Email',

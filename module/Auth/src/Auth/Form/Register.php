@@ -30,7 +30,7 @@ class Register extends Form
 
         $fieldset->add(
             array(
-                'type' => 'text',
+                'type' => 'StrippedTagText',
                 'name' => 'name',
                 'options' => array(
                     'label' => /*@translate*/ 'Name',

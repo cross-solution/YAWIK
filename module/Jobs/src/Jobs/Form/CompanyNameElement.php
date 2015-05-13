@@ -16,6 +16,8 @@ use Core\Form\Element\ViewHelperProviderInterface;
 /**
  * this Class is a rudimentary base for the future extension of entering the hiring organization name
  *
+ * @deprecated is now a select box
+ *
  * Class JobNameElement
  * @package Jobs\Form
  */

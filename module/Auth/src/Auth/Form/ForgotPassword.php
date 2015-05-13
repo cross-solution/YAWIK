@@ -23,7 +23,7 @@ class ForgotPassword extends Form
 
         $this->add(
             array(
-                'type' => 'text',
+                'type' => 'StrippedTagText',
                 'name' => 'identity',
                 'options' => array(
                     'label' => /* @translate */ 'Username or email',

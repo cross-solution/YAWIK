@@ -10,6 +10,11 @@
 /** Core forms */ 
 namespace Core\Form;
 
+use Zend\Form\FieldsetInterface;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\InputFilter\ReplaceableInputInterface;
+
 /**
  * Form which provides alternate rendering (summary).
  *
@@ -105,6 +110,43 @@ class SummaryForm extends BaseForm implements SummaryFormInterface
 
         if (isset($options['display_mode'])) {
             $this->setDisplayMode($options['display_mode']);
+        }
+    }
+
+    /**
+     * for all Form, which use a Class for element-Spezification,
+     * set the default for merging the specification
+     *
+     * you stell need to implement the spezifications as ReplaceableInputInterface
+     *
+     * @param InputFilterInterface $inputFilter
+     * @param FieldsetInterface $fieldset
+     */
+    public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
+    {
+        if ($fieldset instanceof InputFilterProviderInterface) {
+            $fieldset->setPreferFormInputFilter(false);
+        }
+        parent::attachInputFilterDefaults($inputFilter, $fieldset);
+
+        // Just for failure-detection,
+        // if the fieldset is of the type InputFilterProviderInterface and it should merge the spezifications,
+        // the inputfilter still needs to be an instance of ReplaceableInputInterface
+        // since there is no general need for that, not being a ReplaceableInputInterface is not an error.
+        // This here should be just a reminder, maybe for debugging
+        if ($fieldset instanceof InputFilterProviderInterface) {
+            if (!$this->getPreferFormInputFilter()) {
+                // allMergedFilter contain all Filter, for which a merge has been applied
+                $allMergedFilter = [];
+                // this can not get fetched with getFilter() because it loops over this attachInput
+                if (isset($this->filter)) {
+                    foreach ($this->filter->getInputs() as $filter) {
+                        if ($filter instanceof ReplaceableInputInterface) {
+                            $allMergedFilter[] = $filter;
+                        }
+                    }
+                }
+            }
         }
     }
     
