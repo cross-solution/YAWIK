@@ -321,7 +321,6 @@ return array(
     'filters' => array(
         'invokables' => array(
             'Core/Repository/PropertyToKeywords' => 'Core\Repository\Filter\PropertyToKeywords',
-            'Core/StripTags' => 'Core\Filter\StripTags',
         ),
         'factories' => array(
             "Core/XssFilter" => "Core\Filter\XssFilterFactory",
@@ -344,7 +343,6 @@ return array(
             'Core/PermissionsFieldset' => 'Core\Form\PermissionsFieldset',
             'Core/PermissionsCollection' => 'Core\Form\PermissionsCollection',
             'Location' => 'Zend\Form\Element\Text',
-            'StrippedTagText' => 'Core\Form\Element\StrippedTagText',
             'Core/Spinner-Submit' => 'Core\Form\Element\SpinnerSubmit',
             'togglebutton' => 'Core\Form\Element\ToggleButton',
             'TextEditor' => 'Core\Form\Element\Editor',

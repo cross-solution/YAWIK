@@ -73,7 +73,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
-                'type' => 'StrippedTagText',
         		'name' => 'postalcode',
         		'options' => array(
         				'label' => /* @translate */ 'Postalcode'
@@ -81,7 +80,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
-                'type' => 'StrippedTagText',
         		'name' => 'city',
         		'options' => array(
         				'label' => /* @translate */ 'City'
@@ -114,7 +112,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
-            'type' => 'StrippedTagText',
             'name' => 'lastName',
             'options' => array(
                 'label' => /*@translate*/ 'Last name',
@@ -124,7 +121,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
-                'type' => 'StrippedTagText',
         		'name' => 'street',
         		'options' => array(
         				'label' => /*@translate*/ 'street'
@@ -132,7 +128,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
-                'type' => 'StrippedTagText',
         		'name' => 'houseNumber',
         		'options' => array(
         				'label' => /*@translate*/ 'house number'

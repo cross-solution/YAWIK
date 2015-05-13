@@ -11,10 +11,9 @@
 namespace Jobs\Form\InputFilter;
 
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\ReplaceableInputInterface;
 //use Zend\InputFilter\Input;
 
-class JobLocationEdit extends InputFilter implements ReplaceableInputInterface
+class JobLocationEdit extends InputFilter
 {
     
     public function init()
@@ -34,13 +33,12 @@ class JobLocationEdit extends InputFilter implements ReplaceableInputInterface
 //                array('name' => 'StringTrim')
 //            ),
 //        ));
-
+        
         $this->add(array(
             'name' => 'title',
             'required' => true,
             'filters' => array(
-                array('name' => 'StringTrim'),
-                array('name' => 'Core/XssFilter')
+                array('name' => 'StringTrim')
             ),
         ));
         
@@ -53,8 +51,7 @@ class JobLocationEdit extends InputFilter implements ReplaceableInputInterface
             'name' => 'location',
             'required' => true,
             'filters' => array(
-                array('name' => 'StringTrim'),
-                array('name' => 'Core/XssFilter')
+                array('name' => 'StringTrim')
             ),
         ));
         

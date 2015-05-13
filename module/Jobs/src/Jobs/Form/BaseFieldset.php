@@ -38,13 +38,13 @@ class BaseFieldset extends Fieldset
         $this->setAttribute('id', 'job-fieldset');
 
         $this->setName('jobBase');
-
+        
         $this->add(array(
-            'type' => 'StrippedTagText',
+            'type' => 'Text',
             'name' => 'title',
             'options' => array(
                 'label' => /*@translate*/ 'Job title',
-                'description' => /*@translate*/ 'Please enter the job title',
+                'description' => /*@translate*/ 'Please enter the job title'
             ),
         ));
        

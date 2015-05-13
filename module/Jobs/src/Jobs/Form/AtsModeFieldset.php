@@ -81,7 +81,7 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
         ));
 
         $this->add(array(
-            'type' => 'StrippedTagText',
+            'type' => 'Text',
             'name' => 'uri',
             'options' => array(
                 'label' => /*@translate*/ 'URL',
@@ -89,7 +89,7 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
         ));
 
         $this->add(array(
-            'type' => 'StrippedTagText',
+            'type' => 'Text',
             'name' => 'email',
             'options' => array(
                 'label' => /*@translate*/ 'Email',

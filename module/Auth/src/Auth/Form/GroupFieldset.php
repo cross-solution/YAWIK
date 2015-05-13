@@ -38,7 +38,7 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
         ));
         
         $this->add(array(
-            'type' => 'StrippedTagText',
+            'type' => 'Text',
             'name' => 'name',
             'options' => array(
                 'label' => /*@translate*/ 'Group name',
