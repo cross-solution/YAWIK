@@ -11,6 +11,7 @@
 namespace Core\Mail;
 
 use Zend\Mail\Header;
+use Zend\Mail\Message;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\View\Model\ViewModel;
@@ -150,7 +151,7 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
      * @param  array|ArrayAccess|Traversable $variables
      * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
      * @throws \InvalidArgumentException
-     * @return ViewModel
+     * @return self
      */
     public function setVariables($variables, $overwrite = false)
     {
@@ -201,6 +202,13 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
         return $this;
     }
 
+    /**
+     *
+     *
+     * @param $template
+     *
+     * @return self
+     */
     public function setTemplate($template) {
         $this->template = $template;
         return $this;
@@ -234,6 +242,4 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
 
         return $body;
     }
-
-
 }

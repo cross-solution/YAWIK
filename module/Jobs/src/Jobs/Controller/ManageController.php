@@ -34,14 +34,36 @@ class ManageController extends AbstractActionController {
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
+        $events = $this->getEventManager();
+        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
         $serviceLocator = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
-        $jobServices = $serviceLocator->get('Jobs/Listeners');
         $events = $this->getEventManager();
         $events->attach($defaultServices);
-        $events->attach($jobServices);
 
         return $this;
+    }
+
+    /**
+     * Dispatch listener callback.
+     *
+     * Attachs the MailSender aggregate listener to the job event manager.
+     *
+     * @param MvcEvent $e
+     * @since 0.19
+     */
+    public function preDispatch(MvcEvent $e)
+    {
+        $routeMatch = $e->getRouteMatch();
+        $action = $routeMatch->getParam('action');
+
+        if (in_array($action, array('edit', 'approval', 'completion'))) {
+            $services = $this->getServiceLocator();
+            $jobEvents = $services->get('Jobs/Events');
+            $mailSender = $services->get('Jobs/Listener/MailSender');
+
+            $mailSender->attach($jobEvents);
+        }
     }
 
     public function testAction()
@@ -317,8 +339,6 @@ class ManageController extends AbstractActionController {
 
         $serviceLocator = $this->getServiceLocator();
         $jobEntity      = $this->getJob();
-        $jobEvent       = $serviceLocator->get('Jobs/Event');
-        $jobEvent->setJobEntity($jobEntity);
 
         $jobEntity->isDraft = false;
         $reference = $jobEntity->getReference();
@@ -332,12 +352,13 @@ class ManageController extends AbstractActionController {
         $jobEntity->changeStatus(Status::CREATED, "job was created");
         $jobEntity->atsEnabled = true;
 
-        /**
+        /*
          * make the job opening persist and fire the EVENT_JOB_CREATED
          */
         $serviceLocator->get('repositories')->store($jobEntity);
 
-        $this->getEventManager()->trigger(JobEvent::EVENT_JOB_CREATED, $jobEvent);
+        $jobEvents = $serviceLocator->get('Jobs/Events');
+        $jobEvents->trigger(JobEvent::EVENT_JOB_CREATED, $this, array('job' => $jobEntity));
 
         return array('job' => $jobEntity);
     }
@@ -358,19 +379,20 @@ class ManageController extends AbstractActionController {
         $jobEntity      = $this->getJob();
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
+        $jobEvents      = $serviceLocator->get('Jobs/Events');
 
         if ($params == 'declined') {
             $jobEntity->changeStatus(Status::REJECTED, sprintf( /*@translate*/ "Job opening was rejected by %s",$user->info->displayName));
             $jobEntity->isDraft = true;
             $repositories->store($jobEntity);
-            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
+            $jobEvents->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
             $this->notification()->success($translator->translate('Job has been rejected'));
         }
 
         if ($params == 'approved') {
             $jobEntity->changeStatus(Status::ACTIVE, sprintf( /*@translate*/ "Job opening was activated by %s",$user->info->displayName));
             $repositories->store($jobEntity);
-            $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+            $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
             $this->notification()->success($translator->translate('Job has been approved'));
         }
 

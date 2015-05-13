@@ -83,6 +83,9 @@ class MailService extends AbstractPluginManager
                 if ($instance instanceOf TranslatorAwareInterface) {
                     $translator = $self->getServiceLocator()->get('translator');
                     $instance->setTranslator($translator);
+                    if (null === $instance->getTranslatorTextDomain()) {
+                        $instance->setTranslatorTextDomain();
+                    }
                     $instance->setTranslatorEnabled(true);
                 }
             }, /*topOfStack*/

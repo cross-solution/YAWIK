@@ -172,7 +172,10 @@ interface InfoInterface extends EntityInterface
     /**
      * Gets the user display name
      *
+     * @param bool $emailIfEmpty If true, returns the email address, if no last name is set.
+     *
      * @return string
+     * @since 0.19 added parameter $emailIfEmpty
      */
-    public function getDisplayName();
+    public function getDisplayName($emailIfEmpty = true);
 }  

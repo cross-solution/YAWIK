@@ -11,7 +11,6 @@
  * Information Mail to the Approval Team
  */
 ?>
-<html>
 
 <h2><?php echo $this->translate("Job details")?></h2>
 <table>
@@ -64,8 +63,8 @@
     </ul>
 <?php endif;?>
 
-<a href="<?php echo $this->link?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
-</html>
+<a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
+
 
 <?php
 echo $this->partial('mail/footer');

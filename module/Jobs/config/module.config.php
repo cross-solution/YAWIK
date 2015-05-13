@@ -152,10 +152,7 @@ return array(
     'service_manager' => array(
         'invokables' => array(
                 'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
-                'Jobs/Listeners'                    => 'Jobs\Listener\JobsListener',
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
-                'Jobs/Listener/StatusChanged'       => 'Jobs\Listener\StatusChanged',
-                'Jobs/Listener/PendingForAcception' => 'Jobs\Listener\PendingForAcception',
                 'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
@@ -163,6 +160,11 @@ return array(
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
+            'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
+            'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
+        ),
+        'shared' => array(
+            'Jobs/Event' => false,
         )
     ),
     
@@ -193,8 +195,10 @@ return array(
             'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
             'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
             'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
-            'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
-            'mail/jobPendingForAcception' => __DIR__ . '/../view/mails/deJobPendingForAcception.phtml',
+            'mail/job-created' => __DIR__ . '/../view/mails/job-created.phtml',
+            'mail/job-pending' => __DIR__ . '/../view/mails/job-pending.phtml',
+            'mail/job-accepted' => __DIR__ . '/../view/mails/job-accepted.phtml',
+            'mail/job-rejected' => __DIR__ . '/../view/mails/job-rejected.phtml',
             'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
     
