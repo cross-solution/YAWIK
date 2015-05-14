@@ -373,6 +373,10 @@ return array(
                     'route/auth-provider',
                     'route/auth-hauth',
                     'route/auth-extern',
+                    'route/lang/forgot-password',
+                    'route/lang/goto-reset-password',
+                    'route/lang/register',
+                    'route/lang/register-confirmation',
                 ),
             ),
             'user' => array(
@@ -385,6 +389,10 @@ return array(
                    // 'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-extern',
+                    'route/lang/forgot-password',
+                    'route/lang/goto-reset-password',
+                    'route/lang/register',
+                    'route/lang/register-confirmation',
                 ),
             ),
             'recruiter' => array(
