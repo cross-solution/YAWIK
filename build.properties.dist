@@ -57,7 +57,7 @@ auth.suffix=
 ; Override recipient for every mail send. (including CC and BCC)
 ; Use comma to separate multiple addresses.
 ;
-mail.develop.override_recipient=false
+mail.develop.override_recipient=
 
 ;
 ; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)

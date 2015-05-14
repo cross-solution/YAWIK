@@ -50,18 +50,32 @@
  */
 ?>
 
-<?php if (empty($this->job->portals)) :?>
-    <?php echo $this->translate('no Portal chosen')?>
-<?php else:?>
-    <h2><?php echo $this->translate("Selected Channels")?></h2>
-    <ul>
-        <?php foreach ($this->job->portals as $portalName => $portal):?>
+<?php
+$sum = 0;
+?>
+
+<?php if (empty($this->job->portals)) : ?>
+    <?php echo $this->translate('no Portal chosen') ?>
+<?php else: ?>
+    <h2><?php echo $this->translate("Selected Channels") ?></h2>
+    <table>
+        <?php foreach ($this->job->portals as $portalName => $portal): ?>
             <?php if (!empty($portal['active'])): ?>
-                <li><?php echo $portal['name']?></li>
-            <?php endif;?>
-        <?php endforeach;?>
-    </ul>
-<?php endif;?>
+                <tr>
+                    <td><?php echo $portal['name'] ?></td>
+
+                    <td><?php if (array_key_exists($portal['name'], $this->prices)) {
+                            echo $this->prices[$portal['name']];
+                            $sum += (int) $this->prices[$portal['name']];
+                        } ?></td>
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <tr><td>Preis (netto)</td><td><?php print(round($sum / 1.19,2)) ?></td></tr>
+        <tr><td>MwSt (19%)</td><td><?php print($sum - round($sum / 1.19,2)) ?></td></tr>
+    </table>
+<?php endif; ?>
 
 <a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
 

@@ -14,6 +14,21 @@
  * $this->job : The job entity
  * $this->siteName: The site name (from Core/AbstractOptions)
  */
-?>
 
-Test Test.
+$user = $this->job->getUser();
+$info = $user->getInfo();
+?>
+<p><?php echo 'male' == $info->getGender()
+        ? 'Sehr geehrter Herr'
+        : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+
+<p>
+    Ihrer Stellenanzeige "<?php echo $this->job->getTitle() ?>" mit der Referenz <?php echo $this->job->getReference() ?>.
+    wurde abgelehnt. Bitte korrigieren Sie die Stellenanzeige.
+</p>
+
+<p>Mit freundlichen Grüßen,</p>
+
+Ihr <?php echo $this->siteName?> Team,
+
+<?php echo $this->partial('mail/footer'); ?>
