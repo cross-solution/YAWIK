@@ -11,9 +11,19 @@
 
 namespace Jobs\Listener\Events;
 
+use ArrayAccess;
 use Jobs\Entity\Job;
 use Zend\EventManager\Event;
+use Zend\EventManager\Exception;
 
+/**
+ * The Job event.
+ *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ */
 class JobEvent extends Event
 {
     /**
@@ -56,7 +66,7 @@ class JobEvent extends Event
      * @param  Job $jobEntity
      * @return MvcEvent
      */
-    public function setJobEntity($jobEntity)
+    public function setJobEntity(Job $jobEntity)
     {
         $this->jobEntity = $jobEntity;
         return $this;
@@ -71,6 +81,27 @@ class JobEvent extends Event
     {
         return $this->jobEntity;
     }
+
+    /**
+     * Sets parameters.
+     *
+     * @internal Sets the job entity when passed in $params under the key/property named "job".
+     *           This is because in the JobEventManager, the default event class is set to this,
+     *
+     * @since 0.19
+     */
+    public function setParams($params)
+    {
+        if (is_array($params) && isset($params['job'])) {
+            $this->setJobEntity($params['job']);
+            unset($params['job']);
+        } else if (is_object($params) && isset($params->job)) {
+            $this->setJobEntity($params->job);
+        }
+
+        return parent::setParams($params);
+    }
+
 
     /**
      * @param $portal

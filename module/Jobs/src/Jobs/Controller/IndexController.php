@@ -39,11 +39,9 @@ class IndexController extends AbstractActionController
 
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
-        $jobServices     = $serviceLocator->get('Jobs/Listeners');
         $events          = $this->getEventManager();
 
         $events->attach($defaultServices);
-        $events->attach($jobServices);
 
         return $this;
     }

@@ -313,15 +313,10 @@ class Info extends AbstractEntity implements InfoInterface
         return $this->lastName;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
-    public function getDisplayName()
+    public function getDisplayName($emailIfEmpty=true)
     {
         if (!$this->lastName) {
-            return $this->email;
+            return $emailIfEmpty ? $this->email : '';
         }
         return ($this->firstName ? $this->firstName . ' ' : '') . $this->lastName;
     }

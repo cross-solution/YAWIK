@@ -1,0 +1,35 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author bleek@cross-solution.de
+ * @license   MIT
+ */
+ /*
+  * Confirmation Mail to the Customer
+  */
+
+$user = $this->job->getUser();
+$info = $user->getInfo();
+?>
+<p><?php echo 'male' == $info->getGender()
+         ? 'Sehr geehrter Herr'
+         : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+
+<p>
+    hiermit bestätigen wir Ihnen den Eingang Ihrer Stellenanzeige <b></b><?php echo $this->job->getTitle() ?></b> mit der
+    Referenz <b><?php echo $this->job->getReference() ?></b>. Sie erhalten von uns eine Nachricht, sobald die Anzeige von
+    freigegeben und veröffentlicht wurde.
+</p>
+<p>
+    Den aktuellen Status können Sie in der <a href="<?php echo $this->serverUrl() . $this->url('lang/jobs', array('lang' => 'de'))?>">Job-Übersicht</a> verfolgen.
+</p>
+
+<p>Mit freundlichen Grüßen,</p>
+
+Ihr <?php echo $this->siteName?> Team,
+
+
+<?php echo $this->partial('mail/footer'); ?>

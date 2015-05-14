@@ -1,0 +1,34 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+
+<?php
+ /*
+  * Available variables:
+  * $this->job : The job entity
+  * $this->siteName: The site name (from Core/AbstractOptions)
+  */
+
+$user = $this->job->getUser();
+$info = $user->getInfo();
+?>
+<p><?php echo 'male' == $info->getGender()
+        ? 'Sehr geehrter Herr'
+        : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+
+<p>
+    Ihre Stellenanzeige "<?php echo $this->job->getTitle() ?>" mit der Referenz <?php echo $this->job->getReference() ?>.
+    wurde freigeschaltet.
+</p>
+
+<p>Mit freundlichen Grüßen,</p>
+
+Ihr <?php echo $this->siteName?> Team,
+
+<?php echo $this->partial('mail/footer'); ?>

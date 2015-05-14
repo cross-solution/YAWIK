@@ -4,6 +4,7 @@ namespace AuthTest\Entity\Provider;
 
 use Auth\Entity\Info;
 use Auth\Entity\User;
+use Organizations\Entity\OrganizationReference;
 
 class UserEntityProvider
 {
@@ -37,6 +38,39 @@ class UserEntityProvider
             $userEntity->setId($entityId);
         }
 
+        $organization = new OrganizationReferenceMock();
+
+        $userEntity->setOrganization($organization);
+
         return $userEntity;
     }
+}
+
+class OrganizationReferenceMock extends \Organizations\Entity\OrganizationReference
+{
+    protected $isOwner = false;
+    protected $isEmployee = false;
+    protected $hasAssociation = false;
+
+    public function __construct()
+    {
+
+    }
+
+    public function isOwner()
+    {
+        return $this->hasAssociation && $this->isOwner;
+    }
+
+    public function isEmployee()
+    {
+        return $this->hasAssociation && !$this->isOwner;
+    }
+
+    public function hasAssociation()
+    {
+        return $this->hasAssociation;
+    }
+
+
 }
