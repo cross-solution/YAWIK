@@ -307,7 +307,7 @@
     <exec command="rsync -rv ${project.basedir}/docs/ ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.docs.target}" passthru="true"/>
   </target>
 
-  <target name="deploy-builds" description="publish TGZ and ZIP packages via rsync">
+  <target name="deploy-builds" depends="preinit" description="publish TGZ and ZIP packages via rsync">
     <echo msg="deploy: rsync -r ${project.basedir}/build/ ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}"/>
     <exec command="rsync -rv
     ${project.basedir}/build/YAWIK-${version-short}.* -l --exclude=YAWIK ${deploy.build.user}@${deploy.build.host}:${deploy.build.target}${version-short}" passthru="true"/>
@@ -377,8 +377,15 @@
     </fileset>
   </target>
 
+  <target name="preinit">
+	  <property file="${project.basedir}/build.properties" />
+	  <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
+          <exec outputProperty="version-short"  command="git describe --tags --abbrev=0 | sed -E -n 's/v(.*)/\1/p'"
+                          dir="${project.basedir}"/>
+  </target>
+
   <target name="init"
-          depends="load-properties, prepare"
+          depends="preinit, load-properties, prepare"
           unless="project.initialized">
     <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
     <exec outputProperty="version-short"
