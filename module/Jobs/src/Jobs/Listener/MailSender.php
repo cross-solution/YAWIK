@@ -20,7 +20,6 @@ use Zend\EventManager\ListenerAggregateInterface;
  *
  * @since  0.19
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo   write test
  */
 class MailSender implements ListenerAggregateInterface
 {
@@ -94,6 +93,30 @@ class MailSender implements ListenerAggregateInterface
     }
 
     /**
+     * Callback for the job accepted event
+     *
+     * @param JobEvent $e
+     */
+    public function onJobAccepted(JobEvent $e)
+    {
+        $this->sendMail($e->getJobEntity(), 'mail/job-accepted',
+                        /*@translate*/ 'Your job has been published'
+        );
+    }
+
+    /**
+     * Callback for the job rejected event
+     *
+     * @param JobEvent $e
+     */
+    public function onJobRejected(JobEvent $e)
+    {
+        $this->sendMail($e->getJobEntity(), 'mail/job-rejected',
+                        /*@translate*/ 'Your job has been rejected'
+        );
+    }
+
+    /**
      * Sends a job event related mail
      *
      * @param Job    $job
@@ -126,27 +149,4 @@ class MailSender implements ListenerAggregateInterface
         $this->mailer->send($mail);
     }
 
-    /**
-     * Callback for the job accepted event
-     *
-     * @param JobEvent $e
-     */
-    public function onJobAccepted(JobEvent $e)
-    {
-        $this->sendMail($e->getJobEntity(), 'mail/job-accepted',
-                        /*@translate*/ 'Your job has been published'
-        );
-    }
-
-    /**
-     * Callback for the job rejected event
-     *
-     * @param JobEvent $e
-     */
-    public function onJobRejected(JobEvent $e)
-    {
-        $this->sendMail($e->getJobEntity(), 'mail/job-rejected',
-                        /*@translate*/ 'Your job has been rejected'
-        );
-    }
 }

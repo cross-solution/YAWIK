@@ -18,7 +18,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
- * @todo write test 
  */
 class JobEventManagerFactory implements FactoryInterface
 {

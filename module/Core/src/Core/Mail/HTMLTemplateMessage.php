@@ -11,7 +11,6 @@
 namespace Core\Mail;
 
 use Zend\Mail\Header;
-use Zend\Mail\Message;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\View\Model\ViewModel;

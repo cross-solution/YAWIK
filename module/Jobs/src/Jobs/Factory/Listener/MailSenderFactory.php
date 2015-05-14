@@ -19,7 +19,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @since 0.19
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class MailSenderFactory implements FactoryInterface
 {
