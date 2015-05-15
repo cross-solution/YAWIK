@@ -60,10 +60,12 @@ return array(
                     'Jobs/Manage' => array(
                         'edit',
                         'completion',
+                        'template',
                         'new' => 'Jobs/Create',
                     ),
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',
+                    'route/lang/jobs/template',
                     'Entity/Jobs/Job' => array(
                         'edit' => 'Jobs/Write',
                     ),
