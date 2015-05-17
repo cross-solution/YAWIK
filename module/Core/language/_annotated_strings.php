@@ -89,3 +89,6 @@ translate('defines the languages of this frontend.');
 //: ./config/module.config.php:25
 translate('general settings');
 
+//: ./config/module.config.php:199
+translate('Home');
+

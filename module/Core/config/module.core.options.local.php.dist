@@ -18,6 +18,20 @@ $options = array(
      * The sitename is used in Mails. Typically it's the name of your website
      */
     'siteName' => 'YAWIK',
+
+    /**
+     * Contact Data, which can be used in Mail Signatures or the imprint page.
+     */
+    'operator' => array(
+                          'companyShortName'=>'Your Company Name',
+                          'companyFullName' => 'Your Company Name Ltd. & Co KG',
+                          'companyTax' => 'Your FAT Number',
+                          'postalCode' => 'xxxx',
+                          'city' => '',
+                          'name' => '',
+                          'email' => '',
+                          'fax' => ''
+                       )
 );
 
 return array('core_options' => $options);

@@ -140,13 +140,13 @@ translate('Changes not saved.');
 //: ./src/Auth/Controller/IndexController.php:120
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:131
+//: ./src/Auth/Controller/IndexController.php:143
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:221
+//: ./src/Auth/Controller/IndexController.php:218
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/IndexController.php:414
+//: ./src/Auth/Controller/IndexController.php:410
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/RegisterController.php:59

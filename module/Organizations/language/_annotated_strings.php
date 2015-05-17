@@ -8,6 +8,21 @@ translate('City');
 //: ./view/organizations/index/index.ajax.phtml:19
 translate('Street');
 
+//: ./src/Organizations/Form/EmployeeFieldset.php:57
+translate('View Jobs');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:58
+translate('Edit Jobs');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:59
+translate('Create Jobs');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:60
+translate('View Applications');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:61
+translate('Edit Applications');
+
 //: ./src/Organizations/Form/Organizations.php:33
 translate('Please enter the name of the hiring organization.');
 

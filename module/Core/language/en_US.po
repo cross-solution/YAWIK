@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-07 22:49+0200\n"
+"POT-Creation-Date: 2015-05-16 20:43+0200\n"
 "PO-Revision-Date: 2014-12-04 19:38+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
@@ -45,7 +45,7 @@ msgstr "Last"
 msgid "Add permission"
 msgstr "Add permission"
 
-#: view/core/index/index.phtml:11
+#: view/core/index/index.phtml:11 language/_annotated_strings.php:93
 msgid "Home"
 msgstr "Home"
 

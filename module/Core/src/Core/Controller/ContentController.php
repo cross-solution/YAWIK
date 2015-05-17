@@ -21,6 +21,11 @@ use Settings\Repository\Settings as SettingsRepository;
  */
 class ContentController extends AbstractActionController
 {
+    /**
+     * Displays a content page
+     *
+     * @return ViewModel
+     */
     public function indexAction()
     {
         $view = $this->params('view');
@@ -40,12 +45,7 @@ class ContentController extends AbstractActionController
      * displays the content of a modal box. This is used e.g. when opening
      * the privacy policies or the terms and conditions in a modal box
      *
-     * @example:
-     *                 'route' => 'lang/multipost',
-     *                          'params' => array(
-     *                          'view' => 'jobs-publish-on-yawik'
-     *                         )
-     *
+     *  @return ViewModel
      */
     public function modalAction()
     {

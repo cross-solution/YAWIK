@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 19:02+0200\n"
-"PO-Revision-Date: 2015-04-29 17:04+0000\n"
+"POT-Creation-Date: 2015-05-16 20:55+0200\n"
+"PO-Revision-Date: 2015-05-16 18:55+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgid ""
 "organization%s first."
 msgstr ""
 
-#: language/_annotated_strings.php:6 language/_annotated_strings.php:48
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:63
 msgid "City"
 msgstr "Ville"
 
@@ -50,59 +50,79 @@ msgid "Street"
 msgstr "Rue"
 
 #: language/_annotated_strings.php:12
-msgid "Please enter the name of the hiring organization."
+msgid "View Jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:15
-msgid "Please enter a contact for the hiring organization."
+msgid "Edit Jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:18
-msgid "Please enter a description for the hiring organization."
+msgid "Create Jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:21
-msgid "Employees"
+msgid "View Applications"
 msgstr ""
 
 #: language/_annotated_strings.php:24
-msgid "Manage your employees and their permissions."
+msgid "Edit Applications"
 msgstr ""
 
 #: language/_annotated_strings.php:27
+msgid "Please enter the name of the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:30
+msgid "Please enter a contact for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "Please enter a description for the hiring organization."
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Employees"
+msgstr ""
+
+#: language/_annotated_strings.php:39
+msgid "Manage your employees and their permissions."
+msgstr ""
+
+#: language/_annotated_strings.php:42
 msgid "Description"
 msgstr "Description"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:45
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
 msgstr ""
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:48
 msgid "Organizationname"
 msgstr ""
 
-#: language/_annotated_strings.php:36 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:51 language/_annotated_strings.php:72
 msgid "Search for registered users."
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:54
 msgid "street"
 msgstr "Rue"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:57
 msgid "house number"
 msgstr "numéro de la maison"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:60
 msgid "Postalcode"
 msgstr "Code Postal"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:66
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:69
 msgid "Insert"
 msgstr ""

@@ -54,11 +54,11 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
             'name' => 'permissions',
             'options' => array(
                 'value_options' => array(
-                    Perms::JOBS_VIEW => 'View Jobs',
-                    Perms::JOBS_CHANGE => 'Edit Jobs',
-                    Perms::JOBS_CREATE => 'Create Jobs',
-                    Perms::APPLICATIONS_VIEW => 'View Applications',
-                    Perms::APPLICATIONS_CHANGE => 'Edit Applications',
+                    Perms::JOBS_VIEW => /*@translate*/ 'View Jobs',
+                    Perms::JOBS_CHANGE => /*@translate*/ 'Edit Jobs',
+                    Perms::JOBS_CREATE => /*@translate*/ 'Create Jobs',
+                    Perms::APPLICATIONS_VIEW => /*@translate*/ 'View Applications',
+                    Perms::APPLICATIONS_CHANGE => /*@translate*/ 'Edit Applications',
                 ),
             ),
         ));

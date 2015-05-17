@@ -23,17 +23,40 @@ class ModuleOptions extends AbstractOptions {
 
     /**
      * The sitename is used in Mails. Typically it's the name of your website
+     *
+     * @var string
      */
     protected $siteName="YAWIK";
 
-    public function setSiteName($siteName)
-    {
+    /**
+     * Contact Data, which can be used in Mail signatures or the imprint page.
+     *
+     * @var array
+     */
+    protected $operator=array(
+        'companyShortName'=>'Your Company Name',
+        'companyFullName' => 'Your Company Name Ltd. & Co KG',
+        'companyTax' => 'Your FAT Number',
+        'postalCode' => 'xxxx',
+        'city' => '',
+        'name' => '',
+        'email' => '',
+        'fax' => ''
+    );
+
+    /**
+     * @param $siteName
+     * @return $this
+     */
+    public function setSiteName($siteName) {
         $this->siteName = $siteName;
         return $this;
     }
 
-    public function getSiteName()
-    {
+    /**
+     * @return string
+     */
+    public function getSiteName() {
         if (empty($this->siteName)) {
                 throw new \InvalidArgumentException(
                     'the argument sitename has to be defined'
@@ -41,5 +64,22 @@ class ModuleOptions extends AbstractOptions {
         }
         return $this->siteName;
     }
+
+    /**
+     * @param $operator
+     * @return $this
+     */
+    public function setOperator($operator) {
+        $this->operator=$operator;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOperator() {
+        return $this->operator;
+    }
+
 
 }
