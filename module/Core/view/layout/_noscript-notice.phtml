@@ -1,0 +1,24 @@
+<?php
+/**
+ * YAWIK
+ * Partial for displaying a user notice if JavaScript is disabled.
+ *
+ * @filesource
+ * @auhor Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<noscript>
+    <style type="text/css">
+        body { height: 100%; overflow: hidden; position: relative; }
+        #yk-topbar: { position: absolute; }
+        noscript div.ns-underlay { margin-top: -45px; z-index: 5000; background-color: black; opacity: 0.3; width: 100%; height: 10000px; overflow: hidden; position: absolute; top: 0; left: 0; }
+        noscript div.alert { position:absolute; z-index: 5001; top: 50px; left:50%; transform: translate(-50%); -moz-transform: translate(-50%); -webkit-transform: translate(-50%); -o-transform: translate(-50%); }
+    </style>
+    <div class="ns-underlay"></div>
+    <div class="alert alert-danger">
+    <h4>Javascript is disabled.</h4>
+    <p>JavaScript is required to use this site. Please enable JavaScript and reload.</p>
+</div>
+</noscript>

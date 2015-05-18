@@ -47,6 +47,7 @@ $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.m
         <?php echo $this->headStyle() ?>
     </head>
     <body>
+    <?php echo $this->partial('noscript-notice') ?>
 	<a class="sr-only" href="#content">Skip to main content</a>
 	<header id="yk-topbar" role="banner">
          <div class="cam-container">

@@ -242,6 +242,7 @@ return array(
         'exception_template' => 'error/index',
         // Map template to files. Speeds up the lookup through the template stack. 
         'template_map' => array(
+            'noscript-notice' => __DIR__ . '/../view/layout/_noscript-notice.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             //'core/index/index'        => __DIR__ . '/../view/core/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
