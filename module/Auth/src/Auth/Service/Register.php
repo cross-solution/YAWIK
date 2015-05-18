@@ -298,6 +298,8 @@ class Register
      */
     public function proceedMail()
     {
+        // @todo: get siteName from options.
+        $siteName="YAWIK";
         $url = $this->getUrlPlugin();
         $user = $this->getUser();
         if (isset($user)) {
@@ -315,7 +317,7 @@ class Register
             $mail->name             = $userName;
             $mail->confirmationlink = $confirmationLink;
             $mail->setTemplate('mail/register');
-            $mail->setSubject( /*translate*/ 'Registration');
+            $mail->setSubject( sprintf( /*@translate*/ 'your registration on %', $siteName));
             $mail->setTo($userEmail);
             $mail->setFrom('Yawik-System', $userName);
             $mailService->send($mail);

@@ -211,7 +211,8 @@
         <exclude name="YawikDemo**"/>
         <exclude name="Jobs/**"/>
         <exclude name="JobsDeutschland/**"/>
-          <exclude name="Karriere24/**"/>
+        <exclude name="Karriere24/**"/>
+        <exclude name="YawikCompanyRegistration/**"/>
         <exclude name="Organizations/**"/>
       </fileset>
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
@@ -285,12 +286,13 @@
   <!-- Target: symlinks                              -->
   <!-- ============================================  -->
   <target name="symlinks">
-    <symlink link="${project.basedir}/public/Core" target="${project.basedir}/module/Core/public" />
-    <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" />
-    <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" />
-    <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" />
-    <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" />
-    <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" />
+    <symlink link="${project.basedir}/public/Core" target="${project.basedir}/module/Core/public" overwrite="true"/>
+    <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" overwrite="true"/>
+    <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" overwrite="true"/>
+    <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" overwrite="true" />
+    <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public"  overwrite="true"/>
+    <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" overwrite="true" />
+    <symlink link="${project.basedir}/public/Organizations" target="${project.basedir}/module/Organizations/public" overwrite="true" />
   </target>
 
   <!-- ============================================  -->

@@ -90,7 +90,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         $message = $exception->getMessage();
         $model = new ViewModel(array(
             'message'            => empty($message)
-                                    ? /*translate*/ 'You are not permitted to access this resource.'
+                                    ? /*@translate*/ 'You are not permitted to access this resource.'
                                     : $message,
             'exception'          => $e->getParam('exception'),
             'display_exceptions' => $this->displayExceptions(),
