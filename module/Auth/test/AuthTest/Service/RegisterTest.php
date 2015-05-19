@@ -55,6 +55,11 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
     /**
      * @var MockObject
      */
+    private $optionsMock;
+
+    /**
+     *
+     */
     public function setUp()
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
@@ -69,8 +74,11 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->optionsMock = $this->getMockBuilder('Auth\Options\ModuleOptions')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
 
-        $this->testedObject = new Register($this->userRepositoryMock, $this->mailServiceMock);
+        $this->testedObject = new Register($this->userRepositoryMock, $this->mailServiceMock, $this->optionsMock);
 
         $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
         $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');

@@ -13,6 +13,7 @@ namespace Auth\Factory;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Options\ModuleOptions;
+use Zend\Stdlib\ArrayUtils;
 
 class ModuleOptionsFactory  implements FactoryInterface
 {
@@ -22,6 +23,10 @@ class ModuleOptionsFactory  implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config');
-        return new ModuleOptions(isset($config['auth_options']) ? $config['auth_options'] : array());
+        $configArray = isset($config['auth_options']) ? $config['auth_options'] : array();
+        if (array_key_exists('core_options', $config)) {
+            $configArray = ArrayUtils::merge($configArray, $config['core_options']);
+        }
+        return new ModuleOptions($configArray);
     }
 }

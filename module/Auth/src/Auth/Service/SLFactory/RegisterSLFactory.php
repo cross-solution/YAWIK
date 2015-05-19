@@ -30,7 +30,8 @@ class RegisterSLFactory implements FactoryInterface
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
         $mailService = $serviceLocator->get('Core/MailService');
+        $config = $serviceLocator->get('Auth/Options');
 
-        return new Register($userRepository, $mailService);
+        return new Register($userRepository, $mailService, $config);
     }
 }

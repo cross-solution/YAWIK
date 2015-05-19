@@ -11,6 +11,7 @@ namespace Auth\Service;
 
 use Auth\Entity\User;
 use Auth\Service\Exception;
+use Auth\Options\ModuleOptions;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
@@ -59,14 +60,20 @@ class Register
     protected $mailer;
 
     /**
+     * @var \Auth\Options\ModuleOptions
+     */
+    protected $options;
+
+    /**
      * @var User
      */
     protected $user;
 
-    public function __construct(UserRepository $userRepository, MailService $mailService)
+    public function __construct(UserRepository $userRepository, MailService $mailService, ModuleOptions $options)
     {
         $this->userRepository = $userRepository;
         $this->mailService = $mailService;
+        $this->options = $options;
     }
 
     /**
@@ -298,8 +305,7 @@ class Register
      */
     public function proceedMail()
     {
-        // @todo: get siteName from options.
-        $siteName="YAWIK";
+        $siteName = $this->options->getSiteName();
         $url = $this->getUrlPlugin();
         $user = $this->getUser();
         if (isset($user)) {
@@ -316,10 +322,10 @@ class Register
             $mail->user             = $user;
             $mail->name             = $userName;
             $mail->confirmationlink = $confirmationLink;
+            $mail->siteName         = $siteName;
             $mail->setTemplate('mail/register');
             $mail->setSubject( sprintf( /*@translate*/ 'your registration on %', $siteName));
             $mail->setTo($userEmail);
-            $mail->setFrom('Yawik-System', $userName);
             $mailService->send($mail);
         }
     }

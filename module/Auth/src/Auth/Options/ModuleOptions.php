@@ -64,6 +64,13 @@ class ModuleOptions extends AbstractOptions {
     protected $authSuffix = '';
 
     /**
+     * is the more common used name for the website, which is propably similar to the domain-name
+     *
+     * @var string
+     */
+    protected $siteName = '';
+
+    /**
      * Sets the "role " option
      *
      * @param $role
@@ -228,4 +235,21 @@ class ModuleOptions extends AbstractOptions {
         return $this->mailSubjectRegistration;
     }
 
+    /**
+     * @param string $siteName
+     * @return $this
+     */
+    public function setSiteName($siteName)
+    {
+        $this->siteName = $siteName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSiteName()
+    {
+        return $this->siteName;
+    }
 }

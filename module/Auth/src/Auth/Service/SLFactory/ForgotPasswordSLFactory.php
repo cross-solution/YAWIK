@@ -35,7 +35,8 @@ class ForgotPasswordSLFactory implements FactoryInterface
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
         $tokenGenerator = $serviceLocator->get('Auth\Service\UserUniqueTokenGenerator');
         $loginFilter = $serviceLocator->get('Auth\LoginFilter');
+        $config = $serviceLocator->get('Auth/Options');
 
-        return new ForgotPassword($userRepository, $tokenGenerator, $loginFilter);
+        return new ForgotPassword($userRepository, $tokenGenerator, $loginFilter, $config);
     }
 }
