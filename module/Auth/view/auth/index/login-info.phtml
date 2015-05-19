@@ -35,6 +35,7 @@
 
                 $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
                 $org  = $user->getOrganization();
+                if ($org): /* An Anonymous user does not have the OrganizationReference */
                 if (!$org->hasAssociation() || $org->isOwner() ):?>
             <li>
                 <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building"></span> <?php
@@ -46,7 +47,7 @@
                     }
                     ?></a>
             </li><?php endif ?>
-
+            <?php endif; ?>
             <?php endif ?>
             <li class="divider"></li>
             <li>
