@@ -63,6 +63,32 @@ class ChannelOptions extends AbstractOptions {
      */
     protected $publishDuration=30;
 
+    /**
+     * descriptive title of the channel
+     *
+     * @var string $title
+     */
+    protected $headline;
+
+    /**
+     * Long description of the channel. This description may contain one Link.
+     *
+     * @var string $description
+     */
+    protected $description;
+
+    /**
+     *
+     * @var
+     */
+    protected $linkText;
+
+    /**
+     * @var
+     */
+    protected $linkTarget;
+
+
 
     /**
      * Sets the unique key of a channel
