@@ -68,7 +68,7 @@ class ChannelOptions extends AbstractOptions {
      *
      * @var string $title
      */
-    protected $headline;
+    protected $headLine;
 
     /**
      * Long description of the channel. This description may contain one Link.
@@ -88,7 +88,30 @@ class ChannelOptions extends AbstractOptions {
      */
     protected $linkTarget;
 
+    /**
+     * @var
+     */
+    protected $name;
 
+    /**
+     * @var
+     */
+    protected $longLabel;
+
+    /**
+     * @var
+     */
+    protected $linktext;
+
+    /**
+     * @var
+     */
+    protected $route;
+
+    /**
+     * @var
+     */
+    protected $params;
 
     /**
      * Sets the unique key of a channel
@@ -223,4 +246,111 @@ class ChannelOptions extends AbstractOptions {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeadLine()
+    {
+        return $this->headLine;
+    }
+
+    /**
+     * @param $headLine
+     * @return $this
+     */
+    public function setHeadLine($headLine)
+    {
+        $this->headLine = $headLine;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongLabel()
+    {
+        return $this->longLabel;
+    }
+
+    /**
+     * @param $longLabel
+     * @return $this
+     */
+    public function setLongLabel($longLabel)
+    {
+        $this->longLabel = $longLabel;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLinktext()
+    {
+        return $this->linktext;
+    }
+
+    /**
+     * @param $linktext
+     * @return $this
+     */
+    public function setLinktext($linktext)
+    {
+        $this->linktext = $linktext;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * @param $route
+     * @return $this
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param $params
+     * @return $this
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+        return $this;
+    }
 }

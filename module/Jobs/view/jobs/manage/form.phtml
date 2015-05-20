@@ -14,20 +14,9 @@
  *
  */
 
-$channels=array("yawik" =>
-                    array(
-                        "label"=>"YAWIK",
-                        "price" =>  /*@translate*/ "free"),
-                "jobsintown" =>
-                    array(
-                        "label" => "www.jobsintown.de",
-                        "price" => "199 €"),
-                "homepage" =>
-                    array(
-                        "label" => /*@translate*/ "Your Homepage",
-                        "price" => "free"),
 
-);
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$channels = $sm->get('Jobs/Options/Provider');
 
 $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
 $this->headscript()->appendFile($this->basepath('Core/js/jquery.summary-form.js'));
