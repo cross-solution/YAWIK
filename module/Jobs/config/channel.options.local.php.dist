@@ -36,9 +36,7 @@ $channel['jobsintown'] = array(
             );
 
 $channel['homepage'] = array(
-                'name' => 'homepage',
                 'label' => /*@translate*/ 'Your Homepage',
-                'price' => '0',
                 'headline' => /*@translate*/ 'enable integration of this job on your Homepage',
                 'long_label' => /*@translate*/ 'enable %s of this job on your Homepage',
                 'linktext' => /*@translate*/ 'integration',
