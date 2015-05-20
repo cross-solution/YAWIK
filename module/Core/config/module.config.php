@@ -350,6 +350,9 @@ return array(
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
 
         ),
+        'initializers' => array(
+            '\Core\Form\Service\InjectHeadscriptInitializer',
+        ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'
         )
