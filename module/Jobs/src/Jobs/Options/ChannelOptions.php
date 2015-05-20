@@ -29,11 +29,11 @@ class ChannelOptions extends AbstractOptions {
     protected $key;
 
     /**
-     * Price of the channel
+     * Price of the channel.
      *
      * @var int $price
      */
-    protected $price;
+    protected $price=0;
 
     /**
      * Currency of the price
@@ -78,22 +78,22 @@ class ChannelOptions extends AbstractOptions {
     protected $description;
 
     /**
+     * Link text which references a mor information page about a channel
      *
-     * @var
+     * @var string
      */
     protected $linkText;
 
     /**
+     * Link target which references a mor information page about a channel
+     *
      * @var
      */
     protected $linkTarget;
 
     /**
-     * @var
-     */
-    protected $name;
-
-    /**
+     *
+     *
      * @var
      */
     protected $longLabel;
@@ -249,24 +249,6 @@ class ChannelOptions extends AbstractOptions {
     /**
      * @return mixed
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param $name
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getHeadLine()
     {
         return $this->headLine;
@@ -303,9 +285,9 @@ class ChannelOptions extends AbstractOptions {
     /**
      * @return mixed
      */
-    public function getLinktext()
+    public function getLinkText()
     {
-        return $this->linktext;
+        return $this->linkext;
     }
 
     /**

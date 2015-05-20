@@ -44,15 +44,11 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
         $this->setName('jobPortals');
 
 
-        foreach ($portals as $portal) {
-            if (empty($portal['name'])) {
-                throw new \RuntimeException('missing portal-name');
-            }
+        foreach ($portals as $key=>$portal) {
             if (empty($portal['label'])) {
                 throw new \RuntimeException('missing label');
             }
-            $options = $portal;
-            unset($options['name']);
+            $options=$portal;
             $this->add(
                  array(
                      // at some point we need an own Element for additional specific information like duration or premiums
@@ -60,7 +56,7 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
                      //'type' => 'Jobs/portalsElement',
                      'type' => 'InfoCheckbox',
                      'property' => true,
-                     'name' => $portal['name'],
+                     'name' => $key,
                      'options' => $options,
                      'attributes' => array(
                          'data-trigger' => 'submit',
