@@ -3,127 +3,127 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# BLU-IT, 2015
+# Carsten Bleek <cbleek@yawik.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-16 20:55+0200\n"
-"PO-Revision-Date: 2015-05-18 18:08+0000\n"
-"Last-Translator: BLU-IT\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
+"PO-Revision-Date: 2015-05-20 12:26+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Chinese (http://www.transifex.com/projects/p/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: view/organizations/index/index.phtml:14
 msgid "Organizations"
-msgstr "Organizzazioni"
+msgstr "组织"
 
 #: view/organizations/index/index.ajax.phtml:69
 #, php-format
 msgid "Hiring organization of <strong>%s</strong>"
-msgstr "Assunzione organizzazione di <strong> %s </strong>"
+msgstr ""
 
 #: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
-msgstr "Organizzazione"
+msgstr "组织"
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create organizations."
-msgstr "Mi dispiace, non è possibile creare organizzazioni."
+msgstr "对不起，您不能创建的组织。"
 
 #: view/error/no-parent.phtml:18
 #, php-format
 msgid ""
 "Before you are able to create organizations, you have to %screate your main "
 "organization%s first."
-msgstr "Prima che si è in grado di creare organizzazioni, è necessario %screate prima vostra principale organizzazione%s ."
+msgstr ""
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:63
 msgid "City"
-msgstr "Città"
+msgstr "城市"
 
 #: language/_annotated_strings.php:9
 msgid "Street"
-msgstr "Strada"
+msgstr "街头"
 
 #: language/_annotated_strings.php:12
 msgid "View Jobs"
-msgstr "Vedi offerte di lavoro"
+msgstr "查看招聘信息"
 
 #: language/_annotated_strings.php:15
 msgid "Edit Jobs"
-msgstr "Modifica offerte di lavoro"
+msgstr "编辑职位"
 
 #: language/_annotated_strings.php:18
 msgid "Create Jobs"
-msgstr "Crea offerte di lavoro"
+msgstr "创造就业机会"
 
 #: language/_annotated_strings.php:21
 msgid "View Applications"
-msgstr "Visualizza applicazioni"
+msgstr "查看应用程序"
 
 #: language/_annotated_strings.php:24
 msgid "Edit Applications"
-msgstr "Modifica applicazioni"
+msgstr "编辑应用程序"
 
 #: language/_annotated_strings.php:27
 msgid "Please enter the name of the hiring organization."
-msgstr "Si prega di inserire il nome dell'organizzazione assunzione."
+msgstr "请输入雇佣组织的名称。"
 
 #: language/_annotated_strings.php:30
 msgid "Please enter a contact for the hiring organization."
-msgstr "Inserisci un contatto per l'organizzazione di assunzione."
+msgstr "请输入招聘组织中的联系人。"
 
 #: language/_annotated_strings.php:33
 msgid "Please enter a description for the hiring organization."
-msgstr "Si prega di inserire una descrizione per l'organizzazione di assunzione."
+msgstr "请输入招聘组织的描述。"
 
 #: language/_annotated_strings.php:36
 msgid "Employees"
-msgstr "Collaboratori / Dipendenti"
+msgstr "员工"
 
 #: language/_annotated_strings.php:39
 msgid "Manage your employees and their permissions."
-msgstr "Gestisci i tuoi collaboratori / dipendenti e le relative autorizzazioni."
+msgstr "管理你的员工和他们的权限。"
 
 #: language/_annotated_strings.php:42
 msgid "Description"
-msgstr "Descrizione"
+msgstr "描述"
 
 #: language/_annotated_strings.php:45
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
-msgstr "Scegliere un logo. Questo logo verrà mostrato nel offerta di lavoro e il modulo di domanda."
+msgstr "选择一个标志。这个标志将显示在职位空缺和申请表。"
 
 #: language/_annotated_strings.php:48
 msgid "Organizationname"
-msgstr "Nome organizzazione"
+msgstr "单位名称"
 
 #: language/_annotated_strings.php:51 language/_annotated_strings.php:72
 msgid "Search for registered users."
-msgstr "Ricerca per gli utenti registrati."
+msgstr "搜索注册用户。"
 
 #: language/_annotated_strings.php:54
 msgid "street"
-msgstr "strada"
+msgstr "街头"
 
 #: language/_annotated_strings.php:57
 msgid "house number"
-msgstr "numero civico"
+msgstr "门牌号码"
 
 #: language/_annotated_strings.php:60
 msgid "Postalcode"
-msgstr "Postale"
+msgstr "邮政编码"
 
 #: language/_annotated_strings.php:66
 msgid "Overview"
-msgstr "Panoramica"
+msgstr "概观"
 
 #: language/_annotated_strings.php:69
 msgid "Insert"
-msgstr "Inserire"
+msgstr "插入"

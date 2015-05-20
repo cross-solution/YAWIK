@@ -2,6 +2,9 @@
 //: ./view/form/list-filter.phtml:49
 translate('search for jobs');
 
+//: ./view/jobs/manage/approval.phtml:5
+translate('free');
+
 //: ./view/jobs/manage/form.phtml:20
 translate('free');
 
@@ -143,51 +146,51 @@ translate('Your job has been published');
 //: ./src/Jobs/Listener/MailSender.php:115
 translate('Your job has been rejected');
 
-//: ./config/module.config.php:110
+//: ./config/module.config.php:112
 translate('Jobboard');
 
-//: ./config/module.config.php:116
+//: ./config/module.config.php:118
 translate('Jobs');
 
-//: ./config/module.config.php:122
+//: ./config/module.config.php:124
 translate('Overview');
 
-//: ./config/module.config.php:126
+//: ./config/module.config.php:128
 translate('Create job');
 
-//: ./config/module.config.php:135
+//: ./config/module.config.php:137
 translate('Edit job');
 
-//: ./config/module.config.php:142
+//: ./config/module.config.php:144
 translate('Jobboard');
 
-//: ./config/module.config.php:289
+//: ./config/module.config.php:291
 translate('publish your job on yawik.org for free');
 
-//: ./config/module.config.php:290
+//: ./config/module.config.php:292
 translate('publish the job for 30 days on %s');
 
-//: ./config/module.config.php:291
+//: ./config/module.config.php:293
 translate('yawik.org');
 
-//: ./config/module.config.php:301
+//: ./config/module.config.php:303
 translate('publish your job on Jobsintown. 199,-€');
 
-//: ./config/module.config.php:302
+//: ./config/module.config.php:304
 translate('publish the job for 30 days on %s');
 
-//: ./config/module.config.php:303
+//: ./config/module.config.php:305
 translate('www.jobsintown.de');
 
-//: ./config/module.config.php:311
+//: ./config/module.config.php:313
 translate('Your Homepage');
 
-//: ./config/module.config.php:313
+//: ./config/module.config.php:315
 translate('enable integration of this job on your Homepage');
 
-//: ./config/module.config.php:314
+//: ./config/module.config.php:316
 translate('enable %s of this job on your Homepage');
 
-//: ./config/module.config.php:315
+//: ./config/module.config.php:317
 translate('integration');
 

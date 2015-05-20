@@ -5,6 +5,9 @@ translate('Create group');
 //: ./view/auth/manage-groups/form.phtml:11
 translate('Edit group');
 
+//: ./src/Auth/Service/Register.php:327
+translate('your registration on %');
+
 //: ./src/Auth/Form/SocialProfiles.php:26
 translate('Social Profiles');
 
@@ -181,6 +184,12 @@ translate('Found user does not have an email');
 
 //: ./src/Auth/Controller/ForgotPasswordController.php:78
 translate('An unexpected error has occurred, please contact your system administrator');
+
+//: ./src/Auth/Listener/UnauthorizedAccessListener.php:93
+translate('You are not permitted to access this resource.');
+
+//: ./src/Auth/Listener/MailForgotPassword.php:84
+translate('a new password was requestet for %s');
 
 //: ./config/module.config.php:365
 translate('user');

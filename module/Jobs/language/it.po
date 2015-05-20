@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-16 20:42+0200\n"
-"PO-Revision-Date: 2015-05-16 18:47+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2015-05-18 18:06+0000\n"
+"Last-Translator: BLU-IT\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -370,21 +370,21 @@ msgstr "Disattivare"
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create jobs."
-msgstr ""
+msgstr "Siamo spiacenti, non si possono creare offerte di lavoro."
 
 #: view/error/no-parent.phtml:20
 #, php-format
 msgid ""
 "Before you are able to create jobs, you have to %screate a valid email%s "
 "first."
-msgstr ""
+msgstr "Prima che si è in grado di creare posti di lavoro, è necessario %screate un valido indirizzo email%s prima."
 
 #: view/error/no-parent.phtml:27
 #, php-format
 msgid ""
 "Before you are able to create jobs, you have to %screate your main "
 "organization%s first."
-msgstr ""
+msgstr "Prima che si è in grado di creare offerte di lavoro, è necessario %screate vostra principale organizzazione%s prima."
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:36
 msgid "Description"
@@ -618,11 +618,11 @@ msgstr "Il vostro lavoro è stato avvolto per l'approvazione"
 
 #: language/_annotated_strings.php:141
 msgid "Your job has been published"
-msgstr ""
+msgstr "La tua offerta di lavoro è stata pubblicata."
 
 #: language/_annotated_strings.php:144
 msgid "Your job has been rejected"
-msgstr ""
+msgstr "La tua offerta di lavoro è stata respinta."
 
 #: language/_annotated_strings.php:147 language/_annotated_strings.php:162
 msgid "Jobboard"

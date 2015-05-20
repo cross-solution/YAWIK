@@ -188,16 +188,16 @@ translate('all');
 //: ./src/Applications/Controller/ManageController.php:137
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:152
+//: ./src/Applications/Controller/ApplyController.php:170
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:235
+//: ./src/Applications/Controller/ApplyController.php:258
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:250
+//: ./src/Applications/Controller/ApplyController.php:273
 translate('Application has been send.');
 
-//: ./src/Applications/Controller/ApplyController.php:316
+//: ./src/Applications/Controller/ApplyController.php:339
 translate('Application confirmation');
 
 //: ./src/Applications/Controller/IndexController.php:83

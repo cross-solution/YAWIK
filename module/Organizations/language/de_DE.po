@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# BLU-IT, 2015
 # Carsten Bleek <cbleek@yawik.org>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-16 20:55+0200\n"
-"PO-Revision-Date: 2015-05-16 18:55+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2015-05-18 18:22+0000\n"
+"Last-Translator: BLU-IT\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,23 +53,23 @@ msgstr "Strasse"
 
 #: language/_annotated_strings.php:12
 msgid "View Jobs"
-msgstr ""
+msgstr "Stellenanzeigen anzeigen"
 
 #: language/_annotated_strings.php:15
 msgid "Edit Jobs"
-msgstr ""
+msgstr "Stellenanzeigen bearbeiten"
 
 #: language/_annotated_strings.php:18
 msgid "Create Jobs"
-msgstr ""
+msgstr "Stellenanzeigen erstellen"
 
 #: language/_annotated_strings.php:21
 msgid "View Applications"
-msgstr ""
+msgstr "Bewerbungen ansehen"
 
 #: language/_annotated_strings.php:24
 msgid "Edit Applications"
-msgstr ""
+msgstr "Bewerbungen bearbeiten"
 
 #: language/_annotated_strings.php:27
 msgid "Please enter the name of the hiring organization."

@@ -3,575 +3,571 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# BLU-IT, 2015
-# Carsten Bleek <cbleek@yawik.org>, 2014-2015
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-16 20:42+0200\n"
-"PO-Revision-Date: 2015-05-18 18:20+0000\n"
-"Last-Translator: BLU-IT\n"
-"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
+"PO-Revision-Date: 2015-05-20 12:23+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Chinese (http://www.transifex.com/projects/p/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: view/modals/homepage.phtml:22
 msgid "Publish on your Homepage"
-msgstr "Auf eigener Homepage veröffentlichen"
+msgstr "发布在您的主页"
 
 #: view/modals/jobsintown.phtml:22 view/modals/yawik.phtml:22
 #, php-format
 msgid "Publish on %s"
-msgstr "Veröffentlichen auf %s"
+msgstr ""
 
 #: view/mails/job-created.phtml:15 view/iframe/iFrame.phtml:6
 msgid "Job details"
-msgstr "Beschreibung der Stellenanzeige"
+msgstr "招聘信息"
 
 #: view/mails/job-created.phtml:18 view/jobs/jobboard/index.ajax.phtml:13
 #: view/jobs/index/index.ajax.phtml:17
 msgid "Title of the job"
-msgstr "Titel der Anzeige"
+msgstr "作业标题"
 
 #: view/mails/job-created.phtml:22 view/jobs/jobboard/index.ajax.phtml:14
 #: view/jobs/index/index.ajax.phtml:18 language/_annotated_strings.php:102
 msgid "Location"
-msgstr "Ort"
+msgstr "地点"
 
 #: view/mails/job-created.phtml:26 view/jobs/jobboard/index.ajax.phtml:13
 #: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:33
 #: language/_annotated_strings.php:45
 msgid "Companyname"
-msgstr "Firmenname"
+msgstr "公司名称"
 
 #: view/mails/job-created.phtml:31
 msgid "Publisher details"
-msgstr "Angaben zur Person"
+msgstr "出版商细节"
 
 #: view/mails/job-created.phtml:35
 msgid "Name"
-msgstr "Name"
+msgstr "名字"
 
 #: view/mails/job-created.phtml:39 language/_annotated_strings.php:72
 msgid "Email"
-msgstr "E-Mail"
+msgstr "电子邮件"
 
 #: view/mails/job-created.phtml:58
 msgid "no Portal chosen"
-msgstr "Es wurden keine Jobportale gebucht"
+msgstr "没有选择门户"
 
 #: view/mails/job-created.phtml:60
 msgid "Selected Channels"
-msgstr "Gebuchte Jobportale"
+msgstr "所选通道"
 
 #: view/mails/job-created.phtml:80
 msgid "Click here to accept or reject the job opening"
-msgstr "Klicken Sie hier, um dte Stellenanzeige anzunehmen oder abzulehnen"
+msgstr "点击这里接受或拒绝的职位空缺"
 
 #: view/iframe/iFrame.phtml:17
 msgid ""
 "You are using a default template. You are free to create your own template, "
 "just contact the developing team for integration"
-msgstr "Sie nutzen die Vorlage für eine Stellenanzeige. Sie können sich eine eigene Vorlage erstellen. Oder nehmen Sie mit uns Kontakt auf. Wir helfen Ihnen."
+msgstr "您正在使用一个默认的模板。你可以自由地创建自己的模板，刚刚接触的开发团队的整合"
 
 #: view/iframe/iFrame.phtml:22
 msgid "Default"
-msgstr "Standard"
+msgstr "默认"
 
 #: view/iframe/iFrame.phtml:27
 msgid "Classic"
-msgstr "Klassisch"
+msgstr "经典"
 
 #: view/iframe/iFrame.phtml:32
 msgid "Modern"
-msgstr "Modern"
+msgstr "现代"
 
 #: view/iframe/iFrame.phtml:44
 msgid "Track applications"
-msgstr "Bewerbermanagement"
+msgstr "轨道应用"
 
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
-msgstr "Bewerbungslink"
+msgstr "申请链接"
 
 #: view/form/ats-mode.view.phtml:18
 msgid "The build-in ATS is currently used."
-msgstr "Derzeit wird das integrierte Bewerbermanagement genutzt"
+msgstr "集结在ATS是目前使用的。"
 
 #: view/form/ats-mode.view.phtml:22
 #, php-format
 msgid "Applications are handled via URI: %s"
-msgstr "Externes Bewerbungsformular wird genutzt unter: %s"
+msgstr ""
 
 #: view/form/ats-mode.view.phtml:27
 #, php-format
 msgid "Applications will be send to %s"
-msgstr "Bewerbungen werden gesendet an %s"
+msgstr ""
 
 #: view/form/ats-mode.view.phtml:32
 msgid "ATS is disabled."
-msgstr "Bewerbermanagement ist deaktiviert"
+msgstr "ATS被禁用。"
 
 #: view/form/list-filter.phtml:51
 msgid "Search"
-msgstr "Suche"
+msgstr "搜索"
 
 #: view/sidebar/index.phtml:19
 msgid "My jobs"
-msgstr "Meine Anzeigen"
+msgstr "我的工作"
 
 #: view/sidebar/index.phtml:19
 msgid "All jobs"
-msgstr "Alle Anzeigen"
+msgstr "所有职位"
 
 #: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
 #: view/jobs/index/view.phtml:10 language/_annotated_strings.php:150
 msgid "Jobs"
-msgstr "Stellenanzeigen"
+msgstr "乔布斯"
 
 #: view/jobs/jobboard/index.phtml:5
 msgid "Public Job Opportunities"
-msgstr "Übersicht aller Stellenanzeigen"
+msgstr "公共就业机会"
 
 #: view/jobs/jobboard/index.ajax.phtml:14 view/jobs/index/index.ajax.phtml:16
 msgid "Date of receipt"
-msgstr "Eingangsdatum"
+msgstr "收货日期"
 
 #: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:101
 #: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:71
 msgid "Apply"
-msgstr "Bewerben"
+msgstr "申请"
 
 #: view/jobs/index/index.phtml:15
 msgid "Loading"
-msgstr "Daten werden geladen"
+msgstr "载入中"
 
 #: view/jobs/index/index.phtml:16
 msgid "Access denied!"
-msgstr "Zugriff verweigert!"
+msgstr "拒绝访问！"
 
 #: view/jobs/index/index.phtml:17
 msgid "Application error!"
-msgstr "Anwendungsfehler"
+msgstr "应用程序错误！"
 
 #: view/jobs/index/index.phtml:18
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "取消"
 
 #: view/jobs/index/index.phtml:19
 msgid "Save"
-msgstr "Speichern"
+msgstr "保存"
 
 #: view/jobs/index/index.phtml:20
 msgid "Sending"
-msgstr "Daten werden übermittelt"
+msgstr "发出"
 
 #: view/jobs/index/index.phtml:21
 msgid "Fail!"
-msgstr "Fehler!"
+msgstr "失败！"
 
 #: view/jobs/index/index.phtml:28
 msgid "List of your jobs"
-msgstr "Ihre Stellenanzeigen"
+msgstr "你的工作列表"
 
 #: view/jobs/index/index.ajax.phtml:20
 msgid "Reference"
-msgstr "Referenz"
+msgstr "参考"
 
 #: view/jobs/index/index.ajax.phtml:22 view/jobs/index/dashboard.phtml:15
 msgid "Applications"
-msgstr "Bewerbungen"
+msgstr "应用"
 
 #: view/jobs/index/index.ajax.phtml:23
 msgid "Status"
-msgstr "Status"
+msgstr "状态"
 
 #: view/jobs/index/index.ajax.phtml:24 view/jobs/index/index.ajax.phtml:26
 msgid "Action"
-msgstr "Aktion"
+msgstr "行动"
 
 #: view/jobs/index/index.ajax.phtml:51 view/jobs/index/dashboard.phtml:35
 msgid "total"
-msgstr "gesamt"
+msgstr "总"
 
 #: view/jobs/index/index.ajax.phtml:57 view/jobs/index/dashboard.phtml:41
 msgid "unread"
-msgstr "ungelesen"
+msgstr "未读"
 
 #: view/jobs/index/index.ajax.phtml:69
 msgid "draft"
-msgstr "Entwurf"
+msgstr "草案"
 
 #: view/jobs/index/index.ajax.phtml:79
 #, php-format
 msgid "Change responsible user for job \\\"%s\\\""
-msgstr "Ändert die Zuständigkeit für die Stellenanzeige \\\"%s\\\""
+msgstr ""
 
 #: view/jobs/index/dashboard.phtml:4
 msgid "Jobs waiting for approval"
-msgstr "Stellenanzeige wartet auf Freischaltung"
+msgstr "乔布斯等待审批"
 
 #: view/jobs/index/dashboard.phtml:6
 msgid "Current Jobs"
-msgstr "Aktuelle Stellenanzeigen"
+msgstr "当前职位"
 
 #: view/jobs/index/dashboard.phtml:6
 msgid "Famous jobs"
-msgstr "Geschaltete Stellenanzeigen"
+msgstr "著名的职位"
 
 #: view/jobs/index/dashboard.phtml:12
 msgid "Job"
-msgstr "Stellenanzeige"
+msgstr "工作"
 
 #: view/jobs/index/dashboard.phtml:13
 msgid "Date"
-msgstr "Datum"
+msgstr "日期"
 
 #: view/jobs/index/view.phtml:15
 msgid "Online since"
-msgstr "Online seit"
+msgstr "由于在线"
 
 #: view/jobs/index/terms.phtml:22
 msgid "Terms and Conditions"
-msgstr "Allgemeine Geschäftsbedingungen"
+msgstr "条款和条件"
 
 #: view/jobs/manage/completion.phtml:1
 msgid "Publishing successfully finished"
-msgstr "Eingabe erfolgreich angeschlossen"
+msgstr "发布成功完成"
 
 #: view/jobs/manage/completion.phtml:3
 msgid ""
 "Thank you for publishing your job opening. An email was send to the "
 "reviewing team."
-msgstr "Vielen Dank für die Eingabe einer Stellenanzeige. Eine E-Mail wurde an das Review-Team gesendet."
+msgstr "感谢您发布您的职位空缺。邮件被发送到审查小组。"
 
 #: view/jobs/manage/approval.phtml:15
 msgid "Preview of the posting"
-msgstr "Voransicht der Stellenanzeige"
+msgstr "预览发帖"
 
 #: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:89
 msgid "Summary"
-msgstr "Zusammenfassung"
+msgstr "总结"
 
 #: view/jobs/manage/approval.phtml:31 view/jobs/manage/form.phtml:97
 msgid "Channel"
-msgstr "Jobportal"
+msgstr "通道"
 
 #: view/jobs/manage/approval.phtml:32 view/jobs/manage/form.phtml:98
 msgid "Price"
-msgstr "Preis"
+msgstr "价格"
 
 #: view/jobs/manage/approval.phtml:44 view/jobs/manage/form.phtml:110
 msgid "Total"
-msgstr "Summe"
+msgstr "总"
 
 #: view/jobs/manage/approval.phtml:50
 msgid "Reject Job"
-msgstr "Stellenanzeige ablehnen"
+msgstr "拒绝招聘"
 
 #: view/jobs/manage/approval.phtml:51
 msgid "Accept Job"
-msgstr "Stellenanzeige akzeptieren"
+msgstr "接受工作"
 
 #: view/jobs/manage/form.phtml:38
 msgid "Publish a job"
-msgstr "Eine Stellenanzeige veröffentlichen"
+msgstr "发布工作"
 
 #: view/jobs/manage/form.phtml:40
 msgid "Create a job"
-msgstr "Stellenanzeige anlegen"
+msgstr "创建工作"
 
 #: view/jobs/manage/form.phtml:72
 msgid "Preview of your job posting"
-msgstr "Voransicht Ihrer Stellenanzeige"
+msgstr "预览您的招聘启事中"
 
 #: view/jobs/manage/form.phtml:83
 #, php-format
 msgid ""
 "Please check the preview of your job position. Click %s to open the preview "
 "in a new window"
-msgstr "Bitte überprüfen Sie die Voransicht Ihrer Stellenanzeige. Klicken Sie %s, um die Anzeige in einem neuen Fenster zu öffnen"
+msgstr ""
 
 #: view/jobs/manage/form.phtml:84 view/jobs/manage/form.phtml:119
 msgid "here"
-msgstr "hier"
+msgstr "这里"
 
 #: view/jobs/manage/form.phtml:93
 msgid "Your job opening is ready to be published to the following channels"
-msgstr "Ihre Stellenanzeige wird auf folgenden Jobportalen veröffentlicht"
+msgstr "你的工作是开放准备被发布到以下途径"
 
 #: view/jobs/manage/form.phtml:118
 #, php-format
 msgid "Please check your selected channels. Click %s to modify the channels"
-msgstr "Bitte überprüfen Sie Ihre gewählten Jobportale. Um die Auswahl zu ändern klicken Sie %s"
+msgstr ""
 
 #: view/jobs/manage/form.phtml:136
 msgid "Next to enter the job"
-msgstr "Weiter zur Eingabe"
+msgstr "接下来进入就业"
 
 #: view/jobs/manage/form.phtml:139 view/jobs/manage/form.phtml:203
 msgid "Back"
-msgstr "Zurück"
+msgstr "后"
 
 #: view/jobs/manage/form.phtml:140
 msgid "Next to preview the job"
-msgstr "Weiter zur Voransicht"
+msgstr "下一步预览作业"
 
 #: view/jobs/manage/form.phtml:151
 msgid "Your job position is incomplete."
-msgstr "Die eingegebene Stellenanzeige ist unvollständig"
+msgstr "你的工作职位是不完整的。"
 
 #: view/jobs/manage/form.phtml:163
 msgid ""
 "Your job opening is online. You can publish minor changes or you can "
 "deactivate the job opening"
-msgstr "Ihre Stellenanzeige ist Online. Sie können Ihre Stellenanzeige Ändern oder deaktivieren."
+msgstr "你的任务是开在网上。您可以发布微小的变化，也可以停用职位空缺"
 
 #: view/jobs/manage/form.phtml:172
 msgid "Your job opening was successfully created and is waiting for approval."
-msgstr "Ihre Stellenanzeige wurde erfolgreich erstellt und wartet auf Freischaltung."
+msgstr "你的职位空缺已成功创建，正在等待审批。"
 
 #: view/jobs/manage/form.phtml:181
 msgid ""
 "Your job opening is inactive. You can reactivate it. Chargeable channels are"
 " not updated."
-msgstr "Ihre Stellenanzeige ist inaktiv. Sie können die Anzeige wieder aktivieren. Kostenpflichtige Stellenbörsen werden dadurch nicht aktualisiert."
+msgstr "你的职位空缺是无效的。您可以重新激活它。收费通道没有更新。"
 
 #: view/jobs/manage/form.phtml:190
 msgid ""
 "Your job was expired. You can reactivate you job opening. Chargeable "
 "channels are not updated."
-msgstr "Die Schaltungsdauer Ihrer Stellenanzeige ist abgelaufen. Sie können Ihre Stellenanzeige erneut aktivieren. Kostenpflichtige Stellenbörsen werden dadurch nicht aktualisiert."
+msgstr "你的工作被终止。您可以激活你的职位空缺。收费通道没有更新。"
 
 #: view/jobs/manage/form.phtml:199
 msgid ""
 "Your job opening was rejected. Please correct the errors and republish it"
-msgstr "Ihre Stellenanzeige wurde abgelehnt. Bitte korrigieren sie die Fehler und aktivieren Sie sie erneut."
+msgstr "你的职位空缺被拒绝。请更正错误并重新发布"
 
 #: view/jobs/manage/form.phtml:206
 #, php-format
 msgid "Publish job %s"
-msgstr "Stellenanzeige %s veröffentlichen"
+msgstr ""
 
 #: view/jobs/manage/form.phtml:206
 msgid "chargeable"
-msgstr "kostenpflichtig"
+msgstr "收费"
 
 #: view/jobs/manage/form.phtml:209
 msgid "submit changes"
-msgstr "Änderungen übertragen"
+msgstr "提交更改"
 
 #: view/jobs/manage/form.phtml:220
 msgid "Deactivate"
-msgstr "Deaktivieren"
+msgstr "关闭"
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create jobs."
-msgstr "Es tut uns leid, Sie können keine Stellenangebot erstellen."
+msgstr "对不起，你可能不会创造就业机会。"
 
 #: view/error/no-parent.phtml:20
 #, php-format
 msgid ""
 "Before you are able to create jobs, you have to %screate a valid email%s "
 "first."
-msgstr "Bevor Sie in der Lage sind Stellenangebote anzulegen, müssen Sie %screate zuerst eine gültige e-Mail%s anlegen."
+msgstr ""
 
 #: view/error/no-parent.phtml:27
 #, php-format
 msgid ""
 "Before you are able to create jobs, you have to %screate your main "
 "organization%s first."
-msgstr "Bevor Sie in der Lage sind Stellenangebote anzulegen, müssen Sie %screate zuerst Ihre Hauptorganisation%s anlegen."
+msgstr ""
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:36
 msgid "Description"
-msgstr "Beschreibung"
+msgstr "描述"
 
 #: src/Jobs/Controller/ManageController.php:175
 msgid "No Title"
-msgstr "Kein Anzeigentitel eingegeben"
+msgstr "无标题"
 
 #: src/Jobs/Controller/ManageController.php:179
 msgid "No Location"
-msgstr "Kein Arbeitsort eingegeben"
+msgstr "无位置"
 
 #: src/Jobs/Controller/ManageController.php:183
 msgid "Accept the Terms"
-msgstr "Akzeptieren Sie die AGBs"
+msgstr "接受条款"
 
 #: src/Jobs/Controller/ManageController.php:389
 msgid "Job has been rejected"
-msgstr "Die Veröffentlichung der Stellenanzeige wurde abgelehnt"
+msgstr "作业已被拒绝"
 
 #: src/Jobs/Controller/ManageController.php:396
 msgid "Job has been approved"
-msgstr "Die Veröffentlichung der Stellenanzeige wurde genehmigt"
+msgstr "作业已批准"
 
 #: src/Jobs/Controller/ManageController.php:428
 msgid "Job has been deactivated"
-msgstr "Die Stellenanzeige wurde deaktiviert"
+msgstr "工作已停用"
 
 #: src/Jobs/Controller/ManageController.php:430
 msgid "Job could not be deactivated"
-msgstr "Die Stellenanzeige konnte nicht deaktiviert werden"
+msgstr "工作不能被停用"
 
 #: src/Jobs/Controller/ManageController.php:445
 msgid "Template changed"
-msgstr "Vorlage wurde geändert"
+msgstr "模板改变"
 
 #: src/Jobs/Controller/ManageController.php:448
 msgid "Template not changed"
-msgstr "Vorlage wurde nicht geändert"
+msgstr "模板没有改变"
 
 #: public/templates/classic/index.phtml:30
 #: public/templates/modern/index.phtml:33
 msgid "Your tasks"
-msgstr "Aufgaben"
+msgstr "你的任务"
 
 #: public/templates/classic/index.phtml:36
 #: public/templates/modern/index.phtml:39
 msgid "Qualifications"
-msgstr "Qualifikationen"
+msgstr "资格"
 
 #: public/templates/classic/index.phtml:44
 #: public/templates/modern/index.phtml:47
 msgid "Benefis"
-msgstr "Benefits"
+msgstr "Benefis"
 
 #: public/templates/classic/index.phtml:54
 #: public/templates/modern/index.phtml:57
 msgid "Apply now"
-msgstr "Jetzt bewerben"
+msgstr "现在申请"
 
 #: language/_annotated_strings.php:3
 msgid "search for jobs"
-msgstr "nach Stellenanzeigen suchen"
+msgstr "搜索工作"
 
 #: language/_annotated_strings.php:6
 msgid "free"
-msgstr "kostenlos"
+msgstr "免费"
 
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:183
 msgid "Your Homepage"
-msgstr "Ihrer Homepage"
+msgstr "您的主页"
 
 #: language/_annotated_strings.php:12
 msgid "Job qualification"
-msgstr "Qualififationen"
+msgstr "职业资格"
 
 #: language/_annotated_strings.php:15
 msgid "Job benefits"
-msgstr "Benefits"
+msgstr "工作福利"
 
 #: language/_annotated_strings.php:18
 msgid "Job requirements"
-msgstr "Aufgaben"
+msgstr "职位要求"
 
 #: language/_annotated_strings.php:21
 msgid "Terms and conditions"
-msgstr "Allgemeine Geschäftsbedingungen"
+msgstr "条款和条件"
 
 #: language/_annotated_strings.php:24
 #, php-format
 msgid "I have read the %s and accept it"
-msgstr "Ich habe die %s gelesen und akzeptiere sie"
+msgstr ""
 
 #: language/_annotated_strings.php:27
 msgid "terms an conditions"
-msgstr "Allgemeine Geschäftsbedingungen"
+msgstr "条款的条件"
 
 #: language/_annotated_strings.php:30
 msgid "Title and job location"
-msgstr "Titel und Ort der Stellenanzeige"
+msgstr "标题和工作地点"
 
 #: language/_annotated_strings.php:36
 msgid "Please choose a descriptive title and a location for your job posting "
-msgstr "Bitte wählen Sie einen aussagekräftigen Anzeigentitel und den Dienstsitz der ausgeschriebenen Stelle."
+msgstr "请选择适合您的职位发布一个描述性标题和位置"
 
 #: language/_annotated_strings.php:39
 msgid ""
 "Please choose the name of the hiring organization. The selected name defines"
 " the template of the job opening."
-msgstr "Bitte wählen sie den Namen des schaltenden Unternehmens. Das ausgewählte Unternehmen definiert die verwendete Vorlage für Ihre Stellenanzeige"
+msgstr "请选择招聘单位的名称。所选择的名称定义的职位空缺的模板。"
 
 #: language/_annotated_strings.php:42
 msgid "Please choose the portals, where you wish to publish your job opening."
-msgstr "Bitte wählen Sie die Kanäle, über die Sie Ihre Stellenanzeige veröffentlichen möchten."
+msgstr "请选择门户网站，在那里你想发布您的职位空缺。"
 
 #: language/_annotated_strings.php:48
 msgid "The name of the hiring organization will be shown in search results."
-msgstr "Der Name des schaltenden Unternehmens erscheint in vielen Jobportalen in den Suchergebnissen"
+msgstr "招聘组织的名称将显示在搜索结果中。"
 
 #: language/_annotated_strings.php:51
 msgid "Select hiring organization"
-msgstr "Wählen Sie das schaltende Unternehmen"
+msgstr "选择招聘机构"
 
 #: language/_annotated_strings.php:54
 msgid "Mode"
-msgstr "Modus"
+msgstr "模式"
 
 #: language/_annotated_strings.php:57
 msgid "Built-In ATS"
-msgstr "Integriertes Bewerbermanagement"
+msgstr "内置ATS"
 
 #: language/_annotated_strings.php:60
 msgid "Use external link"
-msgstr "Externes Bewerbungsformular nutzen"
+msgstr "使用外部链接"
 
 #: language/_annotated_strings.php:63
 msgid "Get applications via email"
-msgstr "Bewerbungen per E-Mail empfangen"
+msgstr "通过电子邮件获取应用程序"
 
 #: language/_annotated_strings.php:66
 msgid "Do not track"
-msgstr "Online-Bewerbungen deaktivieren"
+msgstr "不要跟踪"
 
 #: language/_annotated_strings.php:69
 msgid "URL"
-msgstr "URL"
+msgstr "网址"
 
 #: language/_annotated_strings.php:75
 msgid "The apply identifier \"%value%\" is already in use."
-msgstr "Der Berwerbungsschlüssel \"%value%\" wird schon benutzt."
+msgstr ""
 
 #: language/_annotated_strings.php:78
 msgid "Show all jobs"
-msgstr "Zeige alle Stellenanzeigen"
+msgstr "显示所有作业"
 
 #: language/_annotated_strings.php:81
 msgid "Show my jobs"
-msgstr "Zeige meine Stellenanzeigen"
+msgstr "显示我的工作"
 
 #: language/_annotated_strings.php:84
 msgid "All"
-msgstr "Alle"
+msgstr "所有"
 
 #: language/_annotated_strings.php:87
 msgid "Active"
-msgstr "Aktiv"
+msgstr "活跃"
 
 #: language/_annotated_strings.php:90
 msgid "Inactive"
-msgstr "Inaktiv"
+msgstr "待用"
 
 #: language/_annotated_strings.php:93 language/_annotated_strings.php:96
 msgid "Job title"
-msgstr "Titel der Anzeige"
+msgstr "职称"
 
 #: language/_annotated_strings.php:99
 msgid "Please enter the job title"
-msgstr "Bitte geben sie einen aussagekräftigen Titel ein"
+msgstr "请输入职位"
 
 #: language/_annotated_strings.php:105
 msgid "Please enter the location of the job"
-msgstr "Bitte geben Sie den Dienstsitz Ihrer Stellenanzeige ein"
+msgstr "请输入作业的位置"
 
 #: language/_annotated_strings.php:108
 msgid "Multiposting"
@@ -579,79 +575,79 @@ msgstr "Multiposting"
 
 #: language/_annotated_strings.php:111
 msgid "rejected"
-msgstr "abgesagt"
+msgstr "拒绝"
 
 #: language/_annotated_strings.php:114
 msgid "publish"
-msgstr "Veröffentlicht"
+msgstr "发布"
 
 #: language/_annotated_strings.php:117
 msgid "active"
-msgstr "Aktiv"
+msgstr "活跃"
 
 #: language/_annotated_strings.php:120
 msgid "inactive"
-msgstr "Inaktiv"
+msgstr "待用"
 
 #: language/_annotated_strings.php:123
 msgid "expired"
-msgstr "Abgelaufen"
+msgstr "过期"
 
 #: language/_annotated_strings.php:126
 #, php-format
 msgid "Job opening was rejected by %s"
-msgstr "Stellenanzeige wurde von %s abgelehnt"
+msgstr ""
 
 #: language/_annotated_strings.php:129
 #, php-format
 msgid "Job opening was activated by %s"
-msgstr "Stellenanzeige wurde von %s genehmigt"
+msgstr ""
 
 #: language/_annotated_strings.php:132
 #, php-format
 msgid "Job was deactivated by %s"
-msgstr "Die Stellenanzeige wurde von %s deaktiviert "
+msgstr ""
 
 #: language/_annotated_strings.php:135
 msgid "A new job opening was created"
-msgstr "Eine neue Stellenanzeige wurde angelegt"
+msgstr "创建了一个新的职位空缺"
 
 #: language/_annotated_strings.php:138
 msgid "Your Job have been wrapped up for approval"
-msgstr "Ihre Stellenanzeige wartet auf Freischaltung"
+msgstr "你的工作已经结束了审批"
 
 #: language/_annotated_strings.php:141
 msgid "Your job has been published"
-msgstr "Ihr Stellenangebot wurde veröffentlicht"
+msgstr "你的工作已发布"
 
 #: language/_annotated_strings.php:144
 msgid "Your job has been rejected"
-msgstr "Ihr Stellenangebot wurde abgelehnt"
+msgstr "你的工作已被拒绝"
 
 #: language/_annotated_strings.php:147 language/_annotated_strings.php:162
 msgid "Jobboard"
-msgstr "Stellenbörse"
+msgstr "Jobboard"
 
 #: language/_annotated_strings.php:153
 msgid "Overview"
-msgstr "Übersicht"
+msgstr "概观"
 
 #: language/_annotated_strings.php:156
 msgid "Create job"
-msgstr "Stellenanzeige anlegen"
+msgstr "创造就业"
 
 #: language/_annotated_strings.php:159
 msgid "Edit job"
-msgstr "Stellenanzeige bearbeiten"
+msgstr "编辑工作"
 
 #: language/_annotated_strings.php:165
 msgid "publish your job on yawik.org for free"
-msgstr "30 Tage kostenlos auf yawik.org veröffenlichen"
+msgstr "在yawik.org免费发布您的工作"
 
 #: language/_annotated_strings.php:168 language/_annotated_strings.php:177
 #, php-format
 msgid "publish the job for 30 days on %s"
-msgstr "Stellenanzeige für 30 Tage auf %s veröffentlichen"
+msgstr ""
 
 #: language/_annotated_strings.php:171
 msgid "yawik.org"
@@ -659,7 +655,7 @@ msgstr "yawik.org"
 
 #: language/_annotated_strings.php:174
 msgid "publish your job on Jobsintown. 199,-€"
-msgstr "Schaltung Ihrer Anzeige auf Jobsintown. 199,-€"
+msgstr "公布Jobsintown你的工作。 199， - €"
 
 #: language/_annotated_strings.php:180
 msgid "www.jobsintown.de"
@@ -667,13 +663,13 @@ msgstr "www.jobsintown.de"
 
 #: language/_annotated_strings.php:186
 msgid "enable integration of this job on your Homepage"
-msgstr "Veröffenlichung der Anzeige auf Ihrer Homepage"
+msgstr "在您的主页启用集成这项工作的"
 
 #: language/_annotated_strings.php:189
 #, php-format
 msgid "enable %s of this job on your Homepage"
-msgstr "aktivieren Sie Ihre Anzeige für die %s auf Ihrer Homepage"
+msgstr ""
 
 #: language/_annotated_strings.php:192
 msgid "integration"
-msgstr "Integration"
+msgstr "积分"
