@@ -55,6 +55,7 @@ return array(
              'organizations/index/edit' => __DIR__ . '/../view/organizations/index/form.phtml',
              'organizations/form/employees-fieldset' => __DIR__ . '/../view/form/employees-fieldset.phtml',
              'organizations/form/employee-fieldset' => __DIR__ .'/../view/form/employee-fieldset.phtml',
+             'organizations/form/invite-employee-bar' => __DIR__ . '/../view/form/invite-employee-bar.phtml',
              'organizations/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
         // Where to look for view templates not mapped above
@@ -74,7 +75,7 @@ return array(
             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
             'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
             'Organizations/Employees'                    => 'Organizations\Form\Employees',
-
+            'Organizations/InviteEmployeeBar'            => 'Organizations\Form\Element\InviteEmployeeBar',
 
             'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
         ),

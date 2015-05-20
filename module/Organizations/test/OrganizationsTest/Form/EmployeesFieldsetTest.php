@@ -55,10 +55,10 @@ class EmployeesFieldsetTest extends \PHPUnit_Framework_TestCase
     public function testInit()
     {
         $expectAdd1 = array(
-            'name' => 'searchusers',
-            'type' => 'Auth/UserSearchbar',
+            'name' => 'inviteemployee',
+            'type' => 'Organizations/InviteEmployeeBar',
             'options' => array(
-                'description' => /*@translate*/ 'Search for registered users.',
+                'description' => 'Invite an employee via email address.',
             ),
         );
 
