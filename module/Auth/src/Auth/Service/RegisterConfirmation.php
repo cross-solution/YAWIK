@@ -40,6 +40,7 @@ class RegisterConfirmation
         }
 
         $user->getInfo()->setEmailVerified(true);
+        $user->setEmail($user->getInfo()->getEmail()); // Set verified email as primary email.
         $this->userRepository->store($user);
         $this->authenticationService->getStorage()->write($user->getId());
     }
