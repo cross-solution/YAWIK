@@ -89,7 +89,7 @@ class ChannelOptions extends AbstractOptions {
      *
      * @var string
      */
-    protected $linkText;
+    protected $linktext;
 
     /**
      * Link target which references a mor information page about a channel
@@ -104,11 +104,6 @@ class ChannelOptions extends AbstractOptions {
      * @var
      */
     protected $longLabel;
-
-    /**
-     * @var
-     */
-    protected $linktext;
 
     /**
      * @var
@@ -314,9 +309,9 @@ class ChannelOptions extends AbstractOptions {
     /**
      * @return mixed
      */
-    public function getLinkText()
+    public function getLinktext()
     {
-        return $this->linkext;
+        return $this->linktext;
     }
 
     /**

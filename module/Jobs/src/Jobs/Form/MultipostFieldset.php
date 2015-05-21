@@ -35,25 +35,35 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
     {
         // all necessary informations about the portals are provided in the configs
         $portals = array();
+        /*
         $config = $this->getFormFactory()->getFormElementManager()->getServiceLocator()->get('Config');
         if (array_key_exists('multiposting',$config)) {
             $portals = ArrayUtils::merge($portals, $config['multiposting']['channels']);
         }
+        */
+        $portals = $this->getFormFactory()->getFormElementManager()->getServiceLocator()->get('Jobs/Options/Provider');
 
         $this->setAttribute('id', 'jobportals-fieldset');
         $this->setName('jobPortals');
 
 
         foreach ($portals as $key=>$portal) {
-            if (empty($portal['label'])) {
+            if (empty($portal->label)) {
                 throw new \RuntimeException('missing label');
             }
-            $options=$portal;
+
+            $options=array(
+                'long_label' => $portal->longLabel,
+                'headline'   => $portal->headLine,
+                'linktext'   => $portal->linkText,
+                'route'      => $portal->route,
+                'params'     => $portal->params);
             $this->add(
                  array(
                      // at some point we need an own Element for additional specific information like duration or premiums
                      // InfoCheckbox is just a surrogate
                      //'type' => 'Jobs/portalsElement',
+                     'label' => $portal->label,
                      'type' => 'InfoCheckbox',
                      'property' => true,
                      'name' => $key,
