@@ -35,12 +35,6 @@ class ChannelOptions extends AbstractOptions {
      */
     protected $price=0;
 
-    /**
-     * Purchase price of the channel.
-     *
-     * @var int $purchasePrice
-     */
-    protected $purchasePrice=0;
 
     /**
      * Currency of the price
@@ -89,7 +83,7 @@ class ChannelOptions extends AbstractOptions {
      *
      * @var string
      */
-    protected $linktext;
+    protected $linkText;
 
     /**
      * Link target which references a mor information page about a channel
@@ -99,18 +93,15 @@ class ChannelOptions extends AbstractOptions {
     protected $linkTarget;
 
     /**
+     * Route to a content page with details about the channel
      *
-     *
-     * @var
-     */
-    protected $longLabel;
-
-    /**
-     * @var
+     * @var string
      */
     protected $route;
 
     /**
+     * Parameter, which can be used for linking the detail page about the channel
+     *
      * @var
      */
     protected $params;
@@ -159,27 +150,6 @@ class ChannelOptions extends AbstractOptions {
         return $this;
     }
     
-    /**
-     * Gets the purchase price of a channel
-     *
-     * @return string
-     */
-    public function getPurchasePrice()
-    {
-        return $this->purchasePrice;
-    }
-
-    /**
-     * Sets the purchase price of a channel
-     *
-     * @param int $purchasePrice
-     * @return ChannelOptions
-     */
-    public function setPurchasePrice($purchasePrice)
-    {
-        $this->price = $purchasePrice;
-        return $this;
-    }
 
     /**
      * Gets the currency of a price
@@ -271,6 +241,8 @@ class ChannelOptions extends AbstractOptions {
     }
 
     /**
+     * Gets the headline of the channel
+     *
      * @return mixed
      */
     public function getHeadLine()
@@ -279,6 +251,8 @@ class ChannelOptions extends AbstractOptions {
     }
 
     /**
+     * Sets the headline of a channel
+     *
      * @param $headLine
      * @return $this
      */
@@ -289,38 +263,38 @@ class ChannelOptions extends AbstractOptions {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getLongLabel()
+    public function getDescription()
     {
-        return $this->longLabel;
+        return $this->description;
     }
 
     /**
-     * @param $longLabel
+     * @param $description
      * @return $this
      */
-    public function setLongLabel($longLabel)
+    public function setDescription($description)
     {
-        $this->longLabel = $longLabel;
+        $this->description = $description;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getLinktext()
+    public function getLinkText()
     {
-        return $this->linktext;
+        return $this->linkText;
     }
 
     /**
-     * @param $linktext
+     * @param $linkText
      * @return $this
      */
-    public function setLinktext($linktext)
+    public function setLinkText($linkText)
     {
-        $this->linktext = $linktext;
+        $this->linkText = $linkText;
         return $this;
     }
 

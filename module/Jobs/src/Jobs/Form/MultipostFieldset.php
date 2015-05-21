@@ -33,14 +33,6 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
      */
     public function init()
     {
-        // all necessary informations about the portals are provided in the configs
-        $portals = array();
-        /*
-        $config = $this->getFormFactory()->getFormElementManager()->getServiceLocator()->get('Config');
-        if (array_key_exists('multiposting',$config)) {
-            $portals = ArrayUtils::merge($portals, $config['multiposting']['channels']);
-        }
-        */
         $portals = $this->getFormFactory()->getFormElementManager()->getServiceLocator()->get('Jobs/Options/Provider');
 
         $this->setAttribute('id', 'jobportals-fieldset');
@@ -53,11 +45,14 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
             }
 
             $options=array(
-                'long_label' => $portal->longLabel,
-                'headline'   => $portal->headLine,
-                'linktext'   => $portal->linkText,
-                'route'      => $portal->route,
-                'params'     => $portal->params);
+                'long_label' => $portal->description,
+                'headline' => $portal->headLine,
+                'linktext' => $portal->linkText,
+                'route' => $portal->route,
+                'params' => $portal->params,
+                'label' => $portal->label,
+                );
+
             $this->add(
                  array(
                      // at some point we need an own Element for additional specific information like duration or premiums
@@ -100,22 +95,22 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
 
     public function bindValues(array $values = array())
     {
-        $aggregatValues = $this->makeAggregateValues($values);
+        $aggregateValues = $this->makeAggregateValues($values);
         $object = $this->getObject();
-        $object->setPortals($aggregatValues);
+        $object->setPortals($aggregateValues);
         return $this->object;
     }
 
     /**
      * usual this function should write all values into the
      * @param array|\Traversable $data
-     * @throws Exception\InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @return void
      */
     public function populateValues($data)
     {
-        if (!is_array($data) && !$data instanceof Traversable) {
-            throw new Exception\InvalidArgumentException(sprintf(
+        if (!is_array($data) && !$data instanceof \Traversable) {
+            throw new \InvalidArgumentException(sprintf(
                 '%s expects an array or Traversable set of data; received "%s"',
                 __METHOD__,
                 (is_object($data) ? get_class($data) : gettype($data))
@@ -131,7 +126,8 @@ class MultipostFieldset extends Fieldset implements propagateAttributeInterface
         foreach ($data as $portalName => $portalValue) {
             $valueExists = array_key_exists($portalName, $this->byName);
             if (!$valueExists) {
-                throw new Exception\InvalidArgumentException('value does not exist');
+      #          throw new Exception\InvalidArgumentException('value does not exist');
+                continue;
             }
 
             // set the element Values

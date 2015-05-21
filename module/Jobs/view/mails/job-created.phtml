@@ -11,7 +11,10 @@
  * Information Mail to the Approval Team
  */
 ?>
-
+<?php
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$channels = $sm->get('Jobs/Options/Provider');
+?>
 <h2><?php echo $this->translate("Job details")?></h2>
 <table>
     <tr>
@@ -61,17 +64,14 @@ $sum = 0;
     <table>
         <?php foreach ($this->job->portals as $portalName => $portal): ?>
             <?php if (!empty($portal['active'])): ?>
+                <?php $channelData=$channels->getChannel($portalName); ?>
                 <tr>
-                    <td><?php echo $portal['name'] ?></td>
-
-                    <td><?php if (array_key_exists($portal['name'], $this->prices)) {
-                            echo $this->prices[$portal['name']];
-                            $sum += (int) $this->prices[$portal['name']];
-                        } ?></td>
+                    <td><?php echo $channelData->label ?></td>
+                    <td><?php echo $channelData->price ?> <?php echo $channelData->currency ?></td>
                 </tr>
+                <?php $sum += (int) $channelData->price; ?>
             <?php endif; ?>
         <?php endforeach; ?>
-
         <tr><td>Preis (netto)</td><td><?php print(round($sum / 1.19,2)) ?></td></tr>
         <tr><td>MwSt (19%)</td><td><?php print($sum - round($sum / 1.19,2)) ?></td></tr>
     </table>
@@ -80,6 +80,4 @@ $sum = 0;
 <a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
 
 
-<?php
-echo $this->partial('mail/footer');
-?>
+<?php echo $this->partial('mail/footer'); ?>
