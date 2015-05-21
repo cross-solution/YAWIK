@@ -36,6 +36,13 @@ class ChannelOptions extends AbstractOptions {
     protected $price=0;
 
     /**
+     * Purchase price of the channel.
+     *
+     * @var int $purchasePrice
+     */
+    protected $purchasePrice=0;
+
+    /**
      * Currency of the price
      *
      * @var string $currency
@@ -154,6 +161,28 @@ class ChannelOptions extends AbstractOptions {
     public function setPrice($price)
     {
         $this->price = $price;
+        return $this;
+    }
+    
+    /**
+     * Gets the purchase price of a channel
+     *
+     * @return string
+     */
+    public function getPurchasePrice()
+    {
+        return $this->purchasePrice;
+    }
+
+    /**
+     * Sets the purchase price of a channel
+     *
+     * @param int $purchasePrice
+     * @return ChannelOptions
+     */
+    public function setPurchasePrice($purchasePrice)
+    {
+        $this->price = $purchasePrice;
         return $this;
     }
 
