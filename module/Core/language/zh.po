@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-16 20:43+0200\n"
-"PO-Revision-Date: 2015-05-20 12:21+0000\n"
+"POT-Creation-Date: 2015-05-20 15:58+0200\n"
+"PO-Revision-Date: 2015-05-20 16:10+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -188,11 +188,11 @@ msgstr ""
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:87
+#: view/layout/layout.phtml:88
 msgid "Help to translate YAWIK"
 msgstr "帮助翻译YAWIK"
 
-#: view/layout/layout.phtml:116
+#: view/layout/layout.phtml:117
 msgid "All rights reserved."
 msgstr "版权所有。"
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-16 20:42+0200\n"
-"PO-Revision-Date: 2015-05-20 12:23+0000\n"
+"POT-Creation-Date: 2015-05-20 15:58+0200\n"
+"PO-Revision-Date: 2015-05-20 16:10+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -37,13 +37,13 @@ msgid "Title of the job"
 msgstr "作业标题"
 
 #: view/mails/job-created.phtml:22 view/jobs/jobboard/index.ajax.phtml:14
-#: view/jobs/index/index.ajax.phtml:18 language/_annotated_strings.php:102
+#: view/jobs/index/index.ajax.phtml:18 language/_annotated_strings.php:105
 msgid "Location"
 msgstr "地点"
 
 #: view/mails/job-created.phtml:26 view/jobs/jobboard/index.ajax.phtml:13
-#: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:33
-#: language/_annotated_strings.php:45
+#: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:36
+#: language/_annotated_strings.php:48
 msgid "Companyname"
 msgstr "公司名称"
 
@@ -55,7 +55,7 @@ msgstr "出版商细节"
 msgid "Name"
 msgstr "名字"
 
-#: view/mails/job-created.phtml:39 language/_annotated_strings.php:72
+#: view/mails/job-created.phtml:39 language/_annotated_strings.php:75
 msgid "Email"
 msgstr "电子邮件"
 
@@ -128,7 +128,7 @@ msgid "All jobs"
 msgstr "所有职位"
 
 #: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
-#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:150
+#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:153
 msgid "Jobs"
 msgstr "乔布斯"
 
@@ -450,226 +450,226 @@ msgstr "现在申请"
 msgid "search for jobs"
 msgstr "搜索工作"
 
-#: language/_annotated_strings.php:6
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:9
 msgid "free"
 msgstr "免费"
 
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:183
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:186
 msgid "Your Homepage"
 msgstr "您的主页"
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:15
 msgid "Job qualification"
 msgstr "职业资格"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:18
 msgid "Job benefits"
 msgstr "工作福利"
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:21
 msgid "Job requirements"
 msgstr "职位要求"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:24
 msgid "Terms and conditions"
 msgstr "条款和条件"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:27
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:30
 msgid "terms an conditions"
 msgstr "条款的条件"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:33
 msgid "Title and job location"
 msgstr "标题和工作地点"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:39
 msgid "Please choose a descriptive title and a location for your job posting "
 msgstr "请选择适合您的职位发布一个描述性标题和位置"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:42
 msgid ""
 "Please choose the name of the hiring organization. The selected name defines"
 " the template of the job opening."
 msgstr "请选择招聘单位的名称。所选择的名称定义的职位空缺的模板。"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:45
 msgid "Please choose the portals, where you wish to publish your job opening."
 msgstr "请选择门户网站，在那里你想发布您的职位空缺。"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:51
 msgid "The name of the hiring organization will be shown in search results."
 msgstr "招聘组织的名称将显示在搜索结果中。"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:54
 msgid "Select hiring organization"
 msgstr "选择招聘机构"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:57
 msgid "Mode"
 msgstr "模式"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:60
 msgid "Built-In ATS"
 msgstr "内置ATS"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:63
 msgid "Use external link"
 msgstr "使用外部链接"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:66
 msgid "Get applications via email"
 msgstr "通过电子邮件获取应用程序"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:69
 msgid "Do not track"
 msgstr "不要跟踪"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:72
 msgid "URL"
 msgstr "网址"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:78
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:81
 msgid "Show all jobs"
 msgstr "显示所有作业"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:84
 msgid "Show my jobs"
 msgstr "显示我的工作"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:87
 msgid "All"
 msgstr "所有"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:90
 msgid "Active"
 msgstr "活跃"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:93
 msgid "Inactive"
 msgstr "待用"
 
-#: language/_annotated_strings.php:93 language/_annotated_strings.php:96
+#: language/_annotated_strings.php:96 language/_annotated_strings.php:99
 msgid "Job title"
 msgstr "职称"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:102
 msgid "Please enter the job title"
 msgstr "请输入职位"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:108
 msgid "Please enter the location of the job"
 msgstr "请输入作业的位置"
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:111
 msgid "Multiposting"
 msgstr "Multiposting"
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:114
 msgid "rejected"
 msgstr "拒绝"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:117
 msgid "publish"
 msgstr "发布"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:120
 msgid "active"
 msgstr "活跃"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:123
 msgid "inactive"
 msgstr "待用"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:126
 msgid "expired"
 msgstr "过期"
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:129
 #, php-format
 msgid "Job opening was rejected by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:129
+#: language/_annotated_strings.php:132
 #, php-format
 msgid "Job opening was activated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:132
+#: language/_annotated_strings.php:135
 #, php-format
 msgid "Job was deactivated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:138
 msgid "A new job opening was created"
 msgstr "创建了一个新的职位空缺"
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:141
 msgid "Your Job have been wrapped up for approval"
 msgstr "你的工作已经结束了审批"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:144
 msgid "Your job has been published"
 msgstr "你的工作已发布"
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:147
 msgid "Your job has been rejected"
 msgstr "你的工作已被拒绝"
 
-#: language/_annotated_strings.php:147 language/_annotated_strings.php:162
+#: language/_annotated_strings.php:150 language/_annotated_strings.php:165
 msgid "Jobboard"
 msgstr "Jobboard"
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:156
 msgid "Overview"
 msgstr "概观"
 
-#: language/_annotated_strings.php:156
+#: language/_annotated_strings.php:159
 msgid "Create job"
 msgstr "创造就业"
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:162
 msgid "Edit job"
 msgstr "编辑工作"
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:168
 msgid "publish your job on yawik.org for free"
 msgstr "在yawik.org免费发布您的工作"
 
-#: language/_annotated_strings.php:168 language/_annotated_strings.php:177
+#: language/_annotated_strings.php:171 language/_annotated_strings.php:180
 #, php-format
 msgid "publish the job for 30 days on %s"
 msgstr ""
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:174
 msgid "yawik.org"
 msgstr "yawik.org"
 
-#: language/_annotated_strings.php:174
+#: language/_annotated_strings.php:177
 msgid "publish your job on Jobsintown. 199,-€"
 msgstr "公布Jobsintown你的工作。 199， - €"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "www.jobsintown.de"
 msgstr "www.jobsintown.de"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 msgid "enable integration of this job on your Homepage"
 msgstr "在您的主页启用集成这项工作的"
 
-#: language/_annotated_strings.php:189
+#: language/_annotated_strings.php:192
 #, php-format
 msgid "enable %s of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "integration"
 msgstr "积分"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 19:02+0200\n"
-"PO-Revision-Date: 2015-04-29 17:22+0000\n"
+"POT-Creation-Date: 2015-05-20 15:59+0200\n"
+"PO-Revision-Date: 2015-05-20 14:02+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/projects/p/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +98,16 @@ msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
 msgstr "إبقاء ما يصل إلى موعد مع عملية التطبيق الخاص بك عن طريق ارتباطك هذا الرابط:"
+
+#: view/applications/apply/index.phtml:99
+msgid "This is a preview of the application form for your job"
+msgstr ""
+
+#: view/applications/apply/index.phtml:100
+msgid ""
+"You may expand any section and check the available fields, but you can not "
+"save anything."
+msgstr ""
 
 #: view/applications/apply/_buttons.phtml:20
 msgid ""
