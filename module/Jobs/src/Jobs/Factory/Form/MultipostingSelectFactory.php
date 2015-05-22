@@ -31,6 +31,7 @@ class MultipostingSelectFactory implements FactoryInterface
          * @var $headscript     \Zend\View\Helper\HeadScript
          * @var $channels       \Jobs\Options\ProviderOptions */
         $services = $serviceLocator->getServiceLocator();
+        $router = $services->get('Router');
         $select  = new MultipostingSelect();
         $helpers = $services->get('ViewHelperManager');
         $headscript = $helpers->get('headscript');
@@ -42,17 +43,31 @@ class MultipostingSelectFactory implements FactoryInterface
         $options = array();
 
 
+        $groups = array();
         foreach ($channels as $name=>$channel) {
             /* @var $channel \Jobs\Options\ChannelOptions */
 
-            $options[$channel->getKey()] =  $channel->getLabel() . '|'
+            $category = $channel->getCategory();
+
+            if (!isset($groups[$category])) {
+                $groups[$category] = array('label' => $category);
+            }
+
+            $link = $router->assemble($channel->getParams(), array('name' => $channel->getRoute()));
+            $groups[$category]['options'][$channel->getKey()] =
+                              $channel->getLabel() . '|'
                             . $channel->getHeadLine() . '|'
                             . $channel->getDescription() . '|'
-                            . $channel->getLinkText();
+                            . $channel->getLinkText() . '|'
+                            . $link . '|' . $channel->getPublishDuration();
         }
 
-        $select->setAttribute('data-autoinit', 'false');
-        $select->setValueOptions($options);
+
+        $select->setAttributes(array(
+            'data-autoinit' => 'false',
+            'multiple' => 'multiple'
+        ));
+        $select->setValueOptions($groups);
 
         return $select;
     }

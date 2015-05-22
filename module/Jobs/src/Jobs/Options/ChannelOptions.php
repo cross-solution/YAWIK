@@ -65,6 +65,13 @@ class ChannelOptions extends AbstractOptions {
     protected $publishDuration=30;
 
     /**
+     * Category for this channel
+     *
+     * @var string
+     */
+    protected $category = 'General';
+
+    /**
      * descriptive title of the channel
      *
      * @var string $title
@@ -239,6 +246,32 @@ class ChannelOptions extends AbstractOptions {
         $this->publishDuration = $publishDuration;
         return $this;
     }
+
+    /**
+     * Sets the category name.
+     *
+     * @param string $category
+     *
+     * @return self
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Gets the category name.
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+
 
     /**
      * Gets the headline of the channel

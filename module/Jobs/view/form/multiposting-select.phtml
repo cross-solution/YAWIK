@@ -18,23 +18,29 @@ if ($this->renderSummary):?>
         $options = $this->element->getValueOptions();
         $valueKey= $this->element->getValue();
 
-        if ($valueKey):
-            $value   = $options[$valueKey];
+        $activePortals = array();
+        if ($valueKey && !empty($valueKey)):
+            foreach ($options as $category => $categoryOptions):
+                foreach ($categoryOptions['options'] as $channelName => $channel):
+                    if (in_array($channelName, $valueKey)):
+                        $activePortals[$category][$channelName] = $channel;
+                    endif;
+                endforeach;
+            endforeach;
 
-            $data    = explode('|', $value);
-            $info    = array();
+            foreach ($activePortals as $category => $channels):
 
-            if ($data[1]):
-                $info[] = $data[1];
-            endif;
+                ?><h6><?php echo $category ?></h6>
+                <?php foreach ($channels as $name => $spec):
+                    $data = explode('|', $spec);
+                    ?><p><strong><?php echo $data[0] ?> &mdash; <?php echo $data[1] ?></strong><br>
+                      <small><?php echo sprintf($data[2], '<a href="' . $data[4] . '">' . $data[3] . '</a>') ?></small>
+                </p><?php endforeach;
+            endforeach;
 
-            if ($data[2]):
-                $info[] = $data[2] . ($data[3] ? ' ' . $data[3] : '');
-            endif;
-            ?>
-        <strong><?php echo $data[0] ?></strong><br>
-        <small><?php echo implode(', ', $info) ?></small>
-        <?php endif ?>
+
+
+        endif; ?>
     </div>
 </div>
 

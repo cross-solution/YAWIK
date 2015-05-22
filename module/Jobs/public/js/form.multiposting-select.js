@@ -15,18 +15,25 @@
 
     function displayResult(item)
     {
-        var data = parseTextToJson(item.text);
-        var address = (data.city ? data.city + ', ' : '')
-                    + (data.street ? data.street + ' ' + data.number : '');
+        if (item.children) {
+            return item.text;
+        }
 
-        return $('<strong>' + data.name + '</strong><br><small>' + address + '</small>');
+        console.debug(item);
+        var data = parseTextToJson(item.text);
+    console.debug(data);
+
+        var link = '<a href="' + data.link + '">' + data.linkText + '</a>';
+        var desc = data.desc.replace(/%s/, link);
+
+        return $('<strong>' + data.name + ' - ' + data.headline + '</strong><br><small>' + desc + '</small>');
     }
 
     function displaySelection(item)
     {
         var data = parseTextToJson(item.text);
 
-        return data.name;
+        return data.name + ' ( ' + data.duration + ' )';
     }
 
     function parseTextToJson(text)
@@ -35,9 +42,11 @@
 
         return {
             name: textArr[0],
-            city: textArr[1],
-            street: textArr[2],
-            number: textArr[3]
+            headline: textArr[1],
+            desc: textArr[2],
+            linkText: textArr[3],
+            link: textArr[4],
+            duration: textArr[5]
         };
     }
 
@@ -45,14 +54,15 @@
     $(function() {
         var $select = $('#jobPortals-channel');
         var data = $select.data();
-        var $eventSelect = $(".js-example-events");
+        //var $eventSelect = $(".js-example-events");
 
         $select.select2({
-            allowClear: false,
+            //allowClear: true,
             placeholder: data.placeholder,
             formatResult: displayResult,
             formatSelection: displaySelection
         });
+        console.debug($select);
     });
 
 })(jQuery);
