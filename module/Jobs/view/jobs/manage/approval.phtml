@@ -32,7 +32,7 @@ $channels = $sm->get('Jobs/Options/Provider');
                 </tr>
                 <?php foreach($this->job->portals as $channel):?>
                     <?php if($channel['active']):?>
-                        <?php $channelData=$channels->getChannel($portalName); ?>
+                        <?php $channelData=$channels->getChannel($channel['name']); ?>
                         <tr>
                             <td><?php echo $channelData->label ?></td>
                             <td><?php echo $channelData->price ?> <?php echo $channelData->currency ?></td>
