@@ -87,14 +87,14 @@ if ($this->page == 2):
                         <th><?php echo $this->translate('Price')?></th>
                     </tr>
                     <?php foreach($this->job->portals as $channel):?>
-                        <?php if($channel['active']):?>
-                            <?php $channelData=$channels->getChannel($channel['name']); ?>
+                        <?php foreach($channel['active'] as $name):?>
+                            <?php $channelData=$channels->getChannel($name); ?>
                         <tr>
                             <td><?php echo $channelData->label?></td>
                             <td class="text-right"><?php echo $channelData->price?> <?php echo $channelData->currency?>  </td>
                             <?php $total+=$channelData->price;?>
                         </tr>
-                        <?php endif;?>
+                        <?php endforeach;?>
                     <?php endforeach;?>
                     <tr>
                         <td><?php echo $this->translate("Total")?></td>
