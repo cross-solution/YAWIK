@@ -28,20 +28,23 @@ class UserUniqueTokenGenerator
         $this->repositoryService = $repositoryService;
     }
 
-    public function generate(UserInterface $user)
+    public function generate(UserInterface $user, $daysToLive = 1, $storeUser = true)
     {
         $tokenHash = Rand::getString(64, $this->charList);
+        $dateStr   = sprintf('+ %d day', $daysToLive);
 
-        $expirationDate = new \Datetime();
-        $expirationDate->modify('+1 day');
+        $expirationDate = new \Datetime($dateStr);
 
+        /* @todo We should consider using the Prototype Design Pattern here. */
         $token = new Token();
         $token->setHash($tokenHash)
             ->setExpirationDate($expirationDate);
 
         $user->getTokens()->add($token);
 
-        $this->repositoryService->store($user);
+        if ($storeUser) {
+            $this->repositoryService->store($user);
+        }
 
         return $tokenHash;
     }
