@@ -10,14 +10,25 @@
 
 namespace Jobs\Form;
 
-use Core\Form\BaseForm;
+use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\propagateAttributeInterface;
 
 
-class Multipost extends BaseForm implements propagateAttributeInterface
+class Multipost extends SummaryForm implements propagateAttributeInterface
 {
+    /**
+     * Fieldset of the SummaryForm
+     *
+     * @var string
+     */
     protected $baseFieldset = 'Jobs/MultipostFieldset';
+
+    /**
+     * Header of the SummaryForm
+     *
+     * @var string
+     */
     protected $label = /*@translate*/ 'Multiposting';
 
     public function getHydrator()
@@ -29,13 +40,13 @@ class Multipost extends BaseForm implements propagateAttributeInterface
         return $this->hydrator;
     }
 
-    /**
-     * overwrite this method to do nothing
-     * this blends out the Buttons
-     */
-    protected function addButtonsFieldset()
-    {
-    }
+//    /**
+//     * overwrite this method to do nothing
+//     * this blends out the Buttons
+//     */
+//    protected function addButtonsFieldset()
+//    {
+//    }
 
     public function enableAll($enable = true)
     {

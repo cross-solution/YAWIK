@@ -193,6 +193,7 @@ return array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
             'jobs/form/hiring-organization-select' => __DIR__ . '/../view/form/hiring-organization-select.phtml',
+            'jobs/form/multiposting-select' => __DIR__ . '/../view/form/multiposting-select.phtml',
             'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
             'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
             'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
@@ -251,7 +252,6 @@ return array(
             'Jobs/CompanyNameElement'           => 'Jobs\Form\CompanyNameElement',
             'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
             'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
-            'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
         ),
@@ -259,6 +259,7 @@ return array(
             'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
+            'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',
         )
     ),
     
