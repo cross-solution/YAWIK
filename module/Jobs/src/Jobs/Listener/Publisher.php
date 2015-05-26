@@ -96,11 +96,40 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
         if ($serviceManager->has('Jobs/RestClient')) {
             try {
                 $restClient = $serviceManager->get('Jobs/RestClient');
+                $provider = $serviceManager->get('Jobs/Options/Provider');
 
                 $entity = $e->getJobEntity();
-                $hydrator = $serviceManager->get('Jobs/JsonJobsEntityHydrator');
-                $json = $hydrator->extract($entity);
-                $restClient->setRawBody($json);
+
+                // all this is very alpha and will be due to several changes
+
+                // needed by now are (naming according to the Provider):
+                //   applyId           = to identify the job back in the provider
+                //   company           = name of the company
+                //   title             =
+                //   description       =
+                //   location          = zip and town-name
+                //   datePublishStart  = in a comprehensibly format for \DateTime
+                //   channels          = array of externalIds
+                $data = array(
+                    'applyId'          => $entity->applyId,
+                    'company'          => $entity->organization->name,
+                    'title'            => $entity->title,
+                    'description'      => $entity->description,
+                    'location'         => $entity->location,
+                    'datePublishStart' => $entity->datePublishStart,
+                    'channels'         => array()
+                );
+                //$hydrator = $serviceManager->get('Jobs/JobsEntityHydrator');
+                //$data = $hydrator->extract($entity);
+
+                foreach ($entity->portals as $portalName => $portal) {
+                    if (array_key_exists($portal, $provider->channels)) {
+                        $data['channels'][] = $provider->channels[$portal]->externalkey;
+                    }
+                }
+
+                $dataJson = json_encode($data);
+                $restClient->setRawBody($dataJson);
                 $response = $restClient->send();
                 // @TODO: statusCode is not stored, there is simply no mechanism to track external communication.
                 $StatusCode = $response->getStatusCode();

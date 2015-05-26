@@ -33,6 +33,7 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     public function __construct()
     {
         $this->channels = array();
+        //$this->long_label = '';
     }
 
     /**
@@ -62,4 +63,13 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     {
         return $this->channels[$key];
     }
+
+    /**
+     * @return array
+     */
+    public function getChannels()
+    {
+        return $this->channels;
+    }
+
 }

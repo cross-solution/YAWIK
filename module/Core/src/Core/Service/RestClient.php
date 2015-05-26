@@ -42,7 +42,8 @@ class RestClient extends ZendClient
                 'encodecookies' => False,
                 'outputstream' => False,
                 'httpversion' => Request::VERSION_11,
-                'storeresponse' => False
+                'storeresponse' => False,
+                'maxredirects' => 2
             ),
             $config);
 
@@ -88,16 +89,8 @@ class RestClient extends ZendClient
      * @return mixed
      */
     protected function authetificate() {
-        if (!array_key_exists('PHP_AUTH_USER', $this->config)) {
-            throw new \RuntimeException('PHP_AUTH_USER missing', 500);
-        }
-        if (!array_key_exists('PHP_AUTH_PW', $this->config)) {
-            throw new \RuntimeException('PHP_AUTH_PW missing', 500);
-        }
-
-        $auth = $this->config['PHP_AUTH_USER'];
-        $pw = $this->config['PHP_AUTH_PW'];
-        unset($this->config['PHP_AUTH_USER'], $this->config['PHP_AUTH_PW']);
-        return $this->setAuth($auth, $pw);
+        $auth = array_key_exists('user', $this->config)?$this->config['user']:'';
+        $pass = array_key_exists('pass', $this->config)?$this->config['pass']:'';
+        return $this->setAuth($auth, $pass);
     }
 }
