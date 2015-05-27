@@ -10,13 +10,13 @@
 
 namespace Jobs\Entity\Hydrator;
 
-use Core\Entity\Hydrator\JsonEntityHydratorFactory;
+use Core\Entity\Hydrator\EntityHydratorFactory;
 
 /**
  * Class JsonJobsEntityHydratorFactory
  * @package Jobs\Entity\Hydrator
  */
-class JsonJobsEntityHydratorFactory extends JsonEntityHydratorFactory
+class JobsEntityHydratorFactory extends EntityHydratorFactory
 {
     /**
      *

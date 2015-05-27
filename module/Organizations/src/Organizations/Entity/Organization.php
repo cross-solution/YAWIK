@@ -213,6 +213,15 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->organizationName;
     }
 
+
+    public function getName()
+    {
+        if (empty($this->organizationName)) {
+            return '';
+        }
+        return $this->organizationName->name;
+    }
+
     public function getSearchableProperties()
     {
         return array();

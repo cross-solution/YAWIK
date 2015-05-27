@@ -29,25 +29,35 @@ class JobsPublisherFactory extends RestClientFactory
 
     protected function getUri() {
         $config = $this->getConfig();
-        if (!array_key_exists('uri', $config)) {
-            throw new \RuntimeException('uri for Rest-Server YAWIK is missing', 500);
+        if (!array_key_exists('scheme', $config)) {
+            throw new \RuntimeException('scheme is missing', 500);
         }
-        return $config['uri'];
+        if (!array_key_exists('host', $config)) {
+            throw new \RuntimeException('host is missing', 500);
+        }
+        if (!array_key_exists('path', $config)) {
+            throw new \RuntimeException('path is missing', 500);
+        }
+        return $config['scheme'] . '://' . $config['host'] . '/' . $config['path'];
     }
 
+    /**
+     *
+     * 'PHP_AUTH_USER' => $user,
+     * 'PHP_AUTH_PW' => $password,
+     *
+     * @return mixed
+     */
     protected function getConfig() {
-        if (!isset($this->config)) {
-            $config = $this->serviceLocator->get('Config');
-            if (!array_key_exists('multiposting', $config)) {
-                throw new \RuntimeException('configuration for multiposting is missing', 500);
-            }
-            if (!array_key_exists('target', $config['multiposting'])) {
-                throw new \RuntimeException('target for multiposting is missing', 500);
-            }
-            if (!array_key_exists('restServer', $config['multiposting']['target'])) {
-                throw new \RuntimeException('configuration restServer for multiposting.target is missing', 500);
-            }
-            $this->config = $config['multiposting']['target']['restServer'];
+        $jobsOptions = $this->serviceLocator->get('Jobs/Options');
+
+        if (!isset($this->multipostingTarget) && isset($jobsOptions->multipostingTargetUri)) {
+            // The Uri has this Form
+            // scheme://user:pass@host/path
+            $parseResult = parse_url($jobsOptions->multipostingTargetUri);
+            $this->config = $parseResult;
+            //$this->config['PHP_AUTH_USER'] = $parseResult['user'];
+            //$this->config['PHP_AUTH_PW'] = $parseResult['pass'];
         }
         return $this->config;
     }

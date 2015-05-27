@@ -29,6 +29,11 @@ class ChannelOptions extends AbstractOptions {
     protected $key;
 
     /**
+     * @var
+     */
+    protected $externalkey = 0;
+
+    /**
      * Price of the channel.
      *
      * @var int $price
@@ -151,6 +156,28 @@ class ChannelOptions extends AbstractOptions {
         }
 
         return $price . ' ' . $currency;
+    }
+
+    /**
+     * Sets the unique key of a channel
+     *
+     * @param string $key
+     * @return ChannelOptions
+     */
+    public function setExternalkey($key)
+    {
+        $this->externalkey=$key;
+        return $this;
+    }
+
+    /**
+     * Gets the unique key of a channel
+     *
+     * @return string
+     */
+    public function getExternalkey()
+    {
+        return $this->externalkey;
     }
 
     /**

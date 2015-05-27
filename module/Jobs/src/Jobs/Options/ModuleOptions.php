@@ -36,7 +36,7 @@ class ModuleOptions extends AbstractOptions {
      *
      * @var string $multipostingTargetUri
      */
-    protected $multipostingTargetUri;
+    protected $multipostingTargetUri = 'http://user:pass@host/location?query';
 
     /**
      * The default Logo is shown in a job opening and in the application form
