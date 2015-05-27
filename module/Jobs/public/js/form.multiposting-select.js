@@ -13,30 +13,103 @@
 ;
 (function ($) {
 
+    var resultTmpl = null;
+    var selectTmpl = null;
+    var numberFormat = {
+        'delimiter': ',',
+        'decimal': '.'
+    };
+
+
     function displayResult(item)
     {
         if (item.children) {
             return item.text;
         }
 
-        console.debug(item);
-        var data = parseTextToJson(item.text);
-    console.debug(data);
+        var data = $.fn.multipostingSelect.getOptionData(item.text);
 
         var link = '<a href="' + data.link + '">' + data.linkText + '</a>';
-        var desc = data.desc.replace(/%s/, link);
+        data.desc = data.desc.replace(/%s/, link);
 
-        return $('<strong>' + data.name + ' - ' + data.headline + '</strong><br><small>' + desc + '</small>');
+        return tmpl(resultTmpl, data);
     }
 
     function displaySelection(item)
     {
-        var data = parseTextToJson(item.text);
+        var data = $.fn.multipostingSelect.getOptionData(item.text);
 
-        return data.name + ' ( ' + data.duration + ' )';
+        return tmpl(selectTmpl, data);
     }
 
-    function parseTextToJson(text)
+    function updatePrice(e)
+    {
+        var $select  = $(e.target);
+        var selected = $select.find('option:selected');
+        var sum      = $.fn.multipostingSelect.calculatePrice(selected);
+        var price    = $.fn.multipostingSelect.formatPrice(sum, numberFormat);
+
+        $('#' + $select.attr('id') + '-total span').text(price);
+
+    }
+
+    function tmpl(template, vars)
+    {
+        for (var key in vars) {
+            var search = new RegExp('%' + key, 'gi');
+            template = template.replace(search, vars[key]);
+        }
+
+        return template;
+    }
+
+    $(function() {
+        var $select = $('#jobPortals-portals');
+        var data = $select.data();
+
+        // get templates
+        var id = $select.attr('id');
+        resultTmpl = $('span#' + id + '-result-tmpl').data('template');
+        selectTmpl = $('span#' + id + '-select-tmpl').data('template');
+        numberTmpl = $('span#' + id + '-currency-tmpl').data('template');
+        numberFormat.delimiter = numberTmpl.substr(1,1);
+        numberFormat.decimal   = numberTmpl.substr(5,1);
+
+        $select.select2({
+            //allowClear: true,
+            placeholder: data.placeholder,
+            formatResult: displayResult,
+            formatSelection: displaySelection
+        });
+
+        $select.on("change", updatePrice);
+        $select.trigger('change');
+    });
+
+    $.fn.multipostingSelect = {};
+    $.fn.multipostingSelect.formatPrice = function(price, numberFormat)
+    {
+        price = price.toFixed(2)
+            .replace(".", numberFormat.decimal)
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1" + numberFormat.delimiter);
+
+        return price;
+
+    };
+
+    $.fn.multipostingSelect.calculatePrice = function(selectedOptions)
+    {
+        var sum = 0;
+
+        for (var i= 0, c=selectedOptions.length; i<c; i+=1) {
+            var data = $.fn.multipostingSelect.getOptionData($(selectedOptions[i]).text());
+            sum += data.price;
+        }
+
+        return sum;
+    };
+
+    $.fn.multipostingSelect.getOptionData = function(text)
     {
         var textArr = text.split('|');
 
@@ -46,24 +119,12 @@
             desc: textArr[2],
             linkText: textArr[3],
             link: textArr[4],
-            duration: textArr[5]
+            duration: textArr[5],
+            nicePrice: textArr[6],
+            price: parseFloat(textArr[7])
+
         };
-    }
-
-
-    $(function() {
-        var $select = $('#jobPortals-channel');
-        var data = $select.data();
-        //var $eventSelect = $(".js-example-events");
-
-        $select.select2({
-            //allowClear: true,
-            placeholder: data.placeholder,
-            formatResult: displayResult,
-            formatSelection: displaySelection
-        });
-        console.debug($select);
-    });
+    };
 
 })(jQuery);
 

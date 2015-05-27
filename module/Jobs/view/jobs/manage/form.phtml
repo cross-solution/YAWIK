@@ -81,25 +81,41 @@ if ($this->page == 2):
             <div class="panel panel-default">
                 <?php $this->translate('Your job opening is ready to be published to the following channels');?>
                 <?php $total=0 ?>
-                <table class="table table-bordered">
-                    <tr>
-                        <th><?php echo $this->translate('Channel')?></th>
-                        <th><?php echo $this->translate('Price')?></th>
-                    </tr>
-                    <?php foreach($this->job->portals as $channel):?>
-                        <?php foreach($channel['active'] as $name):?>
-                            <?php $channelData=$channels->getChannel($name); ?>
+                <table class="table table-bordered table-condensed">
+                    <?php $this->plugin('currencyFormat')->setCurrencyCode('EUR');
+
+                    $portals = array();
+                    foreach($this->job->portals as $channelName):
+
+                            $channelData=$channels->getChannel($channelName);
+                            $portals[$channelData->getCategory()][] = $channelData;
+                    endforeach;
+
+                    foreach ($portals as $category => $channels):?>
+                        <thead>
+                            <tr>
+                                <th><?php echo $category ?></th>
+                                <th class="text-right"><?php echo $this->translate('Price') ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($channels as $channel): ?>
+
                         <tr>
-                            <td><?php echo $channelData->label?></td>
-                            <td class="text-right"><?php echo $channelData->price?> <?php echo $channelData->currency?>  </td>
-                            <?php $total+=$channelData->price;?>
+                            <td><?php echo $channel->label?></td>
+                            <td class="text-right"><?php echo $this->currencyFormat($channel->price)?> </td>
+                            <?php $total+=$channel->price;?>
                         </tr>
-                        <?php endforeach;?>
+                         <?php endforeach; ?>
+                        </tbody>
+
                     <?php endforeach;?>
+                    <tfoot>
                     <tr>
-                        <td><?php echo $this->translate("Total")?></td>
-                        <td class="text-right"><span class="label label-default"><?php echo $total ?> <?php echo $channelData->currency ?></span></td>
+                        <th><?php echo $this->translate("Total")?></th>
+                        <th class="text-right"><b><?php echo $this->currencyFormat($total) ?></b></th>
                     </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

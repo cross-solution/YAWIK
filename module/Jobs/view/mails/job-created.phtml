@@ -62,18 +62,18 @@ $sum = 0;
 <?php else: ?>
     <h2><?php echo $this->translate("Selected Channels") ?></h2>
     <table>
-        <?php foreach ($this->job->portals as $portalName => $portal): ?>
-            <?php if (!empty($portal['active'])): ?>
+        <?php foreach ($this->job->portals as $portalName): ?>
+
                 <?php $channelData=$channels->getChannel($portalName); ?>
                 <tr>
                     <td><?php echo $channelData->label ?></td>
-                    <td><?php echo $channelData->price ?> <?php echo $channelData->currency ?></td>
+                    <td><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
                 </tr>
                 <?php $sum += (int) $channelData->price; ?>
-            <?php endif; ?>
+
         <?php endforeach; ?>
-        <tr><td>Preis (netto)</td><td><?php print(round($sum / 1.19,2)) ?></td></tr>
-        <tr><td>MwSt (19%)</td><td><?php print($sum - round($sum / 1.19,2)) ?></td></tr>
+        <tr><td>Preis (netto)</td><td><?php echo $this->currencyFormat(round($sum / 1.19,2), 'EUR')  ?></td></tr>
+        <tr><td>MwSt (19%)</td><td><?php echo $this->currencyFormat(($sum - round($sum / 1.19,2)), 'EUR') ?></td></tr>
     </table>
 <?php endif; ?>
 
