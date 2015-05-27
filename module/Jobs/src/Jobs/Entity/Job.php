@@ -261,7 +261,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * Can contain various Portals
      *
      * @var array
-     * @ODM\Hash*/
+     * @ODM\Collection*/
     protected $portals = array();
 
     /**

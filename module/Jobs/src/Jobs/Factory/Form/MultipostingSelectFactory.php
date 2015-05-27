@@ -59,7 +59,9 @@ class MultipostingSelectFactory implements FactoryInterface
                             . $channel->getHeadLine() . '|'
                             . $channel->getDescription() . '|'
                             . $channel->getLinkText() . '|'
-                            . $link . '|' . $channel->getPublishDuration();
+                            . $link . '|' . $channel->getPublishDuration() . '|'
+                            . $channel->getFormattedPrice() . '|'
+                            . $channel->getPrice();
         }
 
 

@@ -117,7 +117,11 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
 				this.$summaryContainer.hide().css('opacity', 0);
 			}
 			
-			this.$formContainer.find('form').on('yk.forms.done', $.proxy(this.submit, this));
+			this.$formContainer.find('form').on('yk.forms.done', $.proxy(this.submit, this))
+                                            .find(':input')
+                                            .change(function(e) {
+                                                $(e.target).parents('.sf-container').addClass("yk-changed");
+                                            });
 			this.$formContainer.find('.sf-cancel').click($.proxy(this.cancel, this));
 			
 		}
@@ -137,61 +141,55 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
     /**
      * ensures that all forms in the summary-form are saved before executing a link
      */
-    $.fn.summaryformEnsureSave = function ()
+    $.fn.summaryform.ensureSave = function (event)
     {
-        //console.log("a onClick", this);
-        $(this).click(function(event) {
-            var returnValue = true;
-            var eventTarget = event.target;
-            $(".sf-container").each(function() {
-                var containers = $(this);
-                if (containers.hasClass("yk-changed")) {
-                    //console.log("test-container", containers, containers.hasClass("yk-changed"));
-                    var sfForm = $(this).find(".sf-form");
-                    var sfSummary = $(this).find(".sf-summary");
-                    var title = $(this).find(".sf-headline").text();
-                    if (sfForm.length == 1 && sfSummary.length == 1) {
-                        //console.log(title, sfForm.css("display"), sfSummary.css("display"));
-                        if (sfForm.css("display") == "block" && sfSummary.css("display") == "none") {
-                            var res = confirm("Form '" + title + "' has not been saved\ncontinue ?");
-                            if (!res) {
-                                // set the return-value and end the loop, so that you don't have to go through all other open forms
-                                returnValue = false;
-                                // this return is intentional, it ends the each loop primarily - like a break statement would end a normal for-loop
-                                return false;
-                            }
-                            else {
-                                containers.removeClass('yk-changed');
-                            }
+        var returnValue = true;
+        var eventTarget = event.target;
+
+        if (eventTarget.href.match(/#/)) {
+            return true;
+        }
+
+        $(".sf-container").each(function() {
+            var containers = $(this);
+            if (containers.hasClass("yk-changed")) {
+                //console.log("test-container", containers, containers.hasClass("yk-changed"));
+                var sfForm = $(this).find(".sf-form");
+                var sfSummary = $(this).find(".sf-summary");
+                var title = $(this).find(".sf-headline").text();
+                if (sfForm.length == 1 && sfSummary.length == 1) {
+                    //console.log(title, sfForm.css("display"), sfSummary.css("display"));
+                    if (sfForm.css("display") == "block" && sfSummary.css("display") == "none") {
+                        var res = confirm("Form '" + title + "' has not been saved\ncontinue ?");
+                        if (!res) {
+                            // set the return-value and end the loop, so that you don't have to go through all other open forms
+                            returnValue = false;
+                            // this return is intentional, it ends the each loop primarily - like a break statement would end a normal for-loop
+                            return false;
+                        }
+                        else {
+                            containers.removeClass('yk-changed');
                         }
                     }
                 }
-            });
-            //console.log("returnValue", returnValue);
-
-            // test for not saved tinyMC-Editoren in the iFrame
-            returnValue = returnValue && holdupRefUntiliFramesAreSaved(eventTarget, false);
-
-            return returnValue;
+            }
         });
-    }
+        //console.log("returnValue", returnValue);
 
-    $.fn.markChangeTrigger = function ()
-    {
-        $(this).find(":input").change(function(event) {
-            var target = event.target;
-            console.log('changed', target);
-            $(target).parents(".sf-container").addClass("yk-changed");
-        });
-    }
+        // test for not saved tinyMC-Editoren in the iFrame
+        returnValue = returnValue && holdupRefUntiliFramesAreSaved(eventTarget, false);
+
+        return returnValue;
+
+    };
 
     /**
      * initialize on DocumentReady here
      */
 	$(function() {
         $(".sf-container").summaryform();
-        $("a").summaryformEnsureSave();
-        $(".sf-container").markChangeTrigger();
+        $("a").click($.fn.summaryform.ensureSave);
+        //$(".sf-container").markChangeTrigger();
     });
 	
 })(jQuery);
