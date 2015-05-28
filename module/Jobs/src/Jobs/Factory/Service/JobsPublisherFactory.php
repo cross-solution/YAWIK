@@ -56,8 +56,6 @@ class JobsPublisherFactory extends RestClientFactory
             // scheme://user:pass@host/path
             $parseResult = parse_url($jobsOptions->multipostingTargetUri);
             $this->config = $parseResult;
-            //$this->config['PHP_AUTH_USER'] = $parseResult['user'];
-            //$this->config['PHP_AUTH_PW'] = $parseResult['pass'];
         }
         return $this->config;
     }

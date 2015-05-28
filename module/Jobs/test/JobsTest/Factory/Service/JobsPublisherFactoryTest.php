@@ -22,12 +22,18 @@ class JobsPublisherFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $testedObj;
 
+    private $mockJobsOptions;
+
     /**
      *
      */
     public function setUp()
     {
         $this->testedObj = new JobsPublisherFactory();
+        $this->mockJobsOptions = $this->getMockBuilder('Jobs\Options\ModuleOptions')
+                     ->disableOriginalConstructor()
+                     ->getMock();
+
     }
 
     /**
@@ -38,12 +44,11 @@ class JobsPublisherFactoryTest extends \PHPUnit_Framework_TestCase
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
 
+        $config = $this->mockJobsOptions;
 
-        $config=$sm->get('Config');
-        $config['multiposting']=array("target"=> array("restServer"=> array("uri"=>"http://test.de",
-            'PHP_AUTH_USER'=>'user',
-            'PHP_AUTH_PW' => 'secret')));
-        $sm->setService('Config',$config);
+        $config->method('__isset')->with('multipostingTargetUri')->willReturn(True);
+        $config->method('__get')->with('multipostingTargetUri')->willReturn('http://user:pass@host/path');
+        $sm->setService('Jobs/Options',$config);
 
         $result = $this->testedObj->createService($sm);
         $this->assertInstanceOf('Core\Service\RestClient', $result);
