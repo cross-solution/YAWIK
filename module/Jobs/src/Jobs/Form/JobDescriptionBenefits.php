@@ -46,6 +46,7 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
             'name' => 'description-benefits',
             'options' => array(
                 'use_as_base_fieldset' => true,
+                'placeholder' => 'Benefits'
             ),
         ));
 

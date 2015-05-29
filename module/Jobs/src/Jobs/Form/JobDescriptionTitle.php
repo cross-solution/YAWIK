@@ -46,6 +46,7 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
             'name' => 'description-title',
             'options' => array(
                 'use_as_base_fieldset' => true,
+                'placeholder' => 'Title'
             ),
         ));
 

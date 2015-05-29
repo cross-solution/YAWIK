@@ -27,6 +27,7 @@ class FormEditor extends FormTextarea
 
     public function render(ElementInterface $element)
     {
+        $translator = $this->getTranslator();
         $name   = $element->getName();
         if (empty($name) && $name !== 0) {
             throw new Exception\DomainException(sprintf(
@@ -57,6 +58,7 @@ class FormEditor extends FormTextarea
                 selector : "div.tinymce_' . $this->getTheme() . '",
                 inline : true,
                 theme : "modern",
+                placeholder: "crumber23",
                 plugins: [
                     "advlist autolink lists charmap anchor",
                     "searchreplace visualblocks code fullscreen",
@@ -64,9 +66,24 @@ class FormEditor extends FormTextarea
                 ],
                 removed_menuitems: "newdocument",' . PHP_EOL
                 . $this->additionalOptions() .
+
                 'setup: function(editor) {
-                    //console.log("editor", editor);
+                    setPlaceHolder = function(editor, show) {
+                        placeHolder = $("#placeholder-" + editor.id);
+                        if (placeHolder.length == 1) {
+                            if (show && editor.getContent() == "") {
+                                placeHolder.show();
+                            }
+                            else {
+                                placeHolder.hide();
+                            }
+                         }
+                    },
+                    editor.on("focus", function(e) {
+                        setPlaceHolder(editor, false);
+                    });
                     editor.on("blur", function(e) {
+                        setPlaceHolder(editor, true);
                         if (editor.isDirty()) {
                             //console.log("blur event", e);
                             editor.save();
@@ -100,8 +117,14 @@ class FormEditor extends FormTextarea
             $class = array_key_exists('class',$attributes)?$attributes['class']:'';
             $class .= (empty($class)?:' ') . ' tinymce_' . $this->getTheme() ;
             $attributes['class'] = $class;
-
-            return sprintf(
+            $placeHolder = '';
+            $elementOptions = $element->getOptions();
+            if (array_key_exists('placeholder', $elementOptions) && !empty($elementOptions['placeholder'])) {
+                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 2ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $elementOptions['placeholder'] . '</div>';
+            }
+            return
+                $placeHolder
+                . sprintf(
                 '<div %s >%s</div>',
                 $this->createAttributesString($attributes),
                 $content
