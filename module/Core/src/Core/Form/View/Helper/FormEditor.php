@@ -13,37 +13,24 @@ namespace Core\Form\View\Helper;
 use Zend\Form\View\Helper\FormTextarea;
 use Zend\Form\ElementInterface;
 
+
 class FormEditor extends FormTextarea
 {
-
     protected $theme = 'modern';
-    /*
-    public function __invoke(ElementInterface $element = null)
-    {
 
-    }
-    */
-
+    protected $translator;
 
     public function render(ElementInterface $element)
     {
-        $translator = $this->getTranslator();
         $name   = $element->getName();
         if (empty($name) && $name !== 0) {
-            throw new Exception\DomainException(sprintf(
+            throw new \DomainException(sprintf(
                 '%s requires that the element has an assigned name; none discovered',
                 __METHOD__
             ));
         }
 
         $renderer = $this->getView();
-
-        /*
-        $pluginManager = $renderer->getHelperPluginManager();
-        if (!$pluginManager->has('edit')) {
-            $pluginManager->setService('edit', $this);
-        }
-        */
 
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
@@ -135,9 +122,8 @@ class FormEditor extends FormTextarea
                 $this->createAttributesString($attributes),
                 $escapeHtml($content)
             );
-        }
-        else {
-            //$content->injectElement($this);
+        } else {
+
             return (string) $content;
         }
     }
@@ -149,5 +135,4 @@ class FormEditor extends FormTextarea
     protected function additionalOptions() {
         return '';
     }
-
 }
