@@ -7,22 +7,21 @@
  * @license       MIT
  */
 
-namespace Auth\Service\SLFactory;
+namespace Auth\Factory\Service;
 
 use Auth\Repository;
-use Auth\Service\RegisterConfirmation;
-use Zend\Authentication\AuthenticationService;
+use Auth\Service\Register;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RegisterConfirmationSLFactory implements FactoryInterface
+class RegisterFactory implements FactoryInterface
 {
     /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return RegisterConfirmation
+     * @return Register
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
@@ -30,8 +29,9 @@ class RegisterConfirmationSLFactory implements FactoryInterface
          * @var Repository\User $userRepository
          */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
-        $authenticationService = new AuthenticationService();
+        $mailService = $serviceLocator->get('Core/MailService');
+        $config = $serviceLocator->get('Auth/Options');
 
-        return new RegisterConfirmation($userRepository, $authenticationService);
+        return new Register($userRepository, $mailService, $config);
     }
 }

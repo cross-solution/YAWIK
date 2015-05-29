@@ -7,7 +7,7 @@
  * @license       MIT
  */
 
-namespace Auth\Controller\SLFactory;
+namespace Auth\Factory\Controller;
 
 use Auth\AuthenticationService;
 use Auth\Controller\PasswordController;
@@ -17,7 +17,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class PasswordControllerSLFactory implements FactoryInterface
+class PasswordControllerFactory implements FactoryInterface
 {
 
     /**
@@ -40,8 +40,6 @@ class PasswordControllerSLFactory implements FactoryInterface
         $authenticationService = $serviceLocator->get('AuthenticationService');
         $form = $serviceLocator->get('forms')->get('user-password');
         $repositoryService = $serviceLocator->get('repositories');
-
-//        var_dump($form); exit;
 
         return new PasswordController($authenticationService, $form, $repositoryService);
     }

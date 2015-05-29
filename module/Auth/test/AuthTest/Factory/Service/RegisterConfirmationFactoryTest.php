@@ -7,21 +7,21 @@
  * @license       MIT
  */
 
-namespace AuthTest\Service\SLFactory;
+namespace AuthTest\Factory\Service;
 
-use Auth\Service\SLFactory\RegisterConfirmationSLFactory;
+use Auth\Factory\Service\RegisterConfirmationFactory;
 use Test\Bootstrap;
 
-class RegisterConfirmationSLFactoryTest extends \PHPUnit_Framework_TestCase
+class RegisterConfirmationFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var RegisterConfirmationSLFactory
+     * @var RegisterConfirmationFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new RegisterConfirmationSLFactory();
+        $this->testedObj = new RegisterConfirmationFactory();
     }
 
     public function testCreateService()

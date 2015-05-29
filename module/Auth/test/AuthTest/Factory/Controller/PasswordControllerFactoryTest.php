@@ -7,22 +7,22 @@
  * @license       MIT
  */
 
-namespace AuthTest\Controller\SLFactory;
+namespace AuthTest\Factory\Controller;
 
-use Auth\Controller\SLFactory\PasswordControllerSLFactory;
+use Auth\Factory\Controller\PasswordControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class PasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var PasswordControllerSLFactory
+     * @var PasswordControllerFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new PasswordControllerSLFactory();
+        $this->testedObj = new PasswordControllerFactory();
     }
 
     public function testCreateService()

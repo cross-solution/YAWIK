@@ -7,14 +7,14 @@
  * @license       MIT
  */
 
-namespace Auth\Service\SLFactory;
+namespace Auth\Factory\Service;
 
 use Auth\Service\UserUniqueTokenGenerator;
 use Core\Repository\RepositoryService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class UserUniqueTokenGeneratorSLFactory implements FactoryInterface
+class UserUniqueTokenGeneratorFactory implements FactoryInterface
 {
     /**
      * Create service

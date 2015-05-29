@@ -7,21 +7,21 @@
  * @license       MIT
  */
 
-namespace AuthTest\Service\SLFactory;
+namespace AuthTest\Factory\Service;
 
-use Auth\Service\SLFactory\RegisterSLFactory;
+use Auth\Factory\Service\ForgotPasswordFactory;
 use Test\Bootstrap;
 
-class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var RegisterSLFactory
+     * @var ForgotPasswordFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new RegisterSLFactory();
+        $this->testedObj = new ForgotPasswordFactory();
     }
 
     public function testCreateService()
@@ -45,6 +45,6 @@ class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->setService('repositories', $repositoriesMock);
 
         $result = $this->testedObj->createService($sm);
-        $this->assertInstanceOf('Auth\Service\Register', $result);
+        $this->assertInstanceOf('Auth\Service\ForgotPassword', $result);
     }
 }

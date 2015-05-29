@@ -7,17 +7,16 @@
  * @license       MIT
  */
 
-namespace Auth\Controller\SLFactory;
+namespace Auth\Factory\Controller;
 
-use Auth\Controller\RegisterController;
-use Auth\Form;
+use Auth\Controller\GotoResetPasswordController;
 use Auth\Service;
 use Zend\Log\LoggerInterface;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RegisterControllerSLFactory implements FactoryInterface
+class GotoResetPasswordControllerFactory implements FactoryInterface
 {
 
     /**
@@ -25,7 +24,7 @@ class RegisterControllerSLFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return RegisterController
+     * @return GotoResetPasswordController
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
@@ -33,14 +32,12 @@ class RegisterControllerSLFactory implements FactoryInterface
         $serviceLocator = $serviceLocator->getServiceLocator();
 
         /**
-         * @var $form    Form\Register
-         * @var $service Service\Register
+         * @var $service Service\GotoResetPassword
          * @var $logger  LoggerInterface
          */
-        $form = $serviceLocator->get('Auth\Form\Register');
-        $service = $serviceLocator->get('Auth\Service\Register');
+        $service = $serviceLocator->get('Auth\Service\GotoResetPassword');
         $logger = $serviceLocator->get('Core/Log');
 
-        return new RegisterController($form, $service, $logger);
+        return new GotoResetPasswordController($service, $logger);
     }
 }

@@ -7,21 +7,21 @@
  * @license       MIT
  */
 
-namespace AuthTest\Service\SLFactory;
+namespace AuthTest\Factory\Service;
 
-use Auth\Service\SLFactory\GotoResetPasswordSLFactory;
+use Auth\Factory\Service\RegisterFactory;
 use Test\Bootstrap;
 
-class GotoResetPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
+class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var GotoResetPasswordSLFactory
+     * @var RegisterFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new GotoResetPasswordSLFactory();
+        $this->testedObj = new RegisterFactory();
     }
 
     public function testCreateService()
@@ -29,13 +29,22 @@ class GotoResetPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
 
+        $userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
             ->getMock();
 
+        $repositoriesMock->expects($this->once())
+            ->method('get')
+            ->with('Auth/User')
+            ->willReturn($userRepositoryMock);
+
         $sm->setService('repositories', $repositoriesMock);
 
         $result = $this->testedObj->createService($sm);
-        $this->assertInstanceOf('Auth\Service\GotoResetPassword', $result);
+        $this->assertInstanceOf('Auth\Service\Register', $result);
     }
 }

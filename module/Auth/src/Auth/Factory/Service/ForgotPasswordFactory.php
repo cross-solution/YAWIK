@@ -7,7 +7,7 @@
  * @license       MIT
  */
 
-namespace Auth\Service\SLFactory;
+namespace Auth\Factory\Service;
 
 use Auth\Repository;
 use Auth\Service\ForgotPassword;
@@ -17,7 +17,7 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ForgotPasswordSLFactory implements FactoryInterface
+class ForgotPasswordFactory implements FactoryInterface
 {
     /**
      * Create service

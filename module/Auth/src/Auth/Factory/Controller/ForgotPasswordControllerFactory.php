@@ -7,7 +7,7 @@
  * @license       MIT
  */
 
-namespace Auth\Controller\SLFactory;
+namespace Auth\Factory\Controller;
 
 use Auth\Controller\ForgotPasswordController;
 use Auth\Form;
@@ -17,7 +17,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ForgotPasswordControllerSLFactory implements FactoryInterface
+class ForgotPasswordControllerFactory implements FactoryInterface
 {
 
     /**

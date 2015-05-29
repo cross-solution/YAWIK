@@ -7,22 +7,22 @@
  * @license       MIT
  */
 
-namespace AuthTest\Controller\SLFactory;
+namespace AuthTest\Factory\Controller;
 
-use Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory;
+use Auth\Factory\Controller\GotoResetPasswordControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class RegisterConfirmationControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class GotoResetPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var RegisterConfirmationControllerSLFactory
+     * @var GotoResetPasswordControllerFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new RegisterConfirmationControllerSLFactory();
+        $this->testedObj = new GotoResetPasswordControllerFactory();
     }
 
     public function testCreateService()
@@ -30,13 +30,13 @@ class RegisterConfirmationControllerSLFactoryTest extends \PHPUnit_Framework_Tes
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
 
-        $registerConfirmationServiceMock = $this->getMockBuilder('Auth\Service\RegisterConfirmation')
+        $gotoResetPasswordMock = $this->getMockBuilder('Auth\Service\GotoResetPassword')
             ->disableOriginalConstructor()
             ->getMock();
 
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
-        $sm->setService('Auth\Service\RegisterConfirmation', $registerConfirmationServiceMock);
+        $sm->setService('Auth\Service\GotoResetPassword', $gotoResetPasswordMock);
         $sm->setService('Core/Log', $loggerMock);
 
         $controllerManager = new ControllerManager();
@@ -44,6 +44,6 @@ class RegisterConfirmationControllerSLFactoryTest extends \PHPUnit_Framework_Tes
 
         $result = $this->testedObj->createService($controllerManager);
 
-        $this->assertInstanceOf('Auth\Controller\RegisterConfirmationController', $result);
+        $this->assertInstanceOf('Auth\Controller\GotoResetPasswordController', $result);
     }
 }

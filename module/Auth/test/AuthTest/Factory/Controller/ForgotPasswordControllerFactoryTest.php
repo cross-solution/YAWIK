@@ -7,22 +7,22 @@
  * @license       MIT
  */
 
-namespace AuthTest\Controller\SLFactory;
+namespace AuthTest\Factory\Controller;
 
-use Auth\Controller\SLFactory\ForgotPasswordControllerSLFactory;
+use Auth\Factory\Controller\ForgotPasswordControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
 class ForgotPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ForgotPasswordControllerSLFactory
+     * @var ForgotPasswordControllerFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new ForgotPasswordControllerSLFactory();
+        $this->testedObj = new ForgotPasswordControllerFactory();
     }
 
     public function testCreateService()
