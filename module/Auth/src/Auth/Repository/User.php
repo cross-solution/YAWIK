@@ -100,13 +100,14 @@ class User extends AbstractRepository
         return $entity;
     }
 
-    public function findByEmail($email)
+    public function findByEmail($email, $isDraft = false)
     {
         $entity = $this->findOneBy(array(
             '$or' => array(
-                'email' => $email,
-                'info.email' => $email,
-            )
+                array('email' => $email),
+                array('info.email' => $email),
+            ),
+            'isDraft' => $isDraft,
         ));
 
         return $entity;
