@@ -7,34 +7,31 @@
  * @license       MIT
  */
 
-namespace Auth\Service\SLFactory;
+namespace Auth\Factory\Service;
 
 use Auth\Repository;
-use Auth\Service\ForgotPassword;
-use Auth\Service\GotoResetPassword;
-use Core\Controller\Plugin;
-use Core\Repository\RepositoryService;
+use Auth\Service\RegisterConfirmation;
 use Zend\Authentication\AuthenticationService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class GotoResetPasswordSLFactory implements FactoryInterface
+class RegisterConfirmationFactory implements FactoryInterface
 {
     /**
      * Create service
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return ForgotPassword
+     * @return RegisterConfirmation
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /**
-         * @var RepositoryService $repositoryService
+         * @var Repository\User $userRepository
          */
-        $repositoryService = $serviceLocator->get('repositories');
+        $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
         $authenticationService = new AuthenticationService();
 
-        return new GotoResetPassword($repositoryService, $authenticationService);
+        return new RegisterConfirmation($userRepository, $authenticationService);
     }
 }

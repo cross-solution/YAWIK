@@ -7,7 +7,7 @@
  * @license       MIT
  */
 
-namespace Auth\Controller\SLFactory;
+namespace Auth\Factory\Controller;
 
 use Auth\Controller\RegisterConfirmationController;
 use Auth\Service;
@@ -16,7 +16,7 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RegisterConfirmationControllerSLFactory implements FactoryInterface
+class RegisterConfirmationControllerFactory implements FactoryInterface
 {
 
     /**

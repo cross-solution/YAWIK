@@ -7,21 +7,21 @@
  * @license       MIT
  */
 
-namespace AuthTest\Service\SLFactory;
+namespace AuthTest\Factory\Service;
 
-use Auth\Service\SLFactory\ForgotPasswordSLFactory;
+use Auth\Factory\Service\GotoResetPasswordFactory;
 use Test\Bootstrap;
 
-class ForgotPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
+class GotoResetPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ForgotPasswordSLFactory
+     * @var GotoResetPasswordFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new ForgotPasswordSLFactory();
+        $this->testedObj = new GotoResetPasswordFactory();
     }
 
     public function testCreateService()
@@ -29,22 +29,13 @@ class ForgotPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
 
-        $userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $repositoriesMock->expects($this->once())
-            ->method('get')
-            ->with('Auth/User')
-            ->willReturn($userRepositoryMock);
-
         $sm->setService('repositories', $repositoriesMock);
 
         $result = $this->testedObj->createService($sm);
-        $this->assertInstanceOf('Auth\Service\ForgotPassword', $result);
+        $this->assertInstanceOf('Auth\Service\GotoResetPassword', $result);
     }
 }
