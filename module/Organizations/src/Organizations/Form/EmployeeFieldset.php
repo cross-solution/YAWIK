@@ -62,5 +62,13 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
                 ),
             ),
         ));
+
+        $this->add(array(
+            'type' => 'hidden',
+            'name' => 'isPending',
+            'attributes' => array(
+                'value' => '1',
+            ),
+        ));
     }
 }

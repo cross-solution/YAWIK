@@ -130,8 +130,8 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
         return array(
             array('setUser', 'getUser', new User()),
             array('setPermissions', 'getPermissions', new EmployeePermissions()),
-            array('setPending', 'isPending', true),
-            array('setPending', 'isPending', false)
+            array('setIsPending', 'isPending', true),
+            array('setIsPending', 'isPending', false)
         );
     }
     

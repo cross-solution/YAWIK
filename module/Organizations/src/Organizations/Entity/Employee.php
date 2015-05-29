@@ -43,6 +43,14 @@ class Employee extends AbstractEntity implements EmployeeInterface
     protected $permissions;
 
     /**
+     * Are we waiting for the employee to accept the invitation?
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $pending = true;
+
+    /**
      * Creates an instance.
      *
      * @param UserInterface $user
@@ -101,7 +109,7 @@ class Employee extends AbstractEntity implements EmployeeInterface
         return $this->pending;
     }
 
-    public function setPending($flag)
+    public function setIsPending($flag)
     {
         $this->pending = (bool) $flag;
 

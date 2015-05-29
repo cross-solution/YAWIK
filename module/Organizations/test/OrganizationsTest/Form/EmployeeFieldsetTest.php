@@ -73,16 +73,25 @@ class EmployeeFieldsetTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
+        $expectAdd3 = array(
+            'type' => 'hidden',
+            'name' => 'isPending',
+            'attributes' => array(
+                'value' => '1',
+            ),
+        );
+
         $target = $this->getMockBuilder('\Organizations\Form\EmployeeFieldset')
                 ->disableOriginalConstructor()
                 ->setMethods(array('add'))
                 ->getMock();
 
-        $target->expects($this->exactly(2))
+        $target->expects($this->exactly(3))
                ->method('add')
                ->withConsecutive(
                     array($expectAdd1),
-                    array($expectAdd2)
+                    array($expectAdd2),
+                    array($expectAdd3)
                );
 
         $target->init();

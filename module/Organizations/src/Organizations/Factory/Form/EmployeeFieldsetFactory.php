@@ -39,7 +39,8 @@ class EmployeeFieldsetFactory implements FactoryInterface
         /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
         $services = $serviceLocator->getServiceLocator();
         $fieldset = new EmployeeFieldset();
-        $hydrator = new EntityHydrator();
+
+        $hydrator = new \Zend\Stdlib\Hydrator\ClassMethods(false); //new EntityHydrator();
         $repositories = $services->get('repositories');
         $users        = $repositories->get('Auth/User'); /* @var $users \Auth\Repository\User */
 
@@ -85,9 +86,20 @@ class EmployeeFieldsetFactory implements FactoryInterface
             }
         );
 
+        /* todo: write own strategy class */
+        $pendingStrategy = new ClosureStrategy(
+            function($value) {
+                return $value ? '1' : '0';
+            },
+            function($value) {
+                return (bool) $value;
+            }
+        );
+
 
         $hydrator->addStrategy('user', $strategy);
         $hydrator->addStrategy('permissions', $permStrategy);
+        $hydrator->addStrategy('isPending', $pendingStrategy);
         $fieldset->setHydrator($hydrator);
         $fieldset->setObject(new \Organizations\Entity\Employee());
 

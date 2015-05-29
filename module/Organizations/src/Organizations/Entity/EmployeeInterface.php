@@ -66,5 +66,5 @@ interface EmployeeInterface
      * @param boolean $flag
      * @return self
      */
-    public function setPending($flag);
+    public function setIsPending($flag);
 }
