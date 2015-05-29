@@ -24,8 +24,9 @@ class ModuleOptionsFactory  implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
         $configArray = isset($config['auth_options']) ? $config['auth_options'] : array();
-        if (array_key_exists('core_options', $config)) {
-            $configArray = ArrayUtils::merge($configArray, $config['core_options']);
+        if (array_key_exists('core_options', $config) && array_key_exists('siteName', $config['core_options'])) {
+
+            $configArray = ArrayUtils::merge($configArray, array('siteName' => $config['core_options']['siteName']));
         }
         return new ModuleOptions($configArray);
     }

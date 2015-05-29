@@ -46,6 +46,7 @@ class JobDescriptionQualifications extends Form implements InputFilterProviderIn
             'name' => 'description-qualifications',
             'options' => array(
                 'use_as_base_fieldset' => true,
+                'placeholder' => 'Qualifications'
             ),
         ));
 

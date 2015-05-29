@@ -46,6 +46,7 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
             'name' => 'description-requirements',
             'options' => array(
                 'use_as_base_fieldset' => true,
+                'placeholder' => 'Requirements'
             ),
         ));
 
