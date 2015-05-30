@@ -29,7 +29,11 @@ class ChannelOptions extends AbstractOptions {
     protected $key;
 
     /**
-     * @var
+     * external key of a channel. Eg. a provider offers the channel "MyJobboard" with the key "123". 
+     * YAWIK provides a channel "MyJobboard" using the key "myjobborad". Set externalkey to "123", if
+     * the job is published to the provider.
+     *
+     * @var int $externalkey
      */
     protected $externalkey = 0;
 
@@ -100,7 +104,7 @@ class ChannelOptions extends AbstractOptions {
     /**
      * Link target which references a mor information page about a channel
      *
-     * @var
+     * @var string 
      */
     protected $linkTarget;
 
@@ -114,7 +118,7 @@ class ChannelOptions extends AbstractOptions {
     /**
      * Parameter, which can be used for linking the detail page about the channel
      *
-     * @var
+     * @var array
      */
     protected $params;
 
