@@ -10,13 +10,14 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormTextarea;
 use Zend\Form\ElementInterface;
+use Zend\Form\View\Helper\FormTextarea;
 
 
 class FormEditor extends FormTextarea
 {
     protected $theme = 'modern';
+
 
     protected $translator;
 
@@ -45,12 +46,12 @@ class FormEditor extends FormTextarea
                 selector : "div.tinymce_' . $this->getTheme() . '",
                 inline : true,
                 theme : "modern",
-                placeholder: "crumber23",
                 plugins: [
                     "advlist autolink lists charmap anchor",
                     "searchreplace visualblocks code fullscreen",
-                    "contextmenu paste"
+                    "contextmenu paste textcolor"
                 ],
+                //toolbar1: "forecolor",
                 removed_menuitems: "newdocument",' . PHP_EOL
                 . $this->additionalOptions() .
 
@@ -107,7 +108,7 @@ class FormEditor extends FormTextarea
             $placeHolder = '';
             $elementOptions = $element->getOptions();
             if (array_key_exists('placeholder', $elementOptions) && !empty($elementOptions['placeholder'])) {
-                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 2ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $elementOptions['placeholder'] . '</div>';
+                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 0ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $this->translator->translate($elementOptions['placeholder']) . '</div>';
             }
             return
                 $placeHolder

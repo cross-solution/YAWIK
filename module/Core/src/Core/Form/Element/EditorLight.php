@@ -14,7 +14,5 @@ use Core\Form\View\Helper\FormEditorLight;
 
 class EditorLight extends Editor implements ViewHelperProviderInterface
 {
-    public function getViewHelper() {
-        return new FormEditorLight();
-    }
+    protected $viewHelper = 'TinyMCEditorLight';
 }

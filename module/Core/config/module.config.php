@@ -302,6 +302,9 @@ return array(
             'alert' => 'Core\View\Helper\Alert',
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
+            'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
+            'TinyMCEditorLight' => 'Core\Form\View\Helper\FormEditorLight',
+            'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor'
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',

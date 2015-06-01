@@ -17,7 +17,7 @@ use Core\Service\OptionValueInterface;
 
 class Editor extends Textarea implements ViewHelperProviderInterface
 {
-    protected $viewHelper;
+    protected $viewHelper = 'TinyMCEditor';
 
     public function setViewHelper($helper) {
         $this->viewHelper = $helper;
@@ -25,9 +25,6 @@ class Editor extends Textarea implements ViewHelperProviderInterface
     }
 
     public function getViewHelper() {
-        if (!isset($this->viewHelper)) {
-            $this->setViewHelper(new FormEditor());
-        }
         return $this->viewHelper;
     }
 
