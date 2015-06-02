@@ -324,7 +324,7 @@ class Register
             $mail->confirmationlink = $confirmationLink;
             $mail->siteName         = $siteName;
             $mail->setTemplate('mail/register');
-            $mail->setSubject( sprintf( /*@translate*/ 'your registration on %', $siteName));
+            $mail->setSubject( sprintf( /*@translate*/ 'your registration on %s', $siteName));
             $mail->setTo($userEmail);
             $mailService->send($mail);
         }
