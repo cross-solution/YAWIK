@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-20 15:58+0200\n"
-"PO-Revision-Date: 2015-05-28 16:11+0000\n"
+"POT-Creation-Date: 2015-06-02 13:08+0200\n"
+"PO-Revision-Date: 2015-06-02 11:10+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgstr "Aktion"
 
 #: view/auth/manage-groups/form.phtml:39
 msgid "search for users"
-msgstr "Suche nach Benutzers"
+msgstr "Suche nach Benutzern"
 
 #: view/auth/manage-groups/form.phtml:74
 msgid "Ok"
@@ -208,7 +208,8 @@ msgid "Edit group"
 msgstr "Gruppe bearbeiten"
 
 #: language/_annotated_strings.php:9
-msgid "your registration on %"
+#, php-format
+msgid "your registration on %s"
 msgstr "Ihre Anmeldung auf %s"
 
 #: language/_annotated_strings.php:12

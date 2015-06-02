@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-29 15:41+0200\n"
+"POT-Creation-Date: 2015-06-02 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,7 +206,8 @@ msgid "Edit group"
 msgstr ""
 
 #: language/_annotated_strings.php:9
-msgid "your registration on %"
+#, php-format
+msgid "your registration on %s"
 msgstr ""
 
 #: language/_annotated_strings.php:12

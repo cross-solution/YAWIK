@@ -6,7 +6,7 @@ translate('Create group');
 translate('Edit group');
 
 //: ./src/Auth/Service/Register.php:327
-translate('your registration on %');
+translate('your registration on %s');
 
 //: ./src/Auth/Form/SocialProfiles.php:26
 translate('Social Profiles');
