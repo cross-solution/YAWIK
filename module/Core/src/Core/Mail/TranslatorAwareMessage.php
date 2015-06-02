@@ -107,5 +107,17 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
         return parent::setSubject($subject);
     }
 
+    public function setFormattedSubject($formatString)
+    {
+        $args       = func_get_args();
+        $translator = $this->getTranslator();
+        $args       = array_slice($args,1);
+        $domain     = $this->getTranslatorTextDomain();
+        $subject    = $translator->translate($formatString, $domain);
+        array_unshift($args, $subject);
+        $subject    = call_user_func_array('sprintf', $args);
+        return parent::setSubject($subject);
+    }
+
 }
 
