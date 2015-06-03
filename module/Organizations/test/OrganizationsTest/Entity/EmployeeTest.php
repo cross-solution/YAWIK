@@ -102,9 +102,19 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
     {
         $target = $this->target;
 
-        $object = $target->$setter($value);
-        $this->assertSame($target->$getter(), $value);
-        $this->assertSame($target, $object);
+        if (is_array($value)) {
+            $setValue = $value[0];
+            $getValue = $value[1];
+        } else {
+            $setValue = $getValue = $value;
+        }
+
+        if (null !== $setter) {
+            $object = $target->$setter($setValue);
+            $this->assertSame($target, $object, 'Fluent interface broken!');
+        }
+
+        $this->assertSame($target->$getter(), $getValue);
     }
 
     /**
@@ -121,6 +131,22 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @testdox Implements \Organizations\Entity\EmployeeInterface
+     * @dataProvider provideStatusCheckData
+     */
+    public function testConvinientStatusCheckMethods($initialStatus, $expectedResults, $strict=null)
+    {
+        $this->target->setStatus($initialStatus);
+
+        $this->assertEquals($expectedResults[0], $this->target->isAssigned(), 'isAssigned() fails!');
+        $this->assertEquals($expectedResults[1], $this->target->isPending(), 'isPending fails!');
+        $this->assertEquals($expectedResults[2], $this->target->isRejected(), 'isRejected fails!');
+        $this->assertEquals($expectedResults[3], $this->target->isUnassigned(), 'isUnassigned fails!');
+        $this->assertEquals($expectedResults[4], $this->target->isUnassigned(true), 'isUnassigned strict mode fails!');
+
+    }
+
+    /**
      * Provides datasets for testSettingValuesViaSetterMethods.
      *
      * @return array
@@ -130,8 +156,22 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
         return array(
             array('setUser', 'getUser', new User()),
             array('setPermissions', 'getPermissions', new EmployeePermissions()),
-            array('setIsPending', 'isPending', true),
-            array('setIsPending', 'isPending', false)
+            array('setStatus', 'getStatus', Employee::STATUS_PENDING),
+            array('setStatus', 'getStatus', Employee::STATUS_ASSIGNED),
+            array('setStatus', 'getStatus', Employee::STATUS_REJECTED),
+            array('setStatus', 'getStatus', Employee::STATUS_UNASSIGNED),
+            array('setStatus', 'getStatus', array('Invalid Status', Employee::STATUS_ASSIGNED)),
+            array(null, 'getStatus', Employee::STATUS_ASSIGNED),
+        );
+    }
+
+    public function provideStatusCheckData()
+    {
+        return array(
+            array(Employee::STATUS_ASSIGNED, array(true, false, false, false, false)),
+            array(Employee::STATUS_PENDING, array(false, true, false, true, false)),
+            array(Employee::STATUS_UNASSIGNED, array(false, false, false, true, true)),
+            array(Employee::STATUS_REJECTED, array(false, false, true, true, false)),
         );
     }
     

@@ -11,6 +11,7 @@
 namespace Organizations\Form;
 
 use Core\Form\ViewPartialProviderInterface;
+use Organizations\Entity\EmployeeInterface;
 use Zend\Form\Fieldset;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 
@@ -65,9 +66,9 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
 
         $this->add(array(
             'type' => 'hidden',
-            'name' => 'isPending',
+            'name' => 'status',
             'attributes' => array(
-                'value' => '1',
+                'value' => EmployeeInterface::STATUS_PENDING,
             ),
         ));
     }

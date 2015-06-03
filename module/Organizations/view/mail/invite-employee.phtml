@@ -38,7 +38,7 @@
 <p>
     <?php echo $this->translate('You can accept this invitation by visiting the following link') ?>:
 </p>
-<?php echo $this->link($this->url) ?>
+<?php echo $this->link($this->serverUrl($this->url)) ?>
 
 <?php if ($this->hasAssociation): ?>
 <p>

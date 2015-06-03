@@ -86,20 +86,8 @@ class EmployeeFieldsetFactory implements FactoryInterface
             }
         );
 
-        /* todo: write own strategy class */
-        $pendingStrategy = new ClosureStrategy(
-            function($value) {
-                return $value ? '1' : '0';
-            },
-            function($value) {
-                return (bool) $value;
-            }
-        );
-
-
         $hydrator->addStrategy('user', $strategy);
         $hydrator->addStrategy('permissions', $permStrategy);
-        $hydrator->addStrategy('isPending', $pendingStrategy);
         $fieldset->setHydrator($hydrator);
         $fieldset->setObject(new \Organizations\Entity\Employee());
 

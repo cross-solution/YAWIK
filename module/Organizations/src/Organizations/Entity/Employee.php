@@ -43,12 +43,12 @@ class Employee extends AbstractEntity implements EmployeeInterface
     protected $permissions;
 
     /**
-     * Are we waiting for the employee to accept the invitation?
+     * Status of this employees' association to this organization
      *
-     * @var bool
-     * @ODM\Boolean
+     * @var string
+     * @ODM\String
      */
-    protected $pending = true;
+    protected $status = self::STATUS_ASSIGNED;
 
     /**
      * Creates an instance.
@@ -104,16 +104,43 @@ class Employee extends AbstractEntity implements EmployeeInterface
         return $this->permissions;
     }
 
-    public function isPending()
+    public function setStatus($status)
     {
-        return $this->pending;
-    }
+        if (!defined('self::STATUS_' . strtoupper($status))) {
+            $status = self::STATUS_ASSIGNED;
+        }
 
-    public function setIsPending($flag)
-    {
-        $this->pending = (bool) $flag;
+        $this->status = $status;
 
         return $this;
     }
+
+    public function getStatus()
+    {
+       return $this->status;
+    }
+
+    public function isAssigned()
+    {
+        return self::STATUS_ASSIGNED == $this->getStatus();
+    }
+
+    public function isPending()
+    {
+        return self::STATUS_PENDING == $this->getStatus();
+    }
+
+    public function isRejected()
+    {
+        return self::STATUS_REJECTED == $this->getStatus();
+    }
+
+    public function isUnassigned($strict=false)
+    {
+        return $strict
+               ? self::STATUS_UNASSIGNED == $this->getStatus()
+               : self::STATUS_ASSIGNED != $this->getStatus();
+    }
+
 
 }

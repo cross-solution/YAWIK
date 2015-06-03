@@ -3,10 +3,10 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Organizations\Mail;
 
@@ -17,10 +17,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 
 /**
- * ${CARET}
- * 
+ * This Factory creates and configures the HTMLTemplateMail send to an invited person.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since  0.19
  */
 class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOptionsInterface
 {
@@ -74,36 +74,42 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
         $router   = $services->get('Router');
 
         // we assume here, that the logged in user is the inviter.
-        $owner    = $auth->getUser();
-        $org      = $owner->getOrganization()->getOrganization();
-        $orgName  = $org->getOrganizationName()->getName();
-        $user     = $this->options['user'];
+        $owner   = $auth->getUser();
+        $org     = $owner->getOrganization()->getOrganization();
+        $orgName = $org->getOrganizationName()->getName();
+        $user    = $this->options['user'];
 
-        $urlQuery = $this->options['token'] ? array('token' => $this->options['token']) : array('user' => $user->getId());
-        $url      = $router->assemble(array('action' => 'accept'),
-                                      array('name'  => 'lang/organizations/invite',
-                                            'query' => $urlQuery));
+        $url = $router->assemble(array('action' => 'accept'),
+                                 array(
+                                     'name'  => 'lang/organizations/invite',
+                                     'query' => array(
+                                         'token'        => $this->options['token'],
+                                         'organization' => $org->getId()
+                                     )
+                                 )
+        );
 
         $variables = array(
-            'inviter' => $owner->getInfo()->getDisplayName(),
-            'organization' => $orgName,
-            'token' => $this->options['token'],
-            'user' => $user->getInfo()->getDisplayName(/*emailifEmpty*/ false),
+            'inviter'        => $owner->getInfo()->getDisplayName(),
+            'organization'   => $orgName,
+            'token'          => $this->options['token'],
+            'user'           => $user->getInfo()->getDisplayName(/*emailifEmpty*/ false),
             'hasAssociation' => false,
-            'url' => $url,
+            'url'            => $url,
         );
 
         if ($user->getOrganization()->hasAssociation()) {
-            $variables['hasAssociation'] = true;
-            $variables['isOwner'] = $user->getOrganization()->isOwner();
-            $variables['currentOrganization'] = $user->getOrganization()->getOrganization()->getOrganizationName()->getName();
+            $variables['hasAssociation']      = true;
+            $variables['isOwner']             = $user->getOrganization()->isOwner();
+            $variables['currentOrganization'] =
+                $user->getOrganization()->getOrganization()->getOrganizationName()->getName();
         }
 
         $mail = $serviceLocator->get('htmltemplate');
         $mail->setTemplate($this->options['template'])
              ->setVariables($variables)
              ->setSubject(sprintf(/* @translate */ 'Invitation to join the team of %s',
-                          $orgName))
+                                  $orgName))
              ->addTo($user->getEmail());
 
         return $mail;

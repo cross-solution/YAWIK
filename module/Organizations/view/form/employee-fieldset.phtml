@@ -15,7 +15,7 @@
 //    $users = $this->services('repositories.Auth/User');
 //    $user  = $users->find($this->element->getValue());
     $employee = $this->element->get('user');
-    $pending = $this->element->get('isPending');
+    $pending = $this->element->get('status');
     $user = $employee->getUser();
     if (!$user) {
         $this->element->get('permissions')->setValue(array(16, 2));
@@ -30,8 +30,10 @@
     <div class="employee-info-wrapper">
         <?php echo $user ? $user->getInfo()->getDisplayName() : '__userName__' ?>
         <span>&lt;<?php echo $user ? $user->getInfo()->getEmail()  : '__userEmail__' ?>&gt;</span>
-        <?php if (($user && $pending->getValue()) || !$user):?>
-            <span class="label label-warning"><?php echo $this->translate('pending') ?></span>
+        <?php if (($user && 'PENDING' == $pending->getValue()) || !$user):?>
+            <span class="label label-warning"><?php echo $this->translate('PENDING') ?></span>
+        <?php elseif ($user && 'ASSIGNED' != $pending->getValue()): ?>
+            <span class="label label-danger"><?php echo $this->translate($pending->getValue()) ?></span>
         <?php endif; ?>
         <button type="button" class="pull-right btn btn-default btn-xs remove-employee" data-id="<?php echo $fsId ?>"><span class="yk-icon yk-icon-minus"></span></button>
 

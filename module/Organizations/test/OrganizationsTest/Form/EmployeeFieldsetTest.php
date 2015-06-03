@@ -10,12 +10,14 @@
 /** */
 namespace OrganizationsTest\Form;
 
+use Organizations\Entity\EmployeeInterface;
 use Organizations\Form\EmployeeFieldset;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 
 /**
  * Test for EmployeeFieldset
- * 
+ *
+ * @covers \Organizations\Form\EmployeeFieldset
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizatios.Form
@@ -75,9 +77,9 @@ class EmployeeFieldsetTest extends \PHPUnit_Framework_TestCase
 
         $expectAdd3 = array(
             'type' => 'hidden',
-            'name' => 'isPending',
+            'name' => 'status',
             'attributes' => array(
-                'value' => '1',
+                'value' => EmployeeInterface::STATUS_PENDING,
             ),
         );
 
