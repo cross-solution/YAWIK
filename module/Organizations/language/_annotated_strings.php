@@ -8,19 +8,22 @@ translate('City');
 //: ./view/organizations/index/index.ajax.phtml:19
 translate('Street');
 
-//: ./src/Organizations/Form/EmployeeFieldset.php:57
-translate('View Jobs');
+//: ./view/form/invite-employee-bar.phtml:33
+translate('Invite an employee via email address.');
 
 //: ./src/Organizations/Form/EmployeeFieldset.php:58
-translate('Edit Jobs');
+translate('View Jobs');
 
 //: ./src/Organizations/Form/EmployeeFieldset.php:59
-translate('Create Jobs');
+translate('Edit Jobs');
 
 //: ./src/Organizations/Form/EmployeeFieldset.php:60
-translate('View Applications');
+translate('Create Jobs');
 
 //: ./src/Organizations/Form/EmployeeFieldset.php:61
+translate('View Applications');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:62
 translate('Edit Applications');
 
 //: ./src/Organizations/Form/Organizations.php:33
@@ -48,7 +51,7 @@ translate('Choose a Logo. This logo will be shown in the job opening and the app
 translate('Organizationname');
 
 //: ./src/Organizations/Form/EmployeesFieldset.php:55
-translate('Search for registered users.');
+translate('Invite an employee via email address.');
 
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:44
 translate('street');
@@ -62,12 +65,14 @@ translate('Postalcode');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:65
 translate('City');
 
-//: ./config/module.config.php:140
+76:                $model = $this->createErrorViewModel( /*@translate*/
+82:                $model = $this->createErrorViewModel( /*@translate*/
+//: ./src/Organizations/Mail/EmployeeInvitationFactory.php:111
+translate('Invitation to join the team of %s');
+
+//: ./config/module.config.php:159
 translate('Overview');
 
-//: ./config/module.config.php:144
+//: ./config/module.config.php:163
 translate('Insert');
-
-//: ./test/OrganizationsTest/Form/EmployeesFieldsetTest.php:61
-translate('Search for registered users.');
 

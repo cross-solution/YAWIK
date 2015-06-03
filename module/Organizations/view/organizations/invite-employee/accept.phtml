@@ -13,7 +13,7 @@
     <p><?php echo sprintf($this->translate('You are now part of the team of <b>%s</b>'), $this->organization) ?></p>
 </div>
 
-<?php if ($this->form): $this->form->setAttribute('data-handle-by', 'native')->get('passwordFieldset')->setLabel('')?>
+<?php if ($this->form): $this->form->setAttribute('data-handle-by', 'native')->get('passwordFieldset')->setLabel(null)?>
 <div class="alert alert-info">
     <p><?php echo $this->translate('Please choose a password to be able to log in.') ?></p>
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-16 20:55+0200\n"
-"PO-Revision-Date: 2015-05-16 18:55+0000\n"
+"POT-Creation-Date: 2015-06-03 15:38+0200\n"
+"PO-Revision-Date: 2015-06-03 13:39+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (Mandarin) (http://www.transifex.com/projects/p/yawik/language/cmn/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cmn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: view/organizations/invite-employee/accept.phtml:12
+msgid "You have accepted the invitation"
+msgstr ""
+
+#: view/organizations/invite-employee/accept.phtml:13
+#, php-format
+msgid "You are now part of the team of <b>%s</b>"
+msgstr ""
+
+#: view/organizations/invite-employee/accept.phtml:18
+msgid "Please choose a password to be able to log in."
+msgstr ""
 
 #: view/organizations/index/index.phtml:14
 msgid "Organizations"
@@ -30,6 +43,73 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
+#: view/form/invite-employee-bar.phtml:14
+msgid "Via email address"
+msgstr ""
+
+#: view/form/invite-employee-bar.phtml:23
+msgid "Invite"
+msgstr ""
+
+#: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
+#: language/_annotated_strings.php:54
+msgid "Invite an employee via email address."
+msgstr ""
+
+#: view/form/invite-employee-bar.phtml:36
+msgid "Click on this button will add the employee with the status \"pending\""
+msgstr ""
+
+#: view/form/employee-fieldset.phtml:34
+msgid "PENDING"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:40
+msgid "pending"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:28
+#, php-format
+msgid "Hello %s"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:29
+msgid "Hello"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:34
+#, php-format
+msgid "%s invited you to join the team of %s"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:39
+msgid "You can accept this invitation by visiting the following link"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:47
+#, php-format
+msgid ""
+"<strong>Please note: </strong> You are currently the owner of <b>%s</b>. "
+"Accepting this invitation will delete your organization."
+msgstr ""
+
+#: view/mail/invite-employee.phtml:53
+#, php-format
+msgid ""
+"<strong>Please note: </strong> You are currently assigned as an employee to "
+"<b>%s</b>. Accepting this invitation will remove this association."
+msgstr ""
+
+#: view/mail/invite-employee.phtml:61
+msgid ""
+"If you do not want to accept this invitation you can ignore this mail and "
+"the request is canceled automatically after a week."
+msgstr ""
+
+#: view/error/invite.phtml:11
+msgid "Doh! There was something going terribly wrong."
+msgstr ""
+
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create organizations."
 msgstr ""
@@ -41,7 +121,15 @@ msgid ""
 "organization%s first."
 msgstr ""
 
-#: language/_annotated_strings.php:6 language/_annotated_strings.php:63
+#: src/Organizations/Controller/Plugin/InvitationHandler.php:233
+msgid "Email address is invalid."
+msgstr ""
+
+#: src/Organizations/Controller/Plugin/InvitationHandler.php:246
+msgid "Sending invitation mail failed."
+msgstr ""
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:66
 msgid "City"
 msgstr ""
 
@@ -49,80 +137,81 @@ msgstr ""
 msgid "Street"
 msgstr ""
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:15
 msgid "View Jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:18
 msgid "Edit Jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:21
 msgid "Create Jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:24
 msgid "View Applications"
 msgstr ""
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:27
 msgid "Edit Applications"
 msgstr ""
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:30
 msgid "Please enter the name of the hiring organization."
 msgstr ""
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:33
 msgid "Please enter a contact for the hiring organization."
 msgstr ""
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:36
 msgid "Please enter a description for the hiring organization."
 msgstr ""
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:39
 msgid "Employees"
 msgstr ""
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:42
 msgid "Manage your employees and their permissions."
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:45
 msgid "Description"
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:48
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:51
 msgid "Organizationname"
 msgstr ""
 
-#: language/_annotated_strings.php:51 language/_annotated_strings.php:72
-msgid "Search for registered users."
-msgstr ""
-
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:57
 msgid "street"
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:60
 msgid "house number"
 msgstr ""
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:63
 msgid "Postalcode"
 msgstr ""
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:71
+#, php-format
+msgid "Invitation to join the team of %s"
+msgstr ""
+
+#: language/_annotated_strings.php:74
 msgid "Overview"
 msgstr ""
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:77
 msgid "Insert"
 msgstr ""
