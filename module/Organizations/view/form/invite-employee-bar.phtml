@@ -14,7 +14,7 @@ $id = $this->element->getAttribute('id');
             <?php echo $this->translate('Via email address') ?>
         </label>
     </div>
-    <div class="col-md-9 invite-employee-bar" data-href="/de/organizations/invite">
+    <div class="col-md-9 invite-employee-bar" data-href="<?php echo $this->basePath($this->url('lang/organizations/invite', array('lang' => $this->params('lang')))) ?>">
         <div class="input-group">
             <input id="<?php echo $id ?>" type="text" class="form-control ieb-input" name="<?php echo $this->element->getName() ?>">
             <?php echo $this->formElementErrors($this->element) ?>
