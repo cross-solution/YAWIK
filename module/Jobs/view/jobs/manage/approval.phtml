@@ -31,8 +31,8 @@ $channels = $sm->get('Jobs/Options/Provider');
                     <th><?php echo $this->translate('Price')?></th>
                 </tr>
                 <?php foreach($this->job->portals as $channel):?>
-                    <?php if($channel['active']):?>
-                        <?php $channelData=$channels->getChannel($channel['name']); ?>
+                    <?php if($channel):?>
+                        <?php $channelData=$channels->getChannel($channel); ?>
                         <tr>
                             <td><?php echo $channelData->label ?></td>
                             <td><?php echo $channelData->price ?> <?php echo $channelData->currency ?></td>
