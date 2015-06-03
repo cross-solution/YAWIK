@@ -39,7 +39,7 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
 	function Container($container)
 	{
 		this._init($container);
-	};
+	}
 	
 	$.extend(Container.prototype, {
 		

@@ -67,7 +67,7 @@
                 // the data-object can contains following values
                 // valid = boolean ,if explicitly set to false, errors will be displayed
 				methods.clearErrors($form);
-				if ('valid' in data) {
+				if ('valid' in data && !data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
 //                console.debug('bubble done event for form',$form,data);
