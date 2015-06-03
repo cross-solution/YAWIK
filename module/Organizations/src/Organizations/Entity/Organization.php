@@ -286,6 +286,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
         foreach ($employees as $emp) {
             /* @var $emp EmployeeInterface */
+            if ($emp->isUnassigned()) {
+                continue;
+            }
+
             $perm = $emp->getPermissions();
             if ($perm->isAllowed($change)) {
                 $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
@@ -384,6 +388,20 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         }
 
         return $this->employees;
+    }
+
+    public function getEmployee($userOrId)
+    {
+        $employees = $this->getEmployees();
+        $userId    = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        foreach ($employees as $employee) {
+            if ($employee->getUser()->getId() == $userId) {
+                return $employee;
+            }
+        }
+
+        return null;
     }
 
     public function isOwner(UserInterface $user)

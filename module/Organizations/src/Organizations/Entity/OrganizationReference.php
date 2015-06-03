@@ -291,6 +291,11 @@ class OrganizationReference implements OrganizationInterface,
         return $this->proxy('getEmployees');
     }
 
+    public function getEmployee($userOrId)
+    {
+        return $this->proxy('getEmployee', $userOrId);
+    }
+
     public function getUser()
     {
         return $this->proxy('getUser');

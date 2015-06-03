@@ -60,6 +60,7 @@ return array(
         ),
         'aliases' => array(
             'assertions' => 'Acl/AssertionManager',
+            'Auth/UserTokenGenerator' => 'Auth\Service\UserUniqueTokenGenerator',
         )
     ),
 

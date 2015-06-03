@@ -20,6 +20,46 @@ use Doctrine\ODM\MongoDB\Events;
  */
 class User extends AbstractRepository
 {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    {
+        if (!array_key_exists('isDraft', $criteria)) {
+            $criteria['isDraft'] = false;
+        } else if (null === $criteria['isDraft']) {
+            unset($criteria['isDraft']);
+        }
+        return parent::findBy($criteria, $sort, $limit, $skip);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return null | UserInterface
+     */
+    public function findOneBy(array $criteria)
+    {
+        if (!array_key_exists('isDraft', $criteria)) {
+            $criteria['isDraft'] = false;
+        } else if (null === $criteria['isDraft']) {
+            unset($criteria['isDraft']);
+        }
+        return parent::findOneBy($criteria);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function createQueryBuilder($findDrafts = false)
+    {
+        $qb = parent::createQueryBuilder();
+        if (null !== $findDrafts) {
+            $qb->field('isDraft')->equals($findDrafts);
+        }
+        return $qb;
+    }
+
     /**
      * Creates a User
      * 
@@ -60,9 +100,15 @@ class User extends AbstractRepository
         return $entity;
     }
 
-    public function findByEmail($email)
+    public function findByEmail($email, $isDraft = false)
     {
-        $entity = $this->findOneBy(array('info.email' => $email));
+        $entity = $this->findOneBy(array(
+            '$or' => array(
+                array('email' => $email),
+                array('info.email' => $email),
+            ),
+            'isDraft' => $isDraft,
+        ));
 
         return $entity;
     }
@@ -71,16 +117,35 @@ class User extends AbstractRepository
      * Finds user by login name or email
      *
      * @param string $identity
+     * @param string $suffix
      *
      * @return UserInterface|null
      */
     public function findByLoginOrEmail($identity, $suffix = '')
     {
-        $qb = $this->createQueryBuilder();
-        $qb->addOr($qb->expr()->field('login')->equals($identity . $suffix))
-            ->addOr($qb->expr()->field('info.email')->equals($identity));
+        return $this->findOneBy(array(
+            '$or' => array(
+                'login' => $identity . $suffix,
+                'info.email' => $identity
+            )
+        ));
+    }
 
-        return $qb->getQuery()->getSingleResult();
+    /**
+     * Find an user by a token hash.
+     *
+     * @param string $tokenHash
+     *
+     * @return UserInterface|null
+     */
+    public function findByToken($tokenHash)
+    {
+        $criteria = array(
+            'isDraft' => null,
+            'tokens.hash' => $tokenHash
+        );
+
+        return $this->findOneBy($criteria);
     }
     
     /**
@@ -99,6 +164,8 @@ class User extends AbstractRepository
      * Find user by query
      * 
      * @param String $query
+     * @deprecated since 0.19 not used anymore and probably broken.
+     * @return object
      */
     public function findByQuery($query)
     {

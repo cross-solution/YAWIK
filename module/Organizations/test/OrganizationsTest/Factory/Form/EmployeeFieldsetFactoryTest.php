@@ -15,6 +15,7 @@ use Organizations\Factory\Form\EmployeeFieldsetFactory;
 /**
  * Tests the EmployeeFieldsetFactory
  *
+ * @covers \Organizations\Factory\Form\EmployeeFieldsetFactory
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Factory

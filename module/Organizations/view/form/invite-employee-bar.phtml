@@ -1,0 +1,40 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+$id = $this->element->getAttribute('id');
+?>
+<div id="<?php echo $id ?>-wrapper" class="controls controls-row form-group">
+    <div class="col-md-3 yk-label">
+        <label class="control-label" for="<?php echo $id ?>">
+            <?php echo $this->translate('Via email address') ?>
+        </label>
+    </div>
+    <div class="col-md-9 invite-employee-bar" data-href="/de/organizations/invite">
+        <div class="input-group">
+            <input id="<?php echo $id ?>" type="text" class="form-control ieb-input" name="<?php echo $this->element->getName() ?>">
+            <?php echo $this->formElementErrors($this->element) ?>
+            <span class="input-group-btn">
+                <button id="<?php echo $id ?>-btn" class="btn btn-default ieb-button" type="button">
+                    <span class="ieb-button-ready"><?php echo $this->translate('Invite'); ?></span>
+                    <span class="ieb-button-process yk-icon yk-icon-spinner fa-spin"></span></button>
+            </span>
+        </div>
+
+        <div class="ieb-error alert alert-danger">
+            <p></p>
+
+        </div>
+        <div id="<?php echo $id?>-desc" class="cam-description alert alert-info">
+            <?php echo $this->translate($element->getOption('description') ?: /*@translate*/ 'Invite an employee via email address.'); ?>
+        </div>
+        <div id="<?php echo $id ?>-btn-desc" class="cam-description alert alert-info">
+            <?php echo $this->translate('Click on this button will add the employee with the status "pending"'); ?>
+        </div>
+
+    </div>
+</div>

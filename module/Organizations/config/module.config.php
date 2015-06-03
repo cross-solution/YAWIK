@@ -44,18 +44,32 @@ return array(
 
 
     'controllers' => array(
+        'invokables' => array(
+            'Organizations/InviteEmployee' => 'Organizations\Controller\InviteEmployeeController',
+        ),
         'factories' => array(
             'Organizations/TypeAHead' => 'Organizations\Factory\Controller\TypeAHeadControllerFactory',
             'Organizations/Index' => 'Organizations\Factory\Controller\IndexControllerFactory',
         )
     ),
+
+    'controller_plugins' => array(
+        'factories' => array(
+            'Organizations/InvitationHandler' => 'Organizations\Factory\Controller\Plugin\InvitationHandlerFactory',
+            'Organizations/AcceptInvitationHandler' => 'Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory',
+        ),
+    ),
+
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
              'organizations/index/edit' => __DIR__ . '/../view/organizations/index/form.phtml',
              'organizations/form/employees-fieldset' => __DIR__ . '/../view/form/employees-fieldset.phtml',
              'organizations/form/employee-fieldset' => __DIR__ .'/../view/form/employee-fieldset.phtml',
+             'organizations/form/invite-employee-bar' => __DIR__ . '/../view/form/invite-employee-bar.phtml',
              'organizations/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
+             'organizations/error/invite' => __DIR__ . '/../view/error/invite.phtml',
+             'organizations/mail/invite-employee' => __DIR__ . '/../view/mail/invite-employee.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -74,7 +88,7 @@ return array(
             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
             'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
             'Organizations/Employees'                    => 'Organizations\Form\Employees',
-
+            'Organizations/InviteEmployeeBar'            => 'Organizations\Form\Element\InviteEmployeeBar',
 
             'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
         ),
@@ -100,6 +114,11 @@ return array(
     'hydrators' => array(
         'factories' => array(
             'Hydrator\Organization' => 'Organizations\Entity\Hydrator\OrganizationHydratorFactory',
+        ),
+    ),
+    'mails' => array(
+        'factories' => array(
+            'Organizations/InviteEmployee' => 'Organizations\Mail\EmployeeInvitationFactory',
         ),
     ),
 

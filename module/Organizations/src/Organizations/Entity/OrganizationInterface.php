@@ -140,6 +140,16 @@ interface OrganizationInterface
     public function getEmployees();
 
     /**
+     * Gets one employee by user id.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|EmployeeInterface
+     * @since 0.19
+     */
+    public function getEmployee($userOrId);
+
+    /**
      * @return UserInterface
      */
     public function getUser();

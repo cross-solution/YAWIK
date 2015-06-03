@@ -49,10 +49,10 @@ class EmployeesFieldset extends Fieldset implements ViewPartialProviderInterface
         $this->setName('employees');
 
         $this->add(array(
-            'name' => 'searchusers',
-            'type' => 'Auth/UserSearchbar',
+            'name' => 'inviteemployee',
+            'type' => 'Organizations/InviteEmployeeBar',
             'options' => array(
-                'description' => /*@translate*/ 'Search for registered users.',
+                'description' => /*@translate*/ 'Invite an employee via email address.',
             ),
         ));
 
