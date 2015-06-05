@@ -8,7 +8,8 @@
  */
  
 /*
- * System mail configuration for development systems. 
+ * System mail configuration for development systems.
+ * @todo: move this option into module.core.options
  */
 return array(
     'mails' => array(

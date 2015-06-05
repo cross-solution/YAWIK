@@ -203,7 +203,7 @@ class Register
     }
 
     /**
-     * Email-Adress
+     * Email-Address
      * @param $email string
      * @return mixed
      */
