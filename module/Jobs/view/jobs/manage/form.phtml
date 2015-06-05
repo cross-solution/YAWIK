@@ -88,7 +88,7 @@ if ($this->page == 2):
                     foreach($this->job->portals as $channelName):
 
                             $channelData=$channels->getChannel($channelName);
-                            if (is_object($channelName)) $portals[$channelData->getCategory()][] = $channelData;
+                            if (is_object($channelData)) $portals[$channelData->getCategory()][] = $channelData;
                     endforeach;
 
                     foreach ($portals as $category => $channels):?>

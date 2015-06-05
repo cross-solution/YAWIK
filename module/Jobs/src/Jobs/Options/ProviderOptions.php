@@ -61,7 +61,10 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
      */
     public function getChannel($key)
     {
-        return $this->channels[$key];
+        if (array_key_exists($key, $this->channels)) {
+            return $this->channels[$key];
+        }
+        return array();
     }
 
     /**
