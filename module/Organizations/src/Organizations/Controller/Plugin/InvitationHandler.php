@@ -310,6 +310,7 @@ class InvitationHandler extends AbstractPlugin
             $user = $repository->create();
             $user->setEmail($email)
                  ->setLogin($email)
+                 ->setRole(\Auth\Entity\User::ROLE_RECRUITER)
                  ->setIsDraft(true);
             $info = $user->getInfo();
             /* @var $info \Auth\Entity\InfoInterface */
