@@ -125,8 +125,8 @@ class User extends AbstractRepository
     {
         return $this->findOneBy(array(
             '$or' => array(
-                'login' => $identity . $suffix,
-                'info.email' => $identity
+                array('login' => $identity . $suffix),
+                array('info.email' => $identity)
             )
         ));
     }
