@@ -95,10 +95,16 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
         $serviceManager = $this->getServiceManager();
         if ($serviceManager->has('Jobs/RestClient')) {
             try {
+                $log = $serviceManager->get('Core/Log');
                 $restClient = $serviceManager->get('Jobs/RestClient');
                 $provider = $serviceManager->get('Jobs/Options/Provider');
 
                 $entity = $e->getJobEntity();
+
+                $render = $serviceManager->get('ViewPhpRendererStrategy')->getRenderer();
+                $viewModel = $serviceManager->get('Jobs/viewModelTemplateFilter')->__invoke($entity);
+                $html = $render->render($viewModel);
+
 
                 // all this is very alpha and will be due to several changes
 
@@ -112,12 +118,16 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 //   channels          = array of externalIds
                 $data = array(
                     'applyId'          => $entity->applyId,
+                    'reference'        => $entity->reference,
                     'company'          => $entity->organization->name,
                     'title'            => $entity->title,
-                    'description'      => $entity->description,
+                    'description'      => $html,
                     'location'         => $entity->location,
                     'datePublishStart' => $entity->datePublishStart,
-                    'channels'         => array()
+                    'channels'         => array(),
+                    'templateName'     => $entity->template,
+                    'contactEmail'     => $entity->contactEmail
+
                 );
                 //$hydrator = $serviceManager->get('Jobs/JobsEntityHydrator');
                 //$data = $hydrator->extract($entity);
@@ -131,8 +141,26 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 $dataJson = json_encode($data);
                 $restClient->setRawBody($dataJson);
                 $response = $restClient->send();
-                // @TODO: statusCode is not stored, there is simply no mechanism to track external communication.
                 $StatusCode = $response->getStatusCode();
+                $body = $response->getBody();
+                $decodedBody = json_decode($body);
+                $jsonLastError = json_last_error();
+                if (json_last_error() != JSON_ERROR_NONE) {
+                    // not able to decode json
+                    $log->info('RestCall Response not Json [errorCode: ' . $jsonLastError . ']: ' . var_export($body, True));
+                }
+                else {
+                    // does the provider want to have an own ID for Identification ?
+                    $response_referenceUpdate = $decodedBody->referenceUpdate;
+                    $response_applyIdUpdate = $decodedBody->applyIdUpdate;
+
+                    if ($entity->applyId != $response_applyIdUpdate || $entity->reference != $response_referenceUpdate) {
+                        $log->info('RestCall changed applyID [' . var_export($entity->applyId, True) . ' => ' . var_export($response_applyIdUpdate, True) . '], reference  [' . var_export($entity->reference, True) . ' => ' . var_export($response_referenceUpdate, True) . ']');
+                        $entity->applyId = $response_applyIdUpdate;
+                        $entity->reference = $response_referenceUpdate;
+                        $serviceManager->get('repositories')->store($entity);
+                    }
+                }
 
                 $e->stopPropagation(true);
                 $response = new JobResponse($this->name, JobResponse::RESPONSE_OKANDSTOP);

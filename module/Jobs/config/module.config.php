@@ -175,6 +175,7 @@ return array(
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
+            'Jobs/viewModelTemplateFilter'                => 'Jobs\Filter\viewModelTemplateFilterFactory'
         ),
         'shared' => array(
             'Jobs/Event' => false,
