@@ -81,7 +81,7 @@ return array(
                 'route' => 'lang/admin',
                 'order' => 1000,
                 'resource' => 'route/lang/admin',
-
+                'visible' => false,
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Global Settings',
