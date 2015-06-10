@@ -80,21 +80,39 @@ class Acl extends AbstractPlugin
     }
 
     /**
-     * @param $role
-     * @param null $inherit
+     * Returns true, if the logged in user is of a specific role.
+     *
+     * If $inherit is TRUE, inheritance is also considered.
+     * In that case, the third parameter is used to determine, wether only the
+     * direct parent role should be checked or not.
+     *
+     * @param string|\Zend\Permissions\Acl\Role\RoleInterface $role Matching role.
+     * @param bool $inherit
+     * @param bool $onlyParents
      * @return bool
+     * @uses \Zend\Permission\Acl\Acl::inheritsRole()
      */
-    public function isRole($role, $inherit=null)
+    public function isRole($role, $inherit=false, $onlyParents = false)
     {
         if ($role instanceOf RoleInterface) {
             $role = $role->getRoleId();
         }
 
-        $isRole = $this->getUser()->getRole() == $role;
-        
-        return null === $inherit
-               ? $isRole
-               : $isRole || $this->getAcl()->inheritRole($role, $inherit);
+        $userRole = $this->getUser()->getRole();
+        $isRole   = $userRole == $role;
+
+        /*
+         * @todo remove this, if the admin module is implemented
+         */
+        if ('recruiter' == $role) { $inherit = true; }
+
+        if ($isRole || !$inherit) {
+            return $isRole;
+        }
+
+        $acl = $this->getAcl(); /* @var $acl \Zend\Permissions\Acl\Acl */
+
+        return method_exists($acl, 'inheritsRole') && $acl->inheritsRole($userRole, $role, $onlyParents);
     }
 
     /**

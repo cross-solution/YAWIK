@@ -22,10 +22,13 @@ class PaginationQuery extends AbstractPaginationQuery
 {
     
     protected $repositoryName="Jobs/Job";
+    protected $auth;
+    protected $acl;
     
-    public function __construct($auth)
+    public function __construct($auth, $acl)
     {
         $this->auth = $auth;
+        $this->acl = $acl;
     }
 
     /**
@@ -39,7 +42,11 @@ class PaginationQuery extends AbstractPaginationQuery
     {
         $value = $params->toArray();
         $user = $this->auth->getUser();
-        if ($user->getRole()==User::ROLE_RECRUITER && (!isset($value['by']) || $value['by'] != 'guest')) {
+        $isRecruiter = $user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($user, User::ROLE_RECRUITER);
+        $isAdmin = User::ROLE_ADMIN == $user->getRole();
+        $showPendingJobs = $isAdmin && isset($value['status']) && 'created' == $value['status'];
+
+        if ($isRecruiter && (!isset($value['by']) || $value['by'] != 'guest') && !$showPendingJobs) {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
@@ -55,10 +62,10 @@ class PaginationQuery extends AbstractPaginationQuery
                         break;
                 }
             }
-            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' ) {
+            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' && $value['status'] != 'created') {
                 $queryBuilder->field('status.name')->equals((string) $value['status']);
             }
-        } elseif($user->getRole()==User::ROLE_ADMIN) {
+        } else if ($showPendingJobs) {
             $queryBuilder->field('status.name')->equals( Status::CREATED);
         } else  {
             /*
