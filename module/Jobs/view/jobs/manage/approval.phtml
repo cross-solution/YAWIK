@@ -28,21 +28,21 @@ $channels = $sm->get('Jobs/Options/Provider');
             <table class="table table-bordered">
                 <tr>
                     <th><?php echo $this->translate('Channel')?></th>
-                    <th><?php echo $this->translate('Price')?></th>
+                    <th class="text-right"><?php echo $this->translate('Price')?></th>
                 </tr>
                 <?php foreach($this->job->portals as $channel):?>
                     <?php if($channel):?>
                         <?php $channelData=$channels->getChannel($channel); ?>
                         <tr>
                             <td><?php echo $channelData->label ?></td>
-                            <td><?php echo $channelData->price ?> <?php echo $channelData->currency ?></td>
+                            <td class="text-right"><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
                         </tr>
                         <?php $total += (int) $channelData->price; ?>
                     <?php endif;?>
                 <?php endforeach;?>
                 <tr>
-                    <td><?php echo $this->translate("Total")?></td>
-                    <td><span class="label label-default"><?php echo $total ?></span></td>
+                    <td><strong><?php echo $this->translate("Total")?></strong></td>
+                    <td class="text-right"><strong><?php echo $this->currencyFormat($total, 'EUR') ?></strong></span></td>
                 </tr>
             </table>
 

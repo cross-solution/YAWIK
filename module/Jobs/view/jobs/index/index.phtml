@@ -25,7 +25,7 @@ $this->headScript()->captureStart() ?>
       $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))?>
 
 <h1>
-  <?php echo $this->translate('List of your jobs');?>
+    <?php echo $this->showPendingJobs ? $this->translate('Jobs waiting for approval') : $this->translate('List of your jobs'); ?>
 </h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>

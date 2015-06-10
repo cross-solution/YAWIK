@@ -95,6 +95,7 @@ return array(
                     'Jobs/Manage' => array(
                         'approval',
                     ),
+                    'route/lang/jobs/pending-list',
                 )
             )
         ),
@@ -123,6 +124,14 @@ return array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/jobs',
+                        'params' => array('__activeMarker__' => 'overview'),
+                    ),
+                    'pending-list' => array(
+                        'label' => /*@translate*/ 'Pending jobs',
+                        'route' => 'lang/jobs',
+                        'query' => array('status' => 'created'),
+                        'resource' => 'route/lang/jobs/pending-list',
+                        'params' => array('__activeMarker__' => 'pending'),
                     ),
                     'new' => array(
                         'label' => /*@translate*/ 'Create job',

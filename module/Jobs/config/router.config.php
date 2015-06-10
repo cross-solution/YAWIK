@@ -18,6 +18,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
             'defaults' => array(
                 'controller' => 'Jobs/Index',
                 'action'     => 'index',
+                '__activeMarker__' => 'overview'
             ),
         ),
         'may_terminate' => true,

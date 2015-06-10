@@ -58,6 +58,7 @@ class IndexController extends AbstractActionController
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
         $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
+        $showPendingJobs = $this->acl()->isRole('admin') && 'created' == $params->get('status');
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -73,9 +74,13 @@ class IndexController extends AbstractActionController
             }
             /* @var $filterForm \Jobs\Form\ListFilter */
             $session[$sessionKey] = $params->toArray();
-            $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
 
-            $filterForm->bind($params);
+            if (!$showPendingJobs) {
+                $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
+                $filterForm->bind($params);
+            } else {
+                $this->getEvent()->getRouteMatch()->setParam('__activeMarker__', 'pending');
+            }
         }
 
         if (!isset($params['sort'])) {
@@ -87,6 +92,7 @@ class IndexController extends AbstractActionController
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
+            'showPendingJobs' => $showPendingJobs,
         );
         if (isset($filterForm)) {
             $return['filterForm'] = $filterForm;
