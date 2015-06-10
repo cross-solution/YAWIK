@@ -28,6 +28,12 @@ class JobDescription extends Container implements ViewPartialProviderInterface
             'id' => 'jobs-form-description',
             'data-handle-by' => 'native'
         ));
+
+        $this->setForms(array(
+            'atsMode' => array(
+                'type' => 'Jobs/AtsMode',
+            )
+        ));
     }
 
     public function setViewPartial($partial) {

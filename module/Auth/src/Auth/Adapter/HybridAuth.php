@@ -37,7 +37,7 @@ class HybridAuth implements AdapterInterface
     /**
      * User mapper.
      * 
-     * @var \Auth\Mapper\MongoDb\UserMapper
+     * @var \Auth\Repository\User
      */
     protected $repository;
     
@@ -91,6 +91,7 @@ class HybridAuth implements AdapterInterface
        
        $forceSave = false;
        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
+
        if (!$user) {
            $forceSave = true;
            $user = $this->getRepository()->create();
@@ -116,6 +117,15 @@ class HybridAuth implements AdapterInterface
             
            $user->login =  $email;
            
+
+           $user->profile = $newInfo;
+           $dm->persist($user);
+           // make sure all ids are generated and user exists in database.
+           $dm->flush();
+
+           /*
+            * This must be after flush because a newly created user has no id!
+            */
            if ($forceSave || (!$user->info->image && $userProfile->photoURL)) {
                // get user image
                if ('' != $userProfile->photoURL) {
@@ -123,21 +133,20 @@ class HybridAuth implements AdapterInterface
                    $response = $client->send();
                    $file = new GridFSFile();
                    $file->setBytes($response->getBody());
-                   
+
                    $userImage = new UserImage();
                    $userImage->setName($userProfile->lastName.$userProfile->firstName);
                    $userImage->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
                    $userImage->setUser($user);
                    $userImage->setFile($file);
-                   $user->info->setImage($userImage); 
+                   $user->info->setImage($userImage);
                    $dm->persist($userImage);
                    //$this->getRepository()->store($user->info);
                }
+
+               // We have to flush again
+               $dm->flush();
            }
-           $user->profile = $newInfo;
-           $dm->persist($user);
-           // make sure all ids are generated and user exists in database.
-           $dm->flush();
        }
        
        

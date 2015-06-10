@@ -1,16 +1,15 @@
 <?php
-$channels=array("yawik" =>
-                    array(
-                        "label"=>"YAWIK",
-                        "price" =>  /*translate*/ "free"),
-                "jobsintown" => array(
-                    "label" => "www.jobsintown.de",
-                    "price" => "199 €"),
-                "homepage" => array(
-                    "label" => "Your Homepage",
-                    "price" => "free")
-
-);
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<?php
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$channels = $sm->get('Jobs/Options/Provider');
 ?>
 <h3><?php echo $this->translate("Preview of the posting"); ?></h3>
 <div class="row">
@@ -29,20 +28,21 @@ $channels=array("yawik" =>
             <table class="table table-bordered">
                 <tr>
                     <th><?php echo $this->translate('Channel')?></th>
-                    <th><?php echo $this->translate('Price')?></th>
+                    <th class="text-right"><?php echo $this->translate('Price')?></th>
                 </tr>
                 <?php foreach($this->job->portals as $channel):?>
-                    <?php if($channel['active']):?>
+                    <?php if($channel):?>
+                        <?php $channelData=$channels->getChannel($channel); ?>
                         <tr>
-                            <td><?php echo $channel['name']?></td>
-                            <td><?php echo $channels[$channel['name']]['price']?></td>
-                            <?php if ($channel['name']=='jobsintown') $total=$channels[$channel['name']]['price'];?>
+                            <td><?php echo $channelData->label ?></td>
+                            <td class="text-right"><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
                         </tr>
+                        <?php $total += (int) $channelData->price; ?>
                     <?php endif;?>
                 <?php endforeach;?>
                 <tr>
-                    <td><?php echo $this->translate("Total")?></td>
-                    <td><span class="label label-default"><?php echo $total ?></span></td>
+                    <td><strong><?php echo $this->translate("Total")?></strong></td>
+                    <td class="text-right"><strong><?php echo $this->currencyFormat($total, 'EUR') ?></strong></span></td>
                 </tr>
             </table>
 

@@ -1,13 +1,17 @@
 <div class="panel panel-default pagination-container">
   <div class="panel-heading">
-    <?php echo 'recent' == $this->type ? $this->translate('Current Jobs'): $this->translate('Famous jobs')?>
+      <?php /*if ($this->acl()->isRole( Auth\Entity\User::ROLE_ADMIN )):?>
+          <?php echo $this->translate('Jobs waiting for approval')?>
+      <?php else: */?>
+          <?php echo 'recent' == $this->type ? $this->translate('Current Jobs'): $this->translate('Famous jobs')?>
+      <?php //endif; ?>
   </div>
     <table class="table table-striped table-bordered table-hover">
      <thead>
        <tr>
          <th><?php echo $this->translate('Job');?></th>
          <th><?php echo $this->translate('Date');?></th>
-         <?php if ($this->acl()->isRole('recruiter')):?>
+         <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER )):?>
            <th><?php echo $this->translate('Applications');?></th>
          <?php endif;?>
        </tr>
@@ -15,12 +19,17 @@
      <tbody>
      <?php foreach ($this->jobs as $job):?>
      <tr>
-       <td><a target="_new" href="<?php echo $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>"><?php echo $job->title ?></a></td>
+       <td>
+           <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_ADMIN )):?>
+               <a href="<?php echo $job->link ? $job->link : $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->id)), true); ?>"><?php echo $job->title ?></a></td>
+           <?php else: ?>
+                <a target="_new" href="<?php echo $job->link ? $job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true); ?>"><?php echo $job->title ?></a></td>
+            <?php endif ?>
        <td>
        <?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none');
               elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
        </td>
-       <?php if ($this->acl()->isRole('recruiter')):?>
+       <?php if ($this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER )):?>
        <td>     
          <?php if ($job->applications->count()>0):?>
             <a title="<?php echo $this->translate("total")?>" href="<?php echo $this->url( 'lang/applications', array(), array('query' => 'job=' . $job->id), true) ?>">

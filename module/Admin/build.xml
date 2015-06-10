@@ -1,0 +1,25 @@
+<project name="YAWIK" default="install">
+    <target name="install" depends="symlinks">
+        <echo>Admin ${$target}</echo>
+        <property file="${project.basedir}/config/build.properties" />
+        <copy todir="../../config/autoload" overwrite="false">
+            <fileset dir="config">
+                <include name="**.dist"/>
+            </fileset>
+            <mapper type="regexp" from="^(.*\.php)\.dist" to="\1"/>
+            <filterchain>
+                <replacetokens begintoken="%%" endtoken="%%">
+
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+    <!-- ============================================  -->
+    <!-- Target: symlinks                              -->
+    <!-- ============================================  -->
+    <target name="symlinks">
+        <symlink link="${project.basedir}/../../public/Admin"
+                 target="${project.basedir}/public/" overwrite="true"/>
+    </target>
+
+</project>

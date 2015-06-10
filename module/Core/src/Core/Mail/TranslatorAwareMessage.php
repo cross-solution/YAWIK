@@ -83,5 +83,41 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
         return $this;
     }
 
+    /**
+     * Sets the message subject.
+     *
+     * The passed string is automatically translated if the second parameter is true (default).
+     *
+     * @param string $subject
+     * @param bool $translate
+     *
+     * @since 0.19
+     * @return Message
+     */
+    public function setSubject($subject, $translate = true)
+    {
+
+        if ($translate) {
+            $translator = $this->getTranslator();
+            $domain     = $this->getTranslatorTextDomain();
+
+            $subject = $translator->translate($subject, $domain);
+        }
+
+        return parent::setSubject($subject);
+    }
+
+    public function setFormattedSubject($formatString)
+    {
+        $args       = func_get_args();
+        $translator = $this->getTranslator();
+        $args       = array_slice($args,1);
+        $domain     = $this->getTranslatorTextDomain();
+        $subject    = $translator->translate($formatString, $domain);
+        array_unshift($args, $subject);
+        $subject    = call_user_func_array('sprintf', $args);
+        return parent::setSubject($subject);
+    }
+
 }
 

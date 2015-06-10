@@ -27,6 +27,7 @@ use Core\Entity\DraftableEntityInterface;
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  * @ODM\HasLifecycleCallbacks
  *
+ * @todo write test
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -212,8 +213,19 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->organizationName;
     }
 
+
+    public function getName()
+    {
+        if (empty($this->organizationName)) {
+            return '';
+        }
+        return $this->organizationName->name;
+    }
+
     public function getSearchableProperties()
-    { }
+    {
+        return array();
+    }
 
     public function setKeywords(array $keywords)
     { }
@@ -274,6 +286,10 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
         foreach ($employees as $emp) {
             /* @var $emp EmployeeInterface */
+            if ($emp->isUnassigned()) {
+                continue;
+            }
+
             $perm = $emp->getPermissions();
             if ($perm->isAllowed($change)) {
                 $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
@@ -310,14 +326,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->image;
     }
 
-    /**
-     * Sets contact.
-     *
-     * @todo has to be in interface
-     * @param EntityInterface $contact
-     *
-     * @return self
-     */
     public function setContact(EntityInterface $contact = null)
     {
         if (!$contact instanceOf OrganizationContact) {
@@ -327,11 +335,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this;
     }
 
-    /** 
-     * gets the contact
-     * @todo has to be in interface
-     * @return OrganizationContact
-     */
     public function getContact()
     {
         if (!$this->contact instanceOf OrganizationContact) {
@@ -385,6 +388,20 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         }
 
         return $this->employees;
+    }
+
+    public function getEmployee($userOrId)
+    {
+        $employees = $this->getEmployees();
+        $userId    = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        foreach ($employees as $employee) {
+            if ($employee->getUser()->getId() == $userId) {
+                return $employee;
+            }
+        }
+
+        return null;
     }
 
     public function isOwner(UserInterface $user)

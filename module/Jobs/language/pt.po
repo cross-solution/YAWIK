@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 19:05+0100\n"
-"PO-Revision-Date: 2015-02-04 18:07+0000\n"
+"POT-Creation-Date: 2015-05-16 20:42+0200\n"
+"PO-Revision-Date: 2015-05-16 18:47+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Portuguese (http://www.transifex.com/projects/p/yawik/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -26,56 +26,92 @@ msgstr ""
 msgid "Publish on %s"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:8 view/iframe/iFrame.phtml:2
+#: view/mails/job-created.phtml:15 view/iframe/iFrame.phtml:6
 msgid "Job details"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:11 view/jobs/index/index.ajax.phtml:14
+#: view/mails/job-created.phtml:18 view/jobs/jobboard/index.ajax.phtml:13
+#: view/jobs/index/index.ajax.phtml:17
 msgid "Title of the job"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:15 view/jobs/index/index.ajax.phtml:15
-#: language/_annotated_strings.php:78
+#: view/mails/job-created.phtml:22 view/jobs/jobboard/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:18 language/_annotated_strings.php:102
 msgid "Location"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:19 view/jobs/index/index.ajax.phtml:16
-#: language/_annotated_strings.php:33 language/_annotated_strings.php:45
+#: view/mails/job-created.phtml:26 view/jobs/jobboard/index.ajax.phtml:13
+#: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:33
+#: language/_annotated_strings.php:45
 msgid "Companyname"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:24
+#: view/mails/job-created.phtml:31
 msgid "Publisher details"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:28
+#: view/mails/job-created.phtml:35
 msgid "Name"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:32
+#: view/mails/job-created.phtml:39 language/_annotated_strings.php:72
 msgid "Email"
 msgstr "Email"
 
-#: view/mails/jobCreatedMail.phtml:47
+#: view/mails/job-created.phtml:58
 msgid "no Portal chosen"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:49
+#: view/mails/job-created.phtml:60
 msgid "Selected Channels"
 msgstr ""
 
-#: view/mails/jobCreatedMail.phtml:59
+#: view/mails/job-created.phtml:80
 msgid "Click here to accept or reject the job opening"
 msgstr ""
 
-#: view/iframe/iFrame.phtml:13
+#: view/iframe/iFrame.phtml:17
 msgid ""
 "You are using a default template. You are free to create your own template, "
 "just contact the developing team for integration"
 msgstr ""
 
+#: view/iframe/iFrame.phtml:22
+msgid "Default"
+msgstr ""
+
+#: view/iframe/iFrame.phtml:27
+msgid "Classic"
+msgstr ""
+
+#: view/iframe/iFrame.phtml:32
+msgid "Modern"
+msgstr ""
+
+#: view/iframe/iFrame.phtml:44
+msgid "Track applications"
+msgstr ""
+
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:18
+msgid "The build-in ATS is currently used."
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:22
+#, php-format
+msgid "Applications are handled via URI: %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:27
+#, php-format
+msgid "Applications will be send to %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:32
+msgid "ATS is disabled."
 msgstr ""
 
 #: view/form/list-filter.phtml:51
@@ -90,68 +126,106 @@ msgstr ""
 msgid "All jobs"
 msgstr ""
 
-#: view/jobs/index/index.phtml:2 view/jobs/index/view.phtml:10
-#: language/_annotated_strings.php:126
+#: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
+#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:150
 msgid "Jobs"
 msgstr ""
 
-#: view/jobs/index/index.phtml:7
-msgid "List of all jobs"
-msgstr ""
-
-#: view/jobs/index/index.phtml:9
+#: view/jobs/jobboard/index.phtml:5
 msgid "Public Job Opportunities"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:13
+#: view/jobs/jobboard/index.ajax.phtml:14 view/jobs/index/index.ajax.phtml:16
 msgid "Date of receipt"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:17
-msgid "Reference"
-msgstr ""
-
-#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/dashboard.phtml:11
-msgid "Applications"
-msgstr "Aplicações"
-
-#: view/jobs/index/index.ajax.phtml:20
-msgid "Status"
-msgstr "Estado"
-
-#: view/jobs/index/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
-msgid "Action"
-msgstr ""
-
-#: view/jobs/index/index.ajax.phtml:48 view/jobs/index/dashboard.phtml:26
-msgid "total"
-msgstr ""
-
-#: view/jobs/index/index.ajax.phtml:54 view/jobs/index/dashboard.phtml:32
-msgid "unread"
-msgstr ""
-
-#: view/jobs/index/index.ajax.phtml:66
-msgid "draft"
-msgstr ""
-
-#: view/jobs/index/index.ajax.phtml:89 view/jobs/index/view.phtml:18
+#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:101
+#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:71
 msgid "Apply"
 msgstr "Aplicar"
 
-#: view/jobs/index/dashboard.phtml:3
+#: view/jobs/index/index.phtml:15
+msgid "Loading"
+msgstr "Carregamento"
+
+#: view/jobs/index/index.phtml:16
+msgid "Access denied!"
+msgstr ""
+
+#: view/jobs/index/index.phtml:17
+msgid "Application error!"
+msgstr ""
+
+#: view/jobs/index/index.phtml:18
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: view/jobs/index/index.phtml:19
+msgid "Save"
+msgstr "Salvar"
+
+#: view/jobs/index/index.phtml:20
+msgid "Sending"
+msgstr ""
+
+#: view/jobs/index/index.phtml:21
+msgid "Fail!"
+msgstr ""
+
+#: view/jobs/index/index.phtml:28
+msgid "List of your jobs"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:20
+msgid "Reference"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:22 view/jobs/index/dashboard.phtml:15
+msgid "Applications"
+msgstr "Aplicações"
+
+#: view/jobs/index/index.ajax.phtml:23
+msgid "Status"
+msgstr "Estado"
+
+#: view/jobs/index/index.ajax.phtml:24 view/jobs/index/index.ajax.phtml:26
+msgid "Action"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:51 view/jobs/index/dashboard.phtml:35
+msgid "total"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:57 view/jobs/index/dashboard.phtml:41
+msgid "unread"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:69
+msgid "draft"
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:79
+#, php-format
+msgid "Change responsible user for job \\\"%s\\\""
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:4
+msgid "Jobs waiting for approval"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:6
 msgid "Current Jobs"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:3
+#: view/jobs/index/dashboard.phtml:6
 msgid "Famous jobs"
 msgstr ""
 
-#: view/jobs/index/dashboard.phtml:8
+#: view/jobs/index/dashboard.phtml:12
 msgid "Job"
 msgstr "Trabalho"
 
-#: view/jobs/index/dashboard.phtml:9
+#: view/jobs/index/dashboard.phtml:13
 msgid "Date"
 msgstr "Data"
 
@@ -177,19 +251,19 @@ msgstr ""
 msgid "Preview of the posting"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:88
+#: view/jobs/manage/approval.phtml:27 view/jobs/manage/form.phtml:89
 msgid "Summary"
 msgstr "Resumo"
 
-#: view/jobs/manage/approval.phtml:31 view/jobs/manage/form.phtml:96
+#: view/jobs/manage/approval.phtml:31 view/jobs/manage/form.phtml:97
 msgid "Channel"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:32 view/jobs/manage/form.phtml:97
+#: view/jobs/manage/approval.phtml:32 view/jobs/manage/form.phtml:98
 msgid "Price"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:44 view/jobs/manage/form.phtml:109
+#: view/jobs/manage/approval.phtml:44 view/jobs/manage/form.phtml:110
 msgid "Total"
 msgstr ""
 
@@ -201,101 +275,174 @@ msgstr ""
 msgid "Accept Job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:37
+#: view/jobs/manage/form.phtml:38
 msgid "Publish a job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:39
+#: view/jobs/manage/form.phtml:40
 msgid "Create a job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:71
+#: view/jobs/manage/form.phtml:72
 msgid "Preview of your job posting"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:82
+#: view/jobs/manage/form.phtml:83
 #, php-format
 msgid ""
 "Please check the preview of your job position. Click %s to open the preview "
 "in a new window"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:83 view/jobs/manage/form.phtml:118
+#: view/jobs/manage/form.phtml:84 view/jobs/manage/form.phtml:119
 msgid "here"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:92
+#: view/jobs/manage/form.phtml:93
 msgid "Your job opening is ready to be published to the following channels"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:117
+#: view/jobs/manage/form.phtml:118
 #, php-format
 msgid "Please check your selected channels. Click %s to modify the channels"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:135
+#: view/jobs/manage/form.phtml:136
 msgid "Next to enter the job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:138 view/jobs/manage/form.phtml:155
+#: view/jobs/manage/form.phtml:139 view/jobs/manage/form.phtml:203
 msgid "Back"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:139
+#: view/jobs/manage/form.phtml:140
 msgid "Next to preview the job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:147
+#: view/jobs/manage/form.phtml:151
 msgid "Your job position is incomplete."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:158
+#: view/jobs/manage/form.phtml:163
+msgid ""
+"Your job opening is online. You can publish minor changes or you can "
+"deactivate the job opening"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:172
+msgid "Your job opening was successfully created and is waiting for approval."
+msgstr ""
+
+#: view/jobs/manage/form.phtml:181
+msgid ""
+"Your job opening is inactive. You can reactivate it. Chargeable channels are"
+" not updated."
+msgstr ""
+
+#: view/jobs/manage/form.phtml:190
+msgid ""
+"Your job was expired. You can reactivate you job opening. Chargeable "
+"channels are not updated."
+msgstr ""
+
+#: view/jobs/manage/form.phtml:199
+msgid ""
+"Your job opening was rejected. Please correct the errors and republish it"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:206
 #, php-format
 msgid "Publish job %s"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:158
+#: view/jobs/manage/form.phtml:206
 msgid "chargeable"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:162
+#: view/jobs/manage/form.phtml:209
 msgid "submit changes"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:173
+#: view/jobs/manage/form.phtml:220
 msgid "Deactivate"
+msgstr ""
+
+#: view/error/no-parent.phtml:15
+msgid "Sorry, you may not create jobs."
+msgstr ""
+
+#: view/error/no-parent.phtml:20
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate a valid email%s "
+"first."
+msgstr ""
+
+#: view/error/no-parent.phtml:27
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate your main "
+"organization%s first."
 msgstr ""
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:36
 msgid "Description"
 msgstr "Descrição"
 
-#: src/Jobs/Controller/ManageController.php:145
+#: src/Jobs/Controller/ManageController.php:175
 msgid "No Title"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:149
+#: src/Jobs/Controller/ManageController.php:179
 msgid "No Location"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:153
+#: src/Jobs/Controller/ManageController.php:183
 msgid "Accept the Terms"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:349
+#: src/Jobs/Controller/ManageController.php:389
 msgid "Job has been rejected"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:356
+#: src/Jobs/Controller/ManageController.php:396
 msgid "Job has been approved"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:388
+#: src/Jobs/Controller/ManageController.php:428
 msgid "Job has been deactivated"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:390
+#: src/Jobs/Controller/ManageController.php:430
 msgid "Job could not be deactivated"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:445
+msgid "Template changed"
+msgstr ""
+
+#: src/Jobs/Controller/ManageController.php:448
+msgid "Template not changed"
+msgstr ""
+
+#: public/templates/classic/index.phtml:30
+#: public/templates/modern/index.phtml:33
+msgid "Your tasks"
+msgstr ""
+
+#: public/templates/classic/index.phtml:36
+#: public/templates/modern/index.phtml:39
+msgid "Qualifications"
+msgstr ""
+
+#: public/templates/classic/index.phtml:44
+#: public/templates/modern/index.phtml:47
+msgid "Benefis"
+msgstr ""
+
+#: public/templates/classic/index.phtml:54
+#: public/templates/modern/index.phtml:57
+msgid "Apply now"
 msgstr ""
 
 #: language/_annotated_strings.php:3
@@ -306,7 +453,7 @@ msgstr ""
 msgid "free"
 msgstr ""
 
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:114
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:183
 msgid "Your Homepage"
 msgstr ""
 
@@ -358,102 +505,170 @@ msgid "The name of the hiring organization will be shown in search results."
 msgstr ""
 
 #: language/_annotated_strings.php:51
-msgid "The apply identifier \"%value%\" is already in use."
+msgid "Select hiring organization"
 msgstr ""
 
 #: language/_annotated_strings.php:54
-msgid "Show all jobs"
+msgid "Mode"
 msgstr ""
 
 #: language/_annotated_strings.php:57
-msgid "Show my jobs"
+msgid "Built-In ATS"
 msgstr ""
 
 #: language/_annotated_strings.php:60
-msgid "All"
+msgid "Use external link"
 msgstr ""
 
 #: language/_annotated_strings.php:63
-msgid "Active"
+msgid "Get applications via email"
 msgstr ""
 
 #: language/_annotated_strings.php:66
-msgid "Inactive"
+msgid "Do not track"
 msgstr ""
 
-#: language/_annotated_strings.php:69 language/_annotated_strings.php:72
-msgid "Job title"
+#: language/_annotated_strings.php:69
+msgid "URL"
 msgstr ""
 
 #: language/_annotated_strings.php:75
-msgid "Please enter the job title"
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid "Show all jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:81
-msgid "Please enter the location of the job"
+msgid "Show my jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:84
-msgid "Multiposting"
+msgid "All"
 msgstr ""
 
 #: language/_annotated_strings.php:87
+msgid "Active"
+msgstr ""
+
+#: language/_annotated_strings.php:90
+msgid "Inactive"
+msgstr ""
+
+#: language/_annotated_strings.php:93 language/_annotated_strings.php:96
+msgid "Job title"
+msgstr ""
+
+#: language/_annotated_strings.php:99
+msgid "Please enter the job title"
+msgstr ""
+
+#: language/_annotated_strings.php:105
+msgid "Please enter the location of the job"
+msgstr ""
+
+#: language/_annotated_strings.php:108
+msgid "Multiposting"
+msgstr ""
+
+#: language/_annotated_strings.php:111
+msgid "rejected"
+msgstr "rejeitados"
+
+#: language/_annotated_strings.php:114
+msgid "publish"
+msgstr ""
+
+#: language/_annotated_strings.php:117
+msgid "active"
+msgstr ""
+
+#: language/_annotated_strings.php:120
+msgid "inactive"
+msgstr ""
+
+#: language/_annotated_strings.php:123
+msgid "expired"
+msgstr ""
+
+#: language/_annotated_strings.php:126
 #, php-format
 msgid "Job opening was rejected by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:129
 #, php-format
 msgid "Job opening was activated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:132
 #, php-format
 msgid "Job was deactivated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:135
+msgid "A new job opening was created"
+msgstr ""
+
+#: language/_annotated_strings.php:138
+msgid "Your Job have been wrapped up for approval"
+msgstr ""
+
+#: language/_annotated_strings.php:141
+msgid "Your job has been published"
+msgstr ""
+
+#: language/_annotated_strings.php:144
+msgid "Your job has been rejected"
+msgstr ""
+
+#: language/_annotated_strings.php:147 language/_annotated_strings.php:162
+msgid "Jobboard"
+msgstr ""
+
+#: language/_annotated_strings.php:153
+msgid "Overview"
+msgstr "Visão global"
+
+#: language/_annotated_strings.php:156
+msgid "Create job"
+msgstr ""
+
+#: language/_annotated_strings.php:159
+msgid "Edit job"
+msgstr ""
+
+#: language/_annotated_strings.php:165
 msgid "publish your job on yawik.org for free"
 msgstr ""
 
-#: language/_annotated_strings.php:99 language/_annotated_strings.php:108
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:177
 #, php-format
 msgid "publish the job for 30 days on %s"
 msgstr ""
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:171
 msgid "yawik.org"
 msgstr ""
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:174
 msgid "publish your job on Jobsintown. 199,-€"
 msgstr ""
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:180
 msgid "www.jobsintown.de"
 msgstr ""
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:186
 msgid "enable integration of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "enable %s of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:192
 msgid "integration"
-msgstr ""
-
-#: language/_annotated_strings.php:129
-msgid "Overview"
-msgstr "Visão global"
-
-#: language/_annotated_strings.php:132
-msgid "Create job"
-msgstr ""
-
-#: language/_annotated_strings.php:135
-msgid "Edit job"
 msgstr ""

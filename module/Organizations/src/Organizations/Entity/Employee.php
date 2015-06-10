@@ -42,6 +42,40 @@ class Employee extends AbstractEntity implements EmployeeInterface
      */
     protected $permissions;
 
+    /**
+     * Status of this employees' association to this organization
+     *
+     * @var string
+     * @ODM\String
+     */
+    protected $status = self::STATUS_ASSIGNED;
+
+    /**
+     * Creates an instance.
+     *
+     * @param UserInterface $user
+     * @param null|int|EmployeePermissionsInterface $permissions Passing an int means passing the permissions bitmask
+     *                                                           which is passed along to the constructor of a new
+     *                                                           instance of EmployeePermissionsInterface
+     *
+     * @since 0.19
+     */
+    public function __construct(UserInterface $user = null, $permissions = null)
+    {
+        if (null !== $user) {
+            $this->setUser($user);
+
+
+            if (is_int($permissions)) {
+                $permissions = new EmployeePermissions($permissions);
+            }
+
+            if ($permissions instanceof EmployeePermissionsInterface) {
+                $this->setPermissions($permissions);
+            }
+        }
+    }
+
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
@@ -70,16 +104,43 @@ class Employee extends AbstractEntity implements EmployeeInterface
         return $this->permissions;
     }
 
-    public function isPending()
+    public function setStatus($status)
     {
-        return $this->pending;
-    }
+        if (!defined('self::STATUS_' . strtoupper($status))) {
+            $status = self::STATUS_ASSIGNED;
+        }
 
-    public function setPending($flag)
-    {
-        $this->pending = (bool) $flag;
+        $this->status = $status;
 
         return $this;
     }
+
+    public function getStatus()
+    {
+       return $this->status;
+    }
+
+    public function isAssigned()
+    {
+        return self::STATUS_ASSIGNED == $this->getStatus();
+    }
+
+    public function isPending()
+    {
+        return self::STATUS_PENDING == $this->getStatus();
+    }
+
+    public function isRejected()
+    {
+        return self::STATUS_REJECTED == $this->getStatus();
+    }
+
+    public function isUnassigned($strict=false)
+    {
+        return $strict
+               ? self::STATUS_UNASSIGNED == $this->getStatus()
+               : self::STATUS_ASSIGNED != $this->getStatus();
+    }
+
 
 }

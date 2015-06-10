@@ -4,60 +4,74 @@
  *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @license   MIT
+ * @license       MIT
  */
 
-/** MailService.php */ 
+/** */
 namespace Core\Mail;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\ConfigInterface;
-use Zend\Mail\Transport\TransportInterface;
-use Zend\Mail\Message;
+use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Mail\Address;
 use Zend\Mail\AddressList;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\TransportInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\ServiceManager\ConfigInterface;
 
 /**
- * Class MailService
- * @package Core\Mail
+ * Mail Plugin Manager
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @author Carsten Bleek <bleek@cross-solution.de>
  */
 class MailService extends AbstractPluginManager
 {
     /**
+     * The mail Transport
+     *
      * @var TransportInterface
      */
     protected $transport;
 
     /**
-     * @var String From Mail Header
+     * Default from address to use if no from address is set in the mail.
+     *
+     * @var string
      */
     protected $from;
 
+    /**
+     * Value for the X-Mailer header.
+     *
+     * @var string
+     */
     protected $mailer;
 
     /**
-     * @var boolean The recipient can be overwritten. This helps developers...
+     * If set, all mails are send to the addresses in this list
+     *
+     * This is useful when developing.
+     *
+     * @var AddressList|null
      */
     protected $overrideRecipient;
 
-    /**
-     * @var bool
-     */
     protected $shareByDefault = false;
-    
+
     protected $invokableClasses = array(
-        'simple' => '\Zend\Mail\Message',
+        'simple'         => '\Zend\Mail\Message',
         'stringtemplate' => '\Core\Mail\StringTemplateMessage',
-        'htmltemplate' => '\Core\Mail\HTMLTemplateMessage'
-    );
-    
-    protected $factories = array(
-    
+        'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage'
     );
 
     /**
+     * Creates an instance.
+     *
+     * Adds two default initializers:
+     * - Inject the translator to mails implementing TranslatorAwareInterface
+     * - Call init() method on Mails if such method exists.
+     *
      * @param ConfigInterface $configuration
      */
     public function __construct(ConfigInterface $configuration = null)
@@ -65,54 +79,46 @@ class MailService extends AbstractPluginManager
         parent::__construct($configuration);
         $self = $this;
 
-        $this->addInitializer(function($instance) use ($self) {
-            if ($instance instanceOf TranslatorAwareInterface) {
-                $translator = $self->getServiceLocator()->get('translator');
-                $instance->setTranslator($translator);
-                $instance->setTranslatorEnabled(true);
-            }
-        }, /*topOfStack*/ false);
-        $this->addInitializer(function($instance) {
-            if (method_exists($instance, 'init')) {
-                $instance->init();
-            }
-        }, false);
-        
+        $this->addInitializer(function ($instance) use ($self) {
+                if ($instance instanceOf TranslatorAwareInterface) {
+                    $translator = $self->getServiceLocator()->get('translator');
+                    $instance->setTranslator($translator);
+                    if (null === $instance->getTranslatorTextDomain()) {
+                        $instance->setTranslatorTextDomain();
+                    }
+                    $instance->setTranslatorEnabled(true);
+                }
+            }, /*topOfStack*/
+            false
+        );
+        $this->addInitializer(function ($instance) {
+                if (method_exists($instance, 'init')) {
+                    $instance->init();
+                }
+            }, false
+        );
+
     }
 
     /**
-     * @param mixed $plugin
+     * Checks that a plugin is a child of an email message.
+     *
      * @throws \InvalidArgumentException
      */
     public function validatePlugin($plugin)
     {
         if (!$plugin instanceOf Message) {
             throw new \InvalidArgumentException(sprintf(
-                'Expected instance of \Zend\Mail\Message but received %s',
-                get_class($plugin)
-            ));
+                                                    'Expected instance of \Zend\Mail\Message but received %s',
+                                                    get_class($plugin)
+                                                ));
         }
     }
 
-	/**
-     * @return TransportInterface $transport
-     */
-    public function getTransport ()
-    {
-        return $this->transport;
-    }
-
-	/**
-     * @param TransportInterface $transport
-     */
-    public function setTransport (TransportInterface $transport)
-    {
-        $this->transport = $transport;
-        return $this;
-    }
-
     /**
-     * @return String
+     * Gets the default from address
+     *
+     * @return null|String|Address|AddressList|array
      */
     public function getFrom()
     {
@@ -120,64 +126,57 @@ class MailService extends AbstractPluginManager
     }
 
     /**
-     * @param $email
-     * @param String|null $name
-     * @return $this
+     * Sets the default from address.
+     *
+     * @param string|AddressList|Address $email
+     * @param String|null                $name
+     *
+     * @return self
      */
-    public function setFrom($email, $name=null)
+    public function setFrom($email, $name = null)
     {
-        $this->from = is_object($email) || null === $name 
-                    ? $email 
-                    : array($email => $name);
-        
+        $this->from = is_object($email) || null === $name
+            ? $email
+            : array($email => $name);
+
         return $this;
     }
 
     /**
-     * @param $mailer
-     * @return $this
-     */
-    public function setMailer($mailer)
-    {
-        $this->mailer = $mailer;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMailer()
-    {
-        return $this->mailer;
-    }
-
-    /**
+     * Sets override recipients.
+     *
      * @param AddressList $recipients
-     * @return $this
+     *
+     * @return self
      */
     public function setOverrideRecipient(AddressList $recipients)
     {
         $this->overrideRecipient = $recipients;
+
         return $this;
     }
 
     /**
-     * @param $mail
-     * @param array $options
+     * Sends a mail.
+     *
+     * Sets default values where needed.
+     *
+     * @param string|Message $mail
+     * @param array          $options
      */
-    public function send($mail, array $options=array())
+    public function send($mail, array $options = array())
     {
         if (!$mail instanceOf Message) {
             $mail = $this->get($mail, $options);
         }
-        
+
         $headers   = $mail->getHeaders();
         $transport = $this->getTransport();
-        
+
         if (!$mail->isValid() && $this->from) {
             $mail->setFrom($this->from);
         }
-        
+
         if ($this->overrideRecipient instanceof AddressList) {
             $originalRecipient = $headers->get('to')->toString();
             if ($headers->has('cc')) {
@@ -191,7 +190,7 @@ class MailService extends AbstractPluginManager
             $headers->addHeaderLine('X-Original-Recipients', $originalRecipient);
             $mail->setTo($this->overrideRecipient);
         }
-        
+
         if (!$headers->has('X-Mailer')) {
             $mailerHeader = new \Zend\Mail\Header\GenericHeader('X-Mailer', $this->getMailer());
             $headers->addHeader($mailerHeader);
@@ -199,6 +198,54 @@ class MailService extends AbstractPluginManager
         }
 
         $transport->send($mail);
+    }
+
+    /**
+     * Gets the transport.
+     *
+     * @return TransportInterface $transport
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Sets the transport
+     *
+     * @param TransportInterface $transport
+     *
+     * @return self
+     */
+    public function setTransport(TransportInterface $transport)
+    {
+        $this->transport = $transport;
+
+        return $this;
+    }
+
+    /**
+     * Gest the value of the X-Mailer header.
+     *
+     * @return string
+     */
+    public function getMailer()
+    {
+        return $this->mailer;
+    }
+
+    /**
+     * Sets the value for the X-Mailer header
+     *
+     * @param string $mailer
+     *
+     * @return $this
+     */
+    public function setMailer($mailer)
+    {
+        $this->mailer = $mailer;
+
+        return $this;
     }
 }
 

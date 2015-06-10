@@ -114,13 +114,14 @@ class SummaryForm extends AbstractHelper
         
         return $content;
     }
-    
+
     /**
      * Only renders the form representation of a summary form.
-     * 
+     *
      * @param SummaryFormInterface $form
      * @param string $layout
      * @param array $parameter
+     * @return string
      */
     public function renderForm(SummaryFormInterface $form, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
     {

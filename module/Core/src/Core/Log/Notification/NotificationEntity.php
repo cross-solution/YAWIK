@@ -37,4 +37,13 @@ class NotificationEntity implements NotificationEntityInterface
         return $this->priority;
     }
 
+    public function setTarget($target) {
+        $this->target = $target;
+        return $this;
+    }
+
+    public function getTarget() {
+        return $this->target;
+    }
+
 }

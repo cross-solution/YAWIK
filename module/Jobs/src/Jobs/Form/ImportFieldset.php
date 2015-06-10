@@ -75,16 +75,16 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             
-            'atsEnabled' => array(
-                'filters'  => array(
-                ),          
-                'allow_empty' => True
-            ),
-            'uriApply' => array(
-                'filters'  => array(
-                ),
-                'allow_empty' => True
-            ),
+//            'atsEnabled' => array(
+//                'filters'  => array(
+//                ),
+//                'allow_empty' => True
+//            ),
+//            'uriApply' => array(
+//                'filters'  => array(
+//                ),
+//                'allow_empty' => True
+//            ),
             
              'logoRef' => array(
                 'filters'  => array(
@@ -92,6 +92,8 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 ),          
                 'allow_empty' => True
             ),
+
+
         );
     }
     
@@ -169,15 +171,15 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
         ));
 
 
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Text',
-            'name' => 'uriApply',
-            'options' => array(
-                'label' => 'uriApply'
-            ),
-            'attributes' => array(
-            )
-        ));
+//        $this->add(array(
+//            'type' => 'Zend\Form\Element\Text',
+//            'name' => 'uriApply',
+//            'options' => array(
+//                'label' => 'uriApply'
+//            ),
+//            'attributes' => array(
+//            )
+//        ));
 
        $this->add(array(
             'type' => 'Zend\Form\Element\Text',
@@ -199,16 +201,16 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             )
         ));
        
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Radio',
-            'name' => 'atsEnabled',
-            'options' => array(
-                'label' => 'cam enabled',
-                'value_options' => array(0,1, True, False)
-            ),
-            'attributes' => array(
-            ),
-        ));
+//        $this->add(array(
+//            'type' => 'Zend\Form\Element\Radio',
+//            'name' => 'atsEnabled',
+//            'options' => array(
+//                'label' => 'cam enabled',
+//                'value_options' => array(0,1, True, False)
+//            ),
+//            'attributes' => array(
+//            ),
+//        ));
        
        
         $this->add(array(
@@ -219,6 +221,10 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
+        ));
+
+        $this->add(array(
+            'type' => 'Jobs/AtsModeFieldset',
         ));
     }
 }

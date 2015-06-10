@@ -11,50 +11,47 @@ translate('Social Profiles');
 //: ./src/Auth/Form/SocialProfilesFieldset.php:227
 translate('Allow users to attach their %s profile.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:41
+//: ./src/Auth/Form/UserInfoFieldset.php:57
 translate('personal informations');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:47
+//: ./src/Auth/Form/UserInfoFieldset.php:63
 translate('Email');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:54
+//: ./src/Auth/Form/UserInfoFieldset.php:70
 translate('Phone');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:62
+//: ./src/Auth/Form/UserInfoFieldset.php:78
 translate('Postalcode');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:69
+//: ./src/Auth/Form/UserInfoFieldset.php:85
 translate('City');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:77
+//: ./src/Auth/Form/UserInfoFieldset.php:93
 translate('Salutation');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:79
+//: ./src/Auth/Form/UserInfoFieldset.php:95
 translate('please select');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:80
+//: ./src/Auth/Form/UserInfoFieldset.php:96
 translate('Mr.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:81
+//: ./src/Auth/Form/UserInfoFieldset.php:97
 translate('Mrs.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:85
+//: ./src/Auth/Form/UserInfoFieldset.php:101
 translate('please select');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:93
+//: ./src/Auth/Form/UserInfoFieldset.php:109
 translate('First name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:101
+//: ./src/Auth/Form/UserInfoFieldset.php:117
 translate('Last name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:110
+//: ./src/Auth/Form/UserInfoFieldset.php:126
 translate('street');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:117
+//: ./src/Auth/Form/UserInfoFieldset.php:133
 translate('house number');
-
-//: ./src/Auth/Form/UserInfoFieldset.php:129
-translate('Application photo');
 
 //: ./src/Auth/Form/UserInfo.php:31
 translate('personal informations');
@@ -74,7 +71,7 @@ translate('Group name');
 //: ./src/Auth/Form/GroupFieldset.php:45
 translate('Select a group name. You can add users to your group and then work together on jobs and job applications.');
 
-//: ./src/Auth/Form/UserProfileContainer.php:27
+//: ./src/Auth/Form/UserProfileContainer.php:32
 translate('General settings');
 
 //: ./src/Auth/Form/ForgotPassword.php:29
@@ -104,13 +101,13 @@ translate('I am');
 //: ./src/Auth/Form/Validator/UniqueGroupName.php:46
 translate('The group name "%value%" is already in use.');
 
-//: ./src/Auth/Form/Login.php:33
+//: ./src/Auth/Form/Login.php:31
 translate('Login name');
 
-//: ./src/Auth/Form/Login.php:42
+//: ./src/Auth/Form/Login.php:40
 translate('Password');
 
-//: ./src/Auth/Form/Login.php:58
+//: ./src/Auth/Form/Login.php:54
 translate('login');
 
 //: ./src/Auth/Controller/GotoResetPasswordController.php:54
@@ -140,13 +137,16 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:157
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:96
+//: ./src/Auth/Controller/IndexController.php:120
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:107
+//: ./src/Auth/Controller/IndexController.php:143
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:393
+//: ./src/Auth/Controller/IndexController.php:218
+translate('An unexpected error has occurred, please contact your system administrator');
+
+//: ./src/Auth/Controller/IndexController.php:410
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/RegisterController.php:59
@@ -182,15 +182,15 @@ translate('Found user does not have an email');
 //: ./src/Auth/Controller/ForgotPasswordController.php:78
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Mail/RegisterConfirmation.php:34
-translate('Register confirmation');
+//: ./src/Auth/Listener/UnauthorizedAccessListener.php:93
+translate('You are not permitted to access this resource.');
 
-//: ./src/Auth/Mail/ForgotPassword.php:34
-translate('Password recovery');
+//: ./src/Auth/Listener/MailForgotPassword.php:84
+translate('a new password was requestet for %s');
 
-//: ./config/module.config.php:363
+//: ./config/module.config.php:366
 translate('user');
 
-//: ./config/module.config.php:364
+//: ./config/module.config.php:367
 translate('recruiter');
 

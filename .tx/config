@@ -57,3 +57,10 @@ source_lang = en_US
 type = PO
 lang_map = de: de_DE, en: en_US
 
+[yawik.companyregistration]
+file_filter = module/YawikCompanyRegistration/language/<lang>.po
+source_file = module/YawikCompanyRegistration/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+

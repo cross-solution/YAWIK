@@ -10,6 +10,8 @@
 /** */
 namespace Organizations\Entity;
 
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Defines a OrganizationReference entity.
  * 
@@ -55,4 +57,5 @@ interface OrganizationReferenceInterface
      * @return null|OrganizationInterface
      */
     public function getOrganization();
+
 }

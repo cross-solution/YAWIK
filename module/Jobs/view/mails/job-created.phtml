@@ -1,0 +1,83 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author bleek@cross-solution.de
+ * @license   MIT
+ */
+/*
+ * Information Mail to the Approval Team
+ */
+?>
+<?php
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$channels = $sm->get('Jobs/Options/Provider');
+?>
+<h2><?php echo $this->translate("Job details")?></h2>
+<table>
+    <tr>
+        <td><?php echo $this->translate("Title of the job")?></td>
+        <td><?php echo $this->job->title ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate("Location")?></td>
+        <td><?php echo $this->job->location ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate("Companyname")?></td>
+        <td><?php echo $this->job->company ?></td>
+    </tr>
+</table>
+
+<h2><?php echo $this->translate("Publisher details")?></h2>
+
+<table>
+    <tr>
+        <td><?php echo $this->translate("Name")?></td>
+        <td><?php echo $this->job->user->info->displayName ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate("Email")?></td>
+        <td><?php echo $this->job->user->info->email ?></td>
+    </tr>
+</table>
+
+
+<?php
+/**
+ * following Variables are accessible
+ * - template string
+ * - job JobEntity
+ */
+?>
+
+<?php
+$sum = 0;
+?>
+
+<?php if (empty($this->job->portals)) : ?>
+    <?php echo $this->translate('no Portal chosen') ?>
+<?php else: ?>
+    <h2><?php echo $this->translate("Selected Channels") ?></h2>
+    <table>
+        <?php foreach ($this->job->portals as $portalName): ?>
+
+                <?php $channelData=$channels->getChannel($portalName); ?>
+                <tr>
+                    <td><?php echo $channelData->label ?></td>
+                    <td><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
+                </tr>
+                <?php $sum += (int) $channelData->price; ?>
+
+        <?php endforeach; ?>
+        <tr><td>Preis (netto)</td><td><?php echo $this->currencyFormat(round($sum / 1.19,2), 'EUR')  ?></td></tr>
+        <tr><td>MwSt (19%)</td><td><?php echo $this->currencyFormat(($sum - round($sum / 1.19,2)), 'EUR') ?></td></tr>
+    </table>
+<?php endif; ?>
+
+<a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
+
+
+<?php echo $this->partial('mail/footer'); ?>

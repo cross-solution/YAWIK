@@ -33,7 +33,7 @@
    <li><?php echo $this->translate("ready for social recruiting")?></li>
    <li><?php echo $this->translate("enter job ads")?></li>
    <li><?php echo sprintf($this->translate('%sapplication forms%s.'), 
-       '<a href="' . $this->url('lang/apply', array('applyId' => '17908'), /* reuse matched params*/ true) . '">',
+       '<a href="https://youtu.be/peoO-RVJM_0">',
        '</a>') ?>
    </li> 
    <li><?php echo $this->translate("manage applications")?></li>
@@ -66,7 +66,7 @@
   </div>
   <div class="panel-body">
   <ul>
-  <?php $news = \Zend\Feed\Reader\Reader::import('http://yawik.org/feed/');?>
+  <?php $news = \Zend\Feed\Reader\Reader::importString(file_get_contents('http://yawik.org/feed/'));?>
   <?php foreach($news as $item):?>
   <li>
    <a href="<?php echo $item->getLink()?>"><?php echo $item->getTitle()?></a>

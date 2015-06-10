@@ -39,7 +39,6 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
 
     public function testAccessWhenYouAreNotLoggedIn()
     {
-        echo "pups"; exit;
         $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
 
         $result = $this->getResponse()->getContent();

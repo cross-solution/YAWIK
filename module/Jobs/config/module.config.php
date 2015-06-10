@@ -51,9 +51,6 @@ return array(
                     ),
             ),
     ),
-    
-    
-    
       
     'acl' => array(
         'rules' => array(
@@ -62,16 +59,20 @@ return array(
                     'Jobs',
                     'Jobs/Manage' => array(
                         'edit',
+                        'completion',
+                        'template',
                         'new' => 'Jobs/Create',
                     ),
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',
+                    'route/lang/jobs/template',
                     'Entity/Jobs/Job' => array(
                         'edit' => 'Jobs/Write',
                     ),
                 ),
                 'deny' => array(
-                  'Jobboard'
+                    'Jobboard',
+                    'route/lang/jobs/approval'
                 ),
             ),
             'guest' => array(
@@ -86,7 +87,15 @@ return array(
             ),
             'admin' => array(
                 'allow' => array(
-                    'route/lang/jobs/approval'
+                    'route/lang/jobs/approval',
+                    'route/auth-logout',
+                    'route/lang/my',
+                    'Jobboard',
+                    'route/lang/my-password',
+                    'Jobs/Manage' => array(
+                        'approval',
+                    ),
+                    'route/lang/jobs/pending-list',
                 )
             )
         ),
@@ -115,6 +124,14 @@ return array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/jobs',
+                        'params' => array('__activeMarker__' => 'overview'),
+                    ),
+                    'pending-list' => array(
+                        'label' => /*@translate*/ 'Pending jobs',
+                        'route' => 'lang/jobs',
+                        'query' => array('status' => 'created'),
+                        'resource' => 'route/lang/jobs/pending-list',
+                        'params' => array('__activeMarker__' => 'pending'),
                     ),
                     'new' => array(
                         'label' => /*@translate*/ 'Create job',
@@ -146,17 +163,22 @@ return array(
     'service_manager' => array(
         'invokables' => array(
                 'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
-                'Jobs/Listeners'                    => 'Jobs\Listener\JobsListener',
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
-                'Jobs/Listener/StatusChanged'       => 'Jobs\Listener\StatusChanged',
-                'Jobs/Listener/PendingForAcception' => 'Jobs\Listener\PendingForAcception',
                 'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
+            'Jobs/Options/Provider'                       => 'Jobs\Factory\Options\ProviderOptionsFactory',
+            'Jobs/Options/Channel'                        => 'Jobs\Factory\Options\ChannelOptionsFactory',
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
+            'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
+            'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
+        ),
+        'shared' => array(
+            'Jobs/Event' => false,
+            'Jobs/Options/Channel' => false,
         )
     ),
     
@@ -179,13 +201,20 @@ return array(
         'template_map' => array(
             'jobs/form/list-filter' => __DIR__ . '/../view/form/list-filter.phtml',
             'jobs/form/apply-identifier' => __DIR__ . '/../view/form/apply-identifier.phtml',
+            'jobs/form/hiring-organization-select' => __DIR__ . '/../view/form/hiring-organization-select.phtml',
+            'jobs/form/multiposting-select' => __DIR__ . '/../view/form/multiposting-select.phtml',
+            'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
+            'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
             'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
             'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
             'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
             'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
             'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
-            'mail/jobCreatedMail' => __DIR__ . '/../view/mails/jobCreatedMail.phtml',
-            'mail/jobPendingForAcception' => __DIR__ . '/../view/mails/deJobPendingForAcception.phtml',
+            'mail/job-created' => __DIR__ . '/../view/mails/job-created.phtml',
+            'mail/job-pending' => __DIR__ . '/../view/mails/job-pending.phtml',
+            'mail/job-accepted' => __DIR__ . '/../view/mails/job-accepted.phtml',
+            'mail/job-rejected' => __DIR__ . '/../view/mails/job-rejected.phtml',
+            'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
     
         // Where to look for view templates not mapped above
@@ -200,7 +229,7 @@ return array(
 
         ),
         'factories' => array(
-            'applyUrl' => 'Jobs\View\Helper\ApplyUrlFactory',
+            'applyUrl' => 'Jobs\Factory\View\Helper\ApplyUrlFactory',
         ),
 
     ),
@@ -232,11 +261,14 @@ return array(
             'Jobs/CompanyNameElement'           => 'Jobs\Form\CompanyNameElement',
             'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
             'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
-            'Jobs/MultipostElement'             => 'Jobs\Form\MultipostElement',
+            'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
+            'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
         ),
         'factories' => array(
             'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
+            'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
+            'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',
         )
     ),
     
@@ -245,6 +277,7 @@ return array(
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
             'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
+            'Jobs/AtsMode'                      => 'Jobs\Form\InputFilter\AtsMode',
         ),
     ),
     
@@ -262,45 +295,6 @@ return array(
 
 
 
-    'multiposting' => array (
-        'channels' => array (
-            'yawik' => array(
-                'name' => 'yawik',
-                'label' => 'YAWIK',
-                'price' => 'free',
-                'headline' => /*@translate*/ 'publish your job on yawik.org for free',
-                'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
-                'linktext' => /*@translate*/ 'yawik.org',
-                'route' => 'lang/content',
-                'params' => array(
-                    'view' => 'jobs-publish-on-yawik'
-                )
-            ),
-            'jobsintown' => array(
-                'name' => 'jobsintown',
-                'label' => 'Jobsintown',
-                'price' => '199 €',
-                'headline' => /*@translate*/ 'publish your job on Jobsintown. 199,-€',
-                'long_label' => /*@translate*/ 'publish the job for 30 days on %s',
-                'linktext' => /*@translate*/ 'www.jobsintown.de',
-                'route' => 'lang/content',
-                'params' => array(
-                    'view' => 'jobs-publish-on-jobsintown'
-                )
-            ),
-            'homepage' => array(
-                'name' => 'homepage',
-                'label' => /*@translate*/ 'Your Homepage',
-                'price' => 'free',
-                'headline' => /*@translate*/ 'enable integration of this job on your Homepage',
-                'long_label' => /*@translate*/ 'enable %s of this job on your Homepage',
-                'linktext' => /*@translate*/ 'integration',
-                'route' => 'lang/content',
-                'params' => array(
-                    'view' => 'jobs-publish-on-homepage'
-                )
-            ),
-        ),
-    ),
+
 
 );

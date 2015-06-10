@@ -118,7 +118,6 @@ class Job extends Container
 JS;
 
         $renderer->headScript()->appendScript($javaScript);
-        $renderer->headScript()->appendFile($renderer->basePath('/Jobs/js/form.companyname.js'));
 
         return parent::renderPost($renderer);
     }

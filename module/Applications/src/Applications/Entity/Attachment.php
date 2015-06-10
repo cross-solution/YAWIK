@@ -1,29 +1,38 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
 
+/** */
 namespace Applications\Entity;
 
 use Core\Entity\FileEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Holds all attachments of an application.
+ * An Attachment of an application
  *
- * @author bleek@cross-solution.de
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  *
  * @ODM\Document(collection="applications")
  */
 class Attachment extends FileEntity {
-    
-    protected $uri;
-    
+
     /**
-     * get the URI of an attachment
+     * Gets the URI of an attachment
+     *
+     * The returned URI is NOT prependen with the base path!
+     *
      * @return string
      */
     function getUri(){
         return "/file/Applications.Attachment/" . $this->id . "/" .urlencode($this->name);
     }
-    
 }
 
 ?>

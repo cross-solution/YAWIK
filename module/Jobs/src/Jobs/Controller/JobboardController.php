@@ -52,10 +52,8 @@ class JobboardController extends AbstractActionController
         parent::attachDefaultListeners();
         $serviceLocator = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
-        $jobServices     = $serviceLocator->get('Jobs/Listeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
-        $events->attach($jobServices);
         return $this;
     }
 

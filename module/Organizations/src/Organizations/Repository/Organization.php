@@ -10,8 +10,15 @@ namespace Organizations\Repository;
 
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
+use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\OrganizationInterface;
 
+/**
+ * This is the repository for Organizations entities.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo   write test
+ */
 class Organization extends AbstractRepository
 {
     /**
@@ -53,6 +60,7 @@ class Organization extends AbstractRepository
     {
         $qb = $this->createQueryBuilder();
         $qb->field('parent')->equals($organization->getId());
+        $qb->field('isDraft')->equals(false);
         $q  = $qb->getQuery();
         $cursor = $q->execute();
 
@@ -143,10 +151,27 @@ class Organization extends AbstractRepository
         /*
          * Employees collection is only set on main organization,
          * so here, we do not have to query the "parent" field.
+         *
+         * Only search for "assigned" employees.
          */
-        $entity = $this->findOneBy(array('employees.user' => new \MongoId($userId)));
+        $entity = $this->findOneBy(array(
+            'employees.user' => new \MongoId($userId),
+            'employees.status' => EmployeeInterface::STATUS_ASSIGNED
+        ));
 
         return $entity;
+    }
+
+    public function findPendingOrganizationsByEmployee($userOrId)
+    {
+        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        $collection = $this->findBy(array(
+            'employees.user' => new \MongoId($userId),
+            'employees.status' => EmployeeInterface::STATUS_PENDING
+        ));
+
+        return $collection;
     }
 
     public function getEmployersCursor(UserInterface $user)

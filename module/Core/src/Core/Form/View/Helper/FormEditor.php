@@ -10,39 +10,28 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormTextarea;
 use Zend\Form\ElementInterface;
+use Zend\Form\View\Helper\FormTextarea;
+
 
 class FormEditor extends FormTextarea
 {
-
     protected $theme = 'modern';
-    /*
-    public function __invoke(ElementInterface $element = null)
-    {
 
-    }
-    */
 
+    protected $translator;
 
     public function render(ElementInterface $element)
     {
         $name   = $element->getName();
         if (empty($name) && $name !== 0) {
-            throw new Exception\DomainException(sprintf(
+            throw new \DomainException(sprintf(
                 '%s requires that the element has an assigned name; none discovered',
                 __METHOD__
             ));
         }
 
         $renderer = $this->getView();
-
-        /*
-        $pluginManager = $renderer->getHelperPluginManager();
-        if (!$pluginManager->has('edit')) {
-            $pluginManager->setService('edit', $this);
-        }
-        */
 
         $headscript = $renderer->plugin('headscript');
         $basepath   = $renderer->plugin('basepath');
@@ -60,23 +49,44 @@ class FormEditor extends FormTextarea
                 plugins: [
                     "advlist autolink lists charmap anchor",
                     "searchreplace visualblocks code fullscreen",
-                    "contextmenu paste"
+                    "contextmenu paste textcolor"
                 ],
+                //toolbar1: "forecolor",
                 removed_menuitems: "newdocument",' . PHP_EOL
                 . $this->additionalOptions() .
+
                 'setup: function(editor) {
+                    setPlaceHolder = function(editor, show) {
+                        placeHolder = $("#placeholder-" + editor.id);
+                        if (placeHolder.length == 1) {
+                            if (show && editor.getContent() == "") {
+                                placeHolder.show();
+                            }
+                            else {
+                                placeHolder.hide();
+                            }
+                         }
+                    },
+                    editor.on("focus", function(e) {
+                        setPlaceHolder(editor, false);
+                    });
                     editor.on("blur", function(e) {
-                    //console.log("blur event", e);
-                    var container = e.target.bodyElement;
-                    var form = $(container).parents("form");
-                    //console.log("form", form);
-                    editor.save();
-                    form.submit();
-                    //$(form).on("yk.forms.done", function(){console.log("done")});
-
-                });
-    }
-
+                        setPlaceHolder(editor, true);
+                        if (editor.isDirty()) {
+                            //console.log("blur event", e);
+                            editor.save();
+                            var container = e.target.bodyElement;
+                            $(container).parents("html").addClass("yk-changed");
+                            var form = $(container).parents("form");
+                            //console.log("form", form, container);
+                            form.submit();
+                            $(form).on("yk.forms.done", function(){
+                                console.log("done");
+                                //$(container).parents("html").removeClass("yk-changed");
+                            });
+                        }
+                    });
+                }
             });
         });
         ');
@@ -95,8 +105,14 @@ class FormEditor extends FormTextarea
             $class = array_key_exists('class',$attributes)?$attributes['class']:'';
             $class .= (empty($class)?:' ') . ' tinymce_' . $this->getTheme() ;
             $attributes['class'] = $class;
-
-            return sprintf(
+            $placeHolder = '';
+            $elementOptions = $element->getOptions();
+            if (array_key_exists('placeholder', $elementOptions) && !empty($elementOptions['placeholder'])) {
+                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 0ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $this->translator->translate($elementOptions['placeholder']) . '</div>';
+            }
+            return
+                $placeHolder
+                . sprintf(
                 '<div %s >%s</div>',
                 $this->createAttributesString($attributes),
                 $content
@@ -107,9 +123,8 @@ class FormEditor extends FormTextarea
                 $this->createAttributesString($attributes),
                 $escapeHtml($content)
             );
-        }
-        else {
-            //$content->injectElement($this);
+        } else {
+
             return (string) $content;
         }
     }
@@ -121,5 +136,4 @@ class FormEditor extends FormTextarea
     protected function additionalOptions() {
         return '';
     }
-
 }

@@ -40,6 +40,9 @@ class MailForgotPassword implements ServiceManagerAwareInterface
      */
     public function __invoke(AuthEvent $e)
     {
+        /* @todo: get siteName from options */
+        $siteName="YAWIK";
+    
         /** @var ServiceManager $serviceManager */
         $serviceManager          = $this->getServiceManager();
         $config                  = $serviceManager->get('config');
@@ -78,7 +81,7 @@ class MailForgotPassword implements ServiceManagerAwareInterface
         $mail->user              = $user;
         $mail->resetlink         = $resetLink;
         $mail->setTemplate('mail/forgotPassword');
-        $mail->setSubject( /*translate*/ 'new Password');
+        $mail->setSubject( sprintf( /*@translate*/ 'a new password was requestet for %s', $siteName));
         $mail->setTo($userEmail);
         $mail->setFrom($fromEmail, $fromName);
         $mailService->send($mail);

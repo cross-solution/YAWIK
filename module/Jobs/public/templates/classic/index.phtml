@@ -48,13 +48,13 @@
         </div>
         <div class="row">
           <div class="col-md-12">
+              <?php if ($this->uriApply): ?>
             <h2 class="text-center">
               <a target="_new" class="btn btn-lg btn-primary" href="<?php echo $this->uriApply ?>">
                 <strong><?php echo $this->translate("Apply now")?></strong>
               </a>
             </h2>
-         </row>
-         <row>
+                <?php endif; ?>
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div>
               <img src="<?php echo $this->basePath($this->uriLogo)?>">

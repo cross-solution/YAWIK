@@ -1,0 +1,98 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+
+
+if ($this->renderSummary):?>
+<div class="row">
+
+    <div class="col-md-12">
+        <?php
+        $options = $this->element->getValueOptions();
+        $valueKey= $this->element->getValue();
+
+        $activePortals = array();
+        if ($valueKey && !empty($valueKey)):
+
+            $this->plugin('currencyformat')->setCurrencyCode('EUR');
+            $dispPrice = function($d) { return sprintf('%01.2f €', $d); };
+            $total = 0;
+            foreach ($options as $category => $categoryOptions):
+                foreach ($categoryOptions['options'] as $channelName => $channel):
+                    if (in_array($channelName, $valueKey)):
+                        $activePortals[$category][$channelName] = $channel;
+                    endif;
+                endforeach;
+            endforeach;
+
+            ?><div class="panel panel-default"><table class="table table-condensed table-bordered">
+
+
+
+            <?php foreach ($activePortals as $category => $channels):?>
+                <thead>
+                <tr><th><?php echo $category ?></th>
+                <th class="text-right"><?php echo $this->translate('Price') ?></th>
+                </tr></thead><tbody>
+                <?php foreach ($channels as $name => $spec):
+                    $data = explode('|', $spec);
+                    ?><tr><td><a href="<?php echo $data[4] ?>"><?php echo $data[0] ?></a></td>
+                      <td class="text-right"><?php $total += $data[7]; echo $data[6] ?></td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+
+                <?php
+            endforeach;
+            ?><tfoot><tr><th><?php echo $this->translate('Total') ?></th><th class="text-right">
+                        <?php echo $this->currencyFormat($total); ?></th></tr></tfoot></table></div><?php
+
+
+        endif; ?>
+    </div>
+</div>
+
+<?php else:
+    echo $this->formRow()->render($this->element, /* ignoreViewPartial */ true);
+
+
+    ?>
+    <div class="row">
+
+    <div id="<?php echo $this->element->getAttribute('id') ?>-total" class="text-right col-md-9 col-md-offset-3">
+        <div class="panel panel-default">
+        <div class="panel-body"><strong><span></span> €</strong></div>
+         </div>
+    </div>
+    </div>
+<?php
+    // Element Templates
+    $resultTmpl = '
+    <div class="clearfix">
+        <div class="pull-left">
+            <strong>%name - %headline</strong><br>
+            <small>%desc</small>
+        </div>
+        <div class="pull-right">
+            <strong>%nicePrice</strong>
+        </div>
+    </div>
+    ';
+
+    $selectTmpl = '
+        %name (  %duration ) [ %nicePrice ]
+    ';
+
+
+    ?><span id="<?php echo $this->element->getAttribute('id') ?>-result-tmpl"
+            data-template="<?php echo $this->escapeHtmlAttr($resultTmpl) ?>"></span>
+      <span id="<?php echo $this->element->getAttribute('id') ?>-select-tmpl"
+            data-template="<?php echo $this->escapeHtmlAttr($selectTmpl) ?>"></span>
+      <span id="<?php echo $this->element->getAttribute('id') ?>-currency-tmpl"
+          data-template="<?php echo $this->numberFormat(1234.56) ?>"></span>
+<?php endif; // (else > $this->renderSummary) ?>

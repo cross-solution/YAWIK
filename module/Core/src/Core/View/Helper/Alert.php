@@ -148,16 +148,12 @@ class Alert extends AbstractHelper
             || !isset($options['dismissable'])
         ) {
             $class .= ' alert-dismissable';
-            $content = '<button type="button" class="close" data-dismiss="alert">&times;</button>' . $content;
+            $content = '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                     . '<span class="notification-content">' . $content . '</span>';
         }
 
-
-        $markup = <<<MARKUP
-    <div$id class="alert alert-$type$class">
-        $content
-    </div>
-MARKUP;
-
+        $target = array_key_exists('target', $options)?' target="' . $options['target'] . '"':'';
+        $markup = '<div ' . $id . ' class="alert alert-' . $type . $class . '" ' . $target . '>' . $content . '</div>' . PHP_EOL;
         return $markup;
     }
 

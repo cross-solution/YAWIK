@@ -21,13 +21,14 @@ mongo.pass=
 
 username=
 password=
+email=
 
 ;
-; initial user role. After the first login. Users are asigned to this role by default.
-; possible roles: [ user | recruiter ]
+; role of the initial user.
+; possible roles: [ user | recruiter |admin ]
 ;
 
-role=recruiter
+role=admin
 
 ;
 ; external appKey. You can add jobs and users by using a simple API. This 
@@ -41,7 +42,7 @@ external.app.prefix=myapp
 ;
 ; Email (module/Core/config/core.mails.global.php.dist).
 ;
-mail.from.email=demo@yawik.org
+mail.from.email=name@example.com
 mail.from.name=YAWIK
 
 ; subject of the initial email, if somebody logs into via a social network
@@ -56,7 +57,7 @@ auth.suffix=
 ; Override recipient for every mail send. (including CC and BCC)
 ; Use comma to separate multiple addresses.
 ;
-mail.develop.override_recipient=false
+mail.develop.override_recipient=
 
 ;
 ; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)

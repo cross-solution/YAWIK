@@ -16,12 +16,8 @@ class CompanyName extends InputFilter
     public function init()
     {
         $this->add(array(
-            'name' => 'company',
+            'name' => 'companyId',
             'required' => true,
-            'filters' => array(
-                array('name' => 'StringTrim'),
-                array('name' => 'StripTags')
-            ),
         ));
     }
 }

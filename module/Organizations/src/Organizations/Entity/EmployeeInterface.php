@@ -3,23 +3,36 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
 
 /**
- * ${CARET}
- * 
+ * Interface for the Employee entity.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @since 0.18
+ * @since  0.18
  */
-interface EmployeeInterface 
+interface EmployeeInterface
 {
+
+    /**#@+
+     * Status constant.
+     *
+     * @var string
+     * @since 0.19
+     */
+    const STATUS_ASSIGNED   = 'ASSIGNED';
+    const STATUS_PENDING    = 'PENDING';
+    const STATUS_REJECTED   = 'REJECTED';
+    const STATUS_UNASSIGNED = 'UNASSIGNED';
+
+    /**#@-*/
 
     /**
      * Sets the user entity associated with this employee
@@ -54,17 +67,36 @@ interface EmployeeInterface
     public function getPermissions();
 
     /**
-     * Returns the state of the pending flag.
+     * Sets the status of this employee association.
      *
-     * @return boolean
+     * @param string $status
+     *
+     * @return self
+     * @since 0.19
      */
-    public function isPending();
+    public function setStatus($status);
 
     /**
-     * Sets the state of the pending flag.
+     * Gets the status of this employee association.
      *
-     * @param boolean $flag
-     * @return self
+     * @return string
+     * @since 0.19
      */
-    public function setPending($flag);
+    public function getStatus();
+
+    /**#@+
+     * Returns true, if this association has the specific status.
+     *
+     * @return bool
+     * @since 0.19
+     */
+    public function isAssigned();
+
+    public function isPending();
+
+    public function isRejected();
+
+    public function isUnassigned();
+    /**#@-*/
+
 }

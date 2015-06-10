@@ -16,7 +16,8 @@ use Organizations\Entity\EmployeePermissions;
 
 /**
  * Test the employee entity.
- * 
+ *
+ * @covers \Organizations\Entity\Employee
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity
@@ -25,14 +26,67 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * Class under Test
+     *
+     * @var Employee
+     */
+    private $target;
+
+    public function setup()
+    {
+        if ('testCreateInstancesViaConstructor' == $this->getName(false)) {
+            return;
+        }
+        $user = $this->getMock('\Auth\Entity\User');
+        $this->target = new Employee($user);
+    }
+    /**
      * Does the entity implement the correct interface?
      *
      */
     public function testEmployeeImplementsInterface()
     {
-        $target = new Employee();
+        $this->assertInstanceOf('\Organizations\Entity\EmployeeInterface', $this->target);
+    }
 
-        $this->assertInstanceOf('\Organizations\Entity\EmployeeInterface', $target);
+    public function provideConstructorPermissions()
+    {
+        $user = $this->getMock('\Auth\Entity\User');
+        return array(
+            array(null, null),
+            array(null, EmployeePermissions::APPLICATIONS_VIEW),
+            array($user, null),
+            array($user, EmployeePermissions::ALL),
+            array($user, new EmployeePermissions(EmployeePermissions::JOBS_CHANGE)),
+        );
+    }
+
+    /**
+     * @dataProvider provideConstructorPermissions
+     * @covers \Organizations\Entity\Employee::__construct
+     *
+     * @param null|\Auth\Entity\UserInterface $user
+     * @param null|int|EmployeePermissions $permissions
+     */
+    public function testCreateInstancesViaConstructor($user, $permissions)
+    {
+        $target = new Employee($user, $permissions);
+
+        if (null === $user) {
+            $this->assertAttributeEmpty('user', $target);
+            $this->assertAttributeEmpty('permissions', $target);
+        } else {
+            $this->assertSame($user, $target->getUser());
+
+
+            if ($permissions instanceOf EmployeePermissions) {
+                $this->assertSame($permissions, $target->getPermissions());
+            } else if (is_int($permissions)) {
+                $this->assertEquals($permissions, $target->getPermissions()->getPermissions());
+            } else {
+                $this->assertAttributeEmpty('permissions', $target);
+            }
+        }
     }
 
     /**
@@ -46,11 +100,21 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingValuesViaSetterMethods($setter, $getter, $value)
     {
-        $target = new Employee();
+        $target = $this->target;
 
-        $object = $target->$setter($value);
-        $this->assertSame($target->$getter(), $value);
-        $this->assertSame($target, $object);
+        if (is_array($value)) {
+            $setValue = $value[0];
+            $getValue = $value[1];
+        } else {
+            $setValue = $getValue = $value;
+        }
+
+        if (null !== $setter) {
+            $object = $target->$setter($setValue);
+            $this->assertSame($target, $object, 'Fluent interface broken!');
+        }
+
+        $this->assertSame($target->$getter(), $getValue);
     }
 
     /**
@@ -59,10 +123,26 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPermissionsCreateNewObjectIfNotSet()
     {
-        $target = new Employee();
+        $target = $this->target;
         $perm   = $target->getPermissions();
 
         $this->assertInstanceOf('\Organizations\Entity\EmployeePermissionsInterface', $perm);
+
+    }
+
+    /**
+     * @testdox Implements \Organizations\Entity\EmployeeInterface
+     * @dataProvider provideStatusCheckData
+     */
+    public function testConvinientStatusCheckMethods($initialStatus, $expectedResults, $strict=null)
+    {
+        $this->target->setStatus($initialStatus);
+
+        $this->assertEquals($expectedResults[0], $this->target->isAssigned(), 'isAssigned() fails!');
+        $this->assertEquals($expectedResults[1], $this->target->isPending(), 'isPending fails!');
+        $this->assertEquals($expectedResults[2], $this->target->isRejected(), 'isRejected fails!');
+        $this->assertEquals($expectedResults[3], $this->target->isUnassigned(), 'isUnassigned fails!');
+        $this->assertEquals($expectedResults[4], $this->target->isUnassigned(true), 'isUnassigned strict mode fails!');
 
     }
 
@@ -76,8 +156,22 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
         return array(
             array('setUser', 'getUser', new User()),
             array('setPermissions', 'getPermissions', new EmployeePermissions()),
-            array('setPending', 'isPending', true),
-            array('setPending', 'isPending', false)
+            array('setStatus', 'getStatus', Employee::STATUS_PENDING),
+            array('setStatus', 'getStatus', Employee::STATUS_ASSIGNED),
+            array('setStatus', 'getStatus', Employee::STATUS_REJECTED),
+            array('setStatus', 'getStatus', Employee::STATUS_UNASSIGNED),
+            array('setStatus', 'getStatus', array('Invalid Status', Employee::STATUS_ASSIGNED)),
+            array(null, 'getStatus', Employee::STATUS_ASSIGNED),
+        );
+    }
+
+    public function provideStatusCheckData()
+    {
+        return array(
+            array(Employee::STATUS_ASSIGNED, array(true, false, false, false, false)),
+            array(Employee::STATUS_PENDING, array(false, true, false, true, false)),
+            array(Employee::STATUS_UNASSIGNED, array(false, false, false, true, true)),
+            array(Employee::STATUS_REJECTED, array(false, false, true, true, false)),
         );
     }
     

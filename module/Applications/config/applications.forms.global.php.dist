@@ -2,14 +2,14 @@
 
 $options = array(
         /*
-        * maximum size in bytes of an uploaded attachment
+        * maximum size in bytes of an uploaded attachment, default 5MB
         */
-        'attachmentsMaxSize' => '500000',
+        'attachmentsMaxSize' => '5000000',
 
         /*
-        * allowed Mime-Type of an uploaded Attachment
+        * allowed Mime-Type of an uploaded Attachment, default images, *.PDF, *.DOC, *.ODT
         */
-        'attachmentsMimeType' => array('image','application/pdf'),
+        'attachmentsMimeType' => array('image','application/pdf', 'application/vnd.oasis.opendocument.text', 'application/msword'),
 
 
         /*
@@ -18,9 +18,9 @@ $options = array(
         'attachmentsCount' => 5,
 
         /*
-        * maximum size in bytes of an uploaded contact photo
+        * maximum size in bytes of an uploaded contact photo. default 500kB
         */
-        'contactImageMaxSize' => '100000',
+        'contactImageMaxSize' => '500000',
 
         /*
         * allowed Mime-Type of an uploaded contact photo
@@ -28,9 +28,9 @@ $options = array(
         'contactImageMimeType' => array('image'),
 
         /*
-        * allowed Mime-Types
+        * allowed Mime-Types, images, plain text, *.PDF, *.DOC, *.ODT
         */
-        'allowedMimeTypes' => array('image','text','application/pdf'),
+        'allowedMimeTypes' => array('image','text','application/pdf', 'application/vnd.oasis.opendocument.text', 'application/msword'),
 
     );
 

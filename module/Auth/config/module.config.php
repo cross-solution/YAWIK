@@ -39,6 +39,7 @@ return array(
             'Auth/Listener/MailForgotPassword' => 'Auth\Listener\MailForgotPassword'
         ),
         'factories' => array(
+            'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
             'HybridAuth' => '\Auth\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
@@ -49,16 +50,17 @@ return array(
             'Acl' => '\Acl\Service\AclFactory',
             'Acl/AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
             'Auth\Form\ForgotPassword' => 'Auth\Factory\Form\ForgotPasswordFactory',
-            'Auth\Service\ForgotPassword' => 'Auth\Service\SLFactory\ForgotPasswordSLFactory',
-            'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Service\SLFactory\UserUniqueTokenGeneratorSLFactory',
-            'Auth\Service\GotoResetPassword' => 'Auth\Service\SLFactory\GotoResetPasswordSLFactory',
+            'Auth\Service\ForgotPassword' => 'Auth\Factory\Service\ForgotPasswordFactory',
+            'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Factory\Service\UserUniqueTokenGeneratorFactory',
+            'Auth\Service\GotoResetPassword' => 'Auth\Factory\Service\GotoResetPasswordFactory',
             'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
             'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
-            'Auth\Service\Register' => 'Auth\Service\SLFactory\RegisterSLFactory',
-            'Auth\Service\RegisterConfirmation' => 'Auth\Service\SLFactory\RegisterConfirmationSLFactory',
+            'Auth\Service\Register' => 'Auth\Factory\Service\RegisterFactory',
+            'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
         ),
         'aliases' => array(
             'assertions' => 'Acl/AssertionManager',
+            'Auth/UserTokenGenerator' => 'Auth\Service\UserUniqueTokenGenerator',
         )
     ),
 
@@ -71,11 +73,11 @@ return array(
             'Auth/SocialProfiles' => 'Auth\Controller\SocialProfilesController',
         ),
         'factories' => array(
-            'Auth\Controller\ForgotPassword' => 'Auth\Controller\SLFactory\ForgotPasswordControllerSLFactory',
-            'Auth\Controller\GotoResetPassword' => 'Auth\Controller\SLFactory\GotoResetPasswordControllerSLFactory',
-            'Auth\Controller\Register' => 'Auth\Controller\SLFactory\RegisterControllerSLFactory',
-            'Auth\Controller\RegisterConfirmation' => 'Auth\Controller\SLFactory\RegisterConfirmationControllerSLFactory',
-            'Auth\Controller\Password' => 'Auth\Controller\SLFactory\PasswordControllerSLFactory',
+            'Auth\Controller\ForgotPassword' => 'Auth\Factory\Controller\ForgotPasswordControllerFactory',
+            'Auth\Controller\GotoResetPassword' => 'Auth\Factory\Controller\GotoResetPasswordControllerFactory',
+            'Auth\Controller\Register' => 'Auth\Factory\Controller\RegisterControllerFactory',
+            'Auth\Controller\RegisterConfirmation' => 'Auth\Factory\Controller\RegisterConfirmationControllerFactory',
+            'Auth\Controller\Password' => 'Auth\Factory\Controller\PasswordControllerFactory',
             'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
         )
     ),
@@ -357,7 +359,7 @@ return array(
             'guest',
             'user' => 'guest',
             'recruiter' => 'user',
-            'admin'
+            'admin' => 'recruiter',
         ),
         
         'public_roles' => array(
@@ -372,6 +374,10 @@ return array(
                     'route/auth-provider',
                     'route/auth-hauth',
                     'route/auth-extern',
+                    'route/lang/forgot-password',
+                    'route/lang/goto-reset-password',
+                    'route/lang/register',
+                    'route/lang/register-confirmation',
                 ),
             ),
             'user' => array(
@@ -384,6 +390,10 @@ return array(
                    // 'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-extern',
+                    'route/lang/forgot-password',
+                    'route/lang/goto-reset-password',
+                    'route/lang/register',
+                    'route/lang/register-confirmation',
                 ),
             ),
             'recruiter' => array(
@@ -443,6 +453,8 @@ return array(
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
             'auth/sidebar/groups-menu' => __DIR__ . '/../view/sidebar/groups-menu.phtml',
+            'mail/first-external-login' => __DIR__ . '/../view/mail/first-external-login.phtml',
+            'mail/first-socialmedia-login' => __DIR__ . '/../view/mail/first-socialmedia-login.phtml',
             'mail/forgotPassword' =>  __DIR__ . '/../view/mail/forgot-password.phtml',
             'mail/register' =>  __DIR__ . '/../view/mail/register.phtml',
         ),
@@ -492,13 +504,12 @@ return array(
             'Auth/SocialProfiles' => 'Auth\Form\SocialProfiles',
             'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
-            'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldset',
             'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
         ),
         'factories' => array(
-            'Auth/RoleSelect' => 'Auth\Form\RoleSelectFactory',
-//             'Auth/UserInfoFieldset' => 'Auth\Form\UserInfoFieldsetFactory',
-            'Auth/SocialProfilesFieldset' => 'Auth\Form\SocialProfilesFieldsetFactory',
+            'Auth/RoleSelect' => 'Auth\Factory\Form\RoleSelectFactory',
+            'Auth/UserInfoFieldset' => 'Auth\Factory\Form\UserInfoFieldsetFactory',
+            'Auth/SocialProfilesFieldset' => 'Auth\Factory\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
             'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
         )

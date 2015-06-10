@@ -44,10 +44,6 @@ class Link extends AbstractHelper {
      */
     public function __invoke($urlOrEmail, $label=null, array $attributes = array())
     {
-        if (is_array($urlOrEmail)) {
-            return $this->generateLinkBySpec($urlOrEmail);
-        }
-        
         if (null === $label) {
             $label = $urlOrEmail;
             

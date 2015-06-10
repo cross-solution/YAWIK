@@ -1,10 +1,16 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license       MIT
+ */
 
 namespace Auth\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Fieldset;
-use Core\Entity\EntityInterface;
 use Core\Entity\RelationEntity;
 use Core\Form\ViewPartialProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -15,17 +21,27 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
     
     protected $viewPartial = 'form/auth/contact';
 
+    /**
+     * @param String $partial
+     * @return $this
+     */
     public function setViewPartial($partial)
     {
         $this->viewPartial = $partial;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getViewPartial()
     {
         return $this->viewPartial;
     }
-    
+
+    /**
+     * @return \Zend\Stdlib\Hydrator\HydratorInterface
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -117,40 +133,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         				'label' => /*@translate*/ 'house number'
         		)
         ));
-        
-//         $this->add(array(
-//             'type' => 'hidden',
-//             'name' => 'imageId',
-//         ));
-//         $this->add(array(
-//             'type' => 'file',
-//             'name' => 'image',
-//             'options' => array(
-// //                 'label' => /*@translate*/ 'Application photo',
-                    
-//              ),
-//             'attributes' => array(
-//                    'accept' => 'image/*',
-//              ),
-        
-//         ));
-        
- 
-        
     }
-    
-//     public function setValue($value)
-//     {
-//         if ($value instanceOf EntityInterface) {
-//             if ($value instanceOf RelationEntity) {
-//                 $value = $value->getEntity();
-//             }
-//             $data = $this->getHydrator()->extract($value);
-//             $this->populateValues($data);
-//             $this->setObject($value);
-//         }
-//         return parent::setValue($value);
-//     }
     
     /**
      * (non-PHPdoc)
@@ -200,8 +183,5 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                 ),
             ),
         );
-        
     }
-    
-    
 }

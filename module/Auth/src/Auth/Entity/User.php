@@ -10,6 +10,7 @@ namespace Auth\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\DraftableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Organizations\Entity\OrganizationReferenceInterface;
@@ -20,7 +21,7 @@ use Settings\Repository\SettingsEntityResolver;
  *
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */
-class User extends AbstractIdentifiableEntity implements UserInterface
+class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface
 {
 
     /**
@@ -31,6 +32,10 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * defines the role of an authenticated user
      */
     const ROLE_USER = 'user';
+    /*
+     * defines the role of an admin user.
+     */
+    const ROLE_ADMIN = 'admin';
 
     /**
      * Users login name
@@ -132,6 +137,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $organization;
 
     /**
+     * Is this entity a draft or not?
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $isDraft = false;
+
+    /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
      * It is recommended best practice to initialize any business collections in documents in the constructor.
      * {mg: What about lazy loading? Initialize the Collection in the getter, if none is set? Reduce overload.}
@@ -139,6 +152,19 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     public function __construct()
     {
     }
+
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
+
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+
+        return $this;
+    }
+
 
     /** {@inheritdoc} */
     public function setLogin($login)
@@ -291,7 +317,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     /** {@inheritdoc} */
     public function getEmail()
     {
-        return $this->email;
+        return $this->email ?: $this->getInfo()->getEmail();
     }
 
     /** {@inheritdoc} */

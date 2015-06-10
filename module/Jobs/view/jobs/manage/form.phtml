@@ -14,22 +14,12 @@
  *
  */
 
-$channels=array("yawik" =>
-                    array(
-                        "label"=>"YAWIK",
-                        "price" =>  /*@translate*/ "free"),
-                "jobsintown" =>
-                    array(
-                        "label" => "www.obsintown.de",
-                        "price" => "199 €"),
-                "homepage" =>
-                    array(
-                        "label" => /*@translate*/ "Your Homepage",
-                        "price" => "free"),
 
-);
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$channels = $sm->get('Jobs/Options/Provider');
 
 $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
+$this->headscript()->appendFile($this->basepath('Core/js/jquery.summary-form.js'));
 ?>
 <h1>
     <?php
@@ -91,24 +81,41 @@ if ($this->page == 2):
             <div class="panel panel-default">
                 <?php $this->translate('Your job opening is ready to be published to the following channels');?>
                 <?php $total=0 ?>
-                <table class="table table-bordered">
-                    <tr>
-                        <th><?php echo $this->translate('Channel')?></th>
-                        <th><?php echo $this->translate('Price')?></th>
-                    </tr>
-                    <?php foreach($this->job->portals as $channel):?>
-                        <?php if($channel['active']):?>
+                <table class="table table-bordered table-condensed">
+                    <?php $this->plugin('currencyFormat')->setCurrencyCode('EUR');
+
+                    $portals = array();
+                    foreach($this->job->portals as $channelName):
+
+                            $channelData=$channels->getChannel($channelName);
+                            if (is_object($channelData)) $portals[$channelData->getCategory()][] = $channelData;
+                    endforeach;
+
+                    foreach ($portals as $category => $channels):?>
+                        <thead>
+                            <tr>
+                                <th><?php echo $category ?></th>
+                                <th class="text-right"><?php echo $this->translate('Price') ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($channels as $channel): ?>
+
                         <tr>
-                            <td><?php echo $channel['name']?></td>
-                            <td><?php echo $channels[$channel['name']]['price']?></td>
-                            <?php if ($channel['name']=='jobsintown') $total=$channels[$channel['name']]['price'];?>
+                            <td><?php echo $channel->label?></td>
+                            <td class="text-right"><?php echo $this->currencyFormat($channel->price)?> </td>
+                            <?php $total+=$channel->price;?>
                         </tr>
-                        <?php endif;?>
+                         <?php endforeach; ?>
+                        </tbody>
+
                     <?php endforeach;?>
+                    <tfoot>
                     <tr>
-                        <td><?php echo $this->translate("Total")?></td>
-                        <td><span class="label label-default"><?php echo $total ?></span></td>
+                        <th><?php echo $this->translate("Total")?></th>
+                        <th class="text-right"><b><?php echo $this->currencyFormat($total) ?></b></th>
                     </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -140,7 +147,7 @@ if ($this->page == 2):
                 break;
             case "2":
         ?>
-	<php
+	<?php
         /**
          * check for required fields
          */
@@ -149,7 +156,7 @@ if ($this->page == 2):
             <div id="job_incomplete" class="alert alert-warning " <?php echo (isset($this->jobvalid) && $this->jobvalid == true) ? 'style = "display: none;"' : ''; ?>>
                 <?php echo $this->translate('Your job position is incomplete.'); ?>
                 <span id="job_errormessages">
-                    <?php echo (isset($this->jobvalid) && $this->jobvalid == true && !empty($this->errorMessage)) ? ($this->errorMessage) : '';?>
+                    <?php echo (isset($this->jobvalid) && $this->jobvalid == false && !empty($this->errorMessage)) ? ($this->errorMessage) : '';?>
                 </span>
             </div>
 	<?php

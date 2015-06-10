@@ -12,6 +12,7 @@
 namespace Jobs\Controller;
 
 use Jobs\Entity\Status;
+use Organizations\Entity\Employee;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
@@ -56,7 +57,7 @@ class ImportController extends AbstractActionController {
                 'applyId' => '71022',
                 'company' => 'Holsten 4',
                 'companyId' => '1745',
-                'contactEmail' => 'stephanie.roghmans@kraft-von-wantoch_test.de',
+                'contactEmail' => 'gelhausen@cross-solution.de',
                 'title' => 'Fuhrparkleiter/-in',
                 'location' => 'Bundesland, Bayern, DE',
                 'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',
@@ -109,7 +110,6 @@ class ImportController extends AbstractActionController {
                     $createdJob = False;
                 }
                 //$services->get('repositories')->get('Jobs/Job')->store($entity);
-
                 $form->bind($entity);
                 if ($this->request->isPost()) {
                     $loginSuffix                   = '';
@@ -123,7 +123,8 @@ class ImportController extends AbstractActionController {
                     $result['post']                = $_POST;
                     $form->setData($params);
                     if ($form->isValid()) {
-                        $entity->setStatus($this->mapJobStatus($params['status']));
+
+                        $entity->setStatus($params['status']);
                         /*
                          * Search responsible user via contactEmail
                          */
@@ -149,12 +150,17 @@ class ImportController extends AbstractActionController {
                             $data = array(
                                 'externalId'      => $companyId,
                                 'organizationName' => $params->company,
-                                'image'            => $params->logoRef
+                                'image'            => $params->logoRef,
+                                'user'            => $user
                             );
                             //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
+                            if ($user !== $responsibleUser) {
+                                $entityOrganization->getEmployees()->add(new Employee($responsibleUser));
+                            }
                             $repositories->store($entityOrganization);
                             $entity->setOrganization($entityOrganization);
+
                         }
                         else {
                             $result['message'] = '';
@@ -226,23 +232,5 @@ class ImportController extends AbstractActionController {
         return new JsonModel($result);
     }
 
-    protected $jobStatusMap = array(
-        'aktiv' => Status::ACTIVE,
-        'inaktiv' => Status::INACTIVE,
-        'Freigabe?' => Status::WAITING_FOR_APPROVAL,
-        'freigegeben' => Status::PUBLISH,
-        'ueberarbeiten' => Status::WAITING_FOR_APPROVAL,
-        'neu' => Status::CREATED,
-        'revision' => Status::WAITING_FOR_APPROVAL,
-        'termin' => Status::WAITING_FOR_APPROVAL,
-        'Entwurf' => Status::WAITING_FOR_APPROVAL,
-    );
-
-    protected function mapJobStatus($status)
-    {
-        return isset($this->jobStatusMap[$status])
-               ? $this->jobStatusMap[$status]
-               : Status::CREATED;
-    }
 }
 

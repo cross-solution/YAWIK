@@ -10,16 +10,16 @@
 
 namespace Jobs\Form;
 
+use Core\Entity\DraftableEntityInterface;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
-use Core\Form\propagateAttributeInterface;
 
 /**
  * Defines the formular files of the 3rd formular for entering a job opening
  *
  * @package Jobs\Form
  */
-class PreviewFieldset extends Fieldset implements propagateAttributeInterface
+class PreviewFieldset extends Fieldset
 {
     public function getHydrator()
     {
@@ -54,11 +54,12 @@ class PreviewFieldset extends Fieldset implements propagateAttributeInterface
 
     }
 
-    public function enableAll($enable = true)
+    public function setObject($object)
     {
-        foreach ($this as $forms) {
-            $forms->setAttribute('disabled', 'disabled');
+        if ($object instanceOf DraftableEntityInterface && !$object->isDraft())
+        foreach ($this as $element) {
+            $element->setAttribute('disabled', 'disabled');
         }
-        return $this;
+        return parent::setObject($object);
     }
 }

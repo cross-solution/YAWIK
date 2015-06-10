@@ -11,6 +11,7 @@ namespace Auth\Service;
 
 use Auth\Entity\User;
 use Auth\Service\Exception;
+use Auth\Options\ModuleOptions;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
@@ -59,14 +60,20 @@ class Register
     protected $mailer;
 
     /**
+     * @var \Auth\Options\ModuleOptions
+     */
+    protected $options;
+
+    /**
      * @var User
      */
     protected $user;
 
-    public function __construct(UserRepository $userRepository, MailService $mailService)
+    public function __construct(UserRepository $userRepository, MailService $mailService, ModuleOptions $options)
     {
         $this->userRepository = $userRepository;
         $this->mailService = $mailService;
+        $this->options = $options;
     }
 
     /**
@@ -196,7 +203,7 @@ class Register
     }
 
     /**
-     * Email-Adress
+     * Email-Address
      * @param $email string
      * @return mixed
      */
@@ -218,8 +225,8 @@ class Register
             $email = $this->getEmail();
 
             if (($userRepository->findByLoginOrEmail($email))) {
-                return Null;
-                //throw new Exception\UserAlreadyExistsException('User already exists');
+                //return Null;
+                throw new Exception\UserAlreadyExistsException('User already exists');
             }
 
             $user = $userRepository->create(array(
@@ -298,6 +305,7 @@ class Register
      */
     public function proceedMail()
     {
+        $siteName = $this->options->getSiteName();
         $url = $this->getUrlPlugin();
         $user = $this->getUser();
         if (isset($user)) {
@@ -314,10 +322,10 @@ class Register
             $mail->user             = $user;
             $mail->name             = $userName;
             $mail->confirmationlink = $confirmationLink;
+            $mail->siteName         = $siteName;
             $mail->setTemplate('mail/register');
-            $mail->setSubject( /*translate*/ 'Registration');
+            $mail->setFormattedSubject( 'your registration on %s', $siteName);
             $mail->setTo($userEmail);
-            $mail->setFrom('Yawik-System', $userName);
             $mailService->send($mail);
         }
     }

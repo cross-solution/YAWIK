@@ -212,7 +212,15 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @ODM\String 
      */
     protected $uriPublisher;
-    
+
+    /**
+     * The ATS mode entity.
+     *
+     * @var AtsMode
+     * @ODM\EmbedOne(targetDocument="AtsMode")
+     */
+    protected $atsMode;
+
     /**
      * this must be enabled to use applications forms etc. for this job or
      * to see number of applications in the list of applications
@@ -253,7 +261,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * Can contain various Portals
      *
      * @var array
-     * @ODM\Hash*/
+     * @ODM\Collection*/
     protected $portals = array();
 
     /**
@@ -343,6 +351,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @see \Jobs\Entity\JobInterface::getCompany()
      */
     public function getCompany() {
+        if ($this->organization) {
+            return $this->organization->getOrganizationName()->getName();
+        }
         return $this->company;
     }
 
@@ -627,6 +638,24 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         $this->reference = $reference;
         return $this;
     }
+
+    public function setAtsMode(AtsMode $mode)
+    {
+        $this->atsMode = $mode;
+
+        return $this;
+    }
+
+    public function getAtsMode()
+    {
+        if (!$this->atsMode) {
+            $this->setAtsMode(new AtsMode(AtsMode::MODE_INTERN));
+        }
+
+        return $this->atsMode;
+    }
+
+
     /**
      * checks, weather a job is enabled for getting applications
      * @return boolean

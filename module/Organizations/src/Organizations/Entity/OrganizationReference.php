@@ -11,6 +11,7 @@
 namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
+use Core\Entity\EntityInterface;
 use Core\Entity\PermissionsInterface;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
@@ -240,9 +241,24 @@ class OrganizationReference implements OrganizationInterface,
         return $this->proxy('getParent');
     }
 
+    public function setContact(EntityInterface $contact = null)
+    {
+        return $this->proxy('setContact', $contact);
+    }
+
+    public function getContact()
+    {
+        return $this->proxy('getContact');
+    }
+
     public function isHiringOrganization()
     {
         return $this->proxy('isHiringOrganization');
+    }
+
+    public function getHiringOrganizations()
+    {
+        return $this->proxy('getHiringOrganizations');
     }
 
     public function setOrganizationName(OrganizationName $organizationNames)
@@ -273,6 +289,11 @@ class OrganizationReference implements OrganizationInterface,
     public function getEmployees()
     {
         return $this->proxy('getEmployees');
+    }
+
+    public function getEmployee($userOrId)
+    {
+        return $this->proxy('getEmployee', $userOrId);
     }
 
     public function getUser()

@@ -10,6 +10,7 @@
 /** Applications controllers */ 
 namespace Applications\Controller;
 
+use Applications\Entity\Contact;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Applications\Entity\Application;
@@ -76,12 +77,21 @@ class ApplyController extends AbstractActionController
             if (!$appId) {
                 throw new \RuntimeException('Missing application id.');
             }
+            $routeMatch = $e->getRouteMatch();
+
+            if ('recruiter-preview' == $appId) {
+                $routeMatch->setParam('action', 'process-preview');
+                return;
+            }
+
             $application = $repository->find($appId);
             if (!$application) {
                 throw new \RuntimeException('Invalid application id.');
             }
             $action     = 'process';
-            $routeMatch = $e->getRouteMatch();
+
+
+
             $routeMatch->setParam('action', $action);
             
         } else {
@@ -91,51 +101,59 @@ class ApplyController extends AbstractActionController
                 throw new \RuntimeException('Missing apply id');
             }
 
+            $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
 
-            $subscriberUri = $this->params()->fromQuery('subscriber');
-            $application   = $repository->findDraft($user, $appId);
+            if ($user === $job->getUser()) {
+                $application = new \Applications\Entity\Application();
+                $application->setContact(new Contact());
+                $application->setJob($job);
+                $application->setId('recruiter-preview');
+            } else {
 
-            if ($application) {
-                /* @var $form \Auth\Form\UserInfo */
-                $form = $container->getForm('contact.contact');
-                $form->setDisplayMode('summary');
+                $subscriberUri = $this->params()->fromQuery('subscriber');
+                $application   = $repository->findDraft($user, $appId);
 
-                if ($subscriberUri) {
-                    $subscriber = $application->getSubscriber();
-                    if (!$subscriber || $subscriber->uri != $subscriberUri) {
+                if ($application) {
+                    /* @var $form \Auth\Form\UserInfo */
+                    $form = $container->getForm('contact.contact');
+                    $form->setDisplayMode('summary');
+
+                    if ($subscriberUri) {
+                        $subscriber = $application->getSubscriber();
+                        if (!$subscriber || $subscriber->uri != $subscriberUri) {
+                            $subscriber = $repositories->get('Applications/Subscriber')->findbyUri($subscriberUri, /*create*/ true);
+                            $application->setSubscriber($subscriber);
+                            $subscriber->getname();
+                        }
+                    }
+
+                } else {
+
+                    if (!$job) {
+                        $e->getRouteMatch()->setParam('action', 'job-not-found');
+                        return;
+                    }
+
+                    /* @var $application \Applications\Entity\Application */
+                    $application = $repository->create();
+                    $application->setIsDraft(true)
+                                ->setContact($user->info)
+                                ->setUser($user)
+                                ->setJob($job);
+
+                    if ($subscriberUri) {
                         $subscriber = $repositories->get('Applications/Subscriber')->findbyUri($subscriberUri, /*create*/ true);
                         $application->setSubscriber($subscriber);
-                        $subscriber->getname();
                     }
-                }
 
-            } else {
-                $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
-                
-                if (!$job) {
-                    $e->getRouteMatch()->setParam('action', 'job-not-found');
-                    return;
-                }
-
-                /* @var $application \Applications\Entity\Application */
-                $application = $repository->create();
-                $application->setIsDraft(true)
-                            ->setContact($user->info)
-                            ->setUser($user)
-                            ->setJob($job);
-
-                if ($subscriberUri) {
-                    $subscriber = $repositories->get('Applications/Subscriber')->findbyUri($subscriberUri, /*create*/ true);
-                    $application->setSubscriber($subscriber);
-                }
-
-                $repositories->store($application);
-                /*
-                 * If we had copy an user image, we need to refresh its data
-                 * to populate the length property.
-                 */
-                if ($image = $application->contact->image) {
-                    $repositories->refresh($image);
+                    $repositories->store($application);
+                    /*
+                     * If we had copy an user image, we need to refresh its data
+                     * to populate the length property.
+                     */
+                    if ($image = $application->contact->image) {
+                        $repositories->refresh($image);
+                    }
                 }
             }
         } 
@@ -170,6 +188,11 @@ class ApplyController extends AbstractActionController
         $model->setTemplate('applications/apply/index');
         return $model;
 
+    }
+
+    public function processPreviewAction()
+    {
+        return new JsonModel(array('valid' => false, 'errors' => array()));
     }
     
     public function processAction()

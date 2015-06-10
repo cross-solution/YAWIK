@@ -58,6 +58,22 @@ interface OrganizationInterface
     public function getParent();
 
     /**
+     * Sets contact.
+     *
+     * @param EntityInterface $contact
+     *
+     * @return self
+     */
+    public function setContact(EntityInterface $contact = null);
+
+    /**
+     * Gets the contact
+     *
+     * @return OrganizationContact
+     */
+    public function getContact();
+
+    /**
      * Checks if the organization is a hiring organization.
      *
      * @internal
@@ -68,7 +84,14 @@ interface OrganizationInterface
      */
     public function isHiringOrganization();
 
-   /**
+    /**
+     * Gets the Collection of all hiring organizations.
+     *
+     * @return Collection
+     */
+    public function getHiringOrganizations();
+
+    /**
     * Sets the name of the organization
     * 
     * @param OrganizationName organizationName
@@ -115,6 +138,16 @@ interface OrganizationInterface
      * @since 0.18
      */
     public function getEmployees();
+
+    /**
+     * Gets one employee by user id.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|EmployeeInterface
+     * @since 0.19
+     */
+    public function getEmployee($userOrId);
 
     /**
      * @return UserInterface

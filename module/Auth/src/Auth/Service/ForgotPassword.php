@@ -12,6 +12,7 @@ namespace Auth\Service;
 use Auth\Repository;
 use Auth\Service\Exception\UserDoesNotHaveAnEmailException;
 use Auth\Service\Exception\UserNotFoundException;
+use Auth\Options\ModuleOptions;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
@@ -52,6 +53,11 @@ class ForgotPassword implements EventManagerAwareInterface
     protected $suffix;
 
     /**
+     * @var \Auth\Options\ModuleOptions
+     */
+    protected $options;
+
+    /**
      * @param Repository\User $userRepository
      * @param UserUniqueTokenGenerator $tokenGenerator
      * @param LoginFilter $loginFilter
@@ -59,11 +65,14 @@ class ForgotPassword implements EventManagerAwareInterface
     public function __construct(
         Repository\User $userRepository,
         UserUniqueTokenGenerator $tokenGenerator,
-        LoginFilter $loginFilter
+        LoginFilter $loginFilter,
+        ModuleOptions $options
+
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;
         $this->loginFilter = $loginFilter;
+        $this->options = $options;
     }
 
     public function setSuffix($suffix)

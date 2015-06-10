@@ -46,7 +46,6 @@ class OrganizationNameHydratorTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected = array(
-            'company' => $job->getOrganization()->getOrganizationName()->getName(),
             'companyId' => $job->getOrganization()->getId()
         );
 

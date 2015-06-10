@@ -26,20 +26,16 @@ class CompanyNameFieldset extends Fieldset
 
         $this->add(
             array(
-                'type' => 'Jobs/CompanyNameElement',
+                'type' => 'Jobs/HiringOrganizationSelect',
                 'property' => true,
-                'name' => 'company',
+                'name' => 'companyId',
                 'options' => array(
                     'label' => /*@translate*/ 'Companyname',
                     //'description' => /*@translate*/ 'The name of the hiring organization will be shown in search results.'
                 ),
-            )
-        );
-
-        $this->add(
-            array(
-                'type' => 'Hidden',
-                'name' => 'companyId'
+                'attributes' => array(
+                    'data-placeholder' => /*@translate*/ 'Select hiring organization',
+                ),
             )
         );
     }

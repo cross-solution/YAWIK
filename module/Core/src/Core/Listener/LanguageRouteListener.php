@@ -36,7 +36,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
             'hi' => 'hi_IN',
             'cn' => 'cmn',
             'pt' => 'pt',
-            'ar' => 'ar'
+            'ar' => 'ar',
+            'zh' => 'zh'
 	);
 		
     /**

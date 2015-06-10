@@ -89,6 +89,16 @@ return array(
                                     ),
                                 ),
                             ),
+                            'invite' => array(
+                                'type' => 'Segment',
+                                'options' => array(
+                                    'route' => '/invite[/:action]',
+                                    'defaults' => array(
+                                        'controller' => 'Organizations/InviteEmployee',
+                                        'action' => 'invite',
+                                    ),
+                                ),
+                            ),
                         ),
                     ),
                     'my-organization' => array(

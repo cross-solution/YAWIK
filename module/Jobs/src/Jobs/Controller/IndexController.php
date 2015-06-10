@@ -13,6 +13,7 @@ namespace Jobs\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
+use Auth\Entity\User;
 
 /**
  * Handles the job listing for recruiters.
@@ -38,11 +39,9 @@ class IndexController extends AbstractActionController
 
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
-        $jobServices     = $serviceLocator->get('Jobs/Listeners');
         $events          = $this->getEventManager();
 
         $events->attach($defaultServices);
-        $events->attach($jobServices);
 
         return $this;
     }
@@ -58,7 +57,8 @@ class IndexController extends AbstractActionController
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
-        $isRecruiter = $this->acl()->isRole('recruiter');
+        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
+        $showPendingJobs = $this->acl()->isRole('admin') && 'created' == $params->get('status');
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -74,9 +74,13 @@ class IndexController extends AbstractActionController
             }
             /* @var $filterForm \Jobs\Form\ListFilter */
             $session[$sessionKey] = $params->toArray();
-            $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
 
-            $filterForm->bind($params);
+            if (!$showPendingJobs) {
+                $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
+                $filterForm->bind($params);
+            } else {
+                $this->getEvent()->getRouteMatch()->setParam('__activeMarker__', 'pending');
+            }
         }
 
         if (!isset($params['sort'])) {
@@ -88,6 +92,7 @@ class IndexController extends AbstractActionController
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
+            'showPendingJobs' => $showPendingJobs,
         );
         if (isset($filterForm)) {
             $return['filterForm'] = $filterForm;
@@ -109,7 +114,7 @@ class IndexController extends AbstractActionController
         $services    = $this->getServiceLocator();
         $request     = $this->getRequest();
         $params      = $request->getQuery();
-        $isRecruiter = $this->acl()->isRole('recruiter');
+        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
 
         if ($isRecruiter) {
             $params->set('by', 'me');

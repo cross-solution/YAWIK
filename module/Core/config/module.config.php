@@ -165,6 +165,7 @@ return array(
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
+            'Core/EntityHydrator' => 'Core\Entity\Hydrator\EntityHydratorFactory',
             'Core/Options' => 'Core\Factory\ModuleOptionsFactory',
         ),
         'abstract_factories' => array(
@@ -195,10 +196,11 @@ return array(
     // Defines the Core/Navigation. 
     'navigation' => array(
         'default' => array(
-//             'home' => array(
-//                 'label' => 'Home',
-//                 'route' => 'lang',
-//             ),
+             'home' => array(
+                 'label' => /*@translate*/ 'Home',
+                 'route' => 'lang',
+                 'visible' => false
+             ),
         ),
     ),
     // Configuration of the controller service manager (Which loads controllers)
@@ -241,6 +243,7 @@ return array(
         'exception_template' => 'error/index',
         // Map template to files. Speeds up the lookup through the template stack. 
         'template_map' => array(
+            'noscript-notice' => __DIR__ . '/../view/layout/_noscript-notice.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             //'core/index/index'        => __DIR__ . '/../view/core/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
@@ -299,6 +302,9 @@ return array(
             'alert' => 'Core\View\Helper\Alert',
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
+            'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
+            'TinyMCEditorLight' => 'Core\Form\View\Helper\FormEditorLight',
+            'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor'
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
@@ -347,6 +353,9 @@ return array(
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
 
+        ),
+        'initializers' => array(
+            '\Core\Form\Service\InjectHeadscriptInitializer',
         ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'

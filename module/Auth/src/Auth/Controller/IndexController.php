@@ -12,6 +12,7 @@ namespace Auth\Controller;
 
 use Auth\AuthenticationService;
 use Auth\Service\Exception;
+use Auth\Options\ModuleOptions;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
@@ -40,15 +41,17 @@ class IndexController extends AbstractActionController
     protected $logger;
 
     /**
-     * @var
+     * @var ModuleOptions
      */
     protected $options;
 
     /**
-     * @param $auth
+     * @param $auth  AuthenticationService
+     * @param $logger LoggerInterface
      * @param $loginForm
+     * @param $options
      */
-    public function __construct($auth, $logger, $loginForm, $options) {
+    public function __construct(AuthenticationService $auth, LoggerInterface $logger, $loginForm, $options) {
         $this->auth=$auth;
         $this->loginForm=$loginForm;
         $this->logger=$logger;
@@ -123,8 +126,20 @@ class IndexController extends AbstractActionController
                 if (array_key_exists('database', $config) && array_key_exists('databaseName', $config['database'])) {
                     $databaseName = $config['database']['databaseName'];
                 }
-                $this->logger->info('Failed to authenticate User ' . $data['credentials']['login'] . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
-                
+                // update for Doctrine
+
+                if (empty($databaseName)
+                        && array_key_exists('doctrine', $config)
+                        && array_key_exists('configuration', $config['doctrine'])
+                        && array_key_exists('odm_default', $config['doctrine']['configuration'])
+                        && array_key_exists('default_db', $config['doctrine']['configuration']['odm_default'])) {
+                    $databaseName = $config['doctrine']['configuration']['odm_default']['default_db'];
+                }
+                $loginName = $data['credentials']['login'];
+                if (!empty($loginSuffix)) {
+                    $loginName = $loginName . ' (' . $loginName . $loginSuffix . ')';
+                }
+                $this->logger->info('Failed to authenticate User ' . $loginName . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
@@ -159,10 +174,8 @@ class IndexController extends AbstractActionController
      */
     public function loginAction()
     {
-        
         $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
-        $config = $this->config();
         $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
         $auth = $this->auth;
@@ -177,33 +190,20 @@ class IndexController extends AbstractActionController
                 $externalLogin = isset($user->login)?$user->login:'-- not communicated --';
                 $this->logger->debug('first login via ' . $provider . ' as: ' . $externalLogin);
 
-                $scheme = '';
-                $domain = '';
-                $uri = $this->getRequest()->getUri();
-                if (isset($uri)) {
-                    $scheme = $uri->getScheme();
-                    $domain = $uri->getHost();
-                }
-                $viewHelperManager = $this->getServiceLocator()->get('ViewHelperManager');
-                $basePath = $viewHelperManager->get('basePath')->__invoke();
-
                 $user->login=$login;
                 $user->setPassword($password);
-                $user->role = $this->options->role;
+                $user->role = $this->options->getRole();
 
-                $mail = $this->mail(
-                        array(  'from' => $this->options->mail_from,
-                                'fromName' => $this->options->mail_name,
-                                'subject' => 'registration at the YAWIK',
+                $mail = $this->mailer('htmltemplate');
+                $mail->setTemplate('mail/first-socialmedia-login');
+                $mail->setSubject($this->options->getMailSubjectRegistration());
+                $mail->setVariables(array(
                                 'displayName'=> $user->info->getDisplayName(),
                                 'provider' => $provider,
-                                'user' => $login,
+                                'login' => $login,
                                 'password' => $password,
-                                'uri' =>  $scheme . '://' . $domain . $basePath)
-                        );
-                $mail->template('first-login');
+                ));
                 $mail->addTo($user->info->getEmail());
-                $mail->setSubject($this->options->mail_subject);
 
                 $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
                 if (isset($mail) && $this->mailer($mail)) {
@@ -220,8 +220,8 @@ class IndexController extends AbstractActionController
             }
         }
         
-        //$user = $auth->getUser();
-        //$this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
+        $user = $auth->getUser();
+        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
@@ -246,17 +246,18 @@ class IndexController extends AbstractActionController
     {
         $services   = $this->getServiceLocator();
         $adapter    = $services->get('ExternalApplicationAdapter');
+        $appKey     = $this->params()->fromPost('appKey');
 
         $adapter->setIdentity($this->params()->fromPost('user'))
                 ->setCredential($this->params()->fromPost('pass'))
-                ->setApplicationKey($this->params()->fromPost('appKey'));
+                ->setApplicationKey($appKey);
         
         $auth       = $this->auth;
         $result     = $auth->authenticate($adapter);
         
         if ($result->isValid()) {
             $this->logger->info('User ' . $this->params()->fromPost('user') .
-                                        ' logged via ' . $this->params()->fromPost('appKey'));
+                                        ' logged via ' . $appKey);
             
             // the external login may include some parameters for an update
             $updateParams = $this->params()->fromPost();
@@ -286,37 +287,35 @@ class IndexController extends AbstractActionController
             if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
                 // first external Login
                 $userName = $this->params()->fromPost('user');
-                $this->getServiceLocator()->get('Core/Log')->debug('first login for User: ' .  $userName);
+                $this->logger->debug('first login for User: ' .  $userName);
                 // 
                 if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
                     $userName = $realUserName[1];
                 }
-                $scheme = '';
-                $domain = '';
-                $uri = $this->getRequest()->getUri();
-                if (isset($uri)) {
-                    $scheme = $uri->getScheme();
-                    $domain = $uri->getHost();
-                }
-                $viewHelperManager = $services->get('ViewHelperManager');
-                $basePath = $viewHelperManager->get('basePath')->__invoke();
-                $mail = $this->mail(array(
-                    'displayName'=>$userName, 
+
+                $mail = $this->mailer('htmltemplate'); /* @var $mail \Core\Mail\HTMLTemplateMessage */
+                $apps = $this->config('external_applications');
+                $apps = array_flip($apps);
+                $application = isset($apps[$appKey]) ? $apps[$appKey] : null;
+
+                $mail->setVariables(array(
+                    'application' => $application,
+                    'login'=>$userName,
                     'password' => $password,
-                    'uri' => $scheme . '://' . $domain . $basePath,
-                        
-                    ));
-                $mail->template('first-login');
+                ));
+                $mail->setSubject($this->options->getMailSubjectRegistration());
+                $mail->setTemplate('mail/first-external-login');
                 $mail->addTo($user->getInfo()->getEmail());
-                $mail->informationComplete();
-                
-                if (isset($mail) && $this->mailer($mail)) {
+
+                try {
+                    $this->mailer($mail);
                     $this->logger->info('Mail first-login sent to ' . $userName);
-                } else {
+                } catch (\Zend\Mail\Transport\Exception\ExceptionInterface $e) {
                     $this->logger->warn('No Mail was sent');
+                    $this->logger->debug($e);
                 }
             }
-            
+
             return new JsonModel(array(
                 'status' => 'success',
                 'token' => session_id()

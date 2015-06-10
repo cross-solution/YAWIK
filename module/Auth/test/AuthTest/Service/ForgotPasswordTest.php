@@ -53,6 +53,11 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
     /**
      * @var MockObject
      */
+    private $optionsMock;
+
+    /**
+     * @var MockObject
+     */
     public function setUp()
     {
         $this->userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
@@ -67,7 +72,11 @@ class ForgotPasswordTest extends \PHPUnit_Framework_TestCase
                                          ->disableOriginalConstructor()
                                          ->getMock();
 
-        $this->testedObject = new ForgotPassword($this->userRepositoryMock, $this->tokenGeneratorMock, $this->loginFilterMock);
+        $this->optionsMock = $this->getMockBuilder('Auth\Options\ModuleOptions')
+                                         ->disableOriginalConstructor()
+                                         ->getMock();
+
+        $this->testedObject = new ForgotPassword($this->userRepositoryMock, $this->tokenGeneratorMock, $this->loginFilterMock, $this->optionsMock);
 
         $this->inputFilterMock = $this->getMock('Zend\InputFilter\InputFilterInterface');
         $this->mailerPluginMock = $this->getMock('Core\Controller\Plugin\Mailer');
