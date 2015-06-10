@@ -2,9 +2,6 @@
 //: ./view/form/list-filter.phtml:49
 translate('search for jobs');
 
-//: ./view/jobs/manage/approval.phtml:5
-translate('free');
-
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:43
 translate('Job qualification');
 
@@ -101,7 +98,10 @@ translate('Location');
 //: ./src/Jobs/Form/BaseFieldset.php:56
 translate('Please enter the location of the job');
 
-//: ./src/Jobs/Form/Multipost.php:21
+//: ./src/Jobs/Form/MultipostFieldset.php:50
+translate('Portals');
+
+//: ./src/Jobs/Form/Multipost.php:32
 translate('Multiposting');
 
 //: ./src/Jobs/Entity/StatusInterface.php:34
@@ -170,21 +170,24 @@ translate('enable %s of this job on your Homepage');
 //: ./config/channel.options.local.php.dist:42
 translate('integration');
 
-//: ./config/module.config.php:112
+//: ./config/module.config.php:113
 translate('Jobboard');
 
-//: ./config/module.config.php:118
+//: ./config/module.config.php:119
 translate('Jobs');
 
-//: ./config/module.config.php:124
+//: ./config/module.config.php:125
 translate('Overview');
 
-//: ./config/module.config.php:128
-translate('Create job');
+//: ./config/module.config.php:130
+translate('Pending jobs');
 
 //: ./config/module.config.php:137
+translate('Create job');
+
+//: ./config/module.config.php:146
 translate('Edit job');
 
-//: ./config/module.config.php:144
+//: ./config/module.config.php:153
 translate('Jobboard');
 
