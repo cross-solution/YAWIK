@@ -27,7 +27,7 @@ return array(
     	'default_user' => array(
     		'login' => '%%username%%',                          // username of the initial user
     		'password' => '%%password%%',                       // password of the initial user
-    		'role' => '%%role%%',                               // role of the initial user
+    		'role' => 'admin',                               // role of the initial user
     		'email' => '%%email%%',                             // email-adress of the default-users
     	),
     	'first_login' => array (

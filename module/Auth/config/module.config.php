@@ -359,7 +359,7 @@ return array(
             'guest',
             'user' => 'guest',
             'recruiter' => 'user',
-            'admin'
+            'admin' => 'recruiter',
         ),
         
         'public_roles' => array(
