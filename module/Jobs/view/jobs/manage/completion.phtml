@@ -1,3 +1,12 @@
 <h1><?php echo $this->translate("Publishing successfully finished")?></h1>
 
-<?php echo $this->translate("Thank you for publishing your job opening. An email was send to the reviewing team.");
+<?php echo $this->translate("Thank you for publishing your job opening. An email was send to the reviewing team."); ?>
+
+<br /><br /><br /><br /><br />
+<div class="buttons-bar form-group">
+    <div class="col-md-2"><br /></div>
+    <div class="col-md-10">
+        <a class="btn btn-success" href="<?php echo $this->url('lang/jobs/manage'); ?>"><?php echo $this->translate('Create job') ?></a>
+        <a class="btn btn-primary" href="<?php echo $this->url('auth-logout'); ?>"><?php echo $this->translate('Logout') ?></a>
+    </div>
+</div>
