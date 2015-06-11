@@ -9,7 +9,6 @@
 
 namespace Auth\Service;
 
-use Auth\Entity\User;
 use Auth\Repository;
 use Auth\Service\Exception;
 use Zend\Authentication\AuthenticationService;
@@ -34,11 +33,11 @@ class RegisterConfirmation
 
     public function proceed($userId)
     {
-        /** @var User $user */
         if (!($user = $this->userRepository->find($userId))) {
             throw new Exception\UserNotFoundException('User cannot be found');
         }
 
+        /* \Auth\Entity\Info */
         $user->getInfo()->setEmailVerified(true);
         $user->setEmail($user->getInfo()->getEmail()); // Set verified email as primary email.
         $this->userRepository->store($user);

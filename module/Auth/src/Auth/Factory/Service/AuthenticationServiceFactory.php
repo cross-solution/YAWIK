@@ -7,15 +7,14 @@
  * @license   MIT
  */
 
-namespace Auth\Service;
+namespace Auth\Factory\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Auth\Repository\User as UserRepository;
 use Auth\AuthenticationService;
 
 /**
- * Hybridauth authentication adapter factory
+ * HybridAuth authentication adapter factory
  */
 class AuthenticationServiceFactory implements FactoryInterface 
 {

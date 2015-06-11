@@ -62,7 +62,7 @@ class HybridAuth implements AdapterInterface
     }
     
     /**
-     * Gets the provider identifier used by HybriAauth.
+     * Gets the provider identifier used by HybridAuth.
      * 
      * @return string|null
      */

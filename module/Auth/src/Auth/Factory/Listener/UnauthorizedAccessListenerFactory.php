@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Auth\Service;
+namespace Auth\Factory\Listener;
 
 use Auth\Listener\UnauthorizedAccessListener as Listener;
 use Zend\ServiceManager\FactoryInterface;
@@ -23,7 +23,7 @@ class UnauthorizedAccessListenerFactory implements FactoryInterface
      * 
      * - Injects the AuthenticationService
      * 
-     * @param ServiceLocatorInterface $helpers
+     * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\View\Helper\Auth
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */

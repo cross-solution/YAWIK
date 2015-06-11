@@ -7,14 +7,14 @@
  * @license   MIT
  */
 
-namespace Auth\Service;
+namespace Auth\Factory\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Adapter\HybridAuth as HybridAuthAdapter;
 
 /**
- * Hybridauth authentication adapter factory
+ * HybridAuth authentication adapter factory
  */
 class HybridAuthAdapterFactory implements FactoryInterface 
 {

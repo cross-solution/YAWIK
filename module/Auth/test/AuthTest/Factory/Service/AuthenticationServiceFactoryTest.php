@@ -9,31 +9,28 @@
 
 namespace AuthTest\Factory\Service;
 
-use Auth\Factory\Service\RegisterFactory;
+use Auth\Factory\Service\AuthenticationServiceFactory;
 use Test\Bootstrap;
 
 /**
- * Class RegisterSLFactoryTest
+ * Class AuthenticationServiceFactoryTest
  * @package AuthTest\Factory\Service
- * @covers \Auth\Factory\Service\RegisterFactory
+ * @covers \Auth\Factory\Service\AuthenticationServiceFactory
  */
-class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
+class AuthenticationServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var RegisterFactory
+     * @var AuthenticationServiceFactory
      */
     private $testedObj;
 
     public function setUp()
     {
-        $this->testedObj = new RegisterFactory();
+        $this->testedObj = new AuthenticationServiceFactory();
     }
 
     public function testCreateService()
     {
-        $sm = clone Bootstrap::getServiceManager();
-        $sm->setAllowOverride(true);
-
         $userRepositoryMock = $this->getMockBuilder('Auth\Repository\User')
             ->disableOriginalConstructor()
             ->getMock();
@@ -42,14 +39,17 @@ class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+
         $repositoriesMock->expects($this->once())
             ->method('get')
             ->with('Auth/User')
             ->willReturn($userRepositoryMock);
 
-        $sm->setService('repositories', $repositoriesMock);
+        $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
+        $sm->expects($this->once())
+            ->method('get')->with('repositories')->willReturn($repositoriesMock);
 
         $result = $this->testedObj->createService($sm);
-        $this->assertInstanceOf('Auth\Service\Register', $result);
+        $this->assertInstanceOf('Auth\AuthenticationService', $result);
     }
 }

@@ -15,6 +15,9 @@ use Auth\Entity\AnonymousUser;
 
 class AuthenticationService extends ZendAuthService {
 
+    /**
+     * @var AnonymousUser
+     */
     protected $user;
     /**
      * @var RepositoryInterface;
