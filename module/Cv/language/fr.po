@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-11 15:37+0100\n"
-"PO-Revision-Date: 2015-05-28 16:11+0000\n"
+"PO-Revision-Date: 2015-06-13 19:14+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Date de fin"
 
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:48
 msgid "ongoing"
-msgstr ""
+msgstr "En cours"
 
 #: language/_annotated_strings.php:12
 msgid "Degree"
