@@ -207,8 +207,8 @@ class ManageController extends AbstractActionController {
                         $form->enableForm($actualFormIdentifier);
                         if ($jobEntity->isDraft()) {
                             $actualForm = $form->get($actualFormIdentifier);
-                            if ($actualForm instanceOf SummaryFormInterface) {
-                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::RENDER_FORM);
+                            if ('nameForm' != $actualFormIdentifier && $actualForm instanceOf SummaryFormInterface) {
+                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                             }
                         }
                     }
