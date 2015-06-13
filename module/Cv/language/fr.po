@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Brice <vertebre@gmail.com>, 2015
 # Carsten Bleek <cbleek@yawik.org>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-11 15:37+0100\n"
-"PO-Revision-Date: 2015-06-13 19:14+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2015-06-13 21:28+0000\n"
+"Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr "liste de tous les CV"
 
 #: view/cv/index/index.ajax.phtml:5
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: view/cv/manage/form.phtml:2
 msgid "Edit resume"
@@ -57,12 +58,12 @@ msgstr "Emploi"
 
 #: src/Cv/Form/SkillFieldset.php:16 src/Cv/Form/LanguageFieldset.php:16
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: src/Cv/Form/NativeLanguageFieldset.php:16
 #: language/_annotated_strings.php:63
 msgid "Native Language"
-msgstr ""
+msgstr "Langue maternelle"
 
 #: src/Cv/Form/EducationCollectionFactory.php:18
 msgid "Education history"
@@ -122,23 +123,23 @@ msgstr "s'il vous plaît entrer une description"
 
 #: language/_annotated_strings.php:51
 msgid "Company Name"
-msgstr ""
+msgstr "Nom de la compagnie"
 
 #: language/_annotated_strings.php:54
 msgid "please enter the name of the company"
-msgstr ""
+msgstr "Veuillez entrer le nom de la compagnie"
 
 #: language/_annotated_strings.php:60
 msgid "please describe your position"
-msgstr ""
+msgstr "Veuillez décrire votre position"
 
 #: language/_annotated_strings.php:66
 msgid "Other languages"
-msgstr ""
+msgstr "Autres langues"
 
 #: language/_annotated_strings.php:69
 msgid "Other languages ..."
-msgstr ""
+msgstr "Autres langues ..."
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:522
 msgid "Abkhazian"
@@ -570,18 +571,18 @@ msgstr "Yoruba"
 
 #: language/_annotated_strings.php:393
 msgid "which language are you speeking"
-msgstr ""
+msgstr "quelles langues parlez-vous"
 
 #: language/_annotated_strings.php:396
 msgid "Understanding Listening ..."
-msgstr ""
+msgstr "Compréhension a l'édition ..."
 
 #: language/_annotated_strings.php:399
 msgid ""
 "I can understand familiar words and very basic phrases concerning myself, my"
 " family and immediate concrete surroundings when people speak slowly and "
 "clearly."
-msgstr ""
+msgstr "Je peux comprendre des mots familiers et des expressions très courantes au sujet de moi, de ma famille et de l'environnement concret et immédiat, si les gens parlent lentement et distinctement."
 
 #: language/_annotated_strings.php:402
 msgid ""
@@ -589,7 +590,7 @@ msgid ""
 "areas of most immediate personal relevance (e.g. very basic personal and "
 "family information, shopping, local area, employment). I can catch the main "
 "point in short, clear, simple messages and announcements."
-msgstr ""
+msgstr "Je peux comprendre des expressions et un vocabulaire très fréquent relatifs à ce qui me concerne de très près (e.a. informations personnelles et familiales très basique, achats, l'environnement proche, le travail). Je peux saisir l'essentiel d'annonces courtes et de messages simples et clairs."
 
 #: language/_annotated_strings.php:405
 msgid ""
@@ -598,7 +599,7 @@ msgid ""
 "understand the main point of many radio or TV programmes on current affairs "
 "or topics of personal or professional interest when the delivery is "
 "relatively slow and clear."
-msgstr ""
+msgstr "Je peux comprendre les points essentiels d'un langage clair et standard sur des sujets familiers rencontrés régulièrement au travail, l'école, les loisirs, etc. Je peux comprendre l'essentiel de nombreuses émissions de radio ou de télévision sur l'actualité ou sur des sujets d'intérêt personnel ou professionnel quand le discours est relativement lent et clair."
 
 #: language/_annotated_strings.php:408
 msgid ""
@@ -606,31 +607,31 @@ msgid ""
 "of argument provided the topic is reasonably familiar. I can understand most"
 " TV news and current affairs programmes. I can understand the majority of "
 "films in standard dialect."
-msgstr ""
+msgstr "Je peux comprendre un long discours et des conférences et suivre même une argumentation complexe à condition que le sujet en soit familier. Je peux comprendre la plupart des journaux télévisés et les programmes d'actualité. Je peux comprendre la plupart des films en langue standard."
 
 #: language/_annotated_strings.php:411
 msgid ""
 "I can understand extended speech even when it is not clearly structured and "
 "when relationships are only implied and not signalled explicitly. I can "
 "understand television programmes and films without too much effort."
-msgstr ""
+msgstr "Je peux comprendre un long discours même quand il est pas clairement structuré et que les relations sont seulement implicites et non explicites. Je peux comprendre les émissions de télévision et les films sans trop d'effort."
 
 #: language/_annotated_strings.php:414
 msgid ""
 "I have no difficulty in understanding any kind of spoken language, whether "
 "live or broadcast, even when delivered at fast native speed, provided I have"
 " some time to get familiar with the accent."
-msgstr ""
+msgstr "Je n'ai aucune difficulté à comprendre tout type de langage parlé, que ce soit en direct ou en diffusion, même quand délivré rapidement, à condition d'avoir du temps pour me familiariser avec l'accent."
 
 #: language/_annotated_strings.php:417 language/_annotated_strings.php:441
 #: language/_annotated_strings.php:465 language/_annotated_strings.php:489
 #: language/_annotated_strings.php:513
 msgid "level"
-msgstr ""
+msgstr "niveau"
 
 #: language/_annotated_strings.php:420
 msgid "Understanding Reading ..."
-msgstr ""
+msgstr "Compréhension à la lecture ..."
 
 #: language/_annotated_strings.php:423
 msgid ""
@@ -827,11 +828,11 @@ msgstr "l'histoire de l'emploi"
 
 #: language/_annotated_strings.php:519
 msgid "Skills"
-msgstr ""
+msgstr "Compétences"
 
 #: language/_annotated_strings.php:843
 msgid "what is your native language"
-msgstr ""
+msgstr "Quel est votre langue maternelle"
 
 #: language/_annotated_strings.php:849
 msgid "Overview"

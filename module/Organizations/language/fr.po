@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 16:30+0200\n"
-"PO-Revision-Date: 2015-06-13 20:25+0000\n"
+"POT-Creation-Date: 2015-06-13 22:31+0200\n"
+"PO-Revision-Date: 2015-06-13 20:48+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Organisations"
 #: view/organizations/index/index.ajax.phtml:69
 #, php-format
 msgid "Hiring organization of <strong>%s</strong>"
-msgstr ""
+msgstr "Organisation recrutante de <strong>%s</strong>"
 
 #: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
@@ -168,15 +168,15 @@ msgstr "S'il vous plait entrer un contact pour l'organisation recrutante."
 
 #: language/_annotated_strings.php:36
 msgid "Please enter a description for the hiring organization."
-msgstr ""
+msgstr "S'il vous plait entrer une description pour l'organisation recrutante."
 
 #: language/_annotated_strings.php:39
 msgid "Employees"
-msgstr ""
+msgstr "Employés"
 
 #: language/_annotated_strings.php:42
 msgid "Manage your employees and their permissions."
-msgstr ""
+msgstr "Gérer vos employés et leurs permissions."
 
 #: language/_annotated_strings.php:45
 msgid "Description"
@@ -186,11 +186,11 @@ msgstr "Description"
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
-msgstr ""
+msgstr "Choisissez un logo. Ce logo sera montré dans l'ouverture de poste et dans le formulaire de candidature."
 
 #: language/_annotated_strings.php:51
 msgid "Organizationname"
-msgstr ""
+msgstr "Nom de l'organisation"
 
 #: language/_annotated_strings.php:57
 msgid "street"
@@ -207,7 +207,7 @@ msgstr "Code Postal"
 #: language/_annotated_strings.php:71
 #, php-format
 msgid "Invitation to join the team of %s"
-msgstr ""
+msgstr "Invitation à rejoindre l'équipe de %s"
 
 #: language/_annotated_strings.php:74
 msgid "Overview"
@@ -215,4 +215,4 @@ msgstr "Vue d'ensemble"
 
 #: language/_annotated_strings.php:77
 msgid "Insert"
-msgstr ""
+msgstr "Insérer"

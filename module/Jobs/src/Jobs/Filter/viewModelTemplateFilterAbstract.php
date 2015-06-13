@@ -11,6 +11,7 @@
 
 namespace Jobs\Filter;
 
+use Jobs\Entity\Job;
 use Zend\Filter\FilterInterface;
 use Zend\View\Model\ViewModel;
 
@@ -29,7 +30,7 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     protected $container;
 
     /**
-     * @var job-entity
+     * @var Job
      */
     protected $job;
 

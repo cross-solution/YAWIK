@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 16:30+0200\n"
-"PO-Revision-Date: 2015-06-13 19:42+0000\n"
+"POT-Creation-Date: 2015-06-13 22:31+0200\n"
+"PO-Revision-Date: 2015-06-13 21:01+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr "Votre candidature a été postés. Bonne chance."
 #: view/applications/manage/index.phtml:22
 #, php-format
 msgid "for the job \"%s\""
-msgstr ""
+msgstr "pour l'emploi \"%s\""
 
 #: view/applications/manage/index.phtml:23
 msgid "to all of your jobs"
@@ -214,7 +214,7 @@ msgstr "candidature pour"
 #: view/applications/manage/detail.phtml:34
 #, php-format
 msgid "Application %d of %d"
-msgstr ""
+msgstr "Candidature %d de %d"
 
 #: view/applications/manage/detail.phtml:56
 msgid "Confirm"
@@ -570,7 +570,7 @@ msgstr "vue"
 
 #: view/applications/manage/detail.pdf.phtml:72
 msgid "Application dated"
-msgstr ""
+msgstr "Candidature datée"
 
 #: view/applications/manage/detail.pdf.phtml:86
 msgid "application details"
@@ -630,17 +630,17 @@ msgstr "Recherche de candidatures"
 #: src/Applications/Controller/MultimanageController.php:85
 #, php-format
 msgid "Your application dated %s"
-msgstr ""
+msgstr "Votre candidature du %s"
 
 #: src/Applications/Controller/ManageController.php:369
 #, php-format
 msgid "Forwarded application to %s"
-msgstr ""
+msgstr "Candidature transmise à %s"
 
 #: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forward application to %s failed."
-msgstr ""
+msgstr "La transmission de candidature à %s a échoué"
 
 #: src/Applications/Controller/MultimanageController.php:90
 msgid "reject the applicants"
@@ -687,7 +687,7 @@ msgstr "Actes"
 
 #: language/_annotated_strings.php:27
 msgid "Sent on"
-msgstr ""
+msgstr "Suivi"
 
 #: language/_annotated_strings.php:45
 msgid ""
@@ -814,21 +814,21 @@ msgstr "s'il vous plaît sélectionnez"
 
 #: language/_annotated_strings.php:147
 msgid "Enter the earliest starting date."
-msgstr ""
+msgstr "Entrez la date de première disponibilité"
 
 #: language/_annotated_strings.php:150
 msgid "Ask the applicant about the earliest starting date."
-msgstr ""
+msgstr "Demandez au candidat la date de première disponibilité."
 
 #: language/_annotated_strings.php:156
 msgid ""
 "Your salary requirements should be the annual amount before taxes. Do not "
 "forget to provide the currency sign."
-msgstr ""
+msgstr "Votre attente salariale devrait être le montant annuel avant impôts. N'oubliez pas de mentionner la devise."
 
 #: language/_annotated_strings.php:159
 msgid "Ask users about their expected salary."
-msgstr ""
+msgstr "Demandez à l'utilisateur à propos de leurs attentes salariales."
 
 #: language/_annotated_strings.php:162
 msgid "Carbon Copy"
@@ -864,7 +864,7 @@ msgstr "tout"
 #: language/_annotated_strings.php:189 language/_annotated_strings.php:192
 #: language/_annotated_strings.php:204
 msgid "Invalid apply id"
-msgstr ""
+msgstr "Id invalide"
 
 #: language/_annotated_strings.php:195
 msgid ""
@@ -902,24 +902,24 @@ msgstr "Pas d'adresse mail visible"
 #: language/_annotated_strings.php:228
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
-msgstr ""
+msgstr "Fwd: Candidature de \"%s\" en date du %s"
 
 #: language/_annotated_strings.php:231
 #, php-format
 msgid "New application for your vacancy \"%s\""
-msgstr ""
+msgstr "Nouvelle candidature pour votre poste vacant \"%s\""
 
 #: language/_annotated_strings.php:234
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
-msgstr ""
+msgstr "Bonjour ##name##,\\n\\nIl y a une nouvelle candidature pour votre poste vacant:\\n\\\"##title##\\\"\\n\\n"
 
 #: language/_annotated_strings.php:237
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
-msgstr ""
+msgstr "Joindre images ou document PDF à votre candidature. Utilisez le Drag&Drop, ou cliquez dans la zone de fichier joint. Vous pouvez uploader jusqu'à 5MB"
 
 #: language/_annotated_strings.php:243
 msgid "E-Mail Templates"
