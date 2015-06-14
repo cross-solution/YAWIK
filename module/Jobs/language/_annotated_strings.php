@@ -23,7 +23,7 @@ translate('terms an conditions');
 //: ./src/Jobs/Form/Base.php:22
 translate('Title and job location');
 
-//: ./src/Jobs/Form/CompanyName.php:37
+//: ./src/Jobs/Form/CompanyName.php:38
 translate('Companyname');
 
 //: ./src/Jobs/Form/Job.php:40

@@ -1,342 +1,340 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#: src/Core/Form/View/Helper/FilterForm.php:38
-#: src/Core/Form/View/Helper/ToggleButton.php:41
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:41
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Core\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-14 08:51+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2015-06-10 16:22+0200\n"
+"PO-Revision-Date: 2014-12-04 19:38+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
-msgstr ""
+msgstr "Loading"
 
 #: view/partial/pagination-control.phtml:26
 #: view/partial/pagination-control.phtml:30
 msgid "First"
-msgstr ""
+msgstr "First"
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:40
 msgid "Back"
-msgstr ""
+msgstr "Back"
 
 #: view/partial/pagination-control.phtml:46
 #: view/partial/pagination-control.phtml:50
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: view/partial/pagination-control.phtml:54
 #: view/partial/pagination-control.phtml:58
 msgid "Last"
-msgstr ""
+msgstr "Last"
 
 #: view/form/permissions-collection.phtml:15
 msgid "Add permission"
-msgstr ""
+msgstr "Add permission"
 
 #: view/core/index/index.phtml:11 language/_annotated_strings.php:93
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
-msgstr ""
+msgstr "Welcome to YAWIK!"
 
 #: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
-msgstr ""
+msgstr "we're connecting recruiters and applicants"
 
 #: view/core/index/index.phtml:18
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
-msgstr ""
+msgstr "Login to an open source applicant tracking system using your favorit social network"
 
 #: view/core/index/index.phtml:22
 #, php-format
 msgid "Login with %s"
-msgstr ""
+msgstr "Login with %s"
 
 #: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
-msgstr ""
+msgstr "responsive design (uses bootstrap3 and font awesome)"
 
 #: view/core/index/index.phtml:32
 msgid "multilingual"
-msgstr ""
+msgstr "multilingual"
 
 #: view/core/index/index.phtml:33
 msgid "ready for social recruiting"
-msgstr ""
+msgstr "ready for social recruiting"
 
 #: view/core/index/index.phtml:34
 msgid "enter job ads"
-msgstr ""
+msgstr "enter job ads"
 
 #: view/core/index/index.phtml:35
 #, php-format
 msgid "%sapplication forms%s."
-msgstr ""
+msgstr "%sapplication forms%s."
 
 #: view/core/index/index.phtml:39
 msgid "manage applications"
-msgstr ""
+msgstr "manage applications"
 
 #: view/core/index/index.phtml:40
 msgid "open and free software"
-msgstr ""
+msgstr "open and free software"
 
 #: view/core/index/index.phtml:48
 msgid "Developer News"
-msgstr ""
+msgstr "Developer News"
 
 #: view/core/index/index.phtml:65
 msgid "Recruiter News"
-msgstr ""
+msgstr "Recruiter News"
 
 #: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: view/core/index/dashboard-widget.phtml:19
 msgid "Error loading widget."
-msgstr ""
+msgstr "Error loading widget."
 
 #: view/error/index.phtml:14
 msgid "An error occurred"
-msgstr ""
+msgstr "An error occurred"
 
 #: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
 msgid "Additional information"
-msgstr ""
+msgstr "Additional information"
 
 #: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
 #: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
 #: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
 #: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
 msgid "Stack trace"
-msgstr ""
+msgstr "Stack trace"
 
 #: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
 msgid "Previous exceptions"
-msgstr ""
+msgstr "Previous exceptions"
 
 #: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
 msgid "No Exception available"
-msgstr ""
+msgstr "No Exception available"
 
 #: view/error/403.phtml:15
 msgid "A 403 error occurred"
-msgstr ""
+msgstr "A 403 error occurred"
 
 #: view/error/404.phtml:15
 msgid "A 404 error occurred"
-msgstr ""
+msgstr "A 404 error occurred"
 
 #: view/error/404.phtml:24
 msgid "The requested controller was unable to dispatch the request."
-msgstr ""
+msgstr "The requested controller was unable to dispatch the request."
 
 #: view/error/404.phtml:27
 msgid ""
-"The requested controller could not be mapped to an existing controller class."
-msgstr ""
+"The requested controller could not be mapped to an existing controller "
+"class."
+msgstr "The requested controller could not be mapped to an existing controller class."
 
 #: view/error/404.phtml:30
 msgid "The requested controller was not dispatchable."
-msgstr ""
+msgstr "The requested controller was not dispatchable."
 
 #: view/error/404.phtml:33
 msgid "The requested URL could not be matched by routing."
-msgstr ""
+msgstr "The requested URL could not be matched by routing."
 
 #: view/error/404.phtml:36
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr ""
+msgstr "We cannot determine at this time why a 404 was generated."
 
 #: view/error/404.phtml:48
 msgid "Controller"
-msgstr ""
+msgstr "Controller"
 
 #: view/error/404.phtml:55
 #, php-format
 msgid "resolves to %s"
-msgstr ""
+msgstr "resolves to %s"
 
 #: view/layout/layout.phtml:35
 msgid "YAWIK"
-msgstr ""
+msgstr "YAWIK"
 
 #: view/layout/layout.phtml:88
 msgid "Help to translate YAWIK"
-msgstr ""
+msgstr "Help to translate YAWIK"
 
 #: view/layout/layout.phtml:117
 msgid "All rights reserved."
-msgstr ""
+msgstr "All rights reserved."
 
 #: src/Core/Form/PermissionsCollection.php:36
 msgid "Permissions"
-msgstr ""
+msgstr "Permissions"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:104
 #: src/Core/Form/View/Helper/FormImageUpload.php:80
 msgid "The file is too big"
-msgstr ""
+msgstr "The file is too big"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:105
 #: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file type is not supported"
-msgstr ""
+msgstr "The file type is not supported"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:106
 #, php-format
 msgid "You may only upload %d files"
-msgstr ""
+msgstr "You may only upload %d files"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:152
 msgid "Click here to add files or use drag and drop."
-msgstr ""
+msgstr "Click here to add files or use drag and drop."
 
 #: src/Core/Form/View/Helper/FormImageUpload.php:42
 msgid "Click here to add an image or use drag and drop."
-msgstr ""
+msgstr "Click here to add an image or use drag and drop."
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
 msgid "processing"
-msgstr ""
+msgstr "processing"
 
 #: src/Core/Form/View/Helper/SummaryForm.php:168
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:12
 #: language/_annotated_strings.php:90
 msgid "general settings"
-msgstr ""
+msgstr "general settings"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:21
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:24
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: language/_annotated_strings.php:15
 msgid "Apply filter"
-msgstr ""
+msgstr "Apply filter"
 
 #: language/_annotated_strings.php:18
 msgid "Reset filter"
-msgstr ""
+msgstr "Reset filter"
 
 #: language/_annotated_strings.php:27
 msgid "Rights"
-msgstr ""
+msgstr "Rights"
 
 #: language/_annotated_strings.php:30
 msgid "View"
-msgstr ""
+msgstr "View"
 
 #: language/_annotated_strings.php:33
 msgid "Write"
-msgstr ""
+msgstr "Write"
 
 #: language/_annotated_strings.php:36
 msgid "Not Rated"
-msgstr ""
+msgstr "Not Rated"
 
 #: language/_annotated_strings.php:39
 msgid "Poor"
-msgstr ""
+msgstr "Poor"
 
 #: language/_annotated_strings.php:42
 msgid "Bad"
-msgstr ""
+msgstr "Bad"
 
 #: language/_annotated_strings.php:45
 msgid "Average"
-msgstr ""
+msgstr "Average"
 
 #: language/_annotated_strings.php:48
 msgid "Good"
-msgstr ""
+msgstr "Good"
 
 #: language/_annotated_strings.php:51
 msgid "Excellent"
-msgstr ""
+msgstr "Excellent"
 
 #: language/_annotated_strings.php:54
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr ""
+msgstr "Please enter a phone Number. You can use the intenational format. Only digits and '+'."
 
 #: language/_annotated_strings.php:57
 msgid "Remove all"
-msgstr ""
+msgstr "Remove all"
 
 #: language/_annotated_strings.php:60
 msgid "choose your language"
-msgstr ""
+msgstr "choose your language"
 
 #: language/_annotated_strings.php:63
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: language/_annotated_strings.php:66
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #: language/_annotated_strings.php:69
 msgid "German"
-msgstr ""
+msgstr "German"
 
 #: language/_annotated_strings.php:72
 msgid "Italian"
-msgstr ""
+msgstr "Italian"
 
 #: language/_annotated_strings.php:75
 msgid "Polish"
-msgstr ""
+msgstr "Polish"
 
 #: language/_annotated_strings.php:78
 msgid "Russian"
-msgstr ""
+msgstr "Russian"
 
 #: language/_annotated_strings.php:81
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #: language/_annotated_strings.php:84
 msgid "Spanish"
-msgstr ""
+msgstr "Spanish"
 
 #: language/_annotated_strings.php:87
 msgid "defines the languages of this frontend."
-msgstr ""
+msgstr "defines the languages of this frontend."
