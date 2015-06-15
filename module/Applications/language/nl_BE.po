@@ -3,67 +3,68 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-05-20 14:02+0000\n"
+"PO-Revision-Date: 2015-06-15 06:46+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
+"Language-Team: Dutch (Belgium) (http://www.transifex.com/projects/p/yawik/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en\n"
+"Language: nl_BE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/applications/comment/list.phtml:67
 msgid ""
 "There are no comments for this application yet. Be the first to comment by "
 "clicking the \"Add new comment\" button below!"
-msgstr "There are no comments for this application yet. Be the first to comment by clicking the \"Add new comment\" button below!"
+msgstr "Er zijn nog geen reacties voor deze toepassing. Wees de eerste om te reageren door hieronder te klikken op de knop \"Reactie toevoegen\"!"
 
 #: view/applications/index/index.phtml:10
 #: view/applications/apply/index.phtml:10
 #: view/applications/apply/success.phtml:10
 msgid "Apply"
-msgstr "Apply"
+msgstr "Toepassen"
 
 #: view/applications/index/index.phtml:16
 #: view/applications/apply/index.phtml:28
 #: view/applications/apply/success.phtml:28
 #: view/applications/manage/detail.pdf.phtml:80
 msgid "Application"
-msgstr "Application"
+msgstr "Toepassing"
 
 #: view/applications/index/index.phtml:18
 #: view/applications/apply/index.phtml:34
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
-msgstr "Apply to \"%s\" from \"%s\""
+msgstr ""
 
 #: view/applications/index/index.phtml:19
 #: view/applications/apply/index.phtml:36
 msgid "click to open the job ad"
-msgstr "click to open the job ad"
+msgstr "klik om de vacature te openen"
 
 #: view/applications/index/disclaimer.phtml:22
 #: language/_annotated_strings.php:168 language/_annotated_strings.php:174
 msgid "Privacy Policy"
-msgstr "Privacy Policy"
+msgstr "Privacybeleid"
 
 #: view/applications/index/dashboard.phtml:18
 msgid "Received Applications"
-msgstr "Received Applications"
+msgstr "Ontvangen aanvragen"
 
 #: view/applications/index/dashboard.phtml:20
 msgid "Sent Applications"
-msgstr "Sent Applications"
+msgstr "Verzonden Toepassingen"
 
 #: view/applications/index/dashboard.phtml:39
 #: language/_annotated_strings.php:3
 msgid "Applicant"
-msgstr "Applicant"
+msgstr "Aanvrager"
 
 #: view/applications/index/dashboard.phtml:40
 #: language/_annotated_strings.php:12 language/_annotated_strings.php:33
@@ -79,125 +80,125 @@ msgstr "Job"
 #: view/applications/manage/social-profile/xing.phtml:52
 #: view/applications/manage/social-profile/xing.phtml:81
 msgid "Date"
-msgstr "Date"
+msgstr "Datum"
 
 #: view/applications/apply/index.phtml:61 language/_annotated_strings.php:213
 msgid "your application was sent successfully"
-msgstr "your application was sent successfully"
+msgstr "uw aanvraag is verzonden"
 
 #: view/applications/apply/index.phtml:67
 #, php-format
 msgid ""
 "The application was added to your %slist%s, so you can keep up-to-date with "
 "the process."
-msgstr "The application was added to your %slist%s, so you can keep up-to-date with the process."
+msgstr ""
 
 #: view/applications/apply/index.phtml:74
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
-msgstr "Keep up-to-date with the process of your application by bookmarking this link:"
+msgstr "Keep up-to-date met het proces van uw aanvraag door bookmarking deze link:"
 
 #: view/applications/apply/index.phtml:99
 msgid "This is a preview of the application form for your job"
-msgstr "This is a preview of the application form for your job"
+msgstr "Dit is een voorbeeld van het aanvraagformulier voor uw werk"
 
 #: view/applications/apply/index.phtml:100
 msgid ""
 "You may expand any section and check the available fields, but you can not "
 "save anything."
-msgstr "You may expand any section and check the available fields, but you can not save anything."
+msgstr "U kunt elke sectie uit te vouwen en controleer de beschikbare velden, maar je kunt niet alles op te slaan."
 
 #: view/applications/apply/_buttons.phtml:20
 msgid ""
 "Your application is incomplete. You have to add your contact data and accept"
 " the privacy policy to be able to submit the application. You can always "
 "preview or abort your application."
-msgstr "Your application is incomplete. You have to add your contact data and accept the privacy policy to be able to submit the application. You can always preview or abort your application."
+msgstr "Uw aanvraag onvolledig is. U moet uw contactgegevens toe te voegen en het privacy beleid te kunnen de aanvraag in te dienen. U kunt altijd bekijken of af te breken uw aanvraag."
 
 #: view/applications/apply/_buttons.phtml:36
 msgid "Back to the formular"
-msgstr "Back to the formular"
+msgstr "Terug naar de formular"
 
 #: view/applications/apply/_buttons.phtml:41
 msgid "Preview application"
-msgstr "Preview application"
+msgstr "Voorbeeld toepassing"
 
 #: view/applications/apply/_buttons.phtml:47
 #: view/applications/apply/_buttons.phtml:54
 msgid "Send application"
-msgstr "Send application"
+msgstr "Stuur applicatie"
 
 #: view/applications/apply/_buttons.phtml:51
 msgid "Send preview to my email"
-msgstr "Send preview to my email"
+msgstr "Stuur voorbeeld om mijn e-mail"
 
 #: view/applications/apply/_buttons.phtml:60
 msgid "Abort application"
-msgstr "Abort application"
+msgstr "Afbreken applicatie"
 
 #: view/applications/apply/success.phtml:33
 #, php-format
 msgid "You have applied to \"%1$s\" from \"%2$s\""
-msgstr "You have applied to \"%1$s\" from \"%2$s\""
+msgstr ""
 
 #: view/applications/apply/success.phtml:50
 msgid "your application had been posted. Godspeed."
-msgstr "your application had been posted. Godspeed."
+msgstr "uw aanvraag was geplaatst. Godspeed."
 
 #: view/applications/manage/index.phtml:22
 #, php-format
 msgid "for the job \"%s\""
-msgstr "for the job \"%s\""
+msgstr ""
 
 #: view/applications/manage/index.phtml:23
 msgid "to all of your jobs"
-msgstr "to all of your jobs"
+msgstr "om al uw banen"
 
 #: view/applications/manage/index.phtml:27
 msgid "Applications"
-msgstr "Applications"
+msgstr "Toepassingen"
 
 #: view/applications/manage/index.phtml:37
 msgid "List of received applications"
-msgstr "List of received applications"
+msgstr "Lijst van de ontvangen aanvragen"
 
 #: view/applications/manage/index.phtml:42
 msgid "Overview of your sent applications"
-msgstr "Overview of your sent applications"
+msgstr "Overzicht van uw verzonden applicaties"
 
 #: view/applications/manage/index.phtml:56
 #: view/applications/manage/detail.phtml:159
 #: view/applications/manage/detail.phtml:178
 #: view/applications/manage/detail.phtml:210
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Annuleren"
 
 #: view/applications/manage/index.phtml:57
 #: view/applications/manage/detail.phtml:160
 msgid "Send mail"
-msgstr "Send mail"
+msgstr "Verzend mail"
 
 #: view/applications/manage/index.phtml:77
 msgid "search applications"
-msgstr "search applications"
+msgstr "search toepassingen"
 
 #: view/applications/manage/index.phtml:82 language/_annotated_strings.php:99
 msgid "Enter job title"
-msgstr "Enter job title"
+msgstr "Voer functietitel"
 
 #: view/applications/manage/index.phtml:92 language/_annotated_strings.php:96
 #: language/_annotated_strings.php:105
 msgid "Search"
-msgstr "Search"
+msgstr "Zoeken"
 
 #: view/applications/manage/index.phtml:94 language/_annotated_strings.php:108
 msgid "Clear"
-msgstr "Clear"
+msgstr "Duidelijk"
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
-msgstr "Profile data"
+msgstr "Profielgegevens"
 
 #: view/applications/manage/detail.phtml:15
 #: view/applications/manage/detail.pdf.phtml:23
@@ -206,97 +207,97 @@ msgstr "Details"
 
 #: view/applications/manage/detail.phtml:29
 msgid "application for"
-msgstr "application for"
+msgstr "applicatie voor"
 
 #: view/applications/manage/detail.phtml:34
 #, php-format
 msgid "Application %d of %d"
-msgstr "Application %d of %d"
+msgstr ""
 
 #: view/applications/manage/detail.phtml:56
 msgid "Confirm"
-msgstr "Confirm"
+msgstr "Bevestigen"
 
 #: view/applications/manage/detail.phtml:57
 msgid "Confirm the receipt"
-msgstr "Confirm the receipt"
+msgstr "Bevestigt de ontvangst"
 
 #: view/applications/manage/detail.phtml:65
 msgid "Invite"
-msgstr "Invite"
+msgstr "Nodigen"
 
 #: view/applications/manage/detail.phtml:66
 #: view/applications/manage/detail.phtml:154
 msgid "Invite the applicant"
-msgstr "Invite the applicant"
+msgstr "De verzoeker"
 
 #: view/applications/manage/detail.phtml:74
 #: view/applications/manage/index.recruiter.ajax.phtml:36
 msgid "Reject"
-msgstr "Reject"
+msgstr "Verwerpen"
 
 #: view/applications/manage/detail.phtml:75
 msgid "Reject the applicant"
-msgstr "Reject the applicant"
+msgstr "De aanvrager af te wijzen"
 
 #: view/applications/manage/detail.phtml:103
 msgid "Enter an email address"
-msgstr "Enter an email address"
+msgstr "Voer een e-mailadres"
 
 #: view/applications/manage/detail.phtml:104
 msgid ""
 "This application will be send as an email to the given address in a layout "
 "similar to that on this page with all attachments included."
-msgstr "This application will be send as an email to the given address in a layout similar to that on this page with all attachments included."
+msgstr "Deze toepassing zal worden verzenden als een e-mail naar het opgegeven adres in een lay-out vergelijkbaar met die op deze pagina met alle bijlagen opgenomen."
 
 #: view/applications/manage/detail.phtml:111
 msgid "Forward"
-msgstr "Forward"
+msgstr "Vooruit"
 
 #: view/applications/manage/detail.phtml:120
 msgid "previous"
-msgstr "previous"
+msgstr "vorig"
 
 #: view/applications/manage/detail.phtml:121
 msgid "Back to list"
-msgstr "Back to list"
+msgstr "Terug naar de lijst"
 
 #: view/applications/manage/detail.phtml:121
 msgid "List"
-msgstr "List"
+msgstr "Lijst"
 
 #: view/applications/manage/detail.phtml:122
 msgid "next"
-msgstr "next"
+msgstr "volgende"
 
 #: view/applications/manage/detail.phtml:141
 #: view/applications/manage/detail.phtml:180
 msgid "Delete application"
-msgstr "Delete application"
+msgstr "Verwijder applicatie"
 
 #: view/applications/manage/detail.phtml:142
 msgid "Delete"
-msgstr "Delete"
+msgstr "Verwijder"
 
 #: view/applications/manage/detail.phtml:171
 msgid "Delete Application"
-msgstr "Delete Application"
+msgstr "Verwijder Application"
 
 #: view/applications/manage/detail.phtml:175
 msgid "Are you sure you want to delete this application?"
-msgstr "Are you sure you want to delete this application?"
+msgstr "Bent u zeker dat u deze toepassing wilt verwijderen?"
 
 #: view/applications/manage/detail.phtml:179
 msgid "delete this application"
-msgstr "delete this application"
+msgstr "deze toepassing verwijderen"
 
 #: view/applications/manage/detail.phtml:187
 msgid "Error while loading comments."
-msgstr "Error while loading comments."
+msgstr "Fout bij het laden van opmerkingen."
 
 #: view/applications/manage/detail.phtml:194
 msgid "Error while loading comment form."
-msgstr "Error while loading comment form."
+msgstr "Fout bij het laden van reactieformulier."
 
 #: view/applications/manage/detail.phtml:204
 msgid "Comments"
@@ -308,27 +309,27 @@ msgstr "Save"
 
 #: view/applications/manage/detail.phtml:212
 msgid "Add new comment"
-msgstr "Add new comment"
+msgstr "Reactie toevoegen"
 
 #: view/applications/manage/detail.phtml:213
 #: view/applications/manage/detail.phtml:326
 msgid "Close"
-msgstr "Close"
+msgstr "Dicht"
 
 #: view/applications/manage/detail.phtml:226
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
 msgid "State history"
-msgstr "State history"
+msgstr "State geschiedenis"
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.phtml:337
 msgid "State"
-msgstr "State"
+msgstr "Staat"
 
 #: view/applications/manage/detail.phtml:235
 msgid "Comment"
-msgstr "Comment"
+msgstr "Commentaar"
 
 #: view/applications/manage/detail.phtml:256
 #: view/applications/manage/social-profile/facebook.phtml:14
@@ -336,31 +337,31 @@ msgstr "Comment"
 #: view/applications/manage/social-profile/xing.phtml:14
 #: view/applications/manage/detail.pdf.phtml:87
 msgid "personal information"
-msgstr "personal information"
+msgstr "persoonlijke informatie"
 
 #: view/applications/manage/detail.phtml:275
 #: view/applications/manage/detail.pdf.phtml:113
 msgid "Phone"
-msgstr "Phone"
+msgstr "Telefoon"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
 #: src/Applications/Factory/Form/AttachmentsFactory.php:75
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:240
 msgid "Attachments"
-msgstr "Attachments"
+msgstr "Toebehoren"
 
 #: view/applications/manage/detail.phtml:300
 msgid "no attachments available"
-msgstr "no attachments available"
+msgstr "geen attachments beschikbaar"
 
 #: view/applications/manage/detail.phtml:320
 msgid "Loading"
-msgstr "Loading"
+msgstr "Het laden"
 
 #: view/applications/manage/detail.phtml:340
 msgid "date of receipt"
-msgstr "date of receipt"
+msgstr "datum van ontvangst"
 
 #: view/applications/manage/detail.phtml:343
 msgid "via"
@@ -368,23 +369,23 @@ msgstr "via"
 
 #: view/applications/manage/detail.phtml:347
 msgid "application state"
-msgstr "application state"
+msgstr "toepassingsstatus"
 
 #: view/applications/manage/detail.phtml:354
 msgid "rating"
-msgstr "rating"
+msgstr "classificatie"
 
 #: view/applications/manage/detail.phtml:364
 msgid "View comments"
-msgstr "View comments"
+msgstr "Bekijk reacties"
 
 #: view/applications/manage/detail.phtml:364
 msgid "Add comment"
-msgstr "Add comment"
+msgstr "Reageer"
 
 #: view/applications/manage/detail.phtml:373
 msgid "last modification date"
-msgstr "last modification date"
+msgstr "laatste wijziging datum"
 
 #: view/applications/manage/detail.phtml:392
 msgid "agent"
@@ -394,25 +395,25 @@ msgstr "agent"
 #: view/applications/manage/detail.pdf.phtml:134
 #: language/_annotated_strings.php:132
 msgid "Willingness to travel"
-msgstr "Willingness to travel"
+msgstr "Bereidheid om te reizen"
 
 #: view/applications/manage/detail.phtml:404
 #: view/applications/manage/detail.pdf.phtml:140
 #: language/_annotated_strings.php:144
 msgid "Earliest starting date"
-msgstr "Earliest starting date"
+msgstr "Vroegste startdatum"
 
 #: view/applications/manage/detail.phtml:410
 #: view/applications/manage/detail.pdf.phtml:146
 #: language/_annotated_strings.php:153
 msgid "Expected salary"
-msgstr "Expected salary"
+msgstr "Verwacht salaris"
 
 #: view/applications/manage/detail.phtml:424
 #: view/applications/manage/detail.pdf.phtml:153
 #: language/_annotated_strings.php:42
 msgid "Cover Letter"
-msgstr "Cover Letter"
+msgstr "Sollicitatiebrief"
 
 #: view/applications/manage/detail.phtml:439
 #: view/applications/manage/index.recruiter.ajax.phtml:134
@@ -421,26 +422,26 @@ msgstr "Cover Letter"
 #: view/applications/manage/social-profile/xing.phtml:78
 #: view/applications/manage/detail.pdf.phtml:159
 msgid "work experience"
-msgstr "work experience"
+msgstr "werkervaring"
 
 #: view/applications/manage/detail.phtml:444
 #: view/applications/manage/detail.phtml:474
 #: view/applications/manage/detail.pdf.phtml:162
 #: view/applications/manage/detail.pdf.phtml:180
 msgid "Start"
-msgstr "Start"
+msgstr "Begin"
 
 #: view/applications/manage/detail.phtml:445
 #: view/applications/manage/detail.phtml:475
 #: view/applications/manage/detail.pdf.phtml:163
 #: view/applications/manage/detail.pdf.phtml:181
 msgid "End"
-msgstr "End"
+msgstr "Einde"
 
 #: view/applications/manage/detail.phtml:446
 #: language/_annotated_strings.php:30
 msgid "Company"
-msgstr "Company"
+msgstr "Vennootschap"
 
 #: view/applications/manage/detail.phtml:447
 #: view/applications/manage/detail.phtml:477
@@ -450,58 +451,58 @@ msgstr "Company"
 #: view/applications/manage/detail.pdf.phtml:164
 #: view/applications/manage/detail.pdf.phtml:182
 msgid "Description"
-msgstr "Description"
+msgstr "Beschrijving"
 
 #: view/applications/manage/detail.phtml:470
 #: view/applications/manage/detail.pdf.phtml:177
 msgid "education and training"
-msgstr "education and training"
+msgstr "onderwijs en training"
 
 #: view/applications/manage/detail.phtml:476
 msgid "University"
-msgstr "University"
+msgstr "Universiteit"
 
 #: view/applications/manage/detail.phtml:494
 #: view/applications/manage/detail.pdf.phtml:195
 msgid "personal skills"
-msgstr "personal skills"
+msgstr "persoonlijke vaardigheden"
 
 #: view/applications/manage/detail.phtml:496
 #: view/applications/manage/detail.pdf.phtml:197
 msgid "native language"
-msgstr "native language"
+msgstr "moedertaal"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:131
 #: view/applications/manage/social-profile/facebook.phtml:31
 #: view/applications/manage/social-profile/linkedin.phtml:50
 #: view/applications/manage/social-profile/xing.phtml:49
 msgid "education"
-msgstr "education"
+msgstr "onderwijs"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:131
 #: view/applications/manage/index.recruiter.ajax.phtml:134
 msgid "years"
-msgstr "years"
+msgstr "jaar"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:152
 msgid "no attachments"
-msgstr "no attachments"
+msgstr "geen attachments"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:176
 msgid "edit"
-msgstr "edit"
+msgstr "uitgeven"
 
 #: view/applications/manage/social-profile/facebook.phtml:22
 #: view/applications/manage/social-profile/linkedin.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:28
 msgid "Birthday"
-msgstr "Birthday"
+msgstr "Verjaardag"
 
 #: view/applications/manage/social-profile/facebook.phtml:35
 #: view/applications/manage/social-profile/linkedin.phtml:54
 #: view/applications/manage/social-profile/xing.phtml:53
 msgid "School or university"
-msgstr "School or university"
+msgstr "School of universiteit"
 
 #: view/applications/manage/social-profile/facebook.phtml:36
 msgid "Type"
@@ -511,35 +512,35 @@ msgstr "Type"
 #: view/applications/manage/social-profile/linkedin.phtml:91
 #: view/applications/manage/social-profile/xing.phtml:82
 msgid "Employer"
-msgstr "Employer"
+msgstr "Werkgever"
 
 #: view/applications/manage/social-profile/facebook.phtml:67
 #: view/applications/manage/social-profile/linkedin.phtml:92
 #: view/applications/manage/social-profile/xing.phtml:83
 msgid "Position"
-msgstr "Position"
+msgstr "Positie"
 
 #: view/applications/manage/social-profile/facebook.phtml:90
 #: view/applications/manage/social-profile/xing.phtml:112
 msgid "language skills"
-msgstr "language skills"
+msgstr "taalvaardigheid"
 
 #: view/applications/manage/social-profile/xing.pdf.phtml:13
 #: view/applications/manage/social-profile/facebook.pdf.phtml:13
 #: view/applications/manage/social-profile/linkedin.pdf.phtml:13
 msgid "Attachment"
-msgstr "Attachment"
+msgstr "Gehechtheid"
 
 #: view/applications/manage/social-profile/linkedin.phtml:34
 #: view/applications/manage/social-profile/linkedin.phtml:38
 #: view/applications/manage/social-profile/xing.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:35
 msgid "Year of birth"
-msgstr "Year of birth"
+msgstr "Geboortejaar"
 
 #: view/applications/manage/social-profile/linkedin.phtml:55
 msgid "Degree"
-msgstr "Degree"
+msgstr "Graad"
 
 #: view/applications/manage/social-profile/xing.phtml:54
 msgid "Notes"
@@ -547,7 +548,7 @@ msgstr "Notes"
 
 #: view/applications/manage/social-profile/xing.phtml:91
 msgid "ongoing"
-msgstr "ongoing"
+msgstr "lopend"
 
 #: view/applications/manage/social-profile/xing.phtml:96
 msgid "employes"
@@ -555,31 +556,31 @@ msgstr "employes"
 
 #: view/applications/manage/social-profile/xing.phtml:97
 msgid "Industry"
-msgstr "Industry"
+msgstr "Industrie"
 
 #: view/applications/manage/social-profile/xing.phtml:101
 msgid "Level"
-msgstr "Level"
+msgstr "Niveau"
 
 #: view/applications/manage/index.applicant.ajax.phtml:83
 msgid "view"
-msgstr "view"
+msgstr "uitzicht"
 
 #: view/applications/manage/detail.pdf.phtml:72
 msgid "Application dated"
-msgstr "Application dated"
+msgstr "Application gedateerd"
 
 #: view/applications/manage/detail.pdf.phtml:86
 msgid "application details"
-msgstr "application details"
+msgstr "toepassing gegevens"
 
 #: view/applications/manage/detail.pdf.phtml:93
 msgid "name"
-msgstr "name"
+msgstr "naam"
 
 #: view/applications/manage/detail.pdf.phtml:98
 msgid "Street"
-msgstr "Street"
+msgstr "Straat"
 
 #: view/applications/manage/detail.pdf.phtml:104
 msgid "City"
@@ -587,88 +588,88 @@ msgstr "City"
 
 #: view/applications/manage/detail.pdf.phtml:109
 msgid "E-Mail"
-msgstr "E-Mail"
+msgstr "E-mail"
 
 #: view/applications/manage/detail.pdf.phtml:130
 #: src/Applications/Form/Facts.php:37
 msgid "Facts"
-msgstr "Facts"
+msgstr "Feiten"
 
 #: view/sidebar/manage.phtml:7
 msgid "new applications"
-msgstr "new applications"
+msgstr "nieuwe toepassingen"
 
 #: view/error/not-found.phtml:14
 msgid "A 410 error occured"
-msgstr "A 410 error occured"
+msgstr "Een 410 fout opgetreden"
 
 #: view/error/not-found.phtml:16
 msgid "Unknown application identifier"
-msgstr "Unknown application identifier"
+msgstr "Onbekende toepassing identifier"
 
 #: view/error/not-found.phtml:17
 msgid "An application with the provided identifier could not be found."
-msgstr "An application with the provided identifier could not be found."
+msgstr "Een toepassing met de meegeleverde identifier kon niet worden gevonden."
 
 #: src/Applications/Form/SettingsFieldset.php:39
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
-msgstr "E-Mail Notifications"
+msgstr "E-mail Notificaties"
 
 #: src/Applications/Form/CarbonCopyFieldset.php:22
 msgid "Options"
-msgstr "Options"
+msgstr "Opties"
 
 #: src/Applications/Form/FilterApplication.php:41
 msgid "Search applications"
-msgstr "Search applications"
+msgstr "Zoeken toepassingen"
 
 #: src/Applications/Controller/ManageController.php:323
 #: src/Applications/Controller/MultimanageController.php:85
 #, php-format
 msgid "Your application dated %s"
-msgstr "Your application dated %s"
+msgstr ""
 
 #: src/Applications/Controller/ManageController.php:369
 #, php-format
 msgid "Forwarded application to %s"
-msgstr "Forwarded application to %s"
+msgstr ""
 
 #: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forward application to %s failed."
-msgstr "Forward application to %s failed."
+msgstr ""
 
 #: src/Applications/Controller/MultimanageController.php:90
 msgid "reject the applicants"
-msgstr "reject the applicants"
+msgstr "de kandidaten afwijzen"
 
 #: src/Applications/Mail/Confirmation.php:85
 #: src/Applications/Mail/StatusChange.php:79
 #, php-format
 msgid "Dear Mr. %s"
-msgstr "Dear Mr. %s"
+msgstr ""
 
 #: src/Applications/Mail/Confirmation.php:86
 #: src/Applications/Mail/StatusChange.php:80
 #, php-format
 msgid "Dear Ms. %s"
-msgstr "Dear Ms. %s"
+msgstr ""
 
 #: src/Applications/Mail/Confirmation.php:100
 #: src/Applications/Mail/StatusChange.php:96
 #, php-format
 msgid "Hello %s"
-msgstr "Hello %s"
+msgstr ""
 
 #: language/_annotated_strings.php:6
 msgid "Career"
-msgstr "Career"
+msgstr "Carrière"
 
 #: language/_annotated_strings.php:15 language/_annotated_strings.php:36
 #: language/_annotated_strings.php:102
 msgid "Status"
-msgstr "Status"
+msgstr "Toestand"
 
 #: language/_annotated_strings.php:18
 msgid "Rating"
@@ -676,33 +677,33 @@ msgstr "Rating"
 
 #: language/_annotated_strings.php:21
 msgid "Modified"
-msgstr "Modified"
+msgstr "Gewijzigd"
 
 #: language/_annotated_strings.php:24 language/_annotated_strings.php:39
 msgid "Actions"
-msgstr "Actions"
+msgstr "Acties"
 
 #: language/_annotated_strings.php:27
 msgid "Sent on"
-msgstr "Sent on"
+msgstr "Verzonden op"
 
 #: language/_annotated_strings.php:45
 msgid ""
 "Summary is meant as a general free text area. Click on \"edit\" to fill in "
 "some informations you think helps the recruiter to pick you for this job."
-msgstr "Summary is meant as a general free text area. Click on \"edit\" to fill in some informations you think helps the recruiter to pick you for this job."
+msgstr "Samenvatting is bedoeld als een algemene vrije tekst ruimte. Klik op de \"edit\" in sommige informatie je denkt in te vullen helpt de recruiter om u te halen voor deze job."
 
 #: language/_annotated_strings.php:48
 msgid "Customize apply form"
-msgstr "Customize apply form"
+msgstr "Aanpassen van toepassing vorm"
 
 #: language/_annotated_strings.php:54
 msgid "receive E-Mail alert"
-msgstr "receive E-Mail alert"
+msgstr "ontvangen e-mail alert"
 
 #: language/_annotated_strings.php:57
 msgid "if checked, you'll be informed by mail about new applications."
-msgstr "if checked, you'll be informed by mail about new applications."
+msgstr "Indien aangevinkt, zult u worden geïnformeerd per e-mail over nieuwe toepassingen."
 
 #: language/_annotated_strings.php:60
 msgid "Mailtext"
@@ -713,21 +714,21 @@ msgid ""
 "default text of the notification mail about new applications. The following "
 "variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
 " of the job</li></ul>"
-msgstr "default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>"
+msgstr "standaard tekst van de kennisgeving e-mail over nieuwe toepassingen. De volgende variabelen kunnen worden gebruikt: <ul><li> ## Naam ## = uw naam </li><li> ## ## Title = titel van de baan </li></ul>"
 
 #: language/_annotated_strings.php:66
 msgid "confirm application immidiatly after submit"
-msgstr "confirm application immidiatly after submit"
+msgstr "bevestigt aanvraag per direct na indienen"
 
 #: language/_annotated_strings.php:69
 msgid ""
 "if checked, an application is immediatly confirmed. If unchecked "
 "confirmation is the duty of the recruiter."
-msgstr "if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter."
+msgstr "Indien aangevinkt, wordt een applicatie meteen bevestigd. Als aangevinkt bevestiging is de plicht van de recruiter."
 
 #: language/_annotated_strings.php:72
 msgid "Confirmation mail text"
-msgstr "Confirmation mail text"
+msgstr "Bevestigingsmail tekst"
 
 #: language/_annotated_strings.php:75
 msgid ""
@@ -737,95 +738,95 @@ msgid ""
 "salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
 " the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
 "of recipt of the application.</li></ul>"
-msgstr "default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li></ul>"
+msgstr "standaardtekst van de ontvangstbevestiging mail naar de aanvrager. De volgende variabelen kunnen worden gebruikt: <br><ul><li> ## Anrede_formell ## = begroeting. Inclusief geslacht, voornaam en achternaam. <li> ## Anrede_informell ## = begroeting. Inclusief fistname en achternaam. </li><li> ## Job_title ## = titel van de banen </li><li> ## Naam ## = naam van de aanvrager. </li><li> ## Datum ## = datum van de bon van de applicatie. </li></ul>"
 
 #: language/_annotated_strings.php:78
 msgid "Invitation mail text"
-msgstr "Invitation mail text"
+msgstr "Uitnodiging mail tekst"
 
 #: language/_annotated_strings.php:81
 msgid ""
 "default text of the invitation mail to the applicant. You can use all "
 "variables of the acknowledgment of receipt mail. "
-msgstr "default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. "
+msgstr "standaard tekst van de uitnodiging e-mail aan de aanvrager. U kunt alle variabelen van het ontvangstbewijs mail."
 
 #: language/_annotated_strings.php:84
 msgid "Rejection mail text"
-msgstr "Rejection mail text"
+msgstr "Afwijzing mail tekst"
 
 #: language/_annotated_strings.php:87
 msgid ""
 "default text of the refusal of an application to the applicant. You can use "
 "all variables of the acknowledgment of receipt mail."
-msgstr "default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail."
+msgstr "standaardtekst van de afwijzing van een aanvraag aan de aanvrager. U kunt alle variabelen van het ontvangstbewijs mail."
 
 #: language/_annotated_strings.php:90
 msgid "get blind carbon copy of all own mails"
-msgstr "get blind carbon copy of all own mails"
+msgstr "krijgen blind carbon copy van alle eigen mails"
 
 #: language/_annotated_strings.php:93
 msgid "if checked, you'll get a copy of all mails you send."
-msgstr "if checked, you'll get a copy of all mails you send."
+msgstr "Indien aangevinkt, zult u een kopie van alle e-mails die u verzendt te krijgen."
 
 #: language/_annotated_strings.php:111
 msgid "Comment message"
-msgstr "Comment message"
+msgstr "Reactie bericht"
 
 #: language/_annotated_strings.php:114
 msgid ""
 "Request additional facts from the Applicant. Selected Fields will be added "
 "to the application Form."
-msgstr "Request additional facts from the Applicant. Selected Fields will be added to the application Form."
+msgstr "Verzoeken om aanvullende gegevens van de aanvrager. Geselecteerde velden zal worden toegevoegd aan het aanvraagformulier."
 
 #: language/_annotated_strings.php:117
 msgid "Please provide some additional facts for this job opening."
-msgstr "Please provide some additional facts for this job opening."
+msgstr "Gelieve enkele bijkomende feiten van deze vacature."
 
 #: language/_annotated_strings.php:120
 msgid "Click here to enter facts."
-msgstr "Click here to enter facts."
+msgstr "Klik hier om de feiten te voeren."
 
 #: language/_annotated_strings.php:123
 msgid "Yes"
-msgstr "Yes"
+msgstr "Ja"
 
 #: language/_annotated_strings.php:126
 msgid "conditioned"
-msgstr "conditioned"
+msgstr "geconditioneerde"
 
 #: language/_annotated_strings.php:129
 msgid "No"
-msgstr "No"
+msgstr "Geen"
 
 #: language/_annotated_strings.php:135
 msgid "Enter your willingness to travel."
-msgstr "Enter your willingness to travel."
+msgstr "Voer uw bereidheid om te reizen."
 
 #: language/_annotated_strings.php:138
 msgid "Ask the applicant about the willingness to travel"
-msgstr "Ask the applicant about the willingness to travel"
+msgstr "Vraag de aanvrager over de bereidheid om te reizen"
 
 #: language/_annotated_strings.php:141
 msgid "please select"
-msgstr "please select"
+msgstr "Selecteer alstublieft"
 
 #: language/_annotated_strings.php:147
 msgid "Enter the earliest starting date."
-msgstr "Enter the earliest starting date."
+msgstr "Voer de vroegste begindatum."
 
 #: language/_annotated_strings.php:150
 msgid "Ask the applicant about the earliest starting date."
-msgstr "Ask the applicant about the earliest starting date."
+msgstr "Vraag de aanvrager over de vroegste begindatum."
 
 #: language/_annotated_strings.php:156
 msgid ""
 "Your salary requirements should be the annual amount before taxes. Do not "
 "forget to provide the currency sign."
-msgstr "Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign."
+msgstr "Uw salaris eisen moeten het jaarlijkse bedrag voor belastingen zijn. Vergeet niet om de munt teken geven."
 
 #: language/_annotated_strings.php:159
 msgid "Ask users about their expected salary."
-msgstr "Ask users about their expected salary."
+msgstr "Vraag gebruikers over hun verwachte salaris."
 
 #: language/_annotated_strings.php:162
 msgid "Carbon Copy"
@@ -833,111 +834,111 @@ msgstr "Carbon Copy"
 
 #: language/_annotated_strings.php:165
 msgid "send me a carbon copy of my application"
-msgstr "send me a carbon copy of my application"
+msgstr "stuur mij een kopie van mijn aanvraag"
 
 #: language/_annotated_strings.php:171
 #, php-format
 msgid "I have read the %s and accept it"
-msgstr "I have read the %s and accept it"
+msgstr ""
 
 #: language/_annotated_strings.php:177
 msgid "Click here to enter a summary."
-msgstr "Click here to enter a summary."
+msgstr "Klik hier om een ​​samenvatting te geven."
 
 #: language/_annotated_strings.php:180
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
-msgstr "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved."
+msgstr "<strong>Let op:</strong> HTML-tags te ontdaan. Regeleinden worden bewaard."
 
 #: language/_annotated_strings.php:183
 msgid "Summary"
-msgstr "Summary"
+msgstr "Overzicht"
 
 #: language/_annotated_strings.php:186
 msgid "all"
-msgstr "all"
+msgstr "alle"
 
 #: language/_annotated_strings.php:189 language/_annotated_strings.php:192
 #: language/_annotated_strings.php:204
 msgid "Invalid apply id"
-msgstr "Invalid apply id"
+msgstr "Ongeldige gelden id"
 
 #: language/_annotated_strings.php:195
 msgid ""
 "There are missing required informations. Your application cannot be send."
-msgstr "There are missing required informations. Your application cannot be send."
+msgstr "Er ontbreken vereiste informatie. Uw toepassing kan niet worden verstuurd."
 
 #: language/_annotated_strings.php:198
 msgid "Application has been send."
-msgstr "Application has been send."
+msgstr "Aanvraag is te sturen."
 
 #: language/_annotated_strings.php:201 language/_annotated_strings.php:210
 msgid "Application confirmation"
-msgstr "Application confirmation"
+msgstr "Toepassing bevestiging"
 
 #: language/_annotated_strings.php:207
 msgid "There were errors in the form."
-msgstr "There were errors in the form."
+msgstr "Er waren fouten in de vorm."
 
 #: language/_annotated_strings.php:216
 msgid "Application has been deleted."
-msgstr "Application has been deleted."
+msgstr "Toepassing is verwijderd."
 
 #: language/_annotated_strings.php:219
 msgid "Mail has been send"
-msgstr "Mail has been send"
+msgstr "Mail is verstuurd"
 
 #: language/_annotated_strings.php:222
 msgid "Application data has been deleted"
-msgstr "Application data has been deleted"
+msgstr "Applicatie data is verwijderd"
 
 #: language/_annotated_strings.php:225
 msgid "No mail adress available"
-msgstr "No mail adress available"
+msgstr "Geen mail adres beschikbaar"
 
 #: language/_annotated_strings.php:228
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
-msgstr "Fwd: Application to \"%s\" dated %s"
+msgstr ""
 
 #: language/_annotated_strings.php:231
 #, php-format
 msgid "New application for your vacancy \"%s\""
-msgstr "New application for your vacancy \"%s\""
+msgstr ""
 
 #: language/_annotated_strings.php:234
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
-msgstr "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\\"##title##\\\"\\n\\n"
+msgstr ""
 
 #: language/_annotated_strings.php:237
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
-msgstr "Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB"
+msgstr "Bevestig beelden of PDF-documenten bij uw aanvraag. Drag & drop ze, of klik in het attachement gebied. U kunt uploaden naar 5MB"
 
 #: language/_annotated_strings.php:243
 msgid "E-Mail Templates"
-msgstr "E-Mail Templates"
+msgstr "E-mail Templates"
 
 #: language/_annotated_strings.php:246
 msgid "Overview"
-msgstr "Overview"
+msgstr "Overzicht"
 
 #: language/additional_translation.phtml:3
 msgid "invited"
-msgstr "invited"
+msgstr "nodigde"
 
 #: language/additional_translation.phtml:4
 msgid "incoming"
-msgstr "incoming"
+msgstr "inkomend"
 
 #: language/additional_translation.phtml:5
 msgid "rejected"
-msgstr "rejected"
+msgstr "verworpen"
 
 #: language/additional_translation.phtml:6
 msgid "confirmed"
-msgstr "confirmed"
+msgstr "bevestigd"

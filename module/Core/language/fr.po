@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-13 20:48+0000\n"
+"PO-Revision-Date: 2015-06-14 20:53+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -85,16 +85,16 @@ msgstr "prêt pour le recrutement social"
 
 #: view/core/index/index.phtml:34
 msgid "enter job ads"
-msgstr "entrer les annonces d'emploi"
+msgstr "entrer les offres d'emplois"
 
 #: view/core/index/index.phtml:35
 #, php-format
 msgid "%sapplication forms%s."
-msgstr "%sFormulaire de demande%s"
+msgstr "%sapplication forms%s."
 
 #: view/core/index/index.phtml:39
 msgid "manage applications"
-msgstr "gérer les applications"
+msgstr "gérer les candidatures"
 
 #: view/core/index/index.phtml:40
 msgid "open and free software"
@@ -192,7 +192,7 @@ msgstr "YAWIK"
 
 #: view/layout/layout.phtml:88
 msgid "Help to translate YAWIK"
-msgstr "Aide à traduire YAWIK"
+msgstr "Aidez à traduire YAWIK"
 
 #: view/layout/layout.phtml:117
 msgid "All rights reserved."
@@ -262,7 +262,7 @@ msgstr "Droits"
 
 #: language/_annotated_strings.php:30
 msgid "View"
-msgstr "Voir"
+msgstr "Vue"
 
 #: language/_annotated_strings.php:33
 msgid "Write"
@@ -296,7 +296,7 @@ msgstr "Excellent"
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr "S'il vous plaît entrer un numéro de téléphone. Vous pouvez utiliser le format international. Seulement des chiffres et «+»."
+msgstr "Veuillez entrer un numéro de téléphone. Vous pouvez utiliser le format international. Seulement des chiffres et «+»."
 
 #: language/_annotated_strings.php:57
 msgid "Remove all"

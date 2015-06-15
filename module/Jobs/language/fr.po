@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-13 22:24+0000\n"
+"PO-Revision-Date: 2015-06-14 21:01+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "Traquer les candidatures"
 
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
-msgstr "Appliquer lien"
+msgstr "Lien de postulation"
 
 #: view/form/multiposting-select.phtml:40 view/jobs/manage/approval.phtml:31
 #: view/jobs/manage/form.phtml:98
@@ -155,7 +155,7 @@ msgstr "Date de réception"
 #: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:112
 #: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:71
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Postuler"
 
 #: view/jobs/index/index.phtml:15
 msgid "Loading"
@@ -187,7 +187,7 @@ msgstr "Echec!"
 
 #: view/jobs/index/index.phtml:28
 msgid "Jobs waiting for approval"
-msgstr "Jobs en attente d'approbation"
+msgstr "Emplois en attente d'approbation"
 
 #: view/jobs/index/index.phtml:28
 msgid "List of your jobs"
@@ -314,7 +314,7 @@ msgstr "Veuillez vérifier vos canaux sélectionnés. Cliquez sur %s pour modifi
 
 #: view/jobs/manage/form.phtml:142
 msgid "Next to enter the job"
-msgstr ""
+msgstr "Suivant pour entrer dans l'emploi"
 
 #: view/jobs/manage/form.phtml:145 view/jobs/manage/form.phtml:209
 msgid "Back"
@@ -322,7 +322,7 @@ msgstr "Précédent"
 
 #: view/jobs/manage/form.phtml:146
 msgid "Next to preview the job"
-msgstr ""
+msgstr "Suivant pour avoir un aperçu de l'emploi"
 
 #: view/jobs/manage/form.phtml:157
 msgid "Your job position is incomplete."
@@ -358,7 +358,7 @@ msgstr "Votre vacance de poste a été rejeté. Veuillez corriger les erreurs et
 #: view/jobs/manage/form.phtml:212
 #, php-format
 msgid "Publish job %s"
-msgstr "Publiez le job %s"
+msgstr "Publiez l'emploi %s"
 
 #: view/jobs/manage/form.phtml:212
 msgid "chargeable"
@@ -412,7 +412,7 @@ msgstr "L'emploi a été rejeté"
 
 #: src/Jobs/Controller/ManageController.php:396
 msgid "Job has been approved"
-msgstr "L'emploi a étéapprouvé"
+msgstr "L'emploi a été approuvé"
 
 #: src/Jobs/Controller/ManageController.php:428
 msgid "Job has been deactivated"
@@ -477,7 +477,7 @@ msgstr "J'ai lu le %s et je les accepte"
 
 #: language/_annotated_strings.php:21
 msgid "terms an conditions"
-msgstr "termes un conditions"
+msgstr "termes et conditions"
 
 #: language/_annotated_strings.php:24
 msgid "Title and job location"
@@ -559,11 +559,11 @@ msgstr "Titre du poste"
 
 #: language/_annotated_strings.php:93
 msgid "Please enter the job title"
-msgstr "Se il vous plaît entrer le titre de l'emploi"
+msgstr "Veuillez entrer un titre pour l'emploi"
 
 #: language/_annotated_strings.php:99
 msgid "Please enter the location of the job"
-msgstr "Se il vous plaît entrer dans le lieu de l'emploi"
+msgstr "Veuillez entrer le lieu de l'emploi"
 
 #: language/_annotated_strings.php:102
 msgid "Portals"
@@ -571,7 +571,7 @@ msgstr "Portails"
 
 #: language/_annotated_strings.php:105
 msgid "Multiposting"
-msgstr ""
+msgstr "Multiple affectation"
 
 #: language/_annotated_strings.php:108
 msgid "rejected"
@@ -614,7 +614,7 @@ msgstr "Une nouvelle offre d'emploi a été crée"
 
 #: language/_annotated_strings.php:135
 msgid "Your Job have been wrapped up for approval"
-msgstr ""
+msgstr "Votre emploi a été emballé pour approbation"
 
 #: language/_annotated_strings.php:138
 msgid "Your job has been published"

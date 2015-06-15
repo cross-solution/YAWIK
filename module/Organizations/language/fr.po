@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-13 20:48+0000\n"
+"PO-Revision-Date: 2015-06-14 21:05+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Vous êtes membre de l'équipe de <b>%s</b>"
 
 #: view/organizations/invite-employee/accept.phtml:18
 msgid "Please choose a password to be able to log in."
-msgstr "S'il vous plaît choisissez un mot de passe pour pouvoir vous connecter."
+msgstr "Veuillez choisir un mot de passe pour pouvoir vous connecter."
 
 #: view/organizations/index/index.phtml:14
 msgid "Organizations"
@@ -160,15 +160,15 @@ msgstr "Editer la candidature"
 
 #: language/_annotated_strings.php:30
 msgid "Please enter the name of the hiring organization."
-msgstr "S'il vous plait entrer le nom de l'organisation recrutante."
+msgstr "Veuillez entrer le nom de l'organisation recrutante."
 
 #: language/_annotated_strings.php:33
 msgid "Please enter a contact for the hiring organization."
-msgstr "S'il vous plait entrer un contact pour l'organisation recrutante."
+msgstr "Veuillez entrer un contact pour l'organisation recrutante."
 
 #: language/_annotated_strings.php:36
 msgid "Please enter a description for the hiring organization."
-msgstr "S'il vous plait entrer une description pour l'organisation recrutante."
+msgstr "Veuillez entrer une description pour l'organisation recrutante."
 
 #: language/_annotated_strings.php:39
 msgid "Employees"
@@ -198,7 +198,7 @@ msgstr "Rue"
 
 #: language/_annotated_strings.php:60
 msgid "house number"
-msgstr "numéro de la maison"
+msgstr "numéro de domicile"
 
 #: language/_annotated_strings.php:63
 msgid "Postalcode"

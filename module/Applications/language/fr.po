@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-13 21:01+0000\n"
+"PO-Revision-Date: 2015-06-14 20:41+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Il n'y a pas encore de commentaires pour cette candidature. Soyez le pre
 #: view/applications/apply/index.phtml:10
 #: view/applications/apply/success.phtml:10
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Postuler"
 
 #: view/applications/index/index.phtml:16
 #: view/applications/apply/index.phtml:28
@@ -43,7 +43,7 @@ msgstr "Candidature"
 #: view/applications/apply/index.phtml:34
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
-msgstr "Appliquer de  \"%s\" depuis \"%s\""
+msgstr "Postuler pour  \"%s\" depuis \"%s\""
 
 #: view/applications/index/index.phtml:19
 #: view/applications/apply/index.phtml:36
@@ -124,7 +124,7 @@ msgstr "Retour au formulaire"
 
 #: view/applications/apply/_buttons.phtml:41
 msgid "Preview application"
-msgstr "Aperçu de la demande"
+msgstr "Aperçu de la candidature"
 
 #: view/applications/apply/_buttons.phtml:47
 #: view/applications/apply/_buttons.phtml:54
@@ -371,7 +371,7 @@ msgstr "via"
 
 #: view/applications/manage/detail.phtml:347
 msgid "application state"
-msgstr "état de l'application"
+msgstr "état de la candidature"
 
 #: view/applications/manage/detail.phtml:354
 msgid "rating"
@@ -484,7 +484,7 @@ msgstr "éducation"
 #: view/applications/manage/index.recruiter.ajax.phtml:131
 #: view/applications/manage/index.recruiter.ajax.phtml:134
 msgid "years"
-msgstr "ans "
+msgstr "années"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:152
 msgid "no attachments"
@@ -760,11 +760,11 @@ msgstr "Texte du mail de refus"
 msgid ""
 "default text of the refusal of an application to the applicant. You can use "
 "all variables of the acknowledgment of receipt mail."
-msgstr "texte du refus d'une demande de la requérante par défaut. Vous pouvez utiliser toutes les variables de l'accusé de réception électronique."
+msgstr "texte par défaut pour le refus d'une candidature au candidatt. Vous pouvez utiliser toutes les variables de l'accusé de réception électronique."
 
 #: language/_annotated_strings.php:90
 msgid "get blind carbon copy of all own mails"
-msgstr "obtenir copie carbone invisible de tous les propres dépêches"
+msgstr "obtenir une copie carbone invisible de tous vos propres mails"
 
 #: language/_annotated_strings.php:93
 msgid "if checked, you'll get a copy of all mails you send."
@@ -782,7 +782,7 @@ msgstr "Demande de données supplémentaires au candidat. Les champs sélectionn
 
 #: language/_annotated_strings.php:117
 msgid "Please provide some additional facts for this job opening."
-msgstr "S'il vous plait, veuillez fournir quelques données supplémentaire pour cette ouverture de poste."
+msgstr "Veuillez fournir quelques données supplémentaire pour cette ouverture de poste."
 
 #: language/_annotated_strings.php:120
 msgid "Click here to enter facts."
@@ -810,7 +810,7 @@ msgstr "Demander au candidat sa disposition à voyager"
 
 #: language/_annotated_strings.php:141
 msgid "please select"
-msgstr "s'il vous plaît sélectionnez"
+msgstr "Veuillez sélectionner"
 
 #: language/_annotated_strings.php:147
 msgid "Enter the earliest starting date."
@@ -851,7 +851,7 @@ msgstr "Cliquez ici pour rentrer un résumé."
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
-msgstr "<strong>Veuillez notez</strong>: Les balises HTML sont supprimés. Les sauts de lignes sont préservés."
+msgstr "<strong>Remarque</strong>: Les balises HTML sont supprimés. Les sauts de lignes sont préservés."
 
 #: language/_annotated_strings.php:183
 msgid "Summary"
@@ -919,7 +919,7 @@ msgstr "Bonjour ##name##,\\n\\nIl y a une nouvelle candidature pour votre poste 
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
-msgstr "Joindre images ou document PDF à votre candidature. Utilisez le Drag&Drop, ou cliquez dans la zone de fichier joint. Vous pouvez uploader jusqu'à 5MB"
+msgstr "Joindre  des images ou des documents PDF à votre candidature. Utilisez le Drag&Drop, ou cliquez dans la zone de fichier joint. Vous pouvez uploader jusqu'à 5MB"
 
 #: language/_annotated_strings.php:243
 msgid "E-Mail Templates"

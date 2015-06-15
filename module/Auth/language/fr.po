@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-13 21:14+0000\n"
+"PO-Revision-Date: 2015-06-14 20:51+0000\n"
 "Last-Translator: Brice <vertebre@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Cliquez ici pour entrer les informations de contact."
 msgid ""
 "you can add your social profile to your application. You can preview and "
 "remove the attached profile before submitting the application."
-msgstr "vous pouvez ajouter votre profil social de votre application. Vous pouvez prévisualiser et supprimer le profil ci-joint avant de soumettre la demande."
+msgstr "vous pouvez ajouter votre profil social à votre candidature. Vous pouvez prévisualiser et supprimer le profil ci-joint avant de soumettre la demande."
 
 #: view/form/social-profiles-fieldset.phtml:37
 msgid "Loading"
@@ -44,11 +44,11 @@ msgstr "Proche"
 
 #: view/form/social-profiles-button.phtml:42
 msgid "Attach profile"
-msgstr "Fixez profil"
+msgstr "Joindre le profil"
 
 #: view/form/social-profiles-button.phtml:43
 msgid "Detach profile"
-msgstr "Détachez profil"
+msgstr "Détachez le profil"
 
 #: view/form/social-profiles-button.phtml:46
 msgid "View profile data"
@@ -80,7 +80,7 @@ msgstr "Nom du groupe"
 
 #: view/auth/manage-groups/index.phtml:25
 msgid "Actions"
-msgstr "Actes"
+msgstr "Actions"
 
 #: view/auth/manage-groups/form.phtml:39
 msgid "search for users"
@@ -88,7 +88,7 @@ msgstr "rechercher des utilisateurs"
 
 #: view/auth/manage-groups/form.phtml:74
 msgid "Ok"
-msgstr "Bien"
+msgstr "OK"
 
 #: view/auth/index/index.phtml:11
 msgid "Login required"
@@ -96,7 +96,7 @@ msgstr "Connexion requise"
 
 #: view/auth/index/index.phtml:12
 msgid "Please authenticate yourself to proceed"
-msgstr "S'il vous plaît vous authentifier pour procéder"
+msgstr "Veuillez vous authentifier pour continuer"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
 #: view/auth/index/login-info.phtml:73
@@ -115,15 +115,15 @@ msgstr "Enregistrement"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
-msgstr "Une erreur produite 410"
+msgstr "Une erreur 410 s'est produite"
 
 #: view/auth/index/job-not-found.phtml:13
 msgid "Unknown apply identifier"
-msgstr "Inconnu appliquer identifiant"
+msgstr "Identifiant de postulation inconnu"
 
 #: view/auth/index/job-not-found.phtml:14
 msgid "A job ad with the provided apply identifier could not be found."
-msgstr "Une annonce d'emploi fourni avec le s'applique identifiant n'a pu être trouvée."
+msgstr "Une offre d'emploi avec l'identifiant de postulation fourni n'a pu être trouvée."
 
 #: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:3
 #: view/auth/manage/profile.phtml:9
@@ -158,7 +158,7 @@ msgstr "Invité"
 
 #: view/auth/index/login-info.phtml:77
 msgid "Login via"
-msgstr "Connectez-vous via"
+msgstr "Connectez-vous avec"
 
 #: view/auth/index/login-info.phtml:80
 #, php-format
@@ -239,7 +239,7 @@ msgstr "Salutation"
 
 #: language/_annotated_strings.php:33 language/_annotated_strings.php:42
 msgid "please select"
-msgstr "s'il vous plaît sélectionnez"
+msgstr "Veuillez sélectionner"
 
 #: language/_annotated_strings.php:36
 msgid "Mr."
@@ -267,7 +267,7 @@ msgstr "numéro de la maison"
 
 #: language/_annotated_strings.php:66
 msgid "Retype password"
-msgstr "Retaper mot de passe"
+msgstr "Retaper le mot de passe"
 
 #: language/_annotated_strings.php:72
 msgid ""
@@ -305,7 +305,7 @@ msgstr "Le nom du groupe \"%value%\" est déjà utilisé."
 
 #: language/_annotated_strings.php:105
 msgid "Login name"
-msgstr "Connexion nom"
+msgstr "Identifiant de connexion"
 
 #: language/_annotated_strings.php:111
 msgid "login"
@@ -324,7 +324,7 @@ msgstr "L'utilisateur ne peut pas être trouvée pour le token spécifié"
 #: language/_annotated_strings.php:183
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
-msgstr "Une erreur est survenue, s'il vous plaît contactez votre administrateur système"
+msgstr "Une erreur est survenue, veuillez contactez votre administrateur système"
 
 #: language/_annotated_strings.php:123
 msgid ""
@@ -341,11 +341,11 @@ msgstr "Groupe créé"
 
 #: language/_annotated_strings.php:135
 msgid "Group updated"
-msgstr "Groupe de mise à jour"
+msgstr "Groupe mis à jour"
 
 #: language/_annotated_strings.php:138
 msgid "Changes not saved."
-msgstr "Changements pas enregistrées."
+msgstr "Changements non enregistrées."
 
 #: language/_annotated_strings.php:141
 msgid "You are now logged in."
@@ -367,7 +367,7 @@ msgstr "Un email avec un lien d'activation a été envoyé, veuillez vérifier v
 
 #: language/_annotated_strings.php:156 language/_annotated_strings.php:174
 msgid "Please fill form correctly"
-msgstr "S'il vous plaît remplissez le formulaire correctement"
+msgstr "Veuillez remplir le formulaire correctement"
 
 #: language/_annotated_strings.php:159
 msgid "User with this email address already exists"
@@ -379,7 +379,7 @@ msgstr "  Mot de passe modifié avec succès "
 
 #: language/_annotated_strings.php:168
 msgid "Password could not be changed"
-msgstr "Mot de passe ne peut pas être changé"
+msgstr "Le mot de passe ne peut pas être changé"
 
 #: language/_annotated_strings.php:171
 msgid ""
