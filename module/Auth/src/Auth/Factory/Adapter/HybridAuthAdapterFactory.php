@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Auth\Factory\Service;
+namespace Auth\Factory\Adapter;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

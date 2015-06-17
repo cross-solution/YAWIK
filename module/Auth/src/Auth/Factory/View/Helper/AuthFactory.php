@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Auth\Service;
+namespace Auth\Factory\View\Helper;
 
 use Auth\View\Helper\Auth;
 use Zend\ServiceManager\FactoryInterface;
@@ -16,7 +16,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * Factory for creating the Auth view helper.
  */
-class AuthViewHelperFactory implements FactoryInterface
+class AuthFactory implements FactoryInterface
 {
     /**
      * Creates an instance of \Auth\View\Helper\Auth

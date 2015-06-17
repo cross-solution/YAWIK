@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Auth\Service;
+namespace Auth\Factory\Service;
 
 use Hybrid_Auth;
 use Zend\ServiceManager\FactoryInterface;
@@ -36,8 +36,7 @@ class HybridAuthFactory implements FactoryInterface
     {
         // Making sure the SessionManager is initialized
         // before creating HybridAuth components
-        $sessionManager = $services->get('SessionManager')->start();
-
+        $services->get('SessionManager')->start();
         
         $options = $services->get('Config');
         

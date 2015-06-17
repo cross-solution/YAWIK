@@ -7,18 +7,18 @@
  */
 
 
-namespace AuthTest\Service;
+namespace AuthTest\Factory\View\Helper;
 
-use Auth\Service\AuthViewHelperFactory as Factory;
+use Auth\Factory\View\Helper\AuthFactory;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 
-class AuthViewHelperFactoryTest extends \PHPUnit_Framework_TestCase
+class AuthFactoryTest extends \PHPUnit_Framework_TestCase
 {
     
     public function testFactoryReturnsProperConfiguredInstanceOfAuthViewHelperAuth()
     {
-        $f = new Factory();
+        $f = new AuthFactory();
         $sm = new ServiceManager();
         $auth = $this->getMock('\Zend\Authentication\AuthenticationService');
         $sm->setService('AuthenticationService', $auth);

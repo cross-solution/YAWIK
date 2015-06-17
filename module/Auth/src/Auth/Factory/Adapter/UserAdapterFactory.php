@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-namespace Auth\Factory\Service;
+namespace Auth\Factory\Adapter;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -20,12 +20,12 @@ class UserAdapterFactory implements FactoryInterface
 {
 
     /**
-     * Creates an instance of \Auth\Adapter\ExternalApplication
+     * Creates an instance of \Auth\Adapter\UserAdapter
      * 
      * - injects the UserRepository fetched from the service manager.
      * 
      * @param ServiceLocatorInterface $serviceLocator
-     * @return \Auth\Adapter\ExternalApplication
+     * @return \Auth\Adapter\User
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)

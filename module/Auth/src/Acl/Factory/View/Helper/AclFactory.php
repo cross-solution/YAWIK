@@ -8,9 +8,10 @@
  */
 
 /** AclFactory.php */ 
-namespace Acl\View\Helper;
+namespace Acl\Factory\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
+use Acl\View\Helper\Acl;
 
 /**
  * Class AclFactory

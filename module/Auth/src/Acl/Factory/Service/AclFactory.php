@@ -1,6 +1,6 @@
 <?php
 
-namespace Acl\Service;
+namespace Acl\Factory\Service;
 
 use Acl\Config;
 use Zend\ServiceManager\FactoryInterface;

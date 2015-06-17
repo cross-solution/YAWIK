@@ -9,12 +9,12 @@
 
 namespace AuthTest\Factory\Service;
 
-use Auth\Factory\Service\HybridAuthAdapterFactory;
+use Auth\Factory\Adapter\HybridAuthAdapterFactory;
 
 /**
  * Class HybridAuthAdapterFactoryTest
  * @package AuthTest\Factory\Service
- * @covers \Auth\Factory\Service\HybridAuthAdapterFactory
+ * @covers \Auth\Factory\Adapter\HybridAuthAdapterFactory
  */
 class HybridAuthAdapterFactoryTest extends \PHPUnit_Framework_TestCase
 {
