@@ -43,7 +43,7 @@ if ($this->renderSummary):?>
         <?php $this->alert()->info(array('dismissable' => false)); ?>
         <p>
             <?php echo sprintf(
-                $this->translate('If you want to associate the job advertisments to a particular organization/customer, you have to %sadd a hiring organization%s in the organizations management menu.'),
+                $this->translate('If you want to post job openings for your customers, you have to %sadd them%s in the organizations menu.'),
                 '<a href="' . $this->url('lang/organizations/edit', array(), true) . '">', '</a>'
             );
             ?>

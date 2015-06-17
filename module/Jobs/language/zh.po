@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 16:30+0200\n"
-"PO-Revision-Date: 2015-06-10 15:06+0000\n"
+"POT-Creation-Date: 2015-06-17 09:24+0200\n"
+"PO-Revision-Date: 2015-06-17 07:24+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (http://www.transifex.com/projects/p/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -96,6 +96,13 @@ msgstr "轨道应用"
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
 msgstr "申请链接"
+
+#: view/form/hiring-organization-select.phtml:46
+#, php-format
+msgid ""
+"If you want to post job openings for your customers, you have to %sadd "
+"them%s in the organizations menu."
+msgstr ""
 
 #: view/form/multiposting-select.phtml:40 view/jobs/manage/approval.phtml:31
 #: view/jobs/manage/form.phtml:98
@@ -257,6 +264,14 @@ msgid ""
 "Thank you for publishing your job opening. An email was send to the "
 "reviewing team."
 msgstr "感谢您发布您的职位空缺。邮件被发送到审查小组。"
+
+#: view/jobs/manage/completion.phtml:9 language/_annotated_strings.php:186
+msgid "Create job"
+msgstr "创造就业"
+
+#: view/jobs/manage/completion.phtml:10
+msgid "Logout"
+msgstr "注销"
 
 #: view/jobs/manage/approval.phtml:14
 msgid "Preview of the posting"
@@ -671,10 +686,6 @@ msgstr "概观"
 #: language/_annotated_strings.php:183
 msgid "Pending jobs"
 msgstr ""
-
-#: language/_annotated_strings.php:186
-msgid "Create job"
-msgstr "创造就业"
 
 #: language/_annotated_strings.php:189
 msgid "Edit job"

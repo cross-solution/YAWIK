@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 16:30+0200\n"
-"PO-Revision-Date: 2015-06-10 15:06+0000\n"
+"POT-Creation-Date: 2015-06-17 09:24+0200\n"
+"PO-Revision-Date: 2015-06-17 07:24+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +98,13 @@ msgstr ""
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
 msgstr "Aplicar"
+
+#: view/form/hiring-organization-select.phtml:46
+#, php-format
+msgid ""
+"If you want to post job openings for your customers, you have to %sadd "
+"them%s in the organizations menu."
+msgstr ""
 
 #: view/form/multiposting-select.phtml:40 view/jobs/manage/approval.phtml:31
 #: view/jobs/manage/form.phtml:98
@@ -258,6 +265,14 @@ msgstr ""
 msgid ""
 "Thank you for publishing your job opening. An email was send to the "
 "reviewing team."
+msgstr ""
+
+#: view/jobs/manage/completion.phtml:9 language/_annotated_strings.php:186
+msgid "Create job"
+msgstr "Crear empleo"
+
+#: view/jobs/manage/completion.phtml:10
+msgid "Logout"
 msgstr ""
 
 #: view/jobs/manage/approval.phtml:14
@@ -673,10 +688,6 @@ msgstr "Visión de conjunto"
 #: language/_annotated_strings.php:183
 msgid "Pending jobs"
 msgstr ""
-
-#: language/_annotated_strings.php:186
-msgid "Create job"
-msgstr "Crear empleo"
 
 #: language/_annotated_strings.php:189
 msgid "Edit job"
