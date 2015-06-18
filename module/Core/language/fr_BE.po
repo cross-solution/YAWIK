@@ -3,190 +3,188 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Brice <vertebre@gmail.com>, 2015
 # Carsten Bleek <cbleek@yawik.org>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
-# Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-17 07:33+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
+"PO-Revision-Date: 2015-06-14 20:53+0000\n"
+"Last-Translator: Brice <vertebre@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
-msgstr "Wird geladen"
+msgstr "Chargement"
 
 #: view/partial/pagination-control.phtml:26
 #: view/partial/pagination-control.phtml:30
 msgid "First"
-msgstr "Anfang"
+msgstr "Première"
 
 #: view/partial/pagination-control.phtml:36
 #: view/partial/pagination-control.phtml:40
 msgid "Back"
-msgstr "Zurück"
+msgstr "Précédent"
 
 #: view/partial/pagination-control.phtml:46
 #: view/partial/pagination-control.phtml:50
 msgid "Next"
-msgstr "Weiter"
+msgstr "Suivant"
 
 #: view/partial/pagination-control.phtml:54
 #: view/partial/pagination-control.phtml:58
 msgid "Last"
-msgstr "Ende"
+msgstr "Dernier"
 
 #: view/form/permissions-collection.phtml:15
 msgid "Add permission"
-msgstr "Zugriffsrechte hinzufügen"
+msgstr "Ajouter permission"
 
 #: view/core/index/index.phtml:11 language/_annotated_strings.php:93
 msgid "Home"
-msgstr "Start"
+msgstr "Accueil"
 
 #: view/core/index/index.phtml:16
 msgid "Welcome to YAWIK!"
-msgstr "Willkommen bei YAWIK!"
+msgstr "Bienvenue à YAWIK!"
 
 #: view/core/index/index.phtml:17
 msgid "we're connecting recruiters and applicants"
-msgstr "wir verbinden Personaler und Bewerber"
+msgstr "nous connectons les recruteurs et les candidats"
 
 #: view/core/index/index.phtml:18
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
-msgstr "Melde Dich mit Deinen Sozialen Netzwerk am Open Source Bewerbermanagement System an"
+msgstr "Connectez-vous à un système open-source de recrutement en utilisant votre réseau social favoris"
 
 #: view/core/index/index.phtml:22
 #, php-format
 msgid "Login with %s"
-msgstr "Anmelden mit %s"
+msgstr "Connectez-vous avec %s"
 
 #: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
-msgstr "Responsive Designe (nutzt Bootstrap3 und Awesome Fonts)"
+msgstr " site web adaptatif (utilise bootstrap3 et font awesome)"
 
 #: view/core/index/index.phtml:32
 msgid "multilingual"
-msgstr "mehrsprachig"
+msgstr "multilingue"
 
 #: view/core/index/index.phtml:33
 msgid "ready for social recruiting"
-msgstr "bereit für Social Recruiting"
+msgstr "prêt pour le recrutement social"
 
 #: view/core/index/index.phtml:34
 msgid "enter job ads"
-msgstr "Stellenanzeigen eingeben"
+msgstr "entrer les offres d'emplois"
 
 #: view/core/index/index.phtml:35
 #, php-format
 msgid "%sapplication forms%s."
-msgstr "%sBewerbungsformulare%s."
+msgstr "%sapplication forms%s."
 
 #: view/core/index/index.phtml:39
 msgid "manage applications"
-msgstr "Bewerbungen verwalten"
+msgstr "gérer les candidatures"
 
 #: view/core/index/index.phtml:40
 msgid "open and free software"
-msgstr "Open Source im Sinne von freier Software"
+msgstr "logiciel libre et gratuit"
 
 #: view/core/index/index.phtml:48
 msgid "Developer News"
-msgstr "Neuigkeiten für Entwickler"
+msgstr "Actualités des développeurs"
 
 #: view/core/index/index.phtml:65
 msgid "Recruiter News"
-msgstr "Neuigkeiten für Personaler"
+msgstr "Actualités des recruteurs"
 
 #: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Tableau de bord"
 
 #: view/core/index/dashboard-widget.phtml:19
 msgid "Error loading widget."
-msgstr "Fehler beim Laden des Widget"
+msgstr "Erreur de chargement du widget"
 
 #: view/error/index.phtml:14
 msgid "An error occurred"
-msgstr "Ein Fehler ist aufgetreten"
+msgstr "Une erreur s'est produite"
 
 #: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
 msgid "Additional information"
-msgstr "Zusätzliche Informationen"
+msgstr "Informations complémentaires"
 
 #: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
 #: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
 msgid "File"
-msgstr "Datei"
+msgstr "Fichier"
 
 #: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
 #: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
 msgid "Message"
-msgstr "Nachricht"
+msgstr "Message"
 
 #: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
 #: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
 msgid "Stack trace"
-msgstr "Stapelverlauf"
+msgstr "Trace d'appels"
 
 #: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
 msgid "Previous exceptions"
-msgstr "Vorherige Exceptions"
+msgstr "Exceptions précédentes"
 
 #: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
 msgid "No Exception available"
-msgstr "Keine Exception verfügbar"
+msgstr "Aucune exception disponible"
 
 #: view/error/403.phtml:15
 msgid "A 403 error occurred"
-msgstr "Ein 403 Fehler ist aufgetreten"
+msgstr "Une erreur 403 s'est produite"
 
 #: view/error/404.phtml:15
 msgid "A 404 error occurred"
-msgstr "Ein 404 Fehler ist aufgetreten"
+msgstr "Une erreur 404 s'est produite"
 
 #: view/error/404.phtml:24
 msgid "The requested controller was unable to dispatch the request."
-msgstr "Der angeforderte Controller konnte die Anfrage nicht abfertigen."
+msgstr "Le contrôleur n'a pas demandé d'envoyer la requête."
 
 #: view/error/404.phtml:27
 msgid ""
 "The requested controller could not be mapped to an existing controller "
 "class."
-msgstr "Der angeforderte Controller konnte keiner existierenden Controller-Klasse zugeordnet werden."
+msgstr "Le contrôleur demandée n'a pas pu être mis en correspondance avec une classe de contrôleur existant."
 
 #: view/error/404.phtml:30
 msgid "The requested controller was not dispatchable."
-msgstr "Der angeforderte Controller konnte nicht abgefertigt werden."
+msgstr "Le contrôleur demande n'était pas dispatchable."
 
 #: view/error/404.phtml:33
 msgid "The requested URL could not be matched by routing."
-msgstr "Die angeforderte URL konnte keiner Route zugeordnet werden."
+msgstr "L'URL demandée n'a pas pu être compensée par de routage."
 
 #: view/error/404.phtml:36
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr "Wir können momentan nicht feststellen, warum ein 404 Fehler aufgetreten ist."
+msgstr "Nous ne pouvons pas déterminer à ce moment pourquoi une erreur 404 a été généré."
 
 #: view/error/404.phtml:48
 msgid "Controller"
-msgstr "Controller"
+msgstr "Contrôleur"
 
 #: view/error/404.phtml:55
 #, php-format
 msgid "resolves to %s"
-msgstr "löst auf nach %s"
+msgstr "résoudre à %s"
 
 #: view/layout/layout.phtml:35
 msgid "YAWIK"
@@ -194,152 +192,152 @@ msgstr "YAWIK"
 
 #: view/layout/layout.phtml:88
 msgid "Help to translate YAWIK"
-msgstr "Hilf bei der Übersetzung von YAWIK"
+msgstr "Aidez à traduire YAWIK"
 
 #: view/layout/layout.phtml:117
 msgid "All rights reserved."
-msgstr "Alle Rechte vorbehalten."
+msgstr "Tous droits réservés."
 
 #: src/Core/Form/PermissionsCollection.php:36
 msgid "Permissions"
-msgstr "Zugriffsrechte"
+msgstr "Autorisations"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:104
 #: src/Core/Form/View/Helper/FormImageUpload.php:80
 msgid "The file is too big"
-msgstr "Die Datei ist zu groß"
+msgstr "Le fichier est trop grand"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:105
 #: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file type is not supported"
-msgstr "Der Dateityp wird nicht unterstützt"
+msgstr "Le type de fichier n'est pas supporté"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:106
 #, php-format
 msgid "You may only upload %d files"
-msgstr "Sie können insgesamt %d Dateien übermitteln"
+msgstr "Vous pouvez seulement uploader %d fichiers"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:152
 msgid "Click here to add files or use drag and drop."
-msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
+msgstr "Cliquez ici pour ajouter des fichiers ou utilisez le drag-and-drop."
 
 #: src/Core/Form/View/Helper/FormImageUpload.php:42
 msgid "Click here to add an image or use drag and drop."
-msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
+msgstr "Cliquez ici pour ajouter une image ou utiliser le drag-and-drop"
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
 msgid "processing"
-msgstr "bearbeiten"
+msgstr "traitement"
 
 #: src/Core/Form/View/Helper/SummaryForm.php:168
 msgid "Edit"
-msgstr "Bearbeiten"
+msgstr "Editer"
 
 #: src/Core/Form/LocalizationSettingsFieldset.php:12
 #: language/_annotated_strings.php:90
 msgid "general settings"
-msgstr "Allgemeine Einstellungen"
+msgstr "paramètres généraux"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:21
 msgid "Save"
-msgstr "Speichern"
+msgstr "Sauver"
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:24
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "Annuler"
 
 #: language/_annotated_strings.php:15
 msgid "Apply filter"
-msgstr "Filter anwenden"
+msgstr "Appliquer le filtre"
 
 #: language/_annotated_strings.php:18
 msgid "Reset filter"
-msgstr "Filter zurücksetzen"
+msgstr "Réinitialiser le filtre"
 
 #: language/_annotated_strings.php:27
 msgid "Rights"
-msgstr "Rechte"
+msgstr "Droits"
 
 #: language/_annotated_strings.php:30
 msgid "View"
-msgstr "Ansehen"
+msgstr "Vue"
 
 #: language/_annotated_strings.php:33
 msgid "Write"
-msgstr "Bearbeiten"
+msgstr "Écrire"
 
 #: language/_annotated_strings.php:36
 msgid "Not Rated"
-msgstr "Nicht bewertet"
+msgstr "Pas d'évaluation"
 
 #: language/_annotated_strings.php:39
 msgid "Poor"
-msgstr "Ungeeignet"
+msgstr "Pauvres"
 
 #: language/_annotated_strings.php:42
 msgid "Bad"
-msgstr "Unterdurchschnittlich"
+msgstr "Mauvais"
 
 #: language/_annotated_strings.php:45
 msgid "Average"
-msgstr "Durchschnittlich"
+msgstr "Moyenne"
 
 #: language/_annotated_strings.php:48
 msgid "Good"
-msgstr "Gut"
+msgstr "Bon"
 
 #: language/_annotated_strings.php:51
 msgid "Excellent"
-msgstr "Sehr gut"
+msgstr "Excellent"
 
 #: language/_annotated_strings.php:54
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr "Bitte geben Die eine Telefonnummer ein. Sie können das internationale Format verwenden. Erlaubt sind Ziffern und \"+\"."
+msgstr "Veuillez entrer un numéro de téléphone. Vous pouvez utiliser le format international. Seulement des chiffres et «+»."
 
 #: language/_annotated_strings.php:57
 msgid "Remove all"
-msgstr "Alle entfernen"
+msgstr "Tout enlever"
 
 #: language/_annotated_strings.php:60
 msgid "choose your language"
-msgstr "wählen Sie Ihre Sparche"
+msgstr "choisissez la langue"
 
 #: language/_annotated_strings.php:63
 msgid "English"
-msgstr "Englisch"
+msgstr "Anglais"
 
 #: language/_annotated_strings.php:66
 msgid "French"
-msgstr "Französisch"
+msgstr "Français"
 
 #: language/_annotated_strings.php:69
 msgid "German"
-msgstr "Deutsch"
+msgstr "Allemand"
 
 #: language/_annotated_strings.php:72
 msgid "Italian"
-msgstr "Italienisch"
+msgstr "Italien"
 
 #: language/_annotated_strings.php:75
 msgid "Polish"
-msgstr "Polnisch"
+msgstr "Polonais"
 
 #: language/_annotated_strings.php:78
 msgid "Russian"
-msgstr "Russisch"
+msgstr "Russe"
 
 #: language/_annotated_strings.php:81
 msgid "Turkish"
-msgstr "Türkisch"
+msgstr "Turc"
 
 #: language/_annotated_strings.php:84
 msgid "Spanish"
-msgstr "Spanisch"
+msgstr "Espagnol"
 
 #: language/_annotated_strings.php:87
 msgid "defines the languages of this frontend."
-msgstr "Sprache dieses Frontends"
+msgstr "définit les langues de cette interface."
