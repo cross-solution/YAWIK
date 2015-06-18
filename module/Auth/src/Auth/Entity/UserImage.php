@@ -23,7 +23,8 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 class UserImage extends FileEntity implements ResourceInterface
 {
     /**
-     * get the URI of an attachment
+     * Gets the URI of an attachment
+     *
      * @return string
      */
     function getUri()
@@ -36,6 +37,7 @@ class UserImage extends FileEntity implements ResourceInterface
      */
     public function preRemove()
     {
+        /* Auth\Entity\UserImage */
         $this->getUser()->getInfo()->setImage(null);
     }
 }

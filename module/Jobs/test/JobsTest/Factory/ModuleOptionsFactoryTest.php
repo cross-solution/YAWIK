@@ -12,10 +12,10 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
      * test, if configuration overwrites default values
      *
      * @dataProvider providerTestFactory
+     * @covers Jobs\Factory\ModuleOptionsFactory
      */
     public function testFactory($config)
     {
-        /*
         $serviceManager = new ServiceManager;
         $serviceManager->setService('Config', $config);
 
@@ -30,23 +30,23 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
             $this->assertNotEquals($defaultOption->getMultipostingApprovalMail(), $object->getMultipostingApprovalMail());
             $this->assertEquals($config['jobs_options']['multipostingApprovalMail'], $object->getMultipostingApprovalMail());
         } else {
-            $this->assertEquals($defaultOption->getMultipostingApprovalMail(), $object->getMultipostingApprovalMail());
+            $this->assertEquals($config['Auth']['default_user']['email'], $object->getMultipostingApprovalMail());
         }
-        */
-        // Optional: Test anything here, if you want.
-        $this->assertTrue(TRUE, 'mark for later.');
-        // Stop here and mark this test as incomplete.
-        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     public function providerTestFactory()
     {
         return array(
-            array(array()), // config without applications
-            array(array('jobs_options'=>array(
-                'multipostingApprovalMail' => 'test@test.de',
-            )))
+            array(
+                array('Auth' => array(
+                    'default_user' => array(
+                        'email' => 'default@example.com'
+                    )
+                ))), // if no multipostingApprovalMail is set, the default_users email should be used
+            array(
+                array('jobs_options'=>array(
+                    'multipostingApprovalMail' => 'test@test.de',
+                )))
         );
     }
 }
-

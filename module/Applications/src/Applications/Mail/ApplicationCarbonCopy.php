@@ -19,11 +19,12 @@ use Applications\Entity\Application;
 class ApplicationCarbonCopy extends Forward
 {
     /**
-     * @param $application
+     * @param $application Application
      * @return $this
      */
     public function setApplication(Application $application)
     {
+        /* Applications\Entity\Contact */
         $this->setTo($application->getContact()->getEmail());
         return parent::setApplication($application);
     }

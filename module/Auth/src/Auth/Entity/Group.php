@@ -30,7 +30,6 @@ class Group extends AbstractIdentifiableEntity
             implements GroupInterface,
                        PermissionsResourceInterface
 {
-    
     /**
      * 
      * @var UserInterface

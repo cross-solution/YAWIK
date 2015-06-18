@@ -68,6 +68,8 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     }
 
     /**
+     * Gets the list of possible channels a job opening can posted
+     *
      * @return array
      */
     public function getChannels()

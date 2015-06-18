@@ -61,15 +61,12 @@ class ModuleOptions extends AbstractOptions {
 
 
     /**
-     * Gets the email address to which approval mails are sent
+     * Gets the email address to which approval mails are sent.
      *
-     * @return int
+     * @return string
      */
     public function getMultipostingApprovalMail()
     {
-        if (null == $this->multipostingApprovalMail){
-
-        }
         return $this->multipostingApprovalMail;
     }
     /**

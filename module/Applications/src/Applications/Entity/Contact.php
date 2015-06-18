@@ -17,7 +17,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileCopyStrategy;
 
 /**
- * Holds the contact informations including the optional photo of the applicant.
+ * Holds the contact information including the optional photo of the applicant.
  * 
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -48,14 +48,13 @@ class Contact extends Info {
             $this->inherit($userInfo);
         }
     }
-    
+
     /**
      * Inherit data from an {@link UserInfoInterface}.
-     * 
+     *
      * Copies the user image to an application attachment.
-     * 
-     * @param UserInfoInterface $info
-     * @return \Applications\Entity\Contact
+     * @param InfoInterface $info
+     * @return $this
      */
     public function inherit(InfoInterface $info)
     {
@@ -71,5 +70,3 @@ class Contact extends Info {
     }
     
 }
-
-?>

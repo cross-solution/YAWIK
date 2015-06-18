@@ -41,17 +41,28 @@ class AuthSession extends AbstractEntity
      */
     protected $modificationDate;
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $session
+     * @return $this
+     */
     public function setSession($session)
     {
         if (is_string($session)) {
@@ -63,6 +74,9 @@ class AuthSession extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getSession()
     {
         $session = $this->session;
@@ -71,7 +85,6 @@ class AuthSession extends AbstractEntity
         }
         return $session;
     }
-
 
     /**
      * @return \Datetime
@@ -97,6 +110,4 @@ class AuthSession extends AbstractEntity
         $this->modificationDate = $modificationDate;
         return $this;
     }
-
-
 }

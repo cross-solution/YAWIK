@@ -11,6 +11,7 @@
 
 namespace Applications\Mail;
 
+use Applications\Entity\ApplicationInterface;
 use Core\Mail\TranslatorAwareMessage;
 use Zend\Mime;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
@@ -22,11 +23,24 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInterface
 {
+    /**
+     * @var ApplicationInterface
+     */
     protected $application;
+    /**
+     * @var bool
+     */
     protected $isInitialized = false;
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $serviceLocator;
-    
-    public function setApplication($application)
+
+    /**
+     * @param $application
+     * @return $this
+     */
+    public function setApplication(ApplicationInterface $application)
     {
         $this->application = $application;
         if ($this->isInitialized) {
@@ -53,7 +67,10 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         ));
         $this->generateBody();
     }
-    
+
+    /**
+     *
+     */
     protected function generateBody()
     {
         $message = new Mime\Message();
@@ -66,6 +83,7 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         $message->addPart($textPart);
 
         if (isset($this->application->contact->image) && $this->application->contact->image->id) {
+            /* Auth\Entity\Contact */
             $image = $this->application->contact->image;
             $part = new Mime\Part($image->getResource());
             $part->type = $image->type;
@@ -86,7 +104,10 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         
         $this->setBody($message);
     }
-    
+
+    /**
+     * @return string
+     */
     protected function generateText() 
     {
         $translator = $this->isTranslatorEnabled() ? $this->getTranslator() : null;
@@ -157,12 +178,10 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
      */
     protected function generateHtml(){
 
-         // ServiceManager->MailPluginManager->MailService
-
          $services = $this->getServiceLocator()->getServiceLocator();
 
-         /**
-          * "ViewHelperManager" desfined by ZF2
+         /*
+          * "ViewHelperManager" defined by ZF2
           *  see http://framework.zend.com/manual/2.0/en/modules/zend.mvc.services.html#viewmanager
           */
          $viewManager = $services->get('ViewHelperManager');
@@ -173,7 +192,7 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
 
     /**
      * {@inheritDoc}
-     * @return Container
+     * @return self
      * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
@@ -182,6 +201,9 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         return $this;
     }
 
+    /**
+     * @return ServiceLocatorInterface
+     */
     public function getServiceLocator()
     {
         return $this->serviceLocator;

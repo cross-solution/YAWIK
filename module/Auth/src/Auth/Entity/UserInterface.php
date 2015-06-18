@@ -24,9 +24,6 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
-
-
-
     /**
      * Sets the users login name
      *
@@ -148,6 +145,5 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @since 0.18
      */
     public function getOrganization();
-
 
 }

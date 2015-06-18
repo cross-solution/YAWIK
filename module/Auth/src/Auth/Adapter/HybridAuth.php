@@ -10,6 +10,7 @@
 /** Auth adapter */
 namespace Auth\Adapter;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
@@ -102,6 +103,8 @@ class HybridAuth implements AdapterInterface
        $newInfo = (array) $userProfile; 
        
        if ($forceSave || $currentInfo != $newInfo) {
+           /*  */
+
            $dm = $this->getRepository()->getDocumentManager();
            $user->info->email = $email;
            $user->info->firstName = $userProfile->firstName;

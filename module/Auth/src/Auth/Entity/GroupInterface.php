@@ -66,4 +66,3 @@ interface GroupInterface extends IdentifiableEntityInterface
     public function setUsers(array $users);
     
 }
-
