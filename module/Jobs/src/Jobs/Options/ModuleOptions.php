@@ -24,7 +24,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Send an approval Mail to this Email Address, if a new job is posted.
      *
-     * @var int $multipostingApprovalMail
+     * @var string $multipostingApprovalMail
      */
     protected $multipostingApprovalMail;
 
@@ -55,7 +55,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Allowed Mime-Types for company Logos
      *
-     * @var string
+     * @var array
      */
     protected $companyLogoMimeType=array("image");
 
