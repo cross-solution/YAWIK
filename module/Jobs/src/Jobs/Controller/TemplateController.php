@@ -58,7 +58,7 @@ class TemplateController extends AbstractActionController  {
         //$model->setTemplate('templates/default/index');
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
-        if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
+        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser())) {
             $this->response->setStatusCode(404);
             $model->setVariable('message','job is not available');
         } else {
