@@ -72,12 +72,12 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Sets the email address to which approval mails are sent
      *
-     * @param int $size
+     * @param string $multipostingApprovalMail
      * @return ModuleOptions
      */
-    public function setMultipostingApprovalMail($size)
+    public function setMultipostingApprovalMail($multipostingApprovalMail)
     {
-        $this->multipostingApprovalMail = $size;
+        $this->multipostingApprovalMail = $multipostingApprovalMail;
         return $this;
     }
 
@@ -166,6 +166,4 @@ class ModuleOptions extends AbstractOptions {
         $this->companyLogoMimeType = $mime;
         return $this;
     }
-
-
 }

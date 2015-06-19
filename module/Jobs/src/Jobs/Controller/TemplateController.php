@@ -31,7 +31,7 @@ class TemplateController extends AbstractActionController  {
     private $jobRepository;
 
     /**
-     * @var
+     * @var AbstractOptions
      */
     protected $config;
 
@@ -55,17 +55,15 @@ class TemplateController extends AbstractActionController  {
         $services             = $this->getServiceLocator();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
-        //$model->setTemplate('templates/default/index');
+
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
-        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser())) {
+        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser()) && ! $this->auth()->isAdmin) {
             $this->response->setStatusCode(404);
             $model->setVariable('message','job is not available');
         } else {
-            //$model->setTemplate('templates/' . $job->template . '/index');
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
         }
-        //$model->setVariables($this->getTemplateFields($job));
         return $model;
     }
 

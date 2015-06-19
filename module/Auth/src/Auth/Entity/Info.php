@@ -416,7 +416,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @param EntityInterface $image
+     * @param UserImage $image
      * @return $this
      */
     public function setImage(EntityInterface $image = null)
@@ -428,7 +428,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @return FileInterface
+     * @return UserImage
      */
     public function getImage()
     {
@@ -502,5 +502,4 @@ class Info extends AbstractEntity implements InfoInterface
         $array['city']=$info->city;
         return $array;
     }
-    
 }

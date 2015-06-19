@@ -82,7 +82,9 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         $textPart->disposition = Mime\Mime::DISPOSITION_INLINE;
         $message->addPart($textPart);
 
-        if (isset($this->application->contact->image) && $this->application->contact->image->id) {
+        if (isset($this->application->getContact()->image) &&
+            $this->application->getContact()->getImage()->id) {
+            /* @var $image \Auth\Entity\UserImage */
             $image = $this->application->getContact()->getImage();
             $part = new Mime\Part($image->getResource());
             $part->type = $image->type;
@@ -93,6 +95,7 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         }
         
         foreach ($this->application->getAttachments() as $attachment) {
+            /* @var $part \Applications\Entity\Attachment */
             $part = new Mime\Part($attachment->getResource());
             $part->type = $attachment->type;
             $part->encoding = Mime\Mime::ENCODING_BASE64;
