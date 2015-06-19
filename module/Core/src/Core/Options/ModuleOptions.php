@@ -31,7 +31,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Contact Data, which can be used in Mail signatures or the imprint page.
      *
-     * @var array
+     * @var array $operator
      */
     protected $operator=array(
         'companyShortName'=>'Your Company Name',
@@ -39,10 +39,38 @@ class ModuleOptions extends AbstractOptions {
         'companyTax' => 'Your FAT Number',
         'postalCode' => 'xxxx',
         'city' => '',
+        'street'=> '',
         'name' => '',
         'email' => '',
         'fax' => ''
     );
+
+    /**
+     * This array defines the languages, which can be used.
+     *
+     * @var array $supportedLanguages
+     */
+    protected $supportedLanguages = array(
+        'de' => 'de_DE',
+        'fr' => 'fr',
+        'en' => 'en',
+        'es' => 'es',
+        'it' => 'it',
+    );
+
+    /**
+     * if true, YAWIK tries to detect the browser settings
+     *
+     * @var bool
+     */
+    protected $detectLanguage = true;
+
+    /**
+     * The default language is used, if no language is set
+     *
+     * @var string
+     */
+    protected $defaultLanguage = 'en';
 
     /**
      * @param $siteName
@@ -66,6 +94,8 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
+     * Sets the operators contact data
+     *
      * @param $operator
      * @return $this
      */
@@ -75,11 +105,71 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
+     * Gets the operators contact data
+     *
      * @return array
      */
     public function getOperator() {
         return $this->operator;
     }
 
+    /**
+     * Sets supported languages
+     *
+     * @param $supportedLanguages
+     * @return $this
+     */
+    public function setSupportedLanguages($supportedLanguages) {
+        $this->supportedLanguages=$supportedLanguages;
+        return $this;
+    }
 
+    /**
+     * Gets supported languages
+     *
+     * @return array
+     */
+    public function getSupportedLanguages() {
+        return $this->supportedLanguages;
+    }
+
+    /**
+     * Sets the default language
+     *
+     * @param $defaultLanguage
+     * @return $this
+     */
+    public function setDefaultLanguage($defaultLanguage) {
+        $this->defaultLanguage=$defaultLanguage;
+        return $this;
+    }
+
+    /**
+     * Gets the default languages
+     *
+     * @return string
+     */
+    public function getDefaultLanguage() {
+        return $this->defaultLanguage;
+    }
+
+    /**
+     * Enable or disable the detection of language setting of the browser
+     *
+     * @param $detectLanguage
+     * @return $this
+     */
+    public function setDetectLanguage($detectLanguage) {
+        $this->detectLanguage=$detectLanguage;
+        return $this;
+    }
+
+    /**
+     * Gets the browser language detecting setting
+     *
+     * @return string
+     */
+    public function getDetectLanguage() {
+        return $this->detectLanguage;
+    }
 }

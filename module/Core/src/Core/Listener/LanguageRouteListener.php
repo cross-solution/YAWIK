@@ -22,7 +22,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected $defaultLanguage;
     
     /**
-    * @todo: get this from the configuration.
+    * @todo: get this from \Core\Options\ModuleOptions.
     */
     protected $availableLanguages = array(
             'en' => 'en_EN',

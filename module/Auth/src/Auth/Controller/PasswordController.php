@@ -81,5 +81,4 @@ class PasswordController extends AbstractActionController
 
         return $vars;
     }
-
 }

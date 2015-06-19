@@ -59,7 +59,7 @@
 
                     if (typeof target == 'undefined') {
                         new PNotify({
-                            // trim startinn and trailing whitespaces
+                            // trim starting and trailing whitespaces
                             'text': $message.replace(/^\s+|\s+$/gm,''),
                             'type': type
                         });

@@ -51,7 +51,6 @@ class TemplateController extends AbstractActionController  {
     {
         $id = $this->params()->fromQuery('id');
         $job = $this->jobRepository->find($id);
-        $model                = new ViewModel();
         $services             = $this->getServiceLocator();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
@@ -84,8 +83,6 @@ class TemplateController extends AbstractActionController  {
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
-        // @TODO model deprecated, clean it up along with a proper use of formTemplate (use it only if needed) and AJAX (don't need an instance of a viewModel for that, too)
-        //$model                = new ViewModel();
         $forms                = $services->get('FormElementManager');
         /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
         $formTemplate         = $forms->get('Jobs/Description/Template', array(
@@ -121,9 +118,7 @@ class TemplateController extends AbstractActionController  {
         } else {
             return new JsonModel(array('valid' => True));
         }
-        //$model->setTemplate('templates/' . $job->template . '/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
-        //$model->setVariables($this->getTemplateFields($job,$formTemplate));
         return $model;
     }
 
@@ -146,7 +141,7 @@ class TemplateController extends AbstractActionController  {
             $uriApply = false;
         }
 
-        $headTitle= $job->templateValues->title;
+        $headTitle= $job->getTemplateValues()->getTitle();
         if (empty($job->templateValues->description) && isset($job->organization)) {
             $job->templateValues->description = $job->organization->description;
         }

@@ -15,7 +15,7 @@
   
 $options = array(
     /**
-     * The sitename is used in Mails. Typically it's the name of your website
+     * The name of the Site used in Mails. Typically it's the name of your website
      */
     'siteName' => 'YAWIK',
 
@@ -28,10 +28,33 @@ $options = array(
                           'companyTax' => 'Your FAT Number',
                           'postalCode' => 'xxxx',
                           'city' => '',
+                          'street' => '',
                           'name' => '',
                           'email' => '',
+                          'phone' => '',
                           'fax' => ''
-                       )
+                       ),
+    /**
+     * Supported languages used by the language switcher. This array defines the languages,
+     * which are available in the frontend
+     */
+    'supportedLanguages' => array(
+        'de' => 'de_DE',
+        'fr' => 'fr',
+        'en' => 'en_EN',
+        'es' => 'es',
+        'it' => 'it',
+    ),
+
+    /**
+     * if true, YAWIK tries to detect the browser settings
+     */
+     'detectLanguage' => true,
+
+    /**
+     * The defaultLanguage defines the fallback Language, if no language is set.
+     */
+     'defaultLanguage' => 'de'
 );
 
 return array('core_options' => $options);
