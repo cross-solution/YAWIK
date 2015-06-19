@@ -41,7 +41,7 @@ return array(
         'factories' => array(
             'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
             'HybridAuth' => '\Auth\Factory\Service\HybridAuthFactory',
-            'HybridAuthAdapter' => '\Auth\Factory\Service\HybridAuthAdapterFactory',
+            'HybridAuthAdapter' => '\Auth\Factory\Adapter\HybridAuthAdapterFactory',
             'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
             'Auth/Adapter/UserLogin' => '\Auth\Factory\Adapter\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Factory\Service\AuthenticationServiceFactory',
