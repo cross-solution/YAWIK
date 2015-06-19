@@ -167,9 +167,9 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Gets the browser language detecting setting
      *
-     * @return string
+     * @return bool
      */
-    public function getDetectLanguage() {
+    public function isDetectLanguage() {
         return $this->detectLanguage;
     }
 }
