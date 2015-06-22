@@ -380,6 +380,10 @@ class ManageController extends AbstractActionController {
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         $jobEvents      = $serviceLocator->get('Jobs/Events');
+        // array with differences between the last snapshot and the actual entity
+        // is remains Null if there is no snapshot
+        // it will be an empty array if the snapshot and the actual entity do not differ
+        $diff           = Null;
 
         if ($params == 'declined') {
             $jobEntity->changeStatus(Status::REJECTED, sprintf( /*@translate*/ "Job opening was rejected by %s",$user->info->displayName));
@@ -393,6 +397,23 @@ class ManageController extends AbstractActionController {
             $jobEntity->changeStatus(Status::ACTIVE, sprintf( /*@translate*/ "Job opening was activated by %s",$user->info->displayName));
             $repositories->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+
+            //$this->entitySnapshot($jobEntity);
+            $prelDiff = $this->entitySnapshot()->diff($jobEntity);
+            if (isset($prelDiff)) {
+                // we want just some Values to be compared
+                $diff = Null;
+                foreach (array('title', 'company', 'location',
+                    'templateValues.qualifications', 'templateValues.requirements', 'templateValues.benefits', 'templateValues.title',
+                    'templateValues._freeValues.description',
+                    ) as $prelKey) {
+                    if (array_key_exists($prelKey, $prelDiff)) {
+                        $diff[$prelKey] = $prelDiff[$prelKey];
+                    }
+
+                }
+            }
+
             $this->notification()->success($translator->translate('Job has been approved'));
         }
 
@@ -412,6 +433,7 @@ class ManageController extends AbstractActionController {
                       array( 'id' => $jobEntity->id)));
 
         return array('job' => $jobEntity,
+                     'diffSnapshot' => $diff,
                      'viewLink' => $viewLink,
                      'approvalLink' => $approvalLink,
                      'declineLink' => $declineLink);

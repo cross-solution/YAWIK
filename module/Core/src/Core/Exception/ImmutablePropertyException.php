@@ -14,6 +14,9 @@ class ImmutablePropertyException extends \RuntimeException
 {
     public function __construct($propertyName, $object, \Exception $previous = null)
     {
+        if (is_object($object)) {
+            $object = get_class($object);
+        }
         $message = sprintf('Missing dependency "%s" in "%s"',
             $propertyName, $object);
 

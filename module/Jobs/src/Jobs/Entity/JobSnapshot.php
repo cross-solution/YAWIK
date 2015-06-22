@@ -16,9 +16,27 @@ use Doctrine\Common\Collections\Collection;
 use Organizations\Entity\OrganizationInterface;
 use Core\Exception\ImmutablePropertyException;
 use Core\Entity\PermissionsInterface;
+use Organizations\Entity\Organization;
+use Core\Entity\ModificationDateAwareEntityInterface;
+use Core\Entity\SnapshotInterface;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Entity\EntityInterface;
 
-class JobSnapshot extends BaseEntity implements JobInterface {
+/**
+ * by using the BaseEntity,
+ *
+ * Class JobSnapshot
+ * @package Jobs\Entity
+ *
+ * @ODM\EmbeddedDocument
+ */
+class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface {
 
+
+    /**
+     *
+     */
+    protected $jobId;
 
     /**
      * unique ID of a job posting used by applications to reference
@@ -242,7 +260,6 @@ class JobSnapshot extends BaseEntity implements JobInterface {
     protected $permissions;
 
     /**
-     * The actual name of the organization.
      *
      * @var TemplateValues
      * @ODM\EmbedOne(targetDocument="\Jobs\Entity\TemplateValues")
@@ -266,11 +283,57 @@ class JobSnapshot extends BaseEntity implements JobInterface {
     protected $isDraft = false;
 
     /**
-     * @param $jobEtinty
+     * @param $jobEntity
      */
-    public function __constructor ($jobEtinty) {
-        $test = $jobEtinty;
+    public function __construct ($jobEntity) {
+
+        /*
+        $this->jobId = $this->id;
+        // simple scalar values
+        foreach ($this->attributes as $attribute) {
+            $this->$attribute = $jobEntity->$attribute;
+        }
+        // make a copy to avoid linking by references
+        $this->templateValues = new TemplateValues();
+        $this->copyAttributes($jobEntity->templateValues, $this->templateValues);
+
+        $this->organization = new Organization();
+        $this->copyAttributes($jobEntity->organization, $this->organization);
+        */
+
     }
+
+    /**
+     * @param $jobEntity
+     * @return mixed
+     * @ODM\PreUpdate
+     */
+    public function __invoke($data)
+    {
+        foreach ($data as $key => $attribute) {
+            $this->$key = $attribute;
+        }
+        return $this;
+    }
+
+    protected function copyAttributes($source, $target) {
+        $methods = array_filter( get_class_methods($source), function ($v) {return 3 < strlen($v) && strpos($v,'get') === 0; });
+        $methods = array_diff($methods, array('getId', 'getHydrator', 'getHiringOrganizations'));
+        $methods = array_map(function ($v) { return lcfirst(substr($v, 3)); }, $methods);
+        foreach ($methods as $attribute) {
+            $element = $source->$attribute;
+            if (isset($element)) {
+                $className = get_class($element);
+                // when the parameter ist rigid you can't assign an non-existing elements
+                if (method_exists($target, 'set' . lcfirst($attribute))) {
+                    $target->$attribute = $element;
+                }
+            }
+        }
+        return $this;
+    }
+
+
 
     /**
      * Gets the unique key used by applications to reference a job posting
@@ -760,7 +823,7 @@ class JobSnapshot extends BaseEntity implements JobInterface {
      */
     public function getPermissions()
     {
-        return Null;
+        return $this->permissions;
     }
 
     /**
@@ -769,7 +832,8 @@ class JobSnapshot extends BaseEntity implements JobInterface {
      */
     public function setPermissions(PermissionsInterface $permissions)
     {
-        throw new ImmutablePropertyException('permissions', $this);
+        $this->permissions = $permissions;
+        return $this;
     }
 
     /**
@@ -777,16 +841,17 @@ class JobSnapshot extends BaseEntity implements JobInterface {
      */
     public function getSearchableProperties()
     {
-        return Null;
+        return array();
     }
 
     /**
+     * the keywords get called by a doctrine-event, the cause is the Job-Interface, that triggers a keyword-search
+     * it's hard to prevent this, that's why here we don't throw an exception
      * @param array $keywords
-     * @throws \Core\Exception\ImmutablePropertyException
      */
     public function setKeywords(array $keywords)
     {
-        throw new ImmutablePropertyException('permissions', $this);
+        return;
     }
 
     /**
@@ -803,6 +868,25 @@ class JobSnapshot extends BaseEntity implements JobInterface {
     public function getKeywords()
     {
         return Null;
+    }
+
+    /**
+     * Gets the Values of a job template
+     *
+     * @return TemplateValues
+     */
+    public function getTemplateValues()
+    {
+        return $this->templateValues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTemplateValues(EntityInterface $templateValues = null)
+    {
+        $this->templateValues = $templateValues;
+        return $this;
     }
 
     /**
