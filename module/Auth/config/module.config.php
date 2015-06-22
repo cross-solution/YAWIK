@@ -42,7 +42,7 @@ return array(
             'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
             'HybridAuth' => '\Auth\Factory\Service\HybridAuthFactory',
             'HybridAuthAdapter' => '\Auth\Factory\Adapter\HybridAuthAdapterFactory',
-            'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
+            'ExternalApplicationAdapter' => '\Auth\Factory\Adapter\ExternalApplicationAdapterFactory',
             'Auth/Adapter/UserLogin' => '\Auth\Factory\Adapter\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Factory\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Factory\Listener\UnauthorizedAccessListenerFactory',

@@ -9,7 +9,6 @@
 
 namespace Applications;
 
-use Zend\Mvc\MvcEvent;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -64,16 +63,4 @@ class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterfa
             ),
         );
     }
-    
-    /**
-     * Bootstraps the application module
-     * 
-     * @param MvcEvent $mvcEvent
-     */
-//    public function onBootstrap(MvcEvent $mvcEvent)
-//    {
-//        // Ignore the form annotations in setting entities
-//        AnnotationReader::addGlobalIgnoredName('formLabel');
-//    }
-    
 }

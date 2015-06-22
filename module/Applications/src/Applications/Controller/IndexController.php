@@ -117,7 +117,6 @@ class IndexController extends AbstractActionController
                 $returnTo = \Zend\Uri\UriFactory::factory($returnTo);
             }
             $services = $this->getServiceLocator();
-            //$repository = $services->get('repositories')->get('Applications/Application');
 
             $data = array_merge_recursive(
                 $this->request->getPost()->toArray(),
@@ -150,22 +149,18 @@ class IndexController extends AbstractActionController
                 if ($auth->isLoggedIn()) {
                     // in instance user is logged in,
                     // and no image is uploaded
-                    // take his profil-image as copy
+                    // take his profile-image as copy
                     $applicationEntity->setUser($auth->getUser());
                     $imageData = $form->get('contact')->get('image')->getValue();
                     if (UPLOAD_ERR_NO_FILE == $imageData['error']) {
                         // has the user an image
                         $image = $auth->getUser()->info->image;
                         if ($image) {
-                            //$contactImage = $services->get('repositories')->get('Applications/Application')->saveCopy($image);
-                            //$contactImage->addAllowedUser($job->user->id);
-                            //$applicationEntity->contact->setImage($contactImage);
 
                             $repositoryAttachment = $services->get('repositories')->get('Applications/Attachment');
-                                    //->saveCopy($image);
+
                             // this should provide a real copy, not just a reference
                             $contactImage = $repositoryAttachment->copy($image);
-                            //$contactImage->addAllowedUser($job->user->id);
                             $applicationEntity->contact->setImage($contactImage);
                         } else {
                             $applicationEntity->contact->setImage(null); //explicitly remove image.
@@ -235,7 +230,6 @@ class IndexController extends AbstractActionController
                              $mail = $this->mailer('Applications/CarbonCopy', array(
                                     'application' => $applicationEntity,
                                     'to'          => $applicationEntity->contact->email,
-                                    //'from'        => array($admin->info->email => $admin->info->displayName)
                                  ), /*send*/ true);
                         }
                     }
@@ -266,7 +260,6 @@ class IndexController extends AbstractActionController
      */
     public function dashboardAction()
     {
-        $services = $this->getServiceLocator();
         $params = $this->getRequest()->getQuery();
         $isRecruiter = $this->acl()->isRole('recruiter');
         if ($isRecruiter) {
@@ -284,7 +277,6 @@ class IndexController extends AbstractActionController
      
         return array(
             'script' => 'applications/index/dashboard',
-            #'type' => $this->params('type'),
             'applications' => $paginator
         );
     }
@@ -308,20 +300,20 @@ class IndexController extends AbstractActionController
             $jobEntity         = $entityApplication->job;
             $applicantEmail    = $entityApplication->contact->email;
             $organizationEmail = $jobEntity->contactEmail;
-            $mailAdress        = NULL;
+            $mailAddress        = NULL;
             switch ($status == 'test') {
                 case 'company':
-                    $mailAdress = $organizationEmail;
+                    $mailAddress = $organizationEmail;
                     break;
                 case 'test':
                 default:
-                    $mailAdress = $applicantEmail;
+                    $mailAddress = $applicantEmail;
                     break;
             }
-            if (!empty($mailAdress)) {
+            if (!empty($mailAddress)) {
                 $mailData = array(
                     'application' => $entityApplication,
-                    'to'          => $mailAdress
+                    'to'          => $mailAddress
                 );
                 if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails']) && array_key_exists('email', $config['mails']['from'])) {
                     $mailData['from'] = $config['mails']['from']['email'];
@@ -341,4 +333,3 @@ class IndexController extends AbstractActionController
         return new JsonModel(array());
     }
 }
-
