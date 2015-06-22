@@ -189,8 +189,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $this->options->setCurrency('EUR');
         $this->options->setPrice(100);
-        $this->assertEquals("100.00 EUR",$this->options->getFormattedPrice('right'));
-        $this->assertEquals("EUR 100.00",$this->options->getFormattedPrice('left'));
+        $this->assertEquals("100,00 EUR",$this->options->getFormattedPrice('right'));
+        $this->assertEquals("EUR 100,00",$this->options->getFormattedPrice('left'));
     }
 
 }
