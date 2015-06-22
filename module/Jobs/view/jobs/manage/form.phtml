@@ -14,6 +14,8 @@
  *
  */
 
+$options = $this->services('Core/Options');
+$defaultCurrencyCode = $options->defaultCurrencyCode;
 
 $sm = $this->getHelperPluginManager()->getServiceLocator();
 $channels = $sm->get('Jobs/Options/Provider');
@@ -82,11 +84,10 @@ if ($this->page == 2):
                 <?php $this->translate('Your job opening is ready to be published to the following channels');?>
                 <?php $total=0 ?>
                 <table class="table table-bordered table-condensed">
-                    <?php $this->plugin('currencyFormat')->setCurrencyCode('EUR');
+                    <?php $this->plugin('currencyFormat')->setCurrencyCode($defaultCurrencyCode);
 
                     $portals = array();
                     foreach($this->job->portals as $channelName):
-
                             $channelData=$channels->getChannel($channelName);
                             if (is_object($channelData)) $portals[$channelData->getCategory()][] = $channelData;
                     endforeach;
@@ -112,8 +113,16 @@ if ($this->page == 2):
                     <?php endforeach;?>
                     <tfoot>
                     <tr>
-                        <th><?php echo $this->translate("Total")?></th>
-                        <th class="text-right"><b><?php echo $this->currencyFormat($total) ?></b></th>
+                        <td><?php echo $this->translate("Total")?></td>
+                        <td class="text-right"><?php echo $this->currencyFormat($total) ?></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->translate('plus FAT') ?>(<?php echo $channel->tax?>%)</td>
+                        <td class="text-right"><?php echo $this->currencyFormat($total * ($channel->tax / 100)); ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->translate('Invoice amount') ?></th>
+                        <th class="text-right"><?php echo $this->currencyFormat($total * (1 + $channel->tax / 100)); ?></th>
                     </tr>
                     </tfoot>
                 </table>

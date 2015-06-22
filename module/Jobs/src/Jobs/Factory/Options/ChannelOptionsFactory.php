@@ -19,6 +19,18 @@ class ChannelOptionsFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $channel = new ChannelOptions();
+        /* @var $core \Core\Options\ModuleOptions */
+        $core = $serviceLocator->get("Core/Options");
+
+        if ('' == $channel->getCurrency()) {
+            $currency=$core->getDefaultCurrencyCode();
+            $channel->setCurrency( $currency );
+        }
+
+        if ('' == $channel->getTax()) {
+            $channel->setTax( $core->getDefaultTaxRate() );
+        }
+
         return $channel;
     }
 }

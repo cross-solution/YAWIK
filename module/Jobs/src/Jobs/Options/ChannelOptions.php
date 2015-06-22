@@ -50,14 +50,14 @@ class ChannelOptions extends AbstractOptions {
      *
      * @var string $currency
      */
-    protected $currency="€";
+    protected $currency;
 
     /**
      * Tax of the channel
      *
      * @var int $tax
      */
-    protected $tax=19;
+    protected $tax;
 
     /**
      * Label of the Channel.

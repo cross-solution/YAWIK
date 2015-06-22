@@ -67,13 +67,23 @@ $sum = 0;
                 <?php $channelData=$channels->getChannel($portalName); ?>
                 <tr>
                     <td><?php echo $channelData->label ?></td>
-                    <td><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
+                    <td><?php echo $this->currencyFormat($channelData->price, $channelData->currency) ?></td>
                 </tr>
                 <?php $sum += (int) $channelData->price; ?>
 
         <?php endforeach; ?>
-        <tr><td>Preis (netto)</td><td><?php echo $this->currencyFormat(round($sum / 1.19,2), 'EUR')  ?></td></tr>
-        <tr><td>MwSt (19%)</td><td><?php echo $this->currencyFormat(($sum - round($sum / 1.19,2)), 'EUR') ?></td></tr>
+        <tr>
+            <td><?php echo $this->translate("Price")?>:</td>
+            <td><?php echo $this->currencyFormat((round($sum,2)), $channelData->currency) ?></td>
+        </tr>
+        <tr>
+            <td><?php echo $this->translate("plus FAT")?> (<?php echo $channelData->tax?>%)</td>
+            <td><?php echo $this->currencyFormat((round($sum * $channelData->tax/100,2)), $channelData->currency) ?></td>
+        </tr>
+        <tr>
+            <td><?php echo $this->translate("Invoice amount")?>:</td>
+            <td><?php echo $this->currencyFormat((round(($sum * $channelData->tax/100)+$sum,2)), $channelData->currency) ?></td>
+        </tr>
     </table>
 <?php endif; ?>
 

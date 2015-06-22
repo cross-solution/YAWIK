@@ -44,7 +44,7 @@ class PaginationQuery extends AbstractPaginationQuery
         $user = $this->auth->getUser();
         $isRecruiter = $user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($user, User::ROLE_RECRUITER);
         $isAdmin = User::ROLE_ADMIN == $user->getRole();
-        $showPendingJobs = $isAdmin && isset($value['status']) && 'created' == $value['status'];
+        $showPendingJobs = $isAdmin && isset($value['status']) && Status::CREATED == $value['status'];
 
         if ($isRecruiter && (!isset($value['by']) || $value['by'] != 'guest') && !$showPendingJobs) {
             /*
@@ -62,7 +62,7 @@ class PaginationQuery extends AbstractPaginationQuery
                         break;
                 }
             }
-            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' && $value['status'] != 'created') {
+            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' && $value['status'] != Status::CREATED) {
                 $queryBuilder->field('status.name')->equals((string) $value['status']);
             }
         } else if ($showPendingJobs) {

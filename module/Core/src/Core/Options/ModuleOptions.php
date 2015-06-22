@@ -73,6 +73,21 @@ class ModuleOptions extends AbstractOptions {
     protected $defaultLanguage = 'en';
 
     /**
+     * default currency used, if no currency is set
+     *
+     * @var string
+     */
+    protected $defaultCurrencyCode ="USD";
+
+    /**
+     * default tax rate used, if no tax rate is set
+     *
+     * @var string
+     */
+    protected $defaultTaxRate ="19";
+
+
+    /**
      * @param $siteName
      * @return $this
      */
@@ -171,5 +186,45 @@ class ModuleOptions extends AbstractOptions {
      */
     public function isDetectLanguage() {
         return $this->detectLanguage;
+    }
+
+    /**
+     * Sets the default language
+     *
+     * @param $defaultCurrency
+     * @return $this
+     */
+    public function setDefaultCurrencyCode($defaultCurrency) {
+        $this->defaultCurrencyCode=$defaultCurrency;
+        return $this;
+    }
+
+    /**
+     * Gets the default languages
+     *
+     * @return string
+     */
+    public function getDefaultCurrencyCode() {
+        return $this->defaultCurrencyCode;
+    }
+
+    /**
+     * Sets the default tax rate
+     *
+     * @param $defaultTaxRate
+     * @return $this
+     */
+    public function setDefaultTaxRate($defaultTaxRate) {
+        $this->defaultTaxRate=$defaultTaxRate;
+        return $this;
+    }
+
+    /**
+     * Gets the default tax rate
+     *
+     * @return string
+     */
+    public function getDefaultTaxRate() {
+        return $this->defaultTaxRate;
     }
 }
