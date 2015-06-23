@@ -178,4 +178,36 @@ interface InfoInterface extends EntityInterface
      * @since 0.19 added parameter $emailIfEmpty
      */
     public function getDisplayName($emailIfEmpty = true);
+
+    /**
+     * Sets the users postal Code
+     *
+     * @param string $postalCode
+     * @since 0.20
+     */
+    public function setPostalCode($postalCode);
+
+    /**
+     * Gets the users postal Code
+     *
+     * @since 0.20
+     * @return string
+     */
+    public function getPostalCode();
+
+    /**
+     * Sets the users city
+     *
+     * @param string $city
+     * @since 0.20
+     */
+    public function setCity($city);
+
+    /**
+     * Gets the users city
+     *
+     * @since 0.20
+     * @return string
+     */
+    public function getCity();
 }  

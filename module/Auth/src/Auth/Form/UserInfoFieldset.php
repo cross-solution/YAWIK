@@ -11,9 +11,12 @@ namespace Auth\Form;
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Fieldset;
-use Core\Entity\RelationEntity;
 use Core\Form\ViewPartialProviderInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator\StringLength;
+use Zend\Validator\NotEmpty;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\File;
 
 class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                                                    InputFilterProviderInterface
@@ -54,9 +57,6 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
 	public function init()
     {
         $this->setName('info');
-             //->setLabel( /* @translate */ 'personal informations');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
-
         
         $this->add(array(
             'name' => 'email',
@@ -73,7 +73,7 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         ));
         
         $this->add(array(
-        		'name' => 'postalcode',
+        		'name' => 'postalCode',
         		'options' => array(
         				'label' => /* @translate */ 'Postalcode'
         		)
@@ -148,8 +148,8 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                     array('name' => '\Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
-                            new \Zend\Validator\NotEmpty(),
-                            new \Zend\Validator\StringLength(array('max' => 50))
+                            new NotEmpty(),
+                            new StringLength(array('max' => 50))
                 ),
             ),
             'lastName' => array(
@@ -158,8 +158,8 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                     array('name' => 'Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
-                    new \Zend\Validator\NotEmpty(),
-                    new \Zend\Validator\StringLength(array('max' => 50))
+                    new NotEmpty(),
+                    new StringLength(array('max' => 50))
                 ),
             ),
             'email' => array(
@@ -168,9 +168,9 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                     array('name' => 'Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
-                        new \Zend\Validator\NotEmpty(),
-                        new \Zend\Validator\StringLength(array('max' => 100)),
-                        new \Zend\Validator\EmailAddress()
+                        new NotEmpty(),
+                        new StringLength(array('max' => 100)),
+                        new EmailAddress()
                 )
             ),
             'image' => array(
@@ -178,8 +178,8 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
                 'filters'  => array(
                 ),
                 'validators' => array(
-                    new \Zend\Validator\File\Exists(),
-                    new \Zend\Validator\File\Extension(array('extension' => array('jpg', 'png', 'jpeg', 'gif'))),
+                    new File\Exists(),
+                    new File\Extension(array('extension' => array('jpg', 'png', 'jpeg', 'gif'))),
                 ),
             ),
         );

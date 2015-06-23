@@ -152,6 +152,7 @@ class User extends AbstractRepository
      * Finds user by internal id
      * 
      * @param array $ids
+     * @return \MongoCursor
      */
     public function findByIds(array $ids)
     {

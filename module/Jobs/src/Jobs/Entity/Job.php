@@ -674,7 +674,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         return $this;
     }
     /**
-     * returns an uri to the organisations logo
+     * returns an uri to the organization logo
      *
      * @deprecated
      * @return string
