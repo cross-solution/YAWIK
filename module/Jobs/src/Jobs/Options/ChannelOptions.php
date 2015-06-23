@@ -67,6 +67,13 @@ class ChannelOptions extends AbstractOptions {
     protected $label;
 
     /**
+     * Logo of the Channel.
+     *
+     * @var string
+     */
+    protected $logo;
+
+    /**
      * days to publish a job posting
      *
      * @var int $publishDuration
@@ -395,6 +402,28 @@ class ChannelOptions extends AbstractOptions {
     public function setParams($params)
     {
         $this->params = $params;
+        return $this;
+    }
+
+    /**
+     * Gets the logo of a channel (Jobboard)
+     *
+     * @return string|null
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * Set the logo of a channel (Jobboard)
+     *
+     * @param $logo
+     * @return $this
+     */
+    public function setLogo($logo = null)
+    {
+        $this->logo = $logo;
         return $this;
     }
 }

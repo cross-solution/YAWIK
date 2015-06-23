@@ -181,4 +181,15 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $this->options->setParams($p);
         $this->assertEquals($p,$this->options->getParams());
     }
+
+    /**
+     * @covers Jobs\Options\ChannelOptions::getLogo
+     * @covers Jobs\Options\ChannelOptions::setLogo
+     */
+    public function testSetGetLogo()
+    {
+        $input="test.logo.gif";
+        $this->options->setLogo($input);
+        $this->assertEquals($input,$this->options->getLogo());
+    }
 }
