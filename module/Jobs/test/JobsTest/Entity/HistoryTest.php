@@ -50,13 +50,13 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     public function provideCreatingInstancesTestData()
     {
         return array(
-            array("CREATED",              'message1'  , new Status("CREATED"),              "message1"),
-            array("WAITING_FOR_APPROVAL", 'message2'  , new Status("WAITING_FOR_APPROVAL"), "2"),
-            array("REJECTED",             'message3'  , new Status("REJECTED"),             "3"),
-            array("PUBLISH",              'message4'  , new Status("PUBLISH"),              "4"),
-            array("ACTIVE",               'message5'  , new Status("ACTIVE"),               "5"),
-            array("INACTIVE",             'message6'  , new Status("INACTIVE"),             "6"),
-            array("EXPIRED",              'message7'  , new Status("EXPIRED"),              "7"),
+            array("CREATED",               null       , new Status("CREATED"),              "[System]"),
+            array("WAITING_FOR_APPROVAL", 'message2'  , new Status("WAITING_FOR_APPROVAL"), "message2"),
+            array("REJECTED",             'message3'  , new Status("REJECTED"),             "message3"),
+            array("PUBLISH",              'message4'  , new Status("PUBLISH"),              "message4"),
+            array("ACTIVE",               'message5'  , new Status("ACTIVE"),               "message5"),
+            array("INACTIVE",             'message6'  , new Status("INACTIVE"),             "message6"),
+            array("EXPIRED",              'message7'  , new Status("EXPIRED"),              "message7"),
         );
     }
 
@@ -72,10 +72,10 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatingInstances($status, $message, $expectedStatus, $expectedMessage)
     {
-        $target = null === $status ? new History() : new History($status);
+        $target = null === $message ? new History($status) : new History($status,$message);
 
         $this->assertAttributeEquals($expectedStatus, 'status', $target);
-//        $this->assertAttributeEquals($expectedMessage, 'message', $target);
+        $this->assertAttributeEquals($expectedMessage, 'message', $target);
     }
 
 

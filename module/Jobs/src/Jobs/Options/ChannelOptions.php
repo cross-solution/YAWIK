@@ -144,24 +144,6 @@ class ChannelOptions extends AbstractOptions {
         return $this->key;
     }
 
-    public function getFormattedPrice($currencyPosition = 'right')
-    {
-
-        $price = sprintf('%01.2f', $this->getPrice());
-
-        if ('none' === $currencyPosition) {
-            return $price;
-        }
-
-        $currency = $this->getCurrency();
-
-        if ('left' == $currencyPosition) {
-            return $currency . ' ' . $price;
-        }
-
-        return $price . ' ' . $currency;
-    }
-
     /**
      * Sets the unique key of a channel
      *

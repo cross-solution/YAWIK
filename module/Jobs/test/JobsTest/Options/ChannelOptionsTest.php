@@ -181,16 +181,4 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $this->options->setParams($p);
         $this->assertEquals($p,$this->options->getParams());
     }
-
-    /**
-     * @covers Jobs\Options\ChannelOptions::getFormattedPrice
-     */
-    public function testFormattedPrice()
-    {
-        $this->options->setCurrency('EUR');
-        $this->options->setPrice(100);
-        $this->assertEquals("100.00 EUR",$this->options->getFormattedPrice('right'));
-        $this->assertEquals("EUR 100.00",$this->options->getFormattedPrice('left'));
-    }
-
 }
