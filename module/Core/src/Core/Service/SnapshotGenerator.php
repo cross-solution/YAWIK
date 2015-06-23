@@ -12,13 +12,26 @@ namespace Core\Service;
 
 use Core\Entity\Hydrator\EntityHydrator;
 
-
+/**
+ * Class SnapshotGenerator
+ * @package Core\Service
+ */
 class SnapshotGenerator {
 
+    /**
+     * @var
+     */
     protected $hydrator;
 
+    /**
+     * @var
+     */
     protected $source;
 
+    /**
+     * @param $hydrator
+     * @return $this
+     */
     public function setHydrator($hydrator)
     {
         if ($hydrator instanceof EntityHydrator) {
@@ -27,6 +40,9 @@ class SnapshotGenerator {
         return $this;
     }
 
+    /**
+     * @return EntityHydrator
+     */
     public function getHydrator()
     {
         if (!isset($this->hydrator)) {
@@ -35,18 +51,27 @@ class SnapshotGenerator {
         return $this->hydrator;
     }
 
-
+    /**
+     * @param $source
+     * @return $this
+     */
     public function setSource($source)
     {
         $this->source = $source;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSource()
     {
         return $this->source;
     }
 
+    /**
+     * @return array
+     */
     public function getSnapshot()
     {
         $hydrator = $this->getHydrator();

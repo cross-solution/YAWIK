@@ -16,6 +16,7 @@ use Zend\Mvc\Controller\Plugin\PluginInterface;
 use Zend\Stdlib\DispatchableInterface as Dispatchable;
 use Zend\Stdlib\ArrayUtils;
 use Core\Entity\Hydrator\EntityHydrator;
+use Core\Repository\RepositoryInterface;
 
 /**
  * Class EntitySnapshot
@@ -23,53 +24,89 @@ use Core\Entity\Hydrator\EntityHydrator;
  */
 class EntitySnapshot implements PluginInterface
 {
+    /**
+     * @var
+     */
     protected $serviceLocator;
 
+    /**
+     * @var RepositoryInterface
+     */
     protected $repositories;
 
+    /**
+     * @var array
+     */
     protected $options;
 
+    /**
+     * @var
+     */
     protected $entity;
 
+    /**
+     * @var SnapshotGenerator
+     */
     protected $generator;
 
+    /**
+     * @param $serviceLocator
+     * @return $this
+     */
     public function setServiceLocator($serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getServiceLocator()
     {
         return $this->serviceLocator;
     }
 
+    /**
+     * @param $repositories
+     * @return $this
+     */
     public function setRepositories($repositories)
     {
         $this->repositories = $repositories;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRepositories()
     {
         return $this->repositories;
     }
 
+    /**
+     * @param $options
+     * @return $this
+     */
     public function setOptions($options)
     {
         $this->options = $options;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getOptions()
     {
         return $this->options;
     }
 
     /**
-     *
-     * @param $entity
+     * @param null $entity
      * @param array $options
+     * @return $this
      */
     public function __invoke($entity = Null, $options=array()) {
         if (is_array($entity)) {
@@ -86,6 +123,10 @@ class EntitySnapshot implements PluginInterface
         return $this;
     }
 
+    /**
+     * @param null $entity
+     * @return $this
+     */
     public function snapshot($entity = Null)
     {
         if (isset($entity)) {
@@ -97,26 +138,14 @@ class EntitySnapshot implements PluginInterface
         }
 
         if ($this->entity instanceof SnapshotGeneratorProviderInterface) {
-            $serviceLocator = $this->getServicelocator();
             $generator = $this->getGenerator();
             $data = $generator->getSnapshot();
 
             // snapshot-class
-            $target = Null;
-            if (array_key_exists('target', $this->options)) {
-                $target = $this->options['target'];
-                if (is_string($target)) {
-                    if ($serviceLocator->has($target)) {
-                        $target = $serviceLocator->get($target);
-                    }
-                    else {
-                        $target = new $target;
-                    }
-                    $target($data);
-                }
-            }
+            $target = $this->getTarget();
 
             if (isset($target)) {
+                $target->__invoke($data);
                 $className = get_class($this->entity);
                 // @TODO, have to be abstract
                 $snapShotMetaClassName = '\\' . $className . 'SnapshotMeta';
@@ -126,6 +155,7 @@ class EntitySnapshot implements PluginInterface
                 $this->getRepositories()->store($meta);
             }
         }
+        return $this;
     }
 
     /**
@@ -134,36 +164,69 @@ class EntitySnapshot implements PluginInterface
      * return array() = there is a snapshot but no difference
      *
      * @param $entity
+     * @return array|null
      */
     public function diff($entity)
     {
-        $this->entity = $entity;
-        $generator = $this->getGenerator();
-        $dataHead = $generator->getSnapshot();
-        if (empty($dataHead)) {
-            return Null;
-        }
-
-        $className = get_class($this->entity);
-        // @TODO: getting the right name for the repository is highly volatile, reminder, the name of repository is in the annotations of the entity-class
-        $classNameE = explode('\\', $className);
-        $repoName = $classNameE[0] . '/' . $classNameE[1];
-        if (2 < count($classNameE)) {
-            $repoName = $classNameE[0] . '/' . $classNameE[2];
-        }
-        $snapShotMetaClassName = $repoName . 'SnapshotMeta';
-        $repositorySnapshotMeta = $this->getRepositories()->get($snapShotMetaClassName);
-        $snapshot = $repositorySnapshotMeta->findSnapshot($this->entity);
-        // an snapshot has to be so simple that there is no need for a special hydrator
-        $hydrator = new EntityHydrator();
-        $dataLast = $hydrator->extract($snapshot);
-        if (empty($dataLast)) {
-            // there is no Snapshot, but returning an empty array would make a wrong conclusion,
-            // that there is a snapshot, and it has no differences.
-            // actually, if there is a snapshot, it always differ (dateCreated)
-            return Null;
-        }
+        if ($entity instanceof SnapshotGeneratorProviderInterface) {
+            $this->entity = $entity;
+            $generator = $this->getGenerator();
+            $targetClass = $this->getTarget(false);
+            $dataHead = $generator->getSnapshot();
+            if (empty($dataHead) || empty($targetClass)) {
+                return Null;
+            }
+            $repositorySnapshotMeta = $this->getRepositories()->getRepository($targetClass . "Meta");
+            $snapshot = $repositorySnapshotMeta->findSnapshot($this->entity);
+            // an snapshot has to be so simple that there is no need for a special hydrator
+            $hydrator = new EntityHydrator();
+            $dataLast = $hydrator->extract($snapshot);
+            if (empty($dataLast)) {
+                // there is no Snapshot, but returning an empty array would make a wrong conclusion,
+                // that there is a snapshot, and it has no differences.
+                // actually, if there is a snapshot, it always differ (dateCreated)
+                return Null;
+            }
         return $this->array_compare($dataLast, $dataHead);
+        }
+        else {
+            // entity is not an implementation of SnapshotGeneratorProviderInterface
+        }
+        return $this;
+    }
+
+    /**
+     * the Target is the snapshotMeta-Class
+     *
+     * @param bool $generateInstance    most of the time we need an instance of the snapshot
+     *                                  but we need sometimes just the repository of the snapshotMeta,
+     *                                  and we just want the className.
+     *                                  If we make this parameter to False we just get the className
+     * @return null|string
+     */
+    protected function getTarget($generateInstance = True)
+    {
+        $serviceLocator = $this->getServicelocator();
+        // set the actual options
+        $this->getGenerator();
+        $target = Null;
+        if (array_key_exists('target', $this->options)) {
+            $target = $this->options['target'];
+            if (is_string($target)) {
+                if ($serviceLocator->has($target)) {
+                    $target = $serviceLocator->get($target);
+                    if ($generateInstance) {
+                        $target = get_class($target);
+                    }
+                }
+                else {
+                    if ($generateInstance) {
+                        $target = new $target;
+                    }
+                }
+            }
+        }
+        return $target;
     }
 
     /**
@@ -198,7 +261,6 @@ class EntitySnapshot implements PluginInterface
             if (!isset($generator)) {
                 $generator = $this->entity->getSnapshotGenerator();
                 if (is_array($generator)) {
-                    // array_merge
                     $this->options = ArrayUtils::merge($generator, $this->options);
                     if (array_key_exists('generator', $generator)) {
                         $generator = $this->options['generator'];
@@ -258,6 +320,8 @@ class EntitySnapshot implements PluginInterface
      *
      * @param $array1
      * @param $array2
+     * @param int $maxDepth
+     * @return array
      */
     protected function array_compare($array1, $array2, $maxDepth = 3)
     {

@@ -14,8 +14,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Exception\ImmutablePropertyException;
 
 /**
- * Class JobSnapshotMeta
- * @package Jobs\Entity
+ * Class SnapshotMeta
+ * @package Core\Entity
  *
  * @ODM\MappedSuperclass
  */
@@ -30,7 +30,7 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity {
     protected $id;
 
     /**
-    * @var Entity
+    * @var EntityInterface
     * @ODM\EmbedOne
     * @ODM\Index
      */
@@ -42,6 +42,11 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity {
      */
     protected $sourceId;
 
+    /**
+     * @param $entity
+     * @return $this
+     * @throws \Core\Exception\ImmutablePropertyException
+     */
     public function setEntity($entity)
     {
         if (isset($this->entity)) {
@@ -51,11 +56,17 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity {
         return $this;
     }
 
+    /**
+     * @return EntityInterface
+     */
     public function getEntity()
     {
         return $this->entity;
     }
 
+    /**
+     * @param $id
+     */
     public function setSourceId($id)
     {
         $this->sourceId = $id;

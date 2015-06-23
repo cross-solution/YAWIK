@@ -10,7 +10,8 @@
 
 namespace Jobs\Entity;
 
-use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
+//use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
+use Core\Entity\Snapshot as BaseEntity;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Entity\OrganizationInterface;
@@ -32,9 +33,8 @@ use Core\Entity\EntityInterface;
  */
 class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface {
 
-
     /**
-     *
+     * @var String
      */
     protected $jobId;
 
@@ -304,27 +304,23 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
     }
 
     /**
-     * @param $jobEntity
-     * @return mixed
-     * @ODM\PreUpdate
+     * transfer all attributes from the job-entity to the snapshot-entity
+     *
+     * @TODO this could go into an abstract class since it is nearly allways the same
+     *
+     * @param $source
+     * @param $target
+     * @return $this
      */
-    public function __invoke($data)
-    {
-        foreach ($data as $key => $attribute) {
-            $this->$key = $attribute;
-        }
-        return $this;
-    }
-
     protected function copyAttributes($source, $target) {
         $methods = array_filter( get_class_methods($source), function ($v) {return 3 < strlen($v) && strpos($v,'get') === 0; });
+        // these attributes don't need to get copied
         $methods = array_diff($methods, array('getId', 'getHydrator', 'getHiringOrganizations'));
         $methods = array_map(function ($v) { return lcfirst(substr($v, 3)); }, $methods);
         foreach ($methods as $attribute) {
             $element = $source->$attribute;
             if (isset($element)) {
-                $className = get_class($element);
-                // when the parameter ist rigid you can't assign an non-existing elements
+                // when the parameter is rigid you can't assign an non-existing elements
                 if (method_exists($target, 'set' . lcfirst($attribute))) {
                     $target->$attribute = $element;
                 }
@@ -827,8 +823,10 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
     }
 
     /**
+     * the permissions must be mutable because of a flaw in the design of an upper class
+     *
      * @param PermissionsInterface $permissions
-     * @throws \Core\Exception\ImmutablePropertyException
+     * @return $this
      */
     public function setPermissions(PermissionsInterface $permissions)
     {
@@ -881,7 +879,8 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
     }
 
     /**
-     * {@inheritdoc}
+     * @param EntityInterface $templateValues
+     * @return $this
      */
     public function setTemplateValues(EntityInterface $templateValues = null)
     {
@@ -892,7 +891,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
     /**
      * Returns the string identifier of the Resource
      *
-     * @return string
+     * @return null|string
      */
     public function getResourceId()
     {

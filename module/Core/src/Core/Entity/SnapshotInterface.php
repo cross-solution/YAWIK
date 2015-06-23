@@ -10,7 +10,13 @@
 
 namespace Core\Entity;
 
-
+/**
+ * Interface SnapshotInterface
+ *
+ * just for identification if a entity is dedicated for snapshots
+ * 
+ * @package Core\Entity
+ */
 interface SnapshotInterface {
 
 } 
