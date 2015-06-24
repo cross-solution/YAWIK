@@ -216,6 +216,7 @@ return array(
         'factories' => array(
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
+            'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',

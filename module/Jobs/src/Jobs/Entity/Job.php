@@ -19,13 +19,15 @@ use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\SnapshotGeneratorProviderInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
+class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, SnapshotGeneratorProviderInterface
+{
 
     /**
      * unique ID of a job posting used by applications to reference
@@ -908,4 +910,28 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     {
         return !$this->isDraft && $this->status->name == 'active';
     }
+
+    /**
+     * @return Job
+     */
+    public function makeSnapshot()
+    {
+        $snapshot = new JobSnapshot($this);
+        return $snapshot;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getSnapshotGenerator()
+    {
+        $generator = array (
+            'hydrator' => '',
+            'target' => 'Jobs\Entity\JobSnapshot',
+            'exclude' => array('permissions', 'history')
+        );
+        return $generator;
+    }
+
+
 }
