@@ -487,6 +487,19 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     public function getUser() {
         return $this->user;
     }
+
+    public function unsetUser($removePermissions = true)
+    {
+        if ($this->user) {
+            if ($removePermissions) {
+                $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL);
+            }
+            $this->user=null;
+        }
+
+        return $this;
+    }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setApplications()

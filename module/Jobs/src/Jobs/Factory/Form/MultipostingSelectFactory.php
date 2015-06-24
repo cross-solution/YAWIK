@@ -35,13 +35,13 @@ class MultipostingSelectFactory implements FactoryInterface
         $router = $services->get('Router');
         $select  = new MultipostingSelect();
         $helpers = $services->get('ViewHelperManager');
-        $headScript = $helpers->get('headScript');
-        $basePath  = $helpers->get('basePath');
+       // $headScript = $helpers->get('headScript');
+       /// $basePath  = $helpers->get('basePath');
         $currencyFormat  = $helpers->get('currencyFormat');
 
         $channels = $serviceLocator->getServiceLocator()->get('Jobs/Options/Provider');
 
-        $headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
+        //$headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
 
         $groups = array();
 
