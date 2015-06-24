@@ -21,6 +21,7 @@ class Base extends SummaryForm
 {
     /**
      * Label for the form.
+     *
      * @var string
      */
     protected $label        = /*@translate*/ 'Cover Letter';

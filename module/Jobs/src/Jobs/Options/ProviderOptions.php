@@ -33,7 +33,6 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     public function __construct()
     {
         $this->channels = array();
-        //$this->long_label = '';
     }
 
     /**
@@ -45,6 +44,8 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     }
 
     /**
+     * Adds a channel (aka job portal)
+     *
      * @param ChannelOptions $channel
      * @return $this
      */
@@ -56,6 +57,8 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     }
 
     /**
+     * Get a channel by "key"
+     *
      * @param string $key
      * @return $this
      */

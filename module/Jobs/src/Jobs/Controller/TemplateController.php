@@ -55,9 +55,11 @@ class TemplateController extends AbstractActionController  {
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
+        $isAdmin=$this->auth()->isAdmin();
+
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
-        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser()) && ! $this->auth()->isAdmin) {
+        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser()) && ! $isAdmin) {
             $this->response->setStatusCode(404);
             $model->setVariable('message','job is not available');
         } else {

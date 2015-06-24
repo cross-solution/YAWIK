@@ -14,50 +14,47 @@ $defaultTaxRate = $options->defaultTaxRate;
 
 if ($this->renderSummary): echo $this->render('jobs/form/multiposting-select');
 else:
-?><div id="<?php echo $this->element->getAttribute('id') ?>" class="mcp-checkboxes"><?php
-    $valueOptions = $this->element->getValueOptions();
-    foreach ($valueOptions as $category => $vOpts):
-        ?><div class="row">
-            <div class="col-md-12"><h4><?php echo $vOpts['label'] ?></h4></div>
-        </div>
-        <div class="row">
-            <?php foreach ($vOpts['options'] as $v => $opt):
-                $checked = in_Array($v, $this->element->getValue());
-                $class =  $checked ? 'btn-success active' : 'btn-default';
-                $spec = explode('|', $opt)?>
-            <div class="col-md-4"><?php /*<div class="panel <?php echo $class ?>">
-                <div class="panel-heading" style="cursor:pointer"><?php echo $spec[0] ?></div>
-                <div class="panel-body"><?php echo sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>') ?>
-                <input type="checkbox" name="<?php echo $this->element->getName()?>[<?php echo $v ?>]" class="hidden"></div>
-            </div> */?>
-                <button style="width: 100%; margin-bottom: 3px;" type="button"
-                        class="mpc-button btn <?php echo $class ?>" aria-pressed="<?php echo $checked ? 'true' : 'false' ?>"
-                        data-toggle="button"
-                        data-placement="top" data-trigger="hover" data-html="true"
-                        title="<?php echo $spec[1] ?>"
-                        data-content="<?php echo $this->escapeHtmlAttr(sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>'))?>"
-                        data-price="<?php echo $spec[7] ?>"
-                    >
-                    <?php echo $spec[0] ?>
-                    <input <?php echo $checked ? 'checked ' : '' ?>type="checkbox" name="<?php echo $this->element->getName()?>[]" class="hidden" value="<?php echo $v ?>">
-                </button>
-            </div>
-        <?php endforeach ?>
-        </div>
-    <?php endforeach;
-    //echo $this->formRow()->render($this->element, /* ignoreViewPartial */ true);
     ?>
-
+    <div id="<?php echo $this->element->getAttribute('id') ?>" class="mcp-checkboxes">
+        <?php $valueOptions = $this->element->getValueOptions();?>
+        <?php foreach ($valueOptions as $category => $vOpts):?>
+            <div class="row">
+                <div class="col-md-12"><h4><?php echo $vOpts['label'] ?></h4></div>
+            </div>
+            <div class="row">
+                <?php foreach ($vOpts['options'] as $v => $opt):
+                    $checked = in_Array($v, $this->element->getValue());
+                    $class =  $checked ? 'btn-success active' : 'btn-default';
+                    $spec = explode('|', $opt)?>
+                    <div class="col-md-4">
+                        <?php
+                        $popup=$spec[8]?'<img src="' . $spec[8]. '" alt="' . $spec[1] . '" class="img-responsive">':'' .
+                            sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>');
+                        ?>
+                        <button style="width: 100%; margin-bottom: 3px;" type="button text-right"
+                                class="mpc-button btn <?php echo $class ?>" aria-pressed="<?php echo $checked ? 'true' : 'false' ?>"
+                                data-toggle="button"
+                                data-placement="top" data-trigger="hover" data-html="true"
+                                title="<?php echo $spec[1] ?>"
+                                data-content="<?php echo $this->escapeHtmlAttr($popup);?>"
+                                data-price="<?php echo $spec[7] ?>">
+                            <?php echo $spec[0] ?>
+                            <input <?php echo $checked ? 'checked ' : '' ?>type="checkbox" name="<?php echo $this->element->getName()?>[]" class="hidden" value="<?php echo $v ?>">
+                        </button>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        <?php endforeach;?>
 
         <div id="<?php echo $this->element->getAttribute('id') ?>-total" class="text-right" style="padding: 10px 5px">
 
-                <strong><span></span> <?php echo $defaultCurrencyCode?></strong>
+            <strong><span></span> <?php echo $defaultCurrencyCode?></strong>
 
         </div>
 
-    <?php
-    // Element Templates
-    $resultTmpl = '
+        <?php
+        // Element Templates
+        $resultTmpl = '
     <div class="clearfix">
         <div class="pull-left">
             <strong>%name - %headline</strong><br>
@@ -69,13 +66,13 @@ else:
     </div>
     ';
 
-    $selectTmpl = '
+        $selectTmpl = '
         %name (  %duration ) [ %nicePrice ]
     ';
 
-    ?>
-    <span id="<?php echo $this->element->getAttribute('id') ?>-result-tmpl" data-template="<?php echo $this->escapeHtmlAttr($resultTmpl) ?>"></span>
-    <span id="<?php echo $this->element->getAttribute('id') ?>-select-tmpl" data-template="<?php echo $this->escapeHtmlAttr($selectTmpl) ?>"></span>
-    <span id="<?php echo $this->element->getAttribute('id') ?>-currency-tmpl" data-template="<?php echo $this->numberFormat(1234.56) ?>"></span>
-</div>
+        ?>
+        <span id="<?php echo $this->element->getAttribute('id') ?>-result-tmpl" data-template="<?php echo $this->escapeHtmlAttr($resultTmpl) ?>"></span>
+        <span id="<?php echo $this->element->getAttribute('id') ?>-select-tmpl" data-template="<?php echo $this->escapeHtmlAttr($selectTmpl) ?>"></span>
+        <span id="<?php echo $this->element->getAttribute('id') ?>-currency-tmpl" data-template="<?php echo $this->numberFormat(1234.56) ?>"></span>
+    </div>
 <?php endif; // (else > $this->renderSummary) ?>

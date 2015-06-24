@@ -50,7 +50,7 @@ class ManageController extends AbstractActionController {
     /**
      * Dispatch listener callback.
      *
-     * Attachs the MailSender aggregate listener to the job event manager.
+     * Attaches the MailSender aggregate listener to the job event manager.
      *
      * @param MvcEvent $e
      * @since 0.19

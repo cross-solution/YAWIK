@@ -23,7 +23,7 @@ use Auth\Entity\UserImage;
  * @group  Jobs
  * @group  Jobs.Entity
  */
-class JobsTest extends \PHPUnit_Framework_TestCase
+class InfoTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The "Class under Test"

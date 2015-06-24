@@ -12,6 +12,7 @@ namespace Auth\View\Helper;
 
 use Zend\Authentication\AuthenticationService;
 use Zend\View\Helper\AbstractHelper;
+use Auth\Entity\User;
 
 /**
  * View helper to access authentication service and the
@@ -100,17 +101,25 @@ class Auth extends AbstractHelper
         }
     }
 
-
     /**
      * Checks if an user is authenticated.
      *
      * Proxies to \Zend\AuthenticationService\AuthenticationService::hasIdentity()
      *
-     * @return boolean
+     * @return bool
      * @use getService()
      */
     public function isLoggedIn()
     {
         return $this->getService()->hasIdentity();
+    }
+
+    /**
+     * Checks, if a user is an Admin
+     *
+     * @return bool
+     */
+    public function isAdmin() {
+        return $this->getService()->getUser()->getRole() == User::ROLE_ADMIN;
     }
 }
