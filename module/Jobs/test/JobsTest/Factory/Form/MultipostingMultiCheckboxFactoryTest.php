@@ -24,17 +24,27 @@ use Jobs\Factory\Form\MultipostingMultiCheckboxFactory;
 class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @testdox Extends \Jobs\Factory\Form\MultipostingSelectFactory
+     * @testdox Implements \Zend\ServiceManager\FactoryInterface
      */
-    public function testExtendsMultiPostingSelectFactory()
+    public function testImplementsFactoryInterface()
     {
         $target = new MultipostingMultiCheckboxFactory();
 
-        $this->assertInstanceOf('\Jobs\Factory\Form\MultipostingSelectFactory', $target);
+        $this->assertInstanceOf('\Zend\ServiceManager\FactoryInterface', $target);
+    }
+
+    public function testAllowsSettingAndGettingOfParentFactory()
+    {
+        $target = new MultipostingMultiCheckboxFactory();
+        $factory = $this->getMockForAbstractClass('\Zend\ServiceManager\FactoryInterface');
+
+        $this->assertInstanceOf('\Jobs\Factory\Form\MultipostingSelectFactory', $target->getParentFactory(), 'Wrong default parent factory ');
+        $this->assertSame($target, $target->setParentFactory($factory), 'Fluent interface broken');
+        $this->assertSame($factory, $target->getParentFactory());
     }
 
     /**
-     * Allows creation of a multiposting multicheckbox element
+     * @testdox Allows creation of a multiposting multicheckbox element
      */
     public function testCreateService()
     {
@@ -45,12 +55,15 @@ class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
         $select->expects($this->once())
                ->method('setHeadscripts')->with(array('Jobs/js/form.multiposting-checkboxes.js'));
 
+        $factory = $this->getMockBuilder('\Zend\ServiceManager\FactoryInterface')
+                        ->setMethods(array('createService'))->getMockForAbstractClass();
+        $factory->expects($this->once())->method('createService')->willReturn($select);
+
+
         $sm = $this->getMockForAbstractClass('\Zend\ServiceManager\ServiceLocatorInterface');
-        $sm->expects($this->once())
-           ->method('get')->with('Jobs/MultipostingSelectElement')
-           ->willReturn($select);
 
         $target = new MultipostingMultiCheckboxFactory();
+        $target->setParentFactory($factory);
 
         $actual = $target->createService($sm);
 
