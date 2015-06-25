@@ -25,7 +25,7 @@ $options = array(
     'operator' => array(
                           'companyShortName'=>'Your Company Name',
                           'companyFullName' => 'Your Company Name Ltd. & Co KG',
-                          'companyTax' => 'Your FAT Number',
+                          'companyTax' => 'Your VAT Number',
                           'postalCode' => 'xxxx',
                           'city' => '',
                           'street' => '',
@@ -60,7 +60,7 @@ $options = array(
     /**
      * The default currency defines the fallback currency, if no currency is set.
      */
-     'defaultCurrency' => 'EUR',
+     'defaultCurrencyCode' => 'EUR',
 
     /**
      * default tax rate used, if no tax rate is set

@@ -36,7 +36,7 @@ class ModuleOptions extends AbstractOptions {
     protected $operator=array(
         'companyShortName'=>'Your Company Name',
         'companyFullName' => 'Your Company Name Ltd. & Co KG',
-        'companyTax' => 'Your FAT Number',
+        'companyTax' => 'Your VAT Number',
         'postalCode' => 'xxxx',
         'city' => '',
         'street'=> '',
