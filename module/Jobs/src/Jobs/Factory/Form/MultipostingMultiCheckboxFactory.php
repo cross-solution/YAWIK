@@ -24,7 +24,7 @@ class MultipostingMultiCheckboxFactory extends MultipostingSelectFactory
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $select = parent::createService($serviceLocator);
+        $select = $serviceLocator->get('Jobs/MultipostingSelectElement');
         $select->setViewPartial('jobs/form/multiposting-checkboxes');
         $select->setHeadscripts(array('Jobs/js/form.multiposting-checkboxes.js'));
 
