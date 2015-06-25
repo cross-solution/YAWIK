@@ -117,7 +117,7 @@ if ($this->page == 2):
                         <td class="text-right"><?php echo $this->currencyFormat($total) ?></td>
                     </tr>
                     <tr>
-                        <td><?php echo $this->translate('plus FAT') ?>(<?php echo $channel->tax?>%)</td>
+                        <td><?php echo $this->translate('plus VAT') ?>(<?php echo $channel->tax?>%)</td>
                         <td class="text-right"><?php echo $this->currencyFormat($total * ($channel->tax / 100)); ?></td>
                     </tr>
                     <tr>

@@ -285,22 +285,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
     /**
      * @param $jobEntity
      */
-    public function __construct ($jobEntity) {
-
-        /*
-        $this->jobId = $this->id;
-        // simple scalar values
-        foreach ($this->attributes as $attribute) {
-            $this->$attribute = $jobEntity->$attribute;
-        }
-        // make a copy to avoid linking by references
-        $this->templateValues = new TemplateValues();
-        $this->copyAttributes($jobEntity->templateValues, $this->templateValues);
-
-        $this->organization = new Organization();
-        $this->copyAttributes($jobEntity->organization, $this->organization);
-        */
-
+    public function __construct () {
     }
 
     /**

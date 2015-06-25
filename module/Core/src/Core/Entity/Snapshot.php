@@ -11,6 +11,7 @@
 namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Core\Entity\EntityInterface;
 
 /**
  * Class Snapshot
@@ -28,7 +29,7 @@ abstract class Snapshot extends AbstractIdentifiableModificationDateAwareEntity 
     public function __invoke($data)
     {
         foreach ($data as $key => $attribute) {
-            $this->$key = $attribute;
+                $this->$key = $attribute;
         }
         return $this;
     }

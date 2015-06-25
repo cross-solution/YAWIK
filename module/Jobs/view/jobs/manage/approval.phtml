@@ -36,8 +36,8 @@ $channels = $sm->get('Jobs/Options/Provider');
                echo '<div class="col-md-6">' . $this->translate('new content') . '</div>';
                echo '</div>' . PHP_EOL . PHP_EOL;
                echo '<div class="row">' . PHP_EOL;
-               echo '<div class="col-md-6">' . $this->diffSnapshot[$diffKey][1] . '</div>';
                echo '<div class="col-md-6">' . $this->diffSnapshot[$diffKey][0] . '</div>';
+               echo '<div class="col-md-6">' . $this->diffSnapshot[$diffKey][1] . '</div>';
                echo '</div>' . PHP_EOL . PHP_EOL;
            }
        }

@@ -62,7 +62,7 @@ if ($this->renderSummary):?>
                             <td class="text-right"><?php echo $this->currencyFormat($total); ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo $this->translate('plus FAT') ?> (<?php echo $defaultTaxRate ?>%)</td>
+                            <td><?php echo $this->translate('plus VAT') ?> (<?php echo $defaultTaxRate ?>%)</td>
                             <td class="text-right"><?php echo $this->currencyFormat($total * ( $defaultTaxRate /100)); ?></td>
                         </tr>
                         <tr>

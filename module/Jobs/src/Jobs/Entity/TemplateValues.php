@@ -11,6 +11,7 @@
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
+use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -18,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
+class TemplateValues extends AbstractEntity
 {
 
     /**

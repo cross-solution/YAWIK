@@ -323,7 +323,7 @@ class EntitySnapshot implements PluginInterface
      * @param int $maxDepth
      * @return array
      */
-    protected function array_compare($array1, $array2, $maxDepth = 3)
+    protected function array_compare($array1, $array2, $maxDepth = 2)
     {
         $result = array();
         $arraykeys = array_unique(array_merge(array_keys($array1), array_keys($array2)));
@@ -344,7 +344,10 @@ class EntitySnapshot implements PluginInterface
                     }
                     elseif (is_object($array1[$key]) && is_object($array2[$key])) {
                         if (0 < $maxDepth) {
-                            $subResult = $this->array_compare((array) $array1[$key],(array) $array2[$key], $maxDepth - 1);
+                            $hydrator = new EntityHydrator();
+                            $a1 = $hydrator->extract($array1[$key]);
+                            $a2 = $hydrator->extract($array2[$key]);
+                            $subResult = $this->array_compare($a1,$a2, $maxDepth - 1);
                         }
                     }
                     else {

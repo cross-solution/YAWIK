@@ -77,7 +77,7 @@ $sum = 0;
             <td><?php echo $this->currencyFormat((round($sum,2)), $channelData->currency) ?></td>
         </tr>
         <tr>
-            <td><?php echo $this->translate("plus FAT")?> (<?php echo $channelData->tax?>%)</td>
+            <td><?php echo $this->translate("plus VAT")?> (<?php echo $channelData->tax?>%)</td>
             <td><?php echo $this->currencyFormat((round($sum * $channelData->tax/100,2)), $channelData->currency) ?></td>
         </tr>
         <tr>
