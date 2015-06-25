@@ -272,6 +272,8 @@ return array(
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
             //'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',
             'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingMultiCheckboxFactory',
+            /* THIS SERVICE NAME IS USED IN THE FACTORY ABOVE. DO NOT CHANGE */
+            'Jobs/MultipostingSelectElement'    => 'Jobs\Factory\Form\MultipostingSelectFactory',
         )
     ),
     

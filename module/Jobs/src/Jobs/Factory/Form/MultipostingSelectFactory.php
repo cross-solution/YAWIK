@@ -39,7 +39,7 @@ class MultipostingSelectFactory implements FactoryInterface
        /// $basePath  = $helpers->get('basePath');
         $currencyFormat  = $helpers->get('currencyFormat');
 
-        $channels = $serviceLocator->getServiceLocator()->get('Jobs/Options/Provider');
+        $channels = $services->get('Jobs/Options/Provider');
 
         //$headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
 
