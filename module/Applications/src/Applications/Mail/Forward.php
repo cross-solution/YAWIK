@@ -11,6 +11,7 @@
 
 namespace Applications\Mail;
 
+use Applications\Entity\Application;
 use Core\Mail\TranslatorAwareMessage;
 use Zend\Mime;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
@@ -26,7 +27,7 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
     protected $isInitialized = false;
     protected $serviceLocator;
     
-    public function setApplication($application)
+    public function setApplication(Application $application)
     {
         $this->application = $application;
         if ($this->isInitialized) {
