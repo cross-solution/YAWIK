@@ -12,24 +12,23 @@ namespace JobsTest\Entity;
 
 use Jobs\Entity\JobSnapshot;
 use \Jobs\Entity\TemplateValues;
-use Core\Exception\ImmutablePropertyException;
 
 /**
  * Class JobSnapshot
  * @package JobsTest\Entity
+ * @coversDefaultClass \Jobs\Entity\JobSnapshot
+ *
+ * @author Mathias Weitz <weitz@cross-solution.de>
+ * @group  Jobs
+ * @group  Jobs.Entity
  */
 class JobSnapshotTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var
+     * @var JobSnapshot
      */
     protected $snapShot;
-
-    /**
-     * @var
-     */
-    protected $jobMock;
 
     /**
      *

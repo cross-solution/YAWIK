@@ -18,7 +18,12 @@ class ChannelOptionsFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $channel = new ChannelOptions();
+        static $channel;
+
+        if (!$channel) {
+            $channel = new ChannelOptions();
+        }
+
         /* @var $core \Core\Options\ModuleOptions */
         $core = $serviceLocator->get("Core/Options");
 

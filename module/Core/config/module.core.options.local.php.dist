@@ -54,7 +54,20 @@ $options = array(
     /**
      * The defaultLanguage defines the fallback Language, if no language is set.
      */
-     'defaultLanguage' => 'de'
+     'defaultLanguage' => 'de',
+
+
+    /**
+     * The default currency defines the fallback currency, if no currency is set.
+     */
+     'defaultCurrency' => 'EUR',
+
+    /**
+     * default tax rate used, if no tax rate is set
+     */
+     'defaultTaxRate' => '19'
+
+
 );
 
 return array('core_options' => $options);
