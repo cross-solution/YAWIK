@@ -38,7 +38,7 @@ else:
                                 title="<?php echo $spec[1] ?>"
                                 data-content="<?php echo $this->escapeHtmlAttr($popup);?>"
                                 data-price="<?php echo $spec[7] ?>"<?php
-                                echo $disabled ? 'disabled' : ''?>>
+                                echo $isDisabled ? 'disabled' : ''?>>
                             <?php echo $spec[0] ?>
                             <input <?php echo $checked ? 'checked ' : '' ?>type="checkbox" name="<?php echo $this->element->getName()?>[]" class="hidden" value="<?php echo $v ?>">
                         </button>
