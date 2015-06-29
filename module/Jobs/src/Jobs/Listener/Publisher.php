@@ -105,6 +105,25 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 $viewModel = $serviceManager->get('Jobs/viewModelTemplateFilter')->__invoke($entity);
                 $html = $render->render($viewModel);
 
+                $host = $restClient->getHost();
+                if (!isset($host)) {
+                    throw new \RuntimeException('no host found for Provider');
+                }
+                $externalIdPublisher = Null;
+                $referencePublisher = Null;
+                $publisher = $entity->getPublisher($host);
+                if (isset($publisher)) {
+                    $externalIdPublisher = $publisher->externalId;
+                    $referencePublisher = $publisher->reference;
+                }
+                if (empty($externalIdPublisher)) {
+                    $externalIdPublisher = $entity->applyId;
+                }
+                if (empty($referencePublisher)) {
+                    $referencePublisher = $entity->reference;
+                }
+
+
 
                 // all this is very alpha and will be due to several changes
 
@@ -117,8 +136,10 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 //   datePublishStart  = in a comprehensibly format for \DateTime
                 //   channels          = array of externalIds
                 $data = array(
-                    'applyId'          => $entity->applyId,
-                    'reference'        => $entity->reference,
+                    'referenceId'      => $externalIdPublisher,
+                    // applyId is historical, it should be replaced by referenceId
+                    'applyId'          => $externalIdPublisher,
+                    'reference'        => $referencePublisher,
                     'company'          => $entity->organization->name,
                     'title'            => $entity->title,
                     'description'      => $html,
@@ -152,12 +173,12 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 else {
                     // does the provider want to have an own ID for Identification ?
                     $response_referenceUpdate = $decodedBody->referenceUpdate;
-                    $response_applyIdUpdate = $decodedBody->applyIdUpdate;
+                    $response_externalIdUpdate = $decodedBody->applyIdUpdate;
 
-                    if ($entity->applyId != $response_applyIdUpdate || $entity->reference != $response_referenceUpdate) {
-                        $log->info('RestCall changed applyID [' . var_export($entity->applyId, True) . ' => ' . var_export($response_applyIdUpdate, True) . '], reference  [' . var_export($entity->reference, True) . ' => ' . var_export($response_referenceUpdate, True) . ']');
-                        $entity->applyId = $response_applyIdUpdate;
-                        $entity->reference = $response_referenceUpdate;
+                    if ($publisher->externalId != $response_externalIdUpdate || $publisher->reference != $response_referenceUpdate) {
+                        $log->info('RestCall changed externalID [' . var_export($publisher->externalId, True) . ' => ' . var_export($response_externalIdUpdate, True) . '], reference  [' . var_export($publisher->reference, True) . ' => ' . var_export($response_referenceUpdate, True) . ']');
+                        $publisher->reference = $response_referenceUpdate;
+                        $publisher->externalId = $response_externalIdUpdate;
                         $serviceManager->get('repositories')->store($entity);
                     }
                 }

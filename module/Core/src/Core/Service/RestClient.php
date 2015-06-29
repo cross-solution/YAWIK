@@ -93,4 +93,11 @@ class RestClient extends ZendClient
         $pass = array_key_exists('pass', $this->config)?$this->config['pass']:'';
         return $this->setAuth($auth, $pass);
     }
+
+    public function getHost() {
+        if (empty($this->config) || !array_key_exists('host', $this->config)) {
+            return Null;
+        }
+        return $this->config['host'];
+    }
 }

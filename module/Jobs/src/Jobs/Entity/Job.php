@@ -216,6 +216,12 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, 
     protected $uriPublisher;
 
     /**
+     * @var
+     * @ODM\EmbedMany(targetDocument="Publisher")
+     */
+    protected $publisher;
+
+    /**
      * The ATS mode entity.
      *
      * @var AtsMode
@@ -777,7 +783,32 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, 
         $this->uriPublisher = $uriPublisher;
         return $this;
     }
-    
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function getPublisher($key) {
+        $result = Null;
+        foreach ($this->publisher as $publisher) {
+            if ($publisher->host == $key) {
+                $result = $publisher;
+            }
+        }
+        if (!isset($result)) {
+            $result = new Publisher();
+            $result->host = $key;
+            $this->publisher[] = $result;
+        }
+        return $result;
+    }
+
+    public function setPublisherReference($key, $reference) {
+        $publisher = $this->getPublisher($key);
+        $publisher->reference;
+        return $this;
+    }
+
     /**
      * Get a list of fieldnames, which can be searched by keywords
      *
