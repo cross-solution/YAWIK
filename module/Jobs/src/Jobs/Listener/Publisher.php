@@ -123,8 +123,6 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                     $referencePublisher = $entity->reference;
                 }
 
-
-
                 // all this is very alpha and will be due to several changes
 
                 // needed by now are (naming according to the Provider):
