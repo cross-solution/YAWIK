@@ -196,6 +196,64 @@ class ConsoleController extends AbstractActionController {
         return PHP_EOL;
     }
 
+    public function resetFilesPermissionsAction()
+    {
+        echo "Loading applications... ";
+
+        $filter       = \Zend\Json\Json::decode($this->params('filter', '{}'), \Zend\Json\Json::TYPE_ARRAY);
+        $filter['$or'] = array(
+            array('attachments' => array('$exists' => 1)),
+            array('contact.image' => array('$exists' => 1)),
+        );
+        $applications = $this->fetchApplications($filter);
+        $count        = count($applications);
+
+        echo "[DONE] -> $count applications found.\n";
+
+        if (!$count) {
+            return;
+        }
+        $progress = new ProgressBar($count); $i=0;
+
+        foreach ($applications as $app) {
+
+            $progress->update($i++, "Process $i / $count");
+
+            $permissions = $app->getPermissions();
+            $resources = $permissions->getResources();
+            foreach ($resources as $r) {
+                if ($r instanceOf \Auth\Entity\GroupInterface) {
+                    $permissions->revoke($r);
+                }
+            }
+
+            $attachments = $app->getAttachments();
+            foreach ($attachments as $attachment) {
+                $attachment->getPermissions()
+                           ->clear()
+                           ->inherit($permissions);
+            }
+            $contact = $app->getContact();
+            if ($contact) {
+                $image = $contact->getImage();
+
+                if ($image) {
+                    $image->getPermissions()
+                          ->clear()
+                          ->inherit($permissions);
+                }
+            }
+        }
+        $progress->update($i, '[DONE]');
+        echo "Flushing...";
+        $repos = $this->getServiceLocator()->get('repositories');
+        $repos->flush();
+
+        echo " [DONE]\n";
+
+
+    }
+
     /**
      * Fetches applications
      * 
@@ -209,7 +267,7 @@ class ConsoleController extends AbstractActionController {
 
         /** @var Application $appRepo */
         $appRepo      = $repositories->get('Applications/Application');
-        $query        = array();
+        $query        = array('isDraft' => null);
 
         foreach ($filter as $key => $value) {
             switch ($key) {
@@ -241,7 +299,7 @@ class ConsoleController extends AbstractActionController {
                     $query['_id'] = new \MongoId($value);
                     break;
                 case "isDraft":
-                    $query['isDraft'] = true;
+                    $query['isDraft'] = (bool) $value;
                     break;
                 default:
                     $query[$key] = $value;
