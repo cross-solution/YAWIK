@@ -66,6 +66,10 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
 
     protected $providerChannel;
 
+    protected $filterManager;
+
+    protected $htmlAbsPathFilter;
+
     /**
      * @var
      */
@@ -87,6 +91,11 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
             self::${$attribute} = $value;
         }
         return strtolower($attribute);
+    }
+
+    public static function absPathFilter($value)
+    {
+        return $value;
     }
 
     /**
@@ -152,6 +161,21 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
                               ->method('__set')
                               ->will($this->returnCallback($staticClassPrefix . 'publisherSetter'));
 
+        $this->htmlAbsPathFilter = $this->getMockBuilder('\Core\Filter\HtmlAbsPathFilter')
+                                    ->disableOriginalConstructor()
+                                    ->getMock();
+
+        $this->htmlAbsPathFilter->expects($this->any())
+                              ->method('filter')
+                              ->will($this->returnCallback($staticClassPrefix . 'absPathFilter'));
+
+        $this->filterManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+                                     ->disableOriginalConstructor()
+                                     ->getMock();
+
+        $this->filterManager->expects($this->at(0))
+                        ->method('get')
+                        ->willReturn($this->htmlAbsPathFilter);
 
         $this->restClient = $this->getMockBuilder('\Core\Service\RestClient')
                                  ->disableOriginalConstructor()
@@ -265,6 +289,12 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
 
         $this->serviceManager
             ->expects($this->at(6))
+            ->method('get')
+            ->with('filterManager')
+            ->will($this->returnValue($this->filterManager));
+
+        $this->serviceManager
+            ->expects($this->at(7))
             ->method('get')
             ->with('repositories')
             ->will($this->returnValue($this->repositories));

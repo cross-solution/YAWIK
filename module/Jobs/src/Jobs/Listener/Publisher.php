@@ -104,6 +104,8 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 $render = $serviceManager->get('ViewPhpRendererStrategy')->getRenderer();
                 $viewModel = $serviceManager->get('Jobs/viewModelTemplateFilter')->__invoke($entity);
                 $html = $render->render($viewModel);
+                $absUrlFilter = $serviceManager->get('filterManager')->get('Core/HtmlAbsPathFilter');
+                $html = $absUrlFilter->filter($html);
 
                 $host = $restClient->getHost();
                 if (!isset($host)) {

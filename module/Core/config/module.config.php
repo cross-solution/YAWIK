@@ -330,6 +330,7 @@ return array(
         ),
         'factories' => array(
             "Core/XssFilter" => "Core\Filter\XssFilterFactory",
+            "Core/HtmlAbsPathFilter" => "Core\Factory\Filter\HtmlAbsPathFilterFactory",
        ),
     ),
     
