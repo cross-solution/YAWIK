@@ -138,6 +138,7 @@ class Module implements ConsoleBannerProviderInterface
     public function getConfig()
     {
         $config = include __DIR__ . '/config/module.config.php';
+        return $config;
         if (\Zend\Console\Console::isConsole()) {
             $config['doctrine']['configuration']['odm_default']['generate_proxies'] = false;
             $config['doctrine']['configuration']['odm_default']['generate_hydrators'] = false;
