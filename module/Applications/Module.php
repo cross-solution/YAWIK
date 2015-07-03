@@ -35,6 +35,12 @@ class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterfa
             'applications calculate-rating' => '(Re-)Calculates average rating for all applications.',
             'applications cleanup'          => 'removes applications drafts.',
             'applications list'             => 'list view scripts.',
+            'applications reset-files-permissions [--filter=]' => 'Resets (means: Set again) the permissions of attachments and contact images',
+            array('--filter=JSON', "available keys:\n"
+                                   . "- before    ISODate   only applications before the given date\n"
+                                   . "- after     ISODate   only applications after the given date\n"
+                                   . "- id        String    Mongo ID of the application\n"
+                                   . "- isDraft   Boolean   "),
         );
     }
     
