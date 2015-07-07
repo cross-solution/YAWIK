@@ -71,7 +71,8 @@ class ApplyController extends AbstractActionController
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
         $container    = $services->get('forms')->get('Applications/Apply');
-        
+        $user  = $this->auth()->getUser();
+
         if ($request->isPost()) {
             $appId = $this->params()->fromPost('applicationId');
             if (!$appId) {
@@ -95,7 +96,7 @@ class ApplyController extends AbstractActionController
             $routeMatch->setParam('action', $action);
             
         } else {
-            $user  = $this->auth()->getUser();
+
             $appId = $this->params('applyId');
             if (!$appId) {
                 throw new \RuntimeException('Missing apply id');
@@ -156,8 +157,11 @@ class ApplyController extends AbstractActionController
                     }
                 }
             }
-        } 
-        
+        }
+        // set anonymous user, if none is set.
+        if (null === $application->getUser() && $user instanceOf AnonymousUser) {
+            $application->setUser($user);
+        }
         $container->setEntity($application);
         $this->configureContainer($container);
         $this->container = $container;
@@ -177,14 +181,16 @@ class ApplyController extends AbstractActionController
     {
         $form        = $this->container;
         $application = $form->getEntity();
-        
+
         $this->container->setParam('applicationId', $application->id);
 
         $model = new ViewModel(array(
             'form' => $form,
             'isApplicationValid' => $this->checkApplication($application),
             'application' => $application,
+            'hasApplied' => $this->checkHasApplied($application),
         ));
+
         $model->setTemplate('applications/apply/index');
         return $model;
 
@@ -230,7 +236,8 @@ class ApplyController extends AbstractActionController
         return new JsonModel(array(
             'valid' => $form->isValid(),
             'content' => $content,
-            'isApplicationValid' => $this->checkApplication($application)
+            'isApplicationValid' => $this->checkApplication($application),
+            'hasApplied' => $this->checkHasApplied($application),
         ));
     }
     
@@ -303,6 +310,15 @@ class ApplyController extends AbstractActionController
     {
         return $this->getServiceLocator()->get('validatormanager')->get('Applications/Application')
                     ->isValid($application);
+    }
+
+    protected function checkHasApplied($application)
+    {
+        $repository = $this->getServiceLocator()
+                           ->get('Applications/Repository/HasApplied');
+
+        return $repository->hasApplied($application);
+
     }
     
     protected function sendRecruiterMails($application)
