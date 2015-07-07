@@ -23,6 +23,21 @@ use Zend\InputFilter\InputFilter;
 class AtsMode extends InputFilter
 {
     /**
+     * @var
+     */
+    protected $host;
+
+    /**
+     * @param $host
+     * @return $this
+     */
+    public function setHost($host)
+    {
+        $this->setHost = $host;
+        return $this;
+    }
+
+    /**
      * Sets data for validating and filtering.
      *
      * @internal

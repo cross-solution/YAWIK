@@ -31,12 +31,28 @@ $isApplicationValid = $this->services('validatormanager.applicationsapplication'
         <?php endif;?>
 
 
-        <?php if ($this->isPreview):?>
+<?php
+if ($this->isPreview):
+?>
         <a href="<?php echo $applyUrl ?>" id="back-to-application" class="btn btn-lg btn-default">
             <?php echo $this->translate('Back to the formular') ?>
         </a>
-        <?php else: ?>
-            <?php if ($this->application->job->atsEnabled):?>
+<?php
+else:
+    // there are four options for jobs, and how to handle them
+    // - none    = should NOT show up here, you shouldn't be able to apply on this job at all
+    // - email   = this job is handled in this system, the application NOT, everything with this application is done by mails
+    // - extern  = should NOT show up here, job is handled here, application on this job (including the form) is somewhere else
+    // - intern  = the application is handled here
+    // so essential only 'intern' and 'email' will be handled here
+    $atsMode = 'intern';
+    if (!empty($this->application->job) && !empty($this->application->job->atsMode) && !empty($this->application->job->atsMode->mode)) {
+        if ($this->application->job->atsMode->mode == 'email') {
+            $atsMode = 'email';
+        }
+    }
+    if ($atsMode != 'email'):
+?>
                 <a href="<?php echo $this->url('lang/applications/detail', array('id' => $this->application->id), true) ?>" id="preview-application" class="btn btn-lg btn-default">
                 <?php echo $this->translate('Preview application') ?>
 
@@ -46,15 +62,20 @@ $isApplicationValid = $this->services('validatormanager.applicationsapplication'
                     ? '' : ' hidden' ?>">
                     <?php echo $this->translate('Send application') ?>
                 </a>
-            <?php else: ?>
+<?php
+    else:
+
+?>
                 <a href="<?php echo $this->url('lang/applications/mail', array('status' => 'test'), array('query' => array('id' => $this->application->id)), true) ?>" id="testmail-application-test" disabled=true class="btn btn-lg btn-default">
                     <?php echo $this->translate('Send preview to my email') ?>
                 </a>
                 <a href="<?php echo $applyUrl ?>?do=sendmail" id="testmail-application-apply" disabled=true class="btn btn-lg btn-default">
                     <?php echo $this->translate('Send application') ?>
                 </a>
-            <?php endif ?>
-        <?php endif ?>
+<?
+    endif;
+endif;
+?>
 
         <a href="<?php echo $applyUrl ?>?do=abort" id="abort-application" class="btn btn-lg btn-danger">
             <?php echo $this->translate('Abort application') ?>

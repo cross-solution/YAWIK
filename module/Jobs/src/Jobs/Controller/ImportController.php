@@ -65,6 +65,7 @@ class ImportController extends AbstractActionController {
                 'status' => 'active',
                 'reference' => '2130010128',
                 'atsEnabled' => '1',
+                'uriApply' => 'http://mw2.yawik.org/de/apply/129145',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
                 'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',
