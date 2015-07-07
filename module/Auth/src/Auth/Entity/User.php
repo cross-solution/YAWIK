@@ -42,6 +42,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      *
      * @var string
      * @ODM\String @ODM\Index
+     * @ODM\Index(unique=true, order="asc")
      */
     protected $login;
 

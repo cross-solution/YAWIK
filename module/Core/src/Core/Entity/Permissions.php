@@ -52,6 +52,7 @@ class Permissions implements PermissionsInterface
      *
      * @var array
      * @ODM\Collection
+     * @ODM\Index
      */
     protected $view = array();
 
@@ -60,6 +61,7 @@ class Permissions implements PermissionsInterface
      *
      * @var array
      * @ODM\Collection
+     * @ODM\Index
      */
     protected $change = array();
     
