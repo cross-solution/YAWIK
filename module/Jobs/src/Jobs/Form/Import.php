@@ -7,6 +7,7 @@ use Zend\Stdlib\ArrayUtils;
 use Zend\Form\Form;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
+use Zend\Uri\Http;
 
 /**
  * This form is used to import jobs via the API
@@ -15,7 +16,21 @@ use Core\Entity\Hydrator\Strategy\ArrayToCollectionStrategy;
  */
 class Import extends Form
 {
-    
+    /**
+     * @var
+     */
+    protected $host;
+
+    /**
+     * @param $host
+     * @return $this
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
+        return $this;
+    }
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -37,6 +52,10 @@ class Import extends Form
         if ($isAts && $isUri) {
             $data['atsMode']['mode'] = 'uri';
             $data['atsMode']['uri'] = $data['uriApply'];
+            $uri = new Http($data['uriApply']);
+            if ($uri->getHost() == $this->host) {
+                $data['atsMode']['mode'] = 'intern';
+            }
         } else if ($isAts && !$isUri) {
             $data['atsMode']['mode'] = 'intern';
         } else if (!$isAts && !empty($email)) {

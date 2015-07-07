@@ -244,7 +244,6 @@ return array(
             'Jobs/Description'                  => 'Jobs\Form\JobDescription',
             'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
-            'Jobs/Import'                       => 'Jobs\Form\Import',
             'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
@@ -269,6 +268,7 @@ return array(
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
             'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',
+            'Jobs/Import'                       => 'Jobs\Factory\Form\ImportFactory',
         )
     ),
     
@@ -277,8 +277,10 @@ return array(
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
             'Jobs/Location/Edit'                => 'Jobs\Form\InputFilter\JobLocationEdit',
             'Jobs/Company'                      => 'Jobs\Form\InputFilter\CompanyName',
-            'Jobs/AtsMode'                      => 'Jobs\Form\InputFilter\AtsMode',
         ),
+        'factories' => array(
+            'Jobs/AtsMode'                      => 'Jobs\Factory\Form\InputFilter\AtsModeFactory',
+        )
     ),
     
     'filters' => array(

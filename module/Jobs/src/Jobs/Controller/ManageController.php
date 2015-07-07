@@ -351,6 +351,8 @@ class ManageController extends AbstractActionController {
         }
         $jobEntity->changeStatus(Status::CREATED, "job was created");
         $jobEntity->atsEnabled = true;
+        // sets ATS-Mode on intern
+        $jobEntity->getAtsMode();
 
         /*
          * make the job opening persist and fire the EVENT_JOB_CREATED
