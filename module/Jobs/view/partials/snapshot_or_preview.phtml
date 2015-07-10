@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <?php if (!isset($this->diffSnapshot)): ?>
+            <iframe style="width:100%; height:800px;" src="<?php echo $this->viewLink ?>"></iframe>
+
+        <?php  else:
+            if (empty($this->diffSnapshot)) {
+                echo $this->translate('Nothing has changed');
+            }
+            else {
+                foreach(
+                    array('title' => 'title', 'location' => 'location', 'organization' => 'organization',
+                          'templateValues.qualifications' => 'templates qualifications', 'templateValues.requirements' => 'templateValues requirements',
+                          'templateValues.benefits' => '', 'templateValues.title' => '',
+                          'templateValues._freeValues.description'  => '' ) as $diffKey => $title) {
+                    if (array_key_exists($diffKey, $this->diffSnapshot)) {
+                        echo '<h3>' . $this->translate($title) . '</h3>' . PHP_EOL;
+                        echo '<div class="row">' . PHP_EOL;
+                        echo '<div class="col-md-6">' . $this->translate('previous content') . '</div>';
+                        echo '<div class="col-md-6">' . $this->translate('new content') . '</div>';
+                        echo '</div>' . PHP_EOL . PHP_EOL;
+                        echo '<div class="row">' . PHP_EOL;
+                        echo '<div class="col-md-6">' . $this->diffSnapshot[$diffKey][0] . '</div>';
+                        echo '<div class="col-md-6">' . $this->diffSnapshot[$diffKey][1] . '</div>';
+                        echo '</div>' . PHP_EOL . PHP_EOL;
+                    }
+                }
+            }
+        endif;
+        ?>
+
+    </div>
+</div>
