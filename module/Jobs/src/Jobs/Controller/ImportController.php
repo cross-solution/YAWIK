@@ -156,7 +156,7 @@ class ImportController extends AbstractActionController {
                             );
                             //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
-                            if ($user !== $responsibleUser) {
+                            if ($responsibleUser && $user !== $responsibleUser) {
                                 $entityOrganization->getEmployees()->add(new Employee($responsibleUser));
                             }
                             $repositories->store($entityOrganization);
