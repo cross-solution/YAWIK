@@ -94,14 +94,7 @@ else:
         <?php echo $this->translate('You have already applied to this job.') ?>
     </p></div>
 
-    <script type="text/javascript">
-    /*
-     * Find this script in <?php echo __FILE__ ?>
-     */
-
-
-
-        </script><?php
+   <?php
 
 echo $this->formContainer($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
 if ('recruiter-preview' == $this->application->getId()) {
