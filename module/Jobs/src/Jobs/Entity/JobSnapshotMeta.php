@@ -23,9 +23,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class JobSnapshotMeta extends SnapshotMeta {
 
     /**
-     * @var Entity
+     * @var Job
      * @ODM\EmbedOne(targetDocument="JobSnapshot")
-     * @ODM\Index
      */
     protected $entity;
 
