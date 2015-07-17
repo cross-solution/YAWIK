@@ -44,6 +44,13 @@ class ChannelOptions extends AbstractOptions {
      */
     protected $price=0;
 
+    /**
+     * Minimal Price of the channel if it's selected in combination with another channel.
+     *
+     * @var int $minPrice
+     */
+    protected $minPrice=0;
+
 
     /**
      * Currency of the price
@@ -194,7 +201,28 @@ class ChannelOptions extends AbstractOptions {
         $this->price = $price;
         return $this;
     }
-    
+
+    /**
+     * Gets the minimal price of a channel.
+     *
+     * @return string
+     */
+    public function getMinPrice()
+    {
+        return $this->minPrice?:$this->price;
+    }
+
+    /**
+     * Sets the minimal price of a channel if chosen in combination with another channel
+     *
+     * @param int $minPrice
+     * @return ChannelOptions
+     */
+    public function setMinPrice($minPrice)
+    {
+        $this->minPrice = $minPrice;
+        return $this;
+    }
 
     /**
      * Gets the currency of a price

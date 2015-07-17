@@ -77,7 +77,11 @@ return array(
             ),
             'guest' => array(
                 'allow' => array(
-                    'Jobboard'
+                    'Jobboard',
+                    'Jobs/Manage' => array(
+                        'template',
+                    ),
+                    'route/lang/jobs/template',
                 ),
             ),
             'applicant' => array(
