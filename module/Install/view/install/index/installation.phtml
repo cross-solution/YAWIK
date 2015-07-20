@@ -1,0 +1,46 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><?php echo $this->translate('Installation', 'Install') ?></h2>
+    </div>
+    <div class="panel-body">
+
+        <?php echo $this->form()->openTag($this->form);
+            $dbConn = $this->form->get('db_conn');
+            $dbConn->setAttribute('id', $dbConn->getName())->setAttribute('class', 'form-control') ?>
+        <div class="form-group">
+            <label for="<?php echo $dbConn->getAttribute('id')?>"><?php echo $dbConn->getLabel() ?></label>
+            <?php echo $this->formElement($dbConn) ?>
+        </div>
+        <hr>
+        <div class="row form-group">
+            <div class="col-md-6">
+                <?php $userName = $this->form->get('username');
+                $userName->setAttribute('id', $userName->getName())->setAttribute('class', 'form-control') ?>
+                <label for="<?php echo $userName->getAttribute('id')?>"><?php echo $userName->getLabel() ?></label>
+                <?php echo $this->formElement($userName) ?>
+            </div>
+            <div class="col-md-6">
+                <?php $pw = $this->form->get('password');
+                $pw->setAttribute('id', $pw->getName())->setAttribute('class', 'form-control') ?>
+                <label for="<?php echo $pw->getAttribute('id')?>"><?php echo $pw->getLabel() ?></label>
+                <?php echo $this->formElement($userName) ?>
+            </div>
+        </div>
+        <div class="form-group text-right">
+            <button <?php echo $this->prerequisites['valid'] ? '' : 'disabled' ?> class="btn btn-primary"
+                    type="submit" id="install-submit"
+                    data-processtext="Process"><?php echo $this->translate('Install') ?></button>
+        </div>
+        <?php echo $this->form()->closeTag() ?>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+
+<div id="prereq-panel" class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><?php echo $this->translate('Prerequisites', 'Install') ?></h2>
+    </div>
+
+
+    <table class="table">
+        <tbody>
+        <?php $badgeTmpl = '<span class="text-%s"><strong>%s</strong></span>';
+        foreach ($this->prerequisites['directories'] as $path => $result): ?>
+            <tr>
+                <td><?php echo realpath($path) ?></td>
+                <td><?php
+                    $colorClass = $result['valid'] ? 'success' : 'danger';
+
+                    if (!$result['exists']):
+                        if ($result['creatable']):
+                            echo sprintf($badgeTmpl, $colorClass, $this->translate('Creatable', 'Install'));
+                        else:
+                            echo sprintf($badgeTmpl, $colorClass, $this->translate('Missing', 'Install'));
+                        endif;
+
+                    elseif (!$result['writable']):
+                        echo sprintf($badgeTmpl, $colorClass, $this->translate('Not writable', 'Install'));
+                    else:
+                        echo sprintf($badgeTmpl, $colorClass, $this->translate('Ok', 'Install'));
+                    endif;
+                    ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+
+    <div class="panel-body">
+
+        <?php if ($this->prerequisites['valid']): ?>
+            <p><?php echo $this->translate('All required directories exists and have the needed permissions or can be created. You may savely continue with the installation.', 'Install'); ?></p>
+            <?php if (!$this->prerequisites['directories']['config/autoload']['writable']): ?>
+                <p><small><?php echo $this->translate('Please note: It is not required for the config/autoload directory to be writable, but it will ease the installation as YAWIK can create the config files automatically. Consider giving write permission during installation and revoke it afterwards.'); ?></small></p>
+            <?php endif;
+        else:?>
+            <p><?php echo $this->translate('YAWIK requires some directories to exist and have proper permissions, otherwise it is not possible to run YAWIK. Please ensure that all required directories either exist with the right permissions or at least are creatable during this installation process.', 'Install'); ?></p>
+            <button id="check-prereq-btn" class="btn btn-primary pull-right">
+                <span class="default-text"><?php echo $this->translate('Check again', 'Install') ?></span>
+                <span class="loading-text"><?php echo $this->translate('Checking', 'Install') ?></span>
+            </button>
+        <?php endif ?>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Cross Applicant Management - Install\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-17 16:38+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: view/install/index/index.phtml:15
+msgid "YAWIK is running!"
+msgstr ""
+
+#: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
+msgid "Installation"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:13
+msgid "Prerequisites"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:28
+msgid "Creatable"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:30
+msgid "Missing"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:34
+msgid "Not writable"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:36
+msgid "Ok"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:48
+msgid ""
+"All required directories exists and have the needed permissions or can be "
+"created. You may savely continue with the installation."
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:50
+msgid ""
+"Please note: It is not required for the config/autoload directory to be "
+"writable, but it will ease the installation as YAWIK can create the config "
+"files automatically. Consider giving write permission during installation "
+"and revoke it afterwards."
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:53
+msgid ""
+"YAWIK requires some directories to exist and have proper permissions, "
+"otherwise it is not possible to run YAWIK. Please ensure that all required "
+"directories either exist with the right permissions or at least are "
+"creatable during this installation process."
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:55
+msgid "Check again"
+msgstr ""
+
+#: view/install/index/prerequisites.phtml:56
+msgid "Checking"
+msgstr ""
+
+#: view/layout/layout.phtml:54
+msgid "Installation Routine"
+msgstr ""
+
+#: language/_annotated_strings.php:3
+msgid "Database connection string"
+msgstr ""

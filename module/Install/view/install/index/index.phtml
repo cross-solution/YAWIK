@@ -1,0 +1,113 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<br>
+<div class="container">
+    <div class="row">
+        <div id="notices" class="col-md-12">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="prereq-panel-container" class="col-md-6">
+            <?php echo $this->render('install/index/prerequisites.phtml') ?>
+        </div>
+        <div id="install-panel-container" class="col-md-6">
+            <?php echo $this->render('install/index/installation.phtml') ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    ;
+    (function($) {
+
+        function CheckButton()
+        {
+            this.$button = $('button#check-prereq-btn');
+            this.init();
+        }
+
+        $.extend(CheckButton.prototype,
+        {
+            init: function()
+            {
+                if (this.$button.length) {
+                    this.toggleText();
+                    this.$button.prop('disabled', false).one('click', $.proxy(this.onClick, this));
+                }
+            },
+
+            toggleText: function(state)
+            {
+                if ('loading' == state) {
+                    this.$button.find('.default-text').hide();
+                    this.$button.find('.loading-text').show();
+                } else {
+                    this.$button.find('.default-text').show();
+                    this.$button.find('.loading-text').hide();
+                }
+            },
+
+            onClick: function(event)
+            {
+                this.toggleText('loading');
+                this.$button.prop('disabled', true);
+
+                $.get('?p=prereq')
+                    .done(function(result) {
+                        $('#prereq-panel-container').html(result.content);
+                        new CheckButton();
+                        $('body').trigger('checked.prereq.install.yk', [ result.ok ]);
+                    });
+            }
+        });
+
+        function InstallForm()
+        {
+            this.$form   = $('#installation');
+            this.$button = this.$form.find('#install-submit');
+            this.buttonText = {
+                'default': this.$button.html(),
+                'working': this.$button.data('processtext')
+            };
+            this.init();
+        }
+
+        $.extend(InstallForm.prototype,
+        {
+            init: function()
+            {
+                $('body').on('checked.prereq.install.yk', $.proxy(this.onPrereqChecked, this));
+                this.$form.submit($.proxy(this.onSubmit, this));
+            },
+
+            onPrereqChecked: function (event, ok)
+            {
+                this.$button.prop('disabled', !ok);
+            },
+
+            onSubmit: function(event)
+            {
+                this.$button.html(this.buttonText.working).prop('disabled', true);
+                $.post(this.$form.attr('action'), this.$form.serialize())
+                    .always($.proxy(function() { this.$button.html(this.buttonText.default).prop('disabled', false)}, this));
+
+                return false;
+            }
+        });
+
+        $(function() {
+            new CheckButton();
+            new InstallForm();
+
+        })
+    })(jQuery);
+</script>

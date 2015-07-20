@@ -12,36 +12,41 @@ use Zend\Stdlib\ArrayUtils;
 
 $env = getenv('APPLICATION_ENV') ?: 'production';
 
-$modules = array(
-         'DoctrineModule', 
-         'DoctrineMongoODMModule', 
-         'Core', 
-         'Auth', 
-         'Cv', 
-         'Applications', 
-         'Jobs', 
-         'Settings', 
-         'Pdf', 
-         'Geo',
-         'Organizations',
-         'Admin'
-    );
+if (!file_exists(__DIR__ . '/autoload/database.local.php')) {
+    $modules = array('Install');
+} else {
+    $modules = array(
+             'DoctrineModule',
+             'DoctrineMongoODMModule',
+             'Core',
+             'Install',
+             'Auth',
+             'Cv',
+             'Applications',
+             'Jobs',
+             'Settings',
+             'Pdf',
+             'Geo',
+             'Organizations',
+             'Admin'
+        );
 
-if (!isset($allModules)) {
-    // allModules existiert nur, damit man verschiedene Konfigurationen auf dem gleichen System laufen lassen
-    // kann und über Server-Variablen oder ähnlichen steuern kann
-    $allModules = False;
-}
-foreach (glob(__DIR__ . '/autoload/*.module.php') as $moduleFile) {
-    $addModules = require $moduleFile;
-    foreach ($addModules as $addModule) {
-        if (strpos($addModule, '-') === 0) {
-            $remove = substr($addModule,1);
-            $modules = array_filter($modules, function ($elem) use ($remove) { return strcasecmp($elem,$remove); });
-        }
-        else {
-            if (!in_array($addModule, $modules)) {
-                $modules[] = $addModule;
+    if (!isset($allModules)) {
+        // allModules existiert nur, damit man verschiedene Konfigurationen auf dem gleichen System laufen lassen
+        // kann und über Server-Variablen oder ähnlichen steuern kann
+        $allModules = False;
+    }
+    foreach (glob(__DIR__ . '/autoload/*.module.php') as $moduleFile) {
+        $addModules = require $moduleFile;
+        foreach ($addModules as $addModule) {
+            if (strpos($addModule, '-') === 0) {
+                $remove = substr($addModule,1);
+                $modules = array_filter($modules, function ($elem) use ($remove) { return strcasecmp($elem,$remove); });
+            }
+            else {
+                if (!in_array($addModule, $modules)) {
+                    $modules[] = $addModule;
+                }
             }
         }
     }
@@ -83,23 +88,9 @@ $config = array(
     ),
     
     'service_listener_options' => array(
-        array(
-            'service_manager' => 'SettingsManager',
-            'config_key'      => 'settings',
-            'interface'       => '\Core\ModuleManager\Feature\SettingsProviderInterface',
-            'method'          => 'getUserSettings',
-        ),
     ),
     
     'service_manager' => array(
-        'invokables' => array(
-            'SettingsManager' => 'Core\ModuleManager\SettingsManager',
-            //'ServiceListenerInterface' => 'Core\mvc\Service\ServiceListener',
-        ),
-        'factories' => array(
-            //'Log' => 'Core\src\Core\Service\Log'
-        ),
-        
     ),
 );
 

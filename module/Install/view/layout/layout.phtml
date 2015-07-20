@@ -1,0 +1,77 @@
+<?php 
+/**
+ * YAWIK
+ * Layout template file
+ * 
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+/**
+ * {{rtd: General layout. Includes the HTML Header}}
+ */
+?>
+<?php
+
+
+$this->headLink()->prependStylesheet($this->basePath() . '/css/yawik.css');
+
+$this->headScript()->prependFile($this->basePath('js/bootstrap.min.js'));
+$this->headScript()->prependFile($this->basePath('js/jquery.min.js'));
+$this->headScript()->appendScript('var lang="' . $this->lang . '";'
+                                      . 'var basePath="' . $this->basePath() . '";');
+
+
+?>
+<?php echo $this->doctype(); ?>
+<html lang="<?php echo $this->lang?>">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('YAWIK ' . $this->translate('Installation'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+        
+        <?php echo $this->headScript();?>
+        <?php
+
+        // See: http://yawik.readthedocs.org/en/latest/customize.html#css
+
+        echo $this->headLink();
+
+        ?>
+        <?php echo $this->headStyle() ?>
+    </head>
+    <body>
+	<a class="sr-only" href="#content">Skip to main content</a>
+	<header id="yk-topbar" role="banner">
+         <div class="cam-container">
+   	       <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" data-target=".yk-navbar-collapse" data-toggle="collapse" type="button">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand hidden-xs" href="<?php echo $this->basepath('/')?>?lang=<?php echo $this->lang ?>">YAWIK </a>
+                    <a class="navbar-brand visible-xs" href="<?php echo $this->basepath('/')?>?lang=<?php echo $this->lang ?>">Y</a>
+               </div>
+
+		</div>
+            </header>
+
+
+<main id="content" class="container">
+<?php echo $this->content; ?>
+</main> 
+<!-- /container -->
+            <footer id="yk-footer">
+                <div class="container">
+		<span class="pull-left"><small>&copy; 2013-<?php echo date("Y")?> <a href="http://cross-solution.de">Cross Solution</a>. 
+                    | <version><?php passthru('git describe') ?> [<?php passthru('git rev-parse --abbrev-ref HEAD') ?>]</version></small></span>
+                <span class="pull-right"><small>
+                    Powered by <a href="http://yawik.org">YAWIK</a>
+                               </small> </span>
+                
+                </div>
+            </footer>
+    </body>
+</html>
