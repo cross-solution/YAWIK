@@ -517,5 +517,16 @@ class ManageController extends AbstractActionController {
 
         return $model;
     }
+
+    public function historyAction() {
+        $serviceLocator = $this->getServiceLocator();
+        $jobEntity      = $this->getJob();
+        $title          = $jobEntity->title;
+        $historyEntity  = $jobEntity->history;
+
+        $model = new ViewModel(array('title' => $title, 'history' => $historyEntity));
+        $model->setTerminal(true);
+        return $model;
+    }
 }
 

@@ -93,6 +93,15 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
                 class="btn btn-default btn-xs assign-user-button"><span class="yk-icon yk-icon-user"></span></a>
                      <?php endif; ?>
 
+         <a data-title="title"
+            data-toggle="modal"
+            class="btn btn-default btn-xs"
+            data-target="#job-application-history"
+            href="<?php echo $this->url( 'lang/jobs/history', array('id' => $job->applyId , 'lang' => $this->params('lang'))); ?>"
+            title="<?php echo $this->translate('State history')?>">
+             <i class="yk-icon yk-icon-history"></i>
+         </a>
+
            <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="yk-icon yk-icon-edit"></span></a>
          <?php endif; ?>
          </td>
@@ -123,3 +132,17 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 
 </table>
 <?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobs'));?>
+
+
+<!-- Modal Box for Job-History -->
+<div class="modal fade" id="job-application-history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"><i class="yk-icon yk-icon-spinner fa-spin"></i><?php echo $this->translate('please wait') ?></h4>
+            </div>
+            <div class="modal-body">
+        </div>
+    </div>
+</div>

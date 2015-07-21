@@ -62,6 +62,7 @@ return array(
                         'completion',
                         'template',
                         'new' => 'Jobs/Create',
+                        'history',
                     ),
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',

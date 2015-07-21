@@ -77,6 +77,20 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'history'   => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/history/:id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'history',
+                        'defaults' => array(
+                            'id' => 0
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
             'dashboardjobs'   => array(
                 'type' => 'Literal',
                 'options' => array(
