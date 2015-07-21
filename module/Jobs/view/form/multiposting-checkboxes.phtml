@@ -28,16 +28,17 @@ else:
                     $spec = explode('|', $opt)?>
                     <div class="col-md-4">
                         <?php
-                        $popup=$spec[8]?'<img src="' . $spec[8]. '" alt="' . $spec[1] . '" class="img-responsive">':'' .
+                        $popup=$spec[10]?'<img src="' . $spec[10]. '" alt="' . $spec[1] . '" class="img-responsive">':'' .
                             sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>');
                         ?>
-                        <button style="width: 100%; margin-bottom: 3px;" type="button text-right"
+                        <button style="width: 100%; margin-bottom: 3px;" type="button"
                                 class="mpc-button btn <?php echo $class ?>" aria-pressed="<?php echo $checked ? 'true' : 'false' ?>"
                                 data-toggle="button"
                                 data-placement="top" data-trigger="hover" data-html="true"
                                 title="<?php echo $spec[1] ?>"
                                 data-content="<?php echo $this->escapeHtmlAttr($popup);?>"
-                                data-price="<?php echo $spec[7] ?>"<?php
+                                data-price="<?php echo $spec[7] ?>"
+                                data-minprice="<?php echo $spec[9] ?>"<?php
                                 echo $isDisabled ? 'disabled' : ''?>>
                             <?php echo $spec[0] ?>
                             <input <?php echo $checked ? 'checked ' : '' ?>type="checkbox" name="<?php echo $this->element->getName()?>[]" class="hidden" value="<?php echo $v ?>">
@@ -49,7 +50,8 @@ else:
 
         <div id="<?php echo $this->element->getAttribute('id') ?>-total" class="text-right" style="padding: 10px 5px">
 
-            <strong><span></span> <?php echo $defaultCurrencyCode?></strong>
+            <strong><span></span> <?php echo $defaultCurrencyCode?></strong><br>
+            <small><?php echo $this->translate('plus VAT')?></small>
 
         </div>
 

@@ -14,6 +14,9 @@
 <?php
 $sm = $this->getHelperPluginManager()->getServiceLocator();
 $channels = $sm->get('Jobs/Options/Provider');
+$options = $sm->get('Core/Options');
+$defaultCurrencyCode = $options->defaultCurrencyCode;
+$defaultTaxRate = $options->defaultTaxRate;
 ?>
 <h2><?php echo $this->translate("Job details")?></h2>
 <table>
@@ -54,35 +57,40 @@ $channels = $sm->get('Jobs/Options/Provider');
 ?>
 
 <?php
-$sum = 0;
+$sum = 0; $total = 0;
+
 ?>
 
 <?php if (empty($this->job->portals)) : ?>
     <?php echo $this->translate('no Portal chosen') ?>
-<?php else: ?>
+<?php else: $c = count($this->job->portals); ?>
     <h2><?php echo $this->translate("Selected Channels") ?></h2>
-    <table>
+    <p>
         <?php foreach ($this->job->portals as $portalName): ?>
 
                 <?php $channelData=$channels->getChannel($portalName); ?>
-                <tr>
-                    <td><?php echo $channelData->label ?></td>
-                    <td><?php echo $this->currencyFormat($channelData->price, $channelData->currency) ?></td>
-                </tr>
-                <?php $sum += (int) $channelData->price; ?>
+                <?php echo $channelData->label ?>,
+
+
+                <?php $sum += (int) $channelData->price;
+                        if (1 < $c && $sum < $channelData->minPrice && $total < $channelData->minPrice):
+                                $total = $channelData->minPrice;
+                        endif;
+                    $total = $sum > $total ? $sum : $total;?>
 
         <?php endforeach; ?>
+    <table>
         <tr>
             <td><?php echo $this->translate("Price")?>:</td>
-            <td><?php echo $this->currencyFormat((round($sum,2)), $channelData->currency) ?></td>
+            <td><?php echo $this->currencyFormat((round($total,2)), $defaultCurrencyCode) ?></td>
         </tr>
         <tr>
-            <td><?php echo $this->translate("plus VAT")?> (<?php echo $channelData->tax?>%)</td>
-            <td><?php echo $this->currencyFormat((round($sum * $channelData->tax/100,2)), $channelData->currency) ?></td>
+            <td><?php echo $this->translate("plus VAT")?> (<?php echo $defaultTaxRate?>%)</td>
+            <td><?php echo $this->currencyFormat((round($total * $defaultTaxRate/100,2)), $defaultCurrencyCode) ?></td>
         </tr>
         <tr>
             <td><?php echo $this->translate("Invoice amount")?>:</td>
-            <td><?php echo $this->currencyFormat((round(($sum * $channelData->tax/100)+$sum,2)), $channelData->currency) ?></td>
+            <td><?php echo $this->currencyFormat((round(($total * $defaultTaxRate/100)+$sum,2)), $defaultCurrencyCode) ?></td>
         </tr>
     </table>
 <?php endif; ?>

@@ -24,7 +24,7 @@ if ($this->renderSummary):?>
 
                $this->plugin('currencyformat')->setCurrencyCode($defaultCurrencyCode);
 
-                $total = 0;
+                $total = 0; $sum = 0; $channelCount = count($valueKey);
                 foreach ($options as $category => $categoryOptions):
                     foreach ($categoryOptions['options'] as $channelName => $channel):
                         if (in_array($channelName, $valueKey)):
@@ -33,38 +33,47 @@ if ($this->renderSummary):?>
                     endforeach;
                 endforeach; ?>
                 <div class="panel panel-default">
-                    <table class="table table-condensed table-bordered">
+                    <div class="panel-body">
                     <?php foreach ($activePortals as $category => $channels):?>
-                        <thead>
-                            <tr>
-                                <th>
-                                    <?php echo $category ?>
-                                </th>
-                                <th class="text-right">
-                                    <?php echo $this->translate('Price') ?>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        <h5><?php echo $category ?></h5>
+                        <div class="row">
                         <?php foreach ($channels as $name => $spec):
                             $data = explode('|', $spec);
+                            $sum += $data[7];
+                            if (1 < $channelCount):
+
+                                if ($sum < $data[9] && $total < $data[9]): $total = $data[9];
+                                endif;
+                            else:
+                                //echo $this->currencyFormat($data[7]);
+                            endif;
+                            $total = $sum > $total ? $sum : $total;
                             ?>
-                            <tr>
-                                <td><a href="<?php echo $data[4] ?>"><?php echo $data[0] ?></a></td>
-                                <td class="text-right"><?php $total += $data[7]; echo $this->currencyFormat($data[7]) ?></td>
-                            </tr>
+                            <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
+
+                                <a href="<?php echo $data[4] ?>">
+
+                                    <?php if ($data[10]):?>
+                                    <img src="<?php echo $data[10] ?>" alt="<?php echo $data[1] ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                    <?php endif; ?> <?php echo $data[0] ?></a></div>
                         <?php endforeach; ?>
-                        </tbody>
+                        </div>
                     <?php endforeach; ?>
-                    <tfoot>
+                        </div>
+                    <table class="table table-condensed table-bordered">
+                    <thead>
                         <tr>
-                            <td><?php echo $this->translate('Total') ?></td>
-                            <td class="text-right"><?php echo $this->currencyFormat($total); ?></td>
+                            <th><?php echo $this->translate('Price') ?></th>
+                            <th class="text-right"><?php echo $this->currencyFormat($total); ?></th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td><?php echo $this->translate('plus VAT') ?> (<?php echo $defaultTaxRate ?>%)</td>
                             <td class="text-right"><?php echo $this->currencyFormat($total * ( $defaultTaxRate /100)); ?></td>
                         </tr>
+                    </tbody>
+                    <tfoot>
                         <tr>
                             <th><?php echo $this->translate('Invoice amount') ?></th>
                             <th class="text-right"><?php echo $this->currencyFormat($total * (1 + $defaultTaxRate /100)); ?></th>
@@ -82,7 +91,8 @@ if ($this->renderSummary):?>
     <div class="row">
         <div id="<?php echo $this->element->getAttribute('id') ?>-total" class="text-right col-md-9 col-md-offset-3">
             <div class="panel panel-default">
-                <div class="panel-body"><strong><span></span> <?php echo $defaultCurrencyCode?></strong></div>
+                <div class="panel-body"><strong><span></span> <?php echo $defaultCurrencyCode?></strong><br>
+                <small><?php echo $this->translate('plus VAT') ?></small></div>
             </div>
         </div>
     </div>
@@ -101,7 +111,7 @@ if ($this->renderSummary):?>
     ';
 
     $selectTmpl = '
-        %name (  %duration ) [ %nicePrice ]
+        %name (  %duration ) [ %nicePrice (%minNicePrice) ]
     ';
 
     ?>

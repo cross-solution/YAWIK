@@ -97,16 +97,25 @@
 
     };
 
+            /*
+                        s = 900, t = 1280, p = 400
+                        s = 1300,
+             */
     $.fn.multipostingSelect.calculatePrice = function(selectedOptions)
     {
-        var sum = 0;
+        var sum = 0; var total = 0;
 
         for (var i= 0, c=selectedOptions.length; i<c; i+=1) {
             var data = $.fn.multipostingSelect.getOptionData($(selectedOptions[i]).text());
             sum += data.price;
+            if (1 < c && sum < data.minPrice && total < data.minPrice) {
+                total = data.minPrice;
+            } else {
+                total = sum > total ? sum : total;
+            }
         }
 
-        return sum;
+        return total;
     };
 
     $.fn.multipostingSelect.getOptionData = function(text)
@@ -121,8 +130,9 @@
             link: textArr[4],
             duration: textArr[5],
             nicePrice: textArr[6],
-            price: parseFloat(textArr[7])
-
+            price: parseFloat(textArr[7]),
+            minNicePrice: textArr[8],
+            minPrice: parseFloat(textArr[9])
         };
     };
 

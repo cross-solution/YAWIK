@@ -28,7 +28,6 @@
         var $button  = $(e.target);
         var $input   = $button.find('input');
 
-        console.debug($button, $input);
         $input.prop('checked', !$input.prop('checked'));
         if ($input.prop('checked')) {
             $button.addClass('btn-success').removeClass('btn-default');
@@ -76,18 +75,27 @@
 
     $.fn.multipostingSelect.calculatePrice = function()
     {
-        var sum = 0;
+        var sum = 0, total = 0, $activeButtons = $container.find('.mpc-button.btn-success');
+        var c = $activeButtons.length;
 
-        $buttons.each(function() {
+        console.debug($activeButtons);
+        $activeButtons.each(function() {
             var $button = $(this);
-            var $input = $button.find('input');
+            var price   = $button.data('price');
+            var minPrice = $button.data('minprice');
 
-            if ($input.prop('checked')) {
-                sum += parseFloat($button.data('price'));
+            sum += parseFloat(price);
+
+            if (1 < c && sum < minPrice && total < minPrice) {
+                total = minPrice;
+            } else {
+                total = sum > total ? sum : total;
             }
+
+
         });
 
-        return sum;
+        return total;
     };
 
     $.fn.multipostingSelect.getOptionData = function(text)
@@ -102,7 +110,9 @@
             link: textArr[4],
             duration: textArr[5],
             nicePrice: textArr[6],
-            price: parseFloat(textArr[7])
+            price: parseFloat(textArr[7]),
+            niceMinPrice: textArr[8],
+            minPrice: textArr[9],
 
         };
     };
