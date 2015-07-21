@@ -75,11 +75,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
                 'allow_empty' => True
             ),
             
-//            'atsEnabled' => array(
-//                'filters'  => array(
-//                ),
-//                'allow_empty' => True
-//            ),
+            'atsEnabled' => array(
+                'filters'  => array(
+                ),
+                'allow_empty' => True
+            ),
 //            'uriApply' => array(
 //                'filters'  => array(
 //                ),
