@@ -104,7 +104,7 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
             'testCat' => array(
                 'label' => 'testCat',
                 'options' => array(
-                    'testKey' => 'testLabel|testHL|testDesc|testLinkTxt|/test/uri|10|1234|1234|testLogo'
+                    'testKey' => 'testLabel|testHL|testDesc|testLinkTxt|/test/uri|10|1234|1234|1234|1234|testLogo'
                 )
             )
         );
