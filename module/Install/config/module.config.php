@@ -41,12 +41,19 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'Install/Prerequisites' => 'Install\Controller\Plugin\Prerequisites',
+            'Install/ConfigCreator' => 'Install\Controller\Plugin\YawikConfigCreator',
         ),
     ),
 
     'form_elements' => array(
         'invokables' => array(
             'Install/Installation' => 'Install\Form\Installation',
+        ),
+    ),
+
+    'validators' => array(
+        'invokables' => array(
+            'Install/ConnectionString' => 'Install\Validator\MongoDbConnectionString',
         ),
     ),
 

@@ -97,10 +97,30 @@
             onSubmit: function(event)
             {
                 this.$button.html(this.buttonText.working).prop('disabled', true);
+                this.$form.find('.errors').html('');
                 $.post(this.$form.attr('action'), this.$form.serialize())
-                    .always($.proxy(function() { this.$button.html(this.buttonText.default).prop('disabled', false)}, this));
+                    .done($.proxy(this.submitted, this));
 
                 return false;
+            },
+
+            submitted: function(result)
+            {
+                this.$button.html(this.buttonText.default).prop('disabled', false);
+
+                if (result.ok) {
+                    $('#install-panel-container').find('.panel-body').html(result.content);
+                } else {
+                    for (elemName in result.errors) {
+                        var $errContainer = $('#' + elemName + '-errors');
+                        var html = '<ul class="form-errors">';
+                        for (errKey in result["errors"][elemName]) {
+                            html += '<li>' + result["errors"][elemName][errKey] + '</li>';
+                        }
+                        html += '</ul>';
+                        $errContainer.html(html);
+                    }
+                }
             }
         });
 

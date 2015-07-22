@@ -25,12 +25,19 @@ class Installation extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setName('installation');
-        $this->setAttribute('method', 'post');
+        $this->setAttributes(array(
+                                 'method' => 'post',
+                                 'action' => '?p=install'
+                             ));
+
         $this->add(array(
                        'type' => 'Text',
                        'name' => 'db_conn',
                        'options' => array(
                            'label' => /* @translate */ 'Database connection string',
+                       ),
+                       'attributes' => array(
+                           'placeholder' => 'mongodb://localhost:27017/YAWIK',
                        ),
 
                    ));
@@ -63,9 +70,16 @@ class Installation extends Form implements InputFilterProviderInterface
         return array(
             'db_conn' => array(
                 'required' => true,
+                'continue_if_empty' => true,
                 'validators' => array(
                     array('name' => 'Install/ConnectionString'),
                 ),
+            ),
+            'username' => array(
+                'required' => true,
+            ),
+            'password' => array(
+                'required' => true
             ),
         );
     }

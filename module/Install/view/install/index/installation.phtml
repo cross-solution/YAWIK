@@ -20,6 +20,7 @@
         <div class="form-group">
             <label for="<?php echo $dbConn->getAttribute('id')?>"><?php echo $dbConn->getLabel() ?></label>
             <?php echo $this->formElement($dbConn) ?>
+            <div id="<?php echo $dbConn->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($dbConn) ?></div>
         </div>
         <hr>
         <div class="row form-group">
@@ -28,12 +29,14 @@
                 $userName->setAttribute('id', $userName->getName())->setAttribute('class', 'form-control') ?>
                 <label for="<?php echo $userName->getAttribute('id')?>"><?php echo $userName->getLabel() ?></label>
                 <?php echo $this->formElement($userName) ?>
+                <div id="<?php echo $userName->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($userName) ?></div>
             </div>
             <div class="col-md-6">
                 <?php $pw = $this->form->get('password');
                 $pw->setAttribute('id', $pw->getName())->setAttribute('class', 'form-control') ?>
                 <label for="<?php echo $pw->getAttribute('id')?>"><?php echo $pw->getLabel() ?></label>
-                <?php echo $this->formElement($userName) ?>
+                <?php echo $this->formElement($pw) ?>
+                <div id="<?php echo $pw->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($pw) ?></div>
             </div>
         </div>
         <div class="form-group text-right">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Install\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-17 16:38+0200\n"
+"POT-Creation-Date: 2015-07-22 10:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/install/index/index.phtml:15
-msgid "YAWIK is running!"
-msgstr ""
-
 #: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
 msgid "Installation"
+msgstr ""
+
+#: view/install/index/installation.phtml:45
+msgid "Install"
+msgstr ""
+
+#: view/install/index/install.phtml:12
+msgid ""
+"The base configuration file was successfully created. You can now start "
+"using YAWIK by reloading the browser window."
+msgstr ""
+
+#: view/install/index/install.phtml:15
+#, php-format
+msgid ""
+"The configuration file could not be created automatically. So please create "
+"a file called \"%s\" in the directory \"%s\" with the following content:"
+msgstr ""
+
+#: view/install/index/install.phtml:19
+msgid ""
+"When you created the file you can start using YAWIK by reloading the browser "
+"window."
 msgstr ""
 
 #: view/install/index/prerequisites.phtml:13
@@ -75,10 +94,22 @@ msgstr ""
 msgid "Checking"
 msgstr ""
 
-#: view/layout/layout.phtml:54
-msgid "Installation Routine"
-msgstr ""
-
 #: language/_annotated_strings.php:3
 msgid "Database connection string"
+msgstr ""
+
+#: language/_annotated_strings.php:6
+msgid "Initial user name"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+msgid "Password"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+msgid "Invalid connection string"
+msgstr ""
+
+#: language/_annotated_strings.php:15
+msgid "Connecting the database failed: %databaseError%"
 msgstr ""
