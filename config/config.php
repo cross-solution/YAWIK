@@ -12,14 +12,13 @@ use Zend\Stdlib\ArrayUtils;
 
 $env = getenv('APPLICATION_ENV') ?: 'production';
 
-if (!file_exists(__DIR__ . '/autoload/database.local.php')) {
+if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
     $modules = array('Install');
 } else {
     $modules = array(
              'DoctrineModule',
              'DoctrineMongoODMModule',
              'Core',
-             'Install',
              'Auth',
              'Cv',
              'Applications',
