@@ -166,10 +166,8 @@ return array(
     'view_helper_config' => array(
         'headscript' => array(
             'lang/applications' => array('Core/js/jquery.barrating.min.js'),
-            'lang/apply' => array('Applications/js/apply.index.already-applied-notice.js'),
         ),
     ),
-
     'form_elements' => array(
         'invokables' => array(
              'Applications/Mail' => 'Applications\Form\Mail',
