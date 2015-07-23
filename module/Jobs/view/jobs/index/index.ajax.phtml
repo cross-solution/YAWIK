@@ -97,7 +97,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             data-toggle="modal"
             class="btn btn-default btn-xs"
             data-target="#job-application-history"
-            href="<?php echo $this->url( 'lang/jobs/history', array('id' => $job->applyId , 'lang' => $this->params('lang'))); ?>"
+            href="<?php echo $this->url( 'lang/jobs/history', array('id' => $job->id , 'lang' => $this->params('lang'))); ?>"
             title="<?php echo $this->translate('State history')?>">
              <i class="yk-icon yk-icon-history"></i>
          </a>
