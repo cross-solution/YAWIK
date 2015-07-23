@@ -73,9 +73,11 @@ return array(
         ),
         'factories' => array(
            'Applications/Options' => 'Applications\Factory\ModuleOptionsFactory',
-           'Applications/Repository/HasApplied' => 'Applications\Factory\Repository\Decorator\HasAppliedFactory',
+           'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
+           'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
+           'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
         ),
-    ), 
+    ),
     'controllers' => array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
@@ -166,10 +168,8 @@ return array(
     'view_helper_config' => array(
         'headscript' => array(
             'lang/applications' => array('Core/js/jquery.barrating.min.js'),
-            'lang/apply' => array('Applications/js/apply.index.already-applied-notice.js'),
         ),
     ),
-
     'form_elements' => array(
         'invokables' => array(
              'Applications/Mail' => 'Applications\Form\Mail',
