@@ -90,18 +90,6 @@ else:
     /*
      * Display application form container and action buttons.
      */
-    ?><div id="already-applied-msg" class="alert alert-warning" data-show="<?php echo $this->hasApplied ? 'true' : 'false' ?>"><p>
-        <?php echo $this->translate('You have already applied to this job.') ?>
-    </p></div>
-
-    <script type="text/javascript">
-    /*
-     * Find this script in <?php echo __FILE__ ?>
-     */
-
-
-
-        </script><?php
 
 echo $this->formContainer($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
 if ('recruiter-preview' == $this->application->getId()) {

@@ -73,9 +73,11 @@ return array(
         ),
         'factories' => array(
            'Applications/Options' => 'Applications\Factory\ModuleOptionsFactory',
-           'Applications/Repository/HasApplied' => 'Applications\Factory\Repository\Decorator\HasAppliedFactory',
+           'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
+           'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
+           'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
         ),
-    ), 
+    ),
     'controllers' => array(
         'invokables' => array(
             'Applications\Controller\Index' => 'Applications\Controller\IndexController',
