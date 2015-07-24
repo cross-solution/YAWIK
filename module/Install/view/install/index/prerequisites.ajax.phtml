@@ -1,0 +1,16 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+
+$data = array(
+    'content' => $this->render('install/index/prerequisites.phtml'),
+    'ok' => $this->prerequisites['valid']
+);
+
+echo \Zend\Json\Json::encode($data);
+
