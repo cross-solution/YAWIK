@@ -3,10 +3,10 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Install\Listener;
 
@@ -16,10 +16,11 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\CallbackHandler;
 
 /**
- * ${CARET}
- * 
+ * Detects user language based on query parameter and/or browser settings.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo   write test
+ * @since  0,20
  */
 class LanguageSetter implements ListenerAggregateInterface
 {
@@ -46,6 +47,11 @@ class LanguageSetter implements ListenerAggregateInterface
         }
     }
 
+    /**
+     * Detects language
+     *
+     * @param MvcEvent $e
+     */
     public function onRoute(MvcEvent $e)
     {
         $request = $e->getRequest();
@@ -60,13 +66,13 @@ class LanguageSetter implements ListenerAggregateInterface
                 $locale  = $locales[0];
                 $lang    = $locale->type;
             } else {
-                $lang    = 'en';
+                $lang = 'en';
             }
         }
 
         /* Set locale */
         $translator = $e->getApplication()->getServiceManager()->get('mvctranslator');
-        $locale = $lang . '_' . strtoupper($lang);
+        $locale     = $lang . '_' . strtoupper($lang);
 
         setlocale(LC_ALL, array(
                             $locale . ".utf8",
@@ -76,7 +82,8 @@ class LanguageSetter implements ListenerAggregateInterface
                             'de_DE.utf8',
                             'de_DE',
                             'de'
-                        ));
+                        )
+        );
         \Locale::setDefault($locale);
         $translator->setLocale($locale);
         $routeMatch = $e->getRouteMatch();

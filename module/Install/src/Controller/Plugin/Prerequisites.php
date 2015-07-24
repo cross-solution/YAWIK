@@ -3,66 +3,98 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Install\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
- * ${CARET}
- * 
+ * Checks permissions on directories or if the directories can be created or not.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since  0.20
  */
 class Prerequisites extends AbstractPlugin
 {
 
-    const DIR_EXISTS       = 4; // 0100
-    const DIR_IS_WRITABLE  = 8; // 1000
-    const DIR_IS_CREATABLE = 2; // 0010
-    const DIR_IS_MISSING   = 1; // 0001
-
+    /**
+     * Default directories paths to check.
+     *
+     * @internal
+     *  Value is the specification, when the checks are valid.
+     *
+     * @var array
+     */
     protected $directories = array(
         'config/autoload' => 'exists',
-        'cache' => 'writable|creatable',
-        'log' => 'writable|creatable',
+        'cache'           => 'writable|creatable',
+        'log'             => 'writable|creatable',
     );
 
+    /**
+     * Called when invoked directly.
+     *
+     * Proxies to {@link check()}
+     *
+     * @param null|array $directories
+     *
+     * @return array
+     */
     public function __invoke($directories = null)
     {
         return $this->check($directories);
     }
 
+
+    /**
+     * Checks directories.
+     *
+     * Calls {@link checkDirectory()} for each directory in the array.
+     * Checks, if all directories has passed as valid according to the specs.
+     *
+     * @param null|array $directories
+     *
+     * @return array
+     */
     public function check($directories = null)
     {
         null == $directories && $directories = $this->directories;
-        $return = array(); $valid = true;
+        $return = array();
+        $valid  = true;
 
         foreach ($directories as $path => $validationSpec) {
-            $result = $this->checkDirectory($path, $validationSpec);
+            $result                       = $this->checkDirectory($path, $validationSpec);
             $return['directories'][$path] = $result;
-            $valid = $valid && $result['valid'];
+            $valid                        = $valid && $result['valid'];
         }
         $return['valid'] = $valid;
 
         return $return;
     }
 
+    /**
+     * Checks a directory.
+     *
+     * @param string $dir
+     * @param string $validationSpec
+     *
+     * @return array
+     */
     public function checkDirectory($dir, $validationSpec)
     {
-        $exists = file_exists($dir);
-        $writable = $exists && is_writable($dir);
-        $missing = !$exists;
+        $exists    = file_exists($dir);
+        $writable  = $exists && is_writable($dir);
+        $missing   = !$exists;
         $creatable = $missing && is_writable(dirname($dir));
 
         $return = array(
-            'exists' => $exists,
-            'writable' => $writable,
-            'missing' => $missing,
+            'exists'    => $exists,
+            'writable'  => $writable,
+            'missing'   => $missing,
             'creatable' => $creatable
         );
 
@@ -71,10 +103,19 @@ class Prerequisites extends AbstractPlugin
         return $return;
     }
 
+    /**
+     * Validates a directory according to the spec
+     *
+     * @param array  $result
+     * @param string $spec
+     *
+     * @return bool
+     */
     public function validateDirectory($result, $spec)
     {
-        $spec = explode('|', $spec);
+        $spec  = explode('|', $spec);
         $valid = false;
+
         foreach ($spec as $s) {
             if (isset($result[$s]) && $result[$s]) {
                 $valid = true;

@@ -3,40 +3,38 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Install\Controller;
 
+use Zend\Http\PhpEnvironment\Response;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
-use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 /**
- * ${CARET}
- * 
+ * Install module main controller.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo   write test
+ * @since  0.20
  */
 class Index extends AbstractActionController
 {
-    protected function attachDefaultListeners()
-    {
-        parent::attachDefaultListeners();
-
-        $events = $this->getEventManager();
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 100);
-    }
-
+    /**
+     * Hook for custom preDispatch event.
+     *
+     * @param MvcEvent $event
+     */
     public function preDispatch(MvcEvent $event)
     {
         $this->layout()->setVariable('lang', $this->params('lang'));
 
-        $p = $this->params()->fromQuery('p');
+        $p       = $this->params()->fromQuery('p');
         $request = $this->getRequest();
 
         if ($p && $request->isXmlHttpRequest()) {
@@ -49,18 +47,29 @@ class Index extends AbstractActionController
         }
     }
 
+    /**
+     * Index action.
+     *
+     * @return ViewModel
+     */
     public function indexAction()
     {
-        $form     = $this->getForm();
-        $prereqs  = $this->plugin('Install/Prerequisites')->check();
+        $form    = $this->getForm();
+        $prereqs = $this->plugin('Install/Prerequisites')->check();
 
-        
+
         return $this->createViewModel(array(
                                           'prerequisites' => $prereqs,
-                                          'form' => $form,
-                                      ));
+                                          'form'          => $form,
+                                      )
+        );
     }
-    
+
+    /**
+     * Action to check prerequisites via ajax request.
+     *
+     * @return ViewModel
+     */
     public function prereqAction()
     {
         $prereqs = $this->plugin('Install/Prerequisites')->check();
@@ -71,6 +80,11 @@ class Index extends AbstractActionController
         return $model;
     }
 
+    /**
+     * Main working action. Creates the configuration.
+     *
+     * @return Response|ViewModel
+     */
     public function installAction()
     {
         $form = $this->getForm();
@@ -78,9 +92,10 @@ class Index extends AbstractActionController
 
         if (!$form->isValid()) {
             return $this->createJsonResponse(array(
-                'ok' => false,
-                'errors' => $form->getMessages(),
-                                 ));
+                                                 'ok'     => false,
+                                                 'errors' => $form->getMessages(),
+                                             )
+            );
         }
 
         $data = $form->getData();
@@ -93,9 +108,19 @@ class Index extends AbstractActionController
         return $model;
     }
 
+    /**
+     * Attachs default listeners to the event manager.
+     */
+    protected function attachDefaultListeners()
+    {
+        parent::attachDefaultListeners();
+
+        $events = $this->getEventManager();
+        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 100);
+    }
 
     /**
-     *
+     * Gets the installation form
      *
      * @return \Install\Form\Installation
      */
@@ -108,6 +133,14 @@ class Index extends AbstractActionController
         return $form;
     }
 
+    /**
+     * Creates a view model
+     *
+     * @param array $params
+     * @param bool  $terminal
+     *
+     * @return ViewModel
+     */
     protected function createViewModel(array $params, $terminal = false)
     {
         if (!isset($params['lang'])) {
@@ -121,6 +154,13 @@ class Index extends AbstractActionController
         return $model;
     }
 
+    /**
+     * Create a json response object for ajax requests.
+     *
+     * @param array $variables
+     *
+     * @return \Zend\Stdlib\ResponseInterface
+     */
     protected function createJsonResponse(array $variables)
     {
         $response = $this->getResponse();
