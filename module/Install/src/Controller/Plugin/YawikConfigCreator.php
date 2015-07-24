@@ -23,9 +23,24 @@ class YawikConfigCreator extends AbstractPlugin
 
     public function process($dbConn, $user, $pass)
     {
+        // extract database
+        $dbName = preg_match('~/([^\?]+)~', substr($dbConn, 10), $match)
+                ? $match[1]
+                :'YAWIK';
+
+
         $config = array(
             'doctrine' => array(
-                'connectionString' => $dbConn,
+                'connection' => array(
+                    'odm_default' => array(
+                        'connectionString' => $dbConn,
+                    ),
+                ),
+                'configuration' => array(
+                    'odm_default' => array(
+                        'default_db' => $dbName,
+                    ),
+                ),
             ),
 
             'Auth' => array(
