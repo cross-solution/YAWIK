@@ -63,7 +63,7 @@ $sum = 0; $total = 0;
 
 <?php if (empty($this->job->portals)) : ?>
     <?php echo $this->translate('no Portal chosen') ?>
-<?php else: $c = count($this->job->portals); ?>
+<?php else:  ?>
     <h2><?php echo $this->translate("Selected Channels") ?></h2>
     <p>
         <?php foreach ($this->job->portals as $portalName): ?>
@@ -73,7 +73,7 @@ $sum = 0; $total = 0;
 
 
                 <?php $sum += (int) $channelData->price;
-                        if (1 < $c && $sum < $channelData->minPrice && $total < $channelData->minPrice):
+                        if ($sum < $channelData->minPrice && $total < $channelData->minPrice):
                                 $total = $channelData->minPrice;
                         endif;
                     $total = $sum > $total ? $sum : $total;?>

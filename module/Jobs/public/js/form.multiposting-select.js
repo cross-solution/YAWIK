@@ -46,7 +46,8 @@
     {
         var $select  = $(e.target);
         var selected = $select.find('option:selected');
-        var sum      = $.fn.multipostingSelect.calculatePrice(selected);
+        var sums     = $.fn.multipostingSelect.calculatePrice(selected);
+        var sum      = sum.total;
         var price    = $.fn.multipostingSelect.formatPrice(sum, numberFormat);
 
         $('#' + $select.attr('id') + '-total span').text(price);
@@ -108,14 +109,14 @@
         for (var i= 0, c=selectedOptions.length; i<c; i+=1) {
             var data = $.fn.multipostingSelect.getOptionData($(selectedOptions[i]).text());
             sum += data.price;
-            if (1 < c && sum < data.minPrice && total < data.minPrice) {
+            if (sum < data.minPrice && total < data.minPrice) {
                 total = data.minPrice;
             } else {
                 total = sum > total ? sum : total;
             }
         }
 
-        return total;
+        return {total: total, sum: sum };
     };
 
     $.fn.multipostingSelect.getOptionData = function(text)

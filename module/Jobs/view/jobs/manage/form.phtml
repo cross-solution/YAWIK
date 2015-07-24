@@ -88,7 +88,7 @@ if ($this->page == 2):
 
                     <?php $this->plugin('currencyFormat')->setCurrencyCode($defaultCurrencyCode);
 
-                    $portals = array(); $channelCount = count($this->job->portals);
+                    $portals = array();
                     foreach($this->job->portals as $channelName):
                             $channelData=$channels->getChannel($channelName);
                             if (is_object($channelData)) {
@@ -102,7 +102,7 @@ if ($this->page == 2):
                         <div class="row">
                         <?php foreach ($channels as $channel):
                             $sum+=$channel->price;
-                            if (1 < $channelCount && $sum < $channel->minPrice && $total < $channel->minPrice):
+                            if ($sum < $channel->minPrice && $total < $channel->minPrice):
                                 $total = $channel->minPrice;
                             endif;
                             $total = $sum > $total ? $sum : $total;?>

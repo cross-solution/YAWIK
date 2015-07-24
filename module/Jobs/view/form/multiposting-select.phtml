@@ -24,7 +24,7 @@ if ($this->renderSummary):?>
 
                $this->plugin('currencyformat')->setCurrencyCode($defaultCurrencyCode);
 
-                $total = 0; $sum = 0; $channelCount = count($valueKey);
+                $total = 0; $sum = 0;
                 foreach ($options as $category => $categoryOptions):
                     foreach ($categoryOptions['options'] as $channelName => $channel):
                         if (in_array($channelName, $valueKey)):
@@ -40,13 +40,10 @@ if ($this->renderSummary):?>
                         <?php foreach ($channels as $name => $spec):
                             $data = explode('|', $spec);
                             $sum += $data[7];
-                            if (1 < $channelCount):
 
-                                if ($sum < $data[9] && $total < $data[9]): $total = $data[9];
-                                endif;
-                            else:
-                                //echo $this->currencyFormat($data[7]);
+                            if ($sum < $data[9] && $total < $data[9]): $total = $data[9];
                             endif;
+
                             $total = $sum > $total ? $sum : $total;
                             ?>
                             <div class="col-md-6" style="height: 34px; padding:  5px 15px;">

@@ -41,7 +41,8 @@
 
     function updatePrice()
     {
-        var sum      = $.fn.multipostingSelect.calculatePrice();
+        var sums     = $.fn.multipostingSelect.calculatePrice();
+        var sum      = sums.total;
         var price    = $.fn.multipostingSelect.formatPrice(sum, numberFormat);
 
         $('#' + $container.attr('id') + '-total span').text(price);
@@ -76,7 +77,6 @@
     $.fn.multipostingSelect.calculatePrice = function()
     {
         var sum = 0, total = 0, $activeButtons = $container.find('.mpc-button.btn-success');
-        var c = $activeButtons.length;
 
         console.debug($activeButtons);
         $activeButtons.each(function() {
@@ -86,7 +86,7 @@
 
             sum += parseFloat(price);
 
-            if (1 < c && sum < minPrice && total < minPrice) {
+            if (sum < minPrice && total < minPrice) {
                 total = minPrice;
             } else {
                 total = sum > total ? sum : total;
@@ -95,7 +95,7 @@
 
         });
 
-        return total;
+        return {total: total, sum: sum };
     };
 
     $.fn.multipostingSelect.getOptionData = function(text)
