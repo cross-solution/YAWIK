@@ -26,7 +26,7 @@ return array(
             ),
         ),
     ),
-    
+
     'Jobs' => array(
         'dashboard' => array(
             'enabled' => true,
@@ -38,7 +38,7 @@ return array(
                     ),
                 ),
             ),
-        ), 
+        ),
     ),
 
     // Translations
@@ -51,7 +51,7 @@ return array(
                     ),
             ),
     ),
-      
+
     'acl' => array(
         'rules' => array(
             'recruiter' => array(
@@ -73,7 +73,7 @@ return array(
                 ),
                 'deny' => array(
                     'Jobboard',
-                    'route/lang/jobs/approval'
+                    'route/lang/jobs/approval',
                 ),
             ),
             'guest' => array(
@@ -100,7 +100,10 @@ return array(
                     'Jobs/Manage' => array(
                         'approval',
                     ),
-                    'route/lang/jobs/pending-list',
+                    'route/lang/jobs/listOpenJobs',
+                    'pendingJobs',
+                ),
+                'deny' => array(
                 )
             )
         ),
@@ -111,7 +114,7 @@ return array(
             ),
         ),
     ),
-    
+
     'navigation' => array(
         'default' => array(
             'jobboard' => array(
@@ -129,14 +132,11 @@ return array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/jobs',
-                        'params' => array('__activeMarker__' => 'overview'),
                     ),
                     'pending-list' => array(
                         'label' => /*@translate*/ 'Pending jobs',
-                        'route' => 'lang/jobs',
-                        'query' => array('status' => 'created'),
-                        'resource' => 'route/lang/jobs/pending-list',
-                        'params' => array('__activeMarker__' => 'pending'),
+                        'route' => 'lang/jobs/listOpenJobs',
+                        'resource' => 'pendingJobs'
                     ),
                     'new' => array(
                         'label' => /*@translate*/ 'Create job',
@@ -187,7 +187,7 @@ return array(
             'Jobs/Options/Channel' => false,
         )
     ),
-    
+
     'controllers' => array(
         'invokables' => array(
             'Jobs/Index' => 'Jobs\Controller\IndexController',
@@ -201,7 +201,16 @@ return array(
             'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
         )
     ),
-    
+
+    'paginator_manager' => array(
+        'invokables' => array(
+        ),
+        'factories' => array(
+            'Jobs/Job'   => 'Jobs\Paginator\JobsPaginatorFactory',
+            'Jobs/Admin' => 'Jobs\Paginator\JobsAdminPaginatorFactory',
+        )
+    ),
+
     'view_manager' => array(
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
@@ -226,7 +235,7 @@ return array(
             'mail/job-rejected' => __DIR__ . '/../view/mails/job-rejected.phtml',
             'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
-    
+
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
             __DIR__ . '/../view',
@@ -282,7 +291,7 @@ return array(
             'Jobs/Import'                       => 'Jobs\Factory\Form\ImportFactory',
         )
     ),
-    
+
     'input_filters' => array(
         'invokables' => array(
             'Jobs/Location/New'                 => 'Jobs\Form\InputFilter\JobLocationNew',
@@ -293,13 +302,14 @@ return array(
             'Jobs/AtsMode'                      => 'Jobs\Factory\Form\InputFilter\AtsModeFactory',
         )
     ),
-    
+
     'filters' => array(
         'factories'=> array(
-            'Jobs/PaginationQuery' => '\Jobs\Repository\Filter\PaginationQueryFactory'
+            'Jobs/PaginationQuery'      => '\Jobs\Repository\Filter\PaginationQueryFactory',
+            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory'
         ),
     ),
-    
+
     'validators' => array(
         'factories' => array(
             'Jobs/Form/UniqueApplyId' => 'Jobs\Form\Validator\UniqueApplyIdFactory',

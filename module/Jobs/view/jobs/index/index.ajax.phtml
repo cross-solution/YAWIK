@@ -39,7 +39,15 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
     <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
               elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
         <?php if ($isRecruiter && !$this->showPendingJobs):?>
-        <br>(<?php echo $job->getUser()->getInfo()->getDisplayName() ?>)
+        <br>(<?php
+            $displayName = '';
+            $user = $job->getUser();
+            if (isset($user)) {
+                $displayName = $user->getInfo()->getDisplayName();
+            }
+            echo $displayName
+
+            ?>)
         <?php endif ?></td>
               
     <td>
