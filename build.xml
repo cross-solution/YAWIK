@@ -105,6 +105,8 @@
       <fileset refid="tinymce"/>
     </copy>
 
+    <copy file="${project.basedir}/module/Jobs/config/channel.options.local.php.dist" tofile="${builddir}/config/autoload/channel.options.local.php"/>
+
     <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>
@@ -132,13 +134,14 @@
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
     <mkdir dir="${builddir}/config/autoload"/>
-
+    <chmod file="${builddir}/config/autoload" mode="0777"/>
     <echo file="${builddir}/VERSION" append="false">${version}</echo>
 
     <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
     <symlink link="build/YAWIK-${version-short}/public/Jobs" target="../module/Jobs/public" />
+    <symlink link="build/YAWIK-${version-short}/public/Organizations" target="../module/Organizations/public" />
 
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
@@ -159,18 +162,6 @@
   <!-- ============================================  -->
   <target name="generate-autoload-config" depends="load-properties">
     <property name="target" value="config/autoload" override="true"/>
-    <if>
-      <equals arg1="${username}" arg2="" trim="true"/>
-      <then>
-        <input message="Please enter an initial username:" propertyName="username"/>
-      </then>
-    </if>
-    <if>
-      <equals arg1="${password}" arg2="" trim="true"/>
-      <then>
-        <input message="Please enter an initial Password:" propertyName="password"/>
-      </then>
-    </if>
     <if>
       <istrue value="${facebook.enabled}"/>
       <then>
@@ -221,11 +212,6 @@
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
       <filterchain>
         <replacetokens begintoken="%%" endtoken="%%">
-          <token key="mongo.host" value="${mongo.host}"/>
-          <token key="mongo.db" value="${mongo.db}"/>
-          <token key="mongo.user" value="${mongo.user}"/>
-          <token key="mongo.pass" value="${mongo.pass}"/>
-          <token key="mongo.port" value="${mongo.port}"/>
           <token key="mail.from.name" value="${mail.from.name}"/>
           <token key="mail.from.email" value="${mail.from.email}"/>
           <token key="facebook.appid" value="${facebook.appid}"/>
@@ -244,8 +230,6 @@
           <token key="xing.enabled" value="${xing.enabled}"/>
           <token key="captcha.recapture.public_key" value="${captcha.recapture.public_key}"/>
           <token key="captcha.recapture.private_key" value="${captcha.recapture.private_key}"/>
-          <token key="username" value="${username}"/>
-          <token key="password" value="${password}"/>
           <token key="email" value="${email}"/>
           <token key="role" value="${role}"/>
           <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
@@ -295,6 +279,7 @@
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" overwrite="true" />
     <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" overwrite="true" />
     <symlink link="${project.basedir}/public/Organizations" target="${project.basedir}/module/Organizations/public" overwrite="true" />
+    <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" overwrite="true" />
   </target>
 
   <!-- ============================================  -->
