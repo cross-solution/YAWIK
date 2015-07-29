@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Applications\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-15 10:21+0200\n"
+"POT-Creation-Date: 2015-07-28 17:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,24 +115,24 @@ msgid ""
 "preview or abort your application."
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:36
+#: view/applications/apply/_buttons.phtml:38
 msgid "Back to the formular"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:41
+#: view/applications/apply/_buttons.phtml:57
 msgid "Preview application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:47
-#: view/applications/apply/_buttons.phtml:54
+#: view/applications/apply/_buttons.phtml:63
+#: view/applications/apply/_buttons.phtml:73
 msgid "Send application"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:51
+#: view/applications/apply/_buttons.phtml:70
 msgid "Send preview to my email"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:60
+#: view/applications/apply/_buttons.phtml:81
 msgid "Abort application"
 msgstr ""
 

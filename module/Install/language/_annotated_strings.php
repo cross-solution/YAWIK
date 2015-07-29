@@ -1,16 +1,12 @@
 <?php
-//: ./src/Form/Installation.php:37
+//: ./src/Form/Installation.php:38
 translate('Database connection string');
 
-//: ./src/Form/Installation.php:46
+//: ./src/Form/Installation.php:51
 translate('Initial user name');
 
-//: ./src/Form/Installation.php:54
+//: ./src/Form/Installation.php:60
 translate('Password');
 
-//: ./src/Validator/MongoDbConnectionString.php:32
-translate('Invalid connection string');
-
-//: ./src/Validator/MongoDbConnectionString.php:33
-translate('Connecting the database failed: %databaseError%');
-
+44:        self::INVALID       => /* @translate */
+46:        self::NO_CONNECTION => /* @translate */

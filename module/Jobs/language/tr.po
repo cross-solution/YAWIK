@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-17 09:24+0200\n"
-"PO-Revision-Date: 2015-06-17 07:24+0000\n"
+"POT-Creation-Date: 2015-07-28 17:14+0200\n"
+"PO-Revision-Date: 2015-07-29 09:20+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/yawik/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -27,47 +27,63 @@ msgstr ""
 msgid "Publish on %s"
 msgstr ""
 
-#: view/mails/job-created.phtml:18 view/iframe/iFrame.phtml:6
+#: view/mails/job-created.phtml:21 view/iframe/iFrame.phtml:6
 msgid "Job details"
 msgstr "İş detayları"
 
-#: view/mails/job-created.phtml:21 view/jobs/jobboard/index.ajax.phtml:13
+#: view/mails/job-created.phtml:24 view/jobs/jobboard/index.ajax.phtml:13
 #: view/jobs/index/index.ajax.phtml:17
 msgid "Title of the job"
 msgstr "İşin Adı"
 
-#: view/mails/job-created.phtml:25 view/jobs/jobboard/index.ajax.phtml:14
+#: view/mails/job-created.phtml:28 view/jobs/jobboard/index.ajax.phtml:14
 #: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:96
 msgid "Location"
 msgstr "Konum"
 
-#: view/mails/job-created.phtml:29 view/jobs/jobboard/index.ajax.phtml:13
+#: view/mails/job-created.phtml:32 view/jobs/jobboard/index.ajax.phtml:13
 #: view/jobs/index/index.ajax.phtml:20 view/jobs/index/index.ajax.phtml:30
 #: language/_annotated_strings.php:27 language/_annotated_strings.php:39
 msgid "Companyname"
 msgstr "Firma Adı"
 
-#: view/mails/job-created.phtml:34
+#: view/mails/job-created.phtml:37
 msgid "Publisher details"
 msgstr ""
 
-#: view/mails/job-created.phtml:38
+#: view/mails/job-created.phtml:41
 msgid "Name"
 msgstr ""
 
-#: view/mails/job-created.phtml:42 language/_annotated_strings.php:66
+#: view/mails/job-created.phtml:45 language/_annotated_strings.php:66
 msgid "Email"
 msgstr ""
 
-#: view/mails/job-created.phtml:61
+#: view/mails/job-created.phtml:65
 msgid "no Portal chosen"
 msgstr ""
 
-#: view/mails/job-created.phtml:63
+#: view/mails/job-created.phtml:67
 msgid "Selected Channels"
 msgstr ""
 
-#: view/mails/job-created.phtml:80
+#: view/mails/job-created.phtml:84 view/form/multiposting-select.phtml:63
+#: view/jobs/manage/form.phtml:122 view/partials/portalsummary.phtml:11
+msgid "Price"
+msgstr ""
+
+#: view/mails/job-created.phtml:88 view/form/multiposting-checkboxes.phtml:54
+#: view/form/multiposting-select.phtml:69
+#: view/form/multiposting-select.phtml:92 view/jobs/manage/form.phtml:128
+msgid "plus VAT"
+msgstr ""
+
+#: view/mails/job-created.phtml:92 view/form/multiposting-select.phtml:75
+#: view/jobs/manage/form.phtml:134
+msgid "Invoice amount"
+msgstr ""
+
+#: view/mails/job-created.phtml:98
 msgid "Click here to accept or reject the job opening"
 msgstr ""
 
@@ -102,16 +118,6 @@ msgstr "Bağlantıyı Uygula"
 msgid ""
 "If you want to post job openings for your customers, you have to %sadd "
 "them%s in the organizations menu."
-msgstr ""
-
-#: view/form/multiposting-select.phtml:40 view/jobs/manage/approval.phtml:31
-#: view/jobs/manage/form.phtml:98
-msgid "Price"
-msgstr ""
-
-#: view/form/multiposting-select.phtml:52 view/jobs/manage/approval.phtml:44
-#: view/jobs/manage/form.phtml:115
-msgid "Total"
 msgstr ""
 
 #: view/form/ats-mode.view.phtml:18
@@ -157,7 +163,7 @@ msgstr "Kamu İş Fırsatları"
 msgid "Date of receipt"
 msgstr "Alınış tarihi"
 
-#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:112
+#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:121
 #: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:71
 msgid "Apply"
 msgstr "Uygulamak"
@@ -231,6 +237,14 @@ msgstr "taslak"
 msgid "Change responsible user for job \\\"%s\\\""
 msgstr ""
 
+#: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
+msgid "State history"
+msgstr "Devlet geçmişi"
+
+#: view/jobs/index/index.ajax.phtml:143
+msgid "please wait"
+msgstr ""
+
 #: view/jobs/index/dashboard.phtml:6
 msgid "Current Jobs"
 msgstr "Güncel İşler"
@@ -243,7 +257,8 @@ msgstr "Ünlü işler"
 msgid "Job"
 msgstr "Iş"
 
-#: view/jobs/index/dashboard.phtml:13
+#: view/jobs/index/dashboard.phtml:13 view/jobs/manage/history.phtml:8
+#: view/partials/history.phtml:7
 msgid "Date"
 msgstr "Tarih"
 
@@ -273,115 +288,119 @@ msgstr "İşi oluştur"
 msgid "Logout"
 msgstr ""
 
+#: view/jobs/manage/history.phtml:4
+msgid "History"
+msgstr ""
+
+#: view/jobs/manage/history.phtml:8 view/partials/history.phtml:9
+msgid "Comment"
+msgstr "Yorum"
+
 #: view/jobs/manage/approval.phtml:14
 msgid "Preview of the posting"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:26 view/jobs/manage/form.phtml:78
-msgid "Summary"
-msgstr "Özet"
-
-#: view/jobs/manage/approval.phtml:30
-msgid "Channel"
-msgstr ""
-
-#: view/jobs/manage/approval.phtml:50
+#: view/jobs/manage/approval.phtml:33
 msgid "Reject Job"
 msgstr ""
 
-#: view/jobs/manage/approval.phtml:51
+#: view/jobs/manage/approval.phtml:34
 msgid "Accept Job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:27
+#: view/jobs/manage/form.phtml:31
 msgid "Publish a job"
 msgstr "Bir işi Yayınla"
 
-#: view/jobs/manage/form.phtml:29
+#: view/jobs/manage/form.phtml:33
 msgid "Create a job"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:61
+#: view/jobs/manage/form.phtml:65
 msgid "Preview of your job posting"
 msgstr "Iş ilanıyla Önizleme"
 
-#: view/jobs/manage/form.phtml:72
+#: view/jobs/manage/form.phtml:76
 #, php-format
 msgid ""
 "Please check the preview of your job position. Click %s to open the preview "
 "in a new window"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:73 view/jobs/manage/form.phtml:125
+#: view/jobs/manage/form.phtml:77 view/jobs/manage/form.phtml:145
 msgid "here"
 msgstr "işte"
 
-#: view/jobs/manage/form.phtml:82
+#: view/jobs/manage/form.phtml:82 view/partials/portalsummary.phtml:6
+msgid "Summary"
+msgstr "Özet"
+
+#: view/jobs/manage/form.phtml:86
 msgid "Your job opening is ready to be published to the following channels"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:124
+#: view/jobs/manage/form.phtml:144
 #, php-format
 msgid "Please check your selected channels. Click %s to modify the channels"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:142
+#: view/jobs/manage/form.phtml:162
 msgid "Next to enter the job"
 msgstr "İşi girmek için Sonraki"
 
-#: view/jobs/manage/form.phtml:145 view/jobs/manage/form.phtml:209
+#: view/jobs/manage/form.phtml:165 view/jobs/manage/form.phtml:229
 msgid "Back"
 msgstr "Geri"
 
-#: view/jobs/manage/form.phtml:146
+#: view/jobs/manage/form.phtml:166
 msgid "Next to preview the job"
 msgstr "İşi önizlemek Sonraki"
 
-#: view/jobs/manage/form.phtml:157
+#: view/jobs/manage/form.phtml:177
 msgid "Your job position is incomplete."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:169
+#: view/jobs/manage/form.phtml:189
 msgid ""
 "Your job opening is online. You can publish minor changes or you can "
 "deactivate the job opening"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:178
+#: view/jobs/manage/form.phtml:198
 msgid "Your job opening was successfully created and is waiting for approval."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:187
+#: view/jobs/manage/form.phtml:207
 msgid ""
 "Your job opening is inactive. You can reactivate it. Chargeable channels are"
 " not updated."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:196
+#: view/jobs/manage/form.phtml:216
 msgid ""
 "Your job was expired. You can reactivate you job opening. Chargeable "
 "channels are not updated."
 msgstr ""
 
-#: view/jobs/manage/form.phtml:205
+#: view/jobs/manage/form.phtml:225
 msgid ""
 "Your job opening was rejected. Please correct the errors and republish it"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:212
+#: view/jobs/manage/form.phtml:232
 #, php-format
 msgid "Publish job %s"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:212
+#: view/jobs/manage/form.phtml:232
 msgid "chargeable"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:215
+#: view/jobs/manage/form.phtml:235
 msgid "submit changes"
 msgstr ""
 
-#: view/jobs/manage/form.phtml:226
+#: view/jobs/manage/form.phtml:246
 msgid "Deactivate"
 msgstr ""
 
@@ -403,43 +422,67 @@ msgid ""
 "organization%s first."
 msgstr ""
 
+#: view/partials/history.phtml:8
+msgid "State"
+msgstr "Devlet"
+
+#: view/partials/snapshot_or_preview.phtml:8
+msgid "Nothing has changed"
+msgstr ""
+
+#: view/partials/snapshot_or_preview.phtml:19
+msgid "previous content"
+msgstr ""
+
+#: view/partials/snapshot_or_preview.phtml:20
+msgid "new content"
+msgstr ""
+
+#: view/partials/portalsummary.phtml:10
+msgid "Channel"
+msgstr ""
+
+#: view/partials/portalsummary.phtml:24
+msgid "Total"
+msgstr ""
+
 #: src/Jobs/Form/JobDescriptionFieldset.php:36
 msgid "Description"
 msgstr "Tanım"
 
-#: src/Jobs/Controller/ManageController.php:175
+#: src/Jobs/Controller/ManageController.php:188
 msgid "No Title"
 msgstr "Başlık"
 
-#: src/Jobs/Controller/ManageController.php:179
+#: src/Jobs/Controller/ManageController.php:192
 msgid "No Location"
 msgstr "Hiçbir Yer"
 
-#: src/Jobs/Controller/ManageController.php:183
+#: src/Jobs/Controller/ManageController.php:196
 msgid "Accept the Terms"
 msgstr "Şartları kabul"
 
-#: src/Jobs/Controller/ManageController.php:389
+#: src/Jobs/Controller/ManageController.php:433
 msgid "Job has been rejected"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:396
+#: src/Jobs/Controller/ManageController.php:441
 msgid "Job has been approved"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:428
+#: src/Jobs/Controller/ManageController.php:477
 msgid "Job has been deactivated"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:430
+#: src/Jobs/Controller/ManageController.php:479
 msgid "Job could not be deactivated"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:445
+#: src/Jobs/Controller/ManageController.php:497
 msgid "Template changed"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:448
+#: src/Jobs/Controller/ManageController.php:500
 msgid "Template not changed"
 msgstr ""
 
@@ -690,3 +733,7 @@ msgstr ""
 #: language/_annotated_strings.php:189
 msgid "Edit job"
 msgstr "Düzenleme işi"
+
+#: test/JobsTest/Factory/Form/MultipostingSelectFactoryTest.php:54
+msgid "testLabel"
+msgstr ""

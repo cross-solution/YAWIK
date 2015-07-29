@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Install\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-22 10:58+0200\n"
+"POT-Creation-Date: 2015-07-29 11:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,6 +94,34 @@ msgstr ""
 msgid "Checking"
 msgstr ""
 
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr ""
+
+#: view/error/index.phtml:21
+msgid "Additional information"
+msgstr ""
+
+#: view/error/index.phtml:24 view/error/index.phtml:48
+msgid "File"
+msgstr ""
+
+#: view/error/index.phtml:28 view/error/index.phtml:52
+msgid "Message"
+msgstr ""
+
+#: view/error/index.phtml:32 view/error/index.phtml:56
+msgid "Stack trace"
+msgstr ""
+
+#: view/error/index.phtml:42
+msgid "Previous exceptions"
+msgstr ""
+
+#: view/error/index.phtml:71
+msgid "No Exception available"
+msgstr ""
+
 #: language/_annotated_strings.php:3
 msgid "Database connection string"
 msgstr ""
@@ -104,12 +132,4 @@ msgstr ""
 
 #: language/_annotated_strings.php:9
 msgid "Password"
-msgstr ""
-
-#: language/_annotated_strings.php:12
-msgid "Invalid connection string"
-msgstr ""
-
-#: language/_annotated_strings.php:15
-msgid "Connecting the database failed: %databaseError%"
 msgstr ""

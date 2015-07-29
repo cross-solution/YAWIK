@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-13 22:31+0200\n"
+"POT-Creation-Date: 2015-07-28 17:15+0200\n"
 "PO-Revision-Date: 2015-05-20 14:02+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
@@ -115,24 +115,24 @@ msgid ""
 "preview or abort your application."
 msgstr "Your application is incomplete. You have to add your contact data and accept the privacy policy to be able to submit the application. You can always preview or abort your application."
 
-#: view/applications/apply/_buttons.phtml:36
+#: view/applications/apply/_buttons.phtml:38
 msgid "Back to the formular"
 msgstr "Back to the formular"
 
-#: view/applications/apply/_buttons.phtml:41
+#: view/applications/apply/_buttons.phtml:57
 msgid "Preview application"
 msgstr "Preview application"
 
-#: view/applications/apply/_buttons.phtml:47
-#: view/applications/apply/_buttons.phtml:54
+#: view/applications/apply/_buttons.phtml:63
+#: view/applications/apply/_buttons.phtml:73
 msgid "Send application"
 msgstr "Send application"
 
-#: view/applications/apply/_buttons.phtml:51
+#: view/applications/apply/_buttons.phtml:70
 msgid "Send preview to my email"
 msgstr "Send preview to my email"
 
-#: view/applications/apply/_buttons.phtml:60
+#: view/applications/apply/_buttons.phtml:81
 msgid "Abort application"
 msgstr "Abort application"
 

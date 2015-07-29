@@ -11,9 +11,6 @@ translate('Social Profiles');
 //: ./src/Auth/Form/SocialProfilesFieldset.php:227
 translate('Allow users to attach their %s profile.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:57
-translate('personal informations');
-
 //: ./src/Auth/Form/UserInfoFieldset.php:63
 translate('Email');
 
