@@ -20,27 +20,43 @@ use Core\Paginator\PaginatorFactoryAbstract;
  */
 class PaginatorFactoryAbstractTest extends \PHPUnit_Framework_TestCase {
 
+    public static function serviceLocator($attribute)
+    {
+
+        return strtolower($attribute);
+    }
+
+    public function setUp()
+    {
+
+    }
+
     public function testSetGetDefaultTaxRate()
     {
-        //$className = 'Core\Paginator\PaginatorFactoryAbstract';
+        $staticClassPrefix = '\\' . __CLASS__ . '::';
 
-        //$mock = $this->getMockBuilder($className)
-        //             ->disableOriginalConstructor()
-        //             ->setMethods(array('createService'))
-        //             ->getMockForAbstractClass();
+        if (false) {
+            $className = 'Core\Paginator\PaginatorFactoryAbstract';
 
-        //$serviceLocatorMock = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')
-        //                           ->disableOriginalConstructor();
+            $mock = $this->getMockBuilder($className)
+                         ->disableOriginalConstructor()
+                         ->setMethods(array('createService'))
+                         ->getMockForAbstractClass();
 
-        //$mock->expects($this->once())
-        //       ->method('createService')
-        //       ->with($serviceLocatorMock);
+            $serviceLocatorMock = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')
+                ->expect()
+                ->method('get')
+                ->will($this->returnCallback($this->returnCallback($staticClassPrefix . 'serviceLocator')))
+                ->disableOriginalConstructor();
 
+            //$mock->expects($this->once())
+            //       ->method('createService')
+            //       ->with($serviceLocatorMock);
 
-
-        //$reflectedClass = new ReflectionClass($className);
-        //$constructor = $reflectedClass->getConstructor();
-        //$constructor->invoke($mock, 4);
+            //$reflectedClass = new ReflectionClass($className);
+            //$constructor = $reflectedClass->getConstructor();
+            //$constructor->invoke($mock, 4);
+        }
 
         // Optional: Test anything here, if you want.
         $this->assertTrue(TRUE, 'This should already work.');

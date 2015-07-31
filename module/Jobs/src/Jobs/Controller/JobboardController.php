@@ -62,8 +62,14 @@ class JobboardController extends AbstractActionController
      */
     public function indexAction()
     {
-        $params      = $this->getRequest()->getQuery();
-        $jsonFormat  = 'json' == $params->get('format');
+        $request          = $this->getRequest();
+        $params           = $request->getQuery();
+        $jsonFormat       = 'json' == $params->get('format');
+        $event            = $this->getEvent();
+        $routeMatch       = $event->getRouteMatch();
+        $matchedRouteName = $routeMatch->getMatchedRouteName();
+        $url              = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
+        $action           = $routeMatch->getParam('action');
         
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
@@ -83,8 +89,13 @@ class JobboardController extends AbstractActionController
             $params['sort']='-date';
         }
 
+        $this->searchForm->setAttribute('action', $url);
         $params['by'] = "guest";
         $paginator = $this->paginator('Jobs/Job',$params);
+
+        $options = $this->searchForm->getOptions();
+        $options['showButtons'] = false;
+        $this->searchForm->setOptions($options);
         
         $return = array(
             'by' => $params->get('by', 'all'),
