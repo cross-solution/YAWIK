@@ -106,15 +106,19 @@ class SendMailTest extends \PHPUnit_Framework_TestCase
     public function testOverrideRecipient()
     {
         $overrideEmail = 'overidden@email';
+        $ccEmail="cc@email";
+        $bccEmail="bcc@email";
+        $toEmail="to@email";
+        
         $recipients = new AddressList();
         $recipients->add($overrideEmail);
 
         $this->target->setOverrideRecipient($recipients);
 
         $mail = new Message();
-        $mail->addTo('origTo');
-        $mail->addCc('origCc');
-        $mail->addBcc('origBcc');
+        $mail->addTo($toEmail);
+        $mail->addCc($ccEmail);
+        $mail->addBcc($bccEmail);
 
         $this->expectedMail = $mail;
 
@@ -127,7 +131,7 @@ class SendMailTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($headers->has('X-Original-Recipients'));
 
         $this->assertEquals($expectedTo, $headers->get('to')->toString());
-        $this->assertEquals('X-Original-Recipients: To: origTo; Cc: origCc; Bcc: origBcc', $headers->get('X-Original-Recipients')->toString());
+        $this->assertEquals('X-Original-Recipients: To: ' . $toEmail . '; Cc: ' . $ccEmail . '; Bcc: ' . $bccEmail, $headers->get('X-Original-Recipients')->toString());
     }
 
     public function testSetsXMailerHeader()
