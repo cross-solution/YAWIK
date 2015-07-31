@@ -29,7 +29,7 @@
     "homepage": "http://yawik.org/",
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "ext-mongo": "*",
         "ext-intl": "*",
         "zendframework/zendframework": "2.*",
