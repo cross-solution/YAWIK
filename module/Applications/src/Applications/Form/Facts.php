@@ -38,7 +38,7 @@ class Facts extends SummaryForm
         $this->setIsDescriptionsEnabled(true);
         $this->setDescription(/*@translate*/ 'Please provide some additional facts for this job opening.');
         $this->setIsDisableCapable(true);
-        $this->setIsDisableElementsCapable(false);
+        $this->setIsDisableElementsCapable(true);
 
         parent::init();
     }

@@ -33,7 +33,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
              ->setName('base');
 
-        $this->add(array(
+        $a=$this->add(array(
             'name' => 'willingnessToTravel',
             'type' => '\Zend\Form\Element\Select',
             'options' => array(
@@ -77,7 +77,21 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
             ),
         ));
 
-
+        $this->add(array(
+                       'name' => 'drivingLicense',
+                       'type' => '\Zend\Form\Element\Select',
+                       'options' => array(
+                           'value_options' => array(
+                               '' => '', // needed for jquery select2 to render the placeholder
+                               "1"=>/*@translate*/ "Yes",
+                               "0"=>/*@translate*/ "No"),
+                           'label' => /*@translate*/ 'driving license',
+                           'description' => /*@translate*/ 'Do you have a driving license?',
+                           'disable_capable' => array(
+                               'description' => /*@translate*/ 'Ask the applicant, if he has a driving license.',
+                           ),
+                       ),
+                   ));
     }
     
     public function isSummaryEmpty()
@@ -134,7 +148,15 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         if (in_array('expectedSalary', $map)) {
             $this->remove('expectedSalary');
         }
-
+        if (in_array('willingnessToTravel', $map)) {
+            $this->remove('willingnessToTravel');
+        }
+        if (in_array('earliestStartingDate', $map)) {
+            $this->remove('earliestStartingDate');
+        }
+        if (in_array('drivingLicense', $map)) {
+            $this->remove('drivingLicense');
+        }
         return $this;
     }
 }
