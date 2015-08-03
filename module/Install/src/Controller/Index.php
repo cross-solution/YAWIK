@@ -100,7 +100,17 @@ class Index extends AbstractActionController
 
         $data = $form->getData();
 
-        $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn'], $data['username'], $data['password']);
+        $userOk = $this->plugin('Install/UserCreator')->process($data['db_conn'], $data['username'], $data['password']);
+        $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn']);
+
+        /*
+         * Make sure there's no cached config files
+         */
+        $classmapCacheFile = 'cache/module-classmap-cache.module_map.php';
+        file_exists($classmapCacheFile) && @unlink($classmapCacheFile);
+
+        $configCacheFile   = 'cache/module-config-cache.production.php';
+        file_exists($configCacheFile) && @unlink($configCacheFile);
 
         $model = $this->createViewModel(array('ok' => $ok), true);
         $model->setTemplate('install/index/install.ajax.phtml');

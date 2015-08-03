@@ -11,6 +11,7 @@
 namespace InstallTest\Controller\Plugin;
 
 use Install\Controller\Plugin\YawikConfigCreator;
+use Install\Filter\DbNameExtractor;
 
 /**
  * Tests for \Install\Controller\Plugin\YawikConfigCreator
@@ -24,33 +25,39 @@ use Install\Controller\Plugin\YawikConfigCreator;
  */
 class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Class under test
+     *
+     * @var YawikConfigCreator
+     */
+    protected $target;
+
     public function setUp()
     {
-        $this->target = new YawikConfigCreator();
+        $extractor = new DbNameExtractor('YAWIK.test');
+
+        $this->target = new YawikConfigCreator($extractor);
 
         if (0 === strpos($this->getName(false), 'testExtends')) return;
 
         chdir(__DIR__);
-
     }
 
     public function testExtendsAbstractPlugin()
     {
-        $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', new YawikConfigCreator());
+        $this->assertInstanceOf('\Zend\Mvc\Controller\Plugin\AbstractPlugin', $this->target);
     }
 
     public function testSettingConfigurationValues()
     {
-        $result = $this->target->process('mongodb://server/TestDbName', 'test', 'pass');
+        $result = $this->target->process('mongodb://server/TestDbName');
 
         $this->assertContains("'default_db' => 'TestDbName'", $result);
-        $this->assertContains("'default_user'", $result);
-        $this->assertContains("'login' => 'test'", $result);
-        $this->assertContains("'password' => 'pass'", $result);
+        $this->assertContains("'connectionString' => 'mongodb://server/TestDbName'", $result);
 
-        $result = $this->target->process('mongodb://server', 'user', 'pass');
+        $result = $this->target->process('mongodb://server');
 
-        $this->assertContains("'default_db' => 'YAWIK'", $result);
+        $this->assertContains("'default_db' => 'YAWIK.test'", $result);
     }
 
     public function testWritingConfigFileWorks()
@@ -69,9 +76,6 @@ class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
 
         if ($content) {
             $this->assertContains("'default_db' => 'dbname'", $content);
-            $this->assertContains("'default_user'", $content);
-            $this->assertContains("'login' => 'user'", $content);
-            $this->assertContains("'password' => 'pass'", $content);
         }
 
         unlink("$dir/config/autoload/yawik.config.global.php");

@@ -8,13 +8,26 @@
  */
 ?>
 
+        <div class="alert alert-success">
+            <?php echo sprintf(
+                    $this->translate('An administrator account with the login name "%s" was created successfully.', 'Install'),
+                    $_POST['username']
+                  );?>
+        </div>
         <?php if (true === $this->ok): ?>
-            <p><?php echo $this->translate('The base configuration file was successfully created. You can now start using YAWIK by reloading the browser window.', 'Install') ?></p>
+            <div class="alert alert-success"><?php echo $this->translate('The base configuration file was successfully created.', 'Install') ?></div>
         <?php else: ?>
-            <p><?php echo sprintf(
+            <div class="alert alert-warning"><p><?php echo sprintf(
                                 $this->translate('The configuration file could not be created automatically. So please create a file called "%s" in the directory "%s" with the following content:', 'Install'),
                                 'yawik.config.global.php', 'config/autoload'
                           )?></p>
         <pre><?php echo $this->escapeHtml($this->ok) ?></pre>
-                <p><?php echo $this->translate('When you created the file you can start using YAWIK by reloading the browser window.', 'Install') ?></p>
+                </div>
+
         <?php endif ?>
+
+        <div class="text-center">
+            <a class="btn btn-success" href="<?php echo $this->basePath('/') ?>">
+                    <?php echo $this->translate('Start using YAWIK', 'Install') ?>
+            </a>
+        </div>

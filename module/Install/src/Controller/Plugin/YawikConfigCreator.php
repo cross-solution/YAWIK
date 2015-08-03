@@ -10,6 +10,7 @@
 /** */
 namespace Install\Controller\Plugin;
 
+use Install\Filter\DbNameExtractor;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
@@ -24,6 +25,23 @@ class YawikConfigCreator extends AbstractPlugin
 {
 
     /**
+     * Database extractor
+     *
+     * @var DbNameExtractor
+     */
+    protected $dbNameExctractor;
+
+    /**
+     * Creates an instance.
+     *
+     * @param DbNameExtractor $dbNameExtractor
+     */
+    public function __construct(DbNameExtractor $dbNameExtractor)
+    {
+        $this->dbNameExctractor = $dbNameExtractor;
+    }
+
+    /**
      * Generates a configuration file.
      *
      * @param string $dbConn
@@ -32,13 +50,10 @@ class YawikConfigCreator extends AbstractPlugin
      *
      * @return bool|string
      */
-    public function process($dbConn, $user, $pass)
+    public function process($dbConn)
     {
         // extract database
-        $dbName = preg_match('~/([^\?]+)~', substr($dbConn, 10), $match)
-            ? $match[1]
-            : 'YAWIK';
-
+        $dbName = $this->dbNameExctractor->filter($dbConn);
 
         $config = array(
             'doctrine' => array(
@@ -51,12 +66,6 @@ class YawikConfigCreator extends AbstractPlugin
                     'odm_default' => array(
                         'default_db' => $dbName,
                     ),
-                ),
-            ),
-            'Auth'     => array(
-                'default_user' => array(
-                    'login'    => $user,
-                    'password' => $pass,
                 ),
             ),
         );

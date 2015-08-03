@@ -48,12 +48,17 @@ class LanguageSetter implements ListenerAggregateInterface
     }
 
     /**
-     * Detects language
+     * Listens to the route event.
+     *
+     * Detects the language to use and sets translator locale.
+     * The language is detected either via query parameter "lang" or
+     * browser setting (ACCEPT-LANGUAGE header)
      *
      * @param MvcEvent $e
      */
     public function onRoute(MvcEvent $e)
     {
+        /* @var $request \Zend\Http\PhpEnvironment\Request */
         $request = $e->getRequest();
 
         /* Detect language */
@@ -62,7 +67,9 @@ class LanguageSetter implements ListenerAggregateInterface
         if (!$lang) {
             $headers = $request->getHeaders();
             if ($headers->has('Accept-Language')) {
-                $locales = $headers->get('Accept-Language')->getPrioritized();
+                /* @var $acceptLangs \Zend\Http\Header\AcceptLanguage */
+                $acceptLangs = $headers->get('Accept-Language');
+                $locales = $acceptLangs->getPrioritized();
                 $locale  = $locales[0];
                 $lang    = $locale->type;
             } else {
@@ -90,7 +97,9 @@ class LanguageSetter implements ListenerAggregateInterface
         if ($routeMatch && $routeMatch->getParam('lang') === null) {
             $routeMatch->setParam('lang', $lang);
         }
-        $e->getRouter()->setDefaultParam('lang', $lang);
-    }
 
+        /* @var $router \Zend\Mvc\Router\SimpleRouteStack */
+        $router = $e->getRouter();
+        $router->setDefaultParam('lang', $lang);
+    }
 }

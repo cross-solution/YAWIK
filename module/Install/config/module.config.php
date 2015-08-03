@@ -41,7 +41,10 @@ return array(
     'controller_plugins' => array(
         'invokables' => array(
             'Install/Prerequisites' => 'Install\Controller\Plugin\Prerequisites',
-            'Install/ConfigCreator' => 'Install\Controller\Plugin\YawikConfigCreator',
+        ),
+        'factories' => array(
+            'Install/UserCreator'   => 'Install\Factory\Controller\Plugin\UserCreatorFactory',
+            'Install/ConfigCreator' => 'Install\Factory\Controller\Plugin\YawikConfigCreatorFactory',
         ),
     ),
 
@@ -51,9 +54,17 @@ return array(
         ),
     ),
 
+    'filters' => array(
+        'invokables' => array(
+            'Install/DbNameExtractor' => 'Install\Filter\DbNameExtractor',
+            'Auth/CredentialFilter'    => 'Auth\Entity\Filter\CredentialFilter',
+        ),
+    ),
+
     'validators' => array(
         'invokables' => array(
             'Install/ConnectionString' => 'Install\Validator\MongoDbConnectionString',
+            'Install/Connection'       => 'Install\Validator\MongoDbConnection',
         ),
     ),
 

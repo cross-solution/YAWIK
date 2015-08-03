@@ -69,15 +69,26 @@ class Installation extends Form implements InputFilterProviderInterface
             'db_conn'  => array(
                 'required'          => true,
                 'continue_if_empty' => true,
+                'filters' => array(
+                    array('name' => 'StringTrim'),
+                ),
                 'validators'        => array(
-                    array('name' => 'Install/ConnectionString'),
+                    array('name' => 'Install/ConnectionString',
+                          'break_chain_on_failure' => true),
+                    array('name' => 'Install/Connection'),
                 ),
             ),
             'username' => array(
                 'required' => true,
+                'filters' => array(
+                    array('name' => 'StringTrim'),
+                ),
             ),
             'password' => array(
-                'required' => true
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StringTrim'),
+                ),
             ),
         );
     }

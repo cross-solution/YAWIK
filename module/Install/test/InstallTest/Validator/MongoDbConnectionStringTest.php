@@ -36,19 +36,17 @@ class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(
             array(
                 $target::INVALID => 'Invalid connection string',
-                $target::NO_CONNECTION => 'Connecting the database failed: %databaseError%',
             ),
             'messageTemplates', $target
         );
-
-        $this->assertAttributeEquals(array('databaseError' => 'databaseError'), 'messageVariables', $target);
     }
 
     public function testValidationFailsIfProvidedInvalidConnectionString()
     {
         $target = new MongoDbConnectionString();
 
-        $this->assertFalse($target->isValid('noconnstr'));
+        $this->assertFalse($target->isValid('noconnstr'), 'Passing invalid connection string did not return false');
+        $this->assertTrue($target->isValid('mongodb://server:23432/dbName?option=value'), 'Passing valid connection string did not return true');
 
     }
 

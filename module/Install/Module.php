@@ -10,39 +10,32 @@
 /** */
 namespace Install;
 
-use Core\ModuleManager\ModuleConfigLoader;
 use Zend\ModuleManager\Feature;
 use Zend\EventManager\EventInterface;
 
 /**
- * ${CARET}
+ * Module "Install" initialization.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.20
  */
 class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProviderInterface, Feature\BootstrapListenerInterface
 {
 
-    /**
-     * Loads module specific configuration.
-     *
-     * @return array
-     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
 
-    /**
-     * Loads module specific autoloader configuration.
-     *
-     * @return array
-     */
     public function getAutoloaderConfig()
     {
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 __DIR__ . '/autoload_classmap.php',
+                array(
+                    // We need this filter for initial user creation.
+                    'Auth\Entity\Filter\CredentialFilter' => __DIR__ . '/../Auth/src/Auth/Entity/Filter/CredentialFilter.php',
+                ),
             ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
@@ -53,14 +46,20 @@ class Module implements Feature\AutoloaderProviderInterface, Feature\ConfigProvi
         );
     }
 
+    /**
+     * Listen to the bootstrap event.
+     *
+     * @param EventInterface|\Zend\Mvc\MvcEvent $e
+     *
+     * @return void
+     */
     public function onBootstrap(EventInterface $e)
     {
-        $eventManager = $e->getApplication()->getEventManager();
-        $services     = $e->getApplication()->getServiceManager();
-        $sharedManager = $eventManager->getSharedManager();
+        $application  = $e->getApplication();
+        $eventManager = $application->getEventManager();
+        $services     = $application->getServiceManager();
 
         $services->get('Install/Listener/LanguageSetter')
                  ->attach($eventManager);
     }
-
 }
