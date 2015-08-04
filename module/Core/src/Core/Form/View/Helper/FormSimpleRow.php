@@ -22,7 +22,7 @@ class FormSimpleRow extends ZendFormRow
 {
     protected $renderStrategies;
 
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element, $labelPosition = null)
     {
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
