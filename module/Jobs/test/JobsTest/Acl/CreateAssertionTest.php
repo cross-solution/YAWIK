@@ -19,17 +19,37 @@ use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Test of Jobs\Acl\CreateAssertion
- * 
+ *
+ * @covers \Jobs\Acl\CreateAssertion
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Jobs
+ * @group Jobs.Acl
  */
 class CreateAssertionTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @coversNothing
+     */
     public function testExtendsBaseClass()
     {
         $target = new CreateAssertion();
 
         $this->assertInstanceOf('\Acl\Assertion\AbstractEventManagerAwareAssertion', $target);
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testProvidesDefaultEventManagerIdentifiers()
+    {
+        $target = new CreateAssertion();
+        $expected = array(
+            'Jobs/Acl/Assertions',
+            'Jobs/Acl/Assertion/Create',
+        );
+
+        $this->assertAttributeEquals($expected, 'identifiers', $target);
     }
 
     public function testPreAssertConditions()
@@ -47,8 +67,8 @@ class CreateAssertionTest extends \PHPUnit_Framework_TestCase
         $role = new User();
         $this->assertFalse($target->assert($acl, $role, null, 'test'));
 
-        // user and right privilege is true?
-        $this->assertTrue($target->assert($acl, $role, null, 'new'));
+        // user and right privilege is null (meaning triggering event will be done)?
+        $this->assertNull($target->assert($acl, $role, null, 'new'));
 
     }
 }

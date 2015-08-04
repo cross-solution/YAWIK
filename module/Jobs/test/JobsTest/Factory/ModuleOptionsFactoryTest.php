@@ -6,6 +6,11 @@ use Zend\ServiceManager\ServiceManager;
 use Jobs\Factory\ModuleOptionsFactory;
 use Jobs\Options\ModuleOptions;
 
+/**
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -16,8 +21,20 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFactory($config)
     {
-        $serviceManager = new ServiceManager;
-        $serviceManager->setService('Config', $config);
+        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+                               ->disableOriginalConstructor()->getMock();
+
+
+
+        if (isset($config['core_options'])) {
+            $coreOptions = new \Core\Options\ModuleOptions($config['core_options']);
+            $serviceManager->expects($this->exactly(2))
+                           ->method('get')
+                           ->withConsecutive(array('Config'), array('Core/Options'))
+                           ->will($this->onConsecutiveCalls($config, $coreOptions));
+        } else {
+            $serviceManager->expects($this->once())->method('get')->with('Config')->willReturn($config);
+        }
 
         $factory = new ModuleOptionsFactory;
         $defaultOption = new ModuleOptions(array());
@@ -30,7 +47,7 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
             $this->assertNotEquals($defaultOption->getMultipostingApprovalMail(), $object->getMultipostingApprovalMail());
             $this->assertEquals($config['jobs_options']['multipostingApprovalMail'], $object->getMultipostingApprovalMail());
         } else {
-            $this->assertEquals($config['Auth']['default_user']['email'], $object->getMultipostingApprovalMail());
+            $this->assertEquals($config['core_options']['system_message_email'], $object->getMultipostingApprovalMail());
         }
     }
 
@@ -38,11 +55,10 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                array('Auth' => array(
-                    'default_user' => array(
-                        'email' => 'default@example.com'
-                    )
-                ))), // if no multipostingApprovalMail is set, the default_users email should be used
+                array('core_options' => array(
+                        'system_message_email' => 'default@example.com'
+
+                ))), // if no multipostingApprovalMail is set, the core system message email must be used.
             array(
                 array('jobs_options'=>array(
                     'multipostingApprovalMail' => 'test@test.de',

@@ -45,12 +45,11 @@ class YawikConfigCreator extends AbstractPlugin
      * Generates a configuration file.
      *
      * @param string $dbConn
-     * @param string $user
-     * @param string $pass
+     * @param string $email
      *
      * @return bool|string
      */
-    public function process($dbConn)
+    public function process($dbConn, $email)
     {
         // extract database
         $dbName = $this->dbNameExctractor->filter($dbConn);
@@ -67,6 +66,10 @@ class YawikConfigCreator extends AbstractPlugin
                         'default_db' => $dbName,
                     ),
                 ),
+            ),
+
+            'core_options' => array(
+                'system_message_email' => $email,
             ),
         );
 

@@ -12,6 +12,14 @@ namespace Core\Options;
 
 use Core\Options\ModuleOptions as Options;
 
+/**
+ *
+ * @covers \Core\Options\ModuleOptions
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Core
+ * @group Core.Options
+ */
 class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -89,6 +97,21 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @since 0.20
+     */
+    public function testGetSiteNameThrowsExceptionIfNotSet()
+    {
+        $this->setExpectedException(
+             '\Core\Options\Exception\MissingOptionException',
+             'Missing value for option "siteName"'
+        );
+
+        $this->options->setSiteName('');
+        $this->options->getSiteName();
+
+    }
+
+    /**
      * @covers Core\Options\ModuleOptions::getSupportedLanguages
      * @covers Core\Options\ModuleOptions::setSupportedLanguages
      */
@@ -113,4 +136,24 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
         $this->options->setDetectLanguage(true);
         $this->assertEquals(true, $this->options->isDetectLanguage());
     }
+
+    /**
+     * @since 0.20
+     */
+    public function testAllowsSettingAndGettingSystemMessageEmail()
+    {
+        $this->assertSame($this->options, $this->options->setSystemMessageEmail('test@mail'), 'Fluent interface broken');
+        $this->assertEquals('test@mail', $this->options->getSystemMessageEmail());
+    }
+
+    /**
+     * @since 0.20
+     */
+    public function testThrowsExceptionIfSystemMessageEmailIsNotSet()
+    {
+        $this->setExpectedException('\Core\Options\Exception\MissingOptionException', 'Missing value for option "systemMessageEmail"');
+
+        $this->options->getSystemMessageEmail();
+    }
+
 }
