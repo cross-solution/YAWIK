@@ -21,8 +21,11 @@ use Zend\Permissions\Acl\Role\RoleInterface;
 
 /**
  * Tests the AbstractEventManagerAwareAssertion
- * 
+ *
+ * @covers \Acl\Assertion\AbstractEventManagerAwareAssertion
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @group Acl
+ * @group Acl.Assertion
  */
 class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
 {
@@ -86,14 +89,16 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $events->expects($this->once())
-               ->method('triggerUntil')
+               ->method('trigger')
                ->willReturn(new ResponseCollection());
 
         $target->setEventManager($events);
 
-        $target->assert($acl);
+        $this->assertTrue($target->assert($acl));
+        $target->setPreAssertWillPass();
+        $this->assertTrue($target->assert($acl));
         $target->setPreAssertWillFail();
-        $target->assert($acl);
+        $this->assertFalse($target->assert($acl));
     }
 
     public function testAssertReturnsExpectedResult()
@@ -111,7 +116,7 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $events->expects($this->exactly(5))
-               ->method('triggerUntil')
+               ->method('trigger')
                ->will($this->onConsecutiveCalls($responseNull, $responseEmpty, $responseZero, $responseTrue, $responseFalse));
 
         $target->setEventManager($events);
@@ -150,7 +155,7 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
         $privilege = "doTest";
         $self = $this;
 
-        $events->expects($this->once())->method('triggerUntil')
+        $events->expects($this->once())->method('trigger')
                ->will($this->returnCallback(function($event) use ($acl, $role, $resource, $privilege, $self) {
                    $self->assertSame($acl, $event->getAcl());
                    $self->assertSame($role, $event->getRole());
@@ -169,7 +174,7 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
 class TargetMock extends AbstractEventManagerAwareAssertion
 {
     private $preAssertCalled = false;
-    private $preAssertReturns = true;
+    private $preAssertReturns = null;
 
     public function setEventManagerIdentifiers(array $identifiers)
     {
@@ -189,6 +194,13 @@ class TargetMock extends AbstractEventManagerAwareAssertion
     public function wasPreAssertCalled()
     {
         return $this->preAssertCalled;
+    }
+
+    public function setPreAssertWillPass()
+    {
+        $this->preAssertReturns = true;
+
+        return $this;
     }
 
     public function setPreAssertWillFail()
