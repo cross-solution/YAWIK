@@ -6,18 +6,35 @@ use Zend\ServiceManager\ServiceManager;
 use Jobs\Factory\ModuleOptionsFactory;
 use Jobs\Options\ModuleOptions;
 
+/**
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
 class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * test, if configuration overwrites default values
      *
      * @dataProvider providerTestFactory
+     * @covers Jobs\Factory\ModuleOptionsFactory
      */
     public function testFactory($config)
     {
-        /*
-        $serviceManager = new ServiceManager;
-        $serviceManager->setService('Config', $config);
+        $serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+                               ->disableOriginalConstructor()->getMock();
+
+
+
+        if (isset($config['core_options'])) {
+            $coreOptions = new \Core\Options\ModuleOptions($config['core_options']);
+            $serviceManager->expects($this->exactly(2))
+                           ->method('get')
+                           ->withConsecutive(array('Config'), array('Core/Options'))
+                           ->will($this->onConsecutiveCalls($config, $coreOptions));
+        } else {
+            $serviceManager->expects($this->once())->method('get')->with('Config')->willReturn($config);
+        }
 
         $factory = new ModuleOptionsFactory;
         $defaultOption = new ModuleOptions(array());
@@ -30,23 +47,22 @@ class ModuleOptionsFactoryTest extends \PHPUnit_Framework_TestCase
             $this->assertNotEquals($defaultOption->getMultipostingApprovalMail(), $object->getMultipostingApprovalMail());
             $this->assertEquals($config['jobs_options']['multipostingApprovalMail'], $object->getMultipostingApprovalMail());
         } else {
-            $this->assertEquals($defaultOption->getMultipostingApprovalMail(), $object->getMultipostingApprovalMail());
+            $this->assertEquals($config['core_options']['system_message_email'], $object->getMultipostingApprovalMail());
         }
-        */
-        // Optional: Test anything here, if you want.
-        $this->assertTrue(TRUE, 'mark for later.');
-        // Stop here and mark this test as incomplete.
-        $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
     public function providerTestFactory()
     {
         return array(
-            array(array()), // config without applications
-            array(array('jobs_options'=>array(
-                'multipostingApprovalMail' => 'test@test.de',
-            )))
+            array(
+                array('core_options' => array(
+                        'system_message_email' => 'default@example.com'
+
+                ))), // if no multipostingApprovalMail is set, the core system message email must be used.
+            array(
+                array('jobs_options'=>array(
+                    'multipostingApprovalMail' => 'test@test.de',
+                )))
         );
     }
 }
-

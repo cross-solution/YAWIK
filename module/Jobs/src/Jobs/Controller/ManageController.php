@@ -31,6 +31,9 @@ use Zend\Stdlib\ArrayUtils;
  */
 class ManageController extends AbstractActionController {
 
+    /**
+     * @return $this|void
+     */
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
@@ -47,7 +50,7 @@ class ManageController extends AbstractActionController {
     /**
      * Dispatch listener callback.
      *
-     * Attachs the MailSender aggregate listener to the job event manager.
+     * Attaches the MailSender aggregate listener to the job event manager.
      *
      * @param MvcEvent $e
      * @since 0.19
@@ -66,6 +69,9 @@ class ManageController extends AbstractActionController {
         }
     }
 
+    /**
+     *
+     */
     public function testAction()
     {
     }
@@ -89,12 +95,19 @@ class ManageController extends AbstractActionController {
         return $model;
     }
 
-    // @TODO edit-Action and save-Action are doing the same, one of them has to quit
+    /**
+     * @TODO edit-Action and save-Action are doing the same, one of them has to quit
+     *
+     * @return null|ViewModel
+     */
     public function editAction()
     {
         return $this->save();
     }
-    
+
+    /**
+     * @return null|ViewModel
+     */
     public function saveAction()
     {
         return $this->save();
@@ -137,7 +150,7 @@ class ManageController extends AbstractActionController {
         $viewModel          = Null;
         $this->acl($jobEntity, 'edit');
         $form               = $this->getFormular($jobEntity);
-        $mvcEvent           = $this->getEvent();
+        //$mvcEvent           = $this->getEvent();
 
         $valid              = true;
         $instanceForm       = Null;
@@ -207,8 +220,8 @@ class ManageController extends AbstractActionController {
                         $form->enableForm($actualFormIdentifier);
                         if ($jobEntity->isDraft()) {
                             $actualForm = $form->get($actualFormIdentifier);
-                            if ($actualForm instanceOf SummaryFormInterface) {
-                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::RENDER_FORM);
+                            if ('nameForm' != $actualFormIdentifier && $actualForm instanceOf SummaryFormInterface) {
+                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                             }
                         }
                     }
@@ -249,7 +262,10 @@ class ManageController extends AbstractActionController {
         }
         return $viewModel;
     }
-    
+
+    /**
+     * @return array
+     */
     public function checkApplyIdAction()
     {
         $services = $this->getServiceLocator();
@@ -262,7 +278,11 @@ class ManageController extends AbstractActionController {
         }
         return array('ok' => true);
     }
-    
+
+    /**
+     * @param $job
+     * @return mixed
+     */
     protected function getFormular($job)
     {
         $services = $this->getServiceLocator();
@@ -275,7 +295,12 @@ class ManageController extends AbstractActionController {
         $container->setParam('applyId',$job->applyId);
         return $container;
     }
-    
+
+    /**
+     * @param bool $allowDraft
+     * @return \Jobs\Entity\Job|object
+     * @throws \RuntimeException
+     */
     protected function getJob($allowDraft = true)
     {
         $services       = $this->getServiceLocator();
@@ -309,7 +334,12 @@ class ManageController extends AbstractActionController {
         }
         return $jobEntity;
     }
-    
+
+    /**
+     * @param $form
+     * @param array $params
+     * @return ViewModel
+     */
     protected function getViewModel($form, array $params = array())
     {
         $variables = array(
@@ -321,13 +351,6 @@ class ManageController extends AbstractActionController {
         $model->setTemplate("jobs/manage/form");
         
         return $model;
-    }
-
-    /**
-     * @param $key
-     */
-    protected function get($key) {
-        return;
     }
 
     /**
@@ -382,6 +405,25 @@ class ManageController extends AbstractActionController {
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         $jobEvents      = $serviceLocator->get('Jobs/Events');
+        // array with differences between the last snapshot and the actual entity
+        // is remains Null if there is no snapshot
+        // it will be an empty array if the snapshot and the actual entity do not differ
+        $diff           = Null;
+        // preliminary difference, contain all differences
+        $prelDiff = $this->entitySnapshot()->diff($jobEntity);
+        if (isset($prelDiff)) {
+            // we want just some Values to be compared
+            $diff = Null;
+            foreach (array('title', 'organization', 'location',
+                         'templateValues.qualifications', 'templateValues.requirements', 'templateValues.benefits', 'templateValues.title',
+                         'templateValues._freeValues.description',
+                     ) as $prelKey) {
+                if (array_key_exists($prelKey, $prelDiff)) {
+
+                    $diff[$prelKey] = $prelDiff[$prelKey];
+                }
+            }
+        }
 
         if ($params == 'declined') {
             $jobEntity->changeStatus(Status::REJECTED, sprintf( /*@translate*/ "Job opening was rejected by %s",$user->info->displayName));
@@ -395,6 +437,7 @@ class ManageController extends AbstractActionController {
             $jobEntity->changeStatus(Status::ACTIVE, sprintf( /*@translate*/ "Job opening was activated by %s",$user->info->displayName));
             $repositories->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+            $this->entitySnapshot($jobEntity);
             $this->notification()->success($translator->translate('Job has been approved'));
         }
 
@@ -414,11 +457,15 @@ class ManageController extends AbstractActionController {
                       array( 'id' => $jobEntity->id)));
 
         return array('job' => $jobEntity,
+                     'diffSnapshot' => $diff,
                      'viewLink' => $viewLink,
                      'approvalLink' => $approvalLink,
                      'declineLink' => $declineLink);
     }
 
+    /**
+     * @return null|ViewModel
+     */
     public function deactivateAction() {
         $serviceLocator = $this->getServiceLocator();
         $translator     = $serviceLocator->get('translator');
@@ -434,14 +481,17 @@ class ManageController extends AbstractActionController {
         return $this->save(array('page' => 2));
     }
 
+    /**
+     * @return JsonModel
+     */
     public function templateAction() {
         $serviceLocator          = $this->getServiceLocator();
+        $translator          = $serviceLocator->get('translator');
         try {
             $jobEntity           = $this->getJob();
             $template            = $this->params('template','default');
             $repositories        = $serviceLocator->get('repositories');
 
-            $translator          = $serviceLocator->get('translator');
             $jobEntity->template = $template;
             $repositories->store($jobEntity);
             $this->notification()->success($translator->translate('Template changed'));
@@ -453,6 +503,11 @@ class ManageController extends AbstractActionController {
         return new JsonModel(array());
     }
 
+    /**
+     * @param $script
+     * @param array $parameter
+     * @return ViewModel
+     */
     protected function getErrorViewModel($script, $parameter = array())
     {
         $this->getResponse()->setStatusCode(500);
@@ -460,6 +515,17 @@ class ManageController extends AbstractActionController {
         $model = new ViewModel($parameter);
         $model->setTemplate("jobs/error/$script");
 
+        return $model;
+    }
+
+    public function historyAction() {
+        $serviceLocator = $this->getServiceLocator();
+        $jobEntity      = $this->getJob();
+        $title          = $jobEntity->title;
+        $historyEntity  = $jobEntity->history;
+
+        $model = new ViewModel(array('title' => $title, 'history' => $historyEntity));
+        $model->setTerminal(true);
         return $model;
     }
 }

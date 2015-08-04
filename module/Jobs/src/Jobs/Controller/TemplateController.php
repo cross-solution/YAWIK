@@ -31,7 +31,7 @@ class TemplateController extends AbstractActionController  {
     private $jobRepository;
 
     /**
-     * @var
+     * @var AbstractOptions
      */
     protected $config;
 
@@ -51,21 +51,21 @@ class TemplateController extends AbstractActionController  {
     {
         $id = $this->params()->fromQuery('id');
         $job = $this->jobRepository->find($id);
-        $model                = new ViewModel();
+        $services             = $this->getServiceLocator();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
-        $model->setTemplate('templates/default/index');
+        $isAdmin=$this->auth()->isAdmin();
 
-        if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
-            $this->response->setStatusCode(404);
-            $model->setVariable('message','job is not available');
-        } else {
-            $model->setTemplate('templates/' . $job->template . '/index');
+        $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
+
+        # @todo make this working for anonymous users
+//        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser()) && ! $isAdmin) {
+//            $this->response->setStatusCode(404);
+//            $model->setVariable('message','job is not available');
+//        } else {
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
-        }
-
-        $model->setVariables($this->getTemplateFields($job));
+//        }
         return $model;
     }
 
@@ -86,7 +86,6 @@ class TemplateController extends AbstractActionController  {
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
-        $model                = new ViewModel();
         $forms                = $services->get('FormElementManager');
         /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
         $formTemplate         = $forms->get('Jobs/Description/Template', array(
@@ -113,6 +112,8 @@ class TemplateController extends AbstractActionController  {
             }
         }
 
+        $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($formTemplate);
+
         if (!$isAjax) {
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
@@ -120,12 +121,7 @@ class TemplateController extends AbstractActionController  {
         } else {
             return new JsonModel(array('valid' => True));
         }
-
-        $model->setTemplate('templates/' . $job->template . '/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
-
-        $model->setVariables($this->getTemplateFields($job,$formTemplate));
-
         return $model;
     }
 
@@ -148,7 +144,7 @@ class TemplateController extends AbstractActionController  {
             $uriApply = false;
         }
 
-        $headTitle= $job->templateValues->title;
+        $headTitle= $job->getTemplateValues()->getTitle();
         if (empty($job->templateValues->description) && isset($job->organization)) {
             $job->templateValues->description = $job->organization->description;
         }

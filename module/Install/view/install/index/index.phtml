@@ -1,0 +1,158 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<br>
+<div class="container">
+    <div class="row">
+        <div id="notices" class="col-md-12">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <?php if (version_compare(PHP_VERSION, '5.5.0', 'ge')): ?>
+        <div id="prereq-panel-container" class="col-md-6">
+            <?php echo $this->render('install/index/prerequisites.phtml') ?>
+        </div>
+        <div id="install-panel-container" class="col-md-6">
+            <?php echo $this->render('install/index/installation.phtml') ?>
+        </div>
+            <?php $this->headscript()->captureStart() ?>
+
+            ;
+            (function($) {
+
+                function CheckButton()
+                {
+                    this.$button = $('button#check-prereq-btn');
+                    this.init();
+                }
+
+                $.extend(CheckButton.prototype,
+                    {
+                        init: function()
+                        {
+                            if (this.$button.length) {
+                                this.toggleText();
+                                this.$button.prop('disabled', false).one('click', $.proxy(this.onClick, this));
+                            }
+                        },
+
+                        toggleText: function(state)
+                        {
+                            if ('loading' == state) {
+                                this.$button.find('.default-text').hide();
+                                this.$button.find('.loading-text').show();
+                            } else {
+                                this.$button.find('.default-text').show();
+                                this.$button.find('.loading-text').hide();
+                            }
+                        },
+
+                        onClick: function(event)
+                        {
+                            this.toggleText('loading');
+                            this.$button.prop('disabled', true);
+
+                            $.get('?p=prereq')
+                                .done(function(result) {
+                                    $('#prereq-panel-container').html(result.content);
+                                    new CheckButton();
+                                    $('body').trigger('checked.prereq.install.yk', [ result.ok ]);
+                                });
+                        }
+                    });
+
+                function InstallForm()
+                {
+                    this.$form   = $('#installation');
+                    this.$button = this.$form.find('#install-submit');
+                    this.buttonText = {
+                        'default': this.$button.html(),
+                        'working': this.$button.data('processtext')
+                    };
+                    this.init();
+                }
+
+                $.extend(InstallForm.prototype,
+                    {
+                        init: function()
+                        {
+                            $('body').on('checked.prereq.install.yk', $.proxy(this.onPrereqChecked, this));
+                            this.$form.submit($.proxy(this.onSubmit, this));
+                        },
+
+                        onPrereqChecked: function (event, ok)
+                        {
+                            this.$button.prop('disabled', !ok);
+                        },
+
+                        onSubmit: function(event)
+                        {
+                            this.$button.html(this.buttonText.working).prop('disabled', true);
+                            this.$form.find('.errors').html('');
+                            $.post(this.$form.attr('action'), this.$form.serialize())
+                                .done($.proxy(this.submitted, this));
+
+                            return false;
+                        },
+
+                        submitted: function(result)
+                        {
+                            this.$button.html(this.buttonText.default).prop('disabled', false);
+
+                            if (result.ok) {
+                                $('#install-panel-container').find('.panel-body').html(result.content);
+                            } else {
+                                for (elemName in result.errors) {
+                                    var $errContainer = $('#' + elemName + '-errors');
+                                    var html = '<ul class="form-errors">';
+                                    for (errKey in result["errors"][elemName]) {
+                                        html += '<li>' + result["errors"][elemName][errKey] + '</li>';
+                                    }
+                                    html += '</ul>';
+                                    $errContainer.html(html);
+                                }
+                            }
+                        }
+                    });
+
+                $(function() {
+                    new CheckButton();
+                    new InstallForm();
+
+                })
+            })(jQuery);
+        <?php $this->headscript()->captureEnd() ?>
+        <?php else: ?>
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><?php echo $this->translate('PHP version not supported', 'Install') ?></h2>
+                </div>
+                <div class="panel-body">
+                    <p class="text-danger">
+                        <?php echo sprintf(
+                                       $this->translate('Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently provides PHP %s.', 'Install'),
+                                       PHP_VERSION
+                        ); ?>
+                    </p>
+                    <p>
+                        <?php echo $this->translate("Please ask your servers' administrator to install the proper PHP version."); ?>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <?php endif ?>
+    </div>
+</div>
+
+
+</script>

@@ -1,0 +1,411 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-13 22:31+0200\n"
+"PO-Revision-Date: 2015-06-15 06:57+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Dutch (Belgium) (http://www.transifex.com/projects/p/yawik/language/nl_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/form/user-info-container.phtml:25
+msgid "Image"
+msgstr "Afbeelding"
+
+#: view/form/contact.view.phtml:16
+msgid "Click here to enter contact informations."
+msgstr "Klik hier om contact informatie in te voeren."
+
+#: view/form/social-profiles-fieldset.phtml:26
+msgid ""
+"you can add your social profile to your application. You can preview and "
+"remove the attached profile before submitting the application."
+msgstr "u kunt uw sociaal profiel toe te voegen aan uw toepassing. U kunt een voorbeeld en verwijder de bijgevoegde profiel vóór de indiening van de aanvraag."
+
+#: view/form/social-profiles-fieldset.phtml:37
+msgid "Loading"
+msgstr "Het laden"
+
+#: view/form/social-profiles-fieldset.phtml:43
+msgid "Close"
+msgstr "Dicht"
+
+#: view/form/social-profiles-button.phtml:42
+msgid "Attach profile"
+msgstr "Bevestig profiel"
+
+#: view/form/social-profiles-button.phtml:43
+msgid "Detach profile"
+msgstr "Maak profiel"
+
+#: view/form/social-profiles-button.phtml:46
+msgid "View profile data"
+msgstr "Bekijk profiel data"
+
+#: view/form/userselect.phtml:28
+msgid "Add users"
+msgstr "Gebruikers toevoegen"
+
+#: view/form/userselect.phtml:32
+msgid "At least one user has to be assigned"
+msgstr "Ten minste één gebruiker worden toegewezen"
+
+#: view/sidebar/groups-menu.phtml:15
+msgid "My groups"
+msgstr "Mijn groepen"
+
+#: view/auth/manage-groups/index.phtml:11
+msgid "Manage groups"
+msgstr "Beheer groepen"
+
+#: view/auth/manage-groups/index.phtml:15
+msgid "Add group"
+msgstr "Groep toevoegen"
+
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:69
+msgid "Group name"
+msgstr "Groepsnaam"
+
+#: view/auth/manage-groups/index.phtml:25
+msgid "Actions"
+msgstr "Acties"
+
+#: view/auth/manage-groups/form.phtml:39
+msgid "search for users"
+msgstr "Zoeken naar gebruikers"
+
+#: view/auth/manage-groups/form.phtml:74
+msgid "Ok"
+msgstr "Ok"
+
+#: view/auth/index/index.phtml:11
+msgid "Login required"
+msgstr "Inloggen vereist"
+
+#: view/auth/index/index.phtml:12
+msgid "Please authenticate yourself to proceed"
+msgstr "Gelieve authenticeren jezelf om te gaan"
+
+#: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
+#: view/auth/index/login-info.phtml:73
+msgid "Login"
+msgstr "Log In"
+
+#: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
+msgid "I forgot my password"
+msgstr "Ik ben mijn wachtwoord vergeten"
+
+#: view/auth/index/index.phtml:43 view/auth/index/index.phtml:44
+#: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
+#: language/_annotated_strings.php:93
+msgid "Register"
+msgstr "Registreer"
+
+#: view/auth/index/job-not-found.phtml:11
+msgid "A 410 error occured"
+msgstr "Een 410 fout opgetreden"
+
+#: view/auth/index/job-not-found.phtml:13
+msgid "Unknown apply identifier"
+msgstr "Onbekende toepassing identifier"
+
+#: view/auth/index/job-not-found.phtml:14
+msgid "A job ad with the provided apply identifier could not be found."
+msgstr "Een vacature met de meegeleverde toepassing identifier kon niet worden gevonden."
+
+#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:3
+#: view/auth/manage/profile.phtml:9
+msgid "My profile"
+msgstr "Mijn profiel"
+
+#: view/auth/index/login-info.phtml:29
+msgid "Change password"
+msgstr "Verander wachtwoord"
+
+#: view/auth/index/login-info.phtml:43
+msgid "Create my organization"
+msgstr "Maak mijn organisatie"
+
+#: view/auth/index/login-info.phtml:46
+#, php-format
+msgid "Edit \"%s\""
+msgstr ""
+
+#: view/auth/index/login-info.phtml:54
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: view/auth/index/login-info.phtml:61
+#, php-format
+msgid "Hello %s"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:62
+msgid "Guest"
+msgstr "Gast"
+
+#: view/auth/index/login-info.phtml:77
+msgid "Login via"
+msgstr "Login via"
+
+#: view/auth/index/login-info.phtml:80
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/auth/forgot-password/index.phtml:1
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:81
+msgid "Reset your password"
+msgstr "Stel je wachtwoord opnieuw in"
+
+#: view/auth/forgot-password/index.phtml:5
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr "Voer je gebruikersnaam of e-mailadres. Je zal een link naar een nieuw wachtwoord via e-mail te creëren ontvangen."
+
+#: view/auth/password/index.phtml:11 view/auth/password/index.phtml:14
+#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
+msgid "My password"
+msgstr "Mijn wachtwoord"
+
+#: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:15
+#: language/_annotated_strings.php:57
+msgid "personal informations"
+msgstr "persoonlijke informatie"
+
+#: src/Auth/Form/UserPasswordFieldset.php:35
+#: language/_annotated_strings.php:60 language/_annotated_strings.php:63
+#: language/_annotated_strings.php:108
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: src/Auth/Form/GroupFieldset.php:31
+msgid "Group data"
+msgstr "Groep data"
+
+#: src/Auth/Form/GroupUsersCollection.php:88
+msgid "Users"
+msgstr "Gebruikers"
+
+#: language/_annotated_strings.php:3
+msgid "Create group"
+msgstr "Groep maken"
+
+#: language/_annotated_strings.php:6
+msgid "Edit group"
+msgstr "Groep bewerken"
+
+#: language/_annotated_strings.php:9
+msgid "Social Profiles"
+msgstr "Sociale Profielen"
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Allow users to attach their %s profile."
+msgstr ""
+
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:87
+msgid "Email"
+msgstr "Email"
+
+#: language/_annotated_strings.php:21
+msgid "Phone"
+msgstr "Telefoon"
+
+#: language/_annotated_strings.php:24
+msgid "Postalcode"
+msgstr "Postcode"
+
+#: language/_annotated_strings.php:27
+msgid "City"
+msgstr "City"
+
+#: language/_annotated_strings.php:30
+msgid "Salutation"
+msgstr "Begroeting"
+
+#: language/_annotated_strings.php:33 language/_annotated_strings.php:42
+msgid "please select"
+msgstr "Selecteer alstublieft"
+
+#: language/_annotated_strings.php:36
+msgid "Mr."
+msgstr "Mr."
+
+#: language/_annotated_strings.php:39
+msgid "Mrs."
+msgstr "Mevr."
+
+#: language/_annotated_strings.php:45
+msgid "First name"
+msgstr "Voornaam"
+
+#: language/_annotated_strings.php:48
+msgid "Last name"
+msgstr "Achternaam"
+
+#: language/_annotated_strings.php:51
+msgid "street"
+msgstr "straat"
+
+#: language/_annotated_strings.php:54
+msgid "house number"
+msgstr "huisnummer"
+
+#: language/_annotated_strings.php:66
+msgid "Retype password"
+msgstr "Herhaal wachtwoord"
+
+#: language/_annotated_strings.php:72
+msgid ""
+"Select a group name. You can add users to your group and then work together "
+"on jobs and job applications."
+msgstr "Selecteer een groepsnaam. U kunt gebruikers toevoegen aan uw groep en werken dan samen op de werkgelegenheid en sollicitaties."
+
+#: language/_annotated_strings.php:75
+msgid "General settings"
+msgstr "Algemene instellingen"
+
+#: language/_annotated_strings.php:78
+msgid "Username or email"
+msgstr "Gebruikersnaam of email"
+
+#: language/_annotated_strings.php:84
+msgid "Name"
+msgstr "Naam"
+
+#: language/_annotated_strings.php:90
+msgid "Are you human?"
+msgstr "Bent u een mens?"
+
+#: language/_annotated_strings.php:96
+msgid "General"
+msgstr "Algemeen"
+
+#: language/_annotated_strings.php:99
+msgid "I am"
+msgstr "Ik ben"
+
+#: language/_annotated_strings.php:102
+msgid "The group name \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:105
+msgid "Login name"
+msgstr "Inlog naam"
+
+#: language/_annotated_strings.php:111
+msgid "login"
+msgstr "Log in"
+
+#: language/_annotated_strings.php:114
+msgid "Cannot proceed, token expired"
+msgstr "Kan niet verder, token verlopen"
+
+#: language/_annotated_strings.php:117
+msgid "User cannot be found for specified token"
+msgstr "Gebruiker kan niet gevonden worden voor gespecificeerde token"
+
+#: language/_annotated_strings.php:120 language/_annotated_strings.php:129
+#: language/_annotated_strings.php:147 language/_annotated_strings.php:162
+#: language/_annotated_strings.php:183
+msgid ""
+"An unexpected error has occurred, please contact your system administrator"
+msgstr "Een onverwachte fout opgetreden, neem dan contact op met uw systeembeheerder"
+
+#: language/_annotated_strings.php:123
+msgid ""
+"User email verified successfully. You need to set a password to log in."
+msgstr "Gebruiker e-mail geverifieerd. Je moet een wachtwoord om in te loggen in te stellen."
+
+#: language/_annotated_strings.php:126
+msgid "User cannot be found"
+msgstr "De gebruiker kan niet worden gevonden"
+
+#: language/_annotated_strings.php:132
+msgid "Group created"
+msgstr "Group gecreëerd"
+
+#: language/_annotated_strings.php:135
+msgid "Group updated"
+msgstr "Groep bijgewerkt"
+
+#: language/_annotated_strings.php:138
+msgid "Changes not saved."
+msgstr "Veranderingen niet opgeslagen."
+
+#: language/_annotated_strings.php:141
+msgid "You are now logged in."
+msgstr "U bent nu ingelogd."
+
+#: language/_annotated_strings.php:144
+msgid "Authentication failed."
+msgstr "Authenticatie is mislukt."
+
+#: language/_annotated_strings.php:150
+msgid "You are now logged out"
+msgstr "U bent nu uitgelogd"
+
+#: language/_annotated_strings.php:153
+msgid ""
+"An Email with an activation link has been sent, please try to check your "
+"email box"
+msgstr "Een e-mail met een activatie link is verzonden, dan kunt u proberen om uw e-mail box controleren"
+
+#: language/_annotated_strings.php:156 language/_annotated_strings.php:174
+msgid "Please fill form correctly"
+msgstr "Gelieve correct in te vullen formulier"
+
+#: language/_annotated_strings.php:159
+msgid "User with this email address already exists"
+msgstr "Gebruiker met dit e-mailadres bestaat al"
+
+#: language/_annotated_strings.php:165
+msgid "Password successfully changed"
+msgstr "Wachtwoord succesvol gewijzigd"
+
+#: language/_annotated_strings.php:168
+msgid "Password could not be changed"
+msgstr "Wachtwoord kan niet worden veranderd"
+
+#: language/_annotated_strings.php:171
+msgid ""
+"Mail with link for reset password has been sent, please try to check your "
+"email box"
+msgstr "Mail met een link voor reset wachtwoord is verzonden, dan kunt u proberen om uw e-mail box controleren"
+
+#: language/_annotated_strings.php:177
+msgid "User cannot be found for specified username or email"
+msgstr "Gebruiker kan niet gevonden worden voor bepaalde gebruikersnaam of e-mail"
+
+#: language/_annotated_strings.php:180
+msgid "Found user does not have an email"
+msgstr "Gevonden gebruiker niet een e-mail hebben"
+
+#: language/_annotated_strings.php:186
+msgid "You are not permitted to access this resource."
+msgstr "U bent niet toegestaan ​​om toegang tot deze bron."
+
+#: language/_annotated_strings.php:189
+#, php-format
+msgid "a new password was requestet for %s"
+msgstr ""
+
+#: language/_annotated_strings.php:192
+msgid "user"
+msgstr "gebruiker"
+
+#: language/_annotated_strings.php:195
+msgid "recruiter"
+msgstr "recruiter"

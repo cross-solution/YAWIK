@@ -35,7 +35,22 @@ if ($this->renderSummary):?>
         <strong><?php echo $data[0] ?></strong><br>
         <small><?php echo implode(', ', $info) ?></small>
         <?php endif ?>
+
     </div>
+</div>
+<div style="padding: 10px">
+    <?php if (1 == count($options)): ?>
+        <?php $this->alert()->info(array('dismissable' => false)); ?>
+        <p>
+            <?php echo sprintf(
+                $this->translate('If you want to post job openings for your customers, you have to %sadd them%s in the organizations menu.'),
+                '<a href="' . $this->url('lang/organizations/edit', array(), true) . '">', '</a>'
+            );
+            ?>
+        </p>
+        <?php echo $this->alert()->end(); ?>
+    <?php endif ?>
+
 </div>
 
 <?php else: echo $this->formRow()->render($this->element, /* ignoreViewPartial */ true);

@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-13 22:31+0200\n"
+"PO-Revision-Date: 2015-06-15 06:53+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Dutch (Belgium) (http://www.transifex.com/projects/p/yawik/language/nl_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/organizations/invite-employee/accept.phtml:12
+msgid "You have accepted the invitation"
+msgstr "Je hebt de uitnodiging geaccepteerd"
+
+#: view/organizations/invite-employee/accept.phtml:13
+#, php-format
+msgid "You are now part of the team of <b>%s</b>"
+msgstr ""
+
+#: view/organizations/invite-employee/accept.phtml:18
+msgid "Please choose a password to be able to log in."
+msgstr "Kies een wachtwoord om te kunnen inloggen."
+
+#: view/organizations/index/index.phtml:14
+msgid "Organizations"
+msgstr "Organisaties"
+
+#: view/organizations/index/index.ajax.phtml:69
+#, php-format
+msgid "Hiring organization of <strong>%s</strong>"
+msgstr ""
+
+#: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
+msgid "Organization"
+msgstr "Organisatie"
+
+#: view/form/invite-employee-bar.phtml:14
+msgid "Via email address"
+msgstr "Via e-mailadres"
+
+#: view/form/invite-employee-bar.phtml:23
+msgid "Invite"
+msgstr "Nodigen"
+
+#: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
+#: language/_annotated_strings.php:54
+msgid "Invite an employee via email address."
+msgstr "Nodig een werknemer via e-mailadres."
+
+#: view/form/invite-employee-bar.phtml:36
+msgid "Click on this button will add the employee with the status \"pending\""
+msgstr "Klik op deze knop zal de werknemer toe te voegen met de status \"in afwachting\""
+
+#: view/form/employee-fieldset.phtml:34
+msgid "PENDING"
+msgstr "AFWACHTING"
+
+#: view/form/employees-fieldset.phtml:40
+msgid "pending"
+msgstr "hangende"
+
+#: view/mail/invite-employee.phtml:28
+#, php-format
+msgid "Hello %s"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:29
+msgid "Hello"
+msgstr "Hallo"
+
+#: view/mail/invite-employee.phtml:34
+#, php-format
+msgid "%s invited you to join the team of %s"
+msgstr ""
+
+#: view/mail/invite-employee.phtml:39
+msgid "You can accept this invitation by visiting the following link"
+msgstr "U kunt deze uitnodiging door naar de volgende link te aanvaarden"
+
+#: view/mail/invite-employee.phtml:47
+#, php-format
+msgid ""
+"<strong>Please note: </strong> You are currently the owner of <b>%s</b>. "
+"Accepting this invitation will delete your organization."
+msgstr ""
+
+#: view/mail/invite-employee.phtml:53
+#, php-format
+msgid ""
+"<strong>Please note: </strong> You are currently assigned as an employee to "
+"<b>%s</b>. Accepting this invitation will remove this association."
+msgstr ""
+
+#: view/mail/invite-employee.phtml:61
+msgid ""
+"If you do not want to accept this invitation you can ignore this mail and "
+"the request is canceled automatically after a week."
+msgstr "Als u niet wilt dat deze uitnodiging te accepteren kunt u deze mail negeren en het verzoek wordt automatisch geannuleerd na een week."
+
+#: view/error/invite.phtml:11
+msgid "Doh! There was something going terribly wrong."
+msgstr "Doh! Er was iets gaat vreselijk mis."
+
+#: view/error/no-parent.phtml:15
+msgid "Sorry, you may not create organizations."
+msgstr "Sorry, je mag niet organisaties creëren."
+
+#: view/error/no-parent.phtml:18
+#, php-format
+msgid ""
+"Before you are able to create organizations, you have to %screate your main "
+"organization%s first."
+msgstr ""
+
+#: src/Organizations/Controller/Plugin/InvitationHandler.php:233
+msgid "Email address is invalid."
+msgstr "E-mailadres is ongeldig."
+
+#: src/Organizations/Controller/Plugin/InvitationHandler.php:246
+msgid "Sending invitation mail failed."
+msgstr "Het verzenden uitnodiging mail mislukt."
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:66
+msgid "City"
+msgstr "City"
+
+#: language/_annotated_strings.php:9
+msgid "Street"
+msgstr "Straat"
+
+#: language/_annotated_strings.php:15
+msgid "View Jobs"
+msgstr "Bekijk vacatures"
+
+#: language/_annotated_strings.php:18
+msgid "Edit Jobs"
+msgstr "Jobs bewerken"
+
+#: language/_annotated_strings.php:21
+msgid "Create Jobs"
+msgstr "Maak Jobs"
+
+#: language/_annotated_strings.php:24
+msgid "View Applications"
+msgstr "Bekijk Toepassingen"
+
+#: language/_annotated_strings.php:27
+msgid "Edit Applications"
+msgstr "Bewerken Toepassingen"
+
+#: language/_annotated_strings.php:30
+msgid "Please enter the name of the hiring organization."
+msgstr "Vul de naam van het verhuren organisatie."
+
+#: language/_annotated_strings.php:33
+msgid "Please enter a contact for the hiring organization."
+msgstr "Vul een aanspreekpunt voor de aanwerving organisatie."
+
+#: language/_annotated_strings.php:36
+msgid "Please enter a description for the hiring organization."
+msgstr "Geef een beschrijving van het verhuren organisatie."
+
+#: language/_annotated_strings.php:39
+msgid "Employees"
+msgstr "Medewerkers"
+
+#: language/_annotated_strings.php:42
+msgid "Manage your employees and their permissions."
+msgstr "Beheren van uw medewerkers en hun rechten."
+
+#: language/_annotated_strings.php:45
+msgid "Description"
+msgstr "Beschrijving"
+
+#: language/_annotated_strings.php:48
+msgid ""
+"Choose a Logo. This logo will be shown in the job opening and the "
+"application form."
+msgstr "Kies een logo. Dit logo zal worden getoond in de vacature en het aanvraagformulier."
+
+#: language/_annotated_strings.php:51
+msgid "Organizationname"
+msgstr "Organisatie Naam"
+
+#: language/_annotated_strings.php:57
+msgid "street"
+msgstr "straat"
+
+#: language/_annotated_strings.php:60
+msgid "house number"
+msgstr "huisnummer"
+
+#: language/_annotated_strings.php:63
+msgid "Postalcode"
+msgstr "Postcode"
+
+#: language/_annotated_strings.php:71
+#, php-format
+msgid "Invitation to join the team of %s"
+msgstr ""
+
+#: language/_annotated_strings.php:74
+msgid "Overview"
+msgstr "Overzicht"
+
+#: language/_annotated_strings.php:77
+msgid "Insert"
+msgstr "Invoegen"

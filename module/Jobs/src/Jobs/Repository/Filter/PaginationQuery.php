@@ -11,6 +11,9 @@ namespace Jobs\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\Status;
 use Auth\Entity\User;
+use Zend\Authentication\AuthenticationService;
+use Zend\Permissions\Acl\Acl;
+use Auth\Entity\UserInterface;
 
 /**
  * maps query parameters to entity attributes
@@ -20,12 +23,32 @@ use Auth\Entity\User;
  */
 class PaginationQuery extends AbstractPaginationQuery 
 {
-    
-    protected $repositoryName="Jobs/Job";
+
+    /**
+     * @var AuthenticationService
+     */
     protected $auth;
+
+    /**
+     * @var Acl
+     */
     protected $acl;
-    
-    public function __construct($auth, $acl)
+
+    /**
+     * @var array
+     */
+    protected $value;
+
+    /**
+     * @var UserInterface
+     */
+    protected $user;
+
+    /**
+     * @param $auth
+     * @param $acl
+     */
+    public function __construct(AuthenticationService $auth, Acl $acl)
     {
         $this->auth = $auth;
         $this->acl = $acl;
@@ -33,6 +56,10 @@ class PaginationQuery extends AbstractPaginationQuery
 
     /**
      * for people
+     * following parameter are relevant
+     * by     => 'all', 'me', 'guest'
+     * status => Status::CREATED, 'all'
+     * user   => User::ROLE_RECRUITER, User::ROLE_ADMIN, User::ROLE_USER
      *
      * @param $params
      * @param $queryBuilder
@@ -40,46 +67,41 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $value = $params->toArray();
-        $user = $this->auth->getUser();
-        $isRecruiter = $user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($user, User::ROLE_RECRUITER);
-        $isAdmin = User::ROLE_ADMIN == $user->getRole();
-        $showPendingJobs = $isAdmin && isset($value['status']) && 'created' == $value['status'];
+        $this->value = $params->toArray();
+        $this->user = $this->auth->getUser();
+        $isRecruiter = $this->user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($this->user, User::ROLE_RECRUITER);
 
-        if ($isRecruiter && (!isset($value['by']) || $value['by'] != 'guest') && !$showPendingJobs) {
+        if ($isRecruiter && (!isset($this->value['by']) || $this->value['by'] != 'guest')) {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            $user = $this->auth->getUser();
-            if (isset($value['by'])) {
-                switch ($value['by']) {
+            if (isset($this->value['by'])) {
+                switch ($this->value['by']) {
                     case 'me':
                     default:
-                        $queryBuilder->field('user')->equals($user->id);
+                        $queryBuilder->field('user')->equals($this->user->id);
                         break;
                     case 'all':
-                        $queryBuilder->field('permissions.view')->equals($user->id);
+                        $queryBuilder->field('permissions.view')->equals($this->user->id);
                         break;
                 }
             }
-            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' && $value['status'] != 'created') {
-                $queryBuilder->field('status.name')->equals((string) $value['status']);
+            if (isset($this->value['status']) && !empty($this->value['status']) && $this->value['status'] != 'all' && $this->value['status'] != Status::CREATED) {
+                $queryBuilder->field('status.name')->equals((string) $this->value['status']);
             }
-        } else if ($showPendingJobs) {
-            $queryBuilder->field('status.name')->equals( Status::CREATED);
         } else  {
             /*
              * an applicants or guests can see all active jobs
              */
-            $queryBuilder->field('status.name')->equals('active');
+            $queryBuilder->field('status.name')->equals( Status::ACTIVE);
         }
     
 
         /*
          * search jobs by keywords
          */
-        if (isset($value['search']) && !empty($value['search'])) {
-            $search = strtolower($value['search']);
+        if (isset($this->value['search']) && !empty($this->value['search'])) {
+            $search = strtolower($this->value['search']);
             $searchPatterns = array();
     
             foreach (explode(' ', $search) as $searchItem) {
@@ -88,8 +110,8 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
 
-        if (isset($value['sort'])) {
-            foreach(explode(",",$value['sort']) as $sort) {
+        if (isset($this->value['sort'])) {
+            foreach(explode(",",$this->value['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
             }
         }
@@ -120,7 +142,6 @@ class PaginationQuery extends AbstractPaginationQuery
             default:
                 break;
         }
-    
         return array($sortProp => $sortDir);
     }
     

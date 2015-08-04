@@ -41,7 +41,7 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
 
     public function create(array $data=null) {
         if (null === $this->entityPrototype) {
-            throw new \RuntimeException('Could not create an entity. No protoype is set!');
+            throw new \RuntimeException('Could not create an entity. No prototype is set!');
         }
 
         $entity = clone $this->entityPrototype;

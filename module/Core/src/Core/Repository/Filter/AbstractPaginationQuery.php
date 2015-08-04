@@ -12,12 +12,29 @@ namespace Core\Repository\Filter;
 
 use Zend\Filter\FilterInterface;
 
+/**
+ * Class AbstractPaginationQuery
+ * @package Core\Repository\Filter
+ */
 abstract class AbstractPaginationQuery implements FilterInterface
 {
-    
+
+    /**
+     * @var
+     */
     protected $repositoryName;
+
+    /**
+     * @var array
+     */
     protected $sortPropertiesMap = array();
-    
+
+    /**
+     * @param mixed $value
+     * @param null $queryBuilder
+     * @return mixed
+     * @throws \DomainException
+     */
     public function filter($value, $queryBuilder=null)
     {
         if (null === $queryBuilder) {
@@ -31,9 +48,18 @@ abstract class AbstractPaginationQuery implements FilterInterface
         }
         return $this->createQuery($value, $queryBuilder);
     }
-    
+
+    /**
+     * @param $params
+     * @param $queryBuilder
+     * @return mixed
+     */
     abstract public function createQuery($params, $queryBuilder);
-    
+
+    /**
+     * @param $sort
+     * @return array
+     */
     protected function filterSort($sort)
     {
         if ('-' == $sort{0}) {
@@ -43,11 +69,11 @@ abstract class AbstractPaginationQuery implements FilterInterface
             $sortProp = $sort;
             $sortDir = 1;
         }
-        
+
         if (isset($this->sortPropertiesMap[$sortProp])) {
             $sortProp = $this->sortPropertiesMap[$sortProp];
         }
-        
+
         return array($sortProp => $sortDir);
     }
 }

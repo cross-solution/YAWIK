@@ -18,7 +18,6 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
             'defaults' => array(
                 'controller' => 'Jobs/Index',
                 'action'     => 'index',
-                '__activeMarker__' => 'overview'
             ),
         ),
         'may_terminate' => true,
@@ -73,6 +72,20 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                     'defaults' => array(
                         'controller' => 'Jobs/Template',
                         'action' => 'view'
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+            'history'   => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/history/:id',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Manage',
+                        'action' => 'history',
+                        'defaults' => array(
+                            'id' => 0
+                        ),
                     ),
                 ),
                 'may_terminate' => true,
@@ -168,6 +181,19 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 ),
                 'may_terminate' => true,
             ),
+            'listOpenJobs' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/list-pending-jobs',
+                    'defaults' => array(
+                        'controller' => 'Jobs/Index',
+                        'action' => 'listOpenJobs',
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+
+
         ),
     ),
     'save' => array(

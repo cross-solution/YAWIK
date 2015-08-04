@@ -31,10 +31,15 @@ $createRadioGroup = function ($element, $id) use ($translate) {
     <?php //return $input;
 };
 
-$form   = $this->element;
-$params = $this->element->get('params'); 
+$form       = $this->element;
+$params     = $this->element->get('params');
+$options    = $form->getOptions();
+$action     = $form->getAttribute('action');
+if (empty($action)) {
+    $action = $this->url('lang/jobs', array(), true);
+}
 $form->setAttributes(array(
-    'action' => $this->url('lang/jobs', array(), true),
+    'action' => $action,
     'method' => 'GET',
 ));
 
@@ -51,11 +56,19 @@ $statusElement = $params->get('status');
         <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
     </span>
 </div>
-<?php if ($params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER )):?>
+<?php
+    $showButtons = $params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
+    if (array_key_exists('showButtons', $options)) {
+        $showButtons = $options['showButtons'];
+    }
+    if ($showButtons):
+?>
 <div class="btn-toolbar pull-right">
   <?php $createRadioGroup($params->get('by'), 'by') ?>
   <?php $createRadioGroup($params->get('status'), 'status') ?>
 </div>
-<?php endif; ?>
+<?php
+    endif;
+?>
 
 <?php echo $this->form()->closeTag(); ?>

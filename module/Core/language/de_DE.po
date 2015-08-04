@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-29 19:02+0200\n"
-"PO-Revision-Date: 2015-04-29 17:22+0000\n"
+"POT-Creation-Date: 2015-06-13 22:31+0200\n"
+"PO-Revision-Date: 2015-06-17 07:33+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgstr "Ende"
 msgid "Add permission"
 msgstr "Zugriffsrechte hinzufügen"
 
-#: view/core/index/index.phtml:11
+#: view/core/index/index.phtml:11 language/_annotated_strings.php:93
 msgid "Home"
 msgstr "Start"
 
@@ -192,11 +192,11 @@ msgstr "löst auf nach %s"
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:87
+#: view/layout/layout.phtml:88
 msgid "Help to translate YAWIK"
 msgstr "Hilf bei der Übersetzung von YAWIK"
 
-#: view/layout/layout.phtml:116
+#: view/layout/layout.phtml:117
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
@@ -231,7 +231,7 @@ msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
 msgid "processing"
 msgstr "bearbeiten"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:167
+#: src/Core/Form/View/Helper/SummaryForm.php:168
 msgid "Edit"
 msgstr "Bearbeiten"
 

@@ -40,7 +40,7 @@ class LinkedIn extends AbstractProfile
             $return['startDate'] = $data['start-date']['year'] . '-' . $data['start-date']['month'] . '-' . $data['start-date']['day'];
         }
         if (isset($data['end-date'])) {
-            $return['endDate'] = $data['end_date']['year'] . '-' . $data['end_date']['month'] . '-' . $data['end_date']['day'];
+            $return['endDate'] = $data['end-date']['year'] . '-' . $data['end-date']['month'] . '-' . $data['end-date']['day'];
         }
         if (isset($data['school-name'])) {
             $return['organizationName'] = $data['school-name'];
@@ -60,7 +60,7 @@ class LinkedIn extends AbstractProfile
                 $return['startDate'] = $data['start-date']['year'] . '-' . $data['start-date']['month'] . '-' . $data['start-date']['day'];
             }
             if (isset($data['end-date'])) {
-                $return['endDate'] = $data['end_date']['year'] . '-' . $data['end_date']['month'] . '-' . $data['end_date']['day'];
+                $return['endDate'] = $data['end-date']['year'] . '-' . $data['end-date']['month'] . '-' . $data['end-date']['day'];
             } else if (isset($data['is-current']) && 'true' == $data['is-current']) {
                 $return['currentIndicator'] = true;
             }

@@ -13,8 +13,13 @@ namespace Auth\Factory;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Options\ModuleOptions;
-use Zend\Stdlib\ArrayUtils;
 
+/**
+ * Creates the Auth Options
+ *
+ * Class ModuleOptionsFactory
+ * @package Auth\Factory
+ */
 class ModuleOptionsFactory  implements FactoryInterface
 {
     /**
@@ -24,10 +29,14 @@ class ModuleOptionsFactory  implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
         $configArray = isset($config['auth_options']) ? $config['auth_options'] : array();
-        if (array_key_exists('core_options', $config) && array_key_exists('siteName', $config['core_options'])) {
+        $options = new ModuleOptions($configArray);
 
-            $configArray = ArrayUtils::merge($configArray, array('siteName' => $config['core_options']['siteName']));
+        if ("" == $options->getFromName()) {
+            /* @var $coreOptions \Core\Options\ModuleOptions */
+            $coreOptions = $serviceLocator->get('Core\Options');
+            $options->setFromName($coreOptions->getSiteName());
         }
+
         return new ModuleOptions($configArray);
     }
 }

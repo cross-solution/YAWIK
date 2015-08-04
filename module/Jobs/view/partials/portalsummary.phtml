@@ -1,0 +1,28 @@
+<?php
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$channels = $sm->get('Jobs/Options/Provider');
+?>
+<?php if ($this->job->portals):?>
+    <h3><?php echo $this->translate('Summary') ?></h3>
+    <?php $total=0 ?>
+    <table class="table table-bordered">
+        <tr>
+            <th><?php echo $this->translate('Channel')?></th>
+            <th class="text-right"><?php echo $this->translate('Price')?></th>
+        </tr>
+        <?php foreach($this->job->portals as $channel):?>
+            <?php if($channel):?>
+                <?php $channelData=$channels->getChannel($channel); ?>
+                <tr>
+                    <td><?php echo $channelData->label ?></td>
+                    <td class="text-right"><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
+                </tr>
+                <?php $total += (int) $channelData->price; ?>
+            <?php endif;?>
+        <?php endforeach;?>
+        <tr>
+            <td><strong><?php echo $this->translate("Total")?></strong></td>
+            <td class="text-right"><strong><?php echo $this->currencyFormat($total, 'EUR') ?></strong></span></td>
+        </tr>
+    </table>
+<?php endif; // $this->job->portals ?>

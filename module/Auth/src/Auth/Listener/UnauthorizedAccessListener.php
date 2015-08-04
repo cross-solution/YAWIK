@@ -53,7 +53,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         }
         
         /*
-         * Return an image, if a image was requested.
+         * Return an image, if an image was requested.
          */
         if ($exception instanceOf UnauthorizedImageAccessException) {
             

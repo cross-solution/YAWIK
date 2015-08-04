@@ -32,7 +32,7 @@ class FormImageUpload extends FormFileUpload
         if ($file) {
             if (0 === strpos($file->getType(), 'image/')) {
                 $basepath  = $this->getView()->plugin('basepath');
-                $preview = '<img src="' . $basepath($file->getUri()) . '" class="img-ploraid" />';
+                $preview = '<img src="' . $basepath($file->getUri()) . '" class="img-polaroid" />';
             } else {
                 $preview = '<span>' . $file->getName() . '(' . $file->getPrettySize() . ')</span>';
             }

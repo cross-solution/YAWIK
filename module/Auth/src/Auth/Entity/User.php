@@ -41,7 +41,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Users login name
      *
      * @var string
-     * @ODM\String @ODM\Index
+     * @ODM\String
+     * @ODM\Index(unique=true, sparse=true, order="asc")
      */
     protected $login;
 
@@ -153,11 +154,18 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     {
     }
 
+    /**
+     * @return bool
+     */
     public function isDraft()
     {
         return $this->isDraft;
     }
 
+    /**
+     * @param bool $flag
+     * @return $this
+     */
     public function setIsDraft($flag)
     {
         $this->isDraft = (bool) $flag;
@@ -232,7 +240,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      */
     public function updateAuthSession($key, $sessionParameter) {
         $notExists = True;
+
         foreach ($this->authSessions as $authSession) {
+            /* @var $authSession AuthSession */
             if ($key == $authSession->getName()) {
                 $authSession->setSession($sessionParameter);
                 $notExists = False;
@@ -253,7 +263,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      */
     public function getAuthSession($key) {
         $result = Null;
+
         foreach ($this->authSessions as $authSession) {
+            /* @var $authSession AuthSession */
             if ($key == $authSession->getName()) {
                 $result = $authSession->getSession();
             }
@@ -269,6 +281,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     public function removeSessionData($key = Null) {
         $authSessionRefresh = array();
         foreach ($this->authSessions as $authSession) {
+            /* @var $authSession AuthSession */
             if (isset($key) && $key != $authSession->getName()) {
                 $authSessionRefresh[] = $authSession;
             }
@@ -415,6 +428,10 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
         $this->tokens = $tokens;
     }
 
+    /**
+     * @param OrganizationReferenceInterface $organization
+     * @return $this
+     */
     public function setOrganization(OrganizationReferenceInterface $organization)
     {
         $this->organization = $organization;
@@ -422,6 +439,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function hasOrganization()
     {
         /* @var $this->organization \Organizations\Entity\OrganizationReference */
@@ -429,6 +449,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
                $this->organization->hasAssociation();
     }
 
+    /**
+     * @return OrganizationReferenceInterface
+     */
     public function getOrganization()
     {
         return $this->organization;

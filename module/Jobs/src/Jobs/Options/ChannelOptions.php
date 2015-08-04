@@ -44,20 +44,27 @@ class ChannelOptions extends AbstractOptions {
      */
     protected $price=0;
 
+    /**
+     * Minimal Price of the channel if it's selected in combination with another channel.
+     *
+     * @var int $minPrice
+     */
+    protected $minPrice=0;
+
 
     /**
      * Currency of the price
      *
      * @var string $currency
      */
-    protected $currency="€";
+    protected $currency;
 
     /**
      * Tax of the channel
      *
      * @var int $tax
      */
-    protected $tax=19;
+    protected $tax;
 
     /**
      * Label of the Channel.
@@ -65,6 +72,13 @@ class ChannelOptions extends AbstractOptions {
      * @var string
      */
     protected $label;
+
+    /**
+     * Logo of the Channel.
+     *
+     * @var string
+     */
+    protected $logo;
 
     /**
      * days to publish a job posting
@@ -144,24 +158,6 @@ class ChannelOptions extends AbstractOptions {
         return $this->key;
     }
 
-    public function getFormattedPrice($currencyPosition = 'right')
-    {
-
-        $price = sprintf('%01.2f', $this->getPrice());
-
-        if ('none' === $currencyPosition) {
-            return $price;
-        }
-
-        $currency = $this->getCurrency();
-
-        if ('left' == $currencyPosition) {
-            return $currency . ' ' . $price;
-        }
-
-        return $price . ' ' . $currency;
-    }
-
     /**
      * Sets the unique key of a channel
      *
@@ -205,7 +201,28 @@ class ChannelOptions extends AbstractOptions {
         $this->price = $price;
         return $this;
     }
-    
+
+    /**
+     * Gets the minimal price of a channel.
+     *
+     * @return string
+     */
+    public function getMinPrice()
+    {
+        return $this->minPrice?:$this->price;
+    }
+
+    /**
+     * Sets the minimal price of a channel if chosen in combination with another channel
+     *
+     * @param int $minPrice
+     * @return ChannelOptions
+     */
+    public function setMinPrice($minPrice)
+    {
+        $this->minPrice = $minPrice;
+        return $this;
+    }
 
     /**
      * Gets the currency of a price
@@ -413,6 +430,28 @@ class ChannelOptions extends AbstractOptions {
     public function setParams($params)
     {
         $this->params = $params;
+        return $this;
+    }
+
+    /**
+     * Gets the logo of a channel (Jobboard)
+     *
+     * @return string|null
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * Set the logo of a channel (Jobboard)
+     *
+     * @param $logo
+     * @return $this
+     */
+    public function setLogo($logo = null)
+    {
+        $this->logo = $logo;
         return $this;
     }
 }

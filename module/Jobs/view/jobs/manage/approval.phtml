@@ -14,39 +14,22 @@ $channels = $sm->get('Jobs/Options/Provider');
 <h3><?php echo $this->translate("Preview of the posting"); ?></h3>
 <div class="row">
     <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <iframe style="width:100%; height:800px;" src="<?php echo $this->viewLink ?>"></iframe>
-            </div>
-        </div>
+        <?php
+            echo $this->partial('jobs/snapshot_or_preview', $this->vars());
+        ?>
+
     </div>
     <div class="col-md-4">
         <div class="alert alert-info">
-            <?php if ($this->job->portals):?>
-            <h3><?php echo $this->translate('Summary') ?></h3>
-            <?php $total=0 ?>
-            <table class="table table-bordered">
-                <tr>
-                    <th><?php echo $this->translate('Channel')?></th>
-                    <th class="text-right"><?php echo $this->translate('Price')?></th>
-                </tr>
-                <?php foreach($this->job->portals as $channel):?>
-                    <?php if($channel):?>
-                        <?php $channelData=$channels->getChannel($channel); ?>
-                        <tr>
-                            <td><?php echo $channelData->label ?></td>
-                            <td class="text-right"><?php echo $this->currencyFormat($channelData->price, 'EUR') ?></td>
-                        </tr>
-                        <?php $total += (int) $channelData->price; ?>
-                    <?php endif;?>
-                <?php endforeach;?>
-                <tr>
-                    <td><strong><?php echo $this->translate("Total")?></strong></td>
-                    <td class="text-right"><strong><?php echo $this->currencyFormat($total, 'EUR') ?></strong></span></td>
-                </tr>
-            </table>
-
-            <?php endif; // $this->job->portals ?>
+<?php if (!isset($this->diffSnapshot)): ?>
+    <?php
+        echo $this->partial('jobs/portalsummary', $this->vars());
+    ?>
+<?php  else: ?>
+    <?php
+        echo $this->partial('jobs/history', $this->vars());
+    ?>
+<?php endif; ?>
             <a class="btn btn-warning" href="<?php echo $this->declineLink ?>"><?php echo $this->translate("Reject Job")?></a>
             <a class="btn btn-success" href="<?php echo $this->approvalLink ?>"><?php echo $this->translate("Accept Job")?></a>
         </div>

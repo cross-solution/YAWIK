@@ -45,6 +45,13 @@ class Facts extends AbstractEntity implements FactsInterface
      */
     protected $earliestStartingDate;
 
+    /**
+     * The drivingLicense
+     *
+     * @ODM\Boolean
+     * @var bool
+     */
+    protected $drivingLicense;
 
     /**
      * @param string $salary
@@ -100,4 +107,23 @@ class Facts extends AbstractEntity implements FactsInterface
     {
         return $this->earliestStartingDate;
     }
+
+    /**
+     * @param $drivingLicense
+     * @return $this|FactsInterface
+     */
+    public function setDrivingLicense($drivingLicense)
+    {
+        $this->drivingLicense = $drivingLicense;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDrivingLicense()
+    {
+        return $this->drivingLicense;
+    }
+
 }

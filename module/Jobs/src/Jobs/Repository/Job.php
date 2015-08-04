@@ -10,9 +10,7 @@ namespace Jobs\Repository;
 
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
-use Core\Entity\EntityInterface;
-use Core\Repository\PaginatorAdapter;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Repository\DoctrineMongoODM\PaginatorAdapter;
 
 class Job extends AbstractRepository 
 {
@@ -25,6 +23,7 @@ class Job extends AbstractRepository
     public function getPaginatorCursor($params)
     {
         $filter = $this->getService('filterManager')->get('Jobs/PaginationQuery');
+        /* @var $filter \Core\Repository\Filter\AbstractPaginationQuery  */
         $qb = $filter->filter($params, $this->createQueryBuilder());
         return $qb->getQuery()->execute();
     }

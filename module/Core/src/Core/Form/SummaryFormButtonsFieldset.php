@@ -24,7 +24,7 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'label' => /*@translate*/ 'Save',
             ),
             'attributes' => array(
-                'id' => $this->formId . 'submit',
+                'id' => 'submit',
                 'type' => 'submit',
                 'value' => 'Save',
                 'class' => 'sf-submit btn btn-primary btn-xs'
@@ -38,7 +38,7 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'label' => /*@translate*/ 'Cancel',
             ),
             'attributes' => array(
-                'id' => $this->formId . 'cancel',
+                'id' => 'cancel',
                 'type' => 'reset',
                 'value' => 'Cancel',
                 'class' => 'sf-cancel btn btn-default btn-xs'
@@ -62,7 +62,15 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         
         return $this;
     }
-    
+
+    public function setAttribute($key, $value)
+    {
+        if ('id' == $key) {
+            $this->setFormId($value);
+        }
+        return parent::setAttribute($key, $value);
+    }
+
    public function setFormId($formId)
    {
        $this->formId = $formId . '-';

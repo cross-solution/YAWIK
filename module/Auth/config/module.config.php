@@ -40,15 +40,15 @@ return array(
         ),
         'factories' => array(
             'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
-            'HybridAuth' => '\Auth\Service\HybridAuthFactory',
-            'HybridAuthAdapter' => '\Auth\Service\HybridAuthAdapterFactory',
-            'ExternalApplicationAdapter' => '\Auth\Service\ExternalApplicationAdapterFactory',
-            'Auth/Adapter/UserLogin' => '\Auth\Service\UserAdapterFactory',
-            'AuthenticationService' => '\Auth\Service\AuthenticationServiceFactory',
-            'UnauthorizedAccessListener' => '\Auth\Service\UnauthorizedAccessListenerFactory',
+            'HybridAuth' => '\Auth\Factory\Service\HybridAuthFactory',
+            'HybridAuthAdapter' => '\Auth\Factory\Adapter\HybridAuthAdapterFactory',
+            'ExternalApplicationAdapter' => '\Auth\Factory\Adapter\ExternalApplicationAdapterFactory',
+            'Auth/Adapter/UserLogin' => '\Auth\Factory\Adapter\UserAdapterFactory',
+            'AuthenticationService' => '\Auth\Factory\Service\AuthenticationServiceFactory',
+            'UnauthorizedAccessListener' => '\Auth\Factory\Listener\UnauthorizedAccessListenerFactory',
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
-            'Acl' => '\Acl\Service\AclFactory',
-            'Acl/AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
+            'Acl' => '\Acl\Factory\Service\AclFactory',
+            'Acl\AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
             'Auth\Form\ForgotPassword' => 'Auth\Factory\Form\ForgotPasswordFactory',
             'Auth\Service\ForgotPassword' => 'Auth\Factory\Service\ForgotPasswordFactory',
             'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Factory\Service\UserUniqueTokenGeneratorFactory',
@@ -59,7 +59,7 @@ return array(
             'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
         ),
         'aliases' => array(
-            'assertions' => 'Acl/AssertionManager',
+            'assertions' => 'Acl\AssertionManager',
             'Auth/UserTokenGenerator' => 'Auth\Service\UserUniqueTokenGenerator',
         )
     ),
@@ -109,7 +109,7 @@ return array(
         ),
         "XING" => array (
             "enabled" => true,
-            // This is a hack due to bad design of Hybridauth
+            // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
             "wrapper" => array ( 
                 'class' => 'Hybrid_Providers_XING',
@@ -483,8 +483,8 @@ return array(
             'loginInfo' => '\Auth\View\Helper\LoginInfo',
         ),   
         'factories' => array(
-            'auth' => '\Auth\Service\AuthViewHelperFactory',
-            'acl'  => '\Acl\View\Helper\AclFactory',
+            'auth' => '\Auth\Factory\View\Helper\AuthFactory',
+            'acl'  => '\Acl\Factory\View\Helper\AclFactory',
          ),
     ),
     

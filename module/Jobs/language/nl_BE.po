@@ -1,0 +1,739 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-28 17:14+0200\n"
+"PO-Revision-Date: 2015-07-29 09:20+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Dutch (Belgium) (http://www.transifex.com/projects/p/yawik/language/nl_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/modals/homepage.phtml:22
+msgid "Publish on your Homepage"
+msgstr "Publiceer op uw homepage"
+
+#: view/modals/jobsintown.phtml:22 view/modals/yawik.phtml:22
+#, php-format
+msgid "Publish on %s"
+msgstr ""
+
+#: view/mails/job-created.phtml:21 view/iframe/iFrame.phtml:6
+msgid "Job details"
+msgstr "Job gegevens"
+
+#: view/mails/job-created.phtml:24 view/jobs/jobboard/index.ajax.phtml:13
+#: view/jobs/index/index.ajax.phtml:17
+msgid "Title of the job"
+msgstr "Titel van de baan"
+
+#: view/mails/job-created.phtml:28 view/jobs/jobboard/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:96
+msgid "Location"
+msgstr "Plaats"
+
+#: view/mails/job-created.phtml:32 view/jobs/jobboard/index.ajax.phtml:13
+#: view/jobs/index/index.ajax.phtml:20 view/jobs/index/index.ajax.phtml:30
+#: language/_annotated_strings.php:27 language/_annotated_strings.php:39
+msgid "Companyname"
+msgstr "Bedrijfsnaam"
+
+#: view/mails/job-created.phtml:37
+msgid "Publisher details"
+msgstr "Uitgever informatie"
+
+#: view/mails/job-created.phtml:41
+msgid "Name"
+msgstr "Naam"
+
+#: view/mails/job-created.phtml:45 language/_annotated_strings.php:66
+msgid "Email"
+msgstr "Email"
+
+#: view/mails/job-created.phtml:65
+msgid "no Portal chosen"
+msgstr "geen Portal gekozen"
+
+#: view/mails/job-created.phtml:67
+msgid "Selected Channels"
+msgstr "Geselecteerde Channels"
+
+#: view/mails/job-created.phtml:84 view/form/multiposting-select.phtml:63
+#: view/jobs/manage/form.phtml:122 view/partials/portalsummary.phtml:11
+msgid "Price"
+msgstr "Prijs"
+
+#: view/mails/job-created.phtml:88 view/form/multiposting-checkboxes.phtml:54
+#: view/form/multiposting-select.phtml:69
+#: view/form/multiposting-select.phtml:92 view/jobs/manage/form.phtml:128
+msgid "plus VAT"
+msgstr ""
+
+#: view/mails/job-created.phtml:92 view/form/multiposting-select.phtml:75
+#: view/jobs/manage/form.phtml:134
+msgid "Invoice amount"
+msgstr ""
+
+#: view/mails/job-created.phtml:98
+msgid "Click here to accept or reject the job opening"
+msgstr "Klik hier om te accepteren of de vacature te verwerpen"
+
+#: view/iframe/iFrame.phtml:17
+msgid ""
+"You are using a default template. You are free to create your own template, "
+"just contact the developing team for integration"
+msgstr "U gebruikt een standaard template. U bent vrij om uw eigen sjabloon te maken, gewoon contact opnemen met het ontwikkelen van het team voor de integratie"
+
+#: view/iframe/iFrame.phtml:22
+msgid "Default"
+msgstr "Verzuim"
+
+#: view/iframe/iFrame.phtml:27
+msgid "Classic"
+msgstr "Klassiek"
+
+#: view/iframe/iFrame.phtml:32
+msgid "Modern"
+msgstr "Modern"
+
+#: view/iframe/iFrame.phtml:44
+msgid "Track applications"
+msgstr "Track toepassingen"
+
+#: view/form/apply-identifier.phtml:26
+msgid "Apply link"
+msgstr "Breng koppeling"
+
+#: view/form/hiring-organization-select.phtml:46
+#, php-format
+msgid ""
+"If you want to post job openings for your customers, you have to %sadd "
+"them%s in the organizations menu."
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:18
+msgid "The build-in ATS is currently used."
+msgstr "De ingebouwde ATS wordt momenteel gebruikt."
+
+#: view/form/ats-mode.view.phtml:22
+#, php-format
+msgid "Applications are handled via URI: %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:27
+#, php-format
+msgid "Applications will be send to %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:32
+msgid "ATS is disabled."
+msgstr "ATS is uitgeschakeld."
+
+#: view/form/list-filter.phtml:51
+msgid "Search"
+msgstr "Zoeken"
+
+#: view/sidebar/index.phtml:19
+msgid "My jobs"
+msgstr "Mijn Vacatures"
+
+#: view/sidebar/index.phtml:19
+msgid "All jobs"
+msgstr "Alle vacatures"
+
+#: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
+#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:177
+msgid "Jobs"
+msgstr "Jobs"
+
+#: view/jobs/jobboard/index.phtml:5
+msgid "Public Job Opportunities"
+msgstr "Openbare Vacatures"
+
+#: view/jobs/jobboard/index.ajax.phtml:14 view/jobs/index/index.ajax.phtml:16
+msgid "Date of receipt"
+msgstr "Datum van ontvangst"
+
+#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:121
+#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:71
+msgid "Apply"
+msgstr "Toepassen"
+
+#: view/jobs/index/index.phtml:15
+msgid "Loading"
+msgstr "Het laden"
+
+#: view/jobs/index/index.phtml:16
+msgid "Access denied!"
+msgstr "Toegang geweigerd!"
+
+#: view/jobs/index/index.phtml:17
+msgid "Application error!"
+msgstr "Application error!"
+
+#: view/jobs/index/index.phtml:18
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: view/jobs/index/index.phtml:19
+msgid "Save"
+msgstr "Save"
+
+#: view/jobs/index/index.phtml:20
+msgid "Sending"
+msgstr "Verzending"
+
+#: view/jobs/index/index.phtml:21
+msgid "Fail!"
+msgstr "Fail!"
+
+#: view/jobs/index/index.phtml:28
+msgid "Jobs waiting for approval"
+msgstr "Jobs wachten op goedkeuring"
+
+#: view/jobs/index/index.phtml:28
+msgid "List of your jobs"
+msgstr "Lijst van uw banen"
+
+#: view/jobs/index/index.ajax.phtml:21
+msgid "Reference"
+msgstr "Verwijzing"
+
+#: view/jobs/index/index.ajax.phtml:23 view/jobs/index/dashboard.phtml:15
+msgid "Applications"
+msgstr "Toepassingen"
+
+#: view/jobs/index/index.ajax.phtml:24
+msgid "Status"
+msgstr "Toestand"
+
+#: view/jobs/index/index.ajax.phtml:25 view/jobs/index/index.ajax.phtml:27
+msgid "Action"
+msgstr "Actie"
+
+#: view/jobs/index/index.ajax.phtml:61 view/jobs/index/dashboard.phtml:35
+msgid "total"
+msgstr "totaal"
+
+#: view/jobs/index/index.ajax.phtml:67 view/jobs/index/dashboard.phtml:41
+msgid "unread"
+msgstr "ongelezen"
+
+#: view/jobs/index/index.ajax.phtml:80
+msgid "draft"
+msgstr "ontwerp"
+
+#: view/jobs/index/index.ajax.phtml:90
+#, php-format
+msgid "Change responsible user for job \\\"%s\\\""
+msgstr ""
+
+#: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
+msgid "State history"
+msgstr "State geschiedenis"
+
+#: view/jobs/index/index.ajax.phtml:143
+msgid "please wait"
+msgstr ""
+
+#: view/jobs/index/dashboard.phtml:6
+msgid "Current Jobs"
+msgstr "Huidige vacatures"
+
+#: view/jobs/index/dashboard.phtml:6
+msgid "Famous jobs"
+msgstr "Beroemde banen"
+
+#: view/jobs/index/dashboard.phtml:12
+msgid "Job"
+msgstr "Job"
+
+#: view/jobs/index/dashboard.phtml:13 view/jobs/manage/history.phtml:8
+#: view/partials/history.phtml:7
+msgid "Date"
+msgstr "Datum"
+
+#: view/jobs/index/view.phtml:15
+msgid "Online since"
+msgstr "Online sinds"
+
+#: view/jobs/index/terms.phtml:22
+msgid "Terms and Conditions"
+msgstr "Termen en voorwaarden"
+
+#: view/jobs/manage/completion.phtml:1
+msgid "Publishing successfully finished"
+msgstr "Publishing succesvol afgerond"
+
+#: view/jobs/manage/completion.phtml:3
+msgid ""
+"Thank you for publishing your job opening. An email was send to the "
+"reviewing team."
+msgstr "Dank u voor het publiceren van uw vacature. Een e-mail werd naar de herziening team."
+
+#: view/jobs/manage/completion.phtml:9 language/_annotated_strings.php:186
+msgid "Create job"
+msgstr "Job Maak"
+
+#: view/jobs/manage/completion.phtml:10
+msgid "Logout"
+msgstr ""
+
+#: view/jobs/manage/history.phtml:4
+msgid "History"
+msgstr ""
+
+#: view/jobs/manage/history.phtml:8 view/partials/history.phtml:9
+msgid "Comment"
+msgstr "Commentaar"
+
+#: view/jobs/manage/approval.phtml:14
+msgid "Preview of the posting"
+msgstr "Voorbeeld van de detachering"
+
+#: view/jobs/manage/approval.phtml:33
+msgid "Reject Job"
+msgstr "Job verwerpen"
+
+#: view/jobs/manage/approval.phtml:34
+msgid "Accept Job"
+msgstr "Job Accepteren"
+
+#: view/jobs/manage/form.phtml:31
+msgid "Publish a job"
+msgstr "Publiceer een job"
+
+#: view/jobs/manage/form.phtml:33
+msgid "Create a job"
+msgstr "Maak een baan"
+
+#: view/jobs/manage/form.phtml:65
+msgid "Preview of your job posting"
+msgstr "Voorbeeld van uw vacature"
+
+#: view/jobs/manage/form.phtml:76
+#, php-format
+msgid ""
+"Please check the preview of your job position. Click %s to open the preview "
+"in a new window"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:77 view/jobs/manage/form.phtml:145
+msgid "here"
+msgstr "hier"
+
+#: view/jobs/manage/form.phtml:82 view/partials/portalsummary.phtml:6
+msgid "Summary"
+msgstr "Overzicht"
+
+#: view/jobs/manage/form.phtml:86
+msgid "Your job opening is ready to be published to the following channels"
+msgstr "Uw vacature is klaar om de volgende kanalen worden gepubliceerd"
+
+#: view/jobs/manage/form.phtml:144
+#, php-format
+msgid "Please check your selected channels. Click %s to modify the channels"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:162
+msgid "Next to enter the job"
+msgstr "Naast de taak in te voeren"
+
+#: view/jobs/manage/form.phtml:165 view/jobs/manage/form.phtml:229
+msgid "Back"
+msgstr "Terug"
+
+#: view/jobs/manage/form.phtml:166
+msgid "Next to preview the job"
+msgstr "Naast een voorbeeld van de job"
+
+#: view/jobs/manage/form.phtml:177
+msgid "Your job position is incomplete."
+msgstr "Jouw taak positie is incompleet."
+
+#: view/jobs/manage/form.phtml:189
+msgid ""
+"Your job opening is online. You can publish minor changes or you can "
+"deactivate the job opening"
+msgstr "Uw vacature is online. U kunt kleine wijzigingen publiceren of u kunt de vacature te deactiveren"
+
+#: view/jobs/manage/form.phtml:198
+msgid "Your job opening was successfully created and is waiting for approval."
+msgstr "Jouw taak opening werd gemaakt en wacht op goedkeuring."
+
+#: view/jobs/manage/form.phtml:207
+msgid ""
+"Your job opening is inactive. You can reactivate it. Chargeable channels are"
+" not updated."
+msgstr "Uw vacature is niet actief. Je kan het activeren. Oplaadbare kanalen worden niet bijgewerkt."
+
+#: view/jobs/manage/form.phtml:216
+msgid ""
+"Your job was expired. You can reactivate you job opening. Chargeable "
+"channels are not updated."
+msgstr "Jouw taak is verstreken. U kunt activeren je vacature. Oplaadbare kanalen worden niet bijgewerkt."
+
+#: view/jobs/manage/form.phtml:225
+msgid ""
+"Your job opening was rejected. Please correct the errors and republish it"
+msgstr "Uw vacature werd verworpen. Corrigeer de fouten en publiceer deze"
+
+#: view/jobs/manage/form.phtml:232
+#, php-format
+msgid "Publish job %s"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:232
+msgid "chargeable"
+msgstr "laste"
+
+#: view/jobs/manage/form.phtml:235
+msgid "submit changes"
+msgstr "submit veranderingen"
+
+#: view/jobs/manage/form.phtml:246
+msgid "Deactivate"
+msgstr "Deactiveren"
+
+#: view/error/no-parent.phtml:15
+msgid "Sorry, you may not create jobs."
+msgstr "Sorry, u kunt geen banen creëren."
+
+#: view/error/no-parent.phtml:20
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate a valid email%s "
+"first."
+msgstr ""
+
+#: view/error/no-parent.phtml:27
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate your main "
+"organization%s first."
+msgstr ""
+
+#: view/partials/history.phtml:8
+msgid "State"
+msgstr "Staat"
+
+#: view/partials/snapshot_or_preview.phtml:8
+msgid "Nothing has changed"
+msgstr ""
+
+#: view/partials/snapshot_or_preview.phtml:19
+msgid "previous content"
+msgstr ""
+
+#: view/partials/snapshot_or_preview.phtml:20
+msgid "new content"
+msgstr ""
+
+#: view/partials/portalsummary.phtml:10
+msgid "Channel"
+msgstr "Kanaal"
+
+#: view/partials/portalsummary.phtml:24
+msgid "Total"
+msgstr "Totaal"
+
+#: src/Jobs/Form/JobDescriptionFieldset.php:36
+msgid "Description"
+msgstr "Beschrijving"
+
+#: src/Jobs/Controller/ManageController.php:188
+msgid "No Title"
+msgstr "Geen Titel"
+
+#: src/Jobs/Controller/ManageController.php:192
+msgid "No Location"
+msgstr "Geen Woonplaats"
+
+#: src/Jobs/Controller/ManageController.php:196
+msgid "Accept the Terms"
+msgstr "Accepteer de voorwaarden"
+
+#: src/Jobs/Controller/ManageController.php:433
+msgid "Job has been rejected"
+msgstr "Job is afgewezen"
+
+#: src/Jobs/Controller/ManageController.php:441
+msgid "Job has been approved"
+msgstr "Job is goedgekeurd"
+
+#: src/Jobs/Controller/ManageController.php:477
+msgid "Job has been deactivated"
+msgstr "Job is gedeactiveerd"
+
+#: src/Jobs/Controller/ManageController.php:479
+msgid "Job could not be deactivated"
+msgstr "Job kon niet worden gedeactiveerd"
+
+#: src/Jobs/Controller/ManageController.php:497
+msgid "Template changed"
+msgstr "Template veranderd"
+
+#: src/Jobs/Controller/ManageController.php:500
+msgid "Template not changed"
+msgstr "Template niet veranderd"
+
+#: public/templates/classic/index.phtml:30
+#: public/templates/modern/index.phtml:33
+msgid "Your tasks"
+msgstr "Uw taken"
+
+#: public/templates/classic/index.phtml:36
+#: public/templates/modern/index.phtml:39
+msgid "Qualifications"
+msgstr "Kwalificaties"
+
+#: public/templates/classic/index.phtml:44
+#: public/templates/modern/index.phtml:47
+msgid "Benefis"
+msgstr "Benefis"
+
+#: public/templates/classic/index.phtml:54
+#: public/templates/modern/index.phtml:57
+msgid "Apply now"
+msgstr "Nu toepassen"
+
+#: language/_annotated_strings.php:3
+msgid "search for jobs"
+msgstr "zoeken naar een baan"
+
+#: language/_annotated_strings.php:6
+msgid "Job qualification"
+msgstr "Job kwalificatie"
+
+#: language/_annotated_strings.php:9
+msgid "Job benefits"
+msgstr "Job voordelen"
+
+#: language/_annotated_strings.php:12
+msgid "Job requirements"
+msgstr "Functie eisen"
+
+#: language/_annotated_strings.php:15
+msgid "Terms and conditions"
+msgstr "Termen en voorwaarden"
+
+#: language/_annotated_strings.php:18
+#, php-format
+msgid "I have read the %s and accept it"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "terms an conditions"
+msgstr "algemene voorwaarden een"
+
+#: language/_annotated_strings.php:24
+msgid "Title and job location"
+msgstr "Titel en de locatie van de baan"
+
+#: language/_annotated_strings.php:30
+msgid "Please choose a descriptive title and a location for your job posting "
+msgstr "Kies een beschrijvende titel en een locatie voor uw vacature"
+
+#: language/_annotated_strings.php:33
+msgid ""
+"Please choose the name of the hiring organization. The selected name defines"
+" the template of the job opening."
+msgstr "Kies de naam van het verhuren organisatie. De geselecteerde naam bepaalt de template van de vacature."
+
+#: language/_annotated_strings.php:36
+msgid "Please choose the portals, where you wish to publish your job opening."
+msgstr "Kies de portalen, waar u wilt uw vacature te publiceren."
+
+#: language/_annotated_strings.php:42
+msgid "The name of the hiring organization will be shown in search results."
+msgstr "De naam van het verhuren organisatie zal worden getoond in de zoekresultaten."
+
+#: language/_annotated_strings.php:45
+msgid "Select hiring organization"
+msgstr "Selecteer inhuren organisatie"
+
+#: language/_annotated_strings.php:48
+msgid "Mode"
+msgstr "Mode"
+
+#: language/_annotated_strings.php:51
+msgid "Built-In ATS"
+msgstr "Ingebouwde ATS"
+
+#: language/_annotated_strings.php:54
+msgid "Use external link"
+msgstr "Gebruik external link"
+
+#: language/_annotated_strings.php:57
+msgid "Get applications via email"
+msgstr "Ontvang toepassingen via e-mail"
+
+#: language/_annotated_strings.php:60
+msgid "Do not track"
+msgstr "Niet volgen"
+
+#: language/_annotated_strings.php:63
+msgid "URL"
+msgstr "URL"
+
+#: language/_annotated_strings.php:69
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "Show all jobs"
+msgstr "Toon alle jobs"
+
+#: language/_annotated_strings.php:75
+msgid "Show my jobs"
+msgstr "Toon mijn banen"
+
+#: language/_annotated_strings.php:78
+msgid "All"
+msgstr "Alle"
+
+#: language/_annotated_strings.php:81
+msgid "Active"
+msgstr "Actief"
+
+#: language/_annotated_strings.php:84
+msgid "Inactive"
+msgstr "Inactieve"
+
+#: language/_annotated_strings.php:87 language/_annotated_strings.php:90
+msgid "Job title"
+msgstr "Functietitel"
+
+#: language/_annotated_strings.php:93
+msgid "Please enter the job title"
+msgstr "Vul de functietitel"
+
+#: language/_annotated_strings.php:99
+msgid "Please enter the location of the job"
+msgstr "Vul de locatie van de baan"
+
+#: language/_annotated_strings.php:102
+msgid "Portals"
+msgstr "Portals"
+
+#: language/_annotated_strings.php:105
+msgid "Multiposting"
+msgstr "Multiposting"
+
+#: language/_annotated_strings.php:108
+msgid "rejected"
+msgstr "verworpen"
+
+#: language/_annotated_strings.php:111
+msgid "publish"
+msgstr "publiceren"
+
+#: language/_annotated_strings.php:114
+msgid "active"
+msgstr "actief"
+
+#: language/_annotated_strings.php:117
+msgid "inactive"
+msgstr "inactief"
+
+#: language/_annotated_strings.php:120
+msgid "expired"
+msgstr "verlopen"
+
+#: language/_annotated_strings.php:123
+#, php-format
+msgid "Job opening was rejected by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:126
+#, php-format
+msgid "Job opening was activated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:129
+#, php-format
+msgid "Job was deactivated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:132
+msgid "A new job opening was created"
+msgstr "Een nieuwe baan opening werd gecreëerd"
+
+#: language/_annotated_strings.php:135
+msgid "Your Job have been wrapped up for approval"
+msgstr "Your Job zijn ingepakt voor goedkeuring"
+
+#: language/_annotated_strings.php:138
+msgid "Your job has been published"
+msgstr "Jouw taak is gepubliceerd"
+
+#: language/_annotated_strings.php:141
+msgid "Your job has been rejected"
+msgstr "Jouw taak is afgewezen"
+
+#: language/_annotated_strings.php:144
+msgid "publish your job on yawik.org for free"
+msgstr "publiceren van uw job op yawik.org gratis"
+
+#: language/_annotated_strings.php:147 language/_annotated_strings.php:156
+#, php-format
+msgid "publish the job for 30 days on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:150
+msgid "yawik.org"
+msgstr "yawik.org"
+
+#: language/_annotated_strings.php:153
+msgid "publish your job on Jobsintown. 199,-€"
+msgstr "publiceren van uw job op Jobsintown. 199, - €"
+
+#: language/_annotated_strings.php:159
+msgid "www.jobsintown.de"
+msgstr "www.jobsintown.de"
+
+#: language/_annotated_strings.php:162
+msgid "Your Homepage"
+msgstr "Uw Homepage"
+
+#: language/_annotated_strings.php:165
+msgid "enable integration of this job on your Homepage"
+msgstr "maken de integratie van deze job op uw homepage"
+
+#: language/_annotated_strings.php:168
+#, php-format
+msgid "enable %s of this job on your Homepage"
+msgstr ""
+
+#: language/_annotated_strings.php:171
+msgid "integration"
+msgstr "integratie"
+
+#: language/_annotated_strings.php:174 language/_annotated_strings.php:192
+msgid "Jobboard"
+msgstr "Jobboard"
+
+#: language/_annotated_strings.php:180
+msgid "Overview"
+msgstr "Overzicht"
+
+#: language/_annotated_strings.php:183
+msgid "Pending jobs"
+msgstr "In afwachting van banen"
+
+#: language/_annotated_strings.php:189
+msgid "Edit job"
+msgstr "Job bewerken"
+
+#: test/JobsTest/Factory/Form/MultipostingSelectFactoryTest.php:54
+msgid "testLabel"
+msgstr ""

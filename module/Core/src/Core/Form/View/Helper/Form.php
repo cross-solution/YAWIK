@@ -93,6 +93,16 @@ class Form extends ZendForm
         
         $form->setAttribute('class', $class);
 
+        $formId = $form->getAttribute('id') ?: $form->getName();
+        $form->setAttribute(
+             'id',
+             preg_replace(
+                array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
+                array('-'              , '-'    , ''       ),
+                $formId
+             )
+        );
+
         if (method_exists($form, 'prepare')) {
             $form->prepare();
         }

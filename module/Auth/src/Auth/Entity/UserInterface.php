@@ -24,9 +24,6 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
-
-
-
     /**
      * Sets the users login name
      *
@@ -148,6 +145,23 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @since 0.18
      */
     public function getOrganization();
+
+    /**
+     * Returns true, if a user is created as a draft.
+     *
+     * @return bool
+     * @since 0.19
+     */
+    public function isDraft();
+
+    /**
+     * marks a users as draft.
+     *
+     * @param bool
+     * @return self
+     * @since 0.19
+     */
+    public function setIsDraft($draft);
 
 
 }

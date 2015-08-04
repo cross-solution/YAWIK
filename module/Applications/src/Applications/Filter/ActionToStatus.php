@@ -1,4 +1,12 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author bleek@cross-solution.de
+ * @license   MIT
+ */
 
 namespace Applications\Filter;
 

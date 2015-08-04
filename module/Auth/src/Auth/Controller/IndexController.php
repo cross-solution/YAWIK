@@ -198,16 +198,16 @@ class IndexController extends AbstractActionController
                 $mail->setTemplate('mail/first-socialmedia-login');
                 $mail->setSubject($this->options->getMailSubjectRegistration());
                 $mail->setVariables(array(
-                                'displayName'=> $user->info->getDisplayName(),
+                                'displayName'=> $user->getInfo()->getDisplayName(),
                                 'provider' => $provider,
                                 'login' => $login,
                                 'password' => $password,
                 ));
-                $mail->addTo($user->info->getEmail());
+                $mail->addTo($user->getInfo()->getEmail());
 
                 $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
                 if (isset($mail) && $this->mailer($mail)) {
-                    $this->logger->info('Mail first-login for ' . $loggerId . ' sent to ' . $user->info->getEmail());
+                    $this->logger->info('Mail first-login for ' . $loggerId . ' sent to ' . $user->getInfo()->getEmail());
                 } else {
                     $this->logger->warn('No Mail was sent for ' . $loggerId);
                 }

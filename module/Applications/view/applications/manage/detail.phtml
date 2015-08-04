@@ -411,6 +411,12 @@ endif;
              <td><?php echo $this->application->facts->expectedSalary ?></td>
          </tr>
       <?php endif?>
+        <?php if(isset($this->application->facts->drivingLicense)):?>
+            <tr>
+                <td><?php echo $this->translate('Driving license')?>:</td>
+                <td><?php echo $this->application->facts->drivingLicense?$this->translate("Yes"):$this->translate("No") ?></td>
+            </tr>
+        <?php endif?>
     </table>
     </div>
   </div>

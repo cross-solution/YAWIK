@@ -29,10 +29,10 @@
     "homepage": "http://yawik.org/",
     "minimum-stability": "alpha",
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.5",
         "ext-mongo": "*",
         "ext-intl": "*",
-        "zendframework/zendframework": "2.2.*",
+        "zendframework/zendframework": "2.*",
         "zendframework/zendservice-recaptcha": "2.*",
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "*",
@@ -40,15 +40,16 @@
         "twbs/bootstrap": "*",
         "components/jquery": "*",
         "fortawesome/font-awesome": "*",
-        "twitter/typeahead.js": "0.10.2",
+        "twitter/typeahead.js": "0.10.*",
         "blueimp/jquery-file-upload": "*",
         "ivaynberg/select2": "3.5.*",
         "tinymce/tinymce": "*",
-        "mikemix/zf2htmlpurifier": "0.*",
+        "mikemix/zf2htmlpurifier": "*",
         "cross-solution/bootstrap3-dialog": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.5.*",
-        "satooshi/php-coveralls": "dev-master"
+        "phpunit/phpunit": "4.7.*",
+        "satooshi/php-coveralls": "dev-master",
+	"mikey179/vfsStream": "1.5.*"
     }
 }

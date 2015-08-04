@@ -24,7 +24,7 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Send an approval Mail to this Email Address, if a new job is posted.
      *
-     * @var int $multipostingApprovalMail
+     * @var string $multipostingApprovalMail
      */
     protected $multipostingApprovalMail;
 
@@ -55,32 +55,29 @@ class ModuleOptions extends AbstractOptions {
     /**
      * Allowed Mime-Types for company Logos
      *
-     * @var string
+     * @var array
      */
     protected $companyLogoMimeType=array("image");
 
 
     /**
-     * Gets the email address to which approval mails are sent
+     * Gets the email address to which approval mails are sent.
      *
-     * @return int
+     * @return string
      */
     public function getMultipostingApprovalMail()
     {
-        if (null == $this->multipostingApprovalMail){
-
-        }
         return $this->multipostingApprovalMail;
     }
     /**
      * Sets the email address to which approval mails are sent
      *
-     * @param int $size
+     * @param string $multipostingApprovalMail
      * @return ModuleOptions
      */
-    public function setMultipostingApprovalMail($size)
+    public function setMultipostingApprovalMail($multipostingApprovalMail)
     {
-        $this->multipostingApprovalMail = $size;
+        $this->multipostingApprovalMail = $multipostingApprovalMail;
         return $this;
     }
 
@@ -169,6 +166,4 @@ class ModuleOptions extends AbstractOptions {
         $this->companyLogoMimeType = $mime;
         return $this;
     }
-
-
 }

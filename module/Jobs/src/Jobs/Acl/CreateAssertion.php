@@ -36,7 +36,11 @@ class CreateAssertion extends AbstractEventManagerAwareAssertion
                                  $privilege = null
     )
     {
-        return $role instanceOf UserInterface && 'new' == $privilege;
+        if (!$role instanceOf UserInterface || 'new' != $privilege) {
+            return false;
+        }
+
+        return null;
     }
 
 

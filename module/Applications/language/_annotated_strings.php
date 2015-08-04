@@ -38,7 +38,7 @@ translate('Status');
 //: ./view/applications/manage/index.applicant.ajax.phtml:22
 translate('Actions');
 
-//: ./src/Applications/Form/Base.php:26
+//: ./src/Applications/Form/Base.php:27
 translate('Cover Letter');
 
 //: ./src/Applications/Form/Apply.php:39
@@ -203,28 +203,28 @@ translate('Application confirmation');
 //: ./src/Applications/Controller/IndexController.php:83
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:145
+//: ./src/Applications/Controller/IndexController.php:144
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:222
+//: ./src/Applications/Controller/IndexController.php:217
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:255
+//: ./src/Applications/Controller/IndexController.php:249
 translate('your application was sent successfully');
 
-//: ./src/Applications/Controller/IndexController.php:306
+//: ./src/Applications/Controller/IndexController.php:298
 translate('Application has been deleted.');
 
-//: ./src/Applications/Controller/IndexController.php:332
+//: ./src/Applications/Controller/IndexController.php:324
 translate('Mail has been send');
 
-//: ./src/Applications/Controller/IndexController.php:335
+//: ./src/Applications/Controller/IndexController.php:327
 translate('Application data has been deleted');
 
-//: ./src/Applications/Controller/IndexController.php:338
+//: ./src/Applications/Controller/IndexController.php:330
 translate('No mail adress available');
 
-//: ./src/Applications/Mail/Forward.php:45
+//: ./src/Applications/Mail/Forward.php:59
 translate('Fwd: Application to "%s" dated %s');
 
 //: ./src/Applications/Mail/NewApplication.php:56

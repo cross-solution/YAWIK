@@ -160,6 +160,7 @@ return array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
+            'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
 //            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
@@ -216,6 +217,7 @@ return array(
         'factories' => array(
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
+            'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
@@ -223,13 +225,15 @@ return array(
             'mail' => 'Core\Controller\Plugin\Mail',
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
+            'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
             'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
         ),
         'aliases' => array(
-            'filesender' => 'Core/FileSender',
-            'mailer'     => 'Core/Mailer',
-            'paginator' => 'Core/CreatePaginator',
+            'filesender'       => 'Core/FileSender',
+            'mailer'           => 'Core/Mailer',
+            'paginator'        => 'Core/CreatePaginator',
+            'paginatorservice' => 'Core/PaginatorService',
             'paginationparams' => 'Core/PaginationParams',
         )
     ),
@@ -329,6 +333,7 @@ return array(
         ),
         'factories' => array(
             "Core/XssFilter" => "Core\Filter\XssFilterFactory",
+            "Core/HtmlAbsPathFilter" => "Core\Factory\Filter\HtmlAbsPathFilterFactory",
        ),
     ),
     

@@ -29,10 +29,12 @@ class ModuleOptionsFactory  implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config');
+
         $jobs_options = isset($config['jobs_options']) ? $config['jobs_options'] : array();
 
         if (!array_key_exists('multipostingApprovalMail', $jobs_options) || '' ==  trim($jobs_options['multipostingApprovalMail'])){
-            $jobs_options['multipostingApprovalMail'] = $config['Auth']['default_user']['email'];
+            $coreOptions = $serviceLocator->get('Core/Options');
+            $jobs_options['multipostingApprovalMail'] = $coreOptions->getSystemMessageEmail();
         }
 
         return new ModuleOptions($jobs_options);

@@ -1,0 +1,69 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-16 16:05+0200\n"
+"PO-Revision-Date: 2015-06-15 06:57+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Dutch (Belgium) (http://www.transifex.com/projects/p/yawik/language/nl_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/settings/index/index.phtml:3 view/settings/index/index.phtml:9
+#: language/_annotated_strings.php:33
+msgid "Settings"
+msgstr "Instellingen"
+
+#: src/Settings/Form/LanguageSettingsFieldset.php:24
+msgid "general settings"
+msgstr "Algemene instellingen"
+
+#: language/_annotated_strings.php:3
+msgid "choose your language"
+msgstr "Kies uw taal"
+
+#: language/_annotated_strings.php:6
+msgid "English"
+msgstr "Engels"
+
+#: language/_annotated_strings.php:9
+msgid "French"
+msgstr "Frans"
+
+#: language/_annotated_strings.php:12
+msgid "German"
+msgstr "Duitse"
+
+#: language/_annotated_strings.php:15
+msgid "defines the languages of this frontend."
+msgstr "definieert de talen van deze frontend."
+
+#: language/_annotated_strings.php:18
+#, php-format
+msgid "Customize enabled elements for %s"
+msgstr ""
+
+#: language/_annotated_strings.php:21
+msgid "Activate"
+msgstr "Activeren"
+
+#: language/_annotated_strings.php:24
+msgid "Enables the form element customization."
+msgstr "Maakt het formulier element maatwerk."
+
+#: language/_annotated_strings.php:27
+msgid "Changes successfully saved"
+msgstr "Wijzigingen succesvol opgeslagen"
+
+#: language/_annotated_strings.php:30
+msgid "Changes could not be saved"
+msgstr "Wijzigingen kan niet worden opgeslagen"

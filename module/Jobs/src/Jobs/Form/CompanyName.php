@@ -12,6 +12,7 @@ namespace Jobs\Form;
 
 use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
+use Jobs\Entity\JobInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 
@@ -54,5 +55,22 @@ class CompanyName extends SummaryForm implements InputFilterProviderInterface
                 'type' => 'Jobs/Company'
             )
         );
+    }
+
+    public function setObject($object)
+    {
+        if ($object instanceOf JobInterface && null === $object->getOrganization()) {
+            $fs = $this->getBaseFieldset();
+            $hiringOrgSelect = $fs->get('companyId');
+            $orgValues = $hiringOrgSelect->getValueOptions();
+            if (1 == count($orgValues)) {
+                $value = key($orgValues);
+                $hiringOrgSelect->setValue($value);
+                $this->setDisplayMode(self::DISPLAY_SUMMARY);
+                $fs->getHydrator()->hydrate(array('companyId' => $value), $object);
+            }
+        }
+
+        return parent::setObject($object);
     }
 }

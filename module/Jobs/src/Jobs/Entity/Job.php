@@ -19,13 +19,15 @@ use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\SnapshotGeneratorProviderInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
+class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, SnapshotGeneratorProviderInterface
+{
 
     /**
      * unique ID of a job posting used by applications to reference
@@ -212,6 +214,12 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @ODM\String 
      */
     protected $uriPublisher;
+
+    /**
+     * @var
+     * @ODM\EmbedMany(targetDocument="Publisher")
+     */
+    protected $publisher;
 
     /**
      * The ATS mode entity.
@@ -487,6 +495,19 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     public function getUser() {
         return $this->user;
     }
+
+    public function unsetUser($removePermissions = true)
+    {
+        if ($this->user) {
+            if ($removePermissions) {
+                $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL);
+            }
+            $this->user=null;
+        }
+
+        return $this;
+    }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setApplications()
@@ -674,7 +695,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         return $this;
     }
     /**
-     * returns an uri to the organisations logo
+     * returns an uri to the organization logo
      *
      * @deprecated
      * @return string
@@ -762,7 +783,32 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
         $this->uriPublisher = $uriPublisher;
         return $this;
     }
-    
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function getPublisher($key) {
+        $result = Null;
+        foreach ($this->publisher as $publisher) {
+            if ($publisher->host == $key) {
+                $result = $publisher;
+            }
+        }
+        if (!isset($result)) {
+            $result = new Publisher();
+            $result->host = $key;
+            $this->publisher[] = $result;
+        }
+        return $result;
+    }
+
+    public function setPublisherReference($key, $reference) {
+        $publisher = $this->getPublisher($key);
+        $publisher->reference;
+        return $this;
+    }
+
     /**
      * Get a list of fieldnames, which can be searched by keywords
      *
@@ -908,4 +954,28 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     {
         return !$this->isDraft && $this->status->name == 'active';
     }
+
+    /**
+     * @return Job
+     */
+    public function makeSnapshot()
+    {
+        $snapshot = new JobSnapshot($this);
+        return $snapshot;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getSnapshotGenerator()
+    {
+        $generator = array (
+            'hydrator' => '',
+            'target' => 'Jobs\Entity\JobSnapshot',
+            'exclude' => array('permissions', 'history')
+        );
+        return $generator;
+    }
+
+
 }
