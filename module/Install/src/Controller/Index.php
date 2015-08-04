@@ -101,7 +101,7 @@ class Index extends AbstractActionController
         $data = $form->getData();
 
         $userOk = $this->plugin('Install/UserCreator')->process($data['db_conn'], $data['username'], $data['password']);
-        $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn']);
+        $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn'], $data['email']);
 
         /*
          * Make sure there's no cached config files

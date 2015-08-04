@@ -22,6 +22,7 @@ use Install\Filter\DbNameExtractor;
  * @group Install
  * @group Install.Controller
  * @group Install.Controller.Plugin
+ * @since 0.20
  */
 class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,12 +51,14 @@ class YawikConfigCreatorTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingConfigurationValues()
     {
-        $result = $this->target->process('mongodb://server/TestDbName');
+        $result = $this->target->process('mongodb://server/TestDbName', 'test@email');
 
         $this->assertContains("'default_db' => 'TestDbName'", $result);
         $this->assertContains("'connectionString' => 'mongodb://server/TestDbName'", $result);
+        $this->assertContains("'core_options'", $result);
+        $this->assertContains("'system_message_email' => 'test@email'", $result );
 
-        $result = $this->target->process('mongodb://server');
+        $result = $this->target->process('mongodb://server', 'test@email');
 
         $this->assertContains("'default_db' => 'YAWIK.test'", $result);
     }

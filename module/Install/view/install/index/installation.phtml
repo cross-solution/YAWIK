@@ -39,6 +39,16 @@
                 <div id="<?php echo $pw->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($pw) ?></div>
             </div>
         </div>
+        <hr>
+
+        <div class="form-group">
+            <label for="<?php $email = $this->form->get('email'); $email->setAttribute('id', $email->getName())->setAttribute('class', 'form-control');
+                         echo $email->getAttribute('id') ?>"><?php echo $email->getLabel() ?></label>
+            <?php echo $this->formElement($email); ?>
+            <div id="<?php echo $email->getAttribute('id')?>-errors" class="errors"><?php echo $this->formElementErrors($email) ?></div>
+        </div>
+
+        <hr>
         <div class="form-group text-right">
             <button <?php echo $this->prerequisites['valid'] ? '' : 'disabled' ?> class="btn btn-primary"
                     type="submit" id="install-submit"

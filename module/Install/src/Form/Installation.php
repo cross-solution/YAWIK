@@ -61,6 +61,14 @@ class Installation extends Form implements InputFilterProviderInterface
                        ),
                    )
         );
+
+        $this->add(array(
+                       'type' => 'Text',
+                       'name' => 'email',
+                       'options' => array(
+                           'label' => /* @translate */ 'Email address for system messages',
+                       ),
+                   ));
     }
 
     public function getInputFilterSpecification()
@@ -88,6 +96,15 @@ class Installation extends Form implements InputFilterProviderInterface
                 'required' => true,
                 'filters' => array(
                     array('name' => 'StringTrim'),
+                ),
+            ),
+            'email' => array(
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array('name' => 'EmailAddress'),
                 ),
             ),
         );

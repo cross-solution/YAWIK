@@ -62,12 +62,21 @@ class InstallationTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $target->expects($this->exactly(3))
+        $add4 = array(
+            'type' => 'Text',
+            'name' => 'email',
+            'options' => array(
+                'label' => 'Email address for system messages',
+            ),
+        );
+
+        $target->expects($this->exactly(4))
                ->method('add')
                ->withConsecutive(
                            array($add1),
                            array($add2),
-                           array($add3)
+                           array($add3),
+                           array($add4)
                )->will($this->returnSelf());
 
         $target->expects($this->once())->method('setName')->with('installation');
@@ -105,6 +114,15 @@ class InstallationTest extends \PHPUnit_Framework_TestCase
                 'required' => true,
                 'filters' => array(
                     array('name' => 'StringTrim'),
+                ),
+            ),
+            'email' => array(
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array('name' => 'EmailAddress'),
                 ),
             ),
         );
