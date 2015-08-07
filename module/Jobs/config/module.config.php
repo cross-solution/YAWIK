@@ -180,7 +180,7 @@ return array(
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
-            'Jobs/viewModelTemplateFilter'                => 'Jobs\Filter\viewModelTemplateFilterFactory'
+            'Jobs/viewModelTemplateFilter'                => 'Jobs\Filter\viewModelTemplateFilterFactory',
         ),
         'shared' => array(
             'Jobs/Event' => false,
@@ -208,6 +208,9 @@ return array(
         'factories' => array(
             'Jobs/Job'   => 'Jobs\Paginator\JobsPaginatorFactory',
             'Jobs/Admin' => 'Jobs\Paginator\JobsAdminPaginatorFactory',
+        ),
+        'aliases' => array(
+            'Jobs/Board' => 'Jobs/Job'
         )
     ),
 
@@ -306,7 +309,7 @@ return array(
     'filters' => array(
         'factories'=> array(
             'Jobs/PaginationQuery'      => '\Jobs\Repository\Filter\PaginationQueryFactory',
-            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory'
+            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory',
         ),
     ),
 

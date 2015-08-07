@@ -6,6 +6,13 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Paginator\Paginator;
 use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
 
+/**
+ * @deprecated
+ * this plugin should get replaced by Core\Paginator\PaginatorService
+ *
+ * Class CreatePaginator
+ * @package Core\Controller\Plugin
+ */
 class CreatePaginator extends AbstractPlugin
 {
     
