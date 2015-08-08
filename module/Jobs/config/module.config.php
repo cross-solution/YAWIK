@@ -57,6 +57,7 @@ return array(
             'recruiter' => array(
                 'allow' => array(
                     'Jobs',
+                    'JobList',
                     'Jobs/Manage' => array(
                         'edit',
                         'completion',
@@ -84,6 +85,7 @@ return array(
                     ),
                     'route/lang/jobs/template',
                 ),
+               'deny' => 'JobList'
             ),
             'applicant' => array(
                 'allow' => array(
@@ -104,6 +106,7 @@ return array(
                     'pendingJobs',
                 ),
                 'deny' => array(
+                    'lang/jobs',
                 )
             )
         ),
@@ -132,6 +135,7 @@ return array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/jobs',
+                        'resource' => 'JobList'
                     ),
                     'pending-list' => array(
                         'label' => /*@translate*/ 'Pending jobs',

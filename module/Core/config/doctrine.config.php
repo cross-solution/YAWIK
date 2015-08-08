@@ -33,7 +33,7 @@ return array(
                   'hydrator_dir'       => 'cache/DoctrineMongoODMModule/Hydrator',
 //                'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 //
-                  'default_db'         => 'YAWIK',
+//                'default_db'         => '',
 //
 //                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class'),
 //
