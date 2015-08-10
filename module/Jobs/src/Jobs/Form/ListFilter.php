@@ -21,6 +21,16 @@ use Core\Form\ViewPartialProviderInterface;
 class ListFilter extends Form implements ViewPartialProviderInterface
 {
     /**
+     * adds filter fields like my jobs or all jobs of my companies
+     */
+    const MODE_ACL  = 1;
+
+    /**
+     * Adds the regional fields "location" and "distance" to the search form.
+     */
+    const MODE_REGIONAL  = 2;
+
+    /**
      * @var string $viewPartial view script for the search formular
      */
     protected $viewPartial = 'jobs/form/list-filter';

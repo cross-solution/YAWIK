@@ -83,6 +83,29 @@ class ListFilterFieldset extends Fieldset
                 'label' => /*@translate*/ 'Job title',
             ),
         ));
+
+        $this->add(array(
+                       'name' => 'l',
+                       'type' => 'Location',
+                       'options' => array(
+                           'label' => /*@translate*/ 'Location',
+                       ),
+                   ));
+
+        $this->add(array(
+                       'name' => 'd',
+                       'type' => 'Zend\Form\Element\Select',
+                       'options' => array(
+                           'label' => /*@translate*/ 'Distance',
+                           'value_options' => array(
+                               '5' => '5 km',
+                               '10'  => '10 km',
+                               '20' => '20 km',
+                               '50' => '50 km',
+                               '100' => '100 km'
+                           ),
+                       ),
+                   ));
     }
 
     /**

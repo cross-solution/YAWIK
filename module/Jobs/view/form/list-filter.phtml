@@ -41,6 +41,7 @@ if (empty($action)) {
 $form->setAttributes(array(
     'action' => $action,
     'method' => 'GET',
+    'class' => 'form-inline'
 ));
 
 echo $this->form()->openTag($form);
@@ -49,12 +50,31 @@ echo $this->formHidden($params->get('page'));
 $byElement = $params->get('by');
 $statusElement = $params->get('status');
 ?>
-<div id="params-search-wrapper" class="input-group">
-    <span class="input-group-addon">?</span>
-    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for jobs' ))) ?>
-    <span class="input-group-btn">
-        <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
-    </span>
+
+<?php #echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_INLINE);?>
+
+<div id="params-search-wrapper" class="xinput-group">
+    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for position or company' ))) ?>
+
+    <?php #echo $this->formElement($params->get('l')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */  ))) ?>
+
+
+
+
+         X   <input type="text" value="<?php echo $params->get("l")->getValue(); ?>"
+                   class=" form-control geolocation"
+                   style="vertical-align: middle"
+                   id="job-location"
+                   name="<?php echo $params->get("l")->getName(); ?>"
+                   data-provide="typeahead"
+                    placeholder="<?php echo $this->translate('search for a location');?>">Y
+            <span id="<?php echo preg_replace('/\W/','-',$params->get("l")->getName()); ?>errors">
+            </span>
+
+    <?php echo $this->formSelect($params->get('d')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for a location' ))) ?>
+
+
+    <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
 </div>
 <?php
     $showButtons = $params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
