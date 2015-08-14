@@ -32,10 +32,11 @@ class XssFilterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator){
 
-       $htmlPurifier = new Filter\HTMLPurifierFilter();
+        $htmlPurifier = new Filter\HTMLPurifierFilter();
+        $htmlPurifier->setConfig(array("Cache.SerializerPath" => "cache/HtmlPurifier"));
 
-       $filter = new XssFilter($htmlPurifier);
+        $filter = new XssFilter($htmlPurifier);
 
-       return $filter;
+        return $filter;
     }
 }
