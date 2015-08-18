@@ -100,8 +100,8 @@ class PaginationQuery extends AbstractPaginationQuery
         /*
          * search jobs by keywords
          */
-        if (isset($this->value['search']) && !empty($this->value['search'])) {
-            $search = strtolower($this->value['search']);
+        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
+            $search = strtolower($this->value['params']['search']);
             $searchPatterns = array();
     
             foreach (explode(' ', $search) as $searchItem) {
