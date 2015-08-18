@@ -71,7 +71,7 @@ class EmployeeFieldsetFactory implements FactoryInterface
                 foreach (array(
                     Perms::JOBS_VIEW, Perms::JOBS_CHANGE, PERMS::JOBS_CREATE,
                     Perms::APPLICATIONS_VIEW, Perms::APPLICATIONS_CHANGE)
- as $perm) {
+                as $perm) {
                     if ($object->isAllowed($perm)) {
                         $values[] = $perm;
                     }

@@ -70,7 +70,7 @@ class Import extends Form
         }
         
         return parent::setData($data);
-        }
+     }
     
     
     

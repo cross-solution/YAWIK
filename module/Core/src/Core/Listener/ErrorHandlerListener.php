@@ -160,8 +160,8 @@ class ErrorHandlerListener implements ListenerAggregateInterface
              ) {
                  if (is_callable($this->redirect)) {
                      call_user_func($this->redirect);
-                    }
-                }
+                 }
+             }
         }
     }
 }
