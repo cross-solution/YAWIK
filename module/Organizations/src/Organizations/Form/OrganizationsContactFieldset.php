@@ -38,33 +38,41 @@ class OrganizationsContactFieldset extends Fieldset
     {
         $this->setName('contact');
         
-        $this->add(array(
-        		'name' => 'street',
-        		'options' => array(
-        				'label' => /* @translate */ 'street'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'street',
+                'options' => array(
+                        'label' => /* @translate */ 'street'
+                )
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'houseNumber',
-        		'options' => array(
-        				'label' => /* @translate */ 'house number'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'houseNumber',
+                'options' => array(
+                        'label' => /* @translate */ 'house number'
+                )
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'postalcode',
-        		'options' => array(
-        				'label' => /* @translate */ 'Postalcode'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'postalcode',
+                'options' => array(
+                        'label' => /* @translate */ 'Postalcode'
+                )
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'city',
-        		'options' => array(
-        				'label' => /* @translate */ 'City'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'city',
+                'options' => array(
+                        'label' => /* @translate */ 'City'
+                )
+            )
+        );
     }
 
     /**
@@ -81,7 +89,8 @@ class OrganizationsContactFieldset extends Fieldset
      * @param object $object
      * @return bool
      */
-    public function allowObjectBinding($object) {
+    public function allowObjectBinding($object)
+    {
         return $object instanceof OrganizationContact;
     }
 }

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Settings.php */ 
+/** Settings.php */
 namespace Settings\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -39,4 +39,3 @@ class Settings extends AbstractPlugin
         return $settings;
     }
 }
-

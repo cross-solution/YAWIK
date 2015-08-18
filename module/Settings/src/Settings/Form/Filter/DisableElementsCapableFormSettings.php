@@ -15,7 +15,7 @@ use Zend\Filter\FilterInterface;
 /**
  * Filter to convert element value to config value.
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class DisableElementsCapableFormSettings implements FilterInterface
 {
@@ -78,6 +78,4 @@ class DisableElementsCapableFormSettings implements FilterInterface
         }
         return $return;
     }
-
-
 }

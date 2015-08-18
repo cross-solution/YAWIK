@@ -17,7 +17,7 @@ class Geo extends AbstractPlugin
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function __invoke($par)
-    { 
+    {
         $config = $this->getController()->getServiceLocator()->get('config');
         if (empty($config['geocoder_cross_url'])) {
              throw new \InvalidArgumentException('Now Service-Adress for Geo-Service available');
@@ -34,8 +34,4 @@ class Geo extends AbstractPlugin
         $result = (array) $result->result;
         return $result;
     }
-    
-    
-
-    
 }

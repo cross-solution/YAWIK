@@ -75,4 +75,3 @@ translate('Overview');
 
 //: ./config/module.config.php:163
 translate('Insert');
-

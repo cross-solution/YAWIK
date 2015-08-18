@@ -150,10 +150,10 @@ return array(
             'CvFieldset'        => '\Cv\Form\CvFieldset',
             'EducationFieldset' => '\Cv\Form\EducationFieldset',
             'EmploymentFieldset' => '\Cv\Form\EmploymentFieldset',
-        	'SkillFieldset' => '\Cv\Form\SkillFieldset',
-        	'NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
-        	'LanguageSkillFieldset' => '\Cv\Form\LanguageFieldset',
-        		
+            'SkillFieldset' => '\Cv\Form\SkillFieldset',
+            'NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
+            'LanguageSkillFieldset' => '\Cv\Form\LanguageFieldset',
+                
             
         ),
         'factories' => array(

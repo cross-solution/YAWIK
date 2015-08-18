@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -31,7 +31,8 @@ use Core\Entity\EntityInterface;
  *
  * @ODM\EmbeddedDocument
  */
-class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface {
+class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
+{
 
     /**
      * @var String
@@ -285,7 +286,8 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
     /**
      * @param $jobEntity
      */
-    public function __construct () {
+    public function __construct()
+    {
     }
 
     /**
@@ -297,11 +299,22 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
      * @param $target
      * @return $this
      */
-    protected function copyAttributes($source, $target) {
-        $methods = array_filter( get_class_methods($source), function ($v) {return 3 < strlen($v) && strpos($v,'get') === 0; });
+    protected function copyAttributes($source, $target)
+    {
+        $methods = array_filter(
+            get_class_methods($source),
+            function ($v) {
+                return 3 < strlen($v) && strpos($v, 'get') === 0;
+            }
+        );
         // these attributes don't need to get copied
         $methods = array_diff($methods, array('getId', 'getHydrator', 'getHiringOrganizations'));
-        $methods = array_map(function ($v) { return lcfirst(substr($v, 3)); }, $methods);
+        $methods = array_map(
+            function ($v) {
+                return lcfirst(substr($v, 3));
+            },
+            $methods
+        );
         foreach ($methods as $attribute) {
             $element = $source->$attribute;
             if (isset($element)) {
@@ -511,7 +524,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
      * @param OrganizationInterface $organization
      * @return JobInterface
      */
-    public function setOrganization(OrganizationInterface $organization = NULL)
+    public function setOrganization(OrganizationInterface $organization = null)
     {
         throw new ImmutablePropertyException('organization', $this);
     }
@@ -850,7 +863,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
      */
     public function getKeywords()
     {
-        return Null;
+        return null;
     }
 
     /**
@@ -880,9 +893,6 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface 
      */
     public function getResourceId()
     {
-        return Null;
+        return null;
     }
-
-
-
 }

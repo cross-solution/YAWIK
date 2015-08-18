@@ -31,16 +31,18 @@ class FormFileUpload extends FormFile
 
     public function render(ElementInterface $element)
     {
-        if (!$element instanceOf FileUpload) {
+        if (!$element instanceof FileUpload) {
             throw new \InvalidArgumentException('Expects element of type "Core\Form\Element\FileUpload"');
         }
 
         $name = $element->getName();
         if ($name === null || $name === '') {
-            throw new \DomainException(sprintf(
-                                           '%s requires that the element has an assigned name; none discovered',
-                                           __METHOD__
-                                       ));
+            throw new \DomainException(
+                sprintf(
+                    '%s requires that the element has an assigned name; none discovered',
+                    __METHOD__
+                )
+            );
         }
 
         /* @var $renderer \Zend\View\Renderer\PhpRenderer */
@@ -103,8 +105,10 @@ class FormFileUpload extends FormFile
         <ul class="errors">
             <li class="fu-error-size">' . $translator->translate('The file is too big', $textDomain) . '</li>
             <li class="fu-error-type">' . $translator->translate('The file type is not supported', $textDomain) . '</li>
-            <li class="fu-error-count">' . sprintf($translator->translate('You may only upload %d files', $textDomain),
-                                                   $element->getAttribute('data-maxfilecount')) . '</li>
+            <li class="fu-error-count">' . sprintf(
+        $translator->translate('You may only upload %d files', $textDomain),
+        $element->getAttribute('data-maxfilecount')
+) . '</li>
         </ul>
    </div>
 </li>';
@@ -177,7 +181,8 @@ class FormFileUpload extends FormFile
             $element->getAttribute('id'),
             $preview,
             $renderer->escapeHtmlAttr(trim($template)),
-            $emptynotice, $nonemptynotice
+            $emptynotice,
+            $nonemptynotice
         );
 
         return $markup;

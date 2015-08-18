@@ -13,18 +13,17 @@ use Core\Entity\ModificationDateAwareEntityInterface;
 use Auth\Entity\InfoInterface;
 use Cv\Entity\CvInterface;
 
-interface ApplicationInterface 
-    extends EntityInterface, 
-            IdentifiableEntityInterface, 
-            SearchableEntityInterface,
-            ModificationDateAwareEntityInterface,
-            PermissionsAwareInterface
-            
+interface ApplicationInterface extends
+    EntityInterface,
+    IdentifiableEntityInterface,
+    SearchableEntityInterface,
+    ModificationDateAwareEntityInterface,
+    PermissionsAwareInterface
 {
     
     /**
      * Sets the job this application belongs to.
-     * 
+     *
      * @param JobInterface $job
      * @return ApplicationInterface
      */
@@ -32,16 +31,16 @@ interface ApplicationInterface
     
     /**
      * Gets the job this application belongs to.
-     * 
+     *
      * @return JobInterface
      */
     public function getJob();
     
     /**
      * Sets the user who created this application.
-     * 
+     *
      * It may be empty (anonymous applicant)
-     * 
+     *
      * @param UserInterface $user
      * @return ApplicationInterface
      */
@@ -49,19 +48,19 @@ interface ApplicationInterface
     
     /**
      * Gets the user who created this application.
-     * 
+     *
      * May be <b>null</b>.
-     * 
+     *
      * @return UserInterface|null
      */
     public function getUser();
     
     /**
      * Sets the status of this application.
-     * 
+     *
      * If <b>$status</b> is a string, a new {@link \Applications\Entity\Status} instance
      * is created with <b>$status</b> as status name.
-     * 
+     *
      * @param \Applications\Entity\StatusInterface|string $status
      * @return ApplicationInterface
      */
@@ -69,14 +68,14 @@ interface ApplicationInterface
     
     /**
      * Gets the status of this application.
-     * 
+     *
      * @return \Applications\Entity\StatusInterface|null
      */
     public function getStatus();
     
     /**
      * Sets the contact info.
-     * 
+     *
      * @param InfoInterface $contact
      * @return ApplicationInterface
      */
@@ -84,14 +83,14 @@ interface ApplicationInterface
     
     /**
      * Gets the contact info
-     * 
+     *
      * @return InfoInterface
      */
     public function getContact();
     
     /**
      * Sets the summary (freetext).
-     * 
+     *
      * @param string $summary
      * @return ApplicationInterface
      */
@@ -99,7 +98,7 @@ interface ApplicationInterface
     
     /**
      * Gets the summary
-     * 
+     *
      * @return string
      */
     public function getSummary();
@@ -121,8 +120,8 @@ interface ApplicationInterface
     public function getFacts();
 
     /**
-     * Sets the CV 
-     * 
+     * Sets the CV
+     *
      * @param CvInterface $cv
      * @return ApplicationInterface
      */
@@ -130,7 +129,7 @@ interface ApplicationInterface
     
     /**
      * Gets the CV
-     * 
+     *
      * @return CvInterface
      */
     public function getCv();
@@ -138,7 +137,7 @@ interface ApplicationInterface
     
     /**
      * Sets attachments collection.
-     * 
+     *
      * @param Collection $attachments
      * @return ApplicationInterface
      */
@@ -146,14 +145,14 @@ interface ApplicationInterface
     
     /**
      * Gets the collection of attachments.
-     * 
+     *
      * @return Collection
      */
     public function getAttachments();
     
     /**
      * Sets social profiles collection.
-     * 
+     *
      * @param Collection $profiles
      * @return ApplicationInterface
      */
@@ -161,14 +160,14 @@ interface ApplicationInterface
     
     /**
      * Gets social profiles collection.
-     * 
+     *
      * @return Collection
      */
     public function getProfiles();
     
     /**
      * Sets the collection of history entities.
-     * 
+     *
      * @param Collection $history
      * @return ApplicationInterface
      */
@@ -176,14 +175,14 @@ interface ApplicationInterface
     
     /**
      * Gets the collection of history entities.
-     * 
+     *
      * @return Collection
      */
     public function getHistory();
     
     /**
      * Sets the array of user ids of users which has at least once viewed this application.
-     * 
+     *
      * @param array $userIds
      * @return ApplicationInterface
      */
@@ -191,14 +190,14 @@ interface ApplicationInterface
     
     /**
      * Gets the array of user ids of users which has at least once viewed this application.
-     * 
+     *
      * @return array
      */
     public function getReadBy();
     
     /**
      * Adds a user (id) to the array of user ids of users which has viewed this application.
-     * 
+     *
      * @param UserInterface|string $userOrId
      * @return ApplicationInterface
      */
@@ -206,7 +205,7 @@ interface ApplicationInterface
     
     /**
      * Checks, if a user (id) has not yet read this application.
-     * 
+     *
      * @param UserInterface|string $userOrId
      * @return bool
      */
@@ -214,7 +213,7 @@ interface ApplicationInterface
     
     /**
      * Checks, if a user (id) has read this application.
-     * 
+     *
      * @param UserInterface|string $userOrId
      * @return bool
      */
@@ -222,7 +221,7 @@ interface ApplicationInterface
     
     /**
      * Sets the subscriber
-     * 
+     *
      * @param EntityInterface $subscriber
      * @return ApplicationInterface
      */
@@ -230,21 +229,21 @@ interface ApplicationInterface
     
     /**
      * Gets the subscriber
-     * 
+     *
      * @return EntityInterface
      */
     public function getSubscriber();
     
     /**
      * Gets all comments for the application.
-     * 
+     *
      * @return Collection
      */
     public function getComments();
     
     /**
      * Sets comment collection for the application.
-     * 
+     *
      * @param Collection $comments
      * @return ApplicationInterface
      */
@@ -252,14 +251,14 @@ interface ApplicationInterface
     
     /**
      * Gets the internal reference entity
-     * 
+     *
      * @return InternalReferences
      */
     public function getRefs();
     
     /**
      * Gets the average rating of all comments.
-     * 
+     *
      * @param bool $recalculate
      * @return int
      */

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -19,13 +19,15 @@ use Zend\Paginator\Paginator;
  * Class PaginatorFactoryAbstract
  * @package Core\Paginator
  */
-abstract class PaginatorFactoryAbstract implements FactoryInterface {
+abstract class PaginatorFactoryAbstract implements FactoryInterface
+{
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return mixed|Paginator
      */
-    public function createService(ServiceLocatorInterface $serviceLocator) {
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
         $repositories   = $serviceLocator->getServiceLocator()->get('repositories');
         $repository     = $repositories->get($this->getRepository());
         $queryBuilder   = $repository->createQueryBuilder();
@@ -46,5 +48,4 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface {
      * @return Zend\Filter\FilterInterface\Repository
      */
     abstract protected function getRepository();
-
-} 
+}

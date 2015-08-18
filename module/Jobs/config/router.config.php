@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** router.config.php */ 
+/** router.config.php */
 
 // Routes
 return array('router' => array('routes' => array('lang' => array('child_routes' => array(
@@ -59,7 +59,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                     'defaults' => array(
                         'controller' => 'Jobs/Manage',
                         'action'     => 'check-apply-id',
-                        'forceJson' => true, 
+                        'forceJson' => true,
                     ),
                     
                 ),

@@ -7,9 +7,8 @@
  * @license   MIT
  */
 
-/** Auth forms */ 
+/** Auth forms */
 namespace Auth\Form;
-
 
 use Core\Form\DisableElementsCapableInterface;
 use Zend\Form\Fieldset;
@@ -83,7 +82,6 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         }
 
         foreach ($map as $key => $name) {
-
             if (is_numeric($key)) {
                 $key = $name;
                 $name = null;
@@ -102,8 +100,8 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
                 continue;
             }
 
-            if ($element instanceOf FieldsetInterface
-                && $element instanceOf DisableElementsCapableInterface
+            if ($element instanceof FieldsetInterface
+                && $element instanceof DisableElementsCapableInterface
                 && $element->isDisableElementsCapable()
             ) {
                 $element->disableElements($name);
@@ -115,21 +113,21 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
 
     /**
      * Gets the fetch url specification.
-     * 
+     *
      * @return string
      */
-    public function getFetchUrl ()
+    public function getFetchUrl()
     {
         return $this->fetchUrl;
     }
     
     /**
      * Sets the fetch url specification.
-     * 
+     *
      * @param string $url
      * @return self
      */
-    public function setFetchUrl ($url)
+    public function setFetchUrl($url)
     {
         $this->fetchUrl = $url;
         return $this;
@@ -138,11 +136,11 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
 
     /**
      * Sets the preview url specification.
-     * 
+     *
      * @param string $url
      * @return self
      */
-    public function setPreviewUrl ($url)
+    public function setPreviewUrl($url)
     {
         $this->previewUrl = $url;
         return $this;
@@ -150,10 +148,10 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
     
     /**
      * Gets the preview url specification.
-     * 
+     *
      * @return string
      */
-    public function getPreviewUrl ()
+    public function getPreviewUrl()
     {
         return $this->previewUrl;
     }
@@ -168,7 +166,7 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
 
     public function allowObjectBinding($object)
     {
-        return ($object instanceOf Collection);
+        return ($object instanceof Collection);
     }
     
     public function setOptions($options)
@@ -194,11 +192,11 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
     
     /**
      * Adds a profile button.
-     * 
+     *
      * if <b>$options</b> is null, the <b>$name</b> will be used as label.
      * if <b>$options</b> is a string, this string will be used as label.
      * if <b>$options</b> is an array, it must provide a key 'label'.
-     * 
+     *
      * @param string $name
      * @param null|string|array $options
      * @return self
@@ -207,7 +205,7 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
     {
         if (null === $options) {
             $options['label'] = ucfirst($name);
-        } else if (is_string($options)) {
+        } elseif (is_string($options)) {
             $options = array('label' => $options);
         }
         
@@ -228,11 +226,13 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
             $options['label']
         );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Auth/SocialProfilesButton',
             'name' => $name,
             'options' => $options,
-        ));
+            )
+        );
         return $this;
     }
 
@@ -241,4 +241,3 @@ class SocialProfilesFieldset extends Fieldset implements ViewPartialProviderInte
         $this->setAttribute('class', 'social-profiles-fieldset');
     }
 }
-

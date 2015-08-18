@@ -15,7 +15,7 @@ use Zend\Form\Element\Select;
 
 /**
  * Form select element to select hiring organizations to be associated to a job
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class HiringOrganizationSelect extends Select implements ViewPartialProviderInterface
@@ -38,6 +38,4 @@ class HiringOrganizationSelect extends Select implements ViewPartialProviderInte
     {
         return $this->partial;
     }
-
-
 }

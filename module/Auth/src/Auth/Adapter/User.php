@@ -35,7 +35,7 @@ class User extends AbstractAdapter
      * @param null|string $identity
      * @param null|string $credential
      */
-    public function __construct($repository, $identity=null, $credential=null)
+    public function __construct($repository, $identity = null, $credential = null)
     {
         $this->repository = $repository;
         $this->setIdentity($identity);
@@ -63,7 +63,7 @@ class User extends AbstractAdapter
      *
      * @return self
      */
-    public function setDefaultUser($login, $password, $role=\Auth\Entity\User::ROLE_RECRUITER)
+    public function setDefaultUser($login, $password, $role = \Auth\Entity\User::ROLE_RECRUITER)
     {
         $this->defaultUser = array($login, $password, $role);
         return $this;
@@ -93,11 +93,13 @@ class User extends AbstractAdapter
                 return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, $identity, array('User not known or invalid credential'));
             }
             $password = $this->defaultUser[1];
-            $user = $users->create(array(
+            $user = $users->create(
+                array(
                 'login' => $identity,
                 'password' => $password,
                 'role' => $this->defaultUser[2],
-            ));
+                )
+            );
             
             $users->getDocumentManager()->persist($user);
         }

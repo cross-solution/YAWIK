@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PaginationQuery.php */ 
+/** PaginationQuery.php */
 namespace Cv\Repository\Filter;
 
 use Zend\Filter\FilterInterface;
@@ -19,7 +19,7 @@ class PaginationQuery extends AbstractPaginationQuery
     protected $repositoryName = 'Cv/Cv';
     protected $user;
     
-    public function __construct(UserInterface $user=null)
+    public function __construct(UserInterface $user = null)
     {
         $this->user = $user;
     }
@@ -33,4 +33,3 @@ class PaginationQuery extends AbstractPaginationQuery
         return $queryBuilder->getQuery();
     }
 }
-

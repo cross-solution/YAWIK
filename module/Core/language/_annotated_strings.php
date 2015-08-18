@@ -91,4 +91,3 @@ translate('general settings');
 
 //: ./config/module.config.php:200
 translate('Home');
-

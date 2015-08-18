@@ -14,8 +14,8 @@ use Core\Entity\IdentifiableEntityInterface;
 
 interface EducationInterface extends IdentifiableEntityInterface
 {
-	
-	public function setStartDate($startDate);
+    
+    public function setStartDate($startDate);
     public function getStartDate();
     public function setEndDate($endDate);
     public function getEndDate();
@@ -25,5 +25,4 @@ interface EducationInterface extends IdentifiableEntityInterface
     public function getCompetencyName();
     public function setDescription($value);
     public function getDescription();
-    
 }

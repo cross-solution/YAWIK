@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SettingsContainer.php */ 
+/** SettingsContainer.php */
 namespace Settings\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -25,19 +25,18 @@ class SettingsContainer implements SettingsContainerInterface
     protected $isWritable = false;
     
     
-    public function enableWriteAccess($recursive = true, array $skipMembers=array())
+    public function enableWriteAccess($recursive = true, array $skipMembers = array())
     {
         $this->isWritable = true;
         
         if ($recursive) {
             $skipMembers = array_merge($skipMembers, array('settings', 'isWritable'));
             foreach (get_object_vars($this) as $member => $value) {
-        
                 if (in_array($member, $skipMembers)) {
                     continue;
                 }
                 
-                if ($value instanceOf SettingsContainerInterface) {
+                if ($value instanceof SettingsContainerInterface) {
                     $value->enableWriteAccess(true);
                 }
             }
@@ -85,15 +84,18 @@ class SettingsContainer implements SettingsContainerInterface
                 } else {
                     return $this->$property;
                 }
-            } 
+            }
             $value = isset($params[0]) ? $params[0] : null;
             return $this->{$match[1]}($property, $value);
         }
         
-        throw new \BadMethodCallException(sprintf(
-            'Unknown method %s called on %s',
-            $method, get_class($this)
-        ));
+        throw new \BadMethodCallException(
+            sprintf(
+                'Unknown method %s called on %s',
+                $method,
+                get_class($this)
+            )
+        );
     }
     
     public function __get($property)
@@ -155,11 +157,12 @@ class SettingsContainer implements SettingsContainerInterface
     protected function checkWriteAccess()
     {
         if (!$this->isWritable) {
-            throw new \RuntimeException(sprintf(
-                'Write access to %s is not allowed.',
-                get_class($this)
-            ));
+            throw new \RuntimeException(
+                sprintf(
+                    'Write access to %s is not allowed.',
+                    get_class($this)
+                )
+            );
         }
     }
 }
-

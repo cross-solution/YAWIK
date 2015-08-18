@@ -10,8 +10,6 @@
 
 namespace Applications\Entity;
 
-
-
 use Settings\Entity\DisableElementsCapableFormSettings;
 use Settings\Entity\ModuleSettingsContainer;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -21,7 +19,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class Settings extends ModuleSettingsContainer {
+class Settings extends ModuleSettingsContainer
+{
     
     /**
      * send mail to the recruiter
@@ -32,7 +31,7 @@ class Settings extends ModuleSettingsContainer {
     
     /**
      * send BlindCarbonCopy to owner(?)
-     * 
+     *
      * @ODM\Boolean
      */
     protected $mailBCC = false;
@@ -104,7 +103,7 @@ class Settings extends ModuleSettingsContainer {
      * @param $formDisplaySkills
      * @return $this
      */
-    public function setFormDisplaySkills ($formDisplaySkills)
+    public function setFormDisplaySkills($formDisplaySkills)
     {
         $this->formDisplaySkills = (bool) $formDisplaySkills;
         return $this;

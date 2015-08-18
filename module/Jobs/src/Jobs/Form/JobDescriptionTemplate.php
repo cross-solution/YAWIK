@@ -29,41 +29,50 @@ class JobDescriptionTemplate extends Container
      */
     public function init()
     {
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'descriptionFormDescription' => array(
                 'type' => 'Jobs/JobDescriptionDescription',
                 'property' => true,
             )
-        ));
+            )
+        );
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'descriptionFormBenefits' => array(
                 'type' => 'Jobs/JobDescriptionBenefits',
                 'property' => true,
             )
-        ));
+            )
+        );
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'descriptionFormRequirements' => array(
                 'type' => 'Jobs/JobDescriptionRequirements',
                 'property' => true,
             )
-        ));
+            )
+        );
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'descriptionFormQualifications' => array(
                 'type' => 'Jobs/JobDescriptionQualifications',
                 'property' => true,
             )
-        ));
+            )
+        );
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'descriptionFormTitle' => array(
                 'type' => 'Jobs/JobDescriptionTitle',
                 'property' => true,
             )
-        ));
+            )
+        );
 
     }
-
 }

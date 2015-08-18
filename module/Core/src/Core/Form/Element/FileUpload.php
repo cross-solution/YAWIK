@@ -24,8 +24,9 @@ use Zend\Form\FormInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class FileUpload extends File implements ViewHelperProviderInterface,
-                                         InputProviderInterface
+class FileUpload extends File implements
+    ViewHelperProviderInterface,
+    InputProviderInterface
 {
     /**
      * The view helper name.
@@ -50,7 +51,7 @@ class FileUpload extends File implements ViewHelperProviderInterface,
 
     public function setViewHelper($helper)
     {
-        if (is_object($helper) && !$helper instanceOf HelperInterface) {
+        if (is_object($helper) && !$helper instanceof HelperInterface) {
             throw new \InvalidArgumentException('Expects helper to be eiter a service name or an instance of "Zend\View\Helper\HelperInterface"');
         }
 

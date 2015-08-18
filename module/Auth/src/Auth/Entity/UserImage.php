@@ -41,4 +41,3 @@ class UserImage extends FileEntity implements ResourceInterface
         $this->getUser()->getInfo()->setImage(null);
     }
 }
-

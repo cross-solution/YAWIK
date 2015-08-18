@@ -17,14 +17,14 @@ use Locale;
 /**
  * Hybridauth authentication adapter factory
  */
-class DateFormatHelperFactory implements FactoryInterface 
+class DateFormatHelperFactory implements FactoryInterface
 {
 
     /**
      * Creates an instance of \Core\View\Helper\Params
-     * 
+     *
      * - injects the MvcEvent instance
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Core\View\Helper\Params
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -35,5 +35,4 @@ class DateFormatHelperFactory implements FactoryInterface
         $helper->setLocale(Locale::DEFAULT_LOCALE);
         return $helper;
     }
-    
 }

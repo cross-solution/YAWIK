@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,16 +36,18 @@ class RestClient extends ZendClient
     public function __construct($uri, array $config)
     {
         $this->config = $config;
-        $config = ArrayUtils::merge( array(
+        $config = ArrayUtils::merge(
+            array(
                 'adapter' => 'Zend\Http\Client\Adapter\Curl',
-                'keepalive' => False,
-                'encodecookies' => False,
-                'outputstream' => False,
+                'keepalive' => false,
+                'encodecookies' => false,
+                'outputstream' => false,
                 'httpversion' => Request::VERSION_11,
-                'storeresponse' => False,
+                'storeresponse' => false,
                 'maxredirects' => 2
             ),
-            $config);
+            $config
+        );
 
         parent::__construct($uri, $config);
         $this->setEncType('application/json');
@@ -72,7 +74,7 @@ class RestClient extends ZendClient
         if (empty($this->request)) {
             $headers = new Headers();
             $headers->addHeaders(
-                    array(
+                array(
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json'
                     )
@@ -88,15 +90,17 @@ class RestClient extends ZendClient
      * @throws \RuntimeException
      * @return mixed
      */
-    protected function authetificate() {
+    protected function authetificate()
+    {
         $auth = array_key_exists('user', $this->config)?$this->config['user']:'';
         $pass = array_key_exists('pass', $this->config)?$this->config['pass']:'';
         return $this->setAuth($auth, $pass);
     }
 
-    public function getHost() {
+    public function getHost()
+    {
         if (empty($this->config) || !array_key_exists('host', $this->config)) {
-            return Null;
+            return null;
         }
         return $this->config['host'];
     }

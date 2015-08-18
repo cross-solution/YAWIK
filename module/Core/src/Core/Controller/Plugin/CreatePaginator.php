@@ -23,14 +23,14 @@ class CreatePaginator extends AbstractPlugin
             $defaultParams = array();
         }
         
-        if (!is_array($defaultParams) && !$defaultParams instanceOf \Traversable) {
+        if (!is_array($defaultParams) && !$defaultParams instanceof \Traversable) {
             throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
         }
         
         
         $services   = $this->getController()->getServiceLocator();
         $repository = $services->get('repositories')->get($repositoryName);
-        $params     = $usePostParams 
+        $params     = $usePostParams
                     ? $this->getController()->getRequest()->getPost()
                     : $this->getController()->getRequest()->getQuery();
         $params     = clone $params; // prevent param changes to original object.
@@ -68,7 +68,7 @@ class CreatePaginator extends AbstractPlugin
     
     /**
      * returns a Paginator.
-     * 
+     *
      * @param Repository $repository
      * @param Params $params
      * @throws \RuntimeException
@@ -83,7 +83,7 @@ class CreatePaginator extends AbstractPlugin
         if (method_exists($repository, 'getPaginatorAdapter')) {
             $adapter = $repository->getPaginatorAdapter($params);
             
-        } else if (method_exists($repository, 'getPaginatorCursor')) {
+        } elseif (method_exists($repository, 'getPaginatorCursor')) {
             $cursor = $repository->getPaginatorCursor($params);
             $adapter = new \Core\Paginator\Adapter\DoctrineMongoCursor($cursor);
             
@@ -93,6 +93,4 @@ class CreatePaginator extends AbstractPlugin
         $paginator = new \Zend\Paginator\Paginator($adapter);
         return $paginator;
     }
-    
-    
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -18,7 +18,8 @@ use Zend\Paginator\Paginator;
  * Class PaginatorService
  * @package Core\Paginator
  */
-class PaginatorService extends AbstractPluginManager {
+class PaginatorService extends AbstractPluginManager
+{
 
     /**
      * check class
@@ -28,10 +29,9 @@ class PaginatorService extends AbstractPluginManager {
      */
     public function validatePlugin($plugin)
     {
-       if ($plugin instanceof Paginator) {
-           return true;
-       }
-       return false;
+        if ($plugin instanceof Paginator) {
+            return true;
+        }
+        return false;
     }
-
-} 
+}

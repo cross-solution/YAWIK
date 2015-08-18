@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** RatingFieldset.php */ 
+/** RatingFieldset.php */
 namespace Core\Form;
 
 use Zend\Form\Fieldset;
@@ -20,7 +20,7 @@ class RatingFieldset extends Fieldset
     
     public function allowObjectBinding($object)
     {
-        return $object instanceOf RatingInterface;
+        return $object instanceof RatingInterface;
     }
     
     public function getHydrator()
@@ -67,4 +67,3 @@ class RatingFieldset extends Fieldset
         }
     }
 }
-

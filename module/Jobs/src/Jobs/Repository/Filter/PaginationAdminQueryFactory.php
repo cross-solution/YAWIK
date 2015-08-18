@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -14,7 +14,7 @@ use Auth\AuthenticationService;
 use \Zend\ServiceManager\FactoryInterface;
 use \Zend\ServiceManager\ServiceLocatorInterface;
 
-class PaginationAdminQueryFactory  implements FactoryInterface
+class PaginationAdminQueryFactory implements FactoryInterface
 {
     /**
      * @param ServiceLocatorInterface $serviceLocator
@@ -31,4 +31,4 @@ class PaginationAdminQueryFactory  implements FactoryInterface
         $filter = new PaginationAdminQuery($auth, $acl);
         return $filter;
     }
-} 
+}

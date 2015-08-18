@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form;
 
 /**
@@ -26,14 +26,14 @@ interface DescriptionAwareFormInterface
     
     /**
      * Returns the state of description awareness.
-     * 
+     *
      * @return boolean
      */
     public function isDescriptionsEnabled();
     
     /**
      * Sets the description for this form..
-     * 
+     *
      * @param string $description
      * @return self
      */

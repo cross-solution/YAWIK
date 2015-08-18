@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AclFactory.php */ 
+/** AclFactory.php */
 namespace Acl\Controller\Plugin;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -18,10 +18,10 @@ use Zend\ServiceManager\FactoryInterface;
  */
 class AclFactory implements FactoryInterface
 {
-	/* (non-PHPdoc)
+    /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
-    public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         $services = $serviceLocator->getServiceLocator();
         $acl      = $services->get('acl');
@@ -30,7 +30,4 @@ class AclFactory implements FactoryInterface
         $plugin = new Acl($acl, $auth->getUser());
         return $plugin;
     }
-
-    
 }
-

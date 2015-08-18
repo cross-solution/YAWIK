@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -108,14 +108,15 @@ class EntitySnapshot implements PluginInterface
      * @param array $options
      * @return $this
      */
-    public function __invoke($entity = Null, $options=array()) {
+    public function __invoke($entity = null, $options = array())
+    {
         if (is_array($entity)) {
             $options = $entity;
-            $entity = Null;
+            $entity = null;
         }
         $this->entity = $entity;
         $this->options = $options;
-        $this->generator = Null;
+        $this->generator = null;
         if (!isset($entity)) {
             return $this;
         }
@@ -127,7 +128,7 @@ class EntitySnapshot implements PluginInterface
      * @param null $entity
      * @return $this
      */
-    public function snapshot($entity = Null)
+    public function snapshot($entity = null)
     {
         if (isset($entity)) {
             $this->entity = $entity;
@@ -174,7 +175,7 @@ class EntitySnapshot implements PluginInterface
             $targetClass = $this->getTarget(false);
             $dataHead = $generator->getSnapshot();
             if (empty($dataHead) || empty($targetClass)) {
-                return Null;
+                return null;
             }
             $repositorySnapshotMeta = $this->getRepositories()->getRepository($targetClass . "Meta");
             $snapshot = $repositorySnapshotMeta->findSnapshot($this->entity);
@@ -185,11 +186,10 @@ class EntitySnapshot implements PluginInterface
                 // there is no Snapshot, but returning an empty array would make a wrong conclusion,
                 // that there is a snapshot, and it has no differences.
                 // actually, if there is a snapshot, it always differ (dateCreated)
-                return Null;
+                return null;
             }
-        return $this->array_compare($dataLast, $dataHead);
-        }
-        else {
+            return $this->array_compare($dataLast, $dataHead);
+        } else {
             // entity is not an implementation of SnapshotGeneratorProviderInterface
         }
         return $this;
@@ -204,12 +204,12 @@ class EntitySnapshot implements PluginInterface
      *                                  If we make this parameter to False we just get the className
      * @return null|string
      */
-    protected function getTarget($generateInstance = True)
+    protected function getTarget($generateInstance = true)
     {
         $serviceLocator = $this->getServicelocator();
         // set the actual options
         $this->getGenerator();
-        $target = Null;
+        $target = null;
         if (array_key_exists('target', $this->options)) {
             $target = $this->options['target'];
             if (is_string($target)) {
@@ -218,8 +218,7 @@ class EntitySnapshot implements PluginInterface
                     if ($generateInstance) {
                         $target = get_class($target);
                     }
-                }
-                else {
+                } else {
                     if ($generateInstance) {
                         $target = new $target;
                     }
@@ -252,7 +251,7 @@ class EntitySnapshot implements PluginInterface
                 $generator = $this->serviceLocator->get('snapshotgenerator' . $className);
                 if (is_array($generator)) {
                     $this->options = ArrayUtils::merge($generator, $this->options);
-                    $generator = Null;
+                    $generator = null;
                 }
             }
 
@@ -265,9 +264,8 @@ class EntitySnapshot implements PluginInterface
                     if (array_key_exists('generator', $generator)) {
                         $generator = $this->options['generator'];
                         unset($this->options['generator']);
-                    }
-                    else {
-                        $generator = Null;
+                    } else {
+                        $generator = null;
                     }
                 }
                 if (is_string($generator)) {
@@ -328,7 +326,7 @@ class EntitySnapshot implements PluginInterface
         $result = array();
         $arraykeys = array_unique(array_merge(array_keys($array1), array_keys($array2)));
         foreach ($arraykeys as $key) {
-            if (!empty($key) && is_string($key) && $key[0] != "\0" && substr($key,0,8) != 'Doctrine') {
+            if (!empty($key) && is_string($key) && $key[0] != "\0" && substr($key, 0, 8) != 'Doctrine') {
                 if (array_key_exists($key, $array1) && !array_key_exists($key, $array2)) {
                     $result[$key] = array($array1[$key], '');
                 }
@@ -336,21 +334,19 @@ class EntitySnapshot implements PluginInterface
                     $result[$key] = array('', $array2[$key]);
                 }
                 if (array_key_exists($key, $array1) && array_key_exists($key, $array2)) {
-                    $subResult = Null;
+                    $subResult = null;
                     if (is_array($array1[$key]) && is_array($array2[$key])) {
                         if (0 < $maxDepth) {
                             $subResult = $this->array_compare($array1[$key], $array2[$key], $maxDepth - 1);
                         }
-                    }
-                    elseif (is_object($array1[$key]) && is_object($array2[$key])) {
+                    } elseif (is_object($array1[$key]) && is_object($array2[$key])) {
                         if (0 < $maxDepth) {
                             $hydrator = new EntityHydrator();
                             $a1 = $hydrator->extract($array1[$key]);
                             $a2 = $hydrator->extract($array2[$key]);
-                            $subResult = $this->array_compare($a1,$a2, $maxDepth - 1);
+                            $subResult = $this->array_compare($a1, $a2, $maxDepth - 1);
                         }
-                    }
-                    else {
+                    } else {
                         if ($array1[$key] != $array2[$key]) {
                             $result[$key] = array( $array1[$key], $array2[$key]);
                         }
@@ -380,6 +376,7 @@ class EntitySnapshot implements PluginInterface
     /**
      * @return null|void|Dispatchable
      */
-    public function getController(){
+    public function getController()
+    {
     }
 }

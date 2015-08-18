@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** RepositoryCreated.php */ 
+/** RepositoryCreated.php */
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 use Doctrine\Common\EventSubscriber;
@@ -41,7 +41,7 @@ class GenerateSearchKeywordsListener implements EventSubscriber
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        if (!$document instanceOf SearchableEntityInterface) {
+        if (!$document instanceof SearchableEntityInterface) {
             return;
         }
         
@@ -53,7 +53,7 @@ class GenerateSearchKeywordsListener implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        if (!$document instanceOf SearchableEntityInterface) {
+        if (!$document instanceof SearchableEntityInterface) {
             return;
         }
         
@@ -86,7 +86,4 @@ class GenerateSearchKeywordsListener implements EventSubscriber
     {
         return array(Events::preUpdate, Events::prePersist);
     }
-	
-
 }
-

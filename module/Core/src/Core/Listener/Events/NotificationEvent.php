@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,22 +36,25 @@ class NotificationEvent extends Event
     protected $notification;
     protected $notifications;
 
-    public function setNotification($message) {
+    public function setNotification($message)
+    {
         $this->notification = $message;
         return $this;
     }
 
-    public function getNotification() {
+    public function getNotification()
+    {
         return $this->notification;
     }
 
-    public function setNotifications($messages) {
+    public function setNotifications($messages)
+    {
         $this->notifications = $messages;
         return $this;
     }
 
-    public function getNotifications() {
+    public function getNotifications()
+    {
         return $this->notifications;
     }
-
 }

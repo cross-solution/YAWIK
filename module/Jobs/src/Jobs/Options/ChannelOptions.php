@@ -19,7 +19,8 @@ use Zend\Stdlib\AbstractOptions;
  *
  * @package Jobs\Options
  */
-class ChannelOptions extends AbstractOptions {
+class ChannelOptions extends AbstractOptions
+{
 
     /**
      * Unique key of the channel
@@ -29,7 +30,7 @@ class ChannelOptions extends AbstractOptions {
     protected $key;
 
     /**
-     * external key of a channel. Eg. a provider offers the channel "MyJobboard" with the key "123". 
+     * external key of a channel. Eg. a provider offers the channel "MyJobboard" with the key "123".
      * YAWIK provides a channel "MyJobboard" using the key "myjobborad". Set externalkey to "123", if
      * the job is published to the provider.
      *
@@ -118,7 +119,7 @@ class ChannelOptions extends AbstractOptions {
     /**
      * Link target which references a mor information page about a channel
      *
-     * @var string 
+     * @var string
      */
     protected $linkTarget;
 

@@ -17,7 +17,7 @@ class Photon extends AbstractPlugin
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function __invoke($par)
-    { 
+    {
         $config = $this->getController()->getServiceLocator()->get('config');
         if (empty($config['geocoder_photon_url'])) {
              throw new \InvalidArgumentException('Now Service-Adress for Geo-Service available');
@@ -47,24 +47,20 @@ class Photon extends AbstractPlugin
         $result = $response->getBody();
         $result = json_decode($result);
         $result = $result->features;
-        foreach ($result as $key=>$val) {
-            $row=['name' => (property_exists($val->properties,'name') ? $val->properties->name:''),
-                  'postcode' => (property_exists($val->properties,'postcode') ? $val->properties->postcode:''),
-                  'city' =>(property_exists($val->properties,'city') ? $val->properties->city:''),
-                  'street' => (property_exists($val->properties,'street') ? $val->properties->street : ''),
-                  'state' => (property_exists($val->properties,'state') ? $val->properties->state : ''),
-                  'country' => (property_exists($val->properties,'country') ? $val->properties->country : ''),
-                  'coordinates' => implode(":",$val->geometry->coordinates),
-                  'osm_key' => (property_exists($val->properties,'osm_key') ? $val->properties->osm_key : ''),
-                  'osm_value' => (property_exists($val->properties,'osm_value') ? $val->properties->osm_value : ''),
-                  'osm_id' => (property_exists($val->properties,'osm_id') ? $val->properties->osm_id : '')
+        foreach ($result as $key => $val) {
+            $row=['name' => (property_exists($val->properties, 'name') ? $val->properties->name:''),
+                  'postcode' => (property_exists($val->properties, 'postcode') ? $val->properties->postcode:''),
+                  'city' =>(property_exists($val->properties, 'city') ? $val->properties->city:''),
+                  'street' => (property_exists($val->properties, 'street') ? $val->properties->street : ''),
+                  'state' => (property_exists($val->properties, 'state') ? $val->properties->state : ''),
+                  'country' => (property_exists($val->properties, 'country') ? $val->properties->country : ''),
+                  'coordinates' => implode(":", $val->geometry->coordinates),
+                  'osm_key' => (property_exists($val->properties, 'osm_key') ? $val->properties->osm_key : ''),
+                  'osm_value' => (property_exists($val->properties, 'osm_value') ? $val->properties->osm_value : ''),
+                  'osm_id' => (property_exists($val->properties, 'osm_id') ? $val->properties->osm_id : '')
             ];
             $r[] = $row;
         }
         return $r;
     }
-    
-    
-
-    
 }

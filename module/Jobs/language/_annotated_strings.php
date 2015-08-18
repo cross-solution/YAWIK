@@ -190,4 +190,3 @@ translate('Edit job');
 
 //: ./config/module.config.php:158
 translate('Jobboard');
-

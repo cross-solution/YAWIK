@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** OrganizationEntityHydrator.php */ 
+/** OrganizationEntityHydrator.php */
 namespace Organizations\Entity\Hydrator;
 
 use Core\Entity\Hydrator\EntityHydrator;
@@ -31,7 +31,7 @@ class OrganizationHydrator extends Reflection
     public function __construct($repOrganization, $repOrganizationName, $repOrganizationImage)
     {
         parent::__construct();
-        $this->repOrganization = $repOrganization; 
+        $this->repOrganization = $repOrganization;
         $this->repOrganizationName = $repOrganizationName;
         $this->repOrganizationImage = $repOrganizationImage;
         //$httpload = new HttploadStrategy($repOrganizationImage);
@@ -83,7 +83,7 @@ class OrganizationHydrator extends Reflection
             if (isset($reflProperties[$key])) {
                 $value  = $this->hydrateValue($key, $value);
                 $setter = 'set' . ucfirst($key);
-                if (method_exists($object, $setter)) { 
+                if (method_exists($object, $setter)) {
                     $object->$setter($value);
                 } else {
                     // the values of the entity have to be set explicitly
@@ -115,7 +115,8 @@ class OrganizationHydrator extends Reflection
     /**
      *
      */
-    protected function hydrateSkimData() {
+    protected function hydrateSkimData()
+    {
         if (!empty($this->data['image']) && is_string($this->data['image'])) {
             // image uri is given, decide if image should be downloaded
             $image = $this->object->getImage();

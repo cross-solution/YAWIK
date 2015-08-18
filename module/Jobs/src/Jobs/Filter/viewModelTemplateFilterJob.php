@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -22,7 +22,7 @@ class viewModelTemplateFilterJob extends viewModelTemplateFilterAbstract
      * @param $job
      * @return $this
      */
-    protected function extract ($job)
+    protected function extract($job)
     {
         $this->job = $job;
         $this->setUriApply();

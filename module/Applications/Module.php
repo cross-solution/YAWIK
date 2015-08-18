@@ -14,7 +14,6 @@ use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Core\ModuleManager\ModuleConfigLoader;
 
-
 /**
  * Bootstrap class of the applications module
  */
@@ -45,7 +44,7 @@ class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterfa
     
     /**
      * Loads module specific configuration.
-     * 
+     *
      * @return array
      */
     public function getConfig()
@@ -55,11 +54,11 @@ class Module implements ConsoleUsageProviderInterface, AutoloaderProviderInterfa
 
     /**
      * Loads module specific autoloader configuration.
-     * 
+     *
      * @return array
      */
     public function getAutoloaderConfig()
-    {        
+    {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(

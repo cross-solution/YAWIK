@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** MailHistory.php */ 
+/** MailHistory.php */
 namespace Applications\Entity;
 
 /**
@@ -20,10 +20,10 @@ class MailHistory extends History implements MailHistoryInterface
 {
     protected $subject;
     protected $mailText;
-	/**
+    /**
      * @return String $subject
      */
-    public function getSubject ()
+    public function getSubject()
     {
         return $this->subject;
     }
@@ -32,30 +32,26 @@ class MailHistory extends History implements MailHistoryInterface
      * @param String $subject
      * @return $this
      */
-    public function setSubject ($subject)
+    public function setSubject($subject)
     {
         $this->subject = $subject;
         return $this;
     }
 
-	/**
+    /**
      * @return String $mailText
      */
-    public function getMailText ()
+    public function getMailText()
     {
         return $this->mailText;
     }
 
-	/**
+    /**
      * @param String $mailText
      */
-    public function setMailText ($mailText)
+    public function setMailText($mailText)
     {
         $this->mailText = $mailText;
         return $this;
     }
-
-    
-    
 }
-

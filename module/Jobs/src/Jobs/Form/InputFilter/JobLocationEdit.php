@@ -7,10 +7,11 @@
  * @license   MIT
  */
 
-/** Job.php */ 
+/** Job.php */
 namespace Jobs\Form\InputFilter;
 
 use Zend\InputFilter\InputFilter;
+
 //use Zend\InputFilter\Input;
 
 class JobLocationEdit extends InputFilter
@@ -34,26 +35,30 @@ class JobLocationEdit extends InputFilter
 //            ),
 //        ));
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'title',
             'required' => true,
             'filters' => array(
                 array('name' => 'StringTrim')
             ),
-        ));
+            )
+        );
         
 //        $this->add(array(
 //            'name' => 'description',
 //            'required' => true,
 //        ));
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'location',
             'required' => true,
             'filters' => array(
                 array('name' => 'StringTrim')
             ),
-        ));
+            )
+        );
         
 //        $this->add(array(
 //            'name' => 'contactEmail',
@@ -74,4 +79,3 @@ class JobLocationEdit extends InputFilter
 //        ));
     }
 }
-

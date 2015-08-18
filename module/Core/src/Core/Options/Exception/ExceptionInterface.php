@@ -12,11 +12,11 @@ namespace Core\Options\Exception;
 
 /**
  * Interface for all exceptions in the Core\Options\Exception namespace.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */
-interface ExceptionInterface 
+interface ExceptionInterface
 {
     
 }

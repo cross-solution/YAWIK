@@ -36,19 +36,23 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setName('jobs-form-title');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
             'id' => 'jobs-form-title',
             'data-handle-by' => 'yk-form'
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'TextEditorLight',
             'name' => 'description-title',
             'options' => array(
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Title'
             ),
-        ));
+            )
+        );
 
 
     }
@@ -58,6 +62,4 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
         return array(
         );
     }
-
-
 }

@@ -18,7 +18,7 @@ use Jobs\Options\ModuleOptions;
  * Class ModuleOptionsFactory
  * @package Jobs\Factory
  */
-class ModuleOptionsFactory  implements FactoryInterface
+class ModuleOptionsFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
@@ -32,7 +32,7 @@ class ModuleOptionsFactory  implements FactoryInterface
 
         $jobs_options = isset($config['jobs_options']) ? $config['jobs_options'] : array();
 
-        if (!array_key_exists('multipostingApprovalMail', $jobs_options) || '' ==  trim($jobs_options['multipostingApprovalMail'])){
+        if (!array_key_exists('multipostingApprovalMail', $jobs_options) || '' ==  trim($jobs_options['multipostingApprovalMail'])) {
             $coreOptions = $serviceLocator->get('Core/Options');
             $jobs_options['multipostingApprovalMail'] = $coreOptions->getSystemMessageEmail();
         }

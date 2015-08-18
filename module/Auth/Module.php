@@ -14,6 +14,7 @@ use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
 use Auth\Listener\UnauthorizedAccessListener;
+
 /**
  * Bootstrap class of the Core module
  *
@@ -83,17 +84,25 @@ class Module
         //    array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
         //);
 
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, function (MvcEvent $e) use ($services) {
+        $eventManager->attach(
+            MvcEvent::EVENT_ROUTE,
+            function (MvcEvent $e) use ($services) {
             /** @var CheckPermissionsListener $checkPermissionsListener */
-            $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
-            $checkPermissionsListener->onRoute($e);
-        }, -10);
+                $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+                $checkPermissionsListener->onRoute($e);
+            },
+            -10
+        );
 
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function (MvcEvent $e) use ($services) {
+        $eventManager->attach(
+            MvcEvent::EVENT_DISPATCH,
+            function (MvcEvent $e) use ($services) {
             /** @var CheckPermissionsListener $checkPermissionsListener */
-            $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
-            $checkPermissionsListener->onDispatch($e);
-        }, 10);
+                $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
+                $checkPermissionsListener->onDispatch($e);
+            },
+            10
+        );
 
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
@@ -103,5 +112,4 @@ class Module
         $defaultlistener->attachShared($sharedManager);
 
     }
-
 }

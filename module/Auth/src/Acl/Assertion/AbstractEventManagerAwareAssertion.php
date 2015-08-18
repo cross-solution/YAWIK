@@ -27,7 +27,7 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  * Listeners to that event should return a simple boolean value. Other return types are treated as they were the
  * boolean TRUE. If a listener returns FALSE the propagation is stopped immediatly and no further listeners are invoked.
  * The assertion returns FALSE in this case.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -82,10 +82,11 @@ abstract class AbstractEventManagerAwareAssertion implements EventManagerAwareIn
         return $this->identifiers;
     }
 
-    public function assert(Acl $acl,
-                               RoleInterface $role = null,
-                               ResourceInterface $resource = null,
-                               $privilege = null
+    public function assert(
+        Acl $acl,
+        RoleInterface $role = null,
+        ResourceInterface $resource = null,
+        $privilege = null
     ) {
 
         $preCheck = $this->preAssert($acl, $role, $resource, $privilege);
@@ -102,7 +103,12 @@ abstract class AbstractEventManagerAwareAssertion implements EventManagerAwareIn
 
         $events = $this->getEventManager();
 
-        $results = $events->trigger($event, function($r) { return false === $r; });
+        $results = $events->trigger(
+            $event,
+            function ($r) {
+                return false === $r;
+            }
+        );
 
         return false === $results->last() ? false : true; // result must be BOOLEAN false (not "", null or 0 or any other value evaluated to FALSE)
     }
@@ -120,12 +126,12 @@ abstract class AbstractEventManagerAwareAssertion implements EventManagerAwareIn
      *
      * @return null|bool
      */
-    protected function preAssert(Acl $acl,
-                               RoleInterface $role = null,
-                               ResourceInterface $resource = null,
-                               $privilege = null
+    protected function preAssert(
+        Acl $acl,
+        RoleInterface $role = null,
+        ResourceInterface $resource = null,
+        $privilege = null
     ) {
         return null;
     }
-
 }

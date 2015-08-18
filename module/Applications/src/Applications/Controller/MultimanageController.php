@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -39,19 +39,21 @@ class MultimanageController extends AbstractActionController
     /**
      * some Action on a set of applications,
      * as there are invite, decline, postpone, confirm
-     * 
+     *
      * @return \Zend\View\Model\JsonModel
      */
     public function multimodalAction()
     {
-        return new JsonModel(array(
+        return new JsonModel(
+            array(
             'ok' => true,
             'action' => 'multimodal'
-        ));
+            )
+        );
     }
 
     /**
-     * 
+     *
      * @TODO consolidate with Manage::status - a lot of shared code
      * @return \Zend\View\Model\JsonModel
      */
@@ -85,20 +87,22 @@ class MultimanageController extends AbstractActionController
         $mailSubject = $translator->translate('Your application dated %s');
 
         // @TODO transfer into form class
-        return new JsonModel(array(
+        return new JsonModel(
+            array(
             'ok' => true,
             'header' => $translator->translate('reject the applicants'),
             'content' => '<form action="' . $actionUrl . '">' .
             $hidden .
-            '<input class=" form-control " name="mail-subject" value="' 
+            '<input class=" form-control " name="mail-subject" value="'
                 . $mailSubject . '"><br /><br />' .
-            '<textarea class=" form-control " id="mail-content" name="mail-content">' 
+            '<textarea class=" form-control " id="mail-content" name="mail-content">'
                 . $mailText . '</textarea></form>'
-        ));
+            )
+        );
     }
 
     /**
-     * 
+     *
      * @return \Zend\View\Model\JsonModel
      */
     public function rejectApprovalAction()
@@ -114,8 +118,8 @@ class MultimanageController extends AbstractActionController
             $mail->setApplication($application);
             $mail->setBody($this->params()->fromPost('mail-content'));
             $mailSubject = sprintf(
-                    $translator->translate($this->params()->fromPost('mail-subject')), 
-                        strftime('%x', $application->dateCreated->getTimestamp())
+                $translator->translate($this->params()->fromPost('mail-subject')),
+                strftime('%x', $application->dateCreated->getTimestamp())
             );
             $mail->setSubject($mailSubject);
 
@@ -129,12 +133,13 @@ class MultimanageController extends AbstractActionController
             $mailService->send($mail);
 
             // update the Application-History
-            $application->changeStatus(Status::REJECTED, 
-                    sprintf('Mail was sent to %s', $application->contact->email));
+            $application->changeStatus(
+                Status::REJECTED,
+                sprintf('Mail was sent to %s', $application->contact->email)
+            );
             $repositoryService->store($application);
             unset($mail);
         }
         return new JsonModel(array('ok' => true,));
     }
-
 }

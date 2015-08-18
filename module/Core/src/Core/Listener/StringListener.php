@@ -37,9 +37,10 @@ class StringListener implements ListenerAggregateInterface
             }
         }
         */
-    } 
+    }
     
-    public function injectStringIntoLayout(MvcEvent $e) {
+    public function injectStringIntoLayout(MvcEvent $e)
+    {
         $result = $e->getResult();
         if (!is_string($result)) {
             return;

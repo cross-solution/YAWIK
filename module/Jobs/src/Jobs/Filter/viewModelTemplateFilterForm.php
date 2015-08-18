@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -30,7 +30,7 @@ class viewModelTemplateFilterForm extends viewModelTemplateFilterAbstract
         return $this->viewHelperForm;
     }
 
-    protected function extract ($form)
+    protected function extract($form)
     {
         $job = $form->getEntity();
         $this->job = $job;

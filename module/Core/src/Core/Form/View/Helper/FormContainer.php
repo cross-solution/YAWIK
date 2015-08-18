@@ -19,7 +19,7 @@ use Core\Form\SummaryForm;
 
 /**
  * Helper for rendering form containers
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class FormContainer extends AbstractHelper
@@ -27,7 +27,7 @@ class FormContainer extends AbstractHelper
     
     /**
      * Invoke as function.
-     * 
+     *
      * Proxies to {@link render()} or returns self.
      *
      * @param  null|Container $container
@@ -35,7 +35,7 @@ class FormContainer extends AbstractHelper
      * @param array $parameter
      * @return FormContainer|string
      */
-    public function __invoke(Container $container = null, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
+    public function __invoke(Container $container = null, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         if (!$container) {
             return $this;
@@ -52,36 +52,37 @@ class FormContainer extends AbstractHelper
      * @param array $parameter
      * @return string
      */
-    public function render(Container $container, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
+    public function render(Container $container, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         
         $content = '';
 
         $content .= $container->renderPre($this->getView());
     
-        if ($container instanceOf ViewPartialProviderInterface) {
+        if ($container instanceof ViewPartialProviderInterface) {
             return $this->getView()->partial($container->getViewPartial(), array('element' => $container));
         }
         foreach ($container as $element) {
             $parameterPartial = $parameter;
-            if ($element instanceOf ExplicitParameterProviderInterface) {
+            if ($element instanceof ExplicitParameterProviderInterface) {
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);
             }
-            if ($element instanceOf ViewPartialProviderInterface) {
+            if ($element instanceof ViewPartialProviderInterface) {
                 $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
                 $content .= $this->getView()->partial(
-                    $element->getViewPartial(), $parameterPartial 
+                    $element->getViewPartial(),
+                    $parameterPartial
                 );
                 
-            } else if ($element instanceOf ViewHelperProviderInterface) {
+            } elseif ($element instanceof ViewHelperProviderInterface) {
                 $helper = $element->getViewHelper();
                 if (is_string($helper)) {
                     $helper = $this->getView()->plugin($helper);
                 }
                 $content .= $helper($element);
-            } else if ($element instanceOf SummaryForm) {
+            } elseif ($element instanceof SummaryForm) {
                 $content .= $this->getView()->summaryForm($element);
-            } else if ($element instanceof Container) {
+            } elseif ($element instanceof Container) {
                 $content.= $this->render($element, $layout, $parameter);
             } else {
                 $content.= $this->getView()->form($element, $layout, $parameter);
@@ -93,5 +94,4 @@ class FormContainer extends AbstractHelper
         return $content;
 
     }
-    
 }

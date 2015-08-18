@@ -32,7 +32,7 @@ class ListQuery extends AbstractPlugin
      */
     protected $sortParamName = 'sort';
     
-    public function __invoke($options=null)
+    public function __invoke($options = null)
     {
         if (null === $options) {
             return $this;
@@ -63,34 +63,34 @@ class ListQuery extends AbstractPlugin
         return $this->getQuery();
     }
     
-	/**
+    /**
      * @return Array $propertiesMap
      */
-    public function getPropertiesMap ()
+    public function getPropertiesMap()
     {
         return $this->propertiesMap;
     }
 
-	/**
+    /**
      * @param Array $propertiesMap
      */
-    public function setPropertiesMap ($propertiesMap)
+    public function setPropertiesMap($propertiesMap)
     {
         $this->propertiesMap = $propertiesMap;
     }
 
-	/**
+    /**
      * @return String $pageParamName
      */
-    public function getPageParamName ()
+    public function getPageParamName()
     {
         return $this->pageParamName;
     }
 
-	/**
+    /**
      * @param string $pageParamName
      */
-    public function setPageParamName ($pageParamName)
+    public function setPageParamName($pageParamName)
     {
         $this->pageParamName = $pageParamName;
     }
@@ -98,15 +98,15 @@ class ListQuery extends AbstractPlugin
     /**
      * @return String $sortParam
      */
-    public function getSortParamName ()
+    public function getSortParamName()
     {
         return $this->sortParamName;
     }
 
-	/**
+    /**
      * @param String $sortParam
      */
-    public function setSortParamName ($sortParam)
+    public function setSortParamName($sortParam)
     {
         $this->sortParamName = $sortParam;
     }
@@ -124,18 +124,18 @@ class ListQuery extends AbstractPlugin
         $this->queryKeysLowercased = (bool) $flag;
     }
     
-	/**
+    /**
      * @return number $itemsPerPage
      */
-    public function getItemsPerPage ()
+    public function getItemsPerPage()
     {
         return $this->itemsPerPage;
     }
 
-	/**
+    /**
      * @param number $itemsPerPage
      */
-    public function setItemsPerPage ($itemsPerPage)
+    public function setItemsPerPage($itemsPerPage)
     {
         $this->itemsPerPage = $itemsPerPage;
     }
@@ -183,5 +183,4 @@ class ListQuery extends AbstractPlugin
         }
         return $dbQuery;
     }
-    
 }

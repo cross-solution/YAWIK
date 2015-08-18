@@ -14,7 +14,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\Element\Select;
 use Auth\Entity\User;
 
-
 /**
  * Class RoleSelectFactory
  *
@@ -32,7 +31,7 @@ class RoleSelectFactory implements FactoryInterface
         $config     = $services->get('Config');
         $translator = $services->get('translator');
          
-        $publicRoles = isset($config['acl']['public_roles']) 
+        $publicRoles = isset($config['acl']['public_roles'])
                        && is_array($config['acl']['public_roles'])
                        && !empty($config['acl']['public_roles'])
                        ? $config['acl']['public_roles']
@@ -42,7 +41,7 @@ class RoleSelectFactory implements FactoryInterface
                           : array('none')
                          );
         
-        $valueOptions = array(); 
+        $valueOptions = array();
         foreach ($publicRoles as $role) {
             $valueOptions[$role] = $translator->translate($role);
         }

@@ -12,7 +12,7 @@ namespace Core\Options\Exception;
 
 /**
  * Exception is thrown, if a required option value is missing.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test
  * @since 0.20
@@ -45,8 +45,11 @@ class MissingOptionException extends \RuntimeException implements ExceptionInter
         $this->optionKey = $optionKey;
         $this->target    = $target;
 
-        $message = sprintf('Missing value for option "%s" in "%s"',
-                           $optionKey, $this->getTargetFQCN());
+        $message = sprintf(
+            'Missing value for option "%s" in "%s"',
+            $optionKey,
+            $this->getTargetFQCN()
+        );
 
         parent::__construct($message, 0, $previous);
     }

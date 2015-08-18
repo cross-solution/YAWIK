@@ -20,7 +20,7 @@ use Organizations\Form\EmployeeFieldset;
 
 /**
  * Factory for an EmployeeFieldset
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo extract hydrating strategies
  * @since 0.18
@@ -46,15 +46,15 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
          /* todo: WRITE own Hydrator strategy class */
         $strategy = new ClosureStrategy(
-            function($object) use ($users)
-            {
+            function ($object) use ($users) {
+            
                 if (is_string($object)) {
                     return $users->find($object);
                 }
                 return $object;
             },
-            function ($data) use ($users)
-            {
+            function ($data) use ($users) {
+            
                 if (is_string($data)) {
                     $data = $users->find($data);
                 }
@@ -65,7 +65,7 @@ class EmployeeFieldsetFactory implements FactoryInterface
         /* todo: write own strategy class */
         $permStrategy = new ClosureStrategy(
             // extract
-            function($object) {
+            function ($object) {
                 /* @var $object \Organizations\Entity\EmployeePermissionsInterface */
                 $values = array();
                 foreach (array(
@@ -80,8 +80,14 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
                 return $values;
             },
-            function($data) {
-                $permissions = array_reduce($data, function($c, $i) { return $c | $i; }, 0);
+            function ($data) {
+                $permissions = array_reduce(
+                    $data,
+                    function ($c, $i) {
+                        return $c | $i;
+                    },
+                    0
+                );
                 return new EmployeePermissions($permissions);
             }
         );
@@ -93,5 +99,4 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
         return  $fieldset;
     }
-
 }

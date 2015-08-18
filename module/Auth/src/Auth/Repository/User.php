@@ -16,7 +16,7 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 
 /**
- * class for accessing a user 
+ * class for accessing a user
  */
 class User extends AbstractRepository
 {
@@ -28,7 +28,7 @@ class User extends AbstractRepository
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
-        } else if (null === $criteria['isDraft']) {
+        } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
         return parent::findBy($criteria, $sort, $limit, $skip);
@@ -42,7 +42,7 @@ class User extends AbstractRepository
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
-        } else if (null === $criteria['isDraft']) {
+        } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
         return parent::findOneBy($criteria);
@@ -62,24 +62,25 @@ class User extends AbstractRepository
 
     /**
      * Creates a User
-     * 
+     *
      * @see \Core\Repository\AbstractRepository::create()
      * @return UserInterface
      */
-    public function create(array $data=null)
+    public function create(array $data = null)
     {
         $entity = parent::create($data);
         
         $eventArgs = new LifecycleEventArgs($entity, $this->dm);
         $this->dm->getEventManager()->dispatchEvent(
-            Events::postLoad, $eventArgs
+            Events::postLoad,
+            $eventArgs
         );
         return $entity;
     }
     
     /**
      * Finds user by profile identifier
-     * 
+     *
      * @param String $identifier
      * @return UserInterface
      */
@@ -91,24 +92,27 @@ class User extends AbstractRepository
     
     /**
      * Finds user by login name
-     * 
+     *
      * @param string $login
      * @return UserInterface
      */
-    public function findByLogin($login) {
+    public function findByLogin($login)
+    {
         $entity = $this->findOneBy(array('login' => $login));
         return $entity;
     }
 
     public function findByEmail($email, $isDraft = false)
     {
-        $entity = $this->findOneBy(array(
+        $entity = $this->findOneBy(
+            array(
             '$or' => array(
                 array('email' => $email),
                 array('info.email' => $email),
             ),
             'isDraft' => $isDraft,
-        ));
+            )
+        );
 
         return $entity;
     }
@@ -123,12 +127,14 @@ class User extends AbstractRepository
      */
     public function findByLoginOrEmail($identity, $suffix = '')
     {
-        return $this->findOneBy(array(
+        return $this->findOneBy(
+            array(
             '$or' => array(
                 array('login' => $identity . $suffix),
                 array('info.email' => $identity)
             )
-        ));
+            )
+        );
     }
 
     /**
@@ -150,20 +156,22 @@ class User extends AbstractRepository
     
     /**
      * Finds user by internal id
-     * 
+     *
      * @param array $ids
      * @return \MongoCursor
      */
     public function findByIds(array $ids)
     {
-        return $this->findBy(array(
+        return $this->findBy(
+            array(
             '_id' => array('$in' => $ids)
-        ));
+            )
+        );
     }
     
     /**
      * Find user by query
-     * 
+     *
      * @param String $query
      * @deprecated since 0.19 not used anymore and probably broken.
      * @return object
@@ -178,7 +186,7 @@ class User extends AbstractRepository
             $qb->addOr($qb->expr()->field('info.firstName')->equals($regex));
             $qb->addOr($qb->expr()->field('info.lastName')->equals($regex));
             $qb->addOr($qb->expr()->field('info.email')->equals($regex));
-        } 
+        }
         $qb->sort(array('info.lastName' => 1))
            ->sort(array('info.email' => 1));
         
@@ -187,10 +195,11 @@ class User extends AbstractRepository
     
     /**
      * Copy user info into the applications info Entity
-     * 
+     *
      * @param \Auth\Entity\Info $info
      */
-    public function copyUserInfo(Info $info){
+    public function copyUserInfo(Info $info)
+    {
         $contact = new Info();
         $contact->fromArray(Info::toArray($info));
     }

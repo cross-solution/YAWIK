@@ -23,31 +23,37 @@ class Mail extends Form
 {
     
     
-	public function init()
+    public function init()
     {
         $this->setName('applicant-mail');
 
 
         
         $this
-        ->add(array(
+        ->add(
+            array(
             'type' => 'hidden',
             'name' => 'applicationId',
-        ))
-        ->add(array(
+            )
+        )
+        ->add(
+            array(
             'type' => 'hidden',
             'name' => 'status',
-        ))
-        ->add(array(
+            )
+        )
+        ->add(
+            array(
             'name' => 'mailSubject',
-        ))
-        ->add(array(
+            )
+        )
+        ->add(
+            array(
             'type' => 'textarea',
             'name' => 'mailText'
-        ));
+            )
+        );
             
            
     }
-    
-    
 }

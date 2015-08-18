@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -17,13 +17,14 @@ use Auth\Entity\User;
  * Class PaginationAdminQuery
  * @package Jobs\Repository\Filter
  */
-class PaginationAdminQuery extends PaginationQuery {
+class PaginationAdminQuery extends PaginationQuery
+{
 
     public function createQuery($params, $queryBuilder)
     {
         $this->value = $params->toArray();
         $this->user = $this->auth->getUser();
-        $queryBuilder->field('status.name')->equals( Status::CREATED);
+        $queryBuilder->field('status.name')->equals(Status::CREATED);
 
         /*
          * search jobs by keywords
@@ -39,11 +40,10 @@ class PaginationAdminQuery extends PaginationQuery {
         }
 
         if (isset($this->value['sort'])) {
-            foreach(explode(",",$this->value['sort']) as $sort) {
+            foreach (explode(",", $this->value['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
             }
         }
         return $queryBuilder;
     }
-
-} 
+}

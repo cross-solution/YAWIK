@@ -25,12 +25,14 @@ use Auth\Entity\UserInterface;
 
 /**
  * Main Action Controller for the application.
- * Responsible for displaying the home site.  
+ * Responsible for displaying the home site.
  *
  */
-class ConsoleController extends AbstractActionController {
+class ConsoleController extends AbstractActionController
+{
 
-    public function generateKeywordsAction() {
+    public function generateKeywordsAction()
+    {
         
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
@@ -49,7 +51,8 @@ class ConsoleController extends AbstractActionController {
                     $q = array('$lt' => $date);
                     if (isset($query['datePublishStart.date'])) {
                         $query['datePublishStart.date']= array_merge(
-                                $query['datePublishStart.date'], $q
+                            $query['datePublishStart.date'],
+                            $q
                         );
                     } else {
                         $query['datePublishStart.date'] = $q;
@@ -61,7 +64,8 @@ class ConsoleController extends AbstractActionController {
                     $q = array('$gt' => $date);
                     if (isset($query['datePublishStart.date'])) {
                         $query['datePublishStart.date']= array_merge(
-                            $query['datePublishStart.date'], $q
+                            $query['datePublishStart.date'],
+                            $q
                         );
                     } else {
                         $query['datePublishStart.date'] = $q;
@@ -96,7 +100,8 @@ class ConsoleController extends AbstractActionController {
         echo "Generate keywords for $count jobs...\n";
         
         $progress     = new ProgressBar(
-            new ConsoleAdapter(array(
+            new ConsoleAdapter(
+                array(
                 'elements' => array(
                     ConsoleAdapter::ELEMENT_TEXT,
                     ConsoleAdapter::ELEMENT_BAR,
@@ -107,8 +112,10 @@ class ConsoleController extends AbstractActionController {
                 'barLeftChar' => '-',
                 'barRightChar' => ' ',
                 'barIndicatorChar' => '>',
-            )),
-            0, count($jobs)
+                )
+            ),
+            0,
+            count($jobs)
         );
         
         $filter = $services->get('filtermanager')->get('Core/Repository/PropertyToKeywords');
@@ -150,7 +157,9 @@ class ConsoleController extends AbstractActionController {
             
             $permissions = $job->getPermissions();
             $user        = $job->getUser();
-            if (!$user instanceof UserInterface) { continue; }
+            if (!$user instanceof UserInterface) {
+                continue;
+            }
             try {
                 $group       = $user->getGroup($job->getCompany());
             } catch (\Exception $e) {
@@ -178,6 +187,4 @@ class ConsoleController extends AbstractActionController {
         $progress->finish();
         return PHP_EOL;
     }
-    
 }
-

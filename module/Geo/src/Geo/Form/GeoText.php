@@ -29,4 +29,3 @@ class GeoText extends Text implements ViewPartialProviderInterface
         return $this;
     }
 }
-

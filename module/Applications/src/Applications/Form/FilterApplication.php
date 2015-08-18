@@ -39,19 +39,24 @@ class FilterApplication extends Form
     {
         $this->setName('search-applications-form')
                 ->setLabel('Search applications')
-                ->setAttributes(array(
+                ->setAttributes(
+                    array(
                     'class' => 'form-inline',
-                    'method' => 'get'));
+                    'method' => 'get')
+                );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'search',
             'options' => array(
                 'label' => /* @translate */ 'Search'
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'job_title',
             'options' => array(
@@ -60,48 +65,58 @@ class FilterApplication extends Form
             'attributes' => array(
                 'id' => 'job-filter',
             )
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'job',
             'attributes' => array(
                 'id' => 'job-filter-value',
             )
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'status',
             'options' => array(
                 'label' => /* @translate */ 'Status'
             ),
-        ));
+            )
+        );
 
         
-        $this->add(array('type' => 'ToggleButton',
+        $this->add(
+            array('type' => 'ToggleButton',
             'name' => 'unread',
             'options' => array(
                 'checked_value' => '1',
                 'unchecked_value' => '0',
                 'label' => 'unread',
             )
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Button',
             'name' => 'submit',
             'attributes' => array(
                 'value' => "1",
-                'type' => 'submit', 
+                'type' => 'submit',
                 'class' => 'btn btn-primary'
                 ),
             'options' => array(
                 'label' => /* @translate */ 'Search'
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'href',
             'name' => 'clear',
             'options' => array(
@@ -112,8 +127,8 @@ class FilterApplication extends Form
                 //'onClick' => 'window.location.href=\'' . $options['clearRef'] . '\''
                 'onClick' => 'window.location.href=\'?clear=1\''
             ),
-        ));
+            )
+        );
              
     }
-
 }

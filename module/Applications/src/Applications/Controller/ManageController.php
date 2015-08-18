@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -49,7 +49,7 @@ class ManageController extends AbstractActionController
         $routeMatch = $e->getRouteMatch();
         $action     = $this->params()->fromQuery('action');
         
-        if ($routeMatch && $action) { 
+        if ($routeMatch && $action) {
             $routeMatch->setParam('action', $action);
         }
 
@@ -60,17 +60,20 @@ class ManageController extends AbstractActionController
      * List applications
      */
     public function indexAction()
-    { 
+    {
         $translator = $this->getServiceLocator()->get('translator');
-        $params = $this->paginationParams('Applications\Index', array(
+        $params = $this->paginationParams(
+            'Applications\Index',
+            array(
             'page' => 1,
             'sort' => '-date',
             'search',
             'by',
             'job',
             'status',
-            'unread' 
-        ));
+            'unread'
+            )
+        );
         
         $services              = $this->getServiceLocator();
         $jobRepository         = $services->get('repositories')->get('Jobs/Job');
@@ -92,7 +95,7 @@ class ManageController extends AbstractActionController
         $statusElement->setValueOptions($statesForSelections);
         
         $job = $params->job ? $jobRepository->find($params->job)  : null;
-        $paginator = $this->paginator('Applications/Application',$params);
+        $paginator = $this->paginator('Applications/Application', $params);
 
         if ($job) {
             $params['job_title'] = '[' . $job->getApplyId() . '] ' . $job->getTitle();
@@ -114,10 +117,11 @@ class ManageController extends AbstractActionController
     
     /**
      * Detail view of an application
-     * 
+     *
      * @return Ambigous <\Zend\View\Model\JsonModel, multitype:boolean unknown >
      */
-    public function detailAction(){
+    public function detailAction()
+    {
 
         if ('refresh-rating' == $this->params()->fromQuery('do')) {
             return $this->refreshRatingAction();
@@ -131,24 +135,25 @@ class ManageController extends AbstractActionController
         $application = $repository->find($this->params('id'));
         
         if (!$application) {
-            
             $this->response->setStatusCode(410);
-            $model = new ViewModel(array(
+            $model = new ViewModel(
+                array(
                 'content' => /*@translate*/ 'Invalid apply id'
-            ));
+                )
+            );
             $model->setTemplate('applications/error/not-found');
             return $model;
         }
         
-    	$this->acl($application, 'read');
-    	
-    	$applicationIsUnread = false;
-    	if ($application->isUnreadBy($this->auth('id'))) {
-    	    $application->addReadBy($this->auth('id'));
-    	    $applicationIsUnread = true;
-    	}
-    	
-    	
+        $this->acl($application, 'read');
+        
+        $applicationIsUnread = false;
+        if ($application->isUnreadBy($this->auth('id'))) {
+            $application->addReadBy($this->auth('id'));
+            $applicationIsUnread = true;
+        }
+        
+        
         $format=$this->params()->fromQuery('format');
 
         if ($application->isDraft()) {
@@ -159,7 +164,7 @@ class ManageController extends AbstractActionController
         }
 
         $return = array(
-            'application'=> $application, 
+            'application'=> $application,
             'list' => $list,
             'isUnread' => $applicationIsUnread,
             'format' => 'html'
@@ -168,21 +173,22 @@ class ManageController extends AbstractActionController
             case 'json':
                 /*@deprecated - must be refactored */
                         $viewModel = new JsonModel();
-                        $viewModel->setVariables(/*array(
-                    'application' => */$this->getServiceLocator()
+                        $viewModel->setVariables(
+                            /*array(
+                            'application' => */$this->getServiceLocator()
                                               ->get('builders')
                                               ->get('JsonApplication')
                                               ->unbuild($application)
                         );
                         $viewModel->setVariable('isUnread', $applicationIsUnread);
-                $return = $viewModel;
+                        $return = $viewModel;
                 break;
             case 'pdf':
                 $pdf = $this->getServiceLocator()->get('Core/html2pdf');
                 $return['format'] = $format;
                 break;
             default:
-                $contentCollector = $this->getPluginManager()->get('Core/ContentCollector'); 
+                $contentCollector = $this->getPluginManager()->get('Core/ContentCollector');
                 $contentCollector->setTemplate('applications/manage/details/action-buttons');
                 $actionButtons = $contentCollector->trigger('application.detail.actionbuttons', $application);
                 
@@ -196,7 +202,7 @@ class ManageController extends AbstractActionController
     
     /**
      * Refreshes the rating of an application
-     * 
+     *
      * @throws \DomainException
      * @return \Zend\View\Model\ViewModel
      */
@@ -231,7 +237,7 @@ class ManageController extends AbstractActionController
                 throw new \InvalidArgumentException('Could not find profile.');
             }
             
-        } else if ($this->getRequest()->isPost()
+        } elseif ($this->getRequest()->isPost()
                    && ($network = $this->params()->fromQuery('network'))
                    && ($data    = $this->params()->fromPost('data'))
         ) {
@@ -251,7 +257,7 @@ class ManageController extends AbstractActionController
 
     /**
      * Changes the status of an application
-     * 
+     *
      * @return unknown|multitype:string |multitype:string unknown |multitype:unknown
      */
     public function statusAction()
@@ -281,28 +287,28 @@ class ManageController extends AbstractActionController
             }
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
         }
-       $mailService = $this->getServiceLocator()->get('Core/MailService');
-       $mail = $mailService->get('Applications/StatusChange');
-       $mail->setApplication($application);
-       if ($this->request->isPost()) {
-           $mail->setSubject($this->params()->fromPost('mailSubject'));
-           $mail->setBody($this->params()->fromPost('mailText'));
-           if ($from = $application->job->contactEmail) {
+        $mailService = $this->getServiceLocator()->get('Core/MailService');
+        $mail = $mailService->get('Applications/StatusChange');
+        $mail->setApplication($application);
+        if ($this->request->isPost()) {
+            $mail->setSubject($this->params()->fromPost('mailSubject'));
+            $mail->setBody($this->params()->fromPost('mailText'));
+            if ($from = $application->job->contactEmail) {
                 $mail->setFrom($from, $application->job->company);
-           }
-           if ($this->settings()->mailBCC) {
-               $user = $this->auth()->getUser();
-               $mail->addBcc($user->info->email, $user->info->displayName);
-           }
-           $mailService->send($mail);
+            }
+            if ($this->settings()->mailBCC) {
+                $user = $this->auth()->getUser();
+                $mail->addBcc($user->info->email, $user->info->displayName);
+            }
+            $mailService->send($mail);
 
-           $historyText = sprintf('Mail was sent to %s' , $application->contact->email);
+            $historyText = sprintf('Mail was sent to %s', $application->contact->email);
             $application->changeStatus($status, $historyText);
             $this->notification()->success($historyText);
 
             if ($jsonFormat) {
                 return array(
-                    'status' => 'success', 
+                    'status' => 'success',
                 );
             }
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
@@ -311,9 +317,15 @@ class ManageController extends AbstractActionController
         $translator = $this->getServiceLocator()->get('translator');
         switch ($status) {
             default:
-            case Status::CONFIRMED: $key = 'mailConfirmationText'; break;
-            case Status::INVITED  : $key = 'mailInvitationText'; break;
-            case Status::REJECTED : $key = 'mailRejectionText'; break;
+            case Status::CONFIRMED:
+                $key = 'mailConfirmationText';
+                break;
+            case Status::INVITED:
+                $key = 'mailInvitationText';
+                break;
+            case Status::REJECTED:
+                $key = 'mailRejectionText';
+                break;
         }
         $mailText      = $settings->$key ? $settings->$key : '';
         $this->notification()->success($mailText);
@@ -328,8 +340,8 @@ class ManageController extends AbstractActionController
                 'applicationId' => $applicationId,
                 'status'        => $status,
                 'mailSubject'   => $mailSubject,
-                'mailText'      => $mailText        
-            ); 
+                'mailText'      => $mailText
+            );
         if ($jsonFormat) {
             return $params;
         }
@@ -341,11 +353,11 @@ class ManageController extends AbstractActionController
             'form' => $form
         );
           
-    } 
+    }
     
     /**
      * Forwards an application via Email
-     * 
+     *
      * @throws \InvalidArgumentException
      * @return \Zend\View\Model\JsonModel
      */
@@ -387,13 +399,13 @@ class ManageController extends AbstractActionController
             $this->notification()->error($params['text']);
 
         }
-        $application->changeStatus($application->status,$params['text']);
+        $application->changeStatus($application->status, $params['text']);
         return new JsonModel($params);
     }
     
     /**
      * Deletes an application
-     * 
+     *
      * @throws \DomainException
      * @return multitype:string
      */
@@ -420,5 +432,5 @@ class ManageController extends AbstractActionController
         }
         
         $this->redirect()->toRoute('lang/applications', array(), true);
-    }   
+    }
 }

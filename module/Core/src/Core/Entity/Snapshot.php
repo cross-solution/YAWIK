@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -19,7 +19,8 @@ use Core\Entity\EntityInterface;
  *
  * @ODM\MappedSuperclass
  */
-abstract class Snapshot extends AbstractIdentifiableModificationDateAwareEntity implements SnapshotInterface {
+abstract class Snapshot extends AbstractIdentifiableModificationDateAwareEntity implements SnapshotInterface
+{
 
     /**
      * @param $data
@@ -33,4 +34,4 @@ abstract class Snapshot extends AbstractIdentifiableModificationDateAwareEntity 
         }
         return $this;
     }
-} 
+}

@@ -13,7 +13,7 @@ class Cv extends AbstractRepository
 {
     /**
      * Gets a pointer to access a CV
-     * 
+     *
      * @param array $params
      */
     public function getPaginatorCursor($params)

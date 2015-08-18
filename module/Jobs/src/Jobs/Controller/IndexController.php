@@ -59,10 +59,10 @@ class IndexController extends AbstractActionController
 
     public function listOpenJobsAction()
     {
-        return $this->listJobs(True);
+        return $this->listJobs(true);
     }
 
-    protected function listJobs($showPendingJobs = False)
+    protected function listJobs($showPendingJobs = false)
     {
 
         $serviceLocator  = $this->getServiceLocator();
@@ -82,7 +82,7 @@ class IndexController extends AbstractActionController
                 foreach ($sessionParams as $key => $value) {
                     $params->set($key, $params->get($key, $value));
                 }
-            } else if ($isRecruiter) {
+            } elseif ($isRecruiter) {
                 $params->set('by', 'me');
             }
             /* @var $filterForm \Jobs\Form\ListFilter */
@@ -101,8 +101,7 @@ class IndexController extends AbstractActionController
 
         if ($showPendingJobs) {
             $paginator = $this->paginatorservice('Jobs/Admin', $params);
-        }
-        else {
+        } else {
             $paginator = $this->paginatorservice('Jobs/Job', $params);
         }
 

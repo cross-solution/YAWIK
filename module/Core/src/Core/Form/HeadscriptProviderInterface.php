@@ -13,11 +13,11 @@ namespace Core\Form;
 /**
  * Classes implementing this interface can hint to the FormElementManager to inject
  * javascripts to the Headscript view helper via an initializer.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
-interface HeadscriptProviderInterface 
+interface HeadscriptProviderInterface
 {
 
     /**

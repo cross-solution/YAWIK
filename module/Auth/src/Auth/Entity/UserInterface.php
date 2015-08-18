@@ -40,7 +40,7 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     
     /**
      * Sets the role of the users. Currently "user" or "recruiter"
-     * 
+     *
      * @param String $role
      */
     public function setRole($role);
@@ -54,7 +54,7 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     
     /**
      * Set contact data, user image etc. of a user.
-     * 
+     *
      * @param InfoInterface $info
      */
     public function setInfo(InfoInterface $info);
@@ -64,18 +64,18 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      *
      * @return InfoInterface
      */
-    public function getInfo();    
+    public function getInfo();
     
     /**
      * Set the API password of the user.
-     * 
+     *
      * @param String $password
      */
     public function setPassword($password);
     
     /**
      * get the Web frontend password of the user
-     * 
+     *
      * @param String $credential
      */
     public function setCredential($credential);
@@ -87,21 +87,21 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     
     /**
      * Sets the profile info from HybridAuth
-     * 
+     *
      * @param array $profile
      */
     public function setProfile(array $profile);
     
     /**
      * Gets the profile info from HybridAuth
-     * 
+     *
      * @return array
      */
     public function getProfile();
     
     /**
      * get user settings of a certain Module.
-     * 
+     *
      * @param String $module
      */
     public function getSettings($module);
@@ -162,6 +162,4 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @since 0.19
      */
     public function setIsDraft($draft);
-
-
 }

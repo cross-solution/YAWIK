@@ -14,16 +14,16 @@ class Config extends AbstractPlugin
     }
     
     /**
-     * 
-     * Call it with 
+     *
+     * Call it with
      * (null, null): return array: all config for current module (auto-detect form controller class)
      * (string, true) = (null, string): return array: all config for given module (1.param)
      * (array, true) = (null, array): return array all config for given modules (1.param) modules w/o config are excluded.
-     * 
+     *
      * (string): return value of config key of current module or null
      * (string, string): return value of config key of given module or null
      * (string, array): return all values of config key from given modules.
-     * 
+     *
      * (array): return all values form given config keys from current module or empty array.
      * (array, string): return all values from gioven config keys from gievn module or empty array.
      * (array, array): return all values from given keys from all given modules.
@@ -37,7 +37,7 @@ class Config extends AbstractPlugin
         return $this->get($key, $module);
     }
     
-    protected function loop($array, $static, $asModule=false)
+    protected function loop($array, $static, $asModule = false)
     {
         $result = array();
         foreach ($array as $item) {
@@ -50,7 +50,7 @@ class Config extends AbstractPlugin
         return $result;
     }
     
-    public function get($key=null, $module=null, $filterEmpty=true)
+    public function get($key = null, $module = null, $filterEmpty = true)
     {
         if (true === $module) {
             $module = $key;
@@ -70,7 +70,7 @@ class Config extends AbstractPlugin
         }
         
         if (null === $key) {
-           return isset($this->config[$module])
+            return isset($this->config[$module])
                   ? $this->config[$module]
                   : array();
         }
@@ -86,7 +86,7 @@ class Config extends AbstractPlugin
         return $this->get($name);
     }
     
-    protected function getCurrentModuleName() 
+    protected function getCurrentModuleName()
     {
         $controller      = $this->getController();
         $controllerClass = get_class($controller);
@@ -94,5 +94,4 @@ class Config extends AbstractPlugin
         
         return $moduleName;
     }
-    
 }

@@ -65,7 +65,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         if (null !== $uriOrEmail) {
             if (self::MODE_URI == $mode) {
                 $this->setUri($uriOrEmail);
-            } else if (self::MODE_EMAIL == $mode) {
+            } elseif (self::MODE_EMAIL == $mode) {
                 $this->setEmail($uriOrEmail);
             }
         }
@@ -152,6 +152,4 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
     {
         return $this->email;
     }
-
-
 }

@@ -17,7 +17,7 @@ use Zend\Form\View\Helper\FormInput;
 /**
  * Renders a disable form elements toggle checkboxes element.
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class FormDisableElementsCapableFormSettings extends FormInput
 {
@@ -55,7 +55,6 @@ class FormDisableElementsCapableFormSettings extends FormInput
         foreach ($checkboxes as $boxes) {
             $markup .= '<li class="disable-element">';
             if (is_array($boxes)) {
-
                 if (isset($boxes['__all__'])) {
                     $markup .= $this->renderCheckbox($boxes['__all__'], 'disable-elements-toggle');
                     unset($boxes['__all__']);

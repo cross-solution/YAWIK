@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ListFilter.php */ 
+/** ListFilter.php */
 namespace Jobs\Form;
 
 use Core\Form\Form;
@@ -63,16 +63,19 @@ class ListFilter extends Form implements ViewPartialProviderInterface
         $this->setAttribute('id', 'jobs-list-filter');
         $this->setAttribute('data-handle-by', 'native');
         
-        $this->add(array(
-            'type' => 'Jobs/ListFilterFieldset' . ($this->isExtended ? 'Extended' : ''), 
+        $this->add(
+            array(
+            'type' => 'Jobs/ListFilterFieldset' . ($this->isExtended ? 'Extended' : ''),
             'options' => array(
                 'use_as_base_fieldset' => true
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Core/ListFilterButtons'
-        ));
+            )
+        );
     }
 }
-

@@ -17,7 +17,6 @@ use Zend\Authentication\Adapter\AdapterInterface;
 use Doctrine\MongoDB\GridFSFile;
 use Auth\Entity\UserImage;
 
-
 /**
  * This class allows to authenticate with HybridAuth
  *
@@ -30,21 +29,21 @@ class HybridAuth implements AdapterInterface
 {
     /**
      * HybridAuth instance.
-     * 
+     *
      * @var Hybrid_Auth
      */
     protected $_hybridAuth;
 
     /**
      * User mapper.
-     * 
+     *
      * @var \Auth\Repository\User
      */
     protected $repository;
     
     /**
      * HybridAuth provider identifier
-     *  
+     *
      * @var string
      */
     protected $_provider;
@@ -52,7 +51,7 @@ class HybridAuth implements AdapterInterface
     
     /**
      * Sets the provider identifier used by HybridAuth.
-     * 
+     *
      * @param string $provider
      * @return HybridAuth
      */
@@ -64,7 +63,7 @@ class HybridAuth implements AdapterInterface
     
     /**
      * Gets the provider identifier used by HybridAuth.
-     * 
+     *
      * @return string|null
      */
     public function getProvider()
@@ -74,86 +73,86 @@ class HybridAuth implements AdapterInterface
     
     /**
      * {@inheritdoc}
-     * 
-     * 
+     *
+     *
      * @see \Zend\Authentication\Adapter\AdapterInterface::authenticate()
      */
     public function authenticate()
     {
         
-       $hybridAuth = $this->getHybridAuth();
-       $adapter = $hybridAuth->authenticate($this->_provider);
+        $hybridAuth = $this->getHybridAuth();
+        $adapter = $hybridAuth->authenticate($this->_provider);
        
-       $userProfile = $adapter->getUserProfile();
-       $email = isset($userProfile->emailVerified) && !empty($userProfile->emailVerified)
+        $userProfile = $adapter->getUserProfile();
+        $email = isset($userProfile->emailVerified) && !empty($userProfile->emailVerified)
               ? $userProfile->emailVerified
               : $userProfile->email;
        
        
-       $forceSave = false;
-       $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
+        $forceSave = false;
+        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
 
-       if (!$user) {
-           $forceSave = true;
-           $user = $this->getRepository()->create();
-       }
+        if (!$user) {
+            $forceSave = true;
+            $user = $this->getRepository()->create();
+        }
        
        
-       $currentInfo = $user->profile;
-       $newInfo = (array) $userProfile; 
+        $currentInfo = $user->profile;
+        $newInfo = (array) $userProfile;
        
-       if ($forceSave || $currentInfo != $newInfo) {
-           /*  */
+        if ($forceSave || $currentInfo != $newInfo) {
+            /*  */
 
-           $dm = $this->getRepository()->getDocumentManager();
-           $user->info->email = $email;
-           $user->info->firstName = $userProfile->firstName;
-           $user->info->lastName = $userProfile->lastName;
-           $user->info->birthDay = $userProfile->birthDay;
-           $user->info->birthMonth = $userProfile->birthMonth;
-           $user->info->birthYear = $userProfile->birthYear;
-           $user->info->postalcode = $userProfile->zip;
-           $user->info->city = $userProfile->city;
-           $user->info->street = $userProfile->address;
-           $user->info->phone = $userProfile->phone;
-           $user->info->gender = $userProfile->gender;
+            $dm = $this->getRepository()->getDocumentManager();
+            $user->info->email = $email;
+            $user->info->firstName = $userProfile->firstName;
+            $user->info->lastName = $userProfile->lastName;
+            $user->info->birthDay = $userProfile->birthDay;
+            $user->info->birthMonth = $userProfile->birthMonth;
+            $user->info->birthYear = $userProfile->birthYear;
+            $user->info->postalcode = $userProfile->zip;
+            $user->info->city = $userProfile->city;
+            $user->info->street = $userProfile->address;
+            $user->info->phone = $userProfile->phone;
+            $user->info->gender = $userProfile->gender;
             
-           $user->login =  $email;
+            $user->login =  $email;
            
 
-           $user->profile = $newInfo;
-           $dm->persist($user);
-           // make sure all ids are generated and user exists in database.
-           $dm->flush();
+            $user->profile = $newInfo;
+            $dm->persist($user);
+            // make sure all ids are generated and user exists in database.
+            $dm->flush();
 
-           /*
+            /*
             * This must be after flush because a newly created user has no id!
             */
-           if ($forceSave || (!$user->info->image && $userProfile->photoURL)) {
-               // get user image
-               if ('' != $userProfile->photoURL) {
-                   $client = new \Zend\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
-                   $response = $client->send();
-                   $file = new GridFSFile();
-                   $file->setBytes($response->getBody());
+            if ($forceSave || (!$user->info->image && $userProfile->photoURL)) {
+                // get user image
+                if ('' != $userProfile->photoURL) {
+                    $client = new \Zend\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
+                    $response = $client->send();
+                    $file = new GridFSFile();
+                    $file->setBytes($response->getBody());
 
-                   $userImage = new UserImage();
-                   $userImage->setName($userProfile->lastName.$userProfile->firstName);
-                   $userImage->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
-                   $userImage->setUser($user);
-                   $userImage->setFile($file);
-                   $user->info->setImage($userImage);
-                   $dm->persist($userImage);
-                   //$this->getRepository()->store($user->info);
-               }
+                    $userImage = new UserImage();
+                    $userImage->setName($userProfile->lastName.$userProfile->firstName);
+                    $userImage->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
+                    $userImage->setUser($user);
+                    $userImage->setFile($file);
+                    $user->info->setImage($userImage);
+                    $dm->persist($userImage);
+                    //$this->getRepository()->store($user->info);
+                }
 
-               // We have to flush again
-               $dm->flush();
-           }
-       }
+                // We have to flush again
+                $dm->flush();
+            }
+        }
        
        
-       return new Result(Result::SUCCESS, $user->id, array('firstLogin' => $forceSave, 'user' => $user));
+        return new Result(Result::SUCCESS, $user->id, array('firstLogin' => $forceSave, 'user' => $user));
         
     }
 

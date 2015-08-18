@@ -18,11 +18,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\Document(collection="organizations.names", repositoryClass="Organizations\Repository\OrganizationName")
  */
-class OrganizationName extends AbstractIdentifiableEntity implements OrganizationNameInterface {
+class OrganizationName extends AbstractIdentifiableEntity implements OrganizationNameInterface
+{
     
     /**
      * name of the Organization
-     * 
+     *
      * @var string
      * @ODM\String
      */
@@ -30,7 +31,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     
     /**
      * Reference counter. If the name is used as an hiring organization name, the counter is incremented.
-     * 
+     *
      * @var int
      * @ODM\Int
      */
@@ -38,13 +39,13 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     
     /**
      * Overall numbers of use
-     * 
+     *
      * @var int
      * @ODM\Int
      */
     protected $ranking;
     
-    public function __construct($name = Null) 
+    public function __construct($name = null)
     {
         $this->ranking = 0;
         $this->rankingByCompany = 0;
@@ -100,11 +101,11 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     
     /**
      * Sets the id.
-     * 
+     *
      * @param String $id
      * @return OrganizationName
      */
-    public function setId($id) 
+    public function setId($id)
     {
         $this->id = $id;
         return $this;
@@ -112,7 +113,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
     
     /**
      * Gets the id of an Organization
-     * 
+     *
      * @return String id of the OrganizationName
      */
     public function getId()
@@ -163,5 +164,4 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
         $this->rankingByCompany += 1;
         return $this;
     }
-    
 }

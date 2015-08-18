@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UniqueApplyIdFactory.php */ 
+/** UniqueApplyIdFactory.php */
 namespace Auth\Form\Validator;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for UniqueGroupName validator.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class UniqueGroupNameFactory implements FactoryInterface
@@ -29,10 +29,10 @@ class UniqueGroupNameFactory implements FactoryInterface
     
     /**
      * Creates an instance.
-     * 
+     *
      * @param array $options
      */
-    public function __construct($options) 
+    public function __construct($options)
     {
         $this->options['allowName'] = isset($options['allowName']) ? $options['allowName'] : null;
     }
@@ -53,4 +53,3 @@ class UniqueGroupNameFactory implements FactoryInterface
         return $validator;
     }
 }
-

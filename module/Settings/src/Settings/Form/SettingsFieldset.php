@@ -8,9 +8,10 @@ use Settings\Entity\ModuleSettingsContainerInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+
 //use Zend\InputFilter\InputFilterProviderInterface;
 
-class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface 
+class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
 {
     protected $forms;
     protected $isBuild = false;
@@ -42,7 +43,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
         return $this;
     }
     
-	public function build()
+    public function build()
     {
         
         if ($this->isBuild) {
@@ -54,7 +55,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
         $properties = $reflection->getProperties();
         
         $skipProperties = array('_settings', 'isWritable');
-        if ($settings instanceOf ModuleSettingsContainerInterface) {
+        if ($settings instanceof ModuleSettingsContainerInterface) {
             $skipProperties[] = '_module';
         }
         $children = array();
@@ -64,7 +65,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
             }
             $property->setAccessible(true);
             $value = $property->getValue($settings);
-            if ($value instanceOf SettingsContainerInterface) {
+            if ($value instanceof SettingsContainerInterface) {
                 $children[$property->getName()] = $value;
                 continue;
             }
@@ -92,7 +93,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
             
             if ($this->forms->has($fieldsetName)) {
                 $fieldset = $this->forms->get($fieldsetName);
-                if (!$fieldset->getHydrator() instanceOf SettingsEntityHydrator) {
+                if (!$fieldset->getHydrator() instanceof SettingsEntityHydrator) {
                     $fieldset->setHydrator($this->getHydrator());
                 }
             } else {
@@ -108,6 +109,4 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
         }
         $this->isBuild = true;
     }
-    
-    
 }

@@ -50,7 +50,7 @@ return array(
          ),
     ),
     
-   'view_manager' => array(
+    'view_manager' => array(
     
     
         // Map template to files. Speeds up the lookup through the template stack.

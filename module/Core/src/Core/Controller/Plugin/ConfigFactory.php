@@ -12,7 +12,7 @@ class ConfigFactory implements FactoryInterface
 {
     /**
      * Create the settings service
-     * 
+     *
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ControllerManager
      */

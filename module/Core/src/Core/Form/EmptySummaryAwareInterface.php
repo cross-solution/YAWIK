@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form;
 
 /**
@@ -20,5 +20,4 @@ interface EmptySummaryAwareInterface
     public function isSummaryEmpty();
     public function getEmptySummaryNotice();
     public function setEmptySummaryNotice($message);
-    
 }

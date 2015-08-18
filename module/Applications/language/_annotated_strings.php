@@ -244,4 +244,3 @@ translate('E-Mail Templates');
 
 //: ./config/module.config.php:133
 translate('Overview');
-

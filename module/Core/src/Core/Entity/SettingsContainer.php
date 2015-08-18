@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SettingsContainer.php */ 
+/** SettingsContainer.php */
 namespace Core\Entity;
 
 use Settings\Entity\ModuleSettingsContainer;
@@ -38,4 +38,3 @@ class SettingsContainer extends ModuleSettingsContainer implements InitializeAwa
         return $this->localization;
     }
 }
-

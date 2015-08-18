@@ -94,7 +94,7 @@ class JobboardController extends AbstractActionController
         $this->searchForm->setAttribute('action', $url);
         $params['by'] = "guest";
 
-        $paginator = $this->paginatorService('Jobs/Board',$params);
+        $paginator = $this->paginatorService('Jobs/Board', $params);
 
         $options = $this->searchForm->getOptions();
         $options['showButtons'] = false;
@@ -108,5 +108,5 @@ class JobboardController extends AbstractActionController
         $model = new ViewModel($return);
 
         return $model;
-     }
+    }
 }

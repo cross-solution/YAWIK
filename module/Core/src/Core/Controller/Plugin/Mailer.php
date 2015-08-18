@@ -5,7 +5,7 @@ namespace Core\Controller\Plugin;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mail\Message;
 
-class Mailer extends AbstractPlugin 
+class Mailer extends AbstractPlugin
 {
     protected $mailService;
     
@@ -20,7 +20,7 @@ class Mailer extends AbstractPlugin
         if (!$this->mailService) {
             $services    = $this->getController()->getServiceLocator();
             $mailService = $services->get('Core/MailService');
-            $this->setMailService($mailService); 
+            $this->setMailService($mailService);
         }
         return $this->mailService;
     }
@@ -34,10 +34,13 @@ class Mailer extends AbstractPlugin
             return call_user_func_array($callback, $params);
         }
         
-        throw new \BadMethodCallException(sprintf(
-            'Neither proxied class "%s" nor this class knows of a method called "%s"',
-            get_class($mailService), $method
-        ));
+        throw new \BadMethodCallException(
+            sprintf(
+                'Neither proxied class "%s" nor this class knows of a method called "%s"',
+                get_class($mailService),
+                $method
+            )
+        );
     }
     
     public function get($mailPluginName, array $options = array())
@@ -52,10 +55,10 @@ class Mailer extends AbstractPlugin
     
     public function __invoke($mail = null, $options = array(), $sendMail = false)
     {
-        if (null === $mail)  {
+        if (null === $mail) {
             return $this;
         }
-        if ($mail instanceOf Message) {
+        if ($mail instanceof Message) {
             return $this->send($mail);
         }
         

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -135,21 +135,22 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
      * @param $value
      * @return mixed
      */
-    abstract protected function extract ($value);
+    abstract protected function extract($value);
 
     /**
      * @return $this
      * @throws \InvalidArgumentException
      */
-    protected function setUriApply() {
+    protected function setUriApply()
+    {
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
         $atsMode = $this->job->getAtsMode();
         $uriApply = false;
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
-            $uriApply = $this->urlPlugin->fromRoute('lang/apply', array('applyId' => $this->job->applyId), array('force_canonical' => True));
-        } else if ($atsMode->isUri()) {
+            $uriApply = $this->urlPlugin->fromRoute('lang/apply', array('applyId' => $this->job->applyId), array('force_canonical' => true));
+        } elseif ($atsMode->isUri()) {
             $uriApply = $atsMode->getUri();
         }
         $this->container['uriApply'] = $uriApply;
@@ -160,7 +161,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
      * @return $this
      * @throws \InvalidArgumentException
      */
-    protected function setLocation() {
+    protected function setLocation()
+    {
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
@@ -173,7 +175,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
      * @return $this
      * @throws \InvalidArgumentException
      */
-    protected function setDescription() {
+    protected function setDescription()
+    {
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
@@ -186,7 +189,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
      * @return $this
      * @throws \InvalidArgumentException
      */
-    protected function setOrganizationInfo() {
+    protected function setOrganizationInfo()
+    {
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
@@ -217,7 +221,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     /**
      * @return $this
      */
-    protected function setTemplate() {
+    protected function setTemplate()
+    {
         $this->container['templateName'] = $this->job->template;
         return $this;
     }
@@ -227,7 +232,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
      * @param $path
      * @return mixed
      */
-    protected function makeAbsolutePath($path) {
+    protected function makeAbsolutePath($path)
+    {
         $path = $this->serverUrlHelper->__invoke($this->basePathHelper->__invoke($path));
         return $path;
     }

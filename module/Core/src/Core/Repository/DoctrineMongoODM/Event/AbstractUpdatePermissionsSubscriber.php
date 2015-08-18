@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PermissionsResourceEventsSubscriber.php */ 
+/** PermissionsResourceEventsSubscriber.php */
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 use Doctrine\Common\Collections\Collection;
@@ -30,7 +30,8 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
     protected $repositoryName;
     protected $queuedEntities;
     
-    public function getSubscribedEvents() {
+    public function getSubscribedEvents()
+    {
         return array(Events::postRemove, Events::postUpdate, 'postCommit');
     }
     
@@ -62,14 +63,14 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
     protected function updatePermissions(LifecycleEventArgs $args, $permission)
     {
         $resource = $args->getDocument();
-        if (!$resource instanceOf PermissionsResourceInterface) {
+        if (!$resource instanceof PermissionsResourceInterface) {
             return;
         }
         
         $entities = $this->getEntities($args);
         
         foreach ($entities as $entity) {
-            if (!$entity instanceOf PermissionsAwareInterface) {
+            if (!$entity instanceof PermissionsAwareInterface) {
                 continue;
             }
             $permissions = $entity->getPermissions();
@@ -129,6 +130,4 @@ abstract class AbstractUpdatePermissionsSubscriber implements EventSubscriber
         return $this->repositoryName;
         
     }
-    
 }
-

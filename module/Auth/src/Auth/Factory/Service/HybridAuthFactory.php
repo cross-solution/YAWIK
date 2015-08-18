@@ -20,14 +20,14 @@ class HybridAuthFactory implements FactoryInterface
 {
     /**
      * Creates an instance of \Hybrid_Auth
-     * 
+     *
      * - reads config from the application configuration array
      *   under the key 'hybridauth' and passes it as the key
      *   'providers' to the \Hybrid_Auth instance.
-     *   
-     * - assembles the route "auth/hauth" and pass it as 
+     *
+     * - assembles the route "auth/hauth" and pass it as
      *   'base_url' to the \Hybrid_Auth instance.
-     *   
+     *
      * @param ServiceLocatorInterface $services
      * @return \Hybrid_Auth
      * @see \Zend\ServiceManager\FactoryInterface::createService()

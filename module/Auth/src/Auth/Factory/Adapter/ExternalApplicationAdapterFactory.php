@@ -16,14 +16,14 @@ use Auth\Adapter\ExternalApplication;
 /**
  * authentication adapter factory
  */
-class ExternalApplicationAdapterFactory implements FactoryInterface 
+class ExternalApplicationAdapterFactory implements FactoryInterface
 {
 
     /**
      * Creates an instance of \Auth\Adapter\ExternalApplication
-     * 
+     *
      * - injects the UserRepository fetched from the service manager.
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\ExternalApplication
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -39,5 +39,4 @@ class ExternalApplicationAdapterFactory implements FactoryInterface
         
         return $adapter;
     }
-    
 }

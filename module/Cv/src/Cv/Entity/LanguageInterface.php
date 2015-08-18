@@ -6,7 +6,7 @@ use Core\Entity\EntityInterface;
 
 interface LanguageInterface extends EntityInterface
 {
-	/*
+    /*
 	 * name of the language de,en,fr
 	 */
     public function setLanguage($language);
@@ -25,10 +25,4 @@ interface LanguageInterface extends EntityInterface
     public function getLevelSpokenProduction();
     public function setLevelWriting($level);
     public function getLevelWriting();
-    
-    
-    
-    
-    
-    
 }

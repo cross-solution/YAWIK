@@ -98,5 +98,4 @@ interface EmployeeInterface
 
     public function isUnassigned();
     /**#@-*/
-
 }

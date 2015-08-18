@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** MailServiceFactory.php */ 
+/** MailServiceFactory.php */
 namespace Core\Mail;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -19,7 +19,8 @@ class MailServiceFactory implements FactoryInterface
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
-    public function createService(ServiceLocatorInterface $serviceLocator) {
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
         
         $configArray = $serviceLocator->get('Config');
         $configArray = isset($configArray['mails']) ? $configArray['mails'] : array();
@@ -30,6 +31,4 @@ class MailServiceFactory implements FactoryInterface
         return $service;
         
     }
-
 }
-

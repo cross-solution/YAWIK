@@ -133,7 +133,7 @@ class Alert extends AbstractHelper
             $options = $type;
             $type    = self::TYPE_INFO;
             $content = true;
-        } else if (is_array($content)) {
+        } elseif (is_array($content)) {
             $options = $content;
             $content = true;
         }
@@ -222,4 +222,3 @@ class Alert extends AbstractHelper
         return $this->render($type, $content, $options);
     }
 }
-

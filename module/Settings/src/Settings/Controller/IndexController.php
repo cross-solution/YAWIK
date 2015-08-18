@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -37,7 +37,7 @@ class IndexController extends AbstractActionController
     }
 
     public function indexAction()
-    {   
+    {
         $services = $this->getServiceLocator();
         $translator = $services->get('translator');
         $moduleName = $this->params('module', 'Core');
@@ -86,7 +86,6 @@ class IndexController extends AbstractActionController
             $this->notification()->success($translator->translate($text));
 
             if ($valid) {
-                
                 $event = new Event(
                     'SETTINGS_CHANGED',
                     $this,

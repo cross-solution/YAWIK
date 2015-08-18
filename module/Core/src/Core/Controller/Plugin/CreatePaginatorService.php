@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -22,7 +22,8 @@ use Zend\Paginator\Adapter\AdapterInterface;
  * Class CreatePaginatorService
  * @package Core\Controller\Plugin
  */
-class CreatePaginatorService extends AbstractPlugin {
+class CreatePaginatorService extends AbstractPlugin
+{
 
     public function __invoke($paginatorName, $defaultParams = array(), $usePostParams = false)
     {
@@ -31,7 +32,7 @@ class CreatePaginatorService extends AbstractPlugin {
             $defaultParams = array();
         }
 
-        if (!is_array($defaultParams) && !$defaultParams instanceOf \Traversable) {
+        if (!is_array($defaultParams) && !$defaultParams instanceof \Traversable) {
             throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
         }
 
@@ -81,4 +82,4 @@ class CreatePaginatorService extends AbstractPlugin {
         $params->set('sortField', $sort);
         $params->set('sortDir', $dir);
     }
-} 
+}

@@ -19,7 +19,8 @@ use Zend\Stdlib\AbstractOptions;
  *
  * @package Applications\Options
  */
-class ModuleOptions extends AbstractOptions {
+class ModuleOptions extends AbstractOptions
+{
 
     /**
      * maximum size in bytes of an attachment

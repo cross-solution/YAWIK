@@ -13,7 +13,7 @@ use Zend\Stdlib\Parameters;
 
 /**
  * maps query parameters to entity attributes
- * 
+ *
  * @package Organizations
  * @author Mathias Weitz <weitz@cross-solution.de>
  */
@@ -21,14 +21,14 @@ class PaginationQuery extends AbstractPaginationQuery
 {
     /**
      * Repository to query
-     * 
+     *
      * @var String
      */
     protected $repositoryName="Organizations/Organization";
     
     /**
      * Sortable fields
-     * 
+     *
      * @var array
      */
     protected $sortPropertiesMap = array(
@@ -36,8 +36,8 @@ class PaginationQuery extends AbstractPaginationQuery
     );
     
     /**
-     * Constructs pagination query. 
-     * 
+     * Constructs pagination query.
+     *
      * @param \Auth\AuthenticationService $auth
      */
     public function __construct($auth)
@@ -54,7 +54,7 @@ class PaginationQuery extends AbstractPaginationQuery
     public function createQuery($params, $queryBuilder)
     {
         $userID = $this->auth->getUser()->getId();
-        if ($params instanceOf Parameters) {
+        if ($params instanceof Parameters) {
             $value = $params->toArray();
         } else {
             $value = $params;
@@ -94,5 +94,5 @@ class PaginationQuery extends AbstractPaginationQuery
         $queryBuilder->sort($this->filterSort($value['sort']));
         
         return $queryBuilder;
-    }   
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -42,12 +42,13 @@ class viewModelTemplateFilterFactory implements FactoryInterface
      * @return \Zend\View\Model\ViewModel
      * @throws \InvalidArgumentException
      */
-    public function __invoke($element) {
-        $filter = Null;
-        if ($element instanceOf EntityInterface) {
+    public function __invoke($element)
+    {
+        $filter = null;
+        if ($element instanceof EntityInterface) {
             $filter = new viewModelTemplateFilterJob;
         }
-        if ($element instanceOf Element) {
+        if ($element instanceof Element) {
             $filter = new viewModelTemplateFilterForm;
             $viewHelperManager = $this->service->get('ViewHelperManager');
             $viewHelperForm = $viewHelperManager->get('formsimple');
@@ -68,5 +69,4 @@ class viewModelTemplateFilterFactory implements FactoryInterface
         $filter->setConfig($options);
         return $filter->filter($element);
     }
-
 }

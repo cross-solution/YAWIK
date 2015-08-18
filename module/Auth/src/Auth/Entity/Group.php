@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Group.php */ 
+/** Group.php */
 namespace Auth\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -19,19 +19,19 @@ use Core\Entity\AbstractIdentifiableEntity;
 
 /**
  * User Group Entity.
- * 
+ *
  * This entity allows to define a group of users, which then can be used
  * to assign permissions to other entities for this group of users at once.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\Document(collection="users.groups")
  */
-class Group extends AbstractIdentifiableEntity
-            implements GroupInterface,
-                       PermissionsResourceInterface
+class Group extends AbstractIdentifiableEntity implements
+    GroupInterface,
+    PermissionsResourceInterface
 {
     /**
-     * 
+     *
      * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="User", inversedBy="groups", simple=true)
      */
@@ -39,7 +39,7 @@ class Group extends AbstractIdentifiableEntity
     
     /**
      * Name of the Group.
-     * 
+     *
      * @var string
      * @ODM\String
      */
@@ -47,16 +47,16 @@ class Group extends AbstractIdentifiableEntity
     
     /**
      * Array of user ids that belongs to this group
-     * 
+     *
      * @var array
      * @ODM\Collection
      */
     protected $users;
     
-    public function __construct($name=null, UserInterface $owner=null)
+    public function __construct($name = null, UserInterface $owner = null)
     {
-        if (null !== $name) { 
-            $this->setName($name); 
+        if (null !== $name) {
+            $this->setName($name);
         }
         if (null !== $owner) {
             $this->setOwner($owner);
@@ -126,4 +126,3 @@ class Group extends AbstractIdentifiableEntity
         return $this->getUsers();
     }
 }
-

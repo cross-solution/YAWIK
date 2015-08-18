@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ArrayCollection.php */ 
+/** ArrayCollection.php */
 namespace Core\Entity\Collection;
 
 class ArrayCollection extends \Doctrine\Common\Collections\ArrayCollection
@@ -25,4 +25,3 @@ class ArrayCollection extends \Doctrine\Common\Collections\ArrayCollection
         return $this;
     }
 }
-

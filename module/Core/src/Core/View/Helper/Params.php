@@ -15,18 +15,18 @@ use Zend\Mvc\MvcEvent;
 
 /**
  * This helper exposes request params to view scripts.
- * 
+ *
  * <code>
  *      // Gets route match param or event param or null.
  *      $param = $this->params('routeoreventparam');
- *      
+ *
  *      // Gets route match param or event param or returns the default
  *      $param = $this->param('routeoreventparam', 'defaultValue');
- *      
+ *
  *      // access helper methods:
  *      $this->params()->fromRoute('routeParam');
  *      $this->params()->fromQuery('queryParam', 'default');
- *      
+ *
  *      // All methods:
  *      // - fromEvent() : Gets event parameters.
  *      // - fromFiles() : Gets uploaded files.
@@ -35,7 +35,7 @@ use Zend\Mvc\MvcEvent;
  *      // - fromQuery() : Gets query parameters (e.g. ?param=value&param_two=VAL)
  *      // - fromRoute() : Gets route match parameters
  * </code>
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Params extends AbstractHelper
@@ -49,24 +49,25 @@ class Params extends AbstractHelper
     
     /**
      * Creates an instance.
-     * 
+     *
      * @param MvcEvent $e
      */
-    public function __construct(MvcEvent $e) {
+    public function __construct(MvcEvent $e)
+    {
         $this->event = $e;
     }
     
     /**
      * Grabs a param from route match or event by default.
-     * 
+     *
      * If <b>$param</b> is <i>NULL</i> returns itself.
-     * 
+     *
      * Tries to grab a param from route match first.
-     * If route match does not have a param called <b>$param</b>, 
+     * If route match does not have a param called <b>$param</b>,
      * it tries to grab this param from the event.
-     * 
+     *
      * If the event does not have the param, it returns <b>$default</b>
-     * 
+     *
      *
      * @param string $param
      * @param mixed $default
@@ -168,7 +169,7 @@ class Params extends AbstractHelper
     
     /**
      * Return all event parameters or a single event parameter.
-     * 
+     *
      * @param string $param Parameter name to retrieve, or null to get all.
      * @param mixed $efault Default value to use when the parameter is missing.
      * @return mixed

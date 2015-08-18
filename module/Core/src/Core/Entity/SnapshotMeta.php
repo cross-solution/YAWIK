@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -19,7 +19,8 @@ use Core\Exception\ImmutablePropertyException;
  *
  * @ODM\MappedSuperclass
  */
-class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity {
+class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
+{
 
     /**
      * Entity id
@@ -71,5 +72,4 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity {
     {
         $this->sourceId = $id;
     }
-
-} 
+}

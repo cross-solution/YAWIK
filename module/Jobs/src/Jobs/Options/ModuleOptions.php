@@ -19,7 +19,8 @@ use Zend\Stdlib\AbstractOptions;
  *
  * @package Jobs\Options
  */
-class ModuleOptions extends AbstractOptions {
+class ModuleOptions extends AbstractOptions
+{
 
     /**
      * Send an approval Mail to this Email Address, if a new job is posted.

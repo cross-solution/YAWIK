@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -17,12 +17,12 @@ class ImmutablePropertyException extends \RuntimeException
         if (is_object($object)) {
             $object = get_class($object);
         }
-        $message = sprintf('Missing dependency "%s" in "%s"',
-            $propertyName, $object);
+        $message = sprintf(
+            'Missing dependency "%s" in "%s"',
+            $propertyName,
+            $object
+        );
 
         parent::__construct($message, 0, $previous);
     }
 }
-
-
-

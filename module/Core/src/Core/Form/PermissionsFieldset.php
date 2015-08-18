@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PermissionsFieldset.php */ 
+/** PermissionsFieldset.php */
 namespace Core\Form;
 
 use Zend\Form\Fieldset;
@@ -33,21 +33,25 @@ class PermissionsFieldset extends Fieldset implements ViewPartialProviderInterfa
     {
         $this->setName('permission');
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Hidden',
             'name' => 'type',
             'attributes' => array(
                 'value' => '__template__',
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Hidden',
             'name' => 'id',
             'attributes' => array(
                 'value' => '__id__',
             ),
-        ));
+            )
+        );
         
 //         $this->add(array(
 //             'type' => 'PermissionsGroupSelect',
@@ -58,7 +62,8 @@ class PermissionsFieldset extends Fieldset implements ViewPartialProviderInterfa
 //             'name' => 'user', 
 //         ));
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'MultiCheckbox',
             'name' => 'rights',
             'options' => array(
@@ -68,8 +73,8 @@ class PermissionsFieldset extends Fieldset implements ViewPartialProviderInterfa
                     'write' => /*@translate*/ 'Write',
                 ),
             ),
-        ));
+            )
+        );
 
     }
 }
-

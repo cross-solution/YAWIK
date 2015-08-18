@@ -85,7 +85,7 @@ return array(
                     ),
                     'route/lang/jobs/template',
                 ),
-               'deny' => 'JobList'
+                'deny' => 'JobList'
             ),
             'applicant' => array(
                 'allow' => array(

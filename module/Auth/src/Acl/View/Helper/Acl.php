@@ -7,13 +7,12 @@
  * @license   MIT
  */
 
-/** Acl.php */ 
+/** Acl.php */
 namespace Acl\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Acl\Controller\Plugin\Acl as AclPlugin;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
-
 
 class Acl extends AbstractHelper
 {
@@ -33,7 +32,7 @@ class Acl extends AbstractHelper
     /**
      * @return AclPlugin $acl
      */
-    public function getAclPlugin ()
+    public function getAclPlugin()
     {
         return $this->aclPlugin;
     }
@@ -42,7 +41,7 @@ class Acl extends AbstractHelper
      * @param AclPlugin $aclPlugin
      * @return $this
      */
-    public function setAclPlugin (AclPlugin $aclPlugin)
+    public function setAclPlugin(AclPlugin $aclPlugin)
     {
         $this->aclPlugin = $aclPlugin;
         return $this;
@@ -54,9 +53,8 @@ class Acl extends AbstractHelper
      * @param string $mode
      * @return $this
      */
-    public function __invoke($resource=null, $privilege=null, $mode='test')
+    public function __invoke($resource = null, $privilege = null, $mode = 'test')
     {
         return $this->getAclPlugin()->__invoke($resource, $privilege, $mode);
     }
 }
-

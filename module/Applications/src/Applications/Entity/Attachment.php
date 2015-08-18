@@ -21,7 +21,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\Document(collection="applications")
  */
-class Attachment extends FileEntity {
+class Attachment extends FileEntity
+{
 
     /**
      * Gets the URI of an attachment
@@ -30,9 +31,8 @@ class Attachment extends FileEntity {
      *
      * @return string
      */
-    function getUri(){
+    function getUri()
+    {
         return "/file/Applications.Attachment/" . $this->id . "/" .urlencode($this->name);
     }
 }
-
-?>

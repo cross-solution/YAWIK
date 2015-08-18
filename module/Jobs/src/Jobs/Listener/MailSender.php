@@ -83,12 +83,16 @@ class MailSender implements ListenerAggregateInterface
     public function onJobCreated(JobEvent $e)
     {
         $job = $e->getJobEntity();
-        $this->sendMail($job, 'mail/job-created',
-                        /*@translate*/ 'A new job opening was created',
-                        /*adminMail*/ true
+        $this->sendMail(
+            $job,
+            'mail/job-created',
+            /*@translate*/ 'A new job opening was created',
+            /*adminMail*/ true
         );
-        $this->sendMail($job, 'mail/job-pending',
-                        /*@translate*/ 'Your Job have been wrapped up for approval'
+        $this->sendMail(
+            $job,
+            'mail/job-pending',
+            /*@translate*/ 'Your Job have been wrapped up for approval'
         );
     }
 
@@ -99,8 +103,10 @@ class MailSender implements ListenerAggregateInterface
      */
     public function onJobAccepted(JobEvent $e)
     {
-        $this->sendMail($e->getJobEntity(), 'mail/job-accepted',
-                        /*@translate*/ 'Your job has been published'
+        $this->sendMail(
+            $e->getJobEntity(),
+            'mail/job-accepted',
+            /*@translate*/ 'Your job has been published'
         );
     }
 
@@ -111,8 +117,10 @@ class MailSender implements ListenerAggregateInterface
      */
     public function onJobRejected(JobEvent $e)
     {
-        $this->sendMail($e->getJobEntity(), 'mail/job-rejected',
-                        /*@translate*/ 'Your job has been rejected'
+        $this->sendMail(
+            $e->getJobEntity(),
+            'mail/job-rejected',
+            /*@translate*/ 'Your job has been rejected'
         );
     }
 
@@ -129,11 +137,12 @@ class MailSender implements ListenerAggregateInterface
         $mail = $this->mailer->get('htmltemplate');
         $mail->setTemplate($template)
              ->setSubject($subject)
-             ->setVariables(array(
+             ->setVariables(
+                 array(
                                 'job'      => $job,
                                 'siteName' => $this->options['siteName'],
                             )
-            );
+             );
 
         if ($adminMail) {
             $mail->setTo($this->options['adminEmail']);
@@ -148,5 +157,4 @@ class MailSender implements ListenerAggregateInterface
 
         $this->mailer->send($mail);
     }
-
 }

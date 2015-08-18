@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -20,10 +20,11 @@ use Zend\View\Model\JsonModel;
 class IndexController extends AbstractActionController
 {
     /**
-     * 
+     *
      * @todo document
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $query = $this->params()->fromQuery();
 
         $geoApi = $this->getPluginManager()->get('geo/'.$this->params('plugin'));

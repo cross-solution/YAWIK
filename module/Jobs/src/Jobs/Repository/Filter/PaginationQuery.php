@@ -17,11 +17,11 @@ use Auth\Entity\UserInterface;
 
 /**
  * maps query parameters to entity attributes
- * 
+ *
  * @author cbleek
  *
  */
-class PaginationQuery extends AbstractPaginationQuery 
+class PaginationQuery extends AbstractPaginationQuery
 {
 
     /**
@@ -89,11 +89,11 @@ class PaginationQuery extends AbstractPaginationQuery
             if (isset($this->value['status']) && !empty($this->value['status']) && $this->value['status'] != 'all' && $this->value['status'] != Status::CREATED) {
                 $queryBuilder->field('status.name')->equals((string) $this->value['status']);
             }
-        } else  {
+        } else {
             /*
              * an applicants or guests can see all active jobs
              */
-            $queryBuilder->field('status.name')->equals( Status::ACTIVE);
+            $queryBuilder->field('status.name')->equals(Status::ACTIVE);
         }
     
 
@@ -111,7 +111,7 @@ class PaginationQuery extends AbstractPaginationQuery
         }
 
         if (isset($this->value['sort'])) {
-            foreach(explode(",",$this->value['sort']) as $sort) {
+            foreach (explode(",", $this->value['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
             }
         }
@@ -144,9 +144,4 @@ class PaginationQuery extends AbstractPaginationQuery
         }
         return array($sortProp => $sortDir);
     }
-    
-    
-    
 }
-
-?>

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ConfigurationFactory.php */ 
+/** ConfigurationFactory.php */
 namespace Core\Repository\DoctrineMongoODM;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -16,7 +16,7 @@ use DoctrineMongoODMModule\Service\ConfigurationFactory as DMOMConfigurationFact
 
 class ConfigurationFactory extends DMOMConfigurationFactory
 {
-	public function createService (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         /** @var $options \DoctrineMongoODMModule\Options\Configuration */
         $options = $this->getOptions($serviceLocator, 'configuration');
@@ -53,7 +53,7 @@ class ConfigurationFactory extends DMOMConfigurationFactory
         $config->setRetryQuery($options->getRetryQuery());
     
         // Register filters
-        foreach($options->getFilters() as $alias => $class){
+        foreach ($options->getFilters() as $alias => $class) {
             $config->addFilter($alias, $class);
         }
     
@@ -61,14 +61,11 @@ class ConfigurationFactory extends DMOMConfigurationFactory
         $config->setMetadataDriverImpl($serviceLocator->get($options->getDriver()));
     
         // metadataFactory, if set
-        if ($factoryName = $options->getClassMetadataFactoryName()){
+        if ($factoryName = $options->getClassMetadataFactoryName()) {
             $config->setClassMetadataFactoryName($factoryName);
         }
     
         return $config;
         
     }
-
-    
 }
-

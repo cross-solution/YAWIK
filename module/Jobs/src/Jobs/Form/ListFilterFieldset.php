@@ -7,13 +7,12 @@
  * @license   MIT
  */
 
-/** ListFilterFieldset.php */ 
+/** ListFilterFieldset.php */
 namespace Jobs\Form;
 
 use Jobs\Entity\Status;
 use Zend\Form\Fieldset;
 use Zend\Form\FormInterface;
-
 
 /**
  * Defines the formular fields of the job opening search formular
@@ -39,16 +38,19 @@ class ListFilterFieldset extends Fieldset
     {
         $this->setName('params');
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Hidden',
             'name' => 'page',
             'attributes' => array(
                 'value' => 1,
             )
-        ));
+            )
+        );
         
         if ($this->isExtended) {
-            $this->add(array(
+            $this->add(
+                array(
                 'type' => 'Radio',
                 'name' => 'by',
                 'options' => array(
@@ -61,9 +63,11 @@ class ListFilterFieldset extends Fieldset
                     'value' => 'all',
                 )
                 
-            ));
+                )
+            );
             
-            $this->add(array(
+            $this->add(
+                array(
                 'type' => 'Radio',
                 'name' => 'status',
                 'options' => array(
@@ -76,24 +80,30 @@ class ListFilterFieldset extends Fieldset
                 'attributes' => array(
                     'value' => 'all',
                 )
-            ));
+                )
+            );
         }
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'search',
             'options' => array(
                 'label' => /*@translate*/ 'Job title',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'name' => 'l',
                        'type' => 'Location',
                        'options' => array(
                            'label' => /*@translate*/ 'Location',
                        ),
-                   ));
+                   )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'name' => 'd',
                        'type' => 'Zend\Form\Element\Select',
                        'options' => array(
@@ -106,7 +116,7 @@ class ListFilterFieldset extends Fieldset
                                '100' => '100 km'
                            ),
                        ),
-                   ));
+                   )
+        );
     }
-
 }

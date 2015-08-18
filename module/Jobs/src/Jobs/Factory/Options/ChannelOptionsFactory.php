@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -25,11 +25,11 @@ class ChannelOptionsFactory implements FactoryInterface
 
         if ('' == $channel->getCurrency()) {
             $currency=$core->getDefaultCurrencyCode();
-            $channel->setCurrency( $currency );
+            $channel->setCurrency($currency);
         }
 
         if ('' == $channel->getTax()) {
-            $channel->setTax( $core->getDefaultTaxRate() );
+            $channel->setTax($core->getDefaultTaxRate());
         }
 
         return $channel;

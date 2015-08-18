@@ -15,24 +15,25 @@ use Core\Entity\RatingInterface;
 
 /**
  * Renders a visual representation of a rating value.
- * 
+ *
  * <code>
- *      
+ *
  *      // Renders a compact rating bar representation:
  *      echo $this->rating(3);
- *      
+ *
  *      // Renders a wide rating bar representation:
  *      echo $this->rating(4, 'wider');
- *      
+ *
  *      // Pass an rating interface
  *      $rating = $entity->getRating();
  *      echo $this->rating($rating);
  * </code>
- * 
+ *
  * @see \Core\Entity\Rating
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Rating extends AbstractHelper {
+class Rating extends AbstractHelper
+{
 
     /**
      * Maps rating values to text.
@@ -60,11 +61,11 @@ class Rating extends AbstractHelper {
      */
     public function __invoke($rating, $mode = 'compact')
     {
-        if ($rating instanceOf RatingInterface) {
+        if ($rating instanceof RatingInterface) {
             $rating = $rating->getAverage();
         }
         
-        $output = '<div class="br-widget br-readonly ' 
+        $output = '<div class="br-widget br-readonly '
                 . ('compact' == $mode ? ' br-compact' : '' )
                 . '" title="' . $this->getView()->translate(self::$ratingValueMap[$rating]) . '">';
         for ($i=1; $i<6; $i++) {
@@ -78,4 +79,3 @@ class Rating extends AbstractHelper {
         return $output;
     }
 }
-

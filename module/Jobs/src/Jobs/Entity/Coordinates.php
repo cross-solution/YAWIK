@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * Coordinate of a job position
- * 
+ *
  * @ODM\EmbeddedDocument
  *
  */
@@ -41,26 +41,25 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
 
     }
 
-    public function getX ()
+    public function getX()
     {
         return $this->x;
     }
 
-    public function setX ($x)
+    public function setX($x)
     {
         $this->x = $x;
         return $this;
     }
 
-    public function getY ()
+    public function getY()
     {
         return $this->y;
     }
 
-    public function setY ($y)
+    public function setY($y)
     {
         $this->y = $y;
         return $this;
     }
 }
-

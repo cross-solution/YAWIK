@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,13 +36,15 @@ class OrganizationsDescriptionFieldset extends Fieldset
     {
         $this->setName('organizations');
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'description',
             'type' => 'textarea',
             'options' => array(
                 'label' => /* @translate */ 'Description'
             )
-        ));
+            )
+        );
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -21,7 +21,8 @@ use ArrayIterator;
  *
  * @package Jobs\Options
  */
-class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
+class ProviderOptions extends AbstractOptions implements \IteratorAggregate
+{
 
     /**
      * List of channels a user can publish job postings
@@ -79,5 +80,4 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     {
         return $this->channels;
     }
-
 }

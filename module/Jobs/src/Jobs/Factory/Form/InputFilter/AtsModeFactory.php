@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -25,4 +25,4 @@ class AtsModeFactory implements FactoryInterface
         $filter->setHost($host);
         return $filter;
     }
-} 
+}

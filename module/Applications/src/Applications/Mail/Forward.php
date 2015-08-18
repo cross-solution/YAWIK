@@ -59,12 +59,14 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         $subject = /* @translate */ 'Fwd: Application to "%s" dated %s';
         if ($this->isTranslatorEnabled()) {
             $subject = $this->getTranslator()->translate($subject);
-        } 
-        $this->setSubject(sprintf(
-            $subject,
-            $this->application->getJob()->getTitle(),
-            strftime('%x', $this->application->getDateCreated()->getTimestamp())
-        ));
+        }
+        $this->setSubject(
+            sprintf(
+                $subject,
+                $this->application->getJob()->getTitle(),
+                strftime('%x', $this->application->getDateCreated()->getTimestamp())
+            )
+        );
         $this->generateBody();
     }
 
@@ -112,7 +114,8 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
      *
      * @return mixed
      */
-    protected function generateHtml(){
+    protected function generateHtml()
+    {
 
          $services = $this->getServiceLocator()->getServiceLocator();
 
@@ -145,4 +148,3 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
         return $this->serviceLocator;
     }
 }
-

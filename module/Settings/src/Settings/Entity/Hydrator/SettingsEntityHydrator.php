@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SettingsEntityHydrator.php */ 
+/** SettingsEntityHydrator.php */
 namespace Settings\Entity\Hydrator;
 
 use Zend\Stdlib\Hydrator\Reflection;
@@ -21,7 +21,12 @@ class SettingsEntityHydrator extends Reflection
     public function __construct()
     {
         parent::__construct();
-        $this->addFilter('ignoreInternalProperties', function($property) { return "_" != $property{0}; });
+        $this->addFilter(
+            'ignoreInternalProperties',
+            function ($property) {
+                return "_" != $property{0};
+            }
+        );
     }
 
     /**
@@ -61,7 +66,7 @@ class SettingsEntityHydrator extends Reflection
             if (isset($reflProperties[$key])) {
                 $value  = $this->hydrateValue($key, $value);
                 $setter = 'set' . ucfirst($key);
-                if (method_exists($object, $setter)) { 
+                if (method_exists($object, $setter)) {
                     $object->$setter($value);
                 } else {
                     // the values of the entity have to be set explicitly
@@ -73,6 +78,4 @@ class SettingsEntityHydrator extends Reflection
         }
         return $object;
     }
-    
 }
-

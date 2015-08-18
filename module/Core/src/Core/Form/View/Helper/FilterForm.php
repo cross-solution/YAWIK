@@ -7,8 +7,9 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\View\Helper;
+
 use Zend\Form\View\Helper\Form as ZendForm;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\FormInterface;
@@ -34,7 +35,7 @@ class FilterForm extends ZendForm
                 $formContent .= $this->getView()->formCollection($element);
             } else {
                 $label = $element->getLabel();
-                if ($element instanceOf Text) {
+                if ($element instanceof Text) {
                     $element->setLabel('');
                     $element->setAttribute('placeholder', $label);
                 }

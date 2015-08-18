@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Applications forms */ 
+/** Applications forms */
 namespace Applications\Form;
 
 use Core\Form\SummaryForm;
@@ -44,5 +44,4 @@ class Base extends SummaryForm
      * {@inheritDoc}
      */
     protected $displayMode = 'summary';
-    
 }

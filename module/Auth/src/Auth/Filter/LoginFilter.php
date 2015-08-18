@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -20,21 +20,24 @@ class LoginFilter implements FilterInterface, EventManagerAwareInterface
 
     protected $eventManager;
 
-    public function __construct() {
+    public function __construct()
+    {
         return $this;
     }
 
-    public function setEventManager(EventManagerInterface $eventManager) {
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
         $eventManager->setIdentifiers('Auth');
         $this->eventManager = $eventManager;
         return $this;
     }
 
-    public function getEventManager() {
+    public function getEventManager()
+    {
         return $this->eventManager;
     }
 
-    public function filter($value='')
+    public function filter($value = '')
     {
         $suffix = '';
         $e = new Event();

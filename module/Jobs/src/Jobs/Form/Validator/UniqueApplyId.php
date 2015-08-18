@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UniqueApplyId.php */ 
+/** UniqueApplyId.php */
 namespace Jobs\Form\Validator;
 
 use Zend\Validator\AbstractValidator;
@@ -21,8 +21,9 @@ class UniqueApplyId extends AbstractValidator
         self::MSG_NOT_UNIQUE => /*@translate*/ 'The apply identifier "%value%" is already in use.',
     );
     
-    public function __construct($options=null) {
-        if ($options instanceOf JobRepository) {
+    public function __construct($options = null)
+    {
+        if ($options instanceof JobRepository) {
             $options = array('repository' => $options);
         }
         
@@ -35,7 +36,8 @@ class UniqueApplyId extends AbstractValidator
         return $this;
     }
     
-    public function getRepository() {
+    public function getRepository()
+    {
         return $this->repository;
     }
     
@@ -56,4 +58,3 @@ class UniqueApplyId extends AbstractValidator
         return true;
     }
 }
-

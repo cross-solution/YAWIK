@@ -7,12 +7,13 @@
  * @license   MIT
  */
 
-/** SettingsContainer.php */ 
+/** SettingsContainer.php */
 namespace Settings\Entity;
 
 use Core\Entity\EntityInterface;
+
 /**
- * 
+ *
  */
 interface SettingsContainerInterface extends EntityInterface
 {
@@ -24,4 +25,3 @@ interface SettingsContainerInterface extends EntityInterface
     
     public function enableWriteAccess();
 }
-

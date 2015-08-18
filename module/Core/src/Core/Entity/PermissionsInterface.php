@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PermissionsInterface.php */ 
+/** PermissionsInterface.php */
 namespace Core\Entity;
 
 /**
@@ -15,7 +15,7 @@ namespace Core\Entity;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-interface PermissionsInterface 
+interface PermissionsInterface
 {
     /**#@+
      * Permission name constants.
@@ -111,6 +111,4 @@ interface PermissionsInterface
      * @return boolean
      */
     public function hasChanged();
-    
 }
-

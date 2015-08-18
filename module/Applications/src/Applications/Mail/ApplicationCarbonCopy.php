@@ -11,6 +11,7 @@
 namespace Applications\Mail;
 
 use Applications\Entity\Application;
+
 /**
  * Sends a Carbon Copy of the submitted application to the applicant
  *
@@ -32,7 +33,8 @@ class ApplicationCarbonCopy extends Forward
     /**
      * @return bool
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
        
         if (!$this->application) {

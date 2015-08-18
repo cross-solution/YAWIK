@@ -1,10 +1,10 @@
 @CHARSET "UTF-8";
 
 table#applications-list tbody tr.unread > td{
-	font-weight: bold;
-	background-color: #f5f5f5;
+    font-weight: bold;
+    background-color: #f5f5f5;
 }
 
 table#applications-list.table-striped tbody tr.unread:nth-child(2n+1) > td {
-	background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }

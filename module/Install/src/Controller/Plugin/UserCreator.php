@@ -16,7 +16,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
  * Helper for initial user creation.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */

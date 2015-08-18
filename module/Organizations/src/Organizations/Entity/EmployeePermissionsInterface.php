@@ -16,7 +16,7 @@ use Core\Entity\EntityInterface;
  * Interface for employees' permissions.
  *
  * Defines the permission bit mask flags.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */

@@ -14,14 +14,15 @@ use Zend\Loader\StandardAutoloader;
 
 /**
  * Bootstrap class of the Admin module
- * 
+ *
  */
 /**
  * Bootstrap class of the Admin Module
  */
-class Module implements Feature\DependencyIndicatorInterface,
-                        Feature\AutoloaderProviderInterface,
-                        Feature\ConfigProviderInterface
+class Module implements
+    Feature\DependencyIndicatorInterface,
+    Feature\AutoloaderProviderInterface,
+    Feature\ConfigProviderInterface
 {
     public function getModuleDependencies()
     {
@@ -55,7 +56,7 @@ class Module implements Feature\DependencyIndicatorInterface,
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                     __NAMESPACE__ . 'Test' => __DIR__ . '/test/' . __NAMESPACE__ . 'Test',
                 ),
-            ),
+             ),
         );
     }
 

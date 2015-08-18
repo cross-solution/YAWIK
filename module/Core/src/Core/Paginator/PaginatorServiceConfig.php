@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -17,7 +17,8 @@ use Zend\ServiceManager\Config;
  * Class PaginatorServiceConfig
  * @package Core\Paginator
  */
-class PaginatorServiceConfig extends Config {
+class PaginatorServiceConfig extends Config
+{
 
     /**
      * @param ServiceManager $serviceManager
@@ -26,4 +27,4 @@ class PaginatorServiceConfig extends Config {
     {
         parent::configureServiceManager($serviceManager);
     }
-} 
+}

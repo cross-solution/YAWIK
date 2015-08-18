@@ -2,7 +2,7 @@
 
 namespace Auth\Exception;
 
-class UnauthorizedImageAccessException extends UnauthorizedAccessException 
+class UnauthorizedImageAccessException extends UnauthorizedAccessException
 {
     
 }

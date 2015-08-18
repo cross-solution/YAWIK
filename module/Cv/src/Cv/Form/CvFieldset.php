@@ -27,16 +27,21 @@ class CvFieldset extends Fieldset
     {
         $this->setName('cv');
         $this->setAttribute('id', 'cv');
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'hidden',
             'name' => 'id'
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'EducationCollection',
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Collection',
             'name' => 'employments',
             'options' => array(
@@ -54,26 +59,29 @@ class CvFieldset extends Fieldset
             'attributes' => array(
                 //'id' => 'educations'
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
-        		'type' => 'Collection',
-        		'name' => 'skills',
-        		'options' => array(
-        				'label' => /*@translate */ 'Skills',
-        				'count' => 0,
-        				'should_create_template' => true,
-        				'use_labeled_items' => false,
-        				'collapsable' => true,
-        				'collapsed' => true,
-        				'allow_add' => true,
-        				'target_element' => array(
-        						'type' => 'SkillFieldset'
-        				)
-        		),
-        		'attributes' => array(
-        				//'id' => 'educations'
-        		),
-        ));
+        $this->add(
+            array(
+                'type' => 'Collection',
+                'name' => 'skills',
+                'options' => array(
+                        'label' => /*@translate */ 'Skills',
+                        'count' => 0,
+                        'should_create_template' => true,
+                        'use_labeled_items' => false,
+                        'collapsable' => true,
+                        'collapsed' => true,
+                        'allow_add' => true,
+                        'target_element' => array(
+                                'type' => 'SkillFieldset'
+                        )
+                ),
+                'attributes' => array(
+                        //'id' => 'educations'
+                ),
+            )
+        );
     }
 }

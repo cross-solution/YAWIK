@@ -16,4 +16,3 @@ translate('Changes could not be saved');
 
 //: ./config/module.config.php:79
 translate('Settings');
-

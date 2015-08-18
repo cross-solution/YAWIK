@@ -15,10 +15,11 @@ class CompanyName extends InputFilter
 {
     public function init()
     {
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'companyId',
             'required' => true,
-        ));
+            )
+        );
     }
 }
-

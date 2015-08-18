@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** RepositoryCreated.php */ 
+/** RepositoryCreated.php */
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 use Doctrine\Common\EventSubscriber;
@@ -18,24 +18,24 @@ class PreUpdateDocumentsSubscriber implements EventSubscriber
 {
     /**
      * is just called in case of a new Entity
-     * 
+     *
      * @param Doctrine\ODM\MongoDB\Event\LifecycleEventArgs $eventArgs
      */
-    public function prePersist($eventArgs) 
+    public function prePersist($eventArgs)
     {
         $this->preUpdate($eventArgs, true);
     }
     
     /**
-     * 
-     * @param Doctrine\ODM\MongoDB\Event\LifecycleEventArgs $eventArgs 
+     *
+     * @param Doctrine\ODM\MongoDB\Event\LifecycleEventArgs $eventArgs
      * @param boole $prePersist
      * @return type
      */
     public function preUpdate($eventArgs, $prePersist = false)
     {
         $document = $eventArgs->getDocument();
-        if (!$document instanceOf PreUpdateAwareInterface) {
+        if (!$document instanceof PreUpdateAwareInterface) {
             return;
         }
         
@@ -53,7 +53,4 @@ class PreUpdateDocumentsSubscriber implements EventSubscriber
     {
         return array(Events::preUpdate, Events::prePersist);
     }
-	
-
 }
-

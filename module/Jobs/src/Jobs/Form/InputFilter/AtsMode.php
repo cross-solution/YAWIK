@@ -16,7 +16,7 @@ use Zend\InputFilter\InputFilter;
 
 /**
  * InputFilter for the ATS settings.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
@@ -54,7 +54,8 @@ class AtsMode extends InputFilter
                 break;
 
             case AtsModeInterface::MODE_URI:
-                $this->add(array(
+                $this->add(
+                    array(
                     'name' => 'uri',
                     'validators' => array(
                         array(
@@ -64,21 +65,22 @@ class AtsMode extends InputFilter
                             ),
                         ),
                     ),
-                ));
+                    )
+                );
                 break;
 
             case AtsModeInterface::MODE_EMAIL:
-                $this->add(array(
+                $this->add(
+                    array(
                     'name' => 'email',
                     'validators' => array(
                         array('name' => 'EmailAddress')
                     ),
-                ));
+                    )
+                );
                 break;
         }
 
         return parent::setData($data);
     }
-
-
 }

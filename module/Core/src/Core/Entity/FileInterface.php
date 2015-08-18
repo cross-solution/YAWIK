@@ -7,19 +7,20 @@
  * @license   MIT
  */
 
-/** FileEntity.php */ 
+/** FileEntity.php */
 namespace Core\Entity;
 
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
 
 /**
- * 
- 
+ *
+
  */
-interface FileInterface extends IdentifiableEntityInterface, 
-                                ResourceInterface,
-                                PermissionsAwareInterface
+interface FileInterface extends
+    IdentifiableEntityInterface,
+    ResourceInterface,
+    PermissionsAwareInterface
 {
     
     public function getResourceId();
@@ -52,4 +53,3 @@ interface FileInterface extends IdentifiableEntityInterface,
     
     public function getContent();
 }
-

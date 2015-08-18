@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** FileController.php */ 
+/** FileController.php */
 namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -91,19 +91,22 @@ class FileController extends AbstractActionController
         $file = $this->getFile();
         if (!$file) {
             $this->response->setStatusCode(500);
-            return new JsonModel(array(
+            return new JsonModel(
+                array(
                 'result' => false,
-                'message' => $ex = $this->getEvent()->getParam('exception') 
+                'message' => $ex = $this->getEvent()->getParam('exception')
                              ? $ex->getMessage()
                              : 'File not found.'
-            ));
+                )
+            );
         }
         
         $this->acl($file, PermissionsInterface::PERMISSION_CHANGE);
         $this->getServiceLocator()->get('repositories')->remove($file);
-        return new JsonModel(array(
+        return new JsonModel(
+            array(
             'result' => true
-        ));
+            )
+        );
     }
 }
-

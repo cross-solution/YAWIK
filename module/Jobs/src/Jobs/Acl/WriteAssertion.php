@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** JobAccessAssertion.php */ 
+/** JobAccessAssertion.php */
 namespace Jobs\Acl;
 
 use Organizations\Entity\EmployeePermissionsInterface;
@@ -33,12 +33,13 @@ class WriteAssertion implements AssertionInterface
      * {@inheritDoc}
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
      */
-    public function assert(Acl $acl,
+    public function assert(
+        Acl $acl,
         RoleInterface $role = null,
         ResourceInterface $resource = null,
-        $privilege = null)
-    {
-        if (!$role instanceOf UserInterface || !$resource instanceOf JobInterface || 'edit' != $privilege) {
+        $privilege = null
+    ) {
+        if (!$role instanceof UserInterface || !$resource instanceof JobInterface || 'edit' != $privilege) {
             return false;
         }
 

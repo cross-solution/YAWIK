@@ -14,8 +14,8 @@ use Core\Form\SummaryForm;
 
 /**
  * Facts form.
- * 
- * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Facts extends SummaryForm
 {
@@ -42,5 +42,4 @@ class Facts extends SummaryForm
 
         parent::init();
     }
-
 }

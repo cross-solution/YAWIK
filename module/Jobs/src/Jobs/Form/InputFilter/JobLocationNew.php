@@ -7,9 +7,8 @@
  * @license   MIT
  */
 
-/** Job.php */ 
+/** Job.php */
 namespace Jobs\Form\InputFilter;
-
 
 class JobLocationNew extends JobLocationEdit
 {
@@ -23,4 +22,3 @@ class JobLocationNew extends JobLocationEdit
         
     }
 }
-

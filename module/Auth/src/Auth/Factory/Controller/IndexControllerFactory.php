@@ -17,7 +17,8 @@ use Zend\Log\LoggerInterface;
 use Auth\Options\ModuleOptions;
 use Auth\Controller\IndexController;
 
-class IndexControllerFactory implements FactoryInterface {
+class IndexControllerFactory implements FactoryInterface
+{
     /**
      * Create controller
      *
@@ -41,8 +42,7 @@ class IndexControllerFactory implements FactoryInterface {
         $options = new ModuleOptions($mailOptions);
 
 
-        $controller = new IndexController($auth,$logger,$loginForm, $options);
+        $controller = new IndexController($auth, $logger, $loginForm, $options);
         return $controller;
     }
-
 }

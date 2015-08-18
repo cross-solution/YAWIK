@@ -7,11 +7,10 @@
  * @license   MIT
  */
 
-/** InitializeAwareSettingsContainerInterface.php */ 
+/** InitializeAwareSettingsContainerInterface.php */
 namespace Settings\Entity;
 
 interface InitializeAwareSettingsContainerInterface
 {
     public function init();
 }
-

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AbstractPaginationQuery.php */ 
+/** AbstractPaginationQuery.php */
 namespace Core\Repository\Filter;
 
 use Zend\Filter\FilterInterface;
@@ -35,7 +35,7 @@ abstract class AbstractPaginationQuery implements FilterInterface
      * @return mixed
      * @throws \DomainException
      */
-    public function filter($value, $queryBuilder=null)
+    public function filter($value, $queryBuilder = null)
     {
         if (null === $queryBuilder) {
             throw new \DomainException('$queryBuilder must not be null');
@@ -77,4 +77,3 @@ abstract class AbstractPaginationQuery implements FilterInterface
         return array($sortProp => $sortDir);
     }
 }
-

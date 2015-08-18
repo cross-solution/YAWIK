@@ -238,14 +238,15 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * @param $sessionParameter
      * @return $this
      */
-    public function updateAuthSession($key, $sessionParameter) {
-        $notExists = True;
+    public function updateAuthSession($key, $sessionParameter)
+    {
+        $notExists = true;
 
         foreach ($this->authSessions as $authSession) {
             /* @var $authSession AuthSession */
             if ($key == $authSession->getName()) {
                 $authSession->setSession($sessionParameter);
-                $notExists = False;
+                $notExists = false;
             }
         }
         if ($notExists) {
@@ -261,8 +262,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * @param $key
      * @return null
      */
-    public function getAuthSession($key) {
-        $result = Null;
+    public function getAuthSession($key)
+    {
+        $result = null;
 
         foreach ($this->authSessions as $authSession) {
             /* @var $authSession AuthSession */
@@ -278,7 +280,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * @param string|null $key providerName, if null, remove all sessions
      * @return $this
      */
-    public function removeSessionData($key = Null) {
+    public function removeSessionData($key = null)
+    {
         $authSessionRefresh = array();
         foreach ($this->authSessions as $authSession) {
             /* @var $authSession AuthSession */

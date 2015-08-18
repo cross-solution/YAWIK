@@ -91,4 +91,3 @@ interface LocationInterface extends EntityInterface
      */
     public function getRegion();
 }
-

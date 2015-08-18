@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Facebook.php */ 
+/** Facebook.php */
 namespace Auth\Controller\Plugin\SocialProfiles;
 
 class Facebook extends AbstractAdapter
@@ -19,4 +19,3 @@ class Facebook extends AbstractAdapter
         return $api->api('/me');
     }
 }
-

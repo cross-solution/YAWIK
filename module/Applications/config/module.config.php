@@ -3,7 +3,7 @@
 /**
  * YAWIK
  * Configuration file of the Applications module
- * 
+ *
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -25,7 +25,7 @@ return array(
                 */
                'paths' => array( __DIR__ . '/../src/Applications/Entity',
                                  __DIR__ . '/../../../module/Cv/src/Cv/Entity'),
-           ),
+            ),
         ),
         'eventmanager' => array(
             'odm_default' => array(
@@ -61,7 +61,7 @@ return array(
         'allowedMimeTypes' => array('image', 'applications/pdf'),
         'settings' => array(
             'entity' => '\Applications\Entity\Settings',
-            'navigation_order' => 1, 
+            'navigation_order' => 1,
             'navigation_label' => /*@translate*/ "E-Mail Templates",
             'navigation_class' => 'yk-icon yk-icon-envelope'
         ),
@@ -152,7 +152,7 @@ return array(
             'Applications' => __DIR__ . '/../view',
         ),
         'template_map' => array(
-            'applications/error/not-found' => __DIR__ . '/../view/error/not-found.phtml', 
+            'applications/error/not-found' => __DIR__ . '/../view/error/not-found.phtml',
             'layout/apply' => __DIR__ . '/../view/layout/layout.phtml',
             'applications/sidebar/manage' => __DIR__ . '/../view/sidebar/manage.phtml',
             'applications/mail/forward' => __DIR__ . '/../view/mail/forward.phtml',
@@ -173,7 +173,7 @@ return array(
     'form_elements' => array(
         'invokables' => array(
              'Applications/Mail' => 'Applications\Form\Mail',
-             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset', 
+             'Applications/BaseFieldset' => 'Applications\Form\BaseFieldset',
              'Applications/SettingsFieldset' => 'Applications\Form\SettingsFieldset',
              'Applications/CommentForm' => 'Applications\Form\CommentForm',
              'Applications/CommentFieldset' => 'Applications\Form\CommentFieldset',

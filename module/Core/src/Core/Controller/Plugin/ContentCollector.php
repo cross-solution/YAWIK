@@ -16,43 +16,47 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 //use Zend\Stdlib\Parameters;
 use Zend\View\Model\ViewModel;
 
-class ContentCollector extends AbstractPlugin {
+class ContentCollector extends AbstractPlugin
+{
 
     protected $_captureTo;
     protected $_template;
     
-    public function __construct() {
+    public function __construct()
+    {
         $this->_captureTo = 'content_';
     }
     
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->_template = $template;
         return $this;
     }
     
-    public function captureTo($captureTo) {
+    public function captureTo($captureTo)
+    {
         $this->_captureTo = $captureTo;
         return $this;
     }
     
-    public function trigger($event, $target = null) {
+    public function trigger($event, $target = null)
+    {
         if (empty($this->_template) || !is_string($this->_template)) {
               throw new \InvalidArgumentException('ContentCollector must have a template-name');
-        } 
+        }
           
         $responseCollection = $this->getController()->getEventManager()->trigger($event, $target);
         $viewModel = new ViewModel();
         $viewModel->setTemplate($this->_template);
         foreach ($responseCollection as $i => $response) {
-              if (is_string($response)) {
-                        $template = $response;
-                        $response = new ViewModel(array('target' => $target));
-                        $response->setTemplate($template);
-                    }
-                    $viewModel->addChild($response,  $this->_captureTo . $i);
-                }
+            if (is_string($response)) {
+                      $template = $response;
+                      $response = new ViewModel(array('target' => $target));
+                      $response->setTemplate($template);
+            }
+                    $viewModel->addChild($response, $this->_captureTo . $i);
+        }
                 
         return $viewModel;
     }
-    
 }

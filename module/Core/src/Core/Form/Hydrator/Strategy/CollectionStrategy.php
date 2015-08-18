@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** CollectionStrategy.php */ 
+/** CollectionStrategy.php */
 namespace Core\Form\Hydrator\Strategy;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
@@ -24,7 +24,7 @@ class CollectionStrategy implements StrategyInterface
         }
     }
     
-    public function setCollectionPrototype(Collection $collection) 
+    public function setCollectionPrototype(Collection $collection)
     {
         $this->prototype = $collection;
         return $this;
@@ -38,18 +38,18 @@ class CollectionStrategy implements StrategyInterface
         return clone $this->prototype;
     }
     
-	public function extract ($value)
+    public function extract($value)
     {
-        if (!$value instanceOf Collection) {
+        if (!$value instanceof Collection) {
             throw new \InvalidArgumentException('Value must implement \Doctrine\Common\Collections\Collection');
         }
         
         return $value->toArray();
     }
 
-	public function hydrate ($value)
+    public function hydrate($value)
     {
-        if ($value instanceOf Collection) {
+        if ($value instanceof Collection) {
             return $value;
         }
         
@@ -60,7 +60,4 @@ class CollectionStrategy implements StrategyInterface
         return $this->getCollection()->fromArray($value);
         
     }
-
-    
 }
-

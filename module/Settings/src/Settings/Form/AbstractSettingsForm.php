@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AbstractSettingsForm.php */ 
+/** AbstractSettingsForm.php */
 namespace Settings\Form;
 
 use Core\Form\Form;
@@ -28,7 +28,7 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator) 
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->forms = $serviceLocator;
         return $this;
@@ -78,7 +78,7 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
 
     public function setObject($object)
     {
-        if (!$object instanceOf ModuleSettingsContainerInterface) {
+        if (!$object instanceof ModuleSettingsContainerInterface) {
             throw new \InvalidArgumentException('Object must implement ModuleSettingsContainerInterface');
         }
         parent::setObject($object);
@@ -97,7 +97,7 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
         
         $url = $urlHelper('lang/settings', array('module' => $name), true);
         $this->setAttribute('action', $url);
-    }   
+    }
 
     
     public function bind($object, $flags = FormInterface::VALUES_NORMALIZED)
@@ -117,4 +117,3 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
         return strtolower($moduleName);
     }
 }
-

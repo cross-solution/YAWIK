@@ -18,16 +18,16 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Education extends AbstractIdentifiableEntity
 {
-	/** @var string 
-	 * @ODM\String
-	 */
+    /** @var string
+     * @ODM\String
+     */
     protected $startDate;
     
-    /** @var string 
+    /** @var string
      * @ODM\String */
     protected $endDate;
     
-    /** @var bool 
+    /** @var bool
      * @ODM\Boolean*/
     protected $currentIndicator;
     
@@ -35,7 +35,7 @@ class Education extends AbstractIdentifiableEntity
     protected $competencyName;
     
     /** @ODM\String
-     * 
+     *
      */
     protected $organizationName;
     
@@ -43,12 +43,12 @@ class Education extends AbstractIdentifiableEntity
      * @ODM\String */
     protected $description;
     
-    /** needed for europass 
+    /** needed for europass
      * @ODM\String*/
     protected $nationalClassification;
     
     
-	public function setStartDate($startDate)
+    public function setStartDate($startDate)
     {
         $this->startDate = (string) $startDate;
         return $this;
@@ -72,61 +72,62 @@ class Education extends AbstractIdentifiableEntity
     
     /**
      * marks the education as ongoing
-     * 
+     *
      * @param bool $currentIndicator
      * @return \Cv\Entity\Education
      */
     public function setCurrentIndicator($currentIndicator)
     {
-    	$this->currentIndicator=$currentIndicator;
-    	return $this;
+        $this->currentIndicator=$currentIndicator;
+        return $this;
     }
     
     /**
      * indicates that the education is ongoing
-     * 
+     *
      * @return bool
      */
-    public function getCurrectIndicator() {
-    	return $this->currentIndicator;
+    public function getCurrectIndicator()
+    {
+        return $this->currentIndicator;
     }
 
     public function setCompetencyName($competencyName)
     {
-    	$this->competencyName = $competencyName;
-    	return $this;
+        $this->competencyName = $competencyName;
+        return $this;
     }
     
     public function getCompetencyName()
     {
-    	return $this->competencyName;
-    } 
+        return $this->competencyName;
+    }
     
     /**
      * @return the $organizationName
      */
-    public function getOrganizationName ()
+    public function getOrganizationName()
     {
         return $this->organizationName;
     }
 
-	/**
+    /**
      * @param field_type $organizationName
      */
-    public function setOrganizationName ($organizationName)
+    public function setOrganizationName($organizationName)
     {
         $this->organizationName = $organizationName;
         return $this;
     }
 
-	public function setDescription($value)
+    public function setDescription($value)
     {
-    	$this->description = $value;
-    	return $this;
+        $this->description = $value;
+        return $this;
     }
     
     public function getDescription()
     {
-    	return $this->description;
+        return $this->description;
     }
 }

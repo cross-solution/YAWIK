@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** StatusInterface.php */ 
+/** StatusInterface.php */
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
@@ -54,4 +54,3 @@ interface StatusInterface extends EntityInterface
      */
     public function __toString();
 }
-

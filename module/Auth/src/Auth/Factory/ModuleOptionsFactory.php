@@ -20,7 +20,7 @@ use Auth\Options\ModuleOptions;
  * Class ModuleOptionsFactory
  * @package Auth\Factory
  */
-class ModuleOptionsFactory  implements FactoryInterface
+class ModuleOptionsFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}

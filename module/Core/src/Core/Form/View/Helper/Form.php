@@ -20,7 +20,7 @@ use Core\Form\DescriptionAwareFormInterface;
 
 /**
  * Helper to render a formular.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Form extends ZendForm
@@ -44,7 +44,7 @@ class Form extends ZendForm
      * @param array $parameter
      * @return string
      */
-    public function __invoke(FormInterface $form = null, $layout=self::LAYOUT_HORIZONTAL, $parameter = array())
+    public function __invoke(FormInterface $form = null, $layout = self::LAYOUT_HORIZONTAL, $parameter = array())
     {
         if (!$form) {
             return $this;
@@ -61,7 +61,7 @@ class Form extends ZendForm
      * @param array $parameter
      * @return string
      */
-    public function renderBare(FormInterface $form, $layout=self::LAYOUT_HORIZONTAL, $parameter = array())
+    public function renderBare(FormInterface $form, $layout = self::LAYOUT_HORIZONTAL, $parameter = array())
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer
          * @var $headscript \Zend\View\Helper\HeadScript
@@ -80,7 +80,7 @@ class Form extends ZendForm
         
         if ($scripts = $form->getOption('headscript')) {
             if (!is_array($scripts)) {
-                $scripts = Array($scripts);
+                $scripts = array($scripts);
             }
             foreach ($scripts as $script) {
                 $headscript->appendFile($basepath($script));
@@ -95,12 +95,12 @@ class Form extends ZendForm
 
         $formId = $form->getAttribute('id') ?: $form->getName();
         $form->setAttribute(
-             'id',
-             preg_replace(
+            'id',
+            preg_replace(
                 array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
                 array('-'              , '-'    , ''       ),
                 $formId
-             )
+            )
         );
 
         if (method_exists($form, 'prepare')) {
@@ -109,14 +109,13 @@ class Form extends ZendForm
     
         $formContent = '';
     
-        if ($form instanceOf ViewPartialProviderInterface) {
+        if ($form instanceof ViewPartialProviderInterface) {
             return $renderer->partial($form->getViewPartial(), array('element' => $form));
         }
         /* @var $element \Zend\Form\ElementInterface */
         foreach ($form as $element) {
             $parameterPartial = $parameter;
             if (!$element->hasAttribute('id')) {
-                
                 $elementId = preg_replace(
                     array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
                     array('-'             , '-',     ''),
@@ -124,30 +123,31 @@ class Form extends ZendForm
                 );
                 $element->setAttribute('id', $elementId);
             }
-            if ($element instanceOf ExplicitParameterProviderInterface) {
+            if ($element instanceof ExplicitParameterProviderInterface) {
                 /* @var $element ExplicitParameterProviderInterface */
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);
             }
-            if ($element instanceOf ViewPartialProviderInterface) {
+            if ($element instanceof ViewPartialProviderInterface) {
                 /* @var $element ViewPartialProviderInterface */
                 $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
                 /** @noinspection PhpToStringImplementationInspection */
                 $formContent .= $renderer->partial(
-                    $element->getViewPartial(), $parameterPartial 
+                    $element->getViewPartial(),
+                    $parameterPartial
                 );
                 
-            } else if ($element instanceof FieldsetInterface)
-                if ($element instanceOf ViewHelperProviderInterface) {
-                    /* @var $element ViewHelperProviderInterface */
-                    $helper = $element->getViewHelper();
-                    if (is_string($helper)) {
-                        $helper = $renderer->plugin($helper);
-                    }
+            } elseif ($element instanceof FieldsetInterface)
+            if ($element instanceof ViewHelperProviderInterface) {
+                /* @var $element ViewHelperProviderInterface */
+                $helper = $element->getViewHelper();
+                if (is_string($helper)) {
+                    $helper = $renderer->plugin($helper);
+                }
 
-                    $formContent .= $helper($element);
-                } else {
-                    $formContent .= $renderer->formCollection($element, true, $layout);
-            } else if (false !== $element->getOption('use_formrow_helper')) {
+                $formContent .= $helper($element);
+            } else {
+                $formContent .= $renderer->formCollection($element, true, $layout);
+            } elseif (false !== $element->getOption('use_formrow_helper')) {
                 $formContent.= $renderer->formRow($element, null, null, $layout);
             } else {
                 $formContent.= $renderer->formElement($element);
@@ -161,7 +161,7 @@ class Form extends ZendForm
      * Renders a form from the provided form.
      * Wraps this form in a div-container and renders the label,
      * if any.
-     * 
+     *
      * @param FormInterface $form
      * @param string $layout
      * @param array $parameter
@@ -169,13 +169,13 @@ class Form extends ZendForm
      * @see \Zend\Form\View\Helper\Form::render()
      * @return string
      */
-    public function render(FormInterface $form, $layout=self::LAYOUT_HORIZONTAL, $parameter = array())
+    public function render(FormInterface $form, $layout = self::LAYOUT_HORIZONTAL, $parameter = array())
     {
         /* @var $renderer \Zend\View\Renderer\PhpRenderer */
         $formContent = $this->renderBare($form, $layout, $parameter);
         $renderer    = $this->getView();
         
-        if ($form instanceOf DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
+        if ($form instanceof DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
                 /* @var $form DescriptionAwareFormInterface|FormInterface */
                 $renderer->headscript()->appendFile(
                     $renderer->basepath('Core/js/forms.descriptions.js')
@@ -195,7 +195,8 @@ class Form extends ZendForm
                             <div class="daf-desc-content alert alert-info">%s</div>
                         </div>
                     </div>',
-                    $formContent, $desc
+                    $formContent,
+                    $desc
                 );
         } else {
             $formContent = '<div class="form-content">' . $formContent . '</div>';

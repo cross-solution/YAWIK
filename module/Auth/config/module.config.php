@@ -2,7 +2,7 @@
 /**
  * YAWIK
  * Configuration file of the Auth module
- * 
+ *
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -24,7 +24,7 @@ return array(
                  * example https://github.com/doctrine/DoctrineORMModule
                  */
                 'paths' => array( __DIR__ . '/../src/Auth/Entity'),
-            ),  
+            ),
         ),
     ),
 
@@ -93,14 +93,14 @@ return array(
             'Acl' => '\Acl\Controller\Plugin\AclFactory',
         ),
         'shared' => array(
-            'OAuth' => False,
+            'OAuth' => false,
         )
     ),
     'hybridauth' => array(
         "Facebook" => array (
             "enabled" => true,
             "keys"    => array ( "id" => "", "secret" => "" ),
-            "scope"	  => 'email, user_about_me, user_birthday, user_hometown, user_website',
+            "scope"      => 'email, user_about_me, user_birthday, user_hometown, user_website',
             "display" => 'popup',
         ),
         "LinkedIn" => array (
@@ -111,7 +111,7 @@ return array(
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array ( 
+            "wrapper" => array (
                 'class' => 'Hybrid_Providers_XING',
                 'path' => __FILE__,
             ),
@@ -363,7 +363,7 @@ return array(
         ),
         
         'public_roles' => array(
-            /*@translate*/ 'user', 
+            /*@translate*/ 'user',
             /*@translate*/ 'recruiter',
         ),
         
@@ -386,7 +386,7 @@ return array(
                     'route/lang/my',
                     'route/lang/my-password'
                 ),
-                'deny' => array( 
+                'deny' => array(
                    // 'route/lang/auth',
                     'route/auth-provider',
                     'route/auth-extern',
@@ -481,7 +481,7 @@ return array(
         'invokables' => array(
             'buildReferer' => '\Auth\View\Helper\BuildReferer',
             'loginInfo' => '\Auth\View\Helper\LoginInfo',
-        ),   
+        ),
         'factories' => array(
             'auth' => '\Auth\Factory\View\Helper\AuthFactory',
             'acl'  => '\Acl\Factory\View\Helper\AclFactory',
@@ -489,13 +489,13 @@ return array(
     ),
     
     'form_elements' => array(
-        'invokables' => array( 
+        'invokables' => array(
             'Auth/Login' => 'Auth\Form\Login',
             'user-profile' => 'Auth\Form\UserProfile',
             'user-password' => 'Auth\Form\UserPassword',
             'Auth/UserPasswordFieldset' => 'Auth\Form\UserPasswordFieldset',
-            'Auth/UserBase' => 'Auth\Form\UserBase', 
-            'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset', 
+            'Auth/UserBase' => 'Auth\Form\UserBase',
+            'Auth/UserBaseFieldset' => 'Auth\Form\UserBaseFieldset',
             'Auth/Group' => 'Auth\Form\Group',
             'Auth/Group/Data' => 'Auth\Form\GroupFieldset',
             'Auth/Group/Users' => 'Auth\Form\GroupUsersCollection',
@@ -516,6 +516,6 @@ return array(
     ),
 
     'Auth' => array(
-        'allowRegister' => True,
+        'allowRegister' => true,
     ),
 );

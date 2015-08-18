@@ -11,9 +11,9 @@ namespace Core\Form;
 
 /**
  * Base YAWIK form.
- * 
+ *
  * This form adds a base fieldset and a button fieldset.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class BaseForm extends Form
@@ -46,8 +46,8 @@ class BaseForm extends Form
     
     /**
      * Adds the base fieldset.
-     * 
-     * 
+     *
+     *
      */
     protected function addBaseFieldset()
     {
@@ -72,9 +72,10 @@ class BaseForm extends Form
      */
     protected function addButtonsFieldset()
     {
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'DefaultButtonsFieldset'
-        ));
+            )
+        );
     }
-    
 }

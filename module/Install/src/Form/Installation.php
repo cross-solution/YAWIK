@@ -25,13 +25,15 @@ class Installation extends Form implements InputFilterProviderInterface
     public function init()
     {
         $this->setName('installation');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
                                  'method' => 'post',
                                  'action' => '?p=install'
                              )
         );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'type'       => 'Text',
                        'name'       => 'db_conn',
                        'options'    => array(
@@ -44,7 +46,8 @@ class Installation extends Form implements InputFilterProviderInterface
                    )
         );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'type'    => 'Text',
                        'name'    => 'username',
                        'options' => array(
@@ -53,7 +56,8 @@ class Installation extends Form implements InputFilterProviderInterface
                    )
         );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'type'    => 'Password',
                        'name'    => 'password',
                        'options' => array(
@@ -62,13 +66,15 @@ class Installation extends Form implements InputFilterProviderInterface
                    )
         );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'type' => 'Text',
                        'name' => 'email',
                        'options' => array(
                            'label' => /* @translate */ 'Email address for system messages',
                        ),
-                   ));
+                   )
+        );
     }
 
     public function getInputFilterSpecification()
@@ -109,6 +115,4 @@ class Installation extends Form implements InputFilterProviderInterface
             ),
         );
     }
-
-
 }

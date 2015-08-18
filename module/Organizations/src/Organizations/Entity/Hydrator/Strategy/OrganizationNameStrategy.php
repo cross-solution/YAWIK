@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** HttploadStrategy.php */ 
+/** HttploadStrategy.php */
 namespace Organizations\Entity\Hydrator\Strategy;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
@@ -23,7 +23,7 @@ class OrganizationNameStrategy implements StrategyInterface
         return $this;
     }
     
-    public function extract ($value)
+    public function extract($value)
     {
         $name = '';
         if (isset($value->name)) {
@@ -32,7 +32,7 @@ class OrganizationNameStrategy implements StrategyInterface
         return $name;
     }
     
-    public function hydrate ($value)
+    public function hydrate($value)
     {
         $organizationNameEntity = $value;
         if (is_string($value)) {
@@ -47,4 +47,3 @@ class OrganizationNameStrategy implements StrategyInterface
         return $organizationNameEntity;
     }
 }
-

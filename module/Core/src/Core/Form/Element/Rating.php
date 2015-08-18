@@ -7,9 +7,8 @@
  * @license   MIT
  */
 
-/** Rating.php */ 
+/** Rating.php */
 namespace Core\Form\Element;
-
 
 use Zend\Form\Element;
 use Zend\Form\Element\Select;
@@ -17,13 +16,13 @@ use Core\Entity\RatingInterface;
 
 /**
  * Star rating element.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Rating extends Select
 {
     
-    /** 
+    /**
      * Seed empty option
      * @var String
      */
@@ -31,7 +30,7 @@ class Rating extends Select
     
     /**
      * Seed value options
-     * 
+     *
      * @var array
      */
     protected $valueOptions = array(
@@ -44,7 +43,7 @@ class Rating extends Select
     
     /**
      * Seed attributes
-     * 
+     *
      * @var array
      */
     protected $attributes = array(
@@ -52,4 +51,3 @@ class Rating extends Select
         'class' => 'rating',
     );
 }
-

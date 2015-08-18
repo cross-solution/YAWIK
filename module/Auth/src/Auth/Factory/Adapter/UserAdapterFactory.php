@@ -16,14 +16,14 @@ use Auth\Adapter\User;
 /**
  * authentication adapter factory
  */
-class UserAdapterFactory implements FactoryInterface 
+class UserAdapterFactory implements FactoryInterface
 {
 
     /**
      * Creates an instance of \Auth\Adapter\UserAdapter
-     * 
+     *
      * - injects the UserRepository fetched from the service manager.
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\User
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -45,5 +45,4 @@ class UserAdapterFactory implements FactoryInterface
         
         return $adapter;
     }
-    
 }

@@ -36,14 +36,16 @@ class XssFilter implements FilterInterface
     /**
      * @param HTMLPurifierFilter|\zf2htmlpurifier\Filter\HTMLPurifierFilter $purifier
      */
-    public function setHtmlPurifier($purifier){
+    public function setHtmlPurifier($purifier)
+    {
         $this->htmlPurifier = $purifier;
     }
 
     /**
      * @return HTMLPurifierFilter|\zf2htmlpurifier\Filter\HTMLPurifierFilter
      */
-    public function getHtmlPurifier(){
+    public function getHtmlPurifier()
+    {
         return $this->htmlPurifier;
     }
 

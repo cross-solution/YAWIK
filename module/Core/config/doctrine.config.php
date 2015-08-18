@@ -43,7 +43,7 @@ return array(
 
         'driver' => array(
             'annotation' => array(
-                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver', 
+                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
             ),
             'odm_default' => array(
                 'drivers' => array(

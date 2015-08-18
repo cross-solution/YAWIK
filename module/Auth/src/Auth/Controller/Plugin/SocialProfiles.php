@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SocialProfiles.php */ 
+/** SocialProfiles.php */
 namespace Auth\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -18,8 +18,8 @@ class SocialProfiles extends AbstractPlugin
     protected $adapterMap = array(
         'facebook' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\Facebook',
         'xing'     => '\\Auth\\Controller\\Plugin\\SocialProfiles\\Xing',
-    	'linkedin' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\LinkedIn',
-    		
+        'linkedin' => '\\Auth\\Controller\\Plugin\\SocialProfiles\\LinkedIn',
+            
     );
     
     public function __construct($hybridAuth, array $adapters = array())
@@ -50,13 +50,15 @@ class SocialProfiles extends AbstractPlugin
     {
         if (is_string($adapter)) {
             $this->adapterMap[$network] = $adapter;
-        } else if ($adapter instanceOf AbstractAdapter) {
+        } elseif ($adapter instanceof AbstractAdapter) {
             $this->adapters[$network] = $adapter;
         } else {
-            throw new \InvalidArgumentException(sprintf(
-                'Adapter must be either a string or an instance of \Auth\Controller\Plugin\SocialProfiles\AbstractAdapter, but received %s',
-                is_object($adapter) ? get_class($adapter) : '(' . gettype($adapter) . ')'
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Adapter must be either a string or an instance of \Auth\Controller\Plugin\SocialProfiles\AbstractAdapter, but received %s',
+                    is_object($adapter) ? get_class($adapter) : '(' . gettype($adapter) . ')'
+                )
+            );
         }
         
         return $this;
@@ -75,10 +77,11 @@ class SocialProfiles extends AbstractPlugin
             return $adapter;
         }
         
-        throw new \InvalidArgumentException(sprintf(
-            'No adapter registered for key %s in the adapter map.',
-            $network
-        ));
+        throw new \InvalidArgumentException(
+            sprintf(
+                'No adapter registered for key %s in the adapter map.',
+                $network
+            )
+        );
     }
 }
-

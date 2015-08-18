@@ -12,9 +12,8 @@ namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-
 /**
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class LinkedIn extends AbstractProfile
@@ -61,7 +60,7 @@ class LinkedIn extends AbstractProfile
             }
             if (isset($data['end-date'])) {
                 $return['endDate'] = $data['end-date']['year'] . '-' . $data['end-date']['month'] . '-' . $data['end-date']['day'];
-            } else if (isset($data['is-current']) && 'true' == $data['is-current']) {
+            } elseif (isset($data['is-current']) && 'true' == $data['is-current']) {
                 $return['currentIndicator'] = true;
             }
             if (isset($data['company'])) {
@@ -73,6 +72,4 @@ class LinkedIn extends AbstractProfile
         }
         return $return;
     }
-    
-} 
-
+}

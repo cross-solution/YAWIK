@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** RepositoryServiceFactory.php */ 
+/** RepositoryServiceFactory.php */
 namespace Core\Repository;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -24,4 +24,3 @@ class RepositoryServiceFactory implements FactoryInterface
         return $service;
     }
 }
-

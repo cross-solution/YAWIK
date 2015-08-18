@@ -12,7 +12,7 @@ namespace Core\Exception;
 
 /**
  * This exception is thrown when an object is missing a required dependency.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
@@ -45,8 +45,11 @@ class MissingDependencyException extends \RuntimeException
         $this->dependency = $dependency;
         $this->target     = $object;
 
-        $message = sprintf('Missing dependency "%s" in "%s"',
-                           $dependency, $this->getTargetFQCN());
+        $message = sprintf(
+            'Missing dependency "%s" in "%s"',
+            $dependency,
+            $this->getTargetFQCN()
+        );
 
         parent::__construct($message, 0, $previous);
     }

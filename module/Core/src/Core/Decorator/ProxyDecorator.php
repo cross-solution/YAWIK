@@ -14,7 +14,7 @@ namespace Core\Decorator;
  * Proxy Decorator boilerplate
  *
  * Allows proxying to the wrapped object and returns self, if wrapped object method returns itself.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */
@@ -32,17 +32,20 @@ class ProxyDecorator extends Decorator
      * @return Decorator|mixed
      * @throws \BadMethodCallException If wrapped entity does not have the specified method.
      */
-    protected  function proxy()
+    protected function proxy()
     {
         $args = func_get_args();
         $method = array_shift($args);
         $callback = array($this->object, $method);
 
         if (!is_callable($callback)) {
-            throw new \BadMethodCallException(sprintf(
-                'Cannot proxy "%s" to "%s": Unknown method.',
-                $method, get_class($this->object)
-            ));
+            throw new \BadMethodCallException(
+                sprintf(
+                    'Cannot proxy "%s" to "%s": Unknown method.',
+                    $method,
+                    get_class($this->object)
+                )
+            );
         }
 
         $return = call_user_func_array($callback, $args);

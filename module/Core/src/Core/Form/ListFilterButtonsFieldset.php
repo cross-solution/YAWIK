@@ -2,14 +2,14 @@
 
 namespace Core\Form;
 
-
 class ListFilterButtonsFieldset extends ButtonsFieldset
 {
     public function init()
     {
         $this->setName('buttons');
         //$this->setLabel('Actions');
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Button',
             'name' => 'submit',
             'options' => array(
@@ -21,9 +21,11 @@ class ListFilterButtonsFieldset extends ButtonsFieldset
                 'value' => 'Apply filter',
                 'class' => 'btn btn-primary'
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Button',
             'name' => 'cancel',
             'options' => array(
@@ -35,6 +37,7 @@ class ListFilterButtonsFieldset extends ButtonsFieldset
                 'value' => 'Reset filter',
                 'class' => 'btn btn-secondary'
             ),
-        ));
+            )
+        );
     }
 }

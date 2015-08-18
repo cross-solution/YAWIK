@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -13,9 +13,9 @@ namespace Core\Form\View\Helper;
 class FormEditorColor extends FormEditor
 {
 
-    protected function additionalOptions() {
+    protected function additionalOptions()
+    {
         return 'toolbar: "undo redo | styleselect forecolor | bold italic | alignleft aligncenter alignright alignjustify | ' .
-		'bullist numlist outdent indent ", ';
+        'bullist numlist outdent indent ", ';
     }
-
 }
