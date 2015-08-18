@@ -106,8 +106,8 @@ class FormFileUpload extends FormFile
             <li class="fu-error-size">' . $translator->translate('The file is too big', $textDomain) . '</li>
             <li class="fu-error-type">' . $translator->translate('The file type is not supported', $textDomain) . '</li>
             <li class="fu-error-count">' . sprintf(
-        $translator->translate('You may only upload %d files', $textDomain),
-        $element->getAttribute('data-maxfilecount')
+    $translator->translate('You may only upload %d files', $textDomain),
+    $element->getAttribute('data-maxfilecount')
 ) . '</li>
         </ul>
    </div>
