@@ -11,7 +11,6 @@
 namespace Geo\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -26,7 +25,8 @@ class IndexController extends AbstractActionController
      */
     public function indexAction() {
         $query = $this->params()->fromQuery();
-        $geoApi = $this->getPluginManager()->get('geo/geo');
+
+        $geoApi = $this->getPluginManager()->get('geo/'.$this->params('plugin'));
         $result = array();
         if (!empty($query['q'])) {
             $result = $geoApi($query['q']);

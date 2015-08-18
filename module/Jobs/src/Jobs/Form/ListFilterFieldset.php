@@ -14,6 +14,7 @@ use Jobs\Entity\Status;
 use Zend\Form\Fieldset;
 use Zend\Form\FormInterface;
 
+
 /**
  * Defines the formular fields of the job opening search formular
  *
@@ -108,16 +109,4 @@ class ListFilterFieldset extends Fieldset
                    ));
     }
 
-    /**
-     * @param FormInterface $form
-     */
-    public function prepareElement(FormInterface $form)
-    {
-        foreach ($this->byName as $elementOrFieldset) {
-            // Recursively prepare elements
-            if ($elementOrFieldset instanceof ElementPrepareAwareInterface) {
-                $elementOrFieldset->prepareElement($form);
-            }
-        }
-    }
 }
