@@ -10,6 +10,7 @@
 /** Core forms */
 namespace Core\Form;
 
+use Zend\Form\ElementInterface;
 
 /**
  * Enables form elements to provide a view partial when being rendered.
@@ -29,7 +30,7 @@ abstract class ViewPartialProviderAbstract extends Container implements ViewPart
      * Sets the view partial name.
      * 
      * @param String $partial
-     * @return Zend\Form\ElementInterface fluent interface
+     * @return ElementInterface fluent interface
      */
     public function setViewPartial($partial) {
         $this->partial = $partial;

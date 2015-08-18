@@ -24,8 +24,9 @@ use Core\Entity\FileEntity;
 use Core\ModuleManager\ModuleConfigLoader;
 
 /**
- * GeoApi
- * 
+ * Geocoder Module
+ *
+ * This module automatically adds a typeahead feature to formular fields type="location"
  */
 class Module
 {

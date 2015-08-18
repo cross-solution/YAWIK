@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ApplyIdentifierElement.php */ 
+/** GetText.php */
 namespace Geo\Form;
 
 use Zend\Form\Element\Text;
