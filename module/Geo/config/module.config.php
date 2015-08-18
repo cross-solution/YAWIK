@@ -45,8 +45,8 @@ return array(
         ),
     ),
     'form_elements' => array(
-        'invokables' => array(
-            'Location' => 'Geo\Form\GeoText',
+        'factory' => array(
+            'Location' => 'Geo\Factory\Form\GeoTextFactory',
          ),
     ),
     

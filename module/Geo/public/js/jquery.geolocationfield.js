@@ -5,38 +5,52 @@
             datumTokenizer: function (d) {
                 return $.parseJSON(d);
             },
-            limit: 8,
+            limit: 10,
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: basePath + '/' + lang + '/geo/' + plugin + '?q=%QUERY'
+            remote:{
+                url: basePath + '/' + lang + '/geo/' + plugin + '?q=%QUERY',
+                rateLimitWait: 400,
+                rateLimitBy: 'debounce',
+                filter: function(response) {
+                    return response;
+                }
+            },
+            source:{
+
+            }
         });
 
         geolocation.initialize();
 
         var filterDisplayText = function(data) {
-            var d = $.fn.photon.getOptionData(data);
-
 
             var r = '';
 
-            switch(d.osm_key){
+            switch(data.osm_key){
                 case "highway":
-                    r += "<i class=\"fa fa-road\"></i> "  + d.name + "<br><small>" + d.street + "<br>"  + d.postcode + " " + d.city + "</small>";
+                    r += "<i class=\"fa fa-road\"></i> "  + data.name + "<br><small>"  + data.postcode + " " + data.city + "</small>";
+                    break;
+                case "place":
+                    r += "<i class=\"fa fa-map-pin\"></i> "  + data.name + "<br><small>"  + (data.state + " " + data.country) + "</small>";
                     break;
                 case "building":
-                    r += "<i class=\"fa fa-building-o\"></i> " + d.name + "<br><small>" + d.street + "<br>"  +d.postcode + " " + d.city + "</small>";
+                    r += "<i class=\"fa fa-home\"></i> " + data.name + "<br><small>" + data.street + "<br>"  +data.postcode + " " + data.city + "</small>";
+                    break;
+                case "office":
+                    r += "<i class=\"fa fa-industry\"></i> " + data.name + "<br><small>" + data.street + "<br>"  +data.postcode + " " + data.city + "</small>";
                     break;
                 case "shop":
-                    r += "<i class=\"fa fa-shopping-cart\"></i> " + d.name + "<br><small>" + d.street + "<br>"  +d.postcode + " " + d.city + "</small>";
+                    r += "<i class=\"fa fa-shopping-cart\"></i> " + data.name + "<br><small>" + data.street + "<br>"  +data.postcode + " " + data.city + "</small>";
                     break;
                 case "landuse":
-                    r += "<i class=\"fa fa-industry\"></i> " + d.name + "<br><small>" + d.street + "<br>"  +d.postcode + " " + d.city + "</small>";
+                    r += "<i class=\"fa fa-industry\"></i> " + data.name + "<br><small>" + data.street + "<br>"  +data.postcode + " " + data.city + "</small>";
                     break;
                 case "boundary":
-                    r += "<i class=\"fa fa-flag\"></i> " + d.name + "<br><small>(" + d.area + " " + d.country + ")</small>";
+                    r += "<i class=\"fa fa-flag\"></i> " + data.name + "<br><small>(" + data.state + " " + data.country + ")</small>";
                     break;
                 default:
-                    for (var key in d) {
-                        r += key + ": " + d[key] + '; ';
+                    for (var key in data) {
+                        r += key + ": " + data[key] + '; ';
                     }
                     break;
             }
@@ -45,25 +59,50 @@
 
         };
 
+        var displayText = function(data) {
+            var r="";
+
+            if(data.postcode) {
+                r += data.postcode + ' ';
+            }
+            if(data.city) {
+                r += data.city + ' ';
+            }
+            if(data.street) {
+                r += ', ' + data.city;
+            }
+            if (r =="") {
+                r = data.name;
+            }
+            console.log('displayText', data.name);
+
+            return r;
+        };
+
         target.find('.geolocation').typeahead({
             hint: true,
             highlight: true,
             minLength: 2
         }, {
             name: 'geoLocation',
-            displayKey: 'value',
+            displayKey: displayText,
             templates: {
                 empty: [
                     '<div class="empty-message">',
                     'no results found',
                     '</div>'
                 ].join('\n'),
-                    suggestion: filterDisplayText
+                suggestion: filterDisplayText
 
             },
             source: geolocation.ttAdapter()
-        });
-
+        })
+        /**
+         * @todo: make passing of coordinates failsafe
+         */
+            .on('typeahead:selected', function($e, data){
+                $('#coordinates').val(data.coordinates)
+            })
     };
 
 // this is for initial triggering after the site is loaded
@@ -76,27 +115,5 @@
         //console.log('react', data['target']);
         geolocation_appendTrigger(data['target']);
     });
-
-    $.fn.photon = {};
-
-    $.fn.photon.orderElements = {};
-
-    $.fn.photon.getOptionData = function(text)
-    {
-        var textArr = text.split('|');
-        console.log('Locations', textArr);
-        return {
-            name: textArr[0],
-            postcode: textArr[1],
-            city: textArr[2],
-            street: textArr[3],
-            area: textArr[4],
-            country: textArr[5],
-            point: textArr[6],
-            osm_key: textArr[7],
-            osm_value: textArr[8],
-            osm_id: textArr[9]
-        };
-    };
 
 })(jQuery);
