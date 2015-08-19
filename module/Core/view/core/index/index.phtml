@@ -19,7 +19,7 @@
   <p>
   <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
   <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
-            <a class="login-link btn btn-primary btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
+            <a class="login-link btn btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
   <?php endforeach ?>
   </p>
 </div>
