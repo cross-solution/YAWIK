@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cf92b78030f0035a92d873dad1768ff0",
+    "hash": "110247cd788470ce04bc7099ebae1070",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -55,6 +55,44 @@
                 "widget"
             ],
             "time": "2015-08-10 05:28:03"
+        },
+        {
+            "name": "components/flag-icon-css",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lipis/flag-icon-css.git",
+                "reference": "db9d702ac15e74a84d5d859c9f3b1ce4c1882304"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/db9d702ac15e74a84d5d859c9f3b1ce4c1882304",
+                "reference": "db9d702ac15e74a84d5d859c9f3b1ce4c1882304",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "flag-icon-css",
+                    "files": [
+                        "less/**",
+                        "css/**",
+                        "flags/**"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Panayiotis Lipiridis (Lipis)",
+                    "email": "lipiridis@gmail.com"
+                }
+            ],
+            "description": "CSS for vector based country flags",
+            "time": "2015-03-26 16:41:06"
         },
         {
             "name": "components/jquery",
@@ -5476,13 +5514,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendService_ReCaptcha.git",
-                "reference": "4324cca8502d9f47b3b43a18acdd3fdbeb965536"
+                "reference": "6edf90dad323ebf3db9ad18036254cd9b23afe51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zendservice-recaptcha-4324cca8502d9f47b3b43a18acdd3fdbeb965536-zip-8c45bf.zip",
-                "reference": "2.0.1",
-                "shasum": "fab92465cda889ff975c1ec79bb378d7e3f39081"
+                "url": "https://packages.zendframework.com/composer/zendframework-zendservice-recaptcha-2.0.1-a7de7b.zip",
+                "reference": "6edf90dad323ebf3db9ad18036254cd9b23afe51",
+                "shasum": "9f834dcbb4ef7ec91619a75c3959753e7b454d86"
             },
             "require": {
                 "php": ">=5.3.3",
@@ -5510,10 +5548,6 @@
                 "recaptcha",
                 "zf2"
             ],
-            "support": {
-                "source": "https://github.com/zendframework/ZendService_ReCaptcha/tree/release-2.0.1",
-                "issues": "https://github.com/zendframework/ZendService_ReCaptcha/issues"
-            },
             "time": "2012-09-24 15:18:29"
         },
         {

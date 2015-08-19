@@ -45,7 +45,8 @@
         "ivaynberg/select2": "3.5.*",
         "tinymce/tinymce": "*",
         "mikemix/zf2htmlpurifier": "*",
-        "cross-solution/bootstrap3-dialog": "dev-master"
+        "cross-solution/bootstrap3-dialog": "dev-master",
+        "components/flag-icon-css": "^0.7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*",
