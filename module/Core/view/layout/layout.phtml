@@ -84,7 +84,7 @@ $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.m
     <?php $lang = $this->params('lang');
     foreach ($languages as $availableLang=>$value): ?>
     <button type="button" class="btn btn-xs btn-default<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
-    <?php echo strtoupper($availableLang) ?></button>
+    <span class="flag-icon flag-icon-<?php echo  strtolower(substr($value,-2)) ?>"></span><?php echo strtoupper($availableLang) ?></button>
     <?php endforeach ?>
 </div>
 <p><a href="https://www.transifex.com/projects/p/yawik/">
