@@ -75,16 +75,10 @@ class PaginationQuery extends AbstractPaginationQuery
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            if (isset($this->value['by'])) {
-                switch ($this->value['by']) {
-                    case 'me':
-                    default:
-                        $queryBuilder->field('user')->equals($this->user->id);
-                        break;
-                    case 'all':
-                        $queryBuilder->field('permissions.view')->equals($this->user->id);
-                        break;
-                }
+            if (isset($this->value['by']) && 'me' == $this->value['by']) {
+                $queryBuilder->field('user')->equals($this->user->id);
+            }else{
+                $queryBuilder->field('permissions.view')->equals($this->user->id);
             }
             if (isset($this->value['status']) && !empty($this->value['status']) && $this->value['status'] != 'all' && $this->value['status'] != Status::CREATED) {
                 $queryBuilder->field('status.name')->equals((string) $this->value['status']);

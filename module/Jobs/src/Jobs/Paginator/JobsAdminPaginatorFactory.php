@@ -20,7 +20,7 @@ class JobsAdminPaginatorFactory extends PaginatorFactoryAbstract
 {
 
     /**
-     * @return \Core\Paginator\Zend\Filter\FilterInterface|string
+     * @return string
      */
     protected function getFilter()
     {
@@ -28,7 +28,7 @@ class JobsAdminPaginatorFactory extends PaginatorFactoryAbstract
     }
 
     /**
-     * @return \Core\Paginator\Zend\Filter\FilterInterface\Repository|string
+     * @return string
      */
     protected function getRepository()
     {
