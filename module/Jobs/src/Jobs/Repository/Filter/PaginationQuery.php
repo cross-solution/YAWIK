@@ -75,13 +75,18 @@ class PaginationQuery extends AbstractPaginationQuery
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            if (isset($this->value['by']) && 'me' == $this->value['by']) {
+            if (isset($this->value['params']['by']) && 'me' == $this->value['params']['by']) {
                 $queryBuilder->field('user')->equals($this->user->id);
             }else{
                 $queryBuilder->field('permissions.view')->equals($this->user->id);
             }
-            if (isset($this->value['status']) && !empty($this->value['status']) && $this->value['status'] != 'all' && $this->value['status'] != Status::CREATED) {
-                $queryBuilder->field('status.name')->equals((string) $this->value['status']);
+            if (
+                isset($this->value['params']['status']) &&
+                !empty($this->value['params']['status']) &&
+                $this->value['params']['status'] != 'all'
+            )
+            {
+                $queryBuilder->field('status.name')->equals((string) $this->value['params']['status']);
             }
         } else {
             /*
@@ -89,7 +94,7 @@ class PaginationQuery extends AbstractPaginationQuery
              */
             $queryBuilder->field('status.name')->equals(Status::ACTIVE);
         }
-    
+
 
         /*
          * search jobs by keywords
@@ -97,7 +102,7 @@ class PaginationQuery extends AbstractPaginationQuery
         if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
             $search = strtolower($this->value['params']['search']);
             $searchPatterns = array();
-    
+
             foreach (explode(' ', $search) as $searchItem) {
                 $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
             }
@@ -109,10 +114,10 @@ class PaginationQuery extends AbstractPaginationQuery
                 $queryBuilder->sort($this->filterSort($sort));
             }
         }
-    
+
         return $queryBuilder;
     }
-    
+
     protected function filterSort($sort)
     {
         if ('-' == $sort{0}) {
@@ -132,7 +137,7 @@ class PaginationQuery extends AbstractPaginationQuery
             case "cam":
                 $sortProp = "atsEnabled";
                 break;
-    
+
             default:
                 break;
         }
