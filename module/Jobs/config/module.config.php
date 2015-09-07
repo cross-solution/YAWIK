@@ -156,6 +156,7 @@ return array(
                 'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
                 'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
+                'Jobs\Model\ApiJobDehydrator'       => 'Jobs\Model\ApiJobDehydrator',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
@@ -178,12 +179,15 @@ return array(
             'Jobs/Index' => 'Jobs\Controller\IndexController',
             'Jobs/Manage' => 'Jobs\Controller\ManageController',
             'Jobs/Import' => 'Jobs\Controller\ImportController',
-            'Jobs/Console' => 'Jobs\Controller\ConsoleController'
+            'Jobs/Console' => 'Jobs\Controller\ConsoleController',
+            'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
+
         ),
         'factories' => array(
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
             'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
             'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
+            'Jobs/ApiJobListByOrganization' => 'Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory'
         )
     ),
     
