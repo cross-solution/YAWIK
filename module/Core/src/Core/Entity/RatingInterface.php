@@ -7,12 +7,12 @@
  * @license   MIT
  */
 
-/** RatingInterface.php */ 
+/** RatingInterface.php */
 namespace Core\Entity;
 
 /**
  * Base rating entity interface
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 interface RatingInterface extends EntityInterface
@@ -31,9 +31,8 @@ interface RatingInterface extends EntityInterface
     
     /**
      * Calculates the average rating value.
-     * 
+     *
      * @return int
      */
     public function getAverage();
 }
-

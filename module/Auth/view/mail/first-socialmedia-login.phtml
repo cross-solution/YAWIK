@@ -1,13 +1,26 @@
+<?php
+/**
+ * YAWIK
+ *
+ * Template for the mail which is send, if an user has logged in the first time via a
+ * social network (Facebook, LinkedIn, Xing)
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
 <p>Hello <?php echo $this->displayName?>,</p>
 
-
 <p>welcome to the YAWIK demo. You've registered the first time via <?php echo $this->provider?>.</p>
-
 
 <p>Login data were generated, so you can log into YAWIK directly. This should only show you that YAWIK can be used completely
 without social networks.</p>
 
-<p>We've set your role to a recruiter. So you can create jobs and manage applications. You can change your role in your profile.</p>
+<p>
+    We've set your role to a recruiter. So you can create jobs and manage applications.
+    Changing the role is currently only possible directly on the mongo cli.
+</p>
 
 
 <p>Username: <?php echo $this->login ?><br>

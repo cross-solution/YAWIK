@@ -105,9 +105,14 @@
       <fileset refid="tinymce"/>
     </copy>
 
+    <copy file="${project.basedir}/module/Jobs/config/channel.options.local.php.dist" tofile="${builddir}/config/autoload/channel.options.local.php"/>
+
     <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
     <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>
+    <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/js/bootstrap-dialog.min.js"  tofile="${builddir}/public/js/bootstrap-dialog.min.js"/>
+    <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/css/bootstrap-dialog.min.css" tofile="${builddir}/public/css/bootstrap-dialog.min.css"/>
+    
     <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
     <copy file="${vendordir}/ivaynberg/select2/select2.min.js" tofile="${builddir}/public/js/select2.min.js"/>
     <copy file="${vendordir}/ivaynberg/select2/select2.css" tofile="${builddir}/public/css/select2.css"/>
@@ -116,9 +121,6 @@
     <copy file="${vendordir}/ivaynberg/select2/select2-spinner.gif" tofile="${builddir}/public/css/select2-spinner.gif"/>
     <copy file="${vendordir}/ivaynberg/select2/select2x2.png" tofile="${builddir}/public/css/select2x2.png"/>
     <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.js"/>
-    <copy file="${project.basedir}/install.sh" tofile="${builddir}/install.sh"/>
-    <copy file="${project.basedir}/build.xml" tofile="${builddir}/build.xml"/>
-    <copy file="${project.basedir}/build.properties.dist" tofile="${builddir}/build.properties"/>
 
     <mkdir dir="${builddir}/log"/>
     <chmod file="${builddir}/log" mode="0777"/>
@@ -129,13 +131,14 @@
     <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
     <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
     <mkdir dir="${builddir}/config/autoload"/>
-
+    <chmod file="${builddir}/config/autoload" mode="0777"/>
     <echo file="${builddir}/VERSION" append="false">${version}</echo>
 
     <symlink link="build/YAWIK-${version-short}/public/Applications" target="../module/Applications/public" />
     <symlink link="build/YAWIK-${version-short}/public/Auth" target="../module/Auth/public" />
     <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
     <symlink link="build/YAWIK-${version-short}/public/Jobs" target="../module/Jobs/public" />
+    <symlink link="build/YAWIK-${version-short}/public/Organizations" target="../module/Organizations/public" />
 
     <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
       <filterchain>
@@ -156,18 +159,6 @@
   <!-- ============================================  -->
   <target name="generate-autoload-config" depends="load-properties">
     <property name="target" value="config/autoload" override="true"/>
-    <if>
-      <equals arg1="${username}" arg2="" trim="true"/>
-      <then>
-        <input message="Please enter an initial username:" propertyName="username"/>
-      </then>
-    </if>
-    <if>
-      <equals arg1="${password}" arg2="" trim="true"/>
-      <then>
-        <input message="Please enter an initial Password:" propertyName="password"/>
-      </then>
-    </if>
     <if>
       <istrue value="${facebook.enabled}"/>
       <then>
@@ -218,11 +209,6 @@
       <mapper type="regexp" from="^(.*?)/([^/]+\.php)\.dist" to="\2"/>
       <filterchain>
         <replacetokens begintoken="%%" endtoken="%%">
-          <token key="mongo.host" value="${mongo.host}"/>
-          <token key="mongo.db" value="${mongo.db}"/>
-          <token key="mongo.user" value="${mongo.user}"/>
-          <token key="mongo.pass" value="${mongo.pass}"/>
-          <token key="mongo.port" value="${mongo.port}"/>
           <token key="mail.from.name" value="${mail.from.name}"/>
           <token key="mail.from.email" value="${mail.from.email}"/>
           <token key="facebook.appid" value="${facebook.appid}"/>
@@ -241,8 +227,6 @@
           <token key="xing.enabled" value="${xing.enabled}"/>
           <token key="captcha.recapture.public_key" value="${captcha.recapture.public_key}"/>
           <token key="captcha.recapture.private_key" value="${captcha.recapture.private_key}"/>
-          <token key="username" value="${username}"/>
-          <token key="password" value="${password}"/>
           <token key="email" value="${email}"/>
           <token key="role" value="${role}"/>
           <token key="mail.first_login.subject" value="${mail.first_login.subject}"/>
@@ -290,9 +274,9 @@
     <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" overwrite="true"/>
     <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" overwrite="true"/>
     <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" overwrite="true" />
-    <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public"  overwrite="true"/>
     <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" overwrite="true" />
     <symlink link="${project.basedir}/public/Organizations" target="${project.basedir}/module/Organizations/public" overwrite="true" />
+    <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" overwrite="true" />
   </target>
 
   <!-- ============================================  -->
@@ -341,6 +325,7 @@
       <include name="vendor/kriswallsmith/assetic/src/**"/>
       <include name="vendor/ezyang/htmlpurifier/library/**"/>
       <include name="vendor/mikemix/zf2htmlpurifier/src/**"/>
+      <include name="vendor/mpdf/**"/>
       <include name="LICENCE"/>
       <include name="README"/>
       <exclude name="public/js/*"/>
@@ -351,6 +336,9 @@
       <exclude name="public/Auth"/>
       <exclude name="public/Core"/>
       <exclude name="public/Geo"/>
+      <exclude name="module/Geo/public/js/bloodhound.min.js"/>
+      <exclude name="module/Geo/public/js/typeahead.jquery.min.js"/>
+      <exclude name="public/css/bootstrap-dialog.min.css"/>
       <exclude name="public/Jobs"/>
       <exclude name="public/Organizations"/>
       <exclude name="**/*.po"/>

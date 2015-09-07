@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -42,7 +42,7 @@ class MultipostFieldset extends Fieldset
         $this->setName('jobPortals');
 
         $this->add(
-             array(
+            array(
                  'type' => 'Jobs\MultipostingSelect',
                  'property' => true,
                  'name' => 'portals',
@@ -55,10 +55,11 @@ class MultipostFieldset extends Fieldset
 
     public function setObject($object)
     {
-        if ($object instanceOf DraftableEntityInterface && !$object->isDraft())
+        if ($object instanceof DraftableEntityInterface && !$object->isDraft()) {
             foreach ($this as $element) {
                 $element->setAttribute('disabled', 'disabled');
             }
+        }
         return parent::setObject($object);
     }
 }

@@ -68,14 +68,16 @@ class Register extends Form
             }
 
             if (!empty($captcha)) {
-                $this->add(array(
+                $this->add(
+                    array(
                     'name' => 'captcha',
                     'options' => array(
                         'label' => /*@translate*/ 'Are you human?',
                         'captcha' => $captcha,
                     ),
                     'type' => 'Zend\Form\Element\Captcha',
-                ));
+                    )
+                );
             }
         }
 

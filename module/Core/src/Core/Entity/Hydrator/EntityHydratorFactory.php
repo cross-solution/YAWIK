@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -30,11 +30,12 @@ class EntityHydratorFactory implements FactoryInterface
         return $this->hydrator;
     }
 
-    protected function prepareHydrator() {
+    protected function prepareHydrator()
+    {
     }
 
-    protected function getEntityHydrator() {
+    protected function getEntityHydrator()
+    {
         return new EntityHydrator();
     }
-
 }

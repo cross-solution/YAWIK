@@ -16,46 +16,68 @@ $createRadioGroup = function ($element, $id) use ($translate) {
     $input = '';
     ?>
     <div id="params-<?php echo $id ?>-group" class="btn-group btn-group-sm" data-toggle="buttons">
-    <?php foreach ($element->getValueOptions() as $value => $label):
-        $checked = $value == $element->getValue();?>
-        
-        <label class="btn btn-default<?php echo ($checked) ? ' active': ''?>">
-            <input id="params-<?php echo "$id-$value" ?>" type="radio" name="<?php echo $element->getName() ?>" value="<?php echo $value ?>"<?php echo $checked ? ' checked' : ''?>>
-            <?php echo $translate($label) ?>
-        </label>
-        
-        
-    <?php endforeach; ?>
-    
+        <?php foreach ($element->getValueOptions() as $value => $label):
+            $checked = $value == $element->getValue();?>
+
+            <label class="btn btn-default<?php echo ($checked) ? ' active': ''?>">
+                <input id="params-<?php echo "$id-$value" ?>" type="radio" name="<?php echo $element->getName() ?>" value="<?php echo $value ?>"<?php echo $checked ? ' checked' : ''?>>
+                <?php echo $translate($label) ?>
+            </label>
+
+
+        <?php endforeach; ?>
+
     </div>
     <?php //return $input;
 };
 
-$form   = $this->element;
-$params = $this->element->get('params'); 
+$form       = $this->element;
+$params     = $this->element->get('params');
+$options    = $form->getOptions();
+$action     = $form->getAttribute('action');
+if (empty($action)) {
+    $action = $this->url('lang/jobs', array(), true);
+}
 $form->setAttributes(array(
-    'action' => $this->url('lang/jobs', array(), true),
-    'method' => 'GET',
-));
+                         'action' => $action,
+                         'method' => 'GET',
+                         'class' => 'form-inline'
+                     ));
+
+#echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
+
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($params->get('page'));
 
 $byElement = $params->get('by');
 $statusElement = $params->get('status');
+
 ?>
-<div id="params-search-wrapper" class="input-group">
-    <span class="input-group-addon">?</span>
-    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for jobs' ))) ?>
-    <span class="input-group-btn">
-        <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
-    </span>
+<div id="params-search-wrapper">
+    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for position or company' ))) ?>
+
+    <?php
+
+    echo $this->partial("geo/form/GeoHorizontal", array('element' => $params->get('l')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for a location' )))) ?>
+
+    <?php echo $this->formSelect($params->get('d')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for a location' ))) ?>
+
+    <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
 </div>
-<?php if ($params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER )):?>
-<div class="btn-toolbar pull-right">
-  <?php $createRadioGroup($params->get('by'), 'by') ?>
-  <?php $createRadioGroup($params->get('status'), 'status') ?>
-</div>
-<?php endif; ?>
+<?php
+$showButtons = $params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
+if (array_key_exists('showButtons', $options)) {
+    $showButtons = $options['showButtons'];
+}
+if ($showButtons):
+    ?>
+    <div class="btn-toolbar pull-right">
+        <?php $createRadioGroup($params->get('by'), 'by') ?>
+        <?php $createRadioGroup($params->get('status'), 'status') ?>
+    </div>
+<?php
+endif;
+?>
 
 <?php echo $this->form()->closeTag(); ?>

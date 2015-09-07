@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -35,7 +35,7 @@ class PreviewFieldset extends Fieldset
         $this->setAttribute('id', 'jobpreview-fieldset');
 
         $this->add(
-             array(
+            array(
             'type' => 'infocheckbox',
             'name' => 'termsAccepted',
             'options' => array(
@@ -50,15 +50,17 @@ class PreviewFieldset extends Fieldset
             'attributes' => array(
                 'data-trigger' => 'submit',
             ),
-        ));
+            )
+        );
 
     }
 
     public function setObject($object)
     {
-        if ($object instanceOf DraftableEntityInterface && !$object->isDraft())
-        foreach ($this as $element) {
-            $element->setAttribute('disabled', 'disabled');
+        if ($object instanceof DraftableEntityInterface && !$object->isDraft()) {
+            foreach ($this as $element) {
+                $element->setAttribute('disabled', 'disabled');
+            }
         }
         return parent::setObject($object);
     }

@@ -33,12 +33,13 @@ class ApplicationAccessAssertion implements AssertionInterface
      *
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
      */
-    public function assert(Acl $acl, 
-                           RoleInterface $role = null, 
-                           ResourceInterface $resource = null, 
-                           $privilege = null) 
-    {
-        if (!$role instanceOf UserInterface || !$resource instanceOf ApplicationInterface) {
+    public function assert(
+        Acl $acl,
+        RoleInterface $role = null,
+        ResourceInterface $resource = null,
+        $privilege = null
+    ) {
+        if (!$role instanceof UserInterface || !$resource instanceof ApplicationInterface) {
             return false;
         }
         /* @var $resource ApplicationInterface */
@@ -46,5 +47,4 @@ class ApplicationAccessAssertion implements AssertionInterface
         $permission = 'read' == $privilege ? PermissionsInterface::PERMISSION_VIEW : PermissionsInterface::PERMISSION_CHANGE;
         return $resource->getPermissions()->isGranted($role, $permission);
     }
-
 }

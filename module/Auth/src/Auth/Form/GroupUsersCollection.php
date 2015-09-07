@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UsersCollection.php */ 
+/** UsersCollection.php */
 namespace Auth\Form;
 
 use Zend\Form\Element\Collection;
@@ -17,16 +17,17 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Collection to manage the users assigned to an user group.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class GroupUsersCollection extends Collection implements ViewPartialProviderInterface,
-                                                         InputFilterProviderInterface
+class GroupUsersCollection extends Collection implements
+    ViewPartialProviderInterface,
+    InputFilterProviderInterface
 {
     
     /**
      * Flag wether users are assigned or not upon validation.
-     * 
+     *
      * @var bool
      */
     protected $errorNoUsers = false;
@@ -59,7 +60,7 @@ class GroupUsersCollection extends Collection implements ViewPartialProviderInte
     
     /**
      * Sets the Flag wether no users are assigned to this group or not.
-     * 
+     *
      * @return \Auth\Form\GroupUsersCollection
      */
     public function setNoUsersError()
@@ -70,7 +71,7 @@ class GroupUsersCollection extends Collection implements ViewPartialProviderInte
     
     /**
      * Returns true, if no users are assigned.
-     * 
+     *
      * @return boolean
      */
     public function isNoUsersError()
@@ -89,10 +90,12 @@ class GroupUsersCollection extends Collection implements ViewPartialProviderInte
         $this->setAttribute('id', 'users');
         
         
-        $this->setTargetElement(array(
+        $this->setTargetElement(
+            array(
             'type' => 'hidden',
             'name' => 'user',
-        ));
+            )
+        );
         
         $this->setCount(0)
              ->setAllowRemove(true)
@@ -131,4 +134,3 @@ class GroupUsersCollection extends Collection implements ViewPartialProviderInte
         return $spec;
     }
 }
-

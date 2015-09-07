@@ -2,9 +2,6 @@
 //: ./view/form/list-filter.phtml:49
 translate('search for jobs');
 
-//: ./view/jobs/manage/approval.phtml:5
-translate('free');
-
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:43
 translate('Job qualification');
 
@@ -26,7 +23,7 @@ translate('terms an conditions');
 //: ./src/Jobs/Form/Base.php:22
 translate('Title and job location');
 
-//: ./src/Jobs/Form/CompanyName.php:37
+//: ./src/Jobs/Form/CompanyName.php:38
 translate('Companyname');
 
 //: ./src/Jobs/Form/Job.php:40
@@ -101,7 +98,10 @@ translate('Location');
 //: ./src/Jobs/Form/BaseFieldset.php:56
 translate('Please enter the location of the job');
 
-//: ./src/Jobs/Form/Multipost.php:21
+//: ./src/Jobs/Form/MultipostFieldset.php:50
+translate('Portals');
+
+//: ./src/Jobs/Form/Multipost.php:32
 translate('Multiposting');
 
 //: ./src/Jobs/Entity/StatusInterface.php:34
@@ -119,13 +119,13 @@ translate('inactive');
 //: ./src/Jobs/Entity/StatusInterface.php:54
 translate('expired');
 
-//: ./src/Jobs/Controller/ManageController.php:385
+//: ./src/Jobs/Controller/ManageController.php:429
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:393
+//: ./src/Jobs/Controller/ManageController.php:437
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:427
+//: ./src/Jobs/Controller/ManageController.php:476
 translate('Job was deactivated by %s');
 
 //: ./src/Jobs/Listener/MailSender.php:87
@@ -149,42 +149,44 @@ translate('publish the job for 30 days on %s');
 //: ./config/channel.options.local.php.dist:17
 translate('yawik.org');
 
-//: ./config/channel.options.local.php.dist:29
+//: ./config/channel.options.local.php.dist:27
 translate('publish your job on Jobsintown. 199,-€');
 
-//: ./config/channel.options.local.php.dist:30
+//: ./config/channel.options.local.php.dist:28
 translate('publish the job for 30 days on %s');
 
-//: ./config/channel.options.local.php.dist:31
+//: ./config/channel.options.local.php.dist:29
 translate('www.jobsintown.de');
 
-//: ./config/channel.options.local.php.dist:39
+//: ./config/channel.options.local.php.dist:37
 translate('Your Homepage');
 
-//: ./config/channel.options.local.php.dist:40
+//: ./config/channel.options.local.php.dist:38
 translate('enable integration of this job on your Homepage');
 
-//: ./config/channel.options.local.php.dist:41
+//: ./config/channel.options.local.php.dist:39
 translate('enable %s of this job on your Homepage');
 
-//: ./config/channel.options.local.php.dist:42
+//: ./config/channel.options.local.php.dist:40
 translate('integration');
 
-//: ./config/module.config.php:112
-translate('Jobboard');
-
 //: ./config/module.config.php:118
-translate('Jobs');
+translate('Jobboard');
 
 //: ./config/module.config.php:124
+translate('Jobs');
+
+//: ./config/module.config.php:130
 translate('Overview');
 
-//: ./config/module.config.php:128
+//: ./config/module.config.php:135
+translate('Pending jobs');
+
+//: ./config/module.config.php:142
 translate('Create job');
 
-//: ./config/module.config.php:137
+//: ./config/module.config.php:151
 translate('Edit job');
 
-//: ./config/module.config.php:144
+//: ./config/module.config.php:158
 translate('Jobboard');
-

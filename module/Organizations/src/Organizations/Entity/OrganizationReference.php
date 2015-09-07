@@ -26,8 +26,9 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class OrganizationReference implements OrganizationInterface,
-                                       OrganizationReferenceInterface
+class OrganizationReference implements
+    OrganizationInterface,
+    OrganizationReferenceInterface
 {
     /*
      * Note: We start property names with an underscore to prevent
@@ -110,7 +111,9 @@ class OrganizationReference implements OrganizationInterface,
      */
     protected function load()
     {
-        if (null !== $this->_type) { return; }
+        if (null !== $this->_type) {
+            return;
+        }
 
         // Is the user the owner of the referenced organization?
         $org = $this->_repository->findByUser($this->_userId);
@@ -289,6 +292,11 @@ class OrganizationReference implements OrganizationInterface,
     public function getEmployees()
     {
         return $this->proxy('getEmployees');
+    }
+
+    public function getEmployee($userOrId)
+    {
+        return $this->proxy('getEmployee', $userOrId);
     }
 
     public function getUser()

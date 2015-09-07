@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Core forms */ 
+/** Core forms */
 namespace Core\Form;
 
 use Zend\Form\Element;
@@ -19,18 +19,21 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Manages a group of formulars.
- * 
+ *
  * The container is responsible for creating, populating and binding the formulars from or to
  * the corresponding entities.
- * 
+ *
  * Formulars are lazy loaded. So it is possible to only retrieve one formular from the container
  * for asynchronous saving using ajax calls.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Container extends Element implements DisableElementsCapableInterface, ServiceLocatorAwareInterface, FormParentInterface,
-                                           \IteratorAggregate,
-                                           \Countable
+class Container extends Element implements
+    DisableElementsCapableInterface,
+    ServiceLocatorAwareInterface,
+    FormParentInterface,
+    \IteratorAggregate,
+    \Countable
 {
     /**
      * Available/Loaded forms or specification.
@@ -40,7 +43,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Active formulars keys.
-     * 
+     *
      * Formulars which key is herein are included in the iterator.
      * @see getIterator()
      * @var array
@@ -55,14 +58,14 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Entity to bind to the formulars.
-     * 
+     *
      * @var \Core\Entity\EntityInterface
      */
     protected $entity;
     
     /**
      * Parameters to pass to the formulars.
-     * 
+     *
      * @var array
      */
     protected $params = array();
@@ -87,23 +90,26 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Gets an iterator to iterate over the enabled formulars.
-     * 
+     *
      * @return \ArrayIterator
      * @see IteratorAggregate::getIterator()
      */
     public function getIterator()
     {
         $self = $this;
-        $forms = array_map(function($key) use ($self) {
-            return $self->getForm($key);
-        }, $this->activeForms);
+        $forms = array_map(
+            function ($key) use ($self) {
+                return $self->getForm($key);
+            },
+            $this->activeForms
+        );
         
         return new \ArrayIterator($forms);
     }
     
     /**
      * Gets the count of enabled formulars
-     * 
+     *
      * @return int
      * @see Countable::count()
      */
@@ -141,7 +147,6 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     public function disableElements(array $map)
     {
         foreach ($map as $key => $name) {
-
             if (is_numeric($key)) {
                 if (isset($this->forms[$name])) {
                     $form = $this->getForm($name);
@@ -159,7 +164,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
             if (isset($this->forms[$key]['__instance__'])) {
                 $form = $this->forms[$key]['__instance__'];
 
-                if ($form instanceOf DisableElementsCapableInterface
+                if ($form instanceof DisableElementsCapableInterface
                     && $form->isDisableElementsCapable()
                 ) {
                     $form->disableElements($name);
@@ -171,7 +176,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
 
     /**
      * Sets formular parameters.
-     * 
+     *
      * @param array $params
      * @return \Core\Form\Container
      */
@@ -192,7 +197,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Gets the formular parameters.
-     * 
+     *
      * @return array:
      */
     public function getParams()
@@ -202,7 +207,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Sets a formular parameter.
-     * 
+     *
      * @param string $key
      * @param mixed $value
      * @return \Core\Form\Container
@@ -224,10 +229,10 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Gets the value of a formular parameter.
-     * 
+     *
      * Returns the provided <b>$default</b> value or null, if parameter does
      * not  exist.
-     * 
+     *
      * @param string $key
      * @param mixed $default
      * @return mixed
@@ -239,10 +244,10 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Gets a specific formular.
-     * 
+     *
      * This formular will be created upon the first retrievement.
      * If created, the formular gets passed the formular parameters set in this container.
-     * 
+     *
      * @param string $key
      * @return null|\Core\Form\Container|\Zend\Form\FormInterface
      */
@@ -261,7 +266,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         $form = $this->forms[$key];
         if (isset($form['__instance__']) && is_object($form['__instance__'])) {
             return $form['__instance__'];
-        } 
+        }
 
         $options = isset($form['options']) ? $form['options'] : array();
         if (!isset($options['use_post_array'])) {
@@ -292,7 +297,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         }
 
         if (isset($form['disable_elements'])
-            && $formInstance instanceOf DisableElementsCapableInterface
+            && $formInstance instanceof DisableElementsCapableInterface
             && $formInstance->isDisableElementsCapable()
         ) {
             $formInstance->disableElements($form['disable_elements']);
@@ -330,12 +335,12 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         }
         
         $this->forms[$key] = $spec;
-        if ($spec instanceOf FormParentInterface) {
+        if ($spec instanceof FormParentInterface) {
             $spec->setParent($this);
         }
         if ($enabled) {
             $this->enableForm($key);
-        } else if (true === $this->activeForms) {
+        } elseif (true === $this->activeForms) {
             $this->activeForms = false;
         }
         return $this;
@@ -343,16 +348,16 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Sets formulars or specifications.
-     * 
+     *
      * <b>$forms</b> must be in the format:
      * <pre>
      *    'name' => [spec]
      * </pre>
-     * 
+     *
      * <b>$spec</b> must be compatible with {@link setForm}.
-     * Additionally you can include a key 'enabled' in the spec, which will override 
+     * Additionally you can include a key 'enabled' in the spec, which will override
      * <b>$enabled</b> only for the current formular.
-     * 
+     *
      * @param array $forms
      * @param boolean $enabled
      * @return \Core\Form\Container
@@ -373,11 +378,11 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Enables a formular.
-     * 
+     *
      * Enabled formulars are included in the {@link getIterator()}
-     * 
+     *
      * Traverses in child containers through .dot-Notation.
-     * 
+     *
      * @param string $key
      * @return \Core\Form\Container
      */
@@ -386,7 +391,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         if (null === $key) {
             $this->activeForms = array_keys($this->forms);
             return $this;
-        } 
+        }
         
         if (!is_array($key)) {
             $key = array($key);
@@ -420,7 +425,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         if (null === $key) {
             $this->activeForms = array();
             return $this;
-        } 
+        }
         
         if (!is_array($key)) {
             $key = array($key);
@@ -431,20 +436,23 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
                 list($childKey, $childForm) = explode('.', $k, 2);
                 $child = $this->getForm($childKey);
                 $child->disableForm($childForm);
-            } else if (isset($this->forms[$k]['__instance__'])) {
+            } elseif (isset($this->forms[$k]['__instance__'])) {
                 unset($this->forms[$k]['__instance__']);
             }
         }
-        $this->activeForms = array_filter($this->activeForms, function ($item) use ($key) {
-            return !in_array($item, $key);
-        });
+        $this->activeForms = array_filter(
+            $this->activeForms,
+            function ($item) use ($key) {
+                return !in_array($item, $key);
+            }
+        );
         
         return $this;
     }
     
     /**
      * Sets the entity for formular binding.
-     * 
+     *
      * @param EntityInterface $entity
      * @return self
      */
@@ -462,7 +470,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Gets the entity.
-     * 
+     *
      * @return \Core\Entity\EntityInterface
      */
     public function getEntity()
@@ -472,7 +480,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
     
     /**
      * Maps entity property to forms or child containers.
-     * 
+     *
      * @param \Zend\Form\FormInterface $form
      * @param string $key
      * @param \Core\Entity\EntityInterface $entity
@@ -483,13 +491,13 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         
         if (true === $key) {
             $mapEntity = $entity;
-        } else if (isset($entity->$key)) {
+        } elseif (isset($entity->$key)) {
             $mapEntity = $entity->$key;
         } else {
             return;
         }
         
-        if ($form instanceOf Container) {
+        if ($form instanceof Container) {
             $form->setEntity($mapEntity);
         } else {
             $form->bind($mapEntity);
@@ -502,7 +510,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
      */
     public function isValid()
     {
-        $isValid = True;
+        $isValid = true;
         foreach ($this->activeForms as $activeFormKey) {
             $activeForm = $this->getForm($activeFormKey);
             $isValid &= $activeForm->isValid();
@@ -520,9 +528,10 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
      * @param $key string
      * @return null|\Zend\Form\ElementInterface
      */
-    public function get($key) {
-        $return   = Null;
-        $lastKey  = Null;
+    public function get($key)
+    {
+        $return   = null;
+        $lastKey  = null;
         $searchIn = $this->activeForms;
         $keySplit = explode('.', $key);
 
@@ -544,8 +553,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
                 // has reached a fieldset to search in
                 $return = $searchIn->get($lastKey);
                 unset($lastKey);
-            }
-            else if (is_array($searchIn) || $searchIn instanceof Traversable) {
+            } elseif (is_array($searchIn) || $searchIn instanceof Traversable) {
                 // is probably still in the container
                 foreach ($searchIn as $activeKey) {
                     $activeForm = $this->getForm($activeKey);
@@ -561,7 +569,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         return $return;
     }
 
-    public function setData($data) {
+    public function setData($data)
+    {
         $filteredData = array();
         foreach ($data as $key => $elem) {
             if (!array_key_exists($key, $this->params) && $key != 'formName') {
@@ -572,8 +581,7 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
                 foreach ($this->activeForms as $activeFormKey) {
                     if ($activeFormKey == $elem) {
                         $this->enableForm($activeFormKey);
-                    }
-                    else {
+                    } else {
                         $this->disableForm($activeFormKey);
                     }
                 }
@@ -603,11 +611,13 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         return isset($this->parent);
     }
 
-    public function renderPre(Renderer $renderer) {
+    public function renderPre(Renderer $renderer)
+    {
         return '';
     }
 
-    public function renderPost(Renderer $renderer) {
+    public function renderPost(Renderer $renderer)
+    {
         return '';
     }
 
@@ -616,7 +626,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
      * @param bool $setDefault
      * @return mixed|null
      */
-    public function getActiveFormActual($setDefault = True) {
+    public function getActiveFormActual($setDefault = true)
+    {
         $key = null;
         if (!empty($this->activeForms)) {
             $key = $this->activeForms[0];
@@ -632,7 +643,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
      * get the form before the actual active
      * @return null
      */
-    public function getActiveFormPrevious() {
+    public function getActiveFormPrevious()
+    {
         $key = null;
         $actualKey = $this->getActiveFormActual();
         if (isset($actualKey)) {
@@ -651,7 +663,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
      * get the form after the actual active
      * @return null
      */
-    public function getActiveFormNext() {
+    public function getActiveFormNext()
+    {
         $key = null;
         $actualKey = $this->getActiveFormActual();
         if (isset($actualKey)) {
@@ -665,7 +678,8 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         return $key;
     }
 
-    public function getActionFor($key) {
+    public function getActionFor($key)
+    {
         $form               = $this->forms[$key];
         $options            = isset($form['options']) ? $form['options'] : array();
         $formElementManager = $this->formElementManager;
@@ -683,5 +697,4 @@ class Container extends Element implements DisableElementsCapableInterface, Serv
         return $action;
 
     }
-
 }

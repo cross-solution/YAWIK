@@ -13,7 +13,7 @@ use Core\Entity\EntityInterface;
 
 interface SkillInterface extends EntityInterface
 {
-	/*
+    /*
 	 * name of the language de,en,fr
 	 */
     public function setNativeLanguages($nativeLanguages);
@@ -30,6 +30,4 @@ interface SkillInterface extends EntityInterface
      */
     public function setComputerSkills($computerSkills);
     public function getComputerSkills();
-    
-    
 }

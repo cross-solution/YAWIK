@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -9,6 +9,7 @@
  */
 
 namespace Jobs\View\Helper;
+
 use Zend\View\Helper\AbstractHelper;
 use Jobs\Entity\Job;
 
@@ -54,7 +55,9 @@ class ApplyUrl extends AbstractHelper
     {
         $ats = $jobEntity->getAtsMode();
 
-        if ($ats->isDisabled()) { return ''; }
+        if ($ats->isDisabled()) {
+            return '';
+        }
 
         if ($ats->isIntern() || $ats->isEmail()) {
             $urlHelper = $this->urlHelper;

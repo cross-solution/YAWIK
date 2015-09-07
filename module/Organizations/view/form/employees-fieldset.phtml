@@ -36,7 +36,9 @@ if ($this->renderSummary):
             $info = $user->getInfo();
             $perms = $employee->getPermissions()?>
         <tr>
-            <td><?php echo $info->getDisplayName() ?><br><?php echo $info->getEmail() ?></td>
+            <td><?php $name = $info->getDisplayName(false); if ($name): echo $name ?><br><?php endif; echo $info->getEmail() ?>
+            <?php if ($employee->isPending()): ?><br><span class="label label-warning"><?php echo $this->translate('pending') ?></span>
+            <?php endif; ?></td>
             <td>
                 <?php echo $perms->isAllowed(Perms::JOBS_VIEW) ? 'X' : 'O' ?> </td><td>
                 <?php echo $perms->isAllowed(Perms::JOBS_CHANGE) ? 'X' : 'O' ?> </td><td>

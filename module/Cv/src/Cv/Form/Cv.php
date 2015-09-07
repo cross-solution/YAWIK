@@ -28,17 +28,21 @@ class Cv extends Form
         $this->setAttribute('id', 'cv-create');
  
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'CvFieldset',
             'name' => 'cv',
             'options' => array(
                 'use_as_base_fieldset' => true
             ),
-        ));       
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'DefaultButtonsFieldset'
-        ));
+            )
+        );
 
     }
 }

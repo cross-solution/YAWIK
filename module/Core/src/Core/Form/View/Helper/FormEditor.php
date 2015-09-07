@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -10,13 +10,13 @@
 
 namespace Core\Form\View\Helper;
 
-use Zend\Form\View\Helper\FormTextarea;
 use Zend\Form\ElementInterface;
-
+use Zend\Form\View\Helper\FormTextarea;
 
 class FormEditor extends FormTextarea
 {
     protected $theme = 'modern';
+
 
     protected $translator;
 
@@ -24,10 +24,12 @@ class FormEditor extends FormTextarea
     {
         $name   = $element->getName();
         if (empty($name) && $name !== 0) {
-            throw new \DomainException(sprintf(
-                '%s requires that the element has an assigned name; none discovered',
-                __METHOD__
-            ));
+            throw new \DomainException(
+                sprintf(
+                    '%s requires that the element has an assigned name; none discovered',
+                    __METHOD__
+                )
+            );
         }
 
         $renderer = $this->getView();
@@ -39,22 +41,23 @@ class FormEditor extends FormTextarea
         $headscript->prependFile($basepath('js/jquery.min.js'));
         //
         // mode : "textareas",
-        $headscript->offsetSetScript('1000_tinymce_' . $this->getTheme() , '
+        $headscript->offsetSetScript(
+            '1000_tinymce_' . $this->getTheme(),
+            '
         $(document).ready(function() {
             tinyMCE.init({
                 selector : "div.tinymce_' . $this->getTheme() . '",
                 inline : true,
                 theme : "modern",
-                placeholder: "crumber23",
                 plugins: [
                     "advlist autolink lists charmap anchor",
                     "searchreplace visualblocks code fullscreen",
-                    "contextmenu paste"
+                    "contextmenu paste textcolor"
                 ],
+                //toolbar1: "forecolor",
                 removed_menuitems: "newdocument",' . PHP_EOL
-                . $this->additionalOptions() .
-
-                'setup: function(editor) {
+            . $this->additionalOptions() .
+            'setup: function(editor) {
                     setPlaceHolder = function(editor, show) {
                         placeHolder = $("#placeholder-" + editor.id);
                         if (placeHolder.length == 1) {
@@ -88,7 +91,8 @@ class FormEditor extends FormTextarea
                 }
             });
         });
-        ');
+        '
+        );
 
         $attributes         = $element->getAttributes();
         $attributes['name'] = $name;
@@ -101,21 +105,21 @@ class FormEditor extends FormTextarea
             // content is should be in an ordinary textarea
             $escapeHtml         = $this->getEscapeHtmlHelper();
 
-            $class = array_key_exists('class',$attributes)?$attributes['class']:'';
-            $class .= (empty($class)?:' ') . ' tinymce_' . $this->getTheme() ;
+            $class = array_key_exists('class', $attributes)?$attributes['class']:'';
+            $class .= (empty($class)?:' ') . ' tinymce_' . $this->getTheme();
             $attributes['class'] = $class;
             $placeHolder = '';
             $elementOptions = $element->getOptions();
             if (array_key_exists('placeholder', $elementOptions) && !empty($elementOptions['placeholder'])) {
-                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 2ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $elementOptions['placeholder'] . '</div>';
+                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 0ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $this->translator->translate($elementOptions['placeholder']) . '</div>';
             }
             return
                 $placeHolder
                 . sprintf(
-                '<div %s >%s</div>',
-                $this->createAttributesString($attributes),
-                $content
-            );
+                    '<div %s >%s</div>',
+                    $this->createAttributesString($attributes),
+                    $content
+                );
 
             return sprintf(
                 '<textarea %s>%s</textarea>',
@@ -123,16 +127,17 @@ class FormEditor extends FormTextarea
                 $escapeHtml($content)
             );
         } else {
-
             return (string) $content;
         }
     }
 
-    protected function getTheme() {
+    protected function getTheme()
+    {
         return $this->theme;
     }
 
-    protected function additionalOptions() {
+    protected function additionalOptions()
+    {
         return '';
     }
 }

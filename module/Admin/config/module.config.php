@@ -2,7 +2,7 @@
 /**
  * YAWIK
  * Configuration file of the Auth module
- * 
+ *
  * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
@@ -81,7 +81,7 @@ return array(
                 'route' => 'lang/admin',
                 'order' => 1000,
                 'resource' => 'route/lang/admin',
-
+                'visible' => false,
                 'pages' => array(
                     'list' => array(
                         'label' => /*@translate*/ 'Global Settings',

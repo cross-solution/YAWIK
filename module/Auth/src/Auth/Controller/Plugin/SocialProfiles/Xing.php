@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Facebook.php */ 
+/** Facebook.php */
 namespace Auth\Controller\Plugin\SocialProfiles;
 
 class Xing extends AbstractAdapter
@@ -22,4 +22,3 @@ class Xing extends AbstractAdapter
                : false;
     }
 }
-

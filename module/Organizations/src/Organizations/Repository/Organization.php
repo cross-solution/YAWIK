@@ -10,6 +10,7 @@ namespace Organizations\Repository;
 
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
+use Organizations\Entity\EmployeeInterface;
 use Organizations\Entity\OrganizationInterface;
 
 /**
@@ -22,7 +23,7 @@ class Organization extends AbstractRepository
 {
     /**
      * Gets a cursor to a set of organizations
-     * 
+     *
      * @param array $params
      */
     public function getPaginatorCursor($params)
@@ -68,12 +69,13 @@ class Organization extends AbstractRepository
 
     /**
      * Find a organizations by an name
-     * 
+     *
      * @param String $name
      * @param boolean $create
      * @return array
      */
-    public function findByName($name, $create = true) {
+    public function findByName($name, $create = true)
+    {
         $query = $this->dm->createQueryBuilder('Organizations\Entity\OrganizationName')->hydrate(false)->field('name')->equals($name)->select("_id");
         $result = $query->getQuery()->execute()->toArray(false);
         if (empty($result) && $create) {
@@ -84,15 +86,15 @@ class Organization extends AbstractRepository
             $entity->setOrganizationName($entityName);
             $this->store($entity);
             $organizations = array($entity);
-        }
-        else {
+        } else {
             $idName = $result[0]['_id'];
             $organizations = $this->findBy(array('organizationName' => $idName));
         }
         return $organizations;
     }
     
-    public function findbyRef($ref, $create = true) {
+    public function findbyRef($ref, $create = true)
+    {
         $entity = $this->findOneBy(array('externalId' => $ref));
         if (empty($entity)) {
             $entity = $this->create();
@@ -110,7 +112,7 @@ class Organization extends AbstractRepository
      */
     public function findByUser($userOrId)
     {
-        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+        $userId = $userOrId instanceof \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
         $qb     = $this->createQueryBuilder();
 
         /*
@@ -126,9 +128,10 @@ class Organization extends AbstractRepository
 //           )
 //        );
         $qb->addAnd($qb->expr()->field('user')->equals($userId))
-           ->addAnd($qb->expr()->addOr($qb->expr()->field('parent')->exists(false))
+           ->addAnd(
+               $qb->expr()->addOr($qb->expr()->field('parent')->exists(false))
                                ->addOr($qb->expr()->field('parent')->equals(null))
-            );
+           );
 
         $q      = $qb->getQuery();
         $entity = $q->getSingleResult();
@@ -145,15 +148,36 @@ class Organization extends AbstractRepository
      */
     public function findByEmployee($userOrId)
     {
-        $userId = $userOrId instanceOf \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+        $userId = $userOrId instanceof \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
 
         /*
          * Employees collection is only set on main organization,
          * so here, we do not have to query the "parent" field.
+         *
+         * Only search for "assigned" employees.
          */
-        $entity = $this->findOneBy(array('employees.user' => new \MongoId($userId)));
+        $entity = $this->findOneBy(
+            array(
+            'employees.user' => new \MongoId($userId),
+            'employees.status' => EmployeeInterface::STATUS_ASSIGNED
+            )
+        );
 
         return $entity;
+    }
+
+    public function findPendingOrganizationsByEmployee($userOrId)
+    {
+        $userId = $userOrId instanceof \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        $collection = $this->findBy(
+            array(
+            'employees.user' => new \MongoId($userId),
+            'employees.status' => EmployeeInterface::STATUS_PENDING
+            )
+        );
+
+        return $collection;
     }
 
     public function getEmployersCursor(UserInterface $user)
@@ -167,9 +191,10 @@ class Organization extends AbstractRepository
         return $c;
     }
 
-    public function create(array $data=null) {
+    public function create(array $data = null)
+    {
         $entity = parent::create($data);
-        $entity->isDraft(True);
+        $entity->isDraft(true);
         return $entity;
     }
 
@@ -178,7 +203,8 @@ class Organization extends AbstractRepository
      * also creates a new Name, but link this Name to another OrganizationName-Link, if this Name already exists
      * @param $name
      */
-    public function createWithName($name) {
+    public function createWithName($name)
+    {
         $entity = parent::create();
         $repositoryNames = $this->dm->getRepository('Organizations\Entity\OrganizationName');
         $entityName = $repositoryNames->create();
@@ -205,7 +231,7 @@ class Organization extends AbstractRepository
 
         $organizationNameResults = $organizationNameQb->getQuery()->execute();
 
-        foreach($organizationNameResults as $id => $item) {
+        foreach ($organizationNameResults as $id => $item) {
             $organizationNames[$id] = $item;
         }
 
@@ -217,7 +243,8 @@ class Organization extends AbstractRepository
         $qb->hydrate(false)
             ->select(array('contact.city', 'contact.street', 'contact.houseNumber', 'organizationName'))
             ->limit(5)
-            ->addAnd($qb->expr()->field('permissions.view')->equals($user->getId())
+            ->addAnd(
+                $qb->expr()->field('permissions.view')->equals($user->getId())
                                 ->field('organizationName')->in(array_keys($organizationNames))
             );
 
@@ -231,7 +258,7 @@ class Organization extends AbstractRepository
 
         $result = $qb->getQuery()->execute();
 
-        foreach($result as $id => $item) {
+        foreach ($result as $id => $item) {
             $organizations[$id] = $item;
             $organizationNameId = (string)$organizations[$id]['organizationName'];
             $organizations[$id]['organizationName'] = $organizationNames[$organizationNameId];
@@ -248,14 +275,16 @@ class Organization extends AbstractRepository
      */
     public function findDraft($user)
     {
-        if ($user instanceOf UserInterface) {
+        if ($user instanceof UserInterface) {
             $user = $user->getId();
         }
 
-        $document = $this->findOneBy(array(
+        $document = $this->findOneBy(
+            array(
             'isDraft' => true,
             'user' => $user
-        ));
+            )
+        );
 
         if (!empty($document)) {
             return $document;

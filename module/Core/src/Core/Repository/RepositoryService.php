@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** RepositoryService.php */ 
+/** RepositoryService.php */
 namespace Core\Repository;
 
 use Core\Repository\DoctrineMongoODM\Event\EventArgs;
@@ -36,7 +36,7 @@ class RepositoryService
         $entityName  = $nameParts[1];
         $entityClass = "\\$namespace\\Entity\\$entityName";
         
-        $repository  = $this->dm->getRepository($entityClass); 
+        $repository  = $this->dm->getRepository($entityClass);
         return $repository;
     }
     
@@ -48,13 +48,13 @@ class RepositoryService
     public function store(EntityInterface $entity)
     {
         $this->dm->persist($entity);
-        $this->dm->flush();
+        $this->dm->flush($entity);
         return $this;
     }
 
     public function flush($entity = null, array $options = array())
     {
-        $this->dm->flush();
+        $this->dm->flush($entity);
 
         $events = $this->dm->getEventManager();
         $events->hasListeners('postCommit')
@@ -68,7 +68,7 @@ class RepositoryService
         
         $dm->remove($entity);
         
-        $events->hasListeners('postRemoveEntity') 
+        $events->hasListeners('postRemoveEntity')
         && $events->dispatchEvent('postRemoveEntity', new LifecycleEventArgs($entity, $dm));
 
         $dm->flush();
@@ -89,7 +89,4 @@ class RepositoryService
             return call_user_func_array($callback, $params);
         }
     }
-    
-    
 }
-

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** History.php */ 
+/** History.php */
 namespace Applications\Entity;
 
 use Core\Entity\AbstractEntity;
@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * History of an application. Holds status changes of an application
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class History extends AbstractEntity implements HistoryInterface
@@ -27,7 +27,7 @@ class History extends AbstractEntity implements HistoryInterface
     
     /**
      * Status of an application.
-     * 
+     *
      * @var StatusInterface
      * @ODM\EmbedOne(targetDocument="status")
      */
@@ -36,14 +36,14 @@ class History extends AbstractEntity implements HistoryInterface
     /**
      * optional message, which can attached to a status change
      * @var String
-     * 
+     *
      * @ODM\String
      */
     protected $message;
     
-    public function __construct($status, $message='[System]')
+    public function __construct($status, $message = '[System]')
     {
-        if (!$status instanceOf StatusInterface) {
+        if (!$status instanceof StatusInterface) {
             $status = new Status($status);
         }
         $this->setStatus($status);
@@ -58,10 +58,10 @@ class History extends AbstractEntity implements HistoryInterface
         }
     }
     
-	/**
+    /**
      * @return $date
      */
-    public function getDate ()
+    public function getDate()
     {
         return $this->date;
     }
@@ -70,44 +70,43 @@ class History extends AbstractEntity implements HistoryInterface
      * @param \DateTime $date
      * @return $this
      */
-    public function setDate (\DateTime $date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
         return $this;
     }
 
-	/**
+    /**
      * @return StatusInterface $status
      */
-    public function getStatus ()
+    public function getStatus()
     {
         return $this->status;
     }
 
-	/**
+    /**
      * @param StatusInterface $status
      */
-    public function setStatus (StatusInterface $status)
+    public function setStatus(StatusInterface $status)
     {
         $this->status = $status;
         return $this;
     }
 
-	/**
+    /**
      * @return String $message
      */
-    public function getMessage ()
+    public function getMessage()
     {
         return $this->message;
     }
 
-	/**
+    /**
      * @param String $message
      */
-    public function setMessage ($message)
+    public function setMessage($message)
     {
         $this->message = $message;
         return $this;
     }
 }
-

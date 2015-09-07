@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** TextTemplateMessage.php */ 
+/** TextTemplateMessage.php */
 namespace Core\Mail;
 
 use Zend\Mail\Message;
@@ -27,20 +27,22 @@ class StringTemplateMessage extends TranslatorAwareMessage
         $this->setEncoding('UTF-8');
     }
     
-    public function setVariables($variables=array())
+    public function setVariables($variables = array())
     {
         $this->variables = array();
         return $this->addVariables($variables);
     }
     
-    public function addVariables($variables=array())
+    public function addVariables($variables = array())
     {
         if (!is_array($variables)) {
-            if (!$variables instanceOf \Traversable) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Expect an array or an instance of \Traversable, but received %s',
-                    is_object($variables) ? 'instance of ' . get_class($variables) : 'skalar'
-                ));
+            if (!$variables instanceof \Traversable) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Expect an array or an instance of \Traversable, but received %s',
+                        is_object($variables) ? 'instance of ' . get_class($variables) : 'skalar'
+                    )
+                );
             }
             $variables = \Zend\Stdlib\ArrayUtils::iteratorToArray($variables);
         }
@@ -64,11 +66,13 @@ class StringTemplateMessage extends TranslatorAwareMessage
     public function addCallbacks($callbacks = array())
     {
         if (!is_array($callbacks)) {
-            if (!$callbacks instanceOf \Traversable) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Expect an array or an instance of \Traversable, but received %s',
-                    is_object($callbacks) ? 'instance of ' . get_class($callbacks) : 'skalar'
-                ));
+            if (!$callbacks instanceof \Traversable) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Expect an array or an instance of \Traversable, but received %s',
+                        is_object($callbacks) ? 'instance of ' . get_class($callbacks) : 'skalar'
+                    )
+                );
             }
         }
         
@@ -141,4 +145,3 @@ class StringTemplateMessage extends TranslatorAwareMessage
         return '~##' . preg_quote($name) . '##~is';
     }
 }
-

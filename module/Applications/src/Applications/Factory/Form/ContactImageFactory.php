@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Applications\Factory\Form;
 
 use Auth\Form\UserImageFactory;
@@ -28,4 +28,4 @@ class ContactImageFactory extends UserImageFactory
      * @var string
      */
     protected $configKey = 'application_contact_image';
-} 
+}

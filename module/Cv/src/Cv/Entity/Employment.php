@@ -23,7 +23,7 @@ class Employment extends AbstractIdentifiableEntity
      */
     protected $startDate;
     /**
-     * 
+     *
      * @var unknown
      * @ODM\String
      */
@@ -36,7 +36,7 @@ class Employment extends AbstractIdentifiableEntity
     protected $currentIndicator;
     
     /**
-     * 
+     *
      * @var unknown
      * @ODM\String
      */
@@ -68,13 +68,13 @@ class Employment extends AbstractIdentifiableEntity
     
     public function getCurrentIndicator()
     {
-    	return $this->currentIndicator;
+        return $this->currentIndicator;
     }
     
     public function setCurrentIndicator($currentIndicator)
     {
-    	$this->currentIndicator = $currentIndicator;
-    	return $this;
+        $this->currentIndicator = $currentIndicator;
+        return $this;
     }
      
     
@@ -85,23 +85,23 @@ class Employment extends AbstractIdentifiableEntity
     
     public function setOrganizationName($value)
     {
-    	$this->organizationName = $value;
-    	return $this;
+        $this->organizationName = $value;
+        return $this;
     }
     
     public function getOrganizationName()
     {
-    	return $this->organizationName;
+        return $this->organizationName;
     }
     
     public function setDescription($value)
     {
-    	$this->description = $value;
-    	return $this;
+        $this->description = $value;
+        return $this;
     }
     
     public function getDescription()
     {
-    	return $this->description;
+        return $this->description;
     }
 }

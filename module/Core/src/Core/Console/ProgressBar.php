@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ProgressBar.php */ 
+/** ProgressBar.php */
 namespace Core\Console;
 
 use Zend\ProgressBar\ProgressBar as ZfProgressBar;
@@ -18,7 +18,8 @@ class ProgressBar extends ZfProgressBar
     public function __construct($max = 100, $persistenceNamespace = null)
     {
         
-        $adapter = new Console(array(
+        $adapter = new Console(
+            array(
             'elements' => array(
                 Console::ELEMENT_TEXT,
                 Console::ELEMENT_BAR,
@@ -29,7 +30,8 @@ class ProgressBar extends ZfProgressBar
             'barLeftChar' => '-',
             'barRightChar' => ' ',
             'barIndicatorChar' => '>',
-        ));
+            )
+        );
         parent::__construct($adapter, 0, $max, $persistenceNamespace);
     }
     
@@ -39,4 +41,3 @@ class ProgressBar extends ZfProgressBar
         return parent::finish();
     }
 }
-

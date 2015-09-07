@@ -12,9 +12,8 @@ namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
-
 /**
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class LinkedIn extends AbstractProfile
@@ -40,7 +39,7 @@ class LinkedIn extends AbstractProfile
             $return['startDate'] = $data['start-date']['year'] . '-' . $data['start-date']['month'] . '-' . $data['start-date']['day'];
         }
         if (isset($data['end-date'])) {
-            $return['endDate'] = $data['end_date']['year'] . '-' . $data['end_date']['month'] . '-' . $data['end_date']['day'];
+            $return['endDate'] = $data['end-date']['year'] . '-' . $data['end-date']['month'] . '-' . $data['end-date']['day'];
         }
         if (isset($data['school-name'])) {
             $return['organizationName'] = $data['school-name'];
@@ -60,8 +59,8 @@ class LinkedIn extends AbstractProfile
                 $return['startDate'] = $data['start-date']['year'] . '-' . $data['start-date']['month'] . '-' . $data['start-date']['day'];
             }
             if (isset($data['end-date'])) {
-                $return['endDate'] = $data['end_date']['year'] . '-' . $data['end_date']['month'] . '-' . $data['end_date']['day'];
-            } else if (isset($data['is-current']) && 'true' == $data['is-current']) {
+                $return['endDate'] = $data['end-date']['year'] . '-' . $data['end-date']['month'] . '-' . $data['end-date']['day'];
+            } elseif (isset($data['is-current']) && 'true' == $data['is-current']) {
                 $return['currentIndicator'] = true;
             }
             if (isset($data['company'])) {
@@ -73,6 +72,4 @@ class LinkedIn extends AbstractProfile
         }
         return $return;
     }
-    
-} 
-
+}

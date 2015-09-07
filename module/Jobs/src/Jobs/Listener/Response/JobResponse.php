@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -10,6 +10,7 @@
 
 
 namespace Jobs\Listener\Response;
+
 use Core\Listener\Response\ResponseInterface;
 
 /**
@@ -82,7 +83,8 @@ class JobResponse implements ResponseInterface
      * @param string $portal
      * @param string $status
      */
-    public function __construct($portal = '', $status = self::RESPONSE_NOTIMPLEMENTED) {
+    public function __construct($portal = '', $status = self::RESPONSE_NOTIMPLEMENTED)
+    {
         $this->portal = $portal;
         $this->status = $status;
         return $this;
@@ -91,7 +93,8 @@ class JobResponse implements ResponseInterface
     /**
      * @return string
      */
-    public function getMessage() {
+    public function getMessage()
+    {
         return $this->message;
     }
 

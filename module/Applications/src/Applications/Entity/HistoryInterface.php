@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** HistoryInterface.php */ 
+/** HistoryInterface.php */
 namespace Applications\Entity;
 
 use Core\Entity\EntityInterface;
@@ -22,6 +22,4 @@ interface HistoryInterface extends EntityInterface
     
     public function setMessage($message);
     public function getMessage();
-    
 }
-

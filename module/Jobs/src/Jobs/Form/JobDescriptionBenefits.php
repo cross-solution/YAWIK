@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,19 +36,23 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
     public function init()
     {
         $this->setName('jobs-form-benefits');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
             'id' => 'jobs-form-benefits',
             'data-handle-by' => 'yk-form'
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'TextEditor',
             'name' => 'description-benefits',
             'options' => array(
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Benefits'
             ),
-        ));
+            )
+        );
 
 
     }
@@ -65,6 +69,4 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
             )
         );
     }
-
-
 }

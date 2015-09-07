@@ -101,12 +101,12 @@ class IndexController extends AbstractActionController
         }
         // save the Params in the Session-Container
         $this->paginationParams()->setParams('Organizations\Index', $params);
-        $paginator = $this->paginator('Organizations/Organization',$params);
+        $paginator = $this->paginator('Organizations/Organization', $params);
         return array(
             'script' => 'organizations/index/list',
             'organizations' => $paginator
         );
-     }
+    }
      
      
     /**
@@ -119,7 +119,7 @@ class IndexController extends AbstractActionController
     {
         /* @var $request \Zend\Http\Request */
         $serviceLocator  = $this->getServiceLocator();
-        $return          = Null;
+        $return          = null;
         $request         = $this->getRequest();
         $params          = $this->params();
         $formIdentifier  = $params->fromQuery('form');
@@ -131,7 +131,6 @@ class IndexController extends AbstractActionController
         $container       = $this->getFormular($org);
 
         if (isset($formIdentifier) && $request->isPost()) {
-
             /* @var $form \Zend\Form\FormInterface */
             $postData = $this->params()->fromPost();
             $filesData = $this->params()->fromFiles();
@@ -179,7 +178,6 @@ class IndexController extends AbstractActionController
             $serviceLocator->get('repositories')->store($organization);
 
             if ('file-uri' === $this->params()->fromPost('return')) {
-
                 /* @var $hydrator \Core\Entity\Hydrator\FileCollectionUploadHydrator
                  * @var $file     \Organizations\Entity\OrganizationImage */
                 $basepath = $serviceLocator->get('ViewHelperManager')->get('basepath');
@@ -187,7 +185,7 @@ class IndexController extends AbstractActionController
                 $file     = $hydrator->getLastUploadedFile();
                 $content = $basepath($file->getUri());
             } else {
-                if ($form instanceOf SummaryForm) {
+                if ($form instanceof SummaryForm) {
                     /* @var $form \Core\Form\SummaryForm */
                     $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
                     $viewHelper = 'summaryform';
@@ -197,10 +195,12 @@ class IndexController extends AbstractActionController
                 $content = $serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
             }
 
-            return new JsonModel(array(
+            return new JsonModel(
+                array(
                 'valid' => $isValid,
                 'content' => $content,
-            ));
+                )
+            );
         }
 
         if (!isset($return)) {
@@ -223,11 +223,14 @@ class IndexController extends AbstractActionController
         /* @var $container \Organizations\Form\Organizations */
         $services  = $this->getServiceLocator();
         $forms     = $services->get('FormElementManager');
-        $container = $forms->get('organizations/form', array(
+        $container = $forms->get(
+            'organizations/form',
+            array(
             'mode' => $organization->getId() ? 'edit' : 'new'
-        ));
+            )
+        );
         $container->setEntity($organization);
-        $container->setParam('id',$organization->id);
+        $container->setParam('id', $organization->id);
 //        $container->setParam('applyId',$job->applyId);
 
         if ('__my__' != $this->params('id', '')) {
@@ -254,7 +257,7 @@ class IndexController extends AbstractActionController
 
         // @TODO three different method to obtain the job-id ?, simplify this
         $id_fromRoute = $this->params('id', 0);
-        $id_fromSubForm = $this->params()->fromPost('id',0);
+        $id_fromSubForm = $this->params()->fromPost('id', 0);
         $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\UserInterface */
 
         /* @var $organizationId string */

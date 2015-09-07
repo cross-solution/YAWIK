@@ -2,12 +2,9 @@
 
 namespace Core\Repository;
 
-
 use Core\Entity\EntityInterface;
 use \Doctrine\ODM\MongoDB as ODM;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
-
 
 abstract class AbstractRepository extends ODM\DocumentRepository implements RepositoryInterface
 {
@@ -17,9 +14,11 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
     public function __construct(ODM\DocumentManager $dm, ODM\UnitOfWork $uow, ODM\Mapping\ClassMetadata $class)
     {
         parent::__construct($dm, $uow, $class);
-        $eventArgs = new DoctrineMongoODM\Event\EventArgs(array(
+        $eventArgs = new DoctrineMongoODM\Event\EventArgs(
+            array(
             'repository' => $this
-        ));
+            )
+        );
         $dm->getEventManager()->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postConstruct, $eventArgs);
     }
     
@@ -39,9 +38,10 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         return $this;
     }
 
-    public function create(array $data=null) {
+    public function create(array $data = null)
+    {
         if (null === $this->entityPrototype) {
-            throw new \RuntimeException('Could not create an entity. No protoype is set!');
+            throw new \RuntimeException('Could not create an entity. No prototype is set!');
         }
 
         $entity = clone $this->entityPrototype;
@@ -55,9 +55,9 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         return $entity;
     }
 
-    public function store($entity) {
+    public function store($entity)
+    {
         $this->dm->persist($entity);
         $this->dm->flush($entity);
     }
-    
 }

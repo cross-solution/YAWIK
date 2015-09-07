@@ -14,6 +14,10 @@
  *
  */
 
+$options = $this->services('Core/Options');
+$defaultCurrencyCode = $options->defaultCurrencyCode;
+$defaultTaxRate = $options->defaultTaxRate;
+
 
 $sm = $this->getHelperPluginManager()->getServiceLocator();
 $channels = $sm->get('Jobs/Options/Provider');
@@ -80,43 +84,59 @@ if ($this->page == 2):
         <div class="col-md-8">
             <div class="panel panel-default">
                 <?php $this->translate('Your job opening is ready to be published to the following channels');?>
-                <?php $total=0 ?>
-                <table class="table table-bordered table-condensed">
-                    <?php $this->plugin('currencyFormat')->setCurrencyCode('EUR');
+                <?php $total=0; $sum=0; ?>
+
+                    <?php $this->plugin('currencyFormat')->setCurrencyCode($defaultCurrencyCode);
 
                     $portals = array();
                     foreach($this->job->portals as $channelName):
-
                             $channelData=$channels->getChannel($channelName);
-                            if (is_object($channelName)) $portals[$channelData->getCategory()][] = $channelData;
+                            if (is_object($channelData)) {
+                                $portals[$channelData->getCategory()][] = $channelData;
+                            }
                     endforeach;
 
+                    ?><div class="panel-body"><?php
                     foreach ($portals as $category => $channels):?>
-                        <thead>
-                            <tr>
-                                <th><?php echo $category ?></th>
-                                <th class="text-right"><?php echo $this->translate('Price') ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($channels as $channel): ?>
+                        <h5><?php echo $category ?></h5>
+                        <div class="row">
+                        <?php foreach ($channels as $channel):
+                            $sum+=$channel->price;
+                            if ($sum < $channel->minPrice && $total < $channel->minPrice):
+                                $total = $channel->minPrice;
+                            endif;
+                            $total = $sum > $total ? $sum : $total;?>
+                            <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
 
-                        <tr>
-                            <td><?php echo $channel->label?></td>
-                            <td class="text-right"><?php echo $this->currencyFormat($channel->price)?> </td>
-                            <?php $total+=$channel->price;?>
-                        </tr>
-                         <?php endforeach; ?>
-                        </tbody>
-
-                    <?php endforeach;?>
+                                <?php if ($channel->logo):?>
+                                <img src="<?php echo $channel->logo ?>" alt="<?php echo $channel->description ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                <?php endif ?> <?php echo $channel->label ?>
+                            </div>
+                        <?php endforeach ?>
+                        </div>
+                        <?php endforeach ?>
+                        </div>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th><?php echo $this->translate('Price') ?></th>
+                        <th class="text-right"><?php echo $this->currencyFormat($total); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?php echo $this->translate('plus VAT') ?> (<?php echo $defaultTaxRate ?>%)</td>
+                        <td class="text-right"><?php echo $this->currencyFormat($total * ( $defaultTaxRate /100)); ?></td>
+                    </tr>
+                    </tbody>
                     <tfoot>
                     <tr>
-                        <th><?php echo $this->translate("Total")?></th>
-                        <th class="text-right"><b><?php echo $this->currencyFormat($total) ?></b></th>
+                        <th><?php echo $this->translate('Invoice amount') ?></th>
+                        <th class="text-right"><?php echo $this->currencyFormat($total * (1 + $defaultTaxRate /100)); ?></th>
                     </tr>
                     </tfoot>
                 </table>
+
             </div>
         </div>
         <div class="col-md-4">

@@ -12,9 +12,9 @@ namespace Auth\Form;
 use Core\Form\Form;
 use Zend\Form\Fieldset;
 
-class Login extends Form 
+class Login extends Form
 {
-	public function __construct($name = 'login-form', $options = array())
+    public function __construct($name = 'login-form', $options = array())
     {
         parent::__construct($name, $options);
 
@@ -24,15 +24,18 @@ class Login extends Form
         
         $fieldset = new Fieldset('credentials');
         $fieldset->setOptions(array('renderFieldset' => true));
-        $fieldset->add(array(
+        $fieldset->add(
+            array(
             'name' => 'credentials[login]',
             'options' => array(
                 'id' => 'credentials-login',
                 'label' => /* @translate */ 'Login name',
             ),
-        ));
+            )
+        );
         
-        $fieldset->add(array(
+        $fieldset->add(
+            array(
             'type' => 'password',
             'name' => 'credentials[credential]',
             'options' => array(
@@ -40,12 +43,14 @@ class Login extends Form
                 'label' => /* @translate */ 'Password',
                 
             ),
-        ));
+            )
+        );
 
         $this->add($fieldset);
             
         $buttons = new \Core\Form\ButtonsFieldset('buttons');
-        $buttons->add(array(
+        $buttons->add(
+            array(
             'type' => 'submit',
             'name' => 'button',
             'attributes' => array(
@@ -54,7 +59,8 @@ class Login extends Form
                 'value' => /* @translate */ 'login',
                 'class' => 'btn btn-primary'
             ),
-        ));
+            )
+        );
 
         $this->add($buttons);
     }

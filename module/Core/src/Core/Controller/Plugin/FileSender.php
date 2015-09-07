@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** FileSender.php */ 
+/** FileSender.php */
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -53,4 +53,3 @@ class FileSender extends AbstractPlugin
                     ->get($name);
     }
 }
-

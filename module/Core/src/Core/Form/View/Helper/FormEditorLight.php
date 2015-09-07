@@ -14,7 +14,8 @@ class FormEditorLight extends FormEditor
 {
     protected $theme = 'light';
 
-    protected function additionalOptions() {
+    protected function additionalOptions()
+    {
         return '
         plugins: [
             "advlist autolink lists charmap anchor",
@@ -27,5 +28,4 @@ class FormEditorLight extends FormEditor
 
         //     | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent
     }
-
 }

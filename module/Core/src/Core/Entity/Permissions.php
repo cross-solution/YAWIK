@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Permissions.php */ 
+/** Permissions.php */
 namespace Core\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -52,6 +52,7 @@ class Permissions implements PermissionsInterface
      *
      * @var array
      * @ODM\Collection
+     * @ODM\Index
      */
     protected $view = array();
 
@@ -60,6 +61,7 @@ class Permissions implements PermissionsInterface
      *
      * @var array
      * @ODM\Collection
+     * @ODM\Index
      */
     protected $change = array();
     
@@ -169,7 +171,7 @@ class Permissions implements PermissionsInterface
      *
      * @param bool $build Should the view and change arrays be rebuild?
      */
-    public function grant ($resource, $permission = null, $build = true)
+    public function grant($resource, $permission = null, $build = true)
     {
         if (is_array($resource)) {
             foreach ($resource as $r) {
@@ -183,7 +185,7 @@ class Permissions implements PermissionsInterface
 
         //new \Doctrine\ODM\MongoDB\
         true === $permission
-        || (null === $permission && $resource instanceOf PermissionsResourceInterface)
+        || (null === $permission && $resource instanceof PermissionsResourceInterface)
         || $this->checkPermission($permission);
         
         $resourceId = $this->getResourceId($resource);
@@ -193,7 +195,7 @@ class Permissions implements PermissionsInterface
         }
         
         if (self::PERMISSION_NONE == $permission) {
-            if ($resource instanceOf PermissionsResourceInterface) {
+            if ($resource instanceof PermissionsResourceInterface) {
                 $refs = $this->getResources();
                 if ($refs->contains($resource)) {
                     $refs->removeElement($resource);
@@ -201,26 +203,27 @@ class Permissions implements PermissionsInterface
             }
             unset($this->assigned[$resourceId]);
         } else {
-            if ($resource instanceOf PermissionsResourceInterface) {
+            if ($resource instanceof PermissionsResourceInterface) {
                 $spec = $resource->getPermissionsUserIds($this->type);
                 if (!is_array($spec) || !count($spec)) {
                     $spec = array();
-                } else if (is_numeric(key($spec))) {
+                } elseif (is_numeric(key($spec))) {
                     $spec = array($permission => $spec);
                 }
             } else {
-                $spec = array($permission => $resource instanceOf UserInterface ? array($resource->getId()) : array($resource));
+                $spec = array($permission => $resource instanceof UserInterface ? array($resource->getId()) : array($resource));
             }
 
             $this->assigned[$resourceId] = $spec;
 
-            if ($resource instanceOf PermissionsResourceInterface) {
+            if ($resource instanceof PermissionsResourceInterface) {
                 try {
-                $refs = $this->getResources();
-                if (!$refs->contains($resource)) {
-                    $refs->add($resource);
-                }
-                } catch (\Exception $e) {};
+                    $refs = $this->getResources();
+                    if (!$refs->contains($resource)) {
+                        $refs->add($resource);
+                    }
+                } catch (\Exception $e) {
+                };
             }
         }
         
@@ -240,7 +243,7 @@ class Permissions implements PermissionsInterface
      *
      * @return $this|PermissionsInterface
      */
-    public function revoke ($resource, $permission = null, $build = true)
+    public function revoke($resource, $permission = null, $build = true)
     {
         
         if (self::PERMISSION_NONE == $permission || !$this->isAssigned($resource)) {
@@ -265,7 +268,7 @@ class Permissions implements PermissionsInterface
         return $this;
     }
     
-    public function inherit(PermissionsInterface $permissions, $build=true)
+    public function inherit(PermissionsInterface $permissions, $build = true)
     {
         /* @var $permissions Permissions */
         $assigned  = $permissions->getAssigned();
@@ -327,7 +330,7 @@ class Permissions implements PermissionsInterface
         return $this;
     }
     
-    public function isGranted ($userOrId, $permission)
+    public function isGranted($userOrId, $permission)
     {
         $userId = $this->getUserId($userOrId);
         $this->checkPermission($permission);
@@ -398,7 +401,7 @@ class Permissions implements PermissionsInterface
     
     protected function getUserId($userOrId)
     {
-        return $userOrId instanceOf UserInterface
+        return $userOrId instanceof UserInterface
                ? $userOrId->getId()
                : (string) $userOrId;
     }
@@ -412,11 +415,11 @@ class Permissions implements PermissionsInterface
      */
     protected function getResourceId($resource)
     {
-        if ($resource instanceOf PermissionsResourceInterface) {
+        if ($resource instanceof PermissionsResourceInterface) {
             return $resource->getPermissionsResourceId();
         }
         
-        if ($resource instanceOf UserInterface) {
+        if ($resource instanceof UserInterface) {
             return 'user:' . $resource->getId();
         }
         
@@ -444,7 +447,4 @@ class Permissions implements PermissionsInterface
             );
         }
     }
-    
-    
 }
-

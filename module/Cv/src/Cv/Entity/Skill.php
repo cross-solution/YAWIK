@@ -28,14 +28,14 @@ class Skill extends AbstractEntity
      */
     protected $nativeLanguages;
     /**
-     * 
+     *
      * @var ArrayCollection
      * @ODM\EmbedMany(targetDocument="Language")
      */
     protected $languageSkills;
     
     /**
-     * 
+     *
      * @var ArrayCollection
      * @ODM\EmbedMany(targetDocument="ComputerSkill")
      */
@@ -83,8 +83,8 @@ class Skill extends AbstractEntity
      */
     public function setComputerSkills($computerSkills)
     {
-    	$this->computerSkills = $computerSkills;
-    	return $this;
+        $this->computerSkills = $computerSkills;
+        return $this;
     }
 
     /**
@@ -92,6 +92,6 @@ class Skill extends AbstractEntity
      */
     public function getComputerSkills()
     {
-    	return $this->computerSkills;
+        return $this->computerSkills;
     }
 }

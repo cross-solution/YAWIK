@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** InternalReferences.php */ 
+/** InternalReferences.php */
 namespace Applications\Entity;
 
 use Auth\Entity\UserInterface;
@@ -24,7 +24,7 @@ class InternalReferences extends AbstractEntity
     /** @ODM\Hash */
     protected $jobs = array();
     
-    public function setJob (JobInterface $job)
+    public function setJob(JobInterface $job)
     {
         if (isset($this->jobs['__id__']) && $this->jobs['__id__'] == $job->getId()) {
             return $this;
@@ -46,11 +46,10 @@ class InternalReferences extends AbstractEntity
     
     public function setJobsUserId($userOrId)
     {
-        if ($userOrId instanceOf UserInterface) {
+        if ($userOrId instanceof UserInterface) {
             $userOrId = $userOrId->getId();
         }
         $this->jobs['userId'] = $userOrId;
         return $this;
     }
 }
-

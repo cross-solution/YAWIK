@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,19 +36,23 @@ class JobDescriptionQualifications extends Form implements InputFilterProviderIn
     public function init()
     {
         $this->setName('jobs-form-qualifications');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
             'id' => 'jobs-form-qualifications',
             'data-handle-by' => 'yk-form'
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'TextEditor',
             'name' => 'description-qualifications',
             'options' => array(
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Qualifications'
             ),
-        ));
+            )
+        );
 
 
     }
@@ -65,6 +69,4 @@ class JobDescriptionQualifications extends Form implements InputFilterProviderIn
             )
         );
     }
-
-
 }

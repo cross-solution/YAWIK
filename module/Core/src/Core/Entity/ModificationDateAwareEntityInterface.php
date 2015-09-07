@@ -7,21 +7,21 @@
  * @license   MIT
  */
 
-/** ModificationDateAwareEntityInterface.php */ 
+/** ModificationDateAwareEntityInterface.php */
 namespace Core\Entity;
 
 use DateTime;
 
 /**
  * Defines an entity which is aware of its creation and modification dates.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 interface ModificationDateAwareEntityInterface
 {
     /**
      * Sets the creation date.
-     * 
+     *
      * @param DateTime $date
      * @return self
      */
@@ -29,14 +29,14 @@ interface ModificationDateAwareEntityInterface
     
     /**
      * Gets the creation date.
-     * 
+     *
      * @return DateTime
      */
     public function getDateCreated();
     
     /**
      * Sets the modification date.
-     * 
+     *
      * @param DateTime|String $date
      * @return self
      */
@@ -44,10 +44,8 @@ interface ModificationDateAwareEntityInterface
     
     /**
      * Gets the modification date.
-     * 
+     *
      * @return DateTime
      */
     public function getDateModified();
-    
 }
-

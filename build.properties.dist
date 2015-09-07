@@ -5,27 +5,12 @@
 ; The values are written to configuration files located in config/autoload
 ; 
 
-;
-;
-; Database Settings (module/Core/config/module.core.doctrine.config.local.php.dist)
-;
-mongo.host=localhost
-mongo.port=27017
-mongo.db=Yawik
-mongo.user=
-mongo.pass=
 
-;
-; initial user login. The useraccount will be added to the mongodb if not exist.
-;
-
-username=
-password=
 email=
 
 ;
-; initial user role. After the first login. Users are asigned to this role by default.
-; possible roles: [ user | recruiter ]
+; role of the initial user.
+; possible roles: [ user | recruiter |admin ]
 ;
 
 role=recruiter
@@ -42,7 +27,7 @@ external.app.prefix=myapp
 ;
 ; Email (module/Core/config/core.mails.global.php.dist).
 ;
-mail.from.email=demo@yawik.org
+mail.from.email=name@example.com
 mail.from.name=YAWIK
 
 ; subject of the initial email, if somebody logs into via a social network

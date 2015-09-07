@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -30,13 +30,12 @@ class NotificationAjaxHandler
     }
 
 
-    public function render (NotificationEvent $event)
+    public function render(NotificationEvent $event)
     {
         if (isset($this->viewModel)) {
             if ($this->viewModel instanceof JsonModel) {
                 // here add information for JSON
-            }
-            elseif ($this->viewModel instanceof ViewModel) {
+            } elseif ($this->viewModel instanceof ViewModel) {
                 $headScript = $this->viewHelperManager->get('headScript');
 
                 $notifications = $event->getNotifications();

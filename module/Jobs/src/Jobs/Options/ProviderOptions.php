@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -21,7 +21,8 @@ use ArrayIterator;
  *
  * @package Jobs\Options
  */
-class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
+class ProviderOptions extends AbstractOptions implements \IteratorAggregate
+{
 
     /**
      * List of channels a user can publish job postings
@@ -33,7 +34,6 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     public function __construct()
     {
         $this->channels = array();
-        //$this->long_label = '';
     }
 
     /**
@@ -45,6 +45,8 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     }
 
     /**
+     * Adds a channel (aka job portal)
+     *
      * @param ChannelOptions $channel
      * @return $this
      */
@@ -56,20 +58,26 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate {
     }
 
     /**
+     * Get a channel by "key"
+     *
      * @param string $key
      * @return $this
      */
     public function getChannel($key)
     {
-        return $this->channels[$key];
+        if (array_key_exists($key, $this->channels)) {
+            return $this->channels[$key];
+        }
+        return array();
     }
 
     /**
+     * Gets the list of possible channels a job opening can posted
+     *
      * @return array
      */
     public function getChannels()
     {
         return $this->channels;
     }
-
 }

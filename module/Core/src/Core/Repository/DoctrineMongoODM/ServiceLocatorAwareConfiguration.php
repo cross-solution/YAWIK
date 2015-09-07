@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ServiceLocatorAwareConfiguration.php */ 
+/** ServiceLocatorAwareConfiguration.php */
 namespace Core\Repository\DoctrineMongoODM;
 
 use Doctrine\ODM\MongoDB\Configuration;
@@ -26,4 +26,3 @@ class ServiceLocatorAwareConfiguration extends Configuration
         return $this->attributes['serviceLocator'];
     }
 }
-

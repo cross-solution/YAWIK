@@ -19,7 +19,7 @@
   <p>
   <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
   <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
-            <a class="login-link btn btn-primary btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
+            <a class="login-link btn-social btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
   <?php endforeach ?>
   </p>
 </div>
@@ -33,7 +33,7 @@
    <li><?php echo $this->translate("ready for social recruiting")?></li>
    <li><?php echo $this->translate("enter job ads")?></li>
    <li><?php echo sprintf($this->translate('%sapplication forms%s.'), 
-       '<a href="' . $this->url('lang/apply', array('applyId' => '17908'), /* reuse matched params*/ true) . '">',
+       '<a href="https://youtu.be/peoO-RVJM_0">',
        '</a>') ?>
    </li> 
    <li><?php echo $this->translate("manage applications")?></li>

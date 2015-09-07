@@ -16,33 +16,34 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * personal information of a user.
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class Info extends AbstractEntity implements InfoInterface
-{   
-	
-	/**
+{
+   
+    
+    /**
      * Day of birth of the user
      *
      * @var string
-	 * @ODM\String */
-	protected $birthDay;
-	
-	/**
+     * @ODM\String */
+    protected $birthDay;
+    
+    /**
      * Month of birth of the user
      *
      * @var string
-	 * @ODM\String */
-	protected $birthMonth;
+     * @ODM\String */
+    protected $birthMonth;
 
-	/**
+    /**
      * Year of birth of the user
      *
      * @var string
-	 * @ODM\String */
-	protected $birthYear;
-	
+     * @ODM\String */
+    protected $birthYear;
+    
     /**
      * primary email of the user.
      *
@@ -62,7 +63,7 @@ class Info extends AbstractEntity implements InfoInterface
      * Firstname of the user
      *
      * @var string
-     * @ODM\String */ 
+     * @ODM\String */
     protected $firstName;
     
     /**
@@ -120,7 +121,7 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @var string
      * @ODM\String */
-    protected $street;    
+    protected $street;
     
     /**
      * {@inheritdoc}
@@ -129,8 +130,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setBirthDay($birthDay)
     {
-    	$this->birthDay=$birthDay;
-    	return $this;
+        $this->birthDay=$birthDay;
+        return $this;
     }
 
     /**
@@ -140,7 +141,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getBirthDay()
     {
-    	return $this->street;
+        return $this->birthDay;
     }
     
     /**
@@ -150,8 +151,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setBirthMonth($birthMonth)
     {
-    	$this->birthDay=$birthMonth;
-    	return $this;
+        $this->birthMonth=$birthMonth;
+        return $this;
     }
 
     /**
@@ -161,7 +162,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getBirthMonth()
     {
-    	return $this->birthMonth;
+        return $this->birthMonth;
     }
     
     /**
@@ -171,8 +172,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setBirthYear($birthYear)
     {
-    	$this->birthYear=$birthYear;
-    	return $this;
+        $this->birthYear=$birthYear;
+        return $this;
     }
 
     /**
@@ -182,7 +183,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getBirthYear()
     {
-    	return $this->birthYear;
+        return $this->birthYear;
     }
     
     /**
@@ -192,8 +193,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setEmail($email)
     {
-    	$this->email = trim((String)$email);
-    	return $this;
+        $this->email = trim((String)$email);
+        return $this;
     }
 
     /**
@@ -203,7 +204,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getEmail()
     {
-    	return $this->email;
+        return $this->email;
     }
 
     /**
@@ -235,8 +236,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setFirstName($firstName)
     {
-    	$this->firstName = trim((String)$firstName);
-    	return $this;
+        $this->firstName = trim((String)$firstName);
+        return $this;
     }
 
 
@@ -247,7 +248,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getGender()
     {
-    	return $this->gender;
+        return $this->gender;
     }
     
     /**
@@ -257,8 +258,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setGender($gender)
     {
-    	$this->gender = trim((String)$gender);
-    	return $this;
+        $this->gender = trim((String)$gender);
+        return $this;
     }
 
     /**
@@ -268,7 +269,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getFirstName()
     {
-    	return $this->firstName;
+        return $this->firstName;
     }
     
     /**
@@ -278,8 +279,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setHouseNumber($houseNumber)
     {
-    	$this->houseNumber=$houseNumber;
-    	return $this;
+        $this->houseNumber=$houseNumber;
+        return $this;
     }
 
     /**
@@ -289,7 +290,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getHouseNumber()
     {
-    	return $this->houseNumber;
+        return $this->houseNumber;
     }
     
     /**
@@ -313,57 +314,23 @@ class Info extends AbstractEntity implements InfoInterface
         return $this->lastName;
     }
 
-    public function getDisplayName($emailIfEmpty=true)
+    public function getDisplayName($emailIfEmpty = true)
     {
         if (!$this->lastName) {
             return $emailIfEmpty ? $this->email : '';
         }
         return ($this->firstName ? $this->firstName . ' ' : '') . $this->lastName;
     }
-
+    
     /**
      * {@inheritdoc}
      *
-     * @param bool $extended
-     * @return string
+     * @return \Auth\Entity\User
      */
-    public function getAddress($extended = false)
+    public function setPhone($phone)
     {
-        $address = array();
-        if ($this->lastName) {
-            $address[] = ("male" == $this->gender ? 'Herr' : 'Frau') . ' '
-                      . ($this->firstName ? $this->firstName . ' ' : '') 
-                      . $this->lastName;
-        }
-        if ($this->street) {
-            $address[] = $this->street . ($this->houseNumber ? ' ' . $this->houseNumber : '');
-        }
-        if ($this->city) {
-            $address[] = ($this->postalCode ? $this->postalCode . ' ' : '') . $this->city;
-        }
-        
-        if ($extended) {
-            $address[] = ''; // empty line
-        
-            if ($this->phone) {
-                $address[] = $this->phone;
-            }
-            if ($this->email) {
-                $address[] = $this->email;
-            }
-        }    
-        
-        return implode(PHP_EOL, $address);
-    }
-    
-    /**
-     * {@inheritdoc}
-     *
-     * @return \Auth\Entity\User
-     */
-    public function setPhone($phone) {
-    	$this->phone = (String) $phone;
-    	return $this;
+        $this->phone = (String) $phone;
+        return $this;
     }
 
     /**
@@ -371,8 +338,9 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getPhone() {
-    	return $this->phone;
+    public function getPhone()
+    {
+        return $this->phone;
     }
     
     /**
@@ -380,9 +348,10 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return \Auth\Entity\User
      */
-    public function setPostalCode($postalCode) {
-    	$this->postalCode = (String) $postalCode;
-    	return $this;
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = (String) $postalCode;
+        return $this;
     }
 
     /**
@@ -390,8 +359,9 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getPostalCode() {
-    	return $this->postalCode;
+    public function getPostalCode()
+    {
+        return $this->postalCode;
     }
     
     /**
@@ -399,9 +369,10 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return \Auth\Entity\User
      */
-    public function setCity($city) {
-    	$this->city = (String) $city;
-    	return $this;
+    public function setCity($city)
+    {
+        $this->city = (String) $city;
+        return $this;
     }
 
     /**
@@ -409,14 +380,15 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getCity() {
-    	return $this->city;
+    public function getCity()
+    {
+        return $this->city;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @param EntityInterface $image
+     * @param UserImage $image
      * @return $this
      */
     public function setImage(EntityInterface $image = null)
@@ -428,7 +400,7 @@ class Info extends AbstractEntity implements InfoInterface
     /**
      * {@inheritdoc}
      *
-     * @return FileInterface
+     * @return UserImage
      */
     public function getImage()
     {
@@ -441,8 +413,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setStreet($street)
     {
-    	$this->street=$street;
-    	return $this;
+        $this->street=$street;
+        return $this;
     }
 
     /**
@@ -450,57 +422,8 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getStreet() 
+    public function getStreet()
     {
-    	return $this->street;
+        return $this->street;
     }
-    
-    /**
-     * convert an array into an InfoObject
-     *
-     * @param Array $array
-     * @return \Auth\Entity\Info
-     */
-    public function fromArray($array) 
-    {
-        $this->birthDay=$array['birthDay'];
-        $this->birthMonth=$array['birthMonth'];
-        $this->birthYear=$array['birthYear'];
-        $this->firstName=$array['firstName'];
-        $this->lastName=$array['lastName'];
-        $this->email=$array['email'];
-        $this->emailVerified = isset($array['emailVerified']) ? $array['emailVerified'] : null;
-        $this->gender=$array['gender']; 
-        $this->street=$array['street'];
-        $this->houseNumber=$array['houseNumber'];
-        $this->phone=$array['phone'];
-        $this->postalCode=$array['postalcode'];
-        $this->city=$array['city'];        
-        return($this);   
-    }
-    
-    /**
-     * convert an InfoObject into an Array
-     *
-     * @param Info $info
-     * @return Array
-     */
-    static function toArray(Info $info) 
-    {
-        $array['birthDay']=$info->birthDay;
-        $array['birthMonth']=$info->birthMonth;
-        $array['birthYear']=$info->birthYear;
-        $array['firstName']=$info->firstName;
-        $array['lastName']=$info->lastName;
-        $array['email']=$info->email;
-        $array['emailVerified'] = $info->emailVerified;
-        $array['gender']=$info->gender;
-        $array['street']=$info->street;
-        $array['houseNumber']=$info->houseNumber;
-        $array['phone']=$info->phone;
-        $array['postalcode']=$info->postalCode;
-        $array['city']=$info->city;
-        return $array;
-    }
-    
 }

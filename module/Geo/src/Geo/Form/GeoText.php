@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ApplyIdentifierElement.php */ 
+/** GetText.php */
 namespace Geo\Form;
 
 use Zend\Form\Element\Text;
@@ -29,4 +29,3 @@ class GeoText extends Text implements ViewPartialProviderInterface
         return $this;
     }
 }
-

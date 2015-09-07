@@ -11,25 +11,55 @@ namespace Jobs\Repository\Filter;
 use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\Status;
 use Auth\Entity\User;
+use Zend\Authentication\AuthenticationService;
+use Zend\Permissions\Acl\Acl;
+use Auth\Entity\UserInterface;
 
 /**
  * maps query parameters to entity attributes
- * 
+ *
  * @author cbleek
  *
  */
-class PaginationQuery extends AbstractPaginationQuery 
+class PaginationQuery extends AbstractPaginationQuery
 {
-    
-    protected $repositoryName="Jobs/Job";
-    
-    public function __construct($auth)
+
+    /**
+     * @var AuthenticationService
+     */
+    protected $auth;
+
+    /**
+     * @var Acl
+     */
+    protected $acl;
+
+    /**
+     * @var array
+     */
+    protected $value;
+
+    /**
+     * @var UserInterface
+     */
+    protected $user;
+
+    /**
+     * @param $auth
+     * @param $acl
+     */
+    public function __construct(AuthenticationService $auth, Acl $acl)
     {
         $this->auth = $auth;
+        $this->acl = $acl;
     }
 
     /**
      * for people
+     * following parameter are relevant
+     * by     => 'all', 'me', 'guest'
+     * status => Status::CREATED, 'all'
+     * user   => User::ROLE_RECRUITER, User::ROLE_ADMIN, User::ROLE_USER
      *
      * @param $params
      * @param $queryBuilder
@@ -37,59 +67,57 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $value = $params->toArray();
-        $user = $this->auth->getUser();
-        if ($user->getRole()==User::ROLE_RECRUITER && (!isset($value['by']) || $value['by'] != 'guest')) {
+        $this->value = $params->toArray();
+        $this->user = $this->auth->getUser();
+        $isRecruiter = $this->user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($this->user, User::ROLE_RECRUITER);
+
+        if ($isRecruiter && (!isset($this->value['by']) || $this->value['by'] != 'guest')) {
             /*
              * a recruiter can see his jobs and jobs from users who gave permissions to do so
              */
-            $user = $this->auth->getUser();
-            if (isset($value['by'])) {
-                switch ($value['by']) {
-                    case 'me':
-                    default:
-                        $queryBuilder->field('user')->equals($user->id);
-                        break;
-                    case 'all':
-                        $queryBuilder->field('permissions.view')->equals($user->id);
-                        break;
-                }
+            if (isset($this->value['params']['by']) && 'me' == $this->value['params']['by']) {
+                $queryBuilder->field('user')->equals($this->user->id);
+            }else{
+                $queryBuilder->field('permissions.view')->equals($this->user->id);
             }
-            if (isset($value['status']) && !empty($value['status']) && $value['status'] != 'all' ) {
-                $queryBuilder->field('status.name')->equals((string) $value['status']);
+            if (
+                isset($this->value['params']['status']) &&
+                !empty($this->value['params']['status']) &&
+                $this->value['params']['status'] != 'all'
+            )
+            {
+                $queryBuilder->field('status.name')->equals((string) $this->value['params']['status']);
             }
-        } elseif($user->getRole()==User::ROLE_ADMIN) {
-            $queryBuilder->field('status.name')->equals( Status::CREATED);
-        } else  {
+        } else {
             /*
              * an applicants or guests can see all active jobs
              */
-            $queryBuilder->field('status.name')->equals('active');
+            $queryBuilder->field('status.name')->equals(Status::ACTIVE);
         }
-    
+
 
         /*
          * search jobs by keywords
          */
-        if (isset($value['search']) && !empty($value['search'])) {
-            $search = strtolower($value['search']);
+        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
+            $search = strtolower($this->value['params']['search']);
             $searchPatterns = array();
-    
+
             foreach (explode(' ', $search) as $searchItem) {
                 $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
             }
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
 
-        if (isset($value['sort'])) {
-            foreach(explode(",",$value['sort']) as $sort) {
+        if (isset($this->value['sort'])) {
+            foreach (explode(",", $this->value['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
             }
         }
-    
+
         return $queryBuilder;
     }
-    
+
     protected function filterSort($sort)
     {
         if ('-' == $sort{0}) {
@@ -109,16 +137,10 @@ class PaginationQuery extends AbstractPaginationQuery
             case "cam":
                 $sortProp = "atsEnabled";
                 break;
-    
+
             default:
                 break;
         }
-    
         return array($sortProp => $sortDir);
     }
-    
-    
-    
 }
-
-?>

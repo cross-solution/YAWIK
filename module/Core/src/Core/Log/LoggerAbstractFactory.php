@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * (this file is taken from ZF 2.2)
  *
  * @filesource
@@ -9,7 +9,7 @@
  * @license   MIT
  */
 
-/** LoggerAbstractFactory.php */ 
+/** LoggerAbstractFactory.php */
 namespace Core\Log;
 
 use Zend\ServiceManager\AbstractFactoryInterface;
@@ -119,5 +119,3 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
         }
     }
 }
-
-

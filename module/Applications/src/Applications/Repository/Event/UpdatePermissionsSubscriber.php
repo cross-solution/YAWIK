@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UpdatePermissionsSubscriber.php */ 
+/** UpdatePermissionsSubscriber.php */
 namespace Applications\Repository\Event;
 
 use Core\Repository\DoctrineMongoODM\Event\AbstractUpdatePermissionsSubscriber;
@@ -22,4 +22,3 @@ class UpdatePermissionsSubscriber extends AbstractUpdatePermissionsSubscriber
      */
     protected $repositoryName = 'Applications/Application';
 }
-

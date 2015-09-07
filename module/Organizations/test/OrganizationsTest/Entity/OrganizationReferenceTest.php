@@ -179,6 +179,7 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
             array(array('setOrganizationName', 'getOrganizationName'), array(array($name), array()), array('__self__', $name)),
             array(array('setDescription', 'getDescription'), array(array('nodesc'), array()), array('__self__', 'nodesc')),
             array(array('setEmployees', 'getEmployees'), array(array($emps), array()), array('__self__', $emps)),
+            array('getEmployee', array('4321'), null),
             array(array('setUser', 'getUser', 'getPermissionsUserIds'),
                   array(array($user), array(), array()),
                   array('__self__', $user, array(PermissionsInterface::PERMISSION_ALL => array($user->getId())))

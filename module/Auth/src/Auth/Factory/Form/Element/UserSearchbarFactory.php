@@ -16,7 +16,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * A text input element with typeahead and bloodhound abilities to search users.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class UserSearchbarFactory implements FactoryInterface
@@ -45,5 +45,4 @@ class UserSearchbarFactory implements FactoryInterface
 
         return $input;
     }
-
 }

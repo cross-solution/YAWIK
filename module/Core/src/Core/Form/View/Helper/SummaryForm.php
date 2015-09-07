@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\View\Helper;
 
 use Core\Form\SummaryFormInterface;
@@ -30,7 +30,7 @@ class SummaryForm extends AbstractHelper
     
     /**
      * Invoke as function.
-     * 
+     *
      * @param null|SummaryFormInterface $form
      * @param string $layout
      * @param array $parameter
@@ -55,13 +55,13 @@ class SummaryForm extends AbstractHelper
     
     /**
      * Renders a summary form container.
-     * 
+     *
      * @param SummaryFormInterface $form
      * @param string $layout
      * @param array $parameter
      * @return string
      */
-    public function render(SummaryFormInterface $form, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
+    public function render(SummaryFormInterface $form, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
         $renderer = $this->getView();
         $renderer->headscript()->appendFile($renderer->basePath('Core/js/jquery.summary-form.js'));
@@ -69,16 +69,17 @@ class SummaryForm extends AbstractHelper
         $label = $form->getLabel();
         $labelContent = $label ? '<div class="sf-headline"><h3>' . $this->getView()->translate($label) . '</h3></div>' : '';
         $formContent  = $this->renderForm($form, $layout, $parameter);
-        $summaryContent = $this->renderSummary($form);  
+        $summaryContent = $this->renderSummary($form);
         
         $formContent = sprintf(
-                '<div class="sf-form"><div class="panel panel-info"><div class="panel-body">%s</div></div></div>
+            '<div class="sf-form"><div class="panel panel-info"><div class="panel-body">%s</div></div></div>
                  <div class="sf-summary">%s</div>
                 ',
-                $formContent, $summaryContent
+            $formContent,
+            $summaryContent
         );
         
-        if ($form instanceOf DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
+        if ($form instanceof DescriptionAwareFormInterface && $form->isDescriptionsEnabled()) {
             $this->getView()->headscript()->appendFile(
                 $this->getView()->basepath('Core/js/forms.descriptions.js')
             );
@@ -97,9 +98,10 @@ class SummaryForm extends AbstractHelper
                             <div class="daf-desc-content alert alert-info">%s</div>
                         </div>
                     </div>',
-                $formContent, $desc
+                $formContent,
+                $desc
             );
-        } 
+        }
         
         $markup = '<div id="sf-%s" class="sf-container" data-display-mode="%s">'
                 . '%s'
@@ -108,7 +110,10 @@ class SummaryForm extends AbstractHelper
         
         $content = sprintf(
             $markup,
-            $form->getAttribute('name'), $form->getDisplayMode(), $labelContent, $formContent
+            $form->getAttribute('name'),
+            $form->getDisplayMode(),
+            $labelContent,
+            $formContent
         );
         
         
@@ -123,7 +128,7 @@ class SummaryForm extends AbstractHelper
      * @param array $parameter
      * @return string
      */
-    public function renderForm(SummaryFormInterface $form, $layout=Form::LAYOUT_HORIZONTAL, $parameter = array())
+    public function renderForm(SummaryFormInterface $form, $layout = Form::LAYOUT_HORIZONTAL, $parameter = array())
     {
                                                     /* @var $form SummaryFormInterface|\Core\Form\SummaryForm */
         $renderer     = $this->getView();           /* @var $renderer \Zend\View\Renderer\PhpRenderer */
@@ -131,7 +136,7 @@ class SummaryForm extends AbstractHelper
         $fieldset     = $form->getBaseFieldset();
         $resetPartial = false;
 
-        if ($fieldset instanceOf ViewPartialProviderInterface) {
+        if ($fieldset instanceof ViewPartialProviderInterface) {
             $origPartial = $fieldset->getViewPartial();
             $partial     = "$origPartial.form";
             if ($renderer->resolver($partial)) {
@@ -152,7 +157,7 @@ class SummaryForm extends AbstractHelper
     
     /**
      * Only renders the summary representation of a summary form
-     * 
+     *
      * @param SummaryFormInterface $form
      * @return string
      */
@@ -173,17 +178,17 @@ class SummaryForm extends AbstractHelper
     
     /**
      * Helper function to recurse into form elements when rendering summary.
-     * 
+     *
      * @param ElementInterface $element
      * @return string
      */
     protected function renderSummaryElement(ElementInterface $element)
     {
-        if ($element instanceOf Hidden || false === $element->getOption('render_summary')) {
+        if ($element instanceof Hidden || false === $element->getOption('render_summary')) {
             return '';
         }
         
-        if ($element instanceOf ViewPartialProviderInterface) {
+        if ($element instanceof ViewPartialProviderInterface) {
             $renderer    = $this->getView();                 /* @var $renderer \Zend\View\Renderer\PhpRenderer */
             $origPartial = $element->getViewPartial();
             $partial     = "$origPartial.view";
@@ -198,15 +203,17 @@ class SummaryForm extends AbstractHelper
             return $renderer->partial($partial, $partialParams);
         }
         
-        if ($element instanceOf EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
+        if ($element instanceof EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
             /* @var $element EmptySummaryAwareInterface|ElementInterface */
             $emptySummaryNotice = $this->getTranslator()->translate(
-                $element->getEmptySummaryNotice(), $this->getTranslatorTextDomain()
+                $element->getEmptySummaryNotice(),
+                $this->getTranslatorTextDomain()
             );
             
             $markup = sprintf(
                 '<div id="%s-empty-alert" class="empty-summary-notice alert alert-info"><p>%s</p></div>',
-                $element->getAttribute('id'), $emptySummaryNotice
+                $element->getAttribute('id'),
+                $emptySummaryNotice
             );
             return $markup;
         }
@@ -214,8 +221,8 @@ class SummaryForm extends AbstractHelper
         $label  = $this->getTranslator()->translate($element->getLabel());
         $markup = '';
         
-        if ($element instanceOf FieldsetInterface) {
-            if (!$element instanceOf FormInterface && $label) {
+        if ($element instanceof FieldsetInterface) {
+            if (!$element instanceof FormInterface && $label) {
                 $markup .= '<h4>' . $label . '</h4>';
             }
             foreach ($element as $el) {
@@ -224,16 +231,17 @@ class SummaryForm extends AbstractHelper
             return $markup;
         }
     
-        $elementValue = $element instanceOf \Zend\Form\Element\Textarea 
-                      ? nl2br($element->getValue()) 
+        $elementValue = $element instanceof \Zend\Form\Element\Textarea
+                      ? nl2br($element->getValue())
                       : $element->getValue();
 
-        if ('' != $elementValue && $element instanceOf \Zend\Form\Element\Select) {
+        if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
             $options = $element->getValueOptions();
             $elementValue = $this->getTranslator()->translate($options[$elementValue]);
         }
                       
-        $markup .= '<div class="row">'; $col = 12;
+        $markup .= '<div class="row">';
+        $col = 12;
         if ($label) {
             $markup .= '<div class="col-md-3 yk-label"><label>' . $label . '</label></div>';
             $col = 9;
@@ -242,5 +250,4 @@ class SummaryForm extends AbstractHelper
             . '</div>';
         return $markup;
     }
-    
 }

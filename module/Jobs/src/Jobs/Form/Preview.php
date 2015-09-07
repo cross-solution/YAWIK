@@ -36,26 +36,32 @@ class Preview extends Form implements propagateAttributeInterface
     public function init()
     {
         $this->setName('jobs-form-preview');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
             'id' => 'jobs-form-preview',
             //'data-handle-by' => 'native'
-        ));
+            )
+        );
 
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Jobs/PreviewFieldset',
             'name' => 'jobPreview',
             'options' => array(
                 'use_as_base_fieldset' => true,
             ),
-        ));
+            )
+        );
     }
 
-    public function setViewPartial($partial) {
+    public function setViewPartial($partial)
+    {
         return $this;
     }
 
-    public function getViewPartial() {
+    public function getViewPartial()
+    {
         return 'form/preview.phtml';
     }
 
@@ -68,5 +74,4 @@ class Preview extends Form implements propagateAttributeInterface
         }
         return $this;
     }
-
 }

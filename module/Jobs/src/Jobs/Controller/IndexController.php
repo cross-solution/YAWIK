@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
 use Auth\Entity\User;
+use Zend\View\Model\ViewModel;
 
 /**
  * Handles the job listing for recruiters.
@@ -53,11 +54,24 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
+        return $this->listJobs();
+    }
+
+    public function listOpenJobsAction()
+    {
+        return $this->listJobs(true);
+    }
+
+    protected function listJobs($showPendingJobs = false)
+    {
+
+        $serviceLocator  = $this->getServiceLocator();
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
         $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
+        //$showPendingJobs = $this->acl()->isRole('admin') && 'created' == $params->get('status');
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -68,34 +82,43 @@ class IndexController extends AbstractActionController
                 foreach ($sessionParams as $key => $value) {
                     $params->set($key, $params->get($key, $value));
                 }
-            } else if ($isRecruiter) {
+            } elseif ($isRecruiter) {
                 $params->set('by', 'me');
             }
             /* @var $filterForm \Jobs\Form\ListFilter */
             $session[$sessionKey] = $params->toArray();
-            $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
 
-            $filterForm->bind($params);
+            if (!$showPendingJobs) {
+                $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
+                $filterForm->bind($params);
+            } else {
+            }
         }
 
         if (!isset($params['sort'])) {
             $params['sort'] = '-date';
         }
 
-        $paginator = $this->paginator('Jobs/Job', $params);
+        if ($showPendingJobs) {
+            $paginator = $this->paginatorservice('Jobs/Admin', $params);
+        } else {
+            $paginator = $this->paginatorservice('Jobs/Job', $params);
+        }
 
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
+            'showPendingJobs' => $showPendingJobs,
         );
         if (isset($filterForm)) {
             $return['filterForm'] = $filterForm;
         }
 
-        return $return;
-
+        $model = new ViewModel();
+        $model->setVariables($return);
+        $model->setTemplate('jobs/index/index');
+        return $model;
     }
-
 
     /**
      * Handles the dashboard widget for the jobs module.

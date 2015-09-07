@@ -31,7 +31,8 @@ use Core\Entity\DraftableEntityInterface;
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface {
+class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface
+{
 
     /**
      * Event name of post construct event.
@@ -42,16 +43,16 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     /**
      * externalId. Allows external applications to reference their primary key.
-     * 
+     *
      * @var string
      * @ODM\String
      * @ODM\Index
      */
-    protected $externalId; 
+    protected $externalId;
     
     /**
      * The actual name of the organization.
-     * 
+     *
      * @var \Organizations\Entity\OrganizationName
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
@@ -67,7 +68,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     
     /**
      * primary logo of an organization
-     * 
+     *
      * @var \Organizations\Entity\OrganizationImage
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationImage", inversedBy="organization", simple=true, nullable="true", cascade={"all"})
      */
@@ -173,7 +174,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      *
      * @return self
      */
-    public function setExternalId($externalId) 
+    public function setExternalId($externalId)
     {
         $this->externalId = $externalId;
         return $this;
@@ -185,16 +186,18 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      *
      * @return string
      */
-    public function getExternalId() 
+    public function getExternalId()
     {
         return $this->externalId;
     }
 
-    public function setHydrator(HydratorInterface $hydrator) {
+    public function setHydrator(HydratorInterface $hydrator)
+    {
         return $this;
     }
 
-    public function getHydrator() {
+    public function getHydrator()
+    {
         return new EntityHydrator();
     }
 
@@ -228,13 +231,16 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     public function setKeywords(array $keywords)
-    { }
+    {
+    }
 
     public function clearKeywords()
-    { }
+    {
+    }
 
     public function getKeywords()
-    { }
+    {
+    }
 
     public function getPermissions()
     {
@@ -248,7 +254,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->permissions;
     }
 
-    public function setPermissions(PermissionsInterface $permissions) {
+    public function setPermissions(PermissionsInterface $permissions)
+    {
         // Assure the user has always all rights.
         if ($this->user) {
             $permissions->grant($this->user, Permissions::PERMISSION_ALL);
@@ -286,10 +293,14 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
         foreach ($employees as $emp) {
             /* @var $emp EmployeeInterface */
+            if ($emp->isUnassigned()) {
+                continue;
+            }
+
             $perm = $emp->getPermissions();
             if ($perm->isAllowed($change)) {
                 $spec[PermissionsInterface::PERMISSION_CHANGE][] = $emp->getUser()->getId();
-            } else if ($perm->isAllowed($view)) {
+            } elseif ($perm->isAllowed($view)) {
                 $spec[PermissionsInterface::PERMISSION_VIEW][] = $emp->getUser()->getId();
             }
         }
@@ -324,7 +335,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     public function setContact(EntityInterface $contact = null)
     {
-        if (!$contact instanceOf OrganizationContact) {
+        if (!$contact instanceof OrganizationContact) {
             $contact = new OrganizationContact($contact);
         }
         $this->contact = $contact;
@@ -333,7 +344,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
 
     public function getContact()
     {
-        if (!$this->contact instanceOf OrganizationContact) {
+        if (!$this->contact instanceof OrganizationContact) {
             $this->contact = new OrganizationContact();
         }
         return $this->contact;
@@ -386,6 +397,20 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->employees;
     }
 
+    public function getEmployee($userOrId)
+    {
+        $employees = $this->getEmployees();
+        $userId    = $userOrId instanceof \Auth\Entity\UserInterface ? $userOrId->getId() : $userOrId;
+
+        foreach ($employees as $employee) {
+            if ($employee->getUser()->getId() == $userId) {
+                return $employee;
+            }
+        }
+
+        return null;
+    }
+
     public function isOwner(UserInterface $user)
     {
         return $this->getUser()->getId() == $user->getId();
@@ -435,7 +460,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         $perms->build();
     }
 
-    public function setUser(UserInterface $user) {
+    public function setUser(UserInterface $user)
+    {
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
         }
@@ -444,7 +470,8 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this;
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
@@ -453,6 +480,3 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         return $this->jobs;
     }
 }
-
-
-

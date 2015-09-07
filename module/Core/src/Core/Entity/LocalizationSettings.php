@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** LocalizationSettings.php */ 
+/** LocalizationSettings.php */
 namespace Core\Entity;
 
 use Settings\Entity\SettingsContainer as Container;
@@ -23,4 +23,3 @@ class LocalizationSettings extends Container
      */
     protected $language;
 }
-

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PermissionsReference.php */ 
+/** PermissionsReference.php */
 namespace Core\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -19,7 +19,7 @@ class PermissionsReference
 {
     
     /**
-     * 
+     *
      * @var unknown
      * @ODM\String
      */

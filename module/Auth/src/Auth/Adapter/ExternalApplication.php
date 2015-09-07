@@ -28,7 +28,7 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
      * @param null $credential
      * @param null $applicationKey
      */
-    public function __construct($repository, $identity=null, $credential=null, $applicationKey=null)
+    public function __construct($repository, $identity = null, $credential = null, $applicationKey = null)
     {
         $this->repository = $repository;
         $this->setIdentity($identity);
@@ -39,14 +39,16 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
     /**
      * @param ServiceLocatorInterface $serviceManager
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceManager) {
+    public function setServiceLocator(ServiceLocatorInterface $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
     }
 
     /**
      * @return ServiceLocatorInterface
      */
-    public function getServiceLocator() {
+    public function getServiceLocator()
+    {
         return $this->serviceManager;
     }
 
@@ -117,7 +119,7 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
                 
         $identity      = $this->getIdentity();
         $applicationId = '@' . $this->getApplicationIdentifier();
-        $applicationIdIndex = strrpos($identity,$applicationId);
+        $applicationIdIndex = strrpos($identity, $applicationId);
         //$login         = (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex)?substr($identity, 0, $applicationIdIndex):$identity;
         $login         = $identity;
         $users         = $this->getRepository();
@@ -125,48 +127,46 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
         $filter        = new CredentialFilter();
         $credential    = $this->getCredential();
         
-        $loginSuccess = False;
+        $loginSuccess = false;
         $loginResult = array();
         
         if (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex) {
             $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', login with correct suffix: ');
             // the login ends with the applicationID, therefore use the secret key
             // the external login must be the form 'xxxxx@yyyy' where yyyy is the matching suffix to the external application key
-            if (isset ($user)) {
+            if (isset($user)) {
                 if ($user->secret == $filter->filter($credential)) {
-                    $loginSuccess = True;
-                }
-                else {
-                    $loginSuccess = False;
+                    $loginSuccess = true;
+                } else {
+                    $loginSuccess = false;
                     $this->serviceManager->get('Core/Log')->info('User ' . $login . ', secret: ' . $user->secret . ' != loginPassword: ' . $filter->filter($credential) . ' (' . $credential . ')');
                 }
-            }
-            else {
-                $user = $users->create(array(
+            } else {
+                $user = $users->create(
+                    array(
                     'login' => $login,
                     'password' => $credential,
                     'secret' => $filter->filter($credential),
                     'role' => 'recruiter'
-                ));
+                    )
+                );
                 $users->store($user);
-                $loginSuccess = True;
-                $loginResult = array('firstLogin' => True);
+                $loginSuccess = true;
+                $loginResult = array('firstLogin' => true);
             }
-        }   
-        elseif (isset($user)) {
+        } elseif (isset($user)) {
             $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', login with noncorrect suffix: ');
             if ($user->credential == $filter->filter($credential)) {
                 $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', credentials are equal');
-                $loginSuccess = True;
-            }
-            elseif (!empty($applicationId)) {
+                $loginSuccess = true;
+            } elseif (!empty($applicationId)) {
                 $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', credentials are not equal');
                 // TODO: remove this code as soon as the secret key has been fully established
                 // basically this does allow an external login with an applicationIndex match against the User-Password
                 // the way it had been used in the start
                 if ($user->credential == $filter->filter($credential)) {
                     $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', credentials2 test');
-                    $loginSuccess = True;
+                    $loginSuccess = true;
                 }
             }
         }

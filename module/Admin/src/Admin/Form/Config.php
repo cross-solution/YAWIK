@@ -18,13 +18,15 @@ use Core\Form\Container;
  * @author Carsten Bleek bleek@cross-solution.de>
  */
 
-class Config extends Container {
+class Config extends Container
+{
 
     public function init()
     {
         $this->setName('global-settings');
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'nameForm' => array(
                 'type' => 'Admin\Form\ConfigForm',
                 'property' => true,
@@ -33,7 +35,8 @@ class Config extends Container {
                     'description' => /*@translate*/ 'Please enter the name of the hiring organization.',
                 ),
             )
-        ));
+            )
+        );
 
     }
 }

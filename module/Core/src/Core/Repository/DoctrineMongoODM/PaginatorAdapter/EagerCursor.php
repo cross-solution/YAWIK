@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** EagerCursor.php */ 
+/** EagerCursor.php */
 namespace Core\Repository\DoctrineMongoODM\PaginatorAdapter;
 
 use Doctrine\ODM\MongoDB\EagerCursor as DoctrineEagerCursor;
@@ -33,5 +33,3 @@ class EagerCursor extends \DoctrineMongoODMModule\Paginator\Adapter\DoctrinePagi
         return $cursor;
     }
 }
-
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -27,25 +27,27 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
 
     protected $serviceManager;
     protected $notifications = array();
-    protected $hasRunned = True;
+    protected $hasRunned = true;
 
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
         return $this;
     }
 
-    public function getServiceManager() {
+    public function getServiceManager()
+    {
         return $this->serviceManager;
     }
 
     public function attachShared(SharedEventManagerInterface $events)
     {
-        $events->attach('*', NotificationEvent::EVENT_NOTIFICATION_ADD, array($this,'add') , 1);
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderJSON') , -240);
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderHTML') , -250);
+        $events->attach('*', NotificationEvent::EVENT_NOTIFICATION_ADD, array($this,'add'), 1);
+        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderJSON'), -240);
+        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_DISPATCH, array($this,'renderHTML'), -250);
         // Sometimes the Dispatch-Event is not reached, for instance with a route-direct
         // but also for Events, that are happening after the Dispatch
-        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_FINISH, array($this,'renderHTML') , -250);
+        $events->attach('Zend\Mvc\Application', MvcEvent::EVENT_FINISH, array($this,'renderHTML'), -250);
         return $this;
     }
 
@@ -54,10 +56,11 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
         return $this;
     }
 
-    public function add(NotificationEvent $event) {
+    public function add(NotificationEvent $event)
+    {
         $notification = $event->getNotification();
         $this->notifications[] = $notification;
-        $this->hasRunned = False;
+        $this->hasRunned = false;
         return $this;
     }
 
@@ -65,16 +68,17 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
      * Special handling json
      * @param MvcEvent $event
      */
-    public function renderJSON(MvcEvent $event) {
+    public function renderJSON(MvcEvent $event)
+    {
         if (!$this->hasRunned) {
             $valueToPlainStati = array(1 => 'error', 2 => 'error', 3 => 'error', 4 => 'error', 5 => 'success', 6 => 'info', 7 => 'info');
             $viewModel = $event->getViewModel();
             if ($viewModel instanceof JsonModel) {
                 if (!empty($this->notifications)) {
-                    $jsonNotifications = $viewModel->getVariable('notifications',array());
+                    $jsonNotifications = $viewModel->getVariable('notifications', array());
                     foreach ($this->notifications as $notification) {
                         $status = 'info';
-                        if (array_key_exists($notification->getPriority(),$valueToPlainStati)) {
+                        if (array_key_exists($notification->getPriority(), $valueToPlainStati)) {
                             $status = $valueToPlainStati[$notification->getPriority()];
                         }
                         $jsonNotifications[] = array(
@@ -84,27 +88,28 @@ class NotificationListener extends EventManager implements SharedListenerAggrega
                     }
                     $viewModel->setVariable('notifications', $jsonNotifications);
                 }
-                $this->hasRunned = True;
+                $this->hasRunned = true;
             }
         }
         return;
     }
 
 
-    public function reset() {
-        $this->hasRunned = False;
+    public function reset()
+    {
+        $this->hasRunned = false;
         return $this;
     }
 
-    public function renderHTML(MvcEvent $event) {
+    public function renderHTML(MvcEvent $event)
+    {
         if (!$this->hasRunned) {
             $nEvent = new NotificationEvent();
             $nEvent->setNotifications($this->notifications);
             $this->trigger(NotificationEvent::EVENT_NOTIFICATION_HTML, $nEvent);
             $this->notifications = array();
-            $this->hasRunned = True;
+            $this->hasRunned = true;
         }
         return $this;
     }
-
 }

@@ -10,7 +10,10 @@
  * {{rtd: General layout. Includes the HTML Header}}
  */
 ?>
-<?php 
+<?php
+/* @var $options \Core\Options\ModuleOptions */
+$options = $this->services('Core/Options');
+$languages = $options->getSupportedLanguages();
 
 // See: http://yawik.readthedocs.org/en/latest/modules/core/notifications.html
 
@@ -79,9 +82,9 @@ $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.m
 <nav id="sidebar">
 <div class="btn-group" data-toggle="buttons-radio" id="language-switcher">
     <?php $lang = $this->params('lang');
-    foreach (array('en', 'de', 'fr', 'es', 'it', 'ru') as $availableLang): ?>
+    foreach ($languages as $availableLang=>$value): ?>
     <button type="button" class="btn btn-xs btn-default<?php echo $availableLang == $lang ? ' active' : ''?>" id="language-switcher-<?php echo $availableLang ?>">
-    <?php echo strtoupper($availableLang) ?></button>
+    <span class="flag-icon flag-icon-<?php echo  strtolower(substr($value,-2)) ?>"></span><?php echo strtoupper($availableLang) ?></button>
     <?php endforeach ?>
 </div>
 <p><a href="https://www.transifex.com/projects/p/yawik/">

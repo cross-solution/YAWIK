@@ -7,10 +7,11 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Applications\Form;
 
 use Core\Form\Form;
+
 /**
  * Form holds some application specific attributes.
  *
@@ -27,7 +28,8 @@ class Attributes extends Form
              ->setIsDisableElementsCapable(false)
              ->setAttribute('data-submit-on', 'checkbox');
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'checkbox',
             'name' => 'sendCarbonCopy',
             'options' => array(
@@ -38,9 +40,11 @@ class Attributes extends Form
                 'data-validate' => 'sendCarbonCopy',
                 'data-trigger'  => 'submit',
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'infocheckbox',
             'name' => 'acceptedPrivacyPolicy',
             'options' => array(
@@ -56,6 +60,7 @@ class Attributes extends Form
                 'data-validate' => 'acceptedPrivacyPolicy',
                 'data-trigger' => 'submit',
             ),
-        ));
+            )
+        );
     }
 }

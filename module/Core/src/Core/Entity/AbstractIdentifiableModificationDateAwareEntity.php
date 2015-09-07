@@ -15,17 +15,15 @@ use DateTime;
 
 /**
  * Abstract Identifiable Modification Date Aware Entity
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\MappedSuperclass @ODM\HasLifecycleCallbacks
  */
-abstract class AbstractIdentifiableModificationDateAwareEntity 
-    extends    AbstractIdentifiableEntity 
-    implements ModificationDateAwareEntityInterface
+abstract class AbstractIdentifiableModificationDateAwareEntity extends AbstractIdentifiableEntity implements ModificationDateAwareEntityInterface
 {
     /**
      * Creation date.
-     * 
+     *
      * @var DateTime
      * @ODM\Field(type="tz_date")
      */
@@ -42,7 +40,7 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
     /**
      * {@inheritDoc}
      */
-    public function getDateCreated ()
+    public function getDateCreated()
     {
         return $this->dateCreated;
     }
@@ -51,7 +49,7 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
      * {@inheritDoc}
      * @ODM\PrePersist
      */
-    public function setDateCreated (DateTime $dateCreated = Null)
+    public function setDateCreated(DateTime $dateCreated = null)
     {
         if (!isset($dateCreated)) {
             $dateCreated = new DateTime();
@@ -61,9 +59,9 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
     }
 
     /**
-	 * {@inheritDoc}
+     * {@inheritDoc}
      */
-    public function getDateModified ()
+    public function getDateModified()
     {
         return $this->dateModified;
     }
@@ -72,7 +70,7 @@ abstract class AbstractIdentifiableModificationDateAwareEntity
      * {@inheritDoc}
      *  @ODM\PreUpdate
      */
-    public function setDateModified ($dateModified = Null)
+    public function setDateModified($dateModified = null)
     {
         if (!isset($dateModified)) {
             $dateModified = new DateTime();

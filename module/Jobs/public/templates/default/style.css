@@ -2,11 +2,11 @@
 /* CSS Document */
 
 body {
-	font-size: 100%; /* Resets 1em to 10px */
-	font-family: 'Lucida Sans Unicode',Arial,sans-serif;
+    font-size: 100%; /* Resets 1em to 10px */
+    font-family: 'Lucida Sans Unicode',Arial,sans-serif;
         background: #ffffff;
-	/*color: #5498d7;*/
-	}
+    /*color: #5498d7;*/
+    }
 #footer a {
     font-size: 0.9em;
     text-decoration: none;
@@ -30,21 +30,21 @@ li{ background: url(bullet.png) left top no-repeat; padding-left: 15px;}
 address{padding: 20px 0 20px 0; font-style: normal;}
 #page {
  border: 1px solid #CFDFFF;
-	width: 700px;
-	margin: auto;
-	}
+    width: 700px;
+    margin: auto;
+    }
 
 #header {
-	top: 77px;
-	left: 0;
-	height:140px;
+    top: 77px;
+    left: 0;
+    height:140px;
         background: #5498D7 url(header-bg.png) repeat-y scroll 0 0;
         padding:5px;
         text-align:right;
         color:#FFFFFF;
-	clear: both;
-	}
-	
+    clear: both;
+    }
+    
 
 #header img.logo{
   text-align:left;
@@ -52,10 +52,10 @@ address{padding: 20px 0 20px 0; font-style: normal;}
 }
 
 #headerimg a:link, #headerimg a:visited, #headerimg a:active, #headerimg a:hover, #headerimg h1 a:link, #headerimg h1 a:visited, #headerimg h1 a:active, #headerimg h1 a:hover {
-	font: 700 40px Verdana,Tahoma,"Lucida Grande",sans-serif;
+    font: 700 40px Verdana,Tahoma,"Lucida Grande",sans-serif;
         color: #faa427;
-	text-decoration: none;
-	background: transparent;
+    text-decoration: none;
+    background: transparent;
 }
 .description {
     margin-left: 10px;
@@ -63,26 +63,26 @@ address{padding: 20px 0 20px 0; font-style: normal;}
     color: #FFFFFF !important;
     font: 600 0.95em "Courier New", Arial,sans-serif; }
 #content {
-	font-size: 0.78em;
-	padding: 25px 15px 0 15px;
+    font-size: 0.78em;
+    padding: 25px 15px 0 15px;
 }
 .apply{padding: 25px 0 25px 0;}
 #footer {
 font-size: 0.7em;
-	background: #fff;
+    background: #fff;
 
 }
 #footer a {
-	font-size: 0.8em;
-	text-decoration: none;
+    font-size: 0.8em;
+    text-decoration: none;
 }
-div#footer { 
+div#footer {
 font-size: 0.7em;
-	width: 700px;
-	margin: 0px auto;
-	padding: 20px 0px;
-	text-align: center;
+    width: 700px;
+    margin: 0px auto;
+    padding: 20px 0px;
+    text-align: center;
 
-	}
+    }
 
 .refnr {}

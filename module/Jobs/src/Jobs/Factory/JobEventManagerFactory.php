@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factors the JobEventManager which is used to trigger Job Events.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
@@ -43,6 +43,4 @@ class JobEventManagerFactory implements FactoryInterface
 
         return $events;
     }
-
-
 }

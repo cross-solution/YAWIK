@@ -7,13 +7,13 @@
  * @license   MIT
  */
 
-/** DocumentManagerFactory.php */ 
+/** DocumentManagerFactory.php */
 namespace Core\Repository\DoctrineMongoODM;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\FactoryInterface;
 
-class DocumentManagerFactory implements FactoryInterface 
+class DocumentManagerFactory implements FactoryInterface
 {
     /**
      * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator

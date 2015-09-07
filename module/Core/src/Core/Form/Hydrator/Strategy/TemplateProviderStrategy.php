@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -24,7 +24,7 @@ class TemplateProviderStrategy implements StrategyInterface, ServiceManagerAware
         $this->serviceManager = $serviceManager;
     }
 
-    public function extract($value, $object = Null)
+    public function extract($value, $object = null)
     {
         $templateProvider = $this->serviceManager->get('templateProvider');
         $templateProvider->setValue($value, $object);
@@ -35,5 +35,4 @@ class TemplateProviderStrategy implements StrategyInterface, ServiceManagerAware
     {
 
     }
-
 }

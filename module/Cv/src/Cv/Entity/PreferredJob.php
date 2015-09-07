@@ -17,13 +17,13 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class PreferredJob extends AbstractIdentifiableEntity
 {
-	/** 
-	 * @var string
-	 * @ODM\String
-	 */
+    /**
+     * @var string
+     * @ODM\String
+     */
     protected $typeOfApplication;
     
-    /** 
+    /**
      * @var string
      * @ODM\String
      */
@@ -41,45 +41,45 @@ class PreferredJob extends AbstractIdentifiableEntity
     
     /**
      * Apply for a job, internship or studies
-     * 
+     *
      * @param string $typeOfApplication
      * @return \Cv\Entity\PreferredJob
      */
-    public function setTypeOfApplication($typeOfApplication) 
+    public function setTypeOfApplication($typeOfApplication)
     {
-    	$this->typeOfApplication=$typeOfApplication;
-    	return $this;
-    } 
+        $this->typeOfApplication=$typeOfApplication;
+        return $this;
+    }
     
     /**
      * Gets the type of an Application
-     * 
+     *
      * @return string
      */
     public function getTypeOfApplication()
     {
-    	return $this->typeOfApplication;
-    } 
+        return $this->typeOfApplication;
+    }
     
     public function setPreferredJob($preferredJob)
     {
-    	$this->preferredJob=$preferredJob;
-    	return $this;
+        $this->preferredJob=$preferredJob;
+        return $this;
     }
     
     public function getPreferredJob()
     {
-    	return $this->preferredJob;
+        return $this->preferredJob;
     }
     
     public function setWillingnessToTravel($willingnessToTravel)
     {
-    	$this->willingnessToTravel=$willingnessToTravel;
-    	return $this;
+        $this->willingnessToTravel=$willingnessToTravel;
+        return $this;
     }
     
     public function getWillingnessToTravel()
     {
-    	return $this->willingnessToTravel;
+        return $this->willingnessToTravel;
     }
 }

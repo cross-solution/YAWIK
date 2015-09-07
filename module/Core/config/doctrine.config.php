@@ -33,7 +33,7 @@ return array(
                   'hydrator_dir'       => 'cache/DoctrineMongoODMModule/Hydrator',
 //                'hydrator_namespace' => 'DoctrineMongoODMModule\Hydrator',
 //
-//                'default_db'         => 'CrossApplicantManagement',
+//                'default_db'         => '',
 //
 //                'filters'            => array(),  // array('filterName' => 'BSON\Filter\Class'),
 //
@@ -43,7 +43,7 @@ return array(
 
         'driver' => array(
             'annotation' => array(
-                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver', 
+                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
             ),
             'odm_default' => array(
                 'drivers' => array(

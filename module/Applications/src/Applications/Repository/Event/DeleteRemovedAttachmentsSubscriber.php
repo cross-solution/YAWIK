@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** JobReferencesUpdateListener.php */ 
+/** JobReferencesUpdateListener.php */
 namespace Applications\Repository\Event;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -24,7 +24,7 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
 {
     /**
      * Gets events
-     * 
+     *
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
     public function getSubscribedEvents()
@@ -34,21 +34,21 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
     
     /**
      * Updates fiile permissions on Flush
-     * 
+     *
      * @param OnFlushEventArgs $eventArgs
      * @return boolean
      */
     public function postRemoveEntity(LifecycleEventArgs $eventArgs)
     {
         $file = $eventArgs->getDocument();
-        if (!$file instanceOf Attachment) {
+        if (!$file instanceof Attachment) {
             return;
         }
         
         $dm     = $eventArgs->getDocumentManager();
         //$repo   = $dm->getRepository('Applications\Entity\Application');
         
-        $fileId = new \MongoId($file->id); 
+        $fileId = new \MongoId($file->id);
         
         $dm->createQueryBuilder('Applications\Entity\Application')
            ->update()->multiple(true)
@@ -61,6 +61,4 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
            ->field('contact.image')->equals($fileId)->set(null)
            ->getQuery()->execute();
     }
-    
 }
-

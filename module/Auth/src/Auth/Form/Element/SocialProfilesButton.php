@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SocialProfilesButton.php */ 
+/** SocialProfilesButton.php */
 namespace Auth\Form\Element;
 
 use Zend\Form\Element\Button;
@@ -102,4 +102,3 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
         return $this;
     }
 }
-

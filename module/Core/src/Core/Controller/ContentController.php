@@ -12,8 +12,7 @@ namespace Core\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Settings\Repository\Settings as SettingsRepository;
-//use Settings\Repository\Settings;
+use Zend\Http\PhpEnvironment\Request;
 
 /**
  * The Content Controller contains actions for handling static content.
@@ -33,13 +32,15 @@ class ContentController extends AbstractActionController
 
         $viewModel = new ViewModel();
         $viewModel->setTemplate($view);
-        if ($this->request->isXmlHttpRequest()) {
+
+        /* @var $request Request */
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
             $viewModel->setTerminal(true);
         }
         return $viewModel;
     }
-
-
 
     /**
      * displays the content of a modal box. This is used e.g. when opening
@@ -53,7 +54,11 @@ class ContentController extends AbstractActionController
 
         $viewModel = new ViewModel();
         $viewModel->setTemplate($view);
-        if ($this->request->isXmlHttpRequest()) {
+
+        /* @var $request Request */
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
             $viewModel->setTerminal(true);
         }
 

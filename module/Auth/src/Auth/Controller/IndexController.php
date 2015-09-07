@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -18,7 +18,6 @@ use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
-
 
 /**
  * Main Action Controller for Authentication module.
@@ -51,7 +50,8 @@ class IndexController extends AbstractActionController
      * @param $loginForm
      * @param $options
      */
-    public function __construct(AuthenticationService $auth, LoggerInterface $logger, $loginForm, $options) {
+    public function __construct(AuthenticationService $auth, LoggerInterface $logger, $loginForm, $options)
+    {
         $this->auth=$auth;
         $this->loginForm=$loginForm;
         $this->logger=$logger;
@@ -62,9 +62,9 @@ class IndexController extends AbstractActionController
      * Login with username and password
      */
     public function indexAction()
-    { 
-        if ($this->auth->hasIdentity()){
-            return $this->redirect()->toRoute( 'lang' );
+    {
+        if ($this->auth->hasIdentity()) {
+            return $this->redirect()->toRoute('lang');
         }
 
         $viewModel = new ViewModel();
@@ -84,9 +84,10 @@ class IndexController extends AbstractActionController
             }
 
             $form->setData($data);
-            if (array_key_exists('credentials', $data) && array_key_exists('login', $data['credentials']) && array_key_exists('credential', $data['credentials']))
-            $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
+            if (array_key_exists('credentials', $data) && array_key_exists('login', $data['credentials']) && array_key_exists('credential', $data['credentials'])) {
+                $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
+            }
             
             $auth       = $this->auth;
             $result     = $auth->authenticate($adapter);
@@ -166,10 +167,10 @@ class IndexController extends AbstractActionController
     
     /**
      * Login with HybridAuth
-     * 
+     *
      * Passed in Params:
      * - provider: HybridAuth provider identifier.
-     * 
+     *
      * Redirects To: Route 'home'
      */
     public function loginAction()
@@ -182,10 +183,10 @@ class IndexController extends AbstractActionController
         $result = $auth->authenticate($hauth);
         $resultMessage = $result->getMessages();
 
-        if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
+        if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === true) {
             try {
                 $user          = $auth->getUser();
-                $password      = substr(md5(uniqid()),0,6);
+                $password      = substr(md5(uniqid()), 0, 6);
                 $login         = uniqid() . ($this->options->auth_suffix != "" ? '@' . $this->options->auth_suffix : '');
                 $externalLogin = isset($user->login)?$user->login:'-- not communicated --';
                 $this->logger->debug('first login via ' . $provider . ' as: ' . $externalLogin);
@@ -197,22 +198,23 @@ class IndexController extends AbstractActionController
                 $mail = $this->mailer('htmltemplate');
                 $mail->setTemplate('mail/first-socialmedia-login');
                 $mail->setSubject($this->options->getMailSubjectRegistration());
-                $mail->setVariables(array(
-                                'displayName'=> $user->info->getDisplayName(),
+                $mail->setVariables(
+                    array(
+                                'displayName'=> $user->getInfo()->getDisplayName(),
                                 'provider' => $provider,
                                 'login' => $login,
                                 'password' => $password,
-                ));
-                $mail->addTo($user->info->getEmail());
+                    )
+                );
+                $mail->addTo($user->getInfo()->getEmail());
 
                 $loggerId = $login . ' (' . $provider . ': ' . $externalLogin . ')';
                 if (isset($mail) && $this->mailer($mail)) {
-                    $this->logger->info('Mail first-login for ' . $loggerId . ' sent to ' . $user->info->getEmail());
+                    $this->logger->info('Mail first-login for ' . $loggerId . ' sent to ' . $user->getInfo()->getEmail());
                 } else {
                     $this->logger->warn('No Mail was sent for ' . $loggerId);
                 }
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $this->logger->crit($e);
                 $this->notification()->danger(
                     /*@translate*/ 'An unexpected error has occurred, please contact your system administrator'
@@ -226,21 +228,21 @@ class IndexController extends AbstractActionController
         if (null !== $settings->localization->language) {
             $basePath = $this->getRequest()->getBasePath();
             $ref = preg_replace('~^'.$basePath . '/[a-z]{2}(/)?~', $basePath . '/' . $settings->localization->language . '$1', $ref);
-        } 
+        }
         return $this->redirect()->toUrl($ref);
     }
     
     /**
      * Login via an external Application. This will get obsolet as soon we'll have a full featured Rest API.
-     * 
+     *
      * Passed in params:
      * - appKey: Application identifier key
      * - user: Name of the user to log in
      * - pass: Password of the user to log in
-     * 
+     *
      * Returns an json response with the session-id.
      * Non existant users will be created!
-     * 
+     *
      */
     public function loginExternAction()
     {
@@ -256,16 +258,18 @@ class IndexController extends AbstractActionController
         $result     = $auth->authenticate($adapter);
         
         if ($result->isValid()) {
-            $this->logger->info('User ' . $this->params()->fromPost('user') .
-                                        ' logged via ' . $appKey);
+            $this->logger->info(
+                'User ' . $this->params()->fromPost('user') .
+                ' logged via ' . $appKey
+            );
             
             // the external login may include some parameters for an update
             $updateParams = $this->params()->fromPost();
-            unset ($updateParams['user'], $updateParams['pass'], $updateParams['appKey']);
+            unset($updateParams['user'], $updateParams['pass'], $updateParams['appKey']);
             $resultMessage = $result->getMessages();
-            $password = Null;
-            if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
-                $password = substr(md5(uniqid()),0,6);
+            $password = null;
+            if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === true) {
+                $password = substr(md5(uniqid()), 0, 6);
                 $updateParams['password'] = $password;
             }
             if (!empty($updateParams)) {
@@ -284,11 +288,11 @@ class IndexController extends AbstractActionController
             
             $resultMessage = $result->getMessages();
             // TODO: send a mail also when required (maybe first mail failed or email has changed)
-            if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === True) {
+            if (array_key_exists('firstLogin', $resultMessage) && $resultMessage['firstLogin'] === true) {
                 // first external Login
                 $userName = $this->params()->fromPost('user');
                 $this->logger->debug('first login for User: ' .  $userName);
-                // 
+                //
                 if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
                     $userName = $realUserName[1];
                 }
@@ -298,11 +302,13 @@ class IndexController extends AbstractActionController
                 $apps = array_flip($apps);
                 $application = isset($apps[$appKey]) ? $apps[$appKey] : null;
 
-                $mail->setVariables(array(
+                $mail->setVariables(
+                    array(
                     'application' => $application,
                     'login'=>$userName,
                     'password' => $password,
-                ));
+                    )
+                );
                 $mail->setSubject($this->options->getMailSubjectRegistration());
                 $mail->setTemplate('mail/first-external-login');
                 $mail->addTo($user->getInfo()->getEmail());
@@ -316,22 +322,28 @@ class IndexController extends AbstractActionController
                 }
             }
 
-            return new JsonModel(array(
+            return new JsonModel(
+                array(
                 'status' => 'success',
                 'token' => session_id()
-            ));
+                )
+            );
         } else {
-            $this->logger->info('Failed to authenticate User ' . $this->params()->fromPost('user') .
-                                        ' via ' . $this->params()->fromPost('appKey'));
+            $this->logger->info(
+                'Failed to authenticate User ' . $this->params()->fromPost('user') .
+                ' via ' . $this->params()->fromPost('appKey')
+            );
             
             $this->getResponse()->setStatusCode(403);
-            return new JsonModel(array(
+            return new JsonModel(
+                array(
                 'status' => 'failure',
                 'user' => $this->params()->fromPost('user'),
                 'appKey' => $this->params()->fromPost('appKey'),
                 'code'   => $result->getCode(),
                 'messages' => $result->getMessages(),
-            ));
+                )
+            );
         }
         
     }
@@ -341,20 +353,22 @@ class IndexController extends AbstractActionController
         //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
         if (false) {
              $this->request->setMethod('get');
-            $params = new Parameters(array(
-             'format' => 'json',
+            $params = new Parameters(
+                array(
+                'format' => 'json',
                     'group' => array (
                         0 => 'testuser4711', 1 => 'flatscreen', 2 => 'flatscreen1', 3 => 'flatscreen2', 4 => 'flatscreen3',  5 => 'flatscreen4',
                         6 => 'flatscreen5', 7 => 'flatscreen6', 8 => 'flatscreen7',  9 => 'flatscreen8', 10 => 'flatscreen9'
                     ),
                     'name' => '(die) Rauscher – Unternehmensberatung & Consulting',
-            ));
+                )
+            );
             $this->getRequest()->setQuery($params);
              
         }
         $auth = $this->auth;
         $userGrpAdmin = $auth->getUser();
-        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() );
+        $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName());
         $grp = $this->params()->fromQuery('group');
         
         // if the request is made by an external host, add his identification-key to the name
@@ -376,8 +390,7 @@ class IndexController extends AbstractActionController
                 $user = $users->findByLogin($grp_member . $loginSuffix);
                 if (!empty($user)) {
                     $groupUserId[] = $user->id;
-                }
-                else {
+                } else {
                     $notFoundUsers[] = $grp_member . $loginSuffix;
                 }
             }
@@ -387,17 +400,21 @@ class IndexController extends AbstractActionController
             $group = $this->auth()->getUser()->getGroup($params->name, /*create*/ true);
             $group->setUsers($groupUserId);
         }
-        $this->logger->info('Update Group Name: ' . $name . PHP_EOL . str_repeat(' ',36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL .
-                str_repeat(' ',36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
-                str_repeat(' ',36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ',36) . 'Group Members not found: ' . implode(',', $notFoundUsers));
+        $this->logger->info(
+            'Update Group Name: ' . $name . PHP_EOL . str_repeat(' ', 36) . 'Group Owner: ' . $userGrpAdmin->getLogin() . PHP_EOL .
+            str_repeat(' ', 36) . 'Group Members Param: ' . implode(',', $params->group) . PHP_EOL .
+            str_repeat(' ', 36) . 'Group Members: ' . count($groupUserId) . PHP_EOL . str_repeat(' ', 36) . 'Group Members not found: ' . implode(',', $notFoundUsers)
+        );
         
-        return new JsonModel(array(
-        ));
+        return new JsonModel(
+            array(
+            )
+        );
     }
     
     /**
      * Logout
-     * 
+     *
      * Redirects To: Route 'home'
      */
     public function logoutAction()
@@ -409,9 +426,8 @@ class IndexController extends AbstractActionController
 
         $this->notification()->success(/*@translate*/ 'You are now logged out');
         return $this->redirect()->toRoute(
-            'lang', 
+            'lang',
             array('lang' => $this->params('lang'))
         );
     }
-    
 }

@@ -7,12 +7,11 @@
  * @license   MIT
  */
 
-/** PermissionsInterface.php */ 
+/** PermissionsInterface.php */
 namespace Core\Entity;
 
-interface PermissionsResourceInterface 
+interface PermissionsResourceInterface
 {
     public function getPermissionsResourceId();
     public function getPermissionsUserIds();
 }
-

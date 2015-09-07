@@ -14,38 +14,39 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * Personal informations of a subscriber. This class can translate a subscriber ID into an subscriber name
  * by calling an API of another YAWIK
- * 
+ *
  * @ODM\Document (collection="applications.subscribers", repositoryClass="Applications\Repository\Subscriber")
  */
-class Subscriber extends AbstractIdentifiableEntity 
-{  
+class Subscriber extends AbstractIdentifiableEntity
+{
+  
     /**
      * name of the instance (other YAWIK, or jobboard etc.) who has
-     * published the job posting. Technicaly it's a name of a referer 
+     * published the job posting. Technicaly it's a name of a referer
      * of an application
-     * 
-     * @ODM\String 
+     *
+     * @ODM\String
      */
     protected $name;
     
     /**
      * Referer of a job posting. This referrer must be submitted within the
      * application form
-     * 
-     * @ODM\String 
+     *
+     * @ODM\String
      **/
     protected $uri;
     
     /**
      * date of the last update
-     * 
+     *
      * @ODM\Field(type="tz_date")
      */
     protected $date;
    
     /**
      * Gets the name of the instance, who has published the job ad.
-     * 
+     *
      * @return String
      */
     public function getName()
@@ -59,7 +60,7 @@ class Subscriber extends AbstractIdentifiableEntity
     
     /**
      * Sets a name of the Instance, who has published the job
-     * 
+     *
      * @param String $name
      * @return \Applications\Entity\Subscriber
      */
@@ -71,7 +72,7 @@ class Subscriber extends AbstractIdentifiableEntity
    
     /**
      * Gets the job publishers URI
-     * 
+     *
      * @return String
      */
     public function getUri()
@@ -81,7 +82,7 @@ class Subscriber extends AbstractIdentifiableEntity
     
     /**
      * Sets the job publishers URI
-     * 
+     *
      * @param String $uri
      * @return \Applications\Entity\Subscriber
      */

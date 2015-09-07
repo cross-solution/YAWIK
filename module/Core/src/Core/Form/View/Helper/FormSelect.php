@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\View\Helper;
 
 use Zend\Form\View\Helper\FormSelect as ZfFormSelect;
@@ -25,7 +25,8 @@ class FormSelect extends ZfFormSelect
         if ($element->hasAttribute('data-placeholder')) {
             $placeholder = $element->getAttribute('data-placeholder');
             $placeholder = $this->getTranslator()->translate(
-                $placeholder, $this->getTranslatorTextDomain()
+                $placeholder,
+                $this->getTranslatorTextDomain()
             );
             $element->setAttribute('data-placeholder', $placeholder);
         }

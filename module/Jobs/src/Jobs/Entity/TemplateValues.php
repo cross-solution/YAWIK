@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -11,6 +11,7 @@
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
+use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -18,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
+class TemplateValues extends AbstractEntity
 {
 
     /**
@@ -77,7 +78,7 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
      *
      * @return String
      */
-    public function getQualification()
+    public function getQualifications()
     {
         return $this->qualifications;
     }
@@ -176,30 +177,6 @@ class TemplateValues extends AbstractIdentifiableHydratorAwareEntity
         $this->_freeValues[$key] = $value;
         return $this;
     }
-
-    /*
-    public function __call($method, $params)
-    {
-        if (preg_match('~^((?:g|s)et)(.*)$~', $method, $match)) {
-            $property = lcfirst($match[2]);
-            if (property_exists($this, $property)) {
-                if ('set' == $match[1]) {
-                    $this->$property = $params[0];
-                    return $this;
-                } else {
-                    return $this->$property;
-                }
-            }
-            $value = isset($params[0]) ? $params[0] : null;
-            return $this->{$match[1]}($property, $value);
-        }
-
-        throw new \BadMethodCallException(sprintf(
-            'Unknown method %s called on %s',
-            $method, get_class($this)
-        ));
-    }
-    */
 
     public function __get($property)
     {

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Facebook.php */ 
+/** Facebook.php */
 namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -16,7 +16,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Cv\Entity\Education;
 
 /**
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class Facebook extends AbstractProfile
@@ -69,6 +69,4 @@ class Facebook extends AbstractProfile
         
         return $return;
     }
-    
-} 
-
+}

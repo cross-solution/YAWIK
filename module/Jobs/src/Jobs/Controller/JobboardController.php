@@ -14,6 +14,7 @@ use Jobs\Form\ListFilter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Jobs\Repository;
+use Zend\View\Model\ViewModel;
 
 /**
  * Controller for jobboard actions
@@ -62,9 +63,16 @@ class JobboardController extends AbstractActionController
      */
     public function indexAction()
     {
-        $params      = $this->getRequest()->getQuery();
-        $jsonFormat  = 'json' == $params->get('format');
-        
+        $service          = $this->getServiceLocator();
+        $request          = $this->getRequest();
+        $params           = $request->getQuery();
+        $jsonFormat       = 'json' == $params->get('format');
+        $event            = $this->getEvent();
+        $routeMatch       = $event->getRouteMatch();
+        $matchedRouteName = $routeMatch->getMatchedRouteName();
+        $url              = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
+        $action           = $routeMatch->getParam('action');
+
         if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
             $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
@@ -83,14 +91,22 @@ class JobboardController extends AbstractActionController
             $params['sort']='-date';
         }
 
+        $this->searchForm->setAttribute('action', $url);
         $params['by'] = "guest";
-        $paginator = $this->paginator('Jobs/Job',$params);
+
+        $paginator = $this->paginatorService('Jobs/Board', $params);
+
+        $options = $this->searchForm->getOptions();
+        $options['showButtons'] = false;
+        $this->searchForm->setOptions($options);
         
         $return = array(
             'by' => $params->get('by', 'all'),
             'jobs' => $paginator,
             'filterForm' => $this->searchForm
         );
-        return $return;
-     }
+        $model = new ViewModel($return);
+
+        return $model;
+    }
 }

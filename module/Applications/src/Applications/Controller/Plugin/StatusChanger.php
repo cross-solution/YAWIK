@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** StatusChanger.php */ 
+/** StatusChanger.php */
 namespace Applications\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -17,7 +17,7 @@ class StatusChanger extends AbstractPlugin
     
     public function __invoke()
     {
-        return $this;    
+        return $this;
     }
     
     
@@ -31,4 +31,3 @@ class StatusChanger extends AbstractPlugin
         return in_array($action, array('invite', 'deny')) && !$isPost;
     }
 }
-

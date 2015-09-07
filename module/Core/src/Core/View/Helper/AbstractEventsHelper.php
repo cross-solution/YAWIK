@@ -9,7 +9,8 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 abstract class AbstractEventsHelper extends EventManager implements HelperInterface, ServiceLocatorAwareInterface
-{ 
+{
+ 
     /**
      * View object
      *
@@ -52,5 +53,4 @@ abstract class AbstractEventsHelper extends EventManager implements HelperInterf
         $this->services = $serviceLocator->getServiceLocator();
         return $this;
     }
-  
 }

@@ -1,4 +1,12 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author bleek@cross-solution.de
+ * @license   MIT
+ */
 
 namespace Applications\Form;
 
@@ -8,35 +16,44 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Entity\Hydrator\InjectAwareEntityHydrator as Hydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
 
+/**
+ * Formular for inviting or rejecting applicants
+ */
 class Mail extends Form
 {
     
     
-	public function init()
+    public function init()
     {
         $this->setName('applicant-mail');
 
 
         
         $this
-        ->add(array(
+        ->add(
+            array(
             'type' => 'hidden',
             'name' => 'applicationId',
-        ))
-        ->add(array(
+            )
+        )
+        ->add(
+            array(
             'type' => 'hidden',
             'name' => 'status',
-        ))
-        ->add(array(
+            )
+        )
+        ->add(
+            array(
             'name' => 'mailSubject',
-        ))
-        ->add(array(
+            )
+        )
+        ->add(
+            array(
             'type' => 'textarea',
             'name' => 'mailText'
-        ));
+            )
+        );
             
            
     }
-    
-    
 }

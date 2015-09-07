@@ -68,5 +68,4 @@ class OrganizationImage extends FileEntity implements ResourceInterface
     {
         $this->getOrganization()->setImage(null);
     }
-
 }

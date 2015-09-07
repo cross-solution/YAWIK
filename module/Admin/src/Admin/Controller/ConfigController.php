@@ -13,7 +13,6 @@ namespace Admin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-
 /**
  * The Index Controller contains actions for handling static content.
  *
@@ -28,7 +27,7 @@ class ConfigController extends AbstractActionController
         $services = $this->getServiceLocator();
         $container = $services->get('forms')->get('Admin\Form\Config');
 
-        $viewModel->setVariable('form' , $container);
+        $viewModel->setVariable('form', $container);
         return $viewModel;
     }
 }

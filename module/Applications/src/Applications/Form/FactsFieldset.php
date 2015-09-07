@@ -16,7 +16,7 @@ use Core\Form\EmptySummaryAwareInterface;
 
 /**
  * Facts fieldset.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class FactsFieldset extends Fieldset implements DisableElementsCapableInterface, EmptySummaryAwareInterface
@@ -27,13 +27,18 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
      * @var string
      */
     protected $emptySummaryNotice = /*@translate*/ 'Click here to enter facts.';
-    
+
+    /**
+     * Defines the Facts formular. All fields of the facts form are added by default. Fields,
+     * which are disables by the users settings are removed
+     */
     public function init()
     {
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
              ->setName('base');
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'willingnessToTravel',
             'type' => '\Zend\Form\Element\Select',
             'options' => array(
@@ -52,9 +57,11 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                 'data-placeholder' => /*@translate*/ 'please select',
                 'data-allowclear' => 'true',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'earliestStartingDate',
             'type' => "text",
             'options' => array(
@@ -64,9 +71,11 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                     'description' => /*@translate*/ 'Ask the applicant about the earliest starting date.',
                 ),
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'expectedSalary',
             'options' => array(
                 'label' => /*@translate*/ 'Expected salary',
@@ -75,11 +84,33 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                     'description' => /*@translate*/ 'Ask users about their expected salary.',
                 ),
             ),
-        ));
+            )
+        );
 
-
+        $this->add(
+            array(
+                       'name' => 'drivingLicense',
+                       'type' => '\Zend\Form\Element\Select',
+                       'options' => array(
+                           'value_options' => array(
+                               '' => '', // needed for jquery select2 to render the placeholder
+                               "1"=>/*@translate*/ "Yes",
+                               "0"=>/*@translate*/ "No"),
+                           'label' => /*@translate*/ 'driving license',
+                           'description' => /*@translate*/ 'Do you have a driving license?',
+                           'disable_capable' => array(
+                               'description' => /*@translate*/ 'Ask the applicant, if he has a driving license.',
+                           ),
+                       ),
+                   )
+        );
     }
-    
+
+    /**
+     * If all elements have empty values, the form will be displayed collapsed with the EmptySummaryNotice
+     *
+     * @return bool
+     */
     public function isSummaryEmpty()
     {
         foreach ($this as $element) { /* @var $element \Zend\Form\ElementInterface */
@@ -87,21 +118,33 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                 return false;
             }
         }
-
         return true;
     }
-    
+
+    /**
+     * @param $message
+     *
+     * @return $this
+     */
     public function setEmptySummaryNotice($message)
     {
         $this->emptySummaryNotice = $message;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getEmptySummaryNotice()
     {
         return $this->emptySummaryNotice;
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDisableCapable($flag)
     {
         $this->options['is_disable_capable'] = $flag;
@@ -109,12 +152,20 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableCapable()
     {
         return isset($this->options['is_disable_capable'])
                ? $this->options['is_disable_capable'] : true;
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDisableElementsCapable($flag)
     {
         $this->options['is_disable_elements_capable'] = $flag;
@@ -122,6 +173,9 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableElementsCapable()
     {
         return isset($this->options['is_disable_elements_capable'])
@@ -129,13 +183,17 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
             : true;
     }
 
+    /**
+     * Removes elements from Facts form.
+     *
+     * @param array $map
+     * @return $this
+     */
     public function disableElements(array $map)
     {
-        if (in_array('expectedSalary', $map)) {
-            $this->remove('expectedSalary');
+        foreach ($map as $element) {
+            $this->remove($element);
         }
-
         return $this;
     }
 }
-

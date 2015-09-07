@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -13,7 +13,6 @@ namespace Jobs\Form;
 use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\propagateAttributeInterface;
-
 
 class Multipost extends SummaryForm implements propagateAttributeInterface
 {

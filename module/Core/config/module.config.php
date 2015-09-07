@@ -2,7 +2,7 @@
 /**
  * YAWIK
  * Configuration file of the Core module
- * 
+ *
  * This file intents to provide the configuration for all other modules
  * as well (convention over configuration).
  * Having said that, you may always overwrite or extend the configuration
@@ -38,7 +38,7 @@ return array(
                     'options' => array(
                          'stream' => __DIR__ .'/../../../log/yawik.log',
                     ),
-                ),
+                 ),
             ),
         ),
         'Log/Core/Mail' => array(
@@ -49,7 +49,7 @@ return array(
                     'options' => array(
                          'stream' => __DIR__ .'/../../../log/mails.log',
                     ),
-                ),
+                 ),
             ),
         ),
         'ErrorLogger' => array(
@@ -136,7 +136,7 @@ return array(
                         '__ALL__' => 'Core/FileAccess'
                     ),
                 ),
-            ), 
+            ),
         ),
         'assertions' => array(
             'invokables' => array(
@@ -160,6 +160,7 @@ return array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
             'Core/RepositoryService' => 'Core\Repository\RepositoryServiceFactory',
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
+            'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
 //            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
@@ -193,7 +194,7 @@ return array(
             )
         ),
     ),
-    // Defines the Core/Navigation. 
+    // Defines the Core/Navigation.
     'navigation' => array(
         'default' => array(
              'home' => array(
@@ -216,6 +217,7 @@ return array(
         'factories' => array(
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
+            'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
@@ -223,13 +225,15 @@ return array(
             'mail' => 'Core\Controller\Plugin\Mail',
             'Core/Mailer' => 'Core\Controller\Plugin\Mailer',
             'Core/CreatePaginator' => 'Core\Controller\Plugin\CreatePaginator',
+            'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
             'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
         ),
         'aliases' => array(
-            'filesender' => 'Core/FileSender',
-            'mailer'     => 'Core/Mailer',
-            'paginator' => 'Core/CreatePaginator',
+            'filesender'       => 'Core/FileSender',
+            'mailer'           => 'Core/Mailer',
+            'paginator'        => 'Core/CreatePaginator',
+            'paginatorservice' => 'Core/PaginatorService',
             'paginationparams' => 'Core/PaginationParams',
         )
     ),
@@ -241,7 +245,7 @@ return array(
         'not_found_template' => 'error/404',
         'unauthorized_template' => 'error/403',
         'exception_template' => 'error/index',
-        // Map template to files. Speeds up the lookup through the template stack. 
+        // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
             'noscript-notice' => __DIR__ . '/../view/layout/_noscript-notice.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
@@ -302,6 +306,9 @@ return array(
             'alert' => 'Core\View\Helper\Alert',
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
+            'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
+            'TinyMCEditorLight' => 'Core\Form\View\Helper\FormEditorLight',
+            'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor'
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
@@ -326,7 +333,8 @@ return array(
         ),
         'factories' => array(
             "Core/XssFilter" => "Core\Filter\XssFilterFactory",
-       ),
+            "Core/HtmlAbsPathFilter" => "Core\Factory\Filter\HtmlAbsPathFilterFactory",
+        ),
     ),
     
     'form_elements' => array(
@@ -350,6 +358,9 @@ return array(
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
 
+        ),
+        'initializers' => array(
+            '\Core\Form\Service\InjectHeadscriptInitializer',
         ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'

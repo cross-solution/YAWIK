@@ -39,7 +39,7 @@
     }
 
     $(function() {
-        $form   = $('#descriptionForm\\.atsMode');
+        $form   = $('#descriptionForm-atsMode');
         $select = $form.find('#atsMode-mode');
         $uri    = $form.find('#atsMode-uri').parent().parent();
         $email  = $form.find('#atsMode-email').parent().parent();

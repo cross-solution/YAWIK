@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -13,11 +13,10 @@ namespace Auth\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-
 //@codeCoverageIgnoreStart 
 
 /**
- * 
+ *
  */
 class SocialProfilesController extends AbstractActionController
 {
@@ -52,7 +51,8 @@ class SocialProfilesController extends AbstractActionController
     /**
      *
      */
-    public function testhybridAction() {
+    public function testhybridAction()
+    {
         $oAuth = $this->OAuth('XING');
         if ($oAuth->isAvailable()) {
             $adapter = $oAuth->getAdapter();
@@ -136,8 +136,6 @@ class SocialProfilesController extends AbstractActionController
         */
         return;
     }
-
-
 }
 
 // @codeCoverageIgnoreEnd 

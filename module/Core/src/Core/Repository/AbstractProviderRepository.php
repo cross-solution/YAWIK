@@ -2,12 +2,9 @@
 
 namespace Core\Repository;
 
-
 use Core\Entity\EntityInterface;
 use \Doctrine\ODM\MongoDB as ODM;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
-
 
 abstract class AbstractProviderRepository extends AbstractRepository
 {
@@ -20,7 +17,8 @@ abstract class AbstractProviderRepository extends AbstractRepository
         return $document;
     }
     
-    public function create(array $data=null) {
+    public function create(array $data = null)
+    {
         $document = parent::create($data);
         $document->injectRepository($this);
         return $document;

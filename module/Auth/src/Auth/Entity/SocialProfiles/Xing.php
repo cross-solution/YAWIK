@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Facebook.php */ 
+/** Facebook.php */
 namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -16,7 +16,7 @@ use Core\Entity\Collection\ArrayCollection;
 use Cv\Entity\Education;
 
 /**
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class Xing extends AbstractProfile
@@ -41,7 +41,7 @@ class Xing extends AbstractProfile
         if ('educations' == $type) {
             $key = $this->config['educations']['key'];
             if (isset($data['educational_background']['schools'])) {
-                $this->data[$key] = $data['educational_background']['schools']; 
+                $this->data[$key] = $data['educational_background']['schools'];
             }
         } else {
             $key = $this->config['employments']['key'];
@@ -68,25 +68,29 @@ class Xing extends AbstractProfile
     
     protected function filterEducation($data)
     {
-        return $this->filterData($data, array(
+        return $this->filterData(
+            $data,
+            array(
             'begin_date' => 'startDate',
             'end_date'   => 'endDate',
             'name'       => 'organizationName',
             'degree'     => 'compentencyName',
-        ));
+            )
+        );
     }
     
     protected function filterEmployment($data)
     {
-        $return = $this->filterData($data, array(
+        $return = $this->filterData(
+            $data,
+            array(
             'begin_date'  => 'startDate',
             'end_date'    => 'endDate',
             'description' => 'description',
             'name'        => 'organizationName',
-        ));
+            )
+        );
         $return['currentIndicator'] = !isset($return['endDate']);
         return $return;
     }
-    
-} 
-
+}

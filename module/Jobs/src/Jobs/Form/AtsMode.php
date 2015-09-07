@@ -14,7 +14,7 @@ use Core\Form\SummaryForm;
 
 /**
  * This form is used to configure the ATS settings of a job entity.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
@@ -27,11 +27,12 @@ class AtsMode extends SummaryForm
 
     public function init()
     {
-        $this->setOptions(array(
+        $this->setOptions(
+            array(
             'headscript' => 'Jobs/js/form.ats-mode.js',
-        ));
+            )
+        );
 
         parent::init();
     }
-
 }

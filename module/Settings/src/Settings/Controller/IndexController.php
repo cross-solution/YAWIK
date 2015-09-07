@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -37,8 +37,9 @@ class IndexController extends AbstractActionController
     }
 
     public function indexAction()
-    {   
+    {
         $services = $this->getServiceLocator();
+        $translator = $services->get('translator');
         $moduleName = $this->params('module', 'Core');
         
         $settings = $this->settings($moduleName);
@@ -80,15 +81,11 @@ class IndexController extends AbstractActionController
             $text    = $valid
                      ?  /*@translate*/'Changes successfully saved'
                      :  /*@translate*/'Changes could not be saved';
-            
-            $vars = array(
-                'valid' => true,
-                'content' => $partial('settings/index/_notification.phtml', 
-                                       array('status' => 'success', 'text' => $text)
-                             ),
-            );
+
+            $vars = array();
+            $this->notification()->success($translator->translate($text));
+
             if ($valid) {
-                
                 $event = new Event(
                     'SETTINGS_CHANGED',
                     $this,

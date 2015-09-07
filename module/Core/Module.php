@@ -28,12 +28,13 @@ use Doctrine\ODM\MongoDB\Types\Type as DoctrineType;
 
 /**
  * Bootstrap class of the Core module
- * 
+ *
  */
 class Module implements ConsoleBannerProviderInterface
 {
     
-    public function getConsoleBanner(Console $console) {
+    public function getConsoleBanner(Console $console)
+    {
         
         $version = `git describe`;
         $name = 'YAWIK ' . trim($version);
@@ -43,15 +44,15 @@ class Module implements ConsoleBannerProviderInterface
             str_repeat('-', $width - 4),
             str_repeat(' ', floor(($width - strlen($name)) / 2)),
             $name
-       );
+        );
     }
     
     /**
      * Sets up services on the bootstrap event.
-     * 
+     *
      * @internal
      *     Creates the translation service and a ModuleRouteListener
-     *      
+     *
      * @param MvcEvent $e
      */
     public function onBootstrap(MvcEvent $e)
@@ -75,8 +76,7 @@ class Module implements ConsoleBannerProviderInterface
  #       $LogListener->attach($eventManager);
         
         if (!\Zend\Console\Console::isConsole()) {
-            
-            $redirectCallback = function() use ($e) {
+            $redirectCallback = function () use ($e) {
                 $routeMatch = $e->getRouteMatch();
                 $lang = $routeMatch ? $routeMatch->getParam('lang', 'en') : 'en';
                 $uri    = $e->getRouter()->getBaseUrl() . '/' . $lang . '/error';
@@ -114,30 +114,39 @@ class Module implements ConsoleBannerProviderInterface
         $persistenceListener = new PersistenceListener();
         $persistenceListener->attach($eventManager);
         
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH_ERROR, function ($event) {
-            $application = $event->getApplication();
-            if ($application::ERROR_EXCEPTION == $event->getError()) {
-                $ex = $event->getParam('exception');
-                if (404 == $ex->getCode()) {
-                    $event->setError($application::ERROR_CONTROLLER_NOT_FOUND);
+        $eventManager->attach(
+            MvcEvent::EVENT_DISPATCH_ERROR,
+            function ($event) {
+                $application = $event->getApplication();
+                if ($application::ERROR_EXCEPTION == $event->getError()) {
+                    $ex = $event->getParam('exception');
+                    if (404 == $ex->getCode()) {
+                        $event->setError($application::ERROR_CONTROLLER_NOT_FOUND);
+                    }
                 }
-            }
             
-        }, 500);
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function ($event) use ($eventManager) {
-            $eventManager->trigger('postDispatch', $event);
-        }, -150);
+            },
+            500
+        );
+        $eventManager->attach(
+            MvcEvent::EVENT_DISPATCH,
+            function ($event) use ($eventManager) {
+                $eventManager->trigger('postDispatch', $event);
+            },
+            -150
+        );
         
     }
 
     /**
      * Loads module specific configuration.
-     * 
+     *
      * @return array
      */
     public function getConfig()
     {
         $config = include __DIR__ . '/config/module.config.php';
+        return $config;
         if (\Zend\Console\Console::isConsole()) {
             $config['doctrine']['configuration']['odm_default']['generate_proxies'] = false;
             $config['doctrine']['configuration']['odm_default']['generate_hydrators'] = false;
@@ -148,7 +157,7 @@ class Module implements ConsoleBannerProviderInterface
 
     /**
      * Loads module specific autoloader configuration.
-     * 
+     *
      * @return array
      */
     public function getAutoloaderConfig()

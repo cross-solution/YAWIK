@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Auth forms */ 
+/** Auth forms */
 namespace Auth\Form;
 
 use Core\Form\Container;
@@ -15,9 +15,9 @@ use Core\Form\ViewPartialProviderInterface;
 
 /**
  * Form container for user informations.
- * 
+ *
  * Combines user data form with user image upload,
- * provides a view partial to render the forms side by side. 
+ * provides a view partial to render the forms side by side.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -52,12 +52,13 @@ class UserInfoContainer extends Container implements ViewPartialProviderInterfac
     
     /**
      * Initializes the container.
-     * 
+     *
      * @see \Zend\Form\Element::init()
      */
     public function init()
     {
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'info' => array(
                 'type' => 'Auth/UserInfo',
                 'property' => true,
@@ -67,6 +68,7 @@ class UserInfoContainer extends Container implements ViewPartialProviderInterfac
                 'property' => true,
                 'use_files_array' => true,
             ),
-        ));
+            )
+        );
     }
 }

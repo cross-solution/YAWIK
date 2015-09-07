@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** JobAccessAssertion.php */ 
+/** JobAccessAssertion.php */
 namespace Jobs\Acl;
 
 use Acl\Assertion\AbstractEventManagerAwareAssertion;
@@ -30,14 +30,16 @@ class CreateAssertion extends AbstractEventManagerAwareAssertion
          'Jobs/Acl/Assertion/Create',
     );
 
-    protected function preAssert(Acl $acl,
-                                 RoleInterface $role = null,
-                                 ResourceInterface $resource = null,
-                                 $privilege = null
-    )
-    {
-        return $role instanceOf UserInterface && 'new' == $privilege;
+    protected function preAssert(
+        Acl $acl,
+        RoleInterface $role = null,
+        ResourceInterface $resource = null,
+        $privilege = null
+    ) {
+        if (!$role instanceof UserInterface || 'new' != $privilege) {
+            return false;
+        }
+
+        return null;
     }
-
-
 }

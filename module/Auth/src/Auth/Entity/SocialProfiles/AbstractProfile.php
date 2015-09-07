@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AbstractProfile.php */ 
+/** AbstractProfile.php */
 namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -18,20 +18,19 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 /**
  * Social Profile Entity
- * 
+ *
  * Provides methods to normalize profile data.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\MappedSuperclass @ODM\HasLifecycleCallbacks
  */
-abstract class AbstractProfile extends AbstractIdentifiableEntity 
-                      implements ProfileInterface
+abstract class AbstractProfile extends AbstractIdentifiableEntity implements ProfileInterface
 {
     
     /**
      * Name of the profile.
      * Should be the name of the social network.
-     *  
+     *
      * @var String
      * @ODM\String
      */
@@ -40,15 +39,15 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     
     /**
      * URL to the profile page.
-     * 
+     *
      * @var String
      * @ODM\String
      */
     protected $link;
     
     /**
-     * Raw profile data (API result) 
-     * 
+     * Raw profile data (API result)
+     *
      * @var array
      * @ODM\Hash
      */
@@ -56,7 +55,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     
     /**
      * Normalized educations collection.
-     * 
+     *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Education")
      */
@@ -64,7 +63,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     
     /**
      * Normalized employments collection.
-     * 
+     *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Employment")
      */
@@ -83,7 +82,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
      * - 'properties_map': Array in the format
      *          'property': 'data-key',
      *          used to map simple entity properties to data values.
-     *           
+     *
      * @var array
      */
     protected $config = array(
@@ -121,7 +120,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
      * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getName()
      */
-    public function getName ()
+    public function getName()
     {
         return $this->name;
     }
@@ -132,17 +131,17 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
      * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::setName()
      */
-    public function setName ($name)
+    public function setName($name)
     {
-       $this->name = (string) $name;
-       return $this;
+        $this->name = (string) $name;
+        return $this;
     }
     
     /**
      * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getData()
      */
-    public function getData ($key = null)
+    public function getData($key = null)
     {
         if (null === $key) {
             return $this->data;
@@ -163,7 +162,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
      * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::setData()
      */
-    public function setData (array $data)
+    public function setData(array $data)
     {
         $this->data = $data;
         
@@ -199,11 +198,11 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         return $this->educations;
     }
 
-	/**
-	 * {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @see \Auth\Entity\SocialProfiles\ProfileInterface::getEmployments()
      */
-    public function getEmployments ()
+    public function getEmployments()
     {
         if (!$this->employments) {
             $this->employments = $this->getCollection('employments');
@@ -215,7 +214,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     
     /**
      * Creates a collection of normalized embedded documents.
-     *  
+     *
      * @param string $type
      * @uses getHydrator(), getEntity(), getData()
      * @return \Core\Entity\Collection\ArrayCollection
@@ -232,7 +231,9 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         if ($dataArray) {
             foreach ($dataArray as $data) {
                 $data    = $this->$filter($data);
-                if (!count($data)) { continue; }
+                if (!count($data)) {
+                    continue;
+                }
                 $current = $hydrator->hydrate($data, clone $entity);
                 $collection->add($current);
             }
@@ -259,7 +260,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     }
     
     /**
-     * filters one entry of the educations collection for use in the 
+     * filters one entry of the educations collection for use in the
      * configured entity hydrator.
      * @param array $data
      * @return array
@@ -269,7 +270,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
     /**
      * filters one entry of the employments collection for use in the
      * configured entity hydrator.
-     * 
+     *
      * @param array $data
      * @return array
      */
@@ -277,7 +278,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
 
     /**
      * Gets an entity for education or employment.
-     * 
+     *
      * @param string $type
      * @return \Core\Entity\EntityInterface
      */
@@ -292,6 +293,4 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity
         }
         return $entity;
     }
-    
 }
-

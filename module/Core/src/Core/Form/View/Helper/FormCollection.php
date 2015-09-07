@@ -57,7 +57,7 @@ class FormCollection extends ZendFormCollection
         $elementHelper    = $this->getElementHelper();
         $fieldsetHelper   = $this->getFieldsetHelper();
     
-        $isCollectionElement = $element instanceOf CollectionElement;
+        $isCollectionElement = $element instanceof CollectionElement;
         /* @var $element ElementInterface|CollectionElement */
         if ($isCollectionElement && $element->shouldCreateTemplate()) {
             $this->isWithinCollection = true;
@@ -84,7 +84,7 @@ class FormCollection extends ZendFormCollection
          * template should NOT be rendered using the view partial.
          *
          */
-        if ($element instanceOf ViewPartialProviderInterface && ($this->isWithinCollection || $useViewPartial)) {
+        if ($element instanceof ViewPartialProviderInterface && ($this->isWithinCollection || $useViewPartial)) {
             /* @var $partial \Zend\View\Helper\Partial */
             $partial = $renderer->plugin('partial');
             return $partial(
@@ -94,8 +94,7 @@ class FormCollection extends ZendFormCollection
 
         foreach ($element->getIterator() as $elementOrFieldset) {
             /* @var $elementOrFieldset ElementInterface|ViewPartialProviderInterface|ViewHelperProviderInterface */
-            if ($elementOrFieldset instanceOf ViewPartialProviderInterface) {
-
+            if ($elementOrFieldset instanceof ViewPartialProviderInterface) {
                 $elementOrFieldsetId = $elementOrFieldset->getAttribute('id');
                 if (!$elementOrFieldsetId) {
                     $elementOrFieldsetId = preg_replace(
@@ -112,12 +111,11 @@ class FormCollection extends ZendFormCollection
                     $elementOrFieldset->getViewPartial(), array('element' => $elementOrFieldset)
                 );
             
-            }  else if ($elementOrFieldset instanceof FieldsetInterface) {
-            
+            } elseif ($elementOrFieldset instanceof FieldsetInterface) {
                 if ($isCollectionElement) {
                     $this->isWithinCollection = true;
                 }
-                if ($elementOrFieldset instanceOf ViewHelperProviderInterface) {
+                if ($elementOrFieldset instanceof ViewHelperProviderInterface) {
                     $helper = $elementOrFieldset->getViewHelper();
                     if (is_string($helper)) {
                         $helper = $renderer->plugin($helper);
@@ -145,8 +143,6 @@ class FormCollection extends ZendFormCollection
         
         // Every collection is wrapped by a fieldset if needed
         if ($this->shouldWrap) {
-
-            
             if ($this->isWithinCollection) {
                 $attrStr = $this->createAttributesString($element->getAttributes());
                 $markup = sprintf('<fieldset %s><a class="remove-item yk-form-remove"><i class="yk-icon yk-icon-minus"></i></a>%s</fieldset>', $attrStr, $markup);
@@ -157,14 +153,14 @@ class FormCollection extends ZendFormCollection
                     $attrStr = $this->createAttributesString($element->getAttributes());
                     $markup = sprintf(
                         '<fieldset %s><div class="fieldset-content">%s</div></fieldset>',
-                        $attrStr, $markup
+                        $attrStr,
+                        $markup
                     );
-                } else if (!empty($label)) {
-        
-                    
+                } elseif (!empty($label)) {
                     if (null !== ($translator = $this->getTranslator())) {
                         $label = $translator->translate(
-                            $label, $this->getTranslatorTextDomain()
+                            $label,
+                            $this->getTranslatorTextDomain()
                         );
                     }
     
@@ -185,8 +181,12 @@ class FormCollection extends ZendFormCollection
                     
                     $markup = sprintf(
                         '<fieldset %s><legend>%s%s</legend>%s%s%s</fieldset>',
-                        $attrStr, $label, $extraLegend,
-                        $divWrapperOpen, $markup, $divWrapperClose
+                        $attrStr,
+                        $label,
+                        $extraLegend,
+                        $divWrapperOpen,
+                        $markup,
+                        $divWrapperClose
                     );
                     
                 }
@@ -195,6 +195,4 @@ class FormCollection extends ZendFormCollection
     
         return $markup;
     }
-    
-    
 }

@@ -14,26 +14,27 @@ use Zend\View\Helper\AbstractHelper;
 
 /**
  * This helper generates HTML link markup from a URI or email address.
- * 
+ *
  * <code>
- *      
+ *
  *      $this->link('http://test.com');
  *      // Outputs: <a href="http://test.com">http://test.com</a>
- *      
+ *
  *      $this->link('http://test.com', 'Test.Com');
  *      // Outputs: <a href="http://test.com">Test.Com</a>
- *      
+ *
  *      $this->link('test@host.tld');
  *      // Ouptpus: <a href="mailto:test@host.tld">test@host.tld</a>
- *      
+ *
  *      $this->link('test@host.tld', 'send mail');
  *      // Outputs: <a href="mailto:test@host.tld">send mail</a>
  * </code>
- * 
+ *
  * @todo Scramble mail address to prevent spider grabs.
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Link extends AbstractHelper {
+class Link extends AbstractHelper
+{
 
     /**
      * generates a link from a text snippet
@@ -42,21 +43,17 @@ class Link extends AbstractHelper {
      * @param string $label
      * @return string
      */
-    public function __invoke($urlOrEmail, $label=null, array $attributes = array())
+    public function __invoke($urlOrEmail, $label = null, array $attributes = array())
     {
-        if (is_array($urlOrEmail)) {
-            return $this->generateLinkBySpec($urlOrEmail);
-        }
-        
         if (null === $label) {
             $label = $urlOrEmail;
             
-        } else if (is_array($label)) {
+        } elseif (is_array($label)) {
             $attributes = $label;
             $label      = $urlOrEmail;
         }
         
-        $attributesStr = count($attributes) 
+        $attributesStr = count($attributes)
                        ? $this->createAttributesString($attributes)
                        : '';
         
@@ -82,4 +79,3 @@ class Link extends AbstractHelper {
         return implode(' ', $attr);
     }
 }
-

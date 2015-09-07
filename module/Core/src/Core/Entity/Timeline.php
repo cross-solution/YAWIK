@@ -13,10 +13,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * Any type of timeline
- * 
+ *
  * @ODM\EmbeddedDocument
  */
-class Timeline extends AbstractEntity 
+class Timeline extends AbstractEntity
 {
     /**
      * @ODM\Field(type="tz_date")
@@ -31,7 +31,7 @@ class Timeline extends AbstractEntity
     /**
      * @return $date
      */
-    public function getDate ()
+    public function getDate()
     {
         if (!$this->date) {
             $this->setDate(new \DateTime());
@@ -43,10 +43,9 @@ class Timeline extends AbstractEntity
      * @param \DateTime $date
      * @return $this
      */
-    public function setDate (\DateTime $date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
         return $this;
     }
-   
 }

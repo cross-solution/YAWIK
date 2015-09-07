@@ -5,17 +5,11 @@ translate('Create group');
 //: ./view/auth/manage-groups/form.phtml:11
 translate('Edit group');
 
-//: ./src/Auth/Service/Register.php:327
-translate('your registration on %');
-
 //: ./src/Auth/Form/SocialProfiles.php:26
 translate('Social Profiles');
 
 //: ./src/Auth/Form/SocialProfilesFieldset.php:227
 translate('Allow users to attach their %s profile.');
-
-//: ./src/Auth/Form/UserInfoFieldset.php:57
-translate('personal informations');
 
 //: ./src/Auth/Form/UserInfoFieldset.php:63
 translate('Email');
@@ -191,9 +185,8 @@ translate('You are not permitted to access this resource.');
 //: ./src/Auth/Listener/MailForgotPassword.php:84
 translate('a new password was requestet for %s');
 
-//: ./config/module.config.php:365
+//: ./config/module.config.php:366
 translate('user');
 
-//: ./config/module.config.php:366
+//: ./config/module.config.php:367
 translate('recruiter');
-

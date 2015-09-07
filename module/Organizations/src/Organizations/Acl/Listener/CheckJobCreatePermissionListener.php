@@ -18,7 +18,7 @@ use Zend\EventManager\SharedListenerAggregateInterface;
 
 /**
  * Checks if an user may create jobs according to the organization permissions.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -61,7 +61,7 @@ class CheckJobCreatePermissionListener implements SharedListenerAggregateInterfa
          */
         $role = $e->getRole();
 
-        if (!$role instanceOf UserInterface) {
+        if (!$role instanceof UserInterface) {
             return false;
         }
 

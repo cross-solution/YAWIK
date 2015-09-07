@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -13,7 +13,6 @@ namespace Auth\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Core\Form\SummaryFormInterface;
-
 
 /**
  * Main Action Controller for Authentication module.
@@ -55,10 +54,12 @@ class ManageController extends AbstractActionController
             $form->setData($data);
             
             if (!$form->isValid()) {
-                return new JsonModel(array(
+                return new JsonModel(
+                    array(
                     'valid' => false,
                     'errors' => $form->getMessages(),
-                ));
+                    )
+                );
             }
             
             $this->getServiceLocator()->get('repositories')->store($user);
@@ -66,7 +67,7 @@ class ManageController extends AbstractActionController
             if ('file-uri' === $this->params()->fromPost('return')) {
                 $content = $form->getHydrator()->getLastUploadedFile()->getUri();
             } else {
-                if ($form instanceOf SummaryFormInterface) {
+                if ($form instanceof SummaryFormInterface) {
                     $form->setRenderMode(SummaryFormInterface::RENDER_SUMMARY);
                     $viewHelper = 'summaryform';
                 } else {
@@ -75,14 +76,13 @@ class ManageController extends AbstractActionController
                 $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
             }
             
-            return new JsonModel(array(
+            return new JsonModel(
+                array(
                 'valid' => $form->isValid(),
                 'content' => $content,
-            ));
+                )
+            );
         }
-       return array('form' => $container);
+        return array('form' => $container);
     }
-
 }
-
- 

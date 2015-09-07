@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Notification.php */ 
+/** Notification.php */
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -57,8 +57,9 @@ class Notification extends AbstractPlugin
      * attach a Listener, that is liable for storing the notifications
      * @param $listener
      */
-    public function setListener($listener) {
-        $listener->getSharedManager()->attach('*', NotificationEvent::EVENT_NOTIFICATION_HTML, array($this,'createOutput') , 1);
+    public function setListener($listener)
+    {
+        $listener->getSharedManager()->attach('*', NotificationEvent::EVENT_NOTIFICATION_HTML, array($this,'createOutput'), 1);
         $this->notificationListener = $listener;
     }
     
@@ -96,12 +97,12 @@ class Notification extends AbstractPlugin
         return $this->addMessage($message, self::NAMESPACE_INFO);
     }
     
-    public function warning($message) 
+    public function warning($message)
     {
         return $this->addMessage($message, self::NAMESPACE_WARNING);
     }
     
-    public function success($message) 
+    public function success($message)
     {
         return $this->addMessage($message, self::NAMESPACE_SUCCESS);
     }
@@ -138,4 +139,3 @@ class Notification extends AbstractPlugin
         return $this;
     }
 }
-

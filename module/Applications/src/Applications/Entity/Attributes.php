@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Applications\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;

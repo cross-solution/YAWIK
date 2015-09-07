@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** InjectSettingsEntityResolverListener.php */ 
+/** InjectSettingsEntityResolverListener.php */
 namespace Settings\Repository\Event;
 
 use Doctrine\Common\EventSubscriber;
@@ -16,7 +16,6 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Auth\Entity\UserInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
 
 class InjectSettingsEntityResolverListener implements EventSubscriber, ServiceLocatorAwareInterface
 {
@@ -43,7 +42,7 @@ class InjectSettingsEntityResolverListener implements EventSubscriber, ServiceLo
     public function postLoad(LifecycleEventArgs $args)
     {
         $document = $args->getDocument();
-        if (!$document instanceOf UserInterface) {
+        if (!$document instanceof UserInterface) {
             return;
         }
         
@@ -52,4 +51,3 @@ class InjectSettingsEntityResolverListener implements EventSubscriber, ServiceLo
         
     }
 }
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -27,7 +27,8 @@ class JobsPublisherFactory extends RestClientFactory
 
 
 
-    protected function getUri() {
+    protected function getUri()
+    {
         $config = $this->getConfig();
         if (!array_key_exists('scheme', $config)) {
             throw new \RuntimeException('scheme is missing', 500);
@@ -48,7 +49,8 @@ class JobsPublisherFactory extends RestClientFactory
      *
      * @return mixed
      */
-    protected function getConfig() {
+    protected function getConfig()
+    {
         $jobsOptions = $this->serviceLocator->get('Jobs/Options');
 
         if (!isset($this->multipostingTarget) && isset($jobsOptions->multipostingTargetUri)) {

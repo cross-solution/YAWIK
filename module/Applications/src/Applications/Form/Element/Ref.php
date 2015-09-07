@@ -7,8 +7,9 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Applications\Form\Element;
+
 use Zend\Form\Element\Button as Refref;
 use Core\Form\Element\ViewHelperProviderInterface;
 
@@ -16,7 +17,7 @@ use Core\Form\Element\ViewHelperProviderInterface;
  *
  *
  */
-class Ref extends Refref 
+class Ref extends Refref
 //implements ViewHelperProviderInterface
 {
     protected $helper = 'forminfocheckbox';
@@ -28,5 +29,4 @@ class Ref extends Refref
     //public function setViewHelper($helper) {
     //    return $this;
     //}
-    
 }

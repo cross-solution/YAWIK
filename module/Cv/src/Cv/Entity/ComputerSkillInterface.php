@@ -6,11 +6,11 @@ use Core\Entity\EntityInterface;
 
 interface ComputerSkillInterface extends EntityInterface
 {
-	/**
-	 * sets the name of the computer skill
+    /**
+     * sets the name of the computer skill
      *
      * @param string $name
-	 */
+     */
     public function setName($name);
 
     /**
@@ -33,10 +33,4 @@ interface ComputerSkillInterface extends EntityInterface
      * @return mixed
      */
     public function getLevel();
-
-    
-    
-    
-    
-    
 }

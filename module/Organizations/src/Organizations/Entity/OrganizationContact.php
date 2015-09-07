@@ -14,12 +14,13 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * Defines the contact address of an organization
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
-{   
-	
+{
+   
+    
     /**
      * BuildingNumber of an organization address
      *
@@ -56,18 +57,18 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      */
     public function setHouseNumber($houseNumber = "")
     {
-    	$this->houseNumber=$houseNumber;
-    	return $this;
+        $this->houseNumber=$houseNumber;
+        return $this;
     }
     
-    /** 
+    /**
      * Gets the Buildingnumber of an organization address
      *
      * @return string
      */
     public function getHouseNumber()
     {
-    	return $this->houseNumber;
+        return $this->houseNumber;
     }
 
     /**
@@ -76,9 +77,10 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      * @param $postalcode
      * @return OrganizationContact
      */
-    public function setPostalcode($postalcode) {
-    	$this->postalcode = (String) $postalcode;
-    	return $this;
+    public function setPostalcode($postalcode)
+    {
+        $this->postalcode = (String) $postalcode;
+        return $this;
     }
 
     /**
@@ -86,8 +88,9 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      *
      * @return string
      */
-    public function getPostalcode() {
-    	return $this->postalcode;
+    public function getPostalcode()
+    {
+        return $this->postalcode;
     }
     
     /**
@@ -96,9 +99,10 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      * @param string $city
      * @return OrganizationContact
      */
-    public function setCity($city = "") {
-    	$this->city = (String) $city;
-    	return $this;
+    public function setCity($city = "")
+    {
+        $this->city = (String) $city;
+        return $this;
     }
 
     /**
@@ -106,8 +110,9 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      *
      * @return string
      */
-    public function getCity() {
-    	return $this->city;
+    public function getCity()
+    {
+        return $this->city;
     }
     
     /**
@@ -118,8 +123,8 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      */
     public function setStreet($street = "")
     {
-    	$this->street=$street;
-    	return $this;
+        $this->street=$street;
+        return $this;
     }
 
     /**
@@ -129,7 +134,6 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      */
     public function getStreet()
     {
-    	return $this->street;
+        return $this->street;
     }
-    
 }

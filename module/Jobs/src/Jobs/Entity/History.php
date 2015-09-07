@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** History.php */ 
+/** History.php */
 namespace Jobs\Entity;
 
 use Core\Entity\AbstractEntity;
@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * History of an job. Holds status changes of an job opening
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class History extends AbstractEntity implements HistoryInterface
@@ -27,7 +27,7 @@ class History extends AbstractEntity implements HistoryInterface
     
     /**
      * Status of a job opening.
-     * 
+     *
      * @var StatusInterface
      * @ODM\EmbedOne(targetDocument="status")
      */
@@ -36,14 +36,14 @@ class History extends AbstractEntity implements HistoryInterface
     /**
      * optional message, which can attached to a status change
      * @var String
-     * 
+     *
      * @ODM\String
      */
     protected $message;
     
-    public function __construct($status, $message='[System]')
+    public function __construct($status, $message = '[System]')
     {
-        if (!$status instanceOf StatusInterface) {
+        if (!$status instanceof StatusInterface) {
             $status = new Status($status);
         }
         $this->setStatus($status);
@@ -58,12 +58,12 @@ class History extends AbstractEntity implements HistoryInterface
         }
     }
     
-	/**
+    /**
      * Gets the date of an history entry
      *
      * @return $date
      */
-    public function getDate ()
+    public function getDate()
     {
         return $this->date;
     }
@@ -74,57 +74,53 @@ class History extends AbstractEntity implements HistoryInterface
      * @param \DateTime $date
      * @return $this
      */
-    public function setDate (\DateTime $date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
         return $this;
     }
 
-	/**
+    /**
      * Gets the status of an history entry
      *
      * @return StatusInterface $status
      */
-    public function getStatus ()
+    public function getStatus()
     {
         return $this->status;
     }
 
-	/**
+    /**
      * Sets the Status of en history entry
      *
      * @param StatusInterface $status
      * @return $this
      */
-    public function setStatus (StatusInterface $status)
+    public function setStatus(StatusInterface $status)
     {
         $this->status = $status;
         return $this;
     }
 
-	/**
+    /**
      * Gets the message of an history entry
      *
      * @return String $message
      */
-    public function getMessage ()
+    public function getMessage()
     {
         return $this->message;
     }
 
-	/**
+    /**
      * Sets the message of an history entry
      *
      * @param String $message
      * @return $this
      */
-    public function setMessage ($message)
+    public function setMessage($message)
     {
         $this->message = $message;
         return $this;
     }
-
-    
-    
 }
-

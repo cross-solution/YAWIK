@@ -132,6 +132,4 @@ class Confirmation extends StringTemplateMessage
                  : $subject;
         return parent::setSubject($subject);
     }
-
 }
-

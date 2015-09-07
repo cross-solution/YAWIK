@@ -24,24 +24,29 @@ class JobDescription extends Container implements ViewPartialProviderInterface
     public function init()
     {
         $this->setName('jobs-form-description');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
             'id' => 'jobs-form-description',
             'data-handle-by' => 'native'
-        ));
+            )
+        );
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'atsMode' => array(
                 'type' => 'Jobs/AtsMode',
             )
-        ));
+            )
+        );
     }
 
-    public function setViewPartial($partial) {
+    public function setViewPartial($partial)
+    {
         return $this;
     }
 
-    public function getViewPartial() {
+    public function getViewPartial()
+    {
         return 'iframe/iFrame.phtml';
     }
-
 }

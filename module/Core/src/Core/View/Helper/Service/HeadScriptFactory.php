@@ -14,16 +14,16 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\HeadScript;
 
 /**
- * 
+ *
  */
-class HeadScriptFactory implements FactoryInterface 
+class HeadScriptFactory implements FactoryInterface
 {
 
     /**
      * Creates an instance of \Zend\View\Helper\Headscript
-     * 
+     *
      * - injects the MvcEvent instance
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return HeadScript
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -79,5 +79,4 @@ class HeadScriptFactory implements FactoryInterface
         return $helper;
         
     }
-    
 }

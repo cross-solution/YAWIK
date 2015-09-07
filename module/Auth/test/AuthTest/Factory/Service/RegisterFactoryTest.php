@@ -12,6 +12,11 @@ namespace AuthTest\Factory\Service;
 use Auth\Factory\Service\RegisterFactory;
 use Test\Bootstrap;
 
+/**
+ * Class RegisterSLFactoryTest
+ * @package AuthTest\Factory\Service
+ * @covers \Auth\Factory\Service\RegisterFactory
+ */
 class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**

@@ -20,7 +20,7 @@ use Zend\Form\Fieldset;
  *
  * Currently has two elements:
  * A user search bar to add new employees and a Collection of EmployeeFieldsets (one for each employee).
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -48,15 +48,18 @@ class EmployeesFieldset extends Fieldset implements ViewPartialProviderInterface
     {
         $this->setName('employees');
 
-        $this->add(array(
-            'name' => 'searchusers',
-            'type' => 'Auth/UserSearchbar',
+        $this->add(
+            array(
+            'name' => 'inviteemployee',
+            'type' => 'Organizations/InviteEmployeeBar',
             'options' => array(
-                'description' => /*@translate*/ 'Search for registered users.',
+                'description' => /*@translate*/ 'Invite an employee via email address.',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
 
             'type' => 'Collection',
             'name' => 'employees',
@@ -71,6 +74,7 @@ class EmployeesFieldset extends Fieldset implements ViewPartialProviderInterface
                     'type' => 'Organizations/EmployeeFieldset'
                 )
             ),
-        ));
+            )
+        );
     }
 }

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SettingsFactory.php */ 
+/** SettingsFactory.php */
 namespace Settings\Controller\Plugin;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -25,4 +25,3 @@ class SettingsFactory implements FactoryInterface
         return $plugin;
     }
 }
-

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** EventArgs.php */ 
+/** EventArgs.php */
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 class EventArgs extends \Doctrine\Common\EventArgs
@@ -19,7 +19,7 @@ class EventArgs extends \Doctrine\Common\EventArgs
         $this->values = $values;
     }
     
-    public function get($key) 
+    public function get($key)
     {
         if (!isset($this->values[$key])) {
             throw new \OutOfBoundsException('Invalid key "' . $key . '"');
@@ -33,7 +33,7 @@ class EventArgs extends \Doctrine\Common\EventArgs
         return $this;
     }
     
-    public function __get($name) 
+    public function __get($name)
     {
         return $this->get($name);
     }
@@ -48,7 +48,9 @@ class EventArgs extends \Doctrine\Common\EventArgs
         $type   = substr($method, 0, 3);
         
         if ('get' == $type || 'set' == $type) {
-            $filter = function($match) { return '_' . strtolower($match[0]); };
+            $filter = function ($match) {
+                return '_' . strtolower($match[0]);
+            };
             $key = lcfirst(substr($method, 3));
             $key = preg_replace_callback('~([A-Z])~', $filter, $key);
             
@@ -58,4 +60,3 @@ class EventArgs extends \Doctrine\Common\EventArgs
         throw new \BadMethodCallException('Unknown method: ' . $method);
     }
 }
-

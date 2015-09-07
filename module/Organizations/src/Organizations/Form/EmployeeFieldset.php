@@ -11,6 +11,7 @@
 namespace Organizations\Form;
 
 use Core\Form\ViewPartialProviderInterface;
+use Organizations\Entity\EmployeeInterface;
 use Zend\Form\Fieldset;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 
@@ -20,7 +21,7 @@ use Organizations\Entity\EmployeePermissionsInterface as Perms;
  * This fieldset contains two elements:
  * A user reference (field of type Employee)
  * and the permissions multi checkboxes.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -43,13 +44,16 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
 
     public function init()
     {
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Organizations/Employee',
             'name' => 'user',
-        ));
+            )
+        );
 
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'MultiCheckbox',
             'name' => 'permissions',
             'options' => array(
@@ -61,6 +65,17 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
                     Perms::APPLICATIONS_CHANGE => /*@translate*/ 'Edit Applications',
                 ),
             ),
-        ));
+            )
+        );
+
+        $this->add(
+            array(
+            'type' => 'hidden',
+            'name' => 'status',
+            'attributes' => array(
+                'value' => EmployeeInterface::STATUS_PENDING,
+            ),
+            )
+        );
     }
 }

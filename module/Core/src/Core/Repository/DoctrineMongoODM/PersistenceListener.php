@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** MongoPersistenceListener.php */ 
+/** MongoPersistenceListener.php */
 namespace Core\Repository\DoctrineMongoODM;
 
 use Zend\Mvc\MvcEvent;
@@ -36,7 +36,7 @@ class PersistenceListener implements ListenerAggregateInterface
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'flushDocumentManager'), -150);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'onDispatchError'), 10);
         /* This is needed to handle cases where the DISPATCH event exists early due to shortCircuit check */
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_FINISH,   array($this, 'flushDocumentManager'), 150);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_FINISH, array($this, 'flushDocumentManager'), 150);
     }
 
     /**
@@ -52,7 +52,7 @@ class PersistenceListener implements ListenerAggregateInterface
                 unset($this->listeners[$index]);
             }
         }
-    } 
+    }
     
     public function onDispatchError(MvcEvent $event)
     {
@@ -73,4 +73,3 @@ class PersistenceListener implements ListenerAggregateInterface
         $this->hasRun = true;
     }
 }
-

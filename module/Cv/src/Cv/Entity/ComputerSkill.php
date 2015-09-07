@@ -30,16 +30,18 @@ class ComputerSkill extends AbstractEntity implements ComputerSkillInterface
     /**
      * {@inheritDoc}
      * @param string $name
-	 */
-    public function setName($name){
-       $this->name=$name;
+     */
+    public function setName($name)
+    {
+        $this->name=$name;
     }
 
     /**
      * {@inheritDoc}
      * @return mixed
      */
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -47,7 +49,8 @@ class ComputerSkill extends AbstractEntity implements ComputerSkillInterface
      * {@inheritDoc}
      * @param string $level
      */
-    public function setLevel($level){
+    public function setLevel($level)
+    {
         $this->level=$level;
     }
 
@@ -55,13 +58,8 @@ class ComputerSkill extends AbstractEntity implements ComputerSkillInterface
      * {@inheritDoc}
      * @return mixed
      */
-    public function getLevel(){
+    public function getLevel()
+    {
         return $this->level;
     }
-
-    
-    
-    
-    
-    
 }

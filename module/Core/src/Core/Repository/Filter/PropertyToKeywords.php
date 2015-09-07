@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PropertyToKeywords.php */ 
+/** PropertyToKeywords.php */
 namespace Core\Repository\Filter;
 
 use Zend\Filter\FilterInterface;
@@ -19,19 +19,18 @@ class PropertyToKeywords implements FilterInterface
     
     public function filter($value)
     {
-        if ($value instanceOf SearchableEntityInterface) {
+        if ($value instanceof SearchableEntityInterface) {
             $entity = $value;
             $value = array();
             foreach ($entity->getSearchableProperties() as $name) {
                 $result = $entity->$name;
                 if (is_array($result)) {
                     $value = array_merge($value, $result);
-                }
-                else {
+                } else {
                     $value[] = $result;
                 }
             }
-        } else if (!is_array($value)) {
+        } elseif (!is_array($value)) {
             $value = array($value);
         }
         
@@ -57,7 +56,9 @@ class PropertyToKeywords implements FilterInterface
             $part = strtolower(trim($part));
             $part = preg_replace($stripPattern, '', $part);
         
-            if ('' == $part) { continue; }
+            if ('' == $part) {
+                continue;
+            }
         
             $parts[] = $part;
         
@@ -72,4 +73,3 @@ class PropertyToKeywords implements FilterInterface
         return $parts;
     }
 }
-

@@ -19,13 +19,15 @@ use Core\Entity\PermissionsInterface;
 use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\SnapshotGeneratorProviderInterface;
 
 /**
  * The job model
  *
  * @ODM\Document(collection="jobs", repositoryClass="Jobs\Repository\Job")
  */
-class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
+class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, SnapshotGeneratorProviderInterface
+{
 
     /**
      * unique ID of a job posting used by applications to reference
@@ -38,22 +40,22 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * title of a job posting
-     * 
-     * @var String 
-     * @ODM\String 
-     */ 
+     *
+     * @var String
+     * @ODM\String
+     */
     protected $title;
     
     /**
      * Description (Free text)
-     * 
+     *
      * @var String
      * @ODM\String
      */
     protected $description;
     /**
      * name of the publishing company
-     * 
+     *
      * @var String
      * @ODM\String
      */
@@ -71,7 +73,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Email Address, which is used to send notifications about e.g. new applications.
-     * 
+     *
      * @var String
      * @ODM\String
      **/
@@ -79,7 +81,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * the owner of a Job Posting
-     *  
+     *
      * @var UserInterface $user
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
      * @ODM\Index
@@ -87,8 +89,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $user;
     
     /**
-     * all applications of a certain jobad 
-     * 
+     * all applications of a certain jobad
+     *
      * @var Collection
      * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", simple=true, mappedBy="job",
      *                    repositoryMethod="loadApplicationsForJob")
@@ -97,16 +99,16 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * new applications
-     * 
-     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application", 
-     *                    repositoryMethod="loadUnreadApplicationsForJob", mappedBy="job") 
+     *
+     * @ODM\ReferenceMany(targetDocument="Applications\Entity\Application",
+     *                    repositoryMethod="loadUnreadApplicationsForJob", mappedBy="job")
      * @var Int
      */
     protected $unreadApplications;
     
     /**
      * language of the job posting. Languages are ISO 639-1 coded
-     * 
+     *
      * @var String
      * @ODM\String
      */
@@ -115,7 +117,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * location of the job posting. This is a plain text, which describes the location in
      * search e.g. results.
-     * 
+     *
      * @var String
      * @ODM\String
      */
@@ -131,8 +133,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $locations;
     
     /**
-     * Link which points to the job posting 
-     * 
+     * Link which points to the job posting
+     *
      * @var String
      * @ODM\String
      **/
@@ -140,7 +142,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * publishing date of a job posting
-     * 
+     *
      * @var String
      * @ODM\Field(type="tz_date")
      */
@@ -148,7 +150,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Status of the job posting
-     * 
+     *
      * @var Status
      * @ODM\EmbedOne(targetDocument="Status")
      * @ODM\Index
@@ -173,9 +175,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Reference of a job opening, on which an applicant can refer to.
-     * 
+     *
      * @var String
-     * @ODM\String 
+     * @ODM\String
      */
     protected $reference;
     
@@ -184,7 +186,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      *
      * @deprecated (use $organization->image->uri instead)
      * @var String
-     * @ODM\String 
+     * @ODM\String
      */
     protected $logoRef;
 
@@ -205,13 +207,19 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     protected $uriApply;
 
     /**
-     * Unified Resource Locator the Yawik, which handled this job first - so 
+     * Unified Resource Locator the Yawik, which handled this job first - so
      * does know who is the one who has commited this job.
-     * 
-     * @var String 
-     * @ODM\String 
+     *
+     * @var String
+     * @ODM\String
      */
     protected $uriPublisher;
+
+    /**
+     * @var
+     * @ODM\EmbedMany(targetDocument="Publisher")
+     */
+    protected $publisher;
 
     /**
      * The ATS mode entity.
@@ -224,17 +232,17 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     /**
      * this must be enabled to use applications forms etc. for this job or
      * to see number of applications in the list of applications
-     * 
+     *
      * @var Boolean
-     * 
-     * @ODM\Boolean 
+     *
+     * @ODM\Boolean
      */
     protected $atsEnabled;
     
     /**
-     * stores a list of lowercase keywords. This array can be regenerated by 
+     * stores a list of lowercase keywords. This array can be regenerated by
      *   bin/cam jobs generatekeywords
-     * 
+     *
      * @ODM\Collection
      */
     protected $keywords;
@@ -242,7 +250,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     
     /**
      * Permissions
-     * 
+     *
      * @var PermissionsInterface
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
@@ -274,7 +282,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
 
     /**
      * Is this needed?
-     * 
+     *
      * @return string
      */
     public function getResourceId()
@@ -287,7 +295,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @param String $applyId
      * @return \Jobs\Entity\JobInterface
      */
-    public function setApplyId($applyId) {
+    public function setApplyId($applyId)
+    {
         $this->applyId = (string) $applyId;
         return $this;
     }
@@ -295,7 +304,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @see \Jobs\Entity\JobInterface::getApplyId()
      * @return String
      */
-    public function getApplyId() {
+    public function getApplyId()
+    {
         if (!isset($this->applyId)) {
             // take the entity-id as a default
             $this->applyId = $this->id;
@@ -308,7 +318,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      *
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
@@ -319,7 +330,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @param String $title
      * @return \Jobs\Entity\JobInterface
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = (string) $title;
         return $this;
     }
@@ -350,7 +362,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getCompany()
      */
-    public function getCompany() {
+    public function getCompany()
+    {
         if ($this->organization) {
             return $this->organization->getOrganizationName()->getName();
         }
@@ -361,7 +374,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setCompany()
      */
-    public function setCompany($company) 
+    public function setCompany($company)
     {
         $this->company = $company;
         return $this;
@@ -371,7 +384,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getOrganization()
      */
-    public function getOrganization() {
+    public function getOrganization()
+    {
         return $this->organization;
     }
     
@@ -396,11 +410,11 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getContactEmail()
      */
-    public function getContactEmail() 
+    public function getContactEmail()
     {
         if (false !== $this->contactEmail && !$this->contactEmail) {
             $user = $this->getUser();
-            $email = False;
+            $email = false;
             if (isset($user)) {
                 $email = $user->getInfo()->getEmail();
             }
@@ -423,8 +437,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function setLanguage($language)
     {
-    	$this->language = $language;
-    	return $this;
+        $this->language = $language;
+        return $this;
     }
     /**
      * (non-PHPdoc)
@@ -432,7 +446,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function getLanguage()
     {
-    	return $this->language;
+        return $this->language;
     }
     /**
      * (non-PHPdoc)
@@ -440,8 +454,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function setLocation($location)
     {
-    	$this->location = $location;
-    	return $this;
+        $this->location = $location;
+        return $this;
     }
     /**
      * (non-PHPdoc)
@@ -449,7 +463,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function getLocation()
     {
-    	return $this->location;
+        return $this->location;
     }
     /**
      * (non-PHPdoc)
@@ -472,7 +486,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setUser()
      */
-    public function setUser(UserInterface $user) {
+    public function setUser(UserInterface $user)
+    {
         if ($this->user) {
             $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL, false);
         }
@@ -484,14 +499,29 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getUser()
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
+
+    public function unsetUser($removePermissions = true)
+    {
+        if ($this->user) {
+            if ($removePermissions) {
+                $this->getPermissions()->revoke($this->user, Permissions::PERMISSION_ALL);
+            }
+            $this->user=null;
+        }
+
+        return $this;
+    }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setApplications()
      */
-    public function setApplications(Collection $applications) {
+    public function setApplications(Collection $applications)
+    {
         $this->applications = $applications;
         return $this;
     }
@@ -499,28 +529,32 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getApplications()
      */
-    public function getApplications() {
+    public function getApplications()
+    {
         return $this->applications;
     }
     /**
      * Gets the number of unread applications
      * @return Collection
      */
-    public function getUnreadApplications() {
+    public function getUnreadApplications()
+    {
         return $this->unreadApplications;
     }
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getLink()
      */
-    public function getLink() {
+    public function getLink()
+    {
         return $this->link;
     }
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setLink()
      */
-    public function setLink($link) {
+    public function setLink($link)
+    {
         $this->link = $link;
         return $this;
     }
@@ -528,7 +562,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getDatePublishStart()
      */
-    public function getDatePublishStart() {
+    public function getDatePublishStart()
+    {
         return $this->datePublishStart;
     }
     /**
@@ -537,7 +572,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @see \Jobs\Entity\JobInterface::setDatePublishStart()
      * @return $this
      */
-    public function setDatePublishStart($datePublishStart) {
+    public function setDatePublishStart($datePublishStart)
+    {
         $this->datePublishStart = $datePublishStart;
         return $this;
     }
@@ -566,15 +602,17 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getStatus()
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setStatus()
      */
-    public function setStatus($status) {
-        if (!$status instanceOf Status) {
+    public function setStatus($status)
+    {
+        if (!$status instanceof Status) {
             $status = new Status($status);
         }
         $this->status = $status;
@@ -597,7 +635,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function getHistory()
     {
-        if (Null == $this->history) {
+        if (null == $this->history) {
             $this->setHistory(new ArrayCollection());
         }
         return $this->history;
@@ -627,14 +665,16 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * (non-PHPdoc)
      * @see JobInterface::getReference()
      */
-    public function getReference() {
+    public function getReference()
+    {
         return $this->reference;
     }
     /**
      * (non-PHPdoc)
      * @see JobInterface::setReference()
      */
-    public function setReference($reference) {
+    public function setReference($reference)
+    {
         $this->reference = $reference;
         return $this;
     }
@@ -660,26 +700,29 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * checks, weather a job is enabled for getting applications
      * @return boolean
      */
-    public function getAtsEnabled() {
+    public function getAtsEnabled()
+    {
         return $this->atsEnabled;
     }
     /**
      * enables a job add to receive applications
-     * 
+     *
      * @param boolean $atsEnabled
      * @return \Jobs\Entity\Job
      */
-    public function setAtsEnabled($atsEnabled) {
+    public function setAtsEnabled($atsEnabled)
+    {
         $this->atsEnabled = $atsEnabled;
         return $this;
     }
     /**
-     * returns an uri to the organisations logo
+     * returns an uri to the organization logo
      *
      * @deprecated
      * @return string
      */
-    public function getLogoRef() {
+    public function getLogoRef()
+    {
         /** @var $organization \Organizations\Entity\Organization */
         $organization = $this->organization;
         if (isset($organization) && isset($organization->image)) {
@@ -695,7 +738,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @param string $logoRef
      * @return \Jobs\Entity\Job
      */
-    public function setLogoRef($logoRef) {
+    public function setLogoRef($logoRef)
+    {
         $this->logoRef = $logoRef;
         return $this;
     }
@@ -705,7 +749,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      *
      * @return string
      */
-    public function getTemplate() {
+    public function getTemplate()
+    {
         $template = $this->template;
         if (empty($template)) {
             $template = 'default';
@@ -718,7 +763,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @param string $template name of the Template
      * @return \Jobs\Entity\Job
      */
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->template = $template;
         return $this;
     }
@@ -730,7 +776,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      *
      * @return String
      */
-    public function getUriApply() {
+    public function getUriApply()
+    {
         return $this->uriApply;
     }
 
@@ -740,7 +787,8 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      * @param String $uriApply
      * @return \Jobs\Entity\Job
      */
-    public function setUriApply($uriApply) {
+    public function setUriApply($uriApply)
+    {
         $this->uriApply = $uriApply;
         return $this;
     }
@@ -750,19 +798,48 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      *
      * @return String
      */
-    public function getUriPublisher() {
+    public function getUriPublisher()
+    {
         return $this->uriPublisher;
     }
     /**
-     * 
+     *
      * @param String $uriPublisher
      * @return \Jobs\Entity\Job
      */
-    public function setUriPublisher($uriPublisher) {
+    public function setUriPublisher($uriPublisher)
+    {
         $this->uriPublisher = $uriPublisher;
         return $this;
     }
-    
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function getPublisher($key)
+    {
+        $result = null;
+        foreach ($this->publisher as $publisher) {
+            if ($publisher->host == $key) {
+                $result = $publisher;
+            }
+        }
+        if (!isset($result)) {
+            $result = new Publisher();
+            $result->host = $key;
+            $this->publisher[] = $result;
+        }
+        return $result;
+    }
+
+    public function setPublisherReference($key, $reference)
+    {
+        $publisher = $this->getPublisher($key);
+        $publisher->reference;
+        return $this;
+    }
+
     /**
      * Get a list of fieldnames, which can be searched by keywords
      *
@@ -836,7 +913,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function getTemplateValues()
     {
-        if (!$this->templateValues instanceOf TemplateValues) {
+        if (!$this->templateValues instanceof TemplateValues) {
             $this->templateValues = new TemplateValues();
         }
         return $this->templateValues;
@@ -847,7 +924,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
      */
     public function setTemplateValues(EntityInterface $templateValues = null)
     {
-        if (!$templateValues instanceOf TemplateValues) {
+        if (!$templateValues instanceof TemplateValues) {
             $templateValues = new TemplateValues($templateValues);
         }
         $this->templateValues = $templateValues;
@@ -907,5 +984,27 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface {
     public function isActive()
     {
         return !$this->isDraft && $this->status->name == 'active';
+    }
+
+    /**
+     * @return Job
+     */
+    public function makeSnapshot()
+    {
+        $snapshot = new JobSnapshot($this);
+        return $snapshot;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getSnapshotGenerator()
+    {
+        $generator = array (
+            'hydrator' => '',
+            'target' => 'Jobs\Entity\JobSnapshot',
+            'exclude' => array('permissions', 'history')
+        );
+        return $generator;
     }
 }

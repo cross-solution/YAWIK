@@ -25,8 +25,7 @@ use Zend\InputFilter\InputProviderInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class DisableElementsCapableFormSettings extends Element
-    implements ViewHelperProviderInterface, InputProviderInterface, ElementPrepareAwareInterface
+class DisableElementsCapableFormSettings extends Element implements ViewHelperProviderInterface, InputProviderInterface, ElementPrepareAwareInterface
 {
     /**
      * All generated checkboxes.
@@ -149,8 +148,8 @@ class DisableElementsCapableFormSettings extends Element
      */
     public function setForm($formOrContainer)
     {
-        if (!$formOrContainer instanceOf FormInterface
-            && !$formOrContainer instanceOf Container
+        if (!$formOrContainer instanceof FormInterface
+            && !$formOrContainer instanceof Container
         ) {
             throw new \InvalidArgumentException('Parameter must be either of type "\Zend\Form\FormInterface" or "\Core\Form\Container"');
         }
@@ -241,7 +240,7 @@ class DisableElementsCapableFormSettings extends Element
                         : 'Toggle availability of this element in the form.',
             );
 
-            if ($element instanceOf DisableElementsCapableInterface) {
+            if ($element instanceof DisableElementsCapableInterface) {
                 if ($element->isDisableElementsCapable()) {
                     $return[$name] = $this->buildCheckboxes($element, $elementName);
                 }
@@ -252,7 +251,7 @@ class DisableElementsCapableFormSettings extends Element
                 }
                 continue;
             }
-            if (($element instanceOf DisableCapableInterface && $element->isDisableCapable())
+            if (($element instanceof DisableCapableInterface && $element->isDisableCapable())
                 || false !== $element->getOption('is_disable_capable')
             ) {
                 $box = $this->createCheckbox($elementName, $boxOptions);
@@ -276,11 +275,14 @@ class DisableElementsCapableFormSettings extends Element
     {
         $box = new Checkbox($name, $options);
         $box->setAttribute('checked', true)
-            ->setAttribute('id', preg_replace(
-                array('~\[~', '~\]~', '~--+~', '~-$~'),
-                array('-', '', '-', ''),
-                $name
-            ));
+            ->setAttribute(
+                'id',
+                preg_replace(
+                    array('~\[~', '~\]~', '~--+~', '~-$~'),
+                    array('-', '', '-', ''),
+                    $name
+                )
+            );
 
         return $box;
     }

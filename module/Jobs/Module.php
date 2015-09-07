@@ -69,6 +69,4 @@ class Module implements ConsoleUsageProviderInterface
         $defaultlistener = $services->get('Jobs/Listener/Publisher');
         $defaultlistener->attachShared($sharedManager);
     }
-
 }
-

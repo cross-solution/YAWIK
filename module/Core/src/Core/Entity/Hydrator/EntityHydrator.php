@@ -2,7 +2,6 @@
 
 namespace Core\Entity\Hydrator;
 
-
 use Zend\Stdlib\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
 use Zend\Stdlib\Hydrator\Filter\FilterInterface;
@@ -11,22 +10,23 @@ use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 class EntityHydrator extends AbstractHydrator
 {
-	
-	public function __construct()
-	{
-	    parent::__construct();
-	    $this->init();
-	}
-	
-	protected function init()
-	{ } 
-	
-	/* (non-PHPdoc)
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->init();
+    }
+    
+    protected function init()
+    {
+    }
+    
+    /* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
      */
-    public function extract ($object)
+    public function extract($object)
     {
-        if (!$object instanceOf EntityInterface) {
+        if (!$object instanceof EntityInterface) {
             return array();
             //@todo Error-Handling
         }
@@ -51,12 +51,12 @@ class EntityHydrator extends AbstractHydrator
         
     }
 
-	/* (non-PHPdoc)
+    /* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\HydratorInterface::hydrate()
      */
-    public function hydrate (array $data, $object)
+    public function hydrate(array $data, $object)
     {
-        if (!$object instanceOf EntityInterface) {
+        if (!$object instanceof EntityInterface) {
             return array();
             //@todo Error-Handling
         }
@@ -79,7 +79,7 @@ class EntityHydrator extends AbstractHydrator
         }
         
         foreach ($data as $key => $value) {
-            if ($value instanceOf \MongoId) {
+            if ($value instanceof \MongoId) {
                 $object->setId($value->__toString());
             }
         }

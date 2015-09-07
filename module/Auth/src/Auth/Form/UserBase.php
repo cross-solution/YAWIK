@@ -7,10 +7,11 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Auth\Form;
 
 use Core\Form\SummaryForm;
+
 /**
  *
  *

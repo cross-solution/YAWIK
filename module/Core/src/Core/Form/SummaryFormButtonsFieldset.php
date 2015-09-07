@@ -2,7 +2,6 @@
 
 namespace Core\Form;
 
-
 class SummaryFormButtonsFieldset extends ButtonsFieldset
 {
     
@@ -16,7 +15,8 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         }
         $this->setAttribute('class', 'text-right');
         
-        $this->add(array(
+        $this->add(
+            array(
             //'type' => 'Button',
             'type' => 'Core/Spinner-Submit',
             'name' => 'submit',
@@ -24,29 +24,32 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'label' => /*@translate*/ 'Save',
             ),
             'attributes' => array(
-                'id' => $this->formId . 'submit',
+                'id' => 'submit',
                 'type' => 'submit',
                 'value' => 'Save',
                 'class' => 'sf-submit btn btn-primary btn-xs'
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Button',
             'name' => 'cancel',
             'options' => array(
                 'label' => /*@translate*/ 'Cancel',
             ),
             'attributes' => array(
-                'id' => $this->formId . 'cancel',
+                'id' => 'cancel',
                 'type' => 'reset',
                 'value' => 'Cancel',
                 'class' => 'sf-cancel btn btn-default btn-xs'
             ),
-        ));
+            )
+        );
     }
     
-    public function setOptions($options) 
+    public function setOptions($options)
     {
         if (!isset($options['render_summary'])) {
             $options['render_summary'] = isset($this->options['render_summary'])
@@ -62,19 +65,27 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         
         return $this;
     }
-    
-   public function setFormId($formId)
-   {
-       $this->formId = $formId . '-';
+
+    public function setAttribute($key, $value)
+    {
+        if ('id' == $key) {
+            $this->setFormId($value);
+        }
+        return parent::setAttribute($key, $value);
+    }
+
+    public function setFormId($formId)
+    {
+        $this->formId = $formId . '-';
        
-       foreach ($this as $button) {
-           $button->setAttribute('id', $this->formId . $button->getAttribute('id'));
-       }
-       return $this;
-   }
+        foreach ($this as $button) {
+            $button->setAttribute('id', $this->formId . $button->getAttribute('id'));
+        }
+        return $this;
+    }
    
-   public function getFormId()
-   {
-       return substr($this->formId, 0, -1);
-   }
+    public function getFormId()
+    {
+        return substr($this->formId, 0, -1);
+    }
 }

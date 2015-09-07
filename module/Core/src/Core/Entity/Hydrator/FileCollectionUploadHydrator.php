@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** FileCollectionUploadHydrator.php */ 
+/** FileCollectionUploadHydrator.php */
 namespace Core\Entity\Hydrator;
 
 use Core\Entity\FileInterface;
@@ -37,9 +37,9 @@ class FileCollectionUploadHydrator implements HydratorInterface
         return $this->lastUploaded;
     }
     
-    public function hydrate (array $value, $object)
+    public function hydrate(array $value, $object)
     {
-        if (!isset($value[$this->elementName]) || !UPLOAD_ERR_OK == $value[$this->elementName]['error'] || !$object instanceOf Collection) {
+        if (!isset($value[$this->elementName]) || !UPLOAD_ERR_OK == $value[$this->elementName]['error'] || !$object instanceof Collection) {
             return null;
         }
     
@@ -54,7 +54,7 @@ class FileCollectionUploadHydrator implements HydratorInterface
     
     public function extract($object)
     {
-        if (!$object instanceOf Collection) {
+        if (!$object instanceof Collection) {
             return null;
         }
         
@@ -64,6 +64,4 @@ class FileCollectionUploadHydrator implements HydratorInterface
         }
         return $return;
     }
-    
 }
-

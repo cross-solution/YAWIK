@@ -15,11 +15,13 @@ class Config implements ServiceManagerAwareInterface
     protected $controller;
     protected $namespace;
     
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
     }
     
-    public function setController($controller) {
+    public function setController($controller)
+    {
         if ($controller != $this->controller) {
             $this->controller = $controller;
             $controllerClass = $controller;
@@ -31,12 +33,14 @@ class Config implements ServiceManagerAwareInterface
         return $this;
     }
     
-    public function setNamespace($name) {
+    public function setNamespace($name)
+    {
         $this->namespace = $name;
         return $this;
     }
     
-    public function getNamespace() {
+    public function getNamespace()
+    {
         return $this->namespace;
     }
      
@@ -44,7 +48,6 @@ class Config implements ServiceManagerAwareInterface
     {
         $namespace = $this->getNamespace();
         if (isset($this->map[$key])) {
-            
             return isset($this->map[$key][$module]) ? $this->map[$key][$module] : array();
         }
         $config = $this->getConfig($namespace);
@@ -55,7 +58,7 @@ class Config implements ServiceManagerAwareInterface
     }
     
     /**
-     * fetch the settings for a certain key of all Modules 
+     * fetch the settings for a certain key of all Modules
      * @param string $key
      * @return array
      */
@@ -79,7 +82,7 @@ class Config implements ServiceManagerAwareInterface
         return $this->applicationMap[$key];
     }
     
-    protected function getConfig($namespace = Null)
+    protected function getConfig($namespace = null)
     {
         if (!$this->config) {
             $this->config = array();
@@ -90,7 +93,7 @@ class Config implements ServiceManagerAwareInterface
             }
         }
         if (isset($namespace)) {
-            return array_key_exists($namespace,$this->config)?$this->config[$namespace]: array();
+            return array_key_exists($namespace, $this->config)?$this->config[$namespace]: array();
         }
         return $this->config;
     }
@@ -107,5 +110,4 @@ class Config implements ServiceManagerAwareInterface
         }
         return array();
     }
-    
 }

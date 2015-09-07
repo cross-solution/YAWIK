@@ -18,9 +18,13 @@ class PaginationQueryFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var $services \Zend\ServiceManager\ServiceManager */
+        $services = $serviceLocator->getServiceLocator();
         /* @var AuthenticationService $auth */
-        $auth                   = $serviceLocator->getServiceLocator()->get('AuthenticationService');
-        $filter = new PaginationQuery($auth);
+        $auth = $services->get('AuthenticationService');
+        $acl = $services->get('Acl');
+
+        $filter = new PaginationQuery($auth, $acl);
         return $filter;
     }
 }

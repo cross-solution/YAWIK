@@ -7,9 +7,8 @@
  * @license   MIT
  */
 
-/** CommentFieldset.php */ 
+/** CommentFieldset.php */
 namespace Applications\Form;
-
 
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Form\Form;
@@ -29,19 +28,22 @@ class CommentForm extends Form
     {
         $this->setName('application-comment-form');
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Core/RatingFieldset',
             'name' => 'rating',
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Textarea',
             'name' => 'message',
             'options' => array(
                 'label' => /* @translate */ 'Comment message',
             )
-        ));
+            )
+        );
         
     }
 }
-

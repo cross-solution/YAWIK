@@ -7,11 +7,12 @@
  * @license   MIT
  */
 
-/** SettingsEntityResolverFactory.php */ 
+/** SettingsEntityResolverFactory.php */
 namespace Settings\Repository;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+
 class SettingsEntityResolverFactory implements FactoryInterface
 {
     
@@ -31,4 +32,3 @@ class SettingsEntityResolverFactory implements FactoryInterface
         return $resolver;
     }
 }
-

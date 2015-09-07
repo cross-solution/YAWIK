@@ -1,0 +1,33 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+
+        <div class="alert alert-success">
+            <?php echo sprintf(
+                    $this->translate('An administrator account with the login name "%s" was created successfully.', 'Install'),
+                    $_POST['username']
+                  );?>
+        </div>
+        <?php if (true === $this->ok): ?>
+            <div class="alert alert-success"><?php echo $this->translate('The base configuration file was successfully created.', 'Install') ?></div>
+        <?php else: ?>
+            <div class="alert alert-warning"><p><?php echo sprintf(
+                                $this->translate('The configuration file could not be created automatically. So please create a file called "%s" in the directory "%s" with the following content:', 'Install'),
+                                'yawik.config.global.php', 'config/autoload'
+                          )?></p>
+        <pre><?php echo $this->escapeHtml($this->ok) ?></pre>
+                </div>
+
+        <?php endif ?>
+
+        <div class="text-center">
+            <a class="btn btn-success" href="<?php echo $this->basePath('/') ?>">
+                    <?php echo $this->translate('Start using YAWIK', 'Install') ?>
+            </a>
+        </div>

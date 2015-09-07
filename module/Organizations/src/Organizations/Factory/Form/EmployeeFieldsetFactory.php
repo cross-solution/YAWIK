@@ -20,7 +20,7 @@ use Organizations\Form\EmployeeFieldset;
 
 /**
  * Factory for an EmployeeFieldset
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo extract hydrating strategies
  * @since 0.18
@@ -39,21 +39,22 @@ class EmployeeFieldsetFactory implements FactoryInterface
         /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager */
         $services = $serviceLocator->getServiceLocator();
         $fieldset = new EmployeeFieldset();
-        $hydrator = new EntityHydrator();
+
+        $hydrator = new \Zend\Stdlib\Hydrator\ClassMethods(false); //new EntityHydrator();
         $repositories = $services->get('repositories');
         $users        = $repositories->get('Auth/User'); /* @var $users \Auth\Repository\User */
 
          /* todo: WRITE own Hydrator strategy class */
         $strategy = new ClosureStrategy(
-            function($object) use ($users)
-            {
+            function ($object) use ($users) {
+            
                 if (is_string($object)) {
                     return $users->find($object);
                 }
                 return $object;
             },
-            function ($data) use ($users)
-            {
+            function ($data) use ($users) {
+            
                 if (is_string($data)) {
                     $data = $users->find($data);
                 }
@@ -64,13 +65,13 @@ class EmployeeFieldsetFactory implements FactoryInterface
         /* todo: write own strategy class */
         $permStrategy = new ClosureStrategy(
             // extract
-            function($object) {
+            function ($object) {
                 /* @var $object \Organizations\Entity\EmployeePermissionsInterface */
                 $values = array();
                 foreach (array(
                     Perms::JOBS_VIEW, Perms::JOBS_CHANGE, PERMS::JOBS_CREATE,
                     Perms::APPLICATIONS_VIEW, Perms::APPLICATIONS_CHANGE)
-                as $perm) {
+ as $perm) {
                     if ($object->isAllowed($perm)) {
                         $values[] = $perm;
                     }
@@ -79,12 +80,17 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
                 return $values;
             },
-            function($data) {
-                $permissions = array_reduce($data, function($c, $i) { return $c | $i; }, 0);
+            function ($data) {
+                $permissions = array_reduce(
+                    $data,
+                    function ($c, $i) {
+                        return $c | $i;
+                    },
+                    0
+                );
                 return new EmployeePermissions($permissions);
             }
         );
-
 
         $hydrator->addStrategy('user', $strategy);
         $hydrator->addStrategy('permissions', $permStrategy);
@@ -93,5 +99,4 @@ class EmployeeFieldsetFactory implements FactoryInterface
 
         return  $fieldset;
     }
-
 }

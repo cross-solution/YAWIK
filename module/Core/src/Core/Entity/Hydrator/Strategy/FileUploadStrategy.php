@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** FileUploadStrategy.php */ 
+/** FileUploadStrategy.php */
 namespace Core\Entity\Hydrator\Strategy;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
@@ -43,16 +43,16 @@ class FileUploadStrategy implements StrategyInterface
         return clone $this->fileEntity;
     }
     
-    public function extract ($value)
+    public function extract($value)
     {
-        if (!$value instanceOf FileInterface) {
+        if (!$value instanceof FileInterface) {
             return null;
         }
         
         return $value->getId();
     }
 
-    public function hydrate ($value)
+    public function hydrate($value)
     {
         if (!UPLOAD_ERR_OK == $value['error']) {
             return null;
@@ -67,4 +67,3 @@ class FileUploadStrategy implements StrategyInterface
         return $file;
     }
 }
-

@@ -21,10 +21,11 @@ use Jobs\Listener\Events\JobEvent;
 use Jobs\Listener\Response\JobResponse;
 
 /**
- * 
+ *
  *
  */
-class ImportController extends AbstractActionController {
+class ImportController extends AbstractActionController
+{
 
     /**
      * attaches further Listeners for generating / processing the output
@@ -44,16 +45,17 @@ class ImportController extends AbstractActionController {
      * api-interface for transferring jobs
      * @return JsonModel
      */
-    public function saveAction() {
+    public function saveAction()
+    {
 
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
-        if (True && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
-
+        if (true && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
             // Test
             $this->request->setMethod('post');
-            $params = new Parameters(array(
+            $params = new Parameters(
+                array(
                 'applyId' => '71022',
                 'company' => 'Holsten 4',
                 'companyId' => '1745',
@@ -65,12 +67,14 @@ class ImportController extends AbstractActionController {
                 'status' => 'active',
                 'reference' => '2130010128',
                 'atsEnabled' => '1',
+                'uriApply' => 'http://mw2.yawik.org/de/apply/129145',
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
                 'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',
-            ));
+                )
+            );
             $this->getRequest()->setPost($params);
-        }        
+        }
 
         $params          = $this->params();
         $p               = $params->fromPost();
@@ -81,14 +85,14 @@ class ImportController extends AbstractActionController {
         //if (isset($user)) {
         //    $services->get('Core/Log')->info('Jobs/manage/saveJob ' . $user->login);
         //}
-        $result = array('token' => session_id(), 'isSaved' => False, 'message' => '', 'portals' => array());
+        $result = array('token' => session_id(), 'isSaved' => false, 'message' => '', 'portals' => array());
         try {
             if (isset($user) && !empty($user->login)) {
                 $formElementManager = $services->get('FormElementManager');
                 $form               = $formElementManager->get('Jobs/Import');
                 $id                 = $params->fromPost('id'); // determine Job from Database
-                $entity             = Null;
-                $createdJob         = True;
+                $entity             = null;
+                $createdJob         = true;
 
                 if (empty($id)) {
                     $applyId = $params->fromPost('applyId');
@@ -100,14 +104,13 @@ class ImportController extends AbstractActionController {
                         if (!isset($entity)) {
                             // new Job (the more likely branch)
                             $entity =$repositoriesJob->create(array("applyId" => (string) $applyId));
-                        }
-                        else {
-                            $createdJob = False;
+                        } else {
+                            $createdJob = false;
                         }
                     }
                 } else {
                     $repositoriesJob->find($id);
-                    $createdJob = False;
+                    $createdJob = false;
                 }
                 //$services->get('repositories')->get('Jobs/Job')->store($entity);
                 $form->bind($entity);
@@ -119,11 +122,10 @@ class ImportController extends AbstractActionController {
                         $loginSuffix = $loginSuffixResponseCollection->last();
                     }
                     $params                        = $this->getRequest()->getPost();
-                    $params->datePublishStart      = \Datetime::createFromFormat("Y-m-d",$params->datePublishStart);
+                    $params->datePublishStart      = \Datetime::createFromFormat("Y-m-d", $params->datePublishStart);
                     $result['post']                = $_POST;
                     $form->setData($params);
                     if ($form->isValid()) {
-
                         $entity->setStatus($params['status']);
                         /*
                          * Search responsible user via contactEmail
@@ -138,7 +140,7 @@ class ImportController extends AbstractActionController {
                             $entity->getPermissions()->grant($group, PermissionsInterface::PERMISSION_VIEW);
                         }
                         $result['isSaved'] = true;
-                        $log->info('Jobs/manage/saveJob [user: ' . $user->login . ']:' . var_export($p, True));
+                        $log->info('Jobs/manage/saveJob [user: ' . $user->login . ']:' . var_export($p, true));
 
                         if (!empty($params->companyId)) {
                             $companyId                = $params->companyId . $loginSuffix;
@@ -155,14 +157,13 @@ class ImportController extends AbstractActionController {
                             );
                             //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
-                            if ($user !== $responsibleUser) {
+                            if ($responsibleUser && $user !== $responsibleUser) {
                                 $entityOrganization->getEmployees()->add(new Employee($responsibleUser));
                             }
                             $repositories->store($entityOrganization);
                             $entity->setOrganization($entityOrganization);
 
-                        }
-                        else {
+                        } else {
                             $result['message'] = '';
                         }
                         $repositoriesJob->store($entity);
@@ -171,14 +172,14 @@ class ImportController extends AbstractActionController {
                             $jobEvent = $services->get('Jobs/Event');
                             $jobEvent->setJobEntity($entity);
                             $jobEvent->addPortal('XING');
-                            if ($createdJob || True) {
+                            if ($createdJob || true) {
                                 $responses = $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
                                 foreach ($responses as $response) {
                                     // responses from the portals
                                     // @TODO, put this in some conclusion and meaningful messages
                                     if (!empty($response)) {
                                         if ($response instanceof JobResponse) {
-                                            if (!array_key_exists('log',$result)) {
+                                            if (!array_key_exists('log', $result)) {
                                                 $result['log'] = '';
                                             }
                                             //$message = $response->getMessage();
@@ -204,33 +205,28 @@ class ImportController extends AbstractActionController {
                                                 throw new \RuntimeException('Publisher-Events (internal error): There are two publisher registered for ' . $portal);
                                             }
                                             $result['portals'][$portal] = $status;
-                                        }
-                                        else {
+                                        } else {
                                             throw new \RuntimeException('Publisher-Events (internal error): Response must be from the class Jobs\Listener\Response\JobResponse');
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         throw new \RuntimeException('Publisher-Events (internal error): Response must be set');
                                     }
                                 }
                             }
                         }
                     } else {
-                        $log->info('Jobs/manage/saveJob [error: ' . $form->getMessages() . ']:' . var_export($p, True));
+                        $log->info('Jobs/manage/saveJob [error: ' . $form->getMessages() . ']:' . var_export($p, true));
                         $result['valid Error'] = $form->getMessages();
                     }
                 }
             } else {
-                $log->info('Jobs/manage/saveJob [error: session lost]:' . var_export($p, True));
+                $log->info('Jobs/manage/saveJob [error: session lost]:' . var_export($p, true));
                 $result['message'] = 'session_id is lost';
             }
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $result['message'] = 'exception occured: ' . $e->getMessage();
         }
         //$services->get('Core/Log')->info('Jobs/manage/saveJob result:' . PHP_EOL . var_export($p, True));
         return new JsonModel($result);
     }
-
 }
-

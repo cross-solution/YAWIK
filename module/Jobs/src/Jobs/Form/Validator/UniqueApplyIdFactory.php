@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UniqueApplyIdFactory.php */ 
+/** UniqueApplyIdFactory.php */
 namespace Jobs\Form\Validator;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -25,4 +25,3 @@ class UniqueApplyIdFactory implements FactoryInterface
         return $validator;
     }
 }
-

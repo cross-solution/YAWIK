@@ -25,11 +25,13 @@ class RegisterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /**
-         * @var Repository\User $userRepository
-         */
+        /* @var Repository\User $userRepository */
         $userRepository = $serviceLocator->get('repositories')->get('Auth/User');
+
+        /* @var \Core\Mail\MailService $mailService */
         $mailService = $serviceLocator->get('Core/MailService');
+
+        /* @var \Auth\Options\ModuleOptions $config */
         $config = $serviceLocator->get('Auth/Options');
 
         return new Register($userRepository, $mailService, $config);

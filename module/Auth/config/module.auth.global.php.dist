@@ -24,17 +24,8 @@ return array(
     ),
     
     'Auth' => array(
-    	'default_user' => array(
-    		'login' => '%%username%%',                          // username of the initial user
-    		'password' => '%%password%%',                       // password of the initial user
-    		'role' => '%%role%%',                               // role of the initial user
-    		'email' => '%%email%%',                             // email-adress of the default-users
-    	),
     	'first_login' => array (
     	    'role' => '%%role%%',                                            // role set on the first login.
-    	    'from_name' => '%%mail.from.name%%',                             // set the name in welcome Mail header
-    	    'from_email' => '%%mail.from.email%%',                           // set the From email in welcome Mail headers
-    	    'mail_subject_registration' => '%%mail.first_login.subject%%',   // subject of the welcome mail
     	    'auth_suffix' => '%%auth.suffix%%',                              // an auth suffix is needed, if you plan to add external apps.
     	),
     	// this allows an external application to use the YAWIK API
@@ -47,8 +38,9 @@ return array(
         'use' => 'reCaptcha', // possible Values are 'image' or 'reCaptcha'
         'reCaptcha' => array(
             // these information you need to get from: https://www.google.com/recaptcha/admin#list
-            'public_key' => '%%captcha.recapture.public_key%%', // "site_key"
-            'private_key' => '%%captcha.recapture.private_key%%' // "secret_key"
+            'public_key' => '%%captcha.recapture.public_key%%',   // "site_key"
+            'private_key' => '%%captcha.recapture.private_key%%', // "secret_key"
+            'ssl' => true,                                        // include google api via http(s)
         ),
         'image' => array(
             'expiration' => '300',

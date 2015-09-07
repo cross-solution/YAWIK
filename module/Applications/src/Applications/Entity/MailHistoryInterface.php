@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** HistoryInterface.php */ 
+/** HistoryInterface.php */
 namespace Applications\Entity;
 
 interface MailHistoryInterface extends HistoryInterface
@@ -18,4 +18,3 @@ interface MailHistoryInterface extends HistoryInterface
     public function setMailText($text);
     public function getMailText();
 }
-

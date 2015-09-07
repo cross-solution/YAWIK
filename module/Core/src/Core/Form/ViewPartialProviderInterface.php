@@ -12,14 +12,14 @@ namespace Core\Form;
 
 /**
  * Enables form elements to provide a view partial when being rendered.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 interface ViewPartialProviderInterface
 {
     /**
      * Sets the view partial name.
-     * 
+     *
      * @param String $partial
      * @return self
      */
@@ -27,7 +27,7 @@ interface ViewPartialProviderInterface
     
     /**
      * Gets the view partial name.
-     * 
+     *
      * @return string
      */
     public function getViewPartial();

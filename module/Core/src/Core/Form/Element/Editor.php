@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -17,21 +17,21 @@ use Core\Service\OptionValueInterface;
 
 class Editor extends Textarea implements ViewHelperProviderInterface
 {
-    protected $viewHelper;
+    protected $viewHelper = 'TinyMCEditor';
 
-    public function setViewHelper($helper) {
+    public function setViewHelper($helper)
+    {
         $this->viewHelper = $helper;
         return $this;
     }
 
-    public function getViewHelper() {
-        if (!isset($this->viewHelper)) {
-            $this->setViewHelper(new FormEditor());
-        }
+    public function getViewHelper()
+    {
         return $this->viewHelper;
     }
 
-    public function getValue() {
+    public function getValue()
+    {
         $value = parent::getValue();
         if ($value instanceof OptionValueInterface) {
             $value->init($this);

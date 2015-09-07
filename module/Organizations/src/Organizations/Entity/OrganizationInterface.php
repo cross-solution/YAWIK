@@ -24,14 +24,14 @@ use Zend\Stdlib\Hydrator\HydratorAwareInterface;
  * Interface OrganizationInterface
  * @package Organizations\Entity
  */
-interface OrganizationInterface 
-    extends EntityInterface, 
-            IdentifiableEntityInterface, 
-            SearchableEntityInterface,
-            ModificationDateAwareEntityInterface,
-            PermissionsAwareInterface,
-            PermissionsResourceInterface,
-            HydratorAwareInterface
+interface OrganizationInterface extends
+    EntityInterface,
+    IdentifiableEntityInterface,
+    SearchableEntityInterface,
+    ModificationDateAwareEntityInterface,
+    PermissionsAwareInterface,
+    PermissionsResourceInterface,
+    HydratorAwareInterface
 {
 
 
@@ -93,23 +93,23 @@ interface OrganizationInterface
 
     /**
     * Sets the name of the organization
-    * 
+    *
     * @param OrganizationName organizationName
     * @return OrganizationInterface
     */
-   public function setOrganizationName(OrganizationName $organizationNames);
+    public function setOrganizationName(OrganizationName $organizationNames);
 
    /**
     * Gets the name of the organization
     *
     * @return OrganizationName
     */
-   public function getOrganizationName();
+    public function getOrganizationName();
    
       /**
      * @return string
      */
-   public function getDescription();
+    public function getDescription();
 
     /**
      * @param string $description
@@ -140,6 +140,16 @@ interface OrganizationInterface
     public function getEmployees();
 
     /**
+     * Gets one employee by user id.
+     *
+     * @param string|UserInterface $userOrId
+     *
+     * @return null|EmployeeInterface
+     * @since 0.19
+     */
+    public function getEmployee($userOrId);
+
+    /**
      * @return UserInterface
      */
     public function getUser();
@@ -156,6 +166,4 @@ interface OrganizationInterface
      * @return Collection
      */
     public function getJobs();
-
 }
-

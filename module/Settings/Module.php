@@ -15,16 +15,16 @@ use Settings\Listener\InjectSubNavigationListener;
 
 /**
  * Bootstrap class of the Settings module
- * 
+ *
  */
 class Module
 {
     /**
      * Sets up services on the bootstrap event.
-     * 
+     *
      * @internal
      *     Creates the translation service and a ModuleRouteListener
-     *      
+     *
      * @param MvcEvent $e
      */
     public function onBootstrap(MvcEvent $e)
@@ -39,7 +39,7 @@ class Module
 
     /**
      * Loads module specific configuration.
-     * 
+     *
      * @return array
      */
     public function getConfig()
@@ -49,7 +49,7 @@ class Module
 
     /**
      * Loads module specific autoloader configuration.
-     * 
+     *
      * @return array
      */
     public function getAutoloaderConfig()
@@ -62,5 +62,4 @@ class Module
             ),
         );
     }
-    
 }

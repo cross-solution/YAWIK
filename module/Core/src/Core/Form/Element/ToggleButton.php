@@ -4,18 +4,18 @@ namespace Core\Form\Element;
 use Zend\Form\Element\Checkbox;
 
 /**
- * 
+ *
  */
 class ToggleButton extends Checkbox implements ViewHelperProviderInterface
 {
     /**
      *
-     * @var string 
+     * @var string
      */
     protected $viewHelper = 'toggleButton';
     
     /**
-     * 
+     *
      * @param type $helper
      * @return \Core\Form\Element\ToggleButton
      */

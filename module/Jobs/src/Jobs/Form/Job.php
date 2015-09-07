@@ -31,7 +31,8 @@ class Job extends Container
      */
     public function init()
     {
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'locationForm' => array(
                 'type' => 'Jobs/Base',
                 'property' => true,
@@ -41,9 +42,11 @@ class Job extends Container
                     'display_mode' => 'summary'
                 )
             )
-        ));
+            )
+        );
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'nameForm' => array(
                 'type' => 'Jobs/CompanyName',
                 'property' => true,
@@ -53,10 +56,12 @@ class Job extends Container
                     'display_mode' => 'summary'
                 )
             )
-        ));
+            )
+        );
 
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'portalForm' => array(
                 'type' => 'Jobs/Multipost',
                 'property' => true,
@@ -66,28 +71,34 @@ class Job extends Container
                     'display_mode' => 'summary'
                 )
             )
-        ));
+            )
+        );
 
 
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'descriptionForm' => array(
                 'type' => 'Jobs/Description',
                 'property' => true,
             )
-        ));
+            )
+        );
 
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'previewForm' => array(
                 'type' => 'Jobs/Preview',
                 'property' => true,
             )
-        ));
+            )
+        );
 
     }
 
-    public function renderPost(Renderer $renderer) {
+    public function renderPost(Renderer $renderer)
+    {
         $coreformsjs   = $renderer->basepath('/Core/js/core.forms.js');
         $javaScript = <<<JS
         $(document).ready(function() {
@@ -133,5 +144,4 @@ JS;
         }
         return $this;
     }
-
 }

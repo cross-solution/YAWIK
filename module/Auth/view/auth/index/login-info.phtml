@@ -28,7 +28,7 @@
             <li>
                 <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $lang), true) ?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
             </li>
-            <?php if ($this->auth('role') == 'recruiter'): ?>
+            <?php if ($this->acl()->isRole(\Auth\Entity\User::ROLE_RECRUITER)): ?>
             <?php  /*<li>
                 <a href="<?php echo $this->url('lang/my-groups', array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('Manage groups') ?></a>
             </li>*/

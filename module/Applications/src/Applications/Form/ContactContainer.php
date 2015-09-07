@@ -7,10 +7,11 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Applications\Form;
 
 use Auth\Form\UserInfoContainer;
+
 /**
  *
  *
@@ -19,11 +20,13 @@ use Auth\Form\UserInfoContainer;
 class ContactContainer extends UserInfoContainer
 {
         
-    public function init() {
+    public function init()
+    {
         $this->setIsDisableCapable(false)
              ->setIsDisableElementsCapable(false);
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'contact' => array(
                 'type' => 'Auth/UserInfo',
                 'property' => true,
@@ -33,6 +36,7 @@ class ContactContainer extends UserInfoContainer
                 'property' => true,
                 'use_files_array' => true,
             ),
-        ));
+            )
+        );
     }
 }

@@ -10,15 +10,17 @@
 /** */
 namespace Jobs\Form;
 
+use Core\Form\HeadscriptProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
+use string;
 use Zend\Form\Element\Select;
 
 /**
  * Form select element to select channels on which job openings should be posted
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
-class MultipostingSelect extends Select implements ViewPartialProviderInterface
+class MultipostingSelect extends Select implements ViewPartialProviderInterface, HeadscriptProviderInterface
 {
     /**
      * View partial name.
@@ -26,6 +28,15 @@ class MultipostingSelect extends Select implements ViewPartialProviderInterface
      * @var string
      */
     protected $partial = 'jobs/form/multiposting-select';
+
+    /**
+     * Headscripts to inject in view
+     *
+     * @var array
+     */
+    protected $headscripts = array(
+        'Jobs/js/form.multiposting-select.js'
+    );
 
     public function setViewPartial($partial)
     {
@@ -39,5 +50,15 @@ class MultipostingSelect extends Select implements ViewPartialProviderInterface
         return $this->partial;
     }
 
+    public function setHeadscripts(array $scripts)
+    {
+        $this->headscripts = $scripts;
 
+        return $this;
+    }
+
+    public function getHeadscripts()
+    {
+        return $this->headscripts;
+    }
 }

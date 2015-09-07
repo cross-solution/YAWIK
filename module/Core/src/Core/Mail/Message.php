@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Message.php */ 
+/** Message.php */
 namespace Core\Mail;
 
 use Zend\Mail\Message as ZfMessage;
@@ -17,17 +17,20 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 class Message extends ZfMessage
 {
     
-    public function __construct(array $options=array()) {
+    public function __construct(array $options = array())
+    {
         $this->setOptions($options);
     }
     
     public function setOptions($options)
     {
-        if (!is_array($options) && !$options instanceOf \Traversable) {
-            throw new \InvalidArgumentException(sprintf(
-                'Expected $options to be an array or \Traversable, but received %s',
-                (is_object($options) ? 'instance of ' . get_class($options) : 'skalar')
-            ));
+        if (!is_array($options) && !$options instanceof \Traversable) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Expected $options to be an array or \Traversable, but received %s',
+                    (is_object($options) ? 'instance of ' . get_class($options) : 'skalar')
+                )
+            );
         }
         
         foreach ($options as $key => $value) {
@@ -38,6 +41,4 @@ class Message extends ZfMessage
         }
         return $this;
     }
-    
 }
-

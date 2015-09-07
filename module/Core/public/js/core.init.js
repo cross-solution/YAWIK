@@ -43,6 +43,7 @@
                     // take out all operational chars, this takes also
                     // $(this).children().empty();
                     $message = $(this).children('.notification-content').eq(0);
+                    //console.log('message', $message, $message.html() );
                     if (typeof $message != undefined) {
                         // @TODO: change this so you can use tags inside the Message
                         $message = $message.text();
@@ -58,7 +59,7 @@
 
                     if (typeof target == 'undefined') {
                         new PNotify({
-                            // trim startinn and trailing whitespaces
+                            // trim starting and trailing whitespaces
                             'text': $message.replace(/^\s+|\s+$/gm,''),
                             'type': type
                         });

@@ -2,8 +2,7 @@
 
 namespace Auth\Controller\Plugin;
 
-use Auth\Entity\Info;
-
+use Auth\Entity\User;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Authentication\AuthenticationService;
 
@@ -32,7 +31,7 @@ class Auth extends AbstractPlugin
         return $this->auth;
     }
     
-    public function __invoke($property=null)
+    public function __invoke($property = null)
     {
         if (null === $property) {
             return $this;
@@ -42,10 +41,25 @@ class Auth extends AbstractPlugin
         }
         return $this->get($property);
     }
-    
+
+    /**
+     * Checks, if a user is logged in
+     *
+     * @return bool
+     */
     public function isLoggedIn()
     {
         return $this->getAuthenticationService()->hasIdentity();
+    }
+
+    /**
+     * Checks, if a user is an Admin
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->getAuthenticationService()->getUser()->getRole() == User::ROLE_ADMIN;
     }
     
     public function __call($method, $params)

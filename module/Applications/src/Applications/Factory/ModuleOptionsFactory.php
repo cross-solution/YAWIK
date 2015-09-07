@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @author cbleek
+ * @author bleek@cross-solution.de
  * @license   MIT
  */
 
@@ -14,7 +14,10 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Applications\Options\ModuleOptions;
 
-class ModuleOptionsFactory  implements FactoryInterface
+/**
+ * Creates an instance of options for applications
+ */
+class ModuleOptionsFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}

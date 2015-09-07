@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Applications controllers */ 
+/** Applications controllers */
 namespace Applications\Controller;
 
 use Applications\Entity\Contact;
@@ -109,7 +109,6 @@ class ApplyController extends AbstractActionController
                 $application->setJob($job);
                 $application->setId('recruiter-preview');
             } else {
-
                 $subscriberUri = $this->params()->fromQuery('subscriber');
                 $application   = $repository->findDraft($user, $appId);
 
@@ -128,7 +127,6 @@ class ApplyController extends AbstractActionController
                     }
 
                 } else {
-
                     if (!$job) {
                         $e->getRouteMatch()->setParam('action', 'job-not-found');
                         return;
@@ -156,7 +154,7 @@ class ApplyController extends AbstractActionController
                     }
                 }
             }
-        } 
+        }
         
         $container->setEntity($application);
         $this->configureContainer($container);
@@ -166,9 +164,11 @@ class ApplyController extends AbstractActionController
     public function jobNotFoundAction()
     {
         $this->response->setStatusCode(410);
-        $model = new ViewModel(array(
+        $model = new ViewModel(
+            array(
             'content' => /*@translate*/ 'Invalid apply id'
-        ));
+            )
+        );
         $model->setTemplate('auth/index/job-not-found.phtml');
         return $model;
     }
@@ -180,11 +180,13 @@ class ApplyController extends AbstractActionController
         
         $this->container->setParam('applicationId', $application->id);
 
-        $model = new ViewModel(array(
+        $model = new ViewModel(
+            array(
             'form' => $form,
             'isApplicationValid' => $this->checkApplication($application),
             'application' => $application,
-        ));
+            )
+        );
         $model->setTemplate('applications/apply/index');
         return $model;
 
@@ -206,10 +208,12 @@ class ApplyController extends AbstractActionController
         $form->setData($data);
         
         if (!$form->isValid()) {
-            return new JsonModel(array(
+            return new JsonModel(
+                array(
                 'valid' => false,
                 'errors' => $form->getMessages(),
-            ));
+                )
+            );
         }
         $application = $this->container->getEntity();
         $this->getServiceLocator()->get('repositories')->store($application);
@@ -218,7 +222,7 @@ class ApplyController extends AbstractActionController
             $basepath = $this->getServiceLocator()->get('ViewHelperManager')->get('basepath');
             $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
         } else {
-            if ($form instanceOf SummaryForm) {
+            if ($form instanceof SummaryForm) {
                 $form->setRenderMode(SummaryForm::RENDER_SUMMARY);
                 $viewHelper = 'summaryform';
             } else {
@@ -227,11 +231,13 @@ class ApplyController extends AbstractActionController
             $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
         }
         
-        return new JsonModel(array(
+        return new JsonModel(
+            array(
             'valid' => $form->isValid(),
             'content' => $content,
             'isApplicationValid' => $this->checkApplication($application)
-        ));
+            )
+        );
     }
     
     public function doAction()
@@ -241,9 +247,9 @@ class ApplyController extends AbstractActionController
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
         $application  = $repository->findDraft(
-                            $this->auth()->getUser(),
-                            $this->params('applyId')
-                        );
+            $this->auth()->getUser(),
+            $this->params('applyId')
+        );
         
         if (!$application) {
             throw new \Exception('No application draft found.');
@@ -260,7 +266,8 @@ class ApplyController extends AbstractActionController
         }
 
         if ('sendmail' == $this->params()->fromQuery('do')) {
-            $jobEntity         = $application->job;;
+            $jobEntity         = $application->job;
+            ;
             $mailData = array(
                 'application' => $application,
                 'to'          => $jobEntity->contactEmail
@@ -268,13 +275,15 @@ class ApplyController extends AbstractActionController
             if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails']) && array_key_exists('email', $config['mails']['from'])) {
                 $mailData['from'] = $config['mails']['from']['email'];
             }
-            $this->mailer('Applications/CarbonCopy', $mailData, TRUE);
+            $this->mailer('Applications/CarbonCopy', $mailData, true);
             $repositories->remove($application);
             //$this->notification()->success(/*@translate*/ 'Application has been send.');
-            $model = new ViewModel(array(
+            $model = new ViewModel(
+                array(
                 'success' => true,
                 'job' => $jobEntity,
-            ));
+                )
+            );
             $model->setTemplate('applications/apply/success');
             return $model;
         }
@@ -288,10 +297,12 @@ class ApplyController extends AbstractActionController
         $this->sendRecruiterMails($application);
         $this->sendUserMails($application);
 
-        $model = new ViewModel(array(
+        $model = new ViewModel(
+            array(
             'success' => true,
             'application' => $application,
-        ));
+            )
+        );
         $model->setTemplate('applications/apply/index');
 
         return $model;
@@ -329,17 +340,18 @@ class ApplyController extends AbstractActionController
                 $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
             }
             if (!empty($ackBody)) {
-        
                 /* Acknowledge mail to applier */
-                $ackMail = $this->mailer('Applications/Confirmation',
+                $ackMail = $this->mailer(
+                    'Applications/Confirmation',
                     array('application' => $application,
                         'body' => $ackBody,
-                    ));
+                    )
+                );
                 // Must be called after initializers in creation
                 $ackMail->setSubject(/*@translate*/ 'Application confirmation');
                 $ackMail->setFrom($recruiter->getInfo()->getEmail());
                 $this->mailer($ackMail);
-                $application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s' , $application->contact->email));
+                $application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s', $application->contact->email));
             }
         }
         
@@ -348,9 +360,13 @@ class ApplyController extends AbstractActionController
     protected function sendUserMails($application)
     {
         if ($application->getAttributes()->getSendCarbonCopy()) {
-            $this->mailer('Applications/CarbonCopy', array(
+            $this->mailer(
+                'Applications/CarbonCopy',
+                array(
                     'application' => $application,
-                ), /*send*/ true);
+                ), /*send*/
+                true
+            );
         }
     }
 

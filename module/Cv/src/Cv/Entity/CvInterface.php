@@ -9,26 +9,23 @@ use Core\Entity\IdentifiableEntityInterface;
 interface CvInterface extends EntityInterface, IdentifiableEntityInterface
 {
     
-	/**
+    /**
      * @return the $educations
      */
-    public function getEducations ();
+    public function getEducations();
     
-	/**
+    /**
      * @param field_type $educations
      */
-    public function setEducations (CollectionInterface $educations);
+    public function setEducations(CollectionInterface $educations);
     
-	/**
+    /**
      * @return the $employments
      */
-    public function getEmployments ();
+    public function getEmployments();
     
-	/**
+    /**
      * @param field_type $employments
      */
-    public function setEmployments (CollectionInterface $employments);
-    
-    
-    
+    public function setEmployments(CollectionInterface $employments);
 }

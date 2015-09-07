@@ -1,6 +1,7 @@
 <?php
 return array(
     'modules' => array(
+        'Install',
         'Core',
         'Auth',
         'Jobs',

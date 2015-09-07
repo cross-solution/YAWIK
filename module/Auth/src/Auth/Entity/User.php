@@ -10,6 +10,7 @@ namespace Auth\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\Collection\ArrayCollection;
+use Core\Entity\DraftableEntityInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Organizations\Entity\OrganizationReferenceInterface;
@@ -20,7 +21,7 @@ use Settings\Repository\SettingsEntityResolver;
  *
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
  */
-class User extends AbstractIdentifiableEntity implements UserInterface
+class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface
 {
 
     /**
@@ -40,7 +41,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * Users login name
      *
      * @var string
-     * @ODM\String @ODM\Index
+     * @ODM\String
+     * @ODM\Index(unique=true, sparse=true, order="asc")
      */
     protected $login;
 
@@ -136,6 +138,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     protected $organization;
 
     /**
+     * Is this entity a draft or not?
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $isDraft = false;
+
+    /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
      * It is recommended best practice to initialize any business collections in documents in the constructor.
      * {mg: What about lazy loading? Initialize the Collection in the getter, if none is set? Reduce overload.}
@@ -143,6 +153,26 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     public function __construct()
     {
     }
+
+    /**
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
+
+    /**
+     * @param bool $flag
+     * @return $this
+     */
+    public function setIsDraft($flag)
+    {
+        $this->isDraft = (bool) $flag;
+
+        return $this;
+    }
+
 
     /** {@inheritdoc} */
     public function setLogin($login)
@@ -208,12 +238,15 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @param $sessionParameter
      * @return $this
      */
-    public function updateAuthSession($key, $sessionParameter) {
-        $notExists = True;
+    public function updateAuthSession($key, $sessionParameter)
+    {
+        $notExists = true;
+
         foreach ($this->authSessions as $authSession) {
+            /* @var $authSession AuthSession */
             if ($key == $authSession->getName()) {
                 $authSession->setSession($sessionParameter);
-                $notExists = False;
+                $notExists = false;
             }
         }
         if ($notExists) {
@@ -229,9 +262,12 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @param $key
      * @return null
      */
-    public function getAuthSession($key) {
-        $result = Null;
+    public function getAuthSession($key)
+    {
+        $result = null;
+
         foreach ($this->authSessions as $authSession) {
+            /* @var $authSession AuthSession */
             if ($key == $authSession->getName()) {
                 $result = $authSession->getSession();
             }
@@ -244,9 +280,11 @@ class User extends AbstractIdentifiableEntity implements UserInterface
      * @param string|null $key providerName, if null, remove all sessions
      * @return $this
      */
-    public function removeSessionData($key = Null) {
+    public function removeSessionData($key = null)
+    {
         $authSessionRefresh = array();
         foreach ($this->authSessions as $authSession) {
+            /* @var $authSession AuthSession */
             if (isset($key) && $key != $authSession->getName()) {
                 $authSessionRefresh[] = $authSession;
             }
@@ -295,7 +333,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface
     /** {@inheritdoc} */
     public function getEmail()
     {
-        return $this->email;
+        return $this->email ?: $this->getInfo()->getEmail();
     }
 
     /** {@inheritdoc} */
@@ -393,6 +431,10 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         $this->tokens = $tokens;
     }
 
+    /**
+     * @param OrganizationReferenceInterface $organization
+     * @return $this
+     */
     public function setOrganization(OrganizationReferenceInterface $organization)
     {
         $this->organization = $organization;
@@ -400,6 +442,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function hasOrganization()
     {
         /* @var $this->organization \Organizations\Entity\OrganizationReference */
@@ -407,6 +452,9 @@ class User extends AbstractIdentifiableEntity implements UserInterface
                $this->organization->hasAssociation();
     }
 
+    /**
+     * @return OrganizationReferenceInterface
+     */
     public function getOrganization()
     {
         return $this->organization;

@@ -16,7 +16,7 @@ class FormPartial extends AbstractHelper
      * @param  null|boolean $partial
      * @return string
      */
-    public function __invoke(FormInterface $form = null, $partial=null)
+    public function __invoke(FormInterface $form = null, $partial = null)
     {
         if (!$form) {
             return $this;
@@ -27,7 +27,4 @@ class FormPartial extends AbstractHelper
     
         return $this->getView()->render($partial, array('form' => $form));
     }
-    
-    
-    
 }

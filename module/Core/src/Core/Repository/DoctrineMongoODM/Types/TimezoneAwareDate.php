@@ -7,32 +7,32 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Repository\DoctrineMongoODM\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
 
 /**
  * This is a mapping type for DoctrineMongoODM.
- * 
+ *
  * It will convert \DateTime objects to an array representation
  * with a \MongoDate object and the Timezone.
- * 
- * This works around the fact, that \MongoDate is NOT 
+ *
+ * This works around the fact, that \MongoDate is NOT
  * timezone aware.
- * 
+ *
  * @version 1.1
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class TimezoneAwareDate extends Type 
+class TimezoneAwareDate extends Type
 {
     
     /**
      * Converts a \DateTime object to MongoDB representation.
-     * 
-     * If <code>$value</code> is <i>NULL</i> (or not a \DateTime object), 
+     *
+     * If <code>$value</code> is <i>NULL</i> (or not a \DateTime object),
      * nothing is done and <i>NULL</i> returned.
-     * 
+     *
      * @internal
      *      Resulting value is an array:
      *      <pre>
@@ -41,13 +41,14 @@ class TimezoneAwareDate extends Type
      *              'tz'   => TimeZone-Identifier (e.g. "Europe/Berlin")
      *          )
      *      </pre>
-     *            
+     *
      * @param \DateTime|null $value
      * @return null|array
      * @see \Doctrine\ODM\MongoDB\Types\Type::convertToDatabaseValue()
      */
-    public function convertToDatabaseValue($value) {
-        if (!$value instanceOf \DateTime) {
+    public function convertToDatabaseValue($value)
+    {
+        if (!$value instanceof \DateTime) {
             return null;
         }
         
@@ -81,17 +82,17 @@ class TimezoneAwareDate extends Type
     
     /**
      * Converts a TimezoneAwareDate array to a \DateTime Object.
-     * 
+     *
      * Returns <i>NULL</i>, if <code>$value</code> is an unknown format.
-     * 
+     *
      * @param array $value
      * @return NULL|\DateTime
      */
     public function convertToPhpValue($value)
     {
-        if (!is_array($value) 
-            || !isset($value['date']) 
-            || !$value['date'] instanceOf \MongoDate
+        if (!is_array($value)
+            || !isset($value['date'])
+            || !$value['date'] instanceof \MongoDate
             || !isset($value['tz'])
         ) {
             return null;
@@ -105,7 +106,7 @@ class TimezoneAwareDate extends Type
     
     /**
      * PHP code to be used in DoctrineMongoODM-Hydrators.
-     * 
+     *
      * @return string
      * @see convertToPhpValue()
      */
@@ -127,6 +128,4 @@ class TimezoneAwareDate extends Type
             /* ---- */
             ';
     }
-    
 }
-

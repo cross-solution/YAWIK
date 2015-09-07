@@ -12,13 +12,13 @@ use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 
-
 /**
  * The global Configuration.
  *
  * @ODM\Document(collection="Configuration", repositoryClass="Admin\Repository\Configuration")
  */
-class Config extends BaseEntity {
+class Config extends BaseEntity
+{
 
     const postConstruct = 'postRepositoryConstruct';
 
@@ -32,7 +32,8 @@ class Config extends BaseEntity {
      * @param string $name
      * @return ConfigInterface
      */
-    public function setName($name){
+    public function setName($name)
+    {
         $this->name=$name;
     }
 
@@ -41,7 +42,8 @@ class Config extends BaseEntity {
      *
      * @return string $name
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -49,7 +51,8 @@ class Config extends BaseEntity {
     /**
      * @return string
      */
-    public function getValue(){
+    public function getValue()
+    {
         return $this->value;
     }
 
@@ -57,12 +60,8 @@ class Config extends BaseEntity {
      * @param string $description
      * @return ConfigInterface
      */
-    public function setValue($value){
+    public function setValue($value)
+    {
         $this->value=$value;
     }
-
-
-
 }
-
-

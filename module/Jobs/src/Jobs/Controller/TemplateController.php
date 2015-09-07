@@ -23,7 +23,8 @@ use Zend\Stdlib\AbstractOptions;
  * Class TemplateController
  * @package Jobs\Controller
  */
-class TemplateController extends AbstractActionController  {
+class TemplateController extends AbstractActionController
+{
 
     /**
      * @var Repository\Job $jobRepository
@@ -31,7 +32,7 @@ class TemplateController extends AbstractActionController  {
     private $jobRepository;
 
     /**
-     * @var
+     * @var AbstractOptions
      */
     protected $config;
 
@@ -51,21 +52,21 @@ class TemplateController extends AbstractActionController  {
     {
         $id = $this->params()->fromQuery('id');
         $job = $this->jobRepository->find($id);
-        $model                = new ViewModel();
+        $services             = $this->getServiceLocator();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
-        $model->setTemplate('templates/default/index');
+        $isAdmin=$this->auth()->isAdmin();
 
-        if ($job->status != 'active' && !$this->auth()->isLoggedIn()) {
-            $this->response->setStatusCode(404);
-            $model->setVariable('message','job is not available');
-        } else {
-            $model->setTemplate('templates/' . $job->template . '/index');
+        $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
+
+        # @todo make this working for anonymous users
+//        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser()) && ! $isAdmin) {
+//            $this->response->setStatusCode(404);
+//            $model->setVariable('message','job is not available');
+//        } else {
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
-        }
-
-        $model->setVariables($this->getTemplateFields($job));
+//        }
         return $model;
     }
 
@@ -86,12 +87,14 @@ class TemplateController extends AbstractActionController  {
         $viewHelperManager    = $services->get('ViewHelperManager');
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
-        $model                = new ViewModel();
         $forms                = $services->get('FormElementManager');
         /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
-        $formTemplate         = $forms->get('Jobs/Description/Template', array(
+        $formTemplate         = $forms->get(
+            'Jobs/Description/Template',
+            array(
             'mode' => $job->id ? 'edit' : 'new'
-        ));
+            )
+        );
 
         $formTemplate->setParam('id', $job->id);
         $formTemplate->setParam('applyId', $job->applyId);
@@ -113,19 +116,16 @@ class TemplateController extends AbstractActionController  {
             }
         }
 
+        $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($formTemplate);
+
         if (!$isAjax) {
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
         } else {
-            return new JsonModel(array('valid' => True));
+            return new JsonModel(array('valid' => true));
         }
-
-        $model->setTemplate('templates/' . $job->template . '/index');
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
-
-        $model->setVariables($this->getTemplateFields($job,$formTemplate));
-
         return $model;
     }
 
@@ -136,33 +136,32 @@ class TemplateController extends AbstractActionController  {
      * @param JobDescriptionTemplate|null $form
      * @return array
      */
-    private function getTemplateFields($job,JobDescriptionTemplate $form=null)
+    private function getTemplateFields($job, JobDescriptionTemplate $form = null)
     {
         /* @var $job \Jobs\Entity\Job */
         $atsMode = $job->getAtsMode();
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
             $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $job->applyId));
-        } else if ($atsMode->isUri()) {
+        } elseif ($atsMode->isUri()) {
             $uriApply = $atsMode->getUri();
         } else {
             $uriApply = false;
         }
 
-        $headTitle= $job->templateValues->title;
+        $headTitle= $job->getTemplateValues()->getTitle();
         if (empty($job->templateValues->description) && isset($job->organization)) {
             $job->templateValues->description = $job->organization->description;
         }
 
         $description=$job->templateValues->description;
 
-        if ( is_null($form)) {
+        if (is_null($form)) {
             $descriptionEditable = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
             $qualifications = $job->templateValues->qualifications;
             $title = $headTitle;
         } else {
-
             $services = $this->getServiceLocator();
             $viewHelperManager = $services->get('ViewHelperManager');
             /* @var $viewHelperForm \Core\Form\View\Helper\FormSimple */

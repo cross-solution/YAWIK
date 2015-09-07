@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -21,12 +21,14 @@ class AuthAggregateListener implements SharedListenerAggregateInterface, Service
 
     protected $serviceManager;
 
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
         return $this;
     }
 
-    public function getServiceManager() {
+    public function getServiceManager()
+    {
         return $this->serviceManager;
     }
 

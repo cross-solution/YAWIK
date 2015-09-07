@@ -13,10 +13,9 @@ namespace Cv\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-
 /**
  * Main Action Controller for the application.
- * Responsible for displaying the home site.  
+ * Responsible for displaying the home site.
  *
  */
 class IndexController extends AbstractActionController
@@ -50,11 +49,13 @@ class IndexController extends AbstractActionController
             $viewModel = new JsonModel();
             //$items = iterator_to_array($paginator);
         
-            $viewModel->setVariables(array(
+            $viewModel->setVariables(
+                array(
                 'items' => $this->getServiceLocator()->get('builders')->get('JsonCv')
                                 ->unbuildCollection($paginator->getCurrentItems()),
                 'count' => $paginator->getTotalItemCount()
-            ));
+                )
+            );
             return $viewModel;
         
         }
@@ -62,6 +63,6 @@ class IndexController extends AbstractActionController
         return array(
             'resumes' => $paginator,
             'sort' => $this->params()->fromQuery('sort', 'none')
-        );	
+        );
     }
 }

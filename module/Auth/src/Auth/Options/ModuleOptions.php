@@ -17,7 +17,8 @@ use Zend\Stdlib\AbstractOptions;
  *
  * defines AbstractOptions of the Auth Module
  */
-class ModuleOptions extends AbstractOptions {
+class ModuleOptions extends AbstractOptions
+{
 
     /**
      * default email address, which is used in FROM headers of system mails like "new registration",
@@ -41,14 +42,6 @@ class ModuleOptions extends AbstractOptions {
     protected $role = 'recruiter';
 
     /**
-     * use $fromName instead
-     *
-     * @deprecated
-     * @var string
-     */
-    protected $mailName = '';
-
-    /**
      * Subject of the registration mail.
      *
      * @var string
@@ -64,8 +57,9 @@ class ModuleOptions extends AbstractOptions {
     protected $authSuffix = '';
 
     /**
-     * is the more common used name for the website, which is propably similar to the domain-name
+     * Use the siteName of the Core Options
      *
+     * @deprecated
      * @var string
      */
     protected $siteName = '';
@@ -115,6 +109,8 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
+     * Gets the From: Name of the mail header
+     *
      * @return string
      */
     public function getFromName()
@@ -123,6 +119,8 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
+     * Sets the From: of the mail header
+     *
      * @param $fromName
      * @return $this
      */
@@ -156,26 +154,6 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
-     * @deprecated
-     * @param $mail
-     * @return $this
-     */
-    public function setMailFrom($mail)
-    {
-        $this->fromEmail = $mail;
-        return $this;
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getMailFrom()
-    {
-        return $this->fromEmail;
-    }
-
-    /**
      * @param $suffix
      * @return $this
      */
@@ -193,49 +171,9 @@ class ModuleOptions extends AbstractOptions {
         return $this->authSuffix;
     }
 
-    /**
-     * @deprecated
-     * @param $mailName
-     * @return $this
-     */
-    public function setMailName($mailName)
-    {
-        $this->mailName = $mailName;
-        return $this;
-    }
 
     /**
      * @deprecated
-     * @return string
-     */
-    public function getMailName()
-    {
-        return $this->mailName;
-    }
-
-    /**
-     * Sets the Mail Subject of the registration Mail
-     * @deprecated
-     * @param $mailSubjectRegistration
-     * @return $this
-     */
-    public function setMailSubject($mailSubjectRegistration)
-    {
-        $this->mailSubjectRegistration = $mailSubjectRegistration;
-        return $this;
-    }
-
-    /**
-     * Gets the Mail Subject of the registration Mail
-     * @deprecated
-     * @return string
-     */
-    public function getMailSubject()
-    {
-        return $this->mailSubjectRegistration;
-    }
-
-    /**
      * @param string $siteName
      * @return $this
      */
@@ -246,6 +184,7 @@ class ModuleOptions extends AbstractOptions {
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getSiteName()

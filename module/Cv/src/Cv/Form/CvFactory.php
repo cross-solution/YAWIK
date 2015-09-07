@@ -11,7 +11,7 @@ class CvFactory implements FactoryInterface
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
     */
-    public function createService (ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $form = new Form('create_cv');
         //$form->add($serviceLocator->get('ApplicationFieldset'));
@@ -21,6 +21,4 @@ class CvFactory implements FactoryInterface
         return $form;
 
     }
-
-
 }

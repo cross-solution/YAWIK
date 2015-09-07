@@ -51,4 +51,14 @@ return array('console' => array('router' => array('routes' => array(
             ),
         ),
     ),
+
+    'applications-reset-files-permissions' => array(
+        'options' => array(
+            'route' => 'applications reset-files-permissions [--filter=]',
+            'defaults' => array(
+                'controller' => 'Applications/Console',
+                'action' => 'resetFilesPermissions'
+            ),
+        ),
+    ),
 ))));

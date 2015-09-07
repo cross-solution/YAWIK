@@ -19,7 +19,8 @@ use Zend\Stdlib\AbstractOptions;
  *
  * @package Jobs\Options
  */
-class ChannelOptions extends AbstractOptions {
+class ChannelOptions extends AbstractOptions
+{
 
     /**
      * Unique key of the channel
@@ -29,7 +30,7 @@ class ChannelOptions extends AbstractOptions {
     protected $key;
 
     /**
-     * external key of a channel. Eg. a provider offers the channel "MyJobboard" with the key "123". 
+     * external key of a channel. Eg. a provider offers the channel "MyJobboard" with the key "123".
      * YAWIK provides a channel "MyJobboard" using the key "myjobborad". Set externalkey to "123", if
      * the job is published to the provider.
      *
@@ -44,20 +45,27 @@ class ChannelOptions extends AbstractOptions {
      */
     protected $price=0;
 
+    /**
+     * Minimal Price of the channel if it's selected in combination with another channel.
+     *
+     * @var int $minPrice
+     */
+    protected $minPrice=0;
+
 
     /**
      * Currency of the price
      *
      * @var string $currency
      */
-    protected $currency="€";
+    protected $currency;
 
     /**
      * Tax of the channel
      *
      * @var int $tax
      */
-    protected $tax=19;
+    protected $tax;
 
     /**
      * Label of the Channel.
@@ -65,6 +73,13 @@ class ChannelOptions extends AbstractOptions {
      * @var string
      */
     protected $label;
+
+    /**
+     * Logo of the Channel.
+     *
+     * @var string
+     */
+    protected $logo;
 
     /**
      * days to publish a job posting
@@ -104,7 +119,7 @@ class ChannelOptions extends AbstractOptions {
     /**
      * Link target which references a mor information page about a channel
      *
-     * @var string 
+     * @var string
      */
     protected $linkTarget;
 
@@ -142,24 +157,6 @@ class ChannelOptions extends AbstractOptions {
     public function getKey()
     {
         return $this->key;
-    }
-
-    public function getFormattedPrice($currencyPosition = 'right')
-    {
-
-        $price = sprintf('%01.2f', $this->getPrice());
-
-        if ('none' === $currencyPosition) {
-            return $price;
-        }
-
-        $currency = $this->getCurrency();
-
-        if ('left' == $currencyPosition) {
-            return $currency . ' ' . $price;
-        }
-
-        return $price . ' ' . $currency;
     }
 
     /**
@@ -205,7 +202,28 @@ class ChannelOptions extends AbstractOptions {
         $this->price = $price;
         return $this;
     }
-    
+
+    /**
+     * Gets the minimal price of a channel.
+     *
+     * @return string
+     */
+    public function getMinPrice()
+    {
+        return $this->minPrice?:$this->price;
+    }
+
+    /**
+     * Sets the minimal price of a channel if chosen in combination with another channel
+     *
+     * @param int $minPrice
+     * @return ChannelOptions
+     */
+    public function setMinPrice($minPrice)
+    {
+        $this->minPrice = $minPrice;
+        return $this;
+    }
 
     /**
      * Gets the currency of a price
@@ -413,6 +431,28 @@ class ChannelOptions extends AbstractOptions {
     public function setParams($params)
     {
         $this->params = $params;
+        return $this;
+    }
+
+    /**
+     * Gets the logo of a channel (Jobboard)
+     *
+     * @return string|null
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * Set the logo of a channel (Jobboard)
+     *
+     * @param $logo
+     * @return $this
+     */
+    public function setLogo($logo = null)
+    {
+        $this->logo = $logo;
         return $this;
     }
 }

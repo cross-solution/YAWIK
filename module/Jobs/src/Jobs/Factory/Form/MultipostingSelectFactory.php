@@ -10,14 +10,13 @@
 /** */
 namespace Jobs\Factory\Form;
 
-
 use Jobs\Form\MultipostingSelect;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the Multiposting select box
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
 class MultipostingSelectFactory implements FactoryInterface
@@ -28,23 +27,24 @@ class MultipostingSelectFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\ServiceManager\AbstractPluginManager
-         * @var $headscript     \Zend\View\Helper\HeadScript
-         * @var $channels       \Jobs\Options\ProviderOptions */
+         * @var $headScript     \Zend\View\Helper\HeadScript
+         * @var $channels       \Jobs\Options\ProviderOptions
+         * @var $currency       \Zend\I18n\View\Helper\CurrencyFormat */
         $services = $serviceLocator->getServiceLocator();
         $router = $services->get('Router');
         $select  = new MultipostingSelect();
         $helpers = $services->get('ViewHelperManager');
-        $headscript = $helpers->get('headscript');
-        $basepath  = $helpers->get('basepath');
-        $channels = $serviceLocator->getServiceLocator()->get('Jobs/Options/Provider');
+       // $headScript = $helpers->get('headScript');
+       /// $basePath  = $helpers->get('basePath');
+        $currencyFormat  = $helpers->get('currencyFormat');
 
-        $headscript->appendFile($basepath('Jobs/js/form.multiposting-select.js'));
+        $channels = $services->get('Jobs/Options/Provider');
 
-        $options = array();
-
+        //$headScript->appendFile($basePath('Jobs/js/form.multiposting-select.js'));
 
         $groups = array();
-        foreach ($channels as $name=>$channel) {
+
+        foreach ($channels as $name => $channel) {
             /* @var $channel \Jobs\Options\ChannelOptions */
 
             $category = $channel->getCategory();
@@ -60,18 +60,23 @@ class MultipostingSelectFactory implements FactoryInterface
                             . $channel->getDescription() . '|'
                             . $channel->getLinkText() . '|'
                             . $link . '|' . $channel->getPublishDuration() . '|'
-                            . $channel->getFormattedPrice() . '|'
-                            . $channel->getPrice();
+                            . $currencyFormat($channel->getPrice(),$channel->getCurrency(),2) . '|'
+                            . $channel->getPrice() . '|'
+                            . $currencyFormat($channel->getMinPrice(),$channel->getCurrency(),2) . '|'
+                            . $channel->getMinPrice() . '|'
+                            . $channel->getLogo();
         }
 
 
-        $select->setAttributes(array(
+        $select->setAttributes(
+            array(
             'data-autoinit' => 'false',
             'multiple' => 'multiple'
-        ));
+            )
+        );
+
         $select->setValueOptions($groups);
 
         return $select;
     }
-
 }

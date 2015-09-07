@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** CommentController.php */ 
+/** CommentController.php */
 namespace Applications\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -44,7 +44,7 @@ class CommentController extends AbstractActionController
     public function onDispatch(MvcEvent $event)
     {
         $request = $event->getRequest();
-        if (!$request instanceOf HttpRequest || !$request->isXmlHttpRequest()) {
+        if (!$request instanceof HttpRequest || !$request->isXmlHttpRequest()) {
             //throw new \RuntimeException('This controller must only be called with ajax requests.');
         }
         return parent::onDispatch($event);
@@ -52,7 +52,7 @@ class CommentController extends AbstractActionController
     
     /**
      * Lists comments of an application
-     * 
+     *
      * @return multitype:NULL
      */
     public function listAction()
@@ -70,7 +70,7 @@ class CommentController extends AbstractActionController
     
     /**
      * Processes formular data
-     * 
+     *
      * @return \Zend\View\Model\ViewModel
      */
     public function formAction()
@@ -107,11 +107,13 @@ class CommentController extends AbstractActionController
             }
         }
        
-        $viewModel->setVariables(array(
+        $viewModel->setVariables(
+            array(
             'mode' => $mode,
             'identifier' => $appId,
             'commentForm' => $form,
-        ));
+            )
+        );
         return $viewModel;
     }
 }

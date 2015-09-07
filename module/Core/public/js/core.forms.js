@@ -41,6 +41,8 @@
 		
 		onSubmit: function(e, extraData) {
 			var $form = $(e.currentTarget);
+            var $button = $form.find('[type="submit"]');
+            $button.attr('disabled', true);
 			var data  = $form.serializeArray();
 //            console.debug('data', e, $form, data);
 			if (extraData) {
@@ -67,7 +69,7 @@
                 // the data-object can contains following values
                 // valid = boolean ,if explicitly set to false, errors will be displayed
 				methods.clearErrors($form);
-				if (!data.valid) {
+				if ('valid' in data && !data.valid) {
 					methods.displayErrors($form, data.errors);
 				}
 //                console.debug('bubble done event for form',$form,data);
@@ -78,7 +80,8 @@
 			.fail(function(jqXHR, textStatus, errorThrown) {
 				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
                 $form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
-            });
+            })
+                .always(function() { $button.attr('disabled', false); });
 			return false;
 		},
 		
