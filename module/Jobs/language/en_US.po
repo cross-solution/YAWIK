@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-28 17:14+0200\n"
 "PO-Revision-Date: 2015-07-29 09:20+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: English (http://www.transifex.com/projects/p/yawik/language/en/)\n"
+"Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -237,8 +237,8 @@ msgid "Change responsible user for job \\\"%s\\\""
 msgstr "Change responsible user for job \\\"%s\\\""
 
 #: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
-msgid "State history"
-msgstr "State history"
+msgid "Status history"
+msgstr "Status history"
 
 #: view/jobs/index/index.ajax.phtml:143
 msgid "please wait"

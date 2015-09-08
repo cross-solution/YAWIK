@@ -319,7 +319,7 @@ msgstr "Blisko"
 #: view/applications/manage/detail.phtml:226
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
-msgid "State history"
+msgid "Status history"
 msgstr ""
 
 #: view/applications/manage/detail.phtml:234

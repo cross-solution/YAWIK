@@ -238,7 +238,7 @@ msgid "Change responsible user for job \\\"%s\\\""
 msgstr ""
 
 #: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
-msgid "State history"
+msgid "Status history"
 msgstr "राज्य के इतिहास"
 
 #: view/jobs/index/index.ajax.phtml:143

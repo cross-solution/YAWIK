@@ -242,7 +242,7 @@ msgid "Change responsible user for job \\\"%s\\\""
 msgstr "Ändert die Zuständigkeit für die Stellenanzeige \\\"%s\\\""
 
 #: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
-msgid "State history"
+msgid "Status history"
 msgstr "Statusverlauf"
 
 #: view/jobs/index/index.ajax.phtml:143
