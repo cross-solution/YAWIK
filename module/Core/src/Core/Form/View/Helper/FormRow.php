@@ -44,9 +44,22 @@ class FormRow extends ZendFormRow
      */
     public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
-        if ($element instanceof ViewPartialProviderInterface && !$ignoreViewPartial) {
-            return $this->getView()->partial($element->getViewPartial(), array('element' => $element));
+        $labelAttributes = $element->getLabelAttributes();
+        $labelWidth = $element->getOption('labelWidth');
+        if (!$labelWidth) {
+            $labelWidth = $this->labelSpanWidth;
         }
+
+        if ($element instanceof ViewPartialProviderInterface && !$ignoreViewPartial) {
+            return $this->getView()->partial($element->getViewPartial(),
+                                             array(
+                                                 'element' => $element,
+                                                 'labelWitdh' => $labelWidth,
+                                                 'label_attributes' => $labelAttributes
+                                                            )
+            );
+        }
+
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
@@ -55,7 +68,7 @@ class FormRow extends ZendFormRow
         $inputErrorClass = $this->getInputErrorClass();
         $elementErrors   = $elementErrorsHelper->render($element);
         
-        // generall Class
+        // general Class
         $form_row_class = 'row';
         if ($this->layout == Form::LAYOUT_HORIZONTAL) {
             $form_row_class = 'form-group';
@@ -148,7 +161,7 @@ class FormRow extends ZendFormRow
                 if ($this->layout == Form::LAYOUT_BARE) {
                     $markup = $elementString;
                 } else {
-                    $labelAttributes = $element->getLabelAttributes();
+
                     if (!isset($labelAttributes['for'])) {
                         $labelAttributes['for'] = $elementId;
                     }
@@ -160,14 +173,7 @@ class FormRow extends ZendFormRow
                     }
                     $element->setLabelAttributes($labelAttributes);
 
-
-                        $labelOpen = '';
-                        $labelClose = '';
-                        $label = $labelHelper($element);
-                        $labelWidth = $element->getOption('labelWidth');
-                    if (!$labelWidth) {
-                        $labelWidth = $this->labelSpanWidth;
-                    }
+                    $label = $labelHelper($element);
                     if ($this->shouldWrap) {
                         $spanWidth = 12 - $labelWidth;
                         $elementString = sprintf(
@@ -186,8 +192,7 @@ class FormRow extends ZendFormRow
                         $markup = $label . $elementString;
                 }
             }
-    
-            
+
         } else {
             if ($this->shouldWrap
                 && !$element instanceof \Zend\Form\Element\Hidden

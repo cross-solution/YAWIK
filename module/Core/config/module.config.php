@@ -258,6 +258,7 @@ return array(
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'core/notifications' => __DIR__ . '/../view/partial/notifications.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
+            'core/social-buttons' => __DIR__ . '/../view/partial/social-buttons.phtml',
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
