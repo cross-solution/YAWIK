@@ -90,7 +90,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             echo implode('<br />', $this->translate($status));
          ?>
          </td>
-         <td><?php if ($this->acl($job, 'edit')): ?>
+         <td class="btn-group btn-toolbar"><?php if ($this->acl($job, 'edit')): ?>
              <?php $org = $job->getOrganization(); if ($org && $org->getUser()):?>
              <a href="<?php echo $this->url('lang/jobs/assign-user', array(), array('query' => array('id' => $job->id)), true)?>"
                 data-id="<?php echo $job->id ?>"
@@ -110,7 +110,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
              <i class="yk-icon yk-icon-history"></i>
          </a>
 
-           <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs pull-right"><span class="yk-icon yk-icon-edit"></span></a>
+         <a href="<?php echo $this->url('lang/jobs/manage', array('action' => 'edit'), array('query' => array('id' => $job->id)), true) ?>" class="btn btn-default btn-xs"><span class="yk-icon yk-icon-edit"></span></a>
          <?php endif; ?>
          </td>
       <?php else:?>
