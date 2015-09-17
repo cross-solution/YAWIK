@@ -7,10 +7,11 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\Element;
 
 use Zend\Form\Element\Checkbox as ZfCheckbox;
+
 /**
  *
  *

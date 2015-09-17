@@ -239,7 +239,7 @@ msgid "Change responsible user for job \\\"%s\\\""
 msgstr "Changez l'utilisateur responsable pour l'emploi  \\\"%s\\\""
 
 #: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
-msgid "State history"
+msgid "Status history"
 msgstr "l'histoire de l'État"
 
 #: view/jobs/index/index.ajax.phtml:143

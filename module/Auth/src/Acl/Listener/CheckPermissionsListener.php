@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** CheckRouteListener.php */ 
+/** CheckRouteListener.php */
 namespace Acl\Listener;
 
 use Zend\EventManager\ListenerAggregateInterface;
@@ -29,7 +29,7 @@ class CheckPermissionsListener implements ListenerAggregateInterface
      */
     protected $listeners = array();
     
-    public function __construct(AclInterface $acl, UserInterface $user, $exceptionMap=array())
+    public function __construct(AclInterface $acl, UserInterface $user, $exceptionMap = array())
     {
         $this->acl = $acl;
         $this->user = $user;
@@ -40,14 +40,16 @@ class CheckPermissionsListener implements ListenerAggregateInterface
     {
         return isset($this->exceptionMap[$resourceId])
             ? $this->exceptionMap[$resourceId]
-            : '\Auth\Exception\UnauthorizedAccessException'; 
+            : '\Auth\Exception\UnauthorizedAccessException';
     }
     
-    public function getAcl() {
+    public function getAcl()
+    {
         return $this->acl;
     }
     
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
     
@@ -104,7 +106,7 @@ class CheckPermissionsListener implements ListenerAggregateInterface
         return $this->checkAcl($event, $controller, $action);
     }
     
-    protected function checkAcl(MvcEvent $event, $resourceId, $privilege=null)
+    protected function checkAcl(MvcEvent $event, $resourceId, $privilege = null)
     {
         $role = $this->getUser();
         $acl  = $this->getAcl();

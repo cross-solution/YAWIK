@@ -13,7 +13,6 @@ use Core\ModuleManager\ModuleConfigLoader;
 use Zend\EventManager\EventInterface;
 use Zend\Mvc\MvcEvent;
 
-
 /**
  * Bootstrap class of the organizations module
  */
@@ -21,7 +20,7 @@ class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
 {
     /**
      * Loads module specific configuration.
-     * 
+     *
      * @return array
      */
     public function getConfig()
@@ -31,7 +30,7 @@ class Module implements \Zend\ModuleManager\Feature\BootstrapListenerInterface
     
     /**
      * Loads module specific autoloader configuration.
-     * 
+     *
      * @return array
      */
     public function getAutoloaderConfig()

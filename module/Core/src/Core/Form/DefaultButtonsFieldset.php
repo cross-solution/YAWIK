@@ -2,14 +2,14 @@
 
 namespace Core\Form;
 
-
 class DefaultButtonsFieldset extends ButtonsFieldset
 {
     public function init()
     {
         $this->setName('buttons');
         //$this->setLabel('Actions');
-        $this->add(array(
+        $this->add(
+            array(
             //'type' => 'Button',
             'type' => 'Core/Spinner-Submit',
             'name' => 'submit',
@@ -22,9 +22,11 @@ class DefaultButtonsFieldset extends ButtonsFieldset
                 'value' => 'Save',
                 'class' => 'cam-btn-save'
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Button',
             'name' => 'cancel',
             'options' => array(
@@ -36,10 +38,11 @@ class DefaultButtonsFieldset extends ButtonsFieldset
                 'value' => 'Cancel',
                 'class' => 'cam-btn-reset'
             ),
-        ));
+            )
+        );
     }
     
-    public function setOptions($options) 
+    public function setOptions($options)
     {
         parent::setOptions($options);
         

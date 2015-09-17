@@ -11,6 +11,7 @@ return array(
         ),
         'invokables' => array(
             'geo/geo' => 'Geo\Controller\Plugin\Geo',
+            'geo/photon' => 'Geo\Controller\Plugin\Photon',
             ),
         ),
     
@@ -22,11 +23,19 @@ return array(
                     'geo' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/geo',
+                            'route' => '/geo/:plugin',
                             'defaults' => array(
                                 'controller' => 'Geo\Controller\Index',
                                 'action' => 'index',
                                 'module' => 'Geo',
+                                'defaults' => array(
+                                    'defaults' => array(
+                                        'plugin' => 'geo'
+                                    ),
+                                    'constraints' => array(
+                                        'plugin' => '(geo|photon)',
+                                    ),
+                                ),
                             ),
                         ),
                         'may_terminate' => true,
@@ -35,21 +44,19 @@ return array(
             ),
         ),
     ),
-    
-   'form_elements' => array(
-        'invokables' => array(
-            'Location' => 'Geo\Form\GeoText',
-        ),
+    'form_elements' => array(
+        'factory' => array(
+            'Location' => 'Geo\Factory\Form\GeoTextFactory',
+         ),
     ),
     
-   'view_manager' => array(
+    'view_manager' => array(
     
     
         // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
-   
             'geo/form/GeoText' => __DIR__ . '/../view/form/geotext.phtml',
-            //'form/div-wrapper-fieldset' => __DIR__ . '/../view/form/div-wrapper-fieldset.phtml',
+            'geo/form/GeoHorizontal' => __DIR__ . '/../view/form/geo-horizontal.phtml',
         ),
     
         // Where to look for view templates not mapped above
@@ -59,15 +66,7 @@ return array(
     ),
     
     // spezifische Daten
-    'cross_geoapi_url' => 'http://api.cross-solution.de/geo',
-    
-     'view_helper_config' => array(
-        'headscript' => array(
-            'Geo/js/jquery.geolocationfield.js',
-            //'js/typeahead.jquery.min.js',
-            //'js/bloodhound.min.js',
-            'Geo/js/typeahead.jquery.min.js',
-            'Geo/js/bloodhound.min.js',
-        ),
-    ),
+    'geocoder_cross_url' => 'http://api.cross-solution.de/geo',
+    'geocoder_photon_url' => 'http://www2.mediaintown.de:2322/api',
+
 );

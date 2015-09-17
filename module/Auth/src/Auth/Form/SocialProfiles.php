@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Auth forms */ 
+/** Auth forms */
 namespace Auth\Form;
 
 use Core\Form\BaseForm;
@@ -40,10 +40,11 @@ class SocialProfiles extends BaseForm
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * This method is a no-op, as we do not need a button fieldset.
      * @see \Core\Form\BaseForm::addButtonsFieldset()
      */
     protected function addButtonsFieldset()
-    { }
+    {
+    }
 }

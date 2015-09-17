@@ -15,7 +15,6 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-
 /**
  * This Factory creates and configures the HTMLTemplateMail send to an invited person.
  *
@@ -41,7 +40,7 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
      */
     public function setCreationOptions(array $options)
     {
-        if (!isset($options['user']) || !$options['user'] instanceOf UserInterface) {
+        if (!isset($options['user']) || !$options['user'] instanceof UserInterface) {
             throw new \InvalidArgumentException('An user interface is required!');
         }
 
@@ -79,8 +78,9 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
         $orgName = $org->getOrganizationName()->getName();
         $user    = $this->options['user'];
 
-        $url = $router->assemble(array('action' => 'accept'),
-                                 array(
+        $url = $router->assemble(
+            array('action' => 'accept'),
+            array(
                                      'name'  => 'lang/organizations/invite',
                                      'query' => array(
                                          'token'        => $this->options['token'],
@@ -108,8 +108,12 @@ class EmployeeInvitationFactory implements FactoryInterface, MutableCreationOpti
         $mail = $serviceLocator->get('htmltemplate');
         $mail->setTemplate($this->options['template'])
              ->setVariables($variables)
-             ->setSubject(sprintf(/* @translate */ 'Invitation to join the team of %s',
-                                  $orgName))
+             ->setSubject(
+                 sprintf(
+                     /* @translate */ 'Invitation to join the team of %s',
+                     $orgName
+                 )
+             )
              ->addTo($user->getEmail());
 
         return $mail;

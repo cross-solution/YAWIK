@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Group.php */ 
+/** Group.php */
 namespace Auth\Form;
 
 use Core\Form\Form;
@@ -16,10 +16,10 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 /**
  * Form to manage groups.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Group extends Form 
+class Group extends Form
 {
     
     /**
@@ -30,18 +30,19 @@ class Group extends Form
     {
 
         $this->setAttribute('data-handle-by', 'native');
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Auth/Group/Data',
             'options' => array(
                 'mode' => $this->getOption('mode')
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'DefaultButtonsFieldset',
-        ));
+            )
+        );
     }
-    
-  
 }
-

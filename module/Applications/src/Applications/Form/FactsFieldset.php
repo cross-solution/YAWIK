@@ -16,7 +16,7 @@ use Core\Form\EmptySummaryAwareInterface;
 
 /**
  * Facts fieldset.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class FactsFieldset extends Fieldset implements DisableElementsCapableInterface, EmptySummaryAwareInterface
@@ -37,7 +37,8 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
              ->setName('base');
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'willingnessToTravel',
             'type' => '\Zend\Form\Element\Select',
             'options' => array(
@@ -56,9 +57,11 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                 'data-placeholder' => /*@translate*/ 'please select',
                 'data-allowclear' => 'true',
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'earliestStartingDate',
             'type' => "text",
             'options' => array(
@@ -68,9 +71,11 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                     'description' => /*@translate*/ 'Ask the applicant about the earliest starting date.',
                 ),
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'expectedSalary',
             'options' => array(
                 'label' => /*@translate*/ 'Expected salary',
@@ -79,9 +84,11 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                     'description' => /*@translate*/ 'Ask users about their expected salary.',
                 ),
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
                        'name' => 'drivingLicense',
                        'type' => '\Zend\Form\Element\Select',
                        'options' => array(
@@ -95,7 +102,8 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                                'description' => /*@translate*/ 'Ask the applicant, if he has a driving license.',
                            ),
                        ),
-                   ));
+                   )
+        );
     }
 
     /**
@@ -183,7 +191,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
      */
     public function disableElements(array $map)
     {
-        foreach($map as $element) {
+        foreach ($map as $element) {
             $this->remove($element);
         }
         return $this;

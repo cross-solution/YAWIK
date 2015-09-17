@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SearchableEntityinterface.php */ 
+/** SearchableEntityinterface.php */
 namespace Core\Entity;
 
 interface SearchableEntityInterface
@@ -21,4 +21,3 @@ interface SearchableEntityInterface
     public function clearKeywords();
     public function getKeywords();
 }
-

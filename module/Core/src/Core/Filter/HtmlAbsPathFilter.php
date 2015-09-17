@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -16,12 +16,13 @@ use Zend\Dom\Query;
 
 use Zend\Uri\Http;
 
-
-class HtmlAbsPathFilter implements FilterInterface {
+class HtmlAbsPathFilter implements FilterInterface
+{
 
     protected $uri;
 
-    public function setUri($uri) {
+    public function setUri($uri)
+    {
         $this->uri = $uri;
         return $this;
     }
@@ -48,4 +49,4 @@ class HtmlAbsPathFilter implements FilterInterface {
         $documentHTML = $document->saveHTML();
         return $documentHTML;
     }
-} 
+}

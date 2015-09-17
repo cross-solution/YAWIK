@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -14,7 +14,6 @@ use Core\Form\SummaryForm;
 use Core\Entity\Hydrator\EntityHydrator;
 use Jobs\Entity\JobInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
-
 
 /**
  * Defines the form for entering the hiring organization name
@@ -59,7 +58,7 @@ class CompanyName extends SummaryForm implements InputFilterProviderInterface
 
     public function setObject($object)
     {
-        if ($object instanceOf JobInterface && null === $object->getOrganization()) {
+        if ($object instanceof JobInterface && null === $object->getOrganization()) {
             $fs = $this->getBaseFieldset();
             $hiringOrgSelect = $fs->get('companyId');
             $orgValues = $hiringOrgSelect->getValueOptions();

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** NotifcationFactory.php */ 
+/** NotifcationFactory.php */
 namespace Core\Controller\Plugin\Service;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -31,4 +31,3 @@ class NotificationFactory implements FactoryInterface
         return $notification;
     }
 }
-

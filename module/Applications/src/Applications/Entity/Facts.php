@@ -125,5 +125,4 @@ class Facts extends AbstractEntity implements FactsInterface
     {
         return $this->drivingLicense;
     }
-
 }

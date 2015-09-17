@@ -37,6 +37,6 @@ class JobboardControllerFactory implements FactoryInterface
          */
         $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
 
-        return new JobboardController( $jobRepository, $searchForm );
+        return new JobboardController($jobRepository, $searchForm);
     }
 }

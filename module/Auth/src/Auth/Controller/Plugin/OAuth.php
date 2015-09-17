@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -55,7 +55,8 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
         return $this->serviceLocator;
     }
 
-    public function setUser($user) {
+    public function setUser($user)
+    {
         if (!empty($this->user)) {
             throw new \RuntimeException('User for oAuth cannot be changed, once the Authentification has been etablished');
         }
@@ -63,7 +64,8 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
         return $this;
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         $user = $this->user;
         // @TODO check on type
         if (empty($user)) {
@@ -74,7 +76,8 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
         return $user;
     }
 
-    public function getHybridAuth() {
+    public function getHybridAuth()
+    {
         $services = $this->getServiceLocator()->getServiceLocator();
         return $services->get('HybridAuth');
     }
@@ -84,7 +87,7 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
      * @param null $user
      * @return $this
      */
-    public function __invoke($providerKey, $user = Null)
+    public function __invoke($providerKey, $user = null)
     {
         if (!empty($user)) {
             $this->setUser($user);
@@ -98,24 +101,24 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
      * and that is by stored Session
      * @return bool
      */
-    public function isAvailable() {
-        if (!empty($this->adapter))
-        {
-            // adapter is already etablished
-            return True;
+    public function isAvailable()
+    {
+        if (!empty($this->adapter)) {
+        // adapter is already etablished
+            return true;
         }
         $user = $this->getUser();
         $sessionDataStored = $user->getAuthSession($this->providerKey);
         if (empty($sessionDataStored)) {
             // for this user no session has been stored
-            return False;
+            return false;
         }
         $hybridAuth = $this->getHybridAuth();
         $hybridAuth->restoreSessionData($sessionDataStored);
         if ($hybridAuth->isConnectedWith($this->providerKey)) {
-            return True;
+            return true;
         }
-        return False;
+        return false;
     }
 
     /**
@@ -124,8 +127,7 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
      */
     public function getAdapter()
     {
-        if (empty($this->adapter))
-        {
+        if (empty($this->adapter)) {
             $user = $this->getUser();
             $sessionDataStored = $user->getAuthSession($this->providerKey);
             $hybridAuth = $this->getHybridAuth();
@@ -152,7 +154,7 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
         // first test, if there is a connection at all
         // that prevents an authentification just for to logout
         if ($hybridAuth->isConnectedWith($this->providerKey)) {
-            $this->getAdapter( $this->providerKey)->logout();
+            $this->getAdapter($this->providerKey)->logout();
         }
         $user->removeSessionData($this->providerKey);
         unset($this->adapter);

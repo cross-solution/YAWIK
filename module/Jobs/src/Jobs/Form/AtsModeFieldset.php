@@ -18,7 +18,7 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Base Fieldset for \Jobs\Form\AtsMode
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
@@ -55,14 +55,15 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
 
     public function allowObjectBinding($object)
     {
-        return $object instanceOf AtsModeInterface || parent::allowObjectBinding($object);
+        return $object instanceof AtsModeInterface || parent::allowObjectBinding($object);
     }
 
 
     public function init()
     {
         $this->setName('atsMode');
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Select',
             'name' => 'mode',
             'options' => array(
@@ -78,23 +79,28 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
                 'data-searchbox' => 'false',
                 'value' => 'email',
             )
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Text',
             'name' => 'uri',
             'options' => array(
                 'label' => /*@translate*/ 'URL',
             )
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Text',
             'name' => 'email',
             'options' => array(
                 'label' => /*@translate*/ 'Email',
             ),
-        ));
+            )
+        );
     }
 
     /**

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\View\Helper;
 
 use Zend\Form\View\Helper\FormCheckbox as ZfFormCheckbox;
@@ -72,7 +72,9 @@ class FormInfoCheckbox extends ZfFormCheckbox
         
         $markup = sprintf(
             $markup,
-            $element->getAttribute('id'), $input, $label
+            $element->getAttribute('id'),
+            $input,
+            $label
         );
         
         return $headline . $markup;

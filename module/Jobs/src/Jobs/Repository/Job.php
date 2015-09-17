@@ -12,7 +12,7 @@ use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Core\Repository\DoctrineMongoODM\PaginatorAdapter;
 
-class Job extends AbstractRepository 
+class Job extends AbstractRepository
 {
     /**
      * Gets a pagination cursor to the jobs collection
@@ -42,9 +42,9 @@ class Job extends AbstractRepository
            ->select('applyId')
            ->field('applyId')->equals($applyId);
            
-       $result = $qb->getQuery()->execute();
-       $count = $result->count();
-       return (bool) $count;
+        $result = $qb->getQuery()->execute();
+        $count = $result->count();
+        return (bool) $count;
         
     }
 
@@ -54,11 +54,13 @@ class Job extends AbstractRepository
      */
     public function findByAssignedPermissionsResourceId($resourceId)
     {
-        return $this->findBy(array(
+        return $this->findBy(
+            array(
             'permissions.assigned.' . $resourceId => array(
                 '$exists' => true
             )
-        ));
+            )
+        );
     }
 
     /**
@@ -93,14 +95,16 @@ class Job extends AbstractRepository
      */
     public function findDraft($user)
     {
-        if ($user instanceOf UserInterface) {
+        if ($user instanceof UserInterface) {
             $user = $user->getId();
         }
 
-        $document = $this->findOneBy(array(
+        $document = $this->findOneBy(
+            array(
             'isDraft' => true,
             'user' => $user
-        ));
+            )
+        );
 
         if (!empty($document)) {
             return $document;
@@ -112,8 +116,8 @@ class Job extends AbstractRepository
     /**
      * @return string
      */
-    public function getUniqueReference() {
+    public function getUniqueReference()
+    {
         return uniqid();
     }
-    
 }

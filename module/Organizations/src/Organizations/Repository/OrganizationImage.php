@@ -12,6 +12,6 @@ use Core\Repository\AbstractRepository;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class OrganizationImage extends AbstractRepository 
+class OrganizationImage extends AbstractRepository
 {
 }

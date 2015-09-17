@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * Location of a job position
- * 
+ *
  * @ODM\EmbeddedDocument
  * @ODM\Index(keys={"coordinates"="2d"})
  *
@@ -38,7 +38,7 @@ class Location extends AbstractEntity implements LocationInterface
 
     /**
      * postalcode of a job location.
-     * 
+     *
      * @var String
      * @ODM\String
      */
@@ -55,7 +55,7 @@ class Location extends AbstractEntity implements LocationInterface
     /**
      * Country of a job location
      * @var String
-     * 
+     *
      * @ODM\String
      */
     protected $country;
@@ -69,59 +69,58 @@ class Location extends AbstractEntity implements LocationInterface
     {
     }
 
-    public function getCoordinates ()
+    public function getCoordinates()
     {
         return $this->coordinates;
     }
 
-    public function setCoordinates (CoordinatesInterface $coordinates)
+    public function setCoordinates(CoordinatesInterface $coordinates)
     {
         $this->coordinates = $coordinates;
         return $this;
     }
 
-    public function getPostalcode ()
+    public function getPostalcode()
     {
         return $this->status;
     }
 
-    public function setPostalcode ($postalcode)
+    public function setPostalcode($postalcode)
     {
         $this->postalcode = $postalcode;
         return $this;
     }
 
-    public function getCity ()
+    public function getCity()
     {
         return $this->city;
     }
 
-    public function setCity ($country)
+    public function setCity($country)
     {
         $this->city = $country;
         return $this;
     }
 
-    public function getCountry ()
+    public function getCountry()
     {
         return $this->country;
     }
 
-    public function setCountry ($country)
+    public function setCountry($country)
     {
         $this->country = $country;
         return $this;
     }
 
-    public function getRegion ()
+    public function getRegion()
     {
         return $this->region;
     }
 
-    public function setRegion ($region)
+    public function setRegion($region)
     {
         $this->region = $region;
         return $this;
     }
 }
-

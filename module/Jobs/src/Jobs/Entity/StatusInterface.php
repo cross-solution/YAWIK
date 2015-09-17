@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** StatusInterface.php */ 
+/** StatusInterface.php */
 namespace Jobs\Entity;
 
 use Core\Entity\EntityInterface;
@@ -70,4 +70,3 @@ interface StatusInterface extends EntityInterface
      */
     public function __toString();
 }
-

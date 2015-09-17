@@ -22,13 +22,14 @@ use Auth\Entity\UserInterface;
 
 /**
  * class for accessing applications
- * 
+ *
  * @todo find better mechanism for loading drafts or applications or both states.
- * 
+ *
  * @package Applications
  */
 class Application extends AbstractRepository
-{   
+{
+   
     /**
      * {@inheritDoc}
      */
@@ -36,7 +37,7 @@ class Application extends AbstractRepository
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
-        } else if (null === $criteria['isDraft']) {
+        } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
         return parent::findBy($criteria, $sort, $limit, $skip);
@@ -49,7 +50,7 @@ class Application extends AbstractRepository
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
-        } else if (null === $criteria['isDraft']) {
+        } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
         return parent::findOneBy($criteria);
@@ -69,7 +70,7 @@ class Application extends AbstractRepository
     
     /**
      * Gets a pointer to an application
-     * 
+     *
      * @param array $params
      */
     public function getPaginatorCursor($params)
@@ -81,7 +82,7 @@ class Application extends AbstractRepository
     
     /**
      * Gets a query builder to search for applications
-     * 
+     *
      * @param array $params
      * @return unknown
      */
@@ -95,7 +96,7 @@ class Application extends AbstractRepository
     
     /**
      * Gets a result list of applications
-     * 
+     *
      * @param array $params
      * @return \Applications\Repository\PaginationList
      */
@@ -125,13 +126,13 @@ class Application extends AbstractRepository
      * @param \Jobs\Entity\JobInterface $job
      * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
      */
-    public function loadUnreadApplicationsForJob($job) 
+    public function loadUnreadApplicationsForJob($job)
     {
         $auth=$this->getService('AuthenticationService');
         $qb=$this->createQueryBuilder()
                   ->field("readBy")->notIn(array($auth->getUser()->id))
-                  ->field("job")->equals( new \MongoId($job->id));
-        return $qb->getQuery()->execute();          
+                  ->field("job")->equals(new \MongoId($job->id));
+        return $qb->getQuery()->execute();
     }
 
     /**
@@ -143,7 +144,7 @@ class Application extends AbstractRepository
      */
     public function findComment($commentOrId)
     {
-        if ($commentOrId instanceOf CommentInterface) {
+        if ($commentOrId instanceof CommentInterface) {
             $commentOrId = $commentOrId->getId();
         }
         
@@ -159,7 +160,7 @@ class Application extends AbstractRepository
     
     /**
      * Gets social profiles of an application
-     * 
+     *
      * @param String $profileId
      * @return $profile|NULL
      */
@@ -189,7 +190,7 @@ class Application extends AbstractRepository
      */
     public function findDraft($user, $applyId)
     {
-        if ($user instanceOf UserInterface) {
+        if ($user instanceof UserInterface) {
             //
             $user = $user->getId();
         }
@@ -205,13 +206,15 @@ class Application extends AbstractRepository
 //                    ->equals($user)
 //             );
         
-        $documents = $this->findBy(array(
+        $documents = $this->findBy(
+            array(
             'isDraft' => true,
             '$or' => array(
                 array('user' => $user),
                 array('permissions.change' => $user)
             )
-        ));
+            )
+        );
         foreach ($documents as $document) {
             if ($applyId == $document->getJob()->getApplyId()) {
                 return $document;

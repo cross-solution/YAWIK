@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Auth forms */ 
+/** Auth forms */
 namespace Auth\Factory\Form;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -16,7 +16,7 @@ use Auth\Form\SocialProfilesFieldset;
 
 /**
  * Factory for a SocialProfilesFieldset
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class SocialProfilesFieldsetFactory implements FactoryInterface
@@ -24,13 +24,13 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
     
     /**
      * Creates a {@link SocialProfilesFieldset}
-     * 
+     *
      * Uses config from the config key [form_element_config][attach_social_profiles_fieldset]
      * to configure fetch_url, preview_url and name or uses the defaults:
      *  - fetch_url: Route named "auth-social-profiles" with the suffix "?network=%s"
      *  - preview_url: Route named "lang/applications/detail" with the suffix "?action=social-profile&network=%s"
      *  - name: "social_profiles"
-     *  
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return SocialProfilesFieldset
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -47,12 +47,12 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
                 : array();
         
         if (!isset($options['fetch_url'])) {
-            $options['fetch_url'] = 
+            $options['fetch_url'] =
                 $router->assemble(array('action' => 'fetch'), array('name' => 'auth-social-profiles'))
                 . '?network=%s';
         }
         if (!isset($options['preview_url'])) {
-            $options['preview_url'] = 
+            $options['preview_url'] =
                 $router->assemble(array('id' => 'null'), array('name' => 'lang/applications/detail'), true)
                 . '?action=social-profile&network=%s';
         }
@@ -72,4 +72,3 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
         
     }
 }
-

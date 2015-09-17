@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** MailManagerConfig.php */ 
+/** MailManagerConfig.php */
 namespace Core\Mail;
 
 use Zend\ServiceManager\Config;
@@ -60,7 +60,7 @@ class MailServiceConfig extends Config
                        : array($recipientsStr);
         
         $recipientsArr = array_map('trim', $recipientsArr);
-        $recipients    = new AddressList(); 
+        $recipients    = new AddressList();
         foreach ($recipientsArr as $recipient) {
             if (preg_match('~^([^<]+)(?:<([^>]+)>)?$~', $recipient, $match)) {
                 if (isset($match[2])) {
@@ -77,7 +77,7 @@ class MailServiceConfig extends Config
     
     public function configureServiceManager(ServiceManager $serviceManager)
     {
-        if (!$serviceManager instanceOf MailService) {
+        if (!$serviceManager instanceof MailService) {
             throw new \DomainException('Can only configure instances of \Core\Mail\MailService.');
         }
         
@@ -95,7 +95,4 @@ class MailServiceConfig extends Config
         }
         
     }
-
-
 }
-

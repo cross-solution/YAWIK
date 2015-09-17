@@ -20,9 +20,9 @@ class UnauthorizedAccessListenerFactory implements FactoryInterface
 {
     /**
      * Creates an instance of \Auth\View\Helper\Auth
-     * 
+     *
      * - Injects the AuthenticationService
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\View\Helper\Auth
      * @see \Zend\ServiceManager\FactoryInterface::createService()

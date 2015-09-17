@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -21,7 +21,8 @@ use Zend\Stdlib\Parameters;
  * Class DoctrineMongoLateCursor
  * @package Core\Paginator\Adapter
  */
-class DoctrineMongoLateCursor implements AdapterInterface {
+class DoctrineMongoLateCursor implements AdapterInterface
+{
 
     protected $cursor;
 
@@ -46,7 +47,7 @@ class DoctrineMongoLateCursor implements AdapterInterface {
      */
     public function __construct(Builder $queryBuilder, AbstractPaginationQuery $filter)
     {
-        $this->cursor = Null;
+        $this->cursor = null;
         $this->builder = $queryBuilder;
         $this->filter = $filter;
         $this->params = new Parameters();
@@ -106,4 +107,4 @@ class DoctrineMongoLateCursor implements AdapterInterface {
             ->limit($itemCountPerPage)
             ->toArray();
     }
-} 
+}

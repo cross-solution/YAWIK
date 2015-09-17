@@ -17,7 +17,7 @@ class InjectLoginInfoListener
     
     public function injectLoginInfo(MvcEvent $e)
     {
-        if ( ($viewModel = $e->getViewModel()) instanceOf JsonModel) {
+        if (($viewModel = $e->getViewModel()) instanceof JsonModel) {
             // We don't need the login-info in a json response.
             return;
         }

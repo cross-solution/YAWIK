@@ -52,7 +52,7 @@ class AssertionManager extends AbstractPluginManager
     {
         /* @var $serviceLocator AssertionManager */
 
-        if (!$assertion instanceOf EventManagerAwareInterface) {
+        if (!$assertion instanceof EventManagerAwareInterface) {
             return;
         }
 
@@ -77,9 +77,8 @@ class AssertionManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if (!$plugin instanceOf AssertionInterface) {
+        if (!$plugin instanceof AssertionInterface) {
             throw new \RuntimeException('Expected plugin to be of type Assertion.');
         }
     }
 }
-

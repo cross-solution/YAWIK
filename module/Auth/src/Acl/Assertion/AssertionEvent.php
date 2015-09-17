@@ -20,7 +20,7 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  *
  * It will get populated with the Acl, the role, the resource and the privilege and
  * provide convenient getter methods.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class AssertionEvent extends Event
@@ -155,5 +155,4 @@ class AssertionEvent extends Event
     {
         return $this->role;
     }
-
 }

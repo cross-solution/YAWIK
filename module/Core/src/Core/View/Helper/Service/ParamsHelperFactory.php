@@ -5,7 +5,7 @@
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
- */ 
+ */
 
 /** Core view helper factories*/
 namespace Core\View\Helper\Service;
@@ -19,14 +19,14 @@ use Core\View\Helper\Params;
  * @see \Core\View\Helper\Params
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class ParamsHelperFactory implements FactoryInterface 
+class ParamsHelperFactory implements FactoryInterface
 {
 
     /**
      * Creates an instance of \Core\View\Helper\Params
-     * 
+     *
      * - injects the MvcEvent instance
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Core\View\Helper\Params
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -37,5 +37,4 @@ class ParamsHelperFactory implements FactoryInterface
         $helper = new Params($event);
         return $helper;
     }
-    
 }

@@ -28,13 +28,15 @@ class ButtonsFieldset extends Fieldset implements ViewPartialProviderInterface, 
         return $this->viewPartial;
     }
 
-    public function setIsDisableCapable($flag) {
+    public function setIsDisableCapable($flag)
+    {
         $this->options['is_disable_capable'] = $flag;
 
         return $this;
     }
 
-    public function isDisableCapable() {
+    public function isDisableCapable()
+    {
         return isset($this->options['is_disable_capable'])
                ? $this->options['is_disable_capable'] : false;
     }

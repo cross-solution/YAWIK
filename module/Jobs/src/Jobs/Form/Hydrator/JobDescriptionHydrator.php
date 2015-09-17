@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -38,7 +38,7 @@ class JobDescriptionHydrator extends EntityHydrator
     /* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
      */
-    public function extract ($object)
+    public function extract($object)
     {
         $data = parent::extract($object);
         $data['description-description']    = $this->extractValue('descriptiondescription', $object);
@@ -49,7 +49,7 @@ class JobDescriptionHydrator extends EntityHydrator
         return $data;
     }
 
-    public function hydrate (array $data, $object)
+    public function hydrate(array $data, $object)
     {
         $object = parent::hydrate($data, $object);
         $this->hydrateValue('descriptiondescription', $data, $object);

@@ -25,15 +25,18 @@ class DateRange extends Element implements ElementPrepareAwareInterface
         
         $this->startDateElement = new Date('startdate');
         $this->endDateElement   = new Date('enddate');
-        $this->currentCheckbox  = new Checkbox('current', array(
+        $this->currentCheckbox  = new Checkbox(
+            'current',
+            array(
             'label' => 'Current',
             'use_hidden_element' => true,
             'value' => 0,
-        )); 
+            )
+        );
         
     }
     
-    public function setOptions($options) 
+    public function setOptions($options)
     {
         parent::setOptions($options);
         
@@ -68,7 +71,7 @@ class DateRange extends Element implements ElementPrepareAwareInterface
     public function getStartDateElement()
     {
         return $this->startDateElement;
-    } 
+    }
     
     public function getEndDateElement()
     {
@@ -105,5 +108,4 @@ class DateRange extends Element implements ElementPrepareAwareInterface
         $this->endDateElement = clone $this->endDateElement;
         $this->currentCheckbox = clone $this->currentCheckbox;
     }
-        
 }

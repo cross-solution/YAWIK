@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -99,9 +99,9 @@ class AuthSession extends AbstractEntity
      *
      * @return self
      */
-    public function setModificationDate($modificationDate = Null)
+    public function setModificationDate($modificationDate = null)
     {
-        if (!isset($modificationDate) ) {
+        if (!isset($modificationDate)) {
             $modificationDate = new \DateTime();
         }
         if (is_string($modificationDate)) {

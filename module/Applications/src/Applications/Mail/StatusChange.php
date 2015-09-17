@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** NewApplication.php */ 
+/** NewApplication.php */
 namespace Applications\Mail;
 
 use Core\Mail\StringTemplateMessage;
@@ -120,4 +120,3 @@ class StatusChange extends StringTemplateMessage
         return strftime('%x', $date->getTimestamp());
     }
 }
-

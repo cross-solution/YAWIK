@@ -17,12 +17,11 @@ use Core\Exception\MissingDependencyException;
 use Organizations\Entity\EmployeeInterface;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
-
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class AcceptInvitationHandler extends AbstractPlugin
 {
@@ -147,7 +146,6 @@ class AcceptInvitationHandler extends AbstractPlugin
             $user->getInfo()->setEmailVerified(true);
             $mustSetPassword = true;
         } else {
-
             $mustSetPassword = false;
             $userOrg = $user->getOrganization(); /* @var $userOrg \Organizations\Entity\OrganizationReference */
             if ($userOrg->hasAssociation()) {

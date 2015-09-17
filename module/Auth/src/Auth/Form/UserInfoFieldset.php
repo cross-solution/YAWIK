@@ -18,8 +18,9 @@ use Zend\Validator\NotEmpty;
 use Zend\Validator\EmailAddress;
 use Zend\Validator\File;
 
-class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
-                                                   InputFilterProviderInterface
+class UserInfoFieldset extends Fieldset implements
+    ViewPartialProviderInterface,
+    InputFilterProviderInterface
 {
     
     protected $viewPartial = 'form/auth/contact';
@@ -54,85 +55,103 @@ class UserInfoFieldset extends Fieldset implements ViewPartialProviderInterface,
         return $this->hydrator;
     }
     
-	public function init()
+    public function init()
     {
         $this->setName('info');
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'email',
             'options' => array( 'label' => /* @translate */ 'Email' ),
-         ));
+            )
+        );
                
-        $this->add(array(
-        		'name' => 'phone',
+        $this->add(
+            array(
+                'name' => 'phone',
                 'type' => '\Core\Form\Element\Phone',
-        		'options' => array(
-        				'label' => /* @translate */ 'Phone',
-        		),
+                'options' => array(
+                        'label' => /* @translate */ 'Phone',
+                ),
                 'maxlength' => 20,
-        ));
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'postalCode',
-        		'options' => array(
-        				'label' => /* @translate */ 'Postalcode'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'postalCode',
+                'options' => array(
+                        'label' => /* @translate */ 'Postalcode'
+                )
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'city',
-        		'options' => array(
-        				'label' => /* @translate */ 'City'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'city',
+                'options' => array(
+                        'label' => /* @translate */ 'City'
+                )
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'gender',
-        		'type' => 'Zend\Form\Element\Select',
-        		'options' => array(
-        				'label' => /*@translate */ 'Salutation',
-        				'value_options' => array(
-        						'' => '', // => /*@translate */ 'please select',
-        						'male' => /*@translate */ 'Mr.',
-        						'female' => /*@translate */ 'Mrs.',
-        				)
-        		),
+        $this->add(
+            array(
+                'name' => 'gender',
+                'type' => 'Zend\Form\Element\Select',
+                'options' => array(
+                        'label' => /*@translate */ 'Salutation',
+                        'value_options' => array(
+                                '' => '', // => /*@translate */ 'please select',
+                                'male' => /*@translate */ 'Mr.',
+                                'female' => /*@translate */ 'Mrs.',
+                        )
+                ),
                 'attributes' => array(
                     'data-placeholder' => /*@translate*/ 'please select',
                     'data-allowclear' => 'true',
                 ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'firstName',
             'options' => array(
                 'label' => /*@translate*/ 'First name',
                 'maxlength' => 50,
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'lastName',
             'options' => array(
                 'label' => /*@translate*/ 'Last name',
-                'maxlength' => 50,    
+                'maxlength' => 50,
             ),
             'required' => true
-        ));
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'street',
-        		'options' => array(
-        				'label' => /*@translate*/ 'street'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'street',
+                'options' => array(
+                        'label' => /*@translate*/ 'street'
+                )
+            )
+        );
         
-        $this->add(array(
-        		'name' => 'houseNumber',
-        		'options' => array(
-        				'label' => /*@translate*/ 'house number'
-        		)
-        ));
+        $this->add(
+            array(
+                'name' => 'houseNumber',
+                'options' => array(
+                        'label' => /*@translate*/ 'house number'
+                )
+            )
+        );
     }
     
     /**

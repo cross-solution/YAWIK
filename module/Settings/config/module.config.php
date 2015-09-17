@@ -2,7 +2,7 @@
 /**
  * YAWIK
  * Configuration file of the Core module
- * 
+ *
  * This file intents to provide the configuration for all other modules
  * as well (convention over configuration).
  * Having said that, you may always overwrite or extend the configuration
@@ -22,18 +22,18 @@ return array(
                                 ),
                         ),
                 ),
-        'eventmanager' => array(
-            'odm_default' => array(
+                'eventmanager' => array(
+                'odm_default' => array(
                 'subscribers' => array(
                     'Settings/InjectEntityResolverListener',
                  ),
-            ),
+                ),
+                ),
         ),
-    ),
     
-		
-	// Translations
-    'translator' => array(
+        
+    // Translations
+        'translator' => array(
         'translation_file_patterns' => array(
             array(
                 'type' => 'gettext',
@@ -41,9 +41,9 @@ return array(
                 'pattern' => '%s.mo',
             ),
         ),
-    ),
+        ),
     // Routes
-    'router' => array(
+        'router' => array(
         'routes' => array(
             'lang' => array(
                 'child_routes' => array(
@@ -62,18 +62,18 @@ return array(
                 ),
             ),
         ),
-    ),
+        ),
     
-    'acl' => array('rules' => array(
+        'acl' => array('rules' => array(
         'user' => array(
             'allow' => array(
                 'route/lang/settings',
                 'Settings\Controller\Index',
             ),
         ),
-    )),
+        )),
 
-    'navigation' => array(
+        'navigation' => array(
         'default' => array(
             'settings' => array(
                 'label' => /*@translate*/ 'Settings',
@@ -83,18 +83,18 @@ return array(
                 'params' => array('module' => null),
             ),
         ),
-    ),
+        ),
     
     // Configuration of the controller service manager (Which loads controllers)
-    'controllers' => array(
+        'controllers' => array(
         'invokables' => array(
             'Settings\Controller\Index' => 'Settings\Controller\IndexController'
         ),
-    ),
+        ),
    
     // Configure the view service manager
-    'view_manager' => array(
-        // Map template to files. Speeds up the lookup through the template stack. 
+        'view_manager' => array(
+        // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
         ),
         
@@ -102,20 +102,20 @@ return array(
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),
-    ),
+        ),
     
-    'view_helpers' => array(
+        'view_helpers' => array(
         'invokables' => array(
             'Settings/FormDisableElementsCapableFormSettings' => 'Settings\Form\View\Helper\FormDisableElementsCapableFormSettings',
         ),
         'factories' => array(
         ),
-    ),
+        ),
     
-     'service_manager' => array(
+        'service_manager' => array(
         'invokables' => array(
             'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener',
-    ),
+        ),
         'factories' => array(
             'Settings' => '\Settings\Settings\SettingsFactory',
             'Settings/EntityResolver' => '\Settings\Repository\SettingsEntityResolverFactory',
@@ -123,26 +123,26 @@ return array(
         'initializers' => array(),
         'shared' => array(),
         'aliases' => array(),
-    ),
+        ),
     
-    'controller_plugins' => array(
+        'controller_plugins' => array(
         'factories' => array('settings' => '\Settings\Controller\Plugin\SettingsFactory'),
-    ),
+        ),
     
-    'form_elements' => array(
+        'form_elements' => array(
         'invokables' => array(
             'Settings/Form' => '\Settings\Form\AbstractSettingsForm',
             'Settings/Fieldset' => '\Settings\Form\SettingsFieldset',
             'Settings/DisableElementsCapableFormSettingsFieldset' =>
                 '\Settings\Form\DisableElementsCapableFormSettingsFieldset',
         ),
-    ),
+        ),
 
-    'filters' => array(
+        'filters' => array(
         'invokables' => array(
             'Settings/DisableElementsCapableFormSettings' => '\Settings\Form\Filter\DisableElementsCapableFormSettings',
         )
-    )
+        )
     
     
 );

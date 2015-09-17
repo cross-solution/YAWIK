@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ErrorAndExceptionHandler.php */ 
+/** ErrorAndExceptionHandler.php */
 namespace Core\Log\Formatter;
 
 use Zend\Log\Formatter\FormatterInterface;
@@ -16,7 +16,7 @@ use Zend\Log\Formatter\Simple;
 class ErrorAndExceptionHandler implements FormatterInterface
 {
     const DEFAULT_ERROR_FORMAT     = '%timestamp% %priorityName% %message% (errno %extra[errno]%) in %extra[file]% on line %extra[line]%';
-    const DEFAULT_EXCEPTION_FORMAT = '%timestamp% EXCEPTION %message% in %extra[file]% on line %extra[line]%'; 
+    const DEFAULT_EXCEPTION_FORMAT = '%timestamp% EXCEPTION %message% in %extra[file]% on line %extra[line]%';
     
     protected $errorFormat;
     protected $exceptionFormat;
@@ -29,13 +29,16 @@ class ErrorAndExceptionHandler implements FormatterInterface
      */
     protected $dateTimeFormat = self::DEFAULT_DATETIME_FORMAT;
     
-    public function __construct(array $options=array())
+    public function __construct(array $options = array())
     {
-        $options = array_merge(array(
+        $options = array_merge(
+            array(
             'errorFormat' => self::DEFAULT_ERROR_FORMAT,
             'exceptionFormat' => self::DEFAULT_EXCEPTION_FORMAT,
             'dateTimeFormat' => self::DEFAULT_DATETIME_FORMAT,
-        ), $options);
+            ),
+            $options
+        );
         
         foreach ($options as $key => $val) {
             $method = "set$key";
@@ -61,7 +64,7 @@ class ErrorAndExceptionHandler implements FormatterInterface
     /**
      * @return String
      */
-    public function getErrorFormat ()
+    public function getErrorFormat()
     {
         return $this->errorFormat;
     }
@@ -70,7 +73,7 @@ class ErrorAndExceptionHandler implements FormatterInterface
      * @param $errorFormat
      * @return $this
      */
-    public function setErrorFormat ($errorFormat)
+    public function setErrorFormat($errorFormat)
     {
         $this->errorFormat = $errorFormat;
         return $this;
@@ -79,7 +82,7 @@ class ErrorAndExceptionHandler implements FormatterInterface
     /**
      * @return mixed
      */
-    public function getExceptionFormat ()
+    public function getExceptionFormat()
     {
         return $this->exceptionFormat;
     }
@@ -88,7 +91,7 @@ class ErrorAndExceptionHandler implements FormatterInterface
      * @param $exceptionFormat
      * @return $this
      */
-    public function setExceptionFormat ($exceptionFormat)
+    public function setExceptionFormat($exceptionFormat)
     {
         $this->exceptionFormat = $exceptionFormat;
         return $this;
@@ -132,7 +135,7 @@ class ErrorAndExceptionHandler implements FormatterInterface
      * @param string $key
      * @return array
      */
-    protected function buildReplacementsFromArray ($event, $key = null)
+    protected function buildReplacementsFromArray($event, $key = null)
     {
         $result = array();
         foreach ($event as $index => $value) {
@@ -189,7 +192,8 @@ class ErrorAndExceptionHandler implements FormatterInterface
                     }
                     $outputTrace .= sprintf(
                         "    %8s: %s\n",
-                        ucfirst($key), $val
+                        ucfirst($key),
+                        $val
                     );
                 }
                 $outputTrace .= str_repeat('-', 30) . PHP_EOL;
@@ -201,7 +205,7 @@ class ErrorAndExceptionHandler implements FormatterInterface
         return $output;
     }
     
-	/**
+    /**
      * Get the type of a function
      *
      * @param string $type
@@ -210,13 +214,12 @@ class ErrorAndExceptionHandler implements FormatterInterface
     protected function getType($type)
     {
         switch ($type) {
-            case "::" :
+            case "::":
                 return "static";
-            case "->" :
+            case "->":
                 return "method";
-            default :
+            default:
                 return $type;
         }
     }
 }
-

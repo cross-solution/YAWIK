@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** FileAccessAssertion.php */ 
+/** FileAccessAssertion.php */
 namespace Core\Acl;
 
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
@@ -28,12 +28,13 @@ class FileAccessAssertion implements AssertionInterface
     /* (non-PHPdoc)
      * @see \Zend\Permissions\Acl\Assertion\AssertionInterface::assert()
      */
-    public function assert(Acl $acl, 
-                           RoleInterface $role = null, 
-                           ResourceInterface $resource = null, 
-                           $privilege = null) 
-    {
-        if (!$role instanceOf UserInterface || !$resource instanceOf FileInterface) {
+    public function assert(
+        Acl $acl,
+        RoleInterface $role = null,
+        ResourceInterface $resource = null,
+        $privilege = null
+    ) {
+        if (!$role instanceof UserInterface || !$resource instanceof FileInterface) {
             return false;
         }
         

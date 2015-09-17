@@ -16,7 +16,7 @@ use Zend\Form\Element;
 
 /**
  * An employee form element.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -32,7 +32,7 @@ class Employee extends Element
     {
         $value = parent::getValue();
 
-        return $value instanceOf UserInterface ? $value->getId() : '__userId__';
+        return $value instanceof UserInterface ? $value->getId() : '__userId__';
     }
 
     /**
@@ -44,7 +44,6 @@ class Employee extends Element
     {
         $value = parent::getValue();
 
-        return $value instanceOf UserInterface ? $value : null;
+        return $value instanceof UserInterface ? $value : null;
     }
-
 }

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** NewApplication.php */ 
+/** NewApplication.php */
 namespace Applications\Mail;
 
 use Jobs\Entity\JobInterface;
@@ -26,7 +26,7 @@ class NewApplication extends StringTemplateMessage
     protected $admin;
     private $callInitOnSetJob = false;
     
-    public function __construct(array $options=array())
+    public function __construct(array $options = array())
     {
         parent::__construct($options);
         $this->callInitOnSetJob = true;
@@ -83,8 +83,8 @@ class NewApplication extends StringTemplateMessage
     public function setJob(JobInterface $job, $init = true)
     {
         $this->job = $job;
-        if ($this->callInitOnSetJob) { 
-            $this->init(); 
+        if ($this->callInitOnSetJob) {
+            $this->init();
         }
         return $this;
     }
@@ -108,6 +108,4 @@ class NewApplication extends StringTemplateMessage
         $this->admin = $admin;
         return $this;
     }
-    
 }
-

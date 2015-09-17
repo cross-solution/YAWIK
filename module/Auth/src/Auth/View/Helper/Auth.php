@@ -45,8 +45,12 @@ class Auth extends AbstractHelper
             return call_user_func_array($callback, $params);
         }
 
-        throw new \DomainException(sprintf('Could not proxy "%s" to Authentication Service. Method does not exist',
-                                           $method));
+        throw new \DomainException(
+            sprintf(
+                'Could not proxy "%s" to Authentication Service. Method does not exist',
+                $method
+            )
+        );
     }
 
     /**
@@ -119,7 +123,8 @@ class Auth extends AbstractHelper
      *
      * @return bool
      */
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->getService()->getUser()->getRole() == User::ROLE_ADMIN;
     }
 }

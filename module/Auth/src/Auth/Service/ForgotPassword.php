@@ -67,7 +67,6 @@ class ForgotPassword implements EventManagerAwareInterface
         UserUniqueTokenGenerator $tokenGenerator,
         LoginFilter $loginFilter,
         ModuleOptions $options
-
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;
@@ -85,7 +84,8 @@ class ForgotPassword implements EventManagerAwareInterface
      * @param EventManagerInterface $eventManager
      * @return $this|void
      */
-    public function setEventManager(EventManagerInterface $eventManager) {
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
         $eventManager->setIdentifiers('Auth');
         $this->eventManager = $eventManager;
         return $this;
@@ -94,7 +94,8 @@ class ForgotPassword implements EventManagerAwareInterface
     /**
      * @return EventManagerInterface
      */
-    public function getEventManager() {
+    public function getEventManager()
+    {
         return $this->eventManager;
     }
 
@@ -142,4 +143,3 @@ class ForgotPassword implements EventManagerAwareInterface
 
     }
 }
-

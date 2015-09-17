@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -18,7 +18,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class Publisher extends AbstractEntity {
+class Publisher extends AbstractEntity
+{
 
     /**
      * Qualification field of the job template
@@ -77,4 +78,4 @@ class Publisher extends AbstractEntity {
     {
         return $this->externalId;
     }
-} 
+}

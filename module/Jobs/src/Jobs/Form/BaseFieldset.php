@@ -39,22 +39,26 @@ class BaseFieldset extends Fieldset
 
         $this->setName('jobBase');
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Text',
             'name' => 'title',
             'options' => array(
                 'label' => /*@translate*/ 'Job title',
                 'description' => /*@translate*/ 'Please enter the job title'
             ),
-        ));
+            )
+        );
        
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Location',
             'name' => 'location',
             'options' => array(
                 'label' => /*@translate*/ 'Location',
                 'description' => /*@translate*/ 'Please enter the location of the job'
             ),
-        ));
+            )
+        );
     }
 }

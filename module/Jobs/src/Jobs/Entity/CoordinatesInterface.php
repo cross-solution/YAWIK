@@ -49,4 +49,3 @@ interface CoordinatesInterface extends EntityInterface
      */
     public function setY($y);
 }
-

@@ -17,7 +17,8 @@ use Zend\Stdlib\AbstractOptions;
  *
  * defines AbstractOptions of the Auth Module
  */
-class ModuleOptions extends AbstractOptions {
+class ModuleOptions extends AbstractOptions
+{
 
     /**
      * default email address, which is used in FROM headers of system mails like "new registration",

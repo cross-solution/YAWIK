@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -10,14 +10,14 @@
 
 namespace Core\Form;
 
-
 class FormSubmitButtonsFieldset extends ButtonsFieldset
 {
     public function init()
     {
         $this->setName('buttons');
         //$this->setLabel('Actions');
-        $this->add(array(
+        $this->add(
+            array(
             //'type' => 'Button',
             'type' => 'Button',
             'name' => 'submit',
@@ -30,9 +30,11 @@ class FormSubmitButtonsFieldset extends ButtonsFieldset
                 'value' => 'Save',
                 'class' => 'cam-btn-save'
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Button',
             'name' => 'cancel',
             'options' => array(
@@ -44,7 +46,8 @@ class FormSubmitButtonsFieldset extends ButtonsFieldset
                 'value' => 'Cancel',
                 'class' => 'cam-btn-reset'
             ),
-        ));
+            )
+        );
     }
 
     public function setOptions($options)

@@ -229,10 +229,12 @@ class Register
                 throw new Exception\UserAlreadyExistsException('User already exists');
             }
 
-            $user = $userRepository->create(array(
+            $user = $userRepository->create(
+                array(
                 'login' => $email,
                 'role' => User::ROLE_RECRUITER
-            ));
+                )
+            );
 
             $info = $user->getInfo();
             $info->setEmail($email);
@@ -310,9 +312,9 @@ class Register
         $user = $this->getUser();
         if (isset($user)) {
             $confirmationLink = $url->fromRoute(
-                                    'lang/register-confirmation',
-                                        array('userId' => $user->getId()),
-                                        array('force_canonical' => true)
+                'lang/register-confirmation',
+                array('userId' => $user->getId()),
+                array('force_canonical' => true)
             );
 
             $userEmail              = $user->getInfo()->getEmail();
@@ -324,7 +326,7 @@ class Register
             $mail->confirmationlink = $confirmationLink;
             $mail->siteName         = $siteName;
             $mail->setTemplate('mail/register');
-            $mail->setFormattedSubject( 'your registration on %s', $siteName);
+            $mail->setFormattedSubject('your registration on %s', $siteName);
             $mail->setTo($userEmail);
             $mailService->send($mail);
         }

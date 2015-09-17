@@ -17,9 +17,9 @@ use Zend\View\Model\ViewModel;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class AssignUserController extends AbstractActionController
 {
@@ -81,10 +81,12 @@ class AssignUserController extends AbstractActionController
         }
 
         $model = new ViewModel();
-        $model->setVariables(array(
+        $model->setVariables(
+            array(
             'currentUser' => $this->job->getUser(),
             'users' => $users,
-        ));
+            )
+        );
         $model->setTemplate('jobs/assign-user');
         return $model;
     }
@@ -118,5 +120,4 @@ class AssignUserController extends AbstractActionController
 
         return $model;
     }
-    
 }

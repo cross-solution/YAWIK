@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** FileEntity.php */ 
+/** FileEntity.php */
 namespace Core\Entity;
 
 use Auth\Entity\User;
@@ -16,7 +16,7 @@ use Auth\Entity\UserInterface;
 
 /**
  * stores files in MongoGridFS into the collection "files". You can override this.
- * 
+ *
  * @ODM\Document(collection="files", repositoryClass="Core\Repository\File")
  * @ODM\InheritanceType("COLLECTION_PER_CLASS")
  */
@@ -30,7 +30,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     
     
     /**
-     * Name of the attachment 
+     * Name of the attachment
      *
      * @ODM\Field */
     protected $name;
@@ -43,18 +43,18 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
 
     /**
      * Binary data of the Attachment.
-     * 
+     *
     /** @ODM\File */
     protected $file;
     
-    /** 
+    /**
      * Used by MongoGridFS. We don't use this. We use $dateUploaded instead.
      * @ODM\Field */
     protected $uploadDate;
     
     /**
      * date of uploaded file
-     * 
+     *
      * @ODM\Field(type="tz_date")
      */
     protected $dateUploaded;
@@ -68,9 +68,9 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     /** @ODM\Field */
     protected $md5;
     
-    /** 
+    /**
      * @var PermissionsInterface
-     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions") 
+     * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
     protected $permissions;
     
@@ -172,7 +172,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     
     public function getResource()
     {
-        if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
+        if ($this->file instanceof \Doctrine\MongoDB\GridFSFile) {
             return $this->file->getMongoGridFSFile()->getResource();
         }
         return null;
@@ -180,12 +180,12 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     
     /**
      * return the binary data of an attachment
-     * 
+     *
      * @see \Core\Entity\FileInterface::getContent()
      */
     public function getContent()
     {
-        if ($this->file instanceOf \Doctrine\MongoDB\GridFSFile) {
+        if ($this->file instanceof \Doctrine\MongoDB\GridFSFile) {
             return $this->file->getMongoGridFSFile()->getBytes();
         }
         return null;
@@ -201,7 +201,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     {
         if (!$this->permissions) {
             $perms = new Permissions();
-            if ($this->user instanceOf UserInterface) {
+            if ($this->user instanceof UserInterface) {
                 $perms->grant($this->user, PermissionsInterface::PERMISSION_ALL);
             }
             $this->setPermissions($perms);
@@ -209,4 +209,3 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         return $this->permissions;
     }
 }
-

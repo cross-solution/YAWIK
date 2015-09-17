@@ -23,7 +23,8 @@ use Zend\Stdlib\AbstractOptions;
  * Class TemplateController
  * @package Jobs\Controller
  */
-class TemplateController extends AbstractActionController  {
+class TemplateController extends AbstractActionController
+{
 
     /**
      * @var Repository\Job $jobRepository
@@ -88,9 +89,12 @@ class TemplateController extends AbstractActionController  {
         $applicationViewModel = $mvcEvent->getViewModel();
         $forms                = $services->get('FormElementManager');
         /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
-        $formTemplate         = $forms->get('Jobs/Description/Template', array(
+        $formTemplate         = $forms->get(
+            'Jobs/Description/Template',
+            array(
             'mode' => $job->id ? 'edit' : 'new'
-        ));
+            )
+        );
 
         $formTemplate->setParam('id', $job->id);
         $formTemplate->setParam('applyId', $job->applyId);
@@ -119,7 +123,7 @@ class TemplateController extends AbstractActionController  {
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
         } else {
-            return new JsonModel(array('valid' => True));
+            return new JsonModel(array('valid' => true));
         }
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         return $model;
@@ -132,13 +136,13 @@ class TemplateController extends AbstractActionController  {
      * @param JobDescriptionTemplate|null $form
      * @return array
      */
-    private function getTemplateFields($job,JobDescriptionTemplate $form=null)
+    private function getTemplateFields($job, JobDescriptionTemplate $form = null)
     {
         /* @var $job \Jobs\Entity\Job */
         $atsMode = $job->getAtsMode();
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
             $uriApply = $this->url()->fromRoute('lang/apply', array('applyId' => $job->applyId));
-        } else if ($atsMode->isUri()) {
+        } elseif ($atsMode->isUri()) {
             $uriApply = $atsMode->getUri();
         } else {
             $uriApply = false;
@@ -151,14 +155,13 @@ class TemplateController extends AbstractActionController  {
 
         $description=$job->templateValues->description;
 
-        if ( is_null($form)) {
+        if (is_null($form)) {
             $descriptionEditable = $job->templateValues->description;
             $benefits = $job->templateValues->benefits;
             $requirements = $job->templateValues->requirements;
             $qualifications = $job->templateValues->qualifications;
             $title = $headTitle;
         } else {
-
             $services = $this->getServiceLocator();
             $viewHelperManager = $services->get('ViewHelperManager');
             /* @var $viewHelperForm \Core\Form\View\Helper\FormSimple */

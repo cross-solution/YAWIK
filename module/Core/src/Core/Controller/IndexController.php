@@ -13,11 +13,12 @@ namespace Core\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Settings\Repository\Settings as SettingsRepository;
+
 //use Settings\Repository\Settings;
 
 /**
  * Main Action Controller for the application.
- * Responsible for displaying the home site.  
+ * Responsible for displaying the home site.
  *
  */
 class IndexController extends AbstractActionController
@@ -41,13 +42,13 @@ class IndexController extends AbstractActionController
      *
      */
     public function indexAction()
-    { 
+    {
         $auth = $this->auth();
         $services = $this->getServiceLocator();
         if (!$auth->isLoggedIn()) {
             $config = $services->get('config');
-            if (array_key_exists('startpage',$config['view_manager']['template_map'])) {
-                $this->layout()->setTerminal(True)->setTemplate('startpage');
+            if (array_key_exists('startpage', $config['view_manager']['template_map'])) {
+                $this->layout()->setTerminal(true)->setTemplate('startpage');
             }
             return;
         }
@@ -63,7 +64,7 @@ class IndexController extends AbstractActionController
         
         if (isset($config['dashboard'])) {
             $dashboardConfig = array_merge(
-                $dashboardConfig, 
+                $dashboardConfig,
                 /** Intersect array to filter out invalid keys that might be in config */
                 array_intersect_key($config['dashboard'], $dashboardConfig)
             );
@@ -101,18 +102,18 @@ class IndexController extends AbstractActionController
                     if (200 != $response->getStatusCode()) {
                         $response->setStatusCode(200);
                         $viewModel = array(
-                            'content' => 'Error loading widget.', 
+                            'content' => 'Error loading widget.',
                         );
                     }
-                    if (!$viewModel instanceOf ViewModel) {
+                    if (!$viewModel instanceof ViewModel) {
                         $viewModel = new ViewModel($viewModel);
                     }
                     if ($template = $viewModel->getTemplate()) {
                         $viewModel->setVariable('script', $template);
                     }
-                } else if (isset($spec['script'])) {
+                } elseif (isset($spec['script'])) {
                     $viewModel = new ViewModel(array('script' => $spec['script']));
-                } else if (isset($spec['content'])) {
+                } elseif (isset($spec['content'])) {
                     $viewModel = new ViewModel(array('content' => $spec['content']));
                 }
             

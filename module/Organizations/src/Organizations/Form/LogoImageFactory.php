@@ -40,4 +40,4 @@ class LogoImageFactory extends FileUploadFactory
             /*@translate*/ 'Choose a Logo. This logo will be shown in the job opening and the application form.'
         );
     }
-} 
+}

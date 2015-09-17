@@ -21,9 +21,10 @@ use \Zend\Text\Table\Row;
 use \Zend\Text\Table\Column;
 
 /**
- * Handles cli actions for applications 
+ * Handles cli actions for applications
  */
-class ConsoleController extends AbstractActionController {
+class ConsoleController extends AbstractActionController
+{
 
     /**
      * attaches further Listeners for generating / processing the output
@@ -41,10 +42,11 @@ class ConsoleController extends AbstractActionController {
 
     /**
      * regenerate keywords for applications
-     * 
+     *
      * @return string
      */
-    public function generateKeywordsAction() {
+    public function generateKeywordsAction()
+    {
         
         $services     = $this->getServiceLocator();
         $applications = $this->fetchApplications();
@@ -84,18 +86,19 @@ class ConsoleController extends AbstractActionController {
         $repositories->flush();
         $progress->finish();
         
-        return PHP_EOL;   
+        return PHP_EOL;
     }
     
     /**
      * Recalculates ratings for applications
-     * 
+     *
      * @return string
      */
     public function calculateRatingAction()
     {
         $applications = $this->fetchApplications();
-        $count = count($applications); $i=0;
+        $count = count($applications);
+        $i=0;
         echo "Calculate rating for " . $count . " applications ...\n";
         
         $progress = new ProgressBar($count);
@@ -115,7 +118,8 @@ class ConsoleController extends AbstractActionController {
      * removes unfinished applications. Applications, which are in Draft Mode for
      * more than 24 hours.
      */
-    protected function cleanupAction() {
+    protected function cleanupAction()
+    {
         $days = 6;
         $date = new \DateTime();
         $date->modify("-$days day");
@@ -127,7 +131,8 @@ class ConsoleController extends AbstractActionController {
         $applications    = $this->fetchApplications($filter);
         $documentManager = $services->get('Core/DocumentManager');
 
-        $count = count($applications); $i=0;
+        $count = count($applications);
+        $i=0;
 
         echo  $count . " applications in Draft Mode and older than " . $days . " days will be deleted\n";
 
@@ -145,12 +150,15 @@ class ConsoleController extends AbstractActionController {
     /**
      * list available view scripts
      */
-    public function listviewscriptsAction() {
+    public function listviewscriptsAction()
+    {
 
         $config = $this->getServiceLocator()->get('Config');
 
-        $table = new Table(array('columnWidths' => array(40, 40, 40),
-                                 'decorator' => 'ascii'));
+        $table = new Table(
+            array('columnWidths' => array(40, 40, 40),
+                                 'decorator' => 'ascii')
+        );
 
         $table->appendRow(array('Module', 'Name', 'Description'));
 
@@ -158,12 +166,12 @@ class ConsoleController extends AbstractActionController {
         $links="";
         $github='https://github.com/cross-solution/YAWIK/blob/master/';
 
-        foreach($config['view_manager']['template_map'] as $key=>$absolute_filename){
+        foreach ($config['view_manager']['template_map'] as $key => $absolute_filename) {
             // strip the application_root plus an additional slash
-            $filename=substr(realpath($absolute_filename),$offset);
-            if (preg_match('~module/([^/]+)~',$filename,$match)){
+            $filename=substr(realpath($absolute_filename), $offset);
+            if (preg_match('~module/([^/]+)~', $filename, $match)) {
                 $module=$match[1];
-            }else{
+            } else {
                 $module="not found ($key)";
             }
 
@@ -173,16 +181,16 @@ class ConsoleController extends AbstractActionController {
             $row = new Row();
             $row->appendColumn(new Column($module));
             if ($filename) {
-                $row->appendColumn(new Column('`' . $key . '`_' ));
+                $row->appendColumn(new Column('`' . $key . '`_'));
                 $links.='.. _'. $key .': '. $github.$filename .PHP_EOL;
-            }else {
+            } else {
                 $row->appendColumn(new Column("WRONG CONFIGURATION"));
             }
             $comment="";
             if (file_exists($absolute_filename)) {
                 $src=file_get_contents($absolute_filename);
                 $comment="file exists";
-                if (preg_match("/{{rtd:\s*(.*)}}/",$src,$match)){
+                if (preg_match("/{{rtd:\s*(.*)}}/", $src, $match)) {
                     $comment=$match['1'];
                 }
             }
@@ -213,16 +221,16 @@ class ConsoleController extends AbstractActionController {
         if (!$count) {
             return;
         }
-        $progress = new ProgressBar($count); $i=0;
+        $progress = new ProgressBar($count);
+        $i=0;
 
         foreach ($applications as $app) {
-
             $progress->update($i++, "Process $i / $count");
 
             $permissions = $app->getPermissions();
             $resources = $permissions->getResources();
             foreach ($resources as $r) {
-                if ($r instanceOf \Auth\Entity\GroupInterface) {
+                if ($r instanceof \Auth\Entity\GroupInterface) {
                     $permissions->revoke($r);
                 }
             }
@@ -256,7 +264,7 @@ class ConsoleController extends AbstractActionController {
 
     /**
      * Fetches applications
-     * 
+     *
      * @param Array $filter
      * @return Array
      */
@@ -276,7 +284,8 @@ class ConsoleController extends AbstractActionController {
                     $q = array('$lt' => $date);
                     if (isset($query['dateCreated.date'])) {
                         $query['dateCreated.date'] = array_merge(
-                            $query['dateCreated.date'], $q
+                            $query['dateCreated.date'],
+                            $q
                         );
                     } else {
                         $query['dateCreated.date'] = $q;
@@ -288,7 +297,8 @@ class ConsoleController extends AbstractActionController {
                     $q = array('$gt' => $date);
                     if (isset($query['dateCreated.date'])) {
                         $query['dateCreated.date'] = array_merge(
-                            $query['dateCreated.date'], $q
+                            $query['dateCreated.date'],
+                            $q
                         );
                     } else {
                         $query['dateCreated.date'] = $q;
@@ -312,4 +322,3 @@ class ConsoleController extends AbstractActionController {
         return $applications;
     }
 }
-

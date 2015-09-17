@@ -23,5 +23,4 @@ interface EmploymentInterface extends EntityInterface
     public function getOrganizationName();
     public function setDescription($value);
     public function getDescription();
-    
 }

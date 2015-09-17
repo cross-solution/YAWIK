@@ -20,13 +20,15 @@ class Acl implements ListenerAggregateInterface
     /**
      * @param EventManagerInterface $events
      */
-    public function detach(EventManagerInterface $events) {
+    public function detach(EventManagerInterface $events)
+    {
     }
 
     /**
      * @param MvcEvent $e
      */
-    public function onDispatch(MvcEvent $e) {
+    public function onDispatch(MvcEvent $e)
+    {
         $matches = $e->getRouteMatch();
         if (!$matches instanceof Router\RouteMatch) {
             // Can't do anything without a route match

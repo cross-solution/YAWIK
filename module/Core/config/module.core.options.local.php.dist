@@ -41,7 +41,7 @@ $options = array(
     'supportedLanguages' => array(
         'de' => 'de_DE',
         'fr' => 'fr',
-        'en' => 'en_EN',
+        'us' => 'en_US',
         'es' => 'es',
         'it' => 'it',
     ),

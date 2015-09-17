@@ -7,14 +7,14 @@
  * @license   MIT
  */
 
-/** AbstractRatingEntity.php */ 
+/** AbstractRatingEntity.php */
 namespace Core\Entity;
 
 /**
  * Base rating entity.
- * 
+ *
  * Implements common and helper methods for Rating Entities.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 abstract class AbstractRatingEntity extends AbstractEntity implements RatingInterface
@@ -56,12 +56,12 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
         $average = 0 == $count ? 0 : round($sum / $count);
         $this->_average = $average;
         
-        return $average; 
+        return $average;
     }
     
     /**
      * Checks if rating is a valid value.
-     * 
+     *
      * @param int $rating
      * @param bool $throwException
      * @throws \InvalidArgumentException
@@ -77,4 +77,3 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
         return true;
     }
 }
-

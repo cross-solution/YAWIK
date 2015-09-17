@@ -10,14 +10,13 @@
 /** */
 namespace Jobs\Factory\Form;
 
-
 use Jobs\Form\MultipostingSelect;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the Multiposting select box
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
 class MultipostingSelectFactory implements FactoryInterface
@@ -45,7 +44,7 @@ class MultipostingSelectFactory implements FactoryInterface
 
         $groups = array();
 
-        foreach ($channels as $name=>$channel) {
+        foreach ($channels as $name => $channel) {
             /* @var $channel \Jobs\Options\ChannelOptions */
 
             $category = $channel->getCategory();
@@ -69,10 +68,12 @@ class MultipostingSelectFactory implements FactoryInterface
         }
 
 
-        $select->setAttributes(array(
+        $select->setAttributes(
+            array(
             'data-autoinit' => 'false',
             'multiple' => 'multiple'
-        ));
+            )
+        );
 
         $select->setValueOptions($groups);
 

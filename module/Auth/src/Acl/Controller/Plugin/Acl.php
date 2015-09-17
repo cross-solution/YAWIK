@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Acl.php */ 
+/** Acl.php */
 namespace Acl\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -42,7 +42,7 @@ class Acl extends AbstractPlugin
     /**
      * @return AclInterface
      */
-    public function getAcl ()
+    public function getAcl()
     {
         return $this->acl;
     }
@@ -51,7 +51,7 @@ class Acl extends AbstractPlugin
      * @param AclInterface $acl
      * @return $this
      */
-    public function setAcl (AclInterface $acl)
+    public function setAcl(AclInterface $acl)
     {
         $this->acl = $acl;
         return $this;
@@ -60,7 +60,7 @@ class Acl extends AbstractPlugin
     /**
      * @return \Auth\Entity\User
      */
-    public function getUser ()
+    public function getUser()
     {
         if (!$this->user) {
             $this->user = new \Auth\Entity\User();
@@ -73,7 +73,7 @@ class Acl extends AbstractPlugin
      * @param UserInterface $user
      * @return $this
      */
-    public function setUser (UserInterface $user)
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
         return $this;
@@ -92,9 +92,9 @@ class Acl extends AbstractPlugin
      * @return bool
      * @uses \Zend\Permission\Acl\Acl::inheritsRole()
      */
-    public function isRole($role, $inherit=false, $onlyParents = false)
+    public function isRole($role, $inherit = false, $onlyParents = false)
     {
-        if ($role instanceOf RoleInterface) {
+        if ($role instanceof RoleInterface) {
             $role = $role->getRoleId();
         }
 
@@ -104,7 +104,9 @@ class Acl extends AbstractPlugin
         /*
          * @todo remove this, if the admin module is implemented
          */
-        if ('recruiter' == $role) { $inherit = true; }
+        if ('recruiter' == $role) {
+            $inherit = true;
+        }
 
         if ($isRole || !$inherit) {
             return $isRole;
@@ -120,7 +122,7 @@ class Acl extends AbstractPlugin
      * @param null $privilege
      * @return bool
      */
-    public function test($resource, $privilege=null)
+    public function test($resource, $privilege = null)
     {
         return $this->getAcl()->isAllowed($this->getUser(), $resource, $privilege);
     }
@@ -131,19 +133,21 @@ class Acl extends AbstractPlugin
      * @throws \Auth\Exception\UnauthorizedImageAccessException
      * @throws \Auth\Exception\UnauthorizedAccessException
      */
-    public function check($resource, $privilege=null)
+    public function check($resource, $privilege = null)
     {
         if (!$this->test($resource, $privilege)) {
-            
             $msg = null === $privilege
-                 ? sprintf('You are not allowed to access resource "%s"',
-                           is_object($resource) ? $resource->getResourceId() : $resource
-                   )
-                 : sprintf('You are not allowed to execute operation "%s" on resource "%s"',
-                           $privilege, is_object($resource) ? $resource->getResourceId() : $resource
-                   );
+                 ? sprintf(
+                     'You are not allowed to access resource "%s"',
+                     is_object($resource) ? $resource->getResourceId() : $resource
+                 )
+                 : sprintf(
+                     'You are not allowed to execute operation "%s" on resource "%s"',
+                     $privilege,
+                     is_object($resource) ? $resource->getResourceId() : $resource
+                 );
             
-            if ($resource instanceOf FileInterface && 0 == strpos($resource->type, 'image/')) {
+            if ($resource instanceof FileInterface && 0 == strpos($resource->type, 'image/')) {
                 throw new UnauthorizedImageAccessException(str_replace('resource', 'image', $msg));
             }
             throw new UnauthorizedAccessException($msg);
@@ -156,7 +160,7 @@ class Acl extends AbstractPlugin
      * @param string $mode
      * @return $this|bool
      */
-    public function __invoke($resource=null, $privilege=null, $mode='check')
+    public function __invoke($resource = null, $privilege = null, $mode = 'check')
     {
         if (null === $resource) {
             return $this;
@@ -168,6 +172,4 @@ class Acl extends AbstractPlugin
         
         $this->check($resource, $privilege);
     }
-
 }
-

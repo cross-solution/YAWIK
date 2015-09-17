@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form\View\Helper;
 
 use Core\Form\Element\FileUpload;
@@ -75,12 +75,12 @@ class FormImageUpload extends FormFileUpload
         //$messages = $element->getMessages();
         
         $markup = sprintf(
-            $markup, 
-            $element->getAttribute('id'), $preview,
+            $markup,
+            $element->getAttribute('id'),
+            $preview,
             $translator->translate('The file is too big', $textDomain),
             $translator->translate('The file type is not supported', $textDomain),
             $notice
-            
         );
         return $markup;
     }

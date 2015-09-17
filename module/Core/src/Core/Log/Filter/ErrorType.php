@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ErrorType.php */ 
+/** ErrorType.php */
 namespace Core\Log\Filter;
 
 use Zend\Log\Filter\FilterInterface;
@@ -33,7 +33,6 @@ class ErrorType implements FilterInterface
     {
         $isError = isset($event['extra']['errno']);
         
-        return self::TYPE_ERROR == $this->type ? $isError : !$isError; 
+        return self::TYPE_ERROR == $this->type ? $isError : !$isError;
     }
 }
-

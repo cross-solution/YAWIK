@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PaginationList.php */ 
+/** PaginationList.php */
 namespace Applications\Repository;
 
 /**
@@ -45,7 +45,7 @@ class PaginationList
     
     /**
      * Sets the list entries
-     * 
+     *
      * @param array $ids
      * @return \Applications\Repository\PaginationList
      */
@@ -58,7 +58,7 @@ class PaginationList
     
     /**
      * Set current list entry (move pointer).
-     * 
+     *
      * @param string $id
      * @return int|bool
      */
@@ -70,7 +70,7 @@ class PaginationList
     
     /**
      * Gets current list entry.
-     * 
+     *
      * @return NULL|array
      */
     public function getCurrent()
@@ -83,7 +83,7 @@ class PaginationList
     
     /**
      * Gets the current position.
-     * 
+     *
      * @return int
      */
     public function getPosition()
@@ -93,7 +93,7 @@ class PaginationList
     
     /**
      * Gets the total count.
-     * 
+     *
      * @return int
      */
     public function getCount()
@@ -103,7 +103,7 @@ class PaginationList
     
     /**
      * gets the id BEFORE the current entry.
-     * 
+     *
      * @return null|string
      */
     public function getPrevious()
@@ -116,7 +116,7 @@ class PaginationList
     
     /**
      * Gets the id BEHIND the current entry.
-     * 
+     *
      * @return string
      * @return NULL|multitype:
      */
@@ -128,4 +128,3 @@ class PaginationList
         return $this->ids[$this->pointer + 1];
     }
 }
-

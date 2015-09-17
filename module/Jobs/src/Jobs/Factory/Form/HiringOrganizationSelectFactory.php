@@ -16,7 +16,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the HiringOrganization select box
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class HiringOrganizationSelectFactory implements FactoryInterface
@@ -65,5 +65,4 @@ class HiringOrganizationSelectFactory implements FactoryInterface
 
         return $select;
     }
-
 }

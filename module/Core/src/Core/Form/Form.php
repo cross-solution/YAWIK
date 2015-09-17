@@ -41,7 +41,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     public function add($elementOrFieldset, array $flags = array())
     {
         parent::add($elementOrFieldset, $flags);
-        if ($elementOrFieldset instanceOf FormParentInterface) {
+        if ($elementOrFieldset instanceof FormParentInterface) {
             $elementOrFieldset->setParent($this);
         }
         return $this;
@@ -99,7 +99,6 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         }
 
         foreach ($map as $key => $name) {
-
             if (is_numeric($key)) {
                 $key = $name;
                 $name = null;
@@ -112,15 +111,15 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
             $element = $this->get($key);
 
             if (null === $name) {
-                if (($element instanceOf DisableCapableInterface && $element->isDisableCapable())
+                if (($element instanceof DisableCapableInterface && $element->isDisableCapable())
                     || false !== $element->getOption('is_disable_capable')) {
                     $this->remove($element);
                 }
                 continue;
             }
 
-            if ($element instanceOf FieldsetInterface
-                && $element instanceOf DisableElementsCapableInterface
+            if ($element instanceof FieldsetInterface
+                && $element instanceof DisableElementsCapableInterface
                 && $element->isDisableElementsCapable()
             ) {
                 $element->disableElements($name);
@@ -129,7 +128,8 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $this;
     }
     
-    public function getHydrator() {
+    public function getHydrator()
+    {
         if (!$this->hydrator) {
             $hydrator = new EntityHydrator();
             $this->addHydratorStrategies($hydrator);
@@ -182,13 +182,15 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         if ($this->has($key)) {
             $this->get($key)->setValue($value);
         } else {
-            $this->add(array(
-                'type' => 'hidden', 
-                'name' => $key, 
+            $this->add(
+                array(
+                'type' => 'hidden',
+                'name' => $key,
                 'attributes' => array(
                     'value' => $value
                 )
-            ));
+                )
+            );
         }
         return $this;
     }
@@ -199,25 +201,28 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
      * @param \Zend\Stdlib\Hydrator\HydratorInterface $hydrator
      */
     protected function addHydratorStrategies($hydrator)
-    { }
+    {
+    }
     
 
-    public function addClass($spec) {
+    public function addClass($spec)
+    {
         $class = array();
         if ($this->hasAttribute('class')) {
             $class = $this->getAttribute('class');
         }
         if (!is_array($class)) {
-            $class = explode( ' ', $class);
+            $class = explode(' ', $class);
         }
         if (!in_array($spec, $class)) {
             $class[] = $spec;
         }
-        $this->setAttribute('class', implode(' ',$class));
+        $this->setAttribute('class', implode(' ', $class));
         return $this;
     }
 
-    public function setValidate() {
+    public function setValidate()
+    {
         return $this->addClass('validate');
     }
 
@@ -240,7 +245,8 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $isValid;
     }
 
-    public function getFormName() {
+    public function getFormName()
+    {
         $name = $this->getBaseFieldset()->getAttribute('name');
         if (empty($name)) {
             throw new \RuntimeException('missing name for form');
@@ -275,7 +281,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
     {
         parent::attachInputFilterDefaults($inputFilter, $fieldset);
-        foreach ($inputFilter->getInputs() as $name =>$input) {
+        foreach ($inputFilter->getInputs() as $name => $input) {
             if (!$input instanceof InputFilterInterface) {
                 $required = $input->isRequired();
                 $inputExists = $fieldset->has($name);

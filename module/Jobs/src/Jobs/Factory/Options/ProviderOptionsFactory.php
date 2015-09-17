@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -24,7 +24,7 @@ class ProviderOptionsFactory implements FactoryInterface
         $providerOptions = new ProviderOptions();
 
         if (array_key_exists('channels', $multiposting)) {
-            foreach ($multiposting['channels'] as $channelName => $channel ) {
+            foreach ($multiposting['channels'] as $channelName => $channel) {
                 $channelOptions = $serviceLocator->get('Jobs/Options/Channel');
                 if (empty($channelOptions->key)) {
                     $channelOptions->key = $channelName;

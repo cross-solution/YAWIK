@@ -19,7 +19,7 @@ class NativeLanguage extends AbstractEntity
 {
     
     /**
-     * 
+     *
      * @var unknown
      * @ODM\String
      */
@@ -35,5 +35,4 @@ class NativeLanguage extends AbstractEntity
     {
         return $this->language;
     }
-    
 }

@@ -5,7 +5,7 @@ namespace Auth\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
-class UserBaseFieldset extends Fieldset 
+class UserBaseFieldset extends Fieldset
 {
     public function getHydrator()
     {
@@ -17,14 +17,15 @@ class UserBaseFieldset extends Fieldset
     }
     
     
-	public function init()
+    public function init()
     {
         $this->setName('base');
              //->setLabel( /* @translate */ 'General');
              //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Auth/RoleSelect',
             'name' => 'role',
             'options' => array(
@@ -33,7 +34,8 @@ class UserBaseFieldset extends Fieldset
             'attributes' => array(
                 'data-trigger' => 'submit'
             ),
-        ));
+            )
+        );
         
     }
     

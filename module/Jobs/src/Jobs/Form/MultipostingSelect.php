@@ -17,7 +17,7 @@ use Zend\Form\Element\Select;
 
 /**
  * Form select element to select channels on which job openings should be posted
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
 class MultipostingSelect extends Select implements ViewPartialProviderInterface, HeadscriptProviderInterface
@@ -61,6 +61,4 @@ class MultipostingSelect extends Select implements ViewPartialProviderInterface,
     {
         return $this->headscripts;
     }
-
-
 }

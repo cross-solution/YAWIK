@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** RepositoryCreated.php */ 
+/** RepositoryCreated.php */
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 use Doctrine\Common\EventSubscriber;
@@ -20,12 +20,12 @@ class RepositoryEventsSubscriber implements EventSubscriber, ServiceLocatorAware
     
     protected $services;
     
-    public function getServiceLocator ()
+    public function getServiceLocator()
     {
         return $this->services;
     }
     
-    public function setServiceLocator (\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    public function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         $this->services = $serviceLocator;
         return $this;
@@ -34,7 +34,7 @@ class RepositoryEventsSubscriber implements EventSubscriber, ServiceLocatorAware
     public function postRepositoryConstruct($eventArgs)
     {
         $repo = $eventArgs->getRepository();
-        if ($repo instanceOf RepositoryInterface) {
+        if ($repo instanceof RepositoryInterface) {
             $documentName = $repo->getDocumentName();
             $entity = new $documentName();
             //if ($entity instanceof ) {
@@ -49,7 +49,4 @@ class RepositoryEventsSubscriber implements EventSubscriber, ServiceLocatorAware
     {
         return array(self::postConstruct);
     }
-	
-
 }
-

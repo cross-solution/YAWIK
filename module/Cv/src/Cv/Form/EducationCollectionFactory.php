@@ -12,7 +12,7 @@ class EducationCollectionFactory implements FactoryInterface
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
     */
-    public function createService (ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $collection = new Collection('educations');
         $collection->setLabel('Education history')
@@ -22,6 +22,4 @@ class EducationCollectionFactory implements FactoryInterface
                    ->setTargetElement($serviceLocator->get('EducationFieldset'));
         return $collection;
     }
-    
-    
 }

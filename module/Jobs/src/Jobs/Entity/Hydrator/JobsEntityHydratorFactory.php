@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -21,7 +21,9 @@ class JobsEntityHydratorFactory extends EntityHydratorFactory
     /**
      *
      */
-    protected function prepareHydrator() {
-        $this->hydrator->setExcludeMethods(array('user', 'applications', 'termsAccepted', 'atsEnabled', 'permissions'));;
+    protected function prepareHydrator()
+    {
+        $this->hydrator->setExcludeMethods(array('user', 'applications', 'termsAccepted', 'atsEnabled', 'permissions'));
+        ;
     }
 }

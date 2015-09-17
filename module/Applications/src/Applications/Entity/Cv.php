@@ -12,8 +12,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class Cv extends BaseCv {
+class Cv extends BaseCv
+{
     
 }
-
-?>

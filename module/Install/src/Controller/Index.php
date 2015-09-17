@@ -58,7 +58,8 @@ class Index extends AbstractActionController
         $prereqs = $this->plugin('Install/Prerequisites')->check();
 
 
-        return $this->createViewModel(array(
+        return $this->createViewModel(
+            array(
                                           'prerequisites' => $prereqs,
                                           'form'          => $form,
                                       )
@@ -91,7 +92,8 @@ class Index extends AbstractActionController
         $form->setData($_POST);
 
         if (!$form->isValid()) {
-            return $this->createJsonResponse(array(
+            return $this->createJsonResponse(
+                array(
                                                  'ok'     => false,
                                                  'errors' => $form->getMessages(),
                                              )

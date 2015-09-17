@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -13,7 +13,8 @@ namespace Jobs\Repository;
 use Core\Repository\AbstractRepository;
 use Jobs\Entity\JobInterface;
 
-class JobSnapshotMeta extends AbstractRepository  {
+class JobSnapshotMeta extends AbstractRepository
+{
 
     const SNAPSHOT_LAST = 'last';
 
@@ -28,7 +29,7 @@ class JobSnapshotMeta extends AbstractRepository  {
         $qb->hydrate(true)
            ->select('entity')
            ->field('sourceId')->equals($jobEntity->id)
-           ->sort('dateCreated','desc')
+           ->sort('dateCreated', 'desc')
            ->limit(1);
 
         $result = $qb->getQuery()->execute();
@@ -54,7 +55,7 @@ class JobSnapshotMeta extends AbstractRepository  {
         $qb->hydrate(false)
            ->select('entity')
            ->field('sourceId')->equals($jobEntity->id)
-           ->sort('dateCreated','desc');
+           ->sort('dateCreated', 'desc');
         $result = $qb->getQuery()->execute()->skip(1);
         foreach ($result as $item) {
             $id = $item['_id'];
@@ -65,6 +66,4 @@ class JobSnapshotMeta extends AbstractRepository  {
         }
         return $result;
     }
-
-
-} 
+}

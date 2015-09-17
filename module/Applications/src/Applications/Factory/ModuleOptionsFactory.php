@@ -17,7 +17,7 @@ use Applications\Options\ModuleOptions;
 /**
  * Creates an instance of options for applications
  */
-class ModuleOptionsFactory  implements FactoryInterface
+class ModuleOptionsFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}

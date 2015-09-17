@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Applications\Factory\Form;
 
 use Core\Form\FileUploadFactory;
@@ -65,7 +65,7 @@ class AttachmentsFactory extends FileUploadFactory
      * @param Form $form
      * @param AbstractOptions $options
      */
-    protected function configureForm($form , AbstractOptions $options)
+    protected function configureForm($form, AbstractOptions $options)
     {
         $form->setIsDisableCapable(false)
              ->setIsDisableElementsCapable(false)

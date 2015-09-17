@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Comment.php */ 
+/** Comment.php */
 namespace Applications\Entity;
 
 use Core\Entity\AbstractIdentifiableEntity;
@@ -17,25 +17,25 @@ use Core\Entity\PreUpdateAwareInterface;
 
 /**
  * Application comment entity.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @ODM\EmbeddedDocument @ODM\HasLifecycleCallbacks
- * 
+ *
  */
 class Comment extends AbstractIdentifiableEntity implements CommentInterface
 {
     
     /**
      * User this comment belongs to
-     * 
+     *
      * @var UserInterface
-     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true) 
+     * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
      */
     protected $user;
     
     /**
      * Created date
-     * 
+     *
      * @var \DateTime
      * @ODM\Field(type="tz_date")
      */
@@ -43,7 +43,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     
     /**
      * Modification date
-     * 
+     *
      * @var \DateTime
      * @ODM\Field(type="tz_date")
      */
@@ -51,7 +51,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     
     /**
      * Comment message
-     * 
+     *
      * @var string
      * @ODM\String
      */
@@ -59,7 +59,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     
     /**
      * Application rating
-     * 
+     *
      * @var Rating
      * @ODM\EmbedOne(targetDocument="Rating")
      */
@@ -69,50 +69,50 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::getUser()
      */
-    public function getUser ()
+    public function getUser()
     {
         return $this->user;
     }
 
     /**
      * @{inheritDoc}
-     * 
+     *
      * @return Comment
      * @see \Applications\Entity\CommentInterface::setUser()
      */
-	public function setUser (UserInterface $user)
+    public function setUser(UserInterface $user)
     {
         $this->user = $user;
         return $this;
     }
 
-	public function getDateCreated ()
+    public function getDateCreated()
     {
         return $this->dateCreated;
     }
 
-	public function setDateCreated (\DateTime $date)
+    public function setDateCreated(\DateTime $date)
     {
         $this->dateCreated = $date;
         return $this;
     }
 
-	public function getDateModified ()
+    public function getDateModified()
     {
         return $this->dateModified;
     }
 
-	public function setDateModified (\DateTime $date)
+    public function setDateModified(\DateTime $date)
     {
         $this->dateModified = $date;
         return $this;
     }
 
-	/**
+    /**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::getMessage()
      */
-    public function getMessage ()
+    public function getMessage()
     {
         return $this->message;
     }
@@ -122,7 +122,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * @see \Applications\Entity\CommentInterface::setMessage()
      * @return Comment
      */
-    public function setMessage ($message)
+    public function setMessage($message)
     {
         $this->message = $message;
         return $this;
@@ -132,7 +132,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::getRating()
      */
-    public function getRating ()
+    public function getRating()
     {
         if (!isset($this->rating)) {
             $this->setRating(new Rating());
@@ -144,7 +144,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::setRating()
      */
-    public function setRating (RatingInterface $rating)
+    public function setRating(RatingInterface $rating)
     {
         $this->rating = $rating;
         return $this;
@@ -161,8 +161,4 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     {
         $this->setDateCreated(new \DateTime());
     }
-    
-    
-    
 }
-

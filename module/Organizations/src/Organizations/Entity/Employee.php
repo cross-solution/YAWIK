@@ -117,7 +117,7 @@ class Employee extends AbstractEntity implements EmployeeInterface
 
     public function getStatus()
     {
-       return $this->status;
+        return $this->status;
     }
 
     public function isAssigned()
@@ -135,12 +135,10 @@ class Employee extends AbstractEntity implements EmployeeInterface
         return self::STATUS_REJECTED == $this->getStatus();
     }
 
-    public function isUnassigned($strict=false)
+    public function isUnassigned($strict = false)
     {
         return $strict
                ? self::STATUS_UNASSIGNED == $this->getStatus()
                : self::STATUS_ASSIGNED != $this->getStatus();
     }
-
-
 }

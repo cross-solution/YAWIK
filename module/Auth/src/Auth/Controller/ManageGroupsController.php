@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -17,7 +17,7 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Controller for group management.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ManageGroupsController extends AbstractActionController
@@ -30,7 +30,7 @@ class ManageGroupsController extends AbstractActionController
     
     /**
      * Register the default events for this controller
-     * 
+     *
      * @internal
      *      Registers two hooks on "onDispatch":
      *      - change action to form and set mode parameter
@@ -41,20 +41,24 @@ class ManageGroupsController extends AbstractActionController
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         
-        /* 
+        /*
          * "Redirect" action 'new' and 'edit' to 'form' and set the 
          * route parameter 'mode' to the original action.
          * This must run before onDispatch, because we alter the action param 
          */
-        $events->attach(MvcEvent::EVENT_DISPATCH, function($event) {
-            $routeMatch = $event->getRouteMatch();
-            $action     = $routeMatch->getParam('action');
+        $events->attach(
+            MvcEvent::EVENT_DISPATCH,
+            function ($event) {
+                $routeMatch = $event->getRouteMatch();
+                $action     = $routeMatch->getParam('action');
             
-            if ('new' == $action || 'edit' == $action) {
-                $routeMatch->setParam('mode', $action);
-                $routeMatch->setParam('action', 'form');
-            }
-        }, 10);
+                if ('new' == $action || 'edit' == $action) {
+                    $routeMatch->setParam('mode', $action);
+                    $routeMatch->setParam('action', 'form');
+                }
+            },
+            10
+        );
         
         /*
          * Inject a sidebar view model in the Layout-Model, if 
@@ -62,24 +66,28 @@ class ManageGroupsController extends AbstractActionController
          * This must run after "InjectViewModelListener", which runs with
          * a priority of -100.
          */
-        $events->attach(MvcEvent::EVENT_DISPATCH, function($event) {
-            $model = $event->getResult();
-            if (!$model instanceOf ViewModel || $model->terminate()) {
-                return;
-            }
+        $events->attach(
+            MvcEvent::EVENT_DISPATCH,
+            function ($event) {
+                $model = $event->getResult();
+                if (!$model instanceof ViewModel || $model->terminate()) {
+                    return;
+                }
             
-            $routeMatch = $event->getRouteMatch();
-            $action = $routeMatch->getParam('action');
-            if ('form' == $action) {
-                $action = $routeMatch->getParam('mode');
-            }
+                $routeMatch = $event->getRouteMatch();
+                $action = $routeMatch->getParam('action');
+                if ('form' == $action) {
+                    $action = $routeMatch->getParam('mode');
+                }
             
-            $layout  = $event->getViewModel();
-            $sidebar = new ViewModel(); 
-            $sidebar->setVariable('action', $action);
-            $sidebar->setTemplate('auth/sidebar/groups-menu');
-            $layout->addChild($sidebar, 'sidebar_auth_groups-menu');
-        }, -110);
+                $layout  = $event->getViewModel();
+                $sidebar = new ViewModel();
+                $sidebar->setVariable('action', $action);
+                $sidebar->setTemplate('auth/sidebar/groups-menu');
+                $layout->addChild($sidebar, 'sidebar_auth_groups-menu');
+            },
+            -110
+        );
 
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
@@ -90,19 +98,20 @@ class ManageGroupsController extends AbstractActionController
      * Index-Action (Group overview)
      */
     public function indexAction()
-    { }
+    {
+    }
     
     /**
      * Handles the form.
-     * 
+     *
      * Redirects to index on save success.
-     * 
+     *
      * Expected route parameters:
      * - 'mode': string Either 'new' or 'edit'.
-     * 
+     *
      * Expected query parameters:
      * - 'name' string Name of the group (if mode == 'edit')
-     * 
+     *
      * @return Zend\Stdlib\ResponseInterface|array
      */
     public function formAction()
@@ -141,7 +150,7 @@ class ManageGroupsController extends AbstractActionController
                         $user    = $this->auth()->getUser();
                         $group->setOwner($user);
                         $groups  = $user->getGroups();
-                        $message = /*@translate*/ 'Group created'; 
+                        $message = /*@translate*/ 'Group created';
                         $groups->add($group);
                     } else {
                         $message = /*@translate*/ 'Group updated';
@@ -165,7 +174,7 @@ class ManageGroupsController extends AbstractActionController
     
     /**
      * Helper action for userselect form element.
-     * 
+     *
      * @return \Zend\View\Model\JsonModel
      */
     public function searchUsersAction()
@@ -189,7 +198,9 @@ class ManageGroupsController extends AbstractActionController
             $users = $repository->findByQuery($query);
         
             $userFilter = $services->get('filtermanager')->get('Auth/Entity/UserToSearchResult');
-            $filterFunc = function($user) use ($userFilter) { return $userFilter->filter($user); };
+            $filterFunc = function ($user) use ($userFilter) {
+                return $userFilter->filter($user);
+            };
             $result     = array_values(array_map($filterFunc, $users->toArray()));
         }
         
@@ -197,7 +208,4 @@ class ManageGroupsController extends AbstractActionController
         $model->setVariables($result);
         return $model;
     }
-    
 }
-
- 

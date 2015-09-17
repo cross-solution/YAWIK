@@ -26,16 +26,19 @@ class ToggleButton extends FormCheckbox
         if (null === $buttonContent) {
             $buttonContent = $element->getLabel();
             if (null === $buttonContent) {
-                throw new Exception\DomainException(sprintf(
-                    '%s expects either button content as the second argument, ' .
+                throw new Exception\DomainException(
+                    sprintf(
+                        '%s expects either button content as the second argument, ' .
                         'or that the element provided has a label value; neither found',
-                    __METHOD__
-                ));
+                        __METHOD__
+                    )
+                );
             }
 
             if (null !== ($translator = $this->getTranslator())) {
                 $buttonContent = $translator->translate(
-                    $buttonContent, $this->getTranslatorTextDomain()
+                    $buttonContent,
+                    $this->getTranslatorTextDomain()
                 );
             }
             $element->setLabel('');
@@ -50,9 +53,9 @@ class ToggleButton extends FormCheckbox
         //$checked        = $checkedBoole?'checked="checked"':'';
         $checkedClass   = $checkedBoole?'active"':'';
         
-        $buttonContent = '<div class="btn-group" data-toggle="buttons">' . PHP_EOL 
-                . '<span class="btn btn-default ' . $checkedClass . '">' . PHP_EOL 
-                . parent::render($element) . $buttonContent . PHP_EOL . '</span>' . PHP_EOL 
+        $buttonContent = '<div class="btn-group" data-toggle="buttons">' . PHP_EOL
+                . '<span class="btn btn-default ' . $checkedClass . '">' . PHP_EOL
+                . parent::render($element) . $buttonContent . PHP_EOL . '</span>' . PHP_EOL
                 . '</div>' . PHP_EOL;
         
         //$buttonContent = '<div><div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span> ' .

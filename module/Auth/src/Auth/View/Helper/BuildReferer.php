@@ -14,9 +14,9 @@ use Zend\View\Helper\AbstractHelper;
 use Auth\Filter\StripQueryParams as StripQueryParamsFilter;
 
 /**
- * View helper to access authentication service and the 
+ * View helper to access authentication service and the
  * authenticated user (and its properties).
- * 
+ *
  */
 class BuildReferer extends AbstractHelper
 {
@@ -39,7 +39,7 @@ class BuildReferer extends AbstractHelper
     
     /**
      * Entry point.
-     * 
+     *
      */
     public function __invoke($uri = null, array $stripParams = null)
     {

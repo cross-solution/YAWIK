@@ -16,33 +16,34 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
  * personal information of a user.
- * 
+ *
  * @ODM\EmbeddedDocument
  */
 class Info extends AbstractEntity implements InfoInterface
-{   
-	
-	/**
+{
+   
+    
+    /**
      * Day of birth of the user
      *
      * @var string
-	 * @ODM\String */
-	protected $birthDay;
-	
-	/**
+     * @ODM\String */
+    protected $birthDay;
+    
+    /**
      * Month of birth of the user
      *
      * @var string
-	 * @ODM\String */
-	protected $birthMonth;
+     * @ODM\String */
+    protected $birthMonth;
 
-	/**
+    /**
      * Year of birth of the user
      *
      * @var string
-	 * @ODM\String */
-	protected $birthYear;
-	
+     * @ODM\String */
+    protected $birthYear;
+    
     /**
      * primary email of the user.
      *
@@ -62,7 +63,7 @@ class Info extends AbstractEntity implements InfoInterface
      * Firstname of the user
      *
      * @var string
-     * @ODM\String */ 
+     * @ODM\String */
     protected $firstName;
     
     /**
@@ -120,7 +121,7 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @var string
      * @ODM\String */
-    protected $street;    
+    protected $street;
     
     /**
      * {@inheritdoc}
@@ -129,8 +130,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setBirthDay($birthDay)
     {
-    	$this->birthDay=$birthDay;
-    	return $this;
+        $this->birthDay=$birthDay;
+        return $this;
     }
 
     /**
@@ -140,7 +141,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getBirthDay()
     {
-    	return $this->birthDay;
+        return $this->birthDay;
     }
     
     /**
@@ -150,8 +151,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setBirthMonth($birthMonth)
     {
-    	$this->birthMonth=$birthMonth;
-    	return $this;
+        $this->birthMonth=$birthMonth;
+        return $this;
     }
 
     /**
@@ -161,7 +162,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getBirthMonth()
     {
-    	return $this->birthMonth;
+        return $this->birthMonth;
     }
     
     /**
@@ -171,8 +172,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setBirthYear($birthYear)
     {
-    	$this->birthYear=$birthYear;
-    	return $this;
+        $this->birthYear=$birthYear;
+        return $this;
     }
 
     /**
@@ -182,7 +183,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getBirthYear()
     {
-    	return $this->birthYear;
+        return $this->birthYear;
     }
     
     /**
@@ -192,8 +193,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setEmail($email)
     {
-    	$this->email = trim((String)$email);
-    	return $this;
+        $this->email = trim((String)$email);
+        return $this;
     }
 
     /**
@@ -203,7 +204,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getEmail()
     {
-    	return $this->email;
+        return $this->email;
     }
 
     /**
@@ -235,8 +236,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setFirstName($firstName)
     {
-    	$this->firstName = trim((String)$firstName);
-    	return $this;
+        $this->firstName = trim((String)$firstName);
+        return $this;
     }
 
 
@@ -247,7 +248,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getGender()
     {
-    	return $this->gender;
+        return $this->gender;
     }
     
     /**
@@ -257,8 +258,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setGender($gender)
     {
-    	$this->gender = trim((String)$gender);
-    	return $this;
+        $this->gender = trim((String)$gender);
+        return $this;
     }
 
     /**
@@ -268,7 +269,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getFirstName()
     {
-    	return $this->firstName;
+        return $this->firstName;
     }
     
     /**
@@ -278,8 +279,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setHouseNumber($houseNumber)
     {
-    	$this->houseNumber=$houseNumber;
-    	return $this;
+        $this->houseNumber=$houseNumber;
+        return $this;
     }
 
     /**
@@ -289,7 +290,7 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function getHouseNumber()
     {
-    	return $this->houseNumber;
+        return $this->houseNumber;
     }
     
     /**
@@ -313,7 +314,7 @@ class Info extends AbstractEntity implements InfoInterface
         return $this->lastName;
     }
 
-    public function getDisplayName($emailIfEmpty=true)
+    public function getDisplayName($emailIfEmpty = true)
     {
         if (!$this->lastName) {
             return $emailIfEmpty ? $this->email : '';
@@ -326,9 +327,10 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return \Auth\Entity\User
      */
-    public function setPhone($phone) {
-    	$this->phone = (String) $phone;
-    	return $this;
+    public function setPhone($phone)
+    {
+        $this->phone = (String) $phone;
+        return $this;
     }
 
     /**
@@ -336,8 +338,9 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getPhone() {
-    	return $this->phone;
+    public function getPhone()
+    {
+        return $this->phone;
     }
     
     /**
@@ -345,9 +348,10 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return \Auth\Entity\User
      */
-    public function setPostalCode($postalCode) {
-    	$this->postalCode = (String) $postalCode;
-    	return $this;
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = (String) $postalCode;
+        return $this;
     }
 
     /**
@@ -355,8 +359,9 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getPostalCode() {
-    	return $this->postalCode;
+    public function getPostalCode()
+    {
+        return $this->postalCode;
     }
     
     /**
@@ -364,9 +369,10 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return \Auth\Entity\User
      */
-    public function setCity($city) {
-    	$this->city = (String) $city;
-    	return $this;
+    public function setCity($city)
+    {
+        $this->city = (String) $city;
+        return $this;
     }
 
     /**
@@ -374,8 +380,9 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getCity() {
-    	return $this->city;
+    public function getCity()
+    {
+        return $this->city;
     }
 
     /**
@@ -406,8 +413,8 @@ class Info extends AbstractEntity implements InfoInterface
      */
     public function setStreet($street)
     {
-    	$this->street=$street;
-    	return $this;
+        $this->street=$street;
+        return $this;
     }
 
     /**
@@ -415,8 +422,8 @@ class Info extends AbstractEntity implements InfoInterface
      *
      * @return string
      */
-    public function getStreet() 
+    public function getStreet()
     {
-    	return $this->street;
+        return $this->street;
     }
 }

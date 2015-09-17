@@ -1,13 +1,13 @@
 <?php
 
-/** Rating.php */ 
+/** Rating.php */
 namespace Core\Form\Element;
 
 use Zend\Form\Element\Button;
 
 /**
  * Star rating element.
- * 
+ *
  */
 class SpinnerSubmit extends Button implements ViewHelperProviderInterface
 {

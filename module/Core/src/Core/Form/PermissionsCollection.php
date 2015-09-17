@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** PermissionsCollection.php */ 
+/** PermissionsCollection.php */
 namespace Core\Form;
 
 use Zend\Form\Element\Collection;
@@ -34,23 +34,24 @@ class PermissionsCollection extends Collection implements ViewPartialProviderInt
     {
         $this->setName('permissions');
         $this->setLabel('Permissions');
-        $this->setTargetElement(array(
+        $this->setTargetElement(
+            array(
             'type' => 'Core/PermissionsFieldset'
-        ));
+            )
+        );
         $this->setCount(0);
         $this->setShouldCreateTemplate(true);
     }
     
     public function setObject($object)
     {
-        if (!$object instanceOf PermissionsInterface) {
+        if (!$object instanceof PermissionsInterface) {
             throw new \InvalidArgumentException('Object must be of type "\\Core\\Entity\\PermissionsInterface"');
         }
         
         $assigned = $object->getAssigned();
         $array    = array();
         foreach ($assigned as $resourceId => $spec) {
-            
         }
         if (isset($assigned['groups'])) {
             foreach ($assigned['groups'] as $name => $spec) {
@@ -66,7 +67,7 @@ class PermissionsCollection extends Collection implements ViewPartialProviderInt
                 $array[] = array(
                     'type' => 'user',
                     'id'   => $id,
-                    'permissions' => $permissions 
+                    'permissions' => $permissions
                 );
             }
         }
@@ -76,4 +77,3 @@ class PermissionsCollection extends Collection implements ViewPartialProviderInt
         
     }
 }
-

@@ -18,14 +18,17 @@ class PdfServiceFactory implements FactoryInterface
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
-    public function createService(ServiceLocatorInterface $serviceLocator) {
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
         
         $Html2PdfConverter = $serviceLocator->get('Html2PdfConverter');
         if (!$Html2PdfConverter instanceof PdfInterface) {
-            throw new \DomainException(sprintf(
-                'PdfConverter %s does not implements PdfInterface',
-                get_class($Html2PdfConverter)
-            ));
+            throw new \DomainException(
+                sprintf(
+                    'PdfConverter %s does not implements PdfInterface',
+                    get_class($Html2PdfConverter)
+                )
+            );
         }
         //$configArray = $serviceLocator->get('Config');
         
@@ -44,6 +47,4 @@ class PdfServiceFactory implements FactoryInterface
         return $Html2PdfConverter;
         
     }
-
 }
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -39,37 +39,44 @@ class TemplateProvider implements ServiceManagerAwareInterface, OptionValueInter
         $this->serviceManager = $serviceManager;
     }
 
-    public function setValue($value, $entity = Null) {
+    public function setValue($value, $entity = null)
+    {
         $this->value = $value;
         $this->entity = $entity;
 
     }
 
-    public function init(ElementInterface $element) {
+    public function init(ElementInterface $element)
+    {
         $this->formElement = $element;
         if ($element->hasAttribute('template')) {
             $this->template = $element->getAttribute('template');
         }
     }
 
-    protected function getTemplate() {
+    protected function getTemplate()
+    {
         if (empty($this->template)) {
             throw new \RuntimeException('no Template defined for Formelement');
         }
         return $this->template;
     }
 
-    public function input($value) {
+    public function input($value)
+    {
         return $this;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         $viewModel = new ViewModel();
-        $viewModel->setVariables(array(
+        $viewModel->setVariables(
+            array(
             'entity' => $this->entity,
             'value' => $this->value,
             'element' => $this->formElement
-        ));
+            )
+        );
         $originalView = $this->serviceManager->get('view');
         $view = clone $originalView;
 
@@ -83,5 +90,4 @@ class TemplateProvider implements ServiceManagerAwareInterface, OptionValueInter
 
         return $content;
     }
-
 }

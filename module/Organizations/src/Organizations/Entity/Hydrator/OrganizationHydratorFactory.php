@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** OrganizationEntityHydrator.php */ 
+/** OrganizationEntityHydrator.php */
 namespace Organizations\Entity\Hydrator;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -32,5 +32,4 @@ class OrganizationHydratorFactory implements FactoryInterface
         $object->addStrategy('organizationName', $organizationName);
         return $object;
     }
-    
 }

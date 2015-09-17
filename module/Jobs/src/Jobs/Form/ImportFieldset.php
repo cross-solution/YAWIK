@@ -34,7 +34,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
     }
     
     public function getInputFilterSpecification()
-    { 
+    {
         return array(
             'company' => array(
                 'filters'  => array(
@@ -63,22 +63,22 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             'contactEmail' => array(
                 'filters'  => array(
                     array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
+                ),
+                'allow_empty' => true
             ),
             'datePublishStart' => array(
                 ),
             'reference' => array(
                 'filters'  => array(
                     array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
+                ),
+                'allow_empty' => true
             ),
             
             'atsEnabled' => array(
                 'filters'  => array(
                 ),
-                'allow_empty' => True
+                'allow_empty' => true
             ),
 //            'uriApply' => array(
 //                'filters'  => array(
@@ -89,9 +89,9 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
              'logoRef' => array(
                 'filters'  => array(
                     array('name' => 'Zend\Filter\StringTrim'),
-                ),          
-                'allow_empty' => True
-            ),
+                ),
+                'allow_empty' => true
+             ),
 
 
         );
@@ -101,12 +101,15 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
     {
         $this->setName('job');
         $this->setAttribute('id', 'job');
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'hidden',
             'name' => 'id'
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'applyId',
             'options' => array(
@@ -115,9 +118,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             'attributes' => array(
             //'id' => 'contact-title',
             )
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'company',
             'options' => array(
@@ -127,9 +132,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             //'id' => 'contact-title',
             ),
            
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'title',
             'options' => array(
@@ -138,9 +145,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             'attributes' => array(
             //'id' => 'contact-title',
             )
-        ));
+            )
+        );
        
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'link',
             'options' => array(
@@ -148,9 +157,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
-        ));
+            )
+        );
        
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'location',
             'options' => array(
@@ -158,9 +169,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
-        ));
+            )
+        );
        
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'contactEmail',
             'options' => array(
@@ -168,7 +181,8 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
-        ));
+            )
+        );
 
 
 //        $this->add(array(
@@ -181,7 +195,8 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 //            )
 //        ));
 
-       $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'datePublishStart',
             'options' => array(
@@ -189,9 +204,11 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
-        ));
+            )
+        );
        
-       $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'reference',
             'options' => array(
@@ -199,7 +216,8 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
-        ));
+            )
+        );
        
 //        $this->add(array(
 //            'type' => 'Zend\Form\Element\Radio',
@@ -213,7 +231,8 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 //        ));
        
        
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'logoRef',
             'options' => array(
@@ -221,10 +240,13 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'attributes' => array(
             )
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Jobs/AtsModeFieldset',
-        ));
+            )
+        );
     }
 }

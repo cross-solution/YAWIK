@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Core forms */ 
+/** Core forms */
 namespace Core\Form;
 
 /**
@@ -70,23 +70,25 @@ class SummaryForm extends BaseForm implements SummaryFormInterface
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * Uses {@link \Core\Form\SummaryFormButtonsFieldset} as buttons fieldset.
-     * 
+     *
      * @see \Core\Form\BaseForm::addButtonsFieldset()
      */
     protected function addButtonsFieldset()
     {
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'SummaryFormButtonsFieldset'
-        ));
+            )
+        );
     }
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * Sets render mode to {@link RENDER_SUMMARY}, if validation succeeded.
-     * 
+     *
      * @see \Zend\Form\Form::isValid()
      */
     public function isValid()
@@ -107,5 +109,4 @@ class SummaryForm extends BaseForm implements SummaryFormInterface
             $this->setDisplayMode($options['display_mode']);
         }
     }
-    
 }

@@ -13,7 +13,7 @@ namespace Core\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * 
+ *
  * @ODM\MappedSuperclass
   */
 abstract class AbstractIdentifiableEntity extends AbstractEntity implements IdentifiableEntityInterface
@@ -21,7 +21,7 @@ abstract class AbstractIdentifiableEntity extends AbstractEntity implements Iden
        
     /**
      * Entity id
-     * 
+     *
      * @var mixed
      * @ODM\Id
      */
@@ -46,6 +46,4 @@ abstract class AbstractIdentifiableEntity extends AbstractEntity implements Iden
         $this->id = $id;
         return $this;
     }
-    
-    
 }

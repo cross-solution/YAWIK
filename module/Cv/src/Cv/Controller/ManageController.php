@@ -15,7 +15,7 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Main Action Controller for the application.
- * Responsible for displaying the home site.  
+ * Responsible for displaying the home site.
  *
  */
 class ManageController extends AbstractActionController
@@ -40,7 +40,8 @@ class ManageController extends AbstractActionController
      *
      */
     public function indexAction()
-    { }
+    {
+    }
     
     public function formAction()
     {
@@ -67,7 +68,7 @@ class ManageController extends AbstractActionController
                 );
             }
             
-            exit;    
+            exit;
         }
         
         return array(
@@ -79,5 +80,4 @@ class ManageController extends AbstractActionController
     {
         
     }
-    
 }

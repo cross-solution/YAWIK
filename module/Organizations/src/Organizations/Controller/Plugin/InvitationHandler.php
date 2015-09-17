@@ -302,8 +302,9 @@ class InvitationHandler extends AbstractPlugin
         $generator  = $this->getUserTokenGenerator();
 
         /* @var $user \Auth\Entity\User */
-        $user = $repository->findByEmail($email, /*do not check isDraft flag */
-                                         null
+        $user = $repository->findByEmail(
+            $email, /*do not check isDraft flag */
+            null
         );
 
         if (!$user) {
@@ -317,8 +318,9 @@ class InvitationHandler extends AbstractPlugin
             $info->setEmail($email);
         }
 
-        $token = $generator->generate($user, /* daysToLive */
-                                      7
+        $token = $generator->generate(
+            $user, /* daysToLive */
+            7
         ); // will store user!
 
         return array('user' => $user, 'token' => $token);

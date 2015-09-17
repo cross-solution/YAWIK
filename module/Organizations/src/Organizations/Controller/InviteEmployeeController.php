@@ -73,14 +73,16 @@ class InviteEmployeeController extends AbstractActionController
                 break;
 
             case AcceptInvitationHandler::ERROR_ORGANIZATION_NOT_FOUND:
-                $model = $this->createErrorViewModel( /*@translate*/
-                              'The organization referenced in your request could not be found.'
+                $model = $this->createErrorViewModel(
+                    /*@translate*/
+                    'The organization referenced in your request could not be found.'
                 );
                 break;
 
             case AcceptInvitationHandler::ERROR_TOKEN_INVALID:
-                $model = $this->createErrorViewModel( /*@translate*/
-                              'The access token you provided seems to have expired.'
+                $model = $this->createErrorViewModel(
+                    /*@translate*/
+                    'The access token you provided seems to have expired.'
                 );
                 break;
         }
@@ -97,9 +99,11 @@ class InviteEmployeeController extends AbstractActionController
     {
         $organization = $this->getOrganizationEntity();
         $result       = $this->forward()->dispatch('Auth\Controller\Password', array('action' => 'index'));
-        $model        = new ViewModel(array(
+        $model        = new ViewModel(
+            array(
                                           'organization' => $organization->getOrganizationName()->getName()
-                                      ));
+                                      )
+        );
 
         if (!$result->getVariable('valid', false)) {
             $model->setVariable('form', $result->getVariable('form'));
@@ -137,9 +141,11 @@ class InviteEmployeeController extends AbstractActionController
     {
         $organization = $this->getOrganizationEntity();
 
-        return new ViewModel(array(
+        return new ViewModel(
+            array(
                                  'organization' => $organization->getOrganizationName()->getName()
-                             ));
+                             )
+        );
     }
 
     /**

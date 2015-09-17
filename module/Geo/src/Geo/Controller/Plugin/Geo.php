@@ -17,12 +17,12 @@ class Geo extends AbstractPlugin
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
     public function __invoke($par)
-    { 
+    {
         $config = $this->getController()->getServiceLocator()->get('config');
-        if (empty($config['cross_geoapi_url'])) {
+        if (empty($config['geocoder_cross_url'])) {
              throw new \InvalidArgumentException('Now Service-Adress for Geo-Service available');
         }
-        $client = new \Zend\Http\Client($config['cross_geoapi_url']);
+        $client = new \Zend\Http\Client($config['geocoder_photon_url']);
         $client->setMethod('GET');
         // more countries 'country' => 'DE,CH,AT'
         // with countryCode 'zoom' => 2
@@ -34,8 +34,4 @@ class Geo extends AbstractPlugin
         $result = (array) $result->result;
         return $result;
     }
-    
-    
-
-    
 }

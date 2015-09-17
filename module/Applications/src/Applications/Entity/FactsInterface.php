@@ -14,8 +14,8 @@ use Core\Entity\EntityInterface;
 
 /**
  * Interface of applications facts entity
- * 
- * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 interface FactsInterface extends EntityInterface
 {

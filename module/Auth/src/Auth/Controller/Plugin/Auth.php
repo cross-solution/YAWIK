@@ -31,7 +31,7 @@ class Auth extends AbstractPlugin
         return $this->auth;
     }
     
-    public function __invoke($property=null)
+    public function __invoke($property = null)
     {
         if (null === $property) {
             return $this;
@@ -57,7 +57,8 @@ class Auth extends AbstractPlugin
      *
      * @return bool
      */
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->getAuthenticationService()->getUser()->getRole() == User::ROLE_ADMIN;
     }
     

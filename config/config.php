@@ -52,7 +52,7 @@ if (!file_exists(__DIR__ . '/autoload/yawik.config.global.php')) {
 }
 
 $config = array(
-    'enviroment' => $env,
+    'environment' => $env,
 
     // Activated modules. (Use folder name)
     'modules' => $modules,

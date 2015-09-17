@@ -22,9 +22,9 @@ class AssertionManagerFactory implements FactoryInterface
 {
     /**
      * Creates an instance of \Auth\View\Helper\Auth
-     * 
+     *
      * - Injects the AuthenticationService
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return AssertionManager
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -34,7 +34,7 @@ class AssertionManagerFactory implements FactoryInterface
         $configArray = $serviceLocator->get('Config');
         $configArray = isset($configArray['acl']['assertions'])
                      ? $configArray['acl']['assertions']
-                     : array(); 
+                     : array();
         $config      = new Config($configArray);
         $manager     = new AssertionManager($config);
         

@@ -8,7 +8,8 @@ use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
 
-interface OrganizationNameInterface extends EntityInterface, 
-                                            IdentifiableEntityInterface
+interface OrganizationNameInterface extends
+    EntityInterface,
+    IdentifiableEntityInterface
 {
 }

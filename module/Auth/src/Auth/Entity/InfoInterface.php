@@ -14,63 +14,63 @@ use Core\Entity\EntityInterface;
 
 /**
  * Defines an users Info model interface. The Info model holds contact
- * data. 
+ * data.
  */
 interface InfoInterface extends EntityInterface
 {
     
-	/**
-	 * Sets the Day of the date of birth.
-	 *
-	 * @param string $birthDay
-	 */
-	public function setBirthDay($birthDay);
-	
-	/**
-	 * Gets the Day of the date of birth
-	 *
-	 * @return string
-	*/
-	public function getBirthDay();
-	
-	/**
-	 * Sets the month of the date of birth.
-	 *
-	 * @param string $birthMonth
-	 */
-	public function setBirthMonth($birthMonth);
-	
-	/**
-	 * Gets the month of the date of birth
-	 *
-	 * @return string
-	*/
-	public function getBirthMonth();
+    /**
+     * Sets the Day of the date of birth.
+     *
+     * @param string $birthDay
+     */
+    public function setBirthDay($birthDay);
+    
+    /**
+     * Gets the Day of the date of birth
+     *
+     * @return string
+    */
+    public function getBirthDay();
+    
+    /**
+     * Sets the month of the date of birth.
+     *
+     * @param string $birthMonth
+     */
+    public function setBirthMonth($birthMonth);
+    
+    /**
+     * Gets the month of the date of birth
+     *
+     * @return string
+    */
+    public function getBirthMonth();
 
-	/**
-	 * Sets the year of the date of birth.
-	 *
-	 * @param string $email
-	 */
-	public function setBirthYear($email);
-	
-	/**
-	 * Gets the Year of the date of birth.
-	 *
-	 * @return string
-	*/
-	public function getBirthYear();
-	
+    /**
+     * Sets the year of the date of birth.
+     *
+     * @param string $email
+     */
+    public function setBirthYear($email);
+    
+    /**
+     * Gets the Year of the date of birth.
+     *
+     * @return string
+    */
+    public function getBirthYear();
+    
     /**
      * Sets the email.
-     * 
+     *
      * @param string $email
      */
     public function setEmail($email);
     
     /**
      * Gets the email
-     * 
+     *
      * @return string
      */
     public function getEmail();
@@ -88,7 +88,7 @@ interface InfoInterface extends EntityInterface
     
     /**
      * Sets the first name
-     * 
+     *
      * @param string $name
      */
     public function setFirstName($name);
@@ -131,10 +131,10 @@ interface InfoInterface extends EntityInterface
     
     /**
      * Sets the profile Image of an user
-     * 
+     *
      * @param EntityInterface $image
      */
-    public function setImage(EntityInterface $image=null);
+    public function setImage(EntityInterface $image = null);
     
     /**
      * Gets the profile Image of an user
@@ -210,4 +210,4 @@ interface InfoInterface extends EntityInterface
      * @return string
      */
     public function getCity();
-}  
+}

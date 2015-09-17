@@ -13,18 +13,19 @@ namespace Core\View\Helper;
 use Zend\View\ViewEvent;
 use Core\View\Helper\InsertFile\FileEvent;
 
-class InsertFile extends AbstractEventsHelper {
+class InsertFile extends AbstractEventsHelper
+{
     
     protected $files = array();
     
-    protected $ListenersUnaware = True;
+    protected $ListenersUnaware = true;
     
     protected $event;
         
     /**
      * render a File-Object
      *
-     * @param string 
+     * @param string
      * @return string
      */
     public function __invoke($fileName, $parameter = array())
@@ -45,7 +46,8 @@ class InsertFile extends AbstractEventsHelper {
         return $return;
     }
     
-    protected function getEvent() {
+    protected function getEvent()
+    {
         if (!isset($this->event)) {
             $this->event = new FileEvent();
         }
@@ -55,11 +57,12 @@ class InsertFile extends AbstractEventsHelper {
     /**
      * hook into the rendering-process to provide a summary of all included files
      */
-    public function listenToRenderer() {
+    public function listenToRenderer()
+    {
         if ($this->ListenersUnaware) {
             // set a listener at the end of the Rendering-Process
             // to announce what files have been inserted
-            $this->ListenersUnaware = False;
+            $this->ListenersUnaware = false;
             $services = $this->getServiceLocator();
         
             $viewManager = $services->get('ViewManager');
@@ -72,10 +75,9 @@ class InsertFile extends AbstractEventsHelper {
         }
     }
     
-    public function anounceAttachedFiles(ViewEvent $e) {
+    public function anounceAttachedFiles(ViewEvent $e)
+    {
         $event = $this->getEvent();
         $this->trigger(FileEvent::INSERTFILE, $event);
     }
-   
 }
-

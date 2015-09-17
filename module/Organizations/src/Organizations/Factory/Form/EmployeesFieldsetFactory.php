@@ -18,7 +18,7 @@ use Organizations\Form\EmployeesFieldset;
 
 /**
  * Creates an EmployeesFieldset and injects the needed javascript to the HeadScript View Helper
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */

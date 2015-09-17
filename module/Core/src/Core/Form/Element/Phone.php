@@ -22,8 +22,10 @@ class Phone extends Element implements InputProviderInterface
     {
         if (null === $this->validator) {
             $validator = new RegexValidator('/^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{1,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/');
-            $validator->setMessage(/*@translate */ 'Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.',
-                                    RegexValidator::NOT_MATCH);
+            $validator->setMessage(
+                /*@translate */ 'Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.',
+                RegexValidator::NOT_MATCH
+            );
 
             $this->validator = $validator;
         }

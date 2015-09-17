@@ -28,7 +28,8 @@ class FormRowCombined extends AbstractHelper
     {
         $formRowHelper = $this->getFormRowHelper();
         $labels = array();
-        $markups = ''; $totalSpanWidth = 0;
+        $markups = '';
+        $totalSpanWidth = 0;
         foreach ($elements as $spanWidth => $element) {
             $elementErrors = $element->getMessages();
             $markup = $formRowHelper->render($element);
@@ -40,7 +41,9 @@ class FormRowCombined extends AbstractHelper
             }
             $markups .= sprintf(
                 '<div class="col-md-%d%s">%s</div>',
-                $spanWidth, empty($elementErrors) ? '' : ' input-error', $markup
+                $spanWidth,
+                empty($elementErrors) ? '' : ' input-error',
+                $markup
             );
             $totalSpanWidth += $spanWidth;
         }
@@ -48,7 +51,8 @@ class FormRowCombined extends AbstractHelper
         
         $labelMarkup = sprintf(
             '<div class="col-md-%d yk-label">%s</div>',
-            $labelSpanWidth, implode(' / ', $labels)
+            $labelSpanWidth,
+            implode(' / ', $labels)
         );
         
         $form_row_class = 'row';
@@ -59,7 +63,8 @@ class FormRowCombined extends AbstractHelper
         
         return sprintf(
             '<div class="controls controls-row ' . $form_row_class . '">%s%s</div>',
-            $labelMarkup, $markups
+            $labelMarkup,
+            $markups
         );
     }
     
@@ -73,7 +78,7 @@ class FormRowCombined extends AbstractHelper
      * @param bool                  $renderErrors
      * @return string|FormRow
      */
-    public function __invoke(array $elements = array(), $labelPosition=null, $renderErrors = null, $layout=null)
+    public function __invoke(array $elements = array(), $labelPosition = null, $renderErrors = null, $layout = null)
     {
         if (empty($elements)) {
             return $this;
@@ -85,5 +90,4 @@ class FormRowCombined extends AbstractHelper
         
         return $this->render($elements);
     }
-    
 }

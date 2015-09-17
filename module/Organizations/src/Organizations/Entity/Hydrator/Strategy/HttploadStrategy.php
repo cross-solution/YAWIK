@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** HttploadStrategy.php */ 
+/** HttploadStrategy.php */
 namespace Organizations\Entity\Hydrator\Strategy;
 
 use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
@@ -19,23 +19,23 @@ class HttploadStrategy implements StrategyInterface
 {
     protected $repository;
     
-    public function __construct($repository = Null)
+    public function __construct($repository = null)
     {
         $this->repository = $repository;
         return $this;
     }
     
-    public function extract ($value)
+    public function extract($value)
     {
         return $value;
     }
 
-    public function hydrate ($value, $data = Null, $object = Null)
+    public function hydrate($value, $data = null, $object = null)
     {
         $organizationImageEntity = $value;
         // @TODO: has the Object already an Image, than take this
         
-        // 
+        //
         if (is_string($value)) {
             $client = new HttpClient($value, array('sslverifypeer' => false));
             $response = $client->send();
@@ -51,4 +51,3 @@ class HttploadStrategy implements StrategyInterface
         return $organizationImageEntity;
     }
 }
-

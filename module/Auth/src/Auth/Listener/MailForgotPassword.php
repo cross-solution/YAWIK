@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -25,12 +25,14 @@ class MailForgotPassword implements ServiceManagerAwareInterface
 {
     protected $serviceManager;
 
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
         return $this;
     }
 
-    public function getServiceManager() {
+    public function getServiceManager()
+    {
         return $this->serviceManager;
     }
 
@@ -81,7 +83,7 @@ class MailForgotPassword implements ServiceManagerAwareInterface
         $mail->user              = $user;
         $mail->resetlink         = $resetLink;
         $mail->setTemplate('mail/forgotPassword');
-        $mail->setSubject( sprintf( /*@translate*/ 'a new password was requestet for %s', $siteName));
+        $mail->setSubject(sprintf(/*@translate*/ 'a new password was requestet for %s', $siteName));
         $mail->setTo($userEmail);
         $mail->setFrom($fromEmail, $fromName);
         $mailService->send($mail);

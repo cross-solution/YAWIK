@@ -38,7 +38,8 @@ class IndexControllerFactory implements FactoryInterface
         /**
          * @var Form\Organizations $form
          */
-        $form = new Form\Organizations(null);;
+        $form = new Form\Organizations(null);
+        ;
 
         return new IndexController($form, $organizationRepository);
     }

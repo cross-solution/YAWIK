@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ErrorLoggerFactory.php */ 
+/** ErrorLoggerFactory.php */
 namespace Core\Log;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -25,10 +25,11 @@ class ErrorLoggerFactory implements FactoryInterface
     /* (non-PHPdoc)
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
-    public function createService(ServiceLocatorInterface $serviceLocator) {
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
         
         $config = $serviceLocator->get('Config');
-        $config = isset($config['log']['ErrorLogger']['config']) 
+        $config = isset($config['log']['ErrorLogger']['config'])
                 ? $config['log']['ErrorLogger']['config']
                 : array();
         
@@ -36,9 +37,11 @@ class ErrorLoggerFactory implements FactoryInterface
             throw new \RuntimeException('A stream must be configured for ErrorLogger.');
         }
         
-        $formatter = new ErrorAndExceptionHandler(array(
+        $formatter = new ErrorAndExceptionHandler(
+            array(
             'dateTimeFormat' => 'Y-m-d H:i:s',
-        ));
+            )
+        );
         $writer = new Stream($config['stream']);
         $writer->setFormatter($formatter);
         $logger = new Logger();
@@ -59,6 +62,4 @@ class ErrorLoggerFactory implements FactoryInterface
         return $logger;
 
     }
-
 }
-

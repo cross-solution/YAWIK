@@ -14,7 +14,7 @@ use Core\Form\SummaryForm;
 
 /**
  * Form for managing employees.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -28,5 +28,4 @@ class Employees extends SummaryForm
 //    {
 //        return; // No buttons.
 //    }
-
 }

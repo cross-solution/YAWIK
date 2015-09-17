@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -13,7 +13,6 @@ namespace Organizations\Form;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\Hydrator\Strategy\OrganizationNameStrategy;
-
 
 /**
  * Class OrganizationsFieldset
@@ -48,12 +47,14 @@ class OrganizationsNameFieldset extends Fieldset
     {
         $this->setName('name');
 
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'organizationName',
             'options' => array(
                 'label' => /* @translate */ 'Organizationname'
             )
-        ));
+            )
+        );
     }
 
     /**

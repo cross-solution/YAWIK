@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** UniqueGroupName.php */ 
+/** UniqueGroupName.php */
 namespace Auth\Form\Validator;
 
 use Zend\Validator\AbstractValidator;
@@ -15,7 +15,7 @@ use Auth\Entity\UserInterface;
 
 /**
  * Validator for uniqueness check of group names.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class UniqueGroupName extends AbstractValidator
@@ -28,7 +28,7 @@ class UniqueGroupName extends AbstractValidator
     
     /**
      * The current logged in user.
-     * 
+     *
      * @var UserInterface
      */
     protected $user;
@@ -48,11 +48,12 @@ class UniqueGroupName extends AbstractValidator
     
     /**
      * Creates an instance.
-     * 
+     *
      * @param UserInterface|array|null $options
      */
-    public function __construct($options=null) {
-        if ($options instanceOf UserInterface) {
+    public function __construct($options = null)
+    {
+        if ($options instanceof UserInterface) {
             $options = array('user' => $options);
         }
         
@@ -61,7 +62,7 @@ class UniqueGroupName extends AbstractValidator
     
     /**
      * Sets the user the group should belong to.
-     * 
+     *
      * @param UserInterface $user
      * @return \Auth\Form\Validator\UniqueGroupName
      */
@@ -73,16 +74,17 @@ class UniqueGroupName extends AbstractValidator
     
     /**
      * Gets the user.
-     * 
+     *
      * @return \Auth\Entity\UserInterface
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
     
     /**
      * Sets the name which will be allowed.
-     * 
+     *
      * @param string $name
      * @return \Auth\Form\Validator\UniqueGroupName
      */
@@ -94,7 +96,7 @@ class UniqueGroupName extends AbstractValidator
     
     /**
      * Returns true, if the given value is unique among the groups of the user.
-     * 
+     *
      * Also returns true, if the given value equals the {@link $allowName}.
      *
      * @param string $value
@@ -116,4 +118,3 @@ class UniqueGroupName extends AbstractValidator
         return true;
     }
 }
-

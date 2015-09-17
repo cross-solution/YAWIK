@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SocialProfilesFactory.php */ 
+/** SocialProfilesFactory.php */
 namespace Auth\Controller\Plugin\Service;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -25,4 +25,3 @@ class SocialProfilesFactory implements FactoryInterface
         return $plugin;
     }
 }
-

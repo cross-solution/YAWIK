@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** JobReferencesUpdateListener.php */ 
+/** JobReferencesUpdateListener.php */
 namespace Applications\Repository\Event;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -16,7 +16,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 
 /**
- * class for updating references 
+ * class for updating references
  */
 class JobReferencesUpdateListener implements EventSubscriber
 {
@@ -31,13 +31,13 @@ class JobReferencesUpdateListener implements EventSubscriber
     
     /**
      * updates references
-     * 
+     *
      * @param LifecycleEventArgs $eventArgs
      */
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        if (!$document instanceOf JobInterface) {
+        if (!$document instanceof JobInterface) {
             return;
         }
         $dm = $eventArgs->getDocumentManager();
@@ -58,4 +58,3 @@ class JobReferencesUpdateListener implements EventSubscriber
             ->execute();
     }
 }
-

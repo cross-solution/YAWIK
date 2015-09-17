@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -32,7 +32,8 @@ abstract class AbstractIdentifiableHydratorAwareEntity extends AbstractIdentifia
      * @param  HydratorInterface $hydrator
      * @return HydratorAwareInterface
      */
-    public function setHydrator(HydratorInterface $hydrator) {
+    public function setHydrator(HydratorInterface $hydrator)
+    {
         $this->hydrator = $hydrator;
         return $this;
     }
@@ -42,12 +43,11 @@ abstract class AbstractIdentifiableHydratorAwareEntity extends AbstractIdentifia
      *
      * @return HydratorInterface
      */
-    public function getHydrator() {
+    public function getHydrator()
+    {
         if (isset($this->hydrator)) {
             return $this->hydrator;
         }
         return new EntityHydrator();
     }
-
-
 }

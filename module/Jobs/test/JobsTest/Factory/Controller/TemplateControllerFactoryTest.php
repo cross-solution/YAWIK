@@ -55,7 +55,7 @@ class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($jobRepositoryMock);
 
         $sm->setService('repositories', $repositoriesMock);
-        $sm->setService('config', array('Auth' => array('default_user' => array('email' => 'test@test.de'))));
+        $sm->setService('config', array('core_options' => array('system_message_email' => 'test@test.de')));
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

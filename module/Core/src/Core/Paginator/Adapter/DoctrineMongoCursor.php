@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** DoctrineMongoCursor.php */ 
+/** DoctrineMongoCursor.php */
 namespace Core\Paginator\Adapter;
 
 use Zend\Paginator\Adapter\AdapterInterface;
@@ -54,4 +54,3 @@ class DoctrineMongoCursor implements AdapterInterface
                     ->toArray();
     }
 }
-

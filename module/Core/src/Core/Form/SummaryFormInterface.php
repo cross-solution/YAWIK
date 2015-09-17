@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Core forms */ 
+/** Core forms */
 namespace Core\Form;
 
 use Zend\Form\FormInterface;
@@ -38,14 +38,14 @@ interface SummaryFormInterface extends FormInterface
     
     /**
      * Gets the mode the form should be rendered in.
-     * 
+     *
      * @return string
      */
     public function getRenderMode();
     
     /**
      * Sets the mode the form should be rendered in.
-     * 
+     *
      * @param string $mode
      * @return self
      */
@@ -53,14 +53,14 @@ interface SummaryFormInterface extends FormInterface
     
     /**
      * Gets the mode the form should be initially displayed.
-     * 
+     *
      * @return string
      */
     public function getDisplayMode();
     
     /**
      * Sets the mode the form should be initially displayed.
-     * 
+     *
      * @param string $mode
      * @return self
      */

@@ -13,7 +13,7 @@ namespace Core\Form;
 /**
  * This interface enables an element to be disabled (ignored).
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 interface DisableCapableInterface
 {
@@ -37,5 +37,4 @@ interface DisableCapableInterface
      * @return boolean
      */
     public function isDisableCapable();
-
 }

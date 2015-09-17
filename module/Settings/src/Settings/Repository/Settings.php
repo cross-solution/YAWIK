@@ -16,13 +16,14 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
     protected $settingsByUser;
     protected $serviceLocator;
     
-    public function __construct() 
+    public function __construct()
     {
         $this->settingsByUser = array();
         return $this;
     }
     
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator) {
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
         $this->serviceLocator = $serviceLocator;
     }
     
@@ -48,8 +49,8 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
     public function getSettingsByUser($user)
     {
         $userId = $user;
-        $userEntity = Null;
-        if ($user instanceOf EntityInterface) {
+        $userEntity = null;
+        if ($user instanceof EntityInterface) {
             $userId = $user->getId();
             $userEntity = $user;
         }
@@ -64,13 +65,13 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
         if (isset($userEntity)) {
             $settingsData = $userEntity->getSettings();
             $this->settingsByUser[$userId] = new SettingsEntity($this);
-            $this->settingsByUser[$userId]->setData($settingsData)->spawnAsEntities(); 
+            $this->settingsByUser[$userId]->setData($settingsData)->spawnAsEntities();
             return $this->settingsByUser[$userId];
         }
-        return Null;
+        return null;
     }
     
-    public function onPostDispatch(MvcEvent $e) 
+    public function onPostDispatch(MvcEvent $e)
     {
         //throw new \Exception("Test");
         $UserRepository = $this->getUserRepository();
@@ -84,21 +85,26 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
         }
     }
     
-    public function find($id) {
+    public function find($id)
+    {
         return $this->getSettingsByUser($user);
     }
     
-    public function fetch() {
+    public function fetch()
+    {
     }
     
-    public function create($data = null) {
+    public function create($data = null)
+    {
     }
     
-    public function save(EntityInterface $entity) {
+    public function save(EntityInterface $entity)
+    {
         
     }
     
-    public function getEntityByStrategy($namespace) {
+    public function getEntityByStrategy($namespace)
+    {
         $configAccess = $this->getServiceLocator()->get('ConfigAccess');
         $settings = $configAccess->getByKey('settings');
         if (array_key_exists($namespace, $settings) && array_key_exists('entity', $settings[$namespace])) {
@@ -106,11 +112,12 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
             $entity->setConfig($settings[$namespace]);
             return $entity;
         }
-        return Null;
+        return null;
     }
     
-    public function getFormular($formular = Null) {
-        $form = Null;
+    public function getFormular($formular = null)
+    {
+        $form = null;
         if (isset($formular) && is_string($formular)) {
             $formElementManager = $this->getServiceLocator()->get('FormElementManager');
             if ($formElementManager->has($formular)) {
@@ -124,5 +131,4 @@ class Settings extends AbstractRepository implements EntityResolverStrategyInter
         }
         return $form;
     }
-    
 }

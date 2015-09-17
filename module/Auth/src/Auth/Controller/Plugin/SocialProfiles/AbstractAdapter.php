@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AbstractProfile.php */ 
+/** AbstractProfile.php */
 namespace Auth\Controller\Plugin\SocialProfiles;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -29,7 +29,7 @@ abstract class AbstractAdapter extends AbstractPlugin
         }
         
         $profile = $this->getProfile();
-        $profile->setData($result); 
+        $profile->setData($result);
                 
         return $profile;
     }
@@ -48,10 +48,9 @@ abstract class AbstractAdapter extends AbstractPlugin
     {
         $class = get_class($this);
         $class = explode('\\', $class);
-        $class = array_pop($class); 
+        $class = array_pop($class);
         $class = '\\Auth\\Entity\\SocialProfiles\\' . $class;
         
         return $class;
     }
 }
-

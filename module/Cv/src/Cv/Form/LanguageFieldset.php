@@ -15,149 +15,154 @@ class LanguageFieldset extends Fieldset
              ->setObject(new LanguageEntity())
              ->setLabel('Language');
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'language',
-        	'type' => 'Zend\Form\Element\Select',
+            'type' => 'Zend\Form\Element\Select',
             'options' => array(
                 //'label' => 'Language',
-            	'value_options' => array(
-            	        '' => /*@translate */ 'Other languages ...',
-/*@translate*/ 'Abkhazian',
-/*@translate*/ 'Afrikaans',
-/*@translate*/ 'Albanian',
-/*@translate*/ 'Amharic',
-/*@translate*/ 'Arabic',
-/*@translate*/ 'Armenian',
-/*@translate*/ 'Assamese',
-/*@translate*/ 'Azerbaijani',
-/*@translate*/ 'Basque',
-/*@translate*/ 'Belarusian',
-/*@translate*/ 'Bengali',
-/*@translate*/ 'Bosnian',
-/*@translate*/ 'Breton',
-/*@translate*/ 'Bulgarian',
-/*@translate*/ 'Burmese',
-/*@translate*/ 'Catalan/Valencian',
-/*@translate*/ 'Chechen',
-/*@translate*/ 'Chinese',
-/*@translate*/ 'Cornish',
-/*@translate*/ 'Corsican',
-/*@translate*/ 'Croatian',
-/*@translate*/ 'Czech',
-/*@translate*/ 'Danish',
-/*@translate*/ 'Dutch',
-/*@translate*/ 'Estonian',
-/*@translate*/ 'Faroese',
-/*@translate*/ 'Fijian',
-/*@translate*/ 'Finnish',
-/*@translate*/ 'French',
-/*@translate*/ 'Gaelic/Scottish Gaelic',
-/*@translate*/ 'Galician',
-/*@translate*/ 'Georgian',
-/*@translate*/ 'German',            	         
-/*@translate*/ 'Greek',
-/*@translate*/ 'Gujarati',
-/*@translate*/ 'Haitian/Haitian Creole',
-/*@translate*/ 'Hebrew',
-/*@translate*/ 'Hindi',
-/*@translate*/ 'Hungarian',
-/*@translate*/ 'Icelandic',
-/*@translate*/ 'Indonesian',
-/*@translate*/ 'Irish',
-/*@translate*/ 'Italian',
-/*@translate*/ 'Japanese',
-/*@translate*/ 'Javanese',
-/*@translate*/ 'Kannada',
-/*@translate*/ 'Kazakh',
-/*@translate*/ 'Kirghiz',
-/*@translate*/ 'Kongo/Kikongo',
-/*@translate*/ 'Korean',
-/*@translate*/ 'Kurdish',
-/*@translate*/ 'Lao',
-/*@translate*/ 'Latvian',
-/*@translate*/ 'Limburgish/Limburgian/Limburgic',
-/*@translate*/ 'Lingala',
-/*@translate*/ 'Lithuanian',
-/*@translate*/ 'Luxembourgish',
-/*@translate*/ 'Macedonian',
-/*@translate*/ 'Malagasy',
-/*@translate*/ 'Malay',
-/*@translate*/ 'Malayalam',
-/*@translate*/ 'Maltese',
-/*@translate*/ 'Manx',
-/*@translate*/ 'Marathi',
-/*@translate*/ 'Moldavian',
-/*@translate*/ 'Mongolian',
-/*@translate*/ 'Nepali',
-/*@translate*/ 'Norwegian',
-/*@translate*/ 'Norwegian (Bokmal)',
-/*@translate*/ 'Norwegian (Nynorsk)',
-/*@translate*/ 'Pashto',
-/*@translate*/ 'Persian',
-/*@translate*/ 'Polish',
-/*@translate*/ 'Portuguese',
-/*@translate*/ 'Punjabi',
-/*@translate*/ 'Raeto-Romance',
-/*@translate*/ 'Romani',
-/*@translate*/ 'Romanian',
-/*@translate*/ 'Russian',
-/*@translate*/ 'Sami',
-/*@translate*/ 'Sardinian',
-/*@translate*/ 'Serbian',
-/*@translate*/ 'Sindhi',
-/*@translate*/ 'Slovak',
-/*@translate*/ 'Slovenian',
-/*@translate*/ 'Somali',
-/*@translate*/ 'Spanish',
-/*@translate*/ 'Swahili',
-/*@translate*/ 'Swedish',
-/*@translate*/ 'Tagalog',
-/*@translate*/ 'Tahitian',
-/*@translate*/ 'Tajik',
-/*@translate*/ 'Tamil',
-/*@translate*/ 'Tatar',
-/*@translate*/ 'Telugu',
-/*@translate*/ 'Thai',
-/*@translate*/ 'Tibetan',
-/*@translate*/ 'Turkish',
-/*@translate*/ 'Turkmen',
-/*@translate*/ 'Ukrainian',
-/*@translate*/ 'Urdu',
-/*@translate*/ 'Uzbek',
-/*@translate*/ 'Vietnamese',
-/*@translate*/ 'Welsh',
-/*@translate*/ 'Western Frisian',
-/*@translate*/ 'Yiddish',
-/*@translate*/ 'Yoruba'            )
+                'value_options' => array(
+                        '' => /*@translate */ 'Other languages ...',
+            /*@translate*/ 'Abkhazian',
+            /*@translate*/ 'Afrikaans',
+            /*@translate*/ 'Albanian',
+            /*@translate*/ 'Amharic',
+            /*@translate*/ 'Arabic',
+            /*@translate*/ 'Armenian',
+            /*@translate*/ 'Assamese',
+            /*@translate*/ 'Azerbaijani',
+            /*@translate*/ 'Basque',
+            /*@translate*/ 'Belarusian',
+            /*@translate*/ 'Bengali',
+            /*@translate*/ 'Bosnian',
+            /*@translate*/ 'Breton',
+            /*@translate*/ 'Bulgarian',
+            /*@translate*/ 'Burmese',
+            /*@translate*/ 'Catalan/Valencian',
+            /*@translate*/ 'Chechen',
+            /*@translate*/ 'Chinese',
+            /*@translate*/ 'Cornish',
+            /*@translate*/ 'Corsican',
+            /*@translate*/ 'Croatian',
+            /*@translate*/ 'Czech',
+            /*@translate*/ 'Danish',
+            /*@translate*/ 'Dutch',
+            /*@translate*/ 'Estonian',
+            /*@translate*/ 'Faroese',
+            /*@translate*/ 'Fijian',
+            /*@translate*/ 'Finnish',
+            /*@translate*/ 'French',
+            /*@translate*/ 'Gaelic/Scottish Gaelic',
+            /*@translate*/ 'Galician',
+            /*@translate*/ 'Georgian',
+            /*@translate*/ 'German',
+            /*@translate*/ 'Greek',
+            /*@translate*/ 'Gujarati',
+            /*@translate*/ 'Haitian/Haitian Creole',
+            /*@translate*/ 'Hebrew',
+            /*@translate*/ 'Hindi',
+            /*@translate*/ 'Hungarian',
+            /*@translate*/ 'Icelandic',
+            /*@translate*/ 'Indonesian',
+            /*@translate*/ 'Irish',
+            /*@translate*/ 'Italian',
+            /*@translate*/ 'Japanese',
+            /*@translate*/ 'Javanese',
+            /*@translate*/ 'Kannada',
+            /*@translate*/ 'Kazakh',
+            /*@translate*/ 'Kirghiz',
+            /*@translate*/ 'Kongo/Kikongo',
+            /*@translate*/ 'Korean',
+            /*@translate*/ 'Kurdish',
+            /*@translate*/ 'Lao',
+            /*@translate*/ 'Latvian',
+            /*@translate*/ 'Limburgish/Limburgian/Limburgic',
+            /*@translate*/ 'Lingala',
+            /*@translate*/ 'Lithuanian',
+            /*@translate*/ 'Luxembourgish',
+            /*@translate*/ 'Macedonian',
+            /*@translate*/ 'Malagasy',
+            /*@translate*/ 'Malay',
+            /*@translate*/ 'Malayalam',
+            /*@translate*/ 'Maltese',
+            /*@translate*/ 'Manx',
+            /*@translate*/ 'Marathi',
+            /*@translate*/ 'Moldavian',
+            /*@translate*/ 'Mongolian',
+            /*@translate*/ 'Nepali',
+            /*@translate*/ 'Norwegian',
+            /*@translate*/ 'Norwegian (Bokmal)',
+            /*@translate*/ 'Norwegian (Nynorsk)',
+            /*@translate*/ 'Pashto',
+            /*@translate*/ 'Persian',
+            /*@translate*/ 'Polish',
+            /*@translate*/ 'Portuguese',
+            /*@translate*/ 'Punjabi',
+            /*@translate*/ 'Raeto-Romance',
+            /*@translate*/ 'Romani',
+            /*@translate*/ 'Romanian',
+            /*@translate*/ 'Russian',
+            /*@translate*/ 'Sami',
+            /*@translate*/ 'Sardinian',
+            /*@translate*/ 'Serbian',
+            /*@translate*/ 'Sindhi',
+            /*@translate*/ 'Slovak',
+            /*@translate*/ 'Slovenian',
+            /*@translate*/ 'Somali',
+            /*@translate*/ 'Spanish',
+            /*@translate*/ 'Swahili',
+            /*@translate*/ 'Swedish',
+            /*@translate*/ 'Tagalog',
+            /*@translate*/ 'Tahitian',
+            /*@translate*/ 'Tajik',
+            /*@translate*/ 'Tamil',
+            /*@translate*/ 'Tatar',
+            /*@translate*/ 'Telugu',
+            /*@translate*/ 'Thai',
+            /*@translate*/ 'Tibetan',
+            /*@translate*/ 'Turkish',
+            /*@translate*/ 'Turkmen',
+            /*@translate*/ 'Ukrainian',
+            /*@translate*/ 'Urdu',
+            /*@translate*/ 'Uzbek',
+            /*@translate*/ 'Vietnamese',
+            /*@translate*/ 'Welsh',
+            /*@translate*/ 'Western Frisian',
+            /*@translate*/ 'Yiddish',
+            /*@translate*/ 'Yoruba'            )
             ),
-        	'attributes' => array(
-        				'title' => /*@translate */ 'which language are you speeking',
-        	            'class' => 'language-select'
-        	)
-        ));
+            'attributes' => array(
+                        'title' => /*@translate */ 'which language are you speeking',
+                        'class' => 'language-select'
+            )
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'name' => 'levelListening',
-        	'type' => 'Zend\Form\Element\Select',
-        	'options' => array(
-        			'value_options' => array(
-        			        '' => /*@translate */ 'Understanding Listening ...',
-        					'a1' => /*@translate */ 'I can understand familiar words and very basic phrases concerning myself, my family and immediate concrete surroundings when people speak slowly and clearly.',
-        					'a2' => /*@translate */ 'I can understand phrases and the highest frequency vocabulary related to areas of most immediate personal relevance (e.g. very basic personal and family information, shopping, local area, employment). I can catch the main point in short, clear, simple messages and announcements.',
-        					'b1' => /*@translate */ 'I can understand the main points of clear standard speech on familiar matters regularly encountered in work, school, leisure, etc. I can understand the main point of many radio or TV programmes on current affairs or topics of personal or professional interest when the delivery is relatively slow and clear.',
-        					'b2' => /*@translate */ 'I can understand extended speech and lectures and follow even complex lines of argument provided the topic is reasonably familiar. I can understand most TV news and current affairs programmes. I can understand the majority of films in standard dialect.',
-        					'c1' => /*@translate */ 'I can understand extended speech even when it is not clearly structured and when relationships are only implied and not signalled explicitly. I can understand television programmes and films without too much effort.',
-        					'c2' => /*@translate */ 'I have no difficulty in understanding any kind of spoken language, whether live or broadcast, even when delivered at fast native speed, provided I have some time to get familiar with the accent.',
-        			)
-        	),
-        	'attributes' => array(
-        			'title' => /*@translate */ 'level',
-        	        'class' => 'level-select'
-        	)
-        		
-        ));
+            'type' => 'Zend\Form\Element\Select',
+            'options' => array(
+                    'value_options' => array(
+                            '' => /*@translate */ 'Understanding Listening ...',
+                            'a1' => /*@translate */ 'I can understand familiar words and very basic phrases concerning myself, my family and immediate concrete surroundings when people speak slowly and clearly.',
+                            'a2' => /*@translate */ 'I can understand phrases and the highest frequency vocabulary related to areas of most immediate personal relevance (e.g. very basic personal and family information, shopping, local area, employment). I can catch the main point in short, clear, simple messages and announcements.',
+                            'b1' => /*@translate */ 'I can understand the main points of clear standard speech on familiar matters regularly encountered in work, school, leisure, etc. I can understand the main point of many radio or TV programmes on current affairs or topics of personal or professional interest when the delivery is relatively slow and clear.',
+                            'b2' => /*@translate */ 'I can understand extended speech and lectures and follow even complex lines of argument provided the topic is reasonably familiar. I can understand most TV news and current affairs programmes. I can understand the majority of films in standard dialect.',
+                            'c1' => /*@translate */ 'I can understand extended speech even when it is not clearly structured and when relationships are only implied and not signalled explicitly. I can understand television programmes and films without too much effort.',
+                            'c2' => /*@translate */ 'I have no difficulty in understanding any kind of spoken language, whether live or broadcast, even when delivered at fast native speed, provided I have some time to get familiar with the accent.',
+                    )
+            ),
+            'attributes' => array(
+                    'title' => /*@translate */ 'level',
+                    'class' => 'level-select'
+            )
+                
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
                 'name' => 'levelReading',
                 'type' => 'Zend\Form\Element\Select',
                 'options' => array(
@@ -176,9 +181,11 @@ class LanguageFieldset extends Fieldset
                         'class' => 'level-select'
                 )
         
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
                 'name' => 'levelSpokenInteraction',
                 'type' => 'Zend\Form\Element\Select',
                 'options' => array(
@@ -197,9 +204,11 @@ class LanguageFieldset extends Fieldset
                         'class' => 'level-select'
                 )
         
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
                 'name' => 'levelSpokenProduction',
                 'type' => 'Zend\Form\Element\Select',
                 'options' => array(
@@ -219,9 +228,11 @@ class LanguageFieldset extends Fieldset
                         'class' => 'level-select'
                 )
         
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
                 'name' => 'levelWriting',
                 'type' => 'Zend\Form\Element\Select',
                 'options' => array(
@@ -241,10 +252,10 @@ class LanguageFieldset extends Fieldset
                         'class' => 'level-select'
                 )
         
-        ));
+            )
+        );
         
         
                
     }
-    
 }

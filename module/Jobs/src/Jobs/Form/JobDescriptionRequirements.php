@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,19 +36,23 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
     public function init()
     {
         $this->setName('jobs-form-requirements');
-        $this->setAttributes(array(
+        $this->setAttributes(
+            array(
             'id' => 'jobs-form-requirements',
             'data-handle-by' => 'yk-form'
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'TextEditor',
             'name' => 'description-requirements',
             'options' => array(
                 'use_as_base_fieldset' => true,
                 'placeholder' => 'Requirements'
             ),
-        ));
+            )
+        );
 
 
     }
@@ -65,6 +69,4 @@ class JobDescriptionRequirements extends Form implements InputFilterProviderInte
             )
         );
     }
-
-
 }

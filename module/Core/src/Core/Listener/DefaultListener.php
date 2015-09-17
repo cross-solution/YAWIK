@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -21,12 +21,14 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
 {
     protected $serviceLocator;
 
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceLocator = $serviceManager;
         return $this;
     }
 
-    public function getServiceManager() {
+    public function getServiceManager()
+    {
         return $this->serviceLocator;
     }
 
@@ -52,9 +54,9 @@ class DefaultListener implements ListenerAggregateInterface, ServiceManagerAware
      *
      * YAWIK/bin$ ./console applications cleanup
      */
-    public function postDispatch(MvcEvent $e) {
+    public function postDispatch(MvcEvent $e)
+    {
        // $view = $this->getServiceManager()->get('view');
 
     }
-
 }

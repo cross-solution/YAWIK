@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** AttachmentsFieldset.php */ 
+/** AttachmentsFieldset.php */
 namespace Applications\Form;
 
 use Core\Form\DisableElementsCapableInterface;
@@ -17,13 +17,15 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Fieldset for base informations of an application.
- * 
+ *
  * Currently, this is only the freetext summary.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, EmptySummaryAwareInterface,
-                                               InputFilterProviderInterface
+class BaseFieldset extends Fieldset implements
+    DisableElementsCapableInterface,
+    EmptySummaryAwareInterface,
+    InputFilterProviderInterface
 {
     /**
      * The empty summary notice.
@@ -37,7 +39,8 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
              ->setName('base');
              
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'textarea',
             'name' => 'summary',
             'options' => array(
@@ -45,7 +48,8 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
                 //'label' => /*@translate*/ 'Summary',
                 'is_disable_capable' => false,
             ),
-        ));
+            )
+        );
     }
     
     public function isSummaryEmpty()
@@ -117,4 +121,3 @@ class BaseFieldset extends Fieldset implements DisableElementsCapableInterface, 
         return $this;
     }
 }
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -16,7 +16,8 @@ use Core\Entity\Hydrator\EntityHydrator;
  * Class SnapshotGenerator
  * @package Core\Service
  */
-class SnapshotGenerator {
+class SnapshotGenerator
+{
 
     /**
      * @var
@@ -79,5 +80,4 @@ class SnapshotGenerator {
         $data = $hydrator->extract($source);
         return $data;
     }
-
-} 
+}

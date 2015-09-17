@@ -7,13 +7,14 @@
  * @license   MIT
  */
 
-/** Config.php */ 
+/** Config.php */
 namespace Acl;
 
 use Zend\Permissions\Acl\AclInterface;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
 use Acl\Assertion\AssertionManager;
+
 class Config
 {
     
@@ -98,7 +99,7 @@ class Config
                         'privilege' => '__ALL__' == $assertion ? null : $assertion,
                         'assertion' => null,
                     );
-                    continue; 
+                    continue;
                 }
                 if (is_string($assertion)) {
                     $assertionInstance = $this->assertions->get($assertion);
@@ -121,14 +122,14 @@ class Config
      */
     public function configureAcl(AclInterface $acl)
     {
-        foreach ($this->getRoles()as $roleId => $parents) {
+        foreach ($this->getRoles() as $roleId => $parents) {
             $acl->addRole(new GenericRole($roleId), $parents);
             
             foreach ($this->getRules($roleId, 'allow') as $spec) {
                 if (!$acl->hasResource($spec['resource'])) {
                     $acl->addResource(new GenericResource($spec['resource']));
                 }
-                $acl->allow($roleId, $spec['resource'], $spec['privilege'], $spec['assertion']);            
+                $acl->allow($roleId, $spec['resource'], $spec['privilege'], $spec['assertion']);
             }
             
             foreach ($this->getRules($roleId, 'deny') as $spec) {
@@ -142,4 +143,3 @@ class Config
         return $acl;
     }
 }
-

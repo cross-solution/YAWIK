@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** JobReferencesUpdateListener.php */ 
+/** JobReferencesUpdateListener.php */
 namespace Applications\Repository\Event;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -23,7 +23,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
 {
     /**
      * Gets events
-     * 
+     *
      * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
      */
     public function getSubscribedEvents()
@@ -33,7 +33,7 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
     
     /**
      * Updates fiile permissions on Flush
-     * 
+     *
      * @param OnFlushEventArgs $eventArgs
      * @return boolean
      */
@@ -42,9 +42,9 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
         $dm  = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
         
-        $filter = function($element) { 
-            return $element instanceOf ApplicationInterface
-                   && $element->getPermissions()->hasChanged(); 
+        $filter = function ($element) {
+            return $element instanceof ApplicationInterface
+                   && $element->getPermissions()->hasChanged();
         };
         
         $inserts = array_filter($uow->getScheduledDocumentInsertions(), $filter);
@@ -60,7 +60,8 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                                ->inherit($permissions);
                     if ($isUpdate) {
                         $uow->computeChangeSet(
-                            $dm->getClassMetadata(get_class($attachment)), $attachment
+                            $dm->getClassMetadata(get_class($attachment)),
+                            $attachment
                         );
                     }
                 }
@@ -71,7 +72,8 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
                           ->inherit($permissions);
                     if ($isUpdate) {
                         $uow->computeChangeSet(
-                            $dm->getClassMetadata(get_class($image)), $image
+                            $dm->getClassMetadata(get_class($image)),
+                            $image
                         );
                     }
                 }
@@ -79,4 +81,3 @@ class UpdateFilesPermissionsSubscriber implements EventSubscriber
         }
     }
 }
-

@@ -24,21 +24,21 @@ use Auth\Entity\AnonymousUser;
 /**
  * The application. This document holds the complete application. It references all attached data like
  * attachments, ratings, status changes. etc.
- * 
+ *
  * @author mathias
  *
- * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application") 
+ * @ODM\Document(collection="applications", repositoryClass="Applications\Repository\Application")
  * @ODM\HasLifecycleCallbacks
  */
-class Application extends AbstractIdentifiableModificationDateAwareEntity 
-                  implements ApplicationInterface, 
-                             ResourceInterface,
-                             DraftableEntityInterface
+class Application extends AbstractIdentifiableModificationDateAwareEntity implements
+    ApplicationInterface,
+    ResourceInterface,
+    DraftableEntityInterface
 {
    
     /**
      * Refering job
-     * 
+     *
      * @var JobInterface
      * @ODM\ReferenceOne(targetDocument="Jobs\Entity\Job", simple=true, inversedBy="applications")
      * @ODM\Index
@@ -58,14 +58,14 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * Status of an application.
-     * 
+     *
      * @var StatusInterface
      * @ODM\EmbedOne(targetDocument="Status")
      */
     protected $status;
     
     /**
-     * personal informations, contains firstname, lastname, email, 
+     * personal informations, contains firstname, lastname, email,
      * phone etc.
      *
      * @ODM\EmbedOne(targetDocument="Contact")
@@ -74,7 +74,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * The cover letter of an application
-     * 
+     *
      * @var String
      * @ODM\String
      */
@@ -98,14 +98,14 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
 
     /**
      * multiple Attachments of an application
-     * 
+     *
      * @ODM\ReferenceMany(targetDocument="Attachment", simple="true", cascade={"persist", "remove"})
      */
     protected $attachments;
     
     /**
      * Searchable keywords.
-     * 
+     *
      * @var array
      * @ODM\Collection
      */
@@ -113,7 +113,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * History on an application
-     * 
+     *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="History")
      */
@@ -122,7 +122,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     /**
      * Who has opened the detail view of the application. Contains an array of user ids, which has read this
      * application.
-     * 
+     *
      * @var array
      * @ODM\Collection
      */
@@ -130,7 +130,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      
     /**
      * Refering subscriber (Where did the application origin from).
-     * 
+     *
      * @ODM\ReferenceOne(targetDocument="Subscriber", cascade={"persist"}, simple=true)
      */
     protected $subscriber;
@@ -138,7 +138,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * Recruiters can comment an application.
-     * 
+     *
      * @var Collection
      * @ODM\EmbedMany(targetDocument="Comment")
      */
@@ -146,7 +146,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * Average rating from all comments.
-     * 
+     *
      * @var int
      * @ODM\Int
      */
@@ -154,7 +154,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * Assigned permissions.
-     * 
+     *
      * @var PermissionsInterface
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
@@ -162,15 +162,15 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * Internal references (DB denaturalism)
-     *  
-     * @var InternalReferences 
+     *
+     * @var InternalReferences
      * @ODM\EmbedOne(targetDocument="InternalReferences")
      */
     protected $refs;
     
     /**
      * Collection of social network profiles.
-     * 
+     *
      * @var Collection
      * @see \Auth\Entity\SocialProfiles\ProfileInterface
      * @ODM\EmbedMany(discriminatorField="_entity")
@@ -180,10 +180,10 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * Flag indicating draft state of this application.
-     * 
+     *
      * @var bool
      * @ODM\Boolean
-     */    
+     */
     protected $isDraft = false;
     
     /**
@@ -200,7 +200,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @ODM\PrePersist
      */
     public function recalculateRatings()
-    { 
+    {
         // Compute rating value.
         // @todo Need to know weather comments has changed or not.
         // Unfortunately, persistent collection gets no dirty flag,
@@ -209,7 +209,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         // the database (which still does not neccessarly mean, there are changes...
 
         $comments = $this->getComments();
-        if ( $comments instanceOf ArrayCollection // new Comments
+        if ($comments instanceof ArrayCollection // new Comments
             || $comments->isInitialized() // Comments were loaded and eventually changed (we do not know)
             || $comments->isDirty() // new Comments added w/o initializing
         ) {
@@ -229,7 +229,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see \Core\Entity\DraftableEntityInterface::isDraft()
      */
     public function isDraft()
@@ -249,7 +249,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see \Applications\Entity\ApplicationInterface::getJob()
      */
     public function getJob()
@@ -259,7 +259,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * @return \Applications\Entity\Application
      */
     public function setJob(JobInterface $job)
@@ -273,7 +273,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * @return Application
      * @see \Applications\Entity\ApplicationInterface::setUser()
      */
@@ -289,7 +289,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see \Applications\Entity\ApplicationInterface::getUser()
      */
     public function getUser()
@@ -298,20 +298,20 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     }
     
     /**
-     * 
+     *
      * @ODM\PrePersist
      * @ODM\PreUpdate
      */
     public function prependPersistingAnonymousUser()
     {
-        if ($this->user instanceOf AnonymousUser) {
+        if ($this->user instanceof AnonymousUser) {
             $this->__anonymousUser__ = $this->user;
             $this->user = null;
         }
     }
     
     /**
-     * 
+     *
      * @ODM\PostPersist
      * @ODM\PostUpdate
      */
@@ -330,18 +330,18 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function setStatus($status)
     {
-        if (!$status instanceOf Status) {
+        if (!$status instanceof Status) {
             $status = new Status($status);
-        } 
+        }
         $this->status = $status;
         return $this;
     }
     
     /**
      * Modifies the state of an application.
-     * 
+     *
      * Creates a history entry.
-     * 
+     *
      * @param StatusInterface|string $status
      * @param string $message
      * @return Application
@@ -366,23 +366,23 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         return $this->status;
     }
     
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::getContact()
-	 */
-    public function getContact ()
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getContact()
+     */
+    public function getContact()
     {
         return $this->contact;
     }
 
-	/**
-	 * {@inheritDoc}
-	 * @see ApplicationInterface::setContact()
-	 * @return Application
+    /**
+     * {@inheritDoc}
+     * @see ApplicationInterface::setContact()
+     * @return Application
      */
-    public function setContact (InfoInterface $contact)
+    public function setContact(InfoInterface $contact)
     {
-        if (!$contact instanceOf Contact) {
+        if (!$contact instanceof Contact) {
             $contact = new Contact($contact);
         }
         $this->contact = $contact;
@@ -432,98 +432,98 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @see \Applications\Entity\ApplicationInterface::setCv()
      * @return Application
      */
-	public function setCv(CvInterface $cv)
-	{
-	    $this->cv = $cv;
-	    return $this;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::getCv()
-	 */
-	public function getCv()
-	{
-	    if (is_null($this->cv)){
-	        $this->cv= new Cv();
-	    }
-	    return $this->cv;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::setAttachments()
-	 * @return Application
-	 */
-	public function setAttachments(Collection $attachments)
-	{
-	    $this->attachments = $attachments;
-	    return $this;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::getAttachments()
-	 */
-	public function getAttachments()
-	{
-	    if (!$this->attachments) {
-	        $this->setAttachments(new ArrayCollection());
-	    }
-	    return $this->attachments;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::setProfiles()
-	 * @return Application
-	 */
-	public function setProfiles(Collection $profiles)
-	{
-	    $this->profiles = $profiles;
-	    return $this;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::getProfiles()
-	 */
-	public function getProfiles()
-	{
-	    if (!$this->profiles) {
-	        $this->setProfiles(new ArrayCollection());
-	    }
-	    return $this->profiles;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::setHistory()
-	 * @return Application
-	 */
-	public function setHistory(Collection $history)
-	{
-	    $this->history = $history;
-	    return $this;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::getHistory()
-	 */
-	public function getHistory()
-	{
-            if (Null == $this->history) {
-                $this->setHistory(new ArrayCollection());
-            }
-	    return $this->history;
-	}
+    public function setCv(CvInterface $cv)
+    {
+        $this->cv = $cv;
+        return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getCv()
+     */
+    public function getCv()
+    {
+        if (is_null($this->cv)) {
+            $this->cv= new Cv();
+        }
+        return $this->cv;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setAttachments()
+     * @return Application
+     */
+    public function setAttachments(Collection $attachments)
+    {
+        $this->attachments = $attachments;
+        return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getAttachments()
+     */
+    public function getAttachments()
+    {
+        if (!$this->attachments) {
+            $this->setAttachments(new ArrayCollection());
+        }
+        return $this->attachments;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setProfiles()
+     * @return Application
+     */
+    public function setProfiles(Collection $profiles)
+    {
+        $this->profiles = $profiles;
+        return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getProfiles()
+     */
+    public function getProfiles()
+    {
+        if (!$this->profiles) {
+            $this->setProfiles(new ArrayCollection());
+        }
+        return $this->profiles;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setHistory()
+     * @return Application
+     */
+    public function setHistory(Collection $history)
+    {
+        $this->history = $history;
+        return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::getHistory()
+     */
+    public function getHistory()
+    {
+        if (null == $this->history) {
+            $this->setHistory(new ArrayCollection());
+        }
+        return $this->history;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * @see \Applications\Entity\ApplicationInterface::setReadBy()
-	 * @return Application
-	 */
+    /**
+     * {@inheritDoc}
+     * @see \Applications\Entity\ApplicationInterface::setReadBy()
+     * @return Application
+     */
     public function setReadBy(array $userIds)
     {
         $this->readBy = $userIds;
@@ -546,7 +546,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function addReadBy($userOrId)
     {
-        if ($userOrId instanceOf UserInterface) {
+        if ($userOrId instanceof UserInterface) {
             $userOrId = $userOrId->getId();
         }
         if (!in_array($userOrId, $this->readBy)) {
@@ -559,7 +559,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::isUnreadBy()
      */
-    public function isUnreadBy($userOrId) 
+    public function isUnreadBy($userOrId)
     {
         return !$this->isReadBy($userOrId);
     }
@@ -570,7 +570,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      */
     public function isReadBy($userOrId)
     {
-        if ($userOrId instanceOf UserInterface) {
+        if ($userOrId instanceof UserInterface) {
             $userOrId = $userOrId->getId();
         }
         
@@ -581,7 +581,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getSubscriber()
      */
-    public function getSubscriber() {
+    public function getSubscriber()
+    {
         return $this->subscriber;
     }
     
@@ -590,7 +591,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @see \Applications\Entity\ApplicationInterface::setSubscriber()
      * @return Application
      */
-    public function setSubscriber(EntityInterface $subscriber) {
+    public function setSubscriber(EntityInterface $subscriber)
+    {
         $this->subscriber = $subscriber;
         return $this;
     }
@@ -616,7 +618,8 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
      * @see \Core\Entity\PermissionsAwareInterface::setPermissions()
      * @return Application
      */
-    public function setPermissions(PermissionsInterface $permissions) {
+    public function setPermissions(PermissionsInterface $permissions)
+    {
         $this->permissions = $permissions;
         return $this;
     }
@@ -698,7 +701,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
     }
     
     /**
-     * 
+     *
      * @return String
      */
     public function getCommentsMessage()
@@ -743,5 +746,4 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity
         }
         return $this->attributes;
     }
-    
 }

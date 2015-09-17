@@ -10,7 +10,6 @@ use Auth\Exception\UnauthorizedAccessException;
 use Zend\Http\PhpEnvironment\Response;
 use Auth\Exception\UnauthorizedImageAccessException;
 
-
 class UnauthorizedAccessListener extends ExceptionStrategy
 {
 
@@ -42,7 +41,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         // Do nothing if there is no exception or the exception is not
         // an UnauthorizedAccessException
         $exception = $e->getParam('exception');
-        if (!$exception instanceOf UnauthorizedAccessException) {
+        if (!$exception instanceof UnauthorizedAccessException) {
             return;
         }
       
@@ -55,8 +54,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
         /*
          * Return an image, if an image was requested.
          */
-        if ($exception instanceOf UnauthorizedImageAccessException) {
-            
+        if ($exception instanceof UnauthorizedImageAccessException) {
             $image = __DIR__ . '/../../../../../public/images/unauthorized-access.png';
             $response->setStatusCode(403)
                      ->setContent(file_get_contents($image))
@@ -80,7 +78,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             $routeMatch->setParam('action', 'index');
             $query = $e->getRequest()->getQuery();
             $ref = $e->getRequest()->getRequestUri();
-            $ref = preg_replace('~^' . preg_quote($e->getRouter()->getBaseUrl()) . '~' , '', $ref);
+            $ref = preg_replace('~^' . preg_quote($e->getRouter()->getBaseUrl()) . '~', '', $ref);
             $query->set('ref', $ref);
             $query->set('req', 1);
             $result = $e->getApplication()->getEventManager()->trigger('dispatch', $e);
@@ -88,13 +86,15 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             return $result;
         }
         $message = $exception->getMessage();
-        $model = new ViewModel(array(
+        $model = new ViewModel(
+            array(
             'message'            => empty($message)
                                     ? /*@translate*/ 'You are not permitted to access this resource.'
                                     : $message,
             'exception'          => $e->getParam('exception'),
             'display_exceptions' => $this->displayExceptions(),
-        ));
+            )
+        );
 
         $model->setTemplate($this->getExceptionTemplate());
         $e->setResult($model);
@@ -106,5 +106,4 @@ class UnauthorizedAccessListener extends ExceptionStrategy
     
 
     }
-    
 }

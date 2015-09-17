@@ -23,12 +23,13 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
  *
  * @package Jobs\Entity
  */
-interface JobInterface extends EntityInterface,
-                               IdentifiableEntityInterface,
-                               ModificationDateAwareEntityInterface, 
-                               SearchableEntityInterface,
-                               PermissionsAwareInterface,
-                               ResourceInterface
+interface JobInterface extends
+    EntityInterface,
+    IdentifiableEntityInterface,
+    ModificationDateAwareEntityInterface,
+    SearchableEntityInterface,
+    PermissionsAwareInterface,
+    ResourceInterface
 {
 
     /**
@@ -83,7 +84,7 @@ interface JobInterface extends EntityInterface,
      * Gets an URI for a job posting
      *
      * @return string
-     */    
+     */
     public function getLink();
 
     /**
@@ -155,7 +156,7 @@ interface JobInterface extends EntityInterface,
 
     /**
      * Gets the organisation, which offers the job posting
-     * 
+     *
      * @return OrganizationInterface
      */
 
@@ -163,7 +164,7 @@ interface JobInterface extends EntityInterface,
     
     /**
      * Sets the organization, which offers the job
-     * 
+     *
      * @param OrganizationInterface $organization
      * @return JobInterface
      */
@@ -275,7 +276,7 @@ interface JobInterface extends EntityInterface,
 
     /**
      * Sets applications for a job posting
-     * 
+     *
      * @param Collection $applications
      */
     public function setApplications(Collection $applications);
@@ -360,5 +361,4 @@ interface JobInterface extends EntityInterface,
      * @return Array
      */
     public function getPortals();
-
 }

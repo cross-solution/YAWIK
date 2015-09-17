@@ -6,7 +6,8 @@ use Zend\Paginator\Adapter\AdapterInterface;
 
 class MongoCursor implements AdapterInterface
 {
-    public function __construct($cursor, $builder) {
+    public function __construct($cursor, $builder)
+    {
         $this->cursor = $cursor;
         $this->builder = $builder;
     }

@@ -79,8 +79,9 @@ class MailService extends AbstractPluginManager
         parent::__construct($configuration);
         $self = $this;
 
-        $this->addInitializer(function ($instance) use ($self) {
-                if ($instance instanceOf TranslatorAwareInterface) {
+        $this->addInitializer(
+            function ($instance) use ($self) {
+                if ($instance instanceof TranslatorAwareInterface) {
                     $translator = $self->getServiceLocator()->get('translator');
                     $instance->setTranslator($translator);
                     if (null === $instance->getTranslatorTextDomain()) {
@@ -91,11 +92,13 @@ class MailService extends AbstractPluginManager
             }, /*topOfStack*/
             false
         );
-        $this->addInitializer(function ($instance) {
+        $this->addInitializer(
+            function ($instance) {
                 if (method_exists($instance, 'init')) {
                     $instance->init();
                 }
-            }, false
+            },
+            false
         );
 
     }
@@ -107,11 +110,13 @@ class MailService extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if (!$plugin instanceOf Message) {
-            throw new \InvalidArgumentException(sprintf(
-                                                    'Expected instance of \Zend\Mail\Message but received %s',
-                                                    get_class($plugin)
-                                                ));
+        if (!$plugin instanceof Message) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Expected instance of \Zend\Mail\Message but received %s',
+                    get_class($plugin)
+                )
+            );
         }
     }
 
@@ -166,7 +171,7 @@ class MailService extends AbstractPluginManager
      */
     public function send($mail, array $options = array())
     {
-        if (!$mail instanceOf Message) {
+        if (!$mail instanceof Message) {
             $mail = $this->get($mail, $options);
         }
 
@@ -248,4 +253,3 @@ class MailService extends AbstractPluginManager
         return $this;
     }
 }
-

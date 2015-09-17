@@ -39,8 +39,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
             'pt' => 'pt',
             'ar' => 'ar',
             'zh' => 'zh'
-	);
-		
+    );
+        
     /**
      * Attach to an event manager
      *
@@ -70,7 +70,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
 
     /**
      * Listen to the "route" event
-     * 
+     *
      * @param  MvcEvent $e
      * @return null
      */
@@ -99,11 +99,11 @@ class LanguageRouteListener implements ListenerAggregateInterface
 
     public function onDispatchError(MvcEvent $e)
     {
-        if ($e->getRequest() instanceOf \Zend\Console\Request 
+        if ($e->getRequest() instanceof \Zend\Console\Request
             || Application::ERROR_ROUTER_NO_MATCH != $e->getError()
         ) {
             return;
-        } 
+        }
         
         $router = $e->getRouter();
         $basePath=$router->getBaseUrl();
@@ -142,8 +142,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $request = clone $e->getRequest(); // clone the request, because maybe we
         $origUri = str_replace($basePath, '', $request->getRequestUri());
         $lang = $this->detectLanguage($e);
-        $langUri = rtrim("$basePath/$lang$origUri", '/');        
-        if ($router->match($request->setUri($langUri)) instanceOf RouteMatch) {
+        $langUri = rtrim("$basePath/$lang$origUri", '/');
+        if ($router->match($request->setUri($langUri)) instanceof RouteMatch) {
             $e->stopPropagation(true);
             //$e->setError(false);
             return $this->redirect($e->getResponse(), $langUri);
@@ -211,7 +211,9 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $translator = $e->getApplication()->getServiceManager()->get('translator');
         $locale = $this->availableLanguages[$lang];
         
-        setlocale(LC_ALL, array(
+        setlocale(
+            LC_ALL,
+            array(
             $locale . ".utf8",
             $locale . ".iso88591",
             $locale,
@@ -219,7 +221,8 @@ class LanguageRouteListener implements ListenerAggregateInterface
             'de_DE.utf8',
             'de_DE',
             'de'
-        ));
+            )
+        );
         Locale::setDefault($locale);
         $translator->setLocale($locale);
         $routeMatch = $e->getRouteMatch();
@@ -229,6 +232,4 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $e->getRouter()->setDefaultParam('lang', $lang);
         
     }
-    
-    
 }

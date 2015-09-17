@@ -38,7 +38,10 @@ class AjaxRenderListener implements ListenerAggregateInterface
          * run before injectViewModelListener
          */
         $this->sharedListeners[] = $events->getSharedManager()->attach(
-            'Zend\Stdlib\DispatchableInterface', MvcEvent::EVENT_DISPATCH, $callback, -95
+            'Zend\Stdlib\DispatchableInterface',
+            MvcEvent::EVENT_DISPATCH,
+            $callback,
+            -95
         );
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, $callback, -95);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, $callback, -95);
@@ -63,13 +66,13 @@ class AjaxRenderListener implements ListenerAggregateInterface
                 unset($this->sharedListeners[$index]);
             }
         }
-    } 
+    }
     
     public function injectAjaxTemplate(MvcEvent $e)
     {
         if ($e->getRequest()->isXmlHttpRequest()) {
             $viewModel = $e->getResult();
-            if ($viewModel instanceOf JsonModel) {
+            if ($viewModel instanceof JsonModel) {
                 return;
             }
             $resolver = $e->getApplication()->getServiceManager()->get('ViewResolver');
@@ -82,7 +85,7 @@ class AjaxRenderListener implements ListenerAggregateInterface
                 $viewModel->setTemplate($template);
             } else {
                 $viewModel->setVariable('isAjaxRequest', true);
-            } 
+            }
             /*
              * Disable layout. This works because InjectViewModelListener is executed after us.
              */

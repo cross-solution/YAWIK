@@ -18,13 +18,15 @@ use Core\Form\Container;
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Organizations extends Container {
+class Organizations extends Container
+{
 
     public function init()
     {
         $this->setName('application-comment-form');
 
-        $this->setForms(array(
+        $this->setForms(
+            array(
             'nameForm' => array(
                 'type' => 'Organizations/OrganizationsNameForm',
                 'property' => true,
@@ -68,6 +70,7 @@ class Organizations extends Container {
                 ),
             ),
 
-        ));
+            )
+        );
     }
 }

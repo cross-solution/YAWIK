@@ -850,4 +850,3 @@ translate('Overview');
 
 //: ./config/module.config.php:119
 translate('Create resume');
-

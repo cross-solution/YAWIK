@@ -32,6 +32,8 @@ class RegisterFactory implements FactoryInterface
         $captchaConfig = isset($config['captcha']) ? $config['captcha'] : array();
 
         $form = new Register(null, array('captcha' => $captchaConfig));
+        $form->setAttribute('id', 'registration');
+
         $form->setInputfilter($filter);
 
         return $form;

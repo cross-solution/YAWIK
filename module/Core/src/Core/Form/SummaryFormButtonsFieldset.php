@@ -2,7 +2,6 @@
 
 namespace Core\Form;
 
-
 class SummaryFormButtonsFieldset extends ButtonsFieldset
 {
     
@@ -16,7 +15,8 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         }
         $this->setAttribute('class', 'text-right');
         
-        $this->add(array(
+        $this->add(
+            array(
             //'type' => 'Button',
             'type' => 'Core/Spinner-Submit',
             'name' => 'submit',
@@ -29,9 +29,11 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'value' => 'Save',
                 'class' => 'sf-submit btn btn-primary btn-xs'
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Button',
             'name' => 'cancel',
             'options' => array(
@@ -43,10 +45,11 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
                 'value' => 'Cancel',
                 'class' => 'sf-cancel btn btn-default btn-xs'
             ),
-        ));
+            )
+        );
     }
     
-    public function setOptions($options) 
+    public function setOptions($options)
     {
         if (!isset($options['render_summary'])) {
             $options['render_summary'] = isset($this->options['render_summary'])
@@ -71,18 +74,18 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         return parent::setAttribute($key, $value);
     }
 
-   public function setFormId($formId)
-   {
-       $this->formId = $formId . '-';
+    public function setFormId($formId)
+    {
+        $this->formId = $formId . '-';
        
-       foreach ($this as $button) {
-           $button->setAttribute('id', $this->formId . $button->getAttribute('id'));
-       }
-       return $this;
-   }
+        foreach ($this as $button) {
+            $button->setAttribute('id', $this->formId . $button->getAttribute('id'));
+        }
+        return $this;
+    }
    
-   public function getFormId()
-   {
-       return substr($this->formId, 0, -1);
-   }
+    public function getFormId()
+    {
+        return substr($this->formId, 0, -1);
+    }
 }

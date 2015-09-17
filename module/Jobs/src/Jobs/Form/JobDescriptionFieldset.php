@@ -36,30 +36,36 @@ class JobDescriptionFieldset extends Fieldset
         $this->setLabel('Description');
 
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Texteditor',
             'name' => 'descriptionqualification',
             'options' => array(
                 'label' => /*@translate*/ 'Job qualification'
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Texteditor',
             'name' => 'descriptionbenefits',
             'options' => array(
                 'label' => /*@translate*/ 'Job benefits'
             ),
-        ));
+            )
+        );
 
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Texteditor',
             'name' => 'descriptionrequirements',
             'options' => array(
                 'label' => /*@translate*/ 'Job requirements'
             ),
-        ));
+            )
+        );
 
     }
 }

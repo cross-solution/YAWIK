@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -155,11 +155,13 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
     public function setVariables($variables, $overwrite = false)
     {
         if (!is_array($variables) && !$variables instanceof Traversable) {
-            throw \InvalidArgumentException(sprintf(
-                '%s: expects an array, or Traversable argument; received "%s"',
-                __METHOD__,
-                (is_object($variables) ? get_class($variables) : gettype($variables))
-            ));
+            throw \InvalidArgumentException(
+                sprintf(
+                    '%s: expects an array, or Traversable argument; received "%s"',
+                    __METHOD__,
+                    (is_object($variables) ? get_class($variables) : gettype($variables))
+                )
+            );
         }
 
         if ($overwrite) {
@@ -208,12 +210,14 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
      *
      * @return self
      */
-    public function setTemplate($template) {
+    public function setTemplate($template)
+    {
         $this->template = $template;
         return $this;
     }
 
-    public function getTemplate() {
+    public function getTemplate()
+    {
         return $this->template;
     }
 

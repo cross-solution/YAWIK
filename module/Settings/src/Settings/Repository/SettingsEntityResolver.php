@@ -7,11 +7,12 @@
  * @license   MIT
  */
 
-/** SettingsEntityResolver.php */ 
+/** SettingsEntityResolver.php */
 namespace Settings\Repository;
 
 use Settings\Entity\SettingsContainer;
 use Settings\Entity\InitializeAwareSettingsContainerInterface;
+
 class SettingsEntityResolver
 {
     protected $entityMap;
@@ -30,17 +31,18 @@ class SettingsEntityResolver
         $reflClass = new \ReflectionClass($class);
         
         if (!in_array('Settings\Entity\ModuleSettingsContainerInterface', $reflClass->getInterfaceNames())) {
-            throw new \DomainException(sprintf(
-                'Base settings entity %s must implement \Settings\Entity\ModuleSettingsContainerInterface',
-                $class
-            ));
+            throw new \DomainException(
+                sprintf(
+                    'Base settings entity %s must implement \Settings\Entity\ModuleSettingsContainerInterface',
+                    $class
+                )
+            );
         }
         
         $instance = $reflClass->newInstance($module);
-        if ($instance instanceOf InitializeAwareSettingsContainerInterface) {
+        if ($instance instanceof InitializeAwareSettingsContainerInterface) {
             $instance->init();
         }
         return $instance;
     }
 }
-

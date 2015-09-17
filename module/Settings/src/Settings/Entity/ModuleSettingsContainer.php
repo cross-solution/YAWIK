@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SettingsContainer.php */ 
+/** SettingsContainer.php */
 namespace Settings\Entity;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -35,7 +35,6 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
             
             $this->_module = $module;
         } else {
-            
             throw new \InvalidArgumentException('Module name is immutable, once it is set.');
         }
 
@@ -62,6 +61,4 @@ class ModuleSettingsContainer extends SettingsContainer implements ModuleSetting
                : null;
 
     }
-
 }
-

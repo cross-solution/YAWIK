@@ -18,7 +18,7 @@ use Organizations\Entity\OrganizationReference;
 
 /**
  * This listener creates and injects organization references to user entities.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.18
  */
@@ -38,7 +38,7 @@ class InjectOrganizationReferenceListener implements EventSubscriber
     {
         $document = $args->getDocument();
 
-        if ($document instanceOf UserInterface) {
+        if ($document instanceof UserInterface) {
             $repository = $args->getDocumentManager()->getRepository('Organizations\Entity\Organization');
             $userId  = $document->getId();
             $reference = new OrganizationReference($userId, $repository);

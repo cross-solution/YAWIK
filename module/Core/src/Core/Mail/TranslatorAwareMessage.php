@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** TranslatorAwareMessage.php */ 
+/** TranslatorAwareMessage.php */
 namespace Core\Mail;
 
 use Zend\I18n\Translator\TranslatorAwareInterface;
@@ -25,7 +25,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
      *
      * @return Translator
      */
-    public function getTranslator ()
+    public function getTranslator()
     {
         return $this->translator;
     }
@@ -33,7 +33,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::getTranslatorTextDomain()
      */
-    public function getTranslatorTextDomain ()
+    public function getTranslatorTextDomain()
     {
         return $this->translatorTextDomain;
     }
@@ -41,7 +41,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::hasTranslator()
      */
-    public function hasTranslator ()
+    public function hasTranslator()
     {
         return null !== $this->translator;
     }
@@ -49,7 +49,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::isTranslatorEnabled()
      */
-    public function isTranslatorEnabled ()
+    public function isTranslatorEnabled()
     {
         return $this->hasTranslator() && $this->translatorEnabled;
     }
@@ -57,7 +57,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslator()
      */
-    public function setTranslator (TranslatorInterface $translator = null, $textDomain = NULL)
+    public function setTranslator(TranslatorInterface $translator = null, $textDomain = null)
     {
         if ($translator) {
             $this->translator = $translator;
@@ -69,7 +69,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslatorEnabled()
      */
-    public function setTranslatorEnabled ($enabled = true)
+    public function setTranslatorEnabled($enabled = true)
     {
         $this->translatorEnabled = (bool) $enabled;
         return $this;
@@ -78,7 +78,7 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     /* (non-PHPdoc)
      * @see \Zend\I18n\Translator\TranslatorAwareInterface::setTranslatorTextDomain()
      */
-    public function setTranslatorTextDomain ($textDomain = 'default')
+    public function setTranslatorTextDomain($textDomain = 'default')
     {
         $this->translatorTextDomain = $textDomain;
         return $this;
@@ -112,13 +112,11 @@ class TranslatorAwareMessage extends Message implements TranslatorAwareInterface
     {
         $args       = func_get_args();
         $translator = $this->getTranslator();
-        $args       = array_slice($args,1);
+        $args       = array_slice($args, 1);
         $domain     = $this->getTranslatorTextDomain();
         $subject    = $translator->translate($formatString, $domain);
         array_unshift($args, $subject);
         $subject    = call_user_func_array('sprintf', $args);
         return parent::setSubject($subject);
     }
-
 }
-

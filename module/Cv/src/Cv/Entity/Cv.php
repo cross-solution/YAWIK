@@ -8,37 +8,36 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
 /**
- * 
+ *
  * @ODM\Document(collection="cvs", repositoryClass="\Cv\Repository\Cv")
  */
 class Cv extends AbstractIdentifiableEntity implements CvInterface
 {
     
     /**
-     * 
+     *
      * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
      */
     protected $user;
     
     /**
-     * 
+     *
      * @var EducationInterface
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Education")
      */
     protected $educations;
     
     /**
-     * 
+     *
      * @var EmploymentInterface
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Employment")
      */
     protected $employments;
     
     /**
-     * 
+     *
      * @var SkillInterface
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Skill")
      */
@@ -59,10 +58,10 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
         return $this;
     }
     
-	/**
+    /**
      * @return \Core\Entity\Collection\ArrayCollection
      */
-    public function getEducations ()
+    public function getEducations()
     {
         if (!$this->educations) {
             $this->setEducations(new ArrayCollection());
@@ -74,7 +73,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
      * @param CollectionInterface $educations
      * @return $this
      */
-    public function setEducations (CollectionInterface $educations)
+    public function setEducations(CollectionInterface $educations)
     {
         $this->educations = $educations;
         return $this;
@@ -83,7 +82,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     /**
      * @return \Core\Entity\Collection\ArrayCollection
      */
-    public function getEmployments ()
+    public function getEmployments()
     {
         if (!$this->employments) {
             $this->setEmployments(new ArrayCollection());
@@ -95,7 +94,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
      * @param CollectionInterface $employments
      * @return $this
      */
-    public function setEmployments (CollectionInterface $employments)
+    public function setEmployments(CollectionInterface $employments)
     {
         $this->employments = $employments;
         return $this;
@@ -104,21 +103,21 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     /**
      * @return \Core\Entity\Collection\ArrayCollection
      */
-    public function getSkills ()
+    public function getSkills()
     {
         if (!$this->skills) {
             $this->setSkills(new ArrayCollection());
         }
-    	return $this->skills;
+        return $this->skills;
     }
 
     /**
      * @param CollectionInterface $skills
      * @return $this
      */
-    public function setSkills (CollectionInterface $skills)
+    public function setSkills(CollectionInterface $skills)
     {
-    	$this->skills = $skills;
-    	return $this;
+        $this->skills = $skills;
+        return $this;
     }
 }

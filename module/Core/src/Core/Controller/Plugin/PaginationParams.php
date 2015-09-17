@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** SessionParams.php */ 
+/** SessionParams.php */
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
@@ -16,7 +16,7 @@ use Core\Repository\RepositoryInterface;
 
 /**
  * Manages pagination parameters in a session container.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class PaginationParams extends AbstractPlugin
@@ -24,12 +24,12 @@ class PaginationParams extends AbstractPlugin
     
     /**
      * Invoke object as function.
-     * 
+     *
      * if <i>$namespace</i> is given, proxies to {@link getParams}, if <i>$defaults</i>
      * is an array and not callable or proxises to {@link getList} in the other case.
-     * 
+     *
      * if called without arguments, returns itself.
-     * 
+     *
      * @param string|null $namespace
      * @param array|RepositoryInterface $defaults
      * @return \Core\Controller\Plugin\PaginationParams|Parameters|PaginationList
@@ -44,14 +44,14 @@ class PaginationParams extends AbstractPlugin
             return $this->getParams($namespace, $defaults);
         }
         
-        if ($defaults instanceOf RepositoryInterface || is_callable($defaults)) {
+        if ($defaults instanceof RepositoryInterface || is_callable($defaults)) {
             return $this->getList($namespace, $defaults);
         }
     }
     
     /**
      * Sets pagination params and stores them in the session.
-     * 
+     *
      * @param String $namespace
      * @param array|Parameters $params
      * @return \Core\Controller\Plugin\PaginationParams fluent interface
@@ -66,17 +66,17 @@ class PaginationParams extends AbstractPlugin
     
     /**
      * Retrieves pagination params.
-     * 
+     *
      * Automatically merges parameters stored in the session according to specs
      * provided.
-     * 
+     *
      * @param string $namespace Session namespace
      * @param array $defaults
      *      1. [paramName] => [defaultValue],
      *         Set default value if paramName is not present in params
      *      2. [paramName]
      *         Store paramName if it is present, do nothing if not.
-     *      
+     *
      * @return Parameters
      */
     public function getParams($namespace, $defaults)
@@ -100,7 +100,7 @@ class PaginationParams extends AbstractPlugin
             if (null === $value) {
                 if (isset($sessionParams[$key])) {
                     $params->set($key, $sessionParams[$key]);
-                } else if (null !== $default) {
+                } elseif (null !== $default) {
                     $params->set($key, $default);
                     $sessionParams[$key] = $default;
                     $changed = true;
@@ -123,12 +123,12 @@ class PaginationParams extends AbstractPlugin
     
     /**
      * Gets the list of ids.
-     * 
+     *
      * If no list is stored in the session, it will try to create one
      * using the given callback, which is either a RepositoryInterface or a
      * callable. In the first case, a method called "getPaginationList" will get called.
      * The stored parameters (or an empty array, if nothing is stored) will be passed.
-     * 
+     *
      * @param string $namespace
      * @param RepositoryInterface|callable $callback
      */
@@ -146,7 +146,7 @@ class PaginationParams extends AbstractPlugin
         
     /**
      * Get previous and next id from the list.
-     * 
+     *
      * @param string $namespace
      * @param RepositoryInterface|callable $callback
      * @param string $id Current application id
@@ -164,4 +164,3 @@ class PaginationParams extends AbstractPlugin
         );
     }
 }
-

@@ -26,17 +26,17 @@ use Core\ModuleManager\ModuleConfigLoader;
 
 /**
  * Make HTML to PDF
- * 
+ *
  */
 class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInterface
 {
-    CONST RENDER_FULL = 0;
-    CONST RENDER_WITHOUT_PDF = 1;
-    CONST RENDER_WITHOUT_ATTACHMENTS = 2;
+    const RENDER_FULL = 0;
+    const RENDER_WITHOUT_PDF = 1;
+    const RENDER_WITHOUT_ATTACHMENTS = 2;
     
     protected $serviceManager;
     
-    protected $viewResolverAttached = False;
+    protected $viewResolverAttached = false;
     
     protected $appendPDF = array();
     protected $appendImage = array();
@@ -44,7 +44,7 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
     
      /**
      * Loads module specific configuration.
-     * 
+     *
      * @return array
      */
     public function getConfig()
@@ -52,23 +52,30 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
         return ModuleConfigLoader::load(__DIR__ . '/config');
     }
     
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
         return $this;
     }
     
-    public function onBootstrap(MvcEvent $e) {
+    public function onBootstrap(MvcEvent $e)
+    {
         $eventManager = $e->getApplication()->getEventManager();
-        $eventManager->getSharedManager()->attach('Applications', 'application.detail.actionbuttons', function ($event) {
-            return 'pdf/application/details/button';
-        });
+        $eventManager->getSharedManager()->attach(
+            'Applications',
+            'application.detail.actionbuttons',
+            function ($event) {
+                return 'pdf/application/details/button';
+            }
+        );
     }
     
     /**
      * hook into the rendering for transformation of HTML to PDF
      * @param \Zend\EventManager\EventManagerInterface $events
      */
-    public function attach(EventManagerInterface $events) {
+    public function attach(EventManagerInterface $events)
+    {
         $events->attach(ViewEvent::EVENT_RENDERER_POST, array($this, 'cleanLayout'), 1);
         $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'attachPDFtransformer'), 10);
     }
@@ -78,34 +85,37 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
      * in here you could still decide, if you want to hook into the Rendering
      * @param \Zend\EventManager\EventManagerInterface $events
      */
-    public function attachMvc(EventManagerInterface $events) {
+    public function attachMvc(EventManagerInterface $events)
+    {
         $events->attach(MvcEvent::EVENT_RENDER, array($this, 'initializeViewHelper'), 100);
     }
     
     /**
      * hook into the Rendering of files
      * the manager to hook in is the viewhelper 'insertfiles'
-     * 
+     *
      * @param \Zend\Mvc\MvcEvent $e
      */
-    public function initializeViewHelper(MvcEvent $e) {
+    public function initializeViewHelper(MvcEvent $e)
+    {
         $viewhelperManager = $this->serviceManager->get('ViewhelperManager');
         if ($viewhelperManager->has('insertFile')) {
             $insertFile = $viewhelperManager->get('insertFile');
-            $insertFile->attach(FileEvent::GETFILE,  array($this, 'getFile'));
-            $insertFile->attach(FileEvent::RENDERFILE,  array($this, 'renderFile'));
-            $insertFile->attach(FileEvent::INSERTFILE,  array($this, 'collectFiles'));
+            $insertFile->attach(FileEvent::GETFILE, array($this, 'getFile'));
+            $insertFile->attach(FileEvent::RENDERFILE, array($this, 'renderFile'));
+            $insertFile->attach(FileEvent::INSERTFILE, array($this, 'collectFiles'));
         }
     }
     
     /**
      * proxy, in case that you just got a name and have to find the associated file-entity
      * maybe this is redundant and can be deprecated
-     * 
+     *
      * @param \Core\View\Helper\InsertFile\FileEvent $e
      * @return null
      */
-    public function getFile(FileEvent $e) {
+    public function getFile(FileEvent $e)
+    {
         $lastFileName = $e->getLastFileName();
         if (is_string($lastFileName)) {
             $repository = $this->serviceManager->get('repositories')->get('Applications/Attachment');
@@ -115,7 +125,7 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
                 $e->stopPropagation();
                 return $file;
             }
-            return Null;
+            return null;
         }
         // if it is not a string i do presume it is already a file-Object
         return $lastFileName;
@@ -126,11 +136,12 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
      * there is a lot which still can be done like outsorcing the HTML to a template,
      * or distinguish between different File Types,
      * at the moment we assume the $file is always an (sub-)instance of \Core\File\Entity
-     * 
+     *
      * @param \Core\View\Helper\InsertFile\FileEvent $e
      * @return string
      */
-    public function renderFile(FileEvent $e) {
+    public function renderFile(FileEvent $e)
+    {
         $file = $e->getLastFileObject();
         // assume it is of the class Core\Entity\FileEntity
         $return = '<div class="col-md-3"><a href="#attachment_' . $file->getId() . '">' . $file->getName() . '</a></div>' . PHP_EOL
@@ -156,11 +167,12 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
      * @param \Core\View\Helper\InsertFile\FileEvent|\Zend\View\ViewEvent $e
      * @return NULL
      */
-    public function collectFiles(FileEvent $e) {
+    public function collectFiles(FileEvent $e)
+    {
         $this->appendPDF = array();
         $files = $e->getAllFiles();
         foreach ($files as $name => $file) {
-            if (!empty($file) && $file instanceOf FileEntity) {
+            if (!empty($file) && $file instanceof FileEntity) {
                 if (0 === strpos($file->getType(), 'image')) {
                     $this->appendImage[] = $file;
                 }
@@ -169,26 +181,27 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
                 }
             }
         }
-        return Null;
+        return null;
     }
     
     /**
      * remove unwanted or layout related data
-     * 
+     *
      * basically you rake through the viewmodel for the data you want to use for your template,
      * this may not be optimal because you have to rely on the correct naming of the viewmodels
-     * 
+     *
      * if you get the data you want, you switch to the specific template by adding the conforming resolver
-     * 
+     *
      * @param \Zend\View\ViewEvent $e
      */
-    public function cleanLayout(ViewEvent $e) {
+    public function cleanLayout(ViewEvent $e)
+    {
         $result   = $e->getResult();
         $response = $e->getResponse();
         $model = $e->getModel();
         if ($model->hasChildren()) {
             $children = $model->getChildren();
-            $content = Null;
+            $content = null;
             foreach ($children as $child) {
                 if ($child->captureTo() == 'content') {
                     $content = $child;
@@ -198,8 +211,7 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
             if (!empty($content)) {
                 $e->setModel($content);
             }
-        }
-        else {
+        } else {
             // attach the own resolver here too ?
             // ...
         }
@@ -208,23 +220,25 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
     /**
      * Attach an own ViewResolver
      */
-    public function attachViewResolver() {
+    public function attachViewResolver()
+    {
         if (!$this->viewResolverAttached) {
-            $this->viewResolverAttached = True;
+            $this->viewResolverAttached = true;
             $resolver = $this->serviceManager->get('ViewResolver');
-            $resolver->attach($this,100);
+            $resolver->attach($this, 100);
         }
     }
     
     /**
      * Transform the HTML to PDF,
      * this is a post-rendering-process
-     * 
+     *
      * put in here everything related to the transforming-process like options
-     * 
+     *
      * @param \Zend\View\ViewEvent $e
      */
-    public function attachPDFtransformer(ViewEvent $e) {
+    public function attachPDFtransformer(ViewEvent $e)
+    {
         
         //$renderer = $e->getRenderer();
         $result   = $e->getResult();
@@ -232,7 +246,7 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
         
         // the handles are for temporary files
         error_reporting(0);
-        foreach (array(self::RENDER_FULL, self::RENDER_WITHOUT_PDF, self::RENDER_WITHOUT_ATTACHMENTS ) as $render ) {
+        foreach (array(self::RENDER_FULL, self::RENDER_WITHOUT_PDF, self::RENDER_WITHOUT_ATTACHMENTS ) as $render) {
             $handles = array();
             try {
                 $pdf = new extern\mPDFderive();
@@ -289,7 +303,6 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
                 }
                 break;
             } catch (\Exception $e) {
-                
             }
         }
         error_reporting(E_ALL);
@@ -297,22 +310,23 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
     
     /**
      * Look for a template with the Suffix ".pdf.phtml"
-     * 
+     *
      * @param string $name
      * @param \Zend\View\Renderer\RendererInterface $renderer
      * @return string|boolean
      */
-    public function resolve($name, Renderer $renderer = null) {
+    public function resolve($name, Renderer $renderer = null)
+    {
         if ($this->serviceManager->has('ViewTemplatePathStack')) {
             // get all the Pases made up for the zend-provided resolver
             // we won't get any closer to ALL than that
             $viewTemplatePathStack = $this->serviceManager->get('ViewTemplatePathStack');
             $paths = $viewTemplatePathStack->getPaths();
             $defaultSuffix = $viewTemplatePathStack->getDefaultSuffix();
-            if (pathinfo($name, PATHINFO_EXTENSION) != $defaultSuffix) {;
+            if (pathinfo($name, PATHINFO_EXTENSION) != $defaultSuffix) {
+                ;
                 $name .= '.pdf.' . $defaultSuffix;
-            }
-            else {
+            } else {
                 // TODO: replace Filename by Filename for PDF
             }
 
@@ -338,5 +352,4 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
         // TODO: Resolving to an PDF has failed, this could have implications for the transformer
         return false;
     }
-    
 }

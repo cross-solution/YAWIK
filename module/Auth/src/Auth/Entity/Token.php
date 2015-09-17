@@ -82,5 +82,4 @@ class Token extends AbstractIdentifiableEntity
 
         return $this;
     }
-
 }

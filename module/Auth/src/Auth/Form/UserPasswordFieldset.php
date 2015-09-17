@@ -34,21 +34,25 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
         $this->setName('passwordFieldset')
             ->setLabel(/* @translate */ 'Password');
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Password',
             'name' => 'password',
             'options' => array(
                 'label' => /* @translate */ 'Password'
             ),
-        ));
+            )
+        );
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Zend\Form\Element\Password',
             'name' => 'password2',
             'options' => array(
                 'label' => /* @translate */ 'Retype password'
             ),
-        ));
+            )
+        );
     }
 
     public function allowObjectBinding($object)

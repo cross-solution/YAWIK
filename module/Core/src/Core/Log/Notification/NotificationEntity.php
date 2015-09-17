@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -37,13 +37,14 @@ class NotificationEntity implements NotificationEntityInterface
         return $this->priority;
     }
 
-    public function setTarget($target) {
+    public function setTarget($target)
+    {
         $this->target = $target;
         return $this;
     }
 
-    public function getTarget() {
+    public function getTarget()
+    {
         return $this->target;
     }
-
 }

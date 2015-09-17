@@ -44,9 +44,22 @@ class FormRow extends ZendFormRow
      */
     public function render(ElementInterface $element, $ignoreViewPartial = false)
     {
-        if ($element instanceOf ViewPartialProviderInterface && !$ignoreViewPartial) {
-            return $this->getView()->partial($element->getViewPartial(), array('element' => $element));
+        $labelAttributes = $element->getLabelAttributes();
+        $labelWidth = $element->getOption('labelWidth');
+        if (!$labelWidth) {
+            $labelWidth = $this->labelSpanWidth;
         }
+
+        if ($element instanceof ViewPartialProviderInterface && !$ignoreViewPartial) {
+            return $this->getView()->partial($element->getViewPartial(),
+                                             array(
+                                                 'element' => $element,
+                                                 'labelWitdh' => $labelWidth,
+                                                 'label_attributes' => $labelAttributes
+                                                            )
+            );
+        }
+
         $escapeHtmlHelper    = $this->getEscapeHtmlHelper();
         $labelHelper         = $this->getLabelHelper();
         $elementHelper       = $this->getElementHelper();
@@ -55,7 +68,7 @@ class FormRow extends ZendFormRow
         $inputErrorClass = $this->getInputErrorClass();
         $elementErrors   = $elementErrorsHelper->render($element);
         
-        // generall Class
+        // general Class
         $form_row_class = 'row';
         if ($this->layout == Form::LAYOUT_HORIZONTAL) {
             $form_row_class = 'form-group';
@@ -82,12 +95,12 @@ class FormRow extends ZendFormRow
         /*
          * add form-control class to all form elements, but "submit" or "reset" and Buttons!
          */
-        if ($element->getAttribute('type') != 'submit' 
+        if ($element->getAttribute('type') != 'submit'
             && $element->getAttribute('type') != 'reset'
             && $element->getAttribute('type') != 'checkbox'
-            && !$element instanceOf Button
+            && !$element instanceof Button
         ) {
-            $element->setAttribute('class', $element->getAttribute('class').' form-control ');    
+            $element->setAttribute('class', $element->getAttribute('class').' form-control ');
         }
         
         $elementString = $elementHelper->render($element);
@@ -95,31 +108,36 @@ class FormRow extends ZendFormRow
         if ($desc && $this->layout != Form::LAYOUT_BARE) {
             if (null !== ($translator = $this->getTranslator())) {
                              $desc = $translator->translate(
-                                $desc, $this->getTranslatorTextDomain()
-                                     );
-            }                                                                 
+                                 $desc,
+                                 $this->getTranslatorTextDomain()
+                             );
+            }
             $elementString .= sprintf(
-                '<div id="%s-desc" class="cam-description alert alert-info">%s</div>', $elementId, $desc
+                '<div id="%s-desc" class="cam-description alert alert-info">%s</div>',
+                $elementId,
+                $desc
             );
         }
         
-        if (!$element instanceOf \Zend\Form\Element\Hidden
-            && !$element instanceOf \Zend\Form\Element\Button
+        if (!$element instanceof \Zend\Form\Element\Hidden
+            && !$element instanceof \Zend\Form\Element\Button
             && $this->layout != Form::LAYOUT_BARE
         ) {
             $elementString .= sprintf(
                 '<div id="%s-errors" class="errors">%s</div>',
-                $elementId, $elementErrors
+                $elementId,
+                $elementErrors
             );
         }
         
         // moved label here so we can change it in the ElementViewHelper
         $label           = $element->getLabel();
-        if (isset($label) && '' !== $label && !$element instanceOf \Zend\Form\Element\Button) {
+        if (isset($label) && '' !== $label && !$element instanceof \Zend\Form\Element\Button) {
             // Translate the label
             if (null !== ($translator = $this->getTranslator())) {
                 $label = $translator->translate(
-                    $label, $this->getTranslatorTextDomain()
+                    $label,
+                    $this->getTranslatorTextDomain()
                 );
             }
     
@@ -137,14 +155,13 @@ class FormRow extends ZendFormRow
                 $markup = sprintf(
                     '<fieldset><legend>%s</legend>%s</fieldset>',
                     $label,
-                    $elementString);
+                    $elementString
+                );
             } else {
-                
                 if ($this->layout == Form::LAYOUT_BARE) {
                     $markup = $elementString;
-                }
-                else {
-                    $labelAttributes = $element->getLabelAttributes();
+                } else {
+
                     if (!isset($labelAttributes['for'])) {
                         $labelAttributes['for'] = $elementId;
                     }
@@ -156,46 +173,42 @@ class FormRow extends ZendFormRow
                     }
                     $element->setLabelAttributes($labelAttributes);
 
+                    $label = $labelHelper($element);
+                    if ($this->shouldWrap) {
+                        $spanWidth = 12 - $labelWidth;
+                        $elementString = sprintf(
+                            '<div class="col-md-%d%s" id="' . $elementId . '-span">%s</div>',
+                            $spanWidth,
+                            $elementErrors ? " $inputErrorClass" : '',
+                            $elementString
+                        );
+                        $label = sprintf(
+                            '<div class="col-md-%d yk-label">%s</div>',
+                            $labelWidth,
+                            $label
+                        );
 
-                        $labelOpen = '';
-                        $labelClose = '';
-                        $label = $labelHelper($element);
-                        $labelWidth = $element->getOption('labelWidth');
-                        if (!$labelWidth) {
-                            $labelWidth = $this->labelSpanWidth;
-                        }
-                        if ($this->shouldWrap) {
-                            $spanWidth = 12 - $labelWidth;
-                            $elementString = sprintf(
-                                '<div class="col-md-%d%s" id="' . $elementId . '-span">%s</div>',
-                                $spanWidth, $elementErrors ? " $inputErrorClass" : '', $elementString
-                            );
-                            $label = sprintf(
-                                '<div class="col-md-%d yk-label">%s</div>',
-                                $labelWidth, $label
-                            );
-
-                        } 
+                    }
                         $markup = $label . $elementString;
                 }
             }
-    
-            
+
         } else {
-            if ($this->shouldWrap 
-                && !$element instanceOf \Zend\Form\Element\Hidden
-                && !$element instanceOF \Zend\Form\Element\Button
-                && $this->layout != Form::LAYOUT_BARE    
+            if ($this->shouldWrap
+                && !$element instanceof \Zend\Form\Element\Hidden
+                && !$element instanceof \Zend\Form\Element\Button
+                && $this->layout != Form::LAYOUT_BARE
                 ) {
                 $elementString = sprintf(
-                    '<div class="col-md-12">%s</div>', $elementString
+                    '<div class="col-md-12">%s</div>',
+                    $elementString
                 );
             }
             $markup = $elementString;
         }
-        if ($this->shouldWrap 
-            && !$element instanceOf \Zend\Form\Element\Hidden
-            && !$element instanceOf \Zend\Form\Element\Button
+        if ($this->shouldWrap
+            && !$element instanceof \Zend\Form\Element\Hidden
+            && !$element instanceof \Zend\Form\Element\Button
             && $this->layout != Form::LAYOUT_BARE
             ) {
             $markup = sprintf('<div class="controls controls-row ' . $form_row_class . '">%s</div>', $markup);
@@ -214,7 +227,7 @@ class FormRow extends ZendFormRow
      * @param bool                  $renderErrors
      * @return string|FormRow
      */
-    public function __invoke(ElementInterface $element = null, $labelPosition = null, $renderErrors = null, $layout=null)
+    public function __invoke(ElementInterface $element = null, $labelPosition = null, $renderErrors = null, $layout = null)
     {
         if (!$element) {
             return $this;
@@ -226,7 +239,7 @@ class FormRow extends ZendFormRow
             $this->setLabelPosition(self::LABEL_PREPEND);
         }
     
-        if ($renderErrors !== null){
+        if ($renderErrors !== null) {
             $this->setRenderErrors($renderErrors);
         }
         
@@ -236,5 +249,4 @@ class FormRow extends ZendFormRow
     
         return $this->render($element);
     }
-    
 }

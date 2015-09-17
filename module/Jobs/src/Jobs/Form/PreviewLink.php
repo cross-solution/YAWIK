@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -12,6 +12,7 @@ namespace Jobs\Form;
 use Zend\Form\Element;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\Element\ViewHelperProviderInterface;
+
 //  implements ViewPartialProviderInterface
 
 class JobPreviewLink extends Element implements ViewHelperProviderInterface
@@ -39,5 +40,4 @@ class JobPreviewLink extends Element implements ViewHelperProviderInterface
     {
         return $this->helper;
     }
-
 }

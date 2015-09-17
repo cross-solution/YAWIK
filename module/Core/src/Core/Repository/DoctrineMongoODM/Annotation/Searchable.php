@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Searchable.php */ 
+/** Searchable.php */
 namespace Core\Repository\DoctrineMongoODM\Annotation;
 
 use Doctrine\Common\Annotations\Annotation;
@@ -19,4 +19,3 @@ class Searchable extends Annotation
 {
     
 }
-

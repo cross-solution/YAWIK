@@ -81,7 +81,9 @@ class LanguageSetter implements ListenerAggregateInterface
         $translator = $e->getApplication()->getServiceManager()->get('mvctranslator');
         $locale     = $lang . '_' . strtoupper($lang);
 
-        setlocale(LC_ALL, array(
+        setlocale(
+            LC_ALL,
+            array(
                             $locale . ".utf8",
                             $locale . ".iso88591",
                             $locale,

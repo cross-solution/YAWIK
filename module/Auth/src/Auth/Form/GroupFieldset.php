@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** GroupFieldset.php */ 
+/** GroupFieldset.php */
 namespace Auth\Form;
 
 use Zend\Form\Fieldset;
@@ -16,7 +16,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 
 /**
  * Fieldset to manage user groups.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class GroupFieldset extends Fieldset implements InputFilterProviderInterface
@@ -32,12 +32,15 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
              ->setUseAsBaseFieldset(true)
              ->setHydrator(new EntityHydrator());
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Hidden',
             'name' => 'id',
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Text',
             'name' => 'name',
             'options' => array(
@@ -45,11 +48,14 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
                 'description' => /* @translate */ 'Select a group name. You can add users to your group and then work together on jobs and job applications.',
                     
             ),
-        ));
+            )
+        );
         
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'Auth/Group/Users',
-        ));
+            )
+        );
         
     }
     
@@ -65,7 +71,7 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
                 'validators' => array(
                     array('name'    => 'Auth/Form/UniqueGroupName',
                           'options' => array(
-                            'allowName' => 'edit' == $this->getOption('mode') 
+                            'allowName' => 'edit' == $this->getOption('mode')
                                           ? $this->getObject()->getName()
                                           : null
                             )
@@ -75,4 +81,3 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
         );
     }
 }
-

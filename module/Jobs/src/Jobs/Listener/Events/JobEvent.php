@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -95,7 +95,7 @@ class JobEvent extends Event
         if (is_array($params) && isset($params['job'])) {
             $this->setJobEntity($params['job']);
             unset($params['job']);
-        } else if (is_object($params) && isset($params->job)) {
+        } elseif (is_object($params) && isset($params->job)) {
             $this->setJobEntity($params->job);
         }
 
@@ -107,7 +107,7 @@ class JobEvent extends Event
      * @param $portal
      * @return $this
      */
-    public function addPortal ($portal)
+    public function addPortal($portal)
     {
         $portal = strtolower($portal);
         if (!in_array($portal, $this->portals)) {
@@ -122,7 +122,7 @@ class JobEvent extends Event
      * @param $portal
      * @return bool
      */
-    public function hasPortal ($portal)
+    public function hasPortal($portal)
     {
         $portal = strtolower($portal);
         return in_array($portal, $this->portals);

@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Core\Form;
 
 use Zend\ServiceManager\FactoryInterface;
@@ -18,7 +18,6 @@ use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
 use Applications\Options\ModuleOptions;
 use Zend\Stdlib\AbstractOptions;
-
 
 /**
  * Factory for creating file upload formular elements.
@@ -86,7 +85,7 @@ class FileUploadFactory implements FactoryInterface
         /* @var $serviceLocator \Zend\Form\FormElementManager */
         $service = $serviceLocator->getServiceLocator();
         $options=null;
-        if ($this->options){
+        if ($this->options) {
             $options = $service->get($this->options);
         }
 
@@ -103,7 +102,8 @@ class FileUploadFactory implements FactoryInterface
 
         $form = new Form();
         $serviceLocator->injectFactory($form);
-        $form->add(array(
+        $form->add(
+            array(
             'type' => $this->fileElement,
             'name' => $this->fileName,
             'options' => array(
@@ -112,7 +112,8 @@ class FileUploadFactory implements FactoryInterface
             'attributes' => array(
                 'class' => 'hide',
             ),
-        ));
+            )
+        );
         /* @var $element \Core\Form\Element\FileUpload */
         $element = $form->get($this->fileName);
         $element->setIsMultiple($this->multiple);
@@ -120,7 +121,7 @@ class FileUploadFactory implements FactoryInterface
         $user = $serviceLocator->getServiceLocator()->get('AuthenticationService')->getUser();
         /* @var $fileEntity \Core\Entity\FileInterface */
         $fileEntity = new $this->fileEntityClass();
-        if ($user instanceOf AnonymousUser) {
+        if ($user instanceof AnonymousUser) {
             $fileEntity->getPermissions()->grant($user, 'all');
         } else {
             $fileEntity->setUser($user);
@@ -129,7 +130,8 @@ class FileUploadFactory implements FactoryInterface
         $strategy = new FileUploadStrategy($fileEntity);
         if ($this->multiple) {
             $hydrator = new FileCollectionUploadHydrator($this->fileName, $strategy);
-            $form->add(array(
+            $form->add(
+                array(
                 'type' => 'button',
                 'name' => 'remove',
                 'options' => array(
@@ -138,7 +140,8 @@ class FileUploadFactory implements FactoryInterface
                 'attributes' => array(
                     'class' => 'fu-remove-all btn btn-danger btn-xs pull-right'
                 ),
-            ));
+                )
+            );
         } else {
             $hydrator = new EntityHydrator();
             $hydrator->addStrategy($this->fileName, $strategy);
@@ -158,6 +161,6 @@ class FileUploadFactory implements FactoryInterface
      * @param AbstractOptions $options
      */
     protected function configureForm($form, AbstractOptions $options)
-    { }
-    
+    {
+    }
 }

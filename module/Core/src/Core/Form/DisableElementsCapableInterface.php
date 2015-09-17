@@ -13,7 +13,7 @@ namespace Core\Form;
 /**
  * Allows implementing classes to disable itself and its elements.
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de> 
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 interface DisableElementsCapableInterface extends DisableCapableInterface
 {

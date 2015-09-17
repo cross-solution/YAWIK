@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -16,10 +16,11 @@ use Core\Paginator\PaginatorFactoryAbstract;
  * Class JobsPaginatorFactory
  * @package Jobs\Paginator
  */
-class JobsPaginatorFactory extends PaginatorFactoryAbstract {
+class JobsPaginatorFactory extends PaginatorFactoryAbstract
+{
 
     /**
-     * @return \Core\Paginator\Zend\Filter\FilterInterface|string
+     * @return string
      */
     protected function getFilter()
     {
@@ -27,11 +28,10 @@ class JobsPaginatorFactory extends PaginatorFactoryAbstract {
     }
 
     /**
-     * @return \Core\Paginator\Zend\Filter\FilterInterface\Repository|string
+     * @return string
      */
     protected function getRepository()
     {
         return 'Jobs/Job';
     }
-
-} 
+}

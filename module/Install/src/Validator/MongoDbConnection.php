@@ -87,6 +87,4 @@ class MongoDbConnection extends AbstractValidator
         return true;
         // @codeCoverageIgnoreEnd
     }
-
-
 }

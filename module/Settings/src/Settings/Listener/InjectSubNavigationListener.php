@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** InjectSubNavigationConfigListener.php */ 
+/** InjectSubNavigationConfigListener.php */
 namespace Settings\Listener;
 
 use Zend\Mvc\Router\RouteMatch;
@@ -47,7 +47,7 @@ class InjectSubNavigationListener
         $activeModule = $event->getParam('__settings_active_module', false);
         $settingsMenu->setActive((bool) $activeModule);
 
-        foreach($modulesWithSettings as $key => $param) {
+        foreach ($modulesWithSettings as $key => $param) {
             $page = array(
                 'label' => isset($param['navigation_label']) ? $param['navigation_label'] : ucfirst($key),
                 'order' => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
@@ -68,4 +68,3 @@ class InjectSubNavigationListener
         
     }
 }
-

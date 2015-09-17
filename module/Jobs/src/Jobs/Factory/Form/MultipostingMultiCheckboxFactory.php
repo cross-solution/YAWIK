@@ -15,7 +15,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for the Multiposting select box
- * 
+ *
  * @author Carsten Bleek <bleek@cross-solution.de>
  */
 class MultipostingMultiCheckboxFactory implements FactoryInterface

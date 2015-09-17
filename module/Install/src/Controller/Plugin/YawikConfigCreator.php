@@ -132,5 +132,4 @@ class YawikConfigCreator extends AbstractPlugin
 
         return (bool) @file_put_contents($file, $content);
     }
-
 }

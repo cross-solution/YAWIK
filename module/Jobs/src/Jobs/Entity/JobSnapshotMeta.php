@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -20,12 +20,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @ODM\Document(collection="jobs.snapshots", repositoryClass="Jobs\Repository\JobSnapshotMeta")
  * @ODM\HasLifecycleCallbacks
  */
-class JobSnapshotMeta extends SnapshotMeta {
+class JobSnapshotMeta extends SnapshotMeta
+{
 
     /**
      * @var Job
      * @ODM\EmbedOne(targetDocument="JobSnapshot")
      */
     protected $entity;
-
-} 
+}

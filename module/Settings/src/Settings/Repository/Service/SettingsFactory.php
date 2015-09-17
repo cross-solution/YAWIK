@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  */
 
 namespace Settings\Repository\Service;
@@ -13,7 +13,7 @@ class SettingsFactory implements FactoryInterface
 {
     /**
      * Create the settings Repository service
-     * 
+     *
      * @param  ServiceLocatorInterface $serviceLocator
      * @return ControllerManager
      */

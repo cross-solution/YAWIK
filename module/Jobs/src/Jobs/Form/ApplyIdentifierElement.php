@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** ApplyIdentifierElement.php */ 
+/** ApplyIdentifierElement.php */
 namespace Jobs\Form;
 
 use Zend\Form\Element\Text;
@@ -29,4 +29,3 @@ class ApplyIdentifierElement extends Text implements ViewPartialProviderInterfac
         return $this;
     }
 }
-

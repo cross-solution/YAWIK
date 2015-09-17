@@ -57,6 +57,7 @@ return array(
             'recruiter' => array(
                 'allow' => array(
                     'Jobs',
+                    'JobList',
                     'Jobs/Manage' => array(
                         'edit',
                         'completion',
@@ -84,6 +85,7 @@ return array(
                     ),
                     'route/lang/jobs/template',
                 ),
+                'deny' => 'JobList'
             ),
             'applicant' => array(
                 'allow' => array(
@@ -104,6 +106,7 @@ return array(
                     'pendingJobs',
                 ),
                 'deny' => array(
+                    'lang/jobs',
                 )
             )
         ),
@@ -132,6 +135,7 @@ return array(
                     'list' => array(
                         'label' => /*@translate*/ 'Overview',
                         'route' => 'lang/jobs',
+                        'resource' => 'JobList'
                     ),
                     'pending-list' => array(
                         'label' => /*@translate*/ 'Pending jobs',
@@ -180,7 +184,7 @@ return array(
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
-            'Jobs/viewModelTemplateFilter'                => 'Jobs\Filter\viewModelTemplateFilterFactory'
+            'Jobs/viewModelTemplateFilter'                => 'Jobs\Filter\viewModelTemplateFilterFactory',
         ),
         'shared' => array(
             'Jobs/Event' => false,
@@ -208,6 +212,9 @@ return array(
         'factories' => array(
             'Jobs/Job'   => 'Jobs\Paginator\JobsPaginatorFactory',
             'Jobs/Admin' => 'Jobs\Paginator\JobsAdminPaginatorFactory',
+        ),
+        'aliases' => array(
+            'Jobs/Board' => 'Jobs/Job'
         )
     ),
 
@@ -306,7 +313,7 @@ return array(
     'filters' => array(
         'factories'=> array(
             'Jobs/PaginationQuery'      => '\Jobs\Repository\Filter\PaginationQueryFactory',
-            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory'
+            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory',
         ),
     ),
 

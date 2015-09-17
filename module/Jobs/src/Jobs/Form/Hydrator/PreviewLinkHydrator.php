@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -30,17 +30,17 @@ class PreviewLinkHydrator extends EntityHydrator implements ServiceLocatorAwareI
     /* (non-PHPdoc)
      * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
      */
-    public function extract ($object)
+    public function extract($object)
     {
         $locator = $this->getServiceLocator();
         $controllerPluginManager = $locator->get('controllerPluginManager');
 
         $data = parent::extract($object);
         $viewLink = $controllerPluginManager->get('url')->fromRoute(
-          'lang/jobs/view',
-              array(
+            'lang/jobs/view',
+            array(
               ),
-              array(
+            array(
                   'query' => array(
                       'id' => $data['id'],
                   )
@@ -51,7 +51,7 @@ class PreviewLinkHydrator extends EntityHydrator implements ServiceLocatorAwareI
         return $data;
     }
 
-    public function hydrate (array $data, $object)
+    public function hydrate(array $data, $object)
     {
         $object = parent::hydrate($data, $object);
         return $object;

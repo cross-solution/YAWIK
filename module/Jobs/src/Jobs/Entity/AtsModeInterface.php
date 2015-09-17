@@ -14,7 +14,7 @@ use Core\Entity\EntityInterface;
 
 /**
  * Interface of application tracking settings of a job entity.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */

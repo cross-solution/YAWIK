@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -36,7 +36,8 @@ class FormSimpleRow extends ZendFormRow
             // Translate the label
             if (null !== ($translator = $this->getTranslator())) {
                 $label = $translator->translate(
-                                    $label, $this->getTranslatorTextDomain()
+                    $label,
+                    $this->getTranslatorTextDomain()
                 );
             }
         }
@@ -82,7 +83,8 @@ class FormSimpleRow extends ZendFormRow
                 $markup = sprintf(
                     '<fieldset><legend>%s</legend>%s</fieldset>',
                     $label,
-                    $elementString);
+                    $elementString
+                );
             } else {
                 if ($element->hasAttribute('id')) {
                     $labelOpen = '';
@@ -127,14 +129,16 @@ class FormSimpleRow extends ZendFormRow
         return $markup;
     }
 
-    public function addStrategy($key, $method, $strategy) {
+    public function addStrategy($key, $method, $strategy)
+    {
         if (array_key_exists($key, $this->renderStrategies)) {
             $this->renderStrategies['key'] = array();
         }
         $this->renderStrategies['key'][$method] = $strategy;
     }
 
-    public function applyStrategy($method, $params) {
+    public function applyStrategy($method, $params)
+    {
         $result = '';
         foreach ($this->renderStrategies as $strategy) {
             if (array_key_exists($method, $strategy)) {
@@ -144,6 +148,4 @@ class FormSimpleRow extends ZendFormRow
         }
         return $result;
     }
-
-
 }

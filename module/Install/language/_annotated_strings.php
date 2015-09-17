@@ -1,12 +1,15 @@
 <?php
-//: ./src/Form/Installation.php:38
+//: ./src/Form/Installation.php:40
 translate('Database connection string');
 
-//: ./src/Form/Installation.php:51
+//: ./src/Form/Installation.php:54
 translate('Initial user name');
 
-//: ./src/Form/Installation.php:60
+//: ./src/Form/Installation.php:64
 translate('Password');
 
-44:        self::INVALID       => /* @translate */
-46:        self::NO_CONNECTION => /* @translate */
+//: ./src/Form/Installation.php:74
+translate('Email address for system messages');
+
+45:        self::NO_CONNECTION => /* @translate */
+41:        self::INVALID       => /* @translate */

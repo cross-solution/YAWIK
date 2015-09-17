@@ -17,7 +17,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 /**
  * This initializer inject the scripts provided by form elements
  * which implements HeadscriptProviderInterface in the Headscript view helper.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
@@ -39,7 +39,7 @@ class InjectHeadscriptInitializer implements InitializerInterface
     {
         /* @var $serviceLocator \Zend\Form\FormElementManager */
 
-        if (!$instance instanceOf HeadscriptProviderInterface) {
+        if (!$instance instanceof HeadscriptProviderInterface) {
             return;
         }
 

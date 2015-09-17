@@ -8,67 +8,67 @@ translate('Edit group');
 //: ./src/Auth/Form/SocialProfiles.php:26
 translate('Social Profiles');
 
-//: ./src/Auth/Form/SocialProfilesFieldset.php:227
+//: ./src/Auth/Form/SocialProfilesFieldset.php:225
 translate('Allow users to attach their %s profile.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:63
+//: ./src/Auth/Form/UserInfoFieldset.php:65
 translate('Email');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:70
+//: ./src/Auth/Form/UserInfoFieldset.php:74
 translate('Phone');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:78
+//: ./src/Auth/Form/UserInfoFieldset.php:84
 translate('Postalcode');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:85
+//: ./src/Auth/Form/UserInfoFieldset.php:93
 translate('City');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:93
+//: ./src/Auth/Form/UserInfoFieldset.php:103
 translate('Salutation');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:95
+//: ./src/Auth/Form/UserInfoFieldset.php:105
 translate('please select');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:96
+//: ./src/Auth/Form/UserInfoFieldset.php:106
 translate('Mr.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:97
+//: ./src/Auth/Form/UserInfoFieldset.php:107
 translate('Mrs.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:101
+//: ./src/Auth/Form/UserInfoFieldset.php:111
 translate('please select');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:109
+//: ./src/Auth/Form/UserInfoFieldset.php:121
 translate('First name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:117
+//: ./src/Auth/Form/UserInfoFieldset.php:131
 translate('Last name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:126
+//: ./src/Auth/Form/UserInfoFieldset.php:142
 translate('street');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:133
+//: ./src/Auth/Form/UserInfoFieldset.php:151
 translate('house number');
 
-//: ./src/Auth/Form/UserInfo.php:31
+//: ./src/Auth/Form/UserInfo.php:32
 translate('personal informations');
 
 //: ./src/Auth/Form/UserPasswordFieldset.php:35
 translate('Password');
 
-//: ./src/Auth/Form/UserPasswordFieldset.php:41
+//: ./src/Auth/Form/UserPasswordFieldset.php:42
 translate('Password');
 
-//: ./src/Auth/Form/UserPasswordFieldset.php:49
+//: ./src/Auth/Form/UserPasswordFieldset.php:52
 translate('Retype password');
 
-//: ./src/Auth/Form/GroupFieldset.php:44
+//: ./src/Auth/Form/GroupFieldset.php:47
 translate('Group name');
 
-//: ./src/Auth/Form/GroupFieldset.php:45
+//: ./src/Auth/Form/GroupFieldset.php:48
 translate('Select a group name. You can add users to your group and then work together on jobs and job applications.');
 
-//: ./src/Auth/Form/UserProfileContainer.php:32
+//: ./src/Auth/Form/UserProfileContainer.php:34
 translate('General settings');
 
 //: ./src/Auth/Form/ForgotPassword.php:29
@@ -83,28 +83,28 @@ translate('Name');
 //: ./src/Auth/Form/Register.php:46
 translate('Email');
 
-//: ./src/Auth/Form/Register.php:74
+//: ./src/Auth/Form/Register.php:75
 translate('Are you human?');
 
-//: ./src/Auth/Form/Register.php:89
+//: ./src/Auth/Form/Register.php:91
 translate('Register');
 
 //: ./src/Auth/Form/UserBaseFieldset.php:23
 translate('General');
 
-//: ./src/Auth/Form/UserBaseFieldset.php:31
+//: ./src/Auth/Form/UserBaseFieldset.php:32
 translate('I am');
 
 //: ./src/Auth/Form/Validator/UniqueGroupName.php:46
 translate('The group name "%value%" is already in use.');
 
-//: ./src/Auth/Form/Login.php:31
+//: ./src/Auth/Form/Login.php:32
 translate('Login name');
 
-//: ./src/Auth/Form/Login.php:40
+//: ./src/Auth/Form/Login.php:43
 translate('Password');
 
-//: ./src/Auth/Form/Login.php:54
+//: ./src/Auth/Form/Login.php:59
 translate('login');
 
 //: ./src/Auth/Controller/GotoResetPasswordController.php:54
@@ -125,25 +125,25 @@ translate('User cannot be found');
 //: ./src/Auth/Controller/RegisterConfirmationController.php:55
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:144
+//: ./src/Auth/Controller/ManageGroupsController.php:153
 translate('Group created');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:147
+//: ./src/Auth/Controller/ManageGroupsController.php:156
 translate('Group updated');
 
-//: ./src/Auth/Controller/ManageGroupsController.php:157
+//: ./src/Auth/Controller/ManageGroupsController.php:166
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:120
+//: ./src/Auth/Controller/IndexController.php:121
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:143
+//: ./src/Auth/Controller/IndexController.php:144
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:218
+//: ./src/Auth/Controller/IndexController.php:220
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/IndexController.php:410
+//: ./src/Auth/Controller/IndexController.php:427
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/RegisterController.php:59
@@ -179,10 +179,10 @@ translate('Found user does not have an email');
 //: ./src/Auth/Controller/ForgotPasswordController.php:78
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Listener/UnauthorizedAccessListener.php:93
+//: ./src/Auth/Listener/UnauthorizedAccessListener.php:92
 translate('You are not permitted to access this resource.');
 
-//: ./src/Auth/Listener/MailForgotPassword.php:84
+//: ./src/Auth/Listener/MailForgotPassword.php:86
 translate('a new password was requestet for %s');
 
 //: ./config/module.config.php:366

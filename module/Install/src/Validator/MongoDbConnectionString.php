@@ -69,5 +69,5 @@ class MongoDbConnectionString extends AbstractValidator
         }
 
         return true;
-   }
+    }
 }

@@ -1,0 +1,24 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author        cbleek
+ * @license       MIT
+ */
+?>
+    <hr>
+    <p>
+        <small><?php echo $this->translate('Login via') ?>...</small>
+    </p>
+<?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
+<?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider =>
+               $name
+): ?>
+    <a class="btn-sm btn-social btn-<?php echo $provider ?>"
+       title="<?php echo sprintf($this->translate('Login with %s'), $name) ?>"
+       href="<?php echo $this->url('auth-provider', array('provider' => $provider),
+                                   array('query' => array('ref' => urlencode($ref)))
+       ) ?>"><i class="fa fa-<?php echo $provider ?>"></i> <?php echo $name ?></a>
+<?php endforeach ?>

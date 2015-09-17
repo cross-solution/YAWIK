@@ -16,15 +16,15 @@ use Auth\AuthenticationService;
 /**
  * HybridAuth authentication adapter factory
  */
-class AuthenticationServiceFactory implements FactoryInterface 
+class AuthenticationServiceFactory implements FactoryInterface
 {
 
     /**
      * Creates an instance of \Auth\Adapter\HybridAuth
-     * 
+     *
      * - injects the \HybridAuth
      * - injects the UserMapper fetched from the service manager.
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      * @return \Auth\Adapter\HybridAuth
      * @see \Zend\ServiceManager\FactoryInterface::createService()
@@ -35,5 +35,4 @@ class AuthenticationServiceFactory implements FactoryInterface
         $auth       = new AuthenticationService($repository);
         return $auth;
     }
-    
 }

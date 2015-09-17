@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/**  */ 
+/**  */
 namespace Auth\Form;
 
 use Zend\Stdlib\AbstractOptions;
@@ -63,4 +63,4 @@ class UserImageFactory extends FileUploadFactory
                                    ->setForm($form);
                                    
     }
-} 
+}

@@ -2,7 +2,7 @@
 /**
  * YAWIK
  * Configuration file of the Core module
- * 
+ *
  * This file intents to provide the configuration for all other modules
  * as well (convention over configuration).
  * Having said that, you may always overwrite or extend the configuration
@@ -38,7 +38,7 @@ return array(
                     'options' => array(
                          'stream' => __DIR__ .'/../../../log/yawik.log',
                     ),
-                ),
+                 ),
             ),
         ),
         'Log/Core/Mail' => array(
@@ -49,7 +49,7 @@ return array(
                     'options' => array(
                          'stream' => __DIR__ .'/../../../log/mails.log',
                     ),
-                ),
+                 ),
             ),
         ),
         'ErrorLogger' => array(
@@ -136,7 +136,7 @@ return array(
                         '__ALL__' => 'Core/FileAccess'
                     ),
                 ),
-            ), 
+            ),
         ),
         'assertions' => array(
             'invokables' => array(
@@ -194,7 +194,7 @@ return array(
             )
         ),
     ),
-    // Defines the Core/Navigation. 
+    // Defines the Core/Navigation.
     'navigation' => array(
         'default' => array(
              'home' => array(
@@ -245,7 +245,7 @@ return array(
         'not_found_template' => 'error/404',
         'unauthorized_template' => 'error/403',
         'exception_template' => 'error/index',
-        // Map template to files. Speeds up the lookup through the template stack. 
+        // Map template to files. Speeds up the lookup through the template stack.
         'template_map' => array(
             'noscript-notice' => __DIR__ . '/../view/layout/_noscript-notice.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
@@ -258,6 +258,7 @@ return array(
             'core/loading-popup' => __DIR__ . '/../view/partial/loading-popup.phtml',
             'core/notifications' => __DIR__ . '/../view/partial/notifications.phtml',
             'form/core/buttons' => __DIR__ . '/../view/form/buttons.phtml',
+            'core/social-buttons' => __DIR__ . '/../view/partial/social-buttons.phtml',
             'form/core/privacy' => __DIR__ . '/../view/form/privacy.phtml',
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
@@ -334,7 +335,7 @@ return array(
         'factories' => array(
             "Core/XssFilter" => "Core\Filter\XssFilterFactory",
             "Core/HtmlAbsPathFilter" => "Core\Factory\Filter\HtmlAbsPathFilterFactory",
-       ),
+        ),
     ),
     
     'form_elements' => array(

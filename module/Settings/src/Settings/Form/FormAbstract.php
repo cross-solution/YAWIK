@@ -11,35 +11,38 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 use Settings\Entity\Settings as SettingsEntity;
 use Zend\Stdlib\Hydrator\ArraySerializable;
 
-abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface {
-	
-	protected $forms;
+abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
+{
+    
+    protected $forms;
 
-	public function __construct($name = null) {
-		parent::__construct('settings');
-		$this->setAttribute('method', 'post');
+    public function __construct($name = null)
+    {
+        parent::__construct('settings');
+        $this->setAttribute('method', 'post');
                 $this->setBindOnValidate(Form::BIND_ON_VALIDATE);
-	
-		// 'action' => $this->url('lang/settings', array(), true),
-	}
-	
+    
+        // 'action' => $this->url('lang/settings', array(), true),
+    }
+    
         /**
-         * 
+         *
          * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
          * @return \Settings\Form\Settings
          */
-	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-	{
-		$this->forms = $serviceLocator;
-		return $this;
-	}
-	
-	public function getServiceLocator()
-	{
-		return $this->forms;
-	}
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->forms = $serviceLocator;
+        return $this;
+    }
     
-    public function getHydrator() {
+    public function getServiceLocator()
+    {
+        return $this->forms;
+    }
+    
+    public function getHydrator()
+    {
         if (!$this->hydrator) {
             $hydrator = new ArraySerializable();
             $this->setHydrator($hydrator);
@@ -47,8 +50,9 @@ abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
         return $this->hydrator;
     }
     
-    protected function getPlugin($name) {
-        $plugin = Null;
+    protected function getPlugin($name)
+    {
+        $plugin = null;
         $factory = $this->getFormFactory();
         $formElementManager = $factory->getFormElementManager();
         if (isset($formElementManager)) {
@@ -61,7 +65,8 @@ abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
         return $plugin;
     }
 
-    public function init() {
+    public function init()
+    {
 
         $this->setName('setting-core');
         
@@ -74,7 +79,8 @@ abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
         
         $coreFieldset = $this->getCoreFieldset();
         if (isset($coreFieldset)) {
-            $this->add($this->forms->get($coreFieldset)
+            $this->add(
+                $this->forms->get($coreFieldset)
                             ->setUseAsBaseFieldset(true)
             );
         }

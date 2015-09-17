@@ -45,10 +45,12 @@ class UserPassword extends Form implements ServiceLocatorAwareInterface
     {
         $this->setName('user-password-form');
 
-        $this->add(array(
+        $this->add(
+            array(
             'type' => 'hidden',
             'name' => 'id',
-        ));
+            )
+        );
         
         $this->add(
             $this->forms->get('Auth/UserPasswordFieldset')
@@ -56,5 +58,4 @@ class UserPassword extends Form implements ServiceLocatorAwareInterface
         
         $this->add($this->forms->get('submitField'));
     }
-    
 }

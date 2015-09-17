@@ -15,7 +15,7 @@ use Zend\EventManager\EventInterface;
 
 /**
  * Module "Install" initialization.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */

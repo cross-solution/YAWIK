@@ -15,7 +15,7 @@ namespace Core\Decorator;
  *
  * Allows creation of Decorators for a specific object type and assures it only
  * decorates that type.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */
@@ -56,9 +56,8 @@ class Decorator
      */
     protected function checkObjectType($object)
     {
-        if (!$object instanceOf $this->objectType) {
+        if (!$object instanceof $this->objectType) {
             throw new \InvalidArgumentException('Wrapped entity must be of type ' . $this->objectType);
         }
     }
-
 }

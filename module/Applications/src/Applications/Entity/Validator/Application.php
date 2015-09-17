@@ -33,7 +33,7 @@ class Application extends AbstractValidator
      */
     public function isValid($value)
     {
-        if (!$value instanceOf ApplicationInterface) {
+        if (!$value instanceof ApplicationInterface) {
             $this->error('NO_APPLICATION');
 
             return false;

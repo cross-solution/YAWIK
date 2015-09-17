@@ -44,6 +44,4 @@ class MailSenderFactory implements FactoryInterface
 
         return $listener;
     }
-
-
 }

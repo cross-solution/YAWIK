@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -18,6 +18,7 @@ use Zend\EventManager\EventManagerInterface;
 use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
 use Jobs\Listener\Response\JobResponse;
+
 //use Jobs\Listener\Response\JobResponse;
 //use Zend\Http\Request;
 //use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
@@ -38,7 +39,8 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
      * @param ServiceManager $serviceManager
      * @return $this
      */
-    public function setServiceManager(ServiceManager $serviceManager) {
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
         $this->serviceManager = $serviceManager;
         return $this;
     }
@@ -46,7 +48,8 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
     /**
      * @return mixed
      */
-    public function getServiceManager() {
+    public function getServiceManager()
+    {
         return $this->serviceManager;
     }
 
@@ -81,7 +84,8 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
      * @param SharedEventManagerInterface $events
      * @return $this
      */
-    public function detachShared(SharedEventManagerInterface $events) {
+    public function detachShared(SharedEventManagerInterface $events)
+    {
         return $this;
     }
 
@@ -111,8 +115,8 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 if (!isset($host)) {
                     throw new \RuntimeException('no host found for Provider');
                 }
-                $externalIdPublisher = Null;
-                $referencePublisher = Null;
+                $externalIdPublisher = null;
+                $referencePublisher = null;
                 $publisher = $entity->getPublisher($host);
                 if (isset($publisher)) {
                     $externalIdPublisher = $publisher->externalId;
@@ -168,15 +172,14 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
                 $jsonLastError = json_last_error();
                 if (json_last_error() != JSON_ERROR_NONE) {
                     // not able to decode json
-                    $log->info('RestCall Response not Json [errorCode: ' . $jsonLastError . ']: ' . var_export($body, True));
-                }
-                else {
+                    $log->info('RestCall Response not Json [errorCode: ' . $jsonLastError . ']: ' . var_export($body, true));
+                } else {
                     // does the provider want to have an own ID for Identification ?
                     $response_referenceUpdate = $decodedBody->referenceUpdate;
                     $response_externalIdUpdate = $decodedBody->applyIdUpdate;
 
                     if ($publisher->externalId != $response_externalIdUpdate || $publisher->reference != $response_referenceUpdate) {
-                        $log->info('RestCall changed externalID [' . var_export($publisher->externalId, True) . ' => ' . var_export($response_externalIdUpdate, True) . '], reference  [' . var_export($publisher->reference, True) . ' => ' . var_export($response_referenceUpdate, True) . ']');
+                        $log->info('RestCall changed externalID [' . var_export($publisher->externalId, true) . ' => ' . var_export($response_externalIdUpdate, true) . '], reference  [' . var_export($publisher->reference, true) . ' => ' . var_export($response_referenceUpdate, true) . ']');
                         $publisher->reference = $response_referenceUpdate;
                         $publisher->externalId = $response_externalIdUpdate;
                         $serviceManager->get('repositories')->store($entity);
@@ -185,12 +188,10 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
 
                 $e->stopPropagation(true);
                 $response = new JobResponse($this->name, JobResponse::RESPONSE_OKANDSTOP);
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 $response = new JobResponse($this->name, JobResponse::RESPONSE_FAIL);
             }
         }
         return $response;
     }
 }
-

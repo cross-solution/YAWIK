@@ -14,10 +14,10 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * Defines a OrganizationReference entity.
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-interface OrganizationReferenceInterface 
+interface OrganizationReferenceInterface
 {
 
     /**#@+
@@ -49,7 +49,7 @@ interface OrganizationReferenceInterface
      *
      * @return boolean
      */
-    public function  hasAssociation();
+    public function hasAssociation();
 
     /**
      * Gets the referenced organization.
@@ -57,5 +57,4 @@ interface OrganizationReferenceInterface
      * @return null|OrganizationInterface
      */
     public function getOrganization();
-
 }

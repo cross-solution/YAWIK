@@ -20,10 +20,9 @@ use Zend\Stdlib\Hydrator\HydratorAwareInterface;
  * Interface ConfigInterface
  * @package Admin\Entity
  */
-interface ConfigInterface
-    extends EntityInterface,
+interface ConfigInterface extends
+    EntityInterface,
     IdentifiableEntityInterface,
-
     ModificationDateAwareEntityInterface,
     PermissionsAwareInterface,
     HydratorAwareInterface
@@ -54,5 +53,4 @@ interface ConfigInterface
      * @return ConfigInterface
      */
     public function setValue($value);
-
 }

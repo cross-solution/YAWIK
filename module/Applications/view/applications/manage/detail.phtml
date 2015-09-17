@@ -223,7 +223,7 @@ endif;
      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="history-box-label">
-          <?php echo $this->translate('State history') ?>:
+          <?php echo $this->translate('Status history') ?>:
         </h3>
       </div>
       <div class="modal-body">
@@ -376,13 +376,13 @@ endif;
                     data-toggle="modal"
                     class="btn btn-default btn-xs"
                     data-target="#cam-application-history"
-                    title="<?php echo $this->translate('State history')?>">
+                    title="<?php echo $this->translate('Status history')?>">
                     <i class="yk-icon yk-icon-history"></i>
         </a>
         <a data-title="title"
                     data-toggle="modal"
                     data-target="#cam-application-history"
-                    title="<?php echo $this->translate('State history')?>">
+                    title="<?php echo $this->translate('Status history')?>">
         <?php echo strftime('%x %X', $application->dateModified->getTimestamp()); ?>
         </a>
         </td>

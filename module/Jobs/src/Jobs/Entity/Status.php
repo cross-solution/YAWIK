@@ -36,7 +36,7 @@ class Status extends AbstractEntity implements StatusInterface
 
     /**
      * name of the job status
-     * 
+     *
      * @var string
      * @ODM\String
      */
@@ -44,7 +44,7 @@ class Status extends AbstractEntity implements StatusInterface
 
     /**
      * integer for ordering states.
-     * 
+     *
      * @var int
      * @ODM\Int
      */
