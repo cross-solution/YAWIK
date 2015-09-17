@@ -3,9 +3,12 @@
 PHING=phing.phar
 COMPOSER=composer.phar
 PROPERTIES=build.properties
+VERBOSE=
 
 function usage {
   echo "";
+  echo "-b|--build-properties       Location of the build.properties file";
+  echo "-v|--verbose                runs phing.phar in verbose mode";
   echo "-h|--help                   this usage";
   echo "";
   exit;  
@@ -14,7 +17,15 @@ function usage {
 
 while [ "$1" != "" ]; do
   case $1 in
-   -h | --help )
+   -b | --build-properties )
+   	shift
+   	PROPERTIES=$1
+        ;;
+   -v | --verbose )
+   	shift
+   	VERBOSE=-verbose
+   	;;
+   -? | -h | --help )
    	usage
         exit
         ;;
@@ -34,7 +45,6 @@ then
   DEVENV=1
 fi;
 
-
 #
 # Download Phing
 #
@@ -49,7 +59,6 @@ fi;
 # Download Composer
 #
 
-
 echo "Installing úsing: $PROPERTIES"
 
 if [ $DEVENV ]
@@ -61,7 +70,10 @@ then
 		curl -sS https://getcomposer.org/installer | php
 	fi;
 
-	./$COMPOSER install
+	./$PHING $VERBOSE -Dbuild.properties $PROPERTIES
+	
+else
+	./$PHING $VERBOSE -Dbuild.properties $PROPERTIES generate-autoload-config
 fi;
 
 

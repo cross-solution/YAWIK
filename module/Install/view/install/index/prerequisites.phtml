@@ -19,7 +19,7 @@
         <?php $badgeTmpl = '<span class="text-%s"><strong>%s</strong></span>';
         foreach ($this->prerequisites['directories'] as $path => $result): ?>
             <tr>
-                <td><?php echo realpath($path) ?></td>
+                <td><?php echo realpath(".") . '/' .$path ?></td>
                 <td><?php
                     $colorClass = $result['valid'] ? 'success' : 'danger';
 
