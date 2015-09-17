@@ -6,7 +6,6 @@ PROPERTIES=build.properties
 
 function usage {
   echo "";
-  echo "-b|--build-properties       Location of the build.properties file";
   echo "-h|--help                   this usage";
   echo "";
   exit;  
@@ -15,10 +14,6 @@ function usage {
 
 while [ "$1" != "" ]; do
   case $1 in
-   -b | --build-properties )
-   	shift
-   	PROPERTIES=$1
-        ;;
    -h | --help )
    	usage
         exit
@@ -39,12 +34,6 @@ then
   DEVENV=1
 fi;
 
-
-if [ ! -f $PROPERTIES ];
-then
-  echo "no properties file found at $PROPERTIES. exit now."
-  exit 1;
-fi;
 
 #
 # Download Phing
@@ -72,10 +61,7 @@ then
 		curl -sS https://getcomposer.org/installer | php
 	fi;
 
-	./$PHING -Dbuild.properties $PROPERTIES
-	
-else
-	./$PHING -Dbuild.properties $PROPERTIES generate-autoload-config
+	./$COMPOSER install
 fi;
 
 
