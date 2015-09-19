@@ -1,6 +1,8 @@
 YAWIK
 =====
 
+[![Join the chat at https://gitter.im/cross-solution/YAWIK](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cross-solution/YAWIK?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 YAWIK offers a Web based solution for managing job applications. Jobs ads can
 be entered or pushed to the system. The sytem assigns application forms to job
 ads. Applicants and Recruiters can connect to YAWIK using social networks. 
