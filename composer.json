@@ -52,5 +52,10 @@
         "phpunit/phpunit": "4.7.*",
         "satooshi/php-coveralls": "dev-master",
 	"mikey179/vfsStream": "1.5.*"
-    }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "./install.sh"
+        ]
+    } 
 }

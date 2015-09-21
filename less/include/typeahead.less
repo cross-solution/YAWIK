@@ -1,6 +1,6 @@
-.twitter-typeahead {
- // might be needed for the geo plugin. (location autocompletition)
- //   width: 100%;
+#search-applications-form .tt-input,
+#search-applications-form .btn-group {
+ vertical-align: middle !important;
 }
 
 .tt-dropdown-menu {
@@ -26,6 +26,10 @@
 }
 
 .tt-cursor {
-	color: #fff;
+   color: @navbar-inverse-link-color;
    background-color: @brand-primary;
+}
+
+#form-jobs-list-filter .twitter-typeahead {
+ top: -5px;
 }
