@@ -12,7 +12,7 @@
 $this->headScript()->appendFile($this->basePath('Geo/js/jquery.geolocationfield.js'));
 $this->headScript()->appendFile($this->basePath('Geo/js/typeahead.jquery.min.js'));
 $this->headScript()->appendFile($this->basePath('Geo/js/bloodhound.min.js'));
-$this->headScript()->appendScript('var plugin="' . $this->params('plugin') . '";');
+
 
 $value = $this->element->getValue();
 $label = $this->element->getLabel();
@@ -27,7 +27,9 @@ if ($this->element->hasAttribute('name')) {
         <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
     </div>
     
-<?php return; endif ?>
+<?php return; endif;
+$this->headScript()->appendScript('var plugin="' . $this->element->getOption('geoPlugin', 'photon') . '";');?>
+
 <div class="controls controls-row row">
     <div class="col-md-3 text-right">
         <label for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate('Location') ?></label>
