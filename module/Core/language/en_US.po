@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-28 17:14+0200\n"
+"POT-Creation-Date: 2015-09-08 09:20+0200\n"
 "PO-Revision-Date: 2014-12-04 19:38+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
@@ -199,22 +199,22 @@ msgstr "All rights reserved."
 msgid "Permissions"
 msgstr "Permissions"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:104
-#: src/Core/Form/View/Helper/FormImageUpload.php:80
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file is too big"
 msgstr "The file is too big"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:105
-#: src/Core/Form/View/Helper/FormImageUpload.php:81
+#: src/Core/Form/View/Helper/FormFileUpload.php:107
+#: src/Core/Form/View/Helper/FormImageUpload.php:82
 msgid "The file type is not supported"
 msgstr "The file type is not supported"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormFileUpload.php:109
 #, php-format
 msgid "You may only upload %d files"
 msgstr "You may only upload %d files"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:152
+#: src/Core/Form/View/Helper/FormFileUpload.php:156
 msgid "Click here to add files or use drag and drop."
 msgstr "Click here to add files or use drag and drop."
 
@@ -222,15 +222,15 @@ msgstr "Click here to add files or use drag and drop."
 msgid "Click here to add an image or use drag and drop."
 msgstr "Click here to add an image or use drag and drop."
 
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
 msgid "processing"
 msgstr "processing"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:168
+#: src/Core/Form/View/Helper/SummaryForm.php:173
 msgid "Edit"
 msgstr "Edit"
 
-#: src/Core/Form/LocalizationSettingsFieldset.php:12
+#: src/Core/Form/LocalizationSettingsFieldset.php:13
 #: language/_annotated_strings.php:90
 msgid "general settings"
 msgstr "general settings"

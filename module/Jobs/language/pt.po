@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-28 17:14+0200\n"
-"PO-Revision-Date: 2015-07-29 09:20+0000\n"
+"POT-Creation-Date: 2015-09-23 16:56+0200\n"
+"PO-Revision-Date: 2015-09-23 15:15+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Portuguese (http://www.transifex.com/projects/p/yawik/language/pt/)\n"
+"Language-Team: Portuguese (http://www.transifex.com/yawik/yawik/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,13 +36,14 @@ msgid "Title of the job"
 msgstr ""
 
 #: view/mails/job-created.phtml:28 view/jobs/jobboard/index.ajax.phtml:14
-#: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:96
+#: view/jobs/index/index.ajax.phtml:19 language/_annotated_strings.php:87
+#: language/_annotated_strings.php:99
 msgid "Location"
 msgstr ""
 
 #: view/mails/job-created.phtml:32 view/jobs/jobboard/index.ajax.phtml:13
 #: view/jobs/index/index.ajax.phtml:20 view/jobs/index/index.ajax.phtml:30
-#: language/_annotated_strings.php:27 language/_annotated_strings.php:39
+#: language/_annotated_strings.php:24 language/_annotated_strings.php:36
 msgid "Companyname"
 msgstr ""
 
@@ -54,7 +55,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: view/mails/job-created.phtml:45 language/_annotated_strings.php:66
+#: view/mails/job-created.phtml:45 language/_annotated_strings.php:63
 msgid "Email"
 msgstr "Email"
 
@@ -137,7 +138,15 @@ msgstr ""
 msgid "ATS is disabled."
 msgstr ""
 
-#: view/form/list-filter.phtml:51
+#: view/form/list-filter.phtml:58
+msgid "search for position or company"
+msgstr ""
+
+#: view/form/list-filter.phtml:62 view/form/list-filter.phtml:64
+msgid "Type in a location"
+msgstr ""
+
+#: view/form/list-filter.phtml:66
 msgid "Search"
 msgstr "Pesquisa"
 
@@ -150,7 +159,7 @@ msgid "All jobs"
 msgstr ""
 
 #: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
-#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:177
+#: view/jobs/index/view.phtml:10 language/_annotated_strings.php:180
 msgid "Jobs"
 msgstr ""
 
@@ -162,8 +171,8 @@ msgstr ""
 msgid "Date of receipt"
 msgstr ""
 
-#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:121
-#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:71
+#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:129
+#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:74
 msgid "Apply"
 msgstr "Aplicar"
 
@@ -219,28 +228,28 @@ msgstr "Estado"
 msgid "Action"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:61 view/jobs/index/dashboard.phtml:35
+#: view/jobs/index/index.ajax.phtml:69 view/jobs/index/dashboard.phtml:35
 msgid "total"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:67 view/jobs/index/dashboard.phtml:41
+#: view/jobs/index/index.ajax.phtml:75 view/jobs/index/dashboard.phtml:41
 msgid "unread"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:80
+#: view/jobs/index/index.ajax.phtml:88
 msgid "draft"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:90
+#: view/jobs/index/index.ajax.phtml:98
 #, php-format
 msgid "Change responsible user for job \\\"%s\\\""
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:101 view/partials/history.phtml:2
+#: view/jobs/index/index.ajax.phtml:109 view/partials/history.phtml:2
 msgid "Status history"
-msgstr "História do Estado"
+msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:143
+#: view/jobs/index/index.ajax.phtml:151
 msgid "please wait"
 msgstr ""
 
@@ -277,14 +286,6 @@ msgstr ""
 msgid ""
 "Thank you for publishing your job opening. An email was send to the "
 "reviewing team."
-msgstr ""
-
-#: view/jobs/manage/completion.phtml:9 language/_annotated_strings.php:186
-msgid "Create job"
-msgstr ""
-
-#: view/jobs/manage/completion.phtml:10
-msgid "Logout"
 msgstr ""
 
 #: view/jobs/manage/history.phtml:4
@@ -449,39 +450,39 @@ msgstr ""
 msgid "Description"
 msgstr "Descrição"
 
-#: src/Jobs/Controller/ManageController.php:188
+#: src/Jobs/Controller/ManageController.php:190
 msgid "No Title"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:192
+#: src/Jobs/Controller/ManageController.php:194
 msgid "No Location"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:196
+#: src/Jobs/Controller/ManageController.php:198
 msgid "Accept the Terms"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:433
+#: src/Jobs/Controller/ManageController.php:440
 msgid "Job has been rejected"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:441
+#: src/Jobs/Controller/ManageController.php:448
 msgid "Job has been approved"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:477
+#: src/Jobs/Controller/ManageController.php:491
 msgid "Job has been deactivated"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:479
+#: src/Jobs/Controller/ManageController.php:493
 msgid "Job could not be deactivated"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:497
+#: src/Jobs/Controller/ManageController.php:512
 msgid "Template changed"
 msgstr ""
 
-#: src/Jobs/Controller/ManageController.php:500
+#: src/Jobs/Controller/ManageController.php:514
 msgid "Template not changed"
 msgstr ""
 
@@ -506,230 +507,234 @@ msgid "Apply now"
 msgstr ""
 
 #: language/_annotated_strings.php:3
-msgid "search for position or company"
-msgstr ""
-
-#: language/_annotated_strings.php:6
 msgid "Job qualification"
 msgstr ""
 
-#: language/_annotated_strings.php:9
+#: language/_annotated_strings.php:6
 msgid "Job benefits"
 msgstr ""
 
-#: language/_annotated_strings.php:12
+#: language/_annotated_strings.php:9
 msgid "Job requirements"
 msgstr ""
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:12
 msgid "Terms and conditions"
 msgstr ""
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:15
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:18
 msgid "terms an conditions"
 msgstr ""
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:21
 msgid "Title and job location"
 msgstr ""
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:27
 msgid "Please choose a descriptive title and a location for your job posting "
 msgstr ""
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:30
 msgid ""
 "Please choose the name of the hiring organization. The selected name defines"
 " the template of the job opening."
 msgstr ""
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:33
 msgid "Please choose the portals, where you wish to publish your job opening."
 msgstr ""
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:39
 msgid "The name of the hiring organization will be shown in search results."
 msgstr ""
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:42
 msgid "Select hiring organization"
 msgstr ""
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:45
 msgid "Mode"
 msgstr ""
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:48
 msgid "Built-In ATS"
 msgstr ""
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:51
 msgid "Use external link"
 msgstr ""
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:54
 msgid "Get applications via email"
 msgstr ""
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:57
 msgid "Do not track"
 msgstr ""
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:60
 msgid "URL"
 msgstr ""
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:66
 msgid "The apply identifier \"%value%\" is already in use."
 msgstr ""
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:69
 msgid "Show all jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:72
 msgid "Show my jobs"
 msgstr ""
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:75
 msgid "All"
 msgstr ""
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:78
 msgid "Active"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:81
 msgid "Inactive"
 msgstr ""
 
-#: language/_annotated_strings.php:87 language/_annotated_strings.php:90
+#: language/_annotated_strings.php:84 language/_annotated_strings.php:93
 msgid "Job title"
 msgstr ""
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:90
+msgid "Distance"
+msgstr ""
+
+#: language/_annotated_strings.php:96
 msgid "Please enter the job title"
 msgstr ""
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:102
 msgid "Please enter the location of the job"
 msgstr ""
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:105
 msgid "Portals"
 msgstr ""
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:108
 msgid "Multiposting"
 msgstr ""
 
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:111
 msgid "rejected"
 msgstr "rejeitados"
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:114
 msgid "publish"
 msgstr ""
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:117
 msgid "active"
 msgstr ""
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:120
 msgid "inactive"
 msgstr ""
 
-#: language/_annotated_strings.php:120
-msgid "expired"
-msgstr ""
-
 #: language/_annotated_strings.php:123
-#, php-format
-msgid "Job opening was rejected by %s"
+msgid "expired"
 msgstr ""
 
 #: language/_annotated_strings.php:126
 #, php-format
-msgid "Job opening was activated by %s"
+msgid "Job opening was rejected by %s"
 msgstr ""
 
 #: language/_annotated_strings.php:129
 #, php-format
-msgid "Job was deactivated by %s"
+msgid "Job opening was activated by %s"
 msgstr ""
 
 #: language/_annotated_strings.php:132
-msgid "A new job opening was created"
+#, php-format
+msgid "Job was deactivated by %s"
 msgstr ""
 
 #: language/_annotated_strings.php:135
-msgid "Your Job have been wrapped up for approval"
+msgid "A new job opening was created"
 msgstr ""
 
 #: language/_annotated_strings.php:138
-msgid "Your job has been published"
+msgid "Your Job have been wrapped up for approval"
 msgstr ""
 
 #: language/_annotated_strings.php:141
-msgid "Your job has been rejected"
+msgid "Your job has been published"
 msgstr ""
 
 #: language/_annotated_strings.php:144
+msgid "Your job has been rejected"
+msgstr ""
+
+#: language/_annotated_strings.php:147
 msgid "publish your job on yawik.org for free"
 msgstr ""
 
-#: language/_annotated_strings.php:147 language/_annotated_strings.php:156
+#: language/_annotated_strings.php:150 language/_annotated_strings.php:159
 #, php-format
 msgid "publish the job for 30 days on %s"
 msgstr ""
 
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:153
 msgid "yawik.org"
 msgstr ""
 
-#: language/_annotated_strings.php:153
+#: language/_annotated_strings.php:156
 msgid "publish your job on Jobsintown. 199,-€"
 msgstr ""
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:162
 msgid "www.jobsintown.de"
 msgstr ""
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:165
 msgid "Your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:168
 msgid "enable integration of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:168
+#: language/_annotated_strings.php:171
 #, php-format
 msgid "enable %s of this job on your Homepage"
 msgstr ""
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:174
 msgid "integration"
 msgstr ""
 
-#: language/_annotated_strings.php:174 language/_annotated_strings.php:192
+#: language/_annotated_strings.php:177 language/_annotated_strings.php:195
 msgid "Jobboard"
 msgstr ""
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "Overview"
 msgstr "Visão global"
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:186
 msgid "Pending jobs"
 msgstr ""
 
 #: language/_annotated_strings.php:189
+msgid "Create job"
+msgstr ""
+
+#: language/_annotated_strings.php:192
 msgid "Edit job"
 msgstr ""
 
