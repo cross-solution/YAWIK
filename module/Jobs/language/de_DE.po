@@ -511,7 +511,7 @@ msgid "Apply now"
 msgstr "Jetzt bewerben"
 
 #: language/_annotated_strings.php:3
-msgid "search for jobs"
+msgid "search for position or company"
 msgstr "nach Stellenanzeigen suchen"
 
 #: language/_annotated_strings.php:6
