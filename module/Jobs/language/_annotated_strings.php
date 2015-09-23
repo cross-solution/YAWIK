@@ -1,13 +1,4 @@
 <?php
-//: ./view/form/list-filter.phtml:58
-translate('search for position or company');
-
-//: ./view/form/list-filter.phtml:62
-translate('search for a location');
-
-//: ./view/form/list-filter.phtml:64
-translate('search for a location');
-
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:44
 translate('Job qualification');
 

@@ -509,7 +509,7 @@ msgid "Apply now"
 msgstr ""
 
 #: language/_annotated_strings.php:3
-msgid "search for jobs"
+msgid "search for position or company"
 msgstr "buscar empleo"
 
 #: language/_annotated_strings.php:6
