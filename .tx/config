@@ -64,6 +64,13 @@ source_lang = en_US
 type = PO
 lang_map = de: de_DE, en: en_US
 
+[yawik.geo]
+file_filter = module/Geo/language/<lang>.po
+source_file = module/Geo/language/messages.pot
+source_lang = en_US
+type = PO
+lang_map = de: de_DE, en: en_US
+
 [yawik.install]
 file_filter = module/Install/language/<lang>.po
 source_file = module/Install/language/messages.pot

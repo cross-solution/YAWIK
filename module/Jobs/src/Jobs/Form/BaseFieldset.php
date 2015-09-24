@@ -56,7 +56,8 @@ class BaseFieldset extends Fieldset
             'name' => 'location',
             'options' => array(
                 'label' => /*@translate*/ 'Location',
-                'description' => /*@translate*/ 'Please enter the location of the job'
+                'description' => /*@translate*/ 'Please enter the location of the job',
+                'geoPlugin' => 'photon',
             ),
             )
         );

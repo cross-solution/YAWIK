@@ -41,73 +41,73 @@ translate('Actions');
 //: ./src/Applications/Form/Base.php:27
 translate('Cover Letter');
 
-//: ./src/Applications/Form/Apply.php:39
+//: ./src/Applications/Form/Apply.php:40
 translate('Summary is meant as a general free text area. Click on "edit" to fill in some informations you think helps the recruiter to pick you for this job.');
 
-//: ./src/Applications/Form/Apply.php:57
+//: ./src/Applications/Form/Apply.php:59
 translate('Customize apply form');
 
-//: ./src/Applications/Form/SettingsFieldset.php:39
+//: ./src/Applications/Form/SettingsFieldset.php:40
 translate('E-Mail Notifications');
 
-//: ./src/Applications/Form/SettingsFieldset.php:44
+//: ./src/Applications/Form/SettingsFieldset.php:46
 translate('receive E-Mail alert');
 
-//: ./src/Applications/Form/SettingsFieldset.php:45
+//: ./src/Applications/Form/SettingsFieldset.php:47
 translate('if checked, you\'ll be informed by mail about new applications.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:49
+//: ./src/Applications/Form/SettingsFieldset.php:53
 translate('Mailtext');
 
-//: ./src/Applications/Form/SettingsFieldset.php:50
+//: ./src/Applications/Form/SettingsFieldset.php:54
 translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>');
 
-//: ./src/Applications/Form/SettingsFieldset.php:54
+//: ./src/Applications/Form/SettingsFieldset.php:60
 translate('confirm application immidiatly after submit');
 
-//: ./src/Applications/Form/SettingsFieldset.php:55
+//: ./src/Applications/Form/SettingsFieldset.php:61
 translate('if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:59
+//: ./src/Applications/Form/SettingsFieldset.php:67
 translate('Confirmation mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:60
+//: ./src/Applications/Form/SettingsFieldset.php:68
 translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li></ul>');
 
-//: ./src/Applications/Form/SettingsFieldset.php:64
+//: ./src/Applications/Form/SettingsFieldset.php:74
 translate('Invitation mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:65
+//: ./src/Applications/Form/SettingsFieldset.php:75
 translate('default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. ');
 
-//: ./src/Applications/Form/SettingsFieldset.php:70
+//: ./src/Applications/Form/SettingsFieldset.php:82
 translate('Rejection mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:71
+//: ./src/Applications/Form/SettingsFieldset.php:83
 translate('default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:75
+//: ./src/Applications/Form/SettingsFieldset.php:89
 translate('get blind carbon copy of all own mails');
 
-//: ./src/Applications/Form/SettingsFieldset.php:76
+//: ./src/Applications/Form/SettingsFieldset.php:90
 translate('if checked, you\'ll get a copy of all mails you send.');
 
-//: ./src/Applications/Form/FilterApplication.php:50
+//: ./src/Applications/Form/FilterApplication.php:53
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:58
+//: ./src/Applications/Form/FilterApplication.php:63
 translate('Enter job title');
 
-//: ./src/Applications/Form/FilterApplication.php:77
+//: ./src/Applications/Form/FilterApplication.php:86
 translate('Status');
 
-//: ./src/Applications/Form/FilterApplication.php:100
+//: ./src/Applications/Form/FilterApplication.php:113
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:108
+//: ./src/Applications/Form/FilterApplication.php:123
 translate('Clear');
 
-//: ./src/Applications/Form/CommentForm.php:41
+//: ./src/Applications/Form/CommentForm.php:43
 translate('Comment message');
 
 //: ./src/Applications/Form/Facts.php:35
@@ -119,109 +119,124 @@ translate('Please provide some additional facts for this job opening.');
 //: ./src/Applications/Form/FactsFieldset.php:29
 translate('Click here to enter facts.');
 
-//: ./src/Applications/Form/FactsFieldset.php:42
+//: ./src/Applications/Form/FactsFieldset.php:47
 translate('Yes');
 
-//: ./src/Applications/Form/FactsFieldset.php:43
+//: ./src/Applications/Form/FactsFieldset.php:48
 translate('conditioned');
 
-//: ./src/Applications/Form/FactsFieldset.php:44
+//: ./src/Applications/Form/FactsFieldset.php:49
 translate('No');
 
-//: ./src/Applications/Form/FactsFieldset.php:45
+//: ./src/Applications/Form/FactsFieldset.php:50
 translate('Willingness to travel');
 
-//: ./src/Applications/Form/FactsFieldset.php:46
+//: ./src/Applications/Form/FactsFieldset.php:51
 translate('Enter your willingness to travel.');
 
-//: ./src/Applications/Form/FactsFieldset.php:48
+//: ./src/Applications/Form/FactsFieldset.php:53
 translate('Ask the applicant about the willingness to travel');
 
-//: ./src/Applications/Form/FactsFieldset.php:52
+//: ./src/Applications/Form/FactsFieldset.php:57
 translate('please select');
 
-//: ./src/Applications/Form/FactsFieldset.php:61
+//: ./src/Applications/Form/FactsFieldset.php:68
 translate('Earliest starting date');
 
-//: ./src/Applications/Form/FactsFieldset.php:62
+//: ./src/Applications/Form/FactsFieldset.php:69
 translate('Enter the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:64
+//: ./src/Applications/Form/FactsFieldset.php:71
 translate('Ask the applicant about the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:72
+//: ./src/Applications/Form/FactsFieldset.php:81
 translate('Expected salary');
 
-//: ./src/Applications/Form/FactsFieldset.php:73
+//: ./src/Applications/Form/FactsFieldset.php:82
 translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
 
-//: ./src/Applications/Form/FactsFieldset.php:75
+//: ./src/Applications/Form/FactsFieldset.php:84
 translate('Ask users about their expected salary.');
 
-//: ./src/Applications/Form/Attributes.php:34
+//: ./src/Applications/Form/FactsFieldset.php:97
+translate('Yes');
+
+//: ./src/Applications/Form/FactsFieldset.php:98
+translate('No');
+
+//: ./src/Applications/Form/FactsFieldset.php:99
+translate('driving license');
+
+//: ./src/Applications/Form/FactsFieldset.php:100
+translate('Do you have a driving license?');
+
+//: ./src/Applications/Form/FactsFieldset.php:102
+translate('Ask the applicant, if he has a driving license.');
+
+//: ./src/Applications/Form/Attributes.php:36
 translate('Carbon Copy');
 
-//: ./src/Applications/Form/Attributes.php:35
+//: ./src/Applications/Form/Attributes.php:37
 translate('send me a carbon copy of my application');
 
-//: ./src/Applications/Form/Attributes.php:47
+//: ./src/Applications/Form/Attributes.php:51
 translate('Privacy Policy');
 
-//: ./src/Applications/Form/Attributes.php:48
+//: ./src/Applications/Form/Attributes.php:52
 translate('I have read the %s and accept it');
 
-//: ./src/Applications/Form/Attributes.php:49
+//: ./src/Applications/Form/Attributes.php:53
 translate('Privacy Policy');
 
-//: ./src/Applications/Form/BaseFieldset.php:33
+//: ./src/Applications/Form/BaseFieldset.php:35
 translate('Click here to enter a summary.');
 
-//: ./src/Applications/Form/BaseFieldset.php:44
+//: ./src/Applications/Form/BaseFieldset.php:47
 translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
 
-//: ./src/Applications/Form/BaseFieldset.php:45
+//: ./src/Applications/Form/BaseFieldset.php:48
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:86
+//: ./src/Applications/Controller/ManageController.php:89
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:137
+//: ./src/Applications/Controller/ManageController.php:141
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:170
+//: ./src/Applications/Controller/ApplyController.php:169
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:258
+//: ./src/Applications/Controller/ApplyController.php:264
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:273
+//: ./src/Applications/Controller/ApplyController.php:280
 translate('Application has been send.');
 
-//: ./src/Applications/Controller/ApplyController.php:339
+//: ./src/Applications/Controller/ApplyController.php:351
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:83
+//: ./src/Applications/Controller/IndexController.php:84
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:144
+//: ./src/Applications/Controller/IndexController.php:150
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:217
+//: ./src/Applications/Controller/IndexController.php:223
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:249
+//: ./src/Applications/Controller/IndexController.php:261
 translate('your application was sent successfully');
 
-//: ./src/Applications/Controller/IndexController.php:298
+//: ./src/Applications/Controller/IndexController.php:310
 translate('Application has been deleted.');
 
-//: ./src/Applications/Controller/IndexController.php:324
+//: ./src/Applications/Controller/IndexController.php:336
 translate('Mail has been send');
 
-//: ./src/Applications/Controller/IndexController.php:327
+//: ./src/Applications/Controller/IndexController.php:339
 translate('Application data has been deleted');
 
-//: ./src/Applications/Controller/IndexController.php:330
+//: ./src/Applications/Controller/IndexController.php:342
 translate('No mail adress available');
 
 //: ./src/Applications/Mail/Forward.php:59
@@ -244,3 +259,4 @@ translate('E-Mail Templates');
 
 //: ./config/module.config.php:133
 translate('Overview');
+

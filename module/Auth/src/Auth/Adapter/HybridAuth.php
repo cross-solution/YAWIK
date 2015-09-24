@@ -105,7 +105,7 @@ class HybridAuth implements AdapterInterface
             /*  */
 
             $dm = $this->getRepository()->getDocumentManager();
-            $user->info->email = $email;
+            if ( '' == $user->info->email) $user->info->email = $email;
             $user->info->firstName = $userProfile->firstName;
             $user->info->lastName = $userProfile->lastName;
             $user->info->birthDay = $userProfile->birthDay;

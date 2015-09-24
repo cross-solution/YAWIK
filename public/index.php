@@ -44,7 +44,11 @@ if (file_exists('vendor/autoload.php')) {
     //$loader->set($namespace, $path);
     $loader->set(Null, array('module'));
 } else {
-    throw new \RuntimeException('Could not initialize autoloading.');
+    echo '<p>Could not initialize autoloading. This happens, if the dependencies are not installed yet.</p>';
+    echo '<p>Please try to install the dependencies via: </p>';
+    echo '<code>cd '. realpath('.') .'<br>./install.sh</code>';
+    echo '<p>exit at ' . __FILE__ . ' in line ' . __LINE__ .'</p>';
+    exit;
 }
 
 // Run the application!

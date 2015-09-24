@@ -55,13 +55,13 @@ $statusElement = $params->get('status');
 
 ?>
 <div id="params-search-wrapper">
-    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for position or company' ))) ?>
+    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' => $this->translate('search for position or company') ))) ?>
 
     <?php
 
-    echo $this->partial("geo/form/GeoHorizontal", array('element' => $params->get('l')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for a location' )))) ?>
+    echo $this->partial("geo/form/GeoHorizontal", array('element' => $params->get('l')->setAttributes(array('class' => 'form-control ','placeholder' => $this->translate('Type in a location' ))))) ?>
 
-    <?php echo $this->formSelect($params->get('d')->setAttributes(array('class' => 'form-control ','placeholder' =>  /* @translate */ 'search for a location' ))) ?>
+    <?php echo $this->formSelect($params->get('d')->setAttributes(array('class' => 'form-control ','placeholder' =>  $this->translate('Type in a location') ))) ?>
 
     <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
 </div>

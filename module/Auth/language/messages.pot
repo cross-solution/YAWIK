@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-29 11:30+0200\n"
+"POT-Creation-Date: 2015-09-08 09:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,7 +178,7 @@ msgstr ""
 msgid "My password"
 msgstr ""
 
-#: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:54
+#: src/Auth/Form/UserInfo.php:32 language/_annotated_strings.php:54
 msgid "personal informations"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Group data"
 msgstr ""
 
-#: src/Auth/Form/GroupUsersCollection.php:88
+#: src/Auth/Form/GroupUsersCollection.php:89
 msgid "Users"
 msgstr ""
 

@@ -73,9 +73,10 @@
 @backgroundSidebarActive:  #f5f5f5;
 
 body {
-	position: relative;
-    margin-top: 45px;
+     position: relative;
+     margin-top: 45px;
 }
+
 
 th {
   background-color: @table-bg-header;
@@ -262,4 +263,30 @@ fieldset fieldset a.remove-item {
 .yk-logo-sm {
   max-height: 40px;
   max-width: 80px;
+}
+
+// Login Box
+#form-forgot-password,
+#form-user-password-form,
+#form-login-with-social-bottons {
+     > .form-content {
+        animation: 1s ease-in-out 0.25s normal forwards 1 running reveal-banner;
+        border-radius: 5px;
+        background: rgba(52, 27, 43, 0.5) none repeat scroll 0 0;
+        color: #fff;
+        display: inline-block;
+        opacity: 0.8;
+        padding: 3em;
+        a {
+            color: #fff;
+        }
+        label {
+            font-size: 85%;
+        }
+    }
+}
+
+// 
+#jobs-list .btn-toolbar {
+	border: 0;
 }

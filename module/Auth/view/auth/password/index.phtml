@@ -12,7 +12,6 @@ $this->headTitle($this->translate('My password'));
 
 ?>
 <h1><?php echo $this->translate('My password') ?></h1>
-
 <?php $this->form->setAttribute('action', $this->url('lang/my-password', array(), true));?>
-<?php echo  $this->form($this->form, 'form-inline'); ?>
+<?php echo  $this->form($this->form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL); ?>
 <?php echo  $this->inlineScript()->appendFile($this->basePath('/Auth/js/form.change-password.js')); ?>

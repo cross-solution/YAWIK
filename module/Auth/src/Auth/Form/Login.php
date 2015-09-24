@@ -26,9 +26,9 @@ class Login extends Form
         $fieldset->setOptions(array('renderFieldset' => true));
         $fieldset->add(
             array(
-            'name' => 'credentials[login]',
+            'name' => 'login',
             'options' => array(
-                'id' => 'credentials-login',
+                'id' => 'login',
                 'label' => /* @translate */ 'Login name',
             ),
             )
@@ -37,9 +37,9 @@ class Login extends Form
         $fieldset->add(
             array(
             'type' => 'password',
-            'name' => 'credentials[credential]',
+            'name' => 'credential',
             'options' => array(
-                'id' => 'credentials-credential',
+                'id' => 'credential',
                 'label' => /* @translate */ 'Password',
                 
             ),
