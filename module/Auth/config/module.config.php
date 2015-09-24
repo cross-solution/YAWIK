@@ -117,6 +117,17 @@ return array(
             ),
             "keys"    => array ( "key" => "", "secret" => "" ),
         ),
+        "Github" => array (
+            "enabled" => true,
+            // This is a hack due to bad design of HybridAuth
+            // There's no simpler way to include "additional-providers"
+            "wrapper" => array (
+                'class' => 'Hybrid_Providers_Github',
+                'path' => __FILE__,
+            ),
+            "keys"    => array ( "key" => "", "secret" => "" ),
+        ),
+
     ),
 
     'mails' => array(

@@ -74,10 +74,6 @@ class User extends AbstractAdapter
      *
      * {@inheritDoc}
      *
-     * If the user login does not exists in the database, but the login matches the
-     * login of the default user (see {@link setDefaultUser}), the default user will be
-     * created and logged in.
-     *
      */
     public function authenticate()
     {
@@ -87,22 +83,7 @@ class User extends AbstractAdapter
         $user        = $users->findByLogin($identity);
         $filter      = new CredentialFilter();
         $credential  = $this->getCredential();
-        
-        if (!$user) {
-            if (!$this->defaultUser || $identity != $this->defaultUser[0]) {
-                return new Result(Result::FAILURE_IDENTITY_NOT_FOUND, $identity, array('User not known or invalid credential'));
-            }
-            $password = $this->defaultUser[1];
-            $user = $users->create(
-                array(
-                'login' => $identity,
-                'password' => $password,
-                'role' => $this->defaultUser[2],
-                )
-            );
-            
-            $users->getDocumentManager()->persist($user);
-        }
+
         
         if ($user->getCredential() != $filter->filter($credential)) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
