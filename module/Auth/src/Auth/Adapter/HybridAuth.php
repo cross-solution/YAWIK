@@ -10,7 +10,6 @@
 /** Auth adapter */
 namespace Auth\Adapter;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Hybrid_Auth;
 use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
@@ -81,8 +80,9 @@ class HybridAuth implements AdapterInterface
     {
         
         $hybridAuth = $this->getHybridAuth();
+        /* @var $adapter \Hybrid_Provider_Model */
         $adapter = $hybridAuth->authenticate($this->_provider);
-       
+
         $userProfile = $adapter->getUserProfile();
         $email = isset($userProfile->emailVerified) && !empty($userProfile->emailVerified)
               ? $userProfile->emailVerified
@@ -98,29 +98,28 @@ class HybridAuth implements AdapterInterface
         }
        
        
-        $currentInfo = $user->profile;
+        $currentInfo = $user->getProfile();
         $newInfo = (array) $userProfile;
        
         if ($forceSave || $currentInfo != $newInfo) {
             /*  */
 
             $dm = $this->getRepository()->getDocumentManager();
-            if ( '' == $user->info->email) $user->info->email = $email;
-            $user->info->firstName = $userProfile->firstName;
-            $user->info->lastName = $userProfile->lastName;
-            $user->info->birthDay = $userProfile->birthDay;
-            $user->info->birthMonth = $userProfile->birthMonth;
-            $user->info->birthYear = $userProfile->birthYear;
-            $user->info->postalcode = $userProfile->zip;
-            $user->info->city = $userProfile->city;
-            $user->info->street = $userProfile->address;
-            $user->info->phone = $userProfile->phone;
-            $user->info->gender = $userProfile->gender;
+            if ( '' == $user->getInfo()->email) $user->getInfo()->email = $email;
+            $user->getInfo()->firstName = $userProfile->firstName;
+            $user->getInfo()->lastName = $userProfile->lastName;
+            $user->getInfo()->birthDay = $userProfile->birthDay;
+            $user->getInfo()->birthMonth = $userProfile->birthMonth;
+            $user->getInfo()->birthYear = $userProfile->birthYear;
+            $user->getInfo()->postalcode = $userProfile->zip;
+            $user->getInfo()->city = $userProfile->city;
+            $user->getInfo()->street = $userProfile->address;
+            $user->getInfo()->phone = $userProfile->phone;
+            $user->getInfo()->gender = $userProfile->gender;
             
-            $user->login =  $email;
-           
+            $user->setLogin($email);
+            $user->setProfile($newInfo);
 
-            $user->profile = $newInfo;
             $dm->persist($user);
             // make sure all ids are generated and user exists in database.
             $dm->flush();
@@ -128,7 +127,7 @@ class HybridAuth implements AdapterInterface
             /*
             * This must be after flush because a newly created user has no id!
             */
-            if ($forceSave || (!$user->info->image && $userProfile->photoURL)) {
+            if ($forceSave || (!$user->getInfo()->image && $userProfile->photoURL)) {
                 // get user image
                 if ('' != $userProfile->photoURL) {
                     $client = new \Zend\Http\Client($userProfile->photoURL, array('sslverifypeer' => false));
@@ -141,7 +140,7 @@ class HybridAuth implements AdapterInterface
                     $userImage->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
                     $userImage->setUser($user);
                     $userImage->setFile($file);
-                    $user->info->setImage($userImage);
+                    $user->getInfo()->setImage($userImage);
                     $dm->persist($userImage);
                     //$this->getRepository()->store($user->info);
                 }
@@ -152,7 +151,7 @@ class HybridAuth implements AdapterInterface
         }
        
        
-        return new Result(Result::SUCCESS, $user->id, array('firstLogin' => $forceSave, 'user' => $user));
+        return new Result(Result::SUCCESS, $user->getId(), array('firstLogin' => $forceSave, 'user' => $user));
         
     }
 
@@ -179,12 +178,12 @@ class HybridAuth implements AdapterInterface
         return $this;
     }
 
-    
     /**
-     * Sets the user mapper
+     * Sets the user repository
      *
-     * @param  UserMapperInterface $mapper
-     * @return HybridAuth
+     * @param $repository
+     *
+     * @return $this
      */
     public function setRepository($repository)
     {
@@ -194,9 +193,9 @@ class HybridAuth implements AdapterInterface
     }
 
     /**
-     * Gets the user mapper
+     * Gets the user repository
      *
-     * @return UserMapperInterface
+     * @return \Auth\Repository\User
      */
     public function getRepository()
     {
