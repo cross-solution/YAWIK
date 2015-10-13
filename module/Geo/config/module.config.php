@@ -1,6 +1,34 @@
 <?php
 
 return array(
+
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Geo\Entity' => 'annotation',
+                ),
+            ),
+            'annotation' => array(
+                /*
+                 * All drivers (except DriverChain) require paths to work on. You
+                 * may set this value as a string (for a single path) or an array
+                 * for multiple paths.
+                 * example https://github.com/doctrine/DoctrineORMModule
+                 */
+                'paths' => array( __DIR__ . '/../src/Geo/Entity'),
+            ),
+        ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Jobs\Repository\Event\UpdatePermissionsSubscriber',
+                ),
+            ),
+        ),
+    ),
+
+
     'controllers' => array(
         'invokables' => array(
             'Geo\Controller\Index' => 'Geo\Controller\IndexController',

@@ -20,23 +20,35 @@ $name  = "job[location]";
 if ($this->element->hasAttribute('name')) {
     $name  = $this->element->getAttribute('name');
 }
+$id = $this->element->getAttribute('id');
+if (!$id) {
+    $id = str_replace(array('[', ']'), array('-', ''), $name);
+}
+$nameElement = $this->element->getNameElement();
+$dataElement = $this->element->getDataElement();
 ?>
 <?php if ($this->renderSummary): ?>
     <div class="row">
         <div class="col-md-3 yk-label"><label><?php echo $this->translate('Location') ?></label></div>
-        <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
+        <div class="col-md-9"><?php echo $nameElement->getValue() ?></div>
     </div>
     
 <?php return; endif;
-$this->headScript()->appendScript('var plugin="' . $this->element->getOption('geoPlugin', 'photon') . '";');?>
+$this->headScript()->appendScript('var plugin="' . $this->element->getOption('geoPlugin', 'photon') . '";');
+?>
 
 <div class="controls controls-row row">
     <div class="col-md-3 text-right">
-        <label for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate('Location') ?></label>
+        <label
+               for="<?php echo $nameElement->getAttribute('id') ?>"><?php echo $this->translate($this->element->getLabel()) ?>
+        </label>
     </div>
     <div id="job-location-span" class="col-md-9">
-        <input type="text" value="<?php echo $value; ?>" class=" form-control geolocation" id="job-location" name="<?php echo $name; ?>" data-provide="typeahead" >
-        <div id="<?php echo preg_replace('/\W/','-',$this->element->getName()); ?>errors">
+        <?php echo $this->formText($nameElement) ?>
+
+        <div id="<?php echo preg_replace('/\W/','-',$nameElement->getName()); ?>errors">
         </div>     
     </div>
+    <?php echo $this->formHidden($dataElement);
+    echo $this->formHidden($this->element->getTypeElement()); ?>
 </div>

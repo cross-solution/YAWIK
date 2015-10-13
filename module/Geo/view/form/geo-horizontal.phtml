@@ -18,6 +18,10 @@ $name  = "job[location]";
 if ($this->element->hasAttribute('name')) {
     $name  = $this->element->getAttribute('name');
 }
+$id = $this->element->getAttribute('id');
+if (!$id) {
+    $id = str_replace(array('[', ']'), array('-', ''), $name);
+}
 ?>
 <?php if ($this->renderSummary): ?>
     <div class="row">
@@ -25,18 +29,25 @@ if ($this->element->hasAttribute('name')) {
         <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
     </div>
     <?php return; endif;
-$this->headScript()->appendScript('var plugin="' . $this->element->getOption('geoPlugin','photon') . '";');
+$plugin = $this->element->getOption('geoPlugin');
+$this->headScript()->appendScript('var plugin="' . ($plugin ?: 'photon') . '";');
+$nameElement = $this->element->getNameElement();
+$dataElement = $this->element->getDataElement();
 ?>
 
 
 
 <label class="sr-only"
-       for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate($this->element->getLabel()) ?>
+       for="<?php echo $nameElement->getAttribute('id') ?>"><?php echo $this->translate($this->element->getLabel()) ?>
 </label>
-<input type="text" value="<?php echo $value; ?>" placeholder="<?php echo $this->translate('Type in a location')?>" class="form-control geolocation" id="job-location" name="<?php echo $name; ?>" data-provide="typeahead" >
+<?php echo $this->formText($nameElement)
+/*<input type="text" value="<?php echo $value; ?>" placeholder="<?php echo $this->translate('Type in a location')?>" class="form-control geolocation" id="<?php echo $nameElement->getAttribute('id') ?>" name="<?php echo $nameElement->getName(); ?>" data-provide="typeahead" >*/ ?>
 <?php
 /**
  * @todo move the hidden filed to the GeoTextFormFactory.
  */
 ?>
-<input type="hidden" name="<?php echo $name; ?>[coordinates]" value="<?php echo $this->params('l')?>"  id="<?php echo $this->element->getAttribute('id') ?>coordinates" >
+<?php
+/*<input type="hidden" name="<?php echo $name; ?>[data]" value="<?php echo $this->params('l')?>"  id="<?php echo $id ?>-data" >*/
+echo $this->formHidden($dataElement);
+echo $this->formHidden($this->element->getTypeElement());
