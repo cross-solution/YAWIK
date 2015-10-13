@@ -66,7 +66,7 @@ class JobboardController extends AbstractActionController
         $service          = $this->getServiceLocator();
         $request          = $this->getRequest();
         $params           = $request->getQuery();
-        $jsonFormat       = 'json' == $params->get('format');
+        $jsonFormat       = 'json' == $request->getQuery()->get('format');
         $event            = $this->getEvent();
         $routeMatch       = $event->getRouteMatch();
         $matchedRouteName = $routeMatch->getMatchedRouteName();
@@ -87,6 +87,14 @@ class JobboardController extends AbstractActionController
             $this->searchForm->bind($params);
         }
 
+        $params = $params->get('params', []);
+
+        if (isset($params['l']['data'])) {
+            $geoText = $this->searchForm->get('params')->get('l');
+            $geoText->setValue($params['l']);
+            $params['location'] = $geoText->getValue('entity');
+        }
+
         if (!isset($params['sort'])) {
             $params['sort']='-date';
         }
@@ -101,7 +109,7 @@ class JobboardController extends AbstractActionController
         $this->searchForm->setOptions($options);
         
         $return = array(
-            'by' => $params->get('by', 'all'),
+            'by' => $params['by'],
             'jobs' => $paginator,
             'filterForm' => $this->searchForm
         );

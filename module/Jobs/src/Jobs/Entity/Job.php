@@ -480,6 +480,9 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, 
      */
     public function getLocations()
     {
+        if (!$this->locations) {
+            $this->setLocations(new ArrayCollection());
+        }
         return $this->locations;
     }
     /**

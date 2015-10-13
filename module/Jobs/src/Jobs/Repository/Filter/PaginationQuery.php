@@ -109,6 +109,13 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field('keywords')->all($searchPatterns);
         }
 
+        if (isset($this->value['location'])) {
+            $loc = $this->value['location'];
+            $queryBuilder->field('locations.coordinates')
+                         ->near($loc->getCoordinates())
+                         ->maxDistance($this->value['d'] * 1000);
+        }
+
         if (isset($this->value['sort'])) {
             foreach (explode(",", $this->value['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
