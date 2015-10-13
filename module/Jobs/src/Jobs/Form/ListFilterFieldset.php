@@ -98,6 +98,7 @@ class ListFilterFieldset extends Fieldset
                        'type' => 'Location',
                        'options' => array(
                            'label' => /*@translate*/ 'Location',
+                           'engine_type' => 'photon',
                        ),
                    )
         );

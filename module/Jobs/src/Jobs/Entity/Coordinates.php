@@ -12,6 +12,7 @@ namespace Jobs\Entity;
 
 use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Zend\Json\Json;
 
 /**
  * Coordinate of a job position
@@ -22,44 +23,55 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Coordinates extends AbstractEntity implements CoordinatesInterface
 {
     /**
-     * Longitude of a job coordinate
+     * The GeoJSON type
      *
+     * @var string
      * @ODM\String
      */
-    protected $x;
+    protected $type;
 
     /**
-     * Latitude of a job coordinate
+     * The GeoJSON coordinates.
      *
-     * @ODM\String
+     * This is an array which format depends on the $type beeing used.
+     *
+     * @var array
+     * @ODM\Collection
      */
-    protected $y;
+    protected $coordinates;
 
-
-    public function __construct()
+    public function setType($type)
     {
+        $this->type = $type;
 
-    }
-
-    public function getX()
-    {
-        return $this->x;
-    }
-
-    public function setX($x)
-    {
-        $this->x = $x;
         return $this;
     }
 
-    public function getY()
+    public function getType()
     {
-        return $this->y;
+        return $this->type;
     }
 
-    public function setY($y)
+    public function setCoordinates(array $coordinates)
     {
-        $this->y = $y;
+        $this->coordinates = $coordinates;
+
         return $this;
     }
+
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
+
+    public function toJson()
+    {
+        $data = [
+            'type' => $this->getType(),
+            'coordinates' => $this->getCoordinates(),
+        ];
+
+        return Json::encode($data);
+    }
+
 }
