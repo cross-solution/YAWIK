@@ -29,7 +29,7 @@ if (!$id) {
         <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
     </div>
     <?php return; endif;
-$plugin = $this->element->getOption('geoPlugin');
+$plugin = $this->element->getOption('engine_type');
 $this->headScript()->appendScript('var plugin="' . ($plugin ?: 'photon') . '";');
 $nameElement = $this->element->getNameElement();
 $dataElement = $this->element->getDataElement();
