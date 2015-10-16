@@ -35,7 +35,7 @@
             $button.addClass('btn-default').removeClass('btn-success');
         }
 
-        updatePrice();
+        //updatePrice();
 
     }
 
@@ -60,7 +60,8 @@
 
         $buttons = $container.find('.mpc-button');
         $buttons.popover().click(onButtonClick);
-        updatePrice();
+        $('.mps-calculate-btn').click($.fn.multipostingSelect.calculatePrice);
+        $.fn.multipostingSelect.calculatePrice();
     });
 
     $.fn.multipostingSelect = {};
@@ -77,25 +78,26 @@
     $.fn.multipostingSelect.calculatePrice = function()
     {
         var sum = 0, total = 0, $activeButtons = $container.find('.mpc-button.btn-success');
+        var selectedChannels =  [];
 
         console.debug($activeButtons);
         $activeButtons.each(function() {
-            var $button = $(this);
-            var price   = $button.data('price');
-            var minPrice = $button.data('minprice');
-
-            sum += parseFloat(price);
-
-            if (sum < minPrice && total < minPrice) {
-                total = minPrice;
-            } else {
-                total = sum > total ? sum : total;
-            }
-
-
+            selectedChannels.push($(this).find('input').val());
         });
+        console.debug(selectedChannels);
 
-        return {total: total, sum: sum };
+        var url = '?do=calculate';
+
+        $.post(url, {channels: selectedChannels})
+            .done(function(data) {
+                var sum      = data.sum ? data.sum : 0;
+                var price    = $.fn.multipostingSelect.formatPrice(sum, numberFormat);
+
+                $('#' + $container.attr('id') + '-total span').text(price);
+            })
+            .fail(function() {});
+
+        return false;
     };
 
     $.fn.multipostingSelect.getOptionData = function(text)
@@ -108,12 +110,7 @@
             desc: textArr[2],
             linkText: textArr[3],
             link: textArr[4],
-            duration: textArr[5],
-            nicePrice: textArr[6],
-            price: parseFloat(textArr[7]),
-            niceMinPrice: textArr[8],
-            minPrice: textArr[9],
-
+            duration: textArr[5]
         };
     };
 

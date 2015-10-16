@@ -39,18 +39,13 @@ class ChannelOptions extends AbstractOptions
     protected $externalkey = 0;
 
     /**
-     * Price of the channel.
+     * An array defining prices.
      *
-     * @var int $price
-     */
-    protected $price=0;
-
-    /**
-     * Minimal Price of the channel if it's selected in combination with another channel.
+     * e.g. [ 'purchase' => 100, 'list' => 300 ];
      *
-     * @var int $minPrice
+     * @var array
      */
-    protected $minPrice=0;
+    protected $prices = [];
 
 
     /**
@@ -182,46 +177,53 @@ class ChannelOptions extends AbstractOptions
     }
 
     /**
-     * Gets the price of a channel
+     * Gets a specific price of a channel
      *
-     * @return string
+     * @param string $key Key of the price in the prices array
+     *
+     * @return float
      */
-    public function getPrice()
+    public function getPrice($key)
     {
-        return $this->price;
+        return $this->prices[$key];
     }
 
     /**
-     * Sets the price of a channel
+     * Sets a specific price of a channel
      *
-     * @param int $price
-     * @return ChannelOptions
+     * @param string $key Key of the price in the prices array
+     * @param float $price
+     *
+     * @return self
      */
-    public function setPrice($price)
+    public function setPrice($key, $price)
     {
-        $this->price = $price;
+        $this->prices[$key] = $price;
+
         return $this;
     }
 
     /**
-     * Gets the minimal price of a channel.
+     * Gets the prices array
      *
-     * @return string
+     * @return array
      */
-    public function getMinPrice()
+    public function getPrices()
     {
-        return $this->minPrice?:$this->price;
+        return $this->prices;
     }
 
     /**
-     * Sets the minimal price of a channel if chosen in combination with another channel
+     * Sets the prices array
      *
-     * @param int $minPrice
-     * @return ChannelOptions
+     * @param array $prices
+     *
+     * @return self
      */
-    public function setMinPrice($minPrice)
+    public function setPrices(array $prices)
     {
-        $this->minPrice = $minPrice;
+        $this->prices = $prices;
+
         return $this;
     }
 

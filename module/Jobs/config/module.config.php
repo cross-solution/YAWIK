@@ -314,6 +314,7 @@ return array(
         'factories'=> array(
             'Jobs/PaginationQuery'      => '\Jobs\Repository\Filter\PaginationQueryFactory',
             'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory',
+            'Jobs/ChannelPrices'        => 'Jobs\Factory\Filter\ChannelPricesFactory',
         ),
     ),
 
