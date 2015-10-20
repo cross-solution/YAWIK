@@ -286,6 +286,7 @@ return array(
             'Jobs/CompanyNameElement'           => 'Jobs\Form\CompanyNameElement',
             'Jobs/Multipost'                    => 'Jobs\Form\Multipost',
             'Jobs/MultipostFieldset'            => 'Jobs\Form\MultipostFieldset',
+            'Jobs/MultipostButtonFieldset'      => 'Jobs\Form\MultipostButtonFieldset',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
         ),

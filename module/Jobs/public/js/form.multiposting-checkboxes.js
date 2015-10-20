@@ -34,19 +34,11 @@
         } else {
             $button.addClass('btn-default').removeClass('btn-success');
         }
-
-        //updatePrice();
+        $('.mps-submit').prop('disabled', true);//.hide();
+        //$('.mps-calculate').show();
 
     }
 
-    function updatePrice()
-    {
-        var sums     = $.fn.multipostingSelect.calculatePrice();
-        var sum      = sums.total;
-        var price    = $.fn.multipostingSelect.formatPrice(sum, numberFormat);
-
-        $('#' + $container.attr('id') + '-total span').text(price);
-    }
 
     $(function() {
         $container = $('#jobPortals-portals');
@@ -61,7 +53,12 @@
         $buttons = $container.find('.mpc-button');
         $buttons.popover().click(onButtonClick);
         $('.mps-calculate-btn').click($.fn.multipostingSelect.calculatePrice);
+        $('.mps-calculate').click(function() {
+
+            $.fn.multipostingSelect.calculatePrice(true);
+        });//.hide();
         $.fn.multipostingSelect.calculatePrice();
+
     });
 
     $.fn.multipostingSelect = {};
@@ -75,7 +72,7 @@
 
     };
 
-    $.fn.multipostingSelect.calculatePrice = function()
+    $.fn.multipostingSelect.calculatePrice = function(toggleButton)
     {
         var sum = 0, total = 0, $activeButtons = $container.find('.mpc-button.btn-success');
         var selectedChannels =  [];
@@ -94,10 +91,15 @@
                 var price    = $.fn.multipostingSelect.formatPrice(sum, numberFormat);
 
                 $('#' + $container.attr('id') + '-total span').text(price);
+                if (true === toggleButton) {
+                    $('.mps-calculate').spinnerbutton('toggle');
+                }
+                $('.mps-submit').prop('disabled', false);//.show();
+                //$('.mps-calculate').hide();
             })
             .fail(function() {});
 
-        return false;
+        return true;
     };
 
     $.fn.multipostingSelect.getOptionData = function(text)
