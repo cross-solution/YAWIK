@@ -253,6 +253,7 @@
             <include name="vendor/zendframework/**"/>
             <include name="vendor/hybridauth/**"/>
             <include name="vendor/doctrine/**"/>
+            <include name="vendor/jmikola/geojson/src/**"/>
             <include name="vendor/kriswallsmith/assetic/src/**"/>
             <include name="vendor/ezyang/htmlpurifier/library/**"/>
             <include name="vendor/mikemix/zf2htmlpurifier/src/**"/>
