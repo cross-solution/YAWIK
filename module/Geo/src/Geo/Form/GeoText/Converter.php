@@ -57,15 +57,14 @@ class Converter
         $data = Json::decode($data, Json::TYPE_ARRAY);
 
         $data = [
-            'city' => $data['properties']['city'],
-            'region' => $data['properties']['state'],
+            'city' => isset($data['properties']['city']) ? $data['properties']['city'] : null,
+            'region' => isset($data['properties']['state']) ? $data['properties']['state'] : null,
             'postalcode' => isset($data['properties']['postcode']) ? $data['properties']['postcode'] : null,
-            'country' => $data['properties']['country'],
-            'coordinates' => $data['geometry']['coordinates'],
+            'country' => isset($data['properties']['country']) ? $data['properties']['country'] : null,
+            'coordinates' => isset($data['geometry']['coordinates']) ? $data['geometry']['coordinates'] : null,
         ];
 
         return $data;
-
     }
 
     public function toValue(Location $location, $type)
