@@ -16,6 +16,8 @@ if ($this->renderSummary):?>
     <div class="row">
         <div class="col-md-12">
             <?php
+            $router = $this->services('Router');
+            $provider = $this->services('Jobs/Options/Provider');
             $options = $this->element->getValueOptions();
             $valueKey= $this->element->getValue();
 
@@ -38,21 +40,18 @@ if ($this->renderSummary):?>
                         <h5><?php echo $category ?></h5>
                         <div class="row">
                         <?php foreach ($channels as $name => $spec):
-                            $data = explode('|', $spec);
-                            $sum += $data[7];
+                            $channel = $provider->getChannel($name);
 
-                            if ($sum < $data[9] && $total < $data[9]): $total = $data[9];
-                            endif;
 
-                            $total = $sum > $total ? $sum : $total;
                             ?>
                             <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
 
-                                <a href="<?php echo $data[4] ?>">
+                                <a href="<?php
+                                $link = $router->assemble($channel->getParams(), array('name' => $channel->getRoute()));echo $link ?>">
 
-                                    <?php if ($data[10]):?>
-                                    <img src="<?php echo $data[10] ?>" alt="<?php echo $data[1] ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
-                                    <?php endif; ?> <?php echo $data[0] ?></a></div>
+                                    <?php if ($logo = $channel->getLogo()):?>
+                                    <img src="<?php echo $logo ?>" alt="<?php echo $channel->getLabel() ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                    <?php endif; ?> <?php echo $channel->getLinkText() ?></a></div>
                         <?php endforeach; ?>
                         </div>
                     <?php endforeach; ?>
@@ -61,7 +60,10 @@ if ($this->renderSummary):?>
                     <thead>
                         <tr>
                             <th><?php echo $this->translate('Price') ?></th>
-                            <th class="text-right"><?php echo $this->currencyFormat($total); ?></th>
+                            <th class="text-right"><?php
+                                $filter = $this->services('filtermanager.Jobs/ChannelPrices');
+                                $total = $filter->filter($valueKey);
+                                echo $this->currencyFormat($total); ?></th>
                         </tr>
                     </thead>
                     <tbody>

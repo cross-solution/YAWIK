@@ -71,14 +71,9 @@ $sum = 0; $total = 0;
                 <?php $channelData=$channels->getChannel($portalName); ?>
                 <?php echo $channelData->label ?>,
 
-
-                <?php $sum += (int) $channelData->price;
-                        if ($sum < $channelData->minPrice && $total < $channelData->minPrice):
-                                $total = $channelData->minPrice;
-                        endif;
-                    $total = $sum > $total ? $sum : $total;?>
-
-        <?php endforeach; ?>
+        <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
+                            $total = $priceFilter->filter($this->job->portals);?>
+    </p>
     <table>
         <tr>
             <td><?php echo $this->translate("Price")?>:</td>
