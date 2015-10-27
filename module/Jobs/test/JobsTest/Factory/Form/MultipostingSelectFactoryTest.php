@@ -55,7 +55,7 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
                        ->setLinkText('testLinkTxt')
                        ->setLogo('testLogo')
                        ->setParams(array('test' => 'params'))
-                       ->setPrice(1234)
+                       ->setPrice('test', 1234)
                        ->setPublishDuration(10)
                        ->setRoute('testRoute')
                        ->setTax(19);
@@ -104,7 +104,7 @@ class MultipostingSelectFactoryTest extends \PHPUnit_Framework_TestCase
             'testCat' => array(
                 'label' => 'testCat',
                 'options' => array(
-                    'testKey' => 'testLabel|testHL|testDesc|testLinkTxt|/test/uri|10|1234|1234|1234|1234|testLogo'
+                    'testKey' => 'testLabel|testHL|testDesc|testLinkTxt|/test/uri|10|testLogo'
                 )
             )
         );

@@ -55,9 +55,25 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetPrice()
     {
-        $price=199;
-        $this->options->setPrice($price);
-        $this->assertEquals($price, $this->options->getPrice());
+        $key='test'; $price=199;
+        $this->options->setPrice($key, $price);
+        $this->assertEquals($price, $this->options->getPrice($key));
+    }
+
+    /**
+     * @covers Jobs\Options\ChannelOptions::getPrices
+     * @covers Jobs\Options\ChannelOptions::setPrices
+     */
+    public function testSetGetPrices()
+    {
+        $prices = [
+            'test' => 1234,
+            'one'  => 4321,
+            'more' => 1234.56
+        ];
+
+        $this->assertSame($this->options, $this->options->setPrices($prices), 'Fluent interface broken');
+        $this->assertEquals($prices, $this->options->getPrices());
     }
 
     /**
