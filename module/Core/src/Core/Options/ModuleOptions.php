@@ -57,7 +57,7 @@ class ModuleOptions extends AbstractOptions
     protected $supportedLanguages = array(
         'de' => 'de_DE',
         'fr' => 'fr',
-        'us' => 'en_US',
+        'en' => 'en_US',
         'es' => 'es',
         'it' => 'it',
     );
