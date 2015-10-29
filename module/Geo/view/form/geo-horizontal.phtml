@@ -40,14 +40,18 @@ $dataElement = $this->element->getDataElement();
 <label class="sr-only"
        for="<?php echo $nameElement->getAttribute('id') ?>"><?php echo $this->translate($this->element->getLabel()) ?>
 </label>
-<?php echo $this->formText($nameElement)
-/*<input type="text" value="<?php echo $value; ?>" placeholder="<?php echo $this->translate('Type in a location')?>" class="form-control geolocation" id="<?php echo $nameElement->getAttribute('id') ?>" name="<?php echo $nameElement->getName(); ?>" data-provide="typeahead" >*/ ?>
+<?php
+
+$nameElement->setAttribute("placeholder",$this->translate('Type in a location'));
+
+echo $this->formText($nameElement)
+
+?>
 <?php
 /**
  * @todo move the hidden filed to the GeoTextFormFactory.
  */
 ?>
 <?php
-/*<input type="hidden" name="<?php echo $name; ?>[data]" value="<?php echo $this->params('l')?>"  id="<?php echo $id ?>-data" >*/
 echo $this->formHidden($dataElement);
 echo $this->formHidden($this->element->getTypeElement());
