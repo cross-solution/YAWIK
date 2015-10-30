@@ -102,7 +102,7 @@ class Index extends AbstractActionController
 
         $data = $form->getData();
 
-        $userOk = $this->plugin('Install/UserCreator')->process($data['db_conn'], $data['username'], $data['password']);
+        $userOk = $this->plugin('Install/UserCreator')->process($data['db_conn'], $data['username'], $data['password'], $data['email']);
         $ok = $this->plugin('Install/ConfigCreator')->process($data['db_conn'], $data['email']);
 
         /*
@@ -121,7 +121,7 @@ class Index extends AbstractActionController
     }
 
     /**
-     * Attachs default listeners to the event manager.
+     * Attaches default listeners to the event manager.
      */
     protected function attachDefaultListeners()
     {

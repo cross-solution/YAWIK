@@ -48,12 +48,13 @@ class UserCreator extends AbstractPlugin
      * @param string $dbConn Database connection string
      * @param string $username Login name
      * @param string $password Credential
+     * @param string $email Email
      *
      * @return bool
      *
      * @codeCoverageIgnore Untestable due to missing test database
      */
-    public function process($dbConn, $username, $password)
+    public function process($dbConn, $username, $password, $email)
     {
         $m  = @new \MongoClient($dbConn);
         $dbName = $this->databaseNameExtractor->filter($dbConn);
@@ -64,7 +65,8 @@ class UserCreator extends AbstractPlugin
             'isDraft' => false,
             'role' => 'admin',
             'login' => $username,
-            'credential' => $credential
+            'credential' => $credential,
+            'info' => [ 'email' => $email ]
         );
 
         $result = $collection->insert($document);
