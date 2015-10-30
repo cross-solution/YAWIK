@@ -414,12 +414,12 @@ return array(
             ),
             'admin' => array(
                 'allow' => "__ALL__",
-                'deny' => array(
-                    'route/lang/auth',
-                    'route/auth-provider',
-                    'route/auth-hauth',
-                    'route/auth-extern',
-                ),
+//                'deny' => array(
+//                    'route/lang/auth',
+//                    'route/auth-provider',
+//                    'route/auth-hauth',
+//                    'route/auth-extern',
+//                ),
             ),
         ),
     ),

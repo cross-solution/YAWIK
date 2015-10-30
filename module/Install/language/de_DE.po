@@ -8,42 +8,61 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-28 17:13+0200\n"
-"PO-Revision-Date: 2015-07-29 09:19+0000\n"
+"POT-Creation-Date: 2015-09-08 09:21+0200\n"
+"PO-Revision-Date: 2015-10-29 12:46+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: view/install/index/index.phtml:137
+msgid "PHP version not supported"
+msgstr "PHP Version wird nicht unterstützt"
+
+#: view/install/index/index.phtml:142
+#, php-format
+msgid ""
+"Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently "
+"provides PHP %s."
+msgstr "Es tut uns leid. YAWIK benötigt mindestens PHP 5.4.0, aber dieser Server stellt nur PHP in der Version %s zur Verfügung."
+
+#: view/install/index/index.phtml:147
+msgid ""
+"Please ask your servers' administrator to install the proper PHP version."
+msgstr "Bitten Sie Ihren Administrator ihnen eine unterstützte PHP Version zur Verfügung zu stellen."
+
 #: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
 msgid "Installation"
 msgstr "Installation"
 
-#: view/install/index/installation.phtml:45
+#: view/install/index/installation.phtml:55
 msgid "Install"
 msgstr "Installieren"
 
-#: view/install/index/install.phtml:12
+#: view/install/index/install.phtml:13
+#, php-format
 msgid ""
-"The base configuration file was successfully created. You can now start "
-"using YAWIK by reloading the browser window."
-msgstr "Die Konfigurations Datei wurde erfolgreich erstellt. Sie können nun YAWIK nutzen, indem Sie die Seite neu laden."
+"An administrator account with the login name \"%s\" was created "
+"successfully."
+msgstr "Ein Administrator Zugang mit  Namen \"%s\" wurde erfolgreich angelegt."
 
-#: view/install/index/install.phtml:15
+#: view/install/index/install.phtml:18
+msgid "The base configuration file was successfully created."
+msgstr "Die Basiskonfiguration wurde erfolgreich erstellt"
+
+#: view/install/index/install.phtml:21
 #, php-format
 msgid ""
 "The configuration file could not be created automatically. So please create "
 "a file called \"%s\" in the directory \"%s\" with the following content:"
 msgstr "Die Konfigurations Datei konnte nicht automatisch erstellt werden. Bitte erstellen Sie die Datei \"%s\" im Verzeichnis \"%s\" mit folgendem Inhalt;"
 
-#: view/install/index/install.phtml:19
-msgid ""
-"When you created the file you can start using YAWIK by reloading the browser"
-" window."
-msgstr "Nachdem sie die Datei erstellt haben, können Sie YAWIK nutzen, indem Sie die Seite in Ihrem Browser neu laden."
+#: view/install/index/install.phtml:31
+msgid "Start using YAWIK"
+msgstr "YAWIK starten"
 
 #: view/install/index/prerequisites.phtml:13
 msgid "Prerequisites"
@@ -69,7 +88,7 @@ msgstr "Ok"
 msgid ""
 "All required directories exists and have the needed permissions or can be "
 "created. You may savely continue with the installation."
-msgstr "Alle benötigten Verzeichnisse existieren und haben die notwendigen Rechte. Du kannst mit der Installation fortfahren."
+msgstr "Alle benötigten Verzeichnisse existieren und haben die notwendigen Rechte. Sie können mit der Installation fortfahren."
 
 #: view/install/index/prerequisites.phtml:50
 msgid ""
@@ -134,3 +153,7 @@ msgstr "Initialer Benutzername"
 #: language/_annotated_strings.php:9
 msgid "Password"
 msgstr "Kennwort"
+
+#: language/_annotated_strings.php:12
+msgid "Email address for system messages"
+msgstr "Email Adresse für Systemmeldungen"
