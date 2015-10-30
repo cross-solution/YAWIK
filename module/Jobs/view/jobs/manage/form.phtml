@@ -111,7 +111,7 @@ if ($this->page == 2):
                         <?php endforeach ?>
                         </div>
                         <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
-                                          $total = $pricesFilter->filter($this->job->portals);?>
+                                          $total = $priceFilter->filter($this->job->portals);?>
                         </div>
                 <table class="table table-condensed table-bordered">
                     <thead>

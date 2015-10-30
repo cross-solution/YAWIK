@@ -117,6 +117,8 @@
         </copy>
 
         <copy file="${project.basedir}/module/Jobs/config/channel.options.local.php.dist" tofile="${builddir}/config/autoload/channel.options.local.php"/>
+        <copy file="${project.basedir}/module/Core/config/module.core.options.local.php.dist" tofile="${builddir}/config/autoload/module.core.options.local.php"/>
+
 
         <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
         <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
@@ -141,6 +143,8 @@
         <chmod file="${builddir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
         <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
         <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
+        <mkdir dir="${builddir}/cache/HtmlPurifier"/>
+        <chmod file="${builddir}/cache/HtmlPurifier" mode="0777"/>
         <mkdir dir="${builddir}/config/autoload"/>
         <chmod file="${builddir}/config/autoload" mode="0777"/>
         <echo file="${builddir}/VERSION" append="false">${version}</echo>
