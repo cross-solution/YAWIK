@@ -65,8 +65,12 @@ translate('Postalcode');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:72
 translate('City');
 
-77:                    /*@translate*/
-84:                    /*@translate*/
+//: ./src/Organizations/Controller/InviteEmployeeController.php:77
+translate('The organization referenced in your request could not be found.');
+
+//: ./src/Organizations/Controller/InviteEmployeeController.php:83
+translate('The access token you provided seems to have expired.');
+
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 

@@ -71,7 +71,7 @@ class ApplyUrl extends AbstractHelper
             $url = $ats->getUri();
         }
         $translate = $this->translateHelper;
-        $result = sprintf('<a href="%s">%s</a>', $url, $translate('Apply'));
+        $result = sprintf('<a href="%s" rel="nofollow">%s</a>', $url, $translate('Apply'));
 
         return $result;
     }

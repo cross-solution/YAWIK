@@ -1,6 +1,34 @@
 <?php
 
 return array(
+
+    'doctrine' => array(
+        'driver' => array(
+            'odm_default' => array(
+                'drivers' => array(
+                    'Geo\Entity' => 'annotation',
+                ),
+            ),
+            'annotation' => array(
+                /*
+                 * All drivers (except DriverChain) require paths to work on. You
+                 * may set this value as a string (for a single path) or an array
+                 * for multiple paths.
+                 * example https://github.com/doctrine/DoctrineORMModule
+                 */
+                'paths' => array( __DIR__ . '/../src/Geo/Entity'),
+            ),
+        ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Jobs\Repository\Event\UpdatePermissionsSubscriber',
+                ),
+            ),
+        ),
+    ),
+
+
     'controllers' => array(
         'invokables' => array(
             'Geo\Controller\Index' => 'Geo\Controller\IndexController',
@@ -23,19 +51,15 @@ return array(
                     'geo' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/geo/:plugin',
+                            'route' => '/geo[/:plugin]',
                             'defaults' => array(
                                 'controller' => 'Geo\Controller\Index',
                                 'action' => 'index',
                                 'module' => 'Geo',
-                                'defaults' => array(
-                                    'defaults' => array(
-                                        'plugin' => 'geo'
-                                    ),
-                                    'constraints' => array(
-                                        'plugin' => '(geo|photon)',
-                                    ),
-                                ),
+                                'plugin' => 'photon'
+                            ),
+                            'constraints' => array(
+                                'plugin' => '(geo|photon)',
                             ),
                         ),
                         'may_terminate' => true,
@@ -45,8 +69,8 @@ return array(
         ),
     ),
     'form_elements' => array(
-        'factory' => array(
-            'Location' => 'Geo\Factory\Form\GeoTextFactory',
+        'invokables' => array(
+            'Location' => 'Geo\Form\GeoText',
          ),
     ),
     
@@ -67,6 +91,6 @@ return array(
     
     // spezifische Daten
     'geocoder_cross_url' => 'http://api.cross-solution.de/geo',
-    'geocoder_photon_url' => 'http://www2.mediaintown.de:2322/api',
+    'geocoder_photon_url' => 'http://photon.yawik.org/api',
 
 );

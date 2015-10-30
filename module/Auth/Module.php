@@ -58,6 +58,10 @@ class Module
                     'Hybrid_Providers_XING'
                     => __DIR__ . '/../../vendor/hybridauth/hybridauth/additional-providers/hybridauth-xing/Providers/XING.php',
                 ),
+                array(
+                    'Hybrid_Providers_Github'
+                    => __DIR__ . '/../../vendor/hybridauth/hybridauth/additional-providers/hybridauth-github/Providers/GitHub.php',
+                ),
             ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(

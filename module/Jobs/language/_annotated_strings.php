@@ -1,13 +1,4 @@
 <?php
-//: ./view/form/list-filter.phtml:58
-translate('search for position or company');
-
-//: ./view/form/list-filter.phtml:62
-translate('search for a location');
-
-//: ./view/form/list-filter.phtml:64
-translate('search for a location');
-
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:44
 translate('Job qualification');
 
@@ -31,6 +22,9 @@ translate('Title and job location');
 
 //: ./src/Jobs/Form/CompanyName.php:37
 translate('Companyname');
+
+//: ./src/Jobs/Form/MultipostButtonFieldset.php:32
+translate('Calculate price');
 
 //: ./src/Jobs/Form/Job.php:41
 translate('Please choose a descriptive title and a location for your job posting ');
@@ -95,7 +89,7 @@ translate('Job title');
 //: ./src/Jobs/Form/ListFilterFieldset.php:100
 translate('Location');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:110
+//: ./src/Jobs/Form/ListFilterFieldset.php:111
 translate('Distance');
 
 //: ./src/Jobs/Form/BaseFieldset.php:47
@@ -131,13 +125,13 @@ translate('inactive');
 //: ./src/Jobs/Entity/StatusInterface.php:54
 translate('expired');
 
-//: ./src/Jobs/Controller/ManageController.php:436
+//: ./src/Jobs/Controller/ManageController.php:470
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:444
+//: ./src/Jobs/Controller/ManageController.php:478
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:490
+//: ./src/Jobs/Controller/ManageController.php:524
 translate('Job was deactivated by %s');
 
 //: ./src/Jobs/Listener/MailSender.php:89

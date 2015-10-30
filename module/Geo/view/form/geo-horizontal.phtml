@@ -10,7 +10,6 @@
 $this->headScript()->appendFile($this->basePath('Geo/js/jquery.geolocationfield.js'));
 $this->headScript()->appendFile($this->basePath('Geo/js/typeahead.jquery.min.js'));
 $this->headScript()->appendFile($this->basePath('Geo/js/bloodhound.min.js'));
-$this->headScript()->appendScript('var plugin="' . $this->params('plugin','photon') . '";');
 
 $value = $this->element->getValue();
 $label = $this->element->getLabel();
@@ -19,23 +18,40 @@ $name  = "job[location]";
 if ($this->element->hasAttribute('name')) {
     $name  = $this->element->getAttribute('name');
 }
+$id = $this->element->getAttribute('id');
+if (!$id) {
+    $id = str_replace(array('[', ']'), array('-', ''), $name);
+}
 ?>
 <?php if ($this->renderSummary): ?>
     <div class="row">
         <div class="col-md-3 yk-label"><label><?php echo $this->translate($this->element->getLabel()) ?></label></div>
         <div class="col-md-9"><?php echo $this->element->getValue() ?></div>
     </div>
-    <?php return; endif ?>
+    <?php return; endif;
+$plugin = $this->element->getOption('engine_type');
+$this->headScript()->appendScript('var plugin="' . ($plugin ?: 'photon') . '";');
+$nameElement = $this->element->getNameElement();
+$dataElement = $this->element->getDataElement();
+?>
 
 
 
 <label class="sr-only"
-       for="<?php echo $this->element->getAttribute('id') ?>"><?php echo $this->translate($this->element->getLabel()) ?>
+       for="<?php echo $nameElement->getAttribute('id') ?>"><?php echo $this->translate($this->element->getLabel()) ?>
 </label>
-<input type="text" value="<?php echo $value; ?>" placeholder="<?php echo $this->translate('Type in a location')?>" class="form-control geolocation" id="job-location" name="<?php echo $name; ?>" data-provide="typeahead" >
+<?php
+
+$nameElement->setAttribute("placeholder",$this->translate('Type in a location'));
+
+echo $this->formText($nameElement)
+
+?>
 <?php
 /**
  * @todo move the hidden filed to the GeoTextFormFactory.
  */
 ?>
-<input type="hidden" name="<?php echo $name; ?>[coordinates]" value="<?php echo $this->params('l')?>"  id="<?php echo $this->element->getAttribute('id') ?>coordinates" >
+<?php
+echo $this->formHidden($dataElement);
+echo $this->formHidden($this->element->getTypeElement());

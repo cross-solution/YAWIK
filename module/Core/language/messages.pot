@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:20+0200\n"
+"POT-Creation-Date: 2015-10-29 13:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,15 @@ msgstr ""
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
+msgstr ""
+
+#: view/partial/social-buttons.phtml:13
+msgid "Login via"
+msgstr ""
+
+#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:22
+#, php-format
+msgid "Login with %s"
 msgstr ""
 
 #: view/partial/pagination-control.phtml:26
@@ -64,11 +73,6 @@ msgstr ""
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
-msgstr ""
-
-#: view/core/index/index.phtml:22
-#, php-format
-msgid "Login with %s"
 msgstr ""
 
 #: view/core/index/index.phtml:31
@@ -183,6 +187,11 @@ msgstr ""
 #: view/error/404.phtml:55
 #, php-format
 msgid "resolves to %s"
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and reload."
 msgstr ""
 
 #: view/layout/layout.phtml:38

@@ -11,6 +11,7 @@
 namespace Jobs\Entity;
 
 use Core\Entity\EntityInterface;
+use GeoJson\GeoJson;
 
 interface LocationInterface extends EntityInterface
 {
@@ -44,7 +45,7 @@ interface LocationInterface extends EntityInterface
      * @param $point
      * @return mixed
      */
-    public function setCoordinates(CoordinatesInterface $coordinates);
+    public function setCoordinates(GeoJson $coordinates);
 
     /**
      * Sets the city name of a Location

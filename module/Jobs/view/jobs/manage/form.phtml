@@ -100,21 +100,18 @@ if ($this->page == 2):
                     foreach ($portals as $category => $channels):?>
                         <h5><?php echo $category ?></h5>
                         <div class="row">
-                        <?php foreach ($channels as $channel):
-                            $sum+=$channel->price;
-                            if ($sum < $channel->minPrice && $total < $channel->minPrice):
-                                $total = $channel->minPrice;
-                            endif;
-                            $total = $sum > $total ? $sum : $total;?>
+                        <?php foreach ($channels as $channel):?>
+
                             <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
 
                                 <?php if ($channel->logo):?>
-                                <img src="<?php echo $channel->logo ?>" alt="<?php echo $channel->description ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                <img src="<?php echo $this->basepath($channel->logo) ?>" alt="<?php echo $channel->description ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
                                 <?php endif ?> <?php echo $channel->label ?>
                             </div>
                         <?php endforeach ?>
                         </div>
-                        <?php endforeach ?>
+                        <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
+                                          $total = $priceFilter->filter($this->job->portals);?>
                         </div>
                 <table class="table table-condensed table-bordered">
                     <thead>

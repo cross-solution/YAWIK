@@ -19,33 +19,16 @@ use Core\Entity\EntityInterface;
  */
 interface CoordinatesInterface extends EntityInterface
 {
-    /**
-     * Sets the longitude of a coordinate
-     *
-     * @param $x
-     * @return mixed
-     */
-    public function setX($x);
+    const TYPE_POINT = 'Point';
+    const TYPE_MULTIPOINT = 'MultiPoint';
+    const TYPE_LINESTRING = 'LineString';
+    const TYPE_POLYGON = 'Polygon';
+    const TYPE_MULTILINESTRING = 'MultiLineString';
+    const TYPE_MULTIPOLYGON = 'MultiPolygon';
 
-    /**
-     * Gets the logitude of a coordinate
-     *
-     * @return mixed
-     */
-    public function getX();
+    public function setType($type);
+    public function getType();
+    public function setCoordinates(array $coordinates);
+    public function getCoordinates();
 
-    /**
-     * Gets the latitude of a location
-     *
-     * @return mixed
-     */
-    public function getY();
-
-    /**
-     * Sets the latitude of a location
-     *
-     * @param $y
-     * @return mixed
-     */
-    public function setY($y);
 }

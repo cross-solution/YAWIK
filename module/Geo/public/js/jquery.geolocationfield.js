@@ -69,7 +69,7 @@
                 r += data.city + ' ';
             }
             if(data.street) {
-                r += ', ' + data.city;
+                r += ', ' + data.street;
             }
             if (r =="") {
                 r = data.name;
@@ -101,7 +101,8 @@
          * @todo: make passing of coordinates failsafe
          */
             .on('typeahead:selected', function($e, data){
-                $('#coordinates').val(data.coordinates)
+                console.debug($e.target, data);
+                $('#' + $($e.target).attr('id').replace(/-name$/, '-data')).val(data.data);
             })
     };
 

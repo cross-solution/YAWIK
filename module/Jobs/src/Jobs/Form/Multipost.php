@@ -56,4 +56,13 @@ class Multipost extends SummaryForm implements propagateAttributeInterface
         }
         return $this;
     }
+
+    protected function addButtonsFieldset()
+    {
+        $this->add(
+             array(
+                 'type' => 'Jobs/MultipostButtonFieldset'
+             )
+        );
+    }
 }

@@ -74,15 +74,13 @@ class InviteEmployeeController extends AbstractActionController
 
             case AcceptInvitationHandler::ERROR_ORGANIZATION_NOT_FOUND:
                 $model = $this->createErrorViewModel(
-                    /*@translate*/
-                    'The organization referenced in your request could not be found.'
+                    /*@translate*/ 'The organization referenced in your request could not be found.'
                 );
                 break;
 
             case AcceptInvitationHandler::ERROR_TOKEN_INVALID:
                 $model = $this->createErrorViewModel(
-                    /*@translate*/
-                    'The access token you provided seems to have expired.'
+                    /*@translate*/ 'The access token you provided seems to have expired.'
                 );
                 break;
         }

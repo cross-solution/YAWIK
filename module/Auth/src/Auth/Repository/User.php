@@ -102,6 +102,12 @@ class User extends AbstractRepository
         return $entity;
     }
 
+    /**
+     * @param      $email
+     * @param bool $isDraft
+     *
+     * @return UserInterface|null
+     */
     public function findByEmail($email, $isDraft = false)
     {
         $entity = $this->findOneBy(

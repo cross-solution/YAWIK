@@ -57,6 +57,9 @@ class ManageController extends AbstractActionController
      */
     public function preDispatch(MvcEvent $e)
     {
+        if ('calculate' == $this->params()->fromQuery('do')) {
+            return;
+        }
         $routeMatch = $e->getRouteMatch();
         $action = $routeMatch->getParam('action');
 
@@ -102,6 +105,12 @@ class ManageController extends AbstractActionController
      */
     public function editAction()
     {
+        if ('calculate' == $this->params()->fromQuery('do')) {
+            $calc = $this->getServiceLocator()->get('filtermanager')->get('Jobs/ChannelPrices');
+            $sum = $calc->filter($this->params()->fromPost('channels'));
+
+            return new JsonModel(['sum' => $sum]);
+        }
         return $this->save();
     }
 
@@ -172,6 +181,22 @@ class ManageController extends AbstractActionController
             $valid = $instanceForm->isValid();
             $formErrorMessages = ArrayUtils::merge($formErrorMessages, $instanceForm->getMessages());
             if ($valid) {
+                /*
+                 * @todo This is a workaround for GeoJSON data insertion
+                 * until we figured out, what we really want it to be.
+                 */
+                if ('locationForm' == $formIdentifier) {
+                    $locElem = $instanceForm->getBaseFieldset()->get('location');
+                    if ($locElem instanceOf \Geo\Form\GeoText) {
+                        $loc = $locElem->getValue('entity');
+                        $locations = $jobEntity->getLocations();
+                        if (count($locations)) { $locations->clear(); }
+                        $locations->add($loc);
+                        $jobEntity->setLocation($locElem->getValue());
+                    }
+                }
+
+
                 $title = $jobEntity->title;
                 $templateTitle = $jobEntity->templateValues->title;
                 if (empty($templateTitle)) {
@@ -225,6 +250,15 @@ class ManageController extends AbstractActionController
                             $actualForm = $form->get($actualFormIdentifier);
                             if ('nameForm' != $actualFormIdentifier && $actualForm instanceof SummaryFormInterface) {
                                 $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
+                            }
+                            if ('locationForm' == $actualFormIdentifier) {
+                                $locElem = $actualForm->getBaseFieldset()->get('location');
+                                if ($locElem instanceOf \Geo\Form\GeoText) {
+                                    $loc = $jobEntity->getLocations();
+                                    if (count($loc)) {
+                                        $locElem->setValue($loc->first());
+                                    }
+                                }
                             }
                         }
                     }

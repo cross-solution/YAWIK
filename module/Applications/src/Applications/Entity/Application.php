@@ -301,6 +301,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      *
      * @ODM\PrePersist
      * @ODM\PreUpdate
+     * @ODM\PreFlush
      */
     public function prependPersistingAnonymousUser()
     {

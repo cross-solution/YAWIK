@@ -12,12 +12,13 @@ namespace Jobs\Entity;
 
 use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use GeoJson\GeoJson;
 
 /**
  * Location of a job position
  *
  * @ODM\EmbeddedDocument
- * @ODM\Index(keys={"coordinates"="2d"})
+ * @ODM\Index(keys={"coordinates"="2dsphere"})
  *
  */
 class Location extends AbstractEntity implements LocationInterface
@@ -48,7 +49,7 @@ class Location extends AbstractEntity implements LocationInterface
      * coordinates of a job location.
      *
      * @var String
-     * @ODM\EmbedOne(targetDocument="Coordinates")
+     * @ODM\EmbedOne(discriminatorField="_entity")
      */
     protected $coordinates;
 
@@ -74,7 +75,7 @@ class Location extends AbstractEntity implements LocationInterface
         return $this->coordinates;
     }
 
-    public function setCoordinates(CoordinatesInterface $coordinates)
+    public function setCoordinates(GeoJson $coordinates)
     {
         $this->coordinates = $coordinates;
         return $this;
@@ -82,7 +83,7 @@ class Location extends AbstractEntity implements LocationInterface
 
     public function getPostalcode()
     {
-        return $this->status;
+        return $this->postalcode;
     }
 
     public function setPostalcode($postalcode)

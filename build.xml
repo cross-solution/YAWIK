@@ -101,6 +101,10 @@
         <copy todir="${builddir}/public">
             <fileset refid="awesomefonts"/>
         </copy>
+        
+        <copy todir="${builddir}/public">
+            <fileset refid="flags"/>
+        </copy>
 
         <mkdir dir="${builddir}/public/js/jquery-file-upload"/>
         <copy todir="${builddir}/public/js/jquery-file-upload">
@@ -113,6 +117,8 @@
         </copy>
 
         <copy file="${project.basedir}/module/Jobs/config/channel.options.local.php.dist" tofile="${builddir}/config/autoload/channel.options.local.php"/>
+        <copy file="${project.basedir}/module/Core/config/module.core.options.local.php.dist" tofile="${builddir}/config/autoload/module.core.options.local.php"/>
+
 
         <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
         <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
@@ -137,6 +143,8 @@
         <chmod file="${builddir}/cache/DoctrineMongoODMModule/Hydrator" mode="0777"/>
         <mkdir dir="${builddir}/cache/DoctrineMongoODMModule/Proxy"/>
         <chmod file="${builddir}/cache/DoctrineMongoODMModule/Proxy" mode="0777"/>
+        <mkdir dir="${builddir}/cache/HtmlPurifier"/>
+        <chmod file="${builddir}/cache/HtmlPurifier" mode="0777"/>
         <mkdir dir="${builddir}/config/autoload"/>
         <chmod file="${builddir}/config/autoload" mode="0777"/>
         <echo file="${builddir}/VERSION" append="false">${version}</echo>
@@ -253,6 +261,7 @@
             <include name="vendor/zendframework/**"/>
             <include name="vendor/hybridauth/**"/>
             <include name="vendor/doctrine/**"/>
+            <include name="vendor/jmikola/geojson/src/**"/>
             <include name="vendor/kriswallsmith/assetic/src/**"/>
             <include name="vendor/ezyang/htmlpurifier/library/**"/>
             <include name="vendor/mikemix/zf2htmlpurifier/src/**"/>
@@ -263,6 +272,7 @@
             <exclude name="**/YawikDemo*/**"/>
             <exclude name="**/CamMediaintown/**"/>
             <exclude name="**/JobsDeutschland/**"/>
+            <exclude name="**/Karrierelounge/**"/>
             <exclude name="**/Karriere24/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
@@ -277,6 +287,7 @@
             <exclude name="**/*.pot"/>
             <exclude name="**/language/_annotated_strings.php"/>
             <exclude name="public/fonts"/>
+            <exclude name="public/flags"/>
             <exclude name="public/js/jquery-file-upload**"/>
             <exclude name="public/css/select2**"/>
         </fileset>
@@ -286,6 +297,10 @@
 
         <fileset id="awesomefonts" dir="${vendordir}/fortawesome/font-awesome">
             <include name="fonts/*"/>
+        </fileset>
+        
+        <fileset id="flags" dir="${vendordir}/components/flag-icon-css">
+            <include name="flags/**"/>
         </fileset>
 
         <fileset id="blueimp" dir="${vendordir}/blueimp/jquery-file-upload/js">

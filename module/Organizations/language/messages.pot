@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Organizations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:20+0200\n"
+"POT-Creation-Date: 2015-10-29 13:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,15 +203,23 @@ msgstr ""
 msgid "Postalcode"
 msgstr ""
 
-#: language/_annotated_strings.php:71
+#: language/_annotated_strings.php:69
+msgid "The organization referenced in your request could not be found."
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "The access token you provided seems to have expired."
+msgstr ""
+
+#: language/_annotated_strings.php:75
 #, php-format
 msgid "Invitation to join the team of %s"
 msgstr ""
 
-#: language/_annotated_strings.php:74
+#: language/_annotated_strings.php:78
 msgid "Overview"
 msgstr ""
 
-#: language/_annotated_strings.php:77
+#: language/_annotated_strings.php:81
 msgid "Insert"
 msgstr ""

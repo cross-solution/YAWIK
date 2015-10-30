@@ -55,7 +55,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
                                 $this->showPendingJobs ? $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->id)), true)
                                                        : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true)
                                             ); ?>
-        <a href="<?php echo $href ?>" target="_blank"><?php echo strip_tags($job->title)?></a>
+        <a href="<?php echo $href ?>" target="_blank" rel="nofollow"><?php echo strip_tags($job->title)?></a>
     
         </td>
     <?php if (!$this->showPendingJobs): ?>

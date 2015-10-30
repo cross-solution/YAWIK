@@ -56,10 +56,7 @@ $defaultTaxRate = $options->defaultTaxRate;
  */
 ?>
 
-<?php
-$sum = 0; $total = 0;
-
-?>
+<?php $total = 0;?>
 
 <?php if (empty($this->job->portals)) : ?>
     <?php echo $this->translate('no Portal chosen') ?>
@@ -71,14 +68,9 @@ $sum = 0; $total = 0;
                 <?php $channelData=$channels->getChannel($portalName); ?>
                 <?php echo $channelData->label ?>,
 
-
-                <?php $sum += (int) $channelData->price;
-                        if ($sum < $channelData->minPrice && $total < $channelData->minPrice):
-                                $total = $channelData->minPrice;
-                        endif;
-                    $total = $sum > $total ? $sum : $total;?>
-
-        <?php endforeach; ?>
+        <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
+                            $total = $priceFilter->filter($this->job->portals);?>
+    </p>
     <table>
         <tr>
             <td><?php echo $this->translate("Price")?>:</td>
@@ -90,12 +82,14 @@ $sum = 0; $total = 0;
         </tr>
         <tr>
             <td><?php echo $this->translate("Invoice amount")?>:</td>
-            <td><?php echo $this->currencyFormat((round(($total * $defaultTaxRate/100)+$sum,2)), $defaultCurrencyCode) ?></td>
+            <td><?php echo $this->currencyFormat((round(($total * $defaultTaxRate/100)+$total,2)), $defaultCurrencyCode) ?></td>
         </tr>
     </table>
 <?php endif; ?>
 
-<a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>"><?php echo $this->translate("Click here to accept or reject the job opening")?></a>
+<a href="<?php echo $this->serverUrl() . $this->url('lang/jobs/approval', array(), true)?>?id=<?php echo $this->job->getId()?>">
+    <?php echo $this->translate("Click here to accept or reject the job opening")?>
+</a>
 
 
 <?php echo $this->partial('mail/footer'); ?>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Auth\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:20+0200\n"
+"POT-Creation-Date: 2015-10-29 13:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgstr ""
 msgid "I forgot my password"
 msgstr ""
 
-#: view/auth/index/index.phtml:43 view/auth/index/index.phtml:44
+#: view/auth/index/index.phtml:44 view/auth/index/index.phtml:46
 #: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
 #: language/_annotated_strings.php:90
 msgid "Register"
@@ -174,7 +174,6 @@ msgid ""
 msgstr ""
 
 #: view/auth/password/index.phtml:11 view/auth/password/index.phtml:14
-#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr ""
 
