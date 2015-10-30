@@ -105,7 +105,7 @@ if ($this->page == 2):
                             <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
 
                                 <?php if ($channel->logo):?>
-                                <img src="<?php echo $channel->logo ?>" alt="<?php echo $channel->description ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                <img src="<?php echo $this->basepath($channel->logo) ?>" alt="<?php echo $channel->description ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
                                 <?php endif ?> <?php echo $channel->label ?>
                             </div>
                         <?php endforeach ?>

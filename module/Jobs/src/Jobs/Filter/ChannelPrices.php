@@ -6,8 +6,11 @@
  * @license MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
-  
-/** */
+
+/**
+ * The price calculations is probably something you wanna do completely different. You can do so by writing
+ * your own filter.
+ */
 namespace Jobs\Filter;
 
 use Jobs\Options\ChannelOptions;
@@ -41,11 +44,16 @@ class ChannelPrices implements FilterInterface
     public function filter($value)
     {
         $sum = 0;
+        $amount = 0;
         foreach ($value as $channelKey) {
             $channel = $this->providers->getChannel($channelKey);
-
-            $sum += $channel->getPrice('base');
+            if ($channel->getPrice('base')>0) {
+                $sum += $channel->getPrice('base');
+                $amount++;
+            }
         }
+        $discount=1-($amount-1)*13.5/100;
+        if ($discount>0) $sum= round($sum * $discount,2);
         return $sum;
     }
 

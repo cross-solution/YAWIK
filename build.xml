@@ -272,6 +272,7 @@
             <exclude name="**/YawikDemo*/**"/>
             <exclude name="**/CamMediaintown/**"/>
             <exclude name="**/JobsDeutschland/**"/>
+            <exclude name="**/Karrierelounge/**"/>
             <exclude name="**/Karriere24/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
