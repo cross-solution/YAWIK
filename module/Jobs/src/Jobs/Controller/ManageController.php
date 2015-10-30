@@ -57,6 +57,9 @@ class ManageController extends AbstractActionController
      */
     public function preDispatch(MvcEvent $e)
     {
+        if ('calculate' == $this->params()->fromQuery('do')) {
+            return;
+        }
         $routeMatch = $e->getRouteMatch();
         $action = $routeMatch->getParam('action');
 
@@ -102,6 +105,12 @@ class ManageController extends AbstractActionController
      */
     public function editAction()
     {
+        if ('calculate' == $this->params()->fromQuery('do')) {
+            $calc = $this->getServiceLocator()->get('filtermanager')->get('Jobs/ChannelPrices');
+            $sum = $calc->filter($this->params()->fromPost('channels'));
+
+            return new JsonModel(['sum' => $sum]);
+        }
         return $this->save();
     }
 

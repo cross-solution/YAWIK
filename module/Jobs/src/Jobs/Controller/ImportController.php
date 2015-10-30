@@ -11,6 +11,8 @@
 /** ActionController of Core */
 namespace Jobs\Controller;
 
+use Geo\Entity\Geometry\Point;
+use Jobs\Entity\Location;
 use Jobs\Entity\Status;
 use Organizations\Entity\Employee;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -51,7 +53,7 @@ class ImportController extends AbstractActionController
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
-        if (true && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
+        if (true) { // && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(
@@ -165,6 +167,20 @@ class ImportController extends AbstractActionController
 
                         } else {
                             $result['message'] = '';
+                        }
+
+                        if (!empty($params->locations)) {
+                            $locations = \Zend\Json\Json::decode($params->locations, \Zend\Json\Json::TYPE_ARRAY);
+                            $jobLocations = $entity->getLocations();
+                            foreach ($locations as $locData) {
+                                $location = new Location();
+                                $location->setCountry($locData['country'])
+                                         ->setRegion($locData['region'])
+                                         ->setCity($locData['city'])
+                                         ->setCoordinates(new Point($locData['coordinates']));
+
+                                $jobLocations->add($location);
+                            }
                         }
                         $repositoriesJob->store($entity);
                         $id = $entity->getId();

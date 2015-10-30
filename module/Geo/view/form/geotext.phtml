@@ -34,7 +34,8 @@ $dataElement = $this->element->getDataElement();
     </div>
     
 <?php return; endif;
-$this->headScript()->appendScript('var plugin="' . $this->element->getOption('geoPlugin', 'photon') . '";');
+$plugin = $this->element->getOption('engine_type');
+$this->headScript()->appendScript('var plugin="' . ($plugin ?: 'photon') . '";');
 ?>
 
 <div class="controls controls-row row">

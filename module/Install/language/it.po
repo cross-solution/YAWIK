@@ -3,62 +3,82 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-28 17:13+0200\n"
-"PO-Revision-Date: 2015-07-29 08:59+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
+"POT-Creation-Date: 2015-09-08 09:21+0200\n"
+"PO-Revision-Date: 2015-10-29 12:27+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: view/install/index/index.phtml:137
+msgid "PHP version not supported"
+msgstr ""
+
+#: view/install/index/index.phtml:142
+#, php-format
+msgid ""
+"Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently "
+"provides PHP %s."
+msgstr ""
+
+#: view/install/index/index.phtml:147
+msgid ""
+"Please ask your servers' administrator to install the proper PHP version."
+msgstr ""
+
 #: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
 msgid "Installation"
-msgstr ""
+msgstr "Installazione"
 
-#: view/install/index/installation.phtml:45
+#: view/install/index/installation.phtml:55
 msgid "Install"
-msgstr ""
+msgstr "Installare"
 
-#: view/install/index/install.phtml:12
+#: view/install/index/install.phtml:13
+#, php-format
 msgid ""
-"The base configuration file was successfully created. You can now start "
-"using YAWIK by reloading the browser window."
+"An administrator account with the login name \"%s\" was created "
+"successfully."
 msgstr ""
 
-#: view/install/index/install.phtml:15
+#: view/install/index/install.phtml:18
+msgid "The base configuration file was successfully created."
+msgstr ""
+
+#: view/install/index/install.phtml:21
 #, php-format
 msgid ""
 "The configuration file could not be created automatically. So please create "
 "a file called \"%s\" in the directory \"%s\" with the following content:"
-msgstr ""
+msgstr "Il file di configurazione non può essere creato automaticamente. Quindi, per favore creare un file denominato \"%s\" nella cartella \"%s\" con il seguente contenuto:"
 
-#: view/install/index/install.phtml:19
-msgid ""
-"When you created the file you can start using YAWIK by reloading the browser"
-" window."
+#: view/install/index/install.phtml:31
+msgid "Start using YAWIK"
 msgstr ""
 
 #: view/install/index/prerequisites.phtml:13
 msgid "Prerequisites"
-msgstr ""
+msgstr "Prerequisiti"
 
 #: view/install/index/prerequisites.phtml:28
 msgid "Creatable"
-msgstr ""
+msgstr "Creabile"
 
 #: view/install/index/prerequisites.phtml:30
 msgid "Missing"
-msgstr ""
+msgstr "Mancante"
 
 #: view/install/index/prerequisites.phtml:34
 msgid "Not writable"
-msgstr ""
+msgstr "Non scrivibile"
 
 #: view/install/index/prerequisites.phtml:36
 msgid "Ok"
@@ -68,7 +88,7 @@ msgstr "Bene"
 msgid ""
 "All required directories exists and have the needed permissions or can be "
 "created. You may savely continue with the installation."
-msgstr ""
+msgstr "Tutti directory necessari esistono e dispongono delle autorizzazioni necessarie o possono essere create. Si può continuare con l'installazione affidamente."
 
 #: view/install/index/prerequisites.phtml:50
 msgid ""
@@ -76,7 +96,7 @@ msgid ""
 "writable, but it will ease the installation as YAWIK can create the config "
 "files automatically. Consider giving write permission during installation "
 "and revoke it afterwards."
-msgstr ""
+msgstr "Nota bene: Non è necessario per il directory config/autoload di essere scrivibile, ma faciliterà l'installazione, perché YAWIK può creare automaticamente i file di configurazione. Considerate dando il permesso di scrittura durante l'installazione e revocarla successivamente."
 
 #: view/install/index/prerequisites.phtml:53
 msgid ""
@@ -84,15 +104,15 @@ msgid ""
 "otherwise it is not possible to run YAWIK. Please ensure that all required "
 "directories either exist with the right permissions or at least are "
 "creatable during this installation process."
-msgstr ""
+msgstr "YAWIK richiede alcune directory di esistere e avere permessi adeguati, altrimenti non è possibile eseguire YAWIK. Assicurarsi che esistono tutte le directory necessarie con i permessi giusti o almeno sono creabile durante il processo di installazione."
 
 #: view/install/index/prerequisites.phtml:55
 msgid "Check again"
-msgstr ""
+msgstr "Controlla di nuovo"
 
 #: view/install/index/prerequisites.phtml:56
 msgid "Checking"
-msgstr ""
+msgstr "Verifica"
 
 #: view/error/index.phtml:14
 msgid "An error occurred"
@@ -124,12 +144,16 @@ msgstr "Nessuna Eccezione disponibile"
 
 #: language/_annotated_strings.php:3
 msgid "Database connection string"
-msgstr ""
+msgstr "String di connessione a la database"
 
 #: language/_annotated_strings.php:6
 msgid "Initial user name"
-msgstr ""
+msgstr "Nome utente iniziale"
 
 #: language/_annotated_strings.php:9
 msgid "Password"
 msgstr "Password"
+
+#: language/_annotated_strings.php:12
+msgid "Email address for system messages"
+msgstr ""

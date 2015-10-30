@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014-2015
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
@@ -12,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-17 07:33+0000\n"
+"POT-Creation-Date: 2015-09-08 09:20+0200\n"
+"PO-Revision-Date: 2015-10-29 12:20+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/yawik/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -75,7 +75,7 @@ msgstr "Anmelden mit %s"
 
 #: view/core/index/index.phtml:31
 msgid "responsive design (uses bootstrap3 and font awesome)"
-msgstr "Responsive Designe (nutzt Bootstrap3 und Awesome Fonts)"
+msgstr "Responsive Design (nutzt Bootstrap3 und Awesome Fonts)"
 
 #: view/core/index/index.phtml:32
 msgid "multilingual"
@@ -188,15 +188,15 @@ msgstr "Controller"
 msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
-#: view/layout/layout.phtml:35
+#: view/layout/layout.phtml:38
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:88
+#: view/layout/layout.phtml:91
 msgid "Help to translate YAWIK"
 msgstr "Hilf bei der Übersetzung von YAWIK"
 
-#: view/layout/layout.phtml:117
+#: view/layout/layout.phtml:120
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
@@ -204,22 +204,22 @@ msgstr "Alle Rechte vorbehalten."
 msgid "Permissions"
 msgstr "Zugriffsrechte"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:104
-#: src/Core/Form/View/Helper/FormImageUpload.php:80
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file is too big"
 msgstr "Die Datei ist zu groß"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:105
-#: src/Core/Form/View/Helper/FormImageUpload.php:81
+#: src/Core/Form/View/Helper/FormFileUpload.php:107
+#: src/Core/Form/View/Helper/FormImageUpload.php:82
 msgid "The file type is not supported"
 msgstr "Der Dateityp wird nicht unterstützt"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormFileUpload.php:109
 #, php-format
 msgid "You may only upload %d files"
 msgstr "Sie können insgesamt %d Dateien übermitteln"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:152
+#: src/Core/Form/View/Helper/FormFileUpload.php:156
 msgid "Click here to add files or use drag and drop."
 msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
 
@@ -227,15 +227,15 @@ msgstr "Hier klicken, um Anhänge hinzuzufügen oder Dateien hierher ziehen."
 msgid "Click here to add an image or use drag and drop."
 msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
 
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
 msgid "processing"
 msgstr "bearbeiten"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:168
+#: src/Core/Form/View/Helper/SummaryForm.php:173
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/Core/Form/LocalizationSettingsFieldset.php:12
+#: src/Core/Form/LocalizationSettingsFieldset.php:13
 #: language/_annotated_strings.php:90
 msgid "general settings"
 msgstr "Allgemeine Einstellungen"

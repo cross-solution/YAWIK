@@ -3,21 +3,38 @@
 return array(
 	'hybridauth' => array(
         "Facebook" => array ( 
-            "enabled" => "%%facebook.enabled%%",
-            "keys"    => array ( "id" => "%%facebook.appid%%", "secret" => "%%facebook.secret%%" ), 
+            "enabled" => true,
+            "keys"    => array ( "id" => "###Your Facebook AppID ###", "secret" => "###Your Facebook Secret ###" ),
             "scope"   => "%%facebook.scope%%",// optional
             "display" => "popup"
         ),
         "LinkedIn" => array (
-            "enabled" => "%%linkedin.enabled%%",
-            "keys"    => array ( "key" => "%%linkedin.appid%%", "secret" => "%%linkedin.secret%%" ),
+            "enabled" => true,
+            "keys"    => array ( "key" => "###Your LinkedIn AppID ###", "secret" => "###Your LinkedIn AppID ###" ),
             "scope"   => "%%linkedin.scope%%"
         ),
         "XING" => array(
-            "enabled" => "%%xing.enabled%%",
-            'keys'    => array ( "key" => '%%xing.appid%%', 'secret' => '%%xing.secret%%'),
+            "enabled" => true,
+            'keys'    => array ( "key" => '###Your XING AppID ###', 'secret' => '###Your XING Secret ###'),
             "scope"   => '%%xing.scope%%'
         ),
+        "Github" => array(
+            "enabled" => true,
+            'keys'    => array ( "id" => '###Your GitHub AppID ###', 'secret' => '###Your GitHub Secret###'),
+            "scope"   => ''
+        ),
+        "Google" => array(
+             // see http://hybridauth.sourceforge.net/userguide/IDProvider_info_Google.html
+             "enabled" => true,
+             'keys'    => array ( "id" => '###Your Google Client-ID ###', 'secret' => '###Your GitHub Secret###'),
+             "scope"   => "https://www.googleapis.com/auth/userinfo.profile ". // optional
+                          "https://www.googleapis.com/auth/userinfo.email"   , // optional
+             "access_type"     => "offline",   // optional
+             "approval_prompt" => "force",     // optional
+        ),
+
+
+
 //        "OpenID" => array(
 //            'enabled' => true
 //        )
