@@ -27,7 +27,7 @@ class ApiJobDehydrator
             ),
             'template_values' => array(
                 'requirements' => $job->getTemplateValues()->getRequirements(),
-                'qualification' => $job->getTemplateValues()->getQualification(),
+                'qualification' => $job->getTemplateValues()->getQualifications(),
                 'benefits' => $job->getTemplateValues()->getBenefits()
             )
         );
