@@ -120,4 +120,16 @@ class Job extends AbstractRepository
     {
         return uniqid();
     }
+
+    /**
+     * @param int $organizationId
+     * @return \Jobs\Entity\Job[]
+     */
+    public function findByOrganization($organizationId)
+    {
+        return $this->findBy([
+            'organization' => new \MongoId($organizationId)
+        ]);
+    }
+   
 }

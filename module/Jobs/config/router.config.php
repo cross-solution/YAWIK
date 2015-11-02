@@ -11,6 +11,38 @@
 
 // Routes
 return array('router' => array('routes' => array('lang' => array('child_routes' => array(
+    'api-jobs' => array(
+        'type' => 'Literal',
+        'options' => array(
+            'route'    => '/api/jobs',
+            'defaults' => array(
+                'controller' => 'Jobs/ApiJobList',
+                'action'     => 'index',
+            ),
+        ),
+        'may_terminate' => true,
+        'child_routes' => array(
+            'completion' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/organization/:organizationId',
+                    'defaults' => array(
+                        'controller' => 'Jobs/ApiJobListByOrganization',
+                        'action' => 'index',
+                        'defaults' => array(
+                            'defaults' => array(
+                                'organizationId' => 0
+                            ),
+                            'constraints' => array(
+                                'organizationId' => '[a-f0-9]+',
+                            ),
+                        ),
+                    ),
+                ),
+                'may_terminate' => true,
+            ),
+        ),
+    ),
     'jobs' => array(
         'type' => 'Literal',
         'options' => array(
