@@ -8,6 +8,18 @@
  * @license   MIT
  */
 ?>
+<?php
+
+// @todo write a view helper for this.
+
+$config = $this->services('Config');
+$SocialNetworksEnabled=[];
+foreach($config['hybridauth'] as $key => $val) {
+    if ($val['enabled']){
+         $SocialNetworksEnabled[strtolower($key)] = $key;
+    }
+}
+?>
 <?php $lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
 <ul id="yk-login-info" class="nav navbar-nav navbar-collapse collapse navbar-right">
     <li class="dropdown">
@@ -75,9 +87,11 @@
         </li>
         <li class="divider"></li>
         <li class="disabled dropdown-header"><a><?php echo $this->translate('Login via')?>...</a></li>
-    <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
+    <?php foreach ($SocialNetworksEnabled as $provider => $name): ?>
         <li>
-            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="yk-icon yk-icon-<?php echo $provider?>"></i> <?php echo $name?></a>
+            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>">
+                 <span class="fa fa-<?php echo $provider?>"></span> <?php echo $name?>
+            </a>
         </li>
     <?php endforeach ?>
     </ul>
