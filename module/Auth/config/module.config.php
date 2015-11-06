@@ -459,6 +459,7 @@ return array(
         'template_map' => array(
             'form/auth/contact.form' => __DIR__ . '/../view/form/contact.form.phtml',
             'form/auth/contact.view' => __DIR__ . '/../view/form/contact.view.phtml',
+            'auth/error/social-profiles-unconfigured' => __DIR__ . '/../view/error/social-profiles-unconfigured.phtml',
             'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',

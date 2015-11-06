@@ -10,6 +10,7 @@
 namespace Auth;
 
 use Acl\Listener\CheckPermissionsListener;
+use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
 use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
@@ -114,6 +115,9 @@ class Module
         $sharedManager = $eventManager->getSharedManager();
         $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');
         $defaultlistener->attachShared($sharedManager);
+
+        $socialProfilesUnconfiguredErrorListener = new SocialProfilesUnconfiguredErrorListener();
+        $socialProfilesUnconfiguredErrorListener->attach($eventManager);
 
     }
 }
