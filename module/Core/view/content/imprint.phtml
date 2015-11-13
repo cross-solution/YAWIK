@@ -1,0 +1,34 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author cbleek
+ * @license   MIT
+ */
+/*
+ * Imprint for the website
+ */
+?>
+<?php
+/* @var $options \Core\Options\ModuleOptions */
+$options = $this->services('Core/Options');
+$operator = $options->getOperator();
+?>
+<h1><?php echo $this->translate("Imprint")?></h1>
+
+<h3><?php echo $operator['companyFullName'] ?></h3>
+
+<address>
+    <p><?php echo $operator['street'] ?></p>
+    <p><?php echo $operator['postalCode'] ?> <?php echo $operator['city'] ?></p>
+</address>
+
+<p><?php echo $operator['name'] ?></p>
+<p><i class="fa fa-phone"></i> <?php echo $operator['phone']?></p>
+<p><i class="fa fa-fax"></i> <?php echo $operator['fax']?></p>
+<p><i class="fa fa-envelope"></i> <a href="mailto:<?php echo $operator['email']?>"><?php echo $operator['email']?></a></p>
+<p><i class="fa fa-home"></i> <a href="<?php echo $operator['homepage']?>"><?php echo $operator['companyShortName']?></a></p>
+
+<p><?php echo $this->translate("Tax Number")?>: <?php echo $operator['companyTax'] ?></p>
