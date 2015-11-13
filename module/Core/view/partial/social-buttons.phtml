@@ -22,7 +22,7 @@
         <small><?php echo $this->translate('Login via') ?>...</small>
     </p>
 <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
-<?php foreach (array($SocialNetworksEnabled) as $provider =>
+<?php foreach ($SocialNetworksEnabled as $provider =>
                $name
 ): ?>
     <a class="btn-sm btn-social btn-<?php echo $provider ?>"
