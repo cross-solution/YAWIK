@@ -154,6 +154,7 @@
         <symlink link="build/YAWIK-${version-short}/public/Core" target="../module/Core/public" />
         <symlink link="build/YAWIK-${version-short}/public/Jobs" target="../module/Jobs/public" />
         <symlink link="build/YAWIK-${version-short}/public/Organizations" target="../module/Organizations/public" />
+        <symlink link="build/YAWIK-${version-short}/public/Settings" target="../module/Settings/public" />
 
         <copy file="${project.basedir}/module/Core/view/layout/layout.phtml" toFile="${builddir}/module/Core/view/layout/layout.phtml" overwrite="true">
             <filterchain>
@@ -209,13 +210,13 @@
     <!-- Target: symlinks                              -->
     <!-- ============================================  -->
     <target name="symlinks">
-        <symlink link="${project.basedir}/public/Core" target="${project.basedir}/module/Core/public" overwrite="true"/>
-        <symlink link="${project.basedir}/public/Applications" target="${project.basedir}/module/Applications/public" overwrite="true"/>
-        <symlink link="${project.basedir}/public/Auth" target="${project.basedir}/module/Auth/public" overwrite="true"/>
-        <symlink link="${project.basedir}/public/Jobs" target="${project.basedir}/module/Jobs/public" overwrite="true" />
-        <symlink link="${project.basedir}/public/Settings" target="${project.basedir}/module/Settings/public" overwrite="true" />
-        <symlink link="${project.basedir}/public/Organizations" target="${project.basedir}/module/Organizations/public" overwrite="true" />
-        <symlink link="${project.basedir}/public/Geo" target="${project.basedir}/module/Geo/public" overwrite="true" />
+        <symlink link="public/Core" target="../module/Core/public" overwrite="true"/>
+        <symlink link="public/Applications" target="../module/Applications/public" overwrite="true"/>
+        <symlink link="public/Auth" target="../module/Auth/public" overwrite="true"/>
+        <symlink link="public/Jobs" target="../module/Jobs/public" overwrite="true" />
+        <symlink link="public/Settings" target="../module/Settings/public" overwrite="true" />
+        <symlink link="public/Organizations" target="../module/Organizations/public" overwrite="true" />
+        <symlink link="public/Geo" target="../module/Geo/public" overwrite="true" />
     </target>
 
     <!-- ============================================  -->
@@ -261,6 +262,7 @@
             <include name="vendor/zendframework/**"/>
             <include name="vendor/hybridauth/**"/>
             <include name="vendor/doctrine/**"/>
+            <include name="vendor/symfony/polyfill-mbstring/**"/>
             <include name="vendor/jmikola/geojson/src/**"/>
             <include name="vendor/kriswallsmith/assetic/src/**"/>
             <include name="vendor/ezyang/htmlpurifier/library/**"/>
@@ -270,9 +272,11 @@
             <include name="README"/>
             <exclude name="public/js/*"/>
             <exclude name="**/YawikDemo*/**"/>
+            <exclude name="**/YawikCompanyRegistration/**"/>
             <exclude name="**/CamMediaintown/**"/>
             <exclude name="**/JobsDeutschland/**"/>
             <exclude name="**/Karrierelounge/**"/>
+            <exclude name="**/Greenjobs/**"/>
             <exclude name="**/Karriere24/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
