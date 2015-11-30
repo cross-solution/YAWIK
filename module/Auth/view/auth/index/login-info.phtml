@@ -35,10 +35,10 @@ foreach($config['hybridauth'] as $key => $val) {
         <ul class="dropdown-menu pull-right">
             <li>
                 <a href="<?php echo $this->url('lang/my', array('action' => 'profile', 'lang' => $lang, true)) ?>">
-                    <span class="yk-icon yk-icon-user"></span> <?php echo $this->translate('My profile')?></a>
+                    <span class="yk-icon yk-icon-user fa-fw"></span> <?php echo $this->translate('My profile')?></a>
             </li>
             <li>
-                <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $lang), true) ?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
+                <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $lang), true) ?>"><span class="yk-icon yk-icon-password fa-fw"></span> <?php echo $this->translate('Change password')?></a>
             </li>
             <?php if ($this->acl()->isRole(\Auth\Entity\User::ROLE_RECRUITER)): ?>
             <?php  /*<li>
@@ -50,7 +50,7 @@ foreach($config['hybridauth'] as $key => $val) {
                 if ($org): /* An Anonymous user does not have the OrganizationReference */
                 if (!$org->hasAssociation() || $org->isOwner() ):?>
             <li>
-                <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building"></span> <?php
+                <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building fa-fw"></span> <?php
                     if (!$org->hasAssociation()) {
                         echo $this->translate('Create my organization');
                     } else {
@@ -63,7 +63,7 @@ foreach($config['hybridauth'] as $key => $val) {
             <?php endif ?>
             <li class="divider"></li>
             <li>
-                <a href="<?php echo $this->url('auth-logout',array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-logout"></span><?php echo $this->translate('Logout')?></a>
+                <a href="<?php echo $this->url('auth-logout',array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-logout fa-fw"></span><?php echo $this->translate('Logout')?></a>
             </li>
         </ul>
 
@@ -82,7 +82,7 @@ foreach($config['hybridauth'] as $key => $val) {
                                                 'query' => array(
                                                     'ref' => urlencode($ref),
                                                  )), true)?>">
-                <span class="yk-icon yk-icon-login"></span> <?php echo $this->translate('Login')?>
+                <span class="yk-icon yk-icon-login fa-fw"></span> <?php echo $this->translate('Login')?>
             </a>
         </li>
         <li class="divider"></li>
@@ -90,7 +90,7 @@ foreach($config['hybridauth'] as $key => $val) {
     <?php foreach ($SocialNetworksEnabled as $provider => $name): ?>
         <li>
             <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>">
-                 <span class="fa fa-<?php echo $provider?>"></span> <?php echo $name?>
+                 <span class="fa fa-<?php echo $provider?> fa-fw"></span> <?php echo $name?>
             </a>
         </li>
     <?php endforeach ?>
