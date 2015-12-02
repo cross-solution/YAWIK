@@ -62,7 +62,7 @@ class ImportController extends AbstractActionController
                 'company' => 'Holsten 4',
                 'companyId' => '1745',
                 'contactEmail' => 'gelhausen@cross-solution.de',
-                'title' => 'Fuhrparkleiter/-in',
+                'title' => 'Fuhrparkleiter/-in MODs',
                 'location' => 'Bundesland, Bayern, DE',
                 'link' => 'http://anzeigen.jobsintown.de/job/1/79161.html',
                 'datePublishStart' => '2013-11-15',
@@ -73,6 +73,8 @@ class ImportController extends AbstractActionController
                 'logoRef' => 'http://anzeigen.jobsintown.de/companies/logo/image-id/3263',
                 'publisher' => 'http://anzeigen.jobsintown.de/feedbackJobPublish/' . '2130010128',
                 'imageUrl' => 'http://th07.deviantart.net/fs71/PRE/i/2014/230/5/8/a_battle_with_the_elements_by_lordljcornellphotos-d7vns0p.jpg',
+                'locations' => '[{"country":"Deutschland","city":null,"region":"Mecklenburg-Vorpommern","coordinates":["13.2555","53.5476"]}]',
+
                 )
             );
             $this->getRequest()->setPost($params);
@@ -172,12 +174,14 @@ class ImportController extends AbstractActionController
                         if (!empty($params->locations)) {
                             $locations = \Zend\Json\Json::decode($params->locations, \Zend\Json\Json::TYPE_ARRAY);
                             $jobLocations = $entity->getLocations();
+                            $jobLocations->clear();
                             foreach ($locations as $locData) {
                                 $location = new Location();
+                                $coords = array_map(function($i) { return (float) $i; }, $locData['coordinates']);
                                 $location->setCountry($locData['country'])
                                          ->setRegion($locData['region'])
                                          ->setCity($locData['city'])
-                                         ->setCoordinates(new Point($locData['coordinates']));
+                                         ->setCoordinates(new Point($coords));
 
                                 $jobLocations->add($location);
                             }
