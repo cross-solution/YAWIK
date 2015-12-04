@@ -172,6 +172,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
+     * Sets the company description of a job. Use the description of an organization as default
+     *
      * @return $this
      * @throws \InvalidArgumentException
      */
@@ -180,7 +182,12 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
+
+        if (empty($this->job->templateValues->description) && isset($this->job->organization)) {
+            $this->job->templateValues->description = $this->job->organization->description;
+        }
         $description = $this->job->templateValues->description;
+
         $this->container['description'] = isset($description)?$description:'';
         return $this;
     }
