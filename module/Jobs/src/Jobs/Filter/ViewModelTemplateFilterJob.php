@@ -12,6 +12,7 @@ namespace Jobs\Filter;
 
 /**
  * template viewmodel html
+ *
  * Class ViewModelTemplateFilterJob
  * @package Jobs\Filter
  */

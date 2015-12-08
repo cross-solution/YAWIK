@@ -280,6 +280,7 @@ return array(
             'Jobs/JobDescriptionDescription'    => 'Jobs\Form\JobDescriptionDescription',
             'Jobs/JobDescriptionBenefits'       => 'Jobs\Form\JobDescriptionBenefits',
             'Jobs/JobDescriptionRequirements'   => 'Jobs\Form\JobDescriptionRequirements',
+            'Jobs/JobDescriptionLabelRequirements'   => 'Jobs\Form\JobDescriptionLabelRequirements',
             'Jobs/JobDescriptionQualifications' => 'Jobs\Form\JobDescriptionQualifications',
             'Jobs/JobDescriptionTitle'          => 'Jobs\Form\JobDescriptionTitle',
             'Jobs/Description/Template'         => 'Jobs\Form\JobDescriptionTemplate',

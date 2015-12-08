@@ -116,14 +116,14 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
      */
     public function filter($value)
     {
-        $model    = new ViewModel();
+        $model = new ViewModel();
         $this->container = array();
         $this->extract($value);
         $model->setVariables($this->container);
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
         }
-        $model->setTemplate('templates/' . $this->job->template . '/index');
+        $model->setTemplate('templates/' . $this->job->getTemplate() . '/index');
         return $model;
     }
 
@@ -151,7 +151,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $atsMode = $this->job->getAtsMode();
         $uriApply = false;
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
-            $uriApply = $this->urlPlugin->fromRoute('lang/apply', array('applyId' => $this->job->applyId), array('force_canonical' => true));
+            $uriApply = $this->urlPlugin->fromRoute('lang/apply', array('applyId' => $this->job->getApplyId()), array('force_canonical' => true));
         } elseif ($atsMode->isUri()) {
             $uriApply = $atsMode->getUri();
         }
@@ -217,17 +217,50 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
             $organizationStreet = $organization->contact->street.' '.$organization->contact->houseNumber;
             $organizationPostalCode = $organization->contact->postalcode;
             $organizationPostalCity = $organization->contact->city;
+            $organizationPhone = $organization->contact->phone;
+            $organizationFax = $organization->contact->fax;
         }
+        $this->container['contactEmail'] = $this->job->getUser()->getInfo()->getEmail();
         $this->container['organizationName'] = $organizationName;
         $this->container['street'] = $organizationStreet;
         $this->container['postalCode'] = $organizationPostalCode;
         $this->container['city'] = $organizationPostalCity;
+        $this->container['phone'] = $organizationPhone;
+        $this->container['fax'] = $organizationFax;
 
         if (isset($organization) && isset($organization->image) && $organization->image->uri) {
             $this->container['uriLogo'] = $this->makeAbsolutePath($organization->image->uri);
         } else {
             $this->container['uriLogo'] = $this->makeAbsolutePath($this->config->default_logo);
         }
+        return $this;
+    }
+
+    /**
+     * Sets the default values of an organizations job template
+     *
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
+    protected function setTemplateDefaultValues()
+    {
+        if (!isset($this->job)) {
+            throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
+        }
+        $labelQualification='';
+        $labelBenefits='';
+        $labelRequirements='';
+
+        $organization = $this->job->organization;
+        if (isset($organization)) {
+            $labelRequirements = $organization->getTemplate()->getLabelRequirements();
+            $labelQualification = $organization->getTemplate()->getLabelQualification();
+            $labelBenefits = $organization->getTemplate()->getLabelBenefits();
+        }
+        $this->container['labelRequirements'] = $labelRequirements;
+        $this->container['labelQualifications'] = $labelQualification;
+        $this->container['labelBenefits'] = $labelBenefits;
+
         return $this;
     }
 

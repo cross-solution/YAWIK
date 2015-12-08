@@ -166,4 +166,18 @@ interface OrganizationInterface extends
      * @return Collection
      */
     public function getJobs();
+
+    /**
+     * Gets default values of an organizations job template
+     *
+     * @return TemplateInterface
+     */
+    public function getTemplate();
+
+    /**
+     * Sets default values of an organizations job template
+     *
+     * @return self
+     */
+    public function setTemplate(TemplateInterface $template);
 }

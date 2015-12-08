@@ -57,6 +57,15 @@ class JobDescriptionTemplate extends Container
         );
 
         $this->setForms(
+            [
+                'descriptionFormLabelRequirements' => [
+                    'type' => 'Jobs/JobDescriptionLabelRequirements',
+                    'property' => true,
+                ]
+            ]
+        );
+
+        $this->setForms(
             array(
             'descriptionFormQualifications' => array(
                 'type' => 'Jobs/JobDescriptionQualifications',

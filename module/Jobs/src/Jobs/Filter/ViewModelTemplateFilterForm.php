@@ -12,6 +12,7 @@ namespace Jobs\Filter;
 
 /**
  * template viewmodel form
+ *
  * Class viewModelTemplateFilterForm
  * @package Jobs\Filter
  */
@@ -38,10 +39,12 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
         $this->setOrganizationInfo();
         $this->setLocation();
         $this->setDescription();
+        $this->setTemplateDefaultValues();
 
         $formDescription = $form->get('descriptionFormDescription');
         $formBenefits = $form->get('descriptionFormBenefits');
         $formRequirements = $form->get('descriptionFormRequirements');
+        $formLabelRequirements = $form->get('descriptionFormLabelRequirements');
         $formQualifications = $form->get('descriptionFormQualifications');
         $descriptionFormTitle = $form->get('descriptionFormTitle');
 
@@ -50,6 +53,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
         $this->container['descriptionEditable'] = $viewHelperForm->render($formDescription);
         $this->container['benefits'] = $viewHelperForm->render($formBenefits);
         $this->container['requirements'] = $viewHelperForm->render($formRequirements);
+        $this->container['labelRequirements'] = $viewHelperForm->render($formLabelRequirements);
         $this->container['qualifications'] = $viewHelperForm->render($formQualifications);
         $this->container['title'] = $viewHelperForm->render($descriptionFormTitle);
         $this->container['headTitle'] = $job->templateValues->title;

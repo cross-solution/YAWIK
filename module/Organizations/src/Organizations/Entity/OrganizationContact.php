@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
+class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implements OrganizationContactInterface
 {
    
     
@@ -48,6 +48,20 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
      * @var string
      * @ODM\String */
     protected $street;
+
+    /**
+     * Phone number of an organization address
+     *
+     * @var string
+     * @ODM\String */
+    protected $phone;
+
+    /**
+     * Fax number of an organization address
+     *
+     * @var string
+     * @ODM\String */
+    protected $fax;
 
     /**
      * Sets the Buildingnumber of an organization address
@@ -136,4 +150,50 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity
     {
         return $this->street;
     }
+
+    /**
+     * Sets a phone number of an organization address
+     *
+     * @param string $phone
+     *
+     * @return OrganizationContact
+     */
+    public function setPhone($phone = "")
+    {
+        $this->phone=$phone;
+    }
+
+    /**
+     * Gets a phone number name of an organization address
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Sets a fax number of an organization address
+     *
+     * @param string $fax
+     *
+     * @return OrganizationContact
+     */
+    public function setFax($fax = "")
+    {
+        $this->fax=$fax;
+    }
+
+    /**
+     * Gets a fax number of an organization address
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+
 }

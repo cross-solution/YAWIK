@@ -73,6 +73,23 @@ class OrganizationsContactFieldset extends Fieldset
                 )
             )
         );
+        $this->add(
+            array(
+                'name' => 'phone',
+                'options' => array(
+                    'label' => /* @translate */ 'Phone'
+                )
+            )
+        );
+        $this->add(
+            array(
+                'name' => 'fax',
+                'options' => array(
+                    'label' => /* @translate */ 'Fax'
+                )
+            )
+        );
+
     }
 
     /**
