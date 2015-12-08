@@ -12,10 +12,10 @@ namespace Jobs\Filter;
 
 /**
  * template viewmodel html
- * Class viewModelTemplateFilterJob
+ * Class ViewModelTemplateFilterJob
  * @package Jobs\Filter
  */
-class viewModelTemplateFilterJob extends viewModelTemplateFilterAbstract
+class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
 {
     /**
      * assign the form-elements to the template

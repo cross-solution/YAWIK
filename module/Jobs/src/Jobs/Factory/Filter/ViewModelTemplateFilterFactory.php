@@ -8,16 +8,19 @@
  * @author    weitz@cross-solution.de
  */
 
-namespace Jobs\Filter;
+namespace Jobs\Factory\Filter;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\Form\Element;
+use Jobs\Filter\ViewModelTemplateFilterForm;
+use Jobs\Filter\ViewModelTemplateFilterJob;
 use Core\Entity\EntityInterface;
 
 /**
- * create a viewmodel for the viewmodel, either with tinyMC or rendered content
+ * create a ViewModel for the ViewModel, either with tinyMC or rendered content
  * the Factory has to make a choice
+ *
  * @param $element
  */
 class viewModelTemplateFilterFactory implements FactoryInterface
@@ -46,10 +49,10 @@ class viewModelTemplateFilterFactory implements FactoryInterface
     {
         $filter = null;
         if ($element instanceof EntityInterface) {
-            $filter = new viewModelTemplateFilterJob;
+            $filter = new ViewModelTemplateFilterJob;
         }
         if ($element instanceof Element) {
-            $filter = new viewModelTemplateFilterForm;
+            $filter = new ViewModelTemplateFilterForm;
             $viewHelperManager = $this->service->get('ViewHelperManager');
             $viewHelperForm = $viewHelperManager->get('formsimple');
             $filter->setViewHelperForm($viewHelperForm);

@@ -116,7 +116,7 @@ class TemplateController extends AbstractActionController
             }
         }
 
-        $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($formTemplate);
+        $model = $services->get('Jobs/ViewModelTemplateFilter')->__invoke($formTemplate);
 
         if (!$isAjax) {
             $basePath   = $viewHelperManager->get('basepath');

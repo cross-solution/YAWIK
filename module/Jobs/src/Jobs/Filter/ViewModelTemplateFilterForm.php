@@ -15,7 +15,7 @@ namespace Jobs\Filter;
  * Class viewModelTemplateFilterForm
  * @package Jobs\Filter
  */
-class viewModelTemplateFilterForm extends viewModelTemplateFilterAbstract
+class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
 {
     protected $viewHelperForm;
 

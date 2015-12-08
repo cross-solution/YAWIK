@@ -16,16 +16,16 @@ use Zend\Filter\FilterInterface;
 use Zend\View\Model\ViewModel;
 
 /**
- * assembles a viewModel for Templates
+ * assembles a ViewModel for job templates.
  * this class needs to be extended for specific assignments
  * Class viewModelTemplateFilterAbstract
  * @package Jobs\Filter
  */
-abstract class viewModelTemplateFilterAbstract implements FilterInterface
+abstract class ViewModelTemplateFilterAbstract implements FilterInterface
 {
 
     /**
-     * @var array assemples all data for the viewmodel
+     * @var array assembles all data for the viewmodel
      */
     protected $container;
 
@@ -138,13 +138,15 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     abstract protected function extract($value);
 
     /**
+     * Set the apply button of the job posting
+     *
      * @return $this
      * @throws \InvalidArgumentException
      */
     protected function setUriApply()
     {
         if (!isset($this->job)) {
-            throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
+            throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
         $atsMode = $this->job->getAtsMode();
         $uriApply = false;
@@ -158,13 +160,15 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
+     * Sets the location of a jobs
+     *
      * @return $this
      * @throws \InvalidArgumentException
      */
     protected function setLocation()
     {
         if (!isset($this->job)) {
-            throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
+            throw new \InvalidArgumentException('cannot create a viewModel for Templates without aa $job');
         }
         $location = $this->job->getLocation();
         $this->container['location'] = isset($location)?$location:'';
@@ -180,7 +184,7 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     protected function setDescription()
     {
         if (!isset($this->job)) {
-            throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
+            throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
 
         if (empty($this->job->templateValues->description) && isset($this->job->organization)) {
@@ -193,13 +197,15 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
+     * Sets the organizations contact address
+     *
      * @return $this
      * @throws \InvalidArgumentException
      */
     protected function setOrganizationInfo()
     {
         if (!isset($this->job)) {
-            throw new \InvalidArgumentException('cannot create a viewModel for Templates without an $job');
+            throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
         $organizationName = '';
         $organizationStreet = '';
@@ -226,6 +232,8 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
+     * Sets the template
+     *
      * @return $this
      */
     protected function setTemplate()
@@ -236,6 +244,7 @@ abstract class viewModelTemplateFilterAbstract implements FilterInterface
 
     /**
      * combines two helper
+     *
      * @param $path
      * @return mixed
      */
