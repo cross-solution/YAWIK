@@ -24,14 +24,18 @@ class FormEditorLightFactory implements FactoryInterface {
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        $basepath = $serviceLocator->getServiceLocator()->get('ViewHelperManager')->get('basepath');
+        
         /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
         /* @var \Zend\Mvc\MvcEvent $event */
         $event = $serviceLocator->getServiceLocator()->get('application')->getMvcEvent();
-
+         
+         
         $lang = $event->getRouteMatch()->getParam('lang');
 
         $helper = new FormEditorLight();
         $helper->setLanguage($lang);
+        $helper->setLanguagePath($basepath('/js/tinymce-lang/'));
         return $helper;
     }
 
