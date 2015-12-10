@@ -149,13 +149,15 @@
      */
 	$.fn.form = function (method) 
 	{
+        var calledArguments = arguments;
+
 		return this.each(function() {
 			var $form = $(this);
 
             // enables the ability to call a distinct method for the picked forms,
             // has nothing to do with initiating the triggers below
 			if (method && method in methods) {
-				var args = [].slice.call(arguments, 1);
+				var args = [].slice.call(calledArguments, 1);
 				return methods[method].apply(this, args);
 			}
 

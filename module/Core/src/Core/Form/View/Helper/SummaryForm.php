@@ -167,13 +167,21 @@ class SummaryForm extends AbstractHelper
         if (!isset($baseFieldset)) {
             throw new \InvalidArgumentException('For the Form ' . get_class($form) . ' there is no Basefieldset');
         }
-        return  '<div class="panel panel-default" style="min-height: 100px;">
-                    <div class="panel-body"><button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
-              . '<span class="yk-icon yk-icon-edit"></span> '
-              . $this->getView()->translate('Edit')
-              . '</button>'
-              . $this->renderSummaryElement($baseFieldset)
-              . '</div></div>';
+
+        $markup = '<div class="panel panel-default" style="min-height: 100px;">
+                    <div class="panel-body">%s%s</div></div>';
+
+        $buttonMarkup = false === $form->getOption('editable')
+                      ? ''
+                      : '<button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
+                        . '<span class="yk-icon yk-icon-edit"></span> '
+                        . $this->getView()->translate('Edit')
+                        . '</button>';
+
+        $elementMarkup = $this->renderSummaryElement($baseFieldset);
+
+
+        return sprintf($markup, $buttonMarkup, $elementMarkup);
     }
     
     /**
@@ -238,6 +246,10 @@ class SummaryForm extends AbstractHelper
         if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
             $options = $element->getValueOptions();
             $elementValue = $this->getTranslator()->translate($options[$elementValue]);
+        }
+
+        if ('' != $elementValue && $element instanceOf \Zend\Form\Element\File) {
+            return '';
         }
                       
         $markup .= '<div class="row">';
