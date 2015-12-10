@@ -121,14 +121,7 @@ class TemplateController extends AbstractActionController
 
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
-//                if (0 === strpos($formIdentifier,"templateLabel")) {
-//                    $organization=$job->organization;
-//                    $organization->template->labelRequirements = $postData['description-label-requirements'];
-//                    $this->getServiceLocator()->get('repositories')->persist($organization);
-//                }else{
-                    $this->getServiceLocator()->get('repositories')->persist($job);
-//                }
-
+                $this->getServiceLocator()->get('repositories')->persist($job);
             }
         }
 

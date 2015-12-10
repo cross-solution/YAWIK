@@ -71,7 +71,7 @@ class OrganizationNameTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($target->$getter(), $getValue);
     }
-    
+
     /**
      * Provides datasets for testSettingValuesViaSetterMethods.
      *
