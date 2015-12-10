@@ -52,11 +52,14 @@ class HiringOrganizationSelectFactory implements FactoryInterface
 
                 $name = $org->getOrganizationName()->getName();
                 $contact = $org->getContact();
+                $image = $org->getImage();
+                $imageUrl = $image ? $image->getUri() : '';
 
                 $options[$org->getId()] =  $name . '|'
                                 . $contact->getCity() . '|'
                                 . $contact->getStreet() . '|'
-                                . $contact->getHouseNumber();
+                                . $contact->getHouseNumber() . '|'
+                                . $imageUrl;
             }
         }
 
