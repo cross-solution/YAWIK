@@ -1,0 +1,40 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @author cbleek
+ * @license   MIT
+ */
+
+namespace Core\Factory\Form\View\Helper;
+
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Form\View\Helper\FormEditorLight;
+
+
+class FormEditorLightFactory implements FactoryInterface {
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @return FormEditorLight
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
+        /* @var \Zend\Mvc\MvcEvent $event */
+        $event = $serviceLocator->getServiceLocator()->get('application')->getMvcEvent();
+
+        $lang = $event->getRouteMatch()->getParam('lang');
+
+        $helper = new FormEditorLight();
+        $helper->setLanguage($lang);
+        return $helper;
+    }
+
+
+}
+
