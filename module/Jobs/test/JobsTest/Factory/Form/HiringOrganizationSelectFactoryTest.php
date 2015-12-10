@@ -179,8 +179,8 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $org->expects($this->once())->method('getOrganization')->willReturn($org0);
 
         $expect = array(
-            'testOrg0' => 'testOrg0.name|org0.testCity|org0.testStreet|org0.1234',
-            'testOrg1' => 'testOrg1.name|org1.city|org1.street|org1.number'
+            'testOrg0' => 'testOrg0.name|org0.testCity|org0.testStreet|org0.1234|',
+            'testOrg1' => 'testOrg1.name|org1.city|org1.street|org1.number|'
         );
 
         $select = $this->target->createService($this->formElements);
