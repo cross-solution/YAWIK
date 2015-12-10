@@ -81,4 +81,14 @@ class AuthenticationService extends ZendAuthService
         $this->user = null; // clear user (especially guest user)
         return parent::authenticate($adapter);
     }
+
+    public function clearIdentity()
+    {
+        parent::clearIdentity();
+        $this->user = null;
+
+        return $this;
+    }
+
+
 }
