@@ -161,6 +161,7 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     public function setPhone($phone = "")
     {
         $this->phone=$phone;
+        return $this;
     }
 
     /**
@@ -183,6 +184,7 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
     public function setFax($fax = "")
     {
         $this->fax=$fax;
+        return $this;
     }
 
     /**

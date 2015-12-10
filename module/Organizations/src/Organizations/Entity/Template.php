@@ -30,19 +30,22 @@ class Template extends AbstractEntity implements TemplateInterface
      * Label of the requirements field in the job template
      *
      * @var $string;
+     * @ODM\String
      */
     protected $labelRequirements='Requirements';
 
     /**
      * Label of the qualifications field in the job template
      *
+     * @ODM\String
      * @var $string;
      */
-    protected $labelQualification='Qualifications';
+    protected $labelQualifications='Qualifications';
 
     /**
      * Label of the benefits field in the job template
      *
+     * @ODM\String
      * @var $string;
      */
     protected $labelBenefits='Benefits';
@@ -57,6 +60,7 @@ class Template extends AbstractEntity implements TemplateInterface
     public function setLabelRequirements($labelRequirements)
     {
         $this->labelRequirements=$labelRequirements;
+        return $this;
     }
 
     /**
@@ -72,13 +76,14 @@ class Template extends AbstractEntity implements TemplateInterface
     /**
      * Sets the label of the qualifications form field
      *
-     * @param string $labelQualification
+     * @param string $labelQualifications
      *
      * @return self
      */
-    public function setLabelQualification($labelQualification)
+    public function setLabelQualifications($labelQualifications)
     {
-        $this->labelQualification=$labelQualification;
+        $this->labelQualifications=$labelQualifications;
+        return $this;
     }
 
     /**
@@ -86,9 +91,9 @@ class Template extends AbstractEntity implements TemplateInterface
      *
      * @return string
      */
-    public function getLabelQualification()
+    public function getLabelQualifications()
     {
-        return $this->labelQualification;
+        return $this->labelQualifications;
     }
 
     /**
@@ -101,6 +106,7 @@ class Template extends AbstractEntity implements TemplateInterface
     public function setLabelBenefits($labelBenefits)
     {
         $this->labelBenefits=$labelBenefits;
+        return $this;
     }
 
     /**

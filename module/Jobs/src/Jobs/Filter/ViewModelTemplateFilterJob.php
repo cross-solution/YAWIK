@@ -11,7 +11,7 @@
 namespace Jobs\Filter;
 
 /**
- * template viewmodel html
+ * template ViewModel html
  *
  * Class ViewModelTemplateFilterJob
  * @package Jobs\Filter
@@ -31,6 +31,7 @@ class ViewModelTemplateFilterJob extends ViewModelTemplateFilterAbstract
         $this->setLocation();
         $this->setDescription();
         $this->setTemplate();
+        $this->setTemplateDefaultValues();
 
         $this->container['descriptionEditable'] = $job->templateValues->description;
         $this->container['benefits'] = $job->templateValues->benefits;

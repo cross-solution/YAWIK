@@ -41,14 +41,14 @@ interface TemplateInterface
      *
      * @return self
      */
-    public function setLabelQualification($labelQualification);
+    public function setLabelQualifications($labelQualifications);
 
     /**
-     * Gets the label of the qualificationss form field
+     * Gets the label of the qualifications form field
      *
      * @return string
      */
-    public function getLabelQualification();
+    public function getLabelQualifications();
 
     /**
      * Sets the label of the benefits form field

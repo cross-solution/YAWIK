@@ -12,10 +12,7 @@ namespace Jobs\Form\Hydrator;
 
 use Core\Entity\Hydrator\EntityHydrator;
 
-use Zend\Stdlib\Hydrator\AbstractHydrator;
-use Core\Entity\EntityInterface;
-
-// @TODO The JobdescriptionHydrator is used for every Form in the Description, this produces some overhead,
+// @TODO The JobDescriptionHydrator is used for every Form in the Description, this produces some overhead,
 // @TODO correctly their should be one Hydrator for every Form
 class JobDescriptionHydrator extends EntityHydrator
 {

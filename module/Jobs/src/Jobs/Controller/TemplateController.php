@@ -10,7 +10,6 @@
 
 namespace Jobs\Controller;
 
-use Jobs\Form\JobDescriptionTemplate;
 use Jobs\Repository;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -71,7 +70,10 @@ class TemplateController extends AbstractActionController
     }
 
     /**
-     * Handles the job opening template in formular mode
+     * Handles the job opening template in formular mode.
+     *
+     * All template forms are sending the ID of a job posting and an identifier of the sending
+     * form.
      *
      * @return ViewModel
      */
@@ -81,6 +83,7 @@ class TemplateController extends AbstractActionController
         $formIdentifier=$this->params()->fromQuery('form');
         $job = $this->jobRepository->find($id);
 
+        /** @var \Zend\Http\Request $request */
         $request              = $this->getRequest();
         $isAjax               = $request->isXmlHttpRequest();
         $services             = $this->getServiceLocator();
@@ -88,6 +91,7 @@ class TemplateController extends AbstractActionController
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
         $forms                = $services->get('FormElementManager');
+
         /** @var \Jobs\Form\JobDescriptionTemplate $formTemplate */
         $formTemplate         = $forms->get(
             'Jobs/Description/Template',
@@ -98,21 +102,33 @@ class TemplateController extends AbstractActionController
 
         $formTemplate->setParam('id', $job->id);
         $formTemplate->setParam('applyId', $job->applyId);
+
         $formTemplate->setEntity($job);
 
         if (isset($formIdentifier) && $request->isPost()) {
-            // at this point the form get instanciated and immediately accumulated
+            // at this point the form get instantiated and immediately accumulated
+
             $instanceForm = $formTemplate->get($formIdentifier);
             if (!isset($instanceForm)) {
                 throw new \RuntimeException('No form found for "' . $formIdentifier . '"');
             }
+
             // the id is part of the postData, but it never should be altered
             $postData = $request->getPost();
+
             unset($postData['id']);
             unset($postData['applyId']);
+
             $instanceForm->setData($postData);
             if ($instanceForm->isValid()) {
-                $this->getServiceLocator()->get('repositories')->persist($job);
+//                if (0 === strpos($formIdentifier,"templateLabel")) {
+//                    $organization=$job->organization;
+//                    $organization->template->labelRequirements = $postData['description-label-requirements'];
+//                    $this->getServiceLocator()->get('repositories')->persist($organization);
+//                }else{
+                    $this->getServiceLocator()->get('repositories')->persist($job);
+//                }
+
             }
         }
 
@@ -127,21 +143,5 @@ class TemplateController extends AbstractActionController
         }
         $applicationViewModel->setTemplate('iframe/iFrameInjection');
         return $model;
-    }
-
-    /**
-     * Gets the organization logo. If no logo exists, take a predefined one
-     *
-     * @param \Organizations\Entity\Organization $organization
-     * @return String
-     */
-    private function getOrganizationLogo(\Organizations\Entity\Organization $organization)
-    {
-        if (isset($organization) && isset($organization->image) && $organization->image->uri) {
-            return ($organization->image->uri);
-        } else {
-            /** @var \Zend\ServiceManager\ServiceManager $serviceLocator */
-            return $this->config->default_logo;
-        }
     }
 }

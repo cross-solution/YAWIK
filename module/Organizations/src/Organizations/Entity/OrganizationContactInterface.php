@@ -18,7 +18,7 @@ interface OrganizationContactInterface extends EntityInterface
 {
 
     /**
-     * Sets the Buildingnumber of an organization address
+     * Sets the Building number of an organization address
      *
      * @param string $houseNumber
      * @return OrganizationContact

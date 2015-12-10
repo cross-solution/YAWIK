@@ -11,23 +11,21 @@
 namespace Jobs\Form;
 
 use Core\Form\Form;
-use Core\Entity\Hydrator\EntityHydrator;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Core\Form\ViewPartialProviderInterface;
-use Jobs\Form\Hydrator\JobDescriptionHydrator;
+use Jobs\Form\Hydrator\TemplateLabelHydrator;
 
 /**
  * Defines the formular field "requirements" of a job opening
  *
  * @package Jobs\Form
  */
-class JobDescriptionLabelRequirements extends Form implements InputFilterProviderInterface
+class TemplateLabelRequirements extends Form implements InputFilterProviderInterface
 {
 
     public function getHydrator()
     {
         if (!$this->hydrator) {
-            $hydrator = new JobDescriptionHydrator();
+            $hydrator = new TemplateLabelHydrator();
             $this->setHydrator($hydrator);
         }
         return $this->hydrator;
@@ -44,14 +42,14 @@ class JobDescriptionLabelRequirements extends Form implements InputFilterProvide
         );
 
         $this->add(
-            array(
-            'type' => 'Text',
-            'name' => 'description-label-requirements',
-            'options' => array(
-//                'use_as_base_fieldset' => true,
-//                'placeholder' => 'Requirements'
-            ),
-            )
+            [
+                'type' => 'Text',
+                'name' => 'description-label-requirements',
+                'options' => [
+                    'use_as_base_fieldset' => true,
+                ]
+
+            ]
         );
 
 

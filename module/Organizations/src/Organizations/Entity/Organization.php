@@ -148,6 +148,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * Default values of an organizations job template
      *
      * @var TemplateInterface;
+     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\Template")
      */
     protected $template;
 

@@ -247,18 +247,18 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
-        $labelQualification='';
+        $labelQualifications='';
         $labelBenefits='';
         $labelRequirements='';
 
         $organization = $this->job->organization;
         if (isset($organization)) {
             $labelRequirements = $organization->getTemplate()->getLabelRequirements();
-            $labelQualification = $organization->getTemplate()->getLabelQualification();
+            $labelQualifications = $organization->getTemplate()->getLabelQualifications();
             $labelBenefits = $organization->getTemplate()->getLabelBenefits();
         }
         $this->container['labelRequirements'] = $labelRequirements;
-        $this->container['labelQualifications'] = $labelQualification;
+        $this->container['labelQualifications'] = $labelQualifications;
         $this->container['labelBenefits'] = $labelBenefits;
 
         return $this;
