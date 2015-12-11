@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6f429a0b778216de73b509d04f1c7662",
-    "content-hash": "e51f6916bda4f74e9bab8b5edc2ca594",
+    "hash": "5d56e0b3c2633218764fbbbd25be530e",
+    "content-hash": "1d45f5bee807e3c6d18013f0499b205d",
     "packages": [
         {
             "name": "blueimp/jquery-file-upload",
@@ -1070,46 +1070,44 @@
         },
         {
             "name": "ivaynberg/select2",
-            "version": "3.5.4",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/select2/select2.git",
-                "reference": "95a977f674b6938af55ec5f28b7772df93786c5c"
+                "reference": "bc1996417041d9b6131bd8c2ba911984c7b6f2d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/select2/select2/zipball/95a977f674b6938af55ec5f28b7772df93786c5c",
-                "reference": "95a977f674b6938af55ec5f28b7772df93786c5c",
+                "url": "https://api.github.com/repos/select2/select2/zipball/bc1996417041d9b6131bd8c2ba911984c7b6f2d9",
+                "reference": "bc1996417041d9b6131bd8c2ba911984c7b6f2d9",
                 "shasum": ""
             },
             "require": {
-                "components/jquery": ">=1.7.1",
                 "robloach/component-installer": "*"
             },
             "type": "component",
             "extra": {
                 "component": {
                     "scripts": [
-                        "select2.js"
+                        "dist/js/select2.js"
+                    ],
+                    "styles": [
+                        "dist/css/select2.css"
                     ],
                     "files": [
-                        "select2.js",
-                        "select2_locale_*.js",
-                        "select2.css",
-                        "select2-bootstrap.css",
-                        "select2-spinner.gif",
-                        "select2.png",
-                        "select2x2.png"
+                        "dist/js/select2.js",
+                        "dist/js/i18n/*.js",
+                        "dist/css/select2.css"
                     ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache-2.0"
+                "MIT"
             ],
             "description": "Select2 is a jQuery based replacement for select boxes.",
-            "homepage": "http://ivaynberg.github.io/select2/",
-            "time": "2015-08-30 17:30:38"
+            "homepage": "https://select2.github.io/",
+            "time": "2015-11-27 23:26:20"
         },
         {
             "name": "jmikola/geojson",

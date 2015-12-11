@@ -49,8 +49,8 @@
         $select.select2({
             allowClear: false,
             placeholder: data.placeholder,
-            formatResult: displayResult,
-            formatSelection: displaySelection
+            templateResult: displayResult,
+            templateSelection: displaySelection
         });
     });
 

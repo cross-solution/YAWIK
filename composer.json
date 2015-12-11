@@ -42,7 +42,7 @@
         "fortawesome/font-awesome": "*",
         "twitter/typeahead.js": "0.10.*",
         "blueimp/jquery-file-upload": "*",
-        "ivaynberg/select2": "3.5.*",
+        "ivaynberg/select2": "*",
         "tinymce/tinymce": "*",
         "mikemix/zf2htmlpurifier": "*",
         "cross-solution/bootstrap3-dialog": "dev-master",
