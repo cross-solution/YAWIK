@@ -22,7 +22,7 @@ if ($this->renderSummary):?>
             $value   = $options[$valueKey];
 
             $data    = explode('|', $value);
-            if ($data[4]): ?><div class="row"><div class="col-md-9"><?php
+            if ($data[4]): ?><div class="row"><div class="col-md-6"><?php
             else:?>          <div class="row"><div class="col-md-12"><?php
             endif;
             $info    = array();
@@ -39,8 +39,8 @@ if ($this->renderSummary):?>
         <small><?php echo implode(', ', $info) ?></small>
                 </div>
                 <?php if ($data[4]):?>
-                     <div class="col-md-3">
-                         <img src="<?php echo $this->basepath($data[4]) ?>" class="img-thumbnail">
+                     <div class="col-md-6 pull-right">
+                         <img src="<?php echo $this->basepath($data[4]) ?>" class="yk-logo-sm">
                      </div>
                 <?php endif ?>
                     </div>

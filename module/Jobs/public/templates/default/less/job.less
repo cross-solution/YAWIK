@@ -6,19 +6,16 @@
  * @license   GPLv3
  */
 
-@import "../../default/less/skeleton.less";
+@import "skeleton.less";
 
-@primary-color: #69be28;
-@link-color: #1eaedb;
+@primary-color: #33c3f0;
 @panel-default-border: #2e2e2e;
 @font-family:  "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-@global-radius: 0;
-
 
 main {
     border: solid 1px @primary-color;
-    border-top: solid 20px @primary-color;
-    border-style: ridge;
+    border-bottom: solid 10px @primary-color;
+    border-style: groove;
     padding: 2em;
     box-shadow: MenuText;
     border-radius: @global-radius;
@@ -32,7 +29,7 @@ h1 {
     color: @primary-color;
 }
 .apply {
-    text-align: left;
+    text-align: center;
 }
 h4 {
     font-size: 1.8rem; line-height: 1.35; letter-spacing: -.08rem;
