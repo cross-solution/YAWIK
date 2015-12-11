@@ -28,7 +28,7 @@ class FormEditorLight extends FormEditor
 
     protected function additionalLanguageOptions(){
         $options='';
-        if (in_array($this->language,['de','fr','it','es'])) {
+        if (in_array($this->language,['de','fr','it','es','hi','ar','ru','zh','tr'])) {
             $options='language: "'.$this->language.'",'.
                      'language_url: "'. $this->languagePath . $this->language.'.js",';
         }
