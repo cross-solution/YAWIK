@@ -10,7 +10,6 @@
 
 namespace Jobs\Entity;
 
-//use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\Snapshot as BaseEntity;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;

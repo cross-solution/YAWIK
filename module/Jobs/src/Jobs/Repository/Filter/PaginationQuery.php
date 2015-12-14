@@ -68,6 +68,17 @@ class PaginationQuery extends AbstractPaginationQuery
     public function createQuery($params, $queryBuilder)
     {
         $this->value = $params->toArray();
+
+        /*
+         * search jobs by keywords
+         */
+        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
+            $search = strtolower($this->value['params']['search']);
+            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
+            $queryBuilder->field(null)->equals($expression->getQuery());
+        }
+
+
         $this->user = $this->auth->getUser();
         $isRecruiter = $this->user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($this->user, User::ROLE_RECRUITER);
 
@@ -93,27 +104,6 @@ class PaginationQuery extends AbstractPaginationQuery
              * an applicants or guests can see all active jobs
              */
             $queryBuilder->field('status.name')->equals(Status::ACTIVE);
-        }
-
-
-        /*
-         * search jobs by keywords
-         */
-        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
-            $search = strtolower($this->value['params']['search']);
-            $searchPatterns = array();
-
-            foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
-            }
-            $queryBuilder->field('keywords')->all($searchPatterns);
-        }
-
-        if (isset($this->value['location'])) {
-            $loc = $this->value['location'];
-            $queryBuilder->field('locations.coordinates')
-                         ->near($loc->getCoordinates())
-                         ->maxDistance($this->value['d'] * 1000);
         }
 
         if (isset($this->value['sort'])) {

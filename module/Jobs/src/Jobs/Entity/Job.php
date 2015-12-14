@@ -46,13 +46,7 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, 
      */
     protected $title;
     
-    /**
-     * Description (Free text)
-     *
-     * @var String
-     * @ODM\String
-     */
-    protected $description;
+
     /**
      * name of the publishing company
      *
@@ -334,28 +328,6 @@ class Job extends BaseEntity implements JobInterface, DraftableEntityInterface, 
     {
         $this->title = (string) $title;
         return $this;
-    }
-
-    /**
-     * Sets the description of a job position
-     *
-     * @see \Jobs\Entity\JobInterface::setDescription()
-     * @param String $text
-     * @return \Jobs\Entity\JobInterface
-     */
-    public function setDescription($text)
-    {
-        $this->description = (string) $text;
-        return $this;
-    }
-    
-    /**
-     * (non-PHPdoc)
-     * @see \Jobs\Entity\JobInterface::getDescription()
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
     
     /**

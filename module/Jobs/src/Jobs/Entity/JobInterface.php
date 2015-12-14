@@ -125,19 +125,6 @@ interface JobInterface extends
     public function setTitle($title);
 
     /**
-     * Gets the description of a job posting
-     *
-     * @return string
-     */
-    public function getDescription();
-    /**
-     * Sets the description of a job posting
-     *
-     * @param string $text
-     */
-    public function setDescription($text);
-
-    /**
      * Gets the organisation name, which offers the job posting
      *
      * @deprecated

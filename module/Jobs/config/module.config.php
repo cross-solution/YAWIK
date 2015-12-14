@@ -195,7 +195,6 @@ return array(
 
     'controllers' => array(
         'invokables' => array(
-            'Jobs/Index' => 'Jobs\Controller\IndexController',
             'Jobs/Manage' => 'Jobs\Controller\ManageController',
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController',
@@ -204,6 +203,7 @@ return array(
         ),
         'factories' => array(
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
+            'Jobs/Index' => 'Jobs\Factory\Controller\IndexControllerFactory',
             'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
             'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
             'Jobs/ApiJobListByOrganization' => 'Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory'

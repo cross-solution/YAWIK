@@ -54,8 +54,10 @@ $byElement = $params->get('by');
 $statusElement = $params->get('status');
 
 ?>
+
 <div id="params-search-wrapper">
     <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' => $this->translate('search for position or company') ))) ?>
+    <?php if ($showButtons): ?>
     <?php
 
     echo $this->partial("geo/form/GeoHorizontal", array(
@@ -71,7 +73,7 @@ $statusElement = $params->get('status');
 
     ?>
     <?php echo $this->formSelect($params->get('d')->setAttributes(array('class' => 'form-control ','placeholder' =>  $this->translate('Type in a location') ))) ?>
-
+<?php endif;?>
     <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
 </div>
 <?php

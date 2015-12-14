@@ -14,6 +14,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
 use Auth\Entity\User;
+use Jobs\Repository;
+use Jobs\Form\ListFilter;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -29,6 +31,19 @@ use Zend\View\Model\ViewModel;
  */
 class IndexController extends AbstractActionController
 {
+
+    /**
+     * @var Repository\Job $jobRepository
+     */
+    private $jobRepository;
+
+    /**
+     * Formular for searching job postings
+     *
+     * @var ListFilter $searchForm
+     */
+    private $searchForm;
+
     /**
      * attaches further Listeners for generating / processing the output
      *
@@ -41,7 +56,6 @@ class IndexController extends AbstractActionController
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
-
         $events->attach($defaultServices);
 
         return $this;
@@ -62,16 +76,18 @@ class IndexController extends AbstractActionController
         return $this->listJobs(true);
     }
 
+    /**
+     * @param bool $showPendingJobs
+     *
+     * @return ViewModel
+     */
     protected function listJobs($showPendingJobs = false)
     {
-
-        $serviceLocator  = $this->getServiceLocator();
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
         $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
-        //$showPendingJobs = $this->acl()->isRole('admin') && 'created' == $params->get('status');
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -89,9 +105,10 @@ class IndexController extends AbstractActionController
             $session[$sessionKey] = $params->toArray();
 
             if (!$showPendingJobs) {
-                $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
+                $filterForm = $this->getServiceLocator()
+                    ->get('forms')
+                    ->get('Jobs/ListFilter', $isRecruiter);
                 $filterForm->bind($params);
-            } else {
             }
         }
 

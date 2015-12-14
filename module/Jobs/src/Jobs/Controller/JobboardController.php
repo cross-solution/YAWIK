@@ -60,10 +60,12 @@ class JobboardController extends AbstractActionController
 
     /**
      * List jobs
+     *
+     * @return ViewModel
      */
     public function indexAction()
     {
-        $service          = $this->getServiceLocator();
+        /* @var \Zend\Http\Request $request */
         $request          = $this->getRequest();
         $params           = $request->getQuery();
         $jsonFormat       = 'json' == $request->getQuery()->get('format');
@@ -71,9 +73,8 @@ class JobboardController extends AbstractActionController
         $routeMatch       = $event->getRouteMatch();
         $matchedRouteName = $routeMatch->getMatchedRouteName();
         $url              = $this->url()->fromRoute($matchedRouteName, array(), array('force_canonical' => true));
-        $action           = $routeMatch->getParam('action');
 
-        if (!$jsonFormat && !$this->getRequest()->isXmlHttpRequest()) {
+        if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session = new Session('Jobs\Index');
             $sessionKey = $this->auth()->isLoggedIn() ? 'userParams' : 'guestParams';
             $sessionParams = $session[$sessionKey];
@@ -90,6 +91,7 @@ class JobboardController extends AbstractActionController
         $params = $params->get('params', []);
 
         if (isset($params['l']['data'])) {
+            /* @var \Geo\Form\GeoText $geoText */
             $geoText = $this->searchForm->get('params')->get('l');
             $geoText->setValue($params['l']);
             $params['location'] = $geoText->getValue('entity');
@@ -100,6 +102,7 @@ class JobboardController extends AbstractActionController
         }
 
         $this->searchForm->setAttribute('action', $url);
+
         $params['by'] = "guest";
 
         $paginator = $this->paginatorService('Jobs/Board', $params);

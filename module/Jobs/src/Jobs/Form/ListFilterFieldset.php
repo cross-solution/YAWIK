@@ -92,32 +92,36 @@ class ListFilterFieldset extends Fieldset
             )
         );
 
-        $this->add(
-            array(
-                       'name' => 'l',
-                       'type' => 'Location',
-                       'options' => array(
-                           'label' => /*@translate*/ 'Location',
-                           'engine_type' => 'photon',
-                       ),
-                   )
-        );
+        if (!$this->isExtended) {
+            $this->add(
+                array(
+                    'name'    => 'l',
+                    'type'    => 'Location',
+                    'options' => array(
+                        'label'       => /*@translate*/
+                            'Location',
+                        'engine_type' => 'photon',
+                    ),
+                )
+            );
 
-        $this->add(
-            array(
-                       'name' => 'd',
-                       'type' => 'Zend\Form\Element\Select',
-                       'options' => array(
-                           'label' => /*@translate*/ 'Distance',
-                           'value_options' => array(
-                               '5' => '5 km',
-                               '10'  => '10 km',
-                               '20' => '20 km',
-                               '50' => '50 km',
-                               '100' => '100 km'
-                           ),
-                       ),
-                   )
-        );
+            $this->add(
+                array(
+                    'name'    => 'd',
+                    'type'    => 'Zend\Form\Element\Select',
+                    'options' => array(
+                        'label'         => /*@translate*/
+                            'Distance',
+                        'value_options' => array(
+                            '5'   => '5 km',
+                            '10'  => '10 km',
+                            '20'  => '20 km',
+                            '50'  => '50 km',
+                            '100' => '100 km'
+                        ),
+                    ),
+                )
+            );
+        }
     }
 }

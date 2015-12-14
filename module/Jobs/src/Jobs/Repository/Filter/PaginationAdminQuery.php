@@ -15,6 +15,9 @@ use Auth\Entity\User;
 
 /**
  * Class PaginationAdminQuery
+ *
+ * This is currently only used to list pending jobs for approval
+ *
  * @package Jobs\Repository\Filter
  */
 class PaginationAdminQuery extends PaginationQuery
@@ -31,12 +34,8 @@ class PaginationAdminQuery extends PaginationQuery
          */
         if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
             $search = strtolower($this->value['params']['search']);
-            $searchPatterns = array();
-
-            foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
-            }
-            $queryBuilder->field('keywords')->all($searchPatterns);
+            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
+            $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
         if (isset($this->value['sort'])) {
