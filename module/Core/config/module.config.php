@@ -171,6 +171,7 @@ return array(
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
+            'Core\Factory\OptionsAbstractFactory',
         ),
         'aliases' => array(
             'forms' => 'FormElementManager',
