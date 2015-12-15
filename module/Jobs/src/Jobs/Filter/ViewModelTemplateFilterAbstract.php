@@ -212,6 +212,8 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         $organizationPostalCode = '';
         $organizationPostalCity = '';
         $organization = $this->job->organization;
+        $user = $this->job->getUser();
+
         if (isset($organization)) {
             $organizationName = $organization->organizationName->name;
             $organizationStreet = $organization->contact->street.' '.$organization->contact->houseNumber;
@@ -219,8 +221,15 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
             $organizationPostalCity = $organization->contact->city;
             $organizationPhone = $organization->contact->phone;
             $organizationFax = $organization->contact->fax;
+        } else {
+            $organizationName =
+            $organizationStreet =
+            $organizationPostalCode =
+            $organizationPostalCity =
+            $organizationPhone =
+            $organizationFax = '';
         }
-        $this->container['contactEmail'] = $this->job->getUser()->getInfo()->getEmail();
+        $this->container['contactEmail'] = $user ? $user->getInfo()->getEmail() : '';
         $this->container['organizationName'] = $organizationName;
         $this->container['street'] = $organizationStreet;
         $this->container['postalCode'] = $organizationPostalCode;
