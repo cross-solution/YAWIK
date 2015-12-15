@@ -98,6 +98,13 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
 
     protected function processConfig(&$config, ServiceLocatorInterface $services)
     {
+        if (!isset($config['writer_plugin_manager'])) {
+            $config['writer_plugin_manager'] = $services->get('LogWriterManager');
+        }
+        if (!isset($config['processor_plugin_manager'])) {
+            $config['processor_plugin_manager'] = $services->get('LogProcessorManager');
+        }
+
         if (!isset($config['writers'])) {
             return;
         }
