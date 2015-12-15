@@ -15,6 +15,7 @@ use Geo\Entity\Geometry\Point;
 use Jobs\Entity\Location;
 use Jobs\Entity\Status;
 use Organizations\Entity\Employee;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
@@ -111,6 +112,7 @@ class ImportController extends AbstractActionController
                         } else {
                             $createdJob = false;
                         }
+                        $entity->setid('test');
                     }
                 } else {
                     $repositoriesJob->find($id);
@@ -191,9 +193,25 @@ class ImportController extends AbstractActionController
                         if (!empty($id)) {
                             $jobEvent = $services->get('Jobs/Event');
                             $jobEvent->setJobEntity($entity);
-                            $jobEvent->addPortal('XING');
-                            if ($createdJob || true) {
-                                $responses = $this->getEventManager()->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
+                            $jobEvent->addPortal('XingVendorApi');
+
+                            $extra = [];
+                            foreach (array('channels', 'positions', 'branches', 'keywords', 'description') as $paramName) {
+                                $data = $params->get($paramName);
+                                if ($data) {
+                                    $data = Json::decode($data, Json::TYPE_ARRAY);
+
+                                    $extra[$paramName] = $data;
+                                }
+                            }
+                            $jobEvent->setParam('extraData', $extra);
+
+                            if ($createdJob || True) {
+                                /* @var $jobEvents \Zend\EventManager\EventManager */
+                                $jobEvents = $services->get('Jobs/Events');
+                                $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED)
+                                         ->setTarget($this);
+                                $responses = $jobEvents->trigger($jobEvent);
                                 foreach ($responses as $response) {
                                     // responses from the portals
                                     // @TODO, put this in some conclusion and meaningful messages
