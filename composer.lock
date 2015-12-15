@@ -2441,16 +2441,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "4.3.1",
+            "version": "4.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "321f1f97f903fd2ea2430a6b1bf995c7bbd1ab2f"
+                "reference": "6597b4bd83169d6f10887a8bc1e7d218a1453b0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/321f1f97f903fd2ea2430a6b1bf995c7bbd1ab2f",
-                "reference": "321f1f97f903fd2ea2430a6b1bf995c7bbd1ab2f",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/6597b4bd83169d6f10887a8bc1e7d218a1453b0e",
+                "reference": "6597b4bd83169d6f10887a8bc1e7d218a1453b0e",
                 "shasum": ""
             },
             "type": "component",
@@ -2483,7 +2483,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2015-11-30 04:04:15"
+            "time": "2015-12-14 12:55:28"
         },
         {
             "name": "twbs/bootstrap",
@@ -5903,12 +5903,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/satooshi/php-coveralls.git",
-                "reference": "afd0861d5e219bf8b3cca8957d9bb1f2004b76c2"
+                "reference": "3e617b88638958365d031b654f5a9bf91b4178f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/afd0861d5e219bf8b3cca8957d9bb1f2004b76c2",
-                "reference": "afd0861d5e219bf8b3cca8957d9bb1f2004b76c2",
+                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/3e617b88638958365d031b654f5a9bf91b4178f2",
+                "reference": "3e617b88638958365d031b654f5a9bf91b4178f2",
                 "shasum": ""
             },
             "require": {
@@ -5958,7 +5958,7 @@
                 "github",
                 "test"
             ],
-            "time": "2015-12-10 14:16:22"
+            "time": "2015-12-13 00:51:27"
         },
         {
             "name": "symfony/config",

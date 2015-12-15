@@ -70,12 +70,12 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
     protected $description='';
 
     /**
-     * language of the job template values
+     * language of the job template values. Must be a valid ISO 639-1 code
      *
      * @var String
      * @ODM\String
      */
-    protected $language='';
+    protected $language='en';
 
     /**
      * free values (currently not in use)

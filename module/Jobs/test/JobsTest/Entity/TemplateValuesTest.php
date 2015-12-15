@@ -90,7 +90,7 @@ class TemplateValueTest extends \PHPUnit_Framework_TestCase
             array(null , 'getBenefits', ''),
             array(null , 'getQualifications', ''),
             array(null , 'getTitle', ''),
-            array(null , 'getLanguage', ''),
+            array(null , 'getLanguage', 'en'),
         );
     }
 }
