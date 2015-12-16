@@ -133,18 +133,6 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox Allows to set keywords for a job posting
-     * @covers Jobs\Entity\Job::getKeywords
-     * @covers Jobs\Entity\Job::setKeywords
-     */
-    public function testSetGetKeywords()
-    {
-        $string = array('linux','test','und','a'.'münchen','"test"');
-        $this->target->setKeywords($string);
-        $this->assertEquals($string, $this->target->getKeywords());
-    }
-
-    /**
      * @testdox Allows setting the start date of a job posting
      * @covers Jobs\Entity\Job::getDatePublishStart
      * @covers Jobs\Entity\Job::setDatePublishStart
