@@ -50,14 +50,18 @@ $form->setAttributes(array(
 echo $this->form()->openTag($form);
 echo $this->formHidden($params->get('page'));
 
-$byElement = $params->get('by');
-$statusElement = $params->get('status');
-
+if ($params->has('by')){
+    $statusElement = $params->get('status');
+    $byElement = $params->get('by');
+}
+?>
+<?php
+$showButtons = $params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 ?>
 
 <div id="params-search-wrapper">
     <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' => $this->translate('search for position or company') ))) ?>
-    <?php if ($showButtons): ?>
+    <?php if (!$showButtons): ?>
     <?php
 
     echo $this->partial("geo/form/GeoHorizontal", array(
@@ -76,8 +80,8 @@ $statusElement = $params->get('status');
 <?php endif;?>
     <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
 </div>
+
 <?php
-$showButtons = $params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 if (array_key_exists('showButtons', $options)) {
     $showButtons = $options['showButtons'];
 }

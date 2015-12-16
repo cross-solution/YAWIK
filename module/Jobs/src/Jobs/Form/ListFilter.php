@@ -40,7 +40,7 @@ class ListFilter extends Form implements ViewPartialProviderInterface
      */
     protected $isExtended;
     
-    public function __construct($useAcl = false)
+    public function __construct($name, $useAcl = false)
     {
         $this->isExtended = (bool) $useAcl;
         parent::__construct();

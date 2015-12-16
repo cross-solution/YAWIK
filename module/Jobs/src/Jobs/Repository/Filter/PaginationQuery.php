@@ -78,6 +78,11 @@ class PaginationQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
+        if (isset($this->value['location']->coordinates)) {
+            $coordinates = $this->value['location']->coordinates->getCoordinates();
+            $queryBuilder->field('locations.coordinates')->withinCenter($coordinates[0], $coordinates[1],(float) $this->value['d']/100);
+        }
+
 
         $this->user = $this->auth->getUser();
         $isRecruiter = $this->user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($this->user, User::ROLE_RECRUITER);
