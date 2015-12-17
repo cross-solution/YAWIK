@@ -71,7 +71,7 @@ $this->headLink()->prependStylesheet($this->basePath('/Core/css/pnotify.custom.m
                                   ->setMaxDepth(0)
                                   ->setUlClass('nav navbar-nav pull-left')//renderPartial(null, 'main-navigation')?>
 
-                     <?php echo $this->loginInfo(array('lang' => 'de')) ?>
+                     <?php echo $this->loginInfo(array('lang' => $this->params('lang'))) ?>
                  </nav> <!-- /main-navigation -->
 		</div>
             </header>

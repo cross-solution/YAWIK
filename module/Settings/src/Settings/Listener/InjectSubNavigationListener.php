@@ -27,12 +27,12 @@ class InjectSubNavigationListener
         
         $services     = $event->getApplication()->getServiceManager();
         $navigation   = $services->get('Core/Navigation');
+
+        /* @var $settingsMenu \Zend\Navigation\Page\Mvc $settingMenu  */
         $settingsMenu = $navigation->findOneBy('route', 'lang/settings');
         
         if ($settingsMenu->hasChildren()) {
-            /*
-             * We already have the subnavigation.
-             */
+            /*We already have the sub-navigation.*/
             return;
         }
         
@@ -57,7 +57,7 @@ class InjectSubNavigationListener
                 'router' => $router,
                 'action' => 'index',
                 'controller' => 'index',
-                'params' => array('lang' => 'de', 'module' => $key),
+                'params' => array('lang' => $routeMatch->getParam('lang'), 'module' => $key),
                 'active' => $key == $activeModule,
             );
             if ($routeMatch instanceof RouteMatch) {

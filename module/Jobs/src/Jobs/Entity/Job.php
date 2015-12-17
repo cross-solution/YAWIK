@@ -808,15 +808,6 @@ class Job extends BaseEntity implements JobInterface,
         return $this;
     }
 
-    /**
-     * Get a list of fieldnames, which can be searched by keywords
-     *
-     * @return array
-     */
-    public function getSearchableProperties()
-    {
-        return array('title', 'company', 'location', 'applyId', 'reference');
-    }
     
     /**
      * (non-PHPdoc)
