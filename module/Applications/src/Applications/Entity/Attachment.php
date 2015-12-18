@@ -27,7 +27,7 @@ class Attachment extends FileEntity
     /**
      * Gets the URI of an attachment
      *
-     * The returned URI is NOT prependen with the base path!
+     * The returned URI is NOT prepended with the base path!
      *
      * @return string
      */

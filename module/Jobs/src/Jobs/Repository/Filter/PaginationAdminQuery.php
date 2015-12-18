@@ -11,7 +11,11 @@
 namespace Jobs\Repository\Filter;
 
 use Jobs\Entity\Status;
-use Auth\Entity\User;
+use \Doctrine\ODM\MongoDB\Query\Builder;
+use \Zend\Stdlib\Parameters;
+use Zend\Authentication\AuthenticationService;
+use Zend\Permissions\Acl\Acl;
+use Auth\Entity\UserInterface;
 
 /**
  * Class PaginationAdminQuery
@@ -22,11 +26,36 @@ use Auth\Entity\User;
  */
 class PaginationAdminQuery extends PaginationQuery
 {
+    /**
+     * @var AuthenticationService
+     */
+    protected $auth;
 
+    /**
+     * @var UserInterface
+     */
+    protected $user;
+
+    /**
+     * @param $auth
+     * @param $acl
+     */
+    public function __construct(AuthenticationService $auth, Acl $acl)
+    {
+        $this->auth = $auth;
+        $this->acl = $acl;
+    }
+
+    /**
+     * @param Parameters $params
+     * @param Builder $queryBuilder
+     *
+     * @return Builder
+     */
     public function createQuery($params, $queryBuilder)
     {
         $this->value = $params->toArray();
-        $this->user = $this->auth->getUser();
+
         $queryBuilder->field('status.name')->equals(Status::CREATED);
 
         /*

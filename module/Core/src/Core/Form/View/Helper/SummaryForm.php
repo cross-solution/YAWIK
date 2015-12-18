@@ -245,7 +245,33 @@ class SummaryForm extends AbstractHelper
 
         if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
             $options = $element->getValueOptions();
-            $elementValue = $this->getTranslator()->translate($options[$elementValue]);
+            $translator = $this->getTranslator();
+            if (true == $element->getAttribute('multiple')) {
+
+                $multiOptions = [];
+                foreach ($elementValue as $optionKey) {
+                    if (isset($options[$optionKey])) {
+                        $multiOptions['__general__'][] = $translator->translate($options[$optionKey]);
+                        continue;
+                    }
+
+                    foreach ($options as $optKey => $optVal) {
+                        if (!is_array($optVal) || !array_key_exists($optionKey, $optVal['options'])) { continue; }
+
+                        $optGroupLabel = isset($optVal['label']) ? $translator->translate($optVal['label']) : $optKey;
+                        $multiOptions[$optGroupLabel][] = $translator->translate($optVal['options'][$optionKey]);
+                    }
+                }
+
+                $elementValue = [];
+                foreach ($multiOptions as $optGroupLabel => $vals) {
+                    $elementValue[] = "<b>$optGroupLabel</b><br>" . join(', ', $vals);
+                }
+                $elementValue = join('<br>', $elementValue) . '<br>';
+
+            } else {
+                $elementValue = $translator->translate($options[$elementValue]);
+            }
         }
 
         if ('' != $elementValue && $element instanceOf \Zend\Form\Element\File) {

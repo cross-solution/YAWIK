@@ -1,7 +1,5 @@
 <?php
-/**
- * {{rtd: Renders default 'save' and 'abort' buttons}}
- */
+/* @var $fr Core\Form\View\Helper\FormRow */
 $fr = $this->formRow();
 $shouldWrap = $fr->shouldWrap();
 $fr->setShouldWrap(false);
@@ -18,7 +16,11 @@ $attrStr = $this->formInput()->createAttributesString($attribs);
 <div <?php echo $attrStr ?>>   
         <div class="col-md-offset-3 col-md-9">
         <?php $first=true; foreach($this->element as $button):?>
-            <?php $button->setAttribute('class', $button->getAttribute('class'));?>
+
+            <?php
+            /* @var $button \Zend\Form\Element\Button */
+            $button->setAttribute('class', $button->getAttribute('class'));
+            ?>
             <?php echo $this->formRow($button);?>
         <?php endforeach;?>    
         </div>

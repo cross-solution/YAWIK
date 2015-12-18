@@ -13,12 +13,13 @@ use Jobs\Entity\Status;
 use Auth\Entity\User;
 use Zend\Authentication\AuthenticationService;
 use Zend\Permissions\Acl\Acl;
+use Zend\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
 
 /**
  * maps query parameters to entity attributes
  *
- * @author cbleek
+ * @author Carsten Bleek <bleek@cross-solution.de>
  *
  */
 class PaginationQuery extends AbstractPaginationQuery
@@ -61,8 +62,8 @@ class PaginationQuery extends AbstractPaginationQuery
      * status => Status::CREATED, 'all'
      * user   => User::ROLE_RECRUITER, User::ROLE_ADMIN, User::ROLE_USER
      *
-     * @param $params
-     * @param $queryBuilder
+     * @param $params Parameters
+     * @param $queryBuilder \Doctrine\ODM\MongoDB\Query\Builder
      * @return mixed
      */
     public function createQuery($params, $queryBuilder)
@@ -76,6 +77,11 @@ class PaginationQuery extends AbstractPaginationQuery
             $search = strtolower($this->value['params']['search']);
             $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
             $queryBuilder->field(null)->equals($expression->getQuery());
+        }
+
+        if (isset($this->value['location']->coordinates)) {
+            $coordinates = $this->value['location']->coordinates->getCoordinates();
+            $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1],(float) $this->value['d']/100);
         }
 
 
