@@ -18,25 +18,25 @@
 <body>
 <div class="container">
 
-    <main>
+    <main itemscope itemtype="http://schema.org/JobPosting">
         <!-- 
           This the *classic* Template. Templates are quite easy to create. Take a look at the sources:
  
           https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
         -->
         <div class="row">
-            <div class="one-half column">
-                <div>
-                    <img src="<?php echo $this->uriLogo?>">
+            <div class="one-half column" itemscope itemtype="http://schema.org/Organization">
+                <div itemprop="logo">
+                    <img src="<?php echo $this->uriLogo?>" alt="<?php echo $this->organizationName?>">
                 </div>
             </div>
             <div class="one-half column right">
             </div>
         </div>
 
-        <p><?php echo $this->descriptionEditable ?></p>
+        <p ><?php echo $this->descriptionEditable ?></p>
         <div class="row">
-            <div class="twelve columns">
+            <div class="twelve columns" itemprop="title">
                 <?php echo $this->title; ?>
             </div>
         </div>
@@ -44,27 +44,30 @@
             <div class="two-thirds column">
                 <div class="panel">
                     <div class="panel-heading"><h4><?php echo $this->translate($this->labelRequirements);?></h4></div>
-                    <div class="panel-body"><?php echo $this->requirements;?></div>
+                    <div class="panel-body" itemprop="responsibilities"><?php echo $this->requirements;?></div>
                 </div>
                 <div class="panel">
                     <div class="panel-heading"><h4><?php echo $this->translate($this->labelQualifications);?></h4></div>
-                    <div class="panel-body"><?php echo $this->qualifications;?></div>
+                    <div class="panel-body" itemprop="qualifications"><?php echo $this->qualifications;?></div>
                 </div>
 
             </div>
             <div class="one-third column">
                 <div class="panel">
                     <div class="panel-heading"><h4><?php echo $this->translate($this->labelBenefits);?></h4></div>
-                    <div class="panel-body"><?php echo $this->benefits;?></div>
+                    <div class="panel-body" itemprop="jobBenefits"><?php echo $this->benefits;?></div>
                 </div>
-                <div>
-                    <address>
-                        <strong><?php echo $this->organizationName?><br></strong>
-                        <?php echo $this->street?><br>
-                        <?php echo $this->zipcode?> <?php echo $this->city?><br><br>
-                        <?php echo $this->phone?>
+                <div itemscope itemtype="http://schema.org/Organization">
+                    <strong itemprop="name">
+                        <?php echo $this->organizationName?>
+                    </strong><br/>
+                    <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span itemprop="streetAddress"><?php echo $this->street?></span><br>
+                        <span itemprop="postalCode"><?php echo $this->zipcode?></span>
+                        <span itemprop="addressLocality"><?php echo $this->city?></span>
+                        <br><br>
+                        <span itemprop="telephone"><?php echo $this->phone?></span>
                     </address>
-
                 </div>
             </div>
         </div>
@@ -84,7 +87,7 @@
         </div>
         <?php endif; ?>
     </main>
-    <footer><small>powered by <a href="http://yawik.org">YAWIK</small></footer>
+    <footer><small>powered by <a href="http://yawik.org">YAWIK</a></small></footer>
 </div>
 </body>
 </html>
