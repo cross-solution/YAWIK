@@ -100,9 +100,10 @@ class PasswordControllerTest extends AbstractControllerTestCase
             ->method('getUser')
             ->willReturn(null);
 
-        $this->setExpectedException('Auth\Exception\UnauthorizedAccessException');
-
         $this->controller->dispatch($request);
+        $this->assertResponseStatusCode(Response::STATUS_CODE_302);
+        $this->assertRedirectTo('/en');
+                
     }
 
     public function testIndexAction_WithPostRequest_WhenDataIsInvalid()

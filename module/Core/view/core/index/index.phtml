@@ -7,18 +7,7 @@
  * @license   MIT
  */
 ?>
-<?php
-// @todo write a view helper for this. This code is  duplicated from Auth/view/auth/index/login-info.phtml
-
-$config = $this->services('Config');
-$SocialNetworksEnabled=[];
-foreach($config['hybridauth'] as $key => $val) {
-    if ($val['enabled']){
-        $SocialNetworksEnabled[strtolower($key)] = $key;
-    }
-}?>
 <?php $this->headTitle($this->translate('Home'))?>
-
 <h1></h1>
 <div class="jumbotron text-center">
   <h1><?php echo $this->translate('Welcome to YAWIK!'); ?></h1>
@@ -26,7 +15,7 @@ foreach($config['hybridauth'] as $key => $val) {
   <p><?php echo $this->translate("Login to an open source applicant tracking system using your favorit social network");?></p>
   <p>
   <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
-  <?php foreach ($SocialNetworksEnabled as $provider => $name): ?>
+  <?php foreach ($this->socialbuttons() as $provider => $name): ?>
             <a class="login-link btn-social btn-<?php echo $provider?> btn-lg" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="fa fa-<?php echo $provider?>"></i> <?php echo $name?></a>
   <?php endforeach ?>
   </p>

@@ -14,7 +14,6 @@ use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Log\LoggerInterface;
-use Auth\Options\ModuleOptions;
 use Auth\Controller\IndexController;
 
 class IndexControllerFactory implements FactoryInterface
@@ -31,16 +30,10 @@ class IndexControllerFactory implements FactoryInterface
         $serviceLocator = $controllerManager->getServiceLocator();
         $auth = $serviceLocator->get('AuthenticationService');
         $loginForm = $serviceLocator->get('Auth\Form\Login');
+
         /* @var $logger LoggerInterface*/
         $logger = $serviceLocator->get('Core/Log');
-        $config = $serviceLocator->get('config');
-
-        $mailOptions = array();
-        if (array_key_exists('Auth', $config) && array_key_exists('first_login', $config['Auth'])) {
-            $mailOptions = $config['Auth']['first_login'];
-        }
-        $options = new ModuleOptions($mailOptions);
-
+        $options = $serviceLocator->get('Auth/Options');
 
         $controller = new IndexController($auth, $logger, $loginForm, $options);
         return $controller;

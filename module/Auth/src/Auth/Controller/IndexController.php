@@ -84,7 +84,9 @@ class IndexController extends AbstractActionController
             }
 
             $form->setData($data);
-            if (array_key_exists('credentials', $data) && array_key_exists('login', $data['credentials']) && array_key_exists('credential', $data['credentials'])) {
+            if (array_key_exists('credentials', $data) &&
+                array_key_exists('login', $data['credentials']) &&
+                array_key_exists('credential', $data['credentials'])) {
                 $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
             }
@@ -122,25 +124,11 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toUrl($url);
                 
             } else {
-                $databaseName = '';
-                $config = $services->get('config');
-                if (array_key_exists('database', $config) && array_key_exists('databaseName', $config['database'])) {
-                    $databaseName = $config['database']['databaseName'];
-                }
-                // update for Doctrine
-
-                if (empty($databaseName)
-                        && array_key_exists('doctrine', $config)
-                        && array_key_exists('configuration', $config['doctrine'])
-                        && array_key_exists('odm_default', $config['doctrine']['configuration'])
-                        && array_key_exists('default_db', $config['doctrine']['configuration']['odm_default'])) {
-                    $databaseName = $config['doctrine']['configuration']['odm_default']['default_db'];
-                }
                 $loginName = $data['credentials']['login'];
                 if (!empty($loginSuffix)) {
                     $loginName = $loginName . ' (' . $loginName . $loginSuffix . ')';
                 }
-                $this->logger->info('Failed to authenticate User ' . $loginName . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
+                $this->logger->info('Failed to authenticate User ' . $loginName );
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
@@ -156,9 +144,15 @@ class IndexController extends AbstractActionController
             $viewModel->setVariable('ref', $ref);
         }
 
-        $allowRegister = $services->get('controllerPluginManager')->get('config')->get('allowRegister');
+        $allowRegister = $this->options->getEnableRegistration();
+        $allowResetPassword = $this->options->getEnableResetPassword();
         if (isset($allowRegister)) {
-            $viewModel->setVariable('allowRegister', $allowRegister);
+            $viewModel->setVariables(
+                [
+                    'allowRegister' => $allowRegister,
+                    'allowResetPassword' => $allowResetPassword
+                ]
+            );
         }
         
         $viewModel->setVariable('form', $form);

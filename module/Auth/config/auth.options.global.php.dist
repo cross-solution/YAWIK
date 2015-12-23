@@ -19,8 +19,21 @@ $options = array(
         */
         'mailSubjectRegistration' => 'your registration',
 
+        /*
+         * default name address, which is used in FROM headers of system mails like "new registration",
+         * "forgot password",..
+         */
+         'enableLogins' => ['linkedin','github','xing','google','facebook'],
 
+        /*
+         * if true, users are allowed to register.
+         */
+         'enableRegistration' => true,
 
+        /*
+         * if true, users can reset their password.
+         */
+         'enableResetPassword' => true,
     );
 
 return array(

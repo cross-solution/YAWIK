@@ -19,6 +19,16 @@ use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\PluginManager;
 
+/**
+ * Class RegisterConfirmationControllerTest
+ *
+ * @package AuthTest\Controller
+ * @runTestsInSeparateProcesses
+ * @covers Auth\Controller\RegisterConfirmationController
+ * @group Auth
+ * @group Auth.Controller
+ */
+
 class RegisterConfirmationControllerTest extends AbstractControllerTestCase
 {
     /**

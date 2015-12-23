@@ -7,22 +7,13 @@
  * @author        cbleek
  * @license       MIT
  */
-?><?php
-    // @todo write a view helper for this. This code is  duplicated from Auth/view/auth/index/login-info.phtml
-
-    $config = $this->services('Config');
-    $SocialNetworksEnabled=[];
-    foreach($config['hybridauth'] as $key => $val) {
-    if ($val['enabled']){
-    $SocialNetworksEnabled[strtolower($key)] = $key;
-    }
-    }?>
+?>
     <hr>
     <p>
         <small><?php echo $this->translate('Login via') ?>...</small>
     </p>
 <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
-<?php foreach ($SocialNetworksEnabled as $provider =>
+<?php foreach ($this->SocialButtons as $provider =>
                $name
 ): ?>
     <a class="btn-sm btn-social btn-<?php echo $provider ?>"

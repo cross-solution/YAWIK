@@ -313,6 +313,7 @@ return array(
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
+            'socialbuttons' => 'Core\Factory\View\Helper\SocialButtonsFactory',
             'TinyMCEditorLight' => 'Core\Factory\Form\View\Helper\FormEditorLightFactory',
             'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
         ),

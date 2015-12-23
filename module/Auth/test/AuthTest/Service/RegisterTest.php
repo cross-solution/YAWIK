@@ -12,6 +12,7 @@ namespace AuthTest\Service;
 use Auth\Entity\User;
 use Auth\Service\ForgotPassword;
 use Auth\Service\Register;
+use Core\Options\ModuleOptions;
 use AuthTest\Entity\Provider\UserEntityProvider;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
@@ -74,9 +75,14 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+
         $this->optionsMock = $this->getMockBuilder('Auth\Options\ModuleOptions')
-                                  ->disableOriginalConstructor()
-                                  ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->optionsMock = new ModuleOptions();
+
+
 
         $this->testedObject = new Register($this->userRepositoryMock, $this->mailServiceMock, $this->optionsMock);
 

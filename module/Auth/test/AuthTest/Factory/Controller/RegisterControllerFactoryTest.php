@@ -38,6 +38,7 @@ class RegisterControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('Auth\Service\Register', $registerServiceMock);
         $sm->setService('Core/Log', $loggerMock);
+        $sm->setService('Core/Options/ModuleOptions', $loggerMock);
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

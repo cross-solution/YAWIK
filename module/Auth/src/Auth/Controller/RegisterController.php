@@ -11,6 +11,7 @@ namespace Auth\Controller;
 
 use Auth\Form;
 use Auth\Service;
+use Auth\Options\ModuleOptions;
 use Auth\Service\Exception;
 use Core\Controller\AbstractCoreController;
 use Zend\Log\LoggerInterface;
@@ -32,15 +33,26 @@ class RegisterController extends AbstractCoreController
      */
     private $logger;
 
-    public function __construct(Form\Register $form, Service\Register $service, LoggerInterface $logger)
+    /**
+     * @var ModuleOptions
+     */
+    private $options;
+
+    public function __construct(Form\Register $form, Service\Register $service, LoggerInterface $logger, ModuleOptions $options)
     {
         $this->form = $form;
         $this->service = $service;
         $this->logger = $logger;
+        $this->options = $options;
     }
 
     public function indexAction()
     {
+        if (!$this->options->getEnableRegistration()){
+            $this->notification()->info( /*@translate*/ 'Registration is disabled');
+            return $this->redirect()->toRoute('lang');
+        }
+
         /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
 

@@ -12,6 +12,7 @@ namespace AuthTest\Controller;
 use Auth\Controller\RegisterController;
 use Auth\Form\RegisterInputFilter;
 use Auth\Service\Exception;
+use Auth\Options\ModuleOptions;
 use Test\Bootstrap;
 use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
@@ -44,8 +45,10 @@ class RegisterControllerTest extends AbstractControllerTestCase
             ->getMock();
 
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        
+        $options = new ModuleOptions();
 
-        $this->controller = new RegisterController($this->formMock, $this->serviceMock, $loggerMock);
+        $this->controller = new RegisterController($this->formMock, $this->serviceMock, $loggerMock, $options);
         $this->controller->setEvent($this->event);
 
         /** @var PluginManager $controllerPluginManager */
