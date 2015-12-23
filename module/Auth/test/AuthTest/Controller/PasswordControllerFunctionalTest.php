@@ -37,8 +37,16 @@ class PasswordControllerFunctionalTest extends AbstractFunctionalControllerTestC
         $this->setMockToServiceLocator('repositories', $this->repositoriesMock);
     }
 
+    /**
+     * This is needed. Otherwise the test fill fail with an Auth\Exception\UnauthorizedAccessException
+     */
+    public function tearDown()
+    {
+    }
+
     public function testAccessWhenYouAreNotLoggedIn()
     {
+
         $this->dispatch(self::URL_MY_PASSWORD, Request::METHOD_GET);
 
         $result = $this->getResponse()->getContent();

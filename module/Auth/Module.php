@@ -83,12 +83,6 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
 
-        // TODO: Löschen sobald die Lösung mit der LoginBox klappt
-        //$eventManager->attach(
-        //    array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
-        //    array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
-        //);
-
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
