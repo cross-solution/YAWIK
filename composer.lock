@@ -239,16 +239,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.5.2",
+            "version": "v1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af"
+                "reference": "47cdc76ceb95cc591d9c79a36dc3794975b5d136"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/47c7128262da274f590ae6f86eb137a7a64e82af",
-                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/47cdc76ceb95cc591d9c79a36dc3794975b5d136",
+                "reference": "47cdc76ceb95cc591d9c79a36dc3794975b5d136",
                 "shasum": ""
             },
             "require": {
@@ -305,7 +305,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-12-03 10:50:37"
+            "time": "2015-12-19 05:03:47"
         },
         {
             "name": "doctrine/collections",
@@ -375,16 +375,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.5.2",
+            "version": "v2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "311001fd9865a4d0d59efff4eac6d7dcb3f5270c"
+                "reference": "10f1f19651343f87573129ca970aef1a47a6f29e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/311001fd9865a4d0d59efff4eac6d7dcb3f5270c",
-                "reference": "311001fd9865a4d0d59efff4eac6d7dcb3f5270c",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/10f1f19651343f87573129ca970aef1a47a6f29e",
+                "reference": "10f1f19651343f87573129ca970aef1a47a6f29e",
                 "shasum": ""
             },
             "require": {
@@ -444,7 +444,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-12-04 12:49:42"
+            "time": "2015-12-25 13:10:16"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -844,16 +844,16 @@
         },
         {
             "name": "doctrine/mongodb-odm",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "cb327d1e15a17159247d70255b7fab6bea5ad4b0"
+                "reference": "f14ee65af497ced2c01b3daeae8d9ee318265277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/cb327d1e15a17159247d70255b7fab6bea5ad4b0",
-                "reference": "cb327d1e15a17159247d70255b7fab6bea5ad4b0",
+                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/f14ee65af497ced2c01b3daeae8d9ee318265277",
+                "reference": "f14ee65af497ced2c01b3daeae8d9ee318265277",
                 "shasum": ""
             },
             "require": {
@@ -922,7 +922,7 @@
                 "odm",
                 "persistence"
             ],
-            "time": "2015-11-03 14:58:21"
+            "time": "2015-12-15 14:42:32"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -4083,20 +4083,20 @@
         },
         {
             "name": "zendframework/zend-math",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-math.git",
-                "reference": "7f7e5670d51f15bd6d2a83f69ef4f24f3071ccc8"
+                "reference": "786c0ab933480a51821c259cbe568bfab9d28167"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.zendframework.com/composer/zendframework-zend-math-2.5.1-bf5e81.zip",
-                "reference": "7f7e5670d51f15bd6d2a83f69ef4f24f3071ccc8",
-                "shasum": "0d77b8f6f998f86559a4a57dd3ea1f1b7aca2615"
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-math-2.5.2-8195d2.zip",
+                "reference": "786c0ab933480a51821c259cbe568bfab9d28167",
+                "shasum": "df9ce9fe3633226be3680e708e52d2ef454122f7"
             },
             "require": {
-                "php": ">=5.3.23"
+                "php": ">=5.5"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "1.7.*",
@@ -4136,7 +4136,7 @@
                 "math",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:02"
+            "time": "2015-12-17 15:31:58"
         },
         {
             "name": "zendframework/zend-memory",
@@ -5903,12 +5903,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/satooshi/php-coveralls.git",
-                "reference": "3e617b88638958365d031b654f5a9bf91b4178f2"
+                "reference": "73d05ac4f4a66aaecf4c5c7cd2441868e7197fe5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/3e617b88638958365d031b654f5a9bf91b4178f2",
-                "reference": "3e617b88638958365d031b654f5a9bf91b4178f2",
+                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/73d05ac4f4a66aaecf4c5c7cd2441868e7197fe5",
+                "reference": "73d05ac4f4a66aaecf4c5c7cd2441868e7197fe5",
                 "shasum": ""
             },
             "require": {
@@ -5931,7 +5931,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7-dev"
+                    "dev-master": "0.8-dev"
                 }
             },
             "autoload": {
@@ -5958,7 +5958,7 @@
                 "github",
                 "test"
             ],
-            "time": "2015-12-13 00:51:27"
+            "time": "2015-12-25 20:09:02"
         },
         {
             "name": "symfony/config",
