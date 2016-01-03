@@ -12,6 +12,7 @@ use Auth\Form\Register;
 use Auth\Form\RegisterInputFilter;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Auth\Options\CaptchaOptions;
 
 class RegisterFactory implements FactoryInterface
 {
@@ -28,10 +29,12 @@ class RegisterFactory implements FactoryInterface
          * @var $filter RegisterInputFilter
          */
         $filter = $serviceLocator->get('Auth\Form\RegisterInputFilter');
-        $config = $serviceLocator->get('Config');
-        $captchaConfig = isset($config['captcha']) ? $config['captcha'] : array();
 
-        $form = new Register(null, array('captcha' => $captchaConfig));
+        /* @var $config CaptchaOptions */
+        $config = $serviceLocator->get('Auth/CaptchaOptions');
+
+        $form = new Register(null, $config);
+
         $form->setAttribute('id', 'registration');
 
         $form->setInputfilter($filter);

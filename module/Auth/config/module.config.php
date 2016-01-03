@@ -8,6 +8,12 @@
  */
 
 return array(
+
+    'options' => [
+        'Auth/CaptchaOptions' => [
+            'class' => '\Auth\Options\CaptchaOptions',
+        ],
+    ],
     
     'doctrine' => array(
         'driver' => array(
@@ -27,6 +33,8 @@ return array(
             ),
         ),
     ),
+
+
 
     'service_manager' => array(
         'invokables' => array(

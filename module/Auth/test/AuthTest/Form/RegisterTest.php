@@ -10,6 +10,7 @@
 namespace AuthTest\Form;
 
 use Auth\Form\Register;
+use Auth\Options\CaptchaOptions;
 use Zend\Form\Fieldset;
 
 class RegisterTest extends \PHPUnit_Framework_TestCase
@@ -21,7 +22,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->testedObject = new Register();
+        $options = new CaptchaOptions();
+        $this->testedObject = new Register(null, $options);
     }
 
     public function testConstructor()

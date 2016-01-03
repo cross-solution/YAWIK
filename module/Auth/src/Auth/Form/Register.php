@@ -10,6 +10,7 @@
 namespace Auth\Form;
 
 use Auth\Entity\User;
+use Auth\Options\CaptchaOptions;
 use Core\Form\ButtonsFieldset;
 use Core\Form\Form;
 use Zend\Captcha\Image;
@@ -18,9 +19,9 @@ use Zend\Form\Fieldset;
 
 class Register extends Form
 {
-    public function __construct($name = 'register-form', $options = array())
+    public function __construct($name = 'register-form', CaptchaOptions $options)
     {
-        parent::__construct($name, $options);
+        parent::__construct($name, []);
 
         $this->setAttribute('data-handle-by', 'native');
         $this->setAttribute('class', 'form-horizontal');
@@ -60,11 +61,12 @@ class Register extends Form
 
         $this->add($fieldset);
 
-        if (($captchaOptions = $this->getOption('captcha')) && !empty($captchaOptions['use'])) {
-            if ($captchaOptions['use'] === 'image' && !empty($captchaOptions['image'])) {
-                $captcha = new Image($captchaOptions['image']);
-            } elseif ($captchaOptions['use'] === 'reCaptcha' && !empty($captchaOptions['reCaptcha'])) {
-                $captcha = new ReCaptcha($captchaOptions['reCaptcha']);
+        $mode=$options->getMode();
+        if (in_array($mode, [CaptchaOptions::RE_CAPTCHA,CaptchaOptions::IMAGE])) {
+            if ($mode == CaptchaOptions::IMAGE) {
+                $captcha = new Image($options->getImage());
+            } elseif ($mode == CaptchaOptions::RE_CAPTCHA) {
+                $captcha = new ReCaptcha($options->getReCaptcha());
             }
 
             if (!empty($captcha)) {

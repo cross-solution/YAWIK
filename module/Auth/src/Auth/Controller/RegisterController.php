@@ -15,6 +15,7 @@ use Auth\Options\ModuleOptions;
 use Auth\Service\Exception;
 use Core\Controller\AbstractCoreController;
 use Zend\Log\LoggerInterface;
+use Zend\View\Model\ViewModel;
 
 class RegisterController extends AbstractCoreController
 {
@@ -55,6 +56,7 @@ class RegisterController extends AbstractCoreController
 
         /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
+        $viewModel = new ViewModel();
 
         try {
             if ($request->isPost()) {
@@ -70,7 +72,11 @@ class RegisterController extends AbstractCoreController
                     $this->notification()->success(
                         /*@translate*/ 'An Email with an activation link has been sent, please try to check your email box'
                     );
+
+                    $viewModel->setTemplate('auth/register/completed');
+
                 } else {
+                    $viewModel->setTemplate(null);
                     $this->notification()->danger(
                         /*@translate*/ 'Please fill form correctly'
                     );
@@ -89,8 +95,8 @@ class RegisterController extends AbstractCoreController
 
         $this->form->setAttribute('action', $this->url()->fromRoute('lang/register'));
 
-        return array(
-            'form' => $this->form
-        );
+        $viewModel->setVariable('form' , $this->form );
+
+        return $viewModel;
     }
 }

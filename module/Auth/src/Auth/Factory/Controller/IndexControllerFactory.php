@@ -10,18 +10,19 @@
 
 namespace Auth\Factory\Controller;
 
-use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Log\LoggerInterface;
 use Auth\Controller\IndexController;
+use Auth\Form\Register;
 
 class IndexControllerFactory implements FactoryInterface
 {
     /**
      * Create controller
      *
-     * @param ControllerManager $controllerManager
+     * @param ServiceLocatorInterface $controllerManager
+     *
      * @return IndexController
      */
     public function createService(ServiceLocatorInterface $controllerManager)
@@ -33,9 +34,27 @@ class IndexControllerFactory implements FactoryInterface
 
         /* @var $logger LoggerInterface*/
         $logger = $serviceLocator->get('Core/Log');
+
+        /* @var $options \Auth\Options\ModuleOptions */
         $options = $serviceLocator->get('Auth/Options');
 
-        $controller = new IndexController($auth, $logger, $loginForm, $options);
+        $forms[IndexController::LOGIN] = $loginForm;
+
+        if ($options->getEnableRegistration()) {
+            /* @var $registerForm Register */
+            $registerForm = $serviceLocator->get('Auth\Form\Register');
+
+            /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
+            /* @var \Zend\Mvc\MvcEvent $event */
+            #$event = $controllerManager->getServiceLocator()->get('application')->getMvcEvent();
+            #$lang = $event->getRouteMatch();
+
+            #$registerForm->setAttribute("action", $this->s);
+
+            $forms[IndexController::REGISTER] = $registerForm;
+        }
+
+        $controller = new IndexController($auth, $logger, $forms, $options);
         return $controller;
     }
 }

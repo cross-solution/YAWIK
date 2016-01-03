@@ -33,6 +33,29 @@ $options = array(
          * if true, users can reset their password.
          */
          'enableResetPassword' => true,
+
+         /*
+          * enable captcha feature. If you want to enable Googles recaptcha service, you need to
+          * create your keys. See https://www.google.com/recaptcha/admin#list
+          */
+         'captcha' => [
+                'use' => 'reCaptcha', // possible Values are 'image' or 'reCaptcha'
+                'reCaptcha' => [
+                    'public_key' => 'Your Recapture Public Key',      // "site_key"
+                    'private_key' => 'Your Recapture Private Key',    // "secret_key"
+                    'ssl' => true,                                    // include google api via http(s)
+                ],
+                'image' => [
+                    'expiration' => '300',
+                    'wordlen' => '7',
+                    'font' => 'data/fonts/arial.ttf',
+                    'fontSize' => '20',
+                    'imgDir' => 'public/captcha',
+                    'imgUrl' => '/captcha'
+                ]
+            ]
+        )
+
     );
 
 ### do not edit below ###
