@@ -30,11 +30,9 @@ before_script:
 
 script:
   - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
-  - pwd
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
-  - pwd
   - ls
   - ln -s test/build
   - php vendor/bin/coveralls -vvv
