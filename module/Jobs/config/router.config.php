@@ -218,7 +218,7 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                 'options' => array(
                     'route' => '/list-pending-jobs',
                     'defaults' => array(
-                        'controller' => 'Jobs/Index',
+                        'controller' => 'Jobs/Approval',
                         'action' => 'listOpenJobs',
                     ),
                 ),

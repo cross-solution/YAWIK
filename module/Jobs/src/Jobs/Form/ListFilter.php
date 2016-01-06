@@ -14,38 +14,49 @@ use Core\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 
 /**
- * Defines the job opening search formular
+ * Creates search formular for job openings
  *
  * @package Jobs\Form
  */
 class ListFilter extends Form implements ViewPartialProviderInterface
 {
-    /**
-     * adds filter fields like my jobs or all jobs of my companies
-     */
-    const MODE_ACL  = 1;
+
+    const BASE_FIELDSET = "Jobs/ListFilterBaseFieldset";
+    const LOCATION_FIELDSET = "Jobs/ListFilterLocationFieldset";
+    const PERSONAL_FIELDSET = "Jobs/ListFilterPersonalFieldset";
+    const ADMIN_FIELDSET = "Jobs/ListFilterAdminFieldset";
 
     /**
-     * Adds the regional fields "location" and "distance" to the search form.
-     */
-    const MODE_REGIONAL  = 2;
-
-    /**
-     * @var string $viewPartial view script for the search formular
+     * view script for the search formular
+     *
+     * @var string $viewPartial
      */
     protected $viewPartial = 'jobs/form/list-filter';
 
     /**
-     * @var bool $isExtended if set, acl is used
+     * defines the used fieldset.
+     *
+     * @var string
      */
-    protected $isExtended;
-    
-    public function __construct($name, $useAcl = false)
+    protected $fieldset;
+
+    /**
+     * @param int|null|string $name
+     * @param array           $options
+     *
+     * fieldset: string Servicename of the Fieldset class
+     */
+    public function __construct($name, array $options=[])
     {
-        $this->isExtended = (bool) $useAcl;
+        $this->fieldset = array_key_exists('fieldset',$options)?$options['fieldset']:self::BASE_FIELDSET;
         parent::__construct();
     }
-    
+
+    /**
+     * @param String $partial
+     *
+     * @return $this
+     */
     public function setViewPartial($partial)
     {
         $this->viewPartial = $partial;
@@ -65,7 +76,7 @@ class ListFilter extends Form implements ViewPartialProviderInterface
         
         $this->add(
             array(
-            'type' => 'Jobs/ListFilterFieldset' . ($this->isExtended ? 'Extended' : ''),
+            'type' => $this->fieldset,
             'options' => array(
                 'use_as_base_fieldset' => true
             ),

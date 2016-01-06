@@ -204,6 +204,7 @@ return array(
         'factories' => array(
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
             'Jobs/Index' => 'Jobs\Factory\Controller\IndexControllerFactory',
+            'Jobs/Approval' => 'Jobs\Factory\Controller\ApprovalControllerFactory',
             'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
             'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
             'Jobs/ApiJobListByOrganization' => 'Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory'
@@ -276,7 +277,9 @@ return array(
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
             'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
-            'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/ListFilterLocationFieldset'   => 'Jobs\Form\ListFilterLocationFieldset',
+            'Jobs/ListFilterPersonalFieldset'   => 'Jobs\Form\ListFilterPersonalFieldset',
+            'Jobs/ListFilterAdminFieldset'      => 'Jobs\Form\ListFilterAdminFieldset',
             'Jobs/JobDescriptionDescription'    => 'Jobs\Form\JobDescriptionDescription',
             'Jobs/JobDescriptionBenefits'       => 'Jobs\Form\JobDescriptionBenefits',
             'Jobs/JobDescriptionRequirements'   => 'Jobs\Form\JobDescriptionRequirements',
@@ -298,7 +301,6 @@ return array(
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
         ),
         'factories' => array(
-            'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
             //'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',

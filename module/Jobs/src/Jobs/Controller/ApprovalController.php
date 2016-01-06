@@ -29,7 +29,7 @@ use Zend\View\Model\ViewModel;
  * @method \Acl\Controller\Plugin\Acl acl()
  * @method \Core\Controller\Plugin\CreatePaginator paginator(string $repositoryName, array $defaultParams = array(), bool $usePostParams = false)
  */
-class IndexController extends AbstractActionController
+class ApprovalController extends AbstractActionController
 {
 
     /**
@@ -44,8 +44,9 @@ class IndexController extends AbstractActionController
      */
     private $searchForm;
 
+
     /**
-     * Construct the index controller
+     * Construct the jobboard controller
      *
      * @param Repository\Job $jobRepository
      * @param ListFilter $searchForm
@@ -74,21 +75,9 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * List jobs.
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        return $this->listJobs();
-    }
-
-    /**
-     * @param bool $showPendingJobs
-     *
      * @return ViewModel
      */
-    protected function listJobs()
+    public function listOpenJobsAction()
     {
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();
@@ -108,7 +97,7 @@ class IndexController extends AbstractActionController
             } elseif ($isRecruiter) {
                 $params->set('by', 'me');
             }
-
+            /* @var $filterForm \Jobs\Form\ListFilter */
             $session[$sessionKey] = $params->toArray();
 
             $this->searchForm->bind($params);
@@ -119,12 +108,12 @@ class IndexController extends AbstractActionController
             $params['sort'] = '-date';
         }
 
-        $paginator = $this->paginatorservice('Jobs/Job', $params);
+        $paginator = $this->paginatorservice('Jobs/Admin', $params);
 
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
-            'showPendingJobs' => false,
+            'showPendingJobs' => true,
         );
         if (isset($this->searchForm)) {
             $return['filterForm'] = $this->searchForm;
@@ -134,58 +123,5 @@ class IndexController extends AbstractActionController
         $model->setVariables($return);
         $model->setTemplate('jobs/index/index');
         return $model;
-    }
-
-    /**
-     * Handles the dashboard widget for the jobs module.
-     *
-     * @return array
-     */
-    public function dashboardAction()
-    {
-        /* @var $request \Zend\Http\Request */
-        $services    = $this->getServiceLocator();
-        $request     = $this->getRequest();
-        $params      = $request->getQuery();
-        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
-
-        if ($isRecruiter) {
-            $params->set('by', 'me');
-        }
-
-        $myJobs    = $services->get('repositories')->get('Jobs/Job');
-        $paginator = $this->paginator('Jobs/Job');
-
-        return array(
-            'script' => 'jobs/index/dashboard',
-            'type'   => $this->params('type'),
-            'myJobs' => $myJobs,
-            'jobs'   => $paginator
-        );
-    }
-
-    /**
-     * Action hook for Job search bar in list filter.
-     *
-     * @return JsonModel
-     */
-    public function typeaheadAction()
-    {
-        /* @var $repository \Jobs\Repository\Job */
-        $query      = $this->params()->fromQuery('q', '*');
-        $repository = $this->getServiceLocator()
-                           ->get('repositories')
-                           ->get('Jobs/Job');
-
-        $return = array();
-        foreach ($repository->getTypeaheadResults($query, $this->auth('id')) as $id => $item) {
-            $return[] = array(
-                'id'      => $id,
-                'title'   => $item['title'],
-                'applyId' => $item['applyId'],
-            );
-        }
-
-        return new JsonModel($return);
     }
 }

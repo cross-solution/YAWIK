@@ -10,6 +10,7 @@
 namespace Jobs\Factory\Controller;
 
 use Jobs\Controller\IndexController;
+use Jobs\Form\ListFilter;
 use Jobs\Repository;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
@@ -23,14 +24,15 @@ class IndexControllerFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return JobboardController
+     * @return IndexController
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /** @var ControllerManager $serviceLocator */
         $serviceLocator = $serviceLocator->getServiceLocator();
 
-        $searchForm = $serviceLocator->get('forms')->get('Jobs/ListFilter', /* useAcl */ true);
+        $searchForm = $serviceLocator->get('forms')
+            ->get('Jobs/ListFilter', [ 'fieldset' => 'Jobs/ListFilterPersonalFieldset' ]);
 
         /**
          * @var $jobRepository Repository\Job
