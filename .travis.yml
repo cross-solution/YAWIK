@@ -36,6 +36,7 @@ after_script:
   - cd $TRAVIS_BUILD_DIR
   - pwd
   - ls
+  - ln -s test/build
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
