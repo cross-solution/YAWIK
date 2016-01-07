@@ -29,13 +29,16 @@ before_script:
   - ./composer.phar install
 
 script:
-  - ls -l 
   - ln -s ../test/build/logs build
   - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
+  - pwd
   - ls -l 
+  - ls -l test
+  - ls -l test/build
+  - ls -l test/build/logs
   - ls -l build/logs
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
