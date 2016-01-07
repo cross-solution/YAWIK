@@ -27,15 +27,18 @@ before_script:
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
   - ./composer.phar install
+  - ./composer.phar require satooshi/php-coveralls '~1.0'
 
 script:
+  - ls -l 
+  - ln -s ../test/build/logs build
   - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
-  - ls
-  - ln -s test/build
+  - ls build
+  - ls test/build
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
+  - php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.serialized
 
