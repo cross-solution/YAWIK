@@ -65,6 +65,12 @@ translate('Postalcode');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:72
 translate('City');
 
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:80
+translate('Phone');
+
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:88
+translate('Fax');
+
 //: ./src/Organizations/Controller/InviteEmployeeController.php:77
 translate('The organization referenced in your request could not be found.');
 

@@ -1,4 +1,19 @@
 <?php
+//: ./src/Jobs/Form/ListFilterPersonalFieldset.php:38
+translate('Show all jobs');
+
+//: ./src/Jobs/Form/ListFilterPersonalFieldset.php:39
+translate('Show my jobs');
+
+//: ./src/Jobs/Form/ListFilterPersonalFieldset.php:55
+translate('All');
+
+//: ./src/Jobs/Form/ListFilterPersonalFieldset.php:56
+translate('Active');
+
+//: ./src/Jobs/Form/ListFilterPersonalFieldset.php:57
+translate('Inactive');
+
 //: ./src/Jobs/Form/JobDescriptionFieldset.php:44
 translate('Job qualification');
 
@@ -26,6 +41,30 @@ translate('Companyname');
 //: ./src/Jobs/Form/MultipostButtonFieldset.php:32
 translate('Calculate price');
 
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:38
+translate('All');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:39
+translate('Active');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:40
+translate('Inactive');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:41
+translate('Waiting for approval');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:42
+translate('Created');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:43
+translate('Published');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:44
+translate('Rejected');
+
+//: ./src/Jobs/Form/ListFilterAdminFieldset.php:45
+translate('Expired');
+
 //: ./src/Jobs/Form/Job.php:41
 translate('Please choose a descriptive title and a location for your job posting ');
 
@@ -34,6 +73,9 @@ translate('Please choose the name of the hiring organization. The selected name 
 
 //: ./src/Jobs/Form/Job.php:70
 translate('Please choose the portals, where you wish to publish your job opening.');
+
+//: ./src/Jobs/Form/ListFilterBaseFieldset.php:48
+translate('Job title');
 
 //: ./src/Jobs/Form/CompanyNameFieldset.php:33
 translate('Companyname');
@@ -68,28 +110,10 @@ translate('Email');
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:58
-translate('Show all jobs');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:59
-translate('Show my jobs');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:75
-translate('All');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:76
-translate('Active');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:77
-translate('Inactive');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:90
-translate('Job title');
-
-//: ./src/Jobs/Form/ListFilterFieldset.php:100
+//: ./src/Jobs/Form/ListFilterLocationFieldset.php:35
 translate('Location');
 
-//: ./src/Jobs/Form/ListFilterFieldset.php:111
+//: ./src/Jobs/Form/ListFilterLocationFieldset.php:46
 translate('Distance');
 
 //: ./src/Jobs/Form/BaseFieldset.php:47
@@ -146,34 +170,25 @@ translate('Your job has been published');
 //: ./src/Jobs/Listener/MailSender.php:123
 translate('Your job has been rejected');
 
-//: ./config/channel.options.local.php.dist:15
+//: ./config/channel.options.local.php.dist:16
 translate('publish your job on yawik.org for free');
 
-//: ./config/channel.options.local.php.dist:16
+//: ./config/channel.options.local.php.dist:17
 translate('publish the job for 30 days on %s');
 
-//: ./config/channel.options.local.php.dist:17
+//: ./config/channel.options.local.php.dist:18
 translate('yawik.org');
 
-//: ./config/channel.options.local.php.dist:27
-translate('publish your job on Jobsintown. 199,-€');
-
-//: ./config/channel.options.local.php.dist:28
-translate('publish the job for 30 days on %s');
-
-//: ./config/channel.options.local.php.dist:29
-translate('www.jobsintown.de');
-
-//: ./config/channel.options.local.php.dist:37
+//: ./config/channel.options.local.php.dist:55
 translate('Your Homepage');
 
-//: ./config/channel.options.local.php.dist:38
+//: ./config/channel.options.local.php.dist:57
 translate('enable integration of this job on your Homepage');
 
-//: ./config/channel.options.local.php.dist:39
+//: ./config/channel.options.local.php.dist:58
 translate('enable %s of this job on your Homepage');
 
-//: ./config/channel.options.local.php.dist:40
+//: ./config/channel.options.local.php.dist:59
 translate('integration');
 
 //: ./config/module.config.php:124

@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-20 15:59+0200\n"
-"PO-Revision-Date: 2015-05-20 14:02+0000\n"
+"POT-Creation-Date: 2015-10-29 13:22+0100\n"
+"PO-Revision-Date: 2015-10-29 12:24+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/yawik/language/ru/)\n"
+"Language-Team: Russian (http://www.transifex.com/yawik/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,7 +51,7 @@ msgid "click to open the job ad"
 msgstr "нажмите, чтобы открыть вакансию"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:168 language/_annotated_strings.php:174
+#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
@@ -84,7 +84,7 @@ msgstr "Работа"
 msgid "Date"
 msgstr "Дата"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:213
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:228
 msgid "your application was sent successfully"
 msgstr "ваше заявление было успешно отправлено"
 
@@ -118,24 +118,24 @@ msgid ""
 "preview or abort your application."
 msgstr "Ваша заявка является неполной. Вы должны добавить Ваши контактные данные и принять политику конфиденциальности, чтобы быть в состоянии подать заявление. Вы всегда можете просмотреть или отменить вашу заявку."
 
-#: view/applications/apply/_buttons.phtml:36
+#: view/applications/apply/_buttons.phtml:38
 msgid "Back to the formular"
 msgstr "Обратно к формуляру"
 
-#: view/applications/apply/_buttons.phtml:41
+#: view/applications/apply/_buttons.phtml:57
 msgid "Preview application"
 msgstr "Предварительный просмотр приложения"
 
-#: view/applications/apply/_buttons.phtml:47
-#: view/applications/apply/_buttons.phtml:54
+#: view/applications/apply/_buttons.phtml:63
+#: view/applications/apply/_buttons.phtml:73
 msgid "Send application"
 msgstr "Послать заявление"
 
-#: view/applications/apply/_buttons.phtml:51
+#: view/applications/apply/_buttons.phtml:70
 msgid "Send preview to my email"
 msgstr ""
 
-#: view/applications/apply/_buttons.phtml:60
+#: view/applications/apply/_buttons.phtml:81
 msgid "Abort application"
 msgstr "Прервать приложение"
 
@@ -322,7 +322,7 @@ msgstr "Близко"
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
 msgid "Status history"
-msgstr "История Государство"
+msgstr ""
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.phtml:337
@@ -349,7 +349,7 @@ msgstr "Телефон"
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
 #: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:240
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
 msgid "Attachments"
 msgstr "Вложения"
 
@@ -411,13 +411,27 @@ msgstr "Когда Вы можете начать работать"
 msgid "Expected salary"
 msgstr "Предполагаемая заработная плата"
 
-#: view/applications/manage/detail.phtml:424
+#: view/applications/manage/detail.phtml:416
+msgid "Driving license"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:417
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:162
+msgid "Yes"
+msgstr "Да"
+
+#: view/applications/manage/detail.phtml:417
+#: language/_annotated_strings.php:129 language/_annotated_strings.php:165
+msgid "No"
+msgstr "Нет"
+
+#: view/applications/manage/detail.phtml:430
 #: view/applications/manage/detail.pdf.phtml:153
 #: language/_annotated_strings.php:42
 msgid "Cover Letter"
 msgstr "Резюме"
 
-#: view/applications/manage/detail.phtml:439
+#: view/applications/manage/detail.phtml:445
 #: view/applications/manage/index.recruiter.ajax.phtml:134
 #: view/applications/manage/social-profile/facebook.phtml:62
 #: view/applications/manage/social-profile/linkedin.phtml:87
@@ -426,27 +440,27 @@ msgstr "Резюме"
 msgid "work experience"
 msgstr "опыт работы"
 
-#: view/applications/manage/detail.phtml:444
-#: view/applications/manage/detail.phtml:474
+#: view/applications/manage/detail.phtml:450
+#: view/applications/manage/detail.phtml:480
 #: view/applications/manage/detail.pdf.phtml:162
 #: view/applications/manage/detail.pdf.phtml:180
 msgid "Start"
 msgstr "Начало"
 
-#: view/applications/manage/detail.phtml:445
-#: view/applications/manage/detail.phtml:475
+#: view/applications/manage/detail.phtml:451
+#: view/applications/manage/detail.phtml:481
 #: view/applications/manage/detail.pdf.phtml:163
 #: view/applications/manage/detail.pdf.phtml:181
 msgid "End"
 msgstr "Конец"
 
-#: view/applications/manage/detail.phtml:446
+#: view/applications/manage/detail.phtml:452
 #: language/_annotated_strings.php:30
 msgid "Company"
 msgstr "Компания"
 
-#: view/applications/manage/detail.phtml:447
-#: view/applications/manage/detail.phtml:477
+#: view/applications/manage/detail.phtml:453
+#: view/applications/manage/detail.phtml:483
 #: view/applications/manage/social-profile/facebook.phtml:68
 #: view/applications/manage/social-profile/linkedin.phtml:93
 #: view/applications/manage/social-profile/xing.phtml:84
@@ -455,21 +469,21 @@ msgstr "Компания"
 msgid "Description"
 msgstr "Описание"
 
-#: view/applications/manage/detail.phtml:470
+#: view/applications/manage/detail.phtml:476
 #: view/applications/manage/detail.pdf.phtml:177
 msgid "education and training"
 msgstr "образование и обучение"
 
-#: view/applications/manage/detail.phtml:476
+#: view/applications/manage/detail.phtml:482
 msgid "University"
 msgstr "Университет"
 
-#: view/applications/manage/detail.phtml:494
+#: view/applications/manage/detail.phtml:500
 #: view/applications/manage/detail.pdf.phtml:195
 msgid "personal skills"
 msgstr "личные навыки"
 
-#: view/applications/manage/detail.phtml:496
+#: view/applications/manage/detail.phtml:502
 #: view/applications/manage/detail.pdf.phtml:197
 msgid "native language"
 msgstr "родной язык"
@@ -613,12 +627,12 @@ msgstr ""
 msgid "An application with the provided identifier could not be found."
 msgstr ""
 
-#: src/Applications/Form/SettingsFieldset.php:39
+#: src/Applications/Form/SettingsFieldset.php:40
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "Уведомления по электронной почте"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:22
+#: src/Applications/Form/CarbonCopyFieldset.php:24
 msgid "Options"
 msgstr "Опции"
 
@@ -626,23 +640,23 @@ msgstr "Опции"
 msgid "Search applications"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:323
-#: src/Applications/Controller/MultimanageController.php:85
+#: src/Applications/Controller/ManageController.php:335
+#: src/Applications/Controller/MultimanageController.php:87
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:369
+#: src/Applications/Controller/ManageController.php:381
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:385
+#: src/Applications/Controller/ManageController.php:397
 #, php-format
 msgid "Forward application to %s failed."
 msgstr ""
 
-#: src/Applications/Controller/MultimanageController.php:90
+#: src/Applications/Controller/MultimanageController.php:93
 msgid "reject the applicants"
 msgstr ""
 
@@ -788,17 +802,9 @@ msgstr "Пожалуйста, приведите некоторые дополн
 msgid "Click here to enter facts."
 msgstr "Нажмите здесь, чтобы войти факты."
 
-#: language/_annotated_strings.php:123
-msgid "Yes"
-msgstr "Да"
-
 #: language/_annotated_strings.php:126
 msgid "conditioned"
 msgstr "обусловленный"
-
-#: language/_annotated_strings.php:129
-msgid "No"
-msgstr "Нет"
 
 #: language/_annotated_strings.php:135
 msgid "Enter your willingness to travel."
@@ -830,102 +836,114 @@ msgstr ""
 msgid "Ask users about their expected salary."
 msgstr ""
 
-#: language/_annotated_strings.php:162
+#: language/_annotated_strings.php:168
+msgid "driving license"
+msgstr ""
+
+#: language/_annotated_strings.php:171
+msgid "Do you have a driving license?"
+msgstr ""
+
+#: language/_annotated_strings.php:174
+msgid "Ask the applicant, if he has a driving license."
+msgstr ""
+
+#: language/_annotated_strings.php:177
 msgid "Carbon Copy"
 msgstr "Carbon Copy"
 
-#: language/_annotated_strings.php:165
+#: language/_annotated_strings.php:180
 msgid "send me a carbon copy of my application"
 msgstr "пришлите мне точную копию моего заявления"
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:186
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:192
 msgid "Click here to enter a summary."
 msgstr ""
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:195
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr ""
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:198
 msgid "Summary"
 msgstr "Резюме"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:201
 msgid "all"
 msgstr ""
 
-#: language/_annotated_strings.php:189 language/_annotated_strings.php:192
-#: language/_annotated_strings.php:204
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:207
+#: language/_annotated_strings.php:219
 msgid "Invalid apply id"
 msgstr ""
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:210
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr ""
 
-#: language/_annotated_strings.php:198
+#: language/_annotated_strings.php:213
 msgid "Application has been send."
 msgstr ""
 
-#: language/_annotated_strings.php:201 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:216 language/_annotated_strings.php:225
 msgid "Application confirmation"
 msgstr "Подтверждение Применение"
 
-#: language/_annotated_strings.php:207
+#: language/_annotated_strings.php:222
 msgid "There were errors in the form."
 msgstr "Были ошибки в форме."
 
-#: language/_annotated_strings.php:216
+#: language/_annotated_strings.php:231
 msgid "Application has been deleted."
 msgstr ""
 
-#: language/_annotated_strings.php:219
+#: language/_annotated_strings.php:234
 msgid "Mail has been send"
 msgstr ""
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:237
 msgid "Application data has been deleted"
 msgstr ""
 
-#: language/_annotated_strings.php:225
+#: language/_annotated_strings.php:240
 msgid "No mail adress available"
 msgstr ""
 
-#: language/_annotated_strings.php:228
+#: language/_annotated_strings.php:243
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:246
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:249
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:252
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
 msgstr "Прикрепите изображений или PDF-документов для вашего приложения. Перетащите и падение их, или нажмите на области прикрепленного. Вы можете загрузить до 5 МБ"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:258
 msgid "E-Mail Templates"
 msgstr "Шаблоны E-Mail"
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:261
 msgid "Overview"
 msgstr "Обзор"
 

@@ -42,8 +42,7 @@ class MongoDbConnection extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::NO_CONNECTION => /* @translate */
-            'Connecting the database failed: %databaseError%',
+        self::NO_CONNECTION => /* @translate */ 'Connecting the database failed: %databaseError%',
     );
 
     /**

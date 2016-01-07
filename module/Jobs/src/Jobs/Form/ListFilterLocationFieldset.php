@@ -32,8 +32,7 @@ class ListFilterLocationFieldset extends ListFilterBaseFieldset
                 'name'    => 'l',
                 'type'    => 'Location',
                 'options' => array(
-                    'label'       => /*@translate*/
-                        'Location',
+                    'label'       => /*@translate*/ 'Location',
                     'engine_type' => 'photon',
                 ),
             )
@@ -44,8 +43,7 @@ class ListFilterLocationFieldset extends ListFilterBaseFieldset
                 'name'    => 'd',
                 'type'    => 'Zend\Form\Element\Select',
                 'options' => array(
-                    'label'         => /*@translate*/
-                        'Distance',
+                    'label'         => /*@translate*/ 'Distance',
                     'value_options' => array(
                         '5'   => '5 km',
                         '10'  => '10 km',

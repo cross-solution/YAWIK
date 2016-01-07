@@ -11,5 +11,9 @@ translate('Password');
 //: ./src/Form/Installation.php:74
 translate('Email address for system messages');
 
-45:        self::NO_CONNECTION => /* @translate */
-41:        self::INVALID       => /* @translate */
+//: ./src/Validator/MongoDbConnection.php:45
+translate('Connecting the database failed: %databaseError%');
+
+//: ./src/Validator/MongoDbConnectionString.php:41
+translate('Invalid connection string');
+

@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# BLU-IT, 2015
+# blu-IT, 2015
+# blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-03 15:38+0200\n"
-"PO-Revision-Date: 2015-06-03 13:51+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/yawik/language/it/)\n"
+"POT-Creation-Date: 2015-10-29 13:22+0100\n"
+"PO-Revision-Date: 2015-11-01 20:03+0000\n"
+"Last-Translator: blu-IT\n"
+"Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,16 +21,16 @@ msgstr ""
 
 #: view/organizations/invite-employee/accept.phtml:12
 msgid "You have accepted the invitation"
-msgstr ""
+msgstr "Hai accettato l'invito"
 
 #: view/organizations/invite-employee/accept.phtml:13
 #, php-format
 msgid "You are now part of the team of <b>%s</b>"
-msgstr ""
+msgstr "Ora fai parte del team di <b>%s</b>"
 
 #: view/organizations/invite-employee/accept.phtml:18
 msgid "Please choose a password to be able to log in."
-msgstr ""
+msgstr "Scegliere una password per poter effettuare il login."
 
 #: view/organizations/index/index.phtml:14
 msgid "Organizations"
@@ -46,7 +47,7 @@ msgstr "Organizzazione"
 
 #: view/form/invite-employee-bar.phtml:14
 msgid "Via email address"
-msgstr ""
+msgstr "Via e-mail"
 
 #: view/form/invite-employee-bar.phtml:23
 msgid "Invite"
@@ -55,19 +56,19 @@ msgstr "Invitare"
 #: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:54
 msgid "Invite an employee via email address."
-msgstr ""
+msgstr "Invita un dipendente tramite l'indirizzo e-mail."
 
 #: view/form/invite-employee-bar.phtml:36
 msgid "Click on this button will add the employee with the status \"pending\""
-msgstr ""
+msgstr "Clicando su questo pulsante si aggiunge il dipendente con lo stato \"in attesa\""
 
 #: view/form/employee-fieldset.phtml:34
 msgid "PENDING"
-msgstr ""
+msgstr "IN ATTESA"
 
 #: view/form/employees-fieldset.phtml:40
 msgid "pending"
-msgstr ""
+msgstr "in attesa"
 
 #: view/mail/invite-employee.phtml:28
 #, php-format
@@ -76,40 +77,40 @@ msgstr "Ciao %s"
 
 #: view/mail/invite-employee.phtml:29
 msgid "Hello"
-msgstr ""
+msgstr "Ciao"
 
 #: view/mail/invite-employee.phtml:34
 #, php-format
 msgid "%s invited you to join the team of %s"
-msgstr ""
+msgstr "%s ti ha invitato a far parte del team di %s"
 
 #: view/mail/invite-employee.phtml:39
 msgid "You can accept this invitation by visiting the following link"
-msgstr ""
+msgstr "È possibile accettare questo invito visitando il seguente link"
 
 #: view/mail/invite-employee.phtml:47
 #, php-format
 msgid ""
 "<strong>Please note: </strong> You are currently the owner of <b>%s</b>. "
 "Accepting this invitation will delete your organization."
-msgstr ""
+msgstr "<strong>Si prega di notare: </strong> Attualmente sei il proprietario di <b>%s</b>. Accettando questo invito cancellerà la vostra organizzazione."
 
 #: view/mail/invite-employee.phtml:53
 #, php-format
 msgid ""
 "<strong>Please note: </strong> You are currently assigned as an employee to "
 "<b>%s</b>. Accepting this invitation will remove this association."
-msgstr ""
+msgstr "<strong>Prego notare: </strong> Sei assegnato come un dipendente di <b>%s</b>. Accettando questo invito rimuoverà questa associazione."
 
 #: view/mail/invite-employee.phtml:61
 msgid ""
 "If you do not want to accept this invitation you can ignore this mail and "
 "the request is canceled automatically after a week."
-msgstr ""
+msgstr "Se non si desidera accettare questo invito si può ignorare questa mail e la richiesta viene annullata automaticamente dopo una settimana."
 
 #: view/error/invite.phtml:11
 msgid "Doh! There was something going terribly wrong."
-msgstr ""
+msgstr "Doh! C'era qualcosa che va terribilmente sbagliato."
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create organizations."
@@ -124,11 +125,11 @@ msgstr "Prima che si è in grado di creare organizzazioni, è necessario %screat
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:233
 msgid "Email address is invalid."
-msgstr ""
+msgstr "L'indirizzo email non è valido."
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:246
 msgid "Sending invitation mail failed."
-msgstr ""
+msgstr "L'invio di mail di invito non è riuscita."
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:66
 msgid "City"
@@ -204,15 +205,23 @@ msgstr "numero civico"
 msgid "Postalcode"
 msgstr "Postale"
 
-#: language/_annotated_strings.php:71
+#: language/_annotated_strings.php:69
+msgid "The organization referenced in your request could not be found."
+msgstr "L'organizzazione a quale si fa riferimento nella sua richiesta non è stata trovata."
+
+#: language/_annotated_strings.php:72
+msgid "The access token you provided seems to have expired."
+msgstr "Il token di accesso che hai fornito sembra d'essere scaduto."
+
+#: language/_annotated_strings.php:75
 #, php-format
 msgid "Invitation to join the team of %s"
-msgstr ""
+msgstr "Invito di fare parte del team di %s"
 
-#: language/_annotated_strings.php:74
+#: language/_annotated_strings.php:78
 msgid "Overview"
 msgstr "Panoramica"
 
-#: language/_annotated_strings.php:77
+#: language/_annotated_strings.php:81
 msgid "Insert"
 msgstr "Inserire"

@@ -38,8 +38,7 @@ class MongoDbConnectionString extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::INVALID       => /* @translate */
-            'Invalid connection string',
+        self::INVALID       => /* @translate */ 'Invalid connection string',
     );
 
     /**
