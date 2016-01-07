@@ -27,7 +27,6 @@ before_script:
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
   - ./composer.phar install
-  - ./composer.phar require satooshi/php-coveralls '~1.0'
 
 script:
   - ls -l 

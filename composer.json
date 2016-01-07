@@ -48,7 +48,8 @@
         "cross-solution/bootstrap3-dialog": "dev-master",
         "components/flag-icon-css": "^0.7.1",
         "jmikola/geojson": "~1.0",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsStream": "^1.6",
+        "satooshi/php-coveralls": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*"
