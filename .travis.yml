@@ -30,10 +30,8 @@ before_script:
 
 script:
   - ln -s ../test/build/logs build
-  - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
   - cd test
-  - php ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
-  
+  - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
