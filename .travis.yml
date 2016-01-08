@@ -29,11 +29,8 @@ before_script:
   - ./composer.phar install
 
 script:
-  - pwd
-  - ls -l 
-  - ls -l ..
-  - ln -s ../test/build/logs build
-  - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
+  - cd test
+  - php ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
   - ls -l test
   
 

@@ -10,7 +10,6 @@
 /** TextTemplateMessage.php */
 namespace Core\Mail;
 
-use Zend\Mail\Message;
 use Zend\Mail\Header;
 
 class StringTemplateMessage extends TranslatorAwareMessage

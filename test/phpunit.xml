@@ -5,6 +5,30 @@
         <log type="coverage-clover" target="build/logs/clover.xml"/>
         <log type="coverage-php" target="build/logs/clover.serialized"/>
     </logging>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">../module</directory>
+            <exclude>
+                <directory suffix=".php">../module/Install/language</directory>
+                <directory suffix=".php">../module/Core/language</directory>
+                <directory suffix=".php">../module/Applications/language</directory>
+                <directory suffix=".php">../module/Auth/language</directory>
+                <directory suffix=".php">../module/Jobs/language</directory>
+                <directory suffix=".php">../module/Organizations/language</directory>
+                <directory suffix=".php">../module/Cv/language</directory>
+                <directory suffix=".php">../module/Geo/language</directory>
+
+                <directory suffix=".php">../module/Install/test</directory>
+                <directory suffix=".php">../module/Core/test</directory>
+                <directory suffix=".php">../module/Applications/test</directory>
+                <directory suffix=".php">../module/Auth/test</directory>
+                <directory suffix=".php">../module/Jobs/test</directory>
+                <directory suffix=".php">../module/Organizations/test</directory>
+                <directory suffix=".php">../module/Cv/test</directory>
+                <directory suffix=".php">../module/Geo/test</directory>
+            </exclude>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="AllTests">
        	    <directory>../module/Install/test/InstallTest</directory>
@@ -14,6 +38,7 @@
             <directory>../module/Auth/test/AclTest</directory>
             <directory>../module/Jobs/test/JobsTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
+            <directory>../module/Cv/test/OrganizationsTest</directory>
         </testsuite>
     </testsuites>
 </phpunit>

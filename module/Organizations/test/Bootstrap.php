@@ -2,4 +2,4 @@
 
 $testConfig = include __DIR__ . '/TestConfig.php';
 
-require __DIR__ . '/../../../test/Bootstrap.php';
+require_once __DIR__ . '/../../../test/Bootstrap.php';
