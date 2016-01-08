@@ -34,6 +34,8 @@ script:
   - ls -l ..
   - ln -s ../test/build/logs build
   - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
+  - ls -l test
+  
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
