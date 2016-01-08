@@ -31,20 +31,12 @@ before_script:
 script:
   - cd test
   - php ./phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
-  - ls -l test
   
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
-  - pwd
-  - ls -l 
-  - ls -l test
-  - ls -l test/build
   - ls -l test/build/logs
-  - ls -l build/logs
-  - ls -l build/logs/*
-  - ls -l ../test
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
+  - php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.serialized
 
