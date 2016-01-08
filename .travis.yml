@@ -29,6 +29,9 @@ before_script:
   - ./composer.phar install
 
 script:
+  - pwd
+  - ls -l 
+  - ls -l ..
   - ln -s ../test/build/logs build
   - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml
 
@@ -40,6 +43,8 @@ after_script:
   - ls -l test/build
   - ls -l test/build/logs
   - ls -l build/logs
+  - ls -l build/logs/*
+  - ls -l ../test
   - php vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized

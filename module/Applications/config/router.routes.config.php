@@ -61,6 +61,9 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                                 'action' => 'status',
                                                 'status' => 'bad',
                                             ),
+                                            'constraints' => array(
+                                                'status' => '[a-z]+',
+                                            ),
                                         ),
                                     ),
                                 ),

@@ -225,7 +225,8 @@ class ManageController extends AbstractActionController
     /**
      * Attaches a social profile to an application
      * @throws \InvalidArgumentException
-     * @return multitype:unknown
+     *
+     * @return array
      */
     public function socialProfileAction()
     {
@@ -266,6 +267,9 @@ class ManageController extends AbstractActionController
         $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         /** @var Application $application */
         $application   = $repository->find($applicationId);
+        if (!$application) {
+            throw new \InvalidArgumentException('Could not find application.');
+        }
         
         $this->acl($application, 'change');
         
@@ -326,6 +330,8 @@ class ManageController extends AbstractActionController
             case Status::REJECTED:
                 $key = 'mailRejectionText';
                 break;
+            default:
+                throw new \InvalidArgumentException('Unknown status value.');
         }
         $mailText      = $settings->$key ? $settings->$key : '';
         $this->notification()->success($mailText);

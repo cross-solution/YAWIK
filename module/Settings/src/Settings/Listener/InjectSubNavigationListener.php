@@ -44,27 +44,29 @@ class InjectSubNavigationListener
         
         $routeMatch   = $event->getRouteMatch();
         $router       = $event->getRouter();
+        if (!$routeMatch) {
+            throw new \InvalidArgumentException('Could not get a Route Match. route is invalid.');
+        }
         $activeModule = $event->getParam('__settings_active_module', false);
         $settingsMenu->setActive((bool) $activeModule);
 
         foreach ($modulesWithSettings as $key => $param) {
             $page = array(
-                'label' => isset($param['navigation_label']) ? $param['navigation_label'] : ucfirst($key),
-                'order' => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
-                'class' => isset($param['navigation_class']) ? $param['navigation_class'] : null,
-                'resource' => 'route/lang/settings',
-                'route' => 'lang/settings',
-                'router' => $router,
-                'action' => 'index',
+                'label'      => isset($param['navigation_label']) ? $param['navigation_label'] : ucfirst($key),
+                'order'      => isset($param['navigation_order']) ? $param['navigation_order'] : '10',
+                'class'      => isset($param['navigation_class']) ? $param['navigation_class'] : null,
+                'resource'   => 'route/lang/settings',
+                'route'      => 'lang/settings',
+                'router'     => $router,
+                'action'     => 'index',
                 'controller' => 'index',
-                'params' => array('lang' => $routeMatch->getParam('lang'), 'module' => $key),
-                'active' => $key == $activeModule,
+                'params'     => array('lang' => $routeMatch->getParam('lang'), 'module' => $key),
+                'active'     => $key == $activeModule,
             );
             if ($routeMatch instanceof RouteMatch) {
                 $page['routeMatch'] = $routeMatch;
             }
             $settingsMenu->addPage($page);
         }
-        
     }
 }
