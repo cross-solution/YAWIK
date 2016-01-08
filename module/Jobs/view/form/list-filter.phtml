@@ -38,18 +38,23 @@ $form    = $this->element;
 $params  = $this->element->get('params');
 $options = $form->getOptions();
 $action  = $form->getAttribute('action');
-if (empty($action)) {
+$base = $form->getBaseFieldset();
+
+/**
+ * @todo: move this into the Jobs/Form/ListFilter.php
+ */
+if ($base instanceof Jobs\Form\ListFilterAdminFieldset) {
+    $action = $this->url('lang/jobs/listOpenJobs', array(), true);
+}elseif (empty($action)) {
     $action = $this->url('lang/jobs', array(), true);
 }
+
 $form->setAttributes(array(
                          'action' => $action,
                          'method' => 'GET',
                          'class'  => 'form-inline'
                      )
 );
-
-#echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
-
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($params->get('page'));
@@ -72,6 +77,21 @@ if ($params->has('by')) {
                 ]
             )
         );
+
+    if ($params->has('companyId')) {
+        echo $this->formSelect(
+            $params->get('companyId')
+                ->setOptions(['geoPlugin' => 'photon'])
+                ->setAttributes(
+                    array(
+                        'class'       => '',
+                        'id'          => 'jobCompanyName-companyId',
+                        'placeholder' => $this->translate('Type in a location')
+                    )
+                )
+        );
+
+    }
 
     if ($params->has('l')) {
         echo $this->partial(

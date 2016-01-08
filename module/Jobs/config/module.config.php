@@ -276,7 +276,6 @@ return array(
             'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
             'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterLocationFieldset'   => 'Jobs\Form\ListFilterLocationFieldset',
             'Jobs/ListFilterPersonalFieldset'   => 'Jobs\Form\ListFilterPersonalFieldset',
             'Jobs/ListFilterAdminFieldset'      => 'Jobs\Form\ListFilterAdminFieldset',
@@ -299,8 +298,10 @@ return array(
             'Jobs/MultipostButtonFieldset'      => 'Jobs\Form\MultipostButtonFieldset',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
+            'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
         ),
         'factories' => array(
+
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
             //'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',

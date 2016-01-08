@@ -24,7 +24,7 @@ $this->headScript()->captureStart() ?>
 <?php $this->headScript()->captureEnd();
       $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))?>
 
-<h1><?php echo $this->translate('List of your jobs'); ?></h1>
+<h1><?php echo $this->translate('Jobs waiting for approval') ?></h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 
@@ -32,7 +32,7 @@ $this->headScript()->captureStart() ?>
 <?php echo $this->form($this->filterForm)  ?>
 </nav>
 <div id="jobs-list-container" class="pagination-container" data-uri="<?php
-    echo $this->url('lang/jobs', array(), array('query' => $this->params()->fromQuery()), true)?>">
-<?php echo $this->render('jobs/index/index.ajax.phtml')?>
+    echo $this->url('lang/jobs/listOpenJobs', array(), array('query' => $this->params()->fromQuery()), true)?>">
+<?php echo $this->render('jobs/index/approval.ajax.phtml')?>
 </div>
 

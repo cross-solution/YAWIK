@@ -56,7 +56,21 @@ class PaginationAdminQuery extends PaginationQuery
     {
         $this->value = $params->toArray();
 
-        $queryBuilder->field('status.name')->equals(Status::CREATED);
+        if (isset($this->value['params']['status']) &&
+            !empty($this->value['params']['status']))
+        {
+            if ($this->value['params']['status'] != 'all'){
+                $queryBuilder->field('status.name')->equals($this->value['params']['status']);
+            }
+        }else{
+            $queryBuilder->field('status.name')->equals(Status::CREATED);
+        }
+
+        if (isset($this->value['params']['companyId']) &&
+            !empty($this->value['params']['companyId']))
+        {
+            $queryBuilder->field('organization')->equals(new \MongoId($this->value['params']['companyId']));
+        }
 
         /*
          * search jobs by keywords

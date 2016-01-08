@@ -11,8 +11,6 @@
 namespace Jobs\Form;
 
 use Jobs\Entity\Status;
-use Zend\Form\Fieldset;
-use Zend\Form\FormInterface;
 
 /**
  * Defines the an additional Select field for the job list filter used by the admin
@@ -25,6 +23,7 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
     {
         parent::__construct();
         parent::init();
+
     }
 
     public function init()
@@ -38,7 +37,7 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
                         'all' => /*@translate*/ 'All',
                         Status::ACTIVE => /*@translate*/ 'Active',
                         Status::INACTIVE => /*@translate*/ 'Inactive',
-                        Status::WAITING_FOR_APPROVAL => /*@translate*/ 'Waiting for approval',
+                        //Status::WAITING_FOR_APPROVAL => /*@translate*/ 'Waiting for approval',
                         Status::CREATED => /*@translate*/ 'Created',
                         Status::PUBLISH => /*@translate*/ 'Published',
                         Status::REJECTED => /*@translate*/ 'Rejected',
@@ -46,8 +45,22 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
                     )
                 ),
                 'attributes' => array(
-                    'value' => Status::WAITING_FOR_APPROVAL,
+                    'value' => Status::CREATED,
                 )
+            )
+        );
+
+        $this->add(
+            array(
+                'type' => 'Jobs/HiringOrganizationSelect',
+                'property' => true,
+                'name' => 'companyId',
+                'options' => array(
+                    'label' => /*@translate*/ 'Companyname',
+                ),
+                'attributes' => array(
+                    'data-placeholder' => /*@translate*/ 'Select hiring organization',
+                ),
             )
         );
     }

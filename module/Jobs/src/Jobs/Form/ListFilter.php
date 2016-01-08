@@ -41,10 +41,17 @@ class ListFilter extends Form implements ViewPartialProviderInterface
     protected $fieldset;
 
     /**
+     * formular action.
+     *
+     * @var string
+     */
+    protected $action;
+
+    /**
      * @param int|null|string $name
      * @param array           $options
      *
-     * fieldset: string Servicename of the Fieldset class
+     * fieldset: string service name of the Fieldset class
      */
     public function __construct($name, array $options=[])
     {
@@ -62,31 +69,32 @@ class ListFilter extends Form implements ViewPartialProviderInterface
         $this->viewPartial = $partial;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getViewPartial()
     {
         return $this->viewPartial;
     }
-    
+
     public function init()
     {
         $this->setName('jobs-list-filter');
         $this->setAttribute('id', 'jobs-list-filter');
         $this->setAttribute('data-handle-by', 'native');
-        
+
         $this->add(
-            array(
-            'type' => $this->fieldset,
-            'options' => array(
-                'use_as_base_fieldset' => true
-            ),
-            )
+            [
+                'type'    => $this->fieldset,
+                'options' => ['use_as_base_fieldset' => true]
+            ]
         );
-        
+
         $this->add(
-            array(
-            'type' => 'Core/ListFilterButtons'
-            )
+            [
+                'type' => 'Core/ListFilterButtons'
+            ]
         );
     }
 }

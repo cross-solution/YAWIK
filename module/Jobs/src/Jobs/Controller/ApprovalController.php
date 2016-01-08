@@ -121,7 +121,7 @@ class ApprovalController extends AbstractActionController
 
         $model = new ViewModel();
         $model->setVariables($return);
-        $model->setTemplate('jobs/index/index');
+        $model->setTemplate('jobs/index/approval');
         return $model;
     }
 }

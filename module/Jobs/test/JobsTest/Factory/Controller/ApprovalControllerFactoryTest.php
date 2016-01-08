@@ -66,8 +66,16 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($jobRepositoryMock);
 
 
+        if ("testImplementsFactoryInterface" == $this->getName(/*withDataSet */ false)) { return; }
+
+        $userOrg = $this->getMockBuilder('\Organizations\Entity\OrganizationReference')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+
         $user = new User();
         $user->setId('testUser');
+        $user->setOrganization($userOrg);
+
 
         $auth = $this->getMockBuilder('Auth\AuthenticationService')
                      ->disableOriginalConstructor()
