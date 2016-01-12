@@ -41,7 +41,10 @@ class ApiJobListByOrganizationController extends AbstractActionController
             $response->setStatusCode(Response::STATUS_CODE_404);
             return $response;
         }
+        $jsonModel=new JsonModel();
+        $jsonModel->setVariables($this->apiJobDehydrator->dehydrateList($jobs));
+        $jsonModel->setJsonpCallback('yawikParseJobs');
 
-        return new JsonModel($this->apiJobDehydrator->dehydrateList($jobs));
+        return $jsonModel;
     }
 }

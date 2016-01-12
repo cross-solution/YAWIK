@@ -174,7 +174,6 @@ return array(
                 'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
                 'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
-                'Jobs\Model\ApiJobDehydrator'       => 'Jobs\Model\ApiJobDehydrator',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
@@ -186,6 +185,8 @@ return array(
             'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
             'Jobs/ViewModelTemplateFilter'                => 'Jobs\Factory\Filter\ViewModelTemplateFilterFactory',
+            'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
+
         ),
         'shared' => array(
             'Jobs/Event' => false,
