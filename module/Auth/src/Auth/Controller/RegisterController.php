@@ -39,12 +39,18 @@ class RegisterController extends AbstractCoreController
      */
     private $options;
 
-    public function __construct(Form\Register $form, Service\Register $service, LoggerInterface $logger, ModuleOptions $options)
+
+    public function __construct(
+        Form\Register $form, 
+        Service\Register $service, 
+        LoggerInterface $logger, 
+        ModuleOptions $options)
     {
         $this->form = $form;
         $this->service = $service;
         $this->logger = $logger;
         $this->options = $options;
+
     }
 
     public function indexAction()
@@ -57,6 +63,8 @@ class RegisterController extends AbstractCoreController
         /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
         $viewModel = new ViewModel();
+
+
 
         try {
             if ($request->isPost()) {
@@ -81,6 +89,8 @@ class RegisterController extends AbstractCoreController
                         /*@translate*/ 'Please fill form correctly'
                     );
                 }
+            }else{
+                $this->form->get('register')->get('role')->setValue($this->params('role'));
             }
         } catch (Exception\UserAlreadyExistsException $e) {
             $this->notification()->danger(

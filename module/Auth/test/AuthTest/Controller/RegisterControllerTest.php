@@ -10,8 +10,6 @@
 namespace AuthTest\Controller;
 
 use Auth\Controller\RegisterController;
-use Auth\Form\Login;
-use Auth\Form\Register;
 use Auth\Form\RegisterInputFilter;
 use Auth\Options\CaptchaOptions;
 use Auth\Service\Exception;
@@ -38,6 +36,11 @@ class RegisterControllerTest extends AbstractControllerTestCase
      */
     private $serviceMock;
 
+    /**
+     * @var MockObject
+     */
+    private $paramsMock;
+
     public function setUp()
     {
         $this->init('register');
@@ -47,9 +50,13 @@ class RegisterControllerTest extends AbstractControllerTestCase
             ->setConstructorArgs([null,$captureOptions])
             ->getMock();
 
+
         $this->serviceMock = $this->getMockBuilder('Auth\Service\Register')
-            ->disableOriginalConstructor()
-            ->getMock();
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+
+        $this->paramsMock = $this->getMock('Zend\Mvc\Controller\Plugin\Params');
 
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
@@ -60,11 +67,24 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         /** @var PluginManager $controllerPluginManager */
         $controllerPluginManager = clone Bootstrap::getServiceManager()->get('ControllerPluginManager');
+        $controllerPluginManager->setService('params',$this->paramsMock);
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
     public function testIndexAction_WithGetRequest()
     {
+
+        $register = $this->getMock('Zend\Form\Fieldset');
+        $role = $this->getMock('Zend\Form\Element\Hidden');
+
+        $this->formMock->expects($this->once())->method('get')->with('register')->willReturn($register);
+
+        $register->expects($this->once())->method('get')->with('role')->willReturn($role);
+
+        $role->expects($this->once())->method('setValue')->willReturn($role);
+
+        $this->paramsMock->expects($this->once())->method('__invoke')->with('role')->willReturn('user');
+
         $request = new Request();
         $request->setMethod(Request::METHOD_GET);
 
@@ -251,3 +271,4 @@ class RegisterControllerTest extends AbstractControllerTestCase
         //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 }
+

@@ -216,11 +216,15 @@ return array(
                     'register' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/auth/register',
+                            'route' => '/auth/register[/:role]',
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Register',
-                                'action' => 'index'
+                                'action' => 'index',
+                                'role' => 'recruiter'
                             ),
+                            'constraints' => array(
+                                'role' => '(recruiter|user)',
+                            )
                         ),
                         'may_terminate' => true,
                     ),
