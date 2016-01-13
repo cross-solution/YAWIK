@@ -52,7 +52,7 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
 
         $this->add(
             array(
-                'type' => 'Jobs/HiringOrganizationSelect',
+                'type' => 'Jobs/ActiveOrganizationSelect',
                 'property' => true,
                 'name' => 'companyId',
                 'options' => array(

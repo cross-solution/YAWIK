@@ -73,23 +73,24 @@ if ($params->has('by')) {
             ->setAttributes(
                 [
                     'class'       => 'form-control ',
-                    'placeholder' => $this->translate('search for position or company')
+                    'placeholder' => $this->translate('search for position or company'),
+                    'style' => 'width: 50%;',
                 ]
             )
         );
 
     if ($params->has('companyId')) {
-        echo $this->formSelect(
+        echo '<div style="display: inline-block; width: 220px;">' . $this->formSelect(
             $params->get('companyId')
                 ->setOptions(['geoPlugin' => 'photon'])
                 ->setAttributes(
                     array(
-                        'class'       => '',
+                        'class'       => 'form-control',
                         'id'          => 'jobCompanyName-companyId',
-                        'placeholder' => $this->translate('Type in a location')
+                        'style'       => 'width: 100%',
                     )
                 )
-        );
+        ) . '</div>' ;
 
     }
 

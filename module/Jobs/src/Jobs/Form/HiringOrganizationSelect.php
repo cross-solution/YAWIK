@@ -18,7 +18,7 @@ use Zend\Form\Element\Select;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class HiringOrganizationSelect extends Select implements ViewPartialProviderInterface
+class HiringOrganizationSelect extends OrganizationSelect implements ViewPartialProviderInterface
 {
     /**
      * View partial name.

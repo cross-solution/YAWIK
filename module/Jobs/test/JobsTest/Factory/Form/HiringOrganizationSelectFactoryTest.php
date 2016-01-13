@@ -76,37 +76,14 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
              ->method('getUser')
              ->willReturn($user);
 
-        $headscript = $this->getMockBuilder('\Zend\View\Helper\HeadScript')
-                           ->disableOriginalConstructor()
-                           ->getMock();
-
-        $headscript->expects($this->once())
-                   ->method('__call')
-                   ->with('appendFile', array('Jobs/js/form.hiring-organization-select.js'));
-
-        $basepath = $this->getMockBuilder('\Zend\View\Helper\BasePath')->disableOriginalConstructor()->getMock();
-        $basepath->expects($this->once())->method('__invoke')->with('Jobs/js/form.hiring-organization-select.js')
-                 ->will($this->returnArgument(0));
-
-        $helper = $this->getMockBuilder('\Zend\View\HelperPluginManager')
-                       ->disableOriginalConstructor()
-                       ->getMock();
-
-        $helper->expects($this->exactly(2))->method('get')
-               ->withConsecutive(array('headscript'), array('basepath'))
-               ->will($this->onConsecutiveCalls($headscript, $basepath));
-
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
                          ->disableOriginalConstructor()
                          ->getMock();
 
-        $services->expects($this->exactly(2))
+        $services->expects($this->once())
                  ->method('get')
-                 ->withConsecutive(
-                    array('AuthenticationService'),
-                    array('ViewHelperManager')
-                 )
-                 ->will($this->onConsecutiveCalls($auth, $helper));
+                 ->with('AuthenticationService')
+                 ->willReturn($auth);
 
         $formElements = $this->getMockBuilder('\Zend\Form\FormElementManager')
                              ->disableOriginalConstructor()
