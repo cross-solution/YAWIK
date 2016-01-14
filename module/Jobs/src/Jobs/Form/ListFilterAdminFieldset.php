@@ -23,7 +23,6 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
     {
         parent::__construct();
         parent::init();
-
     }
 
     public function init()

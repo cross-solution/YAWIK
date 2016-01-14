@@ -27,7 +27,6 @@ class ActiveOrganizationSelectFactory implements FactoryInterface
 {
     /**
      * Creates the organization select box.
-     *
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

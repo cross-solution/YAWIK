@@ -33,12 +33,9 @@ class ApprovalControllerFactory implements FactoryInterface
         $searchForm = $service->get('forms')
             ->get('Jobs/ListFilter', [ 'fieldset' => 'Jobs/ListFilterAdminFieldset' ]);
 
-        /* @var $user \Auth\Entity\User */
-         $user = $service->get('AuthenticationService')->getUser();
-
         /* @var $jobRepository Repository\Job */
         $jobRepository = $service->get('repositories')->get('Jobs/Job');
 
-        return new ApprovalController($jobRepository, $searchForm, $user);
+        return new ApprovalController($jobRepository, $searchForm);
     }
 }

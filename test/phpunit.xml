@@ -7,26 +7,7 @@
     </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">../module</directory>
-            <exclude>
-                <directory suffix=".php">../module/Install/language</directory>
-                <directory suffix=".php">../module/Core/language</directory>
-                <directory suffix=".php">../module/Applications/language</directory>
-                <directory suffix=".php">../module/Auth/language</directory>
-                <directory suffix=".php">../module/Jobs/language</directory>
-                <directory suffix=".php">../module/Organizations/language</directory>
-                <directory suffix=".php">../module/Cv/language</directory>
-                <directory suffix=".php">../module/Geo/language</directory>
-
-                <directory suffix=".php">../module/Install/test</directory>
-                <directory suffix=".php">../module/Core/test</directory>
-                <directory suffix=".php">../module/Applications/test</directory>
-                <directory suffix=".php">../module/Auth/test</directory>
-                <directory suffix=".php">../module/Jobs/test</directory>
-                <directory suffix=".php">../module/Organizations/test</directory>
-                <directory suffix=".php">../module/Cv/test</directory>
-                <directory suffix=".php">../module/Geo/test</directory>
-            </exclude>
+            <directory suffix=".php">../module/src</directory>
         </whitelist>
     </filter>
     <testsuites>

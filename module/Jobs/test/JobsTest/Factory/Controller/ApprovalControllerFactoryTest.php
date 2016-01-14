@@ -11,13 +11,15 @@ namespace JobsTest\Factory\Controller;
 
 use Jobs\Factory\Controller\ApprovalControllerFactory;
 use Jobs\Controller;
+use Jobs\Form\OrganizationSelect;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
-use Auth\Entity\User;
+
 
 /**
  * Class ApprovalControllerFactoryTest
  * @package JobsTest\Factory\Controller
+ * @covers \Jobs\Factory\Controller\ApprovalControllerFactory
  */
 class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,20 +28,12 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
      */
     private $testedObj;
 
-    /**
-     * The user entity fixture
-     *
-     * @var User
-     */
-    private $user;
-
 
     /**
      *
      */
     public function setUp()
     {
-
         $this->testedObj = new ApprovalControllerFactory();
     }
 
@@ -51,8 +45,6 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $sm = clone Bootstrap::getServiceManager();
         $sm->setAllowOverride(true);
 
-         $this->markTestSkipped('it does not work currently');
-
         $jobRepositoryMock = $this->getMockBuilder('Jobs\Repository\Job')
             ->disableOriginalConstructor()
             ->getMock();
@@ -62,36 +54,18 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
 
+
         $repositoriesMock->expects($this->once())
             ->method('get')
             ->with('Jobs/Job')
             ->willReturn($jobRepositoryMock);
 
-
-        if ("testImplementsFactoryInterface" == $this->getName(/*withDataSet */ false)) { return; }
-
-        $userOrg = $this->getMockBuilder('\Organizations\Entity\OrganizationReference')
-                        ->disableOriginalConstructor()
-                        ->getMock();
-
-        $user = new User();
-        $user->setId('testUser');
-        $user->setOrganization($userOrg);
-
-
-        $auth = $this->getMockBuilder('Auth\AuthenticationService')
-                     ->disableOriginalConstructor()
-                     ->getMock();
-
-        $auth->expects($this->once())
-             ->method('getUser')
-             ->willReturn($user);
-
-
         $sm->setService('repositories', $repositoriesMock);
-        $sm->setService('AuthenticationService', $auth);
+        $formElementManager = $sm->get('FormElementManager');
 
-
+        $organizationSelect = new OrganizationSelect();
+        $formElementManager->setAllowOverride(true);
+        $formElementManager->setService('Jobs/ActiveOrganizationSelect',$organizationSelect);
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);
