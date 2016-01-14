@@ -1,5 +1,5 @@
 filter:
-    paths: [module/src/*]
+    paths: [module/*/src/*]
 before_commands:
     - 'composer install --dev --prefer-source'
 tools:

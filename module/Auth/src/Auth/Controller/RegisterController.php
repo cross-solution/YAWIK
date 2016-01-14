@@ -65,7 +65,6 @@ class RegisterController extends AbstractCoreController
         $viewModel = new ViewModel();
 
 
-
         try {
             if ($request->isPost()) {
                 $this->form->setData($request->getPost()->toArray() ?: array());
@@ -90,7 +89,9 @@ class RegisterController extends AbstractCoreController
                     );
                 }
             }else{
-                $this->form->get('register')->get('role')->setValue($this->params('role'));
+                /* @var $register \Zend\Form\Fieldset */
+                $register = $this->form->get('register');
+                $register->get('role')->setValue($this->params('role'));
             }
         } catch (Exception\UserAlreadyExistsException $e) {
             $this->notification()->danger(

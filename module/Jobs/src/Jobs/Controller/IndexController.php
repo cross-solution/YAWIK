@@ -74,21 +74,11 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     * List jobs.
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        return $this->listJobs();
-    }
-
-    /**
-     * @param bool $showPendingJobs
+     * List job postings
      *
      * @return ViewModel
      */
-    protected function listJobs()
+    public function indexAction()
     {
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();

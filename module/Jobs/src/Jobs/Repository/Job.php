@@ -123,6 +123,8 @@ class Job extends AbstractRepository
     }
 
     /**
+     * Selects job postings of a certain organization
+     *
      * @param int $organizationId
      * @return \Jobs\Entity\Job[]
      */
@@ -133,6 +135,12 @@ class Job extends AbstractRepository
         ]);
     }
 
+    /**
+     * Selects all Organizations with Active Jobs
+     *
+     * @return mixed
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
     public function findActiveOrganizations()
     {
         $qb = $this->createQueryBuilder();

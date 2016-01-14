@@ -7,7 +7,16 @@
     </logging>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">../module/src</directory>
+            <directory suffix=".php">../module/Core/src</directory>
+            <directory suffix=".php">../module/Auth/src</directory>
+            <directory suffix=".php">../module/Applications/src</directory>
+            <directory suffix=".php">../module/Jobs/src</directory>
+            <directory suffix=".php">../module/Organizations/src</directory>
+            <directory suffix=".php">../module/Cv/src</directory>
+            <directory suffix=".php">../module/Geo/src</directory>
+            <directory suffix=".php">../module/Settings/src</directory>
+            <directory suffix=".php">../module/Install/src</directory>
+            <directory suffix=".php">../module/Pdf/src</directory>
         </whitelist>
     </filter>
     <testsuites>

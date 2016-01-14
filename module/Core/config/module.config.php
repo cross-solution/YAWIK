@@ -275,14 +275,8 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'services' => 'Core\View\Helper\Services',
-//            'form' => 'Core\Form\View\Helper\Form',
             'form_element' => 'Core\Form\View\Helper\FormElement',
-//            'form_partial' => 'Core\Form\View\Helper\FormPartial',
-//            'form_collection' => 'Core\Form\View\Helper\FormCollection',
-//            'form_row' => 'Core\Form\View\Helper\FormRow',
-//            'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
-//            'form_radio' => 'Core\Form\View\Helper\FormRadio',
-//            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
+            'formLabel'  => 'Core\Form\View\Helper\RequiredMarkInFormLabel',
             'form' => 'Core\Form\View\Helper\Form',
             'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',

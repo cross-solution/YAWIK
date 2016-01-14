@@ -48,7 +48,7 @@ class Location extends AbstractEntity implements LocationInterface
     /**
      * coordinates of a job location.
      *
-     * @var String
+     * @var GeoJson
      * @ODM\EmbedOne(discriminatorField="_entity")
      */
     protected $coordinates;
@@ -63,7 +63,6 @@ class Location extends AbstractEntity implements LocationInterface
     
     public function __construct()
     {
-
     }
     
     public function preUpdate()

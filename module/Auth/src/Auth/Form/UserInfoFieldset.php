@@ -22,16 +22,18 @@ class UserInfoFieldset extends Fieldset implements
     ViewPartialProviderInterface,
     InputFilterProviderInterface
 {
-    
+
     protected $viewPartial = 'form/auth/contact';
 
     /**
      * @param String $partial
+     *
      * @return $this
      */
     public function setViewPartial($partial)
     {
         $this->viewPartial = $partial;
+
         return $this;
     }
 
@@ -52,128 +54,145 @@ class UserInfoFieldset extends Fieldset implements
             $hydrator = new EntityHydrator();
             $this->setHydrator($hydrator);
         }
+
         return $this->hydrator;
     }
-    
+
     public function init()
     {
         $this->setName('info');
-        
+
         $this->add(
-            array(
-            'name' => 'email',
-            'options' => array( 'label' => /* @translate */ 'Email' ),
-            )
+            [
+                'name'    => 'email',
+                'options' => [
+                    'label' => /* @translate */ 'Email'
+                ],
+                'attributes' => [
+                    'required' => true, // marks the label as required.
+                ]
+            ]
         );
-               
+
         $this->add(
-            array(
-                'name' => 'phone',
-                'type' => '\Core\Form\Element\Phone',
-                'options' => array(
-                        'label' => /* @translate */ 'Phone',
-                ),
+            [
+                'name'      => 'phone',
+                'type'      => '\Core\Form\Element\Phone',
+                'options'   => [
+                    'label' => /* @translate */ 'Phone',
+                ],
                 'maxlength' => 20,
-            )
+                'attributes' => [
+                    'required' => true,
+                ]
+            ]
         );
-        
+
         $this->add(
-            array(
-                'name' => 'postalCode',
+            [
+                'name'    => 'postalCode',
                 'options' => array(
-                        'label' => /* @translate */ 'Postalcode'
+                    'label' => /* @translate */ 'Postalcode'
                 )
-            )
+            ]
         );
-        
+
+        $this->add(
+            [
+                'name'    => 'city',
+                'options' => [
+                    'label' => /* @translate */ 'City'
+                ]
+            ]
+        );
+
         $this->add(
             array(
-                'name' => 'city',
-                'options' => array(
-                        'label' => /* @translate */ 'City'
-                )
-            )
-        );
-        
-        $this->add(
-            array(
-                'name' => 'gender',
-                'type' => 'Zend\Form\Element\Select',
-                'options' => array(
-                        'label' => /*@translate */ 'Salutation',
-                        'value_options' => array(
-                                '' => '', // => /*@translate */ 'please select',
-                                'male' => /*@translate */ 'Mr.',
-                                'female' => /*@translate */ 'Mrs.',
-                        )
-                ),
-                'attributes' => array(
+                'name'       => 'gender',
+                'type'       => 'Zend\Form\Element\Select',
+                'options'    => [
+                    'label'         => /*@translate */ 'Salutation',
+                    'value_options' => [
+                        ''       => '',
+                        'male'   => /*@translate */ 'Mr.',
+                        'female' => /*@translate */ 'Mrs.',
+                    ]
+                ],
+                'attributes' => [
                     'data-placeholder' => /*@translate*/ 'please select',
-                    'data-allowclear' => 'true',
+                    'data-allowclear'  => 'true',
+                    'required'         => true,
+                ],
+            )
+        );
+
+        $this->add(
+            array(
+                'name'       => 'firstName',
+                'required'   => true,
+                'options'    => [
+                    'label'     => /*@translate*/ 'First name',
+                    'maxlength' => 50,
+                ],
+                'attributes' => [
+                    'required' => true,
+                ]
+            )
+        );
+
+        $this->add(
+            array(
+                'name'     => 'lastName',
+                'options'  => array(
+                    'label'     => /*@translate*/ 'Last name',
+                    'maxlength' => 50,
                 ),
+                'attributes' => [
+                    'required' => true,
+                ]
             )
         );
-        
+
         $this->add(
-            array(
-            'name' => 'firstName',
-            'options' => array(
-                'label' => /*@translate*/ 'First name',
-                'maxlength' => 50,
-            ),
-            )
+            [
+                'name'    => 'street',
+                'options' => [
+                    'label' => /*@translate*/ 'street'
+                ]
+            ]
         );
-        
+
         $this->add(
-            array(
-            'name' => 'lastName',
-            'options' => array(
-                'label' => /*@translate*/ 'Last name',
-                'maxlength' => 50,
-            ),
-            'required' => true
-            )
-        );
-        
-        $this->add(
-            array(
-                'name' => 'street',
-                'options' => array(
-                        'label' => /*@translate*/ 'street'
-                )
-            )
-        );
-        
-        $this->add(
-            array(
-                'name' => 'houseNumber',
-                'options' => array(
-                        'label' => /*@translate*/ 'house number'
-                )
-            )
+            [
+                'name'    => 'houseNumber',
+                'options' => [
+                    'label' => /*@translate*/ 'house number'
+                ]
+            ]
         );
     }
-    
+
     /**
      * (non-PHPdoc)
+     *
      * @see \Zend\InputFilter\InputFilterProviderInterface::getInputFilterSpecification()
      */
     public function getInputFilterSpecification()
     {
         return array(
             'firstName' => array(
-                'required' => true,
-                'filters'  => array(
+                'required'   => true,
+                'filters'    => array(
                     array('name' => '\Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
-                            new NotEmpty(),
-                            new StringLength(array('max' => 50))
+                    new NotEmpty(),
+                    new StringLength(array('max' => 50))
                 ),
             ),
-            'lastName' => array(
-                'required' => true,
-                'filters'  => array(
+            'lastName'  => array(
+                'required'   => true,
+                'filters'    => array(
                     array('name' => 'Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
@@ -181,21 +200,20 @@ class UserInfoFieldset extends Fieldset implements
                     new StringLength(array('max' => 50))
                 ),
             ),
-            'email' => array(
-                'required' => true,
-                'filters' => array(
+            'email'     => array(
+                'required'   => true,
+                'filters'    => array(
                     array('name' => 'Zend\Filter\StringTrim'),
                 ),
                 'validators' => array(
-                        new NotEmpty(),
-                        new StringLength(array('max' => 100)),
-                        new EmailAddress()
+                    new NotEmpty(),
+                    new StringLength(array('max' => 100)),
+                    new EmailAddress()
                 )
             ),
-            'image' => array(
-                'required' => false,
-                'filters'  => array(
-                ),
+            'image'     => array(
+                'required'   => false,
+                'filters'    => array(),
                 'validators' => array(
                     new File\Exists(),
                     new File\Extension(array('extension' => array('jpg', 'png', 'jpeg', 'gif'))),
