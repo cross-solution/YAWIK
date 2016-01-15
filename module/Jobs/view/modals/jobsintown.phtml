@@ -14,7 +14,23 @@
  * @author       weitz@cross-solution.de
  */
 ?>
+<?php
+/*
+ *@todo: inject the needed variables
+ */
 
+/* @var $sm \Zend\ServiceManager\ServiceManager */
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$options = $sm->get('Core/Options');
+/* @var $provider \Jobs\Options\ProviderOptions */
+$provider = $this->services('Jobs/Options/Provider');
+/* @var $channel \Jobs\Options\ChannelOptions */
+$channel = $provider->getChannel('jobsintown');
+
+$options = $sm->get('Core/Options');
+
+$defaultCurrencyCode = $options->defaultCurrencyCode;
+?>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">
         <span>&times;</span>
@@ -34,8 +50,10 @@
             in Wohnortnähe suchen, ist jobsintown.de in jeder deutschen Stadt über 100.000 Einwohner mit lokalen
             Online-Portalen vertreten. Weitere Informationen unter <a href="http://www.jobsintown.de">www.jobsintown.de</a>.
             <h4>
-                Schaltungsdauer: 30 Tage, Preis: <span class="label label-default">199,- €</span>
-
+                Schaltungsdauer: <?php echo $channel->getPublishDuration() ?> Tage,
+                Einzelpreis: <span class="label label-default">
+                <?php echo $this->currencyFormat((round($channel->getPrice('min'),2)), $defaultCurrencyCode) ?>
+                </span>
             </h4>
         </div>
         <a class="media-right" href="http://www.jobsintown.de/" target="_blank">

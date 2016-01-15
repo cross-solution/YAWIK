@@ -3,45 +3,80 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
 
-$options = $this->services('Core/Options');
+$options             = $this->services('Core/Options');
 $defaultCurrencyCode = $options->defaultCurrencyCode;
-$defaultTaxRate = $options->defaultTaxRate;
-
+$defaultTaxRate      = $options->defaultTaxRate;
+$router = $this->services('Router');
+$provider = $this->services('Jobs/Options/Provider');
 
 if ($this->renderSummary): echo $this->render('jobs/form/multiposting-select');
 else:
-    $isDisabled = 'disabled' == $this->element->getAttribute('disabled');?>
+    $isDisabled = 'disabled' == $this->element->getAttribute('disabled')?>
     <div id="<?php echo $this->element->getAttribute('id') ?>" class="mcp-checkboxes">
         <?php $valueOptions = $this->element->getValueOptions();?>
-        <?php foreach ($valueOptions as $category => $vOpts):?>
+        <?php foreach ($valueOptions as $category => $vOpts): ?>
             <div class="row">
                 <div class="col-md-12"><h4><?php echo $vOpts['label'] ?></h4></div>
             </div>
             <div class="row">
                 <?php foreach ($vOpts['options'] as $v => $opt):
                     $checked = in_Array($v, $this->element->getValue());
-                    $class =  $checked ? 'btn-success active' : 'btn-default';
-                    $spec = explode('|', $opt)?>
+                    $class   = $checked ? 'btn-success active' : 'btn-default';
+                    $spec = explode('|', $opt);
+                    $channel = $provider->getChannel($v);
+                    ?>
                     <div class="col-md-4">
                         <?php
-                        $popup=$spec[6]?'<img src="' . $spec[6]. '" alt="' . $spec[1] . '" class="img-responsive">':'' .
-                            sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>');
+                        $popup = $spec[6]
+                            ? '<img src="' . $spec[6] . '" alt="' . $spec[1] . '" class="img-responsive">'
+                            : '' .
+                              sprintf($spec[2], '<a href="' . $spec[4] . '">' . $spec[3] . '</a>');
                         ?>
-                        <button style="width: 100%; margin-bottom: 3px;" type="button"
-                                class="mpc-button btn <?php echo $class ?>" aria-pressed="<?php echo $checked ? 'true' : 'false' ?>"
-                                data-toggle="button"
-                                data-placement="top" data-trigger="hover" data-html="true"
-                                title="<?php echo $spec[1] ?>"
-                                data-content="<?php echo $this->escapeHtmlAttr($popup);?>"
+                        <style>
+                            .portal-buttons .btn {
+                                width: 80%;
+                            }
+
+                            .portal-buttons .btn-secondary {
+                                width: 20%;
+                            }
+                        </style>
+                        <div class="portal-buttons btn-toolbar" role="toolbar" aria-label="select portals for multiposting">
+                            <div class="btn-group btn-block" role="group" aria-label="publish on <?php echo $v?>">
+
+                                <button type="button"
+                                        class="mpc-button btn <?php echo $class ?>"
+                                        aria-pressed="<?php echo $checked ? 'true' : 'false' ?>"
+                                        data-toggle="button"
+                                        data-placement="top" data-trigger="hover focus" data-html="true"
+                                        title="<?php echo $spec[1] ?>"
+                                        data-content="<?php echo $this->escapeHtmlAttr($popup);?>"
+                                    <?php
+                                    echo $isDisabled ? 'disabled' : ''?>>
+                                    <?php echo $spec[0] ?>
+                                    <input <?php echo $checked ? 'checked ' : '' ?>type="checkbox"
+                                           name="<?php echo $this->element->getName()?>[]" class="hidden"
+                                           value="<?php echo $v ?>">
+                                </button>
                                 <?php
-                                echo $isDisabled ? 'disabled' : ''?>>
-                            <?php echo $spec[0] ?>
-                            <input <?php echo $checked ? 'checked ' : '' ?>type="checkbox" name="<?php echo $this->element->getName()?>[]" class="hidden" value="<?php echo $v ?>">
-                        </button>
+                                $link = $router->assemble($channel->getParams(), array('name' => $channel->getRoute())); ?>
+                                <button data-target="#modal-portals-<?php echo $v?>" href="<?php echo $link ?>" data-toggle="modal" type="button" class="btn btn-secondary">?</button>
+                            </div>
+                        </div>
+                        <?php
+                        /**
+                         * @todo: move the modal container at the bottom of the page and refresh the modal content
+                         */
+                        ?>
+                        <div id="modal-portals-<?php echo $v?>" class="modal fade modal-scrollable" aria-hidden="true" aria-labelledby="portal help" role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content"> </div>
+                            </div>
+                        </div>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -74,8 +109,11 @@ else:
     ';
 
         ?>
-        <span id="<?php echo $this->element->getAttribute('id') ?>-result-tmpl" data-template="<?php echo $this->escapeHtmlAttr($resultTmpl) ?>"></span>
-        <span id="<?php echo $this->element->getAttribute('id') ?>-select-tmpl" data-template="<?php echo $this->escapeHtmlAttr($selectTmpl) ?>"></span>
-        <span id="<?php echo $this->element->getAttribute('id') ?>-currency-tmpl" data-template="<?php echo $this->numberFormat(1234.56) ?>"></span>
+        <span id="<?php echo $this->element->getAttribute('id') ?>-result-tmpl"
+              data-template="<?php echo $this->escapeHtmlAttr($resultTmpl) ?>"></span>
+        <span id="<?php echo $this->element->getAttribute('id') ?>-select-tmpl"
+              data-template="<?php echo $this->escapeHtmlAttr($selectTmpl) ?>"></span>
+        <span id="<?php echo $this->element->getAttribute('id') ?>-currency-tmpl"
+              data-template="<?php echo $this->numberFormat(1234.56) ?>"></span>
     </div>
 <?php endif; // (else > $this->renderSummary) ?>

@@ -25,7 +25,7 @@ $options = $sm->get('Core/Options');
 /* @var $provider \Jobs\Options\ProviderOptions */
 $provider = $this->services('Jobs/Options/Provider');
 /* @var $channel \Jobs\Options\ChannelOptions */
-$channel = $provider->getChannel('yawik');
+$channel = $provider->getChannel('fazjob');
 
 $options = $sm->get('Core/Options');
 
@@ -35,29 +35,29 @@ $defaultCurrencyCode = $options->defaultCurrencyCode;
     <button type="button" class="close" data-dismiss="modal">
         <span>&times;</span>
     </button>
-    <h4 class="modal-title"><?php echo sprintf($this->translate('Publish on %s'),'YAWIK')?></h4>
+    <h4 class="modal-title"><?php echo sprintf($this->translate('Publish on %s'),'FAZJOB.NET')?></h4>
 </div>
 
 <div class="modal-body">
     <div class="media">
         <div class="media-body">
-            <h4 class="media-heading">über YAWIK</h4>
-            YAWIK offers a web based solution for managing job applications. Jobs ads can be entered or pushed to
-            the system. The system assigns application forms to job ads. Applicants and Recruiters can connect
-            to YAWIK using social networks. Currently it is possible to integrate YAWIK into a corporate website
-            by extending it with an own module. On the long term it is designed to become a distributed system for
-            connecting recruiters and applicants.
-            . Weitere Informationen unter <a href="http://jobs.yawik.org">jobs.yawik.org</a>.
+            <h4 class="media-heading">über FAZJOB.NET</h4>
+            Top-Stellenangebote für Fach- und Führungskräfte aus der F.A.Z., der Sonntagszeitung und FAZjob.NET.
+            Auf FAZJOB.NET finden Sie alle Stellenangebote für Fach- und Führungskräfte des renommierten F.A.Z.-Stellenmarktes.
+            Wir bringen von jeher die klugen Köpfe unter den Bewerbern mit erfolgreichen Unternehmen und Institutionen
+            zusammen. Nutzen Sie dazu unser überregionales und branchenübergreifendes Onlineangebot in den Sparten:
+            Management, Unternehmensführung, Wissenschaft, Ingenieure, Marketing, Finanzen, IT, EDV, Telekommunikation,
+            Einkauf, Logistik, Vertrieb, Verkauf, Recht, Verwaltung, Personalmanagement, Consulting und Medizin.
+            . Weitere Informationen unter <a href="http://www.fazjob.net/">FAZJOB.NET</a>.
             <h4>
                 Schaltungsdauer: <?php echo $channel->getPublishDuration() ?> Tage,
                 Einzelpreis: <span class="label label-default">
                 <?php echo $this->currencyFormat((round($channel->getPrice('min'),2)), $defaultCurrencyCode) ?>
                 </span>
-
             </h4>
         </div>
-        <a class="media-right" href="http://jobs.yawik.org/" target="_blank">
-            <img src="<?php echo $this->basePath("/Jobs/images/screenshot-yawik.png")?>" alt="yawik.org">
+        <a class="media-right" href="http://fazjob.net/" target="_blank">
+            <img src="<?php echo $this->basePath("/Jobs/images/screenshot-fazjob.png")?>" alt="FAZjob.NET">
         </a>
     </div>
 </div>
