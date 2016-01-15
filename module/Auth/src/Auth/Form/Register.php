@@ -46,6 +46,9 @@ class Register extends Form
                 'options' => array(
                     'label' => /*@translate*/ 'Email',
                 ),
+                'attributes' => [
+                    'required' => true
+                ]
             )
         );
 

@@ -493,6 +493,7 @@ class Job extends BaseEntity implements JobInterface,
         $this->applications = $applications;
         return $this;
     }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getApplications()
@@ -501,6 +502,7 @@ class Job extends BaseEntity implements JobInterface,
     {
         return $this->applications;
     }
+
     /**
      * Gets the number of unread applications
      * @return Collection

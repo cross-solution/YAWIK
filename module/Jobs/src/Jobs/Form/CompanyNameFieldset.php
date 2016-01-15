@@ -34,6 +34,7 @@ class CompanyNameFieldset extends Fieldset
                 ),
                 'attributes' => array(
                     'data-placeholder' => /*@translate*/ 'Select hiring organization',
+                    'data-allowclear'  => 'false',
                 ),
             )
         );

@@ -120,8 +120,9 @@ class UserInfoFieldset extends Fieldset implements
                 ],
                 'attributes' => [
                     'data-placeholder' => /*@translate*/ 'please select',
-                    'data-allowclear'  => 'true',
-                    'required'         => true,
+                    'data-allowclear' => 'false',
+                    'data-searchbox' => -1,  // hide the search box
+                    'required' => true, // mark label as required
                 ],
             )
         );

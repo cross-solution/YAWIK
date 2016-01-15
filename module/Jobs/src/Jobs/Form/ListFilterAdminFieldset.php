@@ -45,6 +45,8 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
                 ),
                 'attributes' => array(
                     'value' => Status::CREATED,
+                    'data-searchbox'  => -1,  // hide the search box
+                    'data-allowclear' => 'false', // allow to clear a selected value
                 )
             )
         );
