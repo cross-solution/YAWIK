@@ -68,6 +68,7 @@ class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
             ),
             'attributes' => array(
                 'data-placeholder' => 'Select hiring organization',
+                'data-allowclear' => 'false',
             ),
         );
 
