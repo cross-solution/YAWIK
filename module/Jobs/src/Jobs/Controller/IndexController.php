@@ -114,7 +114,6 @@ class IndexController extends AbstractActionController
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
-            'showPendingJobs' => false,
         );
         if (isset($this->searchForm)) {
             $return['filterForm'] = $this->searchForm;

@@ -85,7 +85,6 @@ class ApprovalController extends AbstractActionController
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
-        $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -96,8 +95,6 @@ class ApprovalController extends AbstractActionController
                 foreach ($sessionParams as $key => $value) {
                     $params->set($key, $params->get($key, $value));
                 }
-            } elseif ($isRecruiter) {
-                $params->set('by', 'me');
             }
             /* @var $filterForm \Jobs\Form\ListFilter */
             $session[$sessionKey] = $params->toArray();
@@ -115,7 +112,6 @@ class ApprovalController extends AbstractActionController
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
-            'showPendingJobs' => true,
         );
         if (isset($this->searchForm)) {
             $return['filterForm'] = $this->searchForm;
