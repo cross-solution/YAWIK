@@ -10,7 +10,6 @@
 namespace Auth\Controller;
 
 use Auth\AuthenticationService;
-use Auth\Exception\UnauthorizedAccessException;
 use Auth\Form\UserPassword;
 use Core\Repository\RepositoryService;
 use Zend\Http\PhpEnvironment\Request;

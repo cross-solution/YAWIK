@@ -25,7 +25,6 @@ class MultipostButtonFieldset extends SummaryFormButtonsFieldset
     {
         $this->add(
              array(
-                 //'type' => 'Button',
                  'type' => 'Core/Spinner-Submit',
                  'name' => 'calculate',
                  'options' => array(

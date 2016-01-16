@@ -7,7 +7,9 @@
  * @license       MIT
  */
 
-/** ActionController of Jobs */
+/**
+ * ActionController. Lists jobs of all organizations
+ */
 namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;

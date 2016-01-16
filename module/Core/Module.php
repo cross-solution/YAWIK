@@ -35,8 +35,7 @@ class Module implements ConsoleBannerProviderInterface
     
     public function getConsoleBanner(Console $console)
     {
-        
-        $version = `git describe`;
+        $version = `git describe 2>/dev/null`;
         $name = 'YAWIK ' . trim($version);
         $width = $console->getWidth();
         return sprintf(
@@ -58,7 +57,7 @@ class Module implements ConsoleBannerProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
         // Register the TimezoneAwareDate type with DoctrineMongoODM
-        // Use it in Annotions ( @Field(type="tz_date") )
+        // Use it in Annotations ( @Field(type="tz_date") )
         if (!DoctrineType::hasType('tz_date')) {
             DoctrineType::addType(
                 'tz_date',
@@ -71,9 +70,6 @@ class Module implements ConsoleBannerProviderInterface
         \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
         $eventManager        = $e->getApplication()->getEventManager();
         $sharedManager       = $eventManager->getSharedManager();
-        
- #       $LogListener = new LogListener();
- #       $LogListener->attach($eventManager);
         
         if (!\Zend\Console\Console::isConsole()) {
             $redirectCallback = function () use ($e) {

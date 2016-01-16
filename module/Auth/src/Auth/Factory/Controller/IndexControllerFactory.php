@@ -43,14 +43,6 @@ class IndexControllerFactory implements FactoryInterface
         if ($options->getEnableRegistration()) {
             /* @var $registerForm Register */
             $registerForm = $serviceLocator->get('Auth\Form\Register');
-
-            /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
-            /* @var \Zend\Mvc\MvcEvent $event */
-            #$event = $controllerManager->getServiceLocator()->get('application')->getMvcEvent();
-            #$lang = $event->getRouteMatch();
-
-            #$registerForm->setAttribute("action", $this->s);
-
             $forms[IndexController::REGISTER] = $registerForm;
         }
 

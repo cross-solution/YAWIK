@@ -272,7 +272,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     }
 
     /**
-     * reassurance, that no required inputfilter is set on a non-existing field, this mistake is otherwise hard to detect
+     * reassurance, that no required inputFilter is set on a non-existing field, this mistake is otherwise hard to detect
      * there is still a lot to do on this issue
      * @param InputFilterInterface $inputFilter
      * @param FieldsetInterface $fieldset
@@ -281,8 +281,10 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
     {
         parent::attachInputFilterDefaults($inputFilter, $fieldset);
+        /* @var $inputFilter \Zend\InputFilter\InputFilter */
         foreach ($inputFilter->getInputs() as $name => $input) {
             if (!$input instanceof InputFilterInterface) {
+                /* @var $input \Zend\InputFilter\Input */
                 $required = $input->isRequired();
                 $inputExists = $fieldset->has($name);
                 if (!$inputExists && $required) {

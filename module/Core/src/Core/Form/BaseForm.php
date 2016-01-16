@@ -26,8 +26,6 @@ class BaseForm extends Form
      *
      * @var string|array
      */
-    // @TODO: delete this property, it is already defined in some parent class
-    //protected $baseFieldset;
 
     /**
      * {@inheritDoc}
