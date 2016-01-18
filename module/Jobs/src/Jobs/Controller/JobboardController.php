@@ -17,6 +17,9 @@ use Jobs\Repository;
 use Zend\View\Model\ViewModel;
 
 /**
+ * @method \Auth\Controller\Plugin\Auth auth
+ * @method \Core\Controller\Plugin\CreatePaginatorService paginatorService()
+ *
  * Controller for jobboard actions
  */
 class JobboardController extends AbstractActionController

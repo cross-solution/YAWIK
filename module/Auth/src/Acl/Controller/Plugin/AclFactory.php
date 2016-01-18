@@ -23,6 +23,7 @@ class AclFactory implements FactoryInterface
      */
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
+        /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */
         $services = $serviceLocator->getServiceLocator();
         $acl      = $services->get('acl');
         $auth     = $services->get('AuthenticationService');

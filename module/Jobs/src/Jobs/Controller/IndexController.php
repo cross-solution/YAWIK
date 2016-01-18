@@ -27,7 +27,7 @@ use Zend\View\Model\ViewModel;
  *
  * @method \Auth\Controller\Plugin\Auth auth()
  * @method \Acl\Controller\Plugin\Acl acl()
- * @method \Core\Controller\Plugin\CreatePaginator paginator(string $repositoryName, array $defaultParams = array(), bool $usePostParams = false)
+ * @method \Core\Controller\Plugin\CreatePaginatorService paginatorService()
  */
 class IndexController extends AbstractActionController
 {
@@ -143,7 +143,7 @@ class IndexController extends AbstractActionController
         }
 
         $myJobs    = $services->get('repositories')->get('Jobs/Job');
-        $paginator = $this->paginator('Jobs/Job');
+        $paginator = $this->paginatorService('Jobs/Job');
 
         return array(
             'script' => 'jobs/index/dashboard',

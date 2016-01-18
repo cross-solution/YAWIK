@@ -14,8 +14,7 @@ namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
-use Zend\View\Model\JsonModel;
-use Auth\Entity\User;
+
 use Jobs\Repository;
 use Jobs\Form\ListFilter;
 use Zend\View\Model\ViewModel;
@@ -29,7 +28,7 @@ use Zend\View\Model\ViewModel;
  *
  * @method \Auth\Controller\Plugin\Auth auth()
  * @method \Acl\Controller\Plugin\Acl acl()
- * @method \Core\Controller\Plugin\CreatePaginator paginator(string $repositoryName, array $defaultParams = array(), bool $usePostParams = false)
+ * @method \Core\Controller\Plugin\CreatePaginatorService paginatorService()
  */
 class ApprovalController extends AbstractActionController
 {

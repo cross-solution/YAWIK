@@ -212,6 +212,12 @@ return array(
         )
     ),
 
+    'controller_plugins' => [
+        'factories' => [
+            'initializeJob' => 'Jobs\Factory\Controller\Plugin\InitializeJobFactory',
+        ],
+    ],
+
     'paginator_manager' => array(
         'invokables' => array(
         ),

@@ -86,9 +86,7 @@ class ImportController extends AbstractActionController
         $repositories    = $services->get('repositories');
         $repositoriesJob = $repositories->get('Jobs/Job');
         $log             = $services->get('Core/Log');
-        //if (isset($user)) {
-        //    $services->get('Core/Log')->info('Jobs/manage/saveJob ' . $user->login);
-        //}
+
         $result = array('token' => session_id(), 'isSaved' => false, 'message' => '', 'portals' => array());
         try {
             if (isset($user) && !empty($user->login)) {

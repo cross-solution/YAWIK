@@ -22,6 +22,10 @@ use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
 
 /**
+ *
+ * @method \Core\Controller\Plugin\Notification notification
+ * @method \Core\Controller\Plugin\Mailer mailer
+ *
  * Main Action Controller for Authentication module.
  */
 class IndexController extends AbstractActionController
@@ -208,7 +212,7 @@ class IndexController extends AbstractActionController
 
                 $user->login=$login;
                 $user->setPassword($password);
-                $user->role = $this->options->getRole();
+                $user->setRole($this->options->getRole());
 
                 $mail = $this->mailer('htmltemplate');
                 $mail->setTemplate('mail/first-socialmedia-login');
@@ -256,7 +260,7 @@ class IndexController extends AbstractActionController
      * - pass: Password of the user to log in
      *
      * Returns an json response with the session-id.
-     * Non existant users will be created!
+     * Non existent users will be created!
      *
      */
     public function loginExternAction()

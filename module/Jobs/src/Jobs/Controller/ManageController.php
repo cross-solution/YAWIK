@@ -23,9 +23,15 @@ use Core\Form\SummaryFormInterface;
 use Zend\Stdlib\ArrayUtils;
 use Auth\AuthenticationService;
 use Zend\Mvc\I18n\Translator;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  * This Controller handles management actions for jobs.
+ *
+ * @method \Acl\Controller\Plugin\Acl acl
+ * @method \Jobs\Controller\Plugin\InitializeJob initializeJob
+ * @method \Core\Controller\Plugin\Notification notification
+ * @method \Core\Controller\Plugin\EntitySnapshot entitySnapshot
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -99,25 +105,6 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * Action called, when a new job should be created.
-     *
-     */
-    public function newAction()
-    {
-        $job = $this->getJob(/* create */ true);
-        $this->acl($job, 'new');
-        $user = $this->auth->getUser();
-        $job->setContactEmail($user->getInfo()->getEmail());
-        $job->setApplyId(
-            uniqid(substr(md5($user->getLogin()), 0, 3))
-        );
-        $form  = $this->getFormular($job);
-        $model = $this->getViewModel($form);
-        
-        return $model;
-    }
-
-    /**
      * @TODO edit-Action and save-Action are doing the same, one of them has to quit
      *
      * @return null|ViewModel
@@ -174,7 +161,9 @@ class ManageController extends AbstractActionController
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
         $pageIdentifier     = (int) $params->fromQuery('page', array_key_exists('page', $parameter)?$parameter['page']:0);
-        $jobEntity          = $this->getJob();
+
+        $jobEntity = $this->initializeJob()->get($this->params(), true);
+
         $viewModel          = null;
         $this->acl($jobEntity, 'edit');
         $form               = $this->getFormular($jobEntity);
@@ -376,42 +365,6 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * @param bool $allowDraft
-     * @return \Jobs\Entity\Job
-     * @throws \RuntimeException
-     */
-    protected function getJob($allowDraft = true)
-    {
-        /* @var \Jobs\Repository\Job $jobRepository */
-        $jobRepository     = $this->repositoryService->get('Jobs/Job');
-        // @TODO three different method to obtain the job-id ?, simplify this
-        $id_fromRoute   = $this->params('id', 0);
-        $id_fromQuery   = $this->params()->fromQuery('id', 0);
-        $id_fromSubForm = $this->params()->fromPost('job', 0);
-        $user           = $this->auth->getUser();
-        $id             = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
-
-        if (empty($id) && $allowDraft) {
-            $this->acl('Jobs/Manage', 'new');
-            /** @var \Jobs\Entity\Job $job */
-            $job = $jobRepository->findDraft($user);
-            if (empty($job)) {
-                $job = $jobRepository->create();
-                $job->setIsDraft(true);
-                $job->setUser($user);
-                $this->repositoryService->store($job);
-            }
-            return $job;
-        }
-
-        $jobEntity      = $jobRepository->find($id);
-        if (!$jobEntity) {
-            throw new \RuntimeException('No job found with id "' . $id . '"');
-        }
-        return $jobEntity;
-    }
-
-    /**
      * @param $form
      * @param array $params
      * @return ViewModel
@@ -437,7 +390,8 @@ class ManageController extends AbstractActionController
     public function completionAction()
     {
         $serviceLocator = $this->getServiceLocator();
-        $job = $this->getJob();
+
+        $job = $this->initializeJob()->get($this->params());
 
         $job->setIsDraft(false);
 
@@ -472,13 +426,12 @@ class ManageController extends AbstractActionController
      */
     public function approvalAction()
     {
-
         $serviceLocator = $this->getServiceLocator();
         $user           = $this->auth->getUser();
 
         $params         = $this->params('state');
-        /** @var \Jobs\Entity\Job $jobEntity */
-        $jobEntity      = $this->getJob();
+
+        $jobEntity = $this->initializeJob()->get($this->params());
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
         $jobEvents      = $serviceLocator->get('Jobs/Events');
@@ -502,19 +455,19 @@ class ManageController extends AbstractActionController
         }
 
         if ($params == 'declined') {
-            $jobEntity->changeStatus(Status::REJECTED, sprintf(/*@translate*/ "Job opening was rejected by %s", $user->info->displayName));
+            $jobEntity->changeStatus(Status::REJECTED, sprintf(/*@translate*/ "Job opening was rejected by %s", $user->getInfo()->getDisplayName()));
             $jobEntity->setIsDraft(true);
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_REJECTED, $jobEvent);
-            $this->notification()->success($this->translator->translate('Job has been rejected'));
+            $this->notification()->success(/*@translate */'Job has been rejected');
         }
 
         if ($params == 'approved') {
-            $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->info->displayName));
+            $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->getInfo()->getDisplayName()));
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
             $this->entitySnapshot($jobEntity);
-            $this->notification()->success($this->translator->translate('Job has been approved'));
+            $this->notification()->success(/* @translate */ 'Job has been approved');
         }
 
         $viewLink = $this->url()->fromRoute(
@@ -553,13 +506,14 @@ class ManageController extends AbstractActionController
     public function deactivateAction()
     {
         $user           = $this->auth->getUser();
-        $jobEntity      = $this->getJob();
+
+        $jobEntity = $this->initializeJob()->get($this->params());
 
         try {
             $jobEntity->changeStatus(Status::INACTIVE, sprintf(/*@translate*/ "Job was deactivated by %s", $user->getInfo()->getDisplayName()));
-            $this->notification()->success($this->translator->translate('Job has been deactivated'));
+            $this->notification()->success(/*@translate*/ 'Job has been deactivated');
         } catch (\Exception $e) {
-            $this->notification()->danger($this->translator->translate('Job could not be deactivated'));
+            $this->notification()->danger(/*@translate*/ 'Job could not be deactivated');
         }
         return $this->save(array('page' => 2));
     }
@@ -572,12 +526,12 @@ class ManageController extends AbstractActionController
     public function templateAction()
     {
         try {
-            $jobEntity           = $this->getJob();
+            $jobEntity = $this->initializeJob()->get($this->params());
             $jobEntity->setTemplate($this->params('template', 'default'));
             $this->repositoryService->store($jobEntity);
-            $this->notification()->success($this->translator->translate('Template changed'));
+            $this->notification()->success(/* @translate*/ 'Template changed');
         } catch (\Exception $e) {
-            $this->notification()->danger($this->translator->translate('Template not changed'));
+            $this->notification()->danger(/* @translate */ 'Template not changed');
         }
 
         return new JsonModel(array());
@@ -590,7 +544,9 @@ class ManageController extends AbstractActionController
      */
     protected function getErrorViewModel($script, $parameter = array())
     {
-        $this->getResponse()->setStatusCode(500);
+        /** @var Response $response */
+        $response = $this->getResponse();
+        $response->setStatusCode(Response::STATUS_CODE_500);
 
         $model = new ViewModel($parameter);
         $model->setTemplate("jobs/error/$script");
@@ -600,9 +556,9 @@ class ManageController extends AbstractActionController
 
     public function historyAction()
     {
-        $jobEntity      = $this->getJob();
-        $title          = $jobEntity->title;
-        $historyEntity  = $jobEntity->history;
+        $jobEntity = $this->initializeJob()->get($this->params());
+        $title          = $jobEntity->getTitle();
+        $historyEntity  = $jobEntity->getHistory();
 
         $model = new ViewModel(array('title' => $title, 'history' => $historyEntity));
         $model->setTerminal(true);
