@@ -19,9 +19,6 @@ use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
 use Jobs\Listener\Response\JobResponse;
 
-//use Jobs\Listener\Response\JobResponse;
-//use Zend\Http\Request;
-//use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 /**
  * Job listener for publishing job opening via REST
@@ -91,7 +88,10 @@ class Publisher implements ListenerAggregateInterface, SharedListenerAggregateIn
 
     /**
      * allows an event attachment just by class
+     *
      * @param JobEvent $e
+     *
+     * @return JobResponse
      */
     public function restPost(JobEvent $e)
     {

@@ -11,6 +11,7 @@ $options             = $this->services('Core/Options');
 $defaultCurrencyCode = $options->defaultCurrencyCode;
 $defaultTaxRate      = $options->defaultTaxRate;
 $router = $this->services('Router');
+/* @var $provider \Jobs\Options\ProviderOptions */
 $provider = $this->services('Jobs/Options/Provider');
 
 if ($this->renderSummary): echo $this->render('jobs/form/multiposting-select');
@@ -43,6 +44,7 @@ else:
 
                             .portal-buttons .btn-secondary {
                                 width: 20%;
+                                margin-bottom: 3px;
                             }
                         </style>
                         <div class="portal-buttons btn-toolbar" role="toolbar" aria-label="select portals for multiposting">

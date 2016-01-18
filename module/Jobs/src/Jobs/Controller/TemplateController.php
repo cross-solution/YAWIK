@@ -55,7 +55,7 @@ class TemplateController extends AbstractActionController
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
-        $isAdmin=$this->auth()->isAdmin();
+        //$isAdmin=$this->auth()->isAdmin();
 
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 

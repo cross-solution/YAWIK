@@ -14,7 +14,7 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Core\Repository\RepositoryService;
 use Auth\AuthenticationService;
 use Zend\Mvc\Controller\Plugin\Params;
-use Acl\Service\Acl;
+use Acl\Controller\Plugin\Acl;
 
 /**
  * Class InitializeJob
@@ -60,12 +60,11 @@ class InitializeJob extends AbstractPlugin {
     {
         /* @var \Jobs\Repository\Job $jobRepository */
         $jobRepository  = $this->repositoryService->get('Jobs/Job');
-        // @TODO three different method to obtain the job-id ?, simplify this
-        $id_fromRoute   = $params('id', 0);
-        $id_fromQuery   = $params->fromQuery('id', 0);
-        $id_fromSubForm = $params->fromPost('job', 0);
+        $idFromRoute   = $params('id', 0);
+        $idFromQuery   = $params->fromQuery('id', 0);
+        $idFromSubForm = $params->fromPost('job', 0);
 
-        $id = empty($id_fromRoute)? (empty($id_fromQuery)?$id_fromSubForm:$id_fromQuery) : $id_fromRoute;
+        $id = empty($idFromRoute)? (empty($idFromQuery)?$idFromSubForm:$idFromQuery) : $idFromRoute;
 
         if (empty($id) && $allowDraft) {
             $this->acl->__invoke('Jobs/Manage', 'new');

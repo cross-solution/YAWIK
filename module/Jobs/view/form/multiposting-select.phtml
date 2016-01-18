@@ -52,7 +52,7 @@ if ($this->renderSummary):?>
                                 $link = $router->assemble($channel->getParams(), array('name' => $channel->getRoute()));echo $link ?>">
 
                                     <?php if ($logo = $channel->getLogo()):?>
-                                    <img src="<?php echo $logo ?>" alt="<?php echo $channel->getLabel() ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                    <img src="<?php echo $this->basepath($logo) ?>" alt="<?php echo $channel->getLabel() ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
                                     <?php endif; ?> <div><?php echo $channel->getLinkText() ?></div></a></div>
                             <?php
                             /**

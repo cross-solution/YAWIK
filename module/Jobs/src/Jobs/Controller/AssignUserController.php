@@ -18,7 +18,7 @@ use Zend\View\Model\ViewModel;
 /**
  * ${CARET}
  *
- * @method \Acl\Controller\Plugin\Acl acl
+ * @method \Acl\Controller\Plugin\Acl acl()
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test

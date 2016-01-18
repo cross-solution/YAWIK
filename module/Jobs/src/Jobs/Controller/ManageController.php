@@ -28,10 +28,10 @@ use Zend\Http\PhpEnvironment\Response;
 /**
  * This Controller handles management actions for jobs.
  *
- * @method \Acl\Controller\Plugin\Acl acl
- * @method \Jobs\Controller\Plugin\InitializeJob initializeJob
- * @method \Core\Controller\Plugin\Notification notification
- * @method \Core\Controller\Plugin\EntitySnapshot entitySnapshot
+ * @method \Acl\Controller\Plugin\Acl acl()
+ * @method \Jobs\Controller\Plugin\InitializeJob initializeJob()
+ * @method \Core\Controller\Plugin\Notification notification()
+ * @method \Core\Controller\Plugin\EntitySnapshot entitySnapshot()
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
