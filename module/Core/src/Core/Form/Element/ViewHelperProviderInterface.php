@@ -23,7 +23,8 @@ namespace Core\Form\Element;
  */
 interface ViewHelperProviderInterface
 {
-    /** Sets the view helper instance or service name.
+    /**
+     * Sets the view helper instance or service name.
      *
      * @param string $helper
      */

@@ -22,10 +22,10 @@ use Applications\Entity\StatusInterface;
 /**
  * Main Action Controller for Applications module.
  *
- * @method \Core\Controller\Plugin\Notification notification
- * @method \Core\Controller\Plugin\CreatePaginator paginator
- * @method \Auth\Controller\Plugin\Auth auth
- * @method \Acl\Controller\Plugin\Acl acl
+ * @method \Core\Controller\Plugin\Notification notification()
+ * @method \Core\Controller\Plugin\CreatePaginator paginator()
+ * @method \Auth\Controller\Plugin\Auth auth()
+ * @method \Acl\Controller\Plugin\Acl acl()
  */
 class IndexController extends AbstractActionController
 {

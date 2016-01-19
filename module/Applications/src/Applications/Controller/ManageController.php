@@ -13,21 +13,23 @@ namespace Applications\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Zend\Session\Container as Session;
-use Auth\Exception\UnauthorizedAccessException;
 use Applications\Entity\StatusInterface as Status;
 use Applications\Entity\Application;
-use Applications\Entity\Comment;
-use Applications\Entity\Rating;
-use Zend\Stdlib\Parameters;
+
 
 /**
+ * @method \Core\Controller\Plugin\Notification notification()
+ * @method \Core\Controller\Plugin\Mailer mailer()
+ * @method \Acl\Controller\Plugin\Acl acl()
+ * @method \Auth\Controller\Plugin\Auth auth()
+ *
  * Handles managing actions on applications
  */
 class ManageController extends AbstractActionController
 {
     /**
      * attaches further Listeners for generating / processing the output
+     *
      * @return $this
      */
     public function attachDefaultListeners()
@@ -61,30 +63,18 @@ class ManageController extends AbstractActionController
      */
     public function indexAction()
     {
-        $translator = $this->getServiceLocator()->get('translator');
-        $params = $this->paginationParams(
-            'Applications\Index',
-            array(
-            'page' => 1,
-            'sort' => '-date',
-            'search',
-            'by',
-            'job',
-            'status',
-            'unread'
-            )
-        );
-        
         $services              = $this->getServiceLocator();
+        /* @var \Jobs\Repository\Job $jobRepository */
         $jobRepository         = $services->get('repositories')->get('Jobs/Job');
+        /* @var \Applications\Repository\Application $applicationRepository */
         $applicationRepository = $services->get('repositories')->get('Applications/Application');
-        //$url                   = $this->url()->fromRoute('lang/applications', array(), array('query' => 'clear=1'), true);
         $services_form         = $services->get('forms');
+        /* @var \Applications\Form\FilterApplication $form */
         $form                  = $services_form->get('Applications/Filter');
         $params                = $this->getRequest()->getQuery();
+        /* @var \Zend\Form\Element\Select $statusElement */
         $statusElement         = $form->get('status');
 
-        
         $states                = $applicationRepository->getStates()->toArray();
         $states                = array_merge(array(/*@translate*/ 'all'), $states);
         
@@ -114,11 +104,11 @@ class ManageController extends AbstractActionController
             'applicationState' => $params->get('status', '')
         );
     }
-    
+
     /**
      * Detail view of an application
      *
-     * @return Ambigous <\Zend\View\Model\JsonModel, multitype:boolean unknown >
+     * @return array|JsonModel|ViewModel
      */
     public function detailAction()
     {
@@ -130,8 +120,10 @@ class ManageController extends AbstractActionController
         $nav = $this->getServiceLocator()->get('Core/Navigation');
         $page = $nav->findByRoute('lang/applications');
         $page->setActive();
-        
+
+        /* @var \Applications\Repository\Application$repository */
         $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        /* @var Application $application */
         $application = $repository->find($this->params('id'));
         
         if (!$application) {
@@ -259,13 +251,14 @@ class ManageController extends AbstractActionController
     /**
      * Changes the status of an application
      *
-     * @return unknown|multitype:string |multitype:string unknown |multitype:unknown
+     * @return array
      */
     public function statusAction()
     {
         $applicationId = $this->params('id');
+        /* @var \Applications\Repository\Application $repository */
         $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
-        /** @var Application $application */
+        /* @var Application $application */
         $application   = $repository->find($applicationId);
         if (!$application) {
             throw new \InvalidArgumentException('Could not find application.');
@@ -292,21 +285,22 @@ class ManageController extends AbstractActionController
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
         }
         $mailService = $this->getServiceLocator()->get('Core/MailService');
+        /* @var \Applications\Mail\StatusChange $mail */
         $mail = $mailService->get('Applications/StatusChange');
         $mail->setApplication($application);
         if ($this->request->isPost()) {
             $mail->setSubject($this->params()->fromPost('mailSubject'));
             $mail->setBody($this->params()->fromPost('mailText'));
-            if ($from = $application->job->contactEmail) {
-                $mail->setFrom($from, $application->job->company);
+            if ($from = $application->getJob()->getContactEmail()) {
+                $mail->setFrom($from, $application->getJob()->getCompany());
             }
             if ($this->settings()->mailBCC) {
                 $user = $this->auth()->getUser();
-                $mail->addBcc($user->info->email, $user->info->displayName);
+                $mail->addBcc($user->getInfo()->getEmail(), $user->getInfo()->getDisplayName());
             }
             $mailService->send($mail);
 
-            $historyText = sprintf('Mail was sent to %s', $application->contact->email);
+            $historyText = sprintf('Mail was sent to %s', $application->getContact()->getEmail());
             $application->changeStatus($status, $historyText);
             $this->notification()->success($historyText);
 
@@ -339,7 +333,7 @@ class ManageController extends AbstractActionController
         $mailText = $mail->getBodyText();
         $mailSubject   = sprintf(
             $translator->translate('Your application dated %s'),
-            strftime('%x', $application->dateCreated->getTimestamp())
+            strftime('%x', $application->getDateCreated()->getTimestamp())
         );
         
         $params = array(
@@ -351,14 +345,12 @@ class ManageController extends AbstractActionController
         if ($jsonFormat) {
             return $params;
         }
-        
+
+        /* @var \Applications\Form\Mail $form */
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Applications/Mail');
         $form->populateValues($params);
                 
-        return array(
-            'form' => $form
-        );
-          
+        return ['form' => $form];
     }
     
     /**
@@ -371,6 +363,7 @@ class ManageController extends AbstractActionController
     {
         $services     = $this->getServiceLocator();
         $emailAddress = $this->params()->fromQuery('email');
+        /* @var \Applications\Entity\Application $application */
         $application  = $services->get('repositories')->get('Applications/Application')
                                  ->find($this->params('id'));
         
@@ -389,7 +382,7 @@ class ManageController extends AbstractActionController
         
         try {
             $userName    = $this->auth('info')->displayName;
-            $fromAddress = $application->job->contactEmail;
+            $fromAddress = $application->getJob()->getContactEmail();
             $mailOptions = array(
                 'application' => $application,
                 'to'          => $emailAddress,
@@ -405,15 +398,14 @@ class ManageController extends AbstractActionController
             $this->notification()->error($params['text']);
 
         }
-        $application->changeStatus($application->status, $params['text']);
+        $application->changeStatus($application->getStatus(), $params['text']);
         return new JsonModel($params);
     }
-    
+
     /**
      * Deletes an application
      *
-     * @throws \DomainException
-     * @return multitype:string
+     * @return array
      */
     public function deleteAction()
     {
@@ -432,9 +424,7 @@ class ManageController extends AbstractActionController
         $repositories->remove($application);
         
         if ('json' == $this->params()->fromQuery('format')) {
-            return array(
-                'status' => 'success'
-            );
+            return ['status' => 'success'];
         }
         
         $this->redirect()->toRoute('lang/applications', array(), true);

@@ -10,8 +10,6 @@
 
 namespace Core\Form\Element;
 
-use Core\Form\View\Helper\FormEditorLight;
-
 class EditorLight extends Editor implements ViewHelperProviderInterface
 {
     protected $viewHelper = 'TinyMCEditorLight';

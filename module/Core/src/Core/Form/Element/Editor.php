@@ -11,8 +11,6 @@
 namespace Core\Form\Element;
 
 use Zend\Form\Element\Textarea;
-use Core\Form\View\Helper\FormEditor;
-use Core\Form\Element\ViewHelperProviderInterface;
 use Core\Service\OptionValueInterface;
 
 class Editor extends Textarea implements ViewHelperProviderInterface

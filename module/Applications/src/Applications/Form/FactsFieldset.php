@@ -15,7 +15,7 @@ use Zend\Form\Fieldset;
 use Core\Form\EmptySummaryAwareInterface;
 
 /**
- * Facts fieldset.
+ * Facts fieldset. Defines formular fields of the facts form fieldset.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -55,7 +55,8 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
             ),
             'attributes' => array(
                 'data-placeholder' => /*@translate*/ 'please select',
-                'data-allowclear' => 'true',
+                'data-allowclear' => 'false',
+                'data-searchbox' => -1,
             ),
             )
         );
@@ -63,7 +64,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         $this->add(
             array(
             'name' => 'earliestStartingDate',
-            'type' => "text",
+            'type' => "date",
             'options' => array(
                 'label' => /*@translate*/ 'Earliest starting date',
                 'description' => /*@translate*/ 'Enter the earliest starting date.',
@@ -76,33 +77,39 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
 
         $this->add(
             array(
-            'name' => 'expectedSalary',
-            'options' => array(
-                'label' => /*@translate*/ 'Expected salary',
-                'description' => /*@translate*/ 'Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.',
-                'disable_capable' => array(
-                    'description' => /*@translate*/ 'Ask users about their expected salary.',
+                'name'    => 'expectedSalary',
+                'options' => array(
+                    'label'           => /*@translate*/ 'Expected salary',
+                    'description'     => /*@translate*/ 'Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.',
+                    'disable_capable' => array(
+                        'description' => /*@translate*/ 'Ask users about their expected salary.',
+                    ),
                 ),
-            ),
             )
         );
 
         $this->add(
             array(
-                       'name' => 'drivingLicense',
-                       'type' => '\Zend\Form\Element\Select',
-                       'options' => array(
-                           'value_options' => array(
-                               '' => '', // needed for jquery select2 to render the placeholder
-                               "1"=>/*@translate*/ "Yes",
-                               "0"=>/*@translate*/ "No"),
-                           'label' => /*@translate*/ 'driving license',
-                           'description' => /*@translate*/ 'Do you have a driving license?',
-                           'disable_capable' => array(
-                               'description' => /*@translate*/ 'Ask the applicant, if he has a driving license.',
-                           ),
-                       ),
-                   )
+                'name'       => 'drivingLicense',
+                'type'       => '\Zend\Form\Element\Select',
+                'options'    => array(
+                    'value_options'   => array(
+                        ''  => '', // needed for jquery select2 to render the placeholder
+                        "1" =>/*@translate*/ "Yes",
+                        "0" =>/*@translate*/ "No"
+                    ),
+                    'label'           => /*@translate*/ 'driving license',
+                    'description'     => /*@translate*/ 'Do you have a driving license?',
+                    'disable_capable' => array(
+                        'description' => /*@translate*/ 'Ask the applicant, if he has a driving license.',
+                    ),
+                ),
+                'attributes' => [
+                    'data-allowclear'  => 'false',
+                    'data-searchbox'   => -1,
+                    'data-placeholder' => /*@translate*/ 'please select',
+                ]
+            )
         );
     }
 
