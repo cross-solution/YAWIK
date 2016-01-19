@@ -36,7 +36,7 @@ use Applications\Entity\StatusInterface;
  *
  * if you use the do as query-parameter, you have to customize the do-Action for the special purpose that is assigned to the do parameter in the query
  *
- * @method \Auth\Controller\Plugin\Auth auth
+ * @method \Auth\Controller\Plugin\Auth auth()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ApplyController extends AbstractActionController

@@ -13,9 +13,7 @@ namespace AuthTest\Entity;
 use Auth\Entity\Info;
 use Auth\Entity\Token;
 use Auth\Entity\User;
-use Core\Entity\Collection\ArrayCollection;
-use Organizations\Entity\Organization;
-use Organizations\Entity\OrganizationReference;
+
 
 /**
  * Tests for User
