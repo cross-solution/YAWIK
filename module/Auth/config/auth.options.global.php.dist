@@ -54,8 +54,6 @@ $options = array(
                     'imgUrl' => '/captcha'
                 ]
             ]
-        )
-
     );
 
 ### do not edit below ###
