@@ -30,7 +30,8 @@ class IndexControllerFactory implements FactoryInterface
         /* @var ServiceLocatorInterface $serviceLocator */
         $serviceLocator = $controllerManager->getServiceLocator();
         $auth = $serviceLocator->get('AuthenticationService');
-        $loginForm = $serviceLocator->get('Auth\Form\Login');
+        $formElementManager = $serviceLocator->get('formElementManager');
+        $loginForm = $formElementManager->get('Auth\Form\Login');
 
         /* @var $logger LoggerInterface*/
         $logger = $serviceLocator->get('Core/Log');
@@ -42,7 +43,7 @@ class IndexControllerFactory implements FactoryInterface
 
         if ($options->getEnableRegistration()) {
             /* @var $registerForm Register */
-            $registerForm = $serviceLocator->get('Auth\Form\Register');
+            $registerForm = $formElementManager->get('Auth\Form\Register');
             $forms[IndexController::REGISTER] = $registerForm;
         }
 

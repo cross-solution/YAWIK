@@ -19,7 +19,7 @@ use Zend\Form\Fieldset;
 
 class Register extends Form
 {
-    public function __construct($name = 'register-form', CaptchaOptions $options)
+    public function __construct($name = 'register-form', CaptchaOptions $options, $role = 'recruiter')
     {
         parent::__construct($name, []);
 

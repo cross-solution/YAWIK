@@ -101,6 +101,7 @@ class ApplyController extends AbstractActionController
                 throw new \RuntimeException('Missing apply id');
             }
 
+            /* @var \Jobs\Entity\Job $job */
             $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
 
             if ($user === $job->getUser()) {
@@ -135,7 +136,7 @@ class ApplyController extends AbstractActionController
                     /* @var $application \Applications\Entity\Application */
                     $application = $repository->create();
                     $application->setIsDraft(true)
-                                ->setContact($user->info)
+                                ->setContact($user->getInfo())
                                 ->setUser($user)
                                 ->setJob($job);
 

@@ -39,7 +39,9 @@ class RegisterControllerFactory implements FactoryInterface
          * @var $logger  LoggerInterface
          * @var $options  ModuleOptions
          */
-        $form = $serviceLocator->get('Auth\Form\Register');
+        $formElementManager = $serviceLocator->get('formElementManager');
+        $form = $formElementManager->get('Auth\Form\Register');
+
         $service = $serviceLocator->get('Auth\Service\Register');
         $logger = $serviceLocator->get('Core/Log');
         $options = $serviceLocator->get('Auth/Options');

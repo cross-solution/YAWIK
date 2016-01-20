@@ -26,12 +26,13 @@ class RegisterFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /**
+         * @var $serviceLocator \Zend\Form\FormElementManager
          * @var $filter RegisterInputFilter
          */
-        $filter = $serviceLocator->get('Auth\Form\RegisterInputFilter');
+        $filter = $serviceLocator->getServiceLocator()->get('Auth\Form\RegisterInputFilter');
 
         /* @var $config CaptchaOptions */
-        $config = $serviceLocator->get('Auth/CaptchaOptions');
+        $config = $serviceLocator->getServiceLocator()->get('Auth/CaptchaOptions');
 
         $form = new Register(null, $config);
 

@@ -65,7 +65,10 @@ class RegisterInputFilter extends InputFilter
                             array(
                                 'name' => 'InArray',
                                 'options' => array(
-                                    'haystack' => array(User::ROLE_RECRUITER),
+                                    'haystack' => [
+                                        User::ROLE_RECRUITER,
+                                        User::ROLE_USER
+                                    ],
                                     'messages' => array(
                                         'notInArray' => 'Please select your role!'
                                     ),
