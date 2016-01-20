@@ -57,7 +57,7 @@ class Register extends Form
                 'name' => 'role',
                 'type' => 'hidden',
                 'attributes' => array(
-                    'value' => User::ROLE_RECRUITER,
+                    'value' => $role,
                 ),
             )
         );
