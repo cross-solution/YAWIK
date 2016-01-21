@@ -24,11 +24,11 @@ class ListFilterPersonalFieldset extends ListFilterBaseFieldset
     public function __construct()
     {
         parent::__construct();
-        parent::init();
     }
 
     public function init()
     {
+        $this->parentInit();
         $this->add(
             array(
                 'type'       => 'Radio',
@@ -62,5 +62,13 @@ class ListFilterPersonalFieldset extends ListFilterBaseFieldset
                 )
             )
         );
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function parentInit()
+    {
+        parent::init();
     }
 }

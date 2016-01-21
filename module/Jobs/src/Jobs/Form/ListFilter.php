@@ -53,7 +53,7 @@ class ListFilter extends Form implements ViewPartialProviderInterface
      *
      * fieldset: string service name of the Fieldset class
      */
-    public function __construct($name, array $options=[])
+    public function __construct($name = null, array $options=[])
     {
         $this->fieldset = array_key_exists('fieldset',$options)?$options['fieldset']:self::BASE_FIELDSET;
         parent::__construct();
@@ -81,8 +81,12 @@ class ListFilter extends Form implements ViewPartialProviderInterface
     public function init()
     {
         $this->setName('jobs-list-filter');
-        $this->setAttribute('id', 'jobs-list-filter');
-        $this->setAttribute('data-handle-by', 'native');
+        $this->setAttributes(
+            [
+                'id' => 'jobs-list-filter',
+                'data-handle-by' => 'native'
+            ]
+        );
 
         $this->add(
             [

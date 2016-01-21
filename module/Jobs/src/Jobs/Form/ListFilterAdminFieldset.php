@@ -22,11 +22,11 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
     public function __construct()
     {
         parent::__construct();
-        parent::init();
     }
 
     public function init()
     {
+        $this->parentInit();
         $this->add(
             array(
                 'type'       => 'Select',
@@ -64,5 +64,13 @@ class ListFilterAdminFieldset extends ListFilterBaseFieldset
                 ),
             )
         );
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function parentInit()
+    {
+        parent::init();
     }
 }

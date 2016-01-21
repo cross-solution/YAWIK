@@ -21,12 +21,11 @@ class ListFilterLocationFieldset extends ListFilterBaseFieldset
     public function __construct()
     {
         parent::__construct();
-        parent::init();
     }
 
     public function init()
     {
-
+        $this->parentInit();
         $this->add(
             array(
                 'name'    => 'l',
@@ -61,5 +60,13 @@ class ListFilterLocationFieldset extends ListFilterBaseFieldset
                 ]
             )
         );
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    protected function parentInit()
+    {
+        parent::init();
     }
 }
