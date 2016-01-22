@@ -277,14 +277,12 @@ return array(
         'invokables' => array(
             'Jobs/Job'                          => 'Jobs\Form\Job',
             'Jobs/Base'                         => 'Jobs\Form\Base',
-            'Jobs/BaseFieldset'                 => 'Jobs\Form\BaseFieldset',
             'Jobs/Employers'                    => 'Jobs\Form\JobEmployers',
             'Jobs/JobEmployersFieldset'         => 'Jobs\Form\JobEmployersFieldset',
             'Jobs/Description'                  => 'Jobs\Form\JobDescription',
             'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
             'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
-            'Jobs/ListFilterLocationFieldset'   => 'Jobs\Form\ListFilterLocationFieldset',
             'Jobs/ListFilterPersonalFieldset'   => 'Jobs\Form\ListFilterPersonalFieldset',
             'Jobs/ListFilterAdminFieldset'      => 'Jobs\Form\ListFilterAdminFieldset',
             'Jobs/JobDescriptionDescription'    => 'Jobs\Form\JobDescriptionDescription',
@@ -307,13 +305,14 @@ return array(
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
+
         ),
         'factories' => array(
-
+            'Jobs/BaseFieldset'                 => 'Jobs\Factory\Form\BaseFieldsetFactory',
+            'Jobs/ListFilterLocationFieldset'   => 'Jobs\Factory\Form\ListFilterLocationFieldsetFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
             'Jobs/ActiveOrganizationSelect'     => 'Jobs\Factory\Form\ActiveOrganizationSelectFactory',
-            //'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',
             'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingMultiCheckboxFactory',
             'Jobs/Import'                       => 'Jobs\Factory\Form\ImportFactory',
         )

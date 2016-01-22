@@ -12,6 +12,11 @@
 $this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
 $translate = $this->plugin('translate');
 
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+/* @var \Geo\Options\ModuleOptions $options */
+$options = $sm->get('Geo/Options');
+$plugin = $options->getPlugin();
+
 $createRadioGroup = function ($element, $id) use ($translate) {
     $input = '';
     ?>
@@ -99,7 +104,7 @@ if ($params->has('by')) {
             "geo/form/GeoHorizontal",
             [
                 'element' => $params->get('l')
-                    ->setOptions(['geoPlugin' => 'photon'])
+                    ->setOptions(['geoPlugin' => $plugin])
                     ->setAttributes(
                         array(
                             'class'       => 'form-control ',

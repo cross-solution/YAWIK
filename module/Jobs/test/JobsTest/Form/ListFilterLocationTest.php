@@ -35,7 +35,7 @@ class ListFilterLocationTest extends \PHPUnit_Framework_TestCase
             'options' => array(
                 'label'       => /*@translate*/
                     'Location',
-                'engine_type' => 'photon',
+                'engine_type' => null
             ),
         ];
 

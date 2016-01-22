@@ -18,21 +18,33 @@ namespace Jobs\Form;
 class ListFilterLocationFieldset extends ListFilterBaseFieldset
 {
 
-    public function __construct()
+    /**
+     * @var
+     */
+    protected $locationEngineType;
+
+    /**
+     * @param array $options
+     */
+    public function __construct(array $options = [])
     {
         parent::__construct();
+        if (array_key_exists('location_engine_type',$options)) {
+            $this->locationEngineType = $options['location_engine_type'];
+        }
     }
 
     public function init()
     {
         $this->parentInit();
+
         $this->add(
             array(
                 'name'    => 'l',
                 'type'    => 'Location',
                 'options' => array(
                     'label'       => /*@translate*/ 'Location',
-                    'engine_type' => 'photon',
+                    'engine_type' => $this->locationEngineType,
                 ),
             )
         );

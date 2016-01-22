@@ -96,6 +96,7 @@ class JobboardController extends AbstractActionController
         if (isset($params['l']['data'])) {
             /* @var \Geo\Form\GeoText $geoText */
             $geoText = $this->searchForm->get('params')->get('l');
+
             $geoText->setValue($params['l']);
             $params['location'] = $geoText->getValue('entity');
         }
