@@ -45,25 +45,9 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $geoOptionsMock = $this->getMockBuilder('Geo\Options')
-                               ->disableOriginalConstructor()
-                               ->getMock();
-
-        $formElementManagerMock = $this->getMockBuilder('formElementManager')
-                              ->disableOriginalConstructor()
-                              ->getMock();
-
         $repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
                                  ->disableOriginalConstructor()
                                  ->getMock();
-
-        $repositoriesMock->expects($this->once())
-                         ->method('get')
-                         ->with('GeoOptions')
-                         ->willReturn($geoOptionsMock);
-
-
-
 
         $repositoriesMock->expects($this->once())
             ->method('get')
@@ -71,7 +55,7 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($jobRepositoryMock);
 
         $sm->setService('repositories', $repositoriesMock);
-        $sm->setService('formElementManager', $formElementManagerMock);
+
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

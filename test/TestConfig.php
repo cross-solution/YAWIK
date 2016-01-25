@@ -5,6 +5,7 @@ return array(
         'Core',
         'Auth',
         'Jobs',
+        'Geo',
         'Cv',
         'Settings',
         'Applications',
