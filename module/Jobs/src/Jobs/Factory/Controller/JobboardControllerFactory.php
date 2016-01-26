@@ -17,6 +17,12 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class JobboardControllerFactory implements FactoryInterface
 {
+    /**
+     * Name of the pagination service
+     *
+     * @var string $paginationService;
+     */
+    protected $paginationService = 'Jobs/Board';
 
     /**
      * Injects all needed services into the JobboardController

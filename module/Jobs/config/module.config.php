@@ -331,8 +331,8 @@ return array(
 
     'filters' => array(
         'factories'=> array(
-            'Jobs/PaginationQuery'      => '\Jobs\Repository\Filter\PaginationQueryFactory',
-            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory',
+            'Jobs/PaginationQuery'      => 'Jobs\Factory\Repository\Filter\PaginationQueryFactory',
+            'Jobs/PaginationAdminQuery' => 'Jobs\Factory\Repository\Filter\PaginationAdminQueryFactory',
             'Jobs/ChannelPrices'        => 'Jobs\Factory\Filter\ChannelPricesFactory',
         ),
     ),

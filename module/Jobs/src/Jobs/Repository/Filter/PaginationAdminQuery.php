@@ -56,6 +56,16 @@ class PaginationAdminQuery extends PaginationQuery
     {
         $this->value = $params->toArray();
 
+        /*
+         * search jobs by keywords
+         */
+
+        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
+            $search = strtolower($this->value['params']['search']);
+            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
+            $queryBuilder->field(null)->equals($expression->getQuery());
+        }
+
         if (isset($this->value['params']['status']) &&
             !empty($this->value['params']['status']))
         {
@@ -70,15 +80,6 @@ class PaginationAdminQuery extends PaginationQuery
             !empty($this->value['params']['companyId']))
         {
             $queryBuilder->field('organization')->equals(new \MongoId($this->value['params']['companyId']));
-        }
-
-        /*
-         * search jobs by keywords
-         */
-        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
-            $search = strtolower($this->value['params']['search']);
-            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
-            $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
         if (isset($this->value['sort'])) {

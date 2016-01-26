@@ -1,20 +1,17 @@
 <?php
-/**
- * YAWIK
- *
- * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @license   MIT
- * @author    weitz@cross-solution.de
- */
 
-namespace Jobs\Repository\Filter;
+namespace Jobs\Factory\Repository\Filter;
 
 use Auth\AuthenticationService;
-use \Zend\ServiceManager\FactoryInterface;
-use \Zend\ServiceManager\ServiceLocatorInterface;
+use Jobs\Repository\Filter\PaginationQuery;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class PaginationAdminQueryFactory implements FactoryInterface
+/**
+ * Class PaginationQueryFactory
+ * @package Jobs\Repository\Filter
+ */
+class PaginationQueryFactory implements FactoryInterface
 {
     /**
      * @param ServiceLocatorInterface $serviceLocator
@@ -28,7 +25,7 @@ class PaginationAdminQueryFactory implements FactoryInterface
         $auth = $services->get('AuthenticationService');
         $acl = $services->get('Acl');
 
-        $filter = new PaginationAdminQuery($auth, $acl);
+        $filter = new PaginationQuery($auth, $acl);
         return $filter;
     }
 }

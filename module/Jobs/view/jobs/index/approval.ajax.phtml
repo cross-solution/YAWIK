@@ -17,6 +17,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
     <th><?php echo $this->translate('Title of the job')?></th>
     <th><?php echo $this->translate('Companyname') ?></th>
     <th><?php echo $this->translate('Name') ?></th>
+    <th><?php echo $this->translate('Status')?></th>
     <th><?php echo $this->translate('Action')?></th>
 </tr>
 </thead>
@@ -44,6 +45,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 
             ?>
         </td>
+        <td><?php echo $this->translate($job->getStatus()); ?></td>
         <td class="btn-group btn-toolbar">
                 <a data-title="title"
                    data-toggle="modal"
