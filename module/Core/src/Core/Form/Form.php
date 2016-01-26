@@ -235,13 +235,13 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
             $this->get($key)->setValue($value);
         } else {
             $this->add(
-                array(
-                'type' => 'hidden',
-                'name' => $key,
-                'attributes' => array(
-                    'value' => $value
-                )
-                )
+                [
+                    'type'       => 'hidden',
+                    'name'       => $key,
+                    'attributes' => [
+                        'value' => $value
+                    ]
+                ]
             );
         }
         return $this;

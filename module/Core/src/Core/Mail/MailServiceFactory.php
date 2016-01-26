@@ -21,9 +21,16 @@ class MailServiceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        
-        $configArray = $serviceLocator->get('Config');
-        $configArray = isset($configArray['mails']) ? $configArray['mails'] : array();
+
+        /* @var \Auth\Options\ModuleOptions $authOptions */
+        $authOptions = $serviceLocator->get('Auth\Options');
+        $configArray=[
+                'from' => [
+                    'name' => $authOptions->getFromName(),
+                    'email' => $authOptions->getFromEmail()
+                ]
+        ];
+
         $config      = new MailServiceConfig($configArray);
         
         $service   = new MailService($config);

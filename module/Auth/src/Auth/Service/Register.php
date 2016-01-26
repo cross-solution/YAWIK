@@ -320,6 +320,7 @@ class Register
             $userEmail              = $user->getInfo()->getEmail();
             $userName               = $user->getInfo()->getDisplayName();
             $mailService            = $this->getMailService();
+            /* @var \Core\Mail\HTMLTemplateMessage $mail */
             $mail                   = $mailService->get('htmltemplate');
             $mail->user             = $user;
             $mail->name             = $userName;

@@ -8,10 +8,12 @@ class Mail extends Message
 {
     protected $_mailer;
     protected $_emailOrAddressOrList;
-    
+
+    /**
+     * @param $mailer
+     */
     public function __construct($mailer)
     {
-        //parent::__construct();
         $this->_mailer = $mailer;
         return $this;
     }
