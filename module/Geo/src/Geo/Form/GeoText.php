@@ -148,7 +148,17 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
                  list($lon,$lat) = explode(',', $v, 2);
                  $latLon[]=$lat.','.$lon;
             }
-            $value['data'] = ['coordinates'=>[ (float) $lat, (float) $lon] ,'type'=>'Point', 'region' => '' ,'postalcode' =>'', 'country' => 'DE'];
+
+            $value['data'] = [
+                'coordinates'=>[
+                    (float) $lat,
+                    (float) $lon
+                    ],
+                'type'=>'Point',
+                'city' => substr($value['name'],0,strrpos($value['name'], ',' )),
+                'region' =>  substr($value['name'],strrpos($value['name'], ',' )+2),
+                'postalcode' =>'',
+                'country' => 'DE'];
         }
         if (!is_array($value)) {
             $value = explode('|', $value, 2);
