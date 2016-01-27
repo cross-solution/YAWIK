@@ -93,7 +93,9 @@ class JobboardController extends AbstractActionController
 
         $params = $params->get('params', []);
 
-        if (isset($params['l']['data'])) {
+        if (isset($params['l']['data']) &&
+            isset($params['l']['name']) &&
+            !empty($params['l']['name'])) {
             /* @var \Geo\Form\GeoText $geoText */
             $geoText = $this->searchForm->get('params')->get('l');
 
