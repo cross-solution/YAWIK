@@ -193,13 +193,17 @@ class ImportController extends AbstractActionController
                         if (!empty($id)) {
                             $jobEvent = $services->get('Jobs/Event');
                             $jobEvent->setJobEntity($entity);
-                            $jobEvent->addPortal('XingVendorApi');
 
                             $extra = [];
                             foreach (array('channels', 'positions', 'branches', 'keywords', 'description') as $paramName) {
                                 $data = $params->get($paramName);
                                 if ($data) {
                                     $data = Json::decode($data, Json::TYPE_ARRAY);
+                                    if ('channels' == $paramName) {
+                                        foreach (array_keys($data) as $portalName) {
+                                            $jobEvent->addPortal($portalName);
+                                        }
+                                    }
 
                                     $extra[$paramName] = $data;
                                 }
