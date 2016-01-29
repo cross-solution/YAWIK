@@ -83,10 +83,17 @@ class JobResponse implements ResponseInterface
      * @param string $portal
      * @param string $status
      */
-    public function __construct($portal = '', $status = self::RESPONSE_NOTIMPLEMENTED)
-    {
+    public function __construct($portal = '', $status = self::RESPONSE_NOTIMPLEMENTED, $message='') {
         $this->portal = $portal;
         $this->status = $status;
+        $this->message = $message;
+        return $this;
+    }
+
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
         return $this;
     }
 

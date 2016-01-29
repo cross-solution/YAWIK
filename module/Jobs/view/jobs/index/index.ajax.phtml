@@ -46,7 +46,10 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
         <?php endif ?></td>
               
     <td>
-        <?php $href = $job->link ? $job->link : ($this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true)); ?>
+    <?php $href = $this->showPendingJobs ? $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->id)), true)
+                                         : ($job->link ? $job->link :
+                                                        $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true)
+                                            ); ?>
         <a href="<?php echo $href ?>" target="_blank" rel="nofollow"><?php echo strip_tags($job->title)?></a>
     </td>
     <td><?php echo $job->location?></td>

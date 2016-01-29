@@ -434,6 +434,7 @@ class ManageController extends AbstractActionController
         $jobEntity = $this->initializeJob()->get($this->params());
         $jobEvent       = $serviceLocator->get('Jobs/Event');
         $jobEvent->setJobEntity($jobEntity);
+        $jobEvent->addPortal('XingVendorApi');
         $jobEvents      = $serviceLocator->get('Jobs/Events');
         // array with differences between the last snapshot and the actual entity
         // is remains Null if there is no snapshot

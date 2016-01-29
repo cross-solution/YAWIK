@@ -61,7 +61,14 @@ return array(
             ),
         ),
     ),
-           
+
+    'log_processors' => [
+        'invokables' => [
+            'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
+        ],
+    ],
+
+
     // Routes
     'router' => array(
         'routes' => array(
@@ -154,7 +161,9 @@ return array(
             'templateProvider'           => 'Core\Service\TemplateProvider',
             'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
             'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
+            'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
+
         ),
         'factories' => array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
