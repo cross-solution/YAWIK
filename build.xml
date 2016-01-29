@@ -127,13 +127,10 @@
         <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/css/bootstrap-dialog.min.css" tofile="${builddir}/public/css/bootstrap-dialog.min.css"/>
 
         <copy file="${vendordir}/twbs/bootstrap/dist/js/bootstrap.min.js" tofile="${builddir}/public/js/bootstrap.min.js"/>
-        <copy file="${vendordir}/ivaynberg/select2/select2.min.js" tofile="${builddir}/public/js/select2.min.js"/>
-        <copy file="${vendordir}/ivaynberg/select2/select2.css" tofile="${builddir}/public/css/select2.css"/>
-        <copy file="${vendordir}/ivaynberg/select2/select2-bootstrap.css" tofile="${builddir}/public/css/select2-bootstrap.css"/>
-        <copy file="${vendordir}/ivaynberg/select2/select2.png" tofile="${builddir}/public/css/select2.png"/>
-        <copy file="${vendordir}/ivaynberg/select2/select2-spinner.gif" tofile="${builddir}/public/css/select2-spinner.gif"/>
-        <copy file="${vendordir}/ivaynberg/select2/select2x2.png" tofile="${builddir}/public/css/select2x2.png"/>
-        <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.js"/>
+        <copy file="${vendordir}/ivaynberg/select2/dist/js/select2.min.js" tofile="${builddir}/public/js/select2.min.js"/>
+        <copy file="${vendordir}/ivaynberg/select2/dist/css/select2.css" tofile="${builddir}/public/css/select2.css"/>
+        <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.photon.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.photon.js"/>
+        <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.geo.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.geo.js"/>
 
         <mkdir dir="${builddir}/log"/>
         <chmod file="${builddir}/log" mode="0777"/>
@@ -274,6 +271,7 @@
             <exclude name="**/YawikDemo*/**"/>
             <exclude name="**/YawikCompanyRegistration/**"/>
             <exclude name="**/CamMediaintown/**"/>
+            <exclude name="**/NextKraftwerke/**"/>
             <exclude name="**/JobsDeutschland/**"/>
             <exclude name="**/Karrierelounge/**"/>
             <exclude name="**/Greenjobs/**"/>
