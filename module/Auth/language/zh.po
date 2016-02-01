@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 16:22+0200\n"
-"PO-Revision-Date: 2015-06-10 15:06+0000\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:31+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
-"Language-Team: Chinese (http://www.transifex.com/projects/p/yawik/language/zh/)\n"
+"Language-Team: Chinese (http://www.transifex.com/yawik/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -64,6 +64,20 @@ msgstr "至少一个用户已被分配"
 msgid "My groups"
 msgstr "我的群"
 
+#: view/error/social-profiles-unconfigured.phtml:13
+msgid "Missing Configuration"
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:14
+msgid "Unfortunately there seems to be missing configuration."
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:19
+msgid ""
+"The login via social networks does not work at the moment due to the missing"
+" of some crucial configuration data."
+msgstr ""
+
 #: view/auth/manage-groups/index.phtml:11
 msgid "Manage groups"
 msgstr "管理组"
@@ -72,7 +86,7 @@ msgstr "管理组"
 msgid "Add group"
 msgstr "添加组"
 
-#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:69
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:63
 msgid "Group name"
 msgstr "组名"
 
@@ -97,19 +111,19 @@ msgid "Please authenticate yourself to proceed"
 msgstr "请验证自己继续"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:73
+#: view/auth/index/index.phtml:23 view/auth/index/login-info.phtml:74
 msgid "Login"
 msgstr "登录"
 
-#: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
-msgid "I forgot my password"
-msgstr "我忘记了密码"
-
-#: view/auth/index/index.phtml:43 view/auth/index/index.phtml:44
-#: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
-#: language/_annotated_strings.php:93
+#: view/auth/index/index.phtml:29 view/auth/register/index.phtml:1
+#: view/auth/register/index.phtml:2 language/_annotated_strings.php:87
 msgid "Register"
 msgstr "注册"
+
+#: view/auth/index/index.phtml:44 view/auth/index/index.phtml:45
+#: view/auth/index/index.phtml:68 view/auth/index/index.phtml:69
+msgid "I forgot my password"
+msgstr "我忘记了密码"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
@@ -123,8 +137,8 @@ msgstr "未知应用标识符"
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr "工作信息与提供的应用标识符可以不被发现。"
 
-#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:3
-#: view/auth/manage/profile.phtml:9
+#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:11
+#: view/auth/manage/profile.phtml:16
 msgid "My profile"
 msgstr "我的个人资料"
 
@@ -132,39 +146,39 @@ msgstr "我的个人资料"
 msgid "Change password"
 msgstr "更改密码"
 
-#: view/auth/index/login-info.phtml:43
+#: view/auth/index/login-info.phtml:44
 msgid "Create my organization"
 msgstr "创建我的组织"
 
-#: view/auth/index/login-info.phtml:46
+#: view/auth/index/login-info.phtml:47
 #, php-format
 msgid "Edit \"%s\""
 msgstr ""
 
-#: view/auth/index/login-info.phtml:54
+#: view/auth/index/login-info.phtml:55
 msgid "Logout"
 msgstr "注销"
 
-#: view/auth/index/login-info.phtml:61
+#: view/auth/index/login-info.phtml:62
 #, php-format
 msgid "Hello %s"
 msgstr ""
 
-#: view/auth/index/login-info.phtml:62
+#: view/auth/index/login-info.phtml:63
 msgid "Guest"
 msgstr "客人"
 
-#: view/auth/index/login-info.phtml:77
+#: view/auth/index/login-info.phtml:79
 msgid "Login via"
 msgstr "通过登录"
 
-#: view/auth/index/login-info.phtml:80
+#: view/auth/index/login-info.phtml:82
 #, php-format
 msgid "Login with %s"
 msgstr ""
 
 #: view/auth/forgot-password/index.phtml:1
-#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:81
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:75
 msgid "Reset your password"
 msgstr "重置密码"
 
@@ -174,19 +188,27 @@ msgid ""
 "create a new password via email."
 msgstr "请输入您的用户名或电子邮件地址。您将收到一个链接，创建通过电子邮件新的密码。"
 
+#: view/auth/register/completed.phtml:2
+msgid "The registration has been successful"
+msgstr ""
+
+#: view/auth/register/completed.phtml:4 language/_annotated_strings.php:150
+msgid ""
+"An Email with an activation link has been sent, please try to check your "
+"email box"
+msgstr "一封电子邮件，激活链接已发送，请尝试检查您的电子邮箱"
+
 #: view/auth/password/index.phtml:11 view/auth/password/index.phtml:14
-#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr "我的密码"
 
-#: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:15
-#: language/_annotated_strings.php:57
+#: src/Auth/Form/UserInfo.php:32 language/_annotated_strings.php:51
 msgid "personal informations"
 msgstr "个人信息"
 
 #: src/Auth/Form/UserPasswordFieldset.php:35
-#: language/_annotated_strings.php:60 language/_annotated_strings.php:63
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:54 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:102
 msgid "Password"
 msgstr "密码"
 
@@ -194,7 +216,7 @@ msgstr "密码"
 msgid "Group data"
 msgstr "集团数据"
 
-#: src/Auth/Form/GroupUsersCollection.php:88
+#: src/Auth/Form/GroupUsersCollection.php:89
 msgid "Users"
 msgstr "用户"
 
@@ -215,161 +237,163 @@ msgstr "社会概况"
 msgid "Allow users to attach their %s profile."
 msgstr ""
 
-#: language/_annotated_strings.php:18 language/_annotated_strings.php:87
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:81
 msgid "Email"
 msgstr "电子邮件"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:18
 msgid "Phone"
 msgstr "电话"
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:21
 msgid "Postalcode"
 msgstr "邮政编码"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:24
 msgid "City"
 msgstr "城市"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:27
 msgid "Salutation"
 msgstr "招呼"
 
-#: language/_annotated_strings.php:33 language/_annotated_strings.php:42
-msgid "please select"
-msgstr "请选择"
-
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:30
 msgid "Mr."
 msgstr "先生."
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:33
 msgid "Mrs."
 msgstr "太太."
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:36
+msgid "please select"
+msgstr "请选择"
+
+#: language/_annotated_strings.php:39
 msgid "First name"
 msgstr "名字"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:42
 msgid "Last name"
 msgstr "姓"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid "street"
 msgstr "街头"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:48
 msgid "house number"
 msgstr "门牌号码"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:60
 msgid "Retype password"
 msgstr "重新输入密码"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:66
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
 msgstr "选择一个组的名字。您可以将用户添加到您的组，然后在作业和作业程序一起工作。"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:69
 msgid "General settings"
 msgstr "常规设置"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:72
 msgid "Username or email"
 msgstr "用户名或电子邮件"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:78
 msgid "Name"
 msgstr "名字"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:84
 msgid "Are you human?"
 msgstr "你是人类？"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:90
 msgid "General"
 msgstr "一般"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:93
 msgid "I am"
 msgstr "我"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:96
 msgid "The group name \"%value%\" is already in use."
 msgstr "该组名“％值％”已经在使用。"
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:99
 msgid "Login name"
 msgstr "登录名"
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:105
 msgid "login"
 msgstr "登录"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:108
 msgid "Cannot proceed, token expired"
 msgstr "无法继续，令牌过期"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:111
 msgid "User cannot be found for specified token"
 msgstr "用户无法找到指定的令牌"
 
-#: language/_annotated_strings.php:120 language/_annotated_strings.php:129
-#: language/_annotated_strings.php:147 language/_annotated_strings.php:162
+#: language/_annotated_strings.php:114 language/_annotated_strings.php:123
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:159
 #: language/_annotated_strings.php:183
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
 msgstr "发生意外错误，请与系统管理员联系"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:117
 msgid ""
 "User email verified successfully. You need to set a password to log in."
 msgstr "用户电子邮件成功验证。您需要设置密码来登录。"
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:120
 msgid "User cannot be found"
 msgstr "用户无法找到"
 
-#: language/_annotated_strings.php:132
+#: language/_annotated_strings.php:126
 msgid "Group created"
 msgstr "集团创建"
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:129
 msgid "Group updated"
 msgstr "集团更新"
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:132
 msgid "Changes not saved."
 msgstr "未保存的更改。"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:135
 msgid "You are now logged in."
 msgstr "现在，您已经登录。"
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:138
 msgid "Authentication failed."
 msgstr "验证失败。"
 
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:144
 msgid "You are now logged out"
 msgstr "现在，您已注销"
 
-#: language/_annotated_strings.php:153
-msgid ""
-"An Email with an activation link has been sent, please try to check your "
-"email box"
-msgstr "一封电子邮件，激活链接已发送，请尝试检查您的电子邮箱"
+#: language/_annotated_strings.php:147
+msgid "Registration is disabled"
+msgstr ""
 
-#: language/_annotated_strings.php:156 language/_annotated_strings.php:174
+#: language/_annotated_strings.php:153 language/_annotated_strings.php:174
 msgid "Please fill form correctly"
 msgstr "请正确填写表格"
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:156
 msgid "User with this email address already exists"
 msgstr "用户使用此电子邮件地址已存在"
+
+#: language/_annotated_strings.php:162
+msgid "You must be logged in."
+msgstr ""
 
 #: language/_annotated_strings.php:165
 msgid "Password successfully changed"

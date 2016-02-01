@@ -140,38 +140,41 @@ translate('Ask the applicant about the willingness to travel');
 //: ./src/Applications/Form/FactsFieldset.php:57
 translate('please select');
 
-//: ./src/Applications/Form/FactsFieldset.php:68
+//: ./src/Applications/Form/FactsFieldset.php:69
 translate('Earliest starting date');
 
-//: ./src/Applications/Form/FactsFieldset.php:69
+//: ./src/Applications/Form/FactsFieldset.php:70
 translate('Enter the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:71
+//: ./src/Applications/Form/FactsFieldset.php:72
 translate('Ask the applicant about the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:81
+//: ./src/Applications/Form/FactsFieldset.php:82
 translate('Expected salary');
 
-//: ./src/Applications/Form/FactsFieldset.php:82
+//: ./src/Applications/Form/FactsFieldset.php:83
 translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
 
-//: ./src/Applications/Form/FactsFieldset.php:84
+//: ./src/Applications/Form/FactsFieldset.php:85
 translate('Ask users about their expected salary.');
 
-//: ./src/Applications/Form/FactsFieldset.php:97
+//: ./src/Applications/Form/FactsFieldset.php:98
 translate('Yes');
 
-//: ./src/Applications/Form/FactsFieldset.php:98
+//: ./src/Applications/Form/FactsFieldset.php:99
 translate('No');
 
-//: ./src/Applications/Form/FactsFieldset.php:99
+//: ./src/Applications/Form/FactsFieldset.php:101
 translate('driving license');
 
-//: ./src/Applications/Form/FactsFieldset.php:100
+//: ./src/Applications/Form/FactsFieldset.php:102
 translate('Do you have a driving license?');
 
-//: ./src/Applications/Form/FactsFieldset.php:102
+//: ./src/Applications/Form/FactsFieldset.php:104
 translate('Ask the applicant, if he has a driving license.');
+
+//: ./src/Applications/Form/FactsFieldset.php:110
+translate('please select');
 
 //: ./src/Applications/Form/Attributes.php:36
 translate('Carbon Copy');
@@ -197,46 +200,46 @@ translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks
 //: ./src/Applications/Form/BaseFieldset.php:48
 translate('Summary');
 
-//: ./src/Applications/Controller/ManageController.php:89
+//: ./src/Applications/Controller/ManageController.php:79
 translate('all');
 
-//: ./src/Applications/Controller/ManageController.php:141
+//: ./src/Applications/Controller/ManageController.php:133
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:169
+//: ./src/Applications/Controller/ApplyController.php:170
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/ApplyController.php:264
+//: ./src/Applications/Controller/ApplyController.php:265
 translate('There are missing required informations. Your application cannot be send.');
 
-//: ./src/Applications/Controller/ApplyController.php:280
+//: ./src/Applications/Controller/ApplyController.php:281
 translate('Application has been send.');
 
-//: ./src/Applications/Controller/ApplyController.php:351
+//: ./src/Applications/Controller/ApplyController.php:352
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:84
+//: ./src/Applications/Controller/IndexController.php:87
 translate('Invalid apply id');
 
-//: ./src/Applications/Controller/IndexController.php:150
+//: ./src/Applications/Controller/IndexController.php:153
 translate('There were errors in the form.');
 
-//: ./src/Applications/Controller/IndexController.php:223
+//: ./src/Applications/Controller/IndexController.php:226
 translate('Application confirmation');
 
-//: ./src/Applications/Controller/IndexController.php:261
+//: ./src/Applications/Controller/IndexController.php:264
 translate('your application was sent successfully');
 
-//: ./src/Applications/Controller/IndexController.php:310
+//: ./src/Applications/Controller/IndexController.php:313
 translate('Application has been deleted.');
 
-//: ./src/Applications/Controller/IndexController.php:336
+//: ./src/Applications/Controller/IndexController.php:339
 translate('Mail has been send');
 
-//: ./src/Applications/Controller/IndexController.php:339
+//: ./src/Applications/Controller/IndexController.php:342
 translate('Application data has been deleted');
 
-//: ./src/Applications/Controller/IndexController.php:342
+//: ./src/Applications/Controller/IndexController.php:345
 translate('No mail adress available');
 
 //: ./src/Applications/Mail/Forward.php:59

@@ -6,7 +6,7 @@
     <!-- ============================================  -->
     <!-- Target: install                               -->
     <!-- ============================================  -->
-    <target name="install" depends="prepare,init,generate-autoload-config" description="reads build.properties and generates config files">
+    <target name="install" depends="prepare,init" description="reads build.properties and generates config files">
         <property name="target" value="config/autoload" override="true"/>
     </target>
 
@@ -269,6 +269,7 @@
             <include name="README"/>
             <exclude name="public/js/*"/>
             <exclude name="**/YawikDemo*/**"/>
+            <exclude name="**/YawikXingVendorApi/**"/>
             <exclude name="**/YawikCompanyRegistration/**"/>
             <exclude name="**/CamMediaintown/**"/>
             <exclude name="**/NextKraftwerke/**"/>
@@ -324,7 +325,7 @@
     </target>
 
     <target name="init"
-            depends="preinit, load-properties, prepare"
+            depends="preinit, prepare"
             unless="project.initialized">
         <exec outputProperty="version" command="git describe --tags" dir="${project.basedir}"/>
         <exec outputProperty="version-short"

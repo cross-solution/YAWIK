@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:30+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (http://www.transifex.com/yawik/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr ""
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr ""
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
@@ -26,7 +34,7 @@ msgstr "载入中"
 msgid "Login via"
 msgstr "通过登录"
 
-#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:22
+#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:19
 #, php-format
 msgid "Login with %s"
 msgstr ""
@@ -55,58 +63,58 @@ msgstr "最后"
 msgid "Add permission"
 msgstr "添加权限"
 
-#: view/core/index/index.phtml:11 language/_annotated_strings.php:93
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:93
 msgid "Home"
 msgstr "家"
 
-#: view/core/index/index.phtml:16
+#: view/core/index/index.phtml:13
 msgid "Welcome to YAWIK!"
 msgstr "欢迎YAWIK！"
 
-#: view/core/index/index.phtml:17
+#: view/core/index/index.phtml:14
 msgid "we're connecting recruiters and applicants"
 msgstr "我们要连接招聘人员和应聘"
 
-#: view/core/index/index.phtml:18
+#: view/core/index/index.phtml:15
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
 msgstr "使用您的FAVORIT社交网络登录到一个开源申请人跟踪系统"
 
-#: view/core/index/index.phtml:31
+#: view/core/index/index.phtml:28
 msgid "responsive design (uses bootstrap3 and font awesome)"
 msgstr "响应式设计（使用bootstrap3和字体真棒）"
 
-#: view/core/index/index.phtml:32
+#: view/core/index/index.phtml:29
 msgid "multilingual"
 msgstr "多种语言"
 
-#: view/core/index/index.phtml:33
+#: view/core/index/index.phtml:30
 msgid "ready for social recruiting"
 msgstr "准备招募社会"
 
-#: view/core/index/index.phtml:34
+#: view/core/index/index.phtml:31
 msgid "enter job ads"
 msgstr "进入招聘广告"
 
-#: view/core/index/index.phtml:35
+#: view/core/index/index.phtml:32
 #, php-format
 msgid "%sapplication forms%s."
 msgstr ""
 
-#: view/core/index/index.phtml:39
+#: view/core/index/index.phtml:36
 msgid "manage applications"
 msgstr "管理应用程序"
 
-#: view/core/index/index.phtml:40
+#: view/core/index/index.phtml:37
 msgid "open and free software"
 msgstr "开放和免费的软件"
 
-#: view/core/index/index.phtml:48
+#: view/core/index/index.phtml:45
 msgid "Developer News"
 msgstr "开发者新闻"
 
-#: view/core/index/index.phtml:65
+#: view/core/index/index.phtml:62
 msgid "Recruiter News"
 msgstr "招聘专员新闻"
 
@@ -188,21 +196,25 @@ msgstr "控制器"
 msgid "resolves to %s"
 msgstr ""
 
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr ""
+
 #: view/layout/_noscript-notice.phtml:22
 msgid ""
 "JavaScript is required to use this site. Please enable JavaScript and "
 "reload."
 msgstr ""
 
-#: view/layout/layout.phtml:38
+#: view/layout/layout.phtml:36
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:91
+#: view/layout/layout.phtml:89
 msgid "Help to translate YAWIK"
 msgstr "帮助翻译YAWIK"
 
-#: view/layout/layout.phtml:120
+#: view/layout/layout.phtml:121
 msgid "All rights reserved."
 msgstr "版权所有。"
 
@@ -237,7 +249,7 @@ msgstr "点击此处添加图片或使用拖放。"
 msgid "processing"
 msgstr "处理"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:173
+#: src/Core/Form/View/Helper/SummaryForm.php:178
 msgid "Edit"
 msgstr "编辑"
 

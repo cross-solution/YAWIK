@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
 "PO-Revision-Date: 2015-10-29 12:24+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
@@ -48,7 +48,7 @@ msgid "click to open the job ad"
 msgstr "click to open the job ad"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
@@ -81,7 +81,7 @@ msgstr "Job"
 msgid "Date"
 msgstr "Date"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:228
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:231
 msgid "your application was sent successfully"
 msgstr "your application was sent successfully"
 
@@ -346,7 +346,7 @@ msgstr "Phone"
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
 #: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:258
 msgid "Attachments"
 msgstr "Attachments"
 
@@ -643,12 +643,12 @@ msgstr "Search applications"
 msgid "Your application dated %s"
 msgstr "Your application dated %s"
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:380
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Forwarded application to %s"
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:396
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Forward application to %s failed."
@@ -811,7 +811,7 @@ msgstr "Enter your willingness to travel."
 msgid "Ask the applicant about the willingness to travel"
 msgstr "Ask the applicant about the willingness to travel"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "please select"
 
@@ -845,102 +845,102 @@ msgstr "Do you have a driving license?"
 msgid "Ask the applicant, if he has a driving license."
 msgstr "Ask the applicant, if he has a driving license."
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "Carbon Copy"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "send me a carbon copy of my application"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr "I have read the %s and accept it"
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "Click here to enter a summary."
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved."
 
-#: language/_annotated_strings.php:198
+#: language/_annotated_strings.php:201
 msgid "Summary"
 msgstr "Summary"
 
-#: language/_annotated_strings.php:201
+#: language/_annotated_strings.php:204
 msgid "all"
 msgstr "all"
 
-#: language/_annotated_strings.php:204 language/_annotated_strings.php:207
-#: language/_annotated_strings.php:219
+#: language/_annotated_strings.php:207 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:222
 msgid "Invalid apply id"
 msgstr "Invalid apply id"
 
-#: language/_annotated_strings.php:210
+#: language/_annotated_strings.php:213
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr "There are missing required informations. Your application cannot be send."
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:216
 msgid "Application has been send."
 msgstr "Application has been send."
 
-#: language/_annotated_strings.php:216 language/_annotated_strings.php:225
+#: language/_annotated_strings.php:219 language/_annotated_strings.php:228
 msgid "Application confirmation"
 msgstr "Application confirmation"
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:225
 msgid "There were errors in the form."
 msgstr "There were errors in the form."
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 msgid "Application has been deleted."
 msgstr "Application has been deleted."
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 msgid "Mail has been send"
 msgstr "Mail has been send"
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 msgid "Application data has been deleted"
 msgstr "Application data has been deleted"
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "No mail adress available"
 msgstr "No mail adress available"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Application to \"%s\" dated %s"
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:249
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "New application for your vacancy \"%s\""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:252
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\\"##title##\\\"\\n\\n"
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:255
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to 5MB"
 msgstr "Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB"
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:261
 msgid "E-Mail Templates"
 msgstr "E-Mail Templates"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:264
 msgid "Overview"
 msgstr "Overview"
 

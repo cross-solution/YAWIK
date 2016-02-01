@@ -10,15 +10,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
-"Last-Translator: Brice <vertebre@gmail.com>\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:30+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: French (http://www.transifex.com/yawik/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr ""
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr ""
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
@@ -28,7 +36,7 @@ msgstr "Chargement"
 msgid "Login via"
 msgstr "Connectez-vous avec"
 
-#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:22
+#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:19
 #, php-format
 msgid "Login with %s"
 msgstr "Connectez-vous avec %s"
@@ -57,58 +65,58 @@ msgstr "Dernier"
 msgid "Add permission"
 msgstr "Ajouter permission"
 
-#: view/core/index/index.phtml:11 language/_annotated_strings.php:93
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:93
 msgid "Home"
 msgstr "Accueil"
 
-#: view/core/index/index.phtml:16
+#: view/core/index/index.phtml:13
 msgid "Welcome to YAWIK!"
 msgstr "Bienvenue à YAWIK!"
 
-#: view/core/index/index.phtml:17
+#: view/core/index/index.phtml:14
 msgid "we're connecting recruiters and applicants"
 msgstr "nous connectons les recruteurs et les candidats"
 
-#: view/core/index/index.phtml:18
+#: view/core/index/index.phtml:15
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
 msgstr "Connectez-vous à un système open-source de recrutement en utilisant votre réseau social favoris"
 
-#: view/core/index/index.phtml:31
+#: view/core/index/index.phtml:28
 msgid "responsive design (uses bootstrap3 and font awesome)"
 msgstr " site web adaptatif (utilise bootstrap3 et font awesome)"
 
-#: view/core/index/index.phtml:32
+#: view/core/index/index.phtml:29
 msgid "multilingual"
 msgstr "multilingue"
 
-#: view/core/index/index.phtml:33
+#: view/core/index/index.phtml:30
 msgid "ready for social recruiting"
 msgstr "prêt pour le recrutement social"
 
-#: view/core/index/index.phtml:34
+#: view/core/index/index.phtml:31
 msgid "enter job ads"
 msgstr "entrer les offres d'emplois"
 
-#: view/core/index/index.phtml:35
+#: view/core/index/index.phtml:32
 #, php-format
 msgid "%sapplication forms%s."
 msgstr "%sapplication forms%s."
 
-#: view/core/index/index.phtml:39
+#: view/core/index/index.phtml:36
 msgid "manage applications"
 msgstr "gérer les candidatures"
 
-#: view/core/index/index.phtml:40
+#: view/core/index/index.phtml:37
 msgid "open and free software"
 msgstr "logiciel libre et gratuit"
 
-#: view/core/index/index.phtml:48
+#: view/core/index/index.phtml:45
 msgid "Developer News"
 msgstr "Actualités des développeurs"
 
-#: view/core/index/index.phtml:65
+#: view/core/index/index.phtml:62
 msgid "Recruiter News"
 msgstr "Actualités des recruteurs"
 
@@ -190,21 +198,25 @@ msgstr "Contrôleur"
 msgid "resolves to %s"
 msgstr "résoudre à %s"
 
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr ""
+
 #: view/layout/_noscript-notice.phtml:22
 msgid ""
 "JavaScript is required to use this site. Please enable JavaScript and "
 "reload."
 msgstr ""
 
-#: view/layout/layout.phtml:38
+#: view/layout/layout.phtml:36
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:91
+#: view/layout/layout.phtml:89
 msgid "Help to translate YAWIK"
 msgstr "Aidez à traduire YAWIK"
 
-#: view/layout/layout.phtml:120
+#: view/layout/layout.phtml:121
 msgid "All rights reserved."
 msgstr "Tous droits réservés."
 
@@ -239,7 +251,7 @@ msgstr "Cliquez ici pour ajouter une image ou utiliser le drag-and-drop"
 msgid "processing"
 msgstr "traitement"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:173
+#: src/Core/Form/View/Helper/SummaryForm.php:178
 msgid "Edit"
 msgstr "Editer"
 
