@@ -11,43 +11,40 @@ translate('Social Profiles');
 //: ./src/Auth/Form/SocialProfilesFieldset.php:225
 translate('Allow users to attach their %s profile.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:65
+//: ./src/Auth/Form/UserInfoFieldset.php:69
 translate('Email');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:74
+//: ./src/Auth/Form/UserInfoFieldset.php:82
 translate('Phone');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:84
+//: ./src/Auth/Form/UserInfoFieldset.php:95
 translate('Postalcode');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:93
+//: ./src/Auth/Form/UserInfoFieldset.php:104
 translate('City');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:103
+//: ./src/Auth/Form/UserInfoFieldset.php:114
 translate('Salutation');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:105
-translate('please select');
-
-//: ./src/Auth/Form/UserInfoFieldset.php:106
+//: ./src/Auth/Form/UserInfoFieldset.php:117
 translate('Mr.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:107
+//: ./src/Auth/Form/UserInfoFieldset.php:118
 translate('Mrs.');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:111
+//: ./src/Auth/Form/UserInfoFieldset.php:122
 translate('please select');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:121
+//: ./src/Auth/Form/UserInfoFieldset.php:135
 translate('First name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:131
+//: ./src/Auth/Form/UserInfoFieldset.php:148
 translate('Last name');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:142
+//: ./src/Auth/Form/UserInfoFieldset.php:161
 translate('street');
 
-//: ./src/Auth/Form/UserInfoFieldset.php:151
+//: ./src/Auth/Form/UserInfoFieldset.php:170
 translate('house number');
 
 //: ./src/Auth/Form/UserInfo.php:32
@@ -77,16 +74,16 @@ translate('Username or email');
 //: ./src/Auth/Form/ForgotPassword.php:43
 translate('Reset your password');
 
-//: ./src/Auth/Form/Register.php:36
+//: ./src/Auth/Form/Register.php:37
 translate('Name');
 
-//: ./src/Auth/Form/Register.php:46
+//: ./src/Auth/Form/Register.php:47
 translate('Email');
 
-//: ./src/Auth/Form/Register.php:75
+//: ./src/Auth/Form/Register.php:80
 translate('Are you human?');
 
-//: ./src/Auth/Form/Register.php:91
+//: ./src/Auth/Form/Register.php:96
 translate('Register');
 
 //: ./src/Auth/Form/UserBaseFieldset.php:23
@@ -134,29 +131,35 @@ translate('Group updated');
 //: ./src/Auth/Controller/ManageGroupsController.php:166
 translate('Changes not saved.');
 
-//: ./src/Auth/Controller/IndexController.php:121
+//: ./src/Auth/Controller/IndexController.php:142
 translate('You are now logged in.');
 
-//: ./src/Auth/Controller/IndexController.php:144
+//: ./src/Auth/Controller/IndexController.php:151
 translate('Authentication failed.');
 
-//: ./src/Auth/Controller/IndexController.php:220
+//: ./src/Auth/Controller/IndexController.php:239
 translate('An unexpected error has occurred, please contact your system administrator');
 
-//: ./src/Auth/Controller/IndexController.php:427
+//: ./src/Auth/Controller/IndexController.php:446
 translate('You are now logged out');
 
 //: ./src/Auth/Controller/RegisterController.php:59
+translate('Registration is disabled');
+
+//: ./src/Auth/Controller/RegisterController.php:80
 translate('An Email with an activation link has been sent, please try to check your email box');
 
-//: ./src/Auth/Controller/RegisterController.php:63
+//: ./src/Auth/Controller/RegisterController.php:88
 translate('Please fill form correctly');
 
-//: ./src/Auth/Controller/RegisterController.php:69
+//: ./src/Auth/Controller/RegisterController.php:98
 translate('User with this email address already exists');
 
-//: ./src/Auth/Controller/RegisterController.php:74
+//: ./src/Auth/Controller/RegisterController.php:103
 translate('An unexpected error has occurred, please contact your system administrator');
+
+//: ./src/Auth/Controller/PasswordController.php:49
+translate('You must be logged in.');
 
 //: ./src/Auth/Controller/PasswordController.php:65
 translate('Password successfully changed');
@@ -182,12 +185,12 @@ translate('An unexpected error has occurred, please contact your system administ
 //: ./src/Auth/Listener/UnauthorizedAccessListener.php:92
 translate('You are not permitted to access this resource.');
 
-//: ./src/Auth/Listener/MailForgotPassword.php:86
+//: ./src/Auth/Listener/MailForgotPassword.php:67
 translate('a new password was requestet for %s');
 
-//: ./config/module.config.php:377
+//: ./config/module.config.php:387
 translate('user');
 
-//: ./config/module.config.php:378
+//: ./config/module.config.php:388
 translate('recruiter');
 

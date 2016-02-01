@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-14 20:51+0000\n"
-"Last-Translator: Brice <vertebre@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: French (http://www.transifex.com/yawik/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,6 +66,20 @@ msgstr "Au moins un utilisateur doit être assigné"
 msgid "My groups"
 msgstr "Mes groupes"
 
+#: view/error/social-profiles-unconfigured.phtml:13
+msgid "Missing Configuration"
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:14
+msgid "Unfortunately there seems to be missing configuration."
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:19
+msgid ""
+"The login via social networks does not work at the moment due to the missing"
+" of some crucial configuration data."
+msgstr ""
+
 #: view/auth/manage-groups/index.phtml:11
 msgid "Manage groups"
 msgstr "Gérer les groupes"
@@ -74,7 +88,7 @@ msgstr "Gérer les groupes"
 msgid "Add group"
 msgstr "Ajouter un groupe"
 
-#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:69
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:63
 msgid "Group name"
 msgstr "Nom du groupe"
 
@@ -99,19 +113,19 @@ msgid "Please authenticate yourself to proceed"
 msgstr "Veuillez vous authentifier pour continuer"
 
 #: view/auth/index/index.phtml:14 view/auth/index/index.phtml:15
-#: view/auth/index/login-info.phtml:73
+#: view/auth/index/index.phtml:23 view/auth/index/login-info.phtml:74
 msgid "Login"
 msgstr "Connexion"
 
-#: view/auth/index/index.phtml:37 view/auth/index/index.phtml:38
-msgid "I forgot my password"
-msgstr "J'ai oublié mon mot de passe"
-
-#: view/auth/index/index.phtml:43 view/auth/index/index.phtml:44
-#: view/auth/register/index.phtml:1 view/auth/register/index.phtml:2
-#: language/_annotated_strings.php:93
+#: view/auth/index/index.phtml:29 view/auth/register/index.phtml:1
+#: view/auth/register/index.phtml:2 language/_annotated_strings.php:87
 msgid "Register"
 msgstr "Enregistrement"
+
+#: view/auth/index/index.phtml:44 view/auth/index/index.phtml:45
+#: view/auth/index/index.phtml:68 view/auth/index/index.phtml:69
+msgid "I forgot my password"
+msgstr "J'ai oublié mon mot de passe"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
@@ -125,8 +139,8 @@ msgstr "Identifiant de postulation inconnu"
 msgid "A job ad with the provided apply identifier could not be found."
 msgstr "Une offre d'emploi avec l'identifiant de postulation fourni n'a pu être trouvée."
 
-#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:3
-#: view/auth/manage/profile.phtml:9
+#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:11
+#: view/auth/manage/profile.phtml:16
 msgid "My profile"
 msgstr "Mon profil"
 
@@ -134,39 +148,39 @@ msgstr "Mon profil"
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
-#: view/auth/index/login-info.phtml:43
+#: view/auth/index/login-info.phtml:44
 msgid "Create my organization"
 msgstr "Créer mon organisation"
 
-#: view/auth/index/login-info.phtml:46
+#: view/auth/index/login-info.phtml:47
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Editer \"%s\""
 
-#: view/auth/index/login-info.phtml:54
+#: view/auth/index/login-info.phtml:55
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: view/auth/index/login-info.phtml:61
+#: view/auth/index/login-info.phtml:62
 #, php-format
 msgid "Hello %s"
 msgstr "Bonjour %s "
 
-#: view/auth/index/login-info.phtml:62
+#: view/auth/index/login-info.phtml:63
 msgid "Guest"
 msgstr "Invité"
 
-#: view/auth/index/login-info.phtml:77
+#: view/auth/index/login-info.phtml:79
 msgid "Login via"
 msgstr "Connectez-vous avec"
 
-#: view/auth/index/login-info.phtml:80
+#: view/auth/index/login-info.phtml:82
 #, php-format
 msgid "Login with %s"
 msgstr "Connectez-vous avec %s"
 
 #: view/auth/forgot-password/index.phtml:1
-#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:81
+#: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:75
 msgid "Reset your password"
 msgstr "Réinitialiser votre mot de passe"
 
@@ -176,19 +190,27 @@ msgid ""
 "create a new password via email."
 msgstr "Veuillez entrer votre nom d'utilisateur ou adresse email. Vous recevrez un lien pour créer un nouveau mot de passe par email."
 
+#: view/auth/register/completed.phtml:2
+msgid "The registration has been successful"
+msgstr "L'enregistrement a été effectué avec succès"
+
+#: view/auth/register/completed.phtml:4 language/_annotated_strings.php:150
+msgid ""
+"An Email with an activation link has been sent, please try to check your "
+"email box"
+msgstr "Un email avec un lien d'activation a été envoyé, veuillez vérifier votre boîte mail."
+
 #: view/auth/password/index.phtml:11 view/auth/password/index.phtml:14
-#: view/auth/manage/password.phtml:10 view/auth/manage/password.phtml:12
 msgid "My password"
 msgstr "  Mon mot de passe "
 
-#: src/Auth/Form/UserInfo.php:31 language/_annotated_strings.php:15
-#: language/_annotated_strings.php:57
+#: src/Auth/Form/UserInfo.php:32 language/_annotated_strings.php:51
 msgid "personal informations"
 msgstr "  Informations personnelles "
 
 #: src/Auth/Form/UserPasswordFieldset.php:35
-#: language/_annotated_strings.php:60 language/_annotated_strings.php:63
-#: language/_annotated_strings.php:108
+#: language/_annotated_strings.php:54 language/_annotated_strings.php:57
+#: language/_annotated_strings.php:102
 msgid "Password"
 msgstr "  Mot de passe "
 
@@ -196,7 +218,7 @@ msgstr "  Mot de passe "
 msgid "Group data"
 msgstr "données de groupe"
 
-#: src/Auth/Form/GroupUsersCollection.php:88
+#: src/Auth/Form/GroupUsersCollection.php:89
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -217,161 +239,163 @@ msgstr "Profils sociaux"
 msgid "Allow users to attach their %s profile."
 msgstr "Autoriser les utilisateurs à joindre leurs %s profil."
 
-#: language/_annotated_strings.php:18 language/_annotated_strings.php:87
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:81
 msgid "Email"
 msgstr "Email"
 
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:18
 msgid "Phone"
 msgstr "Téléphone "
 
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:21
 msgid "Postalcode"
 msgstr "Code Postal"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:24
 msgid "City"
 msgstr "Ville"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:27
 msgid "Salutation"
 msgstr "Salutation"
 
-#: language/_annotated_strings.php:33 language/_annotated_strings.php:42
-msgid "please select"
-msgstr "Veuillez sélectionner"
-
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:30
 msgid "Mr."
 msgstr "M."
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:33
 msgid "Mrs."
 msgstr "Mme."
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:36
+msgid "please select"
+msgstr "Veuillez sélectionner"
+
+#: language/_annotated_strings.php:39
 msgid "First name"
 msgstr "Prénom"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:42
 msgid "Last name"
 msgstr "Nom"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:45
 msgid "street"
 msgstr "Rue"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:48
 msgid "house number"
 msgstr "numéro de la maison"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:60
 msgid "Retype password"
 msgstr "Retaper le mot de passe"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:66
 msgid ""
 "Select a group name. You can add users to your group and then work together "
 "on jobs and job applications."
 msgstr "Sélectionnez un nom de groupe. Vous pouvez ajouter des utilisateurs à votre groupe, puis travailler ensemble sur l'emploi et les demandes d'emploi."
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:69
 msgid "General settings"
 msgstr "Paramètres généraux"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:72
 msgid "Username or email"
 msgstr "Nom d'utilisateur ou email"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:78
 msgid "Name"
 msgstr "Nom"
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:84
 msgid "Are you human?"
 msgstr "Etes-vous humain"
 
-#: language/_annotated_strings.php:96
+#: language/_annotated_strings.php:90
 msgid "General"
 msgstr "Général"
 
-#: language/_annotated_strings.php:99
+#: language/_annotated_strings.php:93
 msgid "I am"
 msgstr "Je suis"
 
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:96
 msgid "The group name \"%value%\" is already in use."
 msgstr "Le nom du groupe \"%value%\" est déjà utilisé."
 
-#: language/_annotated_strings.php:105
+#: language/_annotated_strings.php:99
 msgid "Login name"
 msgstr "Identifiant de connexion"
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:105
 msgid "login"
 msgstr "Connexion"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:108
 msgid "Cannot proceed, token expired"
 msgstr "Vous ne pouvez pas poursuivre, le token à expiré"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:111
 msgid "User cannot be found for specified token"
 msgstr "L'utilisateur ne peut pas être trouvée pour le token spécifié"
 
-#: language/_annotated_strings.php:120 language/_annotated_strings.php:129
-#: language/_annotated_strings.php:147 language/_annotated_strings.php:162
+#: language/_annotated_strings.php:114 language/_annotated_strings.php:123
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:159
 #: language/_annotated_strings.php:183
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
 msgstr "Une erreur est survenue, veuillez contactez votre administrateur système"
 
-#: language/_annotated_strings.php:123
+#: language/_annotated_strings.php:117
 msgid ""
 "User email verified successfully. You need to set a password to log in."
 msgstr "Email de l'utilisateur vérifiée avec succès. Vous devez définir un mot de passe pour vous connecter."
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:120
 msgid "User cannot be found"
 msgstr "L'utilisateur ne peut pas être trouvé"
 
-#: language/_annotated_strings.php:132
+#: language/_annotated_strings.php:126
 msgid "Group created"
 msgstr "Groupe créé"
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:129
 msgid "Group updated"
 msgstr "Groupe mis à jour"
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:132
 msgid "Changes not saved."
 msgstr "Changements non enregistrées."
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:135
 msgid "You are now logged in."
 msgstr "Vous êtes maintenant connecté "
 
-#: language/_annotated_strings.php:144
+#: language/_annotated_strings.php:138
 msgid "Authentication failed."
 msgstr "L'authentification a échoué."
 
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:144
 msgid "You are now logged out"
 msgstr "Vous êtes déconnecté"
 
-#: language/_annotated_strings.php:153
-msgid ""
-"An Email with an activation link has been sent, please try to check your "
-"email box"
-msgstr "Un email avec un lien d'activation a été envoyé, veuillez vérifier votre boîte mail."
+#: language/_annotated_strings.php:147
+msgid "Registration is disabled"
+msgstr ""
 
-#: language/_annotated_strings.php:156 language/_annotated_strings.php:174
+#: language/_annotated_strings.php:153 language/_annotated_strings.php:174
 msgid "Please fill form correctly"
 msgstr "Veuillez remplir le formulaire correctement"
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:156
 msgid "User with this email address already exists"
 msgstr "Un utilisateur avec cette adresse email existe déjà"
+
+#: language/_annotated_strings.php:162
+msgid "You must be logged in."
+msgstr ""
 
 #: language/_annotated_strings.php:165
 msgid "Password successfully changed"
