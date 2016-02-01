@@ -27,6 +27,7 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
     protected $dataElement;
     protected $typeElement;
     protected $converter;
+    protected $filter;
 
     public function __construct($name = null, array $options = null)
     {
@@ -55,12 +56,18 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this;
     }
 
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+
+        return $this;
+    }
+
     public function getConverter()
     {
         if (!$this->converter) {
             $this->setConverter(new Converter());
         }
-
         return $this->converter;
     }
 
@@ -124,10 +131,34 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this;
     }
 
+    /**
+     * @param mixed $value
+     * @param null  $type
+     *
+     * @return $this
+     */
     public function setValue($value, $type=null)
     {
         if ($value instanceOf Location) {
             $value = $this->getConverter()->toValue($value, $type ?: $this->typeElement->getValue());
+        }
+        if ('geo' == $value['type']) {
+            $lonLat = $this->getConverter()->toCoordinates($value['name']);
+            foreach($lonLat as $k=>$v) {
+                 list($lon,$lat) = explode(',', $v, 2);
+                 $latLon[]=$lat.','.$lon;
+            }
+
+            $value['data'] = [
+                'coordinates'=>[
+                    (float) $lat,
+                    (float) $lon
+                    ],
+                'type'=>'Point',
+                'city' => substr($value['name'],0,strrpos($value['name'], ',' )),
+                'region' =>  substr($value['name'],strrpos($value['name'], ',' )+2),
+                'postalcode' =>'',
+                'country' => 'DE'];
         }
         if (!is_array($value)) {
             $value = explode('|', $value, 2);
@@ -143,6 +174,11 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this;
     }
 
+    /**
+     * @param string $type
+     *
+     * @return array|mixed
+     */
     public function getValue($type = 'name')
     {
         switch ($type) {

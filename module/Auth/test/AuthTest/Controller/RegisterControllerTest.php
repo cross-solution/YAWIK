@@ -11,7 +11,9 @@ namespace AuthTest\Controller;
 
 use Auth\Controller\RegisterController;
 use Auth\Form\RegisterInputFilter;
+use Auth\Options\CaptchaOptions;
 use Auth\Service\Exception;
+use Auth\Options\ModuleOptions;
 use Test\Bootstrap;
 use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
@@ -20,6 +22,7 @@ use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Stdlib\Parameters;
+use Zend\View\Model\ViewModel;
 
 class RegisterControllerTest extends AbstractControllerTestCase
 {
@@ -33,37 +36,65 @@ class RegisterControllerTest extends AbstractControllerTestCase
      */
     private $serviceMock;
 
+    /**
+     * @var MockObject
+     */
+    private $paramsMock;
+
     public function setUp()
     {
         $this->init('register');
 
-        $this->formMock = $this->getMock('Auth\Form\Register');
+        $captureOptions = new CaptchaOptions();
+        $this->formMock = $this->getMockBuilder('Auth\Form\Register')
+            ->setConstructorArgs([null,$captureOptions])
+            ->getMock();
+
 
         $this->serviceMock = $this->getMockBuilder('Auth\Service\Register')
-            ->disableOriginalConstructor()
-            ->getMock();
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+
+        $this->paramsMock = $this->getMock('Zend\Mvc\Controller\Plugin\Params');
 
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
 
-        $this->controller = new RegisterController($this->formMock, $this->serviceMock, $loggerMock);
+        $options = new ModuleOptions();
+
+        $this->controller = new RegisterController($this->formMock, $this->serviceMock, $loggerMock, $options);
         $this->controller->setEvent($this->event);
 
         /** @var PluginManager $controllerPluginManager */
         $controllerPluginManager = clone Bootstrap::getServiceManager()->get('ControllerPluginManager');
+        $controllerPluginManager->setService('params',$this->paramsMock);
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
     public function testIndexAction_WithGetRequest()
     {
+
+        $register = $this->getMock('Zend\Form\Fieldset');
+        $role = $this->getMock('Zend\Form\Element\Hidden');
+
+        $this->formMock->expects($this->once())->method('get')->with('register')->willReturn($register);
+
+        $register->expects($this->once())->method('get')->with('role')->willReturn($role);
+
+        $role->expects($this->once())->method('setValue')->willReturn($role);
+
+        $this->paramsMock->expects($this->once())->method('__invoke')->with('role')->willReturn('user');
+
         $request = new Request();
         $request->setMethod(Request::METHOD_GET);
 
         $result = $this->controller->dispatch($request);
-        $expected = array(
-            'form' => $this->formMock
-        );
+
+        $expected = new ViewModel();
+        $expected->setVariable('form' , $this->formMock);
+
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
+        $this->assertEquals($expected, $result);
     }
 
     public function testIndexAction_WithPostRequest_WhenDataIsInvalid()
@@ -84,19 +115,19 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $result = $this->controller->dispatch($request);
 
-        $expected = array(
-            'form' => $this->formMock
-        );
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_DANGER);
+        $expectedMessages = ['Please fill form correctly'];
+
+        /* @todo: fix that */
+        #$this->assertSame($expectedMessages, $fm->getCurrentMessages());
+
+        $expected = new ViewModel();
+        $expected->setVariable('form' , $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
+        $this->assertEquals($expected, $result);
 
-        //$fm = $this->controller->flashMessenger();
-        //$fm->setNamespace(Notification::NAMESPACE_DANGER);
-        //$expectedMessages = array(
-        //    'Please fill form correctly'
-        //);
-        //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 
     public function testIndexAction_WithPostRequest_WhenUserAlreadyExists()
@@ -131,12 +162,12 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $result = $this->controller->dispatch($request);
 
-        $expected = array(
-            'form' => $this->formMock
-        );
+        $expected = new ViewModel();
+        $expected->setTemplate('');
+        $expected->setVariable('form' , $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
+        $this->assertEquals($expected, $result);
 
         //$fm = $this->controller->flashMessenger();
         //$fm->setNamespace(Notification::NAMESPACE_DANGER);
@@ -178,12 +209,11 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $result = $this->controller->dispatch($request);
 
-        $expected = array(
-            'form' => $this->formMock
-        );
+        $expected = new ViewModel();
+        $expected->setVariable('form' , $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
+        $this->assertEquals($expected, $result);
 
         // TODO: reactivate
         //$fm = $this->controller->flashMessenger();
@@ -225,19 +255,20 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $result = $this->controller->dispatch($request);
 
-        $expected = array(
-            'form' => $this->formMock
-        );
+        $expected = new ViewModel();
+        $expected->setTemplate('auth/register/completed');
+        $expected->setVariable('form' , $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
-        $this->assertSame($expected, $result);
+        $this->assertEquals($expected, $result);
 
-        // TODO: reactivate
-        //$fm = $this->controller->flashMessenger();
-        //$fm->setNamespace(Notification::NAMESPACE_SUCCESS);
-        //$expectedMessages = array(
-        //    'An Email with an activation link has been sent, please try to check your email box'
-        //);
+        // @todo: fix that
+        $fm = $this->controller->flashMessenger();
+        $fm->setNamespace(Notification::NAMESPACE_SUCCESS);
+        $expectedMessages = array(
+            'An Email with an activation link has been sent, please try to check your email box'
+        );
         //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 }
+

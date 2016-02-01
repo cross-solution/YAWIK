@@ -1,9 +1,14 @@
 <?php
-
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 $docType = (string) $this->doctype();
 
-//<html lang="echo $this->params('lang')">
 
 $headTitle = (string) $this->headTitle()->setAutoEscape(false);
 
@@ -25,8 +30,7 @@ if (!empty($addHead) && preg_match("/^(.*)(<\/head>[^\w]*<body>.*)$/ms", $this->
     $body = $matches[2];
     //$content = $head . PHP_EOL . $headLink . PHP_EOL . $headScript . PHP_EOL .  $headStyle . PHP_EOL . $body;
     $content = $head . PHP_EOL . $addHead . $body;
-}
-else {
+} else {
 
 }
 

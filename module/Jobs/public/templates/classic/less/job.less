@@ -6,18 +6,32 @@
  * @license   GPLv3
  */
 
-/**
- * we've replaced glyphicons with font-awesome. therefore bootstrap/bootstrap.less from 
- * the bootstrap dist was copied to the local bootstrap.less. 
- * include "glyphicons.less" was replaces by "font-awesome/font-awesome.less"
- **/
-@import "bootstrap.less";
+@import "../../default/less/skeleton.less";
 
+@primary-color: #33c3f0;
 @panel-default-border: #2e2e2e;
-@font-family-sans-serif:  "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-base: @font-family-sans-serif;
+@font-family:  "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 main {
-  border: solid 1px @brand-primary;
-  padding: 10px;
+    border: solid 1px @primary-color;
+    border-bottom: solid 10px @primary-color;
+    border-style: groove;
+    padding: 2em;
+    box-shadow: MenuText;
+    border-radius: @global-radius;
+}
+
+footer,
+address {
+    text-align: right;
+}
+h1 {
+    color: @primary-color;
+}
+.apply {
+    text-align: center;
+}
+h4 {
+    font-size: 1.8rem; line-height: 1.35; letter-spacing: -.08rem;
+    color: @primary-color;
 }

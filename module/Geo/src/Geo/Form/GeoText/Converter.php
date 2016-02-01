@@ -11,8 +11,8 @@
 namespace Geo\Form\GeoText;
 
 use Geo\Entity\Geometry\Point;
-use Jobs\Entity\Coordinates;
 use Jobs\Entity\Location;
+use Zend\Http\Client;
 use Zend\Json\Json;
 
 /**
@@ -30,6 +30,7 @@ class Converter
             $data = $this->normalizePhotonData($data);
         }
 
+
         if (empty($data)) {
             return new Location();
         }
@@ -42,10 +43,7 @@ class Converter
                $entity->setCoordinates(new Point($data['coordinates']));
         }
 
-
-
         return $entity;
-
     }
 
     protected function normalizePhotonData($data)
@@ -83,11 +81,27 @@ class Converter
                     "postcode" => $location->getPostalcode()
                 ]
             ];
+            return  $location->getCity() . '|' . Json::encode($data);
         } else {
-            $data = [];
+            return $location->getCity() . ', ' . $location->getRegion();
         }
+    }
 
-        return  $location->getCity() . '|' . Json::encode($data);
-
+    /**
+     * used by the beo plugin only. We can hardcode the geoCoderUrl for the moment
+     *
+     * @param $input
+     *
+     * @return array|mixed|string
+     */
+    public function toCoordinates($input) {
+        $client = new Client('http://api.cross-solution.de/geo');
+        $client->setMethod('GET');
+        $client->setParameterGet(array('q' => $input, 'country' => 'DE', 'coor' => 1, 'zoom' => 1 , 'strict' => 0));
+        $response = $client->send();
+        $result = $response->getBody();
+        $result = json_decode($result);
+        $result = (array) $result->result;
+        return $result;
     }
 }

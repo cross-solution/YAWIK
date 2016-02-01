@@ -5,24 +5,40 @@
 # Translators:
 # Brice <vertebre@gmail.com>, 2015
 # Carsten Bleek <cbleek@yawik.org>, 2014
-# Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-14 20:53+0000\n"
-"Last-Translator: Brice <vertebre@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:30+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: French (Belgium) (http://www.transifex.com/yawik/yawik/language/fr_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
+"Language: fr_BE\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr ""
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr ""
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
 msgstr "Chargement"
+
+#: view/partial/social-buttons.phtml:13
+msgid "Login via"
+msgstr "Connectez-vous avec"
+
+#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr "Connectez-vous avec %s"
 
 #: view/partial/pagination-control.phtml:26
 #: view/partial/pagination-control.phtml:30
@@ -48,63 +64,58 @@ msgstr "Dernier"
 msgid "Add permission"
 msgstr "Ajouter permission"
 
-#: view/core/index/index.phtml:11 language/_annotated_strings.php:93
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:93
 msgid "Home"
 msgstr "Accueil"
 
-#: view/core/index/index.phtml:16
+#: view/core/index/index.phtml:13
 msgid "Welcome to YAWIK!"
 msgstr "Bienvenue à YAWIK!"
 
-#: view/core/index/index.phtml:17
+#: view/core/index/index.phtml:14
 msgid "we're connecting recruiters and applicants"
 msgstr "nous connectons les recruteurs et les candidats"
 
-#: view/core/index/index.phtml:18
+#: view/core/index/index.phtml:15
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
 msgstr "Connectez-vous à un système open-source de recrutement en utilisant votre réseau social favoris"
 
-#: view/core/index/index.phtml:22
-#, php-format
-msgid "Login with %s"
-msgstr "Connectez-vous avec %s"
-
-#: view/core/index/index.phtml:31
+#: view/core/index/index.phtml:28
 msgid "responsive design (uses bootstrap3 and font awesome)"
 msgstr " site web adaptatif (utilise bootstrap3 et font awesome)"
 
-#: view/core/index/index.phtml:32
+#: view/core/index/index.phtml:29
 msgid "multilingual"
 msgstr "multilingue"
 
-#: view/core/index/index.phtml:33
+#: view/core/index/index.phtml:30
 msgid "ready for social recruiting"
 msgstr "prêt pour le recrutement social"
 
-#: view/core/index/index.phtml:34
+#: view/core/index/index.phtml:31
 msgid "enter job ads"
 msgstr "entrer les offres d'emplois"
 
-#: view/core/index/index.phtml:35
+#: view/core/index/index.phtml:32
 #, php-format
 msgid "%sapplication forms%s."
 msgstr "%sapplication forms%s."
 
-#: view/core/index/index.phtml:39
+#: view/core/index/index.phtml:36
 msgid "manage applications"
 msgstr "gérer les candidatures"
 
-#: view/core/index/index.phtml:40
+#: view/core/index/index.phtml:37
 msgid "open and free software"
 msgstr "logiciel libre et gratuit"
 
-#: view/core/index/index.phtml:48
+#: view/core/index/index.phtml:45
 msgid "Developer News"
 msgstr "Actualités des développeurs"
 
-#: view/core/index/index.phtml:65
+#: view/core/index/index.phtml:62
 msgid "Recruiter News"
 msgstr "Actualités des recruteurs"
 
@@ -186,15 +197,25 @@ msgstr "Contrôleur"
 msgid "resolves to %s"
 msgstr "résoudre à %s"
 
-#: view/layout/layout.phtml:35
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and "
+"reload."
+msgstr ""
+
+#: view/layout/layout.phtml:36
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:88
+#: view/layout/layout.phtml:89
 msgid "Help to translate YAWIK"
 msgstr "Aidez à traduire YAWIK"
 
-#: view/layout/layout.phtml:117
+#: view/layout/layout.phtml:121
 msgid "All rights reserved."
 msgstr "Tous droits réservés."
 
@@ -202,22 +223,22 @@ msgstr "Tous droits réservés."
 msgid "Permissions"
 msgstr "Autorisations"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:104
-#: src/Core/Form/View/Helper/FormImageUpload.php:80
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file is too big"
 msgstr "Le fichier est trop grand"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:105
-#: src/Core/Form/View/Helper/FormImageUpload.php:81
+#: src/Core/Form/View/Helper/FormFileUpload.php:107
+#: src/Core/Form/View/Helper/FormImageUpload.php:82
 msgid "The file type is not supported"
 msgstr "Le type de fichier n'est pas supporté"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormFileUpload.php:109
 #, php-format
 msgid "You may only upload %d files"
 msgstr "Vous pouvez seulement uploader %d fichiers"
 
-#: src/Core/Form/View/Helper/FormFileUpload.php:152
+#: src/Core/Form/View/Helper/FormFileUpload.php:156
 msgid "Click here to add files or use drag and drop."
 msgstr "Cliquez ici pour ajouter des fichiers ou utilisez le drag-and-drop."
 
@@ -225,15 +246,15 @@ msgstr "Cliquez ici pour ajouter des fichiers ou utilisez le drag-and-drop."
 msgid "Click here to add an image or use drag and drop."
 msgstr "Cliquez ici pour ajouter une image ou utiliser le drag-and-drop"
 
-#: src/Core/Form/View/Helper/Element/SpinnerButton.php:46
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
 msgid "processing"
 msgstr "traitement"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:168
+#: src/Core/Form/View/Helper/SummaryForm.php:178
 msgid "Edit"
 msgstr "Editer"
 
-#: src/Core/Form/LocalizationSettingsFieldset.php:12
+#: src/Core/Form/LocalizationSettingsFieldset.php:13
 #: language/_annotated_strings.php:90
 msgid "general settings"
 msgstr "paramètres généraux"

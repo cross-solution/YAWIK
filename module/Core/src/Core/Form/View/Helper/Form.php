@@ -112,6 +112,7 @@ class Form extends ZendForm
         if ($form instanceof ViewPartialProviderInterface) {
             return $renderer->partial($form->getViewPartial(), array('element' => $form));
         }
+
         /* @var $element \Zend\Form\ElementInterface */
         foreach ($form as $element) {
             $parameterPartial = $parameter;
@@ -127,6 +128,7 @@ class Form extends ZendForm
                 /* @var $element ExplicitParameterProviderInterface */
                 $parameterPartial = array_merge($element->getParams(), $parameterPartial);
             }
+
             if ($element instanceof ViewPartialProviderInterface) {
                 /* @var $element ViewPartialProviderInterface */
                 $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
@@ -135,22 +137,23 @@ class Form extends ZendForm
                     $element->getViewPartial(),
                     $parameterPartial
                 );
-                
-            } elseif ($element instanceof FieldsetInterface)
-            if ($element instanceof ViewHelperProviderInterface) {
-                /* @var $element ViewHelperProviderInterface */
-                $helper = $element->getViewHelper();
-                if (is_string($helper)) {
-                    $helper = $renderer->plugin($helper);
-                }
 
-                $formContent .= $helper($element);
-            } else {
-                $formContent .= $renderer->formCollection($element, true, $layout);
+            } elseif ($element instanceof FieldsetInterface) {
+                if ($element instanceof ViewHelperProviderInterface) {
+                    /* @var $element ViewHelperProviderInterface */
+                    $helper = $element->getViewHelper();
+                    if (is_string($helper)) {
+                        $helper = $renderer->plugin($helper);
+                    }
+
+                    $formContent .= $helper($element);
+                } else {
+                    $formContent .= $renderer->formCollection($element, true, $layout);
+                }
             } elseif (false !== $element->getOption('use_formrow_helper')) {
-                $formContent.= $renderer->formRow($element, null, null, $layout);
+                $formContent .= $renderer->formRow($element, null, null, $layout);
             } else {
-                $formContent.= $renderer->formElement($element);
+                $formContent .= $renderer->formElement($element);
             }
         }
         

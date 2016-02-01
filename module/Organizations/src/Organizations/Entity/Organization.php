@@ -144,6 +144,19 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     protected $user;
 
+    /**
+     * Default values of an organizations job template
+     *
+     * @var TemplateInterface;
+     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\Template")
+     */
+    protected $template;
+
+    /**
+     * @param OrganizationInterface $parent
+     *
+     * @return $this
+     */
     public function setParent(OrganizationInterface $parent)
     {
         $this->parent = $parent;
@@ -479,4 +492,29 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     {
         return $this->jobs;
     }
+
+    /**
+     * Gets default values of an organizations job template
+     *
+     * @return TemplateInterface
+     */
+    public function getTemplate()
+    {
+        if (null === $this->template){
+            $this->template = new Template();
+        }
+        return $this->template;
+    }
+
+    /**
+     * Sets default values of an organizations job template
+     *
+     * @return self
+     */
+    public function setTemplate(TemplateInterface $template)
+    {
+        // TODO: Implement setTemplate() method.
+    }
+
+
 }

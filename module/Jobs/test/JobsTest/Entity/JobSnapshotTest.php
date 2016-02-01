@@ -47,7 +47,6 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
         return array(
             array('applyId', 'apply123'),
             array('title', 'title123'),
-            array('description', 'description123'),
             array('company', 'company123'),
             array('contactEmail', 'contactEmail123'),
             array('location', 'location123'),

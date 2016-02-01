@@ -81,11 +81,10 @@ class SocialProfilesButton extends Button implements ViewPartialProviderInterfac
     
     /**
      * Set options. Accepted options are:
-     * -
      *
-     * @param  array|Traversable $options
-     * @return Element|ElementInterface
-     * @throws Exception\InvalidArgumentException
+     * @param array|\Traversable $options
+     *
+     * @return $this
      */
     public function setOptions($options)
     {

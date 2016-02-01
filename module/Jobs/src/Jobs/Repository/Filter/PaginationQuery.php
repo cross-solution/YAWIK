@@ -13,12 +13,13 @@ use Jobs\Entity\Status;
 use Auth\Entity\User;
 use Zend\Authentication\AuthenticationService;
 use Zend\Permissions\Acl\Acl;
+use Zend\Stdlib\Parameters;
 use Auth\Entity\UserInterface;
 
 /**
  * maps query parameters to entity attributes
  *
- * @author cbleek
+ * @author Carsten Bleek <bleek@cross-solution.de>
  *
  */
 class PaginationQuery extends AbstractPaginationQuery
@@ -61,13 +62,29 @@ class PaginationQuery extends AbstractPaginationQuery
      * status => Status::CREATED, 'all'
      * user   => User::ROLE_RECRUITER, User::ROLE_ADMIN, User::ROLE_USER
      *
-     * @param $params
-     * @param $queryBuilder
+     * @param $params Parameters
+     * @param $queryBuilder \Doctrine\ODM\MongoDB\Query\Builder
      * @return mixed
      */
     public function createQuery($params, $queryBuilder)
     {
         $this->value = $params->toArray();
+
+        /*
+         * search jobs by keywords
+         */
+        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
+            $search = strtolower($this->value['params']['search']);
+            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
+            $queryBuilder->field(null)->equals($expression->getQuery());
+        }
+
+        if (isset($this->value['location']->coordinates)) {
+            $coordinates = $this->value['location']->coordinates->getCoordinates();
+            $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1],(float) $this->value['d']/100);
+        }
+
+
         $this->user = $this->auth->getUser();
         $isRecruiter = $this->user->getRole() == User::ROLE_RECRUITER || $this->acl->inheritsRole($this->user, User::ROLE_RECRUITER);
 
@@ -93,27 +110,6 @@ class PaginationQuery extends AbstractPaginationQuery
              * an applicants or guests can see all active jobs
              */
             $queryBuilder->field('status.name')->equals(Status::ACTIVE);
-        }
-
-
-        /*
-         * search jobs by keywords
-         */
-        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
-            $search = strtolower($this->value['params']['search']);
-            $searchPatterns = array();
-
-            foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
-            }
-            $queryBuilder->field('keywords')->all($searchPatterns);
-        }
-
-        if (isset($this->value['location'])) {
-            $loc = $this->value['location'];
-            $queryBuilder->field('locations.coordinates')
-                         ->near($loc->getCoordinates())
-                         ->maxDistance($this->value['d'] * 1000);
         }
 
         if (isset($this->value['sort'])) {

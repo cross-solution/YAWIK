@@ -133,6 +133,13 @@ class ChannelOptions extends AbstractOptions
     protected $params;
 
     /**
+     * If true, the channel can be selected and deselected after publishing
+     *
+     * @var bool
+     */
+    protected $editableAfterPublish = false;
+
+    /**
      * Sets the unique key of a channel
      *
      * @param string $key
@@ -457,4 +464,27 @@ class ChannelOptions extends AbstractOptions
         $this->logo = $logo;
         return $this;
     }
+
+    /**
+     * Gets the logo of a channel (Jobboard)
+     *
+     * @return bool
+     */
+    public function getEditableAfterPublish()
+    {
+        return $this->editableAfterPublish;
+    }
+
+    /**
+     * Set the logo of a channel (Jobboard)
+     *
+     * @param $editableAfterPublish
+     * @return $this
+     */
+    public function setEditableAfterPublish($editableAfterPublish = false)
+    {
+        $this->editableAfterPublish = $editableAfterPublish;
+        return $this;
+    }
+
 }

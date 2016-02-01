@@ -38,15 +38,17 @@ class ModuleOptions extends AbstractOptions
      * @var array $operator
      */
     protected $operator = array(
-        'companyShortName' => 'Your Company Name',
-        'companyFullName'  => 'Your Company Name Ltd. & Co KG',
+        'companyShortName' => 'Example Company Name',
+        'companyFullName'  => 'Example Company Name Ltd. & Co KG',
         'companyTax'       => 'Your VAT Number',
-        'postalCode'       => 'xxxx',
-        'city'             => '',
-        'street'           => '',
-        'name'             => '',
-        'email'            => '',
-        'fax'              => ''
+        'postalCode'       => '4711',
+        'city'             => 'Froschmoorstetten',
+        'country'          => 'Auenland',
+        'street'           => 'Rath Dínen 112',
+        'name'             => 'Gimli & Legolas',
+        'email'            => 'name@example.com',
+        'fax'              => '+49-0815-4711',
+        'homepage'         => 'http://example.com'
     );
 
     /**

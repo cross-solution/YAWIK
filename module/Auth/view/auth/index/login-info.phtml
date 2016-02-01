@@ -11,77 +11,82 @@
 <?php $lang = isset($this->lang)?$this->lang:$this->params('lang'); ?>
 <ul id="yk-login-info" class="nav navbar-nav navbar-collapse collapse navbar-right">
     <li class="dropdown">
-    
-<?php if ($this->auth()->isLoggedIn()):?>
 
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-         (<?php echo $this->translate($this->Acl()->getUser()->role)?>) 
-           <strong><?php echo $this->auth('info')->displayName?></strong>
-           <b class="caret"></b>
-      </a>
-      
-        <ul class="dropdown-menu pull-right">
-            <li>
-                <a href="<?php echo $this->url('lang/my', array('action' => 'profile', 'lang' => $lang, true)) ?>">
-                    <span class="yk-icon yk-icon-user"></span> <?php echo $this->translate('My profile')?></a>
-            </li>
-            <li>
-                <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $lang), true) ?>"><span class="yk-icon yk-icon-password"></span> <?php echo $this->translate('Change password')?></a>
-            </li>
-            <?php if ($this->acl()->isRole(\Auth\Entity\User::ROLE_RECRUITER)): ?>
-            <?php  /*<li>
-                <a href="<?php echo $this->url('lang/my-groups', array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('Manage groups') ?></a>
-            </li>*/
+        <?php if ($this->auth()->isLoggedIn()):?>
 
-                $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
-                $org  = $user->getOrganization();
-                if ($org): /* An Anonymous user does not have the OrganizationReference */
-                if (!$org->hasAssociation() || $org->isOwner() ):?>
-            <li>
-                <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building"></span> <?php
-                    if (!$org->hasAssociation()) {
-                        echo $this->translate('Create my organization');
-                    } else {
-                        $orgName = $org->getOrganizationName();
-                        echo sprintf($this->translate('Edit "%s"'), $orgName ? $orgName->getName() : '&lt;unnamed organization&gt;');
-                    }
-                    ?></a>
-            </li><?php endif ?>
-            <?php endif; ?>
-            <?php endif ?>
-            <li class="divider"></li>
-            <li>
-                <a href="<?php echo $this->url('auth-logout',array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-logout"></span><?php echo $this->translate('Logout')?></a>
-            </li>
-        </ul>
-
-
-<?php else: ?>
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf(
-        $this->translate('Hello %s'),
-        '<strong>' . $this->translate('Guest') . '</strong>'
-    )?><b class="caret"></b></a>
-
-   <ul class="dropdown-menu pull-right">
-        <li><a href="<?php
-
-            $ref = $this->buildReferer(array('logout', 'ref'));
-            echo $this->url('lang/auth', array(), array(
-                                                'query' => array(
-                                                    'ref' => urlencode($ref),
-                                                 )), true)?>">
-                <span class="yk-icon yk-icon-login"></span> <?php echo $this->translate('Login')?>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                (<?php echo $this->translate($this->Acl()->getUser()->role)?>)
+                <strong><?php echo $this->auth('info')->displayName?></strong>
+                <b class="caret"></b>
             </a>
-        </li>
-        <li class="divider"></li>
-        <li class="disabled dropdown-header"><a><?php echo $this->translate('Login via')?>...</a></li>
-    <?php foreach (array('facebook' => 'Facebook', 'linkedin' => 'LinkedIn', 'xing' => 'Xing') as $provider => $name): ?>
-        <li>
-            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>"><i class="yk-icon yk-icon-<?php echo $provider?>"></i> <?php echo $name?></a>
-        </li>
-    <?php endforeach ?>
-    </ul>
 
-<?php endif ?>
+            <ul class="dropdown-menu pull-right">
+                <li>
+                    <a href="<?php echo $this->url('lang/my', array('action' => 'profile', 'lang' => $lang, true)) ?>">
+                        <span class="yk-icon yk-icon-user fa-fw"></span> <?php echo $this->translate('My profile')?></a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('lang/my', array('action' => 'password', 'lang' => $lang), true) ?>"><span class="yk-icon yk-icon-password fa-fw"></span> <?php echo $this->translate('Change password')?></a>
+                </li>
+                <?php if ($this->acl()->isRole(\Auth\Entity\User::ROLE_RECRUITER)): ?>
+                    <?php
+                    /*<li>
+                      <a href="<?php echo $this->url('lang/my-groups', array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-group"></span> <?php echo $this->translate('Manage groups') ?></a>
+                      </li>*/
+
+                    $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\User */
+                    $org  = $user->getOrganization();
+                    if ($org): /* An Anonymous user does not have the OrganizationReference */
+                        if (!$org->hasAssociation() || $org->isOwner() ):?>
+                            <li>
+                            <a href="<?php echo $this->url('lang/my-organization', array('lang' => $lang)) ?>"><span class="yk-icon fa-building fa-fw"></span> <?php
+                                if (!$org->hasAssociation()) {
+                                    echo $this->translate('Create my organization');
+                                } else {
+                                    $orgName = $org->getOrganizationName();
+                                    echo sprintf($this->translate('Edit "%s"'), $orgName ? $orgName->getName() : '&lt;unnamed organization&gt;');
+                                }
+                                ?></a>
+                            </li><?php endif ?>
+                    <?php endif; ?>
+                <?php endif ?>
+                <li class="divider"></li>
+                <li>
+                    <a href="<?php echo $this->url('auth-logout',array('lang' => $lang)) ?>"><span class="yk-icon yk-icon-logout fa-fw"></span><?php echo $this->translate('Logout')?></a>
+                </li>
+            </ul>
+
+
+        <?php else: ?>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo sprintf(
+                    $this->translate('Hello %s'),
+                    '<strong>' . $this->translate('Guest') . '</strong>'
+                )?><b class="caret"></b></a>
+
+            <ul class="dropdown-menu pull-right">
+                <li><a href="<?php
+
+                    $ref = $this->buildReferer(array('logout', 'ref'));
+                    echo $this->url('lang/auth', array(), array(
+                        'query' => array(
+                            'ref' => urlencode($ref),
+                        )), true)?>">
+                        <span class="yk-icon yk-icon-login fa-fw"></span> <?php echo $this->translate('Login')?>
+                    </a>
+                </li>
+                <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
+                    <li class="divider"></li>
+                    <li class="disabled dropdown-header"><a><?php echo $this->translate('Login via')?>...</a></li>
+                    <?php foreach ($this->socialbuttons() as $provider => $name): ?>
+                        <li>
+                            <a class="login-link" title="<?php echo sprintf($this->translate('Login with %s'), $name)?>" href="<?php echo $this->url('auth-provider', array('provider' => $provider), array('query' => array('ref' => urlencode($ref))))?>">
+                                <span class="fa fa-<?php echo $provider?> fa-fw"></span> <?php echo $name?>
+                            </a>
+                        </li>
+                    <?php endforeach ?>
+                <?php endif; ?>
+            </ul>
+
+        <?php endif ?>
     </li>
 </ul>

@@ -11,7 +11,7 @@ namespace Auth\Service;
 
 use Auth\Entity\User;
 use Auth\Service\Exception;
-use Auth\Options\ModuleOptions;
+use Core\Options\ModuleOptions;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Mvc\Controller\Plugin\Url;
@@ -60,7 +60,7 @@ class Register
     protected $mailer;
 
     /**
-     * @var \Auth\Options\ModuleOptions
+     * @var ModuleOptions
      */
     protected $options;
 
@@ -320,6 +320,7 @@ class Register
             $userEmail              = $user->getInfo()->getEmail();
             $userName               = $user->getInfo()->getDisplayName();
             $mailService            = $this->getMailService();
+            /* @var \Core\Mail\HTMLTemplateMessage $mail */
             $mail                   = $mailService->get('htmltemplate');
             $mail->user             = $user;
             $mail->name             = $userName;

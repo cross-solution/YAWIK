@@ -125,6 +125,6 @@ class RegisterInputFilterTest extends \PHPUnit_Framework_TestCase
         /** @var \Zend\Validator\InArray $firstValidator */
         $firstValidator = $validators[0]['instance'];
         $this->assertInstanceOf('Zend\Validator\InArray', $firstValidator);
-        $this->assertSame(array(User::ROLE_RECRUITER), $firstValidator->getHaystack());
+        $this->assertSame(array(User::ROLE_RECRUITER,User::ROLE_USER), $firstValidator->getHaystack());
     }
 }

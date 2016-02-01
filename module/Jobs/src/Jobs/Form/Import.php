@@ -39,9 +39,9 @@ class Import extends Form
         }
         return $this->hydrator;
     }
-    
-     public function setData($data)
-     {
+
+    public function setData($data)
+    {
         if ($data instanceof Traversable) {
             $data = ArrayUtils::iteratorToArray($data);
         }
@@ -59,8 +59,8 @@ class Import extends Form
         } elseif ($isAts && !$isUri) {
             $data['atsMode']['mode'] = 'intern';
         } elseif (!$isAts && !empty($email)) {
-                $data['atsMode']['mode'] = 'email';
-                $data['atsMode']['email'] = $email;
+            $data['atsMode']['mode'] = 'email';
+            $data['atsMode']['email'] = $email;
         } else {
             $data['atsMode']['mode'] = 'none';
         }
@@ -68,33 +68,33 @@ class Import extends Form
         if (!array_key_exists('job', $data)) {
             $data = array('job' => $data);
         }
-        
+
         return parent::setData($data);
-        }
-    
-    
-    
-        public function init()
-        {
-            $this->setName('job-create');
-            $this->setAttribute('id', 'job-create');
- 
-        
-            $this->add(
-                array(
+    }
+
+
+
+    public function init()
+    {
+        $this->setName('job-create');
+        $this->setAttribute('id', 'job-create');
+
+
+        $this->add(
+            array(
                 'type' => 'Jobs/ImportFieldset',
                 'name' => 'job',
                 'options' => array(
-                'use_as_base_fieldset' => true
+                    'use_as_base_fieldset' => true
                 ),
-                )
-            );
-        
-            $this->add(
-                array(
-                'type' => 'DefaultButtonsFieldset'
-                )
-            );
+            )
+        );
 
-        }
+        $this->add(
+            array(
+                'type' => 'DefaultButtonsFieldset'
+            )
+        );
+
+    }
 }

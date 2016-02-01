@@ -46,8 +46,8 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $repositoriesMock = $this->getMockBuilder('Core\Repository\RepositoryService')
-            ->disableOriginalConstructor()
-            ->getMock();
+                                 ->disableOriginalConstructor()
+                                 ->getMock();
 
         $repositoriesMock->expects($this->once())
             ->method('get')
@@ -55,6 +55,7 @@ class JobboardControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($jobRepositoryMock);
 
         $sm->setService('repositories', $repositoriesMock);
+
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

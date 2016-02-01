@@ -11,32 +11,75 @@
 namespace Jobs\Repository\Filter;
 
 use Jobs\Entity\Status;
-use Auth\Entity\User;
+use \Doctrine\ODM\MongoDB\Query\Builder;
+use \Zend\Stdlib\Parameters;
+use Zend\Authentication\AuthenticationService;
+use Zend\Permissions\Acl\Acl;
+use Auth\Entity\UserInterface;
 
 /**
  * Class PaginationAdminQuery
+ *
+ * This is currently only used to list pending jobs for approval
+ *
  * @package Jobs\Repository\Filter
  */
 class PaginationAdminQuery extends PaginationQuery
 {
+    /**
+     * @var AuthenticationService
+     */
+    protected $auth;
 
+    /**
+     * @var UserInterface
+     */
+    protected $user;
+
+    /**
+     * @param $auth
+     * @param $acl
+     */
+    public function __construct(AuthenticationService $auth, Acl $acl)
+    {
+        $this->auth = $auth;
+        $this->acl = $acl;
+    }
+
+    /**
+     * @param Parameters $params
+     * @param Builder $queryBuilder
+     *
+     * @return Builder
+     */
     public function createQuery($params, $queryBuilder)
     {
         $this->value = $params->toArray();
-        $this->user = $this->auth->getUser();
-        $queryBuilder->field('status.name')->equals(Status::CREATED);
 
         /*
          * search jobs by keywords
          */
+
         if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
             $search = strtolower($this->value['params']['search']);
-            $searchPatterns = array();
+            $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
+            $queryBuilder->field(null)->equals($expression->getQuery());
+        }
 
-            foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
+        if (isset($this->value['params']['status']) &&
+            !empty($this->value['params']['status']))
+        {
+            if ($this->value['params']['status'] != 'all'){
+                $queryBuilder->field('status.name')->equals($this->value['params']['status']);
             }
-            $queryBuilder->field('keywords')->all($searchPatterns);
+        }else{
+            $queryBuilder->field('status.name')->equals(Status::CREATED);
+        }
+
+        if (isset($this->value['params']['companyId']) &&
+            !empty($this->value['params']['companyId']))
+        {
+            $queryBuilder->field('organization')->equals(new \MongoId($this->value['params']['companyId']));
         }
 
         if (isset($this->value['sort'])) {

@@ -18,7 +18,7 @@ class UniqueApplyId extends AbstractValidator
     const MSG_NOT_UNIQUE = 'msgNotUnique';
     
     protected $messageTemplates = array(
-        self::MSG_NOT_UNIQUE => /*@translate*/ 'The apply identifier "%value%" is already in use.',
+        self::MSG_NOT_UNIQUE => /*@translate*/ 'The apply identifier "%value%" is already in use.'
     );
     
     public function __construct($options = null)

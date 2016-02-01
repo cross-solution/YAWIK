@@ -123,11 +123,15 @@ class IndexController extends AbstractActionController
         $request         = $this->getRequest();
         $params          = $this->params();
         $formIdentifier  = $params->fromQuery('form');
+
         try {
-            $org             = $this->getOrganization(true);
+            /* @var $handler \Organizations\Controller\Plugin\GetOrganizationHandler */
+            $handler = $this->plugin('Organizations/GetOrganizationHandler');
+            $org  = $handler->process($this->params(), true);
         } catch (\RuntimeException $e) {
             return $this->getErrorViewModel('no-parent');
         }
+
         $container       = $this->getFormular($org);
 
         if (isset($formIdentifier) && $request->isPost()) {
@@ -240,65 +244,6 @@ class IndexController extends AbstractActionController
                       ->disableForm('descriptionForm');
         }
         return $container;
-    }
-
-    /**
-     * Gets the organization entity.
-     *
-     * @param bool $allowDraft
-     *
-     * @return \Organizations\Entity\Organization
-     * @throws \RuntimeException
-     */
-    protected function getOrganization($allowDraft = true)
-    {
-        $services       = $this->getServiceLocator();
-        $repositories   = $services->get('repositories');
-
-        // @TODO three different method to obtain the job-id ?, simplify this
-        $id_fromRoute = $this->params('id', 0);
-        $id_fromSubForm = $this->params()->fromPost('id', 0);
-        $user = $this->auth()->getUser(); /* @var $user \Auth\Entity\UserInterface */
-
-        /* @var $organizationId string */
-        $organizationId = empty($id_fromRoute)?$id_fromSubForm:$id_fromRoute;
-        $editOwnOrganization = '__my__' === $organizationId;
-        if ($editOwnOrganization) {
-            /* @var $userOrg \Organizations\Entity\OrganizationReference */
-            $userOrg = $user->getOrganization();
-            if ($userOrg->hasAssociation() && !$userOrg->isOwner()) {
-                throw new UnauthorizedAccessException('You may not edit this organization as you are only employer.');
-            }
-            $organizationId = $userOrg->hasAssociation() ? $userOrg->getId() : 0;
-        }
-
-        if (empty($organizationId) && $allowDraft) {
-            /* @var $organization \Organizations\Entity\Organization */
-            $organization = $this->repository->findDraft($user);
-            if (empty($organization)) {
-                $organization = $this->repository->create();
-                $organization->setIsDraft(true);
-                $organization->setUser($user);
-                if (!$editOwnOrganization) {
-                    /* @var $parent \Organizations\Entity\OrganizationReference */
-                    $parent = $user->getOrganization();
-                    if (!$parent->hasAssociation()) {
-                        throw new \RuntimeException('You cannot create organizations, because you do not belong to a parent organization. Use "User menu -> create my organization" first.');
-                    }
-                    $organization->setParent($parent->getOrganization());
-                }
-
-                $repositories->store($organization);
-
-            }
-            return $organization;
-        }
-
-        $organization      = $this->repository->find($organizationId);
-        if (!$organization) {
-            throw new \RuntimeException('No Organization found with id "' . $organizationId . '"');
-        }
-        return $organization;
     }
 
     protected function getErrorViewModel($script)

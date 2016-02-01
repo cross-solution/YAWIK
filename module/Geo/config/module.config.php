@@ -2,6 +2,12 @@
 
 return array(
 
+    'options' => [
+        'Geo/Options' => [
+            'class' => '\Geo\Options\ModuleOptions',
+        ],
+    ],
+
     'doctrine' => array(
         'driver' => array(
             'odm_default' => array(
@@ -28,11 +34,10 @@ return array(
         ),
     ),
 
-
     'controllers' => array(
-        'invokables' => array(
-            'Geo\Controller\Index' => 'Geo\Controller\IndexController',
-        ),
+        'factories' => array(
+            'Geo\Controller\Index' => 'Geo\Factory\Controller\IndexControllerFactory',
+        )
     ),
     'controller_plugins' => array(
         'factories' => array(
@@ -88,9 +93,5 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    
-    // spezifische Daten
-    'geocoder_cross_url' => 'http://api.cross-solution.de/geo',
-    'geocoder_photon_url' => 'http://photon.yawik.org/api',
 
 );

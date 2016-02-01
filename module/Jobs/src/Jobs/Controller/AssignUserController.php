@@ -18,6 +18,8 @@ use Zend\View\Model\ViewModel;
 /**
  * ${CARET}
  *
+ * @method \Acl\Controller\Plugin\Acl acl()
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test
  */
@@ -103,11 +105,11 @@ class AssignUserController extends AbstractActionController
         /*
          * Maybe we should inject the user repository also, to prevent this
          * rather expensive loop. On the other hand... how often will someone change the job user?
-         *
          */
         if ($org->getUser()->getId() == $userId) {
             $this->job->setUser($org->getUser());
         } else {
+            /* @var \Organizations\Entity\Employee  $emp */
             foreach ($org->getEmployees() as $emp) {
                 $user = $emp->getUser();
                 if ($user->getId() == $userId) {

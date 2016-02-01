@@ -10,10 +10,11 @@
 namespace AuthTest\Factory\Controller;
 
 use Auth\Factory\Controller\RegisterControllerFactory;
+use Auth\Options\ModuleOptions;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class RegisterControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class RegisterControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var RegisterControllerFactory
@@ -35,9 +36,12 @@ class RegisterControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $loggerMock = $this->getMock('Zend\Log\LoggerInterface');
+        
+        $options = new ModuleOptions();
 
         $sm->setService('Auth\Service\Register', $registerServiceMock);
         $sm->setService('Core/Log', $loggerMock);
+        $sm->setService('Auth/ModuleOptions', $options);
 
         $controllerManager = new ControllerManager();
         $controllerManager->setServiceLocator($sm);

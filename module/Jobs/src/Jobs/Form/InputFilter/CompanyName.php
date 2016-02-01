@@ -4,7 +4,7 @@
  *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @license   MIT
+ * @license       MIT
  */
 
 namespace Jobs\Form\InputFilter;
@@ -16,10 +16,10 @@ class CompanyName extends InputFilter
     public function init()
     {
         $this->add(
-            array(
-            'name' => 'companyId',
-            'required' => true,
-            )
+            [
+                'name'     => 'companyId',
+                'required' => true,
+            ]
         );
     }
 }

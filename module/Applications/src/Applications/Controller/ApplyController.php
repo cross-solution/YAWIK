@@ -36,7 +36,7 @@ use Applications\Entity\StatusInterface;
  *
  * if you use the do as query-parameter, you have to customize the do-Action for the special purpose that is assigned to the do parameter in the query
  *
- * @method \Auth\Controller\Plugin\Auth auth
+ * @method \Auth\Controller\Plugin\Auth auth()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class ApplyController extends AbstractActionController
@@ -101,6 +101,7 @@ class ApplyController extends AbstractActionController
                 throw new \RuntimeException('Missing apply id');
             }
 
+            /* @var \Jobs\Entity\Job $job */
             $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
 
             if ($user === $job->getUser()) {
@@ -135,7 +136,7 @@ class ApplyController extends AbstractActionController
                     /* @var $application \Applications\Entity\Application */
                     $application = $repository->create();
                     $application->setIsDraft(true)
-                                ->setContact($user->info)
+                                ->setContact($user->getInfo())
                                 ->setUser($user)
                                 ->setJob($job);
 

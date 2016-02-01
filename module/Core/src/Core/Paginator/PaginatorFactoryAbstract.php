@@ -10,9 +10,9 @@
 
 namespace Core\Paginator;
 
+use Core\Repository\RepositoryService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\Parameters;
 use Zend\Paginator\Paginator;
 
 /**
@@ -28,24 +28,28 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var PaginatorService $serviceLocator */
+        /* @var RepositoryService $repositories */
         $repositories   = $serviceLocator->getServiceLocator()->get('repositories');
         $repository     = $repositories->get($this->getRepository());
         $queryBuilder   = $repository->createQueryBuilder();
         $filter         = $serviceLocator->getServiceLocator()->get('filterManager')->get($this->getFilter());
-
         $adapter       = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter);
-
         $service        = new Paginator($adapter);
         return $service;
     }
 
     /**
-     * @return Zend\Filter\FilterInterface
+     * pagination service name
+     *
+     * @return string
      */
     abstract protected function getFilter();
 
     /**
-     * @return Zend\Filter\FilterInterface\Repository
+     * repository name
+     *
+     * @return string
      */
     abstract protected function getRepository();
 }

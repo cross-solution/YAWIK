@@ -16,7 +16,8 @@ use Core\Form\Element\ViewHelperProviderInterface;
 /**
  * this Class is a rudimentary base for the future extension of entering the hiring organization name
  *
- * Class JobNameElement
+ * Class CompanyNameElement
+ *
  * @package Jobs\Form
  */
 class CompanyNameElement extends Element implements ViewHelperProviderInterface

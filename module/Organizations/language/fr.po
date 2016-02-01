@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-13 22:31+0200\n"
-"PO-Revision-Date: 2015-06-14 21:05+0000\n"
-"Last-Translator: Brice <vertebre@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/projects/p/yawik/language/fr/)\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: French (http://www.transifex.com/yawik/yawik/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -204,15 +204,31 @@ msgstr "numéro de domicile"
 msgid "Postalcode"
 msgstr "Code Postal"
 
-#: language/_annotated_strings.php:71
+#: language/_annotated_strings.php:69
+msgid "Phone"
+msgstr "Téléphone"
+
+#: language/_annotated_strings.php:72
+msgid "Fax"
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid "The organization referenced in your request could not be found."
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid "The access token you provided seems to have expired."
+msgstr ""
+
+#: language/_annotated_strings.php:81
 #, php-format
 msgid "Invitation to join the team of %s"
 msgstr "Invitation à rejoindre l'équipe de %s"
 
-#: language/_annotated_strings.php:74
+#: language/_annotated_strings.php:84
 msgid "Overview"
 msgstr "Vue d'ensemble"
 
-#: language/_annotated_strings.php:77
+#: language/_annotated_strings.php:87
 msgid "Insert"
 msgstr "Insérer"

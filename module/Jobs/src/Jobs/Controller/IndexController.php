@@ -14,6 +14,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
 use Auth\Entity\User;
+use Jobs\Repository;
+use Jobs\Form\ListFilter;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -25,10 +27,35 @@ use Zend\View\Model\ViewModel;
  *
  * @method \Auth\Controller\Plugin\Auth auth()
  * @method \Acl\Controller\Plugin\Acl acl()
- * @method \Core\Controller\Plugin\CreatePaginator paginator(string $repositoryName, array $defaultParams = array(), bool $usePostParams = false)
+ * @method \Core\Controller\Plugin\CreatePaginatorService paginatorService()
  */
 class IndexController extends AbstractActionController
 {
+
+    /**
+     * @var Repository\Job $jobRepository
+     */
+    private $jobRepository;
+
+    /**
+     * Formular for searching job postings
+     *
+     * @var ListFilter $searchForm
+     */
+    private $searchForm;
+
+    /**
+     * Construct the index controller
+     *
+     * @param Repository\Job $jobRepository
+     * @param ListFilter $searchForm
+     */
+    public function __construct(Repository\Job $jobRepository, ListFilter $searchForm)
+    {
+        $this->jobRepository = $jobRepository;
+        $this->searchForm = $searchForm;
+    }
+
     /**
      * attaches further Listeners for generating / processing the output
      *
@@ -41,37 +68,23 @@ class IndexController extends AbstractActionController
         $serviceLocator  = $this->getServiceLocator();
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
-
         $events->attach($defaultServices);
 
         return $this;
     }
 
     /**
-     * List jobs.
+     * List job postings
      *
-     * @return array
+     * @return ViewModel
      */
     public function indexAction()
     {
-        return $this->listJobs();
-    }
-
-    public function listOpenJobsAction()
-    {
-        return $this->listJobs(true);
-    }
-
-    protected function listJobs($showPendingJobs = false)
-    {
-
-        $serviceLocator  = $this->getServiceLocator();
         /* @var $request \Zend\Http\Request */
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $jsonFormat  = 'json' == $params->get('format');
         $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
-        //$showPendingJobs = $this->acl()->isRole('admin') && 'created' == $params->get('status');
 
         if (!$jsonFormat && !$request->isXmlHttpRequest()) {
             $session       = new Session('Jobs\Index');
@@ -85,33 +98,25 @@ class IndexController extends AbstractActionController
             } elseif ($isRecruiter) {
                 $params->set('by', 'me');
             }
-            /* @var $filterForm \Jobs\Form\ListFilter */
+
             $session[$sessionKey] = $params->toArray();
 
-            if (!$showPendingJobs) {
-                $filterForm           = $this->getServiceLocator()->get('forms')->get('Jobs/ListFilter', $isRecruiter);
-                $filterForm->bind($params);
-            } else {
-            }
+            $this->searchForm->bind($params);
+
         }
 
         if (!isset($params['sort'])) {
             $params['sort'] = '-date';
         }
 
-        if ($showPendingJobs) {
-            $paginator = $this->paginatorservice('Jobs/Admin', $params);
-        } else {
-            $paginator = $this->paginatorservice('Jobs/Job', $params);
-        }
+        $paginator = $this->paginatorservice('Jobs/Job', $params);
 
         $return = array(
             'by'   => $params->get('by', 'all'),
             'jobs' => $paginator,
-            'showPendingJobs' => $showPendingJobs,
         );
-        if (isset($filterForm)) {
-            $return['filterForm'] = $filterForm;
+        if (isset($this->searchForm)) {
+            $return['filterForm'] = $this->searchForm;
         }
 
         $model = new ViewModel();
@@ -138,7 +143,7 @@ class IndexController extends AbstractActionController
         }
 
         $myJobs    = $services->get('repositories')->get('Jobs/Job');
-        $paginator = $this->paginator('Jobs/Job');
+        $paginator = $this->paginatorService('Jobs/Job');
 
         return array(
             'script' => 'jobs/index/dashboard',

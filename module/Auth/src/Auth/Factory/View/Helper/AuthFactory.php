@@ -29,6 +29,7 @@ class AuthFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $helpers)
     {
+        /* @var $helpers \Zend\View\HelperPluginManager */
         $auth = $helpers->getServiceLocator()->get('AuthenticationService');
         $helper = new Auth();
         $helper->setService($auth);

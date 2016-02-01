@@ -12,7 +12,6 @@ namespace Jobs\Form;
 
 use Core\Form\HeadscriptProviderInterface;
 use Core\Form\ViewPartialProviderInterface;
-use string;
 use Zend\Form\Element\Select;
 
 /**

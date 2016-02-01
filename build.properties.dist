@@ -24,12 +24,6 @@ role=recruiter
 external.app.key=will-be-overwritten-during-build-process
 external.app.prefix=myapp
 
-;
-; Email (module/Core/config/core.mails.global.php.dist).
-;
-mail.from.email=name@example.com
-mail.from.name=YAWIK
-
 ; subject of the initial email, if somebody logs into via a social network
 mail.first_login.subject=Welcome to the YAWIK demo
 
@@ -43,35 +37,6 @@ auth.suffix=
 ; Use comma to separate multiple addresses.
 ;
 mail.develop.override_recipient=
-
-;
-; Facebook, Xing and Linkedin credentials. (module/Auth/config/module.auth.global.php.dist)
-; You'll het an facebook app ID by creating a Facebook app. 
-; more info: https://developers.facebook.com/ 
-
-facebook.enabled=false
-facebook.appid=<put your facebook app ID here>
-facebook.secret=<put you facebook app secret here>
-facebook.scope=email,user_about_me,user_birthday,user_hometown,user_work_history,user_education_history
-
-; more info: https://dev.xing.com/
-xing.enabled=false
-xing.appid=<put your xing app ID here>
-xing.secret=<put your xing app secret here>
-xing.scope=
-
-; more info: https://developer.linkedin.com/
-linkedin.enabled=false
-linkedin.appid=<put your linkedin app ID here>
-linkedin.secret=<put your linkedin app secret here>
-linkedin.scope=r_fullprofile
-
-;
-; reCapture on registration form
-; these information you need to get from: https://www.google.com/recaptcha/admin#list
-;
-captcha.recapture.public_key=<put your public key here>
-captcha.recapture.private_key=<put your secret key here>
 
 ;
 ; For Developers: If you plan to contribute to the development, you can define some deployment variables. 

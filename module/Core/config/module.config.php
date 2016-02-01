@@ -61,7 +61,14 @@ return array(
             ),
         ),
     ),
-           
+
+    'log_processors' => [
+        'invokables' => [
+            'Core/UniqueId' => 'Core\Log\Processor\UniqueId',
+        ],
+    ],
+
+
     // Routes
     'router' => array(
         'routes' => array(
@@ -154,7 +161,9 @@ return array(
             'templateProvider'           => 'Core\Service\TemplateProvider',
             'templateProviderStrategy'   => 'Core\Form\Hydrator\Strategy\TemplateProviderStrategy',
             'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
+            'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
+
         ),
         'factories' => array(
             'Core/DocumentManager' => 'Core\Repository\DoctrineMongoODM\DocumentManagerFactory',
@@ -171,6 +180,7 @@ return array(
         ),
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
+            'Core\Factory\OptionsAbstractFactory',
         ),
         'aliases' => array(
             'forms' => 'FormElementManager',
@@ -274,14 +284,8 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'services' => 'Core\View\Helper\Services',
-//            'form' => 'Core\Form\View\Helper\Form',
             'form_element' => 'Core\Form\View\Helper\FormElement',
-//            'form_partial' => 'Core\Form\View\Helper\FormPartial',
-//            'form_collection' => 'Core\Form\View\Helper\FormCollection',
-//            'form_row' => 'Core\Form\View\Helper\FormRow',
-//            'form_multi_checkbox' => 'Core\Form\View\Helper\FormMultiCheckbox',
-//            'form_radio' => 'Core\Form\View\Helper\FormRadio',
-//            'form_daterange' => 'Core\Form\View\Helper\FormDateRange',
+            'formLabel'  => 'Core\Form\View\Helper\RequiredMarkInFormLabel',
             'form' => 'Core\Form\View\Helper\Form',
             'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
@@ -308,11 +312,12 @@ return array(
             'spinnerButton' => 'Core\Form\View\Helper\Element\SpinnerButton',
             'togglebutton' => 'Core\Form\View\Helper\ToggleButton',
             'TinyMCEditor' => 'Core\Form\View\Helper\FormEditor',
-            'TinyMCEditorLight' => 'Core\Form\View\Helper\FormEditorLight',
             'TinyMCEditorColor' => 'Core\Form\View\Helper\FormEditorColor'
         ),
         'factories' => array(
             'params' => 'Core\View\Helper\Service\ParamsHelperFactory',
+            'socialbuttons' => 'Core\Factory\View\Helper\SocialButtonsFactory',
+            'TinyMCEditorLight' => 'Core\Factory\Form\View\Helper\FormEditorLightFactory',
             'configheadscript' => 'Core\View\Helper\Service\HeadScriptFactory',
         ),
         'initializers' => array(

@@ -224,7 +224,7 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
                                 ->disableOriginalConstructor()
                                 ->getMock();
 
-        $this->templateFilter = $this->getMockBuilder('\Jobs\Filter\viewModelTemplateFilterFactory')
+        $this->templateFilter = $this->getMockBuilder('\Jobs\Factory\Filter\ViewModelTemplateFilterFactory')
                                 ->disableOriginalConstructor()
                                 ->getMock();
 
@@ -284,7 +284,7 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
         $this->serviceManager
             ->expects($this->at(5))
             ->method('get')
-            ->with('Jobs/viewModelTemplateFilter')
+            ->with('Jobs/ViewModelTemplateFilter')
             ->will($this->returnValue($this->templateFilter));
 
         $this->serviceManager

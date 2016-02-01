@@ -29,6 +29,9 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
      */
     protected $params;
 
+    /**
+     * @var ZendForm
+     */
     protected $parent;
 
     /**
@@ -38,6 +41,12 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
      */
     protected $isDescriptionsEnabled = false;
 
+    /**
+     * @param array|\Traversable|\Zend\Form\ElementInterface $elementOrFieldset
+     * @param array                                          $flags
+     *
+     * @return $this
+     */
     public function add($elementOrFieldset, array $flags = array())
     {
         parent::add($elementOrFieldset, $flags);
@@ -47,23 +56,41 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $this;
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDescriptionsEnabled($flag)
     {
         $this->isDescriptionsEnabled = (bool) $flag;
         return $this;
     }
-    
+
+    /**
+     * @return bool
+     */
     public function isDescriptionsEnabled()
     {
         return $this->isDescriptionsEnabled;
     }
-    
+
+    /**
+     * @param string $description
+     *
+     * @return $this
+     */
     public function setDescription($description)
     {
         $this->options['description'] = $description;
         return $this;
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDisableCapable($flag)
     {
         $this->options['is_disable_capable'] = $flag;
@@ -71,6 +98,9 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableCapable()
     {
         return isset($this->options['is_disable_capable'])
@@ -78,6 +108,11 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
                : true;
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDisableElementsCapable($flag)
     {
         $this->options['is_disable_elements_capable'] = $flag;
@@ -85,6 +120,9 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableElementsCapable()
     {
         return isset($this->options['is_disable_elements_capable'])
@@ -92,6 +130,11 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
                : true;
     }
 
+    /**
+     * @param array $map
+     *
+     * @return $this
+     */
     public function disableElements(array $map)
     {
         if (!$this->isDisableElementsCapable()) {
@@ -127,7 +170,10 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         }
         return $this;
     }
-    
+
+    /**
+     * @return \Zend\Stdlib\Hydrator\HydratorInterface
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -137,20 +183,26 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         }
         return $this->hydrator;
     }
-    
+
+    /**
+     * @param array|\Traversable $options
+     *
+     * @return $this
+     */
     public function setOptions($options)
     {
         $desc = isset($this->options['description']) ? $this->options['description'] : null;
-        
+
         parent::setOptions($options);
-        
+
         if (isset($options['enable_descriptions'])) {
             $this->setIsDescriptionsEnabled($options['enable_descriptions']);
         }
-        
+
         if (!isset($options['description']) && null !== $desc) {
             $this->options['description'] = $desc;
         }
+        return $this;
     }
 
     /**
@@ -183,13 +235,13 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
             $this->get($key)->setValue($value);
         } else {
             $this->add(
-                array(
-                'type' => 'hidden',
-                'name' => $key,
-                'attributes' => array(
-                    'value' => $value
-                )
-                )
+                [
+                    'type'       => 'hidden',
+                    'name'       => $key,
+                    'attributes' => [
+                        'value' => $value
+                    ]
+                ]
             );
         }
         return $this;
@@ -203,8 +255,12 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     protected function addHydratorStrategies($hydrator)
     {
     }
-    
 
+    /**
+     * @param $spec
+     *
+     * @return $this
+     */
     public function addClass($spec)
     {
         $class = array();
@@ -221,6 +277,9 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
         return $this;
     }
 
+    /**
+     * @return Form
+     */
     public function setValidate()
     {
         return $this->addClass('validate');
@@ -272,7 +331,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     }
 
     /**
-     * reassurance, that no required inputfilter is set on a non-existing field, this mistake is otherwise hard to detect
+     * reassurance, that no required inputFilter is set on a non-existing field, this mistake is otherwise hard to detect
      * there is still a lot to do on this issue
      * @param InputFilterInterface $inputFilter
      * @param FieldsetInterface $fieldset
@@ -281,8 +340,10 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     public function attachInputFilterDefaults(InputFilterInterface $inputFilter, FieldsetInterface $fieldset)
     {
         parent::attachInputFilterDefaults($inputFilter, $fieldset);
+        /* @var $inputFilter \Zend\InputFilter\InputFilter */
         foreach ($inputFilter->getInputs() as $name => $input) {
             if (!$input instanceof InputFilterInterface) {
+                /* @var $input \Zend\InputFilter\Input */
                 $required = $input->isRequired();
                 $inputExists = $fieldset->has($name);
                 if (!$inputExists && $required) {

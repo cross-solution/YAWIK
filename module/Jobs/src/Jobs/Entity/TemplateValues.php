@@ -10,7 +10,6 @@
 
 namespace Jobs\Entity;
 
-use Core\Entity\AbstractIdentifiableHydratorAwareEntity;
 use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
@@ -18,8 +17,16 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * Holds various fields a o job opening template
  *
  * @ODM\EmbeddedDocument
+ * @ODM\Indexes({
+ *   @ODM\Index(keys={"requirements"="text",
+ *                    "description"="text",
+ *                    "qualifications"="text",
+ *                    "benefits"="text",
+ *                    "title"="text"},
+ *              name="fulltext")
+ * })
  */
-class TemplateValues extends AbstractEntity
+class TemplateValues extends AbstractEntity implements TemplateValuesInterface
 {
 
     /**
@@ -28,7 +35,7 @@ class TemplateValues extends AbstractEntity
      * @var String
      * @ODM\String
      */
-    protected $qualifications;
+    protected $qualifications='';
 
     /**
      * Requirements field of the job template
@@ -36,7 +43,7 @@ class TemplateValues extends AbstractEntity
      * @var String
      * @ODM\String
      */
-    protected $requirements;
+    protected $requirements='';
 
     /**
      * Benefits field of the job template
@@ -44,7 +51,7 @@ class TemplateValues extends AbstractEntity
      * @var String
      * @ODM\String
      */
-    protected $benefits;
+    protected $benefits='';
 
     /**
      * Job title field of the job template
@@ -52,7 +59,23 @@ class TemplateValues extends AbstractEntity
      * @var String
      * @ODM\String
      */
-    protected $title;
+    protected $title='';
+
+    /**
+     * Company description field of the job template
+     *
+     * @var String
+     * @ODM\String
+     */
+    protected $description='';
+
+    /**
+     * language of the job template values. Must be a valid ISO 639-1 code
+     *
+     * @var String
+     * @ODM\String
+     */
+    protected $language='en';
 
     /**
      * free values (currently not in use)
@@ -147,6 +170,50 @@ class TemplateValues extends AbstractEntity
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Sets the company description of the job template
+     *
+     * @param $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description=(string) $description;
+        return $this;
+    }
+
+    /**
+     * Gets the company description of the job template
+     *
+     * @return String
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the language of the job template values
+     *
+     * @param $language
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        $this->language=(string) $language;
+        return $this;
+    }
+
+    /**
+     * Gets the language of the job template values
+     *
+     * @return String
+     */
+    public function getLanguage()
+    {
+        return $this->language;
     }
 
     /**

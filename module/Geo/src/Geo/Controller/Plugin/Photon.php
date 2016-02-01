@@ -10,21 +10,20 @@
 namespace Geo\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Http\Client;
 
 class Photon extends AbstractPlugin
 {
-    /* (non-PHPdoc)
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+    /**
+     * @param string $par Query Parameter
+     * @param string $geoCoderUrl Url of the geo location service
+     * @param string $land language
+     *
+     * @return array|mixed|string
      */
-    public function __invoke($par)
+    public function __invoke($par, $geoCoderUrl, $lang)
     {
-        $config = $this->getController()->getServiceLocator()->get('config');
-        $lang   = $this->getController()->getEvent()->getRouteMatch()->getParam('lang', 'en');
-
-        if (empty($config['geocoder_photon_url'])) {
-             throw new \InvalidArgumentException('Now Service-Adress for Geo-Service available');
-        }
-        $client = new \Zend\Http\Client($config['geocoder_photon_url']);
+        $client = new Client($geoCoderUrl);
         $client->setMethod('GET');
 
         $osmTags = [
@@ -36,7 +35,7 @@ class Photon extends AbstractPlugin
 
         $uri = sprintf(
             '%s?q=%s&lang=%s&osm_tag=%s',
-            $config['geocoder_photon_url'],
+            $geoCoderUrl,
             urlencode($par),
             $lang,
             implode('&osm_tag=', $osmTags)
@@ -49,6 +48,7 @@ class Photon extends AbstractPlugin
         $result = $response->getBody();
         $result = json_decode($result);
         $result = $result->features;
+        $r=[];
         foreach ($result as $key => $val) {
             $row=['name' => (property_exists($val->properties, 'name') ? $val->properties->name:''),
                   'postcode' => (property_exists($val->properties, 'postcode') ? $val->properties->postcode:''),
@@ -62,7 +62,7 @@ class Photon extends AbstractPlugin
                   'osm_id' => (property_exists($val->properties, 'osm_id') ? $val->properties->osm_id : ''),
                   'data' => json_encode($val),
             ];
-            $r[] = $row;
+            $r[]=$row;
         }
         return $r;
     }

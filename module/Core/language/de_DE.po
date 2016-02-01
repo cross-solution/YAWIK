@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014-2015
+# Carsten Bleek <cbleek@yawik.org>, 2014-2016
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
 # Mathias Gelhausen <gelhausen@cross-solution.de>, 2014
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:20+0200\n"
-"PO-Revision-Date: 2015-10-29 12:20+0000\n"
+"POT-Creation-Date: 2016-02-01 22:28+0100\n"
+"PO-Revision-Date: 2016-02-01 21:37+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,26 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr "Impressum"
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr "Steuernummer"
+
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
 msgstr "Wird geladen"
+
+#: view/partial/social-buttons.phtml:13
+msgid "Login via"
+msgstr "Einloggen über"
+
+#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr "Anmelden mit %s"
 
 #: view/partial/pagination-control.phtml:26
 #: view/partial/pagination-control.phtml:30
@@ -50,63 +67,58 @@ msgstr "Ende"
 msgid "Add permission"
 msgstr "Zugriffsrechte hinzufügen"
 
-#: view/core/index/index.phtml:11 language/_annotated_strings.php:93
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:93
 msgid "Home"
 msgstr "Start"
 
-#: view/core/index/index.phtml:16
+#: view/core/index/index.phtml:13
 msgid "Welcome to YAWIK!"
 msgstr "Willkommen bei YAWIK!"
 
-#: view/core/index/index.phtml:17
+#: view/core/index/index.phtml:14
 msgid "we're connecting recruiters and applicants"
 msgstr "wir verbinden Personaler und Bewerber"
 
-#: view/core/index/index.phtml:18
+#: view/core/index/index.phtml:15
 msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
 msgstr "Melde Dich mit Deinen Sozialen Netzwerk am Open Source Bewerbermanagement System an"
 
-#: view/core/index/index.phtml:22
-#, php-format
-msgid "Login with %s"
-msgstr "Anmelden mit %s"
-
-#: view/core/index/index.phtml:31
+#: view/core/index/index.phtml:28
 msgid "responsive design (uses bootstrap3 and font awesome)"
 msgstr "Responsive Design (nutzt Bootstrap3 und Awesome Fonts)"
 
-#: view/core/index/index.phtml:32
+#: view/core/index/index.phtml:29
 msgid "multilingual"
 msgstr "mehrsprachig"
 
-#: view/core/index/index.phtml:33
+#: view/core/index/index.phtml:30
 msgid "ready for social recruiting"
 msgstr "bereit für Social Recruiting"
 
-#: view/core/index/index.phtml:34
+#: view/core/index/index.phtml:31
 msgid "enter job ads"
 msgstr "Stellenanzeigen eingeben"
 
-#: view/core/index/index.phtml:35
+#: view/core/index/index.phtml:32
 #, php-format
 msgid "%sapplication forms%s."
 msgstr "%sBewerbungsformulare%s."
 
-#: view/core/index/index.phtml:39
+#: view/core/index/index.phtml:36
 msgid "manage applications"
 msgstr "Bewerbungen verwalten"
 
-#: view/core/index/index.phtml:40
+#: view/core/index/index.phtml:37
 msgid "open and free software"
 msgstr "Open Source im Sinne von freier Software"
 
-#: view/core/index/index.phtml:48
+#: view/core/index/index.phtml:45
 msgid "Developer News"
 msgstr "Neuigkeiten für Entwickler"
 
-#: view/core/index/index.phtml:65
+#: view/core/index/index.phtml:62
 msgid "Recruiter News"
 msgstr "Neuigkeiten für Personaler"
 
@@ -188,15 +200,25 @@ msgstr "Controller"
 msgid "resolves to %s"
 msgstr "löst auf nach %s"
 
-#: view/layout/layout.phtml:38
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr "Javascript ist deaktiviert."
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and "
+"reload."
+msgstr "Diese Seite erfordert Javascript. Bitte aktivieren Sie Javascript und laden Sie dann die Seite erneut."
+
+#: view/layout/layout.phtml:36
 msgid "YAWIK"
 msgstr "YAWIK"
 
-#: view/layout/layout.phtml:91
+#: view/layout/layout.phtml:89
 msgid "Help to translate YAWIK"
 msgstr "Hilf bei der Übersetzung von YAWIK"
 
-#: view/layout/layout.phtml:120
+#: view/layout/layout.phtml:121
 msgid "All rights reserved."
 msgstr "Alle Rechte vorbehalten."
 
@@ -231,7 +253,7 @@ msgstr "Zur Bildauswahl hier klicken, oder ein Bild hierher ziehen."
 msgid "processing"
 msgstr "bearbeiten"
 
-#: src/Core/Form/View/Helper/SummaryForm.php:173
+#: src/Core/Form/View/Helper/SummaryForm.php:178
 msgid "Edit"
 msgstr "Bearbeiten"
 

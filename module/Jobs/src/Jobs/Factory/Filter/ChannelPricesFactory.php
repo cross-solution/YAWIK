@@ -10,7 +10,6 @@
 /** */
 namespace Jobs\Factory\Filter;
 
-use Jobs\Filter\ChannelPrices;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -18,7 +17,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * ${CARET}
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 class ChannelPricesFactory implements FactoryInterface
 {
@@ -33,6 +31,7 @@ class ChannelPricesFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var $serviceLocator \Zend\Filter\FilterPluginManager */
         $services = $serviceLocator->getServiceLocator();
         $providerOptions = $services->get('Jobs/Options/Provider');
 

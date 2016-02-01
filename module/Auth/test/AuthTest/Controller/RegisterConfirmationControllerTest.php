@@ -19,6 +19,16 @@ use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Mvc\Controller\PluginManager;
 
+/**
+ * Class RegisterConfirmationControllerTest
+ *
+ * @package AuthTest\Controller
+ * @runTestsInSeparateProcesses
+ * @covers Auth\Controller\RegisterConfirmationController
+ * @group Auth
+ * @group Auth.Controller
+ */
+
 class RegisterConfirmationControllerTest extends AbstractControllerTestCase
 {
     /**
@@ -26,6 +36,10 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
      */
     private $serviceMock;
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function setUp()
     {
         $this->init('register-confirmation');
@@ -44,6 +58,10 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function testIndexAction_WithGetRequest()
     {
         $userId = uniqid('user');
@@ -63,6 +81,10 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
         $this->assertRedirectTo('/en/my/password');
     }
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function testIndexAction_WithGetRequest_WhenCannotFoundUserBySpecifiedToken()
     {
         $userId = uniqid('user');
@@ -90,6 +112,10 @@ class RegisterConfirmationControllerTest extends AbstractControllerTestCase
         //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function testIndexAction_WithGetRequest_WhenUnexpectedExceptionOccurred()
     {
         $userId = uniqid('user');

@@ -18,6 +18,7 @@ class HtmlAbsPathFilterFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
         $request = $serviceLocator->getServiceLocator()->get('request');
         $uri = $request->getUri();
         $filter = new HtmlAbsPathFilter();

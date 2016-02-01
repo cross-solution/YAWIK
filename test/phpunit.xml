@@ -5,6 +5,11 @@
         <log type="coverage-clover" target="build/logs/clover.xml"/>
         <log type="coverage-php" target="build/logs/clover.serialized"/>
     </logging>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">../module/src</directory>
+        </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="AllTests">
        	    <directory>../module/Install/test/InstallTest</directory>
@@ -14,6 +19,7 @@
             <directory>../module/Auth/test/AclTest</directory>
             <directory>../module/Jobs/test/JobsTest</directory>
             <directory>../module/Organizations/test/OrganizationsTest</directory>
+            <directory>../module/Cv/test/OrganizationsTest</directory>
         </testsuite>
     </testsuites>
 </phpunit>

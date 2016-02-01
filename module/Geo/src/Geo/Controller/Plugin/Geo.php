@@ -13,16 +13,17 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 class Geo extends AbstractPlugin
 {
-    /* (non-PHPdoc)
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+    /**
+     * @param string $par Query Parameter
+     * @param string $geoCoderUrl Url of the geo location service
+     * @param string $land language
+     *
+     * @return array|mixed|string
      */
-    public function __invoke($par)
+    public function __invoke($par, $geoCoderUrl, $land)
     {
-        $config = $this->getController()->getServiceLocator()->get('config');
-        if (empty($config['geocoder_cross_url'])) {
-             throw new \InvalidArgumentException('Now Service-Adress for Geo-Service available');
-        }
-        $client = new \Zend\Http\Client($config['geocoder_photon_url']);
+
+        $client = new \Zend\Http\Client($geoCoderUrl);
         $client->setMethod('GET');
         // more countries 'country' => 'DE,CH,AT'
         // with countryCode 'zoom' => 2

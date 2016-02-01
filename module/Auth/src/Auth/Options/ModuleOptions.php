@@ -57,12 +57,26 @@ class ModuleOptions extends AbstractOptions
     protected $authSuffix = '';
 
     /**
-     * Use the siteName of the Core Options
+     * Enable Login via Social Networks
      *
-     * @deprecated
-     * @var string
+     * @var array()
      */
-    protected $siteName = '';
+    protected $enableLogins = ['facebook','xing','linkedin','google','github'];
+
+    /**
+     * Enable Registration
+     *
+     * @var bool
+     */
+    protected $enableRegistration = true;
+
+    /**
+     * Enable to reset the password
+     *
+     * @var bool
+     */
+    protected $enableResetPassword = true;
+
 
     /**
      * Sets the "role " option
@@ -171,24 +185,58 @@ class ModuleOptions extends AbstractOptions
         return $this->authSuffix;
     }
 
-
     /**
-     * @deprecated
-     * @param string $siteName
+     * @param $enableLogins
      * @return $this
      */
-    public function setSiteName($siteName)
+    public function setEnableLogins($enableLogins)
     {
-        $this->siteName = $siteName;
+        $this->enableLogins = $enableLogins;
         return $this;
     }
 
     /**
-     * @deprecated
-     * @return string
+     * @return array()
      */
-    public function getSiteName()
+    public function getEnableLogins()
     {
-        return $this->siteName;
+        return $this->enableLogins;
     }
+
+    /**
+     * @param $enableRegistration
+     * @return $this
+     */
+    public function setEnableRegistration($enableRegistration)
+    {
+        $this->enableRegistration = $enableRegistration;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEnableRegistration()
+    {
+        return $this->enableRegistration;
+    }
+
+    /**
+     * @param $enableResetPassword
+     * @return $this
+     */
+    public function setEnableResetPassword($enableResetPassword)
+    {
+        $this->enableResetPassword = $enableResetPassword;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEnableResetPassword()
+    {
+        return $this->enableResetPassword;
+    }
+
 }

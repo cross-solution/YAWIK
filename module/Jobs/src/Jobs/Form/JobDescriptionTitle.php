@@ -59,7 +59,7 @@ class JobDescriptionTitle extends Form implements InputFilterProviderInterface
 
     public function getInputFilterSpecification()
     {
-        return array(
-        );
+        return [
+        ];
     }
 }

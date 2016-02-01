@@ -31,8 +31,8 @@ class RegisterFactory implements FactoryInterface
         /* @var \Core\Mail\MailService $mailService */
         $mailService = $serviceLocator->get('Core/MailService');
 
-        /* @var \Auth\Options\ModuleOptions $config */
-        $config = $serviceLocator->get('Auth/Options');
+        /* @var \Core\Options\ModuleOptions $config */
+        $config = $serviceLocator->get('Core/Options');
 
         return new Register($userRepository, $mailService, $config);
     }

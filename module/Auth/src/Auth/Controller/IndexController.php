@@ -13,6 +13,8 @@ namespace Auth\Controller;
 use Auth\AuthenticationService;
 use Auth\Service\Exception;
 use Auth\Options\ModuleOptions;
+use Auth\Form\Login;
+use Auth\Form\Register;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Log\LoggerInterface;
 use Zend\View\Model\ViewModel;
@@ -20,19 +22,27 @@ use Zend\View\Model\JsonModel;
 use Zend\Stdlib\Parameters;
 
 /**
+ *
+ * @method \Core\Controller\Plugin\Notification notification
+ * @method \Core\Controller\Plugin\Mailer mailer
+ *
  * Main Action Controller for Authentication module.
  */
 class IndexController extends AbstractActionController
 {
+
+    const LOGIN='login';
+    const REGISTER='register';
+
     /**
      * @var AuthenticationService
      */
     protected $auth;
 
     /**
-     * @var
+     * @var array
      */
-    protected $loginForm;
+    protected $forms;
 
     /**
      * @var LoggerInterface
@@ -47,19 +57,21 @@ class IndexController extends AbstractActionController
     /**
      * @param $auth  AuthenticationService
      * @param $logger LoggerInterface
-     * @param $loginForm
-     * @param $options
+     * @param $forms
+     * @param $options ModuleOptions
      */
-    public function __construct(AuthenticationService $auth, LoggerInterface $logger, $loginForm, $options)
+    public function __construct(AuthenticationService $auth, LoggerInterface $logger,array $forms, $options)
     {
-        $this->auth=$auth;
-        $this->loginForm=$loginForm;
-        $this->logger=$logger;
+        $this->auth = $auth;
+        $this->forms = $forms;
+        $this->logger = $logger;
         $this->options = $options;
     }
 
     /**
      * Login with username and password
+     *
+     * @return \Zend\Http\Response|ViewModel
      */
     public function indexAction()
     {
@@ -67,11 +79,18 @@ class IndexController extends AbstractActionController
             return $this->redirect()->toRoute('lang');
         }
 
-        $viewModel = new ViewModel();
-        $services  = $this->getServiceLocator();
-        $form      = $this->loginForm;
-        
-        if ($this->request->isPost()) {
+        $viewModel        = new ViewModel();
+        $services         = $this->getServiceLocator();
+
+        /* @var $loginForm Login */
+        $loginForm        = $this->forms[self::LOGIN];
+        /* @var $registerForm Register */
+        $registerForm = $this->forms[self::REGISTER];
+
+        /* @var $request \Zend\Http\Request */
+        $request   = $this->getRequest();
+
+        if ($request->isPost()) {
             $data                          = $this->params()->fromPost();
             $adapter                       = $services->get('Auth/Adapter/UserLogin');
             // inject suffixes via shared Events
@@ -83,14 +102,16 @@ class IndexController extends AbstractActionController
                 $loginSuffix = $loginSuffixResponseCollection->last();
             }
 
-            $form->setData($data);
-            if (array_key_exists('credentials', $data) && array_key_exists('login', $data['credentials']) && array_key_exists('credential', $data['credentials'])) {
+            $loginForm->setData($data);
+            if (array_key_exists('credentials', $data) &&
+                array_key_exists('login', $data['credentials']) &&
+                array_key_exists('credential', $data['credentials'])) {
                 $adapter->setIdentity($data['credentials']['login'] . $loginSuffix)
                     ->setCredential($data['credentials']['credential']);
             }
             
-            $auth       = $this->auth;
-            $result     = $auth->authenticate($adapter);
+            $auth   = $this->auth;
+            $result = $auth->authenticate($adapter);
             
             
             if ($result->isValid()) {
@@ -98,7 +119,7 @@ class IndexController extends AbstractActionController
                 $settings = $user->getSettings('Core');
                 $language = $settings->localization->language;
                 if (!$language) {
-                    $headers = $this->getRequest()->getHeaders();
+                    $headers = $request->getHeaders();
                     if ($headers->has('Accept-Language')) {
                         $locales = $headers->get('Accept-Language')->getPrioritized();
                         $language  = $locales[0]->type;
@@ -113,7 +134,7 @@ class IndexController extends AbstractActionController
                 if ($ref) {
                     $ref = urldecode($ref);
                     $url = preg_replace('~/[a-z]{2}(/|$)~', '/' . $language . '$1', $ref);
-                    $url = $this->getRequest()->getBasePath() . $url;
+                    $url = $request->getBasePath() . $url;
                 } else {
                     $urlHelper = $services->get('ViewHelperManager')->get('url');
                     $url = $urlHelper('lang', array('lang' => $language));
@@ -122,25 +143,11 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toUrl($url);
                 
             } else {
-                $databaseName = '';
-                $config = $services->get('config');
-                if (array_key_exists('database', $config) && array_key_exists('databaseName', $config['database'])) {
-                    $databaseName = $config['database']['databaseName'];
-                }
-                // update for Doctrine
-
-                if (empty($databaseName)
-                        && array_key_exists('doctrine', $config)
-                        && array_key_exists('configuration', $config['doctrine'])
-                        && array_key_exists('odm_default', $config['doctrine']['configuration'])
-                        && array_key_exists('default_db', $config['doctrine']['configuration']['odm_default'])) {
-                    $databaseName = $config['doctrine']['configuration']['odm_default']['default_db'];
-                }
                 $loginName = $data['credentials']['login'];
                 if (!empty($loginSuffix)) {
                     $loginName = $loginName . ' (' . $loginName . $loginSuffix . ')';
                 }
-                $this->logger->info('Failed to authenticate User ' . $loginName . (empty($databaseName)?'':(', Database-Name: ' . $databaseName)));
+                $this->logger->info('Failed to authenticate User ' . $loginName );
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
@@ -156,12 +163,24 @@ class IndexController extends AbstractActionController
             $viewModel->setVariable('ref', $ref);
         }
 
-        $allowRegister = $services->get('controllerPluginManager')->get('config')->get('allowRegister');
+        $allowRegister = $this->options->getEnableRegistration();
+        $allowResetPassword = $this->options->getEnableResetPassword();
         if (isset($allowRegister)) {
-            $viewModel->setVariable('allowRegister', $allowRegister);
+            $viewModel->setVariables(
+                [
+                    'allowRegister' => $allowRegister,
+                    'allowResetPassword' => $allowResetPassword
+                ]
+            );
         }
-        
-        $viewModel->setVariable('form', $form);
+
+        $viewModel->setVariable('loginForm', $loginForm);
+        $viewModel->setVariable('registerForm', $registerForm);
+
+        /* @deprecated use loginForm instead of form in your view scripts */
+        $viewModel->setVariable('form', $loginForm);
+
+
         return $viewModel;
     }
     
@@ -193,7 +212,7 @@ class IndexController extends AbstractActionController
 
                 $user->login=$login;
                 $user->setPassword($password);
-                $user->role = $this->options->getRole();
+                $user->setRole($this->options->getRole());
 
                 $mail = $this->mailer('htmltemplate');
                 $mail->setTemplate('mail/first-socialmedia-login');
@@ -241,7 +260,7 @@ class IndexController extends AbstractActionController
      * - pass: Password of the user to log in
      *
      * Returns an json response with the session-id.
-     * Non existant users will be created!
+     * Non existent users will be created!
      *
      */
     public function loginExternAction()

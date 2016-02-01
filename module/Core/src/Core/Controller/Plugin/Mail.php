@@ -178,11 +178,9 @@ class mail extends Message implements PluginInterface
     {
         $log = $this->getController()->getServiceLocator()->get('Log/Core/Mail');
         $this->getHeaders()->addHeaderLine('X-Mailer', 'php/YAWIK');
-        //foreach (array('ASCII', 'UTF-8', 'ISO-8859-1', 'ISO-8859-15', 'ISO-8859-7') as $encoding) {
-        $encoding = 'UTF-8';
-        //$this->getHeaders()->addHeaderLine('charset', $encoding);
+
         $this->getHeaders()->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
-        //$this->getHeaders()->setEncoding($encoding);
+
         $transport = new Sendmail();
         $erg = false;
         try {

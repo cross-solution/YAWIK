@@ -85,7 +85,7 @@ class User extends AbstractAdapter
         $credential  = $this->getCredential();
 
         
-        if ($user->getCredential() != $filter->filter($credential)) {
+        if (!$user || $user->getCredential() != $filter->filter($credential)) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
         }
         

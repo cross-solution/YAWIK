@@ -11,7 +11,9 @@
 namespace AuthTest\Entity;
 
 use Auth\Entity\Info;
+use Auth\Entity\Token;
 use Auth\Entity\User;
+
 
 /**
  * Tests for User
@@ -20,8 +22,8 @@ use Auth\Entity\User;
  * @coversDefaultClass \Auth\Entity\User
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
- * @group  Jobs
- * @group  Jobs.Entity
+ * @group  User
+ * @group  User.Entity
  */
 class UserTest extends \PHPUnit_Framework_TestCase
 {
@@ -99,18 +101,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @testdox Allows to set the secret of a user
-     * @covers Auth\Entity\User::getSecret
-     * @covers Auth\Entity\User::setSecret
-     */
-    public function testSetGetSecret()
-    {
-        $input = 'secret';
-        $this->target->setSecret($input);
-        $this->assertEquals($input, $this->target->getSecret());
-    }
-
-    /**
      * @testdox Allows to mark a user as draft
      * @covers Auth\Entity\User::isDraft
      * @covers Auth\Entity\User::setIsDraft
@@ -125,27 +115,70 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($input, $this->target->isDraft());
     }
 
-    public function provideEmailTestData()
-    {
-        return array(
-            array(null,                "info1@example.com",  "info1@example.com"),
-            array("user@example.com",  "info2@example.com",  "user@example.com"),
-        );
-    }
     /**
-     * @testdox Allows to set the role name of a user
-     * @covers Auth\Entity\User::getEmail
-     * @covers Auth\Entity\User::setEmail
-     * @dataProvider provideEmailTestData
+     * Do setter and getter methods work correctly?
+     *
+     * @param string $setter Setter method name
+     * @param string $getter getter method name
+     * @param mixed $value Value to set and test the getter method with.
+     *
+     * @dataProvider provideSetterTestValues
      */
-    public function testSetGetEmail($userEmail,$infoEmail,$expectedEmail)
+    public function testSettingValuesViaSetterMethods($setter, $getter, $value)
     {
-        $info = new Info();
-        $info->setEmail($infoEmail);
-        $this->target->setInfo($info);
-        $this->target->setEmail($userEmail);
-        $this->assertEquals($expectedEmail, $this->target->getEmail());
+        $target = $this->target;
+
+        if (is_array($value)) {
+            $setValue = $value[0];
+            $getValue = $value[1];
+        } else {
+            $setValue = $getValue = $value;
+        }
+
+        if (null !== $setter) {
+            $object = $target->$setter($setValue);
+            $this->assertSame($target, $object, 'Fluent interface broken!');
+        }
+
+        $this->assertSame($target->$getter(), $getValue);
     }
 
+
+    /**
+     * Provides datasets for testSettingValuesViaSetterMethods.
+     *
+     * @return array
+     */
+    public function provideSetterTestValues()
+    {
+        return array(
+            array('setEmail', 'getEmail', 'mail@email.com'),
+            array(null, 'getEmail', null),
+            array('setSecret', 'getSecret', '123secret'),
+            array(null, 'getSecret', null),
+        );
+    }
+
+
+
+    /**
+     * @testdox Allows to set a Token of a user
+     * @covers Auth\Entity\User::getTokens
+     * @covers Auth\Entity\User::setTokens
+     * @dataProvider provideTokenTestData
+     *
+     */
+    public function testSetGetToken($token,$expectedToken)
+    {
+        $this->target->setTokens($token);
+        $this->assertEquals($expectedToken, $this->target->getTokens());
+    }
+
+    public function provideTokenTestData()
+    {
+        return array(
+            array(new Token(),     new Token()),
+        );
+    }
 
 }

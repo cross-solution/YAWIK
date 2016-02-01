@@ -10,6 +10,7 @@
 namespace Auth;
 
 use Acl\Listener\CheckPermissionsListener;
+use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
 use Zend\Mvc\MvcEvent;
 use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
@@ -82,12 +83,6 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
 
-        // TODO: Löschen sobald die Lösung mit der LoginBox klappt
-        //$eventManager->attach(
-        //    array(MvcEvent::EVENT_RENDER, MvcEvent::EVENT_RENDER_ERROR),
-        //    array(new InjectLoginInfoListener(), 'injectLoginInfo'), -1000
-        //);
-
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
@@ -114,6 +109,9 @@ class Module
         $sharedManager = $eventManager->getSharedManager();
         $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');
         $defaultlistener->attachShared($sharedManager);
+
+        $socialProfilesUnconfiguredErrorListener = new SocialProfilesUnconfiguredErrorListener();
+        $socialProfilesUnconfiguredErrorListener->attach($eventManager);
 
     }
 }

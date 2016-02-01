@@ -355,5 +355,16 @@ class OrganizationReference implements
         return $this->proxy('getKeywords');
     }
 
+    public function getTemplate()
+    {
+        return $this->proxy('getTemplate');
+    }
+
+    public function setTemplate(TemplateInterface $template)
+    {
+        return $this->proxy('setTemplate', $template);
+    }
+
+
     /**#@-*/
 }

@@ -11,8 +11,6 @@
 namespace Core\Form\Element;
 
 /**
- *
- *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class InfoCheckbox extends Checkbox implements ViewHelperProviderInterface

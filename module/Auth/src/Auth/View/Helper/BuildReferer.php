@@ -48,7 +48,7 @@ class BuildReferer extends AbstractHelper
             $uri = null;
         }
         
-        if (null === $uri) {
+        if (null === $uri && isset($_SERVER['REQUEST_URI'])) {
             $uri = preg_replace('~^' . $this->getView()->basePath() . '~', '', $_SERVER['REQUEST_URI']);
         }
         

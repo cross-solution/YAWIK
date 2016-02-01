@@ -184,7 +184,9 @@ return array(
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
-            'Jobs/viewModelTemplateFilter'                => 'Jobs\Filter\viewModelTemplateFilterFactory',
+            'Jobs/ViewModelTemplateFilter'                => 'Jobs\Factory\Filter\ViewModelTemplateFilterFactory',
+            'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
+
         ),
         'shared' => array(
             'Jobs/Event' => false,
@@ -194,17 +196,27 @@ return array(
 
     'controllers' => array(
         'invokables' => array(
-            'Jobs/Index' => 'Jobs\Controller\IndexController',
-            'Jobs/Manage' => 'Jobs\Controller\ManageController',
             'Jobs/Import' => 'Jobs\Controller\ImportController',
-            'Jobs/Console' => 'Jobs\Controller\ConsoleController'
+            'Jobs/Console' => 'Jobs\Controller\ConsoleController',
+            'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
+
         ),
         'factories' => array(
             'Jobs/Template' => 'Jobs\Factory\Controller\TemplateControllerFactory',
+            'Jobs/Index' => 'Jobs\Factory\Controller\IndexControllerFactory',
+            'Jobs/Approval' => 'Jobs\Factory\Controller\ApprovalControllerFactory',
             'Jobs/Jobboard' => 'Jobs\Factory\Controller\JobboardControllerFactory',
             'Jobs/AssignUser' => 'Jobs\Factory\Controller\AssignUserControllerFactory',
+            'Jobs/ApiJobListByOrganization' => 'Jobs\Factory\Controller\ApiJobListByOrganizationControllerFactory',
+            'Jobs/Manage' => 'Jobs\Factory\Controller\ManageControllerFactory',
         )
     ),
+
+    'controller_plugins' => [
+        'factories' => [
+            'initializeJob' => 'Jobs\Factory\Controller\Plugin\InitializeJobFactory',
+        ],
+    ],
 
     'paginator_manager' => array(
         'invokables' => array(
@@ -235,6 +247,7 @@ return array(
             'content/jobs-publish-on-yawik' => __DIR__ . '/../view/modals/yawik.phtml',
             'content/jobs-publish-on-jobsintown' => __DIR__ . '/../view/modals/jobsintown.phtml',
             'content/jobs-publish-on-homepage' => __DIR__ . '/../view/modals/homepage.phtml',
+            'content/jobs-publish-on-fazjob' => __DIR__ . '/../view/modals/fazjob.phtml',
             'content/jobs-terms-and-conditions' => __DIR__ . '/../view/jobs/index/terms.phtml',
             'mail/job-created' => __DIR__ . '/../view/mails/job-created.phtml',
             'mail/job-pending' => __DIR__ . '/../view/mails/job-pending.phtml',
@@ -264,18 +277,20 @@ return array(
         'invokables' => array(
             'Jobs/Job'                          => 'Jobs\Form\Job',
             'Jobs/Base'                         => 'Jobs\Form\Base',
-            'Jobs/BaseFieldset'                 => 'Jobs\Form\BaseFieldset',
             'Jobs/Employers'                    => 'Jobs\Form\JobEmployers',
             'Jobs/JobEmployersFieldset'         => 'Jobs\Form\JobEmployersFieldset',
             'Jobs/Description'                  => 'Jobs\Form\JobDescription',
             'Jobs/JobDescriptionFieldset'       => 'Jobs\Form\JobDescriptionFieldset',
             'Jobs/ApplyId'                      => 'Jobs\Form\ApplyIdentifierElement',
             'Jobs/ImportFieldset'               => 'Jobs\Form\ImportFieldset',
-            'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
-            'Jobs/ListFilterFieldset'           => 'Jobs\Form\ListFilterFieldset',
+            'Jobs/ListFilterPersonalFieldset'   => 'Jobs\Form\ListFilterPersonalFieldset',
+            'Jobs/ListFilterAdminFieldset'      => 'Jobs\Form\ListFilterAdminFieldset',
             'Jobs/JobDescriptionDescription'    => 'Jobs\Form\JobDescriptionDescription',
             'Jobs/JobDescriptionBenefits'       => 'Jobs\Form\JobDescriptionBenefits',
             'Jobs/JobDescriptionRequirements'   => 'Jobs\Form\JobDescriptionRequirements',
+            'Jobs/TemplateLabelRequirements'    => 'Jobs\Form\TemplateLabelRequirements',
+            'Jobs/TemplateLabelQualifications'  => 'Jobs\Form\TemplateLabelQualifications',
+            'Jobs/TemplateLabelBenefits'        => 'Jobs\Form\TemplateLabelBenefits',
             'Jobs/JobDescriptionQualifications' => 'Jobs\Form\JobDescriptionQualifications',
             'Jobs/JobDescriptionTitle'          => 'Jobs\Form\JobDescriptionTitle',
             'Jobs/Description/Template'         => 'Jobs\Form\JobDescriptionTemplate',
@@ -289,12 +304,15 @@ return array(
             'Jobs/MultipostButtonFieldset'      => 'Jobs\Form\MultipostButtonFieldset',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
+            'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
+
         ),
         'factories' => array(
-            'Jobs/ListFilterFieldsetExtended'   => 'Jobs\Factory\Form\ListFilterFieldsetExtendedFactory',
+            'Jobs/BaseFieldset'                 => 'Jobs\Factory\Form\BaseFieldsetFactory',
+            'Jobs/ListFilterLocationFieldset'   => 'Jobs\Factory\Form\ListFilterLocationFieldsetFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
             'Jobs/HiringOrganizationSelect'     => 'Jobs\Factory\Form\HiringOrganizationSelectFactory',
-            //'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingSelectFactory',
+            'Jobs/ActiveOrganizationSelect'     => 'Jobs\Factory\Form\ActiveOrganizationSelectFactory',
             'Jobs/MultipostingSelect'           => 'Jobs\Factory\Form\MultipostingMultiCheckboxFactory',
             'Jobs/Import'                       => 'Jobs\Factory\Form\ImportFactory',
         )
@@ -313,8 +331,8 @@ return array(
 
     'filters' => array(
         'factories'=> array(
-            'Jobs/PaginationQuery'      => '\Jobs\Repository\Filter\PaginationQueryFactory',
-            'Jobs/PaginationAdminQuery' => '\Jobs\Repository\Filter\PaginationAdminQueryFactory',
+            'Jobs/PaginationQuery'      => 'Jobs\Factory\Repository\Filter\PaginationQueryFactory',
+            'Jobs/PaginationAdminQuery' => 'Jobs\Factory\Repository\Filter\PaginationAdminQueryFactory',
             'Jobs/ChannelPrices'        => 'Jobs\Factory\Filter\ChannelPricesFactory',
         ),
     ),

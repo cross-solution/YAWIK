@@ -16,7 +16,9 @@ if ($this->renderSummary):?>
     <div class="row">
         <div class="col-md-12">
             <?php
+            /* @var $router \Zend\Mvc\Router\Http\TreeRouteStack */
             $router = $this->services('Router');
+            /* @var $provider \Jobs\Options\ProviderOptions */
             $provider = $this->services('Jobs/Options/Provider');
             $options = $this->element->getValueOptions();
             $valueKey= $this->element->getValue();
@@ -40,18 +42,28 @@ if ($this->renderSummary):?>
                         <h5><?php echo $category ?></h5>
                         <div class="row">
                         <?php foreach ($channels as $name => $spec):
+                            /* @var $channel \Jobs\Options\ChannelOptions */
                             $channel = $provider->getChannel($name);
 
 
                             ?>
                             <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
-
-                                <a href="<?php
+                                <a data-target="#modal-info-<?php echo $name?>" type="button" data-toggle="modal" href="<?php
                                 $link = $router->assemble($channel->getParams(), array('name' => $channel->getRoute()));echo $link ?>">
 
                                     <?php if ($logo = $channel->getLogo()):?>
-                                    <img src="<?php echo $logo ?>" alt="<?php echo $channel->getLabel() ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
-                                    <?php endif; ?> <?php echo $channel->getLinkText() ?></a></div>
+                                    <img src="<?php echo $this->basepath($logo) ?>" alt="<?php echo $channel->getLabel() ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
+                                    <?php endif; ?> <div><?php echo $channel->getLinkText() ?></div></a></div>
+                            <?php
+                            /**
+                            * @todo: move the modal container at the bottom of the page and refresh the modal content
+                            */
+                            ?>
+                                <div id="modal-info-<?php echo $name?>" class="modal fade modal-scrollable" aria-hidden="true" aria-labelledby="portal help" role="dialog" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content"> </div>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
                         </div>
                     <?php endforeach; ?>
@@ -61,6 +73,7 @@ if ($this->renderSummary):?>
                         <tr>
                             <th><?php echo $this->translate('Price') ?></th>
                             <th class="text-right"><?php
+                                /* @var $filter \Jobs\Filter\ChannelPrices */
                                 $filter = $this->services('filtermanager.Jobs/ChannelPrices');
                                 $total = $filter->filter($valueKey);
                                 echo $this->currencyFormat($total); ?></th>

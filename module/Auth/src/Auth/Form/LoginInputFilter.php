@@ -10,6 +10,7 @@
 namespace Auth\Form;
 
 use Auth\Entity\User;
+use Zend\Form\ElementInterface;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\InputFilter;
 

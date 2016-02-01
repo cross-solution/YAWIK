@@ -167,13 +167,21 @@ class SummaryForm extends AbstractHelper
         if (!isset($baseFieldset)) {
             throw new \InvalidArgumentException('For the Form ' . get_class($form) . ' there is no Basefieldset');
         }
-        return  '<div class="panel panel-default" style="min-height: 100px;">
-                    <div class="panel-body"><button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
-              . '<span class="yk-icon yk-icon-edit"></span> '
-              . $this->getView()->translate('Edit')
-              . '</button>'
-              . $this->renderSummaryElement($baseFieldset)
-              . '</div></div>';
+
+        $markup = '<div class="panel panel-default" style="min-height: 100px;">
+                    <div class="panel-body">%s%s</div></div>';
+
+        $buttonMarkup = false === $form->getOption('editable')
+                      ? ''
+                      : '<button type="button" class="pull-right btn btn-default btn-xs sf-edit">'
+                        . '<span class="yk-icon yk-icon-edit"></span> '
+                        . $this->getView()->translate('Edit')
+                        . '</button>';
+
+        $elementMarkup = $this->renderSummaryElement($baseFieldset);
+
+
+        return sprintf($markup, $buttonMarkup, $elementMarkup);
     }
     
     /**
@@ -237,7 +245,37 @@ class SummaryForm extends AbstractHelper
 
         if ('' != $elementValue && $element instanceof \Zend\Form\Element\Select) {
             $options = $element->getValueOptions();
-            $elementValue = $this->getTranslator()->translate($options[$elementValue]);
+            $translator = $this->getTranslator();
+            if (true == $element->getAttribute('multiple')) {
+
+                $multiOptions = [];
+                foreach ($elementValue as $optionKey) {
+                    if (isset($options[$optionKey])) {
+                        $multiOptions['__general__'][] = $translator->translate($options[$optionKey]);
+                        continue;
+                    }
+
+                    foreach ($options as $optKey => $optVal) {
+                        if (!is_array($optVal) || !array_key_exists($optionKey, $optVal['options'])) { continue; }
+
+                        $optGroupLabel = isset($optVal['label']) ? $translator->translate($optVal['label']) : $optKey;
+                        $multiOptions[$optGroupLabel][] = $translator->translate($optVal['options'][$optionKey]);
+                    }
+                }
+
+                $elementValue = [];
+                foreach ($multiOptions as $optGroupLabel => $vals) {
+                    $elementValue[] = "<b>$optGroupLabel</b><br>" . join(', ', $vals);
+                }
+                $elementValue = join('<br>', $elementValue) . '<br>';
+
+            } else {
+                $elementValue = $translator->translate($options[$elementValue]);
+            }
+        }
+
+        if ('' != $elementValue && $element instanceOf \Zend\Form\Element\File) {
+            return '';
         }
                       
         $markup .= '<div class="row">';

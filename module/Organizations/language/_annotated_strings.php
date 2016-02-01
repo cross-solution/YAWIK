@@ -65,18 +65,24 @@ translate('Postalcode');
 //: ./src/Organizations/Form/OrganizationsContactFieldset.php:72
 translate('City');
 
-//: ./src/Organizations/Controller/InviteEmployeeController.php:77
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:80
+translate('Phone');
+
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:88
+translate('Fax');
+
+//: ./src/Organizations/Controller/InviteEmployeeController.php:78
 translate('The organization referenced in your request could not be found.');
 
-//: ./src/Organizations/Controller/InviteEmployeeController.php:83
+//: ./src/Organizations/Controller/InviteEmployeeController.php:84
 translate('The access token you provided seems to have expired.');
 
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:159
+//: ./config/module.config.php:160
 translate('Overview');
 
-//: ./config/module.config.php:163
+//: ./config/module.config.php:164
 translate('Insert');
 

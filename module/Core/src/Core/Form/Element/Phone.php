@@ -9,14 +9,14 @@ use Zend\Validator\Regex as RegexValidator;
 class Phone extends Element implements InputProviderInterface
 {
     /**
-     * @var ValidatorInterface
+     * @var \Zend\Validator\ValidatorInterface
      */
     protected $validator;
 
     /**
     * Get a validator if none has been set.
     * https://github.com/posabsolute/jQuery-Validation-Engine/issues/265
-    * @return ValidatorInterface
+    * @return RegexValidator
     */
     public function getValidator()
     {
@@ -36,10 +36,10 @@ class Phone extends Element implements InputProviderInterface
     /**
      * Sets the validator to use for this element
      *
-     * @param  ValidatorInterface $validator
+     * @param  RegexValidator $validator
      * @return Phone
      */
-    public function setValidator(ValidatorInterface $validator)
+    public function setValidator(RegexValidator $validator)
     {
         $this->validator = $validator;
         return $this;

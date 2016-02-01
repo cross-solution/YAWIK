@@ -238,7 +238,7 @@ class FileUpload extends File implements
     public function getFileEntity()
     {
         if (!$this->form || !($object = $this->form->getObject())) {
-            return;
+            return null;
         }
 
         if ($this->isMultiple()) {

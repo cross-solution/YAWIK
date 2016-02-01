@@ -15,7 +15,6 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 <tr>
     <th><?php echo $this->translate('Date of receipt')?></th>
     <th><?php echo $this->translate('Title of the job')?></th>
-    <?php if (!$this->showPendingJobs):?>
     <th><?php echo $this->translate('Location')?></th> 
     <th><?php echo $this->translate('Companyname')?></th>
     <th><?php echo $this->translate('Reference')?></th>
@@ -26,19 +25,15 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
     <?php else: ?>
        <th><?php echo $this->translate('Action')?></th>
     <?php endif;?>
-    <?php else: ?>
-    <th><?php echo $this->translate('Companyname') ?></th>
-
-    <?php endif ?>
 </tr>
 </thead>
 
 <tbody>
-<?php foreach ($jobs as $job):?>
+<?php foreach ($jobs as $job): /* @var $job \Jobs\Entity\Job */ ?>
 <tr>
     <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
               elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
-        <?php if ($isRecruiter && !$this->showPendingJobs):?>
+        <?php if ($isRecruiter):?>
         <br>(<?php
             $displayName = '';
             $user = $job->getUser();
@@ -51,14 +46,12 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
         <?php endif ?></td>
               
     <td>
-    <?php $href = $job->link ? $job->link : (
-                                $this->showPendingJobs ? $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->id)), true)
-                                                       : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true)
+    <?php $href = $this->showPendingJobs ? $this->url('lang/jobs/approval', array(), array('query' => array('id' => $job->id)), true)
+                                         : ($job->link ? $job->link :
+                                                        $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->id)), true)
                                             ); ?>
         <a href="<?php echo $href ?>" target="_blank" rel="nofollow"><?php echo strip_tags($job->title)?></a>
-    
-        </td>
-    <?php if (!$this->showPendingJobs): ?>
+    </td>
     <td><?php echo $job->location?></td>
     <td><?php echo $job->company?></td>
     <td><?php echo empty($job->reference)? $job->applyId:$job->reference ?></td>
@@ -87,7 +80,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             if ($job->isDraft()) {
                 $status[] = $this->translate('draft');
             }
-            echo implode('<br />', $this->translate($status));
+            echo implode('<br />', $status);
          ?>
          </td>
          <td class="btn-group btn-toolbar"><?php if ($this->acl($job, 'edit')): ?>
@@ -131,16 +124,12 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
          <?php endif;?>
       <?php endif ?>
      </td>
-    <?php else: ?>
-    <td><?php echo $job->company ?></td>
-    <?php endif ?>
 </tr>
 <?php endforeach?>
 </tbody>
 
 </table>
 <?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobs'));?>
-
 
 <!-- Modal Box for Job-History -->
 <div class="modal fade" id="job-application-history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">

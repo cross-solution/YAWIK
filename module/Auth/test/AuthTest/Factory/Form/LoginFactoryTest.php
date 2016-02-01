@@ -27,8 +27,9 @@ class LoginFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateService()
     {
         $sm = clone Bootstrap::getServiceManager();
+        $fm = $sm->get('formElementManager');
 
-        $result = $this->testedObj->createService($sm);
+        $result = $this->testedObj->createService($fm);
         $this->assertInstanceOf('Auth\Form\Login', $result);
     }
 }

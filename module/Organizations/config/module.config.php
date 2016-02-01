@@ -54,10 +54,11 @@ return array(
     ),
 
     'controller_plugins' => array(
-        'factories' => array(
+        'factories' => [
             'Organizations/InvitationHandler' => 'Organizations\Factory\Controller\Plugin\InvitationHandlerFactory',
             'Organizations/AcceptInvitationHandler' => 'Organizations\Factory\Controller\Plugin\AcceptInvitationHandlerFactory',
-        ),
+            'Organizations/GetOrganizationHandler' => 'Organizations\Factory\Controller\Plugin\GetOrganizationHandlerFactory',
+        ],
     ),
 
     'view_manager' => array(

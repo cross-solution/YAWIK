@@ -24,6 +24,10 @@ $channels = $sm->get('Jobs/Options/Provider');
 
 $this->headscript()->appendFile($this->basepath('Core/js/core.forms.js'));
 $this->headscript()->appendFile($this->basepath('Core/js/jquery.summary-form.js'));
+
+$total=0;
+$sum=0;
+
 ?>
 <h1>
     <?php
@@ -84,7 +88,6 @@ if ($this->page == 2):
         <div class="col-md-8">
             <div class="panel panel-default">
                 <?php $this->translate('Your job opening is ready to be published to the following channels');?>
-                <?php $total=0; $sum=0; ?>
 
                     <?php $this->plugin('currencyFormat')->setCurrencyCode($defaultCurrencyCode);
 
@@ -178,7 +181,7 @@ if ($this->page == 2):
             </div>
 	<?php
         /**
-         * if job is ative, a user can deativate the job or publish changes
+         * if job is active, a user can inactivate the job or publish changes
          */
         ?>
         <?php elseif ($job->status == 'active'):?>

@@ -13,7 +13,6 @@ use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
-use Core\Entity\SearchableEntityInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
@@ -27,7 +26,6 @@ interface JobInterface extends
     EntityInterface,
     IdentifiableEntityInterface,
     ModificationDateAwareEntityInterface,
-    SearchableEntityInterface,
     PermissionsAwareInterface,
     ResourceInterface
 {
@@ -123,19 +121,6 @@ interface JobInterface extends
      * @param string $title
      */
     public function setTitle($title);
-
-    /**
-     * Gets the description of a job posting
-     *
-     * @return string
-     */
-    public function getDescription();
-    /**
-     * Sets the description of a job posting
-     *
-     * @param string $text
-     */
-    public function setDescription($text);
 
     /**
      * Gets the organisation name, which offers the job posting

@@ -18,6 +18,19 @@ use Core\Entity\Hydrator\EntityHydrator;
  */
 class BaseFieldset extends Fieldset
 {
+    /**
+     * name of the used geo location Engine
+     *
+     * @var string  $locationEngineType
+     */
+    protected $locationEngineType;
+
+    /**
+     * @param $locationEngineType
+     */
+    public function setLocationEngineType($locationEngineType) {
+        $this->locationEngineType = $locationEngineType;
+    }
  
     public function getHydrator()
     {
@@ -57,7 +70,7 @@ class BaseFieldset extends Fieldset
             'options' => array(
                 'label' => /*@translate*/ 'Location',
                 'description' => /*@translate*/ 'Please enter the location of the job',
-                'engine_type' => 'photon',
+                'engine_type' => $this->locationEngineType,
             ),
             )
         );

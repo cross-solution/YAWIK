@@ -4,12 +4,13 @@
 # 
 # Translators:
 # blu-IT, 2015
+# blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 09:21+0200\n"
-"PO-Revision-Date: 2015-10-29 12:27+0000\n"
+"POT-Creation-Date: 2016-01-07 12:06+0100\n"
+"PO-Revision-Date: 2016-02-01 21:33+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -20,19 +21,19 @@ msgstr ""
 
 #: view/install/index/index.phtml:137
 msgid "PHP version not supported"
-msgstr ""
+msgstr "Versione PHP non supportata"
 
 #: view/install/index/index.phtml:142
 #, php-format
 msgid ""
 "Sorry, YAWIK requires at least PHP 5.4.0 to run, but this server currently "
 "provides PHP %s."
-msgstr ""
+msgstr "Siamo spiacenti, YAWIK richiede almeno versione PHP 5.4.0 per eseguire, ma questo server fornisce attualmente versione PHP %s."
 
 #: view/install/index/index.phtml:147
 msgid ""
 "Please ask your servers' administrator to install the proper PHP version."
-msgstr ""
+msgstr "Si prega di chiedere all'amministratore del server di installare la versione corretta di PHP."
 
 #: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
 msgid "Installation"
@@ -47,11 +48,11 @@ msgstr "Installare"
 msgid ""
 "An administrator account with the login name \"%s\" was created "
 "successfully."
-msgstr ""
+msgstr "Un account amministratore con il nome di login \"%s\" è stato creato con successo."
 
 #: view/install/index/install.phtml:18
 msgid "The base configuration file was successfully created."
-msgstr ""
+msgstr "Il file di configurazione di base è stato creato con successo."
 
 #: view/install/index/install.phtml:21
 #, php-format
@@ -62,7 +63,7 @@ msgstr "Il file di configurazione non può essere creato automaticamente. Quindi
 
 #: view/install/index/install.phtml:31
 msgid "Start using YAWIK"
-msgstr ""
+msgstr "Inizia a utilizzare YAWIK"
 
 #: view/install/index/prerequisites.phtml:13
 msgid "Prerequisites"
@@ -156,4 +157,12 @@ msgstr "Password"
 
 #: language/_annotated_strings.php:12
 msgid "Email address for system messages"
+msgstr "Indirizzo e-mail per i messagi di sistema"
+
+#: language/_annotated_strings.php:15
+msgid "Connecting the database failed: %databaseError%"
+msgstr ""
+
+#: language/_annotated_strings.php:18
+msgid "Invalid connection string"
 msgstr ""

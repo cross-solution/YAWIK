@@ -11,6 +11,7 @@ namespace Jobs\Repository;
 use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Core\Repository\DoctrineMongoODM\PaginatorAdapter;
+use Jobs\Entity\StatusInterface;
 
 class Job extends AbstractRepository
 {
@@ -120,4 +121,42 @@ class Job extends AbstractRepository
     {
         return uniqid();
     }
+
+    /**
+     * Selects job postings of a certain organization
+     *
+     * @param int $organizationId
+     * @return \Jobs\Entity\Job[]
+     */
+    public function findByOrganization($organizationId)
+    {
+        return $this->findBy([
+            'organization' => new \MongoId($organizationId)
+        ]);
+    }
+
+    /**
+     * Selects all Organizations with Active Jobs
+     *
+     * @return mixed
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function findActiveOrganizations()
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->distinct('organization')
+            ->hydrate(true)
+           ->field('status.name')->notIn([ StatusInterface::EXPIRED, StatusInterface::INACTIVE ]);
+        $q = $qb->getQuery();
+        $r = $q->execute();
+        $r = $r->toArray();
+
+        $qb = $this->dm->createQueryBuilder('Organizations\Entity\Organization');
+        $qb->field('_id')->in($r);
+        $q = $qb->getQuery();
+        $r = $q->execute();
+
+        return $r;
+    }
+   
 }

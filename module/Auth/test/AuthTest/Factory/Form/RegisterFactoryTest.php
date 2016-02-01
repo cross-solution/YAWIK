@@ -27,8 +27,8 @@ class RegisterFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateService()
     {
         $sm = clone Bootstrap::getServiceManager();
-
-        $result = $this->testedObj->createService($sm);
+        $fm = $sm->get('formElementManager');
+        $result = $this->testedObj->createService($fm);
         $this->assertInstanceOf('Auth\Form\Register', $result);
     }
 }

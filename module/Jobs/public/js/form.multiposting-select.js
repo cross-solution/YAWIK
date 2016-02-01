@@ -79,8 +79,8 @@
         $select.select2({
             //allowClear: true,
             placeholder: data.placeholder,
-            formatResult: displayResult,
-            formatSelection: displaySelection
+            templateResult: displayResult,
+            templateSelection: displaySelection
         });
 
         $select.on("change", updatePrice);

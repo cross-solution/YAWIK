@@ -10,8 +10,12 @@
 namespace AuthTest\Form;
 
 use Auth\Form\Register;
+use Auth\Options\CaptchaOptions;
 use Zend\Form\Fieldset;
 
+/**
+* @covers \Auth\Form\Register
+*/
 class RegisterTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -21,7 +25,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->testedObject = new Register();
+        $options = new CaptchaOptions();
+        $this->testedObject = new Register(null, $options);
     }
 
     public function testConstructor()
@@ -69,5 +74,32 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         $buttonInput = $buttons->get('button');
 
         $this->assertInstanceOf('Zend\Form\Element\Submit', $buttonInput);
+    }
+     
+    public function testWithReCaptureField() 
+    { 
+        $options = new CaptchaOptions();
+        $options->setMode("reCaptcha");
+        $testedObject = new Register(null, $options);
+        $captchaInput= $testedObject->get('captcha');
+        $this->assertInstanceOf('Zend\Form\Element\Captcha', $captchaInput);
+        $this->assertInstanceOf('Zend\Captcha\ReCaptcha', $captchaInput->getOption('captcha'));
+    }
+    
+    public function testWithImageField() 
+    { 
+        $options = new CaptchaOptions();
+        $options->setMode("image");
+        $testedObject = new Register(null, $options);
+        $captchaInput= $testedObject->get('captcha');
+        $this->assertInstanceOf('Zend\Captcha\Image', $captchaInput->getOption('captcha'));
+    }
+    
+    public function testRoleValue() 
+    { 
+        $options = new CaptchaOptions();
+        $testedObject = new Register(null, $options, 'user');
+        $roleField = $testedObject->get('register')->get('role');
+        $this->assertTrue($roleField->getValue() =='user');
     }
 }

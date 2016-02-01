@@ -1,52 +1,93 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="de-DE">
+<!DOCTYPE html>
+<html>
 <head>
-<title><?php echo $this->titleHead?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/default/style.css")?>" type="text/css" media="screen">
-<style>
-form > div {
-  border:1px solid rgb(84, 152, 215);
-}
-</style>
+    <title><?php echo $this->titleHead?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/default/job.css")?>" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <style>
+        form > div:hover {
+            background-color: #eee;
+            -webkit-box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.55);
+            -moz-box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.55);
+            box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.55);
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<div id="page">
- <div id="header">
-  <div id="headerimg">
-    <img src="<?php echo $this->uriLogo?>" class="logo" border="0">
-    <div class="description">This is a demo Template of a job opening</div>
-  </div>
- </div>
-<div id="content">
-<p>
-This is a demo Template of a jobad. Templates are quite easy to create. Just put <code>&lt;?php echo->requirements?&gt</code>
-into your jobad and yawik will create an inline editor into your jobad.
-Take a look at the <a target="_new" href="https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
-</p>
-<p>Click below to enter the Jobtitle</p>
-<p><?php echo $this->descriptionEditable ?></p>
-<h1><?php echo $this->title; ?></h1>
+<div class="container">
 
-<h4>Requirements:</h4>
-<?php echo $this->requirements;?>
-<h4>Qualifications:</h4>
-<?php echo $this->qualifications;?>
-<h4>Benefits:</h4>
-<?php echo $this->benefits;?>
+    <main itemscope itemtype="http://schema.org/JobPosting">
+        <!-- 
+          This the *classic* Template. Templates are quite easy to create. Take a look at the sources:
+ 
+          https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
+        -->
+        <div class="row">
+            <div class="one-half column" itemscope itemtype="http://schema.org/Organization">
+                <div itemprop="logo">
+                    <img src="<?php echo $this->uriLogo?>" alt="<?php echo $this->organizationName?>">
+                </div>
+            </div>
+            <div class="one-half column right">
+            </div>
+        </div>
 
-    <?php if ($this->uriApply):?>
-<h2><a target="_new" href="<?php echo $this->uriApply ?>" rel="nofollow"><strong>Zum Online Bewerbungsformular</strong></a></h2>
-    <?php endif; ?>
+        <p ><?php echo $this->descriptionEditable ?></p>
+        <div class="row">
+            <div class="twelve columns" itemprop="title">
+                <?php echo $this->title; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="two-thirds column">
+                <div class="panel">
+                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelRequirements);?></h4></div>
+                    <div class="panel-body" itemprop="responsibilities"><?php echo $this->requirements;?></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelQualifications);?></h4></div>
+                    <div class="panel-body" itemprop="qualifications"><?php echo $this->qualifications;?></div>
+                </div>
 
-<address>
-<strong><?php echo $this->organizationName?><br></strong>
-<?php echo $this->street?><br>
-<?php echo $this->zipcode?> <?php echo $this->city?><br><br>
-<?php echo $this->phone?>
-</address>
-</div>
-<footer>powered by YAWIK</footer>
+            </div>
+            <div class="one-third column">
+                <div class="panel">
+                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelBenefits);?></h4></div>
+                    <div class="panel-body" itemprop="jobBenefits"><?php echo $this->benefits;?></div>
+                </div>
+                <div itemscope itemtype="http://schema.org/Organization">
+                    <strong itemprop="name">
+                        <?php echo $this->organizationName?>
+                    </strong><br/>
+                    <address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span itemprop="streetAddress"><?php echo $this->street?></span><br>
+                        <span itemprop="postalCode"><?php echo $this->zipcode?></span>
+                        <span itemprop="addressLocality"><?php echo $this->city?></span>
+                        <br><br>
+                        <span itemprop="telephone"><?php echo $this->phone?></span>
+                    </address>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+            </div>
+        </div>
+        <?php if ($this->uriApply): ?>
+        <div class="row">
+            <div class="twelve columns">
+                <div class="apply">
+                    <a target="_new" class="button button-primary" href="<?php echo $this->uriApply ?>" rel="nofollow">
+                        <strong><?php echo $this->translate("Apply now")?></strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+    </main>
+    <footer><small>powered by <a href="http://yawik.org">YAWIK</a></small></footer>
 </div>
 </body>
 </html>

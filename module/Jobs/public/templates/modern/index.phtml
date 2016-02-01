@@ -1,73 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><?php echo $this->titleHead?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="<?php echo $this->basePath("/Jobs/templates/modern/job.css")?>" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <style>
-      form > div:hover {background-color: #eee;}
+        form > div:hover {
+            background-color: #eee;
+            -webkit-box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.55);
+            -moz-box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.55);
+            box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.55);
+            cursor: pointer;
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div id="headerimg" class="col-md-12">
-          <img src="<?php echo $this->uriLogo?>">
-        </div>
-      </div>
-      <main>
+</head>
+<body>
+<div class="container">
+
+    <main>
         <!-- 
-          This the *modern* Template. Templates are quite easy to create. Take a look at the sources:
+          This the *classic* Template. Templates are quite easy to create. Take a look at the sources:
  
           https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
         -->
-        <p><?php echo $this->descriptionEditable ?></p>
         <div class="row">
-          <div class="col-md-12">
-            <h1 class="text-center"><?php echo $this->title; ?></h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-sm-6">
-            <div class="panel">
-              <div class="panel-heading"><h4><?php echo $this->translate("Your tasks")?>:</h4></div>
-              <div class="panel-body"><?php echo $this->requirements;?></div>
+            <div class="one-third column">
+                <div>
+                    <div>
+                        <img src="<?php echo $this->uriLogo?>">
+                    </div>
+
+                    <p><?php echo $this->descriptionEditable ?></p>
+
+                    <address>
+                        <strong><?php echo $this->organizationName?><br></strong>
+                        <?php echo $this->street?><br>
+                        <?php echo $this->zipcode?> <?php echo $this->city?><br><br>
+                        <?php echo $this->phone?>
+                    </address>
+                </div>
             </div>
-          </div>
-          <div class="col-md-6 col-sm-6">
-            <div class="panel">
-              <div class="panel-heading"><h4><?php echo $this->translate("Qualifications")?>:</h4></div>
-              <div class="panel-body"><?php echo $this->qualifications;?></div>
+            <div class="two-thirds column">
+
+                <div class="title">
+                    <?php echo $this->title; ?>
+                </div>
+
+
+                <div class="panel">
+                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelRequirements);?></h4></div>
+                    <div class="panel-body"><?php echo $this->requirements;?></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelQualifications);?></h4></div>
+                    <div class="panel-body"><?php echo $this->qualifications;?></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading"><h4><?php echo $this->translate($this->labelBenefits);?></h4></div>
+                    <div class="panel-body"><?php echo $this->benefits;?></div>
+                </div>
+
+                <?php if ($this->uriApply): ?>
+                            <div class="apply">
+                                <a target="_new" class="button button-primary" href="<?php echo $this->uriApply ?>" rel="nofollow">
+                                    <strong><?php echo $this->translate("Apply now")?></strong>
+                                </a>
+                            </div>
+                <?php endif; ?>
+
             </div>
-          </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel">
-              <div class="panel-heading"><h4><?php echo $this->translate("Benefis")?>:</h4></div>
-              <div class="panel-body"><?php echo $this->benefits;?></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-              <?php if ($this->uriApply): ?>
-            <h2 class="text-center">
-              <a target="_new" class="btn btn-lg btn-primary" href="<?php echo $this->uriApply ?>" rel="nofollow">
-                <strong><?php echo $this->translate("Apply now")?></strong>
-              </a>
-            </h2>
-              <?php endif;?>
-            <address>
-              <strong><?php echo $this->organizationName?><br></strong>
-              <?php echo $this->street?><br>
-              <?php echo $this->zipcode?> <?php echo $this->city?><br><br>
-              <?php echo $this->phone?>
-            </address>
-          </div>
-        </div>
-      </main>
-      <footer class="text-right"><small>powered by <a href="http://yawik.org">YAWIK</small></footer>
-    </div>
-  </body>
+    </main>
+    <footer><small>powered by <a href="http://yawik.org">YAWIK</a></small></footer>
+</div>
+</body>
 </html>

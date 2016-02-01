@@ -48,6 +48,15 @@ class JobDescriptionTemplate extends Container
         );
 
         $this->setForms(
+            [
+                'templateLabelBenefits' => [
+                    'type' => 'Jobs/TemplateLabelBenefits',
+                    'property' => true,
+                ]
+            ]
+        );
+
+        $this->setForms(
             array(
             'descriptionFormRequirements' => array(
                 'type' => 'Jobs/JobDescriptionRequirements',
@@ -57,12 +66,30 @@ class JobDescriptionTemplate extends Container
         );
 
         $this->setForms(
+            [
+                'templateLabelRequirements' => [
+                    'type' => 'Jobs/TemplateLabelRequirements',
+                    'property' => true,
+                ]
+            ]
+        );
+
+        $this->setForms(
             array(
             'descriptionFormQualifications' => array(
                 'type' => 'Jobs/JobDescriptionQualifications',
                 'property' => true,
             )
             )
+        );
+
+        $this->setForms(
+            [
+                'templateLabelQualifications' => [
+                    'type' => 'Jobs/TemplateLabelQualifications',
+                    'property' => true,
+                ]
+            ]
         );
 
         $this->setForms(

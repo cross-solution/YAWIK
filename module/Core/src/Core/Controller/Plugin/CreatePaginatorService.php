@@ -25,6 +25,13 @@ use Zend\Paginator\Adapter\AdapterInterface;
 class CreatePaginatorService extends AbstractPlugin
 {
 
+    /**
+     * @param       $paginatorName
+     * @param array $defaultParams
+     * @param bool  $usePostParams
+     *
+     * @return mixed
+     */
     public function __invoke($paginatorName, $defaultParams = array(), $usePostParams = false)
     {
         if (is_bool($defaultParams)) {
@@ -57,7 +64,7 @@ class CreatePaginatorService extends AbstractPlugin
         }
 
         $this->filterSortParam($params);
-        //$paginator = $this->createPaginator($repository, $params);
+
         $adapter->setParams($params);
         $paginator->setCurrentPageNumber($params->get('page', 1))
                   ->setItemCountPerPage($params->get('count', 10));

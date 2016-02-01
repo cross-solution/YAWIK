@@ -31,10 +31,10 @@ class CompanyNameFieldset extends Fieldset
                 'name' => 'companyId',
                 'options' => array(
                     'label' => /*@translate*/ 'Companyname',
-                    //'description' => /*@translate*/ 'The name of the hiring organization will be shown in search results.'
                 ),
                 'attributes' => array(
                     'data-placeholder' => /*@translate*/ 'Select hiring organization',
+                    'data-allowclear'  => 'false',
                 ),
             )
         );

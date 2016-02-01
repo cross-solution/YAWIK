@@ -59,6 +59,7 @@ class InviteEmployeeController extends AbstractActionController
         $token        = $this->params()->fromQuery('token');
         $organization = $this->params()->fromQuery('organization');
 
+        /* @var $handler \Organizations\Controller\Plugin\AcceptInvitationHandler */
         $handler = $this->plugin('Organizations/AcceptInvitationHandler');
         $result  = $handler->process($token, $organization);
 

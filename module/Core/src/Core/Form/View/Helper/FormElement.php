@@ -13,11 +13,12 @@ use Zend\View\Helper\HelperInterface;
 
 class FormElement extends ZendFormElement
 {
-    //protected $helper;
-    
-    //protected function getHelper() {
-    //}
-    
+
+    /**
+     * @param ElementInterface $element
+     *
+     * @return string
+     */
     public function render(ElementInterface $element)
     {
         $renderer = $this->getView();
@@ -36,14 +37,7 @@ class FormElement extends ZendFormElement
             }
             return $helper($element);
         }
-        
-//         $type = $element->getAttribute('type');
-        
-//         if ('checkbox' == $type) {
-//             $helper = $renderer->plugin('formcheckbox');
-//             return $helper($element);
-//         }
-        
+
         return parent::render($element);
     }
 }

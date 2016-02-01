@@ -4,13 +4,18 @@
  *
  * @filesource
  * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @license   MIT
+ * @license       MIT
  */
 /**
  * {{rtd: Renders the search formular for jobs used by recruiters}}
  */
 $this->headScript()->appendFile($this->basePath('Jobs/js/index.list-filter-form.js'));
 $translate = $this->plugin('translate');
+
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+/* @var \Geo\Options\ModuleOptions $options */
+$options = $sm->get('Geo/Options');
+$plugin = $options->getPlugin();
 
 $createRadioGroup = function ($element, $id) use ($translate) {
     $input = '';
@@ -19,8 +24,9 @@ $createRadioGroup = function ($element, $id) use ($translate) {
         <?php foreach ($element->getValueOptions() as $value => $label):
             $checked = $value == $element->getValue();?>
 
-            <label class="btn btn-default<?php echo ($checked) ? ' active': ''?>">
-                <input id="params-<?php echo "$id-$value" ?>" type="radio" name="<?php echo $element->getName() ?>" value="<?php echo $value ?>"<?php echo $checked ? ' checked' : ''?>>
+            <label class="btn btn-default<?php echo ($checked) ? ' active' : ''?>">
+                <input id="params-<?php echo "$id-$value" ?>" type="radio" name="<?php echo $element->getName() ?>"
+                       value="<?php echo $value ?>"<?php echo $checked ? ' checked' : ''?>>
                 <?php echo $translate($label) ?>
             </label>
 
@@ -31,62 +37,130 @@ $createRadioGroup = function ($element, $id) use ($translate) {
     <?php //return $input;
 };
 
-$form       = $this->element;
-$params     = $this->element->get('params');
-$options    = $form->getOptions();
-$action     = $form->getAttribute('action');
-if (empty($action)) {
+$form    = $this->element;
+
+/* @var $params \Jobs\Form\ListFilter */
+$params  = $this->element->get('params');
+$options = $form->getOptions();
+$action  = $form->getAttribute('action');
+$base = $form->getBaseFieldset();
+
+/**
+ * @todo: move this into the Jobs/Form/ListFilter.php
+ */
+if ($base instanceof Jobs\Form\ListFilterAdminFieldset) {
+    $action = $this->url('lang/jobs/listOpenJobs', array(), true);
+}elseif (empty($action)) {
     $action = $this->url('lang/jobs', array(), true);
 }
+
 $form->setAttributes(array(
                          'action' => $action,
                          'method' => 'GET',
-                         'class' => 'form-inline'
-                     ));
-
-#echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);
-
+                         'class'  => 'form-inline'
+                     )
+);
 
 echo $this->form()->openTag($form);
 echo $this->formHidden($params->get('page'));
 
-$byElement = $params->get('by');
-$statusElement = $params->get('status');
-
+if ($params->has('by')) {
+    $statusElement = $params->get('status');
+    $byElement     = $params->get('by');
+}
 ?>
+
 <div id="params-search-wrapper">
-    <?php echo $this->formText($params->get('search')->setAttributes(array('class' => 'form-control ','placeholder' => $this->translate('search for position or company') ))) ?>
     <?php
 
-    echo $this->partial("geo/form/GeoHorizontal", array(
-        'element' => $params->get('l')
-            ->setOptions(['geoPlugin' => 'photon'])
+    echo $this->formText(
+        $params->get('search')
             ->setAttributes(
-                array('class' => 'form-control ',
-                  'placeholder' => $this->translate('Type in a location' )
-                )
+                [
+                    'class'       => 'form-control ',
+                    'placeholder' => $this->translate('search for position or company'),
+                    'style' => 'width: 50%;',
+                ]
             )
-    )
-    )
+        );
+
+    if ($params->has('companyId')) {
+        echo '<div style="display: inline-block; width: 220px;">' . $this->formSelect(
+            $params->get('companyId')
+                ->setOptions(['geoPlugin' => 'photon'])
+                ->setAttributes(
+                    array(
+                        'class'       => 'form-control',
+                        'id'          => 'jobCompanyName-companyId',
+                        'style'       => 'width: 100%',
+                    )
+                )
+        ) . '</div>' ;
+
+    }
+
+    if ($params->has('l')) {
+        echo $this->partial(
+            "geo/form/GeoHorizontal",
+            [
+                'element' => $params->get('l')
+                    ->setOptions(['geoPlugin' => $plugin])
+                    ->setAttributes(
+                        array(
+                            'class'       => 'form-control ',
+                            'placeholder' => $this->translate('Type in a location')
+                        )
+                    )
+            ]
+        );
+
+        echo $this->formSelect(
+            $params->get('d')
+                ->setAttributes(
+                    [
+                        'class'       => 'form-control ',
+                        'placeholder' => $this->translate('Type in a location')
+                    ]
+                )
+            );
+    }
+
+    $status=null;
+    if ($params->has('status')) {
+        $status = $params->get('status');
+    }
+
+    if ($status instanceof \Zend\Form\Element\Select) {
+        echo $this->formSelect(
+            $status->setAttributes(
+                [
+                    'class'       => 'form-control ',
+                    'placeholder' => $this->translate('Type in a location')
+                ]
+            )
+        );
+        }
+
+
 
     ?>
-    <?php echo $this->formSelect($params->get('d')->setAttributes(array('class' => 'form-control ','placeholder' =>  $this->translate('Type in a location') ))) ?>
-
     <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
 </div>
-<?php
-$showButtons = $params->has('by') && $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
-if (array_key_exists('showButtons', $options)) {
-    $showButtons = $options['showButtons'];
-}
-if ($showButtons):
+
+<div class="btn-toolbar pull-right">
+    <?php if ($params->has('by')) $createRadioGroup($params->get('by'), 'by') ?>
+    <?php
+
+    if ($params->has('status')) {
+        $status = $params->get('status');
+        if ($status instanceof \Zend\Form\Element\Select) {
+
+        } else {
+            $createRadioGroup($status, 'status');
+        };
+    }
+
     ?>
-    <div class="btn-toolbar pull-right">
-        <?php $createRadioGroup($params->get('by'), 'by') ?>
-        <?php $createRadioGroup($params->get('status'), 'status') ?>
-    </div>
-<?php
-endif;
-?>
+</div>
 
 <?php echo $this->form()->closeTag(); ?>

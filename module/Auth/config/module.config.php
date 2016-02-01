@@ -8,6 +8,12 @@
  */
 
 return array(
+
+    'options' => [
+        'Auth/CaptchaOptions' => [
+            'class' => '\Auth\Options\CaptchaOptions',
+        ],
+    ],
     
     'doctrine' => array(
         'driver' => array(
@@ -28,6 +34,8 @@ return array(
         ),
     ),
 
+
+
     'service_manager' => array(
         'invokables' => array(
             'SessionManager' => '\Zend\Session\SessionManager',
@@ -36,7 +44,6 @@ return array(
             'Auth\Form\LoginInputFilter' => 'Auth\Form\LoginInputFilter',
             'Auth\LoginFilter' => 'Auth\Filter\LoginFilter',
             'Auth/Listener/AuthAggregateListener' => 'Auth\Listener\AuthAggregateListener',
-            'Auth/Listener/MailForgotPassword' => 'Auth\Listener\MailForgotPassword'
         ),
         'factories' => array(
             'Auth/Options' => 'Auth\Factory\ModuleOptionsFactory',
@@ -46,6 +53,7 @@ return array(
             'Auth/Adapter/UserLogin' => '\Auth\Factory\Adapter\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Factory\Service\AuthenticationServiceFactory',
             'UnauthorizedAccessListener' => '\Auth\Factory\Listener\UnauthorizedAccessListenerFactory',
+            'Auth\Listener\MailForgotPassword' => '\Auth\Factory\Listener\MailForgotPasswordFactory',
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
             'Acl' => '\Acl\Factory\Service\AclFactory',
             'Acl\AssertionManager' => 'Acl\Assertion\AssertionManagerFactory',
@@ -53,8 +61,6 @@ return array(
             'Auth\Service\ForgotPassword' => 'Auth\Factory\Service\ForgotPasswordFactory',
             'Auth\Service\UserUniqueTokenGenerator' => 'Auth\Factory\Service\UserUniqueTokenGeneratorFactory',
             'Auth\Service\GotoResetPassword' => 'Auth\Factory\Service\GotoResetPasswordFactory',
-            'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
-            'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
             'Auth\Service\Register' => 'Auth\Factory\Service\RegisterFactory',
             'Auth\Service\RegisterConfirmation' => 'Auth\Factory\Service\RegisterConfirmationFactory',
         ),
@@ -208,11 +214,15 @@ return array(
                     'register' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/auth/register',
+                            'route' => '/auth/register[/:role]',
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Register',
-                                'action' => 'index'
+                                'action' => 'index',
+                                'role' => 'recruiter'
                             ),
+                            'constraints' => array(
+                                'role' => '(recruiter|user)',
+                            )
                         ),
                         'may_terminate' => true,
                     ),
@@ -459,6 +469,7 @@ return array(
         'template_map' => array(
             'form/auth/contact.form' => __DIR__ . '/../view/form/contact.form.phtml',
             'form/auth/contact.view' => __DIR__ . '/../view/form/contact.view.phtml',
+            'auth/error/social-profiles-unconfigured' => __DIR__ . '/../view/error/social-profiles-unconfigured.phtml',
             'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
@@ -522,11 +533,9 @@ return array(
             'Auth/UserInfoFieldset' => 'Auth\Factory\Form\UserInfoFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Factory\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
+            'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',
+            'Auth\Form\Register' => 'Auth\Factory\Form\RegisterFactory',
             'Auth/UserSearchbar' => 'Auth\Factory\Form\Element\UserSearchbarFactory',
         )
-    ),
-
-    'Auth' => array(
-        'allowRegister' => true,
     ),
 );

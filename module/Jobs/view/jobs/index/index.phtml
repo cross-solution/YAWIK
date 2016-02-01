@@ -1,4 +1,4 @@
-<?php //desciption: Renders the list of jobs. used by applicants and recruiters ?>
+<?php //description: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
       $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))
                          ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
@@ -24,9 +24,7 @@ $this->headScript()->captureStart() ?>
 <?php $this->headScript()->captureEnd();
       $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))?>
 
-<h1>
-    <?php echo $this->showPendingJobs ? $this->translate('Jobs waiting for approval') : $this->translate('List of your jobs'); ?>
-</h1>
+<h1><?php echo $this->translate('List of your jobs'); ?></h1>
 
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 

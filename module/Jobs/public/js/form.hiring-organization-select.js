@@ -6,7 +6,8 @@
  */
 
 /**
- * This plugin handles the Select2 box for hiring organization
+ * This plugin handles the Select2 box for hiring organization.
+ * The Organization select field must have the id jobCompanyName-companyId
  *
  * Author: Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -47,10 +48,10 @@
         var data = $select.data();
 
         $select.select2({
-            allowClear: false,
+            allowClear: true,
             placeholder: data.placeholder,
-            formatResult: displayResult,
-            formatSelection: displaySelection
+            templateResult: displayResult,
+            templateSelection: displaySelection
         });
     });
 

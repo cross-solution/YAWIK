@@ -11,9 +11,11 @@ namespace Auth\Controller;
 
 use Auth\Form;
 use Auth\Service;
+use Auth\Options\ModuleOptions;
 use Auth\Service\Exception;
 use Core\Controller\AbstractCoreController;
 use Zend\Log\LoggerInterface;
+use Zend\View\Model\ViewModel;
 
 class RegisterController extends AbstractCoreController
 {
@@ -32,17 +34,36 @@ class RegisterController extends AbstractCoreController
      */
     private $logger;
 
-    public function __construct(Form\Register $form, Service\Register $service, LoggerInterface $logger)
+    /**
+     * @var ModuleOptions
+     */
+    private $options;
+
+
+    public function __construct(
+        Form\Register $form, 
+        Service\Register $service, 
+        LoggerInterface $logger, 
+        ModuleOptions $options)
     {
         $this->form = $form;
         $this->service = $service;
         $this->logger = $logger;
+        $this->options = $options;
+
     }
 
     public function indexAction()
     {
+        if (!$this->options->getEnableRegistration()){
+            $this->notification()->info( /*@translate*/ 'Registration is disabled');
+            return $this->redirect()->toRoute('lang');
+        }
+
         /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
+        $viewModel = new ViewModel();
+
 
         try {
             if ($request->isPost()) {
@@ -58,11 +79,19 @@ class RegisterController extends AbstractCoreController
                     $this->notification()->success(
                         /*@translate*/ 'An Email with an activation link has been sent, please try to check your email box'
                     );
+
+                    $viewModel->setTemplate('auth/register/completed');
+
                 } else {
+                    $viewModel->setTemplate(null);
                     $this->notification()->danger(
                         /*@translate*/ 'Please fill form correctly'
                     );
                 }
+            }else{
+                /* @var $register \Zend\Form\Fieldset */
+                $register = $this->form->get('register');
+                $register->get('role')->setValue($this->params('role'));
             }
         } catch (Exception\UserAlreadyExistsException $e) {
             $this->notification()->danger(
@@ -77,8 +106,8 @@ class RegisterController extends AbstractCoreController
 
         $this->form->setAttribute('action', $this->url()->fromRoute('lang/register'));
 
-        return array(
-            'form' => $this->form
-        );
+        $viewModel->setVariable('form' , $this->form );
+
+        return $viewModel;
     }
 }

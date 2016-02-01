@@ -173,7 +173,7 @@ class FormRow extends ZendFormRow
                     }
                     $element->setLabelAttributes($labelAttributes);
 
-                    $label = $labelHelper($element);
+                    $label = $labelHelper($element,$label);
                     if ($this->shouldWrap) {
                         $spanWidth = 12 - $labelWidth;
                         $elementString = sprintf(
@@ -192,7 +192,6 @@ class FormRow extends ZendFormRow
                         $markup = $label . $elementString;
                 }
             }
-
         } else {
             if ($this->shouldWrap
                 && !$element instanceof \Zend\Form\Element\Hidden

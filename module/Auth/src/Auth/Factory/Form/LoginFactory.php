@@ -12,6 +12,7 @@ use Auth\Form\Login;
 use Auth\Form\LoginInputFilter;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Form\FormElementManager;
 
 class LoginFactory implements FactoryInterface
 {
@@ -25,9 +26,10 @@ class LoginFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /**
-         * @var $filter LoginInputFilter
+         * @var FormElementManager $serviceLocator
+         * @var LoginInputFilter $filter
          */
-        $filter = $serviceLocator->get('Auth\Form\LoginInputFilter');
+        $filter = $serviceLocator->getServiceLocator()->get('Auth\Form\LoginInputFilter');
         $form = new Login(null, array());
         $form->setInputfilter($filter);
         return $form;

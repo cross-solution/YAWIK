@@ -39,8 +39,7 @@ class FormEditor extends FormTextarea
 
         $headscript->appendFile($basepath('js/tinymce/tinymce.jquery.min.js'));
         $headscript->prependFile($basepath('js/jquery.min.js'));
-        //
-        // mode : "textareas",
+
         $headscript->offsetSetScript(
             '1000_tinymce_' . $this->getTheme(),
             '
@@ -50,11 +49,10 @@ class FormEditor extends FormTextarea
                 inline : true,
                 theme : "modern",
                 plugins: [
-                    "advlist autolink lists charmap anchor",
-                    "searchreplace visualblocks code fullscreen",
-                    "contextmenu paste textcolor"
+                    "autolink lists advlist",
+                    "visualblocks code fullscreen",
+                    "contextmenu paste link"
                 ],
-                //toolbar1: "forecolor",
                 removed_menuitems: "newdocument",' . PHP_EOL
             . $this->additionalOptions() .
             'setup: function(editor) {
@@ -138,6 +136,11 @@ class FormEditor extends FormTextarea
 
     protected function additionalOptions()
     {
-        return '';
+        return '
+        toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | link | bullist",
+        menubar: false,
+        advlist_bullet_styles: "square disc",
+        block_formats: "Headings=h4;",
+        ';
     }
 }
