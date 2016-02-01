@@ -142,7 +142,7 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         if ($value instanceOf Location) {
             $value = $this->getConverter()->toValue($value, $type ?: $this->typeElement->getValue());
         }
-        if ('geo' == $value['type'] && empty($value['data'])) {
+        if ('geo' == $value['type']) {
             $lonLat = $this->getConverter()->toCoordinates($value['name']);
             foreach($lonLat as $k=>$v) {
                  list($lon,$lat) = explode(',', $v, 2);

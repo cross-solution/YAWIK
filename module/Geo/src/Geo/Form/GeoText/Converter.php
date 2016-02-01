@@ -81,11 +81,10 @@ class Converter
                     "postcode" => $location->getPostalcode()
                 ]
             ];
+            return  $location->getCity() . '|' . Json::encode($data);
         } else {
-            $data = [];
+            return $location->getCity() . ', ' . $location->getRegion();
         }
-
-        return  $location->getCity() . '|' . Json::encode($data);
     }
 
     /**
