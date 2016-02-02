@@ -10,8 +10,6 @@
 /** */
 namespace Organizations\Entity;
 
-use Doctrine\Common\Collections\Collection;
-
 /**
  * Defines a OrganizationReference entity.
  *

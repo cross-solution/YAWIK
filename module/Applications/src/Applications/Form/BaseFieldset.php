@@ -16,7 +16,7 @@ use Core\Form\EmptySummaryAwareInterface;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
- * Fieldset for base informations of an application.
+ * Fieldset for base information of an application.
  *
  * Currently, this is only the freetext summary.
  *
@@ -33,7 +33,10 @@ class BaseFieldset extends Fieldset implements
      * @var string
      */
     protected $emptySummaryNotice = /*@translate*/ 'Click here to enter a summary.';
-    
+
+    /**
+     * initialize base fieldset
+     */
     public function init()
     {
         $this->setHydrator(new \Core\Entity\Hydrator\EntityHydrator())
@@ -45,29 +48,50 @@ class BaseFieldset extends Fieldset implements
             'name' => 'summary',
             'options' => array(
                 'description' => /*@translate*/ '<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.',
-                //'label' => /*@translate*/ 'Summary',
                 'is_disable_capable' => false,
             ),
             )
         );
     }
-    
+
+    /**
+     * returns true, if all form fields of the fieldset are empty.
+     *
+     * @return bool
+     */
     public function isSummaryEmpty()
     {
         return '' == $this->get('summary')->getValue();
     }
-    
+
+    /**
+     * Sets the empty summary notice, which can be shown, if the summary is empty.
+     *
+     * @param $message
+     *
+     * @return $this
+     */
     public function setEmptySummaryNotice($message)
     {
         $this->emptySummaryNotice = $message;
         return $this;
     }
-    
+
+    /**
+     * Gets the empty summary notice
+     *
+     * @return string
+     */
     public function getEmptySummaryNotice()
     {
         return $this->emptySummaryNotice;
     }
-    
+
+    /**
+     * Gets the input filter specification
+     *
+     * @return array
+     */
     public function getInputFilterSpecification()
     {
         return array(
@@ -80,6 +104,11 @@ class BaseFieldset extends Fieldset implements
         );
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDisableCapable($flag)
     {
         $this->options['is_disable_capable'] = $flag;
@@ -87,12 +116,20 @@ class BaseFieldset extends Fieldset implements
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableCapable()
     {
         return isset($this->options['is_disable_capable'])
                ? $this->options['is_disable_capable'] : true;
     }
 
+    /**
+     * @param bool $flag
+     *
+     * @return $this
+     */
     public function setIsDisableElementsCapable($flag)
     {
         $this->options['is_disable_elements_capable'] = $flag;
@@ -100,13 +137,15 @@ class BaseFieldset extends Fieldset implements
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableElementsCapable()
     {
         return isset($this->options['is_disable_elements_capable'])
             ? $this->options['is_disable_elements_capable']
             : true;
     }
-
 
     /**
      * {@inheritDoc}

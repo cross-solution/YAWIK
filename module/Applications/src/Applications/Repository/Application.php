@@ -9,12 +9,6 @@
 namespace Applications\Repository;
 
 use Core\Repository\AbstractRepository;
-use Core\Entity\EntityInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\Parameters;
-use Core\Paginator\Adapter\EntityList;
-use Applications\Entity\ApplicationInterface;
-use Doctrine\ODM\MongoDB\Events;
 use Applications\Entity\Application as ApplicationEntity;
 use Applications\Entity\CommentInterface;
 use Zend\Stdlib\ArrayUtils;
@@ -112,6 +106,11 @@ class Application extends AbstractRepository
         return $list;
     }
 
+    /**
+     * @param $job
+     *
+     * @return mixed
+     */
     public function loadApplicationsForJob($job)
     {
         return $this->createQueryBuilder()
@@ -140,7 +139,7 @@ class Application extends AbstractRepository
      *
      * @param $commentOrId
      * @internal param \Application\Entity\Comment $comment | Id
-     * @return null $comment|NULL
+     * @return \Applications\Entity\Comment|NULL
      */
     public function findComment($commentOrId)
     {
@@ -149,6 +148,7 @@ class Application extends AbstractRepository
         }
         
         $application = $this->findOneBy(array('comments.id' => $commentOrId));
+        /* @var \Applications\Entity\Comment $comment */
         foreach ($application->getComments() as $comment) {
             if ($comment->getId() == $commentOrId) {
                 return $comment;
@@ -174,7 +174,11 @@ class Application extends AbstractRepository
         }
         return null;
     }
-    
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
     public function getStates()
     {
         $qb = $this->createQueryBuilder();
@@ -184,37 +188,27 @@ class Application extends AbstractRepository
     }
 
     /**
-     * @param $user Auth\Entity\AnonymousUser
+     * @param $user UserInterface
      * @param $applyId
-     * @return null |
+     * @return ApplicationEntity|null
      */
     public function findDraft($user, $applyId)
     {
         if ($user instanceof UserInterface) {
-            //
             $user = $user->getId();
         }
-        
-//         $qb = $this->createQueryBuilder();
-//         $qb->addOr(
-//                 $qb->expr()
-//                    ->field('user')->equals($user)
-//             )
-//            ->addOr(
-//                 $qb->expr()
-//                    ->field('permissions.change')
-//                    ->equals($user)
-//             );
-        
+
         $documents = $this->findBy(
-            array(
-            'isDraft' => true,
-            '$or' => array(
-                array('user' => $user),
-                array('permissions.change' => $user)
-            )
-            )
+            [
+                'isDraft' => true,
+                '$or'     => [
+                    ['user' => $user],
+                    ['permissions.change' => $user]
+                ]
+            ]
         );
+
+        /* @var $document ApplicationEntity */
         foreach ($documents as $document) {
             if ($applyId == $document->getJob()->getApplyId()) {
                 return $document;

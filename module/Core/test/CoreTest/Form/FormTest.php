@@ -55,7 +55,15 @@ class FrmTest extends \PHPUnit_Framework_TestCase
     public function testSetDescription() {
         $input = "this is my description";
         $this->target->setDescription($input);
-        $this->assertAttributeSame(['description' => $input], 'options', $this->target);
+        $this->assertAttributeSame(['description' => $input,
+                                    'description_params' => null], 'options', $this->target);
+    }
+
+    public function testSetDescriptionWithAdditionalParams() {
+        $input = "this is my description";
+        $this->target->setDescription($input,['p1','p2']);
+        $this->assertAttributeSame(['description' => $input,
+                                    'description_params' => ['p1','p2']], 'options', $this->target);
     }
 
     public function testSetGetIsDisableCapable(){

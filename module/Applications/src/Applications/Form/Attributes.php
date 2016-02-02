@@ -13,14 +13,14 @@ namespace Applications\Form;
 use Core\Form\Form;
 
 /**
- * Form holds some application specific attributes.
+ * Form provides attributes like send me a carbon copy or privacy policies accepted
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Attributes extends Form
 {
     /**
-     * {@inheritDoc}
+     * initialize attributes form
      */
     public function init()
     {

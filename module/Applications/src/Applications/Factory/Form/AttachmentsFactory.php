@@ -67,20 +67,23 @@ class AttachmentsFactory extends FileUploadFactory
      */
     protected function configureForm($form, AbstractOptions $options)
     {
+        /** @var ModuleOptions $options */
+        $size = $options->getAttachmentsMaxSize();
+        $type = $options->getAttachmentsMimeType();
+        $count = $options->getAttachmentsCount();
+
         $form->setIsDisableCapable(false)
              ->setIsDisableElementsCapable(false)
              ->setIsDescriptionsEnabled(true)
-             ->setDescription(/*@translate*/ 'Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB')
+             ->setDescription(
+                /*@translate*/ 'Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB',
+                 [round($size/(1024*1024))>0? round($size/(1024*1024)):round($size/(1024*1024),1)]
+             )
              ->setParam('return', 'file-uri')
              ->setLabel(/*@translate*/ 'Attachments');
 
         /** @var $file FileUpload*/
         $file = $form->get($this->fileName);
-
-        /** @var ModuleOptions $options */
-        $size = $options->getAttachmentsMaxSize();
-        $type = $options->getAttachmentsMimeType();
-        $count = $options->getAttachmentsCount();
 
         $file->setMaxSize($size);
         if ($type) {

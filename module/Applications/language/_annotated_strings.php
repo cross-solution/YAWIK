@@ -47,133 +47,133 @@ translate('Summary is meant as a general free text area. Click on "edit" to fill
 //: ./src/Applications/Form/Apply.php:59
 translate('Customize apply form');
 
-//: ./src/Applications/Form/SettingsFieldset.php:40
+//: ./src/Applications/Form/SettingsFieldset.php:43
 translate('E-Mail Notifications');
 
-//: ./src/Applications/Form/SettingsFieldset.php:46
+//: ./src/Applications/Form/SettingsFieldset.php:49
 translate('receive E-Mail alert');
 
-//: ./src/Applications/Form/SettingsFieldset.php:47
+//: ./src/Applications/Form/SettingsFieldset.php:50
 translate('if checked, you\'ll be informed by mail about new applications.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:53
+//: ./src/Applications/Form/SettingsFieldset.php:56
 translate('Mailtext');
 
-//: ./src/Applications/Form/SettingsFieldset.php:54
+//: ./src/Applications/Form/SettingsFieldset.php:57
 translate('default text of the notification mail about new applications. The following variables can be used:<ul><li>##name## = your name</li><li>##title## = title of the job</li></ul>');
 
-//: ./src/Applications/Form/SettingsFieldset.php:60
+//: ./src/Applications/Form/SettingsFieldset.php:63
 translate('confirm application immidiatly after submit');
 
-//: ./src/Applications/Form/SettingsFieldset.php:61
+//: ./src/Applications/Form/SettingsFieldset.php:64
 translate('if checked, an application is immediatly confirmed. If unchecked confirmation is the duty of the recruiter.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:67
+//: ./src/Applications/Form/SettingsFieldset.php:70
 translate('Confirmation mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:68
+//: ./src/Applications/Form/SettingsFieldset.php:71
 translate('default text of the acknowledgment of receipt mail to the applicant. The following variables can be used:<br><ul><li>##anrede_formell## = salutation. Includes gender, firstname and lastname.<li>##anrede_informell## = salutation. Includes fistname and lastname.</li><li>##job_title## = title of the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date of recipt of the application.</li></ul>');
 
-//: ./src/Applications/Form/SettingsFieldset.php:74
+//: ./src/Applications/Form/SettingsFieldset.php:77
 translate('Invitation mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:75
+//: ./src/Applications/Form/SettingsFieldset.php:78
 translate('default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. ');
 
-//: ./src/Applications/Form/SettingsFieldset.php:82
+//: ./src/Applications/Form/SettingsFieldset.php:85
 translate('Rejection mail text');
 
-//: ./src/Applications/Form/SettingsFieldset.php:83
+//: ./src/Applications/Form/SettingsFieldset.php:86
 translate('default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.');
 
-//: ./src/Applications/Form/SettingsFieldset.php:89
+//: ./src/Applications/Form/SettingsFieldset.php:92
 translate('get blind carbon copy of all own mails');
 
-//: ./src/Applications/Form/SettingsFieldset.php:90
+//: ./src/Applications/Form/SettingsFieldset.php:93
 translate('if checked, you\'ll get a copy of all mails you send.');
 
-//: ./src/Applications/Form/FilterApplication.php:53
+//: ./src/Applications/Form/FilterApplication.php:56
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:63
+//: ./src/Applications/Form/FilterApplication.php:66
 translate('Enter job title');
 
-//: ./src/Applications/Form/FilterApplication.php:86
+//: ./src/Applications/Form/FilterApplication.php:89
 translate('Status');
 
-//: ./src/Applications/Form/FilterApplication.php:113
+//: ./src/Applications/Form/FilterApplication.php:116
 translate('Search');
 
-//: ./src/Applications/Form/FilterApplication.php:123
+//: ./src/Applications/Form/FilterApplication.php:126
 translate('Clear');
 
-//: ./src/Applications/Form/CommentForm.php:43
+//: ./src/Applications/Form/CommentForm.php:50
 translate('Comment message');
 
-//: ./src/Applications/Form/Facts.php:35
+//: ./src/Applications/Form/Facts.php:41
 translate('Request additional facts from the Applicant. Selected Fields will be added to the application Form.');
 
-//: ./src/Applications/Form/Facts.php:39
+//: ./src/Applications/Form/Facts.php:45
 translate('Please provide some additional facts for this job opening.');
 
 //: ./src/Applications/Form/FactsFieldset.php:29
 translate('Click here to enter facts.');
 
-//: ./src/Applications/Form/FactsFieldset.php:47
+//: ./src/Applications/Form/FactsFieldset.php:46
 translate('Yes');
 
-//: ./src/Applications/Form/FactsFieldset.php:48
+//: ./src/Applications/Form/FactsFieldset.php:47
 translate('conditioned');
 
-//: ./src/Applications/Form/FactsFieldset.php:49
+//: ./src/Applications/Form/FactsFieldset.php:48
 translate('No');
 
-//: ./src/Applications/Form/FactsFieldset.php:50
+//: ./src/Applications/Form/FactsFieldset.php:49
 translate('Willingness to travel');
 
-//: ./src/Applications/Form/FactsFieldset.php:51
+//: ./src/Applications/Form/FactsFieldset.php:50
 translate('Enter your willingness to travel.');
 
-//: ./src/Applications/Form/FactsFieldset.php:53
+//: ./src/Applications/Form/FactsFieldset.php:52
 translate('Ask the applicant about the willingness to travel');
 
-//: ./src/Applications/Form/FactsFieldset.php:57
+//: ./src/Applications/Form/FactsFieldset.php:56
 translate('please select');
 
-//: ./src/Applications/Form/FactsFieldset.php:69
+//: ./src/Applications/Form/FactsFieldset.php:68
 translate('Earliest starting date');
 
-//: ./src/Applications/Form/FactsFieldset.php:70
+//: ./src/Applications/Form/FactsFieldset.php:69
 translate('Enter the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:72
+//: ./src/Applications/Form/FactsFieldset.php:71
 translate('Ask the applicant about the earliest starting date.');
 
-//: ./src/Applications/Form/FactsFieldset.php:82
+//: ./src/Applications/Form/FactsFieldset.php:81
 translate('Expected salary');
 
-//: ./src/Applications/Form/FactsFieldset.php:83
+//: ./src/Applications/Form/FactsFieldset.php:82
 translate('Your salary requirements should be the annual amount before taxes. Do not forget to provide the currency sign.');
 
-//: ./src/Applications/Form/FactsFieldset.php:85
+//: ./src/Applications/Form/FactsFieldset.php:84
 translate('Ask users about their expected salary.');
 
-//: ./src/Applications/Form/FactsFieldset.php:98
+//: ./src/Applications/Form/FactsFieldset.php:97
 translate('Yes');
 
-//: ./src/Applications/Form/FactsFieldset.php:99
+//: ./src/Applications/Form/FactsFieldset.php:98
 translate('No');
 
-//: ./src/Applications/Form/FactsFieldset.php:101
+//: ./src/Applications/Form/FactsFieldset.php:100
 translate('driving license');
 
-//: ./src/Applications/Form/FactsFieldset.php:102
+//: ./src/Applications/Form/FactsFieldset.php:101
 translate('Do you have a driving license?');
 
-//: ./src/Applications/Form/FactsFieldset.php:104
+//: ./src/Applications/Form/FactsFieldset.php:103
 translate('Ask the applicant, if he has a driving license.');
 
-//: ./src/Applications/Form/FactsFieldset.php:110
+//: ./src/Applications/Form/FactsFieldset.php:109
 translate('please select');
 
 //: ./src/Applications/Form/Attributes.php:36
@@ -194,11 +194,8 @@ translate('Privacy Policy');
 //: ./src/Applications/Form/BaseFieldset.php:35
 translate('Click here to enter a summary.');
 
-//: ./src/Applications/Form/BaseFieldset.php:47
+//: ./src/Applications/Form/BaseFieldset.php:50
 translate('<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved.');
-
-//: ./src/Applications/Form/BaseFieldset.php:48
-translate('Summary');
 
 //: ./src/Applications/Controller/ManageController.php:79
 translate('all');
@@ -251,10 +248,10 @@ translate('New application for your vacancy "%s"');
 //: ./src/Applications/Mail/NewApplication.php:68
 translate('Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n');
 
-//: ./src/Applications/Factory/Form/AttachmentsFactory.php:73
-translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB');
+//: ./src/Applications/Factory/Form/AttachmentsFactory.php:79
+translate('Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB');
 
-//: ./src/Applications/Factory/Form/AttachmentsFactory.php:75
+//: ./src/Applications/Factory/Form/AttachmentsFactory.php:83
 translate('Attachments');
 
 //: ./config/module.config.php:65

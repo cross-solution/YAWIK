@@ -34,6 +34,9 @@ class SettingsFieldset extends Fieldset
         return $this;
     }
 
+    /**
+     * initialize settings form
+     */
     public function init()
     {
         $this->setName('emails')

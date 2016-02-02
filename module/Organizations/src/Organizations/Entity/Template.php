@@ -13,7 +13,6 @@ namespace Organizations\Entity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\AbstractEntity;
 
-
 /**
  * Organization Template
  *
@@ -32,7 +31,7 @@ class Template extends AbstractEntity implements TemplateInterface
      * @var $string;
      * @ODM\String
      */
-    protected $labelRequirements='Requirements';
+    protected $labelRequirements = 'Requirements';
 
     /**
      * Label of the qualifications field in the job template
@@ -40,7 +39,7 @@ class Template extends AbstractEntity implements TemplateInterface
      * @ODM\String
      * @var $string;
      */
-    protected $labelQualifications='Qualifications';
+    protected $labelQualifications = 'Qualifications';
 
     /**
      * Label of the benefits field in the job template
@@ -48,7 +47,7 @@ class Template extends AbstractEntity implements TemplateInterface
      * @ODM\String
      * @var $string;
      */
-    protected $labelBenefits='Benefits';
+    protected $labelBenefits = 'Benefits';
 
     /**
      * Sets the label of the requirements form field
@@ -59,7 +58,7 @@ class Template extends AbstractEntity implements TemplateInterface
      */
     public function setLabelRequirements($labelRequirements)
     {
-        $this->labelRequirements=$labelRequirements;
+        $this->labelRequirements = $labelRequirements;
         return $this;
     }
 
@@ -118,6 +117,4 @@ class Template extends AbstractEntity implements TemplateInterface
     {
         return $this->labelBenefits;
     }
-
-
 }

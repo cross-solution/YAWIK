@@ -19,7 +19,9 @@ use Auth\Form\UserInfoContainer;
  */
 class ContactContainer extends UserInfoContainer
 {
-        
+    /**
+     * initialize contact container
+     */
     public function init()
     {
         $this->setIsDisableCapable(false)

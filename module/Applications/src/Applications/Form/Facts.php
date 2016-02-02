@@ -19,6 +19,9 @@ use Core\Form\SummaryForm;
  */
 class Facts extends SummaryForm
 {
+    /**
+     * @var array $baseFieldset
+     */
     protected $baseFieldset = array(
         'type' => 'Applications/FactsFieldset',
         'options' => array(
@@ -29,6 +32,9 @@ class Facts extends SummaryForm
 
     protected $displayMode = self::DISPLAY_SUMMARY;
 
+    /**
+     * initialize facts form
+     */
     public function init()
     {
         $this->options['disable_capable'] = array(

@@ -37,7 +37,6 @@ class ListFilterAdminTest extends \PHPUnit_Framework_TestCase
                          'all' => /*@translate*/ 'All',
                          Status::ACTIVE => /*@translate*/ 'Active',
                          Status::INACTIVE => /*@translate*/ 'Inactive',
-                         //Status::WAITING_FOR_APPROVAL => /*@translate*/ 'Waiting for approval',
                          Status::CREATED => /*@translate*/ 'Created',
                          Status::PUBLISH => /*@translate*/ 'Published',
                          Status::REJECTED => /*@translate*/ 'Rejected',

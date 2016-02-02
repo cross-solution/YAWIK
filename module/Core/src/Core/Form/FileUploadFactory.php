@@ -16,7 +16,6 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
-use Applications\Options\ModuleOptions;
 use Zend\Stdlib\AbstractOptions;
 
 /**

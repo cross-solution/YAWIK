@@ -935,8 +935,8 @@ msgstr "Hallo ##name##,\\n\\nEs gibt eine neue Bewerbung auf Ihre Anzeige:\\n\\\
 #: language/_annotated_strings.php:252
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
-msgstr "Heften Sie Bilder oder PDF Dokumente an Ihre Bewerbung. Ziehen Sie Ihre Dokumente einfach in das Feld für Anlagen, oder klicken Sie das Feld an. Sie können Dateien mit einem Gesamtvolumen von 5 MB hochladen."
+" into the attachement area. You can upload up to %sMB"
+msgstr "Heften Sie Bilder oder PDF Dokumente an Ihre Bewerbung. Ziehen Sie Ihre Dokumente einfach in das Feld für Anlagen, oder klicken Sie das Feld an. Sie können Dateien mit einem Gesamtvolumen von %s MB hochladen."
 
 #: language/_annotated_strings.php:258
 msgid "E-Mail Templates"

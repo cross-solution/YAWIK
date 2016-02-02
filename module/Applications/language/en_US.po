@@ -933,8 +933,8 @@ msgstr "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\\"
 #: language/_annotated_strings.php:255
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
-msgstr "Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to 5MB"
+" into the attachement area. You can upload up to %sMB"
+msgstr "Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB"
 
 #: language/_annotated_strings.php:261
 msgid "E-Mail Templates"

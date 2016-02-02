@@ -80,9 +80,10 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setDescription($description,$params = null)
     {
         $this->options['description'] = $description;
+        $this->options['description_params'] = $params;
         return $this;
     }
 

@@ -934,8 +934,8 @@ msgstr ""
 #: language/_annotated_strings.php:252
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
-msgstr "Uygulamanıza görüntüleri veya PDF Belgelerini takın. Sürükle & bırak onları, ya da attachement alana tıklayınız. Sen 5MB yükleyebilirsiniz"
+" into the attachement area. You can upload up to %sMB"
+msgstr "Uygulamanıza görüntüleri veya PDF Belgelerini takın. Sürükle & bırak onları, ya da attachement alana tıklayınız. Sen %sMB yükleyebilirsiniz"
 
 #: language/_annotated_strings.php:258
 msgid "E-Mail Templates"

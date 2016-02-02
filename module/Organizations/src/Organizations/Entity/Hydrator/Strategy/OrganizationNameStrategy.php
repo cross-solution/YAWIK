@@ -15,6 +15,9 @@ use Organizations\Repository\OrganizationName as OrganizationNameRepository;
 
 class OrganizationNameStrategy implements StrategyInterface
 {
+    /**
+     * @var $repository \Organizations\Repository\OrganizationName
+     */
     protected $repository;
     
     public function __construct(OrganizationNameRepository $repository)
@@ -22,7 +25,12 @@ class OrganizationNameStrategy implements StrategyInterface
         $this->repository = $repository;
         return $this;
     }
-    
+
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
     public function extract($value)
     {
         $name = '';
@@ -31,7 +39,12 @@ class OrganizationNameStrategy implements StrategyInterface
         }
         return $name;
     }
-    
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed|object
+     */
     public function hydrate($value)
     {
         $organizationNameEntity = $value;

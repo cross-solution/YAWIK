@@ -35,6 +35,9 @@ class FilterApplication extends Form
         return $this->hydrator;
     }
 
+    /**
+     * initialize filter form
+     */
     public function init()
     {
         $this->setName('search-applications-form')
@@ -129,6 +132,5 @@ class FilterApplication extends Form
             ),
             )
         );
-             
     }
 }

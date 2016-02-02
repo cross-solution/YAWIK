@@ -13,6 +13,11 @@ namespace Applications\Filter;
 use Zend\Filter\FilterInterface;
 use Applications\Entity\StatusInterface as Status;
 
+/**
+ * Class ActionToStatus
+ *
+ * @package Applications\Filter
+ */
 class ActionToStatus implements FilterInterface
 {
 
@@ -21,7 +26,12 @@ class ActionToStatus implements FilterInterface
         'invite' => Status::INVITED,
         'reset' => Status::INCOMING,
     );
-    
+
+    /**
+     * @param mixed $value
+     *
+     * @return bool
+     */
     public function filter($value)
     {
         return isset($this->actionToStatusMap[$value])

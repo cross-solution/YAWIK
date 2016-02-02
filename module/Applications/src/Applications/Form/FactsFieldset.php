@@ -29,8 +29,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
     protected $emptySummaryNotice = /*@translate*/ 'Click here to enter facts.';
 
     /**
-     * Defines the Facts formular. All fields of the facts form are added by default. Fields,
-     * which are disables by the users settings are removed
+     * initialize facts fieldset
      */
     public function init()
     {

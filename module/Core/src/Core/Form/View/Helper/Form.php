@@ -185,10 +185,14 @@ class Form extends ZendForm
                 );
                 
                 if ($desc = $form->getOption('description', '')) {
+                    $descriptionParams=$form->getOption('description_params');
                     $translator = $this->getTranslator();
                     $textDomain = $this->getTranslatorTextDomain();
-                    
                     $desc = $translator->translate($desc, $textDomain);
+                    if ($descriptionParams) {
+                        array_unshift($descriptionParams, $desc);
+                        $desc = call_user_func_array('sprintf', $descriptionParams);
+                    }
                 }
                 
                 $formContent = sprintf(

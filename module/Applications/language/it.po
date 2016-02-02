@@ -937,8 +937,8 @@ msgstr "Ciao ##name##,\\n\\nesiste una nuova domanda di assunzione per la tua va
 #: language/_annotated_strings.php:252
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
-msgstr "Allegare immagini o documenti PDF alla vostra applicazione. Trascinare e rilasciarli, oppure fare clic nell'area attachement. È possibile caricare fino a 5 MB"
+" into the attachement area. You can upload up to %sMB"
+msgstr "Allegare immagini o documenti PDF alla vostra applicazione. Trascinare e rilasciarli, oppure fare clic nell'area attachement. È possibile caricare fino a %s MB"
 
 #: language/_annotated_strings.php:258
 msgid "E-Mail Templates"

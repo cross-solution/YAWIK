@@ -10,23 +10,20 @@
 
 namespace Applications\Form;
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Form\Form;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Core\Entity\Hydrator\InjectAwareEntityHydrator as Hydrator;
-use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Formular for inviting or rejecting applicants
  */
 class Mail extends Form
 {
-    
-    
+
+    /**
+     * initialize mail forward form
+     */
     public function init()
     {
         $this->setName('applicant-mail');
-
 
         
         $this
@@ -53,7 +50,5 @@ class Mail extends Form
             'name' => 'mailText'
             )
         );
-            
-           
     }
 }
