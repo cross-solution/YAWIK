@@ -92,7 +92,7 @@ endif;
      </div>
 
      <?php endif ?>
-     <?php if (!$this->application->isDraft() && 'recruiter' == $this->auth('role')):?> 
+     <?php if (!$this->application->isDraft() && $this->acl()->isRole('recruiter', true)):?>
      <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" class="form-inline" method="get">
 
      <span id="forward-email" class="input-group navbar-nav">
@@ -216,7 +216,7 @@ endif;
  </div>
 </div>
 
-<?php if ($this->auth('role') == 'recruiter'):?>
+<?php if ($this->acl()->isRole('recruiter', true)):?>
 <div id="cam-application-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="history-box-label" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
@@ -349,13 +349,13 @@ endif;
           <?php echo $this->translate((string) $this->application->status) ?>
         </td>
       </tr>
-      <?php if ($this->auth('role') == 'recruiter'):?>
+      <?php if ($this->acl()->isRole('recruiter',true)):?>
       <tr>
         <td><?php echo $this->translate('rating')?>:</td> 
         <td class="col-md-6">
           <span id="application-rating">
           <?php $rating = $this->rating($this->application->getRating()); 
-          if ($this->application->isDraft() || 'recruiter' != $this->auth('role')): echo $rating;
+          if ($this->application->isDraft() || !$this->acl()->isRole('recruiter',true)): echo $rating;
           else:?>
             <button id="<?php echo $this->application->rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>" 
                     data-title="title"
