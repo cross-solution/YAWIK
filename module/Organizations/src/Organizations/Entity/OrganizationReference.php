@@ -16,7 +16,8 @@ use Core\Entity\PermissionsInterface;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
+
 
 /**
  * Manages reference to an organization.
