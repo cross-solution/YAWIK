@@ -17,7 +17,7 @@ use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\EntityInterface;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\DraftableEntityInterface;
 

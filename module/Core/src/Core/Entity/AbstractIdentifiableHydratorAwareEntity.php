@@ -12,8 +12,8 @@
 /** Core Entitys */
 namespace Core\Entity;
 
-use Zend\Stdlib\Hydrator\HydratorInterface;
-use Zend\Stdlib\Hydrator\HydratorAwareInterface;
+use Zend\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorAwareInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**
