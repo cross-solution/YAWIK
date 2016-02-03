@@ -8,7 +8,7 @@
  * Having said that, you may always overwrite or extend the configuration
  * in your own modules configuration file(s) (or via the config autoloading).
  *
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 

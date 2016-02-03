@@ -3,7 +3,7 @@
  * YAWIK
  * Configuration file of the Auth module
  *
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
