@@ -53,7 +53,7 @@ translate('Excellent');
 //: ./src/Core/Form/Element/Phone.php:26
 translate('Please enter a phone Number. You can use the intenational format. Only digits and \'+\'.');
 
-//: ./src/Core/Form/FileUploadFactory.php:138
+//: ./src/Core/Form/FileUploadFactory.php:137
 translate('Remove all');
 
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:20

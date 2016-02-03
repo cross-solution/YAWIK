@@ -7,23 +7,29 @@
  * @license   MIT
  */
 
-return array('console' => array('router' => array('routes' => array(
-    'jobs-genkeywords' => array(
-        'options' => array(
-            'route' => 'jobs generatekeywords [--filter=]',
-            'defaults' => array(
-                'controller' => 'Jobs/Console',
-                'action' => 'generatekeywords',
-            ),
-        ),
-    ),
-    'jobs-setpermissions' => array(
-        'options' => array(
-            'route' => 'jobs setpermissions',
-            'defaults' => array(
-                'controller' => 'Jobs/Console',
-                'action' => 'setpermissions',
-            ),
-        ),
-    ),
-))));
+return [
+    'console' => [
+        'router' => [
+            'routes' => [
+                'jobs-expire'    => [
+                    'options' => [
+                        'route'    => 'jobs expire [--filter=]',
+                        'defaults' => [
+                            'controller' => 'Jobs/Console',
+                            'action'     => 'expirejobs',
+                        ],
+                    ],
+                ],
+                'jobs-setpermissions' => [
+                    'options' => [
+                        'route'    => 'jobs setpermissions',
+                        'defaults' => [
+                            'controller' => 'Jobs/Console',
+                            'action'     => 'setpermissions',
+                        ],
+                    ],
+                ],
+            ]
+        ]
+    ]
+];

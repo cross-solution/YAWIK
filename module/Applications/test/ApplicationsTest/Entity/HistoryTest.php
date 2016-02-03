@@ -10,8 +10,10 @@
 /** */
 namespace ApplicationsTestTest\Entity;
 
-use Applications\Entity\Contact;
+use Applications\Entity\History;
+use Applications\Entity\Status;
 use Auth\Entity\Info;
+use Zend\Stdlib\DateTime;
 
 /**
  * Tests for User
@@ -19,31 +21,65 @@ use Auth\Entity\Info;
  * @covers \Applications\Entity\History
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
- * @group  User
- * @group  User.Entity
+ * @group  Applications
+ * @group  Applications.Entity
  */
-class ContactTest extends \PHPUnit_Framework_TestCase
+class HistoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The "Class under Test"
      *
-     * @var Contact
+     * @var History
      */
     private $target;
 
     public function setup()
     {
-        $info = new Info();
-        $this->target = new Contact($info);
+        $status = new Status();
+        $this->target = new History($status, 'message');
     }
 
     /**
-     * @testdox Extends \Core\Entity\AbstractEntity and implements \Auth\Entity\UserInterface
-     * @covers \Applications\Entity\Contact::__construct
+     * @testdox Extends \Core\Entity\AbstractEntity and implements \Applications\Entity\HistoryInterface
+     * @covers \Applications\Entity\History::__construct
      */
     public function testExtendsAbstractEntityAndInfo()
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
-        $this->assertInstanceOf('\Auth\Entity\Info', $this->target);
+        $this->assertInstanceOf('\Applications\Entity\History', $this->target);
     }
+
+    /**
+     * @covers \Applications\Entity\History::setDate
+     * @covers \Applications\Entity\History::getDate
+     */
+    public function testSetGetDate()
+    {
+        $input=new \DateTime("2012-05-06");
+        $this->target->setDate($input);
+        $this->assertEquals($this->target->getDate(),$input);
+    }
+
+    /**
+     * @covers \Applications\Entity\History::setStatus
+     * @covers \Applications\Entity\History::getStatus
+     */
+    public function testSetGetStatus()
+    {
+        $input=new Status();
+        $this->target->setStatus($input);
+        $this->assertEquals($this->target->getStatus(),$input);
+    }
+
+    /**
+     * @covers \Applications\Entity\History::setMessage
+     * @covers \Applications\Entity\History::getMessage
+     */
+    public function testSetGetMessage()
+    {
+        $input="this is my message";
+        $this->target->setMessage($input);
+        $this->assertEquals($this->target->getMessage(),$input);
+    }
+
 }

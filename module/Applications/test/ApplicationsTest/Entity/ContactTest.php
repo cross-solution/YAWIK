@@ -19,8 +19,8 @@ use Applications\Entity\Contact;
  * @covers \Applications\Entity\Contact
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
- * @group  User
- * @group  User.Entity
+ * @group  Applications
+ * @group  Applications.Entity
  */
 class ContactTest extends \PHPUnit_Framework_TestCase
 {

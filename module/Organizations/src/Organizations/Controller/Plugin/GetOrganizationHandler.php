@@ -62,6 +62,7 @@ class GetOrganizationHandler extends AbstractPlugin {
     public function process(Params $params,$allowDraft = true)
     {
         $repositories   = $this->repositoryService;
+        /* @var \Organizations\Repository\Organization $organizationRepository */
         $organizationRepository = $this->repositoryService->get('Organizations/Organization');
 
         $idFromRoute = $params('id', 0);

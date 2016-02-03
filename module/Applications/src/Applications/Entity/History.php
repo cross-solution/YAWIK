@@ -59,6 +59,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
     
     /**
+     * Gets date of the history message entry
+     *
      * @return $date
      */
     public function getDate()
@@ -67,6 +69,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
+     * Sets date of the history message entry
+     *
      * @param \DateTime $date
      * @return $this
      */
@@ -77,6 +81,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
+     * Gets the status of the job used in the history message
+     *
      * @return StatusInterface $status
      */
     public function getStatus()
@@ -85,7 +91,11 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
+     * Sets the status of the job used in the history message
+     *
      * @param StatusInterface $status
+     *
+     * @return $this
      */
     public function setStatus(StatusInterface $status)
     {
@@ -94,6 +104,8 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
+     * Gets the history message
+     *
      * @return String $message
      */
     public function getMessage()
@@ -102,7 +114,11 @@ class History extends AbstractEntity implements HistoryInterface
     }
 
     /**
-     * @param String $message
+     * Sets the history message
+     *
+     * @param $message
+     *
+     * @return $this
      */
     public function setMessage($message)
     {

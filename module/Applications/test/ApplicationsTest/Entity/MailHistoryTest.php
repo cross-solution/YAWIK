@@ -39,7 +39,7 @@ class MailHistoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @testdox Extends \Core\Entity\AbstractEntity and implements \Applications\Entity\HistoryInterface
-     * @covers \Applications\Entity\History::__construct
+     * @covers \Applications\Entity\MailHistory::__construct
      */
     public function testExtendsAbstractEntityAndInfo()
     {
@@ -48,6 +48,10 @@ class MailHistoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Applications\Entity\MailHistory', $this->target);
     }
 
+    /**
+     * @covers \Applications\Entity\MailHistory::setSubject
+     * @covers \Applications\Entity\MailHistory::getSubject
+     */
     public function testSetGetSubject()
     {
         $input="subject of the mail";
@@ -55,6 +59,10 @@ class MailHistoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getSubject(),$input);
     }
 
+    /**
+     * @covers \Applications\Entity\MailHistory::setMailText
+     * @covers \Applications\Entity\MailHistory::getMailText
+     */
     public function testSetGetMailText()
     {
         $input="this is the mailtext";

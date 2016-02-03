@@ -1,10 +1,16 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 namespace Core\Form;
 
 use Zend\Form\Fieldset;
 
-//use Zend\InputFilter\InputFilterProviderInterface;
 
 class LocalizationSettingsFieldset extends Fieldset
 {

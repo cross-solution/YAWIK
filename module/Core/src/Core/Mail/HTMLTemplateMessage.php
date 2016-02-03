@@ -24,10 +24,6 @@ use Zend\View\Variables as ViewVariables;
  */
 class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocatorAwareInterface
 {
-    /**
-     * View variables
-     * @var array|ArrayAccess&Traversable
-     */
     protected $serviceLocator;
 
     /**

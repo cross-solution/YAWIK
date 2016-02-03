@@ -36,23 +36,39 @@ class NotificationEvent extends Event
     protected $notification;
     protected $notifications;
 
+    /**
+     * @param $message
+     *
+     * @return $this
+     */
     public function setNotification($message)
     {
         $this->notification = $message;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNotification()
     {
         return $this->notification;
     }
 
+    /**
+     * @param $messages
+     *
+     * @return $this
+     */
     public function setNotifications($messages)
     {
         $this->notifications = $messages;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNotifications()
     {
         return $this->notifications;

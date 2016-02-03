@@ -14,6 +14,8 @@
         <ignore>module/JobsDeutschland*</ignore>
         <ignore>module/Karriere24*</ignore>
         <ignore>module/Karrierelounge*</ignore>
+        <ignore>module/Greenjobs*</ignore>
+        <ignore>module/NextKraftwerke*</ignore>
         <ignore>module/Cam*</ignore>
         <ignore>*/language/*</ignore>
         <ignore>*/view/*</ignore>

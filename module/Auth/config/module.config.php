@@ -355,14 +355,11 @@ return array(
      * $RESOURCES: array of resources
      *      a resource is 
      *      1. a string: taken as resource name
-     *                   (when prefixed with "!", a deny rule is created.)
      *      1.1 the "null" value: allow on all resources.
      *      2. a key => string pair:
-     *          key is the resource name (optionally prefixed with "!")
      *          if key is "__ALL__" rule apply to all resources.
      *          string is the privilege name
      *      3. a key => array pair:
-     *              key is the resource name (optionally prefixed with "!")
      *              array are the privileges which each of is
      *              1. a string: Taken as privilege name
      *              2. a key => string pair:

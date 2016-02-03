@@ -8,46 +8,39 @@
  * @license   MIT
  */
 
-/** ActionController of Core */
+/** ConsoleController of Jobs */
 namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\Stdlib\Parameters;
 use Jobs\Entity\Job;
-use Zend\Mvc\MvcEvent;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\ProgressBar\ProgressBar;
 use Core\Console\ProgressBar as CoreProgressBar;
 use Zend\ProgressBar\Adapter\Console as ConsoleAdapter;
 use Auth\Entity\UserInterface;
 
-/**
- * Main Action Controller for the application.
- * Responsible for displaying the home site.
- *
- */
 class ConsoleController extends AbstractActionController
 {
 
-    public function generateKeywordsAction()
+    public function expireJobsAction()
     {
         
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
+        /* @var \Jobs\Repository\Job $jobsRepo */
         $jobsRepo     = $repositories->get('Jobs/Job');
         $filter       = \Zend\Json\Json::decode($this->params('filter', '{}'));
         $query        = array();
-        $limit        = 0;
+        $limit        = 10;
         foreach ($filter as $key => $value) {
             switch ($key) {
                 case "limit":
                     $limit = $value;
                     break;
                     
-                case "before":
-                    $date = new \DateTime($value);
+                case "days":
+                    $date = new \DateTime();
+                    $date->modify('-' . (int) $value. ' day');
                     $q = array('$lt' => $date);
                     if (isset($query['datePublishStart.date'])) {
                         $query['datePublishStart.date']= array_merge(
@@ -59,34 +52,15 @@ class ConsoleController extends AbstractActionController
                     }
                     break;
                     
-                case "after":
-                    $date = new \DateTime($value);
-                    $q = array('$gt' => $date);
-                    if (isset($query['datePublishStart.date'])) {
-                        $query['datePublishStart.date']= array_merge(
-                            $query['datePublishStart.date'],
-                            $q
-                        );
-                    } else {
-                        $query['datePublishStart.date'] = $q;
-                    }
-                    break;
-                    
-                case "title":
-                    $query['title'] = '/' == $value{0}
-                                    ? new \MongoRegex($value)
-                                    : $value;
-                    break;
-                    
                 default:
                     $query[$key] = $value;
                     break;
             }
         }
-        
-        $jobs         = $jobsRepo->findBy($query);
-        $jobs->limit($limit);
-        $count        = $jobs->count(true);
+        $query['status.name'] = 'active';
+
+        $jobs = $jobsRepo->findBy($query,null,$limit);
+        $count = count($jobs);
 
         if (0 === $count) {
             return 'No jobs found.';
@@ -97,7 +71,7 @@ class ConsoleController extends AbstractActionController
         }
         
         
-        echo "Generate keywords for $count jobs...\n";
+        echo "$count jobs found, which have to expire ...\n";
         
         $progress     = new ProgressBar(
             new ConsoleAdapter(
@@ -117,16 +91,15 @@ class ConsoleController extends AbstractActionController
             0,
             count($jobs)
         );
-        
-        $filter = $services->get('filtermanager')->get('Core/Repository/PropertyToKeywords');
+
         $i = 0;
-        
+
+        /* @var \Jobs\Entity\Job $job */
         foreach ($jobs as $job) {
             $progress->update($i++, 'Job ' . $i . ' / ' . $count);
-            $keywords = $filter->filter($job);
-            
-            $job->setKeywords($keywords);
-            
+
+            $job->changeStatus('expired');
+
             if (0 == $i % 500) {
                 $progress->update($i, 'Write to database...');
                 $repositories->flush();
@@ -136,10 +109,8 @@ class ConsoleController extends AbstractActionController
         $repositories->flush();
         $progress->update($i, 'Done');
         $progress->finish();
-        
-        
+
         return PHP_EOL;
-        
     }
     
     public function setpermissionsAction()
@@ -152,6 +123,7 @@ class ConsoleController extends AbstractActionController
         $count        = count($jobs);
         $progress     = new CoreProgressBar($count);
         $i            = 0;
+        /* @var Job $job */
         foreach ($jobs as $job) {
             $progress->update($i++, 'Job ' . $i . ' / ' . $count);
             

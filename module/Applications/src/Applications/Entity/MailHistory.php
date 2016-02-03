@@ -18,9 +18,19 @@ namespace Applications\Entity;
  */
 class MailHistory extends History implements MailHistoryInterface
 {
-    protected $subject;
-    protected $mailText;
     /**
+     * @var string
+     */
+    protected $subject;
+
+    /**
+     * @var string
+     */
+    protected $mailText;
+
+    /**
+     * Get the mail subject of an history entry
+     *
      * @return String $subject
      */
     public function getSubject()
@@ -29,6 +39,8 @@ class MailHistory extends History implements MailHistoryInterface
     }
 
     /**
+     * Sets the mail subject of an history entry
+     *
      * @param String $subject
      * @return $this
      */
@@ -39,6 +51,8 @@ class MailHistory extends History implements MailHistoryInterface
     }
 
     /**
+     * Gets the mail text of an history entry
+     *
      * @return String $mailText
      */
     public function getMailText()
@@ -47,7 +61,11 @@ class MailHistory extends History implements MailHistoryInterface
     }
 
     /**
-     * @param String $mailText
+     * Sets the mail text of an history entry
+     *
+     * @param $mailText
+     *
+     * @return $this
      */
     public function setMailText($mailText)
     {
