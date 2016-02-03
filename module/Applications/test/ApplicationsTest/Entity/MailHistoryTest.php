@@ -1,0 +1,65 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license    MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+
+/** */
+namespace ApplicationsTestTest\Entity;
+
+use Applications\Entity\MailHistory;
+use Applications\Entity\Status;
+
+/**
+ * Tests for MailHistory
+ *
+ * @covers \Applications\Entity\MailHistory
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @group  Applications
+ * @group  Applications.Entity
+ */
+class MailHistoryTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * The "Class under Test"
+     *
+     * @var MailHistory
+     */
+    private $target;
+
+    public function setup()
+    {
+        $status = new Status();
+        $this->target = new MailHistory($status, 'message');
+    }
+
+    /**
+     * @testdox Extends \Core\Entity\AbstractEntity and implements \Applications\Entity\HistoryInterface
+     * @covers \Applications\Entity\History::__construct
+     */
+    public function testExtendsAbstractEntityAndInfo()
+    {
+        $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
+        $this->assertInstanceOf('\Applications\Entity\History', $this->target);
+        $this->assertInstanceOf('\Applications\Entity\MailHistory', $this->target);
+    }
+
+    public function testSetGetSubject()
+    {
+        $input="subject of the mail";
+        $this->target->setSubject($input);
+        $this->assertEquals($this->target->getSubject(),$input);
+    }
+
+    public function testSetGetMailText()
+    {
+        $input="this is the mailtext";
+        $this->target->setMailText($input);
+        $this->assertEquals($this->target->getMailText(),$input);
+    }
+
+}
