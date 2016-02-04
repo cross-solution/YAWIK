@@ -33,6 +33,8 @@ use Core\Entity\Collection\ArrayCollection;
  * @method $this revokeView($resource)        shortcut for grant($resource, self::PERMISSION_VIEW)
  *
  * @ODM\EmbeddedDocument
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class Permissions implements PermissionsInterface
 {
@@ -165,6 +167,17 @@ class Permissions implements PermissionsInterface
     }
 
     /**
+     * Gets the permission type
+     *
+     * @return string
+     * @since 0.24
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Grants a permission to a user or resource.
      *
      * {@inheritDoc}
@@ -270,6 +283,13 @@ class Permissions implements PermissionsInterface
     
     public function inherit(PermissionsInterface $permissions, $build = true)
     {
+        // Override permissions type temporarly to get the right permissions back
+        // from resources which may be aware of the permissions type.
+        // Maybe this must be controllable by an additional parameter, but for now
+        // we make this default.
+        $oldType = $this->type;
+        $this->type = $permissions->getType();
+
         /* @var $permissions Permissions */
         $assigned  = $permissions->getAssigned();
         $resources = $permissions->getResources();
@@ -292,6 +312,10 @@ class Permissions implements PermissionsInterface
             $this->build();
         }
         $this->hasChanged= true;
+
+        // restore orginial permissions type
+        $this->type = $oldType;
+
         return $this;
     }
 
