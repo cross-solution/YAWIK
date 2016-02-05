@@ -66,7 +66,7 @@ class BaseFieldset extends Fieldset
         $this->add(
             array(
             'type' => 'Location',
-            'name' => 'location',
+            'name' => 'geo-location',
             'options' => array(
                 'label' => /*@translate*/ 'Location',
                 'description' => /*@translate*/ 'Please enter the location of the job',
