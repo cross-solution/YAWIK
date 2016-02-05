@@ -85,4 +85,33 @@ class OrganizationNameTest extends \PHPUnit_Framework_TestCase
             array('setRankingByCompany', 'getRankingByCompany', 'test1'),
         );
     }
+
+    public function testRefCounterDec()
+    {
+        $target = $this->target;
+        $target->setRankingByCompany(10);
+        $this->assertSame($target->refCompanyCounterDec()->getRankingByCompany(), 9);
+    }
+
+    public function testRefCounterInc()
+    {
+        $target = $this->target;
+        $target->setRankingByCompany(10);
+        $this->assertSame($target->refCompanyCounterInc()->getRankingByCompany(), 11);
+    }
+
+    public function testRefCounterIncrement()
+    {
+        $target = $this->target;
+        $target->refCounterInc();
+        $this->assertAttributeSame(1, 'ranking', $target);
+    }
+
+    public function testRefCounterDecrement()
+    {
+        $target = $this->target;
+        $target->refCounterDec();
+        $this->assertAttributeSame(-1, 'ranking', $target);
+    }
+
 }

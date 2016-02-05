@@ -44,7 +44,10 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * @ODM\Int
      */
     protected $ranking;
-    
+
+    /**
+     * @param string|null $name Name of the organization
+     */
     public function __construct($name = null)
     {
         $this->ranking = 0;

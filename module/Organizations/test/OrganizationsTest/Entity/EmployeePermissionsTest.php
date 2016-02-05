@@ -15,7 +15,8 @@ use Organizations\Entity\EmployeePermissionsInterface;
 
 /**
  * Test EmployeePermissions entity.
- * 
+ *
+ * @covers \Organizations\Entity\EmployeePermissions
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Entity

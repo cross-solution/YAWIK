@@ -114,6 +114,7 @@ class MultimanageController extends AbstractActionController
         $elements          = $this->params()->fromPost('elements', array());
         foreach ($elements as $element) {
             $mail = $mailService->get('Applications/StatusChange');
+            /* @var \Applications\Entity\Application $application */
             $application = $repository->find($element);
             $mail->setApplication($application);
             $mail->setBody($this->params()->fromPost('mail-content'));
@@ -135,7 +136,10 @@ class MultimanageController extends AbstractActionController
             // update the Application-History
             $application->changeStatus(
                 Status::REJECTED,
-                sprintf('Mail was sent to %s', $application->contact->email)
+                sprintf(
+                           /*@translate */ 'Mail was sent to %s',
+                                           $application->contact->email
+                )
             );
             $repositoryService->store($application);
             unset($mail);

@@ -11,14 +11,14 @@ namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
 use Core\Entity\EntityInterface;
-use Core\Entity\AddressInterface;
 use Core\Entity\PermissionsResourceInterface;
 use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
 use Doctrine\Common\Collections\Collection;
-use Zend\Stdlib\Hydrator\HydratorAwareInterface;
+use Zend\Hydrator\HydratorAwareInterface;
+
 
 /**
  * Interface OrganizationInterface
@@ -92,6 +92,22 @@ interface OrganizationInterface extends
     public function getHiringOrganizations();
 
     /**
+     * Sets the Logo of an organization
+     *
+     * @param $image OrganizationImage
+     * @return self
+     */
+    public function setImage(OrganizationImage $image);
+
+    /**
+     * Gets the logo of an organization
+     *
+     * @return OrganizationImage
+     */
+    public function getImage();
+
+
+    /**
     * Sets the name of the organization
     *
     * @param OrganizationName organizationName
@@ -148,6 +164,22 @@ interface OrganizationInterface extends
      * @since 0.19
      */
     public function getEmployee($userOrId);
+
+    /**
+     * Sets an external unique ID
+     *
+     * @param $externalId
+     *
+     * @return mixed
+     */
+    public function setExternalId($externalId);
+
+    /**
+     * Gets the external unique ID
+     *
+     * @return string
+     */
+    public function getExternalId();
 
     /**
      * @return UserInterface

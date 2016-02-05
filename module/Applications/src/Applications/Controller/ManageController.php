@@ -143,8 +143,13 @@ class ManageController extends AbstractActionController
         if ($application->isUnreadBy($this->auth('id'))) {
             $application->addReadBy($this->auth('id'));
             $applicationIsUnread = true;
+            $application->changeStatus(
+                $application->getStatus(),
+                sprintf(/*@translate*/ 'Application was read by %s' ,
+                                       $this->auth()->getUser()->getInfo()->getDisplayName()));
         }
-        
+
+
         
         $format=$this->params()->fromQuery('format');
 

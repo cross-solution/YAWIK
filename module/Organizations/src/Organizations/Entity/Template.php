@@ -16,7 +16,7 @@ use Core\Entity\AbstractEntity;
 /**
  * Organization Template
  *
- * defines default values of an organisations job template
+ * defines default values of the job template of an organization
  *
  * @ODM\EmbeddedDocument
  * @author Carsten Bleek <bleek@cross-solution.de>

@@ -15,13 +15,16 @@ use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Core\Entity\FileEntity;
 
 /**
- * Defines the logo of an organiozation
+ * Defines the logo of an organization.
+ *
  * @ODM\HasLifecycleCallbacks()
  * @ODM\Document(collection="organizations.images", repositoryClass="Organizations\Repository\OrganizationImage")
  */
 class OrganizationImage extends FileEntity implements ResourceInterface
 {
     /**
+     * Organization which belongs to the company logo
+     *
      * @var Organization
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\Organization", mappedBy="image")
      */
@@ -37,15 +40,18 @@ class OrganizationImage extends FileEntity implements ResourceInterface
     }
 
     /**
-     * get the URI of an attachment
+     * Gets the URI of an attachment
+     *
      * @return string
      */
     function getUri()
     {
-        return "/file/Organizations.OrganizationImage/" . $this->id . "/" . urlencode($this->name);
+        return '/' . trim('file/Organizations.OrganizationImage/' . $this->id . "/" . urlencode($this->name),'/');
     }
 
     /**
+     * Gets the organization of an company logo
+     *
      * @return Organization
      */
     public function getOrganization()
@@ -62,6 +68,8 @@ class OrganizationImage extends FileEntity implements ResourceInterface
     }
 
     /**
+     * Tells Doctrine to delete the image reference, if the image is deleted.
+     *
      * @ODM\PreRemove()
      */
     public function preRemove()

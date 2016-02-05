@@ -20,6 +20,8 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Controls comment handling on applications
+ *
+ * @method \Auth\Controller\Plugin\Auth auth()
  */
 class CommentController extends AbstractActionController
 {
@@ -80,6 +82,7 @@ class CommentController extends AbstractActionController
         
         $mode  = $this->params()->fromQuery('mode', 'new');
         $appId = $this->params()->fromQuery('id');
+        /* @var \Applications\Entity\Application $application */
         $application = $repository->find($appId);
 
         $viewModel = new ViewModel();
@@ -102,6 +105,10 @@ class CommentController extends AbstractActionController
                 if ('new' == $mode) {
                     $application = $repository->find($appId);
                     $application->comments->add($comment);
+                    $application->changeStatus($application->getStatus(), sprintf(
+                                    /* @translate */ 'Application was rated by %s' ,
+                                     $this->auth()->getUser()->getInfo()->getDisplayName())
+                        );
                 }
                 $viewModel->setVariable('isSaved', true);
             }

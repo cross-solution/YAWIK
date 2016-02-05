@@ -11,6 +11,7 @@
 namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
+use Organizations\Entity\OrganizationImage;
 use Core\Entity\EntityInterface;
 use Core\Entity\PermissionsInterface;
 use DateTime;
@@ -265,6 +266,16 @@ class OrganizationReference implements
         return $this->proxy('getHiringOrganizations');
     }
 
+    public function setImage(OrganizationImage $image)
+    {
+        return $this->proxy('setImage', $image);
+    }
+
+    public function getImage()
+    {
+        return $this->proxy('getImage');
+    }
+
     public function setOrganizationName(OrganizationName $organizationNames)
     {
         return $this->proxy('setOrganizationName', $organizationNames);
@@ -298,6 +309,16 @@ class OrganizationReference implements
     public function getEmployee($userOrId)
     {
         return $this->proxy('getEmployee', $userOrId);
+    }
+
+    public function setExternalId($externalId)
+    {
+        return $this->proxy('setExternalId', $externalId);
+    }
+
+    public function getExternalId()
+    {
+        return $this->proxy('getExternalId');
     }
 
     public function getUser()
