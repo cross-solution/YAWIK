@@ -13,7 +13,7 @@
 namespace Applications\Form;
 
 use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ArraySerializable as ArrayHydrator;
+use Zend\Hydrator\ArraySerializable as ArrayHydrator;
 
 /**
  * Formular to search for applications

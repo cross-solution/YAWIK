@@ -10,7 +10,7 @@
 
 namespace Jobs\Form\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 class JobDescriptionQualificationsStrategy implements StrategyInterface
 {

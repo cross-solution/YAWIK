@@ -173,7 +173,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     }
 
     /**
-     * @return \Zend\Stdlib\Hydrator\HydratorInterface
+     * @return \Zend\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {
@@ -251,7 +251,7 @@ class Form extends ZendForm implements DescriptionAwareFormInterface, DisableEle
     /**
      * Adds hydrator strategies to the default hydrator upon instanciation.
      *
-     * @param \Zend\Stdlib\Hydrator\HydratorInterface $hydrator
+     * @param \Zend\Hydrator\HydratorInterface $hydrator
      */
     protected function addHydratorStrategies($hydrator)
     {

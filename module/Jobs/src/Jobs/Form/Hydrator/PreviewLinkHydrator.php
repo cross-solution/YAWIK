@@ -28,7 +28,7 @@ class PreviewLinkHydrator extends EntityHydrator implements ServiceLocatorAwareI
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
+     * @see \Zend\Hydrator\HydratorInterface::extract()
      */
     public function extract($object)
     {

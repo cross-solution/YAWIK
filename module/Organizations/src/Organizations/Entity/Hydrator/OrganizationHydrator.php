@@ -10,7 +10,7 @@
 /** OrganizationEntityHydrator.php */
 namespace Organizations\Entity\Hydrator;
 
-use Zend\Stdlib\Hydrator\Reflection;
+use Zend\Hydrator\Reflection;
 
 /**
  * Class OrganizationHydrator

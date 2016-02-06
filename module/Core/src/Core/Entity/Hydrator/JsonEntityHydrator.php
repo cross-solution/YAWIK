@@ -11,7 +11,7 @@
 namespace Core\Entity\Hydrator;
 
 
-use Zend\Stdlib\Hydrator\AbstractHydrator;
+use Zend\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
 
 class JsonEntityHydrator extends AbstractHydrator

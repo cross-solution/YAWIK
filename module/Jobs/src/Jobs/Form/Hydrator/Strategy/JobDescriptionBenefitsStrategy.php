@@ -10,7 +10,7 @@
 
 namespace Jobs\Form\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 class JobDescriptionBenefitsStrategy implements StrategyInterface
 {
@@ -23,6 +23,10 @@ class JobDescriptionBenefitsStrategy implements StrategyInterface
         return $result;
     }
 
+    /**
+     * @param mixed $value
+     * @param null  $object
+     */
     public function hydrate($value, $object = null)
     {
         if (isset($value['description-benefits'])) {

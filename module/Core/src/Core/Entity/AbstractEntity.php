@@ -68,7 +68,7 @@ abstract class AbstractEntity implements EntityInterface
      * If the property is an array, the check will return, if this
      * array has items or not.
      *
-     * @param string $name
+     * @param string $property
      * @return boolean
      */
     public function __isset($property)

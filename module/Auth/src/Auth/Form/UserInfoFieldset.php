@@ -46,7 +46,7 @@ class UserInfoFieldset extends Fieldset implements
     }
 
     /**
-     * @return \Zend\Stdlib\Hydrator\HydratorInterface
+     * @return \Zend\Hydrator\HydratorInterface
      */
     public function getHydrator()
     {

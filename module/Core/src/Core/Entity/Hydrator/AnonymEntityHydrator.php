@@ -2,8 +2,7 @@
 
 namespace Core\Entity\Hydrator;
 
-use Zend\Stdlib\Hydrator\AbstractHydrator;
-use Core\Entity\EntityInterface;
+use Zend\Hydrator\AbstractHydrator;
 use Core\Entity\AnonymEntityInterface;
 use Settings\Entity\AwareEntity;
 
@@ -18,13 +17,11 @@ class AnonymEntityHydrator extends AbstractHydrator
 
     protected function init()
     {
-        
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
+     * @see \Zend\Hydrator\HydratorInterface::extract()
      */
-
     public function extract($object)
     {
         $data = array();
@@ -37,9 +34,8 @@ class AnonymEntityHydrator extends AbstractHydrator
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::hydrate()
+     * @see \Zend\Hydrator\HydratorInterface::hydrate()
      */
-
     public function hydrate(array $data, $object)
     {
         $setterMethods = array();

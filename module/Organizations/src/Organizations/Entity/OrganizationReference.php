@@ -11,7 +11,6 @@
 namespace Organizations\Entity;
 
 use Auth\Entity\UserInterface;
-use Organizations\Entity\OrganizationImage;
 use Core\Entity\EntityInterface;
 use Core\Entity\PermissionsInterface;
 use DateTime;

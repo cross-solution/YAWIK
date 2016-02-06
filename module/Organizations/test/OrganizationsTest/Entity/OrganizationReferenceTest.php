@@ -168,7 +168,7 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array('__set', '__get', '__isset'), array(array('id', '4321'), array('id'), array('id')), array('__self__', '4321', true)),
             array('setHydrator', array($hydrator), '__self__'),
-            array('getHydrator', array(), '\Zend\Stdlib\Hydrator\HydratorInterface', 'instance'),
+            array('getHydrator', array(), '\Zend\Hydrator\HydratorInterface', 'instance'),
             array(array('setId', 'getId'), array(array('4321'), array()), array('__self__', '4321')),
             array(array('setDateCreated', 'getDateCreated'), array(array($date), array()), array('__self__', $date)),
             array(array('setDateModified', 'getDateModified'), array(array($date), array()), array('__self__', $date)),

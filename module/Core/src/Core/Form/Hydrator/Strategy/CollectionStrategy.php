@@ -10,7 +10,7 @@
 /** CollectionStrategy.php */
 namespace Core\Form\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 use Doctrine\Common\Collections\Collection;
 
 class CollectionStrategy implements StrategyInterface

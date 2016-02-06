@@ -15,7 +15,7 @@ use Zend\Form\Fieldset;
 /**
 * @covers \Core\Form\Form
 */
-class FrmTest extends \PHPUnit_Framework_TestCase
+class FormTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Form
@@ -38,9 +38,7 @@ class FrmTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testAdd() {
-        $fs = new Fieldset('test',['type'=>"text"]);
-        $fs->setAttribute('class','myclass');
-
+        /*@todo*/
     }
 
     public function testSetGetIsDescriptionEnabled() {

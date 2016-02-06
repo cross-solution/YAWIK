@@ -16,7 +16,6 @@ use Core\Entity\Hydrator\EntityHydrator;
 // @TODO correctly their should be one Hydrator for every Form
 class JobDescriptionHydrator extends EntityHydrator
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -33,7 +32,7 @@ class JobDescriptionHydrator extends EntityHydrator
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
+     * @see \Zend\Hydrator\HydratorInterface::extract()
      */
     public function extract($object)
     {

@@ -12,18 +12,19 @@ namespace Settings\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethods;
 use Zend\View\Model\JsonModel;
 use Zend\EventManager\Event;
 
 /**
- * Main Action Controller for Applications module.
+ * Main Action Controller for Settings module
  *
  */
 class IndexController extends AbstractActionController
 {
     /**
      * attaches further Listeners for generating / processing the output
+     *
      * @return $this
      */
     public function attachDefaultListeners()
@@ -62,11 +63,6 @@ class IndexController extends AbstractActionController
         
         // Write-Access is per default only granted to the own module - change that
         $settings->enableWriteAccess();
-
-        
-        //$settings = $this->settings();
-        //$settingsAuth = $this->settings('auth');
-        // Fetch the formular
         
         $form = $formManager->get($formName);
         

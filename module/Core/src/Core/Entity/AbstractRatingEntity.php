@@ -65,6 +65,7 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
      * @param int $rating
      * @param bool $throwException
      * @throws \InvalidArgumentException
+     * @return bool
      */
     protected function checkRatingValue($rating, $throwException = true)
     {

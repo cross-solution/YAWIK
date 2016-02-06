@@ -10,7 +10,7 @@
 /** */
 namespace Settings\Entity\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 /**
  * Strategy to hydrate / extract disable elements configuration to / from an settings container.
