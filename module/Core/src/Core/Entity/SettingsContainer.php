@@ -24,12 +24,20 @@ class SettingsContainer extends ModuleSettingsContainer implements InitializeAwa
      * @ODM\EmbedOne(targetDocument="LocalizationSettings")
      */
     protected $localization;
-    
+
+    /**
+     * Initialize the settings container
+     */
     public function init()
     {
         $this->getLocalization();
     }
-    
+
+    /**
+     * Get localization settings
+     *
+     * @return LocalizationSettings
+     */
     public function getLocalization()
     {
         if (!$this->localization) {

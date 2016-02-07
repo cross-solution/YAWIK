@@ -21,7 +21,6 @@ use Core\Entity\EntityInterface;
  */
 abstract class Snapshot extends AbstractIdentifiableModificationDateAwareEntity implements SnapshotInterface
 {
-
     /**
      * @param $data
      * @return mixed

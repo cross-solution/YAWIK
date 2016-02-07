@@ -21,7 +21,6 @@ use Core\Exception\ImmutablePropertyException;
  */
 class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
 {
-
     /**
      * Entity id
      *
@@ -44,6 +43,8 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
     protected $sourceId;
 
     /**
+     * Sets the entity
+     *
      * @param $entity
      * @return $this
      * @throws \Core\Exception\ImmutablePropertyException
@@ -58,6 +59,8 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
     }
 
     /**
+     * Gets the Entity
+     *
      * @return EntityInterface
      */
     public function getEntity()
@@ -66,6 +69,8 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
     }
 
     /**
+     * Sets the source id
+     *
      * @param $id
      */
     public function setSourceId($id)
