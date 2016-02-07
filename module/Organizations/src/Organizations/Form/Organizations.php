@@ -13,7 +13,7 @@ namespace Organizations\Form;
 use Core\Form\Container;
 
 /**
- * Organization form container
+ * Organization form container.
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -23,7 +23,7 @@ class Organizations extends Container
 
     public function init()
     {
-        $this->setName('application-comment-form');
+        $this->setName('organization-form');
 
         $this->setForms(
             array(

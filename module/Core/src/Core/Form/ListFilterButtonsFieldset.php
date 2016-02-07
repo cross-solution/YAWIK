@@ -11,6 +11,9 @@ namespace Core\Form;
 
 class ListFilterButtonsFieldset extends ButtonsFieldset
 {
+    /**
+     * Initialize the list filter buttons
+     */
     public function init()
     {
         $this->setName('buttons');

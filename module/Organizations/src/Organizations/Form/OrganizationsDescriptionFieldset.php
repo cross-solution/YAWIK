@@ -34,7 +34,7 @@ class OrganizationsDescriptionFieldset extends Fieldset
      */
     public function init()
     {
-        $this->setName('organizations');
+        $this->setName('organization-description');
 
         $this->add(
             array(

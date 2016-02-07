@@ -12,6 +12,11 @@ namespace Organizations\Form;
 
 use Core\Form\SummaryForm;
 
+/**
+ * Class OrganizationsContactForm
+ *
+ * @package Organizations\Form
+ */
 class OrganizationsContactForm extends SummaryForm
 {
     protected $baseFieldset = 'Organizations/OrganizationsContactFieldset';

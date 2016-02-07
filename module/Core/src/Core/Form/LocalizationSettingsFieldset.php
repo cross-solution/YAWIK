@@ -11,9 +11,16 @@ namespace Core\Form;
 
 use Zend\Form\Fieldset;
 
-
+/**
+ * Class LocalizationSettingsFieldset
+ *
+ * @package Core\Form
+ */
 class LocalizationSettingsFieldset extends Fieldset
 {
+    /**
+     * Initialize the Sele
+     */
     public function init()
     {
         $this->setLabel('general settings');

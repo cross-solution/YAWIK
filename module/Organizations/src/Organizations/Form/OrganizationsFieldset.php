@@ -42,8 +42,6 @@ class OrganizationsFieldset extends Fieldset
     public function setObject($object)
     {
         parent::setObject($object);
-        //$this->get('contact')->setObject($object->contact);
-        //$this->populateValues($this->extract());
         return $this;
     }
 }

@@ -2,11 +2,19 @@
 
 namespace Core\Form;
 
+/**
+ * Class SummaryFormButtonsFieldset
+ *
+ * @package Core\Form
+ */
 class SummaryFormButtonsFieldset extends ButtonsFieldset
 {
     
     protected $formId;
-    
+
+    /**
+     * Initialize the Buttons of a summary form element.
+     */
     public function init()
     {
         $this->setName('buttons');
@@ -48,7 +56,13 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
             )
         );
     }
-    
+
+    /**
+     * Set Options
+     *
+     * @param array|\Traversable $options
+     * @return $this
+     */
     public function setOptions($options)
     {
         if (!isset($options['render_summary'])) {
@@ -66,6 +80,13 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         return $this;
     }
 
+    /**
+     * Set Attribute
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return \Zend\Form\Element|\Zend\Form\ElementInterface
+     */
     public function setAttribute($key, $value)
     {
         if ('id' == $key) {
@@ -74,6 +95,12 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         return parent::setAttribute($key, $value);
     }
 
+    /**
+     * Set the Form identifier
+     *
+     * @param $formId
+     * @return $this
+     */
     public function setFormId($formId)
     {
         $this->formId = $formId . '-';
@@ -83,7 +110,12 @@ class SummaryFormButtonsFieldset extends ButtonsFieldset
         }
         return $this;
     }
-   
+
+    /**
+     * Gets the form identifier
+     *
+     * @return string
+     */
     public function getFormId()
     {
         return substr($this->formId, 0, -1);
