@@ -140,7 +140,7 @@ class ManageController extends AbstractActionController
         $this->acl($application, 'read');
         
         $applicationIsUnread = false;
-        if ($application->isUnreadBy($this->auth('id'))) {
+        if ($application->isUnreadBy($this->auth('id')) && $application->getStatus()) {
             $application->addReadBy($this->auth('id'));
             $applicationIsUnread = true;
             $application->changeStatus(
