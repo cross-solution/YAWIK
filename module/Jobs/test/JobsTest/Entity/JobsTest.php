@@ -11,7 +11,12 @@
 namespace JobsTest\Entity;
 
 use Jobs\Entity\Status;
+use Jobs\Entity\AtsMode;
 use Jobs\Entity\Job;
+use Jobs\Entity\History;
+use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationName;
+
 
 /**
  * Tests for Jobs Entity
@@ -258,5 +263,117 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->target->isActive());
     }
 
+    public function provideAtsModes()
+    {
+        return [
+            [AtsMode::MODE_EMAIL],
+            [AtsMode::MODE_INTERN],
+            [AtsMode::MODE_NONE],
+            [AtsMode::MODE_URI],
+        ];
+    }
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getAtsMode
+     * @covers Jobs\Entity\Job::setAtsMode
+     * @dataProvider provideAtsModes
+     */
+    public function testSetGetAtsMode($input)
+    {
+        $atsMode = new AtsMode();
+        $atsMode->setMode($input);
+        $this->target->setAtsMode($atsMode);
+        $this->assertEquals($this->target->getAtsMode(), $atsMode);
+    }
 
+    public function provideTermsAccepted()
+    {
+        return [
+            [true, true],
+            [false, false],
+            [null, false],
+        ];
+    }
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getTermsAccepted
+     * @covers Jobs\Entity\Job::setTermsAccepted
+     * @dataProvider provideTermsAccepted
+     */
+    public function testSetTermsAccepted($input,$expected)
+    {
+        $this->target->setTermsAccepted($input);
+        $this->assertEquals($this->target->getTermsAccepted(), $expected);
+    }
+
+    public function provideHistory()
+    {
+        $history1 = new \Doctrine\Common\Collections\ArrayCollection([new History(new Status(),'test')]);
+
+        return [
+            [$history1, $history1],
+        ];
+    }
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getHistory
+     * @covers Jobs\Entity\Job::setHistory
+     * @dataProvider provideHistory
+     */
+    public function testSetHistory($input,$expected)
+    {
+        $this->target->setHistory($input);
+        $this->assertEquals($this->target->getHistory(), $expected);
+    }
+
+    public function provideStatus()
+    {
+        return [
+            [Status::PUBLISH, Status::PUBLISH],
+            [Status::ACTIVE, Status::ACTIVE],
+            [Status::CREATED, Status::CREATED],
+            [Status::EXPIRED, Status::EXPIRED],
+            [Status::REJECTED, Status::REJECTED],
+            [Status::INACTIVE, Status::INACTIVE],
+        ];
+    }
+
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::changeStatus
+     * @dataProvider provideStatus
+     */
+    public function testChangeStatus($input, $expected){
+        $status = new Status($input);
+        $msg = "this is the message";
+        $this->target->changeStatus($status,$msg);
+        $this->assertEquals($this->target->getStatus(), $expected);
+    }
+
+
+    /**
+     * @testdox Allows setting the name of a company without organization
+     * @covers Jobs\Entity\Job::setCompany
+     * @covers Jobs\Entity\Job::getCompany
+     */
+    public function testSetGetCompanyWithoutOrganization(){
+        $input = "Company ABC";
+        $this->target->setCompany($input);
+        $this->assertEquals($this->target->getCompany(), $input);
+    }
+
+    public function testSetGetCompanyWithOrganization(){
+        $input1 = "Company ABC";
+        $input2 = "Another Company";
+        $this->target->setCompany($input1);
+        $organization = new Organization();
+        $organizationName = new OrganizationName();
+        $organizationName->setName($input2);
+        $organization->setOrganizationName($organizationName);
+        $this->target->setOrganization($organization);
+        $this->assertEquals($this->target->getCompany(), $input2);
+    }
 }
