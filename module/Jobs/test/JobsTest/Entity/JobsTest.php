@@ -10,10 +10,13 @@
 /** */
 namespace JobsTest\Entity;
 
+use Auth\Entity\Info;
+use Auth\Entity\User;
 use Jobs\Entity\Status;
 use Jobs\Entity\AtsMode;
 use Jobs\Entity\Job;
 use Jobs\Entity\History;
+use Jobs\Entity\TemplateValues;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 
@@ -50,6 +53,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
         $this->assertInstanceOf('\Jobs\Entity\JobInterface', $this->target);
+        $this->assertInstanceOf('\Core\Entity\AbstractIdentifiableModificationDateAwareEntity', $this->target);
     }
 
     /**
@@ -375,5 +379,56 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $organization->setOrganizationName($organizationName);
         $this->target->setOrganization($organization);
         $this->assertEquals($this->target->getCompany(), $input2);
+    }
+
+
+    /**
+     * @testdox Allows setting the name of a company without organization
+     * @covers Jobs\Entity\Job::setApplyId
+     * @covers Jobs\Entity\Job::getApplyId
+     */
+    public function testSetGetApllyId(){
+        $input = "MyRerefernce";
+        $this->target->setApplyId($input);
+        $this->assertEquals($this->target->getApplyId(), $input);
+    }
+
+    /**
+     * @testdox Allows setting the name of a company without organization
+     * @covers Jobs\Entity\Job::setApplyId
+     * @covers Jobs\Entity\Job::getApplyId
+     */
+    public function testGetDefaultForApplyId(){
+        $input = "1234";
+        $this->target->setId($input);
+        $this->assertEquals($this->target->getApplyId(), $input);
+    }
+
+    public function testGetResourceId(){
+        $this->assertSame($this->target->getResourceId(), 'Entity/Jobs/Job');
+    }
+
+    public function testSetGetContactEmail(){
+        $input = "test@example.com";
+        $this->target->setContactEmail($input);
+        $this->assertEquals($this->target->getContactEmail(), $input);
+    }
+
+    public function testSetGetContactEmailWithUser() {
+        $input = "test2@example.com";
+
+        $info = new Info();
+        $info->setEmail($input);
+        $user = new User();
+        $user->setInfo($info);
+        $this->target->setUser($user);
+
+        $this->assertEquals($this->target->getContactEmail(), $input);
+    }
+
+    public function testSetGetTrmplateValues() {
+        $input = new TemplateValues();
+        $this->target->setTemplateValues($input);
+        $this->assertEquals($this->target->getTemplateValues(), $input);
     }
 }
