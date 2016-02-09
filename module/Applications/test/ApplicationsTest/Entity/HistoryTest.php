@@ -47,6 +47,26 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
         $this->assertInstanceOf('\Applications\Entity\History', $this->target);
+        $this->assertEquals($this->target->getDate(),new \DateTime());
+    }
+
+    /**
+     * @dataProvider providerStatusExpected
+     * @param $status
+     * @param $expected
+     */
+    public function testConstructWithStatusAsString($status,$expected){
+        $target = new History($status, 'message');
+        $this->assertEquals($target->getStatus($status), $expected);
+    }
+
+    public function providerStatusExpected(){
+        return [
+            [Status::CONFIRMED, new Status(Status::CONFIRMED)],
+            [Status::INCOMING, new Status(Status::INCOMING)],
+            [Status::INVITED, new Status(Status::INVITED)],
+            [Status::REJECTED, new Status(Status::REJECTED)],
+        ];
     }
 
     /**
@@ -63,12 +83,22 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Applications\Entity\History::setStatus
      * @covers \Applications\Entity\History::getStatus
+     * @dataProvider providerStatus
      */
-    public function testSetGetStatus()
+    public function testSetGetStatus($status)
     {
-        $input=new Status();
+        $input=new Status($status);
         $this->target->setStatus($input);
         $this->assertEquals($this->target->getStatus(),$input);
+    }
+
+    public function providerStatus(){
+        return [
+            [Status::CONFIRMED],
+            [Status::INCOMING],
+            [Status::INVITED],
+            [Status::REJECTED],
+        ];
     }
 
     /**
@@ -82,4 +112,11 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getMessage(),$input);
     }
 
+    /**
+     * @covers \Applications\Entity\History::preUpdate
+     */
+    public function testPreUpdate(){
+        $this->target->preUpdate();
+        $this->assertEquals($this->target->getDate(),new \DateTime());
+    }
 }

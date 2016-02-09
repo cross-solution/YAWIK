@@ -330,7 +330,7 @@ class ManageController extends AbstractActionController
                 $key = 'mailRejectionText';
                 break;
             default:
-                throw new \InvalidArgumentException('Unknown status value.');
+                throw new \InvalidArgumentException('Unknown status value: ' .$status);
         }
         $mailText      = $settings->$key ? $settings->$key : '';
         $this->notification()->success($mailText);
@@ -406,7 +406,7 @@ class ManageController extends AbstractActionController
         $application->changeStatus($application->getStatus(), $params['text']);
         return new JsonModel($params);
     }
-    
+
     /**
      * Deletes an application
      *
