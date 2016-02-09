@@ -406,11 +406,11 @@ class ManageController extends AbstractActionController
         $application->changeStatus($application->getStatus(), $params['text']);
         return new JsonModel($params);
     }
-
+    
     /**
      * Deletes an application
      *
-     * @return array
+     * @return array|\Zend\Http\Response
      */
     public function deleteAction()
     {
@@ -432,6 +432,6 @@ class ManageController extends AbstractActionController
             return ['status' => 'success'];
         }
         
-        $this->redirect()->toRoute('lang/applications', array(), true);
+        return $this->redirect()->toRoute('lang/applications', array(), true);
     }
 }
