@@ -11,8 +11,9 @@
 namespace ApplicationsTest\Entity;
 
 use Applications\Entity\Application;
-use Jobs\Entity\Job;
-use JobsTest\Entity\Provider\JobEntityProvider;
+use Applications\Entity\Status;
+use Applications\Entity\Subscriber;
+use Auth\Entity\User;
 
 /**
  * Tests for Jobs Entity
@@ -21,13 +22,13 @@ use JobsTest\Entity\Provider\JobEntityProvider;
  * @coversDefaultClass \Applications\Entity\Application
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
- * @group  Jobs
- * @group  Jobs.Entity
+ * @group  Applications
+ * @group  Applications.Entity
  */
 class ApplicationsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * The "Class under Test"
+     * git dThe "Class under Test"
      *
      * @var Application
      */
@@ -82,14 +83,54 @@ class ApplicationsTest extends \PHPUnit_Framework_TestCase
      * @testdox Allows setting a the cover letter
      * @covers Applications\Entity\Application::isDraft
      * @covers Applications\Entity\Application::setIsDraft
+     * @dataProvider provideSetGetDraft
      */
-    public function testSetGetIsDraft()
+    public function testSetGetIsDraft($input,$expected)
     {
-        $input = true;
         $this->target->setIsDraft($input);
-        $this->assertEquals($input, $this->target->isDraft());
-        $input = false;
-        $this->target->setIsDraft($input);
-        $this->assertEquals($input, $this->target->isDraft());
+        $this->assertEquals($this->target->isDraft(),$expected);
+    }
+
+    public function provideSetGetDraft(){
+        return [
+            [true,true],
+            [false,false]
+        ];
+    }
+
+    public function testGetResourceId(){
+        $this->assertSame($this->target->getResourceId(),'Entity/Application');
+    }
+
+    public function testSetGetUser(){
+        $user = new User();
+        $this->target->setUser($user);
+        $this->assertEquals($this->target->getUser(),$user);
+    }
+
+    /**
+     * @param $input
+     * @param $expected
+     * @dataProvider providerSetGetApplicationStatus
+     */
+    public function testSetGetStatus($input,$expected) {
+        $this->target->setStatus($input);
+        $this->assertEquals($this->target->getStatus(),$expected);
+    }
+
+    public function providerSetGetApplicationStatus(){
+        return [
+            [Status::REJECTED,new Status(Status::REJECTED)],
+            [Status::INVITED,new Status(Status::INVITED)],
+            [Status::INCOMING,new Status(Status::INCOMING)],
+            [Status::CONFIRMED,new Status(Status::CONFIRMED)],
+            [new Status(Status::CONFIRMED),new Status(Status::CONFIRMED)],
+        ];
+    }
+
+    public function testSetGetSubscriber(){
+        $user = new Subscriber();
+        $this->target->setSubscriber($user);
+        $this->assertEquals($this->target->getSubscriber(),$user);
     }
 }

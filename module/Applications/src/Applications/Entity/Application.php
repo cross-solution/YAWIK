@@ -639,6 +639,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     
     /**
      * {@inheritDoc}
+     * @deprecated
      * @see \Core\Entity\SearchableEntityInterface::getSearchableProperties()
      */
     public function getSearchableProperties()
@@ -648,6 +649,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     
     /**
      * {@inheritDoc}
+     * @deprecated
      * @see \Core\Entity\SearchableEntityInterface::setKeywords()
      * @return Application
      */
@@ -659,6 +661,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     
     /**
      * {@inheritDoc}
+     * @deprecated
      * @see \Core\Entity\SearchableEntityInterface::getKeywords()
      */
     public function getKeywords()
@@ -668,6 +671,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     
     /**
      * {@inheritDoc}
+     * @deprecated
      * @see \Core\Entity\SearchableEntityInterface::clearKeywords()
      * @return Application
      */
