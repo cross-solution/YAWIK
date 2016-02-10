@@ -110,7 +110,6 @@ class ImportController extends AbstractActionController
                         } else {
                             $createdJob = false;
                         }
-                        $entity->setid('test');
                     }
                 } else {
                     $repositoriesJob->find($id);
