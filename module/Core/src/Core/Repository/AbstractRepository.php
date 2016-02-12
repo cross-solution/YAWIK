@@ -83,6 +83,14 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
      */
     public function store($entity)
     {
+        if ( !($entity instanceOf $this->entityPrototype) ) {
+            throw new \InvalidArgumentException(sprintf(
+                'Entity must be of type %s but recieved %s instead',
+                get_class($this->entityPrototype),
+                get_class($entity)
+            ));
+        }
+
         $this->dm->persist($entity);
         $this->dm->flush($entity);
     }
