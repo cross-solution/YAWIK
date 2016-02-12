@@ -187,7 +187,11 @@ return array(
             'repositories' => 'Core/RepositoryService',
             'translator' => 'mvctranslator',
         ),
+        'shared' => array(
+            'Core/Listener/DeferredListenerAggregate' => false,
+        ),
     ),
+
     // Translation settings consumed by the 'translator' factory above.
     'translator' => array(
         'locale' => 'de_DE',
