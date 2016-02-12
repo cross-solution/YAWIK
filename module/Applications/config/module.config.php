@@ -43,12 +43,6 @@ return array(
         /*
          * Settings for the application form.
          */
-        'form' =>array(
-            'showCv' => true,              // show educations and work experiences in application form
-            'showCarbonCopy' => true,      // show 'send me my data in CC' in application form
-            'showSocialProfiles' => true,  // enables attaching social profiles to an application
-            'showAttachments' => true,     // enables file uploads for an application
-        ),
         'dashboard' => array(
             'enabled' => true,
             'widgets' => array(
@@ -57,8 +51,6 @@ return array(
                 ),
             ),
         ),
-    
-        'allowedMimeTypes' => array('image', 'applications/pdf'),
         'settings' => array(
             'entity' => '\Applications\Entity\Settings',
             'navigation_order' => 1,
@@ -194,6 +186,10 @@ return array(
 
     'form_elements_config' => array(
         'Applications/Apply' => array(
+            /*
+             * you can hide form fieldsets, which implements the DisableElementsCapableInterface
+             * These are: profiles, facts
+             */
             'disable_elements' => array('facts'),
         ),
     ),

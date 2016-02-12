@@ -171,7 +171,6 @@ return array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-//            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',

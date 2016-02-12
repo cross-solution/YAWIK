@@ -149,6 +149,8 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
                  $latLon[]=$lat.','.$lon;
             }
 
+            $lon = $lat = 0;
+
             $value['data'] = [
                 'coordinates'=>[
                     (float) $lat,
