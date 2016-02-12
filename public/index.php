@@ -11,17 +11,11 @@ ini_set('error_reporting', E_ALL | E_STRICT);
 
 date_default_timezone_set('Europe/Berlin');
 
-/*
- * This makes our life easier when dealing with paths. Everything is relative
- * to the application root now.
- */
-chdir(dirname(__DIR__));
-
 if (php_sapi_name() == 'cli-server') {
     $route = parse_url(substr($_SERVER["REQUEST_URI"], 1))["path"];
-    if (is_file($route)) {
+    if (is_file(__DIR__ . '/' . $route)) {
         if(substr($route, -4) == ".php"){
-            require $route;     // Include requested script files
+            require __DIR__ . '/' . $route;     // Include requested script files
             exit;
         }
         return false;           // Serve file as is
