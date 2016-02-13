@@ -257,6 +257,7 @@
             <include name="vendor/autoload.php"/>
             <include name="vendor/composer/**"/>
             <include name="vendor/zendframework/**"/>
+            <include name="vendor/container-interop/**"/>
             <include name="vendor/hybridauth/**"/>
             <include name="vendor/doctrine/**"/>
             <include name="vendor/symfony/polyfill-mbstring/**"/>
