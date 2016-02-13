@@ -10,12 +10,19 @@
 
 namespace JobsTest\Entity;
 
+use Auth\Entity\User;
+use Core\Entity\Permissions;
+use Doctrine\Common\Collections\ArrayCollection;
+use Jobs\Entity\AtsMode;
+use Jobs\Entity\AtsModeInterface;
 use Jobs\Entity\JobSnapshot;
 use \Jobs\Entity\TemplateValues;
+use Organizations\Entity\Organization;
 
 /**
  * Class JobSnapshot
  * @package JobsTest\Entity
+ * @covers \Jobs\Entity\JobSnapshot
  * @coversDefaultClass \Jobs\Entity\JobSnapshot
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
@@ -45,23 +52,39 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
     public function provideTestAttributes()
     {
         return array(
-            array('applyId', 'apply123'),
-            array('title', 'title123'),
-            array('company', 'company123'),
-            array('contactEmail', 'contactEmail123'),
-            array('location', 'location123'),
-            array('datePublishStart', $date = \DateTime::createFromFormat(time(),\DateTime::ISO8601)),
-            /* much more */
+           # ['portals', [1,2,3]], // portals beaks the test. Why???
+            ['applyId', 'apply123'],
+            ['title', 'title123'],
+            ['company', 'company123'],
+            ['contactEmail', 'contactEmail123'],
+            ['datePublishStart', $date = \DateTime::createFromFormat(time(),\DateTime::ISO8601)],
+            ['atsMode', new AtsMode(AtsModeInterface::MODE_EMAIL)],
+            ['user', new User()],
+            ['organization', new Organization()],
+            ['atsEnabled', true],
+            ['link', 'http://test/link'],
+            ['uriApply', 'http://test/link'],
+            ['uriPublisher', 'http://test/link'],
+            ['language', 'de'],
+            ['location', 'location123'],
+            ['locations', 'location123'],
+            ['applications', new ArrayCollection()],
+            ['status', 'foobar'],
+            ['history', new ArrayCollection()],
+            ['termsAccepted', 'foobar'],
+            ['reference', 'foobar'],
         );
     }
 
     public function provideTemplateTestAttributes()
     {
         return array(
-            array('qualifications', 'qualifications123'),
-            array('requirements', 'requirement123'),
-            array('benefits', 'benefits123'),
-            array('title', 'title123'),
+            ['qualifications', 'qualifications123'],
+            ['requirements', 'requirement123'],
+            ['benefits', 'benefits123'],
+            ['title', 'title123'],
+            ['invalidAttribute', 'invalidValue'],
+            ['description', 'description of the company']
         );
     }
 
@@ -102,5 +125,42 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
     public function testImmutableAttributes($attribute, $value)
     {
         $this->snapShot->$attribute = $value;
+        $this->assertEquals($value, $this->snapShot->$attribute);
+    }
+
+    /**
+     * @testdox almost all setters throw an exception, there is only one exception
+     * and that is setPermissions
+     * @dataProvider provideTestAttributes
+     * @expectedException \Core\Exception\ImmutablePropertyException
+     */
+    public function testImmutableMethods($method, $value)
+    {
+        $methodName='set' . ucwords($method);
+        $this->snapShot->$methodName($value);
+        $this->assertEquals($value, $this->snapShot->$value);
+    }
+
+    public function testGetResourceId()
+    {
+        $this->assertEquals($this->snapShot->getResourceId(),null);
+    }
+
+
+    public function testSetGetPermissions()
+    {
+        $permissions = new Permissions(Permissions::PERMISSION_VIEW);
+        $this->snapShot->setPermissions($permissions);
+        $this->assertEquals($this->snapShot->permissions,$permissions);
+    }
+
+    /**
+     *  @expectedException \Core\Exception\ImmutablePropertyException
+     */
+    public function testSetGetPortals()
+    {
+        $portals=array(1,2,3);
+        $this->snapShot->setPortals($portals);
+        $this->assertEquals($this->snapShot->portals,$portals);
     }
 }

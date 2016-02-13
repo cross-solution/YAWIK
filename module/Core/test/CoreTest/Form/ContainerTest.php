@@ -83,4 +83,77 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target->renderPre($renderer), '');
     }
 
+    /**
+     * @param $key
+     * @param $spec
+     * @param $enabled
+     * @dataProvider provideSetFormData
+     */
+    public function testSetForm($key,$spec,$enabled, $expected){
+        /* @var $target Container */
+        $target = $this->getMockBuilder('\Core\Form\Container')
+            ->disableOriginalConstructor()
+            ->setMethods(array('setParent'))
+            ->getMock();
+        $target->setForm($key,$spec,$enabled);
+        if ($expected) {
+            $this->assertAttributeContains($key,'activeForms',$target);
+        }else{
+            $this->assertAttributeNotContains($key,'activeForms',$target);
+        }
+        $this->assertAttributeSame(
+            [$key => [
+                'type' => $spec,
+                'name' => $key
+                ]
+            ]
+            , 'forms'
+            , $target);
+    }
+
+
+    public function provideSetFormData() {
+        return [
+            ['fieldname','input',true,true ],
+            ['fieldname', 'foobar', false, false ],
+        ];
+    }
+
+    /**
+     * @param $key
+     * @param $spec
+     * @param $enabled
+     */
+    public function testSetFormWithArray(){
+        $key1 = "key1";
+        $key2 = "key2";
+        $spec = [
+            $key2 => [
+                'type' => 'text',
+                'name' => 'foobar'
+            ]
+        ];
+
+        /* @var $target Container */
+        $target = $this->getMockBuilder('\Core\Form\Container')
+            ->disableOriginalConstructor()
+            ->setMethods(array('setParent'))
+            ->getMock();
+        $target->setForm($key1,$spec,true);
+
+        $this->assertAttributeSame(
+
+            [$key1 => [
+                $key2 => [
+                    'type' => 'text',
+                    'name' => 'foobar'
+                ],
+                'name' => $key1
+            ]
+            ]
+            , 'forms'
+            , $target);
+    }
+
+
 }
