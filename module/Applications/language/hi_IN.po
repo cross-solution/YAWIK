@@ -934,7 +934,7 @@ msgstr ""
 #: language/_annotated_strings.php:252
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
+" into the attachement area. You can upload up to %sMB"
 msgstr "अपने आवेदन करने के लिए छवियों या पीडीएफ दस्तावेजों देते हैं। खींचें और उन्हें छोड़, या attachement के क्षेत्र में क्लिक करें। आप 5MB को अपलोड कर सकते हैं"
 
 #: language/_annotated_strings.php:258

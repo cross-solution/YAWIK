@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -12,6 +12,7 @@ namespace Core\Filter;
 
 use Zend\Filter\FilterInterface;
 use Zend\Filter\Exception;
+use zf2htmlpurifier\Filter\HTMLPurifierFilter;
 
 /**
  * Xss Filter
@@ -26,7 +27,9 @@ class XssFilter implements FilterInterface
     protected $htmlPurifier;
 
     /**
-     * @param HTMLPurifierFilter|\zf2htmlpurifier\Filter\HTMLPurifierFilter $purifier
+     * Construct the html purifier filter
+     *
+     * @param HTMLPurifierFilter $purifier
      */
     public function __construct($purifier)
     {
@@ -34,7 +37,9 @@ class XssFilter implements FilterInterface
     }
 
     /**
-     * @param HTMLPurifierFilter|\zf2htmlpurifier\Filter\HTMLPurifierFilter $purifier
+     * Sets the html purifier
+     *
+     * @param HTMLPurifierFilter $purifier
      */
     public function setHtmlPurifier($purifier)
     {
@@ -42,7 +47,9 @@ class XssFilter implements FilterInterface
     }
 
     /**
-     * @return HTMLPurifierFilter|\zf2htmlpurifier\Filter\HTMLPurifierFilter
+     * Gets the html purifier
+     *
+     * @return HTMLPurifierFilter
      */
     public function getHtmlPurifier()
     {

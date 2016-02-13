@@ -3,37 +3,46 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** FileUploadStrategy.php */
 namespace Core\Entity\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 use Core\Entity\FileInterface;
 use Core\Entity\FileEntity;
-use Auth\Entity\UserInterface;
-use Auth\Entity\User;
-use Auth\Entity\Info;
 
 class FileUploadStrategy implements StrategyInterface
 {
+    /**
+     * @var FileEntity
+     */
     protected $fileEntity;
-    protected $user;
-    
-    
+
+    /**
+     * @param FileInterface $file
+     */
     public function __construct(FileInterface $file)
     {
         $this->setFileEntity($file);
     }
-    
+
+    /**
+     * @param FileInterface $file
+     *
+     * @return $this
+     */
     public function setFileEntity(FileInterface $file)
     {
         $this->fileEntity = $file;
         return $this;
     }
-    
+
+    /**
+     * @return FileEntity
+     */
     public function getFileEntity()
     {
         if (!$this->fileEntity) {
@@ -42,7 +51,12 @@ class FileUploadStrategy implements StrategyInterface
         }
         return clone $this->fileEntity;
     }
-    
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed|null
+     */
     public function extract($value)
     {
         if (!$value instanceof FileInterface) {
@@ -52,6 +66,11 @@ class FileUploadStrategy implements StrategyInterface
         return $value->getId();
     }
 
+    /**
+     * @param mixed $value
+     *
+     * @return FileEntity|null
+     */
     public function hydrate($value)
     {
         if (!UPLOAD_ERR_OK == $value['error']) {

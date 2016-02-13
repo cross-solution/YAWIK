@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -40,6 +40,11 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
      */
     protected $coordinates;
 
+    /**
+     * @param $type
+     *
+     * @return $this
+     */
     public function setType($type)
     {
         $this->type = $type;
@@ -47,11 +52,19 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @param array $coordinates
+     *
+     * @return $this
+     */
     public function setCoordinates(array $coordinates)
     {
         $this->coordinates = $coordinates;
@@ -59,11 +72,17 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getCoordinates()
     {
         return $this->coordinates;
     }
 
+    /**
+     * @return string
+     */
     public function toJson()
     {
         $data = [
@@ -73,5 +92,4 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
 
         return Json::encode($data);
     }
-
 }

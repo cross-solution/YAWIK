@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    Mathias Weitz <weitz@cross-solution.de>
  */
@@ -42,8 +42,6 @@ class OrganizationsFieldset extends Fieldset
     public function setObject($object)
     {
         parent::setObject($object);
-        //$this->get('contact')->setObject($object->contact);
-        //$this->populateValues($this->extract());
         return $this;
     }
 }

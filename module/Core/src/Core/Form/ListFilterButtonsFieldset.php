@@ -1,13 +1,23 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
 
 namespace Core\Form;
 
 class ListFilterButtonsFieldset extends ButtonsFieldset
 {
+    /**
+     * Initialize the list filter buttons
+     */
     public function init()
     {
         $this->setName('buttons');
-        //$this->setLabel('Actions');
+
         $this->add(
             array(
             'type' => 'Button',

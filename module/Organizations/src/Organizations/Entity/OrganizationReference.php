@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
   
 /** */
@@ -16,7 +16,8 @@ use Core\Entity\PermissionsInterface;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Organizations\Repository\Organization as OrganizationRepository;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
+
 
 /**
  * Manages reference to an organization.
@@ -264,6 +265,16 @@ class OrganizationReference implements
         return $this->proxy('getHiringOrganizations');
     }
 
+    public function setImage(OrganizationImage $image)
+    {
+        return $this->proxy('setImage', $image);
+    }
+
+    public function getImage()
+    {
+        return $this->proxy('getImage');
+    }
+
     public function setOrganizationName(OrganizationName $organizationNames)
     {
         return $this->proxy('setOrganizationName', $organizationNames);
@@ -297,6 +308,16 @@ class OrganizationReference implements
     public function getEmployee($userOrId)
     {
         return $this->proxy('getEmployee', $userOrId);
+    }
+
+    public function setExternalId($externalId)
+    {
+        return $this->proxy('setExternalId', $externalId);
+    }
+
+    public function getExternalId()
+    {
+        return $this->proxy('getExternalId');
     }
 
     public function getUser()

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -140,11 +140,16 @@ class ManageController extends AbstractActionController
         $this->acl($application, 'read');
         
         $applicationIsUnread = false;
-        if ($application->isUnreadBy($this->auth('id'))) {
+        if ($application->isUnreadBy($this->auth('id')) && $application->getStatus()) {
             $application->addReadBy($this->auth('id'));
             $applicationIsUnread = true;
+            $application->changeStatus(
+                $application->getStatus(),
+                sprintf(/*@translate*/ 'Application was read by %s' ,
+                                       $this->auth()->getUser()->getInfo()->getDisplayName()));
         }
-        
+
+
         
         $format=$this->params()->fromQuery('format');
 
@@ -325,7 +330,7 @@ class ManageController extends AbstractActionController
                 $key = 'mailRejectionText';
                 break;
             default:
-                throw new \InvalidArgumentException('Unknown status value.');
+                throw new \InvalidArgumentException('Unknown status value: ' .$status);
         }
         $mailText      = $settings->$key ? $settings->$key : '';
         $this->notification()->success($mailText);
@@ -405,7 +410,7 @@ class ManageController extends AbstractActionController
     /**
      * Deletes an application
      *
-     * @return array
+     * @return array|\Zend\Http\Response
      */
     public function deleteAction()
     {
@@ -427,6 +432,6 @@ class ManageController extends AbstractActionController
             return ['status' => 'success'];
         }
         
-        $this->redirect()->toRoute('lang/applications', array(), true);
+        return $this->redirect()->toRoute('lang/applications', array(), true);
     }
 }

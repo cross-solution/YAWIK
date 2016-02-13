@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -54,7 +54,7 @@ class ImportController extends AbstractActionController
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
-        if (true) { // && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
+        if (false) { // && isset($config['debug']) && isset($config['debug']['import.job']) && $config['debug']['import.job']) {
             // Test
             $this->request->setMethod('post');
             $params = new Parameters(
@@ -110,7 +110,6 @@ class ImportController extends AbstractActionController
                         } else {
                             $createdJob = false;
                         }
-                        $entity->setid('test');
                     }
                 } else {
                     $repositoriesJob->find($id);

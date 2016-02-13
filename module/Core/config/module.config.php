@@ -8,7 +8,7 @@
  * Having said that, you may always overwrite or extend the configuration
  * in your own modules configuration file(s) (or via the config autoloading).
  *
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -171,7 +171,6 @@ return array(
             'Core/MailService' => '\Core\Mail\MailServiceFactory',
             'Core/PaginatorService' => '\Core\Paginator\PaginatorServiceFactory',
             'Core/html2pdf' => '\Core\Html2Pdf\PdfServiceFactory',
-//            'mvctranslator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'Core/Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'Core/ErrorLogger' => 'Core\Log\ErrorLoggerFactory',
             'Core/JsonEntityHydrator' => 'Core\Entity\Hydrator\JsonEntityHydratorFactory',
@@ -187,7 +186,11 @@ return array(
             'repositories' => 'Core/RepositoryService',
             'translator' => 'mvctranslator',
         ),
+        'shared' => array(
+            'Core/Listener/DeferredListenerAggregate' => false,
+        ),
     ),
+
     // Translation settings consumed by the 'translator' factory above.
     'translator' => array(
         'locale' => 'de_DE',

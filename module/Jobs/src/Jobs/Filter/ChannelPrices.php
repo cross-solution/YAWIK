@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
 
 /**
@@ -58,11 +58,15 @@ class ChannelPrices implements FilterInterface
      * @throws Exception\RuntimeException If filtering $value is impossible
      * @return mixed
      */
-    public function filter($value)
+    public function filter($value = [])
     {
         $sum = 0;
         $amount = 0;
         $absoluteDiscount = 0;
+        if (empty($value)) {
+            return 0;
+        }
+
         foreach ($value as $channelKey) {
             /* @var $channel ChannelOptions */
             $channel = $this->providers->getChannel($channelKey);

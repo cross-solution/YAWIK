@@ -4,6 +4,7 @@ return array(
         'Auth',
         'Core',
         'Jobs',
+        'Applications',
         'Geo',
         'Organizations'
     ),

@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
   
 /** */
@@ -14,7 +14,7 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\EmployeePermissions;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\Hydrator\Strategy\ClosureStrategy;
+use Zend\Hydrator\Strategy\ClosureStrategy;
 use Organizations\Entity\EmployeePermissionsInterface as Perms;
 use Organizations\Form\EmployeeFieldset;
 
@@ -40,7 +40,7 @@ class EmployeeFieldsetFactory implements FactoryInterface
         $services = $serviceLocator->getServiceLocator();
         $fieldset = new EmployeeFieldset();
 
-        $hydrator = new \Zend\Stdlib\Hydrator\ClassMethods(false); //new EntityHydrator();
+        $hydrator = new \Zend\Hydrator\ClassMethods(false); //new EntityHydrator();
         $repositories = $services->get('repositories');
         $users        = $repositories->get('Auth/User'); /* @var $users \Auth\Repository\User */
 

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -19,7 +19,9 @@ use Auth\Form\UserInfoContainer;
  */
 class ContactContainer extends UserInfoContainer
 {
-        
+    /**
+     * initialize contact container
+     */
     public function init()
     {
         $this->setIsDisableCapable(false)

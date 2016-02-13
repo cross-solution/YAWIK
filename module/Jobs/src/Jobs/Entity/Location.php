@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -64,7 +64,7 @@ class Location extends AbstractEntity implements LocationInterface
     public function __construct()
     {
     }
-    
+
     public function preUpdate()
     {
     }
@@ -74,50 +74,87 @@ class Location extends AbstractEntity implements LocationInterface
         return $this->coordinates;
     }
 
+    /**
+     * @param GeoJson $coordinates
+     *
+     * @return $this
+     */
     public function setCoordinates(GeoJson $coordinates)
     {
         $this->coordinates = $coordinates;
         return $this;
     }
 
+    /**
+     * @return String
+     */
     public function getPostalcode()
     {
         return $this->postalcode;
     }
 
+    /**
+     * @param $postalcode
+     *
+     * @return $this
+     */
     public function setPostalcode($postalcode)
     {
         $this->postalcode = $postalcode;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCity()
     {
         return $this->city;
     }
 
+    /**
+     * @param $country
+     *
+     * @return $this
+     */
     public function setCity($country)
     {
         $this->city = $country;
         return $this;
     }
 
+    /**
+     * @return String
+     */
     public function getCountry()
     {
         return $this->country;
     }
 
+    /**
+     * @param $country
+     *
+     * @return $this
+     */
     public function setCountry($country)
     {
         $this->country = $country;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRegion()
     {
         return $this->region;
     }
 
+    /**
+     * @param $region
+     *
+     * @return $this
+     */
     public function setRegion($region)
     {
         $this->region = $region;

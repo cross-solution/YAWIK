@@ -3,30 +3,24 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /**  */
 namespace Applications\Form\Element;
 
-use Zend\Form\Element\Button as Refref;
-use Core\Form\Element\ViewHelperProviderInterface;
+use Zend\Form\Element\Button;
 
 /**
+ * Class Ref
  *
- *
+ * @package Applications\Form\Element
  */
-class Ref extends Refref
-//implements ViewHelperProviderInterface
+class Ref extends Button
 {
+    /**
+     * @var string
+     */
     protected $helper = 'forminfocheckbox';
-   
-    //public function getViewHelper() {
-    //    $this->helper;
-    //}
-    
-    //public function setViewHelper($helper) {
-    //    return $this;
-    //}
 }

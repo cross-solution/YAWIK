@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -63,6 +63,17 @@ class IndexController extends AbstractActionController
             $result = $geoApi($query['q'], $this->geoCoderUrl, $this->params('lang','de'));
         }
         $viewModel = new JsonModel($result);
+        /* @var \Zend\Http\Response $response */
+        $response = $this->getResponse();
+
+        $date = new \DateTime();
+        $expires=$date->modify('+100 day');
+
+        $response->getHeaders()
+            ->addHeaderLine('Pragma','cache')
+            ->addHeaderLine('Cache-Control',"max-age=290304000, public")
+            ->addHeaderLine('Expires',$expires->format(\DateTime::RFC1036));
+
         return $viewModel;
     }
 }

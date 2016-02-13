@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -15,7 +15,11 @@ use Core\Form\Form;
 
 class CommentForm extends Form
 {
-    
+    /**
+     * Gets the hydrator
+     *
+     * @return \Zend\Hydrator\HydratorInterface
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -23,7 +27,10 @@ class CommentForm extends Form
         }
         return $this->hydrator;
     }
-    
+
+    /**
+     * initialize comments form
+     */
     public function init()
     {
         $this->setName('application-comment-form');

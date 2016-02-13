@@ -6,7 +6,7 @@ use Zend\Stdlib\ArrayUtils;
  * YAWIK
  * Application configuration
  *
- * @copyright (c) 2013-2014 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 

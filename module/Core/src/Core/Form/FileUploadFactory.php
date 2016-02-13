@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -16,7 +16,6 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Hydrator\Strategy\FileUploadStrategy;
 use Auth\Entity\AnonymousUser;
 use Core\Entity\Hydrator\FileCollectionUploadHydrator;
-use Applications\Options\ModuleOptions;
 use Zend\Stdlib\AbstractOptions;
 
 /**

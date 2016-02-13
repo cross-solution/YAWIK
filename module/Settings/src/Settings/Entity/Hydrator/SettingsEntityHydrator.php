@@ -3,14 +3,14 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** SettingsEntityHydrator.php */
 namespace Settings\Entity\Hydrator;
 
-use Zend\Stdlib\Hydrator\Reflection;
+use Zend\Hydrator\Reflection;
 
 class SettingsEntityHydrator extends Reflection
 {

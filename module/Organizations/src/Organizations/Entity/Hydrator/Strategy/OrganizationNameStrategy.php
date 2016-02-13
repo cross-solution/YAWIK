@@ -3,18 +3,21 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** HttploadStrategy.php */
 namespace Organizations\Entity\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 use Organizations\Repository\OrganizationName as OrganizationNameRepository;
 
 class OrganizationNameStrategy implements StrategyInterface
 {
+    /**
+     * @var $repository \Organizations\Repository\OrganizationName
+     */
     protected $repository;
     
     public function __construct(OrganizationNameRepository $repository)
@@ -22,7 +25,12 @@ class OrganizationNameStrategy implements StrategyInterface
         $this->repository = $repository;
         return $this;
     }
-    
+
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
     public function extract($value)
     {
         $name = '';
@@ -31,7 +39,12 @@ class OrganizationNameStrategy implements StrategyInterface
         }
         return $name;
     }
-    
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed|object
+     */
     public function hydrate($value)
     {
         $organizationNameEntity = $value;

@@ -934,7 +934,7 @@ msgstr ""
 #: language/_annotated_strings.php:252
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
-" into the attachement area. You can upload up to 5MB"
+" into the attachement area. You can upload up to %sMB"
 msgstr "إرفاق صور أو وثائق PDF إلى التطبيق الخاص بك. سحب وإسقاط لهم، أو انقر فوق في منطقة الملف المرفق. يمكنك تحميل ما يصل إلى 5MB"
 
 #: language/_annotated_strings.php:258

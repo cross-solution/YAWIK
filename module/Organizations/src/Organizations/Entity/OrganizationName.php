@@ -2,8 +2,8 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
- * @license   GPLv3
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
  */
 
 namespace Organizations\Entity;
@@ -44,7 +44,10 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * @ODM\Int
      */
     protected $ranking;
-    
+
+    /**
+     * @param string|null $name Name of the organization
+     */
     public function __construct($name = null)
     {
         $this->ranking = 0;

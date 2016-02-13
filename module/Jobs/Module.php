@@ -3,7 +3,7 @@
  * YAWIK
  * Auth Module Bootstrap
  *
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -24,12 +24,10 @@ class Module implements ConsoleUsageProviderInterface
     {
         return array(
             'Manipulation of jobs database',
-            'jobs generatekeywords [--filter=]' => '(Re-)Generates keywords for all jobs.',
+            'jobs expire [--filter=]' => 'expire jobs.',
             array('--filter=JSON', "available keys:\n"
-                . "- 'before:ISODate' -> only jobs before the given date\n"
-                . "- 'after':ISODate' -> only jobs after the given date\n"
-                . "- 'title':String -> exakt title to match or if starting with '/' -> MongoRegex\n"
-                . "- 'limit':INT -> Limit result."),
+                . "- 'days:INT' -> expire jobs after <days> days. Default 30\n"
+                . "- 'limit':INT -> Limit jobs to expire per run. Default 10."),
         );
     }
 

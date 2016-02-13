@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -14,66 +14,88 @@ use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * Holds various fields a o job opening template
+ * A publisher pushes job postings
  *
  * @ODM\EmbeddedDocument
  */
 class Publisher extends AbstractEntity
 {
-
     /**
-     * Qualification field of the job template
+     * Host of the publisher.
      *
-     * @var host
+     * @var $host string
      * @ODM\String
      */
     protected $host;
 
     /**
-     * externe Reference
+     * external Reference
      *
-     * @var reference
+     * @var $reference string
      * @ODM\String
      */
     protected $reference;
 
     /**
-     * externe externalId
+     * external id of a publisher
      *
-     * @var externalId
+     * @var $externalId string
      * @ODM\String
      */
     protected $externalId;
 
-
+    /**
+     * @param $host string
+     *
+     * @return $this
+     */
     public function setHost($host)
     {
         $this->host = $host;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getHost()
     {
         return $this->host;
     }
 
+    /**
+     * @param $reference
+     *
+     * @return $this
+     */
     public function setReference($reference)
     {
         $this->reference = $reference;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getReference()
     {
         return $this->reference;
     }
 
+    /**
+     * @param $externalId
+     *
+     * @return $this
+     */
     public function setExternalId($externalId)
     {
         $this->externalId = $externalId;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getExternalId()
     {
         return $this->externalId;

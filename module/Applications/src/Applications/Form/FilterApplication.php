@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -13,7 +13,7 @@
 namespace Applications\Form;
 
 use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ArraySerializable as ArrayHydrator;
+use Zend\Hydrator\ArraySerializable as ArrayHydrator;
 
 /**
  * Formular to search for applications
@@ -35,6 +35,9 @@ class FilterApplication extends Form
         return $this->hydrator;
     }
 
+    /**
+     * initialize filter form
+     */
     public function init()
     {
         $this->setName('search-applications-form')
@@ -129,6 +132,5 @@ class FilterApplication extends Form
             ),
             )
         );
-             
     }
 }

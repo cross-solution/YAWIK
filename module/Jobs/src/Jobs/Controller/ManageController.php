@@ -4,7 +4,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -193,7 +193,7 @@ class ManageController extends AbstractActionController
                  * until we figured out, what we really want it to be.
                  */
                 if ('locationForm' == $formIdentifier) {
-                    $locElem = $instanceForm->getBaseFieldset()->get('location');
+                    $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
                     if ($locElem instanceOf \Geo\Form\GeoText) {
                         $loc = $locElem->getValue('entity');
                         $locations = $jobEntity->getLocations();
@@ -259,7 +259,7 @@ class ManageController extends AbstractActionController
                                 $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                             }
                             if ('locationForm' == $actualFormIdentifier) {
-                                $locElem = $actualForm->getBaseFieldset()->get('location');
+                                $locElem = $actualForm->getBaseFieldset()->get('geo-location');
                                 if ($locElem instanceOf \Geo\Form\GeoText) {
                                     $loc = $jobEntity->getLocations();
                                     if (count($loc)) {
@@ -352,6 +352,7 @@ class ManageController extends AbstractActionController
         /* @var $forms \Zend\Form\FormElementManager */
         $forms    = $services->get('FormElementManager');
         /* @var $container \Jobs\Form\Job */
+
         $container = $forms->get(
             'Jobs/Job',
             array(

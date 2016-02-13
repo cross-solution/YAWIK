@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -73,12 +73,21 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
      * @ODM\EmbedOne(targetDocument="\Core\Entity\Permissions")
      */
     protected $permissions;
-    
+
+    /**
+     * @return string
+     */
     public function getResourceId()
     {
         return 'Entity/File';
     }
-    
+
+    /**
+     * Sets the owner of a file
+     *
+     * @param UserInterface $user
+     * @return $this
+     */
     public function setUser(UserInterface $user)
     {
         if ($this->user) {
@@ -91,24 +100,42 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     }
 
     /**
+     * Gets the owner of a file
+     *
      * @return User
      */
     public function getUser()
     {
         return $this->user;
     }
-    
+
+    /**
+     * Sets the name of a file
+     *
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
-    
+
+    /**
+     * Gets the name of a file
+     *
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
-    
+
+    /**
+     * Gets the length of file in GB, MB ot kB format
+     *
+     * @return string
+     */
     public function getPrettySize()
     {
         $size = $this->getLength();
@@ -127,24 +154,46 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         
         return $size;
     }
-    
+
+    /**
+     * Sets the mime-type of a file
+     *
+     * @param $mime
+     * @return $this
+     */
     public function setType($mime)
     {
         $this->mimetype = $mime;
         return $this;
     }
-    
+
+    /**
+     * Gets the mime-type of a file
+     *
+     * @return mixed
+     */
     public function getType()
     {
         return $this->mimetype;
     }
-    
+
+    /**
+     * Sets the uploaded date of a file
+     *
+     * @param \DateTime|null $date
+     * @return $this
+     */
     public function setDateUploaded(\DateTime $date = null)
     {
         $this->dateUploaded = $date;
         return $this;
     }
-    
+
+    /**
+     * Gets the uploaded date of a file
+     *
+     * @return mixed
+     */
     public function getDateUploaded()
     {
         if (!$this->dateUploaded) {
@@ -152,24 +201,45 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         }
         return $this->dateUploaded;
     }
-    
+
+    /**
+     * Gets the file
+     *
+     * @return mixed
+     */
     public function getFile()
     {
         return $this->file;
     }
-    
+
+    /**
+     * Sets the file
+     *
+     * @param $file
+     * @return $this
+     */
     public function setFile($file)
     {
         $this->setDateUploaded(new \DateTime());
         $this->file = $file;
         return $this;
     }
-    
+
+    /**
+     * Gets the length of the file
+     *
+     * @return mixed
+     */
     public function getLength()
     {
         return $this->length;
     }
-    
+
+    /**
+     * Gets the resource of a file
+     *
+     * @return null|\stream
+     */
     public function getResource()
     {
         if ($this->file instanceof \Doctrine\MongoDB\GridFSFile) {
@@ -179,9 +249,10 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     }
     
     /**
-     * return the binary data of an attachment
+     * Returns the binary data of a file
      *
      * @see \Core\Entity\FileInterface::getContent()
+     * @return null|string
      */
     public function getContent()
     {
@@ -190,13 +261,24 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
         }
         return null;
     }
-    
+
+    /**
+     * Sets Permissions of a file
+     *
+     * @param PermissionsInterface $permissions
+     * @return $this
+     */
     public function setPermissions(PermissionsInterface $permissions)
     {
         $this->permissions = $permissions;
         return $this;
     }
-    
+
+    /**
+     * Gets Permissions of a file
+     *
+     * @return PermissionsInterface
+     */
     public function getPermissions()
     {
         if (!$this->permissions) {

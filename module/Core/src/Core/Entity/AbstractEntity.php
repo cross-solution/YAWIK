@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -68,7 +68,7 @@ abstract class AbstractEntity implements EntityInterface
      * If the property is an array, the check will return, if this
      * array has items or not.
      *
-     * @param string $name
+     * @param string $property
      * @return boolean
      */
     public function __isset($property)

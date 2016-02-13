@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -11,7 +11,7 @@
 namespace Core\Entity\Hydrator;
 
 use Core\Entity\FileInterface;
-use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorInterface;
 use Doctrine\Common\Collections\Collection;
 
 class FileCollectionUploadHydrator implements HydratorInterface
@@ -20,7 +20,11 @@ class FileCollectionUploadHydrator implements HydratorInterface
     protected $lastUploaded;
     protected $strategy;
     protected $elementName;
-    
+
+    /**
+     * @param $name
+     * @param $strategy
+     */
     public function __construct($name, $strategy)
     {
         $this->strategy    = $strategy;

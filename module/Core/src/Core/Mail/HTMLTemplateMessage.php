@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -24,10 +24,6 @@ use Zend\View\Variables as ViewVariables;
  */
 class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocatorAwareInterface
 {
-    /**
-     * View variables
-     * @var array|ArrayAccess&Traversable
-     */
     protected $serviceLocator;
 
     /**

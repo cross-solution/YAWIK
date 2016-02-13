@@ -3,18 +3,14 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** OrganizationEntityHydrator.php */
 namespace Organizations\Entity\Hydrator;
 
-use Core\Entity\Hydrator\EntityHydrator;
-use Zend\Stdlib\Hydrator\HydratorInterface;
-use Settings\Entity\SettingsContainerInterface;
-use Zend\Stdlib\Hydrator\AbstractHydrator;
-use Zend\Stdlib\Hydrator\Reflection;
+use Zend\Hydrator\Reflection;
 
 /**
  * Class OrganizationHydrator
@@ -22,10 +18,23 @@ use Zend\Stdlib\Hydrator\Reflection;
  */
 class OrganizationHydrator extends Reflection
 {
+    /**
+     * @var $repOrganization \Organizations\Repository\Organization
+     */
     protected $repOrganization;
+
+    /**
+     * @var $repOrganizationName \Organizations\Repository\OrganizationName
+     */
     protected $repOrganizationName;
+
+    /**
+     * @var $repOrganizationImage \Organizations\Repository\OrganizationImage
+     */
     protected $repOrganizationImage;
+
     protected $data;
+
     protected $object;
             
     public function __construct($repOrganization, $repOrganizationName, $repOrganizationImage)
@@ -34,13 +43,9 @@ class OrganizationHydrator extends Reflection
         $this->repOrganization = $repOrganization;
         $this->repOrganizationName = $repOrganizationName;
         $this->repOrganizationImage = $repOrganizationImage;
-        //$httpload = new HttploadStrategy($repOrganizationImage);
-        //$organizationName = new OrganizationNameStrategy($repOrganizationName);
-        //$this->addStrategy('image', $httpload);
-        //$this->addStrategy('organizationName', $organizationName);
     }
     
-/**
+    /**
      * Extract values from an object
      *
      * @param  object $object
@@ -112,9 +117,6 @@ class OrganizationHydrator extends Reflection
         return $value;
     }
 
-    /**
-     *
-     */
     protected function hydrateSkimData()
     {
         if (!empty($this->data['image']) && is_string($this->data['image'])) {

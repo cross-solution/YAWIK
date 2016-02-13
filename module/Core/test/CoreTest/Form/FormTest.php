@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
@@ -15,7 +15,7 @@ use Zend\Form\Fieldset;
 /**
 * @covers \Core\Form\Form
 */
-class FrmTest extends \PHPUnit_Framework_TestCase
+class FormTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Form
@@ -38,9 +38,7 @@ class FrmTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testAdd() {
-        $fs = new Fieldset('test',['type'=>"text"]);
-        $fs->setAttribute('class','myclass');
-
+        /*@todo*/
     }
 
     public function testSetGetIsDescriptionEnabled() {
@@ -55,7 +53,15 @@ class FrmTest extends \PHPUnit_Framework_TestCase
     public function testSetDescription() {
         $input = "this is my description";
         $this->target->setDescription($input);
-        $this->assertAttributeSame(['description' => $input], 'options', $this->target);
+        $this->assertAttributeSame(['description' => $input,
+                                    'description_params' => null], 'options', $this->target);
+    }
+
+    public function testSetDescriptionWithAdditionalParams() {
+        $input = "this is my description";
+        $this->target->setDescription($input,['p1','p2']);
+        $this->assertAttributeSame(['description' => $input,
+                                    'description_params' => ['p1','p2']], 'options', $this->target);
     }
 
     public function testSetGetIsDisableCapable(){

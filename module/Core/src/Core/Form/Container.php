@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -82,7 +82,12 @@ class Container extends Element implements
         $this->formElementManager = $serviceLocator;
         return $this;
     }
-    
+
+    /**
+     * Gets the FormElementManager
+     *
+     * @return \Zend\Form\FormElementManager
+     */
     public function getServiceLocator()
     {
         return $this->formElementManager;
@@ -118,6 +123,10 @@ class Container extends Element implements
         return count($this->activeForms);
     }
 
+    /**
+     * @param bool $flag
+     * @return $this
+     */
     public function setIsDisableCapable($flag)
     {
         $this->options['is_disable_capable'] = $flag;
@@ -125,12 +134,19 @@ class Container extends Element implements
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableCapable()
     {
         return isset($this->options['is_disable_capable'])
                ? $this->options['is_disable_capable'] : true;
     }
 
+    /**
+     * @param bool $flag
+     * @return $this
+     */
     public function setIsDisableElementsCapable($flag)
     {
         $this->options['is_disable_elements_capable'] = $flag;
@@ -138,12 +154,18 @@ class Container extends Element implements
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDisableElementsCapable()
     {
         return isset($this->options['is_disable_elements_capable'])
                ? $this->options['is_disable_elements_capable'] : true;
     }
 
+    /**
+     * @param array $map
+     */
     public function disableElements(array $map)
     {
         foreach ($map as $key => $name) {
@@ -290,8 +312,6 @@ class Container extends Element implements
         $formInstance->setName($formName)
                      ->setAttribute('action', '?form=' . $formName);
 
-        //$testKey = $this->getActionFor($form['type']);
-        
         if (isset($form['label'])) {
             $formInstance->setLabel($form['label']);
         }
@@ -506,6 +526,8 @@ class Container extends Element implements
     }
 
     /**
+     * Return isValid
+     *
      * @return bool
      */
     public function isValid()
@@ -569,6 +591,10 @@ class Container extends Element implements
         return $return;
     }
 
+    /**
+     * @param $data
+     * @return $this
+     */
     public function setData($data)
     {
         $filteredData = array();
@@ -594,28 +620,46 @@ class Container extends Element implements
         return $this;
     }
 
+    /**
+     * @param $parent
+     * @return $this
+     */
     public function setParent($parent)
     {
         $this->parent = $parent;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getParent()
     {
         return $this->parent;
     }
 
 
+    /**
+     * @return bool
+     */
     public function hasParent()
     {
         return isset($this->parent);
     }
 
+    /**
+     * @param Renderer $renderer
+     * @return string
+     */
     public function renderPre(Renderer $renderer)
     {
         return '';
     }
 
+    /**
+     * @param Renderer $renderer
+     * @return string
+     */
     public function renderPost(Renderer $renderer)
     {
         return '';
@@ -660,7 +704,7 @@ class Container extends Element implements
 
 
     /**
-     * get the form after the actual active
+     * Gets the form after the actual active
      * @return null
      */
     public function getActiveFormNext()
@@ -678,11 +722,15 @@ class Container extends Element implements
         return $key;
     }
 
+    /**
+     * @param $key
+     * @return string
+     */
     public function getActionFor($key)
     {
         $form               = $this->forms[$key];
         $options            = isset($form['options']) ? $form['options'] : array();
-        $formElementManager = $this->formElementManager;
+
         if (!isset($options['use_post_array'])) {
             $options['use_post_array'] = true;
         }
@@ -690,11 +738,9 @@ class Container extends Element implements
             $options['use_files_array'] = false;
         }
 
-        //$formInstance = $this->formElementManager->get($form['type'], $options);
         $formName     = (($name = $this->getName()) ? $name . '.' : '') . $form['name'];
         $action = '?form=' . $formName;
 
         return $action;
-
     }
 }

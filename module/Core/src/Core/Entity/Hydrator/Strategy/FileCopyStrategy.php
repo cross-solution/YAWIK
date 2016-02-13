@@ -3,21 +3,21 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
 /** Core entity hydrator strategies */
 namespace Core\Entity\Hydrator\Strategy;
 
-use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 use Core\Entity\FileInterface;
 
 /**
- * This strategy copies file entites from on mongo collection to another.
+ * This strategy copies file entities from on mongo collection to another.
  *
  * This copy process must be done in the same request (means extracting the old
- * entity and hydrating the new entity), because the temporarly file will be
+ * entity and hydrating the new entity), because the temporarily file will be
  * removed on script shutdown.
  *
  *
@@ -45,7 +45,7 @@ class FileCopyStrategy implements StrategyInterface
     /**
      * Returns a clone of the target entity.
      *
-     * @return \Core\Entity\FileInterface
+     * @return FileInterface
      */
     public function getTargetEntity()
     {
@@ -55,15 +55,15 @@ class FileCopyStrategy implements StrategyInterface
     /**
      * Extracts the source file entity.
      *
-     * Stores the binary content in a temporarly file.
-     * Returns the meta data along the name of the temporarly file as an array.
+     * Stores the binary content in a temporarily file.
+     * Returns the meta data along the name of the temporarily file as an array.
      *
      * If <b>$value</b> is not of the type FileInterface, nothing will be done,
      * and <i>NULL</i> is returned.
      *
      * @param FileInterface|null $value
      * @return array|null
-     * @see \Zend\Stdlib\Hydrator\Strategy\StrategyInterface::extract()
+     * @see \Zend\Hydrator\Strategy\StrategyInterface::extract()
      */
     public function extract($value)
     {
@@ -108,13 +108,14 @@ class FileCopyStrategy implements StrategyInterface
      *
      * @param array|null $value
      * @return FileInterface
-     * @see \Zend\Stdlib\Hydrator\Strategy\StrategyInterface::hydrate()
+     * @see \Zend\Hydrator\Strategy\StrategyInterface::hydrate()
      */
     public function hydrate($value)
     {
         if (!is_array($value)) {
             return null;
         }
+
         $entity = $this->getTargetEntity();
         
         $entity->setUser($value['user'])

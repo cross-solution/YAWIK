@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    Mathias Weitz <weitz@cross-solution.de>
  */
@@ -15,12 +15,17 @@ use Core\Entity\Hydrator\EntityHydrator;
 use Organizations\Entity\OrganizationContact;
 
 /**
- * Class ContactFieldset
+ * Class OrganizationsContactFieldset
+ *
  * @package Organizations\Form
  */
 class OrganizationsContactFieldset extends Fieldset
 {
-
+    /**
+     * Gets the Hydrator
+     *
+     * @return \Zend\Hydrator\HydratorInterface
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -32,7 +37,7 @@ class OrganizationsContactFieldset extends Fieldset
 
 
     /**
-     * set the elements for the form
+     * Set the elements for the contact form
      */
     public function init()
     {

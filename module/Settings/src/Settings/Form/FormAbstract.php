@@ -7,9 +7,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 use Zend\Form\Form;
 use Zend\Form\Element;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethods;
 use Settings\Entity\Settings as SettingsEntity;
-use Zend\Stdlib\Hydrator\ArraySerializable;
+use Zend\Hydrator\ArraySerializable;
 
 abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
 {
@@ -21,15 +21,13 @@ abstract class FormAbstract extends Form implements ServiceLocatorAwareInterface
         parent::__construct('settings');
         $this->setAttribute('method', 'post');
                 $this->setBindOnValidate(Form::BIND_ON_VALIDATE);
-    
-        // 'action' => $this->url('lang/settings', array(), true),
     }
-    
-        /**
-         *
-         * @param \Zend\ServiceManager\ServiceLocatorInterface $serviceLocator
-         * @return \Settings\Form\Settings
-         */
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @return $this
+     */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->forms = $serviceLocator;

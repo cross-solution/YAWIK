@@ -4,14 +4,28 @@
  *
  * @filesource
  * @license    MIT
- * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
 
 /** */
 namespace JobsTest\Entity;
 
+use Applications\Entity\Application;
+use Auth\Entity\Info;
+use Auth\Entity\User;
+use Core\Entity\AbstractEntity;
+use Core\Entity\Collection\ArrayCollection;
+use CoreTest\Entity\ConcreteEntity;
+use Jobs\Entity\JobSnapshot;
+use Jobs\Entity\Location;
 use Jobs\Entity\Status;
+use Jobs\Entity\AtsMode;
 use Jobs\Entity\Job;
+use Jobs\Entity\History;
+use Jobs\Entity\TemplateValues;
+use Organizations\Entity\Organization;
+use Organizations\Entity\OrganizationName;
+
 
 /**
  * Tests for Jobs Entity
@@ -45,6 +59,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
         $this->assertInstanceOf('\Jobs\Entity\JobInterface', $this->target);
+        $this->assertInstanceOf('\Core\Entity\AbstractIdentifiableModificationDateAwareEntity', $this->target);
     }
 
     /**
@@ -82,6 +97,49 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->target->setLocation($location);
         $this->assertEquals($location, $this->target->getLocation());
     }
+
+    /**
+     * @testdox Allows setting multi job locations
+     * @covers Jobs\Entity\Job::getLocations
+     * @covers Jobs\Entity\Job::setLocations
+     */
+    public function testSetGetLocations()
+    {
+        $arrayCollection = new ArrayCollection();
+        $location = new Location();
+        $location->setCity("Frankfurt");
+        $arrayCollection->add($location);
+        $this->target->setLocations($arrayCollection);
+        $this->assertEquals($arrayCollection, $this->target->getLocations());
+    }
+
+    /**
+     * @testdox Allows setting/getting multi job applications
+     * @covers Jobs\Entity\Job::getApplications
+     * @covers Jobs\Entity\Job::setApplications
+     */
+    public function testSetGetApplications()
+    {
+        $arrayCollection = new ArrayCollection();
+        $application = new Application();
+        $application->setIsDraft(false);
+        $application->setId(123);
+        $arrayCollection->add($application);
+        $this->target->setApplications($arrayCollection);
+        $this->assertEquals($arrayCollection, $this->target->getApplications());
+    }
+
+    /**
+     * @testdox Allows setting multi job locations
+     * @covers Jobs\Entity\Job::getLocations
+     * @covers Jobs\Entity\Job::setLocations
+     */
+    public function testGetLocationsWithoutSetting()
+    {
+        $arrayCollection = new ArrayCollection();
+        $this->assertEquals($arrayCollection, $this->target->getLocations());
+    }
+
 
     /**
      * @testdox Allows setting the job link
@@ -258,5 +316,256 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->target->isActive());
     }
 
+    public function provideAtsModes()
+    {
+        return [
+            [AtsMode::MODE_EMAIL],
+            [AtsMode::MODE_INTERN],
+            [AtsMode::MODE_NONE],
+            [AtsMode::MODE_URI],
+        ];
+    }
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getAtsMode
+     * @covers Jobs\Entity\Job::setAtsMode
+     * @dataProvider provideAtsModes
+     */
+    public function testSetGetAtsMode($input)
+    {
+        $atsMode = new AtsMode();
+        $atsMode->setMode($input);
+        $this->target->setAtsMode($atsMode);
+        $this->assertEquals($this->target->getAtsMode(), $atsMode);
+    }
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getAtsMode
+     */
+    public function testAtsModeWithoutSetting()
+    {
+        $this->assertEquals($this->target->getAtsMode(), new AtsMode(AtsMode::MODE_INTERN));
+    }
+
+    public function provideTermsAccepted()
+    {
+        return [
+            [true, true],
+            [false, false],
+            [null, false],
+        ];
+    }
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getTermsAccepted
+     * @covers Jobs\Entity\Job::setTermsAccepted
+     * @dataProvider provideTermsAccepted
+     */
+    public function testSetTermsAccepted($input,$expected)
+    {
+        $this->target->setTermsAccepted($input);
+        $this->assertEquals($this->target->getTermsAccepted(), $expected);
+    }
+
+    public function provideHistory()
+    {
+        $history1 = new \Doctrine\Common\Collections\ArrayCollection([new History(new Status(),'test')]);
+
+        return [
+            [$history1, $history1],
+        ];
+    }
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::getHistory
+     * @covers Jobs\Entity\Job::setHistory
+     * @dataProvider provideHistory
+     */
+    public function testSetHistory($input,$expected)
+    {
+        $this->target->setHistory($input);
+        $this->assertEquals($this->target->getHistory(), $expected);
+    }
+
+    public function provideStatus()
+    {
+        return [
+            [Status::PUBLISH, Status::PUBLISH],
+            [Status::ACTIVE, Status::ACTIVE],
+            [Status::CREATED, Status::CREATED],
+            [Status::EXPIRED, Status::EXPIRED],
+            [Status::REJECTED, Status::REJECTED],
+            [Status::INACTIVE, Status::INACTIVE],
+        ];
+    }
+
+
+    /**
+     * @testdox Allows setting the status of a job posting
+     * @covers Jobs\Entity\Job::changeStatus
+     * @dataProvider provideStatus
+     */
+    public function testChangeStatus($input, $expected){
+        $status = new Status($input);
+        $msg = "this is the message";
+        $this->target->changeStatus($status,$msg);
+        $this->assertEquals($this->target->getStatus(), $expected);
+    }
+
+
+    /**
+     * @testdox Allows setting the name of a company without organization
+     * @covers Jobs\Entity\Job::setCompany
+     * @covers Jobs\Entity\Job::getCompany
+     */
+    public function testSetGetCompanyWithoutOrganization(){
+        $input = "Company ABC";
+        $this->target->setCompany($input);
+        $this->assertEquals($this->target->getCompany(), $input);
+    }
+
+    public function testSetGetCompanyWithOrganization(){
+        $input1 = "Company ABC";
+        $input2 = "Another Company";
+        $this->target->setCompany($input1);
+        $organization = new Organization();
+        $organizationName = new OrganizationName();
+        $organizationName->setName($input2);
+        $organization->setOrganizationName($organizationName);
+        $this->target->setOrganization($organization);
+        $this->assertEquals($this->target->getCompany(), $input2);
+    }
+
+
+    /**
+     * @testdox Allows setting the name of a company without organization
+     * @covers Jobs\Entity\Job::setApplyId
+     * @covers Jobs\Entity\Job::getApplyId
+     */
+    public function testSetGetApllyId(){
+        $input = "MyRerefernce";
+        $this->target->setApplyId($input);
+        $this->assertEquals($this->target->getApplyId(), $input);
+    }
+
+    /**
+     * @testdox Allows setting the name of a company without organization
+     * @covers Jobs\Entity\Job::setApplyId
+     * @covers Jobs\Entity\Job::getApplyId
+     */
+    public function testGetDefaultForApplyId(){
+        $input = "1234";
+        $this->target->setId($input);
+        $this->assertEquals($this->target->getApplyId(), $input);
+    }
+
+    public function testGetResourceId(){
+        $this->assertSame($this->target->getResourceId(), 'Entity/Jobs/Job');
+    }
+
+    public function testSetGetContactEmail(){
+        $input = "test@example.com";
+        $this->target->setContactEmail($input);
+        $this->assertEquals($this->target->getContactEmail(), $input);
+    }
+
+    public function testSetGetContactEmailWithUser() {
+        $input = "test2@example.com";
+
+        $info = new Info();
+        $info->setEmail($input);
+        $user = new User();
+        $user->setInfo($info);
+        $this->target->setUser($user);
+
+        $this->assertEquals($this->target->getContactEmail(), $input);
+    }
+
+    public function testSetGetTemplateValues() {
+        $input = new TemplateValues();
+        $input->setDescription("Company description");
+        $this->target->setTemplateValues($input);
+        $this->assertEquals($this->target->getTemplateValues(), $input);
+    }
+
+    public function testGetTemplateValuesWithoutSetting() {
+        $this->assertEquals($this->target->getTemplateValues(), new TemplateValues());
+    }
+
+    /**
+     * @dataProvider provideTemplatesValuesData
+     */
+    public function testSetTemplateValues($input,$expected) {
+        $this->target->setTemplateValues($input);
+        $this->assertEquals($this->target->getTemplateValues(), $expected);
+    }
+
+    public function provideTemplatesValuesData()
+    {
+        $templateValues1 = new TemplateValues();
+        $templateValues1->setDescription("test");
+        $templateValues1->setBenefits("test");
+
+        $templateValues2 = new ConcreteEntityForTemplateValues();
+        $templateValues2->description='my description';
+        $templateValues2->test='invalid';
+
+
+        return [
+            [null, new TemplateValues()],
+            [$templateValues2, new TemplateValues($templateValues2)],
+            [$templateValues1, $templateValues1]
+        ];
+    }
+
+
+    public function testSetGetUserTwice() {
+        $user1 = new User();
+        $user1->setId(123);
+        $this->target->setUser($user1);
+        $user2 = new User();
+        $user2->setId(456);
+        $this->target->setUser($user2);
+        $this->assertEquals($this->target->getUser(), $user2);
+    }
+
+    public function testGetSnapshotGenerator(){
+        $expected =    array (
+            'hydrator' => '',
+            'target' => 'Jobs\Entity\JobSnapshot',
+            'exclude' => array('permissions', 'history')
+        );
+        $this->assertSame(
+            $this->target->getSnapshotGenerator(),
+            $expected
+        );
+    }
+
+    public function testMakeSnapshot() {
+        $this->assertEquals($this->target->makeSnapshot(), new JobSnapshot($this->target));
+    }
+}
+
+class ConcreteEntityForTemplateValues extends AbstractEntity {
+    protected $description;
+    protected $test;
+
+    public function setDescription($description) {
+        $this->description=$description;
+        return $this;
+    }
+    public function getDescription() {
+        return $this->description;
+    }
+    public function setTest($test) {
+        $this->test=$test;
+        return $this;
+    }
+    public function getTest() {
+        return $this->testcd;
+    }
 
 }

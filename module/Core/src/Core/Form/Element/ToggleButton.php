@@ -9,14 +9,13 @@ use Zend\Form\Element\Checkbox;
 class ToggleButton extends Checkbox implements ViewHelperProviderInterface
 {
     /**
-     *
      * @var string
      */
     protected $viewHelper = 'toggleButton';
     
     /**
      *
-     * @param type $helper
+     * @param string $helper
      * @return \Core\Form\Element\ToggleButton
      */
     public function setViewHelper($helper)

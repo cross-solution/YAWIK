@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -36,7 +36,7 @@ class Job extends BaseEntity implements JobInterface,
      * a job
      *
      * @var String
-     * @ODM\String @ODM\Index
+     * @ODM\Field(type="string") @ODM\Index
      **/
     protected $applyId;
     
@@ -44,7 +44,7 @@ class Job extends BaseEntity implements JobInterface,
      * title of a job posting
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $title;
     
@@ -53,7 +53,7 @@ class Job extends BaseEntity implements JobInterface,
      * name of the publishing company
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $company;
     
@@ -71,7 +71,7 @@ class Job extends BaseEntity implements JobInterface,
      * Email Address, which is used to send notifications about e.g. new applications.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      **/
     protected $contactEmail;
     
@@ -106,7 +106,7 @@ class Job extends BaseEntity implements JobInterface,
      * language of the job posting. Languages are ISO 639-1 coded
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $language;
     
@@ -115,7 +115,7 @@ class Job extends BaseEntity implements JobInterface,
      * search e.g. results.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $location;
 
@@ -132,7 +132,7 @@ class Job extends BaseEntity implements JobInterface,
      * Link which points to the job posting
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      **/
     protected $link;
     
@@ -173,7 +173,7 @@ class Job extends BaseEntity implements JobInterface,
      * Reference of a job opening, on which an applicant can refer to.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $reference;
     
@@ -182,7 +182,7 @@ class Job extends BaseEntity implements JobInterface,
      *
      * @deprecated (use $organization->image->uri instead)
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $logoRef;
 
@@ -190,7 +190,7 @@ class Job extends BaseEntity implements JobInterface,
      * Template-Name
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $template;
 
@@ -198,7 +198,7 @@ class Job extends BaseEntity implements JobInterface,
      * Application link.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $uriApply;
 
@@ -207,7 +207,7 @@ class Job extends BaseEntity implements JobInterface,
      * does know who is the one who has commited this job.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $uriPublisher;
 
@@ -268,8 +268,6 @@ class Job extends BaseEntity implements JobInterface,
     protected $isDraft = false;
 
     /**
-     * Is this needed?
-     *
      * @return string
      */
     public function getResourceId()
@@ -324,6 +322,9 @@ class Job extends BaseEntity implements JobInterface,
     }
     
     /**
+     * Gets the name oof the company. If there is an organization assigned to the
+     * job posting. Take the name of the organization.
+     *
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getCompany()
      */
@@ -369,8 +370,7 @@ class Job extends BaseEntity implements JobInterface,
 
         return $this;
     }
-    
-    
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::getContactEmail()
@@ -387,6 +387,7 @@ class Job extends BaseEntity implements JobInterface,
         }
         return $this->contactEmail;
     }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setContactEmail()
@@ -396,6 +397,7 @@ class Job extends BaseEntity implements JobInterface,
         $this->contactEmail = (string) $email;
         return $this;
     }
+
     /**
      * (non-PHPdoc)
      * @see \Jobs\Entity\JobInterface::setLanguage()

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -65,6 +65,7 @@ abstract class AbstractRatingEntity extends AbstractEntity implements RatingInte
      * @param int $rating
      * @param bool $throwException
      * @throws \InvalidArgumentException
+     * @return bool
      */
     protected function checkRatingValue($rating, $throwException = true)
     {

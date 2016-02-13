@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
   
 /** */
@@ -63,10 +63,10 @@ class EmployeeFieldsetFactoryTest extends \PHPUnit_Framework_TestCase
 
         $hydrator = $fieldset->getHydrator();
         $this->assertTrue($hydrator->hasStrategy('user'));
-        $this->assertInstanceOf('\Zend\Stdlib\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('user'));
+        $this->assertInstanceOf('\Zend\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('user'));
 
         $this->assertTrue($hydrator->hasStrategy('permissions'));
-        $this->assertInstanceOf('\Zend\Stdlib\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('permissions'));
+        $this->assertInstanceOf('\Zend\Hydrator\Strategy\ClosureStrategy', $hydrator->getStrategy('permissions'));
 
         $object = $fieldset->getObject();
         $this->assertInstanceOf('\Organizations\Entity\Employee', $object);

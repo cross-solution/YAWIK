@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -30,7 +30,7 @@ class JobLocationEdit extends InputFilter
 
         $this->add(
             [
-                'name'     => 'location',
+                'name'     => 'geo-location',
                 'required' => true,
                 'filters'  => [
                     array('name' => 'StringTrim')

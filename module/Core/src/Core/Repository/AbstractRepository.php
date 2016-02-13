@@ -10,7 +10,12 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
 {
 
     protected $entityPrototype;
-    
+
+    /**
+     * @param ODM\DocumentManager       $dm
+     * @param ODM\UnitOfWork            $uow
+     * @param ODM\Mapping\ClassMetadata $class
+     */
     public function __construct(ODM\DocumentManager $dm, ODM\UnitOfWork $uow, ODM\Mapping\ClassMetadata $class)
     {
         parent::__construct($dm, $uow, $class);
@@ -21,23 +26,41 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         );
         $dm->getEventManager()->dispatchEvent(DoctrineMongoODM\Event\RepositoryEventsSubscriber::postConstruct, $eventArgs);
     }
-    
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     */
     public function init(ServiceLocatorInterface $serviceLocator)
     {
         
     }
 
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     public function getService($name)
     {
         return $this->dm->getConfiguration()->getServiceLocator()->get($name);
     }
-    
+
+    /**
+     * @param EntityInterface $entity
+     *
+     * @return $this
+     */
     public function setEntityPrototype(EntityInterface $entity)
     {
         $this->entityPrototype = $entity;
         return $this;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return mixed
+     */
     public function create(array $data = null)
     {
         if (null === $this->entityPrototype) {
@@ -55,8 +78,19 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         return $entity;
     }
 
+    /**
+     * @param $entity
+     */
     public function store($entity)
     {
+        if ( !($entity instanceOf $this->entityPrototype) ) {
+            throw new \InvalidArgumentException(sprintf(
+                'Entity must be of type %s but recieved %s instead',
+                get_class($this->entityPrototype),
+                get_class($entity)
+            ));
+        }
+
         $this->dm->persist($entity);
         $this->dm->flush($entity);
     }

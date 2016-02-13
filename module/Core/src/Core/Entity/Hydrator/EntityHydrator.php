@@ -2,11 +2,10 @@
 
 namespace Core\Entity\Hydrator;
 
-use Zend\Stdlib\Hydrator\AbstractHydrator;
+use Zend\Hydrator\AbstractHydrator;
+use Zend\Hydrator\Filter\FilterComposite;
+use Zend\Hydrator\Filter\MethodMatchFilter;
 use Core\Entity\EntityInterface;
-use Zend\Stdlib\Hydrator\Filter\FilterInterface;
-use Zend\Stdlib\Hydrator\Filter\FilterComposite;
-use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 class EntityHydrator extends AbstractHydrator
 {
@@ -22,7 +21,7 @@ class EntityHydrator extends AbstractHydrator
     }
     
     /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::extract()
+     * @see \Zend\Hydrator\HydratorInterface::extract()
      */
     public function extract($object)
     {
@@ -52,7 +51,7 @@ class EntityHydrator extends AbstractHydrator
     }
 
     /* (non-PHPdoc)
-     * @see \Zend\Stdlib\Hydrator\HydratorInterface::hydrate()
+     * @see \Zend\Hydrator\HydratorInterface::hydrate()
      */
     public function hydrate(array $data, $object)
     {
@@ -89,6 +88,7 @@ class EntityHydrator extends AbstractHydrator
 
     /**
      * exclude methods from the automatism
+     *
      * @param $methods
      */
     public function setExcludeMethods($methods)

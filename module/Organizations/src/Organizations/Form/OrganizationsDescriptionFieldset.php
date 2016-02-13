@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -34,7 +34,7 @@ class OrganizationsDescriptionFieldset extends Fieldset
      */
     public function init()
     {
-        $this->setName('organizations');
+        $this->setName('organization-description');
 
         $this->add(
             array(

@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    Mathias Weitz <weitz@cross-solution.de>
  */
@@ -12,8 +12,8 @@
 /** Core Entitys */
 namespace Core\Entity;
 
-use Zend\Stdlib\Hydrator\HydratorInterface;
-use Zend\Stdlib\Hydrator\HydratorAwareInterface;
+use Zend\Hydrator\HydratorInterface;
+use Zend\Hydrator\HydratorAwareInterface;
 use Core\Entity\Hydrator\EntityHydrator;
 
 /**

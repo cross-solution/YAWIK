@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license       MIT
  */
 
@@ -52,7 +52,7 @@ class FileUpload extends File implements
     public function setViewHelper($helper)
     {
         if (is_object($helper) && !$helper instanceof HelperInterface) {
-            throw new \InvalidArgumentException('Expects helper to be eiter a service name or an instance of "Zend\View\Helper\HelperInterface"');
+            throw new \InvalidArgumentException('Expects helper to be either a service name or an instance of "Zend\View\Helper\HelperInterface"');
         }
 
         $this->helper = $helper;
@@ -146,7 +146,6 @@ class FileUpload extends File implements
     {
         $form->setAttribute('class', ($this->isMultiple() ? 'multi' : 'single') . '-file-upload');
         $form->setAttribute('data-is-empty', null === $this->getValue());
-        //$this->form = $form;
         parent::prepareElement($form);
     }
 

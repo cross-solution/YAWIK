@@ -3,7 +3,7 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -20,12 +20,14 @@ class SummaryForm extends BaseForm implements SummaryFormInterface
     
     /**
      * Which representation to render.
+     *
      * @var string
      */
     protected $renderMode = self::RENDER_ALL;
     
     /**
      * Hint, which representation to show in view
+     *
      * @var string
      */
     protected $displayMode = self::DISPLAY_FORM;

@@ -3,7 +3,7 @@
  * YAWIK
  * 
  * @filesource
- * @copyright (c) 2013-2015 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    weitz@cross-solution.de
  */
@@ -11,7 +11,7 @@
 namespace Core\Entity\Hydrator;
 
 
-use Zend\Stdlib\Hydrator\AbstractHydrator;
+use Zend\Hydrator\AbstractHydrator;
 use Core\Entity\EntityInterface;
 
 class JsonEntityHydrator extends AbstractHydrator

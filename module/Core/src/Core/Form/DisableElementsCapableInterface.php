@@ -4,7 +4,7 @@
  *
  * @filesource
  * @license MIT
- * @copyright 2013-2015 Cross Solution <http://cross-solution.de>
+ * @copyright 2013 - 2016 Cross Solution <http://cross-solution.de>
  */
   
 /** */
@@ -12,6 +12,13 @@ namespace Core\Form;
 
 /**
  * Allows implementing classes to disable itself and its elements.
+ *
+ * The application form by default offers a number on elements. You, as
+ * the operator can enable/disable features by default. E.g. by default the
+ * 'facts' are disabled. A user have to enable it, to make it visible in the
+ * application form.
+ *
+ * @see module.config.php
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
