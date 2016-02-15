@@ -164,6 +164,7 @@ return array(
                             'route' => '/my/:action',
                             'defaults' => array(
                                 'controller' => 'Auth\Controller\Manage',
+                                'action' => 'profile'
                             ),
                         ),
                         'may_terminate' => true,
