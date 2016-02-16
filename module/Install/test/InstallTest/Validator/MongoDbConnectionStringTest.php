@@ -50,5 +50,35 @@ class MongoDbConnectionStringTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function validConnectionStringsProvider()
+    {
+        return [
+            [ 'mongodb://server' ],
+            [ 'mongodb://server/database' ],
+            [ 'mongodb://server:1234' ],
+            [ 'mongodb://server:1234/database' ],
+            [ 'mongodb://user@server' ],
+            [ 'mongodb://user@server:1234' ],
+            [ 'mongodb://user@server/database' ],
+            [ 'mongodb://user@server:1234/database' ],
+            [ 'mongodb://user:pass@server' ],
+            [ 'mongodb://user:pass@server/database' ],
+            [ 'mongodb://user:pass@server:1234' ],
+            [ 'mongodb://user:pass@server:1234/database' ],
+        ];
+    }
+
+    /**
+     * @dataProvider validConnectionStringsProvider
+     *
+     * @param string $connStr Connection string to test
+     */
+    public function testValidConnectionStrings($connStr)
+    {
+        $target = new MongoDbConnectionString();
+
+        $this->assertTrue($target->isValid($connStr), 'Failed with: "' . $connStr . '"');
+    }
+
 
 }
