@@ -20,7 +20,7 @@ class FormEditorLight extends FormEditor
     
     protected function additionalOptions() {
         return '
-        toolbar: "undo redo | formatselect | alignleft aligncenter alignright",
+        toolbar: "undo redo | formatselect | alignleft aligncenter alignright | removeformat",
         menubar: false,
         block_formats: "Job title=h1;Subtitle=h2",
         '.$this->additionalLanguageOptions();
