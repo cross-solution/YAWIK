@@ -137,7 +137,7 @@ class FormEditor extends FormTextarea
     protected function additionalOptions()
     {
         return '
-        toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | link | bullist",
+        toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | link | bullist | removeformat",
         menubar: false,
         advlist_bullet_styles: "square disc",
         block_formats: "Headings=h4;",
