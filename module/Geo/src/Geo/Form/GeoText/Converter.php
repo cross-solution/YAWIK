@@ -68,10 +68,11 @@ class Converter
     public function toValue(Location $location, $type)
     {
         if ('photon' == $type) {
+            $coordinates = $location->getCoordinates();
             $data = [
                 "geometry" => [
-                    "coordinates" => $location->getCoordinates()->getCoordinates(),
-                    "type" => $location->getCoordinates()->getType()
+                    "coordinates" => $coordinates?$coordinates->getCoordinates():[0,0],
+                    "type" => $coordinates?$coordinates->getType():'Point'
                 ],
                 "type" => "Feature",
                 "properties" => [
