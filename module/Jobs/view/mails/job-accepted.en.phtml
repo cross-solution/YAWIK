@@ -19,12 +19,12 @@ $user = $this->job->getUser();
 $info = $user->getInfo();
 ?>
 <p><?php echo 'male' == $info->getGender()
-        ? 'Sehr geehrter Herr'
-        : 'Sehr geehrte Frau' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+        ? 'Dear Mr'
+        : 'Dear Ms' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
 
 <p>
-    Ihre Stellenanzeige "<?php echo $this->job->getTitle() ?>" mit der Referenz <?php echo $this->job->getReference() ?>.
-    wurde freigeschaltet.
+    Your job opening "<?php echo $this->job->getTitle() ?>" with the reference <?php echo $this->job->getReference() ?>.
+    war approved.
 </p>
 
-<?php echo $this->partial('mail/footer'); ?>
+<?php echo $this->partial('mail/footer.en'); ?>

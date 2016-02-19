@@ -253,6 +253,10 @@ return array(
             'mail/job-pending' => __DIR__ . '/../view/mails/job-pending.phtml',
             'mail/job-accepted' => __DIR__ . '/../view/mails/job-accepted.phtml',
             'mail/job-rejected' => __DIR__ . '/../view/mails/job-rejected.phtml',
+            'mail/job-created.en' => __DIR__ . '/../view/mails/job-created.en.phtml',
+            'mail/job-pending.en' => __DIR__ . '/../view/mails/job-pending.en.phtml',
+            'mail/job-accepted.en' => __DIR__ . '/../view/mails/job-accepted.en.phtml',
+            'mail/job-rejected.en' => __DIR__ . '/../view/mails/job-rejected.en.phtml',
             'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
         ),
 

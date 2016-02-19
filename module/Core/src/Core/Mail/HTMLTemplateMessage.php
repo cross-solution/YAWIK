@@ -231,9 +231,26 @@ class HTMLTemplateMessage extends TranslatorAwareMessage implements ServiceLocat
             throw new \InvalidArgumentException('mail body shall come from Template.');
         }
 
-        $viewManager  = $this->getServiceLocator()->getServiceLocator()->get('viewManager');
+        /* @var \Core\Mail\MailService $services */
+        $services = $this->getServiceLocator();
+        /* @var \Zend\Mvc\View\Http\ViewManager $viewManager */
+        $viewManager  = $services->getServiceLocator()->get('viewManager');
+        $resolver = $viewManager->getResolver();
+
+        /* @var \Zend\ServiceManager\AbstractPluginManager $serviceLocator */
+        /* @var \Zend\Mvc\MvcEvent $event */
+        $event = $services->getServiceLocator()->get('application')->getMvcEvent();
+        $lang = $event->getRouteMatch()->getParam('lang');
+
+
+        if ($resolver->resolve($this->getTemplate() . '.' . $lang)) {
+            $viewModel->setTemplate($this->getTemplate() . '.' . $lang);
+        }else{
+            $viewModel->setTemplate($this->getTemplate());
+        }
+
         $view         = $viewManager->getView();
-        $viewModel->setTemplate($this->getTemplate());
+
         $viewModel->setVariables($this->getVariables());
         $view->setResponse($response);
         $view->render($viewModel);

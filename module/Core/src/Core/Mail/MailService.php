@@ -57,12 +57,14 @@ class MailService extends AbstractPluginManager
      */
     protected $overrideRecipient;
 
+    protected $language;
+
     protected $shareByDefault = false;
 
     protected $invokableClasses = array(
         'simple'         => '\Zend\Mail\Message',
         'stringtemplate' => '\Core\Mail\StringTemplateMessage',
-        'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage'
+        'htmltemplate'   => '\Core\Mail\HTMLTemplateMessage',
     );
 
     /**
@@ -100,7 +102,6 @@ class MailService extends AbstractPluginManager
             },
             false
         );
-
     }
 
     /**

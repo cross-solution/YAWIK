@@ -1,0 +1,30 @@
+<?php
+/**
+ * YAWIK
+ *
+ * Template for the mail which is send, if an user has logged in the first time via an
+ * external application.
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<?php echo $this->partial('mail/header'); ?>
+<p>Hi,</p>
+
+<p>You've registered the first time to the "YAWIK Demo" <?php echo
+    $this->application ? 'über "' . $this->application . '"' : ' via an external application' ?>.</p>
+
+<p>We've created Login data:</p>
+
+<p>
+    <strong>Login:</strong> <?php echo $this->login ?><br>
+    <strong>Password:</strong> <?php echo $this->password ?>
+</p>
+
+<p>
+    please login and change your password <a href="<?php echo $this->serverUrl() . $this->url('lang/auth', array('lang' => 'de'))?>">YAWIK Demo</a>
+</p>
+
+<?php echo $this->partial('mail/footer') ?>

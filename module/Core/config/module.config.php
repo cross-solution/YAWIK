@@ -275,7 +275,9 @@ return array(
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
             'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml',
+            'mail/header' =>  __DIR__ . '/../view/mail/header.phtml',
             'mail/footer' =>  __DIR__ . '/../view/mail/footer.phtml',
+            'mail/footer.en' =>  __DIR__ . '/../view/mail/footer.en.phtml',
             //'startpage' => __DIR__ . '/../view/layout/startpage.phtml',
         ),
         // Where to look for view templates not mapped above
