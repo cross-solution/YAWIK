@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-20 19:33+0100\n"
-"PO-Revision-Date: 2016-02-20 18:35+0000\n"
+"PO-Revision-Date: 2016-02-20 20:55+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/yawik/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: view/modals/homepage.phtml:22
 msgid "Publish on your Homepage"
-msgstr ""
+msgstr "نشر على الصفحة الرئيسية الخاصة بك"
 
 #: view/mails/job-created.en.phtml:22 view/mails/job-created.phtml:22
 #: view/iframe/iFrame.phtml:14
@@ -54,12 +54,12 @@ msgstr "اسم الشركة"
 
 #: view/mails/job-created.en.phtml:38 view/mails/job-created.phtml:38
 msgid "Publisher details"
-msgstr ""
+msgstr "تفاصيل الناشر"
 
 #: view/mails/job-created.en.phtml:42 view/mails/job-created.phtml:42
 #: view/jobs/index/approval.ajax.phtml:19
 msgid "Name"
-msgstr ""
+msgstr "اسم"
 
 #: view/mails/job-created.en.phtml:46 view/mails/job-created.phtml:46
 #: language/_annotated_strings.php:111
@@ -68,32 +68,32 @@ msgstr "البريد الإلكتروني"
 
 #: view/mails/job-created.en.phtml:63 view/mails/job-created.phtml:63
 msgid "no Portal chosen"
-msgstr ""
+msgstr "لا البوابة المختار"
 
 #: view/mails/job-created.en.phtml:65 view/mails/job-created.phtml:65
 msgid "Selected Channels"
-msgstr ""
+msgstr "قنوات مختارة"
 
 #: view/mails/job-created.en.phtml:77 view/mails/job-created.phtml:77
 #: view/form/multiposting-select.phtml:74 view/jobs/manage/form.phtml:122
 msgid "Price"
-msgstr ""
+msgstr "السعر"
 
 #: view/mails/job-created.en.phtml:81 view/mails/job-created.phtml:81
 #: view/form/multiposting-checkboxes.phtml:90
 #: view/form/multiposting-select.phtml:84
 #: view/form/multiposting-select.phtml:107 view/jobs/manage/form.phtml:128
 msgid "plus VAT"
-msgstr ""
+msgstr "بالإضافة إلى ضريبة القيمة المضافة"
 
 #: view/mails/job-created.en.phtml:85 view/mails/job-created.phtml:85
 #: view/form/multiposting-select.phtml:90 view/jobs/manage/form.phtml:134
 msgid "Invoice amount"
-msgstr ""
+msgstr "قيمة الفاتورة"
 
 #: view/mails/job-created.en.phtml:92 view/mails/job-created.phtml:92
 msgid "Click here to accept or reject the job opening"
-msgstr ""
+msgstr "انقر هنا لقبول أو رفض فتح فرص العمل"
 
 #: view/iframe/iFrame.phtml:25
 msgid ""
@@ -103,19 +103,19 @@ msgstr "كنت تستخدم القالب الافتراضي. أنت حر في خ
 
 #: view/iframe/iFrame.phtml:30
 msgid "Default"
-msgstr ""
+msgstr "افتراضي"
 
 #: view/iframe/iFrame.phtml:35
 msgid "Classic"
-msgstr ""
+msgstr "كلاسيكي"
 
 #: view/iframe/iFrame.phtml:40
 msgid "Modern"
-msgstr ""
+msgstr "حديث"
 
 #: view/iframe/iFrame.phtml:52
 msgid "Track applications"
-msgstr ""
+msgstr "تطبيقات المسار"
 
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: view/form/ats-mode.view.phtml:18
 msgid "The build-in ATS is currently used."
-msgstr ""
+msgstr "يتم استخدام البناء في ATS حاليا."
 
 #: view/form/ats-mode.view.phtml:22
 #, php-format
@@ -144,16 +144,16 @@ msgstr ""
 
 #: view/form/ats-mode.view.phtml:32
 msgid "ATS is disabled."
-msgstr ""
+msgstr "تم تعطيل المنشطات."
 
 #: view/form/list-filter.phtml:81
 msgid "search for position or company"
-msgstr ""
+msgstr "البحث عن موقف أو شركة"
 
 #: view/form/list-filter.phtml:111 view/form/list-filter.phtml:122
 #: view/form/list-filter.phtml:138
 msgid "Type in a location"
-msgstr ""
+msgstr "اكتب في موقع"
 
 #: view/form/list-filter.phtml:147
 msgid "Search"
@@ -193,11 +193,11 @@ msgstr "تحميل"
 
 #: view/jobs/index/index.phtml:16 view/jobs/index/approval.phtml:16
 msgid "Access denied!"
-msgstr ""
+msgstr "تم الرفض!"
 
 #: view/jobs/index/index.phtml:17 view/jobs/index/approval.phtml:17
 msgid "Application error!"
-msgstr ""
+msgstr "خطأ في التطبيق!"
 
 #: view/jobs/index/index.phtml:18 view/jobs/index/approval.phtml:18
 msgid "Cancel"
@@ -209,15 +209,15 @@ msgstr "حفظ"
 
 #: view/jobs/index/index.phtml:20 view/jobs/index/approval.phtml:20
 msgid "Sending"
-msgstr ""
+msgstr "إرسال"
 
 #: view/jobs/index/index.phtml:21 view/jobs/index/approval.phtml:21
 msgid "Fail!"
-msgstr ""
+msgstr "فشل!"
 
 #: view/jobs/index/index.phtml:27
 msgid "List of your jobs"
-msgstr ""
+msgstr "قائمة من الوظائف الخاصة بك"
 
 #: view/jobs/index/index.ajax.phtml:20
 msgid "Reference"
@@ -256,15 +256,15 @@ msgstr ""
 #: view/jobs/index/index.ajax.phtml:102 view/jobs/index/approval.ajax.phtml:56
 #: view/partials/history.phtml:11
 msgid "Status history"
-msgstr ""
+msgstr "تاريخ الحالة"
 
 #: view/jobs/index/index.ajax.phtml:140 view/jobs/index/approval.ajax.phtml:75
 msgid "please wait"
-msgstr ""
+msgstr "أرجو الإنتظار"
 
 #: view/jobs/index/approval.phtml:27
 msgid "Jobs waiting for approval"
-msgstr ""
+msgstr "وظائف شاغرة في انتظار الموافقة"
 
 #: view/jobs/index/dashboard.phtml:6
 msgid "Current Jobs"
@@ -293,17 +293,17 @@ msgstr "الأحكام والشروط"
 
 #: view/jobs/manage/completion.phtml:1
 msgid "Publishing successfully finished"
-msgstr ""
+msgstr "نشر الانتهاء بنجاح"
 
 #: view/jobs/manage/completion.phtml:3
 msgid ""
 "Thank you for publishing your job opening. An email was send to the "
 "reviewing team."
-msgstr ""
+msgstr "شكرا لنشر فتح فرص العمل الخاص بك. تم إرسال بريد إلكتروني إلى فريق المراجعة."
 
 #: view/jobs/manage/history.phtml:4
 msgid "History"
-msgstr ""
+msgstr "التاريخ"
 
 #: view/jobs/manage/history.phtml:8 view/partials/history.phtml:18
 msgid "Comment"
@@ -311,15 +311,15 @@ msgstr "تعليق"
 
 #: view/jobs/manage/approval.phtml:14
 msgid "Preview of the posting"
-msgstr ""
+msgstr "معاينة للنشر"
 
 #: view/jobs/manage/approval.phtml:33
 msgid "Reject Job"
-msgstr ""
+msgstr "رفض الوظيفة"
 
 #: view/jobs/manage/approval.phtml:34
 msgid "Accept Job"
-msgstr ""
+msgstr "استعرض الوظيفة"
 
 #: view/jobs/manage/form.phtml:35
 msgid "Publish a job"
@@ -327,7 +327,7 @@ msgstr "نشر على وظيفة"
 
 #: view/jobs/manage/form.phtml:37
 msgid "Create a job"
-msgstr ""
+msgstr "إنشاء مهمة"
 
 #: view/jobs/manage/form.phtml:69
 msgid "Preview of your job posting"
@@ -350,7 +350,7 @@ msgstr "ملخص"
 
 #: view/jobs/manage/form.phtml:90
 msgid "Your job opening is ready to be published to the following channels"
-msgstr ""
+msgstr "فتح فرص العمل الخاص بك هو على استعداد لينشر على القنوات التالية"
 
 #: view/jobs/manage/form.phtml:144
 #, php-format
@@ -371,34 +371,34 @@ msgstr "التالي لمعاينة وظيفة"
 
 #: view/jobs/manage/form.phtml:177
 msgid "Your job position is incomplete."
-msgstr ""
+msgstr "موقف عملك غير كامل."
 
 #: view/jobs/manage/form.phtml:189
 msgid ""
 "Your job opening is online. You can publish minor changes or you can "
 "deactivate the job opening"
-msgstr ""
+msgstr "افتتاح عملك على الانترنت. يمكنك نشر التغييرات الطفيفة أو يمكنك إلغاء تنشيط وظيفة شاغرة"
 
 #: view/jobs/manage/form.phtml:198
 msgid "Your job opening was successfully created and is waiting for approval."
-msgstr ""
+msgstr "تم إنشاء افتتاح عملك بنجاح وينتظر موافقة."
 
 #: view/jobs/manage/form.phtml:207
 msgid ""
 "Your job opening is inactive. You can reactivate it. Chargeable channels are"
 " not updated."
-msgstr ""
+msgstr "فتح فرص العمل غير نشط. يمكنك إعادة تنشيطه. لم يتم تحديث القنوات تحميلها."
 
 #: view/jobs/manage/form.phtml:216
 msgid ""
 "Your job was expired. You can reactivate you job opening. Chargeable "
 "channels are not updated."
-msgstr ""
+msgstr "وقد انتهت عملك. يمكنك تنشيط لك فتح فرص العمل. لم يتم تحديث القنوات تحميلها."
 
 #: view/jobs/manage/form.phtml:225
 msgid ""
 "Your job opening was rejected. Please correct the errors and republish it"
-msgstr ""
+msgstr "ورفض فتح فرص العمل الخاص بك. يرجى تصحيح الأخطاء وإعادة نشرها"
 
 #: view/jobs/manage/form.phtml:232
 #, php-format
@@ -407,19 +407,19 @@ msgstr ""
 
 #: view/jobs/manage/form.phtml:232
 msgid "chargeable"
-msgstr ""
+msgstr "غير مجاني"
 
 #: view/jobs/manage/form.phtml:235
 msgid "submit changes"
-msgstr ""
+msgstr "تقديم التغييرات"
 
 #: view/jobs/manage/form.phtml:246
 msgid "Deactivate"
-msgstr ""
+msgstr "عطل"
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create jobs."
-msgstr ""
+msgstr "عذرا، لا يجوز لك خلق فرص العمل."
 
 #: view/error/no-parent.phtml:20
 #, php-format
@@ -441,19 +441,19 @@ msgstr "دولة"
 
 #: view/partials/snapshot_or_preview.phtml:17
 msgid "Nothing has changed"
-msgstr ""
+msgstr "لم يتغير شيء"
 
 #: view/partials/snapshot_or_preview.phtml:28
 msgid "previous content"
-msgstr ""
+msgstr "المحتوى السابق"
 
 #: view/partials/snapshot_or_preview.phtml:29
 msgid "new content"
-msgstr ""
+msgstr "محتوى جديد"
 
 #: view/partials/portalsummary.phtml:19
 msgid "Channel"
-msgstr ""
+msgstr "قناة"
 
 #: src/Jobs/Form/JobDescriptionFieldset.php:36
 msgid "Description"
@@ -475,7 +475,7 @@ msgstr "قبول شروط"
 #: public/templates/modern/index.phtml:67
 #: public/templates/default/index.phtml:83
 msgid "Apply now"
-msgstr ""
+msgstr "قدم الآن"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:240
 msgid "Show all jobs"
@@ -488,7 +488,7 @@ msgstr "عرض وظائف بلدي"
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:45
 #: language/_annotated_strings.php:246
 msgid "All"
-msgstr ""
+msgstr "جميع"
 
 #: language/_annotated_strings.php:12 language/_annotated_strings.php:48
 #: language/_annotated_strings.php:249
@@ -531,45 +531,45 @@ msgstr "العنوان ومكان الوظيفة"
 
 #: language/_annotated_strings.php:42
 msgid "Calculate price"
-msgstr ""
+msgstr "حساب السعر"
 
 #: language/_annotated_strings.php:54
 msgid "Waiting for approval"
-msgstr ""
+msgstr "في انتظار الموافقة"
 
 #: language/_annotated_strings.php:57
 msgid "Created"
-msgstr ""
+msgstr "مكون"
 
 #: language/_annotated_strings.php:60
 msgid "Published"
-msgstr ""
+msgstr "نشرت"
 
 #: language/_annotated_strings.php:63
 msgid "Rejected"
-msgstr ""
+msgstr "مرفوض"
 
 #: language/_annotated_strings.php:66
 msgid "Expired"
-msgstr ""
+msgstr "منتهية الصلاحية"
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:90
 msgid "Select hiring organization"
-msgstr ""
+msgstr "منظمة التوظيف اختر"
 
 #: language/_annotated_strings.php:75
 msgid "Please choose a descriptive title and a location for your job posting "
-msgstr ""
+msgstr "يرجى اختيار عنوان وصفي وموقعا لنشر وظيفتك"
 
 #: language/_annotated_strings.php:78
 msgid ""
 "Please choose the name of the hiring organization. The selected name defines"
 " the template of the job opening."
-msgstr ""
+msgstr "الرجاء اختيار اسم المنظمة التوظيف. ويعرف الاسم المحدد في قالب من فتح فرص العمل."
 
 #: language/_annotated_strings.php:81
 msgid "Please choose the portals, where you wish to publish your job opening."
-msgstr ""
+msgstr "الرجاء اختيار البوابات، حيث كنت ترغب في نشر افتتاح عملك."
 
 #: language/_annotated_strings.php:84 language/_annotated_strings.php:126
 #: language/_annotated_strings.php:255
@@ -578,27 +578,27 @@ msgstr "المسمى الوظيفي"
 
 #: language/_annotated_strings.php:93
 msgid "Mode"
-msgstr ""
+msgstr "طريقة"
 
 #: language/_annotated_strings.php:96
 msgid "Built-In ATS"
-msgstr ""
+msgstr "المدمج في ATS"
 
 #: language/_annotated_strings.php:99
 msgid "Use external link"
-msgstr ""
+msgstr "استخدام وصلة خارجية"
 
 #: language/_annotated_strings.php:102
 msgid "Get applications via email"
-msgstr ""
+msgstr "الحصول على تطبيقات عبر البريد الإلكتروني"
 
 #: language/_annotated_strings.php:105
 msgid "Do not track"
-msgstr ""
+msgstr "لا تتبع"
 
 #: language/_annotated_strings.php:108
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: language/_annotated_strings.php:114
 msgid "The apply identifier \"%value%\" is already in use."
@@ -606,7 +606,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:120 language/_annotated_strings.php:123
 msgid "Distance"
-msgstr ""
+msgstr "مسافه"
 
 #: language/_annotated_strings.php:129
 msgid "Please enter the job title"
@@ -618,11 +618,11 @@ msgstr "من فضلك ادخل موقع العمل"
 
 #: language/_annotated_strings.php:138
 msgid "Portals"
-msgstr ""
+msgstr "بوابات"
 
 #: language/_annotated_strings.php:141
 msgid "Multiposting"
-msgstr ""
+msgstr "Multiposting"
 
 #: language/_annotated_strings.php:144
 msgid "rejected"
@@ -630,19 +630,19 @@ msgstr "مرفوض"
 
 #: language/_annotated_strings.php:147
 msgid "publish"
-msgstr ""
+msgstr "نشر"
 
 #: language/_annotated_strings.php:150
 msgid "active"
-msgstr ""
+msgstr "نشط"
 
 #: language/_annotated_strings.php:153
 msgid "inactive"
-msgstr ""
+msgstr "غير نشط"
 
 #: language/_annotated_strings.php:156
 msgid "expired"
-msgstr ""
+msgstr "منتهية الصلاحية"
 
 #: language/_annotated_strings.php:159
 #, php-format
@@ -651,7 +651,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:162
 msgid "Job has been rejected"
-msgstr ""
+msgstr "تم رفض العمل"
 
 #: language/_annotated_strings.php:165
 #, php-format
@@ -660,7 +660,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:168
 msgid "Job has been approved"
-msgstr ""
+msgstr "وقد تمت الموافقة على وظيفة"
 
 #: language/_annotated_strings.php:171
 #, php-format
@@ -669,39 +669,39 @@ msgstr ""
 
 #: language/_annotated_strings.php:174
 msgid "Job has been deactivated"
-msgstr ""
+msgstr "تم إلغاء تنشيط وظيفة"
 
 #: language/_annotated_strings.php:177
 msgid "Job could not be deactivated"
-msgstr ""
+msgstr "لا يمكن إلغاء تنشيط وظيفة"
 
 #: language/_annotated_strings.php:180
 msgid "Template changed"
-msgstr ""
+msgstr "تغيير القالب"
 
 #: language/_annotated_strings.php:183
 msgid "Template not changed"
-msgstr ""
+msgstr "قالب لم يتغير"
 
 #: language/_annotated_strings.php:186
 msgid "A new job opening was created"
-msgstr ""
+msgstr "وأنشئت فتح فرص عمل جديدة"
 
 #: language/_annotated_strings.php:189
 msgid "Your Job have been wrapped up for approval"
-msgstr ""
+msgstr "وقد تم التفاف وظيفة الخاص بك للحصول على الموافقة"
 
 #: language/_annotated_strings.php:192
 msgid "Your job has been published"
-msgstr ""
+msgstr "وقد تم نشر وظيفتك"
 
 #: language/_annotated_strings.php:195
 msgid "Your job has been rejected"
-msgstr ""
+msgstr "وقد رفضت وظيفتك"
 
 #: language/_annotated_strings.php:198
 msgid "publish your job on yawik.org for free"
-msgstr ""
+msgstr "نشر عملك على yawik.org مجانا"
 
 #: language/_annotated_strings.php:201
 #, php-format
@@ -714,11 +714,11 @@ msgstr ""
 
 #: language/_annotated_strings.php:207
 msgid "Your Homepage"
-msgstr ""
+msgstr "الصفحة الرئيسية الخاصة بك"
 
 #: language/_annotated_strings.php:210
 msgid "enable integration of this job on your Homepage"
-msgstr ""
+msgstr "تمكين دمج هذا العمل في الصفحة الرئيسية الخاصة بك"
 
 #: language/_annotated_strings.php:213
 #, php-format
@@ -727,11 +727,11 @@ msgstr ""
 
 #: language/_annotated_strings.php:216
 msgid "integration"
-msgstr ""
+msgstr "دمج"
 
 #: language/_annotated_strings.php:219 language/_annotated_strings.php:237
 msgid "Jobboard"
-msgstr ""
+msgstr "Jobboard"
 
 #: language/_annotated_strings.php:225
 msgid "Overview"
@@ -739,7 +739,7 @@ msgstr "نظرة عامة"
 
 #: language/_annotated_strings.php:228
 msgid "Pending jobs"
-msgstr ""
+msgstr "في انتظار فرص العمل"
 
 #: language/_annotated_strings.php:231
 msgid "Create job"

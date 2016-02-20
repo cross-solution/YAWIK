@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-20 19:34+0100\n"
-"PO-Revision-Date: 2016-02-20 18:11+0000\n"
+"PO-Revision-Date: 2016-02-20 21:03+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Portuguese (http://www.transifex.com/yawik/yawik/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -320,7 +320,7 @@ msgstr "Perto"
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
 msgid "Status history"
-msgstr ""
+msgstr "histórico de status"
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.phtml:337
