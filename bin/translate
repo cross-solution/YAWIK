@@ -47,7 +47,7 @@ done
 
 
 echo "-- Create language/messages.pot"
-find . -type f | grep -E ".ph(p|tml)$" > _translatable_files
+find . -type f | grep -E ".ph(p|tml)$" | grep -v '/test/' > _translatable_files
 xgettext -L PHP --force-po $EXCLUDE_OPTION -o "language/messages.pot" --from-code=utf8 \
 	-k"translate" -k"setLabel" \
 	-f _translatable_files \

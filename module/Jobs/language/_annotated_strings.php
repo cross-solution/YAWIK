@@ -236,36 +236,6 @@ translate('Edit job');
 //: ./config/module.config.php:162
 translate('Jobboard');
 
-36:                'label'       => /*@translate*/
-46:                'label'         => /*@translate*/
-61:                'data-placeholder' => /*@translate*/
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:37
-translate('All');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:38
-translate('Active');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:39
-translate('Inactive');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:40
-translate('Created');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:41
-translate('Published');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:42
-translate('Rejected');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:43
-translate('Expired');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:58
-translate('Companyname');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:61
-translate('Select hiring organization');
-
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37
 translate('Show all jobs');
 

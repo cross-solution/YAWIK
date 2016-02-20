@@ -34,13 +34,13 @@ class ListFilterAdminTest extends \PHPUnit_Framework_TestCase
                  'name'       => 'status',
                  'options'    => array(
                      'value_options' => array(
-                         'all' => /*@translate*/ 'All',
-                         Status::ACTIVE => /*@translate*/ 'Active',
-                         Status::INACTIVE => /*@translate*/ 'Inactive',
-                         Status::CREATED => /*@translate*/ 'Created',
-                         Status::PUBLISH => /*@translate*/ 'Published',
-                         Status::REJECTED => /*@translate*/ 'Rejected',
-                         Status::EXPIRED => /*@translate*/ 'Expired',
+                         'all' => 'All',
+                         Status::ACTIVE => 'Active',
+                         Status::INACTIVE => 'Inactive',
+                         Status::CREATED => 'Created',
+                         Status::PUBLISH => 'Published',
+                         Status::REJECTED => 'Rejected',
+                         Status::EXPIRED =>  'Expired',
                      )
                  ),
                  'attributes' => array(
@@ -55,10 +55,10 @@ class ListFilterAdminTest extends \PHPUnit_Framework_TestCase
             'property' => true,
             'name' => 'companyId',
             'options' => array(
-                'label' => /*@translate*/ 'Companyname',
+                'label' => 'Companyname',
             ),
             'attributes' => array(
-                'data-placeholder' => /*@translate*/ 'Select hiring organization',
+                'data-placeholder' => 'Select hiring organization',
             ),
         ];
 
