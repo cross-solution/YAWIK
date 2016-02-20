@@ -44,7 +44,7 @@ translate('Manage your employees and their permissions.');
 //: ./src/Organizations/Form/OrganizationsDescriptionFieldset.php:44
 translate('Description');
 
-//: ./src/Organizations/Form/LogoImageFactory.php:40
+//: ./src/Organizations/Form/LogoImageFactory.php:51
 translate('Choose a Logo. This logo will be shown in the job opening and the application form.');
 
 //: ./src/Organizations/Form/OrganizationsNameFieldset.php:54
@@ -53,22 +53,22 @@ translate('Organizationname');
 //: ./src/Organizations/Form/EmployeesFieldset.php:56
 translate('Invite an employee via email address.');
 
-//: ./src/Organizations/Form/OrganizationsContactFieldset.php:45
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:50
 translate('street');
 
-//: ./src/Organizations/Form/OrganizationsContactFieldset.php:54
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:59
 translate('house number');
 
-//: ./src/Organizations/Form/OrganizationsContactFieldset.php:63
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:68
 translate('Postalcode');
 
-//: ./src/Organizations/Form/OrganizationsContactFieldset.php:72
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:77
 translate('City');
 
-//: ./src/Organizations/Form/OrganizationsContactFieldset.php:80
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:85
 translate('Phone');
 
-//: ./src/Organizations/Form/OrganizationsContactFieldset.php:88
+//: ./src/Organizations/Form/OrganizationsContactFieldset.php:93
 translate('Fax');
 
 //: ./src/Organizations/Controller/InviteEmployeeController.php:78

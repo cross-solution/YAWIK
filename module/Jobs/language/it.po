@@ -4,15 +4,15 @@
 # 
 # Translators:
 # blu-IT, 2015
-# blu-IT, 2015
+# blu-IT, 2015-2016
 # blu-IT, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:31+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2016-02-02 13:15+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -532,23 +532,23 @@ msgstr "Calcolare prezzo"
 
 #: language/_annotated_strings.php:54 language/_annotated_strings.php:252
 msgid "Waiting for approval"
-msgstr ""
+msgstr "Aspettando l'approvazione"
 
 #: language/_annotated_strings.php:57 language/_annotated_strings.php:255
 msgid "Created"
-msgstr ""
+msgstr "Creato"
 
 #: language/_annotated_strings.php:60 language/_annotated_strings.php:258
 msgid "Published"
-msgstr ""
+msgstr "Pubblicato"
 
 #: language/_annotated_strings.php:63 language/_annotated_strings.php:261
 msgid "Rejected"
-msgstr ""
+msgstr "Respinto"
 
 #: language/_annotated_strings.php:66 language/_annotated_strings.php:264
 msgid "Expired"
-msgstr ""
+msgstr "Scaduto"
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:90
 #: language/_annotated_strings.php:270

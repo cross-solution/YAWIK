@@ -4,7 +4,7 @@
 # 
 # Translators:
 # blu-IT, 2015
-# blu-IT, 2015
+# blu-IT, 2015-2016
 # blu-IT, 2015
 # Carsten Bleek <cbleek@yawik.org>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:30+0000\n"
-"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"PO-Revision-Date: 2016-02-02 13:22+0000\n"
+"Last-Translator: blu-IT\n"
 "Language-Team: Italian (http://www.transifex.com/yawik/yawik/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,11 +24,11 @@ msgstr ""
 
 #: view/content/imprint.phtml:19 view/layout/layout.phtml:122
 msgid "Imprint"
-msgstr ""
+msgstr "Stampare"
 
 #: view/content/imprint.phtml:34
 msgid "Tax Number"
-msgstr ""
+msgstr "Codice Fiscale"
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
@@ -202,7 +202,7 @@ msgstr "delibera di %s"
 
 #: view/layout/_noscript-notice.phtml:21
 msgid "Javascript is disabled."
-msgstr ""
+msgstr "Javascript è disabilitato."
 
 #: view/layout/_noscript-notice.phtml:22
 msgid ""

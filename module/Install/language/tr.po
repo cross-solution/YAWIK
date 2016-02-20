@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-07 12:06+0100\n"
-"PO-Revision-Date: 2016-02-01 21:33+0000\n"
+"PO-Revision-Date: 2016-02-20 17:56+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/yawik/yawik/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: view/install/index/prerequisites.phtml:36
 msgid "Ok"
-msgstr ""
+msgstr "Tamam"
 
 #: view/install/index/prerequisites.phtml:48
 msgid ""

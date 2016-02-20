@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-02 11:48+0100\n"
+"PO-Revision-Date: 2016-02-20 17:52+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgid "click to open the job ad"
 msgstr "haga clic para abrir la publicacion de empleo."
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "Declaración de privacidad"
 
@@ -322,7 +322,7 @@ msgstr "Cerrar"
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
 msgid "Status history"
-msgstr ""
+msgstr "historial de estado"
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.phtml:337
@@ -348,7 +348,7 @@ msgstr "Teléfono"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:255
 msgid "Attachments"
 msgstr "Adjuntos"
@@ -607,7 +607,7 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "Hechos"
 
@@ -627,16 +627,16 @@ msgstr "Identificador de solicitud desconocido"
 msgid "An application with the provided identifier could not be found."
 msgstr "No se pudo encontrar una solicitud con el identificador de solicitud proporcionado."
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "Notificaciones por E-Mail"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "Opciones"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr ""
 
@@ -646,12 +646,12 @@ msgstr ""
 msgid "Your application dated %s"
 msgstr "Tu aplicacion con fecha %s"
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:380
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Se reenvió aplicación a %s"
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:396
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Reenvío de aplicación a %s falló "
@@ -814,7 +814,7 @@ msgstr "Introduce tu disponibilidad para viajar."
 msgid "Ask the applicant about the willingness to travel"
 msgstr "Preguntar al solicitante acerca de su disponibilidad para viajar"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "por favor seleccione"
 
@@ -848,32 +848,28 @@ msgstr ""
 msgid "Ask the applicant, if he has a driving license."
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "Copia"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "enviarme una copia de mi aplicación"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr "he leido los %s y los acepto"
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "Haz clic para introducir un resumen."
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr "<strong>Nota</strong>: Codigo HTML es removido. Saltos de linea son preservados."
-
-#: language/_annotated_strings.php:198
-msgid "Summary"
-msgstr "Resumen"
 
 #: language/_annotated_strings.php:201
 msgid "all"
@@ -934,6 +930,7 @@ msgid ""
 msgstr "Hola ##name##,\\n\\nHay una aplicacion nueva para tu vacancia:\\n\\\"##title##\\\"\\n\\n"
 
 #: language/_annotated_strings.php:252
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"

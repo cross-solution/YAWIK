@@ -155,31 +155,31 @@ translate('inactive');
 //: ./src/Jobs/Entity/StatusInterface.php:54
 translate('expired');
 
-//: ./src/Jobs/Controller/ManageController.php:459
+//: ./src/Jobs/Controller/ManageController.php:460
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:463
+//: ./src/Jobs/Controller/ManageController.php:464
 translate('Job has been rejected');
 
-//: ./src/Jobs/Controller/ManageController.php:467
+//: ./src/Jobs/Controller/ManageController.php:468
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:471
+//: ./src/Jobs/Controller/ManageController.php:472
 translate('Job has been approved');
 
-//: ./src/Jobs/Controller/ManageController.php:514
+//: ./src/Jobs/Controller/ManageController.php:515
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:515
+//: ./src/Jobs/Controller/ManageController.php:516
 translate('Job has been deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:517
+//: ./src/Jobs/Controller/ManageController.php:518
 translate('Job could not be deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:533
+//: ./src/Jobs/Controller/ManageController.php:534
 translate('Template changed');
 
-//: ./src/Jobs/Controller/ManageController.php:535
+//: ./src/Jobs/Controller/ManageController.php:536
 translate('Template not changed');
 
 //: ./src/Jobs/Listener/MailSender.php:89
@@ -249,24 +249,21 @@ translate('Active');
 translate('Inactive');
 
 //: ./test/JobsTest/Form/ListFilterAdminTest.php:40
-translate('Waiting for approval');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:41
 translate('Created');
 
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:42
+//: ./test/JobsTest/Form/ListFilterAdminTest.php:41
 translate('Published');
 
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:43
+//: ./test/JobsTest/Form/ListFilterAdminTest.php:42
 translate('Rejected');
 
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:44
+//: ./test/JobsTest/Form/ListFilterAdminTest.php:43
 translate('Expired');
 
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:59
+//: ./test/JobsTest/Form/ListFilterAdminTest.php:58
 translate('Companyname');
 
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:62
+//: ./test/JobsTest/Form/ListFilterAdminTest.php:61
 translate('Select hiring organization');
 
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37

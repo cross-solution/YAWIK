@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-02 11:48+0100\n"
+"PO-Revision-Date: 2016-02-20 17:59+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/yawik/yawik/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "click to open the job ad"
 msgstr "iş ilanı açmak için tıklayın"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "Gizlilik Politikası"
 
@@ -320,7 +320,7 @@ msgstr "Yakın"
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
 msgid "Status history"
-msgstr ""
+msgstr "Durum geçmişi"
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.phtml:337
@@ -346,7 +346,7 @@ msgstr "Telefon"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:255
 msgid "Attachments"
 msgstr "Eklentiler"
@@ -605,7 +605,7 @@ msgid "E-Mail"
 msgstr "E-Posta"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "Gerçekler"
 
@@ -625,16 +625,16 @@ msgstr "Bilinmeyen bir uygulama tanımlayıcı"
 msgid "An application with the provided identifier could not be found."
 msgstr "Verilen tanımlayıcı bir uygulama bulunamadı."
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "E-Mail Bilgilendirmeler"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "Seçenekler"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr ""
 
@@ -644,12 +644,12 @@ msgstr ""
 msgid "Your application dated %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:380
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:396
 #, php-format
 msgid "Forward application to %s failed."
 msgstr ""
@@ -812,7 +812,7 @@ msgstr "Seyahat için istekli girin."
 msgid "Ask the applicant about the willingness to travel"
 msgstr "Seyahat istekli hakkında başvurana değildir"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "lütfen seçiniz"
 
@@ -846,32 +846,28 @@ msgstr ""
 msgid "Ask the applicant, if he has a driving license."
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "Karbon kopya"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "bana uygulamanın bir karbon kopyasını göndermek"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "Bir özet girmek için tıklayınız."
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr ""
-
-#: language/_annotated_strings.php:198
-msgid "Summary"
-msgstr "Özet"
 
 #: language/_annotated_strings.php:201
 msgid "all"
@@ -932,6 +928,7 @@ msgid ""
 msgstr ""
 
 #: language/_annotated_strings.php:252
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"

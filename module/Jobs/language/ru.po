@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"PO-Revision-Date: 2016-02-20 18:01+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/yawik/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: view/modals/homepage.phtml:22
 msgid "Publish on your Homepage"
-msgstr ""
+msgstr "Опубликовать на главной странице"
 
 #: view/mails/job-created.phtml:21 view/iframe/iFrame.phtml:14
 msgid "Job details"
@@ -52,11 +52,11 @@ msgstr "Название Компании"
 
 #: view/mails/job-created.phtml:37
 msgid "Publisher details"
-msgstr ""
+msgstr "сведения об издательстве"
 
 #: view/mails/job-created.phtml:41 view/jobs/index/approval.ajax.phtml:19
 msgid "Name"
-msgstr ""
+msgstr "имя"
 
 #: view/mails/job-created.phtml:45 language/_annotated_strings.php:111
 msgid "Email"
@@ -64,57 +64,57 @@ msgstr "Email"
 
 #: view/mails/job-created.phtml:62
 msgid "no Portal chosen"
-msgstr ""
+msgstr "нет Портал выбрали"
 
 #: view/mails/job-created.phtml:64
 msgid "Selected Channels"
-msgstr ""
+msgstr "Выбранные каналы"
 
 #: view/mails/job-created.phtml:76 view/form/multiposting-select.phtml:74
 #: view/jobs/manage/form.phtml:122
 msgid "Price"
-msgstr ""
+msgstr "Цена"
 
 #: view/mails/job-created.phtml:80 view/form/multiposting-checkboxes.phtml:90
 #: view/form/multiposting-select.phtml:84
 #: view/form/multiposting-select.phtml:107 view/jobs/manage/form.phtml:128
 msgid "plus VAT"
-msgstr ""
+msgstr "плюс НДС"
 
 #: view/mails/job-created.phtml:84 view/form/multiposting-select.phtml:90
 #: view/jobs/manage/form.phtml:134
 msgid "Invoice amount"
-msgstr ""
+msgstr "сумма счета-фактуры"
 
 #: view/mails/job-created.phtml:91
 msgid "Click here to accept or reject the job opening"
-msgstr ""
+msgstr "Нажмите здесь, чтобы принять или отклонить открытие работу"
 
 #: view/iframe/iFrame.phtml:25
 msgid ""
 "You are using a default template. You are free to create your own template, "
 "just contact the developing team for integration"
-msgstr ""
+msgstr "При использовании шаблона по умолчанию. Вы можете создать свой собственный шаблон, просто свяжитесь развивающийся команду для интеграции"
 
 #: view/iframe/iFrame.phtml:30
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 #: view/iframe/iFrame.phtml:35
 msgid "Classic"
-msgstr ""
+msgstr "классический"
 
 #: view/iframe/iFrame.phtml:40
 msgid "Modern"
-msgstr ""
+msgstr "Современное"
 
 #: view/iframe/iFrame.phtml:52
 msgid "Track applications"
-msgstr ""
+msgstr "приложения трек"
 
 #: view/form/apply-identifier.phtml:26
 msgid "Apply link"
-msgstr ""
+msgstr "Применить ссылку"
 
 #: view/form/hiring-organization-select.phtml:57
 #, php-format
@@ -125,7 +125,7 @@ msgstr ""
 
 #: view/form/ats-mode.view.phtml:18
 msgid "The build-in ATS is currently used."
-msgstr ""
+msgstr "Встроенным АТС в настоящее время используется."
 
 #: view/form/ats-mode.view.phtml:22
 #, php-format
