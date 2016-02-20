@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:30+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 18:45+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Russian (http://www.transifex.com/yawik/yawik/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: view/content/imprint.phtml:19 view/layout/layout.phtml:122
 msgid "Imprint"
-msgstr ""
+msgstr "отпечаток"
 
 #: view/content/imprint.phtml:34
 msgid "Tax Number"
-msgstr ""
+msgstr "Налоговый номер"
 
 #: view/partial/loading-popup.phtml:18
 msgid "Loading"
@@ -62,7 +62,7 @@ msgstr "Последний"
 
 #: view/form/permissions-collection.phtml:15
 msgid "Add permission"
-msgstr ""
+msgstr "Добавить разрешение"
 
 #: view/core/index/index.phtml:10 language/_annotated_strings.php:93
 msgid "Home"
@@ -199,17 +199,17 @@ msgstr ""
 
 #: view/layout/_noscript-notice.phtml:21
 msgid "Javascript is disabled."
-msgstr ""
+msgstr "Мусор отключена."
 
 #: view/layout/_noscript-notice.phtml:22
 msgid ""
 "JavaScript is required to use this site. Please enable JavaScript and "
 "reload."
-msgstr ""
+msgstr "JavaScript требуется, чтобы использовать этот сайт. Пожалуйста, включите JavaScript и перезагрузите."
 
 #: view/layout/layout.phtml:36
 msgid "YAWIK"
-msgstr ""
+msgstr "YAWIK"
 
 #: view/layout/layout.phtml:89
 msgid "Help to translate YAWIK"
@@ -217,21 +217,21 @@ msgstr "Помогите перевезти YAWIK"
 
 #: view/layout/layout.phtml:121
 msgid "All rights reserved."
-msgstr ""
+msgstr "Все права защищены."
 
 #: src/Core/Form/PermissionsCollection.php:36
 msgid "Permissions"
-msgstr ""
+msgstr "Разрешения"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:106
 #: src/Core/Form/View/Helper/FormImageUpload.php:81
 msgid "The file is too big"
-msgstr ""
+msgstr "Файл слишком велик"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:107
 #: src/Core/Form/View/Helper/FormImageUpload.php:82
 msgid "The file type is not supported"
-msgstr ""
+msgstr "Этот тип файлов не поддерживается"
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:109
 #, php-format
@@ -240,24 +240,24 @@ msgstr ""
 
 #: src/Core/Form/View/Helper/FormFileUpload.php:156
 msgid "Click here to add files or use drag and drop."
-msgstr ""
+msgstr "Нажмите здесь, чтобы добавить файлы или использовать перетаскивание."
 
 #: src/Core/Form/View/Helper/FormImageUpload.php:42
 msgid "Click here to add an image or use drag and drop."
-msgstr ""
+msgstr "Нажмите здесь, чтобы добавить изображение или использовать перетаскивания."
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
 msgid "processing"
-msgstr ""
+msgstr "обработка"
 
 #: src/Core/Form/View/Helper/SummaryForm.php:178
 msgid "Edit"
-msgstr ""
+msgstr "редактировать"
 
-#: src/Core/Form/LocalizationSettingsFieldset.php:13
+#: src/Core/Form/LocalizationSettingsFieldset.php:26
 #: language/_annotated_strings.php:90
 msgid "general settings"
-msgstr ""
+msgstr "общие настройки"
 
 #: language/_annotated_strings.php:3 language/_annotated_strings.php:9
 #: language/_annotated_strings.php:21
@@ -271,57 +271,57 @@ msgstr "Отменить"
 
 #: language/_annotated_strings.php:15
 msgid "Apply filter"
-msgstr ""
+msgstr "Применить фильтр"
 
 #: language/_annotated_strings.php:18
 msgid "Reset filter"
-msgstr ""
+msgstr "Сброс фильтра"
 
 #: language/_annotated_strings.php:27
 msgid "Rights"
-msgstr ""
+msgstr "права"
 
 #: language/_annotated_strings.php:30
 msgid "View"
-msgstr ""
+msgstr "Посмотреть"
 
 #: language/_annotated_strings.php:33
 msgid "Write"
-msgstr ""
+msgstr "Написать"
 
 #: language/_annotated_strings.php:36
 msgid "Not Rated"
-msgstr ""
+msgstr "Не оценен"
 
 #: language/_annotated_strings.php:39
 msgid "Poor"
-msgstr ""
+msgstr "Бедные"
 
 #: language/_annotated_strings.php:42
 msgid "Bad"
-msgstr ""
+msgstr "Плохо"
 
 #: language/_annotated_strings.php:45
 msgid "Average"
-msgstr ""
+msgstr "В среднем"
 
 #: language/_annotated_strings.php:48
 msgid "Good"
-msgstr ""
+msgstr "Хорошо"
 
 #: language/_annotated_strings.php:51
 msgid "Excellent"
-msgstr ""
+msgstr "Отлично"
 
 #: language/_annotated_strings.php:54
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
-msgstr ""
+msgstr "Пожалуйста, введите номер телефона. Вы можете использовать МЕЖДУНАРОДНЫЙ формат. Только цифры и '+'."
 
 #: language/_annotated_strings.php:57
 msgid "Remove all"
-msgstr ""
+msgstr "Убрать все"
 
 #: language/_annotated_strings.php:60
 msgid "choose your language"
@@ -329,36 +329,36 @@ msgstr "Выберите свой язык"
 
 #: language/_annotated_strings.php:63
 msgid "English"
-msgstr ""
+msgstr "английский"
 
 #: language/_annotated_strings.php:66
 msgid "French"
-msgstr ""
+msgstr "Французский"
 
 #: language/_annotated_strings.php:69
 msgid "German"
-msgstr ""
+msgstr "Немецкий"
 
 #: language/_annotated_strings.php:72
 msgid "Italian"
-msgstr ""
+msgstr "итальянский"
 
 #: language/_annotated_strings.php:75
 msgid "Polish"
-msgstr ""
+msgstr "полировка"
 
 #: language/_annotated_strings.php:78
 msgid "Russian"
-msgstr ""
+msgstr "русский"
 
 #: language/_annotated_strings.php:81
 msgid "Turkish"
-msgstr ""
+msgstr "турецкий"
 
 #: language/_annotated_strings.php:84
 msgid "Spanish"
-msgstr ""
+msgstr "испанский"
 
 #: language/_annotated_strings.php:87
 msgid "defines the languages of this frontend."
-msgstr ""
+msgstr "определяет языки этом интерфейсе."

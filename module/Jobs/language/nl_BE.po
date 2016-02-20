@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"POT-Creation-Date: 2016-02-20 19:33+0100\n"
+"PO-Revision-Date: 2016-02-20 18:35+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/yawik/yawik/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -28,65 +28,70 @@ msgstr ""
 msgid "Publish on your Homepage"
 msgstr "Publiceer op uw homepage"
 
-#: view/mails/job-created.phtml:21 view/iframe/iFrame.phtml:14
+#: view/mails/job-created.en.phtml:22 view/mails/job-created.phtml:22
+#: view/iframe/iFrame.phtml:14
 msgid "Job details"
 msgstr "Job gegevens"
 
-#: view/mails/job-created.phtml:24 view/jobs/jobboard/index.ajax.phtml:13
-#: view/jobs/index/index.ajax.phtml:17 view/jobs/index/approval.ajax.phtml:17
+#: view/mails/job-created.en.phtml:25 view/mails/job-created.phtml:25
+#: view/jobs/jobboard/index.ajax.phtml:13 view/jobs/index/index.ajax.phtml:17
+#: view/jobs/index/approval.ajax.phtml:17
 msgid "Title of the job"
 msgstr "Titel van de baan"
 
-#: view/mails/job-created.phtml:28 view/jobs/jobboard/index.ajax.phtml:14
-#: view/jobs/index/index.ajax.phtml:18 language/_annotated_strings.php:117
-#: language/_annotated_strings.php:132
+#: view/mails/job-created.en.phtml:29 view/mails/job-created.phtml:29
+#: view/jobs/jobboard/index.ajax.phtml:14 view/jobs/index/index.ajax.phtml:18
+#: language/_annotated_strings.php:117 language/_annotated_strings.php:132
 msgid "Location"
 msgstr "Plaats"
 
-#: view/mails/job-created.phtml:32 view/jobs/jobboard/index.ajax.phtml:13
-#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/approval.ajax.phtml:18
-#: language/_annotated_strings.php:39 language/_annotated_strings.php:69
-#: language/_annotated_strings.php:87 language/_annotated_strings.php:267
+#: view/mails/job-created.en.phtml:33 view/mails/job-created.phtml:33
+#: view/jobs/jobboard/index.ajax.phtml:13 view/jobs/index/index.ajax.phtml:19
+#: view/jobs/index/approval.ajax.phtml:18 language/_annotated_strings.php:39
+#: language/_annotated_strings.php:69 language/_annotated_strings.php:87
 msgid "Companyname"
 msgstr "Bedrijfsnaam"
 
-#: view/mails/job-created.phtml:37
+#: view/mails/job-created.en.phtml:38 view/mails/job-created.phtml:38
 msgid "Publisher details"
 msgstr "Uitgever informatie"
 
-#: view/mails/job-created.phtml:41 view/jobs/index/approval.ajax.phtml:19
+#: view/mails/job-created.en.phtml:42 view/mails/job-created.phtml:42
+#: view/jobs/index/approval.ajax.phtml:19
 msgid "Name"
 msgstr "Naam"
 
-#: view/mails/job-created.phtml:45 language/_annotated_strings.php:111
+#: view/mails/job-created.en.phtml:46 view/mails/job-created.phtml:46
+#: language/_annotated_strings.php:111
 msgid "Email"
 msgstr "Email"
 
-#: view/mails/job-created.phtml:62
+#: view/mails/job-created.en.phtml:63 view/mails/job-created.phtml:63
 msgid "no Portal chosen"
 msgstr "geen Portal gekozen"
 
-#: view/mails/job-created.phtml:64
+#: view/mails/job-created.en.phtml:65 view/mails/job-created.phtml:65
 msgid "Selected Channels"
 msgstr "Geselecteerde Channels"
 
-#: view/mails/job-created.phtml:76 view/form/multiposting-select.phtml:74
-#: view/jobs/manage/form.phtml:122
+#: view/mails/job-created.en.phtml:77 view/mails/job-created.phtml:77
+#: view/form/multiposting-select.phtml:74 view/jobs/manage/form.phtml:122
 msgid "Price"
 msgstr "Prijs"
 
-#: view/mails/job-created.phtml:80 view/form/multiposting-checkboxes.phtml:90
+#: view/mails/job-created.en.phtml:81 view/mails/job-created.phtml:81
+#: view/form/multiposting-checkboxes.phtml:90
 #: view/form/multiposting-select.phtml:84
 #: view/form/multiposting-select.phtml:107 view/jobs/manage/form.phtml:128
 msgid "plus VAT"
 msgstr ""
 
-#: view/mails/job-created.phtml:84 view/form/multiposting-select.phtml:90
-#: view/jobs/manage/form.phtml:134
+#: view/mails/job-created.en.phtml:85 view/mails/job-created.phtml:85
+#: view/form/multiposting-select.phtml:90 view/jobs/manage/form.phtml:134
 msgid "Invoice amount"
 msgstr ""
 
-#: view/mails/job-created.phtml:91
+#: view/mails/job-created.en.phtml:92 view/mails/job-created.phtml:92
 msgid "Click here to accept or reject the job opening"
 msgstr "Klik hier om te accepteren of de vacature te verwerpen"
 
@@ -248,12 +253,12 @@ msgstr "ontwerp"
 msgid "Change responsible user for job \\\"%s\\\""
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:102 view/jobs/index/approval.ajax.phtml:55
+#: view/jobs/index/index.ajax.phtml:102 view/jobs/index/approval.ajax.phtml:56
 #: view/partials/history.phtml:11
 msgid "Status history"
 msgstr ""
 
-#: view/jobs/index/index.ajax.phtml:140 view/jobs/index/approval.ajax.phtml:74
+#: view/jobs/index/index.ajax.phtml:140 view/jobs/index/approval.ajax.phtml:75
 msgid "please wait"
 msgstr ""
 
@@ -472,26 +477,26 @@ msgstr "Accepteer de voorwaarden"
 msgid "Apply now"
 msgstr "Nu toepassen"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:273
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:240
 msgid "Show all jobs"
 msgstr "Toon alle jobs"
 
-#: language/_annotated_strings.php:6 language/_annotated_strings.php:276
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:243
 msgid "Show my jobs"
 msgstr "Toon mijn banen"
 
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:45
-#: language/_annotated_strings.php:243 language/_annotated_strings.php:279
+#: language/_annotated_strings.php:246
 msgid "All"
 msgstr "Alle"
 
 #: language/_annotated_strings.php:12 language/_annotated_strings.php:48
-#: language/_annotated_strings.php:246 language/_annotated_strings.php:282
+#: language/_annotated_strings.php:249
 msgid "Active"
 msgstr "Actief"
 
 #: language/_annotated_strings.php:15 language/_annotated_strings.php:51
-#: language/_annotated_strings.php:249 language/_annotated_strings.php:285
+#: language/_annotated_strings.php:252
 msgid "Inactive"
 msgstr "Inactieve"
 
@@ -528,28 +533,27 @@ msgstr "Titel en de locatie van de baan"
 msgid "Calculate price"
 msgstr ""
 
-#: language/_annotated_strings.php:54 language/_annotated_strings.php:252
+#: language/_annotated_strings.php:54
 msgid "Waiting for approval"
 msgstr ""
 
-#: language/_annotated_strings.php:57 language/_annotated_strings.php:255
+#: language/_annotated_strings.php:57
 msgid "Created"
 msgstr ""
 
-#: language/_annotated_strings.php:60 language/_annotated_strings.php:258
+#: language/_annotated_strings.php:60
 msgid "Published"
 msgstr ""
 
-#: language/_annotated_strings.php:63 language/_annotated_strings.php:261
+#: language/_annotated_strings.php:63
 msgid "Rejected"
 msgstr ""
 
-#: language/_annotated_strings.php:66 language/_annotated_strings.php:264
+#: language/_annotated_strings.php:66
 msgid "Expired"
 msgstr ""
 
 #: language/_annotated_strings.php:72 language/_annotated_strings.php:90
-#: language/_annotated_strings.php:270
 msgid "Select hiring organization"
 msgstr "Selecteer inhuren organisatie"
 
@@ -568,7 +572,7 @@ msgid "Please choose the portals, where you wish to publish your job opening."
 msgstr "Kies de portalen, waar u wilt uw vacature te publiceren."
 
 #: language/_annotated_strings.php:84 language/_annotated_strings.php:126
-#: language/_annotated_strings.php:288
+#: language/_annotated_strings.php:255
 msgid "Job title"
 msgstr "Functietitel"
 
@@ -744,7 +748,3 @@ msgstr "Job Maak"
 #: language/_annotated_strings.php:234
 msgid "Edit job"
 msgstr "Job bewerken"
-
-#: test/JobsTest/Factory/Form/MultipostingSelectFactoryTest.php:54
-msgid "testLabel"
-msgstr ""

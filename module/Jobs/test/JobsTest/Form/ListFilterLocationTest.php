@@ -33,8 +33,7 @@ class ListFilterLocationTest extends \PHPUnit_Framework_TestCase
             'name'    => 'l',
             'type'    => 'Location',
             'options' => array(
-                'label'       => /*@translate*/
-                    'Location',
+                'label'       => 'Location',
                 'engine_type' => null
             ),
         ];
@@ -43,8 +42,7 @@ class ListFilterLocationTest extends \PHPUnit_Framework_TestCase
             'name'       => 'd',
             'type'       => 'Zend\Form\Element\Select',
             'options'    => array(
-                'label'         => /*@translate*/
-                    'Distance',
+                'label'         =>  'Distance',
                 'value_options' => [
                     '5'   => '5 km',
                     '10'  => '10 km',
@@ -58,8 +56,7 @@ class ListFilterLocationTest extends \PHPUnit_Framework_TestCase
                 'value'            => '10', // default distance
                 'data-searchbox'   => -1,  // hide the search box
                 'data-allowclear'  => 'false', // allow to clear a selected value
-                'data-placeholder' => /*@translate*/
-                    'Distance',
+                'data-placeholder' => 'Distance',
             ]
         ];
 

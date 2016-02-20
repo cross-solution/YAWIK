@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 18:11+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Chinese (http://www.transifex.com/yawik/yawik/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "click to open the job ad"
 msgstr "点击打开招聘广告"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "隐私政策"
 
@@ -82,7 +82,7 @@ msgstr "工作"
 msgid "Date"
 msgstr "日期"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:228
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:231
 msgid "your application was sent successfully"
 msgstr "您的应用程序已成功发送"
 
@@ -346,8 +346,8 @@ msgstr "电话"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:264
 msgid "Attachments"
 msgstr "附件"
 
@@ -605,7 +605,7 @@ msgid "E-Mail"
 msgstr "电子邮件"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "事实"
 
@@ -625,31 +625,31 @@ msgstr "未知应用程序标识符"
 msgid "An application with the provided identifier could not be found."
 msgstr "与所提供的标识符的应用程序未能找到。"
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "电子邮件通知"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "选项"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr "搜索应用程序"
 
-#: src/Applications/Controller/ManageController.php:335
+#: src/Applications/Controller/ManageController.php:340
 #: src/Applications/Controller/MultimanageController.php:87
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:401
 #, php-format
 msgid "Forward application to %s failed."
 msgstr ""
@@ -812,7 +812,7 @@ msgstr "输入您的出游意愿。"
 msgid "Ask the applicant about the willingness to travel"
 msgstr "要求申请人有关旅游的意愿"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "请选择"
 
@@ -846,102 +846,114 @@ msgstr ""
 msgid "Ask the applicant, if he has a driving license."
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "抄送"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "我送我的应用程序的翻版"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "点击这里进入一个总结。"
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr "<strong>请注意</strong> ：HTML标签得到剥离出来。换行符被保留。"
 
-#: language/_annotated_strings.php:198
-msgid "Summary"
-msgstr "总结"
-
 #: language/_annotated_strings.php:201
 msgid "all"
 msgstr "所有"
 
-#: language/_annotated_strings.php:204 language/_annotated_strings.php:207
-#: language/_annotated_strings.php:219
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:222
 msgid "Invalid apply id"
 msgstr "无效申请ID"
 
-#: language/_annotated_strings.php:210
+#: language/_annotated_strings.php:207
+#, php-format
+msgid "Application was read by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:213
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr "有缺少必需的信息。你的应用程序无法发送。"
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:216
 msgid "Application has been send."
 msgstr "申请已被发送。"
 
-#: language/_annotated_strings.php:216 language/_annotated_strings.php:225
+#: language/_annotated_strings.php:219 language/_annotated_strings.php:228
 msgid "Application confirmation"
 msgstr "确认申请"
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:225
 msgid "There were errors in the form."
 msgstr "有在形状误差。"
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 msgid "Application has been deleted."
 msgstr "应用已被删除。"
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 msgid "Mail has been send"
 msgstr "邮件已发送"
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 msgid "Application data has been deleted"
 msgstr "应用程序数据已被删除"
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "No mail adress available"
 msgstr "无mail地址可用"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
+#, php-format
+msgid "Mail was sent to %s"
+msgstr ""
+
+#: language/_annotated_strings.php:249
+#, php-format
+msgid "Application was rated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:252
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:255
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:258
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:261
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "附加图片或PDF文档到你的应用程序。拖放它们，或者点击进入attachement区。您最多可以上传到%sMB"
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:267
 msgid "E-Mail Templates"
 msgstr "电子邮件模板"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:270
 msgid "Overview"
 msgstr "概观"
 

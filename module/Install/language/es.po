@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-07 12:06+0100\n"
-"PO-Revision-Date: 2016-02-01 21:33+0000\n"
+"POT-Creation-Date: 2016-02-20 19:07+0100\n"
+"PO-Revision-Date: 2016-02-20 18:44+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: view/install/index/index.phtml:137
 msgid "PHP version not supported"
-msgstr ""
+msgstr "No se admite la versión de PHP"
 
 #: view/install/index/index.phtml:142
 #, php-format
@@ -31,15 +32,15 @@ msgstr ""
 #: view/install/index/index.phtml:147
 msgid ""
 "Please ask your servers' administrator to install the proper PHP version."
-msgstr ""
+msgstr "Por favor, solicite al administrador de sus servidores para instalar la versión adecuada de PHP."
 
 #: view/install/index/installation.phtml:13 view/layout/layout.phtml:29
 msgid "Installation"
-msgstr ""
+msgstr "Instalación"
 
 #: view/install/index/installation.phtml:55
 msgid "Install"
-msgstr ""
+msgstr "Instalar"
 
 #: view/install/index/install.phtml:13
 #, php-format
@@ -50,7 +51,7 @@ msgstr ""
 
 #: view/install/index/install.phtml:18
 msgid "The base configuration file was successfully created."
-msgstr ""
+msgstr "El archivo de configuración de base se ha creado correctamente."
 
 #: view/install/index/install.phtml:21
 #, php-format
@@ -61,23 +62,23 @@ msgstr ""
 
 #: view/install/index/install.phtml:31
 msgid "Start using YAWIK"
-msgstr ""
+msgstr "Empezar a utilizar YAWIK"
 
 #: view/install/index/prerequisites.phtml:13
 msgid "Prerequisites"
-msgstr ""
+msgstr "Requisitos previos"
 
 #: view/install/index/prerequisites.phtml:28
 msgid "Creatable"
-msgstr ""
+msgstr "creatable"
 
 #: view/install/index/prerequisites.phtml:30
 msgid "Missing"
-msgstr ""
+msgstr "Desaparecido"
 
 #: view/install/index/prerequisites.phtml:34
 msgid "Not writable"
-msgstr ""
+msgstr "no se puede escribir"
 
 #: view/install/index/prerequisites.phtml:36
 msgid "Ok"
@@ -87,7 +88,7 @@ msgstr "Bueno"
 msgid ""
 "All required directories exists and have the needed permissions or can be "
 "created. You may savely continue with the installation."
-msgstr ""
+msgstr "Todos los directorios necesarios existe y tiene los permisos necesarios o pueden ser creados. Puede continuar con la instalación Savely."
 
 #: view/install/index/prerequisites.phtml:50
 msgid ""
@@ -95,7 +96,7 @@ msgid ""
 "writable, but it will ease the installation as YAWIK can create the config "
 "files automatically. Consider giving write permission during installation "
 "and revoke it afterwards."
-msgstr ""
+msgstr "Tenga en cuenta: No es necesario para el directorio config / autocarga tener permiso de escritura, pero va a facilitar la instalación como YAWIK puede crear los archivos de configuración de forma automática. Considere dar permiso de escritura durante la instalación y revocar posteriormente."
 
 #: view/install/index/prerequisites.phtml:53
 msgid ""
@@ -103,15 +104,15 @@ msgid ""
 "otherwise it is not possible to run YAWIK. Please ensure that all required "
 "directories either exist with the right permissions or at least are "
 "creatable during this installation process."
-msgstr ""
+msgstr "YAWIK requiere algunos directorios de existir y tener los permisos adecuados, de lo contrario no es posible ejecutar YAWIK. Asegúrese de que todos los directorios necesarios o bien existen con los permisos correctos o por lo menos son creatable durante este proceso de instalación."
 
 #: view/install/index/prerequisites.phtml:55
 msgid "Check again"
-msgstr ""
+msgstr "puedes volver a intentarlo"
 
 #: view/install/index/prerequisites.phtml:56
 msgid "Checking"
-msgstr ""
+msgstr "De cheques"
 
 #: view/error/index.phtml:14
 msgid "An error occurred"
@@ -143,11 +144,11 @@ msgstr "No hay excepciones disponibles"
 
 #: language/_annotated_strings.php:3
 msgid "Database connection string"
-msgstr ""
+msgstr "cadena de conexión de base de datos"
 
 #: language/_annotated_strings.php:6
 msgid "Initial user name"
-msgstr ""
+msgstr "Nombre de usuario inicial"
 
 #: language/_annotated_strings.php:9
 msgid "Password"
@@ -155,7 +156,7 @@ msgstr "Contraseña"
 
 #: language/_annotated_strings.php:12
 msgid "Email address for system messages"
-msgstr ""
+msgstr "dirección de correo electrónico para los mensajes del sistema"
 
 #: language/_annotated_strings.php:15
 msgid "Connecting the database failed: %databaseError%"
@@ -163,4 +164,4 @@ msgstr ""
 
 #: language/_annotated_strings.php:18
 msgid "Invalid connection string"
-msgstr ""
+msgstr "cadena de conexión no válido"

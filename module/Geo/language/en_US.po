@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:26+0000\n"
+"POT-Creation-Date: 2016-02-20 19:07+0100\n"
+"PO-Revision-Date: 2016-02-20 18:11+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: view/form/geotext.phtml:32
+#: view/form/geo-horizontal.phtml:55
+msgid "Type in a location"
+msgstr "Type in a location"
+
+#: view/form/geotext.phtml:39
 msgid "Location"
 msgstr "Location"
