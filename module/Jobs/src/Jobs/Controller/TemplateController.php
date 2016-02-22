@@ -10,6 +10,8 @@
 
 namespace Jobs\Controller;
 
+use Core\Entity\PermissionsInterface;
+use Jobs\Entity\Status;
 use Jobs\Repository;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -50,22 +52,28 @@ class TemplateController extends AbstractActionController
     public function viewAction()
     {
         $id = $this->params()->fromQuery('id');
+        /* @var \Jobs\Entity\Job $job */
         $job = $this->jobRepository->find($id);
         $services             = $this->getServiceLocator();
         $mvcEvent             = $this->getEvent();
         $applicationViewModel = $mvcEvent->getViewModel();
 
-        //$isAdmin=$this->auth()->isAdmin();
+        /* @var \Auth\Entity\User $user */
+        $user = $this->auth()->getUser();
 
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
-        # @todo make this working for anonymous users
-//        if ($job->status != 'active' && !$job->getPermissions()->isChangeGranted($this->auth()->getUser()) && ! $isAdmin) {
-//            $this->response->setStatusCode(404);
-//            $model->setVariable('message','job is not available');
-//        } else {
-            $applicationViewModel->setTemplate('iframe/iFrameInjection');
-//        }
+        if (
+            Status::ACTIVE == $job->getStatus() or
+            $job->getPermissions()->isGranted($user,PermissionsInterface::PERMISSION_VIEW) or
+            $this->auth()->isAdmin()
+        )
+        {
+             $applicationViewModel->setTemplate('iframe/iFrameInjection');
+        } else {
+            $this->response->setStatusCode(404);
+            $model->setVariable('message','job is not available');
+        }
         return $model;
     }
 

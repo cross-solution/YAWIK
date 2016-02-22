@@ -88,9 +88,8 @@ class ApplyController extends AbstractActionController
             if (!$application) {
                 throw new \RuntimeException('Invalid application id.');
             }
+
             $action     = 'process';
-
-
 
             $routeMatch->setParam('action', $action);
             
@@ -103,6 +102,20 @@ class ApplyController extends AbstractActionController
 
             /* @var \Jobs\Entity\Job $job */
             $job = $repositories->get('Jobs/Job')->findOneByApplyId($appId);
+
+            if (!$job) {
+                $e->getRouteMatch()->setParam('action', 'job-not-found');
+                return;
+            }
+
+            switch($job->getStatus()){
+                case \Jobs\Entity\Status::ACTIVE:
+                    break;
+                default:
+                    $e->getRouteMatch()->setParam('action', 'job-not-found');
+                    return;
+                    break;
+            }
 
             if ($user === $job->getUser()) {
                 $application = new \Applications\Entity\Application();
@@ -131,6 +144,9 @@ class ApplyController extends AbstractActionController
                     if (!$job) {
                         $e->getRouteMatch()->setParam('action', 'job-not-found');
                         return;
+                    }
+                    if ($job->getUriApply()) {
+                        return $this->redirect($job->getUriApply());
                     }
 
                     /* @var $application \Applications\Entity\Application */
@@ -166,11 +182,9 @@ class ApplyController extends AbstractActionController
     {
         $this->response->setStatusCode(410);
         $model = new ViewModel(
-            array(
-            'content' => /*@translate*/ 'Invalid apply id'
-            )
+            [ 'content' => /*@translate*/ 'Invalid apply id']
         );
-        $model->setTemplate('auth/index/job-not-found.phtml');
+        $model->setTemplate('applications/error/not-found');
         return $model;
     }
     
