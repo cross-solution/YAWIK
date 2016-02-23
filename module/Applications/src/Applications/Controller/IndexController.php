@@ -286,6 +286,8 @@ class IndexController extends AbstractActionController
             $params['sort']="-date";
         }
         $params->count = 5;
+        $params->pageRange=5;
+
         $this->paginationParams()->setParams('Applications\Index', $params);
 
         $paginator = $this->paginator('Applications/Application', $params);

@@ -48,7 +48,11 @@
                     <?php endif; ?>
                 </div>
                 <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
-                    <?php echo $this->partial('core/social-buttons',['SocialButtons' => $this->socialbuttons() ]);?>
+                    <?php echo $this->partial('core/social-buttons',[
+                            'SocialButtons' => $this->socialbuttons(),
+                            'alt' => $this->translate('Login with %s'),
+                            'label' => $this->translate('Login with ...')]
+                    );?>
                 <?php endif; ?>
             </div>
         </div>
@@ -61,18 +65,13 @@
                 $this->registerForm->setAttribute('action',$this->url('lang/register'));
                 echo $this->form($this->registerForm);
                 ?>
-                <div class="row">
-                    <?php if (!isset($this->allowResetPassword) || $this->allowResetPassword == true): ?>
-                        <div class="col-md-6">
-                            <a href="<?php echo $this->url('lang/forgot-password'); ?>"
-                               title="<?php echo $this->translate('I forgot my password'); ?>" class="small">
-                                <?php echo $this->translate('I forgot my password'); ?>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
                 <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
-                    <?php echo $this->partial('core/social-buttons',['SocialButtons' => $this->socialbuttons() ]);?>
+                    <?php echo $this->partial('core/social-buttons',[
+                            'SocialButtons' => $this->socialbuttons() ,
+                            'alt' => $this->translate('Register with %s'),
+                            'label' => $this->translate('Register with ...')
+                        ]
+                    );?>
                 <?php endif; ?>
             </div>
         </div>

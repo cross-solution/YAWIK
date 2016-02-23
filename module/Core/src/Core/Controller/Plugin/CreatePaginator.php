@@ -42,7 +42,8 @@ class CreatePaginator extends AbstractPlugin
         $this->filterSortParam($params);
         $paginator = $this->createPaginator($repository, $params);
         $paginator->setCurrentPageNumber($params->get('page', 1))
-                  ->setItemCountPerPage($params->get('count', 10));
+                  ->setItemCountPerPage($params->get('count', 10))
+                  ->setPageRange($params->get('pageRange', 10));
         
         return $paginator;
         
