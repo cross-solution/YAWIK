@@ -30,6 +30,7 @@
                         var data = {};
                         data.href = $(e.currentTarget).attr('href');
                         data.container = eventData.container;
+                        data.loadingIndicator = eventData.loadingIndicator;
                         data.container.trigger('paginate', [data]);
                         //paginate(e);
                         return false;

@@ -382,6 +382,12 @@ return array(
             'submitField' => 'FormSubmitButtonsFieldset'
         )
     ),
+
+    'paginator_manager' => [
+        'abstract_factories' => [
+            '\Core\Factory\Paginator\RepositoryAbstractFactory',
+        ],
+    ],
     
     'mails_config' => array(
         'from' => array(

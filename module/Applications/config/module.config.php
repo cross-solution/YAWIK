@@ -199,7 +199,7 @@ return array(
             'Applications/ActionToStatus' => 'Applications\Filter\ActionToStatus',
         ),
         'factories'=> array(
-            'Applications/PaginationQuery' => '\Applications\Repository\Filter\PaginationQueryFactory'
+            'PaginationQuery/Applications' => '\Applications\Repository\Filter\PaginationQueryFactory'
         ),
     ),
     

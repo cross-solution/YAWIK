@@ -290,7 +290,7 @@ class IndexController extends AbstractActionController
 
         $this->paginationParams()->setParams('Applications\Index', $params);
 
-        $paginator = $this->paginator('Applications/Application', $params);
+        $paginator = $this->paginator('Applications', $params->toArray());
      
         return array(
             'script' => 'applications/index/dashboard',
