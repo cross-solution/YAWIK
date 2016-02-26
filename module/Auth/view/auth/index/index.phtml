@@ -15,6 +15,19 @@
     <h1><?php echo $this->translate('Login'); ?></h1>
 <?php endif; ?>
 
+<?php $this->headScript()->captureStart() ?>
+;(function($, win) {
+
+    $(function() {
+        if (win.location.hash) {
+            $('a[href="' + win.location.hash + '"]').tab('show');
+        }
+    });
+
+})(jQuery, window);
+
+<?php $this->headScript()->captureEnd() ?>
+
 <div class="col-md-6 col-md-offset-3">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
