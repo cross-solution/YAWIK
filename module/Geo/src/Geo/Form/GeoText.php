@@ -211,12 +211,13 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         }
         if ('geo' == $value['type']) {
             $lonLat = $this->getConverter()->toCoordinates($value['name']);
+
+            $lon = $lat = 0;
+            
             foreach($lonLat as $k=>$v) {
                  list($lon,$lat) = explode(',', $v, 2);
                  $latLon[]=$lat.','.$lon;
             }
-
-            $lon = $lat = 0;
 
             $value['data'] = [
                 'coordinates'=>[
