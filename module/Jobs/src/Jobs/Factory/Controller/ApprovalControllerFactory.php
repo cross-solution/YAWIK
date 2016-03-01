@@ -31,7 +31,7 @@ class ApprovalControllerFactory implements FactoryInterface
         $service = $serviceLocator->getServiceLocator();
 
         $searchForm = $service->get('forms')
-            ->get('Jobs/ListFilter', [ 'fieldset' => 'Jobs/ListFilterAdminFieldset' ]);
+            ->get('Jobs/ListFilterAdmin');
 
         /* @var $jobRepository Repository\Job */
         $jobRepository = $service->get('repositories')->get('Jobs/Job');

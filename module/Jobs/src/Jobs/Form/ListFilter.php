@@ -10,7 +10,7 @@
 /** ListFilter.php */
 namespace Jobs\Form;
 
-use Core\Form\Form;
+use Zend\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 
 /**
@@ -21,10 +21,10 @@ use Core\Form\ViewPartialProviderInterface;
 class ListFilter extends Form implements ViewPartialProviderInterface
 {
 
-    const BASE_FIELDSET = "Jobs/ListFilterBaseFieldset";
-    const LOCATION_FIELDSET = "Jobs/ListFilterLocationFieldset";
-    const PERSONAL_FIELDSET = "Jobs/ListFilterPersonalFieldset";
-    const ADMIN_FIELDSET = "Jobs/ListFilterAdminFieldset";
+    /**
+     * Base fieldset to use
+     */
+    protected $fieldset = 'Jobs/ListFilterBaseFieldset';
 
     /**
      * view script for the search formular
@@ -32,32 +32,6 @@ class ListFilter extends Form implements ViewPartialProviderInterface
      * @var string $viewPartial
      */
     protected $viewPartial = 'jobs/form/list-filter';
-
-    /**
-     * defines the used fieldset.
-     *
-     * @var string
-     */
-    protected $fieldset;
-
-    /**
-     * formular action.
-     *
-     * @var string
-     */
-    protected $action;
-
-    /**
-     * @param int|null|string $name
-     * @param array           $options
-     *
-     * fieldset: string service name of the Fieldset class
-     */
-    public function __construct($name = null, array $options=[])
-    {
-        $this->fieldset = array_key_exists('fieldset',$options)?$options['fieldset']:self::BASE_FIELDSET;
-        parent::__construct();
-    }
 
     /**
      * @param String $partial
