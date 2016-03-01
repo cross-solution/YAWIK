@@ -46,6 +46,18 @@ class Login extends Form
             )
         );
 
+        $fieldset->add(
+            array(
+                'name' => 'csrf',
+                'type' => 'csrf',
+                'options' => array(
+                    'csrf_options' => array(
+                        'salt' => str_replace('\\', '_', __CLASS__),
+                        'timeout' => 3600
+                    )
+                )
+            )
+        );
         $this->add($fieldset);
             
         $buttons = new \Core\Form\ButtonsFieldset('buttons');

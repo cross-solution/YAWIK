@@ -11,6 +11,22 @@
  * the bootstrap dist was copied to the local bootstrap.less. 
  * include "glyphicons.less" was replaces by "font-awesome/font-awesome.less"
  **/
+
+/* YAWIK Colors */
+@yk-color-orange: #FAA427;
+@yk-color-blue: #5498D7;
+@yk-color-confirmed: @brand-success;
+@yk-color-rejected: @brand-danger;
+@yk-color-incoming: @brand-info;
+@yk-color-invited: @brand-warning;
+@yk-color-th: #efefef;
+@yk-color-background-fieldset: #fdfdfd;
+@yk-color-background-sidebar-active: #f5f5f5;
+@yk-color-error-border: #953B39;
+
+@btn-select2-bg: @yk-color-orange;
+@btn-select2-border: @btn-default-border;
+
 @import "bootstrap.less";
 
 @import "general.less";
@@ -22,6 +38,7 @@
 @import "include/typeahead.less";
 @import "include/forms.less";
 @import "include/bootstrap-social.less";
+@import "include/select2-bootstrap.less";
 
 @flag-icon-css-path: '../flags';
 @flag-icon-rect-path: '/4x3';
@@ -35,22 +52,29 @@
 // the default values of the bootstrap global variables are defined in bootstrap/variables.less.
 // you can overwrite them here. 
 
+@panel-default-border: darken(@brand-primary, -30%);
+@table-border-color: darken(@brand-primary, -25%);
+
+
 @navbar-height:             50px;
 @footer-height:			    25px;
 
 @navbar-default-link-active-color:  @brand-primary;  
-@nav-pills-active-link-hover-color: #FAA427;
+@nav-pills-active-link-hover-color: @yk-color-orange;
+
 @nav-pills-active-link-hover-bg:    darken(@brand-primary, -80%);
 @input-border-focus:                darken(@brand-primary, -20%);
 
+@dropdown-link-active-bg: @yk-color-orange;
+
 // Brand colors
 // -------------------------
-@brand-primary:         #5498D7;
+@brand-primary:         @yk-color-blue;
 
 // Links
 // -------------------------
 @link-color:            @brand-primary;
-@link-hover-color:      #FAA427;
+@link-hover-color:      @yk-color-orange;
 
 // Inverted navbar
 //
@@ -63,14 +87,12 @@
 @navbar-inverse-link-hover-color:           @link-hover-color;
 @navbar-inverse-link-hover-bg:              darken(@brand-primary, 5%);
 
-@table-bg-header:  #EFEFEF;
+@table-bg-header:  @yk-color-th;
 
 // YAWIK Variables
 @colorError:               #B94A48;
 @colorErrorShadow:         #D59392;
-@colorErrorBorder:         #953B39;
-@backgroundFieldset:       #fdfdfd;
-@backgroundSidebarActive:  #f5f5f5;
+@backgroundFieldset:       @yk-color-background-fieldset;
 
 body {
      position: relative;
@@ -169,7 +191,7 @@ h6 {
 
  	}
   	ul li.active a {
-		background-color: @backgroundSidebarActive;
+		background-color: @yk-color-background-sidebar-active;
 	}
 } 
 
@@ -190,7 +212,7 @@ form .input-error input
 }
 
 form .input-error input:focus {
-	border-color: @colorErrorBorder;
+	border-color: @yk-color-error-border;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px @colorErrorShadow;
 }
 
@@ -289,4 +311,11 @@ fieldset fieldset a.remove-item {
 // 
 #jobs-list .btn-toolbar {
 	border: 0;
+}
+
+// eg. login box
+.panel-tabbed {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+	.panel-default;
 }

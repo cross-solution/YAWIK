@@ -75,9 +75,8 @@ class Form extends ZendForm
                    ->appendFile($basepath('Core/js/core.forms.js'));
 
         /* @noinspection PhpParamsInspection */
-        $renderer->headLink()->appendStylesheet($basepath('css/select2.css'))
-                             ->appendStylesheet($basepath('css/select2-bootstrap.css'));
-        
+        $renderer->headLink()->appendStylesheet($basepath('css/select2.css'));
+
         if ($scripts = $form->getOption('headscript')) {
             if (!is_array($scripts)) {
                 $scripts = array($scripts);

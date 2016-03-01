@@ -105,7 +105,7 @@
 		{
 			var $select = $(this);
             var data    = $select.data();
-			var options = {};
+			var options = {theme:"bootstrap"};
 
             // allow disabling this autoinit routine.
             // Select2 elements must then be initialized explicitely.

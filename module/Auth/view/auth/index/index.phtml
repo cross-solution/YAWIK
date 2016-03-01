@@ -47,7 +47,7 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="panel tab-pane active" id="login">
+        <div role="tabpanel" class="panel panel-tabbed tab-pane active" id="login">
             <div class="form-content panel-body">
                 <?php echo $this->form($this->loginForm); ?>
                 <div class="row">
@@ -71,7 +71,7 @@
         </div>
 
         <?php if($this->registerForm):?>
-        <div role="tabpanel" class="panel tab-pane" id="register">
+        <div role="tabpanel" class="panel panel-tabbed tab-pane" id="register">
             <div class="form-content panel-body">
                 <?php
                 // @todo: move the action setting to Form/Register.php
