@@ -309,6 +309,9 @@ return array(
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
+            'Jobs/ListFilterLocation'           => 'Jobs\Form\ListFilterLocation',
+            'Jobs/ListFilterPersonal'           => 'Jobs\Form\ListFilterPersonal',
+            'Jobs/ListFilterAdmin'              => 'Jobs\Form\ListFilterAdmin',
 
         ),
         'factories' => array(

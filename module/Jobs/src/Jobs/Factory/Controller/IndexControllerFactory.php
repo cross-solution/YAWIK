@@ -32,7 +32,7 @@ class IndexControllerFactory implements FactoryInterface
         $serviceLocator = $serviceLocator->getServiceLocator();
 
         $searchForm = $serviceLocator->get('forms')
-            ->get('Jobs/ListFilter', [ 'fieldset' => 'Jobs/ListFilterPersonalFieldset' ]);
+            ->get('Jobs/ListFilterPersonal');
 
         /**
          * @var $jobRepository Repository\Job

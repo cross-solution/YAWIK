@@ -40,7 +40,7 @@ class ListFilterTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $add1 = [
-            'type'    => null,
+            'type'    => 'Jobs/ListFilterBaseFieldset',
             'options' => ['use_as_base_fieldset' => true]
         ];
         $add2 = [
