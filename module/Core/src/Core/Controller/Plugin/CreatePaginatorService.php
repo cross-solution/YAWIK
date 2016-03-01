@@ -20,7 +20,8 @@ use Zend\Paginator\Adapter\AdapterInterface;
  * this class will propably not change much, since all the diversity is handled by it's adapter
  *
  * Class CreatePaginatorService
- * @package Core\Controller\Plugin
+ *
+ * @deprecated since 0.24. This plugin is clumsy and buggy. Use rewritten CreatePaginator instead.
  */
 class CreatePaginatorService extends AbstractPlugin
 {
