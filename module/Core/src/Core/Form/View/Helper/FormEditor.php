@@ -35,11 +35,7 @@ class FormEditor extends FormTextarea
         'advlist_bullet_styles' => 'square disc',
         'block_formats' => 'Headings=h4;',
         'removed_menuitems' =>  'newdocument',
-        'plugings' => [
-             'autolink lists advlist',
-             'visualblocks code fullscreen',
-             'contextmenu paste link',
-        ],
+        'plugins' => 'autolink lists advlist visualblocks code fullscreen contextmenu paste link',
     ];
 
     /**
