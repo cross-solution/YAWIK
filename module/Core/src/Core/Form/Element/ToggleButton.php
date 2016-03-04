@@ -1,12 +1,12 @@
 <?php
 namespace Core\Form\Element;
 
-use Zend\Form\Element\Checkbox;
+use Zend\Form\Element\Checkbox as ZendCheckbox;
 
 /**
  *
  */
-class ToggleButton extends Checkbox implements ViewHelperProviderInterface
+class ToggleButton extends ZendCheckbox implements ViewHelperProviderInterface
 {
     /**
      * @var string

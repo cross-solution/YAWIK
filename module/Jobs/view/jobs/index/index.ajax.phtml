@@ -29,7 +29,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 </thead>
 
 <tbody>
-<?php foreach ($jobs as $job): /* @var $job \Jobs\Entity\Job */ ?>
+<?php foreach ($jobs as $job): /* @var  \Jobs\Entity\Job $job */?>
 <tr>
     <td><?php if ($job->datePublishStart): echo $this->dateFormat($job->datePublishStart, 'short', 'none'); 
               elseif ($job->dateCreated): echo $this->dateFormat($job->dateCreated, 'short', 'none'); endif?>
@@ -74,8 +74,8 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
          <td>
          <?php
             $status = array();
-            if (!empty($job->status)) {
-                $status[] = $job->status;
+            if (!empty($job->getStatus())) {
+                $status[] = $this->translate($job->getStatus()->getName());
             }
             if ($job->isDraft()) {
                 $status[] = $this->translate('draft');
@@ -98,7 +98,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
             data-toggle="modal"
             class="btn btn-default btn-xs"
             data-target="#job-application-history"
-            href="<?php echo $this->url( 'lang/jobs/history', array('id' => $job->id , 'lang' => $this->params('lang'))); ?>"
+            href="<?php echo $this->url( 'lang/jobs/history', array('id' => $job->getId() , 'lang' => $this->params('lang'))); ?>"
             title="<?php echo $this->translate('Status history')?>">
              <i class="yk-icon yk-icon-history"></i>
          </a>
@@ -107,7 +107,7 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
          <?php endif; ?>
          </td>
       <?php else:?>
-         <?php if ($job->atsEnabled): ?>
+         <?php if ($job->getAtsEnabled()): ?>
             <a href="<?php
                 if (empty($job->uriApply)) {
                     // @TODO: unriddle this logic to somewhere else
