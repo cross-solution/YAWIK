@@ -140,6 +140,12 @@ translate('Portals');
 //: ./src/Jobs/Form/Multipost.php:31
 translate('Multiposting');
 
+//: ./src/Jobs/Entity/StatusInterface.php:24
+translate('created');
+
+//: ./src/Jobs/Entity/StatusInterface.php:29
+translate('waiting for approval');
+
 //: ./src/Jobs/Entity/StatusInterface.php:34
 translate('rejected');
 
@@ -164,22 +170,22 @@ translate('Job has been rejected');
 //: ./src/Jobs/Controller/ManageController.php:468
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:472
+//: ./src/Jobs/Controller/ManageController.php:473
 translate('Job has been approved');
 
-//: ./src/Jobs/Controller/ManageController.php:515
+//: ./src/Jobs/Controller/ManageController.php:517
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:516
+//: ./src/Jobs/Controller/ManageController.php:518
 translate('Job has been deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:518
+//: ./src/Jobs/Controller/ManageController.php:520
 translate('Job could not be deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:534
+//: ./src/Jobs/Controller/ManageController.php:536
 translate('Template changed');
 
-//: ./src/Jobs/Controller/ManageController.php:536
+//: ./src/Jobs/Controller/ManageController.php:538
 translate('Template not changed');
 
 //: ./src/Jobs/Listener/MailSender.php:89
