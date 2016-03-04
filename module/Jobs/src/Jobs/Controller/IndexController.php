@@ -109,7 +109,7 @@ class IndexController extends AbstractActionController
             $params['sort'] = '-date';
         }
 
-        $paginator = $this->paginator('Jobs/Job', $params);
+        $paginator = $this->paginatorService('Jobs/Job', $params);
 
         $return = array(
             'by'   => $params->get('by', 'all'),
