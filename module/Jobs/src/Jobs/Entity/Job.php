@@ -544,8 +544,11 @@ class Job extends BaseEntity implements JobInterface,
      * @see \Jobs\Entity\JobInterface::setDatePublishStart()
      * @return $this
      */
-    public function setDatePublishStart($datePublishStart)
+    public function setDatePublishStart($datePublishStart = null)
     {
+        if (!isset($datePublishStart)) {
+            $datePublishStart = new \DateTime();
+        }
         $this->datePublishStart = $datePublishStart;
         return $this;
     }

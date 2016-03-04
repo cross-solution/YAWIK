@@ -51,6 +51,7 @@
 
             $select.select2({
                 allowClear: true,
+                theme:"bootstrap",
                 placeholder: { id: "0", text: data.placeholder },
                 templateResult: displayResult,
                 templateSelection: displaySelection
