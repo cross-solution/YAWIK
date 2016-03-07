@@ -54,7 +54,7 @@ class PaginationAdminQuery extends PaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $this->value = $params->toArray();
+        $this->value = $params;
 
         /*
          * search jobs by keywords
