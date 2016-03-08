@@ -307,7 +307,7 @@ class Permissions implements PermissionsInterface
         /*
          * Merge remaining user permissions (w/o resource references)
          */
-        $this->assigned = array_unique(array_merge($this->assigned, $assigned));
+        $this->assigned = array_merge($this->assigned, $assigned);
         if ($build) {
             $this->build();
         }
