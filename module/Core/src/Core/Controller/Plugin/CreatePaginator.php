@@ -1,96 +1,80 @@
 <?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license    MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
 
+/**  */
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Paginator\Paginator;
-use DoctrineMongoODMModule\Paginator\Adapter\DoctrinePaginator;
+use Zend\Stdlib\ArrayUtils;
 
 /**
- * @deprecated
- * this plugin should get replaced by Core\Paginator\PaginatorService
+ * Creates a paginator from the paginator service.
  *
- * Class CreatePaginator
- * @package Core\Controller\Plugin
+ * Passing in GET (or POST) request parameters as creation options to the paginator manager.
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class CreatePaginator extends AbstractPlugin
 {
-    
-    public function __invoke($repositoryName, $defaultParams = array(), $usePostParams = false)
+    /**
+     * Creates a paginator from the paginator service.
+     *
+     * Uses query parameters from the request merged with $defaultParams as
+     * creation options while retrieving the service.
+     * Please note that a query parameter with the same name as a default parameter
+     * overrides the default parameter.
+     *
+     *
+     * @param string $paginatorName
+     * @param array  $defaultParams
+     * @param bool   $usePostParams if true, the POST parameters from the request are used.
+     *
+     * @return \Zend\Paginator\Paginator
+     * @throws \InvalidArgumentException
+     */
+    public function __invoke($paginatorName, $defaultParams = array(), $usePostParams = false)
     {
         if (is_bool($defaultParams)) {
             $usePostParams = $defaultParams;
             $defaultParams = array();
         }
-        
+
         if (!is_array($defaultParams) && !$defaultParams instanceof \Traversable) {
             throw new \InvalidArgumentException('$defaultParams must be an array or implement \Traversable');
         }
-        
-        
-        $services   = $this->getController()->getServiceLocator();
-        $repository = $services->get('repositories')->get($repositoryName);
+
+        /* @var $controller \Zend\Mvc\Controller\AbstractController
+         * @var $paginators \Core\Paginator\PaginatorService
+         * @var $request    \Zend\Http\Request
+         */
+        $controller = $this->getController();
+        $services   = $controller->getServiceLocator();
+        $paginators = $services->get('Core/PaginatorService');
+        $request    = $controller->getRequest();
         $params     = $usePostParams
-                    ? $this->getController()->getRequest()->getPost()
-                    : $this->getController()->getRequest()->getQuery();
-        $params     = clone $params; // prevent param changes to original object.
-        
-        foreach ($defaultParams as $name => $value) {
-            $params->set($name, $params->get($name, $value));
+            ? $request->getPost()->toArray()
+            : $request->getQuery()->toArray();
+
+        // We allow \Traversable so we cannot simply merge.
+        foreach ($defaultParams as $key => $val) {
+            if (!isset($params[$key])) {
+                $params[$key] = $val;
+            }
         }
-        
-        $this->filterSortParam($params);
-        $paginator = $this->createPaginator($repository, $params);
-        $paginator->setCurrentPageNumber($params->get('page', 1))
-                  ->setItemCountPerPage($params->get('count', 10));
-        
+
+        /* @var $paginator \Zend\Paginator\Paginator */
+        $paginator = $paginators->get($paginatorName, $params);
+        $paginator->setCurrentPageNumber(isset($params['page']) ? $params['page'] : 1)
+                  ->setItemCountPerPage(isset($params['count']) ? $params['count'] : 10)
+                  ->setPageRange(isset($params['range']) ? $params['range'] : 5);
+
         return $paginator;
-        
-    }
-    
-    protected function filterSortParam($params)
-    {
-        $sort = $params->get('sort');
-        if (null === $sort) {
-            return;
-        }
-        
-        if (0 === strpos($sort, '-')) {
-            $dir = '-1';
-            $sort = substr($sort, 1);
-        } else {
-            $dir = '1';
-        }
-        
-        $params->set('sortField', $sort);
-        $params->set('sortDir', $dir);
-    }
-    
-    /**
-     * returns a Paginator.
-     *
-     * @param Repository $repository
-     * @param Params $params
-     * @throws \RuntimeException
-     * @return \Zend\Paginator\Paginator
-     */
-    protected function createPaginator($repository, $params)
-    {
-        if (method_exists($repository, 'getPaginator')) {
-            return $repository->getPaginator($params);
-        }
-        
-        if (method_exists($repository, 'getPaginatorAdapter')) {
-            $adapter = $repository->getPaginatorAdapter($params);
-            
-        } elseif (method_exists($repository, 'getPaginatorCursor')) {
-            $cursor = $repository->getPaginatorCursor($params);
-            $adapter = new \Core\Paginator\Adapter\DoctrineMongoCursor($cursor);
-            
-        } else {
-            throw new \RuntimeException('Could not create paginator for repository ' . get_class($repository));
-        }
-        $paginator = new \Zend\Paginator\Paginator($adapter);
-        return $paginator;
+
     }
 }

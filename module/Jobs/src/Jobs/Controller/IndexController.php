@@ -27,7 +27,7 @@ use Zend\View\Model\ViewModel;
  *
  * @method \Auth\Controller\Plugin\Auth auth()
  * @method \Acl\Controller\Plugin\Acl acl()
- * @method \Core\Controller\Plugin\CreatePaginatorService paginatorService()
+ * @method \Core\Controller\Plugin\CreatePaginator paginator()
  */
 class IndexController extends AbstractActionController
 {
@@ -109,7 +109,7 @@ class IndexController extends AbstractActionController
             $params['sort'] = '-date';
         }
 
-        $paginator = $this->paginatorservice('Jobs/Job', $params);
+        $paginator = $this->paginator('Jobs/Job', $params);
 
         $return = array(
             'by'   => $params->get('by', 'all'),
@@ -133,7 +133,6 @@ class IndexController extends AbstractActionController
     public function dashboardAction()
     {
         /* @var $request \Zend\Http\Request */
-        $services    = $this->getServiceLocator();
         $request     = $this->getRequest();
         $params      = $request->getQuery();
         $isRecruiter = $this->acl()->isRole(User::ROLE_RECRUITER);
@@ -142,13 +141,12 @@ class IndexController extends AbstractActionController
             $params->set('by', 'me');
         }
 
-        $myJobs    = $services->get('repositories')->get('Jobs/Job');
-        $paginator = $this->paginatorService('Jobs/Job');
+        $paginator = $this->paginator('Jobs/Job');
 
         return array(
             'script' => 'jobs/index/dashboard',
             'type'   => $this->params('type'),
-            'myJobs' => $myJobs,
+            'myJobs' => $this->jobRepository,
             'jobs'   => $paginator
         );
     }
@@ -160,14 +158,10 @@ class IndexController extends AbstractActionController
      */
     public function typeaheadAction()
     {
-        /* @var $repository \Jobs\Repository\Job */
         $query      = $this->params()->fromQuery('q', '*');
-        $repository = $this->getServiceLocator()
-                           ->get('repositories')
-                           ->get('Jobs/Job');
 
         $return = array();
-        foreach ($repository->getTypeaheadResults($query, $this->auth('id')) as $id => $item) {
+        foreach ($this->jobRepository->getTypeaheadResults($query, $this->auth('id')) as $id => $item) {
             $return[] = array(
                 'id'      => $id,
                 'title'   => $item['title'],

@@ -11,8 +11,6 @@
 namespace Core\Mail;
 
 use Zend\Mail\Message as ZfMessage;
-use Zend\Mail\Transport\TransportInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
 class Message extends ZfMessage
 {

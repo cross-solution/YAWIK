@@ -45,23 +45,20 @@ class DoctrineMongoLateCursor implements AdapterInterface
      * @param Builder $queryBuilder
      * @param AbstractPaginationQuery $filter
      */
-    public function __construct(Builder $queryBuilder, AbstractPaginationQuery $filter)
+    public function __construct(Builder $queryBuilder, AbstractPaginationQuery $filter, $params = array())
     {
         $this->cursor = null;
         $this->builder = $queryBuilder;
         $this->filter = $filter;
-        $this->params = new Parameters();
+        $this->setParams($params);
     }
 
     /**
-     * @param $params
+     * @param array $params
      * @return $this
      */
-    public function setParams($params)
+    public function setParams(array $params)
     {
-        if (!$params instanceof Parameters) {
-            $params = new Parameters($params);
-        }
         $this->params = $params;
         return $this;
     }

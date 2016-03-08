@@ -10,14 +10,14 @@
 ?>
     <hr>
     <p>
-        <small><?php echo $this->translate('Login via') ?>...</small>
+        <small><?php echo $this->label ?></small>
     </p>
 <?php $ref = $this->buildReferer(array('logout', 'ref')); ?>
 <?php foreach ($this->SocialButtons as $provider =>
                $name
 ): ?>
     <a class="btn-sm btn-social btn-<?php echo $provider ?>"
-       title="<?php echo sprintf($this->translate('Login with %s'), $name) ?>"
+       title="<?php echo sprintf($this->alt, $name) ?>"
        href="<?php echo $this->url('auth-provider', array('provider' => $provider),
                                    array('query' => array('ref' => urlencode($ref)))
        ) ?>"><i class="fa fa-<?php echo $provider ?>"></i> <?php echo $name ?></a>

@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"PO-Revision-Date: 2016-02-20 17:55+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Turkish (http://www.transifex.com/yawik/yawik/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +20,7 @@ msgstr ""
 
 #: view/organizations/invite-employee/accept.phtml:12
 msgid "You have accepted the invitation"
-msgstr ""
+msgstr "Daveti kabul ettiniz"
 
 #: view/organizations/invite-employee/accept.phtml:13
 #, php-format
@@ -28,11 +29,11 @@ msgstr ""
 
 #: view/organizations/invite-employee/accept.phtml:18
 msgid "Please choose a password to be able to log in."
-msgstr ""
+msgstr "giriş yapabilmek için bir şifre seçiniz."
 
 #: view/organizations/index/index.phtml:14
 msgid "Organizations"
-msgstr ""
+msgstr "Organizasyonlar"
 
 #: view/organizations/index/index.ajax.phtml:69
 #, php-format
@@ -41,11 +42,11 @@ msgstr ""
 
 #: view/organizations/index/form.phtml:6 language/_annotated_strings.php:3
 msgid "Organization"
-msgstr ""
+msgstr "organizasyon"
 
 #: view/form/invite-employee-bar.phtml:14
 msgid "Via email address"
-msgstr ""
+msgstr "E-posta adresi üzerinden"
 
 #: view/form/invite-employee-bar.phtml:23
 msgid "Invite"
@@ -54,19 +55,19 @@ msgstr "Davet etmek"
 #: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:54
 msgid "Invite an employee via email address."
-msgstr ""
+msgstr "E-posta adresi üzerinden bir çalışanın davet edin."
 
 #: view/form/invite-employee-bar.phtml:36
 msgid "Click on this button will add the employee with the status \"pending\""
-msgstr ""
+msgstr "durumu ile çalışan katacak bu düğmeye tıklayın \"beklemede\""
 
 #: view/form/employee-fieldset.phtml:34
 msgid "PENDING"
-msgstr ""
+msgstr "BEKLEYEN"
 
 #: view/form/employees-fieldset.phtml:40
 msgid "pending"
-msgstr ""
+msgstr "kadar"
 
 #: view/mail/invite-employee.phtml:28
 #, php-format
@@ -75,7 +76,7 @@ msgstr ""
 
 #: view/mail/invite-employee.phtml:29
 msgid "Hello"
-msgstr ""
+msgstr "Merhaba"
 
 #: view/mail/invite-employee.phtml:34
 #, php-format
@@ -84,7 +85,7 @@ msgstr ""
 
 #: view/mail/invite-employee.phtml:39
 msgid "You can accept this invitation by visiting the following link"
-msgstr ""
+msgstr "Aşağıdaki bağlantıyı ziyaret ederek bu daveti kabul edebilir"
 
 #: view/mail/invite-employee.phtml:47
 #, php-format
@@ -104,15 +105,15 @@ msgstr ""
 msgid ""
 "If you do not want to accept this invitation you can ignore this mail and "
 "the request is canceled automatically after a week."
-msgstr ""
+msgstr "Bu daveti kabul etmek istemiyorsanız bu postayı göz ardı edebilirsiniz ve istek bir hafta sonra otomatik olarak iptal edilir."
 
 #: view/error/invite.phtml:11
 msgid "Doh! There was something going terribly wrong."
-msgstr ""
+msgstr "Doh! çok yanlış bir şeyler vardı."
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create organizations."
-msgstr ""
+msgstr "Maalesef, örgütler oluşturmak olmayabilir."
 
 #: view/error/no-parent.phtml:18
 #, php-format
@@ -123,11 +124,11 @@ msgstr ""
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:233
 msgid "Email address is invalid."
-msgstr ""
+msgstr "Email adresi geçersiz."
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:246
 msgid "Sending invitation mail failed."
-msgstr ""
+msgstr "davetiye posta gönderme başarısız oldu."
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:66
 msgid "City"
@@ -139,43 +140,43 @@ msgstr "Sokak"
 
 #: language/_annotated_strings.php:15
 msgid "View Jobs"
-msgstr ""
+msgstr "Görünüm İşler"
 
 #: language/_annotated_strings.php:18
 msgid "Edit Jobs"
-msgstr ""
+msgstr "Düzenleme İşleri"
 
 #: language/_annotated_strings.php:21
 msgid "Create Jobs"
-msgstr ""
+msgstr "Jobs oluştur"
 
 #: language/_annotated_strings.php:24
 msgid "View Applications"
-msgstr ""
+msgstr "Görünüm Uygulamaları"
 
 #: language/_annotated_strings.php:27
 msgid "Edit Applications"
-msgstr ""
+msgstr "Düzenleme Uygulamaları"
 
 #: language/_annotated_strings.php:30
 msgid "Please enter the name of the hiring organization."
-msgstr ""
+msgstr "işe kuruluşun adını yazınız."
 
 #: language/_annotated_strings.php:33
 msgid "Please enter a contact for the hiring organization."
-msgstr ""
+msgstr "işe organizasyon için bir kişiyi girin."
 
 #: language/_annotated_strings.php:36
 msgid "Please enter a description for the hiring organization."
-msgstr ""
+msgstr "işe organizasyon için bir açıklama girin."
 
 #: language/_annotated_strings.php:39
 msgid "Employees"
-msgstr ""
+msgstr "Çalışanlar"
 
 #: language/_annotated_strings.php:42
 msgid "Manage your employees and their permissions."
-msgstr ""
+msgstr "çalışanlarınızı ve onların izinlerini yönetmek."
 
 #: language/_annotated_strings.php:45
 msgid "Description"
@@ -185,23 +186,23 @@ msgstr "Tanım"
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
-msgstr ""
+msgstr "Bir Logo seçin. Bu logo iş açılması ve başvuru formunda gösterilecektir."
 
 #: language/_annotated_strings.php:51
 msgid "Organizationname"
-msgstr ""
+msgstr "Kuruluş Adı"
 
 #: language/_annotated_strings.php:57
 msgid "street"
-msgstr ""
+msgstr "sokak"
 
 #: language/_annotated_strings.php:60
 msgid "house number"
-msgstr ""
+msgstr "ev numarası"
 
 #: language/_annotated_strings.php:63
 msgid "Postalcode"
-msgstr ""
+msgstr "Posta kodu"
 
 #: language/_annotated_strings.php:69
 msgid "Phone"
@@ -209,15 +210,15 @@ msgstr "Telefon"
 
 #: language/_annotated_strings.php:72
 msgid "Fax"
-msgstr ""
+msgstr "Faks"
 
 #: language/_annotated_strings.php:75
 msgid "The organization referenced in your request could not be found."
-msgstr ""
+msgstr "İsteğiniz başvurulan kurum bulunamadı."
 
 #: language/_annotated_strings.php:78
 msgid "The access token you provided seems to have expired."
-msgstr ""
+msgstr "Eğer sağlanan erişim belirteci sona ermiş gibi görünüyor."
 
 #: language/_annotated_strings.php:81
 #, php-format
@@ -230,4 +231,4 @@ msgstr "Genel bakış"
 
 #: language/_annotated_strings.php:87
 msgid "Insert"
-msgstr ""
+msgstr "Ekle"

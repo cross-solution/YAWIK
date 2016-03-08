@@ -37,7 +37,7 @@ class JobboardControllerFactory implements FactoryInterface
         $serviceLocator = $serviceLocator->getServiceLocator();
 
         $searchForm = $serviceLocator->get('forms')
-            ->get('Jobs/ListFilter', ['fieldset' => 'Jobs/ListFilterLocationFieldset']);
+            ->get('Jobs/ListFilterLocation');
 
         /**
          * @var $jobRepository Repository\Job

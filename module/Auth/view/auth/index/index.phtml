@@ -15,6 +15,19 @@
     <h1><?php echo $this->translate('Login'); ?></h1>
 <?php endif; ?>
 
+<?php $this->headScript()->captureStart() ?>
+;(function($, win) {
+
+    $(function() {
+        if (win.location.hash) {
+            $('a[href="' + win.location.hash + '"]').tab('show');
+        }
+    });
+
+})(jQuery, window);
+
+<?php $this->headScript()->captureEnd() ?>
+
 <div class="col-md-6 col-md-offset-3">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -34,7 +47,7 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="panel tab-pane active" id="login">
+        <div role="tabpanel" class="panel panel-tabbed tab-pane active" id="login">
             <div class="form-content panel-body">
                 <?php echo $this->form($this->loginForm); ?>
                 <div class="row">
@@ -48,31 +61,30 @@
                     <?php endif; ?>
                 </div>
                 <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
-                    <?php echo $this->partial('core/social-buttons',['SocialButtons' => $this->socialbuttons() ]);?>
+                    <?php echo $this->partial('core/social-buttons',[
+                            'SocialButtons' => $this->socialbuttons(),
+                            'alt' => $this->translate('Login with %s'),
+                            'label' => $this->translate('Login with ...')]
+                    );?>
                 <?php endif; ?>
             </div>
         </div>
 
         <?php if($this->registerForm):?>
-        <div role="tabpanel" class="panel tab-pane" id="register">
+        <div role="tabpanel" class="panel panel-tabbed tab-pane" id="register">
             <div class="form-content panel-body">
                 <?php
                 // @todo: move the action setting to Form/Register.php
                 $this->registerForm->setAttribute('action',$this->url('lang/register'));
                 echo $this->form($this->registerForm);
                 ?>
-                <div class="row">
-                    <?php if (!isset($this->allowResetPassword) || $this->allowResetPassword == true): ?>
-                        <div class="col-md-6">
-                            <a href="<?php echo $this->url('lang/forgot-password'); ?>"
-                               title="<?php echo $this->translate('I forgot my password'); ?>" class="small">
-                                <?php echo $this->translate('I forgot my password'); ?>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
                 <?php if (!isset($this->allowRegister) || $this->allowRegister == true): ?>
-                    <?php echo $this->partial('core/social-buttons',['SocialButtons' => $this->socialbuttons() ]);?>
+                    <?php echo $this->partial('core/social-buttons',[
+                            'SocialButtons' => $this->socialbuttons() ,
+                            'alt' => $this->translate('Register with %s'),
+                            'label' => $this->translate('Register with ...')
+                        ]
+                    );?>
                 <?php endif; ?>
             </div>
         </div>

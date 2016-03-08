@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016
 # Mario de la Ossa <mariodelaossa@gmail.com>, 2014
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"PO-Revision-Date: 2016-02-20 17:49+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -68,17 +68,17 @@ msgstr " Mis grupos"
 
 #: view/error/social-profiles-unconfigured.phtml:13
 msgid "Missing Configuration"
-msgstr ""
+msgstr "Configuración faltante"
 
 #: view/error/social-profiles-unconfigured.phtml:14
 msgid "Unfortunately there seems to be missing configuration."
-msgstr ""
+msgstr "Por desgracia, parece que falta la configuración."
 
 #: view/error/social-profiles-unconfigured.phtml:19
 msgid ""
 "The login via social networks does not work at the moment due to the missing"
 " of some crucial configuration data."
-msgstr ""
+msgstr "La entrada a través de redes sociales no funciona en este momento debido a la falta de algunos datos de configuración importantes."
 
 #: view/auth/manage-groups/index.phtml:11
 msgid "Manage groups"
@@ -120,12 +120,12 @@ msgstr "Login"
 #: view/auth/index/index.phtml:29 view/auth/register/index.phtml:1
 #: view/auth/register/index.phtml:2 language/_annotated_strings.php:87
 msgid "Register"
-msgstr ""
+msgstr "Registro"
 
 #: view/auth/index/index.phtml:44 view/auth/index/index.phtml:45
 #: view/auth/index/index.phtml:68 view/auth/index/index.phtml:69
 msgid "I forgot my password"
-msgstr ""
+msgstr "Olvidé mi contraseña"
 
 #: view/auth/index/job-not-found.phtml:11
 msgid "A 410 error occured"
@@ -150,7 +150,7 @@ msgstr "Cambiar contraseña"
 
 #: view/auth/index/login-info.phtml:44
 msgid "Create my organization"
-msgstr ""
+msgstr "Crear mi organización"
 
 #: view/auth/index/login-info.phtml:47
 #, php-format
@@ -182,23 +182,23 @@ msgstr "Ingresar con %s"
 #: view/auth/forgot-password/index.phtml:1
 #: view/auth/forgot-password/index.phtml:2 language/_annotated_strings.php:75
 msgid "Reset your password"
-msgstr ""
+msgstr "Restablecer su contraseña"
 
 #: view/auth/forgot-password/index.phtml:5
 msgid ""
 "Please enter your username or email address. You will receive a link to "
 "create a new password via email."
-msgstr ""
+msgstr "Por favor, introduzca su nombre de usuario o dirección de correo electrónico. Usted recibirá un enlace para crear una nueva contraseña por correo electrónico."
 
 #: view/auth/register/completed.phtml:2
 msgid "The registration has been successful"
-msgstr ""
+msgstr "El registro ha tenido éxito"
 
 #: view/auth/register/completed.phtml:4 language/_annotated_strings.php:150
 msgid ""
 "An Email with an activation link has been sent, please try to check your "
 "email box"
-msgstr ""
+msgstr "Un correo electrónico con un enlace de activación ha sido enviado, intenta comprobar su casilla de correo electrónico"
 
 #: view/auth/password/index.phtml:11 view/auth/password/index.phtml:14
 msgid "My password"
@@ -303,15 +303,15 @@ msgstr "Configuración general"
 
 #: language/_annotated_strings.php:72
 msgid "Username or email"
-msgstr ""
+msgstr "Nombre de usuario o correo electrónico"
 
 #: language/_annotated_strings.php:78
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: language/_annotated_strings.php:84
 msgid "Are you human?"
-msgstr ""
+msgstr "Eres humano?"
 
 #: language/_annotated_strings.php:90
 msgid "General"
@@ -335,27 +335,27 @@ msgstr "login"
 
 #: language/_annotated_strings.php:108
 msgid "Cannot proceed, token expired"
-msgstr ""
+msgstr "No se puede proceder, símbolo caducado"
 
 #: language/_annotated_strings.php:111
 msgid "User cannot be found for specified token"
-msgstr ""
+msgstr "El usuario no puede encontrar por testigos especificadas"
 
 #: language/_annotated_strings.php:114 language/_annotated_strings.php:123
 #: language/_annotated_strings.php:141 language/_annotated_strings.php:159
 #: language/_annotated_strings.php:183
 msgid ""
 "An unexpected error has occurred, please contact your system administrator"
-msgstr ""
+msgstr "Se ha producido un error inesperado, por favor, póngase en contacto con el administrador del sistema"
 
 #: language/_annotated_strings.php:117
 msgid ""
 "User email verified successfully. You need to set a password to log in."
-msgstr ""
+msgstr "correo electrónico del usuario verificado correctamente. Tiene que establecer una contraseña para iniciar sesión."
 
 #: language/_annotated_strings.php:120
 msgid "User cannot be found"
-msgstr ""
+msgstr "El usuario no puede encontrar"
 
 #: language/_annotated_strings.php:126
 msgid "Group created"
@@ -383,19 +383,19 @@ msgstr "Se ha cerrado la sesion."
 
 #: language/_annotated_strings.php:147
 msgid "Registration is disabled"
-msgstr ""
+msgstr "La inscripción está desactivada"
 
 #: language/_annotated_strings.php:153 language/_annotated_strings.php:174
 msgid "Please fill form correctly"
-msgstr ""
+msgstr "Por favor complete el formulario correctamente"
 
 #: language/_annotated_strings.php:156
 msgid "User with this email address already exists"
-msgstr ""
+msgstr "Usuario con esta dirección de correo electrónico ya existe"
 
 #: language/_annotated_strings.php:162
 msgid "You must be logged in."
-msgstr ""
+msgstr "Usted debe estar conectado."
 
 #: language/_annotated_strings.php:165
 msgid "Password successfully changed"
@@ -409,19 +409,19 @@ msgstr "La contraseña no se pudo cambiar"
 msgid ""
 "Mail with link for reset password has been sent, please try to check your "
 "email box"
-msgstr ""
+msgstr "Mail con enlace de restablecimiento de contraseña ha sido enviado, intenta comprobar su casilla de correo electrónico"
 
 #: language/_annotated_strings.php:177
 msgid "User cannot be found for specified username or email"
-msgstr ""
+msgstr "El usuario no puede encontrar el nombre de usuario o correo electrónico especificada"
 
 #: language/_annotated_strings.php:180
 msgid "Found user does not have an email"
-msgstr ""
+msgstr "usuario encontrado no tiene un correo electrónico"
 
 #: language/_annotated_strings.php:186
 msgid "You are not permitted to access this resource."
-msgstr ""
+msgstr "No se le permite acceder a este recurso."
 
 #: language/_annotated_strings.php:189
 #, php-format

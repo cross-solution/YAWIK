@@ -68,7 +68,7 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $this->value = $params->toArray();
+        $this->value = $params;
 
         /*
          * search jobs by keywords

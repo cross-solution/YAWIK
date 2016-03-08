@@ -313,7 +313,7 @@ class ManageController extends AbstractActionController
                 'pageLinkNext' => $pageLinkNext,
                 'completionLink' => $completionLink,
                 'page' => $pageIdentifier,
-                'title' => $jobEntity->title,
+                'title' => $jobEntity->getTitle(),
                 'job' => $jobEntity,
                 'summary' => 'this is what we charge you for your offer...',
                 'valid' => $valid,
@@ -466,10 +466,12 @@ class ManageController extends AbstractActionController
 
         if ($params == 'approved') {
             $jobEntity->changeStatus(Status::ACTIVE, sprintf(/*@translate*/ "Job opening was activated by %s", $user->getInfo()->getDisplayName()));
+            $jobEntity->setDatePublishStart();
             $this->repositoryService->store($jobEntity);
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
             $this->entitySnapshot($jobEntity);
             $this->notification()->success(/* @translate */ 'Job has been approved');
+            return $this->redirect()->toRoute('lang/jobs/listOpenJobs', array(), true);
         }
 
         $viewLink = $this->url()->fromRoute(

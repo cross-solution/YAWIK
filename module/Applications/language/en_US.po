@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 18:11+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: English (http://www.transifex.com/yawik/yawik/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -345,8 +345,8 @@ msgstr "Phone"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:258
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:264
 msgid "Attachments"
 msgstr "Attachments"
 
@@ -604,7 +604,7 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "Facts"
 
@@ -624,31 +624,31 @@ msgstr "Unknown application identifier"
 msgid "An application with the provided identifier could not be found."
 msgstr "An application with the provided identifier could not be found."
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "E-Mail Notifications"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "Options"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr "Search applications"
 
-#: src/Applications/Controller/ManageController.php:335
+#: src/Applications/Controller/ManageController.php:340
 #: src/Applications/Controller/MultimanageController.php:87
 #, php-format
 msgid "Your application dated %s"
 msgstr "Your application dated %s"
 
-#: src/Applications/Controller/ManageController.php:380
+#: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Forwarded application to %s"
 
-#: src/Applications/Controller/ManageController.php:396
+#: src/Applications/Controller/ManageController.php:401
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Forward application to %s failed."
@@ -869,17 +869,18 @@ msgid ""
 msgstr "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are preserved."
 
 #: language/_annotated_strings.php:201
-msgid "Summary"
-msgstr "Summary"
-
-#: language/_annotated_strings.php:204
 msgid "all"
 msgstr "all"
 
-#: language/_annotated_strings.php:207 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:210
 #: language/_annotated_strings.php:222
 msgid "Invalid apply id"
 msgstr "Invalid apply id"
+
+#: language/_annotated_strings.php:207
+#, php-format
+msgid "Application was read by %s"
+msgstr "Application was read by %s"
 
 #: language/_annotated_strings.php:213
 msgid ""
@@ -916,31 +917,42 @@ msgstr "No mail adress available"
 
 #: language/_annotated_strings.php:246
 #, php-format
+msgid "Mail was sent to %s"
+msgstr "Mail was sent to %s"
+
+#: language/_annotated_strings.php:249
+#, php-format
+msgid "Application was rated by %s"
+msgstr "Application was rated by %s"
+
+#: language/_annotated_strings.php:252
+#, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Application to \"%s\" dated %s"
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:255
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "New application for your vacancy \"%s\""
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:258
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr "Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\\"##title##\\\"\\n\\n"
 
-#: language/_annotated_strings.php:255
+#: language/_annotated_strings.php:261
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:267
 msgid "E-Mail Templates"
 msgstr "E-Mail Templates"
 
-#: language/_annotated_strings.php:264
+#: language/_annotated_strings.php:270
 msgid "Overview"
 msgstr "Overview"
 

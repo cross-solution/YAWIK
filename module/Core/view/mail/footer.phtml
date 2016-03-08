@@ -11,10 +11,20 @@
  * Mail footer used in various mails via <?php echo $this->partial('mail/footer'); ?>
  */
 
+/* @var \Core\Options\ModuleOptions $options */
 $options = $this->services('Core/Options');
-$siteName = $options->siteName;
+$siteName = $options->getSiteName();
+$operator = $options->getOperator();
 
 ?>
 <p>Mit freundlichen Grüßen,</p>
 
-<br /><br />ihr <?php echo $siteName ?>-Team
+<p>Ihr <?php echo $siteName ?>-Team</p>
+
+<p>
+    Diese Mail wurde Ihnen gesendet von:<br>
+    <?php echo $operator['companyShortName'] ?><br>
+    <?php echo $operator['street'] ?><br>
+    <?php echo $operator['postalCode'] . ' ' . $operator['city'] ?><br>
+    <?php echo $operator['homepage']  ?><br>
+</p>

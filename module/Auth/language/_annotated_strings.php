@@ -188,9 +188,9 @@ translate('You are not permitted to access this resource.');
 //: ./src/Auth/Listener/MailForgotPassword.php:67
 translate('a new password was requestet for %s');
 
-//: ./config/module.config.php:387
+//: ./config/module.config.php:385
 translate('user');
 
-//: ./config/module.config.php:388
+//: ./config/module.config.php:386
 translate('recruiter');
 

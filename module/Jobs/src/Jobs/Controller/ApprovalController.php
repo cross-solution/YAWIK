@@ -106,7 +106,7 @@ class ApprovalController extends AbstractActionController
             $params['sort'] = '-date';
         }
 
-        $paginator = $this->paginatorservice('Jobs/Admin', $params);
+        $paginator = $this->paginator('Jobs/Admin', $params);
 
         $return = array(
             'by'   => $params->get('by', 'all'),

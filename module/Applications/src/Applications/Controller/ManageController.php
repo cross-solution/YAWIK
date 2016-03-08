@@ -85,7 +85,7 @@ class ManageController extends AbstractActionController
         $statusElement->setValueOptions($statesForSelections);
         
         $job = $params->job ? $jobRepository->find($params->job)  : null;
-        $paginator = $this->paginator('Applications/Application', $params);
+        $paginator = $this->paginator('Applications');
 
         if ($job) {
             $params['job_title'] = '[' . $job->getApplyId() . '] ' . $job->getTitle();

@@ -1,14 +1,13 @@
 <?php $this->headTitle($this->translate("Reset your password")); ?>
     <h1><?php echo $this->translate("Reset your password"); ?></h1>
-
-    <div class="alert alert-info">
-        <?php echo $this->translate('Please enter your username or email address. You will receive a link to create a new password via email.'); ?>
-    </div>
-
 <?php
 /** @var \Auth\Form\ForgotPassword $form */
 $form = $this->form;
+$form->setIsDescriptionsEnabled(true);
+$form->setDescription($this->translate('Please enter your username or email address. You will receive a link to create a new password via email.'));
+$form->setLabel("Reset your password");
 $form->setAttribute('action', $this->url('lang/forgot-password'));
 ?>
-
+<div class="col-md-12">
 <?php echo $this->form($form); ?>
+</div>

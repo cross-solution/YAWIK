@@ -262,7 +262,6 @@ return array(
         'template_map' => array(
             'noscript-notice' => __DIR__ . '/../view/layout/_noscript-notice.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
-            //'core/index/index'        => __DIR__ . '/../view/core/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/403' => __DIR__ . '/../view/error/403.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
@@ -276,7 +275,9 @@ return array(
             'core/form/permissions-fieldset' => __DIR__ . '/../view/form/permissions-fieldset.phtml',
             'core/form/permissions-collection' => __DIR__ . '/../view/form/permissions-collection.phtml',
             'core/form/container-view' => __DIR__ . '/../view/form/container.view.phtml',
+            'mail/header' =>  __DIR__ . '/../view/mail/header.phtml',
             'mail/footer' =>  __DIR__ . '/../view/mail/footer.phtml',
+            'mail/footer.en' =>  __DIR__ . '/../view/mail/footer.en.phtml',
             //'startpage' => __DIR__ . '/../view/layout/startpage.phtml',
         ),
         // Where to look for view templates not mapped above
@@ -334,6 +335,12 @@ return array(
             'message_separator_string' => '</li><li>',
             'message_close_string'     => '</li></ul></div>',
         ),
+        'form_editor' => [
+            'light' => [
+                'toolbar' => 'undo redo | formatselect | alignleft aligncenter alignright ',
+                'block_formats' => 'Job title=h1;Subtitle=h2'
+                ]
+        ]
     ),
     
     'filters' => array(
@@ -375,6 +382,12 @@ return array(
             'submitField' => 'FormSubmitButtonsFieldset'
         )
     ),
+
+    'paginator_manager' => [
+        'abstract_factories' => [
+            '\Core\Factory\Paginator\RepositoryAbstractFactory',
+        ],
+    ],
     
     'mails_config' => array(
         'from' => array(

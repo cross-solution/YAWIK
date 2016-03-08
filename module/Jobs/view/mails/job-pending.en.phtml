@@ -1,0 +1,31 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @author bleek@cross-solution.de
+ * @license   MIT
+ */
+ /*
+  * Confirmation Mail to the Customer
+  */
+
+$user = $this->job->getUser();
+$info = $user->getInfo();
+?>
+<?php echo $this->partial('mail/header'); ?>
+<p><?php echo 'male' == $info->getGender()
+         ? 'Dear Mr '
+         : 'Dear Mrs ' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+
+<p>
+    We hereby acknowledge receipt of your job announcement with the headline <b></b><?php echo $this->job->getTitle() ?></b>
+    and the reference  <b><?php echo $this->job->getReference() ?></b>. You will receive a message as soon as the ad is
+    approved and published.
+</p>
+<p>
+    You can follow the actual status of your job opening on the  <a href="<?php echo $this->serverUrl() . $this->url('lang/jobs', array('lang' => 'de'))?>">job overview</a>.
+</p>
+
+<?php echo $this->partial('mail/footer'); ?>

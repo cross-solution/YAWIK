@@ -111,7 +111,7 @@ class JobboardController extends AbstractActionController
 
         $params['by'] = "guest";
 
-        $paginator = $this->paginatorService('Jobs/Board', $params);
+        $paginator = $this->paginator('Jobs/Board', $params);
 
         $options = $this->searchForm->getOptions();
         $options['showButtons'] = false;

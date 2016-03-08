@@ -1,0 +1,33 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<?php
+/*
+ * Available variables:
+ * $this->job : The job entity
+ * $this->siteName: The site name (from Core/AbstractOptions)
+ */
+
+$user = $this->job->getUser();
+$info = $user->getInfo();
+?>
+<?php echo $this->partial('mail/header'); ?>
+<p><?php echo 'male' == $info->getGender()
+        ? 'Dear Mr'
+        : 'Dear Mrs' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+
+<p>
+    Your job opening "<?php echo $this->job->getTitle() ?>" referenced by <?php echo $this->job->getReference() ?>.
+    was rejected.
+</p>
+<p>
+    Please korrekt your job opening
+</p>
+
+<?php echo $this->partial('mail/footer'); ?>

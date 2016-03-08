@@ -18,6 +18,11 @@ use Core\Form\ViewPartialProviderInterface;
 use Zend\Form\ElementPrepareAwareInterface;
 use Zend\Form\FormInterface;
 
+/**
+ * Class GeoText
+ *
+ * @package Geo\Form
+ */
 class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepareAwareInterface
 {
     
@@ -29,6 +34,12 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
     protected $converter;
     protected $filter;
 
+    /**
+     * Creates the GeoText element
+     *
+     * @param null  $name
+     * @param array $options
+     */
     public function __construct($name = null, array $options = null)
     {
         $this->nameElement = new Text('name');
@@ -38,6 +49,13 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         parent::__construct($name, $options);
     }
 
+    /**
+     * Sets options of the GeoText element.
+     *
+     * @param array|\Traversable $options
+     *
+     * @return $this
+     */
     public function setOptions($options)
     {
         parent::setOptions($options);
@@ -49,6 +67,13 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this;
     }
 
+    /**
+     * Sets the converter
+     *
+     * @param $converter
+     *
+     * @return $this
+     */
     public function setConverter($converter)
     {
         $this->converter = $converter;
@@ -56,6 +81,13 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this;
     }
 
+    /**
+     * Sets the filter
+     *
+     * @param $filter
+     *
+     * @return $this
+     */
     public function setFilter($filter)
     {
         $this->filter = $filter;
@@ -63,6 +95,11 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this;
     }
 
+    /**
+     * Gets the converter
+     *
+     * @return mixed
+     */
     public function getConverter()
     {
         if (!$this->converter) {
@@ -71,11 +108,23 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this->converter;
     }
 
+    /**
+     * Gets the view partial
+     *
+     * @return string
+     */
     public function getViewPartial()
     {
         return $this->partial;
     }
-    
+
+    /**
+     * Sets the view partial
+     *
+     * @param String $partial
+     *
+     * @return $this
+     */
     public function setViewPartial($partial)
     {
         $this->partial = $partial;
@@ -104,6 +153,8 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
     }
 
     /**
+     * Gets the data of an element
+     *
      * @return mixed
      */
     public function getDataElement()
@@ -112,6 +163,8 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
     }
 
     /**
+     * Gets the name of an element
+     *
      * @return mixed
      */
     public function getNameElement()
@@ -119,11 +172,23 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         return $this->nameElement;
     }
 
+    /**
+     * Gets the type of an element
+     *
+     * @return Hidden
+     */
     public function getTypeElement()
     {
         return $this->typeElement;
     }
 
+    /**
+     * Sets the type of an element
+     *
+     * @param $type
+     *
+     * @return $this
+     */
     public function setType($type)
     {
         $this->typeElement->setValue($type);
@@ -132,6 +197,8 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
     }
 
     /**
+     * Sets the value of an element
+     *
      * @param mixed $value
      * @param null  $type
      *
@@ -144,12 +211,13 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
         }
         if ('geo' == $value['type']) {
             $lonLat = $this->getConverter()->toCoordinates($value['name']);
+
+            $lon = $lat = 0;
+            
             foreach($lonLat as $k=>$v) {
                  list($lon,$lat) = explode(',', $v, 2);
                  $latLon[]=$lat.','.$lon;
             }
-
-            $lon = $lat = 0;
 
             $value['data'] = [
                 'coordinates'=>[
@@ -177,6 +245,8 @@ class GeoText extends Text implements ViewPartialProviderInterface, ElementPrepa
     }
 
     /**
+     * Gets the value of an element
+     *
      * @param string $type
      *
      * @return array|mixed

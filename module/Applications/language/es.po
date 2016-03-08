@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 18:11+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgid "click to open the job ad"
 msgstr "haga clic para abrir la publicacion de empleo."
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "Declaración de privacidad"
 
@@ -84,7 +84,7 @@ msgstr "Trabajo"
 msgid "Date"
 msgstr "Fecha"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:228
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:231
 msgid "your application was sent successfully"
 msgstr "su solicitud se ha enviado correctamente"
 
@@ -322,7 +322,7 @@ msgstr "Cerrar"
 #: view/applications/manage/detail.phtml:379
 #: view/applications/manage/detail.phtml:385
 msgid "Status history"
-msgstr ""
+msgstr "historial de estado"
 
 #: view/applications/manage/detail.phtml:234
 #: view/applications/manage/detail.phtml:337
@@ -348,8 +348,8 @@ msgstr "Teléfono"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:264
 msgid "Attachments"
 msgstr "Adjuntos"
 
@@ -607,7 +607,7 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "Hechos"
 
@@ -627,31 +627,31 @@ msgstr "Identificador de solicitud desconocido"
 msgid "An application with the provided identifier could not be found."
 msgstr "No se pudo encontrar una solicitud con el identificador de solicitud proporcionado."
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "Notificaciones por E-Mail"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "Opciones"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:335
+#: src/Applications/Controller/ManageController.php:340
 #: src/Applications/Controller/MultimanageController.php:87
 #, php-format
 msgid "Your application dated %s"
 msgstr "Tu aplicacion con fecha %s"
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Se reenvió aplicación a %s"
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:401
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Reenvío de aplicación a %s falló "
@@ -814,7 +814,7 @@ msgstr "Introduce tu disponibilidad para viajar."
 msgid "Ask the applicant about the willingness to travel"
 msgstr "Preguntar al solicitante acerca de su disponibilidad para viajar"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "por favor seleccione"
 
@@ -848,102 +848,114 @@ msgstr ""
 msgid "Ask the applicant, if he has a driving license."
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "Copia"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "enviarme una copia de mi aplicación"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr "he leido los %s y los acepto"
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "Haz clic para introducir un resumen."
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr "<strong>Nota</strong>: Codigo HTML es removido. Saltos de linea son preservados."
 
-#: language/_annotated_strings.php:198
-msgid "Summary"
-msgstr "Resumen"
-
 #: language/_annotated_strings.php:201
 msgid "all"
 msgstr "todo"
 
-#: language/_annotated_strings.php:204 language/_annotated_strings.php:207
-#: language/_annotated_strings.php:219
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:222
 msgid "Invalid apply id"
 msgstr "Id de solicitud invalido"
 
-#: language/_annotated_strings.php:210
+#: language/_annotated_strings.php:207
+#, php-format
+msgid "Application was read by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:213
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr "Falta información requerida. Tu solicitud no puede ser enviada."
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:216
 msgid "Application has been send."
 msgstr ""
 
-#: language/_annotated_strings.php:216 language/_annotated_strings.php:225
+#: language/_annotated_strings.php:219 language/_annotated_strings.php:228
 msgid "Application confirmation"
 msgstr "Confirmacion de solicitud"
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:225
 msgid "There were errors in the form."
 msgstr "Hubo errores en el formulario"
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 msgid "Application has been deleted."
 msgstr ""
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 msgid "Mail has been send"
 msgstr ""
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 msgid "Application data has been deleted"
 msgstr ""
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "No mail adress available"
 msgstr ""
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
+#, php-format
+msgid "Mail was sent to %s"
+msgstr ""
+
+#: language/_annotated_strings.php:249
+#, php-format
+msgid "Application was rated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:252
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Tu aplicacion a \"%s\" con fecha %s"
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:255
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Nueva solicitud para tu vacancia \"%s\""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:258
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr "Hola ##name##,\\n\\nHay una aplicacion nueva para tu vacancia:\\n\\\"##title##\\\"\\n\\n"
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:261
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "Adjuntar imágenes o documentos PDF a tu solicitud. Arrastralos aqui o has clic en el area de adjuntos. Puedes subir hasta %sMB."
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:267
 msgid "E-Mail Templates"
 msgstr "Plantillas E-Mail "
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:270
 msgid "Overview"
 msgstr "Visión de conjunto"
 

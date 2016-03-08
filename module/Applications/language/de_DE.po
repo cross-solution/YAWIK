@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014-2015
+# Carsten Bleek <cbleek@yawik.org>, 2014-2016
 # Carsten Bleek <cbleek@yawik.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 18:41+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: German (http://www.transifex.com/yawik/yawik/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgid "click to open the job ad"
 msgstr "Klicken, um die Stellenanzeige zu öffnen"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "Datenschutzbestimmung"
 
@@ -83,7 +83,7 @@ msgstr "Stellenanzeige"
 msgid "Date"
 msgstr "Datum"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:228
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:231
 msgid "your application was sent successfully"
 msgstr "Ihre Bewerbung wurde erfolgreich gespeichert"
 
@@ -347,8 +347,8 @@ msgstr "Telefon"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:264
 msgid "Attachments"
 msgstr "Anlagen"
 
@@ -606,7 +606,7 @@ msgid "E-Mail"
 msgstr "E-Mail"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "Fakten"
 
@@ -626,31 +626,31 @@ msgstr "Unbekannte Bewerbungsreferenz"
 msgid "An application with the provided identifier could not be found."
 msgstr "Der Bewerbungslink bezieht sich auf eine Stellenanzeige, die nicht gefunden werden konnte."
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "E-Mail Benachrichtigungen"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "Optionen"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr "Bewerbungen suchen"
 
-#: src/Applications/Controller/ManageController.php:335
+#: src/Applications/Controller/ManageController.php:340
 #: src/Applications/Controller/MultimanageController.php:87
 #, php-format
 msgid "Your application dated %s"
 msgstr "Ihre Bewerbung vom %s"
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forwarded application to %s"
 msgstr "Bewerbung wurde weitergeleitet an %s"
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:401
 #, php-format
 msgid "Forward application to %s failed."
 msgstr "Weiterleitung der Bewerbung an  %s fehlgeschlagen."
@@ -813,7 +813,7 @@ msgstr "Bitte machen Sie Angaben zu Ihrer Reisebereitschaft."
 msgid "Ask the applicant about the willingness to travel"
 msgstr "Soll der Kandidat Angaben über seine Reisebereitschaft machen?"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "Bitte wählen"
 
@@ -847,102 +847,114 @@ msgstr "Haben Sie einen Führerschein?"
 msgid "Ask the applicant, if he has a driving license."
 msgstr "Fragen Sie den Bewerber nach einer Fahrerlaubnis."
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "Blindkopie"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "Senden Sie mir eine Kopie meiner übermittelten Daten"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr "Ich habe die %s gelesen und akzeptiere sie"
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "Klicken Sie hier, um ein Anschreiben einzugeben."
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr "<strong>Bitte beachten</strong>: HTML-Tags werden entfernt. Zeilenumbrüche bleiben bestehen."
 
-#: language/_annotated_strings.php:198
-msgid "Summary"
-msgstr "Zusammenfassung"
-
 #: language/_annotated_strings.php:201
 msgid "all"
 msgstr "alle"
 
-#: language/_annotated_strings.php:204 language/_annotated_strings.php:207
-#: language/_annotated_strings.php:219
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:222
 msgid "Invalid apply id"
 msgstr "ungültige Bewerbungs Referenz"
 
-#: language/_annotated_strings.php:210
+#: language/_annotated_strings.php:207
+#, php-format
+msgid "Application was read by %s"
+msgstr "Die Bewerbung wurde eingesehen von %s"
+
+#: language/_annotated_strings.php:213
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr "Es fehlen noch benötigte Angaben. Ihre Bewerbung konnte nicht versendet werden."
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:216
 msgid "Application has been send."
 msgstr "Die Bewerbung wurde versendet"
 
-#: language/_annotated_strings.php:216 language/_annotated_strings.php:225
+#: language/_annotated_strings.php:219 language/_annotated_strings.php:228
 msgid "Application confirmation"
 msgstr "Eingangsbestätigung"
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:225
 msgid "There were errors in the form."
 msgstr "Beim Ausfüllen des Formulars sind Fehler aufgetreten."
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 msgid "Application has been deleted."
 msgstr "Die Bewerbung wurde versendet."
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 msgid "Mail has been send"
 msgstr "Die E-Mail wurde versendet"
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 msgid "Application data has been deleted"
 msgstr "Die Bewerbung wurde gelöscht"
 
-#: language/_annotated_strings.php:240
+#: language/_annotated_strings.php:243
 msgid "No mail adress available"
 msgstr "Keine E-Mail Adresse vorhanden"
 
-#: language/_annotated_strings.php:243
+#: language/_annotated_strings.php:246
+#, php-format
+msgid "Mail was sent to %s"
+msgstr "E-Mail wurde gesendet an %s"
+
+#: language/_annotated_strings.php:249
+#, php-format
+msgid "Application was rated by %s"
+msgstr "Die Bewerbung wurde bewertet durch %s"
+
+#: language/_annotated_strings.php:252
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr "Fwd: Bewerbung auf \"%s\" vom %s"
 
-#: language/_annotated_strings.php:246
+#: language/_annotated_strings.php:255
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr "Neue Bewerbung für Ihre Anzeige \"%s\""
 
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:258
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr "Hallo ##name##,\\n\\nEs gibt eine neue Bewerbung auf Ihre Anzeige:\\n\\\"##title##\\\"\\n\\n"
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:261
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "Heften Sie Bilder oder PDF Dokumente an Ihre Bewerbung. Ziehen Sie Ihre Dokumente einfach in das Feld für Anlagen, oder klicken Sie das Feld an. Sie können Dateien mit einem Gesamtvolumen von %s MB hochladen."
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:267
 msgid "E-Mail Templates"
 msgstr "E-Mail Vorlagen"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:270
 msgid "Overview"
 msgstr "Überblick"
 

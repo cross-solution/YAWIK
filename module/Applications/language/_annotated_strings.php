@@ -203,6 +203,9 @@ translate('all');
 //: ./src/Applications/Controller/ManageController.php:133
 translate('Invalid apply id');
 
+//: ./src/Applications/Controller/ManageController.php:148
+translate('Application was read by %s');
+
 //: ./src/Applications/Controller/ApplyController.php:170
 translate('Invalid apply id');
 
@@ -239,6 +242,12 @@ translate('Application data has been deleted');
 //: ./src/Applications/Controller/IndexController.php:345
 translate('No mail adress available');
 
+//: ./src/Applications/Controller/MultimanageController.php:140
+translate('Mail was sent to %s');
+
+//: ./src/Applications/Controller/CommentController.php:109
+translate('Application was rated by %s');
+
 //: ./src/Applications/Mail/Forward.php:59
 translate('Fwd: Application to "%s" dated %s');
 
@@ -254,9 +263,9 @@ translate('Attach images or PDF Documents to your application. Drag&drop them, o
 //: ./src/Applications/Factory/Form/AttachmentsFactory.php:83
 translate('Attachments');
 
-//: ./config/module.config.php:65
+//: ./config/module.config.php:57
 translate('E-Mail Templates');
 
-//: ./config/module.config.php:133
+//: ./config/module.config.php:125
 translate('Overview');
 

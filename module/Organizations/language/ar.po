@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Carsten Bleek <cbleek@yawik.org>, 2014
+# Carsten Bleek <cbleek@yawik.org>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:31+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 20:59+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Arabic (http://www.transifex.com/yawik/yawik/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: view/organizations/invite-employee/accept.phtml:12
 msgid "You have accepted the invitation"
-msgstr ""
+msgstr "لقد قبلت دعوة"
 
 #: view/organizations/invite-employee/accept.phtml:13
 #, php-format
@@ -29,7 +29,7 @@ msgstr ""
 
 #: view/organizations/invite-employee/accept.phtml:18
 msgid "Please choose a password to be able to log in."
-msgstr ""
+msgstr "يرجى اختيار كلمة مرور لتكون قادرة على تسجيل الدخول."
 
 #: view/organizations/index/index.phtml:14
 msgid "Organizations"
@@ -46,7 +46,7 @@ msgstr "منظمة"
 
 #: view/form/invite-employee-bar.phtml:14
 msgid "Via email address"
-msgstr ""
+msgstr "عبر عنوان البريد الإلكتروني"
 
 #: view/form/invite-employee-bar.phtml:23
 msgid "Invite"
@@ -55,19 +55,19 @@ msgstr "دعا"
 #: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:54
 msgid "Invite an employee via email address."
-msgstr ""
+msgstr "دعوة الموظف عن طريق البريد الإلكتروني."
 
 #: view/form/invite-employee-bar.phtml:36
 msgid "Click on this button will add the employee with the status \"pending\""
-msgstr ""
+msgstr "اضغط على هذا الزر سيضيف الموظف مع حالة \"انتظار\""
 
 #: view/form/employee-fieldset.phtml:34
 msgid "PENDING"
-msgstr ""
+msgstr "ريثما"
 
 #: view/form/employees-fieldset.phtml:40
 msgid "pending"
-msgstr ""
+msgstr "ريثما"
 
 #: view/mail/invite-employee.phtml:28
 #, php-format
@@ -76,7 +76,7 @@ msgstr ""
 
 #: view/mail/invite-employee.phtml:29
 msgid "Hello"
-msgstr ""
+msgstr "مرحبا"
 
 #: view/mail/invite-employee.phtml:34
 #, php-format
@@ -85,7 +85,7 @@ msgstr ""
 
 #: view/mail/invite-employee.phtml:39
 msgid "You can accept this invitation by visiting the following link"
-msgstr ""
+msgstr "يمكنك قبول هذه الدعوة من خلال زيارة الرابط التالي"
 
 #: view/mail/invite-employee.phtml:47
 #, php-format
@@ -105,15 +105,15 @@ msgstr ""
 msgid ""
 "If you do not want to accept this invitation you can ignore this mail and "
 "the request is canceled automatically after a week."
-msgstr ""
+msgstr "إذا كنت لا ترغب في قبول هذه الدعوة يمكنك تجاهل هذه الرسالة ويتم إلغاء الطلب تلقائيا بعد أسبوع."
 
 #: view/error/invite.phtml:11
 msgid "Doh! There was something going terribly wrong."
-msgstr ""
+msgstr "دوه! كان هناك شيء ما يحدث خطأ جسيم."
 
 #: view/error/no-parent.phtml:15
 msgid "Sorry, you may not create organizations."
-msgstr ""
+msgstr "عذرا، لا يجوز لك إنشاء المنظمات."
 
 #: view/error/no-parent.phtml:18
 #, php-format
@@ -124,11 +124,11 @@ msgstr ""
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:233
 msgid "Email address is invalid."
-msgstr ""
+msgstr "عنوان البريد الإلكتروني غير صالح."
 
 #: src/Organizations/Controller/Plugin/InvitationHandler.php:246
 msgid "Sending invitation mail failed."
-msgstr ""
+msgstr "إرسال البريد دعوة فاشلة."
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:66
 msgid "City"
@@ -140,23 +140,23 @@ msgstr "شارع"
 
 #: language/_annotated_strings.php:15
 msgid "View Jobs"
-msgstr ""
+msgstr "عرض وظائف"
 
 #: language/_annotated_strings.php:18
 msgid "Edit Jobs"
-msgstr ""
+msgstr "تحرير وظائف"
 
 #: language/_annotated_strings.php:21
 msgid "Create Jobs"
-msgstr ""
+msgstr "خلق وظائف"
 
 #: language/_annotated_strings.php:24
 msgid "View Applications"
-msgstr ""
+msgstr "عرض التطبيقات"
 
 #: language/_annotated_strings.php:27
 msgid "Edit Applications"
-msgstr ""
+msgstr "تحرير التطبيقات"
 
 #: language/_annotated_strings.php:30
 msgid "Please enter the name of the hiring organization."
@@ -168,15 +168,15 @@ msgstr "الرجاء إدخال جهة اتصال لتنظيم التوظيف."
 
 #: language/_annotated_strings.php:36
 msgid "Please enter a description for the hiring organization."
-msgstr ""
+msgstr "الرجاء إدخال وصف لتنظيم التوظيف."
 
 #: language/_annotated_strings.php:39
 msgid "Employees"
-msgstr ""
+msgstr "الموظفين"
 
 #: language/_annotated_strings.php:42
 msgid "Manage your employees and their permissions."
-msgstr ""
+msgstr "إدارة موظفيك والأذونات الخاصة بهم."
 
 #: language/_annotated_strings.php:45
 msgid "Description"
@@ -186,7 +186,7 @@ msgstr "وصف"
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
-msgstr ""
+msgstr "اختيار الشعار. سيتم عرض هذا الشعار في فتح فرص العمل واستمارة الطلب."
 
 #: language/_annotated_strings.php:51
 msgid "Organizationname"
@@ -210,15 +210,15 @@ msgstr "هاتف"
 
 #: language/_annotated_strings.php:72
 msgid "Fax"
-msgstr ""
+msgstr "فاكس"
 
 #: language/_annotated_strings.php:75
 msgid "The organization referenced in your request could not be found."
-msgstr ""
+msgstr "تعذر العثور المنظمة المشار إليها في طلبك."
 
 #: language/_annotated_strings.php:78
 msgid "The access token you provided seems to have expired."
-msgstr ""
+msgstr "يبدو أن رمز وصول الذي قدمته قد انتهت."
 
 #: language/_annotated_strings.php:81
 #, php-format

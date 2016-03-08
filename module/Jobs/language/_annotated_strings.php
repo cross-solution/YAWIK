@@ -140,6 +140,12 @@ translate('Portals');
 //: ./src/Jobs/Form/Multipost.php:31
 translate('Multiposting');
 
+//: ./src/Jobs/Entity/StatusInterface.php:24
+translate('created');
+
+//: ./src/Jobs/Entity/StatusInterface.php:29
+translate('waiting for approval');
+
 //: ./src/Jobs/Entity/StatusInterface.php:34
 translate('rejected');
 
@@ -155,31 +161,31 @@ translate('inactive');
 //: ./src/Jobs/Entity/StatusInterface.php:54
 translate('expired');
 
-//: ./src/Jobs/Controller/ManageController.php:459
+//: ./src/Jobs/Controller/ManageController.php:460
 translate('Job opening was rejected by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:463
+//: ./src/Jobs/Controller/ManageController.php:464
 translate('Job has been rejected');
 
-//: ./src/Jobs/Controller/ManageController.php:467
+//: ./src/Jobs/Controller/ManageController.php:468
 translate('Job opening was activated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:471
+//: ./src/Jobs/Controller/ManageController.php:473
 translate('Job has been approved');
 
-//: ./src/Jobs/Controller/ManageController.php:514
+//: ./src/Jobs/Controller/ManageController.php:517
 translate('Job was deactivated by %s');
 
-//: ./src/Jobs/Controller/ManageController.php:515
+//: ./src/Jobs/Controller/ManageController.php:518
 translate('Job has been deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:517
+//: ./src/Jobs/Controller/ManageController.php:520
 translate('Job could not be deactivated');
 
-//: ./src/Jobs/Controller/ManageController.php:533
+//: ./src/Jobs/Controller/ManageController.php:536
 translate('Template changed');
 
-//: ./src/Jobs/Controller/ManageController.php:535
+//: ./src/Jobs/Controller/ManageController.php:538
 translate('Template not changed');
 
 //: ./src/Jobs/Listener/MailSender.php:89
@@ -235,39 +241,6 @@ translate('Edit job');
 
 //: ./config/module.config.php:162
 translate('Jobboard');
-
-36:                'label'       => /*@translate*/
-46:                'label'         => /*@translate*/
-61:                'data-placeholder' => /*@translate*/
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:37
-translate('All');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:38
-translate('Active');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:39
-translate('Inactive');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:40
-translate('Waiting for approval');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:41
-translate('Created');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:42
-translate('Published');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:43
-translate('Rejected');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:44
-translate('Expired');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:59
-translate('Companyname');
-
-//: ./test/JobsTest/Form/ListFilterAdminTest.php:62
-translate('Select hiring organization');
 
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37
 translate('Show all jobs');

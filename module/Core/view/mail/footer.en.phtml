@@ -1,0 +1,30 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @author bleek@cross-solution.de
+ * @license   MIT
+ */
+/*
+ * Mail footer used in various mails via <?php echo $this->partial('mail/footer'); ?>
+ */
+
+/* @var \Core\Options\ModuleOptions $options */
+$options = $this->services('Core/Options');
+$siteName = $options->getSiteName();
+$operator = $options->getOperator();
+
+?>
+<p>regards,</p>
+
+<p>your <?php echo $siteName ?>-Team</p>
+
+<p>
+    This mail was brought to you by:<br>
+    <?php echo $operator['companyShortName'] ?><br>
+    <?php echo $operator['street'] ?><br>
+    <?php echo $operator['postalCode'] . ' ' . $operator['city'] ?><br>
+    <?php echo $operator['homepage']  ?><br>
+</p>

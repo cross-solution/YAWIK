@@ -15,11 +15,46 @@ use Zend\Form\View\Helper\FormTextarea;
 
 class FormEditor extends FormTextarea
 {
+    /**
+     * @var string
+     */
     protected $theme = 'modern';
 
+    /**
+     * Default configuration of the form editor
+     *
+     * @see https://www.tinymce.com/docs/configure/integration-and-setup/
+     * @var array
+     */
+    protected $options = [
+        'selector' => 'div.tinymce_modern',
+        'inline' => true,
+        'theme' => 'modern',
+        'toolbar' => 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | link | bullist | removeformat',
+        'menubar' => false,
+        'advlist_bullet_styles' => 'square disc',
+        'block_formats' => 'Headings=h4;',
+        'removed_menuitems' =>  'newdocument',
+        'plugins' => 'autolink lists advlist visualblocks code fullscreen contextmenu paste link',
+    ];
 
+    /**
+     * Language of tinyMCE
+     *
+     * @var string
+     */
+    protected $language="de";
+
+    /**
+     * @var
+     */
     protected $translator;
 
+    /**
+     * @param ElementInterface $element
+     *
+     * @return string
+     */
     public function render(ElementInterface $element)
     {
         $name   = $element->getName();
@@ -34,8 +69,9 @@ class FormEditor extends FormTextarea
 
         $renderer = $this->getView();
 
+        /* @var \Zend\View\Helper\HeadScript  $headscript */
         $headscript = $renderer->plugin('headscript');
-        $basepath   = $renderer->plugin('basepath');
+        $basepath = $renderer->plugin('basepath');
 
         $headscript->appendFile($basepath('js/tinymce/tinymce.jquery.min.js'));
         $headscript->prependFile($basepath('js/jquery.min.js'));
@@ -43,19 +79,9 @@ class FormEditor extends FormTextarea
         $headscript->offsetSetScript(
             '1000_tinymce_' . $this->getTheme(),
             '
-        $(document).ready(function() {
-            tinyMCE.init({
-                selector : "div.tinymce_' . $this->getTheme() . '",
-                inline : true,
-                theme : "modern",
-                plugins: [
-                    "autolink lists advlist",
-                    "visualblocks code fullscreen",
-                    "contextmenu paste link"
-                ],
-                removed_menuitems: "newdocument",' . PHP_EOL
-            . $this->additionalOptions() .
-            'setup: function(editor) {
+            $(document).ready(function() {
+            tinyMCE.init({' . $this->additionalOptions() . ',
+                 setup:  function(editor) {
                     setPlaceHolder = function(editor, show) {
                         placeHolder = $("#placeholder-" + editor.id);
                         if (placeHolder.length == 1) {
@@ -88,8 +114,7 @@ class FormEditor extends FormTextarea
                     });
                 }
             });
-        });
-        '
+            });'
         );
 
         $attributes         = $element->getAttributes();
@@ -100,8 +125,6 @@ class FormEditor extends FormTextarea
             $content = '';
         }
         if (is_string($content)) {
-            // content is should be in an ordinary textarea
-            $escapeHtml         = $this->getEscapeHtmlHelper();
 
             $class = array_key_exists('class', $attributes)?$attributes['class']:'';
             $class .= (empty($class)?:' ') . ' tinymce_' . $this->getTheme();
@@ -109,7 +132,9 @@ class FormEditor extends FormTextarea
             $placeHolder = '';
             $elementOptions = $element->getOptions();
             if (array_key_exists('placeholder', $elementOptions) && !empty($elementOptions['placeholder'])) {
-                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 0ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' . (empty($content)?'':'display:none;') . '">' . $this->translator->translate($elementOptions['placeholder']) . '</div>';
+                $placeHolder = '<div id="placeholder-' . $name . '" style="border: 0 none; position: relative; top: 0ex; left: 10px; color: #aaa; height: 0px; overflow: visible;' .
+                               (empty($content)?'':'display:none;') .
+                               '">' . $this->translator->translate($elementOptions['placeholder']) . '</div>';
             }
             return
                 $placeHolder
@@ -119,16 +144,16 @@ class FormEditor extends FormTextarea
                     $content
                 );
 
-            return sprintf(
-                '<textarea %s>%s</textarea>',
-                $this->createAttributesString($attributes),
-                $escapeHtml($content)
-            );
         } else {
             return (string) $content;
         }
     }
 
+    /**
+     * Gets the name of the theme
+     *
+     * @return string
+     */
     protected function getTheme()
     {
         return $this->theme;
@@ -136,11 +161,55 @@ class FormEditor extends FormTextarea
 
     protected function additionalOptions()
     {
-        return '
-        toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | link | bullist",
-        menubar: false,
-        advlist_bullet_styles: "square disc",
-        block_formats: "Headings=h4;",
-        ';
+        $str = json_encode($this->options, ~JSON_HEX_QUOT & ~JSON_FORCE_OBJECT  );
+        $str = preg_replace('/"([a-zA-Z_]+[a-zA-Z0-9_]*)":/','$1:',$str);
+        return  trim($str,'{}');
+    }
+
+    /**
+     * Translations of "Job title" and "Subtitle" are directly made in the tinymce language files
+     *
+     * @param $language
+     */
+    public function setLanguage($language) {
+        $this->language=$language;
+    }
+
+    /**
+     * Sets the language path for tinyMCE language files
+     *
+     * @param $languagePath
+     */
+    public function setLanguagePath($languagePath) {
+        $this->languagePath=$languagePath;
+    }
+
+    /**
+     * Set a formular editor option
+     *
+     * @param $name
+     * @param $value
+     */
+    public function setOption($name,$value){
+        if (array_key_exists($name, $this->options)) {
+            $this->options[$name] = $value;
+        }elseif ('language' == $name or 'language_url' == $name ) {
+            $this->options[$name] = $value;
+
+        }else{
+            throw new \InvalidArgumentException('Unknown Option ' . $name . ' in ' .  __FILE__ . ' Line ' . __LINE__ );
+        }
+    }
+
+    /**
+     * Set formular editor options
+     *
+     * @param $options
+     */
+    public function setOptions($options)
+    {
+        foreach($options as $key => $val) {
+            $this->setOption($key, $val);
+        }
     }
 }

@@ -11,16 +11,16 @@ translate('Save');
 //: ./src/Core/Form/DefaultButtonsFieldset.php:33
 translate('Cancel');
 
-//: ./src/Core/Form/ListFilterButtonsFieldset.php:16
+//: ./src/Core/Form/ListFilterButtonsFieldset.php:26
 translate('Apply filter');
 
-//: ./src/Core/Form/ListFilterButtonsFieldset.php:32
+//: ./src/Core/Form/ListFilterButtonsFieldset.php:42
 translate('Reset filter');
 
-//: ./src/Core/Form/SummaryFormButtonsFieldset.php:24
+//: ./src/Core/Form/SummaryFormButtonsFieldset.php:32
 translate('Save');
 
-//: ./src/Core/Form/SummaryFormButtonsFieldset.php:40
+//: ./src/Core/Form/SummaryFormButtonsFieldset.php:48
 translate('Cancel');
 
 //: ./src/Core/Form/PermissionsFieldset.php:70
@@ -56,39 +56,39 @@ translate('Please enter a phone Number. You can use the intenational format. Onl
 //: ./src/Core/Form/FileUploadFactory.php:137
 translate('Remove all');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:20
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:33
 translate('choose your language');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:22
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:35
 translate('English');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:23
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:36
 translate('French');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:24
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:37
 translate('German');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:25
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:38
 translate('Italian');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:26
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:39
 translate('Polish');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:27
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:40
 translate('Russian');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:28
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:41
 translate('Turkish');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:29
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:42
 translate('Spanish');
 
-//: ./src/Core/Form/LocalizationSettingsFieldset.php:31
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:44
 translate('defines the languages of this frontend.');
 
 //: ./config/module.config.php:25
 translate('general settings');
 
-//: ./config/module.config.php:211
+//: ./config/module.config.php:214
 translate('Home');
 

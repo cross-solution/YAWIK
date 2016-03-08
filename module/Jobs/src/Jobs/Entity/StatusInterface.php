@@ -21,12 +21,12 @@ interface StatusInterface extends EntityInterface
     /**
      * A new job was created.
      */
-    const CREATED = 'created';
+    const CREATED =  /*@translate*/ 'created';
 
     /**
      * A new job is waiting for approval
      */
-    const WAITING_FOR_APPROVAL = 'waiting for approval';
+    const WAITING_FOR_APPROVAL = /*@translate*/ 'waiting for approval';
 
     /**
      * A job was rejected to be published.

@@ -1,0 +1,30 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ */
+?>
+<?php echo $this->partial('mail/header'); ?>
+<?php
+ /*
+  * Available variables:
+  * $this->job : The job entity
+  * $this->siteName: The site name (from Core/AbstractOptions)
+  */
+
+$user = $this->job->getUser();
+$info = $user->getInfo();
+?>
+<p><?php echo 'male' == $info->getGender()
+        ? 'Dear Mr'
+        : 'Dear Ms' ?> <?php echo $info->getDisplayName(/*emailIfEmpty*/ false); ?>,</p>
+
+<p>
+    Your job opening "<?php echo $this->job->getTitle() ?>" with the reference <?php echo $this->job->getReference() ?>.
+    war approved.
+</p>
+
+<?php echo $this->partial('mail/footer.en'); ?>

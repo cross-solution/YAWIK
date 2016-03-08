@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 13:22+0100\n"
-"PO-Revision-Date: 2015-10-29 12:24+0000\n"
+"POT-Creation-Date: 2016-02-20 19:34+0100\n"
+"PO-Revision-Date: 2016-02-20 18:11+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/yawik/yawik/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgid "click to open the job ad"
 msgstr "नौकरी के विज्ञापन को खोलने के लिए क्लिक करें"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:183 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
 msgid "Privacy Policy"
 msgstr "गोपनीयता नीति"
 
@@ -82,7 +82,7 @@ msgstr "काम"
 msgid "Date"
 msgstr "दिनांक"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:228
+#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:231
 msgid "your application was sent successfully"
 msgstr "आपके आवेदन को सफलतापूर्वक भेजा गया था"
 
@@ -346,8 +346,8 @@ msgstr "टेलीफोन"
 
 #: view/applications/manage/detail.phtml:289
 #: view/applications/manage/detail.pdf.phtml:238
-#: src/Applications/Factory/Form/AttachmentsFactory.php:75
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:255
+#: src/Applications/Factory/Form/AttachmentsFactory.php:83
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:264
 msgid "Attachments"
 msgstr "अनुलग्नक"
 
@@ -605,7 +605,7 @@ msgid "E-Mail"
 msgstr "ई-मेल"
 
 #: view/applications/manage/detail.pdf.phtml:130
-#: src/Applications/Form/Facts.php:37
+#: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "तथ्य"
 
@@ -625,31 +625,31 @@ msgstr ""
 msgid "An application with the provided identifier could not be found."
 msgstr "प्रदान की पहचानकर्ता के साथ एक आवेदन नहीं पाया जा सका।"
 
-#: src/Applications/Form/SettingsFieldset.php:40
+#: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
 msgstr "ई-मेल सूचना"
 
-#: src/Applications/Form/CarbonCopyFieldset.php:24
+#: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
 msgstr "विकल्प"
 
-#: src/Applications/Form/FilterApplication.php:41
+#: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:335
+#: src/Applications/Controller/ManageController.php:340
 #: src/Applications/Controller/MultimanageController.php:87
 #, php-format
 msgid "Your application dated %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:381
+#: src/Applications/Controller/ManageController.php:385
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:397
+#: src/Applications/Controller/ManageController.php:401
 #, php-format
 msgid "Forward application to %s failed."
 msgstr ""
@@ -812,7 +812,7 @@ msgstr "यात्रा करने के लिए अपनी इच्�
 msgid "Ask the applicant about the willingness to travel"
 msgstr "यात्रा करने के लिए इच्छा के बारे में आवेदक से पूछो"
 
-#: language/_annotated_strings.php:141
+#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
 msgid "please select"
 msgstr "कृपया चुनिए"
 
@@ -846,102 +846,114 @@ msgstr ""
 msgid "Ask the applicant, if he has a driving license."
 msgstr ""
 
-#: language/_annotated_strings.php:177
+#: language/_annotated_strings.php:180
 msgid "Carbon Copy"
 msgstr "प्रतिलिपि"
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:183
 msgid "send me a carbon copy of my application"
 msgstr "मुझे अपने आवेदन के एक कार्बन कॉपी भेज"
 
-#: language/_annotated_strings.php:186
+#: language/_annotated_strings.php:189
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:192
+#: language/_annotated_strings.php:195
 msgid "Click here to enter a summary."
 msgstr "एक सारांश दर्ज करने के लिए यहां क्लिक करें।"
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:198
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr ""
 
-#: language/_annotated_strings.php:198
-msgid "Summary"
-msgstr "समरी"
-
 #: language/_annotated_strings.php:201
 msgid "all"
 msgstr "सारे"
 
-#: language/_annotated_strings.php:204 language/_annotated_strings.php:207
-#: language/_annotated_strings.php:219
+#: language/_annotated_strings.php:204 language/_annotated_strings.php:210
+#: language/_annotated_strings.php:222
 msgid "Invalid apply id"
 msgstr ""
 
-#: language/_annotated_strings.php:210
+#: language/_annotated_strings.php:207
+#, php-format
+msgid "Application was read by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:213
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr ""
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:216
 msgid "Application has been send."
 msgstr ""
 
-#: language/_annotated_strings.php:216 language/_annotated_strings.php:225
+#: language/_annotated_strings.php:219 language/_annotated_strings.php:228
 msgid "Application confirmation"
 msgstr ""
 
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:225
 msgid "There were errors in the form."
 msgstr ""
 
-#: language/_annotated_strings.php:231
+#: language/_annotated_strings.php:234
 msgid "Application has been deleted."
 msgstr ""
 
-#: language/_annotated_strings.php:234
+#: language/_annotated_strings.php:237
 msgid "Mail has been send"
 msgstr ""
 
-#: language/_annotated_strings.php:237
+#: language/_annotated_strings.php:240
 msgid "Application data has been deleted"
 msgstr ""
 
-#: language/_annotated_strings.php:240
-msgid "No mail adress available"
-msgstr ""
-
 #: language/_annotated_strings.php:243
-#, php-format
-msgid "Fwd: Application to \"%s\" dated %s"
+msgid "No mail adress available"
 msgstr ""
 
 #: language/_annotated_strings.php:246
 #, php-format
-msgid "New application for your vacancy \"%s\""
+msgid "Mail was sent to %s"
 msgstr ""
 
 #: language/_annotated_strings.php:249
+#, php-format
+msgid "Application was rated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:252
+#, php-format
+msgid "Fwd: Application to \"%s\" dated %s"
+msgstr ""
+
+#: language/_annotated_strings.php:255
+#, php-format
+msgid "New application for your vacancy \"%s\""
+msgstr ""
+
+#: language/_annotated_strings.php:258
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:261
+#, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "अपने आवेदन करने के लिए छवियों या पीडीएफ दस्तावेजों देते हैं। खींचें और उन्हें छोड़, या attachement के क्षेत्र में क्लिक करें। आप 5MB को अपलोड कर सकते हैं"
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:267
 msgid "E-Mail Templates"
 msgstr "ई-मेल टेम्पलेट"
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:270
 msgid "Overview"
 msgstr "अवलोकन"
 
