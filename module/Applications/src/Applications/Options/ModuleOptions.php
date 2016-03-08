@@ -23,11 +23,11 @@ class ModuleOptions extends AbstractOptions
 {
 
     /**
-     * maximum size in bytes of an attachment
+     * maximum size in bytes of an attachment. Default 5MB
      *
      * @var int $attachmentsMaxSize
      */
-    protected $attachmentsMaxSize = 500000;
+    protected $attachmentsMaxSize = 5000000;
 
     /**
      * valid Mime-Types of attachments
@@ -42,18 +42,18 @@ class ModuleOptions extends AbstractOptions
         'text/x-pdf');
 
     /**
-     * maximum number of attachments
+     * maximum number of attachments. Default 3
      *
      * @var int $attachmentsCount
      */
-    protected $attachmentsCount = 1;
+    protected $attachmentsCount = 3;
 
     /**
-     * maximum size of an user image
+     * maximum size of an user image. Default 200 kB
      *
      * @var int $contactImageMaxSize
      */
-    protected $contactImageMaxSize = 100000;
+    protected $contactImageMaxSize = 200000;
 
     /**
      * allowed Mime-Type of a user image

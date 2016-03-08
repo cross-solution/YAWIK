@@ -121,8 +121,8 @@
 
 
         <copy file="${vendordir}/components/jquery/jquery.min.js" tofile="${builddir}/public/js/jquery.min.js"/>
-        <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/Geo/js/bloodhound.min.js"/>
-        <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/Geo/js/typeahead.jquery.min.js"/>
+        <copy file="${vendordir}/twitter/typeahead.js/dist/bloodhound.min.js" tofile="${builddir}/public/js/bloodhound.min.js"/>
+        <copy file="${vendordir}/twitter/typeahead.js/dist/typeahead.jquery.min.js" tofile="${builddir}/public/js/typeahead.jquery.min.js"/>
         <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/js/bootstrap-dialog.min.js"  tofile="${builddir}/public/js/bootstrap-dialog.min.js"/>
         <copy file="${vendordir}/cross-solution/bootstrap3-dialog/examples/assets/bootstrap-dialog/css/bootstrap-dialog.min.css" tofile="${builddir}/public/css/bootstrap-dialog.min.css"/>
 
@@ -282,8 +282,8 @@
             <exclude name="public/Auth"/>
             <exclude name="public/Core"/>
             <exclude name="public/Geo"/>
-            <exclude name="module/Geo/public/js/bloodhound.min.js"/>
-            <exclude name="module/Geo/public/js/typeahead.jquery.min.js"/>
+            <exclude name="public/js/bloodhound.min.js"/>
+            <exclude name="public/js/typeahead.jquery.min.js"/>
             <exclude name="public/css/bootstrap-dialog.min.css"/>
             <exclude name="public/Jobs"/>
             <exclude name="public/Organizations"/>
