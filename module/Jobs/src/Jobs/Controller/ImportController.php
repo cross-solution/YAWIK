@@ -161,7 +161,27 @@ class ImportController extends AbstractActionController
                             //$permissions->grant($user, PermissionsInterface::PERMISSION_CHANGE);
                             $entityOrganization = $hydrator->hydrate($data, $entityOrganizationFromDB);
                             if ($responsibleUser && $user !== $responsibleUser) {
-                                $entityOrganization->getEmployees()->add(new Employee($responsibleUser));
+                                /*
+                                 * We cannot use custom collections yet
+                                 * @todo if we updated Mongo ODM to >1.0.5, we must move this to
+                                 *       a custom collection class
+                                 */
+                                $employees = $entityOrganization->getEmployees();
+                                $contained = false;
+                                /*
+                                 * this is o(n) and should propably be optimized when the custom collection is created.
+                                 * It's not very performant to load the whole user entity, when all we need is the ID.
+                                 * Maybe store the id as reference in the Employees Entity.
+                                 */
+                                foreach ($employees as $employee) {
+                                    if ($employee->getUser()->getId() == $responsibleUser->getId()) {
+                                        $contained = true;
+                                        break;
+                                    }
+                                }
+                                if (!$contained) {
+                                    $employees()->add(new Employee($responsibleUser));
+                                }
                             }
                             $repositories->store($entityOrganization);
                             $entity->setOrganization($entityOrganization);
