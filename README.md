@@ -34,6 +34,12 @@ Demo
 http://yawik.org/demo/ (this demonstrates YAWIK as an applicant tracking system)
 http://jobs.yawik.org (this demonstrates YAWIK as a Jobportal) 
 
+Who is using YAWIK?
+-------------------
+
+YAWIK is used as a Jobboard by https://mygreatjobs.de/. Phoenixdesign uses YAWIK as a companies career portal http://bewerbung.phoenixdesign.com/
+
+
 Documentation
 -------------
 

@@ -13,12 +13,12 @@ $options = $sm->get('Geo/Options');
 $plugin=$options->getPlugin();
 
 if ('photon' == $plugin) {
-    $this->headScript()->appendFile($this->basePath('Geo/js/jquery.geolocationfield.photon.js'));
+    $this->headScript()->appendFile($this->basePath('/Geo/js/jquery.geolocationfield.photon.js'));
 }else{
-    $this->headScript()->appendFile($this->basePath('Geo/js/jquery.geolocationfield.geo.js'));
+    $this->headScript()->appendFile($this->basePath('/Geo/js/jquery.geolocationfield.geo.js'));
 }
-$this->headScript()->appendFile($this->basePath('Geo/js/typeahead.jquery.min.js'));
-$this->headScript()->appendFile($this->basePath('Geo/js/bloodhound.min.js'));
+$this->headScript()->appendFile($this->basePath('/js/typeahead.jquery.min.js'));
+$this->headScript()->appendFile($this->basePath('/js/bloodhound.min.js'));
 
 
 $value = $this->element->getValue();

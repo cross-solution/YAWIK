@@ -12,6 +12,7 @@ namespace Core\Paginator;
 
 use Core\Repository\RepositoryService;
 use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\MutableCreationOptionsInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Paginator\Paginator;
 
@@ -19,8 +20,23 @@ use Zend\Paginator\Paginator;
  * Class PaginatorFactoryAbstract
  * @package Core\Paginator
  */
-abstract class PaginatorFactoryAbstract implements FactoryInterface
+abstract class PaginatorFactoryAbstract implements FactoryInterface, MutableCreationOptionsInterface
 {
+
+    protected $options = [];
+
+    /**
+     * Set creation options
+     *
+     * @param  array $options
+     *
+     * @return void
+     */
+    public function setCreationOptions(array $options)
+    {
+        $this->options = $options;
+    }
+
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
@@ -34,8 +50,10 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface
         $repository     = $repositories->get($this->getRepository());
         $queryBuilder   = $repository->createQueryBuilder();
         $filter         = $serviceLocator->getServiceLocator()->get('filterManager')->get($this->getFilter());
-        $adapter       = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter);
+        $adapter       = new \Core\Paginator\Adapter\DoctrineMongoLateCursor($queryBuilder, $filter, $this->options);
         $service        = new Paginator($adapter);
+
+        $this->setCreationOptions([]);
         return $service;
     }
 
