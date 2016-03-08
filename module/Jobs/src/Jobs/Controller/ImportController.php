@@ -180,7 +180,7 @@ class ImportController extends AbstractActionController
                                     }
                                 }
                                 if (!$contained) {
-                                    $employees()->add(new Employee($responsibleUser));
+                                    $employees->add(new Employee($responsibleUser));
                                 }
                             }
                             $repositories->store($entityOrganization);
