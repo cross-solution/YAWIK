@@ -8,7 +8,7 @@
 		var $form = $(event.target);
 		var url = $form.attr('action') + '?' + $form.serialize(); 
 		var $container = $('#jobs-list-container');
-        $container.pagination('load', url);
+        $container.paginationContainer('load', url);
 		return false;
 	};
 	

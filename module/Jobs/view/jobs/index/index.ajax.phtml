@@ -6,7 +6,7 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-
+if (count($this->jobs)):
 $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 
 ?>
@@ -143,3 +143,4 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
         </div>
     </div>
 </div>
+<?php endif ?>
