@@ -1,6 +1,6 @@
 <?php //description: Renders the list of public jobs. ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))?>
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))?>
 
 <h1><?php echo $this->translate('Public Job Opportunities')?></h1>
 
@@ -9,7 +9,15 @@
 <nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
 <?php echo $this->form($this->filterForm)  ?>
 </nav>
-<div id="jobs-list-container" class="pagination-container">
-<?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
+
+<div id="jobs-list-container" class="pagination-container"
+    data-message="<?php echo $this->escapeHtmlAttr(sprintf(
+                          $this->translate('%sSorry%s, there are not any jobs matching your search criteria.'),
+                          '<strong>', '</strong>'
+                   ))?>">
+
+    <div class="pagination-content">
+    <?php echo $this->render('jobs/jobboard/index.ajax.phtml')?>
+    </div>
 </div>
 
