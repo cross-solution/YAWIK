@@ -58,13 +58,14 @@ return array(
                 'allow' => array(
                     'Jobs',
                     'JobList',
-                    'Jobs/Manage' => array(
+                    'Jobs/Manage' => [
                         'edit',
                         'completion',
+                        'deactivate',
                         'template',
                         'new' => 'Jobs/Create',
                         'history',
-                    ),
+                    ],
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',
                     'route/lang/jobs/template',
