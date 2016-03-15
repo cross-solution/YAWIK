@@ -581,6 +581,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getSubscriber()
+     * @return \Applications\Entity\SubscriberInterface
      */
     public function getSubscriber()
     {

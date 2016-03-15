@@ -138,6 +138,8 @@ interface InfoInterface extends EntityInterface
     
     /**
      * Gets the profile Image of an user
+     *
+     * @return \Auth\Entity\UserImage
      */
     public function getImage();
     
@@ -194,6 +196,22 @@ interface InfoInterface extends EntityInterface
      * @return string
      */
     public function getPostalCode();
+
+    /**
+     * Sets the users phone number
+     *
+     * @param string $phone
+     * @since 0.20
+     */
+    public function setPhone($phone);
+
+    /**
+     * Gets the users phone number
+     *
+     * @since 0.20
+     * @return string
+     */
+    public function getPhone();
 
     /**
      * Sets the users city

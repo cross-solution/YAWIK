@@ -68,7 +68,7 @@
                         $.post(href, {userId:userId}, null, 'json')
                             .done(function(data) {
                                 if (data.success) {
-                                    $('#jobs-list-container').pagination('reload');
+                                    $('#jobs-list-container').paginationContainer('reload');
                                     dialog.close();
                                 } else {
                                     dialog.getModalBody().html(data.err);

@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\Document (collection="applications.subscribers", repositoryClass="Applications\Repository\Subscriber")
  */
-class Subscriber extends AbstractIdentifiableEntity
+class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterface
 {
   
     /**

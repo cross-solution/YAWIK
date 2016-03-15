@@ -67,4 +67,19 @@ interface FactsInterface extends EntityInterface
      * @return string
      */
     public function getEarliestStartingDate();
+
+    /**
+     * sets the driving license
+     *
+     * @param drivingLicense
+     * @return $this|FactsInterface
+     */
+    public function setDrivingLicense($drivingLicense);
+
+    /**
+     * Gets the driving license.
+     *
+     * @return string
+     */
+    public function getDrivingLicense();
 }

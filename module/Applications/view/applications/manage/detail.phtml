@@ -16,7 +16,13 @@ $this->headTitle($this->translate('Details'));
 $this->headScript()->appendFile($this->basePath('Applications/js/applications.manage.detail.js'));
 $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });');
 
-if (!$this->application->isDraft() && $this->list->getCount()):
+/* @var Applications\Entity\Application $application */
+$application = $this->application;
+$job = $application->getJob();
+
+$prevId = $nextId = $prevHref = $nextHref = false;
+
+if (!$application->isDraft() && $this->list->getCount()):
 /* variables needed for the pagination*/
 $prevId = $this->list->getPrevious();
 $nextId = $this->list->getNext();
@@ -27,9 +33,9 @@ endif;
 ?>
 <h1>
 <?php echo $this->translate('application for')?>: 
-<?php $href = $this->application->job->link ? $this->application->job->link : $this->url('lang/jobs/view', array(), array('query' => array('id' => $this->application->job->id)), true); ?>
-<?php echo $this->link($href, $this->application->job->title)?>
-<?php if (!$this->application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
+<?php $href = $job->getLink() ? $job->getLink() : $this->url('lang/jobs/view', array(), array('query' => array('id' => $job->getId())), true); ?>
+<?php echo $this->link($href, $job->getTitle())?>
+<?php if (!$application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
 <small class="pull-right">
     <?php echo sprintf($this->translate('Application %d of %d'),
                        $this->list->getPosition(), $this->list->getCount()
@@ -41,10 +47,10 @@ endif;
 <div id="forward-email-result" class="alert" style="display:none"></div>
 
 <nav class="navbar yk-toolbar">   
-    <?php if (!$this->application->isDraft() 
-              && $this->application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
+    <?php if (!$application->isDraft()
+              && $application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
     <div id="state-actions" class="btn-group cam-action-states nav navbar-nav">
-        <?php $status = $application->status->name;
+        <?php $status = $application->getStatus()->getName();
         
             $actionButtons = array(
                 Status::CONFIRMED => array(
@@ -92,7 +98,7 @@ endif;
      </div>
 
      <?php endif ?>
-     <?php if (!$this->application->isDraft() && $this->acl()->isRole('recruiter', true)):?>
+     <?php if (!$application->isDraft() && $this->acl()->isRole('recruiter', true)):?>
      <form id="forward-email-form" action="<?php echo $this->url('lang/applications/detail',array(), true)?>" class="form-inline" method="get">
 
      <span id="forward-email" class="input-group navbar-nav">
@@ -115,7 +121,7 @@ endif;
     </form>
     <?php endif ?>
     <div class="pull-right">
-    <?php if (!$this->application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
+    <?php if (!$application->isDraft() && $this->list->getCount() && 'guest' != $this->auth('role')):?>
     <div class="btn-group">
       <a href="<?php echo $prevHref ?>" class="btn btn-sm btn-default<?php if (!$prevId): echo " disabled"; endif; ?>" title="<?php echo $this->translate('previous')?>"><span class="yk-icon fa-chevron-left"></span></a>
       <a href="<?php echo $this->url('lang/applications', array(), true) ?>" class="btn btn-sm btn-default" title="<?php echo $this->translate('Back to list') ?>"><span class=""></span> <?php echo $this->translate('List') ?></a>
@@ -176,7 +182,7 @@ endif;
       </div>
       <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
-          <a class="btn btn-primary" href="<?php echo $this->url('lang/applications/detail', array('id' => $application->id), array('query' => 'action=delete'), true)?>" title="<?php echo $this->translate('delete this application')?>">
+          <a class="btn btn-primary" href="<?php echo $this->url('lang/applications/detail', array('id' => $application->getId()), array('query' => 'action=delete'), true)?>" title="<?php echo $this->translate('delete this application')?>">
           <?php echo $this->translate('Delete application') ?></a>
       </div>
     </div>
@@ -188,14 +194,14 @@ endif;
      data-list-url="<?php echo $this->url(
                         'lang/applications/comments', array('action' => 'list'), 
                         array('query' => array(
-                            'applicationId' => $this->application->id
+                            'applicationId' => $application->getId()
                         )), true
                     )?>"
      data-form-errormessage="<?php echo $this->translate('Error while loading comment form.')?>"
      data-form-url="<?php echo $this->url(
                         'lang/applications/comments', array('action' => 'form'),
                          true)?>"
-     data-application-id="<?php echo $this->application->id ?>"
+     data-application-id="<?php echo $application->getId() ?>"
      data-mode="list">
   <div class="modal-dialog">
    <div class="modal-content">
@@ -236,11 +242,11 @@ endif;
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->application->history as $history): ?>
+            <?php foreach ($application->getHistory() as $history): /* @var Applications\Entity\History $history */ ?>
             <tr>
-                <td><?php echo $this->dateFormat($history->date)?></td>
-                <td><?php echo $this->translate($history->status->name) ?></td>
-                <td><?php echo $history->message ?></td>
+                <td><?php echo $this->dateFormat($history->getDate())?></td>
+                <td><?php echo $this->translate($history->getStatus()->getName()) ?></td>
+                <td><?php echo $history->getMessage() ?></td>
             </tr>
             <?php endforeach ?>
         </tbody>
@@ -257,8 +263,8 @@ endif;
     <div class="panel-body">
       <div class="pull-left">
         <div class="yk-portrait">
-          <?php if ($this->application->contact->image):?>
-          <img src="<?php echo $this->basePath($this->application->contact->image->uri) ?>" class="img-thumbnail"/>
+          <?php if ($application->getContact()->getImage()):?>
+          <img src="<?php echo $this->basePath($application->getContact()->getImage()->getUri()) ?>" class="img-thumbnail"/>
           <?php else:?>
           <span class="yk-icon yk-icon-portrait fa-fg img-thumbnail"></span>
           <?php endif?>
@@ -267,17 +273,18 @@ endif;
       <div>
         <!--suppress HtmlUnknownTag -->
           <adress>
-        <strong><?php echo $this->application->contact->displayName ?></strong><br> 
-        <?php echo $this->application->contact->street ?> <?php echo $this->application->contact->houseNumber ?><br>
-        <?php echo $this->application->contact->postalcode ?> <?php echo $this->application->contact->city ?><br>
+              <?php $contact = $application->getContact(); ?>
+        <strong><?php echo $contact->getDisplayName() ?></strong><br>
+        <?php echo $contact->getStreet() ?> <?php echo $contact->getHouseNumber() ?><br>
+        <?php echo $contact->getPostalCode() ?> <?php echo $contact->getCity() ?><br>
         <br>
-        <?php if ($this->application->contact->phone):?>
+        <?php if ($contact->getPhone()):?>
             <abbr title="<?php echo $this->translate("Phone")?>"><i class="yk-icon yk-icon-phone"></i></abbr>
-            <?php echo $this->application->contact->phone; ?><br>
+            <?php echo $contact->getPhone(); ?><br>
         <?php endif?>
-        <?php if ($this->application->contact->email):?>
+        <?php if ($contact->getEmail()):?>
             <abbr title="E-Mail"><i class="yk-icon yk-icon-envelope"></i></abbr>
-            <?php echo $this->link($this->application->contact->email); ?><br>
+            <?php echo $this->link($contact->getEmail()); ?><br>
         <?php endif?>
         </adress>
       </div>
@@ -288,24 +295,24 @@ endif;
   <div class="panel panel-default">
     <div class="panel-heading"><?php echo $this->translate('Attachments')?></div> 
     <div class="panel-body">
-    <?php if(count($this->application->attachments)>0):?>
-      <?php foreach( $this->application->attachments as $attachment): ?>
+    <?php if(count($application->getAttachments())>0):?>
+      <?php foreach( $application->getAttachments() as $attachment): /* @var Applications\Entity\Attachment $attachment */ ?>
         <div class="row show-grid">
           <div class="col-md-12">
-            <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->uri) ?>" target="_new"><?php echo $attachment->name ?></a>
+            <span class="yk-icon yk-icon-paperclip"></span> <a href="<?php echo $this->basePath($attachment->getUri()) ?>" target="_new"><?php echo $attachment->getName() ?></a>
           </div>
         </div>
       <?php endforeach; // attachments?>
     <?php else:?>
      <?php echo $this->translate("no attachments available");?>
     <?php endif;?>
-    <?php if (count($this->application->profiles)): ?>
+    <?php if (count($application->getProfiles())): ?>
     <hr>
-    <?php foreach ($this->application->profiles as $profile): ?>
+    <?php foreach ($application->getProfiles() as $profile): /* @var Auth\Entity\SocialProfiles\AbstractProfile $profile*/ ?>
         
-            <a data-toggle="modal" data-target="#sp-modal" class="btn-sp btn btn-default" href="?action=social-profile&spId=<?php echo $profile->id ?>">
-                <span class="fa fa-<?php echo strtolower($profile->name) ?>"></span>
-                <?php echo $profile->name ?>
+            <a data-toggle="modal" data-target="#sp-modal" class="btn-sp btn btn-default" href="?action=social-profile&spId=<?php echo $profile->getId() ?>">
+                <span class="fa fa-<?php echo strtolower($profile->getName()) ?>"></span>
+                <?php echo $profile->getName() ?>
             </a>
         
     <?php endforeach; 
@@ -339,14 +346,14 @@ endif;
       <tr>
         <td><?php echo $this->translate('date of receipt')?>:</td>
         <td>
-        <?php echo strftime('%x %X', $application->dateCreated->getTimestamp()); ?>
-        <?php echo isset($application->subscriber)? '<br/>' . $this->translate("via"). ': '. $application->subscriber->name:'';?>
+        <?php echo strftime('%x %X', $application->getDateCreated()->getTimestamp()); ?>
+        <?php echo $application->getSubscriber()? '<br/>' . $this->translate("via"). ': '. $application->getSubscriber()->getName():'';?>
         </td>
       </tr>       
       <tr>
         <td style="width:50%"><?php echo $this->translate('application state')?>:</td>
-        <td class="cam-color-<?php echo $this->application->status ?>">
-          <?php echo $this->translate((string) $this->application->status->name) ?>
+        <td class="cam-color-<?php echo $application->getStatus() ?>">
+          <?php echo $this->translate($application->getStatus()->getName()) ?>
         </td>
       </tr>
       <?php if ($this->acl()->isRole('recruiter',true)):?>
@@ -354,21 +361,21 @@ endif;
         <td><?php echo $this->translate('rating')?>:</td> 
         <td class="col-md-6">
           <span id="application-rating">
-          <?php $rating = $this->rating($this->application->getRating()); 
+          <?php $rating = $this->rating($application->getRating());
           if ($this->application->isDraft() || !$this->acl()->isRole('recruiter',true)): echo $rating;
           else:?>
-            <button id="<?php echo $this->application->rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>" 
+            <button id="<?php echo $rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>"
                     data-title="title"
                     data-target="#cam-application-comments"
                     data-toggle="modal"
-                    title="<?php echo $this->application->rating?$this->translate('View comments'):$this->translate('Add comment') ?>">
-              <?php echo $this->partial('applications/manage/_rating', array('application' => $this->application)) ?>
+                    title="<?php echo $rating?$this->translate('View comments'):$this->translate('Add comment') ?>">
+              <?php echo $this->partial('applications/manage/_rating', array('application' => $application)) ?>
             </button>
          <?php endif ?>
           </span>
         </td>
       </tr>
-      <?php if ($application->dateCreated->getTimestamp() != $application->dateModified->getTimestamp()):?>
+      <?php if ($application->getDateCreated()->getTimestamp() != $application->getDateModified()->getTimestamp()):?>
       <tr>
         <td><?php echo $this->translate('last modification date')?>:</td>
         <td>
@@ -383,38 +390,38 @@ endif;
                     data-toggle="modal"
                     data-target="#cam-application-history"
                     title="<?php echo $this->translate('Status history')?>">
-        <?php echo strftime('%x %X', $application->dateModified->getTimestamp()); ?>
+        <?php echo strftime('%x %X', $application->getDateModified()->getTimestamp()); ?>
         </a>
         </td>
       </tr>
       <?php endif;?>
       <tr>
         <td><?php echo $this->translate('agent')?>:</td>
-        <td><?php echo $this->link($this->application->job->contactEmail)?></td>
+        <td><?php echo $this->link($job->getUser()->getInfo()->getDisplayName())?></td>
       </tr>
       <?php endif; # allowed only for recruiters ?>
-      <?php if(isset($this->application->facts->willingnessToTravel)):?>
+      <?php if($application->getFacts()->getWillingnessToTravel()):?>
       <tr>
          <td><?php echo $this->translate('Willingness to travel')?>:</td>
-         <td><?php echo $this->application->facts->willingnessToTravel ?></td>
+         <td><?php echo $application->getFacts()->getWillingnessToTravel() ?></td>
       </tr>
       <?php endif?>
-      <?php if(isset($this->application->facts->earliestStartingDate)):?>
+      <?php if($application->getFacts()->getEarliestStartingDate()):?>
         <tr>
             <td><?php echo $this->translate('Earliest starting date')?>:</td>
-            <td><?php echo $this->application->facts->earliestStartingDate ?></td>
+            <td><?php echo $application->getFacts()->getEarliestStartingDate() ?></td>
         </tr>
         <?php endif?>
-      <?php if(isset($this->application->facts->expectedSalary)):?>
+      <?php if($application->getFacts()->getExpectedSalary()):?>
          <tr>
              <td><?php echo $this->translate('Expected salary')?>:</td>
-             <td><?php echo $this->application->facts->expectedSalary ?></td>
+             <td><?php echo $application->getFacts()->getExpectedSalary() ?></td>
          </tr>
       <?php endif?>
-        <?php if(isset($this->application->facts->drivingLicense)):?>
+        <?php if($application->getFacts()->getDrivingLicense()):?>
             <tr>
                 <td><?php echo $this->translate('Driving license')?>:</td>
-                <td><?php echo $this->application->facts->drivingLicense?$this->translate("Yes"):$this->translate("No") ?></td>
+                <td><?php echo $application->getFacts()->getDrivingLicense()?$this->translate("Yes"):$this->translate("No") ?></td>
             </tr>
         <?php endif?>
     </table>
@@ -430,7 +437,7 @@ endif;
      <?php echo $this->translate('Cover Letter')?>
      </div>
      <div class="panel-body">
-     <?php echo nl2br($this->application->summary) ?>
+     <?php echo nl2br($application->getSummary()) ?>
      </div>
    </div>
  </div>
@@ -504,6 +511,8 @@ endif;
 <?php endforeach; // skills?>
 <?php endif;?>
 
-<?php if ($this->application->isDraft()): 
-    echo $this->partial('applications/apply/_buttons', array('application' => $this->application, 'isPreview' => true));
-endif ?>
+<?php
+if ($application->isDraft()):
+    echo $this->partial('applications/apply/_buttons', array('application' => $application, 'isPreview' => true));
+endif
+?>
