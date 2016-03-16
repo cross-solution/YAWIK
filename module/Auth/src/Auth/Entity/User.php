@@ -27,7 +27,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * Users login name
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @ODM\Index(unique=true, sparse=true, order="asc")
      */
     protected $login;
@@ -35,7 +35,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     /**
      * Role of an user. Currently "user" or "recruiter"
      *
-     * @ODM\String*/
+     * @ODM\Field(type="string")
+     */
     protected $role;
 
     /**
@@ -56,14 +57,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     /**
      * Users login password
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $credential;
 
     /**
      * Users primary email address
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $email;
 
@@ -71,7 +72,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * pre-shared key, which allows an external application to authenticate
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $secret;
 
