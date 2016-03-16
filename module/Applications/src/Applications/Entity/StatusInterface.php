@@ -28,6 +28,11 @@ interface StatusInterface extends EntityInterface
     const CONFIRMED = 'confirmed';
 
     /**
+     * application was accepted to be processed by a recruiter
+     */
+    const ACCEPTED = 'accepted';
+
+    /**
      * An applicant ist invited to in interview
      */
     const INVITED   = 'invited';

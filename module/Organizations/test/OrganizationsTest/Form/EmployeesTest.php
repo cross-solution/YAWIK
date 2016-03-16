@@ -19,6 +19,7 @@ use Organizations\Form\Employees;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Organizations
  * @group Organizations.Form
+ * @covers Organizations\Form\Employees
  */
 class EmployeesTest extends \PHPUnit_Framework_TestCase
 {

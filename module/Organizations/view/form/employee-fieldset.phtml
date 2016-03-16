@@ -12,8 +12,6 @@
  */
 
     /* @var $employee \Organizations\Form\Element\Employee */
-//    $users = $this->services('repositories.Auth/User');
-//    $user  = $users->find($this->element->getValue());
     $employee = $this->element->get('user');
     $pending = $this->element->get('status');
     $user = $employee->getUser();
@@ -48,8 +46,8 @@
     $this->element->get('permissions')->setAttribute('id', $elementId);
     echo $this->element->get('permissions')->getAttribute('id')?>-wrapper" class="cam-description-toggl employee-permissions-wrapper">
 
-        <?php echo $this->formMultiCheckbox($this->element->get('permissions')) ?>
-
+        <?php echo $this->formSelect($this->element->get('permissions')) ?>
+        <?php echo $this->formSelect($this->element->get('role')) ?>
     </div>
 <hr>
 </fieldset>

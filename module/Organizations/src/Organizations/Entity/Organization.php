@@ -557,6 +557,24 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * Gets a list of Employees by a user role
+     *
+     * @param string $role
+     * @return ArrayCollection
+     */
+    public function getEmployeesByRole($role){
+        $employees = new ArrayCollection();
+
+        /* @var \Organizations\Entity\Employee $employee */
+        foreach ($this->getEmployees() as $employee) {
+            if ($role === $employee->getRole()) {
+                $employees->add($employee);
+            }
+        }
+        return $employees;
+    }
+
+    /**
      * Checks, if a User is the owner of an organization
      *
      * @param UserInterface $user

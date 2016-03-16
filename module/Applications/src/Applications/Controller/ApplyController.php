@@ -36,6 +36,9 @@ use Applications\Entity\StatusInterface;
  *
  * if you use the do as query-parameter, you have to customize the do-Action for the special purpose that is assigned to the do parameter in the query
  *
+ * @method \Acl\Controller\Plugin\Acl acl()
+ * @method \Core\Controller\Plugin\Notification notification()
+ * @method \Core\Controller\Plugin\Mailer mailer()
  * @method \Auth\Controller\Plugin\Auth auth()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -166,7 +169,7 @@ class ApplyController extends AbstractActionController
                      * If we had copy an user image, we need to refresh its data
                      * to populate the length property.
                      */
-                    if ($image = $application->contact->image) {
+                    if ($image = $application->getContact()->getImage()) {
                         $repositories->refresh($image);
                     }
                 }
@@ -261,6 +264,7 @@ class ApplyController extends AbstractActionController
         $config       = $services->get('Config');
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
+        /* @var Application $application*/
         $application  = $repository->findDraft(
             $this->auth()->getUser(),
             $this->params('applyId')
@@ -330,7 +334,10 @@ class ApplyController extends AbstractActionController
         return $this->getServiceLocator()->get('validatormanager')->get('Applications/Application')
                     ->isValid($application);
     }
-    
+
+    /**
+     * @param $application \Applications\Entity\Application
+     */
     protected function sendRecruiterMails($application)
     {
         $job = $application->getJob();
@@ -344,7 +351,8 @@ class ApplyController extends AbstractActionController
         } else {
             $admin     = $job->user;
         }
-        
+
+        /* @var \Applications\Entity\Settings $settings */
         $settings = $recruiter->getSettings('Applications');
         if ($settings->getMailAccess()) {
             $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
@@ -397,24 +405,6 @@ class ApplyController extends AbstractActionController
         /* @var $application Application */
         $application = $container->getEntity();
         $job         = $application->getJob();
-
-        /*
-         * @TODO: Implement disable elements logic in entities, etc.
-         *
-
-
-        $config = $job->getApplyFormElementsConfig();
-        if ($config) {
-            $container->disableElements($config);
-            return;
-        }
-
-        $config = $job->getOrganization()->getApplyFormElementsConfig();
-        if ($config) {
-            $container->disableElements($config);
-            return;
-        }
-        */
 
         /** @var $settings \Applications\Entity\Settings */
         $settings = $job->getUser()->getSettings('Applications');

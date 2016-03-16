@@ -23,20 +23,6 @@ use Settings\Repository\SettingsEntityResolver;
  */
 class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface
 {
-
-    /**
-     * defines the role of a recruiter
-     */
-    const ROLE_RECRUITER = 'recruiter';
-    /*
-     * defines the role of an authenticated user
-     */
-    const ROLE_USER = 'user';
-    /*
-     * defines the role of an admin user.
-     */
-    const ROLE_ADMIN = 'admin';
-
     /**
      * Users login name
      *

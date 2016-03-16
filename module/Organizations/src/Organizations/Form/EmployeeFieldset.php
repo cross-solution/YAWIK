@@ -70,6 +70,20 @@ class EmployeeFieldset extends Fieldset implements ViewPartialProviderInterface
 
         $this->add(
             array(
+                'type' => 'select',
+                'name' => 'role',
+                'options' => array(
+                    'value_options' => array(
+                        EmployeeInterface::ROLE_RECRUITER => /*@translate*/ 'Recruiter',
+                        EmployeeInterface::ROLE_DEPARTMENT_MANAGER => /*@translate*/ 'Department Manager',
+                        EmployeeInterface::ROLE_MANAGEMENT => /*@translate*/ 'Managing Directors',
+                    ),
+                ),
+            )
+        );
+
+        $this->add(
+            array(
             'type' => 'hidden',
             'name' => 'status',
             'attributes' => array(

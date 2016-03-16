@@ -52,9 +52,9 @@ class EmployeesFieldset extends Fieldset implements ViewPartialProviderInterface
             array(
             'name' => 'inviteemployee',
             'type' => 'Organizations/InviteEmployeeBar',
-            'options' => array(
+            'options' => [
                 'description' => /*@translate*/ 'Invite an employee via email address.',
-            ),
+            ]
             )
         );
 

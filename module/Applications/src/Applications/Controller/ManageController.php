@@ -292,7 +292,7 @@ class ManageController extends AbstractActionController
         $mailService = $this->getServiceLocator()->get('Core/MailService');
         /* @var \Applications\Mail\StatusChange $mail */
         $mail = $mailService->get('Applications/StatusChange');
-        $mail->setApplication($application);
+        $mail->setApplication($application, $status);
         if ($this->request->isPost()) {
             $mail->setSubject($this->params()->fromPost('mailSubject'));
             $mail->setBody($this->params()->fromPost('mailText'));
@@ -325,6 +325,9 @@ class ManageController extends AbstractActionController
                 break;
             case Status::INVITED:
                 $key = 'mailInvitationText';
+                break;
+            case Status::ACCEPTED:
+                $key = 'mailAcceptedText';
                 break;
             case Status::REJECTED:
                 $key = 'mailRejectionText';

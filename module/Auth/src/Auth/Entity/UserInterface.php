@@ -24,6 +24,20 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
+
+    /**
+     * defines the role of a recruiter
+     */
+    const ROLE_RECRUITER = 'recruiter';
+    /*
+     * defines the role of an authenticated user
+     */
+    const ROLE_USER = 'user';
+    /*
+     * defines the role of an admin user.
+     */
+    const ROLE_ADMIN = 'admin';
+
     /**
      * Sets the users login name
      *

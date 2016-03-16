@@ -30,7 +30,7 @@ class Settings extends ModuleSettingsContainer
     protected $mailAccess = false;
     
     /**
-     * send BlindCarbonCopy to owner(?)
+     * send BlindCarbonCopy to organization admin
      *
      * @ODM\Boolean
      */

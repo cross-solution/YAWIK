@@ -21,11 +21,35 @@ use Core\Mail\StringTemplateMessage;
  */
 class NewApplication extends StringTemplateMessage
 {
+    /**
+     * Job posting
+     *
+     * @var \Jobs\Entity\Job $job
+     */
     protected $job;
+
+    /**
+     * Owner of the job posting
+     *
+     * @var \Auth\Entity\User $user
+     */
     protected $user;
+
+    /**
+     * Organization Admin
+     *
+     * @var bool|\Auth\Entity\User $admin
+     */
     protected $admin;
+
+    /**
+     * @var bool
+     */
     private $callInitOnSetJob = false;
-    
+
+    /**
+     * @param array $options
+     */
     public function __construct(array $options = array())
     {
         parent::__construct($options);
@@ -37,32 +61,37 @@ class NewApplication extends StringTemplateMessage
         if (!$this->job) {
             return false;
         }
-        
-        $name = $this->user->info->displayName;
+
+        $userInfo = $this->user->getInfo();
+        $name = $userInfo->getDisplayName();
         if ('' == trim($name)) {
-            $name = $this->user->info->email;
+            $name = $userInfo->getEmail();
         }
         
         $variables = array(
             'name' => $name,
-            'title' => $this->job->title
+            'title' => $this->job->getTitle()
         );
         
-        $this->setTo($this->user->info->email, $name != $this->user->info->email ? $name : null);
+        $this->setTo($userInfo->getEmail(), $name != $userInfo->getEmail() ? $name : null);
+
         if ($this->admin && $this->admin->getSettings('Applications')->getMailBCC()) {
             $this->addBcc($this->admin->info->email, $this->admin->info->displayName);
         }
+
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';
+
         if ($this->isTranslatorEnabled()) {
             $subject = $this->getTranslator()->translate($subject);
         }
-        $this->setSubject(sprintf($subject, $this->job->title));
+        $this->setSubject(sprintf($subject, $this->job->getTitle()));
         
         /* @todo settings retrieved from user entity is an array
          *       not an entity.
          */
         $settings = $this->user->getSettings('Applications');
+
         $body = $settings->getMailAccessText();
         if ('' == $body) {
             $body = /*@translate*/ "Hello ##name##,\n\nThere is a new application for your vacancy:\n\"##title##\"\n\n";
@@ -90,7 +119,7 @@ class NewApplication extends StringTemplateMessage
     }
 
     /**
-     * @param $user
+     * @param \Auth\Entity\User $user
      * @return $this
      */
     public function setUser($user)
@@ -100,7 +129,7 @@ class NewApplication extends StringTemplateMessage
     }
 
     /**
-     * @param $admin
+     * @param \Auth\Entity\User $admin
      * @return $this
      */
     public function setAdmin($admin)

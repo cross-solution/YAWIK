@@ -174,5 +174,25 @@ class EmployeeTest extends \PHPUnit_Framework_TestCase
             array(Employee::STATUS_REJECTED, array(false, false, true, true, false)),
         );
     }
-    
+
+    /**
+     * @testdox Implements \Organizations\Entity\EmployeeInterface
+     * @dataProvider provideEmployeeRoles
+     */
+    public function testSetGetRole($role)
+    {
+        $this->target->setRole($role);
+        $this->assertEquals($role, $this->target->getRole());
+    }
+
+
+    public function provideEmployeeRoles()
+    {
+        return array(
+            array(Employee::ROLE_DEPARTMENT_MANAGER),
+            array(Employee::ROLE_MANAGEMENT),
+            array(Employee::ROLE_RECRUITER),
+        );
+    }
+
 }

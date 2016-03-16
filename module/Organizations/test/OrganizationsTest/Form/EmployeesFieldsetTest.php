@@ -60,6 +60,7 @@ class EmployeesFieldsetTest extends \PHPUnit_Framework_TestCase
             'options' => array(
                 'description' => 'Invite an employee via email address.',
             ),
+
         );
 
         $expectAdd2 = array(

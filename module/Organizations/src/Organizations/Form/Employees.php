@@ -24,8 +24,4 @@ class Employees extends SummaryForm
 
     protected $displayMode = self::DISPLAY_SUMMARY;
 
-//    public function addButtonsFieldset()
-//    {
-//        return; // No buttons.
-//    }
 }

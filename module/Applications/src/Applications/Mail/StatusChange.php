@@ -10,6 +10,7 @@
 /** NewApplication.php */
 namespace Applications\Mail;
 
+use Applications\Entity\StatusInterface;
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
 
@@ -53,9 +54,10 @@ class StatusChange extends StringTemplateMessage
      * Sets the application
      *
      * @param ApplicationInterface $application
+     * @param string $status
      * @return $this
      */
-    public function setApplication(ApplicationInterface $application)
+    public function setApplication(ApplicationInterface $application, $status = null)
     {
         $this->application = $application;
         $this->setTo($application->contact->email, $application->contact->displayName);
