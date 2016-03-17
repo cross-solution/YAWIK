@@ -33,6 +33,7 @@
         "ext-mongo": "*",
         "ext-intl": "*",
         "zendframework/zendframework": "2.*",
+	"zendframework/zend-mvc": "2.6.*",
         "zendframework/zendservice-recaptcha": "2.*",
         "doctrine/doctrine-mongo-odm-module": "*",
         "hybridauth/hybridauth": "*",
