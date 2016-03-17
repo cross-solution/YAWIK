@@ -85,6 +85,7 @@ return array(
             'Auth\Controller\RegisterConfirmation' => 'Auth\Factory\Controller\RegisterConfirmationControllerFactory',
             'Auth\Controller\Password' => 'Auth\Factory\Controller\PasswordControllerFactory',
             'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
+            'Auth\Users' => 'Auth\Factory\Controller\UsersControllerFactory',
         )
     ),
     
@@ -142,210 +143,6 @@ return array(
         ),
     ),
 
-    // Routes
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'auth' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => array(
-                            'route'    => '/login',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Index',
-                                'action'     => 'index',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'my' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/my/:action',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Manage',
-                                'action' => 'profile'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'my-password' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/my/password',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Password',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'my-groups' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/my/groups[/:action]',
-                            'defaults' => array(
-                                'controller' => 'Auth/ManageGroups',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'forgot-password' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/forgot-password',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\ForgotPassword',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'goto-reset-password' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/goto-reset-password/:token/:userId',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\GotoResetPassword',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'register' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/register[/:role]',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Register',
-                                'action' => 'index',
-                                'role' => 'recruiter'
-                            ),
-                            'constraints' => array(
-                                'role' => '(recruiter|user)',
-                            )
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'register-confirmation' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/register-confirmation/:userId',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\RegisterConfirmation',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                ),
-            ),
-            'auth-provider' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/login/:provider',
-                    'constraints' => array(
-                       // 'provider' => '.+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action' => 'login'
-                     ),
-                ),
-            ),
-            'auth-hauth' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/login/hauth',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\HybridAuth',
-                        'action' => 'index'
-                    ),
-                ),
-            ),
-            // This route must be after auth-provider for the
-            // last in first out order of the route stack!
-            // @TODO implement auth-provider and auth-extern as child routes
-            //       to a new auth-login route.
-            'auth-extern' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/login/extern',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action'     => 'login-extern',
-                        'forceJson'  => true,
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-            'auth-social-profiles' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/auth/social-profiles',
-                    'defaults' => array(
-                        'controller' => 'Auth/SocialProfiles',
-                        'action'     => 'fetch',
-                    ),
-                ),
-            ),
-            
-            'auth-group' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/auth/groups',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action'     => 'group',
-                        'forceJson'  => true,
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-            'auth-logout' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/logout',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action' => 'logout',
-                    ),
-                ),
-            ),
-            'user-image' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/user/image/:id',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Image',
-                        'action' => 'index',
-                        'id' => 0,
-                    ),
-                ),
-            ),
-            'user-search' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/user/search',
-                    'defaults' => array(
-                        'controller' => 'Auth/ManageGroups',
-                        'action' => 'search-users'
-                    ),
-                ),
-            ),
-            'test-hybrid' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/testhybrid',
-                    'defaults' => array(
-                        'controller' => 'Auth/SocialProfiles',
-                        'action' => 'testhybrid',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    
     /*
      * Acl definitions.
      * Format
@@ -421,37 +218,13 @@ return array(
                 ),
             ),
             'admin' => array(
-                'allow' => "__ALL__",
-//                'deny' => array(
-//                    'route/lang/auth',
-//                    'route/auth-provider',
-//                    'route/auth-hauth',
-//                    'route/auth-extern',
-//                ),
+                'allow' => [
+                    '__ALL__',
+                    'Users'
+                ],
             ),
         ),
     ),
-    
-    // Navigation
-//     'navigation' => array(
-//         'default' => array( 
-//             'login' => array(
-//                 'label' => 'Login',
-//                 'route' => 'auth',
-//                 'pages' => array(
-//                     'facebook' => array(
-//                         'label' => 'Facebook',
-//                         'route' => 'auth/auth-providers',
-//                         'params' => array(
-//                             'provider' => 'facebook'
-//                         ),
-//                      ),
-//                 ),
-//             ),
-//         ),
-//     ),
-    
-   
     'translator' => array(
         'translation_file_patterns' => array(
             array(
@@ -488,6 +261,7 @@ return array(
         'invokables' => array(
             'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
             'Auth/Entity/UserToSearchResult' => '\Auth\Entity\Filter\UserToSearchResult',
+            'PaginationQuery/Auth/User'   => 'Auth\Repository\Filter\PaginationSearchUsers',
         ),
     ),
     

@@ -107,6 +107,9 @@ return array(
         'factories' => array(
             'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory'
         ),
+        'aliases' => [
+            'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery'
+        ]
     ),
     'validators' => array(
         'factories' => array(

@@ -47,9 +47,11 @@ class PaginationQuery extends AbstractPaginationQuery
     
     /**
      * Creates a query for filtering organizations
+     *
      * @see \Core\Repository\Filter\AbstractPaginationQuery::createQuery()
-     * @param array $params
-     * @param $queryBuilder
+     * @param $params
+     * @param \Doctrine\ODM\MongoDB\Query\Builder $queryBuilder
+     * @return mixed
      */
     public function createQuery($params, $queryBuilder)
     {
@@ -59,25 +61,7 @@ class PaginationQuery extends AbstractPaginationQuery
         } else {
             $value = $params;
         }
-    
-         
-        if (isset($value['by']) && 'me' == $value['by']) {
-            //$queryBuilder->field('user')->equals($this->auth->getUser()->id);
-        }
-        if (isset($value['by']) && 'new' == $value['by']) {
-             //$queryBuilder->field('readBy')->notEqual( new \MongoId($this->auth->getUser()->id));
-        }
-        
-        
-        if (isset($value['search']) && !empty($value['search'])) {
-            $search = strtolower($value['search']);
-            $searchPatterns = array();
-    
-            foreach (explode(' ', $search) as $searchItem) {
-                $searchPatterns[] = new \MongoRegex('/^' . $searchItem . '/');
-            }
-            $queryBuilder->field('keywords')->all($searchPatterns);
-        }
+
         
         /*
          * We only show organizations to which the user has view permissions.
@@ -87,10 +71,7 @@ class PaginationQuery extends AbstractPaginationQuery
         if (!isset($value['sort'])) {
             $value['sort'] = '-date';
         }
-        
-        //if (isset($value['status']) && 'all' != $value['status']) {
-        //    $queryBuilder->field('status.name')->equals($value['status']);
-        //}
+
         $queryBuilder->sort($this->filterSort($value['sort']));
         
         return $queryBuilder;

@@ -305,6 +305,11 @@ class OrganizationReference implements
         return $this->proxy('getEmployees');
     }
 
+    public function getEmployeesByRole($role)
+    {
+        return $this->proxy('getEmployeesByRole');
+    }
+
     public function getEmployee($userOrId)
     {
         return $this->proxy('getEmployee', $userOrId);

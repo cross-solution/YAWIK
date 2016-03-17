@@ -11,18 +11,15 @@ namespace Auth;
 
 use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
+use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
-use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
-use Auth\Listener\UnauthorizedAccessListener;
 
 /**
- * Bootstrap class of the Core module
- *
+ * Bootstrap class of the Auth module
  */
 class Module
 {
-
     public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
     {
         if (\Zend\Console\Console::isConsole()) {
@@ -40,7 +37,7 @@ class Module
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return ModuleConfigLoader::load(__DIR__ . '/config');
     }
 
     /**

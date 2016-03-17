@@ -1,0 +1,40 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2016 Cross Solution (http://cross-solution.de)
+ * @author cbleek
+ * @license   MIT
+ */
+
+?><h1><?php echo $this->translate('Users')?></h1>
+
+<table class="table table-striped table-bordered table-hover" id="users-list">
+    <tr>
+        <th>
+            <?php echo $this->translate('Name');?>
+        </th>
+        <th>
+            <?php echo $this->translate('Role');?>
+        </th>
+        <th>
+            <?php echo $this->translate('Login');?>
+        </th>
+    </tr>
+    <?php foreach($users as $user): /* @var Auth\Entity\User $user */?>
+        <tr>
+            <td>
+                <?php echo $user->getInfo()->getDisplayName() ?>
+            </td>
+            <td>
+                <?php echo $user->getRole() ?>
+            </td>
+            <td>
+                <?php echo $user->getLogin() ?>
+            </td>
+        </tr>
+
+    <?php endforeach;?>
+</table>
+<?php echo $this->paginationControl($users, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/user-list'));?>

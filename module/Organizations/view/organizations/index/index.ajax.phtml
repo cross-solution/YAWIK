@@ -11,14 +11,16 @@
  */
 ?>
 <?php
-$columns = array(
-/*@translate*/ 'Organization' 
-   => array(),
-/*@translate*/ 'City'        
-   => array('class' => 'cam-job'),
-/*@translate*/ 'Street'   
-   => array(),
-);
+$columns = [
+    /*@translate*/ 'Organization' => [],
+    /*@translate*/ 'City' => [
+            'class' => 'cam-job',
+            'sort' => 'contact.city'
+        ],
+    /*@translate*/ 'Street' => [
+            'sort' => 'contact.street'
+        ],
+];
 
 if ('-' == $this->sort{0}) {
     $sortBy  = substr($this->sort, 1);
@@ -58,29 +60,29 @@ if ('-' == $this->sort{0}) {
 <?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
-      <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->id)); ?>">
+      <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->getId())); ?>">
     <?php
-        $nameEntity = $organization->organizationName;
-        echo isset($nameEntity)?$nameEntity->name:'**** DRAFT ****';
+        $nameEntity = $organization->getOrganizationName();
+        echo isset($nameEntity)?$nameEntity->getName():'**** DRAFT ****';
     ?>
       </a>
       <?php if ($organization->isHiringOrganization()): $parent = $organization->getParent(); ?>
           <br><small><?php echo sprintf(
                 $this->translate('Hiring organization of <strong>%s</strong>'),
-                '<a href="' . $this->url('lang/organizations/edit', array('id' => $parent->id)) . '">' . $parent->getOrganizationName()->getName() . '</a>'
+                '<a href="' . $this->url('lang/organizations/edit', array('id' => $parent->getId())) . '">' . $parent->getOrganizationName()->getName() . '</a>'
           );?></small>
 
         <?php endif ?>
   </td>
   <td>
-      <?php echo $organization->contact->postalcode;?>
-      <?php echo $organization->contact->city;?>
+      <?php echo $organization->getContact()->getPostalcode();?>
+      <?php echo $organization->getContact()->getCity();?>
   </td>
   <td>
-      <?php echo $organization->contact->street;?>
-      <?php echo $organization->contact->houseNumber;?>
+      <?php echo $organization->getContact()->getStreet();?>
+      <?php echo $organization->getContact()->getHouseNumber();?>
   </td>
  </tr>
 <?php endforeach?>
 </table>
-<?php echo $this->paginationControl($organizations, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/organizations'));?>
+<?php echo $this->paginationControl($this->organizations, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/organizations'));?>

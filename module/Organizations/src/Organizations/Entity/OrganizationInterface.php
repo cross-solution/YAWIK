@@ -156,6 +156,15 @@ interface OrganizationInterface extends
     public function getEmployees();
 
     /**
+     * Gets the employees collection,
+     *
+     * @param string $role
+     * @return Collection
+     * @since 0.25
+     */
+    public function getEmployeesByRole($role);
+
+    /**
      * Gets one employee by user id.
      *
      * @param string|UserInterface $userOrId
