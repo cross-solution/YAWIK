@@ -43,7 +43,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * a job
      *
      * @var String
-     * @ODM\String @ODM\Index
+     * @ODM\Field(type="string") @ODM\Index
      **/
     protected $applyId;
 
@@ -51,7 +51,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * title of a job posting
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $title;
 
@@ -59,7 +59,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * name of the publishing company
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $company;
 
@@ -77,7 +77,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * Email Address, which is used to send notifications about e.g. new applications.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      **/
     protected $contactEmail;
 
@@ -112,7 +112,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * language of the job posting. Languages are ISO 639-1 coded
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $language;
 
@@ -121,7 +121,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * search e.g. results.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $location;
 
@@ -138,7 +138,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * Link which points to the job posting
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      **/
     protected $link;
 
@@ -179,7 +179,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * Reference of a job opening, on which an applicant can refer to.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $reference;
 
@@ -188,7 +188,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      *
      * @deprecated (use $organization->image->uri instead)
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $logoRef;
 
@@ -196,7 +196,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * Template-Name
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $template;
 
@@ -204,7 +204,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * Application link.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $uriApply;
 
@@ -213,7 +213,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * does know who is the one who has commited this job.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $uriPublisher;
 

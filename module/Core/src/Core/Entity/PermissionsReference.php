@@ -21,7 +21,7 @@ class PermissionsReference
     /**
      *
      * @var unknown
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $permission;
     

@@ -26,7 +26,7 @@ class DisableElementsCapableFormSettings extends SettingsContainer
     /**
      * The service name of the target form.
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $form;

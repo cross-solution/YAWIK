@@ -13,36 +13,36 @@ class Language extends AbstractEntity implements LanguageInterface
     
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $language;
     
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $levelListening;
     
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $levelReading;
 
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $levelSpokenInteraction;
 
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $levelSpokenProduction;
     
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $levelWriting;

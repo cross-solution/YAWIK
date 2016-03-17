@@ -33,7 +33,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * Qualification field of the job template
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $qualifications='';
 
@@ -41,7 +41,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * Requirements field of the job template
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $requirements='';
 
@@ -49,7 +49,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * Benefits field of the job template
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $benefits='';
 
@@ -57,7 +57,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * Job title field of the job template
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $title='';
 
@@ -65,7 +65,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * Company description field of the job template
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $description='';
 
@@ -73,7 +73,7 @@ class TemplateValues extends AbstractEntity implements TemplateValuesInterface
      * language of the job template values. Must be a valid ISO 639-1 code
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $language='en';
 

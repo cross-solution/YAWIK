@@ -25,42 +25,42 @@ class OrganizationContact extends AbstractIdentifiableHydratorAwareEntity implem
      * BuildingNumber of an organization address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $houseNumber;
     
     /**
      * Postalcode of an organization address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $postalcode;
 
     /**
      * Cityname of an organization address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $city;
     
     /**
      * Streetname of an organization address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $street;
 
     /**
      * Phone number of an organization address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $phone;
 
     /**
      * Fax number of an organization address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $fax;
 
     /**

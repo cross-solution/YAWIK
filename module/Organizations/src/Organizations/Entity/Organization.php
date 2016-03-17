@@ -45,7 +45,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * externalId. Allows external applications to reference their primary key.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @ODM\Index
      */
     protected $externalId;
@@ -92,7 +92,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * The organizations' description.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $description;
 

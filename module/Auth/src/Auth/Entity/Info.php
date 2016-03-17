@@ -27,28 +27,29 @@ class Info extends AbstractEntity implements InfoInterface
      * Day of birth of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field("string")
+     */
     protected $birthDay;
     
     /**
      * Month of birth of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $birthMonth;
 
     /**
      * Year of birth of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $birthYear;
     
     /**
      * primary email of the user.
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $email;
 
     /**
@@ -63,49 +64,49 @@ class Info extends AbstractEntity implements InfoInterface
      * Firstname of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $firstName;
     
     /**
      * Gender of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $gender;
     
     /**
      * house number of the users address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $houseNumber;
     
     /**
      * Lastname of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $lastName;
     
     /**
      * phone number of the user
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $phone;
     
     /**
      * postal code of the users address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $postalCode;
 
     /**
      * city of the users address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $city;
     
     /**
@@ -120,7 +121,7 @@ class Info extends AbstractEntity implements InfoInterface
      * street of the users address
      *
      * @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $street;
     
     /**

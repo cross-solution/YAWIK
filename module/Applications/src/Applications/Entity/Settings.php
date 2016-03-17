@@ -55,14 +55,14 @@ class Settings extends ModuleSettingsContainer
     /**
      * Mail text, which informs the recruiter about an incoming application
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailAccessText;
     
     /**
      * Mail text for inviting an applicant. Mail is sent to the applicant
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailInvitationText;
     
@@ -70,14 +70,14 @@ class Settings extends ModuleSettingsContainer
     /**
      * Mail text for confirming an application-
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailConfirmationText;
     
     /**
      * Mail text for rejecting an application
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailRejectionText;
 

@@ -18,14 +18,14 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Employment extends AbstractIdentifiableEntity
 {
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var unknown
      */
     protected $startDate;
     /**
      *
      * @var unknown
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $endDate;
     
@@ -38,14 +38,14 @@ class Employment extends AbstractIdentifiableEntity
     /**
      *
      * @var unknown
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $description;
     
     /**
      *
      * @var string Organisation Name
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $organizationName;
     

@@ -37,7 +37,7 @@ class History extends AbstractEntity implements HistoryInterface
      * optional message, which can attached to a status change
      * @var String
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $message;
     

@@ -25,7 +25,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
      * published the job posting. Technicaly it's a name of a referer
      * of an application
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $name;
     
@@ -33,7 +33,7 @@ class Subscriber extends AbstractIdentifiableEntity implements SubscriberInterfa
      * Referer of a job posting. This referrer must be submitted within the
      * application form
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      **/
     protected $uri;
     

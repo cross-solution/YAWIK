@@ -43,7 +43,7 @@ class Permissions implements PermissionsInterface
      *
      * default is the Fully qualified class name.
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      * @since 0,18
      */

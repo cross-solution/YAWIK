@@ -53,7 +53,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
      * Comment message
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $message;
     

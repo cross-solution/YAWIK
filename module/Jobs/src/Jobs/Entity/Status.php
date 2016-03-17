@@ -38,7 +38,7 @@ class Status extends AbstractEntity implements StatusInterface
      * name of the job status
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $name;
 
@@ -46,7 +46,7 @@ class Status extends AbstractEntity implements StatusInterface
      * integer for ordering states.
      *
      * @var int
-     * @ODM\Int
+     * @ODM\Field(type="int")
      */
     protected $order;
 

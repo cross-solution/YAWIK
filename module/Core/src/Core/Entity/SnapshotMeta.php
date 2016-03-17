@@ -38,7 +38,7 @@ class SnapshotMeta extends AbstractIdentifiableModificationDateAwareEntity
 
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $sourceId;
 

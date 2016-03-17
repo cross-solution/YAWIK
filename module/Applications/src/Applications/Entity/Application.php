@@ -76,7 +76,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * The cover letter of an application
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $summary;
 
@@ -148,7 +148,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * Average rating from all comments.
      *
      * @var int
-     * @ODM\Int
+     * @ODM\Field(type="int")
      */
     protected $rating;
     

@@ -32,7 +32,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity implements Pro
      * Should be the name of the social network.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $name;
     
@@ -41,7 +41,7 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity implements Pro
      * URL to the profile page.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $link;
     

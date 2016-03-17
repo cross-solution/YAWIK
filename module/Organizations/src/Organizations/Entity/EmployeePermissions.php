@@ -28,7 +28,7 @@ class EmployeePermissions extends AbstractEntity implements EmployeePermissionsI
      * Default is EmployeePermissionsInterface::JOBS_VIEW | ~:APPLICATIONS_VIEW
      *
      * @var int
-     * @ODM\Int
+     * @ODM\Field(type="int")
      */
     protected $permissions;
 

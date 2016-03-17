@@ -24,7 +24,7 @@ class Facts extends AbstractEntity implements FactsInterface
     /**
      * The expected salary.
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $expectedSalary;
@@ -32,7 +32,7 @@ class Facts extends AbstractEntity implements FactsInterface
     /**
      * The willingness to travel
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $willingnessToTravel;
@@ -40,7 +40,7 @@ class Facts extends AbstractEntity implements FactsInterface
     /**
      * The earliestStartingDate
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var string
      */
     protected $earliestStartingDate;

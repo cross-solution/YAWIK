@@ -25,7 +25,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * name of the Organization
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $name;
     
@@ -33,7 +33,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * Reference counter. If the name is used as an hiring organization name, the counter is incremented.
      *
      * @var int
-     * @ODM\Int
+     * @ODM\Field(type="int")
      */
     protected $rankingByCompany;
     
@@ -41,7 +41,7 @@ class OrganizationName extends AbstractIdentifiableEntity implements Organizatio
      * Overall numbers of use
      *
      * @var int
-     * @ODM\Int
+     * @ODM\Field(type="int")
      */
     protected $ranking;
 

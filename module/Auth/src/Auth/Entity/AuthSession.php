@@ -14,27 +14,26 @@ use Core\Entity\AbstractEntity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- *
- *
  * @ODM\EmbeddedDocument
  */
 class AuthSession extends AbstractEntity
 {
     /**
+     * Name of the session
      *
-     *
-     * @ODM\String*/
+     * @ODM\Field(type="string")
+     */
     protected $name;
 
     /**
-     *
+     * Hash of the session
      *
      * @var array
      * @ODM\Hash*/
     protected $session = array();
 
     /**
-     *
+     * Last modification date of the session
      *
      * @var \Datetime
      * @ODM\Date

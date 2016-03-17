@@ -27,7 +27,7 @@ class Token extends AbstractIdentifiableEntity
      * Token
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $hash;
 

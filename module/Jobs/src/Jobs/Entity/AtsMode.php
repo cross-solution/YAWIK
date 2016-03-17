@@ -26,7 +26,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * The ATS mode.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mode;
 
@@ -34,7 +34,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * The uri to be used in MODE_URI.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $uri;
 
@@ -42,7 +42,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * The email to be used in MODE_EMAIL
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $email;
 
