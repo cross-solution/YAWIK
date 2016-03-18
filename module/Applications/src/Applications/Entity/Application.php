@@ -4,7 +4,6 @@
  */
 namespace Applications\Entity;
 
-use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\EntityInterface;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Auth\Entity\UserInterface;
@@ -14,7 +13,6 @@ use Doctrine\Common\Collections\Collection;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
-use Core\Entity\PreUpdateAwareInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use Auth\Entity\InfoInterface;
 use Cv\Entity\CvInterface;
@@ -699,7 +697,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
      * @see \Applications\Entity\ApplicationInterface::setComments()
      * @return Application
      */
-    public function setComments(Collection $comments)
+    public function setComments(ArrayCollection $comments)
     {
         $this->comments = $comments;
         return $this;

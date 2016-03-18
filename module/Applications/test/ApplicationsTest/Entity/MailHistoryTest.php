@@ -8,7 +8,7 @@
  */
 
 /** */
-namespace ApplicationsTestTest\Entity;
+namespace ApplicationsTest\Entity;
 
 use Applications\Entity\MailHistory;
 use Applications\Entity\Status;

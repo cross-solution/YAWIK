@@ -13,7 +13,6 @@ namespace Applications\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Auth\Entity\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Entity\PreUpdateAwareInterface;
 
 /**
  * Application comment entity.

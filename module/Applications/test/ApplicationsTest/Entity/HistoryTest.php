@@ -8,12 +8,11 @@
  */
 
 /** */
-namespace ApplicationsTestTest\Entity;
+namespace ApplicationsTest\Entity;
 
 use Applications\Entity\History;
 use Applications\Entity\Status;
-use Auth\Entity\Info;
-use Zend\Stdlib\DateTime;
+
 
 /**
  * Tests for User

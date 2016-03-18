@@ -10,40 +10,43 @@
 /** */
 namespace ApplicationsTest\Entity;
 
-use Auth\Entity\Info;
-use Applications\Entity\Contact;
+use Applications\Entity\Rating;
 
 /**
- * Tests for User
+ * Tests for Subscriber
  *
- * @covers \Applications\Entity\Contact
+ * @covers \Applications\Entity\Rating
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @group  Applications
  * @group  Applications.Entity
  */
-class ContactTest extends \PHPUnit_Framework_TestCase
+class RatingTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The "Class under Test"
      *
-     * @var Contact
+     * @var Rating
      */
     private $target;
 
     public function setup()
     {
-        $info = new Info();
-        $this->target = new Contact($info);
+        $this->target = new Rating();
     }
 
     /**
-     * @testdox Extends \Core\Entity\AbstractEntity and implements \Auth\Entity\UserInterface
-     * @covers \Applications\Entity\Contact::__construct
+     * @testdox Extends \Core\Entity\AbstractEntity and implements \Applications\Entity\Facts
      */
     public function testExtendsAbstractEntityAndInfo()
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
-        $this->assertInstanceOf('\Auth\Entity\Info', $this->target);
+        $this->assertInstanceOf('\Applications\Entity\Rating', $this->target);
+    }
+
+    public function testSetGetRating(){
+        $input="1";
+        $this->target->setRating($input);
+        $this->assertEquals($this->target->getRating(),$input);
     }
 }

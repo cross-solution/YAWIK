@@ -8,7 +8,7 @@
  */
 
 /** */
-namespace AuthTest\Entity;
+namespace ApplicationsTest\Entity;
 
 use Applications\Entity\Comment;
 use Applications\Entity\Rating;

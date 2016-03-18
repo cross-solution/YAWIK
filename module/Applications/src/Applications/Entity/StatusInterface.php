@@ -58,4 +58,9 @@ interface StatusInterface extends EntityInterface
      * Converts an status entity into a string
      */
     public function __toString();
+
+    /**
+     * Gets an array of states
+     */
+    public function getStates();
 }

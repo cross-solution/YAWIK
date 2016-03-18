@@ -41,32 +41,40 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider providerBooleanValues
      * @testdox test the privacy policy flag
      * @covers Applications\Entity\Attributes::getAcceptedPrivacyPolicy
      * @covers Applications\Entity\Attributes::setAcceptedPrivacyPolicy
      */
-    public function testSetGetPrivacyPolicy()
+    public function testSetGetPrivacyPolicy($input, $expected)
     {
-        $input = true;
         $this->target->setAcceptedPrivacyPolicy($input);
-        $this->assertEquals($input, $this->target->getAcceptedPrivacyPolicy());
-        $input = false;
-        $this->target->setAcceptedPrivacyPolicy($input);
-        $this->assertEquals($input, $this->target->getAcceptedPrivacyPolicy());
+        $this->assertEquals($expected, $this->target->getAcceptedPrivacyPolicy());
     }
 
     /**
+     * @dataProvider providerBooleanValues
      * @testdox test the send carbon copy flag
      * @covers Applications\Entity\Attributes::getSendCarbonCopy
      * @covers Applications\Entity\Attributes::setSendCarbonCopy
      */
-    public function testSetGetSendCarbonCopy()
+    public function testSetGetSendCarbonCopy($input, $expected)
     {
-        $input = true;
         $this->target->setSendCarbonCopy($input);
-        $this->assertEquals($input, $this->target->getSendCarbonCopy());
-        $input = false;
-        $this->target->setSendCarbonCopy($input);
-        $this->assertEquals($input, $this->target->getSendCarbonCopy());
+        $this->assertEquals($expected, $this->target->getSendCarbonCopy());
     }
+
+    public function providerBooleanValues(){
+        return [
+            [1, true],
+            [0, false],
+            [true, true],
+            [false, false],
+            ["true", true],
+            ["false", true],
+            [null, false]
+        ];
+    }
+
+
 }
