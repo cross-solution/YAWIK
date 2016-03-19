@@ -195,16 +195,21 @@ return array(
     'translator' => array(
         'locale' => 'de_DE',
         'translation_file_patterns' => array(
-            array(
+            [
                 'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => '%s.mo',
-            ),
-            array(
+            ],
+            [
                 'type'     => 'phparray',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => 'Zend_Validate.%s.php',
-            )
+            ],
+            [
+                'type'     => 'phparray',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => 'Zend_Captcha.%s.php',
+            ]
         ),
     ),
     // Defines the Core/Navigation.
