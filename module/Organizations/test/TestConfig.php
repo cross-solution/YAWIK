@@ -1,8 +1,8 @@
 <?php
 return array(
     'modules' => array(
-        'Auth',
         'Core',
+        'Auth',
         'Organizations'
     ),
     'module_listener_options' => array(
