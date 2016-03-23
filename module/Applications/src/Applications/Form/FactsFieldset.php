@@ -63,7 +63,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
         $this->add(
             array(
             'name' => 'earliestStartingDate',
-            'type' => "\Zend\Form\Element\DateSelect",
+            'type' => "date",
             'options' => array(
                 'label' => /*@translate*/ 'Earliest starting date',
                 'description' => /*@translate*/ 'Enter the earliest starting date.',
