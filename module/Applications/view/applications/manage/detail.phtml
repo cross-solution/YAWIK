@@ -346,23 +346,25 @@ endif;
                 <tr>
                     <td><?php echo $this->translate('date of receipt')?>:</td>
                     <td>
-                        <?php echo strftime('%x %X', $application->getDateCreated()->getTimestamp()); ?>
+                        <?php echo $this->dateFormat($application->getDateCreated()->getTimestamp(), 'short'); ?>
                         <?php echo $application->getSubscriber()? '<br/>' . $this->translate("via"). ': '. $application->getSubscriber()->getName():'';?>
                     </td>
                 </tr>
+                <?php if(!$application->isDraft()):?>
                 <tr>
                     <td style="width:50%"><?php echo $this->translate('application state')?>:</td>
                     <td class="cam-color-<?php echo $application->getStatus() ?>">
                         <?php echo $this->translate($application->getStatus()->getName()) ?>
                     </td>
                 </tr>
+                <?php endif; ?>
                 <?php if ($this->acl()->isRole(Auth\Entity\User::ROLE_RECRUITER,true)):?>
                     <tr>
                         <td><?php echo $this->translate('rating')?>:</td>
                         <td class="col-md-6">
           <span id="application-rating">
           <?php $rating = $this->rating($application->getRating());
-          if ($this->application->isDraft() || !$this->acl()->isRole(Auth\Entity\User::ROLE_RECRUITER,true)):
+          if ($application->isDraft() || !$this->acl()->isRole(Auth\Entity\User::ROLE_RECRUITER,true)):
               echo $rating;
           else:?>
               <button id="<?php echo $rating?"cam-applications-comments-toggle":"cam-applications-comments-quickadd"?>"
@@ -391,7 +393,7 @@ endif;
                                    data-toggle="modal"
                                    data-target="#cam-application-history"
                                    title="<?php echo $this->translate('Status history')?>">
-                                    <?php echo strftime('%x %X', $application->getDateModified()->getTimestamp()); ?>
+                                    <?php echo $this->dateFormat($application->getDateModified()->getTimestamp(), 'short'); ?>
                                 </a>
                             </td>
                         </tr>
@@ -410,7 +412,7 @@ endif;
                 <?php if($application->getFacts()->getEarliestStartingDate()):?>
                     <tr>
                         <td><?php echo $this->translate('Earliest starting date')?>:</td>
-                        <td><?php echo $application->getFacts()->getEarliestStartingDate() ?></td>
+                        <td><?php echo $this->dateFormat($application->getFacts()->getEarliestStartingDate(),'short') ?></td>
                     </tr>
                 <?php endif?>
                 <?php if($application->getFacts()->getExpectedSalary()):?>

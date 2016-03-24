@@ -230,5 +230,5 @@
 		$('select').each(helpers.initSelect);
         $('.wizard-container').each(helpers.initWizardContainer);
 	});
-	
+
 })(jQuery);

@@ -51,7 +51,8 @@
         "components/flag-icon-css": "^0.7.1",
         "jmikola/geojson": "~1.0",
         "mikey179/vfsStream": "^1.6",
-        "satooshi/php-coveralls": "~1.0"
+        "satooshi/php-coveralls": "~1.0",
+        "eternicode/bootstrap-datepicker": "^1.6"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.*"
