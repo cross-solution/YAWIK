@@ -128,6 +128,27 @@ class ManageController extends AbstractActionController
         return $this->save();
     }
 
+    public function channelListAction()
+    {
+        $serviceLocator = $this->getServiceLocator();
+        $options = $serviceLocator->get('Core/Options');
+        $channels = $serviceLocator->get('Jobs/Options/Provider');
+
+
+
+        $jobEntity = $this->initializeJob()->get($this->params());
+
+        $model = new ViewModel([
+                                   'portals' => $jobEntity->getPortals(),
+                                   'channels' => $channels,
+                                   'defaultCurrencyCode' => $options->defaultCurrencyCode,
+                                   'defaultTaxRate' =>  $options->defaultTaxRate,
+                                   'jobId' => $jobEntity->getId()
+                               ]);
+        $model->setTemplate('jobs/partials/channel-list')->setTerminal(true);
+        return $model;
+    }
+
     /**
      * save a Job-Post either by a regular request or by an async post (AJAX)
      * a mandatory parameter is the ID of the Job
@@ -142,6 +163,8 @@ class ManageController extends AbstractActionController
     protected function save($parameter = array())
     {
         $serviceLocator     = $this->getServiceLocator();
+        $formEvents         = $serviceLocator->get('Jobs/JobContainer/Events');
+
         $user               = $this->auth->getUser();
         if (empty($user->info->email)) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
@@ -154,13 +177,9 @@ class ManageController extends AbstractActionController
         /** @var \Zend\Http\Request $request */
         $request            = $this->getRequest();
         $isAjax             = $request->isXmlHttpRequest();
-        $pageToForm         = array(0 => array('locationForm', 'nameForm', 'portalForm'),
-                                    1 => array('descriptionForm'),
-                                    2 => array('previewForm'));
 
         $params             = $this->params();
         $formIdentifier     = $params->fromQuery('form');
-        $pageIdentifier     = (int) $params->fromQuery('page', array_key_exists('page', $parameter)?$parameter['page']:0);
 
         $jobEntity = $this->initializeJob()->get($this->params(), true);
 
@@ -192,7 +211,7 @@ class ManageController extends AbstractActionController
                  * @todo This is a workaround for GeoJSON data insertion
                  * until we figured out, what we really want it to be.
                  */
-                if ('locationForm' == $formIdentifier) {
+                if ('general.locationForm' == $formIdentifier) {
                     $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
                     if ($locElem instanceOf \Geo\Form\GeoText) {
                         $loc = $locElem->getValue('entity');
@@ -228,6 +247,16 @@ class ManageController extends AbstractActionController
             $jobValid = false;
             $errorMessage[] = $this->translator->translate('Accept the Terms');
         }
+        $result = $formEvents->trigger('ValidateJob', $this, [ 'form' => $form ]);
+        foreach ($result as $messages) {
+            if (!$messages) { continue; }
+            if (!is_array($messages)) {
+                $messages = [ $messages ];
+            }
+
+            $errorMessage = array_merge($errorMessage, $messages);
+            $jobValid = false;
+        }
 
         $errorMessage = '<br />' . implode('<br />', $errorMessage);
         if ($isAjax) {
@@ -248,58 +277,25 @@ class ManageController extends AbstractActionController
                 'errorMessage' => $errorMessage)
             );
         } else {
-            if (isset($pageIdentifier)) {
-                $form->disableForm();
-                if (array_key_exists($pageIdentifier, $pageToForm)) {
-                    foreach ($pageToForm[$pageIdentifier] as $actualFormIdentifier) {
-                        $form->enableForm($actualFormIdentifier);
-                        if ($jobEntity->isDraft()) {
-                            $actualForm = $form->get($actualFormIdentifier);
-                            if ('nameForm' != $actualFormIdentifier && $actualForm instanceof SummaryFormInterface) {
-                                $form->get($actualFormIdentifier)->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
-                            }
-                            if ('locationForm' == $actualFormIdentifier) {
-                                $locElem = $actualForm->getBaseFieldset()->get('geo-location');
-                                if ($locElem instanceOf \Geo\Form\GeoText) {
-                                    $loc = $jobEntity->getLocations();
-                                    if (count($loc)) {
-                                        $locElem->setValue($loc->first());
-                                    }
-                                }
-                            }
-                        }
+
+
+            if ($jobEntity->isDraft()) {
+                $form->getForm('general.nameForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
+                $form->getForm('general.portalForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
+                $locElem = $form->getForm('general.locationForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM)
+                                ->getBaseFieldset()->get('geo-location');
+                if ($locElem instanceOf \Geo\Form\GeoText) {
+                    $loc = $jobEntity->getLocations();
+                    if (count($loc)) {
+                        $locElem->setValue($loc->first());
                     }
-                    if (!$jobEntity->isDraft()) {
-                        // Job is deployed, some changes are now disabled
-                        $form->enableAll();
-                    }
-                } else {
-                    throw new \RuntimeException('No form found for page ' . $pageIdentifier);
                 }
+            } else {
+                // Job is deployed, some changes are now disabled
+                $form->enableAll();
             }
-            $pageLinkNext = null;
-            $pageLinkPrevious = null;
-            if (0 < $pageIdentifier) {
-                $pageLinkPrevious = $this->url()->fromRoute(
-                    'lang/jobs/manage',
-                    [],
-                    ['query' => [
-                        'id' => $jobEntity->getId(),
-                        'page' => $pageIdentifier - 1]
-                    ]
-                );
-            }
-            if ($pageIdentifier < count($pageToForm) - 1) {
-                $pageLinkNext     = $this->url()->fromRoute(
-                    'lang/jobs/manage',
-                    [],
-                    [
-                        'query' => [
-                            'id' => $jobEntity->getId(),
-                            'page' => $pageIdentifier + 1]
-                    ]
-                );
-            }
+
+
             $completionLink = $this->url()->fromRoute(
                 'lang/jobs/completion',
                 [ 'id' => $jobEntity->getId()]
@@ -309,10 +305,7 @@ class ManageController extends AbstractActionController
 
             $viewModel->setVariables(
                 array(
-                'pageLinkPrevious' => $pageLinkPrevious,
-                'pageLinkNext' => $pageLinkNext,
                 'completionLink' => $completionLink,
-                'page' => $pageIdentifier,
                 'title' => $jobEntity->getTitle(),
                 'job' => $jobEntity,
                 'summary' => 'this is what we charge you for your offer...',

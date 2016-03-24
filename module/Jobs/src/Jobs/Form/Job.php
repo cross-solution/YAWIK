@@ -10,7 +10,10 @@
 /** Jobs forms */
 namespace Jobs\Form;
 
-use Core\Form\Container;
+use Core\Form\Event\FormEvent;
+use Core\Form\WizardContainer;
+use Zend\EventManager\EventManager;
+use Zend\EventManager\EventManagerInterface;
 use Zend\View\Renderer\PhpRenderer as Renderer;
 use Core\Form\propagateAttributeInterface;
 
@@ -19,8 +22,30 @@ use Core\Form\propagateAttributeInterface;
  *
  * @author Mathias Weitz <weitz@cross-solution.de>
  */
-class Job extends Container
+class Job extends WizardContainer
 {
+    /**
+     * The event manager
+     *
+     * @var EventManagerInterface
+     */
+    protected $events;
+
+    public function setEventManager(EventManagerInterface $events)
+    {
+        $this->events = $events;
+
+        return $this;
+    }
+
+    public function getEventManager()
+    {
+        if (!$this->events) {
+            $this->setEventManager(new EventManager());
+        }
+
+        return $this->events;
+    }
 
     /**
      * {@inheritDoc}
@@ -31,70 +56,73 @@ class Job extends Container
      */
     public function init()
     {
-        $this->setForms(
-            array(
-            'locationForm' => array(
-                'type' => 'Jobs/Base',
+
+        $elements = [
+            'general' => [
+                'priority' => 0,
+                'options' => [ 'label' => 'General' ],
                 'property' => true,
-                'options' => array(
-                    'enable_descriptions' => true,
-                    'description' => /*@translate*/ 'Please choose a descriptive title and a location for your job posting ',
-                    'display_mode' => 'summary'
-                )
-            )
-            )
-        );
+                'forms' => [
 
-        $this->setForms(
-            array(
-            'nameForm' => array(
-                'type' => 'Jobs/CompanyName',
+                    'locationForm' => array(
+                        'type' => 'Jobs/Base',
+                        'property' => true,
+                        'options' => array(
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'Please choose a descriptive title and a location for your job posting ',
+                            'display_mode' => 'summary'
+                        )
+                    ),
+                    'nameForm' => array(
+                        'type' => 'Jobs/CompanyName',
+                        'property' => true,
+                        'options' => array(
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'Please choose the name of the hiring organization. The selected name defines the template of the job opening.',
+                            'display_mode' => 'summary'
+                        )
+                    ),
+                    'portalForm' => array(
+                        'type' => 'Jobs/Multipost',
+                        'property' => true,
+                        'options' => array(
+                            'enable_descriptions' => true,
+                            'description' => /*@translate*/ 'Please choose the portals, where you wish to publish your job opening.',
+                            'display_mode' => 'summary'
+                        )
+                    ),
+                ],
+            ],
+
+            'description' => [
+                'priority' => '0',
+                'options' => [ 'label' => 'Description' ],
                 'property' => true,
-                'options' => array(
-                    'enable_descriptions' => true,
-                    'description' => /*@translate*/ 'Please choose the name of the hiring organization. The selected name defines the template of the job opening.',
-                    'display_mode' => 'summary'
-                )
-            )
-            )
-        );
+                'forms' => [
+                    'descriptionForm' => array(
+                        'type' => 'Jobs/Description',
+                        'property' => true,
+                    ),
+                ],
+            ],
 
-
-        $this->setForms(
-            array(
-            'portalForm' => array(
-                'type' => 'Jobs/Multipost',
+            'preview' => [
+                'priority' => 0,
+                'options' => [ 'label' => 'Preview' ],
                 'property' => true,
-                'options' => array(
-                    'enable_descriptions' => true,
-                    'description' => /*@translate*/ 'Please choose the portals, where you wish to publish your job opening.',
-                    'display_mode' => 'summary'
-                )
-            )
-            )
-        );
+                'forms' => [
+                    'previewForm' => array(
+                        'type' => 'Jobs/Preview',
+                        'property' => true,
+                    ),
+                ],
+            ],
+        ];
 
+        $this->setForms($elements);
 
-
-        $this->setForms(
-            array(
-            'descriptionForm' => array(
-                'type' => 'Jobs/Description',
-                'property' => true,
-            )
-            )
-        );
-
-
-        $this->setForms(
-            array(
-            'previewForm' => array(
-                'type' => 'Jobs/Preview',
-                'property' => true,
-            )
-            )
-        );
-
+        $events  = $this->getEventManager();
+        $events->trigger(FormEvent::EVENT_INIT, $this);
     }
 
     public function renderPost(Renderer $renderer)
@@ -103,26 +131,46 @@ class Job extends Container
         $javaScript = <<<JS
         $(document).ready(function() {
 
-            console.log('attached yk.forms.done to ', $('form'));
+            console.log('attached yk.forms.done to ', \$('form'));
 
-             $('form').on('yk.forms.done', function(event, data) {
+             \$('form').on('yk.forms.done', function(event, data) {
                 //if (typeof data != 'undefined' && typeof data['data'] != 'undefined') {}
                 if (typeof data != 'undefined' && typeof data['data'] != 'undefined') {
                     if (typeof data['data']['jobvalid'] != 'undefined' && data['data']['jobvalid'] === true) {
                         $('#job_incomplete').hide();
-                        $('#finalize_jobentry').show();
+                        \$('.wizard-container .finish').removeClass('disabled');
                     }
                     else {
                         $('#job_incomplete').show();
-                        $('#finalize_jobentry').hide();
+                        \$('.wizard-container .finish').addClass('disabled');
                     }
                 }
-                $('#job_errormessages').empty();
+                \$('#job_errormessages').empty();
 
                 if (typeof data['data']['errorMessage'] != 'undefined') {
                     $('#job_errormessages').append(data['data']['errorMessage']);
                 }
                 console.debug('job-form-inline', event, data);
+             });
+             \$('.wizard-container').on('wizard:tabShow.jobcontainer', function(e, \$tab, \$nav, index) {
+                var \$link = \$tab.find('a');
+                var href = \$link.attr('href');
+                var \$target = \$(href);
+                var \$iframe = \$target.find('iframe');
+
+                \$iframe.each(function() { this.contentDocument.location.reload(true); });
+
+                var \$productList = \$target.find('#product-list-wrapper');
+                if (\$productList.length) {
+                    \$productList.html('').load('/' + lang + '/jobs/channel-list?id=' + \$('#general-nameForm-job').val());
+                }
+             });
+
+             \$('.wizard-container .finish a').click(function (e) {
+                if (\$(e.currentTarget).parent().hasClass('disabled')) {
+                    e.preventDefault();
+                    return false;
+                }
              });
 
         });

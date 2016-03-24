@@ -40,138 +40,25 @@ $sum=0;
 </h1>
 
 <?php
-if ($this->page == 2):
+if ($job->isDraft() || $job->isRejected()) {
+    $finishLabel = sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'');
 
-    $viewLink = $this->url(
-        'lang/jobs/view',
-        array(
-        ),
-        array(
-            'query' => array(
-                'id' => $this->job->id
-            )
-        )
-    );
-
-    $multipostLink = $this->url(
-        'lang/jobs/manage',
-        array(
-        ),
-        array(
-            'query' => array(
-                'id' => $this->job->id,
-                'page' => 0
-            ),
-        )
-    );
-
-    ?>
-    <h3><?php echo $this->translate("Preview of your job posting"); ?></h3>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <iframe style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="alert alert-info">
-                <?php echo sprintf($this->translate('Please check the preview of your job position. Click %s to open the preview in a new window'),
-                    '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?>
-            </div>
-        </div>
-    </div>
-    <?php if ($this->job->portals):?>
-    <h3><?php echo $this->translate('Summary') ?></h3>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <?php $this->translate('Your job opening is ready to be published to the following channels');?>
-
-                    <?php $this->plugin('currencyFormat')->setCurrencyCode($defaultCurrencyCode);
-
-                    $portals = array();
-                    foreach($this->job->portals as $channelName):
-                            $channelData=$channels->getChannel($channelName);
-                            if (is_object($channelData)) {
-                                $portals[$channelData->getCategory()][] = $channelData;
-                            }
-                    endforeach;
-
-                    ?><div class="panel-body"><?php
-                    foreach ($portals as $category => $channels):?>
-                        <h5><?php echo $category ?></h5>
-                        <div class="row">
-                        <?php foreach ($channels as $channel):?>
-
-                            <div class="col-md-6" style="height: 34px; padding:  5px 15px;">
-
-                                <?php if ($channel->logo):?>
-                                <img src="<?php echo $this->basepath($channel->logo) ?>" alt="<?php echo $channel->description ?>" class="img-thumbnail" style="max-width: 60px; max-height: 24px;">
-                                <?php endif ?> <?php echo $channel->label ?>
-                            </div>
-                        <?php endforeach ?>
-                        </div>
-                        <?php endforeach; $priceFilter = $this->services('FilterManager.Jobs/ChannelPrices');
-                                          $total = $priceFilter->filter($this->job->portals);?>
-                        </div>
-                <table class="table table-condensed table-bordered">
-                    <thead>
-                    <tr>
-                        <th><?php echo $this->translate('Price') ?></th>
-                        <th class="text-right"><?php echo $this->currencyFormat($total); ?></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><?php echo $this->translate('plus VAT') ?> (<?php echo $defaultTaxRate ?>%)</td>
-                        <td class="text-right"><?php echo $this->currencyFormat($total * ( $defaultTaxRate /100)); ?></td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th><?php echo $this->translate('Invoice amount') ?></th>
-                        <th class="text-right"><?php echo $this->currencyFormat($total * (1 + $defaultTaxRate /100)); ?></th>
-                    </tr>
-                    </tfoot>
-                </table>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="alert alert-info">
-                <?php echo sprintf($this->translate('Please check your selected channels. Click %s to modify the channels'),
-                    '<a href="'.$multipostLink.'">'.$this->translate("here").'</a>'); ?>
-            </div>
-        </div>
-    </div>
-
-<?php endif; // $this->job->portals ?>
-
-<?php endif; ?>
-
-<?php echo $this->formContainer($this->form,'form-horizontal'); ?>
+} else if ($job->isActive()) {
+    $finishLabel = 'submit changes';
+}
 
 
-<div id="locationForm-buttons" class="buttons-bar form-group">
-    <div class="col-md-12">
-        <?php
-        switch($this->page):
-            case "0":
-                echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to enter the job') . '</a>' . PHP_EOL;
-                break;
-            case "1":
-                echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
-                echo '<a href="' . $this->pageLinkNext . '" class="btn btn-primary">' . $this->translate('Next to preview the job') . '</a>' . PHP_EOL;
-                break;
-            case "2":
-        ?>
-	<?php
-        /**
-         * check for required fields
-         */
-        ?>
+echo $this->formWizardContainer(
+                $this->form,'form-horizontal',
+                [ 'wizard' => [
+                    'finish_label' => $finishLabel,
+                    'finish_href' => $this->completionLink,
+                    'finish_enabled' => $this->jobvalid,
+                ]]
+); ?>
+
+
+
         <?php if ($job->isDraft()):?>
             <div id="job_incomplete" class="alert alert-warning " <?php echo (isset($this->jobvalid) && $this->jobvalid == true) ? 'style = "display: none;"' : ''; ?>>
                 <?php echo $this->translate('Your job position is incomplete.'); ?>
@@ -226,7 +113,7 @@ if ($this->page == 2):
             </div>
         <?php endif?>
         <?php
-                echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
+              /*  echo '<a href="' . $this->pageLinkPrevious . '" class="btn btn-primary">' . $this->translate('Back') . '</a>' . PHP_EOL;
                 if ($this->job->isDraft()) {
                     echo '<a id="finalize_jobentry" style="' . ($this->jobvalid?'':'display:none;') . '" href="' . $this->completionLink . '" class="btn btn-primary">' .
                         sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'') . '</a>' . PHP_EOL;
@@ -246,10 +133,5 @@ if ($this->page == 2):
                     echo '<a href="' . $deactivateLink . '" class="btn btn-primary">' . $this->translate('Deactivate') . '</a>' . PHP_EOL;
                 }
                 else {
-                }
-            default:
-
-        endswitch;
-        ?>
-    </div>
-</div>
+                }*/
+?>

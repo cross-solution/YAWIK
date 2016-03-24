@@ -64,6 +64,7 @@ return array(
                         'template',
                         'new' => 'Jobs/Create',
                         'history',
+                        'channel-list'
                     ),
                     'JobboardRecruiter',
                     'route/lang/jobs/manage',
@@ -182,7 +183,7 @@ return array(
             'Jobs\Form\Hydrator\OrganizationNameHydrator' => 'Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory',
             'Jobs/JsonJobsEntityHydrator'                 => 'Jobs\Entity\Hydrator\JsonJobsEntityHydratorFactory',
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
-            'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
+            //'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
             'Jobs/ViewModelTemplateFilter'                => 'Jobs\Factory\Filter\ViewModelTemplateFilterFactory',
             'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
@@ -193,6 +194,15 @@ return array(
             'Jobs/Options/Channel' => false,
         )
     ),
+
+    'event_manager' => [
+        'Jobs/Events' => [
+            'event' => '\Jobs\Listener\Events\JobEvent',
+        ],
+        'Jobs/JobContainer/Events' => [
+            'event' => '\Core\Form\Event\FormEvent',
+        ],
+    ],
 
     'controllers' => array(
         'invokables' => array(
@@ -240,6 +250,8 @@ return array(
             'jobs/form/multiposting-checkboxes' => __DIR__ . '/../view/form/multiposting-checkboxes.phtml',
             'jobs/form/ats-mode.view' => __DIR__ . '/../view/form/ats-mode.view.phtml',
             'jobs/form/ats-mode.form' => __DIR__ . '/../view/form/ats-mode.form.phtml',
+            'jobs/form/preview' => __DIR__ . '/../view/form/preview.phtml',
+            'jobs/partials/channel-list' => __DIR__ . '/../view/partials/channel-list.phtml',
             'jobs/assign-user' => __DIR__ . '/../view/jobs/manage/assign-user.phtml',
             'jobs/snapshot_or_preview' => __DIR__ . '/../view/partials/snapshot_or_preview.phtml',
             'jobs/history' => __DIR__ . '/../view/partials/history.phtml',
@@ -279,7 +291,6 @@ return array(
 
     'form_elements' => array(
         'invokables' => array(
-            'Jobs/Job'                          => 'Jobs\Form\Job',
             'Jobs/Base'                         => 'Jobs\Form\Base',
             'Jobs/Employers'                    => 'Jobs\Form\JobEmployers',
             'Jobs/JobEmployersFieldset'         => 'Jobs\Form\JobEmployersFieldset',
@@ -315,6 +326,7 @@ return array(
 
         ),
         'factories' => array(
+            'Jobs/Job'                          => 'Jobs\Factory\Form\JobFactory',
             'Jobs/BaseFieldset'                 => 'Jobs\Factory\Form\BaseFieldsetFactory',
             'Jobs/ListFilterLocationFieldset'   => 'Jobs\Factory\Form\ListFilterLocationFieldsetFactory',
             'Jobs/CompanyNameFieldset'          => 'Jobs\Factory\Form\CompanyNameFieldsetFactory',
