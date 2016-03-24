@@ -15,7 +15,12 @@ namespace Core\Entity;
  */
 interface EntityInterface
 {
-    public function __get($property);
-    public function __set($property, $value);
-    public function __isset($property);
+
+    /**
+     * Checks, wether a property is not empty.
+     *
+     * @param string $property
+     * @return bool
+     */
+    public function notEmpty($property);
 }

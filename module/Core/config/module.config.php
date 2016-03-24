@@ -180,6 +180,7 @@ return array(
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
             'Core\Factory\OptionsAbstractFactory',
+            'Core\Factory\EventManager\EventManagerAbstractFactory',
         ),
         'aliases' => array(
             'forms' => 'FormElementManager',
@@ -293,6 +294,7 @@ return array(
             'form' => 'Core\Form\View\Helper\Form',
             'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
+            'formWizardContainer' => 'Core\Form\View\Helper\FormWizardContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
@@ -373,6 +375,7 @@ return array(
             'togglebutton' => 'Core\Form\Element\ToggleButton',
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
+            'Core/Container' => 'Core\Form\Container',
 
         ),
         'initializers' => array(
@@ -380,7 +383,7 @@ return array(
         ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'
-        )
+        ),
     ),
 
     'paginator_manager' => [

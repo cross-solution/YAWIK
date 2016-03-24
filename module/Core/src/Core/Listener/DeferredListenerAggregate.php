@@ -35,30 +35,35 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
     }
 
     public function setHooks(array $hooks) {
-        foreach ($hooks as $name => $spec) {
-            if (is_numeric($name)) {
-                $name = null;
-            }
+        foreach ($hooks as $spec) {
 
             if (!isset($spec['event']) || !isset($spec['service'])) {
                 throw new \DomainException('Hook specification must be an array with the keys "event" and "service".');
             }
             $method = isset($spec['method']) ? $spec['method'] : null;
+            $priority = isset($spec['priority']) ? $spec['priority'] : 0;
 
-            $this->setHook($spec['event'], $spec['service'], $method, $name);
+            $this->setHook($spec['event'], $spec['service'], $method, $priority);
         }
 
         return $this;
     }
 
-    public function setHook($event, $service, $method = null, $name = null)
+    public function setHook($event, $service, $method = null, $priority = 0)
     {
-        if (!$name) { $name = sha1($event . $service . $method); }
+        if (is_int($method)) {
+            $priority = $method;
+            $method = null;
+        }
+        $name = sha1($event . $service . $method . $priority);
 
-        $spec = [ 'event' => $event, 'service' => $service ];
-        if (null !== $method) { $spec['method'] = $method; }
-
-        $this->hooks[$name] = $spec;
+        $this->hooks[$name] = [
+            'event' => $event,
+            'service' => $service,
+            'method' => $method,
+            'priority' => $priority,
+            'instance' => null,
+        ];
 
         return $this;
     }
@@ -105,29 +110,42 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
             throw new \BadMethodCallException('Unknown method "' . $method . '"');
         }
 
-        $event    = isset($args[0]) && $args[0] instanceOf EventInterface ? $args[0] : null;
-
-        if (!$event) {
-            throw new \InvalidArgumentException('First argument must be an EventInterface');
-        }
-
         $name = substr($method, 2);
         $spec = isset($this->hooks[$name]) ? $this->hooks[$name] : false;
         if (!$spec) {
             throw new \BadMethodCallException('No deferred listener specification found.');
         }
 
-        $services = $this->getServiceLocator();
-        $listener = $services->get($this->hooks[$name]['service']);
-        $method = isset($spec['method']) ? $spec['method'] : null;
+        $service = $spec['service'];
+        $method  = $spec['method'];
+        $listener = $spec['instance'];
 
+        if (!$listener) {
+            $services = $this->getServiceLocator();
+
+            if ($services->has($service)) {
+                $listener = $services->get($service);
+
+            } else {
+                if (!class_exists($service, true)) {
+                    throw new \UnexpectedValueException(sprintf(
+                        'Cannot create deferred listener "%s", because the class does not exist.',
+                        $service
+                    ));
+                }
+
+                $listener = new $service();
+            }
+
+            $this->hooks[$name]['instance'] = $listener;
+        }
 
         if ($method && method_exists($listener, $method)) {
-            return $listener->{$method}($event);
+            return call_user_func_array([ $listener, $method ], $args);
         }
 
         if (is_callable($listener)) {
-            return $listener($event);
+            return call_user_func_array($listener, $args);
         }
 
         throw new \UnexpectedValueException(sprintf(

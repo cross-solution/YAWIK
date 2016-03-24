@@ -104,6 +104,7 @@
                 this.$message.show();
             }
             this.$loading.hide();
+            this.$container.trigger('yk-paginator-container:loaded');
         },
 
         loadFail: function()

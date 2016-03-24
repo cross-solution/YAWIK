@@ -71,7 +71,11 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         
         if (null !== $data) {
             foreach ($data as $property => $value) {
-                $entity->$property = $value;
+                $setter = "set$property";
+
+                if (method_exists($entity, $setter)) {
+                    $entity->$setter($value);
+                }
             }
         }
         
@@ -80,6 +84,8 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
 
     /**
      * @param $entity
+     * @throws \InvalidArgumentException
+     * @return self
      */
     public function store($entity)
     {
@@ -93,5 +99,7 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
 
         $this->dm->persist($entity);
         $this->dm->flush($entity);
+
+        return $this;
     }
 }
