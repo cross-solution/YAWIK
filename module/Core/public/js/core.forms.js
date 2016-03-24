@@ -186,5 +186,5 @@
 		$('form:not([data-handle-by]), form[data-handle-by="yk-form"]').form();
 		$('select').each(helpers.initSelect);
 	});
-	
+
 })(jQuery);

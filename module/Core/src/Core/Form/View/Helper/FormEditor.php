@@ -67,10 +67,11 @@ class FormEditor extends FormTextarea
             );
         }
 
+        /* @var \Zend\View\Renderer\PhpRenderer $renderer */
         $renderer = $this->getView();
-
         /* @var \Zend\View\Helper\HeadScript  $headscript */
         $headscript = $renderer->plugin('headscript');
+        /* @var \Zend\View\Helper\BasePath  $basepath */
         $basepath = $renderer->plugin('basepath');
 
         $headscript->appendFile($basepath('js/tinymce/tinymce.jquery.min.js'));
