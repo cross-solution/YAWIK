@@ -3,7 +3,7 @@
 **
 
 # but the core Modules "Install", "Applications", "Auth", "Core", "Cv", "Geo", "Organizations"
-# and "Settings"
+# "Order" and "Settings"
 
 !.gitignore
 !Admin
@@ -17,6 +17,7 @@
 !Organizations
 !Pdf
 !Settings
+!Orders/
 
 # 
 

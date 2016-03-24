@@ -379,6 +379,7 @@ return array(
             'user' => 'guest',
             'recruiter' => 'user',
             'admin' => 'recruiter',
+            'employee_recruiter' => 'recruiter',
         ),
         
         'public_roles' => array(
