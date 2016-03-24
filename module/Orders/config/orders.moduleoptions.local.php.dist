@@ -1,0 +1,33 @@
+<?php
+/**
+ * Module options override.
+ */
+
+$options = [
+        /**
+         * Currency (ISO 4217)
+         *
+         * @var string
+         */
+        'currency' => 'EUR';
+
+        /**
+         * Currency symbol.
+         *
+         * @var string
+         */
+        'currencySymbol' => '€'
+
+        /**
+         * The tax rate in percent.
+         *
+         * @var float
+         */
+        'taxRate' => 19;
+
+];
+
+/*
+ * Do not change below this line
+ */
+return [ 'options' => [ 'Orders/Options/Module' => [ 'options' => $options ] ] ];

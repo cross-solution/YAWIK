@@ -10,7 +10,7 @@
 
 namespace Core\Exception;
 
-class ImmutablePropertyException extends \RuntimeException
+class ImmutablePropertyException extends \RuntimeException implements ExceptionInterface
 {
     public function __construct($propertyName, $object, \Exception $previous = null)
     {
@@ -18,7 +18,7 @@ class ImmutablePropertyException extends \RuntimeException
             $object = get_class($object);
         }
         $message = sprintf(
-            'Missing dependency "%s" in "%s"',
+            'Property "%s" of class "%s" is immutable.',
             $propertyName,
             $object
         );

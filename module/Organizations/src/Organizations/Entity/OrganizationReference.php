@@ -195,6 +195,11 @@ class OrganizationReference implements
         return $this->proxy('__isset', $property);
     }
 
+    public function notEmpty($property, array $args=[])
+    {
+        return $this->proxy('notEmpty', $args);
+    }
+
     public function setHydrator(HydratorInterface $hydrator)
     {
         return $this->proxy('setHydrator', $hydrator);

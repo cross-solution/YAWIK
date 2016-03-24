@@ -104,7 +104,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame(
             [$key => [
                 'type' => $spec,
-                'name' => $key
+                'name' => $key,
+                'entity' => '*',
                 ]
             ]
             , 'forms'
@@ -148,7 +149,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                     'type' => 'text',
                     'name' => 'foobar'
                 ],
-                'name' => $key1
+                'name' => $key1,
+                'entity' => '*',
             ]
             ]
             , 'forms'

@@ -1,0 +1,71 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+
+$job = $this->element->getObject();
+
+$viewLink = $this->url(
+    'lang/jobs/view',
+    array(),
+    array(
+        'query' => array(
+            'id' => $job->id
+        )
+    )
+);
+
+$multipostLink = $this->url(
+    'lang/jobs/manage',
+    array(),
+    array(
+        'query' => array(
+           'id' => $job->id,
+           'page' => 0
+        ),
+    )
+);
+
+
+
+$options = $this->services('Core/Options');
+$defaultCurrencyCode = $options->defaultCurrencyCode;
+$defaultTaxRate = $options->defaultTaxRate;
+
+?>
+<h3><?php echo $this->translate("Preview of your job posting"); ?></h3>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <iframe style="width:100%; height:800px;" src="<?php echo $viewLink ?>"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="alert alert-info">
+            <?php echo sprintf($this->translate('Please check the preview of your job position. Click %s to open the preview in a new window'),
+                               '<a target="_blank" href="'.$viewLink.'">'.$this->translate("here").'</a>'); ?>
+        </div>
+    </div>
+</div>
+
+    <div id="product-list-wrapper">
+        <?php if ($job->getPortals()): ?>
+            <?php echo $this->partial('jobs/partials/channel-list', [
+                                                                          'portals'             => $job->getPortals(),
+                                                                          'channels'            => $this->services('Jobs/Options/Provider'),
+                                                                          'defaultCurrencyCode' => $defaultCurrencyCode,
+                                                                          'defaultTaxRate'      => $defaultTaxRate,
+                                                                          'jobId'               => $job->getId(),
+                                                                      ]);
+            ?>
+
+        <?php endif; // $this->job->portals ?>
+    </div>
+
+<?php echo $this->formCollection($this->element); ?>

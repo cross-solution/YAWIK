@@ -15,6 +15,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
 {
     protected $forms;
     protected $isBuild = false;
+    protected $labelMap = [];
     
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -69,11 +70,13 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
                 $children[$property->getName()] = $value;
                 continue;
             }
-            
+
+            $inputName = $property->getName();
+            $inputLabel = isset($this->labelMap[$inputName]) ? $this->labelMap[$inputName] : $inputName;
             $input = array(
-                    'name' => $property->getName(),
+                    'name' => $inputName,
                     'options' => array(
-                        'label' => $property->getName()
+                        'label' => $inputLabel
                     ),
             );
             if (is_bool($value)) {

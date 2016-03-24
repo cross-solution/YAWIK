@@ -135,7 +135,50 @@
 			});
 //			console.debug($select, options);
 			$select.select2(options);
-		}
+		},
+
+        initWizardContainer: function()
+        {
+            var $container = $(this);
+
+            $container
+            .on('wizard:init.coreforms', function(e, $activeTab, $navigation, index) {
+                var labels = [];
+                $navigation.find('li a').each(function() { labels.push($(this).html());});
+                $container.data('labels', labels);
+            })
+            .on('wizard:tabShow.coreforms', function(e, $tab, $navigation, index) {
+                var labels = $container.data('labels');
+                var $previous = $container.find('ul.wizard .previous a');
+                var $next     = $container.find('ul.wizard .next a');
+
+
+                if (0 === index) {
+                    $previous.hide();
+                } else {
+                    $previous.show().html('&larr; ' + labels[index-1]);
+                }
+
+                if (labels.length !== index) {
+                    $next.html(labels[index+1] + ' &rarr;');
+                }
+            });
+
+            $container.bootstrapWizard({
+                tabClass: 'nav nav-tabs nav-justified',
+                onShow:           function() { $container.trigger('wizard:show', arguments) },
+                onInit:           function() { $container.trigger('wizard:init', arguments) },
+                onNext:           function() { $container.trigger('wizard:next', arguments) },
+                onPrevious:       function() { $container.trigger('wizard:previous', arguments) },
+                onLast:           function() { $container.trigger('wizard:last', arguments) },
+                onFirst:          function() { $container.trigger('wizard:first', arguments) },
+                onFinish:         function() { $container.trigger('wizard:finish', arguments) },
+                onBack:           function() { $container.trigger('wizard:back', arguments) },
+                onTabChange:      function() { $container.trigger('wizard:tabChange', arguments) },
+                onTabClick:       function() { $container.trigger('wizard:tabClick', arguments) },
+                onTabShow:        function() { $container.trigger('wizard:tabShow', arguments) }
+            });
+        }
 	};
 
     /**
@@ -185,6 +228,7 @@
 	$(function() {
 		$('form:not([data-handle-by]), form[data-handle-by="yk-form"]').form();
 		$('select').each(helpers.initSelect);
+        $('.wizard-container').each(helpers.initWizardContainer);
 	});
 	
 })(jQuery);

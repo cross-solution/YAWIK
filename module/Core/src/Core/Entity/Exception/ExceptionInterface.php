@@ -10,10 +10,12 @@
 /** Core model exceptions */
 namespace Core\Entity\Exception;
 
+use \Core\Exception\ExceptionInterface as CoreExceptionInterface;
+
 /**
  * Core Model Exception Interface
  */
-interface ExceptionInterface
+interface ExceptionInterface extends CoreExceptionInterface
 {
  
 }

@@ -28,6 +28,6 @@ class RequiredMarkInFormLabel extends FormLabel{
             );
         }
 
-        return $this->openTag() . $labelContent . $this->closeTag();
+        return $this->openTag($element) . $labelContent . $this->closeTag();
     }
 }

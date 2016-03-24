@@ -56,30 +56,6 @@ class AbstractEntityTest extends \PHPUnit_Framework_TestCase
         $input = "myValue";
         $this->assertSame($this->target->invalidAttribute,$input);
     }
-
-    /**
-     *  @dataProvider providerIssetValidAttribute
-     */
-    public function testIssetValidAttributes($input,$expected){
-        $this->target->setValidAttribute($input);
-        $this->assertSame(isset($this->target->validAttribute),$expected);
-    }
-
-    public function providerIssetValidAttribute (){
-        return [
-            [true, true],
-            [[], false ],
-            [null,false],
-            [false,true],
-            [new \stdClass(),true],
-            [[null], true],
-            [new \Zend\Stdlib\ArrayStack(),true]
-        ];
-    }
-
-    public function testIssetInvalidAttributes(){
-        $this->assertSame(isset($this->target->invalidAttribute),false);
-    }
 }
 
 class ConcreteEntity extends AbstractEntity {

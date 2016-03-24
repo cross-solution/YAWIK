@@ -62,36 +62,45 @@ class FormContainer extends AbstractHelper
         if ($container instanceof ViewPartialProviderInterface) {
             return $this->getView()->partial($container->getViewPartial(), array('element' => $container));
         }
+
         foreach ($container as $element) {
-            $parameterPartial = $parameter;
-            if ($element instanceof ExplicitParameterProviderInterface) {
-                $parameterPartial = array_merge($element->getParams(), $parameterPartial);
-            }
-            if ($element instanceof ViewPartialProviderInterface) {
-                $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
-                $content .= $this->getView()->partial(
-                    $element->getViewPartial(),
-                    $parameterPartial
-                );
-                
-            } elseif ($element instanceof ViewHelperProviderInterface) {
-                $helper = $element->getViewHelper();
-                if (is_string($helper)) {
-                    $helper = $this->getView()->plugin($helper);
-                }
-                $content .= $helper($element);
-            } elseif ($element instanceof SummaryForm) {
-                $content .= $this->getView()->summaryForm($element);
-            } elseif ($element instanceof Container) {
-                $content.= $this->render($element, $layout, $parameter);
-            } else {
-                $content.= $this->getView()->form($element, $layout, $parameter);
-            }
+            $content .= $this->renderElement($element, $layout, $parameter);
         }
 
         $content .= $container->renderPost($this->getView());
         
         return $content;
 
+    }
+
+    public function renderElement($element, $layout, $parameter)
+    {
+        $parameterPartial = $parameter;
+        $content = '';
+        if ($element instanceof ExplicitParameterProviderInterface) {
+            $parameterPartial = array_merge($element->getParams(), $parameterPartial);
+        }
+        if ($element instanceof ViewPartialProviderInterface) {
+            $parameterPartial = array_merge(array('element' => $element, 'layout' => $layout), $parameterPartial);
+            $content .= $this->getView()->partial(
+                             $element->getViewPartial(),
+                             $parameterPartial
+            );
+
+        } elseif ($element instanceof ViewHelperProviderInterface) {
+            $helper = $element->getViewHelper();
+            if (is_string($helper)) {
+                $helper = $this->getView()->plugin($helper);
+            }
+            $content .= $helper($element);
+        } elseif ($element instanceof SummaryForm) {
+            $content .= $this->getView()->summaryForm($element);
+        } elseif ($element instanceof Container) {
+            $content.= $this->render($element, $layout, $parameter);
+        } else {
+            $content.= $this->getView()->form($element, $layout, $parameter);
+        }
+
+        return $content;
     }
 }

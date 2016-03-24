@@ -16,7 +16,7 @@ namespace Core\Exception;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.19
  */
-class MissingDependencyException extends \RuntimeException
+class MissingDependencyException extends \RuntimeException implements ExceptionInterface
 {
 
     /**

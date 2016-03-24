@@ -76,15 +76,21 @@ class AjaxRenderListener implements ListenerAggregateInterface
                 return;
             }
             $resolver = $e->getApplication()->getServiceManager()->get('ViewResolver');
-            /*
-             * Due to a bug in TemplatePathStackResolver we have to set the suffix here
-             * Maybe we should write a own ajax template resolver or just not use a dot here.
-             */
-            $template = $viewModel->getTemplate() . '.ajax.phtml';
+
+            $template = $viewModel->getTemplate() . '.ajax';
             if ($resolver->resolve($template)) {
                 $viewModel->setTemplate($template);
             } else {
-                $viewModel->setVariable('isAjaxRequest', true);
+                /*
+                 * Due to a bug in TemplatePathStackResolver we have to set the suffix here
+                 * Maybe we should write a own ajax template resolver or just not use a dot here.
+                 */
+                $template .= '.phtml';
+                if ($resolver->resolve($template)) {
+                    $viewModel->setTemplate($template);
+                } else {
+                    $viewModel->setVariable('isAjaxRequest', true);
+                }
             }
             /*
              * Disable layout. This works because InjectViewModelListener is executed after us.

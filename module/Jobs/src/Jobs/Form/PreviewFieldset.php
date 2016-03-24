@@ -11,6 +11,8 @@
 namespace Jobs\Form;
 
 use Core\Entity\DraftableEntityInterface;
+use Core\Form\ViewPartialProviderInterface;
+use Core\Form\ViewPartialProviderTrait;
 use Zend\Form\Fieldset;
 use Core\Entity\Hydrator\EntityHydrator;
 
@@ -19,8 +21,12 @@ use Core\Entity\Hydrator\EntityHydrator;
  *
  * @package Jobs\Form
  */
-class PreviewFieldset extends Fieldset
+class PreviewFieldset extends Fieldset implements ViewPartialProviderInterface
 {
+    use ViewPartialProviderTrait;
+
+    protected $defaultPartial = 'jobs/form/preview';
+
     public function getHydrator()
     {
         if (!$this->hydrator) {
