@@ -10,6 +10,7 @@
 /** SettingsContainer.php */
 namespace Settings\Entity;
 
+use Core\Entity\EntityTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Core\Entity\AbstractEntity;
 
@@ -18,7 +19,8 @@ use Core\Entity\AbstractEntity;
  */
 class SettingsContainer implements SettingsContainerInterface
 {
-    
+    use EntityTrait;
+
     /** @ODM\Hash */
     protected $_settings;
     
