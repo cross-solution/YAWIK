@@ -1,5 +1,6 @@
 {
     "name": "cross-solution/yawik",
+    "type": "project",
     "description": "Web based applicant tracking system for managing jobs and applications",
     "authors": [
 	{
@@ -15,6 +16,12 @@
 		"email": "weitz@cross-solution.de"
 	}
     ],
+    "support": {
+        "email": "contact@yawik.org",
+        "docs": "http://yawik.readthedocs.org/en/latest/",
+	"forum": "https://groups.google.com/forum/#!forum/yawik",
+	"issues": "https://github.com/cross-solution/YAWIK/issues"
+    },
     "license": "MIT",
     "keywords": [
         "human resource", "human relation", "applicant", "ATS",
