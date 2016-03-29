@@ -43,5 +43,4 @@ class MultipostButtonFieldset extends SummaryFormButtonsFieldset
 
         $this->get('submit')->setAttribute('class', 'mps-submit sf-submit btn btn-primary btn-xs');
     }
-    
 }

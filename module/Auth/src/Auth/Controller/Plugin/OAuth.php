@@ -104,7 +104,7 @@ class OAuth extends AbstractPlugin implements ServiceLocatorAwareInterface
     public function isAvailable()
     {
         if (!empty($this->adapter)) {
-        // adapter is already etablished
+            // adapter is already etablished
             return true;
         }
         $user = $this->getUser();

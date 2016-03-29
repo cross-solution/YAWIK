@@ -43,7 +43,7 @@ class TemplateLabelHydrator extends EntityHydrator
         $object = parent::hydrate($data, $object);
         /* @var \Organizations\Entity\Template  $template */
         $template=$object->getOrganization()->getTemplate();
-        if (isset($data['description-label-requirements'])){
+        if (isset($data['description-label-requirements'])) {
             $template->setLabelRequirements($data['description-label-requirements']);
         }
         if (isset($data['description-label-qualifications'])) {

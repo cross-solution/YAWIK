@@ -78,7 +78,6 @@ class HybridAuth implements AdapterInterface
      */
     public function authenticate()
     {
-        
         $hybridAuth = $this->getHybridAuth();
         /* @var $adapter \Hybrid_Provider_Model */
         $adapter = $hybridAuth->authenticate($this->_provider);
@@ -105,7 +104,9 @@ class HybridAuth implements AdapterInterface
             /*  */
 
             $dm = $this->getRepository()->getDocumentManager();
-            if ( '' == $user->getInfo()->email) $user->getInfo()->email = $email;
+            if ('' == $user->getInfo()->email) {
+                $user->getInfo()->email = $email;
+            }
             $user->getInfo()->firstName = $userProfile->firstName;
             $user->getInfo()->lastName = $userProfile->lastName;
             $user->getInfo()->birthDay = $userProfile->birthDay;
@@ -152,7 +153,6 @@ class HybridAuth implements AdapterInterface
        
        
         return new Result(Result::SUCCESS, $user->getId(), array('firstLogin' => $forceSave, 'user' => $user));
-        
     }
 
     /**

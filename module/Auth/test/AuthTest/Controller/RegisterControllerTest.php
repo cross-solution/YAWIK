@@ -47,7 +47,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $captureOptions = new CaptchaOptions();
         $this->formMock = $this->getMockBuilder('Auth\Form\Register')
-            ->setConstructorArgs([null,$captureOptions])
+            ->setConstructorArgs([null, $captureOptions])
             ->getMock();
 
 
@@ -67,13 +67,12 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         /** @var PluginManager $controllerPluginManager */
         $controllerPluginManager = clone Bootstrap::getServiceManager()->get('ControllerPluginManager');
-        $controllerPluginManager->setService('params',$this->paramsMock);
+        $controllerPluginManager->setService('params', $this->paramsMock);
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
     public function testIndexAction_WithGetRequest()
     {
-
         $register = $this->getMock('Zend\Form\Fieldset');
         $role = $this->getMock('Zend\Form\Element\Hidden');
 
@@ -91,7 +90,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
         $result = $this->controller->dispatch($request);
 
         $expected = new ViewModel();
-        $expected->setVariable('form' , $this->formMock);
+        $expected->setVariable('form', $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertEquals($expected, $result);
@@ -123,11 +122,10 @@ class RegisterControllerTest extends AbstractControllerTestCase
         #$this->assertSame($expectedMessages, $fm->getCurrentMessages());
 
         $expected = new ViewModel();
-        $expected->setVariable('form' , $this->formMock);
+        $expected->setVariable('form', $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertEquals($expected, $result);
-
     }
 
     public function testIndexAction_WithPostRequest_WhenUserAlreadyExists()
@@ -164,7 +162,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $expected = new ViewModel();
         $expected->setTemplate('');
-        $expected->setVariable('form' , $this->formMock);
+        $expected->setVariable('form', $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertEquals($expected, $result);
@@ -210,7 +208,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
         $result = $this->controller->dispatch($request);
 
         $expected = new ViewModel();
-        $expected->setVariable('form' , $this->formMock);
+        $expected->setVariable('form', $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertEquals($expected, $result);
@@ -257,7 +255,7 @@ class RegisterControllerTest extends AbstractControllerTestCase
 
         $expected = new ViewModel();
         $expected->setTemplate('auth/register/completed');
-        $expected->setVariable('form' , $this->formMock);
+        $expected->setVariable('form', $this->formMock);
 
         $this->assertResponseStatusCode(Response::STATUS_CODE_200);
         $this->assertEquals($expected, $result);
@@ -271,4 +269,3 @@ class RegisterControllerTest extends AbstractControllerTestCase
         //$this->assertSame($expectedMessages, $fm->getCurrentMessages());
     }
 }
-

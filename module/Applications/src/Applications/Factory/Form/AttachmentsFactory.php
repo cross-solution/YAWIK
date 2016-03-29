@@ -77,7 +77,7 @@ class AttachmentsFactory extends FileUploadFactory
              ->setIsDescriptionsEnabled(true)
              ->setDescription(
                 /*@translate*/ 'Attach images or PDF Documents to your application. Drag&drop them, or click into the attachement area. You can upload up to %sMB',
-                 [round($size/(1024*1024))>0? round($size/(1024*1024)):round($size/(1024*1024),1)]
+                 [round($size/(1024*1024))>0? round($size/(1024*1024)):round($size/(1024*1024), 1)]
              )
              ->setParam('return', 'file-uri')
              ->setLabel(/*@translate*/ 'Attachments');
@@ -94,6 +94,5 @@ class AttachmentsFactory extends FileUploadFactory
         // pass form to element. Needed for file count validation
         // I did not find another (better) way.
         $file->setForm($form);
-
     }
 }

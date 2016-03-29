@@ -65,14 +65,13 @@ class TemplateController extends AbstractActionController
 
         if (
             Status::ACTIVE == $job->getStatus() or
-            $job->getPermissions()->isGranted($user,PermissionsInterface::PERMISSION_VIEW) or
+            $job->getPermissions()->isGranted($user, PermissionsInterface::PERMISSION_VIEW) or
             $this->auth()->isAdmin()
-        )
-        {
-             $applicationViewModel->setTemplate('iframe/iFrameInjection');
+        ) {
+            $applicationViewModel->setTemplate('iframe/iFrameInjection');
         } else {
             $this->response->setStatusCode(404);
-            $model->setVariable('message','job is not available');
+            $model->setVariable('message', 'job is not available');
         }
         return $model;
     }

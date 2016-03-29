@@ -35,7 +35,6 @@ class CompanyNameFieldsetTest extends \PHPUnit_Framework_TestCase
                              ->disableOriginalConstructor()
                              ->setMethods(array('setAttribute', 'setName', 'add'))
                              ->getMock();
-
     }
 
     /**

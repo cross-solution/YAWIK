@@ -50,7 +50,6 @@ class ImportController extends AbstractActionController
      */
     public function saveAction()
     {
-
         $services = $this->getServiceLocator();
         $config   = $services->get('Config');
         
@@ -185,7 +184,6 @@ class ImportController extends AbstractActionController
                             }
                             $repositories->store($entityOrganization);
                             $entity->setOrganization($entityOrganization);
-
                         } else {
                             $result['message'] = '';
                         }
@@ -196,7 +194,7 @@ class ImportController extends AbstractActionController
                             $jobLocations->clear();
                             foreach ($locations as $locData) {
                                 $location = new Location();
-                                $coords = array_map(function($i) { return (float) $i; }, $locData['coordinates']);
+                                $coords = array_map(function ($i) { return (float) $i; }, $locData['coordinates']);
                                 $location->setCountry($locData['country'])
                                          ->setRegion($locData['region'])
                                          ->setCity($locData['city'])
@@ -227,7 +225,7 @@ class ImportController extends AbstractActionController
                             }
                             $jobEvent->setParam('extraData', $extra);
 
-                            if ($createdJob || True) {
+                            if ($createdJob || true) {
                                 /* @var $jobEvents \Zend\EventManager\EventManager */
                                 $jobEvents = $services->get('Jobs/Events');
                                 $jobEvent->setName(JobEvent::EVENT_JOB_ACCEPTED)

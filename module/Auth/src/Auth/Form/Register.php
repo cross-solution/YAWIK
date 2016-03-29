@@ -65,7 +65,7 @@ class Register extends Form
         $this->add($fieldset);
 
         $mode=$options->getMode();
-        if (in_array($mode, [CaptchaOptions::RE_CAPTCHA,CaptchaOptions::IMAGE])) {
+        if (in_array($mode, [CaptchaOptions::RE_CAPTCHA, CaptchaOptions::IMAGE])) {
             if ($mode == CaptchaOptions::IMAGE) {
                 $captcha = new Image($options->getImage());
             } elseif ($mode == CaptchaOptions::RE_CAPTCHA) {

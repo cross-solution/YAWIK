@@ -64,7 +64,8 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->target->getSendCarbonCopy());
     }
 
-    public function providerBooleanValues(){
+    public function providerBooleanValues()
+    {
         return [
             [1, true],
             [0, false],
@@ -75,6 +76,4 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
             [null, false]
         ];
     }
-
-
 }

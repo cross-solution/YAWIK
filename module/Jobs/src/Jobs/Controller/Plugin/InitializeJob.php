@@ -21,7 +21,8 @@ use Acl\Controller\Plugin\Acl;
  *
  * @package Jobs\Controller\Plugin
  */
-class InitializeJob extends AbstractPlugin {
+class InitializeJob extends AbstractPlugin
+{
 
     /**
      * @var RepositoryService
@@ -38,7 +39,8 @@ class InitializeJob extends AbstractPlugin {
      */
     protected $acl;
 
-    public function __construct(RepositoryService $repositoryService,AuthenticationService $auth, Acl $acl) {
+    public function __construct(RepositoryService $repositoryService, AuthenticationService $auth, Acl $acl)
+    {
         $this->repositoryService=$repositoryService;
         $this->auth=$auth;
         $this->acl=$acl;
@@ -56,7 +58,7 @@ class InitializeJob extends AbstractPlugin {
      * @return \Jobs\Entity\Job|object
      * @throws \Doctrine\ODM\MongoDB\LockException
      */
-    public function get(Params $params,$allowDraft = false)
+    public function get(Params $params, $allowDraft = false)
     {
         /* @var \Jobs\Repository\Job $jobRepository */
         $jobRepository  = $this->repositoryService->get('Jobs/Job');

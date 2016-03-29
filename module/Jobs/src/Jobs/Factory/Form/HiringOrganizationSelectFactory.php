@@ -43,7 +43,6 @@ class HiringOrganizationSelectFactory implements FactoryInterface
             $select->setSelectableOrganizations($organizations, /* addEmptyOption */
                                                 false
             );
-
         }
 
         return $select;

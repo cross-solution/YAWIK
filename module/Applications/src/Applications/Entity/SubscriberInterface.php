@@ -14,7 +14,7 @@ use Core\Entity\EntityInterface;
  * Personal informations of a subscriber. This class can translate a subscriber ID into an subscriber name
  * by calling an API of another YAWIK
  */
-Interface SubscriberInterface extends EntityInterface
+interface SubscriberInterface extends EntityInterface
 {
     /**
      * Gets the name of the instance, who has published the job ad.

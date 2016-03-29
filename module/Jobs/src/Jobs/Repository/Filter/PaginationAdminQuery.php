@@ -67,18 +67,16 @@ class PaginationAdminQuery extends PaginationQuery
         }
 
         if (isset($this->value['params']['status']) &&
-            !empty($this->value['params']['status']))
-        {
-            if ($this->value['params']['status'] != 'all'){
+            !empty($this->value['params']['status'])) {
+            if ($this->value['params']['status'] != 'all') {
                 $queryBuilder->field('status.name')->equals($this->value['params']['status']);
             }
-        }else{
+        } else {
             $queryBuilder->field('status.name')->equals(Status::CREATED);
         }
 
         if (isset($this->value['params']['companyId']) &&
-            !empty($this->value['params']['companyId']))
-        {
+            !empty($this->value['params']['companyId'])) {
             $queryBuilder->field('organization')->equals(new \MongoId($this->value['params']['companyId']));
         }
 

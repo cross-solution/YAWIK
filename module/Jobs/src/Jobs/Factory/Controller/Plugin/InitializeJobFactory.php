@@ -14,7 +14,8 @@ use Zend\ServiceManager\FactoryInterface;
 use Core\Repository\RepositoryService;
 use Jobs\Controller\Plugin\InitializeJob;
 
-class InitializeJobFactory implements FactoryInterface {
+class InitializeJobFactory implements FactoryInterface
+{
     public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
         /* @var $serviceLocator \Zend\Mvc\Controller\PluginManager */

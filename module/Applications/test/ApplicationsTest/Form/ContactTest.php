@@ -11,7 +11,6 @@ namespace ApplicationsTest\Form;
 
 use Applications\Form\ContactContainer;
 
-
 /**
 * @covers \Applications\Form\ContactContainer
 */
@@ -22,24 +21,27 @@ class ContactTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp(){
+    public function setUp()
+    {
         $this->target = new ContactContainer();
         $this->target->init();
     }
 
-    public function testConstructor(){
+    public function testConstructor()
+    {
         $this->assertInstanceOf('Auth\Form\UserInfoContainer', $this->target);
         $this->assertInstanceOf('Applications\Form\ContactContainer', $this->target);
     }
     /**
      * @dataProvider providerFormActionsData
      */
-    public function testFormActions($input,$expected)
+    public function testFormActions($input, $expected)
     {
-        $this->assertEquals($this->target->getActionFor($input),$expected);
+        $this->assertEquals($this->target->getActionFor($input), $expected);
     }
 
-    public function providerFormActionsData(){
+    public function providerFormActionsData()
+    {
         return [
             ['contact','?form=contact'],
             ['image','?form=image'],

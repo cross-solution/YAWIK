@@ -104,35 +104,35 @@ return array(
         )
     ),
     'hybridauth' => array(
-        "Facebook" => array (
+        "Facebook" => array(
             "enabled" => true,
-            "keys"    => array ( "id" => "", "secret" => "" ),
+            "keys"    => array( "id" => "", "secret" => "" ),
             "scope"      => 'email, user_about_me, user_birthday, user_hometown, user_website',
             "display" => 'popup',
         ),
-        "LinkedIn" => array (
+        "LinkedIn" => array(
             "enabled" => true,
-            "keys"    => array ( "key" => "", "secret" => "" ),
+            "keys"    => array( "key" => "", "secret" => "" ),
         ),
-        "XING" => array (
+        "XING" => array(
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array (
+            "wrapper" => array(
                 'class' => 'Hybrid_Providers_XING',
                 'path' => __FILE__,
             ),
-            "keys"    => array ( "key" => "", "secret" => "" ),
+            "keys"    => array( "key" => "", "secret" => "" ),
         ),
-        "Github" => array (
+        "Github" => array(
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array (
+            "wrapper" => array(
                 'class' => 'Hybrid_Providers_Github',
                 'path' => __FILE__,
             ),
-            "keys"    => array ( "key" => "", "secret" => "" ),
+            "keys"    => array( "key" => "", "secret" => "" ),
         ),
 
     ),

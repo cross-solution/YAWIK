@@ -194,5 +194,4 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
 
         $this->testedObject->proceed($this->inputFilterMock, $this->mailerPluginMock, $this->urlPluginMock);
     }
-
 }

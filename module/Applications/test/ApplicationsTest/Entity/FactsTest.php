@@ -44,27 +44,29 @@ class FactsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Applications\Entity\Facts', $this->target);
     }
 
-    public function testSetGetExpectedSalary(){
+    public function testSetGetExpectedSalary()
+    {
         $input="1000€";
         $this->target->setExpectedSalary($input);
-        $this->assertEquals($this->target->getExpectedSalary(),$input);
+        $this->assertEquals($this->target->getExpectedSalary(), $input);
     }
 
-    public function testSetGetWillingnessToTravel(){
+    public function testSetGetWillingnessToTravel()
+    {
         $input="test";
         $this->target->setWillingnessToTravel($input);
-        $this->assertEquals($this->target->getWillingnessToTravel(),$input);
+        $this->assertEquals($this->target->getWillingnessToTravel(), $input);
     }
-    public function testSetGetEarliestStartingDate(){
+    public function testSetGetEarliestStartingDate()
+    {
         $input="1000€";
         $this->target->setEarliestStartingDate($input);
-        $this->assertEquals($this->target->getEarliestStartingDate(),$input);
+        $this->assertEquals($this->target->getEarliestStartingDate(), $input);
     }
-    public function testSetGetDrivingLicense(){
+    public function testSetGetDrivingLicense()
+    {
         $input="1000€";
         $this->target->setDrivingLicense($input);
-        $this->assertEquals($this->target->getDrivingLicense(),$input);
+        $this->assertEquals($this->target->getDrivingLicense(), $input);
     }
-
-
 }

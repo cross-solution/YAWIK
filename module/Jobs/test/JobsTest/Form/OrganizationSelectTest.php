@@ -81,7 +81,6 @@ class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
             [ [ $org1 ], false ],
             [ [ $org1 ], true ],
         ];
-
     }
 
     /**
@@ -104,7 +103,6 @@ class OrganizationSelectTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(count($orgs), count($values));
         }
     }
-
 }
 
 class OrganizationEntityMock extends Organization
@@ -116,6 +114,5 @@ class OrganizationEntityMock extends Organization
         $contact = new OrganizationContact();
         $contact->setCity($values['city'])->setStreet($values['street'])->setHouseNumber($values['number']);
         $this->contact = $contact;
-
     }
 }

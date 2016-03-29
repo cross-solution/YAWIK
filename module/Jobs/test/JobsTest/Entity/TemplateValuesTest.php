@@ -12,7 +12,6 @@ namespace JobsTest\Entity;
 
 use Jobs\Entity\TemplateValues;
 
-
 /**
  * Test the template values of a job entity.
  *
@@ -21,7 +20,7 @@ use Jobs\Entity\TemplateValues;
  * @group Jobs
  * @group Jobs.Entity
  */
-class TemplateValueTest extends \PHPUnit_Framework_TestCase
+class TemplateValuesTest extends \PHPUnit_Framework_TestCase
 {
 
     /**

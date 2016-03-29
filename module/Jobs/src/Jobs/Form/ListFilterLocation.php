@@ -22,5 +22,4 @@ class ListFilterLocation extends ListFilter
      * Base fieldset to use
      */
     protected $fieldset = 'Jobs/ListFilterLocationFieldset';
-
 }

@@ -151,7 +151,6 @@ class IndexController extends AbstractActionController
                     return $this->redirect()->toUrl((string) $returnTo);
                 }
                 $this->notification()->error(/*@translate*/ 'There were errors in the form.');
-
             } else {
                 $auth = $this->auth();
             
@@ -236,7 +235,7 @@ class IndexController extends AbstractActionController
                     if (isset($paramsCC) && array_key_exists('carboncopy', $paramsCC)) {
                         $wantCarbonCopy = (int) $paramsCC['carboncopy'];
                         if ($wantCarbonCopy) {
-                             $mail = $this->mailer(
+                            $mail = $this->mailer(
                                  'Applications/CarbonCopy',
                                  array(
                                     'application' => $applicationEntity,

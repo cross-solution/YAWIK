@@ -13,7 +13,6 @@ namespace ApplicationsTest\Entity;
 use Applications\Entity\History;
 use Applications\Entity\Status;
 
-
 /**
  * Tests for User
  *
@@ -46,7 +45,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Core\Entity\AbstractEntity', $this->target);
         $this->assertInstanceOf('\Applications\Entity\History', $this->target);
-        $this->assertEquals($this->target->getDate(),new \DateTime());
+        $this->assertEquals($this->target->getDate(), new \DateTime());
     }
 
     /**
@@ -54,12 +53,14 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      * @param $status
      * @param $expected
      */
-    public function testConstructWithStatusAsString($status,$expected){
+    public function testConstructWithStatusAsString($status, $expected)
+    {
         $target = new History($status, 'message');
         $this->assertEquals($target->getStatus($status), $expected);
     }
 
-    public function providerStatusExpected(){
+    public function providerStatusExpected()
+    {
         return [
             [Status::CONFIRMED, new Status(Status::CONFIRMED)],
             [Status::INCOMING, new Status(Status::INCOMING)],
@@ -76,7 +77,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $input=new \DateTime("2012-05-06");
         $this->target->setDate($input);
-        $this->assertEquals($this->target->getDate(),$input);
+        $this->assertEquals($this->target->getDate(), $input);
     }
 
     /**
@@ -88,10 +89,11 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $input=new Status($status);
         $this->target->setStatus($input);
-        $this->assertEquals($this->target->getStatus(),$input);
+        $this->assertEquals($this->target->getStatus(), $input);
     }
 
-    public function providerStatus(){
+    public function providerStatus()
+    {
         return [
             [Status::CONFIRMED],
             [Status::INCOMING],
@@ -108,14 +110,15 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $input="this is my message";
         $this->target->setMessage($input);
-        $this->assertEquals($this->target->getMessage(),$input);
+        $this->assertEquals($this->target->getMessage(), $input);
     }
 
     /**
      * @covers \Applications\Entity\History::preUpdate
      */
-    public function testPreUpdate(){
+    public function testPreUpdate()
+    {
         $this->target->preUpdate();
-        $this->assertEquals($this->target->getDate(),new \DateTime());
+        $this->assertEquals($this->target->getDate(), new \DateTime());
     }
 }

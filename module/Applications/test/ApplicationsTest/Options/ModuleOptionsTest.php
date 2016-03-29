@@ -92,5 +92,4 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
         $this->options->setAllowedMimeTypes($mime);
         $this->assertEquals($mime, $this->options->getAllowedMimeTypes());
     }
-
 }

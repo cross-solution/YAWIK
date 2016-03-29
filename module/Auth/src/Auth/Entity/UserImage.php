@@ -27,7 +27,7 @@ class UserImage extends FileEntity implements ResourceInterface
      *
      * @return string
      */
-    function getUri()
+    public function getUri()
     {
         return '/file/Auth.UserImage/' . $this->id;
     }

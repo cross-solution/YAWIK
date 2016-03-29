@@ -82,7 +82,8 @@ class CaptchaOptionsTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Options\CaptchaOptions::getImage
      * @covers Auth\Options\CaptchaOptions::setImage
      */
-    public function testSetGetImage(){
+    public function testSetGetImage()
+    {
         $params = [
             'expiration' => '600',
             'wordlen' => '8',
@@ -94,19 +95,18 @@ class CaptchaOptionsTest extends \PHPUnit_Framework_TestCase
         $target=$this->options;
         $target->setImage($params);
 
-        $this->assertSame($target->getImage(),$params);
+        $this->assertSame($target->getImage(), $params);
     }
 
     /**
      * @covers Auth\Options\CaptchaOptions::getReCaptcha
      * @covers Auth\Options\CaptchaOptions::setReCaptcha
      */
-    public function testSetGetReCaptcha(){
+    public function testSetGetReCaptcha()
+    {
         $params = new ReCaptcha();
         $target=$this->options;
         $target->setReCaptcha($params);
-        $this->assertSame($target->getReCaptcha(),$params);
+        $this->assertSame($target->getReCaptcha(), $params);
     }
-
 }
-

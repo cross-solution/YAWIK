@@ -116,8 +116,7 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
      */
     protected function generateHtml()
     {
-
-         $services = $this->getServiceLocator()->getServiceLocator();
+        $services = $this->getServiceLocator()->getServiceLocator();
 
          /*
           * "ViewHelperManager" defined by ZF2
@@ -125,8 +124,7 @@ class Forward extends TranslatorAwareMessage implements ServiceLocatorAwareInter
           */
          $viewManager = $services->get('ViewHelperManager');
 
-         return $viewManager->get("partial")->__invoke('applications/mail/forward', array("application"=>$this->application));
-
+        return $viewManager->get("partial")->__invoke('applications/mail/forward', array("application"=>$this->application));
     }
 
     /**

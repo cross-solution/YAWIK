@@ -70,8 +70,5 @@ class MultipostingSelectTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($target, $target->$setter($value), 'Fluent interface broken.');
         $this->assertEquals($value, $target->$getter());
-
     }
-
-
 }

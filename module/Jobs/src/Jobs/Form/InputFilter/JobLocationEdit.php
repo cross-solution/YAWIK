@@ -12,7 +12,6 @@ namespace Jobs\Form\InputFilter;
 
 use Zend\InputFilter\InputFilter;
 
-
 class JobLocationEdit extends InputFilter
 {
     public function init()

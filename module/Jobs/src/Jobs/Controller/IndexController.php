@@ -102,7 +102,6 @@ class IndexController extends AbstractActionController
             $session[$sessionKey] = $params->toArray();
 
             $this->searchForm->bind($params);
-
         }
 
         if (!isset($params['sort'])) {

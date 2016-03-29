@@ -30,7 +30,6 @@ class HybridAuthAdapterFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateService()
     {
-
         $hybridAuthMock = $this->getMockBuilder('Hybrid_Auth')
             ->disableOriginalConstructor()
             ->getMock();

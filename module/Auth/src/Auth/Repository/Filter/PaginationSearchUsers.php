@@ -30,5 +30,4 @@ class PaginationSearchUsers extends AbstractPaginationQuery
         $queryBuilder->field('isDraft')->equals(false);
         return $queryBuilder;
     }
-
 }

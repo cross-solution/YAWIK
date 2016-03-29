@@ -242,13 +242,11 @@ class InfoTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Entity\Info::setLastName
      * @dataProvider provideGetDisplayNameTestData
      */
-    public function testGetDisplayName($firstname,$lastname,$email,$result)
+    public function testGetDisplayName($firstname, $lastname, $email, $result)
     {
         $this->target->setFirstName($firstname);
         $this->target->setLastName($lastname);
         $this->target->setEmail($email);
         $this->assertEquals($result, $this->target->getDisplayName());
     }
-
-
 }

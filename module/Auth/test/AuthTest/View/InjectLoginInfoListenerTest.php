@@ -17,7 +17,6 @@ class InjectLoginInfoListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testListenerAttachsViewModelWithProperConfiguration()
     {
-        
         $listener = new Listener();
         $viewModel = new ViewModel();
         $e = $this->getMock('\Zend\Mvc\MvcEvent');

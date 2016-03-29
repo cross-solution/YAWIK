@@ -46,7 +46,7 @@ class PasswordController extends AbstractActionController
     public function indexAction()
     {
         if (!($user = $this->authenticationService->getUser())) {
-            $this->notification()->info( /*@translate*/ 'You must be logged in.');
+            $this->notification()->info(/*@translate*/ 'You must be logged in.');
             return $this->redirect()->toRoute('lang');
         }
 

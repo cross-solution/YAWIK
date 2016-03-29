@@ -25,7 +25,7 @@ use Auth\Entity\User;
  * @group  Applications
  * @group  Applications.Entity
  */
-class ApplicationsTest extends \PHPUnit_Framework_TestCase
+class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * git dThe "Class under Test"
@@ -85,27 +85,30 @@ class ApplicationsTest extends \PHPUnit_Framework_TestCase
      * @covers Applications\Entity\Application::setIsDraft
      * @dataProvider provideSetGetDraft
      */
-    public function testSetGetIsDraft($input,$expected)
+    public function testSetGetIsDraft($input, $expected)
     {
         $this->target->setIsDraft($input);
-        $this->assertEquals($this->target->isDraft(),$expected);
+        $this->assertEquals($this->target->isDraft(), $expected);
     }
 
-    public function provideSetGetDraft(){
+    public function provideSetGetDraft()
+    {
         return [
             [true,true],
             [false,false]
         ];
     }
 
-    public function testGetResourceId(){
-        $this->assertSame($this->target->getResourceId(),'Entity/Application');
+    public function testGetResourceId()
+    {
+        $this->assertSame($this->target->getResourceId(), 'Entity/Application');
     }
 
-    public function testSetGetUser(){
+    public function testSetGetUser()
+    {
         $user = new User();
         $this->target->setUser($user);
-        $this->assertEquals($this->target->getUser(),$user);
+        $this->assertEquals($this->target->getUser(), $user);
     }
 
     /**
@@ -113,12 +116,14 @@ class ApplicationsTest extends \PHPUnit_Framework_TestCase
      * @param $expected
      * @dataProvider providerSetGetApplicationStatus
      */
-    public function testSetGetStatus($input,$expected) {
+    public function testSetGetStatus($input, $expected)
+    {
         $this->target->setStatus($input);
-        $this->assertEquals($this->target->getStatus(),$expected);
+        $this->assertEquals($this->target->getStatus(), $expected);
     }
 
-    public function providerSetGetApplicationStatus(){
+    public function providerSetGetApplicationStatus()
+    {
         return [
             [Status::REJECTED,new Status(Status::REJECTED)],
             [Status::INVITED,new Status(Status::INVITED)],
@@ -128,9 +133,10 @@ class ApplicationsTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testSetGetSubscriber(){
+    public function testSetGetSubscriber()
+    {
         $user = new Subscriber();
         $this->target->setSubscriber($user);
-        $this->assertEquals($this->target->getSubscriber(),$user);
+        $this->assertEquals($this->target->getSubscriber(), $user);
     }
 }

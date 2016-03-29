@@ -486,5 +486,4 @@ class ChannelOptions extends AbstractOptions
         $this->editableAfterPublish = $editableAfterPublish;
         return $this;
     }
-
 }

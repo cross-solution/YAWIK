@@ -16,7 +16,6 @@ use Jobs\Listener\Publisher;
 use Jobs\Listener\Events\JobEvent;
 use Jobs\Entity\Job;
 
-
 /**
  * Class PublisherTest
  * @package JobsTest\Listener
@@ -76,8 +75,8 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
     protected $templateFilter;
 
 
-    static $reference;
-    static $externalId;
+    public static $reference;
+    public static $externalId;
 
     public static function providerChannelGetter($attribute)
     {
@@ -255,7 +254,7 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
             ->expects($this->at(0))
             ->method('has')
             ->with('Jobs/RestClient')
-            ->will($this->returnValue(True));
+            ->will($this->returnValue(true));
 
         $this->serviceManager
             ->expects($this->at(1))
@@ -300,7 +299,6 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->repositories));
 
         $this->target->setServiceManager($this->serviceManager);
-
     }
 
     protected function setRestReturn($referenceUpdate, $applyIdUpdate)
@@ -324,6 +322,5 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
         $response = $this->target->restPost($this->jobEvent);
         $this->assertEquals('aaa', self::$reference);
         $this->assertEquals('bbb', self::$externalId);
-
     }
-} 
+}

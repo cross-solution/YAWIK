@@ -238,5 +238,4 @@ class ModuleOptions extends AbstractOptions
     {
         return $this->enableResetPassword;
     }
-
 }

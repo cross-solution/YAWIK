@@ -29,7 +29,7 @@ class ListFilterLocationFieldset extends ListFilterBaseFieldset
     public function __construct(array $options = [])
     {
         parent::__construct();
-        if (array_key_exists('location_engine_type',$options)) {
+        if (array_key_exists('location_engine_type', $options)) {
             $this->locationEngineType = $options['location_engine_type'];
         }
     }

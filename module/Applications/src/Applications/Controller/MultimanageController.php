@@ -144,6 +144,6 @@ class MultimanageController extends AbstractActionController
             $repositoryService->store($application);
             unset($mail);
         }
-        return new JsonModel(array('ok' => true,));
+        return new JsonModel(array('ok' => true, ));
     }
 }

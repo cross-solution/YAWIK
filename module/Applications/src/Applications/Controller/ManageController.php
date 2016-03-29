@@ -16,7 +16,6 @@ use Zend\View\Model\JsonModel;
 use Applications\Entity\StatusInterface as Status;
 use Applications\Entity\Application;
 
-
 /**
  * @method \Core\Controller\Plugin\Notification notification()
  * @method \Core\Controller\Plugin\Mailer mailer()
@@ -112,7 +111,6 @@ class ManageController extends AbstractActionController
      */
     public function detailAction()
     {
-
         if ('refresh-rating' == $this->params()->fromQuery('do')) {
             return $this->refreshRatingAction();
         }
@@ -145,7 +143,7 @@ class ManageController extends AbstractActionController
             $applicationIsUnread = true;
             $application->changeStatus(
                 $application->getStatus(),
-                sprintf(/*@translate*/ 'Application was read by %s' ,
+                sprintf(/*@translate*/ 'Application was read by %s',
                                        $this->auth()->getUser()->getInfo()->getDisplayName()));
         }
 
@@ -234,7 +232,6 @@ class ManageController extends AbstractActionController
             if (!$profile) {
                 throw new \InvalidArgumentException('Could not find profile.');
             }
-            
         } elseif ($this->getRequest()->isPost()
                    && ($network = $this->params()->fromQuery('network'))
                    && ($data    = $this->params()->fromPost('data'))
@@ -404,7 +401,6 @@ class ManageController extends AbstractActionController
                 'text' => sprintf($translator->translate('Forward application to %s failed.'), $emailAddress)
             );
             $this->notification()->error($params['text']);
-
         }
         $application->changeStatus($application->getStatus(), $params['text']);
         return new JsonModel($params);

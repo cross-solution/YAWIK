@@ -79,7 +79,9 @@ class ChannelPrices implements FilterInterface
             }
         }
         $discount=1-($amount-1)*13.5/100;
-        if ($discount>0) $sum= round($sum * $discount,2);
+        if ($discount>0) {
+            $sum= round($sum * $discount, 2);
+        }
         return $sum-$absoluteDiscount;
     }
 }

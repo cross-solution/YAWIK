@@ -112,7 +112,7 @@ class CheckPermissionsListener implements ListenerAggregateInterface
         $acl  = $this->getAcl();
         
         if ($acl->hasResource($resourceId) && !$acl->isAllowed($role, $resourceId, $privilege)) {
-           /*
+            /*
             * Exceptions are only catched within the dispatch listener, so
             * we have to set the exception manually in the event
             * and trigger the DISPATCH_ERROR event.

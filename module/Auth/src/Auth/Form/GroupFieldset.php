@@ -56,7 +56,6 @@ class GroupFieldset extends Fieldset implements InputFilterProviderInterface
             'type' => 'Auth/Group/Users',
             )
         );
-        
     }
     
     /**

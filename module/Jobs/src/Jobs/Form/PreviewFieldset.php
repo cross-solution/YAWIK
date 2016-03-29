@@ -58,7 +58,6 @@ class PreviewFieldset extends Fieldset implements ViewPartialProviderInterface
             ),
             )
         );
-
     }
 
     public function setObject($object)

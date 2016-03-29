@@ -84,6 +84,5 @@ class TokenListener implements SharedListenerAggregateInterface
             $session = new Session('Auth');
             $session->token = $token;
         }
-        
     }
 }

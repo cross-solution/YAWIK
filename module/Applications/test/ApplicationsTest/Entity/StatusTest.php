@@ -49,12 +49,14 @@ class StatusTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerApplicationStatus
      */
-    public function testGetName($input, $expected){
+    public function testGetName($input, $expected)
+    {
         $status = new Status($input);
-        $this->assertEquals($status->getName(),$expected);
+        $this->assertEquals($status->getName(), $expected);
     }
 
-    public function providerApplicationStatus(){
+    public function providerApplicationStatus()
+    {
         return
             [
                 [StatusInterface::INCOMING, StatusInterface::INCOMING],
@@ -69,12 +71,14 @@ class StatusTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerApplicationStatusOrder
      */
-    public function testGetOrder($input, $expected){
+    public function testGetOrder($input, $expected)
+    {
         $status = new Status($input);
-        $this->assertEquals($status->getOrder(),$expected);
+        $this->assertEquals($status->getOrder(), $expected);
     }
 
-    public function providerApplicationStatusOrder(){
+    public function providerApplicationStatusOrder()
+    {
         return
             [
                 [StatusInterface::INCOMING, 10],
@@ -83,20 +87,21 @@ class StatusTest extends \PHPUnit_Framework_TestCase
                 [StatusInterface::INVITED, 30],
                 [StatusInterface::REJECTED, 40],
             ];
-
     }
 
     /**
      * @expectedException     \DomainException
      * @expectedExceptionMessage Unknown status: unknown status
      */
-    public function testGetUnknownStatus(){
+    public function testGetUnknownStatus()
+    {
         $expected="foobar";
         $status = new Status("unknown status");
-        $this->assertEquals($status->getOrder(),$expected);
+        $this->assertEquals($status->getOrder(), $expected);
     }
 
-    public function testTheOrderOfStates(){
+    public function testTheOrderOfStates()
+    {
         $expected = [
             StatusInterface::INCOMING,
             StatusInterface::CONFIRMED,
@@ -105,7 +110,6 @@ class StatusTest extends \PHPUnit_Framework_TestCase
             StatusInterface::REJECTED
         ];
         $states = $this->target->getStates();
-        $this->assertEquals($states,$expected);
+        $this->assertEquals($states, $expected);
     }
-
 }

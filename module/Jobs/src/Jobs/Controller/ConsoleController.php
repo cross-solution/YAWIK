@@ -24,7 +24,6 @@ class ConsoleController extends AbstractActionController
 
     public function expireJobsAction()
     {
-        
         $services     = $this->getServiceLocator();
         $repositories = $services->get('repositories');
         /* @var \Jobs\Repository\Job $jobsRepo */
@@ -59,7 +58,7 @@ class ConsoleController extends AbstractActionController
         }
         $query['status.name'] = 'active';
 
-        $jobs = $jobsRepo->findBy($query,null,$limit);
+        $jobs = $jobsRepo->findBy($query, null, $limit);
         $count = count($jobs);
 
         if (0 === $count) {

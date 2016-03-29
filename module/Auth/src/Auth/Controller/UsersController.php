@@ -17,7 +17,6 @@ use Auth\Options\ModuleOptions;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-
 /**
  * List registered users
  */

@@ -259,4 +259,3 @@ translate('Inactive');
 
 //: ./test/JobsTest/Form/ListFilterBaseTest.php:41
 translate('Job title');
-

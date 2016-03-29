@@ -66,6 +66,5 @@ class JobDescriptionFieldset extends Fieldset
             ),
             )
         );
-
     }
 }

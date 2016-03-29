@@ -43,7 +43,6 @@ class UniqueApplyId extends AbstractValidator
     
     public function isValid($value)
     {
-        
         $repository = $this->getRepository();
         if (!$repository) {
             trigger_error('Could not check uniqueness of apply id: No Repository set. Assume unique', E_USER_NOTICE);

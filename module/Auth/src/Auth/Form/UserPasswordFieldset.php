@@ -90,6 +90,5 @@ class UserPasswordFieldset extends Fieldset implements InputFilterProviderInterf
                 ),
             ),
         );
-
     }
 }

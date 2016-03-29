@@ -54,7 +54,6 @@ class OrganizationReferenceMock extends \Organizations\Entity\OrganizationRefere
 
     public function __construct()
     {
-
     }
 
     public function isOwner()
@@ -71,6 +70,4 @@ class OrganizationReferenceMock extends \Organizations\Entity\OrganizationRefere
     {
         return $this->hasAssociation;
     }
-
-
 }

@@ -44,17 +44,17 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Applications\Entity\Subscriber', $this->target);
     }
 
-    public function testSetGetUri(){
+    public function testSetGetUri()
+    {
         $uri="http://test.de/test";
         $this->target->setUri($uri);
-        $this->assertEquals($this->target->getUri(),$uri);
+        $this->assertEquals($this->target->getUri(), $uri);
     }
 
-    public function testSetGetName(){
+    public function testSetGetName()
+    {
         $name="myPersonalYawik";
         $this->target->setName($name);
-        $this->assertEquals($this->target->getName(),$name);
+        $this->assertEquals($this->target->getName(), $name);
     }
-
-
 }

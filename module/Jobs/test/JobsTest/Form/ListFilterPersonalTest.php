@@ -26,7 +26,7 @@ class ListFilterPersonalTest extends \PHPUnit_Framework_TestCase
     public function testInit()
     {
         $target = $this->getMockBuilder('\Jobs\Form\ListFilterPersonalFieldset')
-                       ->setMethods(array('add','parentInit'))
+                       ->setMethods(array('add', 'parentInit'))
                        ->disableOriginalConstructor()
                        ->getMock();
 
@@ -68,5 +68,4 @@ class ListFilterPersonalTest extends \PHPUnit_Framework_TestCase
         /* @var $target \PHPUnit_Framework_MockObject_MockObject|\Jobs\Form\ListFilterLocationFieldset */
         $target->init();
     }
-
 }

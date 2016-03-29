@@ -95,6 +95,5 @@ class Import extends Form
                 'type' => 'DefaultButtonsFieldset'
             )
         );
-
     }
 }

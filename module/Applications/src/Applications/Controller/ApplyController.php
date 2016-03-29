@@ -95,7 +95,6 @@ class ApplyController extends AbstractActionController
             $action     = 'process';
 
             $routeMatch->setParam('action', $action);
-            
         } else {
             $user  = $this->auth()->getUser();
             $appId = $this->params('applyId');
@@ -111,7 +110,7 @@ class ApplyController extends AbstractActionController
                 return;
             }
 
-            switch($job->getStatus()){
+            switch ($job->getStatus()) {
                 case \Jobs\Entity\Status::ACTIVE:
                     break;
                 default:
@@ -142,7 +141,6 @@ class ApplyController extends AbstractActionController
                             $subscriber->getname();
                         }
                     }
-
                 } else {
                     if (!$job) {
                         $e->getRouteMatch()->setParam('action', 'job-not-found');
@@ -207,7 +205,6 @@ class ApplyController extends AbstractActionController
         );
         $model->setTemplate('applications/apply/index');
         return $model;
-
     }
 
     public function processPreviewAction()
@@ -377,7 +374,6 @@ class ApplyController extends AbstractActionController
                 $application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s', $application->contact->email));
             }
         }
-        
     }
     
     protected function sendUserMails($application)

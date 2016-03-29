@@ -21,7 +21,9 @@ class JsonJobsEntityHydratorFactory extends JsonEntityHydratorFactory
     /**
      *
      */
-    protected function prepareHydrator() {
-        $this->hydrator->setExcludeMethods(array('user', 'applications', 'termsAccepted', 'atsEnabled', 'permissions'));;
+    protected function prepareHydrator()
+    {
+        $this->hydrator->setExcludeMethods(array('user', 'applications', 'termsAccepted', 'atsEnabled', 'permissions'));
+        ;
     }
 }

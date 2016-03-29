@@ -53,8 +53,6 @@ class JobDescriptionQualifications extends Form implements InputFilterProviderIn
             ),
             )
         );
-
-
     }
 
     public function getInputFilterSpecification()

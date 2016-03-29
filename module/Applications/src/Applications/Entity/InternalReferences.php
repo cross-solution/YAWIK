@@ -35,7 +35,6 @@ class InternalReferences extends AbstractEntity
             'userId' => $job->getUser()->getId(),
         );
         return $this;
-            
     }
     
     public function setJobsId($id)

@@ -4,5 +4,4 @@ namespace Auth\Exception;
 
 interface ExceptionInterface
 {
-    
 }

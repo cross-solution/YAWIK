@@ -47,29 +47,33 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Applications\Entity\Comment', $this->target);
     }
 
-    public function testSetGetUser(){
+    public function testSetGetUser()
+    {
         $user = new User();
         $user->setId('test');
         $this->target->setUser($user);
-        $this->assertEquals($this->target->getUser(),$user);
+        $this->assertEquals($this->target->getUser(), $user);
     }
 
-    public function testSetGetMessage(){
+    public function testSetGetMessage()
+    {
         $message="this message";
         $this->target->setMessage($message);
-        $this->assertEquals($this->target->getMessage(),$message);
+        $this->assertEquals($this->target->getMessage(), $message);
     }
 
-    public function testSetGetDateCreated(){
+    public function testSetGetDateCreated()
+    {
         $date = new \DateTime("2013-01-02");
         $this->target->setDateCreated($date);
-        $this->assertEquals($this->target->getDateCreated(),$date);
+        $this->assertEquals($this->target->getDateCreated(), $date);
     }
 
-    public function testSetGetDateModified(){
+    public function testSetGetDateModified()
+    {
         $date = new \DateTime("2013-01-02");
         $this->target->setDateModified($date);
-        $this->assertEquals($this->target->getDateModified(),$date);
+        $this->assertEquals($this->target->getDateModified(), $date);
     }
 
     public function testSetGetRating()
@@ -79,18 +83,20 @@ class CommentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getRating(), $rating);
     }
 
-    public function testGetRatingWithoutSetting(){
+    public function testGetRatingWithoutSetting()
+    {
         $this->assertEquals($this->target->getRating(), new Rating());
     }
 
-    public function testPreUpdate(){
+    public function testPreUpdate()
+    {
         $this->target->preUpdate();
         $this->assertEquals($this->target->getDateModified(), new \DateTime());
     }
 
-    public function testPrePersist(){
+    public function testPrePersist()
+    {
         $this->target->prePersist();
         $this->assertEquals($this->target->getDateCreated(), new \DateTime());
     }
-
 }

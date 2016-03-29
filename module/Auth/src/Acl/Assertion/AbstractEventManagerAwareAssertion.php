@@ -88,7 +88,6 @@ abstract class AbstractEventManagerAwareAssertion implements EventManagerAwareIn
         ResourceInterface $resource = null,
         $privilege = null
     ) {
-
         $preCheck = $this->preAssert($acl, $role, $resource, $privilege);
 
         if (is_bool($preCheck)) {

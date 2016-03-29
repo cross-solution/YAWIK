@@ -128,7 +128,6 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
                 );
 
         $target->init();
-
     }
 
     public function testProvidesInputFilterSpecification()

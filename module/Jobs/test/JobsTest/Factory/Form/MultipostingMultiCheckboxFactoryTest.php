@@ -70,4 +70,3 @@ class MultipostingMultiCheckboxFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($select, $actual);
     }
 }
-

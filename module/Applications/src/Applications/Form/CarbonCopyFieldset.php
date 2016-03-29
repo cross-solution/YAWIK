@@ -33,8 +33,6 @@ class CarbonCopyFieldset extends Fieldset
                 )
             )
         );
-
-
     }
 
     /**
@@ -52,6 +50,5 @@ class CarbonCopyFieldset extends Fieldset
                 ),
             ),
         );
-
     }
 }

@@ -61,6 +61,5 @@ class UserImageFactory extends FileUploadFactory
                                    ->setMaxSize($options->getContactImageMaxSize())
                                    ->setAllowedTypes($options->getContactImageMimeType())
                                    ->setForm($form);
-                                   
     }
 }

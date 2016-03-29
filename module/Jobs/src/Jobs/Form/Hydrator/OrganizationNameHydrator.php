@@ -38,7 +38,7 @@ class OrganizationNameHydrator extends EntityHydrator
 
         /** @var Entity\Job $object */
         if ($object->getOrganization()) {
-           // $data['company'] = $object->getOrganization()->getOrganizationName()->getName();
+            // $data['company'] = $object->getOrganization()->getOrganizationName()->getName();
             $data['companyId'] = $object->getOrganization()->getId();
         }
 

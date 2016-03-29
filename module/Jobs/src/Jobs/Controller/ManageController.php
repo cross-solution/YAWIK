@@ -57,7 +57,8 @@ class ManageController extends AbstractActionController
      * @param RepositoryService     $repositoryService
      * @param                       $translator
      */
-    public function __construct(AuthenticationService $auth, RepositoryService $repositoryService, Translator $translator) {
+    public function __construct(AuthenticationService $auth, RepositoryService $repositoryService, Translator $translator)
+    {
         $this->auth = $auth;
         $this->repositoryService = $repositoryService;
         $this->translator = $translator;
@@ -213,10 +214,12 @@ class ManageController extends AbstractActionController
                  */
                 if ('general.locationForm' == $formIdentifier) {
                     $locElem = $instanceForm->getBaseFieldset()->get('geo-location');
-                    if ($locElem instanceOf \Geo\Form\GeoText) {
+                    if ($locElem instanceof \Geo\Form\GeoText) {
                         $loc = $locElem->getValue('entity');
                         $locations = $jobEntity->getLocations();
-                        if (count($locations)) { $locations->clear(); }
+                        if (count($locations)) {
+                            $locations->clear();
+                        }
                         $locations->add($loc);
                         $jobEntity->setLocation($locElem->getValue());
                     }
@@ -249,7 +252,9 @@ class ManageController extends AbstractActionController
         }
         $result = $formEvents->trigger('ValidateJob', $this, [ 'form' => $form ]);
         foreach ($result as $messages) {
-            if (!$messages) { continue; }
+            if (!$messages) {
+                continue;
+            }
             if (!is_array($messages)) {
                 $messages = [ $messages ];
             }
@@ -277,14 +282,12 @@ class ManageController extends AbstractActionController
                 'errorMessage' => $errorMessage)
             );
         } else {
-
-
             if ($jobEntity->isDraft()) {
                 $form->getForm('general.nameForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                 $form->getForm('general.portalForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM);
                 $locElem = $form->getForm('general.locationForm')->setDisplayMode(SummaryFormInterface::DISPLAY_FORM)
                                 ->getBaseFieldset()->get('geo-location');
-                if ($locElem instanceOf \Geo\Form\GeoText) {
+                if ($locElem instanceof \Geo\Form\GeoText) {
                     $loc = $jobEntity->getLocations();
                     if (count($loc)) {
                         $locElem->setValue($loc->first());

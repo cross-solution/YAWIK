@@ -91,7 +91,7 @@ class SettingsFieldset extends Fieldset
                 'name' => 'mailBCC',
                 'options' => array('label' => /* @translate */ 'get blind carbon copy of all own mails',
                                    'long_label' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.',
-                                           'value_options' => array(0,1, true, false)))
+                                           'value_options' => array(0, 1, true, false)))
         );
 
         $this->add(

@@ -11,5 +11,4 @@ namespace Auth\Service\Exception;
 
 class UserAlreadyExistsException extends \Exception
 {
-
 }

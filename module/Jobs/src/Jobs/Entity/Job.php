@@ -937,7 +937,7 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function getSnapshotGenerator()
     {
-        $generator = array (
+        $generator = array(
             'hydrator' => '',
             'target' => 'Jobs\Entity\JobSnapshot',
             'exclude' => array('permissions', 'history')

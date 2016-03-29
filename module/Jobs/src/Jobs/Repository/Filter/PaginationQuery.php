@@ -81,7 +81,7 @@ class PaginationQuery extends AbstractPaginationQuery
 
         if (isset($this->value['location']->coordinates)) {
             $coordinates = $this->value['location']->coordinates->getCoordinates();
-            $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1],(float) $this->value['d']/100);
+            $queryBuilder->field('locations.coordinates')->geoWithinCenter($coordinates[0], $coordinates[1], (float) $this->value['d']/100);
         }
 
 
@@ -94,15 +94,14 @@ class PaginationQuery extends AbstractPaginationQuery
              */
             if (isset($this->value['params']['by']) && 'me' == $this->value['params']['by']) {
                 $queryBuilder->field('user')->equals($this->user->id);
-            }else{
+            } else {
                 $queryBuilder->field('permissions.view')->equals($this->user->id);
             }
             if (
                 isset($this->value['params']['status']) &&
                 !empty($this->value['params']['status']) &&
                 $this->value['params']['status'] != 'all'
-            )
-            {
+            ) {
                 $queryBuilder->field('status.name')->equals((string) $this->value['params']['status']);
             }
         } else {

@@ -93,6 +93,4 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
 
         $target->setData($data);
     }
-
-
 }

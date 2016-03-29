@@ -213,7 +213,6 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
         ) {
             $this->getRating(/*recalculate*/ true);
         }
-
     }
     
     /**
@@ -701,7 +700,6 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     {
         $this->comments = $comments;
         return $this;
-        
     }
     
     /**

@@ -13,7 +13,7 @@ use Auth\Factory\Controller\PasswordControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class PasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class PasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var PasswordControllerFactory

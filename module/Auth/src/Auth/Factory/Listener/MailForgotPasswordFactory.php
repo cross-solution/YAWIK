@@ -30,7 +30,7 @@ class MailForgotPasswordFactory implements FactoryInterface
         $options = $serviceLocator->get('Auth\Options');
         $coreOptions = $serviceLocator->get('Core\Options');
         $mailService = $serviceLocator->get('Core\MailService');
-        $listener = new MailForgotPassword($options,$mailService, $coreOptions);
+        $listener = new MailForgotPassword($options, $mailService, $coreOptions);
         return $listener;
     }
 }

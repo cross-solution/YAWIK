@@ -268,4 +268,3 @@ translate('E-Mail Templates');
 
 //: ./config/module.config.php:125
 translate('Overview');
-

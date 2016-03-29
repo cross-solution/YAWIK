@@ -40,6 +40,4 @@ class JobFactory implements FactoryInterface
 
         return $job;
     }
-
-
 }

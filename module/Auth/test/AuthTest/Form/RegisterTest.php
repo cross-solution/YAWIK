@@ -76,8 +76,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Form\Element\Submit', $buttonInput);
     }
      
-    public function testWithReCaptureField() 
-    { 
+    public function testWithReCaptureField()
+    {
         $options = new CaptchaOptions();
         $options->setMode("reCaptcha");
         $testedObject = new Register(null, $options);
@@ -86,8 +86,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Captcha\ReCaptcha', $captchaInput->getOption('captcha'));
     }
     
-    public function testWithImageField() 
-    { 
+    public function testWithImageField()
+    {
         $options = new CaptchaOptions();
         $options->setMode("image");
         $testedObject = new Register(null, $options);
@@ -95,8 +95,8 @@ class RegisterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Captcha\Image', $captchaInput->getOption('captcha'));
     }
     
-    public function testRoleValue() 
-    { 
+    public function testRoleValue()
+    {
         $options = new CaptchaOptions();
         $testedObject = new Register(null, $options, 'user');
         $roleField = $testedObject->get('register')->get('role');

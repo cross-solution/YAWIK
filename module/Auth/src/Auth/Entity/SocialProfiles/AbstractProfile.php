@@ -208,7 +208,6 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity implements Pro
             $this->employments = $this->getCollection('employments');
         }
         return $this->employments;
-        
     }
 
     
@@ -256,7 +255,6 @@ abstract class AbstractProfile extends AbstractIdentifiableEntity implements Pro
             $this->config[$type]['hydrator'] = $hydrator = new $hydrator();
         }
         return $hydrator;
-        
     }
     
     /**

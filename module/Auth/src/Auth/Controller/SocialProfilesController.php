@@ -12,7 +12,6 @@ namespace Auth\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 
-
 /**
  *
  */

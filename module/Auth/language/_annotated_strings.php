@@ -193,4 +193,3 @@ translate('user');
 
 //: ./config/module.config.php:386
 translate('recruiter');
-

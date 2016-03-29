@@ -12,7 +12,6 @@ namespace AuthTest\Entity;
 
 use Auth\Entity\AnonymousUser;
 
-
 /**
  * Tests for User
  *
@@ -82,12 +81,13 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Entity\AnonymousUser::getToken
      * @covers Auth\Entity\AnonymousUser::getId
      */
-    public function testGetId() {
-        $this->assertEquals( 'token:' . $this->target->getToken(), $this->target->getId());
+    public function testGetId()
+    {
+        $this->assertEquals('token:' . $this->target->getToken(), $this->target->getId());
 
         $id=uniqid();
         $this->target->setId($id);
-        $this->assertEquals( $id, $this->target->getId());
+        $this->assertEquals($id, $this->target->getId());
     }
 
     /**
@@ -95,8 +95,8 @@ class AnonymousUserTest extends \PHPUnit_Framework_TestCase
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Anonymous users may not be persisted.
      */
-    public function testPreventPersistance(){
+    public function testPreventPersistance()
+    {
         $this->target->preventPersistence();
     }
-
 }

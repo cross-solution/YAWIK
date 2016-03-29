@@ -30,5 +30,4 @@ interface CoordinatesInterface extends EntityInterface
     public function getType();
     public function setCoordinates(array $coordinates);
     public function getCoordinates();
-
 }

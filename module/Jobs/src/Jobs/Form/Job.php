@@ -56,7 +56,6 @@ class Job extends WizardContainer
      */
     public function init()
     {
-
         $elements = [
             'general' => [
                 'priority' => 0,

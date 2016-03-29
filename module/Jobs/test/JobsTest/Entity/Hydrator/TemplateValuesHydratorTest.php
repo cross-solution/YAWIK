@@ -91,6 +91,5 @@ class TemplateValuesHydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($values, $target->hydrate($data, $values), 'hydrate() does not return object.');
         $this->assertEquals('testValue', $values->get('testKeyOne'));
         $this->assertNull($values->get('ignoredKey'));
-
     }
 }

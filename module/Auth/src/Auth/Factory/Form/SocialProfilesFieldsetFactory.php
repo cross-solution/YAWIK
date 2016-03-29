@@ -69,6 +69,5 @@ class SocialProfilesFieldsetFactory implements FactoryInterface
         $fieldset = new SocialProfilesFieldset($name, $options);
         
         return $fieldset;
-        
     }
 }

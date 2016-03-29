@@ -106,7 +106,7 @@ class CommentController extends AbstractActionController
                     $application = $repository->find($appId);
                     $application->comments->add($comment);
                     $application->changeStatus($application->getStatus(), sprintf(
-                                    /* @translate */ 'Application was rated by %s' ,
+                                    /* @translate */ 'Application was rated by %s',
                                      $this->auth()->getUser()->getInfo()->getDisplayName())
                         );
                 }

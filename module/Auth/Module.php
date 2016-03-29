@@ -47,7 +47,6 @@ class Module
      */
     public function getAutoloaderConfig()
     {
-
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 // This is an hack due to bad design of Hybridauth
@@ -109,6 +108,5 @@ class Module
 
         $socialProfilesUnconfiguredErrorListener = new SocialProfilesUnconfiguredErrorListener();
         $socialProfilesUnconfiguredErrorListener->attach($eventManager);
-
     }
 }

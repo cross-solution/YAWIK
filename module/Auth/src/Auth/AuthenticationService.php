@@ -89,6 +89,4 @@ class AuthenticationService extends ZendAuthService
 
         return $this;
     }
-
-
 }

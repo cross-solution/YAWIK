@@ -41,22 +41,21 @@ class RegisterController extends AbstractCoreController
 
 
     public function __construct(
-        Form\Register $form, 
-        Service\Register $service, 
-        LoggerInterface $logger, 
+        Form\Register $form,
+        Service\Register $service,
+        LoggerInterface $logger,
         ModuleOptions $options)
     {
         $this->form = $form;
         $this->service = $service;
         $this->logger = $logger;
         $this->options = $options;
-
     }
 
     public function indexAction()
     {
-        if (!$this->options->getEnableRegistration()){
-            $this->notification()->info( /*@translate*/ 'Registration is disabled');
+        if (!$this->options->getEnableRegistration()) {
+            $this->notification()->info(/*@translate*/ 'Registration is disabled');
             return $this->redirect()->toRoute('lang');
         }
 
@@ -81,14 +80,13 @@ class RegisterController extends AbstractCoreController
                     );
 
                     $viewModel->setTemplate('auth/register/completed');
-
                 } else {
                     $viewModel->setTemplate(null);
                     $this->notification()->danger(
                         /*@translate*/ 'Please fill form correctly'
                     );
                 }
-            }else{
+            } else {
                 /* @var $register \Zend\Form\Fieldset */
                 $register = $this->form->get('register');
                 $register->get('role')->setValue($this->params('role'));
@@ -106,7 +104,7 @@ class RegisterController extends AbstractCoreController
 
         $this->form->setAttribute('action', $this->url()->fromRoute('lang/register'));
 
-        $viewModel->setVariable('form' , $this->form );
+        $viewModel->setVariable('form', $this->form);
 
         return $viewModel;
     }

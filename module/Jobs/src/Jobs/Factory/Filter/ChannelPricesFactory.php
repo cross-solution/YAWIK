@@ -40,6 +40,4 @@ class ChannelPricesFactory implements FactoryInterface
 
         return $filter;
     }
-
-
 }

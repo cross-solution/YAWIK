@@ -44,9 +44,10 @@ class RatingTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Applications\Entity\Rating', $this->target);
     }
 
-    public function testSetGetRating(){
+    public function testSetGetRating()
+    {
         $input="1";
         $this->target->setRating($input);
-        $this->assertEquals($this->target->getRating(),$input);
+        $this->assertEquals($this->target->getRating(), $input);
     }
 }

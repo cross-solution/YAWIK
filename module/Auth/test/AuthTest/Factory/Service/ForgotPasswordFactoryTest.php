@@ -12,7 +12,7 @@ namespace AuthTest\Factory\Service;
 use Auth\Factory\Service\ForgotPasswordFactory;
 use Test\Bootstrap;
 
-class ForgotPasswordSLFactoryTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ForgotPasswordFactory

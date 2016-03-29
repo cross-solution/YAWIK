@@ -42,12 +42,11 @@ class SocialProfilesUnconfiguredErrorListener extends AbstractListenerAggregate
         $ex = $e->getParam('exception');
         $model = $e->getResult();
 
-        if ($model instanceOf ViewModel
+        if ($model instanceof ViewModel
             && Application::ERROR_EXCEPTION == $e->getError()
             && 0 === strpos($ex->getMessage(), 'Your application id and secret')
         ) {
             $model->setTemplate('auth/error/social-profiles-unconfigured');
         }
     }
-
 }
