@@ -7,7 +7,7 @@
  * @license   MIT
  */
 
-/** Core Entitys */
+/** */
 namespace Core\Entity;
 
 use Core\Entity\Exception\OutOfBoundsException;
@@ -15,10 +15,8 @@ use Core\Entity\Exception\OutOfBoundsException;
 /**
  * Implementation of \Core\Entity\EntityInterface.
  *
- * Provides some magic function for accessing properties
- * as class members, mirroring these calls to the
- * getter and setter methods.
- *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @since 0.25
  */
 trait EntityTrait
 {
@@ -50,9 +48,9 @@ trait EntityTrait
          * $value must be an object.
          */
         if ($value instanceOf \Countable) {
-            return !(bool) count($value);
+            return (bool) count($value);
         }
 
-        return false;
+        return true;
     }
 }

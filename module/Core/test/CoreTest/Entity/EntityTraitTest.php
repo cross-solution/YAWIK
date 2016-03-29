@@ -1,0 +1,134 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license    MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+
+/** */
+namespace CoreTest\Entity;
+
+use Core\Entity\EntityInterface;
+use Core\Entity\EntityTrait;
+
+/**
+ * Test the EntityTrait
+ *
+ * @author Carsten Bleek <bleek@cross-solution.de>
+ * @group  Core
+ * @group  Core.Entity
+ * @covers \Core\Entity\EntityTrait
+ */
+class EntityTraitTest extends \PHPUnit_Framework_TestCase
+{
+
+    protected static $fileResource;
+    protected $target;
+
+
+    public static function tearDownAfterClass()
+    {
+        fclose(self::$fileResource);
+    }
+
+
+    public function setUp(){
+        $this->target = new TraitEntity();
+    }
+
+    public function provideNotEmptyTestData()
+    {
+        self::$fileResource = tmpfile();
+        $emptyCountable = new \ArrayObject();
+        $countable = new \ArrayObject(['not', 'empty']);
+
+        return [
+            [ null, false ],
+            [ '', false ],
+            [ 'something', true],
+            [ 0, false ],
+            [ 1, true ],
+            [ false, false ],
+            [ true, true ],
+            [ [], false ],
+            [ ['not', 'empty'], true ],
+            [ new \stdClass(), true ],
+            [ $emptyCountable, false ],
+            [ $countable, true ],
+            [ self::$fileResource, true ],
+
+        ];
+    }
+
+    /**
+     * @dataProvider provideNotEmptyTestData
+     *
+     * @param $value
+     * @param $expected
+     */
+    public function testNotEmpty($value, $expected)
+    {
+        $assert = $expected ? 'assertTrue' : 'assertFalse';
+
+        $this->target->setAttribute($value);
+        $this->$assert($this->target->notEmpty('attribute'));
+    }
+
+    /**
+     * @expectedException \OutOfBoundsException
+     * @expectedExceptionMessage is not a valid property
+     */
+    public function testInvalidAttributeThrowsException()
+    {
+        $this->target->notEmpty('inexistent');
+    }
+
+    public function testExtraArgsArePassedToGetterMethod()
+    {
+        $args = [
+            'arg1' => 'testArg1',
+            'arg2' => 'testArg2',
+        ];
+
+        $actual = $this->target->notEmpty('attributeWithExtraArgs', $args);
+
+        $this->assertAttributeEquals($args, 'extraArgs', $this->target);
+    }
+}
+
+class TraitEntity implements EntityInterface {
+
+    use EntityTrait;
+
+    protected $attribute;
+    protected $extraArgs;
+
+    /**
+     * @param mixed $attribute
+     *
+     * @return self
+     */
+    public function setAttribute($attribute)
+    {
+        $this->attribute = $attribute;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttribute()
+    {
+        return $this->attribute;
+    }
+
+    public function getAttributeWithExtraArgs($arg1, $arg2)
+    {
+        $this->extraArgs = compact('arg1', 'arg2');
+
+        return 'irrelevant';
+    }
+}

@@ -10,6 +10,8 @@
 namespace ApplicationsTest\Form;
 
 use Applications\Form\FactsFieldset;
+use Core\Form\Element\DatePicker;
+use Zend\Form\Factory;
 
 
 /**
@@ -23,9 +25,17 @@ class FactsFieldsetTest extends \PHPUnit_Framework_TestCase
     protected $target;
 
     public function setUp(){
-       $this->markTestSkipped('currently broken because of the DatePicker Element');
+
 
         $this->target = new FactsFieldset();
+
+        // Setup form factory.
+        $factory = new Factory();
+        $elements = $factory->getFormElementManager();
+        $elements->setService('Core/Datepicker', new DatePicker());
+
+        // inject form factory
+        $this->target->setFormFactory($factory);
         $this->target->init();
     }
 
