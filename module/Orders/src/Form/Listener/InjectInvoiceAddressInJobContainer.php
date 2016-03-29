@@ -47,7 +47,7 @@ class InjectInvoiceAddressInJobContainer
                         'property' => true,
                         'options' => [
                             'enable_descriptions' => true,
-                            'description' => /*@translate*/ 'Invoice address description.',
+                            'description' => /*@translate*/ 'Please leave your contact completely . We need this data for business correspondence and coordination of questions about the job posting . These data are of course not be published.',
                         ],
                     ],
                 ],

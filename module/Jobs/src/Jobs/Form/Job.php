@@ -59,7 +59,7 @@ class Job extends WizardContainer
         $elements = [
             'general' => [
                 'priority' => 0,
-                'options' => [ 'label' => 'General' ],
+                'options' => [ 'label' => 'Basic Data' ],
                 'property' => true,
                 'forms' => [
 
@@ -95,7 +95,7 @@ class Job extends WizardContainer
 
             'description' => [
                 'priority' => '0',
-                'options' => [ 'label' => 'Description' ],
+                'options' => [ 'label' => 'Job opening' ],
                 'property' => true,
                 'forms' => [
                     'descriptionForm' => array(

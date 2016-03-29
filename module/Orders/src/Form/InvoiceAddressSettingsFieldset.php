@@ -25,7 +25,7 @@ class InvoiceAddressSettingsFieldset extends SettingsFieldset
         'name'  => /*@translate*/ 'Full Name',
         'company' => /*@translate*/ 'Company',
         'street' => /*@translate*/ 'Street',
-        'zipCode' => /*@translate*/ 'Zip code',
+        'zipCode' => /*@translate*/ 'Postalcode',
         'city' => /*@translate*/ 'City',
         'region' => /*@translate*/ 'Region',
         'country' => /*@translate*/ 'Country',
