@@ -29,7 +29,7 @@ class FormatInvoiceAddress extends AbstractHelper
     public function render(InvoiceAddressInterface $address)
     {
         $translate = $this->getView()->plugin('translate');
-        $title = $address->getTitle();
+        $title = $address->getGender();
         $name = $address->getName();
         $fullname = ($title ? "$title " : '') . "<strong>$name</strong>";
         $company = $address->getCompany();
@@ -40,7 +40,7 @@ class FormatInvoiceAddress extends AbstractHelper
         $location = ($region ? "$region / " : '') . $country;
         $vatId = '<em>' . $translate('VAT ID') . '</em>: ' . $address->getVatIdNumber();
         $email = $address->getEmail();
-        $email = $email ? '<em>' . $translate('Email') . '</em>: ' . $this->getView()->plugin('link')->__invoke($email) : '';
+        $email = $email ? '<i class="fa fa-envelope"></i> ' . $this->getView()->plugin('link')->__invoke($email) : '';
 
 
         $markup = "<address>$fullname<br>$company<br><br>$street<br>$city<br>$location<br><br>$email<br><br>$vatId</address>";
