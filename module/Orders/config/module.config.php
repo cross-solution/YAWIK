@@ -28,12 +28,19 @@ return [
 
         'Jobs/JobContainer/Events' => [ 'listeners' => [
             \Core\Form\Event\FormEvent::EVENT_INIT => [
-                'Orders/Listener/InjectInvoiceAddressInJobContainer' => true,
+                'Orders\Form\Listener\InjectInvoiceAddressInJobContainer',
             ],
-            '*' => [
-                '\Orders\Form\Listener\ValidateJobInvoiceAddress',
-            ],
+            'ValidateJob' => [ '\Orders\Form\Listener\ValidateJobInvoiceAddress' ],
         ]],
+
+        'Orders/Form/InvoiceAddress/Events' => [
+            'event' => '\Core\Form\Event\FormEvent',
+            'listeners'=> [
+                \Core\Form\Event\FormEvent::EVENT_SET_PARAM => [
+                    'Orders/Listener/BindInvoiceAddressEntity',
+                ],
+            ],
+        ],
     ],
 
     'options' => [

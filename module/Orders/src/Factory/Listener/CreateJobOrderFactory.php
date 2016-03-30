@@ -34,8 +34,10 @@ class CreateJobOrderFactory implements FactoryInterface
         $options         = $serviceLocator->get('Orders/Options/Module');
         $providerOptions = $serviceLocator->get('Jobs/Options/Provider');
         $priceFilter     = $serviceLocator->get('filtermanager')->get('Jobs/ChannelPrices');
-        $repository      = $serviceLocator->get('repositories')->get('Orders');
-        $listener        = new CreateJobOrder($options, $providerOptions, $priceFilter, $repository);
+        $repositories    = $serviceLocator->get('repositories');
+        $repository      = $repositories->get('Orders');
+        $draftrepo       = $repositories->get('Orders/InvoiceAddressDraft');
+        $listener        = new CreateJobOrder($options, $providerOptions, $priceFilter, $repository, $draftrepo);
 
         return $listener;
     }

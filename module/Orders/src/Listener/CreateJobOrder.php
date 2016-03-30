@@ -53,26 +53,25 @@ class CreateJobOrder
      *
      * @var \Orders\Repository\Orders
      */
-    protected $repository;
+    protected $orderRepository;
 
-    public function __construct($options, $providerOptions, $priceFilter, $repository)
+    protected $draftRepository;
+
+    public function __construct($options, $providerOptions, $priceFilter, $orderRepository, $draftRepository)
     {
         $this->priceFilter     = $priceFilter;
         $this->options         = $options;
         $this->providerOptions = $providerOptions;
-        $this->repository      = $repository;
+        $this->orderRepository      = $orderRepository;
+        $this->draftRepository = $draftRepository;
     }
 
     public function __invoke(JobEvent $event)
     {
         $job = $event->getJobEntity();
-        $sessionKey = 'Orders_JobInvoiceAddress_' . $job->getId();
-        $session = new Container($sessionKey);
 
-        if (!$session->values) { return; }
-
-        $hydrator = new EntityHydrator();
-        $invoiceAddress = $hydrator->hydrate($session->values, new InvoiceAddress());
+        $invoiceAddressDraft = $this->draftRepository->findByJobId($job->getId());
+        $invoiceAddress = $invoiceAddressDraft->getInvoiceAddress();
         $snapshotBuilder = new Builder();
         $snapshot = $snapshotBuilder->build($job);
         $products = new ArrayCollection();
@@ -99,8 +98,8 @@ class CreateJobOrder
             'products' => $products,
         ];
 
-        $order = $this->repository->create($data);
-
-        $this->repository->store($order);
+        $order = $this->orderRepository->create($data);
+        $this->orderRepository->store($order);
+        $this->draftRepository->remove($invoiceAddressDraft);
     }
 }

@@ -41,12 +41,9 @@ class JobInvoiceAddressFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $services = $serviceLocator->getServiceLocator();
-        $events = $services->get('Jobs/JobContainer/Events');
-        //$router = $services->get('Router');
-        //$action = $router->assemble([], ['name' => 'lang/orders/invoice-address']) . '?type=job';
+        $events = $services->get('Orders/Form/InvoiceAddress/Events');
         $invoice = new InvoiceAddress($this->options['name'], $this->options);
-        $invoice//->setAttribute('action', $action)
-                ->setEventManager($events);
+        $invoice->setEventManager($events);
 
 
         return $invoice;
