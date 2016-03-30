@@ -37,7 +37,7 @@ class JobInvoiceAddressFactory implements FactoryInterface
         $user = $auth->getUser();
         $settings = $user->getSettings('Orders');
         $invoiceAddress = $settings->getInvoiceAddress();
-        if (!$invoiceAddress->get('name')) {
+        if (!$invoiceAddress->getCompany()) {
             $invoiceAddress = false;
             $org = $user->getOrganization();
             if ($org->isEmployee()) {

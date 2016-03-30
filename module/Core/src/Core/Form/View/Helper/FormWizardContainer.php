@@ -48,7 +48,7 @@ class FormWizardContainer extends AbstractHelper
     /**
      * Renders the forms of a container.
      *
-     * @param Container $container
+     * @param WizardContainer $container
      * @param string $layout
      * @param array $parameter
      * @return string
