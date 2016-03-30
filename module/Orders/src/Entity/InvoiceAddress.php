@@ -30,7 +30,7 @@ class InvoiceAddress implements InvoiceAddressInterface
      * @ODM\String
      * @var string
      */
-    protected $title;
+    protected $gender;
 
     /**
      * Full name
@@ -188,16 +188,16 @@ class InvoiceAddress implements InvoiceAddressInterface
         return $this->street;
     }
 
-    public function setTitle($title)
+    public function setGender($gender)
     {
-        $this->title = $title;
+        $this->gender = $gender;
 
         return $this;
     }
 
-    public function getTitle()
+    public function getGender()
     {
-        return $this->title;
+        return $this->gender;
     }
 
     public function setVatIdNumber($vatId)

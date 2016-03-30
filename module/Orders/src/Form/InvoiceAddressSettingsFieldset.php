@@ -21,7 +21,6 @@ use Settings\Form\SettingsFieldset;
 class InvoiceAddressSettingsFieldset extends SettingsFieldset
 {
     protected $labelMap = [
-        'title' => /*@translate*/ 'Title',
         'name'  => /*@translate*/ 'Full Name',
         'company' => /*@translate*/ 'Company',
         'street' => /*@translate*/ 'Street',

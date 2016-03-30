@@ -25,7 +25,7 @@ class InvoiceAddressSettings extends Container
      * @ODM\String
      * @var string
      */
-    protected $title;
+    protected $gender;
 
     /**
      * Full name

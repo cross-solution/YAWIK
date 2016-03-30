@@ -294,6 +294,7 @@ class ManageController extends AbstractActionController
                     }
                 }
             } else {
+                $formEvents->trigger('DisableElements', $this, [ 'form' => $form, 'job'=>$jobEntity ]);
                 // Job is deployed, some changes are now disabled
                 $form->enableAll();
             }

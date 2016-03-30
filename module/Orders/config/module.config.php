@@ -31,6 +31,7 @@ return [
                 'Orders\Form\Listener\InjectInvoiceAddressInJobContainer',
             ],
             'ValidateJob' => [ '\Orders\Form\Listener\ValidateJobInvoiceAddress' ],
+            'DisableElements' => [ '\Orders\Form\Listener\DisableJobInvoiceAddress' ],
         ]],
 
         'Orders/Form/InvoiceAddress/Events' => [

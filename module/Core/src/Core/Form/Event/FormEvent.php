@@ -27,6 +27,7 @@ class FormEvent extends Event
     const EVENT_SET_DATA = 'SET_DATA';
     const EVENT_SET_PARAM = 'SET_PARAM';
     const EVENT_VALIDATE = 'VALIDATE';
+    const EVENT_SET_OBJECT = 'SET_OBJECT';
 
     protected $form;
 

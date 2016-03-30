@@ -22,20 +22,20 @@ interface InvoiceAddressInterface extends EntityInterface
 {
 
     /**
-     * Sets the form of address.
+     * Sets the gender of a contact person.
      *
-     * @param string $title
+     * @param string $gender
      *
      * @return self
      */
-    public function setTitle($title);
+    public function setGender($gender);
 
     /**
-     * Gets the form of address.
+     * Gets the gender of a contact person.
      *
      * @return string
      */
-    public function getTitle();
+    public function getGender();
 
     /**
      * Sets the full name.
