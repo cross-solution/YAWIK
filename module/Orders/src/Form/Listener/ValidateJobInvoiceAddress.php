@@ -22,69 +22,17 @@ use Zend\Session\Container;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-class ValidateJobInvoiceAddress implements ListenerAggregateInterface
+class ValidateJobInvoiceAddress
 {
-    /**
-     *
-     *
-     * @var array
-     */
-    protected $listeners;
-
-    /**
-     * Attach one or more listeners
-     *
-     * Implementors may add an optional $priority argument; the EventManager
-     * implementation will pass this to the aggregate.
-     *
-     * @param EventManagerInterface $events
-     *
-     * @return void
-     */
-    public function attach(EventManagerInterface $events)
+    public function __invoke(FormEvent $event)
     {
-        $this->listeners[] = $events->attach(FormEvent::EVENT_VALIDATE, [ $this, 'onValidate' ]);
-        $this->listeners[] = $events->attach('ValidateJob', [ $this, 'onValidateJob' ]);
-    }
+        $invoiceAddress = $event->getForm()->getForm('invoice.invoiceAddress')->getObject();
 
-    /**
-     * Detach all previously attached listeners
-     *
-     * @param EventManagerInterface $events
-     *
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $i => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$i]);
+        foreach (['name', 'company', 'street', 'city', 'vatIdNumber'] as $field) {
+            $value = $invoiceAddress->{"get$field"}();
+            if (empty($value)) {
+                return  /*@translate*/ 'Please fill in and check your invoice address.';
             }
-        }
-
-        return empty($this->listeners);
-    }
-
-    public function onValidate(FormEvent $event)
-    {
-        if (!$event->getParam('isValid')) {
-            return;
-        }
-
-        $form = $event->getForm();
-        $hydrator = new EntityHydrator();
-        $jobId = $form->getInputFilter()->getRawValue('job');
-        $session = new Container('Orders_JobInvoiceAddress_' . $jobId);
-        $session->values = $hydrator->extract($form->getObject());
-    }
-
-    public function onValidateJob(FormEvent $event)
-    {
-        $jobId   = $event->getForm()->getEntity('*')->getId();
-        $session = new Container('Orders_JobInvoiceAddress_' . $jobId);
-
-        if (empty($session->values)) {
-            return /*@translate*/ 'Please fill in and check your invoice address.';
         }
     }
 }

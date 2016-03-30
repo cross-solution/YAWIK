@@ -21,13 +21,6 @@ use Orders\Entity\InvoiceAddress;
  */
 class InjectInvoiceAddressInJobContainer
 {
-    protected $entity;
-
-    public function __construct($entity)
-    {
-        $this->entity = $entity;
-    }
-
     public function __invoke(FormEvent $event)
     {
         /* @var \Jobs\Form\Job $container */
@@ -38,8 +31,8 @@ class InjectInvoiceAddressInJobContainer
             [
                 'priority' => -10,
                 'label' => /*@translate*/ 'Invoice Address',
-                'entity' => 'orders.invoice',
-                'property' => true,
+                'entity' => false, //'orders.invoice',
+                'property' => false,
                 'forms' => [
                     'invoiceAddress' => [
                         'label' => 'Invoice Address',
@@ -57,7 +50,6 @@ class InjectInvoiceAddressInJobContainer
         $previewSpec = $container->getForm('preview', false);
         $previewSpec['priority'] = -20;
         $container->setForm('preview', $previewSpec);
-        $container->setEntity($this->entity, 'orders.invoice');
     }
     
 }

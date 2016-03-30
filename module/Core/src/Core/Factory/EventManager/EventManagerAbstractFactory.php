@@ -74,7 +74,6 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
          *              listener => priority,      (= [ 'priority' => priority ] )
          *              listener => 'methodName',  (= [ 'method' => methodName ] )
          *              listener => bool,          (= [ 'lazy' => bool ] )
-         *              listener => [ 'method' => name ],
          *              listener => [ 'method' => name, 'priority' => priority, 'lazy' => bool ]
          *      ],
          *      ...,
@@ -125,7 +124,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
                 } else {
                     throw new \UnexpectedValueException(sprintf(
-                        'Class %s does not exists. Cannot create listener instance.', $listener
+                        'Class or service %s does not exists. Cannot create listener instance.', $listener
                     ));
                 }
 

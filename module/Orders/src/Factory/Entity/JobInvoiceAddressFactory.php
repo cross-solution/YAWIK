@@ -43,7 +43,7 @@ class JobInvoiceAddressFactory implements FactoryInterface
             if ($org->isEmployee()) {
                 $orgUser = $org->isHiringOrganization() ? $org->getParent()->getUser() : $org->getUser();
                 $invoiceAddress = $orgUser->getSettings('Orders')->getInvoiceAddress();
-                if (!$invoiceAddress->get('name')) {
+                if (!$invoiceAddress->getCompany()) {
                     $invoiceAddress = false;
                 }
             }

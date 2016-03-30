@@ -66,6 +66,7 @@ trait ModificationDateAwareEntityTrait
     /**
      *
      *  @ODM\PreUpdate
+     * @ODM\PrePersist
      */
     public function setDateModified($dateModified = null)
     {

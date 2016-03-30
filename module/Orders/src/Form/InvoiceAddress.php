@@ -11,7 +11,9 @@
 namespace Orders\Form;
 
 use Core\Form\Event\FormEvent;
+use Core\Form\Form;
 use Core\Form\SummaryForm;
+use Orders\Entity\InvoiceAddressInterface;
 use Zend\EventManager\EventManagerInterface;
 
 /**
@@ -46,6 +48,17 @@ class InvoiceAddress extends SummaryForm
 
         return $this->events;
     }
+
+    public function setParam($key, $value)
+    {
+        parent::setParam($key, $value);
+
+        $events  = $this->getEventManager();
+        $events->trigger(FormEvent::EVENT_SET_PARAM, $this, [ 'param_name' => $key, 'param_value' => $value ]);
+
+        return $this;
+    }
+
 
     public function isValid()
     {

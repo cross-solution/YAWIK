@@ -10,7 +10,7 @@ return [
 
     'service_manager' => [
         'factories' => [
-            'Orders/Listener/InjectInvoiceAddressInJobContainer' => 'Orders\Factory\Form\Listener\InjectInvoiceAddressInJobContainerFactory',
+            'Orders/Listener/BindInvoiceAddressEntity' => 'Orders\Factory\Form\Listener\BindInvoiceAddressEntityFactory',
             'Orders/Listener/CreateJobOrder' => 'Orders\Factory\Listener\CreateJobOrderFactory',
             'Orders/Entity/JobInvoiceAddress' => 'Orders\Factory\Entity\JobInvoiceAddressFactory',
         ],

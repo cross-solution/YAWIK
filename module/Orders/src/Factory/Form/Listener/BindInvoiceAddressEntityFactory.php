@@ -10,7 +10,7 @@
 /** */
 namespace Orders\Factory\Form\Listener;
 
-use Orders\Form\Listener\InjectInvoiceAddressInJobContainer;
+use Orders\Form\Listener\BindInvoiceAddressEntity;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -20,7 +20,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
-class InjectInvoiceAddressInJobContainerFactory implements FactoryInterface
+class BindInvoiceAddressEntityFactory implements FactoryInterface
 {
     /**
      * Create service
@@ -31,10 +31,13 @@ class InjectInvoiceAddressInJobContainerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $entity   = $serviceLocator->get('Orders/Entity/JobInvoiceAddress');
-        $listener = new InjectInvoiceAddressInJobContainer($entity);
+        $repositories = $serviceLocator->get('repositories');
+        $repository   = $repositories->get('Orders/InvoiceAddressDraft');
+        $callback     = function() use ($serviceLocator) { return $serviceLocator->get('Orders/Entity/JobInvoiceAddress'); };
+        $listener     = new BindInvoiceAddressEntity($repository, $callback);
 
         return $listener;
+
     }
 
 
