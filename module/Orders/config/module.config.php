@@ -21,24 +21,18 @@ return [
     'event_manager' => [
 
         'Jobs/Events' => [ 'listeners' => [
-            \Jobs\Listener\Events\JobEvent::EVENT_JOB_CREATED => [
-                'Orders/Listener/CreateJobOrder' => true,
-            ],
+            'Orders/Listener/CreateJobOrder' => [ \Jobs\Listener\Events\JobEvent::EVENT_JOB_CREATED, true ],
         ]],
 
         'Jobs/JobContainer/Events' => [ 'listeners' => [
-            \Core\Form\Event\FormEvent::EVENT_INIT => [
-                'Orders\Form\Listener\InjectInvoiceAddressInJobContainer',
-            ],
-            'ValidateJob' => [ '\Orders\Form\Listener\ValidateJobInvoiceAddress' ],
+            'Orders\Form\Listener\InjectInvoiceAddressInJobContainer' => \Core\Form\Event\FormEvent::EVENT_INIT,
+            '\Orders\Form\Listener\ValidateJobInvoiceAddress' => 'ValidateJob',
         ]],
 
         'Orders/Form/InvoiceAddress/Events' => [
             'event' => '\Core\Form\Event\FormEvent',
             'listeners'=> [
-                \Core\Form\Event\FormEvent::EVENT_SET_PARAM => [
-                    'Orders/Listener/BindInvoiceAddressEntity',
-                ],
+                'Orders/Listener/BindInvoiceAddressEntity' => \Core\Form\Event\FormEvent::EVENT_SET_PARAM,
             ],
         ],
     ],
