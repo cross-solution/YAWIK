@@ -28,12 +28,12 @@ class FormDatePicker extends FormText
      */
     protected $language="de";
 
-    public function __invoke(\Zend\Form\ElementInterface $element = null)
+    public function __invoke(ElementInterface $element = null)
     {
         return $this->render($element);
     }
 
-    public function render(ElementInterface $element)
+    public function render(ElementInterface $element = null)
     {
         /* @var \Zend\View\Renderer\PhpRenderer $view */
         $view = $this->getView();
