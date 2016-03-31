@@ -28,7 +28,7 @@ class FormDatePicker extends FormText
      */
     protected $language="de";
 
-    public function __invoke(\Zend\Form\ElementInterface $element)
+    public function __invoke(\Zend\Form\ElementInterface $element = null)
     {
         return $this->render($element);
     }
