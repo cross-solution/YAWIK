@@ -1,0 +1,59 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+
+    /*
+     * Expects variables:
+     *
+     * $title
+     * $data [optional]
+     * $content [optional]
+     */
+$urlHelper = $this->plugin('url');
+?>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate($this->title)?></h3>
+    </div>
+    <?php if ($this->content): ?>
+    <div class="panel-body"><?php echo $this->content ?></div>
+    <?php endif ?>
+    <?php if ($this->data): ?>
+    <table class="table table-striped">
+        <tbody>
+        <?php foreach ($this->data as $info => $value):
+            $info = $this->translate($info);
+            if (is_array($value)) {
+                $url = false;
+                if (isset($value['href'])) {
+                    $url = $value['href'];
+                } else if (isset($value['url'])) {
+                    $url = call_user_func_array($urlHelper, $value['url']);
+                }
+
+                if ($url) {
+                    if (false === strpos($info, '%s')) {
+                        $info = "%s$info%s";
+                    }
+                    
+                    $info = sprintf($info, '<a href="' . $url . '">', '</a>');
+                }
+                $value = isset($value['value']) ? $value['value'] : false;
+            }
+
+            ?>
+
+            <tr>
+                <td<?php if (!$value): echo ' colspan="2"'; endif?>><?php echo $info ?></td>
+                <?php if ($value):?><td class="text-right"><?php echo $value ?></td><?php endif ?>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+    <?php endif ?>
+</div>

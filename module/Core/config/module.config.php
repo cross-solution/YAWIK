@@ -83,6 +83,17 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'admin' => array(
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/admin',
+                            'defaults' => [
+                                'controller' => 'Core/Admin',
+                                'action' => 'index'
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ),
                     'error' => array(
                         'type' => 'Literal',
                         'options' => array(
@@ -144,6 +155,12 @@ return array(
                     ),
                 ),
             ),
+            'admin' => [
+                'allow' => [
+                    'route/lang/admin',
+                    //'Core/Navigation/Admin',
+                ],
+            ],
         ),
         'assertions' => array(
             'invokables' => array(
@@ -163,6 +180,7 @@ return array(
             'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
+            'Core/EventManager'          => 'Core\EventManager\EventManager',
 
         ),
         'factories' => array(
@@ -221,6 +239,12 @@ return array(
                  'route' => 'lang',
                  'visible' => false
              ),
+             'admin' => array(
+                 'label ' => /*@translate*/ 'Admin',
+                 'route' => 'lang/admin',
+                 'resource' => 'route/lang/admin',
+                 'order' => 200,
+             ),
         ),
     ),
     // Configuration of the controller service manager (Which loads controllers)
@@ -229,6 +253,7 @@ return array(
             'Core\Controller\Index' => 'Core\Controller\IndexController',
             'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
+            'Core/Admin' => 'Core\Controller\AdminController',
         ),
     ),
     // Configuration of the controller plugin service manager
@@ -405,5 +430,12 @@ return array(
             'name'  => 'YAWIK'
         ),
     ),
+
+    'event_manager' => [
+        'Core/AdminController/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => '\Core\Controller\AdminControllerEvent',
+        ],
+    ],
     
 );
