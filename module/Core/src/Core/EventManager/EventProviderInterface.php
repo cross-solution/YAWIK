@@ -36,10 +36,14 @@ interface EventProviderInterface
      * The instance will be preconfigured with the event name
      * and/or parameters, if provided.
      *
-     * @param string|null $name
+     * $name and $target can be passed in the $params array under the keys
+     * 'name' and 'target'.
+     *
+     * @param array|string|null $name
+     * @param array|object|null $target
      * @param array $params
      *
      * @return EventInterface
      */
-    public function getEvent($name = null, array $params = []);
+    public function getEvent($name = null, $target = null, array $params = []);
 }
