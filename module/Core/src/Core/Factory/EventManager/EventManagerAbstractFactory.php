@@ -121,7 +121,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
             } else {
                 throw new \UnexpectedValueException(sprintf(
-                    'Class or service %s does not exists. Cannot create listener instance.', $listener
+                    'Class or service %s does not exists. Cannot create listener instance.', $name
                 ));
             }
 
