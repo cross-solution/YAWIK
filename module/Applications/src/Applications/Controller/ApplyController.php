@@ -11,6 +11,7 @@
 namespace Applications\Controller;
 
 use Applications\Entity\Contact;
+use Applications\Listener\Events\ApplicationEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Applications\Entity\Application;
@@ -305,13 +306,13 @@ class ApplyController extends AbstractActionController
         }
 
         $application->setIsDraft(false)
-                    ->setStatus(new Status())
-                    ->getPermissions()
-                        ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
-                        ->inherit($application->getJob()->getPermissions());
+            ->setStatus(new Status())
+            ->getPermissions()
+            ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
+            ->inherit($application->getJob()->getPermissions());
 
-        $this->sendRecruiterMails($application);
-        $this->sendUserMails($application);
+        $events   = $services->get('Applications/Events');
+        $events->trigger(ApplicationEvent::EVENT_APPLICATION_POST_CREATE, $this, [ 'application' => $application ]);
 
         $model = new ViewModel(
             array(
@@ -323,70 +324,11 @@ class ApplyController extends AbstractActionController
 
         return $model;
     }
-    
-    
-    
+
     protected function checkApplication($application)
     {
         return $this->getServiceLocator()->get('validatormanager')->get('Applications/Application')
                     ->isValid($application);
-    }
-
-    /**
-     * @param $application \Applications\Entity\Application
-     */
-    protected function sendRecruiterMails($application)
-    {
-        $job = $application->getJob();
-        $recruiter = $this->getServiceLocator()
-                          ->get('repositories')
-                          ->get('Auth/User')->findOneByEmail($job->contactEmail);
-        
-        if (!$recruiter) {
-            $recruiter = $job->user;
-            $admin     = false;
-        } else {
-            $admin     = $job->user;
-        }
-
-        /* @var \Applications\Entity\Settings $settings */
-        $settings = $recruiter->getSettings('Applications');
-        if ($settings->getMailAccess()) {
-            $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
-        }
-        if ($settings->getAutoConfirmMail()) {
-            $ackBody = $settings->getMailConfirmationText();
-            if (empty($ackBody)) {
-                $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
-            }
-            if (!empty($ackBody)) {
-                /* Acknowledge mail to applier */
-                $ackMail = $this->mailer(
-                    'Applications/Confirmation',
-                    array('application' => $application,
-                        'body' => $ackBody,
-                    )
-                );
-                // Must be called after initializers in creation
-                $ackMail->setSubject(/*@translate*/ 'Application confirmation');
-                $ackMail->setFrom($recruiter->getInfo()->getEmail());
-                $this->mailer($ackMail);
-                $application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s', $application->contact->email));
-            }
-        }
-    }
-    
-    protected function sendUserMails($application)
-    {
-        if ($application->getAttributes()->getSendCarbonCopy()) {
-            $this->mailer(
-                'Applications/CarbonCopy',
-                array(
-                    'application' => $application,
-                ), /*send*/
-                true
-            );
-        }
     }
 
     /**

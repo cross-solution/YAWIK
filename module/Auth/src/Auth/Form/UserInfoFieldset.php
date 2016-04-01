@@ -27,7 +27,7 @@ class UserInfoFieldset extends Fieldset implements
 
     /**
      * View script for rendering
-     * 
+     *
      * @var string
      */
     protected $viewPartial = 'form/auth/contact';

@@ -76,35 +76,11 @@ class ModuleOptions extends AbstractOptions
                                         'text/x-pdf',
                                         'text');
 
-    /**
-     * Automatically accept Applications. If true, incoming Applications are
-     * automatically forwarded to the recruiter.
-     *
-     * @var bool $autoAccept
-     */
-    protected $autoAccept = true;
 
-    /**
-     * Gets the autoAccept flag
-     *
-     * @return bool
-     */
-    public function isAutoAccept()
-    {
-        return $this->autoAccept;
-    }
-    /**
-     * Sets the the autoAccept Flag.
-     *
-     * @param bool $autoAccept
-     * @return ModuleOptions
-     */
-    public function setAutoAccept($autoAccept)
-    {
-        $this->autoAccept = $autoAccept;
-        return $this;
-    }
+    protected $workflow = [
 
+      'recruiter',
+    ];
 
     /**
      * Gets the maximum size of attachments in bytes

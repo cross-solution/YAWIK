@@ -68,6 +68,7 @@ return array(
            'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
            'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
            'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
+           'Applications/Listener/ApplicationCreated' => 'Applications\Factory\Listener\EventApplicationCreatedFactory'
         ),
     ),
     'controllers' => array(
@@ -218,5 +219,15 @@ return array(
             'Applications/CarbonCopy'     => 'Applications\Mail\ApplicationCarbonCopy',
         ),
     ),
+    'event_manager' => [
+        'Applications/Events' => [
+            'event' => '\Applications\Listener\Events\ApplicationEvent',
+            'listeners' => [
+                \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_POST_CREATE => [
+                    'Applications/Listener/ApplicationCreated' => true,
+                ]
+            ]
+        ],
+    ],
 
 );

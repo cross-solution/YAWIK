@@ -62,6 +62,7 @@ class NewApplication extends StringTemplateMessage
             return false;
         }
 
+        /* @var \Auth\Entity\Info $userInfo */
         $userInfo = $this->user->getInfo();
         $name = $userInfo->getDisplayName();
         if ('' == trim($name)) {
@@ -76,7 +77,7 @@ class NewApplication extends StringTemplateMessage
         $this->setTo($userInfo->getEmail(), $name != $userInfo->getEmail() ? $name : null);
 
         if ($this->admin && $this->admin->getSettings('Applications')->getMailBCC()) {
-            $this->addBcc($this->admin->info->email, $this->admin->info->displayName);
+            $this->addBcc($this->admin->getInfo()->getEmail(), $this->admin->getInfo()->getDisplayName());
         }
 
         $this->setVariables($variables);

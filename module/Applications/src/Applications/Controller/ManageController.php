@@ -10,6 +10,7 @@
 /** Applications controller */
 namespace Applications\Controller;
 
+use Applications\Listener\Events\ApplicationEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -422,8 +423,11 @@ class ManageController extends AbstractActionController
         if (!$application) {
             throw new \DomainException('Application not found.');
         }
-        
+
         $this->acl($application, 'delete');
+
+        $events   = $services->get('Applications/Events');
+        $events->trigger(ApplicationEvent::EVENT_APPLICATION_PRE_DELETE, $this, [ 'application' => $application ]);
         
         $repositories->remove($application);
         
