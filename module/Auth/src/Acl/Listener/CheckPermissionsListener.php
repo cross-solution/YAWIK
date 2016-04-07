@@ -111,8 +111,11 @@ class CheckPermissionsListener implements ListenerAggregateInterface
         $role = $this->getUser();
         $acl  = $this->getAcl();
         
-        if ($acl->hasResource($resourceId) && !$acl->isAllowed($role, $resourceId, $privilege)) {
-            /*
+        $resourceId = $this->findResourceId($resourceId);
+
+
+        if ($resourceId && !$acl->isAllowed($role, $resourceId, $privilege)) {
+           /*
             * Exceptions are only catched within the dispatch listener, so
             * we have to set the exception manually in the event
             * and trigger the DISPATCH_ERROR event.
@@ -131,5 +134,25 @@ class CheckPermissionsListener implements ListenerAggregateInterface
         }
         
         return $event->getResult();
+    }
+
+    protected function findResourceId($resourceId)
+    {
+        $acl = $this->getAcl();
+
+        if ($acl->hasResource($resourceId)) {
+            return $resourceId;
+        }
+
+        $parts = explode('/', $resourceId);
+
+        if (1 == count($parts)) {
+            return false;
+        }
+
+        array_pop($parts);
+        $resourceId = join('/', $parts);
+
+        return $this->findResourceId($resourceId);
     }
 }

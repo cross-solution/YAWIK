@@ -11,9 +11,20 @@ return [
         'driver' => [
             'odm_default' => [
                 'drivers' => [
-                    'Orders\Entity' => 'annotation',
+                    'Orders\Entity' => 'orders_annotation',
                 ],
             ],
+            'orders_annotation' => array(
+                'class' => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
+
+                /*
+                 * All drivers (except DriverChain) require paths to work on. You
+                 * may set this value as a string (for a single path) or an array
+                 * for multiple paths.
+                 * example https://github.com/doctrine/DoctrineORMModule
+                 */
+                'paths' => array( __DIR__ . '/../src/Entity'),
+            ),
         ],
     ],
 
@@ -21,27 +32,25 @@ return [
     'event_manager' => [
 
         'Jobs/Events' => [ 'listeners' => [
-            \Jobs\Listener\Events\JobEvent::EVENT_JOB_CREATED => [
-                'Orders/Listener/CreateJobOrder' => true,
-            ],
+            'Orders/Listener/CreateJobOrder' => [ \Jobs\Listener\Events\JobEvent::EVENT_JOB_CREATED, true ],
         ]],
 
         'Jobs/JobContainer/Events' => [ 'listeners' => [
-            \Core\Form\Event\FormEvent::EVENT_INIT => [
-                'Orders\Form\Listener\InjectInvoiceAddressInJobContainer',
-            ],
-            'ValidateJob' => [ '\Orders\Form\Listener\ValidateJobInvoiceAddress' ],
-            'DisableElements' => [ '\Orders\Form\Listener\DisableJobInvoiceAddress' ],
+            '\Orders\Form\Listener\DisableJobInvoiceAddress' => 'DisableElements',
+            'Orders\Form\Listener\InjectInvoiceAddressInJobContainer' => \Core\Form\Event\FormEvent::EVENT_INIT,
+            '\Orders\Form\Listener\ValidateJobInvoiceAddress' => 'ValidateJob',
         ]],
 
         'Orders/Form/InvoiceAddress/Events' => [
             'event' => '\Core\Form\Event\FormEvent',
             'listeners'=> [
-                \Core\Form\Event\FormEvent::EVENT_SET_PARAM => [
-                    'Orders/Listener/BindInvoiceAddressEntity',
-                ],
+                'Orders/Listener/BindInvoiceAddressEntity' => \Core\Form\Event\FormEvent::EVENT_SET_PARAM,
             ],
         ],
+
+        'Core/AdminController/Events' => [ 'listeners' => [
+            'Orders/Listener/AdminWidgetProvider' => \Core\Controller\AdminControllerEvent::EVENT_DASHBOARD,
+        ]],
     ],
 
     'options' => [

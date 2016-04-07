@@ -11,12 +11,13 @@
 return [
     'navigation' => [
         'default' => [
-            'admin' => [
-                'label'    =>  /*@translate*/ 'Users',
-                'route'    => 'lang/user-list',
-                'order'    => '100',
-                'resource' => 'Users',
-
+            'admin' => [ 'pages' => [
+                'users' => [
+                    'label'    =>  /*@translate*/ 'Users',
+                    'route'    => 'lang/user-list',
+                    'order'    => '100',
+                    'resource' => 'Users',
+                ]],
             ],
         ]
     ]

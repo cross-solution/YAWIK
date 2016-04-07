@@ -18,6 +18,11 @@ use Core\Repository\Filter\AbstractPaginationQuery;
  */
 class PaginationSearchUsers extends AbstractPaginationQuery
 {
+
+    protected $sortPropertiesMap = [
+        'name' => [ 'info.lastName', 'info.firstName', 'info.email' ],
+    ];
+
     /**
      * @param $params
      * @param \Doctrine\ODM\MongoDB\Query\Builder $queryBuilder
@@ -26,8 +31,15 @@ class PaginationSearchUsers extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-        $this->value = $params;
+
         $queryBuilder->field('isDraft')->equals(false);
+
+        if (isset($params['sort'])) {
+            foreach (explode(",", $params['sort']) as $sort) {
+                $queryBuilder->sort($this->filterSort($sort));
+            }
+        }
+
         return $queryBuilder;
     }
 }

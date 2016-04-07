@@ -12,6 +12,7 @@ return [
         'factories' => [
             'Orders/Listener/BindInvoiceAddressEntity' => 'Orders\Factory\Form\Listener\BindInvoiceAddressEntityFactory',
             'Orders/Listener/CreateJobOrder' => 'Orders\Factory\Listener\CreateJobOrderFactory',
+            'Orders/Listener/AdminWidgetProvider' => 'Orders\Factory\Listener\AdminWidgetProviderFactory',
             'Orders/Entity/JobInvoiceAddress' => 'Orders\Factory\Entity\JobInvoiceAddressFactory',
         ],
     ],

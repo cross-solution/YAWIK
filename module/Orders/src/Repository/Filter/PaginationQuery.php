@@ -32,6 +32,10 @@ class PaginationQuery extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
+        if (!empty($params['text'])) {
+            $queryBuilder->text($params['text']);
+        }
+
         $sort = $this->filterSort($params['sort']);
         $queryBuilder->sort($sort);
 

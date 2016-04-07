@@ -86,6 +86,20 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         return $entity;
     }
 
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        foreach ($criteria as $field => $value) {
+            $qb->field($field)->equals($value);
+        }
+        $qb->count();
+        $q = $qb->getQuery();
+        $r = $q->execute();
+
+        return $r;
+    }
+
     /**
      * @param $entity
      * @throws \InvalidArgumentException

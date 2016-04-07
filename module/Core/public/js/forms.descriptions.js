@@ -17,9 +17,9 @@
 		{
 			var $form = this.$container.find('form');
 			var _this = this;
-			
-			$form.find('.cam-description').hide().appendTo(this.$descDiv);
-            $form.find(':input:not([id^="s2id_"]):not(select), .select2-container, .cam-description-toggle, .cam-description-toggle *')
+
+            $form.find('.cam-description').hide().appendTo(this.$descDiv);
+            $form.find(':input:not([id^="s2id_"]):not(select), [data-toggle="description"], .cam-description-toggle, .cam-description-toggle *')
 			     .on('mouseover mouseout', $.proxy(this.eventToggle, this))
 			     .focus($.proxy(function(event) {
 //                    console.debug('focus');
@@ -38,6 +38,35 @@
 			    	 }, this), 200);
 			     }, this));
 
+            $form.find('select, .select2-container').on('focus', function(e) { console.debug(e); });
+            $form.find('.select2-container').on('mouseover mouseout', function(event){
+                var $select = $(event.currentTarget).parent().find('select');
+
+                if (event.type.match(/mouse/)) {
+                    if (true !== $select.data('focused')) {
+                        var id = "mouseover"==event.type ? $select.attr('id') : null;
+                        _this.toggle(id);
+
+                    }
+
+                }
+            });
+
+            $form.find('select').on( 'select2:open select2:close', function(event) {
+
+                var $select = $(event.currentTarget);
+
+                if ('select2:open' == event.type) {
+                    $select.data('focused', true);
+                } else {
+                    $select.data('focused', false);
+                    _this.toggle();
+                }
+
+
+
+
+            });
             $form.find('label').on("mouseover mouseout", function(event) {
                 if ($(event.target).is('label')) {
                     var id = "mouseover" == event.type ? $(event.target).attr('for') : null;
@@ -45,8 +74,7 @@
                 }
             });
 
-            $form.find('select').on('focus select2-focus blur select2-blur',
-                                    $.proxy(this.select2Toggle, this));
+
 		},
 		
 		_getDescription: function(id)
@@ -68,7 +96,7 @@
 			if (!id) {
 				id = this.focus || '__initial__';
 			}
-			
+
 			var $target = this._getDescription(id);
 			
 			if (!$target) {
@@ -90,7 +118,10 @@
 				var id = null;
 			} else {
 				var $element = $(event.currentTarget);
-				var id       = $element.attr('id');
+                var id = $element.data('target');
+                if (!id) {
+                    id = $element.attr('id');
+                }
 				if ('blur' == event.type) {
 					id = '__initial__';
 				}
@@ -115,7 +146,7 @@
 
         select2Toggle: function(event)
         {
-//            console.debug(event);
+            console.debug(event);
 
             var $select  = $(event.target);
             var id       = $select.attr('id');
@@ -124,6 +155,7 @@
             if (event.type.match(/focus/)) {
                 this.focus = id;
                 $select2.addClass('select2-container-active');
+                console.debug($select);
             } else {
                 this.focus = false;
                 id         = "__initial__";

@@ -10,6 +10,8 @@
 /** */
 namespace Core\Factory\EventManager;
 
+use Core\EventManager\EventProviderInterface;
+use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -51,7 +53,7 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
 
         $events->setIdentifiers($config['identifiers']);
 
-        if (method_exists($events, 'setEventPrototype')) {
+        if ($events instanceOf EventProviderInterface || method_exists($events, 'setEventPrototype')) {
             $event = $serviceLocator->has($config['event']) ? $serviceLocator->get($config['event']) : new $config['event']();
             $events->setEventPrototype($event);
         }
@@ -62,80 +64,75 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         /*
          * [
          *  'listeners' => [
-         *      'listenerclassorservice' => event,
-         *      'listenerclassorservice' => [ event, event => priority ],
-         *      'listeneraggregate',
-         *      'listeneraggregate' => priority
-         * ]
-         * [
-         *  'listeners' => [
-         *      'event' => [
-         *              listener,
-         *              listener => priority,      (= [ 'priority' => priority ] )
-         *              listener => 'methodName',  (= [ 'method' => methodName ] )
-         *              listener => bool,          (= [ 'lazy' => bool ] )
-         *              listener => [ 'method' => name, 'priority' => priority, 'lazy' => bool ]
-         *      ],
-         *      ...,
-         *      '*' => [
-         *              aggragte,
-         *              aggregate => $priority,
-         *              aggregate => [ 'priority' => priority ]
-         *     ],
-         * ]
+         *      listener => event,
+         *      listener => [ event{, methodName}{, priority}{, lazy }],
+         *      aggregate,
+         *      aggregate => priority
          */
 
         $aggregate = false;
 
-        foreach ($config['listeners'] as $event => $listeners) {
-            $isAggregate = '*' == $event;
+        foreach ($config['listeners'] as $name => $options) {
+            $event = $method = null;
+            $priority = 0;
+            $lazy = false;
 
-            foreach ($listeners as $listener => $options) {
-                /* Normalize options */
-                if (is_int($listener)) {
-                    $listener = $options;
-                    $options = [];
+            if (is_int($name) || is_int($options)) {
+                $name = is_int($name) ? $options : $name;
+                $priority = is_int($options) ? $options : 0;
 
-                } else if (is_int($options)) {
-                    $options = [ 'priority' => $options ];
+            } else if (is_string($options)) {
+                $event = $options;
 
-                } else if (is_string($options)) {
-                    $options = [ 'method' => $options ];
+            } else {
 
-                } else if (!is_array($options)) {
-                    $options = [ 'lazy' => (bool) $options ];
+                while ($opt = array_shift($options)) {
+                    if (is_array($opt)) {
+                        $event = $opt;
 
+                    } else if (is_string($opt)) {
+                        if (null === $event) {
+                            $event = $opt;
+                        } else {
+                            $method = $opt;
+                        }
+
+                    } else if (is_int($opt)) {
+                        $priority = $opt;
+
+                    } else if (is_bool($opt)) {
+                        $lazy = $opt;
+                    }
                 }
-
-                $options = array_merge([ 'method' => null, 'priority' => 0, 'lazy' => false ], $options);
-
-                if ($options['lazy'] && !$isAggregate) {
-                    $aggregate = $aggregate ?: $serviceLocator->get('Core/Listener/DeferredListenerAggregate');
-                    $aggregate->setHook($event, $listener, $options['method'], $options['priority']);
-
-                    continue;
-                }
-
-                if ($serviceLocator->has($listener)) {
-                    $listener = $serviceLocator->get($listener);
-
-                } else if (class_exists($listener, true)) {
-                    $listener = new $listener();
-
-                } else {
-                    throw new \UnexpectedValueException(sprintf(
-                        'Class or service %s does not exists. Cannot create listener instance.', $listener
-                    ));
-                }
-
-                if ($isAggregate) {
-                    $listener->attach($events);
-                } else {
-                    $callback = $options['method'] ? [ $listener, $options['method'] ] : $listener;
-                    $events->attach($event, $callback, $options['priority']);
-                }
-
             }
+
+            if ($lazy) {
+                 $aggregate = $aggregate ?: $serviceLocator->get('Core/Listener/DeferredListenerAggregate');
+                 $aggregate->setHook($event, $name, $method, $priority);
+
+                 continue;
+            }
+
+            if ($serviceLocator->has($name)) {
+                $listener = $serviceLocator->get($name);
+
+            } else if (class_exists($name, true)) {
+                $listener = new $name();
+
+            } else {
+                throw new \UnexpectedValueException(sprintf(
+                    'Class or service %s does not exists. Cannot create listener instance.', $name
+                ));
+            }
+
+            if ($listener instanceOf ListenerAggregateInterface) {
+                $listener->attach($events);
+                continue;
+            }
+
+            $callback = $method ? [ $listener, $method ] : $listener;
+            $events->attach($event, $callback, $priority);
+
         }
 
         if ($aggregate) {

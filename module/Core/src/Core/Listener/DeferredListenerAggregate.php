@@ -55,7 +55,7 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
             $priority = $method;
             $method = null;
         }
-        $name = sha1($event . $service . $method . $priority);
+        $name = uniqid();
 
         $this->hooks[$name] = [
             'event' => $event,
@@ -81,7 +81,7 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
     public function attach(EventManagerInterface $events)
     {
         foreach ($this->hooks as $name => $spec) {
-            $listeners[] = $events->attach($spec['event'], array($this, "do$name"));
+            $listeners[] = $events->attach($spec['event'], array($this, "do$name"), $spec['priority']);
         }
     }
 

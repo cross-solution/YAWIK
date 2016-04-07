@@ -8,70 +8,22 @@
  * @license   MIT
  */
 
-$columns = [
-    [
-        'label' => $this->translate('Name'),
-        'sort'  => 'name',
-    ],
-    [
-        'label' => $this->translate('Role'),
-        'sort' => 'role',
-    ],
-    [
-        'label' => $this->translate('Login'),
-        'sort' => 'login',
-    ],
-];
-
-$sort = $this->params()->fromQuery('sort', 'name');
-if ('-' == $sort{0}) {
-    $sortBy  = substr($sort, 1);
-    $sortDir = false;
-} else {
-    $sortBy  = $sort;
-    $sortDir = true;
-}
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination-container.js'));
 
 ?><h1><?php echo $this->translate('Users')?></h1>
+    <nav class="navbar yk-toolbar" >
+        <?php echo $this->searchForm($this->form) ?>
+    </nav>
 
-<table class="table table-striped table-bordered table-hover" id="users-list">
-    <tr>
-        <?php foreach ($columns as $spec):?>
-            <th<?php echo isset($spec['class']) ? ' class="' . $spec['class'] . '"' : '' ?>>
-                <?php if (! isset($spec['sort'])): echo $spec['label'];
-                else:
-                    if ($spec['sort'] == $sortBy):
-                        $icon = '<span style="margin-top: 5px;" class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
-                        $dir = !$sortDir;
-                    else:
-                        $dir = true;
-                        $icon = '<span style="margin-top: 5px" class="pull-right yk-icon yk-icon-sort"></span>';
-                    endif;
-                    $sortParam = array('sort' => ($dir ? '' : '-') . $spec['sort']);
-                    $url = $this->url(
-                        'lang/user-list', array(),
-                        array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
-                        true
-                    );
-                    ?>
-                    <a style="width: 100%; display: inline-block;" href="<?php echo $url?>"><?php echo $spec['label'].$icon ?></a>
-                <?php endif; ?>
-            </th>
-        <?php endforeach; ?>
-    </tr>
-    <?php foreach($users as $user): /* @var Auth\Entity\User $user */?>
-        <tr>
-            <td>
-                <?php echo $user->getInfo()->getDisplayName() ?>
-            </td>
-            <td>
-                <?php echo $user->getRole() ?>
-            </td>
-            <td>
-                <?php echo $user->getLogin() ?>
-            </td>
-        </tr>
+    <div id="jobs-list-container" class="pagination-container" data-uri="<?php
+    echo $this->url('lang/user-list', array(), array('query' => $this->params()->fromQuery()), true)?>">
 
-    <?php endforeach;?>
-</table>
-<?php echo $this->paginationControl($users, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/user-list'));?>
+        <div class="pagination-message alert alert-info">
+            <?php echo $this->translate('No user found matching your criteria.') ?>
+        </div>
+
+        <div class="pagination-content">
+            <?php echo $this->render('auth/users/list.ajax.phtml')?>
+        </div>
+
+    </div>

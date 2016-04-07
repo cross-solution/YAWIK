@@ -468,7 +468,7 @@ class ManageController extends AbstractActionController
             $jobEvents->trigger(JobEvent::EVENT_JOB_ACCEPTED, $jobEvent);
             $this->entitySnapshot($jobEntity);
             $this->notification()->success(/* @translate */ 'Job has been approved');
-            return $this->redirect()->toRoute('lang/jobs/listOpenJobs', array(), true);
+            return $this->redirect()->toRoute('lang/admin/jobs', array('lang' => $this->params('lang')));
         }
 
         $viewLink = $this->url()->fromRoute(

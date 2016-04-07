@@ -72,6 +72,10 @@ abstract class AbstractPaginationQuery implements FilterInterface
 
         if (isset($this->sortPropertiesMap[$sortProp])) {
             $sortProp = $this->sortPropertiesMap[$sortProp];
+
+            if (is_array($sortProp)) {
+                return array_fill_keys($sortProp, $sortDir);
+            }
         }
 
         return array($sortProp => $sortDir);

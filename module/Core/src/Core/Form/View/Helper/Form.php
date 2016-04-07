@@ -119,7 +119,7 @@ class Form extends ZendForm
                 $elementId = preg_replace(
                     array('~[^A-Za-z0-9_-]~', '~--+~', '~^-|-$~'),
                     array('-'             , '-',     ''),
-                    $form->getName() . '-' . $element->getName()
+                    $element->getName()
                 );
                 $element->setAttribute('id', $elementId);
             }

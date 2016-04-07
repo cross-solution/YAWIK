@@ -26,6 +26,20 @@ use Orders\Entity\Snapshot\SnapshotInterface;
  *
  * @ODM\Document(collection="orders", repositoryClass="Orders\Repository\Orders")
  * @ODM\HasLifeCycleCallbacks
+ * @ODM\Indexes({
+ *      @ODM\Index(keys={
+ *                  "number"="text",
+ *                  "invoiceAddress.name"="text",
+ *                    "invoiceAddress.company"="text",
+ *                    "invoiceAddress.street"="text",
+ *                    "invoiceAddress.zipCode"="text",
+ *                    "invoiceAddress.city"="text",
+ *                     "invoiceAddress.region"="text",
+ *                     "invoiceAddress.country"="text",
+ *                     "invoiceAddress.vatId"="text",
+ *                     "invoiceAddress.email"="text"
+ *                 }, name="fulltext")
+ * })
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
@@ -38,7 +52,7 @@ class Order implements OrderInterface, ImmutableEntityInterface
     /**
      * The order number
      *
-     * @Odm\String
+     * @ODM\String
      * @var string
      */
     protected $number;

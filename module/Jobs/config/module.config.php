@@ -104,7 +104,7 @@ return array(
                     'Jobs/Manage' => array(
                         'approval',
                     ),
-                    'route/lang/jobs/listOpenJobs',
+                    //'route/lang/jobs/listOpenJobs',
                     'pendingJobs',
                 ),
                 'deny' => array(
@@ -122,6 +122,17 @@ return array(
 
     'navigation' => array(
         'default' => array(
+            'admin' => [
+                'pages' => [
+                    'jobs' => [
+                        'label' => /*@translate*/ 'Jobs',
+                        'route' => 'lang/admin/jobs',
+                        'query' => array(
+                            'clear' => '1'
+                        ),
+                    ],
+                ],
+            ],
             'jobboard' => array(
                 'label' =>  /*@translate*/ 'Jobboard',
                 'route' => 'lang/jobboard',
@@ -139,11 +150,11 @@ return array(
                         'route' => 'lang/jobs',
                         'resource' => 'JobList'
                     ),
-                    'pending-list' => array(
-                        'label' => /*@translate*/ 'Pending jobs',
-                        'route' => 'lang/jobs/listOpenJobs',
-                        'resource' => 'pendingJobs'
-                    ),
+//                    'pending-list' => array(
+//                        'label' => /*@translate*/ 'Pending jobs',
+//                        'route' => 'lang/jobs/listOpenJobs',
+//                        'resource' => 'pendingJobs'
+//                    ),
                     'new' => array(
                         'label' => /*@translate*/ 'Create job',
                         'route' => 'lang/jobs/manage',
@@ -186,6 +197,7 @@ return array(
             'Jobs/RestClient'                             => 'Jobs\Factory\Service\JobsPublisherFactory',
             //'Jobs/Events'                                 => 'Jobs\Factory\JobEventManagerFactory',
             'Jobs/Listener/MailSender'                    => 'Jobs\Factory\Listener\MailSenderFactory',
+            'Jobs/Listener/AdminWidgetProvider'           => 'Jobs\Factory\Listener\AdminWidgetProviderFactory',
             'Jobs/ViewModelTemplateFilter'                => 'Jobs\Factory\Filter\ViewModelTemplateFilterFactory',
             'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
 
@@ -197,9 +209,14 @@ return array(
     ),
 
     'event_manager' => [
+        'Core/AdminController/Events' => [ 'listeners' => [
+            'Jobs/Listener/AdminWidgetProvider' => \Core\Controller\AdminControllerEvent::EVENT_DASHBOARD,
+        ]],
+
         'Jobs/Events' => [
             'event' => '\Jobs\Listener\Events\JobEvent',
         ],
+
         'Jobs/JobContainer/Events' => [
             'event' => '\Core\Form\Event\FormEvent',
         ],
@@ -210,6 +227,7 @@ return array(
             'Jobs/Import' => 'Jobs\Controller\ImportController',
             'Jobs/Console' => 'Jobs\Controller\ConsoleController',
             'Jobs/ApiJobList' => 'Jobs\Controller\ApiJobListController',
+            'Jobs/Admin'      => 'Jobs\Controller\AdminController',
 
         ),
         'factories' => array(
@@ -320,10 +338,13 @@ return array(
             'Jobs/MultipostButtonFieldset'      => 'Jobs\Form\MultipostButtonFieldset',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
+            'Jobs/AdminSearch'                  => 'Jobs\Form\AdminSearchForm',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterLocation'           => 'Jobs\Form\ListFilterLocation',
             'Jobs/ListFilterPersonal'           => 'Jobs\Form\ListFilterPersonal',
             'Jobs/ListFilterAdmin'              => 'Jobs\Form\ListFilterAdmin',
+            'Jobs/StatusSelect'                 => 'Jobs\Form\Element\StatusSelect',
+            'Jobs/AdminJobEdit'                 => 'Jobs\Form\AdminJobEdit',
 
         ),
         'factories' => array(
@@ -350,9 +371,11 @@ return array(
     ),
 
     'filters' => array(
+        'invokables' => [
+            'Jobs/PaginationAdminQuery' => 'Jobs\Repository\Filter\PaginationAdminQuery',
+        ],
         'factories'=> array(
             'Jobs/PaginationQuery'      => 'Jobs\Factory\Repository\Filter\PaginationQueryFactory',
-            'Jobs/PaginationAdminQuery' => 'Jobs\Factory\Repository\Filter\PaginationAdminQueryFactory',
             'Jobs/ChannelPrices'        => 'Jobs\Factory\Filter\ChannelPricesFactory',
         ),
     ),

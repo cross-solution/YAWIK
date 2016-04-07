@@ -1,0 +1,20 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+
+$this->headTitle('Admin');
+?>
+<h1><?php echo $this->translate('Admin') ?> - <?php echo $this->translate('Dashboard')?></h1>
+
+<div class="row">
+    <?php foreach ($this->widgets as $widget):?>
+    <div class="col-md-4">
+        <?php echo $$widget ?>
+    </div>
+    <?php endforeach ?>
+</div>
