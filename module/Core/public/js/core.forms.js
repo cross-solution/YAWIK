@@ -19,6 +19,9 @@
 			
 			displayErrors: function($form, errors, prefix)
 			{
+                if (prefix == undefined) {
+                    prefix = '';
+                }
                 $.each(errors, function(idx, error) {
                     var $errorsDiv = $form.find('#' + prefix + idx + '-errors');
 //                    console.debug('inserting error messages', '#' + prefix + idx + '-errors', $errorsDiv, error);
@@ -78,6 +81,7 @@
                 $form.trigger('ajax.ready', {'data': data});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
+                    console.debug(textStatus, errorThrown);
 				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
                 $form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
             })
@@ -101,20 +105,20 @@
 	
 	var helpers = {
 		
-		initSelect: function() 
+		initSelect: function()
 		{
 			var $select = $(this);
             var data    = $select.data();
-			var options = {theme:"bootstrap"};
+			var options = {theme:"bootstrap", width: 'resolve'};
 
             // allow disabling this autoinit routine.
             // Select2 elements must then be initialized explicitely.
             if (false == data.autoinit) {
                 return;
             }
-			
+
 			$.each($select.data(), function(idx, val) {
-				
+
 				switch (idx) {
 					case "allowclear":
 						idx = "allowClear";
@@ -130,10 +134,10 @@
 					default:
 						break;
 				}
-				
+
 				options[idx] = val;
 			});
-//			console.debug($select, options);
+			console.debug($select, options);
 			$select.select2(options);
 		},
 
@@ -215,6 +219,8 @@
             elementsThatTriggerASubmit.change(handlers.onChange);
 		});
 	};
+
+    $.fn.form.initSelect = helpers.initSelect;
 
 	if ($.fn.select2) {
 		$.extend(

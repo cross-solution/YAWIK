@@ -326,6 +326,7 @@ return array(
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
             'formWizardContainer' => 'Core\Form\View\Helper\FormWizardContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
+            'searchForm' => 'Core\Form\View\Helper\SearchForm',
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
@@ -408,6 +409,7 @@ return array(
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
             'Core/Container' => 'Core\Form\Container',
+            'Core/TextSearch' => 'Core\Form\TextSearchForm',
 
         ),
         'initializers' => array(

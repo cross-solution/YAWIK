@@ -17,10 +17,19 @@
 $urlHelper = $this->plugin('url');
 ?>
 <div class="panel panel-default">
+    <?php if ($this->title): ?>
     <div class="panel-heading">
         <h3 class="panel-title"><?php echo $this->translate($this->title)?></h3>
     </div>
-    <?php if ($this->content): ?>
+    <?php endif ?>
+    <?php if ($this->content):
+        if (is_array($this->content)) {
+            $translate = $this->plugin('translate');
+            $contentParts = array_map(function($i) use ($translate) { return $translate($i); }, $this->content);
+            $contentText = call_user_func_array('sprintf', $contentParts);
+            $this->content = $contentText;
+        }
+        ?>
     <div class="panel-body"><?php echo $this->content ?></div>
     <?php endif ?>
     <?php if ($this->data): ?>
@@ -40,7 +49,7 @@ $urlHelper = $this->plugin('url');
                     if (false === strpos($info, '%s')) {
                         $info = "%s$info%s";
                     }
-                    
+
                     $info = sprintf($info, '<a href="' . $url . '">', '</a>');
                 }
                 $value = isset($value['value']) ? $value['value'] : false;

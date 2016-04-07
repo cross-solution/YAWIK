@@ -37,7 +37,8 @@
 
             $loading.hide();
             $error.hide();
-            if (!$content.html()) {
+
+            if (!$content.html().trim()) {
                 $message.show();
                 $content.hide();
             } else {

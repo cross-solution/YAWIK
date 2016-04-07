@@ -42,6 +42,8 @@ class FormDatePicker extends FormText
         /* @var \Zend\View\Helper\BasePath $basePath */
 
         $basePath = $view->plugin('basePath');
+        $params   = $view->plugin('params'); /* @var \Core\View\Helper\Params $params */
+        $lang     = $params('lang');
 
         if (in_array($this->language, ['de'])) {
             $headScript->appendFile($basePath('/js/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
@@ -49,17 +51,22 @@ class FormDatePicker extends FormText
         $headScript->appendFile($basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'));
 
 
+        $element->setAttributes([
+                                    'data-date-language' => $lang,
+                                    'data-provide' => 'datepicker',
+                                    'data-date-format' => 'yyyy-mm-dd']);
         $input = parent::render($element);
 
         /*
          *
          */
-        $markup = '<div class="input-group date"  data-date-format="yyyy-mm-dd" data-provide="datepicker">%s<div class="input-group-addon">' .
+        $markup = '<div class="input-group date">%s<div data-toggle="description" data-target="%s" class="input-group-addon" onClick="$(this).parent().find(\':input\').datepicker(\'show\')">' .
             '<i class="fa fa-calendar"></i></div></div><div class="checkbox"></div>';
         
         $markup = sprintf(
             $markup,
-            $input
+            $input,
+            $element->getAttribute('id')
         );
         
         return $markup;
