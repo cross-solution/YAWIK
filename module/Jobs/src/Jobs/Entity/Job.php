@@ -546,9 +546,12 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function setDatePublishStart($datePublishStart = null)
     {
-        if (!isset($datePublishStart)) {
-            $datePublishStart = new \DateTime();
+        if (!isset($datePublishStart) || is_string($datePublishStart)) {
+            $datePublishStart = new \DateTime($datePublishStart);
+        } else if (!$datePublishStart instanceOf \DateTime) {
+            throw new \InvalidArgumentException('Expected object of type \DateTime');
         }
+
         $this->datePublishStart = $datePublishStart;
         return $this;
     }

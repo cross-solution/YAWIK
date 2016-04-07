@@ -11,6 +11,19 @@
 
 // Routes
 return array('router' => array('routes' => array('lang' => array('child_routes' => array(
+    'admin' => [ 'child_routes' => [
+        'jobs' => [
+            'type' => 'Segment',
+            'options' => [
+                'route' => '/jobs[/:action]',
+                'defaults' => [
+                    'controller' => 'Jobs/Admin',
+                    'action'     => 'index',
+                ],
+            ],
+            'may_terminate' => true,
+        ],
+    ]],
     'api-jobs' => array(
         'type' => 'Literal',
         'options' => array(

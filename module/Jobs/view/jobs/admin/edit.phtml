@@ -1,0 +1,35 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+?>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"><?php echo sprintf($this->translate('Edit job "%s"'), $this->job->getTitle()) ?></h4>
+</div>
+<div class="modal-body">
+    <?php echo $this->form(
+                    $this->form->setAttribute('action', $this->url(
+                          'lang/admin/jobs', ['action' => 'edit'], ['query' => [ 'id' => $this->job->getId()]], true
+                    ))
+    ); ?>
+</div>
+<div class="modal-footer">
+    <div class="btn-group">
+
+    <button type="button" data-provide="spinnerbutton" class="job-edit-save btn btn-primary">
+        <div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span>
+            <?php echo $this->translate('processing') ?>
+        </div>
+        <div class="default"><?php echo $this->translate('Save changes') ?></div>
+    </button>
+    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('Cancel') ?></button>
+    </div>
+</div>
+</div>
