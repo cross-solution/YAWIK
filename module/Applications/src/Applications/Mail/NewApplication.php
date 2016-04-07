@@ -10,8 +10,10 @@
 /** NewApplication.php */
 namespace Applications\Mail;
 
+use Auth\Entity\UserInterface;
 use Jobs\Entity\JobInterface;
 use Core\Mail\StringTemplateMessage;
+use Organizations\Entity\EmployeeInterface;
 
 /**
  * Sends Information about a new Application to the recruiter
@@ -73,12 +75,8 @@ class NewApplication extends StringTemplateMessage
             'name' => $name,
             'title' => $this->job->getTitle()
         );
-        
-        $this->setTo($userInfo->getEmail(), $name != $userInfo->getEmail() ? $name : null);
 
-        if ($this->admin && $this->admin->getSettings('Applications')->getMailBCC()) {
-            $this->addBcc($this->admin->getInfo()->getEmail(), $this->admin->getInfo()->getDisplayName());
-        }
+        $this->setReciptient();
 
         $this->setVariables($variables);
         $subject = /*@translate*/ 'New application for your vacancy "%s"';
@@ -88,9 +86,7 @@ class NewApplication extends StringTemplateMessage
         }
         $this->setSubject(sprintf($subject, $this->job->getTitle()));
         
-        /* @todo settings retrieved from user entity is an array
-         *       not an entity.
-         */
+        /* @var \Applications\Entity\Settings $settings */
         $settings = $this->user->getSettings('Applications');
 
         $body = $settings->getMailAccessText();
@@ -138,4 +134,47 @@ class NewApplication extends StringTemplateMessage
         $this->admin = $admin;
         return $this;
     }
+
+    protected function setReciptient() {
+        $workflowSettings = $this->getWorkflowSettings();
+        if ($workflowSettings->getAcceptApplicationByDepartmentManager()){
+            $departmentManagers = $this->getDepartmentManagers();
+            foreach ($departmentManagers as $employee) { /* @var \Organizations\Entity\Employee $employee */
+                $this->setTo($employee->getUser()->getInfo()->getEmail(), $employee->getUser()->getInfo()->getDisplayName());
+            }
+        } else {
+            $this->setTo($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName());
+        }
+        if (true === $this->admin && $this->user->getSettings('Applications')->getMailBCC()) {
+            $this->addBcc($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName());
+        } elseif($this->admin instanceof UserInterface && $this->admin->getSettings('Applications')->getMailBCC()) {
+            $this->addBcc($this->admin->getInfo()->getEmail(), $this->admin->getInfo()->getDisplayName());
+        }
+    }
+
+    /**
+     * @return bool|\Doctrine\Common\Collections\Collection
+     */
+    protected function getDepartmentManagers(){
+        if (true === $this->admin) {
+            return $this->user->getOrganization()->getOrganization()->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+        } elseif($this->admin) {
+            return $this->admin->getOrganization()->getOrganization()->getEmployeesByRole(EmployeeInterface::ROLE_DEPARTMENT_MANAGER);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return bool|\Organizations\Entity\WorkflowSettings
+     */
+    protected function getWorkflowSettings()
+    {
+        if ($this->user->getOrganization()->hasAssociation()) {
+            return $this->user->getOrganization()->getOrganization()->getWorkflowSettings();
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -238,10 +238,11 @@ class IndexController extends AbstractActionController
 //        $container->setParam('applyId',$job->applyId);
 
         if ('__my__' != $this->params('id', '')) {
-            $container->disableForm('employeesManagement');
+            $container->disableForm('employeesManagement')
+                        ->disableForm('workflowSettings');
         } else {
-            $container->disableForm('organizationLogo')
-                      ->disableForm('descriptionForm');
+            $container ->disableForm('organizationLogo')
+                        ->disableForm('descriptionForm');
         }
         return $container;
     }

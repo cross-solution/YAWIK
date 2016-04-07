@@ -34,9 +34,9 @@ class EventApplicationCreated
      * @param ModuleOptions $options
      * @param MailService   $mailService
      */
-    public function __construct(ModuleOptions $options,MailService $mailService)
+    public function __construct(ModuleOptions $options, MailService $mailService)
     {
-        $this->options = $options;
+        $this->options     = $options;
         $this->mailService = $mailService;
     }
 
@@ -44,14 +44,12 @@ class EventApplicationCreated
     {
         $this->application = $event->getApplicationEntity();
         $this->sendRecruiterMails();
-        $this->sendUserMails();
+        $this->sendCarbonCopyToCandidate();
     }
 
     protected function sendRecruiterMails()
     {
-
-        $recruiter = $this->getRecruiter();
-        $job = $this->getJob();
+        $recruiter = $this->application->getJob()->getUser();
 
         /* @var \Applications\Entity\Settings $settings */
         $settings = $recruiter->getSettings('Applications');
@@ -59,17 +57,18 @@ class EventApplicationCreated
             $this->mailService->get(
                 'Applications/NewApplication',
                 [
-                    'job' => $job,
-                    'user' => $recruiter,
+                    'job'   => $this->application->getJob(),
+                    'user'  => $recruiter,
                     'admin' => $this->getOrganizationAdmin()
                 ],
-                /*send*/ true
+                /*send*/
+                true
             );
         }
         if ($settings->getAutoConfirmMail()) {
             $ackBody = $settings->getMailConfirmationText();
             if (empty($ackBody)) {
-                $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
+                $ackBody = $settings->getMailConfirmationText();
             }
             if (!empty($ackBody)) {
                 /* confirmation mail to the applicant */
@@ -77,56 +76,51 @@ class EventApplicationCreated
                     'Applications/Confirmation',
                     [
                         'application' => $this->application,
-                        'body' => $ackBody,
+                        'body'        => $ackBody,
                     ]
                 );
 
                 // Must be called after initializers in creation
-                $ackMail->setSubject( /* @translate */ 'Application confirmation');
+                $ackMail->setSubject(/* @translate */ 'Application confirmation' );
 
                 $ackMail->setFrom($recruiter->getInfo()->getEmail());
                 $this->mailService->send($ackMail);
-                $this->application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s', $this->application->getContact()->getEmail()));
+                $this->application->changeStatus(
+                    StatusInterface::CONFIRMED,
+                    sprintf('Mail was sent to %s', $this->application->getContact()->getEmail())
+                );
             }
         }
     }
 
-    protected function sendUserMails()
+    /**
+     * Send Carbon Copy to the User
+     */
+    protected function sendCarbonCopyToCandidate()
     {
         if ($this->application->getAttributes()->getSendCarbonCopy()) {
             $this->mailService->get(
-                 'Applications/CarbonCopy',
-                 [
-                     'application' => $this->application
-                 ],
-                 /*send*/ true
+                'Applications/CarbonCopy',
+                [
+                    'application' => $this->application
+                ],
+                /*send*/
+                true
             );
         }
     }
 
     /**
-     * @return \Auth\Entity\UserInterface
-     */
-    public function getRecruiter(){
-        return $this->getJob()->getUser();
-    }
-
-    /**
-     * @return \Jobs\Entity\JobInterface
-     */
-    public function getJob(){
-        return $this->application->getJob();
-    }
-
-    /**
      * @return \Auth\Entity\UserInterface|bool
      */
-    public function getOrganizationAdmin(){
-        if ($this->getRecruiter()->getOrganization()->isOwner()){
-            return $this->getRecruiter();
-        }elseif($this->getRecruiter()->getOrganization()->hasAssociation()) {
-            return $this->getRecruiter()->getOrganization()->getOrganization()->getUser();
-        }else{
+    protected function getOrganizationAdmin()
+    {
+        $recruiter = $this->application->getJob()->getUser();
+        if ($recruiter->getOrganization()->isOwner()) {
+            return true;
+        } elseif ($recruiter->getOrganization()->hasAssociation()) {
+            return $recruiter->getOrganization()->getOrganization()->getUser();
+        } else {
             return false;
         }
     }

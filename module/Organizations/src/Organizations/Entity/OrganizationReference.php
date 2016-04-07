@@ -402,6 +402,15 @@ class OrganizationReference implements
         return $this->proxy('setTemplate', $template);
     }
 
+    public function getWorkflowSettings()
+    {
+        return $this->proxy('getWorkflowSettings');
+    }
+
+    public function setWorkflowSettings($workflowSettings)
+    {
+        return $this->proxy('setWorkflowSettings');
+    }
 
     /**#@-*/
 }

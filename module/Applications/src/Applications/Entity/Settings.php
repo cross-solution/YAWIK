@@ -19,7 +19,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *
  * @ODM\EmbeddedDocument
  */
-class Settings extends ModuleSettingsContainer
+class Settings extends ModuleSettingsContainer implements SettingsInterface
 {
     
     /**
@@ -100,6 +100,14 @@ class Settings extends ModuleSettingsContainer
     }
 
     /**
+     * @return bool
+     */
+    public function getMailAccess()
+    {
+        return $this->mailAccess;
+    }
+
+    /**
      * @param $formDisplaySkills
      * @return $this
      */
@@ -121,7 +129,13 @@ class Settings extends ModuleSettingsContainer
             $settings->setForm('Applications/Apply');
             $this->applyFormSettings = $settings;
         }
-
         return $this->applyFormSettings;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAutoConfirmMail(){
+        return $this->autoConfirmMail;
     }
 }

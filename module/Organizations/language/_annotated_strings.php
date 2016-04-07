@@ -2,10 +2,10 @@
 //: ./view/organizations/index/index.ajax.phtml:15
 translate('Organization');
 
-//: ./view/organizations/index/index.ajax.phtml:17
+//: ./view/organizations/index/index.ajax.phtml:16
 translate('City');
 
-//: ./view/organizations/index/index.ajax.phtml:19
+//: ./view/organizations/index/index.ajax.phtml:20
 translate('Street');
 
 //: ./view/form/invite-employee-bar.phtml:33
@@ -26,6 +26,15 @@ translate('View Applications');
 //: ./src/Organizations/Form/EmployeeFieldset.php:65
 translate('Edit Applications');
 
+//: ./src/Organizations/Form/EmployeeFieldset.php:77
+translate('Recruiter');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:78
+translate('Department Manager');
+
+//: ./src/Organizations/Form/EmployeeFieldset.php:79
+translate('Managing Directors');
+
 //: ./src/Organizations/Form/Organizations.php:35
 translate('Please enter the name of the hiring organization.');
 
@@ -41,6 +50,12 @@ translate('Employees');
 //: ./src/Organizations/Form/Organizations.php:69
 translate('Manage your employees and their permissions.');
 
+//: ./src/Organizations/Form/Organizations.php:77
+translate('Workflow');
+
+//: ./src/Organizations/Form/Organizations.php:79
+translate('Define, how notifications about new applications reach your employees');
+
 //: ./src/Organizations/Form/OrganizationsDescriptionFieldset.php:44
 translate('Description');
 
@@ -49,6 +64,24 @@ translate('Choose a Logo. This logo will be shown in the job opening and the app
 
 //: ./src/Organizations/Form/OrganizationsNameFieldset.php:54
 translate('Organizationname');
+
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:38
+translate('accept Applications by Department Managers');
+
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:39
+translate('if checked, department managers are informed bout new applications first.');
+
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:40
+translate('Department managers have to accept a candidate.');
+
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:51
+translate('assign department managers to jobs');
+
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:52
+translate('if checked, department managers have to be assigned to job postings.');
+
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:53
+translate('if you have more them one department managers, you can assign them to a job posting. If nobody is assigned, all department managers will be informed about new applications');
 
 //: ./src/Organizations/Form/EmployeesFieldset.php:56
 translate('Invite an employee via email address.');
@@ -80,9 +113,9 @@ translate('The access token you provided seems to have expired.');
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:160
+//: ./config/module.config.php:165
 translate('Overview');
 
-//: ./config/module.config.php:164
+//: ./config/module.config.php:169
 translate('Insert');
 

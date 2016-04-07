@@ -33,7 +33,6 @@ use Core\Entity\DraftableEntityInterface;
  */
 class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface
 {
-
     /**
      * Event name of post construct event.
      *
@@ -151,6 +150,14 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\EmbedOne(targetDocument="\Organizations\Entity\Template")
      */
     protected $template;
+
+    /**
+     * Default values Workflow
+     *
+     * @var WorkflowSettingsInterface $workflowSettings;
+     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\WorkflowSettings")
+     */
+    protected $workflowSettings;
 
     /**
      * Sets the parent of an organization
@@ -285,28 +292,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function getSearchableProperties()
     {
         return array();
-    }
-
-    /**
-     * @deprecated
-     * @param array $keywords
-     */
-    public function setKeywords(array $keywords)
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function clearKeywords()
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getKeywords()
-    {
     }
 
     /**
@@ -694,5 +679,22 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setTemplate(TemplateInterface $template)
     {
         // TODO: Implement setTemplate() method.
+    }
+
+    /**
+     * @return WorkflowSettings|WorkflowSettingsInterface
+     */
+    public function getWorkflowSettings(){
+        if (null == $this->workflowSettings) {
+            $this->workflowSettings = new WorkflowSettings();
+        }
+        return $this->workflowSettings;
+    }
+
+    /**
+     * @param $workflowSettings
+     */
+    public function setWorkflowSettings($workflowSettings){
+        $this->workflowSettings=$workflowSettings;
     }
 }
