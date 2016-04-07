@@ -23,12 +23,6 @@ use Zend\View\Model\ViewModel;
 class UsersController extends AbstractActionController
 {
 
-
-    /**
-     * @var  User $userRepository
-     */
-    private $userRepository;
-
     /**
      * Login with username and password
      *
@@ -41,10 +35,16 @@ class UsersController extends AbstractActionController
         $params           = $request->getQuery();
 
         $paginator = $this->paginator('Auth/User', $params);
+        $form = $this->getServiceLocator()->get('forms')
+                ->get('Core/TextSearch', [
+                                           'placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
+                                           'button_element' => 'text'
+                                       ]);
 
         $return = array(
             'by' => $params['by'],
             'users' => $paginator,
+            'form' => $form,
         );
 
         return $return;
