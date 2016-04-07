@@ -196,9 +196,9 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetDatePublishStart()
     {
-        $date = \DateTime::createFromFormat(time(), \DateTime::ISO8601);
+        $date = new \DateTime();
         $this->target->setDatePublishStart($date);
-        $this->assertEquals($date, $this->target->getDatePublishStart());
+        $this->assertSame($date, $this->target->getDatePublishStart());
     }
 
     public function provideSetGetStatusTestData()
