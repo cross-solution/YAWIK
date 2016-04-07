@@ -188,8 +188,6 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
             array(array('setPermissions', 'getPermissions'), array(array($perms), array()), array('__self__', $perms)),
             array('getPermissionsResourceId', array(), 'organization:'),
             array('getSearchableProperties', array(), array()),
-            array(array('setKeywords', 'getKeywords'), array(array(array('no', 'keywords')), array()), array(null, null)),
-            array('clearKeywords', array(), null),
         );
     }
 }
