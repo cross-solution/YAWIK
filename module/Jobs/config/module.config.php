@@ -82,10 +82,13 @@ return array(
             'guest' => array(
                 'allow' => array(
                     'Jobboard',
+                    'Jobs/Jobboard',
+                    'Jobs/Template' => [ 'view' ],
                     'Jobs/Manage' => array(
                         'template',
                     ),
                     'route/lang/jobs/template',
+                    'route/lang/jobboard',
                 ),
                 'deny' => 'JobList'
             ),

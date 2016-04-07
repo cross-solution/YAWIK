@@ -223,8 +223,9 @@ return array(
         'Applications/Events' => [
             'event' => '\Applications\Listener\Events\ApplicationEvent',
             'listeners' => [
-                \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_POST_CREATE => [
-                    'Applications/Listener/ApplicationCreated' => true,
+                'Applications/Listener/ApplicationCreated' => [
+                    \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_POST_CREATE,
+                    /* lazy */ true
                 ]
             ]
         ],
