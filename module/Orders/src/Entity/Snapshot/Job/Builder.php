@@ -13,7 +13,6 @@ namespace Orders\Entity\Snapshot\Job;
 use Core\Entity\EntityInterface;
 use Core\Exception\MissingDependencyException;
 use Jobs\Entity\JobInterface;
-use Orders\Entity\Jobs\JobSnapshot;
 use Orders\Entity\Snapshot\BuilderInterface;
 
 /**
@@ -34,7 +33,7 @@ class Builder implements BuilderInterface
     /**
      * The target entity
      *
-     * @var string|JobSnapshot
+     * @var |Orders\Entity\Snapshot\Job\JobSnapshot
      */
     protected $target = '\Orders\Entity\Snapshot\Job\JobSnapshot';
 

@@ -19,7 +19,9 @@
 <?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
 
 <nav class="navbar yk-toolbar" id="orders-list-filter-wrapper">
-<?php //echo $this->form($this->filterForm)  ?>
+<?php
+        $this->form->get('text')->setAttribute('placeholder', $this->translate('Search address parts or order numbers...'));
+        echo $this->searchForm($this->form)  ?>
 </nav>
 
 <div id="orders-list-container" class="pagination-container"

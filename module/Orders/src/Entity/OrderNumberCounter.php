@@ -22,7 +22,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * ${CARET}
  *
  * @ODM\Document(collection="orders.ordernumbercounter")
- * @ODM\UniqueIndex(keys={"name", "count"})
+ * @ODM\UniqueIndex(keys={"name"=1, "count"=1})
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */

@@ -24,9 +24,11 @@ class ListController extends AbstractActionController
 
     public function indexAction()
     {
+        $form = $this->getServiceLocator()->get('forms')->get('Core/TextSearch');
         $orders = $this->paginator('Orders', [ 'sort' => 'date' ]);
 
         return [
+            'form' => $form,
             'orders' => $orders
         ];
     }

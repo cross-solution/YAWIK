@@ -17,6 +17,7 @@ use \Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * ${CARET}
  *
  * @ODM\EmbeddedDocument
+
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
