@@ -83,7 +83,7 @@ return array(
                 'allow' => array(
                     'Jobboard',
                     'Jobs/Jobboard',
-                    'Jobs/Template' => [ 'view' ],
+                    'Jobs/Template' => [ 'view', 'edittemplate' ],
                     'Jobs/Manage' => array(
                         'template',
                     ),
