@@ -58,7 +58,7 @@ class Job extends WizardContainer
     {
         $elements = [
             'general' => [
-                'priority' => 0,
+                'priority' => 100,
                 'options' => [ 'label' => 'Basic Data' ],
                 'property' => true,
                 'forms' => [
@@ -94,7 +94,7 @@ class Job extends WizardContainer
             ],
 
             'description' => [
-                'priority' => '0',
+                'priority' => '80',
                 'options' => [ 'label' => 'Job opening' ],
                 'property' => true,
                 'forms' => [
@@ -106,7 +106,7 @@ class Job extends WizardContainer
             ],
 
             'preview' => [
-                'priority' => 0,
+                'priority' => 60,
                 'options' => [ 'label' => 'Preview' ],
                 'property' => true,
                 'forms' => [
@@ -116,6 +116,7 @@ class Job extends WizardContainer
                     ),
                 ],
             ],
+
         ];
 
         $this->setForms($elements);

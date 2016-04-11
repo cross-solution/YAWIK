@@ -20,8 +20,12 @@ use Settings\Form\SettingsFieldset;
  */
 class InvoiceAddressSettingsFieldset extends SettingsFieldset
 {
+    /*
+     * map label of fieldset.
+     */
     protected $labelMap = [
         'name'  => /*@translate*/ 'Full Name',
+        'gender'  => /*@translate*/ 'Salutation',
         'company' => /*@translate*/ 'Company',
         'street' => /*@translate*/ 'Street',
         'zipCode' => /*@translate*/ 'Postalcode',
@@ -34,7 +38,7 @@ class InvoiceAddressSettingsFieldset extends SettingsFieldset
 
     public function init()
     {
-        $this->setLabel(/*@translate*/ 'Invoice Adress');
+        $this->setLabel(/*@translate*/ 'Invoice Address');
     }
     
 }
