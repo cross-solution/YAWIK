@@ -61,7 +61,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
         }
         $children = array();
         foreach ($properties as $property) {
-            if (in_array($property->getName(), $skipProperties)) {
+            if (in_array($property->getName(), $skipProperties) || $this->has($property->getName())) {
                 continue;
             }
             $property->setAccessible(true);
@@ -72,10 +72,20 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
             }
 
             $inputName = $property->getName();
+
             $inputLabel = isset($this->labelMap[$inputName]) ? $this->labelMap[$inputName] : $inputName;
+
+            if (is_array($inputLabel)){
+                $priority = isset($inputLabel[1])?$inputLabel[1]:0;
+                $inputLabel = $inputLabel[0];
+            }else{
+                $priority = 0;
+            }
+
             $input = array(
                     'name' => $inputName,
                     'options' => array(
+
                         'label' => $inputLabel
                     ),
             );
@@ -85,7 +95,7 @@ class SettingsFieldset extends Fieldset implements ServiceLocatorAwareInterface
             } else {
                 $input['attributes']['value'] = $value;
             }
-            $this->add($input);
+            $this->add($input,['priority'=>$priority]);
             
         }
         
