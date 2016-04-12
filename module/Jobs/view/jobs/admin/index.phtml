@@ -8,31 +8,15 @@
                          ->appendFile($this->basePath('Core/js/core.spinnerbutton.js'))
                          ->appendFile($this->basePath('/js/select2.min.js'))
                          ->appendFile($this->basePath('Core/js/forms.descriptions.js'))
-                         ->appendFile($this->basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'));
+                         ->appendFile($this->basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
+                         ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
+
 if ('de' == $this->params('lang')) {
     $this->headScript()->appendFile($this->basePath('/js/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
 }
 
 
 $this->headScript()->captureStart() ?>
-/* This code is generated in jobs/index/approval.phtml
- *
- * It forces the history modal and edit popup to loose its data on close.
- */
-(function($) {
-    var loadingText;
-    $(function() {
-        var $modal = $('#job-application-history');
-        loadingText = $modal.find('.modal-header h4').html();
-
-        $modal.on('hidden.bs.modal', function() {
-            $modal.find('.modal-body').empty();
-            $modal.find('.modal-header h4').html(loadingText);
-            $modal.removeData('bs.modal');
-
-        });
-    });
-})(jQuery);
 
 /*
  * Handle job-edit-popup

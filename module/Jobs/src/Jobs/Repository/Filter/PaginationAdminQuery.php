@@ -44,6 +44,8 @@ class PaginationAdminQuery extends AbstractPaginationQuery
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
+
+
         if (isset($params['status']) &&
             !empty($params['status'])) {
             if ($params['status'] != 'all') {
