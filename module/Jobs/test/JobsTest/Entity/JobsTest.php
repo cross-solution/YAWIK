@@ -193,12 +193,33 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @testdox Allows setting the start date of a job posting
      * @covers Jobs\Entity\Job::getDatePublishStart
      * @covers Jobs\Entity\Job::setDatePublishStart
+     * @dataProvider provideDates
      */
-    public function testSetGetDatePublishStart()
+    public function testSetGetDatePublishStart($input, $expected)
     {
-        $date = new \DateTime();
-        $this->target->setDatePublishStart($date);
-        $this->assertSame($date, $this->target->getDatePublishStart());
+        $this->target->setDatePublishStart($input);
+        $this->assertEquals($expected, $this->target->getDatePublishStart());
+    }
+
+    /**
+     * @testdox Allows setting of the end date of a job posting
+     * @covers Jobs\Entity\Job::getDatePublishEnd
+     * @covers Jobs\Entity\Job::setDatePublishEnd
+     * @dataProvider provideDates
+     */
+    public function testSetPublishEnd($input, $expected)
+    {
+        $this->target->setDatePublishEnd($input);
+        $this->assertEquals($expected, $this->target->getDatePublishEnd());
+    }
+
+    public function provideDates()
+    {
+        $date="2011-01-12";
+        return [
+            [$date, new \DateTime($date)],
+            [new \DateTime($date), new \DateTime($date)],
+        ];
     }
 
     public function provideSetGetStatusTestData()

@@ -73,7 +73,7 @@ class ChannelPrices implements FilterInterface
             if ('yawik' == $channelKey) {
                 $absoluteDiscount = 100;
             }
-            if ($channel->getPrice('base')>0) {
+            if ($channel instanceof ChannelOptions && $channel->getPrice('base')>0) {
                 $sum += $channel->getPrice('base');
                 $amount++;
             }

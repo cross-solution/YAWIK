@@ -151,6 +151,14 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
     protected $datePublishStart;
 
     /**
+     * end date of a job posting
+     *
+     * @var String
+     * @ODM\Field(type="tz_date")
+     */
+    protected $datePublishEnd;
+
+    /**
      * Status of the job posting
      *
      * @var Status
@@ -422,6 +430,28 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
     public function setDatePublishStart($datePublishStart)
     {
         throw new ImmutablePropertyException('datePublishStart', $this);
+    }
+
+    /**
+     * Gets the end date for publishing of a job posting
+     *
+     * @return string
+     */
+    public function getDatePublishEnd()
+    {
+        return $this->datePublishStart;
+    }
+
+    /**
+     * Sets the publishing date of a job posting
+     * @throws \Core\Exception\ImmutablePropertyException
+     *
+     * @param $datePublishStart
+     * @return string
+     */
+    public function setDatePublishEnd($datePublishEnd)
+    {
+        throw new ImmutablePropertyException('datePublishEnd', $this);
     }
 
     /**
