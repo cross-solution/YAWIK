@@ -12,6 +12,7 @@ use Core\View\Helper\Alert as Helper;
 
 class AlertTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @var Helper
      */
@@ -33,9 +34,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
         $return = 'return';
         $helper = $this->getMock(Helper::class, ['render']);
         $helper->expects($this->once())
-	        ->method('render')
-	        ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
-	        ->willReturn($return);
+            ->method('render')
+            ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
+            ->willReturn($return);
         $this->assertSame($return, $helper($type, $content, $options));
     }
 
@@ -44,16 +45,16 @@ class AlertTest extends \PHPUnit_Framework_TestCase
         $helper = $this->getMock(Helper::class, ['start']);
         $helper->expects($this->once())
             ->method('start')
-        	->with($this->equalTo(null), $this->equalTo([]))
-        	->willReturnSelf();
+            ->with($this->equalTo(null), $this->equalTo([]))
+            ->willReturnSelf();
         $this->assertSame($helper, $helper->render());
 
         $options = ['some options'];
         $helper = $this->getMock(Helper::class, ['start']);
         $helper->expects($this->once())
             ->method('start')
-        	->with($this->equalTo(Helper::TYPE_INFO), $this->equalTo($options))
-        	->willReturnSelf();
+            ->with($this->equalTo(Helper::TYPE_INFO), $this->equalTo($options))
+            ->willReturnSelf();
         $this->assertSame($helper, $helper->render($options));
 
         $type = Helper::TYPE_DANGER;
@@ -61,8 +62,8 @@ class AlertTest extends \PHPUnit_Framework_TestCase
         $helper = $this->getMock(Helper::class, ['start']);
         $helper->expects($this->exactly(2))
             ->method('start')
-        	->with($this->equalTo($type), $this->equalTo($options))
-        	->willReturnSelf();
+            ->with($this->equalTo($type), $this->equalTo($options))
+            ->willReturnSelf();
         $this->assertSame($helper, $helper->render($type, $options));
         $this->assertSame($helper, $helper->render($type, true, $options));
     }
@@ -71,7 +72,7 @@ class AlertTest extends \PHPUnit_Framework_TestCase
     {
         $helper = $this->getMock(Helper::class, ['start']);
         $helper->expects($this->never())
-	        ->method('start');
+            ->method('start');
 
         $this->assertTrue(is_string($helper->render(Helper::TYPE_INFO, 'message')));
         $this->assertTrue(is_string($helper->render(Helper::TYPE_INFO, 'message', [])));
@@ -83,56 +84,56 @@ class AlertTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderWithTwoScalarParams($type, $content)
     {
-    	$markup = $this->helper->render($type, $content);
+        $markup = $this->helper->render($type, $content);
 
-		$this->assertTrue(is_string($markup));
-		$this->assertContains($type, $markup);
-		$this->assertContains($content, $markup);
+        $this->assertTrue(is_string($markup));
+        $this->assertContains($type, $markup);
+        $this->assertContains($content, $markup);
     }
 
     public function testClassOptionDoesNotOverrideClassByType()
     {
-    	$type = Helper::TYPE_SUCCESS;
-    	$classViaOptions = 'classPassedViaOptions';
-    	$content = 'message';
-    	$markup = $this->helper->render($type, $content, ['class' => $classViaOptions]);
+        $type = Helper::TYPE_SUCCESS;
+        $classViaOptions = 'classPassedViaOptions';
+        $content = 'message';
+        $markup = $this->helper->render($type, $content, ['class' => $classViaOptions]);
 
-		$this->assertTrue(is_string($markup));
-		$this->assertContains($type, $markup);
-		$this->assertContains($classViaOptions, $markup);
+        $this->assertTrue(is_string($markup));
+        $this->assertContains($type, $markup);
+        $this->assertContains($classViaOptions, $markup);
     }
 
     public function testIdOption()
     {
-    	$id = 'some id';
-    	$markup = $this->helper->render(Helper::TYPE_INFO, 'message', ['id' => $id]);
+        $id = 'some id';
+        $markup = $this->helper->render(Helper::TYPE_INFO, 'message', ['id' => $id]);
 
-		$this->assertTrue(is_string($markup));
-		$this->assertRegExp('/id=(["\'])'.$id.'\1/', $markup);
+        $this->assertTrue(is_string($markup));
+        $this->assertRegExp('/id=(["\'])'.$id.'\1/', $markup);
     }
 
     public function testDismissableOption()
     {
-    	$type = Helper::TYPE_SUCCESS;
-    	$content = 'message';
+        $type = Helper::TYPE_SUCCESS;
+        $content = 'message';
 
-    	$markup = $this->helper->render($type, $content);
-		$this->assertTrue(is_string($markup));
-		$this->assertContains('dismissable', $markup);
+        $markup = $this->helper->render($type, $content);
+        $this->assertTrue(is_string($markup));
+        $this->assertContains('dismissable', $markup);
 
-    	$markup = $this->helper->render($type, $content, ['dismissable' => true]);
-		$this->assertTrue(is_string($markup));
-		$this->assertContains('dismissable', $markup);
+        $markup = $this->helper->render($type, $content, ['dismissable' => true]);
+        $this->assertTrue(is_string($markup));
+        $this->assertContains('dismissable', $markup);
 
-    	$markup = $this->helper->render($type, $content, ['dismissable' => false]);
-		$this->assertTrue(is_string($markup));
-		$this->assertNotContains('dismissable', $markup);
+        $markup = $this->helper->render($type, $content, ['dismissable' => false]);
+        $this->assertTrue(is_string($markup));
+        $this->assertNotContains('dismissable', $markup);
     }
 
     public function testStartReturnsSelf()
     {
-		$this->assertSame($this->helper, $this->helper->start());
-		ob_get_clean(); // silence PHPUnit "risky test" notice
+        $this->assertSame($this->helper, $this->helper->start());
+        ob_get_clean(); // silence PHPUnit "risky test" notice
     }
 
     /**
@@ -141,9 +142,9 @@ class AlertTest extends \PHPUnit_Framework_TestCase
      */
     public function testStartCalledTwiceConsecutivelyThrowsException()
     {
-		$this->helper->start();
-		ob_get_clean(); // silence PHPUnit "risky test" notice
-		$this->helper->start();
+        $this->helper->start();
+        ob_get_clean(); // silence PHPUnit "risky test" notice
+        $this->helper->start();
     }
 
     /**
@@ -152,24 +153,24 @@ class AlertTest extends \PHPUnit_Framework_TestCase
      */
     public function testEndCalledWithoutCallingStartThrowsException()
     {
-		$this->helper->end();
+        $this->helper->end();
     }
 
     public function testEndOfCapturingCallsRenderMethodProperly()
     {
-    	$type = Helper::TYPE_WARNING;
-    	$content = 'content to capture';
-    	$options = ['some options'];
-    	$return = 'return';
-    	$helper = $this->getMock(Helper::class, ['render']);
-    	$helper->expects($this->once())
-	    	->method('render')
-	    	->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
-	    	->willReturn($return);
+        $type = Helper::TYPE_WARNING;
+        $content = 'content to capture';
+        $options = ['some options'];
+        $return = 'return';
+        $helper = $this->getMock(Helper::class, ['render']);
+        $helper->expects($this->once())
+            ->method('render')
+            ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
+            ->willReturn($return);
 
-    	$helper->start($type, $options);
-    	echo $content;
-    	$this->assertSame($return, $helper->end());
+        $helper->start($type, $options);
+        echo $content;
+        $this->assertSame($return, $helper->end());
     }
 
     /**
@@ -178,7 +179,7 @@ class AlertTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethodOverloadingThrowsException()
     {
-		$this->helper->invalidMethodCall();
+        $this->helper->invalidMethodCall();
     }
 
     /**
@@ -186,24 +187,24 @@ class AlertTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethodOverloadingCallsRenderMethodProperly($type, $content)
     {
-    	$options = ['some options'];
-    	$return = 'return';
-    	$helper = $this->getMock(Helper::class, ['render']);
-    	$helper->expects($this->once())
-	    	->method('render')
-	    	->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
-	    	->willReturn($return);
+        $options = ['some options'];
+        $return = 'return';
+        $helper = $this->getMock(Helper::class, ['render']);
+        $helper->expects($this->once())
+            ->method('render')
+            ->with($this->equalTo($type), $this->equalTo($content), $this->equalTo($options))
+            ->willReturn($return);
 
-    	$this->assertSame($return, $helper->$type($content, $options));
+        $this->assertSame($return, $helper->$type($content, $options));
     }
 
     public function typeContentData()
     {
-		return [
-			[Helper::TYPE_INFO, 'inf-msg'],
-			[Helper::TYPE_SUCCESS, 'suc-msg'],
-			[Helper::TYPE_WARNING, 'war-msg'],
-			[Helper::TYPE_DANGER, 'dan-msg'],
-		];
+        return [
+            [Helper::TYPE_INFO, 'inf-msg'],
+            [Helper::TYPE_SUCCESS, 'suc-msg'],
+            [Helper::TYPE_WARNING, 'war-msg'],
+            [Helper::TYPE_DANGER, 'dan-msg'],
+        ];
     }
 }
