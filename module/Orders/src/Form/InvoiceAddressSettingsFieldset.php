@@ -24,7 +24,7 @@ class InvoiceAddressSettingsFieldset extends SettingsFieldset
      * map label of fieldset. You can set the order by using an array [<label>,<priority>]
      */
     protected $labelMap = [
-        'name'  => [/*@translate*/ 'Full Name', -20],
+        'name'  => [ /*@translate*/ 'Contact Person', -20],
         'company' => /*@translate*/ 'Company',
         'street' => /*@translate*/ 'Street',
         'zipCode' => /*@translate*/ 'Postalcode',
@@ -32,7 +32,7 @@ class InvoiceAddressSettingsFieldset extends SettingsFieldset
         'region' => /*@translate*/ 'Region',
         'country' => /*@translate*/ 'Country',
         'vatId' => /*@translate*/ 'Value added tax ID',
-        'email' =>  [/*@translate*/ 'Email address', -30]
+        'email' =>  [/*@translate*/ 'Email Address', -30]
     ];
 
     public function init()

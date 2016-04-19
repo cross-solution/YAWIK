@@ -21,7 +21,7 @@ $columns = [
         'label' => $this->translate('Products'),
     ],
     [
-        'label' => $this->translate('Invoice Address'),
+        'label' => $this->translate('InvoiceAddress'),
     ],
     [
         'label' => $this->translate('Amount'),

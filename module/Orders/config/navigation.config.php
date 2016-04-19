@@ -20,7 +20,7 @@ return [
                         'resource' => 'Orders/Navigation',
                     ],
                 ]
-            ]
+            ],
         ]
     ]
 ];

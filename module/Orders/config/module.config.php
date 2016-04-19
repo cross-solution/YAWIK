@@ -28,6 +28,17 @@ return [
         ],
     ],
 
+    // Translations
+    'translator' => array(
+        'translation_file_patterns' => array(
+            array(
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern'  => '%s.mo',
+            ),
+        ),
+    ),
+
 
     'event_manager' => [
 
@@ -62,7 +73,7 @@ return [
     'Orders' => [
         'settings' => array(
             'entity' => '\Orders\Entity\SettingsContainer',
-            //'navigation_order' => 1,
+            'navigation_order' => 20,
             'navigation_label' => /*@translate*/ "Orders",
             'navigation_class' => 'yk-icon fa-shopping-basket'
         ),

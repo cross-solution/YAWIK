@@ -30,10 +30,8 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'       => 'text',
                        'name'       => 'company',
                        'options'    => [
-                           'label'       => /*@translate*/
-                               'Company',
-                           'description' => /*@translate*/
-                               'Enter the name of the company',
+                           'label'       => /*@translate*/ 'Company',
+                           'description' => /*@translate*/ 'Please enter the name of the company, which should appear on the invoice address',
                        ],
                        'attributes' => [
                            'required' => true, // marks the label as required.
@@ -45,8 +43,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'    => 'text',
                        'name'    => 'street',
                        'options' => [
-                           'label' => /*@translate*/
-                               'Street',
+                           'label' => /*@translate*/ 'Street',
                        ],
                    ]
         );
@@ -55,8 +52,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'    => 'text',
                        'name'    => 'zipCode',
                        'options' => [
-                           'label' => /* @translate */
-                               'Postalcode'
+                           'label' => /* @translate */ 'Postalcode'
                        ],
                    ]
         );
@@ -65,8 +61,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'    => 'text',
                        'name'    => 'city',
                        'options' => [
-                           'label' => /*@translate*/
-                               'City',
+                           'label' => /*@translate*/ 'City',
                        ],
                    ]
         );
@@ -75,8 +70,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'    => 'text',
                        'name'    => 'region',
                        'options' => [
-                           'label' => /*@translate*/
-                               'Region',
+                           'label' => /*@translate*/ 'Region',
                        ],
                    ]
         );
@@ -85,8 +79,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'    => 'text',
                        'name'    => 'country',
                        'options' => [
-                           'label' => /*@translate*/
-                               'Country',
+                           'label' => /*@translate*/ 'Country',
                        ],
                    ]
         );
@@ -95,8 +88,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'    => 'text',
                        'name'    => 'vatIdNumber',
                        'options' => [
-                           'label' => /*@translate*/
-                               'Value added tax ID',
+                           'label' => /*@translate*/ 'Value added tax ID',
                        ],
                    ]
         );
@@ -121,25 +113,12 @@ class InvoiceAddressFieldset extends Fieldset
             )
         );
 
-//        $this->add([
-//                       'type'    => 'text',
-//                       'name'    => 'title',
-//                       'options' => [
-//                           'label'       => 'Title',
-//                           'description' => /*@translate*/
-//                               'Enter the form of address you would appreciate',
-//                       ],
-//                   ]
-//        );
-
         $this->add([
                        'type'    => 'text',
                        'name'    => 'name',
                        'options' => [
-                           'label'       => /*@translate*/
-                               'Full name',
-                           'description' => /*@translate*/
-                               'Enter your full name (First, middle and last name)',
+                           'label'       => /*@translate*/ 'Contact Person',
+                           'description' => /*@translate*/ 'Please enter the name of a contact person',
                        ],
                    ]
         );
@@ -148,8 +127,7 @@ class InvoiceAddressFieldset extends Fieldset
                        'type'       => 'text',
                        'name'       => 'email',
                        'options'    => [
-                           'label' => /*@translate*/
-                               'Email address',
+                           'label' => /*@translate*/ 'Email Address',
                        ],
                        'attributes' => [
                            'required' => true, // marks the label as required.
