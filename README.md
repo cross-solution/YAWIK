@@ -56,6 +56,15 @@ Forum
 https://groups.google.com/forum/?hl=de#!forum/yawik
 
 
+Contribute!
+-----------
+
+* [Fork and clone](https://help.github.com/articles/fork-a-repo).
+* Run the command `./install.sh``, which downloads composer and runs `php composer.phar install` to install the dependencies. 
+  This will also install the dev dependencies. See [Composer](https://getcomposer.org/doc/03-cli.md#install).
+* Use the command `phpunit` in the tests directory to run the tests. See [PHPUnit](http://phpunit.de).
+* Create a branch, commit, push and send us a [pull request](https://help.github.com/articles/using-pull-requests).
+
 Mailinglist for Developers
 --------------------------
 
