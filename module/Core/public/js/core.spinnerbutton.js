@@ -52,7 +52,7 @@
                 $button.spinnerbutton('toggle');
             }
         });
-        $('button').spinnerbutton();
+        $('button[data-provide="spinnerbutton"]').spinnerbutton();
     });
 	
 })(jQuery);
