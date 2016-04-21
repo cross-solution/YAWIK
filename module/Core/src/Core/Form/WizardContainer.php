@@ -3,38 +3,34 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Form;
 
 use Zend\Form\Element;
-use Zend\Stdlib\PriorityList;
 
 /**
- * ${CARET}
- * 
+ * A wizard style form container.
+ *
+ * Holds instances of form containers which each represent a "tab" of an wizard.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since  0.22
  */
 class WizardContainer extends Container implements HeadscriptProviderInterface, \IteratorAggregate
 {
-    protected $tabs = [];
+    /**
+     * Headscripts.
+     *
+     * @var array
+     */
     protected $scripts = [
         '/js/jquery.bootstrapwizard.min.js',
     ];
 
-    protected $tabContainerPrototype;
-
-    /**
-     * Sets the array of script names.
-     *
-     * @param string[] $scripts
-     *
-     * @return self
-     */
     public function setHeadscripts(array $scripts)
     {
         $this->scripts = $scripts;
@@ -42,16 +38,26 @@ class WizardContainer extends Container implements HeadscriptProviderInterface, 
         return $this;
     }
 
-    /**
-     * Gets the array of script names.
-     *
-     * @return string[]
-     */
     public function getHeadscripts()
     {
         return $this->scripts;
     }
 
+    /**
+     * Sets a form container.
+     *
+     * Either pass in an object of type \Core\Form\Container or provide a $spec array.
+     * Only instances of \Core\Form\Container which have a label are allowed.
+     *
+     * @see \Core\Form\Container::setForm
+     *
+     * @param string                            $key
+     * @param array|string|\Core\Form\Container $spec
+     * @param bool                              $enabled
+     *
+     * @return self
+     * @throws \InvalidArgumentException
+     */
     public function setForm($key, $spec, $enabled = true)
     {
         if (is_object($spec)) {
@@ -83,6 +89,20 @@ class WizardContainer extends Container implements HeadscriptProviderInterface, 
         return parent::setForm($key, $spec, $enabled);
     }
 
+    /**
+     * Gets a specific formular.
+     *
+     * This formular will be created upon the first retrievement.
+     * If created, the formular gets passed the formular parameters set in this container.
+     *
+     * @see Container::getForm
+     *
+     * @param string $key
+     * @param bool   $asInstance if false, the specification array is returned.
+     *
+     * @return Container|null|\Zend\Form\FormInterface|array
+     * @throws \UnexpectedValueException
+     */
     public function getForm($key, $asInstance = true)
     {
         $form = parent::getForm($key, $asInstance);
@@ -93,8 +113,9 @@ class WizardContainer extends Container implements HeadscriptProviderInterface, 
          */
         if ($asInstance && false === strpos($key, '.') && (!$form instanceOf Container || !$form->getLabel())) {
             throw new \UnexpectedValueException(sprintf(
-                'The registered form with key "%s" is not an instance of \Core\Form\Container or does not have a label.', $key
-            ));
+                                                    'The registered form with key "%s" is not an instance of \Core\Form\Container or does not have a label.',
+                                                    $key
+                                                ));
         }
 
         return $form;

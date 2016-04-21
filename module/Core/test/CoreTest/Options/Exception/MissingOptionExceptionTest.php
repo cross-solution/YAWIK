@@ -11,6 +11,8 @@
 namespace CoreTest\OptionsException;
 
 use Core\Options\Exception\MissingOptionException;
+use CoreTestUtils\TestCase\AssertInheritanceTrait;
+use CoreTestUtils\TestCase\SetterGetterTrait;
 
 /**
  * Tests for \Core\Options\Exception\MissingOptionException
@@ -18,76 +20,53 @@ use Core\Options\Exception\MissingOptionException;
  * @covers \Core\Options\Exception\MissingOptionException
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @group Core
- * @group Core.Exception
- * @since 0.20
+ * @group Core.Options
+ * @group Core.Options.Exception
  */
 class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @testdox Extends \RuntimeException and implements \Core\Option\Exception\ExceptionInterface
-     * @coversNothing
-     */
-    public function testExtendsRuntimeException()
-    {
-        $target = new MissingOptionException('test', 'test');
+    use AssertInheritanceTrait, SetterGetterTrait;
 
-        $this->assertInstanceOf('\RuntimeException', $target);
-        $this->assertInstanceOf('\Core\Options\Exception\ExceptionInterface', $target);
-    }
+    protected $target = [ '\Core\Options\Exception\MissingOptionException' , [ 'testOptionKey', 'TestTarget' ] ];
 
+    protected $inheritance = [
+        '\Core\Exception\ExceptionInterface',
+        '\Core\Options\Exception\ExceptionInterface',
+        '\RuntimeException',
+    ];
 
-    public function provideConstructionTestData()
-    {
-        return array(
-            array('testKeyOne', 'testTarget', null),
-            array('testKeyTwo', new \stdClass(), null),
-            array('testKeyThree', 'testTargetTwo', new \Exception('testPreviousException'))
-        );
-    }
-    /**
-     * @testdox Allows creation by passing the missing option key and target object
-     * @dataProvider provideConstructionTestData
-     *
-     * @param string $optionKey
-     * @param string|object $object
-     * @param \Exception|null $previous
-     */
-    public function testSetsCorrectExceptionMessage($optionKey, $object, $previous)
-    {
-        $target = new MissingOptionException($optionKey, $object, $previous);
+    public function propertiesProvider() {
+        $ex = new \Exception();
+        $target = new MissingOptionException('testOptionKey', 'TestTarget', $ex);
+        $target2 = new MissingOptionException('-', new \stdClass());
 
-        $expectedMessage = sprintf('Missing value for option "%s" in "%s"',
-                                   $optionKey, is_object($object) ? get_class($object) : $object);
-
-        $this->assertEquals($expectedMessage, $target->getMessage());
-    }
-
-    /**
-     * @testdox Provided dependency FQCN and target information are retrievable
-     */
-    public function testSetsCorrectProperties()
-    {
-        $expectedDep = 'testKey';
-        $expectedObj = 'testObj';
-
-        $target = new MissingOptionException('testKey', 'testObj');
-
-        $this->assertAttributeEquals($expectedDep, 'optionKey', $target);
-        $this->assertAttributeEquals($expectedObj, 'target', $target);
-    }
-
-
-    /**
-     * @testdox Provided dependency FQCN and target information are retrievable
-     * @dataProvider provideConstructionTestData
-     */
-    public function testGetter($optionKey, $obj, $prev)
-    {
-        $target = new MissingOptionException($optionKey, $obj);
-        $expObjFqcn = is_object($obj) ? get_class($obj) : $obj;
-
-        $this->assertEquals($optionKey, $target->getOptionKey(), 'dependency assertion failed.');
-        $this->assertEquals($obj, $target->getTarget(), 'target assertion failed.');
-        $this->assertEquals($expObjFqcn, $target->getTargetFQCN(), 'target fqcn assertion failed.');
+        return [
+            [ 'OptionKey', [
+                'value' => 'testOptionKey',
+                'ignore_setter' => true,
+            ]],
+            [ 'target', [
+                'value' => 'TestTarget',
+                'ignore_setter' => true,
+            ]],
+            [ 'targetFQCN', [
+                'value' => 'stdClass',
+                'target' => $target2,
+                'ignore_setter' => true,
+            ]],
+            [ 'targetFQCN', [
+                'value' => 'TestTarget',
+                'ignore_setter' => true,
+            ]],
+            [ 'previous', [
+                'value' => $ex,
+                'target' => $target,
+                'ignore_setter' => true,
+            ]],
+            [ 'message', [
+                'value' => 'Missing value for option "testOptionKey" in "TestTarget"',
+                'ignore_setter' => true,
+            ]]
+        ];
     }
 }

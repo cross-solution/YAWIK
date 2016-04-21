@@ -16,10 +16,14 @@ use Zend\EventManager\EventManager as ZfEventManager;
 use Zend\EventManager\Exception;
 
 /**
- * ${CARET}
+ * EventPrototype Aware EventManager implementation.
+ *
+ * @internal
+ *      Will be obsolete with ZF3 as ZF3s' EventManager implementation is
+ *      already event prototype aware.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.25
  */
 class EventManager extends ZfEventManager implements EventProviderInterface
 {
@@ -83,8 +87,7 @@ class EventManager extends ZfEventManager implements EventProviderInterface
              * Create the event from the prototype, and not
              * from eventClass as the parent implementation does.
              */
-            $e = $this->getEvent($event, $argv);
-            $e->setTarget($target);
+            $e = $this->getEvent($event, $target, $argv);
 
             return parent::trigger($e, $callback);
         }
