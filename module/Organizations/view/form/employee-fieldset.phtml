@@ -11,8 +11,9 @@
  * @since 0.18
  */
 
-    /* @var $employee \Organizations\Form\Element\Employee */
+    /* @var \Organizations\Form\Element\Employee  $employee */
     $employee = $this->element->get('user');
+    /* @var \Zend\Form\Element\Hidden $pending */
     $pending = $this->element->get('status');
     $user = $employee->getUser();
     if (!$user) {

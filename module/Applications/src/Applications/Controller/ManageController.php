@@ -316,6 +316,7 @@ class ManageController extends AbstractActionController
         }
         
         $translator = $this->getServiceLocator()->get('translator');
+
         switch ($status) {
             default:
             case Status::CONFIRMED:
@@ -346,7 +347,7 @@ class ManageController extends AbstractActionController
                 'applicationId' => $applicationId,
                 'status'        => $status,
                 'mailSubject'   => $mailSubject,
-                'mailText'      => $mailText
+                'mailText'      => $mailText,
             );
         if ($jsonFormat) {
             return $params;
@@ -355,8 +356,12 @@ class ManageController extends AbstractActionController
         /* @var \Applications\Form\Mail $form */
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Applications/Mail');
         $form->populateValues($params);
-                
-        return ['form' => $form];
+
+        $reciptient = $mail->getTo();
+        return [
+            'recipient' => $reciptient,
+            'form' => $form
+        ];
     }
     
     /**

@@ -97,6 +97,24 @@ interface EmployeeInterface
      */
     public function getStatus();
 
+    /**
+     * Sets the role of an employee
+     *
+     * @param string $status
+     *
+     * @return self
+     * @since 0.25
+     */
+    public function setRole($status);
+
+    /**
+     * Gets the role of the employee.
+     *
+     * @return string
+     * @since 0.25
+     */
+    public function getRole();
+
     /**#@+
      * Returns true, if this association has the specific status.
      *

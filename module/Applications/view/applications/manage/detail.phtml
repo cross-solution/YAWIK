@@ -20,6 +20,14 @@ $this->headScript()->appendScript('$(function() { $(".rating").barrating(); });'
 $application = $this->application;
 $job = $application->getJob();
 
+/* @var \Auth\Entity\User $user */
+$user = $this->auth()->getUser();
+
+$employee=false;
+if ($user->hasOrganization()) {
+    $employee = $user->getOrganization()->getOrganization()->getEmployee($user);
+}
+
 $prevId = $nextId = $prevHref = $nextHref = false;
 
 if (!$application->isDraft() && $this->list->getCount()):
@@ -45,43 +53,55 @@ endif;
 </h1>
 
 <div id="forward-email-result" class="alert" style="display:none"></div>
-
 <nav class="navbar yk-toolbar">
     <?php if (!$application->isDraft()
               && $application->getPermissions()->isGranted($this->auth('id'), 'change')): ?>
         <div id="state-actions" class="btn-group cam-action-states nav navbar-nav">
             <?php $status = $application->getStatus()->getName();
 
-            $actionButtons = array(
-                Status::CONFIRMED => array(
-                    'href' => $this->url(
-                        'lang/applications/detail/status',
-                        array('status' => Status::CONFIRMED),
-                        true
+            if ($employee && \Organizations\Entity\EmployeeInterface::ROLE_DEPARTMENT_MANAGER == $employee->getRole() ) {
+                $actionButtons = array(
+                    Status::ACCEPTED => array(
+                        'href' => $this->url(
+                            'lang/applications/detail/status',
+                            array('status' => Status::ACCEPTED),
+                            true
+                        ),
+                        'label' => $this->translate('Accept'),
+                        'title' => $this->translate('Inform the Recruiter'),
                     ),
-                    'label' => $this->translate('Confirm'),
-                    'title' => $this->translate('Confirm the receipt'),
-                ),
-                Status::INVITED => array(
-                    'href' => $this->url(
-                        'lang/applications/detail/status',
-                        array('status' => Status::INVITED),
-                        true
+                );
+            } else {
+                $actionButtons = array(
+                    Status::CONFIRMED => array(
+                        'href' => $this->url(
+                            'lang/applications/detail/status',
+                            array('status' => Status::CONFIRMED),
+                            true
+                        ),
+                        'label' => $this->translate('Confirm'),
+                        'title' => $this->translate('Confirm the receipt'),
                     ),
-                    'label' => $this->translate('Invite'),
-                    'title' => $this->translate('Invite the applicant'),
-                ),
-                Status::REJECTED => array(
-                    'href' => $this->url(
-                        'lang/applications/detail/status',
-                        array('status' => Status::REJECTED),
-                        true
+                    Status::INVITED => array(
+                        'href' => $this->url(
+                            'lang/applications/detail/status',
+                            array('status' => Status::INVITED),
+                            true
+                        ),
+                        'label' => $this->translate('Invite'),
+                        'title' => $this->translate('Invite the applicant'),
                     ),
-                    'label' => $this->translate('Reject'),
-                    'title' => $this->translate('Reject the applicant'),
+                );
+            }
+            $actionButtons[ Status::REJECTED ] = [
+                'href' => $this->url(
+                    'lang/applications/detail/status',
+                    [ 'status' => Status::REJECTED ],
+                    true
                 ),
-
-            );
+                'label' => $this->translate('Reject'),
+                'title' => $this->translate('Reject the applicant'),
+            ];
 
             foreach ($actionButtons as $targetStatus => $spec):
                 if ($status == $targetStatus): continue; endif?>
@@ -160,7 +180,9 @@ endif;
                     <?php echo $this->translate('Invite the applicant') ?>
                 </h3>
             </div>
-            <div id="mail-box-content" class="modal-body"></div>
+            <div id="mail-box-content" class="modal-body">
+
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('Cancel') ?></button>
                 <button class="btn btn-primary" onclick="$('#applicant-mail').submit()"><?php echo $this->translate('Send mail') ?></button>

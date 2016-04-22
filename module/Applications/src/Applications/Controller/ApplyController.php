@@ -294,11 +294,11 @@ class ApplyController extends AbstractActionController
         }
 
         if ('sendmail' == $this->params()->fromQuery('do')) {
-            $jobEntity         = $application->job;
-            ;
+            $jobEntity         = $application->getJob();
+
             $mailData = array(
                 'application' => $application,
-                'to'          => $jobEntity->contactEmail
+                'to'          => $jobEntity->getContactEmail()
             );
             if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails']) && array_key_exists('email', $config['mails']['from'])) {
                 $mailData['from'] = $config['mails']['from']['email'];

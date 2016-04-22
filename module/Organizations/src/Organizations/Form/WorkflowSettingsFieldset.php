@@ -21,8 +21,22 @@ use Organizations\Entity\EmployeePermissionsInterface as Perms;
  * @author Carsten Bleek <bleek@cross-solution.de>
  * @since  0.25
  */
-class WorkflowSettingsFieldset extends Fieldset
+class WorkflowSettingsFieldset extends Fieldset implements ViewPartialProviderInterface
 {
+
+    protected $partial = 'organizations/form/workflow-fieldset';
+
+    public function setViewPartial($partial)
+    {
+        $this->partial = (string) $partial;
+
+        return $this;
+    }
+
+    public function getViewPartial()
+    {
+        return $this->partial;
+    }
 
     public function init()
     {

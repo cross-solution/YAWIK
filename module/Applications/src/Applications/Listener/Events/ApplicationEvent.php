@@ -37,6 +37,22 @@ class ApplicationEvent extends Event
     const EVENT_APPLICATION_PRE_DELETE   = 'application.pre.delete';
 
     /**
+     * Event is fired when an applicant is accepted
+     */
+    const EVENT_ACCEPT_APPLICANT   = 'application.accept.applicant';
+
+    /**
+     * Event is fired when an applicant is accepted
+     */
+    const EVENT_INVITE_APPLICANT   = 'application.invite.applicant';
+
+    /**
+     * Event is fired when an applicant is accepted
+     */
+    const EVENT_REJECT_APPLICANT   = 'application.reject.applicant';
+
+
+    /**
      * @var Application $application
      */
     protected $application;
