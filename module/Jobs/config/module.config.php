@@ -60,6 +60,7 @@ return array(
                     'JobList',
                     'Jobs/Manage' => array(
                         'edit',
+                        'deactivate',
                         'completion',
                         'template',
                         'new' => 'Jobs/Create',
