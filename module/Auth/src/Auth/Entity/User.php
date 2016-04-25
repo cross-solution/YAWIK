@@ -78,11 +78,21 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
 
     /**
      * Can contain various HybridAuth profiles.
+     * Deprecated: replaced by User::$profiles
+     *
+     * @var array
+     * @deprecated
+     * @ODM\Hash
+     */
+    protected $profile = array();
+
+    /**
+     * Can contain various HybridAuth profiles.
      *
      * @var array
      * @ODM\Hash
      */
-    protected $profile = array();
+    protected $profiles = [];
 
     /** @var array
      * @ODM\EmbedMany(discriminatorField="_entity")
@@ -338,9 +348,38 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     }
 
     /** {@inheritdoc} */
-    public function getProfile()
+    public function getProfile($provider)
     {
-        return $this->profile;
+        return isset($this->profiles[$provider]) ? $this->profiles[$provider] : [];
+    }
+
+    /**
+     * @param string $provider
+     * @param array $data
+     * @return \Auth\Entity\User
+     */
+    public function addProfile($provider, array $data)
+    {
+        $this->profiles[$provider] = $data;
+        return $this;
+    }
+    
+    /**
+     * @param string $provider
+     * @return \Auth\Entity\User
+     */
+    public function removeProfile($provider)
+    {
+        unset($this->profiles[$provider]);
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProfiles()
+    {
+        return $this->profiles;
     }
 
     /** {@inheritdoc} */

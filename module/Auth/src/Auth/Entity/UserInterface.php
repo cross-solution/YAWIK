@@ -11,8 +11,6 @@
 namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
-use Doctrine\Common\Collections\Collection;
-use Organizations\Entity\OrganizationInterface;
 use Organizations\Entity\OrganizationReferenceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
@@ -109,9 +107,10 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     /**
      * Gets the profile info from HybridAuth
      *
+     * @param string $provider
      * @return array
      */
-    public function getProfile();
+    public function getProfile($provider);
     
     /**
      * get user settings of a certain Module.

@@ -20,7 +20,7 @@ $user = $this->auth()->getUser(); /* @var \Auth\Entity\User $user  */
 
 <?php if ($this->status): ?>
 <div id="user-profile-form-response" class="alert cam-<?php echo $this->status?>">
-    <?php echo $this->text ?> 
+    <?php echo $this->text ?>
     <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
 </div>
 <?php else:?>
@@ -72,3 +72,5 @@ if($user->hasOrganization()):
 </div>
 
 <?php endif; ?>
+
+<?=$this->form($this->socialProfilesForm, 'form-horizontal');?>

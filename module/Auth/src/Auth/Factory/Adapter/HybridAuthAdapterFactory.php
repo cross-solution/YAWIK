@@ -34,6 +34,7 @@ class HybridAuthAdapterFactory implements FactoryInterface
         $adapter = new HybridAuthAdapter();
         $adapter->setHybridAuth($serviceLocator->get('HybridAuth'));
         $adapter->setRepository($serviceLocator->get('repositories')->get('Auth/User'));
+        $adapter->setSocialProfilePlugin($serviceLocator->get('ControllerPluginManager')->get('Auth/SocialProfiles'));
         return $adapter;
     }
 }

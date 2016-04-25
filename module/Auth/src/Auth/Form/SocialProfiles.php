@@ -39,6 +39,11 @@ class SocialProfiles extends BaseForm
     );
     
     /**
+     * @var bool
+     */
+    protected $useDefaultValidation = false;
+    
+    /**
      * {@inheritDoc}
      *
      * This method is a no-op, as we do not need a button fieldset.
@@ -47,4 +52,23 @@ class SocialProfiles extends BaseForm
     protected function addButtonsFieldset()
     {
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function isValid()
+    {
+        return $this->useDefaultValidation ? \Zend\Form\Form::isValid() : parent::isValid();
+    }
+    
+	/**
+	 * @param bool $bool
+	 * @return SocialProfiles
+	 */
+	public function setUseDefaultValidation($bool)
+	{
+		$this->useDefaultValidation = (bool)$bool;
+		
+		return $this;
+	}
 }

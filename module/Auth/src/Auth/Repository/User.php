@@ -81,13 +81,13 @@ class User extends AbstractRepository
     /**
      * Finds user by profile identifier
      *
-     * @param String $identifier
+     * @param string $identifier
+     * @param string $provider
      * @return UserInterface
      */
-    public function findByProfileIdentifier($identifier)
+    public function findByProfileIdentifier($identifier, $provider)
     {
-        $entity = $this->findOneBy(array('profile.identifier' => $identifier));
-        return $entity;
+        return $this->findOneBy(array('profiles.' . $provider . '.auth.identifier' => $identifier)) ?: $this->findOneBy(array('profile.identifier' => $identifier));
     }
     
     /**
