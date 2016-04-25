@@ -11,6 +11,7 @@
 namespace Applications\Controller;
 
 use Applications\Listener\Events\ApplicationEvent;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -263,6 +264,10 @@ class ManageController extends AbstractActionController
         $repository    = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
         /* @var Application $application */
         $application   = $repository->find($applicationId);
+
+        /* @var Request $request */
+        $request = $this->getRequest();
+
         if (!$application) {
             throw new \InvalidArgumentException('Could not find application.');
         }
@@ -275,7 +280,7 @@ class ManageController extends AbstractActionController
         
         if (in_array($status, array(Status::INCOMING))) {
             $application->changeStatus($status);
-            if ($this->request->isXmlHttpRequest()) {
+            if ($request->isXmlHttpRequest()) {
                 $response = $this->getResponse();
                 $response->setContent('ok');
                 return $response;
@@ -287,68 +292,37 @@ class ManageController extends AbstractActionController
             }
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
         }
-        $mailService = $this->getServiceLocator()->get('Core/MailService');
-        /* @var \Applications\Mail\StatusChange $mail */
-        $mail = $mailService->get('Applications/StatusChange');
-        $mail->setApplication($application, $status);
-        if ($this->request->isPost()) {
-            $mail->setSubject($this->params()->fromPost('mailSubject'));
-            $mail->setBody($this->params()->fromPost('mailText'));
-            if ($from = $application->getJob()->getContactEmail()) {
-                $mail->setFrom($from, $application->getJob()->getCompany());
-            }
-            if ($this->settings()->mailBCC) {
-                $user = $this->auth()->getUser();
-                $mail->addBcc($user->getInfo()->getEmail(), $user->getInfo()->getDisplayName());
-            }
-            $mailService->send($mail);
 
-            $historyText = sprintf('Mail was sent to %s', $application->getContact()->getEmail());
-            $application->changeStatus($status, $historyText);
-            $this->notification()->success($historyText);
+        $events = $this->getServiceLocator()->get('Applications/Events');
+
+        /* @var ApplicationEvent $event */
+        $event = $events->getEvent(ApplicationEvent::EVENT_APPLICATION_STATUS_CHANGE,
+                                   $this,
+                                   [
+                                       'application' => $application,
+                                       'status' => $status,
+                                       'user' => $this->auth()->getUser(),
+                                   ]
+        );
+
+        $event->setIsPostRequest($request->isPost());
+        $event->setPostData($request->getPost());
+
+        $events->trigger($event);
+
+        $params = $event->getFormData();
+
+        if ($request->isPost()) {
 
             if ($jsonFormat) {
                 return array(
                     'status' => 'success',
                 );
             }
+            $this->notification()->success($event->getNotification());
             return $this->redirect()->toRoute('lang/applications/detail', array(), true);
         }
-        
-        $translator = $this->getServiceLocator()->get('translator');
 
-        switch ($status) {
-            default:
-            case Status::CONFIRMED:
-                $key = 'mailConfirmationText';
-                break;
-            case Status::INVITED:
-                $key = 'mailInvitationText';
-                break;
-            case Status::ACCEPTED:
-                $key = 'mailAcceptedText';
-                break;
-            case Status::REJECTED:
-                $key = 'mailRejectionText';
-                break;
-            default:
-                throw new \InvalidArgumentException('Unknown status value: ' .$status);
-        }
-        $mailText      = $settings->$key ? $settings->$key : '';
-        $this->notification()->success($mailText);
-        $mail->setBody($mailText);
-        $mailText = $mail->getBodyText();
-        $mailSubject   = sprintf(
-            $translator->translate('Your application dated %s'),
-            strftime('%x', $application->getDateCreated()->getTimestamp())
-        );
-        
-        $params = array(
-                'applicationId' => $applicationId,
-                'status'        => $status,
-                'mailSubject'   => $mailSubject,
-                'mailText'      => $mailText,
-            );
         if ($jsonFormat) {
             return $params;
         }
@@ -357,7 +331,10 @@ class ManageController extends AbstractActionController
         $form = $this->getServiceLocator()->get('FormElementManager')->get('Applications/Mail');
         $form->populateValues($params);
 
-        $reciptient = $mail->getTo();
+
+
+        $reciptient = $params['to'];
+
         return [
             'recipient' => $reciptient,
             'form' => $form

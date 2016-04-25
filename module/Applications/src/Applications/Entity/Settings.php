@@ -65,6 +65,13 @@ class Settings extends ModuleSettingsContainer implements SettingsInterface
      * @ODM\Field(type="string")
      */
     protected $mailInvitationText;
+
+    /**
+     * Mail text for accepting an applicant. Mail is sent to the recruiter
+     *
+     * @ODM\Field(type="string")
+     */
+    protected $mailAcceptedText;
     
     
     /**

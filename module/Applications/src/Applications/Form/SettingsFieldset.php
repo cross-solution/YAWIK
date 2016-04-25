@@ -78,6 +78,14 @@ class SettingsFieldset extends Fieldset
                                     'description'=> /* @translate */ 'default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. '
                                     ))
         );
+
+        $this->add(
+            array('type' => 'Zend\Form\Element\Textarea',
+                  'name' => 'mailAcceptedText',
+                  'options' => array('label' => /* @translate */ 'Accept mail text',
+                                     'description'=> /* @translate */ 'default text, when accepting an applicant. This mail is send to the recruiter, who is responsible for the job posting '
+                  ))
+        );
         
         $this->add(
             array('type' => 'Zend\Form\Element\Textarea',

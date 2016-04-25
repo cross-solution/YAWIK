@@ -10,21 +10,17 @@
 /** Applications controller */
 namespace Applications\Controller;
 
-use Auth\Entity\Info;
-use Applications\Entity\Application;
+
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Applications\Entity\Status;
-use Applications\Entity\StatusInterface;
+
 
 /**
  * Main Action Controller for Applications module.
  *
- * @method \Core\Controller\Plugin\Notification notification()
  * @method \Core\Controller\Plugin\CreatePaginator paginator()
- * @method \Auth\Controller\Plugin\Auth auth()
  * @method \Acl\Controller\Plugin\Acl acl()
  */
 class IndexController extends AbstractActionController
@@ -36,7 +32,9 @@ class IndexController extends AbstractActionController
      */
     public function dashboardAction()
     {
-        $params = $this->getRequest()->getQuery();
+        /* @var Request $request */
+        $request = $this->getRequest();
+        $params = $request->getQuery();
         $isRecruiter = $this->acl()->isRole('recruiter');
         if ($isRecruiter) {
             $params->set('by', 'me');
