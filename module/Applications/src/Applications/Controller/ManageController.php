@@ -307,10 +307,10 @@ class ManageController extends AbstractActionController
 
         $event->setIsPostRequest($request->isPost());
         $event->setPostData($request->getPost());
-
         $events->trigger($event);
 
         $params = $event->getFormData();
+
 
         if ($request->isPost()) {
 

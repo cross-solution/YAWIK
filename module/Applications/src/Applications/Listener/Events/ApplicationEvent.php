@@ -101,6 +101,11 @@ class ApplicationEvent extends Event
         return $this->application;
     }
 
+    /**
+     * @param $array
+     *
+     * @return $this
+     */
     public function setFormData($array)
     {
         $this->formData = $array;
@@ -108,11 +113,9 @@ class ApplicationEvent extends Event
     }
 
     /**
-     * @param array $array
-     *
      * @return mixed
      */
-    public function getFormData(array $array)
+    public function getFormData()
     {
         return $this->formData;
     }

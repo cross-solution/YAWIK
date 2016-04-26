@@ -23,7 +23,7 @@ use Zend\Mvc\I18n\Translator;
 use Zend\Session\Container;
 
 /**
- * Status Change Listener is called twice. Triggered by
+ * Status Change Listener is called by the event \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_STATUS_CHANGE
  *
  * ${CARET}
  * 
@@ -166,7 +166,9 @@ class StatusChange
         $job = $application->getJob();
         $organization = $job->getOrganization();
 
-        $to = $cc = $bcc = new AddressList();
+        $to = new AddressList();
+        $cc = new AddressList();
+        $bcc = new AddressList();
 
         switch($status) {
             case Status::INCOMING:
