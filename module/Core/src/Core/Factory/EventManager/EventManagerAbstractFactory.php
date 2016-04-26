@@ -14,6 +14,7 @@ use Core\EventManager\EventProviderInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Creates event manager instances.
@@ -53,6 +54,48 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *      string:aggregate, // Creates an ListenerAggregate and call its attach method with the instance of the event manager
  *      string:aggregate => int:priority // Same as above, but passes the priority value along.
  * ]
+ *
+ * If you need to attach more than one method or two events with different priorities you can do so using the
+ * verbose style in the listener array:
+ *
+ * [
+ *      string:listener => [
+ *          'events' => [
+ *              string:eventName,
+ *              string:eventName => int:priority,
+ *              string:eventName' => string:method,
+ *              string:eventName => [
+ *                  'method' => string:method,
+ *                  'method' => [ string:method, string:method, ... ],
+ *                  'method' => [ string:method => int:priority, string:method' => int:priority ],
+ *                  'priority' => int:priority,
+ *              ],
+ *          ],
+ *          'method' => string:defaultMethod,
+ *          'priority' => int:defaultPriority,
+ *          'lazy' => bool
+ *      ],
+ * ]
+ *
+ * Example:
+ * Attach one listener to two methods on one event:
+ * [
+ *      'Listener' => [ 'events' => [ 'eventName' => [ 'method' => ['method1', 'method2'] ] ] ],
+ * ]
+ *
+ * Use default priority on method1 and different priority on method2:
+ * [
+ *      'Listener' => [ 'events' => [ 'eventName' => [ 'method' => ['method1', 'method2' => 12] ] ] ], 'priority' => 5 ],
+ * ]
+ *
+ * Attach one listener to two events with different priority:
+ * [
+ *      'Listener' => [ 'events' => [ 'event1' => 1, 'event2' => 2 ] ],
+ * ]
+ *
+ * Each specific event -> method -> priority triple will be attached searately to the event manager using the
+ * same listener instance.
+ *
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25
@@ -196,8 +239,15 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         foreach ($listeners as $name => $options) {
             $options = $this->normalizeListenerOptions($name, $options);
 
-            if ($options['lazy'] && null !== $options['event'] ) {
-                $lazyListeners[] = $options;
+            if ($options['lazy'] && null !== $options['attach'] ) {
+                foreach ($options['attach'] as $spec) {
+                    $lazyListeners[] = [
+                        'service' => $options['service'],
+                        'event' => $spec['events'],
+                        'method' => $spec['method'],
+                        'priority' => $spec['priority'],
+                    ];
+                }
                 continue;
             }
 
@@ -218,15 +268,16 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
                 continue;
             }
 
-            $callback = $options['method'] ? [ $listener, $options['method'] ] : $listener;
-            $eventManager->attach($options['event'], $callback, $options['priority']);
-
+            foreach ($options['attach'] as $spec) {
+                $callback = $spec['method'] ? [ $listener, $spec['method'] ] : $listener;
+                $eventManager->attach($spec['events'], $callback, $spec['priority']);
+            }
         }
 
         if (!empty($lazyListeners)) {
             /* @var \Core\Listener\DeferredListenerAggregate $aggregate */
             $aggregate = $services->get('Core/Listener/DeferredListenerAggregate');
-            $aggregate->setHooks($lazyListeners)
+            $aggregate->setListeners($lazyListeners)
                       ->attach($eventManager);
         }
     }
@@ -254,14 +305,21 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
          *      string:listener => string:event,
          *      string:listener => [ string|array:event{, string:methodName}{, int:priority}{, bool:lazy }],
          *      string:aggregate, // implies integer value as $name
-         *      string:aggregate => int:priority
+         *      string:aggregate => int:priority,
+         *      string:listener => [
+         *          'events' => [ 'event', 'event' => priority, 'event' => 'method',
+         *                        'event' => [ 'method' => method, 'priority' => priority ],
+         *                        'event' => [ 'method' => [ 'method', 'method' => priority ], 'priority' => priority ]
+         *                     ],
+         *          'method' => method,
+         *          'priority' => priority,
+         *          'lazy' => bool
          * ]
          */
 
         $normalized = [
             'service' => $name,
-            'event' => null,
-            'method' => null,
+            'attach' => null,
             'priority' => 0,
             'lazy' => false,
         ];
@@ -269,46 +327,119 @@ class EventManagerAbstractFactory implements AbstractFactoryInterface
         if (is_int($name)) {
             /* $options must be the name of an aggregate service or class. */
             $normalized['service'] = $options;
+            return $normalized;
 
-        } else if (is_int($options)) {
+        }
+
+        if (is_int($options)) {
             /* $name must be the name of an aggregate and the priority is passed. */
             $normalized['priority'] = $options;
+            return $normalized;
 
-        } else if (is_string($options)) {
+        }
+
+        if (is_string($options)) {
             /* Only an event name is provided in config */
-            $normalized['event'] = $options;
+            $normalized['attach'] = [ [ 'events' => [ $options ], 'method' => null, 'priority' => 0 ] ];
+            return $normalized;
 
-        } else {
-            /*
-             * Go through the array from first to last item
-             * We need to explicitely check for null return on array_shift,
-             * because we allow boolean values to be passed.
-             */
-            while (null !== ($opt = array_shift($options))) {
-                if (is_array($opt)) {
-                    /* Must be event names */
-                    $normalized['event'] = $opt;
+        }
 
-                } else if (is_string($opt)) {
-                    if (null === $normalized['event']) {
-                        /* first string found is assumed to be the event name */
-                        $normalized['event'] = $opt;
-                    } else {
-                        /* second string found must be a method name. */
-                        $normalized['method'] = $opt;
+        if (ArrayUtils::isHashTable($options)) {
+            $normalized['attach'] = $this->normalizeEventsSpec($options);
+
+            if (isset($options['lazy'])) {
+                $normalized['lazy'] = $options['lazy'];
+            }
+
+            return $normalized;
+
+        }
+
+        $event = $method = null;
+        $priority = 0;
+        $lazy = false;
+
+        foreach ($options as $opt) {
+
+            if (is_array($opt)) {
+                /* Must be event names */
+                $event = $opt;
+
+            } else if (is_string($opt)) {
+                if (null === $event) {
+                    /* first string found is assumed to be the event name */
+                    $event = [ $opt ];
+                } else {
+                    /* second string found must be a method name. */
+                    $method = $opt;
+                }
+
+            } else if (is_int($opt)) {
+                /* Integer values must be priority */
+                $priority = $opt;
+
+            } else if (is_bool($opt)) {
+                /* Lazy option is passed. */
+                $lazy = $opt;
+            }
+        }
+
+        $normalized['attach'] = [ [ 'events' => $event, 'method' => $method, 'priority' => $priority ] ];
+        $normalized['lazy']   = $lazy;
+
+        return $normalized;
+    }
+
+    protected function normalizeEventsSpec($options)
+    {
+        $listenerPriority = isset($options['priority']) ? $options['priority'] : 0;
+        $listenerMethod   = isset($options['method'])   ? $options['method']   : '__none__';
+        $events = [];
+
+        foreach ($options['events'] as $event => $spec) {
+
+
+            $eventPriority = isset($spec['priority']) ? $spec['priority'] : $listenerPriority;
+
+            if (is_int($event)) {
+                $events[$listenerMethod][$eventPriority][] = $spec;
+
+            } else if (is_int($spec)) {
+                $events[$listenerMethod][$spec][] = $event;
+
+            } else if (is_string($spec)) {
+                $events[$spec][$eventPriority][] = $event;
+
+            } else if (is_array($spec)) {
+                if (isset($spec['method'])) {
+                    if (!is_array($spec['method'])) {
+                        $spec['method'] = [ $spec['method'] ];
                     }
 
-                } else if (is_int($opt)) {
-                    /* Integer values must be priority */
-                    $normalized['priority'] = $opt;
+                    foreach ($spec['method'] as $method => $methodPriority) {
+                        if (is_int($method)) {
+                            $events[$methodPriority][$eventPriority][] = $event;
 
-                } else if (is_bool($opt)) {
-                    /* Lazy option is passed. */
-                    $normalized['lazy'] = $opt;
+                        } else if (is_int($methodPriority)) {
+                            $events[$method][$methodPriority][] = $event;
+                        }
+                    }
                 }
             }
         }
 
-        return $normalized;
+        $eventsSpec = [];
+        foreach ($events as $method => $priorities) {
+            foreach ($priorities as $priority => $event) {
+                $eventsSpec[] = [
+                    'events' => $event,
+                    'method' => '__none__' == $method ? null : $method,
+                    'priority' => $priority,
+                ];
+            }
+        }
+
+        return $eventsSpec;
     }
 }
