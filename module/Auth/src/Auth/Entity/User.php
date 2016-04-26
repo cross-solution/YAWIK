@@ -348,8 +348,13 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     }
 
     /** {@inheritdoc} */
-    public function getProfile($provider)
+    public function getProfile($provider = null)
     {
+        if (!isset($provider))
+        {
+            return $this->profiles;
+        }
+        
         return isset($this->profiles[$provider]) ? $this->profiles[$provider] : [];
     }
 
@@ -372,14 +377,6 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     {
         unset($this->profiles[$provider]);
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getProfiles()
-    {
-        return $this->profiles;
     }
 
     /** {@inheritdoc} */

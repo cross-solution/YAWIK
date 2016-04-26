@@ -44,12 +44,13 @@ class ManageController extends AbstractActionController
         $container = $forms->get('Auth/userprofilecontainer');
         $user = $services->get('AuthenticationService')->getUser(); /* @var $user \Auth\Entity\User */
         $postProfiles = (array)$this->params()->fromPost('social_profiles');
+        $userProfiles = $user->getProfile();
         $formSocialProfiles = $forms->get('Auth/SocialProfiles')
             ->setUseDefaultValidation(true)
             ->setData(['social_profiles' => array_map(function ($array)
             {
                 return $array['data'];
-            }, $user->getProfiles())]);
+            }, $userProfiles)]);
         
         $container->setEntity($user);
 
@@ -94,7 +95,6 @@ class ManageController extends AbstractActionController
                 );
             }
             elseif ($postProfiles) {
-                $userProfiles = $user->getProfiles();
                 $formSocialProfiles->setData($this->params()->fromPost());
                 
                 if ($formSocialProfiles->isValid()) {

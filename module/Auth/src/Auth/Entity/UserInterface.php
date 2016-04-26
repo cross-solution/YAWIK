@@ -107,10 +107,9 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
     /**
      * Gets the profile info from HybridAuth
      *
-     * @param string $provider
      * @return array
      */
-    public function getProfile($provider);
+    public function getProfile();
     
     /**
      * get user settings of a certain Module.
