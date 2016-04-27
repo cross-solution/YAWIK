@@ -52,6 +52,9 @@ class ManageController extends AbstractActionController
                 return $array['data'];
             }, $userProfiles)]);
         
+        $translator = $serviceLocator->get('Translator');
+		$formSocialProfiles->getBaseFieldset()
+            ->setOption('description', $translator->translate("you can add your social profile to your application. You can preview and remove the attached profile before submitting the application."));
         $container->setEntity($user);
 
         if ($this->request->isPost()) {
