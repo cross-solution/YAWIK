@@ -46,15 +46,29 @@ class HybridAuthAdapterFactoryTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('Auth/User')
             ->willReturn($userRepositoryMock);
+        
+        $socialProfilesPluginMock = $this->getMockBuilder('Auth\Controller\Plugin\SocialProfiles')
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $contollerPluginsMock = $this->getMockBuilder('Zend\Mvc\Controller\PluginManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $contollerPluginsMock->expects($this->once())
+            ->method('get')
+            ->with('Auth/SocialProfiles')
+            ->willReturn($socialProfilesPluginMock);
 
         $sm = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
 
-        $sm->expects($this->exactly(2))
+        $sm->expects($this->exactly(3))
             ->method('get')
             ->will($this->returnValueMap(
                 array(
                     array('HybridAuth', true, $hybridAuthMock),
-                    array('repositories', true, $repositoriesMock)
+                    array('repositories', true, $repositoriesMock),
+                    array('ControllerPluginManager', true, $contollerPluginsMock)
                 )
             ));
 
