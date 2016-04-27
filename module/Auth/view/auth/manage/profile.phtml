@@ -13,7 +13,7 @@ $this->headscript()->appendScript('$(".alert").alert();');
 
 $user = $this->auth()->getUser(); /* @var \Auth\Entity\User $user  */
                     $org  = $user->getOrganization();
-
+$profileContainerId = 'social-profiles-container';
 ?>
 
 <h1><?php echo $this->translate('My profile')?></h1>
@@ -73,4 +73,13 @@ if($user->hasOrganization()):
 
 <?php endif; ?>
 
-<?=$this->form($this->socialProfilesForm, 'form-horizontal');?>
+<?=$this->form($this->socialProfilesForm->setAttribute('id', $profileContainerId), 'form-horizontal');?>
+
+<?php $this->headScript()->captureStart()?>
+$(document).on('formPost.socialprofiles', function (event, data) {
+    $('#<?=$profileContainerId?>').html($(data).find('#<?=$profileContainerId?> > *'));
+    $('.social-profiles-fieldset').socialprofiles();
+}).on('fetchCompleted.socialprofiles', function (event) {
+    event.stopPropagation();
+});
+<?php $this->headScript()->captureEnd() ?>

@@ -91,6 +91,29 @@ class User extends AbstractRepository
     }
     
     /**
+     * Returns true if profile is already assigned to anotherUser
+     *
+     * @param int $curentUserId
+     * @param string $identifier
+     * @param string $provider
+     * @return bool
+     */
+    public function isProfileAssignedToAnotherUser($curentUserId, $identifier, $provider)
+    {
+        $qb = $this->createQueryBuilder(null);
+        $qb->field('_id')->notEqual($curentUserId)
+            ->addAnd(
+                $qb->expr()
+                    ->addOr($qb->expr()->field('profiles.' . $provider . '.auth.identifier' )->equals($identifier))
+                    ->addOr($qb->expr()->field('profile.identifier')->equals($identifier))
+            );
+        
+        return $qb->count()
+            ->getQuery()
+            ->execute() > 0;
+    }
+    
+    /**
      * Finds user by login name
      *
      * @param string $login

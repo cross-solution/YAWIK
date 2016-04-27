@@ -39,10 +39,10 @@ class ManageController extends AbstractActionController
      */
     public function profileAction()
     {
-        $services = $this->getServiceLocator();
-        $forms = $services->get('forms');
+        $serviceLocator = $this->getServiceLocator();
+        $forms = $serviceLocator->get('forms');
         $container = $forms->get('Auth/userprofilecontainer');
-        $user = $services->get('AuthenticationService')->getUser(); /* @var $user \Auth\Entity\User */
+        $user = $serviceLocator->get('AuthenticationService')->getUser(); /* @var $user \Auth\Entity\User */
         $postProfiles = (array)$this->params()->fromPost('social_profiles');
         $userProfiles = $user->getProfile();
         $formSocialProfiles = $forms->get('Auth/SocialProfiles')
@@ -73,7 +73,7 @@ class ManageController extends AbstractActionController
                     );
                 }
                 
-                $this->getServiceLocator()->get('repositories')->store($user);
+                $serviceLocator->get('repositories')->store($user);
                 
                 if ('file-uri' === $this->params()->fromPost('return')) {
                     $content = $form->getHydrator()->getLastUploadedFile()->getUri();
@@ -84,7 +84,7 @@ class ManageController extends AbstractActionController
                     } else {
                         $viewHelper = 'form';
                     }
-                    $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+                    $content = $serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
                 }
                 
                 return new JsonModel(
@@ -99,7 +99,7 @@ class ManageController extends AbstractActionController
                 
                 if ($formSocialProfiles->isValid()) {
                     $dataProfiles = $formSocialProfiles->getData()['social_profiles'];
-                    $serviceLocator = $this->getServiceLocator();
+                    $userRepository = $serviceLocator->get('repositories')->get('Auth/User'); /* @var $userRepository \Auth\Repository\User */
                     $hybridAuth = $serviceLocator->get('HybridAuthAdapter')
                         ->getHybridAuth();
                     
@@ -111,15 +111,32 @@ class ManageController extends AbstractActionController
                         
                         // add
                         if (!isset($userProfiles[$network]) && $dataProfiles[$network]) {
-                            $adapter = $hybridAuth->authenticate($network);
-                            $profile = [
-                                'auth' => (array)$adapter->getUserProfile(),
-                                'data' => \Zend\Json\Json::decode($dataProfiles[$network])
-                            ];
-                            $user->addProfile($network, $profile);
+                            $authProfile = $hybridAuth->authenticate($network)
+                                ->getUserProfile();
+                            // check for existing profiles
+                            if ($userRepository->isProfileAssignedToAnotherUser($user->getId(), $authProfile->identifier, $network)) {
+                                $dataProfiles[$network] = null;
+                                $formSocialProfiles->setMessages(array(
+                                    'social_profiles' => [
+                                        $network => [sprintf(/*@translate*/ 'Could not connect your %s profile with your user account. The profile is already connected to another user account.', $authProfile->displayName)]
+                                    ]
+                                ));
+                            } else {
+                                $profile = [
+                                    'auth' => (array)$authProfile,
+                                    'data' => \Zend\Json\Json::decode($dataProfiles[$network])
+                                ];
+                                $user->addProfile($network, $profile);
+                            }
                         }
                     }
                 }
+                
+                // keep data in sync & properly decoded
+                $formSocialProfiles->setData(['social_profiles' => array_map(function ($array)
+                {
+                    return \Zend\Json\Json::decode($array) ?: '';
+                }, $dataProfiles)]);
             }
         }
         

@@ -13,6 +13,7 @@
 
 $name = $element->getName();
 $value = $element->getValue(/*raw*/ true);
+$value = $value === '""' ? '' : $value;
 $icon = $element->getOption('icon');
 $element->setName(null)->setValue(null);
 $id = $element->getAttribute('id');
@@ -41,11 +42,11 @@ if (!$id) {
     <ul class="dropdown-menu">
         <li class="spb-action-attach"><a href="#attach"><?php echo $this->translate('Attach profile') ?></a></li>
         <li class="spb-action-detach disabled"><a href="#detach"><?php echo $this->translate('Detach profile') ?></a></li>
-        <li class="spb-action-preview disabled"><a href="#view<?php 
+        <li class="spb-action-preview disabled"><a href="#view<?php
             echo ($url = $element->getPreviewUrl()) ? "|$url" : '';
             ?>"><?php echo $this->translate('View profile data') ?></a></li>
     </ul>
 </div>
-<textarea id="<?php echo $id ?>-data" class="hide" name="<?php echo $name ?>"><?php 
+<textarea id="<?php echo $id ?>-data" class="hide" name="<?php echo $name ?>"><?php
 echo $value;
 ?></textarea>

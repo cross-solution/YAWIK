@@ -39,7 +39,16 @@
 		$(id).text(data);
 		$form = $currentFetchButton.parents('form');
 
-		$.post($form.attr('action'), $form.serialize());
+		$.post($form.attr('action'), $form.serialize(), function (data) {
+			$(document).trigger('formPost.socialprofiles', [data]);
+		});
+		
+		var fetchCompletedEvent = $.Event('fetchCompleted.socialprofiles');
+		$(document).trigger(fetchCompletedEvent);
+
+		if (fetchCompletedEvent.isPropagationStopped()) {
+			return;
+		}
 		
 		_toggleButtonState($currentFetchButton, '' == data);
 		
@@ -104,7 +113,9 @@
 				});
 				$buttons.addClass('btn-default');
 				var $form = $button.parents('form');
-				$.post($form.attr('action'), $form.serialize());
+				$.post($form.attr('action'), $form.serialize(), function (data) {
+					$(document).trigger('formPost.socialprofiles', [data]);
+				});
 				break;
 			
 			case 'view':
