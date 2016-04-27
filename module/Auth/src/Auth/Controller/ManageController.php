@@ -41,6 +41,7 @@ class ManageController extends AbstractActionController
     {
         $serviceLocator = $this->getServiceLocator();
         $forms = $serviceLocator->get('forms');
+        /* @var \Auth\Form\UserProfileContainer $container */
         $container = $forms->get('Auth/userprofilecontainer');
         $user = $serviceLocator->get('AuthenticationService')->getUser(); /* @var $user \Auth\Entity\User */
         $postProfiles = (array)$this->params()->fromPost('social_profiles');
@@ -53,8 +54,12 @@ class ManageController extends AbstractActionController
             }, $userProfiles)]);
         
         $translator = $serviceLocator->get('Translator');
-		$formSocialProfiles->getBaseFieldset()
-            ->setOption('description', $translator->translate("you can add your social profile to your application. You can preview and remove the attached profile before submitting the application."));
+        /* @var \Auth\Form\SocialProfiles $formSocialProfiles */
+        $formSocialProfiles->getBaseFieldset()
+            ->setOption(
+                'description',
+                $translator->translate('You can connect your user profile with social networks. This allows you to log in via these networks.')
+            );
         $container->setEntity($user);
 
         if ($this->request->isPost()) {
