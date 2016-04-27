@@ -121,7 +121,7 @@ class ManageController extends AbstractActionController
                                 $dataProfiles[$network] = null;
                                 $formSocialProfiles->setMessages(array(
                                     'social_profiles' => [
-                                        $network => [sprintf(/*@translate*/ 'Could not connect your %s profile with your user account. The profile is already connected to another user account.', $authProfile->displayName)]
+                                        $network => [sprintf($translator->translate('Could not connect your %s profile with your user account. The profile is already connected to another user account.'), $authProfile->displayName)]
                                     ]
                                 ));
                             } else {
