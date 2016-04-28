@@ -50,8 +50,12 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase
 
 
         $services = $this->getServiceManagerMock([
-                                                     'Core/AdminController/Events' => $events,
-                                                 ]);
+                                                     'Core/AdminController/Events' => [
+                                                         'service' => $events,
+                                                         'count_get' => 1,
+                                                     ]
+
+                                                  ]);
 
         /* @var \Zend\View\Model\ViewModel $child
          * @var \Zend\View\Model\ViewModel $viewModel */
