@@ -101,6 +101,31 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
             ),
             )
         );
+        
+        $this->add([
+            'type' => 'Checkbox',
+            'name' => 'oneClickApply',
+            'options' => [
+                'label' => /*@translate*/ 'One click apply',
+            ]
+        ]);
+        
+        $this->add([
+            'type' => 'Select',
+            'name' => 'oneClickApplyProfiles',
+            'options' => [
+                'label' => /*@translate*/ 'Social profiles',
+                'value_options' => [
+                    'facebook' => 'Facebook',
+                    'xing'     => 'Xing',
+                    'linkedin' => 'LinkedIn'
+                ],
+                'use_hidden_element' => true
+            ],
+            'attributes' => [
+                'multiple' => true
+            ]
+        ]);
     }
 
     /**

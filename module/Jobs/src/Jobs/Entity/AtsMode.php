@@ -47,6 +47,22 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
     protected $email;
 
     /**
+     * One click apply flag
+     *
+     * @var bool
+     * @ODM\Field(type="bool")
+     */
+    protected $oneClickApply = false;
+    
+    /**
+     * One click apply profiles
+     *
+     * @var array
+     * @ODM\Hash
+     */
+    protected $oneClickApplyProfiles = [];
+
+    /**
      * Creates a new instance.
      *
      * @param string $mode The ATS mode.
@@ -152,4 +168,41 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
     {
         return $this->email;
     }
+	/**
+	 * @return bool
+	 */
+	public function getOneClickApply()
+	{
+		return $this->oneClickApply;
+	}
+
+	/**
+	 * @param bool $oneClickApply
+	 * @return AtsMode
+	 */
+	public function setOneClickApply($oneClickApply)
+	{
+		$this->oneClickApply = (bool)$oneClickApply;
+		
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOneClickApplyProfiles()
+	{
+		return $this->oneClickApplyProfiles;
+	}
+
+	/**
+	 * @param array $oneClickApplyProfiles
+	 * @return AtsMode
+	 */
+	public function setOneClickApplyProfiles(array $oneClickApplyProfiles)
+	{
+		$this->oneClickApplyProfiles = $oneClickApplyProfiles;
+		
+		return $this;
+	}
 }

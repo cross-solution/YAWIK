@@ -80,6 +80,11 @@ class AtsMode extends InputFilter
                 );
                 break;
         }
+        
+        $this->add([
+            'name' => 'oneClickApplyProfiles',
+            'required' => $data['mode'] == AtsModeInterface::MODE_INTERN && $data['oneClickApply']
+        ]);
 
         return parent::setData($data);
     }
