@@ -14,14 +14,19 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 /**
- * ${CARET}
+ * Admin Dashboard controller.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.25
  */
 class AdminController extends AbstractActionController
 {
 
+    /**
+     * Controls the admin dashboard page.
+     *
+     * @return ViewModel
+     */
     public function indexAction()
     {
         /* @var \Core\EventManager\EventManager $events

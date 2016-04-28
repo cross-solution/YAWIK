@@ -10,54 +10,146 @@
 /** */
 namespace Core\Listener;
 
-use Zend\EventManager\EventInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 /**
- * ${CARET}
+ * Lazy loads listeners.
+ *
+ * Registered listeners will be created and/or invoked by this aggregate,
+ * if and only if the associated event is triggered from the event manager
+ * this aggregate is attached to.
+ *
+ * If you do not retrieve an instance through the service manager you have to inject
+ * the service manager instance yourself.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.20
  */
 class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLocatorAwareInterface
 {
     use ServiceLocatorAwareTrait;
 
-    protected $hooks = [];
+    /**
+     * Registered listener specifications.
+     *
+     * @var array
+     */
+    protected $listenerSpecs = [];
+
+    /**
+     * Listener handles from the event manager,
+     *
+     * @var array
+     */
     protected $listeners = [];
 
-    public function __construct($hooks = [])
+    /**
+     * Creates an instance.
+     *
+     * Calls {@link setListeners()}.
+     *
+     * @param array $specs
+     */
+    public function __construct($specs = [])
     {
-        $this->setHooks($hooks);
+        $this->setListeners($specs);
     }
 
-    public function setHooks(array $hooks) {
-        foreach ($hooks as $spec) {
+    /**
+     * Alias for setListeners().
+     *
+     * @param array $hooks
+     *
+     * @codeCoverageIgnore
+     * @deprecated since 0.25 use setListeners() instead.
+     * @see setListeners
+     * @return self
+     */
+    public function setHooks(array $hooks)
+    {
+        return $this->setListeners($hooks);
+    }
+
+    /**
+     * Alias for setListener().
+     *
+     * @param      $event
+     * @param      $service
+     * @param null $method
+     * @param int  $priority
+     *
+     * @codeCoverageIgnore
+     * @deprecated since 0.25 use setListener() instead.
+     * @see setListener
+     * @return self
+     */
+    public function setHook($event, $service, $method = null, $priority = 0)
+    {
+        return $this->setListener($event, $service, $method, $priority);
+    }
+
+    /**
+     * Adds multiple listener specifications.
+     *
+     * <b>$specs</b> must be an array of arrays in the following format:
+     * <pre>
+     * [
+     *      [
+     *          'event' => <eventName>,
+     *          'service' => <serviceNameOrFQCN>,
+     *          { 'method' => <callbackMethodName>, }
+     *          { 'priority' => <priority> }
+     *      ],
+     *      ...
+     * ]
+     * </pre>
+     *
+     * @param array $specs
+     *
+     * @see setListener
+     * @return self
+     * @throws \DomainException if a specification array does not contain the keys 'event' or 'service'.
+     * @since 0.25
+     */
+    public function setListeners(array $specs) {
+        foreach ($specs as $spec) {
 
             if (!isset($spec['event']) || !isset($spec['service'])) {
-                throw new \DomainException('Hook specification must be an array with the keys "event" and "service".');
+                throw new \DomainException('Listener specification must be an array with the keys "event" and "service".');
             }
             $method = isset($spec['method']) ? $spec['method'] : null;
             $priority = isset($spec['priority']) ? $spec['priority'] : 0;
 
-            $this->setHook($spec['event'], $spec['service'], $method, $priority);
+            $this->setListener($spec['event'], $spec['service'], $method, $priority);
         }
 
         return $this;
     }
 
-    public function setHook($event, $service, $method = null, $priority = 0)
+    /**
+     * Adds a listener specification.
+     *
+     * @param string     $event
+     * @param string     $service
+     * @param null|string|int $method
+     * @param int  $priority
+     *
+     * @return self
+     * @since 0.25
+     */
+    public function setListener($event, $service, $method = null, $priority = 0)
     {
         if (is_int($method)) {
             $priority = $method;
             $method = null;
         }
+
         $name = uniqid();
 
-        $this->hooks[$name] = [
+        $this->listenerSpecs[$name] = [
             'event' => $event,
             'service' => $service,
             'method' => $method,
@@ -69,10 +161,10 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
     }
 
     /**
-     * Attach one or more listeners
+     * Attachs listener creation and invokation callback.
      *
-     * Implementors may add an optional $priority argument; the EventManager
-     * implementation will pass this to the aggregate.
+     * For each specification this aggregate attachs itself to the event manager on the
+     * specified event to be able to react upon triggering.
      *
      * @param EventManagerInterface $events
      *
@@ -80,17 +172,17 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
      */
     public function attach(EventManagerInterface $events)
     {
-        foreach ($this->hooks as $name => $spec) {
-            $listeners[] = $events->attach($spec['event'], array($this, "do$name"), $spec['priority']);
+        foreach ($this->listenerSpecs as $name => $spec) {
+            $this->listeners[] = $events->attach($spec['event'], array($this, "do$name"), $spec['priority']);
         }
     }
 
     /**
-     * Detach all previously attached listeners
+     * Detach all listener creation and invokation callbacks.
      *
      * @param EventManagerInterface $events
      *
-     * @return void
+     * @return boolean
      */
     public function detach(EventManagerInterface $events)
     {
@@ -103,7 +195,17 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
         return empty($this->listeners);
     }
 
-
+    /**
+     * Callback for creation and invokation of listeners.
+     *
+     * @param string $method
+     * @param array $args
+     *
+     * @return mixed The return value of the listener invokation.
+     *
+     * @throws \UnexpectedValueException if listener specification could not be found or listener could not be created.
+     * @throws \BadMethodCallException if the method called does not start with "do".
+     */
     public function __call($method, $args)
     {
         if (0 !== strpos($method, 'do')) {
@@ -111,9 +213,10 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
         }
 
         $name = substr($method, 2);
-        $spec = isset($this->hooks[$name]) ? $this->hooks[$name] : false;
+        $spec = isset($this->listenerSpecs[$name]) ? $this->listenerSpecs[$name] : false;
+
         if (!$spec) {
-            throw new \BadMethodCallException('No deferred listener specification found.');
+            throw new \UnexpectedValueException('No deferred listener specification found.');
         }
 
         $service = $spec['service'];
@@ -137,7 +240,7 @@ class DeferredListenerAggregate implements ListenerAggregateInterface, ServiceLo
                 $listener = new $service();
             }
 
-            $this->hooks[$name]['instance'] = $listener;
+            $this->listenerSpecs[$name]['instance'] = $listener;
         }
 
         if ($method && method_exists($listener, $method)) {

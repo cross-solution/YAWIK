@@ -10,6 +10,8 @@
 /** */
 namespace Core\Form\View\Helper;
 
+use Core\Form\Element\ViewHelperProviderInterface;
+use Core\Form\ViewPartialProviderInterface;
 use Zend\Form\FieldsetInterface;
 use Zend\Form\FormInterface;
 use Zend\Form\View\Helper\Form;
@@ -52,6 +54,10 @@ class SearchForm extends Form
         $buttonsContent = '<input type="submit" class="btn btn-primary" name="submit" value="' . $this->getView()->translate('Search') . '">'
                           . '<input type="reset" class="btn btn-default" name="clear" value="' . $this->getView()->translate('Clear') . '">';
 
+
+        if ($form instanceOf ViewPartialProviderInterface) {
+            return $this->getView()->partial($form->getViewPartial(), [ 'element' => $form, 'buttons' => $buttonsContent ]);
+        }
 
         if (empty($colMap)) {
             $c = count($form);

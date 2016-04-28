@@ -11,10 +11,9 @@
 namespace Core\Exception;
 
 /**
- * ${CARET}
+ * Exception interface for all exceptions in the Core Module.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
  */
 interface ExceptionInterface 
 {

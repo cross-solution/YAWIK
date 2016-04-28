@@ -11,10 +11,10 @@
 namespace Core\Entity\Exception;
 
 /**
- * ${CARET}
+ * Exception for indicating that an immutable entity is about to be updated.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.23
  */
 class ImmutableEntityException extends \RuntimeException implements ExceptionInterface
 {

@@ -381,6 +381,14 @@ class Container extends Element implements
      */
     public function setForm($key, $spec, $enabled = true)
     {
+        if (is_object($spec)) {
+            if ($spec instanceof FormParentInterface) {
+                $spec->setParent($this);
+            }
+
+            $spec = [ '__instance__' => $spec, 'name' => $key, 'entity' => '*' ];
+        }
+
         if (!is_array($spec)) {
             $spec = array('type' => $spec, 'name' => $key);
         }
@@ -392,9 +400,7 @@ class Container extends Element implements
         }
         
         $this->forms[$key] = $spec;
-        if ($spec instanceof FormParentInterface) {
-            $spec->setParent($this);
-        }
+
         if ($enabled) {
             $this->enableForm($key);
         } elseif (true === $this->activeForms) {

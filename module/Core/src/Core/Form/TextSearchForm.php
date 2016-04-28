@@ -3,40 +3,50 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Form;
 
-use string;
 use Zend\Form\Form as ZfForm;
 
 /**
- * ${CARET}
- * 
+ * Simple Form for result list filtering.
+ *
+ * Should be used with the searchForm view helper.
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since  0.25
  */
 class TextSearchForm extends ZfForm implements HeadscriptProviderInterface
 {
+    /**
+     * Headscripts to be injected in the view.
+     *
+     * @var array
+     */
     protected $headscripts = [
         'Core/js/core.searchform.js'
     ];
 
+    /**
+     * Element options.
+     *
+     * @var array
+     */
     protected $options = [
         'button_element' => 'text',
-        'placeholder'    => /* @translate */ 'Search query',
+        'placeholder'    => /* @translate */
+            'Search query',
     ];
 
-    /**
-     * Sets the array of script names.
-     *
-     * @param string[] $scripts
-     *
-     * @return self
-     */
+    public function getHeadscripts()
+    {
+        return $this->headscripts;
+    }
+
     public function setHeadscripts(array $scripts)
     {
         $this->headscripts = $scripts;
@@ -45,16 +55,13 @@ class TextSearchForm extends ZfForm implements HeadscriptProviderInterface
     }
 
     /**
-     * Gets the array of script names.
+     * Sets the default search params attribute.
      *
-     * @return string[]
+     * @param array $params
+     *
+     * @return self
      */
-    public function getHeadscripts()
-    {
-        return $this->headscripts;
-    }
-
-    public function setSearchParams($params)
+    public function setSearchParams(array $params)
     {
         $json = \Zend\Json\Json::encode($params);
         $this->setAttribute('data-search-params', $json);
@@ -67,22 +74,25 @@ class TextSearchForm extends ZfForm implements HeadscriptProviderInterface
         $this->setName('search');
         $this->setAttributes([
                                  'data-handle-by' => 'native',
-                                 'method' => 'get',
-                                 'class' => 'form-inline search-form',
-                             ]);
+                                 'method'         => 'get',
+                                 'class'          => 'form-inline search-form',
+                             ]
+        );
 
         $this->add([
-                       'type' => 'Text',
-                       'name' => 'text',
-                       'options' => [
-                           'label' => /*@translate*/ 'Search',
+                       'type'       => 'Text',
+                       'name'       => 'text',
+                       'options'    => [
+                           'label'              => /*@translate*/
+                               'Search',
                            'use_formrow_helper' => false,
                        ],
                        'attributes' => [
-                           'class' => 'form-control',
+                           'class'       => 'form-control',
                            'placeholder' => $this->getOption('placeholder'),
                        ]
-                   ]);
+                   ]
+        );
 
 
     }
