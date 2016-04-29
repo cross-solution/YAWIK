@@ -35,7 +35,7 @@ class ViewModelTemplateFilterForm extends ViewModelTemplateFilterAbstract
     {
         $job = $form->getEntity();
         $this->job = $job;
-        $this->setUriApply();
+        $this->setApplyButtons();
         $this->setOrganizationInfo();
         $this->setLocation();
         $this->setDescription();
