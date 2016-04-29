@@ -16,13 +16,11 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Applications\Entity\Application;
 use Zend\View\Model\ViewModel;
-use Auth\Entity\AnonymousUser;
 use Zend\View\Model\JsonModel;
 use Core\Form\Container;
 use Core\Form\SummaryForm;
 use Core\Entity\PermissionsInterface;
 use Applications\Entity\Status;
-use Applications\Entity\StatusInterface;
 
 /**
  * there are basically two ways to use this controller,
@@ -217,6 +215,69 @@ class ApplyController extends AbstractActionController
         );
         $model->setTemplate('applications/apply/index');
         return $model;
+    }
+    
+    public function oneClickApplyAction()
+    {
+        $application = $this->container->getEntity();
+        $job = $application->getJob();
+        $atsMode = $job->getAtsMode();
+        
+        // check for one click apply
+        if (!($atsMode->isIntern() && $atsMode->getOneClickApply()))
+        {
+            // redirect to regular application
+            return $this->redirect()
+                ->toRoute('lang/apply', ['applyId' => $job->getApplyId()]);
+        }
+        
+        $network = $this->params('network');
+		
+        if ($network)
+        {
+            $hybridAuth = $this->getServiceLocator()
+                ->get('HybridAuthAdapter')
+                ->getHybridAuth();
+            /* @var $authProfile \Hybrid_User_Profile */
+            $authProfile = $hybridAuth->authenticate($network)
+               ->getUserProfile();
+            
+            $contact = $application->getContact();
+            $contact->email = $authProfile->emailVerified ?: $authProfile->email;
+            $contact->firstName = $authProfile->firstName;
+            $contact->lastName = $authProfile->lastName;
+            $contact->birthDay = $authProfile->birthDay;
+            $contact->birthMonth = $authProfile->birthMonth;
+            $contact->birthYear = $authProfile->birthYear;
+            $contact->setPostalCode($authProfile->zip);
+            $contact->setCity($authProfile->city);
+            $contact->setStreet($authProfile->address);
+            $contact->setPhone($authProfile->phone);
+            $contact->setGender($authProfile->gender);
+            
+            if ($authProfile->photoURL)
+            {
+                $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
+                $file = new \Doctrine\MongoDB\GridFSFile();
+                $file->setBytes($response->getBody());
+                
+                $image = new \Applications\Entity\Attachment();
+                $image->setName($contact->getLastName().$contact->getFirstName());
+                $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
+                $image->setFile($file);
+                $image->setPermissions($application->getPermissions());
+                
+                $contact->setImage($image);
+            }
+            
+            return $this->redirect()
+               ->toRoute('lang/apply', ['applyId' => $job->getApplyId()]);
+        }
+        
+		return [
+            'networks' => $atsMode->getOneClickApplyProfiles(),
+            'application' => $application
+        ];
     }
 
     public function processPreviewAction()

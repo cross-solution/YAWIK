@@ -7,36 +7,53 @@
  * @license   MIT
  */
 
-return array('router' => array('routes' => array('lang' => array('child_routes' => array(
-    'apply' => array(
-        'type' => 'Segment',
-        'options' => array(
-            'route' => '/apply/:applyId',
-            'defaults' => array(
-                'controller' => 'Applications\Controller\Apply',
-                'action' => 'index',
-            ),
-        ),
-        'may_terminate' => true,
-    ),
-    'applications-dashboard' => array(
-        'type' => 'Literal',
-        'options' => array(
-            'route' => '/applications-dashboard',
-            'defaults' => array(
-                'controller' => '\Applications\Controller\Index',
-                'action'     => 'dashboard'
-            ),
-        ),
-    ),
-    'applications' => array(
+return array(
+    'router' => array(
+        'routes' => array(
+            'lang' => array(
+                'child_routes' => array(
+                    'apply' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/apply/:applyId',
+                            'defaults' => array(
+                                'controller' => 'Applications\Controller\Apply',
+                                'action' => 'index'
+                            )
+                        ),
+                        'may_terminate' => true
+                    ),
+                    'apply-one-click' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/apply-one-click/:applyId[/:network]',
+                            'defaults' => array(
+                                'controller' => 'Applications\Controller\Apply',
+                                'action' => 'oneClickApply'
+                            ),
+                            'constraints' => array(
+                                'network' => 'facebook|xing|linkedin'
+                            )
+                        )
+                    ),
+                    'applications-dashboard' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/applications-dashboard',
+                            'defaults' => array(
+                                'controller' => '\Applications\Controller\Index',
+                                'action' => 'dashboard'
+                            )
+                        )
+                    ),
+                    'applications' => array(
                         'type' => 'Literal',
                         'options' => array(
                             'route' => '/applications',
                             'defaults' => array(
                                 'controller' => '\Applications\Controller\Manage',
-                                'action' => 'index',
-                            ),
+                                'action' => 'index'
+                            )
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
@@ -45,11 +62,11 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                 'options' => array(
                                     'route' => '/:id',
                                     'constraints' => array(
-                                        'id' => '[a-z0-9]+',
+                                        'id' => '[a-z0-9]+'
                                     ),
                                     'defaults' => array(
-                                        'action' => 'detail',
-                                    ),
+                                        'action' => 'detail'
+                                    )
                                 ),
                                 'may_terminate' => true,
                                 'child_routes' => array(
@@ -59,14 +76,14 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                             'route' => '/:status',
                                             'defaults' => array(
                                                 'action' => 'status',
-                                                'status' => 'bad',
+                                                'status' => 'bad'
                                             ),
                                             'constraints' => array(
-                                                'status' => '[a-z]+',
-                                            ),
-                                        ),
-                                    ),
-                                ),
+                                                'status' => '[a-z]+'
+                                            )
+                                        )
+                                    )
+                                )
                             ),
                             'disclaimer' => array(
                                 'type' => 'Literal',
@@ -74,19 +91,19 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                     'route' => '/disclaimer',
                                     'defaults' => array(
                                         'controller' => 'Applications\Controller\Index',
-                                        'action' => 'disclaimer',
-                                    ),
+                                        'action' => 'disclaimer'
+                                    )
                                 ),
-                                'may_terminate' => true,
+                                'may_terminate' => true
                             ),
                             'comments' => array(
                                 'type' => 'Segment',
                                 'options' => array(
                                     'route' => '/comments/:action',
                                     'defaults' => array(
-                                        'controller' => 'Applications/CommentController',
-                                    ),
-                                ),
+                                        'controller' => 'Applications/CommentController'
+                                    )
+                                )
                             ),
                             'applications-list' => array(
                                 'type' => 'Segment',
@@ -95,8 +112,8 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                     'defaults' => array(
                                         'controller' => 'Applications\Controller\MultiManage',
                                         'action' => 'multimodal'
-                                    ),
-                                ),
+                                    )
+                                )
                             ),
                             'mail' => array(
                                 'type' => 'Segment',
@@ -106,9 +123,13 @@ return array('router' => array('routes' => array('lang' => array('child_routes' 
                                         'controller' => 'Applications\Controller\Index',
                                         'action' => 'mail',
                                         'status' => 'test'
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-)))));
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+);

@@ -187,7 +187,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         if ($atsMode->isIntern() && $atsMode->getOneClickApply()) {
             $this->container['applyButtons'][] = [
                 'label' => $this->translator->translate('One click apply'),
-                'url' => '/implement',
+                'url' => $this->urlPlugin->fromRoute('lang/apply-one-click', ['applyId' => $this->job->getApplyId()], ['force_canonical' => true]),
                 'type' => 'one-click'
             ];
         }
