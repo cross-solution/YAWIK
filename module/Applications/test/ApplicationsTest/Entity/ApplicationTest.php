@@ -11,9 +11,20 @@
 namespace ApplicationsTest\Entity;
 
 use Applications\Entity\Application;
+use Applications\Entity\Attachment;
+use Applications\Entity\Attributes;
+use Applications\Entity\Comment;
+use Applications\Entity\Contact;
+use Applications\Entity\Facts;
+use Applications\Entity\Rating;
 use Applications\Entity\Status;
 use Applications\Entity\Subscriber;
+use Auth\Entity\Info;
 use Auth\Entity\User;
+use Core\Entity\Collection\ArrayCollection;
+use Applications\Entity\Cv;
+use Cv\Entity\Education;
+use Jobs\Entity\Job;
 
 /**
  * Tests for Jobs Entity
@@ -50,6 +61,203 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\Permissions\Acl\Resource\ResourceInterface', $this->target);
         $this->assertInstanceOf('\Core\Entity\DraftableEntityInterface', $this->target);
     }
+
+    /**
+     * @covers Applications\Entity\Application::getJob
+     * @covers Applications\Entity\Application::setJob
+     */
+    public function testSetGetJob(){
+        $user = new User();
+        $user->setId(123);
+        $job = new Job();
+        $job->setUser($user);
+        $this->target->setJob($job);
+        $this->assertEquals($job, $this->target->getJob());
+    }
+
+    /**
+     * @covers Applications\Entity\Application::getContact
+     * @covers Applications\Entity\Application::setContact
+     */
+    public function testSetGetContactWithContact(){
+        $contact = new Contact();
+        $contact->setEmail('test@test.de')
+            ->setLastName('bar')
+            ->setFirstName('foo')
+            ->setHouseNumber(123)
+            ->setStreet('test road')
+            ->setCity('frankfurt')
+            ->setPostalCode(12345);
+
+        $this->target->setContact($contact);
+        $this->assertEquals($contact, $this->target->getContact());
+    }
+
+    public function testSetGetContactWithoutContact(){
+        $this->assertEquals(null, $this->target->getContact());
+    }
+
+    public function testSetGetContactWithoutContact2(){
+        $this->target->setContact(new Info());
+        $this->assertEquals(new Contact(), $this->target->getContact());
+    }
+
+    /**
+     * @covers Applications\Entity\Application::getFacts
+     * @covers Applications\Entity\Application::setFacts
+     */
+    public function testSetGetFacts(){
+        $facts = new Facts();
+        $facts->setDrivingLicense(true)
+            ->setEarliestStartingDate(new \DateTime())
+            ->setExpectedSalary('10000€')
+            ->setWillingnessToTravel(false);
+
+        $this->target->setFacts($facts);
+        $this->assertEquals($facts, $this->target->getFacts());
+    }
+
+    public function testGetFactsWithoutFacts(){
+        $this->assertEquals(new Facts(), $this->target->getFacts());
+    }
+
+    /**
+     * @covers Applications\Entity\Application::getCv
+     * @covers Applications\Entity\Application::setCv
+     */
+    public function testSetGetCv(){
+        $cv = new Cv();
+        $education= new Education();
+        $education->setDescription('test');
+        $educations = new ArrayCollection();
+        $educations->add($education);
+
+        $cv->setEducations($educations);
+
+        $this->target->setCv($cv);
+        $this->assertEquals($cv, $this->target->getCv());
+    }
+
+    public function testGetCvWithouCv(){
+        $this->assertEquals(new Cv(), $this->target->getCv());
+    }
+
+    /**
+     * @covers Applications\Entity\Application::getAttachments
+     * @covers Applications\Entity\Application::setAttachments
+     */
+    public function testSetGetAttachments(){
+        $attachment = new Attachment();
+        $attachment->setName('foo');
+
+        $attachments = new ArrayCollection();
+        $attachments->add($attachment);
+
+
+        $this->target->setAttachments($attachments);
+        $this->assertEquals($attachments, $this->target->getAttachments());
+    }
+
+    public function testGetAttachmentsWithoutAttachments(){
+        $this->assertEquals(new ArrayCollection(), $this->target->getAttachments());
+    }
+
+
+    /**
+     * @covers Applications\Entity\Application::setReadBy
+     * @covers Applications\Entity\Application::getReadBy
+     */
+    public function testSetGetReadBy(){
+        $readBy = [
+            new \MongoId(),
+            new \MongoId()
+        ];
+
+        $this->target->setReadBy($readBy);
+        $this->assertEquals($readBy, $this->target->getReadBy());
+    }
+
+    /**
+     * @covers Applications\Entity\Application::isReadBy
+     */
+    public function testIsReadByWithUser() {
+        $user = new User();
+        $user->setId(123);
+        $readBy = [
+            123,
+            234
+        ];
+        $this->target->setReadBy($readBy);
+        $this->assertEquals(true, $this->target->isReadBy($user));
+    }
+
+    /**
+     * @covers Applications\Entity\Application::isReadBy
+     */
+    public function testIsUnReadByWithUser() {
+        $user = new User();
+        $user->setId(123);
+        $readBy = [
+            123,
+            234
+        ];
+        $this->target->setReadBy($readBy);
+        $this->assertEquals(false, $this->target->isUnReadBy($user));
+    }
+
+    /**
+     * @covers Applications\Entity\Application::addReadBy
+     */
+    public function testAddReadByWithUser() {
+        $user = new User();
+        $user->setId(123);
+        $this->target->addReadBy($user);
+        $this->assertEquals(false, $this->target->isUnReadBy($user));
+        $this->assertEquals(true, $this->target->isReadBy($user));
+
+    }
+
+
+    /**
+     * @covers Applications\Entity\Application::getComments
+     * @covers Applications\Entity\Application::setComments
+     */
+    public function testSetGetComments(){
+        $comment = new Comment();
+        $comment->setMessage('test foo bar')
+            ->setDateCreated(new \DateTime())
+            ->setUser(new User());
+        $comments = new ArrayCollection();
+        $comments->add($comment);
+
+
+        $this->target->setComments($comments);
+        $this->assertEquals($comments, $this->target->getComments());
+    }
+
+    public function testGetCommentsWithoutComments(){
+        $this->assertEquals(new ArrayCollection(), $this->target->getComments());
+    }
+
+
+    /**
+     * @covers Applications\Entity\Application::getAttributes
+     * @covers Applications\Entity\Application::setAttributes
+     */
+    public function testSetGetAttributes(){
+        $attributes = new Attributes();
+        $attributes->setSendCarbonCopy(true)
+            ->setAcceptedPrivacyPolicy(true);
+
+
+        $this->target->setAttributes($attributes);
+        $this->assertEquals($attributes, $this->target->getAttributes());
+    }
+
+    public function testGetAttributesWithoutAttributes(){
+        $this->assertEquals(new Attributes(), $this->target->getAttributes());
+    }
+
 
     /**
      * @testdox Allows setting a the cover letter

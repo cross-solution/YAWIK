@@ -76,7 +76,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     /**
      * @{inheritDoc}
      *
-     * @return Comment
+     * @return $this
      * @see \Applications\Entity\CommentInterface::setUser()
      */
     public function setUser(UserInterface $user)
@@ -90,6 +90,11 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
         return $this->dateCreated;
     }
 
+    /**
+     * @param \DateTime $date
+     *
+     * @return $this
+     */
     public function setDateCreated(\DateTime $date)
     {
         $this->dateCreated = $date;
@@ -101,6 +106,11 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
         return $this->dateModified;
     }
 
+    /**
+     * @param \DateTime $date
+     *
+     * @return $this
+     */
     public function setDateModified(\DateTime $date)
     {
         $this->dateModified = $date;
@@ -119,7 +129,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::setMessage()
-     * @return Comment
+     * @return $this
      */
     public function setMessage($message)
     {
@@ -142,6 +152,7 @@ class Comment extends AbstractIdentifiableEntity implements CommentInterface
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\CommentInterface::setRating()
+     * @return $this
      */
     public function setRating(RatingInterface $rating)
     {

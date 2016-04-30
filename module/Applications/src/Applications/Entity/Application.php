@@ -703,8 +703,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     }
     
     /**
-     *
-     * @return String
+     * @return array
      */
     public function getCommentsMessage()
     {
