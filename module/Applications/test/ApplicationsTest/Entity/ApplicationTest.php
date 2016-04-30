@@ -16,6 +16,7 @@ use Applications\Entity\Attributes;
 use Applications\Entity\Comment;
 use Applications\Entity\Contact;
 use Applications\Entity\Facts;
+use Applications\Entity\History;
 use Applications\Entity\Rating;
 use Applications\Entity\Status;
 use Applications\Entity\Subscriber;
@@ -239,6 +240,23 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new ArrayCollection(), $this->target->getComments());
     }
 
+    /**
+     * @covers Applications\Entity\Application::getHistory
+     * @covers Applications\Entity\Application::setHistory
+     */
+    public function testSetGetHistory(){
+        $history = new History(Status::INCOMING,'MESSAGE');
+
+        $array = new ArrayCollection();
+        $array->add($history);
+
+        $this->target->setHistory($array);
+        $this->assertEquals($array, $this->target->getHistory());
+    }
+
+    public function testGetEmptyHistory(){
+        $this->assertEquals(new ArrayCollection(), $this->target->getHistory());
+    }
 
     /**
      * @covers Applications\Entity\Application::getAttributes
