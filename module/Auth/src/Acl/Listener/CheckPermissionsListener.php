@@ -128,7 +128,7 @@ class CheckPermissionsListener implements ListenerAggregateInterface
             if (count($results)) {
                 $return  = $results->last();
             } else {
-                $return = $e->getParams();
+                $return = $event->getParams();
             }
             return $return;
         }

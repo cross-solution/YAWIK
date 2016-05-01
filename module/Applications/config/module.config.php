@@ -86,6 +86,7 @@ return array(
         'rules' => array(
             'guest' => array(
                 'allow' => array(
+                    'route/lang/applications/detail',
                     'Applications\Controller\Manage' => 'detail',
                     'Entity/Application' => array(
                         'read' => 'Applications/Access',
