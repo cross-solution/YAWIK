@@ -68,8 +68,12 @@ return array(
            'ApplicationRepository' => 'Applications\Repository\Service\ApplicationRepositoryFactory',
            'ApplicationMapper' => 'Applications\Repository\Service\ApplicationMapperFactory',
            'EducationMapper'   => 'Applications\Repository\Service\EducationMapperFactory',
-           'Applications/Listener/ApplicationCreated' => 'Applications\Factory\Listener\EventApplicationCreatedFactory'
+           'Applications/Listener/ApplicationCreated' => 'Applications\Factory\Listener\EventApplicationCreatedFactory',
+           'Applications/Listener/ApplicationStatusChangePre' => 'Applications\Factory\Listener\StatusChangeFactory'
         ),
+        'aliases' => [
+           'Applications/Listener/ApplicationStatusChangePost' => 'Applications/Listener/ApplicationStatusChangePre'
+        ]
     ),
     'controllers' => array(
         'invokables' => array(
@@ -223,11 +227,26 @@ return array(
     'event_manager' => [
         'Applications/Events' => [
             'event' => '\Applications\Listener\Events\ApplicationEvent',
+            'service' => 'Core/EventManager',
             'listeners' => [
                 'Applications/Listener/ApplicationCreated' => [
                     \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_POST_CREATE,
                     /* lazy */ true
-                ]
+                ],
+                'Applications/Listener/ApplicationStatusChangePre' => [
+                    \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_STATUS_CHANGE,
+                    /* lazy */ true,
+                    /* priority */ 100,
+                    'prepareFormData'
+
+                ],
+                'Applications/Listener/ApplicationStatusChangePost' => [
+                    \Applications\Listener\Events\ApplicationEvent::EVENT_APPLICATION_STATUS_CHANGE,
+                    /* lazy */ true,
+                    /* priority */ -10,
+                    'sendMail'
+                ],
+
             ]
         ],
     ],

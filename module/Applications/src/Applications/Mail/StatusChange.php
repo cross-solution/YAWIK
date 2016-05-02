@@ -10,11 +10,10 @@
 /** NewApplication.php */
 namespace Applications\Mail;
 
-use Applications\Entity\StatusInterface;
 use Core\Mail\StringTemplateMessage;
 use Applications\Entity\ApplicationInterface;
 
-class StatusChange extends StringTemplateMessage
+class StatusChange extends StringTemplateMessage implements StatusChangeInterface
 {
     /**
      * @var ApplicationInterface
@@ -41,8 +40,8 @@ class StatusChange extends StringTemplateMessage
      */
     public function setVariablesFromApplication(ApplicationInterface $application)
     {
-        $contact = $application->contact;
-        $name    = $contact->displayName;
+        $contact = $application->getContact();
+        $name    = $contact->getDisplayName();
         
         $variables = array(
             'name' => $name,
@@ -54,13 +53,13 @@ class StatusChange extends StringTemplateMessage
      * Sets the application
      *
      * @param ApplicationInterface $application
-     * @param string $status
+     * @param string|null $status
      * @return $this
      */
     public function setApplication(ApplicationInterface $application, $status = null)
     {
         $this->application = $application;
-        $this->setTo($application->contact->email, $application->contact->displayName);
+        $this->setTo($application->getContact()->getEmail(), $application->getContact()->getDisplayName(false));
         $this->setVariablesFromApplication($application);
         return $this;
     }
@@ -72,9 +71,9 @@ class StatusChange extends StringTemplateMessage
      */
     protected function getFormalSalutation()
     {
-        $contact = $this->application->contact;
-        $name    = $contact->displayName;
-        $gender  = $contact->gender;
+        $contact = $this->application->getContact();
+        $name    = $contact->getLastName();
+        $gender  = $contact->getGender();
         $translator = $this->getTranslator();
         
         $salutation = 'male' == $gender
@@ -91,8 +90,8 @@ class StatusChange extends StringTemplateMessage
      */
     protected function getInformalSalutation()
     {
-        $contact = $this->application->contact;
-        $name    = $contact->displayName;
+        $contact = $this->application->getContact();
+        $name    = $contact->getDisplayName(false);
         
         $salutation = $this->getTranslator()
                     ->translate('Hello %s');
@@ -107,7 +106,7 @@ class StatusChange extends StringTemplateMessage
      */
     protected function getJobTitle()
     {
-        return $this->application->job->title;
+        return $this->application->getJob()->getTitle();
     }
 
     /**
@@ -118,7 +117,7 @@ class StatusChange extends StringTemplateMessage
     protected function getDate()
     {
         /** @var $date \DateTime */
-        $date = $this->application->dateCreated;
+        $date = $this->application->getDateCreated();
         return strftime('%x', $date->getTimestamp());
     }
 }

@@ -11,4 +11,16 @@ $form->setAttributes(array(
     'action' => $_SERVER['REQUEST_URI']
 ));
 $form->get('mailText')->setAttribute('style', 'height: 250px');
+
+/* @var \Zend\Mail\AddressList $recipient */
+$recipient = $this->recipient;
+?>
+<div>
+<?php
+foreach($recipient as $to) {
+    echo sprintf($this->translate("To") . ': ' . '"%s" &lt;%s&gt;<br>', $to->getName(), $to->getEmail() );
+}
+?>
+</div>
+<?php
 echo $this->form($form, Core\Form\View\Helper\Form::LAYOUT_HORIZONTAL);

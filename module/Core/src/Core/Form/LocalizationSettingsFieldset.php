@@ -45,5 +45,28 @@ class LocalizationSettingsFieldset extends Fieldset
                 ),
             )
         );
+
+        $timezones=array_merge(
+            \DateTimeZone::listIdentifiers(\DateTimeZone::AFRICA),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::AMERICA),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::ASIA),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::ATLANTIC),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::AUSTRALIA),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::EUROPE),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::INDIAN),
+            \DateTimeZone::listIdentifiers(\DateTimeZone::PACIFIC)            
+        );
+        
+        $this->add(
+            array(
+                'type' => 'Zend\Form\Element\Select',
+                'name' => 'timezone',
+                'options' => array(
+                        'label' => /* @translate */ 'choose your timzone',
+                        'value_options' => $timezones,
+                        'description' => /* @translate */ 'defines your local timezone.'
+                ),
+            )
+        );
     }
 }

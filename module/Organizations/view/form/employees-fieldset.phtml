@@ -21,24 +21,26 @@ if ($this->renderSummary):
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <td>User</td>
-                <td>Jobs View</td>
-                <td>Change</td>
-                <td>Create</td>
-                <td>Applications View</td>
-                <td>Change</td>
+                <td><?php echo $this->translate('Users')?></td>
+                <td><?php echo $this->translate('View Jobs')?></td>
+                <td><?php echo $this->translate('Edit Jobs')?></td>
+                <td><?php echo $this->translate('Create Jobs')?></td>
+                <td><?php echo $this->translate('View Applications')?></td>
+                <td><?php echo $this->translate('Edit Applications')?></td>
             </tr>
         </thead>
         <tbody>
         <?php foreach ($employees as $employee):
-            /* @var $employee \Organizations\Entity\Employee */
+            /* @var  \Organizations\Entity\Employee $employee */
             $user = $employee->getUser();
             $info = $user->getInfo();
             $perms = $employee->getPermissions()?>
         <tr>
             <td><?php $name = $info->getDisplayName(false); if ($name): echo $name ?><br><?php endif; echo $info->getEmail() ?>
+                <small><br>(<?php echo $employee->getRole()?>)
             <?php if ($employee->isPending()): ?><br><span class="label label-warning"><?php echo $this->translate('pending') ?></span>
-            <?php endif; ?></td>
+            <?php endif; ?>
+                </small></td>
             <td>
                 <?php echo $perms->isAllowed(Perms::JOBS_VIEW) ? 'X' : 'O' ?> </td><td>
                 <?php echo $perms->isAllowed(Perms::JOBS_CHANGE) ? 'X' : 'O' ?> </td><td>

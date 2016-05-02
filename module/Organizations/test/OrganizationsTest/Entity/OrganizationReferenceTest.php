@@ -17,8 +17,11 @@ use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationContact;
+use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Organizations\Entity\OrganizationReference;
+use Organizations\Entity\Template;
+use Organizations\Entity\WorkflowSettings;
 
 /**
  * Test the OrganizationReference entity.
@@ -162,34 +165,47 @@ class OrganizationReferenceTest extends \PHPUnit_Framework_TestCase
         $emps = new ArrayCollection();
         $user = new User();
         $user->setId('543');
+        $user->setRole('department manager');
         $perms = new Permissions();
         $contact = new OrganizationContact();
+        $image = new OrganizationImage();
+        $externalId='myReference';
+        $template = new Template();
+        $template->setLabelBenefits('These are your Benefits');
+        $workflowSettings = new WorkflowSettings();
+        $workflowSettings->setAcceptApplicationByDepartmentManager(true);
 
-        return array(
-            array(array('__set', '__get', '__isset'), array(array('id', '4321'), array('id'), array('id')), array('__self__', '4321', true)),
-            array('setHydrator', array($hydrator), '__self__'),
-            array('getHydrator', array(), '\Zend\Hydrator\HydratorInterface', 'instance'),
-            array(array('setId', 'getId'), array(array('4321'), array()), array('__self__', '4321')),
-            array(array('setDateCreated', 'getDateCreated'), array(array($date), array()), array('__self__', $date)),
-            array(array('setDateModified', 'getDateModified'), array(array($date), array()), array('__self__', $date)),
-            array(array('setParent', 'getParent'), array(array($parent), array()), array('__self__', $parent)),
-            array(array('setContact', 'getContact'), array(array($contact), array()), array('__self__', $contact)),
-            array('isHiringOrganization', array(), false),
-            array('getHiringOrganizations', array(), null),
-            array(array('setOrganizationName', 'getOrganizationName'), array(array($name), array()), array('__self__', $name)),
-            array(array('setDescription', 'getDescription'), array(array('nodesc'), array()), array('__self__', 'nodesc')),
-            array(array('setEmployees', 'getEmployees'), array(array($emps), array()), array('__self__', $emps)),
-            array('getEmployee', array('4321'), null),
-            array(array('setUser', 'getUser', 'getPermissionsUserIds'),
-                  array(array($user), array(), array()),
-                  array('__self__', $user, array(PermissionsInterface::PERMISSION_ALL => array($user->getId())))
-            ),
-            array('getJobs', array(), null),
-            array(array('setPermissions', 'getPermissions'), array(array($perms), array()), array('__self__', $perms)),
-            array('getPermissionsResourceId', array(), 'organization:'),
-            array('getSearchableProperties', array(), array()),
-            array(array('setKeywords', 'getKeywords'), array(array(array('no', 'keywords')), array()), array(null, null)),
-            array('clearKeywords', array(), null),
-        );
+        return [
+            [
+                ['__set', '__get', '__isset'],
+                [['id', '4321'], ['id'], ['id']],
+                ['__self__', '4321', true]
+            ],
+            ['setHydrator', [$hydrator], '__self__'],
+            ['getHydrator', [], '\Zend\Hydrator\HydratorInterface', 'instance'],
+            [['setId', 'getId'], [['4321'], []], ['__self__', '4321']],
+            [['setContact', 'getContact'], [[$contact], []], ['__self__', $contact]],
+            [['setDateCreated', 'getDateCreated'], [[$date], []], ['__self__', $date]],
+            [['setDateModified', 'getDateModified'], [[$date], []], ['__self__', $date]],
+            [['setExternalId', 'getExternalId'], [[$externalId], []], ['__self__', $externalId]],
+            [['setParent', 'getParent'], [[$parent], []], ['__self__', $parent]],
+            [['setImage', 'getImage'], [[$image], []], ['__self__', $image]],
+            [['setTemplate', 'getTemplate'], [[$template], []], ['__self__', $template]],
+            [['setWorkflowSettings', 'getWorkflowSettings'], [[$workflowSettings], []], ['__self__', $workflowSettings]],
+            ['isHiringOrganization', [], false],
+            ['getHiringOrganizations', [], null],
+            [['setOrganizationName', 'getOrganizationName'], [[$name], []], ['__self__', $name]],
+            [['setDescription', 'getDescription'], [['nodesc'], []], ['__self__', 'nodesc']],
+            [['setEmployees', 'getEmployees'], [[$emps], []], ['__self__', $emps]],
+            ['getEmployee', ['4321'], null],
+            [['setUser', 'getUser', 'getPermissionsUserIds'],
+                  [[$user], [], []],
+                  ['__self__', $user, [PermissionsInterface::PERMISSION_ALL => [$user->getId()]]]
+            ],
+            ['getJobs', [], null],
+            [['setPermissions', 'getPermissions'], [[$perms], []], ['__self__', $perms]],
+            ['getPermissionsResourceId', [], 'organization:'],
+            ['getSearchableProperties', [], []],
+        ];
     }
 }

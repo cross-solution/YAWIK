@@ -318,7 +318,7 @@ class OrganizationReference implements
 
     public function getEmployeesByRole($role)
     {
-        return $this->proxy('getEmployeesByRole');
+        return $this->proxy('getEmployeesByRole', $role);
     }
 
     public function getEmployee($userOrId)
@@ -402,6 +402,15 @@ class OrganizationReference implements
         return $this->proxy('setTemplate', $template);
     }
 
+    public function getWorkflowSettings()
+    {
+        return $this->proxy('getWorkflowSettings');
+    }
+
+    public function setWorkflowSettings($workflowSettings)
+    {
+        return $this->proxy('setWorkflowSettings', $workflowSettings);
+    }
 
     /**#@-*/
 }

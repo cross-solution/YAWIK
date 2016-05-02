@@ -70,6 +70,16 @@ class Organizations extends Container
                 ),
             ),
 
+            'workflowSettings' => array(
+                'type' => 'Organizations/WorkflowSettings',
+                'property' => 'workflowSettings',
+                'options' => array(
+                    'label' => /*@translate*/ 'Workflow',
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/ 'Define, how notifications about new applications reach your employees',
+                ),
+            ),
+
             )
         );
     }

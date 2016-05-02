@@ -41,7 +41,6 @@ class SettingsFieldset extends Fieldset
     {
         $this->setName('emails')
              ->setLabel(/* @translate */ 'E-Mail Notifications');
-             //->setHydrator(new \Core\Model\Hydrator\ModelHydrator());
 
         $this->add(
             array('type' => 'Zend\Form\Element\Checkbox',
@@ -78,20 +77,39 @@ class SettingsFieldset extends Fieldset
                                     'description'=> /* @translate */ 'default text of the invitation mail to the applicant. You can use all variables of the acknowledgment of receipt mail. '
                                     ))
         );
-        
+
         $this->add(
-            array('type' => 'Zend\Form\Element\Textarea',
-                'name' => 'mailRejectionText',
-                'options' => array('label' => /* @translate */ 'Rejection mail text',
-                                           'description' => /* @translate */ 'default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.'))
+            [
+                'type' => 'Zend\Form\Element\Textarea',
+                'name' => 'mailAcceptedText',
+                'options' => [
+                    'label' => /* @translate */ 'Accept mail text',
+                    'description'=> /* @translate */ 'default text, when accepting an applicant. This mail is send to by a domain admin to the recruiter, who is responsible for the job posting.'
+                ]
+            ]
         );
         
         $this->add(
-            array('type' => 'Zend\Form\Element\Checkbox',
+            [
+                'type' => 'Zend\Form\Element\Textarea',
+                'name' => 'mailRejectionText',
+                'options' => [
+                    'label' => /* @translate */ 'Rejection mail text',
+                    'description' => /* @translate */ 'default text of the refusal of an application to the applicant. You can use all variables of the acknowledgment of receipt mail.'
+                ]
+            ]
+        );
+        
+        $this->add(
+            [
+                'type' => 'Zend\Form\Element\Checkbox',
                 'name' => 'mailBCC',
-                'options' => array('label' => /* @translate */ 'get blind carbon copy of all own mails',
-                                   'long_label' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.',
-                                           'value_options' => array(0, 1, true, false)))
+                'options' => [
+                    'label' => /* @translate */ 'get blind carbon copy of all own mails',
+                    'long_label' => /* @translate */ 'if checked, you\'ll get a copy of all mails you send.',
+                    'value_options' => [0, 1, true, false]
+                ]
+            ]
         );
 
         $this->add(

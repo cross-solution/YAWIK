@@ -22,4 +22,9 @@ class LocalizationSettings extends Container
      * @ODM\Field(type="string")
      */
     protected $language;
+    
+    /**
+     * @ODM\Field(type="string")
+     */
+    protected $timezone;
 }
