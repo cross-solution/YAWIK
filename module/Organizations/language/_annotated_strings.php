@@ -65,22 +65,22 @@ translate('Choose a Logo. This logo will be shown in the job opening and the app
 //: ./src/Organizations/Form/OrganizationsNameFieldset.php:54
 translate('Organizationname');
 
-//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:38
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:52
 translate('accept Applications by Department Managers');
 
-//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:39
-translate('if checked, department managers are informed bout new applications first.');
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:53
+translate('if checked, department managers are informed about new applications first.');
 
-//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:40
-translate('Department managers have to accept a candidate.');
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:54
+translate('Department managers are notified of incoming applications and must accept this. Only then the recruiter can start his work with the application');
 
-//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:51
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:65
 translate('assign department managers to jobs');
 
-//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:52
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:66
 translate('if checked, department managers have to be assigned to job postings.');
 
-//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:53
+//: ./src/Organizations/Form/WorkflowSettingsFieldset.php:67
 translate('if you have more them one department managers, you can assign them to a job posting. If nobody is assigned, all department managers will be informed about new applications');
 
 //: ./src/Organizations/Form/EmployeesFieldset.php:56
@@ -113,9 +113,9 @@ translate('The access token you provided seems to have expired.');
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:165
+//: ./config/module.config.php:166
 translate('Overview');
 
-//: ./config/module.config.php:169
+//: ./config/module.config.php:170
 translate('Insert');
 

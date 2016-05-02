@@ -50,7 +50,7 @@ class WorkflowSettingsFieldset extends Fieldset implements ViewPartialProviderIn
                 'label'   => 'accept',
                 'options' => [
                     'label' => /* @translate */ 'accept Applications by Department Managers',
-                    'long_label' => /* @translate */ 'if checked, department managers are informed bout new applications first.',
+                    'long_label' => /* @translate */ 'if checked, department managers are informed about new applications first.',
                     'description' => /* @translate */ 'Department managers are notified of incoming applications and must accept this. Only then the recruiter can start his work with the application'
                 ],
             )

@@ -287,28 +287,28 @@ translate('enable %s of this job on your Homepage');
 //: ./config/channel.options.local.php.dist:59
 translate('integration');
 
-//: ./config/module.config.php:131
+//: ./config/module.config.php:132
 translate('Jobs');
 
-//: ./config/module.config.php:140
+//: ./config/module.config.php:141
 translate('Jobboard');
 
-//: ./config/module.config.php:146
+//: ./config/module.config.php:147
 translate('Jobs');
 
-//: ./config/module.config.php:152
+//: ./config/module.config.php:153
 translate('Overview');
 
-//: ./config/module.config.php:157
+//: ./config/module.config.php:158
 translate('Pending jobs');
 
-//: ./config/module.config.php:162
+//: ./config/module.config.php:163
 translate('Create job');
 
-//: ./config/module.config.php:171
+//: ./config/module.config.php:172
 translate('Edit job');
 
-//: ./config/module.config.php:178
+//: ./config/module.config.php:179
 translate('Jobboard');
 
 //: ./test/JobsTest/Form/ListFilterPersonalTest.php:37

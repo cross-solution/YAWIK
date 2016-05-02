@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - Organizations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-07 12:53+0200\n"
+"POT-Creation-Date: 2016-05-02 17:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,11 +60,35 @@ msgstr ""
 msgid "Click on this button will add the employee with the status \"pending\""
 msgstr ""
 
-#: view/form/employee-fieldset.phtml:32
+#: view/form/employee-fieldset.phtml:33
 msgid "PENDING"
 msgstr ""
 
-#: view/form/employees-fieldset.phtml:40
+#: view/form/employees-fieldset.phtml:24
+msgid "Users"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:25 language/_annotated_strings.php:15
+msgid "View Jobs"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:26 language/_annotated_strings.php:18
+msgid "Edit Jobs"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:27 language/_annotated_strings.php:21
+msgid "Create Jobs"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:28 language/_annotated_strings.php:24
+msgid "View Applications"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:29 language/_annotated_strings.php:27
+msgid "Edit Applications"
+msgstr ""
+
+#: view/form/employees-fieldset.phtml:41
 msgid "pending"
 msgstr ""
 
@@ -137,26 +161,6 @@ msgstr ""
 msgid "Street"
 msgstr ""
 
-#: language/_annotated_strings.php:15
-msgid "View Jobs"
-msgstr ""
-
-#: language/_annotated_strings.php:18
-msgid "Edit Jobs"
-msgstr ""
-
-#: language/_annotated_strings.php:21
-msgid "Create Jobs"
-msgstr ""
-
-#: language/_annotated_strings.php:24
-msgid "View Applications"
-msgstr ""
-
-#: language/_annotated_strings.php:27
-msgid "Edit Applications"
-msgstr ""
-
 #: language/_annotated_strings.php:30
 msgid "Recruiter"
 msgstr ""
@@ -217,11 +221,13 @@ msgstr ""
 
 #: language/_annotated_strings.php:72
 msgid ""
-"if checked, department managers are informed bout new applications first."
+"if checked, department managers are informed about new applications first."
 msgstr ""
 
 #: language/_annotated_strings.php:75
-msgid "Department managers have to accept a candidate."
+msgid ""
+"Department managers are notified of incoming applications and must accept "
+"this. Only then the recruiter can start his work with the application"
 msgstr ""
 
 #: language/_annotated_strings.php:78
