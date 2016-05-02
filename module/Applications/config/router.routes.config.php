@@ -26,13 +26,14 @@ return array(
                     'apply-one-click' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/apply-one-click/:applyId[/:network]',
+                            'route' => '/apply-one-click/:applyId/:network[/:immediately]',
                             'defaults' => array(
                                 'controller' => 'Applications\Controller\Apply',
                                 'action' => 'oneClickApply'
                             ),
                             'constraints' => array(
-                                'network' => 'facebook|xing|linkedin'
+                                'network' => 'facebook|xing|linkedin',
+                                'immediately' => '0|1'
                             )
                         )
                     ),

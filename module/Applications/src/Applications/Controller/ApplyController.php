@@ -233,51 +233,54 @@ class ApplyController extends AbstractActionController
         
         $network = $this->params('network');
 		
-        if ($network)
+        $hybridAuth = $this->getServiceLocator()
+            ->get('HybridAuthAdapter')
+            ->getHybridAuth();
+        /* @var $authProfile \Hybrid_User_Profile */
+        $authProfile = $hybridAuth->authenticate($network)
+           ->getUserProfile();
+        
+        $contact = $application->getContact();
+        $contact->email = $authProfile->emailVerified ?: $authProfile->email;
+        $contact->firstName = $authProfile->firstName;
+        $contact->lastName = $authProfile->lastName;
+        $contact->birthDay = $authProfile->birthDay;
+        $contact->birthMonth = $authProfile->birthMonth;
+        $contact->birthYear = $authProfile->birthYear;
+        $contact->setPostalCode($authProfile->zip);
+        $contact->setCity($authProfile->city);
+        $contact->setStreet($authProfile->address);
+        $contact->setPhone($authProfile->phone);
+        $contact->setGender($authProfile->gender);
+        
+        if ($authProfile->photoURL)
         {
-            $hybridAuth = $this->getServiceLocator()
-                ->get('HybridAuthAdapter')
-                ->getHybridAuth();
-            /* @var $authProfile \Hybrid_User_Profile */
-            $authProfile = $hybridAuth->authenticate($network)
-               ->getUserProfile();
+            $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
+            $file = new \Doctrine\MongoDB\GridFSFile();
+            $file->setBytes($response->getBody());
             
-            $contact = $application->getContact();
-            $contact->email = $authProfile->emailVerified ?: $authProfile->email;
-            $contact->firstName = $authProfile->firstName;
-            $contact->lastName = $authProfile->lastName;
-            $contact->birthDay = $authProfile->birthDay;
-            $contact->birthMonth = $authProfile->birthMonth;
-            $contact->birthYear = $authProfile->birthYear;
-            $contact->setPostalCode($authProfile->zip);
-            $contact->setCity($authProfile->city);
-            $contact->setStreet($authProfile->address);
-            $contact->setPhone($authProfile->phone);
-            $contact->setGender($authProfile->gender);
+            $image = new \Applications\Entity\Attachment();
+            $image->setName($contact->getLastName().$contact->getFirstName());
+            $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
+            $image->setFile($file);
+            $image->setPermissions($application->getPermissions());
             
-            if ($authProfile->photoURL)
-            {
-                $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
-                $file = new \Doctrine\MongoDB\GridFSFile();
-                $file->setBytes($response->getBody());
-                
-                $image = new \Applications\Entity\Attachment();
-                $image->setName($contact->getLastName().$contact->getFirstName());
-                $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
-                $image->setFile($file);
-                $image->setPermissions($application->getPermissions());
-                
-                $contact->setImage($image);
-            }
-            
-            return $this->redirect()
-               ->toRoute('lang/apply', ['applyId' => $job->getApplyId()]);
+            $contact->setImage($image);
         }
         
-		return [
-            'networks' => $atsMode->getOneClickApplyProfiles(),
-            'application' => $application
-        ];
+        $urlOptions = [];
+        
+        if ($this->params('immediately'))
+        {
+            $urlOptions = [
+                'query' => [
+                    'do' => 'send'
+                ]
+            ];
+        }
+        
+        return $this->redirect()
+           ->toRoute('lang/apply', ['applyId' => $job->getApplyId()], $urlOptions);
     }
 
     public function processPreviewAction()

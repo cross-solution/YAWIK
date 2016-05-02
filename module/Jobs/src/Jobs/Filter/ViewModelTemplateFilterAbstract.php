@@ -14,7 +14,6 @@ namespace Jobs\Filter;
 use Jobs\Entity\Job;
 use Zend\Filter\FilterInterface;
 use Zend\View\Model\ViewModel;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
 
 /**
  * assembles a ViewModel for job templates.
@@ -57,11 +56,6 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
      * @var
      */
     protected $serverUrlHelper;
-
-    /**
-     * @var Translator
-     */
-    protected $translator;
 
     /**
      * @param $config
@@ -116,17 +110,6 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     }
 
     /**
-	 * @param Translator $translator
-	 * @return ViewModelTemplateFilterAbstract
-	 */
-	public function setTranslator(Translator $translator)
-	{
-		$this->translator = $translator;
-		
-		return $this;
-	}
-
-    /**
      * @param mixed $value
      * @return mixed|ViewModel
      * @throws \InvalidArgumentException
@@ -160,37 +143,30 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
      * @return ViewModelTemplateFilterAbstract
      * @throws \InvalidArgumentException
      */
-    protected function setApplyButtons()
+    protected function setApplyData()
     {
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
         
-        $this->container['applyButtons'] = [];
+        $data = [
+            'applyId' => $this->job->getApplyId(),
+            'uri' => null,
+            'oneClickProfiles' => []
+        ];
         $atsMode = $this->job->getAtsMode();
-        $defaultUrl = null;
         
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
-            $defaultUrl = $this->urlPlugin->fromRoute('lang/apply', ['applyId' => $this->job->getApplyId()], ['force_canonical' => true]);
+            $data['uri'] = $this->urlPlugin->fromRoute('lang/apply', ['applyId' => $this->job->getApplyId()], ['force_canonical' => true]);
         } elseif ($atsMode->isUri()) {
-            $defaultUrl = $atsMode->getUri();
-        }
-        
-        if ($defaultUrl) {
-            $this->container['applyButtons'][] = [
-                'label' => $this->translator->translate('Apply now'),
-                'url' => $defaultUrl,
-                'type' => 'default'
-            ];
+            $data['uri'] = $atsMode->getUri();
         }
         
         if ($atsMode->isIntern() && $atsMode->getOneClickApply()) {
-            $this->container['applyButtons'][] = [
-                'label' => $this->translator->translate('One click apply'),
-                'url' => $this->urlPlugin->fromRoute('lang/apply-one-click', ['applyId' => $this->job->getApplyId()], ['force_canonical' => true]),
-                'type' => 'one-click'
-            ];
+            $data['oneClickProfiles'] = $atsMode->getOneClickApplyProfiles();
         }
+        
+        $this->container['applyData'] = $data;
         
         return $this;
     }

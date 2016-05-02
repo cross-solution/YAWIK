@@ -70,7 +70,6 @@ class ViewModelTemplateFilterFactory implements FactoryInterface
         $filter->setUrlPlugin($urlPlugin);
         $options = $this->service->get('Jobs/Options');
         $filter->setConfig($options);
-        $filter->setTranslator($this->service->get('Translator'));
         return $filter->filter($element);
     }
 }

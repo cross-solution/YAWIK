@@ -304,6 +304,7 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'jobPreviewLink' => 'Jobs\Form\View\Helper\PreviewLink',
+            'jobApplyButtons' => 'Jobs\View\Helper\ApplyButtons'
 
         ),
         'factories' => array(

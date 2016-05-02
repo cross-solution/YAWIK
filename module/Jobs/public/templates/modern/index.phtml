@@ -61,15 +61,7 @@
                     <div class="panel-body"><?php echo $this->benefits;?></div>
                 </div>
 
-                <?php if ($this->applyButtons): ?>
-                    <div class="apply">
-                        <?php foreach ($this->applyButtons as $applyButton):?>
-                            <a target="_new" class="button button-primary apply-button-<?=$applyButton['type']?>" href="<?=$applyButton['url']?>" rel="nofollow">
-                                <strong><?=$applyButton['label']?></strong>
-                            </a>
-                        <?php endforeach;?>
-                    </div>
-                <?php endif; ?>
+                <?=$this->jobApplyButtons($this->applyData)?>
 
             </div>
         </div>

@@ -75,19 +75,7 @@
             <div class="twelve columns">
             </div>
         </div>
-        <?php if ($this->applyButtons): ?>
-        <div class="row">
-            <div class="twelve columns">
-                <div class="apply">
-                    <?php foreach ($this->applyButtons as $applyButton):?>
-                        <a target="_new" class="button button-primary apply-button-<?=$applyButton['type']?>" href="<?=$applyButton['url']?>" rel="nofollow">
-                            <strong><?=$applyButton['label']?></strong>
-                        </a>
-                    <?php endforeach;?>
-                </div>
-            </div>
-        </div>
-        <?php endif; ?>
+        <?=$this->jobApplyButtons($this->applyData)?>
     </main>
     <footer><small>powered by <a href="http://yawik.org">YAWIK</a></small></footer>
 </div>
