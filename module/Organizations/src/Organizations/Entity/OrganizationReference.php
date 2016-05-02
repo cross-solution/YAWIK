@@ -26,6 +26,7 @@ use Zend\Hydrator\HydratorInterface;
  * object), this class can be used as an organization.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo update test
  */
 class OrganizationReference implements
     OrganizationInterface,
@@ -198,6 +199,11 @@ class OrganizationReference implements
     public function notEmpty($property, array $args=[])
     {
         return $this->proxy('notEmpty', $args);
+    }
+
+    public function hasProperty($property, $mode = self::PROPERTY_STRICT)
+    {
+        return $this->proxy('hasProperty', $mode);
     }
 
     public function setHydrator(HydratorInterface $hydrator)
