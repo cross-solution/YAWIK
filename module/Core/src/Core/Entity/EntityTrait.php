@@ -15,6 +15,9 @@ use Core\Entity\Exception\OutOfBoundsException;
 /**
  * Implementation of \Core\Entity\EntityInterface.
  *
+ *
+ * @var EntityInterface $this
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25
  */
@@ -52,5 +55,28 @@ trait EntityTrait
         }
 
         return true;
+    }
+
+    public function hasProperty($property, $mode = self::PROPERTY_STRICT)
+    {
+        $hasProperty = property_exists($this, $property);
+
+        if (!$hasProperty || self::PROPERTY_FACILE === $mode) {
+            return $hasProperty;
+        }
+
+        $hasGetter = method_exists($this, "get$property");
+
+        if (self::PROPERTY_GETTER === $mode) {
+            return $hasGetter;
+        }
+
+        $hasSetter = method_exists($this, "set$property");
+
+        if (self::PROPERTY_SETTER === $mode) {
+            return $hasSetter;
+        }
+
+        return $hasGetter && $hasSetter;
     }
 }

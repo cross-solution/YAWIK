@@ -558,7 +558,7 @@ class Container extends Element implements
 
         if (true === $property) {
             $mapEntity = $entity;
-        } else if ($entity->notEmpty($property)) {
+        } else if ($entity->hasProperty($property)) {
             $getter = "get$property";
             $mapEntity = $entity->$getter();
         } else {
