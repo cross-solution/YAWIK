@@ -131,12 +131,13 @@
 					if (errors.size || errors.type) {
 						$tpl.removeClass('fu-working').addClass('fu-error')
 						    .find('.fu-progress').hide();
-						
-						if (!errors.size) {
-							$tpl.find('.fu-error-size').hide();
+
+                        $tpl.find('li').hide();
+						if (errors.size) {
+							$tpl.find('.fu-error-size').show();
 						}
-						if (!errors.type) {
-							$tpl.find('.fu-error-type').hide();
+						if (errors.type) {
+							$tpl.find('.fu-error-type').show();
 						}
 						$tpl.find('.fu-delete-button').click(deleteFile);
 						return;
@@ -188,6 +189,11 @@
 				
 				fail: function(e, data) 
 				{
+                    data.context.find('.fu-progress').addClass('hide');
+                    data.context.removeClass('fu-working').addClass('fu-error')
+                        .find('.fu-errors').show();
+                    data.context.find('.fu-error-general').show();
+
 					console.debug(e, data);
 				}
 			});

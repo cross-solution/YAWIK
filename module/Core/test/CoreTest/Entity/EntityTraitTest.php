@@ -96,6 +96,43 @@ class EntityTraitTest extends \PHPUnit_Framework_TestCase
 
         $this->assertAttributeEquals($args, 'extraArgs', $this->target);
     }
+
+    public function hasPropertyTestProvider()
+    {
+        $facileTarget = new HasPropertyTestTraitEntity();
+        $getterTarget = new HasPropertyAndGetterTestTraitEntity();
+        $setterTarget = new HasPropertyAndSetterTestTraitEntity();
+        $strictTarget = new HasPropertyAndGetterAndSetterTestTraitEntity();
+        return [
+            [ $facileTarget, [true, false ,false, false]],
+            [ $getterTarget, [true, true, false, false]],
+            [ $setterTarget, [true, false, true, false]],
+            [ $strictTarget, [true, true, true, true]],
+        ];
+    }
+
+    /**
+     * @dataProvider hasPropertyTestProvider
+     *
+     * @param $target
+     * @param $expects
+     */
+    public function testHasPropertyReturnsExpectedResults($target, $expects)
+    {
+        $modes = [EntityInterface::PROPERTY_FACILE,
+                  EntityInterface::PROPERTY_GETTER,
+                  EntityInterface::PROPERTY_SETTER,
+                  EntityInterface::PROPERTY_STRICT];
+
+        foreach ($modes  as $mode) {
+
+            $actual = $target->hasProperty('testProperty', $mode);
+            $expect = array_shift($expects);
+            $assert = 'assert' . ($expect ? 'true' : 'false');
+
+            $this->$assert($actual);
+        }
+    }
 }
 
 class TraitEntity implements EntityInterface {
@@ -131,4 +168,30 @@ class TraitEntity implements EntityInterface {
 
         return 'irrelevant';
     }
+}
+
+class HasPropertyTestTraitEntity implements EntityInterface
+{
+
+    use EntityTrait;
+
+    protected $testProperty;
+}
+
+class HasPropertyAndGetterTestTraitEntity extends HasPropertyTestTraitEntity
+{
+
+    public function getTestProperty() {}
+}
+
+class HasPropertyAndSetterTestTraitEntity extends HasPropertyTestTraitEntity
+{
+
+    public function setTestProperty() {}
+}
+
+class HasPropertyAndGetterAndSetterTestTraitEntity extends HasPropertyAndGetterTestTraitEntity
+{
+
+    public function setTestProperty() {}
 }

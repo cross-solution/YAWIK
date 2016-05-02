@@ -108,7 +108,7 @@ class FormFileUpload extends FormFile
             <li class="fu-error-count">' . sprintf(
     $translator->translate('You may only upload %d files', $textDomain),
     $element->getAttribute('data-maxfilecount')
-) . '</li>
+) . '</li><li class="fu-error-general">' . $translator->translate('An unknown error occured.') . '</li>
         </ul>
    </div>
 </li>';
