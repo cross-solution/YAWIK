@@ -678,10 +678,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     public function setTemplate(TemplateInterface $template)
     {
-        // TODO: Implement setTemplate() method.
+        $this->template=$template;
+        return $this;
     }
 
     /**
+     * Gets Workflow Settings
+     *
      * @return WorkflowSettings|WorkflowSettingsInterface
      */
     public function getWorkflowSettings(){
@@ -692,9 +695,14 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * Sets Workflow Settings
+     *
      * @param $workflowSettings
+     *
+     * @return self
      */
     public function setWorkflowSettings($workflowSettings){
         $this->workflowSettings=$workflowSettings;
+        return $this;
     }
 }

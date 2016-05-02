@@ -11,6 +11,7 @@
 namespace OrganizationsTest\Entity;
 
 use Auth\Entity\User;
+use Core\Entity\Hydrator\EntityHydrator;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Organizations\Entity\Employee;
@@ -65,9 +66,11 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target->getParent(),$parent);
     }
 
-    public function testGetHiringOrganizations()
+    public function testSetGetHydrator()
     {
-        /*@todo*/
+        $hydrator = new EntityHydrator();
+        $this->target->setHydrator($hydrator);
+        $this->assertEquals($this->target->getHydrator(),$hydrator);
     }
 
     public function testSetGetExternalId()
@@ -91,6 +94,21 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $input = new OrganizationName($company);
         $this->target->setOrganizationName($input);
         $this->assertSame($this->target->getName(),$company);
+    }
+
+    public function testGetNameWithoutAName()
+    {
+        $this->assertSame($this->target->getName(),'');
+    }
+
+    public function testSetAnExistingOrganizationName(){
+        $company = 'My Good Company';
+        $input = new OrganizationName($company);
+        $input->setRankingByCompany(2);
+        $input->setId(123);
+        $this->target->setOrganizationName($input);
+        $this->target->setOrganizationName($input);
+        $this->assertSame(3,$input->getRankingByCompany());
     }
 
     public function testSetGetDescription()
@@ -135,5 +153,20 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
         $permissions = new Permissions(PermissionsInterface::PERMISSION_CHANGE);
         $this->target->setPermissions($permissions);
         $this->assertSame($this->target->getPermissions(),$permissions);
+    }
+
+    public function testGetPermissionDefault() {
+        $this->assertEquals(new Permissions(), $this->target->getPermissions());
+    }
+
+    public function testSetGetPermissionsWithUser(){
+        $user = new User();
+        $user->setId(123);
+        $this->target->setUser($user);
+        $permissions = new Permissions(PermissionsInterface::PERMISSION_CHANGE);
+        $this->target->setPermissions($permissions);
+        $this->assertEquals($this->target->getPermissions(), $permissions);
+        $this->assertAttributeSame(true, 'hasChanged', $this->target->getPermissions());
+        $this->assertAttributeSame('change', 'type', $this->target->getPermissions());
     }
 }
