@@ -233,14 +233,16 @@ class ApplyController extends AbstractActionController
         }
         
         $network = $this->params('network');
-		
+
         $hybridAuth = $this->getServiceLocator()
             ->get('HybridAuthAdapter')
             ->getHybridAuth();
         /* @var $authProfile \Hybrid_User_Profile */
         $authProfile = $hybridAuth->authenticate($network)
            ->getUserProfile();
-        
+
+        $profile = $this->plugin('Auth/SocialProfiles')->fetch($network);
+
         $contact = $application->getContact();
         $contact->email = $authProfile->emailVerified ?: $authProfile->email;
         $contact->firstName = $authProfile->firstName;
@@ -253,7 +255,10 @@ class ApplyController extends AbstractActionController
         $contact->setStreet($authProfile->address);
         $contact->setPhone($authProfile->phone);
         $contact->setGender($authProfile->gender);
-        
+
+        $profiles = $application->getProfiles();
+        $profiles->add($profile);
+
         if ($authProfile->photoURL)
         {
             $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
