@@ -219,6 +219,7 @@ class ApplyController extends AbstractActionController
     
     public function oneClickApplyAction()
     {
+        /* @var \Applications\Entity\Application $application */
         $application = $this->container->getEntity();
         $job = $application->getJob();
         $atsMode = $job->getAtsMode();
@@ -272,6 +273,7 @@ class ApplyController extends AbstractActionController
         
         if ($this->params('immediately'))
         {
+            $application->getAttributes()->setAcceptedPrivacyPolicy(true);
             $urlOptions = [
                 'query' => [
                     'do' => 'send'

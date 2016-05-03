@@ -75,7 +75,15 @@
             <div class="twelve columns">
             </div>
         </div>
-        <?=$this->jobApplyButtons($this->applyData)?>
+        <?=$this->jobApplyButtons(
+            $this->applyData,
+            [
+                'sendImmediately' => true,
+                'oneClickOnly' => false,
+                'defaultLabel' => 'Click here to apply',
+                'oneClickLabel' => null
+            ]
+        )?>
     </main>
     <footer><small>powered by <a href="http://yawik.org">YAWIK</a></small></footer>
 </div>
