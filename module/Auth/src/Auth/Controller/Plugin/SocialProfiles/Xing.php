@@ -38,4 +38,6 @@ class Xing extends AbstractAdapter
         return $result;
 
     }
+
+
 }

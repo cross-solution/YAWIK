@@ -241,15 +241,16 @@ class ApplyController extends AbstractActionController
         $authProfile = $hybridAuth->authenticate($network)
            ->getUserProfile();
 
+        /* @var \Auth\Entity\SocialProfiles\AbstractProfile $profile */
         $profile = $this->plugin('Auth/SocialProfiles')->fetch($network);
 
         $contact = $application->getContact();
-        $contact->email = $authProfile->emailVerified ?: $authProfile->email;
-        $contact->firstName = $authProfile->firstName;
-        $contact->lastName = $authProfile->lastName;
-        $contact->birthDay = $authProfile->birthDay;
-        $contact->birthMonth = $authProfile->birthMonth;
-        $contact->birthYear = $authProfile->birthYear;
+        $contact->setEmail($authProfile->emailVerified ?: $authProfile->email);
+        $contact->setFirstName($authProfile->firstName);
+        $contact->setLastName($authProfile->lastName);
+        $contact->setBirthDay($authProfile->birthDay);
+        $contact->setBirthMonth($authProfile->birthMonth);
+        $contact->setBirthYear($authProfile->birthYear);
         $contact->setPostalCode($authProfile->zip);
         $contact->setCity($authProfile->city);
         $contact->setStreet($authProfile->address);
@@ -258,6 +259,10 @@ class ApplyController extends AbstractActionController
 
         $profiles = $application->getProfiles();
         $profiles->add($profile);
+
+        $cv = $application->getCv();
+        $cv->setEmployments($profile->getEmployments());
+        $cv->setEducations($profile->getEducations());
 
         if ($authProfile->photoURL)
         {
