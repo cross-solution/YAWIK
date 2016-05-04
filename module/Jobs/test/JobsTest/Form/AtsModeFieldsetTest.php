@@ -121,10 +121,35 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
                 'label' => 'Email',
             ),
         );
+        
+        $addOneClickApply = [
+            'type' => 'Checkbox',
+            'name' => 'oneClickApply',
+            'options' => [
+                'label' => 'One click apply',
+            ]
+        ];
+        
+        $addOneClickApplyProfiles = [
+            'type' => 'Select',
+            'name' => 'oneClickApplyProfiles',
+            'options' => [
+                'label' => 'Social profiles',
+                'value_options' => [
+                    'facebook' => 'Facebook',
+                    'xing'     => 'Xing',
+                    'linkedin' => 'LinkedIn'
+                ],
+                'use_hidden_element' => true
+            ],
+            'attributes' => [
+                'multiple' => true
+            ]
+        ];
 
-        $target->expects($this->exactly(3))->method('add')
+        $target->expects($this->exactly(5))->method('add')
                ->withConsecutive(
-                    array($addSelect), array($addUri), array($addEmail)
+                    array($addSelect), array($addUri), array($addEmail), array($addOneClickApply), array($addOneClickApplyProfiles)
                 );
 
         $target->init();
