@@ -17,6 +17,12 @@ use Zend\View\Helper\AbstractHelper;
  */
 class ApplyButtons extends AbstractHelper
 {
+    
+    /**
+     * @var string
+     */
+    protected $partial = 'partials/buttons';
+    
     /**
      * Renders apply buttons according to passed $options
      * Following optional options are recognized:
@@ -47,12 +53,18 @@ class ApplyButtons extends AbstractHelper
      */
     public function __invoke(array $data, array $options = [])
     {
+        // check data
+        if (!isset($data['uri']) || !isset($data['oneClickProfiles']) || !isset($data['applyId']))
+        {
+            throw new \InvalidArgumentException('Invalid data passed');
+        }
+        
         $variables = [
             'default' => null,
             'oneClick' => [],
         ];
         $options = array_merge([
-            'partial' => 'partials/buttons',
+            'partial' => $this->partial,
             'oneClickOnly' => false,
             'defaultLabel' => null,
             'oneClickLabel' => null,
@@ -66,18 +78,18 @@ class ApplyButtons extends AbstractHelper
         
         if (!$options['oneClickOnly'] && $data['uri']) {
             $variables['default'] = [
-                'label' => $options['defaultLabel'] ?: $this->view->translate('Apply now'),
+                'label' => $options['defaultLabel'] ?: $view->translate('Apply now'),
                 'url' => $data['uri']
             ];
         }
         
         if ($data['oneClickProfiles']) {
-            $label = $options['oneClickLabel'] ?: $this->view->translate('Apply with %s');
+            $label = $options['oneClickLabel'] ?: $view->translate('Apply with %s');
             
             foreach ($data['oneClickProfiles'] as $network) {
 				$variables['oneClick'][] = [
                     'label' => sprintf($label, $network),
-                    'url' => $this->view->url('lang/apply-one-click', ['applyId' => $data['applyId'], 'network' => $network, 'immediately' => $options['sendImmediately'] ?: null], ['force_canonical' => true]),
+                    'url' => $view->url('lang/apply-one-click', ['applyId' => $data['applyId'], 'network' => $network, 'immediately' => $options['sendImmediately'] ?: null], ['force_canonical' => true]),
 				    'network' => $network
                 ];
             }
@@ -85,4 +97,23 @@ class ApplyButtons extends AbstractHelper
         
         return $view->partial($partial, $variables);
     }
+    
+	/**
+	 * @return string
+	 */
+	public function getPartial()
+	{
+		return $this->partial;
+	}
+
+	/**
+	 * @param string $partial
+	 * @return ApplyButtons
+	 */
+	public function setPartial($partial)
+	{
+		$this->partial = $partial;
+		
+		return $this;
+	}
 }
