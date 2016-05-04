@@ -30,23 +30,18 @@ class UsersController extends AbstractActionController
      */
     public function listAction()
     {
-        /* @var \Zend\Http\Request $request */
-        $request          = $this->getRequest();
-        $params           = $request->getQuery();
+        return $this->pagination([
+            'paginator' => ['Auth/User', 'as' => 'users'],
+            'form' => [
+                [ 'Core/TextSearch', [
+                        'elements_options' => [
+                            'placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
+                            'button_element' => 'text',
+                        ],
+                ]],
+                'as' => 'form'
+            ],
+        ]);
 
-        $paginator = $this->paginator('Auth/User', $params);
-        $form = $this->getServiceLocator()->get('forms')
-                ->get('Core/TextSearch', [
-                                           'placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
-                                           'button_element' => 'text'
-                                       ]);
-
-        $return = array(
-            'by' => $params['by'],
-            'users' => $paginator,
-            'form' => $form,
-        );
-
-        return $return;
-    }
+   }
 }
