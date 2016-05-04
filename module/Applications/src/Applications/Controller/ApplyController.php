@@ -16,13 +16,11 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Applications\Entity\Application;
 use Zend\View\Model\ViewModel;
-use Auth\Entity\AnonymousUser;
 use Zend\View\Model\JsonModel;
 use Core\Form\Container;
 use Core\Form\SummaryForm;
 use Core\Entity\PermissionsInterface;
 use Applications\Entity\Status;
-use Applications\Entity\StatusInterface;
 
 /**
  * there are basically two ways to use this controller,
@@ -217,6 +215,84 @@ class ApplyController extends AbstractActionController
         );
         $model->setTemplate('applications/apply/index');
         return $model;
+    }
+    
+    public function oneClickApplyAction()
+    {
+        /* @var \Applications\Entity\Application $application */
+        $application = $this->container->getEntity();
+        $job = $application->getJob();
+        $atsMode = $job->getAtsMode();
+        
+        // check for one click apply
+        if (!($atsMode->isIntern() && $atsMode->getOneClickApply()))
+        {
+            // redirect to regular application
+            return $this->redirect()
+                ->toRoute('lang/apply', ['applyId' => $job->getApplyId()]);
+        }
+        
+        $network = $this->params('network');
+
+        $hybridAuth = $this->getServiceLocator()
+            ->get('HybridAuthAdapter')
+            ->getHybridAuth();
+        /* @var $authProfile \Hybrid_User_Profile */
+        $authProfile = $hybridAuth->authenticate($network)
+           ->getUserProfile();
+
+        /* @var \Auth\Entity\SocialProfiles\AbstractProfile $profile */
+        $profile = $this->plugin('Auth/SocialProfiles')->fetch($network);
+
+        $contact = $application->getContact();
+        $contact->setEmail($authProfile->emailVerified ?: $authProfile->email);
+        $contact->setFirstName($authProfile->firstName);
+        $contact->setLastName($authProfile->lastName);
+        $contact->setBirthDay($authProfile->birthDay);
+        $contact->setBirthMonth($authProfile->birthMonth);
+        $contact->setBirthYear($authProfile->birthYear);
+        $contact->setPostalCode($authProfile->zip);
+        $contact->setCity($authProfile->city);
+        $contact->setStreet($authProfile->address);
+        $contact->setPhone($authProfile->phone);
+        $contact->setGender($authProfile->gender);
+
+        $profiles = $application->getProfiles();
+        $profiles->add($profile);
+
+        $cv = $application->getCv();
+        $cv->setEmployments($profile->getEmployments());
+        $cv->setEducations($profile->getEducations());
+
+        if ($authProfile->photoURL)
+        {
+            $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
+            $file = new \Doctrine\MongoDB\GridFSFile();
+            $file->setBytes($response->getBody());
+            
+            $image = new \Applications\Entity\Attachment();
+            $image->setName($contact->getLastName().$contact->getFirstName());
+            $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
+            $image->setFile($file);
+            $image->setPermissions($application->getPermissions());
+            
+            $contact->setImage($image);
+        }
+        
+        $urlOptions = [];
+        
+        if ($this->params('immediately'))
+        {
+            $application->getAttributes()->setAcceptedPrivacyPolicy(true);
+            $urlOptions = [
+                'query' => [
+                    'do' => 'send'
+                ]
+            ];
+        }
+        
+        return $this->redirect()
+           ->toRoute('lang/apply', ['applyId' => $job->getApplyId()], $urlOptions);
     }
 
     public function processPreviewAction()

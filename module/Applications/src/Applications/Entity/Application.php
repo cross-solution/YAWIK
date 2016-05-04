@@ -367,6 +367,7 @@ class Application extends AbstractIdentifiableModificationDateAwareEntity implem
     /**
      * {@inheritDoc}
      * @see \Applications\Entity\ApplicationInterface::getContact()
+     * @return Contact
      */
     public function getContact()
     {

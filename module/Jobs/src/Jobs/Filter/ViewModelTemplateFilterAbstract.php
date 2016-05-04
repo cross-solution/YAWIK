@@ -101,7 +101,7 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
         return;
     }
 
-    /**
+	/**
      * @return mixed
      */
     public function getServerUrlHelper()
@@ -138,24 +138,36 @@ abstract class ViewModelTemplateFilterAbstract implements FilterInterface
     abstract protected function extract($value);
 
     /**
-     * Set the apply button of the job posting
+     * Set the apply buttons of the job posting
      *
-     * @return $this
+     * @return ViewModelTemplateFilterAbstract
      * @throws \InvalidArgumentException
      */
-    protected function setUriApply()
+    protected function setApplyData()
     {
         if (!isset($this->job)) {
             throw new \InvalidArgumentException('cannot create a viewModel for Templates without a $job');
         }
+        
+        $data = [
+            'applyId' => $this->job->getApplyId(),
+            'uri' => null,
+            'oneClickProfiles' => []
+        ];
         $atsMode = $this->job->getAtsMode();
-        $uriApply = false;
+        
         if ($atsMode->isIntern() || $atsMode->isEmail()) {
-            $uriApply = $this->urlPlugin->fromRoute('lang/apply', array('applyId' => $this->job->getApplyId()), array('force_canonical' => true));
+            $data['uri'] = $this->urlPlugin->fromRoute('lang/apply', ['applyId' => $this->job->getApplyId()], ['force_canonical' => true]);
         } elseif ($atsMode->isUri()) {
-            $uriApply = $atsMode->getUri();
+            $data['uri'] = $atsMode->getUri();
         }
-        $this->container['uriApply'] = $uriApply;
+        
+        if ($atsMode->isIntern() && $atsMode->getOneClickApply()) {
+            $data['oneClickProfiles'] = $atsMode->getOneClickApplyProfiles();
+        }
+        
+        $this->container['applyData'] = $data;
+        
         return $this;
     }
 

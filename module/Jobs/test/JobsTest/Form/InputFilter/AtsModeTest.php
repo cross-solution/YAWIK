@@ -35,39 +35,101 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
 
     public function provideAddsValidatorsTestData()
     {
-        return array(
-            array(
-                array('mode' => AtsModeInterface::MODE_NONE),
-                false
-            ),
-            array(
-                array('mode' => AtsModeInterface::MODE_INTERN),
-                false
-            ),
-            array(
-                array('mode' => AtsModeInterface::MODE_URI),
-                array(
-                    'name' => 'uri',
-                    'validators' => array(
-                        array(
+        return [
+            [
+                [
+                    'mode' => AtsModeInterface::MODE_NONE,
+                    'oneClickApply' => true
+                ],
+                [
+                    [
+                        [
+                            'name' => 'oneClickApplyProfiles',
+                            'required' => false
+                        ]
+                    ]
+                ]
+            ],
+            [
+                [
+                    'mode' => AtsModeInterface::MODE_INTERN,
+                    'oneClickApply' => false
+                ],
+                [
+                    [
+                        [
+                            'name' => 'oneClickApplyProfiles',
+                            'required' => false
+                        ]
+                    ]
+                ]
+            ],
+            [
+                [
+                    'mode' => AtsModeInterface::MODE_INTERN,
+                    'oneClickApply' => true
+                ],
+                [
+                    [
+                        [
+                            'name' => 'oneClickApplyProfiles',
+                            'required' => true
+                        ]
+                    ]
+                ]
+            ],
+            [
+                [
+                    'mode' => AtsModeInterface::MODE_URI,
+                    'oneClickApply' => false
+                ],
+                [
+                    [
+                        [
                             'name' => 'uri',
-                            'options' => array(
-                                'allowRelative' => false,
-                            ),
-                        ),
-                    ),
-                )
-            ),
-            array(
-                array('mode' => AtsModeInterface::MODE_EMAIL),
-                array(
-                    'name' => 'email',
-                    'validators' => array(
-                        array('name' => 'EmailAddress')
-                    ),
-                )
-            )
-        );
+                            'validators' => [
+                                [
+                                    'name' => 'uri',
+                                    'options' => [
+                                        'allowRelative' => false
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                    [
+                        [
+                            'name' => 'oneClickApplyProfiles',
+                            'required' => false
+                        ]
+                    ]
+                ]
+            ],
+            [
+                [
+                    'mode' => AtsModeInterface::MODE_EMAIL,
+                    'oneClickApply' => true
+                ],
+                [
+                    [
+                        [
+                            'name' => 'email',
+                            'validators' => [
+                                [
+                                    'name' => 'EmailAddress'
+                                ]
+                            ]
+                        ]
+                    ],
+                    [
+                        [
+                            'name' => 'oneClickApplyProfiles',
+                            'required' => false
+                        ]
+                    ]
+                ]
+            ]
+        ];
     }
 
     /**
@@ -75,7 +137,7 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
      * @dataProvider provideAddsValidatorsTestData
      *
      * @param array $data Mocked data to test
-     * @param bool|array $expectedSpec false: Nothing should be added. Array: Spec with what add should be called.
+     * @param array $expectedSpec Spec with what add should be called
      */
     public function testAddsValidators($data, $expectedSpec)
     {
@@ -85,11 +147,9 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
                        ->setMethods(array('add', 'populate'))
                        ->getMock();
 
-        if (false === $expectedSpec) {
-            $target->expects($this->never())->method('add');
-        } else {
-            $target->expects($this->once())->method('add')->with($expectedSpec);
-        }
+        $add = $target->expects($this->exactly(count($expectedSpec)))
+            ->method('add');
+        call_user_func_array([$add, 'withConsecutive'], $expectedSpec);
 
         $target->setData($data);
     }

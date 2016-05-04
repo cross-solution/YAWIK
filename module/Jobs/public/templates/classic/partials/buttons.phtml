@@ -1,0 +1,16 @@
+<?php if ($this->default || $this->oneClick): ?>
+<div class="row">
+    <div class="twelve columns">
+        <div class="apply">
+            <?php if ($this->default): ?>
+                <a target="_new" class="button button-primary" href="<?=$this->default['url']?>" rel="nofollow">
+                    <strong><?=$this->default['label']?></strong>
+                </a>
+            <?php endif; ?>
+            <?php foreach ($this->oneClick as $button):?>
+                <a href="<?=$button['url']?>" class="button button-info btn-social btn-<?=$button['network']?> btn-lg"><i class="fa fa-<?=$button['network']?>"></i> <?=$button['label']?></a>
+            <?php endforeach;?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
