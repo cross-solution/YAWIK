@@ -20,6 +20,15 @@ use Settings\Repository\SettingsEntityResolver;
  * Defines an user model
  *
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
+ *  * @ODM\Indexes({
+ *      @ODM\Index(keys={
+ *                  "login"="text",
+ *                  "role"="text",
+ *                    "info.email"="text",
+ *                    "info.firstName"="text",
+ *                    "info.lastName"="text"
+ *                 }, name="fulltext")
+ * })
  */
 class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface
 {

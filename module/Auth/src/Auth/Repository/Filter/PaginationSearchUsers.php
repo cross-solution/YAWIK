@@ -31,9 +31,11 @@ class PaginationSearchUsers extends AbstractPaginationQuery
      */
     public function createQuery($params, $queryBuilder)
     {
-
+        if (!empty($params['text'])) {
+            $queryBuilder->text($params['text']);
+        }
         $queryBuilder->field('isDraft')->equals(false);
-
+        
         if (isset($params['sort'])) {
             foreach (explode(",", $params['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
