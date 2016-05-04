@@ -342,7 +342,7 @@ return array(
             'Jobs/MultipostButtonFieldset'      => 'Jobs\Form\MultipostButtonFieldset',
             'Jobs/AtsMode'                      => 'Jobs\Form\AtsMode',
             'Jobs/AtsModeFieldset'              => 'Jobs\Form\AtsModeFieldset',
-            'Jobs/AdminSearch'                  => 'Jobs\Form\AdminSearchForm',
+            'Jobs/AdminSearch'                  => 'Jobs\Form\AdminSearchFormElementsFieldset',
             'Jobs/ListFilter'                   => 'Jobs\Form\ListFilter',
             'Jobs/ListFilterLocation'           => 'Jobs\Form\ListFilterLocation',
             'Jobs/ListFilterPersonal'           => 'Jobs\Form\ListFilterPersonal',
