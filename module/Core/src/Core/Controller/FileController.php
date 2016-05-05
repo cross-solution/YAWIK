@@ -95,10 +95,10 @@ class FileController extends AbstractActionController
             $expireDate = new \DateTime();
             $expireDate->add(new \DateInterval('P1Y'));
 
-            $headers->addHeaderline('Expires', $expireDate->format(\DateTime::W3C))
-                      ->addHeaderLine('ETag', $file->getId())
-                      ->addHeaderline('Cache-Control', 'public')
-                      ->addHeaderline('Pragma', 'cache');
+//            $headers->addHeaderline('Expires', $expireDate->format(\DateTime::W3C))
+//                ->addHeaderLine('ETag', $file->getId())
+//                ->addHeaderline('Cache-Control', 'public')
+//                ->addHeaderline('Pragma', 'cache');
         }
 
         $response->sendHeaders();

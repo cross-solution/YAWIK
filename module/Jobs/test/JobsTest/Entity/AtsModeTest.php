@@ -164,9 +164,42 @@ class AtsModeTest extends \PHPUnit_Framework_TestCase
     public function testSettingAndGettingTheEmail()
     {
         $email = 'test@mail';
-
         $this->target->setEmail($email);
-
         $this->assertEquals($email, $this->target->getEmail());
+    }
+
+    /**
+     * @dataProvider provideBoolean
+     */
+    public function testSetGetOneClickApply($input, $expected)
+    {
+        $this->target->setOneClickApply($input);
+        $this->assertEquals($expected, $this->target->getOneClickApply());
+    }
+
+    public function provideBoolean()
+    {
+        return [
+            [true,true],
+            [false, false],
+            [null, false]
+        ];
+    }
+
+    /**
+     * @dataProvider provideArrays
+     */
+    public function testSetGetOneClickApplyProfiles($input, $expected)
+    {
+        $this->target->setOneClickApplyProfiles($input);
+        $this->assertEquals($expected, $this->target->getOneClickApplyProfiles());
+    }
+
+    public function provideArrays()
+    {
+        $array = ['facebook','linkedin','xing'];
+        return [
+            [$array,$array],
+        ];
     }
 }

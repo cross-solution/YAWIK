@@ -161,6 +161,26 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
     {
         $portals=array(1,2,3);
         $this->snapShot->setPortals($portals);
-        $this->assertEquals($this->snapShot->portals, $portals);
+        $this->assertEquals($this->snapShot->getPortals(), $portals);
     }
+
+    /**
+     * @expectedException \Core\Exception\ImmutablePropertyException
+     */
+    public function testSetGetDatePublishEnd()
+    {
+        $datePublishEnd = new \DateTime("2016-01-02");
+        $this->snapShot->setDatePublishEnd($datePublishEnd);
+        $this->assertEquals($this->snapShot->datePublishEnd, $datePublishEnd);
+    }
+
+    public function testSetGetTemplateValues()
+    {
+        $templateValues = new TemplateValues();
+        $templateValues->setDescription('test')->setBenefits('benefits')->setQualifications('qualification');
+
+        $this->snapShot->setTemplateValues($templateValues);
+        $this->assertEquals($this->snapShot->getTemplateValues(), $templateValues);
+    }
+
 }

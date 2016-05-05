@@ -77,6 +77,7 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
             ),
             'attributes' => array(
                 'data-searchbox' => 'false',
+                'data-width' => '100%',
                 'value' => 'email',
             )
             )
@@ -123,7 +124,8 @@ class AtsModeFieldset extends Fieldset implements ViewPartialProviderInterface, 
                 'use_hidden_element' => true
             ],
             'attributes' => [
-                'multiple' => true
+                'multiple' => true,
+                'data-width' => '100%',
             ]
         ]);
     }

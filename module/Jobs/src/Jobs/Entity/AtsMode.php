@@ -110,41 +110,69 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         return $this;
     }
 
+    /**
+     * @param string $mode
+     *
+     * @return bool
+     */
     public function isMode($mode)
     {
         return $mode == $this->mode;
     }
 
+    /**
+     * @return string
+     */
     public function getMode()
     {
         return $this->mode;
     }
 
+    /**
+     * @return bool
+     */
     public function isIntern()
     {
         return $this->isMode(self::MODE_INTERN);
     }
 
+    /**
+     * @return bool
+     */
     public function isUri()
     {
         return $this->isMode(self::MODE_URI);
     }
 
+    /**
+     * @return bool
+     */
     public function isEmail()
     {
         return $this->isMode(self::MODE_EMAIL);
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return !$this->isDisabled();
     }
 
+    /**
+     * @return bool
+     */
     public function isDisabled()
     {
         return $this->isMode(self::MODE_NONE);
     }
 
+    /**
+     * @param string $uri
+     *
+     * @return $this
+     */
     public function setUri($uri)
     {
         $this->uri = $uri;
@@ -152,11 +180,19 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getUri()
     {
         return $this->uri;
     }
 
+    /**
+     * @param string $email
+     *
+     * @return $this
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -164,10 +200,14 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
+
 	/**
 	 * @return bool
 	 */
@@ -176,10 +216,12 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
 		return $this->oneClickApply;
 	}
 
-	/**
-	 * @param bool $oneClickApply
-	 * @return AtsMode
-	 */
+
+    /**
+     * @param bool $oneClickApply
+     *
+     * @return $this
+     */
 	public function setOneClickApply($oneClickApply)
 	{
 		$this->oneClickApply = (bool)$oneClickApply;

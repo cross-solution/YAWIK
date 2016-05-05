@@ -11,6 +11,7 @@
 namespace JobsTest\Entity;
 
 use Jobs\Entity\Status;
+use Jobs\Entity\StatusInterface;
 
 /**
  * Tests for Status
@@ -87,5 +88,23 @@ class StatusTest extends \PHPUnit_Framework_TestCase
     public function testStatusThrowsExceptionIfInvalidStatusPassed()
     {
         $target = new Status('highly invalid status name');
+    }
+
+    public function testGetStates(){
+        $expected = [
+            'created',
+            'waiting for approval',
+            'rejected',
+            'publish',
+            'active',
+            'inactive',
+            'expired'
+        ];
+        $this->assertEquals($expected,$this->target->getStates());
+    }
+
+    public function testToString(){
+        $state = new Status(StatusInterface::INACTIVE);
+        $this->assertEquals(StatusInterface::INACTIVE, (string) $state);
     }
 }

@@ -103,6 +103,7 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
             'attributes' => array(
                 'data-searchbox' => 'false',
                 'value' => 'email',
+                'data-width' => '100%'
             )
         );
 
@@ -143,7 +144,8 @@ class AtsModeFieldsetTest extends \PHPUnit_Framework_TestCase
                 'use_hidden_element' => true
             ],
             'attributes' => [
-                'multiple' => true
+                'multiple' => true,
+                'data-width' => '100%'
             ]
         ];
 

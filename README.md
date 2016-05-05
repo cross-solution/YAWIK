@@ -37,7 +37,8 @@ http://jobs.yawik.org (this demonstrates YAWIK as a Jobportal)
 Who is using YAWIK?
 -------------------
 
-YAWIK is used as a Jobboard by https://mygreatjobs.de/. Phoenixdesign uses YAWIK as a companies career portal http://bewerbung.phoenixdesign.com/
+YAWIK is used as a Jobboard by https://mygreatjobs.de/. Phoenixdesign uses
+YAWIK is used as a companies career portal by Phoenixdesign http://bewerbung.phoenixdesign.com/ and Frankwalder https://jobs.frankwalder.com/de
 
 
 Documentation

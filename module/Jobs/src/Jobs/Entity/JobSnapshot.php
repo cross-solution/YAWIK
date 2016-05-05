@@ -446,7 +446,7 @@ class JobSnapshot extends BaseEntity implements JobInterface, SnapshotInterface
      * Sets the publishing date of a job posting
      * @throws \Core\Exception\ImmutablePropertyException
      *
-     * @param $datePublishStart
+     * @param $datePublishEnd
      * @return string
      */
     public function setDatePublishEnd($datePublishEnd)
