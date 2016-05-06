@@ -35,7 +35,7 @@ class UsersController extends AbstractActionController
             'form' => [
                 [ 'Core/TextSearch', [
                         'elements_options' => [
-                            'placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
+                            'text_placeholder' => /*@translate*/ 'Type name, email address, role, or login name',
                             'button_element' => 'text',
                         ],
                 ]],
