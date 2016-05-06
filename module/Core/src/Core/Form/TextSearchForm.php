@@ -11,10 +11,7 @@
 namespace Core\Form;
 
 use Traversable;
-use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
-use Zend\Form\Fieldset;
-use Zend\Form\FieldsetInterface;
 use Zend\Form\Form as ZfForm;
 use Zend\Json\Json;
 use Zend\Stdlib\ArrayUtils;
@@ -30,7 +27,7 @@ use Zend\Stdlib\ArrayUtils;
 class TextSearchForm extends ZfForm
 {
     protected $elementsFieldset = 'Core/TextSearch/Elements';
-    protected $buttonsFieldset  = 'Core/TextSearch/Buttons';
+    protected $buttonsFieldset = 'Core/TextSearch/Buttons';
 
     public function setOptions($options)
     {
@@ -46,17 +43,9 @@ class TextSearchForm extends ZfForm
             $this->buttonsFieldset = $options['buttons_fieldset'];
         }
 
-        return $this;
-    }
-
-    public function setSearchParams($params)
-    {
-        if ($params instanceOf \Traversable) {
-            $params = ArrayUtils::iteratorToArray($params);
+        if (isset($options['name'])) {
+            $this->setName($options['name']);
         }
-
-        $params = Json::encode($params);
-        $this->setAttribute('data-search-params', $params);
 
         return $this;
     }
@@ -64,28 +53,50 @@ class TextSearchForm extends ZfForm
     public function init()
     {
         $this->setAttributes([
-                                 'class' => 'form-inline search-form',
+                                 'class'          => 'form-inline search-form',
                                  'data-handle-by' => 'script',
-                                 'method' => 'get',
-        ]);
+                                 'method'         => 'get',
+                             ]
+        );
+
+        if (!$this->hasAttribute('name')) {
+            $this->setName('search');
+        }
+
         $elements = $this->elementsFieldset;
 
         if (!is_object($elements)) {
-            $elements = [ 'type' => $elements, 'options' => $this->getOption('elements_options') ?: [] ];
+            $elements = ['type' => $elements, 'options' => $this->getOption('elements_options') ? : []];
 
         }
 
-        $this->add($elements, [ 'name' => 'elements' ]);
+        $this->add($elements, ['name' => 'elements']);
 
         $buttons = $this->buttonsFieldset;
 
         if (!is_object($buttons)) {
-            $buttons = [ 'type' => $buttons ];
+            $buttons = ['type' => $buttons];
         }
 
-        $this->add($buttons, [ 'name' => 'buttons' ]);
+        $this->add($buttons, ['name' => 'buttons']);
     }
 
+    /**
+     * Adds elements.
+     *
+     * For instances of this form, only fieldsets are allowed,  which are named
+     * 'elements' or 'buttons' and implement
+     * {@link TextSearchFormFieldset} or {@link TextSearchFormButtonsFieldset}
+     *
+     * Adding any other element will throw Exceptions.
+     *
+     * @param array|Traversable|\Zend\Form\ElementInterface $elementOrFieldset
+     * @param array                                         $flags
+     *
+     * @return $this|ZfForm
+     * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
+     */
     public function add($elementOrFieldset, array $flags = [])
     {
         $name = null;
@@ -100,7 +111,7 @@ class TextSearchForm extends ZfForm
 
         }
 
-        if (!$name || !in_array($name, [ 'elements', 'buttons' ])) {
+        if (!$name || !in_array($name, ['elements', 'buttons'])) {
             throw new \InvalidArgumentException('Invalid named element. You can only add elements named "elements" or "buttons".');
         }
 
@@ -117,12 +128,43 @@ class TextSearchForm extends ZfForm
         return $this;
     }
 
-
+    /**
+     * Gets the elements fieldset.
+     *
+     * @return TextSearchFormFieldset
+     */
     public function getElements()
     {
         return $this->get('elements');
     }
 
+    /**
+     * Sets the initial search params.
+     *
+     * That means, the values for the element fields in the elements fieldset,
+     * which should be set, if the form resets.
+     *
+     * @param array|\Traversable $params
+     *
+     * @return self
+     */
+    public function setSearchParams($params)
+    {
+        if ($params instanceOf \Traversable) {
+            $params = ArrayUtils::iteratorToArray($params);
+        }
+
+        $params = Json::encode($params);
+        $this->setAttribute('data-search-params', $params);
+
+        return $this;
+    }
+
+    /**
+     * Gets the buttons fieldset
+     *
+     * @return TextSearchFormButtonsFieldset
+     */
     public function getButtons()
     {
         return $this->get('buttons');

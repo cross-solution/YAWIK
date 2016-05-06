@@ -3,34 +3,32 @@
  * YAWIK
  *
  * @filesource
- * @license MIT
+ * @license    MIT
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
-  
+
 /** */
 namespace Core\Form;
 
-use Traversable;
 use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Exception;
 use Zend\Form\Fieldset;
-use Zend\Form\FieldsetInterface;
 
 /**
- * ${CARET}
- * 
+ * Fieldset for elements in a TextSearchForm
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since  0.25
  */
 class TextSearchFormFieldset extends Fieldset
 {
 
-    public function setButtonElement($name)
-    {
-        $this->setOption('button_element', $name);
-    }
-
+    /**
+     * Gets the name of the button element.
+     *
+     * @return string
+     */
     public function getButtonElement()
     {
         $name = $this->getOption('button_element');
@@ -42,12 +40,44 @@ class TextSearchFormFieldset extends Fieldset
         return $name;
     }
 
+    /**
+     * Sets the name of the button element.
+     *
+     * This is the element, the searchForm view helper should
+     * render the buttons in an input button group addon.
+     *
+     * @param string $name
+     *
+     * @return self
+     */
+    public function setButtonElement($name)
+    {
+        return $this->setOption('button_element', $name);
+    }
+
+    /**
+     * Sets the column map.
+     *
+     * @param array $map
+     *
+     * @see \Core\Form\View\Helper\SearchForm
+     * @return self
+     */
     public function setColumnMap($map)
     {
         $this->setOption('column_map', $map);
+
         return $this;
     }
 
+    /**
+     * Gets the column map.
+     *
+     * Generates the column map from the element options,
+     * if none is set.
+     *
+     * @return array
+     */
     public function getColumnMap()
     {
         $map = $this->getOption('column_map');
@@ -73,14 +103,20 @@ class TextSearchFormFieldset extends Fieldset
 
         $options = $this->options; // assure array
 
-        $hasTextElement = $this->has('text');
+        if ($this->has('text')) {
+            $textElement = $this->get('text');
 
-        if (isset($options['placeholder']) && $hasTextElement) {
-            $this->get('text')->setAttribute('placeholder', $options['placeholder']);
-        }
+            if (isset($options['text_placeholder'])) {
+                $textElement->setAttribute('placeholder', $options['text_placeholder']);
+            }
 
-        if (isset($options['span']) && $hasTextElement) {
-            $this->get('text')->setOption('span', $options['span']);
+            if (isset($options['text_span'])) {
+                $textElement->setOption('span', $options['text_span']);
+            }
+
+            if (isset($options['text_label'])) {
+                $textElement->setLabel($options['text_label']);
+            }
         }
 
         return $this;
@@ -90,34 +126,19 @@ class TextSearchFormFieldset extends Fieldset
     public function init()
     {
         $this->addTextElement(
-            /*@translate*/ 'Search',
-            $this->getOption('placeholder') ?: /*@translate*/ 'Search query',
-            $this->getOption('span') ?: 12
+             $this->getOption('text_label')
+                 ? : /*@translate*/ 'Search',
+             $this->getOption('text_placeholder')
+                 ? : /*@translate*/ 'Search query',
+             $this->getOption('text_span') ? : 12
         );
-    }
-
-    protected function addTextElement($label, $placeholder = 'Search query', $span = 12)
-    {
-        return $this->add([
-                              'type' => 'Text',
-                              'name' => 'text',
-                              'options' => [
-                                  'label' => $label,
-                                  'span' => $span,
-                              ],
-                              'attributes' => [
-                                  'placeholder' => $placeholder,
-                              ],
-                          ]);
     }
 
     public function add($elementOrFieldset, array $flags = [])
     {
         if (is_array($elementOrFieldset)) {
-            if (!isset($elementOrFieldset['options']['use_formrow_helper'])) {
-                $elementOrFieldset['options']['use_formrow_helper'] = false;
-            }
-            $class = isset($elementOrFieldset['attributes']['class']) ? $elementOrFieldset['attributes']['class'] : '';
+            $class                                    =
+                isset($elementOrFieldset['attributes']['class']) ? $elementOrFieldset['attributes']['class'] : '';
             $elementOrFieldset['attributes']['class'] = "$class form-control";
 
             if (isset($elementOrFieldset['options']['is_button_element'])
@@ -129,10 +150,6 @@ class TextSearchFormFieldset extends Fieldset
             }
 
         } else if ($elementOrFieldset instanceOf ElementInterface) {
-            $useFormRowHelper = $elementOrFieldset->getOption('use_formrow_helper');
-            if (null === $useFormRowHelper) {
-                $elementOrFieldset->setOption('use_formrow_helper', false);
-            }
             $class = $elementOrFieldset->hasAttribute('class') ? $elementOrFieldset->getAttribute('class') : '';
             $elementOrFieldset->setAttribute('class', "$class form-control");
 
@@ -142,5 +159,30 @@ class TextSearchFormFieldset extends Fieldset
         }
 
         return parent::add($elementOrFieldset, $flags);
+    }
+
+    /**
+     * Adds the search text element.
+     *
+     * @param string $label
+     * @param string $placeholder
+     * @param int    $span
+     *
+     * @return Fieldset|\Zend\Form\FieldsetInterface
+     */
+    protected function addTextElement($label, $placeholder = 'Search query', $span = 12)
+    {
+        return $this->add([
+                              'type'       => 'Text',
+                              'name'       => 'text',
+                              'options'    => [
+                                  'label' => $label,
+                                  'span'  => $span,
+                              ],
+                              'attributes' => [
+                                  'placeholder' => $placeholder,
+                              ],
+                          ]
+        );
     }
 }
