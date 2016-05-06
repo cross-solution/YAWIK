@@ -27,7 +27,10 @@ class MissingDependencyExceptionTest extends \PHPUnit_Framework_TestCase
 {
     use AssertInheritanceTrait, SetterGetterTrait;
 
-    protected $target = [ '\Core\Options\Exception\MissingOptionException' , [ 'testOptionKey', 'TestTarget' ] ];
+    protected $target = [
+        'class' => '\Core\Options\Exception\MissingOptionException',
+        'args' => [ 'testOptionKey', 'TestTarget' ]
+    ];
 
     protected $inheritance = [
         '\Core\Exception\ExceptionInterface',

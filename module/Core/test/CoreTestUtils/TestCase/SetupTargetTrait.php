@@ -32,6 +32,10 @@ namespace CoreTestUtils\TestCase;
  *
  *
  * @property string|array|object $target
+ * @property array $targetExclude
+ * @property array $targetMock
+ * @method string getName()
+ * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder()
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25
@@ -45,32 +49,53 @@ trait SetupTargetTrait
 
     public function setupTargetInstance()
     {
-        if (!property_exists($this, 'target')) { return; }
-
-        if (is_string($this->target)) {
-            $class = $this->target;
-            $args = $this->getTargetArgs();
-
-        } else if (is_array($this->target)) {
-            $class = $this->target[0];
-            $args  = $this->target[1];
-
-        } else {
+        if (!property_exists($this, 'target')) {
             return;
         }
 
-        if ($args) {
-            $reflection = new \ReflectionClass($class);
-            $this->target = $reflection->newInstanceArgs($args);
+        $testName = $this->getName(false);
+        $spec = $this->target;
 
+
+        if (is_string($spec)) {
+            $spec = [
+                'class' => $spec
+            ];
+        } else if (!is_array($spec) || (isset($spec['exclude']) && in_array($testName, $spec['exclude']))) {
+            return;
+        }
+
+        if (!isset($spec['args'])) {
+            $spec['args'] = $this->getTargetArgs();
+        }
+
+        if (isset($spec['mock'][$testName])) {
+
+            $mockBuilder = $this
+                ->getMockBuilder($spec['class'])
+                ->setMethods($spec['mock'][$testName]);
+
+            if (false === $spec['args']) {
+                $mockBuilder->disableOriginalConstructor();
+            } else {
+                $mockBuilder->setConstructorArgs($spec['args']);
+            }
+
+            $this->target = $mockBuilder->getMock();
+            return;
+        }
+
+        if (empty($spec['args'])) {
+            $this->target = new $spec['class']();
         } else {
-            $this->target = new $class();
+            $reflection = new \ReflectionClass($spec['class']);
+            $this->target = $reflection->newInstanceArgs($spec['args']);
         }
     }
 
     protected function getTargetArgs()
     {
-        return false;
+        return [];
     }
     
 }
