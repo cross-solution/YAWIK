@@ -15,19 +15,19 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use \Core\Controller\Plugin\SearchForm;
 
 /**
- * ${CARET}
+ * Factory for \Core\Controller\Plugin\SearchForm
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.25
  */
 class SearchFormFactory implements FactoryInterface
 {
     /**
-     * Create service
+     * Creates a SearchForm plugin.
      *
-     * @param ServiceLocatorInterface | \Zend\Mvc\Controller\PluginManager $serviceLocator
+     * @param ServiceLocatorInterface|\Zend\Mvc\Controller\ControllerManager $serviceLocator
      *
-     * @return mixed
+     * @return SearchForm
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

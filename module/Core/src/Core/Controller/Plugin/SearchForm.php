@@ -15,28 +15,58 @@ use Zend\Form\FormElementManager;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 
 /**
- * ${CARET}
+ * Fetches a text search form.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @since 0.25
  */
 class SearchForm extends AbstractPlugin
 {
 
+    /**
+     * The form element manager.
+     *
+     * @var \Zend\Form\FormElementManager
+     */
     protected $formElementManager;
 
+    /**
+     * Creates an instance.
+     *
+     * @param FormElementManager $forms
+     */
     public function __construct(FormElementManager $forms)
     {
         $this->formElementManager = $forms;
     }
 
-
-
+    /**
+     * Direct invokation.
+     *
+     * Proxies to {@link get()}
+     *
+     * @param string|array     $elementsFieldset
+     * @param null|string $buttonsFieldset
+     *
+     * @return \Core\Form\TextSearchForm
+     */
     public function __invoke($elementsFieldset, $buttonsFieldset = null)
     {
         return $this->get($elementsFieldset, $buttonsFieldset);
     }
 
+    /**
+     * Fetches a text search form.
+     *
+     * If only the service for an element fieldset ist passed,
+     * it will fetch a "Core/TextSearch" form and pass the
+     * elements fieldset along.
+     *
+     * @param string|array     $elementsFieldset
+     * @param string|null $buttonsFieldset
+     *
+     * @return \Core\Form\TextSearchForm
+     */
     public function get($elementsFieldset, $buttonsFieldset = null)
     {
         if (is_array($elementsFieldset)) {
@@ -48,6 +78,7 @@ class SearchForm extends AbstractPlugin
         }
 
         $form             = $this->formElementManager->get($elementsFieldset, $elementsOptions);
+        /** @noinspection PhpUndefinedMethodInspection */
         $params           = $this->getController()->getRequest()->getQuery()->toArray();
 
         if (!$form instanceOf TextSearchForm) {
