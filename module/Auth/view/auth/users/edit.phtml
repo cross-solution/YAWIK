@@ -1,0 +1,16 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2016 Cross Solution (http://cross-solution.de)
+ * @author fedys
+ * @license   MIT
+ */
+
+$title = $this->translate('User data');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->translate($title)?></h1>
+<?=$this->formContainer($this->infoContainer)?>
+<?=$this->formContainer($this->statusContainer)?>

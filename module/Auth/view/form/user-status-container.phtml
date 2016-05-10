@@ -1,0 +1,15 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author fedys
+ */
+
+use \Core\Form\View\Helper\Form;
+
+$iterator = $this->element->getIterator();
+?>
+<?=$this->summaryForm($iterator->current(), Form::LAYOUT_HORIZONTAL)?>

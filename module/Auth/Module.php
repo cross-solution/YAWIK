@@ -9,7 +9,6 @@
 
 namespace Auth;
 
-use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
@@ -78,11 +77,19 @@ class Module
         }
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
-
+            
+        // listener for logout inactive user
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, function () use ($services) {
+            $auth = $services->get('AuthenticationService');
+            if ($auth->hasIdentity() && !$auth->getUser()->isActive()) {
+                $auth->clearIdentity();
+            }
+        });
+        
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
-            /** @var CheckPermissionsListener $checkPermissionsListener */
+                /* @var $checkPermissionsListener \Acl\Listener\CheckPermissionsListener */
                 $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
                 $checkPermissionsListener->onRoute($e);
             },

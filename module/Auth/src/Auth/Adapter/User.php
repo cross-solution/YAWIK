@@ -89,6 +89,10 @@ class User extends AbstractAdapter
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
         }
         
+        if (!$user->isActive()) {
+            return new Result(Result::FAILURE_UNCATEGORIZED, $identity, array('User is inactive'));
+        }
+        
         return new Result(Result::SUCCESS, $user->getId());
     }
 }

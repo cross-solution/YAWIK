@@ -7,18 +7,26 @@
  * @author        cbleek
  * @license       MIT
  */
-
 return [
     'navigation' => [
         'default' => [
-            'admin' => [ 'pages' => [
-                'users' => [
-                    'label'    =>  /*@translate*/ 'Users',
-                    'route'    => 'lang/user-list',
-                    'order'    => '100',
-                    'resource' => 'Users',
-                ]],
-            ],
+            'admin' => [
+                'pages' => [
+                    'users' => [
+                        'label'    =>  /*@translate*/ 'Users',
+                        'route' => 'lang/user-list',
+                        'order' => '100',
+                        'resource' => 'Users',
+                        'pages' => [
+                            'edit' => [
+                                'label' => /*@translate*/ 'Data',
+                                'route' => 'lang/user-edit',
+                                'visible' => false
+                            ]
+                        ]
+                    ]
+                ]
+            ]
         ]
     ]
 ];

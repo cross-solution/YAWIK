@@ -160,7 +160,10 @@ class HybridAuth implements AdapterInterface
                 $dm->flush();
             }
         }
-       
+        
+        if (!$user->isActive()) {
+            return new Result(Result::FAILURE_UNCATEGORIZED, $user->getId(), array('User is inactive'));
+        }
        
         return new Result(Result::SUCCESS, $user->getId(), array('firstLogin' => $forceSave, 'user' => $user));
     }

@@ -147,11 +147,11 @@ return array(
      * Acl definitions.
      * Format
      * array($ROLE[:$PARENT] => $RESOURCES);
-     * 
+     *
      * $ROLE: Role name
      * $PARENT: Coma separated list of roles to inherit from.
      * $RESOURCES: array of resources
-     *      a resource is 
+     *      a resource is
      *      1. a string: taken as resource name
      *      1.1 the "null" value: allow on all resources.
      *      2. a key => string pair:
@@ -168,7 +168,7 @@ return array(
      *                  array is:
      *                      index 0: Name of the assertion class,
      *                      index 1: array of parameters to pass to the constructor of the assertion.
-     *                  
+     *
      */
     'acl' => array(
         'roles' => array(
@@ -215,13 +215,15 @@ return array(
             ),
             'recruiter' => array(
                 'allow' => array(
-                    'route/lang/my-groups'
+                    'route/lang/my-groups',
                 ),
             ),
             'admin' => array(
                 'allow' => [
                     '__ALL__',
-                    'Users'
+                    'Users',
+                    'route/lang/user-list',
+                    'route/lang/user-edit',
                 ],
             ),
         ),
@@ -241,8 +243,11 @@ return array(
         'template_map' => array(
             'form/auth/contact.form' => __DIR__ . '/../view/form/contact.form.phtml',
             'form/auth/contact.view' => __DIR__ . '/../view/form/contact.view.phtml',
+            'form/auth/status.form' => __DIR__ . '/../view/form/status.form.phtml',
+            'form/auth/status.view' => __DIR__ . '/../view/form/status.view.phtml',
             'auth/error/social-profiles-unconfigured' => __DIR__ . '/../view/error/social-profiles-unconfigured.phtml',
             'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
+            'auth/form/user-status-container' => __DIR__ . '/../view/form/user-status-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
@@ -300,10 +305,13 @@ return array(
             'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
             'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
+            'Auth/UserStatusContainer' => 'Auth\Form\UserStatusContainer',
+            'Auth/UserStatus' => 'Auth\Form\UserStatus'
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Factory\Form\RoleSelectFactory',
             'Auth/UserInfoFieldset' => 'Auth\Factory\Form\UserInfoFieldsetFactory',
+            'Auth/UserStatusFieldset' => 'Auth\Factory\Form\UserStatusFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Factory\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
             'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',

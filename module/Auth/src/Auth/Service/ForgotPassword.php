@@ -12,6 +12,7 @@ namespace Auth\Service;
 use Auth\Repository;
 use Auth\Service\Exception\UserDoesNotHaveAnEmailException;
 use Auth\Service\Exception\UserNotFoundException;
+use Auth\Service\Exception\UserInactiveException;
 use Auth\Options\ModuleOptions;
 use Core\Controller\Plugin;
 use Zend\InputFilter\InputFilterInterface;
@@ -108,6 +109,7 @@ class ForgotPassword implements EventManagerAwareInterface
      * @throws \LogicException
      * @throws UserDoesNotHaveAnEmailException
      * @throws UserNotFoundException
+     * @throws UserInactiveException
      */
     public function proceed(InputFilterInterface $filter, Plugin\Mailer $mailer, Url $url)
     {
@@ -121,6 +123,10 @@ class ForgotPassword implements EventManagerAwareInterface
 
         if (!($user = $this->userRepository->findByLoginOrEmail($identity, $suffix))) {
             throw new UserNotFoundException('User is not found');
+        }
+
+        if (!$user->isActive()) {
+            throw new UserInactiveException('User is not active');
         }
 
         if (!($email = $user->getInfo()->getEmail())) {

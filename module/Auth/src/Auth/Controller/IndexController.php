@@ -241,6 +241,13 @@ class IndexController extends AbstractActionController
         }
         
         $user = $auth->getUser();
+        
+        if (!$result->isValid()) {
+            $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' cannot be logged in via ' . $provider . ', messages: ' . implode(', ', $resultMessage));
+            $this->notification()->danger(/*@translate*/ 'Your account is inactive');
+            return $this->redirect()->toRoute('lang');
+        }
+        
         $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
