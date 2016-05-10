@@ -112,6 +112,8 @@ class UsersController extends AbstractActionController
                         )
                     );
                 }
+                
+                $serviceLocator->get('repositories')->store($user);
         
                 if ('file-uri' === $params->fromPost('return')) {
                     $content = $form->getHydrator()->getLastUploadedFile()->getUri();
