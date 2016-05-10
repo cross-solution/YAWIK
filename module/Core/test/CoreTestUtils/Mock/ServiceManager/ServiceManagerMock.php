@@ -10,6 +10,7 @@
 /** */
 namespace CoreTestUtils\Mock\ServiceManager;
 
+use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -28,6 +29,18 @@ class ServiceManagerMock extends ServiceManager
     ];
 
     protected $expectedCallCount = [];
+
+    public function setService($name, $service)
+    {
+        /*
+         * No checks here to not pollute the "has" method invokation counter.
+         * If you mess up here, your test config must be checked.
+         */
+        $cName = $this->canonicalizeName($name);
+        $this->instances[$cName] = $service;
+
+        return $this;
+    }
 
 
     public function get($name, $usePeeringServiceManagers = true)

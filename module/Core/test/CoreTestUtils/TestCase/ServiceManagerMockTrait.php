@@ -11,6 +11,7 @@
 namespace CoreTestUtils\TestCase;
 
 use CoreTestUtils\Mock\ServiceManager\Config as ServiceManagerMockConfig;
+use CoreTestUtils\Mock\ServiceManager\PluginManagerMock;
 use CoreTestUtils\Mock\ServiceManager\ServiceManagerMock;
 
 /**
@@ -28,9 +29,12 @@ trait ServiceManagerMockTrait
      */
     private $serviceManagerMock;
 
+    private $pluginManagerMock;
+
     public function tearDown()
     {
-        $this->assertServiceManagerCallCount();
+        $this->serviceManagerMock && $this->assertServiceManagerCallCount();
+        $this->pluginManagerMock && $this->assertPluginManagerCallCount();
     }
 
     /**
@@ -53,6 +57,27 @@ trait ServiceManagerMockTrait
     }
 
     /**
+     * Asserts that all expected calls to the plugin manager were made.
+     *
+     * @param int|null    $count
+     * @param string|null $method
+     * @param string|null $service
+     * @param array|null $options
+     */
+    public function assertPluginManagerCallCount($count = null, $method = null, $service = null, $options = null)
+    {
+        $mock = $this->getPluginManagerMock();
+        if (null !== $count) {
+            $mock->setExpectedCallCount($method, $service, $options, $count);
+            $mock->verifyCallCount($method, $service, $options);
+
+        } else {
+            $mock->verifyCallCount();
+        }
+    }
+
+
+    /**
      * Gets or create the service manager mock.
      *
      * @param array $services
@@ -68,5 +93,36 @@ trait ServiceManagerMockTrait
         }
 
         return $this->serviceManagerMock;
+    }
+
+    /**
+     * Gets or create a plugin manager mock.
+     *
+     * @param array|\Zend\ServiceManager\ServiceLocatorInterface $services
+     * @param null|int|\Zend\ServiceManager\ServiceLocatorInterface  $parent
+     * @param int   $count
+     *
+     * @return PluginManagerMock
+     */
+    public function getPluginManagerMock($services = [], $parent = null, $count = 1)
+    {
+
+        if (!$this->pluginManagerMock) {
+            if (is_array($services)) {
+                $config = new ServiceManagerMockConfig(['mocks' => $services]);
+            } else {
+                $config = null;
+                $count = is_int($parent) ? $parent : $count;
+                $parent = $services;
+            }
+
+            $this->pluginManagerMock = new PluginManagerMock($config);
+
+            if (null !== $parent) {
+                $this->pluginManagerMock->setServiceLocator($parent, $count);
+            }
+        }
+
+        return $this->pluginManagerMock;
     }
 }

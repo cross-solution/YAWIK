@@ -10,6 +10,8 @@
 /** */
 namespace CoreTestUtils\TestCase;
 
+use Zend\Stdlib\ArrayUtils;
+
 /**
  * Trait for setup the SUT instance.
  *
@@ -36,6 +38,11 @@ namespace CoreTestUtils\TestCase;
  * @property array $targetMock
  * @method string getName()
  * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder()
+ * @method assertAttributeSame()
+ * @method exactly()
+ * @method any()
+ * @method returnSelf()
+ * @method returnValue()
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.25
@@ -70,32 +77,107 @@ trait SetupTargetTrait
         }
 
         if (isset($spec['mock'][$testName])) {
-
-            $mockBuilder = $this
-                ->getMockBuilder($spec['class'])
-                ->setMethods($spec['mock'][$testName]);
-
-            if (false === $spec['args']) {
-                $mockBuilder->disableOriginalConstructor();
-            } else {
-                $mockBuilder->setConstructorArgs($spec['args']);
-            }
-
-            $this->target = $mockBuilder->getMock();
+            $this->target = $this->setupTargetMock($spec['class'], $spec['args'], $spec['mock'][$testName]);
             return;
         }
 
-        if (empty($spec['args'])) {
-            $this->target = new $spec['class']();
-        } else {
-            $reflection = new \ReflectionClass($spec['class']);
-            $this->target = $reflection->newInstanceArgs($spec['args']);
-        }
+        $this->target = $this->setupTargetCreateInstance($spec['class'], $spec['args']);
     }
 
     protected function getTargetArgs()
     {
         return [];
+    }
+
+    private function setupTargetCreateInstance($class, $args)
+    {
+        if (empty($args)) {
+            return new $class();
+        }
+
+        $checkProperties = array_filter(array_keys($args), 'is_string');
+        $args = array_map([$this, 'setupTargetCreateInstances'], $args);
+
+        $reflection = new \ReflectionClass($class);
+        $instance = $reflection->newInstanceArgs($args);
+
+        foreach ($checkProperties as $property) {
+            $this->assertAttributeSame($args[$property], $property, $instance);
+        }
+
+        return $instance;
+    }
+
+    private function setupTargetCreateInstances($item)
+    {
+        if (is_string($item) && 0 === strpos($item, '@')) {
+            $class = substr($item, 1);
+            return new $class;
+        }
+
+        if (ArrayUtils::isList($item) && 2 == count($item) && is_string($item[0]) && 0 === strpos($item[0], '@')) {
+            return $this->setupTargetCreateInstance(substr($item[0],1), $item[1]);
+        }
+
+        return $item;
+    }
+
+    private function setupTargetMock($class, $args, $spec)
+    {
+        /*
+         * $spec = ['method', 'method', ...]
+         * $spec = [
+         *      'method' => int,
+         *      'method' => [ 'count' => int, 'with' => mixed, 'return' => mixed ]
+         * ],
+         *
+         */
+
+        $methods = [];
+        $methodMocks  = [];
+
+        foreach ($spec as $method => $methodSpec) {
+            if (is_int($method)) {
+                $methods[] = $methodSpec;
+                continue;
+            }
+
+            $methods[] = $method;
+            $methodMocks[$method] = [
+                'expects' => isset($methodSpec['count']) ? $this->exactly($methodSpec['count']) : $this->any(),
+                'with' => isset($methodSpec['with']) ? $methodSpec['with'] : null,
+                'return' => isset($methodSpec['return'])
+                        ? ('__self__' == $methodSpec['return'] ? $this->returnSelf() : $this->returnValue($methodSpec['return']))
+                        : null
+            ];
+        }
+
+        $mockBuilder = $this
+            ->getMockBuilder($class)
+            ->setMethods($methods);
+
+
+        if (false === $args) {
+            $mockBuilder->disableOriginalConstructor();
+        } else {
+            $mockBuilder->setConstructorArgs(array_map([$this, 'setupTargetCreateInstances'], $args));
+        }
+
+        $mock = $mockBuilder->getMock();
+
+        foreach ($methodMocks as $method => $mockSpec) {
+            $methodMock = $mock->expects($mockSpec['expects'])->method($method);
+
+            if ($mockSpec['with']) {
+                $methodMock->with($mockSpec['with']);
+            }
+
+            if ($mockSpec['return']) {
+                $methodMock->will($mockSpec['return']);
+            }
+        }
+
+        return $mock;
     }
     
 }
