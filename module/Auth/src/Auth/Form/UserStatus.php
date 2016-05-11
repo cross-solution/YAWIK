@@ -12,11 +12,6 @@ namespace Auth\Form;
 
 use Core\Form\SummaryForm;
 
-/**
- *
- *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- */
 class UserStatus extends SummaryForm
 {
     protected $wrapElements = false;

@@ -174,4 +174,12 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @since 0.19
      */
     public function setIsDraft($draft);
+    
+    /**
+     * Return true, if user is active
+     *
+     * @return boolean
+     * @since 0.25
+     */
+    public function isActive();
 }

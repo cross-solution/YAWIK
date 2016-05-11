@@ -78,14 +78,6 @@ class Module
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
             
-        // listener for logout inactive user
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, function () use ($services) {
-            $auth = $services->get('AuthenticationService');
-            if ($auth->hasIdentity() && !$auth->getUser()->isActive()) {
-                $auth->clearIdentity();
-            }
-        });
-        
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
@@ -108,6 +100,9 @@ class Module
 
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
+
+        $deactivatedUserListener = $services->get('DeactivatedUserListener');
+        $deactivatedUserListener->attach($eventManager);
 
         $sharedManager = $eventManager->getSharedManager();
         $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');

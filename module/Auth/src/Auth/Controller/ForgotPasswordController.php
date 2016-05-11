@@ -72,7 +72,7 @@ class ForgotPasswordController extends AbstractCoreController
             $this->notification()->danger(
                 /*@translate*/ 'Found user does not have an email'
             );
-        } catch (Exception\UserInactiveException $e) {
+        } catch (\Auth\Exception\UserDeactivatedException $e) {
             $this->notification()->danger(
                 /*@translate*/ 'Found user is inactive'
             );

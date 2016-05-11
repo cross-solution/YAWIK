@@ -135,7 +135,7 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
             // the login ends with the applicationID, therefore use the secret key
             // the external login must be the form 'xxxxx@yyyy' where yyyy is the matching suffix to the external application key
             if (isset($user)) {
-                if ($user->secret == $filter->filter($credential) && $user->isActive()) {
+                if ($user->secret == $filter->filter($credential)) {
                     $loginSuccess = true;
                 } else {
                     $loginSuccess = false;
@@ -154,7 +154,7 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
                 $loginSuccess = true;
                 $loginResult = array('firstLogin' => true);
             }
-        } elseif (isset($user) && $user->isActive()) {
+        } elseif (isset($user)) {
             $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', login with noncorrect suffix: ');
             if ($user->credential == $filter->filter($credential)) {
                 $this->serviceManager->get('Core/Log')->debug('User ' . $login . ', credentials are equal');

@@ -241,13 +241,6 @@ class IndexController extends AbstractActionController
         }
         
         $user = $auth->getUser();
-        
-        if (!$result->isValid()) {
-            $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' cannot be logged in via ' . $provider . ', messages: ' . implode(', ', $resultMessage));
-            $this->notification()->danger(/*@translate*/ 'Your account is inactive');
-            return $this->redirect()->toRoute('lang');
-        }
-        
         $this->logger->info('User ' . $auth->getUser()->getInfo()->getDisplayName() . ' logged in via ' . $provider);
         $settings = $user->getSettings('Core');
         if (null !== $settings->localization->language) {
@@ -410,10 +403,17 @@ class IndexController extends AbstractActionController
         $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
-                $user = $users->findByLogin($grp_member . $loginSuffix);
-                if (!empty($user)) {
-                    $groupUserId[] = $user->id;
-                } else {
+                try
+                {
+                    $user = $users->findByLogin($grp_member . $loginSuffix);
+                    if (!empty($user)) {
+                        $groupUserId[] = $user->id;
+                    } else {
+                        $notFoundUsers[] = $grp_member . $loginSuffix;
+                    }
+                }
+                catch (\Auth\Exception\UserDeactivatedException $e)
+                {
                     $notFoundUsers[] = $grp_member . $loginSuffix;
                 }
             }

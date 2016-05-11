@@ -80,17 +80,22 @@ class User extends AbstractAdapter
         /* @var $users \Auth\Repository\User */
         $identity    = $this->getIdentity();
         $users       = $this->getRepository();
-        $user        = $users->findByLogin($identity);
+        
+        try
+        {
+            $user = $users->findByLogin($identity);
+        }
+        catch (\Auth\Exception\UserDeactivatedException $e)
+        {
+            return new Result(Result::FAILURE_UNCATEGORIZED, $identity, array('User is inactive'));
+        }
+        
         $filter      = new CredentialFilter();
         $credential  = $this->getCredential();
 
         
         if (!$user || $user->getCredential() != $filter->filter($credential)) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $identity, array('User not known or invalid credential'));
-        }
-        
-        if (!$user->isActive()) {
-            return new Result(Result::FAILURE_UNCATEGORIZED, $identity, array('User is inactive'));
         }
         
         return new Result(Result::SUCCESS, $user->getId());

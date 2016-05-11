@@ -70,7 +70,7 @@ class UsersController extends AbstractActionController
     public function editAction()
     {
         /* @var $user \Auth\Entity\User */
-        $user = $this->userRepository->find($this->params('id'));
+        $user = $this->userRepository->find($this->params('id'), \Doctrine\ODM\MongoDB\LockMode::NONE, null, ['allowDeactivated' => true]);
         
         // check if user is not found
         if (!$user) {

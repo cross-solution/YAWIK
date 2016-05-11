@@ -59,7 +59,7 @@ class AuthenticationService extends ZendAuthService
     {
         if (!$this->user) {
             if ($this->hasIdentity() && ($id = $this->getIdentity())) {
-                $user = $this->getRepository()->find($id);
+                $user = $this->getRepository()->find($id, \Doctrine\ODM\MongoDB\LockMode::NONE, null, ['allowDeactivated' => true]);
                 if (!$user) {
                     throw new \OutOfBoundsException('Unknown user id: ' . $id);
                 }
