@@ -96,7 +96,7 @@ class HybridAuth implements AdapterInterface
        
        
         $forceSave = false;
-        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier, $this->_provider);
+        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier, $this->_provider, ['allowDeactivated' => true]);
 
         if (!$user) {
             $forceSave = true;

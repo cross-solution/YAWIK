@@ -111,11 +111,12 @@ class User extends AbstractRepository
      *
      * @param string $identifier
      * @param string $provider
+     * @param array $options
      * @return UserInterface
      */
-    public function findByProfileIdentifier($identifier, $provider)
+    public function findByProfileIdentifier($identifier, $provider, array $options = [])
     {
-        return $this->findOneBy(array('profiles.' . $provider . '.auth.identifier' => $identifier)) ?: $this->findOneBy(array('profile.identifier' => $identifier));
+        return $this->findOneBy(array('profiles.' . $provider . '.auth.identifier' => $identifier), $options) ?: $this->findOneBy(array('profile.identifier' => $identifier), $options);
     }
     
     /**
@@ -145,11 +146,12 @@ class User extends AbstractRepository
      * Finds user by login name
      *
      * @param string $login
+     * @param array $options
      * @return UserInterface
      */
-    public function findByLogin($login)
+    public function findByLogin($login, array $options = [])
     {
-        $entity = $this->findOneBy(array('login' => $login));
+        $entity = $this->findOneBy(array('login' => $login), $options);
         return $entity;
     }
 
