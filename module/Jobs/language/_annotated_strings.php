@@ -152,11 +152,17 @@ translate('Get applications via email');
 //: ./src/Jobs/Form/AtsModeFieldset.php:75
 translate('Do not track');
 
-//: ./src/Jobs/Form/AtsModeFieldset.php:90
+//: ./src/Jobs/Form/AtsModeFieldset.php:91
 translate('URL');
 
-//: ./src/Jobs/Form/AtsModeFieldset.php:100
+//: ./src/Jobs/Form/AtsModeFieldset.php:101
 translate('Email');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:110
+translate('One click apply');
+
+//: ./src/Jobs/Form/AtsModeFieldset.php:118
+translate('Social profiles');
 
 //: ./src/Jobs/Form/Validator/UniqueApplyId.php:21
 translate('The apply identifier "%value%" is already in use.');

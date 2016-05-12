@@ -1,4 +1,3 @@
-<?php
 
 namespace Auth\Adapter;
 

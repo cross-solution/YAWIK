@@ -97,7 +97,7 @@ class FormWizardContainer extends AbstractHelper
                   . '<ul>' . $tabsNav . '</ul>'
                   . '<div class="tab-content">' . $tabsContent . '</div>'
                   . '<ul class="pager wizard">'
-                  . '<li class="previous"><a href="javascript:;">&larr; ' . $translate('Previous') . '</a></li>'
+                  . '<li class="previous"><a href="javascript:;">&larr; ' . $translate('previous') . '</a></li>'
                   . '<li class="next"><a href="javascript:;">' . $translate('Next') . ' &rarr;</a></li>'
                   . '<li class="finish' . ($containerParams['finish_enabled'] ? '' : ' disabled') . '">'
                   . '<a class="pull-right" href="' . $containerParams['finish_href'] . '">'

@@ -1,4 +1,6 @@
 <?php
+41:        'placeholder'    => /* @translate */
+86:                           'label'              => /*@translate*/
 //: ./src/Core/Form/FormSubmitButtonsFieldset.php:25
 translate('Save');
 
@@ -86,9 +88,18 @@ translate('Spanish');
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:44
 translate('defines the languages of this frontend.');
 
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:65
+translate('choose your timzone');
+
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:67
+translate('defines your local timezone.');
+
 //: ./config/module.config.php:25
 translate('general settings');
 
-//: ./config/module.config.php:214
+//: ./config/module.config.php:238
 translate('Home');
+
+//: ./config/module.config.php:243
+translate('Admin');
 

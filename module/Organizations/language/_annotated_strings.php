@@ -113,9 +113,9 @@ translate('The access token you provided seems to have expired.');
 //: ./src/Organizations/Mail/EmployeeInvitationFactory.php:113
 translate('Invitation to join the team of %s');
 
-//: ./config/module.config.php:166
+//: ./config/module.config.php:167
 translate('Overview');
 
-//: ./config/module.config.php:170
+//: ./config/module.config.php:171
 translate('Insert');
 
