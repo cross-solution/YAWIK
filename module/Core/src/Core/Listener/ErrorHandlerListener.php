@@ -16,6 +16,7 @@ use Zend\Log\LoggerInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Application;
 use Zend\Log\Logger;
+use Zend\Mvc\Router;
 
 /**
  * Class ErrorHandlerListener
@@ -102,9 +103,18 @@ class ErrorHandlerListener implements ListenerAggregateInterface
         switch ($error) {
             case Application::ERROR_CONTROLLER_NOT_FOUND:
             case Application::ERROR_CONTROLLER_INVALID:
-            case Application::ERROR_ROUTER_NO_MATCH:
                 // Specifically not handling these
                 return;
+                break;
+            case Application::ERROR_ROUTER_NO_MATCH:
+                if ($event->getName() == MvcEvent::EVENT_DISPATCH_ERROR) {
+                    // add dummy 'no-route' route to silent routeMatch errors
+                    $noRoute = 'no-route';
+                    $event->getRouter()
+                        ->addRoute($noRoute, Router\Http\Literal::factory(['route' => '']));
+                    $event->setRouteMatch((new Router\RouteMatch([]))->setMatchedRouteName($noRoute));
+                }
+                break;
         
             case Application::ERROR_EXCEPTION:
             default:
