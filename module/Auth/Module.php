@@ -9,7 +9,6 @@
 
 namespace Auth;
 
-use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
@@ -78,11 +77,11 @@ class Module
         }
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
-
+            
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
-            /** @var CheckPermissionsListener $checkPermissionsListener */
+                /* @var $checkPermissionsListener \Acl\Listener\CheckPermissionsListener */
                 $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
                 $checkPermissionsListener->onRoute($e);
             },
@@ -101,6 +100,9 @@ class Module
 
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
+
+        $deactivatedUserListener = $services->get('DeactivatedUserListener');
+        $deactivatedUserListener->attach($eventManager);
 
         $sharedManager = $eventManager->getSharedManager();
         $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');

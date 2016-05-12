@@ -10,10 +10,8 @@
 namespace Auth\Factory\Controller;
 
 use Auth\Controller\UsersController;
-use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Auth\Repository\User;
 
 class UsersControllerFactory implements FactoryInterface
 {
@@ -27,10 +25,10 @@ class UsersControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        /** @var ControllerManager $serviceLocator */
+        /* @var $serviceLocator ServiceLocatorInterface */
         $serviceLocator = $serviceLocator->getServiceLocator();
 
-        /* @var User $users */
+        /* @var $users \Auth\Repository\User */
         $users = $serviceLocator->get('repositories')->get('Auth/User');
 
         return new UsersController($users);

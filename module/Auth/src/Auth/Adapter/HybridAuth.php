@@ -96,7 +96,7 @@ class HybridAuth implements AdapterInterface
        
        
         $forceSave = false;
-        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier, $this->_provider);
+        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier, $this->_provider, ['allowDeactivated' => true]);
 
         if (!$user) {
             $forceSave = true;
@@ -160,7 +160,7 @@ class HybridAuth implements AdapterInterface
                 $dm->flush();
             }
         }
-       
+        
        
         return new Result(Result::SUCCESS, $user->getId(), array('firstLogin' => $forceSave, 'user' => $user));
     }

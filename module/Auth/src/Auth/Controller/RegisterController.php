@@ -95,6 +95,10 @@ class RegisterController extends AbstractCoreController
             $this->notification()->danger(
                 /*@translate*/ 'User with this email address already exists'
             );
+        } catch (\Auth\Exception\UserDeactivatedException $e) {
+            $this->notification()->danger(
+                /*@translate*/ 'User with this email address already exists'
+            );
         } catch (\Exception $e) {
             $this->logger->crit($e);
             $this->notification()->danger(

@@ -80,7 +80,7 @@ class User extends AbstractAdapter
         /* @var $users \Auth\Repository\User */
         $identity    = $this->getIdentity();
         $users       = $this->getRepository();
-        $user        = $users->findByLogin($identity);
+        $user        = $users->findByLogin($identity, ['allowDeactivated' => true]);
         $filter      = new CredentialFilter();
         $credential  = $this->getCredential();
 

@@ -150,6 +150,15 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * @ODM\Boolean
      */
     protected $isDraft = false;
+    
+    /**
+     * Status of user
+     *
+     * @var Status
+     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\Index
+     */
+    protected $status;
 
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
@@ -158,6 +167,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      */
     public function __construct()
     {
+        $this->status = new Status();
     }
 
     /**
@@ -490,5 +500,37 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     public function getOrganization()
     {
         return $this->organization;
+    }
+    
+    /**
+     * @return Status
+     */
+    public function getStatus()
+    {
+        if (!isset($this->status)) {
+            $this->status = new Status();
+        }
+        
+        return $this->status;
+    }
+    
+    /**
+     * @param Status $status
+     */
+    public function setStatus($status)
+    {
+        if (!$status instanceof Status) {
+            $status = new Status($status);
+        }
+        
+        $this->status = $status;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->getStatus()->getName() === \Jobs\Entity\StatusInterface::ACTIVE;
     }
 }

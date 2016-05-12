@@ -7,7 +7,7 @@
  * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
  */
 ?>
-<?php if (count($users)):
+<?php if (count($this->users)):
 
     $columns = [
         [
@@ -56,8 +56,9 @@
                     <?php endif; ?>
                 </th>
             <?php endforeach; ?>
+            <th class="col-xs-1"><?php echo $this->translate('Action')?></th>
         </tr>
-        <?php foreach($users as $user): /* @var Auth\Entity\User $user */?>
+        <?php foreach($this->users as $user): /* @var $user \Auth\Entity\User */?>
             <tr>
                 <td>
                     <?php echo $user->getInfo()->getDisplayName() ?>
@@ -68,9 +69,12 @@
                 <td>
                     <?php echo $user->getLogin() ?>
                 </td>
+                <td>
+                    <a class="btn btn-default btn-xs" href="<?=$this->url('lang/user-edit', ['id' => $user->getId()])?>" title="<?php echo $this->translate('Edit') ?>"><i class="yk-icon yk-icon-edit"></i></a>
+                </td>
             </tr>
 
         <?php endforeach;?>
     </table>
-<?php echo $this->paginationControl($users, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/user-list'));?>
+<?php echo $this->paginationControl($this->users, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/user-list'));?>
 <?php endif ?>

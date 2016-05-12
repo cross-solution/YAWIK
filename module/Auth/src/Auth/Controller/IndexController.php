@@ -403,10 +403,17 @@ class IndexController extends AbstractActionController
         $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
-                $user = $users->findByLogin($grp_member . $loginSuffix);
-                if (!empty($user)) {
-                    $groupUserId[] = $user->id;
-                } else {
+                try
+                {
+                    $user = $users->findByLogin($grp_member . $loginSuffix);
+                    if (!empty($user)) {
+                        $groupUserId[] = $user->id;
+                    } else {
+                        $notFoundUsers[] = $grp_member . $loginSuffix;
+                    }
+                }
+                catch (\Auth\Exception\UserDeactivatedException $e)
+                {
                     $notFoundUsers[] = $grp_member . $loginSuffix;
                 }
             }
