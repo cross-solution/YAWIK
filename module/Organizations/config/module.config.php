@@ -134,7 +134,8 @@ return array(
             // guests are not allowed to see a list of companies
             'guest' => array(
                 'allow' => array(
-                    'Entity/OrganizationImage'
+                    'Entity/OrganizationImage',
+                    'route/lang/organizations/invite/accept',
                 ),
                 'deny' => array(
                     'route/lang/organizations',
