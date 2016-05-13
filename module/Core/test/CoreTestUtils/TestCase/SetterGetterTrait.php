@@ -199,7 +199,7 @@ trait SetterGetterTrait
 
         if (!isset($spec['ignore_setter']) || !$spec['ignore_setter']) {
             $assert = isset($spec['setter_assert']) ? $spec['setter_assert'] : null;
-            $this->assertSetterValue($name, $spec['value'], $setterArgs, $assert, isset($spec['setter_value']) ? $spec['setter_value'] : '__FLUENT_INTERFACE__');
+            $this->assertSetterValue($name, $spec['value'], $setterArgs, $assert, array_key_exists('setter_value', $spec) ? $spec['setter_value'] : '__FLUENT_INTERFACE__');
         }
 
         if (isset($spec['getter_exception'])) {
