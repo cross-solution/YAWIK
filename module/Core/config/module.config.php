@@ -262,6 +262,7 @@ return array(
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
             'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
+            'Core/SearchForm' => 'Core\Factory\Controller\Plugin\SearchFormFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
@@ -272,13 +273,16 @@ return array(
             'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
             'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
+            'Core/PaginationBuilder' => 'Core\Controller\Plugin\PaginationBuilder',
         ),
         'aliases' => array(
             'filesender'       => 'Core/FileSender',
             'mailer'           => 'Core/Mailer',
+            'pagination'       => 'Core/PaginationBuilder',
             'paginator'        => 'Core/CreatePaginator',
             'paginatorservice' => 'Core/PaginatorService',
             'paginationparams' => 'Core/PaginationParams',
+            'searchform'       => 'Core/SearchForm',
         )
     ),
     // Configure the view service manager
@@ -410,6 +414,8 @@ return array(
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
             'Core/Container' => 'Core\Form\Container',
             'Core/TextSearch' => 'Core\Form\TextSearchForm',
+            'Core/TextSearch/Elements' => 'Core\Form\TextSearchFormFieldset',
+            'Core/TextSearch/Buttons' => 'Core\Form\TextSearchFormButtonsFieldset',
 
         ),
         'initializers' => array(

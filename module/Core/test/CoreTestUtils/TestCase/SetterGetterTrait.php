@@ -139,6 +139,49 @@ trait SetterGetterTrait
             $spec['value'] = new $class();
         }
 
+        $hook = function ($type, $spec) {
+            if (!isset($spec[$type])) {
+                return;
+            }
+
+            $cb = $spec[$type];
+
+            if (is_array($cb)) {
+                $method = $cb[0];
+                $args   = isset($cb[1]) ? $cb[1] : [];
+
+            } else {
+                $method = $cb;
+                $args   = [];
+            }
+
+            $args = array_map(
+                function($item) use ($spec) {
+                    if ('###' == $item) { return $spec; }
+                    if (is_array($item) && isset($item[0]) && is_string($item[0])) {
+                        if (0 === strpos($item[0], '->')) {
+
+                            $args = isset($item[1]) ? $item[1] : [];
+                            return call_user_func_array([$this->target, substr($item[0], 2)], $args);
+                        }
+
+                        if (0 === strpos($item[0], '::')) {
+                            $args = isset($item[1]) ? $item[1] : [];
+                            return call_user_func_array([$this, substr($item[0], 2)], $args);
+                        }
+                    }
+
+                    return $item;
+                },
+                $args
+            );
+
+            $callback = is_callable($method) ? $method : [$this, $method];
+            call_user_func_array($callback, $args);
+        };
+
+        $hook('pre', $spec);
+
         $getterArgs = isset($spec['getter_args']) ? $spec['getter_args'] : false;
         $setterArgs = isset($spec['setter_args']) ? $spec['setter_args'] : false;
 
@@ -172,6 +215,8 @@ trait SetterGetterTrait
             $assert = isset($spec['getter_assert']) ? $spec['getter_assert'] : null;
             $this->assertGetterValue($name, isset($spec['expect']) ? $spec['expect'] : $spec['value'], $getterArgs, $assert);
         }
+
+        $hook('post', $spec);
     }
 
     public function assertGetterValue($name, $value, $args, $assert, $isDefaultValue = false)

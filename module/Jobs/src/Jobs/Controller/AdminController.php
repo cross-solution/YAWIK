@@ -25,21 +25,11 @@ class AdminController extends AbstractActionController
 
     public function indexAction()
     {
-
-        $params = $this->paginationParams('Jobs_Admin', ['text', 'page' => 1, 'companyId', 'status' ]);
-
-        $services = $this->getServiceLocator();
-        $forms    = $services->get('forms');
-        $form     = $forms->get('Jobs/AdminSearch');
-        $paginator = $this->paginator('Jobs/Admin');
-
-        return [
-            'by'   => $this->params()->fromQuery('by', 'all'),
-            'jobs' => $paginator,
-            'form' => $form,
-        ];
-
-
+        return $this->pagination([
+            'params'    => [ 'Jobs_Admin', ['text', 'page' => 1, 'companyId', 'status' ] ],
+            'form'      => [ 'as' => 'form', 'Jobs/AdminSearch' ],
+            'paginator' => [ 'as' => 'jobs', 'Jobs/Admin' ],
+        ]);
     }
 
     public function editAction()

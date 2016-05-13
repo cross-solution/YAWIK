@@ -15,7 +15,7 @@
     function resetSearchForm(event)
     {
         var $form = $(event.target);
-        win.setTimeout(function() { loadPaginator($form) }, 1);
+        win.setTimeout(function() { loadPaginator($form); $form.find('select').change(); }, 1);
     }
 
     function submitSearchForm(event)

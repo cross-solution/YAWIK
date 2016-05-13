@@ -20,7 +20,7 @@
 
 <nav class="navbar yk-toolbar" id="orders-list-filter-wrapper">
 <?php
-        $this->form->get('text')->setAttribute('placeholder', $this->translate('Search address parts or order numbers...'));
+        $this->form->getElements()->get('text')->setAttribute('placeholder', $this->translate('Search address parts or order numbers...'));
         echo $this->searchForm($this->form)  ?>
 </nav>
 
