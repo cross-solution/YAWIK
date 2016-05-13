@@ -40,13 +40,23 @@ $options = array(
      * Supported languages used by the language switcher. This array defines the languages,
      * which are available in the frontend
      */
-    'supportedLanguages' => array(
+    'supportedLanguages' => [
         'de' => 'de_DE',
         'fr' => 'fr',
         'en' => 'en_US',
         'es' => 'es',
         'it' => 'it',
-    ),
+//        'nl' => 'nl_BE',
+//        'ru' => 'ru',
+//        'tr' => 'tr',
+//        'hi' => 'hi_IN',
+//        'ar' => 'ar',
+//        'pt' => 'pt',
+//        'pl' => 'pl',
+//        'zh' => 'zh_CN',
+//        'sr' => 'sr',
+//        'ro' => 'ro',
+    ],
 
     /**
      * if true, YAWIK tries to detect the browser settings

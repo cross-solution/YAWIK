@@ -1,6 +1,10 @@
 <?php
-41:        'placeholder'    => /* @translate */
-86:                           'label'              => /*@translate*/
+//: ./src/Core/Form/TextSearchFormButtonsFieldset.php:37
+translate('Search', -1000, 'submit');
+
+//: ./src/Core/Form/TextSearchFormButtonsFieldset.php:39
+translate('Clear', -1100, 'reset');
+
 //: ./src/Core/Form/FormSubmitButtonsFieldset.php:25
 translate('Save');
 
@@ -24,6 +28,12 @@ translate('Save');
 
 //: ./src/Core/Form/SummaryFormButtonsFieldset.php:48
 translate('Cancel');
+
+//: ./src/Core/Form/TextSearchFormFieldset.php:130
+translate('Search');
+
+//: ./src/Core/Form/TextSearchFormFieldset.php:132
+translate('Search query');
 
 //: ./src/Core/Form/PermissionsFieldset.php:70
 translate('Rights');

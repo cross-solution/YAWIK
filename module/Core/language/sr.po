@@ -1,0 +1,393 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 19:04+0200\n"
+"PO-Revision-Date: 2016-05-13 12:44+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Serbian (http://www.transifex.com/yawik/yawik/language/sr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr "отисак"
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr "Порески број"
+
+#: view/partial/loading-popup.phtml:18
+msgid "Loading"
+msgstr "утовар"
+
+#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:34
+msgid "First"
+msgstr "први"
+
+#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:47
+msgid "Back"
+msgstr "Назад"
+
+#: view/partial/pagination-control.phtml:76
+#: view/partial/pagination-control.phtml:80
+#: src/Core/Form/View/Helper/FormWizardContainer.php:101
+msgid "Next"
+msgstr "Следећи"
+
+#: view/partial/pagination-control.phtml:85
+#: view/partial/pagination-control.phtml:92
+msgid "Last"
+msgstr "последњи"
+
+#: view/form/permissions-collection.phtml:15
+msgid "Add permission"
+msgstr "Додај дозволу"
+
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
+msgid "Admin"
+msgstr "админ"
+
+#: view/core/admin/index.phtml:12 view/core/index/dashboard.phtml:11
+#: view/core/index/dashboard.phtml:14
+msgid "Dashboard"
+msgstr "командна табла"
+
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:101
+msgid "Home"
+msgstr "Дом"
+
+#: view/core/index/index.phtml:13
+msgid "Welcome to YAWIK!"
+msgstr "Велцоме то Иавик!"
+
+#: view/core/index/index.phtml:14
+msgid "we're connecting recruiters and applicants"
+msgstr "ми смо повезивање РЕЦРУИТЕРС и апликаната"
+
+#: view/core/index/index.phtml:15
+msgid ""
+"Login to an open source applicant tracking system using your favorit social "
+"network"
+msgstr "Пријава на систем отвореног извор подносилац праћење помоћу своју омиљену друштвену мрежу"
+
+#: view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/core/index/index.phtml:28
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr "одговорне дизајн (користи боотстрап3 и фонт авесоме)"
+
+#: view/core/index/index.phtml:29
+msgid "multilingual"
+msgstr "вишејезични"
+
+#: view/core/index/index.phtml:30
+msgid "ready for social recruiting"
+msgstr "спреман за социјалну регрутовање"
+
+#: view/core/index/index.phtml:31
+msgid "enter job ads"
+msgstr "ентер огласе за посао"
+
+#: view/core/index/index.phtml:32
+#, php-format
+msgid "%sapplication forms%s."
+msgstr ""
+
+#: view/core/index/index.phtml:36
+msgid "One-Click-Apply"
+msgstr "Оне-Цлицк-Аппли"
+
+#: view/core/index/index.phtml:37
+msgid "manage applications"
+msgstr "управљање апликацијама"
+
+#: view/core/index/index.phtml:38
+msgid "open and free software"
+msgstr "отворен и слободан софтвер"
+
+#: view/core/index/index.phtml:46
+msgid "Developer News"
+msgstr "девелопер Новости"
+
+#: view/core/index/index.phtml:63
+msgid "Recruiter News"
+msgstr "рецруитер Новости"
+
+#: view/core/index/dashboard-widget.phtml:19
+msgid "Error loading widget."
+msgstr "Грешка при учитавању додатак."
+
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr "Дошло је до грешке"
+
+#: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
+msgid "Additional information"
+msgstr "Додатне Информације"
+
+#: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
+#: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
+msgid "File"
+msgstr "фајл"
+
+#: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
+#: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
+msgid "Message"
+msgstr "порука"
+
+#: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
+#: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
+msgid "Stack trace"
+msgstr "стека"
+
+#: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
+msgid "Previous exceptions"
+msgstr "Претходни изузеци"
+
+#: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
+msgid "No Exception available"
+msgstr "Без изузетка доступан"
+
+#: view/error/403.phtml:15
+msgid "A 403 error occurred"
+msgstr "А 403 грешка"
+
+#: view/error/404.phtml:15
+msgid "A 404 error occurred"
+msgstr "А 404 грешка"
+
+#: view/error/404.phtml:24
+msgid "The requested controller was unable to dispatch the request."
+msgstr "Тражени контролер није могао да пошаље захтев."
+
+#: view/error/404.phtml:27
+msgid ""
+"The requested controller could not be mapped to an existing controller "
+"class."
+msgstr "Тражени контролор не може да се преслика на постојећу контролер класе."
+
+#: view/error/404.phtml:30
+msgid "The requested controller was not dispatchable."
+msgstr "Тражени контролор није био диспатцхабле."
+
+#: view/error/404.phtml:33
+msgid "The requested URL could not be matched by routing."
+msgstr "Тражени УРЛ не може да се одговара за рутирање."
+
+#: view/error/404.phtml:36
+msgid "We cannot determine at this time why a 404 was generated."
+msgstr "Не можемо утврдити у овом тренутку због чега је остварила је 404."
+
+#: view/error/404.phtml:48
+msgid "Controller"
+msgstr "контролор"
+
+#: view/error/404.phtml:55
+#, php-format
+msgid "resolves to %s"
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr "Јавасцрипт је онемогућен."
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and "
+"reload."
+msgstr "ЈаваСцрипт је потребно да користите овај сајт. Молимо Вас да омогућите ЈаваСцрипт и релоад."
+
+#: view/layout/layout.phtml:36
+msgid "YAWIK"
+msgstr "Иавик"
+
+#: view/layout/layout.phtml:89
+msgid "Help to translate YAWIK"
+msgstr "Помогнете с превода на Иавик"
+
+#: view/layout/layout.phtml:121
+msgid "All rights reserved."
+msgstr "Сва права задржана."
+
+#: src/Core/Form/PermissionsCollection.php:36
+msgid "Permissions"
+msgstr "Дозволе"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
+msgid "The file is too big"
+msgstr "Датотека је превелика"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:107
+#: src/Core/Form/View/Helper/FormImageUpload.php:82
+msgid "The file type is not supported"
+msgstr "Тип датотеке није подржан"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:109
+#, php-format
+msgid "You may only upload %d files"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:111
+msgid "An unknown error occured."
+msgstr "Непознате грешке."
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:156
+msgid "Click here to add files or use drag and drop."
+msgstr "Кликните овде да додате датотеке или користити драг анд дроп."
+
+#: src/Core/Form/View/Helper/FormImageUpload.php:42
+msgid "Click here to add an image or use drag and drop."
+msgstr "Кликните овде да бисте додали слику или коришћење драг анд дроп."
+
+#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+msgid "previous"
+msgstr "Претходна"
+
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
+msgid "processing"
+msgstr "обрада"
+
+#: src/Core/Form/View/Helper/SummaryForm.php:178
+msgid "Edit"
+msgstr "едит"
+
+#: src/Core/Form/View/Helper/SearchForm.php:54
+msgid "Search"
+msgstr "Претраживање"
+
+#: src/Core/Form/View/Helper/SearchForm.php:55
+msgid "Clear"
+msgstr "Јасно"
+
+#: src/Core/Form/LocalizationSettingsFieldset.php:26
+#: language/_annotated_strings.php:98
+msgid "general settings"
+msgstr "opšta подешавања"
+
+#: language/_annotated_strings.php:5 language/_annotated_strings.php:11
+#: language/_annotated_strings.php:23
+msgid "Save"
+msgstr "саве"
+
+#: language/_annotated_strings.php:8 language/_annotated_strings.php:14
+#: language/_annotated_strings.php:26
+msgid "Cancel"
+msgstr "отказати"
+
+#: language/_annotated_strings.php:17
+msgid "Apply filter"
+msgstr "Аппли филтер"
+
+#: language/_annotated_strings.php:20
+msgid "Reset filter"
+msgstr "ресет филтера"
+
+#: language/_annotated_strings.php:29
+msgid "Rights"
+msgstr "права"
+
+#: language/_annotated_strings.php:32
+msgid "View"
+msgstr "Поглед"
+
+#: language/_annotated_strings.php:35
+msgid "Write"
+msgstr "писати"
+
+#: language/_annotated_strings.php:38
+msgid "Not Rated"
+msgstr "Неоцењено"
+
+#: language/_annotated_strings.php:41
+msgid "Poor"
+msgstr "слаб"
+
+#: language/_annotated_strings.php:44
+msgid "Bad"
+msgstr "лоше"
+
+#: language/_annotated_strings.php:47
+msgid "Average"
+msgstr "Просек"
+
+#: language/_annotated_strings.php:50
+msgid "Good"
+msgstr "Добро"
+
+#: language/_annotated_strings.php:53
+msgid "Excellent"
+msgstr "одличан"
+
+#: language/_annotated_strings.php:56
+msgid ""
+"Please enter a phone Number. You can use the intenational format. Only "
+"digits and '+'."
+msgstr "Унесите број телефона. Можете користити Интенатионал формат. Само цифре и \"+\"."
+
+#: language/_annotated_strings.php:59
+msgid "Remove all"
+msgstr "Уклони све"
+
+#: language/_annotated_strings.php:62
+msgid "choose your language"
+msgstr "цхоосе иоур лангуаге"
+
+#: language/_annotated_strings.php:65
+msgid "English"
+msgstr "енглески језик"
+
+#: language/_annotated_strings.php:68
+msgid "French"
+msgstr "француски"
+
+#: language/_annotated_strings.php:71
+msgid "German"
+msgstr "немачки"
+
+#: language/_annotated_strings.php:74
+msgid "Italian"
+msgstr "Италијан"
+
+#: language/_annotated_strings.php:77
+msgid "Polish"
+msgstr "Пољски"
+
+#: language/_annotated_strings.php:80
+msgid "Russian"
+msgstr "руски"
+
+#: language/_annotated_strings.php:83
+msgid "Turkish"
+msgstr "турски"
+
+#: language/_annotated_strings.php:86
+msgid "Spanish"
+msgstr "шпански"
+
+#: language/_annotated_strings.php:89
+msgid "defines the languages of this frontend."
+msgstr "дефинише језике овог фронтенд."
+
+#: language/_annotated_strings.php:92
+msgid "choose your timzone"
+msgstr "одабрати тимзоне"
+
+#: language/_annotated_strings.php:95
+msgid "defines your local timezone."
+msgstr "дефинише своју локалну временску зону."

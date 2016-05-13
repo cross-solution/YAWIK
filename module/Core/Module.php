@@ -82,8 +82,11 @@ class Module implements ConsoleBannerProviderInterface
             
             $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
             $errorHandlerListener->attach($eventManager);
-            
+
+            /* @var \Core\Options\ModuleOptions $options */
+            $options = $sm->get('Core/Options');
             $languageRouteListener = new LanguageRouteListener();
+            $languageRouteListener->setSupportedLanguages($options->getSupportedLanguages());
             $languageRouteListener->attach($eventManager);
         
         

@@ -1,0 +1,517 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 18:44+0200\n"
+"PO-Revision-Date: 2016-05-13 13:27+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Romanian (http://www.transifex.com/yawik/yawik/language/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: view/form/user-info-container.phtml:25
+msgid "Image"
+msgstr ""
+
+#: view/form/social-profiles-fieldset.phtml:40
+msgid "Loading"
+msgstr "se incarca"
+
+#: view/form/social-profiles-fieldset.phtml:46
+msgid "Close"
+msgstr "Închide"
+
+#: view/form/social-profiles-button.phtml:43
+msgid "Attach profile"
+msgstr ""
+
+#: view/form/social-profiles-button.phtml:44
+msgid "Detach profile"
+msgstr ""
+
+#: view/form/social-profiles-button.phtml:47
+msgid "View profile data"
+msgstr ""
+
+#: view/form/userselect.phtml:28
+msgid "Add users"
+msgstr ""
+
+#: view/form/userselect.phtml:32
+msgid "At least one user has to be assigned"
+msgstr ""
+
+#: view/sidebar/groups-menu.phtml:15
+msgid "My groups"
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:13
+msgid "Missing Configuration"
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:14
+msgid "Unfortunately there seems to be missing configuration."
+msgstr ""
+
+#: view/error/social-profiles-unconfigured.phtml:19
+msgid ""
+"The login via social networks does not work at the moment due to the missing"
+" of some crucial configuration data."
+msgstr ""
+
+#: view/auth/users/list.ajax.phtml:14 language/_annotated_strings.php:81
+msgid "Name"
+msgstr "Nume"
+
+#: view/auth/users/list.ajax.phtml:18
+msgid "Role"
+msgstr "Rol"
+
+#: view/auth/users/list.ajax.phtml:22 view/auth/index/index.phtml:14
+#: view/auth/index/index.phtml:15 view/auth/index/index.phtml:36
+#: view/auth/index/login-info.phtml:74
+msgid "Login"
+msgstr ""
+
+#: view/auth/users/list.ajax.phtml:59
+msgid "Action"
+msgstr "Acțiune"
+
+#: view/auth/users/list.ajax.phtml:73
+msgid "Edit"
+msgstr "Editați | ×"
+
+#: view/auth/users/edit.phtml:11
+msgid "User data"
+msgstr ""
+
+#: view/auth/users/list.phtml:13 src/Auth/Form/GroupUsersCollection.php:89
+#: language/_annotated_strings.php:222
+msgid "Users"
+msgstr "utilizatori"
+
+#: view/auth/users/list.phtml:22
+msgid "No user found matching your criteria."
+msgstr ""
+
+#: view/auth/manage-groups/index.phtml:11
+msgid "Manage groups"
+msgstr ""
+
+#: view/auth/manage-groups/index.phtml:15
+msgid "Add group"
+msgstr ""
+
+#: view/auth/manage-groups/index.phtml:24 language/_annotated_strings.php:66
+msgid "Group name"
+msgstr ""
+
+#: view/auth/manage-groups/index.phtml:25
+msgid "Actions"
+msgstr "acţiuni"
+
+#: view/auth/manage-groups/form.phtml:39
+msgid "search for users"
+msgstr ""
+
+#: view/auth/manage-groups/form.phtml:74
+msgid "Ok"
+msgstr ""
+
+#: view/auth/index/index.phtml:11
+msgid "Login required"
+msgstr ""
+
+#: view/auth/index/index.phtml:12
+msgid "Please authenticate yourself to proceed"
+msgstr ""
+
+#: view/auth/index/index.phtml:42 view/auth/register/index.phtml:1
+#: view/auth/register/index.phtml:2 language/_annotated_strings.php:90
+msgid "Register"
+msgstr "Inregistreaza-te"
+
+#: view/auth/index/index.phtml:57 view/auth/index/index.phtml:58
+msgid "I forgot my password"
+msgstr "Am uitat parola"
+
+#: view/auth/index/index.phtml:66 view/auth/index/login-info.phtml:82
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/auth/index/index.phtml:67
+msgid "Login with ..."
+msgstr ""
+
+#: view/auth/index/index.phtml:84
+#, php-format
+msgid "Register with %s"
+msgstr ""
+
+#: view/auth/index/index.phtml:85
+msgid "Register with ..."
+msgstr ""
+
+#: view/auth/index/job-not-found.phtml:11
+msgid "A 410 error occured"
+msgstr ""
+
+#: view/auth/index/job-not-found.phtml:13
+msgid "Unknown apply identifier"
+msgstr ""
+
+#: view/auth/index/job-not-found.phtml:14
+msgid "A job ad with the provided apply identifier could not be found."
+msgstr ""
+
+#: view/auth/index/login-info.phtml:26 view/auth/manage/profile.phtml:11
+#: view/auth/manage/profile.phtml:19
+msgid "My profile"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:29
+msgid "Change password"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:44
+msgid "Create my organization"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:47
+#, php-format
+msgid "Edit \"%s\""
+msgstr ""
+
+#: view/auth/index/login-info.phtml:55
+msgid "Logout"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:62
+#, php-format
+msgid "Hello %s"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:63
+msgid "Guest"
+msgstr ""
+
+#: view/auth/index/login-info.phtml:79
+msgid "Login via"
+msgstr ""
+
+#: view/auth/forgot-password/index.phtml:1
+#: view/auth/forgot-password/index.phtml:2
+#: view/auth/forgot-password/index.phtml:8 language/_annotated_strings.php:78
+msgid "Reset your password"
+msgstr ""
+
+#: view/auth/forgot-password/index.phtml:7
+msgid ""
+"Please enter your username or email address. You will receive a link to "
+"create a new password via email."
+msgstr ""
+
+#: view/auth/register/completed.phtml:2
+msgid "The registration has been successful"
+msgstr "Înregistrarea a avut succes"
+
+#: view/auth/register/completed.phtml:4 language/_annotated_strings.php:165
+msgid ""
+"An Email with an activation link has been sent, please try to check your "
+"email box"
+msgstr "Un e-mail cu un link de activare a fost trimis, vă rugăm să încercați să verificați caseta de e-mail"
+
+#: view/auth/password/index.phtml:11 view/auth/password/index.phtml:25
+msgid "My password"
+msgstr "parola mea"
+
+#: view/auth/password/index.phtml:22
+msgid "Here you can change your password"
+msgstr ""
+
+#: view/auth/manage/profile.phtml:47
+msgid "Employee of the Organization"
+msgstr ""
+
+#: view/auth/manage/profile.phtml:50
+msgid "Organization Owner"
+msgstr ""
+
+#: view/auth/manage/profile.phtml:55
+msgid "Employees"
+msgstr "Numar de angajati"
+
+#: src/Auth/Form/UserInfo.php:34 language/_annotated_strings.php:54
+msgid "personal informations"
+msgstr ""
+
+#: src/Auth/Form/UserPasswordFieldset.php:35
+#: language/_annotated_strings.php:57 language/_annotated_strings.php:60
+#: language/_annotated_strings.php:114
+msgid "Password"
+msgstr "Parola"
+
+#: src/Auth/Form/GroupFieldset.php:31
+msgid "Group data"
+msgstr ""
+
+#: src/Auth/Form/UserStatus.php:28 language/_annotated_strings.php:93
+msgid "status"
+msgstr ""
+
+#: src/Auth/Controller/ManageController.php:61
+msgid ""
+"You can connect your user profile with social networks. This allows you to "
+"log in via these networks."
+msgstr ""
+
+#: src/Auth/Controller/ManageController.php:129
+#, php-format
+msgid ""
+"Could not connect your %s profile with your user account. The profile is "
+"already connected to another user account."
+msgstr ""
+
+#: language/_annotated_strings.php:3
+msgid "Create group"
+msgstr ""
+
+#: language/_annotated_strings.php:6
+msgid "Edit group"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+msgid "Social Profiles"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Allow users to attach their %s profile."
+msgstr ""
+
+#: language/_annotated_strings.php:15
+msgid "Click here to enter contact informations."
+msgstr ""
+
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:84
+msgid "Email"
+msgstr "E-mail"
+
+#: language/_annotated_strings.php:21
+msgid "Phone"
+msgstr "Telefon"
+
+#: language/_annotated_strings.php:24
+msgid "Postalcode"
+msgstr "Cod postal"
+
+#: language/_annotated_strings.php:27
+msgid "City"
+msgstr "Oraș"
+
+#: language/_annotated_strings.php:30
+msgid "Salutation"
+msgstr "Salut"
+
+#: language/_annotated_strings.php:33
+msgid "Mr."
+msgstr "Dl."
+
+#: language/_annotated_strings.php:36
+msgid "Mrs."
+msgstr "Doamna."
+
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:105
+msgid "please select"
+msgstr "te rog selecteaza"
+
+#: language/_annotated_strings.php:42
+msgid "First name"
+msgstr ""
+
+#: language/_annotated_strings.php:45
+msgid "Last name"
+msgstr ""
+
+#: language/_annotated_strings.php:48
+msgid "street"
+msgstr "stradă"
+
+#: language/_annotated_strings.php:51
+msgid "house number"
+msgstr "numărul casei"
+
+#: language/_annotated_strings.php:63
+msgid "Retype password"
+msgstr ""
+
+#: language/_annotated_strings.php:69
+msgid ""
+"Select a group name. You can add users to your group and then work together "
+"on jobs and job applications."
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid "General settings"
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid "Username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:87
+msgid "Are you human?"
+msgstr "Ești om?"
+
+#: language/_annotated_strings.php:96
+msgid "General"
+msgstr ""
+
+#: language/_annotated_strings.php:99
+msgid "I am"
+msgstr ""
+
+#: language/_annotated_strings.php:102
+msgid "Status"
+msgstr "stare"
+
+#: language/_annotated_strings.php:108
+msgid "The group name \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:111
+msgid "Login name"
+msgstr ""
+
+#: language/_annotated_strings.php:117
+msgid "login"
+msgstr "Logare"
+
+#: language/_annotated_strings.php:120
+msgid "Cannot proceed, token expired"
+msgstr ""
+
+#: language/_annotated_strings.php:123
+msgid "User cannot be found for specified token"
+msgstr ""
+
+#: language/_annotated_strings.php:126 language/_annotated_strings.php:135
+#: language/_annotated_strings.php:153 language/_annotated_strings.php:177
+#: language/_annotated_strings.php:204
+msgid ""
+"An unexpected error has occurred, please contact your system administrator"
+msgstr ""
+
+#: language/_annotated_strings.php:129
+msgid ""
+"User email verified successfully. You need to set a password to log in."
+msgstr ""
+
+#: language/_annotated_strings.php:132
+msgid "User cannot be found"
+msgstr ""
+
+#: language/_annotated_strings.php:138
+msgid "Group created"
+msgstr ""
+
+#: language/_annotated_strings.php:141
+msgid "Group updated"
+msgstr ""
+
+#: language/_annotated_strings.php:144
+msgid "Changes not saved."
+msgstr ""
+
+#: language/_annotated_strings.php:147
+msgid "You are now logged in."
+msgstr ""
+
+#: language/_annotated_strings.php:150
+msgid "Authentication failed."
+msgstr ""
+
+#: language/_annotated_strings.php:156
+msgid "You are now logged out"
+msgstr ""
+
+#: language/_annotated_strings.php:159
+msgid "Type name, email address, role, or login name"
+msgstr ""
+
+#: language/_annotated_strings.php:162
+msgid "Registration is disabled"
+msgstr ""
+
+#: language/_annotated_strings.php:168 language/_annotated_strings.php:192
+msgid "Please fill form correctly"
+msgstr "Vă rugăm să completați formularul corect"
+
+#: language/_annotated_strings.php:171 language/_annotated_strings.php:174
+msgid "User with this email address already exists"
+msgstr ""
+
+#: language/_annotated_strings.php:180
+msgid "You must be logged in."
+msgstr ""
+
+#: language/_annotated_strings.php:183
+msgid "Password successfully changed"
+msgstr ""
+
+#: language/_annotated_strings.php:186
+msgid "Password could not be changed"
+msgstr ""
+
+#: language/_annotated_strings.php:189
+msgid ""
+"Mail with link for reset password has been sent, please try to check your "
+"email box"
+msgstr ""
+
+#: language/_annotated_strings.php:195
+msgid "User cannot be found for specified username or email"
+msgstr ""
+
+#: language/_annotated_strings.php:198
+msgid "Found user does not have an email"
+msgstr ""
+
+#: language/_annotated_strings.php:201
+msgid "Found user is inactive"
+msgstr ""
+
+#: language/_annotated_strings.php:207
+msgid "You are not permitted to access this resource."
+msgstr ""
+
+#: language/_annotated_strings.php:210
+#, php-format
+msgid "a new password was requestet for %s"
+msgstr ""
+
+#: language/_annotated_strings.php:213
+msgid ""
+"This user account has been disabled. Please contact the system adminstrator."
+msgstr ""
+
+#: language/_annotated_strings.php:216
+msgid "user"
+msgstr ""
+
+#: language/_annotated_strings.php:219
+msgid "recruiter"
+msgstr ""
+
+#: language/_annotated_strings.php:225
+msgid "Data"
+msgstr ""

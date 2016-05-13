@@ -41,6 +41,15 @@ translate('Companyname');
 //: ./src/Jobs/Form/MultipostButtonFieldset.php:31
 translate('Calculate price');
 
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:29
+translate('search for position or company');
+
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:53
+translate('Companyname');
+
+//: ./src/Jobs/Form/AdminSearchFormElementsFieldset.php:57
+translate('Select hiring organization');
+
 //: ./src/Jobs/Form/ListFilterAdminFieldset.php:36
 translate('All');
 

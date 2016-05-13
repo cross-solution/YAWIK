@@ -20,11 +20,13 @@ class LanguageRouteListener implements ListenerAggregateInterface
     protected $listeners = array();
 
     protected $defaultLanguage;
-    
+
     /**
-    * @todo: get this from \Core\Options\ModuleOptions.
-    */
-    protected $availableLanguages = array(
+     * available languages. Can be set via Core/Options
+     *
+     * @var array
+     */
+    protected $supportedLanguages = array(
             'en' => 'en_EN',
             'de' => 'de_DE',
             'es' => 'es',
@@ -85,7 +87,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
             return;
         }
         $language = $routeMatch->getParam('lang', '__NOT_SET__');
-        if ($this->isAvailableLanguage($language)) {
+        if ($this->isSupportedLanguage($language)) {
             $this->setLocale($e, $language);
             
         } else {
@@ -122,7 +124,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
              *    -> set translator locale to provided language
              */
             
-            $lang = array_key_exists($match[1], $this->availableLanguages)
+            $lang = array_key_exists($match[1], $this->supportedLanguages)
                   ? $match[1]
                   : $this->detectLanguage($e);
                 
@@ -153,20 +155,33 @@ class LanguageRouteListener implements ListenerAggregateInterface
         $this->setLocale($e, $lang);
     }
 
+    /**
+     * @return mixed
+     */
     public function getDefaultLanguage()
     {
         if (!$this->defaultLanguage) {
-            $availableLanguages = array_keys($this->availableLanguages);
-            $this->defaultLanguage = array_shift($availableLanguages);
+            $supportedLanguages = array_keys($this->supportedLanguages);
+            $this->defaultLanguage = array_shift($supportedLanguages);
         }
         return $this->defaultLanguage;
     }
 
-    protected function isAvailableLanguage($lang)
+    /**
+     * @param $lang
+     *
+     * @return bool
+     */
+    protected function isSupportedLanguage($lang)
     {
-        return array_key_exists($lang, $this->availableLanguages);
+        return array_key_exists($lang, $this->supportedLanguages);
     }
 
+    /**
+     * @param MvcEvent $e
+     *
+     * @return mixed
+     */
     protected function detectLanguage(MvcEvent $e)
     {
         $auth = $e->getApplication()->getServiceManager()->get('AuthenticationService');
@@ -183,7 +198,7 @@ class LanguageRouteListener implements ListenerAggregateInterface
             $locales = $headers->get('Accept-Language')->getPrioritized();
             $localeFound=false;
             foreach ($locales as $locale) {
-                if (array_key_exists($locale->type, $this->availableLanguages)) {
+                if (array_key_exists($locale->type, $this->supportedLanguages)) {
                     $lang = $locale->type;
                     $localeFound = true;
                     break;
@@ -198,18 +213,28 @@ class LanguageRouteListener implements ListenerAggregateInterface
         
         return $lang;
     }
-    
+
+    /**
+     * @param $response
+     * @param $uri
+     *
+     * @return mixed
+     */
     protected function redirect($response, $uri)
     {
         $response->setStatusCode(302);
         $response->getHeaders()->addHeaderline('Location', $uri);
         return $response;
     }
-    
+
+    /**
+     * @param MvcEvent $e
+     * @param          $lang
+     */
     protected function setLocale(MvcEvent $e, $lang)
     {
         $translator = $e->getApplication()->getServiceManager()->get('translator');
-        $locale = $this->availableLanguages[$lang];
+        $locale = $this->supportedLanguages[$lang];
         
         setlocale(
             LC_ALL,
@@ -232,5 +257,13 @@ class LanguageRouteListener implements ListenerAggregateInterface
         }
         $e->getRouter()->setDefaultParam('lang', $lang);
         
+    }
+
+    /**
+     * @param $supportedLanguages
+     */
+    public function setSupportedLanguages($supportedLanguages)
+    {
+        $this->supportedLanguages=$supportedLanguages;
     }
 }
