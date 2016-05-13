@@ -17,6 +17,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\AbstractOptions;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  * Handles rendering the job in formular and in preview mode
@@ -61,6 +62,7 @@ class TemplateController extends AbstractActionController
         /* @var \Auth\Entity\User $user */
         $user = $this->auth()->getUser();
 
+        /* @var \Zend\View\Model\ViewModel $model */
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
         if (
@@ -69,8 +71,18 @@ class TemplateController extends AbstractActionController
             $this->auth()->isAdmin()
         ) {
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
+        }elseif(Status::EXPIRED == $job->getStatus() or  Status::INACTIVE == $job->getStatus()) {
+            $this->response->setStatusCode(Response::STATUS_CODE_410);
+            $model->setTemplate('jobs/error/expired');
+            $model->setVariables(
+                [
+                    'job'=>$job,
+                    'message', 'the job posting you were trying to open, was inactivated or has expired'
+                ]
+            );
         } else {
-            $this->response->setStatusCode(404);
+            // there is a special handling for 404 in ZF2
+            $this->response->setStatusCode(Response::STATUS_CODE_404);
             $model->setVariable('message', 'job is not available');
         }
         return $model;

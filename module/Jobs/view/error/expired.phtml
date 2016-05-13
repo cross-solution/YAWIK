@@ -1,0 +1,30 @@
+<?php
+/**
+ * YAWIK
+ *
+ * Template for the "Please create your organization first" page.
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
+ *
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ */
+
+
+?>
+
+<h1><?php echo $this->translate('The job, you where looking for has expired or was inactivated'); ?></h1>
+
+<ul>
+    <li>
+        <?=$this->translate("Title");?>: <?=$this->job->title?>
+    </li>
+    <li>
+        <?=$this->translate("Company");?>:
+        <a href="<?=$this->url('lang/admin/jobs', ['action' => 'edit'], ['query' => [ 'id' => $this->job->getId()]], true)?>">
+            <?=$this->job->company?>
+        </a>
+    </li>
+</ul>
+

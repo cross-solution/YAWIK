@@ -293,6 +293,7 @@ return array(
             'mail/job-accepted.en' => __DIR__ . '/../view/mails/job-accepted.en.phtml',
             'mail/job-rejected.en' => __DIR__ . '/../view/mails/job-rejected.en.phtml',
             'jobs/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
+            'jobs/error/expired' => __DIR__ . '/../view/error/expired.phtml',
         ),
 
         // Where to look for view templates not mapped above
