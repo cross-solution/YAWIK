@@ -65,11 +65,11 @@ class TemplateController extends AbstractActionController
         /* @var \Zend\View\Model\ViewModel $model */
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
-        if ( false &&(
+        if (
             Status::ACTIVE == $job->getStatus() or
             $job->getPermissions()->isGranted($user, PermissionsInterface::PERMISSION_VIEW) or
             $this->auth()->isAdmin()
-        )) {
+        ) {
             $applicationViewModel->setTemplate('iframe/iFrameInjection');
         }elseif(Status::EXPIRED == $job->getStatus() or  Status::INACTIVE == $job->getStatus()) {
             $this->response->setStatusCode(Response::STATUS_CODE_410);
