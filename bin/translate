@@ -56,7 +56,7 @@ xgettext -L PHP --force-po $EXCLUDE_OPTION -o "language/messages.pot" --from-cod
 rm _translatable_files
 
 
-for language in de_DE fr fr_BE es it nl_BE ru pl tr hi_IN ar pt zh sr ro; do
+for language in de_DE fr fr_BE es it nl_BE ru pl tr hi_IN ar pt zh sr ro el_GR; do
   echo "-- build ${language}.mo file"
   msgfmt -cv -o language/${language}.mo language/${language}.po
 done;

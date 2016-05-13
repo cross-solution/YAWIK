@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Organizations\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-13 16:40+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2016-05-12 18:44+0200\n"
+"PO-Revision-Date: 2016-05-13 14:31+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/yawik/yawik/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el_GR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/organizations/invite-employee/accept.phtml:12
 msgid "You have accepted the invitation"
@@ -49,7 +49,7 @@ msgstr ""
 
 #: view/form/invite-employee-bar.phtml:23
 msgid "Invite"
-msgstr ""
+msgstr "Καλώ"
 
 #: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
 #: language/_annotated_strings.php:87
@@ -155,15 +155,15 @@ msgstr ""
 
 #: language/_annotated_strings.php:6 language/_annotated_strings.php:99
 msgid "City"
-msgstr ""
+msgstr "Πόλη"
 
 #: language/_annotated_strings.php:9
 msgid "Street"
-msgstr ""
+msgstr "Δρόμος"
 
 #: language/_annotated_strings.php:30
 msgid "Recruiter"
-msgstr ""
+msgstr "Στρατολογών"
 
 #: language/_annotated_strings.php:33
 msgid "Department Manager"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:60
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: language/_annotated_strings.php:63
 msgid ""
@@ -213,7 +213,7 @@ msgstr ""
 
 #: language/_annotated_strings.php:66
 msgid "Organizationname"
-msgstr ""
+msgstr "Όνομα Οργανισμού"
 
 #: language/_annotated_strings.php:69
 msgid "accept Applications by Department Managers"
@@ -251,15 +251,15 @@ msgstr ""
 
 #: language/_annotated_strings.php:93
 msgid "house number"
-msgstr ""
+msgstr "τον αριθμό του σπιτιού"
 
 #: language/_annotated_strings.php:96
 msgid "Postalcode"
-msgstr ""
+msgstr "Ταχυδρομικός Κώδικας"
 
 #: language/_annotated_strings.php:102
 msgid "Phone"
-msgstr ""
+msgstr "Τηλέφωνο"
 
 #: language/_annotated_strings.php:105
 msgid "Fax"

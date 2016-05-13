@@ -1,40 +1,41 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Cross Applicant Management - Applications\n"
+"Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-13 16:40+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2016-05-12 18:45+0200\n"
+"PO-Revision-Date: 2016-05-13 14:25+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/yawik/yawik/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el_GR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: view/applications/comment/list.phtml:67
 msgid ""
 "There are no comments for this application yet. Be the first to comment by "
 "clicking the \"Add new comment\" button below!"
-msgstr ""
+msgstr "Δεν υπάρχουν σχόλια για αυτή την εφαρμογή ακόμα. Γίνε ο πρώτος που θα σχολιάσει κάνοντας κλικ στο παρακάτω κουμπί \"Προσθήκη νέου σχολίου\"!"
 
 #: view/applications/index/index.phtml:10
 #: view/applications/apply/index.phtml:10
 #: view/applications/apply/success.phtml:10
 msgid "Apply"
-msgstr ""
+msgstr "Εφαρμόζεται"
 
 #: view/applications/index/index.phtml:16
 #: view/applications/apply/index.phtml:28
 #: view/applications/apply/success.phtml:28
 #: view/applications/manage/detail.pdf.phtml:97
 msgid "Application"
-msgstr ""
+msgstr "Εφαρμογή"
 
 #: view/applications/index/index.phtml:18
 #: view/applications/apply/index.phtml:33
@@ -45,30 +46,30 @@ msgstr ""
 #: view/applications/index/index.phtml:19
 #: view/applications/apply/index.phtml:35
 msgid "click to open the job ad"
-msgstr ""
+msgstr "κάντε κλικ για να ανοίξετε την αγγελία εργασίας"
 
 #: view/applications/index/disclaimer.phtml:22
 #: language/_annotated_strings.php:192 language/_annotated_strings.php:198
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Πολιτική Προστασίας Προσωπικών Δεδομένων"
 
 #: view/applications/index/dashboard.phtml:18
 msgid "Received Applications"
-msgstr ""
+msgstr "Ελήφθη Εφαρμογές"
 
 #: view/applications/index/dashboard.phtml:20
 msgid "Sent Applications"
-msgstr ""
+msgstr "υποβάλλονται οι αιτήσεις"
 
 #: view/applications/index/dashboard.phtml:39
 #: language/_annotated_strings.php:3
 msgid "Applicant"
-msgstr ""
+msgstr "Αιτών"
 
 #: view/applications/index/dashboard.phtml:40
 #: language/_annotated_strings.php:12 language/_annotated_strings.php:33
 msgid "Job"
-msgstr ""
+msgstr "Δουλειά"
 
 #: view/applications/index/dashboard.phtml:41
 #: view/applications/manage/detail.phtml:261
@@ -79,11 +80,11 @@ msgstr ""
 #: view/applications/manage/social-profile/xing.phtml:52
 #: view/applications/manage/social-profile/xing.phtml:81
 msgid "Date"
-msgstr ""
+msgstr "Ημερομηνία"
 
 #: view/applications/apply/index.phtml:60
 msgid "your application was sent successfully"
-msgstr ""
+msgstr "αίτησή σας στάλθηκε με επιτυχία"
 
 #: view/applications/apply/index.phtml:66
 #, php-format
@@ -96,45 +97,45 @@ msgstr ""
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
-msgstr ""
+msgstr "Keep up-to-ημερομηνία με τη διαδικασία της αίτησής σας από bookmarking αυτό το σύνδεσμο:"
 
 #: view/applications/apply/index.phtml:98
 msgid "This is a preview of the application form for your job"
-msgstr ""
+msgstr "Αυτή είναι μια προεπισκόπηση του εντύπου της αίτησης για την εργασία σας"
 
 #: view/applications/apply/index.phtml:99
 msgid ""
 "You may expand any section and check the available fields, but you can not "
 "save anything."
-msgstr ""
+msgstr "Μπορείτε να επεκτείνετε κάθε τμήμα και να ελέγξετε τα διαθέσιμα πεδία, αλλά δεν μπορείτε να αποθηκεύσετε οτιδήποτε."
 
 #: view/applications/apply/_buttons.phtml:20
 msgid ""
-"Your application is incomplete. You have to add your contact data and accept "
-"the privacy policy to be able to submit the application. You can always "
+"Your application is incomplete. You have to add your contact data and accept"
+" the privacy policy to be able to submit the application. You can always "
 "preview or abort your application."
-msgstr ""
+msgstr "Η αίτησή σας είναι ελλιπής. Θα πρέπει να προσθέσετε τα στοιχεία επικοινωνίας σας και να αποδεχθεί την πολιτική προστασίας προσωπικών δεδομένων να είναι σε θέση να υποβάλει την αίτηση. Μπορείτε πάντα να κάνετε προεπισκόπηση ή να ματαιώσετε την αίτησή σας."
 
 #: view/applications/apply/_buttons.phtml:38
 msgid "Back to the formular"
-msgstr ""
+msgstr "Επιστροφή στην formular"
 
 #: view/applications/apply/_buttons.phtml:57
 msgid "Preview application"
-msgstr ""
+msgstr "εφαρμογή προεπισκόπησης"
 
 #: view/applications/apply/_buttons.phtml:63
 #: view/applications/apply/_buttons.phtml:73
 msgid "Send application"
-msgstr ""
+msgstr "Αποστολή αίτησης"
 
 #: view/applications/apply/_buttons.phtml:70
 msgid "Send preview to my email"
-msgstr ""
+msgstr "Αποστολή προεπισκόπησης στο email μου"
 
 #: view/applications/apply/_buttons.phtml:81
 msgid "Abort application"
-msgstr ""
+msgstr "ματαίωση εφαρμογή"
 
 #: view/applications/apply/success.phtml:33
 #, php-format
@@ -143,7 +144,7 @@ msgstr ""
 
 #: view/applications/apply/success.phtml:50
 msgid "your application had been posted. Godspeed."
-msgstr ""
+msgstr "αίτησή σας είχε αναρτηθεί. Godspeed."
 
 #: view/applications/manage/index.phtml:22
 #, php-format
@@ -152,65 +153,65 @@ msgstr ""
 
 #: view/applications/manage/index.phtml:23
 msgid "to all of your jobs"
-msgstr ""
+msgstr "σε όλες τις εργασίες σας"
 
 #: view/applications/manage/index.phtml:27
 msgid "Applications"
-msgstr ""
+msgstr "εφαρμογές"
 
 #: view/applications/manage/index.phtml:39
 msgid "List of received applications"
-msgstr ""
+msgstr "Λίστα των ληφθέντων εφαρμογών"
 
 #: view/applications/manage/index.phtml:44
 msgid "Overview of your sent applications"
-msgstr ""
+msgstr "Επισκόπηση του έστειλε τις εφαρμογές σας"
 
 #: view/applications/manage/index.phtml:58
 #: view/applications/manage/detail.phtml:187
 #: view/applications/manage/detail.phtml:206
 #: view/applications/manage/detail.phtml:238
 msgid "Cancel"
-msgstr ""
+msgstr "Ματαίωση"
 
 #: view/applications/manage/index.phtml:59
 #: view/applications/manage/detail.phtml:188
 msgid "Send mail"
-msgstr ""
+msgstr "Αποστολή αλληλογραφίας"
 
 #: view/applications/manage/index.phtml:79
 msgid "search applications"
-msgstr ""
+msgstr "εφαρμογές αναζήτησης"
 
 #: view/applications/manage/index.phtml:84 language/_annotated_strings.php:105
 msgid "Enter job title"
-msgstr ""
+msgstr "Εισάγετε τον τίτλο εργασίας"
 
 #: view/applications/manage/index.phtml:94 language/_annotated_strings.php:102
 #: language/_annotated_strings.php:111
 msgid "Search"
-msgstr ""
+msgstr "Έρευνα"
 
 #: view/applications/manage/index.phtml:96 language/_annotated_strings.php:114
 msgid "Clear"
-msgstr ""
+msgstr "Καθαρός"
 
 #: view/applications/manage/status.phtml:21
 msgid "To"
-msgstr ""
+msgstr "Να"
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
-msgstr ""
+msgstr "δεδομένων προφίλ"
 
 #: view/applications/manage/detail.phtml:15
 #: view/applications/manage/detail.pdf.phtml:28
 msgid "Details"
-msgstr ""
+msgstr "Καθέκαστα"
 
 #: view/applications/manage/detail.phtml:43
 msgid "application for"
-msgstr ""
+msgstr "αίτηση για"
 
 #: view/applications/manage/detail.phtml:48
 #, php-format
@@ -219,128 +220,128 @@ msgstr ""
 
 #: view/applications/manage/detail.phtml:70
 msgid "Accept"
-msgstr ""
+msgstr "Αποδέχομαι"
 
 #: view/applications/manage/detail.phtml:71
 msgid "Inform the Recruiter"
-msgstr ""
+msgstr "Ενημερώνει τον Εργοδότη"
 
 #: view/applications/manage/detail.phtml:82
 msgid "Confirm"
-msgstr ""
+msgstr "Επιβεβαιώνω"
 
 #: view/applications/manage/detail.phtml:83
 msgid "Confirm the receipt"
-msgstr ""
+msgstr "Επιβεβαιώσει την παραλαβή"
 
 #: view/applications/manage/detail.phtml:91
 msgid "Invite"
-msgstr ""
+msgstr "Καλώ"
 
 #: view/applications/manage/detail.phtml:92
 #: view/applications/manage/detail.phtml:180
 msgid "Invite the applicant"
-msgstr ""
+msgstr "Καλεί τον αιτούντα"
 
 #: view/applications/manage/detail.phtml:102
 #: view/applications/manage/index.recruiter.ajax.phtml:36
 msgid "Reject"
-msgstr ""
+msgstr "Απορρίπτω"
 
 #: view/applications/manage/detail.phtml:103
 msgid "Reject the applicant"
-msgstr ""
+msgstr "Απόρριψη από τον αιτούντα"
 
 #: view/applications/manage/detail.phtml:129
 msgid "Enter an email address"
-msgstr ""
+msgstr "Πληκτρολογήστε μια διεύθυνση ηλεκτρονικού ταχυδρομείου"
 
 #: view/applications/manage/detail.phtml:130
 msgid ""
 "This application will be send as an email to the given address in a layout "
 "similar to that on this page with all attachments included."
-msgstr ""
+msgstr "Η εφαρμογή αυτή θα πρέπει να στείλετε ένα email στην διεύθυνση που έχει δηλωθεί σε μια διάταξη παρόμοια με εκείνη σε αυτή τη σελίδα με περιλαμβάνονται όλα τα συνημμένα."
 
 #: view/applications/manage/detail.phtml:137
 msgid "Forward"
-msgstr ""
+msgstr "Προς τα εμπρός"
 
 #: view/applications/manage/detail.phtml:146
 msgid "previous"
-msgstr ""
+msgstr "προηγούμενος"
 
 #: view/applications/manage/detail.phtml:147
 msgid "Back to list"
-msgstr ""
+msgstr "Πίσω στη λίστα"
 
 #: view/applications/manage/detail.phtml:147
 msgid "List"
-msgstr ""
+msgstr "Λίστα"
 
 #: view/applications/manage/detail.phtml:148
 msgid "next"
-msgstr ""
+msgstr "επόμενος"
 
 #: view/applications/manage/detail.phtml:167
 #: view/applications/manage/detail.phtml:208
 msgid "Delete application"
-msgstr ""
+msgstr "Διαγραφή εφαρμογής"
 
 #: view/applications/manage/detail.phtml:168
 msgid "Delete"
-msgstr ""
+msgstr "Διαγράφω"
 
 #: view/applications/manage/detail.phtml:199
 msgid "Delete Application"
-msgstr ""
+msgstr "Διαγραφή εφαρμογών"
 
 #: view/applications/manage/detail.phtml:203
 msgid "Are you sure you want to delete this application?"
-msgstr ""
+msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτήν την εφαρμογή;"
 
 #: view/applications/manage/detail.phtml:207
 msgid "delete this application"
-msgstr ""
+msgstr "διαγράψετε αυτήν την εφαρμογή"
 
 #: view/applications/manage/detail.phtml:215
 msgid "Error while loading comments."
-msgstr ""
+msgstr "Σφάλμα κατά τη φόρτωση σχόλια."
 
 #: view/applications/manage/detail.phtml:222
 msgid "Error while loading comment form."
-msgstr ""
+msgstr "Σφάλμα κατά τη μορφή σχολίου φόρτωσης."
 
 #: view/applications/manage/detail.phtml:232
 msgid "Comments"
-msgstr ""
+msgstr "Σχόλια"
 
 #: view/applications/manage/detail.phtml:239
 msgid "Save"
-msgstr ""
+msgstr "Αποθηκεύσετε"
 
 #: view/applications/manage/detail.phtml:240
 msgid "Add new comment"
-msgstr ""
+msgstr "Προσθήκη νέου σχολίου"
 
 #: view/applications/manage/detail.phtml:241
 #: view/applications/manage/detail.phtml:355
 msgid "Close"
-msgstr ""
+msgstr "Κοντά"
 
 #: view/applications/manage/detail.phtml:254
 #: view/applications/manage/detail.phtml:411
 #: view/applications/manage/detail.phtml:417
 msgid "Status history"
-msgstr ""
+msgstr "ιστορία Κατάσταση"
 
 #: view/applications/manage/detail.phtml:262
 #: view/applications/manage/detail.phtml:366
 msgid "State"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: view/applications/manage/detail.phtml:263
 msgid "Comment"
-msgstr ""
+msgstr "Σχόλιο"
 
 #: view/applications/manage/detail.phtml:284
 #: view/applications/manage/social-profile/facebook.phtml:14
@@ -348,97 +349,97 @@ msgstr ""
 #: view/applications/manage/social-profile/xing.phtml:14
 #: view/applications/manage/detail.pdf.phtml:105
 msgid "personal information"
-msgstr ""
+msgstr "προσωπικές πληροφορίες"
 
 #: view/applications/manage/detail.phtml:304
 #: view/applications/manage/detail.pdf.phtml:132
 msgid "Phone"
-msgstr ""
+msgstr "Τηλέφωνο"
 
 #: view/applications/manage/detail.phtml:318
 #: view/applications/manage/detail.pdf.phtml:298
 #: src/Applications/Factory/Form/AttachmentsFactory.php:83
 #: language/_annotated_strings.php:9 language/_annotated_strings.php:246
 msgid "Attachments"
-msgstr ""
+msgstr "συνημμένα"
 
 #: view/applications/manage/detail.phtml:329
 msgid "no attachments available"
-msgstr ""
+msgstr "δεν υπάρχουν συνημμένα"
 
 #: view/applications/manage/detail.phtml:349
 msgid "Loading"
-msgstr ""
+msgstr "Φόρτωση"
 
 #: view/applications/manage/detail.phtml:369
 msgid "date of receipt"
-msgstr ""
+msgstr "ημερομηνία παραλαβής"
 
 #: view/applications/manage/detail.phtml:372
 msgid "via"
-msgstr ""
+msgstr "μέσω"
 
 #: view/applications/manage/detail.phtml:377
 msgid "application state"
-msgstr ""
+msgstr "κατάσταση εφαρμογής"
 
 #: view/applications/manage/detail.phtml:385
 msgid "rating"
-msgstr ""
+msgstr "εκτίμηση"
 
 #: view/applications/manage/detail.phtml:396
 msgid "View comments"
-msgstr ""
+msgstr "Δείτε τα σχόλια"
 
 #: view/applications/manage/detail.phtml:396
 msgid "Add comment"
-msgstr ""
+msgstr "Πρόσθεσε σχόλιο"
 
 #: view/applications/manage/detail.phtml:405
 msgid "last modification date"
-msgstr ""
+msgstr "τελευταία ημερομηνία τροποποίησης"
 
 #: view/applications/manage/detail.phtml:424
 msgid "agent"
-msgstr ""
+msgstr "μέσο"
 
 #: view/applications/manage/detail.phtml:430
 #: view/applications/manage/detail.pdf.phtml:163
 #: language/_annotated_strings.php:138
 msgid "Willingness to travel"
-msgstr ""
+msgstr "Προθυμία για ταξίδια"
 
 #: view/applications/manage/detail.phtml:436
 #: view/applications/manage/detail.pdf.phtml:169
 #: language/_annotated_strings.php:150
 msgid "Earliest starting date"
-msgstr ""
+msgstr "Παλαιότερη ημερομηνία έναρξης"
 
 #: view/applications/manage/detail.phtml:442
 #: view/applications/manage/detail.pdf.phtml:175
 #: language/_annotated_strings.php:159
 msgid "Expected salary"
-msgstr ""
+msgstr "Αναμενόμενος μισθός"
 
 #: view/applications/manage/detail.phtml:448
 msgid "Driving license"
-msgstr ""
+msgstr "Άδεια οδήγησης"
 
 #: view/applications/manage/detail.phtml:449
 #: language/_annotated_strings.php:129 language/_annotated_strings.php:168
 msgid "Yes"
-msgstr ""
+msgstr "Ναί"
 
 #: view/applications/manage/detail.phtml:449
 #: language/_annotated_strings.php:135 language/_annotated_strings.php:171
 msgid "No"
-msgstr ""
+msgstr "Όχι"
 
 #: view/applications/manage/detail.phtml:462
 #: view/applications/manage/detail.pdf.phtml:182
 #: language/_annotated_strings.php:42
 msgid "Cover Letter"
-msgstr ""
+msgstr "συνοδευτική επιστολή"
 
 #: view/applications/manage/detail.phtml:477
 #: view/applications/manage/index.recruiter.ajax.phtml:134
@@ -447,26 +448,26 @@ msgstr ""
 #: view/applications/manage/social-profile/xing.phtml:78
 #: view/applications/manage/detail.pdf.phtml:192
 msgid "work experience"
-msgstr ""
+msgstr "προϋπηρεσία"
 
 #: view/applications/manage/detail.phtml:482
 #: view/applications/manage/detail.phtml:512
 #: view/applications/manage/detail.pdf.phtml:195
 #: view/applications/manage/detail.pdf.phtml:218
 msgid "Start"
-msgstr ""
+msgstr "Αρχή"
 
 #: view/applications/manage/detail.phtml:483
 #: view/applications/manage/detail.phtml:513
 #: view/applications/manage/detail.pdf.phtml:196
 #: view/applications/manage/detail.pdf.phtml:219
 msgid "End"
-msgstr ""
+msgstr "Τέλος"
 
 #: view/applications/manage/detail.phtml:484
 #: language/_annotated_strings.php:30
 msgid "Company"
-msgstr ""
+msgstr "Εταιρεία"
 
 #: view/applications/manage/detail.phtml:485
 #: view/applications/manage/detail.phtml:515
@@ -476,176 +477,176 @@ msgstr ""
 #: view/applications/manage/detail.pdf.phtml:197
 #: view/applications/manage/detail.pdf.phtml:220
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: view/applications/manage/detail.phtml:508
 #: view/applications/manage/detail.pdf.phtml:215
 msgid "education and training"
-msgstr ""
+msgstr "Εκπαίδευση και κατάρτιση"
 
 #: view/applications/manage/detail.phtml:514
 msgid "University"
-msgstr ""
+msgstr "Πανεπιστήμιο"
 
 #: view/applications/manage/detail.phtml:532
 #: view/applications/manage/detail.pdf.phtml:238
 msgid "personal skills"
-msgstr ""
+msgstr "προσωπικές δεξιότητες"
 
 #: view/applications/manage/detail.phtml:534
 #: view/applications/manage/detail.pdf.phtml:240
 msgid "native language"
-msgstr ""
+msgstr "μητρική γλώσσα"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:131
 #: view/applications/manage/social-profile/facebook.phtml:31
 #: view/applications/manage/social-profile/linkedin.phtml:50
 #: view/applications/manage/social-profile/xing.phtml:49
 msgid "education"
-msgstr ""
+msgstr "εκπαίδευση"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:131
 #: view/applications/manage/index.recruiter.ajax.phtml:134
 msgid "years"
-msgstr ""
+msgstr "χρόνια"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:152
 msgid "no attachments"
-msgstr ""
+msgstr "Δεν υπάρχουν συνημμένα"
 
 #: view/applications/manage/index.recruiter.ajax.phtml:176
 msgid "edit"
-msgstr ""
+msgstr "επεξεργασία"
 
 #: view/applications/manage/social-profile/facebook.phtml:22
 #: view/applications/manage/social-profile/linkedin.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:28
 msgid "Birthday"
-msgstr ""
+msgstr "Γενέθλια"
 
 #: view/applications/manage/social-profile/facebook.phtml:35
 #: view/applications/manage/social-profile/linkedin.phtml:54
 #: view/applications/manage/social-profile/xing.phtml:53
 msgid "School or university"
-msgstr ""
+msgstr "Το σχολείο ή το πανεπιστήμιο"
 
 #: view/applications/manage/social-profile/facebook.phtml:36
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
 #: view/applications/manage/social-profile/facebook.phtml:66
 #: view/applications/manage/social-profile/linkedin.phtml:91
 #: view/applications/manage/social-profile/xing.phtml:82
 msgid "Employer"
-msgstr ""
+msgstr "Εργοδότης"
 
 #: view/applications/manage/social-profile/facebook.phtml:67
 #: view/applications/manage/social-profile/linkedin.phtml:92
 #: view/applications/manage/social-profile/xing.phtml:83
 msgid "Position"
-msgstr ""
+msgstr "Θέση"
 
 #: view/applications/manage/social-profile/facebook.phtml:90
 #: view/applications/manage/social-profile/xing.phtml:112
 msgid "language skills"
-msgstr ""
+msgstr "γλωσσικές δεξιότητες"
 
 #: view/applications/manage/social-profile/xing.pdf.phtml:13
 #: view/applications/manage/social-profile/facebook.pdf.phtml:13
 #: view/applications/manage/social-profile/linkedin.pdf.phtml:13
 msgid "Attachment"
-msgstr ""
+msgstr "Προσάρτημα"
 
 #: view/applications/manage/social-profile/linkedin.phtml:34
 #: view/applications/manage/social-profile/linkedin.phtml:38
 #: view/applications/manage/social-profile/xing.phtml:31
 #: view/applications/manage/social-profile/xing.phtml:35
 msgid "Year of birth"
-msgstr ""
+msgstr "Έτος γέννησης"
 
 #: view/applications/manage/social-profile/linkedin.phtml:55
 msgid "Degree"
-msgstr ""
+msgstr "Βαθμός"
 
 #: view/applications/manage/social-profile/xing.phtml:54
 msgid "Notes"
-msgstr ""
+msgstr "Σημειώσεις"
 
 #: view/applications/manage/social-profile/xing.phtml:91
 msgid "ongoing"
-msgstr ""
+msgstr "συνεχή"
 
 #: view/applications/manage/social-profile/xing.phtml:96
 msgid "employes"
-msgstr ""
+msgstr "employes"
 
 #: view/applications/manage/social-profile/xing.phtml:97
 msgid "Industry"
-msgstr ""
+msgstr "Βιομηχανία"
 
 #: view/applications/manage/social-profile/xing.phtml:101
 msgid "Level"
-msgstr ""
+msgstr "Επίπεδο"
 
 #: view/applications/manage/index.applicant.ajax.phtml:83
 msgid "view"
-msgstr ""
+msgstr "θέα"
 
 #: view/applications/manage/detail.pdf.phtml:85
 msgid "Application dated"
-msgstr ""
+msgstr "εφαρμογή της"
 
 #: view/applications/manage/detail.pdf.phtml:104
 msgid "application details"
-msgstr ""
+msgstr "λεπτομέρειες εφαρμογής"
 
 #: view/applications/manage/detail.pdf.phtml:112
 msgid "name"
-msgstr ""
+msgstr "όνομα"
 
 #: view/applications/manage/detail.pdf.phtml:117
 msgid "Street"
-msgstr ""
+msgstr "Δρόμος"
 
 #: view/applications/manage/detail.pdf.phtml:123
 msgid "City"
-msgstr ""
+msgstr "Πόλη"
 
 #: view/applications/manage/detail.pdf.phtml:128
 msgid "E-Mail"
-msgstr ""
+msgstr "E-mail"
 
 #: view/applications/manage/detail.pdf.phtml:159
 #: src/Applications/Form/Facts.php:43
 msgid "Facts"
-msgstr ""
+msgstr "γεγονότα"
 
 #: view/sidebar/manage.phtml:7
 msgid "new applications"
-msgstr ""
+msgstr "νέες εφαρμογές"
 
 #: view/error/not-found.phtml:12
 msgid "job opening is not online anymore"
-msgstr ""
+msgstr "άνοιγμα θέσεων εργασίας δεν είναι σε απευθείας σύνδεση πια"
 
 #: view/error/not-found.phtml:14
 msgid ""
 "you tried to open an application formular for a job opening, which is not "
 "online any more."
-msgstr ""
+msgstr "προσπαθήσατε να ανοίξετε ένα formular αίτηση για άνοιγμα θέσεων εργασίας, η οποία δεν είναι σε απευθείας σύνδεση πια."
 
 #: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
 msgid "E-Mail Notifications"
-msgstr ""
+msgstr "E-Mail Ειδοποιήσεις"
 
 #: src/Applications/Form/CarbonCopyFieldset.php:23
 msgid "Options"
-msgstr ""
+msgstr "επιλογές"
 
 #: src/Applications/Form/FilterApplication.php:44
 msgid "Search applications"
-msgstr ""
+msgstr "εφαρμογές αναζήτησης"
 
 #: src/Applications/Controller/ManageController.php:368
 #, php-format
@@ -747,8 +748,8 @@ msgstr ""
 #: language/_annotated_strings.php:63
 msgid ""
 "default text of the notification mail about new applications. The following "
-"variables can be used:<ul><li>##name## = your name</li><li>##title## = title "
-"of the job</li></ul>"
+"variables can be used:<ul><li>##name## = your name</li><li>##title## = title"
+" of the job</li></ul>"
 msgstr ""
 
 #: language/_annotated_strings.php:66
@@ -768,10 +769,10 @@ msgstr ""
 #: language/_annotated_strings.php:75
 msgid ""
 "default text of the acknowledgment of receipt mail to the applicant. The "
-"following variables can be used:<br><ul><li>##anrede_formell## = salutation. "
-"Includes gender, firstname and lastname.<li>##anrede_informell## = "
-"salutation. Includes fistname and lastname.</li><li>##job_title## = title of "
-"the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
+"following variables can be used:<br><ul><li>##anrede_formell## = salutation."
+" Includes gender, firstname and lastname.<li>##anrede_informell## = "
+"salutation. Includes fistname and lastname.</li><li>##job_title## = title of"
+" the jobs</li><li>##name## = name of the applicant.</li><li>##date## = date "
 "of recipt of the application.</li></ul>"
 msgstr ""
 
@@ -943,15 +944,15 @@ msgstr ""
 
 #: language/_annotated_strings.php:240
 msgid ""
-"Hello ##name##,\\n\\nThere is a new application for your vacancy:\\n\\"
-"\"##title##\\\"\\n\\n"
+"Hello ##name##,\\n\\nThere is a new application for your "
+"vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
 #: language/_annotated_strings.php:243
 #, php-format
 msgid ""
-"Attach images or PDF Documents to your application. Drag&drop them, or click "
-"into the attachement area. You can upload up to %sMB"
+"Attach images or PDF Documents to your application. Drag&drop them, or click"
+" into the attachement area. You can upload up to %sMB"
 msgstr ""
 
 #: language/_annotated_strings.php:249
