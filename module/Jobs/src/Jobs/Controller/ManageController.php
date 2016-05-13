@@ -11,6 +11,7 @@
 /** ActionController of Core */
 namespace Jobs\Controller;
 
+use Jobs\Entity\JobInterface;
 use Jobs\Entity\Status;
 use Core\Repository\RepositoryService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -106,7 +107,7 @@ class ManageController extends AbstractActionController
     }
 
     /**
-     * @TODO edit-Action and save-Action are doing the same, one of them has to quit
+     *
      *
      * @return null|ViewModel
      */
@@ -118,6 +119,7 @@ class ManageController extends AbstractActionController
 
             return new JsonModel(['sum' => $sum]);
         }
+
         return $this->save();
     }
 
@@ -161,7 +163,7 @@ class ManageController extends AbstractActionController
      * @return null|ViewModel
      * @throws \RuntimeException
      */
-    protected function save($parameter = array())
+    protected function save()
     {
         $serviceLocator     = $this->getServiceLocator();
         $formEvents         = $serviceLocator->get('Jobs/JobContainer/Events');
@@ -186,6 +188,10 @@ class ManageController extends AbstractActionController
 
         $viewModel          = null;
         $this->acl($jobEntity, 'edit');
+        if ($status = $params->fromQuery('status')) {
+            $this->changeStatus($jobEntity, $status);
+        }
+
         $form               = $this->getFormular($jobEntity);
 
         $valid              = true;
@@ -321,6 +327,25 @@ class ManageController extends AbstractActionController
             );
         }
         return $viewModel;
+    }
+
+    protected function changeStatus(JobInterface $job, $status)
+    {
+        $oldStatus = $job->getStatus();
+
+        if ($status == $oldStatus->getName()) {
+            return;
+        }
+        $user = $this->auth->getUser();
+        try {
+            $job->changeStatus($status, sprintf('Status changed from %s to %s by %s', $oldStatus->getName(), $status, $user->getInfo()->getDisplayName()));
+
+            $events = $this->getServiceLocator()->get('Jobs/Events');
+            $events->trigger(JobEvent::EVENT_STATUS_CHANGED, $this, ['job' => $job, 'status' => $oldStatus]);
+            $this->notification()->success(/*@translate*/ 'Status successfully changed.');
+        } catch (\DomainException $e) {
+            $this->notification()->error(/*@translate*/ 'Change status failed.');
+        }
     }
 
     /**

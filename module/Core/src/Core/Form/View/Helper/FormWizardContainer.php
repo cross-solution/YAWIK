@@ -100,9 +100,12 @@ class FormWizardContainer extends AbstractHelper
                   . '<li class="previous"><a href="javascript:;">&larr; ' . $translate('previous') . '</a></li>'
                   . '<li class="next"><a href="javascript:;">' . $translate('Next') . ' &rarr;</a></li>'
                   . '<li class="finish' . ($containerParams['finish_enabled'] ? '' : ' disabled') . '">'
-                  . '<a class="pull-right" href="' . $containerParams['finish_href'] . '">'
-                  . $translate($containerParams['finish_label']) . ' &bull;</a></li>'
-                  . '</div>';
+                  . (false !== $containerParams['finish_label']
+                     ? '<a class="pull-right" href="' . $containerParams['finish_href'] . '">'
+                       . $translate($containerParams['finish_label']) . ' &bull;</a>'
+                     : ''
+                    )
+                  . '</li></div>';
 
         $content .= $container->renderPost($this->getView());
         

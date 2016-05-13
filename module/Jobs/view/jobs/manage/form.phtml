@@ -46,15 +46,50 @@ if ($job->isDraft()) {
     endif;
     ?>
     <small>(<?php echo $this->translate($status);?>)</small>
+    <?php if ($job->isActive()):
+        $deactivateLink = $this->url(
+                               'lang/jobs/manage',
+                               [
+                                   'action' => 'edit',
+                               ],
+                               [
+                                   'query' => [
+                                       'id' => $this->job->id,
+                                       'status' => \Jobs\Entity\StatusInterface::INACTIVE
+                                   ],
+                               ]
+        );?>
+
+        <a href="<?=$deactivateLink?>" class="pull-right btn btn-danger"><?=$this->translate('Deactivate')?></a>
+    <?php endif ?>
+    <?php if ($job->getStatus()->getName() == \Jobs\Entity\StatusInterface::INACTIVE):
+        $activateLink = $this->url(
+                               'lang/jobs/manage',
+                               [
+                                   'action' => 'edit',
+                               ],
+                               [
+                                   'query' => [
+                                       'id' => $this->job->id,
+                                       'status' => \Jobs\Entity\StatusInterface::ACTIVE
+                                   ],
+                               ]
+        );?>
+
+        <a href="<?=$activateLink?>" class="pull-right btn btn-success"><?=$this->translate('Activate')?></a>
+    <?php endif ?>
+
 </h1>
 
 <?php
-
+$finishLabel = false;
 if ($job->isDraft()) {
     $finishLabel = sprintf($this->translate('Publish job %s'),$total?$this->translate('chargeable'):'');
 } else if ($job->isActive()) {
     $finishLabel = 'submit changes';
 }
+
+
 
 
 echo $this->formWizardContainer(
@@ -83,7 +118,8 @@ echo $this->formWizardContainer(
         <?php elseif ($job->getStatus() == \Jobs\Entity\Status::ACTIVE):?>
             <div class="alert alert-info">
                 <?php echo $this->translate('Your job opening is online. You can publish minor changes or you can deactivate the job opening'); ?>
-            </div>
+                <a href="<?=$deactivateLink?>" class="btn btn-danger btn-xs pull-right"><?=$this->translate('Deactivate')?></a>
+             </div>
 	<?php
         /**
          * if job was created and is waiting for approval
@@ -101,6 +137,7 @@ echo $this->formWizardContainer(
         <?php elseif ($job->status == \Jobs\Entity\Status::INACTIVE):?>
             <div class="alert alert-info">
                 <?php echo $this->translate('Your job opening is inactive. You can reactivate it. Chargeable channels are not updated.'); ?>
+                <a href="<?=$activateLink?>" class="btn btn-success btn-xs pull-right"><?=$this->translate('Activate')?></a>
             </div>
 	<?php
         /**
