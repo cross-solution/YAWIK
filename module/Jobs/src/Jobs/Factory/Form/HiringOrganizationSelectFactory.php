@@ -35,11 +35,14 @@ class HiringOrganizationSelectFactory implements FactoryInterface
         $services     = $serviceLocator->getServiceLocator();
         $user         = $services->get('AuthenticationService')->getUser();
         $select       = new HiringOrganizationSelect();
-        $organization = $user->getOrganization();
+        $organizationReference = $user->getOrganization();
 
-        if ($organization->hasAssociation()) {
-            $organizations = $organization->getHiringOrganizations()->toArray();
-            array_unshift($organizations, $organization->getOrganization());
+        if ($organizationReference->hasAssociation()) {
+            $organizations = $organizationReference->getHiringOrganizations()->toArray();
+            $organization = $organizationReference->getOrganization();
+            if (!$organization->isDraft()) {
+    			array_unshift($organizations, $organization);
+            }
             $select->setSelectableOrganizations($organizations, /* addEmptyOption */
                                                 false
             );

@@ -173,7 +173,7 @@ class ManageController extends AbstractActionController
             return $this->getErrorViewModel('no-parent', array('cause' => 'noEmail'));
         }
         $userOrg            = $user->getOrganization();
-        if (!$userOrg->hasAssociation()) {
+        if (!$userOrg->hasAssociation() || $userOrg->getOrganization()->isDraft()) {
             return $this->getErrorViewModel('no-parent', array('cause' => 'noCompany'));
         }
 
