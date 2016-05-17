@@ -1,16 +1,11 @@
 <?php
 return array(
     'modules' => array(
-        'Install',
         'Core',
         'Auth',
         'Jobs',
-        'Geo',
-        'Cv',
-        'Settings',
         'Applications',
-        'Orders',
-        'Organizations',
+        'Orders'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
