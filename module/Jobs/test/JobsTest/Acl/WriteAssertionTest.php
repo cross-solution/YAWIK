@@ -11,8 +11,10 @@
 namespace JobsTest\Acl;
 
 use Auth\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Jobs\Acl\WriteAssertion;
-use Organizations\Entity\OrganizationReference;
+use Core\Entity\Permissions;
+use Organizations\Entity\EmployeePermissionsInterface;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\ResourceInterface;
 use Zend\Permissions\Acl\Role\GenericRole;
@@ -26,20 +28,28 @@ use Organizations\Entity\OrganizationName;
  *
  * @covers \Jobs\Acl\WriteAssertion
  * @author Sergei <sergei@thephpguys.com>
+ * @author Carsten Bleek <bleek@cross-solution.de>
  * @group Jobs
  * @group Jobs.Acl
  */
 class WriteAssertionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var WriteAssertion
+     */
+    protected $target;
+
+    public function setUp()
+    {
+        $this->target = new WriteAssertion();
+    }
 
     /**
      * @coversNothing
      */
     public function testExtendsBaseClass()
     {
-        $target = new WriteAssertion();
-
-        $this->assertInstanceOf('Zend\Permissions\Acl\Assertion\AssertionInterface', $target);
+        $this->assertInstanceOf('Zend\Permissions\Acl\Assertion\AssertionInterface', $this->target);
     }
 
     public function _testPreAssertConditions()
@@ -110,6 +120,131 @@ class WriteAssertionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse( $assertion->checkOrganizationPermissions( $user, $job ) );
     }
 
+    /**
+     * @dataProvider assertParametersWithoutOrganization
+     */
+    public function testAssertWithoutOrganisation($input, $expected){
+
+            $method="assert".($expected?"True":"False");
+
+            $this->$method(
+                $this->target->assert(
+                    $input[0], // acl
+                    $input[1], // role
+                    $input[2], // resource
+                    $input[3]  // privilege
+                ));
+
+
+    }
+
+    public function assertParametersWithoutOrganization(){
+
+        $userId = 1234;
+        $user = new User();
+        $user->setId($userId);
+
+        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted']);
+        $permissionsMock->expects($this->exactly(2))->method('isGranted')->with($userId)->will($this->onConsecutiveCalls(true,false));
+        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions']);
+        $jobMock->expects($this->exactly(2))->method('getPermissions')->willReturn($permissionsMock);
+
+
+        return [
+            [[new Acl(), null, null, null] , false ],
+            [[new Acl(), null, null, Permissions::PERMISSION_CHANGE] , false ],
+            [[new Acl(), $user, $jobMock, 'edit'] , true ],
+            [[new Acl(), $user, $jobMock, 'edit'] , false ],
+        ];
+    }
+
+    public function testAssertUserIsOrganizationAdmin(){
+
+        $userId = 1234;
+        $user = new User();
+        $user->setId($userId);
+
+        $organization = new Organization();
+        $organization->setUser($user);
+
+        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted']);
+        $permissionsMock->expects($this->once())->method('isGranted')->willReturn(false);
+        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions','getOrganization']);
+
+        $jobMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
+        $jobMock->expects($this->once())->method('getOrganization')->willReturn($organization);
+
+        $this->assertTrue(
+            $this->target->assert(
+                new Acl(), // acl
+                $user,     // role
+                $jobMock,  // resource
+                'edit'     // privilege
+            ));
+    }
+
+    public function testAssertUserIsOwnerOfTheParentOrganization(){
+
+        $userId = 1234;
+        $user = new User();
+        $user->setId($userId);
+
+        $organization = new Organization();
+
+        $parentOrganization = new Organization();
+        $parentOrganization->setUser($user);
+
+        $organization->setParent($parentOrganization);
+
+        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted']);
+        $permissionsMock->expects($this->once())->method('isGranted')->willReturn(false);
+        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions','getOrganization']);
+
+        $jobMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
+        $jobMock->expects($this->once())->method('getOrganization')->willReturn($organization);
+
+        $this->assertTrue(
+            $this->target->assert(
+                new Acl(), // acl
+                $user,     // role
+                $jobMock,  // resource
+                'edit'     // privilege
+            ));
+    }
+
+    public function testUserIsEmployeeWithJobsChangePermissions(){
+
+        $userId = 1234;
+        $user = new User();
+        $user->setId($userId);
+
+        $organization = new Organization();
+
+        $permissionsMock= $this->getMock('Core\Entity\Permissions', ['isGranted','isAllowed']);
+        $permissionsMock->expects($this->once())->method('isGranted')->willReturn(false);
+        $permissionsMock->expects($this->once())->method('isAllowed')->with(EmployeePermissionsInterface::JOBS_CHANGE)->willReturn(true);
+
+        $employeeMock = $this->getMock('Organizations\Entity\Employee',['getPermissions','getUser']);
+        $employeeMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
+        $employeeMock->expects($this->once())->method('getUser')->willReturn($user);
+
+        $employees = new ArrayCollection();
+        $employees->add($employeeMock);
+        $organization->setEmployees($employees);
+
+        $jobMock = $this->getMock("Jobs\Entity\Job",['getPermissions','getOrganization']);
+
+        $jobMock->expects($this->once())->method('getPermissions')->willReturn($permissionsMock);
+        $jobMock->expects($this->once())->method('getOrganization')->willReturn($organization);
+
+        $this->assertTrue(
+            $this->target->assert(
+                new Acl(), // acl
+                $user,     // role
+                $jobMock,  // resource
+                'edit'     // privilege
+            ));
+    }
 }
 
 class CreateWriteAssertionMock extends WriteAssertion
