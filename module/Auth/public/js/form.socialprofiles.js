@@ -1,9 +1,9 @@
 
 ;(function($) {
 	
-	var popup;
-	
-	var $currentFetchButton;
+	var popup,
+		$currentFetchButton,
+		modalCache = {};
 	
 	function _toggleButtonState($button, error)
 	{
@@ -119,15 +119,26 @@
 				break;
 			
 			case 'view':
-				console.debug($button.parent().parent());
 				var $modal = $('#' + $button.parent().parent().attr('id') + '-preview-box');
 				var profileData = $('#' + $button.attr('id') + '-data').text();
 				if (actionData !== undefined) {
-					$modal.modal({
-						remote: actionData,
-						show: true,
-						'usePost': true,
-						'postData': {data: profileData}
+					if (!modalCache[actionData]) {
+						modalCache[actionData] = $.ajax({
+							url: actionData,
+							method: 'POST',
+							data: {data: profileData},
+							dataType: 'html'
+						});
+					}
+					modalCache[actionData].done(function(html) {
+						$html = $('<div>' + html + '</div>');
+						$modal.find('.modal-body')
+							.replaceWith($html.find('.modal-body'))
+							.end()
+							.find('.modal-title')
+							.html($html.find('.modal-title').html())
+							.end()
+							.modal('show');
 					});
 				} else {
 					$modal.find('.modal-body').html('<pre style="max-height: 350px; overflow:auto">' +
