@@ -94,7 +94,7 @@ class IndexController extends AbstractActionController
                     'Core/TextSearch',
                     [
                         'elements_options' => [
-                            'text_placeholder' => /*@translate*/ 'Search for companies',
+                            'text_placeholder' => /*@translate*/ 'Search for organizations',
                             'button_element' => 'text'
                         ]
                     ]
