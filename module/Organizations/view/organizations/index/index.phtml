@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * YAWIK
  *
@@ -9,11 +9,23 @@
 /**
  * {{rtd: Renders the list of organizations}}
  */
-?>      
-<h1>
-  <?php echo $this->translate('Organizations')?>
-</h1>
-<div class="pagination-container" data-uri="<?php echo $this->url('lang/organizations', array(), 
-                  array('query' => $this->params()->fromQuery()), true) ?>">
-<?php echo $this->render('organizations/index/index.ajax.phtml') ?>
-</div>
+
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination-container.js'));
+?>
+<h1><?php echo $this->translate('Organizations')?></h1>
+    <nav class="navbar yk-toolbar" >
+        <?php echo $this->searchForm($this->form) ?>
+    </nav>
+
+    <div id="organizations-list-container" class="pagination-container" data-uri="<?php
+    echo $this->url('lang/organizations', array(), array('query' => $this->params()->fromQuery()), true)?>">
+
+        <div class="pagination-message alert alert-info">
+            <?php echo $this->translate('No user found matching your criteria.') ?>
+        </div>
+
+        <div class="pagination-content">
+            <?php echo $this->render('organizations/index/index.ajax.phtml')?>
+        </div>
+
+    </div>

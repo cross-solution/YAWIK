@@ -12,46 +12,51 @@
 ?>
 <?php
 $columns = [
-    /*@translate*/ 'Organization' => [],
-    /*@translate*/ 'City' => [
-            'class' => 'cam-job',
-            'sort' => 'contact.city'
-        ],
-    /*@translate*/ 'Street' => [
-            'sort' => 'contact.street'
-        ],
+    [
+        'label' => $this->translate('Organization'),
+        'sort'  => '_organizationName',
+    ],
+    [
+        'label' => $this->translate('City'),
+        'sort' => 'contact.city',
+    ],
+    [
+        'label' => $this->translate('Street'),
+        'sort' => 'contact.street',
+    ],
 ];
 
-if ('-' == $this->sort{0}) {
-    $sortBy  = substr($this->sort, 1);
+$sort = $this->params()->fromQuery('sort', 'name');
+if ('-' == $sort{0}) {
+    $sortBy  = substr($sort, 1);
     $sortDir = false;
 } else {
-    $sortBy  = $this->sort;
+    $sortBy  = $sort;
     $sortDir = true;
 }
 ?>
 <table class="table table-striped table-bordered table-hover" id="cam-organization-list">
     <thead>
     <tr>
-        <?php foreach ($columns as $label => $option):?>
-            <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
-                <?php if (! isset($option['sort'])): echo $this->translate($label);
+        <?php foreach ($columns as $spec):?>
+            <th<?php echo isset($spec['class']) ? ' class="' . $spec['class'] . '"' : '' ?>>
+                <?php if (! isset($spec['sort'])): echo $spec['label'];
                 else:
-                    if ($option['sort'] == $sortBy):
-                        $icon = '<span class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
+                    if ($spec['sort'] == $sortBy):
+                        $icon = '<span style="margin-top: 5px;" class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
                         $dir = !$sortDir;
                     else:
                         $dir = true;
-                        $icon = '<span class="pull-right yk-icon yk-icon-sort"></span>';
+                        $icon = '<span style="margin-top: 5px" class="pull-right yk-icon yk-icon-sort"></span>';
                     endif;
-                    $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
+                    $sortParam = array('sort' => ($dir ? '' : '-') . $spec['sort']);
                     $url = $this->url(
-                        'lang/organizations', array(),
-                        array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
-                        true
+                                'lang/organizations', array(),
+                                array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
+                                true
                     );
                     ?>
-                    <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>
+                    <a style="width: 100%; display: inline-block;" href="<?php echo $url?>"><?php echo $spec['label'].$icon ?></a>
                 <?php endif; ?>
             </th>
         <?php endforeach; ?>
