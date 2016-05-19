@@ -48,16 +48,20 @@ class ManageController extends AbstractActionController
         $services = $this->getServiceLocator();
         $repositories = $services->get('repositories');
         /* @var \Cv\Repository\Cv $cvRepository */
-        $cvRepository          = $repositories->get('Cv/Cv');
+        $cvRepository = $repositories->get('Cv/Cv');
         $form = $services->get('FormElementManager')->get('CvForm');
 
+        $user = $this->auth()->getUser();
+        /** @var \Cv\Entity\Cv $cv */
+        $cv = $cvRepository->findDraft($user);
+        if (empty($cv)) {
+            $cv = $cvRepository->create();
+            $cv->setIsDraft(true);
+            $cv->setUser($user);
+            $repositories->store($cv);
+        }
+
         if ($this->getRequest()->isPost()) {
-            $id = $this->params()->fromPost('id');
-            if (empty($id)) {
-                $cv = $cvRepository->create();
-            } else {
-                $cv = $cvRepository->find($id);
-            }
             $form->bind($cv);
             $form->setData($this->getRequest()->getPost());
             $valid = $form->isValid();

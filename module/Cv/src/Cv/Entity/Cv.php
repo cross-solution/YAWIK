@@ -7,42 +7,59 @@ use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Core\Entity\DraftableEntityInterface;
 
 /**
  *
  * @ODM\Document(collection="cvs", repositoryClass="\Cv\Repository\Cv")
  */
-class Cv extends AbstractIdentifiableEntity implements CvInterface
+class Cv extends AbstractIdentifiableEntity implements CvInterface, DraftableEntityInterface
 {
     
     /**
+     * Owner of the CV
      *
      * @var UserInterface
      * @ODM\ReferenceOne(targetDocument="\Auth\Entity\User", simple=true)
+     * @ODM\Index
      */
     protected $user;
     
     /**
+     * Education History
      *
-     * @var EducationInterface
+     * @var ArrayCollection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Education")
      */
     protected $educations;
     
     /**
+     * Employment History
      *
-     * @var EmploymentInterface
+     * @var ArrayCollection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Employment")
      */
     protected $employments;
     
     /**
+     * Skills
      *
-     * @var SkillInterface
+     * @var ArrayCollection
      * @ODM\EmbedMany(targetDocument="\Cv\Entity\Skill")
      */
     protected $skills;
-    
+
+    /**
+     * Flag indicating draft state of this cv.
+     *
+     * @var bool
+     * @ODM\Boolean
+     */
+    protected $isDraft = false;
+
+    /**
+     * @return UserInterface
+     */
     public function getUser()
     {
         return $this->user;
@@ -59,7 +76,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     }
     
     /**
-     * @return \Core\Entity\Collection\ArrayCollection
+     * @return ArrayCollection
      */
     public function getEducations()
     {
@@ -80,7 +97,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     }
 
     /**
-     * @return \Core\Entity\Collection\ArrayCollection
+     * @return ArrayCollection
      */
     public function getEmployments()
     {
@@ -101,7 +118,7 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
     }
     
     /**
-     * @return \Core\Entity\Collection\ArrayCollection
+     * @return ArrayCollection
      */
     public function getSkills()
     {
@@ -120,4 +137,19 @@ class Cv extends AbstractIdentifiableEntity implements CvInterface
         $this->skills = $skills;
         return $this;
     }
+
+    public function setIsDraft($isDraft)
+    {
+        $this->isDraft=$isDraft;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDraft()
+    {
+        return $this->isDraft;
+    }
+
 }
