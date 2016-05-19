@@ -62,6 +62,9 @@ class PaginationQuery extends AbstractPaginationQuery
             $value = $params;
         }
 
+        if (isset($params['text']) && $params['text']) {
+            $queryBuilder->text($params['text']);
+        }
         
         /*
          * We only show organizations to which the user has view permissions.

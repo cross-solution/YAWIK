@@ -13,7 +13,6 @@ use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\EntityInterface;
@@ -26,6 +25,11 @@ use Core\Entity\DraftableEntityInterface;
  *
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  * @ODM\HasLifecycleCallbacks
+ * @ODM\Indexes({
+ *      @ODM\Index(keys={
+ *          "_organizationName"="text"
+ *      }, name="fulltext")
+ * })
  *
  * @todo write test
  * @author Mathias Weitz <weitz@cross-solution.de>
@@ -56,6 +60,14 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
     protected $organizationName;
+    
+    /**
+     * Only for sorting/searching purposes
+     *
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $_organizationName;
 
     /**
      * Assigned permissions.
@@ -258,6 +270,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         }
         $this->organizationName = $organizationName;
         $this->organizationName->refCounterInc()->refCompanyCounterInc();
+        $this->_organizationName = $organizationName->getName();
         return $this;
     }
 

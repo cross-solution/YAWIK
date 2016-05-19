@@ -12,6 +12,9 @@ return array(
                     'Organizations\Entity' => 'annotation',
                 ),
             ),
+            'annotation' => array(
+                'paths' => array( __DIR__ . '/../src/Organizations/Entity')
+            ),
         ),
         'eventmanager' => array(
             'odm_default' => array(
