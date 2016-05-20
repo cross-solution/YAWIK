@@ -48,6 +48,8 @@ class Apply extends Container
                 'options' => array(
                     'is_disable_capable' => true,
                     'is_disable_elements_capable' => true,
+                    'enable_descriptions' => true,
+                    'description' => /*@translate*/ 'you can add your social profile to your application. You can preview and remove the attached profile before submitting the application.',
                 ),
             ),
             'attachments' => 'Applications/Attachments',
