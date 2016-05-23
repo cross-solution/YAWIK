@@ -131,6 +131,7 @@
         <copy file="${vendordir}/ivaynberg/select2/dist/css/select2.css" tofile="${builddir}/public/css/select2.css"/>
         <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.photon.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.photon.js"/>
         <copy file="${project.basedir}/module/Geo/public/js/jquery.geolocationfield.geo.js" tofile="${builddir}/public/Geo/js/jquery.geolocationfield.geo.js"/>
+        <copy file="${project.basedir}/public/js/jquery.bootstrapwizard.min.js" tofile="${builddir}/public/js/jquery.bootstrapwizard.min.js"/>
 
         <mkdir dir="${builddir}/log"/>
         <chmod file="${builddir}/log" mode="0777"/>

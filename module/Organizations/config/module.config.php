@@ -138,10 +138,12 @@ return array(
             'guest' => array(
                 'allow' => array(
                     'Entity/OrganizationImage',
-                    'route/lang/organizations/invite/accept',
+                    'route/lang/organizations/invite',
+                    'Organizations/InviteEmployee' => [ 'accept' ],
                 ),
                 'deny' => array(
                     'route/lang/organizations',
+                    'Organizations/InviteEmployee' => [ 'invite' ],
                 ),
             ),
             // recruiters are allowed to view their companies
