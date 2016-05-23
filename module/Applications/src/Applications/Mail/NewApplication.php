@@ -140,7 +140,7 @@ class NewApplication extends StringTemplateMessage
         if ($workflowSettings->getAcceptApplicationByDepartmentManager()){
             $departmentManagers = $this->getDepartmentManagers();
             foreach ($departmentManagers as $employee) { /* @var \Organizations\Entity\Employee $employee */
-                $this->setTo($employee->getUser()->getInfo()->getEmail(), $employee->getUser()->getInfo()->getDisplayName());
+                $this->addTo($employee->getUser()->getInfo()->getEmail(), $employee->getUser()->getInfo()->getDisplayName());
             }
         } else {
             $this->setTo($this->user->getInfo()->getEmail(), $this->user->getInfo()->getDisplayName());

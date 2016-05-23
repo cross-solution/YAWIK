@@ -31,6 +31,13 @@ class EventApplicationCreated
     protected $application;
 
     /**
+     * The mail service
+     *
+     * @var \Core\Mail\MailService
+     */
+    protected $mailService;
+
+    /**
      * @param ModuleOptions $options
      * @param MailService   $mailService
      */
@@ -54,15 +61,13 @@ class EventApplicationCreated
         /* @var \Applications\Entity\Settings $settings */
         $settings = $recruiter->getSettings('Applications');
         if ($settings->getMailAccess()) {
-            $this->mailService->get(
+            $this->mailService->send(
                 'Applications/NewApplication',
                 [
                     'job'   => $this->application->getJob(),
                     'user'  => $recruiter,
                     'admin' => $this->getOrganizationAdmin()
-                ],
-                /*send*/
-                true
+                ]
             );
         }
         if ($settings->getAutoConfirmMail()) {
@@ -99,13 +104,11 @@ class EventApplicationCreated
     protected function sendCarbonCopyToCandidate()
     {
         if ($this->application->getAttributes()->getSendCarbonCopy()) {
-            $this->mailService->get(
+            $this->mailService->send(
                 'Applications/CarbonCopy',
                 [
                     'application' => $this->application
-                ],
-                /*send*/
-                true
+                ]
             );
         }
     }
