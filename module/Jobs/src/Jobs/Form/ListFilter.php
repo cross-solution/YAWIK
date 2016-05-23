@@ -65,7 +65,7 @@ class ListFilter extends Form implements ViewPartialProviderInterface
         $this->add(
             [
                 'type'    => $this->fieldset,
-                'options' => ['use_as_base_fieldset' => true]
+                'options' => ['use_as_base_fieldset' => false]
             ]
         );
 
