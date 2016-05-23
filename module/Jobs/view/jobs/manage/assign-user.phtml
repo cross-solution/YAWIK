@@ -7,10 +7,31 @@
  * @copyright  2013 - 2015 Cross Solution <http://cross-solution.de>
  */
 ?>
-<select class="assign-user-select form-input" name="user" style="width: 100%">
-    <?php foreach ($this->users as $user): ?>
-    <option value="<?php echo $user->getId() ?>"<?php if ($user->getId() == $this->currentUser->getId()): echo ' selected'; endif ?>><?php
-        echo $user->getInfo()->getDisplayName();
-        ?></option>
-<?php endforeach ?>
-</select>
+
+<table class="table table-bordered assign-user-list">
+    <tbody>
+    <?php
+
+            $checked = $this->currentUser->getId() == $organization->getUser()->getId();
+    ?>
+    <tr<?=$checked?' class="bg-primary responsible_user"' : '' ?>>
+        <td><?=$organization->getUser()->getInfo()->getDisplayname(false)?>
+            <input class="hidden" type="radio" name="user" value="<?=$organization->getUser()->getId()?>"<?=$checked?' checked':''?>></td>
+        <td><span class="yk-icon fa-eye"></span> <span class="yk-icon fa-pencil"></span></td>
+    </tr>
+        <?php foreach ($organization->getEmployees() as $employee): $checked = $this->currentUser->getId() == $employee->getUSer()->getId();?>
+    <tr<?=$checked?' class="bg-primary responsible_user"' : '' ?>>
+        <td>
+        <input class="hidden" type="radio" name="user" value="<?=$employee->getUser()->getId()?>"<?=$checked?' checked':''?>>
+            <?=$employee->getUser()->getInfo()->getDisplayName()?></td>
+        <td><?php
+            $perms = $this->job->getPermissions();
+            if ($perms->isViewGranted($employee->getUser())): ?><span class="yk-icon fa-eye"></span> <?php endif;
+            if ($perms->isChangeGranted($employee->getUSer())):?><span class="yk-icon fa-pencil"></span> <?php endif?>
+        </td>
+    </tr>
+        <?php endforeach ?>
+    </tbody>
+
+</table>
+

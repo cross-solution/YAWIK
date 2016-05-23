@@ -87,6 +87,8 @@ class AssignUserController extends AbstractActionController
             array(
             'currentUser' => $this->job->getUser(),
             'users' => $users,
+            'organization' => $organization,
+            'job' => $this->job,
             )
         );
         $model->setTemplate('jobs/assign-user');

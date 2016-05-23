@@ -38,7 +38,12 @@
                             var err = 403 == xhr.status ? text.accessError : text.appError;
                             dialog.getModalBody().html(err);
                         }
-                        dialog.getModalBody().find('select').select2();
+                        dialog.getModalBody().find('tr').click(function() {
+                            console.debug(this);
+                            $(this).find('input').prop('checked', true);
+                            dialog.getModalBody().find('tr').removeClass('bg-primary');
+                            $(this).addClass('bg-primary');
+                        });
                     });
                     return $msg;
                 },
@@ -63,7 +68,10 @@
                         dialog.setClosable(false);
 
                         var href = dialog.getData('href');
-                        var userId = dialog.getModalBody().find('select').val();
+                        var userId = null;
+                        dialog.getModalBody().find('input[type="radio"]').each(function() {
+                            if ($(this).prop('checked')) { userId = $(this).val(); }
+                        });
 
                         $.post(href, {userId:userId}, null, 'json')
                             .done(function(data) {
