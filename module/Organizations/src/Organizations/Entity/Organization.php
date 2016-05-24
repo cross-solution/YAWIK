@@ -188,11 +188,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     /**
      * Gets the parent of an organization
      *
+     * @param bool $returnSelf returns itself, if this organization does not have a parent?
+     *
      * @return null|OrganizationInterface
      */
-    public function getParent()
+    public function getParent($returnSelf = false)
     {
-        return $this->parent;
+        return $this->parent ?: ($returnSelf ? $this : null);
     }
 
     /**
