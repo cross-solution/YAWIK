@@ -5,7 +5,7 @@
 	var addButtonClickListener = function(e) {
 		
 		var $fieldset = $(e.data.fieldset);
-	    var template = $('span', $fieldset)
+	    var template = $fieldset.children('span[data-template]')
 	                   .data('template');
 	   
 	    // find smallest free index number.
@@ -17,8 +17,9 @@
 		}
 	    
 	    var $content = $(template.replace(/__index__/g, index));
-	    $fieldset.find('legend').after($content);
-	    initButtons($content);
+	    $fieldset.children('legend').after($content);
+	    initRemoveButtons($fieldset);
+	    $fieldset.find('.form-collection').formcollection();
 	    
 	    $content.hide().fadeIn();
 		return false;
@@ -27,25 +28,24 @@
 	
 	var removeButtonClickListener = function(e) 
 	{
-		var $fieldset = $(e.data.fieldset);
 		var $target   = $(e.currentTarget).parent();
 		
 		$target.fadeOut(function() { $target.remove() });
-		//.hide().remove();
 		
 		return false;
 	};
 	
+	var initAddButtons = function (parent) {
+		parent.find('> legend a.add-item').on(
+				'click.formcollection',
+				{ fieldset: parent },
+				addButtonClickListener
+		);
+	};
 	
-	var initButtons = function (parent) {
-        parent.find('a.add-item').on(
+	var initRemoveButtons = function (parent) {
+        parent.find('> fieldset > a.remove-item').on(
             'click.formcollection',
-            { fieldset: parent },
-            addButtonClickListener
-        );
-        parent.find('a.remove-item').on(
-            'click.formcollection',
-            { fieldset: parent },
             removeButtonClickListener
         );
     };
@@ -56,7 +56,8 @@
 			var collection = $(this);
 			if (!collection.is('.form-collection')) return;
 			
-			initButtons(collection);
+			initAddButtons(collection);
+			initRemoveButtons(collection);
 			
 		});
 	};
