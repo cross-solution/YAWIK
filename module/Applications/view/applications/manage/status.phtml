@@ -11,15 +11,17 @@ $form->setAttributes(array(
     'action' => $_SERVER['REQUEST_URI']
 ));
 $form->get('mailText')->setAttribute('style', 'height: 250px');
-
-/* @var \Zend\Mail\AddressList $recipient */
-$recipient = $this->recipient;
 ?>
 <div>
 <?php
-foreach($recipient as $to) {
-    echo sprintf($this->translate("To") . ': ' . '"%s" &lt;%s&gt;<br>', $to->getName(), $to->getEmail() );
+list ($email, $name) = each ($this->recipient);
+if (is_int($email)) {
+    $email = $name;
+    $name = '';
 }
+
+echo sprintf($this->translate("To") . ': ' . '"%s" &lt;%s&gt;<br>', $name, $email);
+
 ?>
 </div>
 <?php

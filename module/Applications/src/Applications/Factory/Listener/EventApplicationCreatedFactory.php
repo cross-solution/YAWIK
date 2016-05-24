@@ -18,6 +18,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * ${CARET}
  * 
  * @author Bleek Carsten <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo write test 
  */
 class EventApplicationCreatedFactory implements FactoryInterface
@@ -31,9 +32,8 @@ class EventApplicationCreatedFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $options         = $serviceLocator->get('Applications/Options');
         $mailService     = $serviceLocator->get('Core/MailService');
-        $listener        = new EventApplicationCreated($options, $mailService);
+        $listener        = new EventApplicationCreated($mailService);
         return $listener;
     }
 
