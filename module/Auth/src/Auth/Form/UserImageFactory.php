@@ -7,14 +7,11 @@
  * @license   MIT
  */
 
-/**  */
 namespace Auth\Form;
 
 use Zend\Stdlib\AbstractOptions;
 use Core\Form\Form;
 use Core\Form\FileUploadFactory;
-use Applications\Options\ModuleOptions;
-use Auth\Entity\UserImage;
 
 /**
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
@@ -30,10 +27,12 @@ class UserImageFactory extends FileUploadFactory
      * @var string
      */
     protected $fileName = 'image';
+    
     /**
      * @var string
      */
     protected $fileEntityClass = 'Auth\Entity\UserImage';
+    
     /**
      * @var string
      */
@@ -54,12 +53,10 @@ class UserImageFactory extends FileUploadFactory
      */
     protected function configureForm($form, AbstractOptions $options)
     {
-
-        /** @var ModuleOptions $options */
-
+        /* @var $options \Applications\Options\ModuleOptions */
         $form->get($this->fileName)->setViewHelper('FormImageUpload')
-                                   ->setMaxSize($options->getContactImageMaxSize())
-                                   ->setAllowedTypes($options->getContactImageMimeType())
-                                   ->setForm($form);
+           ->setMaxSize($options->getContactImageMaxSize())
+           ->setAllowedTypes($options->getContactImageMimeType())
+           ->setForm($form);
     }
 }

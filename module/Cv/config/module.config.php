@@ -18,6 +18,13 @@ return array(
                 'paths' => array( __DIR__ . '/../src/Cv/Entity'),
             ),
         ),
+        'eventmanager' => array(
+            'odm_default' => array(
+                'subscribers' => array(
+                    '\Cv\Repository\Event\InjectContactListener',
+                ),
+            ),
+        ),
     ),
     
     
@@ -57,22 +64,9 @@ return array(
                                     'route' => '/create',
                                     'defaults' => array(
                                         'controller' => 'Cv\Controller\Manage',
-                                        'action' => 'form',
-                                        'id' => false,
+                                        'action' => 'form'
                                     ),
                                 ),
-                                'may_terminate' => true,
-                            ),
-                            'save' => array(
-                                'type' => 'Literal',
-                                'options' => array(
-                                    'route' => '/save',
-                                    'defaults' => array(
-                                        'controller' => 'Cv\Controller\Manage',
-                                        'action' => 'save',
-                                    ),
-                                ),
-                                'may_terminate' => true,
                             ),
                         ),
                     ),
@@ -152,19 +146,18 @@ return array(
     
     'form_elements' => array(
         'invokables' => array(
-            'CvForm'            => '\Cv\Form\Cv',
+            'CvContainer'       => '\Cv\Form\CvContainer',
+            'CvForm'            => '\Cv\Form\CvForm',
             'CvFieldset'        => '\Cv\Form\CvFieldset',
             'EducationFieldset' => '\Cv\Form\EducationFieldset',
             'EmploymentFieldset' => '\Cv\Form\EmploymentFieldset',
             'SkillFieldset' => '\Cv\Form\SkillFieldset',
             'NativeLanguageFieldset' => '\Cv\Form\NativeLanguageFieldset',
             'LanguageSkillFieldset' => '\Cv\Form\LanguageFieldset',
-                
-            
         ),
         'factories' => array(
-            'Cv' => '\Cv\Form\CvFactory',
             'EducationCollection' => '\Cv\Form\EducationCollectionFactory',
+            'CvContactImage' => '\Cv\Form\CvContactImageFactory',
         ),
     ),
     

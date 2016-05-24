@@ -18,34 +18,59 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Education extends AbstractIdentifiableEntity
 {
-    /** @var string
+
+    /**
+     * @var string
      * @ODM\Field(type="string")
      */
     protected $startDate;
-    
-    /** @var string
-     * @ODM\Field(type="string") */
+
+    /**
+     * @var string
+     * @ODM\Field(type="string")
+     */
     protected $endDate;
-    
-    /** @var bool
-     * @ODM\Boolean*/
+
+    /**
+     * @var bool
+     * @ODM\Boolean
+     */
     protected $currentIndicator;
-    
-    /** @var string */
+
+    /**
+     * @var string
+     * @ODM\Field(type="string")
+     */
     protected $competencyName;
-    
-    /** @ODM\Field(type="string")
-     *
+
+    /**
+     * @ODM\Field(type="string")
      */
     protected $organizationName;
-    
-    /** @var string
-     * @ODM\Field(type="string") */
+
+    /**
+     * @var string
+     * @ODM\Field(type="string")
+     */
     protected $description;
-    
-    /** needed for europass
-     * @ODM\Field(type="string")*/
+
+    /**
+     * needed for europass
+     * @ODM\Field(type="string")
+     */
     protected $nationalClassification;
+    
+    /**
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $country;
+    
+    /**
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $city;
     
     
     public function setStartDate($startDate)
@@ -130,4 +155,42 @@ class Education extends AbstractIdentifiableEntity
     {
         return $this->description;
     }
+    
+	/**
+	 * @return string
+	 */
+	public function getCountry()
+	{
+		return $this->country;
+	}
+
+	/**
+	 * @param string $country
+	 * @return Education
+	 */
+	public function setCountry($country)
+	{
+		$this->country = $country;
+		
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCity()
+	{
+		return $this->city;
+	}
+
+	/**
+	 * @param string $city
+	 * @return Education
+	 */
+	public function setCity($city)
+	{
+		$this->city = $city;
+		
+		return $this;
+	}
 }

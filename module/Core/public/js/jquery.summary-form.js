@@ -146,7 +146,7 @@ holdupRefUntiliFramesAreSaved = function (targetRef, triggerRef) {
         var returnValue = true;
         var eventTarget = event.target;
 
-        if (eventTarget.href.match(/#/)) {
+        if (typeof eventTarget !== 'undefined' && typeof eventTarget.href !== 'undefined' && eventTarget.href.match(/#/)) {
             return true;
         }
 

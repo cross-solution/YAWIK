@@ -40,6 +40,13 @@ class Skill extends AbstractEntity
      * @ODM\EmbedMany(targetDocument="ComputerSkill")
      */
     protected $computerSkills;
+    
+    public function __construct()
+    {
+        $this->nativeLanguages = new ArrayCollection();
+        $this->languageSkills = new ArrayCollection();
+        $this->computerSkills = new ArrayCollection();
+    }
 
     /**
      * @param $nativeLanguages

@@ -34,17 +34,10 @@ class CvFieldset extends Fieldset
             )
         );
         
-        $this->add(
-            array(
-            'type' => 'EducationCollection',
-            )
-        );
-        
-        $this->add(
-            array(
+        $this->add([
             'type' => 'Collection',
             'name' => 'employments',
-            'options' => array(
+            'options' => [
                 'label' => /*@translate */ 'Employment history',
                 'count' => 0,
                 'should_create_template' => true,
@@ -52,36 +45,31 @@ class CvFieldset extends Fieldset
                 'collapsable' => true,
                 'collapsed' => true,
                 'allow_add' => true,
-                'target_element' => array(
+                'target_element' => [
                     'type' => 'EmploymentFieldset'
-                )
-            ),
-            'attributes' => array(
-                //'id' => 'educations'
-            ),
-            )
-        );
+                ]
+            ]
+        ]);
         
-        $this->add(
-            array(
-                'type' => 'Collection',
-                'name' => 'skills',
-                'options' => array(
-                        'label' => /*@translate */ 'Skills',
-                        'count' => 0,
-                        'should_create_template' => true,
-                        'use_labeled_items' => false,
-                        'collapsable' => true,
-                        'collapsed' => true,
-                        'allow_add' => true,
-                        'target_element' => array(
-                                'type' => 'SkillFieldset'
-                        )
-                ),
-                'attributes' => array(
-                        //'id' => 'educations'
-                ),
-            )
-        );
+        $this->add([
+            'type' => 'EducationCollection'
+        ]);
+        
+        $this->add([
+            'type' => 'Collection',
+            'name' => 'skills',
+            'options' => [
+                'label' => /*@translate */ 'Skills',
+                'count' => 0,
+                'should_create_template' => true,
+                'use_labeled_items' => false,
+                'collapsable' => true,
+                'collapsed' => true,
+                'allow_add' => true,
+                'target_element' => [
+                    'type' => 'SkillFieldset'
+                ]
+            ]
+        ]);
     }
 }

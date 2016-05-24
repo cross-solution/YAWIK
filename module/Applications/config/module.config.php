@@ -23,8 +23,7 @@ return array(
                 * for multiple paths.
                 * example https://github.com/doctrine/DoctrineORMModule
                 */
-               'paths' => array( __DIR__ . '/../src/Applications/Entity',
-                                 __DIR__ . '/../../../module/Cv/src/Cv/Entity'),
+               'paths' => array( __DIR__ . '/../src/Applications/Entity')
             ),
         ),
         'eventmanager' => array(
