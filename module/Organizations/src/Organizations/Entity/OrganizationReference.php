@@ -251,9 +251,9 @@ class OrganizationReference implements
         return $this->proxy('setParent', $parent);
     }
 
-    public function getParent()
+    public function getParent($returnSelf = false)
     {
-        return $this->proxy('getParent');
+        return $this->proxy('getParent', $returnSelf);
     }
 
     public function setContact(EntityInterface $contact = null)

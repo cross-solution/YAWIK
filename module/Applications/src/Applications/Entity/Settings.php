@@ -17,6 +17,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * General Settings for the application module.
  *
+ * @method bool getMailBCC()
+ * @method string getMailConfirmationText()
+ *
  * @ODM\EmbeddedDocument
  */
 class Settings extends ModuleSettingsContainer implements SettingsInterface
