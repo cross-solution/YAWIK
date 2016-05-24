@@ -279,6 +279,8 @@
             <exclude name="**/Karrierelounge/**"/>
             <exclude name="**/Greenjobs/**"/>
             <exclude name="**/Karriere24/**"/>
+            <exclude name="**/Phoenixdesign/**"/>
+            <exclude name="**/PxSkin/**"/>
             <exclude name="public/Applications"/>
             <exclude name="public/Auth"/>
             <exclude name="public/Core"/>
