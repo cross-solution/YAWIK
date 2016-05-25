@@ -225,7 +225,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setExternalId($externalId)
     {
         $this->externalId = $externalId;
-        return $this;
+        return  $this;
     }
 
     /**
