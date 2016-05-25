@@ -88,6 +88,8 @@ return array(
                     'Jobs/Manage' => array(
                         'template',
                     ),
+                    'Jobs/ApiJobList',
+                    'Jobs/ApiJobListByOrganization',
                     'route/lang/jobs/template',
                     'route/lang/jobboard',
                 ),
