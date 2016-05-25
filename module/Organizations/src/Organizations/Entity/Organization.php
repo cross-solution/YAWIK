@@ -378,7 +378,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $view = EmployeePermissionsInterface::APPLICATIONS_VIEW;
         }
 
-        $employees = $this->getEmployees();
+        $employees = $this->isHiringOrganization()
+            ? $this->getParent()->getEmployees()
+            : $this->getEmployees();
 
         foreach ($employees as $emp) {
             /* @var $emp EmployeeInterface */
