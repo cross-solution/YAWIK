@@ -39,7 +39,8 @@ class AdminSearchFormElementsFieldset extends TextSearchFormFieldset
                 ],
                 'attributes' => array(
                     'value' => 'all',
-                    'style' => 'width: 100%'
+                    'style' => 'width: 100%',
+                    'data-submit-on-change' => "true",
                 )
             )
         );
@@ -57,6 +58,7 @@ class AdminSearchFormElementsFieldset extends TextSearchFormFieldset
                     'data-placeholder' => /*@translate*/ 'Select hiring organization',
                     'class' => 'form-control',
                     'style' => 'width: 100%',
+                    'data-submit-on-change' => 'true',
                 ),
             )
         );
