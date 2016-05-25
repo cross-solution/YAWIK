@@ -13,7 +13,6 @@ namespace AuthTest\View\Helper;
 use Auth\Entity\User;
 use Auth\View\Helper\Auth as AuthHelper;
 
-
 /**
  * Tests the Auth View Helper
  *
@@ -137,6 +136,5 @@ class AuthTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($target->isLoggedIn());
         $this->assertFalse($target->isLoggedIn());
-
     }
 }

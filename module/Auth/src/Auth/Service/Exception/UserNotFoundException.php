@@ -11,5 +11,4 @@ namespace Auth\Service\Exception;
 
 class UserNotFoundException extends \Exception
 {
-
 }

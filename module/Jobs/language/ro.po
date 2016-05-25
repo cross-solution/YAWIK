@@ -1,0 +1,819 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 18:44+0200\n"
+"PO-Revision-Date: 2016-05-13 12:54+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Romanian (http://www.transifex.com/yawik/yawik/language/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: view/modals/fazjob.phtml:38 view/modals/jobsintown.phtml:38
+#: view/modals/yawik.phtml:38
+#, php-format
+msgid "Publish on %s"
+msgstr ""
+
+#: view/modals/homepage.phtml:22
+msgid "Publish on your Homepage"
+msgstr "Publicați pe pagina dvs. de pornire"
+
+#: view/mails/job-created.en.phtml:22 view/mails/job-created.phtml:22
+#: view/iframe/iFrame.phtml:14
+msgid "Job details"
+msgstr "detalii de locuri de muncă"
+
+#: view/mails/job-created.en.phtml:25 view/mails/job-created.phtml:25
+#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:17 view/jobs/index/approval.ajax.phtml:18
+msgid "Title of the job"
+msgstr "Denumirea postului"
+
+#: view/mails/job-created.en.phtml:29 view/mails/job-created.phtml:29
+#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:18
+#: language/_annotated_strings.php:180 language/_annotated_strings.php:195
+msgid "Location"
+msgstr "Locație"
+
+#: view/mails/job-created.en.phtml:33 view/mails/job-created.phtml:33
+#: view/jobs/admin/index.ajax.phtml:19 view/jobs/jobboard/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/approval.ajax.phtml:19
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:69
+#: language/_annotated_strings.php:87 language/_annotated_strings.php:132
+msgid "Companyname"
+msgstr "Numele Companiei"
+
+#: view/mails/job-created.en.phtml:38 view/mails/job-created.phtml:38
+msgid "Publisher details"
+msgstr "detalii de editor"
+
+#: view/mails/job-created.en.phtml:42 view/mails/job-created.phtml:42
+#: view/jobs/admin/index.ajax.phtml:20 view/jobs/index/approval.ajax.phtml:20
+msgid "Name"
+msgstr "Nume"
+
+#: view/mails/job-created.en.phtml:46 view/mails/job-created.phtml:46
+#: language/_annotated_strings.php:159
+msgid "Email"
+msgstr "E-mail"
+
+#: view/mails/job-created.en.phtml:63 view/mails/job-created.phtml:63
+msgid "no Portal chosen"
+msgstr "nici un portal ales"
+
+#: view/mails/job-created.en.phtml:65 view/mails/job-created.phtml:65
+msgid "Selected Channels"
+msgstr "canale selectate"
+
+#: view/mails/job-created.en.phtml:77 view/mails/job-created.phtml:77
+#: view/form/multiposting-select.phtml:74 view/partials/channel-list.phtml:69
+msgid "Price"
+msgstr "Preț"
+
+#: view/mails/job-created.en.phtml:81 view/mails/job-created.phtml:81
+#: view/form/multiposting-checkboxes.phtml:90
+#: view/form/multiposting-select.phtml:84
+#: view/form/multiposting-select.phtml:107 view/partials/channel-list.phtml:75
+msgid "plus VAT"
+msgstr "plus TVA"
+
+#: view/mails/job-created.en.phtml:85 view/mails/job-created.phtml:85
+#: view/form/multiposting-select.phtml:90 view/partials/channel-list.phtml:82
+msgid "Invoice amount"
+msgstr "Valoarea facturii"
+
+#: view/mails/job-created.en.phtml:92 view/mails/job-created.phtml:92
+msgid "Click here to accept or reject the job opening"
+msgstr "Apasa aici pentru a accepta sau de a respinge deschiderea de locuri de muncă"
+
+#: view/iframe/iFrame.phtml:25
+msgid ""
+"You are using a default template. You are free to create your own template, "
+"just contact the developing team for integration"
+msgstr "Utilizați un șablon implicit. Sunteți liber să creați propriul șablon, trebuie doar să contactați echipa în curs de dezvoltare pentru integrare"
+
+#: view/iframe/iFrame.phtml:30
+msgid "Default"
+msgstr "Mod implicit"
+
+#: view/iframe/iFrame.phtml:35
+msgid "Classic"
+msgstr "Clasic"
+
+#: view/iframe/iFrame.phtml:40
+msgid "Modern"
+msgstr "Modern"
+
+#: view/iframe/iFrame.phtml:52
+msgid "Track applications"
+msgstr "aplicatii de cale"
+
+#: view/form/preview.phtml:40
+msgid "Preview of your job posting"
+msgstr "Avanpremiera postarea de locuri de muncă"
+
+#: view/form/preview.phtml:51
+#, php-format
+msgid ""
+"Please check the preview of your job position. Click %s to open the preview "
+"in a new window"
+msgstr ""
+
+#: view/form/preview.phtml:52 view/partials/channel-list.phtml:96
+msgid "here"
+msgstr "aici"
+
+#: view/form/apply-identifier.phtml:26
+msgid "Apply link"
+msgstr "link-ul se aplică"
+
+#: view/form/hiring-organization-select.phtml:57
+#, php-format
+msgid ""
+"If you want to post job openings for your customers, you have to %sadd "
+"them%s in the organizations menu."
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:18
+msgid "The build-in ATS is currently used."
+msgstr "este utilizat în prezent build-in ATS."
+
+#: view/form/ats-mode.view.phtml:22
+#, php-format
+msgid "Applications are handled via URI: %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:27
+#, php-format
+msgid "Applications will be send to %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:32
+msgid "ATS is disabled."
+msgstr "ATS este dezactivat."
+
+#: view/form/list-filter.phtml:81 language/_annotated_strings.php:84
+msgid "search for position or company"
+msgstr "căutare pentru poziția sau companie"
+
+#: view/form/list-filter.phtml:110 view/form/list-filter.phtml:121
+#: view/form/list-filter.phtml:138
+msgid "Type in a location"
+msgstr "Tastați într-o locație"
+
+#: view/form/list-filter.phtml:147
+msgid "Search"
+msgstr "Căutare"
+
+#: view/form/list-filter.phtml:148
+msgid "Clear"
+msgstr "clar"
+
+#: view/sidebar/index.phtml:19
+msgid "My jobs"
+msgstr "Activitățile mele"
+
+#: view/sidebar/index.phtml:19
+msgid "All jobs"
+msgstr "toate locurile de muncă"
+
+#: view/jobs/admin/index.phtml:2 view/jobs/admin/index.phtml:91
+#: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
+#: view/jobs/index/approval.phtml:2 view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:297 language/_annotated_strings.php:303
+msgid "Jobs"
+msgstr "Locuri de munca"
+
+#: view/jobs/admin/index.phtml:103 view/jobs/index/approval.phtml:40
+msgid "No job is waiting for approval at the moment."
+msgstr "Nr de locuri de muncă așteaptă aprobarea în acest moment."
+
+#: view/jobs/admin/index.phtml:118 view/jobs/admin/index.phtml:132
+#: view/jobs/index/index.phtml:54 view/jobs/index/approval.phtml:55
+msgid "please wait"
+msgstr "te rog asteapta"
+
+#: view/jobs/admin/index.ajax.phtml:17 view/jobs/jobboard/index.ajax.phtml:15
+#: view/jobs/index/index.ajax.phtml:16 view/jobs/index/approval.ajax.phtml:17
+msgid "Date of receipt"
+msgstr "Data chitanței"
+
+#: view/jobs/admin/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
+#: view/jobs/index/approval.ajax.phtml:21
+#: src/Jobs/Form/Element/StatusSelect.php:55
+#: src/Jobs/Form/Element/StatusSelect.php:68
+#: language/_annotated_strings.php:120
+msgid "Status"
+msgstr "stare"
+
+#: view/jobs/admin/index.ajax.phtml:22 view/jobs/index/index.ajax.phtml:24
+#: view/jobs/index/index.ajax.phtml:26 view/jobs/index/approval.ajax.phtml:22
+msgid "Action"
+msgstr "Acțiune"
+
+#: view/jobs/admin/index.ajax.phtml:58 view/jobs/index/index.ajax.phtml:102
+#: view/jobs/index/approval.ajax.phtml:57 view/partials/history.phtml:11
+msgid "Status history"
+msgstr "Istoricul de stare"
+
+#: view/jobs/admin/index.ajax.phtml:63
+msgid "Edit"
+msgstr "Editați | ×"
+
+#: view/jobs/admin/edit.phtml:14
+#, php-format
+msgid "Edit job \"%s\""
+msgstr ""
+
+#: view/jobs/admin/edit.phtml:28
+msgid "processing"
+msgstr "prelucrare"
+
+#: view/jobs/admin/edit.phtml:30
+msgid "Save changes"
+msgstr "Salvează modificările"
+
+#: view/jobs/admin/edit.phtml:32 view/jobs/index/index.phtml:19
+msgid "Cancel"
+msgstr "Anulare"
+
+#: view/jobs/jobboard/index.phtml:5
+msgid "Public Job Opportunities"
+msgstr "Oportunități de locuri de muncă publice"
+
+#: view/jobs/jobboard/index.phtml:15 view/jobs/index/index.phtml:37
+#, php-format
+msgid "%sSorry%s, there are not any jobs matching your search criteria."
+msgstr ""
+
+#: view/jobs/jobboard/index.ajax.phtml:16 view/jobs/index/index.ajax.phtml:122
+#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:74
+msgid "Apply"
+msgstr "aplica"
+
+#: view/jobs/index/index.phtml:16
+msgid "Loading"
+msgstr "se incarca"
+
+#: view/jobs/index/index.phtml:17
+msgid "Access denied!"
+msgstr "Acces interzis!"
+
+#: view/jobs/index/index.phtml:18
+msgid "Application error!"
+msgstr "Eroare de aplicație!"
+
+#: view/jobs/index/index.phtml:20
+msgid "Save"
+msgstr "Salvați"
+
+#: view/jobs/index/index.phtml:21
+msgid "Sending"
+msgstr "trimitere"
+
+#: view/jobs/index/index.phtml:22
+msgid "Fail!"
+msgstr "Fail!"
+
+#: view/jobs/index/index.phtml:28
+msgid "List of your jobs"
+msgstr "Lista posturilor de munca tale"
+
+#: view/jobs/index/index.ajax.phtml:20
+msgid "Reference"
+msgstr "Referinţă"
+
+#: view/jobs/index/index.ajax.phtml:22 view/jobs/index/dashboard.phtml:15
+msgid "Applications"
+msgstr "aplicatii"
+
+#: view/jobs/index/index.ajax.phtml:62 view/jobs/index/dashboard.phtml:35
+msgid "total"
+msgstr "total"
+
+#: view/jobs/index/index.ajax.phtml:68 view/jobs/index/dashboard.phtml:41
+msgid "unread"
+msgstr "necitite"
+
+#: view/jobs/index/index.ajax.phtml:81
+msgid "draft"
+msgstr "proiect"
+
+#: view/jobs/index/index.ajax.phtml:91
+#, php-format
+msgid "Change responsible user for job \\\"%s\\\""
+msgstr ""
+
+#: view/jobs/index/approval.phtml:29
+msgid "Jobs waiting for approval"
+msgstr "Locuri de muncă de așteptare pentru aprobare"
+
+#: view/jobs/index/dashboard.phtml:6
+msgid "Current Jobs"
+msgstr "Locuri de muncă actuale"
+
+#: view/jobs/index/dashboard.phtml:6
+msgid "Famous jobs"
+msgstr "locuri de muncă celebri"
+
+#: view/jobs/index/dashboard.phtml:12
+msgid "Job"
+msgstr "Loc de munca"
+
+#: view/jobs/index/dashboard.phtml:13 view/jobs/manage/history.phtml:8
+#: view/partials/history.phtml:16
+msgid "Date"
+msgstr "Data"
+
+#: view/jobs/index/view.phtml:15
+msgid "Online since"
+msgstr "online din"
+
+#: view/jobs/index/terms.phtml:22
+msgid "Terms and Conditions"
+msgstr "Termeni si conditii"
+
+#: view/jobs/manage/completion.phtml:1
+msgid "Publishing successfully finished"
+msgstr "Publishing a terminat cu succes"
+
+#: view/jobs/manage/completion.phtml:3
+msgid ""
+"Thank you for publishing your job opening. An email was send to the "
+"reviewing team."
+msgstr "Vă mulțumim pentru publicarea de deschidere de locuri de muncă. Un e-mail a fost trimis la echipa recenzat."
+
+#: view/jobs/manage/history.phtml:4
+msgid "History"
+msgstr "Istorie"
+
+#: view/jobs/manage/history.phtml:8 view/partials/history.phtml:18
+msgid "Comment"
+msgstr "cometariu"
+
+#: view/jobs/manage/approval.phtml:14
+msgid "Preview of the posting"
+msgstr "Avancronica detașării"
+
+#: view/jobs/manage/approval.phtml:33
+msgid "Reject Job"
+msgstr "Iov respinge"
+
+#: view/jobs/manage/approval.phtml:34
+msgid "Accept Job"
+msgstr "Accepta slujba"
+
+#: view/jobs/manage/form.phtml:43
+msgid "Publish a job"
+msgstr "Publicarea unui loc de muncă"
+
+#: view/jobs/manage/form.phtml:45
+msgid "Create a job"
+msgstr "Creați un loc de muncă"
+
+#: view/jobs/manage/form.phtml:54
+#, php-format
+msgid "Publish job %s"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:54
+msgid "chargeable"
+msgstr "exigibile"
+
+#: view/jobs/manage/form.phtml:73
+msgid "Your job position is incomplete."
+msgstr "Poziția ta de locuri de muncă este incompletă."
+
+#: view/jobs/manage/form.phtml:85
+msgid ""
+"Your job opening is online. You can publish minor changes or you can "
+"deactivate the job opening"
+msgstr "Deschiderea ta de locuri de muncă este online. Aveți posibilitatea să publicați modificări minore sau puteți dezactiva deschiderea de locuri de muncă"
+
+#: view/jobs/manage/form.phtml:94
+msgid "Your job opening was successfully created and is waiting for approval."
+msgstr "Deschiderea ta de locuri de muncă a fost creat cu succes și așteaptă aprobarea."
+
+#: view/jobs/manage/form.phtml:103
+msgid ""
+"Your job opening is inactive. You can reactivate it. Chargeable channels are"
+" not updated."
+msgstr "Deschiderea ta de locuri de muncă este inactiv. Puteți reactiva. canale taxabile nu sunt actualizate."
+
+#: view/jobs/manage/form.phtml:112
+msgid ""
+"Your job was expired. You can reactivate you job opening. Chargeable "
+"channels are not updated."
+msgstr "Treaba ta a fost expirat. O veti putea activa deschiderea tine de locuri de muncă. canale taxabile nu sunt actualizate."
+
+#: view/jobs/manage/form.phtml:121
+msgid ""
+"Your job opening was rejected. Please correct the errors and republish it"
+msgstr "Deschiderea ta de locuri de muncă a fost respinsă. Vă rugăm să corectați erorile și să-l republicați"
+
+#: view/error/no-parent.phtml:15
+msgid "Sorry, you may not create jobs."
+msgstr "Ne pare rău, nu s-ar putea crea locuri de muncă."
+
+#: view/error/no-parent.phtml:20
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate a valid email%s "
+"first."
+msgstr ""
+
+#: view/error/no-parent.phtml:27
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate your main "
+"organization%s first."
+msgstr ""
+
+#: view/partials/history.phtml:17
+msgid "State"
+msgstr "Stat"
+
+#: view/partials/snapshot_or_preview.phtml:17
+msgid "Nothing has changed"
+msgstr "Nimic nu a fost schimbat"
+
+#: view/partials/snapshot_or_preview.phtml:28
+msgid "previous content"
+msgstr "conținutul anterior"
+
+#: view/partials/snapshot_or_preview.phtml:29
+msgid "new content"
+msgstr "conținut nou"
+
+#: view/partials/portalsummary.phtml:15 view/partials/channel-list.phtml:26
+msgid "Summary"
+msgstr "rezumat"
+
+#: view/partials/portalsummary.phtml:19
+msgid "Channel"
+msgstr "Canal"
+
+#: view/partials/channel-list.phtml:31
+msgid "Your job opening is ready to be published to the following channels"
+msgstr "Deschiderea ta de locuri de muncă este gata să fie publicate la următoarele canale"
+
+#: view/partials/channel-list.phtml:94
+#, php-format
+msgid "Please check your selected channels. Click %s to modify the channels"
+msgstr ""
+
+#: src/Jobs/View/Helper/ApplyButtons.php:81
+msgid "Apply now"
+msgstr "Aplica acum"
+
+#: src/Jobs/View/Helper/ApplyButtons.php:87
+#, php-format
+msgid "Apply with %s"
+msgstr ""
+
+#: src/Jobs/Form/JobDescriptionFieldset.php:36
+msgid "Description"
+msgstr "Descriere"
+
+#: src/Jobs/Controller/ManageController.php:243
+msgid "No Title"
+msgstr "Fara titlu"
+
+#: src/Jobs/Controller/ManageController.php:247
+msgid "No Location"
+msgstr "nr Locul de amplasare"
+
+#: src/Jobs/Controller/ManageController.php:251
+msgid "Accept the Terms"
+msgstr "Accept Termeni"
+
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:321
+msgid "Show all jobs"
+msgstr "Afișați toate locurile de muncă"
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:324
+msgid "Show my jobs"
+msgstr "Afiseaza joburile mele"
+
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:45
+#: language/_annotated_strings.php:117 language/_annotated_strings.php:129
+#: language/_annotated_strings.php:327
+msgid "All"
+msgstr "Toate"
+
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:48
+#: language/_annotated_strings.php:96 language/_annotated_strings.php:330
+msgid "Active"
+msgstr "Activ"
+
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:51
+#: language/_annotated_strings.php:99 language/_annotated_strings.php:333
+msgid "Inactive"
+msgstr "Inactiv"
+
+#: language/_annotated_strings.php:18
+msgid "Job qualification"
+msgstr "calificarea de locuri de muncă"
+
+#: language/_annotated_strings.php:21
+msgid "Job benefits"
+msgstr "prestații de locuri de muncă"
+
+#: language/_annotated_strings.php:24
+msgid "Job requirements"
+msgstr "Cerințele pentru locul de muncă"
+
+#: language/_annotated_strings.php:27
+msgid "Terms and conditions"
+msgstr "Termeni si conditii"
+
+#: language/_annotated_strings.php:30
+#, php-format
+msgid "I have read the %s and accept it"
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "terms an conditions"
+msgstr "termeni o condiții"
+
+#: language/_annotated_strings.php:36
+msgid "Title and job location"
+msgstr "Titlu și locuri de muncă locație"
+
+#: language/_annotated_strings.php:42
+msgid "Calculate price"
+msgstr "Se calculează prețul"
+
+#: language/_annotated_strings.php:54 language/_annotated_strings.php:102
+msgid "Waiting for approval"
+msgstr "se asteapta aprobarea"
+
+#: language/_annotated_strings.php:57 language/_annotated_strings.php:105
+msgid "Created"
+msgstr "Creată"
+
+#: language/_annotated_strings.php:60 language/_annotated_strings.php:108
+msgid "Published"
+msgstr "Publicat"
+
+#: language/_annotated_strings.php:63 language/_annotated_strings.php:111
+msgid "Rejected"
+msgstr "respins"
+
+#: language/_annotated_strings.php:66 language/_annotated_strings.php:114
+msgid "Expired"
+msgstr "Expirat"
+
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:90
+#: language/_annotated_strings.php:135
+msgid "Select hiring organization"
+msgstr "Selectați organizația de angajare"
+
+#: language/_annotated_strings.php:75
+msgid "Please choose a descriptive title and a location for your job posting "
+msgstr "Vă rugăm să alegeți un titlu descriptiv și o locație pentru postarea de locuri de muncă"
+
+#: language/_annotated_strings.php:78
+msgid ""
+"Please choose the name of the hiring organization. The selected name defines"
+" the template of the job opening."
+msgstr "Vă rugăm să alegeți numele organizației de angajare. Numele selectat definește șablonul deschiderii de locuri de muncă."
+
+#: language/_annotated_strings.php:81
+msgid "Please choose the portals, where you wish to publish your job opening."
+msgstr "Vă rugăm să alegeți portaluri, în cazul în care doriți să publicați deschiderea de locuri de muncă."
+
+#: language/_annotated_strings.php:93 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:336
+msgid "Job title"
+msgstr "Denumirea funcției"
+
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:126
+msgid "Select a job status."
+msgstr "Selectați un loc de muncă de stare."
+
+#: language/_annotated_strings.php:138
+msgid "Enter optional company description here"
+msgstr "Introduceți o descriere opțională de companie aici"
+
+#: language/_annotated_strings.php:141
+msgid "Mode"
+msgstr "mod"
+
+#: language/_annotated_strings.php:144
+msgid "Built-In ATS"
+msgstr "Built-in ATS"
+
+#: language/_annotated_strings.php:147
+msgid "Use external link"
+msgstr "Folosi link extern"
+
+#: language/_annotated_strings.php:150
+msgid "Get applications via email"
+msgstr "Descărcați aplicații prin e-mail"
+
+#: language/_annotated_strings.php:153
+msgid "Do not track"
+msgstr "Nu urmări"
+
+#: language/_annotated_strings.php:156
+msgid "URL"
+msgstr "URL-ul"
+
+#: language/_annotated_strings.php:162
+msgid "One click apply"
+msgstr "Un singur clic se aplică"
+
+#: language/_annotated_strings.php:165
+msgid "Social profiles"
+msgstr "profiluri sociale"
+
+#: language/_annotated_strings.php:168
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:171
+#, php-format
+msgid ""
+"Change status or publish date.%1$s%2$sBeware!%3$s Status changes will "
+"eventually cause notification emails to be send."
+msgstr ""
+
+#: language/_annotated_strings.php:174
+msgid "Start date"
+msgstr "Data de început"
+
+#: language/_annotated_strings.php:177
+msgid "Set the start date of this job."
+msgstr "Setați data de începere a acestui loc de muncă."
+
+#: language/_annotated_strings.php:183 language/_annotated_strings.php:186
+msgid "Distance"
+msgstr "Distanţă"
+
+#: language/_annotated_strings.php:192
+msgid "Please enter the job title"
+msgstr "Vă rugăm să introduceți titlul de locuri de muncă"
+
+#: language/_annotated_strings.php:198
+msgid "Please enter the location of the job"
+msgstr "Vă rugăm să introduceți locația lucrării"
+
+#: language/_annotated_strings.php:201
+msgid "Portals"
+msgstr "portaluri"
+
+#: language/_annotated_strings.php:204
+msgid "Multiposting"
+msgstr "Multiposting"
+
+#: language/_annotated_strings.php:207
+msgid "created"
+msgstr "creată"
+
+#: language/_annotated_strings.php:210
+msgid "waiting for approval"
+msgstr "se asteapta aprobarea"
+
+#: language/_annotated_strings.php:213
+msgid "rejected"
+msgstr "respins"
+
+#: language/_annotated_strings.php:216
+msgid "publish"
+msgstr "publica"
+
+#: language/_annotated_strings.php:219
+msgid "active"
+msgstr "activ"
+
+#: language/_annotated_strings.php:222
+msgid "inactive"
+msgstr "inactiv"
+
+#: language/_annotated_strings.php:225
+msgid "expired"
+msgstr "expirat"
+
+#: language/_annotated_strings.php:228
+#, php-format
+msgid "Job opening was rejected by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:231
+msgid "Job has been rejected"
+msgstr "Loc de muncă a fost respinsă"
+
+#: language/_annotated_strings.php:234
+#, php-format
+msgid "Job opening was activated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:237
+msgid "Job has been approved"
+msgstr "Loc de muncă a fost aprobat"
+
+#: language/_annotated_strings.php:240
+#, php-format
+msgid "Job was deactivated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:243
+msgid "Job has been deactivated"
+msgstr "Loc de muncă a fost dezactivat"
+
+#: language/_annotated_strings.php:246
+msgid "Job could not be deactivated"
+msgstr "Iov nu a putut fi dezactivată"
+
+#: language/_annotated_strings.php:249
+msgid "Template changed"
+msgstr "şablon a fost modificat"
+
+#: language/_annotated_strings.php:252
+msgid "Template not changed"
+msgstr "Șablon nu sa schimbat"
+
+#: language/_annotated_strings.php:255
+msgid "Total jobs"
+msgstr "totalul locurilor de muncă"
+
+#: language/_annotated_strings.php:258
+msgid "Active jobs"
+msgstr "joburi active"
+
+#: language/_annotated_strings.php:261 language/_annotated_strings.php:309
+msgid "Pending jobs"
+msgstr "în așteptare de locuri de muncă"
+
+#: language/_annotated_strings.php:264
+msgid "A new job opening was created"
+msgstr "Un nou loc de muncă de deschidere a fost creat"
+
+#: language/_annotated_strings.php:267
+msgid "Your Job have been wrapped up for approval"
+msgstr "Treaba ta nu a fost încheiat pentru aprobare"
+
+#: language/_annotated_strings.php:270
+msgid "Your job has been published"
+msgstr "Treaba ta a fost publicat"
+
+#: language/_annotated_strings.php:273
+msgid "Your job has been rejected"
+msgstr "Treaba ta a fost respinsă"
+
+#: language/_annotated_strings.php:276
+msgid "publish your job on yawik.org for free"
+msgstr "publica de locuri de muncă pe yawik.org pentru drum liber"
+
+#: language/_annotated_strings.php:279
+#, php-format
+msgid "publish the job for 30 days on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:282
+msgid "yawik.org"
+msgstr "yawik.org"
+
+#: language/_annotated_strings.php:285
+msgid "Your Homepage"
+msgstr "Pagina de start ta"
+
+#: language/_annotated_strings.php:288
+msgid "enable integration of this job on your Homepage"
+msgstr "permit integrarea acestei locuri de muncă pe pagina dvs. de pornire"
+
+#: language/_annotated_strings.php:291
+#, php-format
+msgid "enable %s of this job on your Homepage"
+msgstr ""
+
+#: language/_annotated_strings.php:294
+msgid "integration"
+msgstr "integrare"
+
+#: language/_annotated_strings.php:300 language/_annotated_strings.php:318
+msgid "Jobboard"
+msgstr "Jobboard"
+
+#: language/_annotated_strings.php:306
+msgid "Overview"
+msgstr "Prezentare generală"
+
+#: language/_annotated_strings.php:312
+msgid "Create job"
+msgstr "Creați locuri de muncă"
+
+#: language/_annotated_strings.php:315
+msgid "Edit job"
+msgstr "edita loc de muncă"

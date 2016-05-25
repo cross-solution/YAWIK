@@ -6,7 +6,7 @@
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
-
+if (count($this->jobs)):
 $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 
 ?>
@@ -131,15 +131,5 @@ $isRecruiter = $this->acl()->isRole( Auth\Entity\User::ROLE_RECRUITER );
 </table>
 <?php echo $this->paginationControl($jobs, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/jobs'));?>
 
-<!-- Modal Box for Job-History -->
-<div class="modal fade" id="job-application-history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel"><i class="yk-icon yk-icon-spinner fa-spin"></i><?php echo $this->translate('please wait') ?></h4>
-            </div>
-            <div class="modal-body">
-        </div>
-    </div>
-</div>
+
+<?php endif ?>

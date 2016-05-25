@@ -140,6 +140,5 @@ class ForgotPassword implements EventManagerAwareInterface
         $e->setUser($user);
 
         $this->eventManager->trigger(AuthEvent::EVENT_AUTH_NEWPASSWORD, $e);
-
     }
 }

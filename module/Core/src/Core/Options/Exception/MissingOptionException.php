@@ -14,7 +14,6 @@ namespace Core\Options\Exception;
  * Exception is thrown, if a required option value is missing.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test
  * @since 0.20
  */
 class MissingOptionException extends \RuntimeException implements ExceptionInterface

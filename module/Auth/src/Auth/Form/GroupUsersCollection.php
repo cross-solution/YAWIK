@@ -101,8 +101,6 @@ class GroupUsersCollection extends Collection implements
              ->setAllowRemove(true)
              ->setAllowAdd(true)
              ->setShouldCreateTemplate(true);
-        
-        
     }
     
     /**

@@ -72,18 +72,17 @@ return array(
             ),
         ),
         )),
-
-        'navigation' => array(
-        'default' => array(
-            'settings' => array(
-                'label' => /*@translate*/ 'Settings',
-                'route' => 'lang/settings',
-                'resource' => 'route/lang/settings',
-                'order' => 100,
-                'params' => array('module' => null),
-            ),
-        ),
-        ),
+        'navigation' => [
+            'default' => [
+                'settings' => [
+                    'label'    => /*@translate*/ 'Settings',
+                    'route'    => 'lang/settings',
+                    'resource' => 'route/lang/settings',
+                    'order'    => 100,
+                    'params'   => array('module' => null),
+                ],
+            ],
+        ],
     
     // Configuration of the controller service manager (Which loads controllers)
         'controllers' => array(

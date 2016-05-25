@@ -56,22 +56,28 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                 'data-placeholder' => /*@translate*/ 'please select',
                 'data-allowclear' => 'false',
                 'data-searchbox' => -1,
+                'data-width' => '100%'
             ),
             )
         );
 
         $this->add(
-            array(
-            'name' => 'earliestStartingDate',
-            'type' => "date",
-            'options' => array(
-                'label' => /*@translate*/ 'Earliest starting date',
-                'description' => /*@translate*/ 'Enter the earliest starting date.',
-                'disable_capable' => array(
-                    'description' => /*@translate*/ 'Ask the applicant about the earliest starting date.',
-                ),
-            ),
-            )
+            [
+                'name'       => 'earliestStartingDate',
+                'type'       => 'Core/Datepicker',
+                'options'    => [
+                    'label'           => /*@translate*/ 'Earliest starting date',
+                    'description'     => /*@translate*/ 'Enter the earliest starting date.',
+                    'disable_capable' => [
+                        'description' => /*@translate*/ 'Ask the applicant about the earliest starting date.',
+                    ],
+                ],
+                'attributes' => [
+                    'data-date-format' => 'yyyy-mm-dd',
+                    'data-language' => 'de',
+                    'class' => 'datepicker'
+                ]
+            ]
         );
 
         $this->add(
@@ -107,6 +113,7 @@ class FactsFieldset extends Fieldset implements DisableElementsCapableInterface,
                     'data-allowclear'  => 'false',
                     'data-searchbox'   => -1,
                     'data-placeholder' => /*@translate*/ 'please select',
+                    'data-width' => '100%'
                 ]
             )
         );

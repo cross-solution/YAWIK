@@ -33,7 +33,6 @@ class JobsPublisherFactoryTest extends \PHPUnit_Framework_TestCase
         $this->mockJobsOptions = $this->getMockBuilder('Jobs\Options\ModuleOptions')
                      ->disableOriginalConstructor()
                      ->getMock();
-
     }
 
     /**
@@ -46,9 +45,9 @@ class JobsPublisherFactoryTest extends \PHPUnit_Framework_TestCase
 
         $config = $this->mockJobsOptions;
 
-        $config->method('__isset')->with('multipostingTargetUri')->willReturn(True);
+        $config->method('__isset')->with('multipostingTargetUri')->willReturn(true);
         $config->method('__get')->with('multipostingTargetUri')->willReturn('http://user:pass@host/path');
-        $sm->setService('Jobs/Options',$config);
+        $sm->setService('Jobs/Options', $config);
 
         $result = $this->testedObj->createService($sm);
         $this->assertInstanceOf('Core\Service\RestClient', $result);

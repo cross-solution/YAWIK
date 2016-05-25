@@ -9,7 +9,11 @@
 
 namespace CoreTest\Form;
 
+use Applications\Entity\Application;
+use Auth\Entity\User;
 use Core\Form\Container;
+use Jobs\Entity\Job;
+use Organizations\Entity\Organization;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Renderer\PhpRenderer;
 
@@ -60,7 +64,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->target->getOption('is_disable_elements_capable'),$input);
     }
 
-
     public function provideBool (){
         return [
             [true, true],
@@ -68,6 +71,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @covers Core\Form\Container::setParent()
+     * @covers Core\Form\Container::getParent()
+     */
     public function testSetGetParent(){
         $input = "improve this";
         $this->target->setParent($input);
@@ -104,7 +111,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame(
             [$key => [
                 'type' => $spec,
-                'name' => $key
+                'name' => $key,
+                'entity' => '*',
                 ]
             ]
             , 'forms'
@@ -119,11 +127,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @param $key
-     * @param $spec
-     * @param $enabled
-     */
     public function testSetFormWithArray(){
         $key1 = "key1";
         $key2 = "key2";
@@ -148,12 +151,37 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                     'type' => 'text',
                     'name' => 'foobar'
                 ],
-                'name' => $key1
+                'name' => $key1,
+                'entity' => '*',
             ]
             ]
             , 'forms'
             , $target);
     }
 
+    /**
+     * @dataProvider provideEntities
+     */
+    public function testSetGetEntity($input, $key, $expected )
+    {
+        $this->target->setEntity($input, $key, $expected);
+        $this->assertEquals($expected, $this->target->getEntity($key));
+    }
 
+    public function provideEntities() {
+        $e = [
+            'application' => new Application(),
+            'job' => new Job(),
+            'user' => new User(),
+            'organization' => new Organization(),
+            ];
+
+
+        return [
+            [$e['application'], null , $e['application'] ],
+            [$e['job'], 'job' , $e['job'] ],
+            [$e['user'], null , $e['user'] ],
+            [$e['organization'], null , $e['organization'] ],
+        ];
+    }
 }

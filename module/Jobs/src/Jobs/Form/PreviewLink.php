@@ -15,7 +15,7 @@ use Core\Form\Element\ViewHelperProviderInterface;
 
 //  implements ViewPartialProviderInterface
 
-class JobPreviewLink extends Element implements ViewHelperProviderInterface
+class PreviewLink extends Element implements ViewHelperProviderInterface
 {
     protected $attributes = array(
         'type' => 'previewLink',

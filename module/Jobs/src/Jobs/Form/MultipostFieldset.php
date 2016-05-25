@@ -37,7 +37,6 @@ class MultipostFieldset extends Fieldset
      */
     public function init()
     {
-
         $this->setAttribute('id', 'jobportals-fieldset');
         $this->setName('jobPortals');
 

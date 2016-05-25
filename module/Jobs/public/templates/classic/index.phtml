@@ -19,10 +19,16 @@
 <div class="container">
 
     <main>
-        <!-- 
-          This the *classic* Template. Templates are quite easy to create. Take a look at the sources:
- 
-          https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/default/index.phtml">sources</a>.
+        <!--
+
+          This the *default* Template. Take a look at the sources:
+
+          https://github.com/cross-solution/YAWIK/blob/develop/module/Jobs/public/templates/classic/index.phtml
+
+          Or take a look at the docs
+          :
+          http://yawik.readthedocs.io/en/latest/modules/jobs/index.html#job-templates
+
         -->
         <p><?php echo $this->descriptionEditable ?></p>
         <div class="row">
@@ -52,17 +58,7 @@
                 </div>
             </div>
         </div>
-        <?php if ($this->uriApply): ?>
-        <div class="row">
-            <div class="twelve columns">
-                <div class="apply">
-                    <a target="_new" class="button button-primary" href="<?php echo $this->uriApply ?>" rel="nofollow">
-                        <strong><?php echo $this->translate("Apply now")?></strong>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <?php endif; ?>
+        <?=$this->jobApplyButtons($this->applyData)?>
         <div class="row">
 
             <div class="one-half column">

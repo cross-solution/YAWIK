@@ -74,5 +74,4 @@ class AttachmentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
         $this->assertNotEquals($notExpected, $actual);
     }
-
 }

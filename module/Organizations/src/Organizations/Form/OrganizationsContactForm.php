@@ -20,4 +20,6 @@ use Core\Form\SummaryForm;
 class OrganizationsContactForm extends SummaryForm
 {
     protected $baseFieldset = 'Organizations/OrganizationsContactFieldset';
+
+    protected $displayMode = self::DISPLAY_SUMMARY;
 }

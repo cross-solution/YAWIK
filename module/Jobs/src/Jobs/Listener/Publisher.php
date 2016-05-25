@@ -19,7 +19,6 @@ use Jobs\Listener\Events\JobEvent;
 use Zend\EventManager\SharedEventManagerInterface;
 use Jobs\Listener\Response\JobResponse;
 
-
 /**
  * Job listener for publishing job opening via REST
  *

@@ -10,14 +10,24 @@
 /** Notification.php */
 namespace Core\Controller\Plugin;
 
+use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\I18n\Translator\TranslatorAwareTrait;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
 use Core\Listener\Events\NotificationEvent;
 use Core\Log\Notification\NotificationEntity;
 use Core\Log\Notification\NotificationEntityInterface;
 
-class Notification extends AbstractPlugin
+/**
+ *
+ *
+ *
+ * @todo   [MG]: this needs to be heavily refactored! It's a PITA to test!
+ */
+class Notification extends AbstractPlugin implements TranslatorAwareInterface
 {
+    use TranslatorAwareTrait;
+
     const NAMESPACE_INFO = 'info';
     const NAMESPACE_WARNING = 'warning';
     const NAMESPACE_DANGER  = 'danger';
@@ -80,7 +90,10 @@ class Notification extends AbstractPlugin
     public function addMessage($message, $namespace = self::NAMESPACE_INFO)
     {
         if (!$message instanceof NotificationEntityInterface) {
-            $messageText = $message;
+            $messageText = $this->isTranslatorEnabled()
+                ? $this->getTranslator()->translate($message, $this->getTranslatorTextDomain())
+                : $message;
+
             $message = new NotificationEntity();
             $message->setNotification($messageText);
             $message->setPriority($this->namespace2priority[$namespace]);

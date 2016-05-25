@@ -19,6 +19,5 @@ class JobLocationNew extends JobLocationEdit
         $input = $this->get('applyId')
                       ->getValidatorChain()
                       ->attachByName('Jobs/Form/UniqueApplyId');
-        
     }
 }

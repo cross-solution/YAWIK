@@ -79,5 +79,4 @@ class RegisterConfirmationTest extends \PHPUnit_Framework_TestCase
 
         $this->testedObject->proceed($userId);
     }
-
 }

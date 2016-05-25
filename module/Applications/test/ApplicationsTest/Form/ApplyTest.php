@@ -22,7 +22,8 @@ class ApplyTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp(){
+    public function setUp()
+    {
         $this->target = new Apply();
         $this->target->init();
     }
@@ -30,12 +31,13 @@ class ApplyTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerFormActionsData
      */
-    public function testFormActions($input,$expected)
+    public function testFormActions($input, $expected)
     {
-        $this->assertEquals($this->target->getActionFor($input),$expected);
+        $this->assertEquals($this->target->getActionFor($input), $expected);
     }
 
-    public function providerFormActionsData(){
+    public function providerFormActionsData()
+    {
         return [
             ['facts','?form=facts'],
             ['profiles','?form=profiles'],

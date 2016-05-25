@@ -195,7 +195,22 @@ class SummaryForm extends AbstractHelper
         if ($element instanceof Hidden || false === $element->getOption('render_summary')) {
             return '';
         }
-        
+
+        if ($element instanceof EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
+            /* @var $element EmptySummaryAwareInterface|ElementInterface */
+            $emptySummaryNotice = $this->getTranslator()->translate(
+                $element->getEmptySummaryNotice(),
+                $this->getTranslatorTextDomain()
+            );
+
+            $markup = sprintf(
+                '<div id="%s-empty-alert" class="empty-summary-notice alert alert-info"><p>%s</p></div>',
+                $element->getAttribute('id'),
+                $emptySummaryNotice
+            );
+            return $markup;
+        }
+
         if ($element instanceof ViewPartialProviderInterface) {
             $renderer    = $this->getView();                 /* @var $renderer \Zend\View\Renderer\PhpRenderer */
             $origPartial = $element->getViewPartial();
@@ -209,21 +224,6 @@ class SummaryForm extends AbstractHelper
             }
     
             return $renderer->partial($partial, $partialParams);
-        }
-        
-        if ($element instanceof EmptySummaryAwareInterface && $element->isSummaryEmpty()) {
-            /* @var $element EmptySummaryAwareInterface|ElementInterface */
-            $emptySummaryNotice = $this->getTranslator()->translate(
-                $element->getEmptySummaryNotice(),
-                $this->getTranslatorTextDomain()
-            );
-            
-            $markup = sprintf(
-                '<div id="%s-empty-alert" class="empty-summary-notice alert alert-info"><p>%s</p></div>',
-                $element->getAttribute('id'),
-                $emptySummaryNotice
-            );
-            return $markup;
         }
     
         $label  = $this->getTranslator()->translate($element->getLabel());

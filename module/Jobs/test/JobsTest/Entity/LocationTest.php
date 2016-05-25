@@ -15,7 +15,6 @@ use Jobs\Entity\Location;
 use GeoJson\GeoJson;
 use GeoJson\Geometry\Point;
 
-
 /**
  * Tests for Location
  *
@@ -60,7 +59,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
 
         $this->target->setPostalcode($postalCode);
 
-        $this->assertEquals($postalCode,$this->target->getPostalcode());
+        $this->assertEquals($postalCode, $this->target->getPostalcode());
     }
 
     /**
@@ -84,7 +83,7 @@ class LocationTest extends \PHPUnit_Framework_TestCase
 
         $this->target->setCountry($country);
 
-        $this->assertEquals($country,$this->target->getCountry());
+        $this->assertEquals($country, $this->target->getCountry());
     }
 
     /**
@@ -104,11 +103,10 @@ class LocationTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingAndGettingTheCoordinates()
     {
-        $coordinates = new Point([50,8]);
+        $coordinates = new Point([50, 8]);
 
         $this->target->setCoordinates($coordinates);
 
         $this->assertEquals($coordinates, $this->target->getCoordinates());
     }
-
 }

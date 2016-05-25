@@ -49,7 +49,7 @@ class JobDescriptionDescription extends Form implements InputFilterProviderInter
             'name' => 'description-description',
             'options' => array(
                 'use_as_base_fieldset' => true,
-                'placeholder' => 'Description'
+                'placeholder' => /*@translate*/ 'Enter optional company description here'
             ),
             )
         );

@@ -26,7 +26,6 @@ use Jobs\Entity\TemplateValues;
 use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationName;
 
-
 /**
  * Tests for Jobs Entity
  *
@@ -194,12 +193,33 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @testdox Allows setting the start date of a job posting
      * @covers Jobs\Entity\Job::getDatePublishStart
      * @covers Jobs\Entity\Job::setDatePublishStart
+     * @dataProvider provideDates
      */
-    public function testSetGetDatePublishStart()
+    public function testSetGetDatePublishStart($input, $expected)
     {
-        $date = \DateTime::createFromFormat(time(),\DateTime::ISO8601);
-        $this->target->setDatePublishStart($date);
-        $this->assertEquals($date, $this->target->getDatePublishStart());
+        $this->target->setDatePublishStart($input);
+        $this->assertEquals($expected, $this->target->getDatePublishStart());
+    }
+
+    /**
+     * @testdox Allows setting of the end date of a job posting
+     * @covers Jobs\Entity\Job::getDatePublishEnd
+     * @covers Jobs\Entity\Job::setDatePublishEnd
+     * @dataProvider provideDates
+     */
+    public function testSetPublishEnd($input, $expected)
+    {
+        $this->target->setDatePublishEnd($input);
+        $this->assertEquals($expected, $this->target->getDatePublishEnd());
+    }
+
+    public function provideDates()
+    {
+        $date="2011-01-12";
+        return [
+            [$date, new \DateTime($date)],
+            [new \DateTime($date), new \DateTime($date)],
+        ];
     }
 
     public function provideSetGetStatusTestData()
@@ -363,7 +383,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @covers Jobs\Entity\Job::setTermsAccepted
      * @dataProvider provideTermsAccepted
      */
-    public function testSetTermsAccepted($input,$expected)
+    public function testSetTermsAccepted($input, $expected)
     {
         $this->target->setTermsAccepted($input);
         $this->assertEquals($this->target->getTermsAccepted(), $expected);
@@ -371,7 +391,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
 
     public function provideHistory()
     {
-        $history1 = new \Doctrine\Common\Collections\ArrayCollection([new History(new Status(),'test')]);
+        $history1 = new \Doctrine\Common\Collections\ArrayCollection([new History(new Status(), 'test')]);
 
         return [
             [$history1, $history1],
@@ -384,7 +404,7 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @covers Jobs\Entity\Job::setHistory
      * @dataProvider provideHistory
      */
-    public function testSetHistory($input,$expected)
+    public function testSetHistory($input, $expected)
     {
         $this->target->setHistory($input);
         $this->assertEquals($this->target->getHistory(), $expected);
@@ -408,10 +428,11 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @covers Jobs\Entity\Job::changeStatus
      * @dataProvider provideStatus
      */
-    public function testChangeStatus($input, $expected){
+    public function testChangeStatus($input, $expected)
+    {
         $status = new Status($input);
         $msg = "this is the message";
-        $this->target->changeStatus($status,$msg);
+        $this->target->changeStatus($status, $msg);
         $this->assertEquals($this->target->getStatus(), $expected);
     }
 
@@ -421,13 +442,15 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @covers Jobs\Entity\Job::setCompany
      * @covers Jobs\Entity\Job::getCompany
      */
-    public function testSetGetCompanyWithoutOrganization(){
+    public function testSetGetCompanyWithoutOrganization()
+    {
         $input = "Company ABC";
         $this->target->setCompany($input);
         $this->assertEquals($this->target->getCompany(), $input);
     }
 
-    public function testSetGetCompanyWithOrganization(){
+    public function testSetGetCompanyWithOrganization()
+    {
         $input1 = "Company ABC";
         $input2 = "Another Company";
         $this->target->setCompany($input1);
@@ -445,7 +468,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @covers Jobs\Entity\Job::setApplyId
      * @covers Jobs\Entity\Job::getApplyId
      */
-    public function testSetGetApllyId(){
+    public function testSetGetApllyId()
+    {
         $input = "MyRerefernce";
         $this->target->setApplyId($input);
         $this->assertEquals($this->target->getApplyId(), $input);
@@ -456,23 +480,27 @@ class JobsTest extends \PHPUnit_Framework_TestCase
      * @covers Jobs\Entity\Job::setApplyId
      * @covers Jobs\Entity\Job::getApplyId
      */
-    public function testGetDefaultForApplyId(){
+    public function testGetDefaultForApplyId()
+    {
         $input = "1234";
         $this->target->setId($input);
         $this->assertEquals($this->target->getApplyId(), $input);
     }
 
-    public function testGetResourceId(){
+    public function testGetResourceId()
+    {
         $this->assertSame($this->target->getResourceId(), 'Entity/Jobs/Job');
     }
 
-    public function testSetGetContactEmail(){
+    public function testSetGetContactEmail()
+    {
         $input = "test@example.com";
         $this->target->setContactEmail($input);
         $this->assertEquals($this->target->getContactEmail(), $input);
     }
 
-    public function testSetGetContactEmailWithUser() {
+    public function testSetGetContactEmailWithUser()
+    {
         $input = "test2@example.com";
 
         $info = new Info();
@@ -484,21 +512,24 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getContactEmail(), $input);
     }
 
-    public function testSetGetTemplateValues() {
+    public function testSetGetTemplateValues()
+    {
         $input = new TemplateValues();
         $input->setDescription("Company description");
         $this->target->setTemplateValues($input);
         $this->assertEquals($this->target->getTemplateValues(), $input);
     }
 
-    public function testGetTemplateValuesWithoutSetting() {
+    public function testGetTemplateValuesWithoutSetting()
+    {
         $this->assertEquals($this->target->getTemplateValues(), new TemplateValues());
     }
 
     /**
      * @dataProvider provideTemplatesValuesData
      */
-    public function testSetTemplateValues($input,$expected) {
+    public function testSetTemplateValues($input, $expected)
+    {
         $this->target->setTemplateValues($input);
         $this->assertEquals($this->target->getTemplateValues(), $expected);
     }
@@ -522,7 +553,8 @@ class JobsTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testSetGetUserTwice() {
+    public function testSetGetUserTwice()
+    {
         $user1 = new User();
         $user1->setId(123);
         $this->target->setUser($user1);
@@ -532,8 +564,9 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target->getUser(), $user2);
     }
 
-    public function testGetSnapshotGenerator(){
-        $expected =    array (
+    public function testGetSnapshotGenerator()
+    {
+        $expected =    array(
             'hydrator' => '',
             'target' => 'Jobs\Entity\JobSnapshot',
             'exclude' => array('permissions', 'history')
@@ -544,28 +577,33 @@ class JobsTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testMakeSnapshot() {
+    public function testMakeSnapshot()
+    {
         $this->assertEquals($this->target->makeSnapshot(), new JobSnapshot($this->target));
     }
 }
 
-class ConcreteEntityForTemplateValues extends AbstractEntity {
+class ConcreteEntityForTemplateValues extends AbstractEntity
+{
     protected $description;
     protected $test;
 
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description=$description;
         return $this;
     }
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
-    public function setTest($test) {
+    public function setTest($test)
+    {
         $this->test=$test;
         return $this;
     }
-    public function getTest() {
+    public function getTest()
+    {
         return $this->testcd;
     }
-
 }

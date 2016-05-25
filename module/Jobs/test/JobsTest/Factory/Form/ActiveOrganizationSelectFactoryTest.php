@@ -84,6 +84,5 @@ class OrganizationEntityMock extends Organization
         $contact = new OrganizationContact();
         $contact->setCity($values['city'])->setStreet($values['street'])->setHouseNumber($values['number']);
         $this->contact = $contact;
-
     }
 }

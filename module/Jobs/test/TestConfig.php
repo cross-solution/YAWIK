@@ -1,8 +1,8 @@
 <?php
 return array(
     'modules' => array(
-        'Auth',
         'Core',
+        'Auth',
         'Jobs',
         'Applications',
         'Geo',

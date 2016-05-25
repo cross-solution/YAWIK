@@ -19,6 +19,9 @@
 			
 			displayErrors: function($form, errors, prefix)
 			{
+                if (prefix == undefined) {
+                    prefix = '';
+                }
                 $.each(errors, function(idx, error) {
                     var $errorsDiv = $form.find('#' + prefix + idx + '-errors');
 //                    console.debug('inserting error messages', '#' + prefix + idx + '-errors', $errorsDiv, error);
@@ -78,6 +81,7 @@
                 $form.trigger('ajax.ready', {'data': data});
 			})
 			.fail(function(jqXHR, textStatus, errorThrown) {
+                    console.debug(textStatus, errorThrown);
 				$form.trigger('yk.forms.fail', {jqXHR: jqXHR, status: textStatus, error: errorThrown}); // DEPRECATED EVENT USE NEXT
                 $form.trigger('fail.yk.core.forms', {jqXHR: jqXHR, status: textStatus, error: errorThrown});
             })
@@ -101,20 +105,20 @@
 	
 	var helpers = {
 		
-		initSelect: function() 
+		initSelect: function()
 		{
 			var $select = $(this);
             var data    = $select.data();
-			var options = {theme:"bootstrap"};
+			var options = {theme:"bootstrap", width: 'resolve'};
 
             // allow disabling this autoinit routine.
             // Select2 elements must then be initialized explicitely.
             if (false == data.autoinit) {
                 return;
             }
-			
+
 			$.each($select.data(), function(idx, val) {
-				
+
 				switch (idx) {
 					case "allowclear":
 						idx = "allowClear";
@@ -130,12 +134,55 @@
 					default:
 						break;
 				}
-				
+
 				options[idx] = val;
 			});
-//			console.debug($select, options);
+			console.debug($select, options);
 			$select.select2(options);
-		}
+		},
+
+        initWizardContainer: function()
+        {
+            var $container = $(this);
+
+            $container
+            .on('wizard:init.coreforms', function(e, $activeTab, $navigation, index) {
+                var labels = [];
+                $navigation.find('li a').each(function() { labels.push($(this).html());});
+                $container.data('labels', labels);
+            })
+            .on('wizard:tabShow.coreforms', function(e, $tab, $navigation, index) {
+                var labels = $container.data('labels');
+                var $previous = $container.find('ul.wizard .previous a');
+                var $next     = $container.find('ul.wizard .next a');
+
+
+                if (0 === index) {
+                    $previous.hide();
+                } else {
+                    $previous.show().html('&larr; ' + labels[index-1]);
+                }
+
+                if (labels.length !== index) {
+                    $next.html(labels[index+1] + ' &rarr;');
+                }
+            });
+
+            $container.bootstrapWizard({
+                tabClass: 'nav nav-tabs nav-justified',
+                onShow:           function() { $container.trigger('wizard:show', arguments) },
+                onInit:           function() { $container.trigger('wizard:init', arguments) },
+                onNext:           function() { $container.trigger('wizard:next', arguments) },
+                onPrevious:       function() { $container.trigger('wizard:previous', arguments) },
+                onLast:           function() { $container.trigger('wizard:last', arguments) },
+                onFirst:          function() { $container.trigger('wizard:first', arguments) },
+                onFinish:         function() { $container.trigger('wizard:finish', arguments) },
+                onBack:           function() { $container.trigger('wizard:back', arguments) },
+                onTabChange:      function() { $container.trigger('wizard:tabChange', arguments) },
+                onTabClick:       function() { $container.trigger('wizard:tabClick', arguments) },
+                onTabShow:        function() { $container.trigger('wizard:tabShow', arguments) }
+            });
+        }
 	};
 
     /**
@@ -173,6 +220,8 @@
 		});
 	};
 
+    $.fn.form.initSelect = helpers.initSelect;
+
 	if ($.fn.select2) {
 		$.extend(
 			$.fn.select2.defaults, 
@@ -185,6 +234,7 @@
 	$(function() {
 		$('form:not([data-handle-by]), form[data-handle-by="yk-form"]').form();
 		$('select').each(helpers.initSelect);
+        $('.wizard-container').each(helpers.initWizardContainer);
 	});
-	
+
 })(jQuery);

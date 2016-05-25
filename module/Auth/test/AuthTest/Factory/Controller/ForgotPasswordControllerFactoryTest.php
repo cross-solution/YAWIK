@@ -13,7 +13,7 @@ use Auth\Factory\Controller\ForgotPasswordControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class ForgotPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class ForgotPasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ForgotPasswordControllerFactory

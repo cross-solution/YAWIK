@@ -43,10 +43,18 @@ class Employee extends AbstractEntity implements EmployeeInterface
     protected $permissions;
 
     /**
+     * Employee role.
+     *
+     * @var EmployeePermissionsInterface
+     * @ODM\Field(type="string")
+     */
+    protected $role;
+
+    /**
      * Status of this employees' association to this organization
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $status = self::STATUS_ASSIGNED;
 
@@ -64,7 +72,6 @@ class Employee extends AbstractEntity implements EmployeeInterface
     {
         if (null !== $user) {
             $this->setUser($user);
-
 
             if (is_int($permissions)) {
                 $permissions = new EmployeePermissions($permissions);
@@ -118,6 +125,26 @@ class Employee extends AbstractEntity implements EmployeeInterface
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Sets the Role of an Employee
+     *
+     * @since 0.25
+     * @param $role
+     */
+    public function setRole($role) {
+        $this->role=$role;
+    }
+
+    /**
+     * Gets the Role of an employee
+     *
+     * @since 0.25
+     * @return EmployeePermissionsInterface
+     */
+    public function getRole() {
+        return $this->role;
     }
 
     public function isAssigned()

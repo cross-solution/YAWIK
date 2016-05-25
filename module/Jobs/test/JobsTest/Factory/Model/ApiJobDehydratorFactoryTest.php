@@ -22,7 +22,7 @@ use Zend\View\Helper\Url;
  * @group Jobs.Factory
  * @group Jobs.Factory.Model
  */
-class JobApiDehydratorTest extends \PHPUnit_Framework_TestCase
+class ApiJobDehydratorFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -59,7 +59,7 @@ class JobApiDehydratorTest extends \PHPUnit_Framework_TestCase
                            ->willReturn($helpers);
 
 
-        $service = $target->createService( $serviceManagerMock);
+        $service = $target->createService($serviceManagerMock);
 
         $this->assertInstanceOf('\Jobs\Model\ApiJobDehydrator', $service);
         $this->assertAttributeSame($urlHelper, 'url', $service);

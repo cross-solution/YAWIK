@@ -36,6 +36,6 @@ class OrganizationTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testNumberOfField() {
-        $this->assertSame($this->target->count(),5);
+        $this->assertSame($this->target->count(),6);
     }
 }

@@ -42,7 +42,7 @@
         {
             return this.each(function() {
                 var $container = $(this);
-                $container.trigger('paginate', [{container:$container}]);
+                $container.trigger('paginate', [{container:$container, "loadingIndicator": $container.find('.pagination-loading')}]);
             });
         },
 
@@ -52,7 +52,8 @@
                 var $container = $(this);
                 var data = {
                     href: url,
-                    container: $container
+                    container: $container,
+                    "loadingIndicator": $(this).find('.pagination-loading')
                 };
                 $container.trigger('paginate', [data]);
             });

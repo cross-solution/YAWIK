@@ -103,7 +103,6 @@ class PasswordControllerTest extends AbstractControllerTestCase
         $this->controller->dispatch($request);
         $this->assertResponseStatusCode(Response::STATUS_CODE_302);
         $this->assertRedirectTo('/en');
-                
     }
 
     public function testIndexAction_WithPostRequest_WhenDataIsInvalid()

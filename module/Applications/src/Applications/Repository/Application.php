@@ -155,7 +155,6 @@ class Application extends AbstractRepository
             }
         }
         return null;
-            
     }
     
     /**

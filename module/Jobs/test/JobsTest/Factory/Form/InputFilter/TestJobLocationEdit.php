@@ -22,7 +22,8 @@ use Jobs\Form\InputFilter\JobLocationEdit;
  * @group  Jobs.Form
  */
 
-class TestJobLocationEdit extends \PHPUnit_Framework_TestCase {
+class TestJobLocationEdit extends \PHPUnit_Framework_TestCase
+{
 
     /* @var JobLocationEdit */
     private $inputFilter;
@@ -55,6 +56,5 @@ class TestJobLocationEdit extends \PHPUnit_Framework_TestCase {
         $output = $this->inputFilter->getInputs();
         $filter = $output['title']->getFilterChain();
         $this->assertEquals($expected,  $filter->filter(' <b>title</b> (m/w)'));
-
     }
 }

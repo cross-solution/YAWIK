@@ -19,7 +19,7 @@ use Core\Entity\AbstractEntity;
 class ModuleSettingsContainer extends SettingsContainer implements ModuleSettingsContainerInterface
 {
     
-    /** @ODM\String */
+    /** @ODM\Field(type="string") */
     protected $_module;
     
     public function __construct($module = null)

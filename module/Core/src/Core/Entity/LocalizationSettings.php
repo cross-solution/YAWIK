@@ -19,7 +19,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class LocalizationSettings extends Container
 {
     /**
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $language;
+    
+    /**
+     * @ODM\Field(type="string")
+     */
+    protected $timezone;
 }

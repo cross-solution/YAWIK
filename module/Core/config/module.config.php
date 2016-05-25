@@ -83,6 +83,17 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'admin' => array(
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/admin',
+                            'defaults' => [
+                                'controller' => 'Core/Admin',
+                                'action' => 'index'
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ),
                     'error' => array(
                         'type' => 'Literal',
                         'options' => array(
@@ -144,6 +155,12 @@ return array(
                     ),
                 ),
             ),
+            'admin' => [
+                'allow' => [
+                    'route/lang/admin',
+                    //'Core/Navigation/Admin',
+                ],
+            ],
         ),
         'assertions' => array(
             'invokables' => array(
@@ -163,6 +180,7 @@ return array(
             'Core/Listener/Notification' => 'Core\Listener\NotificationListener',
             'Core/Listener/DeferredListenerAggregate' => 'Core\Listener\DeferredListenerAggregate',
             'Notification/Event'         => 'Core\Listener\Events\NotificationEvent',
+            'Core/EventManager'          => 'Core\EventManager\EventManager',
 
         ),
         'factories' => array(
@@ -180,6 +198,7 @@ return array(
         'abstract_factories' => array(
             'Core\Log\LoggerAbstractFactory',
             'Core\Factory\OptionsAbstractFactory',
+            'Core\Factory\EventManager\EventManagerAbstractFactory',
         ),
         'aliases' => array(
             'forms' => 'FormElementManager',
@@ -195,16 +214,21 @@ return array(
     'translator' => array(
         'locale' => 'de_DE',
         'translation_file_patterns' => array(
-            array(
+            [
                 'type' => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => '%s.mo',
-            ),
-            array(
+            ],
+            [
                 'type'     => 'phparray',
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => 'Zend_Validate.%s.php',
-            )
+            ],
+            [
+                'type'     => 'phparray',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => 'Zend_Captcha.%s.php',
+            ]
         ),
     ),
     // Defines the Core/Navigation.
@@ -215,6 +239,12 @@ return array(
                  'route' => 'lang',
                  'visible' => false
              ),
+             'admin' => array(
+                 'label ' => /*@translate*/ 'Admin',
+                 'route' => 'lang/admin',
+                 'resource' => 'route/lang/admin',
+                 'order' => 200,
+             ),
         ),
     ),
     // Configuration of the controller service manager (Which loads controllers)
@@ -223,6 +253,7 @@ return array(
             'Core\Controller\Index' => 'Core\Controller\IndexController',
             'Core\Controller\Content' => 'Core\Controller\ContentController',
             'Core\Controller\File'  => 'Core\Controller\FileController',
+            'Core/Admin' => 'Core\Controller\AdminController',
         ),
     ),
     // Configuration of the controller plugin service manager
@@ -231,6 +262,7 @@ return array(
             'config' => 'Core\Controller\Plugin\ConfigFactory',
             'Notification' => '\Core\Controller\Plugin\Service\NotificationFactory',
             'entitysnapshot' => 'Core\Controller\Plugin\Service\EntitySnapshotFactory',
+            'Core/SearchForm' => 'Core\Factory\Controller\Plugin\SearchFormFactory',
         ),
         'invokables' => array(
             'listquery' => 'Core\Controller\Plugin\ListQuery',
@@ -241,13 +273,16 @@ return array(
             'Core/PaginatorService' => 'Core\Controller\Plugin\CreatePaginatorService',
             'Core/ContentCollector' => 'Core\Controller\Plugin\ContentCollector',
             'Core/PaginationParams' => 'Core\Controller\Plugin\PaginationParams',
+            'Core/PaginationBuilder' => 'Core\Controller\Plugin\PaginationBuilder',
         ),
         'aliases' => array(
             'filesender'       => 'Core/FileSender',
             'mailer'           => 'Core/Mailer',
+            'pagination'       => 'Core/PaginationBuilder',
             'paginator'        => 'Core/CreatePaginator',
             'paginatorservice' => 'Core/PaginatorService',
             'paginationparams' => 'Core/PaginationParams',
+            'searchform'       => 'Core/SearchForm',
         )
     ),
     // Configure the view service manager
@@ -293,7 +328,9 @@ return array(
             'form' => 'Core\Form\View\Helper\Form',
             'formsimple' => 'Core\Form\View\Helper\FormSimple',
             'formContainer' => 'Core\Form\View\Helper\FormContainer',
+            'formWizardContainer' => 'Core\Form\View\Helper\FormWizardContainer',
             'summaryForm' => 'Core\Form\View\Helper\SummaryForm',
+            'searchForm' => 'Core\Form\View\Helper\SearchForm',
             'filterForm' => 'Core\Form\View\Helper\FilterForm',
             'formPartial' => '\Core\Form\View\Helper\FormPartial',
             'formcollection' => 'Core\Form\View\Helper\FormCollection',
@@ -303,6 +340,7 @@ return array(
             'formfileupload' => 'Core\Form\View\Helper\FormFileUpload',
             'formimageupload' => 'Core\Form\View\Helper\FormImageUpload',
             'formcheckbox' => 'Core\Form\View\Helper\FormCheckbox',
+            'formDatePicker' => 'Core\Form\View\Helper\FormDatePicker',
             'formInfoCheckbox' => 'Core\Form\View\Helper\FormInfoCheckbox',
             'formselect' => 'Core\Form\View\Helper\FormSelect',
             'dateFormat' => 'Core\View\Helper\DateFormat',
@@ -361,6 +399,7 @@ return array(
             'Checkbox' => 'Core\Form\Element\Checkbox',
             'InfoCheckbox' => 'Core\Form\Element\InfoCheckbox',
             'Core/ListFilterButtons' => '\Core\Form\ListFilterButtonsFieldset',
+            'Core/Datepicker' => 'Core\Form\Element\DatePicker',
             'Core/FileUpload' => '\Core\Form\Element\FileUpload',
             'Core\FileCollection' => 'Core\Form\FileCollection',
             'Core/LocalizationSettingsFieldset' => 'Core\Form\LocalizationSettingsFieldset',
@@ -373,6 +412,10 @@ return array(
             'togglebutton' => 'Core\Form\Element\ToggleButton',
             'TextEditor' => 'Core\Form\Element\Editor',
             'TextEditorLight' => 'Core\Form\Element\EditorLight',
+            'Core/Container' => 'Core\Form\Container',
+            'Core/TextSearch' => 'Core\Form\TextSearchForm',
+            'Core/TextSearch/Elements' => 'Core\Form\TextSearchFormFieldset',
+            'Core/TextSearch/Buttons' => 'Core\Form\TextSearchFormButtonsFieldset',
 
         ),
         'initializers' => array(
@@ -380,7 +423,7 @@ return array(
         ),
         'aliases' => array(
             'submitField' => 'FormSubmitButtonsFieldset'
-        )
+        ),
     ),
 
     'paginator_manager' => [
@@ -395,5 +438,12 @@ return array(
             'name'  => 'YAWIK'
         ),
     ),
+
+    'event_manager' => [
+        'Core/AdminController/Events' => [
+            'service' => 'Core/EventManager',
+            'event' => '\Core\Controller\AdminControllerEvent',
+        ],
+    ],
     
 );

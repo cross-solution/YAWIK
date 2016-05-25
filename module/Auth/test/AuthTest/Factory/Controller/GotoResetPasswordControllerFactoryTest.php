@@ -13,7 +13,7 @@ use Auth\Factory\Controller\GotoResetPasswordControllerFactory;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
-class GotoResetPasswordControllerSLFactoryTest extends \PHPUnit_Framework_TestCase
+class GotoResetPasswordControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var GotoResetPasswordControllerFactory

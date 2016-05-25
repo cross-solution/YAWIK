@@ -13,7 +13,6 @@ namespace JobsTest\Entity;
 use Jobs\Entity\Coordinates;
 use GeoJson\GeoJson;
 
-
 /**
  * Tests for Coordinates
  *
@@ -56,7 +55,7 @@ class CoordinatesTest extends \PHPUnit_Framework_TestCase
     {
         $input = 'POINT';
         $this->target->setType($input);
-        $this->assertEquals($input,$this->target->getType());
+        $this->assertEquals($input, $this->target->getType());
     }
 
     /**
@@ -66,13 +65,14 @@ class CoordinatesTest extends \PHPUnit_Framework_TestCase
     {
         $input = [50,8];
         $this->target->setCoordinates($input);
-        $this->assertEquals($input,$this->target->getCoordinates());
+        $this->assertEquals($input, $this->target->getCoordinates());
     }
 
-    public function testToJson(){
-        $this->target->setCoordinates([50,8]);
+    public function testToJson()
+    {
+        $this->target->setCoordinates([50, 8]);
         $this->target->setType('POINT');
         $expected = '{"type":"POINT","coordinates":[50,8]}';
-        $this->assertEquals($expected,$this->target->toJson());
+        $this->assertEquals($expected, $this->target->toJson());
     }
 }

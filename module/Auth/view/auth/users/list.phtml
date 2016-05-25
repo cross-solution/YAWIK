@@ -1,0 +1,29 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013-2016 Cross Solution (http://cross-solution.de)
+ * @author cbleek
+ * @license   MIT
+ */
+
+$this->headScript()->appendFile($this->basePath('Core/js/core.pagination-container.js'));
+
+?><h1><?php echo $this->translate('Users')?></h1>
+    <nav class="navbar yk-toolbar" >
+        <?php echo $this->searchForm($this->form) ?>
+    </nav>
+
+    <div id="jobs-list-container" class="pagination-container" data-uri="<?php
+    echo $this->url('lang/user-list', array(), array('query' => $this->params()->fromQuery()), true)?>">
+
+        <div class="pagination-message alert alert-info">
+            <?php echo $this->translate('No user found matching your criteria.') ?>
+        </div>
+
+        <div class="pagination-content">
+            <?php echo $this->render('auth/users/list.ajax.phtml')?>
+        </div>
+
+    </div>

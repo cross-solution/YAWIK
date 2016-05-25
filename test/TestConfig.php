@@ -9,6 +9,7 @@ return array(
         'Cv',
         'Settings',
         'Applications',
+        'Orders',
         'Organizations',
     ),
     'module_listener_options' => array(

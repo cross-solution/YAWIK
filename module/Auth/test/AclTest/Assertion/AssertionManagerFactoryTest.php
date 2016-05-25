@@ -71,6 +71,5 @@ class AssertionManagerFactoryTest extends \PHPUnit_Framework_TestCase
             array(array('acl' => array('nono' => array('invokables' => array('failTest' => 'noneClass')))), 'failTest', false),
             array(array('acl' => array('assertions' => array('invokables' => array('successTest' => 'existClass')))), 'successTest', true),
         );
-
     }
 }

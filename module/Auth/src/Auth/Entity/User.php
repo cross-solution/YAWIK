@@ -20,28 +20,23 @@ use Settings\Repository\SettingsEntityResolver;
  * Defines an user model
  *
  * @ODM\Document(collection="users", repositoryClass="Auth\Repository\User")
+ *  * @ODM\Indexes({
+ *      @ODM\Index(keys={
+ *                  "login"="text",
+ *                  "role"="text",
+ *                    "info.email"="text",
+ *                    "info.firstName"="text",
+ *                    "info.lastName"="text"
+ *                 }, name="fulltext")
+ * })
  */
 class User extends AbstractIdentifiableEntity implements UserInterface, DraftableEntityInterface
 {
-
-    /**
-     * defines the role of a recruiter
-     */
-    const ROLE_RECRUITER = 'recruiter';
-    /*
-     * defines the role of an authenticated user
-     */
-    const ROLE_USER = 'user';
-    /*
-     * defines the role of an admin user.
-     */
-    const ROLE_ADMIN = 'admin';
-
     /**
      * Users login name
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @ODM\Index(unique=true, sparse=true, order="asc")
      */
     protected $login;
@@ -49,7 +44,8 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     /**
      * Role of an user. Currently "user" or "recruiter"
      *
-     * @ODM\String*/
+     * @ODM\Field(type="string")
+     */
     protected $role;
 
     /**
@@ -70,14 +66,14 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     /**
      * Users login password
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $credential;
 
     /**
      * Users primary email address
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $email;
 
@@ -85,9 +81,19 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * pre-shared key, which allows an external application to authenticate
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $secret;
+
+    /**
+     * Can contain various HybridAuth profiles.
+     * Deprecated: replaced by User::$profiles
+     *
+     * @var array
+     * @deprecated
+     * @ODM\Hash
+     */
+    protected $profile = array();
 
     /**
      * Can contain various HybridAuth profiles.
@@ -95,7 +101,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * @var array
      * @ODM\Hash
      */
-    protected $profile = array();
+    protected $profiles = [];
 
     /** @var array
      * @ODM\EmbedMany(discriminatorField="_entity")
@@ -144,6 +150,15 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      * @ODM\Boolean
      */
     protected $isDraft = false;
+    
+    /**
+     * Status of user
+     *
+     * @var Status
+     * @ODM\EmbedOne(targetDocument="Status")
+     * @ODM\Index
+     */
+    protected $status;
 
     /**
      * @see http://docs.doctrine-project.org/projects/doctrine-mongodb-odm/en/latest/reference/best-practices.html
@@ -152,6 +167,7 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
      */
     public function __construct()
     {
+        $this->status = new Status();
     }
 
     /**
@@ -351,9 +367,35 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     }
 
     /** {@inheritdoc} */
-    public function getProfile()
+    public function getProfile($provider = null)
     {
-        return $this->profile;
+        if (!isset($provider))
+        {
+            return $this->profiles;
+        }
+        
+        return isset($this->profiles[$provider]) ? $this->profiles[$provider] : [];
+    }
+
+    /**
+     * @param string $provider
+     * @param array $data
+     * @return \Auth\Entity\User
+     */
+    public function addProfile($provider, array $data)
+    {
+        $this->profiles[$provider] = $data;
+        return $this;
+    }
+    
+    /**
+     * @param string $provider
+     * @return \Auth\Entity\User
+     */
+    public function removeProfile($provider)
+    {
+        unset($this->profiles[$provider]);
+        return $this;
     }
 
     /** {@inheritdoc} */
@@ -458,5 +500,37 @@ class User extends AbstractIdentifiableEntity implements UserInterface, Draftabl
     public function getOrganization()
     {
         return $this->organization;
+    }
+    
+    /**
+     * @return Status
+     */
+    public function getStatus()
+    {
+        if (!isset($this->status)) {
+            $this->status = new Status();
+        }
+        
+        return $this->status;
+    }
+    
+    /**
+     * @param Status $status
+     */
+    public function setStatus($status)
+    {
+        if (!$status instanceof Status) {
+            $status = new Status($status);
+        }
+        
+        $this->status = $status;
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->getStatus()->getName() === \Jobs\Entity\StatusInterface::ACTIVE;
     }
 }

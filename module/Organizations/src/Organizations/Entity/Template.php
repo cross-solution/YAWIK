@@ -29,14 +29,14 @@ class Template extends AbstractEntity implements TemplateInterface
      * Label of the requirements field in the job template
      *
      * @var $string;
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $labelRequirements = 'Requirements';
 
     /**
      * Label of the qualifications field in the job template
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var $string;
      */
     protected $labelQualifications = 'Qualifications';
@@ -44,7 +44,7 @@ class Template extends AbstractEntity implements TemplateInterface
     /**
      * Label of the benefits field in the job template
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @var $string;
      */
     protected $labelBenefits = 'Benefits';

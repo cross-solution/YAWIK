@@ -14,7 +14,6 @@ use Auth\Entity\Info;
 use Auth\Entity\Token;
 use Auth\Entity\User;
 
-
 /**
  * Tests for User
  *
@@ -76,7 +75,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Entity\User::setRole
      * @dataProvider provideRoleTestData
      */
-    public function testSetGetRole($role,$expectedRole)
+    public function testSetGetRole($role, $expectedRole)
     {
         $this->target->setRole($role);
         $this->assertEquals($expectedRole, $this->target->getRole());
@@ -94,7 +93,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Entity\User::setInfo
      * @dataProvider provideInfoTestData
      */
-    public function testSetGetInfo($info,$expectedInfo)
+    public function testSetGetInfo($info, $expectedInfo)
     {
         $this->target->setInfo($info);
         $this->assertEquals($expectedInfo, $this->target->getInfo());
@@ -168,7 +167,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
      * @dataProvider provideTokenTestData
      *
      */
-    public function testSetGetToken($token,$expectedToken)
+    public function testSetGetToken($token, $expectedToken)
     {
         $this->target->setTokens($token);
         $this->assertEquals($expectedToken, $this->target->getTokens());
@@ -180,5 +179,4 @@ class UserTest extends \PHPUnit_Framework_TestCase
             array(new Token(),     new Token()),
         );
     }
-
 }

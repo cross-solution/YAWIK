@@ -56,6 +56,5 @@ class JobEventManagerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($eventManager, $events);
         $this->assertAttributeEquals($expectedEventClass, 'eventClass', $events);
         $this->assertEquals($expectedIdentifiers, $events->getIdentifiers());
-
     }
 }

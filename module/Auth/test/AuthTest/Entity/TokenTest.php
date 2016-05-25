@@ -12,7 +12,6 @@ namespace AuthTest\Entity;
 
 use Auth\Entity\Token;
 
-
 /**
  * Tests for Token Entity
  *
@@ -63,6 +62,4 @@ class TokenTest extends \PHPUnit_Framework_TestCase
         $this->target->setExpirationDate($input);
         $this->assertEquals($input, $this->target->getExpirationDate());
     }
-
-
 }

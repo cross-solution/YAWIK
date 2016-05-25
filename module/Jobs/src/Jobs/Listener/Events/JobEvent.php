@@ -48,6 +48,9 @@ class JobEvent extends Event
      */
     const EVENT_JOB_REJECTED   = 'job.rejected';
 
+    /** Event is fired, when the status of an job has changed. */
+    const EVENT_STATUS_CHANGED = 'job.status-changed';
+
     /**
      * get all available names for publishing
      */

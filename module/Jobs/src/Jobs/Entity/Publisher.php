@@ -24,7 +24,7 @@ class Publisher extends AbstractEntity
      * Host of the publisher.
      *
      * @var $host string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $host;
 
@@ -32,7 +32,7 @@ class Publisher extends AbstractEntity
      * external Reference
      *
      * @var $reference string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $reference;
 
@@ -40,7 +40,7 @@ class Publisher extends AbstractEntity
      * external id of a publisher
      *
      * @var $externalId string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $externalId;
 

@@ -80,7 +80,7 @@ interface LocationInterface extends EntityInterface
     /**
      * Sets the region of a location. Eg. "Hessen" is a region in "Germany"
      *
-     * @param $country
+     * @param $region
      * @return mixed
      */
     public function setRegion($region);

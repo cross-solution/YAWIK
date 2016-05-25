@@ -62,7 +62,6 @@ class Config
      */
     public function getRules($roleId, $type)
     {
-        
         if (!isset($this->config['rules'][$roleId][$type])) {
             return array();
         }

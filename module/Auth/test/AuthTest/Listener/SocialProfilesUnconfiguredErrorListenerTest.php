@@ -49,7 +49,7 @@ class SocialProfilesUnconfiguredErrorListenerTest extends \PHPUnit_Framework_Tes
 
     public function provideTestData()
     {
-       return [
+        return [
            [ true, true, true, true ],
            [ false, true, true, false ],
            [ true, false, true, false ],
@@ -91,7 +91,6 @@ class SocialProfilesUnconfiguredErrorListenerTest extends \PHPUnit_Framework_Tes
             $event->expects($this->once())
                   ->method('getError')
                   ->willReturn($useValidError ? Application::ERROR_EXCEPTION : 'NotMatchError');
-
         } else {
             $model = 'not a view model instance';
             $event->expects($this->never())->method('getError');

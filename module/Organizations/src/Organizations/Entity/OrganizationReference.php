@@ -26,6 +26,7 @@ use Zend\Hydrator\HydratorInterface;
  * object), this class can be used as an organization.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @todo update test
  */
 class OrganizationReference implements
     OrganizationInterface,
@@ -195,6 +196,16 @@ class OrganizationReference implements
         return $this->proxy('__isset', $property);
     }
 
+    public function notEmpty($property, array $args=[])
+    {
+        return $this->proxy('notEmpty', $args);
+    }
+
+    public function hasProperty($property, $mode = self::PROPERTY_STRICT)
+    {
+        return $this->proxy('hasProperty', $mode);
+    }
+
     public function setHydrator(HydratorInterface $hydrator)
     {
         return $this->proxy('setHydrator', $hydrator);
@@ -240,9 +251,9 @@ class OrganizationReference implements
         return $this->proxy('setParent', $parent);
     }
 
-    public function getParent()
+    public function getParent($returnSelf = false)
     {
-        return $this->proxy('getParent');
+        return $this->proxy('getParent', $returnSelf);
     }
 
     public function setContact(EntityInterface $contact = null)
@@ -303,6 +314,11 @@ class OrganizationReference implements
     public function getEmployees()
     {
         return $this->proxy('getEmployees');
+    }
+
+    public function getEmployeesByRole($role)
+    {
+        return $this->proxy('getEmployeesByRole', $role);
     }
 
     public function getEmployee($userOrId)
@@ -386,6 +402,15 @@ class OrganizationReference implements
         return $this->proxy('setTemplate', $template);
     }
 
+    public function getWorkflowSettings()
+    {
+        return $this->proxy('getWorkflowSettings');
+    }
+
+    public function setWorkflowSettings($workflowSettings)
+    {
+        return $this->proxy('setWorkflowSettings', $workflowSettings);
+    }
 
     /**#@-*/
 }

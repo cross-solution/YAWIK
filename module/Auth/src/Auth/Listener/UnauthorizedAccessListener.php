@@ -63,7 +63,7 @@ class UnauthorizedAccessListener extends ExceptionStrategy
             $e->stopPropagation();
             $response->sendHeaders();
             //echo file_get_contents($image);
-      
+
             
             //$response->stopped = true;
             return $response;
@@ -103,7 +103,5 @@ class UnauthorizedAccessListener extends ExceptionStrategy
        // if ($statusCode === 200) {
             $response->setStatusCode(403);
        // }
-    
-
     }
 }

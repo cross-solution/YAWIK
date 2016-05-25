@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 18:46+0200\n"
+"PO-Revision-Date: 2016-05-13 13:44+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Serbian (http://www.transifex.com/yawik/yawik/language/sr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: view/orders/list/index.phtml:2 language/_annotated_strings.php:99
+#: language/_annotated_strings.php:105 language/_annotated_strings.php:108
+msgid "Orders"
+msgstr "porudžbine"
+
+#: view/orders/list/index.phtml:8
+#, php-format
+msgid "[ %2$s ] Order %1$s"
+msgstr ""
+
+#: view/orders/list/index.phtml:9
+msgid "Loading"
+msgstr "утовар"
+
+#: view/orders/list/index.phtml:10
+msgid "Close"
+msgstr "близу"
+
+#: view/orders/list/index.phtml:17
+msgid "List of your orders"
+msgstr "Списак поруџбине"
+
+#: view/orders/list/index.phtml:23
+msgid "Search address parts or order numbers..."
+msgstr "Сеарцх адреса делови или бројеве реда ..."
+
+#: view/orders/list/index.phtml:29
+#, php-format
+msgid "%sSorry%s, there are not any orders matching your search criteria."
+msgstr ""
+
+#: view/orders/list/index.ajax.phtml:13 view/orders/list/view.phtml:19
+msgid "Date"
+msgstr "датум"
+
+#: view/orders/list/index.ajax.phtml:17 view/orders/list/view.phtml:27
+msgid "Type"
+msgstr "Тип"
+
+#: view/orders/list/index.ajax.phtml:21 view/orders/list/view.phtml:65
+msgid "Products"
+msgstr "Производи"
+
+#: view/orders/list/index.ajax.phtml:24 view/orders/list/view.phtml:52
+#: src/Form/InvoiceAddressSettingsFieldset.php:40
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:39
+msgid "Invoice Address"
+msgstr "фактура Адреса"
+
+#: view/orders/list/index.ajax.phtml:27 view/orders/list/view.phtml:91
+msgid "Amount"
+msgstr "Износ"
+
+#: view/orders/list/view.phtml:23
+msgid "Order number"
+msgstr "Редни број"
+
+#: view/orders/list/view.phtml:71
+msgid "Name"
+msgstr "име"
+
+#: view/orders/list/view.phtml:72
+msgid "Quantity"
+msgstr "количина"
+
+#: view/orders/list/view.phtml:95
+#, php-format
+msgid "VAT %s%%"
+msgstr ""
+
+#: view/orders/list/view.phtml:100
+msgid "Total amount"
+msgstr "Укупан износ"
+
+#: src/View/Helper/FormatInvoiceAddress.php:41
+msgid "VAT ID"
+msgstr "ПИБ"
+
+#: language/_annotated_strings.php:3
+msgid "Please fill in and check your invoice address."
+msgstr "Молимо Вас да попуните и проверите рачуна адресу."
+
+#: language/_annotated_strings.php:9
+msgid ""
+"Please leave your contact completely . We need this data for business "
+"correspondence and coordination of questions about the job posting . These "
+"data are of course not be published."
+msgstr "У потпуности оставите контакт. Потребно нам је ове податке за пословну коресподенцију и координацију питања у вези са постављањем нових радних места. Ови подаци су наравно неће бити објављена."
+
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:90
+msgid "Contact Person"
+msgstr "Контакт особа"
+
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:54
+msgid "Company"
+msgstr "Компанија"
+
+#: language/_annotated_strings.php:18 language/_annotated_strings.php:60
+msgid "Street"
+msgstr "улица"
+
+#: language/_annotated_strings.php:21 language/_annotated_strings.php:63
+msgid "Postalcode"
+msgstr "Поштански код"
+
+#: language/_annotated_strings.php:24 language/_annotated_strings.php:66
+msgid "City"
+msgstr "град"
+
+#: language/_annotated_strings.php:27 language/_annotated_strings.php:69
+msgid "Region"
+msgstr "област"
+
+#: language/_annotated_strings.php:30 language/_annotated_strings.php:72
+msgid "Country"
+msgstr "земља"
+
+#: language/_annotated_strings.php:33 language/_annotated_strings.php:75
+msgid "Value added tax ID"
+msgstr "Порез на додату вредност ИД"
+
+#: language/_annotated_strings.php:36 language/_annotated_strings.php:96
+msgid "Email Address"
+msgstr "Адреса Е-поште"
+
+#: language/_annotated_strings.php:42 language/_annotated_strings.php:78
+msgid "Salutation"
+msgstr "поздрав"
+
+#: language/_annotated_strings.php:45 language/_annotated_strings.php:81
+msgid "Mr."
+msgstr "Господин."
+
+#: language/_annotated_strings.php:48 language/_annotated_strings.php:84
+msgid "Mrs."
+msgstr "Госпођа."
+
+#: language/_annotated_strings.php:51 language/_annotated_strings.php:87
+msgid "please select"
+msgstr "Молимо изаберите"
+
+#: language/_annotated_strings.php:57
+msgid ""
+"Please enter the name of the company, which should appear on the invoice "
+"address"
+msgstr "Молимо Вас да унесете име компаније, која би требало да се појави на адреси фактури"
+
+#: language/_annotated_strings.php:93
+msgid "Please enter the name of a contact person"
+msgstr "Молимо Вас да унесете име контакт особе"
+
+#: language/_annotated_strings.php:102
+msgid "Invoice address drafts"
+msgstr "Фактура адреса нацрти"

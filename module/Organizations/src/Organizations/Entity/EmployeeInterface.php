@@ -32,6 +32,19 @@ interface EmployeeInterface
     const STATUS_REJECTED   = 'REJECTED';
     const STATUS_UNASSIGNED = 'UNASSIGNED';
 
+    /**
+     * defines the role of a recruiter
+     */
+    const ROLE_RECRUITER = 'recruiter';
+    /**
+     * defines the role of a department manager
+     */
+    const ROLE_DEPARTMENT_MANAGER = 'department manager';
+    /**
+     * defines the role of the management
+     */
+    const ROLE_MANAGEMENT = 'management';
+
     /**#@-*/
 
     /**
@@ -83,6 +96,24 @@ interface EmployeeInterface
      * @since 0.19
      */
     public function getStatus();
+
+    /**
+     * Sets the role of an employee
+     *
+     * @param string $status
+     *
+     * @return self
+     * @since 0.25
+     */
+    public function setRole($status);
+
+    /**
+     * Gets the role of the employee.
+     *
+     * @return string
+     * @since 0.25
+     */
+    public function getRole();
 
     /**#@+
      * Returns true, if this association has the specific status.

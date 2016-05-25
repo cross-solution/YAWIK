@@ -1,0 +1,29 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @author    Carsten Bleek <bleek@cross-solution.de>
+ * @copyright 2013-2016 Cross Solution (http://cross-solution.de)
+ * @version   GIT: $Id$
+ * @license   https://yawik.org/LICENSE.txt MIT
+ */
+
+
+
+if ($this->renderSummary):
+
+    /* @var \Core\Form\Element\Checkbox $checkbox */
+    $checkbox = $this->element->get('acceptApplicationByDepartmentManager');
+    $checkbox->setAttributes(['disabled' => true]);
+
+    /* @var \Core\Form\Element\Checkbox $checkbox */
+    $checkbox = $this->element->get('assignDepartmentManagersToJobs');
+    $checkbox->setAttributes(['disabled' => true]);
+
+    echo $this->formCollection()->render($this->element, false);
+
+else:
+    echo $this->formCollection()->render($this->element, false);
+endif;
+

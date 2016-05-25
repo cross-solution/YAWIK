@@ -1,0 +1,17 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ * @author fedys
+ */
+
+$layout = $this->layout ?: null;
+?>
+<fieldset id="<?php echo $element->hasAttribute('id') ? $element->getAttribute('id') : 'user-status'?>">
+    <div class="fieldset-content">
+        <?php echo $this->formRow($element->get('status'), null, null, $layout); ?>
+    </div>
+</fieldset>

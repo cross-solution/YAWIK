@@ -52,7 +52,8 @@ return array(
             'ExternalApplicationAdapter' => '\Auth\Factory\Adapter\ExternalApplicationAdapterFactory',
             'Auth/Adapter/UserLogin' => '\Auth\Factory\Adapter\UserAdapterFactory',
             'AuthenticationService' => '\Auth\Factory\Service\AuthenticationServiceFactory',
-            'UnauthorizedAccessListener' => '\Auth\Factory\Listener\UnauthorizedAccessListenerFactory',
+            'UnauthorizedAccessListener' => '\Auth\Factory\Listener\ExceptionStrategyFactory',
+            'DeactivatedUserListener' => '\Auth\Factory\Listener\ExceptionStrategyFactory',
             'Auth\Listener\MailForgotPassword' => '\Auth\Factory\Listener\MailForgotPasswordFactory',
             'Auth/CheckPermissionsListener' => 'Acl\Listener\CheckPermissionsListenerFactory',
             'Acl' => '\Acl\Factory\Service\AclFactory',
@@ -85,6 +86,7 @@ return array(
             'Auth\Controller\RegisterConfirmation' => 'Auth\Factory\Controller\RegisterConfirmationControllerFactory',
             'Auth\Controller\Password' => 'Auth\Factory\Controller\PasswordControllerFactory',
             'Auth\Controller\Index' => 'Auth\Factory\Controller\IndexControllerFactory',
+            'Auth\Users' => 'Auth\Factory\Controller\UsersControllerFactory',
         )
     ),
     
@@ -103,35 +105,35 @@ return array(
         )
     ),
     'hybridauth' => array(
-        "Facebook" => array (
+        "Facebook" => array(
             "enabled" => true,
-            "keys"    => array ( "id" => "", "secret" => "" ),
+            "keys"    => array( "id" => "", "secret" => "" ),
             "scope"      => 'email, user_about_me, user_birthday, user_hometown, user_website',
             "display" => 'popup',
         ),
-        "LinkedIn" => array (
+        "LinkedIn" => array(
             "enabled" => true,
-            "keys"    => array ( "key" => "", "secret" => "" ),
+            "keys"    => array( "key" => "", "secret" => "" ),
         ),
-        "XING" => array (
+        "XING" => array(
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array (
+            "wrapper" => array(
                 'class' => 'Hybrid_Providers_XING',
                 'path' => __FILE__,
             ),
-            "keys"    => array ( "key" => "", "secret" => "" ),
+            "keys"    => array( "key" => "", "secret" => "" ),
         ),
-        "Github" => array (
+        "Github" => array(
             "enabled" => true,
             // This is a hack due to bad design of HybridAuth
             // There's no simpler way to include "additional-providers"
-            "wrapper" => array (
+            "wrapper" => array(
                 'class' => 'Hybrid_Providers_Github',
                 'path' => __FILE__,
             ),
-            "keys"    => array ( "key" => "", "secret" => "" ),
+            "keys"    => array( "key" => "", "secret" => "" ),
         ),
 
     ),
@@ -142,219 +144,15 @@ return array(
         ),
     ),
 
-    // Routes
-    'router' => array(
-        'routes' => array(
-            'lang' => array(
-                'child_routes' => array(
-                    'auth' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => array(
-                            'route'    => '/login',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Index',
-                                'action'     => 'index',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'my' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/my/:action',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Manage',
-                                'action' => 'profile'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'my-password' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/my/password',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Password',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'my-groups' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/my/groups[/:action]',
-                            'defaults' => array(
-                                'controller' => 'Auth/ManageGroups',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'forgot-password' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/forgot-password',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\ForgotPassword',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'goto-reset-password' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/goto-reset-password/:token/:userId',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\GotoResetPassword',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'register' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/register[/:role]',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\Register',
-                                'action' => 'index',
-                                'role' => 'recruiter'
-                            ),
-                            'constraints' => array(
-                                'role' => '(recruiter|user)',
-                            )
-                        ),
-                        'may_terminate' => true,
-                    ),
-                    'register-confirmation' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/auth/register-confirmation/:userId',
-                            'defaults' => array(
-                                'controller' => 'Auth\Controller\RegisterConfirmation',
-                                'action' => 'index'
-                            ),
-                        ),
-                        'may_terminate' => true,
-                    ),
-                ),
-            ),
-            'auth-provider' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/login/:provider',
-                    'constraints' => array(
-                       // 'provider' => '.+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action' => 'login'
-                     ),
-                ),
-            ),
-            'auth-hauth' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/login/hauth',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\HybridAuth',
-                        'action' => 'index'
-                    ),
-                ),
-            ),
-            // This route must be after auth-provider for the
-            // last in first out order of the route stack!
-            // @TODO implement auth-provider and auth-extern as child routes
-            //       to a new auth-login route.
-            'auth-extern' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/login/extern',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action'     => 'login-extern',
-                        'forceJson'  => true,
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-            'auth-social-profiles' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/auth/social-profiles',
-                    'defaults' => array(
-                        'controller' => 'Auth/SocialProfiles',
-                        'action'     => 'fetch',
-                    ),
-                ),
-            ),
-            
-            'auth-group' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/auth/groups',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action'     => 'group',
-                        'forceJson'  => true,
-                    ),
-                ),
-                'may_terminate' => true,
-            ),
-            'auth-logout' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/logout',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Index',
-                        'action' => 'logout',
-                    ),
-                ),
-            ),
-            'user-image' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/user/image/:id',
-                    'defaults' => array(
-                        'controller' => 'Auth\Controller\Image',
-                        'action' => 'index',
-                        'id' => 0,
-                    ),
-                ),
-            ),
-            'user-search' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/user/search',
-                    'defaults' => array(
-                        'controller' => 'Auth/ManageGroups',
-                        'action' => 'search-users'
-                    ),
-                ),
-            ),
-            'test-hybrid' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route' => '/testhybrid',
-                    'defaults' => array(
-                        'controller' => 'Auth/SocialProfiles',
-                        'action' => 'testhybrid',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    
     /*
      * Acl definitions.
      * Format
      * array($ROLE[:$PARENT] => $RESOURCES);
-     * 
+     *
      * $ROLE: Role name
      * $PARENT: Coma separated list of roles to inherit from.
      * $RESOURCES: array of resources
-     *      a resource is 
+     *      a resource is
      *      1. a string: taken as resource name
      *      1.1 the "null" value: allow on all resources.
      *      2. a key => string pair:
@@ -371,7 +169,7 @@ return array(
      *                  array is:
      *                      index 0: Name of the assertion class,
      *                      index 1: array of parameters to pass to the constructor of the assertion.
-     *                  
+     *
      */
     'acl' => array(
         'roles' => array(
@@ -379,6 +177,7 @@ return array(
             'user' => 'guest',
             'recruiter' => 'user',
             'admin' => 'recruiter',
+            'employee_recruiter' => 'recruiter',
         ),
         
         'public_roles' => array(
@@ -417,41 +216,19 @@ return array(
             ),
             'recruiter' => array(
                 'allow' => array(
-                    'route/lang/my-groups'
+                    'route/lang/my-groups',
                 ),
             ),
             'admin' => array(
-                'allow' => "__ALL__",
-//                'deny' => array(
-//                    'route/lang/auth',
-//                    'route/auth-provider',
-//                    'route/auth-hauth',
-//                    'route/auth-extern',
-//                ),
+                'allow' => [
+                    '__ALL__',
+                    'Users',
+                    'route/lang/user-list',
+                    'route/lang/user-edit',
+                ],
             ),
         ),
     ),
-    
-    // Navigation
-//     'navigation' => array(
-//         'default' => array( 
-//             'login' => array(
-//                 'label' => 'Login',
-//                 'route' => 'auth',
-//                 'pages' => array(
-//                     'facebook' => array(
-//                         'label' => 'Facebook',
-//                         'route' => 'auth/auth-providers',
-//                         'params' => array(
-//                             'provider' => 'facebook'
-//                         ),
-//                      ),
-//                 ),
-//             ),
-//         ),
-//     ),
-    
-   
     'translator' => array(
         'translation_file_patterns' => array(
             array(
@@ -467,8 +244,11 @@ return array(
         'template_map' => array(
             'form/auth/contact.form' => __DIR__ . '/../view/form/contact.form.phtml',
             'form/auth/contact.view' => __DIR__ . '/../view/form/contact.view.phtml',
+            'form/auth/status.form' => __DIR__ . '/../view/form/status.form.phtml',
+            'form/auth/status.view' => __DIR__ . '/../view/form/status.view.phtml',
             'auth/error/social-profiles-unconfigured' => __DIR__ . '/../view/error/social-profiles-unconfigured.phtml',
             'auth/form/user-info-container' => __DIR__ . '/../view/form/user-info-container.phtml',
+            'auth/form/user-status-container' => __DIR__ . '/../view/form/user-status-container.phtml',
             'auth/form/userselect' => __DIR__ . '/../view/form/userselect.phtml',
             'auth/form/social-profiles-fieldset' => __DIR__ . '/../view/form/social-profiles-fieldset.phtml',
             'auth/form/social-profiles-button' => __DIR__ . '/../view/form/social-profiles-button.phtml',
@@ -488,6 +268,7 @@ return array(
         'invokables' => array(
             'Auth/StripQueryParams' => '\Auth\Filter\StripQueryParams',
             'Auth/Entity/UserToSearchResult' => '\Auth\Entity\Filter\UserToSearchResult',
+            'PaginationQuery/Auth/User'   => 'Auth\Repository\Filter\PaginationSearchUsers',
         ),
     ),
     
@@ -525,10 +306,13 @@ return array(
             'Auth/UserInfoContainer' => 'Auth\Form\UserInfoContainer',
             'Auth/UserInfo' => 'Auth\Form\UserInfo',
             'Auth/UserProfileContainer' => 'Auth\Form\UserProfileContainer',
+            'Auth/UserStatusContainer' => 'Auth\Form\UserStatusContainer',
+            'Auth/UserStatus' => 'Auth\Form\UserStatus'
         ),
         'factories' => array(
             'Auth/RoleSelect' => 'Auth\Factory\Form\RoleSelectFactory',
             'Auth/UserInfoFieldset' => 'Auth\Factory\Form\UserInfoFieldsetFactory',
+            'Auth/UserStatusFieldset' => 'Auth\Factory\Form\UserStatusFieldsetFactory',
             'Auth/SocialProfilesFieldset' => 'Auth\Factory\Form\SocialProfilesFieldsetFactory',
             'Auth/UserImage' => 'Auth\Form\UserImageFactory',
             'Auth\Form\Login' => 'Auth\Factory\Form\LoginFactory',

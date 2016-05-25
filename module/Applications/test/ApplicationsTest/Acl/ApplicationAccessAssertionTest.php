@@ -101,5 +101,4 @@ class ApplicationAccessAssertionTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($this->target->assert($this->acl, $role, $resource, $privilege));
         }
     }
-
 }

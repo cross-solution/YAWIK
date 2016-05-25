@@ -14,7 +14,6 @@ namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container as Session;
-
 use Jobs\Repository;
 use Jobs\Form\ListFilter;
 use Zend\View\Model\ViewModel;
@@ -99,7 +98,6 @@ class ApprovalController extends AbstractActionController
             $session[$sessionKey] = $params->toArray();
 
             $this->searchForm->bind($params);
-
         }
 
         if (!isset($params['sort'])) {

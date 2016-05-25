@@ -17,7 +17,7 @@ use Test\Bootstrap;
  * @package AuthTest\Factory\Service
  * @covers \Auth\Factory\Service\RegisterFactory
  */
-class RegisterSLFactoryTest extends \PHPUnit_Framework_TestCase
+class RegisterFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var RegisterFactory

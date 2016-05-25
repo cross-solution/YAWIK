@@ -1,0 +1,393 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 19:04+0200\n"
+"PO-Revision-Date: 2016-05-13 14:32+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/yawik/yawik/language/el_GR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el_GR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr "Αποτύπωμα"
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr "ΑΦΜ"
+
+#: view/partial/loading-popup.phtml:18
+msgid "Loading"
+msgstr "Φόρτωση"
+
+#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:34
+msgid "First"
+msgstr "Πρώτα"
+
+#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:47
+msgid "Back"
+msgstr "Πίσω"
+
+#: view/partial/pagination-control.phtml:76
+#: view/partial/pagination-control.phtml:80
+#: src/Core/Form/View/Helper/FormWizardContainer.php:101
+msgid "Next"
+msgstr "Επόμενος"
+
+#: view/partial/pagination-control.phtml:85
+#: view/partial/pagination-control.phtml:92
+msgid "Last"
+msgstr "Τελευταίο"
+
+#: view/form/permissions-collection.phtml:15
+msgid "Add permission"
+msgstr "Προσθέστε την άδεια"
+
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
+msgid "Admin"
+msgstr "διαχειριστής"
+
+#: view/core/admin/index.phtml:12 view/core/index/dashboard.phtml:11
+#: view/core/index/dashboard.phtml:14
+msgid "Dashboard"
+msgstr "Ταμπλό"
+
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:101
+msgid "Home"
+msgstr "Σπίτι"
+
+#: view/core/index/index.phtml:13
+msgid "Welcome to YAWIK!"
+msgstr "Καλώς ήρθατε στο YAWIK!"
+
+#: view/core/index/index.phtml:14
+msgid "we're connecting recruiters and applicants"
+msgstr "είμαστε συνδέουν εργοδότες και τους αιτούντες"
+
+#: view/core/index/index.phtml:15
+msgid ""
+"Login to an open source applicant tracking system using your favorit social "
+"network"
+msgstr "Σύνδεση σε ένα ανοικτό σύστημα πηγής αιτών παρακολούθησης χρησιμοποιώντας FAVORIT σας κοινωνικό δίκτυο"
+
+#: view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/core/index/index.phtml:28
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr "απόκρισης σχεδιασμού (χρησιμοποιεί bootstrap3 και γραμματοσειρά φοβερό)"
+
+#: view/core/index/index.phtml:29
+msgid "multilingual"
+msgstr "πολύγλωσσος"
+
+#: view/core/index/index.phtml:30
+msgid "ready for social recruiting"
+msgstr "έτοιμα για την κοινωνική πρόσληψη"
+
+#: view/core/index/index.phtml:31
+msgid "enter job ads"
+msgstr "εισάγετε αγγελίες θέσεων εργασίας"
+
+#: view/core/index/index.phtml:32
+#, php-format
+msgid "%sapplication forms%s."
+msgstr ""
+
+#: view/core/index/index.phtml:36
+msgid "One-Click-Apply"
+msgstr "One-Click-Apply"
+
+#: view/core/index/index.phtml:37
+msgid "manage applications"
+msgstr "διαχειριστείτε εφαρμογές"
+
+#: view/core/index/index.phtml:38
+msgid "open and free software"
+msgstr "ανοικτό και ελεύθερο λογισμικό"
+
+#: view/core/index/index.phtml:46
+msgid "Developer News"
+msgstr "Developer News"
+
+#: view/core/index/index.phtml:63
+msgid "Recruiter News"
+msgstr "Εργοδότη Ειδήσεις"
+
+#: view/core/index/dashboard-widget.phtml:19
+msgid "Error loading widget."
+msgstr "widget Σφάλμα κατά τη φόρτωση."
+
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr "Παρουσιάστηκε σφάλμα"
+
+#: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
+msgid "Additional information"
+msgstr "Επιπλέον πληροφορίες"
+
+#: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
+#: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
+msgid "File"
+msgstr "Αρχείο"
+
+#: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
+#: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
+#: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
+msgid "Stack trace"
+msgstr "στοίβα ίχνος"
+
+#: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
+msgid "Previous exceptions"
+msgstr "Προηγούμενο εξαιρέσεις"
+
+#: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
+msgid "No Exception available"
+msgstr "Δεν υπάρχει διαθέσιμη Εξαίρεση"
+
+#: view/error/403.phtml:15
+msgid "A 403 error occurred"
+msgstr "Παρουσιάστηκε σφάλμα 403"
+
+#: view/error/404.phtml:15
+msgid "A 404 error occurred"
+msgstr "Παρουσιάστηκε σφάλμα 404"
+
+#: view/error/404.phtml:24
+msgid "The requested controller was unable to dispatch the request."
+msgstr "Η ζητούμενη ελεγκτής δεν ήταν σε θέση να αποστείλει την αίτηση."
+
+#: view/error/404.phtml:27
+msgid ""
+"The requested controller could not be mapped to an existing controller "
+"class."
+msgstr "Η ζητούμενη ελεγκτής δεν μπορεί να αντιστοιχιστεί σε μια υπάρχουσα κλάση ελεγκτή."
+
+#: view/error/404.phtml:30
+msgid "The requested controller was not dispatchable."
+msgstr "Η ζητούμενη ελέγχου δεν ήταν Κατανεμόμενων."
+
+#: view/error/404.phtml:33
+msgid "The requested URL could not be matched by routing."
+msgstr "Η ζητούμενη διεύθυνση URL δεν μπορεί να συνδυαστεί με τη δρομολόγηση."
+
+#: view/error/404.phtml:36
+msgid "We cannot determine at this time why a 404 was generated."
+msgstr "Εμείς δεν μπορεί να προσδιορίσει αυτή τη στιγμή γιατί ένα 404 δημιουργήθηκε."
+
+#: view/error/404.phtml:48
+msgid "Controller"
+msgstr "Ελεγκτής"
+
+#: view/error/404.phtml:55
+#, php-format
+msgid "resolves to %s"
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr "Η Javascript είναι απενεργοποιημένη."
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and "
+"reload."
+msgstr "Το JavaScript απαιτείται για να χρησιμοποιήσετε αυτό το site. Παρακαλούμε ενεργοποιήστε την JavaScript και ανανεώστε."
+
+#: view/layout/layout.phtml:36
+msgid "YAWIK"
+msgstr "YAWIK"
+
+#: view/layout/layout.phtml:89
+msgid "Help to translate YAWIK"
+msgstr "Βοήθεια για να μεταφράσει YAWIK"
+
+#: view/layout/layout.phtml:121
+msgid "All rights reserved."
+msgstr "Όλα τα δικαιώματα διατηρούνται."
+
+#: src/Core/Form/PermissionsCollection.php:36
+msgid "Permissions"
+msgstr "δικαιώματα"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
+msgid "The file is too big"
+msgstr "Το αρχείο είναι πολύ μεγάλο"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:107
+#: src/Core/Form/View/Helper/FormImageUpload.php:82
+msgid "The file type is not supported"
+msgstr "Ο τύπος αρχείου δεν υποστηρίζεται"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:109
+#, php-format
+msgid "You may only upload %d files"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:111
+msgid "An unknown error occured."
+msgstr "Ένα άγνωστο σφάλμα."
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:156
+msgid "Click here to add files or use drag and drop."
+msgstr "Κάντε κλικ εδώ για να προσθέσετε αρχεία ή χρησιμοποιήστε drag and drop."
+
+#: src/Core/Form/View/Helper/FormImageUpload.php:42
+msgid "Click here to add an image or use drag and drop."
+msgstr "Κάντε κλικ εδώ για να προσθέσετε μια εικόνα ή τη χρήση drag and drop."
+
+#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+msgid "previous"
+msgstr "προηγούμενος"
+
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
+msgid "processing"
+msgstr "επεξεργασία"
+
+#: src/Core/Form/View/Helper/SummaryForm.php:178
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: src/Core/Form/View/Helper/SearchForm.php:54
+msgid "Search"
+msgstr "Έρευνα"
+
+#: src/Core/Form/View/Helper/SearchForm.php:55
+msgid "Clear"
+msgstr "Καθαρός"
+
+#: src/Core/Form/LocalizationSettingsFieldset.php:26
+#: language/_annotated_strings.php:98
+msgid "general settings"
+msgstr "Γενικές Ρυθμίσεις"
+
+#: language/_annotated_strings.php:5 language/_annotated_strings.php:11
+#: language/_annotated_strings.php:23
+msgid "Save"
+msgstr "Αποθηκεύσετε"
+
+#: language/_annotated_strings.php:8 language/_annotated_strings.php:14
+#: language/_annotated_strings.php:26
+msgid "Cancel"
+msgstr "Ματαίωση"
+
+#: language/_annotated_strings.php:17
+msgid "Apply filter"
+msgstr "Εφαρμογή φίλτρου"
+
+#: language/_annotated_strings.php:20
+msgid "Reset filter"
+msgstr "επαναφορά φίλτρου"
+
+#: language/_annotated_strings.php:29
+msgid "Rights"
+msgstr "δικαιώματα"
+
+#: language/_annotated_strings.php:32
+msgid "View"
+msgstr "Θέα"
+
+#: language/_annotated_strings.php:35
+msgid "Write"
+msgstr "Γράφω"
+
+#: language/_annotated_strings.php:38
+msgid "Not Rated"
+msgstr "Δεν έχει αξιολογηθεί"
+
+#: language/_annotated_strings.php:41
+msgid "Poor"
+msgstr "Φτωχός"
+
+#: language/_annotated_strings.php:44
+msgid "Bad"
+msgstr "Κακός"
+
+#: language/_annotated_strings.php:47
+msgid "Average"
+msgstr "Μέσος"
+
+#: language/_annotated_strings.php:50
+msgid "Good"
+msgstr "Καλά"
+
+#: language/_annotated_strings.php:53
+msgid "Excellent"
+msgstr "Έξοχος"
+
+#: language/_annotated_strings.php:56
+msgid ""
+"Please enter a phone Number. You can use the intenational format. Only "
+"digits and '+'."
+msgstr "Παρακαλώ εισάγετε έναν αριθμό τηλεφώνου. Μπορείτε να χρησιμοποιήσετε το Intenational μορφή. Μόνο ψηφία και «+»."
+
+#: language/_annotated_strings.php:59
+msgid "Remove all"
+msgstr "Αφαίρεση όλων"
+
+#: language/_annotated_strings.php:62
+msgid "choose your language"
+msgstr "Επιλέξτε τη γλώσσα σας"
+
+#: language/_annotated_strings.php:65
+msgid "English"
+msgstr "Αγγλικά"
+
+#: language/_annotated_strings.php:68
+msgid "French"
+msgstr "γαλλική γλώσσα"
+
+#: language/_annotated_strings.php:71
+msgid "German"
+msgstr "Γερμανός"
+
+#: language/_annotated_strings.php:74
+msgid "Italian"
+msgstr "ιταλικός"
+
+#: language/_annotated_strings.php:77
+msgid "Polish"
+msgstr "Στίλβωση"
+
+#: language/_annotated_strings.php:80
+msgid "Russian"
+msgstr "ρωσικός"
+
+#: language/_annotated_strings.php:83
+msgid "Turkish"
+msgstr "τούρκικος"
+
+#: language/_annotated_strings.php:86
+msgid "Spanish"
+msgstr "ισπανικά"
+
+#: language/_annotated_strings.php:89
+msgid "defines the languages of this frontend."
+msgstr "καθορίζει τις γλώσσες αυτού του frontend."
+
+#: language/_annotated_strings.php:92
+msgid "choose your timzone"
+msgstr "επιλέξετε timzone σας"
+
+#: language/_annotated_strings.php:95
+msgid "defines your local timezone."
+msgstr "καθορίζει την τοπική ώρα."

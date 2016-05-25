@@ -12,7 +12,6 @@ namespace AuthTest\Entity;
 
 use Auth\Entity\AuthSession;
 
-
 /**
  * Tests for User
  *
@@ -76,7 +75,7 @@ class AuthSessionTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Entity\AuthSession::setSession
      * @dataProvider provideSessionTestData
      */
-    public function testSetGetSession($session,$expectedSession)
+    public function testSetGetSession($session, $expectedSession)
     {
         $input = $session;
 
@@ -100,13 +99,13 @@ class AuthSessionTest extends \PHPUnit_Framework_TestCase
      * @covers Auth\Entity\AuthSession::getModificationDate
      * @dataProvider provideModificationDateTestData
      */
-    public function testSetGetModificationDate($date,$expectedDate)
+    public function testSetGetModificationDate($date, $expectedDate)
     {
         $this->target->setModificationDate($date);
 
         if (null == $date) {
-            $this->assertInstanceOf("\DateTime",$this->target->getModificationDate());
-        }else {
+            $this->assertInstanceOf("\DateTime", $this->target->getModificationDate());
+        } else {
             $this->assertEquals($expectedDate, $this->target->getModificationDate());
         }
     }

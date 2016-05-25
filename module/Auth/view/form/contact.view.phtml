@@ -11,12 +11,7 @@
  * {{rtd: renders the contact information within the application form and the personal profile.}}
  */
  $info = $element->getObject();
- if (!$info->getDisplayName()) : ?>
- <div id="<?php echo $element->getAttribute('id') ?>-empty-alert" class="empty-summary-notice alert alert-info">
-    <p><?php echo $this->translate('Click here to enter contact informations.') ?></p>
- </div>
-        
- <?php else: ?>
+?>
     <div class="row">
         <div class="col-md-6">
             <?php echo $this->translate($this->salutation($info->gender))?><br>
@@ -31,5 +26,4 @@
             <i class="yk-icon yk-icon-envelope"></i> <?php echo $info->email?><br>
         </div>
     </div>
-<?php endif ?>
 

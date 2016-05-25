@@ -153,5 +153,4 @@ class GotoResetPasswordTest extends \PHPUnit_Framework_TestCase
 
         $this->testedObject->proceed($userId, $tokenHash);
     }
-
 }

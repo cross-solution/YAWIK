@@ -1,0 +1,137 @@
+<?php //description: Renders the list of jobs. used by applicants and recruiters ?>
+<?php $this->headTitle($this->translate('Jobs'));
+
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
+                         ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
+                         ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
+                         ->appendFile($this->basePath('Core/js/core.forms.js'))
+                         ->appendFile($this->basePath('Core/js/core.spinnerbutton.js'))
+                         ->appendFile($this->basePath('/js/select2.min.js'))
+                         ->appendFile($this->basePath('Core/js/forms.descriptions.js'))
+                         ->appendFile($this->basePath('/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js'))
+                         ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
+
+if ('de' == $this->params('lang')) {
+    $this->headScript()->appendFile($this->basePath('/js/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js'));
+}
+
+
+$this->headScript()->captureStart() ?>
+
+/*
+ * Handle job-edit-popup
+ */
+(function($) {
+    var loadingText;
+
+    $(function() {
+        var $modal = $('#job-edit-popup');
+        loadingText = $modal.find('.modal-header h4').html();
+
+        function onModalLoaded() {
+
+            var $form = $modal.find('form');
+            $form.form().find('select').each($.fn.form.initSelect);
+            $form.on('done.yk.core.forms', function(e, data) {
+                if ('valid' in data.data && data.data.valid) {
+                    $modal.modal('hide');
+                    $('#jobs-list-container').paginationContainer('reload');
+                }
+
+                $modal.find('.job-edit-save').spinnerbutton('toggle');
+                return false;
+            });
+            $modal.find('.daf-form-container').formdesc();
+            $modal.find('.job-edit-save').on('click.yk.admin.jobs.edit', function() { $form.submit(); });
+
+        }
+
+        $modal.on('hidden.bs.modal', function() {
+
+            $modal.find('.job-edit-save').off('.jobs.edit');
+            $modal.find('.modal-body').empty();
+            $modal.find('.modal-footer').remove();
+            $modal.find('.modal-header h4').html(loadingText);
+            $modal.removeData('bs.modal');
+            $modal.one('loaded.bs.modal', onModalLoaded);
+
+        });
+
+        $modal.one('loaded.bs.modal', onModalLoaded);
+    });
+})(jQuery);
+
+/*
+ * Trigger search form submit on select change
+ * and refresh display of select2 elements after form reset.
+ */
+
+(function($) {
+
+    $(function() {
+        console.debug($('.pagination-container').data('uri'));
+        var $form = $('#search');
+        var $selects = $form.find('select');
+
+        $selects.on('change.yk.jobs.admin.index', function() { $form.submit(); });
+        $form.on('reset', function() { setTimeout(function() { $selects.off('change.yk')
+                                                                       .change()
+                                                                       .on('change.yk.jobs.admin.index', function() { $form.submit(); }); }, 1);
+        });
+
+
+    });
+
+})(jQuery);
+
+<?php $this->headScript()->captureEnd();
+      $this->headLink()->appendStylesheet($this->basePath('/css/bootstrap-dialog.min.css'))
+                       ->appendStylesheet($this->basePath('/css/select2.css'))?>
+
+<h1><?php echo $this->translate('Jobs') ?></h1>
+
+<?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
+
+<nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
+<?php echo $this->searchform($this->form)  ?>
+</nav>
+<div id="jobs-list-container" class="pagination-container" data-uri="<?php
+    echo $this->url('lang/admin/jobs', array(), array('query' => $this->params()->fromQuery()), true)?>">
+
+    <div class="pagination-message alert alert-info">
+        <?php echo $this->translate('No job is waiting for approval at the moment.') ?>
+    </div>
+
+    <div class="pagination-content">
+<?php echo $this->render('jobs/admin/index.ajax.phtml')?>
+    </div>
+
+</div>
+
+<!-- Modal Box for Job-History -->
+<div class="modal fade" id="job-application-history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"><i class="yk-icon yk-icon-spinner fa-spin"></i><?php echo $this->translate('please wait') ?></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Box for Job-Edit-Popup -->
+<div class="modal  fade" id="job-edit-popup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"><i class="yk-icon yk-icon-spinner fa-spin"></i><?php echo $this->translate('please wait') ?></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>

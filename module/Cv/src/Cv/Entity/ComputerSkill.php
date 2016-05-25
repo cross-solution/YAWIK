@@ -17,13 +17,13 @@ class ComputerSkill extends AbstractEntity implements ComputerSkillInterface
 
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $name;
 
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $level;
 

@@ -11,10 +11,9 @@
  * @since 0.18
  */
 
-    /* @var $employee \Organizations\Form\Element\Employee */
-//    $users = $this->services('repositories.Auth/User');
-//    $user  = $users->find($this->element->getValue());
+    /* @var \Organizations\Form\Element\Employee  $employee */
     $employee = $this->element->get('user');
+    /* @var \Zend\Form\Element\Hidden $pending */
     $pending = $this->element->get('status');
     $user = $employee->getUser();
     if (!$user) {
@@ -49,7 +48,7 @@
     echo $this->element->get('permissions')->getAttribute('id')?>-wrapper" class="cam-description-toggl employee-permissions-wrapper">
 
         <?php echo $this->formMultiCheckbox($this->element->get('permissions')) ?>
-
+        <?php echo $this->formSelect($this->element->get('role')) ?>
     </div>
 <hr>
 </fieldset>

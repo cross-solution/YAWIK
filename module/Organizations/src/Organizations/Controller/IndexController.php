@@ -10,15 +10,12 @@
 /** ActionController of Organizations */
 namespace Organizations\Controller;
 
-use Auth\Exception\UnauthorizedAccessException;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Form\SummaryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Organizations\Repository;
 use Organizations\Form;
-use Zend\Session\Container as Session;
 use Zend\View\Model\JsonModel;
-use Core\Entity\PermissionsInterface;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -87,25 +84,24 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        /* @var $request \Zend\Http\Request */
-        $request       = $this->getRequest();
-        $params        = $request->getQuery();
-        $isRecruiter   = $this->acl()->isRole('recruiter');
-        $params->count = 10;
-        if ($isRecruiter) {
-            $params->set('by', 'me');
-        }
-         //default sorting
-        if (!isset($params['sort'])) {
-            $params->set('sort', "-name");
-        }
-        // save the Params in the Session-Container
-        $this->paginationParams()->setParams('Organizations\Index', $params);
-        $paginator = $this->paginator('Organizations/Organization', $params);
-        return array(
-            'script' => 'organizations/index/list',
-            'organizations' => $paginator
-        );
+        return $this->pagination([
+            'paginator' => [
+                'Organizations/Organization',
+                'as' => 'organizations'
+            ],
+            'form' => [
+                [
+                    'Core/TextSearch',
+                    [
+                        'elements_options' => [
+                            'text_placeholder' => /*@translate*/ 'Search for organizations',
+                            'button_element' => 'text'
+                        ]
+                    ]
+                ],
+                'as' => 'form'
+            ]
+        ]);
     }
      
      
@@ -238,10 +234,11 @@ class IndexController extends AbstractActionController
 //        $container->setParam('applyId',$job->applyId);
 
         if ('__my__' != $this->params('id', '')) {
-            $container->disableForm('employeesManagement');
+            $container->disableForm('employeesManagement')
+                        ->disableForm('workflowSettings');
         } else {
-            $container->disableForm('organizationLogo')
-                      ->disableForm('descriptionForm');
+            $container ->disableForm('organizationLogo')
+                        ->disableForm('descriptionForm');
         }
         return $container;
     }

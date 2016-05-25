@@ -12,6 +12,9 @@ return array(
                     'Organizations\Entity' => 'annotation',
                 ),
             ),
+            'annotation' => array(
+                'paths' => array( __DIR__ . '/../src/Organizations/Entity')
+            ),
         ),
         'eventmanager' => array(
             'odm_default' => array(
@@ -71,6 +74,7 @@ return array(
              'organizations/error/no-parent' => __DIR__ . '/../view/error/no-parent.phtml',
              'organizations/error/invite' => __DIR__ . '/../view/error/invite.phtml',
              'organizations/mail/invite-employee' => __DIR__ . '/../view/mail/invite-employee.phtml',
+            'organizations/form/workflow-fieldset' => __DIR__ . '/../view/form/workflow-fieldset.phtml',
         ),
         // Where to look for view templates not mapped above
         'template_path_stack' => array(
@@ -86,12 +90,14 @@ return array(
              'Organizations/OrganizationsContactFieldset' => 'Organizations\Form\OrganizationsContactFieldset',
              'Organizations/OrganizationsNameFieldset'    => 'Organizations\Form\OrganizationsNameFieldset',
              'Organizations/OrganizationsDescriptionFieldset' => 'Organizations\Form\OrganizationsDescriptionFieldset',
-            //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
-            'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
-            'Organizations/Employees'                    => 'Organizations\Form\Employees',
-            'Organizations/InviteEmployeeBar'            => 'Organizations\Form\Element\InviteEmployeeBar',
+             //'Organizations/OrganizationFieldset'       => 'Organizations\Form\OrganizationFieldset',
+             'Organizations/EmployeesContainer'           => 'Organizations\Form\EmployeesContainer',
+             'Organizations/Employees'                    => 'Organizations\Form\Employees',
+             'Organizations/InviteEmployeeBar'            => 'Organizations\Form\Element\InviteEmployeeBar',
+             'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
+             'Organizations/WorkflowSettings'             => 'Organizations\Form\WorkflowSettings',
+             'Organizations/WorkflowSettingsFieldset'     => 'Organizations\Form\WorkflowSettingsFieldset',
 
-            'Organizations/Employee'                     => 'Organizations\Form\Element\Employee',
         ),
         'factories' => array(
             'Organizations/Image' => 'Organizations\Form\LogoImageFactory',
@@ -107,6 +113,9 @@ return array(
         'factories' => array(
             'Organizations/PaginationQuery' => '\Organizations\Repository\Filter\PaginationQueryFactory'
         ),
+        'aliases' => [
+            'PaginationQuery/Organizations/Organization' => 'Organizations/PaginationQuery'
+        ]
     ),
     'validators' => array(
         'factories' => array(
@@ -128,10 +137,13 @@ return array(
             // guests are not allowed to see a list of companies
             'guest' => array(
                 'allow' => array(
-                    'Entity/OrganizationImage'
+                    'Entity/OrganizationImage',
+                    'route/lang/organizations/invite',
+                    'Organizations/InviteEmployee' => [ 'accept' ],
                 ),
                 'deny' => array(
                     'route/lang/organizations',
+                    'Organizations/InviteEmployee' => [ 'invite' ],
                 ),
             ),
             // recruiters are allowed to view their companies

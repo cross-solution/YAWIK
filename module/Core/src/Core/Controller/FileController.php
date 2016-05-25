@@ -10,6 +10,7 @@
 /** FileController.php */
 namespace Core\Controller;
 
+use Organizations\Entity\OrganizationImage;
 use Zend\Mvc\Controller\AbstractActionController;
 use Auth\Exception\UnauthorizedImageAccessException;
 use Auth\Exception\UnauthorizedAccessException;
@@ -17,6 +18,12 @@ use Zend\View\Model\JsonModel;
 use Zend\Mvc\MvcEvent;
 use Core\Entity\PermissionsInterface;
 
+/**
+ * Class FileController
+ *
+ * @method \Acl\Controller\Plugin\Acl acl()
+ * @package Core\Controller
+ */
 class FileController extends AbstractActionController
 {
     protected function attachDefaultListeners()
@@ -37,7 +44,7 @@ class FileController extends AbstractActionController
             $routeMatch->setParam('action', 'delete');
         }
     }
-    
+
     protected function getFile()
     {
         $fileStoreName = $this->params('filestore');
@@ -62,10 +69,15 @@ class FileController extends AbstractActionController
         }
         return $file;
     }
-    
+
+    /**
+     * @return \Zend\Http\PhpEnvironment\Response
+     */
     public function indexAction()
     {
+        /* @var \Zend\Http\PhpEnvironment\Response $response */
         $response = $this->getResponse();
+        /* @var \Core\Entity\FileEntity $file */
         $file     = $this->getFile();
         
         if (!$file) {
@@ -73,9 +85,22 @@ class FileController extends AbstractActionController
         }
         
         $this->acl($file);
-        
-        $response->getHeaders()->addHeaderline('Content-Type', $file->type)
-                               ->addHeaderline('Content-Length', $file->length);
+
+        $headers=$response->getHeaders();
+
+        $headers->addHeaderline('Content-Type', $file->getType())
+            ->addHeaderline('Content-Length', $file->getLength());
+
+        if ($file instanceof OrganizationImage) {
+            $expireDate = new \DateTime();
+            $expireDate->add(new \DateInterval('P1Y'));
+
+//            $headers->addHeaderline('Expires', $expireDate->format(\DateTime::W3C))
+//                ->addHeaderLine('ETag', $file->getId())
+//                ->addHeaderline('Cache-Control', 'public')
+//                ->addHeaderline('Pragma', 'cache');
+        }
+
         $response->sendHeaders();
         
         $resource = $file->getResource();
@@ -94,7 +119,7 @@ class FileController extends AbstractActionController
             return new JsonModel(
                 array(
                 'result' => false,
-                'message' => $ex = $this->getEvent()->getParam('exception')
+                'message' => ($ex = $this->getEvent()->getParam('exception'))
                              ? $ex->getMessage()
                              : 'File not found.'
                 )

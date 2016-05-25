@@ -61,7 +61,7 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
      *
      * @return mixed
      */
-    public function create(array $data = null)
+    public function create(array $data = null, $persist = false)
     {
         if (null === $this->entityPrototype) {
             throw new \RuntimeException('Could not create an entity. No prototype is set!');
@@ -71,27 +71,67 @@ abstract class AbstractRepository extends ODM\DocumentRepository implements Repo
         
         if (null !== $data) {
             foreach ($data as $property => $value) {
-                $entity->$property = $value;
+                $setter = "set$property";
+
+                if (method_exists($entity, $setter)) {
+                    $entity->$setter($value);
+                }
             }
         }
-        
+
+        if ($persist) {
+            $this->dm->persist($entity);
+        }
+
         return $entity;
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        foreach ($criteria as $field => $value) {
+            $qb->field($field)->equals($value);
+        }
+        $qb->count();
+        $q = $qb->getQuery();
+        $r = $q->execute();
+
+        return $r;
     }
 
     /**
      * @param $entity
+     * @throws \InvalidArgumentException
+     * @return self
      */
     public function store($entity)
     {
-        if ( !($entity instanceOf $this->entityPrototype) ) {
-            throw new \InvalidArgumentException(sprintf(
-                'Entity must be of type %s but recieved %s instead',
-                get_class($this->entityPrototype),
-                get_class($entity)
-            ));
-        }
-
+        $this->checkEntityType($entity);
         $this->dm->persist($entity);
         $this->dm->flush($entity);
+
+        return $this;
     }
+
+    public function remove($entity)
+    {
+        $this->checkEntityType($entity);
+        $this->dm->remove($entity);
+
+        return $this;
+    }
+
+    protected function checkEntityType($entity)
+    {
+        if ( !($entity instanceOf $this->entityPrototype) ) {
+            throw new \InvalidArgumentException(sprintf(
+                                                    'Entity must be of type %s but recieved %s instead',
+                                                    get_class($this->entityPrototype),
+                                                    get_class($entity)
+                                                ));
+        }
+
+    }
+
 }

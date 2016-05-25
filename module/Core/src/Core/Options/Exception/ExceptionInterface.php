@@ -10,13 +10,15 @@
 /** */
 namespace Core\Options\Exception;
 
+use Core\Exception\ExceptionInterface as CoreExceptionInterface;
+
 /**
  * Interface for all exceptions in the Core\Options\Exception namespace.
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.20
  */
-interface ExceptionInterface
+interface ExceptionInterface extends CoreExceptionInterface
 {
     
 }

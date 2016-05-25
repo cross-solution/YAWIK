@@ -1,0 +1,112 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+
+?>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <strong><?php echo $this->translate('Date') ?>:</strong><br>
+                            <?php echo $this->dateFormat($this->order->getDateCreated()) ?>
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><?php echo $this->translate('Order number') ?>:</strong><br>
+                            <?php echo $this->order->getNumber() ?>
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><?php echo $this->translate('Type') ?>:</strong><br>
+                            <?php echo $this->order->getType() ?>
+                        </div>
+                    </div>
+
+                    <?php if (\Orders\Entity\OrderInterface::TYPE_JOB == $this->order->getType()): $job = $this->order->getEntity();?>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12"><?php echo $job->getTitle() ?>
+                        <span class="pull-right">[ <?php echo $job->getReference() ?> ]</span></div>
+                    </div>
+                    <div class="row">
+                        <?php $parent = $job->getOrganizationParent(); ?>
+                        <div class="col-md-<?php echo $parent ? 6 : 12 ?>"><strong><?php echo $job->getOrganizationName() ?></strong></div>
+                        <?php if ($parent): ?>
+                        <div class="col-md-6 text-right"><strong><?php echo $parent; ?></strong></div>
+                        <?php endif ?>
+                    </div>
+                    <?php endif ?>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $this->translate('Invoice Address') ?></h3>
+                </div>
+                <div class="panel-body">
+                    <?php echo $this->formatInvoiceAddress($this->order->getInvoiceAddress()) ?>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $this->translate('Products') ?></h3>
+                </div>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 80%;"><?php echo $this->translate('Name') ?></th>
+                        <th><?php echo $this->translate('Quantity') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->order->getProducts() as $product):?>
+                        <tr>
+                            <td><?php echo $product->getName() ?></td>
+                            <td><?php echo $product->getQuantity() ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="panel panel-primary">
+                <table class="table">
+                    <tr>
+                        <td><?php $this->plugin('currencyFormat')->setCurrencyCode($this->order->getCurrency());
+                                echo $this->translate('Amount') ?>:</td>
+                        <td class="text-right"><strong><?php echo $this->currencyFormat($this->order->getPrice('pretax')) ?></strong></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo sprintf($this->translate('VAT %s%%'), $this->order->getTaxRate()) ?></td>
+                        <td class="text-right"><strong><?php echo $this->currencyFormat($this->order->getPrice('tax')) ?></td>
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <th><?php echo $this->translate('Total amount') ?>:</th>
+                        <th class="text-right"><strong><?php echo $this->currencyFormat($this->order->getPrice()) ?></strong></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+
+

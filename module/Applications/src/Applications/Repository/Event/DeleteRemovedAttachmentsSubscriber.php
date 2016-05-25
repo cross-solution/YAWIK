@@ -47,7 +47,7 @@ class DeleteRemovedAttachmentsSubscriber implements EventSubscriber
         
         $dm     = $eventArgs->getDocumentManager();
         //$repo   = $dm->getRepository('Applications\Entity\Application');
-        
+
         $fileId = new \MongoId($file->id);
         
         $dm->createQueryBuilder('Applications\Entity\Application')

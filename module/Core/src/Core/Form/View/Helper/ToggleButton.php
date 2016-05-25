@@ -52,10 +52,26 @@ class ToggleButton extends FormCheckbox
         
         //$checked        = $checkedBoole?'checked="checked"':'';
         $checkedClass   = $checkedBoole?'active"':'';
-        
-        $buttonContent = '<div class="btn-group" data-toggle="buttons">' . PHP_EOL
-                . '<span class="btn btn-default ' . $checkedClass . '">' . PHP_EOL
-                . parent::render($element) . $buttonContent . PHP_EOL . '</span>' . PHP_EOL
+
+        $hiddenElement = '';
+        if ($element->useHiddenElement()) {
+            $hiddenAttributes = [
+                'name'     => $element->getName(),
+                'value'    => $element->getUncheckedValue(),
+            ];
+
+            $hiddenElement = sprintf(
+                        '<input type="hidden" %s%s',
+                        $this->createAttributesString($hiddenAttributes),
+                        '>'
+                    );
+            $element->setUseHiddenElement(false);
+        }
+
+        $buttonContent = $hiddenElement . PHP_EOL
+                . '<div class="btn-group" data-toggle="buttons">' . PHP_EOL
+                . '<label class="btn btn-default ' . $checkedClass . '">' . PHP_EOL
+                . parent::render($element) . $buttonContent . PHP_EOL . '</label>' . PHP_EOL
                 . '</div>' . PHP_EOL;
         
         //$buttonContent = '<div><div class="processing yk-hidden"><span class="fa-spin yk-icon-spinner yk-icon"></span> ' .

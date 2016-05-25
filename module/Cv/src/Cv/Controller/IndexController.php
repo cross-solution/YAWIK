@@ -41,7 +41,7 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-        $paginator = $this->paginator('Cv');
+        $paginator = $this->paginator('Cv/Cv');
             
         $jsonFormat = 'json' == $this->params()->fromQuery('format');
         

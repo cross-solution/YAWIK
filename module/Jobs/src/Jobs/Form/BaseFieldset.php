@@ -28,7 +28,8 @@ class BaseFieldset extends Fieldset
     /**
      * @param $locationEngineType
      */
-    public function setLocationEngineType($locationEngineType) {
+    public function setLocationEngineType($locationEngineType)
+    {
         $this->locationEngineType = $locationEngineType;
     }
  

@@ -135,4 +135,36 @@ interface AtsModeInterface extends EntityInterface
      * @return string
      */
     public function getEmail();
+
+    /**
+     * Enables/Disables the one Click apply feature
+     *
+     * @param $oneClickApply
+     *
+     * @return self
+     */
+    public function setOneClickApply($oneClickApply);
+
+    /**
+     * Gets the One-Click-Apply Mode.
+     *
+     * @return bool
+     */
+    public function getOneClickApply();
+
+    /**
+     * Sets the available Social Networks
+     *
+     * @param $profiles
+     *
+     * @return self
+     */
+    public function setOneClickApplyProfiles(array $profiles);
+
+    /**
+     * Gets the available Social Networks
+     *
+     * @return bool
+     */
+    public function getOneClickApplyProfiles();
 }

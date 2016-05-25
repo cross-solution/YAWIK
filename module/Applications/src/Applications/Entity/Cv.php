@@ -14,5 +14,4 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 class Cv extends BaseCv
 {
-    
 }

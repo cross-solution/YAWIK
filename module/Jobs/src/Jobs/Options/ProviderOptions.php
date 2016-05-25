@@ -61,7 +61,7 @@ class ProviderOptions extends AbstractOptions implements \IteratorAggregate
      * Get a channel by "key"
      *
      * @param string $key
-     * @return $this
+     * @return ChannelOptions
      */
     public function getChannel($key)
     {

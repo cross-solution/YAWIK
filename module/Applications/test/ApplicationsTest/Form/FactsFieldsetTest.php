@@ -10,7 +10,8 @@
 namespace ApplicationsTest\Form;
 
 use Applications\Form\FactsFieldset;
-
+use Core\Form\Element\DatePicker;
+use Zend\Form\Factory;
 
 /**
 * @covers \Applications\Form\FactsFieldset
@@ -22,34 +23,47 @@ class FactsFieldsetTest extends \PHPUnit_Framework_TestCase
      */
     protected $target;
 
-    public function setUp(){
+    public function setUp()
+    {
         $this->target = new FactsFieldset();
+
+        // Setup form factory.
+        $factory = new Factory();
+        $elements = $factory->getFormElementManager();
+        $elements->setService('Core/Datepicker', new DatePicker());
+
+        // inject form factory
+        $this->target->setFormFactory($factory);
         $this->target->init();
     }
 
-    public function testConstructor(){
+    public function testConstructor()
+    {
         $this->assertInstanceOf('Applications\Form\FactsFieldset', $this->target);
     }
     public function testFormName()
     {
-        $this->assertEquals($this->target->getName(),'base');
+        $this->assertEquals($this->target->getName(), 'base');
     }
 
-    public function testSetGetEmptySummaryText(){
+    public function testSetGetEmptySummaryText()
+    {
         $input="Klick here";
         $this->target->setEmptySummaryNotice($input);
-        $this->assertSame($this->target->getEmptySummaryNotice(),$input);
+        $this->assertSame($this->target->getEmptySummaryNotice(), $input);
     }
 
     /**
      * @dataProvider providerDisableCapable
      */
-    public function testSetGetIsDisableCapable($input, $expected){
+    public function testSetGetIsDisableCapable($input, $expected)
+    {
         $this->target->setIsDisableCapable($input);
-        $this->assertSame($this->target->isDisableCapable(),$expected);
+        $this->assertSame($this->target->isDisableCapable(), $expected);
     }
 
-    public function   providerDisableCapable() {
+    public function providerDisableCapable()
+    {
         return [
             [true,true],
             [false,false],
@@ -60,12 +74,14 @@ class FactsFieldsetTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerDisableElementCapable
      */
-    public function testSetGetIsDisableElementCapable($input, $expected){
+    public function testSetGetIsDisableElementCapable($input, $expected)
+    {
         $this->target->setIsDisableElementsCapable($input);
-        $this->assertSame($this->target->isDisableElementsCapable(),$expected);
+        $this->assertSame($this->target->isDisableElementsCapable(), $expected);
     }
 
-    public function   providerDisableElementCapable() {
+    public function providerDisableElementCapable()
+    {
         return [
             [true,true],
             [false,false],
@@ -73,22 +89,23 @@ class FactsFieldsetTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testIsSummaryEmptyDefaultTrue() {
-        $this->assertSame($this->target->isSummaryEmpty(),true);
+    public function testIsSummaryEmptyDefaultTrue()
+    {
+        $this->assertSame($this->target->isSummaryEmpty(), true);
     }
 
-    public function testIsSummaryEmptyDefaultFalse() {
+    public function testIsSummaryEmptyDefaultFalse()
+    {
         $expectedSalary = $this->target->get('expectedSalary');
         $expectedSalary->setValue(10000);
-        $this->assertSame($this->target->isSummaryEmpty(),false);
+        $this->assertSame($this->target->isSummaryEmpty(), false);
     }
 
-    public function testDisableElements() {
+    public function testDisableElements()
+    {
         $expectedSalary = $this->target->get('expectedSalary');
         $expectedSalary->setValue(10000);
-        $this->target->disableElements(['expectedSalary','willingnessToTravel']);
-        $this->assertSame($this->target->isSummaryEmpty(),true);
+        $this->target->disableElements(['expectedSalary', 'willingnessToTravel']);
+        $this->assertSame($this->target->isSummaryEmpty(), true);
     }
-
-
 }

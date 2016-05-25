@@ -19,12 +19,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 class Education extends AbstractIdentifiableEntity
 {
     /** @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $startDate;
     
     /** @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $endDate;
     
     /** @var bool
@@ -34,17 +34,17 @@ class Education extends AbstractIdentifiableEntity
     /** @var string */
     protected $competencyName;
     
-    /** @ODM\String
+    /** @ODM\Field(type="string")
      *
      */
     protected $organizationName;
     
     /** @var string
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $description;
     
     /** needed for europass
-     * @ODM\String*/
+     * @ODM\Field(type="string")*/
     protected $nationalClassification;
     
     

@@ -13,7 +13,6 @@ namespace JobsTest\Entity;
 use Jobs\Entity\Publisher;
 use GeoJson\GeoJson;
 
-
 /**
  * Tests for Publisher
  *
@@ -51,20 +50,20 @@ class PublisherTest extends \PHPUnit_Framework_TestCase
     {
         $input = 'yawik.org';
         $this->target->setHost($input);
-        $this->assertEquals($input,$this->target->getHost());
+        $this->assertEquals($input, $this->target->getHost());
     }
 
     public function testSetGetReference()
     {
         $input = 'myReference';
         $this->target->setReference($input);
-        $this->assertEquals($input,$this->target->getReference());
+        $this->assertEquals($input, $this->target->getReference());
     }
 
     public function testSetGetExternalId()
     {
         $input = 'myReference';
         $this->target->setExternalId($input);
-        $this->assertEquals($input,$this->target->getExternalId());
+        $this->assertEquals($input, $this->target->getExternalId());
     }
 }

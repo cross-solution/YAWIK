@@ -1,0 +1,95 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @license   MIT
+ */
+if (!count($this->orders)) { return; }
+
+$columns = [
+    [
+        'label' => $this->translate('Date'),
+        'sort'  => 'date',
+    ],
+    [
+        'label' => $this->translate('Type'),
+        'sort' => 'type',
+    ],
+    [
+        'label' => $this->translate('Products'),
+    ],
+    [
+        'label' => $this->translate('Invoice Address'),
+    ],
+    [
+        'label' => $this->translate('Amount'),
+        'class' => 'text-right',
+    ],
+];
+
+$sort = $this->params()->fromQuery('sort', 'date');
+if ('-' == $sort{0}) {
+    $sortBy  = substr($sort, 1);
+    $sortDir = false;
+} else {
+    $sortBy  = $sort;
+    $sortDir = true;
+}
+
+?>
+<table class="table table-striped table-bordered table-hover" id="orders-list">
+<thead>
+<tr>
+    <?php foreach ($columns as $spec):?>
+        <th<?php echo isset($spec['class']) ? ' class="' . $spec['class'] . '"' : '' ?>>
+            <?php if (! isset($spec['sort'])): echo $spec['label'];
+            else:
+                if ($spec['sort'] == $sortBy):
+                    $icon = '<span style="margin-top: 5px;" class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
+                    $dir = !$sortDir;
+                else:
+                    $dir = true;
+                    $icon = '<span style="margin-top: 5px" class="pull-right yk-icon yk-icon-sort"></span>';
+                endif;
+                $sortParam = array('sort' => ($dir ? '' : '-') . $spec['sort']);
+                $url = $this->url(
+                            'lang/orders', array(),
+                            array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
+                            true
+                );
+                ?>
+                <a style="width: 100%; display: inline-block;" href="<?php echo $url?>"><?php echo $spec['label'].$icon ?></a>
+            <?php endif; ?>
+        </th>
+    <?php endforeach; ?>
+</tr>
+</thead>
+
+<tbody>
+<?php foreach ($this->orders as $order): /* @var  \Orders\Entity\OrderInterface $order */?>
+<tr data-orderid="<?php echo $order->getId() ?>" data-ordernumber="<?php echo $order->getNumber() ?>" data-ordertype="<?php echo $order->getType() ?>">
+    <td><?php echo $this->dateFormat($order->getDateCreated()) ?></td>
+    <td><?php echo $order->getType(); ?> <br> <?php echo $order->getNumber() ?></td>
+    <td><ul><li><?php
+                $products = $order->getProducts()->toArray();
+                $many = 3 < count($products);
+                $products = array_slice($products, 0, 3);
+
+                echo implode('</li><li>', array_map(function($p) { return $p->getName(); }, $products));
+                     if ($many) { ?></li><li>&hellip; <?php } ?></li></ul></td>
+    <td><?php
+        $invoiceAddress = $order->getInvoiceAddress();?>
+        <address>
+            <strong><?php echo $invoiceAddress->getName() ?></strong> <br>
+            <?php echo $invoiceAddress->getCompany(); ?>
+        </address>
+    </td>
+    <td class="text-right"><strong><?php echo $this->currencyFormat($order->getPrice(), $order->getCurrency()) ?></strong></td>
+</tr>
+<?php endforeach?>
+</tbody>
+
+</table>
+<?php echo $this->paginationControl($this->orders, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/orders'));?>

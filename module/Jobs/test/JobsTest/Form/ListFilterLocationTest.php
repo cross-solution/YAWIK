@@ -70,5 +70,4 @@ class ListFilterLocationTest extends \PHPUnit_Framework_TestCase
         /* @var $target \PHPUnit_Framework_MockObject_MockObject|\Jobs\Form\ListFilterLocationFieldset */
         $target->init();
     }
-
 }

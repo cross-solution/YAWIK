@@ -53,8 +53,6 @@ class JobDescriptionBenefits extends Form implements InputFilterProviderInterfac
             ),
             )
         );
-
-
     }
 
     public function getInputFilterSpecification()

@@ -20,6 +20,7 @@ use Organizations\Entity\OrganizationInterface;
 use Core\Entity\DraftableEntityInterface;
 use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\SnapshotGeneratorProviderInterface;
+use Zend\I18n\Validator\DateTime;
 
 /**
  * The job model
@@ -143,6 +144,14 @@ class Job extends BaseEntity implements JobInterface,
      * @ODM\Field(type="tz_date")
      */
     protected $datePublishStart;
+
+    /**
+     * end date of a job posting
+     *
+     * @var String
+     * @ODM\Field(type="tz_date")
+     */
+    protected $datePublishEnd;
     
     /**
      * Status of the job posting
@@ -546,10 +555,39 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function setDatePublishStart($datePublishStart = null)
     {
-        if (!isset($datePublishStart)) {
-            $datePublishStart = new \DateTime();
+        if (!isset($datePublishStart) || is_string($datePublishStart)) {
+            $datePublishStart = new \DateTime($datePublishStart);
+        } else if (!$datePublishStart instanceOf \DateTime) {
+            throw new \InvalidArgumentException('Expected object of type \DateTime');
         }
+
         $this->datePublishStart = $datePublishStart;
+        return $this;
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Jobs\Entity\JobInterface::getDatePublishStart()
+     */
+    public function getDatePublishEnd()
+    {
+        return $this->datePublishEnd;
+    }
+    /**
+     * (non-PHPdoc)
+     * @param string $datePublishEnd
+     * @see \Jobs\Entity\JobInterface::setDatePublishEnd()
+     * @return $this
+     */
+    public function setDatePublishEnd($datePublishEnd = null)
+    {
+        if (is_string($datePublishEnd)) {
+            $datePublishEnd = new \DateTime($datePublishEnd);
+        } else if (!$datePublishEnd instanceOf \DateTime) {
+            throw new \InvalidArgumentException('Expected object of type \DateTime');
+        }
+
+        $this->datePublishEnd = $datePublishEnd;
         return $this;
     }
 
@@ -937,7 +975,7 @@ class Job extends BaseEntity implements JobInterface,
      */
     public function getSnapshotGenerator()
     {
-        $generator = array (
+        $generator = array(
             'hydrator' => '',
             'target' => 'Jobs\Entity\JobSnapshot',
             'exclude' => array('permissions', 'history')

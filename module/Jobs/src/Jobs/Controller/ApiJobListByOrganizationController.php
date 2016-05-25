@@ -23,8 +23,7 @@ class ApiJobListByOrganizationController extends AbstractActionController
     public function __construct(
         Job $jobRepository,
         ApiJobDehydrator $apiJobDehydrator
-    )
-    {
+    ) {
         $this->jobRepository = $jobRepository;
         $this->apiJobDehydrator = $apiJobDehydrator;
     }

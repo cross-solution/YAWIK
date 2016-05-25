@@ -1,4 +1,10 @@
 <?php
+//: ./src/Core/Form/TextSearchFormButtonsFieldset.php:37
+translate('Search', -1000, 'submit');
+
+//: ./src/Core/Form/TextSearchFormButtonsFieldset.php:39
+translate('Clear', -1100, 'reset');
+
 //: ./src/Core/Form/FormSubmitButtonsFieldset.php:25
 translate('Save');
 
@@ -22,6 +28,12 @@ translate('Save');
 
 //: ./src/Core/Form/SummaryFormButtonsFieldset.php:48
 translate('Cancel');
+
+//: ./src/Core/Form/TextSearchFormFieldset.php:130
+translate('Search');
+
+//: ./src/Core/Form/TextSearchFormFieldset.php:132
+translate('Search query');
 
 //: ./src/Core/Form/PermissionsFieldset.php:70
 translate('Rights');
@@ -86,9 +98,18 @@ translate('Spanish');
 //: ./src/Core/Form/LocalizationSettingsFieldset.php:44
 translate('defines the languages of this frontend.');
 
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:65
+translate('choose your timzone');
+
+//: ./src/Core/Form/LocalizationSettingsFieldset.php:67
+translate('defines your local timezone.');
+
 //: ./config/module.config.php:25
 translate('general settings');
 
-//: ./config/module.config.php:214
+//: ./config/module.config.php:238
 translate('Home');
+
+//: ./config/module.config.php:243
+translate('Admin');
 

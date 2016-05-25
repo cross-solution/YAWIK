@@ -47,7 +47,6 @@ class ConsoleController extends AbstractActionController
      */
     public function generateKeywordsAction()
     {
-        
         $services     = $this->getServiceLocator();
         $applications = $this->fetchApplications();
         $count        = count($applications);
@@ -152,7 +151,6 @@ class ConsoleController extends AbstractActionController
      */
     public function listviewscriptsAction()
     {
-
         $config = $this->getServiceLocator()->get('Config');
 
         $table = new Table(
@@ -258,8 +256,6 @@ class ConsoleController extends AbstractActionController
         $repos->flush();
 
         echo " [DONE]\n";
-
-
     }
 
     /**

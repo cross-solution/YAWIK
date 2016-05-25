@@ -72,7 +72,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatingInstances($status, $message, $expectedStatus, $expectedMessage)
     {
-        $target = null === $message ? new History($status) : new History($status,$message);
+        $target = null === $message ? new History($status) : new History($status, $message);
 
         $this->assertAttributeEquals($expectedStatus, 'status', $target);
         $this->assertAttributeEquals($expectedMessage, 'message', $target);
@@ -99,7 +99,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $date=new \DateTime();
         $this->target->setDate($date);
 
-        $this->assertEquals($date, $this->target->getDate());        
+        $this->assertEquals($date, $this->target->getDate());
     }
     
     /**
@@ -111,7 +111,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
         $message="my message";
         $this->target->setMessage($message);
 
-        $this->assertEquals($message, $this->target->getMessage());        
+        $this->assertEquals($message, $this->target->getMessage());
     }
     
     /**
@@ -122,6 +122,6 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     {
         $status=new Status("CREATED");
         $this->target->setStatus($status);
-        $this->assertEquals($status, $this->target->getStatus());        
+        $this->assertEquals($status, $this->target->getStatus());
     }
 }

@@ -1,0 +1,393 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 19:04+0200\n"
+"PO-Revision-Date: 2016-05-13 13:24+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Romanian (http://www.transifex.com/yawik/yawik/language/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: view/content/imprint.phtml:19 view/layout/layout.phtml:122
+msgid "Imprint"
+msgstr "Imprima"
+
+#: view/content/imprint.phtml:34
+msgid "Tax Number"
+msgstr "Cod fiscal"
+
+#: view/partial/loading-popup.phtml:18
+msgid "Loading"
+msgstr "se incarca"
+
+#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:34
+msgid "First"
+msgstr "Primul"
+
+#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:47
+msgid "Back"
+msgstr "Înapoi"
+
+#: view/partial/pagination-control.phtml:76
+#: view/partial/pagination-control.phtml:80
+#: src/Core/Form/View/Helper/FormWizardContainer.php:101
+msgid "Next"
+msgstr "Următor →"
+
+#: view/partial/pagination-control.phtml:85
+#: view/partial/pagination-control.phtml:92
+msgid "Last"
+msgstr "Ultimul"
+
+#: view/form/permissions-collection.phtml:15
+msgid "Add permission"
+msgstr "adauga o permisiune"
+
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
+msgid "Admin"
+msgstr "admin"
+
+#: view/core/admin/index.phtml:12 view/core/index/dashboard.phtml:11
+#: view/core/index/dashboard.phtml:14
+msgid "Dashboard"
+msgstr "Bord"
+
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:101
+msgid "Home"
+msgstr "Acasă"
+
+#: view/core/index/index.phtml:13
+msgid "Welcome to YAWIK!"
+msgstr "Bine ati venit la YAWIK!"
+
+#: view/core/index/index.phtml:14
+msgid "we're connecting recruiters and applicants"
+msgstr "suntem conectați recrutori și candidați"
+
+#: view/core/index/index.phtml:15
+msgid ""
+"Login to an open source applicant tracking system using your favorit social "
+"network"
+msgstr "Conectare la un sistem de urmărire sursă solicitant deschis utilizând rețeaua socială favorit"
+
+#: view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr ""
+
+#: view/core/index/index.phtml:28
+msgid "responsive design (uses bootstrap3 and font awesome)"
+msgstr "Design receptiv (utilizează bootstrap3 și font minunat)"
+
+#: view/core/index/index.phtml:29
+msgid "multilingual"
+msgstr "mai multe limbi"
+
+#: view/core/index/index.phtml:30
+msgid "ready for social recruiting"
+msgstr "gata de recrutare socială"
+
+#: view/core/index/index.phtml:31
+msgid "enter job ads"
+msgstr "introduceți anunțuri de locuri de muncă"
+
+#: view/core/index/index.phtml:32
+#, php-format
+msgid "%sapplication forms%s."
+msgstr ""
+
+#: view/core/index/index.phtml:36
+msgid "One-Click-Apply"
+msgstr "One-Click-Aplicare"
+
+#: view/core/index/index.phtml:37
+msgid "manage applications"
+msgstr "gestionați aplicații"
+
+#: view/core/index/index.phtml:38
+msgid "open and free software"
+msgstr "software-ul deschis și gratuit"
+
+#: view/core/index/index.phtml:46
+msgid "Developer News"
+msgstr "dezvoltator Știri"
+
+#: view/core/index/index.phtml:63
+msgid "Recruiter News"
+msgstr "recruiter News"
+
+#: view/core/index/dashboard-widget.phtml:19
+msgid "Error loading widget."
+msgstr "Eroare de încărcare widget."
+
+#: view/error/index.phtml:14
+msgid "An error occurred"
+msgstr "S-a produs o eroare"
+
+#: view/error/index.phtml:21 view/error/403.phtml:23 view/error/404.phtml:67
+msgid "Additional information"
+msgstr "Informatii suplimentare"
+
+#: view/error/index.phtml:24 view/error/index.phtml:48 view/error/403.phtml:26
+#: view/error/403.phtml:50 view/error/404.phtml:70 view/error/404.phtml:94
+msgid "File"
+msgstr "Fişier"
+
+#: view/error/index.phtml:28 view/error/index.phtml:52 view/error/403.phtml:30
+#: view/error/403.phtml:54 view/error/404.phtml:74 view/error/404.phtml:98
+msgid "Message"
+msgstr "Mesaj"
+
+#: view/error/index.phtml:32 view/error/index.phtml:56 view/error/403.phtml:34
+#: view/error/403.phtml:58 view/error/404.phtml:78 view/error/404.phtml:102
+msgid "Stack trace"
+msgstr "stivă urmă"
+
+#: view/error/index.phtml:42 view/error/403.phtml:44 view/error/404.phtml:88
+msgid "Previous exceptions"
+msgstr "excepțiile anterioare"
+
+#: view/error/index.phtml:71 view/error/403.phtml:73 view/error/404.phtml:117
+msgid "No Exception available"
+msgstr "Nici o excepție disponibilă"
+
+#: view/error/403.phtml:15
+msgid "A 403 error occurred"
+msgstr "A apărut o eroare de 403"
+
+#: view/error/404.phtml:15
+msgid "A 404 error occurred"
+msgstr "A apărut o eroare 404"
+
+#: view/error/404.phtml:24
+msgid "The requested controller was unable to dispatch the request."
+msgstr "Controlorul solicitat nu a putut să expedieze cererea."
+
+#: view/error/404.phtml:27
+msgid ""
+"The requested controller could not be mapped to an existing controller "
+"class."
+msgstr "Controlorul solicitat nu a putut fi mapate la o clasă de controler existent."
+
+#: view/error/404.phtml:30
+msgid "The requested controller was not dispatchable."
+msgstr "Controlorul solicitat nu a fost dispecerizabil."
+
+#: view/error/404.phtml:33
+msgid "The requested URL could not be matched by routing."
+msgstr "Adresa URL solicitată nu a putut fi compensată de rutare."
+
+#: view/error/404.phtml:36
+msgid "We cannot determine at this time why a 404 was generated."
+msgstr "Noi nu putem determina în acest moment de ce a fost generat un 404."
+
+#: view/error/404.phtml:48
+msgid "Controller"
+msgstr "Controlor"
+
+#: view/error/404.phtml:55
+#, php-format
+msgid "resolves to %s"
+msgstr ""
+
+#: view/layout/_noscript-notice.phtml:21
+msgid "Javascript is disabled."
+msgstr "Javascript este dezactivat."
+
+#: view/layout/_noscript-notice.phtml:22
+msgid ""
+"JavaScript is required to use this site. Please enable JavaScript and "
+"reload."
+msgstr "Este nevoie de JavaScript pentru a utiliza acest site. Vă rugăm să activați JavaScript și reîncărcați."
+
+#: view/layout/layout.phtml:36
+msgid "YAWIK"
+msgstr ""
+
+#: view/layout/layout.phtml:89
+msgid "Help to translate YAWIK"
+msgstr "Ajutor pentru a traduce YAWIK"
+
+#: view/layout/layout.phtml:121
+msgid "All rights reserved."
+msgstr "Toate drepturile rezervate."
+
+#: src/Core/Form/PermissionsCollection.php:36
+msgid "Permissions"
+msgstr "permisiuni"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:106
+#: src/Core/Form/View/Helper/FormImageUpload.php:81
+msgid "The file is too big"
+msgstr "Fișierul este prea mare"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:107
+#: src/Core/Form/View/Helper/FormImageUpload.php:82
+msgid "The file type is not supported"
+msgstr "Tipul de fișier nu este acceptat"
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:109
+#, php-format
+msgid "You may only upload %d files"
+msgstr ""
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:111
+msgid "An unknown error occured."
+msgstr "A apărut o eroare necunoscută."
+
+#: src/Core/Form/View/Helper/FormFileUpload.php:156
+msgid "Click here to add files or use drag and drop."
+msgstr "Apasa aici pentru a adăuga fișiere sau de a folosi drag and drop."
+
+#: src/Core/Form/View/Helper/FormImageUpload.php:42
+msgid "Click here to add an image or use drag and drop."
+msgstr "Apasa aici pentru a adăuga o imagine de tragere sau de a folosi și drop."
+
+#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+msgid "previous"
+msgstr "anterior"
+
+#: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
+msgid "processing"
+msgstr "prelucrare"
+
+#: src/Core/Form/View/Helper/SummaryForm.php:178
+msgid "Edit"
+msgstr "Editați | ×"
+
+#: src/Core/Form/View/Helper/SearchForm.php:54
+msgid "Search"
+msgstr "Căutare"
+
+#: src/Core/Form/View/Helper/SearchForm.php:55
+msgid "Clear"
+msgstr "clar"
+
+#: src/Core/Form/LocalizationSettingsFieldset.php:26
+#: language/_annotated_strings.php:98
+msgid "general settings"
+msgstr "setari generale"
+
+#: language/_annotated_strings.php:5 language/_annotated_strings.php:11
+#: language/_annotated_strings.php:23
+msgid "Save"
+msgstr "Salvați"
+
+#: language/_annotated_strings.php:8 language/_annotated_strings.php:14
+#: language/_annotated_strings.php:26
+msgid "Cancel"
+msgstr "Anulare"
+
+#: language/_annotated_strings.php:17
+msgid "Apply filter"
+msgstr "aplica filtrul"
+
+#: language/_annotated_strings.php:20
+msgid "Reset filter"
+msgstr "filtru de resetare"
+
+#: language/_annotated_strings.php:29
+msgid "Rights"
+msgstr "drepturile"
+
+#: language/_annotated_strings.php:32
+msgid "View"
+msgstr "vedere"
+
+#: language/_annotated_strings.php:35
+msgid "Write"
+msgstr "Scrie"
+
+#: language/_annotated_strings.php:38
+msgid "Not Rated"
+msgstr "Nu a fost votat"
+
+#: language/_annotated_strings.php:41
+msgid "Poor"
+msgstr "slab"
+
+#: language/_annotated_strings.php:44
+msgid "Bad"
+msgstr "Rău"
+
+#: language/_annotated_strings.php:47
+msgid "Average"
+msgstr "In medie"
+
+#: language/_annotated_strings.php:50
+msgid "Good"
+msgstr "Bun"
+
+#: language/_annotated_strings.php:53
+msgid "Excellent"
+msgstr "Excelent"
+
+#: language/_annotated_strings.php:56
+msgid ""
+"Please enter a phone Number. You can use the intenational format. Only "
+"digits and '+'."
+msgstr "Vă rugăm să introduceți un număr de telefon. Aveți posibilitatea să utilizați formatul Intenațional. Doar cifre și '+'."
+
+#: language/_annotated_strings.php:59
+msgid "Remove all"
+msgstr "Inlătură tot"
+
+#: language/_annotated_strings.php:62
+msgid "choose your language"
+msgstr "alege limba"
+
+#: language/_annotated_strings.php:65
+msgid "English"
+msgstr "Engleză"
+
+#: language/_annotated_strings.php:68
+msgid "French"
+msgstr "limba franceza"
+
+#: language/_annotated_strings.php:71
+msgid "German"
+msgstr "germană"
+
+#: language/_annotated_strings.php:74
+msgid "Italian"
+msgstr "Italiană"
+
+#: language/_annotated_strings.php:77
+msgid "Polish"
+msgstr "Lustrui"
+
+#: language/_annotated_strings.php:80
+msgid "Russian"
+msgstr "Rusă"
+
+#: language/_annotated_strings.php:83
+msgid "Turkish"
+msgstr "turc"
+
+#: language/_annotated_strings.php:86
+msgid "Spanish"
+msgstr "Spaniolă"
+
+#: language/_annotated_strings.php:89
+msgid "defines the languages of this frontend."
+msgstr "definește limbile acestui front-end."
+
+#: language/_annotated_strings.php:92
+msgid "choose your timzone"
+msgstr "alege timzone ta"
+
+#: language/_annotated_strings.php:95
+msgid "defines your local timezone."
+msgstr "definește fusul orar local."

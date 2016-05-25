@@ -26,7 +26,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * The ATS mode.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mode;
 
@@ -34,7 +34,7 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * The uri to be used in MODE_URI.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $uri;
 
@@ -42,9 +42,25 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
      * The email to be used in MODE_EMAIL
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $email;
+
+    /**
+     * One click apply flag
+     *
+     * @var bool
+     * @ODM\Field(type="bool")
+     */
+    protected $oneClickApply = false;
+    
+    /**
+     * One click apply profiles
+     *
+     * @var array
+     * @ODM\Hash
+     */
+    protected $oneClickApplyProfiles = [];
 
     /**
      * Creates a new instance.
@@ -94,41 +110,69 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         return $this;
     }
 
+    /**
+     * @param string $mode
+     *
+     * @return bool
+     */
     public function isMode($mode)
     {
         return $mode == $this->mode;
     }
 
+    /**
+     * @return string
+     */
     public function getMode()
     {
         return $this->mode;
     }
 
+    /**
+     * @return bool
+     */
     public function isIntern()
     {
         return $this->isMode(self::MODE_INTERN);
     }
 
+    /**
+     * @return bool
+     */
     public function isUri()
     {
         return $this->isMode(self::MODE_URI);
     }
 
+    /**
+     * @return bool
+     */
     public function isEmail()
     {
         return $this->isMode(self::MODE_EMAIL);
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
         return !$this->isDisabled();
     }
 
+    /**
+     * @return bool
+     */
     public function isDisabled()
     {
         return $this->isMode(self::MODE_NONE);
     }
 
+    /**
+     * @param string $uri
+     *
+     * @return $this
+     */
     public function setUri($uri)
     {
         $this->uri = $uri;
@@ -136,11 +180,19 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getUri()
     {
         return $this->uri;
     }
 
+    /**
+     * @param string $email
+     *
+     * @return $this
+     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -148,8 +200,51 @@ class AtsMode extends AbstractEntity implements AtsModeInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
+
+	/**
+	 * @return bool
+	 */
+	public function getOneClickApply()
+	{
+		return $this->oneClickApply;
+	}
+
+
+    /**
+     * @param bool $oneClickApply
+     *
+     * @return $this
+     */
+	public function setOneClickApply($oneClickApply)
+	{
+		$this->oneClickApply = (bool)$oneClickApply;
+		
+		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOneClickApplyProfiles()
+	{
+		return $this->oneClickApplyProfiles;
+	}
+
+	/**
+	 * @param array $oneClickApplyProfiles
+	 * @return AtsMode
+	 */
+	public function setOneClickApplyProfiles(array $oneClickApplyProfiles)
+	{
+		$this->oneClickApplyProfiles = $oneClickApplyProfiles;
+		
+		return $this;
+	}
 }

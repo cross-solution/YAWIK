@@ -52,10 +52,11 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-
         $this->target = new HiringOrganizationSelectFactory();
 
-        if ("testImplementsFactoryInterface" == $this->getName(/*withDataSet */ false)) { return; }
+        if ("testImplementsFactoryInterface" == $this->getName(/*withDataSet */ false)) {
+            return;
+        }
 
         $userOrg = $this->getMockBuilder('\Organizations\Entity\OrganizationReference')
                         ->disableOriginalConstructor()
@@ -113,7 +114,6 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $select = $this->target->createService($this->formElements);
 
         $this->assertInstanceOf('\Jobs\Form\HiringOrganizationSelect', $select);
-
     }
     /**
      * @testdox createService() returns select element with no value options if no organization is associated to the user.
@@ -180,6 +180,5 @@ class HiringOrganizationSelectFactoryTest extends \PHPUnit_Framework_TestCase
         $org->setContact($orgContact);
 
         return $org;
-
     }
 }

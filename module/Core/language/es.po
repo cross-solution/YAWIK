@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-01 21:30+0000\n"
+"POT-Creation-Date: 2016-05-12 19:04+0200\n"
+"PO-Revision-Date: 2016-05-12 17:05+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,32 +32,24 @@ msgstr ""
 msgid "Loading"
 msgstr "Cargando"
 
-#: view/partial/social-buttons.phtml:13
-msgid "Login via"
-msgstr "Ingresar a través de"
-
-#: view/partial/social-buttons.phtml:20 view/core/index/index.phtml:19
-#, php-format
-msgid "Login with %s"
-msgstr "Ingresar con %s"
-
-#: view/partial/pagination-control.phtml:26
-#: view/partial/pagination-control.phtml:30
+#: view/partial/pagination-control.phtml:28
+#: view/partial/pagination-control.phtml:34
 msgid "First"
 msgstr "Primero"
 
-#: view/partial/pagination-control.phtml:36
-#: view/partial/pagination-control.phtml:40
+#: view/partial/pagination-control.phtml:43
+#: view/partial/pagination-control.phtml:47
 msgid "Back"
 msgstr "Anterior "
 
-#: view/partial/pagination-control.phtml:46
-#: view/partial/pagination-control.phtml:50
+#: view/partial/pagination-control.phtml:76
+#: view/partial/pagination-control.phtml:80
+#: src/Core/Form/View/Helper/FormWizardContainer.php:101
 msgid "Next"
 msgstr "Próximo"
 
-#: view/partial/pagination-control.phtml:54
-#: view/partial/pagination-control.phtml:58
+#: view/partial/pagination-control.phtml:85
+#: view/partial/pagination-control.phtml:92
 msgid "Last"
 msgstr "Último"
 
@@ -65,7 +57,16 @@ msgstr "Último"
 msgid "Add permission"
 msgstr "Añadir permiso"
 
-#: view/core/index/index.phtml:10 language/_annotated_strings.php:93
+#: view/core/admin/index.phtml:12 language/_annotated_strings.php:104
+msgid "Admin"
+msgstr ""
+
+#: view/core/admin/index.phtml:12 view/core/index/dashboard.phtml:11
+#: view/core/index/dashboard.phtml:14
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: view/core/index/index.phtml:10 language/_annotated_strings.php:101
 msgid "Home"
 msgstr "Casa"
 
@@ -82,6 +83,11 @@ msgid ""
 "Login to an open source applicant tracking system using your favorit social "
 "network"
 msgstr "Acceda a un sistema de seguimiento de candidatos de código abierto utilizando su red social favorita"
+
+#: view/core/index/index.phtml:19
+#, php-format
+msgid "Login with %s"
+msgstr "Ingresar con %s"
 
 #: view/core/index/index.phtml:28
 msgid "responsive design (uses bootstrap3 and font awesome)"
@@ -105,24 +111,24 @@ msgid "%sapplication forms%s."
 msgstr "%sformularios de solicitud%s"
 
 #: view/core/index/index.phtml:36
+msgid "One-Click-Apply"
+msgstr ""
+
+#: view/core/index/index.phtml:37
 msgid "manage applications"
 msgstr "administrar aplicaciones"
 
-#: view/core/index/index.phtml:37
+#: view/core/index/index.phtml:38
 msgid "open and free software"
 msgstr "software abierto y libre"
 
-#: view/core/index/index.phtml:45
+#: view/core/index/index.phtml:46
 msgid "Developer News"
 msgstr "Noticias para desarrolladores"
 
-#: view/core/index/index.phtml:62
+#: view/core/index/index.phtml:63
 msgid "Recruiter News"
 msgstr "Noticias para Reclutadores"
-
-#: view/core/index/dashboard.phtml:11 view/core/index/dashboard.phtml:14
-msgid "Dashboard"
-msgstr "Tablero"
 
 #: view/core/index/dashboard-widget.phtml:19
 msgid "Error loading widget."
@@ -239,6 +245,10 @@ msgstr "El tipo de archivo no es permitido"
 msgid "You may only upload %d files"
 msgstr "Solo puedes subir %d archivos"
 
+#: src/Core/Form/View/Helper/FormFileUpload.php:111
+msgid "An unknown error occured."
+msgstr ""
+
 #: src/Core/Form/View/Helper/FormFileUpload.php:156
 msgid "Click here to add files or use drag and drop."
 msgstr "Presiona aquí para añadir archivos o arraastralo aquí."
@@ -246,6 +256,10 @@ msgstr "Presiona aquí para añadir archivos o arraastralo aquí."
 #: src/Core/Form/View/Helper/FormImageUpload.php:42
 msgid "Click here to add an image or use drag and drop."
 msgstr "Presiona aquí para añadir una imagen o arrastrala aqui."
+
+#: src/Core/Form/View/Helper/FormWizardContainer.php:100
+msgid "previous"
+msgstr "anterior"
 
 #: src/Core/Form/View/Helper/Element/SpinnerButton.php:48
 msgid "processing"
@@ -255,111 +269,127 @@ msgstr "procesando"
 msgid "Edit"
 msgstr "Editar"
 
-#: src/Core/Form/LocalizationSettingsFieldset.php:13
-#: language/_annotated_strings.php:90
+#: src/Core/Form/View/Helper/SearchForm.php:54
+msgid "Search"
+msgstr "Búsqueda"
+
+#: src/Core/Form/View/Helper/SearchForm.php:55
+msgid "Clear"
+msgstr "Borrar"
+
+#: src/Core/Form/LocalizationSettingsFieldset.php:26
+#: language/_annotated_strings.php:98
 msgid "general settings"
 msgstr "configuración general"
 
-#: language/_annotated_strings.php:3 language/_annotated_strings.php:9
-#: language/_annotated_strings.php:21
+#: language/_annotated_strings.php:5 language/_annotated_strings.php:11
+#: language/_annotated_strings.php:23
 msgid "Save"
 msgstr "Guardar"
 
-#: language/_annotated_strings.php:6 language/_annotated_strings.php:12
-#: language/_annotated_strings.php:24
+#: language/_annotated_strings.php:8 language/_annotated_strings.php:14
+#: language/_annotated_strings.php:26
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: language/_annotated_strings.php:15
+#: language/_annotated_strings.php:17
 msgid "Apply filter"
 msgstr "Aplicar filtro"
 
-#: language/_annotated_strings.php:18
+#: language/_annotated_strings.php:20
 msgid "Reset filter"
 msgstr "Restablecer filtro"
 
-#: language/_annotated_strings.php:27
+#: language/_annotated_strings.php:29
 msgid "Rights"
 msgstr "Derechos"
 
-#: language/_annotated_strings.php:30
+#: language/_annotated_strings.php:32
 msgid "View"
 msgstr "Vista"
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:35
 msgid "Write"
 msgstr "Escribir"
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:38
 msgid "Not Rated"
 msgstr "Sin calificación"
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:41
 msgid "Poor"
 msgstr "Pobre"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:44
 msgid "Bad"
 msgstr "Malo"
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:47
 msgid "Average"
 msgstr "Promedio"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:50
 msgid "Good"
 msgstr "Bueno"
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:53
 msgid "Excellent"
 msgstr "Excelente"
 
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:56
 msgid ""
 "Please enter a phone Number. You can use the intenational format. Only "
 "digits and '+'."
 msgstr "Por favor, introduzca un número de teléfono. Usted puede utilizar el formato intenational. Solamente los dígitos y '+'."
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:59
 msgid "Remove all"
 msgstr "Remover todo"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:62
 msgid "choose your language"
 msgstr "elige tu idioma"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:65
 msgid "English"
 msgstr "Inglés"
 
-#: language/_annotated_strings.php:66
+#: language/_annotated_strings.php:68
 msgid "French"
 msgstr "Francés"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:71
 msgid "German"
 msgstr "Alemán"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:74
 msgid "Italian"
 msgstr "Italiano"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:77
 msgid "Polish"
 msgstr "Polaco"
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:80
 msgid "Russian"
 msgstr "Ruso"
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:83
 msgid "Turkish"
 msgstr "Turco"
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:86
 msgid "Spanish"
 msgstr "Español"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:89
 msgid "defines the languages of this frontend."
 msgstr "define las lenguas de esta interfaz."
+
+#: language/_annotated_strings.php:92
+msgid "choose your timzone"
+msgstr ""
+
+#: language/_annotated_strings.php:95
+msgid "defines your local timezone."
+msgstr ""

@@ -13,7 +13,6 @@ namespace Jobs\Entity\Hydrator;
 use Core\Entity\Hydrator\EntityHydrator;
 use Jobs\Entity\TemplateValues;
 
-
 /**
  * Hydrator handles {@link \Jobs\Entity\TemplateValues}.
  *

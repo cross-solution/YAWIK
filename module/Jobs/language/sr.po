@@ -1,0 +1,819 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Carsten Bleek <cbleek@yawik.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: YAWIK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-12 18:44+0200\n"
+"PO-Revision-Date: 2016-05-13 12:42+0000\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
+"Language-Team: Serbian (http://www.transifex.com/yawik/yawik/language/sr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: view/modals/fazjob.phtml:38 view/modals/jobsintown.phtml:38
+#: view/modals/yawik.phtml:38
+#, php-format
+msgid "Publish on %s"
+msgstr ""
+
+#: view/modals/homepage.phtml:22
+msgid "Publish on your Homepage"
+msgstr "Објави на својој почетној страници"
+
+#: view/mails/job-created.en.phtml:22 view/mails/job-created.phtml:22
+#: view/iframe/iFrame.phtml:14
+msgid "Job details"
+msgstr "детаље о послу"
+
+#: view/mails/job-created.en.phtml:25 view/mails/job-created.phtml:25
+#: view/jobs/admin/index.ajax.phtml:18 view/jobs/jobboard/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:17 view/jobs/index/approval.ajax.phtml:18
+msgid "Title of the job"
+msgstr "Назив посла"
+
+#: view/mails/job-created.en.phtml:29 view/mails/job-created.phtml:29
+#: view/jobs/jobboard/index.ajax.phtml:15 view/jobs/index/index.ajax.phtml:18
+#: language/_annotated_strings.php:180 language/_annotated_strings.php:195
+msgid "Location"
+msgstr "локација"
+
+#: view/mails/job-created.en.phtml:33 view/mails/job-created.phtml:33
+#: view/jobs/admin/index.ajax.phtml:19 view/jobs/jobboard/index.ajax.phtml:14
+#: view/jobs/index/index.ajax.phtml:19 view/jobs/index/approval.ajax.phtml:19
+#: language/_annotated_strings.php:39 language/_annotated_strings.php:69
+#: language/_annotated_strings.php:87 language/_annotated_strings.php:132
+msgid "Companyname"
+msgstr "Име компаније"
+
+#: view/mails/job-created.en.phtml:38 view/mails/job-created.phtml:38
+msgid "Publisher details"
+msgstr "Издавач детаљи"
+
+#: view/mails/job-created.en.phtml:42 view/mails/job-created.phtml:42
+#: view/jobs/admin/index.ajax.phtml:20 view/jobs/index/approval.ajax.phtml:20
+msgid "Name"
+msgstr "име"
+
+#: view/mails/job-created.en.phtml:46 view/mails/job-created.phtml:46
+#: language/_annotated_strings.php:159
+msgid "Email"
+msgstr "емаил"
+
+#: view/mails/job-created.en.phtml:63 view/mails/job-created.phtml:63
+msgid "no Portal chosen"
+msgstr "не портал изабран"
+
+#: view/mails/job-created.en.phtml:65 view/mails/job-created.phtml:65
+msgid "Selected Channels"
+msgstr "Изабрани канали"
+
+#: view/mails/job-created.en.phtml:77 view/mails/job-created.phtml:77
+#: view/form/multiposting-select.phtml:74 view/partials/channel-list.phtml:69
+msgid "Price"
+msgstr "Цена"
+
+#: view/mails/job-created.en.phtml:81 view/mails/job-created.phtml:81
+#: view/form/multiposting-checkboxes.phtml:90
+#: view/form/multiposting-select.phtml:84
+#: view/form/multiposting-select.phtml:107 view/partials/channel-list.phtml:75
+msgid "plus VAT"
+msgstr "плус ПДВ"
+
+#: view/mails/job-created.en.phtml:85 view/mails/job-created.phtml:85
+#: view/form/multiposting-select.phtml:90 view/partials/channel-list.phtml:82
+msgid "Invoice amount"
+msgstr "Фактура износ"
+
+#: view/mails/job-created.en.phtml:92 view/mails/job-created.phtml:92
+msgid "Click here to accept or reject the job opening"
+msgstr "Кликните овде да прихвати или одбије отварање нових радних места"
+
+#: view/iframe/iFrame.phtml:25
+msgid ""
+"You are using a default template. You are free to create your own template, "
+"just contact the developing team for integration"
+msgstr "Користите подразумевани шаблон. Ви сте слободни да креирају свој шаблон, само обратите тиму у развоју за интеграцију"
+
+#: view/iframe/iFrame.phtml:30
+msgid "Default"
+msgstr "Уобичајено"
+
+#: view/iframe/iFrame.phtml:35
+msgid "Classic"
+msgstr "класик"
+
+#: view/iframe/iFrame.phtml:40
+msgid "Modern"
+msgstr "Модеран"
+
+#: view/iframe/iFrame.phtml:52
+msgid "Track applications"
+msgstr "вођења"
+
+#: view/form/preview.phtml:40
+msgid "Preview of your job posting"
+msgstr "Преглед твојој поруци посла"
+
+#: view/form/preview.phtml:51
+#, php-format
+msgid ""
+"Please check the preview of your job position. Click %s to open the preview "
+"in a new window"
+msgstr ""
+
+#: view/form/preview.phtml:52 view/partials/channel-list.phtml:96
+msgid "here"
+msgstr "овде"
+
+#: view/form/apply-identifier.phtml:26
+msgid "Apply link"
+msgstr "Аппли линк"
+
+#: view/form/hiring-organization-select.phtml:57
+#, php-format
+msgid ""
+"If you want to post job openings for your customers, you have to %sadd "
+"them%s in the organizations menu."
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:18
+msgid "The build-in ATS is currently used."
+msgstr "Градити у АТС се тренутно користи."
+
+#: view/form/ats-mode.view.phtml:22
+#, php-format
+msgid "Applications are handled via URI: %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:27
+#, php-format
+msgid "Applications will be send to %s"
+msgstr ""
+
+#: view/form/ats-mode.view.phtml:32
+msgid "ATS is disabled."
+msgstr "АТС је онемогућен."
+
+#: view/form/list-filter.phtml:81 language/_annotated_strings.php:84
+msgid "search for position or company"
+msgstr "Претрага за позицију или компанији"
+
+#: view/form/list-filter.phtml:110 view/form/list-filter.phtml:121
+#: view/form/list-filter.phtml:138
+msgid "Type in a location"
+msgstr "Укуцајте локације"
+
+#: view/form/list-filter.phtml:147
+msgid "Search"
+msgstr "Претраживање"
+
+#: view/form/list-filter.phtml:148
+msgid "Clear"
+msgstr "Јасно"
+
+#: view/sidebar/index.phtml:19
+msgid "My jobs"
+msgstr "Моји послови"
+
+#: view/sidebar/index.phtml:19
+msgid "All jobs"
+msgstr "Сви послови"
+
+#: view/jobs/admin/index.phtml:2 view/jobs/admin/index.phtml:91
+#: view/jobs/jobboard/index.phtml:2 view/jobs/index/index.phtml:2
+#: view/jobs/index/approval.phtml:2 view/jobs/index/view.phtml:10
+#: language/_annotated_strings.php:297 language/_annotated_strings.php:303
+msgid "Jobs"
+msgstr "Послови"
+
+#: view/jobs/admin/index.phtml:103 view/jobs/index/approval.phtml:40
+msgid "No job is waiting for approval at the moment."
+msgstr "Нема посла чека на усвајање у овом тренутку."
+
+#: view/jobs/admin/index.phtml:118 view/jobs/admin/index.phtml:132
+#: view/jobs/index/index.phtml:54 view/jobs/index/approval.phtml:55
+msgid "please wait"
+msgstr "сачекајте"
+
+#: view/jobs/admin/index.ajax.phtml:17 view/jobs/jobboard/index.ajax.phtml:15
+#: view/jobs/index/index.ajax.phtml:16 view/jobs/index/approval.ajax.phtml:17
+msgid "Date of receipt"
+msgstr "Датум пријема"
+
+#: view/jobs/admin/index.ajax.phtml:21 view/jobs/index/index.ajax.phtml:23
+#: view/jobs/index/approval.ajax.phtml:21
+#: src/Jobs/Form/Element/StatusSelect.php:55
+#: src/Jobs/Form/Element/StatusSelect.php:68
+#: language/_annotated_strings.php:120
+msgid "Status"
+msgstr "статус"
+
+#: view/jobs/admin/index.ajax.phtml:22 view/jobs/index/index.ajax.phtml:24
+#: view/jobs/index/index.ajax.phtml:26 view/jobs/index/approval.ajax.phtml:22
+msgid "Action"
+msgstr "акција"
+
+#: view/jobs/admin/index.ajax.phtml:58 view/jobs/index/index.ajax.phtml:102
+#: view/jobs/index/approval.ajax.phtml:57 view/partials/history.phtml:11
+msgid "Status history"
+msgstr "istorija статус"
+
+#: view/jobs/admin/index.ajax.phtml:63
+msgid "Edit"
+msgstr "едит"
+
+#: view/jobs/admin/edit.phtml:14
+#, php-format
+msgid "Edit job \"%s\""
+msgstr ""
+
+#: view/jobs/admin/edit.phtml:28
+msgid "processing"
+msgstr "обрада"
+
+#: view/jobs/admin/edit.phtml:30
+msgid "Save changes"
+msgstr "Сачувај измене"
+
+#: view/jobs/admin/edit.phtml:32 view/jobs/index/index.phtml:19
+msgid "Cancel"
+msgstr "отказати"
+
+#: view/jobs/jobboard/index.phtml:5
+msgid "Public Job Opportunities"
+msgstr "Јавни Запослење"
+
+#: view/jobs/jobboard/index.phtml:15 view/jobs/index/index.phtml:37
+#, php-format
+msgid "%sSorry%s, there are not any jobs matching your search criteria."
+msgstr ""
+
+#: view/jobs/jobboard/index.ajax.phtml:16 view/jobs/index/index.ajax.phtml:122
+#: view/jobs/index/view.phtml:18 src/Jobs/View/Helper/ApplyUrl.php:74
+msgid "Apply"
+msgstr "Применити"
+
+#: view/jobs/index/index.phtml:16
+msgid "Loading"
+msgstr "утовар"
+
+#: view/jobs/index/index.phtml:17
+msgid "Access denied!"
+msgstr "Приступ забрањен!"
+
+#: view/jobs/index/index.phtml:18
+msgid "Application error!"
+msgstr "Апплицатион Еррор!"
+
+#: view/jobs/index/index.phtml:20
+msgid "Save"
+msgstr "саве"
+
+#: view/jobs/index/index.phtml:21
+msgid "Sending"
+msgstr "слање"
+
+#: view/jobs/index/index.phtml:22
+msgid "Fail!"
+msgstr "Фаил!"
+
+#: view/jobs/index/index.phtml:28
+msgid "List of your jobs"
+msgstr "Листа ваших послова"
+
+#: view/jobs/index/index.ajax.phtml:20
+msgid "Reference"
+msgstr "упућивање"
+
+#: view/jobs/index/index.ajax.phtml:22 view/jobs/index/dashboard.phtml:15
+msgid "Applications"
+msgstr "aplikacije"
+
+#: view/jobs/index/index.ajax.phtml:62 view/jobs/index/dashboard.phtml:35
+msgid "total"
+msgstr "укупан"
+
+#: view/jobs/index/index.ajax.phtml:68 view/jobs/index/dashboard.phtml:41
+msgid "unread"
+msgstr "непрочитан"
+
+#: view/jobs/index/index.ajax.phtml:81
+msgid "draft"
+msgstr "нацрт"
+
+#: view/jobs/index/index.ajax.phtml:91
+#, php-format
+msgid "Change responsible user for job \\\"%s\\\""
+msgstr ""
+
+#: view/jobs/index/approval.phtml:29
+msgid "Jobs waiting for approval"
+msgstr "Послови чекају одобрење"
+
+#: view/jobs/index/dashboard.phtml:6
+msgid "Current Jobs"
+msgstr "Тренутни Послови"
+
+#: view/jobs/index/dashboard.phtml:6
+msgid "Famous jobs"
+msgstr "Фамоус послови"
+
+#: view/jobs/index/dashboard.phtml:12
+msgid "Job"
+msgstr "посао"
+
+#: view/jobs/index/dashboard.phtml:13 view/jobs/manage/history.phtml:8
+#: view/partials/history.phtml:16
+msgid "Date"
+msgstr "датум"
+
+#: view/jobs/index/view.phtml:15
+msgid "Online since"
+msgstr "Онлине од"
+
+#: view/jobs/index/terms.phtml:22
+msgid "Terms and Conditions"
+msgstr "Услови"
+
+#: view/jobs/manage/completion.phtml:1
+msgid "Publishing successfully finished"
+msgstr "Публисхинг успешно завршена"
+
+#: view/jobs/manage/completion.phtml:3
+msgid ""
+"Thank you for publishing your job opening. An email was send to the "
+"reviewing team."
+msgstr "Хвала за објављивање свој отварање нових радних места. Емаил је послати за разматрање тиму."
+
+#: view/jobs/manage/history.phtml:4
+msgid "History"
+msgstr "историја"
+
+#: view/jobs/manage/history.phtml:8 view/partials/history.phtml:18
+msgid "Comment"
+msgstr "коментар"
+
+#: view/jobs/manage/approval.phtml:14
+msgid "Preview of the posting"
+msgstr "Преглед књижења"
+
+#: view/jobs/manage/approval.phtml:33
+msgid "Reject Job"
+msgstr "Одбаци Јоб"
+
+#: view/jobs/manage/approval.phtml:34
+msgid "Accept Job"
+msgstr "Прихвати посао"
+
+#: view/jobs/manage/form.phtml:43
+msgid "Publish a job"
+msgstr "Објављивање посао"
+
+#: view/jobs/manage/form.phtml:45
+msgid "Create a job"
+msgstr "Критике посао"
+
+#: view/jobs/manage/form.phtml:54
+#, php-format
+msgid "Publish job %s"
+msgstr ""
+
+#: view/jobs/manage/form.phtml:54
+msgid "chargeable"
+msgstr "окривљив"
+
+#: view/jobs/manage/form.phtml:73
+msgid "Your job position is incomplete."
+msgstr "Ваш став посао је непотпуна."
+
+#: view/jobs/manage/form.phtml:85
+msgid ""
+"Your job opening is online. You can publish minor changes or you can "
+"deactivate the job opening"
+msgstr "Ваш отварање посао је на мрежи. Можете објавити мање измене, или можете искључити отварање нових радних места"
+
+#: view/jobs/manage/form.phtml:94
+msgid "Your job opening was successfully created and is waiting for approval."
+msgstr "Твој отварање посао је успешно креиран и чека на одобрење."
+
+#: view/jobs/manage/form.phtml:103
+msgid ""
+"Your job opening is inactive. You can reactivate it. Chargeable channels are"
+" not updated."
+msgstr "Ваш отварање посао је неактиван. Можете га активирати. Пуњиве канали нису ажурирани."
+
+#: view/jobs/manage/form.phtml:112
+msgid ""
+"Your job was expired. You can reactivate you job opening. Chargeable "
+"channels are not updated."
+msgstr "Твој посао је истекао. Можете активирати ти отварање нових радних места. Пуњиве канали нису ажурирани."
+
+#: view/jobs/manage/form.phtml:121
+msgid ""
+"Your job opening was rejected. Please correct the errors and republish it"
+msgstr "Твој отварање посао је одбијен. Исправите грешке и објављивање га"
+
+#: view/error/no-parent.phtml:15
+msgid "Sorry, you may not create jobs."
+msgstr "Жао ми је, не може да створи радна места."
+
+#: view/error/no-parent.phtml:20
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate a valid email%s "
+"first."
+msgstr ""
+
+#: view/error/no-parent.phtml:27
+#, php-format
+msgid ""
+"Before you are able to create jobs, you have to %screate your main "
+"organization%s first."
+msgstr ""
+
+#: view/partials/history.phtml:17
+msgid "State"
+msgstr "Држава"
+
+#: view/partials/snapshot_or_preview.phtml:17
+msgid "Nothing has changed"
+msgstr "Ништа није променило"
+
+#: view/partials/snapshot_or_preview.phtml:28
+msgid "previous content"
+msgstr "претходна садржај"
+
+#: view/partials/snapshot_or_preview.phtml:29
+msgid "new content"
+msgstr "нови садржај"
+
+#: view/partials/portalsummary.phtml:15 view/partials/channel-list.phtml:26
+msgid "Summary"
+msgstr "резиме"
+
+#: view/partials/portalsummary.phtml:19
+msgid "Channel"
+msgstr "канал"
+
+#: view/partials/channel-list.phtml:31
+msgid "Your job opening is ready to be published to the following channels"
+msgstr "Ваш отварање посао је спреман да буде објављен на следећим каналима"
+
+#: view/partials/channel-list.phtml:94
+#, php-format
+msgid "Please check your selected channels. Click %s to modify the channels"
+msgstr ""
+
+#: src/Jobs/View/Helper/ApplyButtons.php:81
+msgid "Apply now"
+msgstr "Пријавите се"
+
+#: src/Jobs/View/Helper/ApplyButtons.php:87
+#, php-format
+msgid "Apply with %s"
+msgstr ""
+
+#: src/Jobs/Form/JobDescriptionFieldset.php:36
+msgid "Description"
+msgstr "опис"
+
+#: src/Jobs/Controller/ManageController.php:243
+msgid "No Title"
+msgstr "Без наслова"
+
+#: src/Jobs/Controller/ManageController.php:247
+msgid "No Location"
+msgstr "но Локација"
+
+#: src/Jobs/Controller/ManageController.php:251
+msgid "Accept the Terms"
+msgstr "Прихватити услове"
+
+#: language/_annotated_strings.php:3 language/_annotated_strings.php:321
+msgid "Show all jobs"
+msgstr "Покажи све послове"
+
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:324
+msgid "Show my jobs"
+msgstr "Показати своје послове"
+
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:45
+#: language/_annotated_strings.php:117 language/_annotated_strings.php:129
+#: language/_annotated_strings.php:327
+msgid "All"
+msgstr "све"
+
+#: language/_annotated_strings.php:12 language/_annotated_strings.php:48
+#: language/_annotated_strings.php:96 language/_annotated_strings.php:330
+msgid "Active"
+msgstr "активан"
+
+#: language/_annotated_strings.php:15 language/_annotated_strings.php:51
+#: language/_annotated_strings.php:99 language/_annotated_strings.php:333
+msgid "Inactive"
+msgstr "неактиван"
+
+#: language/_annotated_strings.php:18
+msgid "Job qualification"
+msgstr "квалификација посао"
+
+#: language/_annotated_strings.php:21
+msgid "Job benefits"
+msgstr "prednosti посао"
+
+#: language/_annotated_strings.php:24
+msgid "Job requirements"
+msgstr "Услови посла"
+
+#: language/_annotated_strings.php:27
+msgid "Terms and conditions"
+msgstr "Услови"
+
+#: language/_annotated_strings.php:30
+#, php-format
+msgid "I have read the %s and accept it"
+msgstr ""
+
+#: language/_annotated_strings.php:33
+msgid "terms an conditions"
+msgstr "АГБ"
+
+#: language/_annotated_strings.php:36
+msgid "Title and job location"
+msgstr "Наслов и локација посла"
+
+#: language/_annotated_strings.php:42
+msgid "Calculate price"
+msgstr "Израчунајте цену"
+
+#: language/_annotated_strings.php:54 language/_annotated_strings.php:102
+msgid "Waiting for approval"
+msgstr "Чека се одобрење"
+
+#: language/_annotated_strings.php:57 language/_annotated_strings.php:105
+msgid "Created"
+msgstr "направљена"
+
+#: language/_annotated_strings.php:60 language/_annotated_strings.php:108
+msgid "Published"
+msgstr "објављен"
+
+#: language/_annotated_strings.php:63 language/_annotated_strings.php:111
+msgid "Rejected"
+msgstr "Одбијен"
+
+#: language/_annotated_strings.php:66 language/_annotated_strings.php:114
+msgid "Expired"
+msgstr "истекао"
+
+#: language/_annotated_strings.php:72 language/_annotated_strings.php:90
+#: language/_annotated_strings.php:135
+msgid "Select hiring organization"
+msgstr "Избор организација запошљавање"
+
+#: language/_annotated_strings.php:75
+msgid "Please choose a descriptive title and a location for your job posting "
+msgstr "Молимо изаберите описни назив и локацију за постављање посла"
+
+#: language/_annotated_strings.php:78
+msgid ""
+"Please choose the name of the hiring organization. The selected name defines"
+" the template of the job opening."
+msgstr "Молимо изаберите име организације запошљавања. Одабрани дефинише шаблон отварања нових радних места."
+
+#: language/_annotated_strings.php:81
+msgid "Please choose the portals, where you wish to publish your job opening."
+msgstr "Плеасе цхоосе портале, где желите да објавите отварање нових радних места."
+
+#: language/_annotated_strings.php:93 language/_annotated_strings.php:189
+#: language/_annotated_strings.php:336
+msgid "Job title"
+msgstr "Звање"
+
+#: language/_annotated_strings.php:123 language/_annotated_strings.php:126
+msgid "Select a job status."
+msgstr "Изаберите статус посла."
+
+#: language/_annotated_strings.php:138
+msgid "Enter optional company description here"
+msgstr "Унесите опциони фирма опис овде"
+
+#: language/_annotated_strings.php:141
+msgid "Mode"
+msgstr "начин"
+
+#: language/_annotated_strings.php:144
+msgid "Built-In ATS"
+msgstr "Буилт-ин АТС"
+
+#: language/_annotated_strings.php:147
+msgid "Use external link"
+msgstr "Користи екстерни линк"
+
+#: language/_annotated_strings.php:150
+msgid "Get applications via email"
+msgstr "Гет апликације преко е-маила"
+
+#: language/_annotated_strings.php:153
+msgid "Do not track"
+msgstr "Не прате"
+
+#: language/_annotated_strings.php:156
+msgid "URL"
+msgstr "УРЛ адреса"
+
+#: language/_annotated_strings.php:162
+msgid "One click apply"
+msgstr "Један клик применити"
+
+#: language/_annotated_strings.php:165
+msgid "Social profiles"
+msgstr "Друштвене профили"
+
+#: language/_annotated_strings.php:168
+msgid "The apply identifier \"%value%\" is already in use."
+msgstr ""
+
+#: language/_annotated_strings.php:171
+#, php-format
+msgid ""
+"Change status or publish date.%1$s%2$sBeware!%3$s Status changes will "
+"eventually cause notification emails to be send."
+msgstr ""
+
+#: language/_annotated_strings.php:174
+msgid "Start date"
+msgstr "Почетни датум"
+
+#: language/_annotated_strings.php:177
+msgid "Set the start date of this job."
+msgstr "Подесите датум почетка овог посла."
+
+#: language/_annotated_strings.php:183 language/_annotated_strings.php:186
+msgid "Distance"
+msgstr "раздаљина"
+
+#: language/_annotated_strings.php:192
+msgid "Please enter the job title"
+msgstr "Молимо унесите назив посла"
+
+#: language/_annotated_strings.php:198
+msgid "Please enter the location of the job"
+msgstr "Унесите локацију посла"
+
+#: language/_annotated_strings.php:201
+msgid "Portals"
+msgstr "Портали"
+
+#: language/_annotated_strings.php:204
+msgid "Multiposting"
+msgstr "Мултипостинг"
+
+#: language/_annotated_strings.php:207
+msgid "created"
+msgstr "направљена"
+
+#: language/_annotated_strings.php:210
+msgid "waiting for approval"
+msgstr "Чека се одобрење"
+
+#: language/_annotated_strings.php:213
+msgid "rejected"
+msgstr "одбијен"
+
+#: language/_annotated_strings.php:216
+msgid "publish"
+msgstr "објавити"
+
+#: language/_annotated_strings.php:219
+msgid "active"
+msgstr "активан"
+
+#: language/_annotated_strings.php:222
+msgid "inactive"
+msgstr "неактиван"
+
+#: language/_annotated_strings.php:225
+msgid "expired"
+msgstr "издахнут"
+
+#: language/_annotated_strings.php:228
+#, php-format
+msgid "Job opening was rejected by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:231
+msgid "Job has been rejected"
+msgstr "Посао је одбијен"
+
+#: language/_annotated_strings.php:234
+#, php-format
+msgid "Job opening was activated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:237
+msgid "Job has been approved"
+msgstr "Посао је одобрен"
+
+#: language/_annotated_strings.php:240
+#, php-format
+msgid "Job was deactivated by %s"
+msgstr ""
+
+#: language/_annotated_strings.php:243
+msgid "Job has been deactivated"
+msgstr "Посао је деактивиран"
+
+#: language/_annotated_strings.php:246
+msgid "Job could not be deactivated"
+msgstr "Посао не може бити деактивиран"
+
+#: language/_annotated_strings.php:249
+msgid "Template changed"
+msgstr "Шаблон променио"
+
+#: language/_annotated_strings.php:252
+msgid "Template not changed"
+msgstr "Шаблон није променило"
+
+#: language/_annotated_strings.php:255
+msgid "Total jobs"
+msgstr "Укупно послови"
+
+#: language/_annotated_strings.php:258
+msgid "Active jobs"
+msgstr "Активни послови"
+
+#: language/_annotated_strings.php:261 language/_annotated_strings.php:309
+msgid "Pending jobs"
+msgstr "у току радних места"
+
+#: language/_annotated_strings.php:264
+msgid "A new job opening was created"
+msgstr "Нови отварање посао је направљена"
+
+#: language/_annotated_strings.php:267
+msgid "Your Job have been wrapped up for approval"
+msgstr "Ваш посао је завршен за одобрење"
+
+#: language/_annotated_strings.php:270
+msgid "Your job has been published"
+msgstr "Ваш посао је објављен"
+
+#: language/_annotated_strings.php:273
+msgid "Your job has been rejected"
+msgstr "Ваш посао је одбијен"
+
+#: language/_annotated_strings.php:276
+msgid "publish your job on yawik.org for free"
+msgstr "објави свој посао на иавик.орг бесплатно"
+
+#: language/_annotated_strings.php:279
+#, php-format
+msgid "publish the job for 30 days on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:282
+msgid "yawik.org"
+msgstr "иавик.орг"
+
+#: language/_annotated_strings.php:285
+msgid "Your Homepage"
+msgstr "Ваш страница"
+
+#: language/_annotated_strings.php:288
+msgid "enable integration of this job on your Homepage"
+msgstr "омогућити интеграцију овог посла на својој почетној страници"
+
+#: language/_annotated_strings.php:291
+#, php-format
+msgid "enable %s of this job on your Homepage"
+msgstr ""
+
+#: language/_annotated_strings.php:294
+msgid "integration"
+msgstr "интеграција"
+
+#: language/_annotated_strings.php:300 language/_annotated_strings.php:318
+msgid "Jobboard"
+msgstr "Јоббоард"
+
+#: language/_annotated_strings.php:306
+msgid "Overview"
+msgstr "преглед"
+
+#: language/_annotated_strings.php:312
+msgid "Create job"
+msgstr "створити посао"
+
+#: language/_annotated_strings.php:315
+msgid "Edit job"
+msgstr "едит посао"

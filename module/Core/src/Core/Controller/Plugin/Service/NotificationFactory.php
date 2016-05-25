@@ -18,11 +18,15 @@ class NotificationFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /* @var \Zend\Mvc\Controller\PluginManager $serviceLocator */
+        $services = $serviceLocator->getServiceLocator();
         $flashMessenger = $serviceLocator->get('FlashMessenger');
-        $notification   = new Notification($flashMessenger);
-
         $notificationListener = $serviceLocator->getServiceLocator()->get('Core/Listener/Notification');
+        $translator = $services->get('translator');
+
+        $notification   = new Notification($flashMessenger);
         $notification->setListener($notificationListener);
+        $notification->setTranslator($translator);
 
         return $notification;
     }

@@ -17,9 +17,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 /**
  * General Settings for the application module.
  *
+ * @method bool getMailBCC()
+ * @method string getMailConfirmationText()
+ *
  * @ODM\EmbeddedDocument
  */
-class Settings extends ModuleSettingsContainer
+class Settings extends ModuleSettingsContainer implements SettingsInterface
 {
     
     /**
@@ -30,7 +33,7 @@ class Settings extends ModuleSettingsContainer
     protected $mailAccess = false;
     
     /**
-     * send BlindCarbonCopy to owner(?)
+     * send BlindCarbonCopy to organization admin
      *
      * @ODM\Boolean
      */
@@ -55,29 +58,36 @@ class Settings extends ModuleSettingsContainer
     /**
      * Mail text, which informs the recruiter about an incoming application
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailAccessText;
     
     /**
      * Mail text for inviting an applicant. Mail is sent to the applicant
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailInvitationText;
+
+    /**
+     * Mail text for accepting an applicant. Mail is sent to the recruiter
+     *
+     * @ODM\Field(type="string")
+     */
+    protected $mailAcceptedText;
     
     
     /**
      * Mail text for confirming an application-
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailConfirmationText;
     
     /**
      * Mail text for rejecting an application
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $mailRejectionText;
 
@@ -97,6 +107,14 @@ class Settings extends ModuleSettingsContainer
     {
         $this->mailAccess = (bool) $mailAccess;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getMailAccess()
+    {
+        return $this->mailAccess;
     }
 
     /**
@@ -121,7 +139,13 @@ class Settings extends ModuleSettingsContainer
             $settings->setForm('Applications/Apply');
             $this->applyFormSettings = $settings;
         }
-
         return $this->applyFormSettings;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAutoConfirmMail(){
+        return $this->autoConfirmMail;
     }
 }

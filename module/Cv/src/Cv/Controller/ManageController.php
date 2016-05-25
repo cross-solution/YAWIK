@@ -47,22 +47,27 @@ class ManageController extends AbstractActionController
     {
         $services = $this->getServiceLocator();
         $repositories = $services->get('repositories');
-        $cvs          = $repositories->get('Cv');
+        /* @var \Cv\Repository\Cv $cvRepository */
+        $cvRepository = $repositories->get('Cv/Cv');
         $form = $services->get('FormElementManager')->get('CvForm');
-        
-        if ($this->request->isPost()) {
-            $id = $this->params()->fromPost('id');
-            if (empty($id)) {
-                $entity = $cvs->create();
-            } else {
-                $entity = $cvs->find($id);
-            }
-            $form->bind($entity);
-            $form->setData($this->request->getPost());
+
+        $user = $this->auth()->getUser();
+        /** @var \Cv\Entity\Cv $cv */
+        $cv = $cvRepository->findDraft($user);
+        if (empty($cv)) {
+            $cv = $cvRepository->create();
+            $cv->setIsDraft(true);
+            $cv->setUser($user);
+            $repositories->store($cv);
+        }
+
+        if ($this->getRequest()->isPost()) {
+            $form->bind($cv);
+            $form->setData($this->getRequest()->getPost());
             $valid = $form->isValid();
             if ($valid) {
-                $entity->setUser($this->auth()->getUser());
-                $repositories->store($entity);
+                $cv->setUser($this->auth()->getUser());
+                $repositories->store($cv);
                 return array(
                     'isSaved' => true,
                 );

@@ -26,6 +26,5 @@ class UserBase extends SummaryForm
     {
         parent::addButtonsFieldset();
         $this->get('buttons')->remove('submit');
-        
     }
 }

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-01 22:28+0100\n"
-"PO-Revision-Date: 2016-02-20 17:50+0000\n"
+"POT-Creation-Date: 2016-05-02 17:07+0200\n"
+"PO-Revision-Date: 2016-05-02 15:07+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/yawik/yawik/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Por favor elija una contraseña para poder conectarse."
 msgid "Organizations"
 msgstr "Organizaciones"
 
-#: view/organizations/index/index.ajax.phtml:69
+#: view/organizations/index/index.ajax.phtml:71
 #, php-format
 msgid "Hiring organization of <strong>%s</strong>"
 msgstr ""
@@ -54,7 +54,7 @@ msgid "Invite"
 msgstr "Invitar"
 
 #: view/form/invite-employee-bar.phtml:33 language/_annotated_strings.php:12
-#: language/_annotated_strings.php:54
+#: language/_annotated_strings.php:87
 msgid "Invite an employee via email address."
 msgstr "Invitar a un empleado a través de e-mail."
 
@@ -62,11 +62,35 @@ msgstr "Invitar a un empleado a través de e-mail."
 msgid "Click on this button will add the employee with the status \"pending\""
 msgstr "Haga clic en este botón se sumará al empleado con el estado \"pendiente\""
 
-#: view/form/employee-fieldset.phtml:34
+#: view/form/employee-fieldset.phtml:33
 msgid "PENDING"
 msgstr "PENDIENTE"
 
-#: view/form/employees-fieldset.phtml:40
+#: view/form/employees-fieldset.phtml:24
+msgid "Users"
+msgstr "Usuarios"
+
+#: view/form/employees-fieldset.phtml:25 language/_annotated_strings.php:15
+msgid "View Jobs"
+msgstr "Ver más empleos"
+
+#: view/form/employees-fieldset.phtml:26 language/_annotated_strings.php:18
+msgid "Edit Jobs"
+msgstr "Editar Empleo"
+
+#: view/form/employees-fieldset.phtml:27 language/_annotated_strings.php:21
+msgid "Create Jobs"
+msgstr "crear puestos de trabajo"
+
+#: view/form/employees-fieldset.phtml:28 language/_annotated_strings.php:24
+msgid "View Applications"
+msgstr "Ver aplicaciones"
+
+#: view/form/employees-fieldset.phtml:29 language/_annotated_strings.php:27
+msgid "Edit Applications"
+msgstr "editar Aplicaciones"
+
+#: view/form/employees-fieldset.phtml:41
 msgid "pending"
 msgstr "pendiente"
 
@@ -131,7 +155,7 @@ msgstr "Dirección de correo electrónico es inválida."
 msgid "Sending invitation mail failed."
 msgstr "El envío de correo de invitación falló."
 
-#: language/_annotated_strings.php:6 language/_annotated_strings.php:66
+#: language/_annotated_strings.php:6 language/_annotated_strings.php:99
 msgid "City"
 msgstr "Ciudad"
 
@@ -139,97 +163,127 @@ msgstr "Ciudad"
 msgid "Street"
 msgstr "Calle"
 
-#: language/_annotated_strings.php:15
-msgid "View Jobs"
-msgstr "Ver más empleos"
-
-#: language/_annotated_strings.php:18
-msgid "Edit Jobs"
-msgstr "Editar Empleo"
-
-#: language/_annotated_strings.php:21
-msgid "Create Jobs"
-msgstr "crear puestos de trabajo"
-
-#: language/_annotated_strings.php:24
-msgid "View Applications"
-msgstr "Ver aplicaciones"
-
-#: language/_annotated_strings.php:27
-msgid "Edit Applications"
-msgstr "editar Aplicaciones"
-
 #: language/_annotated_strings.php:30
+msgid "Recruiter"
+msgstr "Reclutador"
+
+#: language/_annotated_strings.php:33
+msgid "Department Manager"
+msgstr ""
+
+#: language/_annotated_strings.php:36
+msgid "Managing Directors"
+msgstr ""
+
+#: language/_annotated_strings.php:39
 msgid "Please enter the name of the hiring organization."
 msgstr "Por favor introduzca el nombre de la organización que contrata."
 
-#: language/_annotated_strings.php:33
+#: language/_annotated_strings.php:42
 msgid "Please enter a contact for the hiring organization."
 msgstr "Por favor introduzca un contacto para la organización que contrata."
 
-#: language/_annotated_strings.php:36
+#: language/_annotated_strings.php:45
 msgid "Please enter a description for the hiring organization."
 msgstr "Por favor, introduzca una descripción de la organización que emplea."
 
-#: language/_annotated_strings.php:39
+#: language/_annotated_strings.php:48
 msgid "Employees"
 msgstr "empleados"
 
-#: language/_annotated_strings.php:42
+#: language/_annotated_strings.php:51
 msgid "Manage your employees and their permissions."
 msgstr "Manejo de sus empleados y sus permisos."
 
-#: language/_annotated_strings.php:45
+#: language/_annotated_strings.php:54
+msgid "Workflow"
+msgstr ""
+
+#: language/_annotated_strings.php:57
+msgid "Define, how notifications about new applications reach your employees"
+msgstr ""
+
+#: language/_annotated_strings.php:60
 msgid "Description"
 msgstr "Descripción"
 
-#: language/_annotated_strings.php:48
+#: language/_annotated_strings.php:63
 msgid ""
 "Choose a Logo. This logo will be shown in the job opening and the "
 "application form."
 msgstr "Elegir un logotipo. Este logotipo se muestra en la oferta de trabajo y el formulario de solicitud."
 
-#: language/_annotated_strings.php:51
+#: language/_annotated_strings.php:66
 msgid "Organizationname"
 msgstr "Nombre de organización"
 
-#: language/_annotated_strings.php:57
+#: language/_annotated_strings.php:69
+msgid "accept Applications by Department Managers"
+msgstr ""
+
+#: language/_annotated_strings.php:72
+msgid ""
+"if checked, department managers are informed about new applications first."
+msgstr ""
+
+#: language/_annotated_strings.php:75
+msgid ""
+"Department managers are notified of incoming applications and must accept "
+"this. Only then the recruiter can start his work with the application"
+msgstr ""
+
+#: language/_annotated_strings.php:78
+msgid "assign department managers to jobs"
+msgstr ""
+
+#: language/_annotated_strings.php:81
+msgid "if checked, department managers have to be assigned to job postings."
+msgstr ""
+
+#: language/_annotated_strings.php:84
+msgid ""
+"if you have more them one department managers, you can assign them to a job "
+"posting. If nobody is assigned, all department managers will be informed "
+"about new applications"
+msgstr ""
+
+#: language/_annotated_strings.php:90
 msgid "street"
 msgstr "calle"
 
-#: language/_annotated_strings.php:60
+#: language/_annotated_strings.php:93
 msgid "house number"
 msgstr "número de casa"
 
-#: language/_annotated_strings.php:63
+#: language/_annotated_strings.php:96
 msgid "Postalcode"
 msgstr "Codigo Postal"
 
-#: language/_annotated_strings.php:69
+#: language/_annotated_strings.php:102
 msgid "Phone"
 msgstr "Teléfono"
 
-#: language/_annotated_strings.php:72
+#: language/_annotated_strings.php:105
 msgid "Fax"
 msgstr "Fax"
 
-#: language/_annotated_strings.php:75
+#: language/_annotated_strings.php:108
 msgid "The organization referenced in your request could not be found."
 msgstr "La organización hace referencia en su solicitud no se pudo encontrar."
 
-#: language/_annotated_strings.php:78
+#: language/_annotated_strings.php:111
 msgid "The access token you provided seems to have expired."
 msgstr "El token de acceso que ya ha proporcionado parece haber expirado."
 
-#: language/_annotated_strings.php:81
+#: language/_annotated_strings.php:114
 #, php-format
 msgid "Invitation to join the team of %s"
 msgstr ""
 
-#: language/_annotated_strings.php:84
+#: language/_annotated_strings.php:117
 msgid "Overview"
 msgstr "Visión de conjunto"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:120
 msgid "Insert"
 msgstr "Insertar"

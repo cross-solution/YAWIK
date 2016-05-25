@@ -19,19 +19,19 @@ class PreferredJob extends AbstractIdentifiableEntity
 {
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $typeOfApplication;
     
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $preferredJob;
     
     /**
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      **/
     protected $preferredLocation;
     

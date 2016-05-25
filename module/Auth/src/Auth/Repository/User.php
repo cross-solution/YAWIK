@@ -14,6 +14,7 @@ use Auth\Entity\UserInterface;
 use Core\Repository\AbstractRepository;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
+use Auth\Exception\UserDeactivatedException;
 
 /**
  * class for accessing a user
@@ -31,22 +32,49 @@ class User extends AbstractRepository
         } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
+        
+        if (!array_key_exists('status.name', $criteria)) {
+            $criteria['status.name'] = \Jobs\Entity\StatusInterface::ACTIVE;
+        } elseif (null === $criteria['status.name']) {
+            unset($criteria['status.name']);
+        }
+        
         return parent::findBy($criteria, $sort, $limit, $skip);
+    }
+    
+    /**
+     * Finds a document by its identifier
+     *
+     * @param string|object $id The identifier
+     * @param int $lockMode
+     * @param int $lockVersion
+     * @param array $options
+     * @throws Mapping\MappingException
+     * @throws LockException
+     * @throws UserDeactivatedException
+     * @return null | UserInterface
+     */
+    public function find($id, $lockMode = \Doctrine\ODM\MongoDB\LockMode::NONE, $lockVersion = null, array $options = [])
+    {
+        return $this->assertEntity(parent::find($id, $lockMode, $lockVersion), $options);
     }
 
     /**
-     * {@inheritDoc}
+     * @param array $criteria
+     * @param array $options
+     * @throws UserDeactivatedException
      * @return null | UserInterface
      */
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria, array $options = [])
     {
         if (!array_key_exists('isDraft', $criteria)) {
             $criteria['isDraft'] = false;
         } elseif (null === $criteria['isDraft']) {
             unset($criteria['isDraft']);
         }
-        return parent::findOneBy($criteria);
+        return $this->assertEntity(parent::findOneBy($criteria), $options);
     }
+    
 
     /**
      * {@inheritDoc}
@@ -81,24 +109,49 @@ class User extends AbstractRepository
     /**
      * Finds user by profile identifier
      *
-     * @param String $identifier
+     * @param string $identifier
+     * @param string $provider
+     * @param array $options
      * @return UserInterface
      */
-    public function findByProfileIdentifier($identifier)
+    public function findByProfileIdentifier($identifier, $provider, array $options = [])
     {
-        $entity = $this->findOneBy(array('profile.identifier' => $identifier));
-        return $entity;
+        return $this->findOneBy(array('profiles.' . $provider . '.auth.identifier' => $identifier), $options) ?: $this->findOneBy(array('profile.identifier' => $identifier), $options);
+    }
+    
+    /**
+     * Returns true if profile is already assigned to anotherUser
+     *
+     * @param int $curentUserId
+     * @param string $identifier
+     * @param string $provider
+     * @return bool
+     */
+    public function isProfileAssignedToAnotherUser($curentUserId, $identifier, $provider)
+    {
+        $qb = $this->createQueryBuilder(null);
+        $qb->field('_id')->notEqual($curentUserId)
+            ->addAnd(
+                $qb->expr()
+                    ->addOr($qb->expr()->field('profiles.' . $provider . '.auth.identifier' )->equals($identifier))
+                    ->addOr($qb->expr()->field('profile.identifier')->equals($identifier))
+            );
+        
+        return $qb->count()
+            ->getQuery()
+            ->execute() > 0;
     }
     
     /**
      * Finds user by login name
      *
      * @param string $login
+     * @param array $options
      * @return UserInterface
      */
-    public function findByLogin($login)
+    public function findByLogin($login, array $options = [])
     {
-        $entity = $this->findOneBy(array('login' => $login));
+        $entity = $this->findOneBy(array('login' => $login), $options);
         return $entity;
     }
 
@@ -208,5 +261,21 @@ class User extends AbstractRepository
     {
         $contact = new Info();
         $contact->fromArray(Info::toArray($info));
+    }
+    
+    /**
+     * @param UserInterface $user
+     * @param array $options
+     * @throws UserDeactivatedException
+     * @return null | UserInterface
+     */
+    protected function assertEntity(UserInterface $user = null, array $options)
+    {
+        if (isset($user) && (!isset($options['allowDeactivated']) || !$options['allowDeactivated']) && !$user->isActive())
+        {
+            throw new UserDeactivatedException(sprintf('User with ID %s is not active', $user->getId()));
+        }
+        
+        return $user;
     }
 }

@@ -8,7 +8,7 @@
  */
 
 /** */
-namespace ApplicationsTestTest\Entity;
+namespace ApplicationsTest\Entity;
 
 use Applications\Entity\MailHistory;
 use Applications\Entity\Status;
@@ -56,7 +56,7 @@ class MailHistoryTest extends \PHPUnit_Framework_TestCase
     {
         $input="subject of the mail";
         $this->target->setSubject($input);
-        $this->assertEquals($this->target->getSubject(),$input);
+        $this->assertEquals($this->target->getSubject(), $input);
     }
 
     /**
@@ -67,7 +67,6 @@ class MailHistoryTest extends \PHPUnit_Framework_TestCase
     {
         $input="this is the mailtext";
         $this->target->setMailText($input);
-        $this->assertEquals($this->target->getMailText(),$input);
+        $this->assertEquals($this->target->getMailText(), $input);
     }
-
 }

@@ -76,6 +76,12 @@ class ModuleOptions extends AbstractOptions
                                         'text/x-pdf',
                                         'text');
 
+
+    protected $workflow = [
+
+      'recruiter',
+    ];
+
     /**
      * Gets the maximum size of attachments in bytes
      *

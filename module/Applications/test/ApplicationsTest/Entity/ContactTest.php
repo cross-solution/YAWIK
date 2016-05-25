@@ -8,7 +8,7 @@
  */
 
 /** */
-namespace AuthTest\Entity;
+namespace ApplicationsTest\Entity;
 
 use Auth\Entity\Info;
 use Applications\Entity\Contact;

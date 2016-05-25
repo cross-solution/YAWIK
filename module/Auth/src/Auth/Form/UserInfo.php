@@ -10,6 +10,7 @@
 /**  */
 namespace Auth\Form;
 
+use Core\Form\EmptySummaryAwareInterface;
 use Core\Form\SummaryForm;
 
 /**
@@ -21,6 +22,7 @@ class UserInfo extends SummaryForm
 {
     protected $wrapElements = false;
     protected $baseFieldset = 'Auth/UserInfoFieldset';
+
     
     /**
      * {@inheritDoc}

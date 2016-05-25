@@ -38,7 +38,7 @@ class FileEntity extends AbstractIdentifiableEntity implements FileInterface
     /**
      * mimetype of the attachment.
      *
-     * @ODM\String */
+     * @ODM\Field(type="string") */
     protected $mimetype;
 
     /**

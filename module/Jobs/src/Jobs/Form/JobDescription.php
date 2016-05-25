@@ -35,6 +35,7 @@ class JobDescription extends Container implements ViewPartialProviderInterface
             array(
             'atsMode' => array(
                 'type' => 'Jobs/AtsMode',
+                'property' => 'atsMode',
             )
             )
         );

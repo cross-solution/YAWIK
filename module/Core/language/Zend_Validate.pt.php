@@ -1,0 +1,1 @@
+../../../vendor/zendframework/zend-i18n-resources/languages/pt_BR/Zend_Validate.php

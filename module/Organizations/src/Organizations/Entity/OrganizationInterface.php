@@ -27,7 +27,6 @@ use Zend\Hydrator\HydratorAwareInterface;
 interface OrganizationInterface extends
     EntityInterface,
     IdentifiableEntityInterface,
-    SearchableEntityInterface,
     ModificationDateAwareEntityInterface,
     PermissionsAwareInterface,
     PermissionsResourceInterface,
@@ -156,6 +155,15 @@ interface OrganizationInterface extends
     public function getEmployees();
 
     /**
+     * Gets the employees collection,
+     *
+     * @param string $role
+     * @return Collection
+     * @since 0.25
+     */
+    public function getEmployeesByRole($role);
+
+    /**
      * Gets one employee by user id.
      *
      * @param string|UserInterface $userOrId
@@ -212,4 +220,13 @@ interface OrganizationInterface extends
      * @return self
      */
     public function setTemplate(TemplateInterface $template);
+
+    /**
+     *
+     *
+     * @return WorkflowSettingsInterface
+     */
+    public function getWorkflowSettings();
+
+    public function setWorkflowSettings($workflowSettings);
 }

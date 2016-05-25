@@ -137,6 +137,5 @@ class LinkedIn extends AbstractAdapter
             'month'=> isset($xml->month) ? strval($xml->month) : '01',
             'day'  => isset($xml->day)   ? strval($xml->day)   : '01',
         );
-        
     }
 }

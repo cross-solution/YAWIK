@@ -9,20 +9,16 @@
 
 namespace Auth;
 
-use Acl\Listener\CheckPermissionsListener;
 use Auth\Listener\SocialProfilesUnconfiguredErrorListener;
+use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Mvc\MvcEvent;
-use Auth\View\InjectLoginInfoListener;
 use Auth\Listener\TokenListener;
-use Auth\Listener\UnauthorizedAccessListener;
 
 /**
- * Bootstrap class of the Core module
- *
+ * Bootstrap class of the Auth module
  */
 class Module
 {
-
     public function init(\Zend\ModuleManager\ModuleManagerInterface $moduleManager)
     {
         if (\Zend\Console\Console::isConsole()) {
@@ -40,7 +36,7 @@ class Module
      */
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        return ModuleConfigLoader::load(__DIR__ . '/config');
     }
 
     /**
@@ -50,7 +46,6 @@ class Module
      */
     public function getAutoloaderConfig()
     {
-
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
                 // This is an hack due to bad design of Hybridauth
@@ -82,11 +77,11 @@ class Module
         }
         $eventManager = $e->getApplication()->getEventManager();
         $services     = $e->getApplication()->getServiceManager();
-
+            
         $eventManager->attach(
             MvcEvent::EVENT_ROUTE,
             function (MvcEvent $e) use ($services) {
-            /** @var CheckPermissionsListener $checkPermissionsListener */
+                /* @var $checkPermissionsListener \Acl\Listener\CheckPermissionsListener */
                 $checkPermissionsListener = $services->get('Auth/CheckPermissionsListener');
                 $checkPermissionsListener->onRoute($e);
             },
@@ -106,12 +101,14 @@ class Module
         $unauthorizedAccessListener = $services->get('UnauthorizedAccessListener');
         $unauthorizedAccessListener->attach($eventManager);
 
+        $deactivatedUserListener = $services->get('DeactivatedUserListener');
+        $deactivatedUserListener->attach($eventManager);
+
         $sharedManager = $eventManager->getSharedManager();
         $defaultlistener = $services->get('Auth/Listener/AuthAggregateListener');
         $defaultlistener->attachShared($sharedManager);
 
         $socialProfilesUnconfiguredErrorListener = new SocialProfilesUnconfiguredErrorListener();
         $socialProfilesUnconfiguredErrorListener->attach($eventManager);
-
     }
 }

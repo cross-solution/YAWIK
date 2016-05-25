@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAWIK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-20 19:34+0100\n"
-"PO-Revision-Date: 2016-02-20 18:11+0000\n"
+"POT-Creation-Date: 2016-05-12 18:45+0200\n"
+"PO-Revision-Date: 2016-05-12 16:46+0000\n"
 "Last-Translator: Carsten Bleek <cbleek@yawik.org>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/yawik/yawik/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -33,23 +33,23 @@ msgstr "लगाओ"
 #: view/applications/index/index.phtml:16
 #: view/applications/apply/index.phtml:28
 #: view/applications/apply/success.phtml:28
-#: view/applications/manage/detail.pdf.phtml:80
+#: view/applications/manage/detail.pdf.phtml:97
 msgid "Application"
 msgstr "आवेदन"
 
 #: view/applications/index/index.phtml:18
-#: view/applications/apply/index.phtml:34
+#: view/applications/apply/index.phtml:33
 #, php-format
 msgid "Apply to \"%s\" from \"%s\""
 msgstr ""
 
 #: view/applications/index/index.phtml:19
-#: view/applications/apply/index.phtml:36
+#: view/applications/apply/index.phtml:35
 msgid "click to open the job ad"
 msgstr "नौकरी के विज्ञापन को खोलने के लिए क्लिक करें"
 
 #: view/applications/index/disclaimer.phtml:22
-#: language/_annotated_strings.php:186 language/_annotated_strings.php:192
+#: language/_annotated_strings.php:192 language/_annotated_strings.php:198
 msgid "Privacy Policy"
 msgstr "गोपनीयता नीति"
 
@@ -72,7 +72,7 @@ msgid "Job"
 msgstr "काम"
 
 #: view/applications/index/dashboard.phtml:41
-#: view/applications/manage/detail.phtml:233
+#: view/applications/manage/detail.phtml:261
 #: view/applications/manage/social-profile/facebook.phtml:34
 #: view/applications/manage/social-profile/facebook.phtml:65
 #: view/applications/manage/social-profile/linkedin.phtml:53
@@ -82,28 +82,28 @@ msgstr "काम"
 msgid "Date"
 msgstr "दिनांक"
 
-#: view/applications/apply/index.phtml:61 language/_annotated_strings.php:231
+#: view/applications/apply/index.phtml:60
 msgid "your application was sent successfully"
 msgstr "आपके आवेदन को सफलतापूर्वक भेजा गया था"
 
-#: view/applications/apply/index.phtml:67
+#: view/applications/apply/index.phtml:66
 #, php-format
 msgid ""
 "The application was added to your %slist%s, so you can keep up-to-date with "
 "the process."
 msgstr ""
 
-#: view/applications/apply/index.phtml:74
+#: view/applications/apply/index.phtml:73
 msgid ""
 "Keep up-to-date with the process of your application by bookmarking this "
 "link:"
 msgstr "अप-टू-डेट बुकमार्क इस लिंक के द्वारा अपने आवेदन की प्रक्रिया के साथ रखें:"
 
-#: view/applications/apply/index.phtml:99
+#: view/applications/apply/index.phtml:98
 msgid "This is a preview of the application form for your job"
 msgstr ""
 
-#: view/applications/apply/index.phtml:100
+#: view/applications/apply/index.phtml:99
 msgid ""
 "You may expand any section and check the available fields, but you can not "
 "save anything."
@@ -159,330 +159,342 @@ msgstr "अपनी नौकरी के सभी के लिए"
 msgid "Applications"
 msgstr "एप्लीकेशन"
 
-#: view/applications/manage/index.phtml:37
+#: view/applications/manage/index.phtml:39
 msgid "List of received applications"
 msgstr "प्राप्त आवेदनों की सूची"
 
-#: view/applications/manage/index.phtml:42
+#: view/applications/manage/index.phtml:44
 msgid "Overview of your sent applications"
 msgstr "अपने भेजे गए आवेदनों का अवलोकन"
 
-#: view/applications/manage/index.phtml:56
-#: view/applications/manage/detail.phtml:159
-#: view/applications/manage/detail.phtml:178
-#: view/applications/manage/detail.phtml:210
+#: view/applications/manage/index.phtml:58
+#: view/applications/manage/detail.phtml:187
+#: view/applications/manage/detail.phtml:206
+#: view/applications/manage/detail.phtml:238
 msgid "Cancel"
 msgstr "रद्द करना"
 
-#: view/applications/manage/index.phtml:57
-#: view/applications/manage/detail.phtml:160
+#: view/applications/manage/index.phtml:59
+#: view/applications/manage/detail.phtml:188
 msgid "Send mail"
 msgstr "मेल भेजें"
 
-#: view/applications/manage/index.phtml:77
+#: view/applications/manage/index.phtml:79
 msgid "search applications"
 msgstr "खोज अनुप्रयोगों"
 
-#: view/applications/manage/index.phtml:82 language/_annotated_strings.php:99
+#: view/applications/manage/index.phtml:84 language/_annotated_strings.php:105
 msgid "Enter job title"
 msgstr "नौकरी शीर्षक दर्ज करें"
 
-#: view/applications/manage/index.phtml:92 language/_annotated_strings.php:96
-#: language/_annotated_strings.php:105
+#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:102
+#: language/_annotated_strings.php:111
 msgid "Search"
 msgstr "सर्च"
 
-#: view/applications/manage/index.phtml:94 language/_annotated_strings.php:108
+#: view/applications/manage/index.phtml:96 language/_annotated_strings.php:114
 msgid "Clear"
 msgstr "साफ"
+
+#: view/applications/manage/status.phtml:21
+msgid "To"
+msgstr ""
 
 #: view/applications/manage/social-profile.phtml:19
 msgid "Profile data"
 msgstr "प्रोफ़ाइल डेटा"
 
 #: view/applications/manage/detail.phtml:15
-#: view/applications/manage/detail.pdf.phtml:23
+#: view/applications/manage/detail.pdf.phtml:28
 msgid "Details"
 msgstr "विवरण"
 
-#: view/applications/manage/detail.phtml:29
+#: view/applications/manage/detail.phtml:43
 msgid "application for"
 msgstr "के लिए आवेदन"
 
-#: view/applications/manage/detail.phtml:34
+#: view/applications/manage/detail.phtml:48
 #, php-format
 msgid "Application %d of %d"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:56
+#: view/applications/manage/detail.phtml:70
+msgid "Accept"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:71
+msgid "Inform the Recruiter"
+msgstr ""
+
+#: view/applications/manage/detail.phtml:82
 msgid "Confirm"
 msgstr "पुष्टि करें"
 
-#: view/applications/manage/detail.phtml:57
+#: view/applications/manage/detail.phtml:83
 msgid "Confirm the receipt"
 msgstr "प्राप्ति की पुष्टि"
 
-#: view/applications/manage/detail.phtml:65
+#: view/applications/manage/detail.phtml:91
 msgid "Invite"
 msgstr "आमंत्रण"
 
-#: view/applications/manage/detail.phtml:66
-#: view/applications/manage/detail.phtml:154
+#: view/applications/manage/detail.phtml:92
+#: view/applications/manage/detail.phtml:180
 msgid "Invite the applicant"
 msgstr "आवेदक को आमंत्रित करें"
 
-#: view/applications/manage/detail.phtml:74
+#: view/applications/manage/detail.phtml:102
 #: view/applications/manage/index.recruiter.ajax.phtml:36
 msgid "Reject"
 msgstr "अस्वीकार"
 
-#: view/applications/manage/detail.phtml:75
+#: view/applications/manage/detail.phtml:103
 msgid "Reject the applicant"
 msgstr "आवेदक को अस्वीकार"
 
-#: view/applications/manage/detail.phtml:103
+#: view/applications/manage/detail.phtml:129
 msgid "Enter an email address"
 msgstr "एक ई-मेल पता दर्ज"
 
-#: view/applications/manage/detail.phtml:104
+#: view/applications/manage/detail.phtml:130
 msgid ""
 "This application will be send as an email to the given address in a layout "
 "similar to that on this page with all attachments included."
 msgstr "इस आवेदन के सभी संलग्नक शामिल साथ इस पेज पर है कि इसी तरह एक लेआउट में दिए गए पते पर एक ईमेल के रूप में भेज दिया जाएगा।"
 
-#: view/applications/manage/detail.phtml:111
+#: view/applications/manage/detail.phtml:137
 msgid "Forward"
 msgstr "आगे"
 
-#: view/applications/manage/detail.phtml:120
+#: view/applications/manage/detail.phtml:146
 msgid "previous"
 msgstr "प्रीवियस"
 
-#: view/applications/manage/detail.phtml:121
+#: view/applications/manage/detail.phtml:147
 msgid "Back to list"
 msgstr "वापस सूची में"
 
-#: view/applications/manage/detail.phtml:121
+#: view/applications/manage/detail.phtml:147
 msgid "List"
 msgstr "लिस्ट"
 
-#: view/applications/manage/detail.phtml:122
+#: view/applications/manage/detail.phtml:148
 msgid "next"
 msgstr "अगली"
 
-#: view/applications/manage/detail.phtml:141
-#: view/applications/manage/detail.phtml:180
+#: view/applications/manage/detail.phtml:167
+#: view/applications/manage/detail.phtml:208
 msgid "Delete application"
 msgstr "आवेदन हटाएं"
 
-#: view/applications/manage/detail.phtml:142
+#: view/applications/manage/detail.phtml:168
 msgid "Delete"
 msgstr "हटाना"
 
-#: view/applications/manage/detail.phtml:171
+#: view/applications/manage/detail.phtml:199
 msgid "Delete Application"
 msgstr "आवेदन हटाएं"
 
-#: view/applications/manage/detail.phtml:175
+#: view/applications/manage/detail.phtml:203
 msgid "Are you sure you want to delete this application?"
 msgstr "आप इस आवेदन को हटाना चाहते हैं आप यकीन कर रहे हैं?"
 
-#: view/applications/manage/detail.phtml:179
+#: view/applications/manage/detail.phtml:207
 msgid "delete this application"
 msgstr "इस आवेदन को नष्ट"
 
-#: view/applications/manage/detail.phtml:187
+#: view/applications/manage/detail.phtml:215
 msgid "Error while loading comments."
 msgstr "लोड करने में त्रुटि टिप्पणियां करते हुए।"
 
-#: view/applications/manage/detail.phtml:194
+#: view/applications/manage/detail.phtml:222
 msgid "Error while loading comment form."
 msgstr "लोड हो रहा है टिप्पणी फार्म समय त्रुटि।"
 
-#: view/applications/manage/detail.phtml:204
+#: view/applications/manage/detail.phtml:232
 msgid "Comments"
 msgstr "कमेंट्स"
 
-#: view/applications/manage/detail.phtml:211
+#: view/applications/manage/detail.phtml:239
 msgid "Save"
 msgstr "सेव"
 
-#: view/applications/manage/detail.phtml:212
+#: view/applications/manage/detail.phtml:240
 msgid "Add new comment"
 msgstr "नई टिप्पणी जोड़ें"
 
-#: view/applications/manage/detail.phtml:213
-#: view/applications/manage/detail.phtml:326
+#: view/applications/manage/detail.phtml:241
+#: view/applications/manage/detail.phtml:355
 msgid "Close"
 msgstr "बंद"
 
-#: view/applications/manage/detail.phtml:226
-#: view/applications/manage/detail.phtml:379
-#: view/applications/manage/detail.phtml:385
+#: view/applications/manage/detail.phtml:254
+#: view/applications/manage/detail.phtml:411
+#: view/applications/manage/detail.phtml:417
 msgid "Status history"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:234
-#: view/applications/manage/detail.phtml:337
+#: view/applications/manage/detail.phtml:262
+#: view/applications/manage/detail.phtml:366
 msgid "State"
 msgstr "राज्य"
 
-#: view/applications/manage/detail.phtml:235
+#: view/applications/manage/detail.phtml:263
 msgid "Comment"
 msgstr "कमेंट"
 
-#: view/applications/manage/detail.phtml:256
+#: view/applications/manage/detail.phtml:284
 #: view/applications/manage/social-profile/facebook.phtml:14
 #: view/applications/manage/social-profile/linkedin.phtml:14
 #: view/applications/manage/social-profile/xing.phtml:14
-#: view/applications/manage/detail.pdf.phtml:87
+#: view/applications/manage/detail.pdf.phtml:105
 msgid "personal information"
 msgstr "व्यक्तिगत जानकारी"
 
-#: view/applications/manage/detail.phtml:275
-#: view/applications/manage/detail.pdf.phtml:113
+#: view/applications/manage/detail.phtml:304
+#: view/applications/manage/detail.pdf.phtml:132
 msgid "Phone"
 msgstr "टेलीफोन"
 
-#: view/applications/manage/detail.phtml:289
-#: view/applications/manage/detail.pdf.phtml:238
+#: view/applications/manage/detail.phtml:318
+#: view/applications/manage/detail.pdf.phtml:298
 #: src/Applications/Factory/Form/AttachmentsFactory.php:83
-#: language/_annotated_strings.php:9 language/_annotated_strings.php:264
+#: language/_annotated_strings.php:9 language/_annotated_strings.php:246
 msgid "Attachments"
 msgstr "अनुलग्नक"
 
-#: view/applications/manage/detail.phtml:300
+#: view/applications/manage/detail.phtml:329
 msgid "no attachments available"
 msgstr "उपलब्ध कोई संलग्नक"
 
-#: view/applications/manage/detail.phtml:320
+#: view/applications/manage/detail.phtml:349
 msgid "Loading"
 msgstr "लोडिंग"
 
-#: view/applications/manage/detail.phtml:340
+#: view/applications/manage/detail.phtml:369
 msgid "date of receipt"
 msgstr "प्राप्ति की तारीख"
 
-#: view/applications/manage/detail.phtml:343
+#: view/applications/manage/detail.phtml:372
 msgid "via"
 msgstr "के माध्यम से"
 
-#: view/applications/manage/detail.phtml:347
+#: view/applications/manage/detail.phtml:377
 msgid "application state"
 msgstr "आवेदन राज्य"
 
-#: view/applications/manage/detail.phtml:354
+#: view/applications/manage/detail.phtml:385
 msgid "rating"
 msgstr "रेटिंग"
 
-#: view/applications/manage/detail.phtml:364
+#: view/applications/manage/detail.phtml:396
 msgid "View comments"
 msgstr "टिप्पणियाँ देखें:"
 
-#: view/applications/manage/detail.phtml:364
+#: view/applications/manage/detail.phtml:396
 msgid "Add comment"
 msgstr "टिप्पणी जोड़ें"
 
-#: view/applications/manage/detail.phtml:373
+#: view/applications/manage/detail.phtml:405
 msgid "last modification date"
 msgstr "अंतिम संशोधन दिनांक"
 
-#: view/applications/manage/detail.phtml:392
+#: view/applications/manage/detail.phtml:424
 msgid "agent"
 msgstr "एजेंट"
 
-#: view/applications/manage/detail.phtml:398
-#: view/applications/manage/detail.pdf.phtml:134
-#: language/_annotated_strings.php:132
+#: view/applications/manage/detail.phtml:430
+#: view/applications/manage/detail.pdf.phtml:163
+#: language/_annotated_strings.php:138
 msgid "Willingness to travel"
 msgstr "यात्रा करने की इच्छा"
 
-#: view/applications/manage/detail.phtml:404
-#: view/applications/manage/detail.pdf.phtml:140
-#: language/_annotated_strings.php:144
+#: view/applications/manage/detail.phtml:436
+#: view/applications/manage/detail.pdf.phtml:169
+#: language/_annotated_strings.php:150
 msgid "Earliest starting date"
 msgstr "जल्द से जल्द शुरू करने की तारीख"
 
-#: view/applications/manage/detail.phtml:410
-#: view/applications/manage/detail.pdf.phtml:146
-#: language/_annotated_strings.php:153
+#: view/applications/manage/detail.phtml:442
+#: view/applications/manage/detail.pdf.phtml:175
+#: language/_annotated_strings.php:159
 msgid "Expected salary"
 msgstr "अपेक्षित वेतन"
 
-#: view/applications/manage/detail.phtml:416
+#: view/applications/manage/detail.phtml:448
 msgid "Driving license"
 msgstr ""
 
-#: view/applications/manage/detail.phtml:417
-#: language/_annotated_strings.php:123 language/_annotated_strings.php:162
+#: view/applications/manage/detail.phtml:449
+#: language/_annotated_strings.php:129 language/_annotated_strings.php:168
 msgid "Yes"
 msgstr "हाँ"
 
-#: view/applications/manage/detail.phtml:417
-#: language/_annotated_strings.php:129 language/_annotated_strings.php:165
+#: view/applications/manage/detail.phtml:449
+#: language/_annotated_strings.php:135 language/_annotated_strings.php:171
 msgid "No"
 msgstr "ना"
 
-#: view/applications/manage/detail.phtml:430
-#: view/applications/manage/detail.pdf.phtml:153
+#: view/applications/manage/detail.phtml:462
+#: view/applications/manage/detail.pdf.phtml:182
 #: language/_annotated_strings.php:42
 msgid "Cover Letter"
 msgstr "कवर लेटर"
 
-#: view/applications/manage/detail.phtml:445
+#: view/applications/manage/detail.phtml:477
 #: view/applications/manage/index.recruiter.ajax.phtml:134
 #: view/applications/manage/social-profile/facebook.phtml:62
 #: view/applications/manage/social-profile/linkedin.phtml:87
 #: view/applications/manage/social-profile/xing.phtml:78
-#: view/applications/manage/detail.pdf.phtml:159
+#: view/applications/manage/detail.pdf.phtml:192
 msgid "work experience"
 msgstr "कार्य अनुभव"
 
-#: view/applications/manage/detail.phtml:450
-#: view/applications/manage/detail.phtml:480
-#: view/applications/manage/detail.pdf.phtml:162
-#: view/applications/manage/detail.pdf.phtml:180
+#: view/applications/manage/detail.phtml:482
+#: view/applications/manage/detail.phtml:512
+#: view/applications/manage/detail.pdf.phtml:195
+#: view/applications/manage/detail.pdf.phtml:218
 msgid "Start"
 msgstr "शुरु"
 
-#: view/applications/manage/detail.phtml:451
-#: view/applications/manage/detail.phtml:481
-#: view/applications/manage/detail.pdf.phtml:163
-#: view/applications/manage/detail.pdf.phtml:181
+#: view/applications/manage/detail.phtml:483
+#: view/applications/manage/detail.phtml:513
+#: view/applications/manage/detail.pdf.phtml:196
+#: view/applications/manage/detail.pdf.phtml:219
 msgid "End"
 msgstr "समाप्त"
 
-#: view/applications/manage/detail.phtml:452
+#: view/applications/manage/detail.phtml:484
 #: language/_annotated_strings.php:30
 msgid "Company"
 msgstr "कंपनी"
 
-#: view/applications/manage/detail.phtml:453
-#: view/applications/manage/detail.phtml:483
+#: view/applications/manage/detail.phtml:485
+#: view/applications/manage/detail.phtml:515
 #: view/applications/manage/social-profile/facebook.phtml:68
 #: view/applications/manage/social-profile/linkedin.phtml:93
 #: view/applications/manage/social-profile/xing.phtml:84
-#: view/applications/manage/detail.pdf.phtml:164
-#: view/applications/manage/detail.pdf.phtml:182
+#: view/applications/manage/detail.pdf.phtml:197
+#: view/applications/manage/detail.pdf.phtml:220
 msgid "Description"
 msgstr "विवरण"
 
-#: view/applications/manage/detail.phtml:476
-#: view/applications/manage/detail.pdf.phtml:177
+#: view/applications/manage/detail.phtml:508
+#: view/applications/manage/detail.pdf.phtml:215
 msgid "education and training"
 msgstr "शिक्षा और प्रशिक्षण"
 
-#: view/applications/manage/detail.phtml:482
+#: view/applications/manage/detail.phtml:514
 msgid "University"
 msgstr "महाविद्यालय"
 
-#: view/applications/manage/detail.phtml:500
-#: view/applications/manage/detail.pdf.phtml:195
+#: view/applications/manage/detail.phtml:532
+#: view/applications/manage/detail.pdf.phtml:238
 msgid "personal skills"
 msgstr "व्यक्तिगत कौशल"
 
-#: view/applications/manage/detail.phtml:502
-#: view/applications/manage/detail.pdf.phtml:197
+#: view/applications/manage/detail.phtml:534
+#: view/applications/manage/detail.pdf.phtml:240
 msgid "native language"
 msgstr "देशी भाषा"
 
@@ -580,31 +592,31 @@ msgstr "स्तर"
 msgid "view"
 msgstr "व्यू"
 
-#: view/applications/manage/detail.pdf.phtml:72
+#: view/applications/manage/detail.pdf.phtml:85
 msgid "Application dated"
 msgstr ""
 
-#: view/applications/manage/detail.pdf.phtml:86
+#: view/applications/manage/detail.pdf.phtml:104
 msgid "application details"
 msgstr "आवेदन विवरण"
 
-#: view/applications/manage/detail.pdf.phtml:93
+#: view/applications/manage/detail.pdf.phtml:112
 msgid "name"
 msgstr "नाम"
 
-#: view/applications/manage/detail.pdf.phtml:98
+#: view/applications/manage/detail.pdf.phtml:117
 msgid "Street"
 msgstr "स्ट्रीट"
 
-#: view/applications/manage/detail.pdf.phtml:104
+#: view/applications/manage/detail.pdf.phtml:123
 msgid "City"
 msgstr "शहर"
 
-#: view/applications/manage/detail.pdf.phtml:109
+#: view/applications/manage/detail.pdf.phtml:128
 msgid "E-Mail"
 msgstr "ई-मेल"
 
-#: view/applications/manage/detail.pdf.phtml:130
+#: view/applications/manage/detail.pdf.phtml:159
 #: src/Applications/Form/Facts.php:43
 msgid "Facts"
 msgstr "तथ्य"
@@ -613,17 +625,15 @@ msgstr "तथ्य"
 msgid "new applications"
 msgstr "नए अनुप्रयोगों"
 
+#: view/error/not-found.phtml:12
+msgid "job opening is not online anymore"
+msgstr ""
+
 #: view/error/not-found.phtml:14
-msgid "A 410 error occured"
+msgid ""
+"you tried to open an application formular for a job opening, which is not "
+"online any more."
 msgstr ""
-
-#: view/error/not-found.phtml:16
-msgid "Unknown application identifier"
-msgstr ""
-
-#: view/error/not-found.phtml:17
-msgid "An application with the provided identifier could not be found."
-msgstr "प्रदान की पहचानकर्ता के साथ एक आवेदन नहीं पाया जा सका।"
 
 #: src/Applications/Form/SettingsFieldset.php:43
 #: language/_annotated_strings.php:51
@@ -638,40 +648,52 @@ msgstr "विकल्प"
 msgid "Search applications"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:340
-#: src/Applications/Controller/MultimanageController.php:87
-#, php-format
-msgid "Your application dated %s"
-msgstr ""
-
-#: src/Applications/Controller/ManageController.php:385
+#: src/Applications/Controller/ManageController.php:368
 #, php-format
 msgid "Forwarded application to %s"
 msgstr ""
 
-#: src/Applications/Controller/ManageController.php:401
+#: src/Applications/Controller/ManageController.php:384
 #, php-format
 msgid "Forward application to %s failed."
+msgstr ""
+
+#: src/Applications/Controller/ApplyController.php:203
+msgid ""
+"you can add your social profile to your application. You can preview and "
+"remove the attached profile before submitting the application."
+msgstr ""
+
+#: src/Applications/Controller/MultimanageController.php:87
+#: src/Applications/Listener/StatusChange.php:105
+#, php-format
+msgid "Your application dated %s"
 msgstr ""
 
 #: src/Applications/Controller/MultimanageController.php:93
 msgid "reject the applicants"
 msgstr "आवेदकों को अस्वीकार"
 
+#: src/Applications/Listener/StatusChange.php:153
+#: language/_annotated_strings.php:225
+#, php-format
+msgid "Mail was sent to %s"
+msgstr ""
+
 #: src/Applications/Mail/Confirmation.php:85
-#: src/Applications/Mail/StatusChange.php:79
+#: src/Applications/Mail/StatusChange.php:80
 #, php-format
 msgid "Dear Mr. %s"
 msgstr ""
 
 #: src/Applications/Mail/Confirmation.php:86
-#: src/Applications/Mail/StatusChange.php:80
+#: src/Applications/Mail/StatusChange.php:81
 #, php-format
 msgid "Dear Ms. %s"
 msgstr ""
 
 #: src/Applications/Mail/Confirmation.php:100
-#: src/Applications/Mail/StatusChange.php:96
+#: src/Applications/Mail/StatusChange.php:97
 #, php-format
 msgid "Hello %s"
 msgstr ""
@@ -681,7 +703,7 @@ msgid "Career"
 msgstr "व्यवसाय"
 
 #: language/_annotated_strings.php:15 language/_annotated_strings.php:36
-#: language/_annotated_strings.php:102
+#: language/_annotated_strings.php:108
 msgid "Status"
 msgstr "स्थिति"
 
@@ -765,195 +787,179 @@ msgid ""
 msgstr ""
 
 #: language/_annotated_strings.php:84
+msgid "Accept mail text"
+msgstr ""
+
+#: language/_annotated_strings.php:87
+msgid ""
+"default text, when accepting an applicant. This mail is send to by a domain "
+"admin to the recruiter, who is responsible for the job posting."
+msgstr ""
+
+#: language/_annotated_strings.php:90
 msgid "Rejection mail text"
 msgstr "अस्वीकृति मेल पाठ"
 
-#: language/_annotated_strings.php:87
+#: language/_annotated_strings.php:93
 msgid ""
 "default text of the refusal of an application to the applicant. You can use "
 "all variables of the acknowledgment of receipt mail."
 msgstr ""
 
-#: language/_annotated_strings.php:90
+#: language/_annotated_strings.php:96
 msgid "get blind carbon copy of all own mails"
 msgstr "सभी स्वयं के मेल का अंधा कार्बन कॉपी मिल"
 
-#: language/_annotated_strings.php:93
+#: language/_annotated_strings.php:99
 msgid "if checked, you'll get a copy of all mails you send."
 msgstr "जाँच की है, तो आप आप भेजने के सभी मेल की एक कॉपी मिल जाएगा।"
 
-#: language/_annotated_strings.php:111
+#: language/_annotated_strings.php:117
 msgid "Comment message"
 msgstr "राय संदेश"
 
-#: language/_annotated_strings.php:114
+#: language/_annotated_strings.php:120
 msgid ""
 "Request additional facts from the Applicant. Selected Fields will be added "
 "to the application Form."
 msgstr "आवेदक से अतिरिक्त तथ्यों का अनुरोध करें। चयनित फ़ील्ड आवेदन फार्म के लिए जोड़ दिया जाएगा।"
 
-#: language/_annotated_strings.php:117
+#: language/_annotated_strings.php:123
 msgid "Please provide some additional facts for this job opening."
 msgstr "इस काम के उद्घाटन के लिए कुछ अतिरिक्त तथ्यों प्रदान करें।"
 
-#: language/_annotated_strings.php:120
+#: language/_annotated_strings.php:126
 msgid "Click here to enter facts."
 msgstr "तथ्यों को दर्ज करने के लिए यहां क्लिक करें।"
 
-#: language/_annotated_strings.php:126
+#: language/_annotated_strings.php:132
 msgid "conditioned"
 msgstr "शर्त किया हुआ"
 
-#: language/_annotated_strings.php:135
+#: language/_annotated_strings.php:141
 msgid "Enter your willingness to travel."
 msgstr "यात्रा करने के लिए अपनी इच्छा दर्ज करें।"
 
-#: language/_annotated_strings.php:138
+#: language/_annotated_strings.php:144
 msgid "Ask the applicant about the willingness to travel"
 msgstr "यात्रा करने के लिए इच्छा के बारे में आवेदक से पूछो"
 
-#: language/_annotated_strings.php:141 language/_annotated_strings.php:177
+#: language/_annotated_strings.php:147 language/_annotated_strings.php:183
 msgid "please select"
 msgstr "कृपया चुनिए"
 
-#: language/_annotated_strings.php:147
+#: language/_annotated_strings.php:153
 msgid "Enter the earliest starting date."
 msgstr "जल्द से जल्द शुरू करने की तारीख दर्ज करें।"
 
-#: language/_annotated_strings.php:150
+#: language/_annotated_strings.php:156
 msgid "Ask the applicant about the earliest starting date."
 msgstr "जल्द से जल्द शुरू करने की तारीख के बारे में आवेदक से पूछो।"
 
-#: language/_annotated_strings.php:156
+#: language/_annotated_strings.php:162
 msgid ""
 "Your salary requirements should be the annual amount before taxes. Do not "
 "forget to provide the currency sign."
 msgstr "आपका वेतन आवश्यकताओं करों से पहले वार्षिक राशि होना चाहिए। मुद्रा साइन प्रदान करने के लिए मत भूलना।"
 
-#: language/_annotated_strings.php:159
+#: language/_annotated_strings.php:165
 msgid "Ask users about their expected salary."
 msgstr "उनकी उम्मीद वेतन के बारे में उपयोगकर्ताओं पूछो।"
 
-#: language/_annotated_strings.php:168
+#: language/_annotated_strings.php:174
 msgid "driving license"
 msgstr ""
 
-#: language/_annotated_strings.php:171
+#: language/_annotated_strings.php:177
 msgid "Do you have a driving license?"
 msgstr ""
 
-#: language/_annotated_strings.php:174
+#: language/_annotated_strings.php:180
 msgid "Ask the applicant, if he has a driving license."
 msgstr ""
 
-#: language/_annotated_strings.php:180
+#: language/_annotated_strings.php:186
 msgid "Carbon Copy"
 msgstr "प्रतिलिपि"
 
-#: language/_annotated_strings.php:183
+#: language/_annotated_strings.php:189
 msgid "send me a carbon copy of my application"
 msgstr "मुझे अपने आवेदन के एक कार्बन कॉपी भेज"
 
-#: language/_annotated_strings.php:189
+#: language/_annotated_strings.php:195
 #, php-format
 msgid "I have read the %s and accept it"
 msgstr ""
 
-#: language/_annotated_strings.php:195
+#: language/_annotated_strings.php:201
 msgid "Click here to enter a summary."
 msgstr "एक सारांश दर्ज करने के लिए यहां क्लिक करें।"
 
-#: language/_annotated_strings.php:198
+#: language/_annotated_strings.php:204
 msgid ""
 "<strong>Please note</strong>: HTML tags get stripped out. Line breaks are "
 "preserved."
 msgstr ""
 
-#: language/_annotated_strings.php:201
+#: language/_annotated_strings.php:207
 msgid "all"
 msgstr "सारे"
 
-#: language/_annotated_strings.php:204 language/_annotated_strings.php:210
-#: language/_annotated_strings.php:222
+#: language/_annotated_strings.php:210 language/_annotated_strings.php:216
 msgid "Invalid apply id"
 msgstr ""
 
-#: language/_annotated_strings.php:207
+#: language/_annotated_strings.php:213
 #, php-format
 msgid "Application was read by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:213
+#: language/_annotated_strings.php:219
 msgid ""
 "There are missing required informations. Your application cannot be send."
 msgstr ""
 
-#: language/_annotated_strings.php:216
+#: language/_annotated_strings.php:222
 msgid "Application has been send."
 msgstr ""
 
-#: language/_annotated_strings.php:219 language/_annotated_strings.php:228
-msgid "Application confirmation"
-msgstr ""
-
-#: language/_annotated_strings.php:225
-msgid "There were errors in the form."
-msgstr ""
-
-#: language/_annotated_strings.php:234
-msgid "Application has been deleted."
-msgstr ""
-
-#: language/_annotated_strings.php:237
-msgid "Mail has been send"
-msgstr ""
-
-#: language/_annotated_strings.php:240
-msgid "Application data has been deleted"
-msgstr ""
-
-#: language/_annotated_strings.php:243
-msgid "No mail adress available"
-msgstr ""
-
-#: language/_annotated_strings.php:246
-#, php-format
-msgid "Mail was sent to %s"
-msgstr ""
-
-#: language/_annotated_strings.php:249
+#: language/_annotated_strings.php:228
 #, php-format
 msgid "Application was rated by %s"
 msgstr ""
 
-#: language/_annotated_strings.php:252
+#: language/_annotated_strings.php:231
+msgid "Application confirmation"
+msgstr ""
+
+#: language/_annotated_strings.php:234
 #, php-format
 msgid "Fwd: Application to \"%s\" dated %s"
 msgstr ""
 
-#: language/_annotated_strings.php:255
+#: language/_annotated_strings.php:237
 #, php-format
 msgid "New application for your vacancy \"%s\""
 msgstr ""
 
-#: language/_annotated_strings.php:258
+#: language/_annotated_strings.php:240
 msgid ""
 "Hello ##name##,\\n\\nThere is a new application for your "
 "vacancy:\\n\\\"##title##\\\"\\n\\n"
 msgstr ""
 
-#: language/_annotated_strings.php:261
+#: language/_annotated_strings.php:243
 #, php-format
 msgid ""
 "Attach images or PDF Documents to your application. Drag&drop them, or click"
 " into the attachement area. You can upload up to %sMB"
 msgstr "अपने आवेदन करने के लिए छवियों या पीडीएफ दस्तावेजों देते हैं। खींचें और उन्हें छोड़, या attachement के क्षेत्र में क्लिक करें। आप 5MB को अपलोड कर सकते हैं"
 
-#: language/_annotated_strings.php:267
+#: language/_annotated_strings.php:249
 msgid "E-Mail Templates"
 msgstr "ई-मेल टेम्पलेट"
 
-#: language/_annotated_strings.php:270
+#: language/_annotated_strings.php:252
 msgid "Overview"
 msgstr "अवलोकन"
 

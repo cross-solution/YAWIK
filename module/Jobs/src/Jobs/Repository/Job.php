@@ -46,7 +46,6 @@ class Job extends AbstractRepository
         $result = $qb->getQuery()->execute();
         $count = $result->count();
         return (bool) $count;
-        
     }
 
     /**
@@ -85,7 +84,6 @@ class Job extends AbstractRepository
         $result = $qb->getQuery()->execute();
         
         return $result;
-        
     }
 
     /**
@@ -158,5 +156,4 @@ class Job extends AbstractRepository
 
         return $r;
     }
-   
 }

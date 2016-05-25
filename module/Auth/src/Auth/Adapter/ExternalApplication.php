@@ -123,7 +123,7 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
         //$login         = (0 < $applicationIdIndex &&  strlen($identity) - strlen($applicationId) == $applicationIdIndex)?substr($identity, 0, $applicationIdIndex):$identity;
         $login         = $identity;
         $users         = $this->getRepository();
-        $user          = $users->findByLogin($login);
+        $user          = $users->findByLogin($login, ['allowDeactivated' => true]);
         $filter        = new CredentialFilter();
         $credential    = $this->getCredential();
         

@@ -68,7 +68,5 @@ class ApplyUrlFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame($translateHelper, 'translateHelper', $service);
         $this->assertAttributeSame($paramsHelper, 'paramsHelper', $service);
         $this->assertAttributeSame($serverUrl, 'serverUrlHelper', $service);
-
-
     }
 }

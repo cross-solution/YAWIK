@@ -1,0 +1,40 @@
+<?php //description: Renders the list of orders ?>
+<?php $this->headTitle($this->translate('Orders'));
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
+                         ->captureStart() ?>
+(function($) {
+    console.debug($.fn.orderDetailModal);
+    $.fn.orderDetailModal.i18n = {
+        'headline': '<?php echo $this->translate('[ %2$s ] Order %1$s') ?>',
+        'loading' : '<?php echo $this->translate('Loading') ?> &hellip;',
+        'button'  : '<?php echo $this->translate('Close') ?>'
+    };
+})(jQuery);
+<?php $this->headscript()->captureEnd();
+
+
+?>
+<h1><?php echo $this->translate('List of your orders'); ?></h1>
+
+<?php echo $this->flashMessenger()->render('default', array('alert', 'alert-success')) ?>
+
+<nav class="navbar yk-toolbar" id="orders-list-filter-wrapper">
+<?php
+        $this->form->getElements()->get('text')->setAttribute('placeholder', $this->translate('Search address parts or order numbers...'));
+        echo $this->searchForm($this->form)  ?>
+</nav>
+
+<div id="orders-list-container" class="pagination-container"
+     data-message="<?php echo $this->escapeHtmlAttr(sprintf(
+                                                        $this->translate('%sSorry%s, there are not any orders matching your search criteria.'),
+                                                        '<strong>', '</strong>'
+                                                    ))?>"
+     data-uri="<?php
+     echo $this->url('lang/orders', array(), array('query' => $this->params()->fromQuery()), true)?>">
+
+    <div class="pagination-content">
+        <?php echo $this->render('orders/list/index.ajax')?>
+    </div>
+</div>
+
+

@@ -24,7 +24,7 @@ class Rating extends AbstractRatingEntity implements RatingInterface
     /**
      * Application rating value
      * @var int
-     * @ODM\Int
+     * @ODM\Field(type="int")
      */
     protected $rating;
     

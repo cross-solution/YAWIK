@@ -37,7 +37,8 @@ class MailForgotPassword
      */
     protected $mailService;
 
-    public function __construct($options, $mailService, $coreOptions){
+    public function __construct($options, $mailService, $coreOptions)
+    {
         $this->options=$options;
         $this->mailService=$mailService;
         $this->coreOptions = $coreOptions;

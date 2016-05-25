@@ -60,7 +60,7 @@ class IndexController extends AbstractActionController
      * @param $forms
      * @param $options ModuleOptions
      */
-    public function __construct(AuthenticationService $auth, LoggerInterface $logger,array $forms, $options)
+    public function __construct(AuthenticationService $auth, LoggerInterface $logger, array $forms, $options)
     {
         $this->auth = $auth;
         $this->forms = $forms;
@@ -141,13 +141,12 @@ class IndexController extends AbstractActionController
                 }
                 $this->notification()->success(/*@translate*/ 'You are now logged in.');
                 return $this->redirect()->toUrl($url);
-                
             } else {
                 $loginName = $data['credentials']['login'];
                 if (!empty($loginSuffix)) {
                     $loginName = $loginName . ' (' . $loginName . $loginSuffix . ')';
                 }
-                $this->logger->info('Failed to authenticate User ' . $loginName );
+                $this->logger->info('Failed to authenticate User ' . $loginName);
                 $this->notification()->danger(/*@translate*/ 'Authentication failed.');
             }
         }
@@ -364,18 +363,17 @@ class IndexController extends AbstractActionController
                 )
             );
         }
-        
     }
     
     public function groupAction()
     {
         //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
         if (false) {
-             $this->request->setMethod('get');
+            $this->request->setMethod('get');
             $params = new Parameters(
                 array(
                 'format' => 'json',
-                    'group' => array (
+                    'group' => array(
                         0 => 'testuser4711', 1 => 'flatscreen', 2 => 'flatscreen1', 3 => 'flatscreen2', 4 => 'flatscreen3',  5 => 'flatscreen4',
                         6 => 'flatscreen5', 7 => 'flatscreen6', 8 => 'flatscreen7',  9 => 'flatscreen8', 10 => 'flatscreen9'
                     ),
@@ -383,7 +381,6 @@ class IndexController extends AbstractActionController
                 )
             );
             $this->getRequest()->setQuery($params);
-             
         }
         $auth = $this->auth;
         $userGrpAdmin = $auth->getUser();
@@ -406,10 +403,17 @@ class IndexController extends AbstractActionController
         $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
-                $user = $users->findByLogin($grp_member . $loginSuffix);
-                if (!empty($user)) {
-                    $groupUserId[] = $user->id;
-                } else {
+                try
+                {
+                    $user = $users->findByLogin($grp_member . $loginSuffix);
+                    if (!empty($user)) {
+                        $groupUserId[] = $user->id;
+                    } else {
+                        $notFoundUsers[] = $grp_member . $loginSuffix;
+                    }
+                }
+                catch (\Auth\Exception\UserDeactivatedException $e)
+                {
                     $notFoundUsers[] = $grp_member . $loginSuffix;
                 }
             }

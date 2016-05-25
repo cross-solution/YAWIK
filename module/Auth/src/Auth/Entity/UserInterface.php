@@ -11,8 +11,6 @@
 namespace Auth\Entity;
 
 use Core\Entity\IdentifiableEntityInterface;
-use Doctrine\Common\Collections\Collection;
-use Organizations\Entity\OrganizationInterface;
 use Organizations\Entity\OrganizationReferenceInterface;
 use Zend\Permissions\Acl\Role\RoleInterface;
 
@@ -24,6 +22,20 @@ use Zend\Permissions\Acl\Role\RoleInterface;
  */
 interface UserInterface extends IdentifiableEntityInterface, RoleInterface
 {
+
+    /**
+     * defines the role of a recruiter
+     */
+    const ROLE_RECRUITER = 'recruiter';
+    /*
+     * defines the role of an authenticated user
+     */
+    const ROLE_USER = 'user';
+    /*
+     * defines the role of an admin user.
+     */
+    const ROLE_ADMIN = 'admin';
+
     /**
      * Sets the users login name
      *
@@ -162,4 +174,12 @@ interface UserInterface extends IdentifiableEntityInterface, RoleInterface
      * @since 0.19
      */
     public function setIsDraft($draft);
+    
+    /**
+     * Return true, if user is active
+     *
+     * @return boolean
+     * @since 0.25
+     */
+    public function isActive();
 }

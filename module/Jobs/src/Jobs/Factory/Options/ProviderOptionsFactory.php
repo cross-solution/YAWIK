@@ -34,7 +34,5 @@ class ProviderOptionsFactory implements FactoryInterface
             }
         }
         return $providerOptions;
-
-
     }
 }

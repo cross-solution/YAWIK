@@ -85,7 +85,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 //                ),
 //                'allow_empty' => True
 //            ),
-            
+
              'logoRef' => array(
                 'filters'  => array(
                     array('name' => 'Zend\Filter\StringTrim'),
@@ -229,7 +229,7 @@ class ImportFieldset extends Fieldset implements InputFilterProviderInterface
 //            'attributes' => array(
 //            ),
 //        ));
-       
+
        
         $this->add(
             array(

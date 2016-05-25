@@ -69,7 +69,6 @@ class CreateAssertionTest extends \PHPUnit_Framework_TestCase
 
         // user and right privilege is null (meaning triggering event will be done)?
         $this->assertNull($target->assert($acl, $role, null, 'new'));
-
     }
 }
 

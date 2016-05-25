@@ -23,7 +23,7 @@ use Core\Entity\EntityInterface;
  *
  * @param $element
  */
-class viewModelTemplateFilterFactory implements FactoryInterface
+class ViewModelTemplateFilterFactory implements FactoryInterface
 {
     /**
      * @var ServiceLocatorInterface

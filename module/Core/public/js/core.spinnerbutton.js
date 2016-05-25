@@ -14,10 +14,12 @@
 			$button.find('.processing').removeClass('yk-hidden');
 			$button.find('.default').addClass('yk-hidden');
 			$button.data('state', 'processing');
+            $button.addClass('disabled').prop('disabled', true);
 		} else {
 			$button.find('.processing').addClass('yk-hidden');
 			$button.find('.default').removeClass('yk-hidden');
 			$button.data('state', 'default');
+            $button.removeClass('disabled').prop('disabled', false);
 		}
 	}
 	
@@ -40,6 +42,17 @@
 		return this;
 	};
 	
-	$(function() { $('button').spinnerbutton(); });
+	$(function() {
+        $('body').on('click.spinnerbutton.data-api', '[data-provide="spinnerbutton"]', function(e) {
+             var $button = $(this);
+            if ($button.find('.processing').length) {
+                if (!$button.data('state')) {
+                    $button.spinnerbutton();
+                }
+                $button.spinnerbutton('toggle');
+            }
+        });
+        $('button[data-provide="spinnerbutton"]').spinnerbutton();
+    });
 	
 })(jQuery);

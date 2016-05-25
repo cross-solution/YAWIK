@@ -82,8 +82,11 @@ class Module implements ConsoleBannerProviderInterface
             
             $errorHandlerListener = new ErrorHandlerListener($sm->get('ErrorLogger'), $redirectCallback);
             $errorHandlerListener->attach($eventManager);
-            
+
+            /* @var \Core\Options\ModuleOptions $options */
+            $options = $sm->get('Core/Options');
             $languageRouteListener = new LanguageRouteListener();
+            $languageRouteListener->setSupportedLanguages($options->getSupportedLanguages());
             $languageRouteListener->attach($eventManager);
         
         
@@ -159,7 +162,8 @@ class Module implements ConsoleBannerProviderInterface
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                    'CoreTest' => __DIR__ . '/test/' . 'CoreTest'
+                    'CoreTest' => __DIR__ . '/test/' . 'CoreTest',
+                    'CoreTestUtils' => __DIR__ . '/test/CoreTestUtils',
                 ),
             ),
         );

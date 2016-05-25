@@ -12,7 +12,7 @@ namespace JobsTest\Factory\Form\Hydrator;
 use Jobs\Factory\Form\Hydrator\OrganizationNameHydratorFactory;
 use Test\Bootstrap;
 
-class OrganizationNameHydratorFactoryTest extends \PHPUnit_Framework_TestCase
+class OrganizationNameHydratorSLFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var OrganizationNameHydratorFactory

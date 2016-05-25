@@ -9,28 +9,35 @@
 
 namespace Auth\Factory\Listener;
 
-use Auth\Listener\UnauthorizedAccessListener as Listener;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Factory for creating the Auth view helper.
+ * Factory for creating exception strategies
  */
-class UnauthorizedAccessListenerFactory implements FactoryInterface
+class ExceptionStrategyFactory implements FactoryInterface
 {
     /**
-     * Creates an instance of \Auth\View\Helper\Auth
-     *
-     * - Injects the AuthenticationService
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return \Auth\View\Helper\Auth
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $serviceLocator, $canonicalName = null)
     {
+        switch ($canonicalName)
+        {
+            case 'unauthorizedaccesslistener':
+                $listener = new \Auth\Listener\UnauthorizedAccessListener();
+            break;
+            
+            case 'deactivateduserlistener':
+                $listener = new \Auth\Listener\DeactivatedUserListener();
+            break;
+            
+            default:
+                throw new \InvalidArgumentException(sprintf('Unknown service %s', $canonicalName));
+            break;
+        }
+        
         $config   = $serviceLocator->get('Config');
-        $listener = new Listener();
          
         if (isset($config['view_manager'])) {
             if (isset($config['view_manager']['display_exceptions'])) {

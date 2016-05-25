@@ -1,0 +1,80 @@
+<?php
+/**
+ * YAWIK
+ *
+ * @filesource
+ * @license MIT
+ * @copyright  2013 - 2016 Cross Solution <http://cross-solution.de>
+ */
+?>
+<?php if (count($this->users)):
+
+    $columns = [
+        [
+            'label' => $this->translate('Name'),
+            'sort'  => 'name',
+        ],
+        [
+            'label' => $this->translate('Role'),
+            'sort' => 'role',
+        ],
+        [
+            'label' => $this->translate('Login'),
+            'sort' => 'login',
+        ],
+    ];
+
+    $sort = $this->params()->fromQuery('sort', 'name');
+    if ('-' == $sort{0}) {
+        $sortBy  = substr($sort, 1);
+        $sortDir = false;
+    } else {
+        $sortBy  = $sort;
+        $sortDir = true;
+    }?>
+    <table class="table table-striped table-bordered table-hover" id="users-list">
+        <tr>
+            <?php foreach ($columns as $spec):?>
+                <th<?php echo isset($spec['class']) ? ' class="' . $spec['class'] . '"' : '' ?>>
+                    <?php if (! isset($spec['sort'])): echo $spec['label'];
+                    else:
+                        if ($spec['sort'] == $sortBy):
+                            $icon = '<span style="margin-top: 5px;" class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
+                            $dir = !$sortDir;
+                        else:
+                            $dir = true;
+                            $icon = '<span style="margin-top: 5px" class="pull-right yk-icon yk-icon-sort"></span>';
+                        endif;
+                        $sortParam = array('sort' => ($dir ? '' : '-') . $spec['sort']);
+                        $url = $this->url(
+                                    'lang/user-list', array(),
+                                    array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
+                                    true
+                        );
+                        ?>
+                        <a style="width: 100%; display: inline-block;" href="<?php echo $url?>"><?php echo $spec['label'].$icon ?></a>
+                    <?php endif; ?>
+                </th>
+            <?php endforeach; ?>
+            <th class="col-xs-1"><?php echo $this->translate('Action')?></th>
+        </tr>
+        <?php foreach($this->users as $user): /* @var $user \Auth\Entity\User */?>
+            <tr>
+                <td>
+                    <?php echo $user->getInfo()->getDisplayName() ?>
+                </td>
+                <td>
+                    <?php echo $user->getRole() ?>
+                </td>
+                <td>
+                    <?php echo $user->getLogin() ?>
+                </td>
+                <td>
+                    <a class="btn btn-default btn-xs" href="<?=$this->url('lang/user-edit', ['id' => $user->getId()])?>" title="<?php echo $this->translate('Edit') ?>"><i class="yk-icon yk-icon-edit"></i></a>
+                </td>
+            </tr>
+
+        <?php endforeach;?>
+    </table>
+<?php echo $this->paginationControl($this->users, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/user-list'));?>
+<?php endif ?>

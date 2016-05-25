@@ -148,7 +148,6 @@ class MailSenderTest extends \PHPUnit_Framework_TestCase
 
         $this->target->onJobAccepted($this->jobEvent);
         $this->target->onJobRejected($this->jobEvent);
-
     }
 
     public function pushMailMock()

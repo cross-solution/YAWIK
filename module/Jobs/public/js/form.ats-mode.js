@@ -14,23 +14,32 @@
 ;
 (function ($) {
 
-    var $form;
-    var $select;
-    var $uri;
-    var $email;
-
-    function toggleAdditionalInputs()
+	var $form;
+	var visibilityMap = {
+    	'intern': ['oneClickApply', 'oneClickApplyProfiles'],
+		'uri': ['uri'],
+    	'email': ['email']
+    };
+	
+    function toggleAdditionalInputs(value)
     {
-        var value = $select.val();
+        var show = [];
 
-        $uri.slideUp();
-        $email.slideUp();
-
-        if ('uri' == value) {
-            $uri.slideDown();
-        } else if ('email' == value) {
-            $email.slideDown();
+		for (var type in visibilityMap) {
+            var elements = visibilityMap[type];
+            for (var key in elements) {
+            	var $formGroup = $form.find('#atsMode-' + elements[key])
+            		.closest('.form-group')
+            		.slideUp();
+            	if (type == value) {
+            		show.push($formGroup)
+            	}
+    		}
         }
+        
+        for (var key in show) {
+        	show[key].slideDown();
+		}
     }
 
     function reloadIframe()
@@ -39,15 +48,14 @@
     }
 
     $(function() {
-        $form   = $('#descriptionForm-atsMode');
-        $select = $form.find('#atsMode-mode');
-        $uri    = $form.find('#atsMode-uri').parent().parent();
-        $email  = $form.find('#atsMode-email').parent().parent();
+        $form   = $('#description-descriptionForm-atsMode');
+        var $select = $form.find('#atsMode-mode');
 
-        console.debug($form, $select, $uri, $email);
-        $select.change(toggleAdditionalInputs);
+        $select.change(function () {
+        	toggleAdditionalInputs($select.val());
+        });
         $form.on('done.yk.core.forms', reloadIframe);
-        toggleAdditionalInputs();
+        toggleAdditionalInputs($select.val());
     })
 
 })(jQuery); 

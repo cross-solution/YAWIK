@@ -24,6 +24,6 @@ class LoginInfo extends AbstractHelper
      */
     public function __invoke($values = array())
     {
-         return $this->getView()->render('auth/index/login-info', $values);
+        return $this->getView()->render('auth/index/login-info', $values);
     }
 }

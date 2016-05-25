@@ -51,6 +51,5 @@ class CommentForm extends Form
             )
             )
         );
-        
     }
 }

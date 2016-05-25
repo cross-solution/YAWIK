@@ -57,7 +57,7 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
             ['title', 'title123'],
             ['company', 'company123'],
             ['contactEmail', 'contactEmail123'],
-            ['datePublishStart', $date = \DateTime::createFromFormat(time(),\DateTime::ISO8601)],
+            ['datePublishStart', $date = \DateTime::createFromFormat(time(), \DateTime::ISO8601)],
             ['atsMode', new AtsMode(AtsModeInterface::MODE_EMAIL)],
             ['user', new User()],
             ['organization', new Organization()],
@@ -143,7 +143,7 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
 
     public function testGetResourceId()
     {
-        $this->assertEquals($this->snapShot->getResourceId(),null);
+        $this->assertEquals($this->snapShot->getResourceId(), null);
     }
 
 
@@ -151,7 +151,7 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
     {
         $permissions = new Permissions(Permissions::PERMISSION_VIEW);
         $this->snapShot->setPermissions($permissions);
-        $this->assertEquals($this->snapShot->permissions,$permissions);
+        $this->assertEquals($this->snapShot->permissions, $permissions);
     }
 
     /**
@@ -161,6 +161,26 @@ class JobSnapshotTest extends \PHPUnit_Framework_TestCase
     {
         $portals=array(1,2,3);
         $this->snapShot->setPortals($portals);
-        $this->assertEquals($this->snapShot->portals,$portals);
+        $this->assertEquals($this->snapShot->getPortals(), $portals);
     }
+
+    /**
+     * @expectedException \Core\Exception\ImmutablePropertyException
+     */
+    public function testSetGetDatePublishEnd()
+    {
+        $datePublishEnd = new \DateTime("2016-01-02");
+        $this->snapShot->setDatePublishEnd($datePublishEnd);
+        $this->assertEquals($this->snapShot->datePublishEnd, $datePublishEnd);
+    }
+
+    public function testSetGetTemplateValues()
+    {
+        $templateValues = new TemplateValues();
+        $templateValues->setDescription('test')->setBenefits('benefits')->setQualifications('qualification');
+
+        $this->snapShot->setTemplateValues($templateValues);
+        $this->assertEquals($this->snapShot->getTemplateValues(), $templateValues);
+    }
+
 }

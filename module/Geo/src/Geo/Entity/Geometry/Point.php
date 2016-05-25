@@ -29,7 +29,7 @@ class Point extends  GeoJsonPoint
      * GeoJson type
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $type = "Point";
 

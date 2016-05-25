@@ -41,7 +41,7 @@ class Group extends AbstractIdentifiableEntity implements
      * Name of the Group.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $name;
     

@@ -1,9 +1,10 @@
 <?php //description: Renders the list of jobs. used by applicants and recruiters ?>
 <?php $this->headTitle($this->translate('Jobs'));
-      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination.js'))
+      $this->headScript()->appendFile($this->basepath('/Core/js/core.pagination-container.js'))
                          ->appendFile($this->basePath('/js/bootstrap-dialog.min.js'))
                          ->appendFile($this->basePath('/Jobs/js/index.assign-users.js'))
-                         ->appendFile($this->basePath('/js/select2.min.js'));
+                         ->appendFile($this->basePath('/js/select2.min.js'))
+                         ->appendFile($this->basePath('/Jobs/js/jobs.history.js'));
 $this->headScript()->captureStart() ?>
 /* This code is generated in jobs/index/index.phtml
  *
@@ -31,8 +32,28 @@ $this->headScript()->captureStart() ?>
 <nav class="navbar yk-toolbar" id="jobs-list-filter-wrapper">
 <?php echo $this->form($this->filterForm)  ?>
 </nav>
-<div id="jobs-list-container" class="pagination-container" data-uri="<?php
-    echo $this->url('lang/jobs', array(), array('query' => $this->params()->fromQuery()), true)?>">
-<?php echo $this->render('jobs/index/index.ajax.phtml')?>
+<div id="jobs-list-container" class="pagination-container"
+     data-message="<?php echo $this->escapeHtmlAttr(sprintf(
+                                                        $this->translate('%sSorry%s, there are not any jobs matching your search criteria.'),
+                                                        '<strong>', '</strong>'
+                                                    ))?>"
+     data-uri="<?php
+     echo $this->url('lang/jobs', array(), array('query' => $this->params()->fromQuery()), true)?>">
+
+    <div class="pagination-content">
+        <?php echo $this->render('jobs/index/index.ajax.phtml')?>
+    </div>
 </div>
 
+<!-- Modal Box for Job-History -->
+<div class="modal fade" id="job-application-history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"><i class="yk-icon yk-icon-spinner fa-spin"></i><?php echo $this->translate('please wait') ?></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>

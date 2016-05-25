@@ -45,6 +45,5 @@ class StripQueryParams implements FilterInterface
         parse_str($query, $queryParams);
         $queryParams = array_diff_key($queryParams, array_flip($stripParams));
         return $uri . (empty($queryParams) ? '' : '?' . http_build_query($queryParams));
-            
     }
 }

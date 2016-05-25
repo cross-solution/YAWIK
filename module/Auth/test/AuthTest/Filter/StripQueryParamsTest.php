@@ -123,5 +123,4 @@ class StripQueryParamsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $this->filter->filter($uri));
     }
-
 }

@@ -76,6 +76,19 @@ class EmployeeFieldsetTest extends \PHPUnit_Framework_TestCase
         );
 
         $expectAdd3 = array(
+            'type' => 'select',
+            'name' => 'role',
+            'options' => array(
+                    'value_options' => array(
+                        EmployeeInterface::ROLE_RECRUITER => 'Recruiter',
+                        EmployeeInterface::ROLE_DEPARTMENT_MANAGER => 'Department Manager',
+                        EmployeeInterface::ROLE_MANAGEMENT => 'Managing Directors',
+                    ),
+                ),
+        );
+
+
+        $expectAdd4 = array(
             'type' => 'hidden',
             'name' => 'status',
             'attributes' => array(
@@ -88,12 +101,15 @@ class EmployeeFieldsetTest extends \PHPUnit_Framework_TestCase
                 ->setMethods(array('add'))
                 ->getMock();
 
-        $target->expects($this->exactly(3))
+        $target->expects($this->exactly(4))
                ->method('add')
                ->withConsecutive(
                     array($expectAdd1),
                     array($expectAdd2),
-                    array($expectAdd3)
+                    array($expectAdd3),
+                    array($expectAdd4)
+
+
                );
 
         $target->init();

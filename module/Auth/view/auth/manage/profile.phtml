@@ -11,13 +11,16 @@
 $this->headTitle($this->translate('My profile'));
 $this->headscript()->appendScript('$(".alert").alert();');
 
+$user = $this->auth()->getUser(); /* @var \Auth\Entity\User $user  */
+                    $org  = $user->getOrganization();
+$profileContainerId = 'social-profiles-container';
 ?>
 
 <h1><?php echo $this->translate('My profile')?></h1>
 
 <?php if ($this->status): ?>
 <div id="user-profile-form-response" class="alert cam-<?php echo $this->status?>">
-    <?php echo $this->text ?> 
+    <?php echo $this->text ?>
     <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
 </div>
 <?php else:?>
@@ -33,4 +36,50 @@ $this->headscript()->appendScript('$(".alert").alert();');
 
 $this->form->setAttribute('action', $this->url('lang/my', array('action' => 'profile'), true));
 $this->form->getForm('info.info')->setDisplayMode('summary');
+
 echo $this->formContainer($this->form, 'form-horizontal');
+
+if($user->hasOrganization()):
+?>
+<div class="row">
+    <div class="col-md-8">
+        <div data-display-mode="summary" class="sf-container" id="sf-info.info">
+            <div class="sf-headline"><h3><?= $this->translate('Employee of the Organization')?></h3></div>
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <?php echo $this->translate("Organization Owner").':'; ?>
+                    <a href="mailto:<?php echo $user->getOrganization()->getOrganization()->getUser()->getInfo()->getEmail();?>">
+                    <?php echo $user->getOrganization()->getOrganization()->getUser()->getInfo()->getDisplayName();?>
+                    </a>
+                    <div>
+                    <?php echo $this->translate("Employees").':' ?>
+                    <?php $user->getOrganization()->getOrganization()->getOrganizationName()->getName();?>
+                    <ul>
+                    <?php foreach($user->getOrganization()->getOrganization()->getEmployees() as $employee): /* @var Organizations\Entity\Employee $employee */ ?>
+                        <li>
+                            <a href="mailto:<?php echo $employee->getUser()->getInfo()->getEmail() ?>">
+                            <?php echo $employee->getUser()->getInfo()->getDisplayName()?>
+                            </a>
+                            (<?php echo $employee->getRole() ?>)
+                        </li>
+                    <?php endforeach ?>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
+
+<?=$this->form($this->socialProfilesForm->setAttribute('id', $profileContainerId), 'form-horizontal');?>
+
+<?php $this->headScript()->captureStart()?>
+$(document).on('formPost.socialprofiles', function (event, data) {
+    $('#<?=$profileContainerId?>').html($(data).find('#<?=$profileContainerId?> > *'));
+    $('.social-profiles-fieldset').socialprofiles();
+}).on('fetchCompleted.socialprofiles', function (event) {
+    event.stopPropagation();
+});
+<?php $this->headScript()->captureEnd() ?>

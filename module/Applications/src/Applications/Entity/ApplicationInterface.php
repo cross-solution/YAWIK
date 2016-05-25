@@ -7,6 +7,7 @@ use Core\Entity\SearchableEntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Auth\Entity\UserInterface;
 use Doctrine\Common\Collections\Collection;
+use Core\Entity\Collection\ArrayCollection;
 use Core\Entity\PermissionsAwareInterface;
 use Jobs\Entity\JobInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
@@ -237,17 +238,18 @@ interface ApplicationInterface extends
     /**
      * Gets all comments for the application.
      *
-     * @return Collection
+     * @return ArrayCollection;
+
      */
     public function getComments();
     
     /**
      * Sets comment collection for the application.
      *
-     * @param Collection $comments
+     * @param ArrayCollection $comments
      * @return ApplicationInterface
      */
-    public function setComments(Collection $comments);
+    public function setComments(ArrayCollection $comments);
     
     /**
      * Gets the internal reference entity

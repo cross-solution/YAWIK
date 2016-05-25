@@ -13,7 +13,6 @@ use Core\Entity\AbstractIdentifiableModificationDateAwareEntity as BaseEntity;
 use Core\Entity\Collection\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Repository\DoctrineMongoODM\Annotation as Cam;
 use Core\Entity\Permissions;
 use Core\Entity\PermissionsInterface;
 use Core\Entity\EntityInterface;
@@ -26,6 +25,11 @@ use Core\Entity\DraftableEntityInterface;
  *
  * @ODM\Document(collection="organizations", repositoryClass="Organizations\Repository\Organization")
  * @ODM\HasLifecycleCallbacks
+ * @ODM\Indexes({
+ *      @ODM\Index(keys={
+ *          "_organizationName"="text"
+ *      }, name="fulltext")
+ * })
  *
  * @todo write test
  * @author Mathias Weitz <weitz@cross-solution.de>
@@ -33,7 +37,6 @@ use Core\Entity\DraftableEntityInterface;
  */
 class Organization extends BaseEntity implements OrganizationInterface, DraftableEntityInterface
 {
-
     /**
      * Event name of post construct event.
      *
@@ -45,7 +48,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * externalId. Allows external applications to reference their primary key.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      * @ODM\Index
      */
     protected $externalId;
@@ -57,6 +60,14 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * @ODM\ReferenceOne(targetDocument="\Organizations\Entity\OrganizationName", simple=true, cascade="persist")
      */
     protected $organizationName;
+    
+    /**
+     * Only for sorting/searching purposes
+     *
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $_organizationName;
 
     /**
      * Assigned permissions.
@@ -92,7 +103,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      * The organizations' description.
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $description;
 
@@ -153,6 +164,14 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     protected $template;
 
     /**
+     * Default values Workflow
+     *
+     * @var WorkflowSettingsInterface $workflowSettings;
+     * @ODM\EmbedOne(targetDocument="\Organizations\Entity\WorkflowSettings")
+     */
+    protected $workflowSettings;
+
+    /**
      * Sets the parent of an organization
      *
      * @param OrganizationInterface $parent
@@ -169,11 +188,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     /**
      * Gets the parent of an organization
      *
+     * @param bool $returnSelf returns itself, if this organization does not have a parent?
+     *
      * @return null|OrganizationInterface
      */
-    public function getParent()
+    public function getParent($returnSelf = false)
     {
-        return $this->parent;
+        return $this->parent ?: ($returnSelf ? $this : null);
     }
 
     /**
@@ -204,7 +225,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setExternalId($externalId)
     {
         $this->externalId = $externalId;
-        return $this;
+        return  $this;
     }
 
     /**
@@ -251,6 +272,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
         }
         $this->organizationName = $organizationName;
         $this->organizationName->refCounterInc()->refCompanyCounterInc();
+        $this->_organizationName = $organizationName->getName();
         return $this;
     }
 
@@ -285,28 +307,6 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function getSearchableProperties()
     {
         return array();
-    }
-
-    /**
-     * @deprecated
-     * @param array $keywords
-     */
-    public function setKeywords(array $keywords)
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function clearKeywords()
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getKeywords()
-    {
     }
 
     /**
@@ -378,7 +378,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $view = EmployeePermissionsInterface::APPLICATIONS_VIEW;
         }
 
-        $employees = $this->getEmployees();
+        $employees = $this->isHiringOrganization()
+            ? $this->getParent()->getEmployees()
+            : $this->getEmployees();
 
         foreach ($employees as $emp) {
             /* @var $emp EmployeeInterface */
@@ -557,6 +559,24 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     }
 
     /**
+     * Gets a list of Employees by a user role
+     *
+     * @param string $role
+     * @return ArrayCollection
+     */
+    public function getEmployeesByRole($role){
+        $employees = new ArrayCollection();
+
+        /* @var \Organizations\Entity\Employee $employee */
+        foreach ($this->getEmployees() as $employee) {
+            if ($role === $employee->getRole()) {
+                $employees->add($employee);
+            }
+        }
+        return $employees;
+    }
+
+    /**
      * Checks, if a User is the owner of an organization
      *
      * @param UserInterface $user
@@ -675,6 +695,31 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
      */
     public function setTemplate(TemplateInterface $template)
     {
-        // TODO: Implement setTemplate() method.
+        $this->template=$template;
+        return $this;
+    }
+
+    /**
+     * Gets Workflow Settings
+     *
+     * @return WorkflowSettings|WorkflowSettingsInterface
+     */
+    public function getWorkflowSettings(){
+        if (null == $this->workflowSettings) {
+            $this->workflowSettings = new WorkflowSettings();
+        }
+        return $this->workflowSettings;
+    }
+
+    /**
+     * Sets Workflow Settings
+     *
+     * @param $workflowSettings
+     *
+     * @return self
+     */
+    public function setWorkflowSettings($workflowSettings){
+        $this->workflowSettings=$workflowSettings;
+        return $this;
     }
 }

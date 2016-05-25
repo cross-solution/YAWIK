@@ -96,11 +96,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
         $options = ['description' => $description, 'enable_descriptions' => $enableDescriptions];
         $this->target->setOptions($options);
-        $this->assertAttributeSame([
-                                       'description'         => $description,
-                                       'enable_descriptions' => $enableDescriptions
-                                   ],
-                                   'options', $this->target
+        $this->assertAttributeSame(
+            [
+                'description'         => $description,
+                'enable_descriptions' => $enableDescriptions
+            ],
+            'options', $this->target
         );
     }
 
@@ -133,6 +134,5 @@ class FormTest extends \PHPUnit_Framework_TestCase
             ['class2', 'class2'],
         ];
     }
-
 
 }

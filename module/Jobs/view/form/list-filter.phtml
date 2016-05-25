@@ -91,7 +91,7 @@ if ($params->has('by')) {
                     array(
                         'class'       => 'form-control',
                         'id'          => 'jobCompanyName-companyId',
-                        'data-width'       => '35%',
+                        'data-width'       => '25%',
                     )
                 )
         );
@@ -145,6 +145,8 @@ if ($params->has('by')) {
 
     ?>
     <button class="btn btn-primary" type="submit"><?php echo $this->translate('Search') ?></button>
+    <button id="jobs-list-filter-reset" class="btn btn-secondary" type="reset"><?php echo $this->translate('Clear') ?></button>
+
 </div>
 
 <div class="btn-toolbar pull-right">

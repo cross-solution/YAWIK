@@ -21,6 +21,9 @@ use Zend\EventManager\EventManager;
 use Zend\View\Model\JsonModel;
 
 /**
+ *
+ * @todo [MG] This must be refactored! It's a violation of the encapsulation principle.
+ *       I mean... an event manager which is a listener for itself? What a mess!
  */
 class NotificationListener extends EventManager implements SharedListenerAggregateInterface, ServiceManagerAwareInterface
 {

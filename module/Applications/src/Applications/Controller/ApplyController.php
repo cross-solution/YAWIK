@@ -11,17 +11,16 @@
 namespace Applications\Controller;
 
 use Applications\Entity\Contact;
+use Applications\Listener\Events\ApplicationEvent;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Applications\Entity\Application;
 use Zend\View\Model\ViewModel;
-use Auth\Entity\AnonymousUser;
 use Zend\View\Model\JsonModel;
 use Core\Form\Container;
 use Core\Form\SummaryForm;
 use Core\Entity\PermissionsInterface;
 use Applications\Entity\Status;
-use Applications\Entity\StatusInterface;
 
 /**
  * there are basically two ways to use this controller,
@@ -36,6 +35,9 @@ use Applications\Entity\StatusInterface;
  *
  * if you use the do as query-parameter, you have to customize the do-Action for the special purpose that is assigned to the do parameter in the query
  *
+ * @method \Acl\Controller\Plugin\Acl acl()
+ * @method \Core\Controller\Plugin\Notification notification()
+ * @method \Core\Controller\Plugin\Mailer mailer()
  * @method \Auth\Controller\Plugin\Auth auth()
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
@@ -92,7 +94,6 @@ class ApplyController extends AbstractActionController
             $action     = 'process';
 
             $routeMatch->setParam('action', $action);
-            
         } else {
             $user  = $this->auth()->getUser();
             $appId = $this->params('applyId');
@@ -108,7 +109,7 @@ class ApplyController extends AbstractActionController
                 return;
             }
 
-            switch($job->getStatus()){
+            switch ($job->getStatus()) {
                 case \Jobs\Entity\Status::ACTIVE:
                     break;
                 default:
@@ -139,7 +140,6 @@ class ApplyController extends AbstractActionController
                             $subscriber->getname();
                         }
                     }
-
                 } else {
                     if (!$job) {
                         $e->getRouteMatch()->setParam('action', 'job-not-found');
@@ -166,7 +166,7 @@ class ApplyController extends AbstractActionController
                      * If we had copy an user image, we need to refresh its data
                      * to populate the length property.
                      */
-                    if ($image = $application->contact->image) {
+                    if ($image = $application->getContact()->getImage()) {
                         $repositories->refresh($image);
                     }
                 }
@@ -190,10 +190,11 @@ class ApplyController extends AbstractActionController
     
     public function indexAction()
     {
+        /* @var \Applications\Form\Apply $form */
         $form        = $this->container;
         $application = $form->getEntity();
         
-        $this->container->setParam('applicationId', $application->id);
+        $form->setParam('applicationId', $application->id);
 
         $model = new ViewModel(
             array(
@@ -204,7 +205,84 @@ class ApplyController extends AbstractActionController
         );
         $model->setTemplate('applications/apply/index');
         return $model;
+    }
+    
+    public function oneClickApplyAction()
+    {
+        /* @var \Applications\Entity\Application $application */
+        $application = $this->container->getEntity();
+        $job = $application->getJob();
+        $atsMode = $job->getAtsMode();
+        
+        // check for one click apply
+        if (!($atsMode->isIntern() && $atsMode->getOneClickApply()))
+        {
+            // redirect to regular application
+            return $this->redirect()
+                ->toRoute('lang/apply', ['applyId' => $job->getApplyId()]);
+        }
+        
+        $network = $this->params('network');
 
+        $hybridAuth = $this->getServiceLocator()
+            ->get('HybridAuthAdapter')
+            ->getHybridAuth();
+        /* @var $authProfile \Hybrid_User_Profile */
+        $authProfile = $hybridAuth->authenticate($network)
+           ->getUserProfile();
+
+        /* @var \Auth\Entity\SocialProfiles\AbstractProfile $profile */
+        $profile = $this->plugin('Auth/SocialProfiles')->fetch($network);
+
+        $contact = $application->getContact();
+        $contact->setEmail($authProfile->emailVerified ?: $authProfile->email);
+        $contact->setFirstName($authProfile->firstName);
+        $contact->setLastName($authProfile->lastName);
+        $contact->setBirthDay($authProfile->birthDay);
+        $contact->setBirthMonth($authProfile->birthMonth);
+        $contact->setBirthYear($authProfile->birthYear);
+        $contact->setPostalCode($authProfile->zip);
+        $contact->setCity($authProfile->city);
+        $contact->setStreet($authProfile->address);
+        $contact->setPhone($authProfile->phone);
+        $contact->setGender($authProfile->gender);
+
+        $profiles = $application->getProfiles();
+        $profiles->add($profile);
+
+        $cv = $application->getCv();
+        $cv->setEmployments($profile->getEmployments());
+        $cv->setEducations($profile->getEducations());
+
+        if ($authProfile->photoURL)
+        {
+            $response = (new \Zend\Http\Client($authProfile->photoURL, ['sslverifypeer' => false]))->send();
+            $file = new \Doctrine\MongoDB\GridFSFile();
+            $file->setBytes($response->getBody());
+            
+            $image = new \Applications\Entity\Attachment();
+            $image->setName($contact->getLastName().$contact->getFirstName());
+            $image->setType($response->getHeaders()->get('Content-Type')->getFieldValue());
+            $image->setFile($file);
+            $image->setPermissions($application->getPermissions());
+            
+            $contact->setImage($image);
+        }
+        
+        $urlOptions = [];
+        
+        if ($this->params('immediately'))
+        {
+            $application->getAttributes()->setAcceptedPrivacyPolicy(true);
+            $urlOptions = [
+                'query' => [
+                    'do' => 'send'
+                ]
+            ];
+        }
+        
+        return $this->redirect()
+           ->toRoute('lang/apply', ['applyId' => $job->getApplyId()], $urlOptions);
     }
 
     public function processPreviewAction()
@@ -261,6 +339,7 @@ class ApplyController extends AbstractActionController
         $config       = $services->get('Config');
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
+        /* @var Application $application*/
         $application  = $repository->findDraft(
             $this->auth()->getUser(),
             $this->params('applyId')
@@ -281,11 +360,11 @@ class ApplyController extends AbstractActionController
         }
 
         if ('sendmail' == $this->params()->fromQuery('do')) {
-            $jobEntity         = $application->job;
-            ;
+            $jobEntity         = $application->getJob();
+
             $mailData = array(
                 'application' => $application,
-                'to'          => $jobEntity->contactEmail
+                'to'          => $jobEntity->getContactEmail()
             );
             if (array_key_exists('mails', $config) && array_key_exists('from', $config['mails']) && array_key_exists('email', $config['mails']['from'])) {
                 $mailData['from'] = $config['mails']['from']['email'];
@@ -304,13 +383,13 @@ class ApplyController extends AbstractActionController
         }
 
         $application->setIsDraft(false)
-                    ->setStatus(new Status())
-                    ->getPermissions()
-                        ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
-                        ->inherit($application->getJob()->getPermissions());
+            ->setStatus(new Status())
+            ->getPermissions()
+            ->revoke($this->auth()->getUser(), PermissionsInterface::PERMISSION_CHANGE)
+            ->inherit($application->getJob()->getPermissions());
 
-        $this->sendRecruiterMails($application);
-        $this->sendUserMails($application);
+        $events   = $services->get('Applications/Events');
+        $events->trigger(ApplicationEvent::EVENT_APPLICATION_POST_CREATE, $this, [ 'application' => $application ]);
 
         $model = new ViewModel(
             array(
@@ -322,67 +401,11 @@ class ApplyController extends AbstractActionController
 
         return $model;
     }
-    
-    
-    
+
     protected function checkApplication($application)
     {
         return $this->getServiceLocator()->get('validatormanager')->get('Applications/Application')
                     ->isValid($application);
-    }
-    
-    protected function sendRecruiterMails($application)
-    {
-        $job = $application->getJob();
-        $recruiter = $this->getServiceLocator()
-                          ->get('repositories')
-                          ->get('Auth/User')->findOneByEmail($job->contactEmail);
-        
-        if (!$recruiter) {
-            $recruiter = $job->user;
-            $admin     = false;
-        } else {
-            $admin     = $job->user;
-        }
-        
-        $settings = $recruiter->getSettings('Applications');
-        if ($settings->getMailAccess()) {
-            $this->mailer('Applications/NewApplication', array('job' => $job, 'user' => $recruiter, 'admin' => $admin), /*send*/ true);
-        }
-        if ($settings->getAutoConfirmMail()) {
-            $ackBody = $settings->getMailConfirmationText();
-            if (empty($ackBody)) {
-                $ackBody = $job->user->getSettings('Applications')->getMailConfirmationText();
-            }
-            if (!empty($ackBody)) {
-                /* Acknowledge mail to applier */
-                $ackMail = $this->mailer(
-                    'Applications/Confirmation',
-                    array('application' => $application,
-                        'body' => $ackBody,
-                    )
-                );
-                // Must be called after initializers in creation
-                $ackMail->setSubject(/*@translate*/ 'Application confirmation');
-                $ackMail->setFrom($recruiter->getInfo()->getEmail());
-                $this->mailer($ackMail);
-                $application->changeStatus(StatusInterface::CONFIRMED, sprintf('Mail was sent to %s', $application->contact->email));
-            }
-        }
-        
-    }
-    
-    protected function sendUserMails($application)
-    {
-        if ($application->getAttributes()->getSendCarbonCopy()) {
-            $this->mailer(
-                'Applications/CarbonCopy',
-                array(
-                    'application' => $application,
-                ), /*send*/
-                true
-            );
-        }
     }
 
     /**
@@ -397,24 +420,6 @@ class ApplyController extends AbstractActionController
         /* @var $application Application */
         $application = $container->getEntity();
         $job         = $application->getJob();
-
-        /*
-         * @TODO: Implement disable elements logic in entities, etc.
-         *
-
-
-        $config = $job->getApplyFormElementsConfig();
-        if ($config) {
-            $container->disableElements($config);
-            return;
-        }
-
-        $config = $job->getOrganization()->getApplyFormElementsConfig();
-        if ($config) {
-            $container->disableElements($config);
-            return;
-        }
-        */
 
         /** @var $settings \Applications\Entity\Settings */
         $settings = $job->getUser()->getSettings('Applications');

@@ -12,8 +12,13 @@ namespace Core\Form;
 
 /**
  * Basic implementation of the ViewPartialProviderInterface
+ *
+ * Since using classes cannot redefine class properties, we
+ * work around by checking for an property called "defaultPartial", when no
+ * partial is set.
  * 
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
+ * @property string $defaultPartial
  */
 trait ViewPartialProviderTrait
 {
@@ -33,6 +38,10 @@ trait ViewPartialProviderTrait
 
     public function getViewPartial()
     {
+        if (!$this->partial && property_exists($this, 'defaultPartial')) {
+            $this->setViewPartial($this->defaultPartial);
+        }
+
         return $this->partial;
     }
 }

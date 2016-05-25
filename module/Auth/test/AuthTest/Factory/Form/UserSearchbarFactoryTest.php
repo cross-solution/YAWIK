@@ -65,5 +65,4 @@ class UserSearchbarFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Zend\Form\Element\Text', $element);
         $this->assertEquals('usersearchbar', $element->getAttribute('class'), 'Class attributes\' value does not contain the expected value!');
     }
-    
 }

@@ -55,7 +55,8 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetPrice()
     {
-        $key='test'; $price=199;
+        $key='test';
+        $price=199;
         $this->options->setPrice($key, $price);
         $this->assertEquals($price, $this->options->getPrice($key));
     }
@@ -97,7 +98,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $currency="EUR";
 
         $this->options->setCurrency($currency);
-        $this->assertEquals($currency,$this->options->getCurrency());
+        $this->assertEquals($currency, $this->options->getCurrency());
     }
 
     /**
@@ -109,7 +110,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $days=60;
 
         $this->options->setPublishDuration($days);
-        $this->assertEquals($days,$this->options->getPublishDuration());
+        $this->assertEquals($days, $this->options->getPublishDuration());
     }
 
     /**
@@ -121,7 +122,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $key="1234";
 
         $this->options->setExternalkey($key);
-        $this->assertEquals($key,$this->options->getExternalkey());
+        $this->assertEquals($key, $this->options->getExternalkey());
     }
 
     /**
@@ -133,7 +134,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $category="Technical Jobs";
 
         $this->options->setCategory($category);
-        $this->assertEquals($category,$this->options->getCategory());
+        $this->assertEquals($category, $this->options->getCategory());
     }
 
     /**
@@ -145,7 +146,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $headline="Post Jobs on YAWIK";
 
         $this->options->setHeadLine($headline);
-        $this->assertEquals($headline,$this->options->getHeadLine());
+        $this->assertEquals($headline, $this->options->getHeadLine());
     }
 
     /**
@@ -157,7 +158,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $description="Post Jobs on YAWIK";
 
         $this->options->setDescription($description);
-        $this->assertEquals($description,$this->options->getDescription());
+        $this->assertEquals($description, $this->options->getDescription());
     }
 
     /**
@@ -169,7 +170,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $linkText="YAWIK";
 
         $this->options->setLinkText($linkText);
-        $this->assertEquals($linkText,$this->options->getLinkText());
+        $this->assertEquals($linkText, $this->options->getLinkText());
     }
 
     /**
@@ -181,7 +182,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         $route="YAWIK";
 
         $this->options->setRoute($route);
-        $this->assertEquals($route,$this->options->getRoute());
+        $this->assertEquals($route, $this->options->getRoute());
     }
 
     /**
@@ -195,7 +196,7 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->options->setParams($p);
-        $this->assertEquals($p,$this->options->getParams());
+        $this->assertEquals($p, $this->options->getParams());
     }
 
     /**
@@ -206,6 +207,6 @@ class ChannelOptionsTest extends \PHPUnit_Framework_TestCase
     {
         $input="test.logo.gif";
         $this->options->setLogo($input);
-        $this->assertEquals($input,$this->options->getLogo());
+        $this->assertEquals($input, $this->options->getLogo());
     }
 }

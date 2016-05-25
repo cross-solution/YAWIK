@@ -36,7 +36,6 @@ class UserBaseFieldset extends Fieldset
             ),
             )
         );
-        
     }
     
     public function setObject($object)

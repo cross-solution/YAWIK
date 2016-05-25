@@ -17,6 +17,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Stdlib\AbstractOptions;
+use Zend\Http\PhpEnvironment\Response;
 
 /**
  * Handles rendering the job in formular and in preview mode
@@ -61,18 +62,28 @@ class TemplateController extends AbstractActionController
         /* @var \Auth\Entity\User $user */
         $user = $this->auth()->getUser();
 
+        /* @var \Zend\View\Model\ViewModel $model */
         $model = $services->get('Jobs/viewModelTemplateFilter')->__invoke($job);
 
         if (
             Status::ACTIVE == $job->getStatus() or
-            $job->getPermissions()->isGranted($user,PermissionsInterface::PERMISSION_VIEW) or
+            $job->getPermissions()->isGranted($user, PermissionsInterface::PERMISSION_VIEW) or
             $this->auth()->isAdmin()
-        )
-        {
-             $applicationViewModel->setTemplate('iframe/iFrameInjection');
+        ) {
+            $applicationViewModel->setTemplate('iframe/iFrameInjection');
+        }elseif(Status::EXPIRED == $job->getStatus() or  Status::INACTIVE == $job->getStatus()) {
+            $this->response->setStatusCode(Response::STATUS_CODE_410);
+            $model->setTemplate('jobs/error/expired');
+            $model->setVariables(
+                [
+                    'job'=>$job,
+                    'message', 'the job posting you were trying to open, was inactivated or has expired'
+                ]
+            );
         } else {
-            $this->response->setStatusCode(404);
-            $model->setVariable('message','job is not available');
+            // there is a special handling for 404 in ZF2
+            $this->response->setStatusCode(Response::STATUS_CODE_404);
+            $model->setVariable('message', 'job is not available');
         }
         return $model;
     }
@@ -139,6 +150,16 @@ class TemplateController extends AbstractActionController
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
+
+            $headStyle = $viewHelperManager->get('headstyle');
+            $headStyle->prependStyle('form > input {
+            color: inherit !important; margin:inherit !important;
+            padding:inherit !important; border:0 !important; cursor:pointer !important; letter-spacing:inherit !important;
+            line-height: inherit !important;
+             font-size: inherit !important;
+}
+'
+            );
         } else {
             return new JsonModel(array('valid' => true));
         }

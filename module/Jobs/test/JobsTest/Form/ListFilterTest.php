@@ -20,16 +20,17 @@ class ListFilterTest extends \PHPUnit_Framework_TestCase
     {
         $testedObject = new ListFilter();
         $this->assertInstanceOf('Jobs\Form\Listfilter', $testedObject);
-        $this->assertAttributeEquals('Jobs/ListFilterBaseFieldset', 'fieldset' ,$testedObject);
+        $this->assertAttributeEquals('Jobs/ListFilterBaseFieldset', 'fieldset', $testedObject);
     }
 
-    public function testSetGetPartial() {
+    public function testSetGetPartial()
+    {
         $options = ['fieldset' => 'Jobs/ListFilterLocationFieldset'];
         $testedObject = new ListFilter(null, $options);
-        $this->assertEquals( $testedObject->getViewPartial(), 'jobs/form/list-filter');
+        $this->assertEquals($testedObject->getViewPartial(), 'jobs/form/list-filter');
         $input = "viewpartial";
         $testedObject->setViewPartial($input);
-        $this->assertEquals( $testedObject->getViewPartial(), $input);
+        $this->assertEquals($testedObject->getViewPartial(), $input);
     }
 
     public function testInit()
@@ -41,7 +42,7 @@ class ListFilterTest extends \PHPUnit_Framework_TestCase
 
         $add1 = [
             'type'    => 'Jobs/ListFilterBaseFieldset',
-            'options' => ['use_as_base_fieldset' => true]
+            'options' => ['use_as_base_fieldset' => false]
         ];
         $add2 = [
             'type' => 'Core/ListFilterButtons'

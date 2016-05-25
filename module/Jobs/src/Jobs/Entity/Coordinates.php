@@ -26,7 +26,7 @@ class Coordinates extends AbstractEntity implements CoordinatesInterface
      * The GeoJSON type
      *
      * @var string
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $type;
 

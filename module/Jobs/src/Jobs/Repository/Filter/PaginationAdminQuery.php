@@ -10,12 +10,10 @@
 
 namespace Jobs\Repository\Filter;
 
+use Core\Repository\Filter\AbstractPaginationQuery;
 use Jobs\Entity\Status;
 use \Doctrine\ODM\MongoDB\Query\Builder;
-use \Zend\Stdlib\Parameters;
-use Zend\Authentication\AuthenticationService;
-use Zend\Permissions\Acl\Acl;
-use Auth\Entity\UserInterface;
+
 
 /**
  * Class PaginationAdminQuery
@@ -24,66 +22,44 @@ use Auth\Entity\UserInterface;
  *
  * @package Jobs\Repository\Filter
  */
-class PaginationAdminQuery extends PaginationQuery
+class PaginationAdminQuery extends AbstractPaginationQuery
 {
-    /**
-     * @var AuthenticationService
-     */
-    protected $auth;
 
     /**
-     * @var UserInterface
-     */
-    protected $user;
-
-    /**
-     * @param $auth
-     * @param $acl
-     */
-    public function __construct(AuthenticationService $auth, Acl $acl)
-    {
-        $this->auth = $auth;
-        $this->acl = $acl;
-    }
-
-    /**
-     * @param Parameters $params
+     * @param array $params
      * @param Builder $queryBuilder
      *
      * @return Builder
      */
     public function createQuery($params, $queryBuilder)
     {
-        $this->value = $params;
 
         /*
          * search jobs by keywords
          */
 
-        if (isset($this->value['params']['search']) && !empty($this->value['params']['search'])) {
-            $search = strtolower($this->value['params']['search']);
+        if (isset($params['text']) && !empty($params['text'])) {
+            $search = strtolower($params['text']);
             $expression = $queryBuilder->expr()->operator('$text', ['$search' => $search]);
             $queryBuilder->field(null)->equals($expression->getQuery());
         }
 
-        if (isset($this->value['params']['status']) &&
-            !empty($this->value['params']['status']))
-        {
-            if ($this->value['params']['status'] != 'all'){
-                $queryBuilder->field('status.name')->equals($this->value['params']['status']);
+        $queryBuilder->field('isDraft')->equals(false);
+
+        if (isset($params['status']) &&
+            !empty($params['status'])) {
+            if ($params['status'] != 'all') {
+                $queryBuilder->field('status.name')->equals($params['status']);
             }
-        }else{
-            $queryBuilder->field('status.name')->equals(Status::CREATED);
         }
 
-        if (isset($this->value['params']['companyId']) &&
-            !empty($this->value['params']['companyId']))
-        {
-            $queryBuilder->field('organization')->equals(new \MongoId($this->value['params']['companyId']));
+        if (isset($params['companyId']) &&
+            !empty($params['companyId'])) {
+            $queryBuilder->field('organization')->equals(new \MongoId($params['companyId']));
         }
 
-        if (isset($this->value['sort'])) {
-            foreach (explode(",", $this->value['sort']) as $sort) {
+        if (isset($params['sort'])) {
+            foreach (explode(",", $params['sort']) as $sort) {
                 $queryBuilder->sort($this->filterSort($sort));
             }
         }

@@ -11,8 +11,10 @@
 namespace Core\Form;
 
 use Zend\Form\Element;
+use Zend\Form\Exception;
 use Zend\Form\FieldsetInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\Stdlib\PriorityList;
 use Zend\View\Renderer\PhpRenderer as Renderer;
 use Core\Entity\EntityInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -59,9 +61,9 @@ class Container extends Element implements
     /**
      * Entity to bind to the formulars.
      *
-     * @var \Core\Entity\EntityInterface
+     * @var \Core\Entity\EntityInterface[]
      */
-    protected $entity;
+    protected $entities;
     
     /**
      * Parameters to pass to the formulars.
@@ -92,7 +94,7 @@ class Container extends Element implements
     {
         return $this->formElementManager;
     }
-    
+
     /**
      * Gets an iterator to iterate over the enabled formulars.
      *
@@ -101,15 +103,17 @@ class Container extends Element implements
      */
     public function getIterator()
     {
-        $self = $this;
-        $forms = array_map(
-            function ($key) use ($self) {
-                return $self->getForm($key);
-            },
-            $this->activeForms
-        );
-        
-        return new \ArrayIterator($forms);
+        $iterator = new PriorityList();
+        $iterator->isLIFO(false);
+
+        foreach ($this->activeForms as $key) {
+            $spec = $this->forms[$key];
+            $priority = isset($spec['priority']) ? $spec['priority'] : 0;
+
+            $iterator->insert($key, $this->getForm($key), $priority);
+        }
+
+        return $iterator;
     }
     
     /**
@@ -196,6 +200,17 @@ class Container extends Element implements
         }
     }
 
+    public function setOptions($options)
+    {
+        parent::setOptions($options);
+
+        if (isset($this->options['forms'])) {
+            $this->setForms($this->options['forms']);
+        }
+
+        return $this;
+    }
+
     /**
      * Sets formular parameters.
      *
@@ -263,7 +278,7 @@ class Container extends Element implements
     {
         return isset($this->params[$key]) ? $this->params[$key] : $default;
     }
-    
+
     /**
      * Gets a specific formular.
      *
@@ -271,9 +286,12 @@ class Container extends Element implements
      * If created, the formular gets passed the formular parameters set in this container.
      *
      * @param string $key
+     * @param bool $asInstance if set to false, the specification array is returned, and no instance created.
+     *
      * @return null|\Core\Form\Container|\Zend\Form\FormInterface
+     * @since 0,25 added $asInstance parameter
      */
-    public function getForm($key)
+    public function getForm($key, $asInstance = true)
     {
         if (false !== strpos($key, '.')) {
             list($key, $childKey) = explode('.', $key, 2);
@@ -286,20 +304,31 @@ class Container extends Element implements
         }
         
         $form = $this->forms[$key];
+
+        if (!$asInstance) {
+            return $form;
+        }
+
         if (isset($form['__instance__']) && is_object($form['__instance__'])) {
             return $form['__instance__'];
         }
 
         $options = isset($form['options']) ? $form['options'] : array();
+        if (!isset($options['name'])) {
+            $options['name'] = isset($form['name']) ? $form['name'] : $key;
+        }
         if (!isset($options['use_post_array'])) {
             $options['use_post_array'] = true;
         }
         if (!isset($options['use_files_array'])) {
             $options['use_files_array'] = false;
         }
-        
+
         $formInstance = $this->formElementManager->get($form['type'], $options);
         $formInstance->setParent($this);
+        if (isset($form['attributes'])) {
+            $formInstance->setAttributes($form['attributes']);
+        }
 
         $formName = '';
         if (!empty($this->parent)) {
@@ -309,8 +338,12 @@ class Container extends Element implements
             }
         }
         $formName .= $form['name'];
-        $formInstance->setName($formName)
-                     ->setAttribute('action', '?form=' . $formName);
+        $formInstance->setName($formName);
+        $formAction = $formInstance->getAttribute('action');
+
+        if (empty($formAction)) {
+            $formInstance->setAttribute('action', '?form=' . $formName);
+        }
 
         if (isset($form['label'])) {
             $formInstance->setLabel($form['label']);
@@ -323,8 +356,9 @@ class Container extends Element implements
             $formInstance->disableElements($form['disable_elements']);
         }
 
-        if ($entity = $this->getEntity()) {
-            $this->mapEntity($formInstance, isset($form['property']) ? $form['property'] : $key, $entity);
+        $entity = $this->getEntity($form['entity']);
+        if ($entity) {
+            $this->mapEntity($formInstance, $entity, isset($form['property']) ? $form['property'] : $key);
         }
 
         $formInstance->setParams($this->getParams());
@@ -347,17 +381,26 @@ class Container extends Element implements
      */
     public function setForm($key, $spec, $enabled = true)
     {
+        if (is_object($spec)) {
+            if ($spec instanceof FormParentInterface) {
+                $spec->setParent($this);
+            }
+
+            $spec = [ '__instance__' => $spec, 'name' => $key, 'entity' => '*' ];
+        }
+
         if (!is_array($spec)) {
             $spec = array('type' => $spec, 'name' => $key);
         }
         if (!isset($spec['name'])) {
             $spec['name'] = $key;
         }
+        if (!isset($spec['entity'])) {
+            $spec['entity'] = '*';
+        }
         
         $this->forms[$key] = $spec;
-        if ($spec instanceof FormParentInterface) {
-            $spec->setParent($this);
-        }
+
         if ($enabled) {
             $this->enableForm($key);
         } elseif (true === $this->activeForms) {
@@ -476,43 +519,48 @@ class Container extends Element implements
      * @param EntityInterface $entity
      * @return self
      */
-    public function setEntity(EntityInterface $entity)
+    public function setEntity(EntityInterface $entity, $key='*')
     {
-        $this->entity = $entity;
+        $this->entities[$key] = $entity;
         
-        foreach ($this->forms as $key => $form) {
-            if (isset($form['__instance__']) && is_object($form['__instance__'])) {
-                $this->mapEntity($form['__instance__'], isset($form['property']) ? $form['property'] : $key, $entity);
+        foreach ($this->forms as $formKey => $form) {
+            if (isset($form['__instance__']) && is_object($form['__instance__']) && $key == $form['entity']) {
+                $this->mapEntity($form['__instance__'], $entity, isset($form['property']) ? $form['property'] : $formKey);
             }
         }
         return $this;
     }
-    
+
+
     /**
      * Gets the entity.
      *
      * @return \Core\Entity\EntityInterface
      */
-    public function getEntity()
+    public function getEntity($key='*')
     {
-        return $this->entity;
+        return isset($this->entities[$key]) ? $this->entities[$key] : null;
     }
     
     /**
      * Maps entity property to forms or child containers.
      *
      * @param \Zend\Form\FormInterface $form
-     * @param string $key
      * @param \Core\Entity\EntityInterface $entity
+     * @param string $property
      * @return void
      */
-    protected function mapEntity($form, $key, $entity)
+    protected function mapEntity($form, $entity, $property)
     {
-        
-        if (true === $key) {
+        if (false === $property) {
+            return;
+        }
+
+        if (true === $property) {
             $mapEntity = $entity;
-        } elseif (isset($entity->$key)) {
-            $mapEntity = $entity->$key;
+        } else if ($entity->hasProperty($property)) {
+            $getter = "get$property";
+            $mapEntity = $entity->$getter();
         } else {
             return;
         }
@@ -522,7 +570,6 @@ class Container extends Element implements
         } else {
             $form->bind($mapEntity);
         }
-        
     }
 
     /**

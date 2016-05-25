@@ -99,7 +99,6 @@ class Auth extends AbstractHelper
             $value   = $user->$property;
 
             return $value;
-
         } catch (\OutOfBoundsException $e) {
             return null;
         }

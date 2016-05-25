@@ -112,6 +112,4 @@ class CaptchaOptions extends AbstractOptions
     {
         return $this->image;
     }
-
-
 }

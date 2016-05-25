@@ -138,7 +138,6 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
         $response->method('last')->willReturn($returnValue);
 
         return $response;
-
     }
 
     public function testPassingArgumentsToEvent()
@@ -156,7 +155,7 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
         $self = $this;
 
         $events->expects($this->once())->method('trigger')
-               ->will($this->returnCallback(function($event) use ($acl, $role, $resource, $privilege, $self) {
+               ->will($this->returnCallback(function ($event) use ($acl, $role, $resource, $privilege, $self) {
                    $self->assertSame($acl, $event->getAcl());
                    $self->assertSame($role, $event->getRole());
                    $self->assertSame($resource, $event->getResource());
@@ -168,7 +167,6 @@ class AbstractEventManagerAwareAssertionTest extends \PHPUnit_Framework_TestCase
         $target->setEventManager($events);
         $target->assert($acl, $role, $resource, $privilege);
     }
-
 }
 
 class TargetMock extends AbstractEventManagerAwareAssertion

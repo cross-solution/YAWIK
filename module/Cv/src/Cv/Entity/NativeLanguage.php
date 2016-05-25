@@ -21,7 +21,7 @@ class NativeLanguage extends AbstractEntity
     /**
      *
      * @var unknown
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $language;
     

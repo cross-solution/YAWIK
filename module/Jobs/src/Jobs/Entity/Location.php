@@ -26,14 +26,14 @@ class Location extends AbstractEntity implements LocationInterface
     /**
      * city name of a job location
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $city;
 
     /**
      * region of a job location. E.g "Hessen" is a region in germany
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $region;
 
@@ -41,7 +41,7 @@ class Location extends AbstractEntity implements LocationInterface
      * postalcode of a job location.
      *
      * @var String
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $postalcode;
 
@@ -57,7 +57,7 @@ class Location extends AbstractEntity implements LocationInterface
      * Country of a job location
      * @var String
      *
-     * @ODM\String
+     * @ODM\Field(type="string")
      */
     protected $country;
     

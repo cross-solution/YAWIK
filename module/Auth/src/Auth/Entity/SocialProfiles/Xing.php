@@ -7,7 +7,9 @@
  * @license   MIT
  */
 
-/** Facebook.php */
+/**
+ *
+ */
 namespace Auth\Entity\SocialProfiles;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;

@@ -15,6 +15,7 @@ use Zend\Authentication\Result;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Doctrine\MongoDB\GridFSFile;
 use Auth\Entity\UserImage;
+use Auth\Controller\Plugin\SocialProfiles as SocialProfilePlugin;
 
 /**
  * This class allows to authenticate with HybridAuth
@@ -47,6 +48,12 @@ class HybridAuth implements AdapterInterface
      */
     protected $_provider;
     
+    /**
+     * Social profile plugin
+     *
+     * @var SocialProfilePlugin
+     */
+    protected $socialProfilePlugin;
     
     /**
      * Sets the provider identifier used by HybridAuth.
@@ -78,7 +85,6 @@ class HybridAuth implements AdapterInterface
      */
     public function authenticate()
     {
-        
         $hybridAuth = $this->getHybridAuth();
         /* @var $adapter \Hybrid_Provider_Model */
         $adapter = $hybridAuth->authenticate($this->_provider);
@@ -90,7 +96,7 @@ class HybridAuth implements AdapterInterface
        
        
         $forceSave = false;
-        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier);
+        $user = $this->getRepository()->findByProfileIdentifier($userProfile->identifier, $this->_provider, ['allowDeactivated' => true]);
 
         if (!$user) {
             $forceSave = true;
@@ -98,14 +104,19 @@ class HybridAuth implements AdapterInterface
         }
        
        
-        $currentInfo = $user->getProfile();
-        $newInfo = (array) $userProfile;
+        $currentInfo = $user->getProfile($this->_provider);
+        $newInfo = [
+            'auth' => (array) $userProfile,
+            'data' => $this->socialProfilePlugin->fetch($this->_provider)->getData(),
+        ];
        
         if ($forceSave || $currentInfo != $newInfo) {
             /*  */
 
             $dm = $this->getRepository()->getDocumentManager();
-            if ( '' == $user->getInfo()->email) $user->getInfo()->email = $email;
+            if ('' == $user->getInfo()->email) {
+                $user->getInfo()->email = $email;
+            }
             $user->getInfo()->firstName = $userProfile->firstName;
             $user->getInfo()->lastName = $userProfile->lastName;
             $user->getInfo()->birthDay = $userProfile->birthDay;
@@ -117,8 +128,8 @@ class HybridAuth implements AdapterInterface
             $user->getInfo()->phone = $userProfile->phone;
             $user->getInfo()->gender = $userProfile->gender;
             
-            $user->setLogin($email);
-            $user->setProfile($newInfo);
+            // $user->setLogin($email); // this may cause duplicate key exception
+            $user->addProfile($this->_provider, $newInfo);
 
             $dm->persist($user);
             // make sure all ids are generated and user exists in database.
@@ -149,10 +160,9 @@ class HybridAuth implements AdapterInterface
                 $dm->flush();
             }
         }
-       
+        
        
         return new Result(Result::SUCCESS, $user->getId(), array('firstLogin' => $forceSave, 'user' => $user));
-        
     }
 
     /**
@@ -201,4 +211,14 @@ class HybridAuth implements AdapterInterface
     {
         return $this->repository;
     }
+	/**
+	 * @param SocialProfilePlugin
+	 * @return HybridAuth
+	 */
+	public function setSocialProfilePlugin(SocialProfilePlugin $socialProfilePlugin)
+	{
+		$this->socialProfilePlugin = $socialProfilePlugin;
+		
+		return $this;
+	}
 }

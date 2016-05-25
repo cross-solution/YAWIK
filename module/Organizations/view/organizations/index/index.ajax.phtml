@@ -11,45 +11,52 @@
  */
 ?>
 <?php
-$columns = array(
-/*@translate*/ 'Organization' 
-   => array(),
-/*@translate*/ 'City'        
-   => array('class' => 'cam-job'),
-/*@translate*/ 'Street'   
-   => array(),
-);
+$columns = [
+    [
+        'label' => $this->translate('Organization'),
+        'sort'  => '_organizationName',
+    ],
+    [
+        'label' => $this->translate('City'),
+        'sort' => 'contact.city',
+    ],
+    [
+        'label' => $this->translate('Street'),
+        'sort' => 'contact.street',
+    ],
+];
 
-if ('-' == $this->sort{0}) {
-    $sortBy  = substr($this->sort, 1);
+$sort = $this->params()->fromQuery('sort', 'name');
+if ('-' == $sort{0}) {
+    $sortBy  = substr($sort, 1);
     $sortDir = false;
 } else {
-    $sortBy  = $this->sort;
+    $sortBy  = $sort;
     $sortDir = true;
 }
 ?>
 <table class="table table-striped table-bordered table-hover" id="cam-organization-list">
     <thead>
     <tr>
-        <?php foreach ($columns as $label => $option):?>
-            <th <?php echo isset($option['class'])?'class="'.$option['class'].'"':'';?>>
-                <?php if (! isset($option['sort'])): echo $this->translate($label);
+        <?php foreach ($columns as $spec):?>
+            <th<?php echo isset($spec['class']) ? ' class="' . $spec['class'] . '"' : '' ?>>
+                <?php if (! isset($spec['sort'])): echo $spec['label'];
                 else:
-                    if ($option['sort'] == $sortBy):
-                        $icon = '<span class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
+                    if ($spec['sort'] == $sortBy):
+                        $icon = '<span style="margin-top: 5px;" class="pull-right text-right yk-icon yk-icon-sort' . ($sortDir ? '-desc' : '-asc') . '"></span>';
                         $dir = !$sortDir;
                     else:
                         $dir = true;
-                        $icon = '<span class="pull-right yk-icon yk-icon-sort"></span>';
+                        $icon = '<span style="margin-top: 5px" class="pull-right yk-icon yk-icon-sort"></span>';
                     endif;
-                    $sortParam = array('sort' => ($dir ? '' : '-') . $option['sort']);
+                    $sortParam = array('sort' => ($dir ? '' : '-') . $spec['sort']);
                     $url = $this->url(
-                        'lang/organizations', array(),
-                        array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
-                        true
+                                'lang/organizations', array(),
+                                array('query' => array_merge($this->params()->fromQuery(), $sortParam)),
+                                true
                     );
                     ?>
-                    <a href="<?php echo $url?>"><?php echo $this->translate($label).$icon?></a>
+                    <a style="width: 100%; display: inline-block;" href="<?php echo $url?>"><?php echo $spec['label'].$icon ?></a>
                 <?php endif; ?>
             </th>
         <?php endforeach; ?>
@@ -58,29 +65,29 @@ if ('-' == $this->sort{0}) {
 <?php foreach ($this->organizations as $organization): /* @var $organization \Organizations\Entity\Organization */?>
  <tr>
   <td>
-      <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->id)); ?>">
+      <a href="<?php echo $this->url('lang/organizations/edit', array('id' => $organization->getId())); ?>">
     <?php
-        $nameEntity = $organization->organizationName;
-        echo isset($nameEntity)?$nameEntity->name:'**** DRAFT ****';
+        $nameEntity = $organization->getOrganizationName();
+        echo isset($nameEntity)?$nameEntity->getName():'**** DRAFT ****';
     ?>
       </a>
       <?php if ($organization->isHiringOrganization()): $parent = $organization->getParent(); ?>
           <br><small><?php echo sprintf(
                 $this->translate('Hiring organization of <strong>%s</strong>'),
-                '<a href="' . $this->url('lang/organizations/edit', array('id' => $parent->id)) . '">' . $parent->getOrganizationName()->getName() . '</a>'
+                '<a href="' . $this->url('lang/organizations/edit', array('id' => $parent->getId())) . '">' . $parent->getOrganizationName()->getName() . '</a>'
           );?></small>
 
         <?php endif ?>
   </td>
   <td>
-      <?php echo $organization->contact->postalcode;?>
-      <?php echo $organization->contact->city;?>
+      <?php echo $organization->getContact()->getPostalcode();?>
+      <?php echo $organization->getContact()->getCity();?>
   </td>
   <td>
-      <?php echo $organization->contact->street;?>
-      <?php echo $organization->contact->houseNumber;?>
+      <?php echo $organization->getContact()->getStreet();?>
+      <?php echo $organization->getContact()->getHouseNumber();?>
   </td>
  </tr>
 <?php endforeach?>
 </table>
-<?php echo $this->paginationControl($organizations, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/organizations'));?>
+<?php echo $this->paginationControl($this->organizations, 'Sliding', 'pagination-control', array('lang' => $this->params('lang'), 'route' => 'lang/organizations'));?>

@@ -10,21 +10,27 @@
 /** SettingsContainer.php */
 namespace Settings\Entity;
 
+use Core\Entity\EntityTrait;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Core\Entity\AbstractEntity;
 
 /**
  * @ODM\EmbeddedDocument
  */
 class SettingsContainer implements SettingsContainerInterface
 {
-    
+    use EntityTrait;
+
     /** @ODM\Hash */
     protected $_settings;
     
     protected $isWritable = false;
-    
-    
+
+    /**
+     * @param bool  $recursive
+     * @param array $skipMembers
+     *
+     * @return $this
+     */
     public function enableWriteAccess($recursive = true, array $skipMembers = array())
     {
         $this->isWritable = true;
@@ -43,7 +49,14 @@ class SettingsContainer implements SettingsContainerInterface
         }
         return $this;
     }
-    
+
+    /**
+     * @param null $key
+     * @param null $default
+     * @param bool $set
+     *
+     * @return null
+     */
     public function get($key = null, $default = null, $set = false)
     {
         if (isset($this->_settings[$key])) {
@@ -54,25 +67,45 @@ class SettingsContainer implements SettingsContainerInterface
         }
         return $default;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getSettings()
     {
         return $this->_settings;
     }
-    
+
+    /**
+     * @param $key
+     * @param $value
+     *
+     * @return $this
+     */
     public function set($key, $value)
     {
         $this->checkWriteAccess();
         $this->_settings[$key] = $value;
         return $this;
     }
-    
+
+    /**
+     * @param array $settings
+     *
+     * @return $this
+     */
     public function setSettings(array $settings)
     {
         $this->_settings = $settings;
         return $this;
     }
-    
+
+    /**
+     * @param $method
+     * @param $params
+     *
+     * @return $this|null
+     */
     public function __call($method, $params)
     {
         if (preg_match('~^((?:g|s)et)(.*)$~', $method, $match)) {
@@ -97,7 +130,12 @@ class SettingsContainer implements SettingsContainerInterface
             )
         );
     }
-    
+
+    /**
+     * @param $property
+     *
+     * @return null
+     */
     public function __get($property)
     {
         $getter = "get" . ucfirst($property);
@@ -112,7 +150,11 @@ class SettingsContainer implements SettingsContainerInterface
         return $this->get($property);
         
     }
-    
+
+    /**
+     * @param $property
+     * @param $value
+     */
     public function __set($property, $value)
     {
         $this->checkWriteAccess();
@@ -138,7 +180,7 @@ class SettingsContainer implements SettingsContainerInterface
      * If the property is an array, the check will return, if this
      * array has items or not.
      *
-     * @param string $name
+     * @param string $property
      * @return boolean
      */
     public function __isset($property)
@@ -153,7 +195,10 @@ class SettingsContainer implements SettingsContainerInterface
         }
         return (bool) $value;
     }
-    
+
+    /**
+     *
+     */
     protected function checkWriteAccess()
     {
         if (!$this->isWritable) {

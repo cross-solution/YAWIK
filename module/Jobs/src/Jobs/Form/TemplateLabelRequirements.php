@@ -51,8 +51,6 @@ class TemplateLabelRequirements extends Form implements InputFilterProviderInter
 
             ]
         );
-
-
     }
 
     public function getInputFilterSpecification()

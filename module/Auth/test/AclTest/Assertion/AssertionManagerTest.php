@@ -76,7 +76,6 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
         $services->setServiceLocator($parentServices);
 
         $this->assertNull($target->injectEventManager($assertion, $services));
-
     }
 
     public function testInjectEventManagerInitializerCallbackSetsSharedEventManagerInEventsIfSetInAssertion()
@@ -125,11 +124,8 @@ class AssertionManagerMock extends AssertionManager
     {
         return $this->addInitializerCalledCorrect;
     }
-
-
 }
 
 abstract class EventManagerAwareAssertionMock implements AssertionInterface, EventManagerAwareInterface
 {
-
 }
