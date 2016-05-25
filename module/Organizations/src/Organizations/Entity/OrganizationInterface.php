@@ -221,6 +221,11 @@ interface OrganizationInterface extends
      */
     public function setTemplate(TemplateInterface $template);
 
+    /**
+     *
+     *
+     * @return WorkflowSettingsInterface
+     */
     public function getWorkflowSettings();
 
     public function setWorkflowSettings($workflowSettings);

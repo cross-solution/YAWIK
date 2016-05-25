@@ -19,13 +19,11 @@ use Zend\EventManager\Exception;
  * The Application event.
  *
  * @author Carsten Bleek <bleek@cross-solution.de>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @todo   write test
  */
 class ApplicationEvent extends Event
 {
-    /**
-     * Job events triggered by eventmanager
-     */
 
     /**
      * Event is fired when a new application is saved.
@@ -229,7 +227,7 @@ class ApplicationEvent extends Event
         if (is_array($params) && isset($params['application'])) {
             $this->setApplicationEntity($params['application']);
             unset($params['application']);
-        } elseif (is_object($params) && isset($params->job)) {
+        } elseif (is_object($params) && isset($params->application)) {
             $this->setApplicationEntity($params->application);
         }
 

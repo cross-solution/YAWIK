@@ -192,16 +192,6 @@ class ApplyController extends AbstractActionController
     {
         /* @var \Applications\Form\Apply $form */
         $form        = $this->container;
-        $serviceLocator = $this->getServiceLocator();
-        $translator = $serviceLocator->get('Translator');
-        /* @var \Auth\Form\SocialProfiles $profiles */
-
-        $profiles=$form->get('profiles');
-        /*
-         * can we add the description to Applications\Form\Apply ?
-         */
-        $profiles->getBaseFieldset()->setOption('description', $translator->translate("you can add your social profile to your application. You can preview and remove the attached profile before submitting the application."));
-
         $application = $form->getEntity();
         
         $form->setParam('applicationId', $application->id);

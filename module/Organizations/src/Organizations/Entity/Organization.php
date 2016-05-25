@@ -188,11 +188,13 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     /**
      * Gets the parent of an organization
      *
+     * @param bool $returnSelf returns itself, if this organization does not have a parent?
+     *
      * @return null|OrganizationInterface
      */
-    public function getParent()
+    public function getParent($returnSelf = false)
     {
-        return $this->parent;
+        return $this->parent ?: ($returnSelf ? $this : null);
     }
 
     /**
@@ -223,7 +225,7 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
     public function setExternalId($externalId)
     {
         $this->externalId = $externalId;
-        return $this;
+        return  $this;
     }
 
     /**
@@ -376,7 +378,9 @@ class Organization extends BaseEntity implements OrganizationInterface, Draftabl
             $view = EmployeePermissionsInterface::APPLICATIONS_VIEW;
         }
 
-        $employees = $this->getEmployees();
+        $employees = $this->isHiringOrganization()
+            ? $this->getParent()->getEmployees()
+            : $this->getEmployees();
 
         foreach ($employees as $emp) {
             /* @var $emp EmployeeInterface */

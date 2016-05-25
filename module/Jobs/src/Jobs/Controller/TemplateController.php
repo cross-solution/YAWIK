@@ -150,6 +150,16 @@ class TemplateController extends AbstractActionController
             $basePath   = $viewHelperManager->get('basepath');
             $headScript = $viewHelperManager->get('headscript');
             $headScript->appendFile($basePath->__invoke('/Core/js/core.forms.js'));
+
+            $headStyle = $viewHelperManager->get('headstyle');
+            $headStyle->prependStyle('form > input {
+            color: inherit !important; margin:inherit !important;
+            padding:inherit !important; border:0 !important; cursor:pointer !important; letter-spacing:inherit !important;
+            line-height: inherit !important;
+             font-size: inherit !important;
+}
+'
+            );
         } else {
             return new JsonModel(array('valid' => true));
         }

@@ -31,7 +31,7 @@ class AdminWidgetProvider
 
     public function __invoke(AdminControllerEvent $event)
     {
-        $total = $this->repository->count();
+        $total = $this->repository->count(['isDraft' => false]);
         $active = $this->repository->count(['status.name' => StatusInterface::ACTIVE]);
         $pending = $this->repository->count(['status.name' => StatusInterface::CREATED]);
 

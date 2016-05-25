@@ -15,13 +15,15 @@
     function resetSearchForm(event)
     {
         var $form = $(event.target);
-        win.setTimeout(function() { loadPaginator($form); $form.find('select').change(); }, 1);
+        win.setTimeout(function() { loadPaginator($form); $form.find('select').trigger('change', [ true ]); }, 1);
     }
 
-    function submitSearchForm(event)
+    function submitSearchForm(event, isSelect2change)
     {
-        var $form = $(event.target);
-        loadPaginator($form);
+        if (!isSelect2change) {
+            var $form = $(event.target);
+            loadPaginator($form);
+        }
 
         return false;
     }
@@ -63,12 +65,17 @@
 
             if (searchParams) {
                 for (var key in searchParams) {
-                    $form.find('[name="' + key + '"]').val(searchParams[key]);
+                    if (searchParams.hasOwnProperty(key)) {
+                        $form.find('[name="' + key + '"]').val(searchParams[key]);
+                    }
                 }
+                $form.find('select').trigger('change', [ true ]);
             }
 
             $form.on('reset.yk.core.search-form', resetSearchForm)
-                 .on('submit.yk.core.search-form', submitSearchForm);
+                 .on('submit.yk.core.search-form', submitSearchForm)
+                 .on('change.yk.core.search-form', '[data-submit-on-change="true"]', submitSearchForm)
+                 .on('click.yk.core.search-form', '[data-submit-on-click="true"]', submitSearchForm);
 
         });
     };

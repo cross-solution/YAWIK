@@ -3,6 +3,7 @@ return array(
     'modules' => array(
         'Core',
         'Auth',
+        'Jobs',
         'Organizations'
     ),
     'module_listener_options' => array(

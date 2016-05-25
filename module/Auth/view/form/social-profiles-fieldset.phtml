@@ -14,22 +14,23 @@
 $this->headScript()->appendFile($this->basePath('Auth/js/form.socialprofiles.js'))
                    ->appendFile($this->basePath('Core/js/core.reloadable-modal.js'));
 $description = $this->element->getOption('description');
-?>
+
+if ($description):?>
 <div class="row">
 <div class="col-md-8">
 <div class="panel panel-default"><div class="panel-body">
+        <?endif?>
 <?php echo $this->formCollection($this->element);?>
 <?php foreach ($this->element as $element):?>
     <?=$this->formElementErrors($element)?>
-<?php endforeach;?>
+<?php endforeach; if ($description):?>
 </div></div>
 </div>
 <div class="col-md-4">
-<?php if ($description):?>
     <div class="alert alert-info"><?=$description?></div>
-<?php endif;?>
 </div>
 </div>
+<?endif?>
 <div class="modal fade modal-scrollable" id="<?php echo $this->element->getAttribute('id') ?>-preview-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
