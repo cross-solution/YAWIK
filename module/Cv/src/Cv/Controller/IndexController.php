@@ -28,7 +28,7 @@ class IndexController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -51,7 +51,7 @@ class IndexController extends AbstractActionController
         
             $viewModel->setVariables(
                 array(
-                'items' => $this->getServiceLocator()->get('builders')->get('JsonCv')
+                'items' => $this->serviceLocator->get('builders')->get('JsonCv')
                                 ->unbuildCollection($paginator->getCurrentItems()),
                 'count' => $paginator->getTotalItemCount()
                 )

@@ -4,21 +4,48 @@ namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mail\Message;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Core\Mail\MailService;
 
 class Mailer extends AbstractPlugin
 {
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
+    /**
+     * @var MailService
+     */
     protected $mailService;
     
-    public function setMailService($mailService)
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
+    
+    /**
+     * @param MailService $mailService
+     * @return \Core\Controller\Plugin\Mailer
+     */
+    public function setMailService(MailService $mailService)
     {
         $this->mailService = $mailService;
         return $this;
     }
     
+    /**
+     * @return MailService
+     */
     public function getMailService()
     {
         if (!$this->mailService) {
-            $services    = $this->getController()->getServiceLocator();
+            $services    = $this->serviceManager;
             $mailService = $services->get('Core/MailService');
             $this->setMailService($mailService);
         }
@@ -70,5 +97,14 @@ class Mailer extends AbstractPlugin
         $mail = $this->get($mail, $options);
 
         return $sendMail ? $this->send($mail) : $mail;
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return Mailer
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

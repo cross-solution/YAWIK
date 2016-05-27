@@ -10,7 +10,6 @@
 namespace JobsTest\Factory\Controller;
 
 use Jobs\Factory\Controller\ApprovalControllerFactory;
-use Jobs\Controller;
 use Jobs\Form\OrganizationSelect;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
@@ -66,8 +65,7 @@ class ApprovalControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $formElementManager->setAllowOverride(true);
         $formElementManager->setService('Jobs/ActiveOrganizationSelect', $organizationSelect);
 
-        $controllerManager = new ControllerManager();
-        $controllerManager->setServiceLocator($sm);
+        $controllerManager = new ControllerManager($sm);
 
         $result = $this->testedObj->createService($controllerManager);
 

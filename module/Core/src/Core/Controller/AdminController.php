@@ -31,7 +31,7 @@ class AdminController extends AbstractActionController
     {
         /* @var \Core\EventManager\EventManager $events
          * @var AdminControllerEvent $event */
-        $events = $this->getServiceLocator()->get('Core/AdminController/Events');
+        $events = $this->serviceLocator->get('Core/AdminController/Events');
         $event  = $events->getEvent(AdminControllerEvent::EVENT_DASHBOARD, $this);
         $events->trigger($event);
 

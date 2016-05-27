@@ -10,7 +10,6 @@
 namespace JobsTest\Factory\Controller;
 
 use Jobs\Factory\Controller\IndexControllerFactory;
-use Jobs\Controller;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
@@ -56,8 +55,7 @@ class IndexControllerFactoryTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('repositories', $repositoriesMock);
 
-        $controllerManager = new ControllerManager();
-        $controllerManager->setServiceLocator($sm);
+        $controllerManager = new ControllerManager($sm);
 
         $result = $this->testedObj->createService($controllerManager);
 

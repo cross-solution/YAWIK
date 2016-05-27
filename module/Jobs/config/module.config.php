@@ -188,9 +188,7 @@ return array(
 
     'service_manager' => array(
         'invokables' => array(
-                'Jobs/PreviewLinkHydrator'          => 'Jobs\Form\Hydrator\PreviewLinkHydrator',
                 'Jobs/Event'                        => 'Jobs\Listener\Events\JobEvent',
-                'Jobs/Listener/Publisher'           => 'Jobs\Listener\Publisher',
         ),
         'factories' => array(
             'Jobs/Options'                                => 'Jobs\Factory\ModuleOptionsFactory',
@@ -204,6 +202,8 @@ return array(
             'Jobs/Listener/AdminWidgetProvider'           => 'Jobs\Factory\Listener\AdminWidgetProviderFactory',
             'Jobs/ViewModelTemplateFilter'                => 'Jobs\Factory\Filter\ViewModelTemplateFilterFactory',
             'Jobs\Model\ApiJobDehydrator'                 => 'Jobs\Factory\Model\ApiJobDehydratorFactory',
+            'Jobs/Listener/Publisher'                     => 'Jobs\Listener\Publisher::factory',
+            'Jobs/PreviewLinkHydrator'                    => 'Jobs\Form\Hydrator\PreviewLinkHydrator::factory',
 
         ),
         'shared' => array(

@@ -9,28 +9,16 @@
 
 namespace Auth\Form;
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Core\Form\Form;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Auth\Form\Hydrator\UserPasswordHydrator;
 
-class UserPassword extends Form implements ServiceLocatorAwareInterface
+class UserPassword extends Form
 {
     /**
      * @var ServiceLocatorInterface
      */
     protected $forms;
-    
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->forms = $serviceLocator;
-        return $this;
-    }
-    
-    public function getServiceLocator()
-    {
-        return $this->forms;
-    }
     
     public function getHydrator()
     {
@@ -57,5 +45,17 @@ class UserPassword extends Form implements ServiceLocatorAwareInterface
         );
         
         $this->add($this->forms->get('submitField'));
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $forms
+     * @return UserPassword
+     */
+    public static function factory(ServiceLocatorInterface $forms)
+    {
+        $form = new static();
+        $form->forms = $forms;
+        
+		return $form;
     }
 }

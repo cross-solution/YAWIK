@@ -10,14 +10,13 @@
 /** */
 namespace Orders\Controller;
 
-use Orders\Entity\InvoiceAddress;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
  * ${CARET}
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class ListController extends AbstractActionController
 {
@@ -38,7 +37,7 @@ class ListController extends AbstractActionController
             throw new \UnexpectedValueException('No order id given. Please provide the order id in the "id" parameter.');
         }
 
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $repositories = $services->get('repositories');
         $repository = $repositories->get('Orders');
         $order = $repository->find($id);

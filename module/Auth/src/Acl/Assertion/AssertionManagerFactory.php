@@ -36,7 +36,7 @@ class AssertionManagerFactory implements FactoryInterface
                      ? $configArray['acl']['assertions']
                      : array();
         $config      = new Config($configArray);
-        $manager     = new AssertionManager($config);
+        $manager     = new AssertionManager($serviceLocator, $config);
         
         $manager->setShareByDefault(false);
         return $manager;

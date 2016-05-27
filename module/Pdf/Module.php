@@ -9,17 +9,14 @@
 
 namespace Pdf;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use SplFileInfo;
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\Mvc\MvcEvent;
 use Zend\View\ViewEvent;
-use Zend\View\Model\ViewModel;
 use Zend\EventManager\EventManagerInterface;
 use Core\Html2Pdf\PdfInterface;
-//use Core\View\Helper\InsertFile;
 use Core\View\Helper\InsertFile\FileEvent;
 use Core\Entity\FileEntity;
 use Core\ModuleManager\ModuleConfigLoader;
@@ -28,7 +25,7 @@ use Core\ModuleManager\ModuleConfigLoader;
  * Make HTML to PDF
  *
  */
-class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInterface
+class Module implements PdfInterface, ResolverInterface
 {
     const RENDER_FULL = 0;
     const RENDER_WITHOUT_PDF = 1;
@@ -52,10 +49,11 @@ class Module implements PdfInterface, ResolverInterface, ServiceManagerAwareInte
         return ModuleConfigLoader::load(__DIR__ . '/config');
     }
     
-    public function setServiceManager(ServiceManager $serviceManager)
+    public static function factory(ServiceManager $serviceManager)
     {
-        $this->serviceManager = $serviceManager;
-        return $this;
+        $module = new static();
+        $module->serviceManager = $serviceManager;
+        return $module;
     }
     
     public function onBootstrap(MvcEvent $e)

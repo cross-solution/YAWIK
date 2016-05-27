@@ -7,28 +7,27 @@
  * @license   MIT
  */
 
-/** RepositoryCreated.php */
 namespace Core\Repository\DoctrineMongoODM\Event;
 
 use Doctrine\Common\EventSubscriber;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\RepositoryInterface;
 
-class RepositoryEventsSubscriber implements EventSubscriber, ServiceLocatorAwareInterface
+class RepositoryEventsSubscriber implements EventSubscriber
 {
     const postConstruct = 'postRepositoryConstruct';
     
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $services;
     
-    public function getServiceLocator()
-    {
-        return $this->services;
-    }
-    
-    public function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     */
+    public function __construct(ServiceLocatorInterface $serviceLocator)
     {
         $this->services = $serviceLocator;
-        return $this;
     }
     
     public function postRepositoryConstruct($eventArgs)
@@ -45,8 +44,20 @@ class RepositoryEventsSubscriber implements EventSubscriber, ServiceLocatorAware
         }
     }
     
+    /**
+     * @see \Doctrine\Common\EventSubscriber::getSubscribedEvents()
+     */
     public function getSubscribedEvents()
     {
         return array(self::postConstruct);
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return RepositoryEventsSubscriber
+     */
+    public static function factory(ServiceLocatorInterface $serviceLocator)
+    {
+        return new static($serviceLocator);
     }
 }

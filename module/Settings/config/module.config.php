@@ -112,12 +112,10 @@ return array(
         ),
     
         'service_manager' => array(
-        'invokables' => array(
-            'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener',
-        ),
         'factories' => array(
             'Settings' => '\Settings\Settings\SettingsFactory',
             'Settings/EntityResolver' => '\Settings\Repository\SettingsEntityResolverFactory',
+            'Settings/InjectEntityResolverListener' => 'Settings\Repository\Event\InjectSettingsEntityResolverListener::factory',
         ),
         'initializers' => array(),
         'shared' => array(),
@@ -129,11 +127,10 @@ return array(
         ),
     
         'form_elements' => array(
-        'invokables' => array(
-            'Settings/Form' => '\Settings\Form\AbstractSettingsForm',
-            'Settings/Fieldset' => '\Settings\Form\SettingsFieldset',
-            'Settings/DisableElementsCapableFormSettingsFieldset' =>
-                '\Settings\Form\DisableElementsCapableFormSettingsFieldset',
+        'factories' => array(
+            'Settings/Fieldset' => '\Settings\Form\SettingsFieldset::factory',
+            'Settings/Form' => '\Settings\Form\AbstractSettingsForm::factory',
+            'Settings/DisableElementsCapableFormSettingsFieldset' => '\Settings\Form\DisableElementsCapableFormSettingsFieldset::factory',
         ),
         ),
 

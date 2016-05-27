@@ -11,9 +11,8 @@
 namespace Core\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
+use Zend\View\HelperPluginManager;
 /**
  * Provides access to the service manager.
  *
@@ -41,33 +40,20 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
-class Services extends AbstractHelper implements ServiceLocatorAwareInterface
+class Services extends AbstractHelper
 {
     
     /**
-     * Service Manager Instance
-     *
      * @var ServiceLocatorInterface
      */
-    protected $services;
+    protected $serviceManager;
     
     /**
-     *
+     * @param ServiceLocatorInterface $serviceManager
      */
-    public function getServiceLocator()
+    public function __construct(ServiceLocatorInterface $serviceManager)
     {
-        return $this->services;
-    }
-    
-    /**
-     * {@inheritDoc}
-     *
-     * @return Services
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->services = $serviceLocator->getServiceLocator();
-        return $this;
+        $this->serviceManager = $serviceManager;
     }
     
     /**
@@ -84,18 +70,27 @@ class Services extends AbstractHelper implements ServiceLocatorAwareInterface
     public function __invoke($serviceName = null)
     {
         if (null === $serviceName) {
-            return $this->getServiceLocator();
+            return $this->serviceManager;
         }
         
         if (strpos($serviceName, '.') !== false) {
             $parts = explode('.', $serviceName);
-            $service = $this->getServiceLocator();
+            $service = $this->serviceManager;
             foreach ($parts as $name) {
                 $service = $service->get($name);
             }
             return $service;
         }
         
-        return $this->getServiceLocator()->get($serviceName);
+        return $this->serviceManager->get($serviceName);
+    }
+    
+    /**
+     * @param HelperPluginManager $helperPluginManager
+     * @return Services
+     */
+    public static function factory(HelperPluginManager $helperPluginManager)
+    {
+        return new static($helperPluginManager->getServiceLocator());
     }
 }

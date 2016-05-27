@@ -89,7 +89,7 @@ class ManageGroupsController extends AbstractActionController
             -110
         );
 
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events->attach($defaultServices);
     }
@@ -117,7 +117,7 @@ class ManageGroupsController extends AbstractActionController
     public function formAction()
     {
         $isNew     = 'new' == $this->params('mode');
-        $services  = $this->getServiceLocator();
+        $services  = $this->serviceLocator;
         $form      = $services->get('formelementmanager')->get('Auth/Group', array('mode' => $this->params('mode')));
         $repository = $services->get('repositories')->get('Auth/Group');
         
@@ -191,7 +191,7 @@ class ManageGroupsController extends AbstractActionController
         if (false === $query) {
             $result = array();
         } else {
-            $services     = $this->getServiceLocator();
+            $services     = $this->serviceLocator;
             $repositories = $services->get('repositories');
             $repository   = $repositories->get('Auth/User');
             

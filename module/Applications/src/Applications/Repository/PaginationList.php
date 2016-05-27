@@ -125,6 +125,9 @@ class PaginationList
         if (false === $this->pointer || !$this->count || $this->count == $this->pointer) {
             return null;
         }
-        return $this->ids[$this->pointer + 1];
+        
+        $pointer = $this->pointer + 1;
+        
+		return isset($this->ids[$pointer]) ? $this->ids[$pointer] : null;
     }
 }

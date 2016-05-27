@@ -11,40 +11,51 @@
 namespace AclTest\Assertion;
 
 use Acl\Assertion\AssertionManager;
-use MyProject\Proxies\__CG__\stdClass;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\SharedEventManager;
 use Zend\Permissions\Acl\Assertion\AssertionInterface;
-use Zend\ServiceManager\Exception;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests the AssertionManager
- * 
+ *
  * @author Mathias Gelhausen <gelhausen@cross-solution.de>
- * @todo write test 
+ * @todo write test
  */
 class AssertionManagerTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @var ServiceManager
+     */
+    protected $serviceManager;
+    
+    /**
+     * @see PHPUnit_Framework_TestCase::setUp()
+     */
+    protected function setUp()
+    {
+        $this->serviceManager = new ServiceManager();
+    }
 
     public function testExtendsCorrectParent()
     {
-        $target = new AssertionManager();
+        $target = new AssertionManager($this->serviceManager);
 
         $this->assertInstanceOf('\Zend\ServiceManager\AbstractPluginManager', $target);
     }
 
     public function testConstructorAddsInitializer()
     {
-        $target = new AssertionManagerMock();
+        $target = new AssertionManagerMock($this->serviceManager);
 
         $this->assertTrue($target->wasAddInitializerCalledCorrectly());
     }
 
     public function testInjectEventManagerInitializerCallbackDoesNothingIfAssertionNotEventManagerAware()
     {
-        $target = new AssertionManager();
+        $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
         $services = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()
                          ->getMock();
@@ -56,7 +67,7 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectEventManagerInitializerCallbackGetsEventManagerFromServicesIfNotSetInAssertion()
     {
-        $target = new AssertionManager();
+        $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock');
         $services = $this->getMockForAbstractClass('\Zend\ServiceManager\AbstractPluginManager');
         $parentServices = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
@@ -80,7 +91,7 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testInjectEventManagerInitializerCallbackSetsSharedEventManagerInEventsIfSetInAssertion()
     {
-        $target = new AssertionManager();
+        $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\AclTest\Assertion\EventManagerAwareAssertionMock');
         $services = $this->getMockForAbstractClass('\Zend\ServiceManager\AbstractPluginManager');
         $parentServices = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')->disableOriginalConstructor()->getMock();
@@ -102,7 +113,7 @@ class AssertionManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidatePluginThrowsExceptionIfPluginIsInvalid()
     {
-        $target = new AssertionManager();
+        $target = new AssertionManager($this->serviceManager);
         $assertion = $this->getMockForAbstractClass('\Zend\Permissions\Acl\Assertion\AssertionInterface');
 
         $this->assertNull($target->validatePlugin($assertion));

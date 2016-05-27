@@ -37,10 +37,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Zend\Form\Element', $this->target);
     }
 
-    public function testSetGetServiceLocator(){
+    public function testSetFormElementManager(){
         $input = new ServiceManager();
-        $this->target->setServiceLocator($input);
-        $this->assertSame($this->target->getServiceLocator(),$input);
+        $this->assertSame($this->target,$this->target->setFormElementManager($input));
     }
 
     /**
