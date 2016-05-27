@@ -32,6 +32,7 @@ class ExternalApplicationAdapterFactory implements FactoryInterface
     {
         $repository = $serviceLocator->get('repositories')->get('Auth/User');
         $adapter = new ExternalApplication($repository);
+        $adapter->setServiceLocator($serviceLocator);
         $config  = $serviceLocator->get('Config');
         if (isset($config['Auth']['external_applications']) && is_array($config['Auth']['external_applications'])) {
             $adapter->setApplicationKeys($config['Auth']['external_applications']);

@@ -72,7 +72,7 @@ class UsersController extends AbstractActionController
         }
         
         $params = $this->params();
-        $serviceLocator = $this->getServiceLocator();
+        $serviceLocator = $this->serviceLocator;
         $forms = $serviceLocator->get('forms');
         /* @var $infoContainer \Auth\Form\UserProfileContainer */
         $infoContainer = $forms->get('Auth/userprofilecontainer');

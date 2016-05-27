@@ -11,35 +11,35 @@
 namespace Settings\Form;
 
 use Core\Form\Form;
-use Core\Entity\Hydrator\EntityHydrator;
-use Settings\Entity\SettingsContainerInterface;
 use Settings\Entity\ModuleSettingsContainerInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Form\FormInterface;
 use Settings\Entity\Hydrator\SettingsEntityHydrator;
 
-class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
+class AbstractSettingsForm extends Form
 {
-    protected $isBuild = false;
-    protected $forms;
-    
- 
-    /* (non-PHPdoc)
-     * @see \Zend\ServiceManager\ServiceLocatorAwareInterface::setServiceLocator()
+    /**
+     * @var bool
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    protected $isBuild = false;
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $formManager;
+    
+    /**
+     * @param ServiceLocatorInterface $formManager
+     */
+    public function __construct(ServiceLocatorInterface $formManager)
     {
-        $this->forms = $serviceLocator;
-        return $this;
+        parent::__construct();
+        $this->formManager = $formManager;
     }
     
-    public function getServiceLocator()
-    {
-        return $this->forms;
-    }
-
-    
+    /**
+     * @see \Core\Form\Form::getHydrator()
+     */
     public function getHydrator()
     {
         if (!$this->hydrator) {
@@ -58,10 +58,10 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
         $object = $this->getObject();
         $fieldsetName = $object->getModuleName() . '/SettingsFieldset';
         
-        if ($this->forms->has($fieldsetName)) {
-            $fieldset = $this->forms->get($fieldsetName);
+        if ($this->formManager->has($fieldsetName)) {
+            $fieldset = $this->formManager->get($fieldsetName);
         } else {
-            $fieldset = $this->forms->get('Settings/Fieldset');
+            $fieldset = $this->formManager->get('Settings/Fieldset');
             $fieldset->setLabel($object->getModuleName());
         }
         
@@ -71,7 +71,7 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
         $fieldset->setObject($object);
         $this->add($fieldset);
         
-        $this->add($this->forms->get('DefaultButtonsFieldset'));
+        $this->add($this->formManager->get('DefaultButtonsFieldset'));
         $this->isBuild=true;
     }
         
@@ -91,7 +91,7 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
     public function setName($name)
     {
         parent::setName(strtolower($name) . '-settings');
-        $urlHelper = $this->forms->getServiceLocator()
+        $urlHelper = $this->formManager->getServiceLocator()
                      ->get('ViewHelperManager')
                      ->get('url');
         
@@ -115,5 +115,14 @@ class AbstractSettingsForm extends Form implements ServiceLocatorAwareInterface
         $moduleName = substr($namespace, 0, strpos($namespace, '\\'));
 
         return strtolower($moduleName);
+    }
+    
+    /**
+     * @param ServiceLocatorInterface $formManager
+     * @return AbstractSettingsForm
+     */
+    public static function factory(ServiceLocatorInterface $formManager)
+    {
+        return new static($formManager);
     }
 }

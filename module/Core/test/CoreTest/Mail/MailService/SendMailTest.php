@@ -13,6 +13,7 @@ namespace CoreTest\Mail\MailService;
 use Core\Mail\MailService;
 use Core\Mail\Message;
 use Zend\Mail\AddressList;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Tests sending mails via MailService
@@ -43,7 +44,7 @@ class SendMailTest extends \PHPUnit_Framework_TestCase
         $transport = $this->getMockForAbstractClass('\Zend\Mail\Transport\TransportInterface');
         $transport->expects($this->once())->method('send')->with($this->callback($sendCallback));
 
-        $target = new MailService();
+        $target = new MailService(new ServiceManager());
         $target->setTransport($transport);
 
         $this->target = $target;

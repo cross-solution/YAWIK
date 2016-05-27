@@ -5,7 +5,6 @@ namespace Auth\Adapter;
 use Zend\Authentication\Adapter\AbstractAdapter;
 use Zend\Authentication\Result;
 use Auth\Entity\Filter\CredentialFilter;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -14,7 +13,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class ExternalApplication
  * @package Auth\Adapter
  */
-class ExternalApplication extends AbstractAdapter implements ServiceLocatorAwareInterface
+class ExternalApplication extends AbstractAdapter
 {
     
     protected $applicationKey;
@@ -42,14 +41,6 @@ class ExternalApplication extends AbstractAdapter implements ServiceLocatorAware
     public function setServiceLocator(ServiceLocatorInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
-    }
-
-    /**
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
-    {
-        return $this->serviceManager;
     }
 
     /**

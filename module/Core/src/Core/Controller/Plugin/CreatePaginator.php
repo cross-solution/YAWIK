@@ -11,7 +11,8 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\Stdlib\ArrayUtils;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Creates a paginator from the paginator service.
@@ -22,6 +23,20 @@ use Zend\Stdlib\ArrayUtils;
  */
 class CreatePaginator extends AbstractPlugin
 {
+    
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
+    
     /**
      * Creates a paginator from the paginator service.
      *
@@ -54,8 +69,7 @@ class CreatePaginator extends AbstractPlugin
          * @var $request    \Zend\Http\Request
          */
         $controller = $this->getController();
-        $services   = $controller->getServiceLocator();
-        $paginators = $services->get('Core/PaginatorService');
+        $paginators = $this->serviceManager->get('Core/PaginatorService');
         $request    = $controller->getRequest();
         $params     = $usePostParams
             ? $request->getPost()->toArray()
@@ -76,5 +90,14 @@ class CreatePaginator extends AbstractPlugin
 
         return $paginator;
 
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return CreatePaginator
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

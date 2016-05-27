@@ -13,13 +13,11 @@ use Auth\Controller\ForgotPasswordController;
 use Auth\Form\ForgotPasswordInputFilter;
 use Auth\Service\Exception;
 use Test\Bootstrap;
-use Core\Controller\Plugin\Notification;
 use CoreTest\Controller\AbstractControllerTestCase;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Zend\Mvc\MvcEvent;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\Controller\PluginManager;
 use Zend\Stdlib\Parameters;
 
 class ForgotPasswordControllerTest extends AbstractControllerTestCase
@@ -33,6 +31,11 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
      * @var MockObject
      */
     private $serviceMock;
+    
+    /**
+     * @var \Zend\ServiceManager\ServiceManager
+     */
+    private $serviceManager;
 
     public function setUp()
     {
@@ -49,10 +52,10 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $this->controller = new ForgotPasswordController($this->formMock, $this->serviceMock, $loggerMock);
         $this->controller->setEvent($this->event);
 
-        /** @var PluginManager $controllerPluginManager */
-        $servicemanager = clone Bootstrap::getServiceManager();
-        $controllerPluginManager = $servicemanager->get('ControllerPluginManager');
-        $this->controller->setServiceLocator($servicemanager);
+        /** @var \Zend\Mvc\Controller\PluginManager $controllerPluginManager */
+        $this->servicemanager = clone Bootstrap::getServiceManager();
+        $controllerPluginManager = $this->servicemanager->get('ControllerPluginManager');
+        $this->controller->setServiceLocator($this->servicemanager);
         $this->controller->setPluginManager($controllerPluginManager);
     }
 
@@ -90,7 +93,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $result = $this->controller->dispatch($request);
 
         $mvcEvent = new MvcEvent();
-        $notifications = $this->controller->getServiceLocator()->get('coreListenerNotification');
+        $notifications = $this->servicemanager->get('coreListenerNotification');
         $notifications->reset()->renderHTML($mvcEvent);
 
         $expected = array(
@@ -176,7 +179,7 @@ class ForgotPasswordControllerTest extends AbstractControllerTestCase
         $result = $this->controller->dispatch($request);
 
         $mvcEvent = new MvcEvent();
-        $notifications = $this->controller->getServiceLocator()->get('coreListenerNotification');
+        $notifications = $this->servicemanager->get('coreListenerNotification');
         $notifications->reset()->renderHTML($mvcEvent);
 
         $expected = array(

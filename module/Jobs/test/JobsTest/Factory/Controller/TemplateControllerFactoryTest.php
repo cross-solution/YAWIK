@@ -10,7 +10,6 @@
 namespace JobsTest\Factory\Controller;
 
 use Jobs\Factory\Controller\TemplateControllerFactory;
-use Jobs\Controller;
 use Test\Bootstrap;
 use Zend\Mvc\Controller\ControllerManager;
 
@@ -57,8 +56,7 @@ class TemplateControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $sm->setService('repositories', $repositoriesMock);
         $sm->setService('config', array('core_options' => array('system_message_email' => 'test@test.de')));
 
-        $controllerManager = new ControllerManager();
-        $controllerManager->setServiceLocator($sm);
+        $controllerManager = new ControllerManager($sm);
 
         $result = $this->testedObj->createService($controllerManager);
 

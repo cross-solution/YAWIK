@@ -51,7 +51,7 @@ class ApplyController extends AbstractActionController
         parent::attachDefaultListeners();
         $events = $this->getEventManager();
         $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 10);
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events->attach($defaultServices);
         return $this;
@@ -69,7 +69,7 @@ class ApplyController extends AbstractActionController
         /* @var $repository \Applications\Repository\Application */
         /* @var $container  \Applications\Form\Apply */
         $request      = $this->getRequest();
-        $services     = $this->getServiceLocator();
+        $services     = $this->serviceLocator;
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
         $container    = $services->get('forms')->get('Applications/Apply');
@@ -224,7 +224,7 @@ class ApplyController extends AbstractActionController
         
         $network = $this->params('network');
 
-        $hybridAuth = $this->getServiceLocator()
+        $hybridAuth = $this->serviceLocator
             ->get('HybridAuthAdapter')
             ->getHybridAuth();
         /* @var $authProfile \Hybrid_User_Profile */
@@ -309,10 +309,10 @@ class ApplyController extends AbstractActionController
             );
         }
         $application = $this->container->getEntity();
-        $this->getServiceLocator()->get('repositories')->store($application);
+        $this->serviceLocator->get('repositories')->store($application);
         
         if ('file-uri' === $this->params()->fromPost('return')) {
-            $basepath = $this->getServiceLocator()->get('ViewHelperManager')->get('basepath');
+            $basepath = $this->serviceLocator->get('ViewHelperManager')->get('basepath');
             $content = $basepath($form->getHydrator()->getLastUploadedFile()->getUri());
         } else {
             if ($form instanceof SummaryForm) {
@@ -321,7 +321,7 @@ class ApplyController extends AbstractActionController
             } else {
                 $viewHelper = 'form';
             }
-            $content = $this->getServiceLocator()->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
+            $content = $this->serviceLocator->get('ViewHelperManager')->get($viewHelper)->__invoke($form);
         }
         
         return new JsonModel(
@@ -335,7 +335,7 @@ class ApplyController extends AbstractActionController
     
     public function doAction()
     {
-        $services     = $this->getServiceLocator();
+        $services     = $this->serviceLocator;
         $config       = $services->get('Config');
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Applications/Application');
@@ -404,7 +404,7 @@ class ApplyController extends AbstractActionController
 
     protected function checkApplication($application)
     {
-        return $this->getServiceLocator()->get('validatormanager')->get('Applications/Application')
+        return $this->serviceLocator->get('validatormanager')->get('Applications/Application')
                     ->isValid($application);
     }
 
@@ -430,7 +430,7 @@ class ApplyController extends AbstractActionController
             return;
         }
 
-        $config = $this->getServiceLocator()->get('Config');
+        $config = $this->serviceLocator->get('Config');
         $config = isset($config['form_elements_config']['Applications/Apply']['disable_elements'])
                 ? $config['form_elements_config']['Applications/Apply']['disable_elements']
                 : null;

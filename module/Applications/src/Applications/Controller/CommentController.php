@@ -14,8 +14,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Http\PhpEnvironment\Request as HttpRequest;
 use Applications\Entity\Comment;
-use Applications\Entity\Application;
-use Zend\Http\PhpEnvironment\Response;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -32,7 +30,7 @@ class CommentController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -59,7 +57,7 @@ class CommentController extends AbstractActionController
      */
     public function listAction()
     {
-        $repository = $this->getServiceLocator()->get('repositories')->get('Applications/Application');
+        $repository = $this->serviceLocator->get('repositories')->get('Applications/Application');
         $applicationId = $this->params()->fromQuery('applicationId', 0);
         $application = $repository->find($applicationId);
         
@@ -77,7 +75,7 @@ class CommentController extends AbstractActionController
      */
     public function formAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $repository = $services->get('repositories')->get('Applications/Application');
         
         $mode  = $this->params()->fromQuery('mode', 'new');

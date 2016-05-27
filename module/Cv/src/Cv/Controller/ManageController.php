@@ -11,7 +11,6 @@
 namespace Cv\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
 /**
  * Main Action Controller for the application.
@@ -28,7 +27,7 @@ class ManageController extends AbstractActionController
     public function attachDefaultListeners()
     {
         parent::attachDefaultListeners();
-        $serviceLocator  = $this->getServiceLocator();
+        $serviceLocator  = $this->serviceLocator;
         $defaultServices = $serviceLocator->get('DefaultListeners');
         $events          = $this->getEventManager();
         $events->attach($defaultServices);
@@ -45,7 +44,7 @@ class ManageController extends AbstractActionController
     
     public function formAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $repositories = $services->get('repositories');
         /* @var \Cv\Repository\Cv $cvRepository */
         $cvRepository = $repositories->get('Cv/Cv');

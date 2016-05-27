@@ -3,6 +3,8 @@
 namespace Core\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class ListQuery
@@ -11,27 +13,49 @@ use Zend\Mvc\Controller\Plugin\AbstractPlugin;
  */
 class ListQuery extends AbstractPlugin
 {
+
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceManager;
+    
     /**
      * @var array
      */
     protected $propertiesMap = array();
+
     /**
      * @var string
      */
     protected $pageParamName = 'page';
+
     /**
      * @var int
      */
     protected $itemsPerPage = 25;
+
     /**
      * @var bool
      */
     protected $queryKeysLowercased = true;
+
     /**
      * @var string
      */
     protected $sortParamName = 'sort';
     
+    /**
+     * @param ServiceLocatorInterface $serviceManager
+     */
+    public function __construct(ServiceLocatorInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
+    
+    /**
+     * @param string $options
+     * @return \Core\Controller\Plugin\ListQuery|\Doctrine\MongoDB\Query\Query
+     */
     public function __invoke($options = null)
     {
         if (null === $options) {
@@ -140,9 +164,12 @@ class ListQuery extends AbstractPlugin
         $this->itemsPerPage = $itemsPerPage;
     }
 
+    /**
+     * @return \Doctrine\MongoDB\Query\Query
+     */
     public function getQuery()
     {
-        $dbQuery = $this->getController()->getServiceLocator()->get('query');
+        $dbQuery = $this->serviceManager->get('query');
         $criteria = $dbQuery->criteria();
 
         /** @var \Zend\Http\Request $request */
@@ -182,5 +209,14 @@ class ListQuery extends AbstractPlugin
             }
         }
         return $dbQuery;
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return ListQuery
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator());
     }
 }

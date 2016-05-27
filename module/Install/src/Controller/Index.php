@@ -138,7 +138,7 @@ class Index extends AbstractActionController
      */
     protected function getForm()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $forms    = $services->get('FormElementManager');
         $form     = $forms->get('Install/Installation');
 

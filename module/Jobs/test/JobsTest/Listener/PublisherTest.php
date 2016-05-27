@@ -1,7 +1,7 @@
 <?php
 /**
  * YAWIK
- * 
+ *
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
  * @license   MIT
@@ -10,11 +10,7 @@
 
 namespace JobsTest\Listener;
 
-use Zend\ServiceManager\ServiceManager;
-use Core\Service\RestClient;
 use Jobs\Listener\Publisher;
-use Jobs\Listener\Events\JobEvent;
-use Jobs\Entity\Job;
 
 /**
  * Class PublisherTest
@@ -102,7 +98,11 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->target = new Publisher();
+        $this->serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->target = new Publisher($this->serviceManager);
 
         $staticClassPrefix = '\\' . __CLASS__ . '::';
 
@@ -246,10 +246,6 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
             ->method('getJobEntity')
             ->will($this->returnValue($this->job));
 
-        $this->serviceManager = $this->getMockBuilder('\Zend\ServiceManager\ServiceManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->serviceManager
             ->expects($this->at(0))
             ->method('has')
@@ -297,8 +293,6 @@ class PublisherTest  extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with('repositories')
             ->will($this->returnValue($this->repositories));
-
-        $this->target->setServiceManager($this->serviceManager);
     }
 
     protected function setRestReturn($referenceUpdate, $applyIdUpdate)

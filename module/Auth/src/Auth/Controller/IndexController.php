@@ -11,7 +11,6 @@
 namespace Auth\Controller;
 
 use Auth\AuthenticationService;
-use Auth\Service\Exception;
 use Auth\Options\ModuleOptions;
 use Auth\Form\Login;
 use Auth\Form\Register;
@@ -80,7 +79,7 @@ class IndexController extends AbstractActionController
         }
 
         $viewModel        = new ViewModel();
-        $services         = $this->getServiceLocator();
+        $services         = $this->serviceLocator;
 
         /* @var $loginForm Login */
         $loginForm        = $this->forms[self::LOGIN];
@@ -195,7 +194,7 @@ class IndexController extends AbstractActionController
     {
         $ref = urldecode($this->getRequest()->getBasePath().$this->params()->fromQuery('ref'));
         $provider = $this->params('provider', '--keiner--');
-        $hauth = $this->getServiceLocator()->get('HybridAuthAdapter');
+        $hauth = $this->serviceLocator->get('HybridAuthAdapter');
         $hauth->setProvider($provider);
         $auth = $this->auth;
         $result = $auth->authenticate($hauth);
@@ -264,7 +263,7 @@ class IndexController extends AbstractActionController
      */
     public function loginExternAction()
     {
-        $services   = $this->getServiceLocator();
+        $services   = $this->serviceLocator;
         $adapter    = $services->get('ExternalApplicationAdapter');
         $appKey     = $this->params()->fromPost('appKey');
 
@@ -299,7 +298,7 @@ class IndexController extends AbstractActionController
                         }
                         $user->$updateKey = $updateValue;
                     }
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                 }
                 $services->get('repositories')->store($user);
             }
@@ -311,7 +310,7 @@ class IndexController extends AbstractActionController
                 $userName = $this->params()->fromPost('user');
                 $this->logger->debug('first login for User: ' .  $userName);
                 //
-                if (preg_match("/^(.*)@\w+$/", $userName, $realUserName)) {
+                if (preg_match('/^(.*)@\w+$/', $userName, $realUserName)) {
                     $userName = $realUserName[1];
                 }
 
@@ -367,7 +366,7 @@ class IndexController extends AbstractActionController
     
     public function groupAction()
     {
-        //$adapter = $this->getServiceLocator()->get('ExternalApplicationAdapter');
+        //$adapter = $this->serviceLocator->get('ExternalApplicationAdapter');
         if (false) {
             $this->request->setMethod('get');
             $params = new Parameters(
@@ -400,7 +399,7 @@ class IndexController extends AbstractActionController
         $groupUserId = array();
         $notFoundUsers = array();
         //$users = $this->getRepository();
-        $users = $this->getServiceLocator()->get('repositories')->get('Auth/User');
+        $users = $this->serviceLocator->get('repositories')->get('Auth/User');
         if (!empty($params->group)) {
             foreach ($params->group as $grp_member) {
                 try

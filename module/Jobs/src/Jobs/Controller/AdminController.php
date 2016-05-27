@@ -34,7 +34,7 @@ class AdminController extends AbstractActionController
 
     public function editAction()
     {
-        $services = $this->getServiceLocator();
+        $services = $this->serviceLocator;
         $repositories = $services->get('repositories');
         $jobs         = $repositories->get('Jobs');
         $job          = $jobs->find($this->params()->fromQuery('id'));

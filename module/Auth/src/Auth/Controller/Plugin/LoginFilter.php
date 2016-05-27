@@ -11,48 +11,44 @@
 namespace Auth\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Auth\Filter\LoginFilter as LoginFilterService;
+use Zend\Mvc\Controller\PluginManager as ControllerManager;
 
 /**
  * Class LoginFilter
  * @package Auth\Controller\Plugin
  */
-class LoginFilter extends AbstractPlugin implements ServiceLocatorAwareInterface
+class LoginFilter extends AbstractPlugin
 {
 
     /**
-     * @var ServiceLocatorInterface
+     * @var LoginFilterService
      */
-    protected $serviceLocator;
+    protected $loginFilter;
+    
     /**
-     * Set service locator
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return $this
+     * @param LoginFilterService $loginFilter
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function __construct(LoginFilterService $loginFilter)
     {
-        $this->serviceLocator = $serviceLocator;
-        return $this;
+        $this->loginFilter = $loginFilter;;
     }
 
     /**
-     * Get service locator
-     *
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
-    }
-
-    /**
-     * @param $name
+     * @param string $name
+     * @return string
      */
     public function __invoke($name)
     {
-        $loginFilter = $this->getServiceLocator()->get('Auth/LoginFilter');
-        return $loginFilter->filter($name);
+        return $this->loginFilter->filter($name);
+    }
+    
+    /**
+     * @param ControllerManager $controllerManager
+     * @return \Auth\Controller\Plugin\LoginFilter
+     */
+    public static function factory(ControllerManager $controllerManager)
+    {
+        return new static($controllerManager->getServiceLocator()->get('Auth/LoginFilter'));
     }
 }

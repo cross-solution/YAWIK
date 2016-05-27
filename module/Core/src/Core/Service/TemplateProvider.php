@@ -11,8 +11,6 @@
 namespace Core\Service;
 
 use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Zend\View\View;
 use Zend\View\Model\ViewModel;
 use Zend\Form\ElementInterface;
 
@@ -24,7 +22,7 @@ use Zend\Form\ElementInterface;
  * Class TemplateProvider
  * @package Core\Service
  */
-class TemplateProvider implements ServiceManagerAwareInterface, OptionValueInterface
+class TemplateProvider implements OptionValueInterface
 {
     protected $value;
     protected $entity;
@@ -34,7 +32,10 @@ class TemplateProvider implements ServiceManagerAwareInterface, OptionValueInter
     protected $serviceManager;
     protected $formElement;
 
-    public function setServiceManager(ServiceManager $serviceManager)
+    /**
+     * @param ServiceManager $serviceManager
+     */
+    public function __construct(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
     }
@@ -89,5 +90,14 @@ class TemplateProvider implements ServiceManagerAwareInterface, OptionValueInter
         $content = $view->getResponse()->getContent();
 
         return $content;
+    }
+    
+    /**
+     * @param ServiceManager $serviceManager
+     * @return TemplateProvider
+     */
+    public static function factory(ServiceManager $serviceManager)
+    {
+        return new static($serviceManager);
     }
 }

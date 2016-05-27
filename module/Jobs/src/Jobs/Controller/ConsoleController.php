@@ -12,8 +12,6 @@
 namespace Jobs\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Jobs\Entity\Job;
-use Zend\Console\Request as ConsoleRequest;
 use Zend\ProgressBar\ProgressBar;
 use Core\Console\ProgressBar as CoreProgressBar;
 use Zend\ProgressBar\Adapter\Console as ConsoleAdapter;
@@ -24,7 +22,7 @@ class ConsoleController extends AbstractActionController
 
     public function expireJobsAction()
     {
-        $services     = $this->getServiceLocator();
+        $services     = $this->serviceLocator;
         $repositories = $services->get('repositories');
         /* @var \Jobs\Repository\Job $jobsRepo */
         $jobsRepo     = $repositories->get('Jobs/Job');
@@ -114,7 +112,7 @@ class ConsoleController extends AbstractActionController
     
     public function setpermissionsAction()
     {
-        $services     = $this->getServiceLocator();
+        $services     = $this->serviceLocator;
         $repositories = $services->get('repositories');
         $repository   = $repositories->get('Jobs/Job');
         $userRep      = $repositories->get('Auth/User');
